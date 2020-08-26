@@ -24,11 +24,37 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </div>
-            <div class="pagination column-grow-1">pagination</div>
+            <div class="pagination column-grow-1 columns paginates">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <p>1</p>
+              <p>2</p>
+              <p>3</p>
+              <p>...</p>
+              <p>10</p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
           </section>
           <div class="results w-100">
             <div class="result rows">
-              <img class="result-icon" src="DOTDOTDOT" />
+              <img class="result-icon" src="~/assets/images/aof-mini.png" />
               <div class="column-grow-3">
                 <div class="rows column-grow-2">
                   <h2 class="mod-name">Mod Name</h2>
@@ -126,6 +152,15 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+.paginates {
+  align-items: center;
+}
+
+.paginates p {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .results {
