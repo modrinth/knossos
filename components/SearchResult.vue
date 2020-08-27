@@ -1,6 +1,6 @@
 <template>
   <div class="result rows">
-    <img class="result-icon" src="~/assets/images/aof-mini.png" />
+    <img class="result-icon" :src="iconUrl" />
     <div class="column-grow-3">
       <div class="rows column-grow-2">
         <h2 class="mod-name">{{ name }}</h2>
@@ -16,7 +16,7 @@
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#0de85a"
+            stroke="#3cdb36"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -25,7 +25,7 @@
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          <p>202</p>
+          <p>{{ downloads }}</p>
         </div>
         <div class="result-image columns">
           <svg viewBox="0 0 16 16" fill="#099fef">
@@ -81,9 +81,7 @@
       </div>
     </div>
     <div class="categories">
-      <div class="category">
-        <p>Testtst</p>
-      </div>
+      <div class="category"></div>
     </div>
   </div>
 </template>
@@ -119,6 +117,7 @@ export default {
 }
 
 .result * {
+  object-fit: contain;
   margin-bottom: 0;
   margin-top: 0;
 }
