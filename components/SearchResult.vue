@@ -3,8 +3,12 @@
     <img class="result-icon" :src="iconUrl" />
     <div class="column-grow-3">
       <div class="rows column-grow-2">
-        <h2 class="mod-name">{{ name }}</h2>
-        <p class="author">by {{ author }}</p>
+        <h2 class="mod-name">
+          <a :href="pageUrl">{{ name }}</a>
+        </h2>
+        <p class="author">
+          by <a :href="authorUrl">{{ author }}</a>
+        </p>
       </div>
       <p class="column-grow-1">
         {{ description }}
@@ -81,6 +85,123 @@
       </div>
     </div>
     <div class="categories">
+      <div class="loaders rows">
+        <svg v-if="categories.includes('forge')" viewBox="0 0 90 46">
+          <defs>
+            <path
+              id="a"
+              fill="#1e2d44"
+              d="M85.8 49.1l-4.5-5.5q-1.65-.1-3.55-.55-3.8-.95-4.85-2.65Q68.75 34.25 74 27q5.45-7.65 17.55-10.3l-37.8-1.9H100v-3.7H47.75v14q0 .65-1.9-11.7h-4.1v13l-1.9-12.3h-27.9q12.85 10.8 19.9 14.3 2.45 1.2 6.05 1.65 2.1.25 6.35.35 2.1.1 3.1.35 1.65.4 2.7 1.45 1.75 1.7 2 4 .3 2.4-1.2 4.3-1.2 1.65-4.35 2.6l-2.95.6L39 49.1v6.4h10.25l.3-6.3 8.95-6.3q-2.85 2.4-6.25 7.7-.95 1.5-1.7 3.5 1.7-1.45 4.9-2.3 3.3-.9 7.3-.9 3.9 0 7.2.9 3.25.85 4.95 2.3-.6-1.75-1.7-3.5-3.4-5.2-6.2-7.7l8.9 6.3.3 6.3h9.6v-6.4z"
+            />
+          </defs>
+          <use transform="translate(-10.95 -10.3)" xlink:href="#a" />
+        </svg>
+        <svg v-if="categories.includes('fabric')" viewBox="0 0 16 16">
+          <g fill="#38342a">
+            <rect width="1" height="1" x="9" y="1" />
+            <rect width="1" height="1" x="8" y="2" />
+            <rect width="1" height="1" x="10" y="2" />
+            <rect width="1" height="1" x="8" y="3" />
+            <rect width="1" height="1" x="11" y="3" />
+            <rect width="1" height="1" x="7" y="4" />
+            <rect width="1" height="1" x="9" y="4" />
+            <rect width="1" height="1" x="12" y="4" />
+            <rect width="1" height="1" x="6" y="5" />
+            <rect width="1" height="1" x="10" y="5" />
+            <rect width="1" height="1" x="13" y="5" />
+            <rect width="1" height="1" x="5" y="6" />
+            <rect width="1" height="1" x="11" y="6" />
+            <rect width="1" height="1" x="13" y="6" />
+            <rect width="1" height="1" x="14" y="6" />
+            <rect width="1" height="1" x="4" y="7" />
+            <rect width="1" height="1" x="12" y="7" />
+            <rect width="1" height="1" x="14" y="7" />
+            <rect width="1" height="1" x="3" y="8" />
+            <rect width="1" height="1" x="12" y="8" />
+            <rect width="1" height="1" x="13" y="8" />
+            <rect width="1" height="1" x="2" y="9" />
+            <rect width="1" height="1" x="11" y="9" />
+            <rect width="1" height="1" x="2" y="10" />
+            <rect width="1" height="1" x="10" y="10" />
+            <rect width="1" height="1" x="3" y="11" />
+            <rect width="1" height="1" x="9" y="11" />
+            <rect width="1" height="1" x="4" y="12" />
+            <rect width="1" height="1" x="8" y="12" />
+            <rect width="1" height="1" x="5" y="13" />
+            <rect width="1" height="1" x="7" y="13" />
+            <rect width="1" height="1" x="8" y="13" />
+            <rect width="1" height="1" x="6" y="14" />
+            <rect width="1" height="1" x="7" y="14" />
+          </g>
+          <rect fill="#807a6d" width="1" height="1" x="13" y="7" />
+          <g fill="#9a927e">
+            <rect width="1" height="1" x="3" y="10" />
+            <rect width="1" height="1" x="4" y="11" />
+            <rect width="1" height="1" x="5" y="12" />
+            <rect width="1" height="1" x="6" y="13" />
+          </g>
+          <g fill="#aea694">
+            <rect width="1" height="1" x="3" y="9" />
+            <rect width="1" height="1" x="4" y="10" />
+            <rect width="1" height="1" x="5" y="11" />
+            <rect width="1" height="1" x="6" y="12" />
+          </g>
+          <g fill="#bcb29c">
+            <rect width="1" height="1" x="10" y="4" />
+            <rect width="1" height="1" x="11" y="5" />
+            <rect width="1" height="1" x="12" y="6" />
+            <rect width="1" height="1" x="11" y="7" />
+            <rect width="1" height="1" x="10" y="8" />
+            <rect width="1" height="1" x="11" y="8" />
+            <rect width="1" height="1" x="10" y="9" />
+            <rect width="1" height="1" x="8" y="10" />
+            <rect width="1" height="1" x="9" y="10" />
+            <rect width="1" height="1" x="8" y="11" />
+            <rect width="1" height="1" x="7" y="12" />
+          </g>
+          <g fill="#c6bca5">
+            <rect width="1" height="1" x="9" y="3" />
+            <rect width="1" height="1" x="7" y="5" />
+            <rect width="1" height="1" x="8" y="6" />
+            <rect width="1" height="1" x="9" y="7" />
+            <rect width="1" height="1" x="10" y="7" />
+            <rect width="1" height="1" x="6" y="8" />
+            <rect width="1" height="1" x="7" y="9" />
+            <rect width="1" height="1" x="8" y="9" />
+          </g>
+          <g fill="#dbd0b4">
+            <rect width="1" height="1" x="9" y="2" />
+            <rect width="1" height="1" x="10" y="3" />
+            <rect width="1" height="1" x="8" y="4" />
+            <rect width="1" height="1" x="11" y="4" />
+            <rect width="1" height="1" x="8" y="5" />
+            <rect width="1" height="1" x="9" y="5" />
+            <rect width="1" height="1" x="12" y="5" />
+            <rect width="1" height="1" x="6" y="6" />
+            <rect width="1" height="1" x="7" y="6" />
+            <rect width="1" height="1" x="9" y="6" />
+            <rect width="1" height="1" x="10" y="6" />
+            <rect width="1" height="1" x="5" y="7" />
+            <rect width="1" height="1" x="6" y="7" />
+            <rect width="1" height="1" x="7" y="7" />
+            <rect width="1" height="1" x="8" y="7" />
+            <rect width="1" height="1" x="4" y="8" />
+            <rect width="1" height="1" x="5" y="8" />
+            <rect width="1" height="1" x="7" y="8" />
+            <rect width="1" height="1" x="8" y="8" />
+            <rect width="1" height="1" x="9" y="8" />
+            <rect width="1" height="1" x="4" y="9" />
+            <rect width="1" height="1" x="5" y="9" />
+            <rect width="1" height="1" x="6" y="9" />
+            <rect width="1" height="1" x="9" y="9" />
+            <rect width="1" height="1" x="5" y="10" />
+            <rect width="1" height="1" x="6" y="10" />
+            <rect width="1" height="1" x="7" y="10" />
+            <rect width="1" height="1" x="6" y="11" />
+            <rect width="1" height="1" x="7" y="11" />
+          </g>
+        </svg>
+      </div>
       <div class="category"></div>
     </div>
   </div>
@@ -89,17 +210,58 @@
 <script>
 export default {
   name: 'SearchResult',
-  props: [
-    'id',
-    'name',
-    'author',
-    'description',
-    'iconUrl',
-    'downloads',
-    'createdAt',
-    'updatedAt',
-    'latestVersion',
-  ],
+  props: {
+    id: {
+      type: String,
+      default: 'modrinth-0',
+    },
+    name: {
+      type: String,
+      default: 'Mod Name',
+    },
+    author: {
+      type: String,
+      default: 'Author',
+    },
+    description: {
+      type: String,
+      default: 'A mod description',
+    },
+    pageUrl: {
+      type: String,
+      default: '#',
+    },
+    authorUrl: {
+      type: String,
+      default: '#',
+    },
+    iconUrl: {
+      type: String,
+      default: '#',
+    },
+    downloads: {
+      type: String,
+      default: '0',
+    },
+    createdAt: {
+      type: String,
+      default: '0000-00-00',
+    },
+    updatedAt: {
+      type: String,
+      default: '0000-00-00',
+    },
+    latestVersion: {
+      type: String,
+      default: '1.16.2',
+    },
+    categories: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+  },
 }
 </script>
 
@@ -159,6 +321,13 @@ export default {
 }
 
 .categories {
+  display: flex;
+  flex-direction: column;
   margin-left: auto;
+  margin-right: 20px;
+}
+
+.loaders svg {
+  height: 20px;
 }
 </style>

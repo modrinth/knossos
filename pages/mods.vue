@@ -8,9 +8,11 @@
             <div class="iconified-input column-grow-2">
               <input
                 id="search"
+                v-model="query"
                 type="search"
                 name="search"
                 placeholder="Search mods"
+                @input="onSearchChange"
               />
               <svg
                 viewBox="0 0 24 24"
@@ -52,7 +54,7 @@
               </svg>
             </div>
           </section>
-          <div class="results w-100">
+          <div class="results column-grow-4">
             <SearchResult
               v-for="result in results"
               :id="result.mod_id"
@@ -63,13 +65,16 @@
               :latest-version="result.versions[0]"
               :created-at="result.date_created.substring(0, 10)"
               :updated-at="result.date_modified.substring(0, 10)"
-              :downloads="result.downloads"
+              :downloads="formatNumber(result.downloads)"
               :icon-url="result.icon_url"
+              :author-url="result.author_url"
+              :page-url="result.page_url"
+              :categories="result.categories"
             />
           </div>
         </div>
       </div>
-      <section class="column-grow-1">
+      <section class="column-grow-4 links">
         <h3>Filters</h3>
       </section>
     </div>
@@ -86,6 +91,7 @@ export default {
   },
   data() {
     return {
+      query: '',
       results: [],
     }
   },
@@ -103,6 +109,29 @@ export default {
     } catch (err) {
       console.error(err)
     }
+  },
+  methods: {
+    async onSearchChange() {
+      const config = {
+        headers: {
+          Accept: 'application/json',
+        },
+      }
+
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/api/v1/mod?query=${this.query}`,
+          config
+        )
+
+        this.results = res.data
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    formatNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
   },
 }
 </script>
