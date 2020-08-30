@@ -76,6 +76,7 @@
       </div>
       <section class="column-grow-4 links">
         <h3>Filters</h3>
+        <a>Test</a>
       </section>
     </div>
   </div>
@@ -103,7 +104,7 @@ export default {
     }
 
     try {
-      const res = await axios.get('http://localhost:8000/api/v1/mod', config)
+      const res = await axios.get('https://api.modrinth.com/api/v1/mod', config)
 
       this.results = res.data
     } catch (err) {
@@ -120,7 +121,7 @@ export default {
 
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/v1/mod?query=${this.query}`,
+          `https://api.modrinth.com/api/v1/mod?query=${this.query}`,
           config
         )
 
