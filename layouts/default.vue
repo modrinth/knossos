@@ -162,12 +162,10 @@
   width: 100%;
 
   aside {
-    //Intense hacks to make sidebar not extend to bottom of the screen
     top: 0;
     position: -webkit-sticky;
     position: sticky;
     max-height: 100vh;
-    //End intense hacks
     border-right: 1px solid var(--color-grey-2);
     display: flex; // Flex here to safely expand navigation height
     flex-direction: column;
