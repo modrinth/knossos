@@ -209,9 +209,7 @@
 
           a {
             align-items: center;
-            border-radius: 0.25rem;
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
+            border-radius: 0 0.25rem 0.25rem 0;
             color: var(--color-grey-5);
             display: flex;
             margin-bottom: 0.25rem;
