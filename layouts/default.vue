@@ -356,6 +356,7 @@ export default {
       }
       .logo-wrapper {
         width: 100vw;
+        padding: 0;
         .logo {
           margin-left: 2.5rem;
         }
@@ -414,7 +415,7 @@ export default {
 
       // For mobile
       @media screen and (max-width: 1000px) {
-        padding: 1rem 3rem 1rem 0.5rem;
+        padding: 1rem 0.5rem 1rem 0.5rem;
       }
     }
   }

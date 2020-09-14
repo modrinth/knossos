@@ -498,6 +498,22 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 1000px) {
+    flex-flow: column;
+    .iconified-input {
+      width: 100%;
+    }
+    .iconified-select {
+      width: 100%;
+      margin-left: 0;
+      select {
+        width: 100%;
+      }
+    }
+    .search-controls {
+      display: flex;
+    }
+  }
 }
 
 .paginates {
@@ -533,6 +549,11 @@ export default {
       margin-top: 1.5rem;
       text-transform: uppercase;
     }
+  }
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+    // temporarily hidden
   }
 }
 
