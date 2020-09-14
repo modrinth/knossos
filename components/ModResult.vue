@@ -1,106 +1,104 @@
 <template>
   <div class="result rows">
     <img class="result-icon" :src="iconUrl" />
-    <div class="column-grow-3">
-      <div class="rows column-grow-2">
-        <h2 class="mod-name">
-          <a :href="pageUrl">{{ name }}</a>
-        </h2>
-        <p class="author">
-          by <a :href="authorUrl">{{ author }}</a>
-        </p>
-      </div>
-      <p class="column-grow-1">
-        {{ description }}
+    <div class="rows result-name-author">
+      <h2 class="mod-name">
+        <a :href="pageUrl">{{ name }}</a>
+      </h2>
+      <p class="author">
+        by <a :href="authorUrl">{{ author }}</a>
       </p>
-      <div class="column-grow-1 columns result-infos">
-        <div class="result-image columns">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#3cdb36"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          <p>{{ downloads }}</p>
-        </div>
-        <div class="result-image columns">
-          <svg viewBox="0 0 16 16" fill="#099fef">
-            <path
-              fill-rule="evenodd"
-              d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"
-            />
-          </svg>
-          <p>{{ createdAt }}</p>
-        </div>
-        <div class="result-image columns">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#e88d0d"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-            ></path>
-            <path
-              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-            ></path>
-          </svg>
-          <p>{{ updatedAt }}</p>
-        </div>
-        <div class="result-image columns">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#e8200d"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
-            ></path>
-            <line x1="7" y1="7" x2="7.01" y2="7"></line>
-          </svg>
-          <p>{{ latestVersion }}</p>
-        </div>
-
-        <div class="loaders columns">
-          <img
-            v-if="categories.includes('fabric')"
-            src="https://fabricmc.net/assets/logo.png"
-            alt="fabric"
+    </div>
+    <p class="result-summary">
+      {{ description }}
+    </p>
+    <div class="column-grow-1 columns result-infos">
+      <div class="result-image columns">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#3cdb36"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <p>{{ downloads }}</p>
+      </div>
+      <div class="result-image columns">
+        <svg viewBox="0 0 16 16" fill="#099fef">
+          <path
+            fill-rule="evenodd"
+            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
           />
+          <path
+            fill-rule="evenodd"
+            d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"
+          />
+        </svg>
+        <p>{{ createdAt }}</p>
+      </div>
+      <div class="result-image columns">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#e88d0d"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+          ></path>
+          <path
+            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+          ></path>
+        </svg>
+        <p>{{ updatedAt }}</p>
+      </div>
+      <div class="result-image columns">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#e8200d"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+          ></path>
+          <line x1="7" y1="7" x2="7.01" y2="7"></line>
+        </svg>
+        <p>{{ latestVersion }}</p>
+      </div>
 
-          <svg v-if="categories.includes('forge')" viewBox="0 0 90 46">
-            <defs>
-              <path
-                id="a"
-                fill="#1e2d44"
-                d="M85.8 49.1l-4.5-5.5q-1.65-.1-3.55-.55-3.8-.95-4.85-2.65Q68.75 34.25 74 27q5.45-7.65 17.55-10.3l-37.8-1.9H100v-3.7H47.75v14q0 .65-1.9-11.7h-4.1v13l-1.9-12.3h-27.9q12.85 10.8 19.9 14.3 2.45 1.2 6.05 1.65 2.1.25 6.35.35 2.1.1 3.1.35 1.65.4 2.7 1.45 1.75 1.7 2 4 .3 2.4-1.2 4.3-1.2 1.65-4.35 2.6l-2.95.6L39 49.1v6.4h10.25l.3-6.3 8.95-6.3q-2.85 2.4-6.25 7.7-.95 1.5-1.7 3.5 1.7-1.45 4.9-2.3 3.3-.9 7.3-.9 3.9 0 7.2.9 3.25.85 4.95 2.3-.6-1.75-1.7-3.5-3.4-5.2-6.2-7.7l8.9 6.3.3 6.3h9.6v-6.4z"
-              />
-            </defs>
-            <use transform="translate(-10.95 -10.3)" xlink:href="#a" />
-          </svg>
-        </div>
+      <div class="loaders columns">
+        <img
+          v-if="categories.includes('fabric')"
+          src="https://fabricmc.net/assets/logo.png"
+          alt="fabric"
+        />
+
+        <svg v-if="categories.includes('forge')" viewBox="0 0 90 46">
+          <defs>
+            <path
+              id="a"
+              fill="#1e2d44"
+              d="M85.8 49.1l-4.5-5.5q-1.65-.1-3.55-.55-3.8-.95-4.85-2.65Q68.75 34.25 74 27q5.45-7.65 17.55-10.3l-37.8-1.9H100v-3.7H47.75v14q0 .65-1.9-11.7h-4.1v13l-1.9-12.3h-27.9q12.85 10.8 19.9 14.3 2.45 1.2 6.05 1.65 2.1.25 6.35.35 2.1.1 3.1.35 1.65.4 2.7 1.45 1.75 1.7 2 4 .3 2.4-1.2 4.3-1.2 1.65-4.35 2.6l-2.95.6L39 49.1v6.4h10.25l.3-6.3 8.95-6.3q-2.85 2.4-6.25 7.7-.95 1.5-1.7 3.5 1.7-1.45 4.9-2.3 3.3-.9 7.3-.9 3.9 0 7.2.9 3.25.85 4.95 2.3-.6-1.75-1.7-3.5-3.4-5.2-6.2-7.7l8.9 6.3.3 6.3h9.6v-6.4z"
+            />
+          </defs>
+          <use transform="translate(-10.95 -10.3)" xlink:href="#a" />
+        </svg>
       </div>
     </div>
     <div class="categories">
@@ -375,7 +373,9 @@ export default {
 }
 
 .result {
-  align-items: center;
+  display: grid;
+  grid-template-columns: 120px auto;
+  grid-template-rows: 45px 25px 40px;
   margin-bottom: 10px;
   background: var(--color-bg);
   box-shadow: 0 2px 3px 1px var(--color-grey-2);
@@ -392,6 +392,17 @@ export default {
   height: 90px;
   margin: 10px 20px 10px 10px !important;
   border-radius: 0.5rem;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.result-name-author {
+  display: flex;
+}
+
+.result-summary {
+  grid-row-start: 2;
+  grid-column-start: 2;
 }
 
 .mod-name {
@@ -405,9 +416,10 @@ export default {
 }
 
 .result-infos {
-  margin-top: 5px !important;
   align-self: flex-end;
   align-items: center;
+  grid-column-start: 2;
+  align-self: flex-start;
 }
 
 .result-image svg {
@@ -426,7 +438,8 @@ export default {
 .categories {
   display: flex;
   flex-direction: row;
-  margin: auto 20px 20px auto;
+  margin: auto 10px 20px auto;
+  grid-column-start: 3;
 }
 
 .categories p {
