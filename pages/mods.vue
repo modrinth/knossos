@@ -24,24 +24,29 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </div>
-        <div class="iconified-select">
-          <select id="sort-type" @input="changeSortType">
-            <option value="relevance" selected>Relevance</option>
-            <option value="downloads">Total Downloads</option>
-            <option value="newest">Newest</option>
-            <option value="updated">Updated</option>
-          </select>
+        <div>
+          <div class="iconified-select">
+            <select id="sort-type" @input="changeSortType">
+              <option value="relevance" selected>Relevance</option>
+              <option value="downloads">Total Downloads</option>
+              <option value="newest">Newest</option>
+              <option value="updated">Updated</option>
+            </select>
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div class="mobile-filters-button">
+            <button @click="toggleFiltersMenu">Filter...</button>
+          </div>
         </div>
         <div
           v-if="pages.length > 1"
@@ -112,10 +117,11 @@
         />
       </div>
     </div>
-    <section class="filters">
+    <section id="filters" class="filters">
       <!--#region filters  -->
       <div>
         <section class="filter-group">
+          <button @click="toggleFiltersMenu">Done</button>
           <button @click="clearFilters">Clear Filters</button>
           <h3>Categories</h3>
           <p
@@ -488,6 +494,13 @@ export default {
     formatNumber(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
+    toggleFiltersMenu() {
+      const filters = document.getElementById('filters')
+      const filterLeft = filters.style.left
+      filters.style.left = filterLeft === '0px' ? '100vw' : '0px'
+      document.body.style.overflow =
+        document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
+    },
   },
 }
 </script>
@@ -510,8 +523,9 @@ export default {
         width: 100%;
       }
     }
-    .search-controls {
+    > div:not(.pagination) {
       display: flex;
+      width: 100%;
     }
   }
 }
@@ -527,6 +541,20 @@ export default {
 
 .content {
   min-height: 95vh;
+}
+
+.mobile-filters-button {
+  display: none;
+
+  @media screen and (max-width: 1000px) {
+    display: inline-block;
+    button {
+      background: var(--color-bg);
+      border: 2px solid var(--color-grey-3);
+      border-radius: var(--size-rounded-sm);
+      padding: 0.5rem;
+    }
+  }
 }
 
 .filters {
@@ -552,8 +580,13 @@ export default {
   }
 
   @media screen and (max-width: 1000px) {
-    display: none;
-    // temporarily hidden
+    position: fixed;
+    left: 100vw;
+    width: 100vw;
+    top: 3.5rem;
+    height: calc(100vh - 3.5rem);
+    transition: left 150ms;
+    overflow-y: auto;
   }
 }
 
