@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="content column-grow-4">
+    <div class="content column-grow-5">
       <h2>Mods</h2>
       <section id="search-pagination">
         <div class="iconified-input column-grow-2">
@@ -121,7 +121,9 @@
       <!--#region filters  -->
       <div>
         <section class="filter-group">
-          <button @click="toggleFiltersMenu">Done</button>
+          <button class="filter-button-done" @click="toggleFiltersMenu">
+            Done
+          </button>
           <button @click="clearFilters">Clear Filters</button>
           <h3>Categories</h3>
           <p
@@ -496,8 +498,8 @@ export default {
     },
     toggleFiltersMenu() {
       const filters = document.getElementById('filters')
-      const filterLeft = filters.style.left
-      filters.style.left = filterLeft === '0px' ? '100vw' : '0px'
+      const currentlyActive = filters.className === 'filters active'
+      filters.className = `filters${currentlyActive ? '' : ' active'}`
       document.body.style.overflow =
         document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
     },
@@ -532,6 +534,7 @@ export default {
 
 .paginates {
   align-items: center;
+  flex-shrink: 0;
 }
 
 .paginates p {
@@ -546,7 +549,7 @@ export default {
 .mobile-filters-button {
   display: none;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1145px) {
     display: inline-block;
     button {
       background: var(--color-bg);
@@ -565,9 +568,10 @@ export default {
   position: sticky;
   max-height: 100vh;
   min-width: 15%;
+  padding-right: 1rem;
 
   div {
-    padding: 0 1.5rem;
+    padding: 0 0.75rem;
 
     h3 {
       color: #718096;
@@ -579,14 +583,24 @@ export default {
     }
   }
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1145px) {
     position: fixed;
-    left: 100vw;
-    width: 100vw;
+    right: -300px;
     top: 3.5rem;
     height: calc(100vh - 3.5rem);
-    transition: left 150ms;
+    transition: right 150ms;
     overflow-y: auto;
+    width: 300px;
+    padding-right: 0;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 100vw;
+    right: -100vw;
+  }
+
+  &.active {
+    right: 0;
   }
 }
 
@@ -606,6 +620,14 @@ export default {
     }
   }
 
+  .filter-button-done {
+    display: none;
+
+    @media screen and (max-width: 1145px) {
+      display: block;
+    }
+  }
+
   p {
     display: flex;
     align-items: center;
@@ -621,6 +643,7 @@ export default {
     svg {
       margin-right: 5px;
       height: 1rem;
+      flex-shrink: 0;
     }
 
     &:hover,

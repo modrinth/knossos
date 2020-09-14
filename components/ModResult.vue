@@ -379,6 +379,10 @@ export default {
   margin-bottom: 10px;
   background: var(--color-bg);
   box-shadow: 0 2px 3px 1px var(--color-grey-2);
+
+  @media screen and (max-width: 1375px) {
+    grid-template-columns: 90px auto;
+  }
 }
 
 .result * {
@@ -395,6 +399,11 @@ export default {
   grid-row-start: 1;
   grid-row-end: 4;
   grid-column-start: 1;
+
+  @media screen and (max-width: 1375px) {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 .result-name-author {
@@ -406,11 +415,17 @@ export default {
 .result-summary {
   grid-row-start: 2;
   grid-column-start: 2;
-  max-height: 50px;
+  max-height: 100px;
+  font-size: 13pt;
 }
 
 .mod-name {
   align-self: flex-end;
+  font-size: 18pt;
+
+  @media screen and (max-width: 1375px) {
+    font-size: 16pt;
+  }
 }
 
 .author {
@@ -476,9 +491,9 @@ export default {
 }
 
 // Smaller/tablet-sized screens
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1500px) {
   .categories {
-    margin: 0;
+    margin: 0 0 5px 0;
     grid-column-start: 2;
   }
 }
@@ -551,6 +566,20 @@ export default {
       margin-left: 0;
       font-size: 12pt;
     }
+  }
+}
+
+// Tiny phone (iPhone 5/SE)
+@media screen and (max-width: 350px) {
+  .result-infos {
+    .loaders {
+      grid-column: 1;
+      grid-row: 3;
+    }
+  }
+
+  .categories {
+    margin-top: 15px;
   }
 }
 </style>

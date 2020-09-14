@@ -187,7 +187,7 @@ export default {
   min-height: 100vh;
   width: 100%;
   // For mobile
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1145px) {
     flex-flow: column;
   }
 
@@ -199,7 +199,7 @@ export default {
     border-right: 1px solid var(--color-grey-2);
     display: flex; // Flex here to safely expand navigation height
     flex-direction: column;
-    min-width: 15%;
+    max-width: 210px;
 
     .logo-wrapper {
       align-items: center;
@@ -235,7 +235,7 @@ export default {
       z-index: 10;
 
       & > * {
-        padding: 0 1.5rem;
+        padding: 0 0.75rem;
       }
 
       .links {
@@ -250,7 +250,6 @@ export default {
 
         section {
           border-left: 4px solid var(--color-grey-3);
-          margin-left: 0.5rem;
 
           a {
             align-items: center;
@@ -274,6 +273,7 @@ export default {
             svg {
               height: 1rem;
               width: 1rem;
+              flex-shrink: 0;
             }
 
             span {
@@ -317,7 +317,7 @@ export default {
     }
 
     // For mobile
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1145px) {
       width: 100vw;
       max-width: none;
       z-index: 10;
@@ -326,10 +326,14 @@ export default {
       border-right: 0;
       nav {
         position: absolute;
-        width: 100vw;
-        right: 100vw;
+        width: 300px;
+        left: -300px;
+        @media screen and (max-width: 1000px) {
+          width: 100vw;
+          left: -100vw;
+        }
         top: 3.5rem;
-        transition: right 150ms;
+        transition: left 150ms;
         background: var(--color-bg);
         height: calc(100vh - 3.5rem);
       }
@@ -352,7 +356,7 @@ export default {
         pointer-events: none;
       }
       .hamburger-button:checked ~ nav {
-        right: 0;
+        left: 0;
       }
       .logo-wrapper {
         width: 100vw;
@@ -411,11 +415,16 @@ export default {
     }
 
     .content {
-      padding: 1rem 3rem 1rem 2rem;
+      padding: 1rem;
 
       // For mobile
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 1145px) {
         padding: 1rem 0.5rem 1rem 0.5rem;
+      }
+
+      // Tiny phone (iPhone 5/SE)
+      @media screen and (max-width: 350px) {
+        padding: 0.5rem 0.35rem 0.5rem 0.35rem;
       }
     }
   }
@@ -428,6 +437,13 @@ export default {
 
   a {
     text-decoration: var(--color-grey-2) underline;
+  }
+}
+
+// Hack for very small (iPhone 5/SE) sized phones
+@media screen and (max-width: 360px) {
+  body {
+    overflow-x: hidden !important;
   }
 }
 </style>
