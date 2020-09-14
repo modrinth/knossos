@@ -1,6 +1,14 @@
 <template>
   <div class="layout">
     <aside>
+      <input
+        class="hamburger-button"
+        alt="Open navigation menu"
+        type="checkbox"
+        @click="toggleNavMenu()"
+      />
+      <!-- TODO: Probably shouldn't be a Unicode symbol -->
+      <div class="hamburger-icon">☰</div>
       <div class="logo-wrapper">
         <img class="logo" src="~/assets/images/logo.svg" />
         <span class="name">modrinth</span>
@@ -162,11 +170,26 @@
   </div>
 </template>
 
+<script>
+export default {
+  methods: {
+    toggleNavMenu() {
+      document.body.style.overflow =
+        document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
+    },
+  },
+}
+</script>
+
 <style lang="scss">
 .layout {
   display: flex;
   min-height: 100vh;
   width: 100%;
+  // For mobile
+  @media screen and (max-width: 1000px) {
+    flex-flow: column;
+  }
 
   aside {
     top: 0;
@@ -197,11 +220,19 @@
       }
     }
 
+    .hamburger-button,
+    .hamburger-icon {
+      display: none;
+    }
+
     nav {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
       justify-content: space-between;
+      overflow-y: auto;
+      height: 100vh;
+      z-index: 10;
 
       & > * {
         padding: 0 1.5rem;
@@ -284,6 +315,52 @@
         }
       }
     }
+
+    // For mobile
+    @media screen and (max-width: 1000px) {
+      width: 100vw;
+      max-width: none;
+      z-index: 10;
+      background: var(--color-bg);
+      padding: 0;
+      border-right: 0;
+      nav {
+        position: absolute;
+        width: 100vw;
+        right: 100vw;
+        top: 3.5rem;
+        transition: right 150ms;
+        background: var(--color-bg);
+        height: calc(100vh - 3.5rem);
+      }
+      .hamburger-button {
+        position: absolute;
+        display: block;
+        left: 10px;
+        opacity: 0;
+        margin: 0;
+        top: 1.2rem;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+      .hamburger-icon {
+        display: block;
+        position: absolute;
+        left: 15px;
+        top: 1.2rem;
+        pointer-events: none;
+      }
+      .hamburger-button:checked ~ nav {
+        right: 0;
+      }
+      .logo-wrapper {
+        width: 100vw;
+        .logo {
+          margin-left: 2.5rem;
+        }
+      }
+    }
   }
   main {
     background-color: var(--color-grey-0);
@@ -334,6 +411,11 @@
 
     .content {
       padding: 1rem 3rem 1rem 2rem;
+
+      // For mobile
+      @media screen and (max-width: 1000px) {
+        padding: 1rem 3rem 1rem 0.5rem;
+      }
     }
   }
 }
