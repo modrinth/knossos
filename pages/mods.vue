@@ -513,7 +513,7 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 900px) {
     flex-flow: column;
     .iconified-input {
       width: 100%;
@@ -549,7 +549,7 @@ export default {
 .mobile-filters-button {
   display: none;
 
-  @media screen and (max-width: 1145px) {
+  @media screen and (max-width: 900px) {
     display: inline-block;
     button {
       background: var(--color-bg);
@@ -569,6 +569,7 @@ export default {
   max-height: 100vh;
   min-width: 15%;
   padding-right: 1rem;
+  overflow-y: auto;
 
   div {
     padding: 0 0.75rem;
@@ -584,19 +585,21 @@ export default {
   }
 
   @media screen and (max-width: 1145px) {
-    position: fixed;
-    right: -300px;
     top: 3.5rem;
     height: calc(100vh - 3.5rem);
-    transition: right 150ms;
-    overflow-y: auto;
-    width: 300px;
-    padding-right: 0;
+
+    // Remove large gap on top
+    .filter-group {
+      margin-top: 1em;
+    }
   }
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 900px) {
+    position: fixed;
     width: 100vw;
     right: -100vw;
+    padding-right: 0;
+    transition: right 150ms;
   }
 
   &.active {
@@ -623,7 +626,8 @@ export default {
   .filter-button-done {
     display: none;
 
-    @media screen and (max-width: 1145px) {
+    // Display on screen sizes smaller than 900px
+    @media screen and (max-width: 900px) {
       display: block;
     }
   }
