@@ -24,7 +24,7 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </div>
-        <div>
+        <div class="sort-paginate">
           <div class="iconified-select">
             <select id="sort-type" @input="changeSortType">
               <option value="relevance" selected>Relevance</option>
@@ -513,21 +513,36 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  @media screen and (max-width: 900px) {
-    flex-flow: column;
-    .iconified-input {
+  flex-flow: column;
+  .iconified-input {
+    width: 100%;
+  }
+  .iconified-select {
+    width: 100%;
+    margin-left: 0;
+    select {
       width: 100%;
+    }
+  }
+  .sort-paginate {
+    display: flex;
+    width: 100%;
+  }
+  @media screen and (min-width: 900px) {
+    flex-flow: row;
+    .iconified-input {
+      width: auto;
     }
     .iconified-select {
-      width: 100%;
-      margin-left: 0;
+      width: auto;
+      margin-left: 1em;
       select {
-        width: 100%;
+        width: auto;
       }
     }
-    > div:not(.pagination) {
-      display: flex;
-      width: 100%;
+    .sort-paginate {
+      display: block;
+      width: auto;
     }
   }
 }
@@ -547,29 +562,33 @@ export default {
 }
 
 .mobile-filters-button {
-  display: none;
+  display: inline-block;
+  button {
+    background: var(--color-bg);
+    border: 2px solid var(--color-grey-3);
+    border-radius: var(--size-rounded-sm);
+    padding: 0.5rem;
+  }
 
-  @media screen and (max-width: 900px) {
-    display: inline-block;
-    button {
-      background: var(--color-bg);
-      border: 2px solid var(--color-grey-3);
-      border-radius: var(--size-rounded-sm);
-      padding: 0.5rem;
-    }
+  // Hide button on larger screens where it's not needed
+  @media screen and (min-width: 900px) {
+    display: none;
   }
 }
 
 .filters {
   background-color: var(--color-bg);
   border-left: 1px solid var(--color-grey-2);
-  top: 0;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  width: 100vw;
+  right: -100vw;
   max-height: 100vh;
   min-width: 15%;
-  padding-right: 1rem;
   overflow-y: auto;
+  top: 3.5rem;
+  height: calc(100vh - 3.5rem);
+  transition: right 150ms;
+  flex-shrink: 0; // Stop shrinking when page contents change
 
   div {
     padding: 0 0.75rem;
@@ -584,22 +603,18 @@ export default {
     }
   }
 
-  @media screen and (max-width: 1145px) {
-    top: 3.5rem;
-    height: calc(100vh - 3.5rem);
-
-    // Remove large gap on top
-    .filter-group {
-      margin-top: 1em;
-    }
+  // Larger screens that don't need to collapse
+  @media screen and (min-width: 900px) {
+    position: sticky;
+    width: 180px;
+    padding-right: 1rem;
+    transition: none;
   }
 
-  @media screen and (max-width: 900px) {
-    position: fixed;
-    width: 100vw;
-    right: -100vw;
-    padding-right: 0;
-    transition: right 150ms;
+  // Desktop
+  @media screen and (min-width: 1145px) {
+    top: 0;
+    height: 100vh;
   }
 
   &.active {
@@ -608,7 +623,7 @@ export default {
 }
 
 .filter-group {
-  margin-top: 2em;
+  margin-top: 1em;
 
   button {
     width: 100%;
@@ -624,12 +639,7 @@ export default {
   }
 
   .filter-button-done {
-    display: none;
-
-    // Display on screen sizes smaller than 900px
-    @media screen and (max-width: 900px) {
-      display: block;
-    }
+    display: block;
   }
 
   p {
@@ -661,6 +671,18 @@ export default {
     background-color: var(--color-grey-1);
     color: var(--color-text);
     border-left: 4px solid var(--color-brand);
+  }
+
+  // Large screens that don't collapse
+  @media screen and (min-width: 900px) {
+    .filter-button-done {
+      display: none;
+    }
+  }
+
+  // Desktop
+  @media screen and (min-width: 1145px) {
+    margin-top: 2em;
   }
 }
 

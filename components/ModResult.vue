@@ -374,14 +374,16 @@ export default {
 
 .result {
   display: grid;
-  grid-template-columns: 120px auto;
-  grid-template-rows: auto auto 30px;
+  grid-template-columns: 80px auto;
+  grid-template-rows: auto auto auto 30px;
+  max-width: 100vw;
   margin-bottom: 10px;
   background: var(--color-bg);
   box-shadow: 0 2px 3px 1px var(--color-grey-2);
 
-  @media screen and (max-width: 1375px) {
-    grid-template-columns: 90px auto;
+  // Columns are larger to accomodate larger screens
+  @media screen and (min-width: 1375px) {
+    grid-template-columns: 120px auto;
   }
 }
 
@@ -392,53 +394,80 @@ export default {
 }
 
 .result-icon {
-  width: 90px;
-  height: 90px;
-  margin: 10px 20px 10px 10px !important;
+  width: 60px;
+  height: 60px;
+  margin: 5px !important;
   border-radius: 0.5rem;
   grid-row-start: 1;
   grid-row-end: 4;
   grid-column-start: 1;
 
-  @media screen and (max-width: 1375px) {
+  @media screen and (min-width: 900px) {
+    margin: 10px 20px 10px 10px !important;
     width: 70px;
     height: 70px;
+  }
+
+  // Larger screen, larger icon
+  @media screen and (min-width: 1375px) {
+    width: 90px;
+    height: 90px;
   }
 }
 
 .result-name-author {
-  display: flex;
+  display: block;
+  margin-top: 10px;
   min-height: 38px;
-  grid-column-start: 2;
 }
 
 .result-summary {
-  grid-row-start: 2;
-  grid-column-start: 2;
-  max-height: 100px;
-  font-size: 13pt;
+  grid-row: 2;
+  grid-column: 2;
+  max-height: 150px;
+  font-size: 11pt;
 }
 
 .mod-name {
   align-self: flex-end;
-  font-size: 18pt;
-
-  @media screen and (max-width: 1375px) {
-    font-size: 16pt;
-  }
+  font-size: 13pt;
 }
 
 .author {
-  margin-left: 5px;
   margin-bottom: 2px !important;
   align-self: flex-end;
+  font-size: 12pt;
 }
 
 .result-infos {
+  display: grid;
+  grid-template-columns: 115px 115px auto;
+  grid-template-rows: 20px 20px;
+  margin-top: 5px;
+  grid-column: 2;
   align-self: flex-end;
-  align-items: center;
-  grid-column-start: 2;
+  align-items: flex-start;
   align-self: flex-start;
+
+  .columns:nth-child(2) {
+    grid-column: 1;
+  }
+
+  .columns:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .result-image {
+    p {
+      font-size: 10pt;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 
 .result-image svg {
@@ -457,8 +486,9 @@ export default {
 .categories {
   display: flex;
   flex-direction: row;
-  margin: auto 10px 20px auto;
-  grid-column-start: 3;
+  margin: 0 0 5px 0;
+  grid-column: 1;
+  margin-bottom: auto;
 }
 
 .categories p {
@@ -479,6 +509,8 @@ export default {
 
 .loaders {
   align-items: center;
+  grid-column: 1;
+  grid-row: 3;
   img {
     width: 15px;
   }
@@ -490,96 +522,82 @@ export default {
   }
 }
 
-// Smaller/tablet-sized screens
-@media screen and (max-width: 1500px) {
-  .categories {
-    margin: 0 0 5px 0;
-    grid-column-start: 2;
-  }
-}
-
-// Phone-sized screens
-@media screen and (max-width: 800px) {
+// Larger tablet-sized screens
+@media screen and (min-width: 900px) {
   .result {
-    grid-template-rows: auto auto 50px;
-    grid-template-columns: 80px auto;
-    max-width: 100vw;
-  }
-
-  .result-summary {
-    max-height: 150px;
-    font-size: 11pt;
-  }
-
-  .result-icon {
-    width: 60px;
-    height: 60px;
+    grid-template-columns: 90px auto;
+    grid-template-rows: auto auto 30px;
   }
 
   .result-infos {
-    display: grid;
-    align-items: flex-start;
-    grid-template-columns: 115px 115px auto;
-    grid-template-rows: 20px 20px;
-    margin-top: 5px;
-
-    .columns:nth-child(2) {
-      grid-column: 1;
-    }
-
-    .columns:nth-child(3) {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    .loaders {
-      grid-column: 3;
-      grid-row: 1;
-    }
-
-    .columns {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    .result-image {
       p {
-        font-size: 10pt;
+        font-size: 15px;
       }
 
       svg {
-        width: 14px;
-        height: 14px;
+        width: 15px;
+        height: 15px;
       }
     }
   }
 
+  .loaders {
+    svg {
+      width: 20px;
+    }
+  }
+
   .categories {
-    grid-column: 1;
-    margin-bottom: 5px;
+    margin: 0 0 10px 0;
   }
 
   .result-name-author {
-    display: block;
-    margin-top: 10px;
-
-    .mod-name {
-      font-size: 15pt;
-    }
-
+    display: flex;
+    margin-top: 0;
     .author {
-      margin-left: 0;
-      font-size: 12pt;
+      margin-left: 5px;
     }
+  }
+
+  .mod-name {
+    font-size: 16pt;
+  }
+
+  .result-summary {
+    max-height: 100px;
+    font-size: 13pt;
   }
 }
 
-// Tiny phone (iPhone 5/SE)
-@media screen and (max-width: 350px) {
-  .result-infos {
-    .loaders {
-      grid-column: 1;
-      grid-row: 3;
-    }
+// Larger screens
+@media screen and (min-width: 1375px) {
+  .result {
+    margin: 5px 0 5px 15px;
+    grid-column: 1;
+    grid-template-columns: 110px auto;
   }
 
   .categories {
-    margin-top: 15px;
+    margin: auto 0 5px auto;
+    grid-row: 3;
+    grid-column: 3;
+  }
+
+  .mod-name {
+    font-size: 18pt;
+  }
+}
+
+// Desktop
+@media screen and (min-width: 1500px) {
+  .result-name-author {
+    display: flex;
+    min-height: 38px;
+    grid-column: 2;
   }
 }
 </style>

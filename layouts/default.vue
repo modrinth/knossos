@@ -184,33 +184,37 @@ export default {
 <style lang="scss">
 .layout {
   display: flex;
+  flex-flow: column;
   min-height: 100vh;
   width: 100%;
-  // For mobile
-  @media screen and (max-width: 1145px) {
-    flex-flow: column;
+
+  // Desktop
+  @media screen and (min-width: 1145px) {
+    flex-flow: row;
   }
 
   aside {
     top: 0;
-    position: -webkit-sticky;
     position: sticky;
-    max-height: 100vh;
-    border-right: 1px solid var(--color-grey-2);
+    border-right: 0;
     display: flex; // Flex here to safely expand navigation height
     flex-direction: column;
-    max-width: 210px;
+    width: 100vw;
+    max-height: 100vh;
+    background: var(--color-bg);
+    z-index: 10;
 
     .logo-wrapper {
       align-items: center;
       display: flex;
       height: 3.5rem;
-      padding: 0 1.5rem;
+      width: 100vw;
       font-family: 'Montserrat', sans-serif;
 
       .logo {
         height: 2rem;
         width: auto;
+        margin-left: 2.5rem;
       }
 
       .name {
@@ -220,9 +224,28 @@ export default {
       }
     }
 
-    .hamburger-button,
+    .hamburger-button {
+      position: absolute;
+      display: block;
+      left: 10px;
+      opacity: 0;
+      margin: 0;
+      top: 1.2rem;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
     .hamburger-icon {
-      display: none;
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 1.2rem;
+      pointer-events: none;
+    }
+
+    .hamburger-button:checked ~ nav {
+      left: 0;
     }
 
     nav {
@@ -230,9 +253,21 @@ export default {
       flex-direction: column;
       flex-grow: 1;
       justify-content: space-between;
+      position: absolute;
+      height: calc(100vh - 3.5rem);
+      width: 100vw;
+      left: -100vw;
+      top: 3.5rem;
+      transition: left 150ms;
+      background: var(--color-bg);
       overflow-y: auto;
-      height: 100vh;
       z-index: 10;
+
+      // Larger screens that still need a collapsed menu
+      @media screen and (min-width: 900px) {
+        width: 300px;
+        left: -300px;
+      }
 
       & > * {
         padding: 0 0.75rem;
@@ -316,54 +351,30 @@ export default {
       }
     }
 
-    // For mobile
-    @media screen and (max-width: 1145px) {
-      width: 100vw;
-      max-width: none;
-      z-index: 10;
-      background: var(--color-bg);
-      padding: 0;
-      border-right: 0;
+    // Desktop
+    @media screen and (min-width: 1145px) {
+      border-right: 1px solid var(--color-grey-2);
+      max-width: 210px;
+
       nav {
-        position: absolute;
-        width: 300px;
-        left: -300px;
-        @media screen and (max-width: 1000px) {
-          width: 100vw;
-          left: -100vw;
-        }
-        top: 3.5rem;
-        transition: left 150ms;
-        background: var(--color-bg);
-        height: calc(100vh - 3.5rem);
-      }
-      .hamburger-button {
-        position: absolute;
-        display: block;
-        left: 10px;
-        opacity: 0;
-        margin: 0;
-        top: 1.2rem;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-      }
-      .hamburger-icon {
-        display: block;
-        position: absolute;
-        left: 15px;
-        top: 1.2rem;
-        pointer-events: none;
-      }
-      .hamburger-button:checked ~ nav {
+        height: 100%;
         left: 0;
+        width: 100%;
+        transition: none;
+        position: static;
       }
+
       .logo-wrapper {
-        width: 100vw;
-        padding: 0;
+        padding: 0 0 0 1.5rem;
+        width: 100%;
         .logo {
-          margin-left: 2.5rem;
+          margin: 0;
         }
+      }
+
+      .hamburger-button,
+      .hamburger-icon {
+        display: none;
       }
     }
   }
@@ -415,16 +426,17 @@ export default {
     }
 
     .content {
-      padding: 1rem;
+      // Default is for small phone sizes (like iPhone 5/SE)
+      padding: 0.5rem 0.35rem 0.5rem 0.35rem;
 
-      // For mobile
-      @media screen and (max-width: 1145px) {
+      // Larger phones
+      @media screen and (min-width: 500px) {
         padding: 1rem 0.5rem 1rem 0.5rem;
       }
 
-      // Tiny phone (iPhone 5/SE)
-      @media screen and (max-width: 350px) {
-        padding: 0.5rem 0.35rem 0.5rem 0.35rem;
+      // Desktop
+      @media screen and (min-width: 1145px) {
+        padding: 1rem;
       }
     }
   }
@@ -441,6 +453,7 @@ export default {
 }
 
 // Hack for very small (iPhone 5/SE) sized phones
+// an x overflow existed and I was unable to figure out why
 @media screen and (max-width: 360px) {
   body {
     overflow-x: hidden !important;
