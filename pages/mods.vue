@@ -387,6 +387,12 @@ export default {
     }
   },
   async mounted() {
+    // if (this.$route.query.query) this.query = this.$route.query.query
+    // if (this.$route.query.facets) this.facets = this.$route.query.facets[0]
+    // if (this.$route.query.sortType) this.sortType = this.$route.query.sortType
+    //
+    // console.log(this.facets)
+
     window.addEventListener('resize', this.resize)
     await this.resize()
   },
@@ -399,7 +405,7 @@ export default {
         document.documentElement.clientHeight || 0,
         window.innerHeight || 0
       )
-      this.maxResults = Math.floor(vh / 120 - 1)
+      this.maxResults = Math.floor((vh - 200) / 120)
 
       await this.onSearchChange(this.currentPage)
 
@@ -438,7 +444,6 @@ export default {
       }
 
       try {
-        let url = 'https://api.modrinth.com/api/v1/mod'
         const params = [`limit=${this.maxResults}`, `index=${this.sortType}`]
 
         if (this.query.length > 0) {
@@ -446,12 +451,18 @@ export default {
         }
 
         if (this.facets.length > 0) {
-          params.push(`facets=${JSON.stringify([this.facets])}`)
+          const formattedFacets = []
+          for (const facet of this.facets) {
+            formattedFacets.push([facet])
+          }
+          params.push(`facets=${JSON.stringify(formattedFacets)}`)
         }
 
         if (newPageNumber !== 1) {
           params.push(`offset=${(newPageNumber - 1) * this.maxResults}`)
         }
+
+        let url = 'https://api.modrinth.com/api/v1/mod'
 
         if (params.length > 0) {
           for (let i = 0; i < params.length; i++) {
@@ -577,6 +588,7 @@ export default {
 }
 
 .filters {
+  overflow-y: auto;
   background-color: var(--color-bg);
   border-left: 1px solid var(--color-grey-2);
   position: fixed;
@@ -628,7 +640,7 @@ export default {
   button {
     width: 100%;
     padding: 5px 0;
-    color: var(--color-grey-5);
+    color: #718096;
     border: none;
     border-radius: 5px;
 
