@@ -683,7 +683,7 @@ export default {
   // Larger screens that don't need to collapse
   @media screen and (min-width: 900px) {
     position: sticky;
-    width: 180px;
+    width: 215px;
     padding-right: 1rem;
     transition: none;
   }
