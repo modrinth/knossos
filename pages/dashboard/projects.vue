@@ -54,7 +54,9 @@
         </tr>
       </tbody>
     </table>
-    <EthicalAd />
+    <client-only>
+      <EthicalAd />
+    </client-only>
   </div>
 </template>
 
@@ -153,6 +155,33 @@ table {
     img {
       height: 3rem;
       width: 3rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  th,
+  td {
+    &:nth-child(1) {
+      img {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+    &:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  th,
+  td {
+    &:nth-child(2) {
+      width: 25% !important;
+    }
+    &:nth-child(6) {
+      display: none;
     }
   }
 }
