@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="version in versions" :key="version.id">
+        <tr v-for="version in versions.slice().reverse()" :key="version.id">
           <td>
             <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
               <DownloadIcon />
@@ -49,7 +49,7 @@
             </span>
           </td>
           <td>{{ version.downloads }}</td>
-          <td>{{ $dayjs(version.published).format('YYYY-MM-DD') }}</td>
+          <td>{{ $dayjs(version.date_published).format('YYYY-MM-DD') }}</td>
         </tr>
       </tbody>
     </table>

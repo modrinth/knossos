@@ -84,7 +84,7 @@
         <div v-if="versions.length > 0">
           <h3>Featured Versions</h3>
           <div
-            v-for="version in versions"
+            v-for="version in versions.slice().reverse()"
             :key="version.id"
             class="featured-version columns"
           >
