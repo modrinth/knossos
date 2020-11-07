@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="version in versions.slice().reverse()" :key="version.id">
+        <tr v-for="version in versions" :key="version.id">
           <td>
             <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
               <DownloadIcon />
@@ -236,7 +236,7 @@ export default {
     }
 
     const versions = []
-    for (const version of mod.versions) {
+    for (const version of mod.versions.reverse()) {
       res = await axios.get(
         `https://api.modrinth.com/api/v1/version/${version}`
       )
