@@ -1,13 +1,13 @@
 .light-mode {
-  --color-text: #1a202c;
-  --color-bg: #ffffff;
+  --color-text:#1e2531;
+  --color-bg: #ffffff; // #fafdfe;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: #4d9227;
+  --color-brand: rgb(77,146,39);
 
-  --color-grey-0: #f7fafc;
+  --color-grey-0: #F5F9FB;
   --color-grey-1: #edf2f7;
   --color-grey-2: #e2e8f0;
   --color-grey-3: #cbd5e0;
@@ -26,7 +26,7 @@
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: #4d9227;
+  --color-brand: rgb(77,146,39);
 
   --color-grey-7: #f7faf0;
   --color-grey-6: #f7f2eb;
@@ -50,9 +50,9 @@ body {
   /**
   * Sizes
  */
-  --size-rounded-sm: 0.25rem;
-  --size-rounded-md: 0.5rem;
-  --size-rounded-lg: 1rem;
+  --size-rounded-sm: 0.5rem;
+  --size-rounded-md: 0.75rem;
+  --size-rounded-lg: 1.25rem;
 
   /**
     * Defaults

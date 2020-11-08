@@ -20,7 +20,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Modrinth is a mod distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including the forge and fabric mod loaders.',
+          'Modrinth is a mod distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
       },
 
       { hid: 'publisher', name: 'publisher', content: 'Guavy LLC' },
@@ -55,11 +55,6 @@ export default {
         href:
           'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap',
       },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap',
-      },
     ],
     script: [
       {
@@ -78,7 +73,7 @@ export default {
   vue: {
     config: {
       productionTip: false,
-      devtools: false,
+      devtools: true,
     },
   },
 
@@ -160,7 +155,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {
-    transpile: ['vue-tooltip', 'vue-notification'],
+    transpile: ['vue-tooltip', 'vue-notification']
   },
   loading: {
     color: 'green',

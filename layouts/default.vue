@@ -9,8 +9,9 @@
         type="checkbox"
         @click="toggleNavMenu()"
       />
-      <!-- TODO: Probably shouldn't be a Unicode symbol -->
-      <div class="hamburger-icon">☰</div>
+      <div class="hamburger-icon">
+        <HamburgerIcon />
+      </div>
       <nuxt-link to="/" class="logo-wrapper">
         <img class="logo" src="~/assets/images/logo.svg" alt="modrinth-logo" />
         <span class="name">modrinth</span>
@@ -20,125 +21,30 @@
           <h3>Projects</h3>
           <section>
             <nuxt-link to="/modpacks">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <line x1="16.5" y1="9.4" x2="7.5" y2="4.21" />
-                <path
-                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                />
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                <line x1="12" y1="22.08" x2="12" y2="12" />
-              </svg>
-              <span> Modpacks </span>
+              <ModpackIcon />
+              <span>Modpacks</span>
             </nuxt-link>
             <nuxt-link to="/mods">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="16 18 22 12 16 6" />
-                <polyline points="8 6 2 12 8 18" />
-              </svg>
+              <ModIcon />
               <span>Mods</span>
-            </nuxt-link>
-          </section>
-
-          <h3>Community</h3>
-          <section>
-            <nuxt-link to="/documentation">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <circle cx="12" cy="12" r="4" />
-                <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
-                <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
-                <line x1="14.83" y1="9.17" x2="18.36" y2="5.64" />
-                <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
-              </svg>
-              <span>Documentation</span>
-            </nuxt-link>
-            <nuxt-link to="/guides">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-              </svg>
-              <span>Guides</span>
             </nuxt-link>
           </section>
 
           <h3 v-if="this.$auth.loggedIn">Dashboard</h3>
           <section v-if="this.$auth.loggedIn">
             <nuxt-link to="/dashboard/projects">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
-                />
-              </svg>
+              <ProjectsIcon />
               <span>My projects</span>
             </nuxt-link>
             <nuxt-link to="/dashboard/analytics">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
+              <AnalyticsIcon />
               <span>Analytics</span>
             </nuxt-link>
             <nuxt-link
               v-if="this.$auth.user.role === 'admin'"
               to="/dashboard/admin"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-              </svg>
+              <AdminIcon />
               <span>Admin</span>
             </nuxt-link>
           </section>
@@ -183,47 +89,18 @@
               </div>
             </div>
             <SettingsIcon @click="showPopup = !showPopup" />
-          </div>
-          <div class="theme">
-            <svg
+            <MoonIcon
               v-if="$colorMode.value === 'light'"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
               @click="changeTheme"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg
-              v-else
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              @click="changeTheme"
-            >
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
+            />
+            <SunIcon v-else @click="changeTheme" />
           </div>
         </section>
       </nav>
     </aside>
     <main>
-      <notifications group="main" position="bottom right" />
-      <notifications
+      <Notifications group="main" position="bottom right" />
+      <Notifications
         group="ads"
         position="bottom right"
         :duration="-1"
@@ -239,11 +116,29 @@
 </template>
 
 <script>
+import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
+import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
+import ProjectsIcon from '~/assets/images/sidebar/projects.svg?inline'
+import AnalyticsIcon from '~/assets/images/sidebar/analytics.svg?inline'
+import AdminIcon from '~/assets/images/sidebar/admin.svg?inline'
+
+import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import MoonIcon from '~/assets/images/utils/moon.svg?inline'
+import SunIcon from '~/assets/images/utils/sun.svg?inline'
 
 export default {
   components: {
+    ModpackIcon,
+    ModIcon,
+    ProjectsIcon,
+    AnalyticsIcon,
+    AdminIcon,
+
+    HamburgerIcon,
     SettingsIcon,
+    MoonIcon,
+    SunIcon,
   },
   async fetch() {
     if (this.$route.query.code)
@@ -283,8 +178,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .layout {
+  background-color: var(--color-grey-0);
   display: flex;
   flex-flow: column;
   min-height: 100vh;
@@ -303,7 +199,6 @@ export default {
     flex-direction: column;
     width: 100vw;
     max-height: 100vh;
-    background: var(--color-bg);
     z-index: 10;
 
     .logo-wrapper {
@@ -361,7 +256,6 @@ export default {
       left: -100vw;
       top: 3.5rem;
       transition: left 150ms;
-      background: var(--color-bg);
       overflow-y: auto;
       z-index: 10;
 
@@ -451,10 +345,6 @@ export default {
           }
         }
 
-        .theme {
-          cursor: pointer;
-        }
-
         .log-in-button {
           text-align: center;
           padding: 8px 40px;
@@ -465,6 +355,10 @@ export default {
         }
 
         .notifications {
+          & > * {
+            margin-left: 1rem;
+          }
+
           svg {
             cursor: pointer;
           }
@@ -522,8 +416,8 @@ export default {
     // Desktop
     @media screen and (min-width: 1145px) {
       border-right: 1px solid var(--color-grey-2);
-      min-width: 270px;
-      max-width: 270px;
+      min-width: 300px;
+      max-width: 300px;
 
       nav {
         height: 100%;
