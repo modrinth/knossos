@@ -1,121 +1,125 @@
 <template>
   <div class="layout">
     <aside>
-      <label class="hidden" for="toggle-nav-menu">Toggle Nav Menu</label>
-      <input
-        id="toggle-nav-menu"
-        class="hamburger-button"
-        alt="Open navigation menu"
-        type="checkbox"
-        @click="toggleNavMenu()"
-      />
-      <div class="hamburger-icon">
-        <HamburgerIcon />
-      </div>
-      <nuxt-link to="/" class="logo-wrapper">
-        <img class="logo" src="~/assets/images/logo.svg" alt="modrinth-logo" />
-        <span class="name">modrinth</span>
-      </nuxt-link>
-      <nav>
+      <section class="logo">
+        <ModrinthLogo v-if="$colorMode.value === 'light'" />
+        <ModrinthLogoWhite v-else />
+
+        <div>
+          <button @click="changeTheme">
+            <MoonIcon v-if="$colorMode.value === 'light'" />
+            <SunIcon v-else />
+          </button>
+          <button class="hamburger" @click="toggleNav">
+            <HamburgerIcon v-if="!isNavOpen" />
+            <ExitIcon v-else />
+          </button>
+        </div>
+      </section>
+
+      <nav class="visible-md" :class="{ hidden: !isNavOpen }">
         <section class="links">
-          <h3>Projects</h3>
-          <section>
-            <nuxt-link to="/modpacks">
+          <section class="links community">
+            <NuxtLink to="/modpacks">
               <ModpackIcon />
               <span>Modpacks</span>
-            </nuxt-link>
-            <nuxt-link to="/mods">
+            </NuxtLink>
+            <NuxtLink to="/mods">
               <ModIcon />
               <span>Mods</span>
-            </nuxt-link>
+            </NuxtLink>
           </section>
 
-          <h3 v-if="this.$auth.loggedIn">Dashboard</h3>
-          <section v-if="this.$auth.loggedIn">
-            <nuxt-link to="/dashboard/projects">
-              <ProjectsIcon />
-              <span>My projects</span>
-            </nuxt-link>
-            <nuxt-link to="/dashboard/analytics">
-              <AnalyticsIcon />
-              <span>Analytics</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="this.$auth.user.role === 'admin'"
-              to="/dashboard/admin"
-            >
-              <AdminIcon />
-              <span>Admin</span>
-            </nuxt-link>
-          </section>
+          <hr />
+
+          <template v-if="this.$auth.loggedIn">
+            <section class="user-controls">
+              <div class="avatar">
+                <img :src="this.$auth.user.avatar_url" />
+                <span>
+                  {{ this.$auth.user.username }}
+                </span>
+              </div>
+              <SettingsIcon />
+            </section>
+
+            <section class="links dashboard">
+              <NuxtLink to="/dashboard/projects">
+                <ProjectsIcon />
+                <span>My projects</span>
+              </NuxtLink>
+              <NuxtLink to="/dashboard/analytics">
+                <AnalyticsIcon />
+                <span>Analytics</span>
+              </NuxtLink>
+              <NuxtLink
+                v-if="this.$auth.user.role === 'admin'"
+                to="/dashboard/admin"
+              >
+                <AdminIcon />
+                <span>Admin</span>
+              </NuxtLink>
+            </section>
+          </template>
+          <template v-else>
+            <section class="auth-prompt">
+              <a :href="authUrl" class="log-in-button">Log in</a>
+              <button
+                v-tooltip="'Not implemented yet. Log in via GitHub'"
+                class="sign-up-button"
+                disabled
+              >
+                Sign up
+              </button>
+            </section>
+          </template>
         </section>
-        <div class="disclosure">
-          <span>
+
+        <section class="footer">
+          <div class="disclosure">
             Modrinth is open source software. You may view the source code at
             our
-            <a href="https://github.com/modrinth/knossos">GitHub Repository</a>.
-          </span>
-        </div>
-        <section class="user-actions">
-          <a
-            v-if="!this.$auth.loggedIn"
-            :href="
-              'https://api.modrinth.com/api/v1/auth/init?url=http://modrinth.com' +
-              this.$route.path
-            "
-            class="log-in-button"
-          >
-            Log In
-          </a>
-          <div v-if="this.$auth.loggedIn" class="avatar">
-            <img :src="this.$auth.user.avatar_url" alt="avatar" />
-            <span> {{ this.$auth.user.username }} </span>
+            <a href="https://github.com/modrinth/knossos">GitHub repository</a>.
           </div>
-          <div v-if="this.$auth.loggedIn" class="notifications">
-            <div v-if="showPopup" class="user-actions-popup">
-              <div class="popup-inner">
-                <p>
-                  Modrinth ID: <strong>{{ this.$auth.user.id }}</strong>
-                </p>
-                <hr />
-                <p class="hover">
-                  <nuxt-link :to="'/user/' + this.$auth.user.id">
-                    My profile
-                  </nuxt-link>
-                </p>
-                <p class="hover">My teams</p>
-                <hr />
-                <p class="hover" @click="logout">Logout</p>
-              </div>
-            </div>
-            <SettingsIcon @click="showPopup = !showPopup" />
-            <MoonIcon
-              v-if="$colorMode.value === 'light'"
-              @click="changeTheme"
-            />
-            <SunIcon v-else @click="changeTheme" />
+          <div class="legal">
+            <ul>
+              <li>
+                <NuxtLink to="/tos">Terms</NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/privacy">Privacy</NuxtLink>
+              </li>
+            </ul>
           </div>
+          <div class="copyright">© Guavy LLC</div>
         </section>
       </nav>
     </aside>
     <main>
-      <Notifications group="main" position="bottom right" />
-      <Notifications
+      <notifications group="main" position="bottom right" />
+      <notifications
         group="ads"
         position="bottom right"
         :duration="-1"
         :ignore-duplicates="true"
       />
-      <div class="alpha-alert">
-        Modrinth is in early alpha. You can join our
-        <a href="https://discord.gg/gFRbNQ2">discord</a> for updates!
+      <div class="alpha-alert hidden">
+        <div class="wrapper">
+          Modrinth is in early alpha. Beware of many bugs and broken and
+          unimplemented features. Join our
+          <a class="text-link" href="https://discord.gg/gFRbNQ2">Discord</a>
+          for updates!
+        </div>
       </div>
-      <nuxt />
+      <Nuxt />
     </main>
   </div>
 </template>
 
 <script>
+import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
+import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
+
 import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
 import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
 import ProjectsIcon from '~/assets/images/sidebar/projects.svg?inline'
@@ -123,414 +127,325 @@ import AnalyticsIcon from '~/assets/images/sidebar/analytics.svg?inline'
 import AdminIcon from '~/assets/images/sidebar/admin.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import ExitIcon from '~/assets/images/utils/exit.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 export default {
   components: {
+    ModrinthLogo,
+    ModrinthLogoWhite,
     ModpackIcon,
     ModIcon,
     ProjectsIcon,
     AnalyticsIcon,
     AdminIcon,
-
     HamburgerIcon,
-    SettingsIcon,
+    ExitIcon,
     MoonIcon,
     SunIcon,
-  },
-  async fetch() {
-    if (this.$route.query.code)
-      await this.$auth.setUserToken(this.$route.query.code)
+    SettingsIcon,
   },
   data() {
     return {
-      showPopup: false,
+      isNavOpen: false,
     }
   },
-  mounted() {
-    this.themeAds()
+  computed: {
+    authUrl() {
+      return `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${this.$route.path}`
+    },
   },
   methods: {
-    toggleNavMenu() {
-      document.body.style.overflow =
-        document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
-    },
-    logout() {
-      this.$auth.setToken('local', false)
-      this.$router.go(null)
+    toggleNav() {
+      this.isNavOpen = !this.isNavOpen
     },
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
 
-      this.themeAds()
-    },
-    themeAds() {
-      const elements = document.getElementsByClassName('ethical-ad')
-
-      for (const elem of elements) {
-        elem.className = 'ethical-ad loaded ' + this.$colorMode.preference
-      }
+      // this.themeAds()
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .layout {
-  background-color: var(--color-grey-0);
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
-  width: 100%;
-
-  // Desktop
-  @media screen and (min-width: 1145px) {
-    flex-flow: row;
-  }
+  background-color: var(--color-grey-2);
+  display: block;
+  height: 100vh;
 
   aside {
-    top: 0;
-    position: sticky;
-    border-right: 0;
-    display: flex; // Flex here to safely expand navigation height
+    background-color: var(--color-bg);
+    display: flex;
     flex-direction: column;
-    width: 100vw;
-    max-height: 100vh;
-    z-index: 10;
+    grid-area: 'aside';
 
-    .logo-wrapper {
+    section.logo {
       align-items: center;
       display: flex;
-      height: 3.5rem;
-      width: 100vw;
-      font-family: 'Montserrat', sans-serif;
+      justify-content: space-between;
+      padding: 1rem 2rem;
 
-      .logo {
-        height: 2rem;
+      svg {
+        height: 1.75rem;
         width: auto;
-        margin-left: 2.5rem;
       }
 
-      .name {
-        font-family: 'Montserrat Alternates', serif;
-        margin-left: 0.4rem;
-        font-size: 1.3rem;
+      button {
+        background: none;
+        border: none;
+        margin: 0 0 0 0.5rem;
+        padding: 0;
+
+        svg {
+          height: 1.5rem;
+          width: 1.5rem;
+        }
       }
     }
 
-    .hamburger-button {
-      position: absolute;
-      display: block;
-      left: 10px;
-      opacity: 0;
-      margin: 0;
-      top: 1.2rem;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
+    hr {
+      background-color: var(--color-grey-2);
+      border: none;
+      color: var(--color-grey-2);
+      height: 0.2rem;
+      margin: 0.5rem 2rem;
     }
 
-    .hamburger-icon {
-      display: block;
-      position: absolute;
-      left: 15px;
-      top: 1.2rem;
-      pointer-events: none;
+    section.links {
+      a {
+        align-items: center;
+        border-right: 0.33rem solid transparent;
+        color: var(--color-grey-6);
+        display: flex;
+        font-size: var(--font-size-md);
+        margin: 0.25rem 0;
+        padding: 1rem 2rem;
+
+        span {
+          margin-left: 1rem;
+        }
+
+        &:hover,
+        &:focus,
+        &.nuxt-link-active {
+          background-color: var(--color-grey-0);
+          color: var(--color-grey-7);
+        }
+
+        &.nuxt-link-active {
+          background-color: var(--color-grey-1);
+          border-right-color: var(--color-brand);
+          color: var(--color-text);
+        }
+      }
     }
 
-    .hamburger-button:checked ~ nav {
-      left: 0;
+    section.user-controls {
+      align-items: center;
+      background-color: var(--color-grey-1);
+      border-radius: var(--size-rounded-sm);
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem;
+      padding: 0.75rem 1rem;
+
+      .avatar {
+        align-items: center;
+        display: flex;
+
+        img {
+          border-radius: 50%;
+          height: 2rem;
+          width: 2rem;
+        }
+
+        span {
+          display: block;
+          margin-left: 0.5rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      svg {
+        color: var(--color-grey-6);
+
+        &:hover,
+        &:focus {
+          color: var(--color-grey-7);
+        }
+
+        &:active {
+          color: var(--color-text);
+        }
+      }
     }
 
-    nav {
+    section.auth-prompt {
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
-      justify-content: space-between;
-      position: absolute;
-      height: calc(100vh - 3.5rem);
-      width: 100vw;
-      left: -100vw;
-      top: 3.5rem;
-      transition: left 150ms;
-      overflow-y: auto;
-      z-index: 10;
 
-      // Larger screens that still need a collapsed menu
-      @media screen and (min-width: 900px) {
-        width: 300px;
-        left: -300px;
+      .log-in-button,
+      .sign-up-button {
+        border: none;
+        border-radius: var(--size-rounded-sm);
+        color: var(--color-grey-7);
+        display: block;
+        margin: 0.5rem 3rem;
+        padding: 0.75rem 1rem;
+        text-align: center;
       }
 
-      & > * {
-        padding: 0 0.75rem;
-      }
+      .log-in-button {
+        background-color: var(--color-grey-2);
 
-      .links {
-        h3 {
-          color: #718096;
-          font-size: 0.8rem;
-          letter-spacing: 0.02rem;
-          margin-bottom: 0.5rem;
-          margin-top: 1.5rem;
-          text-transform: uppercase;
-        }
-
-        section {
-          border-left: 4px solid var(--color-grey-3);
-
-          a {
-            align-items: center;
-            border-radius: 0 0.25rem 0.25rem 0;
-            color: var(--color-grey-5);
-            display: flex;
-            margin-bottom: 0.25rem;
-            padding: 0.5rem 1rem;
-
-            &:hover,
-            &:focus,
-            &.nuxt-link-active {
-              background-color: var(--color-grey-1);
-              color: var(--color-text);
-            }
-
-            &.nuxt-link-active {
-              box-shadow: -4px 0 0 0 var(--color-brand);
-            }
-
-            svg {
-              height: 1rem;
-              width: 1rem;
-              flex-shrink: 0;
-            }
-
-            span {
-              margin-left: 0.5rem;
-            }
-          }
-        }
-      }
-      .user-actions {
-        align-items: center;
-        border-top: 2px solid var(--color-grey-2);
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1rem;
-        padding-bottom: 1rem;
-        padding-top: 1rem;
-
-        & > * {
-          align-items: center;
-          display: flex;
-        }
-
-        svg {
-          color: var(--color-grey-5);
-
-          &:hover,
-          &:focus {
-            color: inherit;
-          }
-        }
-
-        .avatar {
-          img {
-            border-radius: 50%;
-            height: 2rem;
-            margin-right: 0.5rem;
-            width: 2rem;
-          }
-        }
-
-        .log-in-button {
-          text-align: center;
-          padding: 8px 40px;
-          border-radius: 5px;
-          color: var(--color-grey-5);
+        &:hover,
+        &:focus {
           background-color: var(--color-grey-1);
-          margin-left: 2.5rem;
+          color: var(--color-text);
         }
+      }
 
-        .notifications {
-          & > * {
-            margin-left: 1rem;
-          }
-
-          svg {
-            cursor: pointer;
-          }
-        }
-
-        .user-actions-popup {
-          position: relative;
-
-          .popup-inner {
-            width: 120px;
-            border: 2px var(--color-grey-2) solid;
-            background-color: var(--color-bg);
-            color: var(--color-grey-5);
-            font-size: 15px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            margin-bottom: 20px;
-            bottom: 100%;
-            margin-left: -50px;
-
-            hr {
-              color: var(--color-grey-2);
-              height: 1px;
-            }
-            p {
-              padding: 8px;
-              margin: 0;
-            }
-
-            .hover {
-              cursor: pointer;
-
-              &:hover,
-              &:focus {
-                background-color: var(--color-brand);
-                color: #fff;
-              }
-            }
-          }
-          .popup-inner::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 45%;
-            border-width: 7px;
-            border-style: solid;
-            border-color: var(--color-grey-2) transparent transparent
-              transparent;
-          }
-        }
+      .sign-up-button {
+        background-color: transparent;
+        color: var(--color-grey-6);
+        text-decoration: underline;
       }
     }
 
-    // Desktop
-    @media screen and (min-width: 1145px) {
-      border-right: 1px solid var(--color-grey-2);
-      min-width: 300px;
-      max-width: 300px;
+    section.footer {
+      color: var(--color-grey-5);
+      padding: 0.5rem 2rem;
 
-      nav {
-        height: 100%;
-        left: 0;
-        width: 100%;
-        transition: none;
-        position: static;
+      a {
+        text-decoration: underline;
       }
 
-      .logo-wrapper {
-        padding: 0 0 0 1.5rem;
-        width: 100%;
-        .logo {
-          margin: 0;
+      ul {
+        list-style: none;
+        margin: 1rem 0;
+        padding: 0;
+
+        li {
+          display: inline;
+          margin: auto 0;
+
+          &:not(:last-child):after {
+            content: '•';
+            margin-left: 0.25rem;
+          }
         }
-      }
-
-      .hamburger-button,
-      .hamburger-icon {
-        display: none;
       }
     }
   }
+
   main {
-    background-color: var(--color-grey-0);
-    flex-grow: 1;
+    grid-area: 'main';
+
+    .alpha-alert {
+      background-color: var(--color-bg);
+      border-radius: var(--size-rounded-md);
+      margin: 0.5rem;
+      overflow: hidden;
+      width: fit-content;
+
+      .wrapper {
+        border-left: 0.5rem solid var(--color-brand);
+        padding: 0.75rem 1rem;
+      }
+    }
 
     header {
-      align-items: center;
-      background-color: var(--color-bg);
-      box-shadow: 0 1px 1px 0 var(--color-grey-2);
-      display: flex;
-      height: 3.5rem;
-      justify-content: space-between;
-      padding: 0 3rem 0 1rem;
+    }
+  }
+}
 
-      .search-wrapper {
-        align-items: center;
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    grid-template-rows: auto;
+    grid-template-areas: 'aside main';
+
+    aside {
+      height: 100vh;
+      max-height: 100vh;
+
+      nav {
         display: flex;
-        flex-direction: row-reverse;
-        width: 100%;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: space-between;
+        max-height: 100vh;
+      }
 
-        input {
-          border: none;
-          font-size: 1rem;
-          padding: 1rem;
-          width: 100%;
+      section.logo {
+        padding: 2rem;
 
-          &::placeholder {
-            color: var(--color-grey-5);
-          }
-
-          &:hover,
-          &:focus {
-            & + svg {
-              color: inherit;
-            }
-
-            &::placeholder {
-              color: var(--color-grey-7);
-            }
-          }
+        button.hamburger {
+          display: none;
         }
+      }
 
-        svg {
-          color: var(--color-grey-5);
+      hr {
+        margin: 1rem 2rem;
+      }
+
+      section.links {
+        a {
+          padding: 1rem 2rem;
         }
+      }
+
+      section.user-controls {
+        margin: 1rem;
+      }
+
+      section.footer {
+        padding: 1rem 2rem;
       }
     }
 
-    .content {
-      // Default is for small phone sizes (like iPhone 5/SE)
-      padding: 0.5rem 0.35rem 0.5rem 0.35rem;
+    main {
+      .alpha-alert {
+        margin: 1rem;
 
-      // Larger phones
-      @media screen and (min-width: 500px) {
-        padding: 1rem 0.5rem 1rem 0.5rem;
-      }
-
-      // Desktop
-      @media screen and (min-width: 1145px) {
-        padding: 1rem;
+        .wrapper {
+          padding: 1rem 2rem 1rem 1rem;
+        }
       }
     }
   }
 }
 
-.alpha-alert {
-  text-align: center;
-  padding: 1em;
-  background-color: var(--color-grey-1);
+@media (min-width: 1280px) {
+  .layout {
+    grid-template-columns: 1fr 7fr;
 
-  a {
-    text-decoration: underline;
-    color: var(--color-grey-5);
-  }
-}
+    aside {
+      section.logo {
+        padding: 2rem 3rem;
+      }
 
-.disclosure {
-  margin-top: auto;
-  max-width: 250px;
-  color: var(--color-grey-3);
+      hr {
+        margin: 1rem 3rem;
+      }
 
-  a {
-    text-decoration: var(--color-grey-2) underline;
-  }
-}
+      section.links {
+        a {
+          padding: 1rem 3rem;
+        }
+      }
 
-// Hack for very small (iPhone 5/SE) sized phones
-// an x overflow existed and I was unable to figure out why
-@media screen and (max-width: 360px) {
-  body {
-    overflow-x: hidden !important;
+      section.footer {
+        padding: 1rem 3rem;
+      }
+    }
   }
 }
 </style>
