@@ -6,7 +6,7 @@
         <ModrinthLogoWhite v-else />
 
         <div>
-          <button @click="changeTheme">
+          <button class="theme-changer" @click="changeTheme">
             <MoonIcon v-if="$colorMode.value === 'light'" />
             <SunIcon v-else />
           </button>
@@ -18,7 +18,7 @@
       </section>
 
       <nav class="visible-md" :class="{ hidden: !isNavOpen }">
-        <section class="links">
+        <section class="navigation">
           <section class="links community">
             <NuxtLink to="/modpacks">
               <ModpackIcon />
@@ -40,7 +40,41 @@
                   {{ this.$auth.user.username }}
                 </span>
               </div>
-              <SettingsIcon />
+              <div v-click-outside="hideDropdown" class="dropdown">
+                <button class="control" @click="toggleDropdown">
+                  <HamburgerIcon v-if="!isDropdownOpen" />
+                  <ExitIcon v-else />
+                </button>
+                <div class="content">
+                  <ul v-if="isDropdownOpen" @click="hideDropdown">
+                    <li>
+                      <NuxtLink :to="userUrl">
+                        <UserIcon />
+                        <span>My profile</span>
+                      </NuxtLink>
+                    </li>
+                    <li v-tooltip="'Not implemented yet'">
+                      <NuxtLink :to="userTeamsUrl" disabled>
+                        <UsersIcon />
+                        <span>My teams</span>
+                      </NuxtLink>
+                    </li>
+                    <li v-tooltip="'Not implemented yet'">
+                      <NuxtLink to="/settings" disabled>
+                        <SettingsIcon />
+                        <span>Settings</span>
+                      </NuxtLink>
+                    </li>
+                    <hr />
+                    <li>
+                      <button @click="logout">
+                        <LogOutIcon />
+                        <span>Log out</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </section>
 
             <section class="links dashboard">
@@ -117,6 +151,8 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
+
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
 
@@ -130,7 +166,11 @@ import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 import ExitIcon from '~/assets/images/utils/exit.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
+
+import UserIcon from '~/assets/images/utils/user.svg?inline'
+import UsersIcon from '~/assets/images/utils/users.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 
 export default {
   components: {
@@ -145,27 +185,64 @@ export default {
     ExitIcon,
     MoonIcon,
     SunIcon,
+    UserIcon,
+    UsersIcon,
     SettingsIcon,
+    LogOutIcon,
+  },
+  directives: {
+    ClickOutside,
+  },
+  async fetch() {
+    if (this.$route.query.code) {
+      await this.$auth.setUserToken(this.$route.query.code)
+    }
   },
   data() {
     return {
       isNavOpen: false,
+      isDropdownOpen: false,
     }
   },
   computed: {
     authUrl() {
-      return `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${this.$route.path}`
+      return `https://api.modrinth.com/api/v1/auth/init?url=http://localhost:3000${this.$route.path}`
     },
+    userUrl() {
+      return `/user/${this.$auth.user.id}`
+    },
+    userTeamsUrl() {
+      return `${this.userUrl}/teams`
+    },
+  },
+  mounted() {
+    this.themeAds()
   },
   methods: {
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
     },
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen
+    },
+    hideDropdown() {
+      this.isDropdownOpen = false
+    },
+    logout() {
+      this.$auth.setToken('local', false)
+      this.$router.go(null)
+    },
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
 
-      // this.themeAds()
+      this.themeAds()
+    },
+    themeAds() {
+      const elements = document.getElementsByClassName('ethical-ad')
+      for (const elem of elements) {
+        elem.className = 'ethical-ad loaded ' + this.$colorMode.preference
+      }
     },
   },
 }
@@ -272,15 +349,85 @@ export default {
         }
       }
 
+      .dropdown {
+        position: relative;
+        display: inline-block;
+
+        .control {
+          align-items: center;
+          display: flex;
+        }
+
+        .content {
+          margin: 0.5rem 0 0 -5rem;
+          min-width: 10rem;
+          position: fixed;
+        }
+
+        button {
+          background-color: transparent;
+          color: inherit;
+          margin: 0;
+          padding: 0;
+        }
+
+        ul {
+          background-color: var(--color-bg);
+          border: 1px solid var(--color-grey-2);
+          border-radius: var(--size-rounded-xs);
+          color: var(--color-grey-6);
+          display: flex;
+          flex-direction: column;
+          margin: 0;
+          list-style: none;
+          padding: 0.5rem 0;
+
+          hr {
+            background-color: var(--color-grey-2);
+            border: none;
+            color: var(--color-grey-2);
+            height: 1px;
+            margin: 0.5rem 0;
+          }
+
+          li {
+            margin: 0;
+            padding: 0.75rem 1.5rem;
+
+            &:hover,
+            &:focus {
+              background-color: var(--color-grey-0);
+              color: var(--color-text);
+            }
+
+            &:active {
+              background-color: var(--color-grey-1);
+            }
+
+            a,
+            button {
+              align-items: center;
+              display: flex;
+
+              svg {
+                color: inherit;
+                height: 1rem;
+                width: 1rem;
+              }
+
+              span {
+                margin-left: 0.5rem;
+              }
+            }
+          }
+        }
+      }
+
       svg {
         color: var(--color-grey-6);
 
         &:hover,
         &:focus {
-          color: var(--color-grey-7);
-        }
-
-        &:active {
           color: var(--color-text);
         }
       }
