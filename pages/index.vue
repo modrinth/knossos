@@ -147,16 +147,16 @@
         </p>
       </div>
       <div class="right hero-image">
-        <code>
-        const fetch = require('node-fetch');
-        fetch('https://api.modrinth.com/api/v1/mod').then(res => res.json()).then(data => {
-            console.log(data);
-            // hits: [Object {author: "mezz", author_url: "https://www.curseforge.com/members/17072262-mezz?username=mezz", …}, …]
-            // limit: 10
-            // offset: 0
-            // total_hits: 19440
-        });
-        </code>
+        <pre v-highlightjs>
+<code class="javascript">const fetch = require('node-fetch');
+fetch('https://api.modrinth.com/api/v1/mod').then(res => res.json()).then(data => {
+    console.log(data);
+    // hits: [Object {author: "mezz", author_url: "https://www.curseforge.com/members/17072262-mezz?username=mezz", …}, …]
+    // limit: 10
+    // offset: 0
+    /// total_hits: 19440
+});</code>
+        </pre>
       </div>
     </div>
   </div>
@@ -202,9 +202,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
 .left,
 .right {
   width: 50%;
+}
+
+pre {
+  background-color: #222222;
+  padding: 1em 1em 1em 1em;
+  border-width: 5px;
+  border-radius: 2em;
+  border-color: var(--color-brand);
+}
+
+code {
+  line-height: 100%;
+  padding: 0.2em;
+  letter-spacing: -0.05em;
+  word-break: normal;
+  font-family: 'Fira Code', monospace;
 }
 
 .main-hero {
