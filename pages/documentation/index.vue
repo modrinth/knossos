@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h2>Documentation</h2>
+    <h2>Modrinth Documentation</h2>
     <p>Coming Soon!</p>
   </div>
 </template>
