@@ -209,22 +209,6 @@ export default {
   width: 50%;
 }
 
-pre {
-  background-color: #222222;
-  padding: 1em 1em 1em 1em;
-  border-width: 5px;
-  border-radius: 2em;
-  border-color: var(--color-brand);
-}
-
-code {
-  line-height: 100%;
-  padding: 0.2em;
-  letter-spacing: -0.05em;
-  word-break: normal;
-  font-family: 'Fira Code', monospace;
-}
-
 .main-hero {
   height: 600px;
 
