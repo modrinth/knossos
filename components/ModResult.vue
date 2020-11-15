@@ -239,9 +239,9 @@ export default {
   grid-template-columns: 80px auto;
   grid-template-rows: auto auto auto 30px;
   max-width: 100vw;
-  margin-bottom: 10px;
-  background: var(--color-bg);
-  box-shadow: 0 2px 3px 1px var(--color-grey-2);
+  margin-bottom: 0.75rem !important;
+  background: var(--color-grey-1);
+  border-radius: 6px;
 
   // Columns are larger to accomodate larger screens
   @media screen and (min-width: 1375px) {
@@ -280,7 +280,6 @@ export default {
 .result-name-author {
   display: block;
   margin-top: 10px;
-  min-height: 38px;
 }
 
 .result-summary {
@@ -293,7 +292,7 @@ export default {
 
 .mod-name {
   align-self: flex-end;
-  font-size: 13pt;
+  font-size: 16pt !important;
 }
 
 .author {
@@ -356,10 +355,11 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--color-grey-1);
+  background-color: var(--color-grey-3);
+  border-radius: var(--size-rounded-sm);
   color: var(--color-text);
   margin: 0 5px;
-  padding: 2px;
+  padding: 0.5rem;
   font-size: 15px;
 
   svg {
@@ -457,7 +457,6 @@ export default {
 @media screen and (min-width: 1500px) {
   .result-name-author {
     display: flex;
-    min-height: 38px;
     grid-column: 2;
   }
 }

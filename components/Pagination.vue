@@ -1,7 +1,10 @@
 <template>
   <div v-if="pages.length > 1" class="columns paginates">
     <svg
-      :class="{ 'disabled-paginate': currentPage === 1 }"
+      :class="{
+        'disabled-paginate': currentPage === 1,
+        'active-paginate': currentPage !== 1,
+      }"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -83,20 +86,26 @@ export default {
 
 .disabled-paginate {
   cursor: default;
-  color: var(--color-grey-5);
+  padding: 0.5rem 0.5rem;
+  border-radius: 3px;
+  background-color: var(--color-grey-0);
+  color: var(--color-grey-3);
 }
 
 .active-page-number,
 .active-paginate {
   user-select: none;
   cursor: pointer;
+  padding: 0.5rem 0.5rem;
+  border-radius: 3px;
+  background-color: var(--color-grey-2);
 }
 
 .disabled-page-number {
   user-select: none;
   cursor: default;
-  padding: 2px 3px;
+  padding: 0.5rem 0.5rem;
   border-radius: 3px;
-  background-color: var(--color-grey-1);
+  background-color: var(--color-brand-3);
 }
 </style>

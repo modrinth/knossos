@@ -44,7 +44,7 @@
             }}</template>
           </Multiselect>
           <div class="mobile-filters-button">
-            <button @click="toggleFiltersMenu">Filter...</button>
+            <button @click="toggleFiltersMenu">Filter</button>
           </div>
         </div>
         <pagination
@@ -534,6 +534,8 @@ export default {
     width: 100%;
   }
   .sort-paginate {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     display: flex;
     width: 100%;
   }
@@ -561,16 +563,21 @@ export default {
 
 .content {
   min-height: 96vh;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .mobile-filters-button {
   display: inline-block;
   button {
-    background: var(--color-bg);
+    background: var(--color-grey-2);
     color: var(--color-text);
-    border: 2px solid var(--color-grey-3);
+    border: none;
     border-radius: var(--size-rounded-sm);
-    padding: 0.5rem;
+    margin-top: 0;
+    height: 2.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   // Hide button on larger screens where it's not needed
@@ -581,8 +588,7 @@ export default {
 
 .filters {
   overflow-y: auto;
-  background-color: var(--color-bg);
-  border-left: 1px solid var(--color-grey-2);
+  background-color: var(--color-grey-0);
   position: fixed;
   width: 100vw;
   right: -100vw;
@@ -631,16 +637,15 @@ export default {
   button {
     cursor: pointer;
     width: 100%;
-    padding: 5px 0;
+    padding: 0.5rem 0;
     outline: none;
-    color: var(--color-grey-5);
-    background-color: var(--color-grey-1);
+    color: var(--color-text);
+    background-color: var(--color-grey-2);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--size-rounded-sm);
 
     &:hover {
-      background-color: var(--color-grey-2);
-      color: var(--color-text);
+      background-color: var(--color-grey-1);
     }
   }
 
@@ -657,7 +662,7 @@ export default {
 
   // Desktop
   @media screen and (min-width: 1145px) {
-    margin-top: 2em;
+    margin-top: 1em;
   }
 }
 
@@ -711,7 +716,8 @@ select {
 
 .sort-types {
   min-width: 200px;
-  border: 2px solid var(--color-grey-3);
+  height: 2.5rem;
+  border: none;
   border-radius: var(--size-rounded-sm);
 
   .multiselect__tags {
@@ -734,16 +740,19 @@ select {
 
 .multiselect__content-wrapper {
   overflow-x: hidden;
+  border: none;
+  border-radius: 0 0 var(--size-rounded-sm) var(--size-rounded-sm);
+  background: none;
 }
 
 .multiselect__tags {
-  border: 2px solid var(--color-grey-3);
+  border: none;
   border-radius: var(--size-rounded-sm);
 }
 
 .multiselect__tags,
 .multiselect__spinner {
-  background: var(--color-bg);
+  background: var(--color-grey-2);
   cursor: pointer;
 }
 
@@ -752,16 +761,26 @@ select {
   border-top-color: var(--color-brand);
 }
 
-.multiselect__option--selected.multiselect__option--highlight,
 .multiselect__option,
 .multiselect__single,
 .multiselect__input {
   color: var(--color-text);
-  background: var(--color-bg);
+  background: var(--color-grey-2);
+  border: none;
 }
 
+.multiselect__option--selected {
+  color: var(--color-text);
+  background: var(--color-brand-3);
+}
+
+.multiselect__option--selected.multiselect__option--highlight,
 .multiselect__option--highlight,
 .multiselect__tag {
   background: var(--color-brand);
+}
+
+.multiselect__placeholder {
+  margin-top: 0.15rem;
 }
 </style>

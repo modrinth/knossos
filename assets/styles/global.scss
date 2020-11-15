@@ -5,7 +5,10 @@
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: rgb(77,146,39);
+  --color-brand: #4d9227;
+  --color-brand-inverted: #ffffff;
+  --color-brand-2: #5fa33b;
+  --color-brand-3: #c1e4ae;
 
   --color-grey-0: #F5F9FB;
   --color-grey-1: #edf2f7;
@@ -21,21 +24,24 @@
 
 .dark-mode {
   --color-text: #ffffff;
-  --color-bg: #191917;
+  --color-bg: #171719;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: rgb(77,146,39);
+  --color-brand: #4d9227;
+  --color-brand-inverted: #ffffff;  
+  --color-brand-2: #438121;
+  --color-brand-3: #344d26;
 
   --color-grey-7: #f7faf0;
   --color-grey-6: #f7f2eb;
   --color-grey-5: #ede9e4;
-  --color-grey-4: #b3b3b3;
-  --color-grey-3: #797b76;
-  --color-grey-2: #3b3937;
-  --color-grey-1: #3a3b38;
-  --color-grey-0: #1d1e1b;
+  --color-grey-4: #979797;
+  --color-grey-3: #545458;
+  --color-grey-2: #333336;
+  --color-grey-1: #2a2a2c;
+  --color-grey-0: #1f1f1f;
 
   --color-link: #4793d9;
 }
@@ -78,7 +84,7 @@ a {
 }
 
 h2 {
-  margin-top: 0;
+  margin-top: 1rem;
   margin-bottom: 1.25rem;
 }
 
@@ -95,18 +101,23 @@ button {
 }
 
 input {
-  background: var(--color-bg);
-  border: 2px solid var(--color-grey-3);
+  background: var(--color-grey-2);
+  border: none;
   border-radius: var(--size-rounded-sm);
   color: var(--color-text);
   font-size: 1rem;
   padding: 0.5rem 1rem;
+  height: 2.5rem;
   width: 100%;
+
+  &:focus {
+    background: var(--color-grey-1);
+  }
 
   &:focus,
   &:hover {
-    border-color: var(--color-grey-4);
     color: var(--color-text);
+    outline: none;
 
     &::placeholder {
       color: var(--color-grey-7);
