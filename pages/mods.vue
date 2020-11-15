@@ -350,7 +350,7 @@ export default {
         { display: 'Updated', name: 'updated' },
       ],
       sortType: { display: 'Relevance', name: 'relevance' },
-      maxResults: 5,
+      maxResults: 20,
     }
   },
   methods: {
@@ -482,7 +482,7 @@ export default {
             url += `&v=${encodeURIComponent(this.selectedVersions)}`
           if (this.sortType.name !== 'relevance')
             url += `&s=${encodeURIComponent(this.sortType.name)}`
-          if (this.maxResults > 5)
+          if (this.maxResults > 20)
             url += `&m=${encodeURIComponent(this.maxResults)}`
 
           window.history.pushState(new Date(), 'Mods', url)
@@ -563,8 +563,7 @@ export default {
 
 .content {
   min-height: 96vh;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin: 1rem;
 }
 
 .mobile-filters-button {
@@ -778,6 +777,7 @@ select {
 .multiselect__option--highlight,
 .multiselect__tag {
   background: var(--color-brand);
+  color: var(--color-brand-inverted);
 }
 
 .multiselect__placeholder {

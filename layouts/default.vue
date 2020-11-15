@@ -309,7 +309,7 @@ export default {
         &:hover,
         &:focus,
         &.nuxt-link-active {
-          background-color: var(--color-grey-1);
+          background-color: var(--color-grey-2);
           color: var(--color-text);
         }
 
@@ -323,7 +323,7 @@ export default {
 
     section.user-controls {
       align-items: center;
-      background-color: var(--color-grey-1);
+      background-color: var(--color-grey-2);
       border-radius: var(--size-rounded-sm);
       display: flex;
       justify-content: space-between;
@@ -580,7 +580,7 @@ export default {
 
     aside {
       section.logo {
-        padding: 2rem 3rem;
+        padding: 2rem;
       }
 
       hr {

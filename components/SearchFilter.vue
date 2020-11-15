@@ -57,7 +57,7 @@ export default {
 
   &:hover,
   &:focus {
-    background-color: var(--color-grey-1);
+    background-color: var(--color-grey-2);
     color: var(--color-text);
   }
 }

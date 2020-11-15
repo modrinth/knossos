@@ -77,6 +77,7 @@ export default {
 <style scoped>
 .paginates {
   align-items: center;
+  height: 2.5rem;
 }
 
 .paginates p {

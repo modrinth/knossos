@@ -231,7 +231,7 @@ export default {
 
 <style lang="scss">
 .results {
-  margin-top: 10px;
+  margin-top: 0.75rem;
 }
 
 .result {
@@ -241,7 +241,8 @@ export default {
   max-width: 100vw;
   margin-bottom: 0.75rem !important;
   background: var(--color-grey-1);
-  border-radius: 6px;
+  border-radius: var(--size-rounded-xs);
+  box-shadow: var(--shadow-faint);
 
   // Columns are larger to accomodate larger screens
   @media screen and (min-width: 1375px) {
