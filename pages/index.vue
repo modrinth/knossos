@@ -294,6 +294,7 @@ export default {
     right: 0;
     z-index: -1;
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   &:before {
