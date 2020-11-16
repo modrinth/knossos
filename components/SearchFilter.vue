@@ -41,10 +41,10 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 2px 2px 2px 20px;
-  margin: 0 0 0 5px;
+  padding: 0.3rem 0.3rem 0.3rem 1rem;
+  margin: 0 0 0 0.5rem;
   border-left: 4px solid var(--color-grey-3);
-  border-radius: 0 0.25rem 0.25rem 0;
+  border-radius: 0 var(--size-rounded-sm) var(--size-rounded-sm) 0;
   color: var(--color-grey-5);
   font-size: 1rem;
   letter-spacing: 0.02rem;
@@ -57,14 +57,19 @@ export default {
 
   &:hover,
   &:focus {
-    background-color: var(--color-grey-1);
+    background-color: var(--color-grey-2);
     color: var(--color-text);
   }
 }
 
 .filter-active {
-  background-color: var(--color-grey-1);
+  background-color: var(--color-brand-3);
   color: var(--color-text);
   border-left: 4px solid var(--color-brand);
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-brand-3);
+  }
 }
 </style>

@@ -250,12 +250,12 @@ export default {
 
 <style lang="scss">
 .layout {
-  background-color: var(--color-grey-2);
+  background-color: var(--color-bg);
   display: block;
   height: 100vh;
 
   aside {
-    background-color: var(--color-bg);
+    background-color: var(--color-grey-0);
     display: flex;
     flex-direction: column;
     grid-area: 'aside';
@@ -309,12 +309,12 @@ export default {
         &:hover,
         &:focus,
         &.nuxt-link-active {
-          background-color: var(--color-grey-0);
-          color: var(--color-grey-7);
+          background-color: var(--color-grey-2);
+          color: var(--color-text);
         }
 
         &.nuxt-link-active {
-          background-color: var(--color-grey-1);
+          background-color: var(--color-brand-3);
           border-right-color: var(--color-brand);
           color: var(--color-text);
         }
@@ -323,7 +323,7 @@ export default {
 
     section.user-controls {
       align-items: center;
-      background-color: var(--color-grey-1);
+      background-color: var(--color-grey-2);
       border-radius: var(--size-rounded-sm);
       display: flex;
       justify-content: space-between;
@@ -449,6 +449,16 @@ export default {
       }
 
       .log-in-button {
+        background-color: var(--color-brand);
+        color: var(--color-brand-inverted);
+
+        &:hover,
+        &:focus {
+          background-color: var(--color-brand-2);
+        }
+      }
+
+      .sign-up-button {
         background-color: var(--color-grey-2);
 
         &:hover,
@@ -456,12 +466,6 @@ export default {
           background-color: var(--color-grey-1);
           color: var(--color-text);
         }
-      }
-
-      .sign-up-button {
-        background-color: transparent;
-        color: var(--color-grey-6);
-        text-decoration: underline;
       }
     }
 
@@ -576,7 +580,7 @@ export default {
 
     aside {
       section.logo {
-        padding: 2rem 3rem;
+        padding: 2rem;
       }
 
       hr {

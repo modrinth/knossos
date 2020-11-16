@@ -1,41 +1,55 @@
 .light-mode {
   --color-text:#1e2531;
-  --color-bg: #ffffff; // #fafdfe;
+  --color-bg: #f9f9f9;;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: rgb(77,146,39);
+  --color-brand: #4d9227;
+  --color-brand-inverted: #ffffff;
+  --color-brand-2: #5fa33b;
+  --color-brand-3: #c5ddb7;
 
-  --color-grey-0: #F5F9FB;
-  --color-grey-1: #edf2f7;
-  --color-grey-2: #e2e8f0;
-  --color-grey-3: #cbd5e0;
-  --color-grey-4: #a0aec0;
-  --color-grey-5: #718096;
-  --color-grey-6: #4a5568;
+  --color-grey-0: #edf0f1;
+  --color-grey-1: #ffffff;
+  --color-grey-2: #dadce0;
+  --color-grey-3: #dadada;
+  --color-grey-4: #a3a3a3;
+  --color-grey-5: #727272;
+  --color-grey-6: #505050;
   --color-grey-7: #2d3748;
 
+  --color-ad: #e4edfc;
+
+  --shadow-faint: 0px 0px 8px hsla(0, 0%, 0%, 0.05);
+  
   --color-link: #2089ff;
 }
 
 .dark-mode {
   --color-text: #ffffff;
-  --color-bg: #191917;
+  --color-bg: #171719;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: rgb(77,146,39);
+  --color-brand: #4d9227;
+  --color-brand-inverted: #ffffff;  
+  --color-brand-2: #438121;
+  --color-brand-3: #344d26;
 
   --color-grey-7: #f7faf0;
   --color-grey-6: #f7f2eb;
   --color-grey-5: #ede9e4;
-  --color-grey-4: #b3b3b3;
-  --color-grey-3: #797b76;
-  --color-grey-2: #3b3937;
-  --color-grey-1: #3a3b38;
-  --color-grey-0: #1d1e1b;
+  --color-grey-4: #979797;
+  --color-grey-3: #545458;
+  --color-grey-2: #333336;
+  --color-grey-1: #2a2a2c;
+  --color-grey-0: #1f1f1f;
+  
+  --color-ad: #2c323a;
+  
+  --shadow-faint: none;
 
   --color-link: #4793d9;
 }
@@ -79,11 +93,11 @@ a {
 
 h2 {
   margin-top: 0;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 h3 {
-  margin-top: 1rem;
+  margin-top: 0;
   margin-bottom: 0.5rem;
 }
 
@@ -95,18 +109,23 @@ button {
 }
 
 input {
-  background: var(--color-bg);
-  border: 2px solid var(--color-grey-3);
+  background: var(--color-grey-2);
+  border: none;
   border-radius: var(--size-rounded-sm);
   color: var(--color-text);
   font-size: 1rem;
   padding: 0.5rem 1rem;
+  height: 2.5rem;
   width: 100%;
+
+  &:focus {
+    background: var(--color-grey-3);
+  }
 
   &:focus,
   &:hover {
-    border-color: var(--color-grey-4);
     color: var(--color-text);
+    outline: none;
 
     &::placeholder {
       color: var(--color-grey-7);
@@ -118,7 +137,23 @@ input {
   }
 }
 
+.ea-content {
+  background: var(--color-ad) !important;
+  border-radius: var(--size-rounded-xs) var(--size-rounded-xs) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  box-shadow: var(--shadow-faint) !important;
+}
 
+.ea-callout {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
+}
 
 @import "~assets/styles/layout.scss";
 @import "~assets/styles/utils.scss";
