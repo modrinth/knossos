@@ -80,7 +80,7 @@
             <section class="links dashboard">
               <NuxtLink to="/dashboard/projects">
                 <ProjectsIcon />
-                <span>My projects</span>
+                <span>My Projects</span>
               </NuxtLink>
               <NuxtLink to="/dashboard/analytics">
                 <AnalyticsIcon />
@@ -255,7 +255,7 @@ export default {
   height: 100vh;
 
   aside {
-    background-color: var(--color-grey-0);
+    background-color: var(--color-raised-bg);
     display: flex;
     flex-direction: column;
     grid-area: 'aside';
@@ -509,9 +509,6 @@ export default {
         border-left: 0.5rem solid var(--color-brand);
         padding: 0.75rem 1rem;
       }
-    }
-
-    header {
     }
   }
 }

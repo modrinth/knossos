@@ -1,265 +1,267 @@
 <template>
   <div class="columns">
-    <div class="content column-grow-5">
-      <h2>Mods</h2>
-      <section class="search-bar">
-        <div class="iconified-input column-grow-2">
-          <label class="hidden" for="search">Search Mods</label>
-          <input
-            id="search"
-            v-model="query"
-            type="search"
-            name="search"
-            placeholder="Search mods"
-            @input="onSearchChange(1)"
+    <div class="content column-grow-5 columns">
+      <div class="column">
+        <section class="search-nav">
+          <div class="iconified-input column-grow-2">
+            <label class="hidden" for="search">Search Mods</label>
+            <input
+              id="search"
+              v-model="query"
+              type="search"
+              name="search"
+              placeholder="Search..."
+              autocomplete="off"
+              @input="onSearchChange(1)"
+            />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
+          <div class="sort-paginate">
+            <Multiselect
+              v-model="sortType"
+              class="sort-types"
+              placeholder="Select one"
+              track-by="display"
+              label="display"
+              :options="sortTypes"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="onSearchChange(1)"
+            >
+              <template slot="singleLabel" slot-scope="{ option }">{{
+                option.display
+              }}</template>
+            </Multiselect>
+            <div class="mobile-filters-button">
+              <button @click="toggleFiltersMenu">Filter</button>
+            </div>
+          </div>
+          <pagination
+            :current-page="currentPage"
+            :pages="pages"
+            @switch-page="onSearchChange"
+          ></pagination>
+        </section>
+        <div class="results column-grow-4">
+          <client-only>
+            <EthicalAd type="text" />
+          </client-only>
+          <SearchResult
+            v-for="(result, index) in results"
+            :id="result.mod_id"
+            :key="result.mod_id"
+            :author="result.author"
+            :name="result.title"
+            :description="result.description"
+            :latest-version="result.latest_version"
+            :created-at="result.date_created"
+            :updated-at="result.date_modified"
+            :downloads="result.downloads.toString()"
+            :icon-url="result.icon_url"
+            :author-url="result.author_url"
+            :page-url="result.page_url"
+            :categories="result.categories"
+            :is-ad="index === -1"
           />
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
+          <div v-if="results.length === 0" class="no-results">
+            <p>No results found for your query!</p>
+          </div>
         </div>
-        <div class="sort-paginate">
+        <section v-if="pages.length > 1" class="search-bottom">
           <Multiselect
-            v-model="sortType"
-            class="sort-types"
+            v-model="maxResults"
+            class="max-results"
             placeholder="Select one"
-            track-by="display"
-            label="display"
-            :options="sortTypes"
+            :options="[5, 10, 15, 20, 50, 100]"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
-            @input="onSearchChange(1)"
+            @input="onSearchChange(currentPage)"
           >
-            <template slot="singleLabel" slot-scope="{ option }">{{
-              option.display
-            }}</template>
           </Multiselect>
-          <div class="mobile-filters-button">
-            <button @click="toggleFiltersMenu">Filter</button>
-          </div>
-        </div>
-        <pagination
-          :current-page="currentPage"
-          :pages="pages"
-          @switch-page="onSearchChange"
-        ></pagination>
-      </section>
-      <div class="results column-grow-4">
-        <client-only>
-          <EthicalAd type="text" />
-        </client-only>
-        <SearchResult
-          v-for="(result, index) in results"
-          :id="result.mod_id"
-          :key="result.mod_id"
-          :author="result.author"
-          :name="result.title"
-          :description="result.description"
-          :latest-version="result.latest_version"
-          :created-at="result.date_created"
-          :updated-at="result.date_modified"
-          :downloads="result.downloads.toString()"
-          :icon-url="result.icon_url"
-          :author-url="result.author_url"
-          :page-url="result.page_url"
-          :categories="result.categories"
-          :is-ad="index === -1"
-        />
-        <div v-if="results.length === 0" class="no-results">
-          <p>No results found for your query!</p>
-        </div>
+          <pagination
+            :current-page="currentPage"
+            :pages="pages"
+            @switch-page="onSearchChangeToTop"
+          ></pagination>
+        </section>
       </div>
-      <section v-if="pages.length > 1" class="search-bottom">
-        <Multiselect
-          v-model="maxResults"
-          class="max-results"
-          placeholder="Select one"
-          :options="[5, 10, 15, 20, 50, 100]"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-          @input="onSearchChange(currentPage)"
-        >
-        </Multiselect>
-        <pagination
-          :current-page="currentPage"
-          :pages="pages"
-          @switch-page="onSearchChangeToTop"
-        ></pagination>
+      <section id="filters" class="filters column">
+        <div class="filters-wrapper">
+          <section class="filter-group">
+            <button class="filter-button-done" @click="toggleFiltersMenu">
+              Done
+            </button>
+            <button @click="clearFilters">Clear Filters</button>
+            <h3>Categories</h3>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Technology"
+              facet-name="categories:technology"
+              @toggle="toggleFacet"
+            >
+              <TechCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Adventure"
+              facet-name="categories:adventure"
+              @toggle="toggleFacet"
+            >
+              <AdventureCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Magic"
+              facet-name="categories:magic"
+              @toggle="toggleFacet"
+            >
+              <MagicCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Utility"
+              facet-name="categories:utility"
+              @toggle="toggleFacet"
+            >
+              <UtilityCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Decoration"
+              facet-name="categories:decoration"
+              @toggle="toggleFacet"
+            >
+              <DecorationCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Library"
+              facet-name="categories:library"
+              @toggle="toggleFacet"
+            >
+              <LibraryCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Cursed"
+              facet-name="categories:cursed"
+              @toggle="toggleFacet"
+            >
+              <CursedCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Worldgen"
+              facet-name="categories:worldgen"
+              @toggle="toggleFacet"
+            >
+              <WorldGenCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Storage"
+              facet-name="categories:storage"
+              @toggle="toggleFacet"
+            >
+              <StorageCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Food"
+              facet-name="categories:food"
+              @toggle="toggleFacet"
+            >
+              <FoodCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Equipment"
+              facet-name="categories:equipment"
+              @toggle="toggleFacet"
+            >
+              <EquipmentCategory />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Misc"
+              facet-name="categories:misc"
+              @toggle="toggleFacet"
+            >
+              <MiscCategory />
+            </SearchFilter>
+            <h3>Loaders</h3>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Forge"
+              facet-name="categories:forge"
+              @toggle="toggleFacet"
+            >
+              <ForgeLoader />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Fabric"
+              facet-name="categories:fabric"
+              @toggle="toggleFacet"
+            >
+              <FabricLoader />
+            </SearchFilter>
+            <h3>Platforms</h3>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Modrinth"
+              facet-name="host:modrinth"
+              @toggle="toggleFacet"
+            >
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Curseforge"
+              facet-name="host:curseforge"
+              @toggle="toggleFacet"
+            >
+            </SearchFilter>
+            <h3>Versions</h3>
+            <SearchFilter
+              :active-filters="showVersions"
+              display-name="Snapshots"
+              facet-name="snapshots"
+              style="margin-bottom: 10px"
+              @toggle="fillInitialVersions"
+            />
+          </section>
+          <multiselect
+            v-model="selectedVersions"
+            :options="versions"
+            :loading="versions.length === 0"
+            :multiple="true"
+            :searchable="true"
+            :show-no-results="false"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :show-labels="false"
+            :limit="6"
+            :hide-selected="true"
+            placeholder="Choose versions..."
+            @input="onSearchChange(1)"
+          ></multiselect>
+        </div>
       </section>
     </div>
-    <section id="filters" class="filters">
-      <div class="filters-wrapper">
-        <section class="filter-group">
-          <button class="filter-button-done" @click="toggleFiltersMenu">
-            Done
-          </button>
-          <button @click="clearFilters">Clear Filters</button>
-          <h3>Categories</h3>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Technology"
-            facet-name="categories:technology"
-            @toggle="toggleFacet"
-          >
-            <TechCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Adventure"
-            facet-name="categories:adventure"
-            @toggle="toggleFacet"
-          >
-            <AdventureCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Magic"
-            facet-name="categories:magic"
-            @toggle="toggleFacet"
-          >
-            <MagicCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Utility"
-            facet-name="categories:utility"
-            @toggle="toggleFacet"
-          >
-            <UtilityCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Decoration"
-            facet-name="categories:decoration"
-            @toggle="toggleFacet"
-          >
-            <DecorationCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Library"
-            facet-name="categories:library"
-            @toggle="toggleFacet"
-          >
-            <LibraryCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Cursed"
-            facet-name="categories:cursed"
-            @toggle="toggleFacet"
-          >
-            <CursedCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Worldgen"
-            facet-name="categories:worldgen"
-            @toggle="toggleFacet"
-          >
-            <WorldGenCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Storage"
-            facet-name="categories:storage"
-            @toggle="toggleFacet"
-          >
-            <StorageCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Food"
-            facet-name="categories:food"
-            @toggle="toggleFacet"
-          >
-            <FoodCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Equipment"
-            facet-name="categories:equipment"
-            @toggle="toggleFacet"
-          >
-            <EquipmentCategory />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Misc"
-            facet-name="categories:misc"
-            @toggle="toggleFacet"
-          >
-            <MiscCategory />
-          </SearchFilter>
-          <h3>Loaders</h3>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Forge"
-            facet-name="categories:forge"
-            @toggle="toggleFacet"
-          >
-            <ForgeLoader />
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Fabric"
-            facet-name="categories:fabric"
-            @toggle="toggleFacet"
-          >
-            <FabricLoader />
-          </SearchFilter>
-          <h3>Platforms</h3>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Modrinth"
-            facet-name="host:modrinth"
-            @toggle="toggleFacet"
-          >
-          </SearchFilter>
-          <SearchFilter
-            :active-filters="facets"
-            display-name="Curseforge"
-            facet-name="host:curseforge"
-            @toggle="toggleFacet"
-          >
-          </SearchFilter>
-          <h3>Versions</h3>
-          <SearchFilter
-            :active-filters="showVersions"
-            display-name="Snapshots"
-            facet-name="snapshots"
-            style="margin-bottom: 10px"
-            @toggle="fillInitialVersions"
-          />
-        </section>
-        <multiselect
-          v-model="selectedVersions"
-          :options="versions"
-          :loading="versions.length === 0"
-          :multiple="true"
-          :searchable="true"
-          :show-no-results="false"
-          :close-on-select="false"
-          :clear-on-select="false"
-          :show-labels="false"
-          :limit="6"
-          :hide-selected="true"
-          placeholder="Choose versions..."
-          @input="onSearchChange(1)"
-        ></multiselect>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -525,11 +527,17 @@ export default {
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="scss">
-.search-bar {
+.search-nav {
   align-items: center;
   display: flex;
   justify-content: space-between;
   flex-flow: column;
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  input {
+    background: transparent;
+  }
   .iconified-input {
     width: 100%;
   }
@@ -563,7 +571,7 @@ export default {
 
 .content {
   min-height: 96vh;
-  margin: 1rem;
+  margin: var(--spacing-card-lg) 6vw;
 }
 
 .mobile-filters-button {
@@ -587,7 +595,7 @@ export default {
 
 .filters {
   overflow-y: auto;
-  background-color: var(--color-grey-0);
+  background-color: var(--color-raised-bg);
   position: fixed;
   width: 100vw;
   right: -100vw;
@@ -597,11 +605,9 @@ export default {
   height: calc(100vh - 3.5rem);
   transition: right 150ms;
   flex-shrink: 0; // Stop shrinking when page contents change
-
   .filters-wrapper {
     padding: 0 0.75rem;
   }
-
   h3 {
     color: #718096;
     font-size: 0.8rem;
@@ -610,21 +616,21 @@ export default {
     margin-top: 1.5rem;
     text-transform: uppercase;
   }
-
   // Larger screens that don't need to collapse
   @media screen and (min-width: 900px) {
-    position: sticky;
     width: 215px;
+    right: auto;
+    position: unset;
     padding-right: 1rem;
     transition: none;
+    border-radius: var(--size-rounded-card);
+    margin-left: var(--spacing-card-lg);
   }
-
   // Desktop
   @media screen and (min-width: 1145px) {
     top: 0;
     height: 100vh;
   }
-
   &.active {
     right: 0;
   }
@@ -742,6 +748,7 @@ select {
   border: none;
   border-radius: 0 0 var(--size-rounded-sm) var(--size-rounded-sm);
   background: none;
+  box-shadow: var(--faint-shadow);
 }
 
 .multiselect__tags {
@@ -751,7 +758,7 @@ select {
 
 .multiselect__tags,
 .multiselect__spinner {
-  background: var(--color-grey-2);
+  background: var(--color-bg);
   cursor: pointer;
 }
 
@@ -764,7 +771,7 @@ select {
 .multiselect__single,
 .multiselect__input {
   color: var(--color-text);
-  background: var(--color-grey-2);
+  background: var(--color-bg);
   border: none;
 }
 

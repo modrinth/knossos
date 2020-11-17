@@ -239,10 +239,9 @@ export default {
   grid-template-columns: 80px auto;
   grid-template-rows: auto auto auto 30px;
   max-width: 100vw;
-  margin-bottom: 0.75rem !important;
+  margin-bottom: var(--spacing-card-md);
   background: var(--color-grey-1);
-  border-radius: var(--size-rounded-xs);
-  box-shadow: var(--shadow-faint);
+  border-radius: var(--size-rounded-card);
 
   // Columns are larger to accomodate larger screens
   @media screen and (min-width: 1375px) {
@@ -438,7 +437,6 @@ export default {
 // Larger screens
 @media screen and (min-width: 1375px) {
   .result {
-    margin: 5px 0;
     grid-column: 1;
     grid-template-columns: 110px auto;
   }

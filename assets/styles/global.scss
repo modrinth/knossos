@@ -1,6 +1,7 @@
 .light-mode {
   --color-text:#1e2531;
-  --color-bg: #f9f9f9;;
+  --color-bg: #edf2f7;
+  --color-raised-bg: #ffffff;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
@@ -19,9 +20,9 @@
   --color-grey-6: #505050;
   --color-grey-7: #2d3748;
 
-  --color-ad: #e4edfc;
+  --color-ad: #d6e6f9;
 
-  --shadow-faint: 0px 0px 8px hsla(0, 0%, 0%, 0.05);
+  --faint-shadow: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   
   --color-link: #2089ff;
 }
@@ -29,6 +30,7 @@
 .dark-mode {
   --color-text: #ffffff;
   --color-bg: #171719;
+  --color-raised-bg: #2a2a2c;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
@@ -49,7 +51,7 @@
   
   --color-ad: #2c323a;
   
-  --shadow-faint: none;
+  --faint-shadow: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
 
   --color-link: #4793d9;
 }
@@ -69,6 +71,12 @@ body {
   --size-rounded-sm: 0.75rem;
   --size-rounded-md: 1rem;
   --size-rounded-lg: 1.25rem;
+
+  --size-rounded-card: 0.75rem;
+
+  --spacing-card-lg: 1.5rem;
+  --spacing-card-md: 0.75rem;
+  --spacing-card-sm: 0.5rem;
 
   // Font Sizes
   --font-size-xs: 0.75rem;    //12px
@@ -109,7 +117,7 @@ button {
 }
 
 input {
-  background: var(--color-grey-2);
+  background: var(--color-raised-bg);
   border: none;
   border-radius: var(--size-rounded-sm);
   color: var(--color-text);
@@ -117,10 +125,6 @@ input {
   padding: 0.5rem 1rem;
   height: 2.5rem;
   width: 100%;
-
-  &:focus {
-    background: var(--color-grey-3);
-  }
 
   &:focus,
   &:hover {
@@ -139,7 +143,7 @@ input {
 
 .ea-content {
   background: var(--color-ad) !important;
-  border-radius: var(--size-rounded-xs) var(--size-rounded-xs) !important;
+  border-radius: var(--size-rounded-card) !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
   margin-bottom: 0 !important;

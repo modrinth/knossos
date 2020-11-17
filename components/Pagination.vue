@@ -80,16 +80,11 @@ export default {
   height: 2.5rem;
 }
 
-.paginates p {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
 .disabled-paginate {
   cursor: default;
-  padding: 0.5rem 0.5rem;
-  border-radius: 3px;
-  background-color: var(--color-grey-0);
+  border-radius: 50% !important;
+  padding: 0.5rem 0.8rem;
+  background-color: transparent;
   color: var(--color-grey-3);
 }
 
@@ -97,16 +92,16 @@ export default {
 .active-paginate {
   user-select: none;
   cursor: pointer;
-  padding: 0.5rem 0.5rem;
-  border-radius: 3px;
-  background-color: var(--color-grey-2);
+  border-radius: 50% !important;
+  padding: 0.5rem 0.8rem;
+  background-color: transparent;
 }
 
 .disabled-page-number {
   user-select: none;
   cursor: default;
-  padding: 0.5rem 0.5rem;
-  border-radius: 3px;
-  background-color: var(--color-brand-3);
+  border-radius: 50% !important;
+  padding: 0.5rem 0.8rem;
+  background-color: var(--color-bg);
 }
 </style>
