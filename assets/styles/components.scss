@@ -122,9 +122,12 @@
   z-index: 10000;
 
   .tooltip-inner {
-    background: var(--color-grey-2);
-    color: var(--color-text);
+    background: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
     padding: 5px 10px 4px;
+    border-radius: var(--size-rounded-tooltip);
+    box-shadow: var(--shadow-tooltip);
+    font-size: 0.9rem;
   }
 
   .tooltip-arrow {
@@ -133,7 +136,7 @@
     border-style: solid;
     position: absolute;
     margin: 5px;
-    border-color: var(--color-grey-2);
+    border-color: var(--color-tooltip-bg);
     z-index: 1;
   }
 

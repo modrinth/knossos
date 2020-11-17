@@ -18,7 +18,7 @@
     </p>
     <div class="column-grow-1 columns result-infos">
       <div class="result-image columns">
-        <DownloadIcon stroke="#3cdb36" />
+        <DownloadIcon stroke="currentColor" />
         <p>{{ formatNumber(downloads) }}</p>
       </div>
       <div
@@ -27,7 +27,7 @@
         "
         class="result-image columns"
       >
-        <CalendarIcon fill="#099fef" />
+        <CalendarIcon fill="currentColor" />
         <p>{{ $dayjs(createdAt).fromNow() }}</p>
       </div>
       <div
@@ -40,7 +40,7 @@
         <svg
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#e88d0d"
+          stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -58,7 +58,7 @@
         <svg
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#e8200d"
+          stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -232,24 +232,19 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .results {
   margin-top: 0.75rem;
 }
 
 .result {
   display: grid;
-  grid-template-columns: 80px auto;
+  grid-template-columns: 7.5rem auto;
   grid-template-rows: auto auto auto 30px;
   max-width: 100vw;
   margin-bottom: var(--spacing-card-md);
   background: var(--color-grey-1);
   border-radius: var(--size-rounded-card);
-
-  // Columns are larger to accomodate larger screens
-  @media screen and (min-width: 1375px) {
-    grid-template-columns: 120px auto;
-  }
 }
 
 .result * {
@@ -259,25 +254,13 @@ export default {
 }
 
 .result-icon {
-  width: 60px;
-  height: 60px;
-  margin: 5px !important;
-  border-radius: 0.5rem;
+  width: 6rem;
+  height: 6rem;
+  margin: 0.75rem;
+  border-radius: var(--size-rounded-icon);
   grid-row-start: 1;
   grid-row-end: 4;
   grid-column-start: 1;
-
-  @media screen and (min-width: 900px) {
-    margin: 10px 20px 10px 10px !important;
-    width: 70px;
-    height: 70px;
-  }
-
-  // Larger screen, larger icon
-  @media screen and (min-width: 1375px) {
-    width: 90px;
-    height: 90px;
-  }
 }
 
 .result-name-author {
@@ -371,25 +354,9 @@ export default {
   }
 }
 
-.loaders {
-  align-items: center;
-  grid-column: 1;
-  grid-row: 3;
-  img {
-    width: 15px;
-  }
-
-  svg {
-    width: 20px;
-    margin-top: 2px;
-    margin-left: 5px;
-  }
-}
-
 // Larger tablet-sized screens
 @media screen and (min-width: 900px) {
   .result {
-    grid-template-columns: 90px auto;
     grid-template-rows: auto auto 35px;
   }
 
@@ -441,11 +408,10 @@ export default {
 @media screen and (min-width: 1375px) {
   .result {
     grid-column: 1;
-    grid-template-columns: 110px auto;
   }
 
   .categories {
-    margin: 0 5px 10px auto;
+    margin: 0 0.5rem 0.5rem auto;
     grid-row: 3;
     grid-column: 3;
   }

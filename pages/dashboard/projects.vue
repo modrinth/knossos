@@ -1,11 +1,13 @@
 <template>
   <div class="content">
-    <h2>My projects</h2>
-    <div class="section-header">
-      <h3>Mods</h3>
-      <nuxt-link class="create-button" to="/mod/create"
-        >Create a new mod</nuxt-link
-      >
+    <client-only>
+      <EthicalAd />
+    </client-only>
+    <div class="section-header columns">
+      <h3 class="column-grow-1">Mods</h3>
+      <nuxt-link class="create-button column" to="/mod/create">
+        Create Mod
+      </nuxt-link>
     </div>
     <table>
       <thead>
@@ -15,15 +17,17 @@
           <th>Role</th>
           <th>Status</th>
           <th>Downloads</th>
-          <th>Last updated</th>
+          <th>Last Updated</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="mod in mods" :key="mod.id">
           <td>
-            <img class="rounded-md" :src="mod.icon_url" />
+            <nuxt-link :to="'/mod/' + mod.id">
+              <img class="rounded-md" :src="mod.icon_url" />
+            </nuxt-link>
           </td>
-          <td>
+          <td class="mod-name">
             <nuxt-link :to="'/mod/' + mod.id">
               {{ mod.title }}
             </nuxt-link>
@@ -54,9 +58,6 @@
         </tr>
       </tbody>
     </table>
-    <client-only>
-      <EthicalAd />
-    </client-only>
   </div>
 </template>
 
@@ -90,29 +91,24 @@ export default {
 
 <style lang="scss" scoped>
 .section-header {
-  display: flex;
-  margin-bottom: 1rem;
-
-  & > * {
-    margin-right: 1rem;
-  }
+  margin-bottom: var(--spacing-card-md);
 }
 
 .create-button {
   margin: auto 0;
-  padding: 4px 20px;
-  border-radius: 5px;
-  color: var(--color-grey-5);
-  background-color: var(--color-grey-1);
+  padding: 6px 20px;
+  border-radius: var(--size-rounded-control);
+  color: var(--color-brand-inverted);
+  background-color: var(--color-brand);
 }
 
 table {
-  background: var(--color-bg);
   border-collapse: collapse;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 3px 1px var(--color-grey-2);
   table-layout: fixed;
   width: 100%;
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
 
   * {
     text-align: left;
@@ -122,7 +118,7 @@ table {
   tr:first-child {
     th,
     td {
-      border-bottom: 1px solid var(--color-grey-2);
+      border-bottom: 1px solid var(--color-divider);
     }
   }
 
@@ -130,7 +126,7 @@ table {
   td {
     &:first-child {
       text-align: center;
-      width: 5%;
+      width: 7%;
     }
 
     &:nth-child(2) {
@@ -140,7 +136,7 @@ table {
   }
 
   th {
-    color: #718096;
+    color: var(--color-heading);
     font-size: 0.8rem;
     letter-spacing: 0.02rem;
     margin-bottom: 0.5rem;
@@ -150,7 +146,7 @@ table {
   }
 
   td {
-    padding: 0.25rem 1rem;
+    padding: 0.75rem;
 
     img {
       height: 3rem;
@@ -184,5 +180,9 @@ table {
       display: none;
     }
   }
+}
+
+.mod-name {
+  font-weight: bold;
 }
 </style>

@@ -46,7 +46,7 @@ export default {
   cursor: pointer;
   padding: 0.2rem 0.3rem;
   margin: 3px 0 0 0.5rem;
-  border-radius: var(--size-rounded-xs);
+  border-radius: var(--size-rounded-control);
   color: var(--color-grey-5);
   font-size: 1rem;
   letter-spacing: 0.02rem;

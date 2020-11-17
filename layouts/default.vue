@@ -50,13 +50,13 @@
                     <li>
                       <NuxtLink :to="userUrl">
                         <UserIcon />
-                        <span>My profile</span>
+                        <span>Profile</span>
                       </NuxtLink>
                     </li>
                     <li v-tooltip="'Not implemented yet'">
                       <NuxtLink :to="userTeamsUrl" disabled>
                         <UsersIcon />
-                        <span>My teams</span>
+                        <span>Teams</span>
                       </NuxtLink>
                     </li>
                     <li v-tooltip="'Not implemented yet'">
@@ -80,7 +80,7 @@
             <section class="links dashboard">
               <NuxtLink to="/dashboard/projects">
                 <ProjectsIcon />
-                <span>My Projects</span>
+                <span>Projects</span>
               </NuxtLink>
               <NuxtLink to="/dashboard/analytics">
                 <AnalyticsIcon />

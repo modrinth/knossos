@@ -5,12 +5,12 @@
         <tr>
           <th></th>
           <th>Name</th>
-          <th>Number</th>
-          <th>Loaders</th>
-          <th>Game Versions</th>
+          <th>Version</th>
+          <th>Mod Loader</th>
+          <th>Minecraft Version</th>
           <th>Status</th>
           <th>Downloads</th>
-          <th>Published</th>
+          <th>Date Published</th>
         </tr>
       </thead>
       <tbody>
@@ -110,7 +110,7 @@
       <label
         title="The version number of this version. Preferably following semantic versioning"
       >
-        Loaders
+        Mod Loaders
       </label>
       <multiselect
         v-model="createdVersion.loaders"
@@ -128,7 +128,7 @@
         placeholder="Choose loaders..."
       />
       <label title="The versions of minecraft that this mod version supports">
-        Game Versions
+        Minecraft Versions
       </label>
       <multiselect
         v-model="createdVersion.game_versions"
@@ -367,10 +367,10 @@ export default {
 
 <style lang="scss" scoped>
 table {
-  background: var(--color-bg);
   border-collapse: collapse;
-  border-radius: 0 0 0.5rem 0.5rem;
-  box-shadow: 0 2px 3px 1px var(--color-grey-2);
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
   table-layout: fixed;
   width: 100%;
 
@@ -382,7 +382,7 @@ table {
   tr:first-child {
     th,
     td {
-      border-bottom: 1px solid var(--color-grey-2);
+      border-bottom: 1px solid var(--color-divider);
     }
   }
 
@@ -390,14 +390,14 @@ table {
   td {
     &:first-child {
       text-align: center;
-      width: 5%;
+      width: 7%;
 
       svg {
-        color: var(--color-grey-3);
+        color: var(--color-text);
 
         &:hover,
         &:focus {
-          color: var(--color-grey-5);
+          color: var(--color-text-hover);
         }
       }
     }
@@ -410,18 +410,18 @@ table {
   }
 
   th {
-    color: #718096;
+    color: var(--color-heading);
     font-size: 0.8rem;
     letter-spacing: 0.02rem;
     margin-bottom: 0.5rem;
     margin-top: 1.5rem;
-    padding: 1rem 1rem;
+    padding: 0.75rem 1rem;
     text-transform: uppercase;
   }
 
   td {
     overflow: hidden;
-    padding: 0.25rem 1rem;
+    padding: 0.75rem 1rem;
 
     img {
       height: 3rem;

@@ -102,9 +102,9 @@ export default {
 
 <style lang="scss" scoped>
 .markdown-body {
-  padding: 20px;
-  box-shadow: 0 2px 3px 1px var(--color-grey-2);
-  background: var(--color-bg);
-  border-radius: 0 0 var(--size-rounded-sm) var(--size-rounded-sm);
+  padding: 1rem;
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
 }
 </style>

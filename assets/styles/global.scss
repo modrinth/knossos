@@ -1,9 +1,12 @@
 .light-mode {
-  --color-text:#4c576a;
+  --color-text:#4A5568;
+  --color-text-medium:#2a303d;
+  --color-text-dark:#1A202C;
   --color-heading: #2c313d;
   --color-heading-light: #777e8d;
   --color-bg: #edf2f7;
   --color-raised-bg: #ffffff;
+  --color-divider: #eaecef;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
@@ -26,6 +29,9 @@
   --color-category-bg: var(--color-bg);
   --color-category-text: var(--color-text);
 
+  --color-tooltip-bg: var(--color-text);
+  --color-tooltip-text: var(--color-bg);
+
   --color-grey-0: #edf0f1;
   --color-grey-1: #ffffff;
   --color-grey-2: #dadce0;
@@ -37,7 +43,8 @@
 
   --color-ad: #d6e6f9;
 
-  --faint-shadow: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
+  --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
+  --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
   
   --color-link: #2089ff;
 }
@@ -48,6 +55,7 @@
   --color-heading-light: #8a8a8a;
   --color-bg: #171719;
   --color-raised-bg: #2a2a2c;
+  --color-divider: #49494d;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
@@ -68,6 +76,9 @@
 
   --color-category-bg: var(--color-bg);
   --color-category-text: var(--color-text);
+
+  --color-tooltip-bg: var(--color-bg);
+  --color-tooltip-text: var(--color-text);
 
   --color-grey-6: #f7f2eb;
   --color-grey-5: #ede9e4;
@@ -99,9 +110,12 @@ body {
   --size-rounded-sm: 0.75rem;
   --size-rounded-md: 1rem;
   --size-rounded-lg: 1.25rem;
-  --size-rounded-max: 999999999px;
 
-  --size-rounded-card: 0.75rem;
+  --size-rounded-max: 999999999px;
+  --size-rounded-card: 0.5rem;
+  --size-rounded-icon: 0.5rem;
+  --size-rounded-control: 0.25rem;
+  --size-rounded-tooltip: 0.25rem;
 
   --spacing-card-lg: 1.5rem;
   --spacing-card-md: 0.75rem;
@@ -148,7 +162,7 @@ button {
 input {
   background: var(--color-raised-bg);
   border: none;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--size-rounded-control);
   color: var(--color-text);
   font-size: 1rem;
   padding: 0.5rem 1rem;
@@ -194,7 +208,7 @@ button {
   color: var(--color-button-text);
   background-color: var(--color-button-bg);
   border: none;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--size-rounded-control);
 
   &:focus,
   &:hover {

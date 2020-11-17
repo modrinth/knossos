@@ -254,10 +254,10 @@ export default {
 
 <style lang="scss" scoped>
 .version {
-  background: var(--color-bg);
-  border-radius: 0 0 0.5rem 0.5rem;
-  box-shadow: 0 2px 3px 1px var(--color-grey-2);
-  padding: 1em;
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
+  padding: 1rem;
 
   .header {
     h3 {
@@ -271,17 +271,14 @@ export default {
         margin-right: 10px;
         padding: 5px;
         border: none;
-        border-radius: var(--size-rounded-sm);
       }
 
       .trash {
+        background-color: #fae5e5;
         color: #9b2c2c;
-        background-color: var(--color-bg);
       }
 
       .upload {
-        color: var(--color-text);
-        background-color: var(--color-grey-1);
         * {
           margin: auto 0;
         }
@@ -291,7 +288,9 @@ export default {
 
   hr {
     margin: 20px 0;
-    color: var(--color-grey-1);
+    background-color: var(--color-divider);
+    border: none;
+    height: 1px;
   }
 
   .metadata {
@@ -305,6 +304,7 @@ export default {
         height: 50px;
         width: 50px;
         margin-right: 10px;
+        border-radius: var(--size-rounded-icon);
       }
     }
   }
@@ -327,8 +327,8 @@ export default {
     div {
       display: flex;
       margin-right: 10px;
-      border: 1px solid var(--color-grey-1);
-      border-radius: var(--size-rounded-sm);
+      background: var(--color-bg);
+      border-radius: var(--size-rounded-control);
 
       p {
         margin-left: 10px;
@@ -340,8 +340,6 @@ export default {
         margin-left: auto;
         width: 40px;
         height: 60px;
-        background-color: var(--color-grey-1);
-        color: var(--color-grey-3);
 
         svg {
           margin-top: 15px;
@@ -351,8 +349,10 @@ export default {
 
         &:hover,
         &:focus {
-          background-color: var(--color-grey-3);
-          color: var(--color-grey-4);
+          background-color: var(--color-button-bg-hover);
+          color: var(--color-button-text-hover);
+          border-radius: 0 var(--size-rounded-control)
+            var(--size-rounded-control) 0;
         }
       }
     }

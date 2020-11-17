@@ -1,64 +1,65 @@
 <template>
   <div class="columns">
-    <div class="content column-grow-5">
-      <div class="mod-header columns">
-        <img
-          :src="
-            mod.icon_url
-              ? mod.icon_url
-              : 'https://cdn.modrinth.com/placeholder.svg'
-          "
-          alt="mod-icon"
-        />
-        <div class="mod-header-text">
-          <div class="columns title">
-            <h2>{{ mod.title }}</h2>
-            <nuxt-link
-              :to="'/user/' + members.find((x) => x.role === 'Owner').user_id"
-            >
-              <p>by {{ members.find((x) => x.role === 'Owner').name }}</p>
-            </nuxt-link>
+    <div class="content column-grow-5 columns">
+      <div class="column">
+        <div class="mod-header columns">
+          <img
+            :src="
+              mod.icon_url
+                ? mod.icon_url
+                : 'https://cdn.modrinth.com/placeholder.svg'
+            "
+            alt="mod-icon"
+          />
+          <div class="mod-header-text">
+            <div class="columns title">
+              <h2>{{ mod.title }}</h2>
+              <nuxt-link
+                :to="'/user/' + members.find((x) => x.role === 'Owner').user_id"
+              >
+              </nuxt-link>
+            </div>
+            <p>{{ mod.description }}</p>
           </div>
-          <p>{{ mod.description }}</p>
+        </div>
+        <div class="mod-navigation">
+          <nuxt-link :to="'/mod/' + mod.id">
+            <InfoIcon />
+            Description
+          </nuxt-link>
+          <nuxt-link :to="'/mod/' + mod.id + '/versions'">
+            <VersionIcon />
+            Versions
+          </nuxt-link>
+          <a v-if="mod.wiki_url" :href="mod.wiki_url">
+            <ExternalIcon />
+            Wiki
+          </a>
+          <a v-if="mod.issues_url" :href="mod.issues_url" :target="_blank">
+            <ExternalIcon />
+            Issues
+          </a>
+          <a v-if="mod.source_url" :href="mod.source_url" :target="_blank">
+            <ExternalIcon />
+            Source
+          </a>
+          <nuxt-link
+            v-if="
+              this.$auth.loggedIn &&
+              members.find((x) => x.user_id === this.$auth.user.id)
+            "
+            :to="'/mod/' + mod.id + '/settings'"
+          >
+            <SettingsIcon />
+            Settings
+          </nuxt-link>
+          <div class="filler" />
+        </div>
+        <div class="mod-content">
+          <slot />
         </div>
       </div>
-      <div class="mod-navigation">
-        <nuxt-link :to="'/mod/' + mod.id">
-          <InfoIcon />
-          Description
-        </nuxt-link>
-        <nuxt-link :to="'/mod/' + mod.id + '/versions'">
-          <VersionIcon />
-          Versions
-        </nuxt-link>
-        <nuxt-link
-          v-if="
-            this.$auth.loggedIn &&
-            members.find((x) => x.user_id === this.$auth.user.id)
-          "
-          :to="'/mod/' + mod.id + '/settings'"
-        >
-          <SettingsIcon />
-          Settings
-        </nuxt-link>
-        <a v-if="mod.wiki_url" :href="mod.wiki_url">
-          <ExternalIcon />
-          Wiki
-        </a>
-        <a v-if="mod.issues_url" :href="mod.issues_url">
-          <ExternalIcon />
-          Issues
-        </a>
-        <a v-if="mod.source_url" :href="mod.source_url">
-          <ExternalIcon />
-          Source Code
-        </a>
-        <div class="filler" />
-      </div>
-      <slot />
-    </div>
-    <div>
-      <section class="mod-info">
+      <section class="mod-info column">
         <div class="mod-stats">
           <h3>Info</h3>
           <p>{{ mod.downloads }} Downloads</p>
@@ -77,7 +78,7 @@
               <nuxt-link :to="'/user/' + member.user_id">
                 <h4>{{ member.name }}</h4>
               </nuxt-link>
-              <p>{{ member.role }}</p>
+              <h3>{{ member.role }}</h3>
             </div>
           </div>
         </div>
@@ -189,17 +190,19 @@ export default {
 <style lang="scss">
 .mod-header {
   align-items: center;
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
 
   img {
-    border-radius: var(--size-rounded-md);
-    width: 150px;
-    height: 150px;
+    width: 6rem;
+    height: 6rem;
+    margin: 0.75rem;
+    border-radius: var(--size-rounded-icon);
     object-fit: cover;
   }
 
   .mod-header-text {
-    margin-left: 15px;
-
     .title {
       align-items: end;
 
@@ -218,49 +221,54 @@ export default {
 
 .mod-navigation {
   display: flex;
-  margin-top: 20px;
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-grey-1);
+  border-radius: var(--size-rounded-card);
+  padding: 0.5rem 1rem;
 
   a {
     user-select: none;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
-    border-bottom: 2px solid var(--color-grey-2);
+    padding: 0.5rem;
+    margin-right: 0.75rem;
+    border-bottom: 3px solid transparent;
 
     svg {
-      margin-right: 10px;
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.3rem;
     }
 
     &:hover,
     &:focus {
-      border-bottom: 2px solid var(--color-grey-3);
+      border-bottom: 3px solid var(--color-grey-3);
+      color: var(--color-text-medium);
     }
 
     &.nuxt-link-exact-active {
-      border-bottom: 2px solid var(--color-brand);
+      border-bottom: 3px solid var(--color-brand);
+      color: var(--color-text-dark);
     }
   }
 
   .filler {
     flex-grow: 1;
-    border-bottom: 2px solid var(--color-grey-2);
   }
 }
 
 .mod-info {
-  top: 1rem;
-  position: sticky;
   min-width: 270px;
   max-width: 270px;
-  margin: 1rem;
   padding: 0 0.75rem 0 1rem;
-  overflow-y: auto;
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-grey-2);
-  border-radius: var(--size-rounded-sm);
+  margin-left: var(--spacing-card-lg);
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-grey-1);
+  border-radius: var(--size-rounded-card);
+  height: auto;
 
   h3 {
-    color: #718096;
+    color: var(--color-text-heading);
     font-size: 0.8rem;
     letter-spacing: 0.02rem;
     margin: 1.5rem 0 0.5rem 0;
@@ -270,7 +278,6 @@ export default {
   .mod-stats {
     margin-left: 5px;
     p {
-      color: var(--color-grey-4);
       margin: 3px;
     }
   }
@@ -278,29 +285,23 @@ export default {
   .team-member {
     margin-left: 5px;
     margin-bottom: 10px;
-    border: 1px solid var(--color-grey-1);
-    border-radius: var(--size-rounded-sm);
 
     img {
-      border-radius: var(--size-rounded-sm);
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+      border-radius: var(--size-rounded-icon);
       height: 50px;
       width: 50px;
     }
     .member-info {
       max-width: 150px;
       overflow: hidden;
-      margin: auto 0 auto 20px;
+      margin: auto 0 auto 0.5rem;
       h4 {
         font-weight: normal;
         margin: 0;
       }
-      p {
-        color: var(--color-grey-4);
-        font-weight: lighter;
-        font-size: 12pt;
-        margin: 0;
+      h3 {
+        margin-top: 0.1rem;
+        margin-bottom: 0;
       }
     }
   }

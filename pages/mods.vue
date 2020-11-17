@@ -563,6 +563,7 @@ export default {
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
   padding: 0.25rem 1rem 0.25rem 1rem;
+  margin-bottom: var(--spacing-card-md);
   input {
     background: transparent;
     min-width: 200px;
@@ -763,7 +764,7 @@ select {
 .sort-types {
   min-width: 200px;
   border: none;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--size-rounded-control);
 
   .multiselect__tags {
     padding: 10px 50px 0 8px;
@@ -794,14 +795,14 @@ select {
 .multiselect__content-wrapper {
   overflow-x: hidden;
   border: none;
-  border-radius: 0 0 var(--size-rounded-sm) var(--size-rounded-sm);
+  border-radius: 0 0 var(--size-rounded-control) var(--size-rounded-control);
   background: none;
-  box-shadow: var(--faint-shadow);
+  box-shadow: var(--shadow-dropdown);
 }
 
 .multiselect__tags {
   border: none;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--size-rounded-control);
   padding: 0.4rem 4rem 0 0.2rem !important;
   min-height: auto;
 }
@@ -839,5 +840,6 @@ select {
 
 .multiselect__placeholder {
   margin-top: 0.15rem;
+  margin-left: 0.5rem;
 }
 </style>
