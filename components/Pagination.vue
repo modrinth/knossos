@@ -2,8 +2,8 @@
   <div v-if="pages.length > 1" class="columns paginates">
     <svg
       :class="{
-        'disabled-paginate': currentPage === 1,
-        'active-paginate': currentPage !== 1,
+        'paginate current': currentPage === 1,
+        paginate: currentPage !== 1,
       }"
       viewBox="0 0 24 24"
       fill="none"
@@ -19,20 +19,20 @@
       v-for="(item, index) in pages"
       :key="'page-' + item"
       :class="{
-        'active-page-number': currentPage !== item,
+        'page-number': currentPage !== item,
       }"
       @click="currentPage !== item ? switchPage(item) : null"
     >
       <span v-if="pages[index - 1] + 1 !== item && item !== 1">...</span>
-      <span :class="{ 'disabled-page-number': currentPage === item }">{{
+      <span :class="{ 'page-number current': currentPage === item }">{{
         item
       }}</span>
     </p>
 
     <svg
       :class="{
-        'disabled-paginate': currentPage === pages[pages.length - 1],
-        'active-paginate': currentPage !== pages[pages.length - 1],
+        'paginate current': currentPage === pages[pages.length - 1],
+        paginate: currentPage !== pages[pages.length - 1],
       }"
       viewBox="0 0 24 24"
       fill="none"
@@ -74,34 +74,49 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .paginates {
   align-items: center;
   height: 2.5rem;
 }
 
-.disabled-paginate {
-  cursor: default;
+.paginate {
+  user-select: none;
+  cursor: pointer;
   border-radius: 50% !important;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 0.5rem;
   background-color: transparent;
-  color: var(--color-grey-3);
 }
 
-.active-page-number,
-.active-paginate {
+.paginate:hover {
+  background: var(--color-button-bg-hover);
+  color: var(--color-button-text-hover);
+}
+
+.paginate.current:hover,
+.paginate.current {
+  cursor: default;
+  background-color: transparent;
+  color: var(--color-button-text-disabled);
+}
+
+.page-number {
   user-select: none;
   cursor: pointer;
   border-radius: 50% !important;
   padding: 0.5rem 0.8rem;
-  background-color: transparent;
+  margin: 0 2px;
+  background: transparent;
 }
 
-.disabled-page-number {
-  user-select: none;
+.page-number:hover {
+  background: var(--color-button-bg-hover);
+  color: var(--color-button-text-hover);
+}
+
+.page-number.current {
   cursor: default;
-  border-radius: 50% !important;
-  padding: 0.5rem 0.8rem;
-  background-color: var(--color-bg);
+  background-color: var(--color-button-bg-active);
+  color: var(--color-button-text-active);
 }
 </style>

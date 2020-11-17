@@ -27,23 +27,41 @@
             </svg>
           </div>
           <div class="sort-paginate">
-            <Multiselect
-              v-model="sortType"
-              class="sort-types"
-              placeholder="Select one"
-              track-by="display"
-              label="display"
-              :options="sortTypes"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="onSearchChange(1)"
-            >
-              <template slot="singleLabel" slot-scope="{ option }">{{
-                option.display
-              }}</template>
-            </Multiselect>
+            <div class="labeled-control">
+              <h3>Sort By</h3>
+              <Multiselect
+                v-model="sortType"
+                class="sort-types"
+                placeholder="Select one"
+                track-by="display"
+                label="display"
+                :options="sortTypes"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @input="onSearchChange(1)"
+              >
+                <template slot="singleLabel" slot-scope="{ option }">{{
+                  option.display
+                }}</template>
+              </Multiselect>
+            </div>
+            <div class="labeled-control per-page">
+              <h3>Per Page</h3>
+              <Multiselect
+                v-model="maxResults"
+                class="max-results"
+                placeholder="Select one"
+                :options="[5, 10, 15, 20, 50, 100]"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @input="onSearchChange(currentPage)"
+              >
+              </Multiselect>
+            </div>
             <div class="mobile-filters-button">
               <button @click="toggleFiltersMenu">Filter</button>
             </div>
@@ -80,18 +98,21 @@
           </div>
         </div>
         <section v-if="pages.length > 1" class="search-bottom">
-          <Multiselect
-            v-model="maxResults"
-            class="max-results"
-            placeholder="Select one"
-            :options="[5, 10, 15, 20, 50, 100]"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            @input="onSearchChange(currentPage)"
-          >
-          </Multiselect>
+          <div class="labeled-control">
+            <h3>Per Page</h3>
+            <Multiselect
+              v-model="maxResults"
+              class="max-results"
+              placeholder="Select one"
+              :options="[5, 10, 15, 20, 50, 100]"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="onSearchChange(currentPage)"
+            >
+            </Multiselect>
+          </div>
           <pagination
             :current-page="currentPage"
             :pages="pages"
@@ -165,7 +186,7 @@
             </SearchFilter>
             <SearchFilter
               :active-filters="facets"
-              display-name="Worldgen"
+              display-name="World Generation"
               facet-name="categories:worldgen"
               @toggle="toggleFacet"
             >
@@ -197,13 +218,13 @@
             </SearchFilter>
             <SearchFilter
               :active-filters="facets"
-              display-name="Misc"
+              display-name="Miscellaneous"
               facet-name="categories:misc"
               @toggle="toggleFacet"
             >
               <MiscCategory />
             </SearchFilter>
-            <h3>Loaders</h3>
+            <h3>Mod Loaders</h3>
             <SearchFilter
               :active-filters="facets"
               display-name="Forge"
@@ -220,20 +241,22 @@
             >
               <FabricLoader />
             </SearchFilter>
-            <h3>Platforms</h3>
+            <h3>Host</h3>
             <SearchFilter
               :active-filters="facets"
               display-name="Modrinth"
               facet-name="host:modrinth"
               @toggle="toggleFacet"
             >
+              <Modrinth />
             </SearchFilter>
             <SearchFilter
               :active-filters="facets"
-              display-name="Curseforge"
+              display-name="FlameAnvil"
               facet-name="host:curseforge"
               @toggle="toggleFacet"
             >
+              <FlameAnvil />
             </SearchFilter>
             <h3>Versions</h3>
             <SearchFilter
@@ -289,6 +312,9 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 
+import Modrinth from '~/assets/images/categories/modrinth.svg?inline'
+import FlameAnvil from '~/assets/images/categories/flameanvil.svg?inline'
+
 export default {
   auth: false,
   components: {
@@ -311,6 +337,8 @@ export default {
     WorldGenCategory,
     ForgeLoader,
     FabricLoader,
+    Modrinth,
+    FlameAnvil,
   },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
@@ -537,6 +565,7 @@ export default {
   padding: 0.25rem 1rem 0.25rem 1rem;
   input {
     background: transparent;
+    min-width: 200px;
   }
   .iconified-input {
     width: 100%;
@@ -546,6 +575,10 @@ export default {
     margin-right: 0.5rem;
     display: flex;
     width: 100%;
+    .per-page {
+      margin-left: 0.5rem;
+      display: none;
+    }
   }
   @media screen and (min-width: 900px) {
     flex-flow: row;
@@ -553,8 +586,14 @@ export default {
       width: auto;
     }
     .sort-paginate {
-      display: block;
       width: auto;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .sort-paginate {
+      .per-page {
+        display: unset;
+      }
     }
   }
 }
@@ -563,9 +602,24 @@ export default {
   align-items: center;
   display: flex;
   justify-content: flex-end;
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
+  padding: 0.25rem 1rem 0.25rem 1rem;
   select {
     width: 100px;
     margin-right: 20px;
+  }
+}
+
+.labeled-control {
+  h3 {
+    color: var(--color-heading-light);
+    font-size: 0.8rem;
+    letter-spacing: 0.005rem;
+    margin-bottom: 0.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
   }
 }
 
@@ -577,10 +631,6 @@ export default {
 .mobile-filters-button {
   display: inline-block;
   button {
-    background: var(--color-grey-2);
-    color: var(--color-text);
-    border: none;
-    border-radius: var(--size-rounded-sm);
     margin-top: 0;
     height: 2.5rem;
     padding-left: 1rem;
@@ -609,7 +659,7 @@ export default {
     padding: 0 0.75rem;
   }
   h3 {
-    color: #718096;
+    color: var(--color-heading);
     font-size: 0.8rem;
     letter-spacing: 0.02rem;
     margin-bottom: 0.5rem;
@@ -618,13 +668,14 @@ export default {
   }
   // Larger screens that don't need to collapse
   @media screen and (min-width: 900px) {
-    width: 215px;
+    width: 18vw;
     right: auto;
     position: unset;
     padding-right: 1rem;
     transition: none;
     border-radius: var(--size-rounded-card);
     margin-left: var(--spacing-card-lg);
+    overflow-y: unset;
   }
   // Desktop
   @media screen and (min-width: 1145px) {
@@ -642,16 +693,6 @@ export default {
   button {
     cursor: pointer;
     width: 100%;
-    padding: 0.5rem 0;
-    outline: none;
-    color: var(--color-text);
-    background-color: var(--color-grey-2);
-    border: none;
-    border-radius: var(--size-rounded-sm);
-
-    &:hover {
-      background-color: var(--color-grey-1);
-    }
   }
 
   .filter-button-done {
@@ -721,7 +762,6 @@ select {
 
 .sort-types {
   min-width: 200px;
-  height: 2.5rem;
   border: none;
   border-radius: var(--size-rounded-sm);
 
@@ -743,6 +783,14 @@ select {
   max-width: 80px;
 }
 
+.multiselect {
+  min-height: auto;
+}
+
+.multiselect__select {
+  height: 2rem;
+}
+
 .multiselect__content-wrapper {
   overflow-x: hidden;
   border: none;
@@ -754,6 +802,8 @@ select {
 .multiselect__tags {
   border: none;
   border-radius: var(--size-rounded-sm);
+  padding: 0.4rem 4rem 0 0.2rem !important;
+  min-height: auto;
 }
 
 .multiselect__tags,

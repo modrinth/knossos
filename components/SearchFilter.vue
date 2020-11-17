@@ -1,7 +1,10 @@
 <template>
   <p
     class="filter"
-    :class="{ 'filter-active': activeFilters.includes(facetName) }"
+    :class="{
+      'filter-active': activeFilters.includes(facetName),
+      cursed: displayName == 'FlameAnvil',
+    }"
     @click="toggle"
   >
     <slot></slot>
@@ -41,10 +44,9 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0.3rem 0.3rem 0.3rem 1rem;
-  margin: 0 0 0 0.5rem;
-  border-left: 4px solid var(--color-grey-3);
-  border-radius: 0 var(--size-rounded-sm) var(--size-rounded-sm) 0;
+  padding: 0.2rem 0.3rem;
+  margin: 3px 0 0 0.5rem;
+  border-radius: var(--size-rounded-xs);
   color: var(--color-grey-5);
   font-size: 1rem;
   letter-spacing: 0.02rem;
@@ -57,19 +59,20 @@ export default {
 
   &:hover,
   &:focus {
-    background-color: var(--color-grey-2);
-    color: var(--color-text);
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text-hover);
   }
 }
 
-.filter-active {
-  background-color: var(--color-brand-3);
-  color: var(--color-text);
-  border-left: 4px solid var(--color-brand);
+.filter.cursed {
+  font-family: 'Comic Sans MS', var(--font-standard);
+}
 
-  &:hover,
-  &:focus {
-    background-color: var(--color-brand-3);
+.filter-active {
+  background-color: var(--color-button-bg-hover);
+  color: var(--color-button-text-hover);
+  svg {
+    color: var(--color-brand-light);
   }
 }
 </style>

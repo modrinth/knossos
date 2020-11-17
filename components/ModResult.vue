@@ -70,13 +70,16 @@
         </svg>
         <p>{{ latestVersion }}</p>
       </div>
-
-      <div class="loaders columns">
-        <FabricLoader v-if="categories.includes('fabric')" stroke="#AC6C3A" />
-        <ForgeLoader v-if="categories.includes('forge')" stroke="#8B81E6" />
-      </div>
     </div>
     <div class="categories">
+      <p v-if="categories.includes('fabric')">
+        <FabricLoader />
+        Fabric
+      </p>
+      <p v-if="categories.includes('forge')">
+        <ForgeLoader />
+        Forge
+      </p>
       <p v-if="categories.includes('technology')">
         <TechCategory />
         Technology
@@ -355,9 +358,9 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--color-grey-3);
-  border-radius: var(--size-rounded-sm);
-  color: var(--color-text);
+  background-color: var(--color-category-bg);
+  border-radius: var(--size-rounded-max);
+  color: var(--color-category-text);
   margin: 0 5px;
   padding: 0.5rem;
   font-size: 15px;
