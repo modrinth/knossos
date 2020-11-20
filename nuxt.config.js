@@ -53,7 +53,7 @@ export default {
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap',
+          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap',
       },
     ],
     script: [
@@ -80,10 +80,6 @@ export default {
   router: {
     middleware: ['auth'],
   },
-  /*
-   ** Global CSS
-   */
-  css: ['~assets/styles/global.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -155,7 +151,10 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {
-    transpile: ['vue-tooltip', 'vue-notification']
+    transpile: ['vue-tooltip', 'vue-notification'],
+    styleResources: {
+      scss: './assets/styles/global.scss',
+    }
   },
   loading: {
     color: 'green',

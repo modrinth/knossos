@@ -212,3 +212,38 @@
     transition: opacity .15s;
   }
 }
+
+.tabs {
+  display: flex;
+  padding: 0.5rem 1rem;
+  .filler {
+    flex-grow: 1;
+  }
+}
+
+.tabs a.tab {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  padding-bottom: 0.2rem;
+  margin-right: 0.75rem;
+  border-bottom: 3px solid transparent;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.3rem;
+  }
+
+  &:hover,
+  &:focus {
+    border-bottom: 3px solid var(--color-brand-disabled);
+    color: var(--color-text-medium);
+  }
+
+  &.nuxt-link-exact-active {
+    border-bottom: 3px solid var(--color-brand);
+    color: var(--color-text-dark);
+  }
+}

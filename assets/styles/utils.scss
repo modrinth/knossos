@@ -1,7 +1,13 @@
-.rounded-md {
-  border-radius: 0.5rem;
-}
-
 .hidden {
   display: none;
+}
+
+%card {
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
+}
+
+%card-spaced-b {
+  @extend %card;
+  margin-bottom: var(--spacing-card-md);
 }

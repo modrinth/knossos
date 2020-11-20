@@ -23,37 +23,50 @@
           </div>
         </div>
         <div class="mod-navigation">
-          <nuxt-link :to="'/mod/' + mod.id">
-            <InfoIcon />
-            Description
-          </nuxt-link>
-          <nuxt-link :to="'/mod/' + mod.id + '/versions'">
-            <VersionIcon />
-            Versions
-          </nuxt-link>
-          <a v-if="mod.wiki_url" :href="mod.wiki_url">
-            <ExternalIcon />
-            Wiki
-          </a>
-          <a v-if="mod.issues_url" :href="mod.issues_url" :target="_blank">
-            <ExternalIcon />
-            Issues
-          </a>
-          <a v-if="mod.source_url" :href="mod.source_url" :target="_blank">
-            <ExternalIcon />
-            Source
-          </a>
-          <nuxt-link
-            v-if="
-              this.$auth.loggedIn &&
-              members.find((x) => x.user_id === this.$auth.user.id)
-            "
-            :to="'/mod/' + mod.id + '/settings'"
-          >
-            <SettingsIcon />
-            Settings
-          </nuxt-link>
-          <div class="filler" />
+          <div class="tabs">
+            <nuxt-link :to="'/mod/' + mod.id" class="tab">
+              <InfoIcon />
+              Description
+            </nuxt-link>
+            <nuxt-link :to="'/mod/' + mod.id + '/versions'" class="tab">
+              <VersionIcon />
+              Versions
+            </nuxt-link>
+            <a v-if="mod.wiki_url" :href="mod.wiki_url" class="tab">
+              <ExternalIcon />
+              Wiki
+            </a>
+            <a
+              v-if="mod.issues_url"
+              :href="mod.issues_url"
+              :target="_blank"
+              class="tab"
+            >
+              <ExternalIcon />
+              Issues
+            </a>
+            <a
+              v-if="mod.source_url"
+              :href="mod.source_url"
+              :target="_blank"
+              class="tab"
+            >
+              <ExternalIcon />
+              Source
+            </a>
+            <nuxt-link
+              v-if="
+                this.$auth.loggedIn &&
+                members.find((x) => x.user_id === this.$auth.user.id)
+              "
+              :to="'/mod/' + mod.id + '/settings'"
+              class="tab"
+            >
+              <SettingsIcon />
+              Settings
+            </nuxt-link>
+            <div class="filler" />
+          </div>
         </div>
         <div class="mod-content">
           <slot />
@@ -190,9 +203,7 @@ export default {
 <style lang="scss">
 .mod-header {
   align-items: center;
-  margin-bottom: var(--spacing-card-md);
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
+  @extend %card-spaced-b;
 
   img {
     width: 6rem;
@@ -220,58 +231,25 @@ export default {
 }
 
 .mod-navigation {
-  display: flex;
-  margin-bottom: var(--spacing-card-md);
-  background: var(--color-grey-1);
-  border-radius: var(--size-rounded-card);
-  padding: 0.5rem 1rem;
-
-  a {
-    user-select: none;
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    margin-right: 0.75rem;
-    border-bottom: 3px solid transparent;
-
-    svg {
-      width: 1rem;
-      height: 1rem;
-      margin-right: 0.3rem;
-    }
-
-    &:hover,
-    &:focus {
-      border-bottom: 3px solid var(--color-grey-3);
-      color: var(--color-text-medium);
-    }
-
-    &.nuxt-link-exact-active {
-      border-bottom: 3px solid var(--color-brand);
-      color: var(--color-text-dark);
-    }
-  }
-
-  .filler {
-    flex-grow: 1;
-  }
+  @extend %card-spaced-b;
+  padding-bottom: 0.2rem;
 }
 
 .mod-info {
   min-width: 270px;
   max-width: 270px;
-  padding: 0 0.75rem 0 1rem;
-  margin-left: var(--spacing-card-lg);
-  margin-bottom: var(--spacing-card-md);
-  background: var(--color-grey-1);
-  border-radius: var(--size-rounded-card);
+  padding: var(--spacing-card-lg);
+  padding-top: 0;
   height: auto;
+  @extend %card-spaced-b;
+  margin-left: var(--spacing-card-lg);
 
   h3 {
     color: var(--color-text-heading);
     font-size: 0.8rem;
     letter-spacing: 0.02rem;
-    margin: 1.5rem 0 0.5rem 0;
+    margin-top: var(--spacing-card-lg);
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
   }
 

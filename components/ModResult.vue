@@ -18,7 +18,7 @@
     </p>
     <div class="column-grow-1 columns result-infos">
       <div class="result-image columns">
-        <DownloadIcon stroke="currentColor" />
+        <DownloadIcon />
         <p>{{ formatNumber(downloads) }}</p>
       </div>
       <div
@@ -27,7 +27,7 @@
         "
         class="result-image columns"
       >
-        <CalendarIcon fill="currentColor" />
+        <CalendarIcon />
         <p>{{ $dayjs(createdAt).fromNow() }}</p>
       </div>
       <div
@@ -37,37 +37,11 @@
         "
         class="result-image columns"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-          ></path>
-          <path
-            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-          ></path>
-        </svg>
+        <EditIcon />
         <p>{{ $dayjs(updatedAt).fromNow() }}</p>
       </div>
       <div class="result-image columns">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
-          ></path>
-          <line x1="7" y1="7" x2="7.01" y2="7"></line>
-        </svg>
+        <TagIcon />
         <p>{{ latestVersion }}</p>
       </div>
     </div>
@@ -135,6 +109,8 @@
 <script>
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import EditIcon from '~/assets/images/utils/edit.svg?inline'
+import TagIcon from '~/assets/images/utils/tag.svg?inline'
 
 import TechCategory from '~/assets/images/categories/tech.svg?inline'
 import AdventureCategory from '~/assets/images/categories/adventure.svg?inline'
@@ -171,6 +147,8 @@ export default {
     FabricLoader,
     CalendarIcon,
     DownloadIcon,
+    EditIcon,
+    TagIcon,
   },
   props: {
     id: {
@@ -243,8 +221,7 @@ export default {
   grid-template-rows: auto auto auto 30px;
   max-width: 100vw;
   margin-bottom: var(--spacing-card-md);
-  background: var(--color-grey-1);
-  border-radius: var(--size-rounded-card);
+  @extend %card;
 }
 
 .result * {

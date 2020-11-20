@@ -14,17 +14,7 @@
               autocomplete="off"
               @input="onSearchChange(1)"
             />
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+            <SearchIcon />
           </div>
           <div class="sort-paginate">
             <div class="labeled-control">
@@ -315,6 +305,8 @@ import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 import Modrinth from '~/assets/images/categories/modrinth.svg?inline'
 import FlameAnvil from '~/assets/images/categories/flameanvil.svg?inline'
 
+import SearchIcon from '~/assets/images/utils/search.svg?inline'
+
 export default {
   auth: false,
   components: {
@@ -339,6 +331,7 @@ export default {
     FabricLoader,
     Modrinth,
     FlameAnvil,
+    SearchIcon,
   },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
@@ -746,10 +739,10 @@ export default {
 select {
   width: 220px;
   padding: 0.5rem 1rem;
-  background: var(--color-bg);
-  border: 2px solid var(--color-grey-3);
-  border-radius: var(--size-rounded-sm);
-  color: var(--color-grey-9);
+  background: red;
+  border: 2px solid blue;
+  border-radius: 0;
+  color: red;
   font-size: 1rem;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -775,9 +768,11 @@ select {
 .no-results {
   text-align: center;
   padding: 20px 0;
-  font-size: 30px;
+  font-size: 1.25rem;
   color: var(--color-text);
-  background-color: var(--color-grey-1);
+  margin-bottom: var(--spacing-card-md);
+  background: var(--color-raised-bg);
+  border-radius: var(--size-rounded-card);
 }
 
 .max-results {
@@ -809,7 +804,7 @@ select {
 
 .multiselect__tags,
 .multiselect__spinner {
-  background: var(--color-bg);
+  background: var(--color-dropdown-bg);
   cursor: pointer;
 }
 
@@ -821,21 +816,26 @@ select {
 .multiselect__option,
 .multiselect__single,
 .multiselect__input {
-  color: var(--color-text);
-  background: var(--color-bg);
+  color: var(--color-dropdown-text);
+  background: var(--color-dropdown-bg);
   border: none;
 }
 
 .multiselect__option--selected {
-  color: var(--color-text);
+  color: var(--color-dropdown-text);
   background: var(--color-brand-3);
 }
 
 .multiselect__option--selected.multiselect__option--highlight,
-.multiselect__option--highlight,
-.multiselect__tag {
+.multiselect__option--highlight {
   background: var(--color-brand);
   color: var(--color-brand-inverted);
+}
+
+.multiselect__tag {
+  border: 1px solid var(--color-brand);
+  background: none;
+  color: var(--color-text);
 }
 
 .multiselect__placeholder {
