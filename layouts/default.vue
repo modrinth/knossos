@@ -72,14 +72,9 @@
           </template>
           <template v-else>
             <section class="auth-prompt">
-              <a :href="authUrl" class="log-in-button">Log in</a>
-              <button
-                v-tooltip="'Not implemented yet. Log in via GitHub'"
-                class="sign-up-button"
-                disabled
+              <a :href="authUrl" class="log-in-button"
+                ><GitHubIcon />Sign In with GitHub</a
               >
-                Sign up
-              </button>
             </section>
           </template>
         </section>
@@ -94,13 +89,13 @@
             <AnalyticsIcon />
             <span>Analytics</span>
           </NuxtLink>
-          <NuxtLink
+          <!-- <NuxtLink
             v-if="this.$auth.user.role === 'admin'"
             to="/dashboard/admin"
           >
             <AdminIcon />
             <span>Admin</span>
-          </NuxtLink>
+          </NuxtLink> -->
         </section>
         <div>
           <button class="hamburger" @click="toggleNav">
@@ -172,7 +167,7 @@ import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
 import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
 import ProjectsIcon from '~/assets/images/sidebar/projects.svg?inline'
 import AnalyticsIcon from '~/assets/images/sidebar/analytics.svg?inline'
-import AdminIcon from '~/assets/images/sidebar/admin.svg?inline'
+// import AdminIcon from '~/assets/images/sidebar/admin.svg?inline'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
@@ -184,6 +179,7 @@ import UserIcon from '~/assets/images/utils/user.svg?inline'
 import UsersIcon from '~/assets/images/utils/users.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
+import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
 export default {
   components: {
@@ -192,7 +188,7 @@ export default {
     ModpackIcon,
     ProjectsIcon,
     AnalyticsIcon,
-    AdminIcon,
+    // AdminIcon,
     DropdownIcon,
     HamburgerIcon,
     ExitIcon,
@@ -202,6 +198,7 @@ export default {
     UsersIcon,
     SettingsIcon,
     LogOutIcon,
+    GitHubIcon,
   },
   directives: {
     ClickOutside,
@@ -425,31 +422,23 @@ export default {
       }
       section.auth-prompt {
         display: flex;
-        flex-direction: column;
-        .log-in-button,
-        .sign-up-button {
-          border: none;
-          border-radius: var(--size-rounded-sm);
-          color: var(--color-grey-7);
-          display: block;
-          margin: 0.5rem 3rem;
-          padding: 0.75rem 1rem;
-          text-align: center;
-        }
+        align-items: center;
+        height: 100%;
         .log-in-button {
+          text-align: center;
+          border-radius: var(--size-rounded-control);
           background-color: var(--color-brand);
+          outline: none;
           color: var(--color-brand-inverted);
+          display: block;
+          padding: 0.5rem 0.75rem;
+          svg {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+          }
           &:hover,
           &:focus {
             background-color: var(--color-brand-2);
-          }
-        }
-        .sign-up-button {
-          background-color: var(--color-grey-2);
-          &:hover,
-          &:focus {
-            background-color: var(--color-grey-1);
-            color: var(--color-text);
           }
         }
       }
