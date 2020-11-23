@@ -81,6 +81,10 @@ export default {
     middleware: ['auth'],
   },
   /*
+   ** Global CSS
+   */
+  css: ['~assets/styles/global.scss'],
+  /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
@@ -153,7 +157,7 @@ export default {
   build: {
     transpile: ['vue-tooltip', 'vue-notification'],
     styleResources: {
-      scss: './assets/styles/global.scss',
+      scss: './assets/styles/injected.scss',
     }
   },
   loading: {

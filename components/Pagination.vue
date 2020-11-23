@@ -1,59 +1,57 @@
 <template>
   <div v-if="pages.length > 1" class="columns paginates">
-    <svg
-      :class="{
-        'paginate current': currentPage === 1,
-        paginate: currentPage !== 1,
-      }"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+    <button
+      :class="{ disabled: currentPage === 1 }"
+      class="paginate has-icon"
       @click="currentPage !== 1 ? switchPage(currentPage - 1) : null"
     >
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-    <p
+      <LeftArrowIcon />
+    </button>
+    <div
       v-for="(item, index) in pages"
       :key="'page-' + item"
       :class="{
         'page-number': currentPage !== item,
       }"
-      @click="currentPage !== item ? switchPage(item) : null"
+      class="page-number-container"
     >
-      <span v-if="pages[index - 1] + 1 !== item && item !== 1">...</span>
-      <span :class="{ 'page-number current': currentPage === item }">{{
-        item
-      }}</span>
-    </p>
+      <div v-if="pages[index - 1] + 1 !== item && item !== 1" class="has-icon">
+        <GapIcon />
+      </div>
+      <button
+        :class="{ 'page-number current': currentPage === item }"
+        @click="currentPage !== item ? switchPage(item) : null"
+      >
+        {{ item }}
+      </button>
+    </div>
 
-    <svg
-      :class="{
-        'paginate current': currentPage === pages[pages.length - 1],
-        paginate: currentPage !== pages[pages.length - 1],
-      }"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+    <button
+      :class="{ disabled: currentPage === pages[pages.length - 1] }"
+      class="paginate has-icon"
       @click="
         currentPage !== pages[pages.length - 1]
           ? switchPage(currentPage + 1)
           : null
       "
     >
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
+      <RightArrowIcon />
+    </button>
   </div>
 </template>
 
 <script>
+import GapIcon from '~/assets/images/utils/gap.svg?inline'
+import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
+
 export default {
   name: 'Pagination',
+  components: {
+    GapIcon,
+    LeftArrowIcon,
+    RightArrowIcon,
+  },
   props: {
     currentPage: {
       type: Number,
@@ -75,48 +73,40 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.paginates {
-  align-items: center;
-  height: 2.5rem;
-}
-
-.paginate {
-  user-select: none;
-  cursor: pointer;
-  border-radius: 50% !important;
-  padding: 0.5rem 0.5rem;
-  background-color: transparent;
-}
-
-.paginate:hover {
-  background: var(--color-button-bg-hover);
-  color: var(--color-button-text-hover);
-}
-
-.paginate.current:hover,
-.paginate.current {
-  cursor: default;
-  background-color: transparent;
-  color: var(--color-button-text-disabled);
-}
-
-.page-number {
-  user-select: none;
-  cursor: pointer;
-  border-radius: 50% !important;
-  padding: 0.5rem 0.8rem;
-  margin: 0 2px;
+button {
+  min-width: 2rem;
+  padding: 0 0.5rem;
+  height: 2rem;
+  border-radius: 2rem;
   background: transparent;
+  &.page-number.current {
+    background: var(--color-button-bg-hover);
+    color: var(--color-button-text-hover);
+    cursor: default;
+  }
+  &.paginate.disabled {
+    background: none;
+    color: var(--color-button-text-disabled);
+    cursor: default;
+  }
+  &:hover {
+    background: var(--color-button-bg-active);
+    color: var(--color-button-text-active);
+  }
 }
 
-.page-number:hover {
-  background: var(--color-button-bg-hover);
-  color: var(--color-button-text-hover);
+.has-icon {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  height: 2rem;
+  svg {
+    width: 1rem;
+  }
 }
 
-.page-number.current {
-  cursor: default;
-  background-color: var(--color-button-bg-active);
-  color: var(--color-button-text-active);
+.page-number-container {
+  display: flex;
+  max-height: 2rem;
 }
 </style>

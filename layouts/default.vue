@@ -11,22 +11,22 @@
             <NuxtLink to="/mods" class="tab">
               <span>Mods</span>
             </NuxtLink>
-            <NuxtLink to="/datapacks" class="tab">
-              <span>Data Packs</span>
-            </NuxtLink>
           </div>
         </section>
         <section class="column-grow">
           <template v-if="this.$auth.loggedIn">
             <section class="user-controls">
-              <div class="avatar">
-                <span>{{ this.$auth.user.username }}</span>
-                <img :src="this.$auth.user.avatar_url" />
-              </div>
-              <div v-click-outside="hideDropdown" class="dropdown">
+              <div
+                v-click-outside="hideDropdown"
+                class="dropdown"
+                :class="{ open: isDropdownOpen }"
+              >
                 <button class="control" @click="toggleDropdown">
-                  <HamburgerIcon v-if="!isDropdownOpen" />
-                  <ExitIcon v-else />
+                  <div class="avatar">
+                    <span>{{ this.$auth.user.username }}</span>
+                    <img :src="this.$auth.user.avatar_url" class="icon" />
+                  </div>
+                  <DropdownIcon class="dropdown-icon" />
                 </button>
                 <div class="content">
                   <ul v-if="isDropdownOpen" @click="hideDropdown">
@@ -36,13 +36,23 @@
                         <span>Profile</span>
                       </NuxtLink>
                     </li>
-                    <li v-tooltip="'Not implemented yet'">
+                    <li v-tooltip="'Not implemented yet'" class="hidden">
                       <NuxtLink :to="userTeamsUrl" disabled>
                         <UsersIcon />
                         <span>Teams</span>
                       </NuxtLink>
                     </li>
-                    <li v-tooltip="'Not implemented yet'">
+                    <li>
+                      <button @click="changeTheme">
+                        <MoonIcon v-if="$colorMode.value === 'light'" />
+                        <SunIcon v-else />
+                        <span v-if="$colorMode.value === 'light'">
+                          Dark Mode</span
+                        >
+                        <span v-else>Light Mode</span>
+                      </button>
+                    </li>
+                    <li v-tooltip="'Not implemented yet'" class="hidden">
                       <NuxtLink to="/settings" disabled>
                         <SettingsIcon />
                         <span>Settings</span>
@@ -52,7 +62,7 @@
                     <li>
                       <button @click="logout">
                         <LogOutIcon />
-                        <span>Log out</span>
+                        <span>Log Out</span>
                       </button>
                     </li>
                   </ul>
@@ -93,10 +103,6 @@
           </NuxtLink>
         </section>
         <div>
-          <button class="theme-changer" @click="changeTheme">
-            <MoonIcon v-if="$colorMode.value === 'light'" />
-            <SunIcon v-else />
-          </button>
           <button class="hamburger" @click="toggleNav">
             <HamburgerIcon v-if="!isNavOpen" />
             <ExitIcon v-else />
@@ -168,6 +174,7 @@ import ProjectsIcon from '~/assets/images/sidebar/projects.svg?inline'
 import AnalyticsIcon from '~/assets/images/sidebar/analytics.svg?inline'
 import AdminIcon from '~/assets/images/sidebar/admin.svg?inline'
 
+import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 import ExitIcon from '~/assets/images/utils/exit.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
@@ -186,6 +193,7 @@ export default {
     ProjectsIcon,
     AnalyticsIcon,
     AdminIcon,
+    DropdownIcon,
     HamburgerIcon,
     ExitIcon,
     MoonIcon,
@@ -293,60 +301,91 @@ export default {
       }
       section.user-controls {
         align-items: center;
-        background-color: var(--color-grey-2);
-        border-radius: var(--size-rounded-sm);
         display: flex;
         justify-content: space-between;
-        margin: 0.5rem;
-        .avatar {
-          align-items: center;
-          display: flex;
-          img {
-            border-radius: 50%;
-            height: 2rem;
-            width: 2rem;
-          }
-          span {
-            display: block;
-            margin-left: 0.5rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
         .dropdown {
           position: relative;
           display: inline-block;
+          &:hover .control {
+            border-radius: var(--size-rounded-control);
+            background: var(--color-button-bg-hover);
+          }
+          &.open {
+            .control {
+              background: var(--color-button-bg-hover);
+              border-radius: var(--size-rounded-control)
+                var(--size-rounded-control) 0 0;
+              .dropdown-icon {
+                transform: rotate(180deg);
+              }
+            }
+            .content {
+              display: unset;
+            }
+          }
           .control {
+            border-radius: var(--size-rounded-control);
             align-items: center;
             display: flex;
+            padding: 0.3rem 0.75rem;
+            position: relative;
+            z-index: 10;
+            .avatar {
+              align-items: center;
+              display: flex;
+              .icon {
+                border-radius: 50%;
+                height: 2.5rem;
+                width: 2.5rem;
+                margin-left: 0.5rem;
+                margin-right: 0.25rem;
+              }
+              span {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: var(--color-text-dark);
+                font-weight: var(--font-weight-medium);
+              }
+            }
+            .dropdown-icon {
+              transition: 150ms ease transform;
+            }
           }
           .content {
-            margin: 0.5rem 0 0 -5rem;
+            margin: 0rem 0 0 0rem;
             min-width: 10rem;
+            width: 100%;
             position: fixed;
+            display: none;
           }
           button {
             background-color: transparent;
             color: inherit;
             margin: 0;
             padding: 0;
+            font-weight: var(--font-weight-medium);
           }
           ul {
-            background-color: var(--color-bg);
-            border: 1px solid var(--color-grey-2);
-            border-radius: var(--size-rounded-xs);
-            color: var(--color-grey-6);
+            background-color: var(--color-button-bg-hover);
+            border-radius: 0 0 var(--size-rounded-control)
+              var(--size-rounded-control);
+            box-shadow: var(--shadow-dropdown-strong);
             display: flex;
             flex-direction: column;
             margin: 0;
             list-style: none;
             padding: 0.5rem 0;
+            z-index: 1;
             hr {
-              background-color: var(--color-grey-2);
+              background-color: var(--color-brand-disabled);
               border: none;
-              color: var(--color-grey-2);
-              height: 1px;
+              color: var(--color-brand-disabled);
+              height: 2px;
               margin: 0.5rem 0;
             }
             li {

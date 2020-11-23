@@ -242,7 +242,7 @@
             </SearchFilter>
             <SearchFilter
               :active-filters="facets"
-              display-name="FlameAnvil"
+              display-name="CurseForge"
               facet-name="host:curseforge"
               @toggle="toggleFacet"
             >
