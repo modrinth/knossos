@@ -52,6 +52,7 @@ export default {
   letter-spacing: 0.02rem;
 
   svg {
+    color: var(--color-icon);
     margin-right: 5px;
     height: 1rem;
     flex-shrink: 0;

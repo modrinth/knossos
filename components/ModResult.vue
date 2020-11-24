@@ -17,9 +17,12 @@
       {{ description }}
     </p>
     <div class="column-grow-1 columns result-infos">
-      <div class="result-image columns">
+      <div class="labeled-stat result-image columns">
         <DownloadIcon />
-        <p>{{ formatNumber(downloads) }}</p>
+        <div>
+          <h3 class="heading">Downloads</h3>
+          <p class="stat">{{ formatNumber(downloads) }}</p>
+        </div>
       </div>
       <div
         v-tooltip="
@@ -282,22 +285,29 @@ export default {
     grid-row: 1;
   }
 
+  .labeled-stat {
+    .heading {
+      color: var(--color-text-heading);
+      font-size: 0.8rem;
+      letter-spacing: 0.02rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .stat {
+    }
+  }
+
   .result-image {
     p {
       font-size: 10pt;
     }
 
     svg {
-      width: 14px;
-      height: 14px;
+      color: var(--color-icon);
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
-}
-
-.result-image svg {
-  width: 15px;
-  height: 15px;
-  align-self: center;
 }
 
 .result-image p {
@@ -344,11 +354,6 @@ export default {
     .result-image {
       p {
         font-size: 15px;
-      }
-
-      svg {
-        width: 15px;
-        height: 15px;
       }
     }
   }
