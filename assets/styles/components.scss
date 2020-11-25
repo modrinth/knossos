@@ -7,22 +7,10 @@
 
   input {
     padding-left: 2.5rem;
-
-    &:hover {
-      &+svg {
-        color: var(--color-grey-6);
-      }
-    }
-
-    &:focus {
-      &+svg {
-        color: var(--color-text);
-      }
-    }
   }
 
   svg {
-    color: var(--color-grey-5);
+    color: var(--color-icon);
     margin-right: -2rem;
   }
 }

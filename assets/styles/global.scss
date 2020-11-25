@@ -40,13 +40,14 @@
   --color-ad: #d6e6f9;
 
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
-  --shadow-dropdown-strong: 3px 3px 20px hsla(0, 0%, 0%, 0.15);
+  --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
   --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
   
   --color-link: #2089ff;
 }
 
 .dark-mode {
+  --color-icon: #acacac;
   --color-text: #cecece;
   --color-text-medium:#e4e4e4;
   --color-text-dark:#ffffff;
@@ -115,6 +116,8 @@ body {
   --size-rounded-control: 0.25rem;
   --size-rounded-tooltip: 0.25rem;
 
+  --size-navbar-height: 4rem;
+
   --spacing-card-lg: 1.5rem;
   --spacing-card-md: 0.75rem;
   --spacing-card-sm: 0.5rem;
@@ -138,6 +141,16 @@ body {
   --font-weight-text: var(--font-weight-medium);
   --font-weight-heading: var(--font-weight-extrabold);
   --font-weight-title: var(--font-weight-extrabold);
+
+  // Temporary
+  --color-grey-7: #ff0000;
+  --color-grey-6: #ff0000;
+  --color-grey-5: #ff0000;
+  --color-grey-4: #ff0000;
+  --color-grey-3: #ff0000;
+  --color-grey-2: #ff0000;
+  --color-grey-1: #ff0000;
+  --color-grey-0: #ff0000;
 }
 
 svg {
@@ -184,12 +197,12 @@ input {
     outline: none;
 
     &::placeholder {
-      color: var(--color-grey-7);
+      color: var(--color-text);
     }
   }
 
   &::placeholder {
-    color: var(--color-grey-6);
+    color: var(--color-color-text);
   }
 }
 

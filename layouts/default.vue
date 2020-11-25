@@ -265,10 +265,11 @@ export default {
   height: 100vh;
 
   aside {
-    height: 4rem;
+    height: var(--size-navbar-height);
     background-color: var(--color-raised-bg);
+    max-width: 100vw;
     .navbar {
-      margin: 0 6vw;
+      margin: 0 var(--spacing-card-lg);
       section.logo {
         align-items: center;
         display: flex;
@@ -350,6 +351,7 @@ export default {
               }
             }
             .dropdown-icon {
+              color: var(--color-text-dark);
               transition: 150ms ease transform;
             }
           }
@@ -389,12 +391,10 @@ export default {
               margin: 0;
               padding: 0.75rem 1.5rem;
               &:hover,
-              &:focus {
-                background-color: var(--color-grey-0);
-                color: var(--color-text);
-              }
+              &:focus,
               &:active {
-                background-color: var(--color-grey-1);
+                background-color: var(--color-button-bg-active);
+                color: var(--color-text);
               }
               a,
               button {
@@ -410,13 +410,6 @@ export default {
                 }
               }
             }
-          }
-        }
-        svg {
-          color: var(--color-grey-6);
-          &:hover,
-          &:focus {
-            color: var(--color-text);
           }
         }
       }
@@ -441,6 +434,11 @@ export default {
             background-color: var(--color-brand-2);
           }
         }
+      }
+      @media screen and (min-width: 1024px) {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }

@@ -222,7 +222,7 @@ export default {
   display: grid;
   grid-template-columns: 7.5rem auto;
   grid-template-rows: auto auto auto 30px;
-  max-width: 100vw;
+  width: 100%;
   margin-bottom: var(--spacing-card-md);
   @extend %card;
 }

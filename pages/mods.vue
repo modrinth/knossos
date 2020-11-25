@@ -1,7 +1,7 @@
 <template>
-  <div class="columns">
-    <div class="content column-grow-5 columns">
-      <div class="column">
+  <div class="page-container">
+    <div class="page-contents">
+      <div class="content">
         <section class="search-nav">
           <div class="iconified-input column-grow-2">
             <label class="hidden" for="search">Search Mods</label>
@@ -110,7 +110,7 @@
           ></pagination>
         </section>
       </div>
-      <section id="filters" class="filters column">
+      <section id="filters" class="filters">
         <div class="filters-wrapper">
           <section class="filter-group">
             <button class="filter-button-done" @click="toggleFiltersMenu">
@@ -617,9 +617,22 @@ export default {
   }
 }
 
-.content {
-  min-height: 96vh;
-  margin: var(--spacing-card-lg) 6vw;
+.page-container {
+  margin: var(--spacing-card-lg);
+  .page-contents {
+    display: flex;
+    flex-direction: row;
+    .content {
+      width: 100%;
+    }
+    @media screen and (min-width: 900px) {
+    }
+    @media screen and (min-width: 1024px) {
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }
 
 .mobile-filters-button {
@@ -645,12 +658,12 @@ export default {
   right: -100vw;
   max-height: 100vh;
   min-width: 15%;
-  top: 3.5rem;
-  height: calc(100vh - 3.5rem);
+  top: var(--size-navbar-height);
+  height: calc(100vh - var(--size-navbar-height));
   transition: right 150ms;
   flex-shrink: 0; // Stop shrinking when page contents change
   .filters-wrapper {
-    padding: 0 0.75rem;
+    padding: 0 0.75rem 0.75rem 0.75rem;
   }
   h3 {
     color: var(--color-heading);
@@ -660,24 +673,25 @@ export default {
     margin-top: 1.5rem;
     text-transform: uppercase;
   }
-  // Larger screens that don't need to collapse
-  @media screen and (min-width: 900px) {
-    width: 18vw;
-    right: auto;
-    position: unset;
-    padding-right: 1rem;
-    transition: none;
-    border-radius: var(--size-rounded-card);
-    margin-left: var(--spacing-card-lg);
-    overflow-y: unset;
-  }
-  // Desktop
-  @media screen and (min-width: 1145px) {
-    top: 0;
-    height: 100vh;
-  }
   &.active {
     right: 0;
+  }
+  // Larger screens that don't need to collapse
+  @media screen and (min-width: 900px) {
+    right: auto;
+    height: auto;
+    position: unset;
+    transition: none;
+    background: transparent;
+    margin-left: var(--spacing-card-lg);
+    overflow-y: unset;
+    border-radius: var(--size-rounded-card);
+    background-color: var(--color-raised-bg);
+    padding-right: 1rem;
+    width: 18vw;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 300px;
   }
 }
 
@@ -698,59 +712,6 @@ export default {
     .filter-button-done {
       display: none;
     }
-  }
-
-  // Desktop
-  @media screen and (min-width: 1145px) {
-    margin-top: 1em;
-  }
-}
-
-.iconified-select {
-  margin-left: 1em;
-  align-items: center;
-  display: inline-flex;
-  flex-direction: row-reverse;
-
-  select {
-    padding-left: 2.5rem;
-
-    &:hover {
-      & + svg {
-        color: var(--color-grey-6);
-      }
-    }
-
-    &:focus {
-      & + svg {
-        color: var(--color-text);
-      }
-    }
-  }
-
-  svg {
-    color: var(--color-grey-5);
-    margin-right: -2rem;
-    width: 24px;
-    height: 24px;
-  }
-}
-
-select {
-  width: 220px;
-  padding: 0.5rem 1rem;
-  background: red;
-  border: 2px solid blue;
-  border-radius: 0;
-  color: red;
-  font-size: 1rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  &:hover {
-    border-color: var(--color-grey-4);
-    color: var(--color-text);
   }
 }
 
