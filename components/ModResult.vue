@@ -255,6 +255,7 @@ export default {
     @extend %column;
     .top {
       @extend %row;
+      flex-wrap: wrap;
       margin-top: var(--spacing-card-md);
       margin-right: var(--spacing-card-md);
       .title {

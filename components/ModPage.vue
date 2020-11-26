@@ -200,7 +200,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mod-header {
   align-items: center;
   @extend %card-spaced-b;
