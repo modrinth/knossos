@@ -1,110 +1,133 @@
 <template>
-  <div class="result rows">
-    <img
-      class="result-icon"
-      :src="iconUrl ? iconUrl : 'https://cdn.modrinth.com/placeholder.svg'"
-      :alt="name"
-    />
-    <div class="rows result-name-author">
-      <h2 class="mod-name">
-        <a :href="pageUrl">{{ name }}</a>
-      </h2>
-      <p v-if="author" class="author">
-        by <a :href="authorUrl">{{ author }}</a>
-      </p>
+  <div class="project-card">
+    <div class="icon">
+      <img
+        :src="iconUrl ? iconUrl : 'https://cdn.modrinth.com/placeholder.svg'"
+        :alt="name"
+      />
     </div>
-    <p class="result-summary">
-      {{ description }}
-    </p>
-    <div class="column-grow-1 columns result-infos">
-      <div class="labeled-stat result-image columns">
-        <DownloadIcon />
-        <div>
-          <h3 class="heading">Downloads</h3>
-          <p class="stat">{{ formatNumber(downloads) }}</p>
+    <div class="info">
+      <div class="top">
+        <h2 class="title">
+          <a :href="pageUrl">{{ name }}</a>
+        </h2>
+        <p v-if="author" class="author">
+          by <a :href="authorUrl">{{ author }}</a>
+        </p>
+      </div>
+      <p class="description">
+        {{ description }}
+      </p>
+      <div class="bottom">
+        <div class="stats">
+          <div class="stat">
+            <DownloadIcon />
+            <div class="info">
+              <h4>Downloads</h4>
+              <p class="value">{{ formatNumber(downloads) }}</p>
+            </div>
+          </div>
+          <div class="stat">
+            <CalendarIcon />
+            <div class="info">
+              <h4>Created</h4>
+              <p
+                v-tooltip="
+                  $dayjs(createdAt).format(
+                    '[Created on] YYYY-MM-DD [at] HH:mm A'
+                  )
+                "
+                class="value"
+              >
+                {{ $dayjs(createdAt).fromNow() }}
+              </p>
+            </div>
+          </div>
+          <div class="stat">
+            <EditIcon />
+            <div class="info">
+              <h4>Updated</h4>
+              <p
+                v-tooltip="
+                  $dayjs(updatedAt).format(
+                    '[Updated on] YYYY-MM-DD [at] HH:mm A'
+                  )
+                "
+                class="value"
+              >
+                {{ $dayjs(updatedAt).fromNow() }}
+              </p>
+            </div>
+          </div>
+          <div class="stat">
+            <TagIcon />
+            <div class="info">
+              <h4>Available For</h4>
+              <p class="value">
+                {{ latestVersion }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="categories">
+          <p v-if="categories.includes('fabric')">
+            <FabricLoader />
+            Fabric
+          </p>
+          <p v-if="categories.includes('forge')">
+            <ForgeLoader />
+            Forge
+          </p>
+          <p v-if="categories.includes('technology')">
+            <TechCategory />
+            Technology
+          </p>
+          <p v-if="categories.includes('adventure')">
+            <AdventureCategory />
+            Adventure
+          </p>
+          <p v-if="categories.includes('magic')">
+            <MagicCategory />
+            Magic
+          </p>
+          <p v-if="categories.includes('utility')">
+            <UtilityCategory />
+            Utility
+          </p>
+          <p v-if="categories.includes('decoration')">
+            <DecorationCategory />
+            Decoration
+          </p>
+          <p v-if="categories.includes('library')">
+            <LibraryCategory />
+            Library
+          </p>
+          <p v-if="categories.includes('cursed')">
+            <CursedCategory />
+            Cursed
+          </p>
+          <p v-if="categories.includes('worldgen')">
+            <WorldGenCategory />
+            Worldgen
+          </p>
+          <p v-if="categories.includes('storage')">
+            <StorageCategory />
+            Storage
+          </p>
+          <p v-if="categories.includes('food')">
+            <FoodCategory />
+            Food
+          </p>
+          <p v-if="categories.includes('equipment')">
+            <EquipmentCategory />
+            Equipment
+          </p>
+          <p v-if="categories.includes('misc')">
+            <MiscCategory />
+            Misc
+          </p>
         </div>
       </div>
-      <div
-        v-tooltip="
-          $dayjs(createdAt).format('[Created on] YYYY-MM-DD [at] HH:mm A')
-        "
-        class="result-image columns"
-      >
-        <CalendarIcon />
-        <p>{{ $dayjs(createdAt).fromNow() }}</p>
-      </div>
-      <div
-        v-if="updatedAt"
-        v-tooltip="
-          $dayjs(updatedAt).format('[Updated on] YYYY-MM-DD [at] HH:mm A')
-        "
-        class="result-image columns"
-      >
-        <EditIcon />
-        <p>{{ $dayjs(updatedAt).fromNow() }}</p>
-      </div>
-      <div class="result-image columns">
-        <TagIcon />
-        <p>{{ latestVersion }}</p>
-      </div>
-    </div>
-    <div class="categories">
-      <p v-if="categories.includes('fabric')">
-        <FabricLoader />
-        Fabric
-      </p>
-      <p v-if="categories.includes('forge')">
-        <ForgeLoader />
-        Forge
-      </p>
-      <p v-if="categories.includes('technology')">
-        <TechCategory />
-        Technology
-      </p>
-      <p v-if="categories.includes('adventure')">
-        <AdventureCategory />
-        Adventure
-      </p>
-      <p v-if="categories.includes('magic')">
-        <MagicCategory />
-        Magic
-      </p>
-      <p v-if="categories.includes('utility')">
-        <UtilityCategory />
-        Utility
-      </p>
-      <p v-if="categories.includes('decoration')">
-        <DecorationCategory />
-        Decoration
-      </p>
-      <p v-if="categories.includes('library')">
-        <LibraryCategory />
-        Library
-      </p>
-      <p v-if="categories.includes('cursed')">
-        <CursedCategory />
-        Cursed
-      </p>
-      <p v-if="categories.includes('worldgen')">
-        <WorldGenCategory />
-        Worldgen
-      </p>
-      <p v-if="categories.includes('storage')">
-        <StorageCategory />
-        Storage
-      </p>
-      <p v-if="categories.includes('food')">
-        <FoodCategory />
-        Food
-      </p>
-      <p v-if="categories.includes('equipment')">
-        <EquipmentCategory />
-        Equipment
-      </p>
-      <p v-if="categories.includes('misc')">
-        <MiscCategory />
-        Misc
-      </p>
     </div>
   </div>
 </template>
@@ -214,200 +237,127 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.results {
-  margin-top: 0.75rem;
-}
-
-.result {
-  display: grid;
-  grid-template-columns: 7.5rem auto;
-  grid-template-rows: auto auto auto 30px;
+.project-card {
+  @extend %row;
+  @extend %card-spaced-b;
   width: 100%;
-  margin-bottom: var(--spacing-card-md);
-  @extend %card;
-}
-
-.result * {
-  object-fit: contain;
-  margin-bottom: 0;
-  margin-top: 0;
-}
-
-.result-icon {
-  width: 6rem;
-  height: 6rem;
-  margin: 0.75rem;
-  border-radius: var(--size-rounded-icon);
-  grid-row-start: 1;
-  grid-row-end: 4;
-  grid-column-start: 1;
-}
-
-.result-name-author {
-  display: block;
-  margin-top: 10px;
-}
-
-.result-summary {
-  grid-row: 2;
-  grid-column: 2;
-  max-height: 150px;
-  font-size: 11pt;
-  margin: auto 0;
-}
-
-.mod-name {
-  align-self: flex-end;
-  font-size: 16pt !important;
-}
-
-.author {
-  margin-bottom: 2px !important;
-  align-self: flex-end;
-  font-size: 12pt;
-}
-
-.result-infos {
-  display: grid;
-  grid-template-columns: 115px 115px auto;
-  grid-template-rows: 20px 20px;
-  margin-top: 5px;
-  grid-column: 2;
-  align-items: flex-start;
-  align-self: flex-start;
-
-  .columns:nth-child(2) {
-    grid-column: 1;
-  }
-
-  .columns:nth-child(3) {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .labeled-stat {
-    .heading {
-      color: var(--color-text-heading);
-      font-size: 0.8rem;
-      letter-spacing: 0.02rem;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-    }
-    .stat {
+  .icon {
+    margin: auto 0;
+    img {
+      width: 6rem;
+      height: 6rem;
+      margin: var(--spacing-card-md);
+      border-radius: var(--size-rounded-icon);
+      object-fit: contain;
     }
   }
-
-  .result-image {
-    p {
-      font-size: 10pt;
-    }
-
-    svg {
-      color: var(--color-icon);
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-  }
-}
-
-.result-image p {
-  margin-left: 5px;
-  margin-right: 15px;
-  font-size: 15px;
-  align-self: center;
-}
-
-.categories {
-  display: flex;
-  flex-direction: row;
-  grid-column: 1;
-  margin: 0 0 auto;
-}
-
-.categories p {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  background-color: var(--color-category-bg);
-  border-radius: var(--size-rounded-max);
-  color: var(--color-category-text);
-  margin: 0 5px;
-  padding: 0.5rem;
-  font-size: 15px;
-
-  svg {
-    width: 15px;
-    margin-right: 5px;
-  }
-}
-
-// Larger tablet-sized screens
-@media screen and (min-width: 900px) {
-  .result {
-    grid-template-rows: auto auto 35px;
-  }
-
-  .result-infos {
-    display: flex;
-    align-items: center;
-    margin-top: 0;
-    .result-image {
-      p {
-        font-size: 15px;
+  .info {
+    @extend %column;
+    .top {
+      @extend %row;
+      margin-top: var(--spacing-card-md);
+      margin-right: var(--spacing-card-md);
+      .title {
+        margin: 0;
+        color: var(--color-text-dark);
+        font-size: var(--font-size-lg);
+      }
+      .author {
+        margin: 0;
+        margin-left: 0.5rem;
+        margin-top: auto;
+        color: var(--color-text);
       }
     }
-  }
-
-  .loaders {
-    svg {
-      width: 20px;
+    .description {
+      margin: 0;
+      margin-top: calc(var(--spacing-card-sm) / 2);
+      margin-right: var(--spacing-card-md);
+      height: 100%;
+      color: var(--color-text-dark);
     }
-  }
+    .bottom {
+      @extend %column;
+      margin-top: var(--spacing-card-sm);
+      margin-right: var(--spacing-card-md);
+      margin-bottom: var(--spacing-card-md);
 
-  .categories {
-    margin: 0 0 10px 0;
-  }
+      @media screen and (min-width: 1024px) {
+        flex-direction: row;
+      }
 
-  .result-name-author {
-    display: flex;
-    margin-top: 0;
-    .author {
-      margin-left: 5px;
+      .stats {
+        @extend %row;
+        flex-wrap: wrap;
+
+        @media screen and (min-width: 900px) {
+          flex-wrap: nowrap;
+        }
+        .stat {
+          margin-top: 0.5rem;
+          margin-right: 1rem;
+          @extend %row;
+
+          @media screen and (min-width: 900px) {
+            margin-top: 0;
+          }
+          svg {
+            margin: auto 0;
+            margin-right: 0.5rem;
+            height: 1.5rem;
+            width: 1.5rem;
+            color: var(--color-icon);
+          }
+          .info {
+            margin: auto 0;
+            white-space: nowrap;
+            h4 {
+              // min-width: fit-content;
+              color: var(--color-text);
+              font-size: var(--font-size-xxs);
+              font-weight: var(--font-weight-extrabold);
+              letter-spacing: 0.02rem;
+              margin: 0;
+              margin-bottom: 0.25em;
+              text-transform: uppercase;
+            }
+            .value {
+              font-size: var(--font-size-sm);
+              margin: 0;
+              color: var(--color-text-dark);
+            }
+          }
+        }
+      }
+      .categories {
+        @extend %row;
+        flex-wrap: wrap;
+        margin-top: var(--spacing-card-sm);
+
+        @media screen and (min-width: 1024px) {
+          flex-direction: row;
+          margin: auto 0;
+        }
+        p {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          background-color: var(--color-category-bg);
+          border-radius: var(--size-rounded-max);
+          color: var(--color-category-text);
+          margin-top: 0.25em;
+          margin-bottom: 0.25em;
+          margin-right: 0.5em;
+          padding: 0.4em 0.7em;
+          font-size: var(--font-size-sm);
+          height: 1em;
+          svg {
+            width: 15px;
+            margin-right: 5px;
+          }
+        }
+      }
     }
-  }
-
-  .mod-name {
-    font-size: 18pt;
-  }
-
-  .result-summary {
-    max-height: 100px;
-    font-size: 13pt;
-  }
-}
-
-// Larger screens
-@media screen and (min-width: 1375px) {
-  .result {
-    grid-column: 1;
-  }
-
-  .categories {
-    margin: 0 0.5rem 0.5rem auto;
-    grid-row: 3;
-    grid-column: 3;
-  }
-
-  .mod-name {
-    font-size: 20pt;
-  }
-}
-
-// Desktop
-@media screen and (min-width: 1500px) {
-  .result-name-author {
-    display: flex;
-    grid-column: 2;
   }
 }
 </style>

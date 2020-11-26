@@ -7,3 +7,13 @@
   @extend %card;
   margin-bottom: var(--spacing-card-md);
 }
+
+%row {
+  display: flex;
+  flex-direction: row;
+}
+
+%column {
+  display: flex;
+  flex-direction: column;
+}

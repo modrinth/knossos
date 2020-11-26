@@ -31,8 +31,8 @@
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
 
-  --color-category-bg: var(--color-button-bg);
-  --color-category-text: var(--color-button-text);
+  --color-category-bg: var(--color-bg);
+  --color-category-text: var(--color-text-dark);
 
   --color-tooltip-bg: var(--color-text);
   --color-tooltip-text: var(--color-bg);
@@ -79,7 +79,7 @@
   --color-dropdown-text: var(--color-button-text);
 
   --color-category-bg: var(--color-button-bg);
-  --color-category-text: var(--color-button-text);
+  --color-category-text: var(--color-text-dark);
 
   --color-tooltip-bg: var(--color-text);
   --color-tooltip-text: var(--color-bg);
@@ -123,6 +123,7 @@ body {
   --spacing-card-sm: 0.5rem;
 
   // Font Sizes
+  --font-size-xxs: 0.625rem;    //10px
   --font-size-xs: 0.75rem;    //12px
   --font-size-sm: 0.875rem;   //14px
   --font-size-nm: 1rem;       //16px
