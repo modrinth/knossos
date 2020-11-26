@@ -11,6 +11,11 @@
             <NuxtLink to="/mods" class="tab">
               <span>Mods</span>
             </NuxtLink>
+            <div v-if="this.$auth.loggedIn" class="section">
+              <NuxtLink to="/dashboard/projects" class="tab">
+                <span>Dashboard</span>
+              </NuxtLink>
+            </div>
           </div>
         </section>
         <section class="column-grow">
@@ -295,6 +300,10 @@ export default {
           position: relative;
           top: 50%;
           transform: translateY(-50%);
+          .section {
+            border-left: 3px solid var(--color-brand-disabled);
+            padding-left: 0.75rem;
+          }
         }
       }
       section.user-controls {

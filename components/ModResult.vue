@@ -272,7 +272,7 @@ export default {
     }
     .description {
       margin: 0;
-      margin-top: calc(var(--spacing-card-sm) / 2);
+      margin-top: var(--spacing-card-sm);
       margin-right: var(--spacing-card-md);
       height: 100%;
       color: var(--color-text-dark);

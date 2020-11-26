@@ -617,24 +617,6 @@ export default {
   }
 }
 
-.page-container {
-  margin: var(--spacing-card-lg);
-  .page-contents {
-    display: flex;
-    flex-direction: row;
-    .content {
-      width: 100%;
-    }
-    @media screen and (min-width: 900px) {
-    }
-    @media screen and (min-width: 1024px) {
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-}
-
 .mobile-filters-button {
   display: inline-block;
   button {

@@ -23,23 +23,23 @@
   padding: 0.25rem 0.5rem;
 
   &.gray {
-    background-color: #c8c1c1;
-    color: #646161;
+    background-color: var(--color-badge-gray-bg);
+    color: var(--color-badge-gray-text);
   }
 
   &.red {
-    background-color: #fed7d7;
-    color: #9b2c2c;
+    background-color: var(--color-badge-red-bg);
+    color: var(--color-badge-red-text);
   }
 
   &.green {
-    background-color: #c6f6d5;
-    color: #276749;
+    background-color: var(--color-badge-green-bg);
+    color: var(--color-badge-green-text);
   }
 
   &.yellow {
-    background-color: #f6e8c6;
-    color: #675027;
+    background-color: var(--color-badge-yellow-bg);
+    color: var(--color-badge-yellow-text);
   }
 }
 
@@ -234,4 +234,58 @@
     border-bottom: 3px solid var(--color-brand);
     color: var(--color-text-dark);
   }
+}
+
+.sidebar {
+  .card {
+    padding: var(--spacing-card-md);
+    margin-bottom: var(--spacing-card-md);
+    @extend %card;
+    
+    &.page-nav {
+      .tab {
+        padding: var(--spacing-card-sm);
+        display: flex;
+        align-items: center;
+        border-radius: var(--size-rounded-control);
+        margin-bottom: 0.5rem;
+        &.last {
+          margin-bottom: 0;
+        }
+        svg {
+          color: var(--color-icon);
+          margin-right: 5px;
+          height: 1.25rem;
+          flex-shrink: 0;
+        }
+        &:hover,
+        &:focus {
+          background-color: var(--color-button-bg);
+          color: var(--color-button-text-hover);
+        }
+      
+        &.nuxt-link-exact-active {
+          background-color: var(--color-button-bg-hover);
+          color: var(--color-button-text-hover);
+          svg {
+            color: var(--color-brand-light);
+          }
+        }
+      }
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    width: 300px;
+  }
+}
+
+.sidebar-l {
+  @extend .sidebar;
+  margin-right: var(--spacing-card-lg);
+}
+
+.sidebar-r {
+  @extend .sidebar;
+  margin-left: var(--spacing-card-lg);
 }

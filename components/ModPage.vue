@@ -1,25 +1,23 @@
 <template>
-  <div class="columns">
-    <div class="content column-grow-5 columns">
-      <div class="column">
-        <div class="mod-header columns">
-          <img
-            :src="
-              mod.icon_url
-                ? mod.icon_url
-                : 'https://cdn.modrinth.com/placeholder.svg'
-            "
-            alt="mod-icon"
-          />
-          <div class="mod-header-text">
-            <div class="columns title">
-              <h2>{{ mod.title }}</h2>
-              <nuxt-link
-                :to="'/user/' + members.find((x) => x.role === 'Owner').user_id"
-              >
-              </nuxt-link>
-            </div>
-            <p>{{ mod.description }}</p>
+  <div class="page-container">
+    <div class="page-contents">
+      <div class="content">
+        <div class="header">
+          <div class="icon">
+            <img
+              :src="
+                mod.icon_url
+                  ? mod.icon_url
+                  : 'https://cdn.modrinth.com/placeholder.svg'
+              "
+              :alt="mod - icon"
+            />
+          </div>
+          <div class="info">
+            <h2 class="title">{{ mod.title }}</h2>
+            <p class="description">
+              {{ mod.description }}
+            </p>
           </div>
         </div>
         <div class="mod-navigation">
@@ -72,7 +70,7 @@
           <slot />
         </div>
       </div>
-      <section class="mod-info column">
+      <section class="mod-info">
         <div class="mod-stats">
           <h3>Info</h3>
           <p>{{ mod.downloads }} Downloads</p>
@@ -201,31 +199,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mod-header {
-  align-items: center;
+.header {
+  @extend %row;
   @extend %card-spaced-b;
-
-  img {
-    width: 6rem;
-    height: 6rem;
-    margin: 0.75rem;
-    border-radius: var(--size-rounded-icon);
-    object-fit: cover;
+  width: 100%;
+  .icon {
+    margin: auto 0;
+    img {
+      width: 6rem;
+      height: 6rem;
+      margin: var(--spacing-card-md);
+      border-radius: var(--size-rounded-icon);
+      object-fit: contain;
+    }
   }
-
-  .mod-header-text {
+  .info {
+    @extend %column;
     .title {
-      align-items: end;
-
-      h2 {
-        margin: 0;
-      }
-
-      p {
-        align-self: flex-end;
-        margin: 0;
-        padding: 0 0 2px 5px;
-      }
+      margin: 0;
+      margin-top: var(--spacing-card-md);
+      margin-right: var(--spacing-card-md);
+      color: var(--color-text-dark);
+      font-size: var(--font-size-lg);
+    }
+    .description {
+      margin: 0;
+      margin-top: var(--spacing-card-sm);
+      margin-right: var(--spacing-card-md);
+      height: 100%;
+      color: var(--color-text-dark);
     }
   }
 }
