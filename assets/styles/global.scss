@@ -20,13 +20,17 @@
   --color-brand-disabled: #e2e8f0;
 
   --color-button-bg: var(--color-bg);
-  --color-button-text: var(--color-text);
+  --color-button-text: var(--color-text-dark);
   --color-button-bg-hover: #e0e7ee;
   --color-button-text-hover: #1b1e24;
   --color-button-bg-active: #d0d7df;
   --color-button-text-active: var(--color-button-text-hover);
   --color-button-bg-disabled: #eceef0;
   --color-button-text-disabled: #9da3ac;
+  --color-transparent-button-bg-hover: var(--color-button-bg);
+  --color-transparent-button-text-hover: var(--color-text-dark);
+  --color-transparent-button-bg-active: var(--color-button-bg-hover);
+  --color-transparent-button-text-active: var(--color-text-dark);
   
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
@@ -194,11 +198,8 @@ h3 {
 }
 
 button {
-  border: none;
-  color: var(--color-text);
-  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  outline: none;
+  @extend .button;
 }
 
 input {

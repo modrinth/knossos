@@ -46,9 +46,9 @@ export default {
   cursor: pointer;
   padding: 0.4rem 0.3rem;
   margin: 3px 0 0 0.5rem;
-  border-radius: var(--size-rounded-control);
   font-size: 1rem;
   letter-spacing: 0.02rem;
+  @extend %transparent-clickable;
 
   @media screen and (min-width: 1024px) {
     padding: 0.2rem 0.3rem;
@@ -60,21 +60,10 @@ export default {
     height: 1rem;
     flex-shrink: 0;
   }
-
-  &:hover,
-  &:focus {
-    background-color: var(--color-button-bg);
-    color: var(--color-button-text-hover);
-  }
-}
-
-.filter.cursed {
-  font-family: 'Comic Sans MS', var(--font-standard);
 }
 
 .filter-active {
-  background-color: var(--color-button-bg-hover);
-  color: var(--color-button-text-hover);
+  @extend %transparent-clickable.selected;
   svg {
     color: var(--color-brand-light);
   }

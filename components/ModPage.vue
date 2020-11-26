@@ -23,11 +23,9 @@
         <div class="mod-navigation">
           <div class="tabs">
             <nuxt-link :to="'/mod/' + mod.id" class="tab">
-              <InfoIcon />
               Description
             </nuxt-link>
             <nuxt-link :to="'/mod/' + mod.id + '/versions'" class="tab">
-              <VersionIcon />
               Versions
             </nuxt-link>
             <a v-if="mod.wiki_url" :href="mod.wiki_url" class="tab">
@@ -60,7 +58,6 @@
               :to="'/mod/' + mod.id + '/settings'"
               class="tab"
             >
-              <SettingsIcon />
               Settings
             </nuxt-link>
             <div class="filler" />
@@ -156,9 +153,6 @@ import EthicalAd from '@/components/EthicalAd'
 
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import ExternalIcon from '~/assets/images/utils/external.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import VersionIcon from '~/assets/images/utils/version.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
 import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
@@ -168,9 +162,6 @@ export default {
   components: {
     EthicalAd,
     ExternalIcon,
-    InfoIcon,
-    VersionIcon,
-    SettingsIcon,
     ForgeIcon,
     FabricIcon,
     DownloadIcon,

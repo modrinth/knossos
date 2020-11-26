@@ -249,6 +249,8 @@
         align-items: center;
         border-radius: var(--size-rounded-control);
         margin-bottom: 0.5rem;
+        @extend %transparent-clickable;
+
         &.last {
           margin-bottom: 0;
         }
@@ -258,15 +260,8 @@
           height: 1.25rem;
           flex-shrink: 0;
         }
-        &:hover,
-        &:focus {
-          background-color: var(--color-button-bg);
-          color: var(--color-button-text-hover);
-        }
       
         &.nuxt-link-exact-active {
-          background-color: var(--color-button-bg-hover);
-          color: var(--color-button-text-hover);
           svg {
             color: var(--color-brand-light);
           }
@@ -288,4 +283,35 @@
 .sidebar-r {
   @extend .sidebar;
   margin-left: var(--spacing-card-lg);
+}
+
+.button {
+  margin: auto 0;
+  padding: 6px 20px;
+  border-radius: var(--size-rounded-control);
+  color: var(--color-button-text);
+  background-color: var(--color-button-bg);
+  font-weight: var(--font-weight-medium);
+  &:focus,
+  &:hover {
+    background-color: var(--color-button-bg-hover);
+  }
+  &:active {
+    background-color: var(--color-button-bg-active);
+  }
+}
+
+.transparent-button {
+  @extend %transparent-clickable;
+  margin: auto 0;
+  padding: 6px 20px;
+}
+
+.brand-button {
+  @extend .button;
+  color: var(--color-brand-inverted);
+  background-color: var(--color-brand);
+  &:hover {
+    background-color: var(--color-brand-hover);
+  }
 }

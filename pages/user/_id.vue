@@ -46,7 +46,7 @@
 
 <script>
 import axios from 'axios'
-import SearchResult from '@/components/ModResult'
+import SearchResult from '@/components/ProjectCard'
 import EthicalAd from '@/components/EthicalAd'
 
 export default {

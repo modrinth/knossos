@@ -15,7 +15,7 @@
       <div class="content">
         <div class="section-header columns">
           <h3 class="column-grow-1">My mods</h3>
-          <nuxt-link class="create-button column" to="/mod/create">
+          <nuxt-link class="brand-button column" to="/mod/create">
             Create a mod
           </nuxt-link>
         </div>
@@ -68,6 +68,25 @@
             </tr>
           </tbody>
         </table>
+        <ModCard
+          v-for="mod in mods"
+          :id="mod.mod_id"
+          :key="mod.mod_id"
+          :author="mod.author"
+          :name="mod.title"
+          :description="mod.description"
+          :latest-version="mod.latest_version"
+          :created-at="mod.published"
+          :updated-at="mod.updated"
+          :downloads="mod.downloads.toString()"
+          :icon-url="mod.icon_url"
+          :author-url="mod.author_url"
+          :page-url="mod.page_url"
+          :categories="mod.categories"
+          :is-ad="index === -1"
+          :edit-mode="true"
+          :status="mod.status"
+        />
       </div>
     </div>
   </div>
@@ -76,12 +95,14 @@
 <script>
 import axios from 'axios'
 import EthicalAd from '@/components/EthicalAd'
+import ModCard from '@/components/ProjectCard'
 
 import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
 
 export default {
   components: {
     EthicalAd,
+    ModCard,
     ModIcon,
   },
   async fetch() {
@@ -116,14 +137,6 @@ export default {
     color: var(--color-text-dark);
     font-weight: var(--font-weight-extrabold);
   }
-}
-
-.create-button {
-  margin: auto 0;
-  padding: 6px 20px;
-  border-radius: var(--size-rounded-control);
-  color: var(--color-brand-inverted);
-  background-color: var(--color-brand);
 }
 
 table {

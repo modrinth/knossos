@@ -281,7 +281,7 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import axios from 'axios'
-import SearchResult from '@/components/ModResult'
+import SearchResult from '@/components/ProjectCard'
 import Pagination from '@/components/Pagination'
 import SearchFilter from '@/components/SearchFilter'
 

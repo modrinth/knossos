@@ -18,8 +18,29 @@
       <p class="description">
         {{ description }}
       </p>
-      <div class="bottom">
+      <div :class="{ vertical: editMode }" class="bottom">
         <div class="stats">
+          <div v-if="status !== null" class="stat">
+            <div class="info">
+              <h4>Status</h4>
+              <span v-if="status === 'approved'" class="badge green">
+                Approved
+              </span>
+              <span v-if="status === 'rejected'" class="badge red">
+                Rejected
+              </span>
+              <span v-if="status === 'draft'" class="badge yellow">Draft</span>
+              <span v-if="status === 'processing'" class="badge yellow">
+                Processing
+              </span>
+              <span v-if="status === 'unlisted'" class="badge gray">
+                Unlisted
+              </span>
+              <span v-if="status === 'unknown'" class="badge gray">
+                Unknown
+              </span>
+            </div>
+          </div>
           <div class="stat">
             <DownloadIcon />
             <div class="info">
@@ -129,6 +150,17 @@
         </div>
       </div>
     </div>
+    <div v-if="editMode" class="buttons">
+      <nuxt-link class="transparent-button column" :to="'/mod/' + id + '/edit'">
+        Edit
+      </nuxt-link>
+      <nuxt-link class="button column" :to="'/mod/' + id + '/delete'">
+        Delete
+      </nuxt-link>
+      <nuxt-link class="brand-button column" :to="'/mod/' + id + '/delete'">
+        Add
+      </nuxt-link>
+    </div>
   </div>
 </template>
 
@@ -155,7 +187,7 @@ import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 
 export default {
-  name: 'ModResult',
+  name: 'ProjectCard',
   components: {
     TechCategory,
     AdventureCategory,
@@ -227,6 +259,18 @@ export default {
         return []
       },
     },
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
+    status: {
+      type: String,
+      default: null,
+    },
+    role: {
+      type: String,
+      default: null,
+    },
   },
   methods: {
     formatNumber(x) {
@@ -285,6 +329,12 @@ export default {
 
       @media screen and (min-width: 1024px) {
         flex-direction: row;
+        &.vertical {
+          flex-direction: column;
+          .categories {
+            margin-top: var(--spacing-card-sm);
+          }
+        }
       }
 
       .stats {
@@ -359,6 +409,9 @@ export default {
         }
       }
     }
+  }
+  .buttons {
+    @extend %column;
   }
 }
 </style>
