@@ -116,7 +116,7 @@
             <button class="filter-button-done" @click="toggleFiltersMenu">
               Done
             </button>
-            <button @click="clearFilters">Clear Filters</button>
+            <button @click="clearFilters">Reset filters</button>
             <h3>Categories</h3>
             <SearchFilter
               :active-filters="facets"
@@ -217,19 +217,19 @@
             <h3>Mod Loaders</h3>
             <SearchFilter
               :active-filters="facets"
-              display-name="Forge"
-              facet-name="categories:forge"
-              @toggle="toggleFacet"
-            >
-              <ForgeLoader />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
               display-name="Fabric"
               facet-name="categories:fabric"
               @toggle="toggleFacet"
             >
               <FabricLoader />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Forge"
+              facet-name="categories:forge"
+              @toggle="toggleFacet"
+            >
+              <ForgeLoader />
             </SearchFilter>
             <h3>Host</h3>
             <SearchFilter
@@ -251,7 +251,7 @@
             <h3>Versions</h3>
             <SearchFilter
               :active-filters="showVersions"
-              display-name="Snapshots"
+              display-name="Include snapshots"
               facet-name="snapshots"
               style="margin-bottom: 10px"
               @toggle="fillInitialVersions"
@@ -368,9 +368,9 @@ export default {
       currentPage: 1,
       sortTypes: [
         { display: 'Relevance', name: 'relevance' },
-        { display: 'Total Downloads', name: 'downloads' },
-        { display: 'Newest', name: 'newest' },
-        { display: 'Updated', name: 'updated' },
+        { display: 'Download count', name: 'downloads' },
+        { display: 'Recently created', name: 'newest' },
+        { display: 'Recently updated', name: 'updated' },
       ],
       sortType: { display: 'Relevance', name: 'relevance' },
       maxResults: 20,
@@ -607,12 +607,7 @@ export default {
 
 .labeled-control {
   h3 {
-    color: var(--color-heading-light);
-    font-size: 0.8rem;
-    letter-spacing: 0.005rem;
-    margin-bottom: 0.1rem;
-    font-weight: bold;
-    text-transform: uppercase;
+    @extend %small-label;
     margin-left: 0.5rem;
   }
 }
@@ -648,12 +643,8 @@ export default {
     padding: 0 0.75rem 0.75rem 0.75rem;
   }
   h3 {
-    color: var(--color-heading);
-    font-size: 0.8rem;
-    letter-spacing: 0.02rem;
-    margin-bottom: 0.5rem;
-    margin-top: 1.5rem;
-    text-transform: uppercase;
+    @extend %large-label;
+    margin-top: 1.25em;
   }
   &.active {
     right: 0;

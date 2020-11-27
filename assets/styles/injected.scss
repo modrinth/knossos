@@ -34,3 +34,26 @@
     background-color: var(--color-transparent-button-bg-active);
   }
 }
+
+%label {
+  color: var(--color-text);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: 0.02rem;
+  margin: 0;
+  margin-bottom: 0.25em;
+  text-transform: uppercase;
+}
+
+%small-label {
+  @extend %label;
+  color: var(--color-text);
+  font-size: var(--font-size-xxs);
+  letter-spacing: 0.02rem;
+}
+
+%large-label {
+  @extend %label;
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  margin-bottom: 0.5em;
+}

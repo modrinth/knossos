@@ -70,8 +70,8 @@
         </table>
         <ModCard
           v-for="mod in mods"
-          :id="mod.mod_id"
-          :key="mod.mod_id"
+          :id="mod.id"
+          :key="mod.id"
           :author="mod.author"
           :name="mod.title"
           :description="mod.description"

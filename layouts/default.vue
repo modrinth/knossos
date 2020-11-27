@@ -3,8 +3,8 @@
     <aside>
       <section class="navbar columns">
         <section class="logo column">
-          <ModrinthLogo v-if="$colorMode.value === 'light'" />
-          <ModrinthLogoWhite v-else />
+          <ModrinthLogo />
+          <span class="badge yellow">Beta</span>
         </section>
         <section class="column-grow-5 nav">
           <div class="tabs">
@@ -167,7 +167,6 @@
 import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
-import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
 
 import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
 import ProjectsIcon from '~/assets/images/sidebar/projects.svg?inline'
@@ -189,7 +188,6 @@ import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 export default {
   components: {
     ModrinthLogo,
-    ModrinthLogoWhite,
     ModpackIcon,
     ProjectsIcon,
     AnalyticsIcon,
@@ -280,9 +278,13 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 1rem 0;
+        color: var(--color-text-dark);
         svg {
           height: 1.75rem;
           width: auto;
+        }
+        .badge {
+          margin-left: 0.25rem;
         }
         button {
           background: none;
@@ -303,6 +305,9 @@ export default {
           .section {
             border-left: 3px solid var(--color-brand-disabled);
             padding-left: 0.75rem;
+          }
+          .tab {
+            font-size: var(--font-size-md);
           }
         }
       }

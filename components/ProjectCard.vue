@@ -154,12 +154,6 @@
       <nuxt-link class="transparent-button column" :to="'/mod/' + id + '/edit'">
         Edit
       </nuxt-link>
-      <nuxt-link class="button column" :to="'/mod/' + id + '/delete'">
-        Delete
-      </nuxt-link>
-      <nuxt-link class="brand-button column" :to="'/mod/' + id + '/delete'">
-        Add
-      </nuxt-link>
     </div>
   </div>
 </template>
@@ -363,14 +357,7 @@ export default {
             margin: auto 0;
             white-space: nowrap;
             h4 {
-              // min-width: fit-content;
-              color: var(--color-text);
-              font-size: var(--font-size-xxs);
-              font-weight: var(--font-weight-extrabold);
-              letter-spacing: 0.02rem;
-              margin: 0;
-              margin-bottom: 0.25em;
-              text-transform: uppercase;
+              @extend %small-label;
             }
             .value {
               font-size: var(--font-size-sm);

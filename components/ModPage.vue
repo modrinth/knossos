@@ -74,7 +74,7 @@
           <p>Created {{ $dayjs(mod.published).fromNow() }}</p>
           <p>Updated {{ $dayjs(mod.updated).fromNow() }}</p>
         </div>
-        <div>
+        <div class="section">
           <h3>Members</h3>
           <div
             v-for="member in members"
@@ -90,54 +90,60 @@
             </div>
           </div>
         </div>
-        <div v-if="versions.length > 0">
+        <div v-if="versions.length > 0" class="section">
           <h3>Featured Versions</h3>
           <div
             v-for="version in versions"
             :key="version.id"
-            class="featured-version columns"
+            class="featured-version"
           >
-            <div class="version-info">
-              <div class="columns">
-                <h4 class="limit-text-width">
-                  {{ version.name }}
-                </h4>
-                <p
+            <nuxt-link
+              :to="'/mod/' + mod.id + '/version/' + version.id"
+              class="download"
+            >
+              <DownloadIcon />
+            </nuxt-link>
+            <div class="info">
+              <div class="top">
+                <span
                   v-if="version.version_type === 'release'"
                   class="badge green"
                 >
                   Release
-                </p>
-                <p v-if="version.version_type === 'beta'" class="badge yellow">
+                </span>
+                <span
+                  v-if="version.version_type === 'beta'"
+                  class="badge yellow"
+                >
                   Beta
-                </p>
-                <p v-if="version.version_type === 'alpha'" class="badge red">
+                </span>
+                <span v-if="version.version_type === 'alpha'" class="badge red">
                   Alpha
-                </p>
+                </span>
+                <h4 class="title">
+                  {{ version.name }}
+                </h4>
               </div>
-              <div class="columns info-2">
-                <p class="version-number limit-text-width">
+              <div class="bottom">
+                <span class="version-number limit-text-width">
                   {{ version.version_number }}
-                </p>
+                </span>
                 <FabricIcon
                   v-if="version.loaders.includes('fabric')"
-                  stroke="#AC6C3A"
+                  class="loader"
                 />
                 <ForgeIcon
-                  v-if="version.loaders.includes('forge')"
-                  stroke="#8B81E6"
+                  v-if="version.loaders.includes('fabric')"
+                  class="loader"
                 />
-                <p
+                <span
                   v-if="version.game_versions.length > 0"
                   class="game-version limit-text-width"
                 >
                   {{ version.game_versions[0] }}
-                </p>
+                </span>
               </div>
             </div>
-            <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
-              <DownloadIcon />
-            </nuxt-link>
           </div>
           <client-only>
             <EthicalAd type="image" />
@@ -232,18 +238,16 @@ export default {
   min-width: 270px;
   max-width: 270px;
   padding: var(--spacing-card-lg);
-  padding-top: 0;
   height: auto;
   @extend %card-spaced-b;
   margin-left: var(--spacing-card-lg);
 
-  h3 {
-    color: var(--color-text-heading);
-    font-size: 0.8rem;
-    letter-spacing: 0.02rem;
+  .section {
     margin-top: var(--spacing-card-lg);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
+  }
+
+  h3 {
+    @extend %large-label;
   }
 
   .mod-stats {
@@ -278,67 +282,40 @@ export default {
   }
 
   .featured-version {
-    margin-left: 5px;
-    margin-bottom: 10px;
-    border: 1px solid var(--color-grey-1);
-    border-radius: var(--size-rounded-sm);
-
-    .version-info {
-      padding: 5px 10px;
-      h4 {
-        max-width: 120px;
-        font-weight: normal;
-        margin: 0 10px 0 0;
-      }
-      .badge {
-        margin: 0;
-        display: inline-block;
-      }
-      .info-2 {
-        overflow: hidden;
-        max-width: 180px;
-        align-items: center;
-
-        .version-number {
-          max-width: 80px;
-        }
-
-        .game-version {
-          max-width: 120px;
-        }
-
-        p {
-          color: var(--color-grey-4);
-          font-weight: lighter;
-          margin: 0 10px 0 0;
-        }
-
-        svg {
-          min-width: 24px;
-          min-height: 24px;
-          margin-right: 10px;
-        }
+    @extend %row;
+    padding-top: var(--spacing-card-sm);
+    padding-bottom: var(--spacing-card-sm);
+    .download {
+      display: flex;
+      align-items: center;
+      height: 2rem;
+      width: 2rem;
+      border-radius: 2rem;
+      background-color: var(--color-button-bg);
+      margin-right: var(--spacing-card-sm);
+      svg {
+        width: 1.25rem;
+        margin: auto;
       }
     }
-
-    a {
-      display: table-cell;
-      margin-left: auto;
-      width: 40px;
-      height: 60px;
-      background-color: var(--color-grey-1);
-      color: var(--color-grey-3);
-
-      svg {
-        margin-top: 15px;
-        height: 30px;
-        width: 40px;
+    .info {
+      @extend %column;
+      font-size: var(--font-size-sm);
+      .top {
+        @extend %row;
+        .badge {
+          font-size: var(--font-size-xs);
+          margin-right: var(--spacing-card-sm);
+        }
+        .title {
+          margin: 0;
+        }
       }
-
-      &:hover,
-      &:focus {
-        background-color: var(--color-grey-3);
-        color: var(--color-grey-4);
+      .bottom {
+        @extend %row;
+        .loader {
+          height: 1rem;
+        }
       }
     }
   }

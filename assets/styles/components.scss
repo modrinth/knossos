@@ -17,7 +17,7 @@
 
 .badge {
   border-radius: 1rem;
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   font-weight: bold;
   letter-spacing: 0.02rem;
   padding: 0.25rem 0.5rem;
@@ -82,8 +82,8 @@
 
   pre {
     padding: 15px 10px;
-    border-radius: var(--size-rounded-sm);
-    background-color: var(--color-grey-1);
+    border-radius: var(--size-rounded-control);
+    background-color: var(--color-code-bg);
 
     code {
       font-size: 80%;
@@ -93,10 +93,11 @@
   }
 
   code {
-    padding: .2em .4em;
-    font-size: 60%;
-    border-radius: var(--size-rounded-sm);
-    background-color: var(--color-grey-1)
+    padding: 0.2em 0.4em;
+    font-size: 80%;
+    border-radius: var(--size-rounded-control);
+    background-color: var(--color-code-bg);
+    color: var(--color-code-text);
   }
 
   hr {
