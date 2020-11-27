@@ -106,14 +106,24 @@ export default {
     ModIcon,
   },
   async fetch() {
+    const config = {
+      headers: {
+        Authorization: this.$auth.getToken('local'),
+      },
+    }
+
     try {
       let res = await axios.get(
-        `https://api.modrinth.com/api/v1/user/${this.$auth.user.id}/mods`
+        `https://api.modrinth.com/api/v1/user/${this.$auth.user.id}/mods`,
+        config
       )
 
       if (res.data) {
         res = await axios.get(
-          `https://api.modrinth.com/api/v1/mods?ids=${JSON.stringify(res.data)}`
+          `https://api.modrinth.com/api/v1/mods?ids=${JSON.stringify(
+            res.data
+          )}`,
+          config
         )
         this.mods = res.data
       }
