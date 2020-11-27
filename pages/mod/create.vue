@@ -291,7 +291,7 @@
           </FileInput>
         </Popup>
         <div class="versions-header">
-          <h3>Versions</h3>
+          <h3>Upload already released versions</h3>
           <button
             title="New Version"
             class="new-version"
@@ -324,28 +324,86 @@
         </div>
       </section>
       <section class="extra-links">
-        <h3>Extras</h3>
-        <div class="extras">
-          <label
-            title="A link where users can go to report bugs, issues, and concerns about your mod."
-          >
-            Issues URL
-            <input v-model="issues_url" type="text" placeholder="Optional" />
-          </label>
-          <label
-            title="A link to a page/repository containing the source code "
-          >
-            Source Code Link
-            <input v-model="source_url" type="text" placeholder="Optional" />
-          </label>
-          <label
-            title="A link to a page containing information, documentation, and help for the mod. (Optional)"
-          >
-            Wiki Link
-            <input v-model="wiki_url" type="text" placeholder="Optional" />
-          </label>
+        <div class="title">
+          <h3>Extrernal links</h3>
+          <i>— this section is optional</i>
+        </div>
+        <label
+          title="A place for users to report bugs, issues, and concerns about your mod."
+        >
+          <span>Issues board</span>
+          <input
+            v-model="issues_url"
+            type="url"
+            placeholder="Enter a valid URL"
+          />
+        </label>
+        <label title="A page/repository containing the source code">
+          <span>Source code</span>
+          <input
+            v-model="source_url"
+            type="url"
+            placeholder="Enter a valid URL"
+          />
+        </label>
+        <label
+          title="A page containing information, documentation, and help for the mod."
+        >
+          <span>Wiki</span>
+          <input
+            v-model="wiki_url"
+            type="url"
+            placeholder="Enter a valid URL"
+          />
+        </label>
+        <label title="An inivitation link to your Discord server.">
+          <span>Discord</span>
+          <input
+            v-model="wiki_url"
+            type="url"
+            placeholder="Enter a valid URL"
+          />
+        </label>
+      </section>
+      <section class="donations">
+        <div class="title">
+          <h3>Donation links</h3>
+          <i>— this section is optional</i>
         </div>
       </section>
+      <section class="license">
+        <div class="title">
+          <h3>License</h3>
+          <i>— this section is optional</i>
+        </div>
+        <label>
+          <span>
+            It is really important to choose a proper license for your mod. You
+            may choose one from our list or provide a URL to your own license.
+            URL field will be filled automatically for provided licenses
+          </span>
+          <div class="input-group">
+            <multiselect
+              id="categories"
+              v-model="categories"
+              :options="selectableCategories"
+              :loading="selectableCategories.length === 0"
+              :multiple="true"
+              :searchable="false"
+              :show-no-results="false"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :show-labels="false"
+              :max="3"
+              :limit="6"
+              :hide-selected="true"
+              placeholder="Choose categories..."
+            />
+            <input type="text" style="width: auto" placeholder="License URL" />
+          </div>
+        </label>
+      </section>
+      <m-footer class="footer" centered />
     </div>
   </div>
 </template>
@@ -354,6 +412,7 @@
 import axios from 'axios'
 import Multiselect from 'vue-multiselect'
 
+import MFooter from '@/components/MFooter'
 import Popup from '@/components/Popup'
 import FileInput from '@/components/FileInput'
 import EthicalAd from '@/components/EthicalAd'
@@ -364,6 +423,7 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 
 export default {
   components: {
+    MFooter,
     FileInput,
     Popup,
     EthicalAd,
@@ -412,6 +472,11 @@ export default {
         { display: 'Required', name: 'required' },
         { display: 'No functionality', name: 'no_functionality' },
         { display: 'Unsupported', name: 'unsupported' },
+      ],
+      licenses: [
+        { display: 'MIT', name: 'MIT' },
+        { display: 'GNU GPL v3', name: ' 	GPL-3.0' },
+        { display: 'Apache License 2.0', name: 'Apache-2.0' },
       ],
     }
   },
@@ -528,16 +593,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  * {
+    display: inline;
+  }
+}
+
+label {
+  display: flex;
+
+  span {
+    flex: 2;
+    padding-right: var(--spacing-card-lg);
+  }
+
+  input,
+  .multiselect,
+  .input-group {
+    flex: 3;
+    height: fit-content;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+
+  * {
+    margin-bottom: var(--spacing-card-sm);
+  }
+}
+
 .page-contents {
   display: grid;
   grid-template:
-    'header       header            header' auto
-    'advert       advert            advert' auto
-    'essentials   essentials        mod-icon' auto
-    'game-sides   game-sides        game-sides' auto
-    'description  description       description' auto
-    'versions     versions          versions' auto
-    'extra-links  license-donations license-donations' auto
+    'header       header      header' auto
+    'advert       advert      advert' auto
+    'essentials   essentials  mod-icon' auto
+    'game-sides   game-sides  game-sides' auto
+    'description  description description' auto
+    'versions     versions    versions' auto
+    'extra-links  donations   donations' auto
+    'license      license     .' auto
+    'footer       footer      footer' auto
     / 4fr 1fr 4fr;
   column-gap: var(--spacing-card-md);
   row-gap: var(--spacing-card-md);
@@ -614,23 +712,30 @@ section.versions {
 
 section.extra-links {
   grid-area: extra-links;
+
+  label {
+    align-items: center;
+    margin-top: var(--spacing-card-sm);
+
+    span {
+      flex: 1;
+    }
+  }
 }
 
-section.license-donations {
-  grid-area: license-donations;
+section.license {
+  grid-area: license;
+
+  label {
+    margin-top: var(--spacing-card-sm);
+  }
 }
 
-label {
-  display: flex;
+section.donations {
+  grid-area: donations;
+}
 
-  span {
-    flex: 2;
-    padding-right: var(--spacing-card-lg);
-  }
-
-  input,
-  .multiselect {
-    flex: 3;
-  }
+.footer {
+  grid-area: footer;
 }
 </style>

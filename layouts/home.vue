@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <header class="columns">
       <nuxt-link to="/">
         <img class="logo" src="~/assets/images/logo.svg" alt="logo" />
@@ -35,8 +35,8 @@
       </div>
       <div class="column legal-wrapper">
         <h4 class="legal">Legal</h4>
-        <nuxt-link to="/tos">TOS</nuxt-link>
-        <nuxt-link to="/privacy">Privacy Policy</nuxt-link>
+        <nuxt-link to="/legal/terms">TOS</nuxt-link>
+        <nuxt-link to="/legal/privacy">Privacy Policy</nuxt-link>
       </div>
     </footer>
   </div>
@@ -47,6 +47,11 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
+.page {
+  background: var(--color-raised-bg);
+  min-height: 100vh;
+}
+
 header {
   width: 100%;
 
@@ -79,9 +84,9 @@ header {
 footer {
   justify-content: center;
   margin-top: 250px;
-  margin-bottom: 100px;
   display: grid;
   column-gap: 50px;
+  padding-bottom: 100px;
   grid-template-columns: 175px 120px 120px 175px;
   grid-template-rows: 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px;
 
