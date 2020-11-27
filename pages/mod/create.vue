@@ -151,7 +151,7 @@
             Mod Body
           </label>
         </h3>
-        <p>
+        <span>
           You can type the of the long form of your description here. This
           editor supports markdown. You can find the syntax
           <a
@@ -160,9 +160,11 @@
             rel="noopener noreferrer"
             >here</a
           >.
-        </p>
-        <textarea id="body" v-model="body" @input="setMarkdownBody"></textarea>
-        <div v-html="compiledBody"></div>
+        </span>
+        <div class="columns">
+          <textarea id="body" v-model="body"></textarea>
+          <div v-compiled-markdown="body"></div>
+        </div>
       </section>
       <section class="versions">
         <Popup
@@ -350,9 +352,6 @@
 import axios from 'axios'
 import Multiselect from 'vue-multiselect'
 
-import xss from 'xss'
-import marked from 'marked'
-
 import Popup from '@/components/Popup'
 import FileInput from '@/components/FileInput'
 import EthicalAd from '@/components/EthicalAd'
@@ -480,6 +479,7 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
+
     showPreviewImage(e) {
       const reader = new FileReader()
       this.icon = e.target.files[0]
@@ -489,6 +489,7 @@ export default {
         this.previewImage = event.target.result
       }
     },
+
     updateVersionFiles(e) {
       this.versions[this.currentVersionIndex].raw_files = e.target.files
 
@@ -499,6 +500,7 @@ export default {
 
       this.versions[this.currentVersionIndex].file_parts = newFileParts
     },
+
     createVersion() {
       this.versions.push({
         raw_files: [],
@@ -514,12 +516,10 @@ export default {
 
       this.currentVersionIndex = this.versions.length - 1
     },
+
     deleteVersion() {
       this.versions.splice(this.currentVersionIndex, 1)
       this.currentVersionIndex = -1
-    },
-    setMarkdownBody() {
-      this.compiledBody = xss(marked(this.body))
     },
   },
 }

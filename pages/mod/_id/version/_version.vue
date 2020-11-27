@@ -18,7 +18,7 @@
           </button>
         </div>
       </div>
-      <div class="markdown-body" v-html="changelog"></div>
+      <div v-compiled-markdown="changelog" class="markdown-body"></div>
       <hr />
       <div class="columns metadata">
         <div class="author">
@@ -84,8 +84,6 @@
 import axios from 'axios'
 
 import ModPage from '@/components/ModPage'
-import xss from 'xss'
-import marked from 'marked'
 
 import Popup from '@/components/Popup'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
@@ -138,8 +136,7 @@ export default {
 
     let changelog = ''
     if (version.changelog_url) {
-      res = await axios.get(version.changelog_url)
-      changelog = xss(marked(res.data))
+      changelog = await axios.get(version.changelog_url)
     }
 
     return {
