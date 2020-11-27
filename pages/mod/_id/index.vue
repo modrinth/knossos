@@ -1,14 +1,11 @@
 <template>
   <ModPage :mod="mod" :versions="versions" :members="members">
-    <div class="markdown-body" v-html="body"></div>
+    <div v-compiled-markdown="body" class="markdown-body"></div>
   </ModPage>
 </template>
 
 <script>
 import axios from 'axios'
-
-import xss from 'xss'
-import marked from 'marked'
 import ModPage from '@/components/ModPage'
 
 export default {
@@ -31,8 +28,7 @@ export default {
       members[i].avatar_url = res.data.avatar_url
     }
 
-    res = await axios.get(mod.body_url)
-    const body = xss(marked(res.data))
+    const body = await axios.get(mod.body_url)
 
     const versions = []
 

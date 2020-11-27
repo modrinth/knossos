@@ -214,9 +214,9 @@
   user-select: none;
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.5rem 0.25rem;
   padding-bottom: 0.2rem;
-  margin-right: 0.75rem;
+  margin-right: inherit 0.75rem;
   border-bottom: 3px solid transparent;
 
   svg {
@@ -242,7 +242,7 @@
     padding: var(--spacing-card-md);
     margin-bottom: var(--spacing-card-md);
     @extend %card;
-    
+
     &.page-nav {
       .tab {
         padding: var(--spacing-card-sm);
@@ -261,7 +261,7 @@
           height: 1.25rem;
           flex-shrink: 0;
         }
-      
+
         &.nuxt-link-exact-active {
           svg {
             color: var(--color-brand-light);
@@ -270,7 +270,7 @@
       }
     }
   }
-  
+
   @media screen and (min-width: 1024px) {
     width: 300px;
   }
@@ -306,6 +306,7 @@
   @extend %transparent-clickable;
   margin: auto 0;
   padding: 6px 20px;
+  text-decoration: underline;
 }
 
 .brand-button {

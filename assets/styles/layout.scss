@@ -10,7 +10,7 @@
 
 .rows {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   @for $i from 1 through 4 {
     .row-grow-#{$i} {
