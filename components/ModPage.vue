@@ -10,7 +10,7 @@
                   ? mod.icon_url
                   : 'https://cdn.modrinth.com/placeholder.svg'
               "
-              :alt="mod - icon"
+              alt="mod - icon"
             />
           </div>
           <div class="info">
@@ -35,7 +35,7 @@
             <a
               v-if="mod.issues_url"
               :href="mod.issues_url"
-              :target="_blank"
+              target="_blank"
               class="tab"
             >
               <ExternalIcon />
@@ -44,7 +44,7 @@
             <a
               v-if="mod.source_url"
               :href="mod.source_url"
-              :target="_blank"
+              target="_blank"
               class="tab"
             >
               <ExternalIcon />

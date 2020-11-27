@@ -47,13 +47,13 @@
 %small-label {
   @extend %label;
   color: var(--color-text);
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-xs);
   letter-spacing: 0.02rem;
 }
 
 %large-label {
   @extend %label;
   color: var(--color-text);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   margin-bottom: 0.5em;
 }

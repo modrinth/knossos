@@ -3,7 +3,8 @@
     <aside>
       <section class="navbar columns">
         <section class="logo column">
-          <ModrinthLogo />
+          <ModrinthLogo v-if="$colorMode.value === 'light'" />
+          <ModrinthLogoWhite v-else />
           <span class="badge yellow">Beta</span>
         </section>
         <section class="column-grow-5 nav">
@@ -167,6 +168,7 @@
 import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
+import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
 
 import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
 import ProjectsIcon from '~/assets/images/sidebar/projects.svg?inline'
@@ -188,6 +190,7 @@ import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 export default {
   components: {
     ModrinthLogo,
+    ModrinthLogoWhite,
     ModpackIcon,
     ProjectsIcon,
     AnalyticsIcon,

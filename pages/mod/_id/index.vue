@@ -28,7 +28,7 @@ export default {
       members[i].avatar_url = res.data.avatar_url
     }
 
-    const body = await axios.get(mod.body_url)
+    const body = (await axios.get(mod.body_url)).data
 
     const versions = []
 

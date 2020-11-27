@@ -12,8 +12,12 @@
 export default {
   props: {
     error: {
-      type: String,
-      default: 'unknown',
+      type: Object,
+      default() {
+        return {
+          message: 'Unknown error',
+        }
+      },
     },
   },
   layout: 'home',

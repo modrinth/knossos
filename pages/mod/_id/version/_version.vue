@@ -136,7 +136,7 @@ export default {
 
     let changelog = ''
     if (version.changelog_url) {
-      changelog = await axios.get(version.changelog_url)
+      changelog = (await axios.get(version.changelog_url)).data
     }
 
     return {

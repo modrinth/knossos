@@ -97,49 +97,51 @@
         </div>
       </section>
       <section class="game-sides">
-        <div class="title-hint">
-          <h3>Game sides</h3>
+        <h3>Game sides</h3>
+        <div class="columns">
           <span>
-            Let others know if your mod is for clients, servers or universal
+            Let others know if your mod is for clients, servers or universal.
+            For example, IC2 will be required + required, while OptiFine will be
+            required + no functionality
           </span>
-        </div>
-        <div class="labeled-control">
-          <h3>Client side</h3>
-          <Multiselect
-            v-model="clientSide"
-            class="sort-types"
-            placeholder="Select one"
-            track-by="display"
-            label="display"
-            :options="sideTypes"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-          >
-            <template slot="singleLabel" slot-scope="{ option }">{{
-              option.display
-            }}</template>
-          </Multiselect>
-        </div>
-        <div class="labeled-control">
-          <h3>Server side</h3>
-          <Multiselect
-            v-model="serverSide"
-            class="sort-types"
-            placeholder="Select one"
-            track-by="display"
-            label="display"
-            :options="sideTypes"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-          >
-            <template slot="singleLabel" slot-scope="{ option }">{{
-              option.display
-            }}</template>
-          </Multiselect>
+          <div class="labeled-control">
+            <h3>Client side</h3>
+            <Multiselect
+              v-model="clientSide"
+              class="sort-types"
+              placeholder="Select one"
+              track-by="display"
+              label="display"
+              :options="sideTypes"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+            >
+              <template slot="singleLabel" slot-scope="{ option }">{{
+                option.display
+              }}</template>
+            </Multiselect>
+          </div>
+          <div class="labeled-control">
+            <h3>Server side</h3>
+            <Multiselect
+              v-model="serverSide"
+              class="sort-types"
+              placeholder="Select one"
+              track-by="display"
+              label="display"
+              :options="sideTypes"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+            >
+              <template slot="singleLabel" slot-scope="{ option }">{{
+                option.display
+              }}</template>
+            </Multiselect>
+          </div>
         </div>
       </section>
       <section class="description">
@@ -583,22 +585,27 @@ section.mod-icon {
 
 section.game-sides {
   grid-area: game-sides;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
 
-  .title-hint {
-    flex: 2;
-  }
+  .columns {
+    flex-wrap: wrap;
 
-  .labeled-control {
-    flex: 2;
-    margin-left: var(--spacing-card-lg);
+    span {
+      flex: 2;
+    }
+
+    .labeled-control {
+      flex: 2;
+      margin-left: var(--spacing-card-lg);
+    }
   }
 }
 
 section.description {
   grid-area: description;
+
+  textarea {
+    width: 50%;
+  }
 }
 
 section.versions {
@@ -615,7 +622,6 @@ section.license-donations {
 
 label {
   display: flex;
-  align-items: stretch;
 
   span {
     flex: 2;
