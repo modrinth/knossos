@@ -31,7 +31,7 @@
   --color-transparent-button-text-hover: var(--color-text-dark);
   --color-transparent-button-bg-active: var(--color-button-bg-hover);
   --color-transparent-button-text-active: var(--color-text-dark);
-  
+
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
 
@@ -46,7 +46,7 @@
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
   --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
-  
+
   --color-link: #2089ff;
 
   --color-badge-gray-text: #646161;
@@ -75,7 +75,7 @@
 
   --color-brand: #4d9227;
   --color-brand-light: #6bac57;
-  --color-brand-inverted: #ffffff;  
+  --color-brand-inverted: #ffffff;
   --color-brand-2: #438121;
   --color-brand-3: #344d26;
   --color-brand-disabled: #414146;
@@ -96,9 +96,9 @@
 
   --color-tooltip-bg: var(--color-text);
   --color-tooltip-text: var(--color-bg);
-  
+
   --color-ad: #2c323a;
-  
+
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   --shadow-dropdown-strong: 3px 3px 20px hsla(0, 0%, 0%, 0.15);
   --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
@@ -155,7 +155,7 @@ body {
   --font-size-xl: 1.5rem;     //24px
   --font-size-2xl: 2rem;      //32px
   --font-size-3xl: 3rem;      //48px
-  
+
   // Font Weights
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -190,11 +190,13 @@ a {
 h2 {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: var(--color-text-dark);
 }
 
 h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  color: var(--color-text-dark);
 }
 
 button {
@@ -203,17 +205,15 @@ button {
 }
 
 input {
-  background: var(--color-raised-bg);
+  background: var(--color-button-bg);
   border: none;
   border-radius: var(--size-rounded-control);
   color: var(--color-text);
-  font-size: 1rem;
   padding: 0.5rem 1rem;
-  height: 2.5rem;
-  width: 100%;
 
   &:focus,
   &:hover {
+    background: var(--color-button-bg-hover);
     color: var(--color-text);
     outline: none;
 

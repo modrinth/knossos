@@ -1,270 +1,337 @@
 <template>
-  <div class="content">
-    <h2>Create Mod</h2>
-    <section>
-      <h3>Initial Data</h3>
-      <div class="initial">
-        <div class="image-data">
-          <img
-            :src="
-              previewImage
-                ? previewImage
-                : 'https://cdn.modrinth.com/placeholder.svg'
-            "
-            alt="preview-image"
-          />
-          <FileInput
-            input-id="icon-file"
-            input-accept="image/*"
-            default-text="Upload Icon"
-            :input-multiple="false"
-            @change="showPreviewImage"
-          />
+  <div class="page-container">
+    <div class="page-contents">
+      <header class="columns">
+        <h2 class="column-grow-1">Create a mod</h2>
+        <button
+          title="Save draft"
+          class="button column"
+          :disabled="!this.$nuxt.$loading"
+        >
+          Save draft
+        </button>
+        <button
+          title="Create"
+          class="brand-button column"
+          :disabled="!this.$nuxt.$loading"
+          @click="createMod"
+        >
+          Create
+        </button>
+      </header>
+      <EthicalAd />
+      <div class="columns">
+        <section class="essentials column-grow-5">
+          <h3>Name</h3>
+          <div class="columns">
+            <span class="column-grow-1">
+              Be creative. TechCraft v7 won't be searchable and won't be clicked
+              on
+            </span>
+            <input id="name" class="column-grow-2" type="text" name="name" />
+          </div>
+          <h3>Summary</h3>
+          <div class="columns">
+            <span class="column-grow-1">
+              Give a quick description to your mod. It will appear in the search
+            </span>
+            <input id="name" class="column-grow-2" type="text" name="name" />
+          </div>
+          <h3>Categories</h3>
+          <div class="columns">
+            <span class="column-grow-1">
+              Select up to 3 categories. They will help to find your mod
+            </span>
+            <input id="name" class="column-grow-2" type="text" name="name" />
+          </div>
+          <h3>Vanity URL</h3>
+          <div class="columns">
+            <span class="column-grow-1">
+              Set this to something pretty, so URLs to your mod are more
+              readable
+            </span>
+            <input id="name" class="column-grow-2" type="text" name="name" />
+          </div>
+        </section>
+        <section class="mod-icon column-grow-4">
+          <h3>Mod icon</h3>
+          <div class="columns">
+            <div class="column">
+              <FileInput
+                input-id="icon-file"
+                input-accept="image/*"
+                default-text="Upload Icon"
+                :input-multiple="false"
+                @change="showPreviewImage"
+              />
+            </div>
+            <img
+              class="column"
+              :src="
+                previewImage
+                  ? previewImage
+                  : 'https://cdn.modrinth.com/placeholder.svg'
+              "
+              alt="preview-image"
+            />
+          </div>
+        </section>
+      </div>
+      <section>
+        <h3>Initial Data</h3>
+        <div class="initial">
+          <div class="mod-data">
+            <label for="name" class="required" title="The name of your mod">
+              Name
+            </label>
+            <input
+              id="name"
+              v-model="name"
+              required
+              type="text"
+              placeholder="Example Mod"
+            />
+            <label
+              for="description"
+              class="required"
+              title="The short-form description of your mod. This shows up in searches"
+            >
+              Short Description
+            </label>
+            <input
+              id="description"
+              v-model="description"
+              required
+              type="text"
+              placeholder="An example mod which does example stuff!"
+            />
+            <label
+              for="categories"
+              title="The categories of your mod, these help your mod appear in search results. Maximum of three!"
+            >
+              Categories
+            </label>
+            <multiselect
+              id="categories"
+              v-model="categories"
+              class="categories-input"
+              :options="selectableCategories"
+              :loading="selectableCategories.length === 0"
+              :multiple="true"
+              :searchable="false"
+              :show-no-results="false"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :show-labels="false"
+              :max="3"
+              :limit="6"
+              :hide-selected="true"
+              placeholder="Choose categories..."
+            />
+          </div>
         </div>
-        <div class="mod-data">
-          <label for="name" class="required" title="The name of your mod">
-            Name
-          </label>
-          <input
-            id="name"
-            v-model="name"
-            required
-            type="text"
-            placeholder="Example Mod"
-          />
+      </section>
+      <section class="editor">
+        <h3>
           <label
-            for="description"
+            for="body"
+            title="You can type the of the long form of your description here."
+          >
+            Mod Body
+          </label>
+        </h3>
+        <p>
+          You can type the of the long form of your description here. This
+          editor supports markdown. You can find the syntax
+          <a
+            href="https://guides.github.com/features/mastering-markdown/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >here</a
+          >.
+        </p>
+        <textarea id="body" v-model="body" @input="setMarkdownBody"></textarea>
+        <div v-html="compiledBody"></div>
+      </section>
+      <section>
+        <Popup
+          v-if="currentVersionIndex > -1"
+          :show-popup="currentVersionIndex > -1"
+          class="create-version-popup-body"
+        >
+          <div class="versions-header">
+            <h3>New Version</h3>
+
+            <div class="popup-icons">
+              <button title="Discard Version" @click="deleteVersion">
+                <TrashIcon />
+              </button>
+              <button title="Exit Version" @click="currentVersionIndex = -1">
+                <SaveIcon />
+              </button>
+            </div>
+          </div>
+          <label
+            for="version-title"
             class="required"
-            title="The short-form description of your mod. This shows up in searches"
+            title="The title of your version"
           >
-            Short Description
+            Version Title
           </label>
           <input
-            id="description"
-            v-model="description"
+            id="version-title"
+            v-model="versions[currentVersionIndex].version_title"
             required
             type="text"
-            placeholder="An example mod which does example stuff!"
+            placeholder="Combat Update"
           />
           <label
-            for="categories"
-            title="The categories of your mod, these help your mod appear in search results. Maximum of three!"
+            for="version-number"
+            class="required"
+            title="The version number of this version. Preferably following semantic versioning"
           >
-            Categories
+            Version Number
+          </label>
+          <input
+            id="version-number"
+            v-model="versions[currentVersionIndex].version_number"
+            required
+            type="text"
+            placeholder="v1.9"
+          />
+          <label class="required" title="The release channel of this version.">
+            Release Channel
+          </label>
+          <Multiselect
+            v-model="versions[currentVersionIndex].release_channel"
+            class="categories-input"
+            placeholder="Select one"
+            :options="['release', 'beta', 'alpha']"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          />
+          <label
+            title="The version number of this version. Preferably following semantic versioning"
+          >
+            Loaders
           </label>
           <multiselect
-            id="categories"
-            v-model="categories"
+            v-model="versions[currentVersionIndex].loaders"
             class="categories-input"
-            :options="selectableCategories"
-            :loading="selectableCategories.length === 0"
+            :options="selectableLoaders"
+            :loading="selectableLoaders.length === 0"
             :multiple="true"
             :searchable="false"
+            :show-no-results="false"
+            :close-on-select="true"
+            :clear-on-select="false"
+            :show-labels="false"
+            :limit="6"
+            :hide-selected="true"
+            placeholder="Choose loaders..."
+          />
+          <label
+            title="The versions of minecraft that this mod version supports"
+          >
+            Game Versions
+          </label>
+          <multiselect
+            v-model="versions[currentVersionIndex].game_versions"
+            class="categories-input"
+            :options="selectableVersions"
+            :loading="selectableVersions.length === 0"
+            :multiple="true"
+            :searchable="true"
             :show-no-results="false"
             :close-on-select="false"
             :clear-on-select="false"
             :show-labels="false"
-            :max="3"
             :limit="6"
             :hide-selected="true"
-            placeholder="Choose categories..."
+            placeholder="Choose versions..."
           />
-        </div>
-      </div>
-    </section>
-    <section class="editor">
-      <h3>
-        <label
-          for="body"
-          title="You can type the of the long form of your description here."
-        >
-          Mod Body
-        </label>
-      </h3>
-      <p>
-        You can type the of the long form of your description here. This editor
-        supports markdown. You can find the syntax
-        <a
-          href="https://guides.github.com/features/mastering-markdown/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >here</a
-        >.
-      </p>
-      <textarea id="body" v-model="body" @input="setMarkdownBody"></textarea>
-      <div v-html="compiledBody"></div>
-    </section>
-    <section>
-      <Popup
-        v-if="currentVersionIndex > -1"
-        :show-popup="currentVersionIndex > -1"
-        class="create-version-popup-body"
-      >
+          <label for="version-body" title="A list of changes for this version">
+            Changelog
+          </label>
+          <textarea
+            id="version-body"
+            v-model="versions[currentVersionIndex].version_body"
+            class="changelog-editor"
+          />
+          <FileInput
+            input-id="version-files"
+            input-accept="application/*"
+            :input-multiple="true"
+            default-text="Upload Files"
+            @change="updateVersionFiles"
+          >
+            <label
+              class="required"
+              title="The files associated with the version"
+            >
+              Version Files
+            </label>
+          </FileInput>
+        </Popup>
         <div class="versions-header">
-          <h3>New Version</h3>
-
-          <div class="popup-icons">
-            <button title="Discard Version" @click="deleteVersion">
+          <h3>Versions</h3>
+          <button
+            title="New Version"
+            class="new-version"
+            @click="createVersion"
+          >
+            <PlusIcon />
+          </button>
+        </div>
+        <div v-for="(value, index) in versions" :key="index" class="version">
+          <p>{{ value.version_number }}</p>
+          <p class="column-grow-4">{{ value.version_title }}</p>
+          <p>{{ value.loaders.join(', ') }}</p>
+          <p v-if="value.release_channel === 'beta'" class="badge yellow">
+            Beta
+          </p>
+          <p v-if="value.release_channel === 'release'" class="badge green">
+            Release
+          </p>
+          <p v-if="value.release_channel === 'alpha'" class="badge red">
+            Alpha
+          </p>
+          <div>
+            <button title="Delete Version" @click="versions.splice(index, 1)">
               <TrashIcon />
             </button>
-            <button title="Exit Version" @click="currentVersionIndex = -1">
-              <SaveIcon />
+            <button title="Edit Version" @click="currentVersionIndex = index">
+              <EditIcon />
             </button>
           </div>
         </div>
-        <label
-          for="version-title"
-          class="required"
-          title="The title of your version"
-        >
-          Version Title
-        </label>
-        <input
-          id="version-title"
-          v-model="versions[currentVersionIndex].version_title"
-          required
-          type="text"
-          placeholder="Combat Update"
-        />
-        <label
-          for="version-number"
-          class="required"
-          title="The version number of this version. Preferably following semantic versioning"
-        >
-          Version Number
-        </label>
-        <input
-          id="version-number"
-          v-model="versions[currentVersionIndex].version_number"
-          required
-          type="text"
-          placeholder="v1.9"
-        />
-        <label class="required" title="The release channel of this version.">
-          Release Channel
-        </label>
-        <Multiselect
-          v-model="versions[currentVersionIndex].release_channel"
-          class="categories-input"
-          placeholder="Select one"
-          :options="['release', 'beta', 'alpha']"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-        />
-        <label
-          title="The version number of this version. Preferably following semantic versioning"
-        >
-          Loaders
-        </label>
-        <multiselect
-          v-model="versions[currentVersionIndex].loaders"
-          class="categories-input"
-          :options="selectableLoaders"
-          :loading="selectableLoaders.length === 0"
-          :multiple="true"
-          :searchable="false"
-          :show-no-results="false"
-          :close-on-select="true"
-          :clear-on-select="false"
-          :show-labels="false"
-          :limit="6"
-          :hide-selected="true"
-          placeholder="Choose loaders..."
-        />
-        <label title="The versions of minecraft that this mod version supports">
-          Game Versions
-        </label>
-        <multiselect
-          v-model="versions[currentVersionIndex].game_versions"
-          class="categories-input"
-          :options="selectableVersions"
-          :loading="selectableVersions.length === 0"
-          :multiple="true"
-          :searchable="true"
-          :show-no-results="false"
-          :close-on-select="false"
-          :clear-on-select="false"
-          :show-labels="false"
-          :limit="6"
-          :hide-selected="true"
-          placeholder="Choose versions..."
-        />
-        <label for="version-body" title="A list of changes for this version">
-          Changelog
-        </label>
-        <textarea
-          id="version-body"
-          v-model="versions[currentVersionIndex].version_body"
-          class="changelog-editor"
-        />
-        <FileInput
-          input-id="version-files"
-          input-accept="application/*"
-          :input-multiple="true"
-          default-text="Upload Files"
-          @change="updateVersionFiles"
-        >
-          <label class="required" title="The files associated with the version">
-            Version Files
+      </section>
+      <section>
+        <h3>Extras</h3>
+        <div class="extras">
+          <label
+            title="A link where users can go to report bugs, issues, and concerns about your mod."
+          >
+            Issues URL
+            <input v-model="issues_url" type="text" placeholder="Optional" />
           </label>
-        </FileInput>
-      </Popup>
-      <div class="versions-header">
-        <h3>Versions</h3>
-        <button title="New Version" class="new-version" @click="createVersion">
-          <PlusIcon />
-        </button>
-      </div>
-      <div v-for="(value, index) in versions" :key="index" class="version">
-        <p>{{ value.version_number }}</p>
-        <p class="column-grow-4">{{ value.version_title }}</p>
-        <p>{{ value.loaders.join(', ') }}</p>
-        <p v-if="value.release_channel === 'beta'" class="badge yellow">Beta</p>
-        <p v-if="value.release_channel === 'release'" class="badge green">
-          Release
-        </p>
-        <p v-if="value.release_channel === 'alpha'" class="badge red">Alpha</p>
-        <div>
-          <button title="Delete Version" @click="versions.splice(index, 1)">
-            <TrashIcon />
-          </button>
-          <button title="Edit Version" @click="currentVersionIndex = index">
-            <EditIcon />
-          </button>
+          <label
+            title="A link to a page/repository containing the source code "
+          >
+            Source Code Link
+            <input v-model="source_url" type="text" placeholder="Optional" />
+          </label>
+          <label
+            title="A link to a page containing information, documentation, and help for the mod. (Optional)"
+          >
+            Wiki Link
+            <input v-model="wiki_url" type="text" placeholder="Optional" />
+          </label>
         </div>
-      </div>
-    </section>
-    <section>
-      <h3>Extras</h3>
-      <div class="extras">
-        <label
-          title="A link where users can go to report bugs, issues, and concerns about your mod."
-        >
-          Issues URL
-          <input v-model="issues_url" type="text" placeholder="Optional" />
-        </label>
-        <label title="A link to a page/repository containing the source code ">
-          Source Code Link
-          <input v-model="source_url" type="text" placeholder="Optional" />
-        </label>
-        <label
-          title="A link to a page containing information, documentation, and help for the mod. (Optional)"
-        >
-          Wiki Link
-          <input v-model="wiki_url" type="text" placeholder="Optional" />
-        </label>
-      </div>
-    </section>
-    <button
-      title="Create Mod"
-      class="create-mod"
-      :disabled="!this.$nuxt.$loading"
-      @click="createMod"
-    >
-      Create mod
-    </button>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -277,6 +344,7 @@ import marked from 'marked'
 
 import Popup from '@/components/Popup'
 import FileInput from '@/components/FileInput'
+import EthicalAd from '@/components/EthicalAd'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
@@ -286,6 +354,7 @@ export default {
   components: {
     FileInput,
     Popup,
+    EthicalAd,
     Multiselect,
     TrashIcon,
     EditIcon,
@@ -438,175 +507,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section {
-  box-shadow: 0 2px 3px 1px var(--color-grey-2);
-  margin: 50px 25px;
-  padding: 5px 20px 20px 20px;
-  border-radius: 10px;
-  background-color: var(--color-bg);
-
-  h3 {
-    margin-bottom: 15px;
-  }
+.page-contents {
+  flex-direction: column;
 }
 
-input {
-  width: calc(100% - 15px);
-  padding: 0.5rem 5px;
-  margin-bottom: 20px;
-}
-
-.multiselect {
-  margin-top: 0.5rem;
-}
-
-.initial {
-  display: flex;
-  .image-data {
-    flex: 1;
-
-    img {
-      image-rendering: crisp-edges;
-      object-fit: cover;
-      width: 100%;
-      height: 85%;
-      margin-bottom: 20px;
-    }
+header {
+  @extend %card;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  margin-bottom: var(--spacing-card-md);
+  h2 {
+    margin: auto 0;
+    color: var(--color-text-dark);
+    font-weight: var(--font-weight-extrabold);
   }
-
-  .mod-data {
-    flex: 4;
-    margin: 20px;
-  }
-}
-
-.editor {
-  width: calc(100% - 90px);
-  min-height: 500px;
-
-  h3 {
-    margin-bottom: 5px;
-  }
-  p {
-    margin-top: 0;
-    margin-bottom: 15px;
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  textarea {
-    padding: 20px;
-    width: calc(50% - 50px);
-    height: 500px;
-    resize: none;
-    outline: none;
-    border: none;
-    margin: 0;
-    background-color: var(--color-grey-1);
-    border-right: 1px solid var(--color-text);
-    color: var(--color-text);
-    font-family: monospace;
-  }
-  div {
-    padding: 20px;
-    margin: 0;
-    height: 540px;
-    display: inline-block;
-    width: calc(50%);
-    box-sizing: border-box;
-    vertical-align: top;
-    background-color: var(--color-grey-2);
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-}
-
-.create-mod {
-  float: right;
-  margin: -10px 25px 20px 0;
-  cursor: pointer;
-  padding: 10px;
-  outline: none;
-  color: #fff;
-  background-color: var(--color-brand);
-  border: none;
-  border-radius: 5px;
-}
-
-.extras {
-  padding: 10px;
-}
-
-.create-version-popup-body {
-  .popup-icons {
-    margin-top: 10px;
-    margin-right: -20px;
-    margin-left: auto;
-  }
-
-  .changelog-editor {
-    padding: 20px;
-    width: calc(100% - 40px);
-    height: 200px;
-    resize: none;
-    outline: none;
-    border: none;
-    margin: 10px 0 30px;
-    background-color: var(--color-grey-1);
-    color: var(--color-text);
-    font-family: monospace;
-  }
-
   button {
-    background-color: var(--color-bg);
+    margin-left: 0.5rem;
   }
 }
 
-.versions-header {
-  display: flex;
-  align-items: center;
-}
-
-.new-version {
-  display: inline-block;
-  color: var(--color-grey-5);
-  background-color: var(--color-grey-1);
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  margin-left: auto;
-  float: right;
-
-  &:hover {
-    background-color: var(--color-grey-2);
-    color: var(--color-text);
+section {
+  @extend %card;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  margin-bottom: var(--spacing-card-md);
+  &:not(:first-child) {
+    margin-left: var(--spacing-card-lg);
   }
-}
 
-.version {
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background-color: var(--color-grey-1);
-}
-
-button {
-  background-color: var(--color-grey-1);
-  color: var(--color-grey-5);
-  cursor: pointer;
-  border: none;
-
-  &:hover,
-  &:focus {
-    color: inherit;
+  &.essentials {
+    .columns {
+      justify-content: space-between;
+      span {
+        display: block;
+      }
+    }
   }
-}
 
-.categories-input {
-  margin-bottom: 15px;
+  &.mod-icon {
+    img {
+      height: 100%;
+    }
+  }
 }
 </style>

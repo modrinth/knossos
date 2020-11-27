@@ -302,6 +302,7 @@ export default {
           transform: translateY(-50%);
           .section {
             border-left: 3px solid var(--color-brand-disabled);
+            margin-left: 0.75rem;
             padding-left: 0.75rem;
           }
         }
@@ -318,11 +319,11 @@ export default {
           display: inline-block;
           &:hover .control {
             border-radius: var(--size-rounded-control);
-            background: var(--color-button-bg-hover);
+            background: var(--color-button-bg);
           }
           &.open {
             .control {
-              background: var(--color-button-bg-hover);
+              background: var(--color-button-bg);
               border-radius: var(--size-rounded-control)
                 var(--size-rounded-control) 0 0;
               .dropdown-icon {
@@ -345,8 +346,8 @@ export default {
               display: flex;
               .icon {
                 border-radius: 50%;
-                height: 2.5rem;
-                width: 2.5rem;
+                height: 2rem;
+                width: 2rem;
                 margin-left: 0.5rem;
                 margin-right: 0.25rem;
               }
@@ -373,16 +374,16 @@ export default {
           }
           button {
             background-color: transparent;
-            color: inherit;
+            color: var(--color-text-dark);
             margin: 0;
             padding: 0;
             font-weight: var(--font-weight-medium);
           }
           ul {
-            background-color: var(--color-button-bg-hover);
+            background-color: var(--color-button-bg);
             border-radius: 0 0 var(--size-rounded-control)
               var(--size-rounded-control);
-            box-shadow: var(--shadow-dropdown-strong);
+            box-shadow: var(--shadow-dropdown);
             display: flex;
             flex-direction: column;
             margin: 0;
@@ -390,25 +391,26 @@ export default {
             padding: 0.5rem 0;
             z-index: 1;
             hr {
-              background-color: var(--color-brand-disabled);
+              background-color: var(--color-divider);
               border: none;
-              color: var(--color-brand-disabled);
+              color: var(--color-divider);
               height: 2px;
               margin: 0.5rem 0;
             }
             li {
               margin: 0;
-              padding: 0.75rem 1.5rem;
               &:hover,
               &:focus,
               &:active {
                 background-color: var(--color-button-bg-active);
-                color: var(--color-text);
+                color: var(--color-text-dark);
               }
               a,
               button {
                 align-items: center;
                 display: flex;
+                padding: 0.75rem 1.5rem;
+                color: var(--color-text-dark);
                 svg {
                   color: inherit;
                   height: 1rem;
