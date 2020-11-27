@@ -391,9 +391,9 @@ export default {
             padding: 0.5rem 0;
             z-index: 1;
             hr {
-              background-color: var(--color-divider);
+              background-color: var(--color-divider-dark);
               border: none;
-              color: var(--color-divider);
+              color: var(--color-divider-dark);
               height: 2px;
               margin: 0.5rem 0;
             }

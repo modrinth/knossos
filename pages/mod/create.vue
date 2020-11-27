@@ -19,119 +19,130 @@
           Create
         </button>
       </header>
-      <EthicalAd />
-      <div class="columns">
-        <section class="essentials column-grow-5">
-          <h3>Name</h3>
-          <div class="columns">
-            <span class="column-grow-1">
-              Be creative. TechCraft v7 won't be searchable and won't be clicked
-              on
-            </span>
-            <input id="name" class="column-grow-2" type="text" name="name" />
-          </div>
-          <h3>Summary</h3>
-          <div class="columns">
-            <span class="column-grow-1">
-              Give a quick description to your mod. It will appear in the search
-            </span>
-            <input id="name" class="column-grow-2" type="text" name="name" />
-          </div>
-          <h3>Categories</h3>
-          <div class="columns">
-            <span class="column-grow-1">
-              Select up to 3 categories. They will help to find your mod
-            </span>
-            <input id="name" class="column-grow-2" type="text" name="name" />
-          </div>
-          <h3>Vanity URL</h3>
-          <div class="columns">
-            <span class="column-grow-1">
-              Set this to something pretty, so URLs to your mod are more
-              readable
-            </span>
-            <input id="name" class="column-grow-2" type="text" name="name" />
-          </div>
-        </section>
-        <section class="mod-icon column-grow-4">
-          <h3>Mod icon</h3>
-          <div class="columns">
-            <div class="column">
+      <EthicalAd class="advert" />
+      <section class="essentials">
+        <h3>Name</h3>
+        <label>
+          <span>
+            Be creative. TechCraft v7 won't be searchable and won't be clicked
+            on
+          </span>
+          <input v-model="name" type="text" />
+        </label>
+        <h3>Summary</h3>
+        <label>
+          <span>
+            Give a quick description to your mod. It will appear in the search
+          </span>
+          <input v-model="description" type="text" />
+        </label>
+        <h3>Categories</h3>
+        <label>
+          <span>
+            Select up to 3 categories. They will help to find your mod
+          </span>
+          <multiselect
+            id="categories"
+            v-model="categories"
+            :options="selectableCategories"
+            :loading="selectableCategories.length === 0"
+            :multiple="true"
+            :searchable="false"
+            :show-no-results="false"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :show-labels="false"
+            :max="3"
+            :limit="6"
+            :hide-selected="true"
+            placeholder="Choose categories..."
+          />
+        </label>
+        <h3>Vanity URL</h3>
+        <label>
+          <span>
+            Set this to something pretty, so URLs to your mod are more readable
+          </span>
+          <input id="name" type="text" name="name" />
+        </label>
+      </section>
+      <section class="mod-icon">
+        <h3>Mod icon</h3>
+        <div class="columns">
+          <div class="column-grow-1">
+            <div class="rows">
               <FileInput
                 input-id="icon-file"
                 input-accept="image/*"
-                default-text="Upload Icon"
+                default-text="Choose image or drag it here"
                 :input-multiple="false"
                 @change="showPreviewImage"
               />
+              <ul>
+                <li>Must be a square</li>
+                <li>Minimum size is 100x100</li>
+                <li>Acceptable formats are PNG, JPEG and GIF</li>
+              </ul>
+              <button class="transparent-button">Reset icon</button>
             </div>
-            <img
-              class="column"
-              :src="
-                previewImage
-                  ? previewImage
-                  : 'https://cdn.modrinth.com/placeholder.svg'
-              "
-              alt="preview-image"
-            />
           </div>
-        </section>
-      </div>
-      <section>
-        <h3>Initial Data</h3>
-        <div class="initial">
-          <div class="mod-data">
-            <label for="name" class="required" title="The name of your mod">
-              Name
-            </label>
-            <input
-              id="name"
-              v-model="name"
-              required
-              type="text"
-              placeholder="Example Mod"
-            />
-            <label
-              for="description"
-              class="required"
-              title="The short-form description of your mod. This shows up in searches"
-            >
-              Short Description
-            </label>
-            <input
-              id="description"
-              v-model="description"
-              required
-              type="text"
-              placeholder="An example mod which does example stuff!"
-            />
-            <label
-              for="categories"
-              title="The categories of your mod, these help your mod appear in search results. Maximum of three!"
-            >
-              Categories
-            </label>
-            <multiselect
-              id="categories"
-              v-model="categories"
-              class="categories-input"
-              :options="selectableCategories"
-              :loading="selectableCategories.length === 0"
-              :multiple="true"
-              :searchable="false"
-              :show-no-results="false"
-              :close-on-select="false"
-              :clear-on-select="false"
-              :show-labels="false"
-              :max="3"
-              :limit="6"
-              :hide-selected="true"
-              placeholder="Choose categories..."
-            />
-          </div>
+          <img
+            :src="
+              previewImage
+                ? previewImage
+                : 'https://cdn.modrinth.com/placeholder.svg'
+            "
+            alt="preview-image"
+          />
         </div>
       </section>
-      <section class="editor">
+      <section class="game-sides">
+        <div class="title-hint">
+          <h3>Game sides</h3>
+          <span>
+            Let others know if your mod is for clients, servers or universal
+          </span>
+        </div>
+        <div class="labeled-control">
+          <h3>Client side</h3>
+          <Multiselect
+            v-model="clientSide"
+            class="sort-types"
+            placeholder="Select one"
+            track-by="display"
+            label="display"
+            :options="sideTypes"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          >
+            <template slot="singleLabel" slot-scope="{ option }">{{
+              option.display
+            }}</template>
+          </Multiselect>
+        </div>
+        <div class="labeled-control">
+          <h3>Server side</h3>
+          <Multiselect
+            v-model="serverSide"
+            class="sort-types"
+            placeholder="Select one"
+            track-by="display"
+            label="display"
+            :options="sideTypes"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          >
+            <template slot="singleLabel" slot-scope="{ option }">{{
+              option.display
+            }}</template>
+          </Multiselect>
+        </div>
+      </section>
+      <section class="description">
         <h3>
           <label
             for="body"
@@ -153,7 +164,7 @@
         <textarea id="body" v-model="body" @input="setMarkdownBody"></textarea>
         <div v-html="compiledBody"></div>
       </section>
-      <section>
+      <section class="versions">
         <Popup
           v-if="currentVersionIndex > -1"
           :show-popup="currentVersionIndex > -1"
@@ -308,7 +319,7 @@
           </div>
         </div>
       </section>
-      <section>
+      <section class="extra-links">
         <h3>Extras</h3>
         <div class="extras">
           <label
@@ -386,6 +397,8 @@ export default {
 
       name: '',
       description: '',
+      clientSide: '',
+      serverSide: '',
       body: '',
       versions: [],
       categories: [],
@@ -393,6 +406,12 @@ export default {
       source_url: null,
       wiki_url: null,
       icon: null,
+
+      sideTypes: [
+        { display: 'Required', name: 'required' },
+        { display: 'No functionality', name: 'no_functionality' },
+        { display: 'Unsupported', name: 'unsupported' },
+      ],
     }
   },
   methods: {
@@ -508,44 +527,104 @@ export default {
 
 <style lang="scss" scoped>
 .page-contents {
-  flex-direction: column;
+  display: grid;
+  grid-template:
+    'header       header            header' auto
+    'advert       advert            advert' auto
+    'essentials   essentials        mod-icon' auto
+    'game-sides   game-sides        game-sides' auto
+    'description  description       description' auto
+    'versions     versions          versions' auto
+    'extra-links  license-donations license-donations' auto
+    / 4fr 1fr 4fr;
+  column-gap: var(--spacing-card-md);
+  row-gap: var(--spacing-card-md);
 }
 
 header {
   @extend %card;
+
+  grid-area: header;
   padding: var(--spacing-card-md) var(--spacing-card-lg);
-  margin-bottom: var(--spacing-card-md);
+
   h2 {
     margin: auto 0;
     color: var(--color-text-dark);
     font-weight: var(--font-weight-extrabold);
   }
+
   button {
     margin-left: 0.5rem;
   }
 }
 
+.advert {
+  grid-area: advert;
+}
+
 section {
   @extend %card;
+
   padding: var(--spacing-card-md) var(--spacing-card-lg);
-  margin-bottom: var(--spacing-card-md);
-  &:not(:first-child) {
+}
+
+section.essentials {
+  grid-area: essentials;
+}
+
+section.mod-icon {
+  grid-area: mod-icon;
+
+  img {
+    max-width: 50%;
     margin-left: var(--spacing-card-lg);
   }
+}
 
-  &.essentials {
-    .columns {
-      justify-content: space-between;
-      span {
-        display: block;
-      }
-    }
+section.game-sides {
+  grid-area: game-sides;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  .title-hint {
+    flex: 2;
   }
 
-  &.mod-icon {
-    img {
-      height: 100%;
-    }
+  .labeled-control {
+    flex: 2;
+    margin-left: var(--spacing-card-lg);
+  }
+}
+
+section.description {
+  grid-area: description;
+}
+
+section.versions {
+  grid-area: versions;
+}
+
+section.extra-links {
+  grid-area: extra-links;
+}
+
+section.license-donations {
+  grid-area: license-donations;
+}
+
+label {
+  display: flex;
+  align-items: stretch;
+
+  span {
+    flex: 2;
+    padding-right: var(--spacing-card-lg);
+  }
+
+  input,
+  .multiselect {
+    flex: 3;
   }
 }
 </style>

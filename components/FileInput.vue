@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="button">
     <slot></slot>
     <input
       :id="inputId"
@@ -71,16 +71,7 @@ export default {
   + label {
     cursor: pointer;
     border-radius: 5px;
-    color: var(--color-grey-5);
-    background-color: var(--color-grey-1);
     padding: 10px 20px;
-  }
-
-  &:focus + label,
-  + label:hover,
-  &:focus + label {
-    background-color: var(--color-grey-2);
-    color: var(--color-text);
   }
 }
 </style>
