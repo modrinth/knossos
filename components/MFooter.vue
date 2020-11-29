@@ -1,8 +1,8 @@
 <template>
   <footer :class="{ centered }">
     <span>
-      Modrinth is open source software. You may view the source code at our
-      GitHub Repository.
+      Modrinth is open source software. You may view the source code at
+      <a target="_blank" href="https://github.com/modrinth">our GitHub page</a>.
     </span>
     <ul>
       <li>
@@ -10,6 +10,20 @@
       </li>
       <li>
         <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/about">About</nuxt-link>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a target="_blank" href="https://blog.modrinth.com">Blog</a>
+      </li>
+      <li>
+        <a target="_blank" href="https://discord.gg/gFRbNQ2">Discord</a>
+      </li>
+      <li>
+        <a target="_blank" href="https://twitter.com/modrinth">Twitter</a>
       </li>
     </ul>
     <span> © Guavy LLC </span>
@@ -40,18 +54,26 @@ footer {
   ul {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: flex;
+    flex-wrap: wrap;
 
     li {
-      a {
-        text-decoration: underline;
-      }
-
+      margin-bottom: var(--spacing-card-sm);
       &:not(:last-child)::after {
-        content: ' • ';
-        margin: 0 var(--spacing-card-md) 0 var(--spacing-card-sm);
+        content: '•';
+        padding: 0;
+        margin: 0 var(--spacing-card-sm);
       }
     }
   }
+
+  & > *:not(:last-child) {
+    margin-bottom: var(--spacing-card-sm);
+  }
+}
+
+a {
+  text-decoration: underline;
 }
 </style>

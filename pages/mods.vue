@@ -562,6 +562,7 @@ export default {
   padding: 0.25rem 1rem 0.25rem 1rem;
   margin-bottom: var(--spacing-card-md);
   input {
+    border: none;
     background: transparent;
     min-width: 200px;
   }
@@ -657,7 +658,7 @@ export default {
   @media screen and (min-width: 900px) {
     top: 0;
     right: auto;
-    position: relative;
+    position: unset;
     height: unset;
     max-height: unset;
     transition: none;

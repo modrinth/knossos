@@ -66,25 +66,21 @@
           <input id="name" type="text" name="name" />
         </label>
       </section>
-      <section class="mod-icon">
+      <section class="mod-icon rows">
         <h3>Mod icon</h3>
-        <div class="columns">
-          <div class="column-grow-1">
-            <div class="rows">
-              <FileInput
-                input-id="icon-file"
-                input-accept="image/*"
-                default-text="Choose image or drag it here"
-                :input-multiple="false"
-                @change="showPreviewImage"
-              />
-              <ul>
-                <li>Must be a square</li>
-                <li>Minimum size is 100x100</li>
-                <li>Acceptable formats are PNG, JPEG and GIF</li>
-              </ul>
-              <button class="transparent-button">Reset icon</button>
-            </div>
+        <div class="columns row-grow-1">
+          <div class="column-grow-1 rows">
+            <file-input
+              input-accept="image/*"
+              prompt="Choose image or drag it here"
+              @change="showPreviewImage"
+            />
+            <ul class="row-grow-1">
+              <li>Must be a square</li>
+              <li>Minimum size is 100x100</li>
+              <li>Acceptable formats are PNG, JPEG and GIF</li>
+            </ul>
+            <button class="transparent-button">Reset icon</button>
           </div>
           <img
             :src="
@@ -106,41 +102,27 @@
           </span>
           <div class="labeled-control">
             <h3>Client side</h3>
-            <Multiselect
-              v-model="clientSide"
-              class="sort-types"
-              placeholder="Select one"
-              track-by="display"
-              label="display"
-              :options="sideTypes"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-            >
-              <template slot="singleLabel" slot-scope="{ option }">{{
-                option.display
-              }}</template>
-            </Multiselect>
+            <select id="client-side">
+              <option
+                v-for="sideType in sideTypes"
+                :key="sideType.name"
+                :value="sideType.name"
+              >
+                {{ sideType.display }}
+              </option>
+            </select>
           </div>
           <div class="labeled-control">
             <h3>Server side</h3>
-            <Multiselect
-              v-model="serverSide"
-              class="sort-types"
-              placeholder="Select one"
-              track-by="display"
-              label="display"
-              :options="sideTypes"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-            >
-              <template slot="singleLabel" slot-scope="{ option }">{{
-                option.display
-              }}</template>
-            </Multiselect>
+            <select id="server-side">
+              <option
+                v-for="sideType in sideTypes"
+                :key="sideType.name"
+                :value="sideType.name"
+              >
+                {{ sideType.display }}
+              </option>
+            </select>
           </div>
         </div>
       </section>
@@ -150,7 +132,7 @@
             for="body"
             title="You can type the of the long form of your description here."
           >
-            Mod Body
+            Mod page body (description)
           </label>
         </h3>
         <span>
@@ -164,8 +146,10 @@
           >.
         </span>
         <div class="columns">
-          <textarea id="body" v-model="body"></textarea>
-          <div v-compiled-markdown="body"></div>
+          <div class="textarea-wrapper">
+            <textarea id="body" v-model="body"></textarea>
+          </div>
+          <div v-compiled-markdown="body" class="markdown-body"></div>
         </div>
       </section>
       <section class="versions">
@@ -217,7 +201,7 @@
           <label class="required" title="The release channel of this version.">
             Release Channel
           </label>
-          <Multiselect
+          <multiselect
             v-model="versions[currentVersionIndex].release_channel"
             class="categories-input"
             placeholder="Select one"
@@ -255,8 +239,8 @@
           <multiselect
             v-model="versions[currentVersionIndex].game_versions"
             class="categories-input"
-            :options="selectableVersions"
-            :loading="selectableVersions.length === 0"
+            :options="selectableGameVersions"
+            :loading="selectableGameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -365,12 +349,6 @@
           />
         </label>
       </section>
-      <section class="donations">
-        <div class="title">
-          <h3>Donation links</h3>
-          <i>— this section is optional</i>
-        </div>
-      </section>
       <section class="license">
         <div class="title">
           <h3>License</h3>
@@ -383,25 +361,24 @@
             URL field will be filled automatically for provided licenses
           </span>
           <div class="input-group">
-            <multiselect
-              id="categories"
-              v-model="categories"
-              :options="selectableCategories"
-              :loading="selectableCategories.length === 0"
-              :multiple="true"
-              :searchable="false"
-              :show-no-results="false"
-              :close-on-select="false"
-              :clear-on-select="false"
-              :show-labels="false"
-              :max="3"
-              :limit="6"
-              :hide-selected="true"
-              placeholder="Choose categories..."
-            />
-            <input type="text" style="width: auto" placeholder="License URL" />
+            <select id="license">
+              <option
+                v-for="selectableLicense in selectableLicenses"
+                :key="selectableLicense.short"
+                :value="selectableLicense.short"
+              >
+                {{ selectableLicense.name }}
+              </option>
+            </select>
+            <input type="text" placeholder="License URL" />
           </div>
         </label>
+      </section>
+      <section class="donations">
+        <div class="title">
+          <h3>Donation links</h3>
+          <i>— this section is optional</i>
+        </div>
       </section>
       <m-footer class="footer" centered />
     </div>
@@ -434,19 +411,28 @@ export default {
     SaveIcon,
   },
   async asyncData() {
-    let res = await axios.get(`https://api.modrinth.com/api/v1/tag/category`)
-    const categories = res.data
-
-    res = await axios.get(`https://api.modrinth.com/api/v1/tag/loader`)
-    const loaders = res.data
-
-    res = await axios.get(`https://api.modrinth.com/api/v1/tag/game_version`)
-    const versions = res.data
+    const [
+      selectableCategories,
+      selectableLoaders,
+      selectableGameVersions,
+      selectableLicenses,
+      selectableDonationPlatforms,
+    ] = (
+      await Promise.all([
+        axios.get(`https://api.modrinth.com/api/v1/tag/category`),
+        axios.get(`https://api.modrinth.com/api/v1/tag/loader`),
+        axios.get(`https://api.modrinth.com/api/v1/tag/game_version`),
+        axios.get(`https://api.modrinth.com/api/v1/tag/license`),
+        axios.get(`https://api.modrinth.com/api/v1/tag/donation_platform`),
+      ])
+    ).map((it) => it.data)
 
     return {
-      selectableCategories: categories,
-      selectableLoaders: loaders,
-      selectableVersions: versions,
+      selectableCategories,
+      selectableLoaders,
+      selectableGameVersions,
+      selectableLicenses,
+      selectableDonationPlatforms,
     }
   },
   data() {
@@ -467,16 +453,12 @@ export default {
       source_url: null,
       wiki_url: null,
       icon: null,
+      license: null,
 
       sideTypes: [
         { display: 'Required', name: 'required' },
         { display: 'No functionality', name: 'no_functionality' },
         { display: 'Unsupported', name: 'unsupported' },
-      ],
-      licenses: [
-        { display: 'MIT', name: 'MIT' },
-        { display: 'GNU GPL v3', name: ' 	GPL-3.0' },
-        { display: 'Apache License 2.0', name: 'Apache-2.0' },
       ],
     }
   },
@@ -633,8 +615,8 @@ label {
     'game-sides   game-sides  game-sides' auto
     'description  description description' auto
     'versions     versions    versions' auto
-    'extra-links  donations   donations' auto
-    'license      license     .' auto
+    'extra-links  license     license' auto
+    'donations    donations   donations' auto
     'footer       footer      footer' auto
     / 4fr 1fr 4fr;
   column-gap: var(--spacing-card-md);
@@ -676,6 +658,7 @@ section.mod-icon {
   grid-area: mod-icon;
 
   img {
+    align-self: flex-start;
     max-width: 50%;
     margin-left: var(--spacing-card-lg);
   }
@@ -701,8 +684,33 @@ section.game-sides {
 section.description {
   grid-area: description;
 
-  textarea {
-    width: 50%;
+  & > .columns {
+    align-items: stretch;
+    min-height: 10rem;
+    max-height: 40rem;
+
+    * {
+      flex: 1;
+      max-width: 50%;
+    }
+  }
+
+  .markdown-body {
+    overflow-y: scroll;
+    padding: 0 var(--spacing-card-sm);
+  }
+
+  .textarea-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    textarea {
+      flex: 1;
+      overflow-y: scroll;
+      resize: none;
+      max-width: 100%;
+    }
   }
 }
 

@@ -224,6 +224,7 @@ textarea {
   color: var(--color-text);
   padding: 0.5rem 1rem;
   height: fit-content;
+  border: 2px solid transparent;
 
   &:focus,
   &:hover {
@@ -234,6 +235,11 @@ textarea {
     &::placeholder {
       color: var(--color-text);
     }
+  }
+
+  &:focus {
+    background: var(--color-raised-bg);
+    border-color: var(--color-divider-dark);
   }
 
   &::placeholder {
