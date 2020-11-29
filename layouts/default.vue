@@ -3,8 +3,10 @@
     <aside>
       <section class="navbar columns">
         <section class="logo column">
-          <ModrinthLogo v-if="$colorMode.value === 'light'" />
-          <ModrinthLogoWhite v-else />
+          <NuxtLink to="/">
+            <ModrinthLogo v-if="$colorMode.value === 'light'" />
+            <ModrinthLogoWhite v-else />
+          </NuxtLink>
           <span class="badge yellow">Beta</span>
         </section>
         <section class="column-grow-5 nav">

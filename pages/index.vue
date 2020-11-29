@@ -2,7 +2,9 @@
   <div>
     <div class="main-hero columns">
       <div class="left">
-        <h1 class="typewriter">{{ currentText }}</h1>
+        <h1 class="typewriter">
+          {{ currentText }}<span aria-hidden="true"></span>
+        </h1>
         <h1>modding platform</h1>
       </div>
       <div class="right columns">
@@ -150,13 +152,18 @@
         <img src="~/assets/images/api.gif" alt="api" loading="lazy" />
       </div>
     </div>
+    <m-footer class="footer" centered />
   </div>
 </template>
 
 <script>
+import MFooter from '@/components/MFooter'
+
 export default {
+  components: {
+    MFooter,
+  },
   auth: false,
-  layout: 'home',
   data() {
     return {
       currentText: 'Open source',
@@ -199,6 +206,7 @@ export default {
 }
 
 .main-hero {
+  margin-top: 100px;
   height: 600px;
 
   .left {
@@ -208,12 +216,15 @@ export default {
     .typewriter {
       display: inline-block;
       color: var(--color-brand);
-      border-right: 0.15em solid var(--color-brand);
-      animation: caret 1s steps(1) infinite;
 
-      @keyframes caret {
-        50% {
-          border-color: transparent;
+      span {
+        border-right: 0.15em solid var(--color-brand);
+        animation: caret 1s steps(1) infinite;
+
+        @keyframes caret {
+          50% {
+            border-color: transparent;
+          }
         }
       }
     }
@@ -247,7 +258,7 @@ export default {
   p {
     line-height: 25px;
     letter-spacing: 0.2px;
-    color: var(--color-grey-7);
+    color: var(--color-text);
 
     span {
       color: var(--color-brand);
@@ -267,7 +278,7 @@ export default {
 }
 
 .slanted-hero {
-  background: var(--color-grey-1);
+  background: var(--color-raised-bg);
   height: 500px;
   position: relative;
   z-index: 1;
@@ -324,6 +335,10 @@ export default {
     color: var(--color-text);
     align-self: flex-start;
   }
+}
+
+.footer {
+  margin-top: 150px;
 }
 
 @media screen and (max-width: 500px) {

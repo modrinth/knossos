@@ -143,13 +143,18 @@
         (including commercial purposes), which is irrevocable.
       </li>
     </ul>
+    <m-footer class="footer" centered />
   </div>
 </template>
 
 <script>
+import MFooter from '@/components/MFooter'
+
 export default {
+  components: {
+    MFooter,
+  },
   auth: false,
-  layout: 'home',
   head: {
     title: 'TOS - Modrinth',
     meta: [

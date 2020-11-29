@@ -9,7 +9,8 @@
     <div class="info">
       <div class="top">
         <h2 class="title">
-          <a :href="pageUrl">{{ name }}</a>
+          <nuxt-link v-if="isModrinth" :to="'/mod/' + id">{{ name }}</nuxt-link>
+          <a v-else :href="pageUrl">{{ name }}</a>
         </h2>
         <p v-if="author" class="author">
           by <a :href="authorUrl">{{ author }}</a>
@@ -264,6 +265,10 @@ export default {
     role: {
       type: String,
       default: null,
+    },
+    isModrinth: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

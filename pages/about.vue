@@ -16,13 +16,18 @@
       While we still are in early alpha, we hope we can soon be a major modding
       platform for all modders :)
     </p>
+    <m-footer class="footer" centered />
   </div>
 </template>
 
 <script>
+import MFooter from '@/components/MFooter'
+
 export default {
+  components: {
+    MFooter,
+  },
   auth: false,
-  layout: 'home',
   head: {
     title: 'About - Modrinth',
     meta: [

@@ -134,13 +134,18 @@
       By using our website, you hereby consent to our Privacy Policy and agree
       to its Terms and Conditions.
     </p>
+    <m-footer class="footer" centered />
   </div>
 </template>
 
 <script>
+import MFooter from '@/components/MFooter'
+
 export default {
+  components: {
+    MFooter,
+  },
   auth: false,
-  layout: 'home',
   head: {
     title: 'Privacy - Modrinth',
     meta: [

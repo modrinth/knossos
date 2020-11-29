@@ -19,55 +19,6 @@
             Create a mod
           </nuxt-link>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Downloads</th>
-              <th>Last updated</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="mod in mods" :key="mod.id">
-              <td>
-                <nuxt-link :to="'/mod/' + mod.id">
-                  <img class="rounded-md" :src="mod.icon_url" />
-                </nuxt-link>
-              </td>
-              <td class="mod-name">
-                <nuxt-link :to="'/mod/' + mod.id">
-                  {{ mod.title }}
-                </nuxt-link>
-              </td>
-              <td>Owner</td>
-              <td>
-                <span v-if="mod.status === 'approved'" class="badge green">
-                  Approved
-                </span>
-                <span v-if="mod.status === 'rejected'" class="badge red">
-                  Rejected
-                </span>
-                <span v-if="mod.status === 'draft'" class="badge yellow">
-                  Draft
-                </span>
-                <span v-if="mod.status === 'processing'" class="badge yellow">
-                  Processing
-                </span>
-                <span v-if="mod.status === 'unlisted'" class="badge gray">
-                  Unlisted
-                </span>
-                <span v-if="mod.status === 'unknown'" class="badge gray">
-                  Unknown
-                </span>
-              </td>
-              <td>{{ mod.downloads }}</td>
-              <td>{{ $dayjs(mod.published).format('YYYY-MM-DD') }}</td>
-            </tr>
-          </tbody>
-        </table>
         <ModCard
           v-for="mod in mods"
           :id="mod.id"
@@ -83,9 +34,9 @@
           :author-url="mod.author_url"
           :page-url="mod.page_url"
           :categories="mod.categories"
-          :is-ad="index === -1"
           :edit-mode="true"
           :status="mod.status"
+          :is-modrinth="true"
         />
       </div>
     </div>

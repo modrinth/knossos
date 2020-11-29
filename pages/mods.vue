@@ -68,7 +68,7 @@
           </client-only>
           <SearchResult
             v-for="(result, index) in results"
-            :id="result.mod_id"
+            :id="result.mod_id.split('-')[1]"
             :key="result.mod_id"
             :author="result.author"
             :name="result.title"
@@ -82,6 +82,7 @@
             :page-url="result.page_url"
             :categories="result.categories"
             :is-ad="index === -1"
+            :is-modrinth="result.host === 'modrinth'"
           />
           <div v-if="results.length === 0" class="no-results">
             <p>No results found for your query!</p>
@@ -273,6 +274,7 @@
             @input="onSearchChange(1)"
           ></multiselect>
         </div>
+        <m-footer class="footer" />
       </section>
     </div>
   </div>
@@ -286,6 +288,7 @@ import Pagination from '@/components/Pagination'
 import SearchFilter from '@/components/SearchFilter'
 
 import EthicalAd from '@/components/EthicalAd'
+import MFooter from '@/components/MFooter'
 import TechCategory from '~/assets/images/categories/tech.svg?inline'
 import AdventureCategory from '~/assets/images/categories/adventure.svg?inline'
 import CursedCategory from '~/assets/images/categories/cursed.svg?inline'
@@ -310,6 +313,7 @@ import SearchIcon from '~/assets/images/utils/search.svg?inline'
 export default {
   auth: false,
   components: {
+    MFooter,
     EthicalAd,
     SearchResult,
     Pagination,
@@ -629,7 +633,6 @@ export default {
 
 .filters {
   overflow-y: auto;
-  background-color: var(--color-raised-bg);
   position: fixed;
   width: 100vw;
   right: -100vw;
@@ -638,9 +641,10 @@ export default {
   top: var(--size-navbar-height);
   height: calc(100vh - var(--size-navbar-height));
   transition: right 150ms;
+  background-color: var(--color-raised-bg);
   flex-shrink: 0; // Stop shrinking when page contents change
   .filters-wrapper {
-    padding: 0 0.75rem 0.75rem 0.75rem;
+    padding: 0.25rem 0.75rem 0.75rem 0.75rem;
   }
   h3 {
     @extend %large-label;
@@ -651,17 +655,21 @@ export default {
   }
   // Larger screens that don't need to collapse
   @media screen and (min-width: 900px) {
+    top: 0;
     right: auto;
-    height: auto;
-    position: unset;
+    position: relative;
+    height: unset;
+    max-height: unset;
     transition: none;
-    background: transparent;
     margin-left: var(--spacing-card-lg);
     overflow-y: unset;
-    border-radius: var(--size-rounded-card);
-    background-color: var(--color-raised-bg);
     padding-right: 1rem;
     width: 18vw;
+    background-color: transparent;
+    .filters-wrapper {
+      background-color: var(--color-raised-bg);
+      border-radius: var(--size-rounded-card);
+    }
   }
   @media screen and (min-width: 1024px) {
     width: 300px;
