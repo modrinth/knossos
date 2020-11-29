@@ -313,7 +313,104 @@
   @extend .button;
   color: var(--color-brand-inverted);
   background-color: var(--color-brand);
+  &:focus,
   &:hover {
     background-color: var(--color-brand-hover);
+    color: var(--color-brand-inverted);
+  }
+  &:active {
+    background-color: var(--color-brand-active);
+    color: var(--color-brand-inverted);
+  }
+}
+
+.multiselect--above .multiselect__content-wrapper {
+  border-top: none !important;
+}
+
+.multiselect {
+  color: var(--color-text) !important;
+  input {
+    background: transparent;
+  }
+  .multiselect__tags {
+    background: var(--color-dropdown-bg);
+    border: none;
+    cursor: pointer;
+    &:active,
+    &:hover {
+      background: var(--color-button-bg-hover);
+    }
+    .multiselect__single {
+      background: transparent;
+    }
+    .multiselect__tag {
+      color: var(--color-text-dark);
+      background: transparent;
+      border: 2px solid var(--color-brand);
+    }
+    .multiselect__tag-icon {
+      background: transparent;
+      &:after {
+        color: var(--color-text-dark);
+      }
+    }
+  }
+  .multiselect__content-wrapper {
+    background: var(--color-dropdown-bg);
+    border: none;
+    .multiselect__element {
+      .multiselect__option--highlight {
+        background: var(--color-button-bg-active);
+        color: var(--color-text-dark);
+      }
+      .multiselect__option--selected {
+        background: var(--color-brand);
+        font-weight: bold;
+        color: var(--color-brand-inverted);
+      }
+    }
+  }
+}
+
+.v-select {
+  .vs__dropdown-menu,
+  .vs__dropdown-toggle {
+    flex: 3;
+    background: var(--color-button-bg);
+    border-radius: var(--size-rounded-control);
+    color: var(--color-text);
+    padding: 0.2rem 1rem;
+    border: 2px solid transparent;
+    margin: 2px;
+    cursor: pointer;
+    &:active {
+      cursor: text;
+    }
+    input {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  .vs__open-indicator {
+    transition: 150ms ease transform;
+    appearance: none;
+    &.vs--open {
+      transform: rotate(180deg);
+    }
+  }
+  .vs__selected {
+    background: transparent;
+    border: 2px solid var(--color-brand);
+    .vs__deselect {
+      fill: var(--color-text-dark);
+      text-shadow: none;
+      svg {
+        height: 10px;
+        width: 10px;
+      }
+    }
   }
 }

@@ -41,16 +41,24 @@
           <span>
             Select up to 3 categories. They will help to find your mod
           </span>
-          <v-select
+          <multiselect
+            id="categories"
             v-model="categories"
-            :options="categories.length < 3 ? availableCategories : []"
-            multiple
+            :options="availableCategories"
+            :loading="availableCategories.length === 0"
+            :multiple="true"
+            :searchable="false"
+            :show-no-results="false"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :show-labels="false"
+            :max="3"
+            :limit="6"
+            :hide-selected="true"
             placeholder="Choose categories"
-          >
-            <div slot="no-options">Remove one to select another</div>
-          </v-select>
+          />
         </label>
-        <h3>Vanity URL</h3>
+        <h3>Vanity URL Slug</h3>
         <label>
           <span>
             Set this to something pretty, so URLs to your mod are more readable
@@ -59,11 +67,12 @@
         </label>
       </section>
       <section class="mod-icon rows">
-        <h3>Mod icon</h3>
+        <h3>Icon</h3>
         <div class="columns row-grow-1">
           <div class="column-grow-1 rows">
             <file-input
               input-accept="image/*"
+              class="choose-image"
               prompt="Choose image or drag it here"
               @change="showPreviewImage"
             />
@@ -85,7 +94,7 @@
         </div>
       </section>
       <section class="game-sides">
-        <h3>Game sides</h3>
+        <h3>Supported environments</h3>
         <div class="columns">
           <span>
             Let others know if your mod is for clients, servers or universal.
@@ -93,23 +102,31 @@
             required + no functionality
           </span>
           <div class="labeled-control">
-            <h3>Client side</h3>
-            <v-select
-              v-model="clientSide"
-              :options="sideConfigurations"
-              :clearable="false"
+            <h3>Client</h3>
+            <Multiselect
+              v-model="clientSideType"
+              placeholder="Select one"
+              track-by="label"
+              label="label"
+              :options="sideTypes"
               :searchable="false"
-              placeholder="Select configuration"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
             />
           </div>
           <div class="labeled-control">
-            <h3>Server side</h3>
-            <v-select
-              v-model="serverSide"
-              :options="sideConfigurations"
-              :clearable="false"
+            <h3>Server</h3>
+            <Multiselect
+              v-model="serverSideType"
+              placeholder="Select one"
+              track-by="label"
+              label="label"
+              :options="sideTypes"
               :searchable="false"
-              placeholder="Select configuration"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
             />
           </div>
         </div>
@@ -120,7 +137,7 @@
             for="body"
             title="You can type the of the long form of your description here."
           >
-            Mod page body (description)
+            Description
           </label>
         </h3>
         <span>
@@ -189,35 +206,55 @@
           <label class="required" title="The release channel of this version.">
             Release Channel
           </label>
-          <v-select
+          <multiselect
             v-model="versions[currentVersionIndex].release_channel"
+            class="categories-input"
+            placeholder="Select one"
             :options="['release', 'beta', 'alpha']"
             :searchable="false"
-            :clearable="false"
-            placeholder="Select channel"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
           />
           <label
             title="The version number of this version. Preferably following semantic versioning"
           >
             Loaders
           </label>
-          <v-select
+          <multiselect
             v-model="versions[currentVersionIndex].loaders"
+            class="categories-input"
             :options="availableLoaders"
+            :loading="availableLoaders.length === 0"
+            :multiple="true"
             :searchable="false"
-            multiple
-            placeholder="Choose loaders"
+            :show-no-results="false"
+            :close-on-select="true"
+            :clear-on-select="false"
+            :show-labels="false"
+            :limit="6"
+            :hide-selected="true"
+            placeholder="Choose loaders..."
           />
           <label
             title="The versions of minecraft that this mod version supports"
           >
             Game Versions
           </label>
-          <v-select
+          <multiselect
             v-model="versions[currentVersionIndex].game_versions"
+            class="categories-input"
             :options="availableGameVersions"
-            multiple
-            placeholder="Choose game versions"
+            :loading="availableGameVersions.length === 0"
+            :multiple="true"
+            :searchable="true"
+            :show-no-results="false"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :show-labels="false"
+            :limit="6"
+            :hide-selected="true"
+            placeholder="Choose versions..."
           />
           <label for="version-body" title="A list of changes for this version">
             Changelog
@@ -283,7 +320,7 @@
         <label
           title="A place for users to report bugs, issues, and concerns about your mod."
         >
-          <span>Issues board</span>
+          <span>Issue tracker</span>
           <input
             v-model="issues_url"
             type="url"
@@ -301,7 +338,7 @@
         <label
           title="A page containing information, documentation, and help for the mod."
         >
-          <span>Wiki</span>
+          <span>Wiki page</span>
           <input
             v-model="wiki_url"
             type="url"
@@ -309,7 +346,7 @@
           />
         </label>
         <label title="An inivitation link to your Discord server.">
-          <span>Discord</span>
+          <span>Discord invite</span>
           <input
             v-model="wiki_url"
             type="url"
@@ -329,12 +366,6 @@
             URL field will be filled automatically for provided licenses
           </span>
           <div class="input-group">
-            <v-select
-              v-model="license"
-              :options="availableLicenses"
-              :clearable="false"
-              placeholder="Select a license"
-            />
             <input type="text" placeholder="License URL" />
           </div>
         </label>
@@ -344,7 +375,6 @@
           <h3>Donation links</h3>
           <i>— this section is optional</i>
         </div>
-        <button>Add donation link</button>
       </section>
       <m-footer class="footer" centered />
     </div>
@@ -353,7 +383,7 @@
 
 <script>
 import axios from 'axios'
-import vSelect from 'vue-select'
+import Multiselect from 'vue-multiselect'
 
 import MFooter from '@/components/MFooter'
 import Popup from '@/components/Popup'
@@ -370,7 +400,7 @@ export default {
     FileInput,
     Popup,
     EthicalAd,
-    vSelect,
+    Multiselect,
     TrashIcon,
     EditIcon,
     PlusIcon,
@@ -426,11 +456,13 @@ export default {
       icon: null,
       license: null,
 
-      sideConfigurations: [
+      sideTypes: [
         { label: 'Required', id: 'required' },
-        { label: 'No functionality', id: 'no_functionality' },
+        { label: 'No functionality', id: 'no-functionality' },
         { label: 'Unsupported', id: 'unsupported' },
       ],
+      clientSideType: { label: 'Required', id: 'required' },
+      serverSideType: { label: 'Required', id: 'required' },
     }
   },
   methods: {
@@ -458,6 +490,8 @@ export default {
           issues_url: this.issues_url,
           source_url: this.source_url,
           wiki_url: this.wiki_url,
+          client_side: this.clientSideType.id,
+          server_side: this.serverSideType.id,
         })
       )
 
@@ -561,11 +595,10 @@ label {
   }
 
   input,
-  .v-select,
+  .multiselect,
   .input-group {
     flex: 3;
     height: fit-content;
-    max-width: 100%;
   }
 }
 
@@ -717,5 +750,9 @@ section.donations {
 
 .footer {
   grid-area: footer;
+}
+
+.choose-image {
+  cursor: pointer;
 }
 </style>
