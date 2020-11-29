@@ -41,22 +41,14 @@
           <span>
             Select up to 3 categories. They will help to find your mod
           </span>
-          <multiselect
-            id="categories"
+          <v-select
             v-model="categories"
-            :options="selectableCategories"
-            :loading="selectableCategories.length === 0"
-            :multiple="true"
-            :searchable="false"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-on-select="false"
-            :show-labels="false"
-            :max="3"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose categories..."
-          />
+            :options="categories.length < 3 ? availableCategories : []"
+            multiple
+            placeholder="Choose categories"
+          >
+            <div slot="no-options">Remove one to select another</div>
+          </v-select>
         </label>
         <h3>Vanity URL</h3>
         <label>
@@ -102,27 +94,23 @@
           </span>
           <div class="labeled-control">
             <h3>Client side</h3>
-            <select id="client-side">
-              <option
-                v-for="sideType in sideTypes"
-                :key="sideType.name"
-                :value="sideType.name"
-              >
-                {{ sideType.display }}
-              </option>
-            </select>
+            <v-select
+              v-model="clientSide"
+              :options="sideConfigurations"
+              :clearable="false"
+              :searchable="false"
+              placeholder="Select configuration"
+            />
           </div>
           <div class="labeled-control">
             <h3>Server side</h3>
-            <select id="server-side">
-              <option
-                v-for="sideType in sideTypes"
-                :key="sideType.name"
-                :value="sideType.name"
-              >
-                {{ sideType.display }}
-              </option>
-            </select>
+            <v-select
+              v-model="serverSide"
+              :options="sideConfigurations"
+              :clearable="false"
+              :searchable="false"
+              placeholder="Select configuration"
+            />
           </div>
         </div>
       </section>
@@ -201,55 +189,35 @@
           <label class="required" title="The release channel of this version.">
             Release Channel
           </label>
-          <multiselect
+          <v-select
             v-model="versions[currentVersionIndex].release_channel"
-            class="categories-input"
-            placeholder="Select one"
             :options="['release', 'beta', 'alpha']"
             :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
+            :clearable="false"
+            placeholder="Select channel"
           />
           <label
             title="The version number of this version. Preferably following semantic versioning"
           >
             Loaders
           </label>
-          <multiselect
+          <v-select
             v-model="versions[currentVersionIndex].loaders"
-            class="categories-input"
-            :options="selectableLoaders"
-            :loading="selectableLoaders.length === 0"
-            :multiple="true"
+            :options="availableLoaders"
             :searchable="false"
-            :show-no-results="false"
-            :close-on-select="true"
-            :clear-on-select="false"
-            :show-labels="false"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose loaders..."
+            multiple
+            placeholder="Choose loaders"
           />
           <label
             title="The versions of minecraft that this mod version supports"
           >
             Game Versions
           </label>
-          <multiselect
+          <v-select
             v-model="versions[currentVersionIndex].game_versions"
-            class="categories-input"
-            :options="selectableGameVersions"
-            :loading="selectableGameVersions.length === 0"
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-on-select="false"
-            :show-labels="false"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose versions..."
+            :options="availableGameVersions"
+            multiple
+            placeholder="Choose game versions"
           />
           <label for="version-body" title="A list of changes for this version">
             Changelog
@@ -361,15 +329,12 @@
             URL field will be filled automatically for provided licenses
           </span>
           <div class="input-group">
-            <select id="license">
-              <option
-                v-for="selectableLicense in selectableLicenses"
-                :key="selectableLicense.short"
-                :value="selectableLicense.short"
-              >
-                {{ selectableLicense.name }}
-              </option>
-            </select>
+            <v-select
+              v-model="license"
+              :options="availableLicenses"
+              :clearable="false"
+              placeholder="Select a license"
+            />
             <input type="text" placeholder="License URL" />
           </div>
         </label>
@@ -379,6 +344,7 @@
           <h3>Donation links</h3>
           <i>— this section is optional</i>
         </div>
+        <button>Add donation link</button>
       </section>
       <m-footer class="footer" centered />
     </div>
@@ -387,7 +353,7 @@
 
 <script>
 import axios from 'axios'
-import Multiselect from 'vue-multiselect'
+import vSelect from 'vue-select'
 
 import MFooter from '@/components/MFooter'
 import Popup from '@/components/Popup'
@@ -404,7 +370,7 @@ export default {
     FileInput,
     Popup,
     EthicalAd,
-    Multiselect,
+    vSelect,
     TrashIcon,
     EditIcon,
     PlusIcon,
@@ -412,11 +378,11 @@ export default {
   },
   async asyncData() {
     const [
-      selectableCategories,
-      selectableLoaders,
-      selectableGameVersions,
-      selectableLicenses,
-      selectableDonationPlatforms,
+      availableCategories,
+      availableLoaders,
+      availableGameVersions,
+      fetchedLicenses,
+      fetchedDonationPlatforms,
     ] = (
       await Promise.all([
         axios.get(`https://api.modrinth.com/api/v1/tag/category`),
@@ -428,11 +394,16 @@ export default {
     ).map((it) => it.data)
 
     return {
-      selectableCategories,
-      selectableLoaders,
-      selectableGameVersions,
-      selectableLicenses,
-      selectableDonationPlatforms,
+      availableCategories,
+      availableLoaders,
+      availableGameVersions,
+      availableLicenses: fetchedLicenses.map(({ short, name }) => ({
+        id: short,
+        label: name,
+      })),
+      availableDonationPlatforms: fetchedDonationPlatforms.map(
+        ({ short, name }) => ({ id: short, label: name })
+      ),
     }
   },
   data() {
@@ -455,10 +426,10 @@ export default {
       icon: null,
       license: null,
 
-      sideTypes: [
-        { display: 'Required', name: 'required' },
-        { display: 'No functionality', name: 'no_functionality' },
-        { display: 'Unsupported', name: 'unsupported' },
+      sideConfigurations: [
+        { label: 'Required', id: 'required' },
+        { label: 'No functionality', id: 'no_functionality' },
+        { label: 'Unsupported', id: 'unsupported' },
       ],
     }
   },
@@ -590,10 +561,11 @@ label {
   }
 
   input,
-  .multiselect,
+  .v-select,
   .input-group {
     flex: 3;
     height: fit-content;
+    max-width: 100%;
   }
 }
 
@@ -616,7 +588,7 @@ label {
     'description  description description' auto
     'versions     versions    versions' auto
     'extra-links  license     license' auto
-    'donations    donations   donations' auto
+    'donations    donations   .' auto
     'footer       footer      footer' auto
     / 4fr 1fr 4fr;
   column-gap: var(--spacing-card-md);

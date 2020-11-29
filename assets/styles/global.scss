@@ -219,11 +219,9 @@ button {
 input,
 textarea {
   background: var(--color-button-bg);
-  border: none;
   border-radius: var(--size-rounded-control);
   color: var(--color-text);
   padding: 0.5rem 1rem;
-  height: fit-content;
   border: 2px solid transparent;
 
   &:focus,
@@ -284,6 +282,8 @@ button {
     color: var(--color-button-text-active);
   }
 }
+
+@import "vue-select/src/scss/vue-select.scss";
 
 @import "~assets/styles/layout.scss";
 @import "~assets/styles/utils.scss";
