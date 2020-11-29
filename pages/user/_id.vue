@@ -1,14 +1,11 @@
 <template>
   <div class="page-container">
     <div class="page-contents">
-      <div class="content">
-        <div class="user-profile">
+      <div class="sidebar-l">
+        <div class="card info">
           <img :src="user.avatar_url" :alt="user.username" />
-          <div class="info">
-            <h1>{{ user.username }}</h1>
-            <p class="joined-text">
-              Joined {{ $dayjs(user.created).fromNow() }}
-            </p>
+          <div class="text">
+            <h2>{{ user.username }}</h2>
             <p v-if="user.bio" class="bio">{{ user.bio }}</p>
             <p v-if="user.role === 'admin'" class="badge red">Admin</p>
             <p v-if="user.role === 'moderator'" class="badge yellow">
@@ -19,17 +16,22 @@
             </p>
           </div>
         </div>
+        <div class="card stats">
+          <p class="joined-text">Joined {{ $dayjs(user.created).fromNow() }}</p>
+        </div>
+      </div>
+      <div class="content">
         <client-only>
           <EthicalAd />
         </client-only>
-        <div class="user-mods">
+        <div class="mods">
           <SearchResult
             v-for="result in mods"
             :id="result.mod_id"
             :key="result.mod_id"
             :name="result.title"
             :description="result.description"
-            :latest-version="result.versions[0]"
+            :latest-version="result.latest_version"
             :created-at="result.published"
             :updated-at="result.updated"
             :downloads="result.downloads.toString()"
@@ -81,52 +83,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user-profile {
-  @media screen and (min-width: 900px) {
-    display: inline-flex;
-    text-align: left;
-  }
-  text-align: center;
-  margin-bottom: 20px;
-  margin-left: 15px;
-
-  img {
-    border-radius: var(--size-rounded-md);
-    width: 250px;
-    height: 250px;
-  }
-
+.sidebar-l {
   .info {
-    @media screen and (min-width: 900px) {
-      margin-left: 15px;
+    @extend %row;
+    img {
+      width: 6rem;
+      height: 6rem;
+      margin-right: var(--spacing-card-md);
+      border-radius: var(--size-rounded-icon);
     }
-
-    h1 {
-      margin-bottom: 0;
+    .text {
+      h2 {
+        margin: 0;
+        color: var(--color-text-dark);
+        font-size: var(--font-size-lg);
+      }
+      .badge {
+        display: inline-block;
+      }
     }
-
-    .joined-text {
-      margin-top: 5px;
-      color: var(--color-grey-4);
-    }
-
-    .bio {
-      margin-top: 5px;
-      font-size: 16pt;
-    }
-
-    .badge {
-      display: inline-block;
-    }
+  }
+  .stats {
   }
 }
 
-.user-mods {
-  border-top: 1px solid var(--color-grey-1);
-  padding-top: 10px;
-  margin: 10px;
-  * {
-    margin-left: 0;
-  }
+.mods {
 }
 </style>
