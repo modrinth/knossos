@@ -92,6 +92,7 @@ export default {
     '~/plugins/vue-tooltip.js',
     '~/plugins/vue-notification.js',
     '~/plugins/compiled-markdown-directive.js',
+    '~/plugins/vue-syntax.js',
   ],
   /*
    ** Auto import components

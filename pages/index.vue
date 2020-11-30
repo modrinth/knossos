@@ -148,8 +148,17 @@
           open source ecosystem for all Modrinth applications.
         </p>
       </div>
-      <div class="right hero-image">
-        <img src="~/assets/images/api.gif" alt="api" loading="lazy" />
+      <div class="right hero-image less-margin">
+        <pre v-highlightjs>
+<code class="javascript">const fetch = require('node-fetch');
+fetch('https://api.modrinth.com/api/v1/mod').then(res => res.json()).then(data => {
+    console.log(data);
+    // hits: [Object {author: "mezz", author_url: …, …}, …]
+    // limit: 10
+    // offset: 0
+    /// total_hits: 19440
+});</code>
+        </pre>
       </div>
     </div>
     <m-footer class="footer" centered />
@@ -244,8 +253,8 @@ export default {
 }
 
 .hero {
-  margin-left: 20%;
-  width: 25%;
+  margin-left: 15%;
+  width: 30%;
   h3 {
     font-size: 18px;
     font-weight: bolder;
@@ -294,6 +303,7 @@ export default {
     right: 0;
     z-index: -1;
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   &:before {
