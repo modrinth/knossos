@@ -3,13 +3,13 @@
     <div class="page-contents">
       <header class="columns">
         <h2 class="column-grow-1">Create a mod</h2>
-        <button
+        <!-- <button
           title="Save draft"
           class="button column"
           :disabled="!this.$nuxt.$loading"
         >
           Save draft
-        </button>
+        </button> -->
         <button
           title="Create"
           class="brand-button column"
@@ -27,14 +27,18 @@
             Be creative. TechCraft v7 won't be searchable and won't be clicked
             on
           </span>
-          <input v-model="name" type="text" />
+          <input v-model="name" type="text" placeholder="Enter the name" />
         </label>
         <h3>Summary</h3>
         <label>
           <span>
             Give a quick description to your mod. It will appear in the search
           </span>
-          <input v-model="description" type="text" />
+          <input
+            v-model="description"
+            type="text"
+            placeholder="Enter the summary"
+          />
         </label>
         <h3>Categories</h3>
         <label>
@@ -58,12 +62,16 @@
             placeholder="Choose categories"
           />
         </label>
-        <h3>Vanity URL Slug</h3>
+        <h3>Vanity URL (slug)</h3>
         <label>
           <span>
             Set this to something pretty, so URLs to your mod are more readable
           </span>
-          <input id="name" type="text" name="name" />
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter the vanity URL's last bit"
+          />
         </label>
       </section>
       <section class="mod-icon rows">
@@ -71,7 +79,7 @@
         <div class="columns row-grow-1">
           <div class="column-grow-1 rows">
             <file-input
-              input-accept="image/*"
+              accept="image/png,image/jpeg,image/gif"
               class="choose-image"
               prompt="Choose image or drag it here"
               @change="showPreviewImage"
@@ -106,7 +114,7 @@
             <Multiselect
               v-model="clientSideType"
               placeholder="Select one"
-              track-by="label"
+              track-by="id"
               label="label"
               :options="sideTypes"
               :searchable="false"
@@ -120,7 +128,7 @@
             <Multiselect
               v-model="serverSideType"
               placeholder="Select one"
-              track-by="label"
+              track-by="id"
               label="label"
               :options="sideTypes"
               :searchable="false"
@@ -158,157 +166,219 @@
         </div>
       </section>
       <section class="versions">
-        <Popup
-          v-if="currentVersionIndex > -1"
-          :show-popup="currentVersionIndex > -1"
-          class="create-version-popup-body"
-        >
-          <div class="versions-header">
-            <h3>New Version</h3>
-
-            <div class="popup-icons">
-              <button title="Discard Version" @click="deleteVersion">
-                <TrashIcon />
-              </button>
-              <button title="Exit Version" @click="currentVersionIndex = -1">
-                <SaveIcon />
-              </button>
-            </div>
-          </div>
-          <label
-            for="version-title"
-            class="required"
-            title="The title of your version"
-          >
-            Version Title
-          </label>
-          <input
-            id="version-title"
-            v-model="versions[currentVersionIndex].version_title"
-            required
-            type="text"
-            placeholder="Combat Update"
-          />
-          <label
-            for="version-number"
-            class="required"
-            title="The version number of this version. Preferably following semantic versioning"
-          >
-            Version Number
-          </label>
-          <input
-            id="version-number"
-            v-model="versions[currentVersionIndex].version_number"
-            required
-            type="text"
-            placeholder="v1.9"
-          />
-          <label class="required" title="The release channel of this version.">
-            Release Channel
-          </label>
-          <multiselect
-            v-model="versions[currentVersionIndex].release_channel"
-            class="categories-input"
-            placeholder="Select one"
-            :options="['release', 'beta', 'alpha']"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-          />
-          <label
-            title="The version number of this version. Preferably following semantic versioning"
-          >
-            Loaders
-          </label>
-          <multiselect
-            v-model="versions[currentVersionIndex].loaders"
-            class="categories-input"
-            :options="availableLoaders"
-            :loading="availableLoaders.length === 0"
-            :multiple="true"
-            :searchable="false"
-            :show-no-results="false"
-            :close-on-select="true"
-            :clear-on-select="false"
-            :show-labels="false"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose loaders..."
-          />
-          <label
-            title="The versions of minecraft that this mod version supports"
-          >
-            Game Versions
-          </label>
-          <multiselect
-            v-model="versions[currentVersionIndex].game_versions"
-            class="categories-input"
-            :options="availableGameVersions"
-            :loading="availableGameVersions.length === 0"
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-on-select="false"
-            :show-labels="false"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose versions..."
-          />
-          <label for="version-body" title="A list of changes for this version">
-            Changelog
-          </label>
-          <textarea
-            id="version-body"
-            v-model="versions[currentVersionIndex].version_body"
-            class="changelog-editor"
-          />
-          <FileInput
-            input-id="version-files"
-            input-accept="application/*"
-            :input-multiple="true"
-            default-text="Upload Files"
-            @change="updateVersionFiles"
-          >
-            <label
-              class="required"
-              title="The files associated with the version"
-            >
-              Version Files
-            </label>
-          </FileInput>
-        </Popup>
-        <div class="versions-header">
+        <div class="title">
           <h3>Upload already released versions</h3>
           <button
-            title="New Version"
-            class="new-version"
+            title="Add a version"
+            class="button"
+            :disabled="currentVersionIndex != -1"
             @click="createVersion"
           >
-            <PlusIcon />
+            Add a version
           </button>
         </div>
-        <div v-for="(value, index) in versions" :key="index" class="version">
-          <p>{{ value.version_number }}</p>
-          <p class="column-grow-4">{{ value.version_title }}</p>
-          <p>{{ value.loaders.join(', ') }}</p>
-          <p v-if="value.release_channel === 'beta'" class="badge yellow">
-            Beta
-          </p>
-          <p v-if="value.release_channel === 'release'" class="badge green">
-            Release
-          </p>
-          <p v-if="value.release_channel === 'alpha'" class="badge red">
-            Alpha
-          </p>
-          <div>
-            <button title="Delete Version" @click="versions.splice(index, 1)">
-              <TrashIcon />
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Version</th>
+              <th>Mod Loader</th>
+              <th>Minecraft Version</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="version in versions.filter((it) =>
+                currentVersionIndex != -1
+                  ? it != versions[currentVersionIndex]
+                  : true
+              )"
+              :key="version.id"
+            >
+              <td>
+                <a
+                  :href="findPrimary(version).url"
+                  class="download"
+                  @click.prevent="
+                    downloadFile(
+                      findPrimary(version).hashes.sha1,
+                      findPrimary(version).url
+                    )
+                  "
+                >
+                  <DownloadIcon />
+                </a>
+              </td>
+              <td>
+                <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
+                  {{ version.name }}
+                </nuxt-link>
+              </td>
+              <td>{{ version.version_number }}</td>
+              <td>
+                <FabricIcon v-if="version.loaders.includes('fabric')" />
+                <ForgeIcon v-if="version.loaders.includes('forge')" />
+              </td>
+              <td>{{ version.game_versions.join(', ') }}</td>
+              <td>
+                <span
+                  v-if="version.version_type === 'release'"
+                  class="badge green"
+                >
+                  Release
+                </span>
+                <span
+                  v-if="version.version_type === 'beta'"
+                  class="badge yellow"
+                >
+                  Beta
+                </span>
+                <span v-if="version.version_type === 'alpha'" class="badge red">
+                  Alpha
+                </span>
+              </td>
+              <td>
+                <button
+                  title="Remove version"
+                  @click="versions.splice(index, 1)"
+                >
+                  Remove
+                </button>
+                <button
+                  title="Edit version"
+                  @click="currentVersionIndex = index"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr v-if="currentVersionIndex != -1" />
+        <div v-if="currentVersionIndex != -1" class="new-version">
+          <div class="controls">
+            <button
+              class="brand-button"
+              title="Save version"
+              @click="currentVersionIndex = -1"
+            >
+              Save version
             </button>
-            <button title="Edit Version" @click="currentVersionIndex = index">
-              <EditIcon />
+            <button title="Discard version" @click="deleteVersion">
+              Discard
             </button>
+          </div>
+          <div class="main">
+            <h3>Name</h3>
+            <label>
+              <span>
+                This is what users will see first. Will default to version
+                number
+              </span>
+              <input
+                v-model="versions[currentVersionIndex].name"
+                type="text"
+                placeholder="Enter the name"
+              />
+            </label>
+            <h3>Number</h3>
+            <label>
+              <span>
+                That's how your version will appear in mod lists and in URLs
+              </span>
+              <input
+                v-model="versions[currentVersionIndex].number"
+                type="text"
+                placeholder="Enter the number"
+              />
+            </label>
+            <h3>Channel</h3>
+            <label>
+              <span>
+                It is important to notify players and pack makers if the version
+                is stable
+              </span>
+              <multiselect
+                v-model="versions[currentVersionIndex].release_channel"
+                placeholder="Select one"
+                :options="['release', 'beta', 'alpha']"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+              />
+            </label>
+            <h3>Loaders</h3>
+            <label>
+              <span>
+                Mark all loaders this version works with. It is essential for
+                search
+              </span>
+              <multiselect
+                v-model="versions[currentVersionIndex].loaders"
+                :options="availableLoaders"
+                :loading="availableLoaders.length === 0"
+                :multiple="true"
+                :searchable="false"
+                :show-no-results="false"
+                :close-on-select="true"
+                :clear-on-select="false"
+                :show-labels="false"
+                :limit="6"
+                :hide-selected="true"
+                placeholder="Choose loaders..."
+              />
+            </label>
+            <h3>Game versions</h3>
+            <label>
+              <span>
+                Mark all game version this version supports. It is essential for
+                search
+              </span>
+              <multiselect
+                v-model="versions[currentVersionIndex].game_versions"
+                :options="availableGameVersions"
+                :loading="availableGameVersions.length === 0"
+                :multiple="true"
+                :searchable="true"
+                :show-no-results="false"
+                :close-on-select="false"
+                :clear-on-select="false"
+                :show-labels="false"
+                :limit="6"
+                :hide-selected="true"
+                placeholder="Choose versions..."
+              />
+            </label>
+            <h3>Files</h3>
+            <label>
+              <span>
+                You should upload a single JAR file. However, you are allowed to
+                upload multiple
+              </span>
+              <FileInput
+                accept="application/*"
+                multiple
+                prompt="Choose files or drag them here"
+                @change="updateVersionFiles"
+              />
+            </label>
+          </div>
+          <div class="changelog">
+            <h3>Changelog</h3>
+            <span>
+              Tell players and modpack makers what's new. It supports the same
+              markdown as description, but it is advisable not to be too
+              creative with it in changelogs
+            </span>
+            <div class="textarea-wrapper">
+              <textarea
+                v-model="versions[currentVersionIndex].changelog"
+              ></textarea>
+            </div>
           </div>
         </div>
       </section>
@@ -366,16 +436,29 @@
             URL field will be filled automatically for provided licenses
           </span>
           <div class="input-group">
-            <input type="text" placeholder="License URL" />
+            <Multiselect
+              v-model="license"
+              placeholder="Select one"
+              track-by="short"
+              label="name"
+              :options="availableLicenses"
+              :searchable="true"
+              :close-on-select="true"
+              :show-labels="false"
+              @change="updateLicenseURL"
+            />
+            <input v-model="license_url" type="url" placeholder="License URL" />
           </div>
         </label>
       </section>
+      <!--
       <section class="donations">
         <div class="title">
           <h3>Donation links</h3>
           <i>— this section is optional</i>
         </div>
       </section>
+      -->
       <m-footer class="footer" centered />
     </div>
   </div>
@@ -386,40 +469,38 @@ import axios from 'axios'
 import Multiselect from 'vue-multiselect'
 
 import MFooter from '@/components/MFooter'
-import Popup from '@/components/Popup'
 import FileInput from '@/components/FileInput'
 import EthicalAd from '@/components/EthicalAd'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+// import SaveIcon from '~/assets/images/utils/save.svg?inline'
+// import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+// import EditIcon from '~/assets/images/utils/edit.svg?inline'
+// import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 
 export default {
   components: {
     MFooter,
     FileInput,
-    Popup,
     EthicalAd,
     Multiselect,
-    TrashIcon,
-    EditIcon,
-    PlusIcon,
-    SaveIcon,
+    // TrashIcon,
+    // EditIcon,
+    // PlusIcon,
+    // SaveIcon,
   },
   async asyncData() {
     const [
       availableCategories,
       availableLoaders,
       availableGameVersions,
-      fetchedLicenses,
-      fetchedDonationPlatforms,
+      availableLicenses,
+      // availableDonationPlatforms,
     ] = (
       await Promise.all([
         axios.get(`https://api.modrinth.com/api/v1/tag/category`),
         axios.get(`https://api.modrinth.com/api/v1/tag/loader`),
         axios.get(`https://api.modrinth.com/api/v1/tag/game_version`),
         axios.get(`https://api.modrinth.com/api/v1/tag/license`),
-        axios.get(`https://api.modrinth.com/api/v1/tag/donation_platform`),
+        // axios.get(`https://api.modrinth.com/api/v1/tag/donation_platform`),
       ])
     ).map((it) => it.data)
 
@@ -427,13 +508,8 @@ export default {
       availableCategories,
       availableLoaders,
       availableGameVersions,
-      availableLicenses: fetchedLicenses.map(({ short, name }) => ({
-        id: short,
-        label: name,
-      })),
-      availableDonationPlatforms: fetchedDonationPlatforms.map(
-        ({ short, name }) => ({ id: short, label: name })
-      ),
+      availableLicenses,
+      // availableDonationPlatforms,
     }
   },
   data() {
@@ -455,6 +531,7 @@ export default {
       wiki_url: null,
       icon: null,
       license: null,
+      license_url: null,
 
       sideTypes: [
         { label: 'Required', id: 'required' },
@@ -464,6 +541,22 @@ export default {
       clientSideType: { label: 'Required', id: 'required' },
       serverSideType: { label: 'Required', id: 'required' },
     }
+  },
+  watch: {
+    license(newValue, oldValue) {
+      if (newValue == null) {
+        this.license_url = ''
+        return
+      }
+
+      switch (newValue.short) {
+        case 'custom':
+          this.license_url = ''
+          break
+        default:
+          this.license_url = `https://cdn.modrinth.com/licenses/${newValue.short}.txt`
+      }
+    },
   },
   methods: {
     async createMod() {
@@ -492,11 +585,14 @@ export default {
           wiki_url: this.wiki_url,
           client_side: this.clientSideType.id,
           server_side: this.serverSideType.id,
+          license: this.license,
+          license_url: this.license_url,
         })
       )
 
-      if (this.icon)
+      if (this.icon) {
         formData.append('icon', new Blob([this.icon]), this.icon.name)
+      }
 
       for (const version of this.versions) {
         for (let i = 0; i < version.raw_files.length; i++) {
@@ -611,6 +707,19 @@ label {
   }
 }
 
+.textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  textarea {
+    flex: 1;
+    overflow-y: scroll;
+    resize: none;
+    max-width: 100%;
+  }
+}
+
 .page-contents {
   display: grid;
   grid-template:
@@ -694,7 +803,7 @@ section.description {
     min-height: 10rem;
     max-height: 40rem;
 
-    * {
+    & > * {
       flex: 1;
       max-width: 50%;
     }
@@ -704,23 +813,111 @@ section.description {
     overflow-y: scroll;
     padding: 0 var(--spacing-card-sm);
   }
-
-  .textarea-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-
-    textarea {
-      flex: 1;
-      overflow-y: scroll;
-      resize: none;
-      max-width: 100%;
-    }
-  }
 }
 
 section.versions {
   grid-area: versions;
+
+  table {
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-card-md);
+    background: var(--color-raised-bg);
+    border-radius: var(--size-rounded-card);
+    table-layout: fixed;
+    width: 100%;
+
+    * {
+      text-align: left;
+    }
+
+    tr:not(:last-child),
+    tr:first-child {
+      th,
+      td {
+        border-bottom: 1px solid var(--color-divider);
+      }
+    }
+
+    th,
+    td {
+      &:first-child {
+        text-align: center;
+        width: 7%;
+
+        svg {
+          color: var(--color-text);
+
+          &:hover,
+          &:focus {
+            color: var(--color-text-hover);
+          }
+        }
+      }
+
+      &:nth-child(2),
+      &:nth-child(5) {
+        padding-left: 0;
+        width: 12%;
+      }
+    }
+
+    th {
+      color: var(--color-heading);
+      font-size: 0.8rem;
+      letter-spacing: 0.02rem;
+      margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1rem;
+      text-transform: uppercase;
+    }
+
+    td {
+      overflow: hidden;
+      padding: 0.75rem 1rem;
+
+      img {
+        height: 3rem;
+        width: 3rem;
+      }
+    }
+  }
+
+  hr {
+    background-color: var(--color-divider);
+    border: none;
+    color: var(--color-divider);
+    height: 2px;
+    margin: 0.5rem 0;
+  }
+
+  .new-version {
+    display: grid;
+    grid-template:
+      'controls controls' auto
+      'main changelog' auto
+      / 5fr 4fr;
+    column-gap: var(--spacing-card-md);
+
+    .controls {
+      grid-area: controls;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    .main {
+      grid-area: main;
+    }
+
+    .changelog {
+      grid-area: changelog;
+      display: flex;
+      flex-direction: column;
+
+      .textarea-wrapper {
+        flex: 1;
+      }
+    }
+  }
 }
 
 section.extra-links {

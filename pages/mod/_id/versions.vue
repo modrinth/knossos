@@ -154,7 +154,7 @@
       />
       <FileInput
         input-id="version-files"
-        input-accept="application/java-archive,application/zip"
+        accept="application/java-archive,application/zip"
         default-text="Upload Files"
         :input-multiple="true"
         @change="updateVersionFiles"

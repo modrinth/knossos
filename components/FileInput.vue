@@ -6,6 +6,7 @@
     <input
       type="file"
       :multiple="multiple"
+      :accept="accept"
       @change="(files) => $emit('change', files)"
     />
   </label>
@@ -22,6 +23,10 @@ export default {
     multiple: {
       type: Boolean,
       default: false,
+    },
+    accept: {
+      type: String,
+      default: null,
     },
   },
 }
