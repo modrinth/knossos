@@ -2,23 +2,50 @@
   <div class="page-container">
     <div class="page-contents">
       <div class="sidebar-l">
-        <div class="card info">
-          <img :src="user.avatar_url" :alt="user.username" />
-          <div class="text">
-            <h2>{{ user.username }}</h2>
-            <p v-if="user.bio" class="bio">{{ user.bio }}</p>
-            <p v-if="user.role === 'admin'" class="badge red">Admin</p>
-            <p v-if="user.role === 'moderator'" class="badge yellow">
-              Moderator
-            </p>
-            <p v-if="user.role === 'developer'" class="badge green">
-              Developer
-            </p>
+        <div class="card">
+          <div class="user-info">
+            <img :src="user.avatar_url" :alt="user.username" />
+            <div class="text">
+              <h2>{{ user.username }}</h2>
+              <p v-if="user.role === 'admin'" class="badge red">Admin</p>
+              <p v-if="user.role === 'moderator'" class="badge yellow">
+                Moderator
+              </p>
+              <p v-if="user.role === 'developer'" class="badge green">
+                Developer
+              </p>
+            </div>
           </div>
+          <p v-if="user.bio" class="bio">{{ user.bio }}</p>
         </div>
         <div class="card stats">
-          <p class="joined-text">Joined {{ $dayjs(user.created).fromNow() }}</p>
+          <div class="stat">
+            <CalendarIcon />
+            <div class="info">
+              <h4>Created</h4>
+              <p
+                v-tooltip="
+                  $dayjs(user.created).format(
+                    '[Created on] YYYY-MM-DD [at] HH:mm A'
+                  )
+                "
+                class="value"
+              >
+                {{ $dayjs(user.created).fromNow() }}
+              </p>
+            </div>
+          </div>
+          <div class="stat">
+            <DownloadIcon />
+            <div class="info">
+              <h4>Downloads</h4>
+              <p class="value">
+                {{ sumDownloads() }}
+              </p>
+            </div>
+          </div>
         </div>
+        <m-footer class="footer" />
       </div>
       <div class="content">
         <client-only>
@@ -31,14 +58,13 @@
             :key="result.mod_id"
             :name="result.title"
             :description="result.description"
-            :latest-version="result.latest_version"
             :created-at="result.published"
             :updated-at="result.updated"
             :downloads="result.downloads.toString()"
             :icon-url="result.icon_url"
             :author-url="result.author_url"
-            :page-url="result.page_url"
             :categories="result.categories"
+            :is-modrinth="true"
           />
         </div>
       </div>
@@ -50,12 +76,19 @@
 import axios from 'axios'
 import SearchResult from '@/components/ProjectCard'
 import EthicalAd from '@/components/EthicalAd'
+import MFooter from '@/components/MFooter'
+
+import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
+import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 
 export default {
   auth: false,
   components: {
     EthicalAd,
     SearchResult,
+    CalendarIcon,
+    DownloadIcon,
+    MFooter,
   },
   async asyncData(data) {
     let res = await axios.get(
@@ -79,12 +112,28 @@ export default {
       user,
     }
   },
+  methods: {
+    formatNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    sumDownloads() {
+      let sum = 0
+
+      for (const mod of this.mods) {
+        sum += mod.downloads
+      }
+
+      return this.formatNumber(sum)
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .sidebar-l {
-  .info {
+  min-width: 21rem;
+
+  .user-info {
     @extend %row;
     img {
       width: 6rem;
@@ -104,6 +153,17 @@ export default {
     }
   }
   .stats {
+    display: flex;
+    flex-wrap: wrap;
+    .stat {
+      @extend %stat;
+
+      svg {
+        padding: 0.25rem;
+        border-radius: 50%;
+        background-color: var(--color-button-bg);
+      }
+    }
   }
 }
 

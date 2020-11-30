@@ -63,6 +63,10 @@
   --color-badge-green-bg: #c6f6d5;
   --color-badge-yellow-text: #675027;
   --color-badge-yellow-bg: #f6e8c6;
+
+  --color-block-quote: var(--color-tooltip-bg);
+  --color-header-underline: var(--color-tooltip-text);
+  --color-hr: var(--color-text);
 }
 
 .dark-mode {
@@ -129,6 +133,10 @@
   --color-badge-green-text: #c6f6d5;
   --color-badge-yellow-bg: #675027;
   --color-badge-yellow-text: #f6e8c6;
+
+  --color-block-quote:var(--color-code-bg);
+  --color-header-underline: var(--color-tooltip-text);
+  --color-hr: var(--color-text);
 }
 
 body {

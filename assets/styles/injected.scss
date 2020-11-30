@@ -57,3 +57,31 @@
   font-size: var(--font-size-sm);
   margin-bottom: 0.5em;
 }
+
+%stat {
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  @extend %row;
+
+  @media screen and (min-width: 900px) {
+    margin-top: 0;
+  }
+  svg {
+    margin: auto 0.5rem auto 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    color: var(--color-icon);
+  }
+  .info {
+    margin: auto 0;
+    white-space: nowrap;
+    h4 {
+      @extend %small-label;
+    }
+    .value {
+      font-size: var(--font-size-sm);
+      margin: 0;
+      color: var(--color-text-dark);
+    }
+  }
+}

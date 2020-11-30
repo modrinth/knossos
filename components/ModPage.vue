@@ -20,6 +20,9 @@
             </p>
           </div>
         </div>
+        <client-only>
+          <EthicalAd type="text" />
+        </client-only>
         <div class="mod-navigation">
           <div class="tabs">
             <nuxt-link :to="'/mod/' + mod.id" class="tab">
@@ -68,11 +71,62 @@
         </div>
       </div>
       <section class="mod-info">
-        <div class="mod-stats">
-          <h3>Info</h3>
-          <p>{{ mod.downloads }} Downloads</p>
-          <p>Created {{ $dayjs(mod.published).fromNow() }}</p>
-          <p>Updated {{ $dayjs(mod.updated).fromNow() }}</p>
+        <div class="mod-stats section">
+          <div class="stat">
+            <DownloadIcon />
+            <div class="info">
+              <h4>Downloads</h4>
+              <p class="value">{{ formatNumber(mod.downloads) }}</p>
+            </div>
+          </div>
+          <div class="stat">
+            <CalendarIcon />
+            <div class="info">
+              <h4>Created</h4>
+              <p
+                v-tooltip="
+                  $dayjs(mod.published).format(
+                    '[Created on] YYYY-MM-DD [at] HH:mm A'
+                  )
+                "
+                class="value"
+              >
+                {{ $dayjs(mod.published).fromNow() }}
+              </p>
+            </div>
+          </div>
+          <div class="stat">
+            <TagIcon />
+            <div class="info">
+              <h4>Available For</h4>
+              <p class="value">
+                {{
+                  versions[versions.length - 1]
+                    ? versions[versions.length - 1].game_versions[0]
+                      ? versions[versions.length - 1].game_versions[0]
+                      : 'None'
+                    : 'None'
+                }}
+              </p>
+            </div>
+          </div>
+          <div class="stat">
+            <EditIcon />
+            <div class="info">
+              <h4>Updated</h4>
+              <p
+                v-tooltip="
+                  $dayjs(mod.updated).format(
+                    '[Updated on] YYYY-MM-DD [at] HH:mm A'
+                  )
+                "
+                class="value"
+              >
+                {{ $dayjs(mod.updated).fromNow() }}
+              </p>
+            </div>
+          </div>
+          <Categories :categories="mod.categories.concat(mod.loaders)" />
         </div>
         <div class="section">
           <h3>Members</h3>
@@ -97,12 +151,18 @@
             :key="version.id"
             class="featured-version"
           >
-            <nuxt-link
-              :to="'/mod/' + mod.id + '/version/' + version.id"
+            <a
+              :href="findPrimary(version).url"
               class="download"
+              @click.prevent="
+                downloadFile(
+                  findPrimary(version).hashes.sha1,
+                  findPrimary(version).url
+                )
+              "
             >
               <DownloadIcon />
-            </nuxt-link>
+            </a>
             <div class="info">
               <div class="top">
                 <span
@@ -121,34 +181,34 @@
                   Alpha
                 </span>
                 <h4 class="title">
-                  {{ version.name }}
+                  <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
+                    {{ version.name }}
+                  </nuxt-link>
                 </h4>
               </div>
               <div class="bottom">
                 <span class="version-number limit-text-width">
-                  {{ version.version_number }}
+                  {{ version.version_number }} ·
                 </span>
                 <FabricIcon
                   v-if="version.loaders.includes('fabric')"
                   class="loader"
                 />
                 <ForgeIcon
-                  v-if="version.loaders.includes('fabric')"
+                  v-if="version.loaders.includes('forge')"
                   class="loader"
                 />
                 <span
                   v-if="version.game_versions.length > 0"
                   class="game-version limit-text-width"
                 >
-                  {{ version.game_versions[0] }}
+                  · {{ version.game_versions[0] }}
                 </span>
               </div>
             </div>
           </div>
-          <client-only>
-            <EthicalAd type="image" />
-          </client-only>
         </div>
+        <m-footer class="footer" />
       </section>
     </div>
   </div>
@@ -157,7 +217,15 @@
 <script>
 import EthicalAd from '@/components/EthicalAd'
 
+import Categories from '@/components/Categories'
+import MFooter from '@/components/MFooter'
+
+import axios from 'axios'
+import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import EditIcon from '~/assets/images/utils/edit.svg?inline'
+import TagIcon from '~/assets/images/utils/tag.svg?inline'
+
 import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
@@ -166,11 +234,16 @@ import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
 export default {
   name: 'ModPage',
   components: {
+    MFooter,
+    Categories,
     EthicalAd,
     ExternalIcon,
     ForgeIcon,
     FabricIcon,
     DownloadIcon,
+    CalendarIcon,
+    EditIcon,
+    TagIcon,
   },
   props: {
     mod: {
@@ -190,6 +263,34 @@ export default {
       default() {
         return []
       },
+    },
+  },
+  methods: {
+    formatNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    findPrimary(version) {
+      let file = version.files.find((x) => x.primary)
+
+      if (!file) {
+        file = version.files[0]
+      }
+
+      if (!file) {
+        file = { url: `/mod/${this.mod.id}/version/${version.id}` }
+      }
+
+      return file
+    },
+    async downloadFile(hash, url) {
+      await axios.get(
+        `https://api.modrinth.com/api/v1/version_file/${hash}/download`
+      )
+
+      const elem = document.createElement('a')
+      elem.download = hash
+      elem.href = url
+      elem.click()
     },
   },
 }
@@ -213,16 +314,12 @@ export default {
   .info {
     @extend %column;
     .title {
-      margin: 0;
-      margin-top: var(--spacing-card-md);
-      margin-right: var(--spacing-card-md);
+      margin: var(--spacing-card-md) var(--spacing-card-md) 0 0;
       color: var(--color-text-dark);
       font-size: var(--font-size-lg);
     }
     .description {
-      margin: 0;
-      margin-top: var(--spacing-card-sm);
-      margin-right: var(--spacing-card-md);
+      margin: var(--spacing-card-sm) var(--spacing-card-md) 0 0;
       height: 100%;
       color: var(--color-text-dark);
     }
@@ -235,14 +332,13 @@ export default {
 }
 
 .mod-info {
-  min-width: 270px;
-  max-width: 270px;
-  padding: var(--spacing-card-lg);
+  width: 30rem;
   height: auto;
-  @extend %card-spaced-b;
   margin-left: var(--spacing-card-lg);
 
   .section {
+    padding: var(--spacing-card-sm);
+    @extend %card-spaced-b;
     margin-top: var(--spacing-card-lg);
   }
 
@@ -251,9 +347,23 @@ export default {
   }
 
   .mod-stats {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0;
     margin-left: 5px;
     p {
       margin: 3px;
+    }
+    .stat {
+      width: 8.5rem;
+      margin: 0.75rem;
+      @extend %stat;
+
+      svg {
+        padding: 0.25rem;
+        border-radius: 50%;
+        background-color: var(--color-button-bg);
+      }
     }
   }
 
@@ -288,8 +398,8 @@ export default {
     .download {
       display: flex;
       align-items: center;
-      height: 2rem;
-      width: 2rem;
+      height: 2.25rem;
+      width: 2.25rem;
       border-radius: 2rem;
       background-color: var(--color-button-bg);
       margin-right: var(--spacing-card-sm);
@@ -300,7 +410,7 @@ export default {
     }
     .info {
       @extend %column;
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-xs);
       .top {
         @extend %row;
         .badge {
@@ -308,10 +418,11 @@ export default {
           margin-right: var(--spacing-card-sm);
         }
         .title {
-          margin: 0;
+          margin: auto 0;
         }
       }
       .bottom {
+        margin-top: 0.25rem;
         @extend %row;
         .loader {
           height: 1rem;

@@ -16,9 +16,18 @@
       <tbody>
         <tr v-for="version in versions" :key="version.id">
           <td>
-            <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
+            <a
+              :href="findPrimary(version).url"
+              class="download"
+              @click.prevent="
+                downloadFile(
+                  findPrimary(version).hashes.sha1,
+                  findPrimary(version).url
+                )
+              "
+            >
               <DownloadIcon />
-            </nuxt-link>
+            </a>
           </td>
           <td>
             <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
@@ -27,14 +36,8 @@
           </td>
           <td>{{ version.version_number }}</td>
           <td>
-            <FabricIcon
-              v-if="version.loaders.includes('fabric')"
-              stroke="#AC6C3A"
-            />
-            <ForgeIcon
-              v-if="version.loaders.includes('forge')"
-              stroke="#8B81E6"
-            />
+            <FabricIcon v-if="version.loaders.includes('fabric')" />
+            <ForgeIcon v-if="version.loaders.includes('forge')" />
           </td>
           <td>{{ version.game_versions.join(', ') }}</td>
           <td>
@@ -62,10 +65,6 @@
       class="create-version-popup-body"
     >
       <h3>New Version</h3>
-      <div v-if="currentError" class="error">
-        <h4>Error</h4>
-        <p>{{ currentError }}</p>
-      </div>
       <label
         for="version-title"
         class="required"
@@ -319,6 +318,29 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
+    findPrimary(version) {
+      let file = version.files.find((x) => x.primary)
+
+      if (!file) {
+        file = version.files[0]
+      }
+
+      if (!file) {
+        file = { url: `/mod/${this.mod.id}/version/${version.id}` }
+      }
+
+      return file
+    },
+    async downloadFile(hash, url) {
+      await axios.get(
+        `https://api.modrinth.com/api/v1/version_file/${hash}/download`
+      )
+
+      const elem = document.createElement('a')
+      elem.download = hash
+      elem.href = url
+      elem.click()
+    },
   },
   head() {
     return {
@@ -405,7 +427,7 @@ table {
     &:nth-child(2),
     &:nth-child(5) {
       padding-left: 0;
-      width: 15%;
+      width: 12%;
     }
   }
 
@@ -447,7 +469,7 @@ input {
   outline: none;
   border: none;
   margin: 10px 0 30px;
-  background-color: var(--color-grey-1);
+  background-color: var(--color-button-bg);
   color: var(--color-text);
   font-family: monospace;
 }
@@ -481,19 +503,13 @@ input {
   cursor: pointer;
   border: none;
   padding: 10px;
-  background-color: var(--color-grey-1);
-  color: var(--color-grey-5);
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
 
   &:hover,
   &:focus {
-    color: var(--color-grey-4);
+    background-color: var(--color-button-bg-hover);
   }
-}
-
-.error {
-  margin: 20px 0;
-  border-left: #e04e3e 7px solid;
-  padding: 5px 20px 20px 20px;
 }
 
 @media screen and (max-width: 400px) {
