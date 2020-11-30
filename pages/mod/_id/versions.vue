@@ -281,6 +281,7 @@ export default {
 
       this.createdVersion.mod_id = this.$route.params.id
       this.createdVersion.dependencies = []
+      this.createdVersion.featured = false
 
       formData.append('data', JSON.stringify(this.createdVersion))
 

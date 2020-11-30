@@ -3,13 +3,14 @@
     <div class="page-contents">
       <header class="columns">
         <h2 class="column-grow-1">Create a mod</h2>
-        <!-- <button
+        <button
           title="Save draft"
           class="button column"
           :disabled="!this.$nuxt.$loading"
+          @click="createDraft"
         >
           Save draft
-        </button> -->
+        </button>
         <button
           title="Create"
           class="brand-button column"
@@ -68,6 +69,7 @@
             Set this to something pretty, so URLs to your mod are more readable
           </span>
           <input
+            v-model="slug"
             id="name"
             type="text"
             placeholder="Enter the vanity URL's last bit"
@@ -89,7 +91,15 @@
               <li>Minimum size is 100x100</li>
               <li>Acceptable formats are PNG, JPEG and GIF</li>
             </ul>
-            <button class="transparent-button">Reset icon</button>
+            <button
+              @click="
+                icon = null
+                previewImage = null
+              "
+              class="transparent-button"
+            >
+              Reset icon
+            </button>
           </div>
           <img
             :src="
@@ -167,11 +177,11 @@
       </section>
       <section class="versions">
         <div class="title">
-          <h3>Upload already released versions</h3>
+          <h3>Upload Versions</h3>
           <button
             title="Add a version"
             class="button"
-            :disabled="currentVersionIndex != -1"
+            :disabled="currentVersionIndex !== -1"
             @click="createVersion"
           >
             Add a version
@@ -180,7 +190,6 @@
         <table>
           <thead>
             <tr>
-              <th></th>
               <th>Name</th>
               <th>Version</th>
               <th>Mod Loader</th>
@@ -191,31 +200,15 @@
           </thead>
           <tbody>
             <tr
-              v-for="version in versions.filter((it) =>
-                currentVersionIndex != -1
-                  ? it != versions[currentVersionIndex]
+              v-for="(version, index) in versions.filter((it) =>
+                currentVersionIndex !== -1
+                  ? it !== versions[currentVersionIndex]
                   : true
               )"
               :key="version.id"
             >
               <td>
-                <a
-                  :href="findPrimary(version).url"
-                  class="download"
-                  @click.prevent="
-                    downloadFile(
-                      findPrimary(version).hashes.sha1,
-                      findPrimary(version).url
-                    )
-                  "
-                >
-                  <DownloadIcon />
-                </a>
-              </td>
-              <td>
-                <nuxt-link :to="'/mod/' + mod.id + '/version/' + version.id">
-                  {{ version.name }}
-                </nuxt-link>
+                {{ version.name }}
               </td>
               <td>{{ version.version_number }}</td>
               <td>
@@ -257,8 +250,8 @@
             </tr>
           </tbody>
         </table>
-        <hr v-if="currentVersionIndex != -1" />
-        <div v-if="currentVersionIndex != -1" class="new-version">
+        <hr v-if="currentVersionIndex !== -1" />
+        <div v-if="currentVersionIndex !== -1" class="new-version">
           <div class="controls">
             <button
               class="brand-button"
@@ -290,7 +283,7 @@
                 That's how your version will appear in mod lists and in URLs
               </span>
               <input
-                v-model="versions[currentVersionIndex].number"
+                v-model="versions[currentVersionIndex].version_number"
                 type="text"
                 placeholder="Enter the number"
               />
@@ -384,7 +377,7 @@
       </section>
       <section class="extra-links">
         <div class="title">
-          <h3>Extrernal links</h3>
+          <h3>External links</h3>
           <i>— this section is optional</i>
         </div>
         <label
@@ -445,7 +438,6 @@
               :searchable="true"
               :close-on-select="true"
               :show-labels="false"
-              @change="updateLicenseURL"
             />
             <input v-model="license_url" type="url" placeholder="License URL" />
           </div>
@@ -471,10 +463,9 @@ import Multiselect from 'vue-multiselect'
 import MFooter from '@/components/MFooter'
 import FileInput from '@/components/FileInput'
 import EthicalAd from '@/components/EthicalAd'
-// import SaveIcon from '~/assets/images/utils/save.svg?inline'
-// import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-// import EditIcon from '~/assets/images/utils/edit.svg?inline'
-// import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+
+import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
+import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
 
 export default {
   components: {
@@ -482,10 +473,8 @@ export default {
     FileInput,
     EthicalAd,
     Multiselect,
-    // TrashIcon,
-    // EditIcon,
-    // PlusIcon,
-    // SaveIcon,
+    ForgeIcon,
+    FabricIcon,
   },
   async asyncData() {
     const [
@@ -520,9 +509,9 @@ export default {
       currentVersionIndex: -1,
 
       name: '',
+      slug: '',
+      draft: false,
       description: '',
-      clientSide: '',
-      serverSide: '',
       body: '',
       versions: [],
       categories: [],
@@ -559,6 +548,10 @@ export default {
     },
   },
   methods: {
+    async createDraft() {
+      this.draft = true
+      await this.createMod()
+    },
     async createMod() {
       this.$nuxt.$loading.start()
 
@@ -568,6 +561,7 @@ export default {
         'data',
         JSON.stringify({
           mod_name: this.name,
+          mod_slug: this.slug,
           mod_namespace: this.namespace,
           mod_description: this.description,
           mod_body: this.body,
@@ -587,6 +581,7 @@ export default {
           server_side: this.serverSideType.id,
           license: this.license,
           license_url: this.license_url,
+          is_draft: this.draft,
         })
       )
 
@@ -652,6 +647,7 @@ export default {
     },
 
     createVersion() {
+      console.log(this.versions)
       this.versions.push({
         raw_files: [],
         file_parts: [],
@@ -662,6 +658,7 @@ export default {
         game_versions: [],
         release_channel: 'release',
         loaders: [],
+        featured: false,
       })
 
       this.currentVersionIndex = this.versions.length - 1
@@ -714,7 +711,7 @@ label {
 
   textarea {
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
     resize: none;
     max-width: 100%;
   }
@@ -810,7 +807,7 @@ section.description {
   }
 
   .markdown-body {
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 0 var(--spacing-card-sm);
   }
 }
