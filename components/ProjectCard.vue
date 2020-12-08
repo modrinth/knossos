@@ -1,5 +1,5 @@
 <template>
-  <div class="project-card">
+  <article class="project-card">
     <div class="icon">
       <img
         :src="iconUrl ? iconUrl : 'https://cdn.modrinth.com/placeholder.svg'"
@@ -97,7 +97,7 @@
     <div v-if="editMode" class="buttons">
       <slot />
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
