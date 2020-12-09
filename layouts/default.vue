@@ -85,7 +85,7 @@
           <template v-else>
             <section class="auth-prompt">
               <a :href="authUrl" class="log-in-button"
-                ><GitHubIcon />Sign In with GitHub</a
+                ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
               >
             </section>
           </template>
