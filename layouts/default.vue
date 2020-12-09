@@ -1,7 +1,7 @@
 <template>
   <!-- Bidvertiser2046222 -->
   <div class="layout">
-    <aside>
+    <header>
       <section class="navbar columns">
         <section class="logo column">
           <NuxtLink to="/">
@@ -145,7 +145,7 @@
           </section>
         </nav>
       </section>
-    </aside>
+    </header>
     <main>
       <notifications group="main" position="bottom right" />
       <!--<notifications
@@ -265,7 +265,7 @@ export default {
   display: block;
   height: 100vh;
 
-  aside {
+  header {
     height: var(--size-navbar-height);
     background-color: var(--color-raised-bg);
     max-width: 100vw;
