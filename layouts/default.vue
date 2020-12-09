@@ -5,8 +5,11 @@
       <section class="navbar columns">
         <section class="logo column">
           <NuxtLink to="/">
-            <ModrinthLogo v-if="$colorMode.value === 'light'" />
-            <ModrinthLogoWhite v-else />
+            <ModrinthLogo
+              v-if="$colorMode.value === 'light'"
+              aria-label="modrinth"
+            />
+            <ModrinthLogoWhite v-else aria-label="modrinth" />
           </NuxtLink>
           <span class="badge yellow">Beta</span>
         </section>
