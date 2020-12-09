@@ -43,14 +43,14 @@
             </div>
           </div>
           <div class="stat">
-            <DownloadIcon />
+            <DownloadIcon aria-hidden="true" />
             <div class="info">
               <h4>Downloads</h4>
               <p class="value">{{ formatNumber(downloads) }}</p>
             </div>
           </div>
           <div class="stat">
-            <CalendarIcon />
+            <CalendarIcon aria-hidden="true" />
             <div class="info">
               <h4>Created</h4>
               <p
@@ -66,7 +66,7 @@
             </div>
           </div>
           <div class="stat">
-            <EditIcon />
+            <EditIcon aria-hidden="true" />
             <div class="info">
               <h4>Updated</h4>
               <p
@@ -82,7 +82,7 @@
             </div>
           </div>
           <div v-if="latestVersion" class="stat">
-            <TagIcon />
+            <TagIcon aria-hidden="true" />
             <div class="info">
               <h4>Available For</h4>
               <p class="value">
