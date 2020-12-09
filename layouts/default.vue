@@ -465,7 +465,7 @@ export default {
 
 @media (min-width: 1024px) {
   .layout {
-    aside {
+    header {
     }
 
     main {
@@ -482,7 +482,7 @@ export default {
 
 @media (min-width: 1280px) {
   .layout {
-    aside {
+    header {
     }
   }
 }
