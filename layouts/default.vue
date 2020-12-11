@@ -1,5 +1,9 @@
 <template>
   <div class="layout">
+    <audio
+      id="audioEasterEgg-BetaClick"
+      src="/easter-egg-beta-click.mp3"
+    ></audio>
     <header>
       <section class="navbar columns">
         <section class="logo column">
@@ -10,7 +14,9 @@
             />
             <ModrinthLogoWhite v-else aria-label="modrinth" />
           </NuxtLink>
-          <span class="badge yellow">Beta</span>
+          <div @click="betaClick">
+            <span class="badge yellow">Beta</span>
+          </div>
         </section>
         <section class="column-grow-5 nav">
           <div class="tabs">
@@ -232,6 +238,9 @@ export default {
     this.themeAds()
   },
   methods: {
+    betaClick() {
+      document.getElementById('audioEasterEgg-BetaClick').play()
+    },
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
     },
