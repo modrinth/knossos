@@ -117,7 +117,9 @@
             <button class="filter-button-done" @click="toggleFiltersMenu">
               Done
             </button>
-            <button @click="clearFilters">Reset filters</button>
+            <button id="clearFiltButt" @click="clearFilters">
+              Reset filters
+            </button>
             <h3>Categories</h3>
             <SearchFilter
               :active-filters="facets"
@@ -290,6 +292,8 @@ import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 
+let easterEggPress = 0
+
 export default {
   auth: false,
   components: {
@@ -385,6 +389,23 @@ export default {
       }
     },
     async clearFilters() {
+      easterEggPress++
+      if (easterEggPress === 12) {
+        document.getElementById('clearFiltButt').textContent =
+          ':) Reset Filters'
+      }
+      if (easterEggPress === 24) {
+        document.getElementById('clearFiltButt').textContent =
+          ':I Reset Filters'
+      }
+      if (easterEggPress === 42) {
+        document.getElementById('clearFiltButt').textContent =
+          ';( Reset Filters'
+      }
+      if (easterEggPress === 64) {
+        document.getElementById('clearFiltButt').textContent =
+          'D; Reset Filters'
+      }
       for (const facet of [...this.facets]) await this.toggleFacet(facet, true)
 
       this.selectedVersions = []
