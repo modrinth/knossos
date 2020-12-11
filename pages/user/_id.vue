@@ -1,10 +1,20 @@
 <template>
   <div class="page-container">
+    <audio
+      src="/easter-egg-profile-page.ogg"
+      type="audio/ogg"
+      id="easterEggProfilePage"
+    ></audio>
     <div class="page-contents">
       <div class="sidebar-l">
         <div class="card">
           <div class="user-info">
-            <img :src="user.avatar_url" :alt="user.username" />
+            <img
+              id="easterEggImageProfile"
+              @click="imageClick"
+              :src="src[currentSource]"
+              :alt="user.username"
+            />
             <div class="text">
               <h2>{{ user.username }}</h2>
               <p v-if="user.role === 'admin'" class="badge red">Admin</p>
@@ -81,6 +91,8 @@ import MFooter from '@/components/MFooter'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 
+let easterEggCountProfile = 0
+
 export default {
   auth: false,
   components: {
@@ -119,11 +131,20 @@ export default {
     }
 
     return {
+      src: [user.avatar_url, '/easterEggProfilePage.gif'],
+      currentSource: 0,
       mods,
       user,
     }
   },
   methods: {
+    imageClick() {
+      easterEggCountProfile++
+      if (easterEggCountProfile === 12) {
+        document.getElementById('easterEggProfilePage').play()
+        this.currentSource++
+      }
+    },
     formatNumber(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
@@ -147,6 +168,10 @@ export default {
   .user-info {
     @extend %row;
     img {
+      &:active {
+        animation: vibrate 0.1s infinite;
+      }
+
       width: 6rem;
       height: 6rem;
       margin-right: var(--spacing-card-md);
@@ -179,5 +204,14 @@ export default {
 }
 
 .mods {
+}
+
+@keyframes vibrate {
+  50% {
+    transform: rotate(1deg) translateX(1px);
+  }
+  100% {
+    transform: rotate(-1deg) translateX(-1px);
+  }
 }
 </style>
