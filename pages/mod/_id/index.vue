@@ -17,7 +17,6 @@ export default {
         Authorization: data.$auth.getToken('local')
           ? data.$auth.getToken('local')
           : '',
-        'Cache-Control': 'no-cache',
       },
     }
 
@@ -40,7 +39,7 @@ export default {
           )}`,
           config
         ),
-        axios.get(mod.body_url),
+        axios.get(mod.body_url, { 'Cache-Control': 'no-cache' }),
       ])
     ).map((it) => it.data)
 
