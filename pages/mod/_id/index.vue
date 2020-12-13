@@ -17,6 +17,7 @@ export default {
         Authorization: data.$auth.getToken('local')
           ? data.$auth.getToken('local')
           : '',
+        'Cache-Control': 'no-cache',
       },
     }
 
