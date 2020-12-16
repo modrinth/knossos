@@ -2,7 +2,7 @@
   <DashboardPage>
     <div class="section-header columns">
       <h3 class="column-grow-1">Settings</h3>
-      <button class="brand-button column">Save</button>
+      <button class="brand-button column" @click="editProfile">Save</button>
     </div>
     <section class="essentials">
       <h3>Username</h3>
@@ -46,6 +46,7 @@
 
 <script>
 import DashboardPage from '@/components/DashboardPage'
+import axios from 'axios'
 
 export default {
   components: {
@@ -64,6 +65,41 @@ export default {
       email: '',
       bio: '',
     }
+  },
+  methods: {
+    async editProfile() {
+      const config = {
+        headers: {
+          Authorization: this.$auth.getToken('local'),
+        },
+      }
+
+      this.$nuxt.$loading.start()
+
+      try {
+        const data = {
+          username: this.username,
+          name: this.name,
+          email: this.email,
+          bio: this.bio,
+        }
+
+        await axios.patch(
+          `https://api.modrinth.com/api/v1/user/${this.$auth.user.id}`,
+          data,
+          config
+        )
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An Error Occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
   },
 }
 </script>
