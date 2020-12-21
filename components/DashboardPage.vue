@@ -17,6 +17,10 @@
             <ModerationIcon />
             Moderation
           </nuxt-link>
+          <nuxt-link :to="'/dashboard/developer'" class="tab last">
+            <DevTools />
+            Developer Tools
+          </nuxt-link>
           <nuxt-link :to="'/dashboard/settings'" class="tab last">
             <SettingsIcon />
             Settings
@@ -37,6 +41,7 @@
 import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
+import DevTools from '~/assets/images/sidebar/devtools.svg?inline'
 
 export default {
   name: 'DashboardPage',
@@ -44,6 +49,7 @@ export default {
     ModIcon,
     ModerationIcon,
     SettingsIcon,
+    DevTools,
   },
 }
 </script>

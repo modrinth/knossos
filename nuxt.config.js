@@ -114,6 +114,7 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
+    'nuxt-clipboard2',
   ],
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
@@ -159,7 +160,7 @@ export default {
     transpile: ['vue-tooltip', 'vue-notification'],
     styleResources: {
       scss: './assets/styles/injected.scss',
-    }
+    },
   },
   loading: {
     color: 'green',
