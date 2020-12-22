@@ -2,17 +2,14 @@
   <DashboardPage>
     <div class="section-header columns">
       <h3 class="column-grow-1">Settings</h3>
-      <div class="column"></div>
+      <button class="brand-button column" @click="editProfile">Save</button>
     </div>
     <modal v-show="main_component">
       <section class="essentials">
-        <h3 class="column-grow-1">User Settings</h3>
-        <hr />
-
         <h3>Username</h3>
         <label>
           <span>
-            The username used on the modrinth site to identify yourself. This
+            The username used on the Modrinth site to identify yourself. This
             must be unique.
           </span>
           <input
@@ -44,22 +41,20 @@
           </span>
           <input v-model="bio" type="text" placeholder="Enter your bio" />
         </label>
-        <div class="pad-maker save-btn-div">
-          <button class="brand-button save-btn" @click="editProfile">
-            Save
-          </button>
-        </div>
       </section>
       <section class="essentials pad-maker">
-        <h3 class="column-grow-1">Developer Tools</h3>
-        <hr />
         <h3>Authorization Token</h3>
         <label>
           <span>
             Your authorization token can be used with the Modrinth API and for
             the Minotaur Gradle plugin. However, it must be kept secret!
           </span>
-          <button @click="copyToken">Copy to clipboard.</button>
+          <input
+            type="button"
+            class="button pad-rem"
+            value="Copy to clipboard"
+            @click="copyToken"
+          />
         </label>
         <h3>Revoke your token</h3>
         <label>
@@ -67,7 +62,12 @@
             >Beware, this will log you out of Modrinth, and you will have to
             login again to access modrinth with a new token.</span
           >
-          <button @click="showDelPopup">Revoke Token</button>
+          <input
+            type="button"
+            class="button"
+            value="Revoke Token"
+            @click="showDelPopup"
+          />
         </label>
       </section>
     </modal>
@@ -157,6 +157,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pad-rem {
+  margin-top: 0;
+}
+
 .pad-maker {
   margin-top: var(--spacing-card-md);
 }
@@ -187,5 +191,8 @@ label {
     flex: 3;
     height: fit-content;
   }
+}
+.header-top {
+  font-size: 125%;
 }
 </style>
