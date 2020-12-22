@@ -43,7 +43,7 @@
         </label>
       </section>
       <section class="essentials pad-maker">
-        <h3>Authorization Token</h3>
+        <h3>Authorization token</h3>
         <label>
           <span>
             Your authorization token can be used with the Modrinth API and for
