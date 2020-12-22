@@ -60,12 +60,12 @@
         <label>
           <span
             >Beware, this will log you out of Modrinth, and you will have to
-            login again to access modrinth with a new token.</span
+            login again to access Modrinth with a new token.</span
           >
           <input
             type="button"
             class="button"
-            value="Revoke Token"
+            value="Revoke token"
             @click="showDelPopup"
           />
         </label>
@@ -190,6 +190,9 @@ label {
   input {
     flex: 3;
     height: fit-content;
+  }
+  input[type='button'] {
+    flex: 1;
   }
 }
 .header-top {
