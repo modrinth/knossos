@@ -11,7 +11,10 @@
       ><br />
       Then press the <strong>Revoke access</strong> button found next to the
       <strong>Permissions</strong> header.<br /><br />
-      <a class="revk-link" href="https://iili.io/Kcq4wu.png" target="_blank"
+      <a
+        class="revk-link"
+        href="~/assets/images/revoke-token.png"
+        target="_blank"
         >See this screenshot if confused.</a
       >
     </p>
