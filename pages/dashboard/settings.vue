@@ -49,12 +49,9 @@
             Your authorization token can be used with the Modrinth API and for
             the Minotaur Gradle plugin. However, it must be kept secret!
           </span>
-          <input
-            type="button"
-            class="button pad-rem"
-            value="Copy to clipboard"
-            @click="copyToken"
-          />
+          <button type="button" class="button pad-rem" @click="copyToken">
+            Copy to clipboard
+          </button>
         </label>
         <h3>Revoke your token</h3>
         <label>
@@ -62,12 +59,9 @@
             >Beware, this will log you out of Modrinth, and you will have to
             login again to access Modrinth with a new token.</span
           >
-          <input
-            type="button"
-            class="button"
-            value="Revoke token"
-            @click="showDelPopup"
-          />
+          <button type="button" class="button" @click="showDelPopup">
+            Revoke token
+          </button>
         </label>
       </section>
     </modal>
@@ -191,7 +185,11 @@ label {
     flex: 3;
     height: fit-content;
   }
-  input[type='button'] {
+  button {
+    :hover {
+      cursor: pointer;
+    }
+    height: fit-content;
     flex: 1;
   }
 }
