@@ -2,61 +2,97 @@
   <DashboardPage>
     <div class="section-header columns">
       <h3 class="column-grow-1">Settings</h3>
-      <button class="brand-button column" @click="editProfile">Save</button>
+      <div class="column"></div>
     </div>
-    <section class="essentials">
-      <h3>Username</h3>
-      <label>
-        <span>
-          The username used on the modrinth site to identify yourself. This must
-          be unique.
-        </span>
-        <input
-          v-model="username"
-          type="text"
-          placeholder="Enter your username"
-        />
-      </label>
-      <h3>Name</h3>
-      <label>
-        <span>
-          Your display name on your Modrinth profile. This does not have to be
-          unique, can be set to anything, and is optional.
-        </span>
-        <input v-model="name" type="text" placeholder="Enter your name" />
-      </label>
-      <h3>Email</h3>
-      <label>
-        <span>
-          The email for your account. This is private information which is not
-          displayed in any API routes or your profile. It is also optional.
-        </span>
-        <input v-model="email" type="email" placeholder="Enter your email" />
-      </label>
-      <h3>Bio</h3>
-      <label>
-        <span>
-          A description of yourself which other users can see on your profile.
-        </span>
-        <input v-model="bio" type="text" placeholder="Enter your bio" />
-      </label>
-    </section>
+    <modal v-show="main_component">
+      <section class="essentials">
+        <h3 class="column-grow-1">User Settings</h3>
+        <hr />
+
+        <h3>Username</h3>
+        <label>
+          <span>
+            The username used on the modrinth site to identify yourself. This
+            must be unique.
+          </span>
+          <input
+            v-model="username"
+            type="text"
+            placeholder="Enter your username"
+          />
+        </label>
+        <h3>Name</h3>
+        <label>
+          <span>
+            Your display name on your Modrinth profile. This does not have to be
+            unique, can be set to anything, and is optional.
+          </span>
+          <input v-model="name" type="text" placeholder="Enter your name" />
+        </label>
+        <h3>Email</h3>
+        <label>
+          <span>
+            The email for your account. This is private information which is not
+            displayed in any API routes or your profile. It is also optional.
+          </span>
+          <input v-model="email" type="email" placeholder="Enter your email" />
+        </label>
+        <h3>Bio</h3>
+        <label>
+          <span>
+            A description of yourself which other users can see on your profile.
+          </span>
+          <input v-model="bio" type="text" placeholder="Enter your bio" />
+        </label>
+        <div class="pad-maker save-btn-div">
+          <button class="brand-button save-btn" @click="editProfile">
+            Save
+          </button>
+        </div>
+      </section>
+      <section class="essentials pad-maker">
+        <h3 class="column-grow-1">Developer Tools</h3>
+        <hr />
+        <h3>Authorization Token</h3>
+        <label>
+          <span>
+            Your authorization token can be used with the Modrinth API and for
+            the Minotaur Gradle plugin. However, it must be kept secret!
+          </span>
+          <button @click="copyToken">Copy to clipboard.</button>
+        </label>
+        <h3>Revoke your token</h3>
+        <label>
+          <span
+            >Beware, this will log you out of Modrinth, and you will have to
+            login again to access modrinth with a new token.</span
+          >
+          <button @click="showDelPopup">Revoke Token</button>
+        </label>
+      </section>
+    </modal>
+    <modal v-show="revoke_component">
+      <RevokeTokenHint @wantClose="showDelPopup"></RevokeTokenHint>
+    </modal>
   </DashboardPage>
 </template>
 
 <script>
 import DashboardPage from '@/components/DashboardPage'
 import axios from 'axios'
+import RevokeTokenHint from '@/components/RevokeTokenHint.vue'
 
 export default {
   components: {
     DashboardPage,
+    RevokeTokenHint,
   },
   fetch() {
     this.username = this.$auth.user.username
     this.name = this.$auth.user.name
     this.email = this.$auth.user.email
     this.bio = this.$auth.user.bio
+    this.token = this.$auth.getToken('local')
   },
   data() {
     return {
@@ -64,9 +100,25 @@ export default {
       name: '',
       email: '',
       bio: '',
+      token: '',
+      revoke_component: false,
+      main_component: true,
     }
   },
   methods: {
+    async copyToken() {
+      await this.$copyText(this.token)
+      this.$notify({
+        group: 'main',
+        title: 'Copied to clipboard.',
+        text: 'Copied your Modrinth token to the clipboard.',
+        type: 'success',
+      })
+    },
+    showDelPopup() {
+      this.revoke_component = !this.revoke_component
+      this.main_component = !this.main_component
+    },
     async editProfile() {
       const config = {
         headers: {
@@ -105,9 +157,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pad-maker {
+  margin-top: var(--spacing-card-md);
+}
+
+.save-btn-div {
+  overflow: hidden;
+  clear: both;
+}
+
+.save-btn {
+  float: right;
+}
+
 section {
   @extend %card;
-
   padding: var(--spacing-card-md) var(--spacing-card-lg);
 }
 
