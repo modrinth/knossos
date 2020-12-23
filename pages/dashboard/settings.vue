@@ -193,7 +193,4 @@ label {
     flex: 1;
   }
 }
-.header-top {
-  font-size: 125%;
-}
 </style>
