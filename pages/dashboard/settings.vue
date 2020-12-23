@@ -1,85 +1,101 @@
+/* eslint-disable vue/attribute-hyphenation */
 <template>
   <DashboardPage>
     <div class="section-header columns">
       <h3 class="column-grow-1">Settings</h3>
       <button class="brand-button column" @click="editProfile">Save</button>
     </div>
-    <modal v-show="main_component">
-      <section class="essentials">
-        <h3>Username</h3>
-        <label>
-          <span>
-            The username used on the Modrinth site to identify yourself. This
-            must be unique.
-          </span>
-          <input
-            v-model="username"
-            type="text"
-            placeholder="Enter your username"
-          />
-        </label>
-        <h3>Name</h3>
-        <label>
-          <span>
-            Your display name on your Modrinth profile. This does not have to be
-            unique, can be set to anything, and is optional.
-          </span>
-          <input v-model="name" type="text" placeholder="Enter your name" />
-        </label>
-        <h3>Email</h3>
-        <label>
-          <span>
-            The email for your account. This is private information which is not
-            displayed in any API routes or your profile. It is also optional.
-          </span>
-          <input v-model="email" type="email" placeholder="Enter your email" />
-        </label>
-        <h3>Bio</h3>
-        <label>
-          <span>
-            A description of yourself which other users can see on your profile.
-          </span>
-          <input v-model="bio" type="text" placeholder="Enter your bio" />
-        </label>
-      </section>
-      <section class="essentials pad-maker">
-        <h3>Authorization token</h3>
-        <label>
-          <span>
-            Your authorization token can be used with the Modrinth API and for
-            the Minotaur Gradle plugin. However, it must be kept secret!
-          </span>
-          <button type="button" class="button pad-rem" @click="copyToken">
-            Copy to clipboard
-          </button>
-        </label>
-        <h3>Revoke your token</h3>
-        <label>
-          <span
-            >Beware, this will log you out of Modrinth, and you will have to
-            login again to access Modrinth with a new token.</span
-          >
-          <button type="button" class="button" @click="showDelPopup">
-            Revoke token
-          </button>
-        </label>
-      </section>
-    </modal>
-    <modal v-show="revoke_component">
-      <RevokeTokenHint @wantClose="showDelPopup"></RevokeTokenHint>
-    </modal>
+    <section class="essentials">
+      <h3>Username</h3>
+      <label>
+        <span>
+          The username used on the Modrinth site to identify yourself. This must
+          be unique.
+        </span>
+        <input
+          v-model="username"
+          type="text"
+          placeholder="Enter your username"
+        />
+      </label>
+      <h3>Name</h3>
+      <label>
+        <span>
+          Your display name on your Modrinth profile. This does not have to be
+          unique, can be set to anything, and is optional.
+        </span>
+        <input v-model="name" type="text" placeholder="Enter your name" />
+      </label>
+      <h3>Email</h3>
+      <label>
+        <span>
+          The email for your account. This is private information which is not
+          displayed in any API routes or your profile. It is also optional.
+        </span>
+        <input v-model="email" type="email" placeholder="Enter your email" />
+      </label>
+      <h3>Bio</h3>
+      <label>
+        <span>
+          A description of yourself which other users can see on your profile.
+        </span>
+        <input v-model="bio" type="text" placeholder="Enter your bio" />
+      </label>
+    </section>
+    <section class="essentials pad-maker">
+      <h3>Theme</h3>
+      <label>
+        <span
+          >Change the global site theme of Modrinth. You can choose from light
+          mode and dark mode. You can switch it using this button or anywhere by
+          accessing the theme switcher in the navigation bar dropdown.</span
+        >
+        <input
+          type="button"
+          class="button pad-rem"
+          value="Change Theme"
+          @click="changeTheme"
+        />
+      </label>
+    </section>
+    <section class="essentials pad-maker">
+      <h3>Authorization token</h3>
+      <label>
+        <span>
+          Your authorization token can be used with the Modrinth API and for the
+          Minotaur Gradle plugin. However, it must be kept secret!
+        </span>
+        <input
+          type="button"
+          class="button pad-rem"
+          value="Copy to clipboard"
+          @click="copyToken"
+        />
+      </label>
+      <h3>Revoke your token</h3>
+      <label>
+        <span
+          >Beware, this will log you out of Modrinth, and you will have to login
+          again to access Modrinth with a new token.</span
+        >
+        <input
+          type="button"
+          class="button"
+          value="Revoke token"
+          @click="gotoRevoke"
+        />
+      </label>
+    </section>
   </DashboardPage>
 </template>
 
 <script>
 import DashboardPage from '@/components/DashboardPage'
 import axios from 'axios'
-import RevokeTokenHint from '@/components/RevokeTokenHint.vue'
 
 export default {
   components: {
     DashboardPage,
-    RevokeTokenHint,
   },
   fetch() {
     this.username = this.$auth.user.username
@@ -95,11 +111,24 @@ export default {
       email: '',
       bio: '',
       token: '',
-      revoke_component: false,
-      main_component: true,
     }
   },
   methods: {
+    changeTheme() {
+      this.$colorMode.preference =
+        this.$colorMode.value === 'dark' ? 'light' : 'dark'
+
+      this.themeAds()
+    },
+    themeAds() {
+      const elements = document.getElementsByClassName('ethical-ad')
+      for (const elem of elements) {
+        elem.className = 'ethical-ad loaded ' + this.$colorMode.preference
+      }
+    },
+    gotoRevoke() {
+      this.$router.replace('/dashboard/misc/revoke-token')
+    },
     async copyToken() {
       await this.$copyText(this.token)
       this.$notify({
@@ -108,10 +137,6 @@ export default {
         text: 'Copied your Modrinth token to the clipboard.',
         type: 'success',
       })
-    },
-    showDelPopup() {
-      this.revoke_component = !this.revoke_component
-      this.main_component = !this.main_component
     },
     async editProfile() {
       const config = {
@@ -185,15 +210,12 @@ label {
     flex: 3;
     height: fit-content;
   }
-  button {
-    :hover {
-      cursor: pointer;
-    }
+  input[type='button'] {
     height: fit-content;
     flex: 1;
   }
-}
-.header-top {
-  font-size: 125%;
+  input[type='button']:hover {
+    cursor: pointer;
+  }
 }
 </style>
