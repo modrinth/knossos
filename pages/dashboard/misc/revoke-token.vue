@@ -11,11 +11,11 @@
       <ul>
         <li>Any application that uses your token to access the API.</li>
         <li>
-          Gradle - If Minotaur is given a incorrect token, your gradle builds
+          Gradle - if Minotaur is given a incorrect token, your gradle builds
           could fail.
         </li>
         <li>
-          GitHub - If you use a GitHub action that uses the Modrinth API, it
+          GitHub - if you use a GitHub action that uses the Modrinth API, it
           will cause errors.
         </li>
       </ul>
@@ -27,7 +27,7 @@
             href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
             >Head to the Modrinth Application page on GitHub.</a
           >
-          Make sure to be logged into the GitHub account you used for modrinth!
+          Make sure to be logged into the GitHub account you used for Modrinth!
         </li>
         <li>
           Press the big red "Revoke Access" button next to the "Permissions"
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$auth.setToken('local', false)
+      await this.$auth. setToken('local', false)
       await this.$router.go(
         'https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com/'
       )
