@@ -22,6 +22,7 @@
         </span>
         <Categories :categories="version.loaders" />
         <a
+          v-if="primaryFile"
           :href="primaryFile.url"
           class="download-button"
           @click.prevent="

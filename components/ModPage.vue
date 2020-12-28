@@ -1,6 +1,5 @@
 <template>
   <div class="page-container">
-    <h1 class="hidden">{{ mod.title }}</h1>
     <div class="page-contents">
       <div class="content">
         <div class="header">
@@ -15,7 +14,7 @@
             />
           </div>
           <div class="info">
-            <h2 class="title">{{ mod.title }}</h2>
+            <h1 class="title">{{ mod.title }}</h1>
             <p class="description">
               {{ mod.description }}
             </p>
