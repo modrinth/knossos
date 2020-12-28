@@ -1,5 +1,6 @@
 <template>
   <div class="page-container">
+    <h1 class="hidden">{{ mod.title }}</h1>
     <div class="page-contents">
       <div class="content">
         <div class="header">
@@ -60,20 +61,14 @@
               Source
             </a>
             <nuxt-link
-              v-if="
-                this.$auth.loggedIn &&
-                members.find((x) => x.user_id === this.$auth.user.id)
-              "
+              v-if="currentMember"
               :to="'/mod/' + mod.id + '/edit'"
               class="tab"
             >
               Edit
             </nuxt-link>
             <nuxt-link
-              v-if="
-                this.$auth.loggedIn &&
-                members.find((x) => x.user_id === this.$auth.user.id)
-              "
+              v-if="currentMember"
               :to="'/mod/' + mod.id + '/settings'"
               class="tab"
             >
@@ -278,6 +273,12 @@ export default {
       type: Array,
       default() {
         return []
+      },
+    },
+    currentMember: {
+      type: Object,
+      default() {
+        return null
       },
     },
   },
