@@ -172,6 +172,11 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
+  head() {
+    return {
+      title: 'Settings - Modrinth',
+    }
+  },
 }
 </script>
 
