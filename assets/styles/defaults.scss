@@ -1,0 +1,42 @@
+@font-face {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 400;
+  src: url("~assets/fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 700;
+  src: url("~assets/fonts/OpenSans-Bold.ttf") format("truetype");
+}
+
+// We need <html> here *and not <body>* because rem units are calculated based on <html>, not <body> properties
+html {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: Open Sans, -apple-system, BlinkMacSystemFont, Inter, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  overflow-y: scroll;
+  font-size: 14px;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 16px;
+  }
+
+  // Timing functions
+  --timing-function-sharp-ease: cubic-bezier(0.44, 0.09, 0.16, 1.06);
+  // Font sizes
+  --font-size-xs: 0.625rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.625rem;
+  // Icon sizes
+  --icon-size-xs: 12px;
+  --icon-size-sm: 16px;
+  --icon-size-md: 20px;
+  --icon-size-lg: 24px;
+  --icon-size-xl: 30px;
+}

@@ -1,0 +1,21 @@
+.light-mode {
+  --color-bg: #edf2f7;
+  --color-bg-raised: #fff;
+  --color-hover: #e0e7ee;
+  --color-hover-raised: #edf2f7;
+  --color-text: #1a202c;
+  --color-divider: #c8cdd3;
+  --color-brand: #5da545;
+  --color-brand-unfocused: #8fbf73;
+}
+
+.dark-mode {
+  --color-bg: #1a202c;
+  --color-bg-raised: #2a303d;
+  --color-hover: #3a3a3f;
+  --color-hover-raised: #1a202c;
+  --color-text: #fff;
+  --color-divider: #646468;
+  --color-brand: #5da545;
+  --color-brand-unfocused: #8fbf73;
+}

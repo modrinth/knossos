@@ -1,0 +1,14 @@
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 1rem;
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 0;
+    width: 1280px;
+  }
+}
+
+.raised-bg-wrapper {
+  background: var(--color-bg-raised);
+}

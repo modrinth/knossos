@@ -6,41 +6,34 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "export": "nuxt export",
-    "serve": "nuxt serve",
+    "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint": "npm run lint:js"
+    "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
+    "lint": "npm run lint:js && npm run lint:style"
   },
   "dependencies": {
-    "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.12.2",
-    "@nuxtjs/dayjs": "^1.2.0",
-    "@nuxtjs/robots": "^2.4.2",
-    "@nuxtjs/sitemap": "^2.4.0",
-    "@nuxtjs/style-resources": "^1.0.0",
-    "highlight.js": "^10.3.2",
-    "marked": "^1.2.0",
-    "nuxt": "^2.14.7",
-    "nuxt-clipboard2": "^0.2.1",
-    "v-tooltip": "^2.0.3",
-    "vue-click-outside": "^1.1.0",
-    "vue-highlightjs": "^1.3.3",
-    "vue-multiselect": "^2.1.6",
-    "vue-notification": "^1.3.20",
-    "xss": "^1.0.8"
+    "core-js": "^3.6.5",
+    "nuxt": "^2.14.6",
+    "vue-click-outside": "^1.1.0"
   },
   "devDependencies": {
-    "@nuxtjs/color-mode": "^1.1.1",
+    "@nuxtjs/color-mode": "^2.0.2",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/svg": "^0.1.12",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.13.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "node-sass": "^4.14.1",
+    "fibers": "^5.0.0",
     "prettier": "^2.1.2",
-    "sass-loader": "^9.0.3"
+    "sass": "^1.32.2",
+    "sass-loader": "^10.1.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0"
   }
 }
