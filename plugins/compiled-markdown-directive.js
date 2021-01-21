@@ -2,10 +2,17 @@ import Vue from 'vue'
 import xss from 'xss'
 import marked from 'marked'
 
+const options = {
+  whiteList: {
+    ...xss.whiteList,
+    summary: [],
+  },
+}
+
+const configuredXss = new xss.FilterXSS(options)
+
 function compileMarkdown(target, markdown) {
-  target.innerHTML = xss(marked(markdown), {
-    whiteList: Object.assign(xss.whiteList, { summary: [] }),
-  })
+  target.innerHTML = configuredXss.process(marked(markdown))
 }
 
 Vue.directive('compiled-markdown', {
