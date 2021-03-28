@@ -21,7 +21,6 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: |
-            modrinth/knossos
             ghcr.io/modrinth/knossos
       -
         name: Set up QEMU
