@@ -18,7 +18,7 @@
               <span>Mods</span>
             </NuxtLink>
             <client-only>
-              <div v-if="this.$auth.loggedIn" class="section">
+              <div v-if="this.$auth.user" class="section">
                 <NuxtLink to="/dashboard/projects" class="tab">
                   <span>Dashboard</span>
                 </NuxtLink>
@@ -28,7 +28,7 @@
         </section>
         <section class="column-grow">
           <client-only>
-            <template v-if="this.$auth.loggedIn">
+            <template v-if="this.$auth.user">
               <section class="user-controls">
                 <div
                   v-click-outside="hideDropdown"
@@ -139,11 +139,6 @@ export default {
   directives: {
     ClickOutside,
   },
-  async fetch() {
-    if (this.$route.query.code) {
-      await this.$auth.setUserToken(this.$route.query.code)
-    }
-  },
   data() {
     return {
       isDropdownOpen: false,
@@ -151,7 +146,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `https://api.modrinth.com/api/v1/auth/init?url=http://modrinth.com${this.$route.path}`
+      return `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${this.$route.fullPath}`
     },
     userUrl() {
       return `/user/${this.$auth.user.id}`
@@ -168,7 +163,7 @@ export default {
       this.isDropdownOpen = false
     },
     logout() {
-      this.$auth.setToken('local', false)
+      this.$cookies.remove('auth-token')
       this.$router.go(null)
     },
     changeTheme() {
