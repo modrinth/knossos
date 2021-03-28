@@ -107,9 +107,5 @@ export default {
 .unfav-button {
   margin-left: auto;
   padding: 0.5rem;
-  &:focus,
-  &:hover {
-    background-color: var(--color-badge-red-bg);
-  }
 }
 </style>

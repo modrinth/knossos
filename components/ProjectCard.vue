@@ -212,6 +212,7 @@ export default {
   }
   .info {
     @extend %column;
+    flex-grow: 1;
     .top {
       @extend %row;
       flex-wrap: wrap;
@@ -272,8 +273,6 @@ export default {
   }
   .buttons {
     @extend %column;
-    width: 100%;
-    margin-right: 10px;
   }
 }
 </style>
