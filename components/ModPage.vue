@@ -461,7 +461,7 @@ export default {
       await axios.post(
         `https://api.modrinth.com/api/v1/mod/${this.mod.id}/follow`,
         {},
-        this.$authHeaders
+        this.$auth.headers
       )
 
       this.userFollows.push(this.mod.id)
@@ -469,7 +469,7 @@ export default {
     async unfollowMod() {
       await axios.delete(
         `https://api.modrinth.com/api/v1/mod/${this.mod.id}/follow`,
-        this.$authHeaders
+        this.$auth.headers
       )
 
       this.userFollows.splice(this.userFollows.indexOf(this.mod.id), 1)

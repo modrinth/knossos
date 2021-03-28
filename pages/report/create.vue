@@ -129,7 +129,7 @@ export default {
         await axios.post(
           'https://api.modrinth.com/api/v1/report',
           data,
-          this.$authHeaders
+          this.$auth.headers
         )
 
         await this.$router.replace(`/${this.itemType}/${this.itemId}`)
