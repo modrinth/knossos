@@ -22,8 +22,12 @@
       :is-modrinth="true"
     >
       <div class="buttons">
-        <button class="button column unfav-button" @click="unfavMod(index)">
+        <button
+          class="button column unfav-button iconified-button"
+          @click="unfavMod(index)"
+        >
           <FollowIcon />
+          Unfollow
         </button>
       </div>
     </ModCard>
