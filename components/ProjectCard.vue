@@ -272,6 +272,8 @@ export default {
   }
   .buttons {
     @extend %column;
+    width: 100%;
+    margin-right: 10px;
   }
 }
 </style>
