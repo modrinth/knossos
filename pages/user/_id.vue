@@ -237,7 +237,4 @@ export default {
     }
   }
 }
-
-.mods {
-}
 </style>

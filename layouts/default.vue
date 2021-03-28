@@ -380,9 +380,6 @@ export default {
 
 @media (min-width: 1024px) {
   .layout {
-    header {
-    }
-
     main {
       .alpha-alert {
         margin: 1rem;
@@ -391,13 +388,6 @@ export default {
           padding: 1rem 2rem 1rem 1rem;
         }
       }
-    }
-  }
-}
-
-@media (min-width: 1280px) {
-  .layout {
-    header {
     }
   }
 }
