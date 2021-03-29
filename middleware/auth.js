@@ -17,8 +17,10 @@ export default async function (context) {
     }
   }
 
+  // Disable middleware if options: { auth: false } is set on the route
   if (routeOption(context.route, 'auth', false)) return
 
+  // Disable middleware if no route was matched to allow 404/error page
   if (!getMatchedComponents(context.route, []).length) {
     return
   }
