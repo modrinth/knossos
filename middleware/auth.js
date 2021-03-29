@@ -53,8 +53,8 @@ function routeOption(route, key, value) {
 function getMatchedComponents(route, matches) {
   return [].concat(
     ...[],
-    ...route.matched.map(function (m, index) {
-      return Object.keys(m.components).map(function (key) {
+    ...route.matched.map((m, index) => {
+      return Object.keys(m.components).map((key) => {
         matches.push(index)
         return m.components[key]
       })
