@@ -37,7 +37,7 @@
     <div v-else class="error">
       <UpToDate class="icon"></UpToDate><br />
       <span class="text"
-        >You don't have any mod.<br />
+        >You don't have any mods.<br />
         Would you like to
         <nuxt-link class="link" to="/mod/create">create one</nuxt-link>?</span
       >
