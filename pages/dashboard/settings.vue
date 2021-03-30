@@ -1,6 +1,15 @@
 /* eslint-disable vue/attribute-hyphenation */
 <template>
   <DashboardPage>
+    <ConfirmPopup
+      ref="delete_popup"
+      title="Are you sure you want to delete your account?"
+      description="If you proceed, your user and all attached data will be removed from our
+        servers. This cannot be reversed, so be careful!"
+      :confirmation-text="username"
+      :has-to-type="true"
+      @proceed="deleteAccount"
+    />
     <div class="section-header columns">
       <h3 class="column-grow-1">Settings</h3>
       <button class="brand-button column" @click="editProfile">Save</button>
@@ -93,7 +102,7 @@
           will be removed from our servers. This cannot be reversed, so be
           careful!</span
         >
-        <div type="button" class="button" @click="deleteAccount">
+        <div type="button" class="button" @click="showPopup">
           Delete Account
         </div>
       </label>
@@ -123,6 +132,7 @@ export default {
       email: '',
       bio: '',
       token: '',
+      confirm_delete: false,
     }
   },
   methods: {
@@ -191,6 +201,9 @@ export default {
       }
 
       this.$nuxt.$loading.finish()
+    },
+    showPopup() {
+      this.$refs.delete_popup.show()
     },
   },
 }
