@@ -27,7 +27,7 @@
           :disabled="action_disabled"
           @click="proceed"
         >
-          {{ proceed_label }}
+          {{ proceedLabel }}
         </button>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
       default: 'No description defined',
       required: true,
     },
-    proceed_label: {
+    proceedLabel: {
       type: String,
       default: 'Proceed',
     },

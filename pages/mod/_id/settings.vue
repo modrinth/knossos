@@ -13,7 +13,7 @@
       description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
       :has-to-type="true"
       :confirmation-text="mod.title"
-      proceed_label="Delete Mod"
+      proceed-label="Delete Mod"
       @proceed="deleteMod"
     />
     <div class="section-header columns">
@@ -418,6 +418,13 @@ export default {
         `https://api.modrinth.com/api/v1/mod/${this.mod.id}`,
         this.$auth.headers
       )
+      await this.$router.push('/dashboard/projects')
+      this.$notify({
+        group: 'main',
+        title: 'Action Success',
+        text: 'Your mod has been successfully deleted.',
+        type: 'success',
+      })
     },
   },
 }

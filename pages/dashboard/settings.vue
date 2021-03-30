@@ -6,7 +6,7 @@
       title="Are you sure you want to delete your account?"
       description="If you proceed, your user and all attached data will be removed from our
         servers. This cannot be reversed, so be careful!"
-      proceed_label="Delete Account"
+      proceed-label="Delete Account"
       :confirmation-text="username"
       :has-to-type="true"
       @proceed="deleteAccount"
