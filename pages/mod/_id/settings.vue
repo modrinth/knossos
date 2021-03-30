@@ -438,6 +438,7 @@ export default {
         `https://api.modrinth.com/api/v1/mod/${this.mod.id}`,
         config
       )
+      await this.$router.push('/dashboard/projects')
     },
   },
 }
