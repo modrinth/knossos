@@ -27,7 +27,7 @@
           :disabled="action_disabled"
           @click="proceed"
         >
-          Delete Account
+          {{ proceed_label }}
         </button>
       </div>
     </div>
@@ -55,6 +55,10 @@ export default {
       type: String,
       default: 'No description defined',
       required: true,
+    },
+    proceed_label: {
+      type: String,
+      default: 'Proceed',
     },
   },
   data() {
