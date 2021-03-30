@@ -17,7 +17,7 @@
         id="confirmation"
         v-model="confirmation_typed"
         type="text"
-        placeholder="Type your username to continue"
+        placeholder="Type the input needed to continue"
         @input="type"
       />
       <div class="actions">
