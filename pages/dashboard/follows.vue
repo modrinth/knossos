@@ -76,17 +76,9 @@ export default {
   },
   methods: {
     async unfavMod(index) {
-      const config = {
-        headers: {
-          Authorization: this.$auth.getToken('local')
-            ? this.$auth.getToken('local')
-            : '',
-        },
-      }
-
       await axios.delete(
         `https://api.modrinth.com/api/v1/mod/${this.mods[index].id}/follow`,
-        config
+        this.$auth.headers
       )
 
       this.mods.splice(index, 1)
