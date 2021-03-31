@@ -8,7 +8,7 @@
               :src="
                 mod.icon_url
                   ? mod.icon_url
-                  : 'https://cdn.modrinth.com/placeholder.svg'
+                  : 'https://cdn.modrinth.com/placeholder.svg?inline'
               "
               alt="mod - icon"
             />
@@ -38,7 +38,7 @@
           </div>
           <div class="buttons">
             <nuxt-link
-              v-if="this.$auth.user && this.$auth.user.id"
+              v-if="this.$auth.user"
               :to="`/report/create?id=${mod.id}&t=mod`"
               class="iconified-button"
             >
@@ -345,10 +345,10 @@
 </template>
 
 <script>
-import Categories from '@/components/Categories'
-import MFooter from '@/components/MFooter'
-
 import axios from 'axios'
+import Categories from '~/components/ui/search/Categories'
+import MFooter from '~/components/layout/MFooter'
+
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'

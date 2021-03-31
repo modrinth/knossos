@@ -83,8 +83,8 @@
 
 <script>
 import axios from 'axios'
-import SearchResult from '@/components/ProjectCard'
-import MFooter from '@/components/MFooter'
+import SearchResult from '~/components/ui/ProjectCard'
+import MFooter from '~/components/layout/MFooter'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'

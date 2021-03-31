@@ -147,10 +147,10 @@
 <script>
 import axios from 'axios'
 
-import ModPage from '@/components/ModPage'
+import ModPage from '~/components/layout/ModPage'
 
-import Categories from '@/components/Categories'
-import FileInput from '@/components/FileInput'
+import Categories from '~/components/ui/search/Categories'
+import FileInput from '~/components/ui/FileInput'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'

@@ -1,5 +1,5 @@
 <template>
-  <DashboardPage>
+  <div>
     <div class="section-header columns">
       <h3 class="column-grow-1">My mods</h3>
       <nuxt-link class="brand-button column" to="/mod/create">
@@ -42,18 +42,16 @@
         <nuxt-link class="link" to="/mod/create">create one</nuxt-link>?</span
       >
     </div>
-  </DashboardPage>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
-import ModCard from '@/components/ProjectCard'
-import DashboardPage from '@/components/DashboardPage'
+import ModCard from '~/components/ui/ProjectCard'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 
 export default {
   components: {
-    DashboardPage,
     ModCard,
     UpToDate,
   },
