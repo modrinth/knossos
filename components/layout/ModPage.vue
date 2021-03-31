@@ -676,10 +676,11 @@ export default {
     overflow-y: hidden;
   }
 }
-
+/*
 @media screen and (max-width: 1400px) {
   .mod-info {
     display: none;
   }
 }
+*/
 </style>
