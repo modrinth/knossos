@@ -116,7 +116,7 @@
 <script>
 import axios from 'axios'
 
-import ModPage from '@/components/wrapper/ModPage'
+import ModPage from '@/components/ModPage'
 import Multiselect from 'vue-multiselect'
 
 export default {

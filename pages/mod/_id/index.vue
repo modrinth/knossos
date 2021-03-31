@@ -17,7 +17,7 @@
 
 <script>
 import axios from 'axios'
-import ModPage from '@/components/wrapper/ModPage'
+import ModPage from '@/components/ModPage'
 
 export default {
   components: { ModPage },

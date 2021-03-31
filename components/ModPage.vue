@@ -38,7 +38,7 @@
           </div>
           <div class="buttons">
             <nuxt-link
-              v-if="this.$auth.user && this.$auth.user.id"
+              v-if="this.$auth.user"
               :to="`/report/create?id=${mod.id}&t=mod`"
               class="iconified-button"
             >

@@ -52,8 +52,7 @@
 
 <script>
 import axios from 'axios'
-
-import DashboardPage from '@/components/wrapper/DashboardPage'
+import DashboardPage from '@/components/DashboardPage'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 
 export default {

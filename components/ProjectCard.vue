@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import Categories from '~/components/ui/Categories'
+import Categories from '@/components/Categories'
 
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'

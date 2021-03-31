@@ -88,8 +88,8 @@
 <script>
 import axios from 'axios'
 
-import DashboardPage from '@/components/wrapper/DashboardPage'
-import ModCard from '~/components/ui/ProjectCard'
+import ModCard from '@/components/ProjectCard'
+import DashboardPage from '@/components/DashboardPage'
 import Security from '~/assets/images/illustrations/security.svg?inline'
 
 export default {

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import DashboardPage from '@/components/wrapper/DashboardPage'
+import DashboardPage from '@/components/DashboardPage'
 export default {
   components: {
     DashboardPage,

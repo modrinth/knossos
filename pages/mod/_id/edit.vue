@@ -304,8 +304,8 @@
 import axios from 'axios'
 import Multiselect from 'vue-multiselect'
 
-import MFooter from '~/components/layout/MFooter'
-import FileInput from '~/components/ui/FileInput'
+import MFooter from '@/components/MFooter'
+import FileInput from '@/components/FileInput'
 
 export default {
   components: {
