@@ -17,7 +17,7 @@
         <label>
           <span>
             The ID of the item you are reporting. For example, the item ID of a
-            mod would be it's mod ID.
+            mod would be its mod ID.
           </span>
           <input v-model="itemId" type="text" placeholder="Enter the Item ID" />
         </label>
