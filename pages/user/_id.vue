@@ -183,9 +183,8 @@ export default {
         {
           hid: 'og:image',
           name: 'og:image',
-          content: 
-            this.user.avatar_url
-            || 'https://cdn.modrinth.com/placeholder.png',
+          content:
+            this.user.avatar_url || 'https://cdn.modrinth.com/placeholder.png',
         },
       ],
     }
