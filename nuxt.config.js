@@ -78,7 +78,7 @@ export default {
     },
   },
   router: {
-    middleware: 'auth',
+    middleware: ['auth', 'ads_tracking'],
   },
   /*
    ** Global CSS
@@ -119,9 +119,15 @@ export default {
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
     '@nuxtjs/style-resources',
-    '@nuxtjs/google-adsense',
     'cookie-universal-nuxt',
+    '~/modules/gpt-ads',
   ],
+  gptAds: {
+    // Module options
+    networkCode: '22347603626',
+    debug: false,
+    ghostMode: process.env.ENABLE_ADS === undefined,
+  },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
   },
@@ -138,9 +144,6 @@ export default {
         Accept: 'application/json',
       },
     },
-  },
-  'google-adsense': {
-    id: 'ca-pub-4615302805870170',
   },
   dayjs: {
     locales: ['en'],
@@ -169,5 +172,6 @@ export default {
   },
   env: {
     version: process.env.VERSION_ID || 'unknown',
+    ads: process.env.ENABLE_ADS,
   },
 }
