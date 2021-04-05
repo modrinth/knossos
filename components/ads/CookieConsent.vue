@@ -1,18 +1,21 @@
 <template>
-  <div
-    ref="container"
-    class="container"
-    :style="{ visibility: shown ? 'visible' : 'hidden' }"
-  >
-    <div class="banner">
-      <span>
-        Modrinth uses cookies for various purposes, including advertising.<br />
-        We encourage you to review your privacy settings<br />
-        by clicking on the button below:
-      </span>
-      <div class="actions">
-        <button class="btn button" @click="hide">Dismiss</button>
-        <button class="btn brand-button" @click="review">Review</button>
+  <div>
+    <ReviewPopup ref="popup" />
+    <div
+      ref="container"
+      class="container"
+      :style="{ visibility: shown ? 'visible' : 'hidden' }"
+    >
+      <div class="banner">
+        <span>
+          Modrinth uses cookies for various purposes, including advertising.<br />
+          We encourage you to review your privacy settings by clicking on the
+          button below:
+        </span>
+        <div class="actions">
+          <button class="btn button" @click="hide">Accept all</button>
+          <button class="btn brand-button" @click="review">Review</button>
+        </div>
       </div>
     </div>
   </div>
@@ -29,7 +32,10 @@ export default {
   mounted() {
     // Get informations in the store
     this.$store.dispatch('consent/loadFromCookies', this.$cookies)
-    if (!this.$store.state.consent.is_consent_given) {
+    if (
+      !this.$store.state.consent.is_consent_given &&
+      this.$route.path !== '/dashboard/privacy'
+    ) {
       this.shown = true
     }
   },
@@ -37,7 +43,10 @@ export default {
     hide() {
       this.shown = false
     },
-    review() {},
+    review() {
+      this.hide()
+      this.$router.push('/dashboard/privacy')
+    },
   },
 }
 </script>
@@ -52,13 +61,16 @@ export default {
     @extend %card;
     margin: 0 2rem 2rem 0;
     padding: 1rem;
+    max-width: 18vw;
+    border-left: solid 5px var(--color-brand);
+    font-size: 1.05rem;
   }
   .actions {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     margin-top: 1rem;
     .btn {
-      margin-left: 0.5rem;
+      margin-right: 0.5rem;
     }
   }
 }
