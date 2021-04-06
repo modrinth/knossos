@@ -26,9 +26,13 @@
         <a target="_blank" href="https://twitter.com/modrinth">Twitter</a>
       </li>
     </ul>
+    <ul>
+      <li>
+        <nuxt-link to="/dashboard/privacy">Set privacy preferences</nuxt-link>
+      </li>
+    </ul>
     <span> © Guavy LLC </span><br />
     <span v-if="version !== 'unknown'">Version: {{ version }}</span>
-    <span v-if="ads === undefined">Ads are disabled</span>
   </footer>
 </template>
 
@@ -38,10 +42,6 @@ export default {
     version: {
       type: String,
       default: process.env.version || 'unknown',
-    },
-    ads: {
-      type: String,
-      default: process.env.ENABLE_ADS,
     },
     centered: {
       type: Boolean,

@@ -4,6 +4,7 @@ const parameters = {
   sameSite: 'Strict',
   secure: true,
   httpOnly: false,
+  path: '/',
 }
 
 export const state = () => ({
@@ -33,7 +34,7 @@ export const actions = {
     if (state.state.loaded) {
       return
     }
-    state.commit('set_consent', $cookies.get('modrinth-consent') === 'true')
+    state.commit('set_consent', $cookies.get('modrinth-consent') === true)
     const scopes = $cookies.get('modrinth-scopes')
     if (scopes == null) return
     scopes.split(',').forEach((elem) => {

@@ -2,6 +2,8 @@ import {
   DEFAULT_OPTIONS,
   GPT_LIB_SCRIPT_ID,
   GPT_INIT_SCRIPT_ID,
+  GEOEDGE_CONF_SCRIPT_ID,
+  GEOEDGE_LIB_SCRIPT_ID,
 } from './constants';
 
 const { resolve } = require('path');
@@ -13,6 +15,8 @@ module.exports = async function module(moduleOptions) {
     ...options,
     GPT_LIB_SCRIPT_ID,
     GPT_INIT_SCRIPT_ID,
+    GEOEDGE_CONF_SCRIPT_ID,
+    GEOEDGE_LIB_SCRIPT_ID,
   };
 
   this.addPlugin({

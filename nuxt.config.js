@@ -124,9 +124,10 @@ export default {
   ],
   gptAds: {
     // Module options
-    networkCode: '22347603626',
+    networkCode: process.env.GAM_ID,
     debug: false,
     ghostMode: process.env.ENABLE_ADS === undefined,
+    geoEdgeId: process.env.GEOEDGE_ID,
   },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
@@ -173,5 +174,7 @@ export default {
   env: {
     version: process.env.VERSION_ID || 'unknown',
     ads: process.env.ENABLE_ADS,
+    networkId: process.env.GAM_ID,
+    geoEdgeId: process.env.GEOEDGE_ID,
   },
 }

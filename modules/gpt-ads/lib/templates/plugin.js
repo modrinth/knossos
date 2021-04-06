@@ -26,10 +26,12 @@ export default async function (ctx, inject) {
   const debug = <%= options.debug || false %>;
   const individualRefresh = <%= options.individualRefresh || false %>;
   const collapseEmptyDivs = <%= options.collapseEmptyDivs || false %>;
+  const GeoEdgeId = '<%= options.geoEdgeId %>';
   const networkCode = '<%= options.networkCode %>';
   const GPT_LIB_SCRIPT_ID = '<%= options.GPT_LIB_SCRIPT_ID %>';
   const GPT_INIT_SCRIPT_ID = '<%= options.GPT_INIT_SCRIPT_ID %>';
-
+  const GEOEDGE_CONF_SCRIPT_ID = '<%= options.GEOEDGE_CONF_SCRIPT_ID %>';
+  const GEOEDGE_LIB_SCRIPT_ID = '<%= options.GEOEDGE_LIB_SCRIPT_ID %>';
   // Instance options
   const gptAdsOptions = {
     networkCode,
@@ -38,7 +40,7 @@ export default async function (ctx, inject) {
   };
 
   const injectScript = (script) => {
-    const scriptIndex = ctx.app.head.script.findIndex(s => s.id === script.id);
+    const scriptIndex = ctx.app.head.script.findIndex(s => s.hid === script.hid);
     if (scriptIndex !== -1) {
       ctx.app.head.script[scriptIndex] = script;
     } else {
@@ -46,9 +48,29 @@ export default async function (ctx, inject) {
     }
   };
   let no_consent = !isPersonalizedAdsOn(ctx)
+
+  // GeoEdge support
+  if (GeoEdgeId !== '') {
+    // Unfortunately these lines are needed to prevent vue-meta from esacping quotes in the init script
+    ctx.app.head.__dangerouslyDisableSanitizersByTagID = ctx.app.head.__dangerouslyDisableSanitizersByTagID || {}
+    ctx.app.head.__dangerouslyDisableSanitizersByTagID[GEOEDGE_CONF_SCRIPT_ID] = ['innerHTML']
+    const geoEdgeConfig = {
+      hid: GEOEDGE_CONF_SCRIPT_ID,
+      innerHTML: "window.grumi = { key: '" + encodeURIComponent(GeoEdgeId) +"'};"
+    };
+    injectScript(geoEdgeConfig);
+
+    const geoEdgeImport = {
+      hid: GEOEDGE_LIB_SCRIPT_ID,
+      src: `https://rumcdn.geoedge.be/${GeoEdgeId}/grumi-ip.js`,
+      async: true,
+    };
+    injectScript(geoEdgeImport)
+  }
+
   // Inject GPT lib
   const gptLibScript = {
-    id: GPT_LIB_SCRIPT_ID,
+    hid: GPT_LIB_SCRIPT_ID,
     src: 'https://www.googletagservices.com/tag/js/gpt.js',
     async: true,
   };
@@ -75,11 +97,12 @@ export default async function (ctx, inject) {
     });
   `;
   const gptInitScript = {
-    id: GPT_INIT_SCRIPT_ID,
+    hid: GPT_INIT_SCRIPT_ID,
     innerHTML: gptInitScriptHtml,
   };
   injectScript(gptInitScript);
 
+  
   const component = require('./component.js');
   Vue.component('<%= options.componentName %>', component.default || component);
 
