@@ -169,7 +169,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'The Terms of Service of Modrinth, an open source modding platform. Modrinth currently supports Minecraft, including the forge and fabric mod loaders.',
+          'The Terms of Service of Modrinth, an open source modding platform. Modrinth currently supports Minecraft, including the Forge, Fabric, LiteLoader, and Rift mod loaders.',
       },
       {
         hid: 'apple-mobile-web-app-title',

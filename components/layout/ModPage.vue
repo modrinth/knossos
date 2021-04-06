@@ -304,6 +304,18 @@
                   v-if="version.loaders.includes('forge')"
                   class="loader"
                 />
+                <LiteLoaderIcon
+                  v-if="version.loaders.includes('liteloader')"
+                  class="loader"
+                />
+                <RiftIcon
+                  v-if="version.loaders.includes('rift')"
+                  class="loader"
+                />
+                <OtherLoaderIcon
+                  v-if="version.loaders.includes('otherloader')"
+                  class="loader"
+                />
                 <span
                   v-if="version.game_versions.length > 0"
                   class="game-version limit-text-width"
@@ -364,6 +376,10 @@ import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
 import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
+import LiteLoaderIcon from '~/assets/images/categories/liteloader.svg?inline'
+import RiftIcon from '~/assets/images/categories/rift.svg?inline'
+import OtherLoaderIcon from '~/assets/images/categories/misc.svg?inline'
+
 import Advertisement from '~/components/Advertisement'
 
 export default {
@@ -375,6 +391,9 @@ export default {
     ExternalIcon,
     ForgeIcon,
     FabricIcon,
+    LiteLoaderIcon,
+    RiftIcon,
+    OtherLoaderIcon,
     DownloadIcon,
     CalendarIcon,
     EditIcon,
