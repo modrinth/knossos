@@ -1,5 +1,23 @@
 import Vue from 'vue';
 
+function isPersonalizedAdsOn(ctx) {
+  let cookies = null
+  if (ctx.req != null) {
+    //Server side rendering
+    cookies = ctx.req.headers.cookie;
+  } else {
+    // Rely on the client
+    cookies = document.cookie;
+  }
+  let processed = {}
+  cookies.split(';').forEach((e) => {
+    let val = e.trim().split('=')
+    processed[val[0]] = decodeURI(val[1])
+  })
+  let scopes = decodeURIComponent(processed['modrinth-scopes']).split(",")
+  return (scopes !== null && scopes.includes('ads'))
+}
+
 export default async function (ctx, inject) {
 
   const { app } = ctx;
@@ -27,7 +45,7 @@ export default async function (ctx, inject) {
       ctx.app.head.script.push(script);
     }
   };
-
+  let no_consent = !isPersonalizedAdsOn(ctx)
   // Inject GPT lib
   const gptLibScript = {
     id: GPT_LIB_SCRIPT_ID,
@@ -45,12 +63,14 @@ export default async function (ctx, inject) {
   const gptDisableInitialLoad = individualRefresh ? 'googletag.pubads().disableInitialLoad();' : '';
   // Collapse empty div
   const gptCollapseEmptyDivs = collapseEmptyDivs ? 'googletag.pubads().collapseEmptyDivs();' : '';
-
+  // Desactivate personalization
+  const gptDisablePersonalization = no_consent ? 'googletag.pubads().setRequestNonPersonalizedAds(1);' : '';
   gptInitScriptHtml += `
     googletag.cmd.push(function(){
       googletag.pubads().enableSingleRequest();
       ${gptDisableInitialLoad}
       ${gptCollapseEmptyDivs}
+      ${gptDisablePersonalization}
       googletag.enableServices();
     });
   `;
@@ -65,3 +85,4 @@ export default async function (ctx, inject) {
 
   inject('gptAds', gptAdsOptions);
 }
+
