@@ -8,7 +8,7 @@
     "start": "nuxt start",
     "export": "nuxt export",
     "serve": "nuxt serve",
-    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore . modules/gpt-ads",
+    "lint:js": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "lint": "npm run lint:js"
   },
   "dependencies": {
