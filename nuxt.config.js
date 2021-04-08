@@ -61,14 +61,7 @@ export default {
           'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
       },
     ],
-    script: [
-      {
-        src: 'https://analytics.modrinth.com/umami.js',
-        'data-website-id': 'c37613de-245d-4767-90e7-ba7980a4f1a2',
-        async: true,
-        defer: true,
-      },
-    ],
+    script: [],
   },
 
   vue: {
@@ -121,6 +114,7 @@ export default {
     '@nuxtjs/style-resources',
     'cookie-universal-nuxt',
     '~/modules/gpt-ads',
+    '~/modules/analytics',
   ],
   gptAds: {
     // Module options
@@ -128,6 +122,11 @@ export default {
     debug: false,
     ghostMode: process.env.ENABLE_ADS === undefined,
     geoEdgeId: process.env.GEOEDGE_ID,
+  },
+  analytics: {
+    enabled: true,
+    script_url: 'https://analytics.modrinth.com/umami.js',
+    tracking_code: 'c37613de-245d-4767-90e7-ba7980a4f1a2',
   },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
