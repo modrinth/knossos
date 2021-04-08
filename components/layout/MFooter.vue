@@ -1,5 +1,5 @@
 <template>
-  <footer :class="{ centered }">
+  <footer :class="{ centered, hideBig, hideSmall }">
     <span>
       Modrinth is open source software. You may view the source code at
       <a target="_blank" href="https://github.com/modrinth">our GitHub page</a>.
@@ -42,6 +42,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideSmall: {
+      type: Boolean,
+      default: false,
+    },
+    hideBig: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
@@ -52,7 +60,7 @@ export default {
 }
 
 footer {
-  padding: 2rem 0 5rem 0;
+  padding: 2rem 0 2rem 0;
   display: flex;
   flex-direction: column;
 
@@ -80,5 +88,17 @@ footer {
 
 a {
   text-decoration: underline;
+}
+
+.hideSmall {
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.hideBig {
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 }
 </style>

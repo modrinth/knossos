@@ -6,10 +6,14 @@ export default async function (context) {
     }
 
     if (context.route.query.code) {
+      const date = new Date()
+      date.setFullYear(new Date().getFullYear() + 1)
+
       context.app.$cookies.set('auth-token', context.route.query.code, {
         secure: true,
         sameSite: 'Strict',
         httpOnly: true,
+        expires: date,
       })
 
       await context.store.dispatch('auth/fetchUser', {

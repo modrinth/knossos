@@ -75,20 +75,20 @@
               :to="'/mod/' + (mod.slug ? mod.slug : mod.id)"
               class="tab"
             >
-              Description
+              <span>Description</span>
             </nuxt-link>
             <nuxt-link
               :to="'/mod/' + (mod.slug ? mod.slug : mod.id) + '/versions'"
               class="tab"
             >
-              Versions
+              <span>Versions</span>
             </nuxt-link>
             <nuxt-link
               v-if="currentMember"
               :to="'/mod/' + mod.id + '/settings'"
               class="tab"
             >
-              Settings
+              <span>Settings</span>
             </nuxt-link>
             <a
               v-if="mod.wiki_url"
@@ -97,7 +97,7 @@
               class="tab"
             >
               <ExternalIcon />
-              Wiki
+              <span>Wiki</span>
             </a>
             <a
               v-if="mod.issues_url"
@@ -106,7 +106,7 @@
               class="tab"
             >
               <ExternalIcon />
-              Issues
+              <span>Issues</span>
             </a>
             <a
               v-if="mod.source_url"
@@ -115,7 +115,7 @@
               class="tab"
             >
               <ExternalIcon />
-              Source
+              <span>Source</span>
             </a>
             <a
               v-if="mod.discord_url"
@@ -124,7 +124,7 @@
               class="tab"
             >
               <ExternalIcon />
-              Discord
+              <span>Discord</span>
             </a>
             <div class="filler" />
           </div>
@@ -480,7 +480,11 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  @extend %row;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
   @extend %card-spaced-b;
   width: 100%;
   .icon {
@@ -512,12 +516,24 @@ export default {
     }
   }
   .buttons {
-    @extend %column;
+    @extend %row;
     margin: var(--spacing-card-md) var(--spacing-card-md) var(--spacing-card-md)
-      auto;
+      0;
 
-    button {
-      margin: 0.2rem 0 0 0;
+    button,
+    a {
+      margin: 0.2rem 0 0 0.2rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    align-items: unset;
+    text-align: unset;
+    flex-direction: row;
+
+    .buttons {
+      flex-direction: column;
+      margin-left: auto;
     }
   }
 }
@@ -528,9 +544,12 @@ export default {
 }
 
 .mod-info {
-  width: 30rem;
   height: auto;
-  margin-left: var(--spacing-card-lg);
+
+  @media screen and (min-width: 1024px) {
+    width: 30rem;
+    margin-left: var(--spacing-card-lg);
+  }
 
   .section {
     padding: var(--spacing-card-sm);
