@@ -116,17 +116,15 @@ export default {
     '~/modules/gpt-ads',
     '~/modules/analytics',
   ],
-  gptAds: {
+  ads: {
     // Module options
-    networkCode: process.env.GAM_ID,
-    debug: false,
-    ghostMode: process.env.ENABLE_ADS === undefined,
-    geoEdgeId: process.env.GEOEDGE_ID,
+    ghostMode: true,
+    geoEdgeId: '',
   },
   analytics: {
-    enabled: true,
-    script_url: 'https://analytics.modrinth.com/umami.js',
-    tracking_code: 'c37613de-245d-4767-90e7-ba7980a4f1a2',
+    enabled: false,
+    script_url: '',
+    tracking_code: '',
   },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
@@ -172,8 +170,17 @@ export default {
   },
   env: {
     version: process.env.VERSION_ID || 'unknown',
-    ads: process.env.ENABLE_ADS,
-    networkId: process.env.GAM_ID,
-    geoEdgeId: process.env.GEOEDGE_ID,
+  },
+  publicRuntimeConfig: {
+    ads: {
+      ghostMode: process.env.ENABLE_ADS == null,
+      GeoEdgeId: process.env.GEOEDGE_ID,
+      networkCode: process.env.GAM_ID,
+    },
+    analytics: {
+      enabled: process.env.ENABLE_ANALYTICS,
+      script_url: process.env.ANALYTICS_URL,
+      tracking_code: process.env.ANALYTICS_ID,
+    },
   },
 }

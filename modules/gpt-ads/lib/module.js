@@ -9,7 +9,7 @@ import {
 const { resolve } = require('path');
 
 module.exports = async function module(moduleOptions) {
-  const options = Object.assign(DEFAULT_OPTIONS, this.options.gptAds, moduleOptions);
+  const options = Object.assign(DEFAULT_OPTIONS, this.options.ads, moduleOptions);
 
   const templatesOptions = {
     ...options,

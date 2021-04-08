@@ -21,13 +21,13 @@ function isPersonalizedAdsOn(ctx) {
 export default async function (ctx, inject) {
 
   const { app } = ctx;
-
+  const config = ctx.$config && ctx.$config.ads || {};
   // Module options
-  const debug = <%= options.debug || false %>;
-  const individualRefresh = <%= options.individualRefresh || false %>;
-  const collapseEmptyDivs = <%= options.collapseEmptyDivs || false %>;
-  const GeoEdgeId = '<%= options.geoEdgeId %>';
-  const networkCode = '<%= options.networkCode %>';
+  const debug = config.debug ?? <%= options.debug || false %>;
+  const individualRefresh = config.individualRefresh ?? <%= options.individualRefresh || false %>;
+  const collapseEmptyDivs = config.collapseEmptyDivs ?? <%= options.collapseEmptyDivs || false %>;
+  const GeoEdgeId = config.GeoEdgeId ?? '<%= options.geoEdgeId %>';
+  const networkCode = config.networkCode ?? '<%= options.networkCode %>';
   const GPT_LIB_SCRIPT_ID = '<%= options.GPT_LIB_SCRIPT_ID %>';
   const GPT_INIT_SCRIPT_ID = '<%= options.GPT_INIT_SCRIPT_ID %>';
   const GEOEDGE_CONF_SCRIPT_ID = '<%= options.GEOEDGE_CONF_SCRIPT_ID %>';

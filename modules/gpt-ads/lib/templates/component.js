@@ -5,7 +5,6 @@ export default {
     mapping: [],
     currentSizeMappingIndex: null,
     windowResizeListenerDebounce: null,
-    ghostMode: <%= options.ghostMode %>,
     isEmpty: true,
   }),
   props: {
@@ -44,6 +43,9 @@ export default {
     },
   },
   computed: {
+    ghostMode() {
+      return this.$config.ads.ghostMode ?? <%= options.ghostMode %>;
+    },
     networkCode() {
       const { $gptAds } = this;
       return $gptAds ? $gptAds.networkCode : null;

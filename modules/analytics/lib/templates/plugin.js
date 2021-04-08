@@ -21,14 +21,20 @@ function isAnalyticsOn(ctx) {
 export default async function (ctx, inject) {
 
   const { app } = ctx;
-  const url = '<%= options.script_url %>';
-  const tag = '<%= options.tracking_code %>';
-  const enabled = <%= options.enabled  || false %>;
+  const config = ctx.$config && ctx.$config.analytics || {};
+
+  const url = config.script_url ?? '<%= options.script_url %>';
+  const tag = config.tracking_code ?? '<%= options.tracking_code %>';
+  const enabled = config.enabled ?? <%= options.enabled  || false %>;
+  // Check if the parameters are not changed by runtime config:
+  
+
+
   const UNAMI_LIB_TAG_ID = '<%= options.UNAMI_LIB_TAG_ID %>';
 
 
   if (!enabled) {
-    // console.log("Analytics are not enabled.")
+    console.log("Analytics are not enabled.")
     return;
   }
 
