@@ -4,11 +4,7 @@
       <div class="icon">
         <nuxt-link v-if="isModrinth" :to="'/mod/' + id">
           <img
-            :src="
-              iconUrl
-                ? iconUrl
-                : 'https://cdn.modrinth.com/placeholder.svg?inline'
-            "
+            :src="iconUrl || 'https://cdn.modrinth.com/placeholder.svg?inline'"
             :alt="name"
           />
         </nuxt-link>

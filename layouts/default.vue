@@ -162,6 +162,11 @@ export default {
       return `${this.userUrl}/teams`
     },
   },
+  watch: {
+    $route() {
+      this.$refs.nav.className = 'right-group'
+    },
+  },
   methods: {
     toggleNavBar() {
       window.scrollTo(0, 0)
