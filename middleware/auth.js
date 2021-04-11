@@ -1,15 +1,20 @@
 export default async function (context) {
   if (!context.from) {
     if (context.app.$cookies.get('auth-token-reset')) {
-      context.app.$cookies.removeAll()
+      // Only remove the cookie related to the auth, instead of removing everything
+      context.app.$cookies.remove('auth-token')
+      context.app.$cookies.remove('auth-token-reset')
       return
     }
 
     if (context.route.query.code) {
+      const date = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
       context.app.$cookies.set('auth-token', context.route.query.code, {
         secure: true,
         sameSite: 'Strict',
         httpOnly: true,
+        expires: date,
+        path: '/',
       })
 
       await context.store.dispatch('auth/fetchUser', {
