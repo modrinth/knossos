@@ -99,6 +99,7 @@
       </section>
     </header>
     <main>
+      <CookieConsent />
       <notifications group="main" position="bottom right" />
       <!--<notifications
         group="ads"

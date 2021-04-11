@@ -55,15 +55,15 @@
             </div>
           </div>
         </div>
-        <Advertisement format="rectangle" />
+        <Advertisement ad-unit="square" size="250x250,200x200" />
         <m-footer class="footer" hide-small />
       </div>
       <div class="content">
-        <Advertisement />
+        <Advertisement ad-unit="banner" size="728x90,468x60" />
         <div class="mods">
           <SearchResult
             v-for="result in mods"
-            :id="result.slug ? result.slug : result.id"
+            :id="result.slug || result.id"
             :key="result.id"
             :name="result.title"
             :description="result.description"
@@ -90,7 +90,7 @@ import MFooter from '~/components/layout/MFooter'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import Advertisement from '~/components/Advertisement'
+import Advertisement from '~/components/ads/Advertisement'
 
 export default {
   auth: false,
@@ -184,9 +184,8 @@ export default {
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.user.avatar_url
-            ? this.user.avatar_url
-            : 'https://cdn.modrinth.com/placeholder.png',
+          content:
+            this.user.avatar_url || 'https://cdn.modrinth.com/placeholder.png',
         },
       ],
     }

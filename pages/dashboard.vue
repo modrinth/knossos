@@ -2,7 +2,7 @@
   <div class="page-container">
     <div class="page-contents">
       <div class="sidebar-l">
-        <div class="card page-nav">
+        <div v-if="$auth.user != null" class="card page-nav">
           <nuxt-link :to="'/dashboard/projects'" class="tab last">
             <ModIcon />
             My mods
@@ -29,6 +29,20 @@
             <SettingsIcon />
             Settings
           </nuxt-link>
+          <nuxt-link :to="'/dashboard/privacy'" class="tab last">
+            <SettingsIcon />
+            Privacy Settings
+          </nuxt-link>
+        </div>
+        <div v-else class="card page-nav">
+          <a :href="authUrl" class="tab last">
+            <UserIcon />
+            Log in
+          </a>
+          <nuxt-link :to="'/dashboard/privacy'" class="tab last">
+            <SettingsIcon />
+            Privacy Settings
+          </nuxt-link>
         </div>
         <m-footer class="footer" hide-small />
       </div>
@@ -45,6 +59,7 @@ import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import NotificationsIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import FollowIcon from '~/assets/images/utils/heart.svg?inline'
+import UserIcon from '~/assets/images/utils/user.svg?inline'
 
 export default {
   name: 'DashboardPage',
@@ -54,6 +69,12 @@ export default {
     SettingsIcon,
     NotificationsIcon,
     FollowIcon,
+    UserIcon,
+  },
+  computed: {
+    authUrl() {
+      return `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${this.$route.fullPath}`
+    },
   },
 }
 </script>

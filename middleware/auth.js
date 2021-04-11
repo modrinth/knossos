@@ -12,8 +12,10 @@ export default async function (context) {
       context.app.$cookies.set('auth-token', context.route.query.code, {
         secure: true,
         sameSite: 'Strict',
+        maxAge: 60 * 60 * 2, // 2 hours
         httpOnly: true,
         expires: date,
+        path: '/',
       })
 
       await context.store.dispatch('auth/fetchUser', {
