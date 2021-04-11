@@ -186,7 +186,18 @@ export default {
     },
     async logout() {
       this.$cookies.set('auth-token-reset', true)
-      await this.$router.go(null)
+      // If users logs out on dashboard, redirect on the home page
+      if (this.$route.path.startsWith('/dashboard')) {
+        await this.$router.push('/')
+      } else {
+        await this.$router.go(null)
+      }
+      this.$notify({
+        group: 'main',
+        title: 'Logged Out',
+        text: 'You have logged out successfully!',
+        type: 'success',
+      })
     },
     changeTheme() {
       this.$colorMode.preference =

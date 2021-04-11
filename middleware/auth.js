@@ -1,7 +1,9 @@
 export default async function (context) {
   if (!context.from) {
     if (context.app.$cookies.get('auth-token-reset')) {
-      context.app.$cookies.removeAll()
+      // Only remove the cookie related to the auth, instead of removing everything
+      context.app.$cookies.remove('auth-token')
+      context.app.$cookies.remove('auth-token-reset')
       return
     }
 
