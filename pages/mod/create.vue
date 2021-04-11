@@ -211,6 +211,9 @@
               <td>
                 <FabricIcon v-if="version.loaders.includes('fabric')" />
                 <ForgeIcon v-if="version.loaders.includes('forge')" />
+                <LiteLoaderIcon v-if="version.loaders.includes('liteloader')" />
+                <RiftIcon v-if="version.loaders.includes('rift')" />
+                <OtherLoaderIcon v-if="version.loaders.includes('otherloader')" />
               </td>
               <td>{{ version.game_versions.join(', ') }}</td>
               <td>
@@ -507,6 +510,9 @@ import MFooter from '~/components/layout/MFooter'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
 import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
+import LiteLoaderIcon from '~/assets/images/categories/liteloader.svg?inline'
+import RiftIcon from '~/assets/images/categories/rift.svg?inline'
+import OtherLoaderIcon from '~/assets/images/categories/misc.svg?inline'
 
 export default {
   components: {
@@ -515,6 +521,9 @@ export default {
     Multiselect,
     ForgeIcon,
     FabricIcon,
+    LiteLoaderIcon,
+    RiftIcon,
+    OtherLoaderIcon,
   },
   async asyncData() {
     const [

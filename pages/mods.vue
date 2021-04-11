@@ -244,6 +244,30 @@
             >
               <ForgeLoader />
             </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="LiteLoader"
+              facet-name="categories:liteloader"
+              @toggle="toggleFacet"
+            >
+              <LiteLoader />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Rift"
+              facet-name="categories:rift"
+              @toggle="toggleFacet"
+            >
+              <RiftLoader />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Other Modloaders"
+              facet-name="categories:otherloader"
+              @toggle="toggleFacet"
+            >
+              <OtherLoader />
+            </SearchFilter>
             <h3>Minecraft Versions</h3>
             <SearchFilter
               :active-filters="showVersions"
@@ -313,6 +337,9 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
+import LiteLoaderIcon from '~/assets/images/categories/liteloader.svg?inline'
+import RiftIcon from '~/assets/images/categories/rift.svg?inline'
+import OtherLoaderIcon from '~/assets/images/categories/misc.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ExitIcon from '~/assets/images/utils/exit.svg?inline'
@@ -342,6 +369,9 @@ export default {
     WorldGenCategory,
     ForgeLoader,
     FabricLoader,
+    LiteLoader,
+    RiftLoader,
+    OtherLoader,
     SearchIcon,
     ExitIcon,
   },

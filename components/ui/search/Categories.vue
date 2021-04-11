@@ -8,6 +8,18 @@
       <ForgeLoader aria-hidden="true" />
       Forge
     </p>
+    <p v-if="categories.includes('liteloader')">
+      <LiteLoader aria-hidden="true" />
+      LiteLoader
+    </p>
+    <p v-if="categories.includes('rift')">
+      <RiftLoader aria-hidden="true" />
+      Rift
+    </p>
+    <p v-if="categories.includes('otherloader')">
+      <OtherLoader aria-hidden="true" />
+      Other Modloaders
+    </p>
     <p v-if="categories.includes('technology')">
       <TechCategory aria-hidden="true" />
       Technology
@@ -75,6 +87,9 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
+import LiteLoader from '~/assets/images/categories/liteloader.svg?inline'
+import RiftLoader from '~/assets/images/categories/rift.svg?inline'
+import OtherLoader from '~/assets/images/categories/misc.svg?inline'
 
 export default {
   name: 'Categories',
@@ -93,6 +108,9 @@ export default {
     WorldGenCategory,
     ForgeLoader,
     FabricLoader,
+    LiteLoader,
+    RiftLoader,
+    OtherLoader,
   },
   props: {
     categories: {
