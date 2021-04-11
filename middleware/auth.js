@@ -6,13 +6,10 @@ export default async function (context) {
     }
 
     if (context.route.query.code) {
-      const date = new Date()
-      date.setFullYear(new Date().getFullYear() + 1)
-
+      const date = new Date(Date.now() + 6 * 60 * 60 * 1000) // 6 hours
       context.app.$cookies.set('auth-token', context.route.query.code, {
         secure: true,
         sameSite: 'Strict',
-        maxAge: 60 * 60 * 2, // 2 hours
         httpOnly: true,
         expires: date,
         path: '/',
