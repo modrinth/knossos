@@ -165,6 +165,7 @@ export default {
   watch: {
     $route() {
       this.$refs.nav.className = 'right-group'
+      document.body.style.overflow = 'auto'
     },
   },
   methods: {
@@ -209,6 +210,8 @@ export default {
 
 <style lang="scss">
 .layout {
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: var(--color-bg);
   display: block;
   height: 100vh;
