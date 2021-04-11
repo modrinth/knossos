@@ -372,7 +372,6 @@ import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
 import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
-
 import LiteLoaderIcon from '~/assets/images/categories/liteloader.svg?inline'
 import RiftIcon from '~/assets/images/categories/rift.svg?inline'
 import OtherLoaderIcon from '~/assets/images/categories/misc.svg?inline'
