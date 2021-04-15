@@ -123,6 +123,7 @@ export default {
      * Refresh ad slot
      */
     refreshSlot() {
+      console.log('Refreshing slot.')
       googletag.pubads().refresh([this.adSlot])
     },
     handleSlotRenderEnded(event) {
@@ -232,6 +233,7 @@ export default {
     })
   },
   beforeDestroy() {
+    console.log('Destroying ad.')
     if (!googletag) {
       return
     }
