@@ -89,7 +89,7 @@ import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 import LiteLoader from '~/assets/images/categories/liteloader.svg?inline'
 import RiftLoader from '~/assets/images/categories/rift.svg?inline'
-import OtherLoader from '~/assets/images/categories/misc.svg?inline'
+import OtherLoader from '~/assets/images/categories/otherloader.svg?inline'
 
 export default {
   name: 'Categories',

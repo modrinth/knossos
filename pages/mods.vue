@@ -337,9 +337,9 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
-import LiteLoaderIcon from '~/assets/images/categories/liteloader.svg?inline'
-import RiftIcon from '~/assets/images/categories/rift.svg?inline'
-import OtherLoaderIcon from '~/assets/images/categories/misc.svg?inline'
+import LiteLoader from '~/assets/images/categories/liteloader.svg?inline'
+import RiftLoader from '~/assets/images/categories/rift.svg?inline'
+import OtherLoader from '~/assets/images/categories/otherloader.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ExitIcon from '~/assets/images/utils/exit.svg?inline'
