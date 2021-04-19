@@ -6,6 +6,14 @@
     </span>
     <ul>
       <li>
+        <a class="clickCursor" @click="changeTheme">
+          <span v-if="$colorMode.value === 'light'">Switch to Dark Mode</span>
+          <span v-else>Switch to Light Mode</span>
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li>
         <nuxt-link to="/legal/terms">Terms</nuxt-link>
       </li>
       <li>
@@ -54,6 +62,12 @@ export default {
     hideBig: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    changeTheme() {
+      this.$colorMode.preference =
+        this.$colorMode.value === 'dark' ? 'light' : 'dark'
     },
   },
 }
@@ -105,5 +119,9 @@ a {
   @media screen and (min-width: 1024px) {
     display: none;
   }
+}
+
+.clickCursor {
+  cursor: pointer;
 }
 </style>
