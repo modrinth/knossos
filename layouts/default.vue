@@ -13,6 +13,10 @@
           <span class="badge yellow">Beta</span>
         </section>
         <section class="menu-icon">
+          <button class="mobile-header-mode-switch" @click="changeTheme">
+            <MoonIcon v-if="$colorMode.value === 'light'" />
+            <SunIcon v-else />
+          </button>
           <button @click="toggleNavBar">
             <HamburgerIcon />
           </button>
@@ -88,11 +92,25 @@
               </section>
             </template>
             <template v-else>
-              <section class="auth-prompt">
-                <a :href="authUrl" class="log-in-button"
-                  ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
-                >
-              </section>
+              <div class="column-grow-5">
+                <div class="tabs">
+                  <button
+                    class="desktop-header-mode-switch"
+                    @click="changeTheme"
+                  >
+                    <MoonIcon v-if="$colorMode.value === 'light'" />
+                    <SunIcon v-else />
+                    <div class="tab">
+                      <span></span>
+                    </div>
+                  </button>
+                  <section class="auth-prompt">
+                    <a :href="authUrl" class="log-in-button"
+                      ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
+                    >
+                  </section>
+                </div>
+              </div>
             </template>
           </section>
         </section>
@@ -248,6 +266,16 @@ export default {
         display: flex;
         margin-left: auto;
         align-items: center;
+      }
+
+      section.mobile-header-mode-switch {
+        display: flex;
+        padding-right: 1rem;
+      }
+
+      section.desktop-header-mode-switch {
+        display: block;
+        margin: 1rem;
       }
 
       section.right-group {
@@ -450,6 +478,10 @@ export default {
           display: none;
         }
 
+        section.mobile-header-mode-switch {
+          display: none;
+        }
+
         section.right-group {
           flex-direction: unset;
           overflow-y: unset;
@@ -489,6 +521,11 @@ export default {
           section.auth-prompt {
             margin: 0;
           }
+        }
+      }
+      @media only screen and (max-width: 1024px) {
+        .desktop-header-mode-switch {
+          display: none;
         }
       }
     }
