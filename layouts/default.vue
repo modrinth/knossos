@@ -13,7 +13,7 @@
           <span class="badge yellow">Beta</span>
         </section>
         <section class="menu-icon">
-          <button class="mobile-header-mode-switch" @click="changeTheme">
+          <button @click="changeTheme">
             <MoonIcon v-if="$colorMode.value === 'light'" />
             <SunIcon v-else />
           </button>
@@ -92,24 +92,16 @@
               </section>
             </template>
             <template v-else>
-              <div class="column-grow-5">
-                <div class="tabs">
-                  <button
-                    class="desktop-header-mode-switch"
-                    @click="changeTheme"
+              <div class="tabs">
+                <a class="desktop-header-mode-switch" @click="changeTheme">
+                  <MoonIcon v-if="$colorMode.value === 'light'" />
+                  <SunIcon v-else />
+                </a>
+                <section class="auth-prompt">
+                  <a :href="authUrl" class="log-in-button"
+                    ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
                   >
-                    <MoonIcon v-if="$colorMode.value === 'light'" />
-                    <SunIcon v-else />
-                    <div class="tab">
-                      <span></span>
-                    </div>
-                  </button>
-                  <section class="auth-prompt">
-                    <a :href="authUrl" class="log-in-button"
-                      ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
-                    >
-                  </section>
-                </div>
+                </section>
               </div>
             </template>
           </section>
@@ -266,16 +258,14 @@ export default {
         display: flex;
         margin-left: auto;
         align-items: center;
-      }
-
-      section.mobile-header-mode-switch {
         display: flex;
-        padding-right: 1rem;
+        margin-right: 1rem;
       }
 
       section.desktop-header-mode-switch {
-        display: block;
-        margin: 1rem;
+        display: flex;
+        margin-right: 1rem;
+        flex-direction: unset;
       }
 
       section.right-group {
