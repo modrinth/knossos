@@ -5,7 +5,7 @@
         <div v-if="$auth.user != null" class="card page-nav">
           <nuxt-link :to="'/dashboard/projects'" class="tab last">
             <ModIcon />
-            My Mods
+            My mods
           </nuxt-link>
           <nuxt-link :to="'/dashboard/notifications'" class="tab last">
             <NotificationsIcon />
@@ -13,7 +13,7 @@
           </nuxt-link>
           <nuxt-link :to="'/dashboard/follows'" class="tab last">
             <FollowIcon />
-            Followed Mods
+            Followed mods
           </nuxt-link>
           <nuxt-link
             v-if="

@@ -84,7 +84,7 @@ export default {
     },
   },
   head: {
-    title: 'Followed Mods - Modrinth',
+    title: 'Followed mods - Modrinth',
   },
 }
 </script>
