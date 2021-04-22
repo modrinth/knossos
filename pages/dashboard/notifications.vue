@@ -107,7 +107,7 @@ export default {
     },
   },
   head: {
-    title: 'Notifiations - Modrinth',
+    title: 'Notifications - Modrinth',
   },
 }
 </script>
