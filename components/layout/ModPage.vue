@@ -163,10 +163,10 @@
               <h4>Available For</h4>
               <p class="value">
                 {{
-                  featuredVersions[0]
-                    ? featuredVersions[0].game_versions[0]
-                      ? featuredVersions[0].game_versions[
-                          featuredVersions[0].game_versions.length - 1
+                  versions[0]
+                    ? versions[0].game_versions[0]
+                      ? versions[0].game_versions[
+                          versions[0].game_versions.length - 1
                         ]
                       : 'None'
                     : 'None'
@@ -385,6 +385,12 @@ export default {
       },
     },
     featuredVersions: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    versions: {
       type: Array,
       default() {
         return []
