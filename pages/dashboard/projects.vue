@@ -71,7 +71,7 @@ export default {
     }
   },
   head: {
-    title: 'My mods - Modrinth',
+    title: 'My Mods - Modrinth',
   },
 }
 </script>

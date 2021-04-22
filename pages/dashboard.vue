@@ -5,7 +5,7 @@
         <div v-if="$auth.user != null" class="card page-nav">
           <nuxt-link :to="'/dashboard/projects'" class="tab last">
             <ModIcon />
-            My mods
+            My Mods
           </nuxt-link>
           <nuxt-link :to="'/dashboard/notifications'" class="tab last">
             <NotificationsIcon />
