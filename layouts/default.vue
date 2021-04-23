@@ -92,17 +92,15 @@
               </section>
             </template>
             <template v-else>
-              <div class="tabs">
-                <a class="desktop-header-mode-switch" @click="changeTheme">
-                  <MoonIcon v-if="$colorMode.value === 'light'" />
-                  <SunIcon v-else />
-                </a>
-                <section class="auth-prompt">
-                  <a :href="authUrl" class="log-in-button"
-                    ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
-                  >
-                </section>
-              </div>
+              <button class="desktop-header-mode-switch" @click="changeTheme">
+                <MoonIcon v-if="$colorMode.value === 'light'" />
+                <SunIcon v-else />
+              </button>
+              <section class="auth-prompt">
+                <a :href="authUrl" class="log-in-button"
+                  ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
+                >
+              </section>
             </template>
           </section>
         </section>
