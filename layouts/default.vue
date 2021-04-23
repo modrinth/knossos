@@ -92,11 +92,11 @@
               </section>
             </template>
             <template v-else>
-              <button class="desktop-header-mode-switch" @click="changeTheme">
-                <MoonIcon v-if="$colorMode.value === 'light'" />
-                <SunIcon v-else />
-              </button>
               <section class="auth-prompt">
+                <a class="desktop-header-mode-switch" @click="changeTheme">
+                  <MoonIcon v-if="$colorMode.value === 'light'" />
+                  <SunIcon v-else />
+                </a>
                 <a :href="authUrl" class="log-in-button"
                   ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
                 >
@@ -256,14 +256,12 @@ export default {
         display: flex;
         margin-left: auto;
         align-items: center;
-        display: flex;
         margin-right: 1rem;
       }
 
-      section.desktop-header-mode-switch {
-        display: flex;
+      .desktop-header-mode-switch {
         margin-right: 1rem;
-        flex-direction: unset;
+        cursor: pointer;
       }
 
       section.right-group {

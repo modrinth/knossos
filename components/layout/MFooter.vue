@@ -6,7 +6,7 @@
     </span>
     <ul>
       <li>
-        <a class="clickCursor" @click="changeTheme">
+        <a @click="changeTheme">
           <span v-if="$colorMode.value === 'light'">Switch to Dark Mode</span>
           <span v-else>Switch to Light Mode</span>
         </a>
@@ -107,6 +107,7 @@ footer {
 
 a {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .hideSmall {
@@ -119,9 +120,5 @@ a {
   @media screen and (min-width: 1024px) {
     display: none;
   }
-}
-
-.clickCursor {
-  cursor: pointer;
 }
 </style>
