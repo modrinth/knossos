@@ -232,6 +232,7 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 1rem 0;
+        margin-left: 1rem;
         color: var(--color-text-dark);
         svg {
           height: 1.75rem;
