@@ -373,6 +373,9 @@ export default {
         case 'follows':
           this.sortType.display = 'Follow count'
           break
+        case 'alphabetically':
+          this.sortType.display = 'Alphabetically'
+          break
       }
     }
     if (this.$route.query.m) {
@@ -410,6 +413,7 @@ export default {
         { display: 'Follow count', name: 'follows' },
         { display: 'Recently created', name: 'newest' },
         { display: 'Recently updated', name: 'updated' },
+        { display: 'Alphabetically', name: 'alphabetically' },
       ],
       sortType: { display: 'Relevance', name: 'relevance' },
 
