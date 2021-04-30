@@ -114,17 +114,11 @@ export default {
     '@nuxtjs/style-resources',
     'cookie-universal-nuxt',
     '~/modules/gpt-ads',
-    '~/modules/analytics',
   ],
   ads: {
     // Module options
     ghostMode: true,
     geoEdgeId: '',
-  },
-  analytics: {
-    enabled: false,
-    script_url: '',
-    tracking_code: '',
   },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
@@ -176,11 +170,6 @@ export default {
       ghostMode: process.env.ENABLE_ADS == null,
       GeoEdgeId: process.env.GEOEDGE_ID,
       networkCode: process.env.GAM_ID,
-    },
-    analytics: {
-      enabled: process.env.ENABLE_ANALYTICS,
-      script_url: process.env.ANALYTICS_URL,
-      tracking_code: process.env.ANALYTICS_ID,
     },
   },
 }
