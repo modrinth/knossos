@@ -64,7 +64,8 @@
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </div>
-        <img class="char" src="~/assets/images/right-arrow.svg" alt="logo" />
+        <img v-if="$colorMode.value === 'light'" class="char" src="~/assets/images/right-arrow.svg" alt="->" />
+        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" alt="->" />
         <div>
           <h3>Build</h3>
           <svg
@@ -107,7 +108,8 @@
             ></path>
           </svg>
         </div>
-        <img class="char" src="~/assets/images/right-arrow.svg" alt="logo" />
+        <img v-if="$colorMode.value === 'light'" class="char" src="~/assets/images/right-arrow.svg" alt="->" />
+        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" alt="->" />
         <div>
           <h3>Publish</h3>
           <svg
@@ -127,7 +129,8 @@
             />
           </svg>
         </div>
-        <img class="char" src="~/assets/images/right-arrow.svg" alt="logo" />
+        <img v-if="$colorMode.value === 'light'" class="char" src="~/assets/images/right-arrow.svg" alt="->" />
+        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" alt="->" />
         <div>
           <h3>Earn</h3>
           <svg
@@ -151,7 +154,7 @@
         <h1>Backed by an open source API</h1>
         <p>
           Modrinth's code is fully open source licensed under AGPL. We've
-          created a high peformant Rust based backend that is
+          created a high-performance Rust-based backend that is
           <span
             ><a href="https://github.com/modrinth/labrinth/wiki"
               >fully documented</a
