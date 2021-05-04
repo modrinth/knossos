@@ -207,6 +207,7 @@ export default {
 
   @media screen and (min-width: 1024px) {
     flex-direction: row;
+    justify-content: space-between;
   }
 
   .icon {
