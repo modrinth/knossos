@@ -64,8 +64,12 @@
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </div>
-        <img v-if="$colorMode.value === 'light'" class="char" src="~/assets/images/right-arrow.svg" alt="->" />
-        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" alt="->" />
+        <img
+          v-if="$colorMode.value === 'light'"
+          class="char"
+          src="~/assets/images/right-arrow.svg"
+        />
+        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" />
         <div>
           <h3>Build</h3>
           <svg
@@ -108,8 +112,12 @@
             ></path>
           </svg>
         </div>
-        <img v-if="$colorMode.value === 'light'" class="char" src="~/assets/images/right-arrow.svg" alt="->" />
-        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" alt="->" />
+        <img
+          v-if="$colorMode.value === 'light'"
+          class="char"
+          src="~/assets/images/right-arrow.svg"
+        />
+        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" />
         <div>
           <h3>Publish</h3>
           <svg
@@ -129,8 +137,12 @@
             />
           </svg>
         </div>
-        <img v-if="$colorMode.value === 'light'" class="char" src="~/assets/images/right-arrow.svg" alt="->" />
-        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" alt="->" />
+        <img
+          v-if="$colorMode.value === 'light'"
+          class="char"
+          src="~/assets/images/right-arrow.svg"
+        />
+        <img v-else class="char" src="~/assets/images/right-arrow-light.svg" />
         <div>
           <h3>Earn</h3>
           <svg
