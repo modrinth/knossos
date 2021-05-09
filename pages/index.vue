@@ -312,7 +312,7 @@ export default {
     background: inherit;
     content: '';
     display: block;
-    height: 50%;
+    height: 100%;
     left: 0;
     position: absolute;
     right: 0;
