@@ -164,7 +164,14 @@ export default {
   },
   computed: {
     authUrl() {
-      return `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${this.$route.fullPath}`
+      if (process.server) {
+        return `https://api.modrinth.com/api/v1/auth/init?url=${process.env._AXIOS_BASE_URL_.replace(
+          /\/+$/,
+          ''
+        )}${this.$route.fullPath}`
+      } else {
+        return `https://api.modrinth.com/api/v1/auth/init?url=${window.location.origin}${this.$route.fullPath}`
+      }
     },
     userUrl() {
       return `/user/${this.$auth.user.id}`
