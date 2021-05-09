@@ -82,13 +82,6 @@
             >
               <span>Versions</span>
             </nuxt-link>
-            <nuxt-link
-              v-if="currentMember"
-              :to="'/mod/' + mod.id + '/settings'"
-              class="tab"
-            >
-              <span>Settings</span>
-            </nuxt-link>
             <a
               v-if="mod.wiki_url"
               :href="mod.wiki_url"
@@ -125,7 +118,13 @@
               <ExternalIcon />
               <span>Discord</span>
             </a>
-            <div class="filler" />
+            <nuxt-link
+              v-if="currentMember"
+              :to="'/mod/' + mod.id + '/settings'"
+              class="tab settings-tab"
+            >
+              <span>Settings</span>
+            </nuxt-link>
           </div>
         </div>
         <div class="mod-content">
@@ -534,7 +533,18 @@ export default {
 
 .mod-navigation {
   @extend %card-spaced-b;
-  padding-bottom: 0.2rem;
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .settings-tab {
+    margin-left: auto;
+    @media screen and (max-width: 1024px) {
+      margin-left: 0.5rem;
+      padding-right: 2rem;
+    }
+  }
 }
 
 .mod-info {
