@@ -120,7 +120,12 @@
     </header>
     <main>
       <CookieConsent />
-      <notifications group="main" position="bottom right" />
+      <notifications
+        group="main"
+        position="bottom right"
+        :max="5"
+        :ignore-duplicates="true"
+      />
       <!--<notifications
         group="ads"
         position="bottom right"
