@@ -37,7 +37,7 @@ export default async function (context) {
 
   if (!context.$auth.user) {
     return context.redirect(
-      `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${context.route.fullPath}`
+      `https://api.modrinth.com/api/v1/auth/init?url=${process.env_AXIOS_BASE_URL_}${context.route.fullPath}`
     )
   }
 }
