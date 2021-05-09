@@ -221,6 +221,8 @@ export default {
   .buttons {
     @extend %column;
 
+    margin-top: 16px;
+
     .iconified-button {
       max-width: 4.5rem;
     }
