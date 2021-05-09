@@ -490,8 +490,11 @@ export default {
   }
   .info {
     @extend %column;
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-start;
     .title {
-      margin: var(--spacing-card-md) var(--spacing-card-md) 0 0;
+      margin: 0 var(--spacing-card-md) 0 0;
       color: var(--color-text-dark);
       font-size: var(--font-size-lg);
     }
@@ -500,7 +503,7 @@ export default {
       color: var(--color-text-dark);
     }
     .alt-nav {
-      margin: var(--spacing-card-sm) var(--spacing-card-md) 0 0;
+      margin: auto var(--spacing-card-md) 0 0;
       p {
         margin: 0;
       }

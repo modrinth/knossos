@@ -385,6 +385,12 @@ export default {
     padding-left: 0 !important;
     text-align: center;
     width: 100%;
+
+    h1,
+    h3,
+    p {
+      padding: 0 5vw;
+    }
   }
 
   .hero {

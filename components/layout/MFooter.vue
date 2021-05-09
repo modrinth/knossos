@@ -79,7 +79,7 @@ export default {
 }
 
 footer {
-  padding: 2rem 0 2rem 0;
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
 
