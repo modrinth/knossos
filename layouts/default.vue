@@ -24,11 +24,23 @@
         <section ref="nav" class="right-group columns">
           <section class="column-grow-5 nav">
             <div class="tabs">
-              <NuxtLink to="/mods" class="tab">
+              <NuxtLink
+                to="/mods"
+                class="tab"
+                :class="{
+                  'active-path': this.$route.path.startsWith('/mod'),
+                }"
+              >
                 <span>Mods</span>
               </NuxtLink>
               <div v-if="this.$auth.user" class="section">
-                <NuxtLink to="/dashboard/projects" class="tab">
+                <NuxtLink
+                  to="/dashboard/projects"
+                  class="tab"
+                  :class="{
+                    'active-path': this.$route.path.startsWith('/dashboard'),
+                  }"
+                >
                   <span>Dashboard</span>
                 </NuxtLink>
               </div>
@@ -185,6 +197,11 @@ export default {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
     },
+  },
+  beforeCreate() {
+    if (this.$route.query.code) {
+      this.$router.push(this.$route.path)
+    }
   },
   methods: {
     toggleNavBar() {
