@@ -497,12 +497,30 @@ export default {
 
     .main-info {
       margin-bottom: var(--spacing-card-lg);
+
+      @media screen and (min-width: 1024px) {
+        label {
+          align-items: center;
+          input {
+            margin-left: 1rem;
+          }
+        }
+      }
     }
     .permissions {
       margin: 1rem 0;
+      max-width: 45rem;
       display: grid;
-      grid-template-columns: 10rem 10rem 10rem;
-      grid-template-rows: 1.5rem 1.5rem 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+      grid-gap: 0.5rem;
+
+      label {
+        flex-direction: row;
+        input {
+          flex: none;
+          margin-right: 0.5rem;
+        }
+      }
     }
   }
 
