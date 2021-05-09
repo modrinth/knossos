@@ -201,4 +201,8 @@ export default {
   @extend %card;
   padding: var(--spacing-card-sm) var(--spacing-card-lg);
 }
+
+a {
+  color: var(--color-link);
+}
 </style>
