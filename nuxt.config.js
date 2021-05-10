@@ -154,15 +154,18 @@ export default {
    */
   build: {
     transpile: ['vue-tooltip', 'vue-notification'],
-    styleResources: {
-      scss: './assets/styles/injected.scss',
-    },
     html: {
       minify: {
         collapseWhitespace: true, // as @dario30186 mentioned
         removeComments: true, // 👈 add this line
       },
     },
+    babel: {
+      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
+    },
+  },
+  styleResources: {
+    scss: './assets/styles/injected.scss',
   },
   loading: {
     color: 'green',
