@@ -123,6 +123,7 @@
               :to="'/mod/' + mod.id + '/settings'"
               class="tab settings-tab"
             >
+              <SettingsIcon />
               <span>Settings</span>
             </nuxt-link>
           </div>
@@ -351,6 +352,7 @@ import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import FollowIcon from '~/assets/images/utils/heart.svg?inline'
 
 import ExternalIcon from '~/assets/images/utils/external.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
 import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
@@ -363,6 +365,7 @@ export default {
     MFooter,
     Categories,
     ExternalIcon,
+    SettingsIcon,
     ForgeIcon,
     FabricIcon,
     DownloadIcon,
@@ -482,35 +485,39 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding: 1rem;
 
   @extend %card-spaced-b;
-  width: 100%;
   .icon {
-    margin: auto 0;
+    margin: unset 0;
+    height: 6.08rem;
     img {
-      width: 6rem;
-      height: 6rem;
-      margin: var(--spacing-card-md);
+      height: 100%;
+      width: auto;
+      margin: 0;
       border-radius: var(--size-rounded-icon);
-      object-fit: contain;
     }
   }
   .info {
     @extend %column;
-    padding: 1rem;
     display: flex;
     justify-content: flex-start;
+    height: calc(100% - 0.2rem);
+    p {
+      margin: 0;
+    }
     .title {
-      margin: 0 var(--spacing-card-md) 0 0;
+      margin: 0;
       color: var(--color-text-dark);
       font-size: var(--font-size-lg);
     }
     .description {
-      margin: var(--spacing-card-sm) var(--spacing-card-md) 0 0;
+      margin-top: var(--spacing-card-sm);
+      margin-bottom: 0.5rem;
       color: var(--color-text-dark);
     }
     .alt-nav {
-      margin: auto var(--spacing-card-md) 0 0;
+      margin-top: auto;
       p {
         margin: 0;
       }
@@ -518,39 +525,71 @@ export default {
   }
   .buttons {
     @extend %row;
-    margin: var(--spacing-card-md) var(--spacing-card-md) var(--spacing-card-md)
-      0;
 
     button,
     a {
-      margin: 0.2rem 0 0 0.2rem;
+      margin: 0;
+      padding: 0.2rem 0.5rem;
+      display: flex;
+
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+        @media screen and (min-width: 1024px) {
+          margin-right: 0;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  > div {
+    margin-bottom: 1rem;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
   @media screen and (min-width: 1024px) {
-    align-items: unset;
-    text-align: unset;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    padding: 1rem;
+    grid-gap: 1rem;
+    text-align: left;
 
     .buttons {
+      align-self: flex-start;
       flex-direction: column;
-      margin-left: auto;
+    }
+
+    > div {
+      margin-bottom: 0;
     }
   }
 }
 
 .mod-navigation {
   @extend %card-spaced-b;
+  padding: 0 1rem;
 
   .tabs {
     overflow-x: auto;
+    padding: 0;
+
+    .tab {
+      padding: 0;
+      margin: 0.9rem 0.5rem 0.8rem 0.5rem;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 
   .settings-tab {
-    margin-left: auto;
-    @media screen and (max-width: 1024px) {
-      margin-left: 0.5rem;
-      padding-right: 2rem;
+    @media screen and (min-width: 1024px) {
+      margin-left: auto !important;
     }
   }
 }
