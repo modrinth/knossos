@@ -13,7 +13,7 @@
           <span class="badge yellow">Beta</span>
         </section>
         <section class="menu-icon">
-          <button @click="changeTheme">
+          <button class="theme-toggle" @click="changeTheme">
             <MoonIcon v-if="$colorMode.value === 'light'" />
             <SunIcon v-else />
           </button>
@@ -264,7 +264,7 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 1rem 0;
-        margin-left: 1rem;
+        margin-left: 0.5rem;
         color: var(--color-text-dark);
         svg {
           height: 1.75rem;
@@ -272,6 +272,9 @@ export default {
         }
         .badge {
           margin-left: 0.25rem;
+          @media screen and (max-width: 450px) {
+            display: none;
+          }
         }
         button {
           background: none;
@@ -289,7 +292,13 @@ export default {
         display: flex;
         margin-left: auto;
         align-items: center;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
+
+        .theme-toggle {
+          @media screen and (max-width: 375px) {
+            display: none;
+          }
+        }
       }
 
       .desktop-header-mode-switch {
