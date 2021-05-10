@@ -4,11 +4,13 @@
       <section class="navbar columns">
         <section class="logo column">
           <NuxtLink to="/">
+            <ModrinthLogoSmall aria-label="modrinth" class="small-logo" />
             <ModrinthLogo
               v-if="$colorMode.value === 'light'"
               aria-label="modrinth"
+              class="text-logo"
             />
-            <ModrinthLogoWhite v-else aria-label="modrinth" />
+            <ModrinthLogoWhite v-else aria-label="modrinth" class="text-logo" />
           </NuxtLink>
           <span class="badge yellow">Beta</span>
         </section>
@@ -142,6 +144,7 @@ import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
+import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
@@ -161,6 +164,7 @@ export default {
   components: {
     ModrinthLogo,
     ModrinthLogoWhite,
+    ModrinthLogoSmall,
     DropdownIcon,
     MoonIcon,
     SunIcon,
@@ -259,20 +263,34 @@ export default {
     max-width: 100vw;
     .navbar {
       margin: 0 var(--spacing-card-lg);
+      @media screen and (max-width: 450px) {
+        margin: 0 0.5rem;
+      }
       section.logo {
         align-items: center;
         display: flex;
         justify-content: space-between;
         padding: 1rem 0;
-        margin-left: 0.5rem;
+        margin-left: 1rem;
         color: var(--color-text-dark);
+        .small-logo {
+          display: none;
+        }
+        @media screen and (max-width: 350px) {
+          svg {
+            display: none;
+          }
+          .small-logo {
+            display: block;
+          }
+        }
         svg {
           height: 1.75rem;
           width: auto;
         }
         .badge {
           margin-left: 0.25rem;
-          @media screen and (max-width: 450px) {
+          @media screen and (max-width: 430px) {
             display: none;
           }
         }
@@ -292,13 +310,7 @@ export default {
         display: flex;
         margin-left: auto;
         align-items: center;
-        margin-right: 0.5rem;
-
-        .theme-toggle {
-          @media screen and (max-width: 375px) {
-            display: none;
-          }
-        }
+        margin-right: 1rem;
       }
 
       .desktop-header-mode-switch {
