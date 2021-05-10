@@ -174,7 +174,7 @@ fetch('https://api.modrinth.com/api/v1/mod').then(res => res.json()).then(data =
         </pre>
       </div>
     </div>
-    <m-footer class="footer" centered />
+    <m-footer class="footer" centered padded />
   </div>
 </template>
 
