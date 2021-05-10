@@ -152,7 +152,7 @@
                 "
                 class="value"
               >
-                {{ $dayjs(mod.published).fromNow() }}
+                {{ formatTime(mod.published) }}
               </p>
             </div>
           </div>
@@ -185,7 +185,7 @@
                 "
                 class="value"
               >
-                {{ $dayjs(mod.updated).fromNow() }}
+                {{ formatTime(mod.updated) }}
               </p>
             </div>
           </div>
@@ -463,6 +463,14 @@ export default {
       )
 
       this.userFollows.splice(this.userFollows.indexOf(this.mod.id), 1)
+    },
+    formatTime(date) {
+      date = '2021-05-10T03:24:42.106423Z'
+      let defaultMessage = this.$dayjs(date).fromNow()
+      if (defaultMessage.length > 13) {
+        defaultMessage = defaultMessage.replace('minutes', 'min.')
+      }
+      return defaultMessage
     },
   },
 }
