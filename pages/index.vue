@@ -234,6 +234,9 @@ export default {
   .left {
     padding-top: 75px;
     padding-left: 100px;
+    @media screen and (min-width: 1500px) {
+      padding-left: 15%;
+    }
 
     .typewriter {
       display: inline-block;
@@ -288,6 +291,11 @@ export default {
       font-weight: bold;
     }
   }
+  &.left {
+    @media screen and (min-width: 2048px) {
+      max-width: 15vw;
+    }
+  }
 }
 
 .hero-image {
@@ -324,12 +332,18 @@ export default {
   &:before {
     top: 0;
     transform: skewY(5deg);
+    @media screen and (min-width: 2048px) {
+      transform: skewY(2deg);
+    }
     transform-origin: 100% 0;
   }
 
   &:after {
     bottom: 0;
     transform: skewY(-5deg);
+    @media screen and (min-width: 2048px) {
+      transform: skewY(-2deg);
+    }
     transform-origin: 100%;
   }
 }
