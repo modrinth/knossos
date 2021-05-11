@@ -10,16 +10,17 @@
     </button>
     <div
       v-for="(item, index) in pages"
-      :key="'page-' + item"
+      :key="'page-' + item + '-' + index"
       :class="{
         'page-number': currentPage !== item,
       }"
       class="page-number-container"
     >
-      <div v-if="pages[index - 1] + 1 !== item && item !== 1" class="has-icon">
+      <div v-if="item == '-'" class="has-icon">
         <GapIcon />
       </div>
       <button
+        v-else
         :class="{ 'page-number current': currentPage === item }"
         @click="currentPage !== item ? switchPage(item) : null"
       >
@@ -110,5 +111,10 @@ button {
 .page-number-container {
   display: flex;
   max-height: 2rem;
+}
+
+button,
+.has-icon {
+  margin: 0.1rem;
 }
 </style>

@@ -543,25 +543,29 @@ export default {
         const pageAmount = Math.ceil(res.data.total_hits / res.data.limit)
 
         this.currentPage = newPageNumber
-        if (pageAmount > 3) {
-          if (this.currentPage + 1 >= pageAmount) {
+        if (pageAmount > 4) {
+          if (this.currentPage + 3 >= pageAmount) {
             this.pages = [
               1,
+              '-',
+              pageAmount - 4,
               pageAmount - 3,
               pageAmount - 2,
               pageAmount - 1,
               pageAmount,
             ]
-          } else if (this.currentPage > 3) {
+          } else if (this.currentPage > 4) {
             this.pages = [
               1,
+              '-',
               this.currentPage - 1,
               this.currentPage,
               this.currentPage + 1,
+              '-',
               pageAmount,
             ]
           } else {
-            this.pages = [1, 2, 3, 4, pageAmount]
+            this.pages = [1, 2, 3, 4, 5, '-', pageAmount]
           }
         } else {
           this.pages = Array.from({ length: pageAmount }, (_, i) => i + 1)
