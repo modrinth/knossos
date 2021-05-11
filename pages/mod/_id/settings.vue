@@ -42,7 +42,7 @@
         </div>
       </label>
     </section>
-    <div class="section-header columns">
+    <div class="section-header columns team-invite">
       <h3 class="column-grow-1">Team members</h3>
       <div class="column">
         <input
@@ -516,9 +516,36 @@ section {
       text-align: center;
       height: fit-content;
       flex: 1;
+      @media screen and (max-width: 1024px) {
+        margin: 0.5rem 0 1rem 0;
+      }
     }
     div:hover {
       cursor: pointer;
+    }
+  }
+}
+
+.team-invite {
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+  }
+  > div {
+    input {
+      margin-right: 1rem;
+    }
+    @media screen and (max-width: 500px) {
+      display: flex;
+      flex-direction: column;
+      input {
+        margin: 0;
+      }
+      button {
+        margin-top: 0.5rem;
+      }
     }
   }
 }
