@@ -189,9 +189,9 @@ export default {
         return `https://api.modrinth.com/api/v1/auth/init?url=${process.env._AXIOS_BASE_URL_.replace(
           /\/+$/,
           ''
-        )}${this.$route.fullPath}`
+        )}${this.$route.path}`
       } else {
-        return `https://api.modrinth.com/api/v1/auth/init?url=${window.location.origin}${this.$route.fullPath}`
+        return `https://api.modrinth.com/api/v1/auth/init?url=${window.location.origin}${this.$route.path}`
       }
     },
     userUrl() {
