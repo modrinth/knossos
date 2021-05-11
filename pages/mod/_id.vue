@@ -566,6 +566,9 @@ export default {
   .icon {
     margin: unset 0;
     height: 6.08rem;
+    @media screen and (min-width: 1024px) {
+      align-self: flex-start;
+    }
     img {
       height: 100%;
       width: auto;
