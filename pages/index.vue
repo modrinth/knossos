@@ -189,6 +189,7 @@ export default {
   data() {
     return {
       currentText: 'Open source',
+      increasing: true,
       texts: ['Open source', 'Easy to use', 'Developer focused', 'API Based'],
     }
   },
@@ -206,16 +207,29 @@ export default {
       })
     },
     typeWriter(text, i, callback) {
-      if (!text || i >= text.length) {
-        setTimeout(callback, 1000 + Math.random() * 500)
+      if (!this.increasing && i <= 0) {
+        this.increasing = true
+        setTimeout(callback, 300 + Math.random() * 50)
         return
       }
 
-      this.currentText = text.substring(0, i + 1)
-      setTimeout(
-        () => this.typeWriter(text, i + 1, callback),
-        150 + Math.random() * 50
-      )
+      const step = this.increasing ? 1 : -1
+
+      if (i >= text.length && this.increasing) {
+        this.increasing = false
+
+        setTimeout(
+          () => this.typeWriter(text, i + step, callback),
+          1300 + Math.random() * 500
+        )
+      } else {
+        this.currentText = text.substring(0, i + step)
+        const speed = this.increasing ? 140 : 50
+        setTimeout(
+          () => this.typeWriter(text, i + step, callback),
+          speed + Math.random() * 20
+        )
+      }
     },
   },
 }
