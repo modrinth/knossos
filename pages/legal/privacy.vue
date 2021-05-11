@@ -230,6 +230,7 @@ export default {
 }
 
 a {
+  text-decoration: underline;
   color: var(--color-link);
 }
 </style>
