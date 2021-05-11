@@ -648,6 +648,12 @@ export default {
     margin-right: 0.5rem;
     display: flex;
     width: auto;
+    @media screen and (max-width: 350px) {
+      flex-direction: column;
+      .mobile-filters-button {
+        margin: 0.5rem 0 0 0;
+      }
+    }
     .per-page {
       margin-left: 0.5rem;
       display: none;
@@ -671,7 +677,7 @@ export default {
 .search-bottom {
   align-items: center;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
   padding: 0 1rem;
@@ -684,6 +690,7 @@ export default {
   }
   @media screen and (min-width: 550px) {
     padding: 0.25rem 1rem 0.25rem 1rem;
+    justify-content: flex-end;
     .per-page {
       display: unset;
     }
