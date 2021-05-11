@@ -525,7 +525,7 @@ export default {
           name: 'description',
           content:
             this.mod.description +
-            ' View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform that is compatible with CurseForge too!',
+            ' View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.',
         },
         {
           hid: 'og:url',

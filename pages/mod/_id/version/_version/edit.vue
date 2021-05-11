@@ -164,7 +164,7 @@ export default {
     } catch {
       data.error({
         statusCode: 404,
-        message: 'Unable to fetch versions and loaders',
+        message: 'Unable to fetch versions or loaders',
       })
     }
   },
