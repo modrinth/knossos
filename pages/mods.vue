@@ -464,6 +464,7 @@ export default {
         this.versions = res.data
         this.firstRun = false
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err)
       }
     },
@@ -652,6 +653,7 @@ export default {
           window.history.replaceState(new Date(), 'Mods', url)
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err)
       }
     },
