@@ -64,12 +64,12 @@ export default {
       data.$auth.headers
     )
 
-    let mods = (
+    const mods = (
       await axios.get(
         `https://api.modrinth.com/api/v1/mods?ids=${JSON.stringify(res.data)}`
       )
-    ).data
-    mods = mods.sort((a, b) => a.title > b.title)
+    ).data.sort((a, b) => a.title > b.title)
+    
     return {
       mods,
     }
