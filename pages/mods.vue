@@ -66,6 +66,7 @@
         <div class="results column-grow-4">
           <Advertisement type="banner" small-screen="square" />
           <div v-if="results === null" class="no-results">
+            <LogoAnimated />
             <p>Loading...</p>
           </div>
           <div v-else>
@@ -296,6 +297,7 @@ import axios from 'axios'
 import SearchResult from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
+import LogoAnimated from '~/components/ui/search/LogoAnimated'
 
 import MFooter from '~/components/layout/MFooter'
 import TechCategory from '~/assets/images/categories/tech.svg?inline'
@@ -344,6 +346,7 @@ export default {
     FabricLoader,
     SearchIcon,
     ExitIcon,
+    LogoAnimated,
   },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
