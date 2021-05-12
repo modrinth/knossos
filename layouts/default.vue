@@ -45,7 +45,7 @@
                   <button class="control" @click="toggleDropdown">
                     <div class="avatar">
                       <span>{{ this.$auth.user.username }}</span>
-                      <img :src="this.$auth.user.avatar_url" class="icon" />
+                      <AvatarIcon :notif-count="notifications.count" />
                     </div>
                     <DropdownIcon class="dropdown-icon" />
                   </button>
@@ -61,6 +61,12 @@
                         <NuxtLink to="/dashboard/notifications">
                           <NotificationIcon />
                           <span>Notifications</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink to="/dashboard/settings">
+                          <SettingsIcon />
+                          <span>Settings</span>
                         </NuxtLink>
                       </li>
                       <!--<li v-tooltip="'Not implemented yet'" class="hidden">
@@ -129,6 +135,7 @@ import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
+import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
@@ -139,6 +146,8 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
 import CookieConsent from '~/components/ads/CookieConsent'
+
+import AvatarIcon from '~/components/ui/AvatarIcon'
 
 export default {
   components: {
@@ -153,6 +162,8 @@ export default {
     NotificationIcon,
     HamburgerIcon,
     CookieConsent,
+    AvatarIcon,
+    SettingsIcon,
   },
   directives: {
     ClickOutside,
@@ -160,6 +171,10 @@ export default {
   data() {
     return {
       isDropdownOpen: false,
+      notifications: {
+        count: 0,
+        lastUpdated: 0,
+      },
     }
   },
   computed: {
@@ -177,7 +192,11 @@ export default {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
+      this.updateNotifCount()
     },
+  },
+  created() {
+    this.updateNotifCount()
   },
   methods: {
     toggleNavBar() {
@@ -214,6 +233,23 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
+    },
+    async updateNotifCount() {
+      if (
+        this.$auth.user.id &&
+        Date.now() - this.notifications.lastUpdated > 300000
+      ) {
+        const notifications = (
+          await this.$axios.get(
+            `https://api.modrinth.com/api/v1/user/${this.$auth.user.id}/notifications`,
+            this.$auth.headers
+          )
+        ).data
+
+        this.notifications.count = notifications.length
+        console.log(notifications.length)
+        this.notifications.lastUpdated = Date.now()
+      }
     },
   },
 }
@@ -351,13 +387,6 @@ export default {
                 align-items: center;
                 display: flex;
                 flex-grow: 1;
-                .icon {
-                  border-radius: 50%;
-                  height: 2rem;
-                  width: 2rem;
-                  margin-left: 0.5rem;
-                  margin-right: 0.25rem;
-                }
                 span {
                   display: block;
                   overflow: hidden;
