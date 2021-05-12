@@ -60,16 +60,14 @@ export default {
     UpToDate,
   },
   async asyncData(data) {
-    let notifications = (
+    const notifications = (
       await axios.get(
         `https://api.modrinth.com/api/v1/user/${data.$auth.user.id}/notifications`,
         data.$auth.headers
       )
-    ).data
-    notifications = notifications.sort(
+    ).data.sort(
       (a, b) => new Date(b.created) - new Date(a.created)
     )
-    console.log(notifications)
 
     return {
       notifications,
