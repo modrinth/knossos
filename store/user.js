@@ -13,8 +13,15 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchNotifications({ commit, state, rootState }) {
-    if (rootState.auth.user.id) {
+  async fetchNotifications(
+    { commit, state, rootState },
+    { force = false } = {}
+  ) {
+    if (
+      rootState.auth.user &&
+      rootState.auth.user.id &&
+      (force || Date.now() - state.notifications.lastUpdated > 300000)
+    ) {
       const notifications = (
         await this.$axios.get(
           `https://api.modrinth.com/api/v1/user/${rootState.auth.user.id}/notifications`,
