@@ -47,6 +47,7 @@
                       <span>{{ this.$auth.user.username }}</span>
                       <AvatarIcon
                         :notif-count="this.$user.notifications.count"
+                        :dropdown-bg="isDropdownOpen"
                       />
                     </div>
                     <DropdownIcon class="dropdown-icon" />
@@ -173,10 +174,6 @@ export default {
   data() {
     return {
       isDropdownOpen: false,
-      notifications: {
-        count: 0,
-        lastUpdated: 0,
-      },
     }
   },
   computed: {
@@ -194,13 +191,11 @@ export default {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
-      if (Date.now() - this.$user.notifications.lastUpdated > 300000) {
-        this.$store.dispatch('user/fetchNotifications')
-      }
+      this.$store.dispatch('user/fetchNotifications')
     },
   },
   created() {
-    this.$store.dispatch('user/fetchNotifications')
+    this.$store.dispatch('user/fetchNotifications', { force: true })
   },
   methods: {
     toggleNavBar() {
