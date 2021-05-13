@@ -185,9 +185,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `https://api.modrinth.com/api/v1/auth/init?url=${
-        process.env.domain || window.location.origin
-      }${this.$route.fullPath}`
+      return `https://api.modrinth.com/api/v1/auth/init?url=${process.env.domain}${this.$route.fullPath}`
     },
     userUrl() {
       return `/user/${this.$auth.user.id}`
