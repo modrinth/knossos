@@ -185,14 +185,9 @@ export default {
   },
   computed: {
     authUrl() {
-      if (process.server) {
-        return `https://api.modrinth.com/api/v1/auth/init?url=${process.env._AXIOS_BASE_URL_.replace(
-          /\/+$/,
-          ''
-        )}${this.$route.path}`
-      } else {
-        return `https://api.modrinth.com/api/v1/auth/init?url=${window.location.origin}${this.$route.path}`
-      }
+      return `https://api.modrinth.com/api/v1/auth/init?url=${
+        process.env.domain || window.location.origin
+      }${this.$route.fullPath}`
     },
     userUrl() {
       return `/user/${this.$auth.user.id}`
@@ -231,18 +226,19 @@ export default {
     },
     async logout() {
       this.$cookies.set('auth-token-reset', true)
-      // If users logs out on dashboard, redirect on the home page
+      // If users logs out on dashboard, force redirect on the home page to clear cookies
       if (this.$route.path.startsWith('/dashboard')) {
-        await this.$router.push('/')
+        window.location.href = '/'
       } else {
         await this.$router.go(null)
+
+        this.$notify({
+          group: 'main',
+          title: 'Logged Out',
+          text: 'You have logged out successfully!',
+          type: 'success',
+        })
       }
-      this.$notify({
-        group: 'main',
-        title: 'Logged Out',
-        text: 'You have logged out successfully!',
-        type: 'success',
-      })
     },
     changeTheme() {
       this.$colorMode.preference =

@@ -173,6 +173,7 @@ export default {
   },
   env: {
     version: process.env.VERSION_ID || 'unknown',
+    domain: getDomain(),
   },
   publicRuntimeConfig: {
     ads: {
@@ -186,4 +187,18 @@ export default {
       token: process.env.ANALYTICS_ID,
     },
   },
+}
+
+function getDomain() {
+  if (!process.env.NODE_ENV === 'development') {
+    if (process.env.HEROKU_APP_NAME) {
+      return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+    } else if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`
+    } else {
+      return 'https://modrinth.com'
+    }
+  } else {
+    return 'http://localhost:3000'
+  }
 }
