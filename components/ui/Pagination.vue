@@ -130,12 +130,15 @@ button,
   > div {
     margin: 0 0.1em;
   }
-  @media screen and (max-width: 350px) {
-    font-size: 80%;
+  font-size: 80%;
+  @media screen and (min-width: 350px) {
+    font-size: 100%;
   }
 }
 
 .shrink {
-  font-size: 95%;
+  font-size: 0.9rem;
+  height: 2.225em;
+  width: 2.225em;
 }
 </style>
