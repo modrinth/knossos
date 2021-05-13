@@ -190,7 +190,6 @@ export default {
 }
 
 function getDomain() {
-  console.log(process.env.NODE_ENV)
   if (process.env.NODE_ENV === 'production') {
     if (process.env.HEROKU_APP_NAME) {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
