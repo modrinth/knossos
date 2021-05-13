@@ -563,22 +563,22 @@ export default {
 
           if (this.selectedEnvironments.length > 0) {
             let environmentFacets = []
-            if (
-              this.selectedEnvironments.includes('client') &&
-              this.selectedEnvironments.includes('server')
-            ) {
+
+            const includesClient = this.selectedEnvironments.includes('client')
+            const includesServer = this.selectedEnvironments.includes('server')
+            if (includesClient && includesServer) {
               environmentFacets = [
                 ['client_side:required'],
                 ['server_side:required'],
               ]
             } else {
-              if (this.selectedEnvironments.includes('client')) {
+              if (includesClient) {
                 environmentFacets = [
                   ['client_side:optional', 'client_side:required'],
                   ['server_side:optional', 'server_side:unsupported'],
                 ]
               }
-              if (this.selectedEnvironments.includes('server')) {
+              if (includesServer) {
                 environmentFacets = [
                   ['client_side:optional', 'client_side:unsupported'],
                   ['server_side:optional', 'server_side:required'],
