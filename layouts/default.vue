@@ -45,7 +45,9 @@
                   <button class="control" @click="toggleDropdown">
                     <div class="avatar">
                       <span>{{ this.$auth.user.username }}</span>
-                      <AvatarIcon :notif-count="notifications.count" />
+                      <AvatarIcon
+                        :notif-count="this.$user.notifications.count"
+                      />
                     </div>
                     <DropdownIcon class="dropdown-icon" />
                   </button>
@@ -192,11 +194,13 @@ export default {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
-      this.updateNotifCount()
+      if (Date.now() - this.$user.notifications.lastUpdated > 300000) {
+        this.$store.dispatch('user/fetchNotifications')
+      }
     },
   },
   created() {
-    this.updateNotifCount()
+    this.$store.dispatch('user/fetchNotifications')
   },
   methods: {
     toggleNavBar() {
@@ -233,23 +237,6 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
-    },
-    async updateNotifCount() {
-      if (
-        this.$auth.user.id &&
-        Date.now() - this.notifications.lastUpdated > 300000
-      ) {
-        const notifications = (
-          await this.$axios.get(
-            `https://api.modrinth.com/api/v1/user/${this.$auth.user.id}/notifications`,
-            this.$auth.headers
-          )
-        ).data
-
-        this.notifications.count = notifications.length
-        console.log(notifications.length)
-        this.notifications.lastUpdated = Date.now()
-      }
     },
   },
 }

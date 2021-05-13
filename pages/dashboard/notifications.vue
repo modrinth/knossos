@@ -94,6 +94,7 @@ export default {
         )
 
         this.notifications.splice(index, 1)
+        this.$store.dispatch('user/fetchNotifications')
       } catch (err) {
         this.$notify({
           group: 'main',
