@@ -97,10 +97,10 @@ export default {
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(200, 200, 200, 0.4);
+  background-color: rgba(180, 180, 180, 0.5);
   border-radius: 2rem;
   padding: 0.1rem 0.35rem;
-  margin: 0 0.5rem 0 auto;
+  margin: 0 0.2rem 0 auto;
 
   font-size: 0.9rem;
 }
