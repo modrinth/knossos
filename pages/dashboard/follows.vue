@@ -69,7 +69,7 @@ export default {
         `https://api.modrinth.com/api/v1/mods?ids=${JSON.stringify(res.data)}`
       )
     ).data.sort((a, b) => a.title > b.title)
-    
+
     return {
       mods,
     }

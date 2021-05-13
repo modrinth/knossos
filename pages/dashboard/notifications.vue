@@ -65,9 +65,7 @@ export default {
         `https://api.modrinth.com/api/v1/user/${data.$auth.user.id}/notifications`,
         data.$auth.headers
       )
-    ).data.sort(
-      (a, b) => new Date(b.created) - new Date(a.created)
-    )
+    ).data.sort((a, b) => new Date(b.created) - new Date(a.created))
 
     return {
       notifications,
