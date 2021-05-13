@@ -258,9 +258,9 @@ export default {
     background-color: var(--color-raised-bg);
     max-width: 100vw;
     .navbar {
-      margin: 0 var(--spacing-card-lg);
-      @media screen and (max-width: 450px) {
-        margin: 0 0.5rem;
+      margin: 0 0.5rem;
+      @media screen and (min-width: 450px) {
+        margin: 0 var(--spacing-card-lg);
       }
       section.logo {
         align-items: center;
@@ -270,24 +270,26 @@ export default {
         margin-left: 1rem;
         color: var(--color-text-dark);
         .small-logo {
-          display: none;
-        }
-        @media screen and (max-width: 350px) {
-          svg {
-            display: none;
-          }
-          .small-logo {
-            display: block;
-          }
+          display: block;
         }
         svg {
+          display: none;
           height: 1.75rem;
           width: auto;
         }
+        @media screen and (min-width: 350px) {
+          .small-logo {
+            display: none;
+          }
+          svg {
+            display: unset;
+          }
+        }
         .badge {
           margin-left: 0.25rem;
-          @media screen and (max-width: 430px) {
-            display: none;
+          display: none;
+          @media screen and (min-width: 430px) {
+            display: unset;
           }
         }
         button {
