@@ -245,12 +245,12 @@
               <ForgeLoader />
             </SearchFilter>
             <h3>Minecraft Versions</h3>
-            <SearchFilter
+            <SearchCheckbox
               :active-filters="showVersions"
               display-name="Include snapshots"
               facet-name="snapshots"
-              style="margin-bottom: 10px"
-              @toggle="fillInitialVersions"
+              style="margin-bottom: 0.5rem"
+              @toggle="toggleSnapshots"
             />
           </section>
           <multiselect
@@ -296,6 +296,7 @@ import axios from 'axios'
 import SearchResult from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
+import SearchCheckbox from '~/components/ui/search/SearchCheckbox'
 
 import MFooter from '~/components/layout/MFooter'
 import TechCategory from '~/assets/images/categories/tech.svg?inline'
@@ -328,6 +329,7 @@ export default {
     Pagination,
     Multiselect,
     SearchFilter,
+    SearchCheckbox,
     TechCategory,
     AdventureCategory,
     CursedCategory,
@@ -354,6 +356,7 @@ export default {
     }
     if (this.$route.query.v)
       this.selectedVersions = this.$route.query.v.split(',')
+    if (this.$route.query.h) this.showVersions = this.$route.query.h.split(',')
     if (this.$route.query.s) {
       this.sortType.name = this.$route.query.s
 
@@ -382,7 +385,7 @@ export default {
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
 
     await Promise.all([
-      this.fillInitialVersions(),
+      this.fillVersions(),
       this.fillInitialLicenses(),
       this.onSearchChange(this.currentPage),
     ])
@@ -414,33 +417,35 @@ export default {
       sortType: { display: 'Relevance', name: 'relevance' },
 
       maxResults: 20,
-      firstRun: true,
     }
   },
   methods: {
-    async fillInitialVersions(x) {
+    async fillVersions() {
       try {
         let url =
           'https://api.modrinth.com/api/v1/tag/game_version?type=release'
 
-        if (x !== null) {
-          if (!this.showVersions.length > 0 && !this.firstRun) {
-            this.showVersions.push('snapshots')
-
-            url = 'https://api.modrinth.com/api/v1/tag/game_version'
-          } else {
-            this.showVersions = []
-          }
+        if (this.showVersions.includes('snapshots')) {
+          url = 'https://api.modrinth.com/api/v1/tag/game_version'
         }
 
         const res = await axios.get(url)
 
         this.versions = res.data
-        this.firstRun = false
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err)
       }
+    },
+    async toggleSnapshots() {
+      if (this.showVersions.includes('snapshots')) {
+        this.showVersions.pop()
+      } else {
+        this.showVersions.push('snapshots')
+      }
+
+      this.fillVersions()
+      await this.onSearchChange(1)
     },
     async fillInitialLicenses() {
       const licences = (
@@ -575,6 +580,8 @@ export default {
             url += `&f=${encodeURIComponent(this.facets)}`
           if (this.selectedVersions.length > 0)
             url += `&v=${encodeURIComponent(this.selectedVersions)}`
+          if (this.showVersions.length > 0)
+            url += `&h=${encodeURIComponent(this.showVersions)}`
           if (this.sortType.name !== 'relevance')
             url += `&s=${encodeURIComponent(this.sortType.name)}`
           if (this.maxResults > 20)
@@ -722,15 +729,19 @@ export default {
   background-color: var(--color-raised-bg);
   flex-shrink: 0; // Stop shrinking when page contents change
   .filters-wrapper {
-    padding: 0.25rem 0.75rem 0.75rem 0.75rem;
+    padding: 0.75rem 0.75rem 1.25rem 0.75rem;
     margin-bottom: var(--spacing-card-md);
   }
   h3 {
     @extend %small-label;
-    margin-top: 1.25em;
+    margin: 1.25em 0 0.75em 0;
   }
   &.active {
     right: 0;
+  }
+  .multiselect {
+    width: unset;
+    margin: 0 0.5rem;
   }
   // Larger screens that don't need to collapse
   @media screen and (min-width: 1250px) {
@@ -763,6 +774,12 @@ export default {
   .filter-clear-button {
     display: flex;
     justify-content: space-between;
+    margin-right: calc(0.5rem - 2px);
+    margin-bottom: 0.2rem;
+
+    h3 {
+      margin-bottom: 0;
+    }
   }
 
   // Large screens that don't collapse
