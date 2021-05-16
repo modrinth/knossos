@@ -244,6 +244,23 @@
             >
               <ForgeLoader />
             </SearchFilter>
+            <h3>Environments</h3>
+            <SearchFilter
+              :active-filters="selectedEnvironments"
+              display-name="Client"
+              facet-name="client"
+              @toggle="toggleEnv"
+            >
+              <ClientSide />
+            </SearchFilter>
+            <SearchFilter
+              :active-filters="selectedEnvironments"
+              display-name="Server"
+              facet-name="server"
+              @toggle="toggleEnv"
+            >
+              <ServerSide />
+            </SearchFilter>
             <h3>Minecraft Versions</h3>
             <SearchCheckbox
               :active-filters="showVersions"
@@ -315,6 +332,9 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 
+import ClientSide from '~/assets/images/categories/client.svg?inline'
+import ServerSide from '~/assets/images/categories/server.svg?inline'
+
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ExitIcon from '~/assets/images/utils/exit.svg?inline'
 
@@ -344,6 +364,8 @@ export default {
     WorldGenCategory,
     ForgeLoader,
     FabricLoader,
+    ClientSide,
+    ServerSide,
     SearchIcon,
     ExitIcon,
   },
@@ -357,6 +379,8 @@ export default {
     if (this.$route.query.v)
       this.selectedVersions = this.$route.query.v.split(',')
     if (this.$route.query.h) this.showVersions = this.$route.query.h.split(',')
+    if (this.$route.query.e)
+      this.selectedEnvironments = this.$route.query.e.split(',')
     if (this.$route.query.s) {
       this.sortType.name = this.$route.query.s
 
@@ -401,6 +425,8 @@ export default {
       showVersions: [],
       selectedVersions: [],
       versions: [],
+
+      selectedEnvironments: [],
 
       facets: [],
       results: null,
@@ -481,15 +507,25 @@ export default {
       this.displayLicense = null
       this.selectedLicense = null
       this.selectedVersions = []
+      this.selectedEnvironments = []
       await this.onSearchChange(1)
     },
     async toggleFacet(elementName, sendRequest) {
       const index = this.facets.indexOf(elementName)
-
       if (index !== -1) {
         this.facets.splice(index, 1)
       } else {
         this.facets.push(elementName)
+      }
+
+      if (!sendRequest) await this.onSearchChange(1)
+    },
+    async toggleEnv(environment, sendRequest) {
+      const index = this.selectedEnvironments.indexOf(environment)
+      if (index !== -1) {
+        this.selectedEnvironments.splice(index, 1)
+      } else {
+        this.selectedEnvironments.push(environment)
       }
 
       if (!sendRequest) await this.onSearchChange(1)
@@ -512,8 +548,12 @@ export default {
           params.push(`query=${this.query.replace(/ /g, '+')}`)
         }
 
-        if (this.facets.length > 0 || this.selectedVersions.length > 0) {
-          const formattedFacets = []
+        if (
+          this.facets.length > 0 ||
+          this.selectedVersions.length > 0 ||
+          this.selectedEnvironments.length > 0
+        ) {
+          let formattedFacets = []
           for (const facet of this.facets) {
             formattedFacets.push([facet])
           }
@@ -524,6 +564,34 @@ export default {
               versionFacets.push('versions:' + facet)
             }
             formattedFacets.push(versionFacets)
+          }
+
+          if (this.selectedEnvironments.length > 0) {
+            let environmentFacets = []
+
+            const includesClient = this.selectedEnvironments.includes('client')
+            const includesServer = this.selectedEnvironments.includes('server')
+            if (includesClient && includesServer) {
+              environmentFacets = [
+                ['client_side:required'],
+                ['server_side:required'],
+              ]
+            } else {
+              if (includesClient) {
+                environmentFacets = [
+                  ['client_side:optional', 'client_side:required'],
+                  ['server_side:optional', 'server_side:unsupported'],
+                ]
+              }
+              if (includesServer) {
+                environmentFacets = [
+                  ['client_side:optional', 'client_side:unsupported'],
+                  ['server_side:optional', 'server_side:required'],
+                ]
+              }
+            }
+
+            formattedFacets = [...formattedFacets, ...environmentFacets]
           }
 
           params.push(`facets=${JSON.stringify(formattedFacets)}`)
@@ -582,6 +650,8 @@ export default {
             url += `&v=${encodeURIComponent(this.selectedVersions)}`
           if (this.showVersions.length > 0)
             url += `&h=${encodeURIComponent(this.showVersions)}`
+          if (this.selectedEnvironments.length > 0)
+            url += `&e=${encodeURIComponent(this.selectedEnvironments)}`
           if (this.sortType.name !== 'relevance')
             url += `&s=${encodeURIComponent(this.sortType.name)}`
           if (this.maxResults > 20)
