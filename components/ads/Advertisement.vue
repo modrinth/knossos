@@ -97,12 +97,10 @@ export default {
       )
     },
     ethical_ad_style() {
-      const elem = {
+      return {
         dark: this.isDark,
         raised: true,
       }
-      console.log(elem)
-      return elem
     },
   },
 

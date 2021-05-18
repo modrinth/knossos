@@ -15,6 +15,6 @@ export default async function (context) {
       consent: false,
     })
   } catch (e) {
-    console.log('Error while making request to:', url, e)
+    // Simply silence the issue.
   }
 }
