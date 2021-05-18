@@ -23,7 +23,7 @@
     "cookie-universal-nuxt": "^2.1.4",
     "highlight.js": "^10.3.2",
     "marked": "^2.0.0",
-    "nuxt": "^2.14.7",
+    "nuxt": "^2.15.6",
     "sass": "^1.32.12",
     "v-tooltip": "^2.0.3",
     "vue-click-outside": "^1.1.0",
