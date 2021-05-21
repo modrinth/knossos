@@ -45,7 +45,7 @@ export default {
   align-items: center;
   cursor: pointer;
   padding: 0.4rem 0.3rem;
-  margin: 3px 0.5rem 0 0.5rem;
+  margin: 3px 0 0 0.5rem;
   font-size: 1rem;
   letter-spacing: 0.02rem;
   @extend %transparent-clickable;
