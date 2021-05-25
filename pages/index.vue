@@ -23,13 +23,10 @@
         </p>
       </div>
       <div class="right hero-image">
-        <video
-          src="~/assets/images/search.mp4"
-          loading="lazy"
-          loop
-          muted
-          autoplay
-        />
+        <video loading="lazy" loop muted autoplay>
+          <source src="~/assets/images/search.webm" />
+          <source src="~/assets/images/search.mp4" />
+        </video>
       </div>
     </div>
     <div class="default-hero columns">
