@@ -1,7 +1,7 @@
 <template>
   <div class="checkbox-outer" :class="{ disabled }" @click="toggle">
     <button class="checkbox" :disabled="disabled" :class="{ border }">
-      <CheckIcon v-if="checked" />
+      <CheckIcon v-if="value" />
     </button>
     <p>{{ label }}</p>
   </div>
@@ -28,17 +28,13 @@ export default {
       type: Boolean,
       default: true,
     },
+    value: Boolean,
   },
-  data() {
-    return {
-      checked: false,
-    }
-  },
+  data() {},
   methods: {
     toggle() {
       if (!this.disabled) {
-        this.checked = !this.checked
-        this.$emit('input', this.checked)
+        this.$emit('input', !this.value)
       }
     },
   },
