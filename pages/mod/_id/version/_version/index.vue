@@ -60,7 +60,7 @@
           <a
             v-if="primaryFile"
             :href="primaryFile.url"
-            class="action iconified-button"
+            class="action iconified-button accent-button"
             @click.prevent="
               $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
             "
@@ -345,6 +345,15 @@ export default {
     }
   }
 
+  .accent-button {
+    background-color: var(--color-button-accent-bg);
+    color: var(--color-button-accent-text);
+    &:hover {
+      background-color: var(--color-button-accent-bg-hover);
+      color: var(--color-button-accent-text-hover);
+    }
+  }
+
   .markdown-body {
     margin: 1rem 0;
   }
@@ -418,8 +427,7 @@ export default {
 
     svg {
       padding: 0.25rem;
-      border-radius: 50%;
-      background-color: var(--color-button-bg);
+      background-color: transparent;
     }
   }
 }

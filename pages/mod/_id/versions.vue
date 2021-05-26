@@ -38,7 +38,7 @@
                 version.id
               "
             >
-              {{ version.name ? version.name : version.version_number }}
+              <b>{{ version.name ? version.name : version.version_number }}</b>
             </nuxt-link>
           </td>
           <td>
@@ -120,6 +120,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.download {
+  display: flex;
+  align-items: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 2rem;
+  background-color: var(--color-button-bg);
+  &:hover {
+    background-color: var(--color-button-bg-hover);
+  }
+  margin-right: var(--spacing-card-sm);
+  svg {
+    width: 90%;
+    margin: auto;
+  }
+  flex-shrink: 0;
+}
 table {
   border-collapse: collapse;
   margin-bottom: var(--spacing-card-md);

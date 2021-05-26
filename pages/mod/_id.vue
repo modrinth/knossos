@@ -142,116 +142,6 @@
         </div>
       </div>
       <section class="mod-info">
-        <div class="mod-stats section">
-          <div class="stat">
-            <DownloadIcon />
-            <div class="info">
-              <h4>Downloads</h4>
-              <p class="value">{{ formatNumber(mod.downloads) }}</p>
-            </div>
-          </div>
-          <div class="stat">
-            <CalendarIcon />
-            <div class="info">
-              <h4>Created</h4>
-              <p
-                v-tooltip="
-                  $dayjs(mod.published).format(
-                    '[Created on] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
-                class="value"
-              >
-                {{ $dayjs(mod.published).fromNow() }}
-              </p>
-            </div>
-          </div>
-          <div class="stat">
-            <TagIcon />
-            <div class="info">
-              <h4>Available For</h4>
-              <p class="value">
-                {{
-                  versions[0]
-                    ? versions[0].game_versions[0]
-                      ? versions[0].game_versions[
-                          versions[0].game_versions.length - 1
-                        ]
-                      : 'None'
-                    : 'None'
-                }}
-              </p>
-            </div>
-          </div>
-          <div class="stat">
-            <EditIcon />
-            <div class="info">
-              <h4>Updated</h4>
-              <p
-                v-tooltip="
-                  $dayjs(mod.updated).format(
-                    '[Updated on] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
-                class="value"
-              >
-                {{ $dayjs(mod.updated).fromNow() }}
-              </p>
-            </div>
-          </div>
-          <div class="stat">
-            <ClientIcon />
-            <div class="info">
-              <h4>Client Side</h4>
-              <p class="value capitalize">{{ mod.client_side }}</p>
-            </div>
-          </div>
-          <div class="stat">
-            <ServerIcon />
-            <div class="info">
-              <h4>Server Side</h4>
-              <p class="value capitalize">{{ mod.server_side }}</p>
-            </div>
-          </div>
-          <div class="stat">
-            <FileTextIcon />
-            <div class="info">
-              <h4>License</h4>
-              <p v-tooltip="mod.license.name" class="value ellipsis">
-                <a
-                  v-if="mod.license.url ? mod.license.url : '#'"
-                  :href="mod.license.url"
-                >
-                  {{ mod.license.id.toUpperCase() }}</a
-                >
-              </p>
-            </div>
-          </div>
-          <div class="stat">
-            <CodeIcon />
-            <div class="info">
-              <h4>Project ID</h4>
-              <p class="value">{{ mod.id }}</p>
-            </div>
-          </div>
-          <Categories :categories="mod.categories.concat(mod.loaders)" />
-        </div>
-        <div class="section">
-          <h3>Members</h3>
-          <div
-            v-for="member in members"
-            :key="member.user_id"
-            class="team-member columns"
-          >
-            <img :src="member.avatar_url" alt="profile-picture" />
-            <div class="member-info">
-              <nuxt-link :to="'/user/' + member.user_id">
-                <h4>{{ member.name }}</h4>
-              </nuxt-link>
-              <h3>{{ member.role }}</h3>
-            </div>
-          </div>
-        </div>
         <div v-if="featuredVersions.length > 0" class="section">
           <h3>Featured Versions</h3>
           <div
@@ -322,6 +212,119 @@
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="section">
+          <h3>Members</h3>
+          <div
+            v-for="member in members"
+            :key="member.user_id"
+            class="team-member columns"
+          >
+            <img :src="member.avatar_url" alt="profile-picture" />
+            <div class="member-info">
+              <nuxt-link :to="'/user/' + member.user_id">
+                <h4>{{ member.name }}</h4>
+              </nuxt-link>
+              <h3>{{ member.role }}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h3 class="stat-header">Info</h3>
+          <div class="mod-stats">
+            <div class="stat">
+              <DownloadIcon />
+              <div class="info">
+                <h4>Downloads</h4>
+                <p class="value">{{ formatNumber(mod.downloads) }}</p>
+              </div>
+            </div>
+            <div class="stat">
+              <CalendarIcon />
+              <div class="info">
+                <h4>Created</h4>
+                <p
+                  v-tooltip="
+                    $dayjs(mod.published).format(
+                      '[Created on] YYYY-MM-DD [at] HH:mm A'
+                    )
+                  "
+                  class="value"
+                >
+                  {{ $dayjs(mod.published).fromNow() }}
+                </p>
+              </div>
+            </div>
+            <div class="stat">
+              <TagIcon />
+              <div class="info">
+                <h4>Available For</h4>
+                <p class="value">
+                  {{
+                    versions[0]
+                      ? versions[0].game_versions[0]
+                        ? versions[0].game_versions[
+                            versions[0].game_versions.length - 1
+                          ]
+                        : 'None'
+                      : 'None'
+                  }}
+                </p>
+              </div>
+            </div>
+            <div class="stat">
+              <EditIcon />
+              <div class="info">
+                <h4>Updated</h4>
+                <p
+                  v-tooltip="
+                    $dayjs(mod.updated).format(
+                      '[Updated on] YYYY-MM-DD [at] HH:mm A'
+                    )
+                  "
+                  class="value"
+                >
+                  {{ $dayjs(mod.updated).fromNow() }}
+                </p>
+              </div>
+            </div>
+            <div class="stat">
+              <ClientIcon />
+              <div class="info">
+                <h4>Client Side</h4>
+                <p class="value capitalize">{{ mod.client_side }}</p>
+              </div>
+            </div>
+            <div class="stat">
+              <ServerIcon />
+              <div class="info">
+                <h4>Server Side</h4>
+                <p class="value capitalize">{{ mod.server_side }}</p>
+              </div>
+            </div>
+            <div class="stat">
+              <FileTextIcon />
+              <div class="info">
+                <h4>License</h4>
+                <p v-tooltip="mod.license.name" class="value ellipsis">
+                  <a
+                    v-if="mod.license.url ? mod.license.url : '#'"
+                    :href="mod.license.url"
+                  >
+                    {{ mod.license.id.toUpperCase() }}</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="stat">
+              <CodeIcon />
+              <div class="info">
+                <h4>Project ID</h4>
+                <p class="value">{{ mod.id }}</p>
+              </div>
+            </div>
+            <Categories :categories="mod.categories.concat(mod.loaders)" />
           </div>
         </div>
         <div
@@ -628,7 +631,9 @@ export default {
   h3 {
     @extend %large-label;
   }
-
+  .stat-header {
+    text-align: center;
+  }
   .mod-stats {
     display: flex;
     flex-wrap: wrap;
@@ -647,8 +652,7 @@ export default {
 
       svg {
         padding: 0.25rem;
-        border-radius: 50%;
-        background-color: var(--color-button-bg);
+        background-color: transparent;
       }
     }
   }
@@ -687,10 +691,15 @@ export default {
       height: 2.25rem;
       width: 2.25rem;
       border-radius: 2rem;
-      background-color: var(--color-button-bg);
+      background-color: var(--color-button-accent-bg);
+      color: var(--color-button-accent-text);
+      &:hover {
+        background-color: var(--color-button-accent-bg-hover);
+        color: var(--color-button-accent-text-hover);
+      }
       margin-right: var(--spacing-card-sm);
       svg {
-        width: 1.25rem;
+        width: 90%;
         margin: auto;
       }
       flex-shrink: 0;
