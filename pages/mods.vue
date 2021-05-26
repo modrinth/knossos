@@ -319,11 +319,8 @@ import axios from 'axios'
 import SearchResult from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
-<<<<<<< HEAD
 import LogoAnimated from '~/components/ui/search/LogoAnimated'
-=======
 import Checkbox from '~/components/ui/Checkbox'
->>>>>>> 52e018989d922d348728be5ba1ae268a9c1223a8
 
 import MFooter from '~/components/layout/MFooter'
 import TechCategory from '~/assets/images/categories/tech.svg?inline'
