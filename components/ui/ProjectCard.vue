@@ -41,7 +41,7 @@
                   >Draft</span
                 >
                 <span v-if="status === 'processing'" class="badge yellow">
-                  Processing/Under Review
+                  Under review
                 </span>
                 <span v-if="status === 'unlisted'" class="badge gray">
                   Unlisted
