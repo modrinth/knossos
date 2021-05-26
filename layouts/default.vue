@@ -214,6 +214,8 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
+      const event = new Event('darkMode')
+      window.dispatchEvent(event)
     },
   },
 }

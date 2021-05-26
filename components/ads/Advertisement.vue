@@ -109,6 +109,7 @@ export default {
     // Register hook on resize
     window.addEventListener('resize', this.handleWindowResize)
     this.isDark = this.$colorMode.value !== 'light'
+    window.addEventListener('darkMode', this.handleDarkModeChange)
     // Find ad
     if (!(this.type in sizes)) {
       console.error('Ad type not recognized.')
@@ -150,6 +151,14 @@ export default {
           this.format = sizes[this.smallScreen]
         }
       }, 300)
+    },
+    handleDarkModeChange() {
+      // I found issues in firefox with the store and isDark getting out of sync
+      // setTimeout seemed to fix it
+      window.setTimeout(() => {
+        this.isDark = this.$colorMode.value !== 'light'
+        this.refresh_ad()
+      }, 0)
     },
     refresh_ad() {
       if (this.ethical_ads_on) {
