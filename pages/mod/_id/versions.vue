@@ -38,7 +38,7 @@
                 version.id
               "
             >
-              <b>{{ version.name ? version.name : version.version_number }}</b>
+              {{ version.name ? version.name : version.version_number }}
             </nuxt-link>
           </td>
           <td>

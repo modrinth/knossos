@@ -35,7 +35,14 @@
     margin-right: 0.5rem;
   }
 }
-
+.accent-button {
+  background-color: var(--color-button-accent-bg);
+  color: var(--color-button-accent-text);
+  &:hover {
+    background-color: var(--color-button-accent-bg-hover);
+    color: var(--color-button-accent-text-hover);
+  }
+}
 .badge {
   max-height: 1rem;
   border-radius: 1rem;

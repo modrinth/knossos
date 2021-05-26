@@ -345,15 +345,6 @@ export default {
     }
   }
 
-  .accent-button {
-    background-color: var(--color-button-accent-bg);
-    color: var(--color-button-accent-text);
-    &:hover {
-      background-color: var(--color-button-accent-bg-hover);
-      color: var(--color-button-accent-text-hover);
-    }
-  }
-
   .markdown-body {
     margin: 1rem 0;
   }

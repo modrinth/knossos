@@ -151,7 +151,7 @@
           >
             <a
               :href="findPrimary(version).url"
-              class="download"
+              class="download accent-button"
               @click.prevent="
                 downloadFile(
                   findPrimary(version).hashes.sha1,
@@ -691,12 +691,6 @@ export default {
       height: 2.25rem;
       width: 2.25rem;
       border-radius: 2rem;
-      background-color: var(--color-button-accent-bg);
-      color: var(--color-button-accent-text);
-      &:hover {
-        background-color: var(--color-button-accent-bg-hover);
-        color: var(--color-button-accent-text-hover);
-      }
       margin-right: var(--spacing-card-sm);
       svg {
         width: 90%;
