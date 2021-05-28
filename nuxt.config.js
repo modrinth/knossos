@@ -197,6 +197,8 @@ function getDomain() {
       return `https://${process.env.VERCEL_URL}`
     } else if (process.env.HOST_URL) {
       return process.env.HOST_URL
+    } else {
+      return 'https://modrinth.com'
     }
   } else {
     return 'http://localhost:3000'
