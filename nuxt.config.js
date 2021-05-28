@@ -193,8 +193,7 @@ function getDomain() {
   if (process.env.NODE_ENV === 'production') {
     if (process.env.HOST_URL) {
       return process.env.HOST_URL
-    }
-    else if (process.env.HEROKU_APP_NAME) {
+    } else if (process.env.HEROKU_APP_NAME) {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`
