@@ -107,7 +107,7 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://this.$axios.nuxtjs.org/usage
+    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/dayjs',
     '@nuxtjs/axios',
     '@nuxtjs/robots',
@@ -131,7 +131,7 @@ export default {
   },
   /*
    ** Axios module configuration
-   ** See https://this.$axios.nuxtjs.org/options
+   ** See https://axios.nuxtjs.org/options
    */
   axios: {
     baseURL: 'https://api.modrinth.com/api/v1/',
