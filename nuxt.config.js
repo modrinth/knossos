@@ -195,8 +195,8 @@ function getDomain() {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`
-    } else {
-      return 'https://modrinth.com'
+    } else if (process.env.HOST_URL) {
+      return process.env.HOST_URL
     }
   } else {
     return 'http://localhost:3000'
