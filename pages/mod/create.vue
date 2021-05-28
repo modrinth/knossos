@@ -515,7 +515,7 @@ export default {
     ForgeIcon,
     FabricIcon,
   },
-  async asyncData() {
+  async asyncData(data) {
     const [
       availableCategories,
       availableLoaders,
@@ -524,11 +524,11 @@ export default {
       availableDonationPlatforms,
     ] = (
       await Promise.all([
-        this.$axios.get(`tag/category`),
-        this.$axios.get(`tag/loader`),
-        this.$axios.get(`tag/game_version`),
-        this.$axios.get(`tag/license`),
-        this.$axios.get(`tag/donation_platform`),
+        data.$axios.get(`tag/category`),
+        data.$axios.get(`tag/loader`),
+        data.$axios.get(`tag/game_version`),
+        data.$axios.get(`tag/license`),
+        data.$axios.get(`tag/donation_platform`),
       ])
     ).map((it) => it.data)
 
