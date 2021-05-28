@@ -403,7 +403,7 @@ export default {
 
       const [members, versions, featuredVersions, userFollows] = (
         await Promise.all([
-          data.$axios.get(`team/${mod.team}/members`),
+          data.$axios.get(`team/${mod.team}/members`, data.$auth.headers),
           data.$axios.get(`mod/${mod.id}/version`),
           data.$axios.get(`mod/${mod.id}/version?featured=true`),
           data.$axios.get(
