@@ -11,7 +11,7 @@
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 
 export default {
-  name: 'SearchCheckbox',
+  name: 'Checkbox',
   components: {
     CheckIcon,
   },
@@ -30,7 +30,6 @@ export default {
     },
     value: Boolean,
   },
-  data() {},
   methods: {
     toggle() {
       if (!this.disabled) {
@@ -41,14 +40,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .checkbox-outer {
   display: flex;
   align-items: center;
   cursor: pointer;
 
   &.disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
 
     button {
@@ -61,11 +60,11 @@ export default {
       }
     }
   }
-}
 
-p {
-  padding: 0.2rem 0rem;
-  margin: 0 0 0 0.5rem;
+  p {
+    padding: 0.2rem 0rem;
+    margin: 0 0 0 0.5rem;
+  }
 }
 
 .checkbox {
