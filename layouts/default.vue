@@ -4,16 +4,18 @@
       <section class="navbar columns">
         <section class="logo column">
           <NuxtLink to="/">
+            <ModrinthLogoSmall aria-label="modrinth" class="small-logo" />
             <ModrinthLogo
               v-if="$colorMode.value === 'light'"
               aria-label="modrinth"
+              class="text-logo"
             />
-            <ModrinthLogoWhite v-else aria-label="modrinth" />
+            <ModrinthLogoWhite v-else aria-label="modrinth" class="text-logo" />
           </NuxtLink>
           <span class="badge yellow">Beta</span>
         </section>
         <section class="menu-icon">
-          <button @click="changeTheme">
+          <button class="theme-toggle" @click="changeTheme">
             <MoonIcon v-if="$colorMode.value === 'light'" />
             <SunIcon v-else />
           </button>
@@ -24,11 +26,23 @@
         <section ref="nav" class="right-group columns">
           <section class="column-grow-5 nav">
             <div class="tabs">
-              <NuxtLink to="/mods" class="tab">
+              <NuxtLink
+                to="/mods"
+                class="tab"
+                :class="{
+                  'active-path': this.$route.path.startsWith('/mod'),
+                }"
+              >
                 <span>Mods</span>
               </NuxtLink>
               <div v-if="this.$auth.user" class="section">
-                <NuxtLink to="/dashboard/projects" class="tab">
+                <NuxtLink
+                  to="/dashboard/projects"
+                  class="tab"
+                  :class="{
+                    'active-path': this.$route.path.startsWith('/dashboard'),
+                  }"
+                >
                   <span>Dashboard</span>
                 </NuxtLink>
               </div>
@@ -45,7 +59,10 @@
                   <button class="control" @click="toggleDropdown">
                     <div class="avatar">
                       <span>{{ this.$auth.user.username }}</span>
-                      <img :src="this.$auth.user.avatar_url" class="icon" />
+                      <AvatarIcon
+                        :notif-count="this.$user.notifications.count"
+                        :dropdown-bg="isDropdownOpen"
+                      />
                     </div>
                     <DropdownIcon class="dropdown-icon" />
                   </button>
@@ -61,6 +78,12 @@
                         <NuxtLink to="/dashboard/notifications">
                           <NotificationIcon />
                           <span>Notifications</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink to="/dashboard/settings">
+                          <SettingsIcon />
+                          <span>Settings</span>
                         </NuxtLink>
                       </li>
                       <!--<li v-tooltip="'Not implemented yet'" class="hidden">
@@ -108,7 +131,12 @@
     </header>
     <main>
       <CookieConsent />
-      <notifications group="main" position="bottom right" />
+      <notifications
+        group="main"
+        position="bottom right"
+        :max="5"
+        :ignore-duplicates="true"
+      />
       <!--<notifications
         group="ads"
         position="bottom right"
@@ -125,10 +153,12 @@ import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
+import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
+import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
@@ -140,10 +170,13 @@ import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
 import CookieConsent from '~/components/ads/CookieConsent'
 
+import AvatarIcon from '~/components/ui/AvatarIcon'
+
 export default {
   components: {
     ModrinthLogo,
     ModrinthLogoWhite,
+    ModrinthLogoSmall,
     DropdownIcon,
     MoonIcon,
     SunIcon,
@@ -153,6 +186,8 @@ export default {
     NotificationIcon,
     HamburgerIcon,
     CookieConsent,
+    AvatarIcon,
+    SettingsIcon,
   },
   directives: {
     ClickOutside,
@@ -164,7 +199,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `https://api.modrinth.com/api/v1/auth/init?url=https://modrinth.com${this.$route.fullPath}`
+      return `https://api.modrinth.com/api/v1/auth/init?url=${process.env.domain}${this.$route.fullPath}`
     },
     userUrl() {
       return `/user/${this.$auth.user.id}`
@@ -177,7 +212,16 @@ export default {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
+      this.$store.dispatch('user/fetchNotifications')
     },
+  },
+  created() {
+    this.$store.dispatch('user/fetchNotifications', { force: true })
+  },
+  beforeCreate() {
+    if (this.$route.query.code) {
+      this.$router.push(this.$route.path)
+    }
   },
   methods: {
     toggleNavBar() {
@@ -198,18 +242,19 @@ export default {
     },
     async logout() {
       this.$cookies.set('auth-token-reset', true)
-      // If users logs out on dashboard, redirect on the home page
+      // If users logs out on dashboard, force redirect on the home page to clear cookies
       if (this.$route.path.startsWith('/dashboard')) {
-        await this.$router.push('/')
+        window.location.href = '/'
       } else {
         await this.$router.go(null)
+
+        this.$notify({
+          group: 'main',
+          title: 'Logged Out',
+          text: 'You have logged out successfully!',
+          type: 'success',
+        })
       }
-      this.$notify({
-        group: 'main',
-        title: 'Logged Out',
-        text: 'You have logged out successfully!',
-        type: 'success',
-      })
     },
     changeTheme() {
       this.$colorMode.preference =
@@ -229,7 +274,10 @@ export default {
     background-color: var(--color-raised-bg);
     max-width: 100vw;
     .navbar {
-      margin: 0 var(--spacing-card-lg);
+      margin: 0 0.5rem;
+      @media screen and (min-width: 450px) {
+        margin: 0 var(--spacing-card-lg);
+      }
       section.logo {
         align-items: center;
         display: flex;
@@ -237,12 +285,28 @@ export default {
         padding: 1rem 0;
         margin-left: 1rem;
         color: var(--color-text-dark);
+        .small-logo {
+          display: block;
+        }
         svg {
+          display: none;
           height: 1.75rem;
           width: auto;
         }
+        @media screen and (min-width: 350px) {
+          .small-logo {
+            display: none;
+          }
+          svg {
+            display: unset;
+          }
+        }
         .badge {
           margin-left: 0.25rem;
+          display: none;
+          @media screen and (min-width: 430px) {
+            display: unset;
+          }
         }
         button {
           background: none;
@@ -351,13 +415,6 @@ export default {
                 align-items: center;
                 display: flex;
                 flex-grow: 1;
-                .icon {
-                  border-radius: 50%;
-                  height: 2rem;
-                  width: 2rem;
-                  margin-left: 0.5rem;
-                  margin-right: 0.25rem;
-                }
                 span {
                   display: block;
                   overflow: hidden;
