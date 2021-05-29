@@ -56,12 +56,12 @@ export default {
   },
   async asyncData(data) {
     let res = await data.$axios.get(
-      `user/${data.$auth.user.id}/mods`,
+      `user/${data.$auth.user.id}/projects`,
       data.$auth.headers
     )
 
     res = await data.$axios.get(
-      `mods?ids=${JSON.stringify(res.data)}`,
+      `projects?ids=${JSON.stringify(res.data)}`,
       data.$auth.headers
     )
 
