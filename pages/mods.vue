@@ -612,7 +612,7 @@ export default {
         const pageAmount = Math.ceil(res.data.total_hits / res.data.limit)
 
         this.currentPage = newPageNumber
-        if (pageAmount > 4) {
+        if (pageAmount > 7) {
           if (this.currentPage + 3 >= pageAmount) {
             this.pages = [
               1,
