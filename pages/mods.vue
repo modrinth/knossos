@@ -91,7 +91,7 @@
               :page-url="result.page_url"
               :categories="result.categories"
               :is-ad="index === -1"
-              :is-modrinth="result.host === 'modrinth'"
+              :is-modrinth="true"
             />
             <div v-if="results.length === 0" class="no-results">
               <p>No results found for your query!</p>
@@ -598,7 +598,7 @@ export default {
           params.push(`offset=${offset}`)
         }
 
-        let url = 'mod'
+        let url = 'search'
 
         if (params.length > 0) {
           for (let i = 0; i < params.length; i++) {

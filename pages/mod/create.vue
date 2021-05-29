@@ -531,11 +531,12 @@ export default {
         data.$axios.get(`tag/donation_platform`),
       ])
     ).map((it) => it.data)
-
     return {
-      availableCategories,
+      availableCategories: availableCategories
+        .filter((it) => it.project_type === 'mod')
+        .map((it) => it.name),
       availableLoaders,
-      availableGameVersions,
+      availableGameVersions: availableGameVersions.map((it) => it.version),
       availableLicenses,
       availableDonationPlatforms,
     }
@@ -546,7 +547,6 @@ export default {
       compiledBody: '',
       releaseChannels: ['beta', 'alpha', 'release'],
       currentVersionIndex: -1,
-
       name: '',
       slug: '',
       draft: false,
@@ -606,6 +606,7 @@ export default {
         'data',
         JSON.stringify({
           mod_name: this.name,
+          project_type: 'mod',
           mod_slug: this.slug,
           mod_namespace: this.namespace,
           mod_description: this.description,
@@ -654,7 +655,7 @@ export default {
 
       try {
         await this.$axios({
-          url: 'mod',
+          url: 'project',
           method: 'POST',
           data: formData,
           headers: {

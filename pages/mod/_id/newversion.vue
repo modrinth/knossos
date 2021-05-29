@@ -146,7 +146,7 @@ export default {
 
       return {
         selectableLoaders,
-        selectableVersions,
+        selectableVersions: selectableVersions.map((it) => it.version),
       }
     } catch {
       data.error({

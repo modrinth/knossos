@@ -96,8 +96,9 @@ export default {
     Security,
   },
   async asyncData(data) {
-    const mods = (await data.$axios.get(`moderation/mods`, data.$auth.headers))
-      .data
+    const mods = (
+      await data.$axios.get(`moderation/projects`, data.$auth.headers)
+    ).data
 
     const reports = (await data.$axios.get(`report`, data.$auth.headers)).data
 
@@ -109,7 +110,7 @@ export default {
   methods: {
     async changeModStatus(id, status, index) {
       await this.$axios.patch(
-        `mod/${id}`,
+        `project/${id}`,
         {
           status,
         },

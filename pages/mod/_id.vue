@@ -398,14 +398,14 @@ export default {
   async asyncData(data) {
     try {
       const mod = (
-        await data.$axios.get(`mod/${data.params.id}`, data.$auth.headers)
+        await data.$axios.get(`project/${data.params.id}`, data.$auth.headers)
       ).data
 
       const [members, versions, featuredVersions, userFollows] = (
         await Promise.all([
           data.$axios.get(`team/${mod.team}/members`, data.$auth.headers),
-          data.$axios.get(`mod/${mod.id}/version`),
-          data.$axios.get(`mod/${mod.id}/version?featured=true`),
+          data.$axios.get(`project/${mod.id}/version`),
+          data.$axios.get(`project/${mod.id}/version?featured=true`),
           data.$axios.get(
             data.$auth.user
               ? `user/${data.$auth.user.id}/follows`
@@ -559,7 +559,7 @@ export default {
 
   @extend %card-spaced-b;
   .icon {
-    margin: unset 0;
+    margin: unset;
     height: 6.08rem;
     @media screen and (min-width: 1024px) {
       align-self: flex-start;
