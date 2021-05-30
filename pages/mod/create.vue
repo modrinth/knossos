@@ -360,7 +360,7 @@
             <h3>Changelog</h3>
             <span>
               Tell players and modpack makers what's new. It supports the same
-              Markdown as the description, but it is advised not to be too
+              Markdown as the description, but it is recommended not to be too
               creative with the changelogs.
             </span>
             <div class="textarea-wrapper">
