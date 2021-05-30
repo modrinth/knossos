@@ -85,7 +85,7 @@
       <h3>Revoke your token</h3>
       <label>
         <span
-          >Beware, this will log you out of Modrinth, and you will have to login
+          >Beware: this will log you out of Modrinth, and you will have to login
           again to access Modrinth with a new token.</span
         >
         <input
@@ -98,10 +98,10 @@
       <h3>Delete your account</h3>
       <label>
         <span
-          >Clicking on this WILL delete your user. Do not click on this unless
-          you want your user deleted. If you delete your user, all attached data
-          will be removed from our servers. This cannot be reversed, so be
-          careful!</span
+          >Clicking on this WILL delete your account. Do not click on this
+          unless you want your account deleted. If you delete your account, all
+          attached data will be removed from our servers. This cannot be
+          reversed, so be careful!</span
         >
         <input
           value="Delete Account"
@@ -178,7 +178,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -197,7 +197,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })
