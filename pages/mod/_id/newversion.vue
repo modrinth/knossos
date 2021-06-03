@@ -158,10 +158,30 @@ export default {
   data() {
     return {
       createdVersion: {},
+      isEditing: true,
     }
   },
   created() {
     this.$emit('update:link-bar', [['New Version', 'newversion']])
+  },
+  mounted() {
+    function preventLeave(e) {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', preventLeave)
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('beforeunload', preventLeave)
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    if (
+      this.isEditing &&
+      !window.confirm('Are you sure that you want to leave without saving?')
+    ) {
+      return
+    }
+    next()
   },
   methods: {
     async createVersion() {
@@ -196,6 +216,8 @@ export default {
             },
           })
         ).data
+
+        this.isEditing = false
         await this.$router.push(
           `/mod/${this.mod.slug ? this.mod.slug : data.mod_id}/version/${
             data.id
