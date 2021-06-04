@@ -589,11 +589,6 @@ export default {
     },
   },
   mounted() {
-    this.$emit('update:link-bar', [
-      ['Versions', 'versions'],
-      [this.version.name, 'versions/' + this.version.id],
-      ['Edit Version', 'versions/' + this.version.id + '/edit'],
-    ])
     function preventLeave(e) {
       e.preventDefault()
       e.returnValue = ''
