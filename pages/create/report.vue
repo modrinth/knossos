@@ -28,7 +28,7 @@
           <multiselect
             id="item-type"
             v-model="itemType"
-            :options="['mod', 'version', 'user']"
+            :options="['project', 'version', 'user']"
             :multiple="false"
             :searchable="false"
             :show-no-results="false"

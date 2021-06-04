@@ -376,6 +376,20 @@ export default {
     ExitIcon,
     LogoAnimated,
   },
+  props: {
+    projectType: {
+      type: String,
+      required: true,
+    },
+    path: {
+      type: String,
+      required: true,
+    },
+    filters: {
+      type: Object,
+      required: true,
+    },
+  },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
     if (this.$route.query.f) {
@@ -641,7 +655,7 @@ export default {
         }
 
         if (process.client) {
-          url = `mods?q=${encodeURIComponent(this.query)}`
+          url = `${this.path}?q=${encodeURIComponent(this.query)}`
 
           if (offset > 0) url += `&o=${offset}`
           if (this.facets.length > 0)

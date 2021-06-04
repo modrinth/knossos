@@ -20,7 +20,7 @@
           <div class="buttons">
             <nuxt-link
               v-if="this.$auth.user && this.$auth.user.id != user.id"
-              :to="`/report/create?id=${user.id}&t=user`"
+              :to="`/create/report?id=${user.id}&t=user`"
               class="iconified-button"
             >
               <ReportIcon />
@@ -66,9 +66,9 @@
       </div>
       <div class="content">
         <Advertisement type="banner" small-screen="destroy" />
-        <div class="mods">
+        <div class="projects">
           <SearchResult
-            v-for="result in mods"
+            v-for="result in projects"
             :id="result.slug || result.id"
             :key="result.id"
             :name="result.title"
@@ -109,18 +109,14 @@ export default {
   },
   async asyncData(data) {
     try {
-      let res = await data.$axios.get(`user/${data.params.id}`)
-      const user = res.data
+      const userRes = await data.$axios.get(`user/${data.params.id}`)
+      const user = userRes.data
 
-      let mods = []
-      res = await data.$axios.get(`user/${user.id}/mods`)
-      if (res.data) {
-        res = await data.$axios.get(`mods?ids=${JSON.stringify(res.data)}`)
-        mods = res.data
-      }
+      const projectsRes = await data.$axios.get(`user/${user.id}/projects`)
+      const projects = projectsRes.data
 
       return {
-        mods,
+        projects,
         user,
       }
     } catch {
@@ -137,8 +133,8 @@ export default {
     sumDownloads() {
       let sum = 0
 
-      for (const mod of this.mods) {
-        sum += mod.downloads
+      for (const project of this.projects) {
+        sum += project.downloads
       }
 
       return this.formatNumber(sum)

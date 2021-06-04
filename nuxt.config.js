@@ -72,6 +72,10 @@ export default {
   },
   router: {
     middleware: ['auth', 'analytics'],
+    async extendRoutes(routes, resolve) {
+      const newRoutes = await generateProjectRoutes(resolve)
+      newRoutes.forEach((newRoute) => routes.push(newRoute))
+    },
   },
   /*
    ** Global CSS
@@ -127,14 +131,14 @@ export default {
     Sitemap: 'https://modrinth.com/sitemap.xml',
   },
   sitemap: {
-    exclude: ['/dashboard/**', '/dashboard', '/mod/create'],
+    exclude: ['/dashboard/**', '/dashboard', '/create/**'],
   },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://api.modrinth.com/api/v1/',
+    baseURL: 'https://staging-api.modrinth.com/v2/',
     headers: {
       common: {
         Accept: 'application/json',
@@ -206,4 +210,75 @@ function getDomain() {
   } else {
     return 'http://localhost:3000'
   }
+}
+
+async function generateProjectRoutes(resolve) {
+  const generatedRoutes = []
+
+  const routeData = await import('./static/projectRoutes.json')
+  routeData.forEach((projectType) => {
+    // Create search routes
+    generatedRoutes.push({
+      name: projectType.search.name,
+      path: '/' + projectType.search.path,
+      component: resolve(__dirname, 'components/pages/search.vue'),
+      props: {
+        projectType: projectType.search.type,
+        path: projectType.search.path,
+        filters: projectType.search.filters,
+      },
+    })
+    // Create project routes
+    generatedRoutes.push({
+      path: '/' + projectType.project.path + '/:id',
+      component: resolve(__dirname, 'components/pages/project.vue'),
+      children: [
+        {
+          path: 'edit',
+          component: resolve(__dirname, 'components/pages/project/edit.vue'),
+        },
+        {
+          path: 'newversion',
+          component: resolve(
+            __dirname,
+            'components/pages/project/newversion.vue'
+          ),
+        },
+        {
+          path: 'settings',
+          component: resolve(
+            __dirname,
+            'components/pages/project/settings.vue'
+          ),
+        },
+        {
+          path: 'version/:version',
+          component: resolve(
+            __dirname,
+            'components/pages/project/version/_version/index.vue'
+          ),
+        },
+        {
+          path: 'version/:version/edit',
+          component: resolve(
+            __dirname,
+            'components/pages/project/version/_version/edit.vue'
+          ),
+        },
+        {
+          path: 'versions',
+          component: resolve(
+            __dirname,
+            'components/pages/project/versions.vue'
+          ),
+        },
+        {
+          path: '',
+          component: resolve(__dirname, 'components/pages/project/index.vue'),
+        },
+      ],
+    })
+  })
+
+  return generatedRoutes
 }

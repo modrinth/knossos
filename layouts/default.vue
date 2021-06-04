@@ -27,13 +27,15 @@
           <section class="column-grow-5 nav">
             <div class="tabs">
               <NuxtLink
-                to="/mods"
+                v-for="project in projectPages"
+                :key="project.path.search"
+                :to="`/${project.path.search}`"
                 class="tab"
                 :class="{
-                  'active-path': this.$route.path.startsWith('/mod'),
+                  'active-path': isCurrentProject(project.path),
                 }"
               >
-                <span>Mods</span>
+                <span>{{ project.name }}</span>
               </NuxtLink>
               <div v-if="this.$auth.user" class="section">
                 <NuxtLink
@@ -192,9 +194,23 @@ export default {
   directives: {
     ClickOutside,
   },
+  async fetch() {
+    const routeData = await import('../static/projectRoutes.json')
+
+    routeData.default.forEach((projectType) => {
+      this.projectPages.push({
+        name: projectType.search.name,
+        path: {
+          search: projectType.search.path,
+          project: projectType.project.path,
+        },
+      })
+    })
+  },
   data() {
     return {
       isDropdownOpen: false,
+      projectPages: [],
     }
   },
   computed: {
@@ -259,6 +275,12 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
+    },
+    isCurrentProject(path) {
+      return (
+        this.$route.path === `/${path.search}` ||
+        this.$route.path.startsWith(`/${path.project}/`)
+      )
     },
   },
 }

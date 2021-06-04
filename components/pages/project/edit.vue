@@ -1,19 +1,16 @@
 <template>
   <div class="page-contents">
     <header class="columns">
-      <h3 class="column-grow-1">Edit Mod</h3>
-      <nuxt-link
-        :to="'/mod/' + (mod.slug ? mod.slug : mod.id)"
-        class="button column"
-      >
+      <h3 class="column-grow-1">Edit Project</h3>
+      <nuxt-button class="button column" @click="this.$router.replace('./')">
         Back
-      </nuxt-link>
+      </nuxt-button>
       <button
-        v-if="mod.status === 'rejected' || mod.status === 'draft'"
+        v-if="project.status === 'rejected' || project.status === 'draft'"
         title="Submit for Review"
         class="button column"
         :disabled="!this.$nuxt.$loading"
-        @click="saveModReview"
+        @click="saveProjectReview"
       >
         Submit for Review
       </button>
@@ -21,7 +18,7 @@
         title="Save"
         class="brand-button column"
         :disabled="!this.$nuxt.$loading"
-        @click="saveMod"
+        @click="saveProject"
       >
         Save
       </button>
@@ -32,15 +29,19 @@
         <span>
           Be creative. TechCraft v7 won't be searchable and won't be clicked on
         </span>
-        <input v-model="mod.title" type="text" placeholder="Enter the name" />
+        <input
+          v-model="project.title"
+          type="text"
+          placeholder="Enter the name"
+        />
       </label>
       <h3>Summary</h3>
       <label>
         <span>
-          Give a quick description to your mod. It will appear in the search
+          Give a quick description to your project. It will appear in the search
         </span>
         <input
-          v-model="mod.description"
+          v-model="project.description"
           type="text"
           placeholder="Enter the summary"
         />
@@ -48,11 +49,11 @@
       <h3>Categories</h3>
       <label>
         <span>
-          Select up to 3 categories. They will help to find your mod
+          Select up to 3 categories. They will help to find your project
         </span>
         <multiselect
           id="categories"
-          v-model="mod.categories"
+          v-model="project.categories"
           :options="availableCategories"
           :loading="availableCategories.length === 0"
           :multiple="true"
@@ -70,17 +71,18 @@
       <h3>Vanity URL (slug)</h3>
       <label>
         <span>
-          Set this to something pretty, so URLs to your mod are more readable
+          Set this to something pretty, so URLs to your project are more
+          readable
         </span>
         <input
           id="name"
-          v-model="mod.slug"
+          v-model="project.slug"
           type="text"
           placeholder="Enter the vanity URL's last bit"
         />
       </label>
     </section>
-    <section class="mod-icon rows">
+    <section class="project-icon rows">
       <h3>Icon</h3>
       <div class="columns row-grow-1">
         <div class="column-grow-1 rows">
@@ -110,8 +112,8 @@
           :src="
             previewImage
               ? previewImage
-              : mod.icon_url && !iconChanged
-              ? mod.icon_url
+              : project.icon_url && !iconChanged
+              ? project.icon_url
               : 'https://cdn.modrinth.com/placeholder.svg'
           "
           alt="preview-image"
@@ -122,8 +124,8 @@
       <h3>Supported environments</h3>
       <div class="columns">
         <span>
-          Let others know if your mod is for clients, servers or universal. For
-          example, IC2 will be required + required, while OptiFine will be
+          Let others know if your project is for clients, servers or universal.
+          For example, IC2 will be required + required, while OptiFine will be
           required + no functionality
         </span>
         <div class="labeled-control">
@@ -141,7 +143,7 @@
         <div class="labeled-control">
           <h3>Server</h3>
           <Multiselect
-            v-model="serverSideType"
+            v-projectel="serverSideType"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
@@ -173,9 +175,9 @@
       </span>
       <div class="columns">
         <div class="textarea-wrapper">
-          <textarea id="body" v-model="mod.body"></textarea>
+          <textarea id="body" v-model="project.body"></textarea>
         </div>
-        <div v-compiled-markdown="mod.body" class="markdown-body"></div>
+        <div v-compiled-markdown="project.body" class="markdown-body"></div>
       </div>
     </section>
     <section class="extra-links">
@@ -183,11 +185,11 @@
         <h3>External links</h3>
       </div>
       <label
-        title="A place for users to report bugs, issues, and concerns about your mod."
+        title="A place for users to report bugs, issues, and concerns about your project."
       >
         <span>Issue tracker</span>
         <input
-          v-model="mod.issues_url"
+          v-model="project.issues_url"
           type="url"
           placeholder="Enter a valid URL"
         />
@@ -195,17 +197,17 @@
       <label title="A page/repository containing the source code">
         <span>Source code</span>
         <input
-          v-model="mod.source_url"
+          v-model="project.source_url"
           type="url"
           placeholder="Enter a valid URL"
         />
       </label>
       <label
-        title="A page containing information, documentation, and help for the mod."
+        title="A page containing information, documentation, and help for the project."
       >
         <span>Wiki page</span>
         <input
-          v-model="mod.wiki_url"
+          v-model="project.wiki_url"
           type="url"
           placeholder="Enter a valid URL"
         />
@@ -213,7 +215,7 @@
       <label title="An inivitation link to your Discord server.">
         <span>Discord invite</span>
         <input
-          v-model="mod.discord_url"
+          v-model="project.discord_url"
           type="url"
           placeholder="Enter a valid URL"
         />
@@ -225,9 +227,9 @@
       </div>
       <label>
         <span>
-          It is really important to choose a proper license for your mod. You
-          may choose one from our list or provide a URL to your own license. URL
-          field will be filled automatically for provided licenses
+          It is really important to choose a proper license for your project.
+          You may choose one from our list or provide a URL to your own license.
+          URL field will be filled automatically for provided licenses
         </span>
         <div class="input-group">
           <Multiselect
@@ -309,7 +311,7 @@ export default {
   async asyncData(data) {
     try {
       const [
-        mod,
+        project,
         availableCategories,
         availableLoaders,
         availableGameVersions,
@@ -317,7 +319,7 @@ export default {
         availableDonationPlatforms,
       ] = (
         await Promise.all([
-          data.$axios.get(`mod/${data.params.id}`, data.$auth.headers),
+          data.$axios.get(`project/${data.params.id}`, data.$auth.headers),
           data.$axios.get(`tag/category`),
           data.$axios.get(`tag/loader`),
           data.$axios.get(`tag/game_version`),
@@ -326,21 +328,21 @@ export default {
         ])
       ).map((it) => it.data)
 
-      mod.license = {
-        short: mod.license.id,
-        name: mod.license.name,
-        url: mod.license.url,
+      project.license = {
+        short: project.license.id,
+        name: project.license.name,
+        url: project.license.url,
       }
 
-      if (mod.body_url && !mod.body) {
-        mod.body = (await data.$axios.get(mod.body_url)).data
+      if (project.body_url && !project.body) {
+        project.body = (await data.$axios.get(project.body_url)).data
       }
 
       const donationPlatforms = []
       const donationLinks = []
 
-      if (mod.donation_urls) {
-        for (const platform of mod.donation_urls) {
+      if (project.donation_urls) {
+        for (const platform of project.donation_urls) {
           donationPlatforms.push({
             short: platform.id,
             name: platform.platform,
@@ -350,18 +352,20 @@ export default {
       }
 
       return {
-        mod,
-        clientSideType: mod.client_side.charAt(0) + mod.client_side.slice(1),
-        serverSideType: mod.server_side.charAt(0) + mod.server_side.slice(1),
+        project,
+        clientSideType:
+          project.client_side.charAt(0) + project.client_side.slice(1),
+        serverSideType:
+          project.server_side.charAt(0) + project.server_side.slice(1),
         availableCategories,
         availableLoaders,
         availableGameVersions,
         availableLicenses,
         license: {
-          short: mod.license.id,
-          name: mod.license.name,
+          short: project.license.id,
+          name: project.license.name,
         },
-        license_url: mod.license.url,
+        license_url: project.license.url,
         availableDonationPlatforms,
         donationPlatforms,
         donationLinks,
@@ -369,7 +373,7 @@ export default {
     } catch {
       data.error({
         statusCode: 404,
-        message: 'Mod not found',
+        message: 'Project not found',
       })
     }
   },
@@ -405,28 +409,28 @@ export default {
     this.$emit('update:link-bar', [['Edit', 'edit']])
   },
   methods: {
-    async saveModReview() {
+    async saveProjectReview() {
       this.isProcessing = true
-      await this.saveMod()
+      await this.saveProject()
     },
-    async saveMod() {
+    async saveProject() {
       this.$nuxt.$loading.start()
 
       try {
         const data = {
-          title: this.mod.title,
-          description: this.mod.description,
-          body: this.mod.body,
-          categories: this.mod.categories,
-          issues_url: this.mod.issues_url,
-          source_url: this.mod.source_url,
-          wiki_url: this.mod.wiki_url,
+          title: this.project.title,
+          description: this.project.description,
+          body: this.project.body,
+          categories: this.project.categories,
+          issues_url: this.project.issues_url,
+          source_url: this.project.source_url,
+          wiki_url: this.project.wiki_url,
           license_url: this.license_url,
-          discord_url: this.mod.discord_url,
+          discord_url: this.project.discord_url,
           license_id: this.license.short,
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
-          slug: this.mod.slug,
+          slug: this.project.slug,
           license: this.license.short,
           donation_urls: this.donationPlatforms.map((it, index) => {
             return {
@@ -441,11 +445,15 @@ export default {
           data.status = 'processing'
         }
 
-        await this.$axios.patch(`mod/${this.mod.id}`, data, this.$auth.headers)
+        await this.$axios.patch(
+          `project/${this.project.id}`,
+          data,
+          this.$auth.headers
+        )
 
         if (this.iconChanged) {
           await this.$axios.patch(
-            `mod/${this.mod.id}/icon?ext=${
+            `project/${this.project.id}/icon?ext=${
               this.icon.type.split('/')[this.icon.type.split('/').length - 1]
             }`,
             this.icon,
@@ -454,7 +462,7 @@ export default {
         }
 
         await this.$router.replace(
-          `/mod/${this.mod.slug ? this.mod.slug : this.mod.id}`
+          `/project/${this.project.slug ? this.project.slug : this.project.id}`
         )
       } catch (err) {
         this.$notify({
@@ -534,17 +542,17 @@ label {
 .page-contents {
   display: grid;
   grid-template:
-    'header       header      header' auto
-    'advert       advert      advert' auto
-    'essentials   essentials  essentials' auto
-    'mod-icon     mod-icon    mod-icon' auto
-    'game-sides   game-sides  game-sides' auto
-    'description  description description' auto
-    'versions     versions    versions' auto
-    'extra-links  extra-links extra-links' auto
-    'license      license     license' auto
-    'donations    donations   donations' auto
-    'footer       footer      footer' auto
+    'header       header       header' auto
+    'advert       advert       advert' auto
+    'essentials   essentials   essentials' auto
+    'project-icon project-icon project-icon' auto
+    'game-sides   game-sides   game-sides' auto
+    'description  description  description' auto
+    'versions     versions     versions' auto
+    'extra-links  extra-links  extra-links' auto
+    'license      license      license' auto
+    'donations    donations    donations' auto
+    'footer       footer       footer' auto
     / 4fr 1fr 4fr;
   column-gap: var(--spacing-card-md);
   row-gap: var(--spacing-card-md);
@@ -581,8 +589,8 @@ section.essentials {
   grid-area: essentials;
 }
 
-section.mod-icon {
-  grid-area: mod-icon;
+section.project-icon {
+  grid-area: project-icon;
 
   img {
     align-self: flex-start;

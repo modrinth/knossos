@@ -35,7 +35,7 @@
         <div class="buttons">
           <nuxt-link
             v-if="this.$auth.user"
-            :to="`/report/create?id=${version.id}&t=version`"
+            :to="`/create/report?id=${version.id}&t=version`"
             class="action iconified-button"
           >
             <ReportIcon />
