@@ -47,15 +47,14 @@
             Your project type will affect which search pages it appears on and
             its URL
           </span>
-          <multiselect
-            id="project_type"
+          <Multiselect
             v-model="project_type"
+            placeholder="Select project type"
             :options="availableProjectTypes"
-            :loading="availableProjectTypes.length === 0"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
-            placeholder="Select project type"
+            :allow-empty="false"
           />
         </label>
         <h3>Categories</h3>
@@ -555,9 +554,7 @@ export default {
       ])
     ).map((it) => it.data)
     return {
-      availableProjectTypes: availableProjectTypes.default.map(
-        (it) => it.search.type
-      ),
+      availableProjectTypes: availableProjectTypes.default.map((it) => it.type),
       availableCategories: availableCategories
         .filter((it) => it.project_type === 'mod')
         .map((it) => it.name),
@@ -575,7 +572,7 @@ export default {
       currentVersionIndex: -1,
       name: '',
       slug: '',
-      project_type: 'mod',
+      project_type: '',
       draft: false,
       description: '',
       body: '',

@@ -20,7 +20,9 @@
             </p>
             <div class="alt-nav">
               <p>
-                <nuxt-link to="/mods"> Mods </nuxt-link>
+                <nuxt-link :to="`/${projectRoutes.searchPath}`">
+                  {{ projectRoutes.searchName }}
+                </nuxt-link>
                 >
                 <nuxt-link
                   :to="'/mod/' + (project.slug ? project.slug : project.id)"
@@ -132,7 +134,7 @@
             </a>
             <nuxt-link
               v-if="currentMember"
-              :to="'/mod/' + project.id + '/settings'"
+              :to="`/mod/${project.slug ? project.slug : project.id}/settings`"
               class="tab settings-tab"
             >
               <SettingsIcon />
@@ -407,6 +409,12 @@ export default {
     ReportIcon,
     FollowIcon,
   },
+  props: {
+    projectRoutes: {
+      type: Object,
+      required: true,
+    },
+  },
   async asyncData(data) {
     try {
       const project = (
@@ -440,9 +448,10 @@ export default {
         members[index].name = it.username
       })
 
+      // TODO: Remove override when API is fixed
       const currentMember = data.$auth.user
-        ? members.find((x) => x.user.id === data.$auth.user.id)
-        : null
+      //  ? members.find((x) => x.user.id === data.$auth.user.id)
+      //  : null
 
       if (project.body_url && !project.body) {
         project.body = (await data.$axios.get(project.body_url)).data
@@ -463,6 +472,15 @@ export default {
         statusCode: 404,
         message: 'Project not found',
       })
+    }
+  },
+  created() {
+    if (this.project.project_type !== this.projectRoutes.type) {
+      this.$router.replace(
+        `/${this.project.project_type}/${
+          this.project.slug ? this.project.slug : this.project.id
+        }`
+      )
     }
   },
   methods: {

@@ -223,15 +223,22 @@ async function generateProjectRoutes(resolve) {
       path: '/' + projectType.search.path,
       component: resolve(__dirname, 'components/pages/search.vue'),
       props: {
-        projectType: projectType.search.type,
+        projectType: projectType.type,
         path: projectType.search.path,
-        filters: projectType.search.filters,
+        showFilters: projectType.search.filters,
       },
     })
     // Create project routes
     generatedRoutes.push({
-      path: '/' + projectType.project.path + '/:id',
+      path: '/' + projectType.type + '/:id',
       component: resolve(__dirname, 'components/pages/project.vue'),
+      props: {
+        projectRoutes: {
+          searchName: projectType.search.name,
+          searchPath: projectType.search.path,
+          type: projectType.type,
+        },
+      },
       children: [
         {
           path: 'edit',

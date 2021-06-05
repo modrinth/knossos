@@ -1,43 +1,43 @@
 <template>
   <div>
     <div class="section-header">
-      <h3 class="column-grow-1">Mods</h3>
+      <h3 class="column-grow-1">Projects</h3>
     </div>
-    <div v-if="mods.length !== 0">
-      <ModCard
-        v-for="(mod, index) in mods"
-        :id="mod.id"
-        :key="mod.id"
-        :author="mod.author"
-        :author-url="mod.author_url"
-        :categories="mod.categories"
-        :created-at="mod.published"
-        :description="mod.description"
-        :downloads="mod.downloads.toString()"
-        :edit-mode="true"
-        :icon-url="mod.icon_url"
-        :is-modrinth="true"
-        :latest-version="mod.latest_version"
-        :name="mod.title"
-        :page-url="mod.page_url"
-        :status="mod.status"
-        :updated-at="mod.updated"
+    <div v-if="projects.length !== 0">
+      <ProjectCard
+        v-for="(project, index) in projects"
+        :id="project.id"
+        :key="project.id"
+        :author="project.author"
+        :author-url="project.author_url"
+        :categories="project.categories"
+        :created-at="project.published"
+        :description="project.description"
+        :downloads="project.downloads.toString()"
+        :edit-projecte="true"
+        :icon-url="project.icon_url"
+        :is-projectrinth="true"
+        :latest-version="project.latest_version"
+        :name="project.title"
+        :page-url="project.page_url"
+        :status="project.status"
+        :updated-at="project.updated"
       >
         <div class="buttons">
           <button
             class="button column approve"
-            @click="changeModStatus(mod.id, 'approved', index)"
+            @click="changeProjectStatus(project.id, 'approved', index)"
           >
             Approve
           </button>
           <button
             class="button column reject"
-            @click="changeModStatus(mod.id, 'rejected', index)"
+            @click="changeProjectStatus(project.id, 'rejected', index)"
           >
             Reject
           </button>
         </div>
-      </ModCard>
+      </ProjectCard>
     </div>
     <div v-else class="error">
       <Security class="icon"></Security>
@@ -87,28 +87,28 @@
 </template>
 
 <script>
-import ModCard from '~/components/ui/ProjectCard'
+import ProjectCard from '~/components/ui/ProjectCard'
 import Security from '~/assets/images/illustrations/security.svg?inline'
 
 export default {
   components: {
-    ModCard,
+    ProjectCard,
     Security,
   },
   async asyncData(data) {
-    const mods = (
+    const projects = (
       await data.$axios.get(`moderation/projects`, data.$auth.headers)
     ).data
 
     const reports = (await data.$axios.get(`report`, data.$auth.headers)).data
 
     return {
-      mods,
+      projects,
       reports,
     }
   },
   methods: {
-    async changeModStatus(id, status, index) {
+    async changeProjectStatus(id, status, index) {
       await this.$axios.patch(
         `project/${id}`,
         {
@@ -117,7 +117,7 @@ export default {
         this.$auth.headers
       )
 
-      this.mods.splice(index, 1)
+      this.projects.splice(index, 1)
     },
     async deleteReport(index) {
       await this.$axios.delete(

@@ -1,144 +1,36 @@
 [
   {
+    "type": "mod",
     "search": {
       "name": "Mods",
       "path": "mods",
-      "type": "mod",
-      "filters": {
-        "categories": [
-          {
-            "displayName": "Technology",
-            "facet": "technology"
-          },
-          {
-            "displayName": "Adventure",
-            "facet": "adventure"
-          },
-          {
-            "displayName": "Magic",
-            "facet": "magic"
-          },
-          {
-            "displayName": "Utility",
-            "facet": "utility"
-          },
-          {
-            "displayName": "Decoration",
-            "facet": "decoration"
-          },
-          {
-            "displayName": "Library",
-            "facet": "library"
-          },
-          {
-            "displayName": "Cursed",
-            "facet": "cursed"
-          },
-          {
-            "displayName": "World Generation",
-            "facet": "worldgen"
-          },
-          {
-            "displayName": "Storage",
-            "facet": "storage"
-          },
-          {
-            "displayName": "Food",
-            "facet": "food"
-          },
-          {
-            "displayName": "Equipment",
-            "facet": "equipment"
-          },
-          {
-            "displayName": "Miscellaneous",
-            "facet": "misc"
-          },
-          {
-            "displayName": "Fabric",
-            "facet": "fabric"
-          },
-          {
-            "displayName": "Forge",
-            "facet": "forge"
-          }
-        ]
-      }
+      "filters": [
+        "categories",
+        "mod_loader",
+        "eviroment",
+        "minecraft_version",
+        "licenses"
+      ]
     },
     "project": {
-      "name": "Mod",
-      "path": "mod"
+      "name": "Mod"
     }
   },
   {
+    "type": "modpack",
     "search": {
       "name": "Modpacks",
       "path": "modpacks",
-      "type": "modpack",
-      "filters": {
-        "categories": [
-          {
-            "displayName": "Technology",
-            "facet": "technology"
-          },
-          {
-            "displayName": "Adventure",
-            "facet": "adventure"
-          },
-          {
-            "displayName": "Magic",
-            "facet": "magic"
-          },
-          {
-            "displayName": "Utility",
-            "facet": "utility"
-          },
-          {
-            "displayName": "Decoration",
-            "facet": "decoration"
-          },
-          {
-            "displayName": "Library",
-            "facet": "library"
-          },
-          {
-            "displayName": "Cursed",
-            "facet": "cursed"
-          },
-          {
-            "displayName": "World Generation",
-            "facet": "worldgen"
-          },
-          {
-            "displayName": "Storage",
-            "facet": "storage"
-          },
-          {
-            "displayName": "Food",
-            "facet": "food"
-          },
-          {
-            "displayName": "Equipment",
-            "facet": "equipment"
-          },
-          {
-            "displayName": "Miscellaneous",
-            "facet": "misc"
-          },
-          {
-            "displayName": "Fabric",
-            "facet": "fabric"
-          },
-          {
-            "displayName": "Forge",
-            "facet": "forge"
-          }
-        ]
-      }
+      "filters": [
+        "categories",
+        "mod_loader",
+        "eviroment",
+        "minecraft_version",
+        "licenses"
+      ]
     },
     "project": {
-      "name": "Modpack",
-      "path": "modpack"
+      "name": "Modpack"
     }
   }
 ]

@@ -25,7 +25,7 @@
         <h3>Number</h3>
         <label>
           <span>
-            That's how your version will appear in mod lists and in URLs
+            That's how your version will appear in project lists and in URLs
           </span>
           <input
             v-model="createdVersion.version_number"
@@ -128,7 +128,7 @@ export default {
     FileInput,
   },
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
@@ -145,7 +145,7 @@ export default {
       ).map((it) => it.data)
 
       return {
-        selectableLoaders,
+        selectableLoaders: selectableLoaders.map((it) => it.name),
         selectableVersions: selectableVersions.map((it) => it.version),
       }
     } catch {
@@ -171,7 +171,7 @@ export default {
       if (!this.createdVersion.version_title) {
         this.createdVersion.version_title = this.createdVersion.version_number
       }
-      this.createdVersion.mod_id = this.mod.id
+      this.createdVersion.project_id = this.project.id
       this.createdVersion.dependencies = []
       this.createdVersion.featured = false
       formData.append('data', JSON.stringify(this.createdVersion))
@@ -197,9 +197,9 @@ export default {
           })
         ).data
         await this.$router.push(
-          `/mod/${this.mod.slug ? this.mod.slug : data.mod_id}/version/${
-            data.id
-          }`
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : data.project_id
+          }/version/${data.id}`
         )
       } catch (err) {
         this.$notify({

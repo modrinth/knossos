@@ -110,7 +110,7 @@ export default {
   },
   auth: false,
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
@@ -189,9 +189,9 @@ export default {
           this.$auth.headers
         )
         await this.$router.replace(
-          `/mod/${this.mod.slug ? this.mod.slug : this.mod.id}/version/${
-            this.version.id
-          }`
+          `/${this.project.project.type}/${
+            this.project.slug ? this.project.slug : this.project.id
+          }/version/${this.version.id}`
         )
       } catch (err) {
         this.$notify({

@@ -28,7 +28,9 @@
       >
         <nuxt-link
           class="button column edit-button"
-          :to="`/${project.project_type}/${project.id}/settings`"
+          :to="`/${project.project_type}/${
+            project.slug ? project.slug : project.id
+          }/settings`"
         >
           Settings
         </nuxt-link>

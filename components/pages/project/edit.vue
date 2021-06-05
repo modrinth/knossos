@@ -462,7 +462,9 @@ export default {
         }
 
         await this.$router.replace(
-          `/project/${this.project.slug ? this.project.slug : this.project.id}`
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : this.project.id
+          }`
         )
       } catch (err) {
         this.$notify({

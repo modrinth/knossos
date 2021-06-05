@@ -161,7 +161,7 @@ export default {
   },
   auth: false,
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
@@ -297,7 +297,11 @@ export default {
 
       await this.$axios.delete(`version/${this.version.id}`, this.$auth.headers)
 
-      await this.$router.replace(`/mod/${this.mod.id}`)
+      await this.$router.replace(
+        `/${this.project.project_type}/${
+          this.project.slug ? this.project.slug : this.project.id
+        }`
+      )
       this.$nuxt.$loading.finish()
     },
   },

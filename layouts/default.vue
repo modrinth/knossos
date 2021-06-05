@@ -202,7 +202,7 @@ export default {
         name: projectType.search.name,
         path: {
           search: projectType.search.path,
-          project: projectType.project.path,
+          project: projectType.type,
         },
       })
     })
@@ -218,7 +218,7 @@ export default {
       return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.fullPath}`
     },
     userUrl() {
-      return `/user/${this.$auth.user.id}`
+      return `/user/${this.$auth.user.username}`
     },
     userTeamsUrl() {
       return `${this.userUrl}/teams`

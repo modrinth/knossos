@@ -4,7 +4,9 @@
       <div class="content">
         <section class="search-nav">
           <div class="iconified-input column-grow-2">
-            <label class="hidden" for="search">Search Mods</label>
+            <label class="hidden" for="search"
+              >Search {{ this.$route.name }}</label
+            >
             <input
               id="search"
               v-model="query"
@@ -77,8 +79,8 @@
           <div v-else>
             <SearchResult
               v-for="(result, index) in results"
-              :id="result.slug ? result.slug : result.mod_id.split('-')[1]"
-              :key="result.mod_id"
+              :id="result.slug ? result.slug : result.project_id.split('-')[1]"
+              :key="result.project_id"
               :author="result.author"
               :name="result.title"
               :description="result.description"
@@ -385,8 +387,8 @@ export default {
       type: String,
       required: true,
     },
-    filters: {
-      type: Object,
+    showFilters: {
+      type: Array,
       required: true,
     },
   },
@@ -619,6 +621,9 @@ export default {
             url += i === 0 ? `?${params[i]}` : `&${params[i]}`
           }
         }
+
+        // TODO: Remove when project_type facet exists
+        url += `&filters=project_type%3D%20%22${this.projectType}%22`
 
         const res = await this.$axios.get(url)
         this.results = res.data.hits

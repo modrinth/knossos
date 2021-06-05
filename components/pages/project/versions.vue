@@ -31,24 +31,18 @@
           </td>
           <td>
             <nuxt-link
-              :to="
-                '/mod/' +
-                (mod.slug ? mod.slug : mod.id) +
-                '/version/' +
-                version.id
-              "
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/version/${version.id}`"
             >
               {{ version.name ? version.name : version.version_number }}
             </nuxt-link>
           </td>
           <td>
             <nuxt-link
-              :to="
-                '/mod/' +
-                (mod.slug ? mod.slug : mod.id) +
-                '/version/' +
-                version.id
-              "
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/version/${version.id}`"
             >
               {{ version.version_number }}
             </nuxt-link>
@@ -94,7 +88,7 @@ export default {
   },
   auth: false,
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
