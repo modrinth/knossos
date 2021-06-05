@@ -30,7 +30,7 @@
         <span>
           Clicking on this WILL delete your mod. Do not click on this unless you
           want your mod deleted. If you delete your mod, all versions and any
-          attatched data will be removed from our servers. This may break other
+          attached data will be removed from our servers. This may break other
           projects, so be careful!
         </span>
         <div
