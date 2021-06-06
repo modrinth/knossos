@@ -3,9 +3,9 @@
     <div class="section-header columns">
       <h3 class="column-grow-1">My notifications</h3>
     </div>
-    <div v-if="notifications.length !== 0">
+    <div v-if="$user.notifications.length !== 0">
       <div
-        v-for="notification in notifications"
+        v-for="notification in $user.notifications"
         :key="notification.id"
         class="notification columns"
       >
@@ -58,18 +58,6 @@ export default {
   components: {
     UpToDate,
   },
-  async asyncData(data) {
-    const notifications = (
-      await data.$axios.get(
-        `user/${data.$auth.user.id}/notifications`,
-        data.$auth.headers
-      )
-    ).data.sort((a, b) => new Date(b.created) - new Date(a.created))
-
-    return {
-      notifications,
-    }
-  },
   methods: {
     async performAction(notification, index) {
       this.$nuxt.$loading.start()
@@ -92,8 +80,7 @@ export default {
           this.$auth.headers
         )
 
-        this.notifications.splice(index, 1)
-        this.$store.dispatch('user/fetchNotifications', { force: true })
+        await this.$store.dispatch('user/fetchAll', { force: true })
       } catch (err) {
         this.$notify({
           group: 'main',

@@ -87,7 +87,7 @@ export default {
     '~/plugins/compiled-markdown-directive.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/auth.js',
-    '~/plugins/user.js',
+    '~/plugins/shorthands.js',
   ],
   /*
    ** Auto import components
@@ -134,7 +134,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://api.modrinth.com/api/v1/',
+    baseURL: 'https://staging-api.modrinth.com/v2/',
     headers: {
       common: {
         Accept: 'application/json',

@@ -109,19 +109,16 @@ export default {
   },
   async asyncData(data) {
     try {
-      let res = await data.$axios.get(`user/${data.params.id}`)
-      const user = res.data
-
-      let mods = []
-      res = await data.$axios.get(`user/${user.id}/mods`)
-      if (res.data) {
-        res = await data.$axios.get(`mods?ids=${JSON.stringify(res.data)}`)
-        mods = res.data
-      }
+      const [user, mods] = (
+        await Promise.all([
+          data.$axios.get(`user/${data.params.id}`),
+          data.$axios.get(`user/${data.params.id}/projects`),
+        ])
+      ).map((it) => it.data)
 
       return {
-        mods,
         user,
+        mods,
       }
     } catch {
       data.error({

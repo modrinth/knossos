@@ -56,8 +56,8 @@
           </span>
           <multiselect
             v-model="createdVersion.loaders"
-            :options="selectableLoaders"
-            :loading="selectableLoaders.length === 0"
+            :options="$tag.loaders"
+            :loading="$tag.loaders.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -77,8 +77,8 @@
           </span>
           <multiselect
             v-model="createdVersion.game_versions"
-            :options="selectableVersions"
-            :loading="selectableVersions.length === 0"
+            :options="$tag.gameVersions"
+            :loading="$tag.gameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -135,26 +135,6 @@ export default {
       },
     },
   },
-  async asyncData(data) {
-    try {
-      const [selectableLoaders, selectableVersions] = (
-        await Promise.all([
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-        ])
-      ).map((it) => it.data)
-
-      return {
-        selectableLoaders,
-        selectableVersions: selectableVersions.map((it) => it.version),
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Unable to fetch versions and loaders',
-      })
-    }
-  },
   data() {
     return {
       createdVersion: {},
@@ -171,7 +151,7 @@ export default {
       if (!this.createdVersion.version_title) {
         this.createdVersion.version_title = this.createdVersion.version_number
       }
-      this.createdVersion.mod_id = this.mod.id
+      this.createdVersion.project_id = this.mod.id
       this.createdVersion.dependencies = []
       this.createdVersion.featured = false
       formData.append('data', JSON.stringify(this.createdVersion))
@@ -197,9 +177,9 @@ export default {
           })
         ).data
         await this.$router.push(
-          `/mod/${this.mod.slug ? this.mod.slug : data.mod_id}/version/${
-            data.id
-          }`
+          `/mod/${
+            this.mod.slug ? this.mod.slug : data.project_id
+          }/version/${encodeURIComponent(data.version_number)}`
         )
       } catch (err) {
         this.$notify({

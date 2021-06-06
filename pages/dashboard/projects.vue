@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="section-header columns">
-      <h3 class="column-grow-1">My mods</h3>
+      <h3 class="column-grow-1">My projects</h3>
       <nuxt-link class="brand-button column" to="/mod/create">
         Create a mod
       </nuxt-link>
     </div>
-    <div v-if="mods.length !== 0">
+    <div v-if="$user.projects.length !== 0">
       <ModCard
-        v-for="mod in mods"
+        v-for="mod in $user.projects"
         :id="mod.slug ? mod.slug : mod.id"
         :key="mod.id"
         :author="mod.author"
@@ -37,7 +37,7 @@
     <div v-else class="error">
       <UpToDate class="icon"></UpToDate><br />
       <span class="text"
-        >You don't have any mods.<br />
+        >You don't have any projects.<br />
         Would you like to
         <nuxt-link class="link" to="/mod/create">create one</nuxt-link>?</span
       >
@@ -54,23 +54,8 @@ export default {
     ModCard,
     UpToDate,
   },
-  async asyncData(data) {
-    let res = await data.$axios.get(
-      `user/${data.$auth.user.id}/projects`,
-      data.$auth.headers
-    )
-
-    res = await data.$axios.get(
-      `projects?ids=${JSON.stringify(res.data)}`,
-      data.$auth.headers
-    )
-
-    return {
-      mods: res.data,
-    }
-  },
   head: {
-    title: 'My mods - Modrinth',
+    title: 'My projects - Modrinth',
   },
 }
 </script>

@@ -3,9 +3,9 @@
     <div class="section-header">
       <h3 class="column-grow-1">Followed mods</h3>
     </div>
-    <div v-if="mods.length !== 0">
+    <div v-if="$user.follows.length !== 0">
       <ModCard
-        v-for="(mod, index) in mods"
+        v-for="mod in $user.follows"
         :id="mod.id"
         :key="mod.id"
         :author="mod.author"
@@ -25,7 +25,7 @@
         <div class="buttons">
           <button
             class="button column unfav-button iconified-button"
-            @click="unfavMod(index)"
+            @click="$store.dispatch('user/unfollowProject', mod)"
           >
             <FollowIcon />
             Unfollow
@@ -55,30 +55,6 @@ export default {
     ModCard,
     FollowIcon,
     FollowIllustration,
-  },
-  async asyncData(data) {
-    const res = await data.$axios.get(
-      `user/${data.$auth.user.id}/follows`,
-      data.$auth.headers
-    )
-
-    const mods = (
-      await data.$axios.get(`mods?ids=${JSON.stringify(res.data)}`)
-    ).data.sort((a, b) => a.title > b.title)
-
-    return {
-      mods,
-    }
-  },
-  methods: {
-    async unfavMod(index) {
-      await this.$axios.delete(
-        `mod/${this.mods[index].id}/follow`,
-        this.$auth.headers
-      )
-
-      this.mods.splice(index, 1)
-    },
   },
   head: {
     title: 'Followed mods - Modrinth',

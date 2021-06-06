@@ -60,7 +60,7 @@
                     <div class="avatar">
                       <span>{{ this.$auth.user.username }}</span>
                       <AvatarIcon
-                        :notif-count="this.$user.notifications.count"
+                        :notif-count="this.$user.notifications.length"
                         :dropdown-bg="isDropdownOpen"
                       />
                     </div>
@@ -192,6 +192,12 @@ export default {
   directives: {
     ClickOutside,
   },
+  async fetch() {
+    await Promise.all([
+      this.$store.dispatch('user/fetchAll', { force: true }),
+      this.$store.dispatch('tag/fetchAllTags'),
+    ])
+  },
   data() {
     return {
       isDropdownOpen: false,
@@ -212,11 +218,8 @@ export default {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
-      this.$store.dispatch('user/fetchNotifications')
+      this.$store.dispatch('user/fetchAll')
     },
-  },
-  created() {
-    this.$store.dispatch('user/fetchNotifications', { force: true })
   },
   beforeCreate() {
     if (this.$route.query.code) {

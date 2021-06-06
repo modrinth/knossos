@@ -46,17 +46,21 @@
               Report
             </nuxt-link>
             <button
-              v-if="userFollows && !userFollows.includes(mod.id)"
+              v-if="
+                this.$auth.user && !$user.follows.find((x) => x.id === mod.id)
+              "
               class="iconified-button"
-              @click="followMod"
+              @click="$store.dispatch('user/followProject', mod)"
             >
               <FollowIcon />
               Follow
             </button>
             <button
-              v-if="userFollows && userFollows.includes(mod.id)"
+              v-if="
+                this.$auth.user && $user.follows.find((x) => x.id === mod.id)
+              "
               class="iconified-button"
-              @click="unfollowMod"
+              @click="$store.dispatch('user/unfollowProject', mod)"
             >
               <FollowIcon fill="currentColor" />
               Unfollow
@@ -295,7 +299,7 @@
                       '/mod/' +
                       (mod.slug ? mod.slug : mod.id) +
                       '/version/' +
-                      version.id
+                      encodeURIComponent(version.version_number)
                     "
                   >
                     {{ version.name }}
@@ -397,39 +401,25 @@ export default {
   },
   async asyncData(data) {
     try {
-      const mod = (
-        await data.$axios.get(`project/${data.params.id}`, data.$auth.headers)
-      ).data
-
-      const [members, versions, featuredVersions, userFollows] = (
+      const [mod, members, versions, featuredVersions] = (
         await Promise.all([
-          data.$axios.get(`team/${mod.team}/members`, data.$auth.headers),
-          data.$axios.get(`project/${mod.id}/version`),
-          data.$axios.get(`project/${mod.id}/version?featured=true`),
+          data.$axios.get(`project/${data.params.id}`, data.$auth.headers),
           data.$axios.get(
-            data.$auth.user
-              ? `user/${data.$auth.user.id}/follows`
-              : `https://api.modrinth.com`,
+            `project/${data.params.id}/members`,
             data.$auth.headers
           ),
+          data.$axios.get(`project/${data.params.id}/version`),
+          data.$axios.get(`project/${data.params.id}/version?featured=true`),
         ])
       ).map((it) => it.data)
 
-      const users = (
-        await data.$axios.get(
-          `users?ids=${JSON.stringify(members.map((it) => it.user_id))}`,
-          data.$auth.headers
-        )
-      ).data
-
-      users.forEach((it) => {
-        const index = members.findIndex((x) => x.user_id === it.id)
-        members[index].avatar_url = it.avatar_url
-        members[index].name = it.username
+      members.forEach((it, index) => {
+        members[index].avatar_url = it.user.avatar_url
+        members[index].name = it.user.username
       })
 
       const currentMember = data.$auth.user
-        ? members.find((x) => x.user_id === data.$auth.user.id)
+        ? members.find((x) => x.user.id === data.$auth.user.id)
         : null
 
       if (mod.body_url && !mod.body) {
@@ -443,7 +433,6 @@ export default {
         members: members.filter((x) => x.accepted),
         allMembers: members,
         currentMember,
-        userFollows: userFollows.name ? null : userFollows,
         linkBar: [],
       }
     } catch {
@@ -477,20 +466,6 @@ export default {
       elem.download = hash
       elem.href = url
       elem.click()
-    },
-    async followMod() {
-      await this.$axios.post(
-        `mod/${this.mod.id}/follow`,
-        {},
-        this.$auth.headers
-      )
-
-      this.userFollows.push(this.mod.id)
-    },
-    async unfollowMod() {
-      await this.$axios.delete(`mod/${this.mod.id}/follow`, this.$auth.headers)
-
-      this.userFollows.splice(this.userFollows.indexOf(this.mod.id), 1)
     },
     formatTime(date) {
       let defaultMessage = this.$dayjs(date).fromNow()
@@ -767,7 +742,7 @@ export default {
         margin-top: 0.25rem;
         @extend %row;
         .loader {
-          height: 1rem;
+          height: 0.75rem;
         }
       }
     }

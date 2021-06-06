@@ -53,8 +53,8 @@
         <multiselect
           id="categories"
           v-model="mod.categories"
-          :options="availableCategories"
-          :loading="availableCategories.length === 0"
+          :options="$tag.categories"
+          :loading="$tag.categories.length === 0"
           :multiple="true"
           :searchable="false"
           :show-no-results="false"
@@ -235,7 +235,7 @@
             placeholder="Select one"
             track-by="short"
             label="name"
-            :options="availableLicenses"
+            :options="$tag.licenses"
             :searchable="true"
             :close-on-select="true"
             :show-labels="false"
@@ -275,7 +275,7 @@
             placeholder="Select one"
             track-by="short"
             label="name"
-            :options="availableDonationPlatforms"
+            :options="$tag.donationPlatforms"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -306,75 +306,54 @@ export default {
     FileInput,
     Multiselect,
   },
-  async asyncData(data) {
-    try {
-      const [
-        mod,
-        availableCategories,
-        availableLoaders,
-        availableGameVersions,
-        availableLicenses,
-        availableDonationPlatforms,
-      ] = (
-        await Promise.all([
-          data.$axios.get(`mod/${data.params.id}`, data.$auth.headers),
-          data.$axios.get(`tag/category`),
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-          data.$axios.get(`tag/license`),
-          data.$axios.get(`tag/donation_platform`),
-        ])
-      ).map((it) => it.data)
-
-      mod.license = {
-        short: mod.license.id,
-        name: mod.license.name,
-        url: mod.license.url,
-      }
-
-      if (mod.body_url && !mod.body) {
-        mod.body = (await data.$axios.get(mod.body_url)).data
-      }
-
-      const donationPlatforms = []
-      const donationLinks = []
-
-      if (mod.donation_urls) {
-        for (const platform of mod.donation_urls) {
-          donationPlatforms.push({
-            short: platform.id,
-            name: platform.platform,
-          })
-          donationLinks.push(platform.url)
-        }
-      }
-
-      return {
-        mod,
-        clientSideType: mod.client_side.charAt(0) + mod.client_side.slice(1),
-        serverSideType: mod.server_side.charAt(0) + mod.server_side.slice(1),
-        availableCategories,
-        availableLoaders,
-        availableGameVersions,
-        availableLicenses,
-        license: {
-          short: mod.license.id,
-          name: mod.license.name,
-        },
-        license_url: mod.license.url,
-        availableDonationPlatforms,
-        donationPlatforms,
-        donationLinks,
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Mod not found',
-      })
+  props: {
+    mod: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
+  fetch() {
+    this.mod.license = {
+      short: this.mod.license.id,
+      name: this.mod.license.name,
+      url: this.mod.license.url,
     }
+
+    if (this.mod.donation_urls) {
+      for (const platform of this.mod.donation_urls) {
+        this.donationPlatforms.push({
+          short: platform.id,
+          name: platform.platform,
+        })
+        this.donationLinks.push(platform.url)
+      }
+    }
+
+    this.license = {
+      short: this.mod.license.id,
+      name: this.mod.license.name,
+    }
+
+    this.license_url = this.mod.license.url
+
+    this.clientSideType =
+      this.mod.client_side.charAt(0) + this.mod.client_side.slice(1)
+    this.serverSideType =
+      this.mod.server_side.charAt(0) + this.mod.server_side.slice(1)
   },
   data() {
     return {
+      clientSideType: '',
+      serverSideType: '',
+
+      license: { short: '', name: '' },
+      license_url: '',
+
+      donationPlatforms: [],
+      donationLinks: [],
+
       isProcessing: false,
       previewImage: null,
       compiledBody: '',

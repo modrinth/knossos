@@ -6,7 +6,7 @@
     <div v-if="mods.length !== 0">
       <ModCard
         v-for="(mod, index) in mods"
-        :id="mod.id"
+        :id="mod.slug ? mod.slug : mod.project_id"
         :key="mod.id"
         :author="mod.author"
         :author-url="mod.author_url"
