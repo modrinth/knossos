@@ -1,4 +1,5 @@
 export const state = () => ({
+  projectTypes: ['test2'],
   categories: [],
   loaders: [],
   gameVersions: [],
@@ -7,6 +8,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  SET_PROJECT_TYPES(state, projectTypes) {
+    state.projectTypes = projectTypes
+  },
   SET_CATEGORIES(state, categories) {
     state.categories = categories
   },
@@ -26,6 +30,10 @@ export const mutations = {
 
 export const actions = {
   async fetchAllTags({ commit }) {
+    const projectTypes = (
+      await import('../static/projectRoutes.json')
+    ).default.map((it) => it.type)
+
     const [categories, loaders, gameVersions, licenses, donationPlatforms] = (
       await Promise.all([
         this.$axios.get(`tag/category`),
@@ -36,6 +44,7 @@ export const actions = {
       ])
     ).map((it) => it.data)
 
+    commit('SET_PROJECT_TYPES', projectTypes)
     commit('SET_CATEGORIES', categories)
     commit('SET_LOADERS', loaders)
     commit('SET_GAME_VERSIONS', gameVersions)

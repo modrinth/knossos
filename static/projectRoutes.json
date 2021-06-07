@@ -7,7 +7,7 @@
       "filters": [
         "categories",
         "mod_loader",
-        "eviroment",
+        "environment",
         "minecraft_version",
         "licenses"
       ]
@@ -24,7 +24,7 @@
       "filters": [
         "categories",
         "mod_loader",
-        "eviroment",
+        "environment",
         "minecraft_version",
         "licenses"
       ]
