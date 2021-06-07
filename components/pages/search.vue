@@ -477,7 +477,7 @@ export default {
 
         const res = await this.$axios.get(url)
 
-        this.versions = res.data
+        this.versions = res.data.map((it) => it.version)
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err)
@@ -560,12 +560,13 @@ export default {
           params.push(`query=${this.query.replace(/ /g, '+')}`)
         }
 
+        let formattedFacets = [['project_type:' + this.projectType]]
+
         if (
           this.facets.length > 0 ||
           this.selectedVersions.length > 0 ||
           this.selectedEnvironments.length > 0
         ) {
-          let formattedFacets = []
           for (const facet of this.facets) {
             formattedFacets.push([facet])
           }
@@ -605,9 +606,9 @@ export default {
 
             formattedFacets = [...formattedFacets, ...environmentFacets]
           }
-
-          params.push(`facets=${JSON.stringify(formattedFacets)}`)
         }
+
+        params.push(`facets=${JSON.stringify(formattedFacets)}`)
 
         const offset = (newPageNumber - 1) * this.maxResults
         if (newPageNumber !== 1) {
@@ -621,9 +622,6 @@ export default {
             url += i === 0 ? `?${params[i]}` : `&${params[i]}`
           }
         }
-
-        // TODO: Remove when project_type facet exists
-        url += `&filters=project_type%3D%20%22${this.projectType}%22`
 
         const res = await this.$axios.get(url)
         this.results = res.data.hits

@@ -25,19 +25,18 @@
                 </nuxt-link>
                 >
                 <nuxt-link
-                  :to="'/mod/' + (project.slug ? project.slug : project.id)"
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }`"
                   >{{ project.title }}</nuxt-link
                 >
                 <span v-if="linkBar.length > 0"> ></span>
                 <nuxt-link
                   v-for="(link, index) in linkBar"
                   :key="index"
-                  :to="
-                    /mod/ +
-                    (project.slug ? project.slug : project.id) +
-                    '/' +
-                    link[1]
-                  "
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/${link[1]}`"
                   >{{ link[0] }}
                   <span v-if="index !== linkBar.length - 1"> > </span>
                 </nuxt-link>
@@ -81,17 +80,17 @@
         <div class="project-navigation">
           <div class="tabs">
             <nuxt-link
-              :to="'/mod/' + (project.slug ? project.slug : project.id)"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }`"
               class="tab"
             >
               <span>Description</span>
             </nuxt-link>
             <nuxt-link
-              :to="
-                '/mod/' +
-                (project.slug ? project.slug : project.id) +
-                '/versions'
-              "
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`"
               class="tab"
             >
               <span>Versions</span>
@@ -134,7 +133,9 @@
             </a>
             <nuxt-link
               v-if="currentMember"
-              :to="`/mod/${project.slug ? project.slug : project.id}/settings`"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings`"
               class="tab settings-tab"
             >
               <SettingsIcon />
@@ -255,13 +256,13 @@
           <h3>Members</h3>
           <div
             v-for="member in members"
-            :key="member.user_id"
+            :key="member.user.id"
             class="team-member columns"
           >
-            <img :src="member.avatar_url" alt="profile-picture" />
+            <img :src="member.user.avatar_url" alt="profile-picture" />
             <div class="member-info">
-              <nuxt-link :to="'/user/' + member.user_id">
-                <h4>{{ member.name }}</h4>
+              <nuxt-link :to="'/user/' + member.user.username">
+                <h4>{{ member.user.name }}</h4>
               </nuxt-link>
               <h3>{{ member.role }}</h3>
             </div>
@@ -305,12 +306,9 @@
                 </span>
                 <h4 class="title">
                   <nuxt-link
-                    :to="
-                      '/mod/' +
-                      (project.slug ? project.slug : project.id) +
-                      '/version/' +
-                      version.id
-                    "
+                    :to="`/${project.project_type}/${
+                      project.slug ? project.slug : project.id
+                    }/version/${version.id}`"
                   >
                     {{ version.name }}
                   </nuxt-link>
@@ -435,23 +433,9 @@ export default {
         ])
       ).map((it) => it.data)
 
-      const users = (
-        await data.$axios.get(
-          `users?ids=${JSON.stringify(members.map((it) => it.user.id))}`,
-          data.$auth.headers
-        )
-      ).data
-
-      users.forEach((it) => {
-        const index = members.findIndex((x) => x.user_id === it.id)
-        members[index].avatar_url = it.avatar_url
-        members[index].name = it.username
-      })
-
-      // TODO: Remove override when API is fixed
       const currentMember = data.$auth.user
-      //  ? members.find((x) => x.user.id === data.$auth.user.id)
-      //  : null
+        ? members.find((x) => x.user.id === data.$auth.user.id)
+        : null
 
       if (project.body_url && !project.body) {
         project.body = (await data.$axios.get(project.body_url)).data
@@ -510,7 +494,7 @@ export default {
     },
     async followProject() {
       await this.$axios.post(
-        `project/${this.project.id}/follow`,
+        `${this.project.id}/follow`,
         {},
         this.$auth.headers
       )
@@ -518,10 +502,7 @@ export default {
       this.userFollows.push(this.project.id)
     },
     async unfollowProject() {
-      await this.$axios.delete(
-        `project/${this.project.id}/follow`,
-        this.$auth.headers
-      )
+      await this.$axios.delete(`${this.project.id}/follow`, this.$auth.headers)
 
       this.userFollows.splice(this.userFollows.indexOf(this.project.id), 1)
     },
@@ -567,7 +548,7 @@ export default {
         {
           hid: 'og:url',
           name: 'og:url',
-          content: `https://modrinth.com/mod/${this.project.id}`,
+          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
         },
         {
           hid: 'og:image',

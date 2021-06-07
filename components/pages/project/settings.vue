@@ -61,15 +61,15 @@
     </div>
     <div
       v-for="(member, index) in allMembers"
-      :key="member.user_id"
+      :key="member.user.id"
       class="member"
-      :class="{ open: openTeamMembers.includes(member.user_id) }"
+      :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">
         <div class="info">
-          <img :src="member.avatar_url" :alt="member.name" />
+          <img :src="member.user.avatar_url" :alt="member.user.name" />
           <div class="text">
-            <h4>{{ member.name }}</h4>
+            <h4>{{ member.user.name }}</h4>
             <h3>{{ member.role }}</h3>
           </div>
         </div>
@@ -79,10 +79,10 @@
           <button
             class="dropdown-icon"
             @click="
-              openTeamMembers.indexOf(member.user_id) === -1
-                ? openTeamMembers.push(member.user_id)
+              openTeamMembers.indexOf(member.user.id) === -1
+                ? openTeamMembers.push(member.user.id)
                 : (openTeamMembers = openTeamMembers.filter(
-                    (it) => it !== member.user_id
+                    (it) => it !== member.user.id
                   ))
             "
           >

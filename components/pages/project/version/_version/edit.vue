@@ -140,6 +140,10 @@ export default {
       (x) => x.id === this.$route.params.version
     )
 
+    if (this.version.dependencies.length === 0) {
+      delete this.version.dependencies
+    }
+
     if (!this.version.changelog && this.version.changelog_url) {
       this.version.changelog = (
         await this.$axios.get(this.version.changelog_url)
@@ -156,8 +160,8 @@ export default {
       ).map((it) => it.data)
 
       return {
-        selectableLoaders,
-        selectableVersions,
+        selectableLoaders: selectableLoaders.map((it) => it.name),
+        selectableVersions: selectableVersions.map((it) => it.version),
       }
     } catch {
       data.error({
@@ -189,7 +193,7 @@ export default {
           this.$auth.headers
         )
         await this.$router.replace(
-          `/${this.project.project.type}/${
+          `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
           }/version/${this.version.id}`
         )

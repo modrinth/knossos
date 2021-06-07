@@ -2,9 +2,9 @@
   <div class="page-contents">
     <header class="columns">
       <h3 class="column-grow-1">Edit Project</h3>
-      <nuxt-button class="button column" @click="this.$router.replace('./')">
+      <button class="button column" @click="this.$router.replace('./')">
         Back
-      </nuxt-button>
+      </button>
       <button
         v-if="project.status === 'rejected' || project.status === 'draft'"
         title="Submit for Review"
@@ -143,7 +143,7 @@
         <div class="labeled-control">
           <h3>Server</h3>
           <Multiselect
-            v-projectel="serverSideType"
+            v-model="serverSideType"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
