@@ -110,15 +110,16 @@ export default {
   },
   async asyncData(data) {
     try {
-      const userRes = await data.$axios.get(`user/${data.params.id}`)
-      const user = userRes.data
-
-      const projectsRes = await data.$axios.get(`user/${user.id}/projects`)
-      const projects = projectsRes.data
+      const [user, projects] = (
+        await Promise.all([
+          data.$axios.get(`user/${data.params.id}`),
+          data.$axios.get(`user/${data.params.id}/projects`),
+        ])
+      ).map((it) => it.data)
 
       return {
-        projects,
         user,
+        projects,
       }
     } catch {
       data.error({

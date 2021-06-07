@@ -3,9 +3,9 @@
     <div class="section-header">
       <h3 class="column-grow-1">Followed projects</h3>
     </div>
-    <div v-if="projects.length !== 0">
+    <div v-if="$user.follows.length !== 0">
       <ProjectCard
-        v-for="(project, index) in projects"
+        v-for="project in $user.follows"
         :id="project.id"
         :key="project.id"
         :project-type="project.project_type"
@@ -26,7 +26,7 @@
         <div class="buttons">
           <button
             class="button column unfav-button iconified-button"
-            @click="unfavProject(index)"
+            @click="$store.dispatch('user/unfollowProject', project)"
           >
             <FollowIcon />
             Unfollow
@@ -56,25 +56,6 @@ export default {
     ProjectCard,
     FollowIcon,
     FollowIllustration,
-  },
-  async asyncData(data) {
-    const projects = await data.$axios
-      .get(`user/${data.$auth.user.id}/follows`, data.$auth.headers)
-      .then((res) => res.data.sort((a, b) => a.title > b.title))
-
-    return {
-      projects,
-    }
-  },
-  methods: {
-    async unfavProject(index) {
-      await this.$axios.delete(
-        `project/${this.projects[index].id}/follow`,
-        this.$auth.headers
-      )
-
-      this.projects.splice(index, 1)
-    },
   },
   head: {
     title: 'Followed projects - Modrinth',

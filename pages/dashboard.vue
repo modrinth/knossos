@@ -10,8 +10,8 @@
           <nuxt-link :to="'/dashboard/notifications'" class="tab last">
             <NotificationsIcon />
             Notifications
-            <div v-if="this.$user.notifications.count > 0" class="notif-count">
-              {{ this.$user.notifications.count }}
+            <div v-if="$user.notifications.length > 0" class="notif-count">
+              {{ $user.notifications.length }}
             </div>
           </nuxt-link>
           <nuxt-link :to="'/dashboard/follows'" class="tab last">

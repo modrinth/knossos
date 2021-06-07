@@ -53,17 +53,23 @@
               Report
             </nuxt-link>
             <button
-              v-if="userFollows && !userFollows.includes(project.id)"
+              v-if="
+                this.$auth.user &&
+                !$user.follows.find((x) => x.id === project.id)
+              "
               class="iconified-button"
-              @click="followProject"
+              @click="$store.dispatch('user/followProject', project)"
             >
               <FollowIcon />
               Follow
             </button>
             <button
-              v-if="userFollows && userFollows.includes(project.id)"
+              v-if="
+                this.$auth.user &&
+                $user.follows.find((x) => x.id === project.id)
+              "
               class="iconified-button"
-              @click="unfollowProject"
+              @click="$store.dispatch('user/unfollowProject', project)"
             >
               <FollowIcon fill="currentColor" />
               Unfollow
@@ -308,7 +314,7 @@
                   <nuxt-link
                     :to="`/${project.project_type}/${
                       project.slug ? project.slug : project.id
-                    }/version/${version.id}`"
+                    }/version/${encodeURIComponent(version.version_number)}`"
                   >
                     {{ version.name }}
                   </nuxt-link>
@@ -415,21 +421,15 @@ export default {
   },
   async asyncData(data) {
     try {
-      const project = (
-        await data.$axios.get(`project/${data.params.id}`, data.$auth.headers)
-      ).data
-
-      const [members, versions, featuredVersions, userFollows] = (
+      const [project, members, versions, featuredVersions] = (
         await Promise.all([
-          data.$axios.get(`team/${project.team}/members`, data.$auth.headers),
-          data.$axios.get(`project/${project.id}/version`),
-          data.$axios.get(`project/${project.id}/version?featured=true`),
+          data.$axios.get(`project/${data.params.id}`, data.$auth.headers),
           data.$axios.get(
-            data.$auth.user
-              ? `user/${data.$auth.user.id}/follows`
-              : `https://api.modrinth.com`,
+            `project/${data.params.id}/members`,
             data.$auth.headers
           ),
+          data.$axios.get(`project/${data.params.id}/version`),
+          data.$axios.get(`project/${data.params.id}/version?featured=true`),
         ])
       ).map((it) => it.data)
 
@@ -448,7 +448,6 @@ export default {
         members: members.filter((x) => x.accepted),
         allMembers: members,
         currentMember,
-        userFollows: userFollows.name ? null : userFollows,
         linkBar: [],
       }
     } catch {
@@ -491,20 +490,6 @@ export default {
       elem.download = hash
       elem.href = url
       elem.click()
-    },
-    async followProject() {
-      await this.$axios.post(
-        `${this.project.id}/follow`,
-        {},
-        this.$auth.headers
-      )
-
-      this.userFollows.push(this.project.id)
-    },
-    async unfollowProject() {
-      await this.$axios.delete(`${this.project.id}/follow`, this.$auth.headers)
-
-      this.userFollows.splice(this.userFollows.indexOf(this.project.id), 1)
     },
     formatTime(date) {
       let defaultMessage = this.$dayjs(date).fromNow()
@@ -781,7 +766,7 @@ export default {
         margin-top: 0.25rem;
         @extend %row;
         .loader {
-          height: 1rem;
+          height: 0.75rem;
         }
       }
     }

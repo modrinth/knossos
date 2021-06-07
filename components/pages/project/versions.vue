@@ -4,13 +4,13 @@
       <thead>
         <tr>
           <th></th>
-          <th>Name</th>
-          <th>Version</th>
-          <th>Mod Loader</th>
-          <th>Minecraft Version</th>
+          <th>Title</th>
+          <th>Number</th>
           <th>Status</th>
+          <th>Loaders</th>
+          <th>Game Version</th>
           <th>Downloads</th>
-          <th>Date Published</th>
+          <th>Published</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +33,7 @@
             <nuxt-link
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
-              }/version/${version.id}`"
+              }/version/${encodeURIComponent(version.version_number)}`"
             >
               {{ version.name ? version.name : version.version_number }}
             </nuxt-link>
@@ -42,16 +42,11 @@
             <nuxt-link
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
-              }/version/${version.id}`"
+              }/version/${encodeURIComponent(version.version_number)}`"
             >
               {{ version.version_number }}
             </nuxt-link>
           </td>
-          <td>
-            <FabricIcon v-if="version.loaders.includes('fabric')" />
-            <ForgeIcon v-if="version.loaders.includes('forge')" />
-          </td>
-          <td>{{ version.game_versions.join(', ') }}</td>
           <td>
             <span v-if="version.version_type === 'release'" class="badge green">
               Release
@@ -63,6 +58,11 @@
               Alpha
             </span>
           </td>
+          <td>
+            <FabricIcon v-if="version.loaders.includes('fabric')" />
+            <ForgeIcon v-if="version.loaders.includes('forge')" />
+          </td>
+          <td>{{ version.game_versions.join(', ') }}</td>
           <td>{{ version.downloads }}</td>
           <td>{{ $dayjs(version.date_published).format('YYYY-MM-DD') }}</td>
         </tr>
@@ -121,17 +121,15 @@ table {
   border-radius: var(--size-rounded-card);
   table-layout: fixed;
   width: 100%;
+  padding: var(--spacing-card-sm) var(--spacing-card-md);
 
   * {
     text-align: left;
   }
 
-  tr:not(:last-child),
-  tr:first-child {
-    th,
-    td {
-      border-bottom: 1px solid var(--color-divider);
-    }
+  thead tr {
+    margin: var(--spacing-card-sm) var(--spacing-card-md);
+    border-bottom: 1px solid var(--color-divider);
   }
 
   th,

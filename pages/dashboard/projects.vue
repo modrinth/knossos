@@ -6,9 +6,9 @@
         Create a project
       </nuxt-link>
     </div>
-    <div v-if="projects.length !== 0">
+    <div v-if="$user.projects.length !== 0">
       <ProjectCard
-        v-for="project in projects"
+        v-for="project in $user.projects"
         :id="project.slug ? project.slug : project.id"
         :key="project.id"
         :author="project.author"
@@ -57,16 +57,6 @@ export default {
   components: {
     ProjectCard,
     UpToDate,
-  },
-  async asyncData(data) {
-    const res = await data.$axios.get(
-      `user/${data.$auth.user.id}/projects`,
-      data.$auth.headers
-    )
-
-    return {
-      projects: res.data,
-    }
   },
   head: {
     title: 'My projects - Modrinth',

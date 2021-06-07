@@ -191,6 +191,11 @@ export default {
       (x) => x.id === this.$route.params.version
     )
 
+    if (!this.version)
+      this.version = this.versions.find(
+        (x) => x.version_number === this.$route.params.version
+      )
+
     this.primaryFile = this.version.files.find((file) => file.primary)
 
     if (!this.primaryFile) {
@@ -214,7 +219,7 @@ export default {
   mounted() {
     this.$emit('update:link-bar', [
       ['Versions', 'versions'],
-      [this.version.name, 'versions/' + this.version.id],
+      [this.version.name, 'versions/' + this.version.version_number],
     ])
   },
   methods: {
