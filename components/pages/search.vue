@@ -141,118 +141,24 @@
               </div>
             </div>
             <SearchFilter
+              v-for="category in $tag.categories"
+              :key="category.name"
               :active-filters="facets"
-              display-name="Technology"
-              facet-name="categories:technology"
+              :display-name="category.name"
+              :facet-name="`categories:${category.name}`"
+              :icon="category.icon"
               @toggle="toggleFacet"
-            >
-              <TechCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Adventure"
-              facet-name="categories:adventure"
-              @toggle="toggleFacet"
-            >
-              <AdventureCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Magic"
-              facet-name="categories:magic"
-              @toggle="toggleFacet"
-            >
-              <MagicCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Utility"
-              facet-name="categories:utility"
-              @toggle="toggleFacet"
-            >
-              <UtilityCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Decoration"
-              facet-name="categories:decoration"
-              @toggle="toggleFacet"
-            >
-              <DecorationCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Library"
-              facet-name="categories:library"
-              @toggle="toggleFacet"
-            >
-              <LibraryCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Cursed"
-              facet-name="categories:cursed"
-              @toggle="toggleFacet"
-            >
-              <CursedCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="World Generation"
-              facet-name="categories:worldgen"
-              @toggle="toggleFacet"
-            >
-              <WorldGenCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Storage"
-              facet-name="categories:storage"
-              @toggle="toggleFacet"
-            >
-              <StorageCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Food"
-              facet-name="categories:food"
-              @toggle="toggleFacet"
-            >
-              <FoodCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Equipment"
-              facet-name="categories:equipment"
-              @toggle="toggleFacet"
-            >
-              <EquipmentCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Miscellaneous"
-              facet-name="categories:misc"
-              @toggle="toggleFacet"
-            >
-              <MiscCategory />
-            </SearchFilter>
+            />
             <h3>Mod Loaders</h3>
             <SearchFilter
+              v-for="loader in $tag.loaders"
+              :key="loader.name"
               :active-filters="facets"
-              display-name="Fabric"
-              facet-name="categories:fabric"
+              :display-name="loader.name"
+              :facet-name="`categories:${loader.name}`"
+              :icon="loader.icon"
               @toggle="toggleFacet"
-            >
-              <FabricLoader />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Forge"
-              facet-name="categories:forge"
-              @toggle="toggleFacet"
-            >
-              <ForgeLoader />
-            </SearchFilter>
+            />
             <h3>Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -276,13 +182,20 @@
               label="Include snapshots"
               style="margin-bottom: 0.5rem"
               :border="false"
-              @input="reloadVersions"
             />
           </section>
           <multiselect
             v-model="selectedVersions"
-            :options="versions"
-            :loading="versions.length === 0"
+            :options="
+              showSnapshots
+                ? $tag.gameVersions
+                : $tag.gameVersions.filter(
+                    (it) => it.version_type === 'release'
+                  )
+            "
+            track-by="version"
+            label="version"
+            :loading="$tag.gameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -298,8 +211,8 @@
           <Multiselect
             v-model="displayLicense"
             placeholder="Choose licenses..."
-            :loading="licenses.length === 0"
-            :options="licenses"
+            :loading="$tag.licenses.length === 0"
+            :options="$tag.licenses"
             track-by="name"
             label="name"
             :searchable="false"
@@ -325,21 +238,6 @@ import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
 
 import MFooter from '~/components/layout/MFooter'
-import TechCategory from '~/assets/images/categories/tech.svg?inline'
-import AdventureCategory from '~/assets/images/categories/adventure.svg?inline'
-import CursedCategory from '~/assets/images/categories/cursed.svg?inline'
-import DecorationCategory from '~/assets/images/categories/decoration.svg?inline'
-import EquipmentCategory from '~/assets/images/categories/equipment.svg?inline'
-import FoodCategory from '~/assets/images/categories/food.svg?inline'
-import LibraryCategory from '~/assets/images/categories/library.svg?inline'
-import MagicCategory from '~/assets/images/categories/magic.svg?inline'
-import MiscCategory from '~/assets/images/categories/misc.svg?inline'
-import StorageCategory from '~/assets/images/categories/storage.svg?inline'
-import UtilityCategory from '~/assets/images/categories/utility.svg?inline'
-import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
-
-import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
-import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 
 import ClientSide from '~/assets/images/categories/client.svg?inline'
 import ServerSide from '~/assets/images/categories/server.svg?inline'
@@ -359,20 +257,6 @@ export default {
     Multiselect,
     SearchFilter,
     Checkbox,
-    TechCategory,
-    AdventureCategory,
-    CursedCategory,
-    DecorationCategory,
-    EquipmentCategory,
-    FoodCategory,
-    LibraryCategory,
-    MagicCategory,
-    MiscCategory,
-    StorageCategory,
-    UtilityCategory,
-    WorldGenCategory,
-    ForgeLoader,
-    FabricLoader,
     ClientSide,
     ServerSide,
     SearchIcon,
@@ -432,11 +316,7 @@ export default {
     if (this.$route.query.o)
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
 
-    await Promise.all([
-      this.fillVersions(),
-      this.fillInitialLicenses(),
-      this.onSearchChange(this.currentPage),
-    ])
+    await this.onSearchChange(this.currentPage)
   },
   data() {
     return {
@@ -444,11 +324,9 @@ export default {
 
       displayLicense: '',
       selectedLicense: '',
-      licenses: [],
 
       showSnapshots: false,
       selectedVersions: [],
-      versions: [],
 
       selectedEnvironments: [],
 
@@ -470,36 +348,6 @@ export default {
     }
   },
   methods: {
-    async fillVersions() {
-      try {
-        const url = this.showSnapshots
-          ? 'tag/game_version'
-          : 'tag/game_version?type=release'
-
-        const res = await this.$axios.get(url)
-
-        this.versions = res.data.map((it) => it.version)
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err)
-      }
-    },
-    async reloadVersions() {
-      this.fillVersions()
-      await this.onSearchChange(1)
-    },
-    async fillInitialLicenses() {
-      const licences = (await this.$axios.get('tag/license')).data
-      licences.sort((x, y) => {
-        // Custom case for custom, so it goes to the bottom of the list.
-        if (x.short === 'custom') return 1
-        if (y.short === 'custom') return -1
-        if (x.name < y.name) return -1
-        if (x.name > y.name) return 1
-        return 0
-      })
-      this.licenses = licences
-    },
     async toggleLicense(license) {
       if (this.selectedLicense) {
         const index = this.facets.indexOf(this.selectedLicense)

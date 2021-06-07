@@ -52,8 +52,8 @@
           </span>
           <multiselect
             v-model="version.loaders"
-            :options="selectableLoaders"
-            :loading="selectableLoaders.length === 0"
+            :options="$tag.loaders"
+            :loading="$tag.loaders.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -73,8 +73,8 @@
           </span>
           <multiselect
             v-model="version.game_versions"
-            :options="selectableVersions"
-            :loading="selectableVersions.length === 0"
+            :options="$tag.gameVersions"
+            :loading="$tag.gameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -144,30 +144,15 @@ export default {
       delete this.version.dependencies
     }
 
+    if (!this.version)
+      this.version = this.versions.find(
+        (x) => x.version_number === this.$route.params.version
+      )
+
     if (!this.version.changelog && this.version.changelog_url) {
       this.version.changelog = (
         await this.$axios.get(this.version.changelog_url)
       ).data
-    }
-  },
-  async asyncData(data) {
-    try {
-      const [selectableLoaders, selectableVersions] = (
-        await Promise.all([
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-        ])
-      ).map((it) => it.data)
-
-      return {
-        selectableLoaders: selectableLoaders.map((it) => it.name),
-        selectableVersions: selectableVersions.map((it) => it.version),
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Unable to fetch versions or loaders',
-      })
     }
   },
   data() {
@@ -178,8 +163,8 @@ export default {
   mounted() {
     this.$emit('update:link-bar', [
       ['Versions', 'versions'],
-      [this.version.name, 'versions/' + this.version.id],
-      ['Edit Version', 'versions/' + this.version.id + '/edit'],
+      [this.version.name, 'versions'],
+      ['Edit Version', 'versions/' + this.version.version_number + '/edit'],
     ])
   },
   methods: {
@@ -195,7 +180,7 @@ export default {
         await this.$router.replace(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
-          }/version/${this.version.id}`
+          }/version/${encodeURIComponent(this.version.version_number)}`
         )
       } catch (err) {
         this.$notify({

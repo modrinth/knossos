@@ -54,8 +54,8 @@
         <multiselect
           id="categories"
           v-model="project.categories"
-          :options="availableCategories"
-          :loading="availableCategories.length === 0"
+          :options="$tag.categories.map((it) => it.name)"
+          :loading="$tag.categories.length === 0"
           :multiple="true"
           :searchable="false"
           :show-no-results="false"
@@ -237,7 +237,7 @@
             placeholder="Select one"
             track-by="short"
             label="name"
-            :options="availableLicenses"
+            :options="$tag.licenses"
             :searchable="true"
             :close-on-select="true"
             :show-labels="false"
@@ -277,7 +277,7 @@
             placeholder="Select one"
             track-by="short"
             label="name"
-            :options="availableDonationPlatforms"
+            :options="$tag.donationPlatforms"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -308,77 +308,48 @@ export default {
     FileInput,
     Multiselect,
   },
-  async asyncData(data) {
-    try {
-      const [
-        project,
-        availableCategories,
-        availableLoaders,
-        availableGameVersions,
-        availableLicenses,
-        availableDonationPlatforms,
-      ] = (
-        await Promise.all([
-          data.$axios.get(`project/${data.params.id}`, data.$auth.headers),
-          data.$axios.get(`tag/category`),
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-          data.$axios.get(`tag/license`),
-          data.$axios.get(`tag/donation_platform`),
-        ])
-      ).map((it) => it.data)
-
-      project.license = {
-        short: project.license.id,
-        name: project.license.name,
-        url: project.license.url,
+  props: {
+    project: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
+  fetch() {
+    if (this.project.donation_urls) {
+      for (const platform of this.project.donation_urls) {
+        this.donationPlatforms.push({
+          short: platform.id,
+          name: platform.platform,
+        })
+        this.donationLinks.push(platform.url)
       }
-
-      if (project.body_url && !project.body) {
-        project.body = (await data.$axios.get(project.body_url)).data
-      }
-
-      const donationPlatforms = []
-      const donationLinks = []
-
-      if (project.donation_urls) {
-        for (const platform of project.donation_urls) {
-          donationPlatforms.push({
-            short: platform.id,
-            name: platform.platform,
-          })
-          donationLinks.push(platform.url)
-        }
-      }
-
-      return {
-        project,
-        clientSideType:
-          project.client_side.charAt(0) + project.client_side.slice(1),
-        serverSideType:
-          project.server_side.charAt(0) + project.server_side.slice(1),
-        availableCategories,
-        availableLoaders,
-        availableGameVersions,
-        availableLicenses,
-        license: {
-          short: project.license.id,
-          name: project.license.name,
-        },
-        license_url: project.license.url,
-        availableDonationPlatforms,
-        donationPlatforms,
-        donationLinks,
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Project not found',
-      })
     }
+
+    this.license = {
+      short: this.project.license.id,
+      name: this.project.license.name,
+    }
+
+    this.license_url = this.project.license.url
+
+    this.clientSideType =
+      this.project.client_side.charAt(0) + this.project.client_side.slice(1)
+    this.serverSideType =
+      this.project.server_side.charAt(0) + this.project.server_side.slice(1)
   },
   data() {
     return {
+      clientSideType: '',
+      serverSideType: '',
+
+      license: { short: '', name: '' },
+      license_url: '',
+
+      donationPlatforms: [],
+      donationLinks: [],
+
       isProcessing: false,
       previewImage: null,
       compiledBody: '',

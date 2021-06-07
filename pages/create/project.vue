@@ -50,7 +50,7 @@
           <Multiselect
             v-model="project_type"
             placeholder="Select project type"
-            :options="availableProjectTypes"
+            :options="$tag.projectTypes"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -65,8 +65,8 @@
           <multiselect
             id="categories"
             v-model="categories"
-            :options="availableCategories"
-            :loading="availableCategories.length === 0"
+            :options="$tag.categories.map((it) => it.name)"
+            :loading="$tag.categories.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -330,8 +330,8 @@
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].loaders"
-                :options="availableLoaders"
-                :loading="availableLoaders.length === 0"
+                :options="$tag.loaders.map((it) => it.name)"
+                :loading="$tag.loaders.length === 0"
                 :multiple="true"
                 :searchable="false"
                 :show-no-results="false"
@@ -351,8 +351,8 @@
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].game_versions"
-                :options="availableGameVersions"
-                :loading="availableGameVersions.length === 0"
+                :options="$tag.gameVersions.map((it) => it.name)"
+                :loading="$tag.gameVersions.length === 0"
                 :multiple="true"
                 :searchable="true"
                 :show-no-results="false"
@@ -454,7 +454,7 @@
               track-by="short"
               label="name"
               :searchable="true"
-              :options="availableLicenses"
+              :options="$tag.licenses"
               :close-on-select="true"
               :show-labels="false"
             />
@@ -494,7 +494,7 @@
               placeholder="Select one"
               track-by="short"
               label="name"
-              :options="availableDonationPlatforms"
+              :options="$tag.donationPlatforms"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -533,36 +533,6 @@ export default {
     Multiselect,
     ForgeIcon,
     FabricIcon,
-  },
-  async asyncData(data) {
-    const availableProjectTypes = await import(
-      '../../static/projectRoutes.json'
-    )
-    const [
-      availableCategories,
-      availableLoaders,
-      availableGameVersions,
-      availableLicenses,
-      availableDonationPlatforms,
-    ] = (
-      await Promise.all([
-        data.$axios.get(`tag/category`),
-        data.$axios.get(`tag/loader`),
-        data.$axios.get(`tag/game_version`),
-        data.$axios.get(`tag/license`),
-        data.$axios.get(`tag/donation_platform`),
-      ])
-    ).map((it) => it.data)
-    return {
-      availableProjectTypes: availableProjectTypes.default.map((it) => it.type),
-      availableCategories: availableCategories
-        .filter((it) => it.project_type === 'mod')
-        .map((it) => it.name),
-      availableLoaders: availableLoaders.map((it) => it.name),
-      availableGameVersions: availableGameVersions.map((it) => it.version),
-      availableLicenses,
-      availableDonationPlatforms,
-    }
   },
   data() {
     return {
@@ -608,19 +578,6 @@ export default {
         default:
           this.license_url = `https://cdn.modrinth.com/licenses/${newValue.short}.txt`
       }
-    },
-    async project_type(newValue, oldValue) {
-      this.categories = []
-
-      const availableCategories = await this.$axios
-        .get(`tag/category`)
-        .then((res) =>
-          res.data
-            .filter((it) => it.project_type === this.project_type)
-            .map((it) => it.name)
-        )
-
-      this.availableCategories = availableCategories
     },
   },
   methods: {
@@ -700,6 +657,8 @@ export default {
             Authorization: this.$auth.token,
           },
         })
+
+        await this.$store.dispatch('user/fetchAll', { force: true })
 
         await this.$router.replace('/dashboard/projects')
       } catch (err) {

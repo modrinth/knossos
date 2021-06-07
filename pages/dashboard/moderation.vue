@@ -6,7 +6,7 @@
     <div v-if="projects.length !== 0">
       <ProjectCard
         v-for="(project, index) in projects"
-        :id="project.id"
+        :id="project.slug ? project.slug : project.project_id"
         :key="project.id"
         :project-type="project.project_type"
         :author="project.author"
@@ -15,9 +15,9 @@
         :created-at="project.published"
         :description="project.description"
         :downloads="project.downloads.toString()"
-        :edit-projecte="true"
+        :edit-mode="true"
         :icon-url="project.icon_url"
-        :is-projectrinth="true"
+        :is-modrinth="true"
         :latest-version="project.latest_version"
         :name="project.title"
         :page-url="project.page_url"

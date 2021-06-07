@@ -56,8 +56,8 @@
           </span>
           <multiselect
             v-model="createdVersion.loaders"
-            :options="selectableLoaders"
-            :loading="selectableLoaders.length === 0"
+            :options="$tag.loaders"
+            :loading="$tag.loaders.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -77,8 +77,8 @@
           </span>
           <multiselect
             v-model="createdVersion.game_versions"
-            :options="selectableVersions"
-            :loading="selectableVersions.length === 0"
+            :options="$tag.gameVersions"
+            :loading="$tag.gameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -135,26 +135,6 @@ export default {
       },
     },
   },
-  async asyncData(data) {
-    try {
-      const [selectableLoaders, selectableVersions] = (
-        await Promise.all([
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-        ])
-      ).map((it) => it.data)
-
-      return {
-        selectableLoaders: selectableLoaders.map((it) => it.name),
-        selectableVersions: selectableVersions.map((it) => it.version),
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Unable to fetch versions and loaders',
-      })
-    }
-  },
   data() {
     return {
       createdVersion: {},
@@ -199,7 +179,7 @@ export default {
         await this.$router.push(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : data.project_id
-          }/version/${data.id}`
+          }/version/${encodeURIComponent(data.version_number)}`
         )
       } catch (err) {
         this.$notify({
