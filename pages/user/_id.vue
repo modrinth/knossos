@@ -67,11 +67,12 @@
       <div class="content">
         <Advertisement type="banner" small-screen="destroy" />
         <div class="projects">
-          <SearchResult
+          <ProjectCard
             v-for="result in projects"
             :id="result.slug || result.id"
             :key="result.id"
             :name="result.title"
+            :project-type="project.project_type"
             :description="result.description"
             :created-at="result.published"
             :updated-at="result.updated"
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-import SearchResult from '~/components/ui/ProjectCard'
+import ProjectCard from '~/components/ui/ProjectCard'
 import MFooter from '~/components/layout/MFooter'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
@@ -101,7 +102,7 @@ export default {
   auth: false,
   components: {
     Advertisement,
-    SearchResult,
+    ProjectCard,
     CalendarIcon,
     DownloadIcon,
     MFooter,

@@ -14,6 +14,7 @@
         :author="project.author"
         :name="project.title"
         :description="project.description"
+        :project-type="project.project_type"
         :latest-version="project.latest_version"
         :created-at="project.published"
         :updated-at="project.updated"

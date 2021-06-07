@@ -84,6 +84,7 @@
               :author="result.author"
               :name="result.title"
               :description="result.description"
+              :project-type="result.project_type"
               :latest-version="result.latest_version"
               :created-at="result.date_created"
               :updated-at="result.date_modified"
