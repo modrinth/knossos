@@ -72,7 +72,7 @@
             :id="result.slug || result.id"
             :key="result.id"
             :name="result.title"
-            :project-type="project.project_type"
+            :project-type="result.project_type"
             :description="result.description"
             :created-at="result.published"
             :updated-at="result.updated"
