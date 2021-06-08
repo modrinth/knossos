@@ -21,9 +21,7 @@
         </label>
         <h3>Number</h3>
         <label>
-          <span>
-            This is how your version will appear in mod lists and URLs.
-          </span>
+          <span> This is how your version will appear in URLs. </span>
           <input
             v-model="version.version_number"
             type="text"
@@ -66,7 +64,7 @@
         </label>
         <h3>Minecraft versions</h3>
         <label>
-          <span>Mark all Minecraft versions this mod version supports.</span>
+          <span>Mark all Minecraft versions this version supports.</span>
           <multiselect
             v-model="version.game_versions"
             :options="$tag.gameVersions"

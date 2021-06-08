@@ -17,8 +17,8 @@
         <label>
           <span>
             The ID of the item you are reporting. For example, the item ID of a
-            mod would be its mod ID, found on the right side of that mod's page
-            under "Project ID".
+            mod would be its project ID, found on the right side of that mod's
+            page under "Project ID".
           </span>
           <input v-model="itemId" type="text" placeholder="Enter the item ID" />
         </label>
