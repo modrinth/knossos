@@ -142,7 +142,7 @@ export default {
     },
     description: {
       type: String,
-      default: 'A mod description',
+      default: 'A project description',
     },
     projectType: {
       type: String,

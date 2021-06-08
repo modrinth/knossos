@@ -25,15 +25,14 @@
         <label>
           <span>
             Be creative. TechCraft v7 won't be searchable and won't be clicked
-            on
+            on.
           </span>
           <input v-model="name" type="text" placeholder="Enter the name" />
         </label>
         <h3>Summary</h3>
         <label>
           <span>
-            Give a quick description to your project. It will appear in the
-            search
+            Give a quick summary of your project. This will appear in search.
           </span>
           <input
             v-model="description"
@@ -60,7 +59,7 @@
         <h3>Categories</h3>
         <label>
           <span>
-            Select up to 3 categories. They will help to find your project
+            Select up to 3 categories. These will help others find your project.
           </span>
           <multiselect
             id="categories"
@@ -82,8 +81,8 @@
         <h3>Vanity URL (slug)</h3>
         <label>
           <span>
-            Set this to something pretty, so URLs to your project are more
-            readable
+            Set this to something pretty, so your project's URL can be more
+            readable.
           </span>
           <input
             id="name"
@@ -100,13 +99,13 @@
             <file-input
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image"
-              prompt="Choose image or drag it here"
+              prompt="Choose an image or drag it here"
               @change="showPreviewImage"
             />
             <ul class="row-grow-1">
               <li>Must be a square</li>
               <li>Minimum size is 100x100</li>
-              <li>Acceptable formats are PNG, JPEG, GIF and WEBP</li>
+              <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
             </ul>
             <button
               class="transparent-button"
@@ -132,9 +131,10 @@
         <h3>Supported environments</h3>
         <div class="columns">
           <span>
-            Let others know if your project is for clients, servers or
-            universal. For example, IC2 will be required + required, while
-            OptiFine will be required + no functionality
+            Let others know if your project is for clients, servers, or both.
+            For example, Lithium would be optional for both sides, whereas
+            Sodium would be required on the client and unsupported on the
+            server.
           </span>
           <div class="labeled-control">
             <h3>Client</h3>
@@ -166,22 +166,21 @@
         <h3>
           <label
             for="body"
-            title="You can type the of the long form of your description here."
+            title="You can type an extended description of your project here."
           >
             Body
           </label>
         </h3>
         <span>
-          You can type the of the long form of your description here. This
-          editor supports markdown. You can find the syntax
+          You can type an extended description of your project here. This editor
+          supports Markdown. Its syntax can be found
           <a
-            class=""
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
             >here</a
-          >. HTML can also be used inside your description, excluding scripts
-          and iframes.
+          >. HTML can also be used within your description, with the exception
+          of scripts and iframes.
         </span>
         <div class="columns">
           <div class="textarea-wrapper">
@@ -192,7 +191,7 @@
       </section>
       <section class="versions">
         <div class="title">
-          <h3>Upload Versions</h3>
+          <h3>Upload versions</h3>
           <button
             title="Add a version"
             class="button"
@@ -286,8 +285,8 @@
             <h3>Name</h3>
             <label>
               <span>
-                This is what users will see first. Will default to version
-                number
+                This is what users will see first. If not specified, this will
+                default to the version number.
               </span>
               <input
                 v-model="versions[currentVersionIndex].version_title"
@@ -297,9 +296,7 @@
             </label>
             <h3>Number</h3>
             <label>
-              <span>
-                That's how your version will appear in project lists and in URLs
-              </span>
+              <span> This is how your version will appear in URLs. </span>
               <input
                 v-model="versions[currentVersionIndex].version_number"
                 type="text"
@@ -309,8 +306,8 @@
             <h3>Channel</h3>
             <label>
               <span>
-                It is important to notify players and pack makers if the version
-                is stable
+                It is important to notify players and modpack makers whether the
+                version is stable or if it's still in development.
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].release_channel"
@@ -322,12 +319,9 @@
                 :allow-empty="false"
               />
             </label>
-            <h3>Loaders</h3>
+            <h3>Mod loaders</h3>
             <label>
-              <span>
-                Mark all loaders this version works with. It is essential for
-                search
-              </span>
+              <span>Mark all mod loaders this version works with.</span>
               <multiselect
                 v-model="versions[currentVersionIndex].loaders"
                 :options="$tag.loaders.map((it) => it.name)"
@@ -343,12 +337,9 @@
                 placeholder="Choose loaders..."
               />
             </label>
-            <h3>Game versions</h3>
+            <h3>Minecraft versions</h3>
             <label>
-              <span>
-                Mark all game version this version supports. It is essential for
-                search
-              </span>
+              <span> Mark all Minecraft versions this version supports. </span>
               <multiselect
                 v-model="versions[currentVersionIndex].game_versions"
                 :options="$tag.gameVersions.map((it) => it.name)"
@@ -368,7 +359,7 @@
             <label>
               <span>
                 You should upload a single JAR file. However, you are allowed to
-                upload multiple
+                upload multiple.
               </span>
               <FileInput
                 accept="application/*"
@@ -382,8 +373,8 @@
             <h3>Changelog</h3>
             <span>
               Tell players and modpack makers what's new. It supports the same
-              markdown as description, but it is advisable not to be too
-              creative with it in changelogs
+              Markdown as the description, but it is recommended not to be too
+              creative with the changelogs.
             </span>
             <div class="textarea-wrapper">
               <textarea
@@ -408,7 +399,9 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label title="A page/repository containing the source code">
+        <label
+          title="A page/repository containing the source code for your project."
+        >
           <span>Source code</span>
           <input
             v-model="source_url"
@@ -426,7 +419,7 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label title="An inivitation link to your Discord server.">
+        <label title="An invitation link to your Discord server.">
           <span>Discord invite</span>
           <input
             v-model="discord_url"
@@ -442,10 +435,19 @@
         </div>
         <label>
           <span>
-            It is really important to choose a proper license for your project.
-            You may choose one from our list or provide a URL to your own
-            license. URL field will be filled automatically for provided
-            licenses
+            It is very important to choose a proper license for your project.
+            You may choose one from our list or provide a URL to a custom
+            license.
+            <br />
+            Confused? See our
+            <a
+              href="https://blog.modrinth.com/licensing-guide/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              licensing guide</a
+            >
+            for more information.
           </span>
           <div class="input-group">
             <Multiselect
@@ -462,6 +464,7 @@
           </div>
         </label>
       </section>
+      <!--
       <section class="donations">
         <div class="title">
           <h3>Donation links</h3>
@@ -512,6 +515,7 @@
           <hr />
         </div>
       </section>
+      -->
       <m-footer class="footer" centered />
     </div>
   </div>
@@ -670,7 +674,7 @@ export default {
 
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: description,
           type: 'error',
         })
@@ -845,10 +849,6 @@ section.game-sides {
 section.description {
   grid-area: description;
 
-  span a {
-    text-decoration: underline;
-  }
-
   & > .columns {
     align-items: stretch;
     min-height: 10rem;
@@ -1011,5 +1011,10 @@ section.donations {
 
 .choose-image {
   cursor: pointer;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--color-link);
 }
 </style>
