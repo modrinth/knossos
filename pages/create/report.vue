@@ -126,7 +126,11 @@ export default {
 
         await this.$axios.post('report', data, this.$auth.headers)
 
-        await this.$router.replace(`/${this.itemType}/${this.itemId}`)
+        if (this.$router.history._startLocation !== this.$route.fullPath) {
+          await this.$router.back()
+        } else {
+          await this.$router.replace('/')
+        }
       } catch (err) {
         this.$notify({
           group: 'main',
