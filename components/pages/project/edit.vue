@@ -27,7 +27,7 @@
       <h3>Name</h3>
       <label>
         <span>
-          Be creative. TechCraft v7 won't be searchable and won't be clicked on
+          Be creative. TechCraft v7 won't be searchable and won't be clicked on.
         </span>
         <input
           v-model="project.title"
@@ -38,7 +38,7 @@
       <h3>Summary</h3>
       <label>
         <span>
-          Give a quick description to your project. It will appear in the search
+          Give a quick summary of your project. This will appear in search.
         </span>
         <input
           v-model="project.description"
@@ -49,7 +49,7 @@
       <h3>Categories</h3>
       <label>
         <span>
-          Select up to 3 categories. They will help to find your project
+          Select up to 3 categories. These will help others find your project.
         </span>
         <multiselect
           id="categories"
@@ -71,8 +71,8 @@
       <h3>Vanity URL (slug)</h3>
       <label>
         <span>
-          Set this to something pretty, so URLs to your project are more
-          readable
+          Set this to something pretty, so your project's URL can be more
+          readable.
         </span>
         <input
           id="name"
@@ -89,13 +89,13 @@
           <file-input
             accept="image/png,image/jpeg,image/gif,image/webp"
             class="choose-image"
-            prompt="Choose image or drag it here"
+            prompt="Choose an image or drag it here"
             @change="showPreviewImage"
           />
           <ul class="row-grow-1">
             <li>Must be a square</li>
             <li>Minimum size is 100x100</li>
-            <li>Acceptable formats are PNG, JPEG, GIF and WEBP</li>
+            <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
           </ul>
           <button
             class="transparent-button"
@@ -124,9 +124,9 @@
       <h3>Supported environments</h3>
       <div class="columns">
         <span>
-          Let others know if your project is for clients, servers or universal.
-          For example, IC2 will be required + required, while OptiFine will be
-          required + no functionality
+          Let others know if your project is for clients, servers, or both. For
+          example, Lithium would be optional for both sides, whereas Sodium
+          would be required on the client and unsupported on the server.
         </span>
         <div class="labeled-control">
           <h3>Client</h3>
@@ -158,14 +158,14 @@
       <h3>
         <label
           for="body"
-          title="You can type the of the long form of your description here."
+          title="You can type an extended description of your project here."
         >
           Description
         </label>
       </h3>
       <span>
-        You can type the of the long form of your description here. This editor
-        supports markdown. You can find the syntax
+        You can type an extended description of your project here. This editor
+        supports Markdown. Its syntax can be found
         <a
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
@@ -194,7 +194,9 @@
           placeholder="Enter a valid URL"
         />
       </label>
-      <label title="A page/repository containing the source code">
+      <label
+        title="A page/repository containing the source code for your project."
+      >
         <span>Source code</span>
         <input
           v-model="project.source_url"
@@ -212,7 +214,7 @@
           placeholder="Enter a valid URL"
         />
       </label>
-      <label title="An inivitation link to your Discord server.">
+      <label title="An invitation link to your Discord server.">
         <span>Discord invite</span>
         <input
           v-model="project.discord_url"
@@ -227,9 +229,18 @@
       </div>
       <label>
         <span>
-          It is really important to choose a proper license for your project.
-          You may choose one from our list or provide a URL to your own license.
-          URL field will be filled automatically for provided licenses
+          It is very important to choose a proper license for your project. You
+          may choose one from our list or provide a URL to a custom license.
+          <br />
+          Confused? See our
+          <a
+            href="https://blog.modrinth.com/licensing-guide/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            licensing guide</a
+          >
+          for more information.
         </span>
         <div class="input-group">
           <Multiselect
@@ -246,6 +257,7 @@
         </div>
       </label>
     </section>
+    <!--
     <section class="donations">
       <div class="title">
         <h3>Donation links</h3>
@@ -295,6 +307,7 @@
         <hr />
       </div>
     </section>
+    -->
   </div>
 </template>
 
@@ -440,7 +453,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -649,5 +662,10 @@ section.donations {
 
 .choose-image {
   cursor: pointer;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--color-link);
 }
 </style>

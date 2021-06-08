@@ -176,7 +176,7 @@
             >
               <ServerSide />
             </SearchFilter>
-            <h3>Minecraft Versions</h3>
+            <h3>Minecraft versions</h3>
             <Checkbox
               v-model="showSnapshots"
               label="Include snapshots"
@@ -184,7 +184,7 @@
               :border="false"
             />
           </section>
-          <multiselect
+          <Multiselect
             v-model="selectedVersions"
             :options="
               showSnapshots
@@ -206,7 +206,7 @@
             :hide-selected="true"
             placeholder="Choose versions..."
             @input="onSearchChange(1)"
-          ></multiselect>
+          ></Multiselect>
           <h3>Licenses</h3>
           <Multiselect
             v-model="displayLicense"

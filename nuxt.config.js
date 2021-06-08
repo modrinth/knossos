@@ -175,11 +175,10 @@ export default {
   },
   env: {
     version: process.env.VERSION_ID || 'unknown',
-    domain: getDomain(),
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
+      baseURL: process.env.API_URL,
     },
     ads: {
       ghostMode: process.env.ENABLE_ADS == null,
@@ -190,17 +189,17 @@ export default {
     analytics: {
       base_url: process.env.ARIADNE_URL,
     },
-  },
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL,
+    utils: {
+      domain: getDomain(),
     },
   },
 }
 
 function getDomain() {
   if (process.env.NODE_ENV === 'production') {
-    if (process.env.HEROKU_APP_NAME) {
+    if (process.env.HOST_URL) {
+      return process.env.HOST_URL
+    } else if (process.env.HEROKU_APP_NAME) {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`

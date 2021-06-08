@@ -14,7 +14,8 @@
         <h3>Name</h3>
         <label>
           <span>
-            This is what users will see first. Will default to version number
+            This is what users will see first. If not specified, this will
+            default to the version number.
           </span>
           <input
             v-model="createdVersion.version_title"
@@ -24,9 +25,7 @@
         </label>
         <h3>Number</h3>
         <label>
-          <span>
-            That's how your version will appear in project lists and in URLs
-          </span>
+          <span> This is how your version will appear in URLs. </span>
           <input
             v-model="createdVersion.version_number"
             type="text"
@@ -36,8 +35,8 @@
         <h3>Channel</h3>
         <label>
           <span>
-            It is important to notify players and pack makers if the version is
-            stable
+            It is important to notify players and modpack makers whether the
+            version is stable or if it's still in development.
           </span>
           <multiselect
             v-model="createdVersion.release_channel"
@@ -49,11 +48,9 @@
             :allow-empty="false"
           />
         </label>
-        <h3>Loaders</h3>
+        <h3>Mod loaders</h3>
         <label>
-          <span>
-            Mark all loaders this version works with. It is essential for search
-          </span>
+          <span>Mark all mod loaders this version works with.</span>
           <multiselect
             v-model="createdVersion.loaders"
             :options="$tag.loaders"
@@ -69,12 +66,9 @@
             placeholder="Choose loaders..."
           />
         </label>
-        <h3>Game versions</h3>
+        <h3>Minecraft versions</h3>
         <label>
-          <span>
-            Mark all game version this version supports. It is essential for
-            search
-          </span>
+          <span>Mark all Minecraft versions this version supports.</span>
           <multiselect
             v-model="createdVersion.game_versions"
             :options="$tag.gameVersions"
@@ -94,7 +88,7 @@
         <label>
           <span>
             You should upload a single JAR file. However, you are allowed to
-            upload multiple
+            upload multiple.
           </span>
           <FileInput
             accept="application/*"
@@ -108,8 +102,8 @@
         <h3>Changelog</h3>
         <span>
           Tell players and modpack makers what's new. It supports the same
-          markdown as description, but it is advisable not to be too creative
-          with it in changelogs
+          Markdown as the description, but it is advised not to be too creative
+          with the changelogs.
         </span>
         <div class="textarea-wrapper">
           <textarea v-model="createdVersion.version_body"></textarea>
@@ -184,7 +178,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })

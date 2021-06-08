@@ -59,7 +59,7 @@ export default {
     UpToDate,
   },
   head: {
-    title: 'My projects - Modrinth',
+    title: 'My Projects - Modrinth',
   },
 }
 </script>

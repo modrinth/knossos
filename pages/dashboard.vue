@@ -34,7 +34,7 @@
           </nuxt-link>
           <nuxt-link :to="'/dashboard/privacy'" class="tab last">
             <ShieldIcon />
-            Privacy Settings
+            Privacy settings
           </nuxt-link>
         </div>
         <div v-else class="card page-nav">
@@ -44,7 +44,7 @@
           </a>
           <nuxt-link :to="'/dashboard/privacy'" class="tab last">
             <SettingsIcon />
-            Privacy Settings
+            Privacy settings
           </nuxt-link>
         </div>
         <m-footer class="footer" hide-small />
@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.fullPath}`
+      return `${this.$axios.defaults.baseURL}auth/init?url=${this.$store.app.$config.utils.domain}${this.$route.fullPath}`
     },
   },
 }

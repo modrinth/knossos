@@ -58,7 +58,7 @@ export default {
     FollowIllustration,
   },
   head: {
-    title: 'Followed projects - Modrinth',
+    title: 'Followed Projects - Modrinth',
   },
 }
 </script>
