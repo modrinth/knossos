@@ -760,7 +760,7 @@ export default {
     'header       header       header' auto
     'advert       advert       advert' auto
     'essentials   essentials   essentials' auto
-    'project-icon project-icon  project-icon' auto
+    'project-icon project-icon project-icon' auto
     'game-sides   game-sides   game-sides' auto
     'description  description  description' auto
     'versions     versions     versions' auto
