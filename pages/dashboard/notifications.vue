@@ -76,7 +76,6 @@ export default {
 
       try {
         if (typeof index !== 'undefined') {
-          console.log('test2')
           const config = {
             method: notification.actions[index].action_route[0].toLowerCase(),
             url: `${notification.actions[index].action_route[1]}`,
