@@ -20,7 +20,7 @@
           <div class="buttons">
             <nuxt-link
               v-if="this.$auth.user && this.$auth.user.id != user.id"
-              :to="`/report/create?id=${user.id}&t=user`"
+              :to="`/create/report?id=${user.id}&t=user`"
               class="iconified-button"
             >
               <ReportIcon />
@@ -66,12 +66,13 @@
       </div>
       <div class="content">
         <Advertisement type="banner" small-screen="destroy" />
-        <div class="mods">
-          <SearchResult
-            v-for="result in mods"
+        <div class="projects">
+          <ProjectCard
+            v-for="result in projects"
             :id="result.slug || result.id"
             :key="result.id"
             :name="result.title"
+            :project-type="result.project_type"
             :description="result.description"
             :created-at="result.published"
             :updated-at="result.updated"
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-import SearchResult from '~/components/ui/ProjectCard'
+import ProjectCard from '~/components/ui/ProjectCard'
 import MFooter from '~/components/layout/MFooter'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
@@ -101,7 +102,7 @@ export default {
   auth: false,
   components: {
     Advertisement,
-    SearchResult,
+    ProjectCard,
     CalendarIcon,
     DownloadIcon,
     MFooter,
@@ -109,19 +110,16 @@ export default {
   },
   async asyncData(data) {
     try {
-      let res = await data.$axios.get(`user/${data.params.id}`)
-      const user = res.data
-
-      let mods = []
-      res = await data.$axios.get(`user/${user.id}/mods`)
-      if (res.data) {
-        res = await data.$axios.get(`mods?ids=${JSON.stringify(res.data)}`)
-        mods = res.data
-      }
+      const [user, projects] = (
+        await Promise.all([
+          data.$axios.get(`user/${data.params.id}`),
+          data.$axios.get(`user/${data.params.id}/projects`),
+        ])
+      ).map((it) => it.data)
 
       return {
-        mods,
         user,
+        projects,
       }
     } catch {
       data.error({
@@ -137,8 +135,8 @@ export default {
     sumDownloads() {
       let sum = 0
 
-      for (const mod of this.mods) {
-        sum += mod.downloads
+      for (const project of this.projects) {
+        sum += project.downloads
       }
 
       return this.formatNumber(sum)

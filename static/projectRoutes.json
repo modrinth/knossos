@@ -1,0 +1,47 @@
+[
+  {
+    "type": "mod",
+    "search": {
+      "name": "Mods",
+      "path": "mods",
+      "filters": [
+        "category",
+        "mod_loader",
+        "environment",
+        "minecraft_version",
+        "license"
+      ]
+    },
+    "project": {
+      "name": "Mod"
+    }
+  },
+  {
+    "type": "modpack",
+    "search": {
+      "name": "Modpacks",
+      "path": "modpacks",
+      "filters": [
+        "category",
+        "mod_loader",
+        "environment",
+        "minecraft_version",
+        "license"
+      ]
+    },
+    "project": {
+      "name": "Modpack"
+    }
+  },
+  {
+    "type": "datapack",
+    "search": {
+      "name": "Datapacks",
+      "path": "datapacks",
+      "filters": ["category", "minecraft_version", "license"]
+    },
+    "project": {
+      "name": "Datapack"
+    }
+  }
+]

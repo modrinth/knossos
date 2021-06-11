@@ -4,7 +4,9 @@
       <div class="content">
         <section class="search-nav">
           <div class="iconified-input column-grow-2">
-            <label class="hidden" for="search">Search Mods</label>
+            <label class="hidden" for="search"
+              >Search {{ this.$route.name }}</label
+            >
             <input
               id="search"
               v-model="query"
@@ -77,11 +79,12 @@
           <div v-else>
             <SearchResult
               v-for="(result, index) in results"
-              :id="result.slug ? result.slug : result.mod_id.split('-')[1]"
-              :key="result.mod_id"
+              :id="result.slug ? result.slug : result.project_id.split('-')[1]"
+              :key="result.project_id"
               :author="result.author"
               :name="result.title"
               :description="result.description"
+              :project-type="result.project_type"
               :latest-version="result.latest_version"
               :created-at="result.date_created"
               :updated-at="result.date_modified"
@@ -91,7 +94,7 @@
               :page-url="result.page_url"
               :categories="result.categories"
               :is-ad="index === -1"
-              :is-modrinth="result.host === 'modrinth'"
+              :is-modrinth="true"
             />
             <div v-if="results.length === 0" class="no-results">
               <p>No results found for your query!</p>
@@ -124,7 +127,7 @@
       </div>
       <section ref="filters" class="filters">
         <div class="filters-wrapper">
-          <section class="filter-group">
+          <div v-if="showFilters.includes('category')" class="filter-type">
             <div class="filter-clear-button">
               <h3>Categories</h3>
               <div class="columns">
@@ -138,118 +141,28 @@
               </div>
             </div>
             <SearchFilter
+              v-for="category in $tag.categories"
+              :key="category.name"
               :active-filters="facets"
-              display-name="Technology"
-              facet-name="categories:technology"
+              :display-name="category.name"
+              :facet-name="`categories:${category.name}`"
+              :icon="category.icon"
               @toggle="toggleFacet"
-            >
-              <TechCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Adventure"
-              facet-name="categories:adventure"
-              @toggle="toggleFacet"
-            >
-              <AdventureCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Magic"
-              facet-name="categories:magic"
-              @toggle="toggleFacet"
-            >
-              <MagicCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Utility"
-              facet-name="categories:utility"
-              @toggle="toggleFacet"
-            >
-              <UtilityCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Decoration"
-              facet-name="categories:decoration"
-              @toggle="toggleFacet"
-            >
-              <DecorationCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Library"
-              facet-name="categories:library"
-              @toggle="toggleFacet"
-            >
-              <LibraryCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Cursed"
-              facet-name="categories:cursed"
-              @toggle="toggleFacet"
-            >
-              <CursedCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="World generation"
-              facet-name="categories:worldgen"
-              @toggle="toggleFacet"
-            >
-              <WorldGenCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Storage"
-              facet-name="categories:storage"
-              @toggle="toggleFacet"
-            >
-              <StorageCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Food"
-              facet-name="categories:food"
-              @toggle="toggleFacet"
-            >
-              <FoodCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Equipment"
-              facet-name="categories:equipment"
-              @toggle="toggleFacet"
-            >
-              <EquipmentCategory />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Miscellaneous"
-              facet-name="categories:misc"
-              @toggle="toggleFacet"
-            >
-              <MiscCategory />
-            </SearchFilter>
+            />
+          </div>
+          <div v-if="showFilters.includes('mod_loader')" class="filter-type">
             <h3>Mod Loaders</h3>
             <SearchFilter
+              v-for="loader in $tag.loaders"
+              :key="loader.name"
               :active-filters="facets"
-              display-name="Fabric"
-              facet-name="categories:fabric"
+              :display-name="loader.name"
+              :facet-name="`categories:${loader.name}`"
+              :icon="loader.icon"
               @toggle="toggleFacet"
-            >
-              <FabricLoader />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="facets"
-              display-name="Forge"
-              facet-name="categories:forge"
-              @toggle="toggleFacet"
-            >
-              <ForgeLoader />
-            </SearchFilter>
+            />
+          </div>
+          <div v-if="showFilters.includes('environment')" class="filter-type">
             <h3>Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -267,44 +180,58 @@
             >
               <ServerSide />
             </SearchFilter>
+          </div>
+          <div
+            v-if="showFilters.includes('minecraft_version')"
+            class="filter-type"
+          >
             <h3>Minecraft versions</h3>
             <Checkbox
               v-model="showSnapshots"
               label="Include snapshots"
               style="margin-bottom: 0.5rem"
               :border="false"
-              @input="reloadVersions"
             />
-          </section>
-          <Multiselect
-            v-model="selectedVersions"
-            :options="versions"
-            :loading="versions.length === 0"
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-on-select="false"
-            :show-labels="false"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose versions..."
-            @input="onSearchChange(1)"
-          ></Multiselect>
-          <h3>Licenses</h3>
-          <Multiselect
-            v-model="displayLicense"
-            placeholder="Choose licenses..."
-            :loading="licenses.length === 0"
-            :options="licenses"
-            track-by="name"
-            label="name"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="true"
-            @input="toggleLicense"
-          />
+            <Multiselect
+              v-model="selectedVersions"
+              :options="
+                showSnapshots
+                  ? $tag.gameVersions
+                  : $tag.gameVersions.filter(
+                      (it) => it.version_type === 'release'
+                    )
+              "
+              track-by="version"
+              label="version"
+              :loading="$tag.gameVersions.length === 0"
+              :multiple="true"
+              :searchable="true"
+              :show-no-results="false"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :show-labels="false"
+              :limit="6"
+              :hide-selected="true"
+              placeholder="Choose versions..."
+              @input="onSearchChange(1)"
+            ></Multiselect>
+          </div>
+          <div v-if="showFilters.includes('license')" class="filter-type">
+            <h3>Licenses</h3>
+            <Multiselect
+              v-model="displayLicense"
+              placeholder="Choose licenses..."
+              :loading="$tag.licenses.length === 0"
+              :options="$tag.licenses"
+              track-by="name"
+              label="name"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="true"
+              @input="toggleLicense"
+            />
+          </div>
         </div>
         <Advertisement type="square" small-screen="destroy" />
         <m-footer class="footer" hide-small />
@@ -322,21 +249,6 @@ import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
 
 import MFooter from '~/components/layout/MFooter'
-import TechCategory from '~/assets/images/categories/tech.svg?inline'
-import AdventureCategory from '~/assets/images/categories/adventure.svg?inline'
-import CursedCategory from '~/assets/images/categories/cursed.svg?inline'
-import DecorationCategory from '~/assets/images/categories/decoration.svg?inline'
-import EquipmentCategory from '~/assets/images/categories/equipment.svg?inline'
-import FoodCategory from '~/assets/images/categories/food.svg?inline'
-import LibraryCategory from '~/assets/images/categories/library.svg?inline'
-import MagicCategory from '~/assets/images/categories/magic.svg?inline'
-import MiscCategory from '~/assets/images/categories/misc.svg?inline'
-import StorageCategory from '~/assets/images/categories/storage.svg?inline'
-import UtilityCategory from '~/assets/images/categories/utility.svg?inline'
-import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
-
-import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
-import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
 
 import ClientSide from '~/assets/images/categories/client.svg?inline'
 import ServerSide from '~/assets/images/categories/server.svg?inline'
@@ -356,25 +268,25 @@ export default {
     Multiselect,
     SearchFilter,
     Checkbox,
-    TechCategory,
-    AdventureCategory,
-    CursedCategory,
-    DecorationCategory,
-    EquipmentCategory,
-    FoodCategory,
-    LibraryCategory,
-    MagicCategory,
-    MiscCategory,
-    StorageCategory,
-    UtilityCategory,
-    WorldGenCategory,
-    ForgeLoader,
-    FabricLoader,
     ClientSide,
     ServerSide,
     SearchIcon,
     ExitIcon,
     LogoAnimated,
+  },
+  props: {
+    projectType: {
+      type: String,
+      required: true,
+    },
+    path: {
+      type: String,
+      required: true,
+    },
+    showFilters: {
+      type: Array,
+      required: true,
+    },
   },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
@@ -415,11 +327,7 @@ export default {
     if (this.$route.query.o)
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
 
-    await Promise.all([
-      this.fillVersions(),
-      this.fillInitialLicenses(),
-      this.onSearchChange(this.currentPage),
-    ])
+    await this.onSearchChange(this.currentPage)
   },
   data() {
     return {
@@ -427,11 +335,9 @@ export default {
 
       displayLicense: '',
       selectedLicense: '',
-      licenses: [],
 
       showSnapshots: false,
       selectedVersions: [],
-      versions: [],
 
       selectedEnvironments: [],
 
@@ -453,36 +359,6 @@ export default {
     }
   },
   methods: {
-    async fillVersions() {
-      try {
-        const url = this.showSnapshots
-          ? 'tag/game_version'
-          : 'tag/game_version?type=release'
-
-        const res = await this.$axios.get(url)
-
-        this.versions = res.data
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err)
-      }
-    },
-    async reloadVersions() {
-      this.fillVersions()
-      await this.onSearchChange(1)
-    },
-    async fillInitialLicenses() {
-      const licences = (await this.$axios.get('tag/license')).data
-      licences.sort((x, y) => {
-        // Custom case for custom, so it goes to the bottom of the list.
-        if (x.short === 'custom') return 1
-        if (y.short === 'custom') return -1
-        if (x.name < y.name) return -1
-        if (x.name > y.name) return 1
-        return 0
-      })
-      this.licenses = licences
-    },
     async toggleLicense(license) {
       if (this.selectedLicense) {
         const index = this.facets.indexOf(this.selectedLicense)
@@ -544,12 +420,13 @@ export default {
           params.push(`query=${this.query.replace(/ /g, '+')}`)
         }
 
+        let formattedFacets = [['project_type:' + this.projectType]]
+
         if (
           this.facets.length > 0 ||
           this.selectedVersions.length > 0 ||
           this.selectedEnvironments.length > 0
         ) {
-          let formattedFacets = []
           for (const facet of this.facets) {
             formattedFacets.push([facet])
           }
@@ -589,16 +466,16 @@ export default {
 
             formattedFacets = [...formattedFacets, ...environmentFacets]
           }
-
-          params.push(`facets=${JSON.stringify(formattedFacets)}`)
         }
+
+        params.push(`facets=${JSON.stringify(formattedFacets)}`)
 
         const offset = (newPageNumber - 1) * this.maxResults
         if (newPageNumber !== 1) {
           params.push(`offset=${offset}`)
         }
 
-        let url = 'mod'
+        let url = 'search'
 
         if (params.length > 0) {
           for (let i = 0; i < params.length; i++) {
@@ -641,7 +518,7 @@ export default {
         }
 
         if (process.client) {
-          url = `mods?q=${encodeURIComponent(this.query)}`
+          url = `${this.path}?q=${encodeURIComponent(this.query)}`
 
           if (offset > 0) url += `&o=${offset}`
           if (this.facets.length > 0)
@@ -807,6 +684,22 @@ export default {
   .filters-wrapper {
     padding: 0.25rem 0.75rem 0.75rem 0.75rem;
     margin-bottom: var(--spacing-card-md);
+
+    button {
+      cursor: pointer;
+    }
+
+    .filter-clear-button {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    // Large screens that don't collapse
+    @media screen and (min-width: 1250px) {
+      .filter-button-done {
+        display: none;
+      }
+    }
   }
   h3 {
     @extend %small-label;
@@ -835,24 +728,6 @@ export default {
   }
   @media screen and (min-width: 1250px) {
     width: 300px;
-  }
-}
-
-.filter-group {
-  button {
-    cursor: pointer;
-  }
-
-  .filter-clear-button {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  // Large screens that don't collapse
-  @media screen and (min-width: 1250px) {
-    .filter-button-done {
-      display: none;
-    }
   }
 }
 

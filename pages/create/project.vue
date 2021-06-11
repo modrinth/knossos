@@ -2,7 +2,7 @@
   <div class="page-container">
     <div class="page-contents">
       <header class="columns">
-        <h3 class="column-grow-1">Create a mod</h3>
+        <h3 class="column-grow-1">Create a project</h3>
         <button
           title="Save draft"
           class="button column"
@@ -15,7 +15,7 @@
           title="Create"
           class="brand-button column"
           :disabled="!this.$nuxt.$loading"
-          @click="createMod"
+          @click="createProject"
         >
           Create
         </button>
@@ -32,7 +32,7 @@
         <h3>Summary</h3>
         <label>
           <span>
-            Give a quick summary of your mod. This will appear in search.
+            Give a quick summary of your project. This will appear in search.
           </span>
           <input
             v-model="description"
@@ -40,16 +40,32 @@
             placeholder="Enter the summary"
           />
         </label>
+        <h3>Project Type</h3>
+        <label>
+          <span>
+            Your project type will affect which search pages it appears on and
+            its URL
+          </span>
+          <Multiselect
+            v-model="project_type"
+            placeholder="Select project type"
+            :options="$tag.projectTypes"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          />
+        </label>
         <h3>Categories</h3>
         <label>
           <span>
-            Select up to 3 categories. These will help others find your mod.
+            Select up to 3 categories. These will help others find your project.
           </span>
           <multiselect
             id="categories"
             v-model="categories"
-            :options="availableCategories"
-            :loading="availableCategories.length === 0"
+            :options="$tag.categories.map((it) => it.name)"
+            :loading="$tag.categories.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -65,7 +81,7 @@
         <h3>Vanity URL (slug)</h3>
         <label>
           <span>
-            Set this to something pretty, so your mod's URL can be more
+            Set this to something pretty, so your project's URL can be more
             readable.
           </span>
           <input
@@ -76,7 +92,7 @@
           />
         </label>
       </section>
-      <section class="mod-icon rows">
+      <section class="project-icon rows">
         <h3>Icon</h3>
         <div class="columns row-grow-1">
           <div class="column-grow-1 rows">
@@ -115,9 +131,10 @@
         <h3>Supported environments</h3>
         <div class="columns">
           <span>
-            Let others know if your mod is for clients, servers, or both. For
-            example, Lithium would be optional for both sides, whereas Sodium
-            would be required on the client and unsupported on the server.
+            Let others know if your project is for clients, servers, or both.
+            For example, Lithium would be optional for both sides, whereas
+            Sodium would be required on the client and unsupported on the
+            server.
           </span>
           <div class="labeled-control">
             <h3>Client</h3>
@@ -149,13 +166,13 @@
         <h3>
           <label
             for="body"
-            title="You can type an extended description of your mod here."
+            title="You can type an extended description of your project here."
           >
             Body
           </label>
         </h3>
         <span>
-          You can type an extended description of your mod here. This editor
+          You can type an extended description of your project here. This editor
           supports Markdown. Its syntax can be found
           <a
             href="https://guides.github.com/features/mastering-markdown/"
@@ -189,7 +206,7 @@
             <tr>
               <th>Name</th>
               <th>Version</th>
-              <th>Mod Loader</th>
+              <th>Project Loader</th>
               <th>Minecraft Version</th>
               <th>Version Type</th>
               <th>Actions</th>
@@ -279,9 +296,7 @@
             </label>
             <h3>Number</h3>
             <label>
-              <span>
-                This is how your version will appear in mod lists and URLs.
-              </span>
+              <span> This is how your version will appear in URLs. </span>
               <input
                 v-model="versions[currentVersionIndex].version_number"
                 type="text"
@@ -309,8 +324,8 @@
               <span>Mark all mod loaders this version works with.</span>
               <multiselect
                 v-model="versions[currentVersionIndex].loaders"
-                :options="availableLoaders"
-                :loading="availableLoaders.length === 0"
+                :options="$tag.loaders.map((it) => it.name)"
+                :loading="$tag.loaders.length === 0"
                 :multiple="true"
                 :searchable="false"
                 :show-no-results="false"
@@ -324,13 +339,11 @@
             </label>
             <h3>Minecraft versions</h3>
             <label>
-              <span>
-                Mark all Minecraft versions this mod version supports.
-              </span>
+              <span> Mark all Minecraft versions this version supports. </span>
               <multiselect
                 v-model="versions[currentVersionIndex].game_versions"
-                :options="availableGameVersions"
-                :loading="availableGameVersions.length === 0"
+                :options="$tag.gameVersions.map((it) => it.name)"
+                :loading="$tag.gameVersions.length === 0"
                 :multiple="true"
                 :searchable="true"
                 :show-no-results="false"
@@ -345,7 +358,7 @@
             <h3>Files</h3>
             <label>
               <span>
-                You should upload a single JAR file. However, you are allowed to
+                You should upload a single file. However, you are allowed to
                 upload multiple.
               </span>
               <FileInput
@@ -377,7 +390,7 @@
           <i>— this section is optional</i>
         </div>
         <label
-          title="A place for users to report bugs, issues, and concerns about your mod."
+          title="A place for users to report bugs, issues, and concerns about your project."
         >
           <span>Issue tracker</span>
           <input
@@ -387,7 +400,7 @@
           />
         </label>
         <label
-          title="A page/repository containing the source code for your mod."
+          title="A page/repository containing the source code for your project."
         >
           <span>Source code</span>
           <input
@@ -397,7 +410,7 @@
           />
         </label>
         <label
-          title="A page containing information, documentation, and help for the mod."
+          title="A page containing information, documentation, and help for the project."
         >
           <span>Wiki page</span>
           <input
@@ -422,8 +435,9 @@
         </div>
         <label>
           <span>
-            It is very important to choose a proper license for your mod. You
-            may choose one from our list or provide a URL to a custom license.
+            It is very important to choose a proper license for your project.
+            You may choose one from our list or provide a URL to a custom
+            license.
             <br />
             Confused? See our
             <a
@@ -442,7 +456,7 @@
               track-by="short"
               label="name"
               :searchable="true"
-              :options="availableLicenses"
+              :options="$tag.licenses"
               :close-on-select="true"
               :show-labels="false"
             />
@@ -483,7 +497,7 @@
               placeholder="Select one"
               track-by="short"
               label="name"
-              :options="availableDonationPlatforms"
+              :options="$tag.donationPlatforms"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -524,40 +538,15 @@ export default {
     ForgeIcon,
     FabricIcon,
   },
-  async asyncData(data) {
-    const [
-      availableCategories,
-      availableLoaders,
-      availableGameVersions,
-      availableLicenses,
-      availableDonationPlatforms,
-    ] = (
-      await Promise.all([
-        data.$axios.get(`tag/category`),
-        data.$axios.get(`tag/loader`),
-        data.$axios.get(`tag/game_version`),
-        data.$axios.get(`tag/license`),
-        data.$axios.get(`tag/donation_platform`),
-      ])
-    ).map((it) => it.data)
-
-    return {
-      availableCategories,
-      availableLoaders,
-      availableGameVersions,
-      availableLicenses,
-      availableDonationPlatforms,
-    }
-  },
   data() {
     return {
       previewImage: null,
       compiledBody: '',
       releaseChannels: ['beta', 'alpha', 'release'],
       currentVersionIndex: -1,
-
       name: '',
       slug: '',
+      project_type: '',
       draft: false,
       description: '',
       body: '',
@@ -598,9 +587,9 @@ export default {
   methods: {
     async createDraft() {
       this.draft = true
-      await this.createMod()
+      await this.createProject()
     },
-    async createMod() {
+    async createProject() {
       this.$nuxt.$loading.start()
 
       for (const version of this.versions) {
@@ -614,11 +603,12 @@ export default {
       formData.append(
         'data',
         JSON.stringify({
-          mod_name: this.name,
-          mod_slug: this.slug,
-          mod_namespace: this.namespace,
-          mod_description: this.description,
-          mod_body: this.body,
+          title: this.name,
+          project_type: this.project_type,
+          slug: this.slug,
+          namespace: this.namespace,
+          description: this.description,
+          body: this.body,
           initial_versions: this.versions,
           team_members: [
             {
@@ -663,7 +653,7 @@ export default {
 
       try {
         await this.$axios({
-          url: 'mod',
+          url: 'project',
           method: 'POST',
           data: formData,
           headers: {
@@ -671,6 +661,8 @@ export default {
             Authorization: this.$auth.token,
           },
         })
+
+        await this.$store.dispatch('user/fetchAll', { force: true })
 
         await this.$router.replace('/dashboard/projects')
       } catch (err) {
@@ -765,24 +757,24 @@ export default {
 .page-contents {
   display: grid;
   grid-template:
-    'header       header      header' auto
-    'advert       advert      advert' auto
-    'essentials   essentials  essentials' auto
-    'mod-icon     mod-icon    mod-icon' auto
-    'game-sides   game-sides  game-sides' auto
-    'description  description description' auto
-    'versions     versions    versions' auto
-    'extra-links  extra-links extra-links' auto
-    'license      license     license' auto
-    'donations    donations   donations' auto
-    'footer       footer      footer' auto
+    'header       header       header' auto
+    'advert       advert       advert' auto
+    'essentials   essentials   essentials' auto
+    'project-icon project-icon project-icon' auto
+    'game-sides   game-sides   game-sides' auto
+    'description  description  description' auto
+    'versions     versions     versions' auto
+    'extra-links  extra-links  extra-links' auto
+    'license      license      license' auto
+    'donations    donations    donations' auto
+    'footer       footer       footer' auto
     / 4fr 1fr 4fr;
 
   @media screen and (min-width: 1024px) {
     grid-template:
       'header       header      header' auto
       'advert       advert      advert' auto
-      'essentials   essentials  mod-icon' auto
+      'essentials   essentials  project-icon' auto
       'game-sides   game-sides  game-sides' auto
       'description  description description' auto
       'versions     versions    versions' auto
@@ -827,8 +819,8 @@ section.essentials {
   grid-area: essentials;
 }
 
-section.mod-icon {
-  grid-area: mod-icon;
+section.project-icon {
+  grid-area: project-icon;
 
   img {
     align-self: flex-start;

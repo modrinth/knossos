@@ -6,30 +6,37 @@
           <div class="icon">
             <img
               :src="
-                mod.icon_url
-                  ? mod.icon_url
+                project.icon_url
+                  ? project.icon_url
                   : 'https://cdn.modrinth.com/placeholder.svg?inline'
               "
-              alt="mod - icon"
+              alt="project - icon"
             />
           </div>
           <div class="info">
-            <h1 class="title">{{ mod.title }}</h1>
+            <h1 class="title">{{ project.title }}</h1>
             <p class="description">
-              {{ mod.description }}
+              {{ project.description }}
             </p>
             <div class="alt-nav">
               <p>
-                <nuxt-link to="/mods"> Mods </nuxt-link>
+                <nuxt-link :to="`/${projectRoutes.searchPath}`">
+                  {{ projectRoutes.searchName }}
+                </nuxt-link>
                 >
-                <nuxt-link :to="'/mod/' + (mod.slug ? mod.slug : mod.id)">{{
-                  mod.title
-                }}</nuxt-link>
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }`"
+                  >{{ project.title }}</nuxt-link
+                >
                 <span v-if="linkBar.length > 0"> ></span>
                 <nuxt-link
                   v-for="(link, index) in linkBar"
                   :key="index"
-                  :to="/mod/ + (mod.slug ? mod.slug : mod.id) + '/' + link[1]"
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/${link[1]}`"
                   >{{ link[0] }}
                   <span v-if="index !== linkBar.length - 1"> > </span>
                 </nuxt-link>
@@ -39,24 +46,30 @@
           <div class="buttons">
             <nuxt-link
               v-if="this.$auth.user"
-              :to="`/report/create?id=${mod.id}&t=mod`"
+              :to="`/create/report?id=${project.id}&t=project`"
               class="iconified-button"
             >
               <ReportIcon />
               Report
             </nuxt-link>
             <button
-              v-if="userFollows && !userFollows.includes(mod.id)"
+              v-if="
+                this.$auth.user &&
+                !$user.follows.find((x) => x.id === project.id)
+              "
               class="iconified-button"
-              @click="followMod"
+              @click="$store.dispatch('user/followProject', project)"
             >
               <FollowIcon />
               Follow
             </button>
             <button
-              v-if="userFollows && userFollows.includes(mod.id)"
+              v-if="
+                this.$auth.user &&
+                $user.follows.find((x) => x.id === project.id)
+              "
               class="iconified-button"
-              @click="unfollowMod"
+              @click="$store.dispatch('user/unfollowProject', project)"
             >
               <FollowIcon fill="currentColor" />
               Unfollow
@@ -64,29 +77,33 @@
           </div>
         </div>
         <Advertisement
-          v-if="mod.status === 'approved' || mod.status === 'unlisted'"
+          v-if="project.status === 'approved' || project.status === 'unlisted'"
           type="banner"
           small-screen="square"
           ethical-ads-small
           ethical-ads-big
         />
-        <div class="mod-navigation">
+        <div class="project-navigation">
           <div class="tabs">
             <nuxt-link
-              :to="'/mod/' + (mod.slug ? mod.slug : mod.id)"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }`"
               class="tab"
             >
               <span>Description</span>
             </nuxt-link>
             <nuxt-link
-              :to="'/mod/' + (mod.slug ? mod.slug : mod.id) + '/versions'"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`"
               class="tab"
             >
               <span>Versions</span>
             </nuxt-link>
             <a
-              v-if="mod.wiki_url"
-              :href="mod.wiki_url"
+              v-if="project.wiki_url"
+              :href="project.wiki_url"
               target="_blank"
               class="tab"
             >
@@ -94,8 +111,8 @@
               <span>Wiki</span>
             </a>
             <a
-              v-if="mod.issues_url"
-              :href="mod.issues_url"
+              v-if="project.issues_url"
+              :href="project.issues_url"
               target="_blank"
               class="tab"
             >
@@ -103,8 +120,8 @@
               <span>Issues</span>
             </a>
             <a
-              v-if="mod.source_url"
-              :href="mod.source_url"
+              v-if="project.source_url"
+              :href="project.source_url"
               target="_blank"
               class="tab"
             >
@@ -112,8 +129,8 @@
               <span>Source</span>
             </a>
             <a
-              v-if="mod.discord_url"
-              :href="mod.discord_url"
+              v-if="project.discord_url"
+              :href="project.discord_url"
               target="_blank"
               class="tab"
             >
@@ -122,7 +139,9 @@
             </a>
             <nuxt-link
               v-if="currentMember"
-              :to="'/mod/' + mod.id + '/settings'"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings`"
               class="tab settings-tab"
             >
               <SettingsIcon />
@@ -130,9 +149,9 @@
             </nuxt-link>
           </div>
         </div>
-        <div class="mod-content">
+        <div class="project-content">
           <NuxtChild
-            :mod="mod"
+            :project="project"
             :versions="versions"
             :featured-versions="featuredVersions"
             :members="members"
@@ -142,13 +161,13 @@
           />
         </div>
       </div>
-      <section class="mod-info">
-        <div class="mod-stats section">
+      <section class="project-info">
+        <div class="project-stats section">
           <div class="stat">
             <DownloadIcon />
             <div class="info">
               <h4>Downloads</h4>
-              <p class="value">{{ formatNumber(mod.downloads) }}</p>
+              <p class="value">{{ formatNumber(project.downloads) }}</p>
             </div>
           </div>
           <div class="stat">
@@ -157,13 +176,13 @@
               <h4>Created</h4>
               <p
                 v-tooltip="
-                  $dayjs(mod.published).format(
+                  $dayjs(project.published).format(
                     '[Created on] YYYY-MM-DD [at] HH:mm A'
                   )
                 "
                 class="value"
               >
-                {{ formatTime(mod.published) }}
+                {{ formatTime(project.published) }}
               </p>
             </div>
           </div>
@@ -190,13 +209,13 @@
               <h4>Updated</h4>
               <p
                 v-tooltip="
-                  $dayjs(mod.updated).format(
+                  $dayjs(project.updated).format(
                     '[Updated on] YYYY-MM-DD [at] HH:mm A'
                   )
                 "
                 class="value"
               >
-                {{ formatTime(mod.updated) }}
+                {{ formatTime(project.updated) }}
               </p>
             </div>
           </div>
@@ -204,26 +223,26 @@
             <ClientIcon />
             <div class="info">
               <h4>Client Side</h4>
-              <p class="value capitalize">{{ mod.client_side }}</p>
+              <p class="value capitalize">{{ project.client_side }}</p>
             </div>
           </div>
           <div class="stat">
             <ServerIcon />
             <div class="info">
               <h4>Server Side</h4>
-              <p class="value capitalize">{{ mod.server_side }}</p>
+              <p class="value capitalize">{{ project.server_side }}</p>
             </div>
           </div>
           <div class="stat">
             <FileTextIcon />
             <div class="info">
               <h4>License</h4>
-              <p v-tooltip="mod.license.name" class="value ellipsis">
+              <p v-tooltip="project.license.name" class="value ellipsis">
                 <a
-                  v-if="mod.license.url ? mod.license.url : '#'"
-                  :href="mod.license.url"
+                  v-if="project.license.url ? project.license.url : '#'"
+                  :href="project.license.url"
                 >
-                  {{ mod.license.id.toUpperCase() }}</a
+                  {{ project.license.id.toUpperCase() }}</a
                 >
               </p>
             </div>
@@ -232,22 +251,24 @@
             <CodeIcon />
             <div class="info">
               <h4>Project ID</h4>
-              <p class="value">{{ mod.id }}</p>
+              <p class="value">{{ project.id }}</p>
             </div>
           </div>
-          <Categories :categories="mod.categories.concat(mod.loaders)" />
+          <Categories
+            :categories="project.categories.concat(project.loaders)"
+          />
         </div>
         <div class="section">
           <h3>Members</h3>
           <div
             v-for="member in members"
-            :key="member.user_id"
+            :key="member.user.id"
             class="team-member columns"
           >
-            <img :src="member.avatar_url" alt="profile-picture" />
+            <img :src="member.user.avatar_url" alt="profile-picture" />
             <div class="member-info">
-              <nuxt-link :to="'/user/' + member.user_id">
-                <h4>{{ member.name }}</h4>
+              <nuxt-link :to="'/user/' + member.user.username">
+                <h4>{{ member.user.name }}</h4>
               </nuxt-link>
               <h3>{{ member.role }}</h3>
             </div>
@@ -291,12 +312,9 @@
                 </span>
                 <h4 class="title">
                   <nuxt-link
-                    :to="
-                      '/mod/' +
-                      (mod.slug ? mod.slug : mod.id) +
-                      '/version/' +
-                      version.id
-                    "
+                    :to="`/${project.project_type}/${
+                      project.slug ? project.slug : project.id
+                    }/version/${encodeURIComponent(version.version_number)}`"
                   >
                     {{ version.name }}
                   </nuxt-link>
@@ -326,12 +344,12 @@
           </div>
         </div>
         <div
-          v-if="mod.donation_urls && mod.donation_urls.length > 0"
+          v-if="project.donation_urls && project.donation_urls.length > 0"
           class="section"
         >
           <h3>Donation Links</h3>
           <div
-            v-for="(item, index) in mod.donation_urls"
+            v-for="(item, index) in project.donation_urls"
             :key="index"
             class="links"
           >
@@ -342,7 +360,7 @@
           </div>
         </div>
         <Advertisement
-          v-if="mod.status === 'approved' || mod.status === 'unlisted'"
+          v-if="project.status === 'approved' || project.status === 'unlisted'"
           type="square"
           small-screen="destroy"
         />
@@ -375,7 +393,7 @@ import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 
 export default {
-  name: 'ModPage',
+  name: 'ProjectPage',
   components: {
     Advertisement,
     MFooter,
@@ -395,62 +413,57 @@ export default {
     ReportIcon,
     FollowIcon,
   },
+  props: {
+    projectRoutes: {
+      type: Object,
+      required: true,
+    },
+  },
   async asyncData(data) {
     try {
-      const mod = (
-        await data.$axios.get(`mod/${data.params.id}`, data.$auth.headers)
-      ).data
-
-      const [members, versions, featuredVersions, userFollows] = (
+      const [project, members, versions, featuredVersions] = (
         await Promise.all([
-          data.$axios.get(`team/${mod.team}/members`, data.$auth.headers),
-          data.$axios.get(`mod/${mod.id}/version`),
-          data.$axios.get(`mod/${mod.id}/version?featured=true`),
+          data.$axios.get(`project/${data.params.id}`, data.$auth.headers),
           data.$axios.get(
-            data.$auth.user
-              ? `user/${data.$auth.user.id}/follows`
-              : `https://api.modrinth.com`,
+            `project/${data.params.id}/members`,
             data.$auth.headers
           ),
+          data.$axios.get(`project/${data.params.id}/version`),
+          data.$axios.get(`project/${data.params.id}/version?featured=true`),
         ])
       ).map((it) => it.data)
 
-      const users = (
-        await data.$axios.get(
-          `users?ids=${JSON.stringify(members.map((it) => it.user_id))}`,
-          data.$auth.headers
-        )
-      ).data
-
-      users.forEach((it) => {
-        const index = members.findIndex((x) => x.user_id === it.id)
-        members[index].avatar_url = it.avatar_url
-        members[index].name = it.username
-      })
-
       const currentMember = data.$auth.user
-        ? members.find((x) => x.user_id === data.$auth.user.id)
+        ? members.find((x) => x.user.id === data.$auth.user.id)
         : null
 
-      if (mod.body_url && !mod.body) {
-        mod.body = (await data.$axios.get(mod.body_url)).data
+      if (project.body_url && !project.body) {
+        project.body = (await data.$axios.get(project.body_url)).data
       }
 
       return {
-        mod,
+        project,
         versions,
         featuredVersions,
         members: members.filter((x) => x.accepted),
         allMembers: members,
         currentMember,
-        userFollows: userFollows.name ? null : userFollows,
         linkBar: [],
       }
     } catch {
       data.error({
         statusCode: 404,
-        message: 'Mod not found',
+        message: 'Project not found',
       })
+    }
+  },
+  created() {
+    if (this.project.project_type !== this.projectRoutes.type) {
+      this.$router.replace(
+        `/${this.project.project_type}/${
+          this.project.slug ? this.project.slug : this.project.id
+        }`
+      )
     }
   },
   methods: {
@@ -465,7 +478,7 @@ export default {
       }
 
       if (!file) {
-        file = { url: `/mod/${this.mod.id}/version/${version.id}` }
+        file = { url: `/project/${this.project.id}/version/${version.id}` }
       }
 
       return file
@@ -478,20 +491,6 @@ export default {
       elem.href = url
       elem.click()
     },
-    async followMod() {
-      await this.$axios.post(
-        `mod/${this.mod.id}/follow`,
-        {},
-        this.$auth.headers
-      )
-
-      this.userFollows.push(this.mod.id)
-    },
-    async unfollowMod() {
-      await this.$axios.delete(`mod/${this.mod.id}/follow`, this.$auth.headers)
-
-      this.userFollows.splice(this.userFollows.indexOf(this.mod.id), 1)
-    },
     formatTime(date) {
       let defaultMessage = this.$dayjs(date).fromNow()
       if (defaultMessage.length > 13) {
@@ -502,7 +501,7 @@ export default {
   },
   head() {
     return {
-      title: this.mod.title + ' - Modrinth',
+      title: this.project.title + ' - Modrinth',
       meta: [
         {
           hid: 'og:type',
@@ -512,41 +511,41 @@ export default {
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.mod.title,
+          content: this.project.title,
         },
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.mod.title,
+          content: this.project.title,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.mod.description,
+          content: this.project.description,
         },
         {
           hid: 'description',
           name: 'description',
           content:
-            this.mod.description +
+            this.project.description +
             ' View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.',
         },
         {
           hid: 'og:url',
           name: 'og:url',
-          content: `https://modrinth.com/mod/${this.mod.id}`,
+          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.mod.icon_url
-            ? this.mod.icon_url
+          content: this.project.icon_url
+            ? this.project.icon_url
             : 'https://cdn.modrinth.com/placeholder.png',
         },
         {
           hid: 'robots',
           name: 'robots',
-          content: this.mod.status !== 'approved' ? 'noindex' : 'all',
+          content: this.project.status !== 'approved' ? 'noindex' : 'all',
         },
       ],
     }
@@ -564,7 +563,7 @@ export default {
 
   @extend %card-spaced-b;
   .icon {
-    margin: unset 0;
+    margin: unset;
     height: 6.08rem;
     @media screen and (min-width: 1024px) {
       align-self: flex-start;
@@ -645,7 +644,7 @@ export default {
   }
 }
 
-.mod-navigation {
+.project-navigation {
   @extend %card-spaced-b;
   padding: 0 1rem;
 
@@ -672,7 +671,7 @@ export default {
   }
 }
 
-.mod-info {
+.project-info {
   height: auto;
 
   @media screen and (min-width: 1024px) {
@@ -689,7 +688,7 @@ export default {
     @extend %large-label;
   }
 
-  .mod-stats {
+  .project-stats {
     display: flex;
     flex-wrap: wrap;
     margin-top: 0;
@@ -772,7 +771,7 @@ export default {
         margin-top: 0.25rem;
         @extend %row;
         .loader {
-          height: 1rem;
+          height: 0.75rem;
         }
       }
     }
@@ -817,7 +816,7 @@ export default {
 }
 
 @media screen and (max-width: 800px) {
-  .mod-navigation {
+  .project-navigation {
     display: block;
     overflow-x: auto;
     overflow-wrap: break-word;
@@ -826,7 +825,7 @@ export default {
 }
 /*
 @media screen and (max-width: 1400px) {
-  .mod-info {
+  .project-info {
     display: none;
   }
 }

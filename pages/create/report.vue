@@ -17,8 +17,8 @@
         <label>
           <span>
             The ID of the item you are reporting. For example, the item ID of a
-            mod would be its mod ID, found on the right side of that mod's page
-            under "Project ID".
+            mod would be its project ID, found on the right side of that mod's
+            page under "Project ID".
           </span>
           <input v-model="itemId" type="text" placeholder="Enter the item ID" />
         </label>
@@ -28,7 +28,7 @@
           <multiselect
             id="item-type"
             v-model="itemType"
-            :options="['mod', 'version', 'user']"
+            :options="['project', 'version', 'user']"
             :multiple="false"
             :searchable="false"
             :show-no-results="false"
@@ -126,7 +126,11 @@ export default {
 
         await this.$axios.post('report', data, this.$auth.headers)
 
-        await this.$router.replace(`/${this.itemType}/${this.itemId}`)
+        if (this.$router.history._startLocation !== this.$route.fullPath) {
+          await this.$router.back()
+        } else {
+          await this.$router.replace('/')
+        }
       } catch (err) {
         this.$notify({
           group: 'main',

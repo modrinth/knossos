@@ -2,8 +2,12 @@
   <div>
     <div class="new-version">
       <div class="controls">
-        <button class="brand-button" title="Save version" @click="saveVersion">
-          Save version
+        <button
+          class="brand-button"
+          title="Create version"
+          @click="createVersion"
+        >
+          Create version
         </button>
       </div>
       <div class="main">
@@ -14,18 +18,16 @@
             default to the version number.
           </span>
           <input
-            v-model="version.name"
+            v-model="createdVersion.version_title"
             type="text"
             placeholder="Enter the name"
           />
         </label>
         <h3>Number</h3>
         <label>
-          <span>
-            This is how your version will appear in mod lists and URLs.
-          </span>
+          <span> This is how your version will appear in URLs. </span>
           <input
-            v-model="version.version_number"
+            v-model="createdVersion.version_number"
             type="text"
             placeholder="Enter the number"
           />
@@ -37,7 +39,7 @@
             version is stable or if it's still in development.
           </span>
           <multiselect
-            v-model="version.version_type"
+            v-model="createdVersion.release_channel"
             placeholder="Select one"
             :options="['release', 'beta', 'alpha']"
             :searchable="false"
@@ -50,9 +52,9 @@
         <label>
           <span>Mark all mod loaders this version works with.</span>
           <multiselect
-            v-model="version.loaders"
-            :options="selectableLoaders"
-            :loading="selectableLoaders.length === 0"
+            v-model="createdVersion.loaders"
+            :options="$tag.loaders"
+            :loading="$tag.loaders.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -66,11 +68,11 @@
         </label>
         <h3>Minecraft versions</h3>
         <label>
-          <span>Mark all Minecraft versions this mod version supports.</span>
+          <span>Mark all Minecraft versions this version supports.</span>
           <multiselect
-            v-model="version.game_versions"
-            :options="selectableVersions"
-            :loading="selectableVersions.length === 0"
+            v-model="createdVersion.game_versions"
+            :options="$tag.gameVersions"
+            :loading="$tag.gameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -82,6 +84,19 @@
             placeholder="Choose versions..."
           />
         </label>
+        <h3>Files</h3>
+        <label>
+          <span>
+            You should upload a single file. However, you are allowed to upload
+            multiple.
+          </span>
+          <FileInput
+            accept="application/*"
+            multiple
+            prompt="Choose files or drag them here"
+            @change="updateVersionFiles"
+          />
+        </label>
       </div>
       <div class="changelog">
         <h3>Changelog</h3>
@@ -91,7 +106,7 @@
           with the changelogs.
         </span>
         <div class="textarea-wrapper">
-          <textarea v-model="version.changelog"></textarea>
+          <textarea v-model="createdVersion.version_body"></textarea>
         </div>
       </div>
     </div>
@@ -99,95 +114,66 @@
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
+import FileInput from '~/components/ui/FileInput'
 
 export default {
   components: {
     Multiselect,
+    FileInput,
   },
-  auth: false,
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
       },
     },
-    versions: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    members: {
-      type: Array,
-      default() {
-        return [{}]
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-  },
-  async fetch() {
-    this.version = this.versions.find(
-      (x) => x.id === this.$route.params.version
-    )
-
-    if (!this.version.changelog && this.version.changelog_url) {
-      this.version.changelog = (
-        await this.$axios.get(this.version.changelog_url)
-      ).data
-    }
-  },
-  async asyncData(data) {
-    try {
-      const [selectableLoaders, selectableVersions] = (
-        await Promise.all([
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-        ])
-      ).map((it) => it.data)
-
-      return {
-        selectableLoaders,
-        selectableVersions,
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Unable to fetch versions or loaders',
-      })
-    }
   },
   data() {
     return {
-      version: {},
+      createdVersion: {},
     }
   },
-  mounted() {
-    this.$emit('update:link-bar', [
-      ['Versions', 'versions'],
-      [this.version.name, 'versions/' + this.version.id],
-      ['Edit Version', 'versions/' + this.version.id + '/edit'],
-    ])
+  created() {
+    this.$emit('update:link-bar', [['New Version', 'newversion']])
   },
   methods: {
-    async saveVersion() {
+    async createVersion() {
       this.$nuxt.$loading.start()
 
+      const formData = new FormData()
+      if (!this.createdVersion.version_title) {
+        this.createdVersion.version_title = this.createdVersion.version_number
+      }
+      this.createdVersion.project_id = this.project.id
+      this.createdVersion.dependencies = []
+      this.createdVersion.featured = false
+      formData.append('data', JSON.stringify(this.createdVersion))
+      if (this.createdVersion.raw_files) {
+        for (let i = 0; i < this.createdVersion.raw_files.length; i++) {
+          formData.append(
+            this.createdVersion.file_parts[i],
+            new Blob([this.createdVersion.raw_files[i]]),
+            this.createdVersion.raw_files[i].name
+          )
+        }
+      }
       try {
-        await this.$axios.patch(
-          `version/${this.version.id}`,
-          this.version,
-          this.$auth.headers
-        )
-        await this.$router.replace(
-          `/mod/${this.mod.slug ? this.mod.slug : this.mod.id}/version/${
-            this.version.id
-          }`
+        const data = (
+          await this.$axios({
+            url: 'version',
+            method: 'POST',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$auth.token,
+            },
+          })
+        ).data
+        await this.$router.push(
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : data.project_id
+          }/version/${encodeURIComponent(data.version_number)}`
         )
       } catch (err) {
         this.$notify({
@@ -199,6 +185,24 @@ export default {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
       this.$nuxt.$loading.finish()
+    },
+    updateVersionFiles(files) {
+      this.createdVersion.raw_files = files
+
+      const newFileParts = []
+      for (let i = 0; i < files.length; i++) {
+        newFileParts.push(files[i].name.concat('-' + i))
+      }
+
+      this.createdVersion.file_parts = newFileParts
+    },
+    async downloadFile(hash, url) {
+      await this.$axios.get(`version_file/${hash}/download`)
+
+      const elem = document.createElement('a')
+      elem.download = hash
+      elem.href = url
+      elem.click()
     },
   },
 }

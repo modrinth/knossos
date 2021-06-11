@@ -27,13 +27,15 @@
           <section class="column-grow-5 nav">
             <div class="tabs">
               <NuxtLink
-                to="/mods"
+                v-for="project in projectPages"
+                :key="project.path.search"
+                :to="`/${project.path.search}`"
                 class="tab"
                 :class="{
-                  'active-path': this.$route.path.startsWith('/mod'),
+                  'active-path': isCurrentProject(project.path),
                 }"
               >
-                <span>Mods</span>
+                <span>{{ project.name }}</span>
               </NuxtLink>
               <div v-if="this.$auth.user" class="section">
                 <NuxtLink
@@ -60,7 +62,7 @@
                     <div class="avatar">
                       <span>{{ this.$auth.user.username }}</span>
                       <AvatarIcon
-                        :notif-count="this.$user.notifications.count"
+                        :notif-count="this.$user.notifications.length"
                         :dropdown-bg="isDropdownOpen"
                       />
                     </div>
@@ -192,9 +194,28 @@ export default {
   directives: {
     ClickOutside,
   },
+  async fetch() {
+    const routeData = await import('../static/projectRoutes.json')
+
+    routeData.default.forEach((projectType) => {
+      this.projectPages.push({
+        name: projectType.search.name,
+        path: {
+          search: projectType.search.path,
+          project: projectType.type,
+        },
+      })
+    })
+
+    await Promise.all([
+      this.$store.dispatch('user/fetchAll', { force: true }),
+      this.$store.dispatch('tag/fetchAllTags'),
+    ])
+  },
   data() {
     return {
       isDropdownOpen: false,
+      projectPages: [],
     }
   },
   computed: {
@@ -202,7 +223,7 @@ export default {
       return `${this.$axios.defaults.baseURL}auth/init?url=${this.$store.app.$config.utils.domain}${this.$route.fullPath}`
     },
     userUrl() {
-      return `/user/${this.$auth.user.id}`
+      return `/user/${this.$auth.user.username}`
     },
     userTeamsUrl() {
       return `${this.userUrl}/teams`
@@ -212,11 +233,8 @@ export default {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
-      this.$store.dispatch('user/fetchNotifications')
+      this.$store.dispatch('user/fetchAll')
     },
-  },
-  created() {
-    this.$store.dispatch('user/fetchNotifications', { force: true })
   },
   beforeCreate() {
     if (this.$route.query.code) {
@@ -259,6 +277,12 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
+    },
+    isCurrentProject(path) {
+      return (
+        this.$route.path === `/${path.search}` ||
+        this.$route.path.startsWith(`/${path.project}/`)
+      )
     },
   },
 }
