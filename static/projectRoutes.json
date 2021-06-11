@@ -5,11 +5,11 @@
       "name": "Mods",
       "path": "mods",
       "filters": [
-        "categories",
+        "category",
         "mod_loader",
         "environment",
         "minecraft_version",
-        "licenses"
+        "license"
       ]
     },
     "project": {
@@ -22,15 +22,26 @@
       "name": "Modpacks",
       "path": "modpacks",
       "filters": [
-        "categories",
+        "category",
         "mod_loader",
         "environment",
         "minecraft_version",
-        "licenses"
+        "license"
       ]
     },
     "project": {
       "name": "Modpack"
+    }
+  },
+  {
+    "type": "datapack",
+    "search": {
+      "name": "Datapacks",
+      "path": "datapacks",
+      "filters": ["category", "minecraft_version", "license"]
+    },
+    "project": {
+      "name": "Datapack"
     }
   }
 ]
