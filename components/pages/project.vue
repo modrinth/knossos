@@ -542,6 +542,11 @@ export default {
             ? this.project.icon_url
             : 'https://cdn.modrinth.com/placeholder.png',
         },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: this.mod.status !== 'approved' ? 'noindex' : 'all',
+        },
       ],
     }
   },
