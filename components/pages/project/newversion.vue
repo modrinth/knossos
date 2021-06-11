@@ -87,8 +87,8 @@
         <h3>Files</h3>
         <label>
           <span>
-            You should upload a single JAR file. However, you are allowed to
-            upload multiple.
+            You should upload a single file. However, you are allowed to upload
+            multiple.
           </span>
           <FileInput
             accept="application/*"

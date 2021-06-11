@@ -127,7 +127,7 @@
       </div>
       <section ref="filters" class="filters">
         <div class="filters-wrapper">
-          <section class="filter-group">
+          <div v-if="showFilters.includes('category')" class="filter-type">
             <div class="filter-clear-button">
               <h3>Categories</h3>
               <div class="columns">
@@ -149,6 +149,8 @@
               :icon="category.icon"
               @toggle="toggleFacet"
             />
+          </div>
+          <div v-if="showFilters.includes('mod_loader')" class="filter-type">
             <h3>Mod Loaders</h3>
             <SearchFilter
               v-for="loader in $tag.loaders"
@@ -159,6 +161,8 @@
               :icon="loader.icon"
               @toggle="toggleFacet"
             />
+          </div>
+          <div v-if="showFilters.includes('environment')" class="filter-type">
             <h3>Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -176,6 +180,11 @@
             >
               <ServerSide />
             </SearchFilter>
+          </div>
+          <div
+            v-if="showFilters.includes('minecraft_version')"
+            class="filter-type"
+          >
             <h3>Minecraft versions</h3>
             <Checkbox
               v-model="showSnapshots"
@@ -183,44 +192,46 @@
               style="margin-bottom: 0.5rem"
               :border="false"
             />
-          </section>
-          <Multiselect
-            v-model="selectedVersions"
-            :options="
-              showSnapshots
-                ? $tag.gameVersions
-                : $tag.gameVersions.filter(
-                    (it) => it.version_type === 'release'
-                  )
-            "
-            track-by="version"
-            label="version"
-            :loading="$tag.gameVersions.length === 0"
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-on-select="false"
-            :show-labels="false"
-            :limit="6"
-            :hide-selected="true"
-            placeholder="Choose versions..."
-            @input="onSearchChange(1)"
-          ></Multiselect>
-          <h3>Licenses</h3>
-          <Multiselect
-            v-model="displayLicense"
-            placeholder="Choose licenses..."
-            :loading="$tag.licenses.length === 0"
-            :options="$tag.licenses"
-            track-by="name"
-            label="name"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="true"
-            @input="toggleLicense"
-          />
+            <Multiselect
+              v-model="selectedVersions"
+              :options="
+                showSnapshots
+                  ? $tag.gameVersions
+                  : $tag.gameVersions.filter(
+                      (it) => it.version_type === 'release'
+                    )
+              "
+              track-by="version"
+              label="version"
+              :loading="$tag.gameVersions.length === 0"
+              :multiple="true"
+              :searchable="true"
+              :show-no-results="false"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :show-labels="false"
+              :limit="6"
+              :hide-selected="true"
+              placeholder="Choose versions..."
+              @input="onSearchChange(1)"
+            ></Multiselect>
+          </div>
+          <div v-if="showFilters.includes('license')" class="filter-type">
+            <h3>Licenses</h3>
+            <Multiselect
+              v-model="displayLicense"
+              placeholder="Choose licenses..."
+              :loading="$tag.licenses.length === 0"
+              :options="$tag.licenses"
+              track-by="name"
+              label="name"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="true"
+              @input="toggleLicense"
+            />
+          </div>
         </div>
         <Advertisement type="square" small-screen="destroy" />
         <m-footer class="footer" hide-small />
@@ -673,6 +684,22 @@ export default {
   .filters-wrapper {
     padding: 0.25rem 0.75rem 0.75rem 0.75rem;
     margin-bottom: var(--spacing-card-md);
+
+    button {
+      cursor: pointer;
+    }
+
+    .filter-clear-button {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    // Large screens that don't collapse
+    @media screen and (min-width: 1250px) {
+      .filter-button-done {
+        display: none;
+      }
+    }
   }
   h3 {
     @extend %small-label;
@@ -701,24 +728,6 @@ export default {
   }
   @media screen and (min-width: 1250px) {
     width: 300px;
-  }
-}
-
-.filter-group {
-  button {
-    cursor: pointer;
-  }
-
-  .filter-clear-button {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  // Large screens that don't collapse
-  @media screen and (min-width: 1250px) {
-    .filter-button-done {
-      display: none;
-    }
   }
 }
 
