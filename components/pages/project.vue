@@ -545,7 +545,7 @@ export default {
         {
           hid: 'robots',
           name: 'robots',
-          content: this.mod.status !== 'approved' ? 'noindex' : 'all',
+          content: this.project.status !== 'approved' ? 'noindex' : 'all',
         },
       ],
     }
