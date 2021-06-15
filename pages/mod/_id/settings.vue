@@ -50,6 +50,7 @@
           v-model="currentUsername"
           type="text"
           placeholder="Username"
+          @keyup.enter="inviteTeamMember"
         />
         <label for="username" class="hidden">Username</label>
         <button class="brand-button column" @click="inviteTeamMember">
