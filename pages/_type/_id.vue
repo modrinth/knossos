@@ -744,6 +744,9 @@ export default {
       border-radius: 1.5rem;
       background-color: var(--color-button-bg);
       margin-right: var(--spacing-card-sm);
+      &:hover {
+        background-color: var(--color-button-bg-hover);
+      }
       svg {
         width: 1.25rem;
         margin: auto;
