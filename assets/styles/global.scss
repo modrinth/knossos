@@ -1,8 +1,8 @@
 .light-mode {
   --color-icon: #718096;
-  --color-text:#4A5568;
-  --color-text-medium:#2a303d;
-  --color-text-dark:#1A202C;
+  --color-text: #4a5568;
+  --color-text-medium: #2a303d;
+  --color-text-dark: #1a202c;
   --color-heading: #2c313d;
   --color-bg: #e6e7eb;
   --color-raised-bg: #ffffff;
@@ -66,12 +66,15 @@
   --color-block-quote: var(--color-tooltip-bg);
   --color-header-underline: var(--color-tooltip-text);
   --color-hr: var(--color-text);
+
+  --color-table-border: #dfe2e5;
+  --color-table-alternate-row: #f6f8fa;
 }
 
 .dark-mode {
   --color-icon: #96a2b0;
   --color-text: #b0bac5;
-  --color-text-medium:#e4e4e4;
+  --color-text-medium: #e4e4e4;
   --color-text-dark: #ecf9fb;
   --color-heading: #c4cfdd;
   --color-bg: #16181c;
@@ -132,9 +135,12 @@
   --color-badge-yellow-text: #755920;
   --color-badge-yellow-bg: #F7BB43;
 
-  --color-block-quote:var(--color-code-bg);
+  --color-block-quote: var(--color-code-bg);
   --color-header-underline: var(--color-tooltip-text);
   --color-hr: var(--color-text);
+
+  --color-table-border: #4f5864;
+  --color-table-alternate-row: #262a30;
 }
 
 .oled-mode {
@@ -151,7 +157,8 @@ body {
   // Defaults
   background-color: var(--color-bg);
   color: var(--color-text);
-  --font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-family: var(--font-standard);
   font-size: 16px;
   font-weight: var(--font-weight-medium);
@@ -179,15 +186,15 @@ body {
   --spacing-card-sm: 0.5rem;
 
   // Font Sizes
-  --font-size-xxs: 0.625rem;    //10px
-  --font-size-xs: 0.75rem;    //12px
-  --font-size-sm: 0.875rem;   //14px
-  --font-size-nm: 1rem;       //16px
-  --font-size-md: 1.125rem;   //18px
-  --font-size-lg: 1.25rem;    //20px
-  --font-size-xl: 1.5rem;     //24px
-  --font-size-2xl: 2rem;      //32px
-  --font-size-3xl: 3rem;      //48px
+  --font-size-xxs: 0.625rem; //10px
+  --font-size-xs: 0.75rem; //12px
+  --font-size-sm: 0.875rem; //14px
+  --font-size-nm: 1rem; //16px
+  --font-size-md: 1.125rem; //18px
+  --font-size-lg: 1.25rem; //20px
+  --font-size-xl: 1.5rem; //24px
+  --font-size-2xl: 2rem; //32px
+  --font-size-3xl: 3rem; //48px
 
   // Font Weights
   --font-weight-regular: 400;
@@ -290,9 +297,8 @@ button {
 
 // @import "vue-select/src/scss/vue-select.scss";
 
-
-@import "~assets/styles/highlightjs.scss";
-@import "~assets/styles/layout.scss";
-@import "~assets/styles/utils.scss";
-@import "~assets/styles/components.scss";
-@import "~assets/styles/normalize.scss";
+@import '~assets/styles/highlightjs.scss';
+@import '~assets/styles/layout.scss';
+@import '~assets/styles/utils.scss';
+@import '~assets/styles/components.scss';
+@import '~assets/styles/normalize.scss';
