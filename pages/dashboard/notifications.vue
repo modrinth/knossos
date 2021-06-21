@@ -75,7 +75,7 @@ export default {
       this.$nuxt.$loading.start()
 
       try {
-        if (typeof index !== 'undefined') {
+        if (index !== null) {
           const config = {
             method: notification.actions[index].action_route[0].toLowerCase(),
             url: `${notification.actions[index].action_route[1]}`,
