@@ -10,7 +10,8 @@
         <h3>Name</h3>
         <label>
           <span>
-            This is what users will see first. Will default to version number
+            This is what users will see first. If not specified, this will
+            default to the version number.
           </span>
           <input
             v-model="version.name"
@@ -21,7 +22,7 @@
         <h3>Number</h3>
         <label>
           <span>
-            That's how your version will appear in mod lists and in URLs
+            This is how your version will appear in mod lists and URLs.
           </span>
           <input
             v-model="version.version_number"
@@ -32,8 +33,8 @@
         <h3>Channel</h3>
         <label>
           <span>
-            It is important to notify players and pack makers if the version is
-            stable
+            It is important to notify players and modpack makers whether the
+            version is stable or if it's still in development.
           </span>
           <multiselect
             v-model="version.version_type"
@@ -45,11 +46,9 @@
             :allow-empty="false"
           />
         </label>
-        <h3>Loaders</h3>
+        <h3>Mod loaders</h3>
         <label>
-          <span>
-            Mark all loaders this version works with. It is essential for search
-          </span>
+          <span>Mark all mod loaders this version works with.</span>
           <multiselect
             v-model="version.loaders"
             :options="selectableLoaders"
@@ -65,12 +64,9 @@
             placeholder="Choose loaders..."
           />
         </label>
-        <h3>Game versions</h3>
+        <h3>Minecraft versions</h3>
         <label>
-          <span>
-            Mark all game version this version supports. It is essential for
-            search
-          </span>
+          <span>Mark all Minecraft versions this mod version supports.</span>
           <multiselect
             v-model="version.game_versions"
             :options="selectableVersions"
@@ -91,8 +87,8 @@
         <h3>Changelog</h3>
         <span>
           Tell players and modpack makers what's new. It supports the same
-          markdown as description, but it is advisable not to be too creative
-          with it in changelogs
+          Markdown as the description, but it is advised not to be too creative
+          with the changelogs.
         </span>
         <div class="textarea-wrapper">
           <textarea v-model="version.changelog"></textarea>
@@ -169,6 +165,7 @@ export default {
   data() {
     return {
       version: {},
+      isEditing: true,
     }
   },
   mounted() {
@@ -177,6 +174,23 @@ export default {
       [this.version.name, 'versions/' + this.version.id],
       ['Edit Version', 'versions/' + this.version.id + '/edit'],
     ])
+    function preventLeave(e) {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', preventLeave)
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('beforeunload', preventLeave)
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    if (
+      this.isEditing &&
+      !window.confirm('Are you sure that you want to leave without saving?')
+    ) {
+      return
+    }
+    next()
   },
   methods: {
     async saveVersion() {
@@ -188,6 +202,7 @@ export default {
           this.version,
           this.$auth.headers
         )
+        this.isEditing = false
         await this.$router.replace(
           `/mod/${this.mod.slug ? this.mod.slug : this.mod.id}/version/${
             this.version.id
@@ -196,7 +211,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })

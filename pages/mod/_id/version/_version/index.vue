@@ -5,7 +5,7 @@
       title="Are you sure you want to delete this file?"
       description="This will remove this file forever (like really forever)"
       :has-to-type="false"
-      proceed-label="Delete File"
+      proceed-label="Delete file"
       @proceed="deleteFile(popup_data)"
     />
     <ConfirmPopup
@@ -13,7 +13,7 @@
       title="Are you sure you want to delete this version?"
       description="This will remove this version forever (like really forever), and if some mods depends on this version, it won't work anymore."
       :has-to-type="false"
-      proceed-label="Delete Version"
+      proceed-label="Delete version"
       @proceed="deleteVersion()"
     />
     <div class="version">
@@ -60,7 +60,7 @@
           <a
             v-if="primaryFile"
             :href="primaryFile.url"
-            class="action iconified-button"
+            class="action iconified-button download"
             @click.prevent="
               $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
             "
@@ -97,7 +97,7 @@
         <div class="stat">
           <TagIcon />
           <div class="info">
-            <h4>Available For</h4>
+            <h4>Available for</h4>
             <p class="value">
               {{
                 version.game_versions ? version.game_versions.join(', ') : ''
@@ -116,10 +116,10 @@
             <p>{{ file.filename }}</p>
             <div v-if="currentMember" class="actions">
               <button @click="deleteFilePopup(file.hashes.sha1)">
-                Delete File
+                Delete file
               </button>
               <button @click="makePrimary(file.hashes.sha1)">
-                Make Primary
+                Make primary
               </button>
             </div>
           </div>
@@ -280,7 +280,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -331,6 +331,13 @@ export default {
 
       .action:not(:first-child) {
         margin: 0 0 0 0.5rem;
+      }
+    }
+    .download {
+      background-color: var(--color-brand);
+      color: white;
+      &:hover {
+        background-color: var(--color-brand-hover);
       }
     }
   }
@@ -408,8 +415,6 @@ export default {
 
     svg {
       padding: 0.25rem;
-      border-radius: 50%;
-      background-color: var(--color-button-bg);
     }
   }
 }
