@@ -2,11 +2,6 @@ name: Bug report form
 description: Create a report to help us improve knossos.
 labels: [bug]
 body:
-- type: markdown
-  attributes:
-    value: |
-      Thank you for reporting!
-      For support with crashes and issues, please create a post on the [forum](https://www.minecraftforge.net/forum/forum/18-support-bug-reports/) instead.
 - type: dropdown
   id: platform
   attributes:
