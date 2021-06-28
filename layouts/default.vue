@@ -58,7 +58,7 @@
                 >
                   <button class="control" @click="toggleDropdown">
                     <div class="avatar">
-                      <span>{{ this.$auth.user.username }}</span>
+                      <span>{{ this.$auth.user.name }}</span>
                       <AvatarIcon
                         :notif-count="this.$user.notifications.count"
                         :dropdown-bg="isDropdownOpen"

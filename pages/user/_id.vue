@@ -6,7 +6,7 @@
           <div class="user-info">
             <img :src="user.avatar_url" :alt="user.username" />
             <div class="text">
-              <h2>{{ user.username }}</h2>
+              <h2>{{ user.name }}</h2>
               <p v-if="user.role === 'admin'" class="badge red">Admin</p>
               <p v-if="user.role === 'moderator'" class="badge yellow">
                 Moderator

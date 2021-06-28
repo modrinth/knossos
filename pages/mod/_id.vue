@@ -425,7 +425,7 @@ export default {
       users.forEach((it) => {
         const index = members.findIndex((x) => x.user_id === it.id)
         members[index].avatar_url = it.avatar_url
-        members[index].name = it.username
+        members[index].name = it.name || it.username
       })
 
       const currentMember = data.$auth.user
