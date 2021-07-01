@@ -153,76 +153,8 @@
       <h2>11. Project Rules</h2>
 
       <p>
-        In order to facilitate the Terms outlined above, all Projects (a form of
-        Content as defined previously) must obey the following Rules.
-      </p>
-
-      <ul>
-        <li>
-          Projects cannot contain or download malware, which we define as
-          software that is designed:
-          <ul>
-            <li>
-              to upload any data to a remote server (i.e. one that the user does
-              not directly choose to connect to in-game) without clear
-              disclosure on the Project's page
-            </li>
-            <li>
-              to disrupt, damage, or otherwise cause harm to an individual,
-              computer, or network
-            </li>
-          </ul>
-        </li>
-        <li>
-          Projects must make a clear attempt to describe their function on the
-          page(s) where it may be found and must not omit critical information a
-          user must know before installing a Project.
-        </li>
-        <li>
-          Projects must not make intentionally wrong or misleading claims about
-          the function of a Project.
-        </li>
-        <li>
-          Projects cannot contain or download "cheats", which we define as a
-          client-side modification that:
-          <ul>
-            <li>is advertised as a "cheat", "hack", or "hacked client"</li>
-            <li>
-              gives an unfair advantage in a multiplayer setting over other
-              players that do not have a comparable modification and does not
-              provide a server-side opt-out
-            </li>
-            <li>
-              contains any of the following functions without requiring a
-              server-side opt-in:
-              <ul>
-                <li>X-ray or the ability to see through opaque blocks</li>
-                <li>aim bot or aim assist</li>
-                <li>flight, speed, or other movement modifications</li>
-                <li>automatic PvP</li>
-                <li>
-                  active hiding of client modifications from a server, setting
-                  client brand to mimic vanilla, or others on a case-by-case
-                  basis
-                </li>
-                <li>item duplication</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          Projects must be uploaded only by someone who has the legal license to
-          do so.
-        </li>
-        <li>Projects cannot contain sexual or explicit content.</li>
-      </ul>
-      <p>
-        Modrinth reserves the right to remove any file, Project, or other
-        Content uploaded to our platform which the Modrinth moderators deem is
-        in violation of the Terms and/or Rules outlined in this document.
-        Modrinth also reserves the right to introduce new rules at any time,
-        which may or may not retroactively apply to already uploaded Content at
-        the Modrinth moderators' discretion.
+        Please read our
+        <nuxt-link to="/legal/rules">Project Rules</nuxt-link>.
       </p>
     </div>
     <m-footer class="footer" centered />
