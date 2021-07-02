@@ -3,16 +3,33 @@
     <div class="page-contents">
       <section class="project-info">
         <div class="header">
-          <img
-            class="icon"
-            :src="
-              project.icon_url
-                ? project.icon_url
-                : 'https://cdn.modrinth.com/placeholder.svg?inline'
+          <nuxt-link
+            :to="
+              '/' +
+              project.project_type +
+              '/' +
+              (project.slug ? project.slug : project.id)
             "
-            alt="project - icon"
-          />
-          <h1 class="title">{{ project.title }}</h1>
+          >
+            <img
+              class="icon"
+              :src="
+                project.icon_url
+                  ? project.icon_url
+                  : 'https://cdn.modrinth.com/placeholder.svg?inline'
+              "
+              alt="project - icon"
+          /></nuxt-link>
+          <nuxt-link
+            :to="
+              '/' +
+              project.project_type +
+              '/' +
+              (project.slug ? project.slug : project.id)
+            "
+          >
+            <h1 class="title">{{ project.title }}</h1>
+          </nuxt-link>
           <div
             v-if="
               project.client_side === 'optional' &&
