@@ -21,7 +21,7 @@
         :disabled="!$nuxt.$loading"
         @click="saveProjectReview"
       >
-        Submit for Review
+        Submit for approval
       </button>
       <button
         title="Save"
