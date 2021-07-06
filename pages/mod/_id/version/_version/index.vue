@@ -131,7 +131,14 @@
           </a>
         </div>
       </div>
-      <FileInput v-if="currentMember" class="file-input" @change="addFiles" />
+      <FileInput
+        accept=".jar,application/java-archive,application/x-java-archive"
+        multiple
+        prompt="Choose files or drag them here"
+        v-if="currentMember"
+        class="file-input"
+        @change="addFiles"
+      />
     </div>
   </div>
 </template>
