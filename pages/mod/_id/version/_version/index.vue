@@ -132,10 +132,10 @@
         </div>
       </div>
       <FileInput
+        v-if="currentMember"
         accept=".jar,application/java-archive,application/x-java-archive"
         multiple
         prompt="Choose files or drag them here"
-        v-if="currentMember"
         class="file-input"
         @change="addFiles"
       />
