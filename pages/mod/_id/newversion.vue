@@ -93,7 +93,7 @@
             upload multiple.
           </span>
           <FileInput
-            accept="application/*"
+            accept=".jar"
             multiple
             prompt="Choose files or drag them here"
             @change="updateVersionFiles"
