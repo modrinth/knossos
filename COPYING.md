@@ -6,6 +6,7 @@ The following files are licensed under the license below in the "Logo Licenses" 
 assets/images/logo.svg
 assets/images/text-logo.svg
 assets/images/text-logo-white.svg
+static/favicon.ico
 
 ## Logo Licenses
 All rights reserved. ©2020-2021 Guavy LLC
