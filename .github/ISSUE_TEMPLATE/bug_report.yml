@@ -1,0 +1,31 @@
+name: Bug report form
+description: Create a report to help us improve knossos.
+labels: [bug]
+body:
+- type: dropdown
+  id: platform
+  attributes:
+    label: Platform
+    description: What platform did the bug happen on?
+    options:
+      - Staging
+      - Release
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: To Reproduce
+    description: Steps to reproduce the behavior.
+    placeholder: |
+      1. Go to '...'
+      2. Click on '....'
+      3. Scroll down to '....'
+      4. See error
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Describe the bug
+    description: A clear and concise description of what you expected to happen.
+  validations:
+    required: true
