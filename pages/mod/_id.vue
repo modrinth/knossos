@@ -4,17 +4,20 @@
       <div class="content">
         <div class="header">
           <div class="icon">
-            <img
-              :src="
-                mod.icon_url
-                  ? mod.icon_url
-                  : 'https://cdn.modrinth.com/placeholder.svg?inline'
-              "
-              alt="mod - icon"
-            />
+            <nuxt-link :to="'/mod/' + (mod.slug ? mod.slug : mod.id)">
+              <img
+                :src="
+                  mod.icon_url
+                    ? mod.icon_url
+                    : 'https://cdn.modrinth.com/placeholder.svg?inline'
+                "
+                alt="mod - icon"
+            /></nuxt-link>
           </div>
           <div class="info">
-            <h1 class="title">{{ mod.title }}</h1>
+            <nuxt-link :to="'/mod/' + (mod.slug ? mod.slug : mod.id)">
+              <h1 class="title">{{ mod.title }}</h1>
+            </nuxt-link>
             <p class="description">
               {{ mod.description }}
             </p>
@@ -219,10 +222,7 @@
             <div class="info">
               <h4>License</h4>
               <p v-tooltip="mod.license.name" class="value ellipsis">
-                <a
-                  v-if="mod.license.url ? mod.license.url : '#'"
-                  :href="mod.license.url"
-                >
+                <a :href="mod.license.url || null">
                   {{ mod.license.id.toUpperCase() }}</a
                 >
               </p>
@@ -527,9 +527,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content:
-            this.mod.description +
-            ' View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.',
+          content: `${this.mod.title}: ${this.mod.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
         },
         {
           hid: 'og:url',
