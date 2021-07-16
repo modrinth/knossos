@@ -87,7 +87,7 @@
     <section class="mod-icon rows">
       <h3>Icon</h3>
       <div class="columns row-grow-1">
-        <div class="column-grow-1 rows">
+        <div class="rows row-grow-1">
           <file-input
             accept="image/png,image/jpeg,image/gif,image/webp"
             class="choose-image"
@@ -99,8 +99,20 @@
             <li>Minimum size is 100x100</li>
             <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
           </ul>
+        </div>
+        <div class="rows">
+          <img
+            :src="
+              previewImage
+                ? previewImage
+                : mod.icon_url && !iconChanged
+                ? mod.icon_url
+                : 'https://cdn.modrinth.com/placeholder.svg'
+            "
+            alt="preview-image"
+          />
           <button
-            class="transparent-button"
+            class="button"
             @click="
               icon = null
               previewImage = null
@@ -110,16 +122,6 @@
             Reset icon
           </button>
         </div>
-        <img
-          :src="
-            previewImage
-              ? previewImage
-              : mod.icon_url && !iconChanged
-              ? mod.icon_url
-              : 'https://cdn.modrinth.com/placeholder.svg'
-          "
-          alt="preview-image"
-        />
       </div>
     </section>
     <section class="game-sides">
@@ -133,7 +135,7 @@
         <div class="labeled-control">
           <h3>Client</h3>
           <Multiselect
-            v-model="clientSideType"
+            v-model="mod.client_side"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
@@ -145,7 +147,7 @@
         <div class="labeled-control">
           <h3>Server</h3>
           <Multiselect
-            v-model="serverSideType"
+            v-model="mod.server_side"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
@@ -314,6 +316,8 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
+import getDifferences from '~/libs/getDifferences'
+
 import FileInput from '~/components/ui/FileInput'
 
 export default {
@@ -324,7 +328,7 @@ export default {
   async asyncData(data) {
     try {
       const [
-        mod,
+        savedMod,
         availableCategories,
         availableLoaders,
         availableGameVersions,
@@ -341,21 +345,22 @@ export default {
         ])
       ).map((it) => it.data)
 
-      mod.license = {
-        short: mod.license.id,
-        name: mod.license.name,
-        url: mod.license.url,
+      savedMod.license = {
+        short: savedMod.license.id,
+        name: savedMod.license.name,
+        url: savedMod.license.url,
       }
 
-      if (mod.body_url && !mod.body) {
-        mod.body = (await data.$axios.get(mod.body_url)).data
+      if (savedMod.body_url && !savedMod.body) {
+        savedMod.body = (await data.$axios.get(savedMod.body_url)).data
       }
 
+      /*
       const donationPlatforms = []
       const donationLinks = []
 
-      if (mod.donation_urls) {
-        for (const platform of mod.donation_urls) {
+      if (savedMod.donation_urls) {
+        for (const platform of savedMod.donation_urls) {
           donationPlatforms.push({
             short: platform.id,
             name: platform.platform,
@@ -363,24 +368,24 @@ export default {
           donationLinks.push(platform.url)
         }
       }
+      */
 
       availableLicenses.sort((a, b) => a.name.localeCompare(b.name))
       return {
-        mod,
-        clientSideType: mod.client_side.charAt(0) + mod.client_side.slice(1),
-        serverSideType: mod.server_side.charAt(0) + mod.server_side.slice(1),
+        savedMod,
+        mod: { ...savedMod },
         availableCategories,
         availableLoaders,
         availableGameVersions,
         availableLicenses,
         license: {
-          short: mod.license.id,
-          name: mod.license.name,
+          short: savedMod.license.id,
+          name: savedMod.license.name,
         },
-        license_url: mod.license.url,
+        license_url: savedMod.license.url,
         availableDonationPlatforms,
-        donationPlatforms,
-        donationLinks,
+        // donationPlatforms,
+        // donationLinks,
       }
     } catch {
       data.error({
@@ -398,7 +403,7 @@ export default {
       icon: null,
       iconChanged: false,
 
-      sideTypes: ['Required', 'Optional', 'Unsupported'],
+      sideTypes: ['required', 'optional', 'unsupported'],
 
       isEditing: true,
     }
@@ -449,22 +454,27 @@ export default {
     async saveMod() {
       this.$nuxt.$loading.start()
 
+      const modChanges = getDifferences(this.savedMod, this.mod)
+
       try {
         const data = {
-          title: this.mod.title,
-          description: this.mod.description,
-          body: this.mod.body,
-          categories: this.mod.categories,
-          issues_url: this.mod.issues_url,
-          source_url: this.mod.source_url,
-          wiki_url: this.mod.wiki_url,
-          license_url: this.license_url,
-          discord_url: this.mod.discord_url,
-          license_id: this.license.short,
-          client_side: this.clientSideType.toLowerCase(),
-          server_side: this.serverSideType.toLowerCase(),
-          slug: this.mod.slug,
-          license: this.license.short,
+          ...({ title: modChanges.title } || {}),
+          ...({ description: modChanges.description } || {}),
+          ...({ body: modChanges.body } || {}),
+          ...({ categories: modChanges.categories } || {}),
+          ...({ issues_url: modChanges.issues_url } || {}),
+          ...({ source_url: modChanges.source_url } || {}),
+          ...({ wiki_url: modChanges.wiki_url } || {}),
+          ...({ license_url: modChanges.license_url } || {}),
+          ...({ discord_url: modChanges.discord_url } || {}),
+          ...({ license_id: modChanges.license_id } || {}),
+          ...({ client_side: modChanges.client_side } || {}),
+          ...({ server_side: modChanges.server_side } || {}),
+          ...({ slug: modChanges.slug } || {}),
+          ...(modChanges.license
+            ? { license: modChanges.license.short } || {}
+            : {}),
+          /*
           donation_urls: this.donationPlatforms.map((it, index) => {
             return {
               id: it.short,
@@ -472,6 +482,7 @@ export default {
               url: this.donationLinks[index],
             }
           }),
+        */
         }
 
         if (this.isProcessing) {
@@ -491,9 +502,13 @@ export default {
         }
 
         this.isEditing = false
-        await this.$router.replace(
-          `/mod/${this.mod.slug ? this.mod.slug : this.mod.id}`
-        )
+        this.savedMod = this.mod
+
+        this.$notify({
+          group: 'main',
+          title: 'Changes saved',
+          type: 'success',
+        })
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -624,8 +639,9 @@ section.mod-icon {
 
   img {
     align-self: flex-start;
-    max-width: 50%;
+    max-width: 6.08rem;
     margin-left: var(--spacing-card-lg);
+    border-radius: var(--size-rounded-icon);
   }
 }
 
