@@ -389,8 +389,18 @@ export default {
   }
 }
 
-.example-code {
-  color: #cecece;
+video {
+  border-radius: var(--size-rounded-lg);
+}
+
+pre {
+  background-color: black;
+  border-radius: var(--size-rounded-lg);
+
+  .example-code {
+    color: #cecece;
+    background: none;
+  }
 }
 
 .footer {
