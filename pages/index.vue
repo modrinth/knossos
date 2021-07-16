@@ -394,8 +394,9 @@ video {
 }
 
 pre {
-  background-color: black;
+  background-color: #171719;
   border-radius: var(--size-rounded-lg);
+  overflow-x: auto;
 
   .example-code {
     color: #cecece;
