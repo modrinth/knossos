@@ -230,7 +230,7 @@
             <div class="info">
               <div class="key">License</div>
               <div class="value uppercase">
-                <a class="text-link" :href="project.license.url">{{
+                <a class="text-link" :href="project.license.url || null">{{
                   project.license.id
                 }}</a>
               </div>
@@ -437,9 +437,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content:
-            this.project.description +
-            ' View other minecraft projects on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.',
+          content: `${this.mod.title}: ${this.mod.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
         },
         {
           hid: 'og:url',
