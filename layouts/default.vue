@@ -33,7 +33,7 @@
               </NuxtLink>
             </div>
           </section>
-          <section class="column-grow">
+          <section class="column-grow user-outer">
             <template v-if="$auth.user">
               <section class="user-controls">
                 <div
@@ -363,6 +363,11 @@ export default {
             }
           }
         }
+
+        .user-outer {
+          z-index: 20;
+        }
+
         section.user-controls {
           align-items: center;
           display: flex;
