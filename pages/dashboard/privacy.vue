@@ -47,6 +47,12 @@
 import scopes from '@/privacy-toggles'
 export default {
   name: 'Privacy',
+  data: () => {
+    const settings = scopes.settings
+    return {
+      scopes: settings,
+    }
+  },
   fetch() {
     this.$store.dispatch('consent/loadFromCookies', this.$cookies)
 
@@ -66,14 +72,11 @@ export default {
       })
     }
   },
-  data: () => {
-    const settings = scopes.settings
-    return {
-      scopes: settings,
-    }
-  },
   options: {
     auth: false,
+  },
+  head: {
+    title: 'Privacy Settings - Modrinth',
   },
   methods: {
     toggleOff() {
@@ -103,9 +106,6 @@ export default {
         type: 'success',
       })
     },
-  },
-  head: {
-    title: 'Privacy Settings - Modrinth',
   },
 }
 </script>

@@ -20,6 +20,7 @@ export default {
   components: {
     MFooter,
   },
+  layout: 'home',
   props: {
     error: {
       type: Object,
@@ -30,7 +31,6 @@ export default {
       },
     },
   },
-  layout: 'home',
 }
 </script>
 

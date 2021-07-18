@@ -60,7 +60,7 @@
       </div>
     </div>
     <div
-      v-for="(member, index) in allMembers"
+      v-for="(member, index) in allTeamMembers"
       :key="member.user_id"
       class="member"
       :class="{ open: openTeamMembers.includes(member.user_id) }"
@@ -95,7 +95,7 @@
           <label>
             Role:
             <input
-              v-model="allMembers[index].role"
+              v-model="allTeamMembers[index].role"
               type="text"
               :disabled="
                 member.role === 'Owner' ||
@@ -117,7 +117,7 @@
               (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
             "
             label="Upload Version"
-            @input="allMembers[index].permissions ^= UPLOAD_VERSION"
+            @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
           />
           <Checkbox
             :value="
@@ -130,7 +130,7 @@
               (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
             "
             label="Delete Version"
-            @input="allMembers[index].permissions ^= DELETE_VERSION"
+            @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
           />
           <Checkbox
             :value="
@@ -143,7 +143,7 @@
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
             label="Edit Details"
-            @input="allMembers[index].permissions ^= EDIT_DETAILS"
+            @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
           />
           <Checkbox
             :value="
@@ -156,7 +156,7 @@
               (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
             "
             label="Edit Body"
-            @input="allMembers[index].permissions ^= EDIT_BODY"
+            @input="allTeamMembers[index].permissions ^= EDIT_BODY"
           />
           <Checkbox
             :value="
@@ -169,7 +169,7 @@
               (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
             "
             label="Manage Invites"
-            @input="allMembers[index].permissions ^= MANAGE_INVITES"
+            @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
           />
           <Checkbox
             :value="
@@ -182,7 +182,7 @@
               (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
             "
             label="Remove Member"
-            @input="allMembers[index].permissions ^= REMOVE_MEMBER"
+            @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
           />
           <Checkbox
             :value="
@@ -194,7 +194,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
             "
             label="Edit Member"
-            @input="allMembers[index].permissions ^= EDIT_MEMBER"
+            @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
           />
           <Checkbox
             :value="
@@ -207,7 +207,7 @@
               (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
             "
             label="Delete Project"
-            @input="allMembers[index].permissions ^= DELETE_PROJECT"
+            @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
           />
         </div>
         <div class="actions">
@@ -267,7 +267,11 @@ export default {
     return {
       currentUsername: '',
       openTeamMembers: [],
+      allTeamMembers: [],
     }
+  },
+  fetch() {
+    this.allTeamMembers = this.allMembers
   },
   created() {
     this.$emit('update:link-bar', [['Settings', 'settings']])
@@ -315,7 +319,7 @@ export default {
 
       try {
         await this.$axios.delete(
-          `team/${this.project.team}/members/${this.allMembers[index].user_id}`,
+          `team/${this.project.team}/members/${this.allTeamMembers[index].user_id}`,
           this.$auth.headers
         )
         await this.$router.go(null)
@@ -335,12 +339,12 @@ export default {
 
       try {
         const data = {
-          permissions: this.allMembers[index].permissions,
-          role: this.allMembers[index].role,
+          permissions: this.allTeamMembers[index].permissions,
+          role: this.allTeamMembers[index].role,
         }
 
         await this.$axios.patch(
-          `team/${this.project.team}/members/${this.allMembers[index].user_id}`,
+          `team/${this.project.team}/members/${this.allTeamMembers[index].user_id}`,
           data,
           this.$auth.headers
         )

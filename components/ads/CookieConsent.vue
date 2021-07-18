@@ -24,13 +24,13 @@
 import scopes from '~/privacy-toggles'
 export default {
   name: 'CookieConsent',
-  fetch() {
-    this.checkVisibility()
-  },
   data() {
     return {
       shown: false,
     }
+  },
+  fetch() {
+    this.checkVisibility()
   },
   watch: {
     $route() {

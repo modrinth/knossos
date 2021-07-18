@@ -1,6 +1,6 @@
 <template>
   <div class="avatar-icon">
-    <img :src="this.$auth.user.avatar_url" class="icon" />
+    <img :src="$auth.user.avatar_url" class="icon" />
     <div v-if="notifCount > 0" class="bubble" :class="{ dropdownBg }">
       {{ displayNotifCount }}
     </div>

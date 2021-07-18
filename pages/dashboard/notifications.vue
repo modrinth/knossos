@@ -58,6 +58,9 @@ export default {
   components: {
     UpToDate,
   },
+  head: {
+    title: 'Notifications - Modrinth',
+  },
   methods: {
     async performAction(notification, index) {
       this.$nuxt.$loading.start()
@@ -92,9 +95,6 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
-  },
-  head: {
-    title: 'Notifications - Modrinth',
   },
 }
 </script>

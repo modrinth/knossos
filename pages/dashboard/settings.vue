@@ -121,13 +121,6 @@ export default {
   components: {
     ConfirmPopup,
   },
-  fetch() {
-    this.username = this.$auth.user.username
-    this.name = this.$auth.user.name
-    this.email = this.$auth.user.email
-    this.bio = this.$auth.user.bio
-    this.token = this.$auth.token
-  },
   data() {
     return {
       username: '',
@@ -137,6 +130,16 @@ export default {
       token: '',
       confirm_delete: false,
     }
+  },
+  fetch() {
+    this.username = this.$auth.user.username
+    this.name = this.$auth.user.name
+    this.email = this.$auth.user.email
+    this.bio = this.$auth.user.bio
+    this.token = this.$auth.token
+  },
+  head: {
+    title: 'Settings - Modrinth',
   },
   methods: {
     changeTheme() {
@@ -208,9 +211,6 @@ export default {
     showPopup() {
       this.$refs.delete_popup.show()
     },
-  },
-  head: {
-    title: 'Settings - Modrinth',
   },
 }
 </script>

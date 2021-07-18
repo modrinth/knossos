@@ -81,6 +81,18 @@ export default {
       ethicalAdLoad: null,
     }
   },
+  head: {
+    script: [
+      {
+        hid: 'ethical_ads_script',
+        type: 'text/javascript',
+        src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
+        async: true,
+        body: true,
+        defer: true,
+      }, // Insert in body
+    ],
+  },
   computed: {
     ethical_ads_on() {
       return (
@@ -163,18 +175,6 @@ export default {
         }, 100)
       }
     },
-  },
-  head: {
-    script: [
-      {
-        hid: 'ethical_ads_script',
-        type: 'text/javascript',
-        src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
-        async: true,
-        body: true,
-        defer: true,
-      }, // Insert in body
-    ],
   },
 }
 </script>
