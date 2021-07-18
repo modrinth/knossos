@@ -16,10 +16,10 @@
         <h3>Conveniently modern</h3>
         <h1>A redefined search interface</h1>
         <p>
-          We've implemented <span>fast and adaptable</span> search algorithms so
+          We implemented <span>fast and adaptable</span> search algorithms so
           you don't have to wait, while creating a responsive interface that
-          makes sense. Modrinth is full of elegant mod discovery and a platform
-          which just works.
+          makes sense. Modrinth is full of elegant project discovery and a
+          platform which just works.
         </p>
       </div>
       <div class="right hero-image">
@@ -147,8 +147,8 @@
         <h3>Easy to implement</h3>
         <h1>Backed by an open source API</h1>
         <p>
-          Modrinth's code is fully open source, licensed under the GNU AGPL.
-          We've created a high-performance Rust-based backend that is
+          Modrinth's code is fully open source licensed under AGPL. We've
+          created a high peformant Rust based backend that is
           <span
             ><a href="https://github.com/modrinth/labrinth/wiki"
               >fully documented</a
@@ -161,7 +161,7 @@
       <div class="right hero-image less-margin">
         <pre v-highlightjs>
 <code class="javascript example-code">const fetch = require('node-fetch');
-fetch('https://api.modrinth.com/api/v1/mod').then(res => res.json()).then(data => {
+fetch('https://api.modrinth.com/api/v1/search').then(res => res.json()).then(data => {
     console.log(data);
     // hits: [Object {author: "mezz", author_url: …, …}, …]
     // limit: 10

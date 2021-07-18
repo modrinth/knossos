@@ -4,7 +4,7 @@
       <h1>About</h1>
       <p>
         Founded in 2020, Modrinth was created to provide modders with an open
-        and intuitive platform to publish their mods on.
+        and intuitive platform to publish their projects on.
       </p>
 
       <p>

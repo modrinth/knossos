@@ -32,7 +32,7 @@
 
   svg {
     width: 1.25rem;
-    margin-right: 0.5rem;
+    margin-right: 0.25rem;
   }
 }
 
@@ -66,6 +66,7 @@
 }
 
 .text-link {
+  color: var(--color-link);
   text-decoration: underline;
 }
 
@@ -75,21 +76,9 @@
 }
 
 .markdown-body {
-  blockquote,
-  details,
-  dl,
-  ol,
-  p,
-  code,
-  pre,
-  table,
-  ul {
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-
   p {
     padding: 0;
+    margin: 0;
     line-height: 1.5;
     word-wrap: break-word;
   }
@@ -101,6 +90,7 @@
   }
 
   blockquote {
+    margin: 15px 0;
     padding: 0 1em;
     color: var(--color-text);
     border-left: 0.25em solid var(--color-block-quote);
@@ -116,11 +106,9 @@
   }
 
   pre {
-    margin-top: 1rem;
-    padding: 14px;
+    padding: 15px 10px;
     border-radius: var(--size-rounded-control);
     background-color: var(--color-code-bg);
-    overflow-x: auto;
 
     code {
       font-size: 80%;
@@ -140,58 +128,6 @@
   hr {
     margin: 20px 0;
     color: var(--color-divider);
-  }
-
-  table {
-    display: block;
-    width: max-content;
-    max-width: 100%;
-    overflow: auto;
-    border-collapse: collapse;
-    line-height: 1.5;
-
-    th {
-      font-weight: 600;
-    }
-
-    td,
-    th {
-      padding: 0.4rem 0.85rem;
-      border: 0.1rem solid var(--color-table-border);
-    }
-
-    tr:nth-child(2n) {
-      background-color: var(--color-table-alternate-row);
-    }
-  }
-
-  details {
-    border: 0.15rem solid var(--color-button-bg);
-    border-radius: var(--size-rounded-control);
-    padding: 0.5rem 0.5rem 0;
-
-    summary {
-      font-weight: bold;
-      margin: -0.5rem -0.5rem 0;
-      padding: 0.5rem 0.8rem;
-      cursor: pointer;
-      background-color: var(--color-button-bg);
-      &:hover {
-        background-color: var(--color-button-bg-hover);
-      }
-    }
-
-    &[open] {
-      padding: 0.5rem;
-
-      summary {
-        margin-bottom: 0.5rem;
-      }
-    }
-  }
-
-  > :last-child {
-    margin-bottom: 0 !important;
   }
 }
 
@@ -461,6 +397,11 @@
       &:after {
         color: var(--color-text-dark);
       }
+    }
+    .multiselect__placeholder {
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 20px;
     }
   }
   .multiselect__content-wrapper {

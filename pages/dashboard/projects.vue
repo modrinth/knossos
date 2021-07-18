@@ -1,85 +1,69 @@
 <template>
   <div>
     <div class="section-header columns">
-      <h3 class="column-grow-1">My mods</h3>
-      <nuxt-link class="brand-button column" to="/mod/create">
-        Create a mod
+      <h3 class="column-grow-1">My projects</h3>
+      <nuxt-link class="brand-button column" to="/create/project">
+        Create a project
       </nuxt-link>
     </div>
-    <div v-if="mods.length !== 0">
-      <ModCard
-        v-for="mod in mods"
-        :id="mod.slug ? mod.slug : mod.id"
-        :key="mod.id"
-        :author="mod.author"
-        :name="mod.title"
-        :description="mod.description"
-        :latest-version="mod.latest_version"
-        :created-at="mod.published"
-        :updated-at="mod.updated"
-        :downloads="mod.downloads.toString()"
-        :icon-url="mod.icon_url"
-        :author-url="mod.author_url"
-        :page-url="mod.page_url"
-        :categories="mod.categories"
+    <div v-if="$user.projects.length !== 0">
+      <ProjectCard
+        v-for="project in $user.projects"
+        :id="project.slug ? project.slug : project.id"
+        :key="project.id"
+        :author="project.author"
+        :name="project.title"
+        :description="project.description"
+        :latest-version="project.latest_version"
+        :created-at="project.published"
+        :updated-at="project.updated"
+        :downloads="project.downloads.toString()"
+        :icon-url="project.icon_url"
+        :author-url="project.author_url"
+        :page-url="project.page_url"
+        :categories="project.categories"
         :edit-mode="true"
-        :status="mod.status"
+        :status="project.status"
         :is-modrinth="true"
       >
         <nuxt-link
           class="button column edit-button"
-          :to="'/mod/' + mod.id + '/settings'"
+          :to="`/${project.project_type}/${
+            project.slug ? project.slug : project.id
+          }/settings`"
         >
           Settings
         </nuxt-link>
-      </ModCard>
+      </ProjectCard>
     </div>
     <div v-else class="error">
       <UpToDate class="icon"></UpToDate><br />
       <span class="text"
-        >You don't have any mods.<br />
+        >You don't have any projects.<br />
         Would you like to
-        <nuxt-link class="link" to="/mod/create">create one</nuxt-link>?</span
+        <nuxt-link class="link" to="/project/create">create one</nuxt-link
+        >?</span
       >
     </div>
   </div>
 </template>
 
 <script>
-import ModCard from '~/components/ui/ProjectCard'
+import ProjectCard from '~/components/ui/ProjectCard'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 
 export default {
   components: {
-    ModCard,
+    ProjectCard,
     UpToDate,
   },
-  async asyncData(data) {
-    let res = await data.$axios.get(
-      `user/${data.$auth.user.id}/mods`,
-      data.$auth.headers
-    )
-
-    res = await data.$axios.get(
-      `mods?ids=${JSON.stringify(res.data)}`,
-      data.$auth.headers
-    )
-
-    return {
-      mods: res.data,
-    }
-  },
   head: {
-    title: 'My Mods - Modrinth',
+    title: 'My projects - Modrinth',
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.mod-name {
-  font-weight: bold;
-}
-
 .edit-button {
   align-self: flex-end;
   margin-right: 2rem;

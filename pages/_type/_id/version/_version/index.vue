@@ -5,15 +5,15 @@
       title="Are you sure you want to delete this file?"
       description="This will remove this file forever (like really forever)"
       :has-to-type="false"
-      proceed-label="Delete file"
+      proceed-label="Delete File"
       @proceed="deleteFile(popup_data)"
     />
     <ConfirmPopup
       ref="delete_version_popup"
       title="Are you sure you want to delete this version?"
-      description="This will remove this version forever (like really forever), and if some mods depends on this version, it won't work anymore."
+      description="This will remove this version forever (like really forever)."
       :has-to-type="false"
-      proceed-label="Delete version"
+      proceed-label="Delete Version"
       @proceed="deleteVersion()"
     />
     <div class="version">
@@ -34,8 +34,8 @@
         <Categories :categories="version.loaders" />
         <div class="buttons">
           <nuxt-link
-            v-if="this.$auth.user"
-            :to="`/report/create?id=${version.id}&t=version`"
+            v-if="$auth.user"
+            :to="`/create/report?id=${version.id}&t=version`"
             class="action iconified-button"
           >
             <ReportIcon />
@@ -60,7 +60,7 @@
           <a
             v-if="primaryFile"
             :href="primaryFile.url"
-            class="action iconified-button download"
+            class="action iconified-button"
             @click.prevent="
               $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
             "
@@ -97,7 +97,7 @@
         <div class="stat">
           <TagIcon />
           <div class="info">
-            <h4>Available for</h4>
+            <h4>Available For</h4>
             <p class="value">
               {{
                 version.game_versions ? version.game_versions.join(', ') : ''
@@ -116,10 +116,10 @@
             <p>{{ file.filename }}</p>
             <div v-if="currentMember" class="actions">
               <button @click="deleteFilePopup(file.hashes.sha1)">
-                Delete file
+                Delete File
               </button>
               <button @click="makePrimary(file.hashes.sha1)">
-                Make primary
+                Make Primary
               </button>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default {
   },
   auth: false,
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
@@ -186,23 +186,6 @@ export default {
       },
     },
   },
-  async fetch() {
-    this.version = this.versions.find(
-      (x) => x.id === this.$route.params.version
-    )
-
-    this.primaryFile = this.version.files.find((file) => file.primary)
-
-    if (!this.primaryFile) {
-      this.primaryFile = this.version.files[0]
-    }
-
-    if (!this.version.changelog && this.version.changelog_url) {
-      this.version.changelog = (
-        await this.$axios.get(this.version.changelog_url)
-      ).data
-    }
-  },
   data() {
     return {
       primaryFile: {},
@@ -211,13 +194,43 @@ export default {
       popup_data: null,
     }
   },
+  async fetch() {
+    await this.setVersion()
+  },
+  watch: {
+    async $route() {
+      await this.setVersion()
+    },
+  },
   mounted() {
     this.$emit('update:link-bar', [
       ['Versions', 'versions'],
-      [this.version.name, 'versions/' + this.version.id],
+      [this.version.name, 'versions/' + this.version.version_number],
     ])
   },
   methods: {
+    async setVersion() {
+      this.version = this.versions.find(
+        (x) => x.id === this.$route.params.version
+      )
+
+      if (!this.version)
+        this.version = this.versions.find(
+          (x) => x.version_number === this.$route.params.version
+        )
+
+      this.primaryFile = this.version.files.find((file) => file.primary)
+
+      if (!this.primaryFile) {
+        this.primaryFile = this.version.files[0]
+      }
+
+      if (!this.version.changelog && this.version.changelog_url) {
+        this.version.changelog = (
+          await this.$axios.get(this.version.changelog_url)
+        ).data
+      }
+    },
     deleteFilePopup(hash) {
       this.popup_data = hash
       this.$refs.delete_file_popup.show()
@@ -280,7 +293,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -297,7 +310,7 @@ export default {
 
       await this.$axios.delete(`version/${this.version.id}`, this.$auth.headers)
 
-      await this.$router.replace(`/mod/${this.mod.id}`)
+      await this.$router.replace(`/project/${this.project.id}`)
       this.$nuxt.$loading.finish()
     },
   },
@@ -331,13 +344,6 @@ export default {
 
       .action:not(:first-child) {
         margin: 0 0 0 0.5rem;
-      }
-    }
-    .download {
-      background-color: var(--color-brand);
-      color: white;
-      &:hover {
-        background-color: var(--color-brand-hover);
       }
     }
   }
@@ -415,6 +421,8 @@ export default {
 
     svg {
       padding: 0.25rem;
+      border-radius: 50%;
+      background-color: var(--color-button-bg);
     }
   }
 }

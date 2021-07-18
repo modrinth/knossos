@@ -1,3 +1,5 @@
+import { sortRoutes } from '@nuxt/utils'
+
 export default {
   /*
    ** Nuxt target
@@ -20,7 +22,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Modrinth is a mod distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
+          'Modrinth is a _type distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
       },
 
       { hid: 'publisher', name: 'publisher', content: 'Guavy LLC' },
@@ -57,8 +59,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
       },
     ],
     script: [],
@@ -71,6 +72,33 @@ export default {
     },
   },
   router: {
+    extendRoutes(routes, resolve) {
+      routes.splice(
+        routes.findIndex((x) => x.name === 'search'),
+        1
+      )
+
+      routes.push({
+        path: '/search',
+        component: resolve(__dirname, 'pages/search.vue'),
+        name: 'search',
+        chunkName: 'pages/search',
+        children: [
+          {
+            path: '/mods',
+            component: resolve(__dirname, 'pages/search/mods.vue'),
+            name: 'mods',
+          },
+          {
+            path: '/modpacks',
+            component: resolve(__dirname, 'pages/search/modpacks.vue'),
+            name: 'modpacks',
+          },
+        ],
+      })
+
+      sortRoutes(routes)
+    },
     middleware: ['auth', 'analytics'],
   },
   /*
@@ -87,7 +115,7 @@ export default {
     '~/plugins/compiled-markdown-directive.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/auth.js',
-    '~/plugins/user.js',
+    '~/plugins/shorthands.js',
   ],
   /*
    ** Auto import components
@@ -127,14 +155,14 @@ export default {
     Sitemap: 'https://modrinth.com/sitemap.xml',
   },
   sitemap: {
-    exclude: ['/dashboard/**', '/dashboard', '/mod/create'],
+    exclude: ['/dashboard/**', '/dashboard', '/create/_type', '/create/report'],
   },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://api.modrinth.com/api/v1/',
+    baseURL: 'https://staging-api.modrinth.com/v2/',
     headers: {
       common: {
         Accept: 'application/json',
@@ -171,10 +199,11 @@ export default {
   },
   env: {
     version: process.env.VERSION_ID || 'unknown',
+    domain: getDomain(),
   },
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.API_URL,
+      browserBaseURL: process.env.BROWSER_BASE_URL,
     },
     ads: {
       ghostMode: process.env.ENABLE_ADS == null,
@@ -185,17 +214,17 @@ export default {
     analytics: {
       base_url: process.env.ARIADNE_URL,
     },
-    utils: {
-      domain: getDomain(),
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
     },
   },
 }
 
 function getDomain() {
   if (process.env.NODE_ENV === 'production') {
-    if (process.env.HOST_URL) {
-      return process.env.HOST_URL
-    } else if (process.env.HEROKU_APP_NAME) {
+    if (process.env.HEROKU_APP_NAME) {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`

@@ -6,7 +6,7 @@
         <button
           title="Create"
           class="brand-button column"
-          :disabled="!this.$nuxt.$loading"
+          :disabled="!$nuxt.$loading"
           @click="createReport"
         >
           Create
@@ -17,18 +17,18 @@
         <label>
           <span>
             The ID of the item you are reporting. For example, the item ID of a
-            mod would be its mod ID, found on the right side of that mod's page
-            under "Project ID".
+            project would be its project ID, found on the right side of that
+            project's page under "Project ID".
           </span>
-          <input v-model="itemId" type="text" placeholder="Enter the item ID" />
+          <input v-model="itemId" type="text" placeholder="Enter the Item ID" />
         </label>
-        <h3>Item type</h3>
+        <h3>Item Type</h3>
         <label>
-          <span>The type of the item that is being reported.</span>
+          <span> The type of the item that is being reported </span>
           <multiselect
             id="item-type"
             v-model="itemType"
-            :options="['mod', 'version', 'user']"
+            :options="['project', 'version', 'user']"
             :multiple="false"
             :searchable="false"
             :show-no-results="false"
@@ -36,7 +36,7 @@
             placeholder="Choose item type"
           />
         </label>
-        <h3>Report type</h3>
+        <h3>Report Type</h3>
         <label>
           <span>
             The type of report. This is the category that this report falls
@@ -91,10 +91,6 @@ export default {
   components: {
     Multiselect,
   },
-  fetch() {
-    if (this.$route.query.id) this.itemId = this.$route.query.id
-    if (this.$route.query.t) this.itemType = this.$route.query.t
-  },
   async asyncData(data) {
     const reportTypes = (await data.$axios.get(`tag/report_type`)).data
 
@@ -111,6 +107,10 @@ export default {
 
       reportTypes: ['aaaa'],
     }
+  },
+  fetch() {
+    if (this.$route.query.id) this.itemId = this.$route.query.id
+    if (this.$route.query.t) this.itemType = this.$route.query.t
   },
   methods: {
     async createReport() {
@@ -130,7 +130,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })

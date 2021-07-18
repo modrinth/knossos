@@ -12,7 +12,6 @@
             />
             <ModrinthLogoWhite v-else aria-label="modrinth" class="text-logo" />
           </NuxtLink>
-          <span class="badge yellow">Beta</span>
         </section>
         <section class="menu-icon">
           <button class="theme-toggle" @click="changeTheme">
@@ -26,30 +25,16 @@
         <section ref="nav" class="right-group columns">
           <section class="column-grow-5 nav">
             <div class="tabs">
-              <NuxtLink
-                to="/mods"
-                class="tab"
-                :class="{
-                  'active-path': this.$route.path.startsWith('/mod'),
-                }"
-              >
+              <NuxtLink to="/mods" class="tab">
                 <span>Mods</span>
               </NuxtLink>
-              <div v-if="this.$auth.user" class="section">
-                <NuxtLink
-                  to="/dashboard/projects"
-                  class="tab"
-                  :class="{
-                    'active-path': this.$route.path.startsWith('/dashboard'),
-                  }"
-                >
-                  <span>Dashboard</span>
-                </NuxtLink>
-              </div>
+              <NuxtLink to="/modpacks" class="tab">
+                <span>Modpacks</span>
+              </NuxtLink>
             </div>
           </section>
           <section class="column-grow">
-            <template v-if="this.$auth.user">
+            <template v-if="$auth.user">
               <section class="user-controls">
                 <div
                   v-click-outside="hideDropdown"
@@ -58,9 +43,9 @@
                 >
                   <button class="control" @click="toggleDropdown">
                     <div class="avatar">
-                      <span>{{ this.$auth.user.username }}</span>
+                      <span>{{ $auth.user.username }}</span>
                       <AvatarIcon
-                        :notif-count="this.$user.notifications.count"
+                        :notif-count="$user.notifications.length"
                         :dropdown-bg="isDropdownOpen"
                       />
                     </div>
@@ -69,9 +54,15 @@
                   <div class="content">
                     <ul v-if="isDropdownOpen" @click="hideDropdown">
                       <li>
-                        <NuxtLink :to="userUrl">
+                        <NuxtLink :to="`/user/${$auth.user.username}`">
                           <UserIcon />
                           <span>Profile</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink to="/dashboard/projects">
+                          <ProjectIcon />
+                          <span>Projects</span>
                         </NuxtLink>
                       </li>
                       <li>
@@ -86,12 +77,6 @@
                           <span>Settings</span>
                         </NuxtLink>
                       </li>
-                      <!--<li v-tooltip="'Not implemented yet'" class="hidden">
-                          <NuxtLink :to="userTeamsUrl" disabled>
-                            <UsersIcon />
-                            <span>Teams</span>
-                          </NuxtLink>
-                        </li>-->
                       <li>
                         <button @click="changeTheme">
                           <MoonIcon v-if="$colorMode.value === 'light'" />
@@ -137,12 +122,6 @@
         :max="5"
         :ignore-duplicates="true"
       />
-      <!--<notifications
-        group="ads"
-        position="bottom right"
-        :duration="-1"
-        :ignore-duplicates="true"
-      />-->
       <Nuxt />
     </main>
   </div>
@@ -157,6 +136,7 @@ import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
+import ProjectIcon from '~/assets/images/sidebar/mod.svg?inline'
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 
@@ -169,7 +149,6 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
 import CookieConsent from '~/components/ads/CookieConsent'
-
 import AvatarIcon from '~/components/ui/AvatarIcon'
 
 export default {
@@ -188,6 +167,7 @@ export default {
     CookieConsent,
     AvatarIcon,
     SettingsIcon,
+    ProjectIcon,
   },
   directives: {
     ClickOutside,
@@ -197,26 +177,23 @@ export default {
       isDropdownOpen: false,
     }
   },
+  async fetch() {
+    await Promise.all([
+      this.$store.dispatch('user/fetchAll', { force: true }),
+      this.$store.dispatch('tag/fetchAllTags'),
+    ])
+  },
   computed: {
     authUrl() {
-      return `${this.$axios.defaults.baseURL}auth/init?url=${this.$store.app.$config.utils.domain}${this.$route.path}`
-    },
-    userUrl() {
-      return `/user/${this.$auth.user.id}`
-    },
-    userTeamsUrl() {
-      return `${this.userUrl}/teams`
+      return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.fullPath}`
     },
   },
   watch: {
     $route() {
       this.$refs.nav.className = 'right-group'
       document.body.style.overflow = 'auto'
-      this.$store.dispatch('user/fetchNotifications')
+      this.$store.dispatch('user/fetchAll')
     },
-  },
-  created() {
-    this.$store.dispatch('user/fetchNotifications', { force: true })
   },
   beforeCreate() {
     if (this.$route.query.code) {
@@ -266,13 +243,27 @@ export default {
 
 <style lang="scss">
 .layout {
+  min-height: 100vh;
   background-color: var(--color-bg);
   display: block;
+
+  @media screen and (min-width: 1024px) {
+    min-height: calc(100vh - var(--spacing-card-bg));
+  }
 
   .site-header {
     height: var(--size-navbar-height);
     background-color: var(--color-raised-bg);
     max-width: 100vw;
+
+    @media screen and (min-width: 1024px) {
+      border-radius: var(--size-rounded-sm);
+      margin-top: var(--spacing-card-bg);
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .navbar {
       margin: 0 0.5rem;
       @media screen and (min-width: 450px) {
@@ -335,7 +326,9 @@ export default {
       section.right-group {
         display: flex;
         flex-grow: 5;
-
+        @media screen and (min-width: 1024px) {
+          margin-right: var(--spacing-card-lg);
+        }
         flex-direction: column-reverse;
 
         overflow-y: auto;
@@ -557,6 +550,16 @@ export default {
                 margin-left: 0.75rem;
                 padding-left: 0.75rem;
               }
+
+              a.tab {
+                &.nuxt-link-active {
+                  color: var(--color-text-dark);
+
+                  span {
+                    border-bottom: 3px solid var(--color-brand);
+                  }
+                }
+              }
             }
           }
 
@@ -597,3 +600,4 @@ export default {
   }
 }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

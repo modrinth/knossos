@@ -2,22 +2,22 @@
   <div class="page-container">
     <div class="page-contents">
       <header class="columns">
-        <h3 class="column-grow-1">Create a mod</h3>
+        <h3 class="column-grow-1">Create a project</h3>
         <button
           title="Save draft"
           class="button column"
-          :disabled="!this.$nuxt.$loading"
+          :disabled="!$nuxt.$loading"
           @click="createDraft"
         >
           Save draft
         </button>
         <button
-          title="Submit for review"
+          title="Create"
           class="brand-button column"
-          :disabled="!this.$nuxt.$loading"
-          @click="createMod"
+          :disabled="!$nuxt.$loading"
+          @click="createProject"
         >
-          Submit for review
+          Create
         </button>
       </header>
       <section class="essentials">
@@ -25,14 +25,14 @@
         <label>
           <span>
             Be creative. TechCraft v7 won't be searchable and won't be clicked
-            on.
+            on
           </span>
           <input v-model="name" type="text" placeholder="Enter the name" />
         </label>
         <h3>Summary</h3>
         <label>
           <span>
-            Give a quick summary of your mod. This will appear in search.
+            Give a quick description to your project. It will appear in search
           </span>
           <input
             v-model="description"
@@ -43,13 +43,17 @@
         <h3>Categories</h3>
         <label>
           <span>
-            Select up to 3 categories. These will help others find your mod.
+            Select up to 3 categories. They will help to find your project
           </span>
           <multiselect
             id="categories"
             v-model="categories"
-            :options="availableCategories"
-            :loading="availableCategories.length === 0"
+            :options="
+              $tag.categories
+                .filter((x) => x.project_type === projectType)
+                .map((it) => it.name)
+            "
+            :loading="$tag.categories.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -65,8 +69,8 @@
         <h3>Vanity URL (slug)</h3>
         <label>
           <span>
-            Set this to something pretty, so your mod's URL can be more
-            readable.
+            Set this to something pretty, so URLs to your project are more
+            readable
           </span>
           <input
             id="name"
@@ -75,21 +79,34 @@
             placeholder="Enter the vanity URL's last bit"
           />
         </label>
+        <h3>Project Type</h3>
+        <label>
+          <span> The project type of your project. </span>
+          <Multiselect
+            v-model="projectType"
+            placeholder="Select one"
+            :options="projectTypes"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          />
+        </label>
       </section>
-      <section class="mod-icon rows">
+      <section class="project-icon rows">
         <h3>Icon</h3>
         <div class="columns row-grow-1">
           <div class="column-grow-1 rows">
             <file-input
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image"
-              prompt="Choose an image or drag it here"
+              prompt="Choose image or drag it here"
               @change="showPreviewImage"
             />
             <ul class="row-grow-1">
               <li>Must be a square</li>
               <li>Minimum size is 100x100</li>
-              <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
+              <li>Acceptable formats are PNG, JPEG, GIF and WEBP</li>
             </ul>
             <button
               class="transparent-button"
@@ -115,9 +132,9 @@
         <h3>Supported environments</h3>
         <div class="columns">
           <span>
-            Let others know if your mod is for clients, servers, or both. For
-            example, Lithium would be optional for both sides, whereas Sodium
-            would be required on the client and unsupported on the server.
+            Let others know if your project is for clients, servers or
+            universal. For example, IC2 will be required + required, while
+            OptiFine will be required + no functionality
           </span>
           <div class="labeled-control">
             <h3>Client</h3>
@@ -149,21 +166,22 @@
         <h3>
           <label
             for="body"
-            title="You can type an extended description of your mod here."
+            title="You can type the of the long form of your description here."
           >
             Body
           </label>
         </h3>
         <span>
-          You can type an extended description of your mod here. This editor
-          supports Markdown. Its syntax can be found
+          You can type the of the long form of your description here. This
+          editor supports markdown. You can find the syntax
           <a
+            class=""
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
             >here</a
-          >. HTML can also be used within your description, with the exception
-          of scripts and iframes.
+          >. HTML can also be used inside your description, excluding scripts
+          and iframes.
         </span>
         <div class="columns">
           <div class="textarea-wrapper">
@@ -174,7 +192,7 @@
       </section>
       <section class="versions">
         <div class="title">
-          <h3>Upload versions</h3>
+          <h3>Upload Versions</h3>
           <button
             title="Add a version"
             class="button"
@@ -268,8 +286,8 @@
             <h3>Name</h3>
             <label>
               <span>
-                This is what users will see first. If not specified, this will
-                default to the version number.
+                This is what users will see first. Will default to version
+                number
               </span>
               <input
                 v-model="versions[currentVersionIndex].version_title"
@@ -280,7 +298,7 @@
             <h3>Number</h3>
             <label>
               <span>
-                This is how your version will appear in mod lists and URLs.
+                That's how your version will appear in project lists and in URLs
               </span>
               <input
                 v-model="versions[currentVersionIndex].version_number"
@@ -291,8 +309,8 @@
             <h3>Channel</h3>
             <label>
               <span>
-                It is important to notify players and modpack makers whether the
-                version is stable or if it's still in development.
+                It is important to notify players and pack makers if the version
+                is stable
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].release_channel"
@@ -304,13 +322,22 @@
                 :allow-empty="false"
               />
             </label>
-            <h3>Mod loaders</h3>
+            <h3>Loaders</h3>
             <label>
-              <span>Mark all mod loaders this version works with.</span>
+              <span>
+                Mark all loaders this version works with. It is essential for
+                search
+              </span>
               <multiselect
                 v-model="versions[currentVersionIndex].loaders"
-                :options="availableLoaders"
-                :loading="availableLoaders.length === 0"
+                :options="
+                  $tag.loaders
+                    .filter((x) =>
+                      x.supported_project_types.includes(projectType)
+                    )
+                    .map((it) => it.name)
+                "
+                :loading="$tag.loaders.length === 0"
                 :multiple="true"
                 :searchable="false"
                 :show-no-results="false"
@@ -322,15 +349,16 @@
                 placeholder="Choose loaders..."
               />
             </label>
-            <h3>Minecraft versions</h3>
+            <h3>Game versions</h3>
             <label>
               <span>
-                Mark all Minecraft versions this mod version supports.
+                Mark all game version this version supports. It is essential for
+                search
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].game_versions"
-                :options="availableGameVersions"
-                :loading="availableGameVersions.length === 0"
+                :options="$tag.gameVersions.map((it) => it.version)"
+                :loading="$tag.gameVersions.length === 0"
                 :multiple="true"
                 :searchable="true"
                 :show-no-results="false"
@@ -346,7 +374,7 @@
             <label>
               <span>
                 You should upload a single JAR file. However, you are allowed to
-                upload multiple.
+                upload multiple
               </span>
               <FileInput
                 accept="application/*"
@@ -360,8 +388,8 @@
             <h3>Changelog</h3>
             <span>
               Tell players and modpack makers what's new. It supports the same
-              Markdown as the description, but it is recommended not to be too
-              creative with the changelogs.
+              markdown as description, but it is advisable not to be too
+              creative with it in changelogs
             </span>
             <div class="textarea-wrapper">
               <textarea
@@ -377,7 +405,7 @@
           <i>— this section is optional</i>
         </div>
         <label
-          title="A place for users to report bugs, issues, and concerns about your mod."
+          title="A place for users to report bugs, issues, and concerns about your project."
         >
           <span>Issue tracker</span>
           <input
@@ -386,9 +414,7 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label
-          title="A page/repository containing the source code for your mod."
-        >
+        <label title="A page/repository containing the source code">
           <span>Source code</span>
           <input
             v-model="source_url"
@@ -397,7 +423,7 @@
           />
         </label>
         <label
-          title="A page containing information, documentation, and help for the mod."
+          title="A page containing information, documentation, and help for the project."
         >
           <span>Wiki page</span>
           <input
@@ -406,7 +432,7 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label title="An invitation link to your Discord server.">
+        <label title="An inivitation link to your Discord server.">
           <span>Discord invite</span>
           <input
             v-model="discord_url"
@@ -422,18 +448,10 @@
         </div>
         <label>
           <span>
-            It is very important to choose a proper license for your mod. You
-            may choose one from our list or provide a URL to a custom license.
-            <br />
-            Confused? See our
-            <a
-              href="https://blog.modrinth.com/licensing-guide/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              licensing guide</a
-            >
-            for more information.
+            It is really important to choose a proper license for your project.
+            You may choose one from our list or provide a URL to your own
+            license. URL field will be filled automatically for provided
+            licenses
           </span>
           <div class="input-group">
             <Multiselect
@@ -442,7 +460,7 @@
               track-by="short"
               label="name"
               :searchable="true"
-              :options="availableLicenses"
+              :options="$tag.licenses"
               :close-on-select="true"
               :show-labels="false"
             />
@@ -450,7 +468,6 @@
           </div>
         </label>
       </section>
-      <!--
       <section class="donations">
         <div class="title">
           <h3>Donation links</h3>
@@ -483,7 +500,7 @@
               placeholder="Select one"
               track-by="short"
               label="name"
-              :options="availableDonationPlatforms"
+              :options="$tag.donationPlatforms"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -501,7 +518,6 @@
           <hr />
         </div>
       </section>
-      -->
       <m-footer class="footer" centered />
     </div>
   </div>
@@ -513,8 +529,8 @@ import Multiselect from 'vue-multiselect'
 import FileInput from '~/components/ui/FileInput'
 import MFooter from '~/components/layout/MFooter'
 
-import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
-import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
+import ForgeIcon from '~/assets/images/categories/forge.svg'
+import FabricIcon from '~/assets/images/categories/fabric.svg'
 
 export default {
   components: {
@@ -524,39 +540,12 @@ export default {
     ForgeIcon,
     FabricIcon,
   },
-  async asyncData(data) {
-    const [
-      availableCategories,
-      availableLoaders,
-      availableGameVersions,
-      availableLicenses,
-      availableDonationPlatforms,
-    ] = (
-      await Promise.all([
-        data.$axios.get(`tag/category`),
-        data.$axios.get(`tag/loader`),
-        data.$axios.get(`tag/game_version`),
-        data.$axios.get(`tag/license`),
-        data.$axios.get(`tag/donation_platform`),
-      ])
-    ).map((it) => it.data)
-
-    availableLicenses.sort((a, b) => a.name.localeCompare(b.name))
-    return {
-      availableCategories,
-      availableLoaders,
-      availableGameVersions,
-      availableLicenses,
-      availableDonationPlatforms,
-    }
-  },
   data() {
     return {
       previewImage: null,
       compiledBody: '',
       releaseChannels: ['beta', 'alpha', 'release'],
       currentVersionIndex: -1,
-
       name: '',
       slug: '',
       draft: false,
@@ -572,14 +561,15 @@ export default {
       license: null,
       license_url: null,
 
+      projectTypes: ['Mod', 'Modpack'],
+      projectType: 'Mod',
+
       sideTypes: ['Required', 'Optional', 'Unsupported'],
       clientSideType: 'Required',
       serverSideType: 'Required',
 
       donationLinks: [],
       donationPlatforms: [],
-
-      isEditing: true,
     }
   },
   watch: {
@@ -598,31 +588,12 @@ export default {
       }
     },
   },
-  mounted() {
-    function preventLeave(e) {
-      e.preventDefault()
-      e.returnValue = ''
-    }
-    window.addEventListener('beforeunload', preventLeave)
-    this.$once('hook:beforeDestroy', () => {
-      window.removeEventListener('beforeunload', preventLeave)
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    if (
-      this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
-    ) {
-      return
-    }
-    next()
-  },
   methods: {
     async createDraft() {
       this.draft = true
-      await this.createMod()
+      await this.createProject()
     },
-    async createMod() {
+    async createProject() {
       this.$nuxt.$loading.start()
 
       for (const version of this.versions) {
@@ -636,11 +607,11 @@ export default {
       formData.append(
         'data',
         JSON.stringify({
-          mod_name: this.name,
-          mod_slug: this.slug,
-          mod_namespace: this.namespace,
-          mod_description: this.description,
-          mod_body: this.body,
+          title: this.name,
+          project_type: this.projectType.toLowerCase(),
+          slug: this.slug,
+          description: this.description,
+          body: this.body,
           initial_versions: this.versions,
           team_members: [
             {
@@ -685,7 +656,7 @@ export default {
 
       try {
         await this.$axios({
-          url: 'mod',
+          url: 'project',
           method: 'POST',
           data: formData,
           headers: {
@@ -694,7 +665,8 @@ export default {
           },
         })
 
-        this.isEditing = false
+        await this.$store.dispatch('user/fetchAll', { force: true })
+
         await this.$router.replace('/dashboard/projects')
       } catch (err) {
         let description = err.response.data.description
@@ -705,7 +677,7 @@ export default {
 
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: description,
           type: 'error',
         })
@@ -788,24 +760,24 @@ export default {
 .page-contents {
   display: grid;
   grid-template:
-    'header       header      header' auto
-    'advert       advert      advert' auto
-    'essentials   essentials  essentials' auto
-    'mod-icon     mod-icon    mod-icon' auto
-    'game-sides   game-sides  game-sides' auto
-    'description  description description' auto
-    'versions     versions    versions' auto
-    'extra-links  extra-links extra-links' auto
-    'license      license     license' auto
-    'donations    donations   donations' auto
-    'footer       footer      footer' auto
+    'header       header       header' auto
+    'advert       advert       advert' auto
+    'essentials   essentials   essentials' auto
+    'project-icon project-icon project-icon' auto
+    'game-sides   game-sides   game-sides' auto
+    'description  description  description' auto
+    'versions     versions     versions' auto
+    'extra-links  extra-links  extra-links' auto
+    'license      license      license' auto
+    'donations    donations    donations' auto
+    'footer       footer       footer' auto
     / 4fr 1fr 4fr;
 
   @media screen and (min-width: 1024px) {
     grid-template:
       'header       header      header' auto
       'advert       advert      advert' auto
-      'essentials   essentials  mod-icon' auto
+      'essentials   essentials  project-icon' auto
       'game-sides   game-sides  game-sides' auto
       'description  description description' auto
       'versions     versions    versions' auto
@@ -850,8 +822,8 @@ section.essentials {
   grid-area: essentials;
 }
 
-section.mod-icon {
-  grid-area: mod-icon;
+section.project-icon {
+  grid-area: project-icon;
 
   img {
     align-self: flex-start;
@@ -879,6 +851,10 @@ section.game-sides {
 
 section.description {
   grid-area: description;
+
+  span a {
+    text-decoration: underline;
+  }
 
   & > .columns {
     align-items: stretch;
@@ -1042,10 +1018,5 @@ section.donations {
 
 .choose-image {
   cursor: pointer;
-}
-
-a {
-  text-decoration: underline;
-  color: var(--color-link);
 }
 </style>

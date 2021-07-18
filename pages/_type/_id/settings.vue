@@ -2,43 +2,45 @@
   <div>
     <ConfirmPopup
       ref="delete_popup"
-      title="Are you sure you want to delete this mod?"
+      title="Are you sure you want to delete this project?"
       description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
       :has-to-type="true"
-      :confirmation-text="mod.title"
-      proceed-label="Delete mod"
-      @proceed="deleteMod"
+      :confirmation-text="project.title"
+      proceed-label="Delete project"
+      @proceed="deleteProject"
     />
     <div class="section-header columns">
       <h3 class="column-grow-1">General</h3>
     </div>
     <section>
-      <h3>Edit mod</h3>
+      <h3>Edit Project</h3>
       <label>
-        <span>This leads you to a page where you can edit your mod.</span>
+        <span> This leads you to a page where you can edit your project. </span>
         <nuxt-link class="button" to="edit">Edit</nuxt-link>
       </label>
-      <h3>Create version</h3>
+      <h3>Create Version</h3>
       <label>
         <span>
-          This leads to a page where you can create a version for your mod.
+          This leads to a page where you can create a version for your project.
         </span>
-        <nuxt-link class="button" to="newversion">Create version</nuxt-link>
+        <nuxt-link class="button" to="newversion">Create Version</nuxt-link>
       </label>
-      <h3>Delete mod</h3>
+      <h3>Delete Project</h3>
       <label>
         <span>
-          Clicking on this WILL delete your mod. Do not click on this unless you
-          want your mod deleted. If you delete your mod, all versions and any
-          attached data will be removed from our servers. This may break other
-          projects, so be careful!
+          Clicking on this WILL delete your project. Do not click on this unless
+          you want your mod deleted. If you delete your project, all versions
+          and any attached data will be removed from our servers. This may break
+          other projects, so be careful!
         </span>
         <div
           class="button"
-          :disabled="(currentMember.permissions & DELETE_MOD) !== DELETE_MOD"
+          :disabled="
+            (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+          "
           @click="showPopup"
         >
-          Delete mod
+          Delete Project
         </div>
       </label>
     </section>
@@ -114,7 +116,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
             "
-            label="Upload version"
+            label="Upload Version"
             @input="allMembers[index].permissions ^= UPLOAD_VERSION"
           />
           <Checkbox
@@ -127,7 +129,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
             "
-            label="Delete version"
+            label="Delete Version"
             @input="allMembers[index].permissions ^= DELETE_VERSION"
           />
           <Checkbox
@@ -140,7 +142,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
-            label="Edit details"
+            label="Edit Details"
             @input="allMembers[index].permissions ^= EDIT_DETAILS"
           />
           <Checkbox
@@ -153,7 +155,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
             "
-            label="Edit body"
+            label="Edit Body"
             @input="allMembers[index].permissions ^= EDIT_BODY"
           />
           <Checkbox
@@ -166,7 +168,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
             "
-            label="Manage invites"
+            label="Manage Invites"
             @input="allMembers[index].permissions ^= MANAGE_INVITES"
           />
           <Checkbox
@@ -179,7 +181,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
             "
-            label="Remove member"
+            label="Remove Member"
             @input="allMembers[index].permissions ^= REMOVE_MEMBER"
           />
           <Checkbox
@@ -191,21 +193,21 @@
               member.role === 'Owner' ||
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
             "
-            label="Edit member"
+            label="Edit Member"
             @input="allMembers[index].permissions ^= EDIT_MEMBER"
           />
           <Checkbox
             :value="
-              (member.permissions & DELETE_MOD) === DELETE_MOD ||
+              (member.permissions & DELETE_PROJECT) === DELETE_PROJECT ||
               member.role === 'Owner'
             "
             :disabled="
               member.role === 'Owner' ||
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & DELETE_MOD) !== DELETE_MOD
+              (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
             "
-            label="Delete mod"
-            @input="allMembers[index].permissions ^= DELETE_MOD"
+            label="Delete Project"
+            @input="allMembers[index].permissions ^= DELETE_PROJECT"
           />
         </div>
         <div class="actions">
@@ -216,7 +218,7 @@
             "
             @click="removeTeamMember(index)"
           >
-            Remove member
+            Remove Member
           </button>
           <button
             :disabled="
@@ -225,7 +227,7 @@
             "
             @click="updateTeamMember(index)"
           >
-            Save changes
+            Save Changes
           </button>
         </div>
       </div>
@@ -242,7 +244,7 @@ import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 export default {
   components: { DropdownIcon, ConfirmPopup, Checkbox },
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
@@ -277,7 +279,7 @@ export default {
     this.MANAGE_INVITES = 1 << 4
     this.REMOVE_MEMBER = 1 << 5
     this.EDIT_MEMBER = 1 << 6
-    this.DELETE_MOD = 1 << 7
+    this.DELETE_PROJECT = 1 << 7
   },
   methods: {
     async inviteTeamMember() {
@@ -292,7 +294,7 @@ export default {
         }
 
         await this.$axios.post(
-          `team/${this.mod.team}/members`,
+          `team/${this.project.team}/members`,
           data,
           this.$auth.headers
         )
@@ -300,7 +302,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -313,14 +315,14 @@ export default {
 
       try {
         await this.$axios.delete(
-          `team/${this.mod.team}/members/${this.allMembers[index].user_id}`,
+          `team/${this.project.team}/members/${this.allMembers[index].user_id}`,
           this.$auth.headers
         )
         await this.$router.go(null)
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -338,7 +340,7 @@ export default {
         }
 
         await this.$axios.patch(
-          `team/${this.mod.team}/members/${this.allMembers[index].user_id}`,
+          `team/${this.project.team}/members/${this.allMembers[index].user_id}`,
           data,
           this.$auth.headers
         )
@@ -346,7 +348,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -357,13 +359,13 @@ export default {
     showPopup() {
       this.$refs.delete_popup.show()
     },
-    async deleteMod() {
-      await this.$axios.delete(`mod/${this.mod.id}`, this.$auth.headers)
+    async deleteProject() {
+      await this.$axios.delete(`project/${this.project.id}`, this.$auth.headers)
       await this.$router.push('/dashboard/projects')
       this.$notify({
         group: 'main',
-        title: 'Action success',
-        text: 'Your mod has been successfully deleted.',
+        title: 'Action Success',
+        text: 'Your _type has been successfully deleted.',
         type: 'success',
       })
     },

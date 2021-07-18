@@ -3,9 +3,9 @@
     <div class="section-header columns">
       <h3 class="column-grow-1">My notifications</h3>
     </div>
-    <div v-if="notifications.length !== 0">
+    <div v-if="$user.notifications.length !== 0">
       <div
-        v-for="(notification, notificationIndex) in notifications"
+        v-for="notification in $user.notifications"
         :key="notification.id"
         class="notification columns"
       >
@@ -31,17 +31,15 @@
         </div>
         <div v-if="notification.actions.length > 0" class="actions">
           <button
-            v-for="(action, actionIndex) in notification.actions"
-            :key="actionIndex"
-            @click="performAction(notification, notificationIndex, actionIndex)"
+            v-for="(action, index) in notification.actions"
+            :key="index"
+            @click="performAction(notification, index)"
           >
             {{ action.title }}
           </button>
         </div>
         <div v-else class="actions">
-          <button @click="performAction(notification, notificationIndex, null)">
-            Dismiss
-          </button>
+          <button @click="performAction(notification, null)">Dismiss</button>
         </div>
       </div>
     </div>
@@ -60,29 +58,15 @@ export default {
   components: {
     UpToDate,
   },
-  async asyncData(data) {
-    const notifications = (
-      await data.$axios.get(
-        `user/${data.$auth.user.id}/notifications`,
-        data.$auth.headers
-      )
-    ).data.sort((a, b) => new Date(b.created) - new Date(a.created))
-
-    return {
-      notifications,
-    }
-  },
   methods: {
-    async performAction(notification, notificationIndex, actionIndex) {
+    async performAction(notification, index) {
       this.$nuxt.$loading.start()
 
       try {
-        if (actionIndex !== null) {
+        if (index) {
           const config = {
-            method: notification.actions[
-              actionIndex
-            ].action_route[0].toLowerCase(),
-            url: `${notification.actions[actionIndex].action_route[1]}`,
+            method: notification.actions[index].action_route[0].toLowerCase(),
+            url: `${notification.actions[index].action_route[1]}`,
             headers: {
               Authorization: this.$auth.token,
             },
@@ -96,12 +80,11 @@ export default {
           this.$auth.headers
         )
 
-        this.notifications.splice(notificationIndex, 1)
-        this.$store.dispatch('user/fetchNotifications', { force: true })
+        await this.$store.dispatch('user/fetchAll', { force: true })
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })

@@ -6,12 +6,12 @@
     <section class="essentials pad-maker">
       <p>
         Revoking your Modrinth token can have unintended consequences. Please be
-        aware that the following could break:
+        wary, the following could break:
       </p>
       <ul>
         <li>Any application that uses your token to access the API.</li>
         <li>
-          Gradle - if Minotaur is given a incorrect token, your Gradle builds
+          Gradle - if Minotaur is given a incorrect token, your gradle builds
           could fail.
         </li>
         <li>
@@ -35,12 +35,10 @@
           header.
         </li>
       </ol>
-      <p>
-        Once you have completed those steps, press the continue button below.
-      </p>
+      <p>Once you have completed the steps, press the continue button below.</p>
       <p>
         <strong>
-          This will log you out of Modrinth, however, when you log back in, your
+          This will log you out of Modrinth, however when you log back in your
           token will be regenerated.
         </strong>
       </p>
@@ -53,9 +51,11 @@
 export default {
   components: {},
   methods: {
-    logout() {
+    async logout() {
       this.$cookies.set('auth-token-reset', true)
-      window.location.href = '/'
+      await this.$router.replace(
+        `auth/init?url=${process.env.domain}${this.$route.fullPath}`
+      )
     },
   },
 }

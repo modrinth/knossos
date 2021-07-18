@@ -14,8 +14,7 @@
         <h3>Name</h3>
         <label>
           <span>
-            This is what users will see first. If not specified, this will
-            default to the version number.
+            This is what users will see first. Will default to version number
           </span>
           <input
             v-model="createdVersion.version_title"
@@ -26,7 +25,7 @@
         <h3>Number</h3>
         <label>
           <span>
-            This is how your version will appear in mod lists and URLs.
+            That's how your version will appear in project lists and in URLs
           </span>
           <input
             v-model="createdVersion.version_number"
@@ -37,8 +36,8 @@
         <h3>Channel</h3>
         <label>
           <span>
-            It is important to notify players and modpack makers whether the
-            version is stable or if it's still in development.
+            It is important to notify players and pack makers if the version is
+            stable
           </span>
           <multiselect
             v-model="createdVersion.release_channel"
@@ -50,13 +49,15 @@
             :allow-empty="false"
           />
         </label>
-        <h3>Mod loaders</h3>
+        <h3>Loaders</h3>
         <label>
-          <span>Mark all mod loaders this version works with.</span>
+          <span>
+            Mark all loaders this version works with. It is essential for search
+          </span>
           <multiselect
             v-model="createdVersion.loaders"
-            :options="selectableLoaders"
-            :loading="selectableLoaders.length === 0"
+            :options="$tag.loaders"
+            :loading="$tag.loaders.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -68,13 +69,16 @@
             placeholder="Choose loaders..."
           />
         </label>
-        <h3>Minecraft versions</h3>
+        <h3>Game versions</h3>
         <label>
-          <span>Mark all Minecraft versions this mod version supports.</span>
+          <span>
+            Mark all game version this version supports. It is essential for
+            search
+          </span>
           <multiselect
             v-model="createdVersion.game_versions"
-            :options="selectableVersions"
-            :loading="selectableVersions.length === 0"
+            :options="$tag.gameVersions"
+            :loading="$tag.gameVersions.length === 0"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -90,7 +94,7 @@
         <label>
           <span>
             You should upload a single JAR file. However, you are allowed to
-            upload multiple.
+            upload multiple
           </span>
           <FileInput
             accept="application/*"
@@ -104,8 +108,8 @@
         <h3>Changelog</h3>
         <span>
           Tell players and modpack makers what's new. It supports the same
-          Markdown as the description, but it is advised not to be too creative
-          with the changelogs.
+          markdown as description, but it is advisable not to be too creative
+          with it in changelogs
         </span>
         <div class="textarea-wrapper">
           <textarea v-model="createdVersion.version_body"></textarea>
@@ -124,60 +128,20 @@ export default {
     FileInput,
   },
   props: {
-    mod: {
+    project: {
       type: Object,
       default() {
         return {}
       },
     },
   },
-  async asyncData(data) {
-    try {
-      const [selectableLoaders, selectableVersions] = (
-        await Promise.all([
-          data.$axios.get(`tag/loader`),
-          data.$axios.get(`tag/game_version`),
-        ])
-      ).map((it) => it.data)
-
-      return {
-        selectableLoaders,
-        selectableVersions,
-      }
-    } catch {
-      data.error({
-        statusCode: 404,
-        message: 'Unable to fetch versions and loaders',
-      })
-    }
-  },
   data() {
     return {
       createdVersion: {},
-      isEditing: true,
     }
   },
   created() {
     this.$emit('update:link-bar', [['New Version', 'newversion']])
-  },
-  mounted() {
-    function preventLeave(e) {
-      e.preventDefault()
-      e.returnValue = ''
-    }
-    window.addEventListener('beforeunload', preventLeave)
-    this.$once('hook:beforeDestroy', () => {
-      window.removeEventListener('beforeunload', preventLeave)
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    if (
-      this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
-    ) {
-      return
-    }
-    next()
   },
   methods: {
     async createVersion() {
@@ -187,7 +151,7 @@ export default {
       if (!this.createdVersion.version_title) {
         this.createdVersion.version_title = this.createdVersion.version_number
       }
-      this.createdVersion.mod_id = this.mod.id
+      this.createdVersion.project_id = this.project.id
       this.createdVersion.dependencies = []
       this.createdVersion.featured = false
       formData.append('data', JSON.stringify(this.createdVersion))
@@ -212,17 +176,15 @@ export default {
             },
           })
         ).data
-
-        this.isEditing = false
         await this.$router.push(
-          `/mod/${this.mod.slug ? this.mod.slug : data.mod_id}/version/${
-            data.id
-          }`
+          `/project/${
+            this.project.slug ? this.project.slug : data.project_id
+          }/version/${encodeURIComponent(data.version_number)}`
         )
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: 'An Error Occurred',
           text: err.response.data.description,
           type: 'error',
         })
