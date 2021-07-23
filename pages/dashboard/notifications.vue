@@ -79,8 +79,9 @@ export default {
       try {
         if (actionIndex !== null) {
           const config = {
-            method:
-              notification.actions[actionIndex].action_route[0].toLowerCase(),
+            method: notification.actions[
+              actionIndex
+            ].action_route[0].toLowerCase(),
             url: `${notification.actions[actionIndex].action_route[1]}`,
             headers: {
               Authorization: this.$auth.token,
