@@ -177,17 +177,11 @@
         to its Terms and Conditions.
       </p>
     </div>
-    <m-footer class="footer" centered />
   </div>
 </template>
 
 <script>
-import MFooter from '~/components/layout/MFooter'
-
 export default {
-  components: {
-    MFooter,
-  },
   auth: false,
   head: {
     title: 'Privacy - Modrinth',

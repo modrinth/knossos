@@ -150,17 +150,11 @@
         </li>
       </ul>
     </div>
-    <m-footer class="footer" centered />
   </div>
 </template>
 
 <script>
-import MFooter from '~/components/layout/MFooter'
-
 export default {
-  components: {
-    MFooter,
-  },
   auth: false,
   head: {
     title: 'Terms - Modrinth',

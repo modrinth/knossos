@@ -206,6 +206,57 @@
               <DiscordIcon v-if="$colorMode.value === 'light'" />
               <DiscordIconWhite v-else />
             </a>
+            <a
+              v-for="(donation, index) in project.donation_urls"
+              :key="index"
+              :href="donation.url"
+              target="_blank"
+            >
+              <BuyMeACoffeeLogo
+                v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
+              />
+              <BuyMeACoffeeLogoWhite
+                v-else-if="
+                  donation.id === 'bmac' && $colorMode.value === 'dark'
+                "
+              />
+              <img
+                v-else-if="
+                  donation.id === 'patreon' && $colorMode.value === 'light'
+                "
+                alt="patreon"
+                src="~/assets/images/external/patreon.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'patreon' && $colorMode.value === 'dark'
+                "
+                alt="patreon"
+                src="~/assets/images/external/patreon-white.png"
+              />
+              <img
+                v-else-if="donation.id === 'paypal'"
+                alt="paypal"
+                src="~/assets/images/external/paypal.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'ko-fi' && $colorMode.value === 'light'
+                "
+                class="pixelated"
+                alt="kofi"
+                src="~/assets/images/external/kofi.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'ko-fi' && $colorMode.value === 'dark'
+                "
+                class="pixelated"
+                alt="kofi"
+                src="~/assets/images/external/kofi-white.png"
+              />
+              <p v-else class="no-margin">{{ donation.platform }}</p>
+            </a>
           </div>
         </div>
         <div class="section">
@@ -273,6 +324,25 @@
               <span>Description</span>
             </nuxt-link>
             <nuxt-link
+              v-if="project.gallery.length > 0"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/images`"
+              class="tab"
+            >
+              <span>Images</span>
+            </nuxt-link>
+            <nuxt-link
+              v-if="project.versions.length > 0"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/changelog`"
+              class="tab"
+            >
+              <span>Changelog</span>
+            </nuxt-link>
+            <nuxt-link
+              v-if="project.versions.length > 0"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions`"
@@ -318,8 +388,10 @@ import FollowIcon from '~/assets/images/utils/heart.svg?inline'
 import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
 import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
-import DiscordIcon from '~/assets/images/utils/discord.svg?inline'
-import DiscordIconWhite from '~/assets/images/utils/discord-white.svg?inline'
+import DiscordIcon from '~/assets/images/external/discord.svg?inline'
+import DiscordIconWhite from '~/assets/images/external/discord-white.svg?inline'
+import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
+import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inline'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
@@ -342,6 +414,8 @@ export default {
     WikiIcon,
     DiscordIcon,
     DiscordIconWhite,
+    BuyMeACoffeeLogo,
+    BuyMeACoffeeLogoWhite,
   },
   async asyncData(data) {
     const projectTypes = ['mod', 'modpack']
@@ -437,7 +511,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `${this.mod.title}: ${this.mod.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
+          content: `${this.project.title}: ${this.project.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
         },
         {
           hid: 'og:url',
@@ -523,10 +597,6 @@ export default {
 
     button,
     a {
-      max-height: 2rem;
-      border-radius: 2rem;
-      margin: 0 0.25rem 0 0;
-      padding: 0.2rem 0.5rem;
       display: flex;
     }
   }
@@ -645,7 +715,7 @@ export default {
 
   @media screen and (min-width: 1024px) {
     width: 32rem;
-    margin-right: var(--spacing-card-lg);
+    margin-right: var(--spacing-card-md);
   }
 
   .section {
@@ -666,9 +736,9 @@ export default {
     .download {
       display: flex;
       align-items: center;
-      height: 2.25rem;
-      width: 2.25rem;
-      border-radius: 2rem;
+      height: 1.75rem;
+      width: 1.75rem;
+      border-radius: 1.5rem;
       background-color: var(--color-button-bg);
       margin-right: var(--spacing-card-sm);
       svg {
@@ -713,13 +783,21 @@ export default {
       border-radius: 1.5rem;
       margin: 0 0.25rem 0.5rem 0;
 
-      svg {
+      svg,
+      img {
         height: 1.25rem;
         width: auto;
+      }
+      .pixelated {
+        image-rendering: pixelated;
       }
       p {
         font-size: var(--font-size-sm);
         margin: 0 0 0 0.25rem;
+
+        .no-margin {
+          margin: 0;
+        }
       }
     }
   }
@@ -764,10 +842,6 @@ export default {
       }
     }
   }
-}
-
-.limit-text-width {
-  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 550px) {

@@ -8,6 +8,7 @@
         v-for="(project, index) in projects"
         :id="project.slug ? project.slug : project.id"
         :key="project.id"
+        :type="project.project_type"
         :author="project.author"
         :author-url="project.author_url"
         :categories="project.categories"

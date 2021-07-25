@@ -12,9 +12,9 @@
       </nuxt-link>
       <button
         v-if="
-          mod.status === 'rejected' ||
-          mod.status === 'draft' ||
-          mod.status === 'unlisted'
+          project.status === 'rejected' ||
+          project.status === 'draft' ||
+          project.status === 'unlisted'
         "
         title="Submit for approval"
         class="button column"

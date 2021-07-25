@@ -31,7 +31,7 @@ export default {
         name: 'apple-mobile-web-app-title',
         content: 'Modrinth',
       },
-      { hid: 'theme-color', name: 'theme-color', content: '#4d9227' },
+      { hid: 'theme-color', name: 'theme-color', content: '#30b27b' },
       { hid: 'color-scheme', name: 'color-scheme', content: 'light dark' },
 
       { hid: 'og:site_name', name: 'og:site_name', content: 'Modrinth' },

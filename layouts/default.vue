@@ -14,10 +14,6 @@
           </NuxtLink>
         </section>
         <section class="menu-icon">
-          <button class="theme-toggle" @click="changeTheme">
-            <MoonIcon v-if="$colorMode.value === 'light'" />
-            <SunIcon v-else />
-          </button>
           <button @click="toggleNavBar">
             <HamburgerIcon />
           </button>
@@ -34,82 +30,69 @@
             </div>
           </section>
           <section class="column-grow user-outer">
-            <template v-if="$auth.user">
-              <section class="user-controls">
-                <div
-                  v-click-outside="hideDropdown"
-                  class="dropdown"
-                  :class="{ open: isDropdownOpen }"
-                >
-                  <button class="control" @click="toggleDropdown">
-                    <div class="avatar">
-                      <span>{{ $auth.user.username }}</span>
-                      <AvatarIcon
-                        :notif-count="$user.notifications.length"
-                        :dropdown-bg="isDropdownOpen"
-                      />
-                    </div>
-                    <DropdownIcon class="dropdown-icon" />
-                  </button>
-                  <div class="content">
-                    <ul v-if="isDropdownOpen" @click="hideDropdown">
-                      <li>
-                        <NuxtLink :to="`/user/${$auth.user.username}`">
-                          <UserIcon />
-                          <span>Profile</span>
-                        </NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/dashboard/projects">
-                          <ProjectIcon />
-                          <span>Projects</span>
-                        </NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/dashboard/notifications">
-                          <NotificationIcon />
-                          <span>Notifications</span>
-                        </NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/dashboard/settings">
-                          <SettingsIcon />
-                          <span>Settings</span>
-                        </NuxtLink>
-                      </li>
-                      <li>
-                        <button @click="changeTheme">
-                          <MoonIcon v-if="$colorMode.value === 'light'" />
-                          <SunIcon v-else />
-                          <span v-if="$colorMode.value === 'light'">
-                            Dark Mode</span
-                          >
-                          <span v-else>Light Mode</span>
-                        </button>
-                      </li>
-                      <hr />
-                      <li>
-                        <button @click="logout">
-                          <LogOutIcon />
-                          <span>Log Out</span>
-                        </button>
-                      </li>
-                    </ul>
+            <section class="user-controls">
+              <button class="theme-toggle" @click="changeTheme">
+                <MoonIcon v-if="$colorMode.value === 'light'" />
+                <SunIcon v-else />
+              </button>
+              <div
+                v-if="$auth.user"
+                v-click-outside="hideDropdown"
+                class="dropdown"
+                :class="{ open: isDropdownOpen }"
+              >
+                <button class="control" @click="toggleDropdown">
+                  <div class="avatar">
+                    <AvatarIcon
+                      :notif-count="$user.notifications.length"
+                      :dropdown-bg="isDropdownOpen"
+                    />
+                    <span>{{ $auth.user.username }}</span>
                   </div>
+                  <DropdownIcon class="dropdown-icon" />
+                </button>
+                <div class="content">
+                  <ul v-if="isDropdownOpen" @click="hideDropdown">
+                    <li>
+                      <NuxtLink :to="`/user/${$auth.user.username}`">
+                        <UserIcon />
+                        <span>Profile</span>
+                      </NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink to="/dashboard/projects">
+                        <ProjectIcon />
+                        <span>Projects</span>
+                      </NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink to="/dashboard/notifications">
+                        <NotificationIcon />
+                        <span>Notifications</span>
+                      </NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink to="/dashboard/settings">
+                        <SettingsIcon />
+                        <span>Settings</span>
+                      </NuxtLink>
+                    </li>
+                    <hr />
+                    <li>
+                      <button @click="logout">
+                        <LogOutIcon />
+                        <span>Log Out</span>
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-              </section>
-            </template>
-            <template v-else>
-              <section class="auth-prompt">
-                <a class="desktop-header-mode-switch" @click="changeTheme">
-                  <MoonIcon v-if="$colorMode.value === 'light'" />
-                  <SunIcon v-else />
-                </a>
+              </div>
+              <section v-else class="auth-prompt">
                 <a :href="authUrl" class="log-in-button"
                   ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
                 >
               </section>
-            </template>
+            </section>
           </section>
         </section>
       </section>
@@ -124,6 +107,19 @@
       />
       <Nuxt />
     </main>
+    <footer>
+      <div class="footer-header">
+        <div class="logo">
+          <ModrinthLogo
+            v-if="$colorMode.value === 'light'"
+            aria-label="modrinth"
+            class="text-logo"
+          />
+          <ModrinthLogoWhite v-else aria-label="modrinth" class="text-logo" />
+        </div>
+        <div class="buttons"></div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -318,11 +314,6 @@ export default {
         margin-right: 1rem;
       }
 
-      .desktop-header-mode-switch {
-        margin-right: 1rem;
-        cursor: pointer;
-      }
-
       section.right-group {
         display: flex;
         flex-grow: 5;
@@ -377,22 +368,25 @@ export default {
           transform: translateY(-50%);
           min-width: 12rem;
 
-          width: 13rem;
           margin: 0 auto;
+
+          .theme-toggle {
+            padding: 0.25rem;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+          }
 
           .dropdown {
             position: relative;
             display: inline-block;
             flex-grow: 1;
             &:hover .control {
-              border-radius: var(--size-rounded-control);
               background: var(--color-button-bg);
             }
             &.open {
               .control {
                 background: var(--color-button-bg);
-                border-radius: var(--size-rounded-control)
-                  var(--size-rounded-control) 0 0;
+                border-radius: 1rem 1rem 0 0;
                 .dropdown-icon {
                   transform: rotate(180deg);
                 }
@@ -402,10 +396,11 @@ export default {
               }
             }
             .control {
-              border-radius: var(--size-rounded-control);
+              background-color: var(--color-button-bg);
+              border-radius: 1rem;
               align-items: center;
               display: flex;
-              padding: 0.3rem 0.75rem;
+              padding: 0.1rem 0.25rem;
               position: relative;
               z-index: 11;
               width: 100%;
@@ -419,7 +414,9 @@ export default {
                   text-overflow: ellipsis;
                   white-space: nowrap;
                   color: var(--color-text-dark);
+                  font-size: var(--font-size-sm);
                   font-weight: var(--font-weight-medium);
+                  margin: 0 1.5rem 0 0.25rem;
                 }
               }
               .dropdown-icon {
@@ -429,8 +426,7 @@ export default {
             }
             .content {
               margin: 0 0 0 0;
-              min-width: 10rem;
-              width: 100%;
+              width: calc(100% - 3rem);
               position: fixed;
               display: none;
             }

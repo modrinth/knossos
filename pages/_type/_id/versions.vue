@@ -1,16 +1,20 @@
 <template>
   <div>
+    <nuxt-link
+      v-if="currentMember"
+      to="newversion"
+      class="iconified-button new-version"
+    >
+      <UploadIcon />
+      Upload
+    </nuxt-link>
     <table>
       <thead>
         <tr>
           <th></th>
-          <th>Title</th>
-          <th>Number</th>
-          <th>Status</th>
-          <th>Loaders</th>
-          <th>Game Version</th>
-          <th>Downloads</th>
-          <th>Published</th>
+          <th>Version</th>
+          <th>Supports</th>
+          <th>Stats</th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +22,7 @@
           <td>
             <a
               :href="$parent.findPrimary(version).url"
-              class="download"
+              class="download-button"
               @click.prevent="
                 $parent.downloadFile(
                   $parent.findPrimary(version).hashes.sha1,
@@ -30,61 +34,60 @@
             </a>
           </td>
           <td>
-            <nuxt-link
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/version/${encodeURIComponent(version.version_number)}`"
-            >
-              {{ version.name ? version.name : version.version_number }}
-            </nuxt-link>
+            <div class="info">
+              <div class="top">
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURIComponent(version.version_number)}`"
+                >
+                  {{ version.name }}
+                </nuxt-link>
+              </div>
+              <div class="bottom">
+                <VersionBadge :type="version.version_type" />
+                <span class="divider" />
+                <span class="version_number">{{ version.version_number }}</span>
+              </div>
+            </div>
           </td>
           <td>
-            <nuxt-link
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/version/${encodeURIComponent(version.version_number)}`"
-            >
-              {{ version.version_number }}
-            </nuxt-link>
+            <p>
+              {{
+                version.loaders
+                  .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                  .join(',')
+              }}
+            </p>
+            <p>{{ version.game_versions[version.game_versions.length - 1] }}</p>
           </td>
           <td>
-            <span v-if="version.version_type === 'release'" class="badge green">
-              Release
-            </span>
-            <span v-if="version.version_type === 'beta'" class="badge yellow">
-              Beta
-            </span>
-            <span v-if="version.version_type === 'alpha'" class="badge red">
-              Alpha
-            </span>
+            <p>
+              <span>{{ $parent.formatNumber(version.downloads) }}</span>
+              downloads
+            </p>
+            <p>
+              Published on
+              <span>{{
+                $dayjs(version.date_published).format('MMM D, YYYY')
+              }}</span>
+            </p>
           </td>
-          <td>
-            <FabricIcon v-if="version.loaders.includes('fabric')" />
-            <ForgeIcon v-if="version.loaders.includes('forge')" />
-          </td>
-          <td>{{ version.game_versions.join(', ') }}</td>
-          <td>{{ version.downloads }}</td>
-          <td>{{ $dayjs(version.date_published).format('YYYY-MM-DD') }}</td>
         </tr>
       </tbody>
     </table>
-    <div class="new-version">
-      <nuxt-link v-if="currentMember" to="newversion" class="button">
-        New Version
-      </nuxt-link>
-    </div>
   </div>
 </template>
 <script>
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
-import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
+import VersionBadge from '~/components/ui/VersionBadge'
 
 export default {
   components: {
-    ForgeIcon,
-    FabricIcon,
+    UploadIcon,
     DownloadIcon,
+    VersionBadge,
   },
   auth: false,
   props: {
@@ -114,106 +117,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.new-version {
+  max-width: 4.25rem;
+}
+
 table {
-  border-collapse: collapse;
-  margin-bottom: var(--spacing-card-md);
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
-  table-layout: fixed;
-  width: 100%;
-  padding: var(--spacing-card-sm) var(--spacing-card-md);
+  border-collapse: separate;
+  border-spacing: 0 0.75rem;
 
-  * {
+  th {
     text-align: left;
+    font-size: var(--font-size-md);
   }
 
-  thead tr {
-    margin: var(--spacing-card-sm) var(--spacing-card-md);
-    border-bottom: 1px solid var(--color-divider);
-  }
+  tr {
+    font-size: var(--font-size-sm);
+    td:nth-child(2) {
+      padding-right: 2rem;
+      min-width: 13.875rem;
+      .top {
+        font-weight: bold;
+      }
+      .bottom {
+        @extend %row;
+        align-items: center;
+        text-overflow: ellipsis;
+        margin-top: 0.25rem;
 
-  th,
-  td {
-    &:first-child {
-      text-align: center;
-      width: 7%;
-
-      svg {
-        color: var(--color-text);
-
-        &:hover,
-        &:focus {
-          color: var(--color-text-hover);
+        .divider {
+          width: 0.25rem;
+          height: 0.25rem;
+          border-radius: 50%;
+          display: inline-block;
+          margin: 0 0.25rem;
+          background-color: var(--color-text);
         }
       }
     }
-
-    &:nth-child(2),
-    &:nth-child(5) {
-      padding-left: 0;
-      width: 12%;
+    td:nth-child(3) {
+      width: 100%;
+      p {
+        margin: 0.25rem 0;
+      }
     }
-  }
-
-  th {
-    color: var(--color-heading);
-    font-size: 0.8rem;
-    letter-spacing: 0.02rem;
-    margin-bottom: 0.5rem;
-    margin-top: 1.5rem;
-    padding: 0.75rem 1rem;
-    text-transform: uppercase;
-  }
-
-  td {
-    overflow: hidden;
-    padding: 0.75rem 1rem;
-
-    img {
-      height: 3rem;
-      width: 3rem;
-    }
-  }
-}
-
-.new-version {
-  width: 100%;
-  text-align: right;
-  margin-bottom: var(--spacing-card-md);
-}
-
-@media screen and (max-width: 400px) {
-  th,
-  td {
-    &:nth-child(7) {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 600px) {
-  th,
-  td {
-    &:nth-child(8) {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 800px) {
-  th,
-  td {
-    &:nth-child(5) {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  th,
-  td {
-    &:nth-child(2) {
-      display: none;
+    td:nth-child(4) {
+      min-width: 12rem;
+      p {
+        margin: 0.25rem 0;
+        span {
+          font-weight: bold;
+        }
+      }
     }
   }
 }

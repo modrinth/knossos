@@ -50,7 +50,7 @@
             v-model="categories"
             :options="
               $tag.categories
-                .filter((x) => x.project_type === projectType)
+                .filter((x) => x.project_type === projectType.toLowerCase())
                 .map((it) => it.name)
             "
             :loading="$tag.categories.length === 0"
@@ -226,6 +226,7 @@
                 {{ version.name }}
               </td>
               <td>{{ version.version_number }}</td>
+              <td>{{ version.version_number }}</td>
               <td>
                 <FabricIcon v-if="version.loaders.includes('fabric')" />
                 <ForgeIcon v-if="version.loaders.includes('forge')" />
@@ -333,7 +334,9 @@
                 :options="
                   $tag.loaders
                     .filter((x) =>
-                      x.supported_project_types.includes(projectType)
+                      x.supported_project_types.includes(
+                        projectType.toLowerCase()
+                      )
                     )
                     .map((it) => it.name)
                 "
@@ -518,7 +521,6 @@
           <hr />
         </div>
       </section>
-      <m-footer class="footer" centered />
     </div>
   </div>
 </template>
@@ -527,14 +529,12 @@
 import Multiselect from 'vue-multiselect'
 
 import FileInput from '~/components/ui/FileInput'
-import MFooter from '~/components/layout/MFooter'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg'
 import FabricIcon from '~/assets/images/categories/fabric.svg'
 
 export default {
   components: {
-    MFooter,
     FileInput,
     Multiselect,
     ForgeIcon,
@@ -637,6 +637,7 @@ export default {
               url: this.donationLinks[index],
             }
           }),
+          gallery_items: [],
         })
       )
 
@@ -691,10 +692,13 @@ export default {
     showPreviewImage(files) {
       const reader = new FileReader()
       this.icon = files[0]
-      reader.readAsDataURL(this.icon)
 
-      reader.onload = (event) => {
-        this.previewImage = event.target.result
+      if (this.icon instanceof Blob) {
+        reader.readAsDataURL(this.icon)
+
+        reader.onload = (event) => {
+          this.previewImage = event.target.result
+        }
       }
     },
 

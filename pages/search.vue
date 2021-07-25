@@ -180,6 +180,7 @@
               v-for="(result, index) in results"
               :id="result.slug ? result.slug : result.project_id.split('-')[1]"
               :key="result.project_id"
+              :type="result.project_type"
               :author="result.author"
               :name="result.title"
               :description="result.description"

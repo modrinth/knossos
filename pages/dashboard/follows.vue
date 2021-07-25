@@ -8,6 +8,7 @@
         v-for="project in $user.follows"
         :id="project.id"
         :key="project.id"
+        :type="project.project_type"
         :author="project.author"
         :author-url="project.author_url"
         :categories="project.categories"

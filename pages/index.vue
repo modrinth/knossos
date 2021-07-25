@@ -171,17 +171,14 @@ fetch('https://api.modrinth.com/api/v1/search').then(res => res.json()).then(dat
         </pre>
       </div>
     </div>
-    <m-footer class="footer" centered padded />
   </div>
 </template>
 
 <script>
-import MFooter from '~/components/layout/MFooter'
 import RightArrowIcon from '~/assets/images/right-arrow.svg?inline'
 
 export default {
   components: {
-    MFooter,
     RightArrowIcon,
   },
   auth: false,

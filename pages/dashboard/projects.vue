@@ -11,6 +11,7 @@
         v-for="project in $user.projects"
         :id="project.slug ? project.slug : project.id"
         :key="project.id"
+        :type="project.project_type"
         :author="project.author"
         :name="project.title"
         :description="project.description"

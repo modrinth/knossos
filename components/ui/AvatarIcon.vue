@@ -33,7 +33,6 @@ export default {
   position: relative;
   height: 2rem;
   width: 2rem;
-  margin-left: 0.5rem;
   margin-right: 0.25rem;
 
   .icon {

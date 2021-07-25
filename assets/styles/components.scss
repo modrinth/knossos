@@ -16,14 +16,17 @@
 }
 
 .iconified-button {
-  padding: 0.25rem 0.5rem;
-  font-size: var(--font-size-sm);
   display: flex;
+  padding: 0.2rem 0.5rem;
+  margin: 0 0.25rem 0 0;
+  font-size: var(--font-size-sm);
   align-items: center;
+
+  max-height: 2rem;
 
   color: var(--color-button-text);
   background-color: var(--color-button-bg);
-  border-radius: var(--size-rounded-control);
+  border-radius: 2rem;
 
   &:hover,
   &:focus {
@@ -536,4 +539,19 @@ label {
     background: var(--color-brand);
     border: 2px solid var(--color-brand);
   }
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-button-bg);
+  margin-right: var(--spacing-card-sm);
+  svg {
+    width: 1.25rem;
+    margin: auto;
+  }
+  flex-shrink: 0;
 }
