@@ -680,6 +680,7 @@ export default {
   h3 {
     @extend %small-label;
     margin-top: 1.25em;
+    color: var(--color-heading);
   }
   &.active {
     right: 0;

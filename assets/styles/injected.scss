@@ -46,7 +46,7 @@
 
 %small-label {
   @extend %label;
-  color: var(--color-text);
+  color: var(--color-heading);
   font-size: var(--font-size-xs);
   letter-spacing: 0.02rem;
 }
@@ -81,7 +81,6 @@
     .value {
       font-size: var(--font-size-sm);
       margin: 0;
-      color: var(--color-text-dark);
     }
     .capitalize {
       text-transform: capitalize;

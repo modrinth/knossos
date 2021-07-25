@@ -57,8 +57,9 @@
       <label>
         <span
           >Change the global site theme of Modrinth. You can choose from light
-          mode and dark mode. You can switch it using this button or anywhere by
-          accessing the theme switcher in the navigation bar dropdown.</span
+          mode, dark mode, and OLED mode. You can switch it using this button or
+          switch between light and dark mode anywhere by accessing the theme
+          switcher in the navigation bar dropdown.</span
         >
         <input
           type="button"
@@ -143,8 +144,17 @@ export default {
   },
   methods: {
     changeTheme() {
-      this.$colorMode.preference =
-        this.$colorMode.value === 'dark' ? 'light' : 'dark'
+      const shift = event.shiftKey
+      switch (this.$colorMode.preference) {
+        case 'dark':
+          this.$colorMode.preference = shift ? 'light' : 'oled'
+          break
+        case 'oled':
+          this.$colorMode.preference = shift ? 'dark' : 'light'
+          break
+        default:
+          this.$colorMode.preference = shift ? 'oled' : 'dark'
+      }
     },
     gotoRevoke() {
       this.$router.replace('/dashboard/misc/revoke-token')

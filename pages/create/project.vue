@@ -24,15 +24,15 @@
         <h3>Name</h3>
         <label>
           <span>
-            Be creative. TechCraft v7 won't be searchable and won't be clicked
-            on
+            Be creative! Generic project names will be harder to search for.
           </span>
           <input v-model="name" type="text" placeholder="Enter the name" />
         </label>
         <h3>Summary</h3>
         <label>
           <span>
-            Give a quick description to your project. It will appear in search
+            Give a short description of your project that will appear on search
+            pages.
           </span>
           <input
             v-model="description"
@@ -43,7 +43,7 @@
         <h3>Categories</h3>
         <label>
           <span>
-            Select up to 3 categories. They will help to find your project
+            Select up to 3 categories that will help others find your project.
           </span>
           <multiselect
             id="categories"
@@ -69,19 +69,18 @@
         <h3>Vanity URL (slug)</h3>
         <label>
           <span>
-            Set this to something pretty, so URLs to your project are more
-            readable
+            Set this to something that will looks nice in your project's URL.
           </span>
           <input
             id="name"
             v-model="slug"
             type="text"
-            placeholder="Enter the vanity URL's last bit"
+            placeholder="Enter the vanity URL slug"
           />
         </label>
-        <h3>Project Type</h3>
+        <h3>Project type</h3>
         <label>
-          <span> The project type of your project. </span>
+          <span>The project type of your project.</span>
           <Multiselect
             v-model="projectType"
             placeholder="Select one"
@@ -104,8 +103,8 @@
               @change="showPreviewImage"
             />
             <ul class="row-grow-1">
-              <li>Must be a square</li>
-              <li>Minimum size is 100x100</li>
+              <li>Must be square</li>
+              <li>Minimum size is 100x100 pixels</li>
               <li>Acceptable formats are PNG, JPEG, GIF and WEBP</li>
             </ul>
             <button
@@ -132,9 +131,7 @@
         <h3>Supported environments</h3>
         <div class="columns">
           <span>
-            Let others know if your project is for clients, servers or
-            universal. For example, IC2 will be required + required, while
-            OptiFine will be required + no functionality
+            Let others know what environments your project supports.
           </span>
           <div class="labeled-control">
             <h3>Client</h3>
@@ -454,7 +451,7 @@
             It is really important to choose a proper license for your project.
             You may choose one from our list or provide a URL to your own
             license. URL field will be filled automatically for provided
-            licenses
+            licenses.
           </span>
           <div class="input-group">
             <Multiselect
@@ -833,6 +830,7 @@ section.project-icon {
     align-self: flex-start;
     max-width: 50%;
     margin-left: var(--spacing-card-lg);
+    border-radius: var(--size-rounded-lg);
   }
 }
 
