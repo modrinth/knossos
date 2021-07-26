@@ -1,7 +1,7 @@
 <template>
   <div class="page-contents">
     <header class="columns">
-      <h3 class="column-grow-1">Edit Project</h3>
+      <h3 class="column-grow-1">Edit project</h3>
       <nuxt-link
         :to="`/${project.project_type}/${
           project.slug ? project.slug : project.id
@@ -36,7 +36,7 @@
       <h3>Name</h3>
       <label>
         <span>
-          Be creative. TechCraft v7 won't be searchable and won't be clicked on
+          Be creative! Generic project names will be harder to search for.
         </span>
         <input
           v-model="newProject.title"
@@ -47,7 +47,8 @@
       <h3>Summary</h3>
       <label>
         <span>
-          Give a quick description to your project. It will appear in the search
+          Give a short description of your project that will appear on search
+          pages.
         </span>
         <input
           v-model="newProject.description"
@@ -58,7 +59,7 @@
       <h3>Categories</h3>
       <label>
         <span>
-          Select up to 3 categories. They will help people to find your project
+          Select up to 3 categories that will help others find your project.
         </span>
         <Multiselect
           id="categories"
@@ -84,14 +85,13 @@
       <h3>Vanity URL (slug)</h3>
       <label>
         <span>
-          Set this to something pretty, so URLs to your project are more
-          readable
+          Set this to something that will looks nice in your project's URL.
         </span>
         <input
           id="name"
           v-model="newProject.slug"
           type="text"
-          placeholder="Enter the vanity URL's last bit"
+          placeholder="Enter the vanity URL slug"
         />
       </label>
     </section>
@@ -107,8 +107,8 @@
           />
           <ul class="row-grow-1">
             <li>Must be a square</li>
-            <li>Minimum size is 100x100</li>
-            <li>Acceptable formats are PNG, JPEG, GIF and WEBP</li>
+            <li>Minimum size is 100x100 pixels</li>
+            <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
           </ul>
           <button
             class="transparent-button"
@@ -136,11 +136,7 @@
     <section class="game-sides">
       <h3>Supported environments</h3>
       <div class="columns">
-        <span>
-          Let others know if your project is for clients, servers or universal.
-          For example, IC2 will be required + required, while OptiFine will be
-          required + no functionality
-        </span>
+        <span> Let others know what environments your project supports. </span>
         <div class="labeled-control">
           <h3>Client</h3>
           <Multiselect
@@ -171,14 +167,14 @@
       <h3>
         <label
           for="body"
-          title="You can type the of the long form of your description here."
+          title="You can type an extended description of your project here."
         >
           Description
         </label>
       </h3>
       <span>
-        You can type the of the long form of your description here. This editor
-        supports markdown. You can find the syntax
+        You can type an extended description of your mod here. This editor
+        supports Markdown. Its syntax can be found
         <a
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
@@ -207,7 +203,9 @@
           placeholder="Enter a valid URL"
         />
       </label>
-      <label title="A page/repository containing the source code">
+      <label
+        title="A page/repository containing the source code for your project"
+      >
         <span>Source code</span>
         <input
           v-model="newProject.source_url"
@@ -225,7 +223,7 @@
           placeholder="Enter a valid URL"
         />
       </label>
-      <label title="An inivitation link to your Discord server.">
+      <label title="An invitation link to your Discord server.">
         <span>Discord invite</span>
         <input
           v-model="newProject.discord_url"
@@ -240,9 +238,18 @@
       </div>
       <label>
         <span>
-          It is really important to choose a proper license for your project.
-          You may choose one from our list or provide a URL to your own license.
-          URL field will be filled automatically for provided licenses
+          It is very important to choose a proper license for your mod. You may
+          choose one from our list or provide a URL to a custom license.
+          <br />
+          Confused? See our
+          <a
+            href="https://blog.modrinth.com/licensing-guide/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            licensing guide</a
+          >
+          for more information.
         </span>
         <div class="input-group">
           <Multiselect
@@ -465,7 +472,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })
@@ -494,6 +501,7 @@ export default {
   * {
     display: inline;
   }
+
   .button {
     margin-left: 1rem;
   }
@@ -674,5 +682,10 @@ section.donations {
 
 .choose-image {
   cursor: pointer;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--color-link);
 }
 </style>

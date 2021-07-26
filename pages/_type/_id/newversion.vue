@@ -14,7 +14,8 @@
         <h3>Name</h3>
         <label>
           <span>
-            This is what users will see first. Will default to version number
+            This is what users will see first. If not specified, this will
+            default to the version number.
           </span>
           <input
             v-model="createdVersion.version_title"
@@ -25,7 +26,7 @@
         <h3>Number</h3>
         <label>
           <span>
-            That's how your version will appear in project lists and in URLs
+            This is how your version will appear in project lists and URLs.
           </span>
           <input
             v-model="createdVersion.version_number"
@@ -36,8 +37,8 @@
         <h3>Channel</h3>
         <label>
           <span>
-            It is important to notify players and pack makers if the version is
-            stable
+            It is important to notify everyone whether the version is stable or
+            if it's still in development.
           </span>
           <multiselect
             v-model="createdVersion.release_channel"
@@ -49,11 +50,9 @@
             :allow-empty="false"
           />
         </label>
-        <h3>Loaders</h3>
+        <h3>Mod loaders</h3>
         <label>
-          <span>
-            Mark all loaders this version works with. It is essential for search
-          </span>
+          <span> Mark all mod loaders this version works with. </span>
           <multiselect
             v-model="createdVersion.loaders"
             :options="$tag.loaders"
@@ -66,14 +65,13 @@
             :show-labels="false"
             :limit="6"
             :hide-selected="true"
-            placeholder="Choose loaders..."
+            placeholder="Choose mod loaders..."
           />
         </label>
-        <h3>Game versions</h3>
+        <h3>Minecraft versions</h3>
         <label>
           <span>
-            Mark all game version this version supports. It is essential for
-            search
+            Mark all Minecraft version this project's version supports.
           </span>
           <multiselect
             v-model="createdVersion.game_versions"
@@ -87,14 +85,14 @@
             :show-labels="false"
             :limit="6"
             :hide-selected="true"
-            placeholder="Choose versions..."
+            placeholder="Choose Minecraft versions..."
           />
         </label>
         <h3>Files</h3>
         <label>
           <span>
-            You should upload a single JAR file. However, you are allowed to
-            upload multiple
+            You must upload at least one file, however, you are allowed to
+            upload multiple files.
           </span>
           <FileInput
             accept=".jar,application/java-archive,application/x-java-archive"
@@ -105,11 +103,11 @@
         </label>
       </div>
       <div class="changelog">
-        <h3>Changelog</h3>
+        <h3>Changes</h3>
         <span>
-          Tell players and modpack makers what's new. It supports the same
-          markdown as description, but it is advisable not to be too creative
-          with it in changelogs
+          Tell everyone what's new. It supports the same Markdown formatting as
+          the description, but it is advised to not be too creative with
+          changelogs
         </span>
         <div class="textarea-wrapper">
           <textarea v-model="createdVersion.version_body"></textarea>
@@ -184,7 +182,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })

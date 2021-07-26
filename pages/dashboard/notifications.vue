@@ -87,7 +87,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })

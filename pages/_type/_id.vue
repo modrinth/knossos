@@ -724,9 +724,7 @@ export default {
   }
 
   h3 {
-    font-weight: bold;
-    color: var(--color-text);
-    margin-bottom: 0.3rem;
+    @extend %new-label;
   }
 
   .featured-version {

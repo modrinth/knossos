@@ -247,7 +247,6 @@ export default {
     .description {
       margin: var(--spacing-card-sm) var(--spacing-card-md) 0 0;
       height: 100%;
-      color: var(--color-text-dark);
     }
     .bottom {
       @extend %column;

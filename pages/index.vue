@@ -8,7 +8,7 @@
         <h1>modding platform</h1>
       </div>
       <div class="right columns">
-        <img class="char" src="~/assets/images/logo.svg" alt="logo" />
+        <Logo class="big-logo" alt="logo" />
       </div>
     </div>
     <div class="slanted-hero columns">
@@ -16,7 +16,7 @@
         <h3>Conveniently modern</h3>
         <h1>A redefined search interface</h1>
         <p>
-          We implemented <span>fast and adaptable</span> search algorithms so
+          We've implemented <span>fast and adaptable</span> search algorithms so
           you don't have to wait, while creating a responsive interface that
           makes sense. Modrinth is full of elegant project discovery and a
           platform which just works.
@@ -147,8 +147,8 @@
         <h3>Easy to implement</h3>
         <h1>Backed by an open source API</h1>
         <p>
-          Modrinth's code is fully open source licensed under AGPL. We've
-          created a high peformant Rust based backend that is
+          Modrinth's code is fully open source licensed under the GNU AGPL.
+          We've created a high-peformance Rust-based backend that is
           <span
             ><a href="https://github.com/modrinth/labrinth/wiki"
               >fully documented</a
@@ -176,10 +176,12 @@ fetch('https://api.modrinth.com/api/v1/search').then(res => res.json()).then(dat
 
 <script>
 import RightArrowIcon from '~/assets/images/right-arrow.svg?inline'
+import Logo from '~/assets/images/logo.svg?inline'
 
 export default {
   components: {
     RightArrowIcon,
+    Logo,
   },
   auth: false,
   data() {
@@ -235,6 +237,11 @@ export default {
 .left,
 .right {
   width: 50%;
+}
+
+.big-logo {
+  height: 300px;
+  width: 300px;
 }
 
 .main-hero {

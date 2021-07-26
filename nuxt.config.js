@@ -56,7 +56,24 @@ export default {
       { hid: 'twitter:site', name: 'twitter:site', content: '@modrinth' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico',
+        media: '(prefers-color-scheme:no-preference)',
+      },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-dark.ico',
+        media: '(prefers-color-scheme:dark)',
+      },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico',
+        media: '(prefers-color-scheme:light)',
+      },
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
