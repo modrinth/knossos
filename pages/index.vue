@@ -8,7 +8,7 @@
         <h1>modding platform</h1>
       </div>
       <div class="right columns">
-        <img class="char" src="~/assets/images/logo.svg" alt="logo" />
+        <Logo class="big-logo" alt="logo" />
       </div>
     </div>
     <div class="slanted-hero columns">
@@ -176,10 +176,12 @@ fetch('https://api.modrinth.com/api/v1/search').then(res => res.json()).then(dat
 
 <script>
 import RightArrowIcon from '~/assets/images/right-arrow.svg?inline'
+import Logo from '~/assets/images/logo.svg?inline'
 
 export default {
   components: {
     RightArrowIcon,
+    Logo,
   },
   auth: false,
   data() {
@@ -235,6 +237,11 @@ export default {
 .left,
 .right {
   width: 50%;
+}
+
+.big-logo {
+  height: 300px;
+  width: 300px;
 }
 
 .main-hero {

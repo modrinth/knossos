@@ -22,6 +22,7 @@
   border-radius: var(--size-rounded-control);
   color: var(--color-text);
   background-color: transparent;
+
   &:focus,
   &:hover,
   &.selected,
@@ -30,10 +31,17 @@
     color: var(--color-transparent-button-text-hover);
     background-color: var(--color-transparent-button-bg-hover);
   }
+
   &:active {
     color: var(--color-transparent-button-text-active);
     background-color: var(--color-transparent-button-bg-active);
   }
+}
+
+%new-label {
+  font-weight: bold;
+  color: var(--color-heading);
+  margin-bottom: 0.3rem;
 }
 
 %label {
@@ -41,7 +49,6 @@
   font-weight: var(--font-weight-extrabold);
   letter-spacing: 0.02rem;
   margin: 0 0 0.25em;
-  text-transform: uppercase;
 }
 
 %small-label {
@@ -66,25 +73,31 @@
   @media screen and (min-width: 900px) {
     margin-top: 0;
   }
+
   svg {
     margin: auto 0.5rem auto 0;
     height: 1.5rem;
     width: 1.5rem;
     color: var(--color-icon);
   }
+
   .info {
     margin: auto 0;
     white-space: nowrap;
+
     h4 {
       @extend %small-label;
     }
+
     .value {
       font-size: var(--font-size-sm);
       margin: 0;
     }
+
     .capitalize {
       text-transform: capitalize;
     }
+
     .ellipsis {
       text-overflow: ellipsis;
     }

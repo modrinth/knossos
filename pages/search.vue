@@ -4,18 +4,14 @@
       <section ref="filters" class="filters">
         <div class="filters-wrapper">
           <section class="filter-group">
-            <div class="filter-clear-button">
-              <h3>Categories</h3>
-              <div class="columns">
-                <button class="filter-button-done" @click="toggleFiltersMenu">
-                  Close
-                </button>
-                <button class="iconified-button" @click="clearFilters">
-                  <ExitIcon />
-                  Clear filters
-                </button>
-              </div>
-            </div>
+            <button class="filter-button-done" @click="toggleFiltersMenu">
+              Close
+            </button>
+            <button class="iconified-button" @click="clearFilters">
+              <ExitIcon />
+              Clear filters
+            </button>
+            <h3>Categories</h3>
             <SearchFilter
               v-for="category in $tag.categories.filter(
                 (x) => x.project_type === projectType
@@ -27,7 +23,7 @@
               :icon="category.icon"
               @toggle="toggleFacet"
             />
-            <h3>Mod Loaders</h3>
+            <h3 class="upper-spacing">Mod loaders</h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) =>
                 x.supported_project_types.includes(projectType)
@@ -39,7 +35,7 @@
               :icon="loader.icon"
               @toggle="toggleFacet"
             />
-            <h3>Environments</h3>
+            <h3 class="upper-spacing">Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
               display-name="Client"
@@ -56,7 +52,7 @@
             >
               <ServerSide />
             </SearchFilter>
-            <h3>Minecraft Versions</h3>
+            <h3 class="upper-spacing">Minecraft versions</h3>
             <Checkbox
               v-model="showSnapshots"
               label="Include snapshots"
@@ -85,7 +81,7 @@
             placeholder="Choose versions..."
             @input="onSearchChange(1)"
           ></multiselect>
-          <h3>Licenses</h3>
+          <h3 class="upper-spacing">Licenses</h3>
           <Multiselect
             v-model="displayLicense"
             placeholder="Choose licenses..."
@@ -674,13 +670,12 @@ export default {
   background-color: var(--color-raised-bg);
   flex-shrink: 0; // Stop shrinking when page contents change
   .filters-wrapper {
-    padding: 0.25rem 0.75rem 0.75rem 0.75rem;
+    padding: var(--spacing-card-bg) var(--spacing-card-lg);
     margin-bottom: var(--spacing-card-md);
   }
   h3 {
-    @extend %small-label;
-    margin-top: 1.25em;
-    color: var(--color-heading);
+    @extend %new-label;
+    margin-top: var(--spacing-card-bg);
   }
   &.active {
     right: 0;
@@ -703,7 +698,7 @@ export default {
     }
   }
   @media screen and (min-width: 1250px) {
-    width: 300px;
+    width: 20rem;
   }
 }
 
