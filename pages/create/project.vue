@@ -105,7 +105,7 @@
             <ul class="row-grow-1">
               <li>Must be square</li>
               <li>Minimum size is 100x100 pixels</li>
-              <li>Acceptable formats are PNG, JPEG, GIF and WEBP</li>
+              <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
             </ul>
             <button
               class="transparent-button"
@@ -163,14 +163,14 @@
         <h3>
           <label
             for="body"
-            title="You can type the of the long form of your description here."
+            title="You can type an extended description of your project here."
           >
             Body
           </label>
         </h3>
         <span>
-          You can type the of the long form of your description here. This
-          editor supports markdown. You can find the syntax
+          You can type an extended description of your mod here. This editor
+          supports Markdown. Its syntax can be found
           <a
             class=""
             href="https://guides.github.com/features/mastering-markdown/"
@@ -414,7 +414,9 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label title="A page/repository containing the source code">
+        <label
+          title="A page/repository containing the source code for your project"
+        >
           <span>Source code</span>
           <input
             v-model="source_url"
@@ -432,7 +434,7 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label title="An inivitation link to your Discord server.">
+        <label title="An invitation link to your Discord server.">
           <span>Discord invite</span>
           <input
             v-model="discord_url"
@@ -448,10 +450,18 @@
         </div>
         <label>
           <span>
-            It is really important to choose a proper license for your project.
-            You may choose one from our list or provide a URL to your own
-            license. URL field will be filled automatically for provided
-            licenses.
+            It is very important to choose a proper license for your mod. You
+            may choose one from our list or provide a URL to a custom license.
+            <br />
+            Confused? See our
+            <a
+              href="https://blog.modrinth.com/licensing-guide/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              licensing guide</a
+            >
+            for more information.
           </span>
           <div class="input-group">
             <Multiselect
@@ -675,7 +685,7 @@ export default {
 
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: description,
           type: 'error',
         })
@@ -1020,5 +1030,10 @@ section.donations {
 
 .choose-image {
   cursor: pointer;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--color-link);
 }
 </style>
