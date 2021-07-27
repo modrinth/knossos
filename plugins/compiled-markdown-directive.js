@@ -39,6 +39,22 @@ const options = {
 const configuredXss = new xss.FilterXSS(options)
 const headerPrefix = 'user-defined-'
 
+const renderer = {
+  image(href) {
+    console.log(href)
+    if (
+      /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9_]{11}$/.test(href)
+    ) {
+      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${href.substring(
+        32,
+        43
+      )}" frameborder="0" allowfullscreen></iframe>`
+    }
+  },
+}
+
+marked.use({ renderer })
+
 function compileMarkdown(target, markdown) {
   target.innerHTML = configuredXss.process(marked(markdown, { headerPrefix }))
 }
