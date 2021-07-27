@@ -22,10 +22,6 @@ const options = {
           regex: /^https?:\/\/(www\.)?youtube\.com\/embed\//,
           remove: ['&autoplay=1'], // Prevents autoplay
         },
-        {
-          regex: /^https?:\/\/?discord\.com\/widget/,
-          remove: [],
-        },
       ]
 
       for (const source of allowedSources) {
