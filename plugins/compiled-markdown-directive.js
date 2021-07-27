@@ -12,6 +12,31 @@ const options = {
     h4: ['id'],
     h5: ['id'],
     h6: ['id'],
+    iframe: ['width', 'height', 'allowfullscreen', 'frameborder'],
+  },
+  onIgnoreTagAttr: (tag, name, value) => {
+    // Allow iframes from acceptable sources
+    if (tag === 'iframe' && name === 'src') {
+      const allowedSources = [
+        {
+          regex: /^https?:\/\/(www\.)?youtube\.com\/embed\//,
+          remove: ['&autoplay=1'], // Prevents autoplay
+        },
+        {
+          regex: /^https?:\/\/?discord\.com\/widget/,
+          remove: [],
+        },
+      ]
+
+      for (const source of allowedSources) {
+        if (source.regex.test(value)) {
+          for (const remove of source.remove) {
+            value = value.replace(remove, '')
+          }
+          return name + '="' + xss.escapeAttrValue(value) + '"'
+        }
+      }
+    }
   },
 }
 
