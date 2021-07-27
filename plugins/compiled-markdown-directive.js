@@ -40,8 +40,7 @@ const configuredXss = new xss.FilterXSS(options)
 const headerPrefix = 'user-defined-'
 
 const renderer = {
-  image(href) {
-    console.log(href)
+  image(href, text) {
     if (
       /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9_]{11}$/.test(href)
     ) {
@@ -49,6 +48,8 @@ const renderer = {
         32,
         43
       )}" frameborder="0" allowfullscreen></iframe>`
+    } else {
+      return `<img src="${href}" alt="${text}">`
     }
   },
 }
