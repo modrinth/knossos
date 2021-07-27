@@ -19,7 +19,8 @@ const options = {
     if (tag === 'iframe' && name === 'src') {
       const allowedSources = [
         {
-          regex: /^https?:\/\/(www\.)?youtube\.com\/embed\//,
+          regex:
+            /^https?:\/\/(www\.)?youtube\.com\/embed\/[a-zA-Z0-9_]{11}(\?&autoplay=[0-1]{1})?$/,
           remove: ['&autoplay=1'], // Prevents autoplay
         },
       ]
