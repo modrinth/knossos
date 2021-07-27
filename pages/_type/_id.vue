@@ -152,7 +152,7 @@
                   {{
                     version.loaders
                       .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-                      .join(',')
+                      .join(', ')
                   }}
                   {{ version.game_versions[version.game_versions.length - 1] }}
                 </span>

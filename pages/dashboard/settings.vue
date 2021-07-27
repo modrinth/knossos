@@ -100,9 +100,9 @@
       <label>
         <span
           >Clicking on this WILL delete your account. Do not click on this
-          unless unless you want your account deleted. If you delete your
-          account, all attached data, including projects, will be removed from
-          our servers. This cannot be reversed, so be careful!</span
+          unless you want your account deleted. If you delete your account, all
+          attached data, including projects, will be removed from our servers.
+          This cannot be reversed, so be careful!</span
         >
         <input
           value="Delete account"
