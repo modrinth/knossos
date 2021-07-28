@@ -393,8 +393,19 @@ export default {
   }
 }
 
-.example-code {
-  color: #cecece;
+video {
+  border-radius: var(--size-rounded-lg);
+}
+
+pre {
+  background-color: #171719;
+  border-radius: var(--size-rounded-lg);
+  overflow-x: auto;
+
+  .example-code {
+    color: #cecece;
+    background: none;
+  }
 }
 
 .footer {
