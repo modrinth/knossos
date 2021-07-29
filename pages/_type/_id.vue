@@ -3,16 +3,33 @@
     <div class="page-contents">
       <section class="project-info">
         <div class="header">
-          <img
-            class="icon"
-            :src="
-              project.icon_url
-                ? project.icon_url
-                : 'https://cdn.modrinth.com/placeholder.svg?inline'
+          <nuxt-link
+            :to="
+              '/' +
+              project.project_type +
+              '/' +
+              (project.slug ? project.slug : project.id)
             "
-            alt="project - icon"
-          />
-          <h1 class="title">{{ project.title }}</h1>
+          >
+            <img
+              class="icon"
+              :src="
+                project.icon_url
+                  ? project.icon_url
+                  : 'https://cdn.modrinth.com/placeholder.svg?inline'
+              "
+              alt="project - icon"
+          /></nuxt-link>
+          <nuxt-link
+            :to="
+              '/' +
+              project.project_type +
+              '/' +
+              (project.slug ? project.slug : project.id)
+            "
+          >
+            <h1 class="title">{{ project.title }}</h1>
+          </nuxt-link>
           <div
             v-if="
               project.client_side === 'optional' &&
@@ -152,7 +169,7 @@
                   {{
                     version.loaders
                       .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-                      .join(',')
+                      .join(', ')
                   }}
                   {{ version.game_versions[version.game_versions.length - 1] }}
                 </span>
@@ -548,6 +565,11 @@ export default {
             ? this.project.icon_url
             : 'https://cdn.modrinth.com/placeholder.png',
         },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: this.project.status !== 'approved' ? 'noindex' : 'all',
+        },
       ],
     }
   },
@@ -762,6 +784,9 @@ export default {
       border-radius: 1.5rem;
       background-color: var(--color-button-bg);
       margin-right: var(--spacing-card-sm);
+      &:hover {
+        background-color: var(--color-button-bg-hover);
+      }
       svg {
         width: 1.25rem;
         margin: auto;

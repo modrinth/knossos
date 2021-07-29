@@ -148,7 +148,7 @@
         <h1>Backed by an open source API</h1>
         <p>
           Modrinth's code is fully open source licensed under the GNU AGPL.
-          We've created a high-peformance Rust-based backend that is
+          We've created a high-performance Rust-based backend that is
           <span
             ><a href="https://github.com/modrinth/labrinth/wiki"
               >fully documented</a
@@ -393,8 +393,19 @@ export default {
   }
 }
 
-.example-code {
-  color: #cecece;
+video {
+  border-radius: var(--size-rounded-lg);
+}
+
+pre {
+  background-color: #171719;
+  border-radius: var(--size-rounded-lg);
+  overflow-x: auto;
+
+  .example-code {
+    color: #cecece;
+    background: none;
+  }
 }
 
 .footer {

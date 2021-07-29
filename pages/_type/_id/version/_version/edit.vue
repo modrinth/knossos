@@ -136,6 +136,7 @@ export default {
   data() {
     return {
       version: {},
+      isEditing: true,
     }
   },
   async fetch() {
@@ -160,6 +161,23 @@ export default {
       [this.version.name, 'versions'],
       ['Edit Version', 'versions/' + this.version.version_number + '/edit'],
     ])
+    function preventLeave(e) {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', preventLeave)
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('beforeunload', preventLeave)
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    if (
+      this.isEditing &&
+      !window.confirm('Are you sure that you want to leave without saving?')
+    ) {
+      return
+    }
+    next()
   },
   methods: {
     async saveVersion() {
@@ -171,6 +189,7 @@ export default {
           this.version,
           this.$auth.headers
         )
+        this.isEditing = false
         await this.$router.replace(
           `/project/${
             this.project.slug ? this.project.slug : this.project.id

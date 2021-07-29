@@ -169,7 +169,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.fullPath}`
+      return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.path}`
     },
   },
   watch: {
