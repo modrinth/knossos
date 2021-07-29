@@ -1,14 +1,6 @@
 <template>
   <div>
     <ConfirmPopup
-      ref="delete_file_popup"
-      title="Are you sure you want to delete this file?"
-      description="This will remove this file forever (like really forever)"
-      :has-to-type="false"
-      proceed-label="Delete File"
-      @proceed="deleteFile(popup_data)"
-    />
-    <ConfirmPopup
       ref="delete_version_popup"
       title="Are you sure you want to delete this version?"
       description="This will remove this version forever (like really forever)."
@@ -16,155 +8,211 @@
       proceed-label="Delete Version"
       @proceed="deleteVersion()"
     />
-    <div class="version">
+    <nuxt-link
+      class="iconified-button back-button"
+      :to="`/${project.project_type}/${
+        project.slug ? project.slug : project.id
+      }/versions`"
+    >
+      <BackIcon />
+      Back to list
+    </nuxt-link>
+    <div>
       <div class="version-header">
-        <h4>{{ version.name }}</h4>
-        <span v-if="version.version_type === 'release'" class="badge green">
-          Release
-        </span>
-        <span v-if="version.version_type === 'beta'" class="badge yellow">
-          Beta
-        </span>
-        <span v-if="version.version_type === 'alpha'" class="badge red">
-          Alpha
-        </span>
-        <span>
-          {{ version.version_number }}
-        </span>
-        <Categories :categories="version.loaders" />
-        <div class="buttons">
-          <nuxt-link
-            v-if="$auth.user"
-            :to="`/create/report?id=${version.id}&t=version`"
-            class="action iconified-button"
+        <h2>{{ version.name }}</h2>
+        <div
+          v-if="featuredVersions.find((x) => x.id === version.id)"
+          class="featured"
+        >
+          <StarIcon />
+          Featured
+        </div>
+      </div>
+      <div class="buttons">
+        <a
+          v-if="primaryFile"
+          :href="primaryFile.url"
+          class="action iconified-button brand-button-colors"
+          @click.prevent="
+            $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
+          "
+        >
+          <DownloadIcon />
+          Download
+        </a>
+        <nuxt-link
+          v-if="$auth.user"
+          :to="`/create/report?id=${version.id}&t=version`"
+          class="action iconified-button"
+        >
+          <ReportIcon />
+          Report
+        </nuxt-link>
+        <button
+          v-if="currentMember"
+          class="action iconified-button"
+          @click="deleteVersionPopup"
+        >
+          <TrashIcon />
+          Delete
+        </button>
+        <nuxt-link
+          v-if="currentMember"
+          class="action iconified-button"
+          :to="version.id + '/edit'"
+        >
+          <EditIcon />
+          Edit
+        </nuxt-link>
+      </div>
+      <section>
+        <h3>Changelog</h3>
+        <div
+          v-compiled-markdown="
+            version.changelog ? version.changelog : 'No changelog specified.'
+          "
+          class="markdown-body"
+        ></div>
+      </section>
+      <section>
+        <h3>Metadata</h3>
+        <div class="data-wrapper">
+          <div class="data">
+            <p class="title">Release channel</p>
+            <VersionBadge class="value" :type="version.version_type" />
+          </div>
+          <div class="data">
+            <p class="title">Mod loaders</p>
+            <p class="value">{{ version.loaders.join(',') }}</p>
+          </div>
+          <div class="data">
+            <p class="title">Downloads</p>
+            <p class="value">{{ $parent.formatNumber(version.downloads) }}</p>
+          </div>
+          <div class="data">
+            <p class="title">Version number</p>
+            <p class="value">{{ version.version_number }}</p>
+          </div>
+          <div class="data">
+            <p class="title">Game versions</p>
+            <p class="value">{{ version.game_versions.join(',') }}</p>
+          </div>
+          <div class="data">
+            <p class="title">Published</p>
+            <p class="value">
+              {{ $dayjs(version.date_published).format('MMM D, YYYY') }}
+              <span v-if="members.find((x) => x.user.id === version.author_id)">
+                by
+                <nuxt-link
+                  class="text-link"
+                  :to="
+                    '/user/' +
+                    members.find((x) => x.user.id === version.author_id).user
+                      .username
+                  "
+                  >{{
+                    members.find((x) => x.user.id === version.author_id).user
+                      .username
+                  }}</nuxt-link
+                >
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+      <section v-if="version.dependencies.length > 0">
+        <h3>Dependencies</h3>
+        <div class="dependencies">
+          <div
+            v-for="(dependency, index) in dependencies[version.id]"
+            :key="index"
+            class="dependency"
           >
-            <ReportIcon />
-            Report
-          </nuxt-link>
-          <button
-            v-if="currentMember"
-            class="action iconified-button"
-            @click="deleteVersionPopup"
+            <img
+              class="icon"
+              :src="
+                dependency.project
+                  ? dependency.project.icon_url
+                  : 'https://cdn.modrinth.com/placeholder.svg'
+              "
+              alt="dependency-icon"
+            />
+            <div class="info">
+              <nuxt-link to="aaaa" class="descriptor">
+                <h4 class="title">
+                  {{
+                    dependency.project
+                      ? dependency.project.title
+                      : 'Unkown Project'
+                  }}
+                </h4>
+                <p v-if="dependency.version" class="version-number">
+                  {{ dependency.version.version_number }}
+                </p>
+              </nuxt-link>
+              <p class="dependency-type">
+                {{
+                  version.dependencies.find(
+                    (x) =>
+                      x.version_id ===
+                        (dependency.version
+                          ? dependency.version.id
+                          : undefined) &&
+                      x.project_id ===
+                        (dependency.project ? dependency.project.id : undefined)
+                  ).dependency_type
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section v-if="version.files.length > 0">
+        <h3>Files</h3>
+        <div v-for="file in version.files" :key="file.hashes.sha1" class="file">
+          <p class="filename">{{ file.filename }}</p>
+          <div
+            v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
+            class="featured"
           >
-            <TrashIcon />
-            Delete
-          </button>
-          <nuxt-link
-            v-if="currentMember"
-            class="action iconified-button"
-            :to="version.id + '/edit'"
-          >
-            <EditIcon />
-            Edit
-          </nuxt-link>
+            <StarIcon />
+            Primary
+          </div>
           <a
             v-if="primaryFile"
             :href="primaryFile.url"
             class="action iconified-button"
-            @click.prevent="
-              $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
-            "
+            @click.prevent="$parent.downloadFile(file.hashes.sha1, file.url)"
           >
             <DownloadIcon />
             Download
           </a>
         </div>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <DownloadIcon />
-          <div class="info">
-            <h4>Downloads</h4>
-            <p class="value">{{ version.downloads }}</p>
-          </div>
-        </div>
-        <div class="stat">
-          <CalendarIcon />
-          <div class="info">
-            <h4>Created</h4>
-            <p
-              v-tooltip="
-                $dayjs(version.date_published).format(
-                  '[Created on] YYYY-MM-DD [at] HH:mm A'
-                )
-              "
-              class="value"
-            >
-              {{ $dayjs(version.date_published).fromNow() }}
-            </p>
-          </div>
-        </div>
-        <div class="stat">
-          <TagIcon />
-          <div class="info">
-            <h4>Available For</h4>
-            <p class="value">
-              {{
-                version.game_versions ? version.game_versions.join(', ') : ''
-              }}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        v-compiled-markdown="version.changelog ? version.changelog : ''"
-        class="markdown-body"
-      ></div>
-      <div class="files">
-        <div v-for="file in version.files" :key="file.hashes.sha1" class="file">
-          <div class="text-wrapper">
-            <p>{{ file.filename }}</p>
-            <div v-if="currentMember" class="actions">
-              <button @click="deleteFilePopup(file.hashes.sha1)">
-                Delete File
-              </button>
-              <button @click="makePrimary(file.hashes.sha1)">
-                Make Primary
-              </button>
-            </div>
-          </div>
-          <a
-            :href="file.url"
-            @click.prevent="$parent.downloadFile(file.hashes.sha1, file.url)"
-          >
-            <DownloadIcon />
-          </a>
-        </div>
-      </div>
-      <FileInput
-        v-if="currentMember"
-        accept=".jar,application/java-archive,application/x-java-archive"
-        multiple
-        prompt="Choose files or drag them here"
-        class="file-input"
-        @change="addFiles"
-      />
+      </section>
     </div>
   </div>
 </template>
 <script>
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
 
-import Categories from '~/components/ui/search/Categories'
-import FileInput from '~/components/ui/FileInput'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import TagIcon from '~/assets/images/utils/tag.svg?inline'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
+import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
+import StarIcon from '~/assets/images/utils/star.svg?inline'
+import VersionBadge from '~/components/ui/VersionBadge'
 
 export default {
   components: {
-    FileInput,
-    Categories,
+    VersionBadge,
     DownloadIcon,
-    CalendarIcon,
-    TagIcon,
     TrashIcon,
     EditIcon,
     ReportIcon,
+    BackIcon,
     ConfirmPopup,
+    StarIcon,
   },
   auth: false,
   props: {
@@ -180,6 +228,12 @@ export default {
         return []
       },
     },
+    featuredVersions: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
     members: {
       type: Array,
       default() {
@@ -190,6 +244,12 @@ export default {
       type: Object,
       default() {
         return null
+      },
+    },
+    dependencies: {
+      type: Array,
+      default() {
+        return []
       },
     },
   },
@@ -325,116 +385,135 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.version {
-  margin-bottom: var(--spacing-card-md);
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
-  padding: 1rem;
+.back-button {
+  max-width: 6.25rem;
+}
 
-  .version-header {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+.version-header {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
 
-    h4,
-    span {
-      margin: auto 0.5rem auto 0;
-    }
-
-    .buttons {
-      display: flex;
-      align-self: flex-end;
-
-      @media screen and (min-width: 1024px) {
-        margin-left: auto;
-      }
-
-      .action:not(:first-child) {
-        margin: 0 0 0 0.5rem;
-      }
-    }
-  }
-
-  .markdown-body {
-    margin: 1rem 0;
-  }
-
-  .files {
-    display: flex;
-
-    .file {
-      display: flex;
-      margin-right: 0.5rem;
-      border-radius: var(--size-rounded-control);
-      border: 1px solid var(--color-divider);
-
-      .text-wrapper {
-        display: flex;
-        flex-direction: column;
-        padding: 0.5rem;
-
-        .actions {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          max-height: 3rem;
-          font-size: var(--font-size-sm);
-
-          button {
-            display: flex;
-            align-items: center;
-
-            svg {
-              margin-left: 0.25rem;
-            }
-          }
-        }
-      }
-
-      a {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-        width: 2.5rem;
-        height: auto;
-        background-color: var(--color-button-bg);
-        color: var(--color-button-text);
-        border-radius: 0 var(--size-rounded-control) var(--size-rounded-control)
-          0;
-
-        svg {
-          vertical-align: center;
-          height: 30px;
-          width: 40px;
-        }
-
-        &:hover,
-        &:focus {
-          background-color: var(--color-button-bg-hover);
-          color: var(--color-button-text-hover);
-        }
-      }
-    }
+  h2 {
+    margin: 0 0.75rem 0 0;
+    font-size: var(--font-size-xl);
   }
 }
 
-.stats {
+section {
+  margin: 1rem 0;
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.buttons {
   display: flex;
   flex-wrap: wrap;
-  margin: 0.5rem 0;
-  .stat {
-    margin-right: 0.75rem;
-    @extend %stat;
 
-    svg {
-      padding: 0.25rem;
-      border-radius: 50%;
-      background-color: var(--color-button-bg);
+  .brand-button-colors {
+    font-weight: bold;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin-left: auto;
+  }
+
+  .action:not(:first-child) {
+    margin: 0 0 0 0.5rem;
+  }
+}
+
+.data-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  .data {
+    flex-basis: 33.333333%;
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-sm);
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      margin: 0;
     }
   }
 }
 
-.file-input {
-  margin-top: 1rem;
+.dependencies {
+  display: flex;
+  flex-wrap: wrap;
+
+  .dependency {
+    display: flex;
+    flex-basis: 33.333333%;
+    margin-bottom: 0.5rem;
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+      margin-right: 0.5rem;
+      border-radius: var(--size-rounded-icon);
+      object-fit: contain;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.25rem;
+
+      p {
+        margin: 0;
+        font-size: var(--font-size-sm);
+      }
+
+      .descriptor {
+        display: flex;
+        align-items: baseline;
+
+        .title {
+          margin: 0 0.25rem 0 0;
+        }
+      }
+
+      .dependency-type {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  font-size: var(--font-size-sm);
+
+  * {
+    margin-left: 0.25rem;
+  }
+  .filename {
+    margin: 0;
+    font-weight: bold;
+  }
+}
+
+.featured {
+  display: flex;
+  align-items: center;
+
+  svg {
+    height: 1rem;
+    width: auto;
+    margin-right: 0.25rem;
+  }
+
+  font-size: var(--font-size-sm);
 }
 </style>

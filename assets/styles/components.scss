@@ -366,6 +366,20 @@
   }
 }
 
+.brand-button-colors {
+  color: var(--color-brand-inverted);
+  background-color: var(--color-brand);
+  &:focus,
+  &:hover {
+    background-color: var(--color-brand-hover);
+    color: var(--color-brand-inverted);
+  }
+  &:active {
+    background-color: var(--color-brand-active);
+    color: var(--color-brand-inverted);
+  }
+}
+
 .multiselect--above .multiselect__content-wrapper {
   border-top: none !important;
 }

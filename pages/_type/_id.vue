@@ -203,8 +203,9 @@
               :href="project.discord_url"
               target="_blank"
             >
-              <DiscordIcon v-if="$colorMode.value === 'light'" />
-              <DiscordIconWhite v-else />
+              <DiscordIcon v-if="$colorMode.value === 'light'" class="shrink" />
+              <DiscordIconWhite v-else class="shrink" />
+              <p>Discord</p>
             </a>
             <a
               v-for="(donation, index) in project.donation_urls"
@@ -224,6 +225,7 @@
                 v-else-if="
                   donation.id === 'patreon' && $colorMode.value === 'light'
                 "
+                class="shrink"
                 alt="patreon"
                 src="~/assets/images/external/patreon.png"
               />
@@ -231,19 +233,30 @@
                 v-else-if="
                   donation.id === 'patreon' && $colorMode.value === 'dark'
                 "
+                class="shrink"
                 alt="patreon"
                 src="~/assets/images/external/patreon-white.png"
               />
               <img
-                v-else-if="donation.id === 'paypal'"
+                v-else-if="
+                  donation.id === 'paypal' && $colorMode.value === 'light'
+                "
+                class="shrink"
                 alt="paypal"
                 src="~/assets/images/external/paypal.png"
               />
               <img
                 v-else-if="
+                  donation.id === 'paypal' && $colorMode.value === 'dark'
+                "
+                class="shrink"
+                alt="paypal"
+                src="~/assets/images/external/paypal-white.png"
+              />
+              <img
+                v-else-if="
                   donation.id === 'ko-fi' && $colorMode.value === 'light'
                 "
-                class="pixelated"
                 alt="kofi"
                 src="~/assets/images/external/kofi.png"
               />
@@ -251,11 +264,17 @@
                 v-else-if="
                   donation.id === 'ko-fi' && $colorMode.value === 'dark'
                 "
-                class="pixelated"
                 alt="kofi"
                 src="~/assets/images/external/kofi-white.png"
               />
-              <p v-else class="no-margin">{{ donation.platform }}</p>
+              <FollowIcon v-else-if="donation.id === 'github'" />
+              <UnknownIcon v-else />
+              <p v-if="donation.id === 'bmac'">Buy Me a Coffee</p>
+              <p v-else-if="donation.id === 'patreon'">Patreon</p>
+              <p v-else-if="donation.id === 'paypal'">PayPal</p>
+              <p v-else-if="donation.id === 'ko-fi'">Ko-fi</p>
+              <p v-else-if="donation.id === 'github'">GitHub Sponsors</p>
+              <p v-else>Donate</p>
             </a>
           </div>
         </div>
@@ -369,6 +388,7 @@
               :members="members"
               :current-member="currentMember"
               :all-members="allMembers"
+              :dependencies="dependencies"
               :link-bar.sync="linkBar"
             />
           </div>
@@ -392,6 +412,7 @@ import DiscordIcon from '~/assets/images/external/discord.svg?inline'
 import DiscordIconWhite from '~/assets/images/external/discord-white.svg?inline'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
 import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inline'
+import UnknownIcon from '~/assets/images/utils/unknown.svg?inline'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
@@ -416,6 +437,7 @@ export default {
     DiscordIconWhite,
     BuyMeACoffeeLogo,
     BuyMeACoffeeLogoWhite,
+    UnknownIcon,
   },
   async asyncData(data) {
     const projectTypes = ['mod', 'modpack']
@@ -425,7 +447,6 @@ export default {
         !data.params.id ||
         !projectTypes.includes(data.params.type.toLowerCase())
       ) {
-        console.log('aaaa')
         data.error({
           statusCode: 404,
           message: 'The page could not be found',
@@ -434,13 +455,14 @@ export default {
         return
       }
 
-      const [project, members, versions, featuredVersions] = (
+      const [project, members, dependencies, versions, featuredVersions] = (
         await Promise.all([
           data.$axios.get(`project/${data.params.id}`, data.$auth.headers),
           data.$axios.get(
             `project/${data.params.id}/members`,
             data.$auth.headers
           ),
+          data.$axios.get(`project/${data.params.id}/dependencies`),
           data.$axios.get(`project/${data.params.id}/version`),
           data.$axios.get(`project/${data.params.id}/version?featured=true`),
         ])
@@ -475,6 +497,7 @@ export default {
         members: members.filter((x) => x.accepted),
         allMembers: members,
         currentMember,
+        dependencies,
         linkBar: [],
       }
     } catch {
@@ -788,8 +811,9 @@ export default {
         height: 1.25rem;
         width: auto;
       }
-      .pixelated {
-        image-rendering: pixelated;
+      .shrink {
+        height: 1rem;
+        padding: 0.125rem 0;
       }
       p {
         font-size: var(--font-size-sm);
@@ -804,6 +828,7 @@ export default {
 
   .team-member {
     align-items: center;
+    margin-bottom: 0.25rem;
 
     img {
       border-radius: var(--size-rounded-icon);
