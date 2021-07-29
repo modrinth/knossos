@@ -5,7 +5,7 @@
       title="Are you sure you want to delete this version?"
       description="This will remove this version forever (like really forever)."
       :has-to-type="false"
-      proceed-label="Delete Version"
+      proceed-label="Delete version"
       @proceed="deleteVersion()"
     />
     <nuxt-link
@@ -360,7 +360,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An Error Occurred',
+          title: 'An error occurred',
           text: err.response.data.description,
           type: 'error',
         })

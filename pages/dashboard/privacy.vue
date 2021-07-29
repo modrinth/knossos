@@ -2,12 +2,12 @@
 <template>
   <div class="popup card">
     <div class="consent-container">
-      <div class="h1">Tweak your privacy settings</div>
+      <div class="h1">Privacy settings</div>
       <div>
         Modrinth relies on different providers and in-house tools to allow us to
-        provide custom-tailored experiences, and personalized advertising. You
-        can at any moment change your privacy settings by going to the setting
-        page, or at the footer of any page.
+        provide custom-tailored experiences and personalized advertising. You
+        can change your privacy settings at any time by going to this settings
+        page, accessible in the footer of any page.
       </div>
       <br class="divider" />
       <div class="toggles">
@@ -45,6 +45,7 @@
 <script>
 /* eslint-disable require-await */
 import scopes from '@/privacy-toggles'
+
 export default {
   name: 'Privacy',
   data: () => {
@@ -115,13 +116,16 @@ export default {
   @extend %card;
   padding: var(--spacing-card-lg);
 }
+
 .popup {
   display: flex;
   flex-direction: column;
 }
+
 .spacer {
   margin-top: 1rem;
 }
+
 .actions {
   margin-top: 1rem;
   margin-right: -0.5rem;
@@ -129,41 +133,50 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   flex-wrap: wrap;
+
   .btn {
     margin-top: 0.5rem;
     margin-right: 0.5rem;
   }
 }
+
 .consent-container {
   .h1 {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 0.6rem;
   }
+
   .divider {
     margin-top: 1rem;
   }
+
   .toggles {
     display: flex;
     flex-direction: column;
     width: 100%;
+
     .toggle {
       display: flex;
       flex-direction: row;
       margin-bottom: 1rem;
+
       .toggle-text {
         .title {
           color: var(--color-text-dark);
           font-weight: bold;
           margin-bottom: 0.5rem;
         }
+
         .contents {
           color: var(--color-text);
         }
       }
+
       .spacer {
         flex-grow: 1;
       }
+
       .toggle-action {
         margin-left: 1rem;
         display: flex;

@@ -5,12 +5,7 @@
         <section class="logo column">
           <NuxtLink to="/">
             <ModrinthLogoSmall aria-label="modrinth" class="small-logo" />
-            <ModrinthLogo
-              v-if="$colorMode.value === 'light'"
-              aria-label="modrinth"
-              class="text-logo"
-            />
-            <ModrinthLogoWhite v-else aria-label="modrinth" class="text-logo" />
+            <ModrinthLogo aria-label="modrinth" class="text-logo" />
           </NuxtLink>
         </section>
         <section class="menu-icon">
@@ -110,12 +105,7 @@
     <footer>
       <div class="footer-header">
         <div class="logo">
-          <ModrinthLogo
-            v-if="$colorMode.value === 'light'"
-            aria-label="modrinth"
-            class="text-logo"
-          />
-          <ModrinthLogoWhite v-else aria-label="modrinth" class="text-logo" />
+          <ModrinthLogo aria-label="modrinth" class="text-logo" />
         </div>
         <div class="buttons"></div>
       </div>
@@ -127,7 +117,6 @@
 import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
-import ModrinthLogoWhite from '~/assets/images/text-logo-white.svg?inline'
 import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
@@ -150,7 +139,6 @@ import AvatarIcon from '~/components/ui/AvatarIcon'
 export default {
   components: {
     ModrinthLogo,
-    ModrinthLogoWhite,
     ModrinthLogoSmall,
     DropdownIcon,
     MoonIcon,
@@ -371,9 +359,15 @@ export default {
           margin: 0 auto;
 
           .theme-toggle {
-            padding: 0.25rem;
-            border-radius: 50%;
+            padding: 0.5rem;
+            border-radius: var(--size-rounded-max);
             margin: 0 0.5rem;
+            display: flex;
+
+            svg {
+              height: 1.5rem;
+              width: 1.5rem;
+            }
           }
 
           .dropdown {
@@ -381,12 +375,12 @@ export default {
             display: inline-block;
             flex-grow: 1;
             &:hover .control {
-              background: var(--color-button-bg);
+              background: var(--color-button-bg-hover);
             }
             &.open {
               .control {
                 background: var(--color-button-bg);
-                border-radius: 1rem 1rem 0 0;
+                border-radius: 1.25rem 1.25rem 0 0;
                 .dropdown-icon {
                   transform: rotate(180deg);
                 }
@@ -397,13 +391,16 @@ export default {
             }
             .control {
               background-color: var(--color-button-bg);
-              border-radius: 1rem;
+              border-radius: var(--size-rounded-max);
               align-items: center;
               display: flex;
-              padding: 0.1rem 0.25rem;
+              padding: 0.25rem;
               position: relative;
               z-index: 11;
               width: 100%;
+              &:hover {
+                background-color: var(--color-button-bg-hover);
+              }
               .avatar {
                 align-items: center;
                 display: flex;
@@ -414,25 +411,25 @@ export default {
                   text-overflow: ellipsis;
                   white-space: nowrap;
                   color: var(--color-text-dark);
-                  font-size: var(--font-size-sm);
+                  font-size: var(--font-size-nm);
                   font-weight: var(--font-weight-medium);
                   margin: 0 1.5rem 0 0.25rem;
                 }
               }
               .dropdown-icon {
-                color: var(--color-text-dark);
                 transition: 150ms ease transform;
+                margin-right: 0.25rem;
               }
             }
             .content {
               margin: 0 0 0 0;
-              width: calc(100% - 3rem);
+              width: calc(100% - 3.5rem);
               position: fixed;
               display: none;
+              top: 2.45rem;
             }
             button {
               background-color: transparent;
-              color: var(--color-text-dark);
               margin: 0;
               padding: 0;
               font-weight: var(--font-weight-medium);
@@ -458,17 +455,18 @@ export default {
               li {
                 margin: 0;
                 &:hover,
-                &:focus,
+                &:focus {
+                  background-color: var(--color-button-bg-hover);
+                  color: var(--color-text-dark);
+                }
                 &:active {
                   background-color: var(--color-button-bg-active);
-                  color: var(--color-text-dark);
                 }
                 a,
                 button {
                   align-items: center;
                   display: flex;
                   padding: 0.75rem 1.5rem;
-                  color: var(--color-text-dark);
                   svg {
                     color: inherit;
                     height: 1rem;
@@ -492,7 +490,7 @@ export default {
             margin: 0 auto;
 
             text-align: center;
-            border-radius: var(--size-rounded-control);
+            border-radius: var(--size-rounded-max);
             background-color: var(--color-brand);
             white-space: nowrap;
             outline: none;

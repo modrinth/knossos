@@ -4,7 +4,6 @@
   --color-text-medium:#2a303d;
   --color-text-dark:#1A202C;
   --color-heading: #2c313d;
-  --color-heading-light: #777e8d;
   --color-bg: #e6e7eb;
   --color-raised-bg: #ffffff;
   --color-divider: #eaecef;
@@ -22,11 +21,11 @@
   --color-brand-3: #30b27b;
   --color-brand-disabled: #e2e8f0;
 
-  --color-button-bg: var(--color-bg);
+  --color-button-bg: #e6e7eb;
   --color-button-text: var(--color-text-dark);
-  --color-button-bg-hover: #e0e7ee;
+  --color-button-bg-hover: #d9dce0;
   --color-button-text-hover: #1b1e24;
-  --color-button-bg-active: #d0d7df;
+  --color-button-bg-active: #c3c6cb;
   --color-button-text-active: var(--color-button-text-hover);
   --color-button-bg-disabled: #eceef0;
   --color-button-text-disabled: #9da3ac;
@@ -70,34 +69,33 @@
 }
 
 .dark-mode {
-  --color-icon: #acacac;
-  --color-text: #cecece;
+  --color-icon: #96a2b0;
+  --color-text: #b0bac5;
   --color-text-medium:#e4e4e4;
-  --color-text-dark: #fbf8ec;
-  --color-heading: #fbf8ec;
-  --color-heading-light: #8a8a8a;
-  --color-bg: #171719;
-  --color-raised-bg: #222224;
-  --color-divider: #49494d;
-  --color-divider-dark: #646468;
+  --color-text-dark: #ecf9fb;
+  --color-heading: #c4cfdd;
+  --color-bg: #16181c;
+  --color-raised-bg: #26292f;
+  --color-divider: #474b54;
+  --color-divider-dark: #646c75;
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: #30b27b;
-  --color-brand-hover: #1e9565;
-  --color-brand-active: #177955;
+  --color-brand: #1cdf8b;
+  --color-brand-hover: #2ef19f;
+  --color-brand-active: #55f5ae;
   --color-brand-light: #30b27b;
-  --color-brand-inverted: #ffffff;
+  --color-brand-inverted: #000;
   --color-brand-2: #30b27b;
   --color-brand-3: #30b27b;
   --color-brand-disabled: #414146;
 
-  --color-button-bg: #343438;
+  --color-button-bg: #3e434b;
   --color-button-text: var(--color-text);
-  --color-button-bg-hover: #3a3a3f;
+  --color-button-bg-hover: #494f58;
   --color-button-text-hover: #ffffff;
-  --color-button-bg-active: #49494e;
+  --color-button-bg-active: #616570;
   --color-button-text-active: var(--color-button-text-hover);
   --color-button-text-disabled: #444444;
   --color-transparent-button-bg-hover: var(--color-button-bg);
@@ -137,6 +135,16 @@
   --color-block-quote:var(--color-code-bg);
   --color-header-underline: var(--color-tooltip-text);
   --color-hr: var(--color-text);
+}
+
+.oled-mode {
+  @extend .dark-mode;
+  --color-bg: #000000;
+  --color-raised-bg: #101013;
+
+  --color-button-bg: #222329;
+  --color-button-bg-hover: #2d2d32;
+  --color-button-bg-active: #3c3c40;
 }
 
 body {
