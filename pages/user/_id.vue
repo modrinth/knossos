@@ -41,9 +41,9 @@
           <div class="stat">
             <HeartIcon />
             <div class="info">
-              <h4>Follows</h4>
+              <h4>Followers</h4>
               <p class="value">
-                {{ sumFollows() }}
+                {{ sumFollowers() }}
               </p>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default {
 
       return this.formatNumber(sum)
     },
-    sumFollows() {
+    sumFollowers() {
       let sum = 0
 
       for (const mod of this.mods) {
