@@ -13,7 +13,7 @@ const options = {
     h5: ['id'],
     h6: ['id'],
   },
-  onIgnoreTagAttr: (tag, value) => {
+  onIgnoreTagAttr: (name, tag, value) => {
     if (tag === 'style') {
       // Convert CSS styles to an array of arrays of each property and value
       const styles = value
