@@ -13,6 +13,35 @@ const options = {
     h5: ['id'],
     h6: ['id'],
   },
+  onIgnoreTagAttr: (tag, value) => {
+    if (tag === 'style') {
+      // Convert CSS styles to an array of arrays of each property and value
+      const styles = value
+        .split(';')
+        .map((style) => style.split(':').map((part) => part.trim()))
+
+      // Filter out disallowed CSS styles
+      const allowedStyles = [
+        'font-size',
+        'font-family',
+        'color',
+        'background-color',
+        'background',
+        'font-weight',
+        'font-style',
+        'text-decoration',
+        'text-align',
+      ]
+      styles.forEach((style, index) => {
+        if (!allowedStyles.includes(style[0])) {
+          styles.splice(index)
+        }
+      })
+
+      const filteredStyles = styles.map((style) => style.join(':')).join(';')
+      return tag + '="' + xss.escapeAttrValue(filteredStyles) + '"'
+    }
+  },
 }
 
 const configuredXss = new xss.FilterXSS(options)
