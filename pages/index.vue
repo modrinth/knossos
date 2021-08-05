@@ -5,7 +5,7 @@
         <h1 class="typewriter">
           {{ currentText }}<span aria-hidden="true"></span>
         </h1>
-        <h1>modding platform</h1>
+        <h1>{{ $t('homepage.top.afterTypewriter') }}</h1>
       </div>
       <div class="right columns">
         <Logo class="big-logo" alt="logo" />
@@ -13,13 +13,14 @@
     </div>
     <div class="slanted-hero columns">
       <div class="left hero">
-        <h3>Conveniently modern</h3>
-        <h1>A redefined search interface</h1>
+        <h3>{{ $t('homepage.section1.heading') }}</h3>
+        <h1>{{ $t('homepage.section1.subheading') }}</h1>
         <p>
-          We've implemented <span>fast and adaptable</span> search algorithms so
-          you don't have to wait, while creating a responsive interface that
-          makes sense. Modrinth is full of elegant project discovery and a
-          platform which just works.
+          {{ $t('homepage.section1.preSpan') }}
+          <span>
+            {{ $t('homepage.section1.spanText') }}
+          </span>
+          {{ $t('homepage.section1.postSpan') }}
         </p>
       </div>
       <div class="right hero-image">
@@ -31,23 +32,23 @@
     </div>
     <div class="default-hero columns">
       <div class="left hero">
-        <h3>Built for developers</h3>
-        <h1>The world's most modder-friendly platform</h1>
+        <h3>{{ $t('homepage.section2.heading') }}</h3>
+        <h1>{{ $t('homepage.section2.subheading') }}</h1>
         <p>
-          Modrinth intends to give back to the community, not leech from it.
-          That's why we plan to give creators <span>one hundred percent</span>
-          of the ad revenue earned on their project pages back to them, while
-          creating easy to use tools for every modder to publish their mods on
-          the Modrinth platform.
+          {{ $t('homepage.section2.preSpan') }}
+          <span>
+            {{ $t('homepage.section2.spanText') }}
+          </span>
+          {{ $t('homepage.section2.postSpan') }}
         </p>
         <p>
-          <span>Note: This is currently not implemented.</span> There is no ETA
-          for when it will be.
+          <span>{{ $t('homepage.section2.secondSpan') }}</span>
+          {{ $t('homepage.section2.secondBody') }}
         </p>
       </div>
       <div class="right columns workflow">
         <div>
-          <h3>Code</h3>
+          <h3>{{ $t('homepage.section2.rightHeading1') }}</h3>
           <svg
             style="background-color: #1a202c"
             viewBox="0 0 24 24"
@@ -63,7 +64,7 @@
         </div>
         <span class="char" alt="logo"><RightArrowIcon /></span>
         <div>
-          <h3>Build</h3>
+          <h3>{{ $t('homepage.section2.rightHeading2') }}</h3>
           <svg
             style="background-color: #127183"
             viewBox="0 0 256 188"
@@ -106,7 +107,7 @@
         </div>
         <span class="char" alt="logo"><RightArrowIcon /></span>
         <div>
-          <h3>Publish</h3>
+          <h3>{{ $t('homepage.section2.rightHeading3') }}</h3>
           <svg
             style="background-color: #4d9227"
             viewBox="0 0 512 514"
@@ -126,7 +127,7 @@
         </div>
         <span class="char" alt="logo"><RightArrowIcon /></span>
         <div>
-          <h3>Earn</h3>
+          <h3>{{ $t('homepage.section2.rightHeading4') }}</h3>
           <svg
             style="background-color: #f3b433"
             viewBox="0 0 24 24"
@@ -144,24 +145,22 @@
     </div>
     <div class="slanted-hero columns">
       <div class="left hero">
-        <h3>Easy to implement</h3>
-        <h1>Backed by an open source API</h1>
+        <h3>{{ $t('homepage.section3.heading') }}</h3>
+        <h1>{{ $t('homepage.section3.subheading') }}</h1>
         <p>
-          Modrinth's code is fully open source licensed under the GNU AGPL.
-          We've created a high-performance Rust-based backend that is
+          {{ $t('homepage.section3.preSpan') }}
           <span
-            ><a href="https://github.com/modrinth/labrinth/wiki"
-              >fully documented</a
-            ></span
+            ><a href="https://github.com/modrinth/labrinth/wiki">{{
+              $t('homepage.section3.spanText')
+            }}</a></span
           >
-          for all kinds of tools to use. Our team is dedicated to maintaining an
-          open source ecosystem for all Modrinth applications.
+          {{ $t('homepage.section3.postSpan') }}
         </p>
       </div>
       <div class="right hero-image less-margin">
         <pre v-highlightjs>
 <code class="javascript example-code">const fetch = require('node-fetch');
-fetch('https://api.modrinth.com/api/v1/search').then(res => res.json()).then(data => {
+fetch('https://api.modrinth.com/v2/search').then(res => res.json()).then(data => {
     console.log(data);
     // hits: [Object {author: "mezz", author_url: …, …}, …]
     // limit: 10
@@ -186,9 +185,14 @@ export default {
   auth: false,
   data() {
     return {
-      currentText: 'Open source',
+      currentText: this.$i18n.t('homepage.top.typewriter1'),
       increasing: true,
-      texts: ['Open source', 'Easy to use', 'Developer focused', 'API Based'],
+      texts: [
+        this.$i18n.t('homepage.top.typewriter1'),
+        this.$i18n.t('homepage.top.typewriter2'),
+        this.$i18n.t('homepage.top.typewriter3'),
+        this.$i18n.t('homepage.top.typewriter4'),
+      ],
     }
   },
   beforeMount() {

@@ -1,5 +1,7 @@
 import { sortRoutes } from '@nuxt/utils'
 
+import en from './locales/en'
+
 export default {
   /*
    ** Nuxt target
@@ -159,6 +161,7 @@ export default {
     '@nuxtjs/sitemap',
     '@nuxtjs/style-resources',
     '@nuxtjs/markdownit',
+    '@nuxtjs/i18n',
     'cookie-universal-nuxt',
     '~/modules/gpt-ads',
     // The analytics module is disabled, as we are using our own solution embedded in the middleware.
@@ -242,6 +245,29 @@ export default {
   privateRuntimeConfig: {
     axios: {
       baseURL: process.env.BASE_URL,
+    },
+  },
+  i18n: {
+    vueI18nLoader: true,
+    strategy: 'no_prefix',
+    locales: [
+      { code: 'en', file: 'en.js', name: 'English' },
+    ],
+    lazy: true,
+    langDir: 'locales/',
+    defaultLocale: 'en',
+    vueI18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      messages: {
+        en
+      },
+    },
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+      alwaysRedirect: true,
     },
   },
 }
