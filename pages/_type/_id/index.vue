@@ -1,8 +1,8 @@
 <template>
   <div
-    v-compiled-markdown="project.body"
     v-highlightjs
     class="markdown-body"
+    v-html="$xss($md.render(project.body))"
   ></div>
 </template>
 

@@ -184,7 +184,7 @@
           <div class="textarea-wrapper">
             <textarea id="body" v-model="body"></textarea>
           </div>
-          <div v-compiled-markdown="body" class="markdown-body"></div>
+          <div class="markdown-body" v-html="$xss($md.render(body))"></div>
         </div>
       </section>
       <section class="versions">
@@ -532,6 +532,15 @@ export default {
     FileInput,
     Multiselect,
   },
+  beforeRouteLeave(to, from, next) {
+    if (
+      this.isEditing &&
+      !window.confirm('Are you sure that you want to leave without saving?')
+    ) {
+      return
+    }
+    next()
+  },
   data() {
     return {
       previewImage: null,
@@ -591,15 +600,6 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       window.removeEventListener('beforeunload', preventLeave)
     })
-  },
-  beforeRouteLeave(to, from, next) {
-    if (
-      this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
-    ) {
-      return
-    }
-    next()
   },
   methods: {
     async createDraft() {

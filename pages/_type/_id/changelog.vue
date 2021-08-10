@@ -46,10 +46,12 @@
         </a>
       </div>
       <div
-        v-compiled-markdown="
-          version.changelog ? version.changelog : 'No changelog specified.'
-        "
         :class="'markdown-body ' + version.version_type"
+        v-html="
+          version.changelog
+            ? $xss($md.render(version.changelog))
+            : 'No changelog specified.'
+        "
       />
     </div>
   </div>

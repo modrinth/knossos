@@ -64,10 +64,10 @@
             v-model="selectedVersions"
             :options="
               showSnapshots
-                ? $tag.gameVersions
-                : $tag.gameVersions.filter(
-                    (it) => it.version_type === 'release'
-                  )
+                ? $tag.gameVersions.map((x) => x.version)
+                : $tag.gameVersions
+                    .filter((it) => it.version_type === 'release')
+                    .map((x) => x.version)
             "
             track-by="version"
             label="version"
@@ -191,7 +191,7 @@
               :is-ad="index === -1"
               :is-modrinth="true"
             />
-            <div v-if="results.length === 0" class="no-results">
+            <div v-if="results && results.length === 0" class="no-results">
               <p>No results found for your query!</p>
             </div>
           </div>
@@ -570,7 +570,7 @@ export default {
   flex-flow: column;
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
-  padding: 0.25rem 1rem 0.25rem 1rem;
+  padding: var(--spacing-card-sm) var(--spacing-card-md);
   margin-bottom: var(--spacing-card-md);
   input {
     border: none;

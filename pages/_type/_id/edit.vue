@@ -186,7 +186,10 @@
         <div class="textarea-wrapper">
           <textarea id="body" v-model="newProject.body"></textarea>
         </div>
-        <div v-compiled-markdown="newProject.body" class="markdown-body"></div>
+        <div
+          class="markdown-body"
+          v-html="$xss($md.render(newProject.body))"
+        ></div>
       </div>
     </section>
     <section class="extra-links">
@@ -328,6 +331,15 @@ export default {
     FileInput,
     Multiselect,
   },
+  beforeRouteLeave(to, from, next) {
+    if (
+      this.isEditing &&
+      !window.confirm('Are you sure that you want to leave without saving?')
+    ) {
+      return
+    }
+    next()
+  },
   props: {
     project: {
       type: Object,
@@ -419,15 +431,6 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       window.removeEventListener('beforeunload', preventLeave)
     })
-  },
-  beforeRouteLeave(to, from, next) {
-    if (
-      this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
-    ) {
-      return
-    }
-    next()
   },
   created() {
     this.$emit('update:link-bar', [['Edit', 'edit']])
