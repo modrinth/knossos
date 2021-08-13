@@ -53,23 +53,6 @@
       </label>
     </section>
     <section class="pad-maker">
-      <h3>Theme</h3>
-      <label>
-        <span
-          >Change the global site theme of Modrinth. You can choose between
-          light mode and dark mode. You can switch it using this button or
-          anywhere by accessing the theme switcher in the navigation bar
-          dropdown.</span
-        >
-        <input
-          type="button"
-          class="button pad-rem"
-          value="Change theme"
-          @click="changeTheme"
-        />
-      </label>
-    </section>
-    <section class="pad-maker">
       <h3>Authorization token</h3>
       <label>
         <span>

@@ -86,22 +86,6 @@
                           <span>Settings</span>
                         </NuxtLink>
                       </li>
-                      <!--<li v-tooltip="'Not implemented yet'" class="hidden">
-                          <NuxtLink :to="userTeamsUrl" disabled>
-                            <UsersIcon />
-                            <span>Teams</span>
-                          </NuxtLink>
-                        </li>-->
-                      <li>
-                        <button @click="changeTheme">
-                          <MoonIcon v-if="$colorMode.value === 'light'" />
-                          <SunIcon v-else />
-                          <span v-if="$colorMode.value === 'light'">
-                            Dark Mode</span
-                          >
-                          <span v-else>Light Mode</span>
-                        </button>
-                      </li>
                       <hr />
                       <li>
                         <button @click="logout">

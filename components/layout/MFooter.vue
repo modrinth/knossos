@@ -6,14 +6,6 @@
     </span>
     <ul>
       <li>
-        <a @click="changeTheme">
-          <span v-if="$colorMode.value === 'light'">Switch to Dark Mode</span>
-          <span v-else>Switch to Light Mode</span>
-        </a>
-      </li>
-    </ul>
-    <ul>
-      <li>
         <nuxt-link to="/legal/terms">Terms</nuxt-link>
       </li>
       <li>
