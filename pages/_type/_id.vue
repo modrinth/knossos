@@ -400,8 +400,8 @@
           <div class="project-content">
             <NuxtChild
               :project="project"
-              :versions="versions"
-              :featured-versions="featuredVersions"
+              :versions.sync="versions"
+              :featured-versions.sync="featuredVersions"
               :members="members"
               :current-member="currentMember"
               :all-members="allMembers"

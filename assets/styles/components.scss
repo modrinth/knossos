@@ -637,3 +637,16 @@ label {
   }
   flex-shrink: 0;
 }
+
+.textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  textarea {
+    flex: 1;
+    overflow-y: auto;
+    resize: none;
+    max-width: 100%;
+  }
+}

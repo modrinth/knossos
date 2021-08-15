@@ -34,7 +34,10 @@
         </div>
       </div>
       <div v-if="mode === 'edit'" class="buttons">
-        <button class="action iconified-button brand-button-colors">
+        <button
+          class="action iconified-button brand-button-colors"
+          @click="saveEditedVersion"
+        >
           <CheckIcon />
           Save
         </button>
@@ -72,7 +75,7 @@
         <button
           v-if="currentMember"
           class="action iconified-button"
-          @click="deleteVersionPopup"
+          @click="$refs.delete_version_popup.show()"
         >
           <TrashIcon />
           Delete
@@ -99,8 +102,15 @@
       </div>
       <section v-if="mode === 'edit'">
         <h3>Changelog</h3>
-        <ThisOrThat :items="['source', 'preview']" />
+        <ThisOrThat
+          v-model="changelogViewMode"
+          :items="['source', 'preview']"
+        />
+        <div v-if="changelogViewMode === 'source'" class="textarea-wrapper">
+          <textarea id="body" v-model="version.changelog" />
+        </div>
         <div
+          v-if="changelogViewMode === 'preview'"
           class="markdown-body"
           v-html="
             version.changelog
@@ -269,17 +279,47 @@
                   {{ dependency.version.version_number }}
                 </p>
               </nuxt-link>
-              <p v-if="mode === 'normal'" class="dependency-type">
-                {{ dependency.dependency_type }}
-              </p>
+              <div class="bottom">
+                <button
+                  v-if="mode === 'edit'"
+                  class="iconified-button"
+                  @click="version.dependencies.splice(index, 1)"
+                >
+                  <TrashIcon /> Delete
+                </button>
+                <p v-else class="dependency-type">
+                  {{ dependency.dependency_type }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div v-if="mode === 'edit'">
+        <div v-if="mode === 'edit'" class="edit-dependency">
           <h4>Add dependency</h4>
-          <ThisOrThat :items="['Project Dependency', 'Version Dependency']" />
-          <div>
-            <input type="text" placeholder="Enter the project ID..." />
+          <ThisOrThat
+            v-model="dependencyAddMode"
+            :items="['project', 'version']"
+          />
+          <div class="edit-info">
+            <input
+              v-model="newDependencyId"
+              type="text"
+              :placeholder="`Enter the ${dependencyAddMode} id...`"
+            />
+            <Multiselect
+              v-model="newDependencyType"
+              class="input"
+              placeholder="Select one"
+              :options="['required', 'optional', 'incompatible']"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+            />
+            <button class="iconified-button" @click="addDependency">
+              <PlusIcon />
+              Add dependency
+            </button>
           </div>
         </div>
       </section>
@@ -317,6 +357,10 @@
             Make primary
           </button>
         </div>
+        <button v-if="mode === 'edit'" class="iconified-button">
+          <UploadIcon />
+          Upload files
+        </button>
       </section>
     </div>
     <NuxtChild v-show="false" :mode.sync="mode" />
@@ -327,6 +371,8 @@ import Multiselect from 'vue-multiselect'
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
 
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
@@ -351,8 +397,15 @@ export default {
     StarIcon,
     CheckIcon,
     Multiselect,
+    UploadIcon,
+    PlusIcon,
   },
   auth: false,
+  beforeRouteLeave(to, from, next) {
+    this.setVersion()
+
+    next()
+  },
   props: {
     project: {
       type: Object,
@@ -398,6 +451,13 @@ export default {
       version: {},
       filesToUpload: [],
       popup_data: null,
+
+      changelogViewMode: 'source',
+
+      versionDependencies: [],
+      dependencyAddMode: 'project',
+      newDependencyId: '',
+      newDependencyType: 'required',
     }
   },
   async fetch() {
@@ -429,6 +489,7 @@ export default {
           (x) => x.version_number === this.$route.params.version
         )
 
+      this.version = JSON.parse(JSON.stringify(this.version))
       this.primaryFile = this.version.files.find((file) => file.primary)
 
       if (!this.primaryFile) {
@@ -449,10 +510,6 @@ export default {
           (x) => x.id === dependency.version_id
         )
       }
-    },
-    deleteFilePopup(hash) {
-      this.popup_data = hash
-      this.$refs.delete_file_popup.show()
     },
     async deleteFile(hash) {
       this.$nuxt.$loading.start()
@@ -521,8 +578,82 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
-    deleteVersionPopup() {
-      this.$refs.delete_version_popup.show()
+    async addDependency() {
+      try {
+        if (this.dependencyAddMode === 'project') {
+          const project = (
+            await this.$axios.get(`project/${this.newDependencyId}`)
+          ).data
+
+          this.version.dependencies.push({
+            project,
+            project_id: project.id,
+            dependency_type: this.newDependencyType,
+          })
+        } else if (this.dependencyAddMode === 'version') {
+          const version = (
+            await this.$axios.get(`version/${this.newDependencyId}`)
+          ).data
+          const project = (
+            await this.$axios.get(`project/${version.project_id}`)
+          ).data
+
+          this.version.dependencies.push({
+            version,
+            project,
+            version_id: version.id,
+            project_id: project.id,
+            dependency_type: this.newDependencyType,
+          })
+        }
+      } catch {
+        this.$notify({
+          group: 'main',
+          title: 'Invalid Dependency',
+          text: 'The specified dependency does not exist',
+          type: 'error',
+        })
+      }
+    },
+    async saveEditedVersion() {
+      this.$nuxt.$loading.start()
+      try {
+        await this.$axios.patch(
+          `version/${this.version.id}`,
+          this.version,
+          this.$auth.headers
+        )
+
+        this.$emit(
+          'update:versions',
+          this.versions
+            .filter((x) => x.id !== this.version.id)
+            .concat([this.version])
+        )
+
+        const featuredVersions = (
+          await this.$axios.get(
+            `project/${this.version.project_id}/version?featured=true`
+          )
+        ).data
+
+        this.$emit('update:featuredVersions', featuredVersions)
+
+        await this.$router.replace(
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : this.project.id
+          }/version/${encodeURIComponent(this.version.version_number)}`
+        )
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+      this.$nuxt.$loading.finish()
     },
     async deleteVersion() {
       this.$nuxt.$loading.start()
@@ -625,8 +756,8 @@ section {
     margin-bottom: 0.5rem;
 
     .icon {
-      width: 3rem;
-      height: 3rem;
+      width: 4rem;
+      height: 4rem;
       margin-right: 0.5rem;
       border-radius: var(--size-rounded-icon);
       object-fit: contain;
@@ -643,18 +774,37 @@ section {
         font-size: var(--font-size-sm);
       }
 
-      .descriptor {
-        display: flex;
-        align-items: baseline;
-
-        .title {
-          margin: 0 0.25rem 0 0;
-        }
+      .title {
+        margin: 0 0.25rem 0 0;
       }
 
       .dependency-type {
         text-transform: capitalize;
       }
+    }
+  }
+}
+
+.edit-dependency {
+  h4 {
+    margin: 0 0 0.25rem 0;
+  }
+
+  .edit-info {
+    display: flex;
+
+    .multiselect {
+      max-width: 10rem;
+    }
+
+    .iconified-button {
+      min-height: 2.5rem;
+    }
+
+    input,
+    .multiselect,
+    .iconified-button {
+      margin: 0 0.5rem 0 0;
     }
   }
 }

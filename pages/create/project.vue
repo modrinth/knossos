@@ -762,19 +762,6 @@ export default {
   }
 }
 
-.textarea-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  textarea {
-    flex: 1;
-    overflow-y: auto;
-    resize: none;
-    max-width: 100%;
-  }
-}
-
 .page-contents {
   display: grid;
   grid-template:
