@@ -101,7 +101,6 @@
       <div class="content">
         <section class="search-nav">
           <div class="iconified-input column-grow-2">
-            <label class="hidden" for="search">Search Mods</label>
             <input
               id="search"
               v-model="query"
@@ -115,7 +114,7 @@
           </div>
           <div class="sort-paginate">
             <div class="labeled-control">
-              <h3>Sort By</h3>
+              <h3>{{ $t('search.sortBy') }}</h3>
               <Multiselect
                 v-model="sortType"
                 class="sort-types"
@@ -135,7 +134,7 @@
               </Multiselect>
             </div>
             <div class="labeled-control per-page">
-              <h3>Per Page</h3>
+              <h3>{{ $t('search.perPage') }}</h3>
               <Multiselect
                 v-model="maxResults"
                 class="max-results"
@@ -150,8 +149,10 @@
               </Multiselect>
             </div>
             <div class="labeled-control mobile-filters-button">
-              <h3>Filters</h3>
-              <button @click="toggleFiltersMenu">Open</button>
+              <h3>{{ $t('search.filters') }}</h3>
+              <button @click="toggleFiltersMenu">
+                {{ $t('generic.open') }}
+              </button>
             </div>
           </div>
           <pagination
@@ -169,7 +170,7 @@
           />
           <div v-if="$fetchState.pending" class="no-results">
             <LogoAnimated />
-            <p>Loading...</p>
+            <p>{{ $t('generic.loading') }}</p>
           </div>
           <div v-else>
             <SearchResult
@@ -192,13 +193,13 @@
               :is-modrinth="true"
             />
             <div v-if="results && results.length === 0" class="no-results">
-              <p>No results found for your query!</p>
+              <p>{{ $t('search.noResults') }}</p>
             </div>
           </div>
         </div>
         <section v-if="pages.length > 1" class="search-bottom">
           <div class="per-page labeled-control">
-            <h3>Per Page</h3>
+            <h3>{{ $t('search.perPage') }}</h3>
             <Multiselect
               v-model="maxResults"
               class="max-results"
@@ -274,13 +275,25 @@ export default {
       projectType: 'mod',
 
       sortTypes: [
-        { display: 'Relevance', name: 'relevance' },
-        { display: 'Download count', name: 'downloads' },
-        { display: 'Follow count', name: 'follows' },
-        { display: 'Recently created', name: 'newest' },
-        { display: 'Recently updated', name: 'updated' },
+        {
+          display: this.$i18n.t('search.sortTypes.relevance'),
+          name: 'relevance',
+        },
+        {
+          display: this.$i18n.t('search.sortTypes.downloadCount'),
+          name: 'downloads',
+        },
+        {
+          display: this.$i18n.t('search.sortTypes.followCount'),
+          name: 'follows',
+        },
+        { display: this.$i18n.t('generic.recentlyCreated'), name: 'newest' },
+        { display: this.$i18n.t('generic.recentlyUpdated'), name: 'updated' },
       ],
-      sortType: { display: 'Relevance', name: 'relevance' },
+      sortType: {
+        display: this.$i18n.t('search.sortTypes.relevance'),
+        name: 'relevance',
+      },
 
       maxResults: 20,
     }
@@ -302,19 +315,19 @@ export default {
 
       switch (this.sortType.name) {
         case 'relevance':
-          this.sortType.display = 'Relevance'
+          this.sortType.display = this.$i18n.t('search.sortTypes.relevance')
           break
         case 'downloads':
-          this.sortType.display = 'Downloads'
+          this.sortType.display = this.$i18n.t('search.sortTypes.downloadCount')
           break
         case 'newest':
-          this.sortType.display = 'Recently created'
+          this.sortType.display = this.$i18n.t('generic.recentlyCreated')
           break
         case 'updated':
-          this.sortType.display = 'Recently updated'
+          this.sortType.display = this.$i18n.t('generic.recentlyUpdated')
           break
         case 'follows':
-          this.sortType.display = 'Follow count'
+          this.sortType.display = this.$i18n.t('search.sortTypes.followCount')
           break
       }
     }
@@ -363,7 +376,10 @@ export default {
         await this.clearFilters()
         this.query = ''
         this.maxResults = 20
-        this.sortType = { display: 'Relevance', name: 'relevance' }
+        this.sortType = {
+          display: this.$i18n.t('search.sortTypes.relevance'),
+          name: 'relevance',
+        }
 
         await this.onSearchChange(this.currentPage)
       },

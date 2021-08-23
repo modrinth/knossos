@@ -3,10 +3,7 @@
     <div class="container">
       <NuxtLink to="/">
         <h2>{{ error.message }}</h2>
-        <p>
-          An error occurred! Click this text to go back home, and find your way
-          back!
-        </p>
+        <p>{{ $t('error.error') }}</p>
       </NuxtLink>
     </div>
   </div>
@@ -20,7 +17,7 @@ export default {
       type: Object,
       default() {
         return {
-          message: 'Unknown error',
+          message: this.$i18n.t('error.unknown'),
         }
       },
     },

@@ -17,10 +17,10 @@
           <section class="column-grow-5 nav">
             <div class="tabs">
               <NuxtLink to="/mods" class="tab">
-                <span>Mods</span>
+                <span>{{ $t('generic.types.mods') }}</span>
               </NuxtLink>
               <NuxtLink to="/modpacks" class="tab">
-                <span>Modpacks</span>
+                <span>{{ $t('generic.types.modpacks') }}</span>
               </NuxtLink>
             </div>
           </section>
@@ -51,32 +51,32 @@
                     <li>
                       <NuxtLink :to="`/user/${$auth.user.username}`">
                         <UserIcon />
-                        <span>Profile</span>
+                        <span>{{ $t('userControls.profile') }}</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/projects">
                         <ProjectIcon />
-                        <span>Projects</span>
+                        <span>{{ $t('generic.projects') }}</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/notifications">
                         <NotificationIcon />
-                        <span>Notifications</span>
+                        <span>{{ $t('userControls.notifications') }}</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/settings">
                         <SettingsIcon />
-                        <span>Settings</span>
+                        <span>{{ $t('userControls.settings') }}</span>
                       </NuxtLink>
                     </li>
                     <hr />
                     <li>
                       <button @click="logout">
                         <LogOutIcon />
-                        <span>Log Out</span>
+                        <span>{{ $t('userControls.logOut') }}</span>
                       </button>
                     </li>
                   </ul>
@@ -84,7 +84,9 @@
               </div>
               <section v-else class="auth-prompt">
                 <a :href="authUrl" class="log-in-button"
-                  ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
+                  ><GitHubIcon aria-hidden="true" />{{
+                    $t('userControls.gitHub')
+                  }}</a
                 >
               </section>
             </section>
@@ -211,8 +213,8 @@ export default {
 
         this.$notify({
           group: 'main',
-          title: 'Logged Out',
-          text: 'You have logged out successfully!',
+          title: this.$i18n.t('userControls.loggedOut'),
+          text: this.$i18n.t('userControls.loggedOutSuccessfully'),
           type: 'success',
         })
       }

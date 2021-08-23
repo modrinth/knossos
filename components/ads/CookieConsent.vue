@@ -7,13 +7,16 @@
     >
       <div class="banner">
         <span>
-          Modrinth uses cookies for various purposes, including advertising.<br />
-          We encourage you to review your privacy settings by clicking on the
-          button below:
+          {{ $t('privacy.cookie.line1') }}<br />
+          {{ $t('privacy.cookie.line2') }}
         </span>
         <div class="actions">
-          <button class="btn button" @click="review">Review</button>
-          <button class="btn brand-button" @click="hide">Accept all</button>
+          <button class="btn button" @click="review">
+            {{ $t('privacy.cookie.review') }}
+          </button>
+          <button class="btn brand-button" @click="hide">
+            {{ $t('privacy.cookie.accept') }}
+          </button>
         </div>
       </div>
     </div>

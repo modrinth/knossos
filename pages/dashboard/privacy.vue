@@ -2,13 +2,8 @@
 <template>
   <div class="popup card">
     <div class="consent-container">
-      <div class="h1">Privacy settings</div>
-      <div>
-        Modrinth relies on different providers and in-house tools to allow us to
-        provide custom-tailored experiences and personalized advertising. You
-        can change your privacy settings at any time by going to this settings
-        page, accessible in the footer of any page.
-      </div>
+      <div class="h1">{{ $t('privacy.settings') }}</div>
+      <div>{{ $t('privacy.description') }}</div>
       <br class="divider" />
       <div class="toggles">
         <div v-for="(scope, id) in scopes" :key="id" class="toggle">
@@ -33,10 +28,14 @@
       </div>
     </div>
     <div class="actions">
-      <button class="btn button" @click="toggleOff">Refuse All</button>
-      <button class="btn button" @click="toggleOn">Accept All</button>
+      <button class="btn button" @click="toggleOff">
+        {{ $t('privacy.cookie.refuse') }}
+      </button>
+      <button class="btn button" @click="toggleOn">
+        {{ $t('privacy.cookie.accept') }}
+      </button>
       <button class="btn brand-button" @click="confirm">
-        Confirm my choices
+        {{ $t('privacy.cookie.confirm') }}
       </button>
     </div>
   </div>
@@ -102,8 +101,8 @@ export default {
       this.$store.dispatch('consent/save', this.$cookies)
       this.$notify({
         group: 'main',
-        title: 'Saved',
-        text: 'Your preferences have been saved successfully.',
+        title: this.$i18n.t('userControls.preferencesSaved'),
+        text: this.$i18n.t('userControls.preferencesSavedSuccessfully'),
         type: 'success',
       })
     },

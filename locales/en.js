@@ -1,5 +1,55 @@
 // Remember: special characters like apostrophes (') must be escaped with a backslash (\)
+// Maintainer: N/A
 export default {
+  generic: {
+    projects: 'Projects',
+    types: {
+      mod: 'Mod',
+      mods: 'Mods',
+      modpack: 'Modpack',
+      modpacks: 'Modpacks',
+    },
+    open: 'Open',
+    close: 'Close',
+    categories: 'Categories',
+    loaders: 'Mod loaders',
+    environments: 'Environments',
+    server: 'Server',
+    client: 'Client',
+    mcVersions: 'Minecraft versions',
+    chooseMcVersions: 'Choose versions...',
+    licenses: 'Licenses',
+    loading: 'Loading...',
+    recentlyCreated: 'Recently created',
+    recentlyUpdated: 'Recently updated',
+    selectOne: 'Select one',
+  },
+  userControls: {
+    myProjects: 'My projects',
+    profile: 'Profile',
+    notifications: 'Notifications',
+    settings: 'Settings',
+    followedProjects: 'Followed projects',
+    moderation: 'Moderation',
+    logOut: 'Log out',
+    gitHub: 'Sign in with GitHub',
+    loggedOut: 'Logged out',
+    loggedOutSuccessfully: 'You have logged out successfully!',
+    preferencesSaved: 'Preferences saved',
+    preferencesSavedSuccessfully: 'Your preferences have been saved successfully.',
+  },
+  privacy: {
+    settings: 'Privacy settings',
+    description: 'Modrinth relies on both external providers and in-house tools to allow us to provide custom-tailored experiences and personalized advertising. You can change your privacy settings at any time by going to this settings page, accessible in the footer of any page.',
+    cookie: {
+      line1: 'Modrinth uses cookies for various purposes, including advertising.',
+      line2: 'We encourage you to review your privacy settings by clicking on the button below:',
+      review: 'Review',
+      accept: 'Accept all',
+      refuse: 'Refuse all',
+      confirm: 'Confirm my choices',
+    },
+  },
   homepage: {
     top: {
       typewriter1: 'Open source',
@@ -34,6 +84,25 @@ export default {
       preSpan: 'Modrinth\'s code is fully open source licensed under the GNU AGPL. We\'ve created a high-performance Rust-based backend that is',
       spanText: 'fully documented',
       postSpan: 'for all kinds of tools to use. Our team is dedicated to maintaining an open source ecosystem for all Modrinth applications.',
-    }
+    },
+  },
+  search: {
+    filters: 'Filters',
+    clearFilters: 'Clear filters',
+    includeSnapshots: 'Include snapshots',
+    chooseLicense: 'Choose licenses...',
+    searchDotDotDot: 'Search...',
+    sortBy: 'Sort by',
+    perPage: 'Per page',
+    noResults: 'No results found for your query!',
+    sortTypes: {
+      relevance: 'Relevance',
+      downloadCount: 'Download count',
+      followCount: 'Follow count',
+    },
+  },
+  error: {
+    error: 'An error occurred! Click this text to go back home, and find your way back!',
+    unknown: 'Unknown error',
   },
 }

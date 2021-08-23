@@ -5,18 +5,18 @@
         <div v-if="$auth.user != null" class="card page-nav">
           <nuxt-link :to="'/dashboard/projects'" class="tab last">
             <ProjectIcon />
-            My projects
+            {{ $t('userControls.myProjects') }}
           </nuxt-link>
           <nuxt-link :to="'/dashboard/notifications'" class="tab last">
             <NotificationsIcon />
-            Notifications
+            {{ $t('userControls.notifications') }}
             <div v-if="$user.notifications.length > 0" class="notif-count">
               {{ $user.notifications.length }}
             </div>
           </nuxt-link>
           <nuxt-link :to="'/dashboard/follows'" class="tab last">
             <FollowIcon />
-            Followed projects
+            {{ $t('userControls.followedProjects') }}
           </nuxt-link>
           <nuxt-link
             v-if="
@@ -26,25 +26,25 @@
             class="tab last"
           >
             <ModerationIcon />
-            Moderation
+            {{ $t('userControls.moderation') }}
           </nuxt-link>
           <nuxt-link :to="'/dashboard/settings'" class="tab last">
             <SettingsIcon />
-            Settings
+            {{ $t('userControls.settings') }}
           </nuxt-link>
           <nuxt-link :to="'/dashboard/privacy'" class="tab last">
             <ShieldIcon />
-            Privacy settings
+            {{ $t('privacy.settings') }}
           </nuxt-link>
         </div>
         <div v-else class="card page-nav">
           <a :href="authUrl" class="tab last">
             <UserIcon />
-            Log in
+            {{ $t('userControls.gitHub') }}
           </a>
           <nuxt-link :to="'/dashboard/privacy'" class="tab last">
             <SettingsIcon />
-            Privacy settings
+            {{ $t('privacy.settings') }}
           </nuxt-link>
         </div>
       </div>
