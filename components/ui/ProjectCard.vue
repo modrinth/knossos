@@ -30,31 +30,31 @@
           <div class="stats">
             <div v-if="status !== null" class="stat">
               <div class="info">
-                <h4>Status</h4>
+                <h4>{{ $t('generic.status') }}</h4>
                 <span v-if="status === 'approved'" class="badge green">
-                  Approved
+                  {{ $t('status.approved') }}
                 </span>
                 <span v-if="status === 'rejected'" class="badge red">
-                  Rejected
+                  {{ $t('status.rejected') }}
                 </span>
-                <span v-if="status === 'draft'" class="badge yellow"
-                  >Draft</span
-                >
+                <span v-if="status === 'draft'" class="badge yellow">
+                  {{ $t('status.draft') }}
+                </span>
                 <span v-if="status === 'processing'" class="badge yellow">
-                  Under review
+                  {{ $t('status.processing') }}
                 </span>
                 <span v-if="status === 'unlisted'" class="badge gray">
-                  Unlisted
+                  {{ $t('status.unlisted') }}
                 </span>
                 <span v-if="status === 'unknown'" class="badge gray">
-                  Unknown
+                  {{ $t('generic.unknown') }}
                 </span>
               </div>
             </div>
             <div class="stat">
               <DownloadIcon aria-hidden="true" />
               <div class="info">
-                <h4>Downloads</h4>
+                <h4>{{ $t('generic.downloads') }}</h4>
                 <p class="value">{{ formatNumber(downloads) }}</p>
               </div>
             </div>
@@ -64,9 +64,7 @@
                 <h4>Created</h4>
                 <p
                   v-tooltip="
-                    $dayjs(createdAt).format(
-                      '[Created on] YYYY-MM-DD [at] HH:mm A'
-                    )
+                    $dayjs(createdAt).format(this.$i18n.t('generic.createdOn'))
                   "
                   class="value"
                 >
@@ -80,9 +78,7 @@
                 <h4>Updated</h4>
                 <p
                   v-tooltip="
-                    $dayjs(updatedAt).format(
-                      '[Updated on] YYYY-MM-DD [at] HH:mm A'
-                    )
+                    $dayjs(updatedAt).format(this.$i18n.t('generic.updatedOn'))
                   "
                   class="value"
                 >

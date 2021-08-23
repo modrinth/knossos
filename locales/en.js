@@ -29,6 +29,11 @@ export default {
     channel: "Channel",
     files: "Files",
     changelog: "Changelog",
+    unknown: "Unknown",
+    created: "Created",
+    createdOn: "[Created on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
+    updatedOn: "[Updated on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
+    downloads: "Downloads"
   },
   creation: {
     filesSelected: "{0} file selected | {0} files selected", // 1 file selected | 2+ files selected
@@ -133,5 +138,13 @@ export default {
     unknown: "Unknown error",
     noTitle: "No title defined",
     noDescription: "No description defined",
+  },
+  status: {
+    status: "Status",
+    approved: "Approved",
+    rejected: "Rejected",
+    draft: "Draft",
+    processing: "Under review",
+    unlisted: "Unlisted",
   },
 };

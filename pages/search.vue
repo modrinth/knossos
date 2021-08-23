@@ -5,13 +5,13 @@
         <div class="filters-wrapper">
           <section class="filter-group">
             <button class="filter-button-done" @click="toggleFiltersMenu">
-              Close
+              {{ $t('generic.close') }}
             </button>
             <button class="iconified-button" @click="clearFilters">
               <ExitIcon />
-              Clear filters
+              {{ $t('search.clearFilters') }}
             </button>
-            <h3>Categories</h3>
+            <h3>{{ $t('generic.categories') }}</h3>
             <SearchFilter
               v-for="category in $tag.categories.filter(
                 (x) => x.project_type === projectType
@@ -23,7 +23,7 @@
               :icon="category.icon"
               @toggle="toggleFacet"
             />
-            <h3 class="upper-spacing">Mod loaders</h3>
+            <h3 class="upper-spacing">{{ $t('generic.loaders') }}</h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) =>
                 x.supported_project_types.includes(projectType)
@@ -35,7 +35,7 @@
               :icon="loader.icon"
               @toggle="toggleFacet"
             />
-            <h3 class="upper-spacing">Environments</h3>
+            <h3 class="upper-spacing">{{ $t('generic.environments') }}</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
               display-name="Client"
@@ -52,7 +52,7 @@
             >
               <ServerSide />
             </SearchFilter>
-            <h3 class="upper-spacing">Minecraft versions</h3>
+            <h3 class="upper-spacing">{{ $t('generic.mcVersions') }}</h3>
             <Checkbox
               v-model="showSnapshots"
               label="Include snapshots"
@@ -81,7 +81,7 @@
             placeholder="Choose versions..."
             @input="onSearchChange(1)"
           ></multiselect>
-          <h3 class="upper-spacing">Licenses</h3>
+          <h3 class="upper-spacing">{{ $t('generic.licenses') }}</h3>
           <Multiselect
             v-model="displayLicense"
             placeholder="Choose licenses..."

@@ -1,6 +1,7 @@
 import { sortRoutes } from '@nuxt/utils'
 
 import en from './locales/en'
+import cy from './locales/cy'
 
 export default {
   /*
@@ -252,6 +253,7 @@ export default {
     strategy: 'no_prefix',
     locales: [
       { code: 'en', file: 'en.js', name: 'English' },
+      { code: 'cy', file: 'cy.js', name: 'Test langue' },
     ],
     lazy: true,
     langDir: 'locales/',
@@ -260,7 +262,7 @@ export default {
       locale: 'en',
       fallbackLocale: 'en',
       messages: {
-        en
+        en, cy
       },
     },
     detectBrowserLanguage: {
