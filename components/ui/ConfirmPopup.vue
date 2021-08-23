@@ -7,9 +7,9 @@
       </span>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
-          To confirm your action, please type
+          {{ $t('userControls.confirmAction.preName') }}
           <span class="confirmation-text">{{ confirmationText }}</span>
-          to continue
+          {{ $t('userControls.confirmAction.postName') }}
         </span>
       </label>
       <input
@@ -17,11 +17,13 @@
         id="confirmation"
         v-model="confirmation_typed"
         type="text"
-        placeholder="Type the input needed to continue"
+        placeholder="$t('userControls.confirmAction.preName')"
         @input="type"
       />
       <div class="actions">
-        <button class="button" @click="cancel">Cancel</button>
+        <button class="button" @click="cancel">
+          {{ $t('generic.cancel') }}
+        </button>
         <button
           class="button warn-button"
           :disabled="action_disabled"

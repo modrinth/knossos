@@ -18,7 +18,7 @@ export default {
   props: {
     prompt: {
       type: String,
-      default: 'Select file',
+      default: 'Select files or drag them here',
     },
     multiple: {
       type: Boolean,
@@ -42,10 +42,8 @@ export default {
       const length = this.files.length
       if (length === 0) {
         this.text = this.prompt
-      } else if (length === 1) {
-        this.text = '1 file selected'
-      } else if (length > 1) {
-        this.text = length + ' files selected'
+      } else if (length > 0) {
+        this.text = this.$i18n.tc('creation.filesSelected', length, [length])
       }
       this.$emit('change', this.files)
     },

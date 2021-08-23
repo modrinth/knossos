@@ -23,6 +23,15 @@ export default {
     recentlyCreated: 'Recently created',
     recentlyUpdated: 'Recently updated',
     selectOne: 'Select one',
+    cancel: 'Cancel',
+    proceed: 'Proceed',
+    name: 'Name',
+    number: 'Number',
+  },
+  creation: {
+    filesSelected: '{0} file selected | {0} files selected',
+    selectFile: 'Select files or drag them here',
+    areYouSure: 'Are you sure that you want to leave without saving?'
   },
   userControls: {
     myProjects: 'My projects',
@@ -37,6 +46,11 @@ export default {
     loggedOutSuccessfully: 'You have logged out successfully!',
     preferencesSaved: 'Preferences saved',
     preferencesSavedSuccessfully: 'Your preferences have been saved successfully.',
+    confirmAction: {
+      preName: "To confirm your action, please type",
+      postName: "to continue.",
+    },
+    inputNeeded: 'Type the input needed to continue',
   },
   privacy: {
     settings: 'Privacy settings',
@@ -104,5 +118,7 @@ export default {
   error: {
     error: 'An error occurred! Click this text to go back home, and find your way back!',
     unknown: 'Unknown error',
+    noTitle: 'No title defined',
+    noDescription: 'No description defined',
   },
 }
