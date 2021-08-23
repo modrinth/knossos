@@ -314,6 +314,10 @@
                   v-if="version.loaders.includes('forge')"
                   class="loader"
                 />
+                <PurpurIcon
+                  v-if="version.loaders.includes('purpur')"
+                  class="loader"
+                />
                 <span
                   v-if="version.game_versions.length > 0"
                   class="game-version limit-text-width"
@@ -372,6 +376,7 @@ import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 import ForgeIcon from '~/assets/images/categories/forge.svg?inline'
 import FabricIcon from '~/assets/images/categories/fabric.svg?inline'
+import PurpurIcon from '~/assets/images/categories/purpur.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 
 export default {
@@ -394,6 +399,7 @@ export default {
     CodeIcon,
     ReportIcon,
     FollowIcon,
+    PurpurIcon,
   },
   async asyncData(data) {
     try {

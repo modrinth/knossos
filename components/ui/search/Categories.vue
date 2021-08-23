@@ -8,6 +8,10 @@
       <ForgeLoader aria-hidden="true" />
       Forge
     </p>
+    <p v-if="categories.includes('purpur')">
+      <PurpurLoader aria-hidden="true" />
+      Purpur
+    </p>
     <p v-if="categories.includes('technology')">
       <TechCategory aria-hidden="true" />
       Technology
@@ -75,6 +79,7 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
+import PurpurLoader from '~/assets/images/categories/purpur.svg?inline'
 
 export default {
   name: 'Categories',
@@ -93,6 +98,7 @@ export default {
     WorldGenCategory,
     ForgeLoader,
     FabricLoader,
+    PurpurLoader,
   },
   props: {
     categories: {

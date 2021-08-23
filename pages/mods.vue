@@ -250,6 +250,14 @@
             >
               <ForgeLoader />
             </SearchFilter>
+            <SearchFilter
+              :active-filters="facets"
+              display-name="Purpur"
+              facet-name="categories:purpur"
+              @toggle="toggleFacet"
+            >
+              <PurpurLoader />
+            </SearchFilter>
             <h3>Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -337,6 +345,7 @@ import WorldGenCategory from '~/assets/images/categories/worldgen.svg?inline'
 
 import ForgeLoader from '~/assets/images/categories/forge.svg?inline'
 import FabricLoader from '~/assets/images/categories/fabric.svg?inline'
+import PurpurLoader from '~/assets/images/categories/purpur.svg?inline'
 
 import ClientSide from '~/assets/images/categories/client.svg?inline'
 import ServerSide from '~/assets/images/categories/server.svg?inline'
@@ -375,6 +384,7 @@ export default {
     SearchIcon,
     ExitIcon,
     LogoAnimated,
+    PurpurLoader,
   },
   fetchOnServer: false,
   async fetch() {
