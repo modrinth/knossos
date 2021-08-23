@@ -3,7 +3,7 @@
     <div class="container">
       <NuxtLink to="/">
         <h2>{{ error.message }}</h2>
-        <p>{{ $t('error.error') }}</p>
+        <p>{{ $t('error.errorLong') }}</p>
       </NuxtLink>
     </div>
   </div>

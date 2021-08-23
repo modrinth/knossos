@@ -28,7 +28,7 @@
           placeholder="Enter your username"
         />
       </label>
-      <h3>Name</h3>
+      <h3>{{ $t('generic.name') }}</h3>
       <label>
         <span>
           Your display name on your Modrinth profile. This does not have to be
@@ -191,7 +191,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -210,7 +210,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: err.response.data.description,
           type: 'error',
         })

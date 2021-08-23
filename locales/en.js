@@ -26,11 +26,24 @@ export default {
     proceed: "Proceed",
     name: "Name",
     number: "Number",
+    channel: "Channel",
+    files: "Files",
+    changelog: "Changelog",
   },
   creation: {
-    filesSelected: "{0} file selected | {0} files selected",
+    filesSelected: "{0} file selected | {0} files selected", // 1 file selected | 2+ files selected
     selectFile: "Select files or drag them here",
     areYouSure: "Are you sure that you want to leave without saving?",
+    version: {
+      createVersion: "Create version",
+      nameDescription: "This is what users will see first. If not specified, this will default to the version number.",
+      numberDescription: "This is how your version will appear in project lists and URLs.",
+      channelDescription: "It is important to notify everyone whether the version is stable or if it's still in development.",
+      loaderDescription: "Mark all mod loaders this version works with.",
+      mcVersionDescription: "Mark all Minecraft version this version supports.",
+      fileDescription: "You must upload at least one file, however, you are allowed to upload multiple files.",
+      changelogDescription: "Tell everyone what's new. It supports the same Markdown formatting as the description, but the changelogs don't need to be too creative.",
+    }
   },
   userControls: {
     myProjects: "My projects",
@@ -115,7 +128,8 @@ export default {
     }
   },
   error: {
-    error: "An error occurred! Click this text to go back home, and find your way back!",
+    error: "An error occurred!",
+    errorLong: "An error occurred! Click this text to go back home, and find your way back!",
     unknown: "Unknown error",
     noTitle: "No title defined",
     noDescription: "No description defined",

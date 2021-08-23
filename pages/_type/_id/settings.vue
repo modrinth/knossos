@@ -305,7 +305,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -325,7 +325,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -351,7 +351,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: err.response.data.description,
           type: 'error',
         })

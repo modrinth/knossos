@@ -33,7 +33,7 @@
       </button>
     </header>
     <section class="essentials">
-      <h3>Name</h3>
+      <h3>{{ $t('generic.name') }}</h3>
       <label>
         <span>
           Be creative! Generic project names will be harder to search for.
@@ -494,7 +494,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: err.response.data.description,
           type: 'error',
         })

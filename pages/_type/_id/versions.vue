@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th></th>
-          <th>Version</th>
+          <th>{{ $t('generic.version') }}</th>
           <th>Supports</th>
           <th>Stats</th>
         </tr>

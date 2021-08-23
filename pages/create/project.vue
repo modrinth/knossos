@@ -21,7 +21,7 @@
         </button>
       </header>
       <section class="essentials">
-        <h3>Name</h3>
+        <h3>{{ $t('generic.name') }}</h3>
         <label>
           <span>
             Be creative! Generic project names will be harder to search for.
@@ -202,11 +202,11 @@
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Version</th>
-              <th>Mod loader</th>
-              <th>Minecraft version</th>
-              <th>Channel</th>
+              <th>{{ $t('generic.name') }}</th>
+              <th>{{ $t('generic.version') }}</th>
+              <th>{{ $t('generic.loader') }}</th>
+              <th>{{ $t('generic.mcVersions') }}</th>
+              <th>{{ $t('generic.channel') }}</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -275,35 +275,27 @@
             </button>
           </div>
           <div class="main">
-            <h3>Name</h3>
+            <h3>{{ $t('generic.name') }}</h3>
             <label>
-              <span>
-                This is what users will see first. If not specified, this will
-                default to the version number.
-              </span>
+              <span>{{ $t('creation.version.nameDescription') }}</span>
               <input
                 v-model="versions[currentVersionIndex].version_title"
                 type="text"
                 placeholder="Enter the name"
               />
             </label>
-            <h3>Number</h3>
+            <h3>{{ $t('generic.number') }}</h3>
             <label>
-              <span>
-                This is how your version will appear in project lists and URLs.
-              </span>
+              <span>{{ $t('creation.version.numberDescription') }}</span>
               <input
                 v-model="versions[currentVersionIndex].version_number"
                 type="text"
                 placeholder="Enter the number"
               />
             </label>
-            <h3>Channel</h3>
+            <h3>{{ $t('generic.channel') }}</h3>
             <label>
-              <span>
-                It is important to notify everyone whether the version is stable
-                or if it's still in development.
-              </span>
+              <span>{{ $t('creation.version.channe;Description') }}</span>
               <multiselect
                 v-model="versions[currentVersionIndex].release_channel"
                 placeholder="Select one"
@@ -316,7 +308,7 @@
             </label>
             <h3>Mod loaders</h3>
             <label>
-              <span> Mark all mod loaders this version works with. </span>
+              <span>{{ $t('creation.version.loaderDescription') }}</span>
               <multiselect
                 v-model="versions[currentVersionIndex].loaders"
                 :options="
@@ -340,10 +332,10 @@
                 placeholder="Choose mod loaders..."
               />
             </label>
-            <h3>Minecraft versions</h3>
+            <h3>{{ $t('generic.mcVersions') }}</h3>
             <label>
               <span>
-                Mark all Minecraft version this project's version supports.
+                {{ $t('creation.version.mcVersionDescription') }}
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].game_versions"
@@ -360,27 +352,19 @@
                 placeholder="Choose versions..."
               />
             </label>
-            <h3>Files</h3>
+            <h3>{{ $t('generic.files') }}</h3>
             <label>
-              <span>
-                You must upload at least one file, however, you are allowed to
-                upload multiple files.
-              </span>
+              <span>{{ $t('creation.version.fileDescription') }}</span>
               <FileInput
                 accept=".jar,application/java-archive,.zip,application/zip"
                 multiple
-                prompt="Choose files or drag them here"
                 @change="updateVersionFiles"
               />
             </label>
           </div>
           <div class="changelog">
-            <h3>Changes</h3>
-            <span>
-              Tell everyone what's new. It supports the same Markdown formatting
-              as the description, but it is advised to not be too creative with
-              changelogs
-            </span>
+            <h3>{{ $t('generic.changelog') }}</h3>
+            <span>{{ $t('creation.version.changelogDescription') }}</span>
             <div class="textarea-wrapper">
               <textarea
                 v-model="versions[currentVersionIndex].changelog"
@@ -692,7 +676,7 @@ export default {
 
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$i18n.t('error.error'),
           text: description,
           type: 'error',
         })
