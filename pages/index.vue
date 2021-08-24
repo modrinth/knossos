@@ -16,11 +16,9 @@
         <h3>{{ $t('homepage.section1.heading') }}</h3>
         <h1>{{ $t('homepage.section1.subheading') }}</h1>
         <p>
-          {{ $t('homepage.section1.preSpan') }}
-          <span>
-            {{ $t('homepage.section1.spanText') }}
-          </span>
-          {{ $t('homepage.section1.postSpan') }}
+          {{ $t('homepage.section1.preSpan')
+          }}<span>{{ $t('homepage.section1.spanText') }}</span
+          >{{ $t('homepage.section1.postSpan') }}
         </p>
       </div>
       <div class="right hero-image">
@@ -35,15 +33,13 @@
         <h3>{{ $t('homepage.section2.heading') }}</h3>
         <h1>{{ $t('homepage.section2.subheading') }}</h1>
         <p>
-          {{ $t('homepage.section2.preSpan') }}
-          <span>
-            {{ $t('homepage.section2.spanText') }}
-          </span>
-          {{ $t('homepage.section2.postSpan') }}
+          {{ $t('homepage.section2.preSpan')
+          }}<span>{{ $t('homepage.section2.spanText') }}</span
+          >{{ $t('homepage.section2.postSpan') }}
         </p>
         <p>
-          <span>{{ $t('homepage.section2.secondSpan') }}</span>
-          {{ $t('homepage.section2.secondBody') }}
+          <span>{{ $t('homepage.section2.secondSpan') }}</span
+          >{{ $t('homepage.section2.secondBody') }}
         </p>
       </div>
       <div class="right columns workflow">
@@ -148,13 +144,12 @@
         <h3>{{ $t('homepage.section3.heading') }}</h3>
         <h1>{{ $t('homepage.section3.subheading') }}</h1>
         <p>
-          {{ $t('homepage.section3.preSpan') }}
-          <span
-            ><a href="https://github.com/modrinth/labrinth/wiki">{{
+          {{ $t('homepage.section3.preSpan')
+          }}<span
+            ><a href="https://docs.modrinth.com">{{
               $t('homepage.section3.spanText')
             }}</a></span
-          >
-          {{ $t('homepage.section3.postSpan') }}
+          >{{ $t('homepage.section3.postSpan') }}
         </p>
       </div>
       <div class="right hero-image less-margin">

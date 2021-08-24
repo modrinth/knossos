@@ -30,7 +30,7 @@
           <div class="stats">
             <div v-if="status !== null" class="stat">
               <div class="info">
-                <h4>{{ $t('generic.status') }}</h4>
+                <h4>{{ $t('status.status') }}</h4>
                 <span v-if="status === 'approved'" class="badge green">
                   {{ $t('status.approved') }}
                 </span>

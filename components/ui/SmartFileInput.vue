@@ -24,7 +24,7 @@ export default {
   props: {
     prompt: {
       type: String,
-      default: 'Select file',
+      default: 'Select files or drag them here',
     },
     multiple: {
       type: Boolean,

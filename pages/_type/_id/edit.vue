@@ -1,7 +1,7 @@
 <template>
   <div class="page-contents">
     <header class="columns">
-      <h3 class="column-grow-1">Edit project</h3>
+      <h3 class="column-grow-1">{{ $t('creation.version.edit') }}</h3>
       <nuxt-link
         :to="`/${project.project_type}/${
           project.slug ? project.slug : project.id
@@ -21,7 +21,7 @@
         :disabled="!$nuxt.$loading"
         @click="saveProjectReview"
       >
-        {{ $t('creation.submit') }}
+        {{ $t('creation.project.submit') }}
       </button>
       <button
         title="Save"
@@ -164,8 +164,8 @@
         </label>
       </h3>
       <span>
-        {{ $t('creation.project.bodyDescription.preLink') }}
-        <a
+        {{ $t('creation.project.bodyDescription.preLink')
+        }}<a
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
           rel="noopener noreferrer"
@@ -184,12 +184,12 @@
     </section>
     <section class="extra-links">
       <div class="title">
-        <h3>{{ $t("generic.externalResources") }}</h3>
+        <h3>{{ $t('generic.externalResources') }}</h3>
       </div>
       <label
         title="A place for users to report bugs, issues, and concerns about your project."
       >
-        <span>{{ $t("generic.issueTracker") }}</span>
+        <span>{{ $t('generic.issueTracker') }}</span>
         <input
           v-model="newProject.issues_url"
           type="url"
@@ -199,7 +199,7 @@
       <label
         title="A page/repository containing the source code for your project"
       >
-        <span>{{ $t("generic.sourceCode") }}</span>
+        <span>{{ $t('generic.sourceCode') }}</span>
         <input
           v-model="newProject.source_url"
           type="url"
@@ -209,7 +209,7 @@
       <label
         title="A page containing information, documentation, and help for the project."
       >
-        <span>{{ $t("generic.wikiPage") }}</span>
+        <span>{{ $t('generic.wikiPage') }}</span>
         <input
           v-model="newProject.wiki_url"
           type="url"
@@ -217,7 +217,7 @@
         />
       </label>
       <label title="An invitation link to your Discord server.">
-        <span>{{ $t("generic.discord") }}</span>
+        <span>{{ $t('generic.discord') }}</span>
         <input
           v-model="newProject.discord_url"
           type="url"
@@ -227,22 +227,19 @@
     </section>
     <section class="license">
       <div class="title">
-        <h3>{{ $t("generic.license") }}</h3>
+        <h3>{{ $t('generic.license') }}</h3>
       </div>
       <label>
         <span>
-          It is very important to choose a proper license for your mod. You may
-          choose one from our list or provide a URL to a custom license.
+          {{ $t('creation.project.licenseDescription.description') }}
           <br />
-          Confused? See our
-          <a
+          {{ $t('creation.project.licenseDescription.preLink')
+          }}<a
             href="https://blog.modrinth.com/licensing-guide/"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            licensing guide</a
-          >
-          for more information.
+            >{{ $t('creation.project.licenseDescription.link') }}</a
+          >{{ $t('creation.project.licenseDescription.postLink') }}
         </span>
         <div class="input-group">
           <Multiselect
@@ -261,7 +258,7 @@
     </section>
     <section class="donations">
       <div class="title">
-        <h3>{{ $t("generic.donationLinks") }}</h3>
+        <h3>{{ $t('generic.donationLinks') }}</h3>
         <button
           title="Add a link"
           class="button"
@@ -271,12 +268,12 @@
             donationLinks.push('')
           "
         >
-          {{ $t("generic.addLink") }}
+          {{ $t('generic.addLink') }}
         </button>
       </div>
       <div v-for="(item, index) in donationPlatforms" :key="index">
         <label title="The donation link.">
-          <span>{{ $t("generic.link") }}</span>
+          <span>{{ $t('generic.link') }}</span>
           <input
             v-model="donationLinks[index]"
             type="url"
@@ -284,7 +281,7 @@
           />
         </label>
         <label title="The donation platform of the link.">
-          <span>{{ $t("generic.platform") }}</span>
+          <span>{{ $t('generic.platform') }}</span>
           <Multiselect
             v-model="donationPlatforms[index]"
             placeholder="Select one"
@@ -303,7 +300,7 @@
             donationLinks.splice(index, 1)
           "
         >
-          {{ $t("generic.removeLink") }}
+          {{ $t('generic.removeLink') }}
         </button>
         <hr />
       </div>
@@ -324,7 +321,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     if (
       this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
+      !window.confirm(this.$i18n.t('creation.areYouSure'))
     ) {
       return
     }

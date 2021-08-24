@@ -32,14 +32,14 @@ export default {
     unknown: "Unknown",
     created: "Created",
     createdOn: "[Created on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
-    updatedOn: "[Updated on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
+    updatedOn: "[Updated on] YYYY-MM-DD [at] HH:mm A", // ditto "
     downloads: "Downloads",
     download: "Download",
     report: "Report",
     delete: "Delete",
     edit: "Edit",
     published: "Published",
-    status: "Status",
+    discard: "Discard",
     back: "Back",
     save: "Save",
     description: "Description",
@@ -56,6 +56,8 @@ export default {
     donationLinks: "Donation links",
     link: "Link",
     platform: "Platform",
+    actions: "Actions",
+    version: "Version",
   },
   creation: {
     filesSelected: "{0} file selected | {0} files selected", // 1 file selected | 2+ files selected
@@ -63,6 +65,8 @@ export default {
     areYouSure: "Are you sure that you want to leave without saving?",
     version: {
       create: "Create a version",
+      add: "Add a version", // This is necessary to be separate because it's used in a different context
+      edit: "Edit version",
       nameDescription: "This is what users will see first. If not specified, this will default to the version number.",
       numberDescription: "This is how your version will appear in project lists and URLs.",
       channelDescription: "It is important to notify everyone whether the version is stable or if it's still in development.",
@@ -74,10 +78,12 @@ export default {
     },
     project: {
       create: "Create a project",
+      saveDraft: "Save draft",
       nameDescription: "Be creative! Generic project names will be harder to search for.",
       descriptionDescription: "Give a short description to your project which will appear in search.",
       categoriesDescription: "Select up to 3 categories that will help others find your project.",
       slugDescription: "Set this to something that will looks nice in your project's URL.",
+      typeDescription: "The project type of your project.",
       environmentDescription: "Let others know what environments your project supports.",
       icon: {
         square: "Must be a square",
@@ -86,12 +92,19 @@ export default {
         reset: "Reset icon",
       },
       bodyDescription: {
-        preLink: "You can type an extended description of your project here. This editor supports Markdown. Its syntax can be found",
+        preLink: "You can type an extended description of your project here. This editor supports Markdown. Its syntax can be found ",
         link: "here",
-        postLink: ".",
-      }
+        postLink: ". HTML can also be used inside your description, excluding scripts and iframes.",
+      },
+      licenseDescription: {
+        description: "It is very important to choose a proper license for your mod. You may choose one from our list or provide a URL to a custom license.",
+        preLink: "Confused? See our ",
+        link: "licensing guide",
+        postLink: " for more information.",
+      },
+      optional: "— this section is optional",
+      submit: "Submit for review",
     },
-    submit: "Submit for review"
   },
   userControls: {
     myProjects: "My projects",
@@ -135,18 +148,18 @@ export default {
     section1: {
       heading: "Conveniently modern",
       subheading: "A redefined search interface",
-      preSpan: "We've implemented",
+      preSpan: "We've implemented ",
       spanText: "fast and adaptable",
-      postSpan: "search algorithms so you don't have to wait, while creating a responsive interface that makes sense. Modrinth is full of elegant project discovery and is a platform which just works.",
+      postSpan: " search algorithms so you don't have to wait, while creating a responsive interface that makes sense. Modrinth is full of elegant project discovery and is a platform which just works.",
     },
     section2: {
       heading: "Built for developers",
       subheading: "The world's most modder-friendly platform",
-      preSpan: "Modrinth intends to give back to the community, not leech from it. That's why we plan to give creators",
+      preSpan: "Modrinth intends to give back to the community, not leech from it. That's why we plan to give creators ",
       spanText: "one hundred percent",
-      postSpan: "of the ad revenue earned on their project pages back to them, while creating easy to use tools for every modder to publish their mods on the Modrinth platform.",
+      postSpan: " of the ad revenue earned on their project pages back to them, while creating easy to use tools for every modder to publish their mods on the Modrinth platform.",
       secondSpan: "Note: This is currently not implemented.",
-      secondBody: "There is no ETA for when it will be.",
+      secondBody: " There is no ETA for when it will be.",
       rightHeading1: "Code",
       rightHeading2: "Build",
       rightHeading3: "Publish",
@@ -155,9 +168,9 @@ export default {
     section3: {
       heading: "Easy to implement",
       subheading: "Backed by an open source API",
-      preSpan: "Modrinth's code is fully open source licensed under the GNU AGPL. We've created a high-performance Rust-based backend that is",
+      preSpan: "Modrinth's code is fully open source licensed under the GNU AGPL. We've created a high-performance Rust-based backend that is ",
       spanText: "fully documented",
-      postSpan: "for all kinds of tools to use. Our team is dedicated to maintaining an open source ecosystem for all Modrinth applications.",
+      postSpan: " for all kinds of tools to use. Our team is dedicated to maintaining an open source ecosystem for all Modrinth applications.",
     }
   },
   search: {
@@ -191,11 +204,18 @@ export default {
     unlisted: "Unlisted",
   },
   version: {
-    version: "Version",
     backToList: "Back to list",
     featured: "Featured",
     noChangelog: "No changelog provided.",
     unknownDependency: "Unknown dependency",
     primary: "Primary",
-  }
+  },
+  project: {
+    type: "Project type",
+    channel: {
+      release: "Release",
+      beta: "Beta",
+      alpha: "Alpha",
+    },
+  },
 };
