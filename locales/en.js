@@ -16,7 +16,7 @@ export default {
     server: "Server",
     client: "Client",
     mcVersions: "Minecraft versions",
-    chooseMcVersions: "Choose versions...",
+    license: "License",
     licenses: "Licenses",
     loading: "Loading...",
     recentlyCreated: "Recently created",
@@ -26,21 +26,43 @@ export default {
     proceed: "Proceed",
     name: "Name",
     number: "Number",
-    channel: "Channel",
+    channel: "Release channel",
     files: "Files",
     changelog: "Changelog",
     unknown: "Unknown",
     created: "Created",
     createdOn: "[Created on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
     updatedOn: "[Updated on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
-    downloads: "Downloads"
+    downloads: "Downloads",
+    download: "Download",
+    report: "Report",
+    delete: "Delete",
+    edit: "Edit",
+    published: "Published",
+    status: "Status",
+    back: "Back",
+    save: "Save",
+    description: "Description",
+    slug: "Vanity URL (slug)",
+    icon: "Icon",
+    body: "Body",
+    externalResources: "External resources",
+    issueTracker: "Issue tracker",
+    sourceCode: "Source code",
+    wikiPage: "Wiki page",
+    discord: "Discord invite",
+    addLink: "Add a link",
+    removeLink: "Remove link",
+    donationLinks: "Donation links",
+    link: "Link",
+    platform: "Platform",
   },
   creation: {
     filesSelected: "{0} file selected | {0} files selected", // 1 file selected | 2+ files selected
     selectFile: "Select files or drag them here",
     areYouSure: "Are you sure that you want to leave without saving?",
     version: {
-      createVersion: "Create version",
+      create: "Create a version",
       nameDescription: "This is what users will see first. If not specified, this will default to the version number.",
       numberDescription: "This is how your version will appear in project lists and URLs.",
       channelDescription: "It is important to notify everyone whether the version is stable or if it's still in development.",
@@ -48,7 +70,28 @@ export default {
       mcVersionDescription: "Mark all Minecraft version this version supports.",
       fileDescription: "You must upload at least one file, however, you are allowed to upload multiple files.",
       changelogDescription: "Tell everyone what's new. It supports the same Markdown formatting as the description, but the changelogs don't need to be too creative.",
-    }
+      save: "Save version",
+    },
+    project: {
+      create: "Create a project",
+      nameDescription: "Be creative! Generic project names will be harder to search for.",
+      descriptionDescription: "Give a short description to your project which will appear in search.",
+      categoriesDescription: "Select up to 3 categories that will help others find your project.",
+      slugDescription: "Set this to something that will looks nice in your project's URL.",
+      environmentDescription: "Let others know what environments your project supports.",
+      icon: {
+        square: "Must be a square",
+        minimumSize: "Minimum size is 100x100 pixels",
+        formats: "Acceptable formats are PNG, JPEG, GIF, and WEBP",
+        reset: "Reset icon",
+      },
+      bodyDescription: {
+        preLink: "You can type an extended description of your project here. This editor supports Markdown. Its syntax can be found",
+        link: "here",
+        postLink: ".",
+      }
+    },
+    submit: "Submit for review"
   },
   userControls: {
     myProjects: "My projects",
@@ -147,4 +190,12 @@ export default {
     processing: "Under review",
     unlisted: "Unlisted",
   },
+  version: {
+    version: "Version",
+    backToList: "Back to list",
+    featured: "Featured",
+    noChangelog: "No changelog provided.",
+    unknownDependency: "Unknown dependency",
+    primary: "Primary",
+  }
 };

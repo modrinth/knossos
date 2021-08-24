@@ -2,7 +2,7 @@
   <div class="page-container">
     <div class="page-contents">
       <header class="columns">
-        <h3 class="column-grow-1">Create a project</h3>
+        <h3 class="column-grow-1">{{ $t('project.create') }}</h3>
         <button
           title="Save draft"
           class="button column"
@@ -203,7 +203,7 @@
           <thead>
             <tr>
               <th>{{ $t('generic.name') }}</th>
-              <th>{{ $t('generic.version') }}</th>
+              <th>{{ $t('version.version') }}</th>
               <th>{{ $t('generic.loader') }}</th>
               <th>{{ $t('generic.mcVersions') }}</th>
               <th>{{ $t('generic.channel') }}</th>

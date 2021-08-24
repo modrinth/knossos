@@ -8,7 +8,7 @@
         }`"
         class="button column"
       >
-        Back
+        {{ $t('generic.back') }}
       </nuxt-link>
       <button
         v-if="
@@ -21,7 +21,7 @@
         :disabled="!$nuxt.$loading"
         @click="saveProjectReview"
       >
-        Submit for approval
+        {{ $t('creation.submit') }}
       </button>
       <button
         title="Save"
@@ -29,38 +29,31 @@
         :disabled="!$nuxt.$loading"
         @click="saveProject"
       >
-        Save
+        {{ $t('generic.save') }}
       </button>
     </header>
     <section class="essentials">
       <h3>{{ $t('generic.name') }}</h3>
       <label>
-        <span>
-          Be creative! Generic project names will be harder to search for.
-        </span>
+        <span>{{ $t('creation.project.nameDescription') }}</span>
         <input
           v-model="newProject.title"
           type="text"
           placeholder="Enter the name"
         />
       </label>
-      <h3>Summary</h3>
+      <h3>{{ $t('generic.description') }}</h3>
       <label>
-        <span>
-          Give a short description of your project that will appear on search
-          pages.
-        </span>
+        <span>{{ $t('creation.project.descriptionDescription') }}</span>
         <input
           v-model="newProject.description"
           type="text"
           placeholder="Enter the summary"
         />
       </label>
-      <h3>Categories</h3>
+      <h3>{{ $t('generic.categories') }}</h3>
       <label>
-        <span>
-          Select up to 3 categories that will help others find your project.
-        </span>
+        <span>{{ $t('creation.project.categoriesDescription') }}</span>
         <Multiselect
           id="categories"
           v-model="newProject.categories"
@@ -82,11 +75,9 @@
           placeholder="Choose categories"
         />
       </label>
-      <h3>Vanity URL (slug)</h3>
+      <h3>{{ $t('generic.slug') }}</h3>
       <label>
-        <span>
-          Set this to something that will looks nice in your project's URL.
-        </span>
+        <span>{{ $t('creation.project.slugDescription') }}</span>
         <input
           id="name"
           v-model="newProject.slug"
@@ -96,7 +87,7 @@
       </label>
     </section>
     <section class="project-icon rows">
-      <h3>Icon</h3>
+      <h3>{{ $t('generic.icon') }}</h3>
       <div class="columns row-grow-1">
         <div class="column-grow-1 rows">
           <file-input
@@ -106,9 +97,9 @@
             @change="showPreviewImage"
           />
           <ul class="row-grow-1">
-            <li>Must be a square</li>
-            <li>Minimum size is 100x100 pixels</li>
-            <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
+            <li>{{ $t('creation.project.icon.square') }}</li>
+            <li>{{ $t('creation.project.icon.minimumSize') }}</li>
+            <li>{{ $t('creation.project.icon.formats') }}</li>
           </ul>
           <button
             class="transparent-button"
@@ -118,7 +109,7 @@
               iconChanged = true
             "
           >
-            Reset icon
+            {{ $t('creation.project.icon.reset') }}
           </button>
         </div>
         <img
@@ -134,11 +125,11 @@
       </div>
     </section>
     <section class="game-sides">
-      <h3>Supported environments</h3>
+      <h3>{{ $t('generic.environments') }}</h3>
       <div class="columns">
-        <span> Let others know what environments your project supports. </span>
+        <span>{{ $t('creation.project.environmentDescription') }}</span>
         <div class="labeled-control">
-          <h3>Client</h3>
+          <h3>{{ $t('generic.client') }}</h3>
           <Multiselect
             v-model="clientSideType"
             placeholder="Select one"
@@ -150,7 +141,7 @@
           />
         </div>
         <div class="labeled-control">
-          <h3>Server</h3>
+          <h3>{{ $t('generic.server') }}</h3>
           <Multiselect
             v-model="serverSideType"
             placeholder="Select one"
@@ -169,18 +160,17 @@
           for="body"
           title="You can type an extended description of your project here."
         >
-          Description
+          {{ $t('generic.body') }}
         </label>
       </h3>
       <span>
-        You can type an extended description of your mod here. This editor
-        supports Markdown. Its syntax can be found
+        {{ $t('creation.project.bodyDescription.preLink') }}
         <a
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
           rel="noopener noreferrer"
-          >here</a
-        >.
+          >{{ $t('creation.project.bodyDescription.link') }}</a
+        >{{ $t('creation.project.bodyDescription.postLink') }}
       </span>
       <div class="columns">
         <div class="textarea-wrapper">
@@ -194,12 +184,12 @@
     </section>
     <section class="extra-links">
       <div class="title">
-        <h3>External links</h3>
+        <h3>{{ $t("generic.externalResources") }}</h3>
       </div>
       <label
         title="A place for users to report bugs, issues, and concerns about your project."
       >
-        <span>Issue tracker</span>
+        <span>{{ $t("generic.issueTracker") }}</span>
         <input
           v-model="newProject.issues_url"
           type="url"
@@ -209,7 +199,7 @@
       <label
         title="A page/repository containing the source code for your project"
       >
-        <span>Source code</span>
+        <span>{{ $t("generic.sourceCode") }}</span>
         <input
           v-model="newProject.source_url"
           type="url"
@@ -219,7 +209,7 @@
       <label
         title="A page containing information, documentation, and help for the project."
       >
-        <span>Wiki page</span>
+        <span>{{ $t("generic.wikiPage") }}</span>
         <input
           v-model="newProject.wiki_url"
           type="url"
@@ -227,7 +217,7 @@
         />
       </label>
       <label title="An invitation link to your Discord server.">
-        <span>Discord invite</span>
+        <span>{{ $t("generic.discord") }}</span>
         <input
           v-model="newProject.discord_url"
           type="url"
@@ -237,7 +227,7 @@
     </section>
     <section class="license">
       <div class="title">
-        <h3>License</h3>
+        <h3>{{ $t("generic.license") }}</h3>
       </div>
       <label>
         <span>
@@ -271,7 +261,7 @@
     </section>
     <section class="donations">
       <div class="title">
-        <h3>Donation links</h3>
+        <h3>{{ $t("generic.donationLinks") }}</h3>
         <button
           title="Add a link"
           class="button"
@@ -281,12 +271,12 @@
             donationLinks.push('')
           "
         >
-          Add a link
+          {{ $t("generic.addLink") }}
         </button>
       </div>
       <div v-for="(item, index) in donationPlatforms" :key="index">
         <label title="The donation link.">
-          <span>Donation Link</span>
+          <span>{{ $t("generic.link") }}</span>
           <input
             v-model="donationLinks[index]"
             type="url"
@@ -294,7 +284,7 @@
           />
         </label>
         <label title="The donation platform of the link.">
-          <span>Donation Platform</span>
+          <span>{{ $t("generic.platform") }}</span>
           <Multiselect
             v-model="donationPlatforms[index]"
             placeholder="Select one"
@@ -313,7 +303,7 @@
             donationLinks.splice(index, 1)
           "
         >
-          Remove Link
+          {{ $t("generic.removeLink") }}
         </button>
         <hr />
       </div>

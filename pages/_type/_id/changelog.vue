@@ -42,7 +42,7 @@
           "
         >
           <DownloadIcon />
-          Download
+          {{ $t('generic.download') }}
         </a>
       </div>
       <div
@@ -50,7 +50,7 @@
         v-html="
           version.changelog
             ? $xss($md.render(version.changelog))
-            : 'No changelog specified.'
+            : this.$i18n.t('version.noChangelog')
         "
       />
     </div>
