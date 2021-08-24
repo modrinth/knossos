@@ -4,9 +4,6 @@
 <script>
 export default {
   auth: true,
-  fetch() {
-    this.$parent.mode = 'edit'
-  },
 }
 </script>
 

@@ -9,7 +9,7 @@
       @proceed="deleteVersion()"
     />
     <nuxt-link
-      v-if="mode === 'normal'"
+      v-if="mode === 'version'"
       class="iconified-button back-button"
       :to="`/${project.project_type}/${
         project.slug ? project.slug : project.id
@@ -19,7 +19,7 @@
       Back to list
     </nuxt-link>
     <div>
-      <div v-if="mode === 'normal'" class="version-header">
+      <div v-if="mode === 'version'" class="version-header">
         <h2>{{ version.name }}</h2>
         <div
           v-if="featuredVersions.find((x) => x.id === version.id)"
@@ -50,6 +50,25 @@
         >
           <TrashIcon />
           Discard changes
+        </nuxt-link>
+      </div>
+      <div v-else-if="mode === 'create'" class="buttons">
+        <button
+          class="action iconified-button brand-button-colors"
+          @click="createVersion"
+        >
+          <CheckIcon />
+          Save
+        </button>
+        <nuxt-link
+          v-if="$auth.user"
+          :to="`/${project.project_type}/${
+            project.slug ? project.slug : project.id
+          }/versions`"
+          class="action iconified-button"
+        >
+          <TrashIcon />
+          Discard version
         </nuxt-link>
       </div>
       <div v-else class="buttons">
@@ -92,7 +111,10 @@
           Edit
         </nuxt-link>
       </div>
-      <div v-if="mode === 'edit'" class="version-data-inputs">
+      <div
+        v-if="mode === 'edit' || mode === 'create'"
+        class="version-data-inputs"
+      >
         <input
           v-model="version.name"
           type="text"
@@ -100,7 +122,7 @@
         />
         <Checkbox v-model="version.featured" label="Featured" />
       </div>
-      <section v-if="mode === 'edit'">
+      <section v-if="mode === 'edit' || mode === 'create'">
         <h3>Changelog</h3>
         <ThisOrThat
           v-model="changelogViewMode"
@@ -136,7 +158,7 @@
           <div class="data">
             <p class="title">Release channel</p>
             <Multiselect
-              v-if="mode === 'edit'"
+              v-if="mode === 'edit' || mode === 'create'"
               v-model="version.version_type"
               class="input"
               placeholder="Select one"
@@ -151,7 +173,7 @@
           <div class="data">
             <p class="title">Mod loaders</p>
             <multiselect
-              v-if="mode === 'edit'"
+              v-if="mode === 'edit' || mode === 'create'"
               v-model="version.loaders"
               :options="
                 $tag.loaders
@@ -175,14 +197,14 @@
             />
             <p v-else class="value">{{ version.loaders.join(',') }}</p>
           </div>
-          <div v-if="mode === 'normal'" class="data">
+          <div v-if="mode === 'version'" class="data">
             <p class="title">Downloads</p>
             <p class="value">{{ $parent.formatNumber(version.downloads) }}</p>
           </div>
           <div class="data">
             <p class="title">Version number</p>
             <input
-              v-if="mode === 'edit'"
+              v-if="mode === 'edit' || mode === 'create'"
               v-model="version.version_number"
               type="text"
               placeholder="Enter the version number..."
@@ -192,7 +214,7 @@
           <div class="data">
             <p class="title">Game versions</p>
             <multiselect
-              v-if="mode === 'edit'"
+              v-if="mode === 'edit' || mode === 'create'"
               v-model="version.game_versions"
               :options="$tag.gameVersions.map((it) => it.version)"
               :loading="$tag.gameVersions.length === 0"
@@ -208,7 +230,7 @@
             />
             <p v-else class="value">{{ version.game_versions.join(',') }}</p>
           </div>
-          <div v-if="mode === 'normal'" class="data">
+          <div v-if="mode === 'version'" class="data">
             <p class="title">Published</p>
             <p class="value">
               {{ $dayjs(version.date_published).format('MMM D, YYYY') }}
@@ -231,7 +253,13 @@
           </div>
         </div>
       </section>
-      <section v-if="version.dependencies.length > 0">
+      <section
+        v-if="
+          version.dependencies.length > 0 ||
+          mode === 'edit' ||
+          mode === 'create'
+        "
+      >
         <h3>Dependencies</h3>
         <div class="dependencies">
           <div
@@ -276,12 +304,12 @@
                   }}
                 </h4>
                 <p v-if="dependency.version" class="version-number">
-                  {{ dependency.version.version_number }}
+                  Version {{ dependency.version.version_number }}
                 </p>
               </nuxt-link>
               <div class="bottom">
                 <button
-                  v-if="mode === 'edit'"
+                  v-if="mode === 'edit' || mode === 'create'"
                   class="iconified-button"
                   @click="version.dependencies.splice(index, 1)"
                 >
@@ -294,7 +322,10 @@
             </div>
           </div>
         </div>
-        <div v-if="mode === 'edit'" class="edit-dependency">
+        <div
+          v-if="mode === 'edit' || mode === 'create'"
+          class="edit-dependency"
+        >
           <h4>Add dependency</h4>
           <ThisOrThat
             v-model="dependencyAddMode"
@@ -323,13 +354,20 @@
           </div>
         </div>
       </section>
-      <section v-if="version.files.length > 0">
+      <section
+        v-if="version.files.length > 0 || mode === 'edit' || mode === 'create'"
+      >
         <h3>Files</h3>
-        <div v-for="file in version.files" :key="file.hashes.sha1" class="file">
+        <div
+          v-for="(file, index) in version.files"
+          :key="file.hashes.sha1"
+          class="file"
+        >
           <p class="filename">{{ file.filename }}</p>
           <div
             v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
             class="featured"
+            @click="primaryFile = file"
           >
             <StarIcon />
             Primary
@@ -352,15 +390,35 @@
               mode === 'edit' && primaryFile.hashes.sha1 !== file.hashes.sha1
             "
             class="action iconified-button"
+            @click="
+              deleteFiles.push(primaryFile.hashes.sha1)
+              version.files.splice(index, 1)
+            "
           >
             <StarIcon />
             Make primary
           </button>
         </div>
-        <button v-if="mode === 'edit'" class="iconified-button">
-          <UploadIcon />
-          Upload files
-        </button>
+        <div v-if="mode === 'edit' || mode === 'create'">
+          <div v-for="(file, index) in newFiles" :key="index" class="file">
+            <p class="filename">{{ file.name }}</p>
+            <button
+              v-if="mode === 'edit'"
+              class="action iconified-button"
+              @click="newFiles.splice(index, 1)"
+            >
+              <TrashIcon />
+              Delete
+            </button>
+          </div>
+        </div>
+        <SmartFileInput
+          v-if="mode === 'edit' || mode === 'create'"
+          multiple
+          accept=".jar,application/java-archive,.zip,application/zip"
+          prompt="Upload files"
+          @change="(x) => x.forEach((y) => newFiles.push(y))"
+        />
       </section>
     </div>
     <NuxtChild v-show="false" :mode.sync="mode" />
@@ -369,9 +427,9 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
+import SmartFileInput from '~/components/ui/SmartFileInput'
 
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
@@ -397,8 +455,8 @@ export default {
     StarIcon,
     CheckIcon,
     Multiselect,
-    UploadIcon,
     PlusIcon,
+    SmartFileInput,
   },
   auth: false,
   beforeRouteLeave(to, from, next) {
@@ -446,10 +504,9 @@ export default {
   },
   data() {
     return {
-      mode: 'normal',
+      mode: 'version',
       primaryFile: {},
       version: {},
-      filesToUpload: [],
       popup_data: null,
 
       changelogViewMode: 'source',
@@ -458,6 +515,9 @@ export default {
       dependencyAddMode: 'project',
       newDependencyId: '',
       newDependencyType: 'required',
+
+      newFiles: [],
+      deleteFiles: [],
     }
   },
   async fetch() {
@@ -470,15 +530,30 @@ export default {
       },
     },
   },
-  mounted() {
-    this.$emit('update:link-bar', [
-      ['Versions', 'versions'],
-      [this.version.name, 'versions/' + this.version.version_number],
-    ])
-  },
   methods: {
     async setVersion() {
-      if (this.$route.params.mode) this.mode = this.$route.params.mode
+      const path = this.$route.name.split('-')
+      this.mode = path[path.length - 1]
+
+      if (this.mode === 'create') {
+        this.version = {
+          id: 'none',
+          project_id: this.project.id,
+          author_id: this.currentMember.user.id,
+          name: '',
+          version_number: '',
+          changelog: '',
+          date_published: Date.now(),
+          downloads: 0,
+          version_type: 'release',
+          files: [],
+          dependencies: [],
+          game_versions: [],
+          loaders: [],
+        }
+
+        return
+      }
 
       this.version = this.versions.find(
         (x) => x.id === this.$route.params.version
@@ -510,73 +585,6 @@ export default {
           (x) => x.id === dependency.version_id
         )
       }
-    },
-    async deleteFile(hash) {
-      this.$nuxt.$loading.start()
-
-      await this.$axios.delete(`version_file/${hash}`, this.$auth.headers)
-
-      await this.$router.go(null)
-      this.$nuxt.$loading.finish()
-    },
-    async makePrimary(hash) {
-      this.$nuxt.$loading.start()
-
-      await this.$axios.patch(
-        `version/${this.version.id}`,
-        {
-          primary_file: ['sha1', hash],
-        },
-        this.$auth.headers
-      )
-
-      await this.$router.go(null)
-      this.$nuxt.$loading.finish()
-    },
-    async addFiles(files) {
-      this.filesToUpload = files
-
-      for (let i = 0; i < files.length; i++) {
-        this.filesToUpload[i].multipartName = files[i].name.concat('-' + i)
-      }
-
-      this.$nuxt.$loading.start()
-
-      const formData = new FormData()
-
-      formData.append('data', JSON.stringify({}))
-
-      for (const fileToUpload of this.filesToUpload) {
-        formData.append(
-          fileToUpload.multipartName,
-          new Blob([fileToUpload]),
-          fileToUpload.name
-        )
-      }
-
-      try {
-        await this.$axios({
-          url: `version/${this.version.id}/file`,
-          method: 'POST',
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: this.$auth.token,
-          },
-        })
-
-        await this.$router.go(null)
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.response.data.description,
-          type: 'error',
-        })
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-
-      this.$nuxt.$loading.finish()
     },
     async addDependency() {
       try {
@@ -618,6 +626,30 @@ export default {
     async saveEditedVersion() {
       this.$nuxt.$loading.start()
       try {
+        const formData = new FormData()
+        formData.append('data', JSON.stringify({}))
+        for (let i = 0; i < this.newFiles.length; i++) {
+          formData.append(
+            this.newFiles[i].name.concat('-' + i),
+            new Blob([this.newFiles[i]]),
+            this.newFiles[i].name
+          )
+        }
+
+        await this.$axios({
+          url: `version/${this.version.id}/file`,
+          method: 'POST',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$auth.token,
+          },
+        })
+
+        for (const hash in this.deleteFiles) {
+          await this.$axios.delete(`version_file/${hash}`, this.$auth.headers)
+        }
+
         await this.$axios.patch(
           `version/${this.version.id}`,
           this.version,
@@ -643,6 +675,68 @@ export default {
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
           }/version/${encodeURIComponent(this.version.version_number)}`
+        )
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+      this.$nuxt.$loading.finish()
+    },
+    async createVersion() {
+      this.$nuxt.$loading.start()
+
+      const formData = new FormData()
+
+      const fileParts = []
+      for (let i = 0; i < this.files.length; i++) {
+        fileParts.push(this.files[i].name.concat('-' + i))
+      }
+
+      const newVersion = {
+        project_id: this.version.project_id,
+        file_parts: fileParts,
+        version_number: this.version.version_number,
+        version_title: this.version.name,
+        version_body: this.version.changelog,
+        dependencies: this.version.dependencies,
+        game_versions: this.version.game_versions,
+        loaders: this.version.loaders,
+        release_channel: this.version.version_type,
+        featured: this.version.featured,
+      }
+
+      formData.append('data', JSON.stringify(newVersion))
+
+      for (let i = 0; i < this.files.length; i++) {
+        formData.append(
+          fileParts[i],
+          new Blob([this.files[i]]),
+          this.files[i].name
+        )
+      }
+
+      try {
+        const data = (
+          await this.$axios({
+            url: 'version',
+            method: 'POST',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$auth.token,
+            },
+          })
+        ).data
+
+        await this.$router.push(
+          `/project/${
+            this.project.slug ? this.project.slug : data.project_id
+          }/version/${encodeURIComponent(data.version_number)}`
         )
       } catch (err) {
         this.$notify({
@@ -733,7 +827,8 @@ section {
     }
   }
 
-  &.edit {
+  &.edit,
+  &.create {
     .data {
       flex-basis: calc(50% - 0.5rem);
 

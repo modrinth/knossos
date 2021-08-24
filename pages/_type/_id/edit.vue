@@ -432,9 +432,6 @@ export default {
       window.removeEventListener('beforeunload', preventLeave)
     })
   },
-  created() {
-    this.$emit('update:link-bar', [['Edit', 'edit']])
-  },
   methods: {
     async saveProjectReview() {
       this.isProcessing = true

@@ -360,13 +360,13 @@
               <span>Description</span>
             </nuxt-link>
             <nuxt-link
-              v-if="project.gallery.length > 0"
+              v-if="project.gallery.length > 0 || currentMember"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
-              }/images`"
+              }/gallery`"
               class="tab"
             >
-              <span>Images</span>
+              <span>Gallery</span>
             </nuxt-link>
             <nuxt-link
               v-if="project.versions.length > 0"
@@ -393,7 +393,6 @@
               }/settings`"
               class="tab"
             >
-              <SettingsIcon />
               <span>Settings</span>
             </nuxt-link>
           </div>
@@ -406,7 +405,6 @@
               :current-member="currentMember"
               :all-members="allMembers"
               :dependencies="dependencies"
-              :link-bar.sync="linkBar"
             />
           </div>
         </div>
@@ -431,8 +429,6 @@ import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
 import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inline'
 import UnknownIcon from '~/assets/images/utils/unknown.svg?inline'
 
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-
 import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/VersionBadge'
 
@@ -441,7 +437,6 @@ export default {
     VersionBadge,
     Advertisement,
     IssuesIcon,
-    SettingsIcon,
     DownloadIcon,
     CalendarIcon,
     UpdateIcon,
@@ -515,7 +510,6 @@ export default {
         allMembers: members,
         currentMember,
         dependencies,
-        linkBar: [],
       }
     } catch {
       data.error({
@@ -604,8 +598,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  padding: 0 1.5rem 1rem 1.5rem;
-  margin-top: 3rem;
+  padding: 1rem 1.5rem;
 
   @extend %card-spaced-b;
 
@@ -613,7 +606,6 @@ export default {
     width: 6rem;
     height: 6rem;
     object-fit: contain;
-    margin: -3rem 0 0 0;
     border-radius: var(--size-rounded-icon);
   }
 
@@ -696,7 +688,6 @@ export default {
 
 .project-main {
   @extend %card-spaced-b;
-  margin-top: 3rem;
   padding: var(--spacing-card-bg) var(--spacing-card-lg);
 
   .tabs {

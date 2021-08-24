@@ -2,7 +2,7 @@
   <div>
     <nuxt-link
       v-if="currentMember"
-      to="newversion"
+      to="version/create"
       class="iconified-button new-version"
     >
       <UploadIcon />
@@ -109,9 +109,6 @@ export default {
         return null
       },
     },
-  },
-  created() {
-    this.$emit('update:link-bar', [['Versions', 'versions']])
   },
 }
 </script>

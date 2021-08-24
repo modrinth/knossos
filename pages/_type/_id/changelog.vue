@@ -84,9 +84,6 @@ export default {
       },
     },
   },
-  created() {
-    this.$emit('update:link-bar', [['Changelog', 'changelog']])
-  },
 }
 </script>
 

@@ -17,9 +17,6 @@ export default {
       },
     },
   },
-  created() {
-    this.$emit('update:link-bar', [['Description', '']])
-  },
 }
 </script>
 
