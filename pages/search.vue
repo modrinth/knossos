@@ -228,7 +228,6 @@ import Multiselect from 'vue-multiselect'
 import SearchResult from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
-import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
 
 import ClientSide from '~/assets/images/categories/client.svg?inline'
@@ -252,40 +251,7 @@ export default {
     ServerSide,
     SearchIcon,
     ExitIcon,
-    LogoAnimated,
   },
-  data() {
-    return {
-      query: '',
-
-      displayLicense: '',
-      selectedLicense: '',
-
-      showSnapshots: false,
-      selectedVersions: [],
-
-      selectedEnvironments: [],
-
-      facets: [],
-      results: null,
-      pages: [],
-      currentPage: 1,
-
-      projectType: 'mod',
-
-      sortTypes: [
-        { display: 'Relevance', name: 'relevance' },
-        { display: 'Download count', name: 'downloads' },
-        { display: 'Follow count', name: 'follows' },
-        { display: 'Recently created', name: 'newest' },
-        { display: 'Recently updated', name: 'updated' },
-      ],
-      sortType: { display: 'Relevance', name: 'relevance' },
-
-      maxResults: 20,
-    }
-  },
-  fetchOnServer: false,
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
     if (this.$route.query.f) {
@@ -329,26 +295,38 @@ export default {
 
     await this.onSearchChange(this.currentPage)
   },
-  head: {
-    title: 'Mods - Modrinth',
-    meta: [
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: `https://modrinth.com/mods`,
-      },
-    ],
+  data() {
+    return {
+      query: '',
+
+      displayLicense: '',
+      selectedLicense: '',
+
+      showSnapshots: false,
+      selectedVersions: [],
+
+      selectedEnvironments: [],
+
+      facets: [],
+      results: null,
+      pages: [],
+      currentPage: 1,
+
+      projectType: 'mod',
+
+      sortTypes: [
+        { display: 'Relevance', name: 'relevance' },
+        { display: 'Download count', name: 'downloads' },
+        { display: 'Follow count', name: 'follows' },
+        { display: 'Recently created', name: 'newest' },
+        { display: 'Recently updated', name: 'updated' },
+      ],
+      sortType: { display: 'Relevance', name: 'relevance' },
+
+      maxResults: 20,
+    }
   },
+  fetchOnServer: false,
   watch: {
     '$route.path': {
       async handler() {
@@ -558,6 +536,26 @@ export default {
       document.body.style.overflow =
         document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
     },
+  },
+  head: {
+    title: 'Mods - Modrinth',
+    meta: [
+      {
+        hid: 'apple-mobile-web-app-title',
+        name: 'apple-mobile-web-app-title',
+        content: 'Mods',
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Mods',
+      },
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        content: `https://modrinth.com/mods`,
+      },
+    ],
   },
 }
 </script>

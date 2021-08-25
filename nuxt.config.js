@@ -139,7 +139,7 @@ export default {
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
-  components: true,
+  components: ['~/components/general/', '~/components/ui'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -148,6 +148,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/svg',
     '@nuxtjs/color-mode',
+    '@nuxtclub/feathericons',
   ],
   /*
    ** Nuxt.js modules
