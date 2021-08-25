@@ -55,7 +55,7 @@
   </div>
 </template>
 <script>
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import { DownloadIcon } from 'vue-feather-icons'
 
 export default {
   components: {

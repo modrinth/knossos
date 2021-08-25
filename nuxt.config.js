@@ -148,7 +148,6 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/svg',
     '@nuxtjs/color-mode',
-    '@nuxtclub/feathericons',
   ],
   /*
    ** Nuxt.js modules

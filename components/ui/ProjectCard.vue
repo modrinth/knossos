@@ -111,12 +111,14 @@
 </template>
 
 <script>
-import Categories from '~/components/ui/search/Categories'
+import {
+  CalendarIcon,
+  DownloadIcon,
+  EditIcon,
+  TagIcon,
+} from 'vue-feather-icons'
 
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import TagIcon from '~/assets/images/utils/tag.svg?inline'
+import Categories from '~/components/ui/search/Categories'
 
 export default {
   name: 'ProjectCard',

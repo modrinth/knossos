@@ -23,7 +23,7 @@
               :to="`/create/report?id=${user.id}&t=user`"
               class="iconified-button"
             >
-              <ReportIcon />
+              <FlagIcon />
               Report
             </nuxt-link>
           </div>
@@ -87,11 +87,9 @@
 </template>
 
 <script>
+import { FlagIcon, CalendarIcon, DownloadIcon } from 'vue-feather-icons'
 import ProjectCard from '~/components/ui/ProjectCard'
 
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 
 export default {
@@ -101,7 +99,7 @@ export default {
     Advertisement,
     CalendarIcon,
     DownloadIcon,
-    ReportIcon,
+    FlagIcon,
   },
   async asyncData(data) {
     try {
@@ -122,6 +120,20 @@ export default {
         message: 'User not found',
       })
     }
+  },
+  methods: {
+    formatNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    sumDownloads() {
+      let sum = 0
+
+      for (const projects of this.projects) {
+        sum += projects.downloads
+      }
+
+      return this.formatNumber(sum)
+    },
   },
   head() {
     return {
@@ -167,20 +179,6 @@ export default {
         },
       ],
     }
-  },
-  methods: {
-    formatNumber(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    },
-    sumDownloads() {
-      let sum = 0
-
-      for (const projects of this.projects) {
-        sum += projects.downloads
-      }
-
-      return this.formatNumber(sum)
-    },
   },
 }
 </script>

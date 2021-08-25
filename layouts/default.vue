@@ -10,7 +10,7 @@
         </section>
         <section class="menu-icon">
           <button @click="toggleNavBar">
-            <HamburgerIcon />
+            <MenuIcon />
           </button>
         </section>
         <section ref="nav" class="right-group columns">
@@ -44,7 +44,7 @@
                     />
                     <span>{{ $auth.user.username }}</span>
                   </div>
-                  <DropdownIcon class="dropdown-icon" />
+                  <ChevronDownIcon class="dropdown-icon" />
                 </button>
                 <div class="content">
                   <ul v-if="isDropdownOpen" @click="hideDropdown">
@@ -56,13 +56,13 @@
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/projects">
-                        <ProjectIcon />
+                        <FolderIcon />
                         <span>Projects</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/notifications">
-                        <NotificationIcon />
+                        <BellIcon />
                         <span>Notifications</span>
                       </NuxtLink>
                     </li>
@@ -114,24 +114,24 @@
 </template>
 
 <script>
+import {
+  MenuIcon,
+  FolderIcon,
+  BellIcon,
+  SettingsIcon,
+  ChevronDownIcon,
+  MoonIcon,
+  SunIcon,
+  UserIcon,
+  LogOutIcon,
+} from 'vue-feather-icons'
+
 import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
-
-import ProjectIcon from '~/assets/images/sidebar/mod.svg?inline'
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
-
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import MoonIcon from '~/assets/images/utils/moon.svg?inline'
-import SunIcon from '~/assets/images/utils/sun.svg?inline'
-
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
+import GitHubIcon from '~/assets/images/external/github.svg?inline'
 
 import CookieConsent from '~/components/ads/CookieConsent'
 import AvatarIcon from '~/components/ui/AvatarIcon'
@@ -140,32 +140,32 @@ export default {
   components: {
     ModrinthLogo,
     ModrinthLogoSmall,
-    DropdownIcon,
+    ChevronDownIcon,
     MoonIcon,
     SunIcon,
     UserIcon,
     LogOutIcon,
     GitHubIcon,
-    NotificationIcon,
-    HamburgerIcon,
+    BellIcon,
+    MenuIcon,
     CookieConsent,
     AvatarIcon,
     SettingsIcon,
-    ProjectIcon,
+    FolderIcon,
   },
   directives: {
     ClickOutside,
-  },
-  data() {
-    return {
-      isDropdownOpen: false,
-    }
   },
   async fetch() {
     await Promise.all([
       this.$store.dispatch('user/fetchAll', { force: true }),
       this.$store.dispatch('tag/fetchAllTags'),
     ])
+  },
+  data() {
+    return {
+      isDropdownOpen: false,
+    }
   },
   computed: {
     authUrl() {

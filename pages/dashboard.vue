@@ -4,18 +4,18 @@
       <div class="sidebar-l">
         <div v-if="$auth.user != null" class="card page-nav">
           <nuxt-link :to="'/dashboard/projects'" class="tab last">
-            <ProjectIcon />
+            <FolderIcon />
             My projects
           </nuxt-link>
           <nuxt-link :to="'/dashboard/notifications'" class="tab last">
-            <NotificationsIcon />
+            <BellIcon />
             Notifications
             <div v-if="$user.notifications.length > 0" class="notif-count">
               {{ $user.notifications.length }}
             </div>
           </nuxt-link>
           <nuxt-link :to="'/dashboard/follows'" class="tab last">
-            <FollowIcon />
+            <HeartIcon />
             Followed projects
           </nuxt-link>
           <nuxt-link
@@ -25,7 +25,7 @@
             :to="'/dashboard/moderation'"
             class="tab last"
           >
-            <ModerationIcon />
+            <FlagIcon />
             Moderation
           </nuxt-link>
           <nuxt-link :to="'/dashboard/settings'" class="tab last">
@@ -55,22 +55,24 @@
   </div>
 </template>
 <script>
-import ProjectIcon from '~/assets/images/sidebar/mod.svg?inline'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
-import NotificationsIcon from '~/assets/images/sidebar/notifications.svg?inline'
-import FollowIcon from '~/assets/images/utils/heart.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
+import {
+  FolderIcon,
+  BellIcon,
+  SettingsIcon,
+  HeartIcon,
+  UserIcon,
+  ShieldIcon,
+  FlagIcon,
+} from 'vue-feather-icons'
 
 export default {
   name: 'DashboardPage',
   components: {
-    ProjectIcon,
-    ModerationIcon,
+    FolderIcon,
+    FlagIcon,
     SettingsIcon,
-    NotificationsIcon,
-    FollowIcon,
+    BellIcon,
+    HeartIcon,
     UserIcon,
     ShieldIcon,
   },

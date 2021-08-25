@@ -79,8 +79,8 @@
   </div>
 </template>
 <script>
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import { UploadIcon, DownloadIcon } from 'vue-feather-icons'
+
 import VersionBadge from '~/components/ui/VersionBadge'
 
 export default {

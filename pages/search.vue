@@ -8,7 +8,7 @@
               Close
             </button>
             <button class="iconified-button" @click="clearFilters">
-              <ExitIcon />
+              <XIcon />
               Clear filters
             </button>
             <h3>Categories</h3>
@@ -42,7 +42,7 @@
               facet-name="client"
               @toggle="toggleEnv"
             >
-              <ClientSide />
+              <MonitorIcon />
             </SearchFilter>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -50,7 +50,7 @@
               facet-name="server"
               @toggle="toggleEnv"
             >
-              <ServerSide />
+              <HardDriveIcon />
             </SearchFilter>
             <h3 class="upper-spacing">Minecraft versions</h3>
             <Checkbox
@@ -225,16 +225,16 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
+import {
+  MonitorIcon, // Client side
+  HardDriveIcon, // Server side
+  SearchIcon,
+  XIcon,
+} from 'vue-feather-icons'
 import SearchResult from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import Checkbox from '~/components/ui/Checkbox'
-
-import ClientSide from '~/assets/images/categories/client.svg?inline'
-import ServerSide from '~/assets/images/categories/server.svg?inline'
-
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
-import ExitIcon from '~/assets/images/utils/exit.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -247,10 +247,10 @@ export default {
     Multiselect,
     SearchFilter,
     Checkbox,
-    ClientSide,
-    ServerSide,
+    MonitorIcon,
+    HardDriveIcon,
     SearchIcon,
-    ExitIcon,
+    XIcon,
   },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q

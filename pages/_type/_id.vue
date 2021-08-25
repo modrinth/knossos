@@ -70,7 +70,7 @@
               :to="`/create/report?id=${project.id}&t=project`"
               class="iconified-button"
             >
-              <ReportIcon />
+              <FlagIcon />
               Report
             </nuxt-link>
             <button
@@ -80,7 +80,7 @@
               class="iconified-button"
               @click="$store.dispatch('user/followProject', project)"
             >
-              <FollowIcon />
+              <HeartIcon />
               Follow
             </button>
             <button
@@ -90,7 +90,7 @@
               class="iconified-button"
               @click="$store.dispatch('user/unfollowProject', project)"
             >
-              <FollowIcon fill="currentColor" />
+              <HeartIcon fill="currentColor" />
               Unfollow
             </button>
           </div>
@@ -124,7 +124,7 @@
               }}</span>
             </div>
             <div class="date">
-              <UpdateIcon />
+              <EditIcon />
               <span class="label">Updated</span>
               <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
             </div>
@@ -194,7 +194,7 @@
               class="title"
               target="_blank"
             >
-              <IssuesIcon />
+              <AlertTriangleIcon />
               <p>Issues</p>
             </a>
             <a
@@ -212,7 +212,7 @@
               class="title"
               target="_blank"
             >
-              <WikiIcon />
+              <BookOpenIcon />
               <p>Wiki</p>
             </a>
             <a
@@ -284,8 +284,8 @@
                 alt="kofi"
                 src="~/assets/images/external/kofi-white.png"
               />
-              <FollowIcon v-else-if="donation.id === 'github'" />
-              <UnknownIcon v-else />
+              <HeartIcon v-else-if="donation.id === 'github'" />
+              <HelpCircleIcon v-else />
               <p v-if="donation.id === 'bmac'">Buy Me a Coffee</p>
               <p v-else-if="donation.id === 'patreon'">Patreon</p>
               <p v-else-if="donation.id === 'paypal'">PayPal</p>
@@ -416,22 +416,24 @@
 </template>
 
 <script>
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
-import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import FollowIcon from '~/assets/images/utils/heart.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
-import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
+import {
+  CalendarIcon,
+  DownloadIcon,
+  EditIcon,
+  CodeIcon,
+  HeartIcon,
+  FlagIcon,
+  InfoIcon,
+  AlertTriangleIcon,
+  BookOpenIcon,
+  SettingsIcon,
+  HelpCircleIcon,
+} from 'vue-feather-icons'
+
 import DiscordIcon from '~/assets/images/external/discord.svg?inline'
 import DiscordIconWhite from '~/assets/images/external/discord-white.svg?inline'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
 import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inline'
-import UnknownIcon from '~/assets/images/utils/unknown.svg?inline'
-
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/VersionBadge'
@@ -440,21 +442,21 @@ export default {
   components: {
     VersionBadge,
     Advertisement,
-    IssuesIcon,
+    AlertTriangleIcon,
     SettingsIcon,
     DownloadIcon,
     CalendarIcon,
-    UpdateIcon,
+    EditIcon,
     CodeIcon,
-    ReportIcon,
-    FollowIcon,
+    FlagIcon,
+    HeartIcon,
     InfoIcon,
-    WikiIcon,
+    BookOpenIcon,
     DiscordIcon,
     DiscordIconWhite,
     BuyMeACoffeeLogo,
     BuyMeACoffeeLogoWhite,
-    UnknownIcon,
+    HelpCircleIcon,
   },
   async asyncData(data) {
     const projectTypes = ['mod', 'modpack']
@@ -524,6 +526,32 @@ export default {
       })
     }
   },
+  methods: {
+    formatNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    findPrimary(version) {
+      let file = version.files.find((x) => x.primary)
+
+      if (!file) {
+        file = version.files[0]
+      }
+
+      if (!file) {
+        file = { url: `/project/${this.project.id}/version/${version.id}` }
+      }
+
+      return file
+    },
+    async downloadFile(hash, url) {
+      await this.$axios.get(`version_file/${hash}/download`)
+
+      const elem = document.createElement('a')
+      elem.download = hash
+      elem.href = url
+      elem.click()
+    },
+  },
   head() {
     return {
       title: this.project.title + ' - Modrinth',
@@ -572,32 +600,6 @@ export default {
         },
       ],
     }
-  },
-  methods: {
-    formatNumber(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    },
-    findPrimary(version) {
-      let file = version.files.find((x) => x.primary)
-
-      if (!file) {
-        file = version.files[0]
-      }
-
-      if (!file) {
-        file = { url: `/project/${this.project.id}/version/${version.id}` }
-      }
-
-      return file
-    },
-    async downloadFile(hash, url) {
-      await this.$axios.get(`version_file/${hash}/download`)
-
-      const elem = document.createElement('a')
-      elem.download = hash
-      elem.href = url
-      elem.click()
-    },
   },
 }
 </script>

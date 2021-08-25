@@ -61,7 +61,7 @@
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </div>
-        <span class="char" alt="logo"><RightArrowIcon /></span>
+        <span class="char" alt="logo"><ArrowRightIcon /></span>
         <div>
           <h3>Build</h3>
           <svg
@@ -104,7 +104,7 @@
             ></path>
           </svg>
         </div>
-        <span class="char" alt="logo"><RightArrowIcon /></span>
+        <span class="char" alt="logo"><ArrowRightIcon /></span>
         <div>
           <h3>Publish</h3>
           <svg
@@ -124,7 +124,7 @@
             />
           </svg>
         </div>
-        <span class="char" alt="logo"><RightArrowIcon /></span>
+        <span class="char" alt="logo"><ArrowRightIcon /></span>
         <div>
           <h3>Earn</h3>
           <svg
@@ -175,12 +175,13 @@ fetch('https://api.modrinth.com/api/v1/search').then(res => res.json()).then(dat
 </template>
 
 <script>
-import RightArrowIcon from '~/assets/images/right-arrow.svg?inline'
+import { ArrowRightIcon } from 'vue-feather-icons'
+
 import Logo from '~/assets/images/logo.svg?inline'
 
 export default {
   components: {
-    RightArrowIcon,
+    ArrowRightIcon,
     Logo,
   },
   auth: false,

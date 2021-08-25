@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import { CheckIcon } from 'vue-feather-icons'
 
 export default {
   name: 'Checkbox',

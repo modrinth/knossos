@@ -14,7 +14,7 @@
         project.slug ? project.slug : project.id
       }/versions`"
     >
-      <BackIcon />
+      <ArrowLeftIcon />
       Back to list
     </nuxt-link>
     <div>
@@ -45,7 +45,7 @@
           :to="`/create/report?id=${version.id}&t=version`"
           class="action iconified-button"
         >
-          <ReportIcon />
+          <FlagIcon />
           Report
         </nuxt-link>
         <button
@@ -193,14 +193,16 @@
   </div>
 </template>
 <script>
+import {
+  TrashIcon,
+  EditIcon,
+  DownloadIcon,
+  FlagIcon,
+  ArrowLeftIcon,
+  StarIcon,
+} from 'vue-feather-icons'
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
 
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
 import VersionBadge from '~/components/ui/VersionBadge'
 
 export default {
@@ -209,8 +211,8 @@ export default {
     DownloadIcon,
     TrashIcon,
     EditIcon,
-    ReportIcon,
-    BackIcon,
+    FlagIcon,
+    ArrowLeftIcon,
     ConfirmPopup,
     StarIcon,
   },
@@ -253,6 +255,9 @@ export default {
       },
     },
   },
+  async fetch() {
+    await this.setVersion()
+  },
   data() {
     return {
       primaryFile: {},
@@ -260,9 +265,6 @@ export default {
       filesToUpload: [],
       popup_data: null,
     }
-  },
-  async fetch() {
-    await this.setVersion()
   },
   watch: {
     async $route() {
