@@ -13,6 +13,7 @@
     "fix": "eslint --fix --ext .js,.vue --ignore-path .eslintignore ."
   },
   "dependencies": {
+    "@nuxt/babel-preset-app": "^2.13.3",
     "@nuxt/components": "^2.2.1",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/dayjs": "^1.2.0",
@@ -21,10 +22,10 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "cookie-universal-nuxt": "^2.1.5",
-    "core-js": "^3.9.1",
+    "core-js": "^3.16.3",
     "highlight.js": "^10.3.2",
     "marked": "^2.0.0",
-    "nuxt": "^2.15.3",
+    "nuxt": "^2.13.3",
     "sass": "^1.32.12",
     "v-tooltip": "^2.0.3",
     "vue-click-outside": "^1.1.0",
