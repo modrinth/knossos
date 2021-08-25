@@ -13,6 +13,7 @@
     "fix": "eslint --fix --ext .js,.vue --ignore-path .eslintignore ."
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.15.3",
     "@nuxt/babel-preset-app": "^2.13.3",
     "@nuxt/components": "^2.2.1",
     "@nuxtjs/axios": "^5.13.1",
