@@ -404,7 +404,7 @@
               :members="members"
               :current-member="currentMember"
               :all-members="allMembers"
-              :dependencies="dependencies"
+              :dependencies.sync="dependencies"
             />
           </div>
         </div>

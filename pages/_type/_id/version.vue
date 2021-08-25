@@ -251,6 +251,10 @@
               </span>
             </p>
           </div>
+          <div v-if="mode === 'version'" class="data">
+            <p class="title">Version ID</p>
+            <p class="value">{{ version.id }}</p>
+          </div>
         </div>
       </section>
       <section
@@ -272,7 +276,9 @@
               :src="
                 dependency.project
                   ? dependency.project.icon_url
-                  : 'https://cdn.modrinth.com/placeholder.svg'
+                    ? dependency.project.icon_url
+                    : 'https://cdn.modrinth.com/placeholder.svg?inline'
+                  : 'https://cdn.modrinth.com/placeholder.svg?inline'
               "
               alt="dependency-icon"
             />
@@ -367,7 +373,6 @@
           <div
             v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
             class="featured"
-            @click="primaryFile = file"
           >
             <StarIcon />
             Primary
@@ -381,7 +386,14 @@
             <DownloadIcon />
             Download
           </a>
-          <button v-if="mode === 'edit'" class="action iconified-button">
+          <button
+            v-if="mode === 'edit'"
+            class="action iconified-button"
+            @click="
+              deleteFiles.push(primaryFile.hashes.sha1)
+              version.files.splice(index, 1)
+            "
+          >
             <TrashIcon />
             Delete
           </button>
@@ -390,10 +402,7 @@
               mode === 'edit' && primaryFile.hashes.sha1 !== file.hashes.sha1
             "
             class="action iconified-button"
-            @click="
-              deleteFiles.push(primaryFile.hashes.sha1)
-              version.files.splice(index, 1)
-            "
+            @click="primaryFile = file"
           >
             <StarIcon />
             Make primary
@@ -511,7 +520,6 @@ export default {
 
       changelogViewMode: 'source',
 
-      versionDependencies: [],
       dependencyAddMode: 'project',
       newDependencyId: '',
       newDependencyType: 'required',
@@ -598,6 +606,10 @@ export default {
             project_id: project.id,
             dependency_type: this.newDependencyType,
           })
+          this.$emit('update:dependencies', {
+            projects: this.dependencies.projects.concat([project]),
+            versions: this.dependencies.versions,
+          })
         } else if (this.dependencyAddMode === 'version') {
           const version = (
             await this.$axios.get(`version/${this.newDependencyId}`)
@@ -613,6 +625,10 @@ export default {
             project_id: project.id,
             dependency_type: this.newDependencyType,
           })
+          this.$emit('update:dependencies', {
+            projects: this.dependencies.projects.concat([project]),
+            versions: this.dependencies.versions.concat([version]),
+          })
         }
       } catch {
         this.$notify({
@@ -626,25 +642,27 @@ export default {
     async saveEditedVersion() {
       this.$nuxt.$loading.start()
       try {
-        const formData = new FormData()
-        formData.append('data', JSON.stringify({}))
-        for (let i = 0; i < this.newFiles.length; i++) {
-          formData.append(
-            this.newFiles[i].name.concat('-' + i),
-            new Blob([this.newFiles[i]]),
-            this.newFiles[i].name
-          )
-        }
+        if (this.newFiles.length > 0) {
+          const formData = new FormData()
+          formData.append('data', JSON.stringify({}))
+          for (let i = 0; i < this.newFiles.length; i++) {
+            formData.append(
+              this.newFiles[i].name.concat('-' + i),
+              new Blob([this.newFiles[i]]),
+              this.newFiles[i].name
+            )
+          }
 
-        await this.$axios({
-          url: `version/${this.version.id}/file`,
-          method: 'POST',
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: this.$auth.token,
-          },
-        })
+          await this.$axios({
+            url: `version/${this.version.id}/file`,
+            method: 'POST',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$auth.token,
+            },
+          })
+        }
 
         for (const hash in this.deleteFiles) {
           await this.$axios.delete(`version_file/${hash}`, this.$auth.headers)
@@ -693,8 +711,8 @@ export default {
       const formData = new FormData()
 
       const fileParts = []
-      for (let i = 0; i < this.files.length; i++) {
-        fileParts.push(this.files[i].name.concat('-' + i))
+      for (let i = 0; i < this.newFiles.length; i++) {
+        fileParts.push(this.newFiles[i].name.concat('-' + i))
       }
 
       const newVersion = {
@@ -708,15 +726,16 @@ export default {
         loaders: this.version.loaders,
         release_channel: this.version.version_type,
         featured: this.version.featured,
+        primary_file: ['sha1', this.primaryFile.hashes.sha1],
       }
 
       formData.append('data', JSON.stringify(newVersion))
 
-      for (let i = 0; i < this.files.length; i++) {
+      for (let i = 0; i < this.newFiles.length; i++) {
         formData.append(
           fileParts[i],
-          new Blob([this.files[i]]),
-          this.files[i].name
+          new Blob([this.newFiles[i]]),
+          this.newFiles[i].name
         )
       }
 

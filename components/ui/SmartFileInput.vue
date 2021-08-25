@@ -35,6 +35,11 @@ export default {
       default: null,
     },
   },
+  data() {
+    return {
+      files: [],
+    }
+  },
   methods: {
     onChange(files, shouldNotReset) {
       if (!shouldNotReset) this.files = files.target.files
