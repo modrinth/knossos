@@ -1,13 +1,13 @@
 // Remember: special characters like quote marks (") must be escaped with a backslash (\)
 export default {
   generic: {
-    projects: "Projects",
     types: {
       mod: "Mod",
       mods: "Mods",
       modpack: "Modpack",
       modpacks: "Modpacks",
     },
+    projects: "Projects",
     open: "Open",
     close: "Close",
     categories: "Categories",
@@ -85,6 +85,8 @@ export default {
       slugDescription: "Set this to something that will looks nice in your project's URL.",
       typeDescription: "The project type of your project.",
       environmentDescription: "Let others know what environments your project supports.",
+      optional: "— this section is optional",
+      submit: "Submit for review",
       icon: {
         square: "Must be a square",
         minimumSize: "Minimum size is 100x100 pixels",
@@ -102,8 +104,6 @@ export default {
         link: "licensing guide",
         postLink: " for more information.",
       },
-      optional: "— this section is optional",
-      submit: "Submit for review",
     },
   },
   userControls: {
@@ -120,10 +120,9 @@ export default {
     preferencesSaved: "Preferences saved",
     preferencesSavedSuccessfully: "Your preferences have been saved successfully.",
     confirmAction: {
-      preName: "To confirm your action, please type",
-      postName: "to continue.",
+      preName: "To confirm your action, please type ",
+      postName: " to continue.",
     },
-    inputNeeded: "Type the input needed to continue",
   },
   privacy: {
     settings: "Privacy settings",
@@ -135,7 +134,7 @@ export default {
       accept: "Accept all",
       refuse: "Refuse all",
       confirm: "Confirm my choices",
-    }
+    },
   },
   homepage: {
     top: {

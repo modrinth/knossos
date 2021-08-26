@@ -7,9 +7,9 @@
       </span>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
-          {{ $t('userControls.confirmAction.preName') }}
-          <span class="confirmation-text">{{ confirmationText }}</span>
-          {{ $t('userControls.confirmAction.postName') }}
+          {{ $t('userControls.confirmAction.preName')
+          }}<span class="confirmation-text">{{ confirmationText }}</span
+          >{{ $t('userControls.confirmAction.postName') }}
         </span>
       </label>
       <input
@@ -17,7 +17,7 @@
         id="confirmation"
         v-model="confirmation_typed"
         type="text"
-        placeholder="$t('userControls.confirmAction.preName')"
+        placeholder="Type the input needed to continue"
         @input="type"
       />
       <div class="actions">
