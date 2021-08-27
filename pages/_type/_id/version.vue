@@ -21,16 +21,17 @@
     <div>
       <div v-if="mode === 'version'" class="version-header">
         <h2>{{ version.name }}</h2>
+
+        <div v-if="version.featured" class="featured">
+          <StarIcon />
+          Featured
+        </div>
         <div
-          v-if="featuredVersions.find((x) => x.id === version.id)"
+          v-else-if="featuredVersions.find((x) => x.id === version.id)"
           class="featured"
         >
           <StarIcon />
           Auto-featured
-        </div>
-        <div v-else-if="version.featured" class="featured">
-          <StarIcon />
-          Featured
         </div>
       </div>
       <div v-if="mode === 'edit'" class="buttons">
@@ -378,8 +379,6 @@
             Primary
           </div>
           <a
-            v-if="primaryFile"
-            :href="primaryFile.url"
             class="action iconified-button"
             @click.prevent="$parent.downloadFile(file.hashes.sha1, file.url)"
           >
@@ -390,7 +389,7 @@
             v-if="mode === 'edit'"
             class="action iconified-button"
             @click="
-              deleteFiles.push(primaryFile.hashes.sha1)
+              deleteFiles.push(file.hashes.sha1)
               version.files.splice(index, 1)
             "
           >
@@ -664,9 +663,11 @@ export default {
           })
         }
 
-        for (const hash in this.deleteFiles) {
+        for (const hash of this.deleteFiles) {
           await this.$axios.delete(`version_file/${hash}`, this.$auth.headers)
         }
+
+        this.version.primary_file = ['sha1', this.primaryFile.hashes.sha1]
 
         await this.$axios.patch(
           `version/${this.version.id}`,
@@ -674,20 +675,26 @@ export default {
           this.$auth.headers
         )
 
+        const [version, featuredVersions] = (
+          await Promise.all([
+            this.$axios.get(`version/${this.version.id}`, this.$auth.headers),
+            this.$axios.get(
+              `project/${this.version.project_id}/version?featured=true`
+            ),
+          ])
+        ).map((it) => it.data)
+
         this.$emit(
           'update:versions',
           this.versions
             .filter((x) => x.id !== this.version.id)
-            .concat([this.version])
+            .concat([version])
         )
 
-        const featuredVersions = (
-          await this.$axios.get(
-            `project/${this.version.project_id}/version?featured=true`
-          )
-        ).data
-
         this.$emit('update:featuredVersions', featuredVersions)
+
+        this.newFiles = []
+        this.deleteFiles = []
 
         await this.$router.replace(
           `/${this.project.project_type}/${
@@ -726,7 +733,6 @@ export default {
         loaders: this.version.loaders,
         release_channel: this.version.version_type,
         featured: this.version.featured,
-        primary_file: ['sha1', this.primaryFile.hashes.sha1],
       }
 
       formData.append('data', JSON.stringify(newVersion))
