@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section-header">
-      <h3 class="column-grow-1">Projects</h3>
+      <h3 class="column-grow-1">{{ $t('generic.projects') }}</h3>
     </div>
     <div v-if="projects.length !== 0">
       <ProjectCard
@@ -29,19 +29,19 @@
             class="button column approve"
             @click="changeProjectStatus(project.id, 'approved', index)"
           >
-            Approve
+            {{ $t('status.approve') }}
           </button>
           <button
             class="button column unlist"
             @click="changeProjectStatus(project.id, 'unlisted', index)"
           >
-            Unlist
+            {{ $t('status.unlist') }}
           </button>
           <button
             class="button column reject"
             @click="changeProjectStatus(project.id, 'rejected', index)"
           >
-            Reject
+            {{ $t('status.reject') }}
           </button>
         </div>
       </ProjectCard>
@@ -49,10 +49,10 @@
     <div v-else class="error">
       <Security class="icon"></Security>
       <br />
-      <span class="text">You are up-to-date!</span>
+      <span class="text">{{ t('generic.upToDate') }}</span>
     </div>
     <div class="section-header">
-      <h3 class="column-grow-1">Reports</h3>
+      <h3 class="column-grow-1">{{ t('report.reports') }}</h3>
     </div>
     <div v-if="reports.length !== 0">
       <div v-for="(report, index) in reports" :key="report.id" class="report">
@@ -68,16 +68,14 @@
           </h5>
           <p
             v-tooltip="
-              $dayjs(report.created).format(
-                '[Created at] YYYY-MM-DD [at] HH:mm A'
-              )
+              $dayjs(report.created).format($i18n.t('generic.createdOn'))
             "
             class="date"
           >
-            Created {{ $dayjs(report.created).fromNow() }}
+            {{ t('generic.created') }} {{ $dayjs(report.created).fromNow() }}
           </p>
           <button class="delete iconified-button" @click="deleteReport(index)">
-            Delete
+            {{ t('generic.delete') }}
           </button>
         </div>
         <div
@@ -90,7 +88,7 @@
     <div v-else class="error">
       <Security class="icon"></Security>
       <br />
-      <span class="text">You are up-to-date!</span>
+      <span class="text">{{ t('generic.upToDate') }}</span>
     </div>
   </div>
 </template>

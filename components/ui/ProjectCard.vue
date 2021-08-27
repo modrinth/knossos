@@ -64,7 +64,7 @@
                 <h4>Created</h4>
                 <p
                   v-tooltip="
-                    $dayjs(createdAt).format(this.$i18n.t('generic.createdOn'))
+                    $dayjs(createdAt).format($i18n.t('generic.createdOn'))
                   "
                   class="value"
                 >
@@ -78,7 +78,7 @@
                 <h4>Updated</h4>
                 <p
                   v-tooltip="
-                    $dayjs(updatedAt).format(this.$i18n.t('generic.updatedOn'))
+                    $dayjs(updatedAt).format($i18n.t('generic.updatedOn'))
                   "
                   class="value"
                 >

@@ -7,12 +7,14 @@
             <img :src="user.avatar_url" :alt="user.username" />
             <div class="text">
               <h2>{{ user.username }}</h2>
-              <p v-if="user.role === 'admin'" class="badge red">Admin</p>
+              <p v-if="user.role === 'admin'" class="badge red">
+                {{ $t('user.role.admin') }}
+              </p>
               <p v-if="user.role === 'moderator'" class="badge yellow">
-                Moderator
+                {{ $t('user.role.mod') }}
               </p>
               <p v-if="user.role === 'developer'" class="badge green">
-                Developer
+                {{ $t('user.role.dev') }}
               </p>
             </div>
           </div>
@@ -24,7 +26,7 @@
               class="iconified-button"
             >
               <ReportIcon />
-              Report
+              {{ $t('generic.report') }}
             </nuxt-link>
           </div>
         </div>
@@ -32,12 +34,10 @@
           <div class="stat">
             <CalendarIcon />
             <div class="info">
-              <h4>Joined</h4>
+              <h4>{{ $t('user.joined') }}</h4>
               <p
                 v-tooltip="
-                  $dayjs(user.created).format(
-                    '[Joined] YYYY-MM-DD [at] HH:mm A'
-                  )
+                  $dayjs(user.created).format($i18n.t('generic.joined'))
                 "
                 class="value"
               >
@@ -48,7 +48,7 @@
           <div class="stat">
             <DownloadIcon />
             <div class="info">
-              <h4>Downloads</h4>
+              <h4>{{ $t('generic.downloads') }}</h4>
               <p class="value">
                 {{ sumDownloads() }}
               </p>

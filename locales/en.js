@@ -33,6 +33,7 @@ export default {
     created: "Created",
     createdOn: "[Created on] YYYY-MM-DD [at] HH:mm A", // Keep the brackets around the parts that aren't the date itself
     updatedOn: "[Updated on] YYYY-MM-DD [at] HH:mm A", // ditto "
+    joined: "[Joined] YYYY-MM-DD [at] HH:mm A",        // ditto "
     downloads: "Downloads",
     download: "Download",
     report: "Report",
@@ -58,6 +59,9 @@ export default {
     platform: "Platform",
     actions: "Actions",
     version: "Version",
+    continue: "Continue",
+    upToDate: "You are up-to-date!",
+    notified: "Notified",
   },
   creation: {
     filesSelected: "{0} file selected | {0} files selected", // 1 file selected | 2+ files selected
@@ -110,6 +114,7 @@ export default {
     myProjects: "My projects",
     profile: "Profile",
     notifications: "Notifications",
+    myNotifications: "My notifications",
     settings: "Settings",
     followedProjects: "Followed projects",
     moderation: "Moderation",
@@ -196,10 +201,13 @@ export default {
   },
   status: {
     status: "Status",
+    approve: "Approve",
     approved: "Approved",
+    reject: "Reject",
     rejected: "Rejected",
     draft: "Draft",
     processing: "Under review",
+    unlist: "Unlist",
     unlisted: "Unlisted",
   },
   version: {
@@ -217,4 +225,86 @@ export default {
       alpha: "Alpha",
     },
   },
+  report: {
+    reports: "Reports",
+    file: "File a report",
+    create: "Create the report",
+    itemId: "Item ID",
+    itemIdDescription: "The ID of the item you are reporting. For example, the item ID of a user would be their user ID, found on the left side of their profile page.",
+    type: "Item type",
+    typeDescription: "The type of the item that is being reported.",
+    category: "Category",
+    categoryDescription: "The category that the report falls under, so that it can be routed appropriately.",
+    description: "Description",
+    descriptionDescription: {
+      preLink: "You can type the description of your report here. This editor supports Markdown. Its syntax can be found ",
+      link: "here",
+      postLink: ". HTML can also be used inside your report, excluding scripts and iframes.",
+    },
+  },
+  revokeToken: {
+    title: "Revoke your Modrinth token",
+    description: "Revoking your Modrinth token can have unintended consequences. Please be aware that the following could break:",
+    desc: {
+      bullet1: "Any application that uses your token to access the API.",
+      bullet2: "Gradle - if Minotaur is given a incorrect token, your Gradle builds could fail.",
+      bullet3: "GitHub - if you use a GitHub action that uses the Modrinth API, it will cause errors.",
+    },
+    instructions: "If you are willing to continue, complete the following steps:",
+    inst: {
+      bullet1Url: "Head to the Modrinth Application page on GitHub.",
+      bullet1Desc: "Make sure to be logged into the GitHub account you used for Modrinth!",
+      bullet2: "Press the big red \"Revoke Access\" button next to the \"Permissions\" header.",
+    },
+    continue: "Once you have completed those steps, press the continue button below.",
+    continueWarning: "This will log you out of Modrinth, however, when you log back in, your token will be regenerated.",
+  },
+  follow: {
+    follow: "Follow",
+    unfollow: "Unfollow",
+    projects: "Followed projects",
+    noFollowed: "You don't have any followed projects.",
+    find: {
+      preSpan: "Why don't you ",
+      spanText: "search",
+      postSpan: " for new ones?",
+    },
+  },
+  dashboard: {
+    noProjects: "You don't have any projects.",
+    create: {
+      preSpan: "Would you like to ",
+      spanText: "create one",
+      postText: "?",
+    },
+  },
+  settings: {
+    settings: "Settings",
+    username: "Username",
+    usernameDescription: "The username used on Modrinth to identify yourself. This must be unique.",
+    nameDescription: "Your display name on your Modrinth profile. This does not have to be unique, can be set to anything, and is optional.",
+    email: "Email",
+    emailDescription: "The email for your account. This is private information which is not exposed in any API routes or on your profile. It is also optional.",
+    bio: "Bio",
+    bioDescription: "A description of yourself which other users can see on your profile.",
+    theme: "Site theme",
+    themeDescription: "Change the global site theme of Modrinth. You can choose between light mode, dark mode, and OLED mode. You can cycle between the three options using this button, or you can toggle between light and dark mode at any time in the navigation bar at the top of the page.",
+    token: "Authorization token",
+    tokenDescription: "Your authorization token can be used with the Modrinth API and for the Minotaur Gradle plugin. However, it must be kept secret!",
+    revokeToken: "Revoke your token",
+    revokeTokenDescription: "This will log you out of Modrinth, and you will have to log in again to access Modrinth with a new token.",
+    delete: "Delete your account",
+    deleteDescription: "Clicking on this WILL delete your account. Do not click on this unless you want your account deleted. If you delete your account, all attached data, including projects, will be removed from our servers. This cannot be reversed, so be careful!",
+    copied: "Copied to clipboard.",
+    copiedDescription: "Copied your Modrinth token to the clipboard.",
+  },
+  user: {
+    role: {
+      admin: "Administrator",
+      mod: "Moderator",
+      dev: "Developer",
+    },
+  },
+  notFound: "User not found",
+  joined: "Joined",
 };

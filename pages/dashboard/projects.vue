@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="section-header columns">
-      <h3 class="column-grow-1">My projects</h3>
+      <h3 class="column-grow-1">{{ $t('userControls.myProjects') }}</h3>
       <nuxt-link class="brand-button column" to="/create/project">
-        Create a project
+        {{ $t('creation.project.create') }}
       </nuxt-link>
     </div>
     <div v-if="$user.projects.length !== 0">
@@ -33,17 +33,18 @@
             project.slug ? project.slug : project.id
           }/settings`"
         >
-          Settings
+          {{ $t('userControls.settings') }}
         </nuxt-link>
       </ProjectCard>
     </div>
     <div v-else class="error">
       <UpToDate class="icon"></UpToDate><br />
       <span class="text"
-        >You don't have any projects.<br />
-        Would you like to
-        <nuxt-link class="link" to="/project/create">create one</nuxt-link
-        >?</span
+        >{{ $t('dashboard.noProjects') }}<br />
+        {{ $t('dashboard.create.preSpan') }}
+        <nuxt-link class="link" to="/project/create">
+          {{ $t('dashboard.create.spanText') }}</nuxt-link
+        >{{ $t('dashboard.create.postText') }}</span
       >
     </div>
   </div>

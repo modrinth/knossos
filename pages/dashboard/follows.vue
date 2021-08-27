@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section-header">
-      <h3 class="column-grow-1">Followed projects</h3>
+      <h3 class="column-grow-1">{{ $t('follow.projects') }}</h3>
     </div>
     <div v-if="$user.follows.length !== 0">
       <ProjectCard
@@ -29,7 +29,7 @@
             @click="$store.dispatch('user/unfollowProject', project)"
           >
             <FollowIcon />
-            Unfollow
+            {{ $t('follow.unfollow') }}
           </button>
         </div>
       </ProjectCard>
@@ -38,10 +38,13 @@
       <FollowIllustration class="icon"></FollowIllustration>
       <br />
       <span class="text"
-        >You don't have any followed projects. <br />
-        Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for
-        new ones?</span
-      >
+        >{{ $t('follow.noFollowed') }}<br />
+        {{ $t('follow.find.preSpan')
+        }}<nuxt-link class="link" to="/mods">{{
+          $t('follow.find.spanText')
+        }}</nuxt-link
+        >{{ $t('follow.find.postSpan') }}
+      </span>
     </div>
   </div>
 </template>

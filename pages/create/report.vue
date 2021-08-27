@@ -2,29 +2,25 @@
   <div class="page-container">
     <div class="page-contents">
       <header class="columns">
-        <h3 class="column-grow-1">File a report</h3>
+        <h3 class="column-grow-1">{{ $t('report.file') }}</h3>
         <button
           title="Create"
           class="brand-button column"
           :disabled="!$nuxt.$loading"
           @click="createReport"
         >
-          Create
+          {{ $t('report.create') }}
         </button>
       </header>
       <section class="info">
-        <h3>Item ID</h3>
+        <h3>{{ $t('report.itemId') }}</h3>
         <label>
-          <span>
-            The ID of the item you are reporting. For example, the item ID of a
-            project would be its project ID, found on the right side of that
-            project's page under "Project ID".
-          </span>
+          <span>{{ $t('report.itemIdDescription') }}</span>
           <input v-model="itemId" type="text" placeholder="Enter the item ID" />
         </label>
-        <h3>Item type</h3>
+        <h3>{{ $t('report.type') }}</h3>
         <label>
-          <span>The type of the item that is being reported.</span>
+          <span>{{ $t('report.typeDescription') }}</span>
           <multiselect
             id="item-type"
             v-model="itemType"
@@ -36,12 +32,9 @@
             placeholder="Choose item type"
           />
         </label>
-        <h3>Report type</h3>
+        <h3>{{ $t('report.category') }}</h3>
         <label>
-          <span>
-            The type of report. This is the category that this report falls
-            under.
-          </span>
+          <span>{{ $t('report.categoryDescription') }}</span>
           <multiselect
             id="report-type"
             v-model="reportType"
@@ -58,20 +51,21 @@
         <h3>
           <label
             for="body"
-            title="You can type the of the long form of your description here."
+            title="You can type the description of your report here."
           >
-            Body
+            {{ $t('report.description') }}
           </label>
         </h3>
         <span>
-          You can type the of the long form of your description here. This
-          editor supports markdown. You can find the syntax
-          <a
-            href="https://guides.github.com/features/mastering-markdown/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >here</a
-          >.
+          <span>
+            {{ $t('report.descriptionDescription.preLink')
+            }}<a
+              href="https://guides.github.com/features/mastering-markdown/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >{{ $t('report.descriptionDescription.link') }}</a
+            >{{ $t('report.descriptionDescription.postLink') }}
+          </span>
         </span>
         <div class="columns">
           <div class="textarea-wrapper">

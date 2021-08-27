@@ -12,16 +12,15 @@
       @proceed="deleteAccount"
     />
     <div class="section-header columns">
-      <h3 class="column-grow-1">Settings</h3>
-      <button class="brand-button column" @click="editProfile">Save</button>
+      <h3 class="column-grow-1">{{ $t('settings.settings') }}</h3>
+      <button class="brand-button column" @click="editProfile">
+        {{ $t('generic.save') }}
+      </button>
     </div>
     <section>
-      <h3>Username</h3>
+      <h3>{{ $t('settings.username') }}</h3>
       <label>
-        <span>
-          The username used on Modrinth to identify yourself. This must be
-          unique.
-        </span>
+        <span>{{ $t('settings.usernameDescription') }}</span>
         <input
           v-model="username"
           type="text"
@@ -30,37 +29,24 @@
       </label>
       <h3>{{ $t('generic.name') }}</h3>
       <label>
-        <span>
-          Your display name on your Modrinth profile. This does not have to be
-          unique, can be set to anything, and is optional.
-        </span>
+        <span>{{ $t('settings.nameDescription') }}</span>
         <input v-model="name" type="text" placeholder="Enter your name" />
       </label>
-      <h3>Email</h3>
+      <h3>{{ $t('settings.email') }}</h3>
       <label>
-        <span>
-          The email for your account. This is private information which is not
-          exposed in any API routes or on your profile. It is also optional.
-        </span>
+        <span>{{ $t('settings.emailDescription') }}</span>
         <input v-model="email" type="email" placeholder="Enter your email" />
       </label>
-      <h3>Bio</h3>
+      <h3>{{ $t('settings.bio') }}</h3>
       <label>
-        <span>
-          A description of yourself which other users can see on your profile.
-        </span>
+        <span>{{ $t('settings.bioDescription') }}</span>
         <input v-model="bio" type="text" placeholder="Enter your bio" />
       </label>
     </section>
     <section class="pad-maker">
-      <h3>Site theme</h3>
+      <h3>{{ $t('settings.theme') }}</h3>
       <label>
-        <span
-          >Change the global site theme of Modrinth. You can choose between
-          light mode, dark mode, and OLED mode. You can cycle between the three
-          options using this button, or you can toggle between light and dark
-          mode at any time in the navigation bar at the top of the page.</span
-        >
+        <span>{{ $t('settings.themeDescription') }}</span>
         <input
           type="button"
           class="button pad-rem"
@@ -70,12 +56,9 @@
       </label>
     </section>
     <section class="pad-maker">
-      <h3>Authorization token</h3>
+      <h3>{{ $t('settings.token') }}</h3>
       <label>
-        <span>
-          Your authorization token can be used with the Modrinth API and for the
-          Minotaur Gradle plugin. However, it must be kept secret!
-        </span>
+        <span>{{ $t('settings.tokenDescription') }}</span>
         <input
           type="button"
           class="button pad-rem"
@@ -83,12 +66,9 @@
           @click="copyToken"
         />
       </label>
-      <h3>Revoke your token</h3>
+      <h3>{{ $t('settings.revokeToken') }}</h3>
       <label>
-        <span
-          >This will log you out of Modrinth, and you will have to log in again
-          to access Modrinth with a new token.</span
-        >
+        <span>{{ $t('settings.revokeTokenDescription') }}</span>
         <input
           type="button"
           class="button"
@@ -96,14 +76,9 @@
           @click="gotoRevoke"
         />
       </label>
-      <h3>Delete your account</h3>
+      <h3>{{ $t('settings.delete') }}</h3>
       <label>
-        <span
-          >Clicking on this WILL delete your account. Do not click on this
-          unless you want your account deleted. If you delete your account, all
-          attached data, including projects, will be removed from our servers.
-          This cannot be reversed, so be careful!</span
-        >
+        <span>{{ $t('settings.deleteDescription') }}</span>
         <input
           value="Delete account"
           type="button"
@@ -163,8 +138,8 @@ export default {
       await navigator.clipboard.writeText(this.token)
       this.$notify({
         group: 'main',
-        title: 'Copied to clipboard.',
-        text: 'Copied your Modrinth token to the clipboard.',
+        title: this.$i18n.t('settings.copied'),
+        text: this.$i18n.t('settings.copiedDescription'),
         type: 'success',
       })
     },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section-header columns">
-      <h3 class="column-grow-1">My notifications</h3>
+      <h3 class="column-grow-1">{{ $t('userControls.myNotifications') }}</h3>
     </div>
     <div v-if="$user.notifications.length !== 0">
       <div
@@ -17,12 +17,13 @@
             <p
               v-tooltip="
                 $dayjs(notification.created).format(
-                  '[Created at] YYYY-MM-DD [at] HH:mm A'
+                  $i18n.t('generic.createdOn')
                 )
               "
               class="date"
             >
-              Notified {{ $dayjs(notification.created).fromNow() }}
+              {{ $t('generic.notified') }}
+              {{ $dayjs(notification.created).fromNow() }}
             </p>
           </nuxt-link>
           <p class="description">
@@ -46,7 +47,7 @@
     <div v-else class="error">
       <UpToDate class="icon"></UpToDate>
       <br />
-      <span class="text">You are up-to-date!</span>
+      <span class="text">{{ $t('generic.upToDate') }}</span>
     </div>
   </div>
 </template>
