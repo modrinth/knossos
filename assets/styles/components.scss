@@ -96,6 +96,7 @@
     padding: 0;
     line-height: 1.5;
     word-wrap: break-word;
+    overflow-wrap: anywhere;
   }
 
   h1,
@@ -455,6 +456,7 @@
     background: transparent;
   }
   .multiselect__tags {
+    border-radius: 1.25rem;
     background: var(--color-dropdown-bg);
     border: none;
     cursor: pointer;
@@ -470,6 +472,7 @@
       background: transparent;
     }
     .multiselect__tag {
+      border-radius: 2rem;
       color: var(--color-text-dark);
       background: transparent;
       border: 2px solid var(--color-brand);
@@ -633,4 +636,17 @@ label {
     margin: auto;
   }
   flex-shrink: 0;
+}
+
+.textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  textarea {
+    flex: 1;
+    overflow-y: auto;
+    resize: none;
+    max-width: 100%;
+  }
 }

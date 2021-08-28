@@ -23,7 +23,7 @@
         <span>
           This leads to a page where you can create a version for your project.
         </span>
-        <nuxt-link class="button" to="newversion">Create version</nuxt-link>
+        <nuxt-link class="button" to="version/create">Create version</nuxt-link>
       </label>
       <h3>Delete project</h3>
       <label>
@@ -269,8 +269,6 @@ export default {
     this.allTeamMembers = this.allMembers
   },
   created() {
-    this.$emit('update:link-bar', [['Settings', 'settings']])
-
     this.UPLOAD_VERSION = 1 << 0
     this.DELETE_VERSION = 1 << 1
     this.EDIT_DETAILS = 1 << 2

@@ -184,7 +184,7 @@
           <div class="textarea-wrapper">
             <textarea id="body" v-model="body"></textarea>
           </div>
-          <div v-compiled-markdown="body" class="markdown-body"></div>
+          <div class="markdown-body" v-html="$xss($md.render(body))"></div>
         </div>
       </section>
       <section class="versions">
@@ -756,19 +756,6 @@ export default {
   }
   .button {
     margin-left: 1rem;
-  }
-}
-
-.textarea-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  textarea {
-    flex: 1;
-    overflow-y: auto;
-    resize: none;
-    max-width: 100%;
   }
 }
 

@@ -77,7 +77,7 @@
           <div class="textarea-wrapper">
             <textarea id="body" v-model="body"></textarea>
           </div>
-          <div v-compiled-markdown="body" class="markdown-body"></div>
+          <div class="markdown-body" v-html="$xss($md.render(body))"></div>
         </div>
       </section>
     </div>

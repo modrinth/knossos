@@ -186,7 +186,10 @@
         <div class="textarea-wrapper">
           <textarea id="body" v-model="newProject.body"></textarea>
         </div>
-        <div v-compiled-markdown="newProject.body" class="markdown-body"></div>
+        <div
+          class="markdown-body"
+          v-html="$xss($md.render(newProject.body))"
+        ></div>
       </div>
     </section>
     <section class="extra-links">
@@ -425,9 +428,6 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       window.removeEventListener('beforeunload', preventLeave)
     })
-  },
-  created() {
-    this.$emit('update:link-bar', [['Edit', 'edit']])
   },
   methods: {
     async saveProjectReview() {

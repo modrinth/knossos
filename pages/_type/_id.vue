@@ -360,13 +360,13 @@
               <span>Description</span>
             </nuxt-link>
             <nuxt-link
-              v-if="project.gallery.length > 0"
+              v-if="project.gallery.length > 0 || currentMember"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
-              }/images`"
+              }/gallery`"
               class="tab"
             >
-              <span>Images</span>
+              <span>Gallery</span>
             </nuxt-link>
             <nuxt-link
               v-if="project.versions.length > 0"
@@ -393,20 +393,18 @@
               }/settings`"
               class="tab"
             >
-              <IconSettings />
               <span>Settings</span>
             </nuxt-link>
           </div>
           <div class="project-content">
             <NuxtChild
               :project="project"
-              :versions="versions"
-              :featured-versions="featuredVersions"
+              :versions.sync="versions"
+              :featured-versions.sync="featuredVersions"
               :members="members"
               :current-member="currentMember"
               :all-members="allMembers"
-              :dependencies="dependencies"
-              :link-bar.sync="linkBar"
+              :dependencies.sync="dependencies"
             />
           </div>
         </div>
@@ -487,7 +485,6 @@ export default {
         allMembers: members,
         currentMember,
         dependencies,
-        linkBar: [],
       }
     } catch {
       data.error({
@@ -576,8 +573,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  padding: 0 1.5rem 1rem 1.5rem;
-  margin-top: 3rem;
+  padding: 1rem 1.5rem;
 
   @extend %card-spaced-b;
 
@@ -585,7 +581,6 @@ export default {
     width: 6rem;
     height: 6rem;
     object-fit: contain;
-    margin: -3rem 0 0 0;
     border-radius: var(--size-rounded-icon);
   }
 
@@ -668,7 +663,6 @@ export default {
 
 .project-main {
   @extend %card-spaced-b;
-  margin-top: 3rem;
   padding: var(--spacing-card-bg) var(--spacing-card-lg);
 
   .tabs {

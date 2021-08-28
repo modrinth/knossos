@@ -81,9 +81,9 @@
           </button>
         </div>
         <div
-          v-compiled-markdown="report.body"
           v-highlightjs
           class="markdown-body"
+          v-html="$xss($md.render(report.body))"
         ></div>
       </div>
     </div>

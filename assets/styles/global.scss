@@ -1,3 +1,7 @@
+html {
+  @extend .light-mode;
+}
+
 .light-mode {
   --color-icon: #718096;
   --color-text: #4a5568;
@@ -233,10 +237,13 @@ button {
   @extend .button;
 }
 
+input {
+  border-radius: 2rem;
+}
+
 input,
 textarea {
   background: var(--color-button-bg);
-  border-radius: var(--size-rounded-control);
   color: var(--color-text);
   padding: 0.5rem 1rem;
   border: 2px solid transparent;
