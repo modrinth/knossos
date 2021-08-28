@@ -132,7 +132,7 @@ export default {
   plugins: [
     '~/plugins/vue-tooltip.js',
     '~/plugins/vue-notification.js',
-    '~/plugins/compiled-markdown-directive.js',
+    '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/auth.js',
     '~/plugins/shorthands.js',
@@ -162,6 +162,7 @@ export default {
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
     '@nuxtjs/style-resources',
+    '@nuxtjs/markdownit',
     'cookie-universal-nuxt',
     '~/modules/gpt-ads',
     // The analytics module is disabled, as we are using our own solution embedded in the middleware.
@@ -223,6 +224,12 @@ export default {
   },
   styleResources: {
     scss: './assets/styles/injected.scss',
+  },
+  markdownit: {
+    runtime: true,
+    preset: 'default',
+    linkify: true,
+    breaks: true,
   },
   loading: {
     color: 'green',

@@ -64,10 +64,10 @@
             v-model="selectedVersions"
             :options="
               showSnapshots
-                ? $tag.gameVersions
-                : $tag.gameVersions.filter(
-                    (it) => it.version_type === 'release'
-                  )
+                ? $tag.gameVersions.map((x) => x.version)
+                : $tag.gameVersions
+                    .filter((it) => it.version_type === 'release')
+                    .map((x) => x.version)
             "
             track-by="version"
             label="version"
@@ -191,7 +191,7 @@
               :is-ad="index === -1"
               :is-modrinth="true"
             />
-            <div v-if="results.length === 0" class="no-results">
+            <div v-if="results && results.length === 0" class="no-results">
               <p>No results found for your query!</p>
             </div>
           </div>
@@ -300,8 +300,11 @@ export default {
     }
     if (this.$route.query.o)
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
-    if (this.$route.params.projectType)
-      this.projectType = this.$route.params.projectType
+
+    this.projectType = this.$route.name.substring(
+      0,
+      this.$route.name.length - 1
+    )
 
     await this.onSearchChange(this.currentPage)
   },
@@ -329,8 +332,10 @@ export default {
   watch: {
     '$route.path': {
       async handler() {
-        if (this.$route.params.projectType)
-          this.projectType = this.$route.params.projectType
+        this.projectType = this.$route.name.substring(
+          0,
+          this.$route.name.length - 1
+        )
 
         this.results = null
         await this.clearFilters()
@@ -505,20 +510,33 @@ export default {
         }
 
         if (process.client) {
-          url = `${this.$route.path}?q=${encodeURIComponent(this.query)}`
+          const queryItems = []
 
-          if (offset > 0) url += `&o=${offset}`
+          if (this.query) queryItems.push(`q=${encodeURIComponent(this.query)}`)
+          if (offset > 0) queryItems.push(`o=${offset}`)
           if (this.facets.length > 0)
-            url += `&f=${encodeURIComponent(this.facets)}`
+            queryItems.push(`f=${encodeURIComponent(this.facets)}`)
           if (this.selectedVersions.length > 0)
-            url += `&v=${encodeURIComponent(this.selectedVersions)}`
-          if (this.showSnapshots) url += `&h=true`
+            queryItems.push(`v=${encodeURIComponent(this.selectedVersions)}`)
+          if (this.showSnapshots) url += `h=true`
           if (this.selectedEnvironments.length > 0)
-            url += `&e=${encodeURIComponent(this.selectedEnvironments)}`
+            queryItems.push(
+              `e=${encodeURIComponent(this.selectedEnvironments)}`
+            )
           if (this.sortType.name !== 'relevance')
-            url += `&s=${encodeURIComponent(this.sortType.name)}`
+            queryItems.push(`s=${encodeURIComponent(this.sortType.name)}`)
           if (this.maxResults > 20)
-            url += `&m=${encodeURIComponent(this.maxResults)}`
+            queryItems.push(`m=${encodeURIComponent(this.maxResults)}`)
+
+          url = `${this.$route.path}`
+
+          if (queryItems.length > 0) {
+            url += `?${queryItems[0]}`
+
+            for (let i = 1; i < queryItems.length; i++) {
+              url += `&${queryItems[i]}`
+            }
+          }
 
           await this.$router.push({ path: url })
         }
@@ -547,7 +565,7 @@ export default {
   flex-flow: column;
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
-  padding: 0.25rem 1rem 0.25rem 1rem;
+  padding: var(--spacing-card-sm) var(--spacing-card-md);
   margin-bottom: var(--spacing-card-md);
   input {
     border: none;

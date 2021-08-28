@@ -1,20 +1,26 @@
 <template>
-  <label class="button" @drop.prevent="addFile" @dragover.prevent>
-    <span>
-      {{ text }}
-    </span>
-    <input
-      type="file"
-      :multiple="multiple"
-      :accept="accept"
-      @change="onChange"
-    />
-  </label>
+  <button class="iconified-button" disabled>
+    <label class="iconified-button" @drop.prevent="addFile" @dragover.prevent>
+      <UploadIcon />
+      {{ prompt }}
+      <input
+        type="file"
+        :multiple="multiple"
+        :accept="accept"
+        @change="onChange"
+      />
+    </label>
+  </button>
 </template>
 
 <script>
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+
 export default {
-  name: 'FileInput',
+  name: 'SmartFileInput',
+  components: {
+    UploadIcon,
+  },
   props: {
     prompt: {
       type: String,
@@ -31,7 +37,6 @@ export default {
   },
   data() {
     return {
-      text: this.prompt,
       files: [],
     }
   },
@@ -39,14 +44,6 @@ export default {
     onChange(files, shouldNotReset) {
       if (!shouldNotReset) this.files = files.target.files
 
-      const length = this.files.length
-      if (length === 0) {
-        this.text = this.prompt
-      } else if (length === 1) {
-        this.text = '1 file selected'
-      } else if (length > 1) {
-        this.text = length + ' files selected'
-      }
       this.$emit('change', this.files)
     },
     addFile(e) {
@@ -69,11 +66,7 @@ export default {
 
 <style lang="scss" scoped>
 label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--spacing-card-sm) var(--spacing-card-md);
+  cursor: pointer;
 }
 
 input {
