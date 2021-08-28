@@ -50,12 +50,10 @@
 </template>
 
 <script>
-import ProjectCard from '~/components/ui/ProjectCard'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 
 export default {
   components: {
-    ProjectCard,
     UpToDate,
   },
   head: {

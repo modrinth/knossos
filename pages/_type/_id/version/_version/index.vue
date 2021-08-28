@@ -14,7 +14,7 @@
         project.slug ? project.slug : project.id
       }/versions`"
     >
-      <ArrowLeftIcon />
+      <IconArrowLeft />
       Back to list
     </nuxt-link>
     <div>
@@ -24,7 +24,7 @@
           v-if="featuredVersions.find((x) => x.id === version.id)"
           class="featured"
         >
-          <StarIcon />
+          <IconStar />
           Featured
         </div>
       </div>
@@ -37,7 +37,7 @@
             $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
           "
         >
-          <DownloadIcon />
+          <IconDownload />
           Download
         </a>
         <nuxt-link
@@ -45,7 +45,7 @@
           :to="`/create/report?id=${version.id}&t=version`"
           class="action iconified-button"
         >
-          <FlagIcon />
+          <IconFlag />
           Report
         </nuxt-link>
         <button
@@ -53,7 +53,7 @@
           class="action iconified-button"
           @click="deleteVersionPopup"
         >
-          <TrashIcon />
+          <IconTrash />
           Delete
         </button>
         <nuxt-link
@@ -61,7 +61,7 @@
           class="action iconified-button"
           :to="version.id + '/edit'"
         >
-          <EditIcon />
+          <IconEdit />
           Edit
         </nuxt-link>
       </div>
@@ -175,7 +175,7 @@
             v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
             class="featured"
           >
-            <StarIcon />
+            <IconStar />
             Primary
           </div>
           <a
@@ -184,7 +184,7 @@
             class="action iconified-button"
             @click.prevent="$parent.downloadFile(file.hashes.sha1, file.url)"
           >
-            <DownloadIcon />
+            <IconDownload />
             Download
           </a>
         </div>
@@ -193,29 +193,7 @@
   </div>
 </template>
 <script>
-import {
-  TrashIcon,
-  EditIcon,
-  DownloadIcon,
-  FlagIcon,
-  ArrowLeftIcon,
-  StarIcon,
-} from 'vue-feather-icons'
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
-
-import VersionBadge from '~/components/ui/VersionBadge'
-
 export default {
-  components: {
-    VersionBadge,
-    DownloadIcon,
-    TrashIcon,
-    EditIcon,
-    FlagIcon,
-    ArrowLeftIcon,
-    ConfirmPopup,
-    StarIcon,
-  },
   auth: false,
   props: {
     project: {
@@ -255,9 +233,6 @@ export default {
       },
     },
   },
-  async fetch() {
-    await this.setVersion()
-  },
   data() {
     return {
       primaryFile: {},
@@ -265,6 +240,9 @@ export default {
       filesToUpload: [],
       popup_data: null,
     }
+  },
+  async fetch() {
+    await this.setVersion()
   },
   watch: {
     async $route() {

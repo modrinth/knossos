@@ -23,14 +23,14 @@
               :to="`/create/report?id=${user.id}&t=user`"
               class="iconified-button"
             >
-              <FlagIcon />
+              <IconFlag />
               Report
             </nuxt-link>
           </div>
         </div>
         <div class="card stats">
           <div class="stat">
-            <CalendarIcon />
+            <IconCalendar />
             <div class="info">
               <h4>Joined</h4>
               <p
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="stat">
-            <DownloadIcon />
+            <IconDownload />
             <div class="info">
               <h4>Downloads</h4>
               <p class="value">
@@ -55,7 +55,7 @@
             </div>
           </div>
         </div>
-        <Advertisement
+        <AdsAdvertisement
           type="square"
           small-screen="square"
           ethical-ads-big
@@ -87,20 +87,8 @@
 </template>
 
 <script>
-import { FlagIcon, CalendarIcon, DownloadIcon } from 'vue-feather-icons'
-import ProjectCard from '~/components/ui/ProjectCard'
-
-import Advertisement from '~/components/ads/Advertisement'
-
 export default {
   auth: false,
-  components: {
-    ProjectCard,
-    Advertisement,
-    CalendarIcon,
-    DownloadIcon,
-    FlagIcon,
-  },
   async asyncData(data) {
     try {
       const [user, projects] = (
@@ -120,20 +108,6 @@ export default {
         message: 'User not found',
       })
     }
-  },
-  methods: {
-    formatNumber(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    },
-    sumDownloads() {
-      let sum = 0
-
-      for (const projects of this.projects) {
-        sum += projects.downloads
-      }
-
-      return this.formatNumber(sum)
-    },
   },
   head() {
     return {
@@ -179,6 +153,20 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    formatNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    sumDownloads() {
+      let sum = 0
+
+      for (const projects of this.projects) {
+        sum += projects.downloads
+      }
+
+      return this.formatNumber(sum)
+    },
   },
 }
 </script>

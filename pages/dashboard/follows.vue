@@ -28,7 +28,7 @@
             class="button column unfav-button iconified-button"
             @click="$store.dispatch('user/unfollowProject', project)"
           >
-            <HeartIcon />
+            <IconHeart />
             Unfollow
           </button>
         </div>
@@ -47,15 +47,10 @@
 </template>
 
 <script>
-import { HeartIcon } from 'vue-feather-icons'
-
-import ProjectCard from '~/components/ui/ProjectCard'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg?inline'
 
 export default {
   components: {
-    ProjectCard,
-    HeartIcon,
     FollowIllustration,
   },
   head: {

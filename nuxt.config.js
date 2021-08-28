@@ -6,6 +6,9 @@ export default {
    ** See https://nuxtjs.org/api/configuration-target
    */
   target: 'server',
+  server: {
+    host: '0.0.0.0',
+  },
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -76,8 +79,7 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
       },
     ],
     script: [],
@@ -139,7 +141,7 @@ export default {
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
-  components: ['~/components/general/', '~/components/ui'],
+  components: ['~/components/general', '~/components/ui'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -148,6 +150,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/svg',
     '@nuxtjs/color-mode',
+    'lucide-vue/nuxt',
   ],
   /*
    ** Nuxt.js modules

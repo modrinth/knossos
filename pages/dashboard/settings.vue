@@ -116,12 +116,7 @@
 </template>
 
 <script>
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
-
 export default {
-  components: {
-    ConfirmPopup,
-  },
   data() {
     return {
       username: '',

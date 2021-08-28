@@ -86,7 +86,7 @@
                   ))
             "
           >
-            <ChevronDownIcon />
+            <IconChevronDown />
           </button>
         </div>
       </div>
@@ -237,12 +237,7 @@
 </template>
 
 <script>
-import { ChevronDownIcon } from 'vue-feather-icons'
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
-import Checkbox from '~/components/ui/Checkbox'
-
 export default {
-  components: { ChevronDownIcon, ConfirmPopup, Checkbox },
   props: {
     project: {
       type: Object,
@@ -263,15 +258,15 @@ export default {
       },
     },
   },
-  fetch() {
-    this.allTeamMembers = this.allMembers
-  },
   data() {
     return {
       currentUsername: '',
       openTeamMembers: [],
       allTeamMembers: [],
     }
+  },
+  fetch() {
+    this.allTeamMembers = this.allMembers
   },
   created() {
     this.$emit('update:link-bar', [['Settings', 'settings']])

@@ -8,7 +8,7 @@
               Close
             </button>
             <button class="iconified-button" @click="clearFilters">
-              <XIcon />
+              <IconX />
               Clear filters
             </button>
             <h3>Categories</h3>
@@ -42,7 +42,7 @@
               facet-name="client"
               @toggle="toggleEnv"
             >
-              <MonitorIcon />
+              <IconMonitor />
             </SearchFilter>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -50,7 +50,7 @@
               facet-name="server"
               @toggle="toggleEnv"
             >
-              <HardDriveIcon />
+              <IconHardDrive />
             </SearchFilter>
             <h3 class="upper-spacing">Minecraft versions</h3>
             <Checkbox
@@ -96,7 +96,7 @@
             @input="toggleLicense"
           />
         </div>
-        <Advertisement type="square" small-screen="destroy" />
+        <AdsAdvertisement type="square" small-screen="destroy" />
       </section>
       <div class="content">
         <section class="search-nav">
@@ -111,7 +111,7 @@
               autocomplete="off"
               @input="onSearchChange(1)"
             />
-            <SearchIcon />
+            <IconSearch />
           </div>
           <div class="sort-paginate">
             <div class="labeled-control">
@@ -154,11 +154,11 @@
               <button @click="toggleFiltersMenu">Open</button>
             </div>
           </div>
-          <pagination
+          <Pagination
             :current-page="currentPage"
             :pages="pages"
             @switch-page="onSearchChange"
-          ></pagination>
+          />
         </section>
         <div class="results column-grow-4">
           <Advertisement
@@ -172,7 +172,7 @@
             <p>Loading...</p>
           </div>
           <div v-else>
-            <SearchResult
+            <ProjectCard
               v-for="(result, index) in results"
               :id="result.slug ? result.slug : result.project_id.split('-')[1]"
               :key="result.project_id"
@@ -225,32 +225,42 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import {
-  MonitorIcon, // Client side
-  HardDriveIcon, // Server side
-  SearchIcon,
-  XIcon,
-} from 'vue-feather-icons'
-import SearchResult from '~/components/ui/ProjectCard'
-import Pagination from '~/components/ui/Pagination'
-import SearchFilter from '~/components/ui/search/SearchFilter'
-import Checkbox from '~/components/ui/Checkbox'
-
-import Advertisement from '~/components/ads/Advertisement'
 
 export default {
   auth: false,
   components: {
-    Advertisement,
-    SearchResult,
-    Pagination,
     Multiselect,
-    SearchFilter,
-    Checkbox,
-    MonitorIcon,
-    HardDriveIcon,
-    SearchIcon,
-    XIcon,
+  },
+  data() {
+    return {
+      query: '',
+
+      displayLicense: '',
+      selectedLicense: '',
+
+      showSnapshots: false,
+      selectedVersions: [],
+
+      selectedEnvironments: [],
+
+      facets: [],
+      results: null,
+      pages: [],
+      currentPage: 1,
+
+      projectType: 'mod',
+
+      sortTypes: [
+        { display: 'Relevance', name: 'relevance' },
+        { display: 'Download count', name: 'downloads' },
+        { display: 'Follow count', name: 'follows' },
+        { display: 'Recently created', name: 'newest' },
+        { display: 'Recently updated', name: 'updated' },
+      ],
+      sortType: { display: 'Relevance', name: 'relevance' },
+
+      maxResults: 20,
+    }
   },
   async fetch() {
     if (this.$route.query.q) this.query = this.$route.query.q
@@ -295,38 +305,27 @@ export default {
 
     await this.onSearchChange(this.currentPage)
   },
-  data() {
-    return {
-      query: '',
-
-      displayLicense: '',
-      selectedLicense: '',
-
-      showSnapshots: false,
-      selectedVersions: [],
-
-      selectedEnvironments: [],
-
-      facets: [],
-      results: null,
-      pages: [],
-      currentPage: 1,
-
-      projectType: 'mod',
-
-      sortTypes: [
-        { display: 'Relevance', name: 'relevance' },
-        { display: 'Download count', name: 'downloads' },
-        { display: 'Follow count', name: 'follows' },
-        { display: 'Recently created', name: 'newest' },
-        { display: 'Recently updated', name: 'updated' },
-      ],
-      sortType: { display: 'Relevance', name: 'relevance' },
-
-      maxResults: 20,
-    }
-  },
   fetchOnServer: false,
+  head: {
+    title: 'Mods - Modrinth',
+    meta: [
+      {
+        hid: 'apple-mobile-web-app-title',
+        name: 'apple-mobile-web-app-title',
+        content: 'Mods',
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Mods',
+      },
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        content: `https://modrinth.com/mods`,
+      },
+    ],
+  },
   watch: {
     '$route.path': {
       async handler() {
@@ -536,26 +535,6 @@ export default {
       document.body.style.overflow =
         document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
     },
-  },
-  head: {
-    title: 'Mods - Modrinth',
-    meta: [
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: `https://modrinth.com/mods`,
-      },
-    ],
   },
 }
 </script>

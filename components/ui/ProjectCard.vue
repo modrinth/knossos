@@ -52,14 +52,14 @@
               </div>
             </div>
             <div class="stat">
-              <DownloadIcon aria-hidden="true" />
+              <IconDownload aria-hidden="true" />
               <div class="info">
                 <h4>Downloads</h4>
                 <p class="value">{{ formatNumber(downloads) }}</p>
               </div>
             </div>
             <div class="stat">
-              <CalendarIcon aria-hidden="true" />
+              <IconCalendar aria-hidden="true" />
               <div class="info">
                 <h4>Created</h4>
                 <p
@@ -75,7 +75,7 @@
               </div>
             </div>
             <div class="stat">
-              <EditIcon aria-hidden="true" />
+              <IconEdit aria-hidden="true" />
               <div class="info">
                 <h4>Updated</h4>
                 <p
@@ -91,7 +91,7 @@
               </div>
             </div>
             <div v-if="latestVersion" class="stat">
-              <TagIcon aria-hidden="true" />
+              <IconTag aria-hidden="true" />
               <div class="info">
                 <h4>Available For</h4>
                 <p class="value">
@@ -100,7 +100,7 @@
               </div>
             </div>
           </div>
-          <Categories :categories="categories" class="right-categories" />
+          <SearchCategories :categories="categories" class="right-categories" />
         </div>
       </div>
     </div>
@@ -111,24 +111,8 @@
 </template>
 
 <script>
-import {
-  CalendarIcon,
-  DownloadIcon,
-  EditIcon,
-  TagIcon,
-} from 'vue-feather-icons'
-
-import Categories from '~/components/ui/search/Categories'
-
 export default {
   name: 'ProjectCard',
-  components: {
-    Categories,
-    CalendarIcon,
-    DownloadIcon,
-    EditIcon,
-    TagIcon,
-  },
   props: {
     id: {
       type: String,

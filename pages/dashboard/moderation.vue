@@ -96,12 +96,10 @@
 </template>
 
 <script>
-import ProjectCard from '~/components/ui/ProjectCard'
 import Security from '~/assets/images/illustrations/security.svg?inline'
 
 export default {
   components: {
-    ProjectCard,
     Security,
   },
   async asyncData(data) {

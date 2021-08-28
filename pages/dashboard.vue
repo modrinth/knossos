@@ -4,18 +4,18 @@
       <div class="sidebar-l">
         <div v-if="$auth.user != null" class="card page-nav">
           <nuxt-link :to="'/dashboard/projects'" class="tab last">
-            <FolderIcon />
+            <IconFolder />
             My projects
           </nuxt-link>
           <nuxt-link :to="'/dashboard/notifications'" class="tab last">
-            <BellIcon />
+            <IconBell />
             Notifications
             <div v-if="$user.notifications.length > 0" class="notif-count">
               {{ $user.notifications.length }}
             </div>
           </nuxt-link>
           <nuxt-link :to="'/dashboard/follows'" class="tab last">
-            <HeartIcon />
+            <IconHeart />
             Followed projects
           </nuxt-link>
           <nuxt-link
@@ -25,25 +25,25 @@
             :to="'/dashboard/moderation'"
             class="tab last"
           >
-            <FlagIcon />
+            <IconFlag />
             Moderation
           </nuxt-link>
           <nuxt-link :to="'/dashboard/settings'" class="tab last">
-            <SettingsIcon />
+            <IconSettings />
             Settings
           </nuxt-link>
           <nuxt-link :to="'/dashboard/privacy'" class="tab last">
-            <ShieldIcon />
+            <IconShield />
             Privacy settings
           </nuxt-link>
         </div>
         <div v-else class="card page-nav">
           <a :href="authUrl" class="tab last">
-            <UserIcon />
+            <IconUser />
             Log in
           </a>
           <nuxt-link :to="'/dashboard/privacy'" class="tab last">
-            <SettingsIcon />
+            <IconSettings />
             Privacy settings
           </nuxt-link>
         </div>
@@ -55,27 +55,8 @@
   </div>
 </template>
 <script>
-import {
-  FolderIcon,
-  BellIcon,
-  SettingsIcon,
-  HeartIcon,
-  UserIcon,
-  ShieldIcon,
-  FlagIcon,
-} from 'vue-feather-icons'
-
 export default {
   name: 'DashboardPage',
-  components: {
-    FolderIcon,
-    FlagIcon,
-    SettingsIcon,
-    BellIcon,
-    HeartIcon,
-    UserIcon,
-    ShieldIcon,
-  },
   computed: {
     authUrl() {
       return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.fullPath}`

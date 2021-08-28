@@ -5,7 +5,7 @@
       to="newversion"
       class="iconified-button new-version"
     >
-      <UploadIcon />
+      <IconUpload />
       Upload
     </nuxt-link>
     <table>
@@ -30,7 +30,7 @@
                 )
               "
             >
-              <DownloadIcon />
+              <IconDownload />
             </a>
           </td>
           <td>
@@ -79,16 +79,7 @@
   </div>
 </template>
 <script>
-import { UploadIcon, DownloadIcon } from 'vue-feather-icons'
-
-import VersionBadge from '~/components/ui/VersionBadge'
-
 export default {
-  components: {
-    UploadIcon,
-    DownloadIcon,
-    VersionBadge,
-  },
   auth: false,
   props: {
     project: {

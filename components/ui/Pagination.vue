@@ -6,7 +6,7 @@
       aria-label="Previous Page"
       @click="currentPage !== 1 ? switchPage(currentPage - 1) : null"
     >
-      <ArrowLeftIcon />
+      <IconArrowLeft />
     </button>
     <div
       v-for="(item, index) in pages"
@@ -18,7 +18,7 @@
       class="page-number-container"
     >
       <div v-if="item == '-'" class="has-icon">
-        <MinusIcon />
+        <IconMinus />
       </div>
       <button
         v-else
@@ -44,21 +44,14 @@
           : null
       "
     >
-      <ArrowRightIcon />
+      <IconArrowRight />
     </button>
   </div>
 </template>
 
 <script>
-import { MinusIcon, ArrowLeftIcon, ArrowRightIcon } from 'vue-feather-icons'
-
 export default {
   name: 'Pagination',
-  components: {
-    MinusIcon,
-    ArrowLeftIcon,
-    ArrowRightIcon,
-  },
   props: {
     currentPage: {
       type: Number,

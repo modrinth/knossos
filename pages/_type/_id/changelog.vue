@@ -41,7 +41,7 @@
             )
           "
         >
-          <DownloadIcon />
+          <IconDownload />
           Download
         </a>
       </div>
@@ -55,12 +55,7 @@
   </div>
 </template>
 <script>
-import { DownloadIcon } from 'vue-feather-icons'
-
 export default {
-  components: {
-    DownloadIcon,
-  },
   auth: false,
   props: {
     project: {

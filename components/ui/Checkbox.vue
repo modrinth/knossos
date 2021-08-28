@@ -8,13 +8,8 @@
 </template>
 
 <script>
-import { CheckIcon } from 'vue-feather-icons'
-
 export default {
   name: 'Checkbox',
-  components: {
-    CheckIcon,
-  },
   props: {
     label: {
       type: String,

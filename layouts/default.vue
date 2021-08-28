@@ -10,7 +10,7 @@
         </section>
         <section class="menu-icon">
           <button @click="toggleNavBar">
-            <MenuIcon />
+            <IconMenu />
           </button>
         </section>
         <section ref="nav" class="right-group columns">
@@ -27,8 +27,8 @@
           <section class="column-grow user-outer">
             <section class="user-controls">
               <button class="theme-toggle" @click="changeTheme">
-                <MoonIcon v-if="$colorMode.value === 'light'" />
-                <SunIcon v-else />
+                <IconMoon v-if="$colorMode.value === 'light'" />
+                <IconSun v-else />
               </button>
               <div
                 v-if="$auth.user"
@@ -44,38 +44,38 @@
                     />
                     <span>{{ $auth.user.username }}</span>
                   </div>
-                  <ChevronDownIcon class="dropdown-icon" />
+                  <IconChevronDown class="dropdown-icon" />
                 </button>
                 <div class="content">
                   <ul v-if="isDropdownOpen" @click="hideDropdown">
                     <li>
                       <NuxtLink :to="`/user/${$auth.user.username}`">
-                        <UserIcon />
+                        <IconUser />
                         <span>Profile</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/projects">
-                        <FolderIcon />
+                        <IconFolder />
                         <span>Projects</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/notifications">
-                        <BellIcon />
+                        <IconBell />
                         <span>Notifications</span>
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/dashboard/settings">
-                        <SettingsIcon />
+                        <IconSettings />
                         <span>Settings</span>
                       </NuxtLink>
                     </li>
                     <hr />
                     <li>
                       <button @click="logout">
-                        <LogOutIcon />
+                        <IconLogOut />
                         <span>Log Out</span>
                       </button>
                     </li>
@@ -93,7 +93,7 @@
       </section>
     </header>
     <main>
-      <CookieConsent />
+      <AdsCookieConsent />
       <notifications
         group="main"
         position="bottom right"
@@ -114,18 +114,6 @@
 </template>
 
 <script>
-import {
-  MenuIcon,
-  FolderIcon,
-  BellIcon,
-  SettingsIcon,
-  ChevronDownIcon,
-  MoonIcon,
-  SunIcon,
-  UserIcon,
-  LogOutIcon,
-} from 'vue-feather-icons'
-
 import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
@@ -133,39 +121,25 @@ import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
 import GitHubIcon from '~/assets/images/external/github.svg?inline'
 
-import CookieConsent from '~/components/ads/CookieConsent'
-import AvatarIcon from '~/components/ui/AvatarIcon'
-
 export default {
   components: {
     ModrinthLogo,
     ModrinthLogoSmall,
-    ChevronDownIcon,
-    MoonIcon,
-    SunIcon,
-    UserIcon,
-    LogOutIcon,
     GitHubIcon,
-    BellIcon,
-    MenuIcon,
-    CookieConsent,
-    AvatarIcon,
-    SettingsIcon,
-    FolderIcon,
   },
   directives: {
     ClickOutside,
+  },
+  data() {
+    return {
+      isDropdownOpen: false,
+    }
   },
   async fetch() {
     await Promise.all([
       this.$store.dispatch('user/fetchAll', { force: true }),
       this.$store.dispatch('tag/fetchAllTags'),
     ])
-  },
-  data() {
-    return {
-      isDropdownOpen: false,
-    }
   },
   computed: {
     authUrl() {
