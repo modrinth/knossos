@@ -1,7 +1,7 @@
 <template>
   <button class="iconified-button" disabled>
     <label class="iconified-button" @drop.prevent="addFile" @dragover.prevent>
-      <UploadIcon />
+      <IconUpload />
       {{ prompt }}
       <input
         type="file"
@@ -14,13 +14,8 @@
 </template>
 
 <script>
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-
 export default {
   name: 'SmartFileInput',
-  components: {
-    UploadIcon,
-  },
   props: {
     prompt: {
       type: String,

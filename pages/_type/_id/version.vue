@@ -15,7 +15,7 @@
         project.slug ? project.slug : project.id
       }/versions`"
     >
-      <BackIcon />
+      <IconBack />
       Back to list
     </nuxt-link>
     <div>
@@ -23,14 +23,14 @@
         <h2>{{ version.name }}</h2>
 
         <div v-if="version.featured" class="featured">
-          <StarIcon />
+          <IconStar />
           Featured
         </div>
         <div
           v-else-if="featuredVersions.find((x) => x.id === version.id)"
           class="featured"
         >
-          <StarIcon />
+          <IconStar />
           Auto-featured
         </div>
       </div>
@@ -39,7 +39,7 @@
           class="action iconified-button brand-button-colors"
           @click="saveEditedVersion"
         >
-          <CheckIcon />
+          <IconCheck />
           Save
         </button>
         <nuxt-link
@@ -49,7 +49,7 @@
           }/version/${encodeURIComponent(version.version_number)}`"
           class="action iconified-button"
         >
-          <TrashIcon />
+          <IconTrash />
           Discard changes
         </nuxt-link>
       </div>
@@ -58,7 +58,7 @@
           class="action iconified-button brand-button-colors"
           @click="createVersion"
         >
-          <CheckIcon />
+          <IconCheck />
           Save
         </button>
         <nuxt-link
@@ -68,7 +68,7 @@
           }/versions`"
           class="action iconified-button"
         >
-          <TrashIcon />
+          <IconTrash />
           Discard version
         </nuxt-link>
       </div>
@@ -81,7 +81,7 @@
             $parent.downloadFile(primaryFile.hashes.sha1, primaryFile.url)
           "
         >
-          <DownloadIcon />
+          <IconDownload />
           Download
         </a>
         <nuxt-link
@@ -89,7 +89,7 @@
           :to="`/create/report?id=${version.id}&t=version`"
           class="action iconified-button"
         >
-          <ReportIcon />
+          <IconReport />
           Report
         </nuxt-link>
         <button
@@ -97,7 +97,7 @@
           class="action iconified-button"
           @click="$refs.delete_version_popup.show()"
         >
-          <TrashIcon />
+          <IconTrash />
           Delete
         </button>
         <nuxt-link
@@ -108,7 +108,7 @@
           }/version/${encodeURIComponent(version.version_number)}/edit`"
           @click.prevent="mode = 'edit'"
         >
-          <EditIcon />
+          <IconEdit />
           Edit
         </nuxt-link>
       </div>
@@ -320,7 +320,7 @@
                   class="iconified-button"
                   @click="version.dependencies.splice(index, 1)"
                 >
-                  <TrashIcon /> Delete
+                  <IconTrash /> Delete
                 </button>
                 <p v-else class="dependency-type">
                   {{ dependency.dependency_type }}
@@ -355,7 +355,7 @@
               :allow-empty="false"
             />
             <button class="iconified-button" @click="addDependency">
-              <PlusIcon />
+              <IconPlus />
               Add dependency
             </button>
           </div>
@@ -375,14 +375,14 @@
             v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
             class="featured"
           >
-            <StarIcon />
+            <IconStar />
             Primary
           </div>
           <a
             class="action iconified-button"
             @click.prevent="$parent.downloadFile(file.hashes.sha1, file.url)"
           >
-            <DownloadIcon />
+            <IconDownload />
             Download
           </a>
           <button
@@ -393,7 +393,7 @@
               version.files.splice(index, 1)
             "
           >
-            <TrashIcon />
+            <IconTrash />
             Delete
           </button>
           <button
@@ -403,7 +403,7 @@
             class="action iconified-button"
             @click="primaryFile = file"
           >
-            <StarIcon />
+            <IconStar />
             Make primary
           </button>
         </div>
@@ -415,7 +415,7 @@
               class="action iconified-button"
               @click="newFiles.splice(index, 1)"
             >
-              <TrashIcon />
+              <IconTrash />
               Delete
             </button>
           </div>
@@ -434,37 +434,10 @@
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
-import SmartFileInput from '~/components/ui/SmartFileInput'
-
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import VersionBadge from '~/components/ui/VersionBadge'
-import Checkbox from '~/components/ui/Checkbox'
-import ThisOrThat from '~/components/ui/ThisOrThat'
 
 export default {
   components: {
-    ThisOrThat,
-    Checkbox,
-    VersionBadge,
-    DownloadIcon,
-    TrashIcon,
-    EditIcon,
-    ReportIcon,
-    BackIcon,
-    ConfirmPopup,
-    StarIcon,
-    CheckIcon,
     Multiselect,
-    PlusIcon,
-    SmartFileInput,
   },
   auth: false,
   beforeRouteLeave(to, from, next) {
