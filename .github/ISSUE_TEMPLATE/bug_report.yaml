@@ -10,7 +10,7 @@ body:
       - Staging
       - Website
   validations:
-    required: true
+    required: false
 - type: textarea
   attributes:
     label: Describe the bug
