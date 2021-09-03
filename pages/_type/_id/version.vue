@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <ConfirmPopup
       ref="delete_version_popup"
       title="Are you sure you want to delete this version?"
@@ -787,6 +787,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  @extend %card-spaced-b;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  max-width: calc(100% - (2 * var(--spacing-card-lg)));
+}
+
 .back-button {
   max-width: 6.25rem;
 }

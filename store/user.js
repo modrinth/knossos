@@ -27,27 +27,31 @@ export const actions = {
       rootState.auth.user.id &&
       (force || Date.now() - state.notifications.lastUpdated > 300000)
     ) {
-      const [notifications, follows, projects] = (
-        await Promise.all([
-          this.$axios.get(
-            `user/${rootState.auth.user.id}/notifications`,
-            rootState.auth.headers
-          ),
-          this.$axios.get(
-            `user/${rootState.auth.user.id}/follows`,
-            rootState.auth.headers
-          ),
-          this.$axios.get(
-            `user/${rootState.auth.user.id}/projects`,
-            rootState.auth.headers
-          ),
-        ])
-      ).map((it) => it.data)
+      try {
+        const [notifications, follows, projects] = (
+          await Promise.all([
+            this.$axios.get(
+              `user/${rootState.auth.user.id}/notifications`,
+              rootState.auth.headers
+            ),
+            this.$axios.get(
+              `user/${rootState.auth.user.id}/follows`,
+              rootState.auth.headers
+            ),
+            this.$axios.get(
+              `user/${rootState.auth.user.id}/projects`,
+              rootState.auth.headers
+            ),
+          ])
+        ).map((it) => it.data)
 
-      commit('SET_NOTIFICATIONS', notifications)
-      commit('SET_FOLLOWS', follows)
-      commit('SET_PROJECTS', projects)
-      commit('SET_LAST_UPDATED', Date.now())
+        commit('SET_NOTIFICATIONS', notifications)
+        commit('SET_FOLLOWS', follows)
+        commit('SET_PROJECTS', projects)
+        commit('SET_LAST_UPDATED', Date.now())
+      } catch (err) {
+        console.error(err)
+      }
     }
   },
   followProject({ commit, state, rootState }, project) {

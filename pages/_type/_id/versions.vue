@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <nuxt-link
       v-if="currentMember"
       to="version/create"
@@ -114,6 +114,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  @extend %card-spaced-b;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  max-width: calc(100% - (2 * var(--spacing-card-lg)));
+}
+
 .new-version {
   max-width: 4.25rem;
 }

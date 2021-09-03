@@ -687,15 +687,14 @@ export default {
 }
 
 .project-main {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-bg) var(--spacing-card-lg);
-
   .tabs {
+    @extend %card-spaced-b;
+    padding: var(--spacing-card-md) var(--spacing-card-lg);
+
     overflow-x: auto;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     font-weight: bold;
-    padding: 0;
-    margin-bottom: var(--spacing-card-lg);
+    margin-bottom: var(--spacing-card-md);
 
     .tab {
       padding: 0;
@@ -750,7 +749,7 @@ export default {
   overflow: hidden;
 
   @media screen and (min-width: 1024px) {
-    width: 32rem;
+    min-width: 21rem;
     margin-right: var(--spacing-card-md);
   }
 
