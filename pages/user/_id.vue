@@ -2,72 +2,75 @@
   <div class="page-container">
     <div class="page-contents">
       <div class="sidebar-l">
+        <img :src="user.avatar_url" :alt="user.username" />
         <div class="card">
-          <div class="user-info">
-            <img :src="user.avatar_url" :alt="user.username" />
-            <div class="text">
-              <h2>{{ user.username }}</h2>
-              <p v-if="user.role === 'admin'" class="badge red">Admin</p>
-              <p v-if="user.role === 'moderator'" class="badge yellow">
-                Moderator
-              </p>
-              <p v-if="user.role === 'developer'" class="badge green">
-                Developer
-              </p>
-            </div>
-          </div>
-          <p v-if="user.bio" class="bio">{{ user.bio }}</p>
-          <div class="buttons">
+          <div class="buttons section">
             <nuxt-link
-              v-if="$auth.user && $auth.user.id != user.id"
+              v-if="$auth.user && $auth.user.id !== user.id"
               :to="`/create/report?id=${user.id}&t=user`"
               class="iconified-button"
             >
               <ReportIcon />
               Report
             </nuxt-link>
+            <nuxt-link
+              v-if="$auth.user && $auth.user.id === user.id"
+              :to="`/create/report?id=${user.id}&t=user`"
+              class="iconified-button"
+            >
+              <EditIcon />
+              Edit
+            </nuxt-link>
           </div>
-        </div>
-        <div class="card stats">
-          <div class="stat">
-            <CalendarIcon />
-            <div class="info">
-              <h4>Joined</h4>
-              <p
-                v-tooltip="
-                  $dayjs(user.created).format(
-                    '[Joined] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
-                class="value"
-              >
-                {{ $dayjs(user.created).fromNow() }}
-              </p>
+
+          <div class="about section">
+            <h3>About me</h3>
+            <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+            <Badge
+              v-else-if="user.role === 'moderator'"
+              type="moderator"
+              color="yellow"
+            />
+            <Badge v-else type="developer" color="green" />
+            <p v-if="user.bio" class="bio">{{ user.bio }}</p>
+            <p class="joined">
+              <CalendarIcon />
+              Joined {{ $dayjs(user.created).fromNow() }}
+            </p>
+            <div class="stats">
+              <div>
+                <DownloadIcon />
+                <p>
+                  <strong>{{ sumDownloads() }}</strong> downloads
+                </p>
+              </div>
+              <div>
+                <HeartIcon />
+                <p>
+                  <strong>{{ sumFollows() }}</strong> followers of projects
+                </p>
+              </div>
             </div>
           </div>
-          <div class="stat">
-            <DownloadIcon />
-            <div class="info">
-              <h4>Downloads</h4>
-              <p class="value">
-                {{ sumDownloads() }}
-              </p>
-            </div>
-          </div>
         </div>
-        <Advertisement
-          type="square"
-          small-screen="square"
-          ethical-ads-big
-          ethical-ads-small
-          ethical-ad-type="image"
-        />
       </div>
       <div class="content">
-        <Advertisement type="banner" small-screen="destroy" />
+        <h1>{{ user.username }}'s profile</h1>
+        <div class="tabs">
+          <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
+          <nuxt-link
+            to="/create/project"
+            class="iconified-button brand-button-colors"
+          >
+            <PlusIcon />
+            Create a project
+          </nuxt-link>
+        </div>
         <div class="projects">
           <ProjectCard
-            v-for="project in projects"
+            v-for="project in selectedProjectType !== 'all'
+              ? projects.filter((x) => x.project_type === selectedProjectType)
+              : projects"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
@@ -75,11 +78,25 @@
             :created-at="project.published"
             :updated-at="project.updated"
             :downloads="project.downloads.toString()"
+            :follows="project.followers.toString()"
             :icon-url="project.icon_url"
-            :author-url="project.author_url"
             :categories="project.categories"
-            :is-modrinth="true"
-          />
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :status="project.status"
+            :type="project.project_type"
+          >
+            <nuxt-link
+              v-if="$auth.user.id === user.id"
+              class="iconified-button"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings`"
+            >
+              <SettingsIcon />
+              Settings
+            </nuxt-link>
+          </ProjectCard>
         </div>
       </div>
     </div>
@@ -88,20 +105,30 @@
 
 <script>
 import ProjectCard from '~/components/ui/ProjectCard'
+import ThisOrThat from '~/components/ui/ThisOrThat'
+import Badge from '~/components/ui/Badge'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
+import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import Advertisement from '~/components/ads/Advertisement'
+import DownloadIcon from '~/assets/images/utils/download-alt.svg?inline'
+import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 
 export default {
   auth: false,
   components: {
     ProjectCard,
-    Advertisement,
     CalendarIcon,
     DownloadIcon,
     ReportIcon,
+    EditIcon,
+    HeartIcon,
+    Badge,
+    SettingsIcon,
+    PlusIcon,
+    ThisOrThat,
   },
   async asyncData(data) {
     try {
@@ -121,6 +148,11 @@ export default {
         statusCode: 404,
         message: 'User not found',
       })
+    }
+  },
+  data() {
+    return {
+      selectedProjectType: null,
     }
   },
   head() {
@@ -168,6 +200,18 @@ export default {
       ],
     }
   },
+  computed: {
+    // a computed getter
+    projectTypes() {
+      const obj = { all: true }
+
+      for (const project of this.projects) {
+        obj[project.project_type] = true
+      }
+
+      return Object.keys(obj)
+    },
+  },
   methods: {
     formatNumber(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -181,56 +225,111 @@ export default {
 
       return this.formatNumber(sum)
     },
+    sumFollows() {
+      let sum = 0
+
+      for (const projects of this.projects) {
+        sum += projects.followers
+      }
+
+      return this.formatNumber(sum)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .sidebar-l {
-  @media screen and (min-width: 1024px) {
-    min-width: 21rem;
+  img {
+    @extend %image-shadow;
+
+    width: 100%;
+
+    border-radius: 50%;
+    margin-bottom: 1rem;
   }
 
-  .user-info {
-    @extend %row;
-    img {
-      width: 6rem;
-      height: 6rem;
-      margin-right: var(--spacing-card-md);
-      border-radius: var(--size-rounded-icon);
+  .card {
+    .buttons {
+      display: flex;
     }
-    .text {
-      h2 {
-        margin: 0;
-        color: var(--color-text-dark);
-        font-size: var(--font-size-lg);
-      }
-      .badge {
-        display: inline-block;
-      }
-    }
-  }
-  .buttons {
-    @extend %column;
 
-    margin-top: 16px;
-
-    .iconified-button {
-      max-width: 4.5rem;
+    h3 {
+      margin-bottom: 1rem;
     }
-  }
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    .stat {
-      @extend %stat;
+
+    .version-badge {
+      margin: 0 0 0.75rem 0;
+    }
+
+    .bio {
+      overflow-wrap: break-word;
+      hyphens: manual;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .joined {
+      margin: 0 0 0.75rem 0;
+      display: flex;
+      color: var(--color-icon);
 
       svg {
-        padding: 0.25rem;
-        border-radius: 50%;
-        background-color: var(--color-button-bg);
+        width: auto;
+        height: 1rem;
+        margin-right: 0.25rem;
       }
     }
+
+    .stats {
+      div {
+        display: flex;
+        align-items: center;
+
+        svg {
+          height: 1.25rem;
+          width: auto;
+          margin-right: 0.25rem;
+        }
+
+        p {
+          margin: 0;
+
+          strong {
+            font-size: var(--font-size-lg);
+          }
+        }
+      }
+    }
+  }
+}
+
+.content {
+  .tabs {
+    @extend %card;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-card-md);
+    overflow-x: auto;
+
+    .iconified-button {
+      margin-left: auto;
+    }
+  }
+
+  h1 {
+    margin-left: 1rem;
+    color: var(--color-text-dark);
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .page-contents {
+    max-width: calc(1280px - 8rem);
   }
 }
 </style>

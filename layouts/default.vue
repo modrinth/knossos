@@ -15,7 +15,7 @@
         </section>
         <section ref="nav" class="right-group columns">
           <section class="column-grow-5 nav">
-            <div class="tabs">
+            <div class="styled-tabs">
               <NuxtLink to="/mods" class="tab">
                 <span>Mods</span>
               </NuxtLink>
@@ -26,10 +26,13 @@
           </section>
           <section class="column-grow user-outer">
             <section class="user-controls">
-              <button class="theme-toggle" @click="changeTheme">
+              <button class="control-button" @click="changeTheme">
                 <MoonIcon v-if="$colorMode.value === 'light'" />
                 <SunIcon v-else />
               </button>
+              <nuxt-link to="/dashboard/notifications" class="control-button">
+                <NotificationIcon />
+              </nuxt-link>
               <div
                 v-if="$auth.user"
                 v-click-outside="hideDropdown"
@@ -38,10 +41,7 @@
               >
                 <button class="control" @click="toggleDropdown">
                   <div class="avatar">
-                    <AvatarIcon
-                      :notif-count="$user.notifications.length"
-                      :dropdown-bg="isDropdownOpen"
-                    />
+                    <img :src="$auth.user.avatar_url" class="icon" />
                     <span>{{ $auth.user.username }}</span>
                   </div>
                   <DropdownIcon class="dropdown-icon" />
@@ -52,18 +52,6 @@
                       <NuxtLink :to="`/user/${$auth.user.username}`">
                         <UserIcon />
                         <span>Profile</span>
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink to="/dashboard/projects">
-                        <ProjectIcon />
-                        <span>Projects</span>
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink to="/dashboard/notifications">
-                        <NotificationIcon />
-                        <span>Notifications</span>
                       </NuxtLink>
                     </li>
                     <li>
@@ -121,7 +109,6 @@ import ModrinthLogoSmall from '~/assets/images/logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
-import ProjectIcon from '~/assets/images/sidebar/mod.svg?inline'
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 
@@ -134,7 +121,6 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
 import CookieConsent from '~/components/ads/CookieConsent'
-import AvatarIcon from '~/components/ui/AvatarIcon'
 
 export default {
   components: {
@@ -149,9 +135,7 @@ export default {
     NotificationIcon,
     HamburgerIcon,
     CookieConsent,
-    AvatarIcon,
     SettingsIcon,
-    ProjectIcon,
   },
   directives: {
     ClickOutside,
@@ -169,7 +153,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `${this.$axios.defaults.baseURL}autaaaah/init?url=${process.env.domain}${this.$route.path}`
+      return `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}${this.$route.path}`
     },
   },
   watch: {
@@ -236,13 +220,12 @@ export default {
   }
 
   .site-header {
-    height: var(--size-navbar-height);
-    background-color: var(--color-raised-bg);
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
     max-width: 100vw;
 
     @media screen and (min-width: 1024px) {
       border-radius: var(--size-rounded-sm);
-      margin-top: var(--spacing-card-bg);
       max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
@@ -257,8 +240,6 @@ export default {
         align-items: center;
         display: flex;
         justify-content: space-between;
-        padding: 1rem 0;
-        margin-left: 1rem;
         color: var(--color-text-dark);
         .small-logo {
           display: block;
@@ -325,19 +306,20 @@ export default {
         }
 
         section.nav {
-          .tabs {
+          .styled-tabs {
+            display: flex;
             flex-direction: column;
 
-            .section {
-              border-top: 3px solid var(--color-brand-disabled);
-              margin-top: 0.75rem;
-              padding-top: 0.75rem;
-            }
-            .tab {
-              font-size: var(--font-size-md);
+            a {
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 5px;
 
-              span {
-                margin: 0 auto;
+              &:hover,
+              &:focus,
+              &.nuxt-link-exact-active,
+              &.active-path {
+                margin-bottom: 0;
               }
             }
           }
@@ -358,15 +340,16 @@ export default {
 
           margin: 0 auto;
 
-          .theme-toggle {
+          .control-button {
             padding: 0.5rem;
+            background-color: var(--color-raised-bg);
             border-radius: var(--size-rounded-max);
-            margin: 0 0.5rem;
+            margin: 0 0.5rem 0 0;
             display: flex;
 
             svg {
-              height: 1.5rem;
-              width: 1.5rem;
+              height: 1rem;
+              width: 1rem;
             }
           }
 
@@ -390,7 +373,7 @@ export default {
               }
             }
             .control {
-              background-color: var(--color-button-bg);
+              background-color: var(--color-raised-bg);
               border-radius: var(--size-rounded-max);
               align-items: center;
               display: flex;
@@ -398,13 +381,18 @@ export default {
               position: relative;
               z-index: 11;
               width: 100%;
-              &:hover {
-                background-color: var(--color-button-bg-hover);
-              }
+
               .avatar {
                 align-items: center;
                 display: flex;
                 flex-grow: 1;
+
+                img {
+                  height: 1.5rem;
+                  width: 1.5rem;
+                  border-radius: 50%;
+                }
+
                 span {
                   display: block;
                   overflow: hidden;
@@ -534,30 +522,21 @@ export default {
           z-index: unset;
 
           section.nav {
-            .tabs {
+            .styled-tabs {
               flex-direction: unset;
               position: relative;
               top: 50%;
               transform: translateY(-50%);
+              margin-top: 3px;
+              margin-left: 2rem;
 
-              .section {
-                margin-top: unset;
-                padding-top: unset;
-                border-top: unset;
-
-                border-left: 3px solid var(--color-brand-disabled);
-                margin-left: 0.75rem;
-                padding-left: 0.75rem;
+              a {
+                margin-left: 0;
               }
 
               a.tab {
-                &.nuxt-link-active {
-                  color: var(--color-text-dark);
-
-                  span {
-                    border-bottom: 3px solid var(--color-brand);
-                  }
-                }
+                padding: 0;
+                margin-right: 1rem;
               }
             }
           }

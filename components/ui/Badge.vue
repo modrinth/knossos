@@ -1,5 +1,5 @@
 <template>
-  <span :class="'version-badge ' + type">
+  <span :class="'version-badge ' + color">
     <span class="circle" /> {{ type }}
   </span>
 </template>
@@ -9,6 +9,10 @@ export default {
   name: 'VersionBadge',
   props: {
     type: {
+      type: String,
+      required: true,
+    },
+    color: {
       type: String,
       required: true,
     },
@@ -31,7 +35,15 @@ export default {
     margin-right: 0.25rem;
   }
 
-  &.alpha {
+  &.custom-circle {
+    @media screen and (min-width: 560px) {
+      .circle {
+        margin-left: auto;
+      }
+    }
+  }
+
+  &.red {
     color: var(--color-badge-red-text);
 
     .circle {
@@ -39,7 +51,7 @@ export default {
     }
   }
 
-  &.release {
+  &.green {
     color: var(--color-badge-green-text);
 
     .circle {
@@ -47,11 +59,19 @@ export default {
     }
   }
 
-  &.beta {
+  &.yellow {
     color: var(--color-badge-yellow-text);
 
     .circle {
       background-color: var(--color-badge-yellow-bg);
+    }
+  }
+
+  &.gray {
+    color: var(--color-badge-gray-text);
+
+    .circle {
+      background-color: var(--color-badge-gray-bg);
     }
   }
 }

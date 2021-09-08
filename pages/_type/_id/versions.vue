@@ -45,7 +45,21 @@
                 </nuxt-link>
               </div>
               <div class="bottom">
-                <VersionBadge :type="version.version_type" />
+                <VersionBadge
+                  v-if="version.version_type === 'release'"
+                  type="release"
+                  color="green"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
                 <span class="divider" />
                 <span class="version_number">{{ version.version_number }}</span>
               </div>
@@ -81,7 +95,7 @@
 <script>
 import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import VersionBadge from '~/components/ui/VersionBadge'
+import VersionBadge from '~/components/ui/Badge'
 
 export default {
   components: {

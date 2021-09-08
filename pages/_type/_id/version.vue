@@ -8,16 +8,18 @@
       proceed-label="Delete version"
       @proceed="deleteVersion()"
     />
-    <nuxt-link
-      v-if="mode === 'version'"
-      class="iconified-button back-button"
-      :to="`/${project.project_type}/${
-        project.slug ? project.slug : project.id
-      }/versions`"
-    >
-      <BackIcon />
-      Back to list
-    </nuxt-link>
+    <div class="columns">
+      <nuxt-link
+        v-if="mode === 'version'"
+        class="iconified-button back-button"
+        :to="`/${project.project_type}/${
+          project.slug ? project.slug : project.id
+        }/versions`"
+      >
+        <BackIcon />
+        Back to list
+      </nuxt-link>
+    </div>
     <div>
       <div v-if="mode === 'version'" class="version-header">
         <h2>{{ version.name }}</h2>
@@ -169,7 +171,23 @@
               :show-labels="false"
               :allow-empty="false"
             />
-            <VersionBadge v-else class="value" :type="version.version_type" />
+            <VersionBadge
+              v-else-if="version.version_type === 'release'"
+              class="value"
+              type="release"
+              color="green"
+            />
+            <VersionBadge
+              v-else-if="version.version_type === 'beta'"
+              class="value"
+              type="beta"
+              color="yellow"
+            /><VersionBadge
+              v-else-if="version.version_type === 'alpha'"
+              class="value"
+              type="alpha"
+              color="red"
+            />
           </div>
           <div class="data">
             <p class="title">Mod loaders</p>
@@ -445,7 +463,7 @@ import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
 import StarIcon from '~/assets/images/utils/star.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import VersionBadge from '~/components/ui/VersionBadge'
+import VersionBadge from '~/components/ui/Badge'
 import Checkbox from '~/components/ui/Checkbox'
 import ThisOrThat from '~/components/ui/ThisOrThat'
 
@@ -793,10 +811,6 @@ export default {
   max-width: calc(100% - (2 * var(--spacing-card-lg)));
 }
 
-.back-button {
-  max-width: 6.25rem;
-}
-
 .version-header {
   display: flex;
   align-items: center;
@@ -961,5 +975,9 @@ section {
   }
 
   font-size: var(--font-size-sm);
+}
+
+.options {
+  margin-bottom: var(--spacing-card-sm);
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="buttons">
       <button
         v-if="currentMember"
-        class="iconified-button new-version"
+        class="iconified-button"
         @click="
           newGalleryItems.push({
             title: '',
@@ -306,7 +306,12 @@ export default {
   margin-bottom: var(--spacing-card-md);
 
   button {
+    background-color: var(--color-raised-bg);
     margin-right: 0.5rem;
+
+    &:hover {
+      background-color: var(--color-button-bg);
+    }
   }
 }
 
@@ -318,10 +323,10 @@ export default {
 }
 
 .gallery-item {
+  @extend %card;
+
   display: flex;
   flex-direction: column;
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
 
   img {
     width: 100%;
@@ -373,6 +378,7 @@ export default {
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
+      color: var(--color-icon);
 
       svg {
         width: 1rem;

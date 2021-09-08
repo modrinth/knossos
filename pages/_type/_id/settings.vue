@@ -74,8 +74,8 @@
           </div>
         </div>
         <div class="side-buttons">
-          <span v-if="member.accepted" class="badge green">Accepted</span>
-          <span v-else class="badge yellow">Pending</span>
+          <Badge v-if="member.accepted" type="accepted" color="green" />
+          <Badge v-else type="pending" color="yellow" />
           <button
             class="dropdown-icon"
             @click="
@@ -239,11 +239,12 @@
 <script>
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
 import Checkbox from '~/components/ui/Checkbox'
+import Badge from '~/components/ui/Badge'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 
 export default {
-  components: { DropdownIcon, ConfirmPopup, Checkbox },
+  components: { DropdownIcon, ConfirmPopup, Checkbox, Badge },
   props: {
     project: {
       type: Object,

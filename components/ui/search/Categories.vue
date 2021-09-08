@@ -38,20 +38,13 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: row;
-    background-color: var(--color-category-bg);
-    border-radius: var(--size-rounded-max);
-    color: var(--color-category-text);
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
-    margin-right: 0.5em;
-    padding: 0.4em 0.7em;
-    font-size: var(--font-size-sm);
-    height: 1em;
+    color: var(--color-icon);
+    margin-right: 1em;
     text-transform: capitalize;
 
     svg {
-      width: 15px;
-      margin-right: 5px;
+      width: 1rem;
+      margin-right: 0.125rem;
     }
   }
 }

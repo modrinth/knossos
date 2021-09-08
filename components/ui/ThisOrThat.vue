@@ -1,5 +1,5 @@
 <template>
-  <div class="buttons">
+  <div class="options">
     <button
       v-for="item in items"
       :key="item"
@@ -41,10 +41,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.buttons {
+.options {
   button {
-    margin: 0 1rem 0.25rem 0;
-    padding: 0.125rem 0.25rem calc(0.125rem + 6px) 0.25rem;
+    margin: 0 1rem 0 0;
+    padding: 0.125rem 0.25rem 0 0.25rem;
     text-transform: capitalize;
     background-color: transparent;
     font-weight: bold;
@@ -54,7 +54,6 @@ export default {
     color: var(--color-text);
 
     &.selected {
-      padding-bottom: 0.25rem;
       color: var(--color-text-dark);
     }
 
@@ -62,7 +61,7 @@ export default {
       border-bottom: 3px solid var(--color-brand);
       content: '';
       display: block;
-      width: 85%;
+      width: 70%;
       margin-top: 3px;
       margin-left: auto;
       margin-right: auto;

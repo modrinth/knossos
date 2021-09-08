@@ -97,18 +97,7 @@
           <p class="description">
             {{ project.description }}
           </p>
-          <p class="categories">
-            <span
-              v-for="(category, index) in project.categories"
-              :key="category"
-            >
-              {{
-                index === project.categories.length - 1
-                  ? category.charAt(0).toUpperCase() + category.slice(1)
-                  : category.charAt(0).toUpperCase() + category.slice(1) + ' · '
-              }}
-            </span>
-          </p>
+          <Categories :categories="project.categories" class="categories" />
           <div class="stats">
             <span class="stat">{{ formatNumber(project.downloads) }}</span>
             <span class="label">downloads</span>
@@ -160,7 +149,21 @@
                 </nuxt-link>
               </div>
               <div class="bottom">
-                <VersionBadge :type="version.version_type" />
+                <VersionBadge
+                  v-if="version.version_type === 'release'"
+                  type="release"
+                  color="green"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
                 <span class="divider" />
                 <span
                   v-if="version.game_versions.length > 0"
@@ -350,7 +353,7 @@
       </section>
       <div class="content">
         <div class="project-main">
-          <div class="tabs">
+          <div class="tabs styled-tabs">
             <nuxt-link
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
@@ -430,7 +433,8 @@ import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inlin
 import UnknownIcon from '~/assets/images/utils/unknown.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
-import VersionBadge from '~/components/ui/VersionBadge'
+import VersionBadge from '~/components/ui/Badge'
+import Categories from '~/components/ui/search/Categories'
 
 export default {
   components: {
@@ -450,6 +454,7 @@ export default {
     BuyMeACoffeeLogo,
     BuyMeACoffeeLogoWhite,
     UnknownIcon,
+    Categories,
   },
   async asyncData(data) {
     const projectTypes = ['mod', 'modpack']
@@ -603,6 +608,8 @@ export default {
   @extend %card-spaced-b;
 
   .icon {
+    @extend %image-shadow;
+
     width: 6rem;
     height: 6rem;
     object-fit: contain;
@@ -646,9 +653,9 @@ export default {
   }
 
   .categories {
-    margin: 0.75rem 0;
+    margin: 0.25rem 0;
+    color: var(--color-icon);
     font-size: var(--font-size-sm);
-    font-weight: bold;
   }
 
   .stats {
@@ -664,6 +671,7 @@ export default {
   .dates {
     margin-top: 0.75rem;
     .date {
+      color: var(--color-icon);
       font-size: var(--font-size-sm);
       display: flex;
       align-items: center;
@@ -686,70 +694,13 @@ export default {
   }
 }
 
-.project-main {
-  .tabs {
-    @extend %card-spaced-b;
-    padding: var(--spacing-card-md) var(--spacing-card-lg);
-
-    overflow-x: auto;
-    font-size: var(--font-size-sm);
-    font-weight: bold;
-    margin-bottom: var(--spacing-card-md);
-
-    .tab {
-      padding: 0;
-      margin: 0 1rem;
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-    a.tab {
-      span {
-        margin-bottom: 3px;
-      }
-
-      &:hover,
-      &:focus,
-      &.nuxt-link-exact-active,
-      &.active-path {
-        span {
-          display: table;
-          margin-left: auto;
-          margin-right: auto;
-          border: none;
-          margin-bottom: 0;
-        }
-
-        span::after {
-          border-bottom: 3px solid var(--color-brand-disabled);
-          content: '';
-          display: block;
-          width: 85%;
-          margin-top: 3px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
-
-      &.nuxt-link-exact-active,
-      &.active-path {
-        span::after {
-          border-bottom: 3px solid var(--color-brand);
-        }
-      }
-    }
-  }
-}
-
 .project-info {
   height: auto;
   overflow: hidden;
 
   @media screen and (min-width: 1024px) {
     min-width: 21rem;
+    max-width: 21rem;
     margin-right: var(--spacing-card-md);
   }
 
@@ -879,6 +830,16 @@ export default {
         text-transform: uppercase;
       }
     }
+  }
+}
+
+.project-main {
+  .tabs {
+    @extend %card-spaced-b;
+
+    margin-bottom: var(--spacing-card-md);
+    overflow-x: auto;
+    padding: var(--spacing-card-sm) var(--spacing-card-lg);
   }
 }
 

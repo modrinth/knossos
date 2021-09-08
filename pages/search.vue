@@ -173,8 +173,8 @@
           </div>
           <div v-else>
             <SearchResult
-              v-for="(result, index) in results"
-              :id="result.slug ? result.slug : result.project_id.split('-')[1]"
+              v-for="result in results"
+              :id="result.slug ? result.slug : result.project_id"
               :key="result.project_id"
               :type="result.project_type"
               :author="result.author"
@@ -187,9 +187,9 @@
               :icon-url="result.icon_url"
               :author-url="result.author_url"
               :page-url="result.page_url"
+              :client-side="result.client_side"
+              :server-side="result.server_side"
               :categories="result.categories"
-              :is-ad="index === -1"
-              :is-modrinth="true"
             />
             <div v-if="results && results.length === 0" class="no-results">
               <p>No results found for your query!</p>
@@ -579,14 +579,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .search-nav {
+  @extend %card;
+
   align-items: center;
   display: flex;
   justify-content: space-between;
   flex-flow: column;
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
   padding: var(--spacing-card-sm) var(--spacing-card-md);
   margin-bottom: var(--spacing-card-md);
   input {
@@ -711,8 +711,10 @@ export default {
     width: 18vw;
     background-color: transparent;
     .filters-wrapper {
-      background-color: var(--color-raised-bg);
+      background: var(--color-raised-bg);
       border-radius: var(--size-rounded-card);
+      box-shadow: 0 2px 4px 0 rgba(17, 24, 39, 0.1),
+        0 -2px 2px 0 rgba(17, 24, 39, 0.05);
     }
   }
   @media screen and (min-width: 1250px) {
@@ -761,5 +763,11 @@ export default {
 
 .max-results {
   max-width: 80px;
+}
+
+@media screen and (min-width: 1024px) {
+  .page-contents {
+    max-width: calc(1280px - 8rem) !important;
+  }
 }
 </style>
