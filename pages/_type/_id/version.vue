@@ -484,7 +484,6 @@ export default {
     PlusIcon,
     SmartFileInput,
   },
-  auth: false,
   beforeRouteLeave(to, from, next) {
     this.setVersion()
 

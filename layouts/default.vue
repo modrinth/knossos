@@ -55,7 +55,7 @@
                       </NuxtLink>
                     </li>
                     <li>
-                      <NuxtLink to="/dashboard/settings">
+                      <NuxtLink to="/settings">
                         <SettingsIcon />
                         <span>Settings</span>
                       </NuxtLink>
@@ -91,11 +91,50 @@
       <Nuxt />
     </main>
     <footer>
-      <div class="footer-header">
-        <div class="logo">
-          <ModrinthLogo aria-label="modrinth" class="text-logo" />
-        </div>
-        <div class="buttons"></div>
+      <div class="logo-info">
+        <ModrinthLogo aria-label="modrinth" class="text-logo" />
+        <p>
+          Modrinth is open source software. You may view the source code at
+          <a
+            target="_blank"
+            href="https://github.com/modrinth/knossos"
+            class="text-link"
+          >
+            our GitHub page</a
+          >
+        </p>
+        <p>modrinth/knossos {{ version }}</p>
+        <p>© Guavy LLC</p>
+      </div>
+      <div class="links">
+        <h4>Legal</h4>
+        <nuxt-link to="/legal/terms">Terms</nuxt-link>
+        <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
+        <nuxt-link to="/legal/rules">Content</nuxt-link>
+        <a
+          target="_blank"
+          href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
+        >
+          License
+        </a>
+      </div>
+      <div class="links">
+        <h4>Resources</h4>
+        <a target="_blank" href="https://blog.modrinth.com">Blog</a>
+        <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
+        <a target="_blank" href="https://github.com/modrinth/knossos">Github</a>
+        <a target="_blank" href="https://docs.modrinth.com">Docs</a>
+      </div>
+      <div class="buttons">
+        <nuxt-link to="/settings/privacy" class="iconified-button">
+          <ShieldIcon />
+          Set privacy settings
+        </nuxt-link>
+        <button class="iconified-button" @click="changeTheme">
+          <MoonIcon v-if="$colorMode.value === 'light'" />
+          <SunIcon v-else />
+          Change theme
+        </button>
       </div>
     </footer>
   </div>
@@ -111,6 +150,7 @@ import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
+import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
@@ -136,6 +176,7 @@ export default {
     HamburgerIcon,
     CookieConsent,
     SettingsIcon,
+    ShieldIcon,
   },
   directives: {
     ClickOutside,
@@ -143,6 +184,7 @@ export default {
   data() {
     return {
       isDropdownOpen: false,
+      version: process.env.version || 'unknown',
     }
   },
   async fetch() {
@@ -188,7 +230,7 @@ export default {
     async logout() {
       this.$cookies.set('auth-token-reset', true)
       // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (this.$route.path.startsWith('/dashboard')) {
+      if (this.$route.path.startsWith('/settings')) {
         window.location.href = '/'
       } else {
         await this.$router.go(null)
@@ -561,6 +603,55 @@ export default {
 
   main {
     grid-area: main;
+  }
+
+  footer {
+    margin: 6rem 0 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    .logo-info {
+      margin-left: auto;
+      margin-right: 2rem;
+      max-width: 22rem;
+
+      .text-logo {
+        width: 10rem;
+        height: auto;
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      margin-right: 2rem;
+
+      h4 {
+        color: var(--color-text-dark);
+        margin: 0 0 1rem 0;
+      }
+
+      a {
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .buttons {
+      margin-right: auto;
+
+      button,
+      a {
+        background-color: var(--color-raised-bg);
+
+        margin-bottom: 0.5rem;
+        margin-left: auto;
+
+        &:hover,
+        &:focus {
+          background-color: var(--color-button-bg-hover);
+        }
+      }
+    }
   }
 }
 

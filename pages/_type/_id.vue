@@ -525,7 +525,10 @@ export default {
   },
   head() {
     return {
-      title: this.project.title + ' - Modrinth',
+      title: `${this.project.title} - ${
+        this.project.project_type.charAt(0).toUpperCase() +
+        this.project.project_type.slice(1)
+      }s - Modrinth`,
       meta: [
         {
           hid: 'og:type',
@@ -555,7 +558,7 @@ export default {
         {
           hid: 'og:url',
           name: 'og:url',
-          content: `https://modrinth.com/project/${this.project.id}`,
+          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
         },
         {
           hid: 'og:image',
@@ -608,8 +611,6 @@ export default {
   @extend %card-spaced-b;
 
   .icon {
-    @extend %image-shadow;
-
     width: 6rem;
     height: 6rem;
     object-fit: contain;

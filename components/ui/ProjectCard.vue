@@ -147,15 +147,6 @@ export default {
       type: String,
       default: 'A _type description',
     },
-    pageUrl: {
-      type: String,
-      default: '#',
-    },
-    authorUrl: {
-      type: String,
-      default: '#',
-      required: false,
-    },
     iconUrl: {
       type: String,
       default: '#',
@@ -179,19 +170,11 @@ export default {
       type: String,
       default: null,
     },
-    latestVersion: {
-      type: String,
-      default: null,
-    },
     categories: {
       type: Array,
       default() {
         return []
       },
-    },
-    editMode: {
-      type: Boolean,
-      default: false,
     },
     status: {
       type: String,
@@ -235,8 +218,6 @@ export default {
 
   .icon {
     img {
-      @extend %image-shadow;
-
       width: 6rem;
       height: 6rem;
       margin: 0 var(--spacing-card-md) var(--spacing-card-md) 0;

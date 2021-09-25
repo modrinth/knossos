@@ -2,8 +2,9 @@
   <div class="page-container">
     <div class="page-contents">
       <div class="sidebar-l">
-        <img :src="user.avatar_url" :alt="user.username" />
         <div class="card">
+          <img :src="user.avatar_url" :alt="user.username" />
+          <h1>{{ user.username }}</h1>
           <div class="buttons section">
             <nuxt-link
               v-if="$auth.user && $auth.user.id !== user.id"
@@ -34,7 +35,7 @@
             <Badge v-else type="developer" color="green" />
             <p v-if="user.bio" class="bio">{{ user.bio }}</p>
             <p class="joined">
-              <CalendarIcon />
+              <SunriseIcon />
               Joined {{ $dayjs(user.created).fromNow() }}
             </p>
             <div class="stats">
@@ -55,7 +56,6 @@
         </div>
       </div>
       <div class="content">
-        <h1>{{ user.username }}'s profile</h1>
         <div class="tabs">
           <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
           <nuxt-link
@@ -66,7 +66,7 @@
             Create a project
           </nuxt-link>
         </div>
-        <div class="projects">
+        <div v-if="projects.length > 0" class="projects">
           <ProjectCard
             v-for="project in selectedProjectType !== 'all'
               ? projects.filter((x) => x.project_type === selectedProjectType)
@@ -98,6 +98,16 @@
             </nuxt-link>
           </ProjectCard>
         </div>
+        <div v-else class="error">
+          <UpToDate class="icon" /><br />
+          <span v-if="$auth.user && $auth.user.id === user.id" class="text"
+            >You don't have any projects.<br />
+            Would you like to
+            <nuxt-link class="link" to="/create/project">create one</nuxt-link
+            >?</span
+          >
+          <span v-else class="text">This user has no projects!</span>
+        </div>
       </div>
     </div>
   </div>
@@ -110,17 +120,18 @@ import Badge from '~/components/ui/Badge'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
+import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download-alt.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 
 export default {
   auth: false,
   components: {
     ProjectCard,
-    CalendarIcon,
+    SunriseIcon,
     DownloadIcon,
     ReportIcon,
     EditIcon,
@@ -129,6 +140,7 @@ export default {
     SettingsIcon,
     PlusIcon,
     ThisOrThat,
+    UpToDate,
   },
   async asyncData(data) {
     try {
@@ -240,16 +252,24 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-l {
-  img {
-    @extend %image-shadow;
-
-    width: 100%;
-
-    border-radius: 50%;
-    margin-bottom: 1rem;
-  }
-
   .card {
+    img {
+      width: 8rem;
+      height: 8rem;
+      border-radius: var(--size-rounded-lg);
+
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem 0;
+      color: var(--color-text-dark);
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+
     .buttons {
       display: flex;
     }
@@ -314,15 +334,6 @@ export default {
 
     .iconified-button {
       margin-left: auto;
-    }
-  }
-
-  h1 {
-    margin-left: 1rem;
-    color: var(--color-text-dark);
-
-    &::first-letter {
-      text-transform: capitalize;
     }
   }
 }

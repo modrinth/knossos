@@ -1,13 +1,11 @@
-<!--suppress HtmlFormInputWithoutLabel -->
 <template>
-  <div class="popup card">
+  <div class="rows card">
     <div class="consent-container">
-      <div class="h1">Privacy settings</div>
       <div>
         Modrinth relies on different providers and in-house tools to allow us to
         provide custom-tailored experiences and personalized advertising. You
         can change your privacy settings at any time by going to this settings
-        page, accessible in the footer of any page.
+        page or via the footer of any page.
       </div>
       <br class="divider" />
       <div class="toggles">
@@ -33,61 +31,63 @@
       </div>
     </div>
     <div class="actions">
-      <button class="btn button" @click="toggleOff">Refuse All</button>
-      <button class="btn button" @click="toggleOn">Accept All</button>
-      <button class="btn brand-button" @click="confirm">
-        Confirm my choices
+      <button class="iconified-button" @click="toggleAll(false)">
+        Refuse All
+      </button>
+      <button class="iconified-button" @click="toggleAll(true)">
+        Accept All
       </button>
     </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable require-await */
-import scopes from '@/privacy-toggles'
+import toggles from '@/privacy-toggles'
 
 export default {
+  auth: false,
   name: 'Privacy',
   data: () => {
-    const settings = scopes.settings
+    const settings = toggles.settings
     return {
       scopes: settings,
     }
   },
   fetch() {
+    this.$emit('update:action-button', 'Confirm my choices')
+    this.$emit('update:action-button-callback', this.confirm)
+
     this.$store.dispatch('consent/loadFromCookies', this.$cookies)
-
     if (this.$store.state.consent.is_consent_given) {
-      Object.keys(scopes.settings).forEach((key) => {
-        scopes.settings[key].value = false
+      Object.keys(toggles.settings).forEach((key) => {
+        toggles.settings[key].value = false
       })
-
       // Load the allowed scopes from the store
       this.$store.state.consent.scopes_allowed.forEach((scope) => {
         if (this.scopes[scope] != null)
           this.$set(this.scopes[scope], 'value', true)
       })
     } else {
-      Object.keys(scopes.settings).forEach((key) => {
-        scopes.settings[key].value = scopes.settings[key].default
+      Object.keys(toggles.settings).forEach((key) => {
+        toggles.settings[key].value = toggles.settings[key].default
       })
     }
-  },
-  options: {
-    auth: false,
   },
   head: {
     title: 'Privacy Settings - Modrinth',
   },
+  created() {
+    this.$emit('update:action-button', 'Confirm my choices')
+    this.$emit('update:action-button-callback', this.confirm)
+  },
+  options: {
+    auth: false,
+  },
   methods: {
-    toggleOff() {
+    toggleAll(value) {
       for (const elem in this.scopes) {
-        this.$set(this.scopes[elem], 'value', false)
-      }
-    },
-    toggleOn() {
-      for (const elem in this.scopes) {
-        this.$set(this.scopes[elem], 'value', true)
+        this.scopes[elem].value = value
+        this.$set(this.scopes[elem], 'value', value)
       }
     },
     confirm() {
@@ -110,16 +110,10 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .card {
   @extend %card;
-  padding: var(--spacing-card-lg);
-}
-
-.popup {
-  display: flex;
-  flex-direction: column;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
 }
 
 .spacer {
@@ -134,19 +128,14 @@ export default {
   justify-content: flex-end;
   flex-wrap: wrap;
 
-  .btn {
+  button {
+    padding: 0.5rem 0.75rem;
     margin-top: 0.5rem;
     margin-right: 0.5rem;
   }
 }
 
 .consent-container {
-  .h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 0.6rem;
-  }
-
   .divider {
     margin-top: 1rem;
   }

@@ -69,8 +69,6 @@
                     .filter((it) => it.version_type === 'release')
                     .map((x) => x.version)
             "
-            track-by="version"
-            label="version"
             :multiple="true"
             :searchable="true"
             :show-no-results="false"
@@ -180,13 +178,10 @@
               :author="result.author"
               :name="result.title"
               :description="result.description"
-              :latest-version="result.latest_version"
               :created-at="result.date_created"
               :updated-at="result.date_modified"
               :downloads="result.downloads.toString()"
               :icon-url="result.icon_url"
-              :author-url="result.author_url"
-              :page-url="result.page_url"
               :client-side="result.client_side"
               :server-side="result.server_side"
               :categories="result.categories"
@@ -330,26 +325,6 @@ export default {
     )
 
     await this.onSearchChange(this.currentPage)
-  },
-  head: {
-    title: 'Mods - Modrinth',
-    meta: [
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: `https://modrinth.com/mods`,
-      },
-    ],
   },
   watch: {
     '$route.path': {
