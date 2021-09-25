@@ -26,6 +26,26 @@
           </section>
           <section class="column-grow user-outer">
             <section class="user-controls">
+              <div
+                v-click-outside="hideDropdown"
+                class="dropdown"
+                :class="{ open: isDropdownOpen }"
+              >
+                <button class="theme-toggle" @click="toggleDropdown">
+                  <LanguagesIcon />
+                </button>
+                <div class="content">
+                  <select v-model="$i18n.locale">
+                    <option
+                      v-for="locale in $i18n.availableLocales"
+                      :key="`locale-${locale}`"
+                      :value="locale"
+                    >
+                      {{ locale }}
+                    </option>
+                  </select>
+                </div>
+              </div>
               <button class="theme-toggle" @click="changeTheme">
                 <MoonIcon v-if="$colorMode.value === 'light'" />
                 <SunIcon v-else />
@@ -130,6 +150,7 @@ import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
+import LanguagesIcon from '~/assets/images/utils/languages.svg?inline'
 
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
@@ -145,6 +166,7 @@ export default {
     DropdownIcon,
     MoonIcon,
     SunIcon,
+    LanguagesIcon,
     UserIcon,
     LogOutIcon,
     GitHubIcon,

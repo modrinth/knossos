@@ -266,7 +266,7 @@ export default {
       },
     },
     detectBrowserLanguage: {
-      useCookie: true,
+      useCookie: false,
       cookieKey: 'i18n_redirected',
       redirectOn: 'root',
       alwaysRedirect: true,
