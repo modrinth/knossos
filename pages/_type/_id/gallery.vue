@@ -22,7 +22,7 @@
           editGalleryIndexes.length > 0 ||
           deleteGalleryUrls.length > 0
         "
-        class="action iconified-button brand-button-colors"
+        class="action brand-button-colors iconified-button"
         @click="saveGallery"
       >
         <CheckIcon />
@@ -308,6 +308,10 @@ export default {
   button {
     background-color: var(--color-raised-bg);
     margin-right: 0.5rem;
+
+    &.brand-button-colors {
+      background-color: var(--color-brand);
+    }
 
     &:hover {
       background-color: var(--color-button-bg);

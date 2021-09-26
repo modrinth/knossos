@@ -1,31 +1,25 @@
 <template>
-  <div class="filter-wrapper">
-    <p
-      v-if="icon"
-      class="filter"
-      :class="{
-        'filter-active': activeFilters.includes(facetName),
-      }"
-      @click="toggle"
-      v-html="icon + displayName"
-    />
-    <p
-      v-else
-      class="filter"
-      :class="{
-        'filter-active': activeFilters.includes(facetName),
-      }"
-      @click="toggle"
-    >
-      <slot />
-      {{ displayName }}
-    </p>
-  </div>
+  <Checkbox
+    class="filter"
+    :value="activeFilters.includes(facetName)"
+    @input="toggle()"
+  >
+    <div class="filter-text">
+      <div v-if="icon" class="icon" v-html="icon"></div>
+      <div v-else class="icon"><slot /></div>
+      <span> {{ displayName }}</span>
+    </div>
+  </Checkbox>
 </template>
 
 <script>
+import Checkbox from '~/components/ui/Checkbox'
+
 export default {
   name: 'SearchFilter',
+  components: {
+    Checkbox,
+  },
   props: {
     facetName: {
       type: String,
@@ -55,36 +49,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filter-wrapper ::v-deep {
-  .filter {
+.filter ::v-deep {
+  margin-bottom: 0.5rem;
+
+  .filter-text {
     display: flex;
     align-items: center;
-    cursor: pointer;
-    padding: 0.4rem 0.3rem;
-    margin: 3px 0 0 0.5rem;
-    font-size: 1rem;
-    letter-spacing: 0.02rem;
-    text-transform: capitalize;
-    @extend %transparent-clickable;
 
-    @media screen and (min-width: 1024px) {
-      padding: 0.2rem 0.3rem;
-    }
-
-    svg {
+    .icon {
       height: 1rem;
-      color: var(--color-icon);
-      margin-right: 5px;
-      flex-shrink: 0;
-      padding: 0;
+
+      svg {
+        margin-right: 0.25rem;
+        width: 1rem;
+        height: 1rem;
+      }
     }
   }
 
-  .filter-active {
-    @extend %transparent-clickable, .selected;
-    svg {
-      color: var(--color-brand-light);
-    }
+  span {
+    text-transform: capitalize;
+    user-select: none;
   }
 }
 </style>

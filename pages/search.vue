@@ -11,7 +11,14 @@
               <ExitIcon />
               Clear filters
             </button>
-            <h3>Categories</h3>
+            <h3
+              v-if="
+                $tag.categories.filter((x) => x.project_type === projectType)
+                  .length > 0
+              "
+            >
+              Categories
+            </h3>
             <SearchFilter
               v-for="category in $tag.categories.filter(
                 (x) => x.project_type === projectType
@@ -23,7 +30,16 @@
               :icon="category.icon"
               @toggle="toggleFacet"
             />
-            <h3 class="upper-spacing">Mod loaders</h3>
+            <h3
+              v-if="
+                $tag.loaders.filter((x) =>
+                  x.supported_project_types.includes(projectType)
+                ).length > 0
+              "
+              class="upper-spacing"
+            >
+              Loaders
+            </h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) =>
                 x.supported_project_types.includes(projectType)
@@ -111,53 +127,52 @@
             />
             <SearchIcon />
           </div>
-          <div class="sort-paginate">
-            <div class="labeled-control">
-              <h3>Sort By</h3>
-              <Multiselect
-                v-model="sortType"
-                class="sort-types"
-                placeholder="Select one"
-                track-by="display"
-                label="display"
-                :options="sortTypes"
-                :searchable="false"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @input="onSearchChange(1)"
-              >
-                <template slot="singleLabel" slot-scope="{ option }">{{
-                  option.display
-                }}</template>
-              </Multiselect>
-            </div>
-            <div class="labeled-control per-page">
-              <h3>Per Page</h3>
-              <Multiselect
-                v-model="maxResults"
-                class="max-results"
-                placeholder="Select one"
-                :options="[5, 10, 15, 20, 50, 100]"
-                :searchable="false"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @input="onSearchChange(currentPage)"
-              >
-              </Multiselect>
-            </div>
-            <div class="labeled-control mobile-filters-button">
-              <h3>Filters</h3>
-              <button @click="toggleFiltersMenu">Open</button>
-            </div>
+          <div class="labeled-control">
+            <p>Sort by</p>
+            <Multiselect
+              v-model="sortType"
+              class="top-margin"
+              placeholder="Select one"
+              track-by="display"
+              label="display"
+              :options="sortTypes"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="onSearchChange(1)"
+            >
+              <template slot="singleLabel" slot-scope="{ option }">{{
+                option.display
+              }}</template>
+            </Multiselect>
           </div>
-          <pagination
-            :current-page="currentPage"
-            :pages="pages"
-            @switch-page="onSearchChange"
-          ></pagination>
+          <div class="labeled-control">
+            <p>Show per page</p>
+            <Multiselect
+              v-model="maxResults"
+              class="top-margin"
+              placeholder="Select one"
+              :options="[5, 10, 15, 20, 50, 100]"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="onSearchChange(currentPage)"
+            />
+          </div>
+          <div class="labeled-control mobile-filters-button">
+            <p>Filters</p>
+            <button class="iconified-button" @click="toggleFiltersMenu">
+              Open
+            </button>
+          </div>
         </section>
+        <pagination
+          :current-page="currentPage"
+          :pages="pages"
+          @switch-page="onSearchChange"
+        ></pagination>
         <div class="results column-grow-4">
           <Advertisement
             type="banner"
@@ -181,6 +196,7 @@
               :created-at="result.date_created"
               :updated-at="result.date_modified"
               :downloads="result.downloads.toString()"
+              :follows="result.follows.toString()"
               :icon-url="result.icon_url"
               :client-side="result.client_side"
               :server-side="result.server_side"
@@ -191,28 +207,11 @@
             </div>
           </div>
         </div>
-        <section v-if="pages.length > 1" class="search-bottom">
-          <div class="per-page labeled-control">
-            <h3>Per Page</h3>
-            <Multiselect
-              v-model="maxResults"
-              class="max-results"
-              placeholder="Select one"
-              :options="[5, 10, 15, 20, 50, 100]"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="onSearchChange(currentPage)"
-            >
-            </Multiselect>
-          </div>
-          <pagination
-            :current-page="currentPage"
-            :pages="pages"
-            @switch-page="onSearchChangeToTop"
-          ></pagination>
-        </section>
+        <pagination
+          :current-page="currentPage"
+          :pages="pages"
+          @switch-page="onSearchChangeToTop"
+        ></pagination>
       </div>
     </div>
   </div>
@@ -335,12 +334,13 @@ export default {
         )
 
         this.results = null
-        await this.clearFilters()
+        this.pages = []
+        this.currentPage = 1
         this.query = ''
         this.maxResults = 20
         this.sortType = { display: 'Relevance', name: 'relevance' }
 
-        await this.onSearchChange(this.currentPage)
+        await this.clearFilters()
       },
     },
   },
@@ -522,7 +522,7 @@ export default {
             )
           if (this.sortType.name !== 'relevance')
             queryItems.push(`s=${encodeURIComponent(this.sortType.name)}`)
-          if (this.maxResults > 20)
+          if (this.maxResults !== 20)
             queryItems.push(`m=${encodeURIComponent(this.maxResults)}`)
 
           url = `${this.$route.path}`
@@ -560,93 +560,46 @@ export default {
 
   align-items: center;
   display: flex;
-  justify-content: space-between;
   flex-flow: column;
   padding: var(--spacing-card-sm) var(--spacing-card-md);
   margin-bottom: var(--spacing-card-md);
-  input {
-    border: none;
-    background: transparent;
-    min-width: 200px;
-  }
+
   .iconified-input {
+    margin-left: 1rem;
     width: auto;
-    margin-right: auto;
+
+    input {
+      border-radius: var(--size-rounded-sm);
+      max-width: 250px;
+    }
   }
-  .sort-paginate {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+
+  .labeled-control {
     display: flex;
-    width: auto;
-    @media screen and (max-width: 350px) {
-      flex-direction: column;
-      .mobile-filters-button {
-        margin: 0.5rem 0 0 0;
+    margin: 0 0 0 1rem;
+
+    p {
+      white-space: nowrap;
+      margin: auto 0.5rem auto 0;
+    }
+
+    &.sort-types {
+      min-width: 200px;
+    }
+
+    &.max-results {
+      max-width: 80px;
+    }
+
+    &.mobile-filters-button {
+      @media screen and (min-width: 1250px) {
+        display: none;
       }
     }
-    .per-page {
-      margin-left: 0.5rem;
-      display: none;
-    }
   }
+
   @media screen and (min-width: 1050px) {
     flex-flow: row;
-    .sort-paginate {
-      width: auto;
-    }
-  }
-  @media screen and (min-width: 450px) {
-    .sort-paginate {
-      .per-page {
-        display: unset;
-      }
-    }
-  }
-}
-
-.search-bottom {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
-  padding: 0 1rem;
-  select {
-    width: 100px;
-    margin-right: 20px;
-  }
-  .per-page {
-    display: none;
-  }
-  @media screen and (min-width: 550px) {
-    padding: 0.25rem 1rem 0.25rem 1rem;
-    justify-content: flex-end;
-    .per-page {
-      display: unset;
-    }
-  }
-}
-
-.labeled-control {
-  h3 {
-    @extend %small-label;
-    margin-left: 0.25rem;
-  }
-}
-
-.mobile-filters-button {
-  display: inline-block;
-  margin-left: 0.5rem;
-  button {
-    margin-top: 0;
-    height: 2.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  // Hide button on larger screens where it's not needed
-  @media screen and (min-width: 1250px) {
-    display: none;
   }
 }
 
@@ -715,17 +668,6 @@ export default {
   }
 }
 
-.sort-types {
-  min-width: 200px;
-  border: none;
-  border-radius: var(--size-rounded-control);
-
-  .multiselect__tags {
-    padding: 10px 50px 0 8px;
-    border: none;
-  }
-}
-
 .no-results {
   text-align: center;
   padding: 20px 0;
@@ -734,10 +676,6 @@ export default {
   margin-bottom: var(--spacing-card-md);
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
-}
-
-.max-results {
-  max-width: 80px;
 }
 
 @media screen and (min-width: 1024px) {

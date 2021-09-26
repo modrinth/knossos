@@ -16,7 +16,7 @@
             </nuxt-link>
             <nuxt-link
               v-if="$auth.user && $auth.user.id === user.id"
-              :to="`/create/report?id=${user.id}&t=user`"
+              to="/settings"
               class="iconified-button"
             >
               <EditIcon />
@@ -37,6 +37,10 @@
             <p class="joined">
               <SunriseIcon />
               Joined {{ $dayjs(user.created).fromNow() }}
+            </p>
+            <p class="joined">
+              <UserIcon />
+              User ID: {{ user.id }}
             </p>
             <div class="stats">
               <div>
@@ -59,6 +63,7 @@
         <div class="tabs">
           <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
           <nuxt-link
+            v-if="$auth.user && $auth.user.id === user.id"
             to="/create/project"
             class="iconified-button brand-button-colors"
           >
@@ -87,7 +92,7 @@
             :type="project.project_type"
           >
             <nuxt-link
-              v-if="$auth.user.id === user.id"
+              v-if="$auth.user && $auth.user.id === user.id"
               class="iconified-button"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
@@ -126,6 +131,7 @@ import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
+import UserIcon from '~/assets/images/utils/user.svg?inline'
 
 export default {
   auth: false,
@@ -141,6 +147,7 @@ export default {
     PlusIcon,
     ThisOrThat,
     UpToDate,
+    UserIcon,
   },
   async asyncData(data) {
     try {
@@ -152,6 +159,7 @@ export default {
       ).map((it) => it.data)
 
       return {
+        selectedProjectType: 'all',
         user,
         projects,
       }
@@ -160,11 +168,6 @@ export default {
         statusCode: 404,
         message: 'User not found',
       })
-    }
-  },
-  data() {
-    return {
-      selectedProjectType: null,
     }
   },
   head() {
@@ -213,7 +216,6 @@ export default {
     }
   },
   computed: {
-    // a computed getter
     projectTypes() {
       const obj = { all: true }
 
@@ -264,10 +266,6 @@ export default {
     h1 {
       margin: 0 0 0.5rem 0;
       color: var(--color-text-dark);
-
-      &::first-letter {
-        text-transform: capitalize;
-      }
     }
 
     .buttons {
@@ -289,7 +287,7 @@ export default {
     }
 
     .joined {
-      margin: 0 0 0.75rem 0;
+      margin: 0 0 0.25rem 0;
       display: flex;
       color: var(--color-icon);
 
@@ -301,6 +299,7 @@ export default {
     }
 
     .stats {
+      margin-top: 0.5rem;
       div {
         display: flex;
         align-items: center;

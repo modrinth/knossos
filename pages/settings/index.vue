@@ -181,7 +181,7 @@ export default {
     sumDownloads() {
       let sum = 0
 
-      for (const projects of this.$user.follows) {
+      for (const projects of this.$user.projects) {
         sum += projects.downloads
       }
 

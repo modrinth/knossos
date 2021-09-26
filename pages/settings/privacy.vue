@@ -89,6 +89,8 @@ export default {
         this.scopes[elem].value = value
         this.$set(this.scopes[elem], 'value', value)
       }
+
+      this.$forceUpdate()
     },
     confirm() {
       this.$store.commit('consent/set_consent', true)

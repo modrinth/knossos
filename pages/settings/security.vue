@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     async copyToken() {
-      await navigator.clipboard.writeText(this.token)
+      await navigator.clipboard.writeText(this.$auth.token)
       this.$notify({
         group: 'main',
         title: 'Copied to clipboard.',

@@ -122,7 +122,7 @@
         <h4>Resources</h4>
         <a target="_blank" href="https://blog.modrinth.com">Blog</a>
         <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
-        <a target="_blank" href="https://github.com/modrinth/knossos">Github</a>
+        <a target="_blank" href="https://github.com/modrinth/knossos">GitHub</a>
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
       </div>
       <div class="buttons">
@@ -328,9 +328,6 @@ export default {
       section.right-group {
         display: flex;
         flex-grow: 5;
-        @media screen and (min-width: 1024px) {
-          margin-right: var(--spacing-card-lg);
-        }
         flex-direction: column-reverse;
 
         overflow-y: auto;

@@ -6,11 +6,13 @@
   flex-direction: row-reverse;
 
   input {
-    padding-left: 2.5rem;
+    padding-left: 2rem;
   }
 
   svg {
-    color: var(--color-icon);
+    height: 1rem;
+
+    color: var(--color-text);
     margin-right: -2rem;
   }
 }
@@ -456,14 +458,24 @@
 
 .multiselect {
   color: var(--color-text) !important;
+
   input {
     background: transparent;
   }
+
+  &.top-margin {
+    .multiselect__tags {
+      padding-top: 10px;
+    }
+  }
+
   .multiselect__tags {
     border-radius: 1.25rem;
     background: var(--color-dropdown-bg);
     border: none;
     cursor: pointer;
+    padding-left: 1rem;
+
     &:active,
     &:hover {
       background: var(--color-button-bg-hover);
