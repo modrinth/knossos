@@ -1,9 +1,9 @@
 <template>
   <div class="page-container">
     <div class="page-contents">
-      <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
-      <h1 v-else>Settings</h1>
       <div class="content">
+        <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
+        <h1 v-else>Settings</h1>
         <div class="tabs styled-tabs">
           <nuxt-link v-if="$auth.user" class="tab" to="/settings"
             ><span>Profile</span></nuxt-link

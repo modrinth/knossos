@@ -46,6 +46,7 @@
         </a>
       </div>
       <div
+        v-highlightjs
         :class="'markdown-body ' + version.version_type"
         v-html="
           version.changelog

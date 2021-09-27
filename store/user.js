@@ -25,7 +25,7 @@ export const actions = {
     if (
       rootState.auth.user &&
       rootState.auth.user.id &&
-      (force || Date.now() - state.notifications.lastUpdated > 300000)
+      (force || Date.now() - state.lastUpdated > 300000)
     ) {
       try {
         const [notifications, follows, projects] = (
@@ -54,6 +54,54 @@ export const actions = {
       }
     }
   },
+  async fetchNotifications({ commit, rootState }) {
+    if (rootState.auth.user && rootState.auth.user.id) {
+      try {
+        const follows = (
+          await this.$axios.get(
+            `user/${rootState.auth.user.id}/notifications`,
+            rootState.auth.headers
+          )
+        ).data
+
+        commit('SET_FOLLOWS', follows)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  },
+  async fetchFollows({ commit, rootState }) {
+    if (rootState.auth.user && rootState.auth.user.id) {
+      try {
+        const follows = (
+          await this.$axios.get(
+            `user/${rootState.auth.user.id}/follows`,
+            rootState.auth.headers
+          )
+        ).data
+
+        commit('SET_FOLLOWS', follows)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  },
+  async fetchProjects({ commit, rootState }) {
+    if (rootState.auth.user && rootState.auth.user.id) {
+      try {
+        const follows = (
+          await this.$axios.get(
+            `user/${rootState.auth.user.id}/follows`,
+            rootState.auth.headers
+          )
+        ).data
+
+        commit('SET_FOLLOWS', follows)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  },
   followProject({ commit, state, rootState }, project) {
     commit('SET_FOLLOWS', state.follows.concat(project))
 
@@ -74,5 +122,11 @@ export const actions = {
     setTimeout(() => {
       this.$axios.delete(`project/${project.id}/follow`, rootState.auth.headers)
     })
+  },
+  deleteNotification({ commit, state, rootState }, id) {
+    commit(
+      'SET_NOTIFICATIONS',
+      state.notifications.filter((x) => x.id !== id)
+    )
   },
 }

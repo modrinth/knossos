@@ -47,6 +47,9 @@ export default {
     HeartIcon,
     FollowIllustration,
   },
+  async fetch() {
+    await this.$store.dispatch('user/fetchFollows')
+  },
   head: {
     title: 'Followed Projects - Modrinth',
   },

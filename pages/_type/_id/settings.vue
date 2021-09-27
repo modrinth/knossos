@@ -365,7 +365,8 @@ export default {
     },
     async deleteProject() {
       await this.$axios.delete(`project/${this.project.id}`, this.$auth.headers)
-      await this.$router.push('/dashboard/projects')
+      await this.$store.dispatch('user/fetchProjects')
+      await this.$router.push(`/user/${this.$auth.user.username}`)
       this.$notify({
         group: 'main',
         title: 'Action Success',

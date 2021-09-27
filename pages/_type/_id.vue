@@ -119,8 +119,75 @@
             </div>
           </div>
         </div>
+        <div
+          v-if="project.status === 'processing' || project.moderator_message"
+          class="section"
+        >
+          <h3>Project status</h3>
+          <div class="status-info"></div>
+          <p>
+            Your mod is currently:
+            <VersionBadge
+              v-if="project.status === 'approved'"
+              color="green"
+              :type="project.status"
+            />
+            <VersionBadge
+              v-else-if="
+                project.status === 'processing' || project.status === 'archived'
+              "
+              color="yellow"
+              :type="project.status"
+            />
+            <VersionBadge
+              v-else-if="project.status === 'rejected'"
+              color="red"
+              :type="project.status"
+            />
+            <VersionBadge v-else color="gray" :type="project.status" />
+          </p>
+          <div class="message">
+            <p v-if="project.status === 'processing'">
+              Your project is currently not viewable by people who are not part
+              of your team. Please wait for our moderators to manually review
+              your project to see if it abides by our project rules!
+            </p>
+            <p v-if="project.status === 'draft'">
+              Your project is currently not viewable by people who are not part
+              of your team. If your project is ready for review, click the
+              button below to make your mod public!
+            </p>
+            <p v-if="project.moderator_message">
+              {{ project.moderator_message.message }}
+            </p>
+            <div
+              v-if="project.moderator_message && project.moderator_message.body"
+              v-highlightjs
+              class="markdown-body"
+              v-html="$xss($md.render(project.moderator_message.body))"
+            ></div>
+          </div>
+          <div class="buttons">
+            <button
+              v-if="
+                project.status !== 'processing' && project.status !== 'approved'
+              "
+              class="iconified-button"
+              @click="submitForReview"
+            >
+              Resubmit for approval
+            </button>
+            <button
+              v-if="project.status === 'approved'"
+              class="iconified-button"
+              @click="clearMessage"
+            >
+              Clear message
+            </button>
+          </div>
+        </div>
         <div v-if="featuredVersions.length > 0" class="section">
-          <h3 class="section-title">Featured versions</h3>
+          <h3>Featured versions</h3>
           <div
             v-for="version in featuredVersions"
             :key="version.id"
@@ -600,6 +667,55 @@ export default {
       elem.href = url
       elem.click()
     },
+    async clearMessage() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.currentProject.id}`,
+          {
+            moderation_message: null,
+            moderation_message_body: null,
+          },
+          this.$auth.headers
+        )
+
+        this.project.moderator_message = null
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
+    async submitForReview() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.currentProject.id}`,
+          {
+            status: 'processing',
+          },
+          this.$auth.headers
+        )
+
+        this.project.status = 'processing'
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
   },
 }
 </script>
@@ -724,7 +840,8 @@ export default {
       height: 1.75rem;
       width: 1.75rem;
       border-radius: 1.5rem;
-      background-color: var(--color-button-bg);
+      color: var(--color-brand-inverted);
+      background-color: var(--color-brand);
       margin-right: var(--spacing-card-sm);
       &:hover {
         background-color: var(--color-button-bg-hover);

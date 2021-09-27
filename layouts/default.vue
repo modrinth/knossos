@@ -30,8 +30,11 @@
                 <MoonIcon v-if="$colorMode.value === 'light'" />
                 <SunIcon v-else />
               </button>
-              <nuxt-link to="/dashboard/notifications" class="control-button">
+              <nuxt-link to="/notifications" class="control-button">
                 <NotificationIcon />
+                <div v-if="$user.notifications.length > 0" class="bubble">
+                  {{ $user.notifications.length }}
+                </div>
               </nuxt-link>
               <div
                 v-if="$auth.user"
@@ -58,6 +61,18 @@
                       <NuxtLink to="/settings">
                         <SettingsIcon />
                         <span>Settings</span>
+                      </NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink
+                        v-if="
+                          $auth.user.role === 'moderator' ||
+                          $auth.user.role === 'admin'
+                        "
+                        to="/moderation"
+                      >
+                        <ModerationIcon />
+                        <span>Moderation</span>
                       </NuxtLink>
                     </li>
                     <hr />
@@ -151,6 +166,7 @@ import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
@@ -177,6 +193,7 @@ export default {
     CookieConsent,
     SettingsIcon,
     ShieldIcon,
+    ModerationIcon,
   },
   directives: {
     ClickOutside,
@@ -380,6 +397,7 @@ export default {
           margin: 0 auto;
 
           .control-button {
+            max-width: 2rem;
             padding: 0.5rem;
             background-color: var(--color-raised-bg);
             border-radius: var(--size-rounded-max);
@@ -389,6 +407,22 @@ export default {
             svg {
               height: 1rem;
               width: 1rem;
+            }
+
+            .bubble {
+              position: absolute;
+              margin-left: 0.5rem;
+              bottom: 1rem;
+              border-radius: 0.9rem;
+              height: 0.8rem;
+              padding: 0 0.25rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              font-size: 0.6rem;
+              background-color: var(--color-brand);
+              color: var(--color-brand-inverted);
             }
           }
 

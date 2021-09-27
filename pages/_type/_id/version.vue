@@ -136,6 +136,7 @@
         </div>
         <div
           v-if="changelogViewMode === 'preview'"
+          v-highlightjs
           class="markdown-body"
           v-html="
             version.changelog
@@ -147,6 +148,7 @@
       <section v-else>
         <h3>Changelog</h3>
         <div
+          v-highlightjs
           class="markdown-body"
           v-html="
             version.changelog

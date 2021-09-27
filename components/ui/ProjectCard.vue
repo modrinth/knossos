@@ -154,12 +154,12 @@ export default {
     },
     downloads: {
       type: String,
-      default: '0',
+      default: null,
       required: false,
     },
     follows: {
       type: String,
-      default: '0',
+      default: null,
       required: false,
     },
     createdAt: {
@@ -331,11 +331,13 @@ export default {
 
       .buttons {
         display: flex;
+        flex-direction: column;
 
         button,
         a {
           margin-right: 0;
           margin-left: auto;
+          margin-bottom: 0.5rem;
         }
       }
     }
@@ -355,6 +357,10 @@ export default {
 
         .stat svg {
           margin-left: 0;
+        }
+
+        .buttons {
+          flex-direction: row;
         }
 
         .buttons button,
