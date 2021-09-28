@@ -221,6 +221,7 @@ export default {
   markdownit: {
     runtime: true,
     preset: 'default',
+    html: true,
     linkify: true,
     breaks: true,
   },

@@ -484,10 +484,9 @@ export default {
             }
             .content {
               margin: 0 0 0 0;
-              width: calc(100% - 3.5rem);
+              width: calc(100% - 5rem);
               position: fixed;
               display: none;
-              top: 2.45rem;
             }
             button {
               background-color: transparent;

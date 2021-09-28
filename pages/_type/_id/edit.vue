@@ -485,7 +485,7 @@ export default {
 
         this.isEditing = false
         await this.$router.replace(
-          `/project/${
+          `/${this.project.project_type}/${
             this.newProject.slug ? this.newProject.slug : this.newProject.id
           }`
         )
