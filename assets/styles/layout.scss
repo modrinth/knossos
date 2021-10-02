@@ -19,7 +19,9 @@
   }
 }
 .page-container {
-  margin: var(--spacing-card-bg);
+  margin: var(--spacing-card-md);
+  margin-top: 0;
+
   .page-contents {
     display: flex;
     flex-direction: column;

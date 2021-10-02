@@ -2,7 +2,7 @@
   <article class="project-card">
     <div class="columns">
       <div class="icon">
-        <nuxt-link v-if="isModrinth" :to="`/${type}/${id}`">
+        <nuxt-link :to="`/${type}/${id}`">
           <img
             :src="iconUrl || 'https://cdn.modrinth.com/placeholder.svg?inline'"
             :alt="name"
@@ -11,101 +11,96 @@
         </nuxt-link>
         <Categories :categories="categories" class="left-categories" />
       </div>
-      <div class="info">
-        <div class="top">
-          <h2 class="title">
-            <nuxt-link v-if="isModrinth" :to="`/${type}/${id}`">{{
-              name
-            }}</nuxt-link>
-            <a v-else :href="pageUrl">{{ name }}</a>
-          </h2>
-          <p v-if="author" class="author">
-            by <nuxt-link :to="'/user/' + author">{{ author }}</nuxt-link>
-          </p>
-        </div>
-        <p class="description">
-          {{ description }}
-        </p>
-        <div :class="{ vertical: editMode }" class="bottom">
-          <div class="stats">
-            <div v-if="status !== null" class="stat">
-              <div class="info">
-                <h4>Status</h4>
-                <span v-if="status === 'approved'" class="badge green">
-                  Approved
-                </span>
-                <span v-if="status === 'rejected'" class="badge red">
-                  Rejected
-                </span>
-                <span v-if="status === 'draft'" class="badge yellow"
-                  >Draft</span
-                >
-                <span v-if="status === 'processing'" class="badge yellow">
-                  Under review
-                </span>
-                <span v-if="status === 'unlisted'" class="badge gray">
-                  Unlisted
-                </span>
-                <span v-if="status === 'unknown'" class="badge gray">
-                  Unknown
-                </span>
-              </div>
+      <div class="card-content">
+        <div class="info">
+          <div class="top">
+            <h2 class="title">
+              <nuxt-link :to="`/${type}/${id}`">{{ name }}</nuxt-link>
+            </h2>
+            <p v-if="author" class="author">
+              by <nuxt-link :to="'/user/' + author">{{ author }}</nuxt-link>
+            </p>
+          </div>
+          <div class="side-type">
+            <div
+              v-if="clientSide === 'optional' && serverSide === 'optional'"
+              class="side-descriptor"
+            >
+              <IconInfo />
+              Universal {{ project.project_type }}
             </div>
-            <div class="stat">
-              <IconDownload aria-hidden="true" />
-              <div class="info">
-                <h4>Downloads</h4>
-                <p class="value">{{ formatNumber(downloads) }}</p>
-              </div>
+            <div
+              v-else-if="
+                (clientSide === 'optional' || clientSide === 'required') &&
+                (serverSide === 'optional' || serverSide === 'unsupported')
+              "
+              class="side-descriptor"
+            >
+              <IconInfo />
+              Client {{ type }}
             </div>
-            <div class="stat">
-              <IconCalendar aria-hidden="true" />
-              <div class="info">
-                <h4>Created</h4>
-                <p
-                  v-tooltip="
-                    $dayjs(createdAt).format(
-                      '[Created on] YYYY-MM-DD [at] HH:mm A'
-                    )
-                  "
-                  class="value"
-                >
-                  {{ $dayjs(createdAt).fromNow() }}
-                </p>
-              </div>
-            </div>
-            <div class="stat">
-              <IconEdit aria-hidden="true" />
-              <div class="info">
-                <h4>Updated</h4>
-                <p
-                  v-tooltip="
-                    $dayjs(updatedAt).format(
-                      '[Updated on] YYYY-MM-DD [at] HH:mm A'
-                    )
-                  "
-                  class="value"
-                >
-                  {{ $dayjs(updatedAt).fromNow() }}
-                </p>
-              </div>
-            </div>
-            <div v-if="latestVersion" class="stat">
-              <IconTag aria-hidden="true" />
-              <div class="info">
-                <h4>Available For</h4>
-                <p class="value">
-                  {{ latestVersion }}
-                </p>
-              </div>
+            <div
+              v-else-if="
+                (serverSide === 'optional' || serverSide === 'required') &&
+                (clientSide === 'optional' || clientSide === 'unsupported')
+              "
+              class="side-descriptor"
+            >
+              <IconInfo />
+              Server {{ type }}
             </div>
           </div>
-          <SearchCategories :categories="categories" class="right-categories" />
+          <p class="description">
+            {{ description }}
+          </p>
+          <Categories :categories="categories" class="right-categories" />
+          <div class="dates">
+            <div class="date">
+              <IconCalendar />
+              Created {{ $dayjs(createdAt).fromNow() }}
+            </div>
+            <div class="date">
+              <IconEdit />
+              Updated {{ $dayjs(updatedAt).fromNow() }}
+            </div>
+          </div>
+        </div>
+        <div class="right-side">
+          <div v-if="downloads" class="stat">
+            <IconDownload />
+            <p>
+              <strong>{{ formatNumber(downloads) }}</strong> downloads
+            </p>
+          </div>
+          <div v-if="follows" class="stat">
+            <IconHeart />
+            <p>
+              <strong>{{ formatNumber(follows) }}</strong> followers
+            </p>
+          </div>
+          <div v-if="status" class="status">
+            <Badge
+              v-if="status === 'approved'"
+              color="green custom-circle"
+              :type="status"
+            />
+            <Badge
+              v-else-if="status === 'processing' || status === 'archived'"
+              color="yellow custom-circle"
+              :type="status"
+            />
+            <Badge
+              v-else-if="status === 'rejected'"
+              color="red custom-circle"
+              :type="status"
+            />
+            <Badge v-else color="gray custom-circle" :type="status" />
+          </div>
+          <div class="buttons">
+            <slot />
+          </div>
         </div>
       </div>
-    </div>
-    <div v-if="editMode" class="buttons">
-      <slot />
     </div>
   </article>
 </template>
@@ -134,21 +129,20 @@ export default {
       type: String,
       default: 'A _type description',
     },
-    pageUrl: {
-      type: String,
-      default: '#',
-    },
-    authorUrl: {
-      type: String,
-      default: '#',
-    },
     iconUrl: {
       type: String,
       default: '#',
+      required: false,
     },
     downloads: {
       type: String,
-      default: '0',
+      default: null,
+      required: false,
+    },
+    follows: {
+      type: String,
+      default: null,
+      required: false,
     },
     createdAt: {
       type: String,
@@ -158,27 +152,25 @@ export default {
       type: String,
       default: null,
     },
-    latestVersion: {
-      type: String,
-      default: null,
-    },
     categories: {
       type: Array,
       default() {
         return []
       },
     },
-    editMode: {
-      type: Boolean,
-      default: false,
-    },
     status: {
       type: String,
       default: null,
     },
-    isModrinth: {
-      type: Boolean,
-      default: false,
+    serverSide: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    clientSide: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
   methods: {
@@ -190,11 +182,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.columns {
+  width: 100%;
+}
+
 .project-card {
   @extend %row;
   @extend %card-spaced-b;
-  width: 100%;
   flex-direction: column;
+  padding: var(--spacing-card-bg);
+  width: calc(100% - 2 * var(--spacing-card-bg));
 
   @media screen and (min-width: 1024px) {
     flex-direction: row;
@@ -202,94 +199,168 @@ export default {
   }
 
   .icon {
-    margin: auto 0;
     img {
       width: 6rem;
       height: 6rem;
-      margin: var(--spacing-card-md);
+      margin: 0 var(--spacing-card-md) var(--spacing-card-md) 0;
       border-radius: var(--size-rounded-icon);
       object-fit: contain;
     }
   }
-  .info {
-    @extend %column;
-    flex-grow: 1;
-    .top {
-      @extend %row;
-      flex-wrap: wrap;
-      flex-shrink: 0;
-      margin-top: var(--spacing-card-md);
-      margin-right: var(--spacing-card-md);
-      .title {
-        margin: 0;
-        color: var(--color-text-dark);
-        font-size: var(--font-size-lg);
-      }
-      .author {
-        margin: auto 0 0 0.5rem;
-        color: var(--color-text);
-      }
-    }
-    .description {
-      margin: var(--spacing-card-sm) var(--spacing-card-md) 0 0;
-      height: 100%;
-    }
-    .bottom {
-      @extend %column;
-      flex-shrink: 0;
-      margin-top: var(--spacing-card-sm);
-      margin-right: var(--spacing-card-md);
-      margin-bottom: var(--spacing-card-md);
 
-      @media screen and (min-width: 1024px) {
-        flex-direction: row;
-        &.vertical {
-          flex-direction: column;
-          .categories {
-            margin-top: var(--spacing-card-sm);
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    .info {
+      @extend %column;
+
+      .top {
+        @extend %row;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        margin-right: var(--spacing-card-md);
+
+        .title {
+          margin: 0 0.5rem 0 0;
+          color: var(--color-text-dark);
+          font-size: var(--font-size-xl);
+        }
+
+        .author {
+          margin: auto 0 0 0;
+          color: var(--color-text);
+
+          a {
+            text-decoration: underline;
           }
         }
       }
 
-      .stats {
-        @extend %row;
-        flex-wrap: wrap;
+      .side-descriptor {
+        display: flex;
+        align-items: center;
+        font-weight: bolder;
+        font-size: var(--font-size-sm);
 
-        @media screen and (min-width: 900px) {
-          flex-wrap: nowrap;
-        }
+        margin-top: 0.125rem;
+        margin-bottom: 0.5rem;
 
-        .stat {
-          @extend %stat;
+        svg {
+          width: auto;
+          height: 1rem;
+          margin-right: 0.125rem;
         }
       }
-      .categories {
-        @media screen and (min-width: 1024px) {
-          flex-direction: row;
-          margin: auto 0;
+
+      .description {
+        margin: var(--spacing-card-sm) var(--spacing-card-md)
+          var(--spacing-card-sm) 0;
+      }
+
+      .right-categories {
+        margin-bottom: var(--spacing-card-sm);
+      }
+
+      .dates {
+        display: flex;
+        flex-wrap: wrap;
+
+        .date {
+          display: flex;
+          align-items: center;
+          margin-right: 2rem;
+
+          svg {
+            height: 1.25rem;
+            margin-right: 0.125rem;
+          }
+        }
+      }
+    }
+
+    .right-side {
+      min-width: 8.75rem;
+      text-align: right;
+
+      .stat {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        svg {
+          width: auto;
+          height: 1.25rem;
+
+          margin-left: auto;
+          margin-right: 0.25rem;
+        }
+
+        p {
+          margin: 0;
+
+          strong {
+            font-weight: bolder;
+            font-size: var(--font-size-lg);
+          }
+        }
+      }
+
+      .status {
+        margin-bottom: 0.5rem;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+
+        button,
+        a {
+          margin-right: 0;
+          margin-left: auto;
+          margin-bottom: 0.5rem;
         }
       }
     }
   }
+
   .left-categories {
     display: none;
   }
+
   @media screen and (max-width: 560px) {
+    .card-content {
+      flex-direction: column;
+      .right-side {
+        padding-top: var(--spacing-card-sm);
+
+        text-align: left;
+
+        .stat svg {
+          margin-left: 0;
+        }
+
+        .buttons {
+          flex-direction: row;
+        }
+
+        .buttons button,
+        a {
+          margin-left: unset;
+          margin-right: unset;
+        }
+      }
+    }
+
     .left-categories {
       display: flex;
       margin: 0 0 0.75rem 0.75rem;
       width: 7rem;
     }
+
     .right-categories {
       display: none;
-    }
-  }
-  .buttons {
-    @extend %column;
-    margin-bottom: 1rem;
-
-    @media screen and (min-width: 1024px) {
-      margin-bottom: 0;
     }
   }
 }

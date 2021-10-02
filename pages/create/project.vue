@@ -677,9 +677,9 @@ export default {
         })
 
         this.isEditing = false
-        await this.$store.dispatch('user/fetchAll', { force: true })
+        await this.$store.dispatch('user/fetchProjects')
 
-        await this.$router.replace('/dashboard/projects')
+        await this.$router.replace(`/user/${this.$auth.user.username}`)
       } catch (err) {
         let description = err.response.data.description
 

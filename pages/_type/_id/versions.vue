@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <nuxt-link
       v-if="currentMember"
       to="version/create"
@@ -45,7 +45,21 @@
                 </nuxt-link>
               </div>
               <div class="bottom">
-                <VersionBadge :type="version.version_type" />
+                <Badge
+                  v-if="version.version_type === 'release'"
+                  type="release"
+                  color="green"
+                />
+                <Badge
+                  v-else-if="version.version_type === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <Badge
+                  v-else-if="version.version_type === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
                 <span class="divider" />
                 <span class="version_number">{{ version.version_number }}</span>
               </div>
@@ -105,6 +119,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  @extend %card-spaced-b;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  max-width: calc(100% - (2 * var(--spacing-card-lg)));
+}
+
 .new-version {
   max-width: 4.25rem;
 }

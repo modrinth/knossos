@@ -3,12 +3,12 @@ html {
 }
 
 .light-mode {
-  --color-icon: #718096;
+  --color-icon: #6B7280;
   --color-text: #4a5568;
   --color-text-medium: #2a303d;
   --color-text-dark: #1a202c;
   --color-heading: #2c313d;
-  --color-bg: #e6e7eb;
+  --color-bg: #E5E7EB;
   --color-raised-bg: #ffffff;
   --color-divider: #eaecef;
   --color-divider-dark: #c8cdd3;
@@ -176,7 +176,7 @@ body {
   --size-rounded-lg: 1.25rem;
 
   --size-rounded-max: 999999999px;
-  --size-rounded-card: 0.5rem;
+  --size-rounded-card: 1rem;
   --size-rounded-icon: 0.5rem;
   --size-rounded-control: 0.25rem;
   --size-rounded-tooltip: 0.25rem;

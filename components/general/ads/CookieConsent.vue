@@ -43,7 +43,7 @@ export default {
 
       this.shown =
         !this.$store.state.consent.is_consent_given &&
-        this.$route.path !== '/dashboard/privacy'
+        this.$route.path !== '/settings/privacy'
     },
     hide() {
       this.$store.commit('consent/set_consent', true)
@@ -57,7 +57,7 @@ export default {
     },
     review() {
       this.shown = false
-      this.$router.push('/dashboard/privacy')
+      this.$router.push('/settings/privacy')
     },
   },
 }

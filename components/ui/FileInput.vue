@@ -76,6 +76,12 @@ label {
   padding: var(--spacing-card-sm) var(--spacing-card-md);
 }
 
+span {
+  border: 2px dashed var(--color-divider-dark);
+  border-radius: var(--size-rounded-control);
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+}
+
 input {
   display: none;
 }

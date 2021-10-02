@@ -106,8 +106,6 @@
             @change="showPreviewImage"
           />
           <ul class="row-grow-1">
-            <li>Must be a square</li>
-            <li>Minimum size is 100x100 pixels</li>
             <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
           </ul>
           <button
@@ -484,7 +482,7 @@ export default {
 
         this.isEditing = false
         await this.$router.replace(
-          `/project/${
+          `/${this.project.project_type}/${
             this.newProject.slug ? this.newProject.slug : this.newProject.id
           }`
         )

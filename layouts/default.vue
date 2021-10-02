@@ -15,7 +15,7 @@
         </section>
         <section ref="nav" class="right-group columns">
           <section class="column-grow-5 nav">
-            <div class="tabs">
+            <div class="styled-tabs">
               <NuxtLink to="/mods" class="tab">
                 <span>Mods</span>
               </NuxtLink>
@@ -26,10 +26,16 @@
           </section>
           <section class="column-grow user-outer">
             <section class="user-controls">
-              <button class="theme-toggle" @click="changeTheme">
+              <button class="control-button" @click="changeTheme">
                 <IconMoon v-if="$colorMode.value === 'light'" />
                 <IconSun v-else />
               </button>
+              <nuxt-link to="/notifications" class="control-button">
+                <IconBell />
+                <div v-if="$user.notifications.length > 0" class="bubble">
+                  {{ $user.notifications.length }}
+                </div>
+              </nuxt-link>
               <div
                 v-if="$auth.user"
                 v-click-outside="hideDropdown"
@@ -38,10 +44,7 @@
               >
                 <button class="control" @click="toggleDropdown">
                   <div class="avatar">
-                    <AvatarIcon
-                      :notif-count="$user.notifications.length"
-                      :dropdown-bg="isDropdownOpen"
-                    />
+                    <img :src="$auth.user.avatar_url" class="icon" />
                     <span>{{ $auth.user.username }}</span>
                   </div>
                   <IconChevronDown class="dropdown-icon" />
@@ -55,21 +58,21 @@
                       </NuxtLink>
                     </li>
                     <li>
-                      <NuxtLink to="/dashboard/projects">
-                        <IconFolder />
-                        <span>Projects</span>
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink to="/dashboard/notifications">
-                        <IconBell />
-                        <span>Notifications</span>
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink to="/dashboard/settings">
+                      <NuxtLink to="/settings">
                         <IconSettings />
                         <span>Settings</span>
+                      </NuxtLink>
+                    </li>
+                    <li>
+                      <NuxtLink
+                        v-if="
+                          $auth.user.role === 'moderator' ||
+                          $auth.user.role === 'admin'
+                        "
+                        to="/moderation"
+                      >
+                        <IconFlag />
+                        <span>Moderation</span>
                       </NuxtLink>
                     </li>
                     <hr />
@@ -103,11 +106,50 @@
       <Nuxt />
     </main>
     <footer>
-      <div class="footer-header">
-        <div class="logo">
-          <ModrinthLogo aria-label="modrinth" class="text-logo" />
-        </div>
-        <div class="buttons"></div>
+      <div class="logo-info">
+        <ModrinthLogo aria-label="modrinth" class="text-logo" />
+        <p>
+          Modrinth is open source software. You may view the source code at
+          <a
+            target="_blank"
+            href="https://github.com/modrinth/knossos"
+            class="text-link"
+          >
+            our GitHub page</a
+          >
+        </p>
+        <p>modrinth/knossos {{ version }}</p>
+        <p>© Guavy LLC</p>
+      </div>
+      <div class="links">
+        <h4>Legal</h4>
+        <nuxt-link to="/legal/terms">Terms</nuxt-link>
+        <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
+        <nuxt-link to="/legal/rules">Content</nuxt-link>
+        <a
+          target="_blank"
+          href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
+        >
+          License
+        </a>
+      </div>
+      <div class="links">
+        <h4>Resources</h4>
+        <a target="_blank" href="https://blog.modrinth.com">Blog</a>
+        <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
+        <a target="_blank" href="https://github.com/modrinth/knossos">GitHub</a>
+        <a target="_blank" href="https://docs.modrinth.com">Docs</a>
+      </div>
+      <div class="buttons">
+        <nuxt-link to="/settings/privacy" class="iconified-button">
+          <ShieldIcon />
+          Set privacy settings
+        </nuxt-link>
+        <button class="iconified-button" @click="changeTheme">
+          <MoonIcon v-if="$colorMode.value === 'light'" />
+          <SunIcon v-else />
+          Change theme
+        </button>
       </div>
     </footer>
   </div>
@@ -133,6 +175,7 @@ export default {
   data() {
     return {
       isDropdownOpen: false,
+      version: process.env.version || 'unknown',
     }
   },
   async fetch() {
@@ -178,7 +221,7 @@ export default {
     async logout() {
       this.$cookies.set('auth-token-reset', true)
       // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (this.$route.path.startsWith('/dashboard')) {
+      if (this.$route.path.startsWith('/settings')) {
         window.location.href = '/'
       } else {
         await this.$router.go(null)
@@ -210,13 +253,12 @@ export default {
   }
 
   .site-header {
-    height: var(--size-navbar-height);
-    background-color: var(--color-raised-bg);
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
     max-width: 100vw;
 
     @media screen and (min-width: 1024px) {
       border-radius: var(--size-rounded-sm);
-      margin-top: var(--spacing-card-bg);
       max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
@@ -231,8 +273,6 @@ export default {
         align-items: center;
         display: flex;
         justify-content: space-between;
-        padding: 1rem 0;
-        margin-left: 1rem;
         color: var(--color-text-dark);
         .small-logo {
           display: block;
@@ -279,9 +319,6 @@ export default {
       section.right-group {
         display: flex;
         flex-grow: 5;
-        @media screen and (min-width: 1024px) {
-          margin-right: var(--spacing-card-lg);
-        }
         flex-direction: column-reverse;
 
         overflow-y: auto;
@@ -299,19 +336,20 @@ export default {
         }
 
         section.nav {
-          .tabs {
+          .styled-tabs {
+            display: flex;
             flex-direction: column;
 
-            .section {
-              border-top: 3px solid var(--color-brand-disabled);
-              margin-top: 0.75rem;
-              padding-top: 0.75rem;
-            }
-            .tab {
-              font-size: var(--font-size-md);
+            a {
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 5px;
 
-              span {
-                margin: 0 auto;
+              &:hover,
+              &:focus,
+              &.nuxt-link-exact-active,
+              &.active-path {
+                margin-bottom: 0;
               }
             }
           }
@@ -332,15 +370,33 @@ export default {
 
           margin: 0 auto;
 
-          .theme-toggle {
+          .control-button {
+            max-width: 2rem;
             padding: 0.5rem;
+            background-color: var(--color-raised-bg);
             border-radius: var(--size-rounded-max);
-            margin: 0 0.5rem;
+            margin: 0 0.5rem 0 0;
             display: flex;
 
             svg {
-              height: 1.5rem;
-              width: 1.5rem;
+              height: 1rem;
+              width: 1rem;
+            }
+
+            .bubble {
+              position: absolute;
+              margin-left: 0.5rem;
+              bottom: 1rem;
+              border-radius: 0.9rem;
+              height: 0.8rem;
+              padding: 0 0.25rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              font-size: 0.6rem;
+              background-color: var(--color-brand);
+              color: var(--color-brand-inverted);
             }
           }
 
@@ -364,7 +420,7 @@ export default {
               }
             }
             .control {
-              background-color: var(--color-button-bg);
+              background-color: var(--color-raised-bg);
               border-radius: var(--size-rounded-max);
               align-items: center;
               display: flex;
@@ -372,13 +428,18 @@ export default {
               position: relative;
               z-index: 11;
               width: 100%;
-              &:hover {
-                background-color: var(--color-button-bg-hover);
-              }
+
               .avatar {
                 align-items: center;
                 display: flex;
                 flex-grow: 1;
+
+                img {
+                  height: 1.5rem;
+                  width: 1.5rem;
+                  border-radius: 50%;
+                }
+
                 span {
                   display: block;
                   overflow: hidden;
@@ -397,10 +458,9 @@ export default {
             }
             .content {
               margin: 0 0 0 0;
-              width: calc(100% - 3.5rem);
+              width: calc(100% - 5rem);
               position: fixed;
               display: none;
-              top: 2.45rem;
             }
             button {
               background-color: transparent;
@@ -508,30 +568,21 @@ export default {
           z-index: unset;
 
           section.nav {
-            .tabs {
+            .styled-tabs {
               flex-direction: unset;
               position: relative;
               top: 50%;
               transform: translateY(-50%);
+              margin-top: 3px;
+              margin-left: 2rem;
 
-              .section {
-                margin-top: unset;
-                padding-top: unset;
-                border-top: unset;
-
-                border-left: 3px solid var(--color-brand-disabled);
-                margin-left: 0.75rem;
-                padding-left: 0.75rem;
+              a {
+                margin-left: 0;
               }
 
               a.tab {
-                &.nuxt-link-active {
-                  color: var(--color-text-dark);
-
-                  span {
-                    border-bottom: 3px solid var(--color-brand);
-                  }
-                }
+                padding: 0;
+                margin-right: 1rem;
               }
             }
           }
@@ -556,6 +607,55 @@ export default {
 
   main {
     grid-area: main;
+  }
+
+  footer {
+    margin: 6rem 0 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    .logo-info {
+      margin-left: auto;
+      margin-right: 2rem;
+      max-width: 22rem;
+
+      .text-logo {
+        width: 10rem;
+        height: auto;
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      margin-right: 2rem;
+
+      h4 {
+        color: var(--color-text-dark);
+        margin: 0 0 1rem 0;
+      }
+
+      a {
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .buttons {
+      margin-right: auto;
+
+      button,
+      a {
+        background-color: var(--color-raised-bg);
+
+        margin-bottom: 0.5rem;
+        margin-left: auto;
+
+        &:hover,
+        &:focus {
+          background-color: var(--color-button-bg-hover);
+        }
+      }
+    }
   }
 }
 
