@@ -142,12 +142,12 @@
       </div>
       <div class="buttons">
         <nuxt-link to="/settings/privacy" class="iconified-button">
-          <ShieldIcon />
+          <IconShield />
           Set privacy settings
         </nuxt-link>
         <button class="iconified-button" @click="changeTheme">
-          <MoonIcon v-if="$colorMode.value === 'light'" />
-          <SunIcon v-else />
+          <IconMoon v-if="$colorMode.value === 'light'" />
+          <IconSun v-else />
           Change theme
         </button>
       </div>

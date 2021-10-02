@@ -6,7 +6,7 @@
 
         <div class="divider">
           <button class="iconified-button" @click="clearNotifications">
-            <ClearIcon />
+            <IconTrash />
             Clear all
           </button>
         </div>
@@ -61,17 +61,11 @@
 </template>
 
 <script>
-import ClearIcon from '~/assets/images/utils/trash.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
-import UsersIcon from '~/assets/images/utils/users.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 
 export default {
   name: 'Notifications',
   components: {
-    ClearIcon,
-    UpdateIcon,
-    UsersIcon,
     UpToDate,
   },
   async fetch() {

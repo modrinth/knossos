@@ -167,20 +167,12 @@
               Open
             </button>
           </div>
-<<<<<<< HEAD
-          <Pagination
-            :current-page="currentPage"
-            :pages="pages"
-            @switch-page="onSearchChange"
-          />
-=======
->>>>>>> 8593d5d1a746b49f041111d958f6509d8063ec67
         </section>
-        <pagination
+        <Pagination
           :current-page="currentPage"
           :pages="pages"
           @switch-page="onSearchChange"
-        ></pagination>
+        ></Pagination>
         <div class="results column-grow-4">
           <Advertisement
             type="banner"
@@ -193,18 +185,12 @@
             <p>Loading...</p>
           </div>
           <div v-else>
-<<<<<<< HEAD
             <ProjectCard
-              v-for="(result, index) in results"
-              :id="result.slug ? result.slug : result.project_id.split('-')[1]"
-=======
-            <SearchResult
               v-for="result in results"
               :id="result.slug ? result.slug : result.project_id"
->>>>>>> 8593d5d1a746b49f041111d958f6509d8063ec67
               :key="result.project_id"
               :type="result.project_type"
-              :author="result.author"
+              :aut∂hor="result.author"
               :name="result.title"
               :description="result.description"
               :created-at="result.date_created"
@@ -316,30 +302,6 @@ export default {
 
     await this.onSearchChange(this.currentPage)
   },
-<<<<<<< HEAD
-  fetchOnServer: false,
-  head: {
-    title: 'Mods - Modrinth',
-    meta: [
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Mods',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: `https://modrinth.com/mods`,
-      },
-    ],
-  },
-=======
->>>>>>> 8593d5d1a746b49f041111d958f6509d8063ec67
   watch: {
     '$route.path': {
       async handler() {

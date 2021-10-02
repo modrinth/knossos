@@ -13,7 +13,7 @@
           })
         "
       >
-        <UploadIcon />
+        <IconUpload />
         Upload
       </button>
       <button
@@ -25,7 +25,7 @@
         class="action brand-button-colors iconified-button"
         @click="saveGallery"
       >
-        <CheckIcon />
+        <IconCheck />
         Save
       </button>
       <button
@@ -37,7 +37,7 @@
         class="action iconified-button"
         @click="resetGallery"
       >
-        <TrashIcon />
+        <IconTrash />
         Discard Changes
       </button>
     </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="gallery-bottom">
           <div class="gallery-created">
-            <CalendarIcon />
+            <IconCalendar />
             {{ $dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
           <div v-if="currentMember" class="gallery-buttons">
@@ -88,7 +88,7 @@
                 )
               "
             >
-              <CrossIcon />
+              <IconCross />
               Cancel
             </button>
             <button
@@ -96,7 +96,7 @@
               class="iconified-button"
               @click="editGalleryIndexes.push(index)"
             >
-              <EditIcon />
+              <IconEdit />
               Edit
             </button>
             <button
@@ -106,7 +106,7 @@
                 gallery.splice(index, 1)
               "
             >
-              <TrashIcon />
+              <IconTrash />
               Delete
             </button>
           </div>
@@ -153,7 +153,7 @@
               class="iconified-button"
               @click="newGalleryItems.splice(index, 1)"
             >
-              <TrashIcon />
+              <IconTrash />
               Delete
             </button>
           </div>
@@ -164,27 +164,7 @@
 </template>
 
 <script>
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-
-import SmartFileInput from '~/components/ui/SmartFileInput'
-import Checkbox from '~/components/ui/Checkbox'
-
 export default {
-  components: {
-    CalendarIcon,
-    UploadIcon,
-    Checkbox,
-    EditIcon,
-    TrashIcon,
-    CheckIcon,
-    SmartFileInput,
-    CrossIcon,
-  },
   auth: false,
   beforeRouteLeave(to, from, next) {
     this.resetGallery()

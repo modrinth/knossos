@@ -22,7 +22,7 @@
             class="iconified-button brand-button-colors right"
             @click="actionButtonCallback()"
           >
-            <CheckIcon />
+            <IconCheck />
             {{ actionButton }}
           </button>
         </div>
@@ -36,13 +36,8 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-
 export default {
   name: 'Settings',
-  components: {
-    CheckIcon,
-  },
   data() {
     return {
       actionButton: '',

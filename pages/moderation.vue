@@ -51,14 +51,14 @@
         ></div>
         <div class="buttons">
           <button class="iconified-button" @click="currentProject = null">
-            <CrossIcon />
+            <IconCross />
             Cancel
           </button>
           <button
             class="iconified-button brand-button-colors"
             @click="saveProject"
           >
-            <CheckIcon />
+            <IconCheck />
             Save project status
           </button>
         </div>
@@ -91,7 +91,7 @@
               class="iconified-button"
               @click="setProjectStatus(project, 'approved')"
             >
-              <CheckIcon />
+              <IconCheck />
               Approve
             </button>
             <button
@@ -105,7 +105,7 @@
               class="iconified-button"
               @click="setProjectStatus(project, 'rejected')"
             >
-              <CrossIcon />
+              <IconCross />
               Reject
             </button>
           </ProjectCard>
@@ -167,24 +167,11 @@
 </template>
 
 <script>
-import ThisOrThat from '~/components/ui/ThisOrThat'
-import ProjectCard from '~/components/ui/ProjectCard'
-import Popup from '~/components/ui/Popup'
-import Badge from '~/components/ui/Badge'
-
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import Security from '~/assets/images/illustrations/security.svg?inline'
 
 export default {
   name: 'Moderation',
   components: {
-    ThisOrThat,
-    ProjectCard,
-    CheckIcon,
-    CrossIcon,
-    Popup,
-    Badge,
     Security,
   },
   async asyncData(data) {
