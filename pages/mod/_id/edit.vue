@@ -16,7 +16,7 @@
         "
         title="Submit for approval"
         class="button column"
-        :disabled="!this.$nuxt.$loading"
+        :disabled="!$nuxt.$loading"
         @click="saveModReview"
       >
         Submit for approval
@@ -24,7 +24,7 @@
       <button
         title="Save"
         class="brand-button column"
-        :disabled="!this.$nuxt.$loading"
+        :disabled="!$nuxt.$loading"
         @click="saveMod"
       >
         Save
@@ -36,7 +36,14 @@
         <span>
           Be creative. TechCraft v7 won't be searchable and won't be clicked on.
         </span>
-        <input v-model="mod.title" type="text" placeholder="Enter the name" />
+        <input
+          v-model="mod.title"
+          type="text"
+          placeholder="Enter the name"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
+        />
       </label>
       <h3>Summary</h3>
       <label>
@@ -47,6 +54,9 @@
           v-model="mod.description"
           type="text"
           placeholder="Enter the summary"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <h3>Categories</h3>
@@ -69,6 +79,9 @@
           :limit="6"
           :hide-selected="true"
           placeholder="Choose categories"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <h3>Vanity URL (slug)</h3>
@@ -81,6 +94,9 @@
           v-model="mod.slug"
           type="text"
           placeholder="Enter the vanity URL's last bit"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
     </section>
@@ -92,6 +108,9 @@
             accept="image/png,image/jpeg,image/gif,image/webp"
             class="choose-image"
             prompt="Choose an image or drag it here"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
             @change="showPreviewImage"
           />
           <ul class="row-grow-1">
@@ -113,6 +132,9 @@
           />
           <button
             class="button"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
             @click="
               icon = null
               previewImage = null
@@ -142,6 +164,9 @@
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
           />
         </div>
         <div class="labeled-control">
@@ -154,6 +179,9 @@
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
           />
         </div>
       </div>
@@ -179,7 +207,11 @@
       </span>
       <div class="columns">
         <div class="textarea-wrapper">
-          <textarea id="body" v-model="mod.body"></textarea>
+          <textarea
+            id="body"
+            v-model="mod.body"
+            :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
+          ></textarea>
         </div>
         <div v-compiled-markdown="mod.body" class="markdown-body"></div>
       </div>
@@ -196,6 +228,9 @@
           v-model="mod.issues_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <label title="A page/repository containing the source code for your mod.">
@@ -204,6 +239,9 @@
           v-model="mod.source_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <label
@@ -214,6 +252,9 @@
           v-model="mod.wiki_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <label title="An invitation link to your Discord server.">
@@ -222,6 +263,9 @@
           v-model="mod.discord_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
     </section>
@@ -254,8 +298,18 @@
             :searchable="true"
             :close-on-select="true"
             :show-labels="false"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
           />
-          <input v-model="license_url" type="url" placeholder="License URL" />
+          <input
+            v-model="license_url"
+            type="url"
+            placeholder="License URL"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          />
         </div>
       </label>
     </section>
@@ -324,6 +378,23 @@ export default {
   components: {
     FileInput,
     Multiselect,
+  },
+  beforeRouteLeave(to, from, next) {
+    if (
+      this.isEditing &&
+      !window.confirm('Are you sure that you want to leave without saving?')
+    ) {
+      return
+    }
+    next()
+  },
+  props: {
+    currentMember: {
+      type: Object,
+      default() {
+        return null
+      },
+    },
   },
   async asyncData(data) {
     try {
@@ -434,17 +505,17 @@ export default {
       window.removeEventListener('beforeunload', preventLeave)
     })
   },
-  beforeRouteLeave(to, from, next) {
-    if (
-      this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
-    ) {
-      return
-    }
-    next()
-  },
   created() {
     this.$emit('update:link-bar', [['Edit', 'edit']])
+
+    this.UPLOAD_VERSION = 1 << 0
+    this.DELETE_VERSION = 1 << 1
+    this.EDIT_DETAILS = 1 << 2
+    this.EDIT_BODY = 1 << 3
+    this.MANAGE_INVITES = 1 << 4
+    this.REMOVE_MEMBER = 1 << 5
+    this.EDIT_MEMBER = 1 << 6
+    this.DELETE_MOD = 1 << 7
   },
   methods: {
     async saveModReview() {
