@@ -177,7 +177,14 @@ export default {
     Sitemap: 'https://modrinth.com/sitemap.xml',
   },
   sitemap: {
-    exclude: ['/dashboard/**', '/dashboard', '/create/_type', '/create/report'],
+    exclude: [
+      '/settings/**',
+      '/settings',
+      'notifications',
+      'moderation',
+      'search',
+      '/create/**',
+    ],
   },
   /*
    ** Axios module configuration
@@ -228,6 +235,7 @@ export default {
   markdownit: {
     runtime: true,
     preset: 'default',
+    html: true,
     linkify: true,
     breaks: true,
   },

@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div class="section-header columns">
-      <h3 class="column-grow-1">Revoke your Modrinth token</h3>
-    </div>
     <section class="essentials pad-maker">
+      <h3>Revoke your Modrinth token</h3>
       <p>
         Revoking your Modrinth token can have unintended consequences. Please be
         aware that the following could break:
@@ -44,14 +42,19 @@
           token will be regenerated.
         </strong>
       </p>
-      <button @click="logout">Continue</button>
+      <button class="iconified-button brand-button-colors" @click="logout">
+        <IconCheck />
+        Continue
+      </button>
     </section>
   </div>
 </template>
 
 <script>
 export default {
-  components: {},
+  head: {
+    title: 'Revoke Token - Modrinth',
+  },
   methods: {
     async logout() {
       this.$cookies.set('auth-token-reset', true)
@@ -64,53 +67,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pad-rem {
-  margin-top: 0;
-}
-
-.pad-maker {
-  margin-top: var(--spacing-card-md);
-}
-
-.save-btn-div {
-  overflow: hidden;
-  clear: both;
-}
-
-.save-btn {
-  float: right;
-}
-
-a {
-  color: var(--color-link);
-  text-decoration: underline;
-}
-
 section {
   @extend %card;
   padding: var(--spacing-card-md) var(--spacing-card-lg);
-}
 
-label {
-  display: flex;
-
-  span {
-    flex: 2;
-    padding-right: var(--spacing-card-lg);
-  }
-
-  input {
-    flex: 3;
-    height: fit-content;
+  a {
+    color: var(--color-link);
+    text-decoration: underline;
   }
 
   button {
-    :hover {
-      cursor: pointer;
-    }
-
-    height: fit-content;
-    flex: 1;
+    padding: 0.5rem 0.75rem;
+    margin-left: auto;
   }
 }
 </style>

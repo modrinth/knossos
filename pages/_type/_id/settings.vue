@@ -16,14 +16,16 @@
       <h3>Edit project</h3>
       <label>
         <span> This leads you to a page where you can edit your project. </span>
-        <nuxt-link class="button" to="edit">Edit</nuxt-link>
+        <nuxt-link class="iconified-button" to="edit">Edit</nuxt-link>
       </label>
       <h3>Create version</h3>
       <label>
         <span>
           This leads to a page where you can create a version for your project.
         </span>
-        <nuxt-link class="button" to="version/create">Create version</nuxt-link>
+        <nuxt-link class="iconified-button" to="version/create"
+          >Create version</nuxt-link
+        >
       </label>
       <h3>Delete project</h3>
       <label>
@@ -34,7 +36,7 @@
           other projects, so be careful!
         </span>
         <div
-          class="button"
+          class="iconified-button"
           :disabled="
             (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
           "
@@ -45,7 +47,7 @@
       </label>
     </section>
     <div class="section-header columns team-invite">
-      <h3 class="column-grow-1">Team members</h3>
+      <h3>Team members</h3>
       <div class="column">
         <input
           id="username"
@@ -54,7 +56,11 @@
           placeholder="Username"
         />
         <label for="username" class="hidden">Username</label>
-        <button class="brand-button column" @click="inviteTeamMember">
+        <button
+          class="iconified-button brand-button-colors column"
+          @click="inviteTeamMember"
+        >
+          <IconPlus />
           Invite
         </button>
       </div>
@@ -74,8 +80,8 @@
           </div>
         </div>
         <div class="side-buttons">
-          <span v-if="member.accepted" class="badge green">Accepted</span>
-          <span v-else class="badge yellow">Pending</span>
+          <Badge v-if="member.accepted" type="accepted" color="green" />
+          <Badge v-else type="pending" color="yellow" />
           <button
             class="dropdown-icon"
             @click="
@@ -212,22 +218,36 @@
         </div>
         <div class="actions">
           <button
+            class="iconified-button"
             :disabled="
               member.role === 'Owner' ||
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
             "
             @click="removeTeamMember(index)"
           >
+            <IconTrash />
             Remove member
           </button>
           <button
-            class="brand-button"
+            class="iconified-button"
             :disabled="
               member.role === 'Owner' ||
+              member.role === 'Owner' ||
+              currentMember.role !== 'Owner'
+            "
+            @click="transferOwnership(index)"
+          >
+            <IconUser />
+            Transfer ownership
+          </button>
+          <button
+            class="iconified-button brand-button-colors"
+            :disabled="
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
             "
             @click="updateTeamMember(index)"
           >
+            <IconCheck />
             Save changes
           </button>
         </div>
@@ -353,12 +373,36 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
+    async transferOwnership(index) {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `team/${this.project.team}/owner`,
+          {
+            user_id: this.allTeamMembers[index].user_id,
+          },
+          this.$auth.headers
+        )
+        await this.$router.go(null)
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
     showPopup() {
       this.$refs.delete_popup.show()
     },
     async deleteProject() {
       await this.$axios.delete(`project/${this.project.id}`, this.$auth.headers)
-      await this.$router.push('/dashboard/projects')
+      await this.$store.dispatch('user/fetchProjects')
+      await this.$router.push(`/user/${this.$auth.user.username}`)
       this.$notify({
         group: 'main',
         title: 'Action Success',
@@ -499,6 +543,7 @@ section {
 
     div,
     a {
+      display: block;
       text-align: center;
       height: fit-content;
       flex: 1;
@@ -519,19 +564,42 @@ section {
       margin-bottom: 0.5rem;
     }
   }
+
+  h3 {
+    margin-right: auto;
+  }
+
   > div {
+    display: flex;
+    align-items: center;
+
     input {
       margin-right: 1rem;
     }
+
     @media screen and (max-width: 500px) {
       display: flex;
       flex-direction: column;
+
       input {
         margin: 0;
       }
+
       button {
         margin-top: 0.5rem;
       }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+
+  button {
+    margin-right: 0.5rem;
+
+    &:first-child {
+      margin-left: auto;
     }
   }
 }

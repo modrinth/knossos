@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <ConfirmPopup
       ref="delete_version_popup"
       title="Are you sure you want to delete this version?"
@@ -8,16 +8,18 @@
       proceed-label="Delete version"
       @proceed="deleteVersion()"
     />
-    <nuxt-link
-      v-if="mode === 'version'"
-      class="iconified-button back-button"
-      :to="`/${project.project_type}/${
-        project.slug ? project.slug : project.id
-      }/versions`"
-    >
-      <IconBack />
-      Back to list
-    </nuxt-link>
+    <div class="columns">
+      <nuxt-link
+        v-if="mode === 'version'"
+        class="iconified-button back-button"
+        :to="`/${project.project_type}/${
+          project.slug ? project.slug : project.id
+        }/versions`"
+      >
+        <IconBack />
+        Back to list
+      </nuxt-link>
+    </div>
     <div>
       <div v-if="mode === 'version'" class="version-header">
         <h2>{{ version.name }}</h2>
@@ -134,6 +136,7 @@
         </div>
         <div
           v-if="changelogViewMode === 'preview'"
+          v-highlightjs
           class="markdown-body"
           v-html="
             version.changelog
@@ -145,6 +148,7 @@
       <section v-else>
         <h3>Changelog</h3>
         <div
+          v-highlightjs
           class="markdown-body"
           v-html="
             version.changelog
@@ -169,7 +173,23 @@
               :show-labels="false"
               :allow-empty="false"
             />
-            <VersionBadge v-else class="value" :type="version.version_type" />
+            <Badge
+              v-else-if="version.version_type === 'release'"
+              class="value"
+              type="release"
+              color="green"
+            />
+            <Badge
+              v-else-if="version.version_type === 'beta'"
+              class="value"
+              type="beta"
+              color="yellow"
+            /><Badge
+              v-else-if="version.version_type === 'alpha'"
+              class="value"
+              type="alpha"
+              color="red"
+            />
           </div>
           <div class="data">
             <p class="title">Mod loaders</p>
@@ -439,7 +459,6 @@ export default {
   components: {
     Multiselect,
   },
-  auth: false,
   beforeRouteLeave(to, from, next) {
     this.setVersion()
 
@@ -760,8 +779,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.back-button {
-  max-width: 6.25rem;
+.content {
+  @extend %card-spaced-b;
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  max-width: calc(100% - (2 * var(--spacing-card-lg)));
 }
 
 .version-header {
@@ -928,5 +949,9 @@ section {
   }
 
   font-size: var(--font-size-sm);
+}
+
+.options {
+  margin-bottom: var(--spacing-card-sm);
 }
 </style>

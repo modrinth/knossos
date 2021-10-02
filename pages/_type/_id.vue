@@ -97,18 +97,7 @@
           <p class="description">
             {{ project.description }}
           </p>
-          <p class="categories">
-            <span
-              v-for="(category, index) in project.categories"
-              :key="category"
-            >
-              {{
-                index === project.categories.length - 1
-                  ? category.charAt(0).toUpperCase() + category.slice(1)
-                  : category.charAt(0).toUpperCase() + category.slice(1) + ' · '
-              }}
-            </span>
-          </p>
+          <Categories :categories="project.categories" class="categories" />
           <div class="stats">
             <span class="stat">{{ formatNumber(project.downloads) }}</span>
             <span class="label">downloads</span>
@@ -130,8 +119,75 @@
             </div>
           </div>
         </div>
+        <div
+          v-if="project.status === 'processing' || project.moderator_message"
+          class="section"
+        >
+          <h3>Project status</h3>
+          <div class="status-info"></div>
+          <p>
+            Your mod is currently:
+            <Badge
+              v-if="project.status === 'approved'"
+              color="green"
+              :type="project.status"
+            />
+            <Badge
+              v-else-if="
+                project.status === 'processing' || project.status === 'archived'
+              "
+              color="yellow"
+              :type="project.status"
+            />
+            <Badge
+              v-else-if="project.status === 'rejected'"
+              color="red"
+              :type="project.status"
+            />
+            <Badge v-else color="gray" :type="project.status" />
+          </p>
+          <div class="message">
+            <p v-if="project.status === 'processing'">
+              Your project is currently not viewable by people who are not part
+              of your team. Please wait for our moderators to manually review
+              your project to see if it abides by our project rules!
+            </p>
+            <p v-if="project.status === 'draft'">
+              Your project is currently not viewable by people who are not part
+              of your team. If your project is ready for review, click the
+              button below to make your mod public!
+            </p>
+            <p v-if="project.moderator_message">
+              {{ project.moderator_message.message }}
+            </p>
+            <div
+              v-if="project.moderator_message && project.moderator_message.body"
+              v-highlightjs
+              class="markdown-body"
+              v-html="$xss($md.render(project.moderator_message.body))"
+            ></div>
+          </div>
+          <div class="buttons">
+            <button
+              v-if="
+                project.status !== 'processing' && project.status !== 'approved'
+              "
+              class="iconified-button"
+              @click="submitForReview"
+            >
+              Resubmit for approval
+            </button>
+            <button
+              v-if="project.status === 'approved'"
+              class="iconified-button"
+              @click="clearMessage"
+            >
+              Clear message
+            </button>
+          </div>
+        </div>
         <div v-if="featuredVersions.length > 0" class="section">
-          <h3 class="section-title">Featured versions</h3>
+          <h3>Featured versions</h3>
           <div
             v-for="version in featuredVersions"
             :key="version.id"
@@ -160,7 +216,21 @@
                 </nuxt-link>
               </div>
               <div class="bottom">
-                <VersionBadge :type="version.version_type" />
+                <Badge
+                  v-if="version.version_type === 'release'"
+                  type="release"
+                  color="green"
+                />
+                <Badge
+                  v-else-if="version.version_type === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <Badge
+                  v-else-if="version.version_type === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
                 <span class="divider" />
                 <span
                   v-if="version.game_versions.length > 0"
@@ -350,7 +420,7 @@
       </section>
       <div class="content">
         <div class="project-main">
-          <div class="tabs">
+          <div class="tabs styled-tabs">
             <nuxt-link
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
@@ -418,7 +488,6 @@ import DiscordIcon from '~/assets/images/external/discord.svg?inline'
 import DiscordIconWhite from '~/assets/images/external/discord-white.svg?inline'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
 import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inline'
-
 export default {
   components: {
     DiscordIcon,
@@ -495,7 +564,10 @@ export default {
   },
   head() {
     return {
-      title: this.project.title + ' - Modrinth',
+      title: `${this.project.title} - ${
+        this.project.project_type.charAt(0).toUpperCase() +
+        this.project.project_type.slice(1)
+      }s - Modrinth`,
       meta: [
         {
           hid: 'og:type',
@@ -525,7 +597,7 @@ export default {
         {
           hid: 'og:url',
           name: 'og:url',
-          content: `https://modrinth.com/project/${this.project.id}`,
+          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
         },
         {
           hid: 'og:image',
@@ -566,6 +638,55 @@ export default {
       elem.download = hash
       elem.href = url
       elem.click()
+    },
+    async clearMessage() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.currentProject.id}`,
+          {
+            moderation_message: null,
+            moderation_message_body: null,
+          },
+          this.$auth.headers
+        )
+
+        this.project.moderator_message = null
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
+    async submitForReview() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.currentProject.id}`,
+          {
+            status: 'processing',
+          },
+          this.$auth.headers
+        )
+
+        this.project.status = 'processing'
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
     },
   },
 }
@@ -621,9 +742,9 @@ export default {
   }
 
   .categories {
-    margin: 0.75rem 0;
+    margin: 0.25rem 0;
+    color: var(--color-icon);
     font-size: var(--font-size-sm);
-    font-weight: bold;
   }
 
   .stats {
@@ -639,6 +760,7 @@ export default {
   .dates {
     margin-top: 0.75rem;
     .date {
+      color: var(--color-icon);
       font-size: var(--font-size-sm);
       display: flex;
       align-items: center;
@@ -661,71 +783,13 @@ export default {
   }
 }
 
-.project-main {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-bg) var(--spacing-card-lg);
-
-  .tabs {
-    overflow-x: auto;
-    font-size: var(--font-size-md);
-    font-weight: bold;
-    padding: 0;
-    margin-bottom: var(--spacing-card-lg);
-
-    .tab {
-      padding: 0;
-      margin: 0 1rem;
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-    a.tab {
-      span {
-        margin-bottom: 3px;
-      }
-
-      &:hover,
-      &:focus,
-      &.nuxt-link-exact-active,
-      &.active-path {
-        span {
-          display: table;
-          margin-left: auto;
-          margin-right: auto;
-          border: none;
-          margin-bottom: 0;
-        }
-
-        span::after {
-          border-bottom: 3px solid var(--color-brand-disabled);
-          content: '';
-          display: block;
-          width: 85%;
-          margin-top: 3px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
-
-      &.nuxt-link-exact-active,
-      &.active-path {
-        span::after {
-          border-bottom: 3px solid var(--color-brand);
-        }
-      }
-    }
-  }
-}
-
 .project-info {
   height: auto;
   overflow: hidden;
 
   @media screen and (min-width: 1024px) {
-    width: 32rem;
+    min-width: 21rem;
+    max-width: 21rem;
     margin-right: var(--spacing-card-md);
   }
 
@@ -748,7 +812,8 @@ export default {
       height: 1.75rem;
       width: 1.75rem;
       border-radius: 1.5rem;
-      background-color: var(--color-button-bg);
+      color: var(--color-brand-inverted);
+      background-color: var(--color-brand);
       margin-right: var(--spacing-card-sm);
       &:hover {
         background-color: var(--color-button-bg-hover);
@@ -855,6 +920,16 @@ export default {
         text-transform: uppercase;
       }
     }
+  }
+}
+
+.project-main {
+  .tabs {
+    @extend %card-spaced-b;
+
+    margin-bottom: var(--spacing-card-md);
+    overflow-x: auto;
+    padding: var(--spacing-card-sm) var(--spacing-card-lg);
   }
 }
 

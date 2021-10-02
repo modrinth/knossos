@@ -3,71 +3,78 @@
     <div class="page-contents">
       <div class="sidebar-l">
         <div class="card">
-          <div class="user-info">
-            <img :src="user.avatar_url" :alt="user.username" />
-            <div class="text">
-              <h2>{{ user.username }}</h2>
-              <p v-if="user.role === 'admin'" class="badge red">Admin</p>
-              <p v-if="user.role === 'moderator'" class="badge yellow">
-                Moderator
-              </p>
-              <p v-if="user.role === 'developer'" class="badge green">
-                Developer
-              </p>
-            </div>
-          </div>
-          <p v-if="user.bio" class="bio">{{ user.bio }}</p>
-          <div class="buttons">
+          <img :src="user.avatar_url" :alt="user.username" />
+          <h1>{{ user.username }}</h1>
+          <div class="buttons section">
             <nuxt-link
-              v-if="$auth.user && $auth.user.id != user.id"
+              v-if="$auth.user && $auth.user.id !== user.id"
               :to="`/create/report?id=${user.id}&t=user`"
               class="iconified-button"
             >
               <IconFlag />
               Report
             </nuxt-link>
+            <nuxt-link
+              v-if="$auth.user && $auth.user.id === user.id"
+              to="/settings"
+              class="iconified-button"
+            >
+              <IconEdit />
+              Edit
+            </nuxt-link>
           </div>
-        </div>
-        <div class="card stats">
-          <div class="stat">
-            <IconCalendar />
-            <div class="info">
-              <h4>Joined</h4>
-              <p
-                v-tooltip="
-                  $dayjs(user.created).format(
-                    '[Joined] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
-                class="value"
-              >
-                {{ $dayjs(user.created).fromNow() }}
-              </p>
+          <div class="about section">
+            <h3>About me</h3>
+            <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+            <Badge
+              v-else-if="user.role === 'moderator'"
+              type="moderator"
+              color="yellow"
+            />
+            <Badge v-else type="developer" color="green" />
+            <p v-if="user.bio" class="bio">{{ user.bio }}</p>
+            <p class="joined">
+              <IconSunrise />
+              Joined {{ $dayjs(user.created).fromNow() }}
+            </p>
+            <p class="joined">
+              <IconUser />
+              User ID: {{ user.id }}
+            </p>
+            <div class="stats">
+              <div>
+                <IconDownload />
+                <p>
+                  <strong>{{ sumDownloads() }}</strong> downloads
+                </p>
+              </div>
+              <div>
+                <IconHeart />
+                <p>
+                  <strong>{{ sumFollows() }}</strong> followers of projects
+                </p>
+              </div>
             </div>
           </div>
-          <div class="stat">
-            <IconDownload />
-            <div class="info">
-              <h4>Downloads</h4>
-              <p class="value">
-                {{ sumDownloads() }}
-              </p>
-            </div>
-          </div>
         </div>
-        <AdsAdvertisement
-          type="square"
-          small-screen="square"
-          ethical-ads-big
-          ethical-ads-small
-          ethical-ad-type="image"
-        />
       </div>
       <div class="content">
-        <Advertisement type="banner" small-screen="destroy" />
-        <div class="projects">
+        <div class="tabs">
+          <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
+          <nuxt-link
+            v-if="$auth.user && $auth.user.id === user.id"
+            to="/create/project"
+            class="iconified-button brand-button-colors"
+          >
+            <IconPlus />
+            Create a project
+          </nuxt-link>
+        </div>
+        <div v-if="projects.length > 0" class="projects">
           <ProjectCard
-            v-for="project in projects"
+            v-for="project in selectedProjectType !== 'all'
+              ? projects.filter((x) => x.project_type === selectedProjectType)
+              : projects"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
@@ -75,11 +82,35 @@
             :created-at="project.published"
             :updated-at="project.updated"
             :downloads="project.downloads.toString()"
+            :follows="project.followers.toString()"
             :icon-url="project.icon_url"
-            :author-url="project.author_url"
             :categories="project.categories"
-            :is-modrinth="true"
-          />
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :status="project.status"
+            :type="project.project_type"
+          >
+            <nuxt-link
+              v-if="$auth.user && $auth.user.id === user.id"
+              class="iconified-button"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings`"
+            >
+              <IconSettings />
+              Settings
+            </nuxt-link>
+          </ProjectCard>
+        </div>
+        <div v-else class="error">
+          <UpToDate class="icon" /><br />
+          <span v-if="$auth.user && $auth.user.id === user.id" class="text"
+            >You don't have any projects.<br />
+            Would you like to
+            <nuxt-link class="link" to="/create/project">create one</nuxt-link
+            >?</span
+          >
+          <span v-else class="text">This user has no projects!</span>
         </div>
       </div>
     </div>
@@ -99,6 +130,7 @@ export default {
       ).map((it) => it.data)
 
       return {
+        selectedProjectType: 'all',
         user,
         projects,
       }
@@ -154,6 +186,17 @@ export default {
       ],
     }
   },
+  computed: {
+    projectTypes() {
+      const obj = { all: true }
+
+      for (const project of this.projects) {
+        obj[project.project_type] = true
+      }
+
+      return Object.keys(obj)
+    },
+  },
   methods: {
     formatNumber(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -167,56 +210,107 @@ export default {
 
       return this.formatNumber(sum)
     },
+    sumFollows() {
+      let sum = 0
+
+      for (const projects of this.projects) {
+        sum += projects.followers
+      }
+
+      return this.formatNumber(sum)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .sidebar-l {
-  @media screen and (min-width: 1024px) {
-    min-width: 21rem;
-  }
-
-  .user-info {
-    @extend %row;
+  .card {
     img {
-      width: 6rem;
-      height: 6rem;
-      margin-right: var(--spacing-card-md);
-      border-radius: var(--size-rounded-icon);
-    }
-    .text {
-      h2 {
-        margin: 0;
-        color: var(--color-text-dark);
-        font-size: var(--font-size-lg);
-      }
-      .badge {
-        display: inline-block;
-      }
-    }
-  }
-  .buttons {
-    @extend %column;
+      width: 8rem;
+      height: 8rem;
+      border-radius: var(--size-rounded-lg);
 
-    margin-top: 16px;
-
-    .iconified-button {
-      max-width: 4.5rem;
+      object-fit: contain;
     }
-  }
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    .stat {
-      @extend %stat;
+
+    h1 {
+      margin: 0 0 0.5rem 0;
+      color: var(--color-text-dark);
+    }
+
+    .buttons {
+      display: flex;
+    }
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    .version-badge {
+      margin: 0 0 0.75rem 0;
+    }
+
+    .bio {
+      overflow-wrap: break-word;
+      hyphens: manual;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .joined {
+      margin: 0 0 0.25rem 0;
+      display: flex;
+      color: var(--color-icon);
 
       svg {
-        padding: 0.25rem;
-        border-radius: 50%;
-        background-color: var(--color-button-bg);
+        width: auto;
+        height: 1rem;
+        margin-right: 0.25rem;
       }
     }
+
+    .stats {
+      margin-top: 0.5rem;
+      div {
+        display: flex;
+        align-items: center;
+
+        svg {
+          height: 1.25rem;
+          width: auto;
+          margin-right: 0.25rem;
+        }
+
+        p {
+          margin: 0;
+
+          strong {
+            font-size: var(--font-size-lg);
+          }
+        }
+      }
+    }
+  }
+}
+
+.content {
+  .tabs {
+    @extend %card;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-card-md);
+    overflow-x: auto;
+
+    .iconified-button {
+      margin-left: auto;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .page-contents {
+    max-width: calc(1280px - 8rem);
   }
 }
 </style>
