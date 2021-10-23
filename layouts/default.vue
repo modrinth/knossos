@@ -279,8 +279,8 @@ export default {
   }
 
   .site-header {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-top: var(--spacing-card-md);
+    margin-bottom: var(--spacing-card-md);
     max-width: 100vw;
 
     @media screen and (min-width: 1024px) {
@@ -292,6 +292,7 @@ export default {
 
     .navbar {
       margin: 0 0.5rem;
+      padding: 0 var(--spacing-card-lg);
       @media screen and (min-width: 450px) {
         margin: 0 var(--spacing-card-lg);
       }
@@ -300,6 +301,10 @@ export default {
         display: flex;
         justify-content: space-between;
         color: var(--color-text-dark);
+        a {
+          align-items: center;
+          display: flex;
+        }
         .small-logo {
           display: block;
         }
@@ -361,25 +366,25 @@ export default {
           right: 0;
         }
 
-        section.nav {
-          .styled-tabs {
-            display: flex;
-            flex-direction: column;
+        // section.nav {
+        //   .styled-tabs {
+        //     display: flex;
+        //     flex-direction: column;
 
-            a {
-              margin-left: auto;
-              margin-right: auto;
-              margin-bottom: 5px;
+        //     a {
+        //       margin-left: auto;
+        //       margin-right: auto;
+        //       margin-bottom: 5px;
 
-              &:hover,
-              &:focus,
-              &.nuxt-link-exact-active,
-              &.active-path {
-                margin-bottom: 0;
-              }
-            }
-          }
-        }
+        //       &:hover,
+        //       &:focus,
+        //       &.nuxt-link-exact-active,
+        //       &.active-path {
+        //         margin-bottom: 0;
+        //       }
+        //     }
+        //   }
+        // }
 
         .user-outer {
           z-index: 20;

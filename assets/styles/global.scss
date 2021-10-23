@@ -4,13 +4,15 @@ html {
 
 .light-mode {
   --color-icon: #6B7280;
-  --color-text: #4a5568;
+  --color-text: hsl(221, 39%, 11%);
+  --color-text-secondary: hsl(220, 9%, 46%);
+  --color-text-inactive: hsl(215, 14%, 34%);
   --color-text-medium: #2a303d;
   --color-text-dark: #1a202c;
   --color-heading: #2c313d;
-  --color-bg: #E5E7EB;
+  --color-bg: hsl(220, 13%, 91%);
   --color-raised-bg: #ffffff;
-  --color-divider: #eaecef;
+  --color-divider: hsl(220, 13%, 91%);
   --color-divider-dark: #c8cdd3;
 
   --color-text-inverted: var(--color-bg);
@@ -73,6 +75,9 @@ html {
 
   --color-table-border: #dfe2e5;
   --color-table-alternate-row: #f6f8fa;
+
+  --shadow-card: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.1), inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
+  --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2), inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
 }
 
 .dark-mode {
@@ -177,7 +182,7 @@ body {
 
   --size-rounded-max: 999999999px;
   --size-rounded-card: 1rem;
-  --size-rounded-icon: 0.5rem;
+  --size-rounded-icon: 1rem;
   --size-rounded-control: 0.25rem;
   --size-rounded-tooltip: 0.25rem;
 

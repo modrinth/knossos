@@ -2,7 +2,7 @@
   <div class="page-container">
     <div class="page-contents">
       <section class="project-info">
-        <div class="header">
+        <div class="header card">
           <nuxt-link
             :to="
               '/' +
@@ -64,6 +64,32 @@
             <InfoIcon />
             Server {{ project.project_type }}
           </div>
+          <p class="description">
+            {{ project.description }}
+          </p>
+          <Categories :categories="project.categories" class="categories" />
+          <hr />
+          <div class="stats">
+            <span class="stat">{{ formatNumber(project.downloads) }}</span>
+            <span class="label">downloads</span>
+            <span class="stat">{{ formatNumber(project.followers) }}</span>
+            <span class="label">followers</span>
+          </div>
+          <div class="dates">
+            <div class="date">
+              <CalendarIcon />
+              <span class="label">Created</span>
+              <span class="value">{{
+                $dayjs(project.published).fromNow()
+              }}</span>
+            </div>
+            <div class="date">
+              <UpdateIcon />
+              <span class="label">Updated</span>
+              <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
+            </div>
+          </div>
+          <hr />
           <div class="buttons">
             <nuxt-link
               v-if="$auth.user"
@@ -94,34 +120,10 @@
               Unfollow
             </button>
           </div>
-          <p class="description">
-            {{ project.description }}
-          </p>
-          <Categories :categories="project.categories" class="categories" />
-          <div class="stats">
-            <span class="stat">{{ formatNumber(project.downloads) }}</span>
-            <span class="label">downloads</span>
-            <span class="stat">{{ formatNumber(project.followers) }}</span>
-            <span class="label">followers</span>
-          </div>
-          <div class="dates">
-            <div class="date">
-              <CalendarIcon />
-              <span class="label">Created</span>
-              <span class="value">{{
-                $dayjs(project.published).fromNow()
-              }}</span>
-            </div>
-            <div class="date">
-              <UpdateIcon />
-              <span class="label">Updated</span>
-              <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
-            </div>
-          </div>
         </div>
         <div
           v-if="project.status === 'processing' || project.moderator_message"
-          class="section"
+          class="card"
         >
           <h3>Project status</h3>
           <div class="status-info"></div>
@@ -186,186 +188,194 @@
             </button>
           </div>
         </div>
-        <div v-if="featuredVersions.length > 0" class="section">
-          <h3>Featured versions</h3>
-          <div
-            v-for="version in featuredVersions"
-            :key="version.id"
-            class="featured-version"
-          >
-            <a
-              :href="findPrimary(version).url"
-              class="download"
-              @click.prevent="
-                downloadFile(
-                  findPrimary(version).hashes.sha1,
-                  findPrimary(version).url
-                )
-              "
+        <div class="card">
+          <template v-if="featuredVersions.length > 0">
+            <h3>Featured versions</h3>
+            <div
+              v-for="version in featuredVersions"
+              :key="version.id"
+              class="featured-version"
             >
-              <DownloadIcon />
-            </a>
-            <div class="info">
-              <div class="top">
-                <nuxt-link
-                  :to="`/${project.project_type}/${
-                    project.slug ? project.slug : project.id
-                  }/version/${encodeURIComponent(version.version_number)}`"
-                >
-                  {{ version.name }}
-                </nuxt-link>
-              </div>
-              <div class="bottom">
-                <VersionBadge
-                  v-if="version.version_type === 'release'"
-                  type="release"
-                  color="green"
-                />
-                <VersionBadge
-                  v-else-if="version.version_type === 'beta'"
-                  type="beta"
-                  color="yellow"
-                />
-                <VersionBadge
-                  v-else-if="version.version_type === 'alpha'"
-                  type="alpha"
-                  color="red"
-                />
-                <span class="divider" />
-                <span
-                  v-if="version.game_versions.length > 0"
-                  class="game-version"
-                >
-                  {{
-                    version.loaders
-                      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-                      .join(', ')
-                  }}
-                  {{ version.game_versions[version.game_versions.length - 1] }}
-                </span>
+              <a
+                :href="findPrimary(version).url"
+                class="download"
+                @click.prevent="
+                  downloadFile(
+                    findPrimary(version).hashes.sha1,
+                    findPrimary(version).url
+                  )
+                "
+              >
+                <DownloadIcon />
+              </a>
+              <div class="info">
+                <div class="top">
+                  <nuxt-link
+                    :to="`/${project.project_type}/${
+                      project.slug ? project.slug : project.id
+                    }/version/${encodeURIComponent(version.version_number)}`"
+                  >
+                    {{ version.name }}
+                  </nuxt-link>
+                </div>
+                <div class="bottom">
+                  <span class="item">
+                    <VersionBadge
+                      v-if="version.version_type === 'release'"
+                      type="release"
+                      color="green"
+                    />
+                    <VersionBadge
+                      v-else-if="version.version_type === 'beta'"
+                      type="beta"
+                      color="yellow"
+                    />
+                    <VersionBadge
+                      v-else-if="version.version_type === 'alpha'"
+                      type="alpha"
+                      color="red"
+                    />
+                  </span>
+                  <span class="item">•</span>
+                  <span
+                    v-if="version.game_versions.length > 0"
+                    class="game-version item"
+                  >
+                    {{
+                      version.loaders
+                        .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                        .join(', ')
+                    }}
+                    {{
+                      version.game_versions[version.game_versions.length - 1]
+                    }}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          v-if="
-            project.issues_url ||
-            project.source_url ||
-            project.wiki_url ||
-            project.discord_url
-          "
-          class="section"
-        >
-          <h3>External resources</h3>
-          <div class="links">
-            <a
-              v-if="project.issues_url"
-              :href="project.issues_url"
-              class="title"
-              target="_blank"
-            >
-              <IssuesIcon />
-              <p>Issues</p>
-            </a>
-            <a
-              v-if="project.source_url"
-              :href="project.source_url"
-              class="title"
-              target="_blank"
-            >
-              <CodeIcon />
-              <p>Source</p>
-            </a>
-            <a
-              v-if="project.wiki_url"
-              :href="project.wiki_url"
-              class="title"
-              target="_blank"
-            >
-              <WikiIcon />
-              <p>Wiki</p>
-            </a>
-            <a
-              v-if="project.discord_url"
-              :href="project.discord_url"
-              target="_blank"
-            >
-              <DiscordIcon v-if="$colorMode.value === 'light'" class="shrink" />
-              <DiscordIconWhite v-else class="shrink" />
-              <p>Discord</p>
-            </a>
-            <a
-              v-for="(donation, index) in project.donation_urls"
-              :key="index"
-              :href="donation.url"
-              target="_blank"
-            >
-              <BuyMeACoffeeLogo
-                v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
-              />
-              <BuyMeACoffeeLogoWhite
-                v-else-if="
-                  donation.id === 'bmac' && $colorMode.value === 'dark'
-                "
-              />
-              <img
-                v-else-if="
-                  donation.id === 'patreon' && $colorMode.value === 'light'
-                "
-                class="shrink"
-                alt="patreon"
-                src="~/assets/images/external/patreon.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'patreon' && $colorMode.value === 'dark'
-                "
-                class="shrink"
-                alt="patreon"
-                src="~/assets/images/external/patreon-white.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'paypal' && $colorMode.value === 'light'
-                "
-                class="shrink"
-                alt="paypal"
-                src="~/assets/images/external/paypal.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'paypal' && $colorMode.value === 'dark'
-                "
-                class="shrink"
-                alt="paypal"
-                src="~/assets/images/external/paypal-white.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'ko-fi' && $colorMode.value === 'light'
-                "
-                alt="kofi"
-                src="~/assets/images/external/kofi.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'ko-fi' && $colorMode.value === 'dark'
-                "
-                alt="kofi"
-                src="~/assets/images/external/kofi-white.png"
-              />
-              <FollowIcon v-else-if="donation.id === 'github'" />
-              <UnknownIcon v-else />
-              <p v-if="donation.id === 'bmac'">Buy Me a Coffee</p>
-              <p v-else-if="donation.id === 'patreon'">Patreon</p>
-              <p v-else-if="donation.id === 'paypal'">PayPal</p>
-              <p v-else-if="donation.id === 'ko-fi'">Ko-fi</p>
-              <p v-else-if="donation.id === 'github'">GitHub Sponsors</p>
-              <p v-else>Donate</p>
-            </a>
-          </div>
-        </div>
-        <div class="section">
+          </template>
+          <hr />
+          <template
+            v-if="
+              project.issues_url ||
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url
+            "
+          >
+            <h3>External resources</h3>
+            <div class="links">
+              <a
+                v-if="project.issues_url"
+                :href="project.issues_url"
+                class="title"
+                target="_blank"
+              >
+                <IssuesIcon />
+                <p>Issues</p>
+              </a>
+              <a
+                v-if="project.source_url"
+                :href="project.source_url"
+                class="title"
+                target="_blank"
+              >
+                <CodeIcon />
+                <p>Source</p>
+              </a>
+              <a
+                v-if="project.wiki_url"
+                :href="project.wiki_url"
+                class="title"
+                target="_blank"
+              >
+                <WikiIcon />
+                <p>Wiki</p>
+              </a>
+              <a
+                v-if="project.discord_url"
+                :href="project.discord_url"
+                target="_blank"
+              >
+                <DiscordIcon
+                  v-if="$colorMode.value === 'light'"
+                  class="shrink"
+                />
+                <DiscordIconWhite v-else class="shrink" />
+                <p>Discord</p>
+              </a>
+              <a
+                v-for="(donation, index) in project.donation_urls"
+                :key="index"
+                :href="donation.url"
+                target="_blank"
+              >
+                <BuyMeACoffeeLogo
+                  v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
+                />
+                <BuyMeACoffeeLogoWhite
+                  v-else-if="
+                    donation.id === 'bmac' && $colorMode.value === 'dark'
+                  "
+                />
+                <img
+                  v-else-if="
+                    donation.id === 'patreon' && $colorMode.value === 'light'
+                  "
+                  class="shrink"
+                  alt="patreon"
+                  src="~/assets/images/external/patreon.png"
+                />
+                <img
+                  v-else-if="
+                    donation.id === 'patreon' && $colorMode.value === 'dark'
+                  "
+                  class="shrink"
+                  alt="patreon"
+                  src="~/assets/images/external/patreon-white.png"
+                />
+                <img
+                  v-else-if="
+                    donation.id === 'paypal' && $colorMode.value === 'light'
+                  "
+                  class="shrink"
+                  alt="paypal"
+                  src="~/assets/images/external/paypal.png"
+                />
+                <img
+                  v-else-if="
+                    donation.id === 'paypal' && $colorMode.value === 'dark'
+                  "
+                  class="shrink"
+                  alt="paypal"
+                  src="~/assets/images/external/paypal-white.png"
+                />
+                <img
+                  v-else-if="
+                    donation.id === 'ko-fi' && $colorMode.value === 'light'
+                  "
+                  alt="kofi"
+                  src="~/assets/images/external/kofi.png"
+                />
+                <img
+                  v-else-if="
+                    donation.id === 'ko-fi' && $colorMode.value === 'dark'
+                  "
+                  alt="kofi"
+                  src="~/assets/images/external/kofi-white.png"
+                />
+                <FollowIcon v-else-if="donation.id === 'github'" />
+                <UnknownIcon v-else />
+                <p v-if="donation.id === 'bmac'">Buy Me a Coffee</p>
+                <p v-else-if="donation.id === 'patreon'">Patreon</p>
+                <p v-else-if="donation.id === 'paypal'">PayPal</p>
+                <p v-else-if="donation.id === 'ko-fi'">Ko-fi</p>
+                <p v-else-if="donation.id === 'github'">GitHub Sponsors</p>
+                <p v-else>Donate</p>
+              </a>
+            </div>
+          </template>
+          <hr />
           <h3>Project members</h3>
           <div
             v-for="member in members"
@@ -380,8 +390,7 @@
               <p class="role">{{ member.role }}</p>
             </div>
           </div>
-        </div>
-        <div class="section">
+          <hr />
           <h3>Technical information</h3>
           <div class="infos">
             <div class="info">
@@ -420,7 +429,7 @@
       </section>
       <div class="content">
         <div class="project-main">
-          <div class="tabs styled-tabs">
+          <div class="card styled-tabs">
             <nuxt-link
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
@@ -720,23 +729,26 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+hr {
+  background-color: var(--color-divider);
+  border: none;
+  color: var(--color-divider);
+  height: 1px;
+  margin: var(--spacing-card-bg) 0;
+}
 .header {
-  align-items: center;
-  padding: 1rem 1.5rem;
-
-  @extend %card-spaced-b;
-
   .icon {
     width: 6rem;
     height: 6rem;
     object-fit: contain;
     border-radius: var(--size-rounded-icon);
+    box-shadow: var(--shadow-image-md);
   }
 
   .title {
     margin: 0.25rem 0;
     color: var(--color-text-dark);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
   }
 
   .side-descriptor {
@@ -766,18 +778,18 @@ export default {
     margin-top: var(--spacing-card-sm);
     margin-bottom: 0.5rem;
     color: var(--color-text-dark);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-nm);
   }
 
   .categories {
     margin: 0.25rem 0;
-    color: var(--color-icon);
-    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-nm);
   }
 
   .stats {
     .stat {
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-lg);
       font-weight: bold;
     }
     .label {
@@ -786,25 +798,20 @@ export default {
   }
 
   .dates {
-    margin-top: 0.75rem;
+    margin: 0.75rem 0;
     .date {
-      color: var(--color-icon);
-      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-nm);
       display: flex;
       align-items: center;
       margin-bottom: 0.25rem;
 
       .label {
-        font-weight: lighter;
         margin-right: 0.25rem;
       }
 
-      .value {
-        font-weight: bold;
-      }
-
       svg {
-        height: 1.25rem;
+        height: 1rem;
         margin-right: 0.25rem;
       }
     }
@@ -821,11 +828,6 @@ export default {
     margin-right: var(--spacing-card-md);
   }
 
-  .section {
-    @extend %card-spaced-b;
-    padding: var(--spacing-card-bg) var(--spacing-card-lg);
-  }
-
   h3 {
     @extend %new-label;
   }
@@ -837,40 +839,32 @@ export default {
     .download {
       display: flex;
       align-items: center;
-      height: 1.75rem;
-      width: 1.75rem;
+      height: 2.5rem;
+      width: 2.5rem;
       border-radius: 1.5rem;
       color: var(--color-brand-inverted);
       background-color: var(--color-brand);
       margin-right: var(--spacing-card-sm);
+
       &:hover {
         background-color: var(--color-button-bg-hover);
       }
+
       svg {
-        width: 1.25rem;
+        width: 1.5rem;
         margin: auto;
       }
+
       flex-shrink: 0;
     }
     .info {
       @extend %column;
-      font-size: var(--font-size-xs);
-      .top {
-        font-weight: bold;
-      }
       .bottom {
-        @extend %row;
-        align-items: center;
-        text-overflow: ellipsis;
         margin-top: 0.25rem;
 
-        .divider {
-          width: 0.25rem;
-          height: 0.25rem;
-          border-radius: 50%;
-          display: inline-block;
-          margin: 0 0.25rem;
-          background-color: var(--color-text);
+        .item {
+          align-items: center;
+          display: inline-flex;
         }
       }
     }
@@ -933,11 +927,11 @@ export default {
   .infos {
     .info {
       display: flex;
-      font-size: var(--font-size-sm);
       margin: 0.5rem 0;
 
       .key {
         font-weight: bold;
+        color: var(--color-text-secondary);
         width: 40%;
       }
       .value {
@@ -948,16 +942,6 @@ export default {
         text-transform: uppercase;
       }
     }
-  }
-}
-
-.project-main {
-  .tabs {
-    @extend %card-spaced-b;
-
-    margin-bottom: var(--spacing-card-md);
-    overflow-x: auto;
-    padding: var(--spacing-card-sm) var(--spacing-card-lg);
   }
 }
 

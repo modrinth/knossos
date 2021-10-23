@@ -4,7 +4,7 @@
       <div class="content">
         <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
         <h1 v-else>Settings</h1>
-        <div class="tabs styled-tabs">
+        <div class="card styled-tabs">
           <nuxt-link v-if="$auth.user" class="tab" to="/settings"
             ><span>Profile</span></nuxt-link
           >
@@ -83,14 +83,6 @@ export default {
   h1 {
     color: var(--color-text-dark);
     margin: 0 0 0.5rem 1.5rem;
-  }
-
-  .tabs {
-    @extend %card-spaced-b;
-
-    margin-bottom: var(--spacing-card-md);
-    overflow-x: auto;
-    padding: var(--spacing-card-sm) var(--spacing-card-lg);
   }
 }
 
