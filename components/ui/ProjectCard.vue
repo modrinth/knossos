@@ -205,7 +205,8 @@ export default {
 }
 
 .project-card {
-  @extend %row;
+  display: flex;
+  flex-direction: row;
   flex-direction: column;
   padding: var(--spacing-card-bg);
   width: calc(100% - 2 * var(--spacing-card-bg));
@@ -231,10 +232,12 @@ export default {
     flex-grow: 1;
 
     .info {
-      @extend %column;
+      display: flex;
+      flex-direction: column;
 
       .top {
-        @extend %row;
+        display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         flex-shrink: 0;
         margin-right: var(--spacing-card-md);

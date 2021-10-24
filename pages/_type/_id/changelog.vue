@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content card">
     <div v-for="version in versions" :key="version.id">
       <div class="version-header">
         <span :class="'circle ' + version.version_type" />
@@ -90,8 +90,6 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   max-width: calc(100% - (2 * var(--spacing-card-lg)));
 }
 
@@ -122,12 +120,11 @@ export default {
   .version-header-text {
     display: flex;
     align-items: baseline;
-    font-size: var(--font-size-sm);
     margin: 0 0.75rem;
 
     h2 {
       margin: 0;
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-lg);
     }
 
     h2,

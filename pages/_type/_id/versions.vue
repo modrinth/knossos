@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content card">
     <nuxt-link
       v-if="currentMember"
       to="version/create"
@@ -129,8 +129,6 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   max-width: calc(100% - (2 * var(--spacing-card-lg)));
 }
 
@@ -148,7 +146,6 @@ table {
   }
 
   tr {
-    font-size: var(--font-size-sm);
     td:nth-child(2) {
       padding-right: 2rem;
       min-width: 13.875rem;
@@ -156,7 +153,8 @@ table {
         font-weight: bold;
       }
       .bottom {
-        @extend %row;
+        display: flex;
+        flex-direction: row;
         align-items: center;
         text-overflow: ellipsis;
         margin-top: 0.25rem;
@@ -178,7 +176,7 @@ table {
       }
     }
     td:nth-child(4) {
-      min-width: 12rem;
+      min-width: 15rem;
       p {
         margin: 0.25rem 0;
         span {

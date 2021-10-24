@@ -5,7 +5,7 @@
         <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
         <h1 v-else>Settings</h1>
         <div class="card styled-tabs">
-          <nuxt-link v-if="$auth.user" class="tab" to="/settings"
+          <nuxt-link v-if="$auth.user" class="tab" to="/settings" exact
             ><span>Profile</span></nuxt-link
           >
           <nuxt-link v-if="$auth.user" class="tab" to="/settings/follows">

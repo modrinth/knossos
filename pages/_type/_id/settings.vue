@@ -9,8 +9,8 @@
       proceed-label="Delete project"
       @proceed="deleteProject"
     />
-    <div class="section-header columns">
-      <h3 class="column-grow-1">General</h3>
+    <div class="card">
+      <h3>General</h3>
     </div>
     <section>
       <h3>Edit project</h3>
@@ -46,7 +46,7 @@
         </div>
       </label>
     </section>
-    <div class="section-header columns team-invite">
+    <div class="card columns team-invite">
       <h3>Team members</h3>
       <div class="column">
         <input
@@ -435,17 +435,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-header {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
-  margin-bottom: var(--spacing-card-md);
-  h3 {
-    margin: auto 0;
-    color: var(--color-text-dark);
-    font-weight: var(--font-weight-extrabold);
-  }
-}
-
 .member {
   @extend %card;
   padding: var(--spacing-card-md) var(--spacing-card-lg);

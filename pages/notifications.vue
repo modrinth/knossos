@@ -4,7 +4,7 @@
       <div class="content">
         <h1>Notifications</h1>
 
-        <div class="divider">
+        <div class="divider card">
           <button class="iconified-button" @click="clearNotifications">
             <ClearIcon />
             Clear all
@@ -142,10 +142,6 @@ h1 {
 }
 
 .divider {
-  @extend %card-spaced-b;
-
-  padding: var(--spacing-card-sm) var(--spacing-card-lg);
-
   button {
     margin-left: auto;
   }

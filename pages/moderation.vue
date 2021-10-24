@@ -117,7 +117,7 @@
           <div
             v-for="(report, index) in reports"
             :key="report.id"
-            class="report"
+            class="report card"
           >
             <div class="header">
               <h5 class="title">
@@ -331,8 +331,6 @@ h1 {
 }
 
 .report {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-sm) var(--spacing-card-lg);
   .header {
     display: flex;
     align-items: center;

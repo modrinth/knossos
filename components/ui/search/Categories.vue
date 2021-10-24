@@ -31,7 +31,8 @@ export default {
 
 <style lang="scss" scoped>
 .categories {
-  @extend %row;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 
   span ::v-deep {

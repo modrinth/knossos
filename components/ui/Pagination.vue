@@ -83,7 +83,7 @@ export default {
 
 <style scoped lang="scss">
 button {
-  @extend %card-shadow;
+  box-shadow: var(--shadow-card);
 
   padding: 0;
   margin: 0;

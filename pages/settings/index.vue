@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="left-side">
-      <div class="profile-picture">
+      <div class="profile-picture card">
         <h3>Profile picture</h3>
         <div class="uploader">
           <img :src="previewImage ? previewImage : $auth.user.avatar_url" />
@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="right-side">
-      <section>
+      <section class="card">
         <h3>Username</h3>
         <label>
           <span>
@@ -244,8 +244,6 @@ export default {
   min-width: 20rem;
 
   .profile-picture {
-    @extend %card-spaced-b;
-    padding: var(--spacing-card-md) var(--spacing-card-lg);
     margin-right: var(--spacing-card-bg);
 
     h3 {
@@ -257,7 +255,7 @@ export default {
       text-align: center;
 
       img {
-        @extend %image-shadow;
+        box-shadow: var(--shadow-card);
 
         border-radius: var(--size-rounded-md);
         width: 8rem;
@@ -284,13 +282,6 @@ export default {
         }
       }
     }
-  }
-}
-
-.right-side {
-  section {
-    @extend %card-spaced-b;
-    padding: var(--spacing-card-md) var(--spacing-card-lg);
   }
 }
 

@@ -310,8 +310,8 @@
                 <span v-else>Donate</span>
               </a>
             </div>
+            <hr />
           </template>
-          <hr />
           <template v-if="featuredVersions.length > 0">
             <h3>Featured versions</h3>
             <div
@@ -368,8 +368,8 @@
                 />
               </div>
             </div>
+            <hr />
           </template>
-          <hr />
           <h3>Project members</h3>
           <div
             v-for="member in members"
@@ -761,7 +761,8 @@ hr {
   }
 
   .buttons {
-    @extend %row;
+    display: flex;
+    flex-direction: row;
 
     button,
     a {
@@ -824,11 +825,14 @@ hr {
   }
 
   h3 {
-    @extend %new-label;
+    font-weight: bold;
+    color: var(--color-heading);
+    margin-bottom: 0.3rem;
   }
 
   .featured-version {
-    @extend %row;
+    display: flex;
+    flex-direction: row;
     margin-top: var(--spacing-card-md);
     .download {
       display: flex;
@@ -852,8 +856,8 @@ hr {
       flex-shrink: 0;
     }
     .info {
-      @extend %column;
-
+      display: flex;
+      flex-direction: column;
       .top {
         font-weight: bold;
       }
