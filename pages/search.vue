@@ -1,11 +1,17 @@
 <template>
-  <div class="page">
-    <aside class="page__sidebar">
-      <div class="card">
-        <section class="filter-group">
-          <button class="filter-button-done" @click="toggleFiltersMenu">
-            Close
-          </button>
+  <div class="normal-page">
+    <aside class="normal-page__sidebar">
+      <section class="card">
+        <button
+          class="button sidebar-menu-close-button"
+          @click="sidebarMenuOpen = !sidebarMenuOpen"
+        >
+          {{ sidebarMenuOpen ? 'Hide filters' : 'Show filters' }}
+        </button>
+        <div
+          class="sidebar-menu"
+          :class="{ 'sidebar-menu_open': sidebarMenuOpen }"
+        >
           <button class="iconified-button" @click="clearFilters">
             <ExitIcon />
             Clear filters
@@ -74,46 +80,46 @@
             style="margin-bottom: 0.5rem"
             :border="false"
           />
-        </section>
-        <multiselect
-          v-model="selectedVersions"
-          :options="
-            showSnapshots
-              ? $tag.gameVersions.map((x) => x.version)
-              : $tag.gameVersions
-                  .filter((it) => it.version_type === 'release')
-                  .map((x) => x.version)
-          "
-          :multiple="true"
-          :searchable="true"
-          :show-no-results="false"
-          :close-on-select="false"
-          :clear-search-on-select="false"
-          :show-labels="false"
-          :selectable="() => selectedVersions.length <= 6"
-          placeholder="Choose versions..."
-          @input="onSearchChange(1)"
-        ></multiselect>
-        <h3 class="upper-spacing">Licenses</h3>
-        <Multiselect
-          v-model="displayLicense"
-          placeholder="Choose licenses..."
-          :loading="$tag.licenses.length === 0"
-          :options="$tag.licenses"
-          track-by="name"
-          label="name"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="true"
-          @input="toggleLicense"
-        />
-      </div>
+          <multiselect
+            v-model="selectedVersions"
+            :options="
+              showSnapshots
+                ? $tag.gameVersions.map((x) => x.version)
+                : $tag.gameVersions
+                    .filter((it) => it.version_type === 'release')
+                    .map((x) => x.version)
+            "
+            :multiple="true"
+            :searchable="true"
+            :show-no-results="false"
+            :close-on-select="false"
+            :clear-search-on-select="false"
+            :show-labels="false"
+            :selectable="() => selectedVersions.length <= 6"
+            placeholder="Choose versions..."
+            @input="onSearchChange(1)"
+          ></multiselect>
+          <h3 class="upper-spacing">Licenses</h3>
+          <Multiselect
+            v-model="displayLicense"
+            placeholder="Choose licenses..."
+            :loading="$tag.licenses.length === 0"
+            :options="$tag.licenses"
+            track-by="name"
+            label="name"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="true"
+            @input="toggleLicense"
+          />
+        </div>
+      </section>
       <Advertisement type="square" small-screen="destroy" />
     </aside>
-    <section class="page__content">
-      <div class="card">
-        <div class="iconified-input column-grow-2">
+    <section class="normal-page__content">
+      <div class="card search-controls">
+        <div class="iconified-input">
           <label class="hidden" for="search">Search Mods</label>
           <input
             id="search"
@@ -127,11 +133,11 @@
           <SearchIcon />
         </div>
         <div class="labeled-control">
-          <p>Sort by</p>
+          <span class="labeled-control__label">Sort by</span>
           <Multiselect
             v-model="sortType"
-            class="top-margin"
             placeholder="Select one"
+            class="search-controls__sorting labeled-control__control"
             track-by="display"
             label="display"
             :options="sortTypes"
@@ -147,11 +153,11 @@
           </Multiselect>
         </div>
         <div class="labeled-control">
-          <p>Show per page</p>
+          <span class="labeled-control__label">Show per page</span>
           <Multiselect
             v-model="maxResults"
-            class="top-margin"
             placeholder="Select one"
+            class="labeled-control__control"
             :options="[5, 10, 15, 20, 50, 100]"
             :searchable="false"
             :close-on-select="true"
@@ -160,19 +166,13 @@
             @input="onSearchChange(currentPage)"
           />
         </div>
-        <div class="labeled-control mobile-filters-button">
-          <p>Filters</p>
-          <button class="iconified-button" @click="toggleFiltersMenu">
-            Open
-          </button>
-        </div>
       </div>
       <pagination
         :current-page="currentPage"
         :pages="pages"
         @switch-page="onSearchChange"
       ></pagination>
-      <div class="results column-grow-4">
+      <div>
         <Advertisement
           type="banner"
           small-screen="square"
@@ -275,6 +275,8 @@ export default {
       sortType: { display: 'Relevance', name: 'relevance' },
 
       maxResults: 20,
+
+      sidebarMenuOpen: false,
     }
   },
   async fetch() {
@@ -540,31 +542,90 @@ export default {
         console.error(err)
       }
     },
-    toggleFiltersMenu() {
-      const currentlyActive = this.$refs.filters.className === 'filters active'
-      this.$refs.filters.className = `filters${
-        currentlyActive ? '' : ' active'
-      }`
-      document.body.style.overflow =
-        document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
-    },
   },
 }
 </script>
 
 <style scoped>
-.page {
+.normal-page {
   display: flex;
-  max-width: 80rem;
-  margin: 0 auto;
+  flex-direction: column;
+  margin: 0 0.75rem;
 }
 
-.page__sidebar {
-  width: 25%;
+.normal-page__sidebar {
+  width: 100%;
 }
 
-.page__content {
-  padding-left: 1rem;
-  width: 75%;
+.normal-page__content {
+  width: 100%;
+}
+
+.sidebar-menu {
+  display: none;
+  margin-top: 1rem;
+}
+
+.sidebar-menu_open {
+  display: block;
+}
+
+.search-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-controls__sorting {
+  min-width: 15rem;
+}
+
+.labeled-control__label,
+.labeled-control__control {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+@media (min-width: 1024px) {
+  .normal-page {
+    flex-direction: row;
+    margin: 0 auto;
+    max-width: 80rem;
+  }
+
+  .normal-page__sidebar {
+    width: 20rem;
+  }
+
+  .normal-page__content {
+    padding-left: 1rem;
+    width: 60rem;
+  }
+
+  .sidebar-menu {
+    display: block;
+    margin-top: 0;
+  }
+
+  .sidebar-menu-close-button {
+    display: none;
+  }
+
+  .search-controls {
+    flex-direction: row;
+  }
+
+  .labeled-control {
+    align-items: center;
+    display: flex;
+  }
+
+  .labeled-control__label,
+  .labeled-control__control {
+    margin: 0 0 0 1rem;
+  }
+
+  .labeled-control__label {
+    flex-shrink: 0;
+  }
 }
 </style>

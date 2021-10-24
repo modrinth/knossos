@@ -423,6 +423,8 @@
   .multiselect__content-wrapper {
     background: var(--color-dropdown-bg);
     border: none;
+    overflow-x: hidden;
+
     .multiselect__element {
       .multiselect__option--highlight {
         background: var(--color-button-bg-active);
@@ -618,7 +620,7 @@ label {
     }
 
     &.nuxt-link-active,
-    &.active-path {
+    &.selected {
       color: var(--color-text);
 
       span::before {

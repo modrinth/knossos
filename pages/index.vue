@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <div class="main-hero columns">
       <div class="left">
         <h1 class="typewriter">
@@ -234,6 +234,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page {
+  max-width: 100rem;
+  margin: 0 auto;
+}
+
 .left,
 .right {
   width: 50%;

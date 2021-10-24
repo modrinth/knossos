@@ -1,12 +1,13 @@
 <template>
-  <div class="options">
+  <div class="styled-tabs">
     <button
       v-for="item in items"
       :key="item"
+      class="tab"
       :class="{ selected: selected === item }"
       @click="toggleItem(item)"
     >
-      {{ item }}
+      <span>{{ item }}</span>
     </button>
   </div>
 </template>
@@ -40,32 +41,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.options {
-  button {
-    margin: 0 1rem 0 0;
-    padding: 0.125rem 0.25rem 0 0.25rem;
-    text-transform: capitalize;
-    background-color: transparent;
-    font-weight: bold;
-    border-radius: 0;
-
-    font-size: var(--font-size-sm);
-    color: var(--color-text);
-
-    &.selected {
-      color: var(--color-text-dark);
-    }
-
-    &.selected::after {
-      border-bottom: 3px solid var(--color-brand);
-      content: '';
-      display: block;
-      width: 70%;
-      margin-top: 3px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
+<style scoped>
+button {
+  margin: 0;
+  padding: 0;
+  text-transform: capitalize;
+  background-color: transparent;
+  border-radius: 0;
+  color: inherit;
 }
 </style>

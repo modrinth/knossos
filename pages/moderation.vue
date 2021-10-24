@@ -67,9 +67,11 @@
     <div class="page-contents">
       <div class="content">
         <h1>Moderation</h1>
-        <div class="tabs">
-          <ThisOrThat v-model="selectedType" :items="moderationTypes" />
-        </div>
+        <ThisOrThat
+          v-model="selectedType"
+          class="card"
+          :items="moderationTypes"
+        />
         <div class="projects">
           <ProjectCard
             v-for="project in selectedType !== 'all'
@@ -319,15 +321,6 @@ export default {
 h1 {
   color: var(--color-text-dark);
   margin: 0 0 1rem 1.5rem;
-}
-
-.tabs {
-  @extend %card;
-
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-card-md);
-  overflow-x: auto;
 }
 
 .report {
