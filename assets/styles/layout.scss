@@ -36,3 +36,34 @@
     }
   }
 }
+
+.normal-page {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0.75rem;
+}
+
+.normal-page__sidebar {
+  width: 100%;
+}
+
+.normal-page__content {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .normal-page {
+    flex-direction: row;
+    margin: 0 auto;
+    max-width: 80rem;
+  }
+
+  .normal-page__sidebar {
+    width: 20rem;
+  }
+
+  .normal-page__content {
+    padding-left: 1rem;
+    width: 60rem;
+  }
+}

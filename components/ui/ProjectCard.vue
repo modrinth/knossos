@@ -236,6 +236,7 @@ export default {
       flex-direction: column;
 
       .top {
+        align-items: baseline;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

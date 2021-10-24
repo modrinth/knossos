@@ -547,20 +547,6 @@ export default {
 </script>
 
 <style scoped>
-.normal-page {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0.75rem;
-}
-
-.normal-page__sidebar {
-  width: 100%;
-}
-
-.normal-page__content {
-  width: 100%;
-}
-
 .sidebar-menu {
   display: none;
   margin-top: 1rem;
@@ -586,21 +572,6 @@ export default {
 }
 
 @media (min-width: 1024px) {
-  .normal-page {
-    flex-direction: row;
-    margin: 0 auto;
-    max-width: 80rem;
-  }
-
-  .normal-page__sidebar {
-    width: 20rem;
-  }
-
-  .normal-page__content {
-    padding-left: 1rem;
-    width: 60rem;
-  }
-
   .sidebar-menu {
     display: block;
     margin-top: 0;
