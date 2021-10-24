@@ -189,72 +189,6 @@
           </div>
         </div>
         <div class="card">
-          <template v-if="featuredVersions.length > 0">
-            <h3>Featured versions</h3>
-            <div
-              v-for="version in featuredVersions"
-              :key="version.id"
-              class="featured-version"
-            >
-              <a
-                :href="findPrimary(version).url"
-                class="download"
-                @click.prevent="
-                  downloadFile(
-                    findPrimary(version).hashes.sha1,
-                    findPrimary(version).url
-                  )
-                "
-              >
-                <DownloadIcon />
-              </a>
-              <div class="info">
-                <div class="top">
-                  <nuxt-link
-                    :to="`/${project.project_type}/${
-                      project.slug ? project.slug : project.id
-                    }/version/${encodeURIComponent(version.version_number)}`"
-                  >
-                    {{ version.name }}
-                  </nuxt-link>
-                </div>
-                <div class="bottom">
-                  <span class="item">
-                    <VersionBadge
-                      v-if="version.version_type === 'release'"
-                      type="release"
-                      color="green"
-                    />
-                    <VersionBadge
-                      v-else-if="version.version_type === 'beta'"
-                      type="beta"
-                      color="yellow"
-                    />
-                    <VersionBadge
-                      v-else-if="version.version_type === 'alpha'"
-                      type="alpha"
-                      color="red"
-                    />
-                  </span>
-                  <span class="item">•</span>
-                  <span
-                    v-if="version.game_versions.length > 0"
-                    class="game-version item"
-                  >
-                    {{
-                      version.loaders
-                        .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-                        .join(', ')
-                    }}
-                    {{
-                      version.game_versions[version.game_versions.length - 1]
-                    }}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </template>
-          <hr />
           <template
             v-if="
               project.issues_url ||
@@ -272,7 +206,7 @@
                 target="_blank"
               >
                 <IssuesIcon />
-                <p>Issues</p>
+                <span>Issues</span>
               </a>
               <a
                 v-if="project.source_url"
@@ -281,7 +215,7 @@
                 target="_blank"
               >
                 <CodeIcon />
-                <p>Source</p>
+                <span>Source</span>
               </a>
               <a
                 v-if="project.wiki_url"
@@ -290,7 +224,7 @@
                 target="_blank"
               >
                 <WikiIcon />
-                <p>Wiki</p>
+                <span>Wiki</span>
               </a>
               <a
                 v-if="project.discord_url"
@@ -302,7 +236,7 @@
                   class="shrink"
                 />
                 <DiscordIconWhite v-else class="shrink" />
-                <p>Discord</p>
+                <span>Discord</span>
               </a>
               <a
                 v-for="(donation, index) in project.donation_urls"
@@ -366,13 +300,73 @@
                 />
                 <FollowIcon v-else-if="donation.id === 'github'" />
                 <UnknownIcon v-else />
-                <p v-if="donation.id === 'bmac'">Buy Me a Coffee</p>
-                <p v-else-if="donation.id === 'patreon'">Patreon</p>
-                <p v-else-if="donation.id === 'paypal'">PayPal</p>
-                <p v-else-if="donation.id === 'ko-fi'">Ko-fi</p>
-                <p v-else-if="donation.id === 'github'">GitHub Sponsors</p>
-                <p v-else>Donate</p>
+                <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
+                <span v-else-if="donation.id === 'patreon'">Patreon</span>
+                <span v-else-if="donation.id === 'paypal'">PayPal</span>
+                <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
+                <span v-else-if="donation.id === 'github'"
+                  >GitHub Sponsors</span
+                >
+                <span v-else>Donate</span>
               </a>
+            </div>
+          </template>
+          <hr />
+          <template v-if="featuredVersions.length > 0">
+            <h3>Featured versions</h3>
+            <div
+              v-for="version in featuredVersions"
+              :key="version.id"
+              class="featured-version"
+            >
+              <a
+                :href="findPrimary(version).url"
+                class="download"
+                @click.prevent="
+                  downloadFile(
+                    findPrimary(version).hashes.sha1,
+                    findPrimary(version).url
+                  )
+                "
+              >
+                <DownloadIcon />
+              </a>
+              <div class="info">
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURIComponent(version.version_number)}`"
+                  class="top"
+                >
+                  {{ version.name }}
+                </nuxt-link>
+                <div
+                  v-if="version.game_versions.length > 0"
+                  class="game-version item"
+                >
+                  {{
+                    version.loaders
+                      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                      .join(', ')
+                  }}
+                  {{ version.game_versions[version.game_versions.length - 1] }}
+                </div>
+                <VersionBadge
+                  v-if="version.version_type === 'release'"
+                  type="release"
+                  color="green"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
+              </div>
             </div>
           </template>
           <hr />
@@ -435,6 +429,7 @@
                 project.slug ? project.slug : project.id
               }`"
               class="tab"
+              exact
             >
               <span>Description</span>
             </nuxt-link>
@@ -834,8 +829,7 @@ hr {
 
   .featured-version {
     @extend %row;
-    padding-top: var(--spacing-card-sm);
-    padding-bottom: var(--spacing-card-sm);
+    margin-top: var(--spacing-card-md);
     .download {
       display: flex;
       align-items: center;
@@ -859,45 +853,42 @@ hr {
     }
     .info {
       @extend %column;
-      .bottom {
-        margin-top: 0.25rem;
 
-        .item {
-          align-items: center;
-          display: inline-flex;
-        }
+      .top {
+        font-weight: bold;
       }
     }
   }
 
   .links {
-    display: flex;
-    flex-wrap: wrap;
-
     a {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      padding: 0.25rem 1rem;
-      background-color: var(--color-button-bg);
-      border-radius: 1.5rem;
-      margin: 0 0.25rem 0.5rem 0;
+      border-radius: 1rem;
 
       svg,
       img {
-        height: 1.25rem;
-        width: auto;
-      }
-      .shrink {
         height: 1rem;
-        padding: 0.125rem 0;
+        width: 1rem;
       }
-      p {
-        font-size: var(--font-size-sm);
-        margin: 0 0 0 0.25rem;
 
-        .no-margin {
-          margin: 0;
+      span {
+        margin-left: 0.25rem;
+        text-decoration: underline;
+        line-height: 2rem;
+      }
+
+      &:hover {
+        svg,
+        img,
+        span {
+          color: var(--color-link);
         }
+      }
+
+      &:not(:last-child)::after {
+        content: '•';
+        margin: 0 0.5rem;
       }
     }
   }

@@ -1,219 +1,217 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <section ref="filters" class="filters">
-        <div class="filters-wrapper">
-          <section class="filter-group">
-            <button class="filter-button-done" @click="toggleFiltersMenu">
-              Close
-            </button>
-            <button class="iconified-button" @click="clearFilters">
-              <ExitIcon />
-              Clear filters
-            </button>
-            <h3
-              v-if="
-                $tag.categories.filter((x) => x.project_type === projectType)
-                  .length > 0
-              "
-            >
-              Categories
-            </h3>
-            <SearchFilter
-              v-for="category in $tag.categories.filter(
-                (x) => x.project_type === projectType
-              )"
-              :key="category.name"
-              :active-filters="facets"
-              :display-name="category.name"
-              :facet-name="`categories:${category.name}`"
-              :icon="category.icon"
-              @toggle="toggleFacet"
-            />
-            <h3
-              v-if="
-                $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType)
-                ).length > 0
-              "
-              class="upper-spacing"
-            >
-              Loaders
-            </h3>
-            <SearchFilter
-              v-for="loader in $tag.loaders.filter((x) =>
-                x.supported_project_types.includes(projectType)
-              )"
-              :key="loader.name"
-              :active-filters="facets"
-              :display-name="loader.name"
-              :facet-name="`categories:${loader.name}`"
-              :icon="loader.icon"
-              @toggle="toggleFacet"
-            />
-            <h3 class="upper-spacing">Environments</h3>
-            <SearchFilter
-              :active-filters="selectedEnvironments"
-              display-name="Client"
-              facet-name="client"
-              @toggle="toggleEnv"
-            >
-              <ClientSide />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="selectedEnvironments"
-              display-name="Server"
-              facet-name="server"
-              @toggle="toggleEnv"
-            >
-              <ServerSide />
-            </SearchFilter>
-            <h3 class="upper-spacing">Minecraft versions</h3>
-            <Checkbox
-              v-model="showSnapshots"
-              label="Include snapshots"
-              style="margin-bottom: 0.5rem"
-              :border="false"
-            />
-          </section>
-          <multiselect
-            v-model="selectedVersions"
-            :options="
-              showSnapshots
-                ? $tag.gameVersions.map((x) => x.version)
-                : $tag.gameVersions
-                    .filter((it) => it.version_type === 'release')
-                    .map((x) => x.version)
+  <div class="page">
+    <aside class="page__sidebar">
+      <div class="card">
+        <section class="filter-group">
+          <button class="filter-button-done" @click="toggleFiltersMenu">
+            Close
+          </button>
+          <button class="iconified-button" @click="clearFilters">
+            <ExitIcon />
+            Clear filters
+          </button>
+          <h3
+            v-if="
+              $tag.categories.filter((x) => x.project_type === projectType)
+                .length > 0
             "
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-search-on-select="false"
-            :show-labels="false"
-            :selectable="() => selectedVersions.length <= 6"
-            placeholder="Choose versions..."
+          >
+            Categories
+          </h3>
+          <SearchFilter
+            v-for="category in $tag.categories.filter(
+              (x) => x.project_type === projectType
+            )"
+            :key="category.name"
+            :active-filters="facets"
+            :display-name="category.name"
+            :facet-name="`categories:${category.name}`"
+            :icon="category.icon"
+            @toggle="toggleFacet"
+          />
+          <h3
+            v-if="
+              $tag.loaders.filter((x) =>
+                x.supported_project_types.includes(projectType)
+              ).length > 0
+            "
+            class="upper-spacing"
+          >
+            Loaders
+          </h3>
+          <SearchFilter
+            v-for="loader in $tag.loaders.filter((x) =>
+              x.supported_project_types.includes(projectType)
+            )"
+            :key="loader.name"
+            :active-filters="facets"
+            :display-name="loader.name"
+            :facet-name="`categories:${loader.name}`"
+            :icon="loader.icon"
+            @toggle="toggleFacet"
+          />
+          <h3 class="upper-spacing">Environments</h3>
+          <SearchFilter
+            :active-filters="selectedEnvironments"
+            display-name="Client"
+            facet-name="client"
+            @toggle="toggleEnv"
+          >
+            <ClientSide />
+          </SearchFilter>
+          <SearchFilter
+            :active-filters="selectedEnvironments"
+            display-name="Server"
+            facet-name="server"
+            @toggle="toggleEnv"
+          >
+            <ServerSide />
+          </SearchFilter>
+          <h3 class="upper-spacing">Minecraft versions</h3>
+          <Checkbox
+            v-model="showSnapshots"
+            label="Include snapshots"
+            style="margin-bottom: 0.5rem"
+            :border="false"
+          />
+        </section>
+        <multiselect
+          v-model="selectedVersions"
+          :options="
+            showSnapshots
+              ? $tag.gameVersions.map((x) => x.version)
+              : $tag.gameVersions
+                  .filter((it) => it.version_type === 'release')
+                  .map((x) => x.version)
+          "
+          :multiple="true"
+          :searchable="true"
+          :show-no-results="false"
+          :close-on-select="false"
+          :clear-search-on-select="false"
+          :show-labels="false"
+          :selectable="() => selectedVersions.length <= 6"
+          placeholder="Choose versions..."
+          @input="onSearchChange(1)"
+        ></multiselect>
+        <h3 class="upper-spacing">Licenses</h3>
+        <Multiselect
+          v-model="displayLicense"
+          placeholder="Choose licenses..."
+          :loading="$tag.licenses.length === 0"
+          :options="$tag.licenses"
+          track-by="name"
+          label="name"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="true"
+          @input="toggleLicense"
+        />
+      </div>
+      <Advertisement type="square" small-screen="destroy" />
+    </aside>
+    <section class="page__content">
+      <div class="card">
+        <div class="iconified-input column-grow-2">
+          <label class="hidden" for="search">Search Mods</label>
+          <input
+            id="search"
+            v-model="query"
+            type="search"
+            name="search"
+            placeholder="Search..."
+            autocomplete="off"
             @input="onSearchChange(1)"
-          ></multiselect>
-          <h3 class="upper-spacing">Licenses</h3>
+          />
+          <SearchIcon />
+        </div>
+        <div class="labeled-control">
+          <p>Sort by</p>
           <Multiselect
-            v-model="displayLicense"
-            placeholder="Choose licenses..."
-            :loading="$tag.licenses.length === 0"
-            :options="$tag.licenses"
-            track-by="name"
-            label="name"
+            v-model="sortType"
+            class="top-margin"
+            placeholder="Select one"
+            track-by="display"
+            label="display"
+            :options="sortTypes"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
-            :allow-empty="true"
-            @input="toggleLicense"
+            :allow-empty="false"
+            @input="onSearchChange(1)"
+          >
+            <template slot="singleLabel" slot-scope="{ option }">{{
+              option.display
+            }}</template>
+          </Multiselect>
+        </div>
+        <div class="labeled-control">
+          <p>Show per page</p>
+          <Multiselect
+            v-model="maxResults"
+            class="top-margin"
+            placeholder="Select one"
+            :options="[5, 10, 15, 20, 50, 100]"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+            @input="onSearchChange(currentPage)"
           />
         </div>
-        <Advertisement type="square" small-screen="destroy" />
-      </section>
-      <div class="content">
-        <section class="search-nav">
-          <div class="iconified-input column-grow-2">
-            <label class="hidden" for="search">Search Mods</label>
-            <input
-              id="search"
-              v-model="query"
-              type="search"
-              name="search"
-              placeholder="Search..."
-              autocomplete="off"
-              @input="onSearchChange(1)"
-            />
-            <SearchIcon />
-          </div>
-          <div class="labeled-control">
-            <p>Sort by</p>
-            <Multiselect
-              v-model="sortType"
-              class="top-margin"
-              placeholder="Select one"
-              track-by="display"
-              label="display"
-              :options="sortTypes"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="onSearchChange(1)"
-            >
-              <template slot="singleLabel" slot-scope="{ option }">{{
-                option.display
-              }}</template>
-            </Multiselect>
-          </div>
-          <div class="labeled-control">
-            <p>Show per page</p>
-            <Multiselect
-              v-model="maxResults"
-              class="top-margin"
-              placeholder="Select one"
-              :options="[5, 10, 15, 20, 50, 100]"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="onSearchChange(currentPage)"
-            />
-          </div>
-          <div class="labeled-control mobile-filters-button">
-            <p>Filters</p>
-            <button class="iconified-button" @click="toggleFiltersMenu">
-              Open
-            </button>
-          </div>
-        </section>
-        <pagination
-          :current-page="currentPage"
-          :pages="pages"
-          @switch-page="onSearchChange"
-        ></pagination>
-        <div class="results column-grow-4">
-          <Advertisement
-            type="banner"
-            small-screen="square"
-            ethical-ads-small
-            ethical-ads-big
-          />
-          <div v-if="$fetchState.pending" class="no-results">
-            <LogoAnimated />
-            <p>Loading...</p>
-          </div>
-          <div v-else>
-            <SearchResult
-              v-for="result in results"
-              :id="result.slug ? result.slug : result.project_id"
-              :key="result.project_id"
-              :type="result.project_type"
-              :author="result.author"
-              :name="result.title"
-              :description="result.description"
-              :created-at="result.date_created"
-              :updated-at="result.date_modified"
-              :downloads="result.downloads.toString()"
-              :follows="result.follows.toString()"
-              :icon-url="result.icon_url"
-              :client-side="result.client_side"
-              :server-side="result.server_side"
-              :categories="result.categories"
-            />
-            <div v-if="results && results.length === 0" class="no-results">
-              <p>No results found for your query!</p>
-            </div>
-          </div>
+        <div class="labeled-control mobile-filters-button">
+          <p>Filters</p>
+          <button class="iconified-button" @click="toggleFiltersMenu">
+            Open
+          </button>
         </div>
-        <pagination
-          :current-page="currentPage"
-          :pages="pages"
-          @switch-page="onSearchChangeToTop"
-        ></pagination>
       </div>
-    </div>
+      <pagination
+        :current-page="currentPage"
+        :pages="pages"
+        @switch-page="onSearchChange"
+      ></pagination>
+      <div class="results column-grow-4">
+        <Advertisement
+          type="banner"
+          small-screen="square"
+          ethical-ads-small
+          ethical-ads-big
+        />
+        <div v-if="$fetchState.pending" class="no-results">
+          <LogoAnimated />
+          <p>Loading...</p>
+        </div>
+        <div v-else>
+          <SearchResult
+            v-for="result in results"
+            :id="result.slug ? result.slug : result.project_id"
+            :key="result.project_id"
+            :type="result.project_type"
+            :author="result.author"
+            :name="result.title"
+            :description="result.description"
+            :created-at="result.date_created"
+            :updated-at="result.date_modified"
+            :downloads="result.downloads.toString()"
+            :follows="result.follows.toString()"
+            :icon-url="result.icon_url"
+            :client-side="result.client_side"
+            :server-side="result.server_side"
+            :categories="result.categories"
+          />
+          <div v-if="results && results.length === 0" class="no-results">
+            <p>No results found for your query!</p>
+          </div>
+        </div>
+      </div>
+      <pagination
+        :current-page="currentPage"
+        :pages="pages"
+        @switch-page="onSearchChangeToTop"
+      ></pagination>
+    </section>
   </div>
 </template>
 
@@ -554,133 +552,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.search-nav {
-  @extend %card;
-
-  align-items: center;
+<style scoped>
+.page {
   display: flex;
-  flex-flow: column;
-  padding: var(--spacing-card-sm) var(--spacing-card-md);
-  margin-bottom: var(--spacing-card-md);
-
-  .iconified-input {
-    margin-left: 1rem;
-    width: auto;
-
-    input {
-      border-radius: var(--size-rounded-sm);
-      max-width: 250px;
-    }
-  }
-
-  .labeled-control {
-    display: flex;
-    margin: 0 0 0 1rem;
-
-    p {
-      white-space: nowrap;
-      margin: auto 0.5rem auto 0;
-    }
-
-    &.sort-types {
-      min-width: 200px;
-    }
-
-    &.max-results {
-      max-width: 80px;
-    }
-
-    &.mobile-filters-button {
-      @media screen and (min-width: 1250px) {
-        display: none;
-      }
-    }
-  }
-
-  @media screen and (min-width: 1050px) {
-    flex-flow: row;
-  }
+  max-width: 80rem;
+  margin: 0 auto;
 }
 
-.filters {
-  overflow-y: auto;
-  position: fixed;
-  width: 100vw;
-  right: -100vw;
-  max-height: 100vh;
-  min-width: 15%;
-  top: var(--size-navbar-height);
-  height: calc(100vh - var(--size-navbar-height));
-  transition: right 150ms;
-  background-color: var(--color-raised-bg);
-  flex-shrink: 0; // Stop shrinking when page contents change
-  .filters-wrapper {
-    padding: var(--spacing-card-bg) var(--spacing-card-lg);
-    margin-bottom: var(--spacing-card-md);
-  }
-  h3 {
-    @extend %new-label;
-    margin-top: var(--spacing-card-bg);
-  }
-  &.active {
-    right: 0;
-  }
-  // Larger screens that don't need to collapse
-  @media screen and (min-width: 1250px) {
-    top: 0;
-    right: auto;
-    position: unset;
-    height: unset;
-    max-height: unset;
-    transition: none;
-    overflow-y: unset;
-    padding-right: 1rem;
-    width: 18vw;
-    background-color: transparent;
-    .filters-wrapper {
-      background: var(--color-raised-bg);
-      border-radius: var(--size-rounded-card);
-      box-shadow: 0 2px 4px 0 rgba(17, 24, 39, 0.1),
-        0 -2px 2px 0 rgba(17, 24, 39, 0.05);
-    }
-  }
-  @media screen and (min-width: 1250px) {
-    width: 20rem;
-  }
+.page__sidebar {
+  width: 25%;
 }
 
-.filter-group {
-  button {
-    cursor: pointer;
-  }
-
-  .filter-clear-button {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  // Large screens that don't collapse
-  @media screen and (min-width: 1250px) {
-    .filter-button-done {
-      display: none;
-    }
-  }
-}
-
-.no-results {
-  text-align: center;
-  padding: 20px 0;
-  font-size: 1.25rem;
-  color: var(--color-text);
-  margin-bottom: var(--spacing-card-md);
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
-}
-
-@media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: calc(1280px - 8rem) !important;
-  }
+.page__content {
+  padding-left: 1rem;
+  width: 75%;
 }
 </style>
