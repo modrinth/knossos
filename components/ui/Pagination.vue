@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pages.length > 1" class="columns paginates">
+  <div v-if="pages.length > 1" class="paginates">
     <button
       :class="{ disabled: currentPage === 1 }"
       class="left-arrow paginate has-icon"
@@ -82,6 +82,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.paginates {
+  display: flex;
+}
+
 button {
   box-shadow: var(--shadow-card);
 

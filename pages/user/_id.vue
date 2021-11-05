@@ -251,6 +251,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
 .sidebar__item:not(:last-child) {
   margin: 0 0 0.75rem 0;
 }

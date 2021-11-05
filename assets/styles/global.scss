@@ -304,10 +304,18 @@ button {
   }
 }
 
+.hidden {
+  display: none;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+
 // @import "vue-select/src/scss/vue-select.scss";
 
-@import '~assets/styles/highlightjs.scss';
+@import '~assets/styles/normalize.css';
+@import '~assets/styles/highlightjs.css';
 @import '~assets/styles/layout.scss';
-@import '~assets/styles/utils.scss';
 @import '~assets/styles/components.scss';
-@import '~assets/styles/normalize.scss';

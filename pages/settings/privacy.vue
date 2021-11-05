@@ -1,5 +1,5 @@
 <template>
-  <div class="rows card">
+  <div class="card">
     <div class="consent-container">
       <div>
         Modrinth relies on different providers and in-house tools to allow us to
