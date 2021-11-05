@@ -21,6 +21,7 @@
               $tag.categories.filter((x) => x.project_type === projectType)
                 .length > 0
             "
+            class="sidebar-menu-heading"
           >
             Categories
           </h3>
@@ -41,7 +42,7 @@
                 x.supported_project_types.includes(projectType)
               ).length > 0
             "
-            class="upper-spacing"
+            class="sidebar-menu-heading"
           >
             Loaders
           </h3>
@@ -56,7 +57,7 @@
             :icon="loader.icon"
             @toggle="toggleFacet"
           />
-          <h3 class="upper-spacing">Environments</h3>
+          <h3 class="sidebar-menu-heading">Environments</h3>
           <SearchFilter
             :active-filters="selectedEnvironments"
             display-name="Client"
@@ -73,7 +74,7 @@
           >
             <ServerSide />
           </SearchFilter>
-          <h3 class="upper-spacing">Minecraft versions</h3>
+          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
           <Checkbox
             v-model="showSnapshots"
             label="Include snapshots"
@@ -99,7 +100,7 @@
             placeholder="Choose versions..."
             @input="onSearchChange(1)"
           ></multiselect>
-          <h3 class="upper-spacing">Licenses</h3>
+          <h3 class="sidebar-menu-heading">Licenses</h3>
           <Multiselect
             v-model="displayLicense"
             placeholder="Choose licenses..."
@@ -554,6 +555,10 @@ export default {
 
 .sidebar-menu_open {
   display: block;
+}
+
+.sidebar-menu-heading {
+  margin: 1.5rem 0 0.5rem 0;
 }
 
 .search-controls {

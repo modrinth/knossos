@@ -15,7 +15,7 @@
         <ReportIcon />
         Report
       </nuxt-link>
-      <!-- <div class="sidebar__item">
+      <div class="sidebar__item">
         <Badge v-if="user.role === 'admin'" type="admin" color="red" />
         <Badge
           v-else-if="user.role === 'moderator'"
@@ -23,9 +23,9 @@
           color="yellow"
         />
         <Badge v-else type="developer" color="green" />
-      </div> -->
+      </div>
       <h3 class="sidebar__item">About me</h3>
-      <!-- <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span> -->
+      <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
       <div class="sidebar__item stats-block">
         <div class="stats-block__item secondary-stat">
           <SunriseIcon class="secondary-stat__icon" />
@@ -116,7 +116,7 @@
 <script>
 import ProjectCard from '~/components/ui/ProjectCard'
 import ThisOrThat from '~/components/ui/ThisOrThat'
-// import Badge from '~/components/ui/Badge'
+import Badge from '~/components/ui/Badge'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
@@ -135,7 +135,7 @@ export default {
     DownloadIcon,
     ReportIcon,
     HeartIcon,
-    // Badge,
+    Badge,
     SettingsIcon,
     PlusIcon,
     ThisOrThat,
@@ -270,11 +270,7 @@ export default {
 }
 
 .bio {
-  /* display: block; */
-}
-
-.stats-block {
-  max-width: 100%;
+  display: block;
 }
 
 .stats-block__item {
@@ -285,7 +281,6 @@ export default {
   align-items: center;
   color: var(--color-text-secondary);
   display: flex;
-  max-width: 100%;
 }
 
 .secondary-stat__icon {
@@ -300,7 +295,6 @@ export default {
 .primary-stat {
   align-items: center;
   display: flex;
-  max-width: 100%;
 }
 
 .primary-stat__icon {
