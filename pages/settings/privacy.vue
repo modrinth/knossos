@@ -113,11 +113,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.card {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
-}
-
 .spacer {
   margin-top: 1rem;
 }

@@ -15,21 +15,17 @@
         <ReportIcon />
         Report
       </nuxt-link>
-      <Badge
-        v-if="user.role === 'admin'"
-        class="sidebar__item"
-        type="admin"
-        color="red"
-      />
-      <Badge
-        v-else-if="user.role === 'moderator'"
-        class="sidebar__item"
-        type="moderator"
-        color="yellow"
-      />
-      <Badge v-else class="sidebar__item" type="developer" color="green" />
+      <!-- <div class="sidebar__item">
+        <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+        <Badge
+          v-else-if="user.role === 'moderator'"
+          type="moderator"
+          color="yellow"
+        />
+        <Badge v-else type="developer" color="green" />
+      </div> -->
       <h3 class="sidebar__item">About me</h3>
-      <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
+      <!-- <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span> -->
       <div class="sidebar__item stats-block">
         <div class="stats-block__item secondary-stat">
           <SunriseIcon class="secondary-stat__icon" />
@@ -120,7 +116,7 @@
 <script>
 import ProjectCard from '~/components/ui/ProjectCard'
 import ThisOrThat from '~/components/ui/ThisOrThat'
-import Badge from '~/components/ui/Badge'
+// import Badge from '~/components/ui/Badge'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
@@ -139,7 +135,7 @@ export default {
     DownloadIcon,
     ReportIcon,
     HeartIcon,
-    Badge,
+    // Badge,
     SettingsIcon,
     PlusIcon,
     ThisOrThat,
@@ -249,7 +245,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .user-navigation {
   align-items: center;
   display: flex;
@@ -261,7 +257,6 @@ export default {
 
 .profile-picture {
   border-radius: var(--size-rounded-lg);
-  box-shadow: var(--shadow-card);
   height: 8rem;
   width: 8rem;
 }
@@ -275,7 +270,11 @@ export default {
 }
 
 .bio {
-  display: block;
+  /* display: block; */
+}
+
+.stats-block {
+  max-width: 100%;
 }
 
 .stats-block__item {
@@ -286,6 +285,7 @@ export default {
   align-items: center;
   color: var(--color-text-secondary);
   display: flex;
+  max-width: 100%;
 }
 
 .secondary-stat__icon {
@@ -300,6 +300,7 @@ export default {
 .primary-stat {
   align-items: center;
   display: flex;
+  max-width: 100%;
 }
 
 .primary-stat__icon {
@@ -315,94 +316,4 @@ export default {
   font-size: var(--font-size-lg);
   font-weight: bold;
 }
-
-// .sidebar-l {
-//   .card {
-//     img {
-//       width: 8rem;
-//       height: 8rem;
-//       border-radius: var(--size-rounded-lg);
-
-//       object-fit: contain;
-//     }
-
-//     h1 {
-//       margin: 0 0 0.5rem 0;
-//       color: var(--color-text-dark);
-//     }
-
-//     .buttons {
-//       display: flex;
-//     }
-
-//     h3 {
-//       margin-bottom: 1rem;
-//     }
-
-//     .version-badge {
-//       margin: 0 0 0.75rem 0;
-//     }
-
-//     .bio {
-//       overflow-wrap: break-word;
-//       hyphens: manual;
-//       margin: 0 0 0.75rem 0;
-//     }
-
-//     .joined {
-//       margin: 0 0 0.25rem 0;
-//       display: flex;
-//       color: var(--color-icon);
-
-//       svg {
-//         width: auto;
-//         height: 1rem;
-//         margin-right: 0.25rem;
-//       }
-//     }
-
-//     .stats {
-//       margin-top: 0.5rem;
-//       div {
-//         display: flex;
-//         align-items: center;
-
-//         svg {
-//           height: 1.25rem;
-//           width: auto;
-//           margin-right: 0.25rem;
-//         }
-
-//         p {
-//           margin: 0;
-
-//           strong {
-//             font-size: var(--font-size-lg);
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-
-// .content {
-//   .tabs {
-//     @extend %card;
-
-//     display: flex;
-//     align-items: center;
-//     margin-bottom: var(--spacing-card-md);
-//     overflow-x: auto;
-
-//     .iconified-button {
-//       margin-left: auto;
-//     }
-//   }
-// }
-
-// @media screen and (min-width: 1024px) {
-//   .page-contents {
-//     max-width: calc(1280px - 8rem);
-//   }
-// }
 </style>

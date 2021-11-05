@@ -1,4 +1,6 @@
-import { sortRoutes } from '@nuxt/utils'
+import {
+  sortRoutes
+} from '@nuxt/utils'
 
 export default {
   /*
@@ -15,26 +17,45 @@ export default {
       lang: 'en',
     },
     title: 'Modrinth',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
       {
         hid: 'description',
         name: 'description',
-        content:
-          'Modrinth is a _type distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
+        content: 'Modrinth is a _type distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
       },
 
-      { hid: 'publisher', name: 'publisher', content: 'Guavy LLC' },
+      {
+        hid: 'publisher',
+        name: 'publisher',
+        content: 'Guavy LLC'
+      },
       {
         hid: 'apple-mobile-web-app-title',
         name: 'apple-mobile-web-app-title',
         content: 'Modrinth',
       },
-      { hid: 'theme-color', name: 'theme-color', content: '#30b27b' },
-      { hid: 'color-scheme', name: 'color-scheme', content: 'light dark' },
+      {
+        hid: 'theme-color',
+        name: 'theme-color',
+        content: '#30b27b'
+      },
+      {
+        hid: 'color-scheme',
+        name: 'color-scheme',
+        content: 'light dark'
+      },
 
-      { hid: 'og:site_name', name: 'og:site_name', content: 'Modrinth' },
+      {
+        hid: 'og:site_name',
+        name: 'og:site_name',
+        content: 'Modrinth'
+      },
       {
         hid: 'og:description',
         name: 'og:description',
@@ -45,18 +66,33 @@ export default {
         name: 'og:title',
         content: 'Modrinth',
       },
-      { hid: 'og:type', name: 'og:type', content: 'website' },
-      { hid: 'og:url', name: 'og:url', content: 'https://www.modrinth.com' },
+      {
+        hid: 'og:type',
+        name: 'og:type',
+        content: 'website'
+      },
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        content: 'https://www.modrinth.com'
+      },
       {
         hid: 'og:image',
         name: 'og:image',
         content: 'https://cdn.modrinth.com/modrinth.png',
       },
-      { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
-      { hid: 'twitter:site', name: 'twitter:site', content: '@modrinth' },
-    ],
-    link: [
       {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary'
+      },
+      {
+        hid: 'twitter:site',
+        name: 'twitter:site',
+        content: '@modrinth'
+      },
+    ],
+    link: [{
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico',
@@ -100,8 +136,7 @@ export default {
         component: resolve(__dirname, 'pages/search.vue'),
         name: 'search',
         chunkName: 'pages/search',
-        children: [
-          {
+        children: [{
             path: '/mods',
             component: resolve(__dirname, 'pages/search/mods.vue'),
             name: 'mods',
@@ -212,11 +247,12 @@ export default {
       },
     },
     babel: {
-      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
+      plugins: [
+        ['@babel/plugin-proposal-private-methods', {
+          loose: true,
+        }, ]
+      ],
     },
-  },
-  styleResources: {
-    scss: './assets/styles/injected.scss',
   },
   markdownit: {
     runtime: true,

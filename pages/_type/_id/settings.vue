@@ -12,7 +12,7 @@
     <div class="card">
       <h3>General</h3>
     </div>
-    <section>
+    <section class="card">
       <h3>Edit project</h3>
       <label>
         <span> This leads you to a page where you can edit your project. </span>
@@ -68,7 +68,7 @@
     <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user_id"
-      class="member"
+      class="card member"
       :class="{ open: openTeamMembers.includes(member.user_id) }"
     >
       <div class="member-header">
@@ -436,8 +436,6 @@ export default {
 
 <style lang="scss" scoped>
 .member {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   margin-bottom: var(--spacing-card-md);
 
   .member-header {
@@ -533,8 +531,6 @@ button {
 }
 
 section {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   margin-bottom: var(--spacing-card-md);
 
   label {

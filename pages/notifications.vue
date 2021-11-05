@@ -14,7 +14,7 @@
           <div
             v-for="notification in $user.notifications"
             :key="notification.id"
-            class="notification"
+            class="card notification"
           >
             <div class="icon">
               <UpdateIcon v-if="notification.type === 'project-update'" />
@@ -149,8 +149,6 @@ h1 {
 
 .notifications {
   .notification {
-    @extend %card;
-
     display: flex;
     max-height: 4rem;
     padding: var(--spacing-card-sm) var(--spacing-card-lg);

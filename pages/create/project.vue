@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <div class="page-contents">
-      <header class="columns">
+      <header class="card columns">
         <h3 class="column-grow-1">Create a project</h3>
         <button
           title="Save draft"
@@ -20,7 +20,7 @@
           Submit for review
         </button>
       </header>
-      <section class="essentials">
+      <section class="card essentials">
         <h3>Name</h3>
         <label>
           <span>
@@ -92,7 +92,7 @@
           />
         </label>
       </section>
-      <section class="project-icon rows">
+      <section class="card project-icon rows">
         <h3>Icon</h3>
         <div class="columns row-grow-1">
           <div class="column-grow-1 rows">
@@ -127,7 +127,7 @@
           />
         </div>
       </section>
-      <section class="game-sides">
+      <section class="card game-sides">
         <h3>Supported environments</h3>
         <div class="columns">
           <span>
@@ -159,7 +159,7 @@
           </div>
         </div>
       </section>
-      <section class="description">
+      <section class="card description">
         <h3>
           <label
             for="body"
@@ -187,7 +187,7 @@
           <div class="markdown-body" v-html="$xss($md.render(body))"></div>
         </div>
       </section>
-      <section class="versions">
+      <section class="card versions">
         <div class="title">
           <h3>Create versions</h3>
           <button
@@ -389,7 +389,7 @@
           </div>
         </div>
       </section>
-      <section class="extra-links">
+      <section class="card extra-links">
         <div class="title">
           <h3>External links</h3>
           <i>— this section is optional</i>
@@ -433,7 +433,7 @@
           />
         </label>
       </section>
-      <section class="license">
+      <section class="card license">
         <div class="title">
           <h3>License</h3>
           <i>— this section is optional</i>
@@ -468,7 +468,7 @@
           </div>
         </label>
       </section>
-      <section class="donations">
+      <section class="card donations">
         <div class="title">
           <h3>Donation links</h3>
           <i>— this section is optional</i>
@@ -797,10 +797,7 @@ export default {
 }
 
 header {
-  @extend %card;
-
   grid-area: header;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
 
   h3 {
     margin: auto 0;
@@ -815,12 +812,6 @@ header {
 
 .advert {
   grid-area: advert;
-}
-
-section {
-  @extend %card;
-
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
 }
 
 section.essentials {

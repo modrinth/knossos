@@ -5,7 +5,7 @@
       class="container"
       :style="{ visibility: shown ? 'visible' : 'hidden' }"
     >
-      <div class="banner">
+      <div class="card banner">
         <span>
           Modrinth uses cookies for various purposes, including advertising.<br />
           We encourage you to review your privacy settings by clicking on the
@@ -73,7 +73,6 @@ export default {
   bottom: 0;
   right: 0;
   .banner {
-    @extend %card;
     padding: 1rem;
     font-size: 1.05rem;
     border-radius: 0;

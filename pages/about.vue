@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="container">
+    <div class="card">
       <h1>About</h1>
       <p>
         Founded in 2020, Modrinth was created to provide modders with an open
@@ -95,11 +95,6 @@ export default {
 .main {
   margin: var(--spacing-card-sm) auto;
   max-width: 800px;
-}
-
-.container {
-  @extend %card;
-  padding: var(--spacing-card-sm) var(--spacing-card-lg);
 }
 
 a {

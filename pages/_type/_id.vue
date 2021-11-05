@@ -737,7 +737,6 @@ hr {
     height: 6rem;
     object-fit: contain;
     border-radius: var(--size-rounded-icon);
-    box-shadow: var(--shadow-image-md);
   }
 
   .title {
