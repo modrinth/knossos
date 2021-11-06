@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <AppHeader />
+    <AppHeader class="layout__header" />
     <main>
       <CookieConsent />
       <notifications
@@ -69,7 +69,6 @@ import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
 
 import CookieConsent from '~/components/ads/CookieConsent'
-import AppHeader from '~/components/ui/AppHeader.vue'
 
 export default {
   components: {
@@ -78,7 +77,6 @@ export default {
     SunIcon,
     CookieConsent,
     ShieldIcon,
-    AppHeader,
   },
   data() {
     return {
@@ -90,6 +88,11 @@ export default {
       this.$store.dispatch('user/fetchAll', { force: true }),
       this.$store.dispatch('tag/fetchAllTags'),
     ])
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch('user/fetchAll')
+    },
   },
   beforeCreate() {
     if (this.$route.query.code) {
@@ -106,6 +109,11 @@ export default {
 </script>
 
 <style lang="scss">
+.layout__header {
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
 .layout {
   min-height: 100vh;
   background-color: var(--color-bg);
