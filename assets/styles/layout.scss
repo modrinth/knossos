@@ -8,38 +8,14 @@
   }
 }
 
-.rows {
-  display: flex;
-  flex-direction: column;
-
-  @for $i from 1 through 4 {
-    .row-grow-#{$i} {
-      flex-grow: $i;
-    }
-  }
-}
-.page-container {
-  margin: var(--spacing-card-md);
-  margin-top: 0;
-
-  .page-contents {
-    display: flex;
-    flex-direction: column;
-    .content {
-      width: 100%;
-    }
-    @media screen and (min-width: 1024px) {
-      flex-direction: row;
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-}
-
 .normal-page {
   display: flex;
   flex-direction: column;
+  margin: 0 0.75rem;
+}
+
+.narrow-page,
+.wide-page {
   margin: 0 0.75rem;
 }
 
@@ -57,5 +33,15 @@
   .normal-page__content {
     padding-left: 1rem;
     width: 60rem;
+  }
+
+  .narrow-page {
+    margin: 0 auto;
+    max-width: 60rem;
+  }
+
+  .wide-page {
+    margin: 0 auto;
+    max-width: 80rem;
   }
 }

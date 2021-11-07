@@ -95,25 +95,27 @@
         />
       </label>
     </section>
-    <section class="card project-icon rows">
+    <section class="card project-icon">
       <h3>Icon</h3>
-      <div class="columns row-grow-1">
-        <div class="column-grow-1 rows">
+      <div class="project-icon__container">
+        <div>
           <file-input
             accept="image/png,image/jpeg,image/gif,image/webp"
             class="choose-image"
             prompt="Choose image or drag it here"
             @change="showPreviewImage"
           />
-          <ul class="row-grow-1">
+          <ul>
             <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
           </ul>
           <button
             class="transparent-button"
             @click="
-              icon = null
-              previewImage = null
-              iconChanged = true
+              () => {
+                icon = null
+                previewImage = null
+                iconChanged = true
+              }
             "
           >
             Reset icon
@@ -578,7 +580,6 @@ label {
     'extra-links  extra-links  extra-links' auto
     'license      license      license' auto
     'donations    donations    donations' auto
-    'footer       footer       footer' auto
     / 4fr 1fr 4fr;
   column-gap: var(--spacing-card-md);
   row-gap: var(--spacing-card-md);
@@ -603,11 +604,11 @@ header {
   grid-area: advert;
 }
 
-section.essentials {
+.essentials {
   grid-area: essentials;
 }
 
-section.project-icon {
+.project-icon {
   grid-area: project-icon;
 
   img {
@@ -617,7 +618,11 @@ section.project-icon {
   }
 }
 
-section.game-sides {
+.project-icon__container {
+  display: flex;
+}
+
+.game-sides {
   grid-area: game-sides;
 
   .columns {
@@ -634,7 +639,7 @@ section.game-sides {
   }
 }
 
-section.description {
+.description {
   grid-area: description;
 
   & > .columns {
@@ -654,7 +659,7 @@ section.description {
   }
 }
 
-section.extra-links {
+.extra-links {
   grid-area: extra-links;
 
   label {
@@ -667,7 +672,7 @@ section.extra-links {
   }
 }
 
-section.license {
+.license {
   grid-area: license;
 
   label {
@@ -675,7 +680,7 @@ section.license {
   }
 }
 
-section.donations {
+.donations {
   grid-area: donations;
 
   label {
@@ -686,10 +691,6 @@ section.donations {
       flex: 1;
     }
   }
-}
-
-.footer {
-  grid-area: footer;
 }
 
 .choose-image {

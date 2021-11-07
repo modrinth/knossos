@@ -1,489 +1,476 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <section class="project-info">
-        <div class="header card">
-          <nuxt-link
-            :to="
-              '/' +
-              project.project_type +
-              '/' +
-              (project.slug ? project.slug : project.id)
+  <div class="normal-page">
+    <aside class="normal-page__sidebar project-info">
+      <div class="header card">
+        <nuxt-link
+          :to="
+            '/' +
+            project.project_type +
+            '/' +
+            (project.slug ? project.slug : project.id)
+          "
+        >
+          <img
+            class="icon"
+            :src="
+              project.icon_url
+                ? project.icon_url
+                : 'https://cdn.modrinth.com/placeholder.svg?inline'
             "
-          >
-            <img
-              class="icon"
-              :src="
-                project.icon_url
-                  ? project.icon_url
-                  : 'https://cdn.modrinth.com/placeholder.svg?inline'
-              "
-              alt="project - icon"
-          /></nuxt-link>
-          <nuxt-link
-            :to="
-              '/' +
-              project.project_type +
-              '/' +
-              (project.slug ? project.slug : project.id)
-            "
-          >
-            <h1 class="title">{{ project.title }}</h1>
-          </nuxt-link>
-          <div
-            v-if="
-              project.client_side === 'optional' &&
-              project.server_side === 'optional'
-            "
-            class="side-descriptor"
-          >
-            <InfoIcon />
-            Universal {{ project.project_type }}
-          </div>
-          <div
-            v-else-if="
-              (project.client_side === 'optional' ||
-                project.client_side === 'required') &&
-              (project.server_side === 'optional' ||
-                project.server_side === 'unsupported')
-            "
-            class="side-descriptor"
-          >
-            <InfoIcon />
-            Client {{ project.project_type }}
-          </div>
-          <div
-            v-else-if="
-              (project.server_side === 'optional' ||
-                project.server_side === 'required') &&
-              (project.client_side === 'optional' ||
-                project.client_side === 'unsupported')
-            "
-            class="side-descriptor"
-          >
-            <InfoIcon />
-            Server {{ project.project_type }}
-          </div>
-          <p class="description">
-            {{ project.description }}
-          </p>
-          <Categories :categories="project.categories" class="categories" />
-          <hr />
-          <div class="stats">
-            <span class="stat">{{ formatNumber(project.downloads) }}</span>
-            <span class="label">downloads</span>
-            <span class="stat">{{ formatNumber(project.followers) }}</span>
-            <span class="label">followers</span>
-          </div>
-          <div class="dates">
-            <div class="date">
-              <CalendarIcon />
-              <span class="label">Created</span>
-              <span class="value">{{
-                $dayjs(project.published).fromNow()
-              }}</span>
-            </div>
-            <div class="date">
-              <UpdateIcon />
-              <span class="label">Updated</span>
-              <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
-            </div>
-          </div>
-          <hr />
-          <div class="buttons">
-            <nuxt-link
-              v-if="$auth.user"
-              :to="`/create/report?id=${project.id}&t=project`"
-              class="iconified-button"
-            >
-              <ReportIcon />
-              Report
-            </nuxt-link>
-            <button
-              v-if="
-                $auth.user && !$user.follows.find((x) => x.id === project.id)
-              "
-              class="iconified-button"
-              @click="$store.dispatch('user/followProject', project)"
-            >
-              <FollowIcon />
-              Follow
-            </button>
-            <button
-              v-if="
-                $auth.user && $user.follows.find((x) => x.id === project.id)
-              "
-              class="iconified-button"
-              @click="$store.dispatch('user/unfollowProject', project)"
-            >
-              <FollowIcon fill="currentColor" />
-              Unfollow
-            </button>
-          </div>
+            alt="project - icon"
+        /></nuxt-link>
+        <nuxt-link
+          :to="
+            '/' +
+            project.project_type +
+            '/' +
+            (project.slug ? project.slug : project.id)
+          "
+        >
+          <h1 class="title">{{ project.title }}</h1>
+        </nuxt-link>
+        <div
+          v-if="
+            project.client_side === 'optional' &&
+            project.server_side === 'optional'
+          "
+          class="side-descriptor"
+        >
+          <InfoIcon />
+          Universal {{ project.project_type }}
         </div>
         <div
-          v-if="project.status === 'processing' || project.moderator_message"
-          class="card"
+          v-else-if="
+            (project.client_side === 'optional' ||
+              project.client_side === 'required') &&
+            (project.server_side === 'optional' ||
+              project.server_side === 'unsupported')
+          "
+          class="side-descriptor"
         >
-          <h3>Project status</h3>
-          <div class="status-info"></div>
-          <p>
-            Your mod is currently:
-            <VersionBadge
-              v-if="project.status === 'approved'"
-              color="green"
-              :type="project.status"
-            />
-            <VersionBadge
-              v-else-if="
-                project.status === 'processing' || project.status === 'archived'
-              "
-              color="yellow"
-              :type="project.status"
-            />
-            <VersionBadge
-              v-else-if="project.status === 'rejected'"
-              color="red"
-              :type="project.status"
-            />
-            <VersionBadge v-else color="gray" :type="project.status" />
-          </p>
-          <div class="message">
-            <p v-if="project.status === 'processing'">
-              Your project is currently not viewable by people who are not part
-              of your team. Please wait for our moderators to manually review
-              your project to see if it abides by our project rules!
-            </p>
-            <p v-if="project.status === 'draft'">
-              Your project is currently not viewable by people who are not part
-              of your team. If your project is ready for review, click the
-              button below to make your mod public!
-            </p>
-            <p v-if="project.moderator_message">
-              {{ project.moderator_message.message }}
-            </p>
-            <div
-              v-if="project.moderator_message && project.moderator_message.body"
-              v-highlightjs
-              class="markdown-body"
-              v-html="$xss($md.render(project.moderator_message.body))"
-            ></div>
+          <InfoIcon />
+          Client {{ project.project_type }}
+        </div>
+        <div
+          v-else-if="
+            (project.server_side === 'optional' ||
+              project.server_side === 'required') &&
+            (project.client_side === 'optional' ||
+              project.client_side === 'unsupported')
+          "
+          class="side-descriptor"
+        >
+          <InfoIcon />
+          Server {{ project.project_type }}
+        </div>
+        <p class="description">
+          {{ project.description }}
+        </p>
+        <Categories :categories="project.categories" class="categories" />
+        <hr />
+        <div class="stats">
+          <span class="stat">{{ formatNumber(project.downloads) }}</span>
+          <span class="label">downloads</span>
+          <span class="stat">{{ formatNumber(project.followers) }}</span>
+          <span class="label">followers</span>
+        </div>
+        <div class="dates">
+          <div class="date">
+            <CalendarIcon />
+            <span class="label">Created</span>
+            <span class="value">{{ $dayjs(project.published).fromNow() }}</span>
           </div>
-          <div class="buttons">
-            <button
-              v-if="
-                project.status !== 'processing' && project.status !== 'approved'
-              "
-              class="iconified-button"
-              @click="submitForReview"
-            >
-              Resubmit for approval
-            </button>
-            <button
-              v-if="project.status === 'approved'"
-              class="iconified-button"
-              @click="clearMessage"
-            >
-              Clear message
-            </button>
+          <div class="date">
+            <UpdateIcon />
+            <span class="label">Updated</span>
+            <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
           </div>
         </div>
-        <div class="card">
-          <template
-            v-if="
-              project.issues_url ||
-              project.source_url ||
-              project.wiki_url ||
-              project.discord_url
+        <hr />
+        <div class="buttons">
+          <nuxt-link
+            v-if="$auth.user"
+            :to="`/create/report?id=${project.id}&t=project`"
+            class="iconified-button"
+          >
+            <ReportIcon />
+            Report
+          </nuxt-link>
+          <button
+            v-if="$auth.user && !$user.follows.find((x) => x.id === project.id)"
+            class="iconified-button"
+            @click="$store.dispatch('user/followProject', project)"
+          >
+            <FollowIcon />
+            Follow
+          </button>
+          <button
+            v-if="$auth.user && $user.follows.find((x) => x.id === project.id)"
+            class="iconified-button"
+            @click="$store.dispatch('user/unfollowProject', project)"
+          >
+            <FollowIcon fill="currentColor" />
+            Unfollow
+          </button>
+        </div>
+      </div>
+      <div
+        v-if="project.status === 'processing' || project.moderator_message"
+        class="card"
+      >
+        <h3>Project status</h3>
+        <div class="status-info"></div>
+        <p>
+          Your mod is currently:
+          <VersionBadge
+            v-if="project.status === 'approved'"
+            color="green"
+            :type="project.status"
+          />
+          <VersionBadge
+            v-else-if="
+              project.status === 'processing' || project.status === 'archived'
             "
-          >
-            <h3>External resources</h3>
-            <div class="links">
-              <a
-                v-if="project.issues_url"
-                :href="project.issues_url"
-                class="title"
-                target="_blank"
-              >
-                <IssuesIcon />
-                <span>Issues</span>
-              </a>
-              <a
-                v-if="project.source_url"
-                :href="project.source_url"
-                class="title"
-                target="_blank"
-              >
-                <CodeIcon />
-                <span>Source</span>
-              </a>
-              <a
-                v-if="project.wiki_url"
-                :href="project.wiki_url"
-                class="title"
-                target="_blank"
-              >
-                <WikiIcon />
-                <span>Wiki</span>
-              </a>
-              <a
-                v-if="project.discord_url"
-                :href="project.discord_url"
-                target="_blank"
-              >
-                <DiscordIcon
-                  v-if="$colorMode.value === 'light'"
-                  class="shrink"
-                />
-                <DiscordIconWhite v-else class="shrink" />
-                <span>Discord</span>
-              </a>
-              <a
-                v-for="(donation, index) in project.donation_urls"
-                :key="index"
-                :href="donation.url"
-                target="_blank"
-              >
-                <BuyMeACoffeeLogo
-                  v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
-                />
-                <BuyMeACoffeeLogoWhite
-                  v-else-if="
-                    donation.id === 'bmac' && $colorMode.value === 'dark'
-                  "
-                />
-                <img
-                  v-else-if="
-                    donation.id === 'patreon' && $colorMode.value === 'light'
-                  "
-                  class="shrink"
-                  alt="patreon"
-                  src="~/assets/images/external/patreon.png"
-                />
-                <img
-                  v-else-if="
-                    donation.id === 'patreon' && $colorMode.value === 'dark'
-                  "
-                  class="shrink"
-                  alt="patreon"
-                  src="~/assets/images/external/patreon-white.png"
-                />
-                <img
-                  v-else-if="
-                    donation.id === 'paypal' && $colorMode.value === 'light'
-                  "
-                  class="shrink"
-                  alt="paypal"
-                  src="~/assets/images/external/paypal.png"
-                />
-                <img
-                  v-else-if="
-                    donation.id === 'paypal' && $colorMode.value === 'dark'
-                  "
-                  class="shrink"
-                  alt="paypal"
-                  src="~/assets/images/external/paypal-white.png"
-                />
-                <img
-                  v-else-if="
-                    donation.id === 'ko-fi' && $colorMode.value === 'light'
-                  "
-                  alt="kofi"
-                  src="~/assets/images/external/kofi.png"
-                />
-                <img
-                  v-else-if="
-                    donation.id === 'ko-fi' && $colorMode.value === 'dark'
-                  "
-                  alt="kofi"
-                  src="~/assets/images/external/kofi-white.png"
-                />
-                <FollowIcon v-else-if="donation.id === 'github'" />
-                <UnknownIcon v-else />
-                <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
-                <span v-else-if="donation.id === 'patreon'">Patreon</span>
-                <span v-else-if="donation.id === 'paypal'">PayPal</span>
-                <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
-                <span v-else-if="donation.id === 'github'"
-                  >GitHub Sponsors</span
-                >
-                <span v-else>Donate</span>
-              </a>
-            </div>
-            <hr />
-          </template>
-          <template v-if="featuredVersions.length > 0">
-            <h3>Featured versions</h3>
-            <div
-              v-for="version in featuredVersions"
-              :key="version.id"
-              class="featured-version"
-            >
-              <a
-                :href="findPrimary(version).url"
-                class="download"
-                @click.prevent="
-                  downloadFile(
-                    findPrimary(version).hashes.sha1,
-                    findPrimary(version).url
-                  )
-                "
-              >
-                <DownloadIcon />
-              </a>
-              <div class="info">
-                <nuxt-link
-                  :to="`/${project.project_type}/${
-                    project.slug ? project.slug : project.id
-                  }/version/${encodeURIComponent(version.version_number)}`"
-                  class="top"
-                >
-                  {{ version.name }}
-                </nuxt-link>
-                <div
-                  v-if="version.game_versions.length > 0"
-                  class="game-version item"
-                >
-                  {{
-                    version.loaders
-                      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-                      .join(', ')
-                  }}
-                  {{ version.game_versions[version.game_versions.length - 1] }}
-                </div>
-                <VersionBadge
-                  v-if="version.version_type === 'release'"
-                  type="release"
-                  color="green"
-                />
-                <VersionBadge
-                  v-else-if="version.version_type === 'beta'"
-                  type="beta"
-                  color="yellow"
-                />
-                <VersionBadge
-                  v-else-if="version.version_type === 'alpha'"
-                  type="alpha"
-                  color="red"
-                />
-              </div>
-            </div>
-            <hr />
-          </template>
-          <h3>Project members</h3>
+            color="yellow"
+            :type="project.status"
+          />
+          <VersionBadge
+            v-else-if="project.status === 'rejected'"
+            color="red"
+            :type="project.status"
+          />
+          <VersionBadge v-else color="gray" :type="project.status" />
+        </p>
+        <div class="message">
+          <p v-if="project.status === 'processing'">
+            Your project is currently not viewable by people who are not part of
+            your team. Please wait for our moderators to manually review your
+            project to see if it abides by our project rules!
+          </p>
+          <p v-if="project.status === 'draft'">
+            Your project is currently not viewable by people who are not part of
+            your team. If your project is ready for review, click the button
+            below to make your mod public!
+          </p>
+          <p v-if="project.moderator_message">
+            {{ project.moderator_message.message }}
+          </p>
           <div
-            v-for="member in members"
-            :key="member.user_id"
-            class="team-member columns"
+            v-if="project.moderator_message && project.moderator_message.body"
+            v-highlightjs
+            class="markdown-body"
+            v-html="$xss($md.render(project.moderator_message.body))"
+          ></div>
+        </div>
+        <div class="buttons">
+          <button
+            v-if="
+              project.status !== 'processing' && project.status !== 'approved'
+            "
+            class="iconified-button"
+            @click="submitForReview"
           >
-            <img :src="member.avatar_url" alt="profile-picture" />
-            <div class="member-info">
-              <nuxt-link :to="'/user/' + member.user.username" class="name">
-                <p>{{ member.name }}</p>
+            Resubmit for approval
+          </button>
+          <button
+            v-if="project.status === 'approved'"
+            class="iconified-button"
+            @click="clearMessage"
+          >
+            Clear message
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <template
+          v-if="
+            project.issues_url ||
+            project.source_url ||
+            project.wiki_url ||
+            project.discord_url
+          "
+        >
+          <h3>External resources</h3>
+          <div class="links">
+            <a
+              v-if="project.issues_url"
+              :href="project.issues_url"
+              class="title"
+              target="_blank"
+            >
+              <IssuesIcon />
+              <span>Issues</span>
+            </a>
+            <a
+              v-if="project.source_url"
+              :href="project.source_url"
+              class="title"
+              target="_blank"
+            >
+              <CodeIcon />
+              <span>Source</span>
+            </a>
+            <a
+              v-if="project.wiki_url"
+              :href="project.wiki_url"
+              class="title"
+              target="_blank"
+            >
+              <WikiIcon />
+              <span>Wiki</span>
+            </a>
+            <a
+              v-if="project.discord_url"
+              :href="project.discord_url"
+              target="_blank"
+            >
+              <DiscordIcon v-if="$colorMode.value === 'light'" class="shrink" />
+              <DiscordIconWhite v-else class="shrink" />
+              <span>Discord</span>
+            </a>
+            <a
+              v-for="(donation, index) in project.donation_urls"
+              :key="index"
+              :href="donation.url"
+              target="_blank"
+            >
+              <BuyMeACoffeeLogo
+                v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
+              />
+              <BuyMeACoffeeLogoWhite
+                v-else-if="
+                  donation.id === 'bmac' && $colorMode.value === 'dark'
+                "
+              />
+              <img
+                v-else-if="
+                  donation.id === 'patreon' && $colorMode.value === 'light'
+                "
+                class="shrink"
+                alt="patreon"
+                src="~/assets/images/external/patreon.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'patreon' && $colorMode.value === 'dark'
+                "
+                class="shrink"
+                alt="patreon"
+                src="~/assets/images/external/patreon-white.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'paypal' && $colorMode.value === 'light'
+                "
+                class="shrink"
+                alt="paypal"
+                src="~/assets/images/external/paypal.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'paypal' && $colorMode.value === 'dark'
+                "
+                class="shrink"
+                alt="paypal"
+                src="~/assets/images/external/paypal-white.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'ko-fi' && $colorMode.value === 'light'
+                "
+                alt="kofi"
+                src="~/assets/images/external/kofi.png"
+              />
+              <img
+                v-else-if="
+                  donation.id === 'ko-fi' && $colorMode.value === 'dark'
+                "
+                alt="kofi"
+                src="~/assets/images/external/kofi-white.png"
+              />
+              <FollowIcon v-else-if="donation.id === 'github'" />
+              <UnknownIcon v-else />
+              <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
+              <span v-else-if="donation.id === 'patreon'">Patreon</span>
+              <span v-else-if="donation.id === 'paypal'">PayPal</span>
+              <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
+              <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
+              <span v-else>Donate</span>
+            </a>
+          </div>
+          <hr />
+        </template>
+        <template v-if="featuredVersions.length > 0">
+          <h3>Featured versions</h3>
+          <div
+            v-for="version in featuredVersions"
+            :key="version.id"
+            class="featured-version"
+          >
+            <a
+              :href="findPrimary(version).url"
+              class="download"
+              @click.prevent="
+                downloadFile(
+                  findPrimary(version).hashes.sha1,
+                  findPrimary(version).url
+                )
+              "
+            >
+              <DownloadIcon />
+            </a>
+            <div class="info">
+              <nuxt-link
+                :to="`/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/version/${encodeURIComponent(version.version_number)}`"
+                class="top"
+              >
+                {{ version.name }}
               </nuxt-link>
-              <p class="role">{{ member.role }}</p>
+              <div
+                v-if="version.game_versions.length > 0"
+                class="game-version item"
+              >
+                {{
+                  version.loaders
+                    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                    .join(', ')
+                }}
+                {{ version.game_versions[version.game_versions.length - 1] }}
+              </div>
+              <VersionBadge
+                v-if="version.version_type === 'release'"
+                type="release"
+                color="green"
+              />
+              <VersionBadge
+                v-else-if="version.version_type === 'beta'"
+                type="beta"
+                color="yellow"
+              />
+              <VersionBadge
+                v-else-if="version.version_type === 'alpha'"
+                type="alpha"
+                color="red"
+              />
             </div>
           </div>
           <hr />
-          <h3>Technical information</h3>
-          <div class="infos">
-            <div class="info">
-              <div class="key">License</div>
-              <div class="value uppercase">
-                <a class="text-link" :href="project.license.url || null">{{
-                  project.license.id
-                }}</a>
-              </div>
-            </div>
-            <div class="info">
-              <div class="key">Client side</div>
-              <div class="value">
-                {{ project.client_side }}
-              </div>
-            </div>
-            <div class="info">
-              <div class="key">Server side</div>
-              <div class="value">
-                {{ project.server_side }}
-              </div>
-            </div>
-            <div class="info">
-              <div class="key">Project ID</div>
-              <div class="value">
-                {{ project.id }}
-              </div>
-            </div>
+        </template>
+        <h3>Project members</h3>
+        <div
+          v-for="member in members"
+          :key="member.user_id"
+          class="team-member columns"
+        >
+          <img :src="member.avatar_url" alt="profile-picture" />
+          <div class="member-info">
+            <nuxt-link :to="'/user/' + member.user.username" class="name">
+              <p>{{ member.name }}</p>
+            </nuxt-link>
+            <p class="role">{{ member.role }}</p>
           </div>
         </div>
-        <Advertisement
-          v-if="project.status === 'approved' || project.status === 'unlisted'"
-          type="square"
-          small-screen="destroy"
-        />
-      </section>
-      <div class="content">
-        <div class="project-main">
-          <div class="card styled-tabs">
-            <nuxt-link
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }`"
-              class="tab"
-              exact
-            >
-              <span>Description</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="project.gallery.length > 0 || currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/gallery`"
-              class="tab"
-            >
-              <span>Gallery</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="project.versions.length > 0"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/changelog`"
-              class="tab"
-            >
-              <span>Changelog</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="project.versions.length > 0"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`"
-              class="tab"
-            >
-              <span>Versions</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-              class="tab"
-            >
-              <span>Settings</span>
-            </nuxt-link>
+        <hr />
+        <h3>Technical information</h3>
+        <div class="infos">
+          <div class="info">
+            <div class="key">License</div>
+            <div class="value uppercase">
+              <a class="text-link" :href="project.license.url || null">{{
+                project.license.id
+              }}</a>
+            </div>
           </div>
-          <div class="project-content">
-            <NuxtChild
-              :project="project"
-              :versions.sync="versions"
-              :featured-versions.sync="featuredVersions"
-              :members="members"
-              :current-member="currentMember"
-              :all-members="allMembers"
-              :dependencies.sync="dependencies"
-            />
+          <div class="info">
+            <div class="key">Client side</div>
+            <div class="value">
+              {{ project.client_side }}
+            </div>
+          </div>
+          <div class="info">
+            <div class="key">Server side</div>
+            <div class="value">
+              {{ project.server_side }}
+            </div>
+          </div>
+          <div class="info">
+            <div class="key">Project ID</div>
+            <div class="value">
+              {{ project.id }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Advertisement
+        v-if="project.status === 'approved' || project.status === 'unlisted'"
+        type="square"
+        small-screen="destroy"
+      />
+    </aside>
+    <main class="normal-page__content">
+      <div class="project-main">
+        <div class="card styled-tabs">
+          <nuxt-link
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }`"
+            class="tab"
+            exact
+          >
+            <span>Description</span>
+          </nuxt-link>
+          <nuxt-link
+            v-if="project.gallery.length > 0 || currentMember"
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/gallery`"
+            class="tab"
+          >
+            <span>Gallery</span>
+          </nuxt-link>
+          <nuxt-link
+            v-if="project.versions.length > 0"
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/changelog`"
+            class="tab"
+          >
+            <span>Changelog</span>
+          </nuxt-link>
+          <nuxt-link
+            v-if="project.versions.length > 0"
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/versions`"
+            class="tab"
+          >
+            <span>Versions</span>
+          </nuxt-link>
+          <nuxt-link
+            v-if="currentMember"
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings`"
+            class="tab"
+          >
+            <span>Settings</span>
+          </nuxt-link>
+        </div>
+        <div class="project-content">
+          <NuxtChild
+            :project="project"
+            :versions.sync="versions"
+            :featured-versions.sync="featuredVersions"
+            :members="members"
+            :current-member="currentMember"
+            :all-members="allMembers"
+            :dependencies.sync="dependencies"
+          />
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -814,15 +801,6 @@ hr {
 }
 
 .project-info {
-  height: auto;
-  overflow: hidden;
-
-  @media screen and (min-width: 1024px) {
-    min-width: 21rem;
-    max-width: 21rem;
-    margin-right: var(--spacing-card-md);
-  }
-
   h3 {
     font-weight: bold;
     color: var(--color-heading);

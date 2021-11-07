@@ -1,60 +1,52 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <div class="content">
-        <h1>Notifications</h1>
+  <div class="narrow-page">
+    <h1>Notifications</h1>
 
-        <div class="divider card">
-          <button class="iconified-button" @click="clearNotifications">
-            <ClearIcon />
-            Clear all
+    <div class="divider card">
+      <button class="iconified-button" @click="clearNotifications">
+        <ClearIcon />
+        Clear all
+      </button>
+    </div>
+    <div class="notifications">
+      <div
+        v-for="notification in $user.notifications"
+        :key="notification.id"
+        class="card notification"
+      >
+        <div class="icon">
+          <UpdateIcon v-if="notification.type === 'project-update'" />
+          <UsersIcon v-else-if="notification.type === 'team_invite'" />
+        </div>
+        <div class="text">
+          <nuxt-link :to="notification.link" class="top">
+            <h3>{{ notification.title }}</h3>
+            <span> Notified {{ $dayjs(notification.created).fromNow() }}</span>
+          </nuxt-link>
+          <p>{{ notification.text }}</p>
+        </div>
+        <div class="buttons">
+          <button
+            v-for="(action, actionIndex) in notification.actions"
+            :key="actionIndex"
+            class="iconified-button"
+            @click="performAction(notification, notificationIndex, actionIndex)"
+          >
+            {{ action.title }}
+          </button>
+          <button
+            v-if="$user.notifications.length === 0"
+            class="iconified-button"
+            @click="performAction(notification, notificationIndex, null)"
+          >
+            Dismiss
           </button>
         </div>
-        <div class="notifications">
-          <div
-            v-for="notification in $user.notifications"
-            :key="notification.id"
-            class="card notification"
-          >
-            <div class="icon">
-              <UpdateIcon v-if="notification.type === 'project-update'" />
-              <UsersIcon v-else-if="notification.type === 'team_invite'" />
-            </div>
-            <div class="text">
-              <nuxt-link :to="notification.link" class="top">
-                <h3>{{ notification.title }}</h3>
-                <span>
-                  Notified {{ $dayjs(notification.created).fromNow() }}</span
-                >
-              </nuxt-link>
-              <p>{{ notification.text }}</p>
-            </div>
-            <div class="buttons">
-              <button
-                v-for="(action, actionIndex) in notification.actions"
-                :key="actionIndex"
-                class="iconified-button"
-                @click="
-                  performAction(notification, notificationIndex, actionIndex)
-                "
-              >
-                {{ action.title }}
-              </button>
-              <button
-                v-if="$user.notifications.length === 0"
-                class="iconified-button"
-                @click="performAction(notification, notificationIndex, null)"
-              >
-                Dismiss
-              </button>
-            </div>
-          </div>
-          <div v-if="$user.notifications.length === 0" class="error">
-            <UpToDate class="icon"></UpToDate>
-            <br />
-            <span class="text">You are up-to-date!</span>
-          </div>
-        </div>
+      </div>
+      <div v-if="$user.notifications.length === 0" class="error">
+        <UpToDate class="icon"></UpToDate>
+        <br />
+        <span class="text">You are up-to-date!</span>
       </div>
     </div>
   </div>
@@ -194,12 +186,6 @@ h1 {
         margin-bottom: 0.25rem;
       }
     }
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: calc(1280px - 20rem) !important;
   }
 }
 </style>
