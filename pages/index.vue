@@ -150,7 +150,9 @@
           Modrinth's code is fully open source licensed under the GNU AGPL.
           We've created a high-performance Rust-based backend that is
           <span
-            ><a href="https://docs.modrinth.com/docs/intro" target="_blank"
+            ><a
+              href="https://docs.modrinth.com/docs/getting-started"
+              target="_blank"
               >fully documented</a
             ></span
           >
