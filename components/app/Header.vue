@@ -38,82 +38,95 @@
           <MoonIcon v-if="$colorMode.value === 'light'" />
           <SunIcon v-else />
         </button>
-        <NuxtLink to="/notifications" class="header__user-control user-control">
-          <NotificationIcon />
-          <div
-            v-if="$user.notifications.length > 0"
-            class="user-control__bubble"
+        <template v-if="$auth.user">
+          <NuxtLink
+            to="/notifications"
+            class="header__user-control user-control"
           >
-            {{ $user.notifications.length }}
-          </div>
-        </NuxtLink>
-        <div v-if="$auth.user" class="header__user-dropdown dropdown">
-          <button class="dropdown__control">
-            <img :src="$auth.user.avatar_url" class="dropdown__control-image" />
-          </button>
-          <ul class="dropdown__content card" @click="removeFocus">
-            <li>
-              <NuxtLink
-                class="dropdown-item"
-                :to="`/user/${$auth.user.username}`"
-              >
-                <div class="dropdown-item__text dropdown-profile">
-                  <div class="dropdown-profile__username">
-                    @{{ $auth.user.username }}
+            <NotificationIcon />
+            <div
+              v-if="$user.notifications.length > 0"
+              class="user-control__bubble"
+            >
+              {{ $user.notifications.length }}
+            </div>
+          </NuxtLink>
+          <div class="header__user-dropdown dropdown">
+            <button class="dropdown__control">
+              <img
+                :src="$auth.user.avatar_url"
+                class="dropdown__control-image"
+              />
+            </button>
+            <ul class="dropdown__content card" @click="removeFocus">
+              <li>
+                <NuxtLink
+                  class="dropdown-item"
+                  :to="`/user/${$auth.user.username}`"
+                >
+                  <div class="dropdown-item__text dropdown-profile">
+                    <div class="dropdown-profile__username">
+                      @{{ $auth.user.username }}
+                    </div>
+                    <div class="dropdown-profile__prompt">Go to my profile</div>
                   </div>
-                  <div class="dropdown-profile__prompt">Go to my profile</div>
-                </div>
-              </NuxtLink>
-            </li>
-            <hr class="dropdown__divider" />
-            <li>
-              <NuxtLink class="dropdown-item" to="/notifications">
-                <NotificationIcon class="dropdown-item__icon" />
-                <span class="dropdown-item__text">Notifications</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink class="dropdown-item" to="/settings">
-                <SettingsIcon class="dropdown-item__icon" />
-                <span class="dropdown-item__text">Settings</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                v-if="
-                  $auth.user.role === 'moderator' || $auth.user.role === 'admin'
-                "
-                class="dropdown-item"
-                to="/moderation"
-              >
-                <ModerationIcon class="dropdown-item__icon" />
-                <span class="dropdown-item__text">Moderation</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <button class="dropdown-item" @click="changeTheme">
-                <MoonIcon
-                  v-if="$colorMode.value === 'light'"
-                  class="dropdown-item__icon"
-                />
-                <SunIcon v-else class="dropdown-item__icon" />
-                <span class="dropdown-item__text">Change theme</span>
-              </button>
-            </li>
-            <hr class="dropdown__divider" />
-            <li>
-              <button class="dropdown-item" @click="logout">
-                <LogOutIcon class="dropdown-item__icon" />
-                <span class="dropdown-item__text">Log out</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <a v-else :href="authUrl" class="iconified-button">
+                </NuxtLink>
+              </li>
+              <hr class="dropdown__divider" />
+              <li>
+                <NuxtLink class="dropdown-item" to="/notifications">
+                  <NotificationIcon class="dropdown-item__icon" />
+                  <span class="dropdown-item__text">Notifications</span>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink class="dropdown-item" to="/settings">
+                  <SettingsIcon class="dropdown-item__icon" />
+                  <span class="dropdown-item__text">Settings</span>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink
+                  v-if="
+                    $auth.user.role === 'moderator' ||
+                    $auth.user.role === 'admin'
+                  "
+                  class="dropdown-item"
+                  to="/moderation"
+                >
+                  <ModerationIcon class="dropdown-item__icon" />
+                  <span class="dropdown-item__text">Moderation</span>
+                </NuxtLink>
+              </li>
+              <li>
+                <button class="dropdown-item" @click="changeTheme">
+                  <MoonIcon
+                    v-if="$colorMode.value === 'light'"
+                    class="dropdown-item__icon"
+                  />
+                  <SunIcon v-else class="dropdown-item__icon" />
+                  <span class="dropdown-item__text">Change theme</span>
+                </button>
+              </li>
+              <hr class="dropdown__divider" />
+              <li>
+                <button class="dropdown-item" @click="logout">
+                  <LogOutIcon class="dropdown-item__icon" />
+                  <span class="dropdown-item__text">Log out</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <a
+          v-else
+          :href="authUrl"
+          class="header__signin iconified-button brand-button-colors"
+        >
           <GitHubIcon />
           <div>
             <span>Sign in</span>
-            <span>with GitHub</span>
+            <span class="header__signin-clippable">with GitHub</span>
           </div>
         </a>
       </div>
@@ -188,7 +201,7 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin: 1rem 2rem;
+  margin: 1rem 1.5rem;
 }
 
 .header__collapsible,
@@ -225,8 +238,13 @@ export default {
   margin-left: 0.5rem;
 }
 
-.header__user-dropdown {
-  margin-left: 1rem;
+.header__user-dropdown,
+.header__signin {
+  margin: 0 0 0 1rem;
+}
+
+.header__signin-clippable {
+  display: none;
 }
 
 .user-control {
@@ -348,6 +366,10 @@ export default {
 }
 
 @media screen and (min-width: 1024px) {
+  .header__wrapper {
+    margin: 1rem;
+  }
+
   .header__mobile-nav {
     display: none;
   }
@@ -362,6 +384,10 @@ export default {
 
   .header__desktop-nav {
     display: inherit;
+  }
+
+  .header__signin-clippable {
+    display: inline;
   }
 }
 </style>
