@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="container">
+    <div class="card">
       <NuxtLink to="/">
         <h2>{{ error.message }}</h2>
         <p>
@@ -32,10 +32,5 @@ export default {
 .main {
   margin: var(--spacing-card-sm) auto;
   max-width: 800px;
-}
-
-.container {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
 }
 </style>

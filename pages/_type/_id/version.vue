@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content card">
     <ConfirmPopup
       ref="delete_version_popup"
       title="Are you sure you want to delete this version?"
@@ -125,6 +125,7 @@
         />
         <Checkbox v-model="version.featured" label="Featured" />
       </div>
+      <hr />
       <section v-if="mode === 'edit' || mode === 'create'">
         <h3>Changelog</h3>
         <ThisOrThat
@@ -157,6 +158,7 @@
           "
         ></div>
       </section>
+      <hr />
       <section>
         <h3>Metadata</h3>
         <div :class="'data-wrapper ' + mode">
@@ -278,6 +280,7 @@
           </div>
         </div>
       </section>
+      <hr />
       <section
         v-if="
           version.dependencies.length > 0 ||
@@ -331,7 +334,8 @@
                   }}
                 </h4>
                 <p v-if="dependency.version" class="version-number">
-                  Version {{ dependency.version.version_number }}
+                  Version {{ dependency.version.version_number }} is
+                  {{ dependency.dependency_type }}
                 </p>
               </nuxt-link>
               <div class="bottom">
@@ -342,9 +346,6 @@
                 >
                   <TrashIcon /> Delete
                 </button>
-                <p v-else class="dependency-type">
-                  {{ dependency.dependency_type }}
-                </p>
               </div>
             </div>
           </div>
@@ -381,6 +382,7 @@
           </div>
         </div>
       </section>
+      <hr />
       <section
         v-if="version.files.length > 0 || mode === 'edit' || mode === 'create'"
       >
@@ -806,9 +808,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+hr {
+  background-color: var(--color-divider);
+  border: none;
+  color: var(--color-divider);
+  height: 1px;
+  margin: var(--spacing-card-bg) 0;
+}
+
 .content {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   max-width: calc(100% - (2 * var(--spacing-card-lg)));
 }
 
@@ -861,7 +869,6 @@ section {
 
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-    font-size: var(--font-size-sm);
 
     .title {
       font-weight: bold;
@@ -892,15 +899,16 @@ section {
   flex-wrap: wrap;
 
   .dependency {
+    align-items: center;
     display: flex;
     flex-basis: 33.333333%;
     margin-bottom: 0.5rem;
 
     .icon {
-      width: 4rem;
-      height: 4rem;
+      width: 3rem;
+      height: 3rem;
       margin-right: 0.5rem;
-      border-radius: var(--size-rounded-icon);
+      border-radius: var(--size-rounded-xs);
       object-fit: contain;
     }
 
@@ -912,15 +920,10 @@ section {
 
       p {
         margin: 0;
-        font-size: var(--font-size-sm);
       }
 
       .title {
         margin: 0 0.25rem 0 0;
-      }
-
-      .dependency-type {
-        text-transform: capitalize;
       }
     }
   }
@@ -954,7 +957,6 @@ section {
   display: flex;
   align-items: center;
   margin-bottom: 0.25rem;
-  font-size: var(--font-size-sm);
 
   * {
     margin-left: 0.25rem;
@@ -974,8 +976,6 @@ section {
     width: auto;
     margin-right: 0.25rem;
   }
-
-  font-size: var(--font-size-sm);
 }
 
 .options {

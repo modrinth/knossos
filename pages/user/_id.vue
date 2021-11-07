@@ -1,118 +1,113 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <div class="sidebar-l">
-        <div class="card">
-          <img :src="user.avatar_url" :alt="user.username" />
-          <h1>{{ user.username }}</h1>
-          <div class="buttons section">
-            <nuxt-link
-              v-if="$auth.user && $auth.user.id !== user.id"
-              :to="`/create/report?id=${user.id}&t=user`"
-              class="iconified-button"
-            >
-              <ReportIcon />
-              Report
-            </nuxt-link>
-            <nuxt-link
-              v-if="$auth.user && $auth.user.id === user.id"
-              to="/settings"
-              class="iconified-button"
-            >
-              <EditIcon />
-              Edit
-            </nuxt-link>
+  <div class="normal-page">
+    <aside class="card sidebar normal-page__sidebar">
+      <img
+        class="sidebar__item profile-picture"
+        :src="user.avatar_url"
+        :alt="user.username"
+      />
+      <h1 class="sidebar__item username">{{ user.username }}</h1>
+      <nuxt-link
+        v-if="$auth.user && $auth.user.id !== user.id"
+        :to="`/create/report?id=${user.id}&t=user`"
+        class="sidebar__item report-button iconified-button"
+      >
+        <ReportIcon />
+        Report
+      </nuxt-link>
+      <div class="sidebar__item">
+        <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+        <Badge
+          v-else-if="user.role === 'moderator'"
+          type="moderator"
+          color="yellow"
+        />
+        <Badge v-else type="developer" color="green" />
+      </div>
+      <h3 class="sidebar__item">About me</h3>
+      <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
+      <div class="sidebar__item stats-block">
+        <div class="stats-block__item secondary-stat">
+          <SunriseIcon class="secondary-stat__icon" />
+          <span class="secondary-stat__text">
+            Joined {{ $dayjs(user.created).fromNow() }}
+          </span>
+        </div>
+        <div class="stats-block__item secondary-stat">
+          <UserIcon class="secondary-stat__icon" />
+          <span class="secondary-stat__text">User ID: {{ user.id }}</span>
+        </div>
+      </div>
+      <div class="sidebar__item stats-block">
+        <div class="stats-block__item primary-stat">
+          <DownloadIcon class="primary-stat__icon" />
+          <div class="primary-stat__text">
+            <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+            <span class="primary-stat__label">downloads</span>
           </div>
-
-          <div class="about section">
-            <h3>About me</h3>
-            <Badge v-if="user.role === 'admin'" type="admin" color="red" />
-            <Badge
-              v-else-if="user.role === 'moderator'"
-              type="moderator"
-              color="yellow"
-            />
-            <Badge v-else type="developer" color="green" />
-            <p v-if="user.bio" class="bio">{{ user.bio }}</p>
-            <p class="joined">
-              <SunriseIcon />
-              Joined {{ $dayjs(user.created).fromNow() }}
-            </p>
-            <p class="joined">
-              <UserIcon />
-              User ID: {{ user.id }}
-            </p>
-            <div class="stats">
-              <div>
-                <DownloadIcon />
-                <p>
-                  <strong>{{ sumDownloads() }}</strong> downloads
-                </p>
-              </div>
-              <div>
-                <HeartIcon />
-                <p>
-                  <strong>{{ sumFollows() }}</strong> followers of projects
-                </p>
-              </div>
-            </div>
+        </div>
+        <div class="stats-block__item primary-stat">
+          <HeartIcon class="primary-stat__icon" />
+          <div class="primary-stat__text">
+            <span class="primary-stat__counter">{{ sumFollows() }}</span>
+            <span class="primary-stat__label">followers of projects</span>
           </div>
         </div>
       </div>
-      <div class="content">
-        <div class="tabs">
-          <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
+    </aside>
+    <div class="normal-page__content">
+      <nav class="card user-navigation">
+        <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
+        <nuxt-link
+          v-if="$auth.user && $auth.user.id === user.id"
+          to="/create/project"
+          class="iconified-button brand-button-colors"
+        >
+          <PlusIcon />
+          Create a project
+        </nuxt-link>
+      </nav>
+      <div v-if="projects.length > 0">
+        <ProjectCard
+          v-for="project in selectedProjectType !== 'all'
+            ? projects.filter((x) => x.project_type === selectedProjectType)
+            : projects"
+          :id="project.slug || project.id"
+          :key="project.id"
+          :name="project.title"
+          :description="project.description"
+          :created-at="project.published"
+          :updated-at="project.updated"
+          :downloads="project.downloads.toString()"
+          :follows="project.followers.toString()"
+          :icon-url="project.icon_url"
+          :categories="project.categories"
+          :client-side="project.client_side"
+          :server-side="project.server_side"
+          :status="project.status"
+          :type="project.project_type"
+        >
           <nuxt-link
             v-if="$auth.user && $auth.user.id === user.id"
-            to="/create/project"
-            class="iconified-button brand-button-colors"
+            class="iconified-button"
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings`"
           >
-            <PlusIcon />
-            Create a project
+            <SettingsIcon />
+            Settings
           </nuxt-link>
-        </div>
-        <div v-if="projects.length > 0" class="projects">
-          <ProjectCard
-            v-for="project in selectedProjectType !== 'all'
-              ? projects.filter((x) => x.project_type === selectedProjectType)
-              : projects"
-            :id="project.slug || project.id"
-            :key="project.id"
-            :name="project.title"
-            :description="project.description"
-            :created-at="project.published"
-            :updated-at="project.updated"
-            :downloads="project.downloads.toString()"
-            :follows="project.followers.toString()"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :status="project.status"
-            :type="project.project_type"
-          >
-            <nuxt-link
-              v-if="$auth.user && $auth.user.id === user.id"
-              class="iconified-button"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-            >
-              <SettingsIcon />
-              Settings
-            </nuxt-link>
-          </ProjectCard>
-        </div>
-        <div v-else class="error">
-          <UpToDate class="icon" /><br />
-          <span v-if="$auth.user && $auth.user.id === user.id" class="text"
-            >You don't have any projects.<br />
-            Would you like to
-            <nuxt-link class="link" to="/create/project">create one</nuxt-link
-            >?</span
-          >
-          <span v-else class="text">This user has no projects!</span>
-        </div>
+        </ProjectCard>
+      </div>
+      <div v-else class="error">
+        <UpToDate class="icon" /><br />
+        <span v-if="$auth.user && $auth.user.id === user.id" class="text"
+          >You don't have any projects.<br />
+          Would you like to
+          <nuxt-link class="link" to="/create/project">create one</nuxt-link
+          >?</span
+        >
+        <span v-else class="text">This user has no projects!</span>
       </div>
     </div>
   </div>
@@ -124,7 +119,6 @@ import ThisOrThat from '~/components/ui/ThisOrThat'
 import Badge from '~/components/ui/Badge'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download-alt.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
@@ -140,7 +134,6 @@ export default {
     SunriseIcon,
     DownloadIcon,
     ReportIcon,
-    EditIcon,
     HeartIcon,
     Badge,
     SettingsIcon,
@@ -252,94 +245,69 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.sidebar-l {
-  .card {
-    img {
-      width: 8rem;
-      height: 8rem;
-      border-radius: var(--size-rounded-lg);
-
-      object-fit: contain;
-    }
-
-    h1 {
-      margin: 0 0 0.5rem 0;
-      color: var(--color-text-dark);
-    }
-
-    .buttons {
-      display: flex;
-    }
-
-    h3 {
-      margin-bottom: 1rem;
-    }
-
-    .version-badge {
-      margin: 0 0 0.75rem 0;
-    }
-
-    .bio {
-      overflow-wrap: break-word;
-      hyphens: manual;
-      margin: 0 0 0.75rem 0;
-    }
-
-    .joined {
-      margin: 0 0 0.25rem 0;
-      display: flex;
-      color: var(--color-icon);
-
-      svg {
-        width: auto;
-        height: 1rem;
-        margin-right: 0.25rem;
-      }
-    }
-
-    .stats {
-      margin-top: 0.5rem;
-      div {
-        display: flex;
-        align-items: center;
-
-        svg {
-          height: 1.25rem;
-          width: auto;
-          margin-right: 0.25rem;
-        }
-
-        p {
-          margin: 0;
-
-          strong {
-            font-size: var(--font-size-lg);
-          }
-        }
-      }
-    }
-  }
+<style scoped>
+.user-navigation {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.sidebar__item:not(:last-child) {
+  margin: 0 0 0.75rem 0;
 }
 
-.content {
-  .tabs {
-    @extend %card;
-
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--spacing-card-md);
-    overflow-x: auto;
-
-    .iconified-button {
-      margin-left: auto;
-    }
-  }
+.profile-picture {
+  border-radius: var(--size-rounded-lg);
+  height: 8rem;
+  width: 8rem;
 }
 
-@media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: calc(1280px - 8rem);
-  }
+.username {
+  font-size: var(--font-size-xl);
+}
+
+.report-button {
+  display: inline-flex;
+}
+
+.bio {
+  display: block;
+}
+
+.stats-block__item {
+  margin-bottom: 0.25rem;
+}
+
+.secondary-stat {
+  align-items: center;
+  color: var(--color-text-secondary);
+  display: flex;
+}
+
+.secondary-stat__icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.secondary-stat__text {
+  margin-left: 0.25rem;
+}
+
+.primary-stat {
+  align-items: center;
+  display: flex;
+}
+
+.primary-stat__icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.primary-stat__text {
+  margin-left: 0.25rem;
+}
+
+.primary-stat__counter {
+  font-size: var(--font-size-lg);
+  font-weight: bold;
 }
 </style>

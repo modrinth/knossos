@@ -42,7 +42,11 @@
       </button>
     </div>
     <div class="items">
-      <div v-for="(item, index) in gallery" :key="index" class="gallery-item">
+      <div
+        v-for="(item, index) in gallery"
+        :key="index"
+        class="card gallery-item"
+      >
         <img
           :src="
             item.url
@@ -115,7 +119,7 @@
       <div
         v-for="(item, index) in newGalleryItems"
         :key="index"
-        class="gallery-item"
+        class="card gallery-item"
       >
         <img
           :src="
@@ -327,8 +331,6 @@ export default {
 }
 
 .gallery-item {
-  @extend %card;
-
   display: flex;
   flex-direction: column;
 

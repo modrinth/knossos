@@ -182,7 +182,7 @@ export default {
 <style lang="scss" scoped>
 .ad-wrapper {
   width: 100%;
-  @extend %card;
+  // @extend %card;
   display: flex;
   flex-direction: row;
   margin-bottom: var(--spacing-card-md);

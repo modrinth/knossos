@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <div class="page-contents">
-      <header class="columns">
+      <header class="card columns">
         <h3 class="column-grow-1">File a report</h3>
         <button
           title="Create"
@@ -12,7 +12,7 @@
           Create
         </button>
       </header>
-      <section class="info">
+      <section class="card info">
         <h3>Item ID</h3>
         <label>
           <span>
@@ -54,7 +54,7 @@
           />
         </label>
       </section>
-      <section class="description">
+      <section class="card description">
         <h3>
           <label
             for="body"
@@ -194,10 +194,7 @@ label {
 }
 
 header {
-  @extend %card;
-
   grid-area: header;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
 
   h3 {
     margin: auto 0;
@@ -208,12 +205,6 @@ header {
   button {
     margin-left: 0.5rem;
   }
-}
-
-section {
-  @extend %card;
-
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
 }
 
 section.info {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="essentials pad-maker">
+    <section class="card essentials pad-maker">
       <h3>Revoke your Modrinth token</h3>
       <p>
         Revoking your Modrinth token can have unintended consequences. Please be
@@ -73,9 +73,6 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
-
   a {
     color: var(--color-link);
     text-decoration: underline;

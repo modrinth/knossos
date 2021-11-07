@@ -1,5 +1,5 @@
 <template>
-  <article class="project-card">
+  <article class="project-card card">
     <div class="columns">
       <div class="icon">
         <nuxt-link :to="`/${type}/${id}`">
@@ -205,8 +205,8 @@ export default {
 }
 
 .project-card {
-  @extend %row;
-  @extend %card-spaced-b;
+  display: flex;
+  flex-direction: row;
   flex-direction: column;
   padding: var(--spacing-card-bg);
   width: calc(100% - 2 * var(--spacing-card-bg));
@@ -232,10 +232,13 @@ export default {
     flex-grow: 1;
 
     .info {
-      @extend %column;
+      display: flex;
+      flex-direction: column;
 
       .top {
-        @extend %row;
+        align-items: baseline;
+        display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         flex-shrink: 0;
         margin-right: var(--spacing-card-md);

@@ -9,10 +9,10 @@
       proceed-label="Delete project"
       @proceed="deleteProject"
     />
-    <div class="section-header columns">
-      <h3 class="column-grow-1">General</h3>
+    <div class="card">
+      <h3>General</h3>
     </div>
-    <section>
+    <section class="card">
       <h3>Edit project</h3>
       <label>
         <span> This leads you to a page where you can edit your project. </span>
@@ -46,7 +46,7 @@
         </div>
       </label>
     </section>
-    <div class="section-header columns team-invite">
+    <div class="card columns team-invite">
       <h3>Team members</h3>
       <div class="column">
         <input
@@ -68,7 +68,7 @@
     <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user_id"
-      class="member"
+      class="card member"
       :class="{ open: openTeamMembers.includes(member.user_id) }"
     >
       <div class="member-header">
@@ -435,20 +435,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-header {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
-  margin-bottom: var(--spacing-card-md);
-  h3 {
-    margin: auto 0;
-    color: var(--color-text-dark);
-    font-weight: var(--font-weight-extrabold);
-  }
-}
-
 .member {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   margin-bottom: var(--spacing-card-md);
 
   .member-header {
@@ -544,8 +531,6 @@ button {
 }
 
 section {
-  @extend %card;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
   margin-bottom: var(--spacing-card-md);
 
   label {

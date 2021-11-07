@@ -67,9 +67,11 @@
     <div class="page-contents">
       <div class="content">
         <h1>Moderation</h1>
-        <div class="tabs">
-          <ThisOrThat v-model="selectedType" :items="moderationTypes" />
-        </div>
+        <ThisOrThat
+          v-model="selectedType"
+          class="card"
+          :items="moderationTypes"
+        />
         <div class="projects">
           <ProjectCard
             v-for="project in selectedType !== 'all'
@@ -117,7 +119,7 @@
           <div
             v-for="(report, index) in reports"
             :key="report.id"
-            class="report"
+            class="report card"
           >
             <div class="header">
               <h5 class="title">
@@ -321,18 +323,7 @@ h1 {
   margin: 0 0 1rem 1.5rem;
 }
 
-.tabs {
-  @extend %card;
-
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-card-md);
-  overflow-x: auto;
-}
-
 .report {
-  @extend %card-spaced-b;
-  padding: var(--spacing-card-sm) var(--spacing-card-lg);
   .header {
     display: flex;
     align-items: center;

@@ -4,7 +4,7 @@
       <div class="content">
         <h1>Notifications</h1>
 
-        <div class="divider">
+        <div class="divider card">
           <button class="iconified-button" @click="clearNotifications">
             <ClearIcon />
             Clear all
@@ -14,7 +14,7 @@
           <div
             v-for="notification in $user.notifications"
             :key="notification.id"
-            class="notification"
+            class="card notification"
           >
             <div class="icon">
               <UpdateIcon v-if="notification.type === 'project-update'" />
@@ -142,10 +142,6 @@ h1 {
 }
 
 .divider {
-  @extend %card-spaced-b;
-
-  padding: var(--spacing-card-sm) var(--spacing-card-lg);
-
   button {
     margin-left: auto;
   }
@@ -153,8 +149,6 @@ h1 {
 
 .notifications {
   .notification {
-    @extend %card;
-
     display: flex;
     max-height: 4rem;
     padding: var(--spacing-card-sm) var(--spacing-card-lg);
