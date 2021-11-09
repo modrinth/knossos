@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div class="narrow-page">
     <Popup v-if="currentProject" :show-popup="true">
       <div class="moderation-popup">
         <h2>Moderation Form</h2>
@@ -64,106 +64,92 @@
         </div>
       </div>
     </Popup>
-    <div class="page-contents">
-      <div class="content">
-        <h1>Moderation</h1>
-        <ThisOrThat
-          v-model="selectedType"
-          class="card"
-          :items="moderationTypes"
-        />
-        <div class="projects">
-          <ProjectCard
-            v-for="project in selectedType !== 'all'
-              ? projects.filter((x) => x.project_type === selectedType)
-              : projects"
-            :id="project.slug || project.id"
-            :key="project.id"
-            :name="project.title"
-            :description="project.description"
-            :created-at="project.published"
-            :updated-at="project.updated"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :type="project.project_type"
+    <h1>Moderation</h1>
+    <ThisOrThat v-model="selectedType" class="card" :items="moderationTypes" />
+    <div class="projects">
+      <ProjectCard
+        v-for="project in selectedType !== 'all'
+          ? projects.filter((x) => x.project_type === selectedType)
+          : projects"
+        :id="project.slug || project.id"
+        :key="project.id"
+        :name="project.title"
+        :description="project.description"
+        :created-at="project.published"
+        :updated-at="project.updated"
+        :icon-url="project.icon_url"
+        :categories="project.categories"
+        :client-side="project.client_side"
+        :server-side="project.server_side"
+        :type="project.project_type"
+      >
+        <button
+          class="iconified-button"
+          @click="setProjectStatus(project, 'approved')"
+        >
+          <CheckIcon />
+          Approve
+        </button>
+        <button
+          class="iconified-button"
+          @click="setProjectStatus(project, 'unlisted')"
+        >
+          <UnlistIcon />
+          Unlist
+        </button>
+        <button
+          class="iconified-button"
+          @click="setProjectStatus(project, 'rejected')"
+        >
+          <CrossIcon />
+          Reject
+        </button>
+      </ProjectCard>
+    </div>
+    <div
+      v-if="selectedType === 'report' || selectedType === 'all'"
+      class="reports"
+    >
+      <div
+        v-for="(report, index) in reports"
+        :key="report.id"
+        class="report card"
+      >
+        <div class="header">
+          <h5 class="title">
+            Report for {{ report.item_type }}
+            <nuxt-link
+              :to="
+                '/' + report.item_type + '/' + report.item_id.replace(/\W/g, '')
+              "
+              >{{ report.item_id }}
+            </nuxt-link>
+          </h5>
+          <p
+            v-tooltip="
+              $dayjs(report.created).format(
+                '[Created at] YYYY-MM-DD [at] HH:mm A'
+              )
+            "
+            class="date"
           >
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'approved')"
-            >
-              <CheckIcon />
-              Approve
-            </button>
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'unlisted')"
-            >
-              <UnlistIcon />
-              Unlist
-            </button>
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'rejected')"
-            >
-              <CrossIcon />
-              Reject
-            </button>
-          </ProjectCard>
+            Created {{ $dayjs(report.created).fromNow() }}
+          </p>
+          <button class="delete iconified-button" @click="deleteReport(index)">
+            Delete
+          </button>
         </div>
         <div
-          v-if="selectedType === 'report' || selectedType === 'all'"
-          class="reports"
-        >
-          <div
-            v-for="(report, index) in reports"
-            :key="report.id"
-            class="report card"
-          >
-            <div class="header">
-              <h5 class="title">
-                Report for {{ report.item_type }}
-                <nuxt-link
-                  :to="
-                    '/' +
-                    report.item_type +
-                    '/' +
-                    report.item_id.replace(/\W/g, '')
-                  "
-                  >{{ report.item_id }}
-                </nuxt-link>
-              </h5>
-              <p
-                v-tooltip="
-                  $dayjs(report.created).format(
-                    '[Created at] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
-                class="date"
-              >
-                Created {{ $dayjs(report.created).fromNow() }}
-              </p>
-              <button
-                class="delete iconified-button"
-                @click="deleteReport(index)"
-              >
-                Delete
-              </button>
-            </div>
-            <div
-              v-highlightjs
-              class="markdown-body"
-              v-html="$xss($md.render(report.body))"
-            ></div>
-          </div>
-        </div>
-        <div v-if="reports.length === 0 && projects.length === 0" class="error">
-          <Security class="icon"></Security>
-          <br />
-          <span class="text">You are up-to-date!</span>
-        </div>
+          v-highlightjs
+          class="markdown-body"
+          v-html="$xss($md.render(report.body))"
+        ></div>
       </div>
+    </div>
+    <div v-if="reports.length === 0 && projects.length === 0" class="error">
+      <Security class="icon"></Security>
+      <br />
+      <span class="text">You are up-to-date!</span>
     </div>
   </div>
 </template>

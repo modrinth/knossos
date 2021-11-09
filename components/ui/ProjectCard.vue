@@ -1,104 +1,102 @@
 <template>
   <article class="project-card card">
-    <div class="columns">
-      <div class="icon">
-        <nuxt-link :to="`/${type}/${id}`">
-          <img
-            :src="iconUrl || 'https://cdn.modrinth.com/placeholder.svg?inline'"
-            :alt="name"
-            loading="lazy"
-          />
-        </nuxt-link>
-        <Categories :categories="categories" class="left-categories" />
-      </div>
-      <div class="card-content">
-        <div class="info">
-          <div class="top">
-            <h2 class="title">
-              <nuxt-link :to="`/${type}/${id}`">{{ name }}</nuxt-link>
-            </h2>
-            <p v-if="author" class="author">
-              by <nuxt-link :to="'/user/' + author">{{ author }}</nuxt-link>
-            </p>
-          </div>
-          <div class="side-type">
-            <div
-              v-if="clientSide === 'optional' && serverSide === 'optional'"
-              class="side-descriptor"
-            >
-              <InfoIcon />
-              Universal {{ project.project_type }}
-            </div>
-            <div
-              v-else-if="
-                (clientSide === 'optional' || clientSide === 'required') &&
-                (serverSide === 'optional' || serverSide === 'unsupported')
-              "
-              class="side-descriptor"
-            >
-              <InfoIcon />
-              Client {{ type }}
-            </div>
-            <div
-              v-else-if="
-                (serverSide === 'optional' || serverSide === 'required') &&
-                (clientSide === 'optional' || clientSide === 'unsupported')
-              "
-              class="side-descriptor"
-            >
-              <InfoIcon />
-              Server {{ type }}
-            </div>
-          </div>
-          <p class="description">
-            {{ description }}
+    <div class="icon">
+      <nuxt-link :to="`/${type}/${id}`">
+        <img
+          :src="iconUrl || 'https://cdn.modrinth.com/placeholder.svg?inline'"
+          :alt="name"
+          loading="lazy"
+        />
+      </nuxt-link>
+      <Categories :categories="categories" class="left-categories" />
+    </div>
+    <div class="card-content">
+      <div class="info">
+        <div class="top">
+          <h2 class="title">
+            <nuxt-link :to="`/${type}/${id}`">{{ name }}</nuxt-link>
+          </h2>
+          <p v-if="author" class="author">
+            by <nuxt-link :to="'/user/' + author">{{ author }}</nuxt-link>
           </p>
-          <Categories :categories="categories" class="right-categories" />
-          <div class="dates">
-            <div class="date">
-              <CalendarIcon />
-              Created {{ $dayjs(createdAt).fromNow() }}
-            </div>
-            <div class="date">
-              <EditIcon />
-              Updated {{ $dayjs(updatedAt).fromNow() }}
-            </div>
+        </div>
+        <div class="side-type">
+          <div
+            v-if="clientSide === 'optional' && serverSide === 'optional'"
+            class="side-descriptor"
+          >
+            <InfoIcon />
+            Universal {{ project.project_type }}
+          </div>
+          <div
+            v-else-if="
+              (clientSide === 'optional' || clientSide === 'required') &&
+              (serverSide === 'optional' || serverSide === 'unsupported')
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon />
+            Client {{ type }}
+          </div>
+          <div
+            v-else-if="
+              (serverSide === 'optional' || serverSide === 'required') &&
+              (clientSide === 'optional' || clientSide === 'unsupported')
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon />
+            Server {{ type }}
           </div>
         </div>
-        <div class="right-side">
-          <div v-if="downloads" class="stat">
-            <DownloadIcon />
-            <p>
-              <strong>{{ formatNumber(downloads) }}</strong> downloads
-            </p>
+        <p class="description">
+          {{ description }}
+        </p>
+        <Categories :categories="categories" class="right-categories" />
+        <div class="dates">
+          <div class="date">
+            <CalendarIcon />
+            Created {{ $dayjs(createdAt).fromNow() }}
           </div>
-          <div v-if="follows" class="stat">
-            <HeartIcon />
-            <p>
-              <strong>{{ formatNumber(follows) }}</strong> followers
-            </p>
+          <div class="date">
+            <EditIcon />
+            Updated {{ $dayjs(updatedAt).fromNow() }}
           </div>
-          <div v-if="status" class="status">
-            <Badge
-              v-if="status === 'approved'"
-              color="green custom-circle"
-              :type="status"
-            />
-            <Badge
-              v-else-if="status === 'processing' || status === 'archived'"
-              color="yellow custom-circle"
-              :type="status"
-            />
-            <Badge
-              v-else-if="status === 'rejected'"
-              color="red custom-circle"
-              :type="status"
-            />
-            <Badge v-else color="gray custom-circle" :type="status" />
-          </div>
-          <div class="buttons">
-            <slot />
-          </div>
+        </div>
+      </div>
+      <div class="right-side">
+        <div v-if="downloads" class="stat">
+          <DownloadIcon />
+          <p>
+            <strong>{{ formatNumber(downloads) }}</strong> downloads
+          </p>
+        </div>
+        <div v-if="follows" class="stat">
+          <HeartIcon />
+          <p>
+            <strong>{{ formatNumber(follows) }}</strong> followers
+          </p>
+        </div>
+        <div v-if="status" class="status">
+          <Badge
+            v-if="status === 'approved'"
+            color="green custom-circle"
+            :type="status"
+          />
+          <Badge
+            v-else-if="status === 'processing' || status === 'archived'"
+            color="yellow custom-circle"
+            :type="status"
+          />
+          <Badge
+            v-else-if="status === 'rejected'"
+            color="red custom-circle"
+            :type="status"
+          />
+          <Badge v-else color="gray custom-circle" :type="status" />
+        </div>
+        <div class="buttons">
+          <slot />
         </div>
       </div>
     </div>
@@ -200,10 +198,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.columns {
-  width: 100%;
-}
-
 .project-card {
   display: flex;
   flex-direction: row;

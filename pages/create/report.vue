@@ -1,86 +1,83 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <header class="card columns">
-        <h3 class="column-grow-1">File a report</h3>
-        <button
-          title="Create"
-          class="brand-button column"
-          :disabled="!$nuxt.$loading"
-          @click="createReport"
-        >
-          Create
-        </button>
-      </header>
-      <section class="card info">
-        <h3>Item ID</h3>
-        <label>
-          <span>
-            The ID of the item you are reporting. For example, the item ID of a
-            project would be its project ID, found on the right side of that
-            project's page under "Project ID".
-          </span>
-          <input v-model="itemId" type="text" placeholder="Enter the item ID" />
-        </label>
-        <h3>Item type</h3>
-        <label>
-          <span>The type of the item that is being reported.</span>
-          <multiselect
-            id="item-type"
-            v-model="itemType"
-            :options="['project', 'version', 'user']"
-            :multiple="false"
-            :searchable="false"
-            :show-no-results="false"
-            :show-labels="false"
-            placeholder="Choose item type"
-          />
-        </label>
-        <h3>Report type</h3>
-        <label>
-          <span>
-            The type of report. This is the category that this report falls
-            under.
-          </span>
-          <multiselect
-            id="report-type"
-            v-model="reportType"
-            :options="reportTypes"
-            :multiple="false"
-            :searchable="false"
-            :show-no-results="false"
-            :show-labels="false"
-            placeholder="Choose report type"
-          />
-        </label>
-      </section>
-      <section class="card description">
-        <h3>
-          <label
-            for="body"
-            title="You can type the of the long form of your description here."
-          >
-            Body
-          </label>
-        </h3>
+  <div class="wide-page">
+    <header class="card columns">
+      <h3 class="column-grow-1">File a report</h3>
+      <button
+        title="Create"
+        class="brand-button column"
+        :disabled="!$nuxt.$loading"
+        @click="createReport"
+      >
+        Create
+      </button>
+    </header>
+    <section class="card info">
+      <h3>Item ID</h3>
+      <label>
         <span>
-          You can type the of the long form of your description here. This
-          editor supports markdown. You can find the syntax
-          <a
-            href="https://guides.github.com/features/mastering-markdown/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >here</a
-          >.
+          The ID of the item you are reporting. For example, the item ID of a
+          project would be its project ID, found on the right side of that
+          project's page under "Project ID".
         </span>
-        <div class="columns">
-          <div class="textarea-wrapper">
-            <textarea id="body" v-model="body"></textarea>
-          </div>
-          <div class="markdown-body" v-html="$xss($md.render(body))"></div>
+        <input v-model="itemId" type="text" placeholder="Enter the item ID" />
+      </label>
+      <h3>Item type</h3>
+      <label>
+        <span>The type of the item that is being reported.</span>
+        <multiselect
+          id="item-type"
+          v-model="itemType"
+          :options="['project', 'version', 'user']"
+          :multiple="false"
+          :searchable="false"
+          :show-no-results="false"
+          :show-labels="false"
+          placeholder="Choose item type"
+        />
+      </label>
+      <h3>Report type</h3>
+      <label>
+        <span>
+          The type of report. This is the category that this report falls under.
+        </span>
+        <multiselect
+          id="report-type"
+          v-model="reportType"
+          :options="reportTypes"
+          :multiple="false"
+          :searchable="false"
+          :show-no-results="false"
+          :show-labels="false"
+          placeholder="Choose report type"
+        />
+      </label>
+    </section>
+    <section class="card description">
+      <h3>
+        <label
+          for="body"
+          title="You can type the of the long form of your description here."
+        >
+          Body
+        </label>
+      </h3>
+      <span>
+        You can type the of the long form of your description here. This editor
+        supports markdown. You can find the syntax
+        <a
+          href="https://guides.github.com/features/mastering-markdown/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >here</a
+        >.
+      </span>
+      <div class="columns">
+        <div class="textarea-wrapper">
+          <textarea id="body" v-model="body"></textarea>
         </div>
-      </section>
-    </div>
+        <div class="markdown-body" v-html="$xss($md.render(body))"></div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -181,7 +178,7 @@ label {
   }
 }
 
-.page-contents {
+.wide-page {
   display: grid;
   grid-template:
     'header       header      header' auto

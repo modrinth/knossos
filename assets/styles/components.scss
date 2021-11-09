@@ -578,6 +578,7 @@ label {
   display: flex;
   font-weight: bold;
   color: var(--color-text-inactive);
+  margin-top: 6px;
   overflow-x: scroll;
   scrollbar-width: none;
 
@@ -595,15 +596,16 @@ label {
 
     span {
       font-weight: bold;
-      display: inline-block;
+      display: block;
       padding-bottom: 6px;
       position: relative;
     }
 
-    span::before {
+    span::after {
       background-color: transparent;
       content: "";
       position: absolute;
+      display: block;
       width: 60%;
       height: 4px;
       bottom: 0;
@@ -614,7 +616,7 @@ label {
     &:focus {
       color: var(--color-text);
 
-      span::before {
+      span::after {
         background-color: var(--color-brand-disabled);
       }
     }
@@ -623,7 +625,7 @@ label {
     &.selected {
       color: var(--color-text);
 
-      span::before {
+      span::after {
         background-color: var(--color-brand);
         box-shadow: 0 0 1px 0 var(--color-brand);
       }
