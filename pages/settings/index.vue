@@ -93,16 +93,17 @@
         <h3>Theme</h3>
         <label>
           <span
-            >Change the global site theme of Modrinth. You can choose between
-            light mode and dark mode. You can switch it using this button or
+            >Change the global site theme of Modrinth. You can switch it here or
             anywhere by accessing the theme switcher in the navigation bar
             dropdown.</span
           >
-          <input
-            type="button"
-            class="iconified-button pad-rem"
-            value="Change theme"
-            @click="changeTheme"
+          <Multiselect
+            v-model="$colorMode.preference"
+            :options="['light', 'dark', 'oled']"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
           />
         </label>
       </section>
@@ -111,6 +112,7 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
 import FileInput from '~/components/ui/FileInput'
 import Badge from '~/components/ui/Badge'
 
@@ -127,6 +129,11 @@ export default {
     HeartIcon,
     Badge,
     FileInput,
+    Multiselect,
+  },
+  fetch() {
+    this.$emit('update:action-button', 'Save profile settings')
+    this.$emit('update:action-button-callback', this.saveChanges)
   },
   asyncData(ctx) {
     return {
@@ -140,13 +147,6 @@ export default {
       icon: null,
       previewImage: null,
     }
-  },
-  fetch() {
-    this.$emit('update:action-button', 'Save profile settings')
-    this.$emit('update:action-button-callback', this.saveChanges)
-  },
-  head: {
-    title: 'Settings - Modrinth',
   },
   created() {
     this.$emit('update:action-button', 'Save profile settings')
@@ -236,6 +236,9 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
+  },
+  head: {
+    title: 'Settings - Modrinth',
   },
 }
 </script>
