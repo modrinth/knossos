@@ -91,6 +91,10 @@ export default {
   components: {
     Multiselect,
   },
+  fetch() {
+    if (this.$route.query.id) this.itemId = this.$route.query.id
+    if (this.$route.query.t) this.itemType = this.$route.query.t
+  },
   async asyncData(data) {
     const reportTypes = (await data.$axios.get(`tag/report_type`)).data
 
@@ -108,10 +112,6 @@ export default {
       reportTypes: ['aaaa'],
     }
   },
-  fetch() {
-    if (this.$route.query.id) this.itemId = this.$route.query.id
-    if (this.$route.query.t) this.itemType = this.$route.query.t
-  },
   methods: {
     async createReport() {
       this.$nuxt.$loading.start()
@@ -126,7 +126,31 @@ export default {
 
         await this.$axios.post('report', data, this.$auth.headers)
 
-        await this.$router.replace(`/${this.itemType}/${this.itemId}`)
+        switch (this.itemType) {
+          case 'version': {
+            const version = (await this.$axios.get(`version/${this.itemId}`))
+              .data
+            const project = (
+              await this.$axios.get(`project/${version.project_id}`)
+            ).data
+            await this.$router.replace(
+              `/${project.project_type}/${project.slug || project.id}/version/${
+                this.itemId
+              }`
+            )
+            break
+          }
+          case 'project': {
+            const project = (await this.$axios.get(`project/${this.itemId}`))
+              .data
+            await this.$router.replace(
+              `/${project.project_type}/${project.slug || project.id}`
+            )
+            break
+          }
+          default:
+            await this.$router.replace(`/${this.itemType}/${this.itemId}`)
+        }
       } catch (err) {
         this.$notify({
           group: 'main',
