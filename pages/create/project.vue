@@ -1,6 +1,6 @@
 <template>
   <div class="wide-page">
-    <header class="card columns">
+    <header class="card">
       <h3 class="column-grow-1">Create a project</h3>
       <button
         title="Save draft"
@@ -130,7 +130,7 @@
     </section>
     <section class="card game-sides">
       <h3>Supported environments</h3>
-      <div class="columns">
+      <div>
         <span> Let others know what environments your project supports. </span>
         <div class="labeled-control">
           <h3>Client</h3>
@@ -179,7 +179,7 @@
         >. HTML can also be used inside your description, excluding scripts and
         iframes.
       </span>
-      <div class="columns">
+      <div>
         <div class="textarea-wrapper">
           <textarea id="body" v-model="body"></textarea>
         </div>
@@ -820,19 +820,6 @@ header {
 
 .game-sides {
   grid-area: game-sides;
-
-  .columns {
-    flex-wrap: wrap;
-
-    span {
-      flex: 2;
-    }
-
-    .labeled-control {
-      flex: 2;
-      margin-left: var(--spacing-card-lg);
-    }
-  }
 }
 
 .description {
@@ -840,17 +827,6 @@ header {
 
   span a {
     text-decoration: underline;
-  }
-
-  & > .columns {
-    align-items: stretch;
-    min-height: 10rem;
-    max-height: 40rem;
-
-    & > * {
-      flex: 1;
-      max-width: 50%;
-    }
   }
 
   .markdown-body {

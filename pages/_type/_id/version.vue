@@ -8,7 +8,7 @@
       proceed-label="Delete version"
       @proceed="deleteVersion()"
     />
-    <div class="columns">
+    <div>
       <nuxt-link
         v-if="mode === 'version'"
         class="iconified-button back-button"

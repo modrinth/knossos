@@ -77,224 +77,6 @@
   text-decoration: underline;
 }
 
-.markdown-body {
-  blockquote,
-  details,
-  dl,
-  ol,
-  p,
-  code,
-  pre,
-  table,
-  ul {
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-
-  p {
-    padding: 0;
-    line-height: 1.5;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
-  }
-
-  h1,
-  h2 {
-    padding: 10px 0 5px;
-    border-bottom: 1px solid var(--color-header-underline);
-  }
-
-  blockquote {
-    padding: 0 1em;
-    color: var(--color-text);
-    border-left: 0.25em solid var(--color-block-quote);
-  }
-
-  a {
-    color: var(--color-link);
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  pre {
-    margin-top: 1rem;
-    padding: 14px;
-    border-radius: var(--size-rounded-control);
-    background-color: var(--color-code-bg);
-    overflow-x: auto;
-
-    code {
-      font-size: 80%;
-      padding: 0;
-      border-radius: 0;
-    }
-  }
-
-  code {
-    padding: 0.2em 0.4em;
-    font-size: 80%;
-    border-radius: var(--size-rounded-control);
-    background-color: var(--color-code-bg);
-    color: var(--color-code-text);
-  }
-
-  hr {
-    margin: 20px 0;
-    color: var(--color-divider);
-  }
-
-  table {
-    display: block;
-    width: max-content;
-    max-width: 100%;
-    overflow: auto;
-    border-collapse: collapse;
-    line-height: 1.5;
-
-    th {
-      font-weight: 600;
-    }
-
-    td,
-    th {
-      padding: 0.4rem 0.85rem;
-      border: 0.1rem solid var(--color-table-border);
-    }
-
-    tr:nth-child(2n) {
-      background-color: var(--color-table-alternate-row);
-    }
-  }
-
-  details {
-    border: 0.15rem solid var(--color-button-bg);
-    border-radius: var(--size-rounded-control);
-    padding: 0.5rem 0.5rem 0;
-
-    summary {
-      font-weight: bold;
-      margin: -0.5rem -0.5rem 0;
-      padding: 0.5rem 0.8rem;
-      cursor: pointer;
-      background-color: var(--color-button-bg);
-      &:hover {
-        background-color: var(--color-button-bg-hover);
-      }
-    }
-
-    &[open] {
-      padding: 0.5rem;
-
-      summary {
-        margin-bottom: 0.5rem;
-      }
-    }
-  }
-
-  > :last-child {
-    margin-bottom: 0 !important;
-  }
-}
-
-.tooltip {
-  display: block !important;
-  z-index: 10000;
-
-  .tooltip-inner {
-    background: var(--color-tooltip-bg);
-    color: var(--color-tooltip-text);
-    padding: 5px 10px 4px;
-    border-radius: var(--size-rounded-tooltip);
-    box-shadow: var(--shadow-tooltip);
-    font-size: 0.9rem;
-  }
-
-  .tooltip-arrow {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    margin: 5px;
-    border-color: var(--color-tooltip-bg);
-    z-index: 1;
-  }
-
-  &[x-placement^='top'] {
-    margin-bottom: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 5px 0 5px;
-      border-left-color: transparent !important;
-      border-right-color: transparent !important;
-      border-bottom-color: transparent !important;
-      bottom: -5px;
-      left: calc(50% - 5px);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  &[x-placement^='bottom'] {
-    margin-top: 5px;
-
-    .tooltip-arrow {
-      border-width: 0 5px 5px 5px;
-      border-left-color: transparent !important;
-      border-right-color: transparent !important;
-      border-top-color: transparent !important;
-      top: -5px;
-      left: calc(50% - 5px);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  &[x-placement^='right'] {
-    margin-left: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 5px 5px 0;
-      border-left-color: transparent !important;
-      border-top-color: transparent !important;
-      border-bottom-color: transparent !important;
-      left: -5px;
-      top: calc(50% - 5px);
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  &[x-placement^='left'] {
-    margin-right: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 0 5px 5px;
-      border-top-color: transparent !important;
-      border-right-color: transparent !important;
-      border-bottom-color: transparent !important;
-      right: -5px;
-      top: calc(50% - 5px);
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  &[aria-hidden='true'] {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.15s, visibility 0.15s;
-  }
-
-  &[aria-hidden='false'] {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.15s;
-  }
-}
-
 .button {
   //width: max-content;
   margin: auto 0;
@@ -371,77 +153,6 @@
   border-top: none !important;
 }
 
-.multiselect {
-  color: var(--color-text) !important;
-
-  input {
-    background: transparent;
-  }
-
-  &.top-margin {
-    .multiselect__tags {
-      padding-top: 10px;
-    }
-  }
-
-  .multiselect__tags {
-    border-radius: 1.25rem;
-    background: var(--color-dropdown-bg);
-    border: none;
-    cursor: pointer;
-    padding-left: 1rem;
-
-    &:active,
-    &:hover {
-      background: var(--color-button-bg-hover);
-
-      .multiselect__spinner {
-        background: var(--color-button-bg-hover);
-      }
-    }
-    .multiselect__single {
-      background: transparent;
-    }
-    .multiselect__tag {
-      border-radius: 2rem;
-      background: transparent;
-      border: 2px solid var(--color-brand);
-    }
-    .multiselect__tag-icon {
-      background: transparent;
-    }
-    .multiselect__placeholder {
-      color: var(--color-text);
-      font-size: 16px;
-      line-height: 20px;
-    }
-  }
-  .multiselect__content-wrapper {
-    background: var(--color-dropdown-bg);
-    border: none;
-    overflow-x: hidden;
-
-    .multiselect__element {
-      .multiselect__option--highlight {
-        background: var(--color-button-bg-active);
-      }
-      .multiselect__option--selected {
-        background: var(--color-brand);
-        font-weight: bold;
-        color: var(--color-brand-inverted);
-      }
-    }
-  }
-  .multiselect__spinner {
-    background: var(--color-dropdown-bg);
-
-    &:active,
-    &:hover {
-      background: var(--color-button-bg-hover);
-    }
-  }
-}
-
 label {
   display: flex;
   flex-direction: column;
@@ -489,17 +200,6 @@ label {
   }
 }
 
-.switch {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
-  &:focus {
-    outline: 0;
-  }
-}
-
 .stylized-toggle {
   height: 32px;
   width: 52px;
@@ -510,6 +210,13 @@ label {
   border: 2px solid var(--color-button-bg);
   transition: all 0.2s ease;
   background: var(--color-button-bg);
+
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  &:focus {
+    outline: 0;
+  }
 
   &:after {
     content: '';

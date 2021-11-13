@@ -362,7 +362,7 @@
         <div
           v-for="member in members"
           :key="member.user_id"
-          class="team-member columns"
+          class="team-member"
         >
           <img :src="member.avatar_url" alt="profile-picture" />
           <div class="member-info">
@@ -872,6 +872,7 @@ hr {
   }
 
   .team-member {
+    display: flex;
     align-items: center;
     margin-bottom: 0.25rem;
 

@@ -1,6 +1,6 @@
 <template>
   <div class="page-contents">
-    <header class="card columns">
+    <header class="card">
       <h3 class="column-grow-1">Edit project</h3>
       <nuxt-link
         :to="`/${project.project_type}/${
@@ -135,7 +135,7 @@
     </section>
     <section class="card game-sides">
       <h3>Supported environments</h3>
-      <div class="columns">
+      <div>
         <span> Let others know what environments your project supports. </span>
         <div class="labeled-control">
           <h3>Client</h3>
@@ -182,7 +182,7 @@
           >here</a
         >.
       </span>
-      <div class="columns">
+      <div>
         <div class="textarea-wrapper">
           <textarea id="body" v-model="newProject.body"></textarea>
         </div>
@@ -588,6 +588,7 @@ label {
 header {
   grid-area: header;
   padding: var(--spacing-card-md) var(--spacing-card-lg);
+  display: flex;
 
   h3 {
     margin: auto 0;
@@ -623,34 +624,10 @@ header {
 
 .game-sides {
   grid-area: game-sides;
-
-  .columns {
-    flex-wrap: wrap;
-
-    span {
-      flex: 2;
-    }
-
-    .labeled-control {
-      flex: 2;
-      margin-left: var(--spacing-card-lg);
-    }
-  }
 }
 
 .description {
   grid-area: description;
-
-  & > .columns {
-    align-items: stretch;
-    min-height: 10rem;
-    max-height: 40rem;
-
-    & > * {
-      flex: 1;
-      max-width: 50%;
-    }
-  }
 
   .markdown-body {
     overflow-y: auto;

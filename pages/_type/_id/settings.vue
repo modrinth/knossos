@@ -46,7 +46,7 @@
         </div>
       </label>
     </section>
-    <div class="card columns team-invite">
+    <div class="card team-invite">
       <h3>Team members</h3>
       <div class="column">
         <input
@@ -562,6 +562,8 @@ section {
 }
 
 .team-invite {
+  display: flex;
+
   @media screen and (max-width: 1024px) {
     flex-direction: column;
     h3 {

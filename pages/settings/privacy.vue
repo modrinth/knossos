@@ -24,7 +24,7 @@
               ref="toggles"
               v-model="scopes[id].value"
               type="checkbox"
-              class="switch stylized-toggle"
+              class="stylized-toggle"
             />
           </div>
         </div>

@@ -1,17 +1,17 @@
 <template>
-  <div class="page">
-    <div class="main-hero columns">
+  <div class="wide-page">
+    <div class="partial main-hero">
       <div class="left">
         <h1 class="typewriter">
           {{ currentText }}<span aria-hidden="true"></span>
         </h1>
         <h1>modding platform</h1>
       </div>
-      <div class="right columns">
+      <div class="right">
         <Logo class="big-logo" alt="logo" />
       </div>
     </div>
-    <div class="slanted-hero columns">
+    <div class="partial slanted-hero">
       <div class="left hero">
         <h3>Conveniently modern</h3>
         <h1>A redefined search interface</h1>
@@ -29,7 +29,7 @@
         </video>
       </div>
     </div>
-    <div class="default-hero columns">
+    <div class="partial default-hero">
       <div class="left hero">
         <h3>Built for developers</h3>
         <h1>The world's most modder-friendly platform</h1>
@@ -45,7 +45,7 @@
           for when it will be.
         </p>
       </div>
-      <div class="right columns workflow">
+      <div class="right workflow">
         <div>
           <h3>Code</h3>
           <svg
@@ -142,7 +142,7 @@
         </div>
       </div>
     </div>
-    <div class="slanted-hero columns">
+    <div class="partial slanted-hero">
       <div class="left hero">
         <h3>Easy to implement</h3>
         <h1>Backed by an open source API</h1>
@@ -236,9 +236,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page {
-  max-width: 100rem;
-  margin: 0 auto;
+.partial {
+  display: flex;
 }
 
 .left,
@@ -378,12 +377,13 @@ export default {
 }
 
 .workflow {
+  display: flex;
   padding-top: 75px;
-  padding-left: 10%;
+  padding-left: 5%;
   div {
-    margin: 0 20px;
+    margin: 0 15px;
     text-align: center;
-    width: 100px;
+    width: 90px;
     h3 {
       margin: 0;
     }
@@ -391,7 +391,7 @@ export default {
       color: #fff;
       border-radius: 50%;
       margin-top: 10px;
-      padding: 25px;
+      padding: 15px;
     }
   }
   img {

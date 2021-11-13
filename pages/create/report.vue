@@ -1,6 +1,6 @@
 <template>
   <div class="wide-page">
-    <header class="card columns">
+    <header class="card">
       <h3 class="column-grow-1">File a report</h3>
       <button
         title="Create"
@@ -71,7 +71,7 @@
           >here</a
         >.
       </span>
-      <div class="columns">
+      <div>
         <div class="textarea-wrapper">
           <textarea id="body" v-model="body"></textarea>
         </div>
@@ -209,17 +209,6 @@ section.info {
 
 section.description {
   grid-area: description;
-
-  & > .columns {
-    align-items: stretch;
-    min-height: 10rem;
-    max-height: 40rem;
-
-    & > * {
-      flex: 1;
-      max-width: 50%;
-    }
-  }
 
   .markdown-body {
     overflow-y: auto;

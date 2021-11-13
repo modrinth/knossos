@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div>
     <div class="left-side">
       <div class="profile-picture card">
         <h3>Profile picture</h3>

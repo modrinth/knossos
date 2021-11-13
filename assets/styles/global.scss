@@ -1,129 +1,3 @@
-html {
-  @extend .light-mode;
-}
-
-.light-mode {
-  --color-icon: #6B7280;
-  --color-text: hsl(221, 39%, 11%);
-  --color-text-secondary: hsl(220, 9%, 46%);
-  --color-text-inactive: hsl(215, 14%, 34%);
-  --color-heading: #2c313d;
-  --color-bg: hsl(220, 13%, 91%);
-  --color-raised-bg: #ffffff;
-  --color-divider: hsl(220, 13%, 91%);
-  --color-divider-dark: #c8cdd3;
-
-  --color-text-inverted: var(--color-bg);
-  --color-bg-inverted: var(--color-text);
-
-  --color-brand: #30b27b;
-  --color-brand-hover: #1e9565;
-  --color-brand-active: #177955;
-  --color-brand-light: #30b27b;
-  --color-brand-inverted: #ffffff;
-  --color-brand-2: #30b27b;
-  --color-brand-3: #30b27b;
-  --color-brand-disabled: #e2e8f0;
-
-  --color-button-bg: #e6e7eb;
-  --color-button-text: var(--color-text);
-  --color-button-bg-hover: #d9dce0;
-  --color-button-text-hover: #1b1e24;
-  --color-button-bg-active: #c3c6cb;
-  --color-button-text-active: var(--color-button-text-hover);
-  --color-button-bg-disabled: #eceef0;
-  --color-button-text-disabled: #9da3ac;
-  --color-transparent-button-bg-hover: var(--color-button-bg);
-  --color-transparent-button-text-hover: var(--color-text);
-  --color-transparent-button-bg-active: var(--color-button-bg-hover);
-  --color-transparent-button-text-active: var(--color-text);
-
-  --color-dropdown-bg: var(--color-button-bg);
-  --color-dropdown-text: var(--color-button-text);
-
-  --color-category-bg: var(--color-bg);
-  --color-category-text: var(--color-text);
-
-  --color-tooltip-bg: var(--color-text);
-  --color-tooltip-text: var(--color-bg);
-
-  --color-code-bg: var(--color-bg);
-  --color-code-text: var(--color-textk);
-
-  --color-ad: #d6e6f9;
-
-  --color-link: #2089ff;
-
-  --color-badge-gray-text: #646161;
-  --color-badge-gray-bg: #c8c1c1;
-  --color-badge-red-text: #6E1931;
-  --color-badge-red-bg: #DB3162;
-  --color-badge-green-text: #184e38;
-  --color-badge-green-bg: #24a54e;
-  --color-badge-yellow-text: #755920;
-  --color-badge-yellow-bg: #F7BB43;
-
-  --color-block-quote: var(--color-tooltip-bg);
-  --color-header-underline: var(--color-tooltip-text);
-  --color-hr: var(--color-text);
-
-  --color-table-border: #dfe2e5;
-  --color-table-alternate-row: #f6f8fa;
-}
-
-.dark-mode {
-  --color-icon: #96a2b0;
-  --color-text: #b0bac5;
-  --color-heading: #c4cfdd;
-  --color-bg: #16181c;
-  --color-raised-bg: #26292f;
-  --color-divider: #474b54;
-  --color-divider-dark: #646c75;
-
-  --color-brand: #1cdf8b;
-  --color-brand-hover: #2ef19f;
-  --color-brand-active: #55f5ae;
-  --color-brand-light: #30b27b;
-  --color-brand-inverted: #000;
-  --color-brand-2: #30b27b;
-  --color-brand-3: #30b27b;
-  --color-brand-disabled: #414146;
-
-  --color-button-bg: #3e434b;
-  --color-button-text: var(--color-text);
-  --color-button-bg-hover: #494f58;
-  --color-button-text-hover: #ffffff;
-  --color-button-bg-active: #616570;
-  --color-button-text-active: var(--color-button-text-hover);
-  --color-button-text-disabled: #444444;
-
-  --color-ad: #2c323a;
-
-  --color-link: #4793d9;
-
-  --color-badge-gray-bg: #646161;
-  --color-badge-gray-text: #c8c1c1;
-  --color-badge-red-text: #bd1a48;
-  --color-badge-red-bg: #DB3162;
-  --color-badge-green-text: #1ebb7b;
-  --color-badge-green-bg: #24a54e;
-  --color-badge-yellow-text: #755920;
-  --color-badge-yellow-bg: #F7BB43;
-
-  --color-table-border: #4f5864;
-  --color-table-alternate-row: #262a30;
-}
-
-.oled-mode {
-  @extend .dark-mode;
-  --color-bg: #000000;
-  --color-raised-bg: #101013;
-
-  --color-button-bg: #222329;
-  --color-button-bg-hover: #2d2d32;
-  --color-button-bg-active: #3c3c40;
-}
-
 body {
   // Defaults
   background-color: var(--color-bg);
@@ -276,10 +150,16 @@ html {
   overflow-y: scroll;
 }
 
-
-// @import "vue-select/src/scss/vue-select.scss";
-
 @import '~assets/styles/normalize.css';
-@import '~assets/styles/highlightjs.css';
-@import '~assets/styles/layout.scss';
+
+@import '~assets/styles/themes/default.css';
+@import '~assets/styles/themes/dark.css';
+@import '~assets/styles/themes/oled.css';
+
+@import '~assets/styles/layout.css';
 @import '~assets/styles/components.scss';
+
+@import '~assets/styles/vendor/highlightjs.css';
+@import '~assets/styles/vendor/markdown.scss';
+@import '~assets/styles/vendor/multiselect.scss';
+@import '~assets/styles/vendor/tooltip.scss';

@@ -1,13 +1,3 @@
-.columns {
-  display: flex;
-
-  @for $i from 1 through 5 {
-    .column-grow-#{$i} {
-      flex-grow: $i;
-    }
-  }
-}
-
 .normal-page {
   display: flex;
   flex-direction: column;
