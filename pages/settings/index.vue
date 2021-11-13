@@ -255,8 +255,6 @@ export default {
       text-align: center;
 
       img {
-        box-shadow: var(--shadow-card);
-
         border-radius: var(--size-rounded-md);
         width: 8rem;
         margin-bottom: 0.5rem;

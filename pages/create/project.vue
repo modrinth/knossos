@@ -787,7 +787,6 @@ header {
 
   h3 {
     margin: auto 0;
-    color: var(--color-text-dark);
     font-weight: var(--font-weight-extrabold);
   }
 

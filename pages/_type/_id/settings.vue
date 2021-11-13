@@ -470,7 +470,6 @@ export default {
       .dropdown-icon {
         margin-left: 1rem;
         cursor: pointer;
-        color: var(--color-text-dark);
         background-color: unset;
         transition: 150ms ease transform;
         padding: unset;

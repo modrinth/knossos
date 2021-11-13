@@ -3,16 +3,24 @@
     <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
     <h1 v-else>Settings</h1>
     <div class="card styled-tabs">
-      <NuxtLink v-if="$auth.user" class="tab" to="/settings" exact
+      <NuxtLink v-if="$auth.user" class="styled-tabs__tab" to="/settings" exact
         ><span>Profile</span></NuxtLink
       >
-      <NuxtLink v-if="$auth.user" class="tab" to="/settings/follows">
+      <NuxtLink
+        v-if="$auth.user"
+        class="styled-tabs__tab"
+        to="/settings/follows"
+      >
         <span>Followed projects</span>
       </NuxtLink>
-      <NuxtLink v-if="$auth.user" class="tab" to="/settings/security">
+      <NuxtLink
+        v-if="$auth.user"
+        class="styled-tabs__tab"
+        to="/settings/security"
+      >
         <span>Security</span>
       </NuxtLink>
-      <NuxtLink class="tab" to="/settings/privacy">
+      <NuxtLink class="styled-tabs__tab" to="/settings/privacy">
         <span>Privacy</span>
       </NuxtLink>
       <button

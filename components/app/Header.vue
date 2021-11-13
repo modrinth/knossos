@@ -25,10 +25,10 @@
           <ModrinthLogo class="header__logo" />
         </NuxtLink>
         <nav class="header__desktop-nav styled-tabs">
-          <NuxtLink to="/mods" class="tab">
+          <NuxtLink to="/mods" class="styled-tabs__tab">
             <span>Mods</span>
           </NuxtLink>
-          <NuxtLink to="/modpacks" class="tab">
+          <NuxtLink to="/modpacks" class="styled-tabs__tab">
             <span>Modpacks</span>
           </NuxtLink>
         </nav>

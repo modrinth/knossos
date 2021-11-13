@@ -87,13 +87,11 @@ export default {
 }
 
 button {
-  box-shadow: var(--shadow-card);
-
   padding: 0;
   margin: 0;
   width: 2rem;
   height: 2rem;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   background: var(--color-raised-bg);
 
   &.page-number.current {

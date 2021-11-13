@@ -239,13 +239,11 @@ export default {
 
         .title {
           margin: 0 0.5rem 0 0;
-          color: var(--color-text-dark);
           font-size: var(--font-size-xl);
         }
 
         .author {
           margin: auto 0 0 0;
-          color: var(--color-text);
 
           a {
             text-decoration: underline;

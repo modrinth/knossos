@@ -416,7 +416,7 @@
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
             }`"
-            class="tab"
+            class="styled-tabs__tab"
             exact
           >
             <span>Description</span>
@@ -426,7 +426,7 @@
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
             }/gallery`"
-            class="tab"
+            class="styled-tabs__tab"
           >
             <span>Gallery</span>
           </NuxtLink>
@@ -435,7 +435,7 @@
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
             }/changelog`"
-            class="tab"
+            class="styled-tabs__tab"
           >
             <span>Changelog</span>
           </NuxtLink>
@@ -444,7 +444,7 @@
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
             }/versions`"
-            class="tab"
+            class="styled-tabs__tab"
           >
             <span>Versions</span>
           </NuxtLink>
@@ -453,7 +453,7 @@
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
             }/settings`"
-            class="tab"
+            class="styled-tabs__tab"
           >
             <span>Settings</span>
           </NuxtLink>
@@ -728,14 +728,12 @@ hr {
 
   .title {
     margin: 0.25rem 0;
-    color: var(--color-text-dark);
     font-size: var(--font-size-xl);
   }
 
   .side-descriptor {
     display: flex;
     align-items: center;
-    color: var(--color-text-dark);
     font-weight: bold;
     font-size: var(--font-size-sm);
     margin-bottom: 0.5rem;
@@ -759,7 +757,6 @@ hr {
   .description {
     margin-top: var(--spacing-card-sm);
     margin-bottom: 0.5rem;
-    color: var(--color-text-dark);
     font-size: var(--font-size-nm);
   }
 

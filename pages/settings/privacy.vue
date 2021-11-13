@@ -149,7 +149,6 @@ export default {
 
       .toggle-text {
         .title {
-          color: var(--color-text-dark);
           font-weight: bold;
           margin-bottom: 0.5rem;
         }

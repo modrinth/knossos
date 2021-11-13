@@ -3,7 +3,7 @@
     <button
       v-for="item in items"
       :key="item"
-      class="tab"
+      class="styled-tabs__tab"
       :class="{ selected: selected === item }"
       @click="toggleItem(item)"
     >

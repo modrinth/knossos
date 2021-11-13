@@ -7,7 +7,6 @@ html {
   --color-text: hsl(221, 39%, 11%);
   --color-text-secondary: hsl(220, 9%, 46%);
   --color-text-inactive: hsl(215, 14%, 34%);
-  --color-text-dark: #1a202c;
   --color-heading: #2c313d;
   --color-bg: hsl(220, 13%, 91%);
   --color-raised-bg: #ffffff;
@@ -27,7 +26,7 @@ html {
   --color-brand-disabled: #e2e8f0;
 
   --color-button-bg: #e6e7eb;
-  --color-button-text: var(--color-text-dark);
+  --color-button-text: var(--color-text);
   --color-button-bg-hover: #d9dce0;
   --color-button-text-hover: #1b1e24;
   --color-button-bg-active: #c3c6cb;
@@ -35,27 +34,23 @@ html {
   --color-button-bg-disabled: #eceef0;
   --color-button-text-disabled: #9da3ac;
   --color-transparent-button-bg-hover: var(--color-button-bg);
-  --color-transparent-button-text-hover: var(--color-text-dark);
+  --color-transparent-button-text-hover: var(--color-text);
   --color-transparent-button-bg-active: var(--color-button-bg-hover);
-  --color-transparent-button-text-active: var(--color-text-dark);
+  --color-transparent-button-text-active: var(--color-text);
 
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
 
   --color-category-bg: var(--color-bg);
-  --color-category-text: var(--color-text-dark);
+  --color-category-text: var(--color-text);
 
   --color-tooltip-bg: var(--color-text);
   --color-tooltip-text: var(--color-bg);
 
   --color-code-bg: var(--color-bg);
-  --color-code-text: var(--color-text-dark);
+  --color-code-text: var(--color-textk);
 
   --color-ad: #d6e6f9;
-
-  --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
-  --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
-  --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
 
   --color-link: #2089ff;
 
@@ -74,23 +69,16 @@ html {
 
   --color-table-border: #dfe2e5;
   --color-table-alternate-row: #f6f8fa;
-
-  --shadow-card: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.1), inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
-  --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2), inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
 }
 
 .dark-mode {
   --color-icon: #96a2b0;
   --color-text: #b0bac5;
-  --color-text-dark: #ecf9fb;
   --color-heading: #c4cfdd;
   --color-bg: #16181c;
   --color-raised-bg: #26292f;
   --color-divider: #474b54;
   --color-divider-dark: #646c75;
-
-  --color-text-inverted: var(--color-bg);
-  --color-bg-inverted: var(--color-text);
 
   --color-brand: #1cdf8b;
   --color-brand-hover: #2ef19f;
@@ -108,28 +96,8 @@ html {
   --color-button-bg-active: #616570;
   --color-button-text-active: var(--color-button-text-hover);
   --color-button-text-disabled: #444444;
-  --color-transparent-button-bg-hover: var(--color-button-bg);
-  --color-transparent-button-text-hover: var(--color-text-dark);
-  --color-transparent-button-bg-active: var(--color-button-bg-hover);
-  --color-transparent-button-text-active: var(--color-text-dark);
-
-  --color-dropdown-bg: var(--color-button-bg);
-  --color-dropdown-text: var(--color-button-text);
-
-  --color-category-bg: var(--color-button-bg);
-  --color-category-text: var(--color-text-dark);
-
-  --color-tooltip-bg: var(--color-text);
-  --color-tooltip-text: var(--color-bg);
-
-  --color-code-bg: var(--color-button-bg);
-  --color-code-text: var(--color-text-dark);
 
   --color-ad: #2c323a;
-
-  --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
-  --shadow-dropdown-strong: 3px 3px 20px hsla(0, 0%, 0%, 0.15);
-  --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
 
   --color-link: #4793d9;
 
@@ -141,10 +109,6 @@ html {
   --color-badge-green-bg: #24a54e;
   --color-badge-yellow-text: #755920;
   --color-badge-yellow-bg: #F7BB43;
-
-  --color-block-quote: var(--color-code-bg);
-  --color-header-underline: var(--color-tooltip-text);
-  --color-hr: var(--color-text);
 
   --color-table-border: #4f5864;
   --color-table-alternate-row: #262a30;
@@ -228,13 +192,11 @@ a {
 h2 {
   margin-top: 0;
   margin-bottom: 1rem;
-  color: var(--color-text-dark);
 }
 
 h3 {
   margin-top: 0.5rem;
   margin-bottom: 0;
-  color: var(--color-text-dark);
 }
 
 button {

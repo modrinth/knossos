@@ -24,13 +24,13 @@
   font-size: var(--font-size-nm);
   align-items: center;
 
-  box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
+  border-bottom: solid 1px var(--color-button-bg-hover);
 
   max-height: 2rem;
 
   color: var(--color-button-text);
   background-color: var(--color-button-bg);
-  border-radius: 2rem;
+  border-radius: 0.5rem;
 
   &:hover,
   &:focus {
@@ -404,15 +404,11 @@
     }
     .multiselect__tag {
       border-radius: 2rem;
-      color: var(--color-text-dark);
       background: transparent;
       border: 2px solid var(--color-brand);
     }
     .multiselect__tag-icon {
       background: transparent;
-      &:after {
-        color: var(--color-text-dark);
-      }
     }
     .multiselect__placeholder {
       color: var(--color-text);
@@ -428,7 +424,6 @@
     .multiselect__element {
       .multiselect__option--highlight {
         background: var(--color-button-bg-active);
-        color: var(--color-text-dark);
       }
       .multiselect__option--selected {
         background: var(--color-brand);
@@ -581,61 +576,60 @@ label {
   margin-top: 6px;
   overflow-x: scroll;
   scrollbar-width: none;
+}
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+.styled-tabs::-webkit-scrollbar {
+  display: none;
+}
 
-  .tab {
-    padding: 0;
-    margin-left: var(--spacing-card-bg);
+.styled-tabs__tab {
+  padding: 0;
+}
 
-    &:first-child {
-      margin-left: 0;
-    }
+.styled-tabs__tab:not(:first-child) {
+  margin-left: 1rem;
+}
 
-    span {
-      font-weight: bold;
-      display: block;
-      padding-bottom: 6px;
-      position: relative;
-      white-space: nowrap;
-    }
+.styled-tabs__tab span {
+  font-weight: bold;
+  display: block;
+  padding-bottom: 6px;
+  position: relative;
+  white-space: nowrap;
+}
 
-    span::after {
-      background-color: transparent;
-      content: "";
-      position: absolute;
-      display: block;
-      width: 60%;
-      height: 4px;
-      bottom: 0;
-      left: 20%;
-    }
+.styled-tabs__tab span::after {
+  background-color: transparent;
+  content: "";
+  position: absolute;
+  display: block;
+  width: 60%;
+  height: 4px;
+  bottom: 0;
+  left: 20%;
+}
 
-    &:hover,
-    &:focus {
-      color: var(--color-text);
+.styled-tabs__tab:hover,
+.styled-tabs__tab:focus,
+.styled-tabs__tab.nuxt-link-active,
+.styled-tabs__tab.selected {
+  color: var(--color-text);
+}
 
-      span::after {
-        background-color: var(--color-brand-disabled);
-      }
-    }
+.styled-tabs__tab:hover span::after,
+.styled-tabs__tab:focus span::after {
+  background-color: var(--color-brand-disabled);
+}
 
-    &.nuxt-link-active,
-    &.selected {
-      color: var(--color-text);
+.styled-tabs__tab.nuxt-link-active span::after,
+.styled-tabs__tab.selected span::after {
+  color: var(--color-text);
+  background-color: var(--color-brand);
+  box-shadow: 0 0 1px 0 var(--color-brand);
+}
 
-      span::after {
-        background-color: var(--color-brand);
-        box-shadow: 0 0 1px 0 var(--color-brand);
-      }
-    }
-  }
-
-  .right {
-    margin-left: auto;
-  }
+.styled-tabs .right {
+  margin-left: auto;
 }
 
 .error {
@@ -667,6 +661,4 @@ label {
   border-radius: var(--size-rounded-card);
 
   margin-bottom: var(--spacing-card-md);
-
-  // box-shadow: var(--shadow-card);
 }
