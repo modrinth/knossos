@@ -64,7 +64,7 @@
         </div>
       </div>
     </Popup>
-    <h1>Moderation</h1>
+    <h1 class="page-title">Moderation</h1>
     <ThisOrThat v-model="selectedType" class="card" :items="moderationTypes" />
     <div class="projects">
       <ProjectCard
@@ -302,11 +302,6 @@ export default {
       margin-left: auto;
     }
   }
-}
-
-h1 {
-  color: var(--color-text-dark);
-  margin: 0 0 1rem 1.5rem;
 }
 
 .report {

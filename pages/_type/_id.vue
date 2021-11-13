@@ -2,7 +2,7 @@
   <div class="normal-page">
     <aside class="normal-page__sidebar project-info">
       <div class="header card">
-        <nuxt-link
+        <NuxtLink
           :to="
             '/' +
             project.project_type +
@@ -18,8 +18,8 @@
                 : 'https://cdn.modrinth.com/placeholder.svg?inline'
             "
             alt="project - icon"
-        /></nuxt-link>
-        <nuxt-link
+        /></NuxtLink>
+        <NuxtLink
           :to="
             '/' +
             project.project_type +
@@ -28,7 +28,7 @@
           "
         >
           <h1 class="title">{{ project.title }}</h1>
-        </nuxt-link>
+        </NuxtLink>
         <div
           v-if="
             project.client_side === 'optional' &&
@@ -88,14 +88,14 @@
         </div>
         <hr />
         <div class="buttons">
-          <nuxt-link
+          <NuxtLink
             v-if="$auth.user"
             :to="`/create/report?id=${project.id}&t=project`"
             class="iconified-button"
           >
             <ReportIcon />
             Report
-          </nuxt-link>
+          </NuxtLink>
           <button
             v-if="$auth.user && !$user.follows.find((x) => x.id === project.id)"
             class="iconified-button"
@@ -320,14 +320,14 @@
               <DownloadIcon />
             </a>
             <div class="info">
-              <nuxt-link
+              <NuxtLink
                 :to="`/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/version/${encodeURIComponent(version.version_number)}`"
                 class="top"
               >
                 {{ version.name }}
-              </nuxt-link>
+              </NuxtLink>
               <div
                 v-if="version.game_versions.length > 0"
                 class="game-version item"
@@ -366,9 +366,9 @@
         >
           <img :src="member.avatar_url" alt="profile-picture" />
           <div class="member-info">
-            <nuxt-link :to="'/user/' + member.user.username" class="name">
+            <NuxtLink :to="'/user/' + member.user.username" class="name">
               <p>{{ member.name }}</p>
-            </nuxt-link>
+            </NuxtLink>
             <p class="role">{{ member.role }}</p>
           </div>
         </div>
@@ -412,7 +412,7 @@
     <main class="normal-page__content">
       <div class="project-main">
         <div class="card styled-tabs">
-          <nuxt-link
+          <NuxtLink
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
             }`"
@@ -420,8 +420,8 @@
             exact
           >
             <span>Description</span>
-          </nuxt-link>
-          <nuxt-link
+          </NuxtLink>
+          <NuxtLink
             v-if="project.gallery.length > 0 || currentMember"
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
@@ -429,8 +429,8 @@
             class="tab"
           >
             <span>Gallery</span>
-          </nuxt-link>
-          <nuxt-link
+          </NuxtLink>
+          <NuxtLink
             v-if="project.versions.length > 0"
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
@@ -438,8 +438,8 @@
             class="tab"
           >
             <span>Changelog</span>
-          </nuxt-link>
-          <nuxt-link
+          </NuxtLink>
+          <NuxtLink
             v-if="project.versions.length > 0"
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
@@ -447,8 +447,8 @@
             class="tab"
           >
             <span>Versions</span>
-          </nuxt-link>
-          <nuxt-link
+          </NuxtLink>
+          <NuxtLink
             v-if="currentMember"
             :to="`/${project.project_type}/${
               project.slug ? project.slug : project.id
@@ -456,7 +456,7 @@
             class="tab"
           >
             <span>Settings</span>
-          </nuxt-link>
+          </NuxtLink>
         </div>
         <div class="project-content">
           <NuxtChild

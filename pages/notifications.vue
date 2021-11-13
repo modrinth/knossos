@@ -1,6 +1,6 @@
 <template>
   <div class="narrow-page">
-    <h1>Notifications</h1>
+    <h1 class="page-title">Notifications</h1>
 
     <div class="divider card">
       <button class="iconified-button" @click="clearNotifications">
@@ -128,11 +128,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  color: var(--color-text-dark);
-  margin: 0 0 1rem 1.5rem;
-}
-
 .divider {
   button {
     margin-left: auto;

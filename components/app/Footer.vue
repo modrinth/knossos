@@ -15,17 +15,17 @@
       <ul class="footer__info-line footer-links">
         <li class="footer-links__item">
           <NuxtLink class="footer-links__link" to="/legal/terms">
-            Terms
+            Terms and Conditions
           </NuxtLink>
         </li>
         <li class="footer-links__item">
           <NuxtLink class="footer-links__link" to="/legal/privacy">
-            Privacy
+            Privacy Policy
           </NuxtLink>
         </li>
         <li class="footer-links__item">
           <NuxtLink class="footer-links__link" to="/legal/rules">
-            Content
+            Project Rules
           </NuxtLink>
         </li>
         <li class="footer-links__item">
@@ -116,8 +116,11 @@ export default {
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
   margin-left: 0;
+  /* This is so wrapped items have margin, but don't increase overall height of the block */
+  margin-top: 0;
   padding: 0;
 }
 .footer-links__item:not(:last-child)::after {
@@ -127,6 +130,8 @@ export default {
 
 .footer-links__link {
   display: inline-block;
+  margin-top: 0.5rem;
   text-decoration: underline;
+  white-space: nowrap;
 }
 </style>
