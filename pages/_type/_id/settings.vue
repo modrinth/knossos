@@ -67,9 +67,9 @@
     </div>
     <div
       v-for="(member, index) in allTeamMembers"
-      :key="member.user_id"
+      :key="member.user.id"
       class="card member"
-      :class="{ open: openTeamMembers.includes(member.user_id) }"
+      :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">
         <div class="info">
@@ -85,10 +85,10 @@
           <button
             class="dropdown-icon"
             @click="
-              openTeamMembers.indexOf(member.user_id) === -1
-                ? openTeamMembers.push(member.user_id)
+              openTeamMembers.indexOf(member.user.id) === -1
+                ? openTeamMembers.push(member.user.id)
                 : (openTeamMembers = openTeamMembers.filter(
-                    (it) => it !== member.user_id
+                    (it) => it !== member.user.id
                   ))
             "
           >
@@ -298,15 +298,15 @@ export default {
       },
     },
   },
+  fetch() {
+    this.allTeamMembers = this.allMembers
+  },
   data() {
     return {
       currentUsername: '',
       openTeamMembers: [],
       allTeamMembers: [],
     }
-  },
-  fetch() {
-    this.allTeamMembers = this.allMembers
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0
@@ -335,7 +335,7 @@ export default {
           data,
           this.$auth.headers
         )
-        await this.$router.go(null)
+        await this.updateMembers()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -352,10 +352,10 @@ export default {
 
       try {
         await this.$axios.delete(
-          `team/${this.project.team}/members/${this.allTeamMembers[index].user_id}`,
+          `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
           this.$auth.headers
         )
-        await this.$router.go(null)
+        await this.updateMembers()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -377,11 +377,11 @@ export default {
         }
 
         await this.$axios.patch(
-          `team/${this.project.team}/members/${this.allTeamMembers[index].user_id}`,
+          `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
           data,
           this.$auth.headers
         )
-        await this.$router.go(null)
+        await this.updateMembers()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -400,11 +400,11 @@ export default {
         await this.$axios.patch(
           `team/${this.project.team}/owner`,
           {
-            user_id: this.allTeamMembers[index].user_id,
+            user_id: this.allTeamMembers[index].user.id,
           },
           this.$auth.headers
         )
-        await this.$router.go(null)
+        await this.updateMembers()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -429,6 +429,18 @@ export default {
         text: 'Your _type has been successfully deleted.',
         type: 'success',
       })
+    },
+    async updateMembers() {
+      this.allTeamMembers = (
+        await this.$axios.get(
+          `team/${this.project.team}/members`,
+          this.$auth.headers
+        )
+      ).data.map((it) => ({
+        avatar_url: it.user.avatar_url,
+        name: it.user.username,
+        ...it,
+      }))
     },
   },
 }
