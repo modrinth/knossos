@@ -163,7 +163,14 @@ export default {
    */
   plugins: [
     '~/plugins/vue-tooltip.js',
-    '~/plugins/vue-notification.js',
+    {
+      src: '~/plugins/vue-notification.js',
+      ssr: true,
+    },
+    {
+      src: '~/plugins/vue-notification-client.js',
+      ssr: false,
+    },
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/auth.js',

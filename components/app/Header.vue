@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header wide-page">
     <!-- This wrapper is neccessary because flexbox doesn't account for padding in its calculations. Hence we have to use margin with flexbox, unfortunately -->
     <div class="header__wrapper">
       <div class="header__collapsible">
@@ -57,6 +57,7 @@
                 :src="$auth.user.avatar_url"
                 class="dropdown__control-image"
               />
+              <span class="dropdown__control-caret"></span>
             </button>
             <ul class="dropdown__content card" @click="removeFocus">
               <li>
@@ -70,6 +71,13 @@
                     </div>
                     <div class="dropdown-profile__prompt">Go to my profile</div>
                   </div>
+                </NuxtLink>
+              </li>
+              <hr class="dropdown__divider" />
+              <li>
+                <NuxtLink class="dropdown-item" to="/create/project">
+                  <CreateIcon class="dropdown-item__icon" />
+                  <span class="dropdown-item__text">Create a project</span>
                 </NuxtLink>
               </li>
               <hr class="dropdown__divider" />
@@ -140,6 +148,7 @@ import ModrinthIcon from '~/assets/images/logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 
+import CreateIcon from '~/assets/images/utils/plus.svg?inline'
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
@@ -158,6 +167,7 @@ export default {
     SunIcon,
     LogOutIcon,
     GitHubIcon,
+    CreateIcon,
     NotificationIcon,
     HamburgerIcon,
     SettingsIcon,
@@ -235,12 +245,12 @@ export default {
 }
 
 .header__user-control {
-  margin-left: 0.5rem;
+  margin-left: 0.25rem;
 }
 
 .header__user-dropdown,
 .header__signin {
-  margin: 0 0 0 1rem;
+  margin: 0 0 0 0.75rem;
 }
 
 .header__signin-clippable {
@@ -302,9 +312,15 @@ export default {
 
 .dropdown__control-image {
   border-radius: 100%;
-  height: 2.5rem;
+  height: 2rem;
   outline: 2px solid transparent;
-  width: 2.5rem;
+  width: 2rem;
+}
+
+.dropdown__control-caret::after {
+  content: '\23F7';
+  color: inherit;
+  margin-left: 0.25rem;
 }
 
 .dropdown__content {
