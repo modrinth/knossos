@@ -5,7 +5,7 @@
         <h1 class="typewriter">
           {{ currentText }}<span aria-hidden="true"></span>
         </h1>
-        <h1>modding platform</h1>
+        <h1>Minecraft modding platform</h1>
       </div>
       <div class="right columns">
         <img class="char" src="~/assets/images/logo.svg" alt="logo" />
