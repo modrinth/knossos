@@ -35,17 +35,8 @@
         <li>And even more cool features that we haven't thought of yet!</li>
       </ul>
     </div>
-    <m-footer class="footer" centered padded />
   </div>
 </template>
-<script>
-import MFooter from '~/components/layout/MFooter'
-export default {
-  components: {
-    MFooter,
-  },
-}
-</script>
 <style lang="scss" scoped>
 .roadmap-content {
   margin-left: 15%;
