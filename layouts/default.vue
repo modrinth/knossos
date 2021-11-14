@@ -139,6 +139,7 @@
         <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
         <a target="_blank" href="https://github.com/modrinth/knossos">GitHub</a>
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
+        <a target="_blank" href="/roadmap">Roadmap</a>
       </div>
       <div class="buttons">
         <nuxt-link to="/settings/privacy" class="iconified-button">
