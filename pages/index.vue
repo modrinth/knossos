@@ -34,15 +34,16 @@
         <h3>Built for developers</h3>
         <h1>The world's most modder-friendly platform</h1>
         <p>
+          <span>Note: The following is not yet implemented.</span> Check the
+          <a href="/roadmap">roadmap</a> to keep up to date on upcoming
+          features.
+        </p>
+        <p>
           Modrinth intends to give back to the community, not leech from it.
           That's why we plan to give creators <span>one hundred percent</span>
           of the ad revenue earned on their project pages back to them, while
           creating easy to use tools for every modder to publish their mods on
           the Modrinth platform.
-        </p>
-        <p>
-          <span>Note: This is currently not implemented.</span> There is no ETA
-          for when it will be.
         </p>
       </div>
       <div class="right columns workflow">
@@ -313,6 +314,10 @@ export default {
     span {
       color: var(--color-brand);
       font-weight: bold;
+    }
+
+    a {
+      color: var(--color-brand);
     }
   }
   &.left {
