@@ -1,6 +1,6 @@
 <template>
-  <div class="page-container">
-    <div class="roadmap-content">
+  <div class="main">
+    <div class="card">
       <h1>Roadmap</h1>
       <p>
         This is a listing of completed, planned, and in progress features for
@@ -37,12 +37,19 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  auth: false,
+}
+</script>
 <style lang="scss" scoped>
-.roadmap-content {
-  margin-left: 15%;
+.main {
+  margin: var(--spacing-card-sm) auto;
+  max-width: 800px;
 }
 
 a {
-  color: var(--color-brand);
+  text-decoration: underline;
+  color: var(--color-link);
 }
 </style>
