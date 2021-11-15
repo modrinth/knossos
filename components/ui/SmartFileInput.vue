@@ -1,5 +1,5 @@
 <template>
-  <button class="iconified-button" disabled>
+  <div class="columns">
     <label class="iconified-button" @drop.prevent="addFile" @dragover.prevent>
       <UploadIcon />
       {{ prompt }}
@@ -10,7 +10,7 @@
         @change="onChange"
       />
     </label>
-  </button>
+  </div>
 </template>
 
 <script>

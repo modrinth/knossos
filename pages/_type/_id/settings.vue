@@ -229,12 +229,12 @@
             Remove member
           </button>
           <button
-            class="iconified-button"
-            :disabled="
-              member.role === 'Owner' ||
-              member.role === 'Owner' ||
-              currentMember.role !== 'Owner'
+            v-if="
+              member.role !== 'Owner' &&
+              currentMember.role === 'Owner' &&
+              member.accepted
             "
+            class="iconified-button"
             @click="transferOwnership(index)"
           >
             <UserIcon />
@@ -298,15 +298,15 @@ export default {
       },
     },
   },
-  fetch() {
-    this.allTeamMembers = this.allMembers
-  },
   data() {
     return {
       currentUsername: '',
       openTeamMembers: [],
       allTeamMembers: [],
     }
+  },
+  fetch() {
+    this.allTeamMembers = this.allMembers
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0

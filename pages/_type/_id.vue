@@ -472,12 +472,12 @@
           </div>
           <div class="project-content">
             <NuxtChild
-              :project="project"
+              :project.sync="project"
               :versions.sync="versions"
               :featured-versions.sync="featuredVersions"
-              :members="members"
+              :members.sync="members"
               :current-member="currentMember"
-              :all-members="allMembers"
+              :all-members.sync="allMembers"
               :dependencies.sync="dependencies"
             />
           </div>
