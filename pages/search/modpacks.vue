@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Mods',
+  name: 'Modpacks',
   asyncData(ctx) {
     ctx.params.projectType = 'modpack'
   },

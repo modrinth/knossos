@@ -1,6 +1,4 @@
-import {
-  sortRoutes
-} from '@nuxt/utils'
+import { sortRoutes } from '@nuxt/utils'
 
 export default {
   /*
@@ -17,23 +15,25 @@ export default {
       lang: 'en',
     },
     title: 'Modrinth',
-    meta: [{
-        charset: 'utf-8'
+    meta: [
+      {
+        charset: 'utf-8',
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
+        content: 'width=device-width, initial-scale=1',
       },
       {
         hid: 'description',
         name: 'description',
-        content: 'Modrinth is a _type distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
+        content:
+          'Modrinth is a _type distribution platform. Modrinth is modern, easy to use, and built for modders. Modrinth currently supports Minecraft, including Forge and Fabric mod loaders.',
       },
 
       {
         hid: 'publisher',
         name: 'publisher',
-        content: 'Guavy LLC'
+        content: 'Guavy LLC',
       },
       {
         hid: 'apple-mobile-web-app-title',
@@ -43,18 +43,18 @@ export default {
       {
         hid: 'theme-color',
         name: 'theme-color',
-        content: '#30b27b'
+        content: '#30b27b',
       },
       {
         hid: 'color-scheme',
         name: 'color-scheme',
-        content: 'light dark'
+        content: 'light dark',
       },
 
       {
         hid: 'og:site_name',
         name: 'og:site_name',
-        content: 'Modrinth'
+        content: 'Modrinth',
       },
       {
         hid: 'og:description',
@@ -69,12 +69,12 @@ export default {
       {
         hid: 'og:type',
         name: 'og:type',
-        content: 'website'
+        content: 'website',
       },
       {
         hid: 'og:url',
         name: 'og:url',
-        content: 'https://www.modrinth.com'
+        content: 'https://www.modrinth.com',
       },
       {
         hid: 'og:image',
@@ -84,15 +84,16 @@ export default {
       {
         hid: 'twitter:card',
         name: 'twitter:card',
-        content: 'summary'
+        content: 'summary',
       },
       {
         hid: 'twitter:site',
         name: 'twitter:site',
-        content: '@modrinth'
+        content: '@modrinth',
       },
     ],
-    link: [{
+    link: [
+      {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico',
@@ -112,7 +113,8 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
+        href:
+          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap',
       },
     ],
     script: [],
@@ -136,7 +138,8 @@ export default {
         component: resolve(__dirname, 'pages/search.vue'),
         name: 'search',
         chunkName: 'pages/search',
-        children: [{
+        children: [
+          {
             path: '/mods',
             component: resolve(__dirname, 'pages/search/mods.vue'),
             name: 'mods',
@@ -248,9 +251,12 @@ export default {
     },
     babel: {
       plugins: [
-        ['@babel/plugin-proposal-private-methods', {
-          loose: true,
-        }, ]
+        [
+          '@babel/plugin-proposal-private-methods',
+          {
+            loose: true,
+          },
+        ],
       ],
     },
   },

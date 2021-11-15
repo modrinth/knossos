@@ -118,7 +118,7 @@
       </div>
       <div
         v-for="(item, index) in newGalleryItems"
-        :key="index"
+        :key="index + 'new'"
         class="card gallery-item"
       >
         <img
@@ -150,7 +150,7 @@
           <div class="gallery-buttons">
             <SmartFileInput
               accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
-              prompt="Upload image"
+              prompt="Upload"
               @change="(files) => showPreviewImage(files, index)"
             />
             <button
@@ -224,7 +224,6 @@ export default {
     showPreviewImage(files, index) {
       const reader = new FileReader()
       this.newGalleryItems[index].icon = files[0]
-      console.log(files[0])
 
       if (this.newGalleryItems[index].icon instanceof Blob) {
         reader.readAsDataURL(this.newGalleryItems[index].icon)
@@ -276,6 +275,15 @@ export default {
           )
         }
 
+        const project = (
+          await this.$axios.get(
+            `project/${this.project.id}`,
+            this.$auth.headers
+          )
+        ).data
+        this.$emit('update:project', project)
+        this.gallery = JSON.parse(JSON.stringify(project.gallery))
+
         this.deleteGalleryUrls = []
         this.editGalleryIndexes = []
         this.newGalleryItems = []
@@ -307,18 +315,22 @@ export default {
 <style lang="scss" scoped>
 .buttons {
   display: flex;
-  margin-bottom: var(--spacing-card-md);
 
   button {
     background-color: var(--color-raised-bg);
     margin-right: 0.5rem;
-
-    &.brand-button-colors {
-      background-color: var(--color-brand);
-    }
+    margin-bottom: var(--spacing-card-md);
 
     &:hover {
       background-color: var(--color-button-bg);
+    }
+
+    &.brand-button-colors {
+      background-color: var(--color-brand);
+
+      &:hover {
+        background-color: var(--color-brand-hover);
+      }
     }
   }
 }

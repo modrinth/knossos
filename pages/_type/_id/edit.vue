@@ -374,11 +374,7 @@ export default {
   fetch() {
     this.newProject = this.project
 
-    this.newProject.license = {
-      short: this.newProject.license.id,
-      name: this.newProject.license.name,
-      url: this.newProject.license.url,
-    }
+    this.newProject.license.short = this.newProject.license.id
 
     if (this.newProject.donation_urls) {
       for (const platform of this.newProject.donation_urls) {
@@ -484,6 +480,9 @@ export default {
         }
 
         this.isEditing = false
+
+        this.$emit('update:featuredVersions', this.newProject)
+
         await this.$router.replace(
           `/${this.project.project_type}/${
             this.newProject.slug ? this.newProject.slug : this.newProject.id

@@ -124,8 +124,8 @@
           placeholder="Enter the version name..."
         />
         <Checkbox v-model="version.featured" label="Featured" />
+        <hr />
       </div>
-      <hr />
       <section v-if="mode === 'edit' || mode === 'create'">
         <h3>Changelog</h3>
         <ThisOrThat
@@ -157,8 +157,8 @@
               : 'No changelog specified.'
           "
         ></div>
+        <hr />
       </section>
-      <hr />
       <section>
         <h3>Metadata</h3>
         <div :class="'data-wrapper ' + mode">
@@ -279,8 +279,8 @@
             <p class="value">{{ version.id }}</p>
           </div>
         </div>
+        <hr />
       </section>
-      <hr />
       <section
         v-if="
           version.dependencies.length > 0 ||
@@ -381,8 +381,8 @@
             </button>
           </div>
         </div>
+        <hr />
       </section>
-      <hr />
       <section
         v-if="version.files.length > 0 || mode === 'edit' || mode === 'create'"
       >
@@ -430,10 +430,13 @@
           </button>
         </div>
         <div v-if="mode === 'edit' || mode === 'create'">
-          <div v-for="(file, index) in newFiles" :key="index" class="file">
+          <div
+            v-for="(file, index) in newFiles"
+            :key="index + 'new'"
+            class="file"
+          >
             <p class="filename">{{ file.name }}</p>
             <button
-              v-if="mode === 'edit'"
               class="action iconified-button"
               @click="newFiles.splice(index, 1)"
             >
@@ -490,6 +493,14 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     this.setVersion()
+
+    if (this.mode === 'create') {
+      if (
+        !window.confirm('Are you sure that you want to leave without saving?')
+      ) {
+        return
+      }
+    }
 
     next()
   },
@@ -557,6 +568,16 @@ export default {
         await this.setVersion()
       },
     },
+  },
+  mounted() {
+    function preventLeave(e) {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', preventLeave)
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('beforeunload', preventLeave)
+    })
   },
   methods: {
     async setVersion() {
@@ -705,12 +726,11 @@ export default {
           ])
         ).map((it) => it.data)
 
-        this.$emit(
-          'update:versions',
-          this.versions
-            .filter((x) => x.id !== this.version.id)
-            .concat([version])
-        )
+        const editedVersions = this.versions
+        const index = this.versions.findIndex((x) => x.id === this.version.id)
+        editedVersions.splice(index, 1, version)
+
+        this.$emit('update:versions', editedVersions)
 
         this.$emit('update:featuredVersions', featuredVersions)
 
@@ -780,7 +800,7 @@ export default {
         ).data
 
         await this.$router.push(
-          `/project/${
+          `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : data.project_id
           }/version/${encodeURIComponent(data.version_number)}`
         )
@@ -979,6 +999,10 @@ section {
 }
 
 .options {
+  margin-bottom: var(--spacing-card-sm);
+}
+
+.styled-tabs {
   margin-bottom: var(--spacing-card-sm);
 }
 </style>

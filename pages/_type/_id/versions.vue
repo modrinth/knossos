@@ -133,7 +133,7 @@ export default {
 }
 
 .new-version {
-  max-width: 4.25rem;
+  max-width: 5.25rem;
 }
 
 table {
