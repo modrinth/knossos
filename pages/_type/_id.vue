@@ -122,13 +122,19 @@
           </div>
         </div>
         <div
-          v-if="project.status === 'processing' || project.moderator_message"
+          v-if="
+            currentMember &&
+            (project.status === 'processing' ||
+              (project.moderator_message &&
+                (project.moderator_message.message ||
+                  project.moderator_message.body)))
+          "
           class="card"
         >
           <h3>Project status</h3>
           <div class="status-info"></div>
           <p>
-            Your mod is currently:
+            Your project is currently:
             <VersionBadge
               v-if="project.status === 'approved'"
               color="green"
@@ -594,6 +600,58 @@ export default {
       })
     }
   },
+  head() {
+    return {
+      title: `${this.project.title} - ${
+        this.project.project_type.charAt(0).toUpperCase() +
+        this.project.project_type.slice(1)
+      }s - Modrinth`,
+      meta: [
+        {
+          hid: 'og:type',
+          name: 'og:type',
+          content: 'website',
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.project.title,
+        },
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: this.project.title,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.project.description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.project.title}: ${this.project.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
+        },
+        {
+          hid: 'og:url',
+          name: 'og:url',
+          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.project.icon_url
+            ? this.project.icon_url
+            : 'https://cdn.modrinth.com/placeholder.png',
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: this.project.status !== 'approved' ? 'noindex' : 'all',
+        },
+      ],
+    }
+  },
   methods: {
     formatNumber(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -668,58 +726,6 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
-  },
-  head() {
-    return {
-      title: `${this.project.title} - ${
-        this.project.project_type.charAt(0).toUpperCase() +
-        this.project.project_type.slice(1)
-      }s - Modrinth`,
-      meta: [
-        {
-          hid: 'og:type',
-          name: 'og:type',
-          content: 'website',
-        },
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: this.project.title,
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: this.project.title,
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          content: this.project.description,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.project.title}: ${this.project.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
-        },
-        {
-          hid: 'og:url',
-          name: 'og:url',
-          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
-        },
-        {
-          hid: 'og:image',
-          name: 'og:image',
-          content: this.project.icon_url
-            ? this.project.icon_url
-            : 'https://cdn.modrinth.com/placeholder.png',
-        },
-        {
-          hid: 'robots',
-          name: 'robots',
-          content: this.project.status !== 'approved' ? 'noindex' : 'all',
-        },
-      ],
-    }
   },
 }
 </script>

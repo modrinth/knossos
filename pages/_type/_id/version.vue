@@ -570,14 +570,16 @@ export default {
     },
   },
   mounted() {
-    function preventLeave(e) {
-      e.preventDefault()
-      e.returnValue = ''
+    if (this.mode === 'create') {
+      function preventLeave(e) {
+        e.preventDefault()
+        e.returnValue = ''
+      }
+      window.addEventListener('beforeunload', preventLeave)
+      this.$once('hook:beforeDestroy', () => {
+        window.removeEventListener('beforeunload', preventLeave)
+      })
     }
-    window.addEventListener('beforeunload', preventLeave)
-    this.$once('hook:beforeDestroy', () => {
-      window.removeEventListener('beforeunload', preventLeave)
-    })
   },
   methods: {
     async setVersion() {

@@ -244,9 +244,12 @@ export default {
         await this.$axios.patch(
           `project/${this.currentProject.id}`,
           {
-            moderation_message: this.currentProject.moderation_message,
-            moderation_message_body:
-              this.currentProject.moderation_message_body,
+            moderation_message: this.currentProject.moderation_message
+              ? this.currentProject.moderation_message
+              : null,
+            moderation_message_body: this.currentProject.moderation_message_body
+              ? this.currentProject.moderation_message_body
+              : null,
             status: this.currentProject.newStatus,
           },
           this.$auth.headers

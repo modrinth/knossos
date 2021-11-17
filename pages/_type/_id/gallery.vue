@@ -348,14 +348,13 @@ export default {
 
   img {
     width: 100%;
+    margin-top: 0.5rem;
     margin-bottom: 0;
 
     height: 10rem;
     object-fit: cover;
 
     border-radius: var(--size-rounded-card);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
   }
 
   .gallery-body {
