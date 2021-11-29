@@ -3,9 +3,11 @@
     <aside class="normal-page__sidebar">
       <section class="card">
         <button
-          class="button sidebar-menu-close-button"
+          class="iconified-button sidebar-menu-close-button"
           @click="sidebarMenuOpen = !sidebarMenuOpen"
         >
+          <EyeOffIcon v-if="sidebarMenuOpen" />
+          <EyeIcon v-else />
           {{ sidebarMenuOpen ? 'Hide filters' : 'Show filters' }}
         </button>
         <div
@@ -122,6 +124,7 @@
       <div class="card search-controls">
         <div class="iconified-input">
           <label class="hidden" for="search">Search Mods</label>
+          <SearchIcon />
           <input
             id="search"
             v-model="query"
@@ -131,7 +134,6 @@
             autocomplete="off"
             @input="onSearchChange(1)"
           />
-          <SearchIcon />
         </div>
         <div class="labeled-control">
           <span class="labeled-control__label">Sort by</span>
@@ -229,6 +231,8 @@ import ServerSide from '~/assets/images/categories/server.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ExitIcon from '~/assets/images/utils/exit.svg?inline'
+import EyeIcon from '~/assets/images/utils/eye.svg?inline'
+import EyeOffIcon from '~/assets/images/utils/eye-off.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -245,6 +249,8 @@ export default {
     ServerSide,
     SearchIcon,
     ExitIcon,
+    EyeIcon,
+    EyeOffIcon,
     LogoAnimated,
   },
   data() {
@@ -574,6 +580,10 @@ export default {
 .labeled-control__control {
   display: block;
   margin: 0.5rem 0;
+}
+
+.no-results {
+  text-align: center;
 }
 
 @media (min-width: 1024px) {

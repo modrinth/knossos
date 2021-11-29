@@ -1,60 +1,62 @@
 <template>
   <div class="normal-page">
-    <aside class="card sidebar normal-page__sidebar">
-      <img
-        class="sidebar__item profile-picture"
-        :src="user.avatar_url"
-        :alt="user.username"
-      />
-      <h1 class="sidebar__item username">{{ user.username }}</h1>
-      <nuxt-link
-        v-if="$auth.user && $auth.user.id !== user.id"
-        :to="`/create/report?id=${user.id}&t=user`"
-        class="sidebar__item report-button iconified-button"
-      >
-        <ReportIcon />
-        Report
-      </nuxt-link>
-      <div class="sidebar__item">
-        <Badge v-if="user.role === 'admin'" type="admin" color="red" />
-        <Badge
-          v-else-if="user.role === 'moderator'"
-          type="moderator"
-          color="yellow"
+    <div>
+      <aside class="card sidebar normal-page__sidebar">
+        <img
+          class="sidebar__item profile-picture"
+          :src="user.avatar_url"
+          :alt="user.username"
         />
-        <Badge v-else type="developer" color="green" />
-      </div>
-      <h3 class="sidebar__item">About me</h3>
-      <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
-      <div class="sidebar__item stats-block">
-        <div class="stats-block__item secondary-stat">
-          <SunriseIcon class="secondary-stat__icon" />
-          <span class="secondary-stat__text">
-            Joined {{ $dayjs(user.created).fromNow() }}
-          </span>
+        <h1 class="sidebar__item username">{{ user.username }}</h1>
+        <nuxt-link
+          v-if="$auth.user && $auth.user.id !== user.id"
+          :to="`/create/report?id=${user.id}&t=user`"
+          class="sidebar__item report-button iconified-button"
+        >
+          <ReportIcon />
+          Report
+        </nuxt-link>
+        <div class="sidebar__item">
+          <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+          <Badge
+            v-else-if="user.role === 'moderator'"
+            type="moderator"
+            color="yellow"
+          />
+          <Badge v-else type="developer" color="green" />
         </div>
-        <div class="stats-block__item secondary-stat">
-          <UserIcon class="secondary-stat__icon" />
-          <span class="secondary-stat__text">User ID: {{ user.id }}</span>
-        </div>
-      </div>
-      <div class="sidebar__item stats-block">
-        <div class="stats-block__item primary-stat">
-          <DownloadIcon class="primary-stat__icon" />
-          <div class="primary-stat__text">
-            <span class="primary-stat__counter">{{ sumDownloads() }}</span>
-            <span class="primary-stat__label">downloads</span>
+        <h3 class="sidebar__item">About me</h3>
+        <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
+        <div class="sidebar__item stats-block">
+          <div class="stats-block__item secondary-stat">
+            <SunriseIcon class="secondary-stat__icon" />
+            <span class="secondary-stat__text">
+              Joined {{ $dayjs(user.created).fromNow() }}
+            </span>
+          </div>
+          <div class="stats-block__item secondary-stat">
+            <UserIcon class="secondary-stat__icon" />
+            <span class="secondary-stat__text">User ID: {{ user.id }}</span>
           </div>
         </div>
-        <div class="stats-block__item primary-stat">
-          <HeartIcon class="primary-stat__icon" />
-          <div class="primary-stat__text">
-            <span class="primary-stat__counter">{{ sumFollows() }}</span>
-            <span class="primary-stat__label">followers of projects</span>
+        <div class="sidebar__item stats-block">
+          <div class="stats-block__item primary-stat">
+            <DownloadIcon class="primary-stat__icon" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+              <span class="primary-stat__label">downloads</span>
+            </div>
+          </div>
+          <div class="stats-block__item primary-stat">
+            <HeartIcon class="primary-stat__icon" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">{{ sumFollows() }}</span>
+              <span class="primary-stat__label">followers of projects</span>
+            </div>
           </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </div>
     <div class="normal-page__content">
       <nav class="card user-navigation">
         <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
@@ -67,6 +69,12 @@
           Create a project
         </nuxt-link>
       </nav>
+      <Advertisement
+        type="banner"
+        small-screen="square"
+        ethical-ads-small
+        ethical-ads-big
+      />
       <div v-if="projects.length > 0">
         <ProjectCard
           v-for="project in selectedProjectType !== 'all'
@@ -117,6 +125,7 @@
 import ProjectCard from '~/components/ui/ProjectCard'
 import ThisOrThat from '~/components/ui/ThisOrThat'
 import Badge from '~/components/ui/Badge'
+import Advertisement from '~/components/ads/Advertisement'
 
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
@@ -141,13 +150,17 @@ export default {
     ThisOrThat,
     UpToDate,
     UserIcon,
+    Advertisement,
   },
   async asyncData(data) {
     try {
       const [user, projects] = (
         await Promise.all([
-          data.$axios.get(`user/${data.params.id}`),
-          data.$axios.get(`user/${data.params.id}/projects`),
+          data.$axios.get(`user/${data.params.id}`, data.$auth.headers),
+          data.$axios.get(
+            `user/${data.params.id}/projects`,
+            data.$auth.headers
+          ),
         ])
       ).map((it) => it.data)
 

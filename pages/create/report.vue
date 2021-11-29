@@ -5,10 +5,11 @@
         <h3 class="column-grow-1">File a report</h3>
         <button
           title="Create"
-          class="brand-button column"
+          class="brand-button-colors iconified-button column"
           :disabled="!$nuxt.$loading"
           @click="createReport"
         >
+          <PlusIcon />
           Create
         </button>
       </header>
@@ -70,14 +71,25 @@
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
+            class="text-link"
             >here</a
           >.
         </span>
-        <div class="columns">
-          <div class="textarea-wrapper">
-            <textarea id="body" v-model="body"></textarea>
+        <ThisOrThat
+          v-model="bodyViewMode"
+          class="separator"
+          :items="['source', 'preview']"
+        />
+        <div class="edit-wrapper">
+          <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
+            <textarea id="body" v-model="body" />
           </div>
-          <div class="markdown-body" v-html="$xss($md.render(body))"></div>
+          <div
+            v-if="bodyViewMode === 'preview'"
+            v-highlightjs
+            class="markdown-body"
+            v-html="body ? $xss($md.render(body)) : 'No body specified.'"
+          ></div>
         </div>
       </section>
     </div>
@@ -86,14 +98,15 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
+import ThisOrThat from '~/components/ui/ThisOrThat'
+
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 
 export default {
   components: {
     Multiselect,
-  },
-  fetch() {
-    if (this.$route.query.id) this.itemId = this.$route.query.id
-    if (this.$route.query.t) this.itemType = this.$route.query.t
+    ThisOrThat,
+    PlusIcon,
   },
   async asyncData(data) {
     const reportTypes = (await data.$axios.get(`tag/report_type`)).data
@@ -109,8 +122,14 @@ export default {
       reportType: '',
       body: '',
 
+      bodyViewMode: 'source',
+
       reportTypes: ['aaaa'],
     }
+  },
+  fetch() {
+    if (this.$route.query.id) this.itemId = this.$route.query.id
+    if (this.$route.query.t) this.itemType = this.$route.query.t
   },
   methods: {
     async createReport() {
@@ -238,20 +257,22 @@ section.info {
 section.description {
   grid-area: description;
 
-  & > .columns {
-    align-items: stretch;
+  .separator {
+    margin: var(--spacing-card-sm) 0;
+  }
+
+  .edit-wrapper * {
     min-height: 10rem;
     max-height: 40rem;
-
-    & > * {
-      flex: 1;
-      max-width: 50%;
-    }
   }
 
   .markdown-body {
     overflow-y: auto;
     padding: 0 var(--spacing-card-sm);
   }
+}
+
+.card {
+  margin-bottom: 0;
 }
 </style>

@@ -5,7 +5,7 @@
         <h3 class="column-grow-1">Create a project</h3>
         <button
           title="Save draft"
-          class="button column"
+          class="iconified-button column"
           :disabled="!$nuxt.$loading"
           @click="createDraft"
         >
@@ -13,10 +13,11 @@
         </button>
         <button
           title="Submit for review"
-          class="brand-button column"
+          class="iconified-button brand-button-colors column"
           :disabled="!$nuxt.$loading"
           @click="createProject"
         >
+          <CheckIcon />
           Submit for review
         </button>
       </header>
@@ -92,40 +93,32 @@
           />
         </label>
       </section>
-      <section class="card project-icon rows">
+      <section class="card project-icon">
         <h3>Icon</h3>
-        <div class="columns row-grow-1">
-          <div class="column-grow-1 rows">
-            <file-input
-              accept="image/png,image/jpeg,image/gif,image/webp"
-              class="choose-image"
-              prompt="Choose image or drag it here"
-              @change="showPreviewImage"
-            />
-            <ul class="row-grow-1">
-              <li>Must be square</li>
-              <li>Minimum size is 100x100 pixels</li>
-              <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
-            </ul>
-            <button
-              class="transparent-button"
-              @click="
-                icon = null
-                previewImage = null
-              "
-            >
-              Reset icon
-            </button>
-          </div>
-          <img
-            :src="
-              previewImage
-                ? previewImage
-                : 'https://cdn.modrinth.com/placeholder.svg'
-            "
-            alt="preview-image"
-          />
-        </div>
+        <img
+          :src="
+            previewImage
+              ? previewImage
+              : 'https://cdn.modrinth.com/placeholder.svg'
+          "
+          alt="preview-image"
+        />
+        <file-input
+          accept="image/png,image/jpeg,image/gif,image/webp"
+          class="choose-image"
+          prompt="Choose image or drag it here"
+          @change="showPreviewImage"
+        />
+        <button
+          class="iconified-button"
+          @click="
+            icon = null
+            previewImage = null
+          "
+        >
+          <TrashIcon />
+          Reset icon
+        </button>
       </section>
       <section class="card game-sides">
         <h3>Supported environments</h3>
@@ -172,7 +165,7 @@
           You can type an extended description of your mod here. This editor
           supports Markdown. Its syntax can be found
           <a
-            class=""
+            class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
@@ -180,11 +173,21 @@
           >. HTML can also be used inside your description, excluding scripts
           and iframes.
         </span>
-        <div class="columns">
-          <div class="textarea-wrapper">
-            <textarea id="body" v-model="body"></textarea>
+        <ThisOrThat
+          v-model="bodyViewMode"
+          class="separator"
+          :items="['source', 'preview']"
+        />
+        <div class="edit-wrapper">
+          <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
+            <textarea id="body" v-model="body" />
           </div>
-          <div class="markdown-body" v-html="$xss($md.render(body))"></div>
+          <div
+            v-if="bodyViewMode === 'preview'"
+            v-highlightjs
+            class="markdown-body"
+            v-html="body ? $xss($md.render(body)) : 'No body specified.'"
+          ></div>
         </div>
       </section>
       <section class="card versions">
@@ -192,10 +195,11 @@
           <h3>Create versions</h3>
           <button
             title="Add a version"
-            class="button"
+            class="iconified-button"
             :disabled="currentVersionIndex !== -1"
             @click="createVersion"
           >
+            <PlusIcon />
             Add a version
           </button>
         </div>
@@ -224,33 +228,32 @@
               <td>{{ version.loaders.join(', ') }}</td>
               <td>{{ version.game_versions.join(', ') }}</td>
               <td>
-                <span
+                <VersionBadge
                   v-if="version.release_channel === 'release'"
-                  class="badge green"
-                >
-                  Release
-                </span>
-                <span
-                  v-if="version.release_channel === 'beta'"
-                  class="badge yellow"
-                >
-                  Beta
-                </span>
-                <span
-                  v-if="version.release_channel === 'alpha'"
-                  class="badge red"
-                >
-                  Alpha
-                </span>
+                  type="release"
+                  color="green"
+                />
+                <VersionBadge
+                  v-else-if="version.release_channel === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <VersionBadge
+                  v-else-if="version.release_channel === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
               </td>
               <td>
                 <button
+                  class="iconified-button"
                   title="Remove version"
                   @click="versions.splice(index, 1)"
                 >
                   Remove
                 </button>
                 <button
+                  class="iconified-button"
                   title="Edit version"
                   @click="currentVersionIndex = index"
                 >
@@ -264,13 +267,17 @@
         <div v-if="currentVersionIndex !== -1" class="new-version">
           <div class="controls">
             <button
-              class="brand-button"
+              class="brand-button-colors iconified-button"
               title="Save version"
               @click="currentVersionIndex = -1"
             >
               Save version
             </button>
-            <button title="Discard version" @click="deleteVersion">
+            <button
+              class="iconified-button"
+              title="Discard version"
+              @click="deleteVersion"
+            >
               Discard
             </button>
           </div>
@@ -374,25 +381,199 @@
               />
             </label>
           </div>
+          <div class="dependencies">
+            <h3>Dependencies</h3>
+            <div class="dependency-selector">
+              <ThisOrThat
+                v-model="dependencyAddMode"
+                class="separator"
+                :items="['project', 'version']"
+              />
+              <div class="edit-info">
+                <input
+                  v-model="newDependencyId"
+                  type="text"
+                  :placeholder="`Enter the ${dependencyAddMode} id...`"
+                />
+                <Multiselect
+                  v-model="newDependencyType"
+                  class="input"
+                  placeholder="Select one"
+                  :options="['required', 'optional', 'incompatible']"
+                  :searchable="false"
+                  :close-on-select="true"
+                  :show-labels="false"
+                  :allow-empty="false"
+                />
+                <button class="iconified-button" @click="addDependency">
+                  <PlusIcon />
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="new-dependencies">
+              <div
+                v-for="(dependency, index) in versions[currentVersionIndex]
+                  .dependencies"
+                :key="index"
+                class="dependency"
+              >
+                <img
+                  class="icon"
+                  :src="
+                    dependency.project
+                      ? dependency.project.icon_url
+                        ? dependency.project.icon_url
+                        : 'https://cdn.modrinth.com/placeholder.svg?inline'
+                      : 'https://cdn.modrinth.com/placeholder.svg?inline'
+                  "
+                  alt="dependency-icon"
+                />
+                <div class="info">
+                  <h4 class="title">
+                    {{
+                      dependency.project
+                        ? dependency.project.title
+                        : 'Unknown Project'
+                    }}
+                  </h4>
+                  <p v-if="dependency.version" class="version-number">
+                    Version {{ dependency.version.version_number }} is
+                    {{ dependency.dependency_type }}
+                  </p>
+                  <div class="bottom">
+                    <button
+                      class="iconified-button"
+                      @click="
+                        versions[currentVersionIndex].dependencies.splice(
+                          index,
+                          1
+                        )
+                      "
+                    >
+                      <TrashIcon /> Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="changelog">
             <h3>Changes</h3>
             <span>
               Tell everyone what's new. It supports the same Markdown formatting
-              as the description, but it is advised to not be too creative with
-              changelogs
+              as the description.
             </span>
-            <div class="textarea-wrapper">
-              <textarea
-                v-model="versions[currentVersionIndex].changelog"
-              ></textarea>
+            <ThisOrThat
+              v-model="changelogViewMode"
+              class="separator"
+              :items="['source', 'preview']"
+            />
+            <div class="edit-wrapper">
+              <div
+                v-if="changelogViewMode === 'source'"
+                class="textarea-wrapper"
+              >
+                <textarea
+                  id="body"
+                  v-model="versions[currentVersionIndex].changelog"
+                />
+              </div>
+              <div
+                v-if="changelogViewMode === 'preview'"
+                v-highlightjs
+                class="markdown-body"
+                v-html="
+                  versions[currentVersionIndex].changelog
+                    ? $xss($md.render(versions[currentVersionIndex].changelog))
+                    : 'No changelog specified.'
+                "
+              ></div>
             </div>
+          </div>
+        </div>
+      </section>
+      <section class="card gallery">
+        <div class="title">
+          <div class="text">
+            <h3>Gallery</h3>
+            <i>— this section is optional</i>
+          </div>
+          <button
+            title="Add an image"
+            class="iconified-button"
+            :disabled="false"
+            @click="gallery.push({})"
+          >
+            <PlusIcon />
+            Add a image
+          </button>
+        </div>
+        <div v-for="(item, index) in gallery" :key="index" class="gallery-item">
+          <div class="info">
+            <label title="The title of the gallery item">
+              <span>Title</span>
+              <input
+                v-model="item.title"
+                type="text"
+                placeholder="Enter a title"
+              />
+            </label>
+            <label
+              title="The description of what is being featured in the link."
+            >
+              <span>Description (optional)</span>
+              <input
+                v-model="item.description"
+                type="text"
+                placeholder="Enter a description"
+              />
+            </label>
+          </div>
+          <div class="image">
+            <img
+              :src="
+                item.preview
+                  ? item.preview
+                  : 'https://cdn.modrinth.com/placeholder-banner.svg'
+              "
+              alt="preview-image"
+            />
+            <div class="bottom">
+              <SmartFileInput
+                accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
+                prompt="Upload"
+                @change="(files) => showGalleryPreviewImage(files, index)"
+              />
+              <button
+                class="iconified-button"
+                @click="
+                  item.icon = null
+                  item.preview = null
+                  $forceUpdate()
+                "
+              >
+                <TrashIcon />
+                Reset image
+              </button>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="iconified-button" @click="gallery.splice(index, 1)">
+              <TrashIcon />
+              Remove Gallery Image
+            </button>
+
+            <hr v-if="gallery.length > 0 && index !== gallery.length - 1" />
           </div>
         </div>
       </section>
       <section class="card extra-links">
         <div class="title">
-          <h3>External links</h3>
-          <i>— this section is optional</i>
+          <div class="text">
+            <h3>External links</h3>
+            <i>— this section is optional</i>
+          </div>
         </div>
         <label
           title="A place for users to report bugs, issues, and concerns about your project."
@@ -435,8 +616,10 @@
       </section>
       <section class="card license">
         <div class="title">
-          <h3>License</h3>
-          <i>— this section is optional</i>
+          <div class="text">
+            <h3>License</h3>
+            <i>— this section is optional</i>
+          </div>
         </div>
         <label>
           <span>
@@ -445,6 +628,7 @@
             <br />
             Confused? See our
             <a
+              class="text-link"
               href="https://blog.modrinth.com/licensing-guide/"
               target="_blank"
               rel="noopener noreferrer"
@@ -470,17 +654,20 @@
       </section>
       <section class="card donations">
         <div class="title">
-          <h3>Donation links</h3>
-          <i>— this section is optional</i>
+          <div class="text">
+            <h3>Donation links</h3>
+            <i>— this section is optional</i>
+          </div>
           <button
             title="Add a link"
-            class="button"
+            class="iconified-button"
             :disabled="false"
             @click="
               donationPlatforms.push({})
               donationLinks.push('')
             "
           >
+            <PlusIcon />
             Add a link
           </button>
         </div>
@@ -507,15 +694,21 @@
             />
           </label>
           <button
-            class="button"
+            class="iconified-button"
             @click="
               donationPlatforms.splice(index, 1)
               donationLinks.splice(index, 1)
             "
           >
+            <TrashIcon />
             Remove Link
           </button>
-          <hr />
+          <hr
+            v-if="
+              donationPlatforms.length > 0 &&
+              index !== donationPlatforms.length - 1
+            "
+          />
         </div>
       </section>
     </div>
@@ -524,13 +717,25 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-
 import FileInput from '~/components/ui/FileInput'
+import SmartFileInput from '~/components/ui/SmartFileInput'
+import ThisOrThat from '~/components/ui/ThisOrThat'
+import VersionBadge from '~/components/ui/Badge'
+
+import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
 export default {
   components: {
     FileInput,
+    SmartFileInput,
     Multiselect,
+    CheckIcon,
+    PlusIcon,
+    TrashIcon,
+    ThisOrThat,
+    VersionBadge,
   },
   beforeRouteLeave(to, from, next) {
     if (
@@ -572,7 +777,15 @@ export default {
       donationLinks: [],
       donationPlatforms: [],
 
+      gallery: [],
+
       isEditing: true,
+      bodyViewMode: 'source',
+      changelogViewMode: 'source',
+
+      newDependencyType: 'required',
+      dependencyAddMode: 'project',
+      newDependencyId: '',
     }
   },
   watch: {
@@ -650,7 +863,14 @@ export default {
               url: this.donationLinks[index],
             }
           }),
-          gallery_items: [],
+          gallery_items: this.gallery.map((x, index) => {
+            return {
+              item: `gallery-${index}`,
+              featured: false,
+              title: x.title,
+              description: x.description,
+            }
+          }),
         })
       )
 
@@ -658,12 +878,21 @@ export default {
         formData.append('icon', new Blob([this.icon]), this.icon.name)
       }
 
-      for (const version of this.versions) {
-        for (let i = 0; i < version.raw_files.length; i++) {
+      for (let i = 0; i < this.gallery.length; i++) {
+        formData.append(
+          `gallery-${i}`,
+          new Blob([this.gallery[i].icon]),
+          this.gallery[i].icon.name
+        )
+      }
+
+      for (let i = 0; i < this.versions.length; i++) {
+        const version = this.versions[i]
+        for (let j = 0; j < version.raw_files.length; j++) {
           formData.append(
-            version.file_parts[i],
-            new Blob([version.raw_files[i]]),
-            version.raw_files[i].name
+            `version-${i}-${j}`,
+            new Blob([version.raw_files[j]]),
+            version.raw_files[j].name
           )
         }
       }
@@ -716,12 +945,28 @@ export default {
       }
     },
 
+    showGalleryPreviewImage(files, index) {
+      const reader = new FileReader()
+      this.gallery[index].icon = files[0]
+
+      if (this.gallery[index].icon instanceof Blob) {
+        reader.readAsDataURL(this.gallery[index].icon)
+
+        reader.onload = (event) => {
+          this.gallery[index].preview = event.target.result
+
+          // TODO: Find an alternative for this!
+          this.$forceUpdate()
+        }
+      }
+    },
+
     updateVersionFiles(files) {
       this.versions[this.currentVersionIndex].raw_files = files
 
       const newFileParts = []
       for (let i = 0; i < files.length; i++) {
-        newFileParts.push(files[i].name.concat('-' + i))
+        newFileParts.push(`version-${this.currentVersionIndex}-${i}`)
       }
 
       this.versions[this.currentVersionIndex].file_parts = newFileParts
@@ -748,30 +993,71 @@ export default {
       this.versions.splice(this.currentVersionIndex, 1)
       this.currentVersionIndex = -1
     },
+
+    async addDependency() {
+      try {
+        if (this.dependencyAddMode === 'project') {
+          const project = (
+            await this.$axios.get(`project/${this.newDependencyId}`)
+          ).data
+
+          this.versions[this.currentVersionIndex].dependencies.push({
+            project,
+            project_id: project.id,
+            dependency_type: this.newDependencyType,
+          })
+        } else if (this.dependencyAddMode === 'version') {
+          const version = (
+            await this.$axios.get(`version/${this.newDependencyId}`)
+          ).data
+          const project = (
+            await this.$axios.get(`project/${version.project_id}`)
+          ).data
+
+          this.versions[this.currentVersionIndex].dependencies.push({
+            version,
+            project,
+            version_id: version.id,
+            project_id: project.id,
+            dependency_type: this.newDependencyType,
+          })
+        }
+      } catch {
+        this.$notify({
+          group: 'main',
+          title: 'Invalid Dependency',
+          text: 'The specified dependency does not exist',
+          type: 'error',
+        })
+      }
+
+      this.newDependencyId = ''
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .title {
-  * {
+  .text * {
     display: inline;
   }
-  .button {
-    margin-left: 1rem;
-  }
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .page-contents {
   display: grid;
   grid-template:
     'header       header       header' auto
-    'advert       advert       advert' auto
     'essentials   essentials   essentials' auto
     'project-icon project-icon project-icon' auto
     'game-sides   game-sides   game-sides' auto
     'description  description  description' auto
     'versions     versions     versions' auto
+    'gallery      gallery      gallery' auto
     'extra-links  extra-links  extra-links' auto
     'license      license      license' auto
     'donations    donations    donations' auto
@@ -781,15 +1067,15 @@ export default {
   @media screen and (min-width: 1024px) {
     grid-template:
       'header       header      header' auto
-      'advert       advert      advert' auto
       'essentials   essentials  project-icon' auto
       'game-sides   game-sides  game-sides' auto
       'description  description description' auto
       'versions     versions    versions' auto
+      'gallery      gallery      gallery' auto
       'extra-links  license     license' auto
       'donations    donations   donations' auto
       'footer       footer      footer' auto
-      / 4fr 1fr 4fr;
+      / 4fr 2fr 1.5fr;
   }
 
   column-gap: var(--spacing-card-md);
@@ -810,10 +1096,6 @@ header {
   }
 }
 
-.advert {
-  grid-area: advert;
-}
-
 section.essentials {
   grid-area: essentials;
 }
@@ -822,10 +1104,14 @@ section.project-icon {
   grid-area: project-icon;
 
   img {
-    align-self: flex-start;
-    max-width: 50%;
-    margin-left: var(--spacing-card-lg);
+    max-width: 100%;
+    margin-bottom: 1rem;
     border-radius: var(--size-rounded-lg);
+  }
+
+  .iconified-button {
+    width: 9rem;
+    margin-top: 0.5rem;
   }
 }
 
@@ -849,19 +1135,13 @@ section.game-sides {
 section.description {
   grid-area: description;
 
-  span a {
-    text-decoration: underline;
+  .separator {
+    margin: var(--spacing-card-sm) 0;
   }
 
-  & > .columns {
-    align-items: stretch;
+  .edit-wrapper * {
     min-height: 10rem;
     max-height: 40rem;
-
-    & > * {
-      flex: 1;
-      max-width: 50%;
-    }
   }
 
   .markdown-body {
@@ -914,14 +1194,16 @@ section.versions {
         padding-left: 0;
         width: 12%;
       }
+
+      &:last-child {
+        display: flex;
+      }
     }
 
     th {
       color: var(--color-heading);
       font-size: 0.8rem;
       letter-spacing: 0.02rem;
-      margin-bottom: 0.5rem;
-      margin-top: 1.5rem;
       padding: 0.75rem 1rem;
       text-transform: uppercase;
     }
@@ -949,18 +1231,100 @@ section.versions {
     display: grid;
     grid-template:
       'controls controls' auto
-      'main changelog' auto
+      'main main' auto
+      'dependencies dependencies' auto
+      'changelog changelog'
       / 5fr 4fr;
-    column-gap: var(--spacing-card-md);
+
+    @media screen and (min-width: 1024px) {
+      grid-template:
+        'controls controls' auto
+        'main dependencies' auto
+        'changelog changelog'
+        / 5fr 4fr;
+    }
+
+    column-gap: var(--spacing-card-sm);
 
     .controls {
       grid-area: controls;
       display: flex;
       flex-direction: row-reverse;
+      gap: 0.5rem;
     }
 
     .main {
       grid-area: main;
+    }
+
+    .dependencies {
+      grid-area: dependencies;
+
+      .dependency-selector {
+        .separator {
+          margin: var(--spacing-card-sm) 0;
+        }
+
+        h4 {
+          margin: 0 0 0.25rem 0;
+        }
+
+        .edit-info {
+          display: flex;
+          flex-wrap: wrap;
+          row-gap: 0.25rem;
+
+          .multiselect {
+            max-width: 10rem;
+          }
+
+          .iconified-button {
+            min-height: 2.5rem;
+          }
+
+          input,
+          .multiselect,
+          .iconified-button {
+            margin: 0 0.5rem 0 0;
+          }
+        }
+      }
+
+      .new-dependencies {
+        margin-top: var(--spacing-card-sm);
+        display: flex;
+        flex-wrap: wrap;
+
+        .dependency {
+          align-items: center;
+          display: flex;
+          flex-basis: 50%;
+          margin-bottom: 0.5rem;
+
+          .icon {
+            width: 3rem;
+            height: 3rem;
+            margin-right: 0.5rem;
+            border-radius: var(--size-rounded-xs);
+            object-fit: contain;
+          }
+
+          .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.25rem;
+
+            p {
+              margin: 0;
+            }
+
+            .title {
+              margin: 0 0.25rem 0 0;
+            }
+          }
+        }
+      }
     }
 
     .changelog {
@@ -968,8 +1332,86 @@ section.versions {
       display: flex;
       flex-direction: column;
 
-      .textarea-wrapper {
+      .separator {
+        margin: var(--spacing-card-sm) 0;
+      }
+
+      .edit-wrapper {
         flex: 1;
+
+        .textarea-wrapper {
+          min-height: 10rem;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+section.gallery {
+  grid-area: gallery;
+
+  .gallery-item {
+    margin-top: 1rem;
+    display: grid;
+    grid-template:
+      'info' auto
+      'image' auto
+      'buttons' auto
+      / 1fr;
+
+    @media screen and (min-width: 1024px) {
+      grid-template:
+        'info image' auto
+        'buttons buttons'
+        / 2fr 1fr;
+    }
+
+    column-gap: var(--spacing-card-md);
+    row-gap: var(--spacing-card-sm);
+
+    .info {
+      grid-area: info;
+
+      label {
+        align-items: center;
+        margin-top: var(--spacing-card-sm);
+
+        span {
+          flex: 1;
+        }
+      }
+    }
+
+    .image {
+      grid-area: image;
+
+      img {
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        height: 14rem;
+        object-fit: cover;
+
+        border-radius: var(--size-rounded-card);
+      }
+
+      .bottom {
+        display: flex;
+
+        input,
+        button {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    .buttons {
+      grid-area: buttons;
+
+      hr {
+        margin-top: 0.5rem;
       }
     }
   }
@@ -1017,8 +1459,7 @@ section.donations {
   cursor: pointer;
 }
 
-a {
-  text-decoration: underline;
-  color: var(--color-link);
+.card {
+  margin-bottom: 0;
 }
 </style>

@@ -33,7 +33,7 @@
         </div>
         <a
           :href="$parent.findPrimary(version).url"
-          class="iconified-button"
+          class="iconified-button download"
           @click.prevent="
             $parent.downloadFile(
               $parent.findPrimary(version).hashes.sha1,
@@ -98,8 +98,8 @@ export default {
   align-items: center;
 
   .circle {
-    width: 0.75rem;
-    height: 0.75rem;
+    min-width: 0.75rem;
+    min-height: 0.75rem;
     border-radius: 50%;
     display: inline-block;
     margin-right: 0.25rem;
@@ -121,6 +121,7 @@ export default {
     display: flex;
     align-items: baseline;
     margin: 0 0.75rem;
+    flex-wrap: wrap;
 
     h2 {
       margin: 0;
@@ -130,6 +131,14 @@ export default {
     h2,
     span {
       padding-right: 0.25rem;
+    }
+  }
+
+  .download {
+    display: none;
+
+    @media screen and (min-width: 800px) {
+      display: flex;
     }
   }
 }

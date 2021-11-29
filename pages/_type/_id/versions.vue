@@ -63,6 +63,28 @@
                 <span class="divider" />
                 <span class="version_number">{{ version.version_number }}</span>
               </div>
+              <div class="mobile-info">
+                <p>
+                  {{
+                    version.loaders
+                      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                      .join(', ') +
+                    ' ' +
+                    version.game_versions[version.game_versions.length - 1]
+                  }}
+                </p>
+                <p></p>
+                <p>
+                  <strong>{{ $parent.formatNumber(version.downloads) }}</strong>
+                  downloads
+                </p>
+                <p>
+                  Published on
+                  <strong>{{
+                    $dayjs(version.date_published).format('MMM D, YYYY')
+                  }}</strong>
+                </p>
+              </div>
             </div>
           </td>
           <td>
@@ -143,6 +165,11 @@ table {
   th {
     text-align: left;
     font-size: var(--font-size-md);
+
+    &:nth-child(3),
+    &:nth-child(4) {
+      display: none;
+    }
   }
 
   tr {
@@ -168,14 +195,22 @@ table {
           background-color: var(--color-text);
         }
       }
+
+      .mobile-info {
+        p {
+          margin: 0.25rem 0 0;
+        }
+      }
     }
     td:nth-child(3) {
+      display: none;
       width: 100%;
       p {
         margin: 0.25rem 0;
       }
     }
     td:nth-child(4) {
+      display: none;
       min-width: 15rem;
       p {
         margin: 0.25rem 0;
@@ -184,6 +219,23 @@ table {
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  table {
+    tr {
+      th:nth-child(3),
+      td:nth-child(3),
+      th:nth-child(4),
+      td:nth-child(4) {
+        display: table-cell;
+      }
+    }
+  }
+
+  .mobile-info {
+    display: none;
   }
 }
 </style>

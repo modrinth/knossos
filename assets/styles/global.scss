@@ -82,6 +82,7 @@ html {
 .dark-mode {
   --color-icon: #96a2b0;
   --color-text: #b0bac5;
+  --color-text-inactive: #929aa3;
   --color-text-dark: #ecf9fb;
   --color-heading: #c4cfdd;
   --color-bg: #16181c;
@@ -107,7 +108,7 @@ html {
   --color-button-text-hover: #ffffff;
   --color-button-bg-active: #616570;
   --color-button-text-active: var(--color-button-text-hover);
-  --color-button-text-disabled: #444444;
+  --color-button-text-disabled: #797979;
   --color-transparent-button-bg-hover: var(--color-button-bg);
   --color-transparent-button-text-hover: var(--color-text-dark);
   --color-transparent-button-bg-active: var(--color-button-bg-hover);

@@ -30,10 +30,8 @@
       <h3>Delete project</h3>
       <label>
         <span>
-          Clicking on this WILL delete your project. Do not click on this unless
-          you want your mod deleted. If you delete your project, all versions
-          and any attached data will be removed from our servers. This may break
-          other projects, so be careful!
+          Removes your project from Modrinth's servers and search. Clicking on
+          this will delete your project, so be extra careful!
         </span>
         <div
           class="iconified-button"

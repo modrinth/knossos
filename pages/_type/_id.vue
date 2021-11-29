@@ -476,6 +476,15 @@
               <span>Settings</span>
             </nuxt-link>
           </div>
+          <Advertisement
+            v-if="
+              project.status === 'approved' || project.status === 'unlisted'
+            "
+            type="banner"
+            small-screen="square"
+            ethical-ads-small
+            ethical-ads-big
+          />
           <div class="project-content">
             <NuxtChild
               :project.sync="project"
@@ -850,7 +859,7 @@ hr {
       margin-right: var(--spacing-card-sm);
 
       &:hover {
-        background-color: var(--color-button-bg-hover);
+        background-color: var(--color-brand-hover);
       }
 
       svg {
@@ -957,6 +966,12 @@ hr {
     overflow-x: auto;
     overflow-wrap: break-word;
     overflow-y: hidden;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .content {
+    max-width: calc(1280px - 21rem);
   }
 }
 </style>

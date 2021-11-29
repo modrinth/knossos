@@ -20,7 +20,7 @@
           <button
             v-if="actionButton"
             class="iconified-button brand-button-colors right"
-            @click="actionButtonCallback()"
+            @click="actionButtonCallback"
           >
             <CheckIcon />
             {{ actionButton }}
@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       actionButton: '',
-      actionButtonCallback: () => {},
     }
   },
   watch: {
@@ -58,6 +57,7 @@ export default {
     },
   },
   methods: {
+    actionButtonCallback() {},
     changeTheme() {
       const shift = event.shiftKey
       switch (this.$colorMode.preference) {

@@ -6,7 +6,7 @@
         :to="`/${project.project_type}/${
           project.slug ? project.slug : project.id
         }`"
-        class="button column"
+        class="iconified-button column"
       >
         Back
       </nuxt-link>
@@ -17,7 +17,7 @@
           project.status === 'unlisted'
         "
         title="Submit for approval"
-        class="button column"
+        class="iconified-button column"
         :disabled="!$nuxt.$loading"
         @click="saveProjectReview"
       >
@@ -25,10 +25,11 @@
       </button>
       <button
         title="Save"
-        class="brand-button column"
+        class="iconified-button brand-button-colors column"
         :disabled="!$nuxt.$loading"
         @click="saveProject"
       >
+        <CheckIcon />
         Save
       </button>
     </header>
@@ -66,7 +67,7 @@
           v-model="newProject.categories"
           :options="
             $tag.categories
-              .filter((x) => x.project_type === projectType)
+              .filter((x) => x.project_type === project.project_type)
               .map((it) => it.name)
           "
           :loading="$tag.categories.length === 0"
@@ -97,39 +98,33 @@
     </section>
     <section class="card project-icon rows">
       <h3>Icon</h3>
-      <div class="columns row-grow-1">
-        <div class="column-grow-1 rows">
-          <file-input
-            accept="image/png,image/jpeg,image/gif,image/webp"
-            class="choose-image"
-            prompt="Choose image or drag it here"
-            @change="showPreviewImage"
-          />
-          <ul class="row-grow-1">
-            <li>Acceptable formats are PNG, JPEG, GIF, and WEBP</li>
-          </ul>
-          <button
-            class="transparent-button"
-            @click="
-              icon = null
-              previewImage = null
-              iconChanged = true
-            "
-          >
-            Reset icon
-          </button>
-        </div>
-        <img
-          :src="
-            previewImage
-              ? previewImage
-              : newProject.icon_url && !iconChanged
-              ? newProject.icon_url
-              : 'https://cdn.modrinth.com/placeholder.svg'
-          "
-          alt="preview-image"
-        />
-      </div>
+      <img
+        :src="
+          previewImage
+            ? previewImage
+            : newProject.icon_url && !iconChanged
+            ? newProject.icon_url
+            : 'https://cdn.modrinth.com/placeholder.svg'
+        "
+        alt="preview-image"
+      />
+      <file-input
+        accept="image/png,image/jpeg,image/gif,image/webp"
+        class="choose-image"
+        prompt="Choose image or drag it here"
+        @change="showPreviewImage"
+      />
+      <button
+        class="iconified-button"
+        @click="
+          icon = null
+          previewImage = null
+          iconChanged = true
+        "
+      >
+        <TrashIcon />
+        Reset icon
+      </button>
     </section>
     <section class="card game-sides">
       <h3>Supported environments</h3>
@@ -177,16 +172,28 @@
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
           rel="noopener noreferrer"
+          class="text-link"
           >here</a
         >.
       </span>
-      <div class="columns">
-        <div class="textarea-wrapper">
-          <textarea id="body" v-model="newProject.body"></textarea>
+      <ThisOrThat
+        v-model="bodyViewMode"
+        class="separator"
+        :items="['source', 'preview']"
+      />
+      <div class="edit-wrapper">
+        <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
+          <textarea id="body" v-model="newProject.body" />
         </div>
         <div
+          v-if="bodyViewMode === 'preview'"
+          v-highlightjs
           class="markdown-body"
-          v-html="$xss($md.render(newProject.body))"
+          v-html="
+            newProject.body
+              ? $xss($md.render(newProject.body))
+              : 'No body specified.'
+          "
         ></div>
       </div>
     </section>
@@ -247,6 +254,7 @@
             href="https://blog.modrinth.com/licensing-guide/"
             target="_blank"
             rel="noopener noreferrer"
+            class="text-link"
           >
             licensing guide</a
           >
@@ -272,13 +280,14 @@
         <h3>Donation links</h3>
         <button
           title="Add a link"
-          class="button"
+          class="iconified-button"
           :disabled="false"
           @click="
             donationPlatforms.push({})
             donationLinks.push('')
           "
         >
+          <PlusIcon />
           Add a link
         </button>
       </div>
@@ -305,15 +314,21 @@
           />
         </label>
         <button
-          class="button"
+          class="iconified-button"
           @click="
             donationPlatforms.splice(index, 1)
             donationLinks.splice(index, 1)
           "
         >
+          <TrashIcon />
           Remove Link
         </button>
-        <hr />
+        <hr
+          v-if="
+            donationPlatforms.length > 0 &&
+            index !== donationPlatforms.length - 1
+          "
+        />
       </div>
     </section>
   </div>
@@ -322,12 +337,21 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+
 import FileInput from '~/components/ui/FileInput'
+import ThisOrThat from '~/components/ui/ThisOrThat'
 
 export default {
   components: {
     FileInput,
+    ThisOrThat,
     Multiselect,
+    TrashIcon,
+    CheckIcon,
+    PlusIcon,
   },
   beforeRouteLeave(to, from, next) {
     if (
@@ -369,6 +393,7 @@ export default {
       sideTypes: ['Required', 'Optional', 'Unsupported'],
 
       isEditing: true,
+      bodyViewMode: 'source',
     }
   },
   fetch() {
@@ -479,9 +504,9 @@ export default {
           )
         }
 
-        this.isEditing = false
-
         this.$emit('update:featuredVersions', this.newProject)
+
+        this.isEditing = false
 
         await this.$router.replace(
           `/${this.project.project_type}/${
@@ -517,12 +542,13 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-  * {
-    display: inline;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
 
-  .button {
-    margin-left: 1rem;
+  h3 {
+    margin-top: 0;
   }
 }
 
@@ -568,17 +594,14 @@ label {
   display: grid;
   grid-template:
     'header       header       header' auto
-    'advert       advert       advert' auto
-    'essentials   essentials   essentials' auto
-    'project-icon project-icon project-icon' auto
+    'essentials   essentials   project-icon' auto
     'game-sides   game-sides   game-sides' auto
     'description  description  description' auto
-    'versions     versions     versions' auto
     'extra-links  extra-links  extra-links' auto
     'license      license      license' auto
     'donations    donations    donations' auto
     'footer       footer       footer' auto
-    / 4fr 1fr 4fr;
+    / 4fr 1fr 2fr;
   column-gap: var(--spacing-card-md);
   row-gap: var(--spacing-card-md);
 }
@@ -598,10 +621,6 @@ header {
   }
 }
 
-.advert {
-  grid-area: advert;
-}
-
 section.essentials {
   grid-area: essentials;
 }
@@ -610,9 +629,14 @@ section.project-icon {
   grid-area: project-icon;
 
   img {
-    align-self: flex-start;
-    max-width: 50%;
-    margin-left: var(--spacing-card-lg);
+    max-width: 100%;
+    margin-bottom: 1rem;
+    border-radius: var(--size-rounded-lg);
+  }
+
+  .iconified-button {
+    width: 9rem;
+    margin-top: 0.5rem;
   }
 }
 
@@ -636,15 +660,13 @@ section.game-sides {
 section.description {
   grid-area: description;
 
-  & > .columns {
-    align-items: stretch;
+  .separator {
+    margin: var(--spacing-card-sm) 0;
+  }
+
+  .edit-wrapper * {
     min-height: 10rem;
     max-height: 40rem;
-
-    & > * {
-      flex: 1;
-      max-width: 50%;
-    }
   }
 
   .markdown-body {
@@ -695,8 +717,7 @@ section.donations {
   cursor: pointer;
 }
 
-a {
-  text-decoration: underline;
-  color: var(--color-link);
+.card {
+  margin-bottom: 0;
 }
 </style>

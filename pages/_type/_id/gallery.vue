@@ -338,8 +338,12 @@ export default {
 .items {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: var(--spacing-card-md);
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 .gallery-item {
@@ -351,7 +355,7 @@ export default {
     margin-top: 0.5rem;
     margin-bottom: 0;
 
-    height: 10rem;
+    min-height: 10rem;
     object-fit: cover;
 
     border-radius: var(--size-rounded-card);
