@@ -616,7 +616,7 @@ export default {
             }
             &:hover,
             &:focus {
-              background-color: var(--color-brand-2);
+              background-color: var(--color-brand-hover);
             }
           }
         }
