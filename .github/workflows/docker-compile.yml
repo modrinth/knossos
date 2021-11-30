@@ -20,9 +20,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: |
-            ghcr.io/modrinth/knossos
-            docker.io/modrinth/knossos
+          images: ghcr.io/modrinth/knossos
       -
         name: Get branch name
         id: vars

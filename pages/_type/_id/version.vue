@@ -601,6 +601,7 @@ export default {
           dependencies: [],
           game_versions: [],
           loaders: [],
+          featured: false,
         }
 
         return
