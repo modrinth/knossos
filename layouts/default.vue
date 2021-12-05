@@ -14,7 +14,7 @@
           </button>
         </section>
         <section ref="nav" class="right-group columns">
-          <section class="column-grow-5 nav">
+          <section class="nav">
             <div class="styled-tabs">
               <NuxtLink to="/mods" class="tab">
                 <span>Mods</span>
@@ -30,12 +30,32 @@
                 <MoonIcon v-if="$colorMode.value === 'light'" />
                 <SunIcon v-else />
               </button>
-              <nuxt-link to="/notifications" class="control-button">
+              <nuxt-link
+                v-if="$auth.user"
+                to="/create/project"
+                class="control-button"
+              >
+                <PlusIcon />
+              </nuxt-link>
+              <nuxt-link
+                v-if="$auth.user"
+                to="/notifications"
+                class="control-button"
+              >
                 <NotificationIcon />
                 <div v-if="$user.notifications.length > 0" class="bubble">
                   {{ $user.notifications.length }}
                 </div>
               </nuxt-link>
+              <button
+                v-if="!$auth.user"
+                class="theme-mobile-button iconified-button"
+                @click="changeTheme"
+              >
+                <MoonIcon v-if="$colorMode.value === 'light'" />
+                <SunIcon v-else />
+                Change Theme
+              </button>
               <div
                 v-if="$auth.user"
                 v-click-outside="hideDropdown"
@@ -50,7 +70,7 @@
                   <DropdownIcon class="dropdown-icon" />
                 </button>
                 <div class="content">
-                  <ul v-if="isDropdownOpen" @click="hideDropdown">
+                  <ul @click="hideDropdown">
                     <li>
                       <NuxtLink :to="`/user/${$auth.user.username}`">
                         <UserIcon />
@@ -61,6 +81,18 @@
                       <NuxtLink to="/settings">
                         <SettingsIcon />
                         <span>Settings</span>
+                      </NuxtLink>
+                    </li>
+                    <li class="hide-desktop">
+                      <NuxtLink to="/notifications">
+                        <NotificationIcon />
+                        <span>Notifications</span>
+                      </NuxtLink>
+                    </li>
+                    <li class="hide-desktop">
+                      <NuxtLink to="/create/project">
+                        <PlusIcon />
+                        <span>Create Project</span>
                       </NuxtLink>
                     </li>
                     <li>
@@ -76,12 +108,20 @@
                       </NuxtLink>
                     </li>
                     <hr />
+                    <li class="hide-desktop">
+                      <button @click="changeTheme">
+                        <MoonIcon v-if="$colorMode.value === 'light'" />
+                        <SunIcon v-else />
+                        <span>Change Theme</span>
+                      </button>
+                    </li>
                     <li>
                       <button @click="logout">
                         <LogOutIcon />
                         <span>Log Out</span>
                       </button>
                     </li>
+                    <hr class="hide-desktop" />
                   </ul>
                 </div>
               </div>
@@ -141,9 +181,11 @@
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
       </div>
       <div class="buttons">
-        <nuxt-link to="/settings/privacy" class="iconified-button">
-          <ShieldIcon />
-          Set privacy settings
+        <nuxt-link to="/settings/privacy">
+          <button class="iconified-button">
+            <ShieldIcon />
+            Set privacy settings
+          </button>
         </nuxt-link>
         <button class="iconified-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" />
@@ -171,6 +213,7 @@ import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
@@ -194,6 +237,7 @@ export default {
     SettingsIcon,
     ShieldIcon,
     ModerationIcon,
+    PlusIcon,
   },
   directives: {
     ClickOutside,
@@ -218,7 +262,10 @@ export default {
   watch: {
     $route() {
       this.$refs.nav.className = 'right-group'
+
+      document.documentElement.style.overflow = 'auto'
       document.body.style.overflow = 'auto'
+
       this.$store.dispatch('user/fetchAll')
     },
   },
@@ -235,6 +282,9 @@ export default {
         currentlyActive ? '' : ' active'
       }`
       document.body.scrollTop = 0
+
+      document.documentElement.style.overflow =
+        document.documentElement.style.overflow !== 'hidden' ? 'hidden' : 'auto'
       document.body.style.overflow =
         document.body.style.overflow !== 'hidden' ? 'hidden' : 'auto'
     },
@@ -366,25 +416,19 @@ export default {
           right: 0;
         }
 
-        // section.nav {
-        //   .styled-tabs {
-        //     display: flex;
-        //     flex-direction: column;
+        section.nav {
+          flex-grow: 5;
 
-        //     a {
-        //       margin-left: auto;
-        //       margin-right: auto;
-        //       margin-bottom: 5px;
+          .styled-tabs {
+            display: flex;
+            flex-direction: column;
 
-        //       &:hover,
-        //       &:focus,
-        //       &.nuxt-link-exact-active,
-        //       &.active-path {
-        //         margin-bottom: 0;
-        //       }
-        //     }
-        //   }
-        // }
+            a {
+              margin-left: auto;
+              margin-right: auto;
+            }
+          }
+        }
 
         .user-outer {
           z-index: 20;
@@ -393,13 +437,14 @@ export default {
         section.user-controls {
           align-items: center;
           display: flex;
+          flex-direction: column-reverse;
           justify-content: space-between;
           position: relative;
           top: 50%;
           transform: translateY(-50%);
           min-width: 12rem;
 
-          margin: 0 auto;
+          margin: 0.5rem auto;
 
           .control-button {
             max-width: 2rem;
@@ -407,7 +452,7 @@ export default {
             background-color: var(--color-raised-bg);
             border-radius: var(--size-rounded-max);
             margin: 0 0.5rem 0 0;
-            display: flex;
+            display: none;
 
             svg {
               height: 1rem;
@@ -431,23 +476,25 @@ export default {
             }
           }
 
+          .theme-mobile-button {
+            margin-bottom: 1rem;
+          }
+
           .dropdown {
             position: relative;
             display: inline-block;
             flex-grow: 1;
-            &:hover .control {
-              background: var(--color-button-bg-hover);
-            }
+
             &.open {
               .control {
-                background: var(--color-button-bg);
-                border-radius: 1.25rem 1.25rem 0 0;
-                .dropdown-icon {
-                  transform: rotate(180deg);
-                }
+                //background: var(--color-button-bg);
+                //border-radius: 1.25rem 1.25rem 0 0;
+                //.dropdown-icon {
+                //  transform: rotate(180deg);
+                //}
               }
               .content {
-                display: unset;
+                //display: unset;
               }
             }
             .control {
@@ -469,6 +516,7 @@ export default {
                   height: 1.5rem;
                   width: 1.5rem;
                   border-radius: 50%;
+                  margin-left: auto;
                 }
 
                 span {
@@ -479,19 +527,17 @@ export default {
                   color: var(--color-text-dark);
                   font-size: var(--font-size-nm);
                   font-weight: var(--font-weight-medium);
-                  margin: 0 1.5rem 0 0.25rem;
+                  margin: 0 auto 0 0.25rem;
                 }
               }
               .dropdown-icon {
+                display: none;
                 transition: 150ms ease transform;
                 margin-right: 0.25rem;
               }
             }
             .content {
               margin: 0 0 0 0;
-              width: calc(100% - 5rem);
-              position: fixed;
-              display: none;
             }
             button {
               background-color: transparent;
@@ -500,10 +546,6 @@ export default {
               font-weight: var(--font-weight-medium);
             }
             ul {
-              background-color: var(--color-button-bg);
-              border-radius: 0 0 var(--size-rounded-control)
-                var(--size-rounded-control);
-              box-shadow: var(--shadow-dropdown);
               display: flex;
               flex-direction: column;
               margin: 0;
@@ -536,10 +578,15 @@ export default {
                     color: inherit;
                     height: 1rem;
                     width: 1rem;
+                    margin-left: auto;
                   }
                   span {
                     margin-left: 0.5rem;
+                    margin-right: auto;
                   }
+                }
+                button {
+                  width: 100%;
                 }
               }
             }
@@ -550,6 +597,7 @@ export default {
           display: flex;
           align-items: center;
           height: 100%;
+          margin: 1rem 0 0.5rem;
 
           .log-in-button {
             margin: 0 auto;
@@ -619,18 +667,81 @@ export default {
           }
 
           section.user-controls {
+            display: flex;
+            flex-direction: row;
             width: unset;
             margin: unset;
+
+            .control-button {
+              display: flex;
+            }
+
+            .theme-mobile-button {
+              display: none;
+            }
+
+            .hide-desktop {
+              display: none;
+            }
+
+            .dropdown {
+              &:hover .control {
+                background: var(--color-button-bg-hover);
+              }
+              &.open {
+                .control {
+                  background: var(--color-button-bg);
+                  border-radius: 1.25rem 1.25rem 0 0;
+                  .dropdown-icon {
+                    transform: rotate(180deg);
+                  }
+                }
+                .content {
+                  display: unset;
+                }
+              }
+              ul {
+                background-color: var(--color-button-bg);
+                border-radius: 0 0 var(--size-rounded-control)
+                  var(--size-rounded-control);
+                box-shadow: var(--shadow-dropdown);
+
+                li {
+                  a,
+                  button {
+                    svg {
+                      margin-left: 0;
+                    }
+                    span {
+                      margin-right: 0;
+                    }
+                  }
+                }
+              }
+              .content {
+                width: calc(100% - 7.5rem);
+                position: fixed;
+                display: none;
+              }
+              .control {
+                .avatar {
+                  img {
+                    margin-left: 0;
+                  }
+                  span {
+                    margin-right: 1.5rem;
+                  }
+                }
+                .dropdown-icon {
+                  display: block;
+                }
+              }
+            }
           }
 
           section.auth-prompt {
             margin: 0;
           }
-        }
-      }
-      @media only screen and (max-width: 1024px) {
-        .desktop-header-mode-switch {
-          display: none;
         }
       }
     }
@@ -642,13 +753,14 @@ export default {
 
   footer {
     margin: 6rem 0 2rem 0;
-    display: flex;
     flex-wrap: wrap;
+    text-align: center;
 
     .logo-info {
       margin-left: auto;
-      margin-right: 2rem;
+      margin-right: auto;
       max-width: 22rem;
+      margin-bottom: 1rem;
 
       .text-logo {
         width: 10rem;
@@ -659,7 +771,7 @@ export default {
     .links {
       display: flex;
       flex-direction: column;
-      margin-right: 2rem;
+      margin-bottom: 1rem;
 
       h4 {
         color: var(--color-text-dark);
@@ -672,6 +784,7 @@ export default {
     }
 
     .buttons {
+      margin-left: auto;
       margin-right: auto;
 
       button,
@@ -680,10 +793,34 @@ export default {
 
         margin-bottom: 0.5rem;
         margin-left: auto;
+        margin-right: auto;
 
         &:hover,
         &:focus {
           background-color: var(--color-button-bg-hover);
+        }
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      display: flex;
+      text-align: unset;
+
+      .logo-info {
+        margin-right: 2rem;
+      }
+
+      .links {
+        margin-right: 2rem;
+      }
+
+      .buttons {
+        width: unset;
+        margin-left: 0;
+
+        button,
+        a {
+          margin-right: unset;
         }
       }
     }

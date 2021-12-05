@@ -601,6 +601,7 @@ export default {
           dependencies: [],
           game_versions: [],
           loaders: [],
+          featured: false,
         }
 
         return
@@ -681,6 +682,8 @@ export default {
           type: 'error',
         })
       }
+
+      this.newDependencyId = ''
     },
     async saveEditedVersion() {
       this.$nuxt.$loading.start()
@@ -864,6 +867,7 @@ section {
 .buttons {
   display: flex;
   flex-wrap: wrap;
+  row-gap: 0.5rem;
 
   .brand-button-colors {
     font-weight: bold;
@@ -958,6 +962,8 @@ section {
 
   .edit-info {
     display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
 
     .multiselect {
       max-width: 10rem;
@@ -979,6 +985,8 @@ section {
   display: flex;
   align-items: center;
   margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+  row-gap: 0.25rem;
 
   * {
     margin-left: 0.25rem;

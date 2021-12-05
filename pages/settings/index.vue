@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="edit-page">
     <div class="left-side">
       <div class="profile-picture card">
         <h3>Profile picture</h3>
@@ -131,10 +131,6 @@ export default {
     FileInput,
     Multiselect,
   },
-  fetch() {
-    this.$emit('update:action-button', 'Save profile settings')
-    this.$emit('update:action-button-callback', this.saveChanges)
-  },
   asyncData(ctx) {
     return {
       username: ctx.$auth.user.username,
@@ -147,6 +143,13 @@ export default {
       icon: null,
       previewImage: null,
     }
+  },
+  fetch() {
+    this.$emit('update:action-button', 'Save profile settings')
+    this.$emit('update:action-button-callback', this.saveChanges)
+  },
+  head: {
+    title: 'Settings - Modrinth',
   },
   created() {
     this.$emit('update:action-button', 'Save profile settings')
@@ -237,12 +240,18 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
-  head: {
-    title: 'Settings - Modrinth',
-  },
 }
 </script>
 <style lang="scss" scoped>
+.edit-page {
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 1024px) {
+    flex-direction: row;
+  }
+}
+
 .left-side {
   min-width: 20rem;
 
@@ -269,7 +278,12 @@ export default {
 
   .recap {
     section {
+      padding: var(--spacing-card-md) var(--spacing-card-lg);
       margin-bottom: 1rem;
+
+      @media screen and (min-width: 1024px) {
+        padding: 0;
+      }
 
       h2 {
         font-size: var(--font-size-lg);

@@ -3,7 +3,6 @@
 .iconified-input {
   align-items: center;
   display: inline-flex;
-  flex-direction: row-reverse;
 
   input {
     padding-left: 2rem;
@@ -11,6 +10,7 @@
 
   svg {
     height: 1rem;
+    z-index: 1;
 
     color: var(--color-text);
     margin-right: -2rem;
@@ -31,6 +31,7 @@
 
   color: var(--color-button-text);
   background-color: var(--color-button-bg);
+  text-decoration: none;
   border-radius: 2rem;
 
   &:hover,
@@ -567,6 +568,7 @@ label {
   align-items: stretch;
 
   textarea {
+    border-radius: var(--size-rounded-sm);
     flex: 1;
     overflow-y: auto;
     resize: none;
@@ -577,6 +579,8 @@ label {
 .styled-tabs {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--spacing-card-sm);
   font-weight: bold;
   color: var(--color-text-inactive);
   overflow-x: scroll;
@@ -588,10 +592,10 @@ label {
 
   .tab {
     padding: 0;
-    margin-left: var(--spacing-card-bg);
+    margin-right: var(--spacing-card-bg);
 
-    &:first-child {
-      margin-left: 0;
+    &:last-child {
+      margin-right: 0;
     }
 
     span {
