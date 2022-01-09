@@ -147,7 +147,7 @@
         <div class="labeled-control">
           <h3>Client</h3>
           <Multiselect
-            v-model="mod.client_side"
+            v-model="clientSideType"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
@@ -162,7 +162,7 @@
         <div class="labeled-control">
           <h3>Server</h3>
           <Multiselect
-            v-model="mod.server_side"
+            v-model="serverSideType"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
@@ -439,7 +439,7 @@ export default {
       icon: null,
       iconChanged: false,
 
-      sideTypes: ['required', 'optional', 'unsupported'],
+      sideTypes: ['Required', 'Optional', 'Unsupported'],
 
       isEditing: true,
       bodyViewMode: 'source',
