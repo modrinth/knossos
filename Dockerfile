@@ -11,16 +11,16 @@ WORKDIR /usr/src/knossos
 
 # copy the app, note .dockerignore
 COPY . /usr/src/knossos/
-RUN npm ci
+RUN npm install -g pnpm
+RUN pnpm ci
 
 ARG VERSION_ID=unknown
 
-RUN npm run build
+RUN pnpm build
 
 EXPOSE 3000
-
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT [ "pnpm", "start" ]

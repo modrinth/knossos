@@ -1,0 +1,118 @@
+@import 'layout.postcss';
+@import 'normalize.postcss';
+@import 'components.postcss';
+@import 'highlight.postcss';
+
+.light-theme {
+	--color-brand: hsl(155, 58%, 44%);
+	--color-brand-light: hsl(155, 70%, 80%);
+	--color-brand-dark: hsl(155, 58%, 34%);
+	--color-brand-contrast: hsl(0, 0%, 100%);
+
+	--shadow-inset-lg: inset 0px -2px 2px hsla(221, 39%, 11%, 0.1);
+	--shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
+	--shadow-inset-sm: inset 0px -1px 1px hsla(221, 39%, 11%, 0.25);
+
+	--shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
+	--shadow-raised: 0px 2px 4px hsla(221, 39%, 11%, 0.1);
+
+	--shadow-floating: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+	--color-text: hsl(221, 39%, 11%);
+	--color-text-light: hsl(215, 14%, 34%);
+	--color-text-lightest: hsl(220, 9%, 46%);
+	--color-heading: hsl(222, 16%, 20%);
+	--color-link: hsl(221, 55%, 50%);
+
+	--color-bg: hsl(220, 13%, 91%);
+	--color-raised-bg: hsl(0, 0%, 100%);
+	--color-raised-bg-hover: hsl(220, 13%, 93%);
+	--color-divider: hsl(220, 13%, 91%);
+	--color-button-bg: hsl(220, 13%, 91%);
+	--color-button-bg-hover: hsl(0, 0%, 85%);
+
+	--color-badge-gray-text: hsl(0, 2%, 39%);
+	--color-badge-gray-dot: hsl(0, 6%, 77%);
+	--color-badge-red-text: hsl(343, 63%, 27%);
+	--color-badge-red-dot: hsl(342, 70%, 53%);
+	--color-badge-green-text: hsl(156, 53%, 20%);
+	--color-badge-green-dot: hsl(140, 64%, 40%);
+	--color-badge-yellow-text: hsl(40, 57%, 29%);
+	--color-badge-yellow-dot: hsl(40, 92%, 62%);
+
+	--color-table-border: hsl(210, 10%, 89%);
+	--color-table-alternate-row: hsl(210, 29%, 97%);
+
+	--color-code-bg: hsl(210, 14%, 93%);
+}
+
+.dark-theme {
+	--color-brand: hsl(155, 58%, 44%);
+	--color-brand-light: hsl(155, 70%, 20%);
+	--color-brand-contrast: hsl(0, 0%, 100%);
+
+	--shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
+	--shadow-inset-sm: inset 0px -1px 1px hsla(221, 39%, 11%, 0.25);
+	--shadow-raised: 0px -2px 4px hsla(221, 39, 11, 0.1);
+	--shadow-floating: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+	--color-text: hsl(221, 39%, 90%);
+	--color-text-secondary: hsl(220, 9%, 46%);
+	--color-text-inactive: hsl(215, 14%, 34%);
+	--color-heading: hsl(222, 16%, 20%);
+
+	--color-bg: hsl(220, 13%, 15%);
+	--color-raised-bg: hsl(220, 13%, 25%);
+	--color-divider: hsl(220, 13%, 50%);
+	--color-button-bg: hsl(220, 13%, 35%);
+	--color-button-bg-hover: hsl(220, 13%, 20%);
+
+	--color-badge-gray-text: hsl(0, 2%, 69%);
+	--color-badge-gray-dot: hsl(0, 6%, 77%);
+	--color-badge-red-text: hsl(343, 63%, 67%);
+	--color-badge-red-dot: hsl(342, 70%, 53%);
+	--color-badge-green-text: hsl(156, 53%, 50%);
+	--color-badge-green-dot: hsl(140, 64%, 40%);
+	--color-badge-yellow-text: hsl(40, 57%, 60%);
+	--color-badge-yellow-dot: hsl(40, 92%, 62%);
+
+	--color-table-border: hsl(214, 12%, 35%);
+	--color-table-alternate-row: hsl(216, 12%, 17%);
+
+	--color-code-bg: hsl(213, 13%, 35%);
+}
+
+.oled-theme {
+	@extend .dark-theme;
+	--color-bg: hsl(0, 0%, 0%);
+	--color-raised-bg: hsl(220, 13%, 5%);
+
+	--color-button-bg-hover: hsl(220, 13%, 15%);
+}
+
+body {
+	@extend .light-mode;
+	--rounded: 1rem;
+	--rounded-top: 1rem 1rem 0 0;
+	--rounded-bottom: 0 0 1rem 1rem;
+	--rounded-sm: 0.4rem;
+	--rounded-max: 999999999px;
+
+	--font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto,
+		Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+	--font-size-nm: 1rem; /* 16px */
+	--font-size-xl: 1.5rem; /* 24px */
+
+	--font-weight-regular: 400;
+	--font-weight-medium: 600;
+	--font-weight-bold: 700;
+
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-standard);
+	font-size: var(--font-size-nm);
+	font-weight: var(--font-weight-regular);
+}

@@ -1,4 +1,6 @@
 {
-  "prettier.endOfLine": "lf",
-  "editor.formatOnSave": true
+	"prettier.endOfLine": "lf",
+	"editor.formatOnSave": true,
+	"discord.enabled": false,
+	"cSpell.words": ["unplugin"]
 }

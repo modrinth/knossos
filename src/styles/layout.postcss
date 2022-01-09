@@ -1,0 +1,20 @@
+.column-layout {
+	margin: 0 auto;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 20rem 1fr;
+	grid-gap: 1rem;
+
+	&__sidebar,
+	&__content {
+		overflow: hidden; /* prevents the parent grid from streching */
+		display: flex;
+		flex-direction: column;
+		grid-gap: 1rem;
+		padding-bottom: 0.5rem; /* protects the shadow from the overflow */
+	}
+
+	@media (width <= 800px) {
+		grid-template-columns: unset;
+	}
+}

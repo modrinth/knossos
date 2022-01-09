@@ -1,0 +1,119 @@
+import { marked } from 'marked';
+import hljs from 'highlight.js';
+import insane from 'insane';
+
+const renderer = new marked.Renderer();
+
+renderer.image = (href, text) => {
+	if (/^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9_]{11}$/.test(href)) {
+		return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${href.substring(
+			32,
+			43
+		)}" frameborder="0" allowfullscreen></iframe>`;
+	} else {
+		return `<img src="${href}" alt="${text}" />`;
+	}
+};
+
+marked.setOptions({
+	renderer,
+	highlight: function (code, lang) {
+		const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+		return hljs.highlight(code, { language }).value;
+	},
+	langPrefix: 'hljs language-',
+	headerPrefix: '',
+	gfm: true,
+	smartLists: true,
+});
+
+function sanitize(html: string): string {
+	return insane(html, {
+		allowedAttributes: {
+			a: ['href', 'name', 'target', 'title'],
+			iframe: ['allowfullscreen', 'src', 'width', 'height'],
+			img: ['src', 'width', 'height', 'alt'],
+			h1: ['id'],
+			h2: ['id'],
+			h3: ['id'],
+			h4: ['id'],
+			h5: ['id'],
+			h6: ['id'],
+			code: ['class'],
+			span: ['class'],
+			input: ['type', 'checked', 'disabled'],
+		},
+		allowedClasses: {},
+		allowedSchemes: ['http', 'https', 'mailto'],
+		allowedTags: [
+			'a',
+			'b',
+			'blockquote',
+			'br',
+			'caption',
+			'code',
+			'del',
+			'details',
+			'div',
+			'em',
+			'h1',
+			'h2',
+			'h3',
+			'h4',
+			'h5',
+			'h6',
+			'hr',
+			'i',
+			'iframe',
+			'img',
+			'input',
+			'ins',
+			'kbd',
+			'li',
+			'main',
+			'ol',
+			'p',
+			'pre',
+			'span',
+			'strike',
+			'strong',
+			'sub',
+			'summary',
+			'sup',
+			'table',
+			'tbody',
+			'td',
+			'th',
+			'thead',
+			'tr',
+			'u',
+			'ul',
+		],
+		filter: ({ tag, attrs }): boolean => {
+			if (tag === 'iframe') {
+				return /^https?:\/\/(www\.)?youtube\.com\/embed\/[a-zA-Z0-9_]{11}$/.test(attrs.src || '');
+			} else if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)) {
+				return attrs.id !== 'svelte';
+			} else if (tag === 'input') {
+				return attrs.type === 'checkbox' && attrs.disabled === '';
+			} else if (tag === 'code' || tag === 'span') {
+				return !attrs.class || attrs.class.replace(' ', '').startsWith('hljs');
+			} else {
+				return true;
+			}
+		},
+		transformText: null,
+	});
+}
+
+export function markdown(markdown: string): string {
+	return marked.parse(markdown);
+}
+
+export function markdownInline(markdown: string): string {
+	return marked.parseInline(markdown);
+}
+
+export function markdownXSS(markdown: string): string {
+	return sanitize(marked.parse(markdown));
+}
