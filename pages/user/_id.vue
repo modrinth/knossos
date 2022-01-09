@@ -205,7 +205,7 @@ export default {
           name: 'description',
           content:
             this.user.bio +
-            ' - View minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform that is compatible with CurseForge too!',
+            ' - View Minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform.',
         },
         {
           hid: 'og:url',

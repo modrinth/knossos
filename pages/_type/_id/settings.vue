@@ -23,7 +23,12 @@
         <span>
           This leads to a page where you can create a version for your project.
         </span>
-        <nuxt-link class="iconified-button" to="version/create"
+        <nuxt-link
+          class="iconified-button"
+          to="version/create"
+          :disabled="
+            (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
+          "
           >Create version</nuxt-link
         >
       </label>
@@ -46,7 +51,10 @@
     </section>
     <div class="card columns team-invite">
       <h3>Team members</h3>
-      <div class="column">
+      <div
+        v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
+        class="column"
+      >
         <input
           id="username"
           v-model="currentUsername"
@@ -415,7 +423,12 @@ export default {
       this.$nuxt.$loading.finish()
     },
     showPopup() {
-      this.$refs.delete_popup.show()
+      if (
+        (this.currentMember.permissions & this.DELETE_MOD) ===
+        this.DELETE_MOD
+      ) {
+        this.$refs.delete_popup.show()
+      }
     },
     async deleteProject() {
       await this.$axios.delete(`project/${this.project.id}`, this.$auth.headers)

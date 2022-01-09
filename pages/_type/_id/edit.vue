@@ -43,6 +43,9 @@
           v-model="newProject.title"
           type="text"
           placeholder="Enter the name"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <h3>Summary</h3>
@@ -55,6 +58,9 @@
           v-model="newProject.description"
           type="text"
           placeholder="Enter the summary"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <h3>Categories</h3>
@@ -81,6 +87,9 @@
           :limit="6"
           :hide-selected="true"
           placeholder="Choose categories"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <h3>Vanity URL (slug)</h3>
@@ -93,6 +102,9 @@
           v-model="newProject.slug"
           type="text"
           placeholder="Enter the vanity URL slug"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
     </section>
@@ -113,6 +125,7 @@
         class="choose-image"
         prompt="Choose image or drag it here"
         @change="showPreviewImage"
+        :disabled="(currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS"
       />
       <button
         class="iconified-button"
@@ -121,6 +134,7 @@
           previewImage = null
           iconChanged = true
         "
+        :disabled="(currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS"
       >
         <TrashIcon />
         Reset icon
@@ -133,25 +147,31 @@
         <div class="labeled-control">
           <h3>Client</h3>
           <Multiselect
-            v-model="clientSideType"
+            v-model="mod.client_side"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
           />
         </div>
         <div class="labeled-control">
           <h3>Server</h3>
           <Multiselect
-            v-model="serverSideType"
+            v-model="mod.server_side"
             placeholder="Select one"
             :options="sideTypes"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
           />
         </div>
       </div>
@@ -183,7 +203,11 @@
       />
       <div class="edit-wrapper">
         <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
-          <textarea id="body" v-model="newProject.body" />
+          <textarea
+            id="body"
+            v-model="newProject.body"
+            :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
+          />
         </div>
         <div
           v-if="bodyViewMode === 'preview'"
@@ -209,6 +233,9 @@
           v-model="newProject.issues_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <label
@@ -229,6 +256,9 @@
           v-model="newProject.wiki_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <label title="An invitation link to your Discord server.">
@@ -237,6 +267,9 @@
           v-model="newProject.discord_url"
           type="url"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
     </section>
@@ -270,8 +303,18 @@
             :searchable="true"
             :close-on-select="true"
             :show-labels="false"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
           />
-          <input v-model="license_url" type="url" placeholder="License URL" />
+          <input
+            v-model="license_url"
+            type="url"
+            placeholder="License URL"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          />
         </div>
       </label>
     </section>
@@ -369,6 +412,12 @@ export default {
         return {}
       },
     },
+    currentMember: {
+      type: Object,
+      default() {
+        return null
+      },
+    },
   },
   data() {
     return {
@@ -390,7 +439,7 @@ export default {
       icon: null,
       iconChanged: false,
 
-      sideTypes: ['Required', 'Optional', 'Unsupported'],
+      sideTypes: ['required', 'optional', 'unsupported'],
 
       isEditing: true,
       bodyViewMode: 'source',
@@ -450,6 +499,16 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       window.removeEventListener('beforeunload', preventLeave)
     })
+  },
+  created() {
+    this.UPLOAD_VERSION = 1 << 0
+    this.DELETE_VERSION = 1 << 1
+    this.EDIT_DETAILS = 1 << 2
+    this.EDIT_BODY = 1 << 3
+    this.MANAGE_INVITES = 1 << 4
+    this.REMOVE_MEMBER = 1 << 5
+    this.EDIT_MEMBER = 1 << 6
+    this.DELETE_MOD = 1 << 7
   },
   methods: {
     async saveProjectReview() {

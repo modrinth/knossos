@@ -313,6 +313,12 @@
   &:active {
     background-color: var(--color-button-bg-active);
   }
+  &:disabled,
+  &[disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 }
 
 .transparent-button {
@@ -607,7 +613,7 @@ label {
 
     span::before {
       background-color: transparent;
-      content: "";
+      content: '';
       position: absolute;
       width: 60%;
       height: 4px;
