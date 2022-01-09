@@ -8,6 +8,7 @@ assets/images/text-logo.svg <br />
 assets/images/text-logo-white.svg <br />
 static/favicon.ico <br />
 components/ui/search/LogoAnimated.vue <br />
+assets/images/landing.svg <br />
 
 ## Logo Licenses
 All rights reserved. ©2020-2021 Guavy LLC

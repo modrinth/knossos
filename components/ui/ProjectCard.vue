@@ -27,7 +27,7 @@
               class="side-descriptor"
             >
               <InfoIcon />
-              Universal {{ project.project_type }}
+              Universal {{ type }}
             </div>
             <div
               v-else-if="

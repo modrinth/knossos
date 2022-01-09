@@ -3,7 +3,7 @@ html {
 }
 
 .light-mode {
-  --color-icon: #6B7280;
+  --color-icon: #6b7280;
   --color-text: hsl(221, 39%, 11%);
   --color-text-secondary: hsl(220, 9%, 46%);
   --color-text-inactive: hsl(215, 14%, 34%);
@@ -61,12 +61,12 @@ html {
 
   --color-badge-gray-text: #646161;
   --color-badge-gray-bg: #c8c1c1;
-  --color-badge-red-text: #6E1931;
-  --color-badge-red-bg: #DB3162;
+  --color-badge-red-text: #6e1931;
+  --color-badge-red-bg: #db3162;
   --color-badge-green-text: #184e38;
   --color-badge-green-bg: #24a54e;
   --color-badge-yellow-text: #755920;
-  --color-badge-yellow-bg: #F7BB43;
+  --color-badge-yellow-bg: #f7bb43;
 
   --color-block-quote: var(--color-tooltip-bg);
   --color-header-underline: var(--color-tooltip-text);
@@ -75,8 +75,10 @@ html {
   --color-table-border: #dfe2e5;
   --color-table-alternate-row: #f6f8fa;
 
-  --shadow-card: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.1), inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
-  --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2), inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
+  --shadow-card: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.1),
+    inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
+  --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2),
+    inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
 }
 
 .dark-mode {
@@ -93,8 +95,8 @@ html {
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: #1BD96A;
-  --color-brand-hover: #30B366;
+  --color-brand: #1bd96a;
+  --color-brand-hover: #30b366;
   --color-brand-active: #55f5ae;
   --color-brand-light: #30b27b;
   --color-brand-inverted: #000;
@@ -137,11 +139,11 @@ html {
   --color-badge-gray-bg: #646161;
   --color-badge-gray-text: #c8c1c1;
   --color-badge-red-text: #bd1a48;
-  --color-badge-red-bg: #DB3162;
+  --color-badge-red-bg: #db3162;
   --color-badge-green-text: #1ebb7b;
   --color-badge-green-bg: #24a54e;
   --color-badge-yellow-text: #755920;
-  --color-badge-yellow-bg: #F7BB43;
+  --color-badge-yellow-bg: #f7bb43;
 
   --color-block-quote: var(--color-code-bg);
   --color-header-underline: var(--color-tooltip-text);
@@ -185,10 +187,10 @@ body {
   --size-rounded-control: 0.25rem;
   --size-rounded-tooltip: 0.25rem;
 
-  --size-navbar-height: 4rem;
+  --size-navbar-height: 3.5rem;
 
   --spacing-card-lg: 1.5rem;
-  --spacing-card-bg: 1.0rem;
+  --spacing-card-bg: 1rem;
   --spacing-card-md: 0.75rem;
   --spacing-card-sm: 0.5rem;
 

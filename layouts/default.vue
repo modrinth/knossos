@@ -602,13 +602,15 @@ export default {
           .log-in-button {
             margin: 0 auto;
 
+            display: flex;
+            align-items: center;
+
             text-align: center;
             border-radius: var(--size-rounded-max);
             background-color: var(--color-brand);
             white-space: nowrap;
             outline: none;
             color: var(--color-brand-inverted);
-            display: block;
             padding: 0.5rem 0.75rem;
             svg {
               vertical-align: middle;

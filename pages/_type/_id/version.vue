@@ -492,8 +492,6 @@ export default {
     SmartFileInput,
   },
   beforeRouteLeave(to, from, next) {
-    this.setVersion()
-
     if (this.mode === 'create') {
       if (
         !window.confirm('Are you sure that you want to leave without saving?')
@@ -501,6 +499,8 @@ export default {
         return
       }
     }
+
+    this.setVersion()
 
     next()
   },
@@ -825,7 +825,9 @@ export default {
 
       await this.$axios.delete(`version/${this.version.id}`, this.$auth.headers)
 
-      await this.$router.replace(`/project/${this.project.id}`)
+      await this.$router.replace(
+        `/${this.project.project_type}/${this.project.id}`
+      )
       this.$nuxt.$loading.finish()
     },
   },
