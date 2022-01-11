@@ -11,7 +11,7 @@
 
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile';
-	import Logo404 from '$assets/images/logo/404.svg?component';
+	import Logo404 from '$assets/images/logo/404.svg';
 	import Button from '$components/elements/Button.svelte';
 	import Meta from '$components/utils/Meta.svelte';
 

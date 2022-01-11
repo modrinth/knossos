@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t, locale, locales } from 'svelte-intl-precompile';
 	import { theme } from '$stores/app';
-	import LogoWordmark from '$assets/images/logo/wordmark.svg?component';
+	import LogoWordmark from '$assets/images/logo/wordmark.svg';
 	import Multiselect from '$components/elements/Multiselect.svelte';
 	import Button from '$components/elements/Button.svelte';
 </script>

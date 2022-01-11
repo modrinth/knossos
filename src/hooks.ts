@@ -21,8 +21,8 @@ export const handle: Handle = async ({ request, resolve }) => {
 
 	if (cookies['modrinth-token']) {
 		token = cookies['modrinth-token'];
-	} else if (request.query.has('code')) {
-		token = request.query.get('code');
+	} else if (request.url.searchParams.has('code')) {
+		token = request.url.searchParams.get('code');
 	}
 
 	if (token) {
@@ -36,7 +36,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 		}
 	}
 
-	if (!token && loggedInPages.includes(request.path)) {
+	if (!token && loggedInPages.includes(request.url.pathname)) {
 		return {
 			headers: { Location: '/' },
 			status: 307,

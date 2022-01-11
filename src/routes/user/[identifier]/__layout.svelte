@@ -1,16 +1,16 @@
 <script context="module" lang="ts">
 	import { send } from '$lib/api';
 
-	export async function load({ page, fetch, session, stuff }) {
+	export async function load({ params, fetch, session, stuff }) {
 		try {
-			const user: User = (await send('GET', `user/${page.params.identifier}`, null, {
+			const user: User = (await send('GET', `user/${params.identifier}`, null, {
 				fetch,
 			})) as User;
 
 			return {
 				props: {
 					user,
-					projects: await send('GET', `user/${page.params.identifier}/projects`, null, { fetch }),
+					projects: await send('GET', `user/${params.identifier}/projects`, null, { fetch }),
 					github_url: (await (await fetch(`https://api.github.com/user/${user.github_id}`)).json())
 						.html_url,
 				},

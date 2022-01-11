@@ -36,9 +36,9 @@ interface Popup {
 }
 
 export const popups = writable<Popup[]>([
-	{
-		title: 'Report',
-		description:
-			'Modding should be safe for everyone, so we take abuse and harassment seriously at Modrinth. Report harmful behavior on the site that violates Modrinth’s [Terms of Service](/legal/terms) and [Project Rules](/legal/rules).',
-	},
+	// {
+	// 	title: 'Report',
+	// 	description:
+	// 		'Modding should be safe for everyone, so we take abuse and harassment seriously at Modrinth. Report harmful behavior on the site that violates Modrinth’s [Terms of Service](/legal/terms) and [Project Rules](/legal/rules).',
+	// },
 ]);

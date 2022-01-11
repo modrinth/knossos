@@ -17,10 +17,10 @@ const config = {
 		postcssPresetEnv(),
 		require('postcss-media-minmax')(),
 
-		!dev &&
-			cssnano({
-				preset: 'default',
-			}),
+		// !dev &&
+		// 	cssnano({
+		// 		preset: 'default',
+		// 	}),
 	],
 };
 

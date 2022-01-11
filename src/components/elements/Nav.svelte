@@ -14,7 +14,7 @@
 
 	let path: string[];
 	$: path = [
-		...$page.path
+		...$page.url.pathname
 			.substring(1)
 			.split('/')
 			.map((route) => '/' + route),
@@ -36,7 +36,7 @@
 				: basePath + link.href}
 			class="navigation__link"
 			class:is-active={query
-				? ($page.query.get(query) || '') === link.href
+				? ($page.url.searchParams.get(query) || '') === link.href
 				: path[level] === link.href}
 			sveltekit:prefetch>{link.label}</a
 		>

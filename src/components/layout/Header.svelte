@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile';
-	import LogoWordmark from '$assets/images/logo/wordmark.svg?component';
-	import LogoIcon from '$assets/images/logo/icon.svg?component';
+	import LogoWordmark from '$assets/images/logo/wordmark.svg';
+	import LogoIcon from '$assets/images/logo/icon.svg';
 	import Nav from '$components/elements/Nav.svelte';
 	import Button from '$components/elements/Button.svelte';
 	import IconBell from 'virtual:icons/fa-regular/bell';

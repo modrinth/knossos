@@ -85,7 +85,8 @@
 				"unsupported": "Unsupported",
 				"optional": "Optional"
 			}
-		}
+		},
+    "byline": "by <u>{author}</u>"
 	},
 	"project": {
 		"types": {
@@ -144,6 +145,8 @@
 		"storage": "Storage",
 		"food": "Food",
 		"equipment": "Equipment",
-		"miscellaneous": "Miscellaneous"
+		"miscellaneous": "Miscellaneous",
+    "fabric": "Fabric",
+    "forge": "Forge",
 	}
 }

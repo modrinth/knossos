@@ -1,8 +1,8 @@
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-vercel';
-import svelteSvg from 'vite-plugin-svelte-svg';
+import svelteSvg from '@poppanator/sveltekit-svg';
 import path from 'path';
-import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin.js';
+import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin';
 import Icons from 'unplugin-icons/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -32,11 +32,7 @@ const config = {
 		adapter: adapter(),
 		vite: {
 			plugins: [
-				svelteSvg({
-					svgoConfig: {
-						multipass: true,
-					},
-				}),
+				svelteSvg(),
 				precompileIntl('locales'),
 				Icons({
 					compiler: 'svelte',

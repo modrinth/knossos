@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let src: string | null;
+	import { onMount } from 'svelte'
+
+  export let src: string | null;
 	export let size: 'sm' | 'md' | 'lg';
 	export let circle = false;
 	export let floatUp = false;
@@ -7,10 +9,18 @@
 	let classList = `profile-picture ${
 		circle ? 'profile-picture--circle' : ''
 	} profile-picture--size-${size} ${floatUp ? 'profile-picture--float-up' : ''}`;
+
+  let img;
+
+  onMount(() => {
+    if (img?.naturalWidth < 96) {
+      img.style = "image-rendering: pixelated;"
+    }
+  })
 </script>
 
 {#if src}
-	<img {src} class={classList} alt="" />
+	<img {src} bind:this={img} class={classList} alt="" />
 {:else}
 	<svg
 		class={classList}

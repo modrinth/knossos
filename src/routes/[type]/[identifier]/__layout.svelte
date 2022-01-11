@@ -1,20 +1,20 @@
 <script context="module" lang="ts">
 	import { send } from '$lib/api';
 
-	export async function load({ page, fetch, session, stuff }) {
+	export async function load({ params, fetch, session, stuff }) {
 		try {
-			if (!['mod', 'modpack'].includes(page.params.type)) {
+			if (!['mod', 'modpack'].includes(params.type)) {
 				throw new Error('Invalid type');
 			}
 
 			return {
 				props: {
-					project: await send('GET', `project/${page.params.identifier}`, null, { fetch }),
-					members: await send('GET', `project/${page.params.identifier}/members`, null, { fetch }),
-					versions: await send('GET', `project/${page.params.identifier}/version`, null, { fetch }),
+					project: await send('GET', `project/${params.identifier}`, null, { fetch }),
+					members: await send('GET', `project/${params.identifier}/members`, null, { fetch }),
+					versions: await send('GET', `project/${params.identifier}/version`, null, { fetch }),
 					featuredVersions: await send(
 						'GET',
-						`project/${page.params.identifier}/version?featured=true`,
+						`project/${params.identifier}/version?featured=true`,
 						null,
 						{ fetch }
 					),
@@ -23,7 +23,7 @@
 		} catch {
 			return {
 				status: 404,
-				error: new Error(`The ${page.params.type} you were looking for cannot be found.`),
+				error: new Error(`The ${params.type} you were looking for cannot be found.`),
 			};
 		}
 	}
@@ -152,7 +152,9 @@
 			</div>
 			{#if banner}
 				<img class="card__banner card__banner--short" src={banner.url} alt={banner.description} />
-			{/if}
+			{:else}
+        <div class="card__banner card__banner--short" style="background-color: grey" />
+      {/if}
 			<ProfilePicture src={project.icon_url} size="md" floatUp />
 			<h1 class="title">{project.title}</h1>
 			<p>{project.description}</p>

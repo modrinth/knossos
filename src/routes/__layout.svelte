@@ -1,17 +1,18 @@
 <script context="module" lang="ts">
-	import { register, init, waitLocale, getLocaleFromNavigator } from 'svelte-intl-precompile';
 	import { updateTags } from '$stores/tags';
 	import type { Load } from '@sveltejs/kit';
 	import { token, user } from '$stores/server';
 	import { browser } from '$app/env';
 
-	register('en', () => import('$locales/en.js'));
-	register('en-GB', () => import('$locales/en-GB.js'));
+  import { init, waitLocale } from 'svelte-intl-precompile';
+  import { registerAll, availableLocales } from '$locales';
 
-	export async function load({ page, fetch, session, stuff }) {
+  registerAll();
+
+  export async function load({ fetch, session, stuff }) {
 		init({
 			fallbackLocale: 'en',
-			initialLocale: session.acceptedLanguage || getLocaleFromNavigator(),
+			initialLocale: session.acceptedLanguage,
 		});
 		await waitLocale();
 
@@ -36,9 +37,8 @@
 	import Popup from '$components/elements/Popup.svelte';
 
 	onMount(() => {
-		if ($page.query.get('code')) {
-			$page.query.delete('code');
-			goto(`?${$page.query.toString()}`);
+		if ($page.url.searchParams.get('code')) {
+			$page.url.searchParams.delete('code');
 		}
 
 		if ($theme === 'system') {

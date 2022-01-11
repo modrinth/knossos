@@ -6,6 +6,6 @@
 	const projects: Project[] = getContext('projects');
 </script>
 
-{#each projects.filter( (project) => ($page.query.get('type') ? project.project_type === $page.query.get('type') : true) ) as project}
+{#each projects.filter( (project) => ($page.url.searchParams.get('type') ? project.project_type === $page.url.searchParams.get('type') : true) ) as project}
 	<ProjectCard {project} />
 {/each}
