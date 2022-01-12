@@ -798,10 +798,6 @@ export default {
       newDependencyType: 'required',
       dependencyAddMode: 'project',
       newDependencyId: '',
-
-      primaryFile: {},
-      newFiles: [],
-      deleteFiles: [],
     }
   },
   watch: {
