@@ -56,78 +56,80 @@
                 <SunIcon v-else />
                 Change theme
               </button>
-              <div
-                v-if="$auth.user"
-                v-click-outside="hideDropdown"
-                class="dropdown"
-                :class="{ open: isDropdownOpen }"
-              >
-                <button class="control" @click="toggleDropdown">
-                  <div class="avatar">
-                    <img :src="$auth.user.avatar_url" class="icon" />
-                    <span>{{ $auth.user.username }}</span>
-                  </div>
-                  <DropdownIcon class="dropdown-icon" />
+              <div v-if="$auth.user" class="dropdown">
+                <button class="control">
+                  <img :src="$auth.user.avatar_url" class="user-icon" />
+                  <span class="caret"></span>
                 </button>
-                <div class="content">
-                  <ul @click="hideDropdown">
-                    <li>
-                      <NuxtLink :to="`/user/${$auth.user.username}`">
-                        <UserIcon />
-                        <span>Profile</span>
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink to="/settings">
-                        <SettingsIcon />
-                        <span>Settings</span>
-                      </NuxtLink>
-                    </li>
-                    <li class="hide-desktop">
-                      <NuxtLink to="/notifications">
-                        <NotificationIcon />
-                        <span>Notifications</span>
-                      </NuxtLink>
-                    </li>
-                    <li class="hide-desktop">
-                      <NuxtLink to="/create/project">
-                        <PlusIcon />
-                        <span>Create project</span>
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink
-                        v-if="
-                          $auth.user.role === 'moderator' ||
-                          $auth.user.role === 'admin'
-                        "
-                        to="/moderation"
-                      >
-                        <ModerationIcon />
-                        <span>Moderation</span>
-                      </NuxtLink>
-                    </li>
-                    <hr />
-                    <li class="hide-desktop">
-                      <button @click="changeTheme">
-                        <MoonIcon v-if="$colorMode.value === 'light'" />
-                        <SunIcon v-else />
-                        <span>Change theme</span>
-                      </button>
-                    </li>
-                    <li>
-                      <button @click="logout">
-                        <LogOutIcon />
-                        <span>Log out</span>
-                      </button>
-                    </li>
-                    <hr class="hide-desktop" />
-                  </ul>
-                </div>
+                <ul class="content card" @click="removeFocus">
+                  <li>
+                    <NuxtLink
+                      class="item"
+                      :to="`/user/${$auth.user.username}`"
+                      @click="removeFocus"
+                    >
+                      <div class="title profile-link">
+                        <div class="username">@{{ $auth.user.username }}</div>
+                        <div class="prompt">Go to my profile</div>
+                      </div>
+                    </NuxtLink>
+                  </li>
+                  <hr class="divider" />
+                  <li>
+                    <NuxtLink class="item" to="/create/project">
+                      <PlusIcon class="icon" />
+                      <span class="title">Create a project</span>
+                    </NuxtLink>
+                  </li>
+                  <hr class="divider" />
+                  <li>
+                    <NuxtLink class="item" to="/notifications">
+                      <NotificationIcon class="icon" />
+                      <span class="title">Notifications</span>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink class="item" to="/settings">
+                      <SettingsIcon class="icon" />
+                      <span class="title">Settings</span>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink
+                      v-if="
+                        $auth.user.role === 'moderator' ||
+                        $auth.user.role === 'admin'
+                      "
+                      class="item"
+                      to="/moderation"
+                    >
+                      <ModerationIcon class="icon" />
+                      <span class="title">Moderation</span>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <button class="item" @click="changeTheme">
+                      <MoonIcon
+                        v-if="$colorMode.value === 'light'"
+                        class="icon"
+                      />
+                      <SunIcon v-else class="icon" />
+                      <span class="dropdown-item__text">Change theme</span>
+                    </button>
+                  </li>
+                  <hr class="divider" />
+                  <li>
+                    <button class="item" @click="logout">
+                      <LogOutIcon class="icon" />
+                      <span class="dropdown-item__text">Log out</span>
+                    </button>
+                  </li>
+                </ul>
               </div>
               <section v-else class="auth-prompt">
-                <a :href="authUrl" class="log-in-button"
-                  ><GitHubIcon aria-hidden="true" />Sign In with GitHub</a
+                <a :href="authUrl" class="log-in-button">
+                  <GitHubIcon aria-hidden="true" />
+                  Sign in with GitHub</a
                 >
               </section>
             </section>
@@ -210,12 +212,12 @@ import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
+// import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 
-import UserIcon from '~/assets/images/utils/user.svg?inline'
+// import UserIcon from '~/assets/images/utils/user.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
@@ -225,10 +227,10 @@ export default {
   components: {
     ModrinthLogo,
     ModrinthLogoSmall,
-    DropdownIcon,
+    // DropdownIcon,
     MoonIcon,
     SunIcon,
-    UserIcon,
+    // UserIcon,
     LogOutIcon,
     GitHubIcon,
     NotificationIcon,
@@ -314,6 +316,10 @@ export default {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
     },
+    removeFocus() {
+      console.log('Test')
+      document.activeElement.blur()
+    },
   },
 }
 </script>
@@ -346,23 +352,28 @@ export default {
       @media screen and (min-width: 450px) {
         margin: 0 var(--spacing-card-lg);
       }
+
       section.logo {
         align-items: center;
         display: flex;
         justify-content: space-between;
         color: var(--color-text-dark);
+
         a {
           align-items: center;
           display: flex;
         }
+
         .small-logo {
           display: block;
         }
+
         svg {
           display: none;
           height: 1.75rem;
           width: auto;
         }
+
         @media screen and (min-width: 350px) {
           .small-logo {
             display: none;
@@ -371,6 +382,7 @@ export default {
             display: unset;
           }
         }
+
         .badge {
           margin-left: 0.25rem;
           display: none;
@@ -378,11 +390,13 @@ export default {
             display: unset;
           }
         }
+
         button {
           background: none;
           border: none;
           margin: 0 0 0 0.5rem;
           padding: 0;
+
           svg {
             height: 1.5rem;
             width: 1.5rem;
@@ -453,6 +467,16 @@ export default {
             border-radius: var(--size-rounded-max);
             margin: 0 0.5rem 0 0;
             display: none;
+            box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
+
+            &:hover,
+            &:active {
+              background-color: var(--color-button-bg-hover);
+
+              svg {
+                color: var(--color-button-text-hover);
+              }
+            }
 
             svg {
               height: 1rem;
@@ -482,114 +506,96 @@ export default {
 
           .dropdown {
             position: relative;
-            display: inline-block;
-            flex-grow: 1;
 
-            &.open {
-              .control {
-                //background: var(--color-button-bg);
-                //border-radius: 1.25rem 1.25rem 0 0;
-                //.dropdown-icon {
-                //  transform: rotate(180deg);
-                //}
-              }
-              .content {
-                //display: unset;
-              }
-            }
             .control {
-              background-color: var(--color-raised-bg);
-              border-radius: var(--size-rounded-max);
               align-items: center;
+              background: none;
               display: flex;
-              padding: 0.25rem;
-              position: relative;
-              z-index: 11;
-              width: 100%;
-
-              .avatar {
-                align-items: center;
-                display: flex;
-                flex-grow: 1;
-
-                img {
-                  height: 1.5rem;
-                  width: 1.5rem;
-                  border-radius: 50%;
-                  margin-left: auto;
-                }
-
-                span {
-                  display: block;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                  color: var(--color-text-dark);
-                  font-size: var(--font-size-nm);
-                  font-weight: var(--font-weight-medium);
-                  margin: 0 auto 0 0.25rem;
-                }
-              }
-              .dropdown-icon {
-                display: none;
-                transition: 150ms ease transform;
-                margin-right: 0.25rem;
-              }
-            }
-            .content {
-              margin: 0 0 0 0;
-            }
-            button {
-              background-color: transparent;
-              margin: 0;
+              justify-content: center;
               padding: 0;
-              font-weight: var(--font-weight-medium);
+
+              .user-icon {
+                border-radius: 100%;
+                height: 2rem;
+                outline: 2px solid var(--color-raised-bg);
+                width: 2rem;
+              }
+
+              .caret::after {
+                content: '\23F7';
+                color: inherit;
+                margin-left: 0.25rem;
+              }
             }
-            ul {
-              display: flex;
-              flex-direction: column;
-              margin: 0;
+
+            .content {
+              border: 1px solid var(--color-divider-dark);
               list-style: none;
-              padding: 0.5rem 0;
+              margin: 0.5rem 0 0 0;
+              max-width: 25rem;
+              min-width: 12rem;
+              opacity: 0;
+              padding: 1rem;
+              position: absolute;
+              right: -1rem;
+              transform: scaleY(0.9);
+              transform-origin: top;
+              transition: all 0.1s ease-in-out 0.05s, color 0s ease-in-out 0s,
+                background-color 0s ease-in-out 0s,
+                border-color 0s ease-in-out 0s;
+              visibility: hidden;
+              width: max-content;
               z-index: 1;
-              hr {
+
+              .divider {
                 background-color: var(--color-divider-dark);
                 border: none;
                 color: var(--color-divider-dark);
-                height: 2px;
+                height: 1px;
                 margin: 0.5rem 0;
               }
-              li {
-                margin: 0;
-                &:hover,
-                &:focus {
-                  background-color: var(--color-button-bg-hover);
-                  color: var(--color-text-dark);
+
+              .item {
+                align-items: center;
+                background: none;
+                border-radius: 0.5rem;
+                box-sizing: border-box;
+                color: inherit;
+                display: flex;
+                padding: 0.5rem;
+                width: 100%;
+
+                .icon {
+                  margin-right: 0.5rem;
+                  height: 20px;
+                  width: 20px;
                 }
-                &:active {
-                  background-color: var(--color-button-bg-active);
-                }
-                a,
-                button {
-                  align-items: center;
-                  display: flex;
-                  padding: 0.75rem 1.5rem;
-                  svg {
-                    color: inherit;
-                    height: 1rem;
-                    width: 1rem;
-                    margin-left: auto;
-                  }
-                  span {
-                    margin-left: 0.5rem;
-                    margin-right: auto;
-                  }
-                }
-                button {
-                  width: 100%;
+              }
+
+              .item:hover,
+              .item:focus {
+                background-color: var(--color-bg);
+              }
+
+              .profile-link {
+                .prompt {
+                  margin-top: 0.25rem;
+                  color: var(--color-text-secondary);
                 }
               }
             }
+          }
+
+          .dropdown:hover .user-icon,
+          .dropdown:focus .user-icon,
+          .dropdown:focus-within .user-icon {
+            outline-color: var(--color-raised-bg-hover);
+          }
+
+          .dropdown:hover .content {
+            opacity: 1;
+            transform: scaleY(1);
+            visibility: visible;
           }
         }
 
@@ -612,10 +618,12 @@ export default {
             outline: none;
             color: var(--color-brand-inverted);
             padding: 0.5rem 0.75rem;
+
             svg {
               vertical-align: middle;
               margin-right: 0.5rem;
             }
+
             &:hover,
             &:focus {
               background-color: var(--color-brand-hover);
@@ -623,6 +631,7 @@ export default {
           }
         }
       }
+
       @media screen and (min-width: 1024px) {
         max-width: 1280px;
         margin-left: auto;
@@ -684,60 +693,6 @@ export default {
 
             .hide-desktop {
               display: none;
-            }
-
-            .dropdown {
-              &:hover .control {
-                background: var(--color-button-bg-hover);
-              }
-              &.open {
-                .control {
-                  background: var(--color-button-bg);
-                  border-radius: 1.25rem 1.25rem 0 0;
-                  .dropdown-icon {
-                    transform: rotate(180deg);
-                  }
-                }
-                .content {
-                  display: unset;
-                }
-              }
-              ul {
-                background-color: var(--color-button-bg);
-                border-radius: 0 0 var(--size-rounded-control)
-                  var(--size-rounded-control);
-                box-shadow: var(--shadow-dropdown);
-
-                li {
-                  a,
-                  button {
-                    svg {
-                      margin-left: 0;
-                    }
-                    span {
-                      margin-right: 0;
-                    }
-                  }
-                }
-              }
-              .content {
-                width: calc(100% - 7.5rem);
-                position: fixed;
-                display: none;
-              }
-              .control {
-                .avatar {
-                  img {
-                    margin-left: 0;
-                  }
-                  span {
-                    margin-right: 1.5rem;
-                  }
-                }
-                .dropdown-icon {
-                  display: block;
-                }
-              }
             }
           }
 

@@ -60,7 +60,7 @@ export default {
 
   .cover {
     img {
-      border-radius: var(--size-rounded-lg);
+      border-radius: var(--size-rounded-card);
       width: 100%;
       height: calc(75vh - var(--size-navbar-height));
       object-fit: cover;
