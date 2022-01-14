@@ -448,7 +448,7 @@
         <SmartFileInput
           v-if="mode === 'edit' || mode === 'create'"
           multiple
-          accept=".jar,application/java-archive,.zip,application/zip"
+          accept=".jar,application/java-archive,.zip,application/zip,.mrpack"
           prompt="Upload files"
           @change="(x) => x.forEach((y) => newFiles.push(y))"
         />
