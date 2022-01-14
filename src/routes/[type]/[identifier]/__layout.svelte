@@ -77,10 +77,10 @@
 	export let versions: Version[];
 	setContext('versions', versions);
 	export let featuredVersions: Version[];
-  let currentMember = members.find(member => $user.id === member.user.id)
+  let currentMember = members.find(member => $user?.id === member.user.id)
   let permissions: Permissions;
 
-  if (['admin', 'moderator'].includes($user.role)) {
+  if (['admin', 'moderator'].includes($user?.role)) {
     permissions = new Permissions('ALL');
   } else if (currentMember && currentMember.accepted) {
     permissions = new Permissions(currentMember.permissions);
@@ -154,7 +154,7 @@
 		alpha: 'red',
 	};
 
-  let bannerColor = $cache.projectColors[project.id] || "white"
+  let bannerColor = $cache.projectColors[project.id] || "var(--color-button-bg-hover)"
 
 	onMount(() => {
     if (!banner && project.icon_url) {
