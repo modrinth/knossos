@@ -377,8 +377,7 @@ export default {
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
     },
     removeFocus() {
-      console.log('Test')
-      document.activeElement.blur()
+      document.activeElement.blur() // This doesn't work, sadly. Help
     },
   },
 }
