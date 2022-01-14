@@ -32,7 +32,7 @@
 <script lang="ts">
 	import Nav from '$components/elements/Nav.svelte';
 	import { t } from 'svelte-intl-precompile';
-	import { setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte'
 	import Button from '$components/elements/Button.svelte';
 	import IconHeart from 'virtual:icons/lucide/heart';
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil';
@@ -57,8 +57,12 @@
 	import { tagIcons } from '$stores/tags';
 	import Avatar from '$components/elements/Avatar.svelte';
 	import Badge from '$components/elements/Badge.svelte';
+  import { browser } from '$app/env'
+  import { cache } from '$stores/cache'
+  import { user } from '$stores/server'
+  import { Permissions} from '$lib/permissions'
 
-	interface Member {
+  interface Member {
 		team_id: string;
 		user: User;
 		role: string;
@@ -73,6 +77,16 @@
 	export let versions: Version[];
 	setContext('versions', versions);
 	export let featuredVersions: Version[];
+  let currentMember = members.find(member => $user.id === member.user.id)
+  let permissions: Permissions;
+
+  if (['admin', 'moderator'].includes($user.role)) {
+    permissions = new Permissions('ALL');
+  } else if (currentMember && currentMember.accepted) {
+    permissions = new Permissions(currentMember.permissions);
+  } else {
+    permissions = new Permissions(0)
+  }
 
 	let banner = project.gallery.find((item) => item.featured) || project.gallery[0];
 
@@ -140,7 +154,19 @@
 		alpha: 'red',
 	};
 
-	console.log();
+  let bannerColor = $cache.projectColors[project.id] || "white"
+
+	onMount(() => {
+    if (!banner && project.icon_url) {
+      const foo = import('node-vibrant/lib/browser').then(Vibrant => {
+        let palette = Vibrant.from(project.icon_url)
+          .getPalette().then(colors => {
+            bannerColor = colors.Muted.getHex();
+            $cache.projectColors[project.id] = bannerColor;
+          })
+      })
+    }
+  })
 </script>
 
 <div class="column-layout">
@@ -153,9 +179,9 @@
 			{#if banner}
 				<img class="card__banner card__banner--short" src={banner.url} alt={banner.description} />
 			{:else}
-        <div class="card__banner card__banner--short" style="background-color: grey" />
+        <div class="card__banner card__banner--short" style="background-color: {bannerColor}" />
       {/if}
-			<ProfilePicture src={project.icon_url} size="md" floatUp />
+			<ProfilePicture src="{project.icon_url}" size="md" floatUp />
 			<h1 class="title">{project.title}</h1>
 			<p>{project.description}</p>
 
@@ -300,10 +326,10 @@
 						label: $t('pages.description'),
 						href: '/',
 					},
-					{
+					...(project.gallery.length > 0 || permissions.data.editDetails ? [{
 						label: $t('pages.gallery'),
 						href: '/gallery',
-					},
+					}] : []),
 					{
 						label: $t('pages.changelog'),
 						href: '/changelog',
@@ -312,10 +338,10 @@
 						label: $t('pages.versions'),
 						href: '/versions',
 					},
-					{
+					...(permissions.settingsPage ? [{
 						label: $t('pages.settings'),
-						href: '/versions',
-					},
+						href: '/settings',
+					}] : []),
 				]}
 				level={2}
 			/>

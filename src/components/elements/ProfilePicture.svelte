@@ -59,6 +59,7 @@
 			}
 			&-lg {
 				--size: 9rem;
+        background-color: var(--color-brand-contrast);
 			}
 		}
 

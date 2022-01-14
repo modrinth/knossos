@@ -92,11 +92,13 @@
 		"types": {
 			"mod": {
 				"singular": "Mod",
-				"plural": "Mods"
+				"plural": "Mods",
+        "search": "Search mods..."
 			},
 			"modpack": {
 				"singular": "Modpack",
-				"plural": "Modpacks"
+				"plural": "Modpacks",
+        "search": "Search modpacks..."
 			}
 		},
 		"sidebar_headings": {

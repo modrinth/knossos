@@ -15,6 +15,7 @@
 		return {
 			props: {
 				data,
+        project_type,
 			},
 		};
 	}
@@ -22,19 +23,35 @@
 
 <script lang="ts">
   import ProjectCard from "$components/elements/ProjectCard.svelte";
+  import { t } from "svelte-intl-precompile";
+  import Input from "$components/elements/Input.svelte";
+  import Multiselect from "$components/elements/Multiselect.svelte";
 
   export let data = []
+  export let project_type: string;
+
+  let parameters;
 </script>
 
 
 <div class="column-layout">
   <div class="column-layout__sidebar">
     <div class="card card--gap-compressed">
-      <h3>Filter</h3>
+      <h3>Minecraft versions</h3>
+
+      <h3>Mod Loaders</h3>
+      <h3>Environments</h3>
+      <h3>Categories</h3>
+      <Input type="checkboxes" label="Decoration" />
     </div>
   </div>
 
   <div class="column-layout__content">
+    <div class="card card--gap-compressed card--row">
+      <Input type="text" placeholder="{$t(`project.types.${project_type}.search`)}"/>
+      Sort by
+      <Multiselect options={[{ value: "relevance", label: "Relevance" }]} value="relevance" />
+    </div>
     {#each data.hits as project}
       <ProjectCard {project} />
     {/each}

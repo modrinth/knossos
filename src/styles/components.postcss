@@ -29,7 +29,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: auto;
-	grid-gap: 1rem;
+	grid-gap: 0.25rem 0.6rem;
 	color: var(--color-text-lightest);
 
 	&__tag {
@@ -117,6 +117,11 @@
 	&__banner {
 		--inverse-padding: calc(var(--padding) * -1);
 		margin: var(--inverse-padding) var(--inverse-padding) 0 var(--inverse-padding);
+    transition: background-color ease-in 0.2s;
+
+    &:-moz-loading {
+      visibility: hidden;
+    }
 
 		&--short {
 			height: 6.5rem;
@@ -135,6 +140,11 @@
 		align-items: flex-end;
 		grid-gap: 0.5rem;
 	}
+
+  &--row {
+    flex-direction: row;
+    align-items: center;
+  }
 
 	&--strip {
 		--padding: 1rem 1.3rem;

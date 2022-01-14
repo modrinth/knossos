@@ -32,14 +32,16 @@
 	import Header from '$components/layout/Header.svelte';
 	import { theme, setSystemTheme } from '$stores/app';
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
+	import { page, navigating } from '$app/stores';
 	import Popup from '$components/elements/Popup.svelte';
+  import NProgress from 'nprogress'
+  import { goto } from '$app/navigation'
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
 			$page.url.searchParams.delete('code');
-		}
+      goto($page.url.toString())
+    }
 
 		if ($theme === 'system') {
 			setSystemTheme();
@@ -51,6 +53,21 @@
 			}
 		});
 	});
+
+  NProgress.configure({
+    minimum: 0.1,
+    showSpinner: false,
+    trickleSpeed: 20,
+  })
+
+  $: {
+    if ($navigating) {
+      NProgress.start();
+    }
+    if (!$navigating) {
+      NProgress.done();
+    }
+  }
 </script>
 
 <Popup />

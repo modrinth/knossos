@@ -8,6 +8,7 @@
 	import { clickOutside } from 'svelte-use-click-outside';
 	import { token, user } from '$stores/server';
 	import { goto } from '$app/navigation';
+  import { page } from '$app/stores'
 
 	let isOpen = false;
 
@@ -40,7 +41,7 @@
 				$token = '';
 				document.cookie =
 					'modrinth-token' + '=test; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-				goto('/');
+        // window.location.replace($page.url.toString()); // Reloads page after logout
 			},
 			icon: IconLogout,
 		},

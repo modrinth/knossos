@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile';
-	import LogoWordmark from '$assets/images/logo/wordmark.svg';
 	import LogoIcon from '$assets/images/logo/icon.svg';
 	import Nav from '$components/elements/Nav.svelte';
 	import Button from '$components/elements/Button.svelte';
@@ -12,6 +11,7 @@
 	import MobileNav from '$components/elements/MobileNav.svelte';
 	import { projectTypes } from '$stores/tags';
 	import { setContext } from 'svelte';
+  import LogoLoader from "$components/elements/LogoLoader.svelte";
 
 	let screenWidth = 1000;
 
@@ -27,7 +27,7 @@
 <header class="header">
 	{#if screenWidth > 500}
 		<a href="/" aria-label="Modrinth Home">
-			<LogoWordmark height={24} />
+      <LogoLoader height={'24px'} />
 		</a>
 		<Nav level={0} links={navItems} />
 	{:else}

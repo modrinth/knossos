@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Multiselect from "$components/elements/Multiselect.svelte";
 
-  export let key: string;
+  export let key = '';
 	export let label = '';
 	export let placeholder = '';
 	export let type: 'text' | 'select' | 'checkboxes' | 'textarea';
