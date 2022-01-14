@@ -8,7 +8,7 @@ specifiers:
   '@iconify-json/lucide': ^1.0.9
   '@iconify-json/simple-icons': ^1.0.10
   '@poppanator/sveltekit-svg': ^0.2.2
-  '@sveltejs/adapter-vercel': ^1.0.0-next.36
+  '@sveltejs/adapter-cloudflare': ^1.0.0-next.7
   '@sveltejs/kit': next
   '@types/cookie': ^0.4.1
   '@types/marked': ^4.0.1
@@ -55,7 +55,7 @@ devDependencies:
   '@iconify-json/lucide': 1.0.9
   '@iconify-json/simple-icons': 1.0.10
   '@poppanator/sveltekit-svg': 0.2.2_svelte@3.44.1
-  '@sveltejs/adapter-vercel': 1.0.0-next.36
+  '@sveltejs/adapter-cloudflare': 1.0.0-next.7
   '@sveltejs/kit': 1.0.0-next.229_svelte@3.44.1
   '@types/cookie': 0.4.1
   '@types/marked': 4.0.1
@@ -1475,8 +1475,8 @@ packages:
       picomatch: 2.3.0
     dev: true
 
-  /@sveltejs/adapter-vercel/1.0.0-next.36:
-    resolution: {integrity: sha512-IpvxBb5n9k5l6nikwq8mCeBg0VtSqAt7AY/PSujwjGs5KqYx3CrVu/Cyj4b0dyCO2Yyt2dr2QjS/R2R42PRBeA==}
+  /@sveltejs/adapter-cloudflare/1.0.0-next.7:
+    resolution: {integrity: sha512-P2rq+Tdvv9IKX4SVrIRqgZ2DnjmpPjp/bhAISs6cgbMzc2AmLMCeN++DXAZAVWugIjF1freLmtXcCl3/0HByNg==}
     dependencies:
       esbuild: 0.13.15
     dev: true
