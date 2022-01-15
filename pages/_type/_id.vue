@@ -37,7 +37,7 @@
             "
             class="side-descriptor"
           >
-            <InfoIcon />
+            <InfoIcon aria-hidden="true" />
             Universal {{ project.project_type }}
           </div>
           <div
@@ -49,7 +49,7 @@
             "
             class="side-descriptor"
           >
-            <InfoIcon />
+            <InfoIcon aria-hidden="true" />
             Client {{ project.project_type }}
           </div>
           <div
@@ -61,7 +61,7 @@
             "
             class="side-descriptor"
           >
-            <InfoIcon />
+            <InfoIcon aria-hidden="true" />
             Server {{ project.project_type }}
           </div>
           <p class="description">
@@ -77,14 +77,14 @@
           </div>
           <div class="dates">
             <div class="date">
-              <CalendarIcon />
+              <CalendarIcon aria-hidden="true" />
               <span class="label">Created</span>
               <span class="value">{{
                 $dayjs(project.published).fromNow()
               }}</span>
             </div>
             <div class="date">
-              <UpdateIcon />
+              <UpdateIcon aria-hidden="true" />
               <span class="label">Updated</span>
               <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
             </div>
@@ -96,7 +96,7 @@
               :to="`/create/report?id=${project.id}&t=project`"
               class="iconified-button"
             >
-              <ReportIcon />
+              <ReportIcon aria-hidden="true" />
               Report
             </nuxt-link>
             <button
@@ -106,7 +106,7 @@
               class="iconified-button"
               @click="$store.dispatch('user/followProject', project)"
             >
-              <FollowIcon />
+              <FollowIcon aria-hidden="true" />
               Follow
             </button>
             <button
@@ -116,7 +116,7 @@
               class="iconified-button"
               @click="$store.dispatch('user/unfollowProject', project)"
             >
-              <FollowIcon fill="currentColor" />
+              <FollowIcon fill="currentColor" aria-hidden="true" />
               Unfollow
             </button>
           </div>
@@ -211,7 +211,7 @@
                 class="title"
                 target="_blank"
               >
-                <IssuesIcon />
+                <IssuesIcon aria-hidden="true" />
                 <span>Issues</span>
               </a>
               <a
@@ -220,7 +220,7 @@
                 class="title"
                 target="_blank"
               >
-                <CodeIcon />
+                <CodeIcon aria-hidden="true" />
                 <span>Source</span>
               </a>
               <a
@@ -229,7 +229,7 @@
                 class="title"
                 target="_blank"
               >
-                <WikiIcon />
+                <WikiIcon aria-hidden="true" />
                 <span>Wiki</span>
               </a>
               <a
@@ -240,8 +240,9 @@
                 <DiscordIcon
                   v-if="$colorMode.value === 'light'"
                   class="shrink"
+                  aria-hidden="true"
                 />
-                <DiscordIconWhite v-else class="shrink" />
+                <DiscordIconWhite v-else class="shrink" aria-hidden="true" />
                 <span>Discord</span>
               </a>
               <a
@@ -252,18 +253,20 @@
               >
                 <BuyMeACoffeeLogo
                   v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
+                  aria-hidden="true"
                 />
                 <BuyMeACoffeeLogoWhite
                   v-else-if="
                     donation.id === 'bmac' && $colorMode.value === 'dark'
                   "
+                  aria-hidden="true"
                 />
                 <img
                   v-else-if="
                     donation.id === 'patreon' && $colorMode.value === 'light'
                   "
                   class="shrink"
-                  alt="patreon"
+                  alt=""
                   src="~/assets/images/external/patreon.png"
                 />
                 <img
@@ -271,7 +274,7 @@
                     donation.id === 'patreon' && $colorMode.value === 'dark'
                   "
                   class="shrink"
-                  alt="patreon"
+                  alt=""
                   src="~/assets/images/external/patreon-white.png"
                 />
                 <img
@@ -279,7 +282,7 @@
                     donation.id === 'paypal' && $colorMode.value === 'light'
                   "
                   class="shrink"
-                  alt="paypal"
+                  alt=""
                   src="~/assets/images/external/paypal.png"
                 />
                 <img
@@ -287,21 +290,21 @@
                     donation.id === 'paypal' && $colorMode.value === 'dark'
                   "
                   class="shrink"
-                  alt="paypal"
+                  alt=""
                   src="~/assets/images/external/paypal-white.png"
                 />
                 <img
                   v-else-if="
                     donation.id === 'ko-fi' && $colorMode.value === 'light'
                   "
-                  alt="kofi"
+                  alt=""
                   src="~/assets/images/external/kofi.png"
                 />
                 <img
                   v-else-if="
                     donation.id === 'ko-fi' && $colorMode.value === 'dark'
                   "
-                  alt="kofi"
+                  alt=""
                   src="~/assets/images/external/kofi-white.png"
                 />
                 <FollowIcon v-else-if="donation.id === 'github'" />
@@ -328,6 +331,7 @@
               <a
                 :href="findPrimary(version).url"
                 class="download"
+                :title="`Download ${version.name}`"
                 @click.prevent="
                   downloadFile(
                     findPrimary(version).hashes.sha1,
@@ -335,7 +339,7 @@
                   )
                 "
               >
-                <DownloadIcon />
+                <DownloadIcon aria-hidden="true" />
               </a>
               <div class="info">
                 <nuxt-link

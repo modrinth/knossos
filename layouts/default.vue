@@ -1,11 +1,11 @@
 <template>
   <div class="layout">
-    <header class="site-header">
-      <section class="navbar columns">
-        <section class="logo column">
-          <NuxtLink to="/">
-            <ModrinthLogoSmall aria-label="modrinth" class="small-logo" />
-            <ModrinthLogo aria-label="modrinth" class="text-logo" />
+    <header class="site-header" role="presentation">
+      <section class="navbar columns" role="navigation">
+        <section class="logo column" role="presentation">
+          <NuxtLink to="/" aria-label="Modrinth home page">
+            <ModrinthLogoSmall aria-hidden="true" class="small-logo" />
+            <ModrinthLogo aria-hidden="true" class="text-logo" />
           </NuxtLink>
         </section>
         <section class="menu-icon">
@@ -13,8 +13,8 @@
             <HamburgerIcon />
           </button>
         </section>
-        <section ref="nav" class="right-group columns">
-          <section class="nav">
+        <section ref="nav" class="right-group columns" role="presentation">
+          <section class="nav" aria-label="Page links">
             <div class="styled-tabs">
               <NuxtLink to="/mods" class="tab">
                 <span>Mods</span>
@@ -24,25 +24,34 @@
               </NuxtLink>
             </div>
           </section>
-          <section class="column-grow user-outer">
+          <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
-              <button class="control-button" @click="changeTheme">
-                <MoonIcon v-if="$colorMode.value === 'light'" />
-                <SunIcon v-else />
+              <button
+                class="control-button"
+                title="Switch theme"
+                @click="changeTheme"
+              >
+                <MoonIcon
+                  v-if="$colorMode.value === 'light'"
+                  aria-hidden="true"
+                />
+                <SunIcon v-else aria-hidden="true" />
               </button>
               <nuxt-link
                 v-if="$auth.user"
                 to="/create/project"
                 class="control-button"
+                title="Create project"
               >
-                <PlusIcon />
+                <PlusIcon aria-hidden="true" />
               </nuxt-link>
               <nuxt-link
                 v-if="$auth.user"
                 to="/notifications"
                 class="control-button"
+                title="Notifications"
               >
-                <NotificationIcon />
+                <NotificationIcon aria-hidden="true" />
                 <div v-if="$user.notifications.length > 0" class="bubble">
                   {{ $user.notifications.length }}
                 </div>
@@ -146,8 +155,8 @@
       <Nuxt />
     </main>
     <footer>
-      <div class="logo-info">
-        <ModrinthLogo aria-label="modrinth" class="text-logo" />
+      <div class="logo-info" role="region" aria-label="Modrinth information">
+        <ModrinthLogo aria-hidden="true" class="text-logo" />
         <p>
           Modrinth is open source software. You may view the source code at
           <a
@@ -161,8 +170,8 @@
         <p>modrinth/knossos {{ version }}</p>
         <p>© Guavy LLC</p>
       </div>
-      <div class="links">
-        <h4>Legal</h4>
+      <div class="links" role="region" aria-label="Legal">
+        <h4 aria-hidden="true">Legal</h4>
         <nuxt-link to="/legal/terms">Terms</nuxt-link>
         <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
         <nuxt-link to="/legal/rules">Content</nuxt-link>
@@ -173,23 +182,21 @@
           License
         </a>
       </div>
-      <div class="links">
-        <h4>Resources</h4>
+      <div class="links" role="region" aria-label="Resources">
+        <h4 aria-hidden="true">Resources</h4>
         <a target="_blank" href="https://blog.modrinth.com">Blog</a>
         <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
         <a target="_blank" href="https://github.com/modrinth/knossos">GitHub</a>
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
       </div>
       <div class="buttons">
-        <nuxt-link to="/settings/privacy">
-          <button class="iconified-button">
-            <ShieldIcon />
-            Privacy settings
-          </button>
+        <nuxt-link to="/settings/privacy" class="iconified-button">
+          <ShieldIcon aria-hidden="true" />
+          Privacy settings
         </nuxt-link>
         <button class="iconified-button" @click="changeTheme">
-          <MoonIcon v-if="$colorMode.value === 'light'" />
-          <SunIcon v-else />
+          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+          <SunIcon v-else aria-hidden="true" />
           Change theme
         </button>
       </div>
@@ -798,7 +805,7 @@ export default {
         margin-right: auto;
 
         &:hover,
-        &:focus {
+        &:focus-visible {
           background-color: var(--color-button-bg-hover);
         }
       }
