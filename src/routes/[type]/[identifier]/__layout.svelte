@@ -357,7 +357,7 @@
 
   .featured-version {
     display: flex;
-    grid-gap: 0.2rem;
+    grid-gap: 0.75rem;
 
     .tags {
       flex-wrap: nowrap;
