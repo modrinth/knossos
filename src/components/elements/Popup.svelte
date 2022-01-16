@@ -2,7 +2,6 @@
 	import { popups } from '$stores/app';
 	import { clickOutside } from 'svelte-use-click-outside';
 	import Multiselect from '$components/elements/Multiselect.svelte';
-	import { markdownInline } from '$lib/parse';
 	import Button from '$components/elements/Button.svelte';
 
 	$: popup = $popups[0];
@@ -18,7 +17,7 @@
 		<div class="popup__card card card--gap-compressed" use:clickOutside={close}>
 			<h1 class="title">{popup.title}</h1>
 			{#if popup.description}
-				<p class="popup__card__description">{@html markdownInline(popup.description)}</p>
+				<p class="popup__card__description">{@html popup.description}</p>
 			{/if}
 			{#if popup.form}
 				<form class="popup__form" on:submit|preventDefault={popup.form.action}>

@@ -4,12 +4,17 @@
 </script>
 
 <div class="badge badge--color-{color}">
-	<span class="badge__label">{label}</span>
+	{label}
 </div>
 
 <style lang="postcss">
 	.badge {
 		font-weight: var(--font-weight-bold);
+    display: inline;
+    position: relative;
+    padding-left: 0.9rem;
+    height: 1rem;
+    line-height: 100%;
 
 		&--color-green {
 			color: var(--color-badge-green-text);
@@ -24,14 +29,16 @@
 			--color-dot: var(--color-badge-red-dot);
 		}
 
-		&__label::before {
+		&::before {
 			content: '';
 			display: inline-block;
 			width: 0.5rem;
 			height: 0.5rem;
 			border-radius: 50%;
 			background-color: var(--color-dot);
-			margin-right: 0.5rem;
+      position: absolute;
+      left: 0;
+      bottom: 25%;
 		}
 	}
 </style>

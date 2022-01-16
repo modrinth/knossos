@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import { send } from '$lib/api';
 
 let loaded = false;
@@ -9,10 +9,17 @@ export const gameVersions = writable([]);
 export const licenses = writable([]);
 export const donationPlatforms = writable([]);
 export const projectTypes = writable(['mod', 'modpack']);
-export const tagIcons = writable();
+export const tagIcons = writable({});
 
 categories.subscribe((categories) => {
-	tagIcons.set(categories.reduce((a, v) => ({ ...a, [v.name]: v.icon }), {}));
+	tagIcons.set({
+		...get(tagIcons),
+		...categories.reduce((a, v) => ({ ...a, [v.name]: v.icon }), {}),
+	});
+});
+
+loaders.subscribe((loaders) => {
+	tagIcons.set({ ...get(tagIcons), ...loaders.reduce((a, v) => ({ ...a, [v.name]: v.icon }), {}) });
 });
 
 export async function updateTags(force = false, fetchOverride): Promise<void> {

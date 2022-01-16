@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { markdownInline } from '$lib/parse'
   import { t } from 'svelte-intl-precompile'
   import IconHeart from 'virtual:icons/lucide/heart'
   import IconDownload from 'virtual:icons/heroicons-outline/download'
@@ -35,7 +34,7 @@
       {/if}
 		</span>
 
-    <p>
+    <p class="summary">
       {project.description}
     </p>
 
@@ -52,15 +51,15 @@
   <div class="project-card__stats">
 		<span class="stat">
 			<IconDownload/>
-      {@html markdownInline($t('stats.downloads', {values: {downloads: project.downloads}}))}
+      {@html $t('stats.downloads', {values: {downloads: project.downloads}})}
 		</span>
     <span class="stat">
 			<IconHeart/>
-      {@html markdownInline($t('stats.followers', {values: {followers: project.followers ?? project.follows}}))}
+      {@html $t('stats.followers', {values: {followers: project.followers ?? project.follows}})}
 		</span>
     <span class="stat">
 			<IconCalendar/>
-      {@html markdownInline($t('stats.updated', {values: {ago: ago(updated)}}))}
+      {@html $t('stats.updated', {values: {ago: ago(updated)}})}
 		</span>
   </div>
 </div>

@@ -39,7 +39,6 @@
 	import { setContext } from 'svelte';
 	import Badge from '$components/elements/Badge.svelte';
 	import { ago } from '$lib/ago';
-	import { markdownInline } from '$lib/parse';
 	import ProfilePicture from '$components/elements/ProfilePicture.svelte';
 	import { projectTypes } from '$stores/tags';
 	import Meta from '$components/utils/Meta.svelte';
@@ -92,14 +91,14 @@
 
 			<div class="stat">
 				<IconDownload />
-				<span>{@html markdownInline($t('stats.downloads', { values: { downloads } }))}</span>
+				<span>{@html $t('stats.downloads', { values: { downloads } })}</span>
 			</div>
 			<div class="stat">
 				<IconHeart />
 				<span
-					>{@html markdownInline(
+					>{@html
 						$t('stats.followers_of_projects', { values: { followers } })
-					)}</span
+					}</span
 				>
 			</div>
 			<div class="stat stat--color-light">
@@ -125,7 +124,7 @@
 	</div>
 
 	<div class="column-layout__content">
-		<div class="card card--strip">
+		<div class="card card--strip card--pad-x">
 			<Nav
 				links={[
 					{

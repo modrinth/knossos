@@ -13,7 +13,8 @@
   let img;
 
   onMount(() => {
-    if (img?.naturalWidth < 96) {
+    if (img?.naturalWidth < 96 && img?.naturalWidth > 0) {
+      console.log(img.naturalWidth)
       img.style = "image-rendering: pixelated;"
     }
   })

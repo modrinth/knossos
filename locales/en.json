@@ -60,7 +60,8 @@
 			"follow": "Follow",
 			"unfollow": "Unfollow",
 			"report": "Report",
-			"new_project": "New project"
+			"new_project": "New project",
+      "download": "Download"
 		},
 		"external": {
 			"github_profile": "GitHub profile",
@@ -128,9 +129,9 @@
 	},
 	"stats": {
 		"joined": "Joined {ago}",
-		"downloads": "{downloads, plural, one {**1** download} other {**#** downloads}}",
-		"followers_of_projects": "{followers, plural, one {**1** follower of projects} other {**#** followers of projects}}",
-		"followers": "{followers, plural, one {**1** follower} other {**#** followers}}",
+		"downloads": "{downloads, plural, one {<b>1</b> download} other {<b>#</b> downloads}}",
+		"followers_of_projects": "{followers, plural, one {<b>1<b> follower of projects} other {<b>#</b> followers of projects}}",
+		"followers": "{followers, plural, one {<b>1</b> follower} other {<b>#</b> followers}}",
 		"user_id": "User ID: {id}",
 		"created": "Created {ago}",
 		"updated": "Updated {ago}"
@@ -149,6 +150,6 @@
 		"equipment": "Equipment",
 		"miscellaneous": "Miscellaneous",
     "fabric": "Fabric",
-    "forge": "Forge",
+    "forge": "Forge"
 	}
 }

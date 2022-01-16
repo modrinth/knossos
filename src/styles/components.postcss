@@ -7,6 +7,10 @@
 	font-size: 1.25rem;
 }
 
+.summary {
+  line-height: 130%;
+}
+
 .stat {
 	display: flex;
 	align-items: baseline;
@@ -26,7 +30,7 @@
 }
 
 .tags {
-	display: flex;
+	display: inline-flex;
 	flex-wrap: wrap;
 	margin-top: auto;
 	grid-gap: 0.25rem 0.6rem;
@@ -106,9 +110,15 @@
 	grid-gap: 1rem;
 	max-width: 100%;
 
-	&--gap-compressed {
-		grid-gap: 0.6rem;
-	}
+	&--gap {
+    &-compressed {
+      grid-gap: 0.6rem;
+    }
+
+    &-none {
+      grid-gap: 0;
+    }
+  }
 
 	&--pad-top {
 		padding-top: 2.5rem;
@@ -147,10 +157,14 @@
   }
 
 	&--strip {
-		--padding: 1rem 1.3rem;
 		flex-direction: row;
 		justify-content: space-between;
+    align-items: center;
 	}
+
+  &--pad-x {
+    --padding: 1rem 1.3rem;
+  }
 
 	&--text {
 		--padding: 1.5rem;
@@ -197,7 +211,7 @@
 		iframe {
 			max-width: 100%;
 			height: auto;
-			border-radius: var(--rounded);
+      border-radius: var(--rounded-sm);
 		}
 
 		code {
