@@ -45,6 +45,7 @@ const config = {
 					$lib: path.resolve('./src/lib'),
 					$stores: path.resolve('./src/stores'),
 					$styles: path.resolve('./src/styles'),
+					$generated: path.resolve('./src/generated'),
 				},
 			},
 		},
