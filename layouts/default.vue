@@ -325,6 +325,8 @@ export default {
   watch: {
     $route() {
       this.$refs.mobileMenu.className = 'mobile-menu'
+      this.isMobileMenuOpen =
+        this.$refs.mobileMenu.className === 'mobile-menu active'
 
       document.documentElement.style.overflow = overflowStyle
       document.body.style.overflow = overflowStyle
@@ -777,6 +779,13 @@ html {
         column-gap: 0.25rem;
         width: calc(100% - 4rem);
         max-width: 18rem;
+
+        &.nuxt-link-exact-active {
+          color: var(--color-button-text-active);
+          svg {
+            color: var(--color-brand);
+          }
+        }
 
         &.log-in {
           color: var(--color-brand-inverted);
