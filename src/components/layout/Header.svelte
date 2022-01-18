@@ -9,13 +9,13 @@
 	import { user } from '$stores/server';
 	import Avatar from '$components/elements/Avatar.svelte';
 	import MobileNav from '$components/elements/MobileNav.svelte';
-	import { projectTypes } from '$stores/tags';
+	import { projectTypes } from '$generated/tags.json';
 	import { setContext } from 'svelte';
   import LogoLoader from "$components/elements/LogoLoader.svelte";
 
 	let screenWidth = 1000;
 
-	let navItems = $projectTypes.map((type) => ({
+	let navItems = projectTypes.map((type) => ({
 		label: $t(`project.types.${type}.plural`),
 		href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
 	}));

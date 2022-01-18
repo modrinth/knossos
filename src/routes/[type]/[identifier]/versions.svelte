@@ -6,7 +6,8 @@
   import { formatVersions } from '$lib/versions'
   import Button from '$components/elements/Button.svelte'
   import IconDownload from 'virtual:icons/heroicons-outline/download'
-  import { tagIcons } from '$stores/tags'
+  import { tagIcons } from '$generated/tags.json'
+  import { downloadUrl, getPrimary } from '$lib/versions'
 
   const owner = $members.find(member => member.role === 'Owner').user.username
 </script>
@@ -33,7 +34,7 @@
           <div class="tags">
             {#each version.loaders as loader, index}
               <div class="tags__tag">
-                {@html $tagIcons[loader]}{$t(`tags.${loader}`)}
+                {@html tagIcons[loader]}{$t(`tags.${loader}`)}
               </div>
             {/each}
           </div>
@@ -43,7 +44,7 @@
           {@html $t('stats.downloads', {values: {downloads: version.downloads}})}
         </div>
       </div>
-      <Button label={$t('generic.actions.download')} icon={IconDownload} href={version.files.find((file) => file.primary)?.url || version.files[0].url}/>
+      <Button label={$t('generic.actions.download')} icon={IconDownload} href={downloadUrl(getPrimary(version.files))}/>
     </div>
   {/each}
 </div>

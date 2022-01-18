@@ -1,14 +1,12 @@
 <script context="module" lang="ts">
-	import { updateTags } from '$stores/tags';
-	import type { Load } from '@sveltejs/kit';
 	import { token, user } from '$stores/server';
-	import { browser } from '$app/env';
 
   import { init, waitLocale } from 'svelte-intl-precompile';
   import { registerAll, availableLocales } from '$locales';
 
   registerAll();
 
+  /** @type {import('@sveltejs/kit').Load} */
   export async function load({ fetch, session, stuff }) {
 		init({
 			fallbackLocale: 'en',
@@ -18,8 +16,6 @@
 
 		token.set(session.token);
 		user.set(session.user);
-
-		await updateTags(!browser, fetch);
 
 		return {};
 	}

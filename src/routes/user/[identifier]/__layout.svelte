@@ -40,7 +40,7 @@
 	import Badge from '$components/elements/Badge.svelte';
 	import { ago } from '$lib/ago';
 	import ProfilePicture from '$components/elements/ProfilePicture.svelte';
-	import { projectTypes } from '$stores/tags';
+	import { projectTypes } from '$generated/tags.json';
 	import Meta from '$components/utils/Meta.svelte';
 	import { user as currentUser } from '$stores/server';
 
@@ -131,7 +131,7 @@
 						label: $t('pages.all'),
 						href: '',
 					},
-					...$projectTypes.map((type) => ({
+					...projectTypes.map((type) => ({
 						label: $t(`project.types.${type}.plural`),
 						href: type,
 					})),

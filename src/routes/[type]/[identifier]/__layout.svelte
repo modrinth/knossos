@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
   import { send } from '$lib/api'
+  import { projectTypes } from '$generated/tags.json'
 
   export async function load({params, fetch, session, stuff}) {
     try {
       // Explicit types to quickly send bad URLs a 404 response
-      if (!['mod', 'modpack'].includes(params.type)) {
+      if (!projectTypes.includes(params.type)) {
         throw new Error('Invalid type')
       }
 
@@ -56,12 +57,13 @@
   import ProfilePicture from '$components/elements/ProfilePicture.svelte'
   import { ago } from '$lib/ago'
   import IconCalendar from 'virtual:icons/lucide/calendar'
-  import { tagIcons } from '$stores/tags'
+  import { tagIcons } from '$generated/tags.json'
   import Badge from '$components/elements/Badge.svelte'
   import { cache } from '$stores/cache'
   import { user } from '$stores/server'
   import { Permissions } from '$lib/permissions'
   import { project, members, versions, featuredVersions, releaseColors } from './_store'
+  import { downloadUrl, getPrimary } from '$lib/versions'
 
   export let store;
   ({$project, $members, $versions, $featuredVersions} = store)
@@ -171,7 +173,7 @@
       <div class="tags">
         {#each $project.categories as category}
           <div class="tags__tag">
-            {@html $tagIcons[category]}
+            {@html tagIcons[category]}
             {$t(`tags.${category}`)}
           </div>
         {/each}
@@ -215,48 +217,52 @@
     </div>
 
     <div class="card">
-      <h2 class="title-secondary">{$t('project.sidebar_headings.external_resources')}</h2>
-      <div class="link-group">
-        {#each externalResources.filter((resource) => resource.url) as resource}
-          <a class="link-group__link" href={resource.url} rel="noreferrer">
-            <svelte:component this={resource.icon}/>
-            {resource.title}
-          </a>
-        {/each}
-      </div>
+      {#if externalResources.filter((resource) => resource.url).length > 0}
+        <h2 class="title-secondary">{$t('project.sidebar_headings.external_resources')}</h2>
+        <div class="link-group">
+          {#each externalResources.filter((resource) => resource.url) as resource}
+            <a class="link-group__link" href={resource.url} rel="noreferrer">
+              <svelte:component this={resource.icon}/>
+              {resource.title}
+            </a>
+          {/each}
+        </div>
 
-      <hr class="divider"/>
+        <hr class="divider"/>
+      {/if}
 
-      <h2 class="title-secondary">{$t('project.sidebar_headings.featured_versions')}</h2>
-      {#each $featuredVersions as version}
-        <div class="featured-version">
-          <a
-            class="featured-version__download"
-            href={version.files.find((file) => file.primary)?.url || version.files[0].url}
-          >
-            <IconDownloadFile width={24} height={24}/>
-          </a>
-          <div class="featured-version__info">
-            <h3 class="featured-version__info__name">{version.name || version.version_number}</h3>
-            <div class="featured-version__info__details">
-              <Badge
-                label={$t(`release_channels.${version.version_type}`)}
-                color={releaseColors[version.version_type]}
-              />
-              •
-              <div class="tags">
-                {#each version.loaders as loader, index}
-                  <div class="tags__tag">
-                    {@html $tagIcons[loader]}{$t(`tags.${loader}`)}
-                  </div>
-                {/each}
+      {#if $featuredVersions.length > 0}
+        <h2 class="title-secondary">{$t('project.sidebar_headings.featured_versions')}</h2>
+        {#each $featuredVersions as version}
+          <div class="featured-version">
+            <a
+              class="featured-version__download"
+              href={downloadUrl(getPrimary(version.files))}
+            >
+              <IconDownloadFile width={24} height={24}/>
+            </a>
+            <div class="featured-version__info">
+              <h3 class="featured-version__info__name">{version.name || version.version_number}</h3>
+              <div class="featured-version__info__details">
+                <Badge
+                  label={$t(`release_channels.${version.version_type}`)}
+                  color={releaseColors[version.version_type]}
+                />
+                •
+                <div class="tags">
+                  {#each version.loaders as loader, index}
+                    <div class="tags__tag">
+                      {@html tagIcons[loader]}{$t(`tags.${loader}`)}
+                    </div>
+                  {/each}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      {/each}
+        {/each}
 
-      <hr class="divider"/>
+        <hr class="divider"/>
+      {/if}
 
       <h2 class="title-secondary">{$t('project.sidebar_headings.project_members')}</h2>
       {#each $members.filter((member) => member.accepted) as member}

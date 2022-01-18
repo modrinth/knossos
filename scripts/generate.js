@@ -9,13 +9,22 @@ const GENERATED_PATH = './src/generated/';
 (async () => {
 	console.log('Generating static data from Labrinth');
 
+	/* GAME VERSIONS */
+
+	// Fetch data
+	let gameVersions = await (await fetch(API_URL + 'tag/game_version')).json();
+
+	// Write JSON file
+	await fs.writeFile(GENERATED_PATH + 'gameVersions.json', JSON.stringify(gameVersions));
+
+	console.log('Generated gameVersions.json');
+
 	/* TAGS */
 
 	// Fetch data
-	let [categories, loaders, gameVersions, licenses, donationPlatforms] = await Promise.all([
+	let [categories, loaders, licenses, donationPlatforms] = await Promise.all([
 		await (await fetch(API_URL + 'tag/category')).json(),
 		await (await fetch(API_URL + 'tag/loader')).json(),
-		await (await fetch(API_URL + 'tag/game_version')).json(),
 		await (await fetch(API_URL + 'tag/license')).json(),
 		await (await fetch(API_URL + 'tag/donation_platform')).json(),
 	]);
@@ -27,13 +36,18 @@ const GENERATED_PATH = './src/generated/';
 	};
 
 	// Delete icons from original arrays
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	categories = categories.map(({ icon, ...rest }) => rest);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	loaders = loaders.map(({ icon, ...rest }) => rest);
+
+	// Set project types
+	const projectTypes = ['mod', 'modpack'];
 
 	// Write JSON file
 	await fs.writeFile(
 		GENERATED_PATH + 'tags.json',
-		JSON.stringify({ categories, loaders, gameVersions, licenses, donationPlatforms, tagIcons })
+		JSON.stringify({ categories, loaders, projectTypes, licenses, donationPlatforms, tagIcons })
 	);
 
 	console.log('Generated tags.json');

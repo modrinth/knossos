@@ -6,10 +6,8 @@ const renderer = new marked.Renderer();
 
 renderer.image = (href, text) => {
 	if (/^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9_]{11}$/.test(href)) {
-		return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${href.substring(
-			32,
-			43
-		)}" frameborder="0" allowfullscreen></iframe>`;
+		const id = href.substring(32, 43);
+		return `<iframe src="https://www.youtube-nocookie.com/embed/${id}?&modestbranding=1&autoplay=0&rel=0" frameborder="0" allowfullscreen></iframe>`;
 	} else {
 		return `<img src="${href}" alt="${text}" />`;
 	}
@@ -91,7 +89,9 @@ function sanitize(html: string): string {
 		],
 		filter: ({ tag, attrs }): boolean => {
 			if (tag === 'iframe') {
-				return /^https?:\/\/(www\.)?youtube\.com\/embed\/[a-zA-Z0-9_]{11}$/.test(attrs.src || '');
+				return /^https?:\/\/(www\.)?(youtube|youtube-nocookie)\.com\/embed\/[a-zA-Z0-9_]{11}(\?)?(&modestbranding=1)?(&autoplay=0)?(&loop=1)?(&playlist=[a-zA-Z0-9_]{11})?(&rel=0)?$/.test(
+					attrs.src || ''
+				);
 			} else if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)) {
 				return attrs.id !== 'svelte';
 			} else if (tag === 'input') {

@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
 	import { send } from '$lib/api';
+  import { projectTypes } from '$generated/tags.json'
 
 	export async function load({ params, url, fetch, session, stuff }) {
 		const project_type = params.search.replace('s', '');
 
-		if (!['mod', 'modpack'].includes(project_type)) {
+		if (!projectTypes.includes(project_type)) {
 			return {
 				status: 404,
 			};

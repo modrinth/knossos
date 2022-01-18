@@ -13,9 +13,18 @@
   let img;
 
   onMount(() => {
-    if (img?.naturalWidth < 96 && img?.naturalWidth > 0) {
-      console.log(img.naturalWidth)
-      img.style = "image-rendering: pixelated;"
+    if (img) {
+      const isPixelated = () => {
+        if (img.naturalWidth < 96 && img.naturalWidth > 0) {
+          img.style = "image-rendering: pixelated;"
+        }
+      }
+
+      if (img.naturalWidth) {
+        isPixelated()
+      } else {
+        img.onload = isPixelated
+      }
     }
   })
 </script>

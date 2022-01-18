@@ -4,7 +4,7 @@
   import IconDownload from 'virtual:icons/heroicons-outline/download'
   import IconCalendar from 'virtual:icons/lucide/calendar'
   import { ago } from '$lib/ago'
-  import { tagIcons } from '$stores/tags'
+  import { tagIcons } from '$generated/tags.json'
   import ProfilePicture from './ProfilePicture.svelte'
 
   export let project: Project | ProjectResult
@@ -41,7 +41,7 @@
     <div class="tags">
       {#each project.categories as category}
         <div class="tags__tag">
-          {@html $tagIcons[category] || "?"}
+          {@html tagIcons[category] || "?"}
           {$t(`tags.${category}`)}
         </div>
       {/each}

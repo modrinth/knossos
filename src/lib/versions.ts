@@ -1,8 +1,7 @@
-import { get } from 'svelte/store';
-import { gameVersions as gameVersionsStore } from '$stores/tags';
+import gameVersions from '$generated/gameVersions.json';
+import { send } from '$lib/api';
 
 export function formatVersions(versionArray: string[]): string {
-	const gameVersions = get(gameVersionsStore);
 	const all: string[] = gameVersions.map((it) => it.version).reverse();
 	const allMajors: string[] = gameVersions
 		.filter((it) => it.version_type === 'release')
@@ -38,4 +37,11 @@ export function formatVersions(versionArray: string[]): string {
 	});
 
 	return output;
+}
+
+export const getPrimary = (files: Version['files']) =>
+	files.find((file) => file.primary) || files[0];
+
+export function downloadUrl(file): string {
+	return import.meta.env.VITE_API_URL + `version_file/${file.hashes.sha1}/download`;
 }
