@@ -6,8 +6,8 @@
   import Meta from '$components/utils/Meta.svelte'
   import Wordmark from '$assets/images/logo/wordmark.svg'
   import IconSearch from 'virtual:icons/heroicons-outline/search'
-  import { onMount } from 'svelte'
   import generatedStacks from '$generated/stacks.json'
+  import { goto } from '$app/navigation'
 
   let stacks = generatedStacks
 
@@ -17,6 +17,11 @@
   //     matrix: [stack.matrix[0], stack.matrix[1] + Math.floor(index / 99 * 100) / 100],
   //   }))
   // }
+
+  function search(event: FormDataEvent) {
+    const term = event.target.term.value
+    goto(`/mods?q=${term}`)
+  }
 </script>
 
 <Meta/>
@@ -32,7 +37,7 @@
         {#each stacks as stack, index}
           <a href={stack.project.url} tabindex="-1">
           <g style="transform: matrix(1.24999, 0, 0, 1, {stack.matrix[0]},
-  {stack.matrix[1]})" stroke={stack.colors.left} fill={stack.colors.left} stroke-width="1px">
+  {stack.matrix[1]})" stroke={stack.colors.left} fill={stack.colors.left} stroke-width="2px">
             <path d="m{stack.pos[0]} 704 64-32 64 32-64 32z" />
             <image width="512" height="512" href="{stack.project.iconUrl}" transform="matrix(.125 -.0625 .125 .0625 {stack.pos[0]} 704)"/>
             <path d="m{stack.pos[0]} 704 64 32v704l-64-32z" filter="url(#filter-darken-1)" />
@@ -61,10 +66,10 @@
 
   <Wordmark class="home__wordmark"/>
   <h1 class="home__tagline">Discover, Play, & Create Minecraft content</h1>
-  <div class="home__search">
-    <input type="text" placeholder="Search mods..." class="home__search__input"/>
-    <IconSearch class="home__search__icon"/>
-  </div>
+  <form class="home__search" on:submit|preventDefault={search}>
+    <input type="text" placeholder="Search mods..." name="term" class="home__search__input"/>
+    <button type="submit" class="home__search__button"><IconSearch/></button>
+  </form>
   <p class="home__description">
     Find enjoyable and quality content through our open-source modding platform built for the community. Create stuff,
     get paid*, and deploy your project with our fully documented API!
@@ -158,16 +163,17 @@
 
       &__input {
         background-color: var(--color-button-bg);
-        border-radius: var(--rounded-max);
+        border-radius: 0.8rem;
         box-shadow: var(--shadow-raised), var(--shadow-inset);
         padding: 0.5rem 1.25rem;
         border: none;
         width: 100%;
       }
 
-      :global(&__icon) {
+      &__button {
         margin-left: -2.25rem;
         z-index: 2;
+        display: flex;
       }
     }
 

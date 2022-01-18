@@ -319,7 +319,7 @@ const GENERATED_PATH = './src/generated/';
 			// Left edge
 			{
 				const edge = await iconSharp.extract({ left: 0, top: 0, width: 1, height }).toBuffer();
-				it.colors.left = (await getAverageColor(edge)).hex;
+				it.colors.left = (await getAverageColor(edge)).hexa;
 			}
 
 			// Bottom edge
@@ -327,17 +327,18 @@ const GENERATED_PATH = './src/generated/';
 				const edge = await iconSharp
 					.extract({ left: 0, top: height - 1, width, height: 1 })
 					.toBuffer();
-				it.colors.bottom = (await getAverageColor(edge)).hex;
+				it.colors.bottom = (await getAverageColor(edge)).hexa;
 			}
 
-			console.log(it.colors);
-
-			if (it.colors.left === '#000000' || it.colors.bottom === '#000000') {
+			if (it.colors.left === '#00000000' || it.colors.bottom === '#00000000') {
 				// Image is transparent, so pick only one color
-				const color = (await getAverageColor(iconBuffer)).hex;
-				console.log(color);
+				const color = (await getAverageColor(iconBuffer)).hexa;
 				it.colors = { left: color, bottom: color };
 			}
+
+			// Remove color transparency
+			it.colors.left = it.colors.left.replace(/.{2}$/, '');
+			it.colors.bottom = it.colors.bottom.replace(/.{2}$/, '');
 
 			return it;
 		})
