@@ -106,7 +106,17 @@
 
       &__stacks {
         transform: translateY(40px);
-        transition: transform 0.2s ease-in-out 0s;
+        transition: transform 1s ease-in-out 0s;
+
+        a {
+          transform: translateY(0px);
+          transition: transform 0.02s ease-in-out 0s;
+          cursor: pointer;
+
+          &:hover {
+            transform: translateY(-20px);
+          }
+        }
       }
 
       @media (width < 1100px) {

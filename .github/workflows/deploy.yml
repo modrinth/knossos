@@ -1,0 +1,18 @@
+name: Deploy
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Wait for CF Pages
+        id: cf-pages
+        uses: WalshyDev/cf-pages-await@v1
+        with:
+          accountEmail: ${{ secrets.CF_ACCOUNT_EMAIL  }}
+          apiKey: ${{ secrets.CF_API_KEY  }}
+          accountId: '2f026ab243d136993620f21b9485d1e8'
+          project: 'knossos'
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

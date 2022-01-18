@@ -9,13 +9,17 @@
 				status: 404,
 			};
 		}
-		const route = `search?query=${url.searchParams.get("q") || ""}`;
+
+    const term = url.searchParams.get("q")
+
+		const route = `search?query=${term || ""}`;
 		const data = await send('GET', route, null, { fetch });
 
 		return {
 			props: {
 				data,
         project_type,
+        term,
 			},
 		};
 	}
@@ -29,6 +33,8 @@
 
   export let data = []
   export let project_type: string;
+
+  export let term: string;
 
   let parameters;
 </script>
@@ -48,7 +54,7 @@
 
   <div class="column-layout__content">
     <div class="card card--gap-compressed card--row">
-      <Input type="text" placeholder="{$t(`project.types.${project_type}.search`)}"/>
+      <Input type="text" placeholder="{$t(`project.types.${project_type}.search`)}" bind:value={term} />
       Sort by
       <Multiselect options={[{ value: "relevance", label: "Relevance" }]} value="relevance" />
     </div>

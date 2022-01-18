@@ -11,6 +11,7 @@
 			value: string | number;
 		}
 	] = [];
+  export let value;
 
 	export let validation: {
 		required?: boolean;
@@ -27,7 +28,7 @@
    {label}
   </div>
 	{#if type === 'text'}
-		<input type="text" name={key} class="input-box" {placeholder} />
+		<input type="text" name={key} class="input-box" {placeholder} bind:value={value} />
 	{:else if type === 'select'}
 		<Multiselect {options} value={options[0].value} />
 	{:else if type === 'checkboxes'}
