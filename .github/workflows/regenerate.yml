@@ -1,0 +1,18 @@
+name: Regenerate
+
+on:
+  schedule:
+      - cron:  '0 19 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Re-deploy site
+      - run: |
+          curl -X POST \
+            -H "X-Auth-Email: ${{ secrets.CF_ACCOUNT_EMAIL }}" \
+            -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}" \
+            -H "Content-Type: application/json;charset=UTF-8" \
+            https://api.cloudflare.com/client/v4/accounts/9ddae624c98677d68d93df6e524a6061/pages/projects/knossos/deployments

@@ -35,15 +35,14 @@
       </clipPath>
       <g clip-path="url(#a)" class="background__stacks">
         {#each stacks as stack, index}
-          <a href={stack.project.url} tabindex="-1">
-          <g style="transform: matrix(1.24999, 0, 0, 1, {stack.matrix[0]},
-  {stack.matrix[1]})" stroke={stack.colors.left} fill={stack.colors.left} stroke-width="2px">
-            <path d="m{stack.pos[0]} 704 64-32 64 32-64 32z" />
-            <image width="512" height="512" href="{stack.project.iconUrl}" transform="matrix(.125 -.0625 .125 .0625 {stack.pos[0]} 704)"/>
-            <path d="m{stack.pos[0]} 704 64 32v704l-64-32z" filter="url(#filter-darken-1)" />
-            <path d="m{stack.pos[1]} 736 64-32v704l-64 32z" filter="url(#filter-darken-2)" fill={stack.colors.bottom} stroke={stack.colors.bottom} />
-        </g>
-            </a>
+          <a href={stack.project.url} tabindex="-1" id="">
+          <g transform="matrix(1.24999 0 0 1 {stack.matrix[0]} {stack.matrix[1]})" stroke={stack.colors.bottom} fill={stack.colors.bottom} stroke-width="1.5px">
+              <path d="m{stack.pos[0]} 704 64-32 64 32-64 32z" />
+              <image width="512" height="512" href="{stack.project.iconUrl}" transform="matrix(.125 -.0625 .125 .0625 {stack.pos[0]} 704)"/>
+              <path d="m{stack.pos[0]} 704 64 32v704l-64-32z" filter="url(#filter-darken-1)" />
+              <path d="m{stack.pos[1]} 736 64-32v704l-64 32z" filter="url(#filter-darken-2)" />
+            </g>
+          </a>
         {/each}
       </g>
     </g>
@@ -57,9 +56,9 @@
 
     <filter id="filter-darken-2">
       <feComponentTransfer>
-        <feFuncR type="linear" slope="0.5"/>
-        <feFuncG type="linear" slope="0.5"/>
-        <feFuncB type="linear" slope="0.5"/>
+        <feFuncR type="linear" slope="0.4"/>
+        <feFuncG type="linear" slope="0.4"/>
+        <feFuncB type="linear" slope="0.4"/>
       </feComponentTransfer>
     </filter>
   </svg>
@@ -106,11 +105,9 @@
 
       &__stacks {
         transform: translateY(40px);
-        transition: transform 1s ease-in-out 0s;
 
         a {
           transform: translateY(0px);
-          transition: transform 0.02s ease-in-out 0s;
           cursor: pointer;
 
           &:hover {

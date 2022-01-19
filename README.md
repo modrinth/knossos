@@ -2,6 +2,23 @@
 
 ## Modrinth's center for its frontend service
 
+### Contributing
+
+#### Quick start
+
+First, make sure NodeJS & pnpm are installed, then run:
+```zsh
+pnpm install # Install dependecies
+pnpm dev # Start dev server
+```
+Then visit [localhost:3000](http://localhost:3000) in a web browser.
+
+#### More information
+
 For contributing information, please see the knossos section of the [Modrinth contributing guide](https://docs.modrinth.com/docs/details/contributing/#knossos-frontend).
 
 For a detailed explanation on how things work in general, check out the [SvelteKit docs](https://kit.svelte.dev/docs).
+
+### License
+
+[GNU AGPL v3](/LICENSE.md) and [COPYING limitations](/COPYING.md)

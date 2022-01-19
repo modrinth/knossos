@@ -13,6 +13,6 @@ jobs:
         with:
           accountEmail: ${{ secrets.CF_ACCOUNT_EMAIL  }}
           apiKey: ${{ secrets.CF_API_KEY  }}
-          accountId: '2f026ab243d136993620f21b9485d1e8'
+          accountId: '9ddae624c98677d68d93df6e524a6061'
           project: 'knossos'
           githubToken: ${{ secrets.GITHUB_TOKEN }}
