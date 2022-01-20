@@ -16,6 +16,8 @@
   }
 
   const layout = [
+    [1, 1],
+    [1, 1],
     [1, 1, 1],
     [1, 1, 1],
     [1, 1, 1, 1],
@@ -94,12 +96,15 @@
       @media (width < 950px) {
         top: 10rem;
         --width: 5rem;
+
+        &__row:nth-child(1), &__row:nth-child(2) {
+          display: none;
+        }
       }
 
       &__row {
         display: flex;
         justify-content: flex-end;
-
 
         &:nth-of-type(odd) {
           margin-right: calc(var(--width) * -0.5);
@@ -115,7 +120,7 @@
           transform: translateY(var(--offset));
 
           &:hover {
-            transform: translateY(calc(var(--width) / -5));
+            transform: translateY(calc(var(--width) / -5 + var(--offset)));
           }
 
           &__background {
@@ -163,7 +168,7 @@
     &__tagline {
       font-weight: 500;
       font-size: 1.8rem;
-      width: calc(100% - 19rem);
+      width: calc(100% - 21rem);
       line-height: 130%;
 
       @media (width < 950px) {
