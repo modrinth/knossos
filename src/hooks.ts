@@ -2,48 +2,49 @@ import type { GetSession, Handle } from '@sveltejs/kit';
 import { send } from '$lib/api';
 import cookie from 'cookie';
 
-export const getSession: GetSession = (request) => {
+export const getSession: GetSession = (event) => {
 	const acceptedLanguage =
-		request.headers['accept-language'] && request.headers['accept-language'].split(',')[0];
+		event.request.headers['accept-language'] &&
+		event.request.headers['accept-language'].split(',')[0];
 
-	const token = request.locals.token;
-	const user = request.locals.user;
+	const token = event.locals.token;
+	const user = event.locals.user;
 
 	return { acceptedLanguage, token, user };
 };
 
 const loggedInPages = ['/following', '/report'];
 
-export const handle: Handle = async ({ request, resolve }) => {
-	const cookies = cookie.parse(request.headers.cookie || '');
+export const handle: Handle = async ({ event, resolve }) => {
+	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
 	let token = '';
 
 	if (cookies['modrinth-token']) {
 		token = cookies['modrinth-token'];
-	} else if (request.url.searchParams.has('code')) {
-		token = request.url.searchParams.get('code');
+	} else if (event.url.searchParams.has('code')) {
+		token = event.url.searchParams.get('code');
 	}
 
 	if (token) {
 		try {
 			const user = await send('GET', 'user', null, { token });
-			request.locals.token = token;
-			request.locals.user = user;
+			event.locals.token = token;
+			event.locals.user = user;
 		} catch {
 			// Invalid token
 			token = '';
 		}
 	}
 
-	if (!token && loggedInPages.includes(request.url.pathname)) {
+	if (!token && loggedInPages.includes(event.url.pathname)) {
 		return {
 			headers: { Location: '/' },
 			status: 307,
 		};
 	}
 
-	const response = await resolve(request);
+	const response = await resolve(event);
 
 	if (!cookies['modrinth-token'] && token) {
 		response.headers['set-cookie'] = cookie.serialize('modrinth-token', token, {

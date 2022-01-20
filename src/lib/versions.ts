@@ -1,5 +1,4 @@
 import gameVersions from '$generated/gameVersions.json';
-import { send } from '$lib/api';
 
 export function formatVersions(versionArray: string[]): string {
 	const all: string[] = gameVersions.map((it) => it.version).reverse();

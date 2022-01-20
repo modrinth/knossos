@@ -26,9 +26,9 @@
 	import Footer from '$components/layout/Footer.svelte';
 	import Main from '$components/layout/Main.svelte';
 	import Header from '$components/layout/Header.svelte';
-	import { theme, setSystemTheme } from '$stores/app';
+  import { theme, setSystemTheme } from '$stores/app'
 	import { onMount } from 'svelte';
-	import { page, navigating } from '$app/stores';
+  import { navigating, page } from '$app/stores'
 	import Popup from '$components/elements/Popup.svelte';
   import NProgress from 'nprogress'
   import { goto } from '$app/navigation'

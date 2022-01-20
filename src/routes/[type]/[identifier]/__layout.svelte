@@ -9,18 +9,19 @@
         throw new Error('Invalid type')
       }
 
+      const [$project, $members, $versions, $featuredVersions] = (
+        await Promise.all([
+          await send('GET', `project/${params.identifier}`, null, {fetch}),
+          await send('GET', `project/${params.identifier}/members`, null, {fetch}),
+          await send('GET', `project/${params.identifier}/version`, null, {fetch}),
+          await send('GET', `project/${params.identifier}/version?featured=true`, null, {fetch}),
+        ])
+      )
+
       return {
         props: {
           store: {
-            $project: await send('GET', `project/${params.identifier}`, null, {fetch}),
-            $members: await send('GET', `project/${params.identifier}/members`, null, {fetch}),
-            $versions: await send('GET', `project/${params.identifier}/version`, null, {fetch}),
-            $featuredVersions: await send(
-              'GET',
-              `project/${params.identifier}/version?featured=true`,
-              null,
-              {fetch},
-            ),
+            $project, $members, $versions, $featuredVersions
           },
         },
       }

@@ -1,73 +1,56 @@
-<script context="module" lang="ts">
-  export const prerender = true
-</script>
-
 <script lang="ts">
   import Meta from '$components/utils/Meta.svelte'
   import Wordmark from '$assets/images/logo/wordmark.svg'
   import IconSearch from 'virtual:icons/heroicons-outline/search'
-  import generatedStacks from '$generated/stacks.json'
+  import colors from '$generated/colors.json'
   import { goto } from '$app/navigation'
+  import { mulberry32, xmur3 } from '$lib/random'
 
-  let stacks = generatedStacks
-
-  // const varyHeights = () => {
-  //   stacks = stacks.map((stack, index) => ({
-  //     ...stack,
-  //     matrix: [stack.matrix[0], stack.matrix[1] + Math.floor(index / 99 * 100) / 100],
-  //   }))
-  // }
+  const seed = xmur3(new Date().getMinutes().toString())
+  const random = mulberry32(seed())
+  const colorsOffset = Math.floor(random() * 71)
 
   function search(event: FormDataEvent) {
     const term = event.target.term.value
     goto(`/mods?q=${term}`)
   }
+
+  const layout = [
+    [1, 1, 1],
+    [1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+  ]
 </script>
 
 <Meta/>
 
 <div class="home">
-  <svg class="background" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 1025 720" aria-hidden="true">
-    <g transform="scale(.8 1)">
-      <path fill="none" d="M0 0h1280v720H0z"/>
-      <clipPath id="a">
-        <path d="M0 0h1280v720H0z"/>
-      </clipPath>
-      <g clip-path="url(#a)" class="background__stacks">
-        {#each stacks as stack, index}
-          <a href={stack.project.url} tabindex="-1" id="">
-          <g transform="matrix(1.24999 0 0 1 {stack.matrix[0]} {stack.matrix[1]})" stroke={stack.colors.bottom} fill={stack.colors.bottom} stroke-width="1.5px">
-              <path d="m{stack.pos[0]} 704 64-32 64 32-64 32z" />
-              <image width="512" height="512" href="{stack.project.iconUrl}" transform="matrix(.125 -.0625 .125 .0625 {stack.pos[0]} 704)"/>
-              <path d="m{stack.pos[0]} 704 64 32v704l-64-32z" filter="url(#filter-darken-1)" />
-              <path d="m{stack.pos[1]} 736 64-32v704l-64 32z" filter="url(#filter-darken-2)" />
-            </g>
-          </a>
+  <div class="stacks">
+    {#each layout as row, rowIndex}
+      <div class="stacks__row">
+        {#each row as column, colIndex}
+          {@const index = (rowIndex * layout[rowIndex].length) + colIndex + colorsOffset}
+          {#if column === 1}
+            <a class="stacks__row__column" href="https://modrinth.com/mod/{colors[index].project}" tabindex="-1" style:--color={colors[index].color} style:--offset="{Math.round(random() * 40 - 20)}px">
+              <div class="stacks__row__column__background"/>
+              <img class="stacks__row__column__face" src="https://cdn.modrinth.com/data/{colors[index].icon}" alt=""/>
+            </a>
+          {/if}
         {/each}
-      </g>
-    </g>
-      <filter id="filter-darken-1">
-      <feComponentTransfer>
-        <feFuncR type="linear" slope="0.7"/>
-        <feFuncG type="linear" slope="0.7"/>
-        <feFuncB type="linear" slope="0.7"/>
-      </feComponentTransfer>
-    </filter>
-
-    <filter id="filter-darken-2">
-      <feComponentTransfer>
-        <feFuncR type="linear" slope="0.4"/>
-        <feFuncG type="linear" slope="0.4"/>
-        <feFuncB type="linear" slope="0.4"/>
-      </feComponentTransfer>
-    </filter>
-  </svg>
+      </div>
+    {/each}
+  </div>
 
   <Wordmark class="home__wordmark"/>
   <h1 class="home__tagline">Discover, Play, & Create Minecraft content</h1>
   <form class="home__search" on:submit|preventDefault={search}>
     <input type="text" placeholder="Search mods..." name="term" class="home__search__input"/>
-    <button type="submit" class="home__search__button"><IconSearch/></button>
+    <button type="submit" class="home__search__button">
+      <IconSearch/>
+    </button>
   </form>
   <p class="home__description">
     Find enjoyable and quality content through our open-source modding platform built for the community. Create stuff,
@@ -91,47 +74,76 @@
     grid-gap: 1.5rem;
     align-items: flex-start;
 
-
     @media (width < 750px) {
       padding: 2rem 2rem 2rem 2rem;
     }
 
-    .background {
+    .stacks {
+      --width: 7rem;
+      --offset: 0px;
       position: absolute;
-      top: -40px;
-      right: -10px;
-      height: calc(100% + 40px);
+      top: 0;
+      right: 0;
+      height: 100%;
       speak: none;
-
-      &__stacks {
-        transform: translateY(40px);
-
-        a {
-          transform: translateY(0px);
-          cursor: pointer;
-
-          &:hover {
-            transform: translateY(-20px);
-          }
-        }
-      }
-
-      @media (width < 1100px) {
-        right: -100px;
-      }
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-top: calc(var(--width) / 1.9);
 
       @media (width < 950px) {
-        right: -10px;
-        top: unset;
-        bottom: -10rem;
-        height: 25rem;
-        &__stacks {
-          transform: none;
+        top: 10rem;
+        --width: 5rem;
+      }
+
+      &__row {
+        display: flex;
+        justify-content: flex-end;
+
+
+        &:nth-of-type(odd) {
+          margin-right: calc(var(--width) * -0.5);
+        }
+
+        &__column {
+          width: var(--width);
+          height: calc(var(--width) * 0.85);
+          position: relative;
+          cursor: pointer;
+          transition: transform 0.2s ease-in-out;
+          --color: transparent;
+          transform: translateY(var(--offset));
+
+          &:hover {
+            transform: translateY(calc(var(--width) / -5));
+          }
+
+          &__background {
+            background: linear-gradient(to right,
+            hsla(0deg, 0%, 0%, 0.1), hsla(0deg, 0%, 0%, 0.2) 50%,
+            hsla(0deg, 0%, 0%, 0.3) 50%, hsla(0deg, 0%, 0%, 0.4)),
+            linear-gradient(to right, var(--color), var(--color));
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            width: 100%;
+          }
+
+          &__face {
+            background-color: var(--color);
+            position: absolute;
+            top: 0;
+            width: calc(var(--width) / 1.75);
+            aspect-ratio: 1/1;
+            transform-origin: var(--width) var(--width);
+            /* These decimals aren't ideal, but they provide the correct size & transformation for the given `--width` */
+            transform: rotate(30deg) skew(-30deg) translate(calc(var(--width) * -0.58), 0) scaleY(0.864);
+          }
         }
       }
     }
 
-    :not(.background) {
+    :not(.stacks) {
       z-index: 1;
     }
 

@@ -5,10 +5,9 @@ import { getAverageColor } from 'fast-average-color-node';
 
 const API_URL = 'https://staging-api.modrinth.com/v2/';
 const GENERATED_PATH = './src/generated/';
+const COLORS_LENGTH = 100;
 
 (async () => {
-	console.log('Generating static data from Labrinth');
-
 	/* GAME VERSIONS */
 
 	// Fetch data
@@ -55,311 +54,51 @@ const GENERATED_PATH = './src/generated/';
 	/* HOMEPAGE */
 
 	// Stack SVG positions
-	let stacks = [
-		// {
-		//   row: 8,
-		//   matrix: [-320, -256],
-		//   pos: [768, 832],
-		// },
-		{
-			row: 8,
-			matrix: [-320, -256],
-			pos: [896, 960],
-		},
-		{
-			row: 8,
-			matrix: [-320, -256],
-			pos: [1024, 1088],
-		},
-		{
-			row: 8,
-			matrix: [-320, -256],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 7,
-		//   matrix: [-400, -224],
-		//   pos: [768, 832],
-		// },
-		{
-			row: 7,
-			matrix: [-400, -224],
-			pos: [896, 960],
-		},
-		{
-			row: 7,
-			matrix: [-400, -224],
-			pos: [1024, 1088],
-		},
-		{
-			row: 7,
-			matrix: [-400, -224],
-			pos: [1152, 1216],
-		},
-		{
-			row: 7,
-			matrix: [-240, -224],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 6,
-		//   matrix: [-320, -192],
-		//   pos: [640, 704],
-		// },
-		{
-			row: 6,
-			matrix: [-320, -192],
-			pos: [768, 832],
-		},
-		{
-			row: 6,
-			matrix: [-320, -192],
-			pos: [896, 960],
-		},
-		{
-			row: 6,
-			matrix: [-320, -192],
-			pos: [1024, 1088],
-		},
-		{
-			row: 6,
-			matrix: [-320, -192],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 5,
-		//   matrix: [-240, -160],
-		//   pos: [512, 576],
-		// },
-		{
-			row: 5,
-			matrix: [-240, -160],
-			pos: [640, 704],
-		},
-		{
-			row: 5,
-			matrix: [-240, -160],
-			pos: [768, 832],
-		},
-		{
-			row: 5,
-			matrix: [-240, -160],
-			pos: [896, 960],
-		},
-		{
-			row: 5,
-			matrix: [-240, -160],
-			pos: [1024, 1088],
-		},
-		{
-			row: 5,
-			matrix: [-240, -160],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 4,
-		//   matrix: [-320, -128],
-		//   pos: [512, 576],
-		// },
-		{
-			row: 4,
-			matrix: [-320, -128],
-			pos: [640, 704],
-		},
-		{
-			row: 4,
-			matrix: [-320, -128],
-			pos: [768, 832],
-		},
-		{
-			row: 4,
-			matrix: [-320, -128],
-			pos: [896, 960],
-		},
-		{
-			row: 4,
-			matrix: [-320, -128],
-			pos: [1024, 1088],
-		},
-		{
-			row: 4,
-			matrix: [-320, -128],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 3,
-		//   matrix: [-400, -96],
-		//   pos: [512, 576],
-		// },
-		{
-			row: 3,
-			matrix: [-240, -96],
-			pos: [640, 704],
-		},
-		{
-			row: 3,
-			matrix: [-240, -96],
-			pos: [512, 576],
-		},
-		{
-			row: 3,
-			matrix: [-240, -96],
-			pos: [768, 832],
-		},
-		{
-			row: 3,
-			matrix: [-240, -96],
-			pos: [896, 960],
-		},
-		{
-			row: 3,
-			matrix: [-240, -96],
-			pos: [1024, 1088],
-		},
-		{
-			row: 3,
-			matrix: [-240, -96],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 2,
-		//   matrix: [-480, -64],
-		//   pos: [512, 576],
-		// },
-		{
-			row: 2,
-			matrix: [-320, -64],
-			pos: [640, 704],
-		},
-		{
-			row: 2,
-			matrix: [-320, -64],
-			pos: [512, 576],
-		},
-		{
-			row: 2,
-			matrix: [-320, -64],
-			pos: [768, 832],
-		},
-		{
-			row: 2,
-			matrix: [-320, -64],
-			pos: [896, 960],
-		},
-		{
-			row: 2,
-			matrix: [-320, -64],
-			pos: [1024, 1088],
-		},
-		{
-			row: 2,
-			matrix: [-320, -64],
-			pos: [1152, 1216],
-		},
-		// {
-		//   row: 1
-		//   matrix: [-560, -32],
-		//   pos: [512, 576],
-		// },
-		{
-			row: 1,
-			matrix: [-400, -32],
-			pos: [640, 704],
-		},
-		{
-			row: 1,
-			matrix: [-400, -32],
-			pos: [512, 576],
-		},
-		{
-			row: 1,
-			matrix: [-400, -32],
-			pos: [768, 832],
-		},
-		{
-			row: 1,
-			matrix: [-400, -32],
-			pos: [896, 960],
-		},
-		{
-			row: 1,
-			matrix: [-400, -32],
-			pos: [1024, 1088],
-		},
-		{
-			row: 1,
-			matrix: [-400, -32],
-			pos: [1152, 1216],
-		},
-		{
-			row: 1,
-			matrix: [-239, -32],
-			pos: [1152, 1216],
-		},
-	];
-
-	// Randomize heights
-	stacks = stacks.map((stack) => ({
-		...stack,
-		matrix: [stack.matrix[0], stack.matrix[1] + -1 * (Math.random() * 30 + (stack.row - 1) * 55)],
-	}));
+	let colors = [];
 
 	// TODO: When enough projects in staging-api: `(await send('GET', 'search?limit=50&index=downloads')).hits`
 	// Fetch top projects
 	const projects = (
 		await (
-			await fetch(`https://api.modrinth.com/api/v1/mod?limit=${stacks.length}&index=downloads`)
+			await fetch(`https://api.modrinth.com/api/v1/mod?limit=${COLORS_LENGTH}&index=downloads`)
 		).json()
 	).hits;
 
 	await Promise.all(
-		stacks.map(async (it, index) => {
+		projects.map(async (project, index) => {
 			// Project information
-			const project = projects[index];
-			it.project = {
-				url: `https://modrinth.com/mod/${project.slug || project.mod_id.replace('local-', '')}/`,
-				iconUrl: project.icon_url,
+			const project_id = project.mod_id.replace('local-', '');
+			colors[index] = {
+				icon: `${project_id}/icon${project.icon_url.match(/\.[0-9a-z]+$/i)[0]}`,
+				project: project.slug || project_id,
 			};
 
 			// Icon colors
-			it.colors = {};
-
 			const iconBuffer = Buffer.from(await (await fetch(project.icon_url)).arrayBuffer());
-
 			const iconSharp = await sharp(iconBuffer);
 
 			const { height, width } = await iconSharp.metadata();
-
-			// Left edge
-			{
-				const edge = await iconSharp.extract({ left: 0, top: 0, width: 1, height }).toBuffer();
-				it.colors.left = (await getAverageColor(edge)).hexa;
-			}
 
 			// Bottom edge
 			{
 				const edge = await iconSharp
 					.extract({ left: 0, top: height - 1, width, height: 1 })
 					.toBuffer();
-				it.colors.bottom = (await getAverageColor(edge)).hexa;
+				colors[index].color = (await getAverageColor(edge)).hexa;
 			}
 
-			if (it.colors.left === '#00000000' || it.colors.bottom === '#00000000') {
+			if (colors[index].color === '#00000000') {
 				// Image is transparent, so pick only one color
-				const color = (await getAverageColor(iconBuffer)).hexa;
-				it.colors = { left: color, bottom: color };
+				colors[index].color = (await getAverageColor(iconBuffer)).hexa;
 			}
 
 			// Remove color transparency
-			it.colors.left = it.colors.left.replace(/.{2}$/, '');
-			it.colors.bottom = it.colors.bottom.replace(/.{2}$/, '');
-
-			return it;
+			colors[index].color = colors[index].color.replace(/.{2}$/, '');
 		})
 	);
 
 	// Write JSON file
-	await fs.writeFile(GENERATED_PATH + 'stacks.json', JSON.stringify(stacks));
+	await fs.writeFile(GENERATED_PATH + 'colors.json', JSON.stringify(colors));
 
-	console.log('Generated stacks.json');
+	console.log('Generated colors.json');
 })();

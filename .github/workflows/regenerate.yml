@@ -8,9 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Re-deploy site
-      - run: |
+        run: |
           curl -X POST \
             -H "X-Auth-Email: ${{ secrets.CF_ACCOUNT_EMAIL }}" \
             -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}" \
