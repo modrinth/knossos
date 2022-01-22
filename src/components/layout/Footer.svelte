@@ -8,13 +8,13 @@
 
 <footer class="footer">
 	<div class="footer__brand">
-		<a href="/" aria-label="Modrinth Home">
+		<a href="/" aria-label="Modrinth Home" tabindex="-1">
 			<LogoWordmark height={30} />
 		</a>
 		<p>
 			{$t('footer.description')}
 		</p>
-		<p>{$t('footer.copyright')}</p>
+		<p><br />{$t('footer.copyright')}</p>
 	</div>
 	<div class="footer__list">
 		<span class="footer__list__header">{$t('footer.legal.heading')}</span>

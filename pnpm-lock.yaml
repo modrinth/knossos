@@ -24,7 +24,6 @@ specifiers:
   fast-average-color-node: ^2.1.0
   highlight.js: ^11.4.0
   insane: ^2.6.2
-  lodash.debounce: ^4.0.8
   marked: ^4.0.10
   node-fetch: ^3.1.1
   node-vibrant: 3.1.6
@@ -44,6 +43,7 @@ specifiers:
   svelte-check: ^2.3.0
   svelte-intl-precompile: 0.8.0
   svelte-preprocess: ^4.10.2
+  svelte-tiny-virtual-list: ^1.1.7
   svelte-use-click-outside: ^1.0.0
   throttle-debounce: ^3.0.1
   tslib: ^2.3.1
@@ -60,7 +60,7 @@ devDependencies:
   '@iconify-json/simple-icons': 1.0.18
   '@poppanator/sveltekit-svg': 0.2.2_svelte@3.46.2
   '@sveltejs/adapter-cloudflare': 1.0.0-next.8
-  '@sveltejs/kit': 1.0.0-next.234_svelte@3.46.2
+  '@sveltejs/kit': 1.0.0-next.236_svelte@3.46.2
   '@types/cookie': 0.4.1
   '@types/marked': 4.0.1
   '@types/nprogress': 0.2.0
@@ -75,7 +75,6 @@ devDependencies:
   fast-average-color-node: 2.1.0
   highlight.js: 11.4.0
   insane: 2.6.2
-  lodash.debounce: 4.0.8
   marked: 4.0.10
   node-fetch: 3.1.1
   node-vibrant: 3.1.6
@@ -95,6 +94,7 @@ devDependencies:
   svelte-check: 2.3.0_0151f54245f0ae0add78265d726dfc1e
   svelte-intl-precompile: 0.8.0_svelte@3.46.2
   svelte-preprocess: 4.10.2_fb83e732b687190c0718a0b4d8874fd2
+  svelte-tiny-virtual-list: 1.1.7
   svelte-use-click-outside: 1.0.0
   throttle-debounce: 3.0.1
   tslib: 2.3.1
@@ -1508,8 +1508,8 @@ packages:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.234_svelte@3.46.2:
-    resolution: {integrity: sha512-vnXLkk4GakytCM+TxFVVXfvJaXq/vY6AWpaUAKr1ZsQD2LSKteoaBlca1qI7fCRwccaPSkI+DOc+bNdgGiBBSQ==}
+  /@sveltejs/kit/1.0.0-next.236_svelte@3.46.2:
+    resolution: {integrity: sha512-V/K6KZwZlfM2jDiL7luisRkPujf/pAT2SUpgOEONk44WwUwYwd928qN2u0Z6SAfQFCDAxUI8pMHP2OC1bm352Q==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -4855,6 +4855,10 @@ packages:
       strip-indent: 3.0.0
       svelte: 3.46.2
       typescript: 4.5.4
+    dev: true
+
+  /svelte-tiny-virtual-list/1.1.7:
+    resolution: {integrity: sha512-8314cmLXOVqIQwSc3NFu8yGU7BdHEJeixrwFirmnMoWl6YNcCq5jVjCKjE3tDNJfUenz1LN5M5YshPt6GcPuww==}
     dev: true
 
   /svelte-use-click-outside/1.0.0:

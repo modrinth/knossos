@@ -11,7 +11,7 @@
 
 	export let options: Option[] = [];
 	export let value: string | number;
-	export let selected: Option = options.find((option) => option.value === value);
+	export let selected: Option = options.find((option) => option.value === (value || ''));
 	export let color = '';
 	export let label = '';
 

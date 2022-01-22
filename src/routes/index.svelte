@@ -5,10 +5,11 @@
   import colors from '$generated/colors.json'
   import { goto } from '$app/navigation'
   import { mulberry32, xmur3 } from '$lib/random'
+  import { t } from "svelte-intl-precompile";
 
   const seed = xmur3(new Date().getMinutes().toString())
   const random = mulberry32(seed())
-  const colorsOffset = Math.floor(random() * 71)
+  const colorsOffset = Math.floor(random() * 60) // 100 (total projects) - 40 (used)
 
   function search(event: FormDataEvent) {
     const term = event.target.term.value
@@ -36,7 +37,7 @@
         {#each row as column, colIndex}
           {@const index = (rowIndex * layout[rowIndex].length) + colIndex + colorsOffset}
           {#if column === 1}
-            <a class="stacks__row__column" href="https://modrinth.com/mod/{colors[index].project}" tabindex="-1" style:--color={colors[index].color} style:--offset="{Math.round(random() * 40 - 20)}px">
+            <a class="stacks__row__column" href="https://modrinth.com/mod/{colors[index].project}" tabindex="-1" style:--color={colors[index].color} style:--offset="{Math.round(random() * 40 - 20)}px" title={colors[index].project}>
               <div class="stacks__row__column__background"/>
               <img class="stacks__row__column__face" src="https://cdn.modrinth.com/data/{colors[index].icon}" alt=""/>
             </a>
@@ -49,7 +50,7 @@
   <Wordmark class="home__wordmark"/>
   <h1 class="home__tagline">Discover, Play, & Create Minecraft content</h1>
   <form class="home__search" on:submit|preventDefault={search}>
-    <input type="text" placeholder="Search mods..." name="term" class="home__search__input"/>
+    <input type="text" placeholder={$t('project.types.mod.search')} name="term" class="home__search__input"/>
     <button type="submit" class="home__search__button">
       <IconSearch/>
     </button>

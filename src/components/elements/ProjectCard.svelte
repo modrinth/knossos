@@ -22,7 +22,7 @@
 </script>
 
 <div class="card project-card">
-  <a {href}>
+  <a {href} tabindex="-1">
     <ProfilePicture src={project.icon_url} size="md"/>
   </a>
 

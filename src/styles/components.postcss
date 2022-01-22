@@ -124,6 +124,10 @@
 		padding-top: 2.5rem;
 	}
 
+  &--overflow-visible {
+    overflow: visible;
+  }
+
 	&__banner {
 		--inverse-padding: calc(var(--padding) * -1);
 		margin: var(--inverse-padding) var(--inverse-padding) 0 var(--inverse-padding);
@@ -209,12 +213,15 @@
 
 		img,
 		iframe {
-      width: 35rem;
 			max-width: 100%;
 			height: auto;
       border-radius: var(--rounded-sm);
-      aspect-ratio: 16/9;
 		}
+
+    iframe {
+      width: 35rem;
+      aspect-ratio: 16/9;
+    }
 
 		code {
 			padding: 0.2rem 0.4rem;

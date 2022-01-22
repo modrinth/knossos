@@ -150,6 +150,10 @@
 		"equipment": "Equipment",
 		"miscellaneous": "Miscellaneous",
     "fabric": "Fabric",
-    "forge": "Forge"
+    "forge": "Forge",
+    "server": "Server",
+    "client": "Client",
+    "good": "Good",
+    "trash": "Trash"
 	}
 }
