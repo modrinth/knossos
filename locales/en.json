@@ -47,6 +47,8 @@
 		"changelog": "Changelog",
 		"versions": "Versions",
 		"settings": "Settings",
+    "reports": "Reports",
+    "moderation": "Moderation",
 		"all": "All"
 	},
 	"generic": {

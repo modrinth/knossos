@@ -127,7 +127,7 @@
           &__background {
             background: linear-gradient(to right,
             hsla(0deg, 0%, 0%, 0.1), hsla(0deg, 0%, 0%, 0.2) 50%,
-            hsla(0deg, 0%, 0%, 0.3) 50%, hsla(0deg, 0%, 0%, 0.4)),
+            hsla(0deg, 0%, 0%, 0.4) 50%, hsla(0deg, 0%, 0%, 0.5)),
             linear-gradient(to right, var(--color), var(--color));
             height: 100vh;
             position: absolute;

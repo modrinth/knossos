@@ -32,6 +32,7 @@
 
   const handleChange = (e, key) => {
     if (e.target.checked) {
+      if (!value) value = []
       value = [key, ...value];
     } else {
       value = value.filter((it) => key !== it)

@@ -29,7 +29,14 @@ export async function send(
 		throw new Error('Error when communicating with API');
 	}
 
-	const parsed = await response.json();
+	let parsed = {};
+	if (response.status !== 204) {
+		try {
+			parsed = await response.json();
+		} catch {
+			console.error('Could not parse API response');
+		}
+	}
 
 	return parsed;
 }

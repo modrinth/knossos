@@ -65,7 +65,7 @@
       }
     }
     for (let [k, v] of Array.from(url.searchParams.entries())) {
-      if (!v) {
+      if (!v || k === 'code') {
         url.searchParams.delete(k)
       }
     }

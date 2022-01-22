@@ -35,8 +35,9 @@
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
-			$page.url.searchParams.delete('code');
-      goto($page.url.toString())
+      const url = new URL($page.url)
+			url.searchParams.delete('code');
+      history.replaceState({}, '', url)
     }
 
 		if ($theme === 'system') {

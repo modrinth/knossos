@@ -10,7 +10,7 @@
 	export let query: string = '';
 
 	/** Path level in URL, zero-indexed */
-	export let level: 0;
+	export let level = 0;
 
 	let path: string[];
 	$: path = [

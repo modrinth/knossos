@@ -2,7 +2,7 @@
 	import Nav from '$components/elements/Nav.svelte';
 </script>
 
-<div class="legal">
+<div class="single-layout">
 	<div class="card">
 		<Nav
 			links={[
@@ -26,12 +26,3 @@
 		<slot />
 	</div>
 </div>
-
-<style lang="postcss">
-	.legal {
-		display: flex;
-		flex-direction: column;
-		grid-gap: 1rem;
-		max-width: 800px;
-	}
-</style>

@@ -48,19 +48,23 @@
     </div>
   </div>
 
-  <div class="project-card__stats">
-		<span class="stat">
-			<IconDownload/>
-      {@html $t('stats.downloads', {values: {downloads: project.downloads}})}
-		</span>
-    <span class="stat">
-			<IconHeart/>
-      {@html $t('stats.followers', {values: {followers: project.followers ?? project.follows}})}
-		</span>
-    <span class="stat">
-			<IconCalendar/>
-      {@html $t('stats.updated', {values: {ago: ago(updated)}})}
-		</span>
+  <div class="project-card__side">
+    {#if !$$slots.actions}
+      <span class="stat">
+        <IconDownload/>
+        {@html $t('stats.downloads', {values: {downloads: project.downloads}})}
+      </span>
+      <span class="stat">
+        <IconHeart/>
+        {@html $t('stats.followers', {values: {followers: project.followers ?? project.follows}})}
+      </span>
+      <span class="stat">
+        <IconCalendar/>
+        {@html $t('stats.updated', {values: {ago: ago(updated)}})}
+      </span>
+    {:else}
+      <slot name="actions" />
+    {/if}
   </div>
 </div>
 
@@ -73,7 +77,7 @@
       flex-direction: column;
     }
 
-    &__stats {
+    &__side {
       margin-left: auto;
       display: flex;
       flex-direction: column;

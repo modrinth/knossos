@@ -13,7 +13,7 @@ export const getSession: GetSession = (event) => {
 	return { acceptedLanguage, token, user };
 };
 
-const loggedInPages = ['/following', '/report'];
+const loggedInPages = ['/following', '/report', '/moderation'];
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
@@ -39,20 +39,23 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (!token && loggedInPages.includes(event.url.pathname)) {
 		return {
-			headers: { Location: '/' },
 			status: 307,
+			headers: [['Location', '/']],
 		};
 	}
 
 	const response = await resolve(event);
 
 	if (!cookies['modrinth-token'] && token) {
-		response.headers['set-cookie'] = cookie.serialize('modrinth-token', token, {
-			path: '/',
-			secure: true,
-			sameSite: 'strict',
-			expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-		});
+		response.headers.set(
+			'set-cookie',
+			cookie.serialize('modrinth-token', token, {
+				path: '/',
+				secure: true,
+				sameSite: 'strict',
+				expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+			})
+		);
 	}
 
 	return response;
