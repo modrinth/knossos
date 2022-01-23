@@ -16,7 +16,7 @@ export const getSession: GetSession = (event) => {
 const loggedInPages = ['/following', '/report', '/moderation'];
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+	const cookies = cookie.parse(event.request.headers.cookie || '');
 
 	let token = '';
 
@@ -40,7 +40,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (!token && loggedInPages.includes(event.url.pathname)) {
 		return {
 			status: 307,
-			headers: [['Location', '/']],
+			headers: new Headers({ Location: '/' }),
 		};
 	}
 
