@@ -10,9 +10,23 @@
 
 <Meta title={$project.title} description={$project.description} />
 
-<div class="card card--text">
+<div class="card card--text project-body">
 	<div class="card__overlay">
 		<Button label={$t('generic.actions.edit')} icon={IconPencil} />
 	</div>
-	{@html markdownXSS($project.body)}
+  {#if $project.body}
+    {@html markdownXSS($project.body)}
+  {:else}
+    <p class="placeholder">This project description is empty.</p>
+  {/if}
 </div>
+
+<style lang="postcss">
+  .project-body {
+    min-height: 4rem;
+
+    .placeholder {
+      color: var(--color-text-lightest)
+    }
+  }
+</style>
