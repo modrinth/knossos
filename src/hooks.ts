@@ -16,7 +16,7 @@ export const getSession: GetSession = (event) => {
 const loggedInPages = ['/following', '/report', '/moderation'];
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const cookies = cookie.parse(event.request.headers.cookie || '');
+	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
 	let token = '';
 
