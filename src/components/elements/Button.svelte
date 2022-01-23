@@ -3,13 +3,18 @@
 	export let color = '';
 	export let label = '';
 	export let title = '';
+  export let badge = false;
 	export let newTab = false;
 	// @ts-ignore: Icon components passed in as SvelteComponentDev can't be type-checked
 	export let icon: any = null;
 
-	let className = `button button--color-${color} ${
-		icon && !label ? 'is-only-icon' : icon ? 'is-iconified' : ''
-	}`;
+  let className = ''
+
+  $: {
+    className = `button button--color-${color} ${
+      icon && !label ? 'is-only-icon' : icon ? 'is-iconified' : ''
+    } ${badge ? 'has-badge' : ''}`
+  }
 
 	export let iconSize = 16;
 </script>
@@ -34,6 +39,7 @@
 		padding: 0.25rem 1rem;
 		grid-gap: 0.4rem;
 		cursor: pointer;
+    position: relative;
 
 		box-shadow: var(--shadow-inset-sm);
 
@@ -69,5 +75,16 @@
 		&.is-iconified {
 			padding: 0.25rem 0.75rem 0.25rem 0.5rem;
 		}
+
+    &.has-badge::after {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--rounded-max);
+      background-color: var(--color-brand);
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
 	}
 </style>

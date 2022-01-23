@@ -32,6 +32,7 @@
 	import Popup from '$components/elements/Popup.svelte';
   import NProgress from 'nprogress'
   import { goto } from '$app/navigation'
+  import { updateSelf } from '$stores/self'
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
@@ -49,6 +50,8 @@
 				setSystemTheme();
 			}
 		});
+
+    updateSelf()
 	});
 
   NProgress.configure({

@@ -12,6 +12,7 @@
 	import { projectTypes } from '$generated/tags.json';
 	import { setContext } from 'svelte';
   import LogoLoader from "$components/elements/LogoLoader.svelte";
+  import { notifications } from "$stores/self";
 
 	let screenWidth = 1000;
 
@@ -38,7 +39,7 @@
 	{/if}
 	<div class="header__actions">
 		{#if $user}
-			<Button href="/notifications" color="transparent" title="Notifications" icon={IconBell} />
+			<Button href="/notifications" color="transparent" title="Notifications" icon={IconBell} badge={$notifications.length > 0} />
 			<Avatar />
 		{:else}
 			<Button
