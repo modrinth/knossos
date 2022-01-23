@@ -7,7 +7,7 @@
   import IconHeart from 'virtual:icons/heroicons-outline/heart'
   import { send } from '$lib/api'
   import { onMount } from 'svelte'
-  import UpToDate from '$assets/images/illustrations/undraw_notify.svg'
+  import FollowIllustration from '$assets/images/illustrations/undraw_appreciation.svg'
   import ProjectCard from "$components/elements/ProjectCard.svelte";
   import IconCalendar from 'virtual:icons/lucide/calendar'
 
@@ -41,8 +41,8 @@
     {/each}
   {:else}
     <div class="illustration">
-      <UpToDate class="illustration__image" />
-      <p class="illustration__description">You are up to date!</p>
+      <FollowIllustration class="illustration__image" />
+      <p class="illustration__description">You don't have any followed mods.</p>
     </div>
   {/if}
 </div>
