@@ -65,6 +65,7 @@
   import { Permissions } from '$lib/permissions'
   import { project, members, versions, featuredVersions, releaseColors } from './_store'
   import { downloadUrl, getPrimary } from '$lib/versions'
+  import Ad from "$components/elements/Ad.svelte";
 
   export let store;
   ({$project, $members, $versions, $featuredVersions} = store)
@@ -315,6 +316,8 @@
   </div>
 
   <div class="column-layout__content">
+    <Ad />
+
     <div class="card card--strip card--pad-x">
       <Nav
         links={[

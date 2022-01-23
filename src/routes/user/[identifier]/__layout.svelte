@@ -43,6 +43,7 @@
 	import { projectTypes } from '$generated/tags.json';
 	import Meta from '$components/utils/Meta.svelte';
 	import { user as currentUser } from '$stores/server';
+  import Ad from "$components/elements/Ad.svelte";
 
 	export let user: User;
 	export let projects: Project[];
@@ -124,6 +125,8 @@
 	</div>
 
 	<div class="column-layout__content">
+    <Ad />
+
 		<div class="card card--strip card--pad-x">
 			<Nav
 				links={[

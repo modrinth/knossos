@@ -48,6 +48,7 @@
   import VirtualList from 'svelte-tiny-virtual-list'
   import gameVersions from '$generated/gameVersions.json'
   import Button from '$components/elements/Button.svelte'
+  import Ad from "$components/elements/Ad.svelte";
 
   export let results
   export let projectType: string
@@ -147,6 +148,7 @@
   </div>
 
   <div class="column-layout__content">
+    <Ad />
     <div class="card card--gap-compressed card--row card--overflow-visible">
       <div class="search">
         <IconSearch class="search__icon"/>
