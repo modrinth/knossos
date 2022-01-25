@@ -38,10 +38,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	if (!token && loggedInPages.includes(event.url.pathname)) {
-		return {
+		return new Response(null, {
 			status: 307,
 			headers: new Headers({ Location: '/' }),
-		};
+		});
 	}
 
 	const response = await resolve(event);
