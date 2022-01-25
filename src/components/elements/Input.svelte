@@ -79,6 +79,8 @@
 		background-color: var(--color-button-bg);
 		border: none;
     padding: 0.25rem 0.75rem;
+    width: 20rem;
+    max-width: 100%;
   }
 
   .checkboxes {

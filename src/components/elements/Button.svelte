@@ -7,6 +7,7 @@
 	export let newTab = false;
 	// @ts-ignore: Icon components passed in as SvelteComponentDev can't be type-checked
 	export let icon: any = null;
+  export let disabled = false
 
   let className = ''
 
@@ -20,12 +21,12 @@
 </script>
 
 {#if href}
-	<a {href} {title} class={className} target={newTab ? '_blank' : ''}>
+	<a {href} {title} class={className} target={newTab ? '_blank' : ''} {disabled}>
 		<svelte:component this={icon} height={iconSize} width={iconSize} />
 		{label}
 	</a>
 {:else}
-	<button {title} class={className} on:click>
+	<button {title} class={className} on:click {disabled}>
 		<svelte:component this={icon} height={iconSize} width={iconSize} />
 		{label}
 	</button>
@@ -45,10 +46,18 @@
 
 		background-color: var(--color-button-bg);
 		border-radius: var(--rounded);
+    transition: opacity 1s ease-in-out, filter 1s ease-in-out;
 
-		&:hover {
+    &:hover {
 			background-color: var(--color-button-bg-hover);
 		}
+
+    &:disabled {
+      opacity: 50%;
+      cursor: not-allowed;
+      pointer-events: none;
+      filter: grayscale(50%);
+    }
 
 		&--color-raised {
 			background-color: var(--color-raised-bg);
@@ -68,8 +77,17 @@
 			box-shadow: none;
 		}
 
+    &--color-red {
+      background-color: var(--color-badge-red-dot);
+      color: var(--color-brand-contrast);
+
+      &:hover {
+        background-color: var(--color-badge-red-text);
+      }
+    }
+
 		&.is-only-icon {
-			padding: 0.25rem 0.5rem;
+			padding: 0.5rem;
 		}
 
 		&.is-iconified {

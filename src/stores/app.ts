@@ -23,22 +23,24 @@ export function setSystemTheme(): void {
 
 interface Popup {
 	title: string;
-	description: string;
-	form?: {
-		action: (this: HTMLFormElement, event: Event) => void;
-		fields: {
-			label: string;
-			type: string;
-			options?: [];
-			placeholder: string;
-		}[];
+	body: string;
+	type?: {
+		deletion?: {
+			key: string;
+		};
+		report?: {
+			type: 'project' | 'version' | 'user';
+			id: string;
+		};
+		creation?: 'project';
+	};
+	button: {
+		label: string;
+		click: () => Promise<void>;
+	};
+	style?: {
+		wide?: boolean;
 	};
 }
 
-export const popups = writable<Popup[]>([
-	// {
-	// 	title: 'Report',
-	// 	description:
-	// 		'Modding should be safe for everyone, so we take abuse and harassment seriously at Modrinth. Report harmful behavior on the site that violates Modrinth’s [Terms of Service](/legal/terms) and [Project Rules](/legal/rules).',
-	// },
-]);
+export const popups = writable<Popup[]>([]);

@@ -3,43 +3,46 @@
 	import { clickOutside } from 'svelte-use-click-outside';
 	import Multiselect from '$components/elements/Multiselect.svelte';
 	import Button from '$components/elements/Button.svelte';
+  import { markdown } from "$lib/parse";
+  import IconX from 'virtual:icons/heroicons-outline/x'
+  import IconArrowRight from 'virtual:icons/heroicons-outline/arrow-right'
+  import IconExclamation from 'virtual:icons/heroicons-outline/exclamation'
+  import { fade } from 'svelte/transition';
+  import Input from "$components/elements/Input.svelte";
 
-	$: popup = $popups[0];
+  $: popup = $popups[0];
+  let deletionKey = ''
 
-	function close() {
-		$popups = $popups.slice(1, $popups.length - 1);
-		console.log($popups);
+  function close() {
+    deletionKey = ''
+    $popups = $popups.slice(1, $popups.length - 1);
 	}
 </script>
 
 {#if $popups.length > 0}
-	<div class="popup">
-		<div class="popup__card card card--gap-compressed" use:clickOutside={close}>
-			<h1 class="title">{popup.title}</h1>
-			{#if popup.description}
-				<p class="popup__card__description">{@html popup.description}</p>
+	<div class="popup" transition:fade="{{ duration: 100 }}">
+		<div class="popup__card card card--gap-compressed" use:clickOutside={() => {if (!popup?.type?.creation) close()}} class:popup__card--wide={popup?.style?.wide}>
+			<h1 class="popup__card__top">
+        <h2 class="title-secondary">{popup.title}</h2>
+        <Button title="Close" icon={IconX} color="transparent" iconSize={20} on:click={close} />
+      </h1>
+      {#if popup?.type?.deletion}
+        <div class="popup__card__warning">
+          <IconExclamation height="26px" width="26px" /><span>This is extremely important.</span>
+        </div>
+      {/if}
+			{#if popup.body}
+				{@html markdown(popup.body)}
 			{/if}
-			{#if popup.form}
-				<form class="popup__form" on:submit|preventDefault={popup.form.action}>
-					{#each popup.form.fields as field}
-						<div class="popup__form__field">
-							<label for={'popup_form_' + field.label}>{field.label}</label>
-							{#if field.type === 'text'}
-								<input
-									type="text"
-									name={field.label}
-									id={'popup_form_' + field.label}
-									value={field.value}
-								/>
-							{:else if field.type === 'multiselect'}
-								<Multiselect options={field.options} />
-							{/if}
-						</div>
-					{/each}
-				</form>
+			{#if popup?.type?.deletion}
+        <p><b>To verify, type</b> <i>{popup.type.deletion.key}</i> <b>below:</b></p>
+        <Input type='text' placeholder="Type here..." bind:value={deletionKey} />
 			{/if}
 			<div class="popup__card__buttons">
-				<Button on:click={close} label="Close" />
+        {#if popup?.type?.deletion}
+          <Button label="Cancel" on:click={close} />
+        {/if}
+				<Button label={popup?.button?.label || 'Continue' } on:click={() => {close(); popup.button?.click()}} color={popup?.type?.deletion ? 'red' : 'brand'} icon={popup?.type?.deletion ? null : IconArrowRight} disabled={(popup?.type?.deletion) && (popup.type.deletion.key !== deletionKey)} />
 			</div>
 		</div>
 	</div>
@@ -64,9 +67,35 @@
 			max-width: 500px;
 			z-index: 25;
 
-			&__description {
-				line-height: 1.3;
-				font-size: 0.9rem;
+      &--wide {
+        max-width: 750px;
+      }
+
+      &__top {
+        background-color: var(--color-bg);
+        margin: -1rem -1rem 0.5rem -1rem;
+        padding: 0.8rem 1rem 0.8rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &__warning {
+        margin: -1.1rem -1rem 0.25rem;
+        background-color: var(--color-danger-bg);
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        grid-gap: 0.5rem;
+        color: var(--color-danger-text);
+        border-color: var(--color-danger-text);
+        border-width: 0.15rem 0;
+        border-style: solid;
+      }
+
+			:global(p), :global(ul), :global(ol) {
+				line-height: 1.5;
+        margin: 0;
 
 				:global(a) {
 					color: var(--color-link);
@@ -78,8 +107,10 @@
 			}
 
 			&__buttons {
+        margin-top: 1rem;
 				display: flex;
 				justify-content: flex-end;
+        grid-gap: 1rem;
 			}
 		}
 	}

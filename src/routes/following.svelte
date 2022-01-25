@@ -42,7 +42,7 @@
   {:else}
     <div class="illustration">
       <FollowIllustration class="illustration__image" />
-      <p class="illustration__description">You don't have any followed mods.</p>
+      <p class="illustration__description">You haven't followed any projects.</p>
     </div>
   {/if}
 </div>

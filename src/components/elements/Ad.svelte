@@ -15,10 +15,6 @@
   })
 </script>
 
-<svelte:head>
-  <script defer async src="https://media.ethicalads.io/media/client/ethicalads.min.js" type="text/javascript" />
-</svelte:head>
-
 {#if !failed}
   <div
     data-ea-publisher="modrinth-com"

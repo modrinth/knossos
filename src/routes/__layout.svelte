@@ -34,6 +34,17 @@
   import { goto } from '$app/navigation'
   import { updateSelf } from '$stores/self'
 
+  $: if ($page.url.pathname) {
+    fetch(import.meta.env.VITE_ARIADNE_URL + 'register/visit', {
+      method: 'POST',
+      body: JSON.stringify({
+        path: $page.url.pathname,
+        domain: $page.url.hostname,
+        consent: true,
+      })
+    })
+  }
+
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
       const url = new URL($page.url)
@@ -69,6 +80,10 @@
     }
   }
 </script>
+
+<svelte:head>
+  <script defer async src="https://media.ethicalads.io/media/client/ethicalads.min.js" type="text/javascript" />
+</svelte:head>
 
 <Popup />
 
