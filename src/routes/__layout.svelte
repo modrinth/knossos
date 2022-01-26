@@ -31,19 +31,7 @@
   import { navigating, page } from '$app/stores'
 	import Popup from '$components/elements/Popup.svelte';
   import NProgress from 'nprogress'
-  import { goto } from '$app/navigation'
   import { updateSelf } from '$stores/self'
-
-  $: if ($page.url.pathname) {
-    fetch(import.meta.env.VITE_ARIADNE_URL + 'register/visit', {
-      method: 'POST',
-      body: JSON.stringify({
-        path: $page.url.pathname,
-        domain: $page.url.hostname,
-        consent: true,
-      })
-    })
-  }
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
@@ -52,14 +40,10 @@
       history.replaceState({}, '', url)
     }
 
-		if ($theme === 'system') {
-			setSystemTheme();
-		}
+		if ($theme === 'system') setSystemTheme();
 
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-			if ($theme === 'system') {
-				setSystemTheme();
-			}
+			if ($theme === 'system') setSystemTheme();
 		});
 
     updateSelf()

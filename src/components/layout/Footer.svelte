@@ -30,7 +30,6 @@
 		<a href="https://docs.modrinth.com/">{$t('footer.resources.docs')}</a>
 	</div>
 	<div class="footer__buttons">
-		<Button label={$t('footer.buttons.privacy')} href="/privacy" color="raised" />
 		<Multiselect
 			label={$t('footer.buttons.theme.label')}
 			options={[

@@ -13,7 +13,7 @@ export const getSession: GetSession = (event) => {
 	return { acceptedLanguage, token, user };
 };
 
-const loggedInPages = ['/following', '/report', '/moderation'];
+const loggedInPages = ['/following', '/report', '/moderation', '/settings'];
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
