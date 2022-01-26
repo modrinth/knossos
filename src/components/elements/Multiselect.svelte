@@ -79,7 +79,7 @@
 			open = !open;
 		}}
 	>
-		<span class="multiselect__input__value">{label || selected.label}</span>
+		<span class="multiselect__input__value">{label || selected?.label || value}</span>
 		<div class="multiselect__input__arrow">
 			<slot name="icon">
 				<IconChevronDown />
@@ -96,7 +96,7 @@
 					}}
 					class:is-selected={selected?.value === option.value}
 				>
-					{option.label}
+					{option.label || option.value}
 				</li>
 			{/each}
 		</ul>

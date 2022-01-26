@@ -49,6 +49,7 @@
   import gameVersions from '$generated/gameVersions.json'
   import Button from '$components/elements/Button.svelte'
   import Ad from "$components/elements/Ad.svelte";
+  import Pagination from "$components/elements/Pagination.svelte";
 
   export let results
   export let projectType: string
@@ -73,7 +74,7 @@
     history.replaceState({}, '', url)
   }
 
-  const runSearch = debounce(200, true, () => search(searchParams, projectType).then(data => results = data))
+  const runSearch = debounce(200, false, () => search(searchParams, projectType).then(data => results = data))
 
   $: if (searchParams && browser) {
     replaceStateWithQuery(searchParams)
@@ -174,9 +175,25 @@
         ]} bind:value={searchParams.m}/>
     </div>
 
+    {#if results.total_hits > results.limit}
+      <Pagination
+        page={(parseInt(searchParams.o) || 0) / (results.limit) + 1}
+        count={Math.ceil(results.total_hits / results.limit)}
+        on:change={({detail}) => searchParams.o = (detail - 1) * results.limit}
+      />
+    {/if}
+
     {#each results.hits as project (project.project_id)}
       <ProjectCard {project}/>
     {/each}
+
+    {#if results.hits.length > 4}
+      <Pagination
+        page={(parseInt(searchParams.o) || 0) / (results.limit) + 1}
+        count={Math.ceil(results.total_hits / results.limit)}
+        on:change={({detail}) => searchParams.o = (detail - 1) * results.limit}
+      />
+    {/if}
   </div>
 </div>
 

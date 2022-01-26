@@ -7,13 +7,14 @@
 	export let newTab = false;
 	// @ts-ignore: Icon components passed in as SvelteComponentDev can't be type-checked
 	export let icon: any = null;
-  export let disabled = false
+  export let disabled = false;
+  export let evenPadding = icon && !label;
 
   let className = ''
 
   $: {
     className = `button button--color-${color} ${
-      icon && !label ? 'is-only-icon' : icon ? 'is-iconified' : ''
+      evenPadding ? 'button--pad-even' : icon ? 'is-iconified' : ''
     } ${badge ? 'has-badge' : ''}`
   }
 
@@ -86,8 +87,13 @@
       }
     }
 
-		&.is-only-icon {
+		&--pad-even {
 			padding: 0.5rem;
+      font-size: 16px;
+      line-height: 0;
+      min-width: 2rem;
+      min-height: 2rem;
+      justify-content: center;
 		}
 
 		&.is-iconified {
