@@ -10,9 +10,11 @@
   import { downloadUrl, getPrimary } from '$lib/versions'
 
   const owner = $members.find(member => member.role === 'Owner').user.username
+
+  const dateFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric' })
 </script>
 
-<Meta title={`${$t('pages.versions')} -  ${$project.title}`} description={$project.description}/>
+<Meta title={`${$t('pages.versions')} - ${$project.title}`} description={$project.description}/>
 
 <div class="versions">
   {#each $versions as version}
@@ -22,8 +24,7 @@
           <a href="./version/{version.version_number || version.id}"><b>{version.name || version.version_number}</b></a>
           <a href="/user/{owner}">{@html $t('generic.byline', {values: {author: owner}})}</a>
           &bull;
-          <span>{(new Date(version.date_published))
-            .toLocaleDateString(undefined, {year: 'numeric', month: 'short', day: 'numeric'})}</span>
+          <span>{dateFormat.format(new Date(version.date_published))}</span>
         </div>
         <div class="version__info__row">
           <Badge

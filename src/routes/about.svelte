@@ -4,7 +4,7 @@ import { t } from "svelte-intl-precompile";
 
 <div class="single-layout">
   <h1>{$t('pages.about')}</h1>
-	<div class="card card--text">
+	<div class="card text">
     <h2>History</h2>
     <p>
       Founded in 2020, Modrinth was created to provide modders with an open

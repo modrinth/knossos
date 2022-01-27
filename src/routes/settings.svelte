@@ -75,7 +75,7 @@ Once you have completed those steps, press the continue button below.
 
 <div class="single-layout">
   <h1>{$t('pages.settings')}</h1>
-  <div class="card card--text">
+  <div class="card text">
     <h3>Authorization token</h3>
     <p>
       Your authorization token can be used with the Modrinth API, the Minotaur Gradle plugin, and other applications
@@ -89,7 +89,7 @@ Once you have completed those steps, press the continue button below.
       <Button label="Revoke token" on:click={revokeToken}/>
     </div>
   </div>
-  <div class="card card--text">
+  <div class="card text">
     <h3>Delete account</h3>
     <p>
       Once you delete your account, there is no going back. Deleting your account will remove all attached data,

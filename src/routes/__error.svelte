@@ -51,7 +51,8 @@
 	.status {
 		display: flex;
 		margin: 2rem 0;
-		max-width: 500px;
+		max-width: 600px;
+    font-size: 2rem;
 	}
 
 	.actions {

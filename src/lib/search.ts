@@ -9,7 +9,7 @@ export async function search(
 	const searchParams = {
 		query: params.q ?? '',
 		limit: params.m || '5',
-		offset: params.o ?? '0',
+		offset: params.o || '0',
 		index: params.s || 'relevance',
 	};
 

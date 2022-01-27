@@ -55,6 +55,7 @@
   export let projectType: string
 
   export let searchParams: Record<string, string | string[]>
+  let previousParams = {...searchParams}
 
   const replaceStateWithQuery = (values: Record<string, unknown>) => {
     const url = new URL(window.location.toString())
@@ -77,6 +78,18 @@
   const runSearch = debounce(200, false, () => search(searchParams, projectType).then(data => results = data))
 
   $: if (searchParams && browser) {
+    // If certain params have changed, go to page 1
+    if (searchParams.q !== previousParams.q ||
+      searchParams.l !== previousParams.l ||
+      searchParams.c !== previousParams.c ||
+      searchParams.s !== previousParams.s ||
+      searchParams.m !== previousParams.m ||
+      searchParams.v !== previousParams.v ||
+      searchParams.e !== previousParams.e ||
+      searchParams.i !== previousParams.i) {
+      searchParams.o = ''
+    }
+    previousParams = {...searchParams}
     replaceStateWithQuery(searchParams)
     runSearch()
   }
@@ -99,6 +112,10 @@
     } else {
       searchParams[param] = searchParams[param].filter((it) => key !== it)
     }
+  }
+
+  function clearFilters() {
+    searchParams = { v: [], h: '', l: [], e: [], c: [], i: [] }
   }
 </script>
 
@@ -143,7 +160,7 @@
       <Input type="checkboxes" options={licenses.map(({short}) => ({ label: short.toUpperCase(), value: short }))} bind:value={searchParams.i} />
 
       <div class="button-group">
-        <Button label="Clear filters" on:click={() => { searchParams = { v: [], h: '', l: [], e: [], c: [], i: [] } }}/>
+        <Button label="Clear filters" on:click={clearFilters}/>
       </div>
     </div>
   </div>
@@ -175,13 +192,11 @@
         ]} bind:value={searchParams.m}/>
     </div>
 
-    {#if results.total_hits > results.limit}
-      <Pagination
-        page={(parseInt(searchParams.o) || 0) / (results.limit) + 1}
-        count={Math.ceil(results.total_hits / results.limit)}
-        on:change={({detail}) => searchParams.o = (detail - 1) * results.limit}
-      />
-    {/if}
+    <Pagination
+      page={(parseInt(searchParams.o) || 0) / (results.limit) + 1}
+      count={Math.ceil(results.total_hits / results.limit)}
+      on:change={({detail}) => searchParams.o = (detail - 1) * results.limit}
+    />
 
     {#each results.hits as project (project.project_id)}
       <ProjectCard {project}/>
@@ -191,7 +206,9 @@
       <Pagination
         page={(parseInt(searchParams.o) || 0) / (results.limit) + 1}
         count={Math.ceil(results.total_hits / results.limit)}
-        on:change={({detail}) => searchParams.o = (detail - 1) * results.limit}
+        on:change={({detail}) => {
+          searchParams.o = (detail - 1) * results.limit
+        }}
       />
     {/if}
   </div>
@@ -230,12 +247,13 @@
     &::-webkit-scrollbar-track {
       background-color: var(--color-raised-bg);
       border: 1px solid var(--color-button-bg);
-      border-top-width: 0;
       padding: 1px 0;
+      border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb {
       background-color: var(--color-button-bg);
+      border-radius: 4px;
     }
   }
 </style>

@@ -22,7 +22,7 @@
 			level={1}
 		/>
 	</div>
-	<div class="card card--text">
+	<div class="card text">
 		<slot />
 	</div>
 </div>

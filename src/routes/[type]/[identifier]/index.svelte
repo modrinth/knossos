@@ -10,7 +10,7 @@
 
 <Meta title={$project.title} description={$project.description} />
 
-<div class="card card--text project-body">
+<div class="card text project-body">
 	<div class="card__overlay">
 		<Button label={$t('generic.actions.edit')} icon={IconPencil} />
 	</div>

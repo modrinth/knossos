@@ -4,7 +4,7 @@
   import { project } from "./_store";
 </script>
 
-<Meta title={`${$t('pages.gallery')} -  ${$project.title}`} description={$project.description} />
+<Meta title={`${$t('pages.gallery')} - ${$project.title}`} description={$project.description} />
 
 <div class="gallery">
 	{#each $project.gallery as item}
