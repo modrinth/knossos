@@ -458,6 +458,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card {
+  h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
 .member {
   margin-bottom: var(--spacing-card-md);
 
@@ -594,7 +601,7 @@ section {
   }
 
   h3 {
-    margin-right: auto;
+    margin: auto auto auto 0;
   }
 
   > div {
