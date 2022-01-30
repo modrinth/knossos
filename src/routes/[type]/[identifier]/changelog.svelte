@@ -10,8 +10,6 @@
   import { downloadUrl, getPrimary } from '$lib/versions'
   import { markdownXSS } from "$lib/parse";
 
-  const owner = $members.find(member => member.role === 'Owner').user.username
-
   const dateFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric' })
 </script>
 
@@ -24,7 +22,7 @@
         <div class="changelog__item__body">
           <div class="changelog__item__body__title">
             <a href="./version/{version.version_number || version.id}"><h1 class="title-secondary">{version.name || version.version_number}</h1></a>
-            <a href="/user/{owner}">{@html $t('generic.byline', {values: {author: owner}})}</a>
+            <a href="/user/{$members.find(member => member.user.id === version.author_id).user.username}">{@html $t('generic.byline', {values: {author: $members.find(member => member.user.id === version.author_id).user.username}})}</a>
             &bull;
             <span>{dateFormat.format(new Date(version.date_published))}</span>
             <Button label={$t('generic.actions.download')} icon={IconDownload} href={downloadUrl(getPrimary(version.files))}/>

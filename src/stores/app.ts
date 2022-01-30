@@ -34,7 +34,7 @@ interface Popup {
 		};
 		creation?: 'project';
 	};
-	button: {
+	button?: {
 		label: string;
 		click: () => Promise<void>;
 	};

@@ -9,8 +9,6 @@
   import { tagIcons } from '$generated/tags.json'
   import { downloadUrl, getPrimary } from '$lib/versions'
 
-  const owner = $members.find(member => member.role === 'Owner').user.username
-
   const dateFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric' })
 </script>
 
@@ -22,7 +20,7 @@
       <div class="version__info">
         <div class="version__info__row">
           <a href="./version/{version.version_number || version.id}"><b>{version.name || version.version_number}</b></a>
-          <a href="/user/{owner}">{@html $t('generic.byline', {values: {author: owner}})}</a>
+          <a href="/user/{$members.find(member => member.user.id === version.author_id).user.username}">{@html $t('generic.byline', {values: {author: $members.find(member => member.user.id === version.author_id).user.username}})}</a>
           &bull;
           <span>{dateFormat.format(new Date(version.date_published))}</span>
         </div>

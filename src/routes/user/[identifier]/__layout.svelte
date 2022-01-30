@@ -10,7 +10,8 @@
 			return {
 				props: {
 					user,
-					projects: await send('GET', `user/${params.identifier}/projects`, null, { fetch }),
+					projects: (await send('GET', `user/${params.identifier}/projects`, null, { fetch }))
+            .sort((a, b) => b.downloads - a.downloads),
 					github_url: (await (await fetch(`https://api.github.com/user/${user.github_id}`)).json())
 						.html_url,
 				},
@@ -44,6 +45,7 @@
 	import Meta from '$components/utils/Meta.svelte';
 	import { user as currentUser } from '$stores/server';
   import Ad from "$components/elements/Ad.svelte";
+  import { report } from "$lib/report";
 
 	export let user: User;
 	export let projects: Project[];
@@ -75,7 +77,7 @@
 					{#if user.id === $currentUser?.id}
 						<Button label="Edit" icon={IconPencil} />
 					{:else}
-						<Button label="Report" icon={IconFlag} />
+						<Button label="Report" icon={IconFlag} on:click={() => report('user', user.id)} />
 					{/if}
 				</div>
 			{/if}

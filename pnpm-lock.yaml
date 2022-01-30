@@ -60,7 +60,7 @@ devDependencies:
   '@iconify-json/simple-icons': 1.0.18
   '@poppanator/sveltekit-svg': 0.2.2_svelte@3.46.2
   '@sveltejs/adapter-cloudflare': 1.0.0-next.8
-  '@sveltejs/kit': 1.0.0-next.241_svelte@3.46.2
+  '@sveltejs/kit': 1.0.0-next.251_svelte@3.46.2
   '@types/cookie': 0.4.1
   '@types/marked': 4.0.1
   '@types/nprogress': 0.2.0
@@ -1508,8 +1508,8 @@ packages:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.241_svelte@3.46.2:
-    resolution: {integrity: sha512-KuRXJEoSPloGxv3HYniZT2u04zwkYFk1lE1pLOyX96D5Po8CxIhBJlSo3YjTBNJ+AbN5a3T2zxLSw6azecdd7Q==}
+  /@sveltejs/kit/1.0.0-next.251_svelte@3.46.2:
+    resolution: {integrity: sha512-7GtUrUHqOa7ISo86PlICcMKcfGodOZwP9p7hXnN4t1yMWIQD2eKZlJffvnwx1X+NMcJ8hLChgcjGYjc1xZABhQ==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:

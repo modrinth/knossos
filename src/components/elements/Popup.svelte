@@ -9,17 +9,34 @@
   import IconExclamation from 'virtual:icons/heroicons-outline/exclamation'
   import { fade } from 'svelte/transition';
   import Input from "$components/elements/Input.svelte";
+  import { send } from '$lib/api'
 
   $: popup = $popups[0];
-  let deletionKey = ''
+  let deletionKey = '';
+
+  const defaultReport = {
+    report_type: '',
+    body: '',
+  }
+  let reportData = {...defaultReport}
 
   function close() {
     deletionKey = ''
+    reportData = {...defaultReport}
+    console.log({reportData})
     $popups = $popups.slice(1, $popups.length - 1);
 	}
+
+  async function sendReport() {
+    await send('POST', 'report', {
+      ...reportData,
+      item_id: popup.type.report.id,
+      item_type: popup.type.report.type,
+    })
+  }
 </script>
 
-{#if $popups.length > 0}
+{#if popup}
 	<div class="popup" transition:fade="{{ duration: 100 }}">
 		<div class="popup__card card card--gap-compressed" use:clickOutside={() => {if (!popup?.type?.creation) close()}} class:popup__card--wide={popup?.style?.wide}>
 			<h1 class="popup__card__top">
@@ -38,11 +55,30 @@
         <p><b>To verify, type</b> <i>{popup.type.deletion.key}</i> <b>below:</b></p>
         <Input type='text' placeholder="Type here..." bind:value={deletionKey} />
 			{/if}
+      {#if popup?.type?.report}
+        <p><b>Reason</b></p>
+        <Multiselect
+          bind:value={reportData.report_type}
+          options={[
+          { label: 'Spam', value: 'spam' },
+          { label: 'Copyright', value: 'copyright' },
+          { label: 'Inappropriate', value: 'inappropriate' },
+          { label: 'Malicious', value: 'malicious' },
+          { label: 'Name-squatting', value: 'name-squatting' },
+        ]}/>
+        <p><b>Additional Information</b><br />Include links and images if possible. Markdown formatting is supported.</p>
+        <Input type='textarea' placeholder="Enter additional information..." bind:value={reportData.body} />
+      {/if}
 			<div class="popup__card__buttons">
         {#if popup?.type?.deletion}
           <Button label="Cancel" on:click={close} />
         {/if}
-				<Button label={popup?.button?.label || 'Continue' } on:click={() => {close(); popup.button?.click()}} color={popup?.type?.deletion ? 'red' : 'brand'} icon={popup?.type?.deletion ? null : IconArrowRight} disabled={(popup?.type?.deletion) && (popup.type.deletion.key !== deletionKey)} />
+				<Button
+          label={popup?.type?.report ? `Report ${popup.type.report.type}` : popup?.button?.label || 'Continue' }
+          on:click={() => {popup?.type?.report ? sendReport() : popup.button?.click(); close()}}
+          color={popup?.type?.deletion ? 'red' : 'brand'}
+          icon={(popup?.type?.deletion || popup?.type?.report) ? null : IconArrowRight}
+          disabled={(popup?.type?.deletion && popup.type.deletion.key !== deletionKey) || (popup?.type?.report && !reportData.report_type)} />
 			</div>
 		</div>
 	</div>
@@ -64,8 +100,10 @@
 
 		&__card {
 			width: 80%;
-			max-width: 500px;
+			max-width: 600px;
 			z-index: 25;
+      max-height: calc(100% - 2rem);
+      overflow-y: auto;
 
       &--wide {
         max-width: 750px;

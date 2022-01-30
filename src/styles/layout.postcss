@@ -19,11 +19,26 @@
 	}
 }
 
-
 .single-layout {
   display: flex;
   flex-direction: column;
   grid-gap: 1rem;
   max-width: 800px;
   width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+  padding-right: 1rem;
+
+  &--col-2-1 {
+    grid-template-columns: 66% 34%;
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+  }
 }

@@ -9,20 +9,26 @@
         throw new Error('Invalid type')
       }
 
-      const [$project, $members, $versions, $featuredVersions] = (
+      const [$project, $members, $versions, $featuredVersions, $dependencies] = (
         await Promise.all([
           await send('GET', `project/${params.identifier}`, null, {fetch}),
           await send('GET', `project/${params.identifier}/members`, null, {fetch}),
           await send('GET', `project/${params.identifier}/version`, null, {fetch}),
           await send('GET', `project/${params.identifier}/version?featured=true`, null, {fetch}),
+          await send('GET', `project/${params.identifier}/dependencies`, null, {fetch}),
         ])
       )
+
+      //console.log(params.identifier)
 
       return {
         props: {
           store: {
-            $project, $members, $versions, $featuredVersions
+            $project, $members, $versions, $featuredVersions, $dependencies
           },
+        },
+        stuff: {
+          versions: $versions,
         },
       }
     } catch {
@@ -54,6 +60,7 @@
   import IconGithubSponsors from 'virtual:icons/simple-icons/githubsponsors'
   import IconOther from 'virtual:icons/heroicons-outline/globe-alt'
   import IconDownloadFile from 'virtual:icons/heroicons-outline/document-download'
+  import IconFlag from 'virtual:icons/heroicons-outline/flag'
 
   import ProfilePicture from '$components/elements/ProfilePicture.svelte'
   import { ago } from '$lib/ago'
@@ -63,25 +70,30 @@
   import { cache } from '$stores/cache'
   import { user } from '$stores/server'
   import { Permissions } from '$lib/permissions'
-  import { project, members, versions, featuredVersions, releaseColors } from './_store'
+  import { project, members, versions, featuredVersions, releaseColors, dependencies, permissions } from './_store'
   import { downloadUrl, getPrimary } from '$lib/versions'
   import Ad from "$components/elements/Ad.svelte";
+  import { page } from '$app/stores'
+  import { report } from "$lib/report";
 
   export let store;
-  ({$project, $members, $versions, $featuredVersions} = store)
+  ({$project, $members, $versions, $featuredVersions, $dependencies} = store)
+
+  export let identifier;
+
+  $: if ($page.url.pathname) ({$project, $members, $versions, $featuredVersions, $dependencies} = store)
 
   let currentMember = $members.find(member => $user?.id === member.user.id)
-  let permissions: Permissions
 
   if (['admin', 'moderator'].includes($user?.role)) {
-    permissions = new Permissions('ALL')
+    $permissions = new Permissions('ALL')
   } else if (currentMember && currentMember.accepted) {
-    permissions = new Permissions(currentMember.permissions)
+    $permissions = new Permissions(currentMember.permissions)
   } else {
-    permissions = new Permissions(0)
+    $permissions = new Permissions(0)
   }
 
-  let banner = $project.gallery.find((item) => item.featured) || $project.gallery[0]
+  $: banner = $project.gallery.find((item) => item.featured) || $project.gallery[0]
 
   let externalResources = [
     {
@@ -160,8 +172,14 @@
   <div class="column-layout__sidebar">
     <div class="card">
       <div class="card__overlay">
-        <Button label={$t('generic.actions.edit')} color="raised" icon={IconPencil}/>
-        <Button label={$t('generic.actions.follow')} color="raised" icon={IconHeart}/>
+        {#if $permissions.data.editDetails}
+          <Button label={$t('generic.actions.edit')} color="raised" icon={IconPencil}/>
+        {:else if $user}
+          <Button label={$t('generic.actions.report')} color="raised" icon={IconFlag} on:click={() => report('project', $project.id)}/>
+        {/if}
+        {#if $user}
+          <Button label={$t('generic.actions.follow')} color="raised" icon={IconHeart}/>
+        {/if}
       </div>
       {#if banner}
         <img class="card__banner card__banner--short" src={banner.url} alt={banner.description} style:background-color={bannerColor}/>
@@ -329,7 +347,7 @@
 						label: $t('pages.versions'),
 						href: '/versions',
 					},
-					...($project.gallery.length > 0 || permissions.data.editDetails ? [{
+					...($project.gallery.length > 0 || $permissions.data.editDetails ? [{
 						label: $t('pages.gallery'),
 						href: '/gallery',
 					}] : []),
@@ -337,7 +355,7 @@
 						label: $t('pages.changelog'),
 						href: '/changelog',
 					},
-					...(permissions.settingsPage ? [{
+					...($permissions.settingsPage ? [{
 						label: $t('pages.settings'),
 						href: '/settings',
 					}] : []),
@@ -351,20 +369,6 @@
 </div>
 
 <style lang="postcss">
-  .member {
-    display: flex;
-    grid-gap: 0.75rem;
-
-    &__info {
-      display: flex;
-      flex-direction: column;
-
-      &__link {
-        font-weight: var(--font-weight-medium);
-      }
-    }
-  }
-
   .featured-version {
     display: flex;
     grid-gap: 0.75rem;

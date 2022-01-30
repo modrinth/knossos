@@ -21,6 +21,8 @@
 		value = selected.value;
 	}
 
+  const minWidth = options.map(it => it.label || it.value).reduce((it, acc) => it.length > acc ? it : acc, '').length * 12
+
 	let shouldOpenUp = false;
 	let element: HTMLElement;
 
@@ -72,6 +74,7 @@
 	bind:this={element}
 	tabindex="0"
   on:keydown={keydown}
+  style:min-width="{minWidth}px"
 >
 	<div
 		class="multiselect__input"
@@ -79,7 +82,7 @@
 			open = !open;
 		}}
 	>
-		<span class="multiselect__input__value">{label || selected?.label || value}</span>
+		<span class="multiselect__input__value">{label || selected?.label || value || 'Choose...'}</span>
 		<div class="multiselect__input__arrow">
 			<slot name="icon">
 				<IconChevronDown />
@@ -111,6 +114,7 @@
 		color: var(--color-button-text);
 		cursor: pointer;
 		border-radius: var(--rounded);
+    align-self: flex-start;
 
 		&__input {
 			display: flex;

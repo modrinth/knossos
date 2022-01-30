@@ -63,6 +63,8 @@
 		&--size {
 			&-sm {
 				--size: 3rem;
+        box-shadow: var(--shadow-inset), var(--shadow-raised);
+        border-radius: var(--rounded-sm);
 			}
 			&-md {
 				--size: 6rem;

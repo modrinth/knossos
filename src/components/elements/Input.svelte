@@ -2,7 +2,6 @@
 	import Multiselect from "$components/elements/Multiselect.svelte";
   import IconCheck from 'virtual:icons/heroicons-outline/check'
   import { SvelteComponent } from 'svelte'
-  import { searchParams } from '../../routes/[search].svelte'
 
   export let key = '';
 	export let label = '';
@@ -56,7 +55,7 @@
 			{/each}
 		</div>
 	{:else if type === 'textarea'}
-		<textarea name={key} class="input-box" />
+		<textarea name={key} class="input-box input-box--fill" {placeholder} bind:value={value} />
   {:else if type === 'checkbox'}
     <label class="checkbox">
       <input type='checkbox' bind:checked={value} on:change>
@@ -81,6 +80,11 @@
     padding: 0.25rem 0.75rem;
     width: 20rem;
     max-width: 100%;
+
+    &--fill {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+    }
   }
 
   .checkboxes {

@@ -12,7 +12,7 @@
 
       return {
         props: {
-          items: [...projects, ...reports],
+          items: [...projects, ...reports].sort((a, b) => new Date(a.published || a.created).valueOf() - new Date(b.published || b.created).valueOf()),
         },
       };
     } catch {

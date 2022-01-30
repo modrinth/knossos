@@ -97,7 +97,7 @@
 		}
 
 		&.is-iconified {
-			padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+			padding: 0.25rem 0.75rem;
 		}
 
     &.has-badge::after {

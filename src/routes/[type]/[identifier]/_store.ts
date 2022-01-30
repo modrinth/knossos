@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import type { Permissions } from '$lib/permissions';
 
 interface Member {
 	team_id: string;
@@ -12,6 +13,8 @@ export const project = writable<Project>();
 export const members = writable<Member[]>([]);
 export const versions = writable<Version[]>([]);
 export const featuredVersions = writable<Version[]>([]);
+export const dependencies = writable<{ projects: Project[]; versions: Version[] }>();
+export const permissions = writable<Permissions>();
 
 export const releaseColors = {
 	release: 'green',
