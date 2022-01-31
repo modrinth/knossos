@@ -3,16 +3,49 @@
 
   export async function load({ params, fetch, session, stuff }) {
     try {
-      const [projects, reports] = (
+      let [projects, reports] = (
         await Promise.all([
           (await send('GET', `moderation/projects`, null, {fetch})).map(it => ({...it, moderation_type: it.project_type})),
           (await send('GET', `report`, null, {fetch})).map(it => ({ ...it, moderation_type: 'report'})),
         ])
       )
 
+      reports = await Promise.all(reports.map(async (report) => {
+        try {
+          report.item_id = report.item_id?.replace ? report.item_id.replace(/"/g, '') : report.item_id
+          let url = ''
+
+          if (report.item_type === 'user') {
+            url = `/user/${report.item_id}`
+          } else if (report.item_type === 'project') {
+            const project = await send('GET', `project/${report.item_id}`)
+            report.item_id = project.slug || report.item_id
+            url = `/${project.project_type}/${report.item_id}`
+          } else if (report.item_type === 'version') {
+            console.log(`version/${report.item_id}`)
+            const version = await send('GET', `version/${report.item_id}`)
+            const project = await send('GET', `project/${version.project_id}`)
+            report.item_id = version.version_number || report.item_id
+            url = `/${project.project_type}/${project.slug || project.id}/version/${report.item_id}`
+          }
+
+          return {
+            ...report,
+            moderation_type: 'report',
+            url
+          }
+        } catch (error) {
+          console.log(error)
+          // Do nothing...
+        }
+      }))
+
+      console.log(reports)
+
+      const items = [...projects, ...reports].sort((a, b) => new Date(a.published || a.created).valueOf() - new Date(b.published || b.created).valueOf())
       return {
         props: {
-          items: [...projects, ...reports].sort((a, b) => new Date(a.published || a.created).valueOf() - new Date(b.published || b.created).valueOf()),
+          items,
         },
       };
     } catch {
@@ -32,8 +65,6 @@
   import { setContext } from 'svelte'
 
   export let items;
-
-  items = items.map(it => ({...it, ...(it?.item_id?.replaceAll ? {item_id: it.item_id.replaceAll('"', '')} : {})}))
   setContext('items', items);
 </script>
 

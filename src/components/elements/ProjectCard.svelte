@@ -4,8 +4,10 @@
   import IconDownload from 'virtual:icons/heroicons-outline/download'
   import IconCalendar from 'virtual:icons/lucide/calendar'
   import { ago } from '$lib/ago'
-  import { tagIcons } from '$generated/tags.json'
   import ProfilePicture from './ProfilePicture.svelte'
+  // noinspection ES6UnusedImports
+  import { tagIcons } from '$generated/tags.json'
+  import { simplify } from "$lib/number";
 
   export let project: Project | ProjectResult
 
@@ -22,71 +24,82 @@
 </script>
 
 <div class="card project-card">
-  <a {href} tabindex="-1">
-    <ProfilePicture src={project.icon_url} size="md"/>
-  </a>
+  <div class="project-card__main">
+    <a {href} tabindex="-1">
+      <ProfilePicture src={project.icon_url} size="md"/>
+    </a>
 
-  <div class="project-card__info">
+    <div class="project-card__main__info">
 		<span
     ><a class="title" {href}>{project.title}</a>
       {#if author}
-        <a href="/user/{author}">{@html $t('generic.byline', {values: {author}})}</a>
+        <a href="/user/{author}" class="project-card__main__info__author">{@html $t('generic.byline', {values: {author}})}</a>
       {/if}
 		</span>
 
-    <p class="summary">
-      {project.description}
-    </p>
+      <p class="summary">
+        {project.description}
+      </p>
 
-    <div class="tags">
-      {#each project.categories as category}
-        <div class="tags__tag">
-          {@html tagIcons[category] || "?"}
-          {$t(`tags.${category}`)}
-        </div>
-      {/each}
+      <div class="tags">
+        {#each project.categories as category}
+          <div class="tags__tag">
+            {@html tagIcons[category] || "?"}
+            {$t(`tags.${category}`)}
+          </div>
+        {/each}
+      </div>
     </div>
   </div>
 
-  <div class="project-card__side">
-    {#if !$$slots.actions}
+  {#if !$$slots.actions}
+    <div class="actions">
+        <span class="stat">
+          <IconDownload/>
+          {@html $t('stats.downloads', {values: {downloads: simplify(project.downloads)}})}
+        </span>
       <span class="stat">
-        <IconDownload/>
-        {@html $t('stats.downloads', {values: {downloads: project.downloads}})}
-      </span>
+          <IconHeart/>
+        {@html $t('stats.followers', {values: {followers: simplify(project.followers ?? project.follows)}})}
+        </span>
       <span class="stat">
-        <IconHeart/>
-        {@html $t('stats.followers', {values: {followers: project.followers ?? project.follows}})}
-      </span>
-      <span class="stat">
-        <IconCalendar/>
+          <IconCalendar/>
         {@html $t('stats.updated', {values: {ago: ago(updated)}})}
-      </span>
-    {:else}
-      <slot name="actions" />
-    {/if}
-  </div>
+        </span>
+    </div>
+  {:else}
+    <slot name="actions"/>
+  {/if}
 </div>
 
 <style lang="postcss">
   .project-card {
     flex-direction: row;
+    flex-wrap: nowrap;
 
-    &__info {
-      display: flex;
-      flex-direction: column;
+    @media (width <= 1000px) {
+      flex-wrap: wrap;
     }
 
-    &__side {
-      margin-left: auto;
+    &__main {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      min-width: fit-content;
+      grid-gap: 1rem;
 
-      > *:last-child {
-        margin-top: auto;
-        color: var(--color-text-light);
+      :global(.profile-picture) {
+        @media (width <= 700px) {
+          --size: 4rem;
+          border-radius: 0.75rem;
+        }
+      }
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 0.25rem;
+
+        &__author {
+          white-space: nowrap;
+        }
       }
     }
   }

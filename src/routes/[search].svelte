@@ -12,7 +12,16 @@
       }
     }
 
-    const searchParams = fromUrl(url.searchParams)
+    const searchParams = {
+      c: [],
+      e: [],
+      i: [],
+      l: [],
+      m: '',
+      o: '',
+      s: '',
+      ...fromUrl(url.searchParams),
+    }
 
     return {
       props: {
@@ -44,12 +53,17 @@
   import IconClient from 'virtual:icons/lucide/laptop'
   import IconServer from 'virtual:icons/lucide/hard-drive'
   import IconCode from 'virtual:icons/heroicons-outline/code'
+  import IconExpand from 'virtual:icons/lucide/expand'
+  import IconShrink from 'virtual:icons/lucide/shrink'
+  import IconTrash from 'virtual:icons/heroicons-outline/trash'
   import { categories, loaders, tagIcons, licenses } from '$generated/tags.json'
   import VirtualList from 'svelte-tiny-virtual-list'
   import gameVersions from '$generated/gameVersions.json'
   import Button from '$components/elements/Button.svelte'
-  import Ad from "$components/elements/Ad.svelte";
-  import Pagination from "$components/elements/Pagination.svelte";
+  import Ad from '$components/elements/Ad.svelte'
+  import Pagination from '$components/elements/Pagination.svelte'
+
+  let showFilters = false
 
   export let results
   export let projectType: string
@@ -107,15 +121,15 @@
 
   const handleChange = (e, param, key) => {
     if (e.target.checked) {
-      if (!searchParams[param]) searchParams[param] = [];
-      searchParams[param] = [key, ...searchParams[param]];
+      if (!searchParams[param]) searchParams[param] = []
+      searchParams[param] = [key, ...searchParams[param]]
     } else {
       searchParams[param] = searchParams[param].filter((it) => key !== it)
     }
   }
 
   function clearFilters() {
-    searchParams = { v: [], h: '', l: [], e: [], c: [], i: [] }
+    searchParams = {v: [], h: '', l: [], e: [], c: [], i: []}
   }
 </script>
 
@@ -124,72 +138,86 @@
 <div class="column-layout">
   <div class="column-layout__sidebar">
     <div class="card card--gap-compressed">
-      <h3>Minecraft versions</h3>
-      <VirtualList
-        width="100%"
-        height={180}
-        itemCount={filteredVersions.length}
-        itemSize={30}>
-        <div slot="item" let:index let:style {style} style:padding-bottom={(filteredVersions.length) - 1 === index ? '2.5rem' : ''}>
-          {@const version = filteredVersions[index].version}
-          <Input type="checkbox" value={searchParams.v?.includes(version)} label={version} on:change={(e) => handleChange(e, 'v', version)}/>
-        </div>
-      </VirtualList>
-      <Input type="checkbox" bind:value={searchParams.h} label="Show snapshots" icon={IconCode}/>
-      <Input type="text" placeholder="Search versions..." bind:value={filterTerm}/>
+      <div class="button-group filters-button">
+        <Button
+          label="{showFilters ? 'Hide' : 'Show'} filters"
+          on:click={() => showFilters = !showFilters}
+          icon={showFilters ? IconShrink : IconExpand}
+        />
+      </div>
 
-      <hr class="divider"/>
+      <div style:display={showFilters ? 'flex' : 'none'} class="filters">
+        <h3>Minecraft versions</h3>
+        <VirtualList
+          width="100%"
+          height={180}
+          itemCount={filteredVersions.length}
+          itemSize={30}>
+          <div slot="item" let:index let:style {style} style:padding-bottom={(filteredVersions.length) - 1 === index ? '2.5rem' : ''}>
+            {@const version = filteredVersions[index].version}
+            <Input type="checkbox" value={searchParams.v?.includes(version)} label={version} on:change={(e) => handleChange(e, 'v', version)}/>
+          </div>
+        </VirtualList>
+        <Input type="checkbox" bind:value={searchParams.h} label="Show snapshots" icon={IconCode}/>
+        <Input type="text" placeholder="Search versions..." bind:value={filterTerm}/>
 
-      <h3>Mod Loaders</h3>
-      <Input type="checkboxes" options={loaders.filter(it => it.supported_project_types.includes(projectType)).map(({name}) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))} bind:value={searchParams.l} wrap/>
+        <hr class="divider"/>
 
-      <hr class="divider"/>
+        <h3>Mod Loaders</h3>
+        <Input type="checkboxes" options={loaders.filter(it => it.supported_project_types.includes(projectType)).map(({name}) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))} bind:value={searchParams.l} wrap/>
 
-      <h3>Environments</h3>
-      <Input type="checkboxes" options={[
+        <hr class="divider"/>
+
+        <h3>Environments</h3>
+        <Input type="checkboxes" options={[
         { label: $t(`tags.client`), value: 'client', icon: IconClient },
         { label: $t(`tags.server`), value: 'server', icon: IconServer },
       ]} bind:value={searchParams.e} wrap/>
 
-      <hr class="divider"/>
+        <hr class="divider"/>
 
-      <h3>Categories</h3>
-      <Input type="checkboxes" options={categories.filter(it => it.project_type === projectType).map(({name}) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))} bind:value={searchParams.c} />
+        <h3>Categories</h3>
+        <Input type="checkboxes" options={categories.filter(it => it.project_type === projectType).map(({name}) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))} bind:value={searchParams.c}/>
 
-      <h3>Licenses</h3>
-      <Input type="checkboxes" options={licenses.map(({short}) => ({ label: short.toUpperCase(), value: short }))} bind:value={searchParams.i} />
+        <h3>Licenses</h3>
+        <Input type="checkboxes" options={licenses.map(({short}) => ({ label: short.toUpperCase(), value: short }))} bind:value={searchParams.i}/>
 
-      <div class="button-group">
-        <Button label="Clear filters" on:click={clearFilters}/>
+        <div class="button-group">
+          <Button label="Clear filters" on:click={clearFilters} icon={IconTrash}/>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="column-layout__content">
-    <Ad />
-    <div class="card card--gap-compressed card--row card--overflow-visible">
+    <Ad/>
+    <div class="card card--gap-compressed card--row card--overflow-visible search-bar">
       <div class="search">
         <IconSearch class="search__icon"/>
         <input class="search__input" type="text" placeholder="{$t(`project.types.${projectType}.search`)}" bind:value={searchParams.q}/>
       </div>
 
-      Sort by
-      <Multiselect options={[
+      <div class="search-bar__field">
+        Sort by
+        <Multiselect options={[
         { value: "", label: "Relevance" },
         { value: "downloads", label: "Downloads" },
         { value: "follows", label: "Followers" },
         { value: "newest", label: "Recently created" },
         { value: "updated", label: "Recently updated" },
         ]} bind:value={searchParams.s}/>
+      </div>
 
-      Show per page
-      <Multiselect options={[
+      <div class="search-bar__field">
+        Show per page
+        <Multiselect options={[
         { value: "", label: "5" },
         { value: "10", label: "10" },
         { value: "20", label: "20" },
         { value: "50", label: "50" },
         { value: "100", label: "100" },
         ]} bind:value={searchParams.m}/>
+      </div>
     </div>
 
     <Pagination
@@ -215,24 +243,58 @@
 </div>
 
 <style lang="postcss">
-  .search {
-    position: relative;
+  .filters {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    grid-gap: 0.6rem;
+  }
 
-    :global(&__icon) {
-      position: absolute;
-      left: 0.5rem;
-      height: 1rem;
-      opacity: 0.7;
+  @media (width >= 800px) {
+    .filters {
+      display: flex !important;
     }
 
-    &__input {
-      border-radius: var(--rounded-sm);
-      box-shadow: var(--shadow-inset-sm);
-      background-color: var(--color-button-bg);
-      border: none;
-      padding: 0.25rem 0.5rem 0.25rem 2rem;
+    .filters-button {
+      display: none;
+    }
+  }
+
+  .search-bar {
+    .search {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex: 1;
+
+      :global(&__icon) {
+        position: absolute;
+        left: 0.5rem;
+        height: 1rem;
+        opacity: 0.7;
+      }
+
+      &__input {
+        width: 100%;
+        border-radius: var(--rounded-sm);
+        box-shadow: var(--shadow-inset-sm);
+        background-color: var(--color-button-bg);
+        border: none;
+        padding: 0.25rem 0.5rem 0.25rem 2rem;
+      }
+    }
+
+    &__field {
+      display: flex;
+      grid-gap: 0.5rem;
+      align-items: center;
+    }
+
+    @media (width <= 1050px) {
+      flex-wrap: wrap;
+
+      .search {
+        flex: unset;
+      }
     }
   }
 

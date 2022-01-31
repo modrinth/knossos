@@ -23,20 +23,18 @@ export function setSystemTheme(): void {
 
 interface Popup {
 	title: string;
-	body: string;
+	body?: string;
 	type?: {
 		deletion?: {
 			key: string;
 		};
-		report?: {
-			type: 'project' | 'version' | 'user';
-			id: string;
-		};
+		report?: boolean;
 		creation?: 'project';
+		moderation?: boolean;
 	};
 	button?: {
 		label: string;
-		click: () => Promise<void>;
+		click: ({ body, status, report_type }) => Promise<void>;
 	};
 	style?: {
 		wide?: boolean;

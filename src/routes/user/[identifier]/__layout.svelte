@@ -46,8 +46,9 @@
 	import { user as currentUser } from '$stores/server';
   import Ad from "$components/elements/Ad.svelte";
   import { report } from "$lib/report";
+  import { simplify } from '$lib/number'
 
-	export let user: User;
+  export let user: User;
 	export let projects: Project[];
 	setContext('projects', projects);
 	export let github_url: string;
@@ -72,6 +73,8 @@
 <div class="column-layout">
 	<div class="column-layout__sidebar">
 		<div class="card card--pad-top card--gap-compressed">
+      <h1 class="mobile-title">{user.username}</h1>
+
 			{#if $currentUser}
 				<div class="button-group">
 					{#if user.id === $currentUser?.id}
@@ -94,13 +97,13 @@
 
 			<div class="stat">
 				<IconDownload />
-				<span>{@html $t('stats.downloads', { values: { downloads } })}</span>
+				<span>{@html $t('stats.downloads', { values: { downloads: simplify(downloads) } })}</span>
 			</div>
 			<div class="stat">
 				<IconHeart />
 				<span
 					>{@html
-						$t('stats.followers_of_projects', { values: { followers } })
+						$t('stats.followers_of_projects', { values: { followers: simplify(followers) } })
 					}</span
 				>
 			</div>
@@ -162,6 +165,18 @@
 
 		&__title {
 			font-size: 2.5rem;
+
+      @media (width <= 500px) {
+        display: none;
+      }
 		}
 	}
+
+  .mobile-title {
+    display: none;
+
+    @media (width <= 500px) {
+      display: flex;
+    }
+  }
 </style>

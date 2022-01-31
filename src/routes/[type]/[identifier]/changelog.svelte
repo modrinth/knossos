@@ -48,6 +48,7 @@
       &__color {
         --color: var(--color-badge-green-dot);
         width: 0.2rem;
+        min-width: 0.2rem;
         background-color: var(--color);
         position: relative;
         margin: 0.5rem 0.4rem 0 0.4rem;

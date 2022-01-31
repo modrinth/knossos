@@ -9,18 +9,34 @@
   import { t } from 'svelte-intl-precompile'
   import { ago } from '$lib/ago'
   import { send } from '$lib/api'
-  import IconCheck from 'virtual:icons/heroicons-outline/check'
-  import IconX from 'virtual:icons/heroicons-outline/x'
-  import IconUnlist from 'virtual:icons/heroicons-outline/eye-off'
+  import IconEye from 'virtual:icons/heroicons-outline/eye'
   import IconTrash from 'virtual:icons/heroicons-outline/trash'
+  import { popups } from '$stores/app'
 
   let items = getContext('items')
 
-  async function setProject(id, status) {
-    await send('PATCH', `project/${id}`, {
-      status,
-    })
-    removeItem(id)
+  async function changeStatus(id) {
+    $popups = [{
+      title: 'Change project status',
+      type: {
+        moderation: {
+          id,
+        },
+      },
+      button: {
+        label: 'Confirm',
+        click: async ({ status, body }) => {
+          await send('PATCH', `project/${id}`, {
+            status,
+            ...(body ? ({
+              moderation_message: 'Moderator message',
+              moderation_message_body: body,
+            }) : ({})),
+          })
+          removeItem(id)
+        },
+      }
+    }, ...$popups]
   }
 
   function removeItem(id) {
@@ -33,13 +49,9 @@
     <div class="card report">
       <div class="report__info">
         <div class="report__info__title">
-          <h3>{item.item_type} <a href="/{item.item_type}/{item.item_id}">{item.item_id}</a></h3>
+          <h3>{item.item_type} <a href={item.url}>{item.item_id}</a></h3>
           reported by <a href="/user/{item.reporter}">{item.reporter}</a>
         </div>
-        <span class="stat">
-            <IconCalendar/>
-          {@html $t('stats.created', {values: {ago: ago(item.created)}})}
-          </span>
         {#if item.body}
           {@html markdownXSS(item.body)}
         {/if}
@@ -50,18 +62,20 @@
                 await send('DELETE', `report/${item.id}`)
                  removeItem(item.id)
           }}/>
+        <span class="stat">
+          <IconCalendar/>
+          {@html $t('stats.created', {values: {ago: ago(item.created)}})}
+        </span>
       </div>
     </div>
   {:else}
     <ProjectCard project={item}>
       <div slot="actions" class="actions">
-        <Button label="Approve" on:click={() => setProject(item.id, 'approved')} icon={IconCheck}/>
-        <Button label="Unlist" on:click={() => setProject(item.id, 'unlisted')} icon={IconUnlist}/>
-        <Button label="Reject" on:click={() => setProject(item.id, 'rejected')} icon={IconX}/>
+        <Button label="Change status" on:click={() => changeStatus(item.id)} icon={IconEye}/>
         <span class="stat">
-        <IconCalendar/>
+          <IconCalendar/>
           {@html $t('stats.created', {values: {ago: ago(item.published)}})}
-      </span>
+        </span>
       </div>
     </ProjectCard>
   {/if}
@@ -72,6 +86,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
+    grid-gap: 1rem;
 
     > div {
       display: flex;
@@ -80,10 +96,14 @@
     }
 
     &__info {
+      display: flex;
+      flex-wrap: wrap;
+
       &__title {
         display: flex;
         align-items: center;
         grid-gap: 0.5rem;
+        flex-wrap: wrap;
 
         h3 {
           text-transform: capitalize;
@@ -94,12 +114,5 @@
         }
       }
     }
-  }
-
-  .actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    grid-gap: 0.5rem;
   }
 </style>

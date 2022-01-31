@@ -42,7 +42,7 @@
 	{/if}
 </p>
 
-<div class="actions">
+<div class="error-actions">
 	<Button href="/" label={$t('error.actions.home')} color="brand" />
 	<Button href="/discord" label={$t('error.actions.discord')} color="raised" newTab={true} />
 </div>
@@ -55,7 +55,7 @@
     font-size: 2rem;
 	}
 
-	.actions {
+	.error-actions {
 		display: flex;
 		grid-gap: 0.5rem;
 		flex-wrap: wrap;

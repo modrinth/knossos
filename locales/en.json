@@ -136,7 +136,7 @@
 		"joined": "Joined {ago}",
     "notified": "Notified {ago}",
 		"downloads": "{downloads, plural, one {<b>1</b> download} other {<b>#</b> downloads}}",
-		"followers_of_projects": "{followers, plural, one {<b>1<b> follower of projects} other {<b>#</b> followers of projects}}",
+		"followers_of_projects": "{followers, plural, one {<b>1</b> follower of projects} other {<b>#</b> followers of projects}}",
 		"followers": "{followers, plural, one {<b>1</b> follower} other {<b>#</b> followers}}",
 		"user_id": "User ID: {id}",
 		"created": "Created {ago}",
@@ -160,6 +160,7 @@
     "server": "Server",
     "client": "Client",
     "good": "Good",
-    "trash": "Trash"
+    "trash": "Trash",
+    "misc": "Miscellaneous"
 	}
 }

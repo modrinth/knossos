@@ -2,7 +2,7 @@
   import Meta from '$components/utils/Meta.svelte'
   import Wordmark from '$assets/images/logo/wordmark.svg'
   import IconSearch from 'virtual:icons/heroicons-outline/search'
-  import colors from '$generated/colors.json'
+  import projects from '$generated/projects.json'
   import { goto } from '$app/navigation'
   import { mulberry32, xmur3 } from '$lib/random'
   import { t } from "svelte-intl-precompile";
@@ -37,9 +37,9 @@
         {#each row as column, colIndex}
           {@const index = (rowIndex * layout[rowIndex].length) + colIndex + colorsOffset}
           {#if column === 1}
-            <a class="stacks__row__column" href="https://modrinth.com/mod/{colors[index].project}" tabindex="-1" style:--color={colors[index].color} style:--offset="{Math.round(random() * 40 - 20)}px" title={colors[index].project}>
+            <a class="stacks__row__column" href="/mod/{projects?.[index]?.[0] || ''}" tabindex="-1" style:--color={projects?.[index]?.[1] || ''} style:--offset="{Math.round(random() * 40 - 20)}px">
               <div class="stacks__row__column__background"/>
-              <img class="stacks__row__column__face" src="https://cdn.modrinth.com/data/{colors[index].icon}" alt=""/>
+              <img class="stacks__row__column__face" src="https://cdn.modrinth.com/data/{projects?.[index]?.[0] || ''}/icon.{projects?.[index]?.[2] || ''}" alt=""/>
             </a>
           {/if}
         {/each}
@@ -67,7 +67,7 @@
     min-height: 32rem;
 
     background-color: var(--color-raised-bg);
-    border-radius: 1.5rem;
+    border-radius: 2rem;
     overflow: hidden;
     box-shadow: var(--shadow-raised), var(--shadow-inset);
     position: relative;

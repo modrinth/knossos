@@ -45,5 +45,13 @@
       width: 1rem;
       height: 1rem;
     }
+
+    @media (width <= 500px) {
+      grid-gap: 0.25rem;
+
+      :global(> *:nth-child(4)), :global(> *:nth-child(6)) {
+        display: none;
+      }
+    }
   }
 </style>

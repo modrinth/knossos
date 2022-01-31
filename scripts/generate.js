@@ -3,9 +3,11 @@ import { promises as fs } from 'fs';
 import sharp from 'sharp';
 import { getAverageColor } from 'fast-average-color-node';
 
-const API_URL = 'https://staging-api.modrinth.com/v2/';
+const API_URL =
+	process.env.VITE_API_URL || process.env?.NODE_ENV === 'development'
+		? 'https://staging-api.modrinth.com/v2/'
+		: 'https://api.modrinth.com/v2/';
 const GENERATED_PATH = './src/generated/';
-const COLORS_LENGTH = 100;
 
 (async () => {
 	/* GAME VERSIONS */
@@ -53,52 +55,92 @@ const COLORS_LENGTH = 100;
 
 	/* HOMEPAGE */
 
-	// Stack SVG positions
-	let colors = [];
+	// Put all mods into an array
+	const modCount = (
+		await (await fetch(API_URL + 'search?limit=0&facets=[["project_type:mod"]]')).json()
+	).total_hits;
 
-	// TODO: When enough projects in staging-api: `(await send('GET', 'search?limit=50&index=downloads')).hits`
-	// Fetch top projects
-	const projects = (
-		await (
-			await fetch(`https://api.modrinth.com/api/v1/mod?limit=${COLORS_LENGTH}&index=downloads`)
-		).json()
-	).hits;
+	let mods = [];
+
+	for (let i = 0; i < Math.ceil(modCount / 100); i++) {
+		mods = [
+			...mods,
+			...(
+				await (
+					await fetch(API_URL + `search?limit=100&facets=[["project_type:mod"]]&offset=${i * 100}`)
+				).json()
+			).hits,
+		];
+	}
+
+	// Put all other types of projects into an array
+	const otherCount = (
+		await (await fetch(API_URL + 'search?limit=0&filters=project_type!%3D%22mod%22')).json()
+	).total_hits;
+
+	let others = [];
+
+	for (let i = 0; i < Math.ceil(otherCount / 100); i++) {
+		others = [
+			...others,
+			...(
+				await (
+					await fetch(
+						API_URL + `search?limit=100&filters=project_type!%3D%22mod%22&offset=${i * 100}`
+					)
+				).json()
+			).hits,
+		];
+	}
+
+	// Combine the arrays
+	const projects = [...mods, ...others];
+
+	// Simplified array with the format: ['ID', 'color', 'png']
+	let compressed = [];
 
 	await Promise.all(
-		projects.map(async (project, index) => {
-			// Project information
-			const project_id = project.mod_id.replace('local-', '');
-			colors[index] = {
-				icon: `${project_id}/icon${project.icon_url.match(/\.[0-9a-z]+$/i)[0]}`,
-				project: project.slug || project_id,
-			};
+		projects
+			.filter((project) => project.icon_url)
+			.map(async (project, index) => {
+				try {
+					let color = '';
 
-			// Icon colors
-			const iconBuffer = Buffer.from(await (await fetch(project.icon_url)).arrayBuffer());
-			const iconSharp = await sharp(iconBuffer);
+					// Icon colors
+					const iconBuffer = Buffer.from(await (await fetch(project.icon_url)).arrayBuffer());
+					const iconSharp = await sharp(iconBuffer);
 
-			const { height, width } = await iconSharp.metadata();
+					const { height, width } = await iconSharp.metadata();
 
-			// Bottom edge
-			{
-				const edge = await iconSharp
-					.extract({ left: 0, top: height - 1, width, height: 1 })
-					.toBuffer();
-				colors[index].color = (await getAverageColor(edge)).hexa;
-			}
+					// Bottom edge
+					{
+						const edge = await iconSharp
+							.extract({ left: 0, top: height - 1, width, height: 1 })
+							.toBuffer();
+						color = (await getAverageColor(edge)).hexa;
+					}
 
-			if (colors[index].color === '#00000000') {
-				// Image is transparent, so pick only one color
-				colors[index].color = (await getAverageColor(iconBuffer)).hexa;
-			}
+					if (color === '#00000000') {
+						// Image is transparent, so pick only one color
+						color = (await getAverageColor(iconBuffer)).hexa;
+					}
 
-			// Remove color transparency
-			colors[index].color = colors[index].color.replace(/.{2}$/, '');
-		})
+					// Remove color transparency
+					color = color.replace(/.{2}$/, '');
+
+					compressed[index] = [
+						project.project_id,
+						color,
+						...(index < 100 ? [project.icon_url.match(/\.[0-9a-z]+$/i)[0].substring(1)] : []),
+					];
+				} catch {
+					console.log('Image failed with', project.title);
+				}
+			})
 	);
 
 	// Write JSON file
-	await fs.writeFile(GENERATED_PATH + 'colors.json', JSON.stringify(colors));
+	await fs.writeFile(GENERATED_PATH + 'projects.json', JSON.stringify(compressed));
 
-	console.log('Generated colors.json');
+	console.log('Generated projects.json');
 })();

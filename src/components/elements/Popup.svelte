@@ -9,31 +9,21 @@
   import IconExclamation from 'virtual:icons/heroicons-outline/exclamation'
   import { fade } from 'svelte/transition';
   import Input from "$components/elements/Input.svelte";
-  import { send } from '$lib/api'
 
+  let popup = {}
   $: popup = $popups[0];
   let deletionKey = '';
-
-  const defaultReport = {
-    report_type: '',
-    body: '',
-  }
-  let reportData = {...defaultReport}
+  let body = ''
+  let report_type = ''
+  let status = 'approved'
 
   function close() {
     deletionKey = ''
-    reportData = {...defaultReport}
-    console.log({reportData})
+    report_type = ''
+    body = ''
+    status = 'approved'
     $popups = $popups.slice(1, $popups.length - 1);
 	}
-
-  async function sendReport() {
-    await send('POST', 'report', {
-      ...reportData,
-      item_id: popup.type.report.id,
-      item_type: popup.type.report.type,
-    })
-  }
 </script>
 
 {#if popup}
@@ -58,7 +48,7 @@
       {#if popup?.type?.report}
         <p><b>Reason</b></p>
         <Multiselect
-          bind:value={reportData.report_type}
+          bind:value={report_type}
           options={[
           { label: 'Spam', value: 'spam' },
           { label: 'Copyright', value: 'copyright' },
@@ -67,18 +57,30 @@
           { label: 'Name-squatting', value: 'name-squatting' },
         ]}/>
         <p><b>Additional Information</b><br />Include links and images if possible. Markdown formatting is supported.</p>
-        <Input type='textarea' placeholder="Enter additional information..." bind:value={reportData.body} />
+        <Input type='textarea' placeholder="Enter additional information..." bind:value={body} />
+      {/if}
+      {#if popup?.type?.moderation}
+        <p><b>Status</b></p>
+        <Multiselect
+          bind:value={status}
+          options={[
+          { label: 'Approve', value: 'approved' },
+          { label: 'Unlist', value: 'unlisted' },
+          { label: 'Reject', value: 'rejected' },
+        ]}/>
+        <p><b>Moderation message</b><br />Optionally include information to communicate problems with a project's team members. Markdown formatting is supported.</p>
+        <Input type='textarea' placeholder="Enter additional information..." bind:value={body} />
       {/if}
 			<div class="popup__card__buttons">
         {#if popup?.type?.deletion}
           <Button label="Cancel" on:click={close} />
         {/if}
 				<Button
-          label={popup?.type?.report ? `Report ${popup.type.report.type}` : popup?.button?.label || 'Continue' }
-          on:click={() => {popup?.type?.report ? sendReport() : popup.button?.click(); close()}}
+          label={popup?.button?.label || 'Continue' }
+          on:click={async () => {await popup.button?.click({body, status, report_type}); close()}}
           color={popup?.type?.deletion ? 'red' : 'brand'}
           icon={(popup?.type?.deletion || popup?.type?.report) ? null : IconArrowRight}
-          disabled={(popup?.type?.deletion && popup.type.deletion.key !== deletionKey) || (popup?.type?.report && !reportData.report_type)} />
+          disabled={(popup?.type?.deletion && popup.type.deletion.key !== deletionKey) || (popup?.type?.report && !report_type)} />
 			</div>
 		</div>
 	</div>

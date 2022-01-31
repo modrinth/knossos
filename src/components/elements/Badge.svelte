@@ -13,8 +13,7 @@
     display: inline;
     position: relative;
     padding-left: 0.9rem;
-    height: 1rem;
-    line-height: 100%;
+    line-height: 1rem;
 
 		&--color-green {
 			color: var(--color-badge-green-text);

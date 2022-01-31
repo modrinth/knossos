@@ -59,13 +59,4 @@
       grid-gap: 0.75rem;
     }
   }
-
-    .actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      grid-gap: 0.5rem;
-      justify-content: space-between;
-      height: 100%;
-    }
 </style>

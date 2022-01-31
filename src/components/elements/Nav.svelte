@@ -49,6 +49,7 @@
 		flex-direction: row;
 		align-items: center;
 		grid-gap: 1rem;
+    flex-wrap: wrap;
 
 		&__link {
 			font-weight: var(--font-weight-bold);

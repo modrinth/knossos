@@ -36,8 +36,8 @@
   import IconFlag from 'virtual:icons/heroicons-outline/flag'
   import IconStar from 'virtual:icons/heroicons-outline/star'
   import IconTrash from 'virtual:icons/heroicons-outline/trash'
-  import { report } from "$lib/report";
-  import { user } from "$stores/server";
+  import { report } from '$lib/report'
+  import { user } from '$stores/server'
 
   const dateFormat = new Intl.DateTimeFormat('en', {
     year: 'numeric',
@@ -64,16 +64,17 @@
 <h1 class="title">{ version.name || version.version_number }</h1>
 
 {#if $user}
-<div class="button-group">
-  <Button label="Report" color="raised" icon={IconFlag} on:click={() => report('version', version.id)}/>
-  {#if $permissions.data.uploadVersions}
-    <Button label="Feature" color="raised" icon={IconStar}/>
-    <Button label="Edit" color="raised" icon={IconPencil}/>
-  {/if}
-  {#if $permissions.data.deleteVersion}
-    <Button label="Delete" color="raised" icon={IconTrash}/>
-  {/if}
-</div>
+  <div class="button-group">
+    {#if $permissions.data.uploadVersions}
+      <Button label="Feature" color="raised" icon={IconStar}/>
+      <Button label="Edit" color="raised" icon={IconPencil}/>
+    {:else}
+      <Button label="Report" color="raised" icon={IconFlag} on:click={() => report('version', version.id)}/>
+    {/if}
+    {#if $permissions.data.deleteVersion}
+      <Button label="Delete" color="raised" icon={IconTrash}/>
+    {/if}
+  </div>
 {/if}
 
 <div class="grid grid--col-2-1">

@@ -56,9 +56,6 @@ Once you have completed those steps, press the continue button below.
           await logOut();
         }
       },
-      style: {
-        wide: true,
-      }
     }, ...$popups]
   }
 

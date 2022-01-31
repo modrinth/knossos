@@ -66,8 +66,8 @@
   import { ago } from '$lib/ago'
   import IconCalendar from 'virtual:icons/lucide/calendar'
   import { tagIcons } from '$generated/tags.json'
+  import projects from '$generated/projects.json'
   import Badge from '$components/elements/Badge.svelte'
-  import { cache } from '$stores/cache'
   import { user } from '$stores/server'
   import { Permissions } from '$lib/permissions'
   import { project, members, versions, featuredVersions, releaseColors, dependencies, permissions } from './_store'
@@ -75,6 +75,7 @@
   import Ad from "$components/elements/Ad.svelte";
   import { page } from '$app/stores'
   import { report } from "$lib/report";
+  import { simplify } from "$lib/number";
 
   export let store;
   ({$project, $members, $versions, $featuredVersions, $dependencies} = store)
@@ -93,7 +94,7 @@
     $permissions = new Permissions(0)
   }
 
-  $: banner = $project.gallery.find((item) => item.featured) || $project.gallery[0]
+  $: banner = $project.gallery.find((item) => item.featured)
 
   let externalResources = [
     {
@@ -153,19 +154,7 @@
     },
   ]
 
-  let bannerColor = $cache.projectColors[$project.id] || 'var(--color-button-bg-hover)'
-
-  onMount(() => {
-    if (!banner && $project.icon_url) {
-      import('node-vibrant/lib/browser').then(Vibrant => {
-        Vibrant.from($project.icon_url)
-          .getPalette().then(colors => {
-          bannerColor = colors.Muted.getHex()
-          $cache.projectColors[$project.id] = bannerColor
-        })
-      })
-    }
-  })
+  let bannerColor = projects.find(it => it?.[0] === $project.id)?.[1] || 'var(--color-button-bg-hover)'
 </script>
 
 <div class="column-layout">
@@ -184,7 +173,7 @@
       {#if banner}
         <img class="card__banner card__banner--short" src={banner.url} alt={banner.description} style:background-color={bannerColor}/>
       {:else}
-        <div class="card__banner card__banner--short" style:background-color={bannerColor}/>
+        <div class="card__banner card__banner--short card__banner--dark" style:background-color={bannerColor}/>
       {/if}
       <ProfilePicture src="{$project.icon_url}" size="md" floatUp/>
       <h1 class="title">{$project.title}</h1>
@@ -193,7 +182,7 @@
       <div class="tags">
         {#each $project.categories as category}
           <div class="tags__tag">
-            {@html tagIcons[category]}
+            {@html tagIcons[category] || '?'}
             {$t(`tags.${category}`)}
           </div>
         {/each}
@@ -201,21 +190,17 @@
 
       <hr class="divider"/>
 
-      <div class="stat">
-        <IconDownload/>
-        <span
-        >{@html
-          $t('stats.downloads', {values: {downloads: $project.downloads}})
-        }</span
-        >
-        &nbsp;
-        <IconHeart/>
-        <span
-        >{@html
-          $t('stats.followers', {values: {followers: $project.followers}})
-        }</span
-        >
+      <div class="stat-group">
+        <div class="stat">
+          <IconDownload/>
+          <span>{@html $t('stats.downloads', {values: {downloads: simplify($project.downloads)}})}</span>
+        </div>
+        <div class="stat">
+          <IconHeart/>
+          <span>{@html $t('stats.followers', {values: {followers: simplify($project.followers)}})}</span>
+        </div>
       </div>
+
       <div class="condensed-group">
         <div class="stat stat--color-light">
           <IconCalendar/>

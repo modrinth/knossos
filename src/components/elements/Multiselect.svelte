@@ -21,7 +21,7 @@
 		value = selected.value;
 	}
 
-  const minWidth = options.map(it => it.label || it.value).reduce((it, acc) => it.length > acc ? it : acc, '').length * 12
+  const minWidth = options.map(it => it.label || it.value).reduce((it, acc) => it.length > acc ? it : acc, '').length * 9
 
 	let shouldOpenUp = false;
 	let element: HTMLElement;
@@ -74,7 +74,6 @@
 	bind:this={element}
 	tabindex="0"
   on:keydown={keydown}
-  style:min-width="{minWidth}px"
 >
 	<div
 		class="multiselect__input"
@@ -82,7 +81,7 @@
 			open = !open;
 		}}
 	>
-		<span class="multiselect__input__value">{label || selected?.label || value || 'Choose...'}</span>
+		<span class="multiselect__input__value" style:min-width="{minWidth}px">{label || selected?.label || value || 'Choose...'}</span>
 		<div class="multiselect__input__arrow">
 			<slot name="icon">
 				<IconChevronDown />
@@ -121,7 +120,7 @@
 			width: 100%;
 			justify-content: space-between;
 			align-items: center;
-			padding: 0.25rem 1rem;
+			padding: 0.25rem 0.75rem 0.25rem 1rem;
 			grid-gap: 0.25rem;
 			background-color: var(--color-button-bg);
 			box-shadow: var(--shadow-inset-sm);
@@ -142,6 +141,7 @@
 			box-shadow: var(--shadow-inset-sm), var(--shadow-floating);
 			overflow: hidden;
 			border-top: 0.1rem solid var(--color-divider);
+      z-index: 5;
 
 			li {
 				padding: 0.25rem 1rem;
@@ -151,7 +151,8 @@
 				}
 
 				&.is-selected {
-					background-color: var(--color-brand-light);
+					background-color: var(--color-brand);
+          color: var(--color-brand-contrast);
 					cursor: default;
 				}
 			}
