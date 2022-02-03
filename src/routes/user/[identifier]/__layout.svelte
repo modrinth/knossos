@@ -47,6 +47,7 @@
   import Ad from "$components/elements/Ad.svelte";
   import { report } from "$lib/report";
   import { simplify } from '$lib/number'
+  import { create } from '$lib/create'
 
   export let user: User;
 	export let projects: Project[];
@@ -85,12 +86,10 @@
 				</div>
 			{/if}
 
-			<h2 class="title-secondary">About me</h2>
-
 			<Badge label={$t('roles.' + user.role)} color={roleColors[user.role]} />
 
 			{#if user.bio}
-				<p>{user.bio}</p>
+				<p class="summary">{user.bio}</p>
 			{/if}
 
 			<hr class="divider" />
@@ -146,7 +145,10 @@
 				]}
 				query="type"
 			/>
-			<Button label={$t('generic.actions.new_project')} color="brand" icon={IconPlus} />
+
+      {#if $currentUser && $currentUser.id === user.id}
+			  <Button label={$t('generic.actions.new_project')} color="brand" icon={IconPlus} on:click={create} />
+      {/if}
 		</div>
 
 		<slot />

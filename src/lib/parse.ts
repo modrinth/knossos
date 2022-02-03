@@ -50,6 +50,7 @@ function sanitize(html: string): string {
 			'blockquote',
 			'br',
 			'caption',
+			'center',
 			'code',
 			'del',
 			'details',

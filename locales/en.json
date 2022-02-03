@@ -89,7 +89,8 @@
 			"values": {
 				"required": "Required",
 				"unsupported": "Unsupported",
-				"optional": "Optional"
+				"optional": "Optional",
+        "unknown": "Unknown"
 			}
 		},
     "byline": "by <u>{author}</u>"

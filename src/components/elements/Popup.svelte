@@ -9,6 +9,7 @@
   import IconExclamation from 'virtual:icons/heroicons-outline/exclamation'
   import { fade } from 'svelte/transition';
   import Input from "$components/elements/Input.svelte";
+  import Chips from "$components/elements/Chips.svelte";
 
   let popup = {}
   $: popup = $popups[0];
@@ -16,12 +17,16 @@
   let body = ''
   let report_type = ''
   let status = 'approved'
+  let project_type = ''
+  let name = ''
 
   function close() {
     deletionKey = ''
     report_type = ''
     body = ''
     status = 'approved'
+    project_type = ''
+    name = ''
     $popups = $popups.slice(1, $popups.length - 1);
 	}
 </script>
@@ -59,6 +64,19 @@
         <p><b>Additional Information</b><br />Include links and images if possible. Markdown formatting is supported.</p>
         <Input type='textarea' placeholder="Enter additional information..." bind:value={body} />
       {/if}
+      {#if popup?.type?.creation === 'project'}
+        <p><b>Project type</b></p>
+        <Chips
+          bind:value={project_type}
+          options={[
+          { label: 'Mod', value: 'mod' },
+          { label: 'Modpack', value: 'modpack' },
+        ]}/>
+        <p><b>Name</b></p>
+        <Input type='text' placeholder="Enter project name..." bind:value={name} />
+        <p><b>Summary</b><br />This appears in search and on the sidebar of your project's page.</p>
+        <Input type='textarea' placeholder="Enter short summary of project..." bind:value={body} />
+      {/if}
       {#if popup?.type?.moderation}
         <p><b>Status</b></p>
         <Multiselect
@@ -77,10 +95,13 @@
         {/if}
 				<Button
           label={popup?.button?.label || 'Continue' }
-          on:click={async () => {await popup.button?.click({body, status, report_type}); close()}}
+          on:click={async () => {await popup.button?.click({body, status, report_type, project_type, name}); close()}}
           color={popup?.type?.deletion ? 'red' : 'brand'}
           icon={(popup?.type?.deletion || popup?.type?.report) ? null : IconArrowRight}
-          disabled={(popup?.type?.deletion && popup.type.deletion.key !== deletionKey) || (popup?.type?.report && !report_type)} />
+          disabled={
+          (popup?.type?.deletion && popup.type.deletion.key !== deletionKey)
+          || (popup?.type?.report && !report_type)
+          || (popup?.type?.creation === 'project' && (!project_type || !name || !body))} />
 			</div>
 		</div>
 	</div>

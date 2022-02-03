@@ -96,6 +96,8 @@
         display: flex;
         flex-direction: column;
         grid-gap: 0.25rem;
+        line-height: 100%;
+        margin-top: 0.2rem;
 
         &__author {
           white-space: nowrap;

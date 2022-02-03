@@ -4,7 +4,7 @@
   import { following, updateSelf, loaded } from '$stores/self'
   import { ago } from '$lib/ago'
   import Button from '$components/elements/Button.svelte'
-  import IconHeart from 'virtual:icons/heroicons-outline/heart'
+  import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
   import { send } from '$lib/api'
   import { onMount } from 'svelte'
   import FollowIllustration from '$assets/images/illustrations/undraw_appreciation.svg'
@@ -25,10 +25,10 @@
   {#if !$loaded}
     Loading followed projects...
   {:else if $following.length > 0}
-    {#each $following as project}
+    {#each $following.sort((a, b) => a.title - b.title) as project}
         <ProjectCard {project}>
           <div class="actions" slot="actions">
-            <Button label={$t('generic.actions.unfollow')} icon={IconHeart} on:click={async () => {
+            <Button label={$t('generic.actions.unfollow')} icon={IconHeartSolid} on:click={async () => {
               await send('DELETE', `project/${project.id}/follow`)
               $following = $following.filter(followed => followed.id !== project.id)
             }} />

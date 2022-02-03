@@ -8,7 +8,7 @@ export async function search(
 
 	const searchParams = {
 		query: params.q ?? '',
-		limit: params.m || '5',
+		limit: params.m || '10',
 		offset: params.o || '0',
 		index: params.s || 'relevance',
 	};

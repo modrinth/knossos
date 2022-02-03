@@ -16,6 +16,7 @@
 		"@babel/preset-env": "^7.16.10",
 		"@iconify-json/fa-regular": "^1.0.3",
 		"@iconify-json/heroicons-outline": "^1.0.2",
+		"@iconify-json/heroicons-solid": "^1.0.2",
 		"@iconify-json/lucide": "^1.0.17",
 		"@iconify-json/simple-icons": "^1.0.18",
 		"@poppanator/sveltekit-svg": "^0.2.2",

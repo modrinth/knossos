@@ -38,7 +38,9 @@
 			class:is-active={query
 				? ($page.url.searchParams.get(query) || '') === link.href
 				: path[level] === link.href || path[level] === link.href.slice(0, -1)}
-			sveltekit:prefetch>{link.label}</a
+			sveltekit:prefetch
+      sveltekit:noscroll
+    >{link.label}</a
 		>
 	{/each}
 </nav>

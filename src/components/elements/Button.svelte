@@ -47,18 +47,11 @@
 
 		background-color: var(--color-button-bg);
 		border-radius: var(--rounded);
-    transition: opacity 1s ease-in-out, filter 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
 
     &:hover {
 			background-color: var(--color-button-bg-hover);
 		}
-
-    &:disabled {
-      opacity: 50%;
-      cursor: not-allowed;
-      pointer-events: none;
-      filter: grayscale(50%);
-    }
 
 		&--color-raised {
 			background-color: var(--color-raised-bg);
@@ -73,6 +66,16 @@
 			}
 		}
 
+    &--color-brand-light {
+      background-color: var(--color-brand-light);
+      transition: filter 0s ease-in-out;
+
+      &:hover {
+        background-color: var(--color-brand-light);
+        filter: brightness(0.9);
+      }
+    }
+
 		&--color-transparent {
 			background-color: transparent;
 			box-shadow: none;
@@ -85,6 +88,13 @@
       &:hover {
         background-color: var(--color-badge-red-text);
       }
+    }
+
+    &:disabled {
+      opacity: 50%;
+      cursor: not-allowed;
+      pointer-events: none;
+      filter: grayscale(50%);
     }
 
 		&--pad-even {

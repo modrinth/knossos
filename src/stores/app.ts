@@ -34,7 +34,7 @@ interface Popup {
 	};
 	button?: {
 		label: string;
-		click: ({ body, status, report_type }) => Promise<void>;
+		click: ({ body, status, report_type, project_type, name }) => Promise<void>;
 	};
 	style?: {
 		wide?: boolean;

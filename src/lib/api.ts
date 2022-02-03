@@ -19,10 +19,10 @@ export async function send(
 	const response = await fetchFunction(import.meta.env.VITE_API_URL + route, {
 		method,
 		headers: {
-			...(data ? { 'Content-Type': 'application/json' } : {}),
+			...(data ? (data instanceof FormData ? {} : { 'Content-Type': 'application/json' }) : {}),
 			...(token || overrides.token ? { Authorization: token || overrides.token } : {}),
 		},
-		...(data ? { body: JSON.stringify(data) } : {}),
+		...(data ? (data instanceof FormData ? { body: data } : { body: JSON.stringify(data) }) : {}),
 	});
 
 	if (!response.ok) {

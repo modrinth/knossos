@@ -19,7 +19,13 @@
         ])
       )
 
-      //console.log(params.identifier)
+      if (!$project.body && $project.body_url) {
+        try {
+          $project.body = await (await fetch($project.body_url)).text()
+        } catch {
+          // Do nothing because couldn't fetch body
+        }
+      }
 
       return {
         props: {
@@ -45,7 +51,8 @@
   import { t } from 'svelte-intl-precompile'
   import { onMount } from 'svelte'
   import Button from '$components/elements/Button.svelte'
-  import IconHeart from 'virtual:icons/lucide/heart'
+  import IconHeart from 'virtual:icons/heroicons-outline/heart'
+  import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
   import IconPencil from 'virtual:icons/heroicons-outline/pencil'
   import IconDownload from 'virtual:icons/heroicons-outline/download'
   import IconIssues from 'virtual:icons/heroicons-outline/exclamation'
@@ -76,6 +83,7 @@
   import { page } from '$app/stores'
   import { report } from "$lib/report";
   import { simplify } from "$lib/number";
+  import { following } from '$stores/self'
 
   export let store;
   ({$project, $members, $versions, $featuredVersions, $dependencies} = store)
@@ -155,6 +163,12 @@
   ]
 
   let bannerColor = projects.find(it => it?.[0] === $project.id)?.[1] || 'var(--color-button-bg-hover)'
+
+  let isFollowed: boolean;
+  $: isFollowed = $following.map(it => it.id).includes($project.id)
+
+  let baseUrl: string;
+  $: baseUrl = `/${$project.project_type}/${$project.slug || $project.id}`
 </script>
 
 <div class="column-layout">
@@ -167,7 +181,17 @@
           <Button label={$t('generic.actions.report')} color="raised" icon={IconFlag} on:click={() => report('project', $project.id)}/>
         {/if}
         {#if $user}
-          <Button label={$t('generic.actions.follow')} color="raised" icon={IconHeart}/>
+          <Button
+            label={$t(`generic.actions.${isFollowed ? 'unfollow' : 'follow'}`)}
+            color="raised" icon={isFollowed ? IconHeartSolid : IconHeart}
+            on:click={async () => {
+              await send(isFollowed ? 'DELETE' : 'POST', `project/${$project.id}/follow`)
+              if (isFollowed) {
+                 $following = $following.filter(followed => followed.id !== $project.id)
+              } else {
+                $following = [...$following, $project]
+              }
+            }}/>
         {/if}
       </div>
       {#if banner}
@@ -238,6 +262,7 @@
 
       {#if $featuredVersions.length > 0}
         <h2 class="title-secondary">{$t('project.sidebar_headings.featured_versions')}</h2>
+        <div class="limited-list">
         {#each $featuredVersions as version}
           <div class="featured-version">
             <a
@@ -247,7 +272,7 @@
               <IconDownloadFile width={24} height={24}/>
             </a>
             <div class="featured-version__info">
-              <h3 class="featured-version__info__name">{version.name || version.version_number}</h3>
+              <a class="featured-version__info__name" href="{baseUrl}/version/{version.version_number}">{version.name || version.version_number}</a>
               <div class="featured-version__info__details">
                 <Badge
                   label={$t(`release_channels.${version.version_type}`)}
@@ -265,6 +290,7 @@
             </div>
           </div>
         {/each}
+        </div>
 
         <hr class="divider"/>
       {/if}
@@ -386,6 +412,7 @@
       &__name {
         font-weight: var(--font-weight-medium);
         font-size: var(--font-size-nm);
+        line-height: 120%;
       }
 
       &__details {

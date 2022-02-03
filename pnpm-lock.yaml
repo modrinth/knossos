@@ -5,6 +5,7 @@ specifiers:
   '@babel/preset-env': ^7.16.10
   '@iconify-json/fa-regular': ^1.0.3
   '@iconify-json/heroicons-outline': ^1.0.2
+  '@iconify-json/heroicons-solid': ^1.0.2
   '@iconify-json/lucide': ^1.0.17
   '@iconify-json/simple-icons': ^1.0.18
   '@poppanator/sveltekit-svg': ^0.2.2
@@ -56,11 +57,12 @@ devDependencies:
   '@babel/preset-env': 7.16.10_@babel+core@7.16.10
   '@iconify-json/fa-regular': 1.0.3
   '@iconify-json/heroicons-outline': 1.0.2
+  '@iconify-json/heroicons-solid': 1.0.2
   '@iconify-json/lucide': 1.0.17
   '@iconify-json/simple-icons': 1.0.18
   '@poppanator/sveltekit-svg': 0.2.2_svelte@3.46.2
   '@sveltejs/adapter-cloudflare': 1.0.0-next.8
-  '@sveltejs/kit': 1.0.0-next.251_svelte@3.46.2
+  '@sveltejs/kit': 1.0.0-next.259_svelte@3.46.2
   '@types/cookie': 0.4.1
   '@types/marked': 4.0.1
   '@types/nprogress': 0.2.0
@@ -1325,6 +1327,12 @@ packages:
       '@iconify/types': 1.0.12
     dev: true
 
+  /@iconify-json/heroicons-solid/1.0.2:
+    resolution: {integrity: sha512-j9SuVhvVAVGhgesuUCzCk3Jk/Rjjh1Mcqg4SXbKv34AMvYpRLBn2LZi1gOv6RW0KmCpDsZ9C+qf5k9VmLc9kxQ==}
+    dependencies:
+      '@iconify/types': 1.0.12
+    dev: true
+
   /@iconify-json/lucide/1.0.17:
     resolution: {integrity: sha512-dN84QyJRwIjqaFhi7PDKhQuzgQYkT+p/7apkM82gYx97rQ2ZMtMB8/6EdyRPc2FVWL2P5Q1LrV4hRObKbH0CsA==}
     dependencies:
@@ -1508,8 +1516,8 @@ packages:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.251_svelte@3.46.2:
-    resolution: {integrity: sha512-7GtUrUHqOa7ISo86PlICcMKcfGodOZwP9p7hXnN4t1yMWIQD2eKZlJffvnwx1X+NMcJ8hLChgcjGYjc1xZABhQ==}
+  /@sveltejs/kit/1.0.0-next.259_svelte@3.46.2:
+    resolution: {integrity: sha512-+Tss6cQXmpi4Jno/ZP0zJ3INBLMED+WeW4UI81tmexheC76Y2p+cbInneKO/REx/8QFo1iroYrWAUkZPsOg8Ew==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
