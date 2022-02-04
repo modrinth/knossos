@@ -13,6 +13,18 @@ renderer.image = (href, text) => {
 	}
 };
 
+renderer.link = (href, title, text) => {
+	if (href === null) {
+		return text;
+	}
+	let out = '<a href="' + href + '" rel="external"';
+	if (title) {
+		out += ' title="' + title + '"';
+	}
+	out += '>' + text + '</a>';
+	return out;
+};
+
 marked.setOptions({
 	renderer,
 	highlight: function (code, lang) {
@@ -28,7 +40,7 @@ marked.setOptions({
 function sanitize(html: string): string {
 	return insane(html, {
 		allowedAttributes: {
-			a: ['href', 'name', 'target', 'title'],
+			a: ['href', 'name', 'target', 'title', 'rel'],
 			iframe: ['allowfullscreen', 'src', 'width', 'height'],
 			img: ['src', 'width', 'height', 'alt'],
 			h1: ['id'],

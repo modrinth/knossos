@@ -41,6 +41,7 @@ specifiers:
   sanitize.css: ^13.0.0
   sharp: ^0.29.3
   svelte: ^3.46.2
+  svelte-autosize: ^1.0.1
   svelte-check: ^2.3.0
   svelte-intl-precompile: 0.8.0
   svelte-preprocess: ^4.10.2
@@ -62,7 +63,7 @@ devDependencies:
   '@iconify-json/simple-icons': 1.0.18
   '@poppanator/sveltekit-svg': 0.2.2_svelte@3.46.2
   '@sveltejs/adapter-cloudflare': 1.0.0-next.8
-  '@sveltejs/kit': 1.0.0-next.259_svelte@3.46.2
+  '@sveltejs/kit': 1.0.0-next.260_svelte@3.46.2
   '@types/cookie': 0.4.1
   '@types/marked': 4.0.1
   '@types/nprogress': 0.2.0
@@ -93,6 +94,7 @@ devDependencies:
   sanitize.css: 13.0.0
   sharp: 0.29.3
   svelte: 3.46.2
+  svelte-autosize: 1.0.1
   svelte-check: 2.3.0_0151f54245f0ae0add78265d726dfc1e
   svelte-intl-precompile: 0.8.0_svelte@3.46.2
   svelte-preprocess: 4.10.2_fb83e732b687190c0718a0b4d8874fd2
@@ -1516,8 +1518,8 @@ packages:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.259_svelte@3.46.2:
-    resolution: {integrity: sha512-+Tss6cQXmpi4Jno/ZP0zJ3INBLMED+WeW4UI81tmexheC76Y2p+cbInneKO/REx/8QFo1iroYrWAUkZPsOg8Ew==}
+  /@sveltejs/kit/1.0.0-next.260_svelte@3.46.2:
+    resolution: {integrity: sha512-0EEkGD0BpZdgRm9UoOnldS8iDFFhT2ixN3oQ/9DblGKNo7cz/FEQmKoYYIOOVYI3XyurwccWORPEpTTA4l9Oew==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -1854,6 +1856,10 @@ packages:
       picocolors: 0.2.1
       postcss: 7.0.39
       postcss-value-parser: 4.2.0
+    dev: true
+
+  /autosize/5.0.1:
+    resolution: {integrity: sha512-UIWUlE4TOVPNNj2jjrU39wI4hEYbneUypEqcyRmRFIx5CC2gNdg3rQr+Zh7/3h6egbBvm33TDQjNQKtj9Tk1HA==}
     dev: true
 
   /babel-plugin-dynamic-import-node/2.3.3:
@@ -4758,6 +4764,12 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /svelte-autosize/1.0.1:
+    resolution: {integrity: sha512-HBk7Xrt5bS0rpp5zSUZvuXNKc0UhAxvJGLNy1eTHMDK/KkHb0UsgWpbyn60jW3tE2ZfuXfLttnHvvb1H4zZZ0Q==}
+    dependencies:
+      autosize: 5.0.1
     dev: true
 
   /svelte-check/2.3.0_0151f54245f0ae0add78265d726dfc1e:

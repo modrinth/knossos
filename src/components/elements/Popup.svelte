@@ -10,6 +10,7 @@
   import { fade } from 'svelte/transition';
   import Input from "$components/elements/Input.svelte";
   import Chips from "$components/elements/Chips.svelte";
+  import { navigating } from '$app/stores'
 
   let popup = {}
   $: popup = $popups[0];
@@ -29,6 +30,12 @@
     name = ''
     $popups = $popups.slice(1, $popups.length - 1);
 	}
+
+  $: {
+    if ($navigating) {
+      $popups = []
+    }
+  }
 </script>
 
 {#if popup}

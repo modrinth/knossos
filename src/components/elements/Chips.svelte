@@ -10,9 +10,12 @@
   export let options: Option[] = [];
   export let value: string | number;
   export let selected: Option | null = options.find((option) => option.value === (value || ''));
+  export let neverEmpty = false;
 
   $: if (selected) {
     value = selected.value;
+  } else {
+    value = ''
   }
 </script>
 
@@ -23,7 +26,7 @@
       label={option.label}
       color={isSelected ? 'brand-light' : undefined}
       on:click={() => {
-        isSelected
+        isSelected && !neverEmpty
           ? selected = null
           : selected = option
       }}

@@ -52,6 +52,7 @@
 		"sanitize.css": "^13.0.0",
 		"sharp": "^0.29.3",
 		"svelte": "^3.46.2",
+		"svelte-autosize": "^1.0.1",
 		"svelte-check": "^2.3.0",
 		"svelte-intl-precompile": "0.8.0",
 		"svelte-preprocess": "^4.10.2",

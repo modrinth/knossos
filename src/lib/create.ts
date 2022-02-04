@@ -2,6 +2,7 @@ import { popups } from '$stores/app';
 import { get } from 'svelte/store';
 import { send } from '$lib/api';
 import { user } from '$stores/server';
+import { licenses } from '$generated/tags.json';
 
 export function create(type: 'project' | 'user' | 'version', id: string): void {
 	popups.set([
@@ -19,7 +20,8 @@ export function create(type: 'project' | 'user' | 'version', id: string): void {
 					try {
 						await send('GET', `project/${slug}`);
 						// There is a conflict
-						slug += (window.crypto || window.msCrypto).getRandomValues(new Uint32Array(3)).join('');
+						slug +=
+							'-' + (window.crypto || window.msCrypto).getRandomValues(new Uint16Array(1)).join('');
 					} catch {
 						// Do nothing because there is no slug conflict
 					}
@@ -63,7 +65,9 @@ Questions? [Join the Modrinth Discord server for support!](/discord)`,
 							categories: [],
 							client_side: 'unknown',
 							server_side: 'unknown',
-							license_id: 'arr',
+							license_id: licenses.map((it) => it.short).includes('arr')
+								? 'arr'
+								: licenses[0].short,
 							is_draft: true,
 						})
 					);
