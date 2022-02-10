@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte'
 
   export let src: string | null;
-	export let size: 'sm' | 'md' | 'lg';
+	export let size: 'xs' | 'sm' | 'md' | 'lg';
 	export let circle = false;
 	export let floatUp = false;
 
@@ -61,6 +61,12 @@
 		background-color: var(--color-button-bg);
 
 		&--size {
+      &-xs {
+        --size: 2.25rem;
+        box-shadow: var(--shadow-inset), var(--shadow-raised);
+        border-radius: var(--rounded-sm);
+      }
+
 			&-sm {
 				--size: 3rem;
         box-shadow: var(--shadow-inset), var(--shadow-raised);

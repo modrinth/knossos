@@ -29,12 +29,12 @@ interface Popup {
 			key: string;
 		};
 		report?: boolean;
-		creation?: 'project';
+		creation?: 'project' | 'galleryItem';
 		moderation?: boolean;
 	};
 	button?: {
 		label: string;
-		click: ({ body, status, report_type, project_type, name }) => Promise<void>;
+		click: ({ body, status, report_type, project_type, name, file }) => Promise<void>;
 	};
 	style?: {
 		wide?: boolean;

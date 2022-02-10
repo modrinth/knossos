@@ -1,10 +1,12 @@
 import { token as tokenStore } from '$stores/server';
-import { get } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
 interface Overrides {
 	token?: string;
 	fetch?: any;
 }
+
+export const fetching = writable<number>(0);
 
 export async function send(
 	method: string,
@@ -12,18 +14,29 @@ export async function send(
 	data: unknown = null,
 	overrides: Overrides = { token: '', fetch: null }
 ): Promise<unknown> {
-	const token = get(tokenStore);
+	fetching.set(get(fetching) + 1);
 
-	const fetchFunction = overrides.fetch || fetch;
-
-	const response = await fetchFunction(import.meta.env.VITE_API_URL + route, {
+	const options = {
 		method,
-		headers: {
-			...(data ? (data instanceof FormData ? {} : { 'Content-Type': 'application/json' }) : {}),
-			...(token || overrides.token ? { Authorization: token || overrides.token } : {}),
-		},
-		...(data ? (data instanceof FormData ? { body: data } : { body: JSON.stringify(data) }) : {}),
-	});
+		headers: {},
+	};
+
+	const token = get(tokenStore) || overrides.token;
+	if (token) {
+		options.headers['Authorization'] = token;
+	}
+
+	if (data?.type && data?.lastModified && data?.size) {
+		// Data is a File
+		options.headers['Content-Type'] = data.type;
+	} else if (data && !data.entries) {
+		// Data is an object that is not a FormData
+		options.headers['Content-Type'] = 'application/json';
+	}
+
+	const response = await (overrides.fetch || fetch)(import.meta.env.VITE_API_URL + route, options);
+
+	fetching.set(get(fetching) - 1);
 
 	if (!response.ok) {
 		throw new Error('Error when communicating with API');

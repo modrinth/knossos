@@ -87,6 +87,10 @@
     }
   }
 
+  textarea {
+    min-height: 2.5rem;
+  }
+
   .checkboxes {
     display: flex;
     flex-direction: column;

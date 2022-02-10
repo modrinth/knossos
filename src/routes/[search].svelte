@@ -28,6 +28,7 @@
         results: await search(searchParams, projectType),
         projectType,
         searchParams,
+        serverRendered: true,
       },
     }
   }
@@ -91,9 +92,14 @@
 
   const runSearch = debounce(200, false, () => search(searchParams, projectType).then(data => results = data))
 
+  export let serverRendered: boolean;
+
   $: if (searchParams && browser) {
+    if (serverRendered) {
+      serverRendered = false
+    }
     // If certain params have changed, go to page 1
-    if (searchParams.q !== previousParams.q ||
+    else if (searchParams.q !== previousParams.q ||
       searchParams.l !== previousParams.l ||
       searchParams.c !== previousParams.c ||
       searchParams.s !== previousParams.s ||
@@ -102,10 +108,14 @@
       searchParams.e !== previousParams.e ||
       searchParams.i !== previousParams.i) {
       searchParams.o = ''
+      replaceStateWithQuery(searchParams)
+      runSearch()
+    } else if (searchParams.o !== previousParams.o) {
+      replaceStateWithQuery(searchParams)
+      runSearch()
     }
+
     previousParams = {...searchParams}
-    replaceStateWithQuery(searchParams)
-    runSearch()
   }
 
   let filteredVersions = []

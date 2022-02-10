@@ -69,7 +69,6 @@
     &--color-brand-light {
       background-color: var(--color-brand-light);
       transition: filter 0s ease-in-out;
-
       &:hover {
         background-color: var(--color-brand-light);
         filter: brightness(0.9);
@@ -87,6 +86,14 @@
 
       &:hover {
         background-color: var(--color-badge-red-text);
+      }
+    }
+
+    &--color-danger {
+      color: var(--color-danger-text);
+      transition: filter 0s ease-in-out;
+      &:hover {
+        filter: brightness(0.9);
       }
     }
 

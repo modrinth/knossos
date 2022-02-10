@@ -32,6 +32,9 @@
 	import Popup from '$components/elements/Popup.svelte';
   import NProgress from 'nprogress'
   import { updateSelf } from '$stores/self'
+  import { fetching } from '$lib/api'
+  import { browser } from '$app/env'
+  import { debounce } from 'throttle-debounce'
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
@@ -55,12 +58,16 @@
     trickleSpeed: 20,
   })
 
-  $: {
-    if ($navigating) {
-      NProgress.start();
+  const progressStart = debounce(400, true, () => NProgress.start())
+  const progressDone = debounce(400, false, () => NProgress.done())
+
+  $: if (browser) {
+    if (($fetching)) {
+      progressStart();
     }
-    if (!$navigating) {
-      NProgress.done();
+    if (!$fetching) {
+      progressDone();
+
     }
   }
 </script>
@@ -73,7 +80,7 @@
 
 <div class="app">
 	<div class="app__content">
-		<Header />
+    <Header />
 
 		<Main>
 			<slot />

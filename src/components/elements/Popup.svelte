@@ -11,8 +11,9 @@
   import Input from "$components/elements/Input.svelte";
   import Chips from "$components/elements/Chips.svelte";
   import { navigating } from '$app/stores'
+  import ImageUpload from "$components/elements/ImageUpload.svelte";
 
-  let popup = {}
+  let popup;
   $: popup = $popups[0];
   let deletionKey = '';
   let body = ''
@@ -20,6 +21,7 @@
   let status = 'approved'
   let project_type = ''
   let name = ''
+  let file
 
   function close() {
     deletionKey = ''
@@ -28,6 +30,7 @@
     status = 'approved'
     project_type = ''
     name = ''
+    file = undefined
     $popups = $popups.slice(1, $popups.length - 1);
 	}
 
@@ -84,6 +87,14 @@
         <p><b>Summary</b><br />This appears in search and on the sidebar of your project's page.</p>
         <Input type='textarea' placeholder="Enter short summary of project..." bind:value={body} />
       {/if}
+      {#if popup?.type?.creation === 'galleryItem'}
+        <p><b>{#if !file}Image file{:else}Preview{/if}</b></p>
+        <ImageUpload bind:file />
+        <p><b>Title</b></p>
+        <Input type='text' placeholder="Enter image title..." bind:value={name} />
+        <p><b>Description</b></p>
+        <Input type='textarea' placeholder="Enter image description..." bind:value={body} />
+      {/if}
       {#if popup?.type?.moderation}
         <p><b>Status</b></p>
         <Multiselect
@@ -102,13 +113,14 @@
         {/if}
 				<Button
           label={popup?.button?.label || 'Continue' }
-          on:click={async () => {await popup.button?.click({body, status, report_type, project_type, name}); close()}}
+          on:click={async () => {await popup.button?.click({body, status, report_type, project_type, name, file}); close()}}
           color={popup?.type?.deletion ? 'red' : 'brand'}
           icon={(popup?.type?.deletion || popup?.type?.report) ? null : IconArrowRight}
           disabled={
           (popup?.type?.deletion && popup.type.deletion.key !== deletionKey)
           || (popup?.type?.report && !report_type)
-          || (popup?.type?.creation === 'project' && (!project_type || !name || !body))} />
+          || (popup?.type?.creation === 'project' && (!project_type || !name || !body))
+          || (popup?.type?.creation === 'galleryItem' && (!file))} />
 			</div>
 		</div>
 	</div>
