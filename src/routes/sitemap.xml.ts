@@ -1,5 +1,4 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import fetch from 'node-fetch';
 
 interface page {
 	path: string;
@@ -77,7 +76,7 @@ export const get: RequestHandler = async ({ url }) => {
 		});
 	}
 
-	let urlTags = pages.map(
+	const urlTags = pages.map(
 		(page) => `<url>
     <loc>${url.origin}${page.path}</loc>
     ${page.modified ? `<lastmod>${toW3CString(new Date(page.modified))}</lastmod>` : ''}
