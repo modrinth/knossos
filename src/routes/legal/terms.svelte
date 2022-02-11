@@ -2,7 +2,7 @@
 	import Meta from '$components/utils/Meta.svelte';
 </script>
 
-<Meta title="Terms and conditions" />
+<Meta title="Terms and conditions" description="See our terms and conditions and how they relate to you." />
 
 <h1>Terms and conditions</h1>
 

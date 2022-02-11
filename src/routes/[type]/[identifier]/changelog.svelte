@@ -23,7 +23,10 @@
   })
 </script>
 
-<Meta title={`${$t('pages.changelog')} - ${$project.title}`} description={$project.description}/>
+<Meta
+  title="{$project.title} - {$t('pages.changelog')}"
+  description="Explore the changelog of {$project.title}'s {$versions.length} versions."
+/>
 
 <div class="card changelog">
   {#each changelogVersions as version}

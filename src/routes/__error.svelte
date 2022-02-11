@@ -14,6 +14,7 @@
 	import Logo404 from '$assets/images/logo/404.svg';
 	import Button from '$components/elements/Button.svelte';
 	import Meta from '$components/utils/Meta.svelte';
+  import { markdownInline } from "$lib/parse";
 
 	export let status: number;
 	export let message = '';
@@ -22,6 +23,7 @@
 <Meta
 	title={$t('error.status', { values: { status } })}
 	description={message || $t('error.message.default')}
+  noindex
 />
 
 <div class="status">
@@ -32,11 +34,11 @@
 	{/if}
 </div>
 
-<p>
+<p class="error-message">
 	{#if message}
 		{message}
 	{:else if status === 404}
-		{$t('error.message.404')}
+		{@html markdownInline($t('error.message.404'))}
 	{:else}
 		{$t('error.message.default')}
 	{/if}
@@ -60,4 +62,18 @@
 		grid-gap: 0.5rem;
 		flex-wrap: wrap;
 	}
+
+  .error-message {
+    text-align: center;
+    line-height: 200%;
+    margin-top: -1rem;
+
+    :global(a) {
+      color: var(--color-link);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 </style>

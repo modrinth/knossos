@@ -8,11 +8,15 @@
   import IconDownload from 'virtual:icons/heroicons-outline/download'
   import { tagIcons } from '$generated/tags.json'
   import { downloadUrl, getPrimary } from '$lib/versions'
+  import { simplify } from "$lib/number";
 
   const dateFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric' })
 </script>
 
-<Meta title={`${$t('pages.versions')} - ${$project.title}`} description={$project.description}/>
+<Meta
+  title="{$project.title} - {$t('pages.versions')}"
+  description="Download and browse {$versions.length} {$project.title} versions. {simplify($project.downloads)} total downloads. Last updated {dateFormat.format(new Date($project.updated))}."
+/>
 
 <div class="versions">
   {#each $versions as version}

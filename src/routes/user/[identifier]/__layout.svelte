@@ -64,7 +64,7 @@
 	};
 </script>
 
-<Meta title={user.username} description={user.bio} />
+<Meta title={user.username} description="{user.bio} - Download {user.username}'s mods & modpacks on Modrinth" />
 
 <div class="user-header">
 	<ProfilePicture src={user.avatar_url} size="lg" circle />

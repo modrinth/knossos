@@ -2,7 +2,7 @@
 	import Meta from '$components/utils/Meta.svelte';
 </script>
 
-<Meta title="Project rules" />
+<Meta title="Project rules" description="See our project rules and how they relate to your projects." />
 
 <h1>Project rules</h1>
 

@@ -53,7 +53,7 @@ const GENERATED_PATH = './src/generated/';
 
 	console.log('Generated tags.json');
 
-	/* HOMEPAGE */
+	/* PROJECTS */
 
 	// Put all mods into an array
 	const modCount = (
@@ -129,9 +129,10 @@ const GENERATED_PATH = './src/generated/';
 					color = color.replace(/.{2}$/, '');
 
 					compressed[index] = [
-						project.project_id,
+						project.slug || project.project_id,
 						color,
 						...(index < 100 ? [project.icon_url.match(/\.[0-9a-z]+$/i)[0].substring(1)] : []),
+						...(index < 100 && project.slug ? [project.project_id] : []),
 					];
 				} catch {
 					console.log('Image failed with', project.title);

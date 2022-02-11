@@ -57,7 +57,10 @@
   }
 </script>
 
-<Meta title={`${$t('pages.gallery')} - ${$project.title}`} description={$project.description}/>
+<Meta
+  title="{$project.title} - {$t('pages.gallery')}"
+  description="View {$project.gallery.length} images of the Minecraft {$project.project_type} {$project.title} on Modrinth."
+/>
 
 {#if $permissions.data.editDetails}
   <div class="button-group">

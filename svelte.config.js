@@ -24,6 +24,7 @@ const config = {
 				],
 			},
 			postcss: true,
+			preserve: ['ld+json'],
 		}),
 	],
 

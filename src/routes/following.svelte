@@ -16,7 +16,7 @@
   })
 </script>
 
-<Meta title={$t('pages.following')}/>
+<Meta title={$t('pages.following')} noindex/>
 
 <div class="single-layout">
   <div class="title-bar">

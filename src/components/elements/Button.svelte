@@ -106,7 +106,7 @@
 
 		&--pad-even {
 			padding: 0.5rem;
-      font-size: 16px;
+      font-size: 1rem;
       line-height: 0;
       min-width: 2rem;
       min-height: 2rem;

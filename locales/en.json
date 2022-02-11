@@ -32,7 +32,7 @@
 	"error": {
 		"status": "{status} Error",
 		"message": {
-			"404": "The page you are looking for could not be found.",
+			"404": "Uh oh, looks like you got lost in the [Labyrinth](https://github.com/modrinth/labrinth).<br />The page you are looking for could not be found.",
 			"project_missing": "The {type} you were looking for cannot be found.",
 			"default": "An unexpected error has occurred."
 		},

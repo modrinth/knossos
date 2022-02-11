@@ -20,7 +20,7 @@
   }
 </script>
 
-<Meta title={$t('pages.notifications')}/>
+<Meta title={$t('pages.notifications')} noindex/>
 
 <div class="single-layout">
   <div class="title-bar">

@@ -2,7 +2,7 @@
 	import Meta from '$components/utils/Meta.svelte';
 </script>
 
-<Meta title="Privacy policy" />
+<Meta title="Privacy policy" description="See our privacy policy and how it relates to you." />
 
 <h1>Privacy policy</h1>
 

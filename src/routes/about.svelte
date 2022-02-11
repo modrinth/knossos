@@ -1,10 +1,13 @@
 <script lang="ts">
-import { t } from "svelte-intl-precompile";
+  import { t } from 'svelte-intl-precompile'
+  import Meta from '$components/utils/Meta.svelte'
 </script>
+
+<Meta title={$t('pages.about')} description="Founded in 2020, Modrinth was created to provide modders with an open and intuitive platform to publish their projects on."/>
 
 <div class="single-layout">
   <h1>{$t('pages.about')}</h1>
-	<div class="card text">
+  <div class="card text">
     <h2>History</h2>
     <p>
       Founded in 2020, Modrinth was created to provide modders with an open
@@ -17,10 +20,6 @@ import { t } from "svelte-intl-precompile";
       while giving back to the modding community as much as possible.
     </p>
 
-    <p>
-      While we still are in beta, we hope we can be a major modding platform
-      for all modders.
-    </p>
     <h2>Inner workings</h2>
     <p>
       Modrinth is not just a website: it is made of several different
@@ -49,5 +48,5 @@ import { t } from "svelte-intl-precompile";
       <a target="_blank" href="https://github.com/modrinth">our GitHub page</a
       >.
     </p>
-	</div>
+  </div>
 </div>

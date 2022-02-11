@@ -63,6 +63,7 @@
   import Button from '$components/elements/Button.svelte'
   import Ad from '$components/elements/Ad.svelte'
   import Pagination from '$components/elements/Pagination.svelte'
+  import { simplify } from "$lib/number";
 
   let showFilters = false
 
@@ -143,7 +144,10 @@
   }
 </script>
 
-<Meta title={$t(`project.types.${projectType}.plural`)}/>
+<Meta
+  title="Search {$t(`project.types.${projectType}.plural`)}"
+  description="Search and browse {simplify(results.total_hits)} Minecraft {$t(`project.types.${projectType}.plural`).toLowerCase()} on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft {$t(`project.types.${projectType}.plural`).toLowerCase()}."
+/>
 
 <div class="column-layout">
   <div class="column-layout__sidebar">

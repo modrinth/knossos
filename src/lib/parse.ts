@@ -17,7 +17,7 @@ renderer.link = (href, title, text) => {
 	if (href === null) {
 		return text;
 	}
-	let out = '<a href="' + href + '" rel="external"';
+	let out = '<a href="' + href + '" rel="external nofollow"';
 	if (title) {
 		out += ' title="' + title + '"';
 	}

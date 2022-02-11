@@ -42,7 +42,7 @@
   }
 </script>
 
-<Meta title={$project.title} description={$project.description}/>
+<Meta title="{$project.title} - Minecraft {$t(`project.types.${$project.project_type}.singular`)}" description="{$project.description} - Download the Minecraft {$project.project_type} {$project.title}."/>
 
 <div class="card project-body card--gap-none" style:--padding="0">
   <div class="card__overlay card__overlay--row">

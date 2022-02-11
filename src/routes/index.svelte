@@ -9,7 +9,7 @@
 
   const seed = xmur3(new Date().getMinutes().toString())
   const random = mulberry32(seed())
-  const colorsOffset = Math.floor(random() * 60) // 100 (total projects) - 40 (used)
+  const colorsOffset = projects.length < 100 ? 0 : Math.floor(random() * 60) // 100 (total projects) - 40 (used)
 
   function search(event: FormDataEvent) {
     const term = event.target.term.value
@@ -26,9 +26,32 @@
     [1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1],
   ]
+
+  const cdnDomain = `${import.meta.env.VITE_API_URL.includes('staging') ? 'staging-' : ''}cdn.modrinth.com`
+
+  const jsonLd = `{
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://modrinth.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+          "target": {
+          "@type": "EntryPoint",
+            "urlTemplate": "https://modrinth.com/mods?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }`
 </script>
 
-<Meta/>
+<svelte:head>
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+</svelte:head>
+
+<Meta
+  fullTitle="Modrinth: Download and publish Minecraft Mods & Modpacks"
+  description="Download Minecraft mods and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+/>
 
 <div class="home">
   <div class="stacks">
@@ -36,10 +59,10 @@
       <div class="stacks__row">
         {#each row as column, colIndex}
           {@const index = (rowIndex * layout[rowIndex].length) + colIndex + colorsOffset}
-          {#if column === 1}
-            <a class="stacks__row__column" href="/mod/{projects?.[index]?.[0] || ''}" tabindex="-1" style:--color={projects?.[index]?.[1] || ''} style:--offset="{Math.round(random() * 40 - 20)}px">
+          {#if column === 1 && projects?.[index]?.[0]}
+            <a class="stacks__row__column" href="/mod/{projects?.[index]?.[0] || ''}" tabindex="-1" style:--color={projects?.[index]?.[1] || ''} style:--offset="{Math.round(random() * 40 - 20)}px" title={projects?.[index]?.[0]}>
               <div class="stacks__row__column__background"/>
-              <img class="stacks__row__column__face" src="https://cdn.modrinth.com/data/{projects?.[index]?.[0] || ''}/icon.{projects?.[index]?.[2] || ''}" alt=""/>
+              <img class="stacks__row__column__face" src="https://{cdnDomain}/data/{projects?.[index]?.[3] || projects?.[index]?.[0]}/icon.{projects?.[index]?.[2] || ''}" alt=""/>
             </a>
           {/if}
         {/each}
@@ -51,7 +74,7 @@
   <h1 class="home__tagline">Discover, Play, & Create Minecraft content</h1>
   <form class="home__search" on:submit|preventDefault={search}>
     <input type="text" placeholder={$t('project.types.mod.search')} name="term" class="home__search__input"/>
-    <button type="submit" class="home__search__button">
+    <button type="submit" class="home__search__button" title="Search">
       <IconSearch/>
     </button>
   </form>

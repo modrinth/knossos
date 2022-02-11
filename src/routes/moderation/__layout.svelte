@@ -68,7 +68,7 @@
   setContext('items', items);
 </script>
 
-<Meta title={$t('pages.moderation')} />
+<Meta title={$t('pages.moderation')} noindex />
 
 <div class="single-layout">
   <h1>{$t('pages.moderation')}</h1>
