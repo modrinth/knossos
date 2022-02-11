@@ -2,6 +2,6 @@
 
 ## Modrinth's center for its frontend service
 
-For contributing information, please see the knossos section of the [Modrinth contributing guide](https://docs.modrinth.com/docs/details/contributing/#knossos-frontend).
+For contributing information, please see the knossos section of the [Modrinth contributing guide](https://docs.modrinth.com/docs/tutorials/contributing/#knossos-frontend).
 
 For a detailed explanation on how things work in general, check out the [Nuxt.js docs](https://nuxtjs.org).
