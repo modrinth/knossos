@@ -77,7 +77,16 @@
   import Badge from '$components/elements/Badge.svelte'
   import { user } from '$stores/server'
   import { Permissions } from '$lib/permissions'
-  import { project, members, versions, featuredVersions, releaseColors, dependencies, permissions } from './_store'
+  import {
+    project,
+    members,
+    versions,
+    featuredVersions,
+    releaseColors,
+    dependencies,
+    permissions,
+    color,
+  } from './_store'
   import { downloadUrl, getPrimary } from '$lib/versions'
   import Ad from "$components/elements/Ad.svelte";
   import { page } from '$app/stores'
@@ -162,7 +171,7 @@
     },
   ]
 
-  let bannerColor = projects.find(it => it?.[0] === $project.id)?.[1] || 'var(--color-button-bg-hover)'
+  $color = projects.find(it => it?.[0] === ($project.slug || $project.id))?.[1]
 
   let isFollowed: boolean;
   $: isFollowed = $following.map(it => it.id).includes($project.id)
@@ -195,9 +204,9 @@
         {/if}
       </div>
       {#if banner}
-        <img class="card__banner card__banner--short" src={banner.url} alt={banner.description} style:background-color={bannerColor}/>
+        <img class="card__banner card__banner--short" src={banner.url} alt={banner.description} style:background-color={$color || 'var(--color-button-bg-hover)'}/>
       {:else}
-        <div class="card__banner card__banner--short card__banner--dark" style:background-color={bannerColor}/>
+        <div class="card__banner card__banner--short card__banner--dark" style:background-color={$color || 'var(--color-button-bg-hover)'}/>
       {/if}
       <ProfilePicture src="{$project.icon_url}" size="md" floatUp/>
       <h1 class="title">{$project.title}</h1>

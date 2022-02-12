@@ -7,7 +7,7 @@
   import IconX from 'virtual:icons/heroicons-outline/x'
   import IconTrash from 'virtual:icons/heroicons-outline/trash'
   import IconSave from 'virtual:icons/lucide/save'
-  import { permissions, project } from './_store'
+  import { permissions, project, color, members } from './_store'
   import Chips from '$components/elements/Chips.svelte'
   import autosize from 'svelte-autosize'
   import { onDestroy, onMount } from 'svelte'
@@ -42,7 +42,12 @@
   }
 </script>
 
-<Meta title="{$project.title} - Minecraft {$t(`project.types.${$project.project_type}.singular`)}" description="{$project.description} - Download the Minecraft {$project.project_type} {$project.title}."/>
+<Meta
+  title="{$project.title} - Minecraft {$t(`project.types.${$project.project_type}.singular`)}"
+  description="{$project.description} - Download the Minecraft {$project.project_type} {$project.title} by {$members.find(it => it.role === 'Owner').user.username} on Modrinth."
+  color={$color}
+  image={$project?.icon_url}
+/>
 
 <div class="card project-body card--gap-none" style:--padding="0">
   <div class="card__overlay card__overlay--row">
@@ -57,7 +62,7 @@
           <Button label={$t('generic.actions.cancel')} icon={IconX} on:click={() => isEditing = false}/>
         {/if}
       {:else}
-        <Button label={$t('generic.actions.edit')} icon={IconPencil} on:click={() => isEditing = true}/>
+        <Button label={$t('generic.actions.edit')} icon={IconPencil} on:click={() => {viewMode = 'editor'; isEditing = true}}/>
       {/if}
     {/if}
   </div>

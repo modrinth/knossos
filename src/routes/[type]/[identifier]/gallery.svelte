@@ -1,7 +1,7 @@
 <script lang="ts">
   import Meta from '$components/utils/Meta.svelte'
   import { t } from 'svelte-intl-precompile'
-  import { permissions, project } from './_store'
+  import { permissions, project, color } from './_store'
   import Button from '$components/elements/Button.svelte'
   import IconPlus from 'virtual:icons/heroicons-outline/plus'
   import IconPencil from 'virtual:icons/heroicons-outline/pencil'
@@ -60,6 +60,8 @@
 <Meta
   title="{$project.title} - {$t('pages.gallery')}"
   description="View {$project.gallery.length} images of the Minecraft {$project.project_type} {$project.title} on Modrinth."
+  color={$color}
+  image={$project?.icon_url}
 />
 
 {#if $permissions.data.editDetails}

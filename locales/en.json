@@ -23,7 +23,7 @@
 				"oled": "OLED mode"
 			},
 			"language": {
-				"label": "Change language",
+				"label": "Select language",
 				"en": "English",
 				"en-GB": "English (UK)"
 			}

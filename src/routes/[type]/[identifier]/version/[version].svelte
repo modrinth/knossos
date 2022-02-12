@@ -20,7 +20,7 @@
 <script lang="ts">
   import Meta from '$components/utils/Meta.svelte'
   import { t } from 'svelte-intl-precompile'
-  import { members, project, releaseColors, dependencies, permissions } from '../_store'
+  import { members, project, releaseColors, dependencies, permissions, color, featuredVersions } from '../_store'
   import Badge from '$components/elements/Badge.svelte'
   import { formatVersions } from '$lib/versions'
   import Button from '$components/elements/Button.svelte'
@@ -49,6 +49,8 @@
 
   export let version
 
+  const gameVersions = formatVersions(version.game_versions)
+
   $: versionDependencies = version.dependencies.map((dep) =>
     ({
       ...dep,
@@ -59,9 +61,21 @@
   $: publisher = $members.find(it => it.user.id === version.author_id)
 </script>
 
-<Meta title={`${version.name || version.version_number} - ${$project.title}`} description={$project.description}/>
+<Meta
+  title="{version.name || version.version_number} - {$project.title}"
+  description="Download {$project.title} {version.version_number} on Modrinth. Supports {gameVersions} {version.loaders.map(it => $t(`tags.${it}`)).join(' & ')}. Published on {(new Date(version.date_published).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' }))}. {version.downloads > 0 ? ` ${version.downloads} downloads.` : ''}"
+  color={$color}
+  image={$project?.icon_url}
+/>
 
-<h1 class="title">{ version.name || version.version_number }</h1>
+<h1 class="title">
+  { version.name || version.version_number }
+  {#if version.featured}
+    <div class="featured"><IconStar /> Featured</div>
+  {:else if $featuredVersions.find((it) => it.id === version.id)}
+    <div class="featured"><IconStar /> Auto-featured</div>
+  {/if}
+</h1>
 
 {#if $user}
   <div class="button-group">
@@ -145,7 +159,7 @@
       </div>
       <div>
         <b>Minecraft versions</b><br/>
-        {formatVersions(version.game_versions)}
+        {gameVersions}
       </div>
       <div>
         <b>Downloads</b><br/>
@@ -170,6 +184,15 @@
 </div>
 
 <style lang="postcss">
+  .featured {
+    font-size: var(--font-size-nm);
+    color: var(--color-text-lightest);
+    display: inline-flex;
+    grid-gap: 0.25rem;
+    align-items: center;
+    margin-left: 0.5rem;
+  }
+
   .file {
     display: flex;
     align-items: center;

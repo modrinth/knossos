@@ -55,6 +55,10 @@
 
 		&--color-raised {
 			background-color: var(--color-raised-bg);
+
+      &:hover {
+        background-color: var(--color-raised-bg-hover);
+      }
 		}
 
 		&--color-brand {

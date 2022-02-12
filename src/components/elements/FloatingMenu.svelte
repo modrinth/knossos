@@ -59,7 +59,7 @@
 		box-shadow: var(--shadow-floating);
 		padding: 0.75rem;
 		z-index: 5;
-		border: 0.1rem solid var(--color-divider);
+		border: 0.1rem solid var(--color-raised-bg-hover);
 		display: flex;
 		flex-direction: column;
 		grid-gap: 0.25rem;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Meta from '$components/utils/Meta.svelte'
   import { t } from 'svelte-intl-precompile'
-  import { members, project, releaseColors, versions } from './_store'
+  import { members, project, releaseColors, versions, color } from './_store'
   import Badge from '$components/elements/Badge.svelte'
   import { formatVersions } from '$lib/versions'
   import Button from '$components/elements/Button.svelte'
@@ -26,6 +26,8 @@
 <Meta
   title="{$project.title} - {$t('pages.changelog')}"
   description="Explore the changelog of {$project.title}'s {$versions.length} versions."
+  color={$color}
+  image={$project?.icon_url}
 />
 
 <div class="card changelog">

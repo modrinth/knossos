@@ -1,7 +1,7 @@
 <script lang="ts">
   import Meta from '$components/utils/Meta.svelte'
   import { t } from 'svelte-intl-precompile'
-  import { members, project, releaseColors, versions } from './_store'
+  import { members, project, releaseColors, versions, color } from './_store'
   import Badge from '$components/elements/Badge.svelte'
   import { formatVersions } from '$lib/versions'
   import Button from '$components/elements/Button.svelte'
@@ -16,6 +16,8 @@
 <Meta
   title="{$project.title} - {$t('pages.versions')}"
   description="Download and browse {$versions.length} {$project.title} versions. {simplify($project.downloads)} total downloads. Last updated {dateFormat.format(new Date($project.updated))}."
+  color={$color}
+  image={$project?.icon_url}
 />
 
 <div class="versions">

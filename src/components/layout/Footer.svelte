@@ -3,7 +3,9 @@
 	import { theme } from '$stores/app';
 	import LogoWordmark from '$assets/images/logo/wordmark.svg';
 	import Multiselect from '$components/elements/Multiselect.svelte';
-	import Button from '$components/elements/Button.svelte';
+  import IconLanguages from 'virtual:icons/lucide/languages';
+  import IconMoon from 'virtual:icons/heroicons-outline/moon';
+  import IconSun from 'virtual:icons/heroicons-outline/sun';
 </script>
 
 <footer class="footer">
@@ -52,6 +54,7 @@
 			]}
 			color="raised"
 			bind:value={$theme}
+      icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon}
 		/>
 		<Multiselect
 			label={$t('footer.buttons.language.label')}
@@ -61,6 +64,7 @@
 			}))}
 			color="raised"
 			bind:value={$locale}
+      icon={IconLanguages}
 		/>
 	</div>
 </footer>

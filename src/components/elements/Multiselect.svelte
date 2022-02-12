@@ -14,6 +14,7 @@
 	export let selected: Option = options.find((option) => option.value === (value || ''));
 	export let color = '';
 	export let label = '';
+  export let icon = null;
 
 	let open = false;
 
@@ -81,12 +82,17 @@
 			open = !open;
 		}}
 	>
+    {#if icon}
+      <svelte:component this={icon} />
+    {/if}
 		<span class="multiselect__input__value" style:min-width="{minWidth}px">{label || selected?.label || value || 'Choose...'}</span>
-		<div class="multiselect__input__arrow">
-			<slot name="icon">
-				<IconChevronDown />
-			</slot>
-		</div>
+    {#if !icon}
+      <div class="multiselect__input__arrow">
+        <slot name="icon">
+          <IconChevronDown />
+        </slot>
+      </div>
+    {/if}
 	</div>
 	{#if open}
 		<ul class="multiselect__options">
@@ -120,8 +126,8 @@
 			width: 100%;
 			justify-content: space-between;
 			align-items: center;
-			padding: 0.25rem 0.75rem 0.25rem 1rem;
-			grid-gap: 0.25rem;
+      padding: 0.25rem 0.9rem;
+			grid-gap: 0.4rem;
 			background-color: var(--color-button-bg);
 			box-shadow: var(--shadow-inset-sm);
 			border-radius: var(--rounded);
@@ -151,7 +157,7 @@
 				}
 
 				&.is-selected {
-					background-color: var(--color-brand);
+					background-color: var(--color-brand-dark);
           color: var(--color-brand-contrast);
 					cursor: default;
 				}

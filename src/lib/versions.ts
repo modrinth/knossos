@@ -80,5 +80,5 @@ export const getPrimary = (files: Version['files']) =>
 	files.find((file) => file.primary) || files[0];
 
 export function downloadUrl(file): string {
-	return import.meta.env.VITE_API_URL + `version_file/${file.hashes.sha1}/download`;
+	return import.meta.env.VITE_API_URL + `version_file/${file?.hashes.sha1}/download`;
 }
