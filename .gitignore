@@ -10,3 +10,4 @@ build/
 .pnpm-debug.log
 /src/generated
 !.gitkeep
+.mf

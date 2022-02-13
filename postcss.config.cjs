@@ -5,8 +5,7 @@ const postcssNested = require('postcss-nested');
 const postcssExtendRule = require('postcss-extend-rule');
 const postcssPresetEnv = require('postcss-preset-env');
 
-const mode = process.env.NODE_ENV;
-const dev = mode === 'development';
+const dev = process.env.NODE_ENV === 'development';
 
 const config = {
 	plugins: [
@@ -14,13 +13,13 @@ const config = {
 		autoprefixer(),
 		postcssNested(),
 		postcssExtendRule(),
-		postcssPresetEnv(),
+		//postcssPresetEnv(), Errors with cssnano
 		require('postcss-media-minmax')(),
 
-		// !dev &&
-		// 	cssnano({
-		// 		preset: 'default',
-		// 	}),
+		!dev &&
+			cssnano({
+				preset: 'default',
+			}),
 	],
 };
 

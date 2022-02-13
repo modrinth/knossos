@@ -191,6 +191,7 @@
     grid-gap: 0.25rem;
     align-items: center;
     margin-left: 0.5rem;
+    font-weight: var(--font-weight-medium);
   }
 
   .file {

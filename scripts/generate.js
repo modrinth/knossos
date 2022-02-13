@@ -144,4 +144,11 @@ const GENERATED_PATH = './src/generated/';
 	await fs.writeFile(GENERATED_PATH + 'projects.json', JSON.stringify(compressed));
 
 	console.log('Generated projects.json');
+
+	/* HOMEPAGE */
+
+	// Write JSON file
+	await fs.writeFile(GENERATED_PATH + 'homepage.json', JSON.stringify({ random: Math.random() }));
+
+	console.log('Generated homepage.json');
 })();

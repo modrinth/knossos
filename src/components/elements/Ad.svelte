@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
+  export let placement = ''
+
   let failed = false;
 
   onMount(() => {
@@ -20,6 +22,7 @@
     data-ea-publisher="modrinth-com"
     data-ea-type="text"
     class="ad"
+    id={placement ? `ea-${placement}` : ''}
   >
     <div class="ea-content" />
   </div>

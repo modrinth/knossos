@@ -204,9 +204,9 @@
         {/if}
       </div>
       {#if banner}
-        <img class="card__banner card__banner--short" src={banner.url} alt={banner.description} style:background-color={$color || 'var(--color-button-bg-hover)'}/>
+        <img class="card__banner card__banner--short" src={banner.url} alt={banner.description} style:background-color={$color || 'var(--color-divider)'}/>
       {:else}
-        <div class="card__banner card__banner--short card__banner--dark" style:background-color={$color || 'var(--color-button-bg-hover)'}/>
+        <div class="card__banner card__banner--short card__banner--dark" style:background-color={$color || 'var(--color-divider)'}/>
       {/if}
       <ProfilePicture src="{$project.icon_url}" size="md" floatUp/>
       <h1 class="title">{$project.title}</h1>
@@ -354,7 +354,7 @@
   </div>
 
   <div class="column-layout__content">
-    <Ad />
+    <Ad placement="project-{$project.id}" />
 
     <div class="card card--strip card--pad-x">
       <Nav

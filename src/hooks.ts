@@ -2,21 +2,12 @@ import type { GetSession, Handle } from '@sveltejs/kit';
 import { send } from '$lib/api';
 import cookie from 'cookie';
 
-export const getSession: GetSession = (event) => {
-	const acceptedLanguage =
-		event.request.headers['accept-language'] &&
-		event.request.headers['accept-language'].split(',')[0];
-
-	const token = event.locals.token;
-	const user = event.locals.user;
-
-	return { acceptedLanguage, token, user };
-};
-
 const loggedInPages = ['/following', '/report', '/moderation', '/settings'];
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+
+	if (cookies['modrinth-theme']) event.locals.theme = cookies['modrinth-theme'];
 
 	let token = '';
 
@@ -28,7 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (token) {
 		try {
-			const user = await send('GET', 'user', null, { token });
+			const user = (await send('GET', 'user', null, { token })) as User;
 			event.locals.token = token;
 			event.locals.user = user;
 		} catch {
@@ -59,4 +50,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	return response;
+};
+
+export const getSession: GetSession = (event) => {
+	return {
+		acceptedLanguage:
+			event.request.headers['accept-language'] &&
+			event.request.headers['accept-language'].split(',')[0],
+		...event.locals,
+	};
 };

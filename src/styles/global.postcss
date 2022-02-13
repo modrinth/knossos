@@ -54,6 +54,8 @@
   --color-danger-text: hsl(342deg, 70%, 35%);
 
   --color-input-light: hsl(0, 0%, 94%);
+
+  --color-scrollbar: hsl(220, 13%, 70%);
 }
 
 .dark-theme {
@@ -76,7 +78,7 @@
   --color-text-light: hsl(215, 14%, 74%);
   --color-text-lightest: hsl(220, 9%, 70%);
   --color-heading: hsl(222, 16%, 80%);
-  --color-link: hsl(215, 100%, 70%);
+  --color-link: hsl(215, 100%, 75%);
 
   --color-bg: hsl(220, 13%, 15%);
   --color-raised-bg: hsl(220, 13%, 25%);
@@ -106,6 +108,8 @@
   --color-danger-text: hsl(342deg, 70%, 75%);
 
   --color-input-light: hsl(220, 13%, 20%);
+
+  --color-scrollbar: hsl(220, 13%, 40%);
 }
 
 .oled-theme {
@@ -121,27 +125,21 @@
   --color-ad-link: hsl(200deg, 70%, 45%);
 }
 
-body {
-	@extend .light-mode;
-	--rounded: 1rem;
-	--rounded-top: 1rem 1rem 0 0;
-	--rounded-bottom: 0 0 1rem 1rem;
-	--rounded-sm: 0.6rem;
-	--rounded-max: 999999999px;
+#app {
+  @extend .light-mode;
+  --rounded: 1rem;
+  --rounded-top: 1rem 1rem 0 0;
+  --rounded-bottom: 0 0 1rem 1rem;
+  --rounded-sm: 0.6rem;
+  --rounded-max: 999999999px;
 
-	--font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto,
-		Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto,
+  Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-	--font-size-nm: 1rem; /* 16px */
-	--font-size-xl: 1.5rem; /* 24px */
+  --font-size-nm: 1rem; /* 16px */
+  --font-size-xl: 1.5rem; /* 24px */
 
-	--font-weight-regular: 400;
-	--font-weight-medium: 600;
-	--font-weight-bold: 700;
-
-	background-color: var(--color-bg);
-	color: var(--color-text);
-	font-family: var(--font-standard);
-	font-size: var(--font-size-nm);
-	font-weight: var(--font-weight-regular);
+  --font-weight-regular: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 700;
 }

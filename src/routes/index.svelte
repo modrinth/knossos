@@ -3,13 +3,11 @@
   import Wordmark from '$assets/images/logo/wordmark.svg'
   import IconSearch from 'virtual:icons/heroicons-outline/search'
   import projects from '$generated/projects.json'
+  import { random } from '$generated/homepage.json'
   import { goto } from '$app/navigation'
-  import { mulberry32, xmur3 } from '$lib/random'
   import { t } from "svelte-intl-precompile";
 
-  const seed = xmur3(new Date().getMinutes().toString())
-  const random = mulberry32(seed())
-  const colorsOffset = projects.length < 100 ? 0 : Math.floor(random() * 60) // 100 (total projects) - 40 (used)
+  const colorsOffset = projects.length < 100 ? 0 : Math.floor(random * 60) // 100 (total projects) - 40 (used)
 
   function search(event: FormDataEvent) {
     const term = event.target.term.value
@@ -60,7 +58,7 @@
         {#each row as column, colIndex}
           {@const index = (rowIndex * layout[rowIndex].length) + colIndex + colorsOffset}
           {#if column === 1 && projects?.[index]?.[0]}
-            <a class="stacks__row__column" href="/mod/{projects?.[index]?.[0] || ''}" tabindex="-1" style:--color={projects?.[index]?.[1] || ''} style:--offset="{Math.round(random() * 40 - 20)}px" title={projects?.[index]?.[0]}>
+            <a class="stacks__row__column" href="/mod/{projects?.[index]?.[0] || ''}" tabindex="-1" style:--color={projects?.[index]?.[1] || ''} style:--offset="{Math.round(random * 40 - 20)}px" title={projects?.[index]?.[0]}>
               <div class="stacks__row__column__background"/>
               <img class="stacks__row__column__face" src="https://{cdnDomain}/data/{projects?.[index]?.[3] || projects?.[index]?.[0]}/icon.{projects?.[index]?.[2] || ''}" alt=""/>
             </a>

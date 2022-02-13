@@ -34,6 +34,10 @@
 
   &--col-2-1 {
     grid-template-columns: 66% 34%;
+
+    @media (width <= 930px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__col {

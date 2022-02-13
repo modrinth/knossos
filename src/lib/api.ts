@@ -32,6 +32,7 @@ export async function send(
 	} else if (data && !data.entries) {
 		// Data is an object that is not a FormData
 		options.headers['Content-Type'] = 'application/json';
+		options.body = JSON.stringify(data);
 	}
 
 	const response = await (overrides.fetch || fetch)(import.meta.env.VITE_API_URL + route, options);

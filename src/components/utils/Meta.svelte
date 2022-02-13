@@ -10,7 +10,7 @@
 
 <svelte:head>
   <title>{fullTitle || (title ? title + ' - Modrinth' : 'Modrinth')}</title>
-  <meta name="og:title" content={title}/>
+  <meta name="og:title" content={fullTitle || title || 'Modrinth'}/>
   <meta name="apple-mobile-web-app-title" content={fullTitle || title || 'Modrinth'}/>
   <meta name="og:description" content={description}/>
   <meta name="description" content={description}/>

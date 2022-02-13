@@ -1,5 +1,5 @@
 import preprocess from 'svelte-preprocess';
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from './src/adapter/index.js';
 import svelteSvg from '@poppanator/sveltekit-svg';
 import path from 'path';
 import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin';

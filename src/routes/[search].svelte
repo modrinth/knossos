@@ -301,6 +301,7 @@
       display: flex;
       grid-gap: 0.5rem;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     @media (width <= 1050px) {

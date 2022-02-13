@@ -9,6 +9,8 @@
 	export let links: Link[];
 	export let query: string = '';
 
+  export let resetScroll = false
+
 	/** Path level in URL, zero-indexed */
 	export let level = 0;
 
@@ -34,11 +36,13 @@
 				: level === 0
 				? link.href
 				: basePath + link.href}
+
+      on:click={() => { if (resetScroll) document.getElementById('app').scrollTo(0,0) }}
+
 			class="navigation__link"
 			class:is-active={query
 				? ($page.url.searchParams.get(query) || '') === link.href
 				: path[level] === link.href || path[level] === link.href.slice(0, -1)}
-      sveltekit:noscroll
     >{link.label}</a
 		>
 	{/each}

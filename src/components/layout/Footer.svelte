@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t, locale, locales } from 'svelte-intl-precompile';
-	import { theme } from '$stores/app';
+	import { theme } from '$stores/server';
 	import LogoWordmark from '$assets/images/logo/wordmark.svg';
 	import Multiselect from '$components/elements/Multiselect.svelte';
   import IconLanguages from 'virtual:icons/lucide/languages';
@@ -13,7 +13,7 @@
 		<a href="/" aria-label="Modrinth Home" tabindex="-1">
 			<LogoWordmark height={30} />
 		</a>
-		<p>
+		<p class="summary">
 			{$t('footer.description')}
 		</p>
 		<p><br />{$t('footer.copyright')}</p>
@@ -56,16 +56,16 @@
 			bind:value={$theme}
       icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon}
 		/>
-		<Multiselect
-			label={$t('footer.buttons.language.label')}
-			options={$locales.map((locale) => ({
-				label: $t(`footer.buttons.language.${locale}`),
-				value: locale,
-			}))}
-			color="raised"
-			bind:value={$locale}
-      icon={IconLanguages}
-		/>
+<!--		<Multiselect-->
+<!--			label={$t('footer.buttons.language.label')}-->
+<!--			options={$locales.map((locale) => ({-->
+<!--				label: $t(`footer.buttons.language.${locale}`),-->
+<!--				value: locale,-->
+<!--			}))}-->
+<!--			color="raised"-->
+<!--			bind:value={$locale}-->
+<!--      icon={IconLanguages}-->
+<!--		/>-->
 	</div>
 </footer>
 

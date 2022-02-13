@@ -74,7 +74,7 @@
   {#each $project.gallery.filter((item, index) => $project.gallery.map(it => it.url).indexOf(item.url) === index)
     as item (item.url)}
     <div class="card gallery__item">
-      <img class="card__banner" src={item.url} alt=""/>
+      <img class="gallery__item__image" src={item.url} alt=""/>
       {#if modifiedItems[item.url]}
         <Input type="text" placeholder="Enter title..." bind:value={modifiedItems[item.url].title}/>
         <Input type="textarea" placeholder="Enter description..." bind:value={modifiedItems[item.url].description}/>
@@ -104,6 +104,11 @@
     grid-gap: 1rem;
 
     &__item {
+      &__image {
+        margin: -1rem -1rem 0 -1rem;
+        height: auto;
+        width: calc(100% + 2rem);
+      }
       &__description {
         line-height: normal;
         display: -webkit-box;
