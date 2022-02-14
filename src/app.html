@@ -33,11 +33,14 @@
   </head>
 
   <body>
+  <script>
+    if (window.THEME) document.body.classList.add(`${window.THEME}-theme`)
+  </script>
     %svelte.body%
   </body>
   <script>
     if (!document.cookie.includes('modrinth-theme') || document.cookie.includes('modrinth-theme=system')) {
-      document.getElementById('app').className = `${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'}-theme`
+      document.body.className = `${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'}-theme`
     }
   </script>
 </html>

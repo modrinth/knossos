@@ -3,74 +3,22 @@
   import Nav from '$components/elements/Nav.svelte'
   import Button from '$components/elements/Button.svelte'
   import IconBell from 'virtual:icons/fa-regular/bell'
-  import IconGitHub from 'virtual:icons/simple-icons/github'
+  import IconGithub from 'virtual:icons/simple-icons/github'
   import { browser } from '$app/env'
-  import { token, user } from '$stores/server'
+  import { user } from '$stores/server'
   import { projectTypes } from '$generated/tags.json'
-  import { setContext } from 'svelte'
   import LogoLoader from '$components/elements/LogoLoader.svelte'
   import { notifications } from '$stores/self'
   import IconChevronDown from 'virtual:icons/lucide/chevron-down'
-  import IconSettings from 'virtual:icons/lucide/settings'
-  import IconLogout from 'virtual:icons/lucide/log-out'
-  import IconHeart from 'virtual:icons/lucide/heart'
-  import IconModeration from 'virtual:icons/fa-regular/life-ring'
-  import IconPlus from 'virtual:icons/heroicons-outline/plus'
-  import { create } from '$lib/create'
 
   let navItems = projectTypes.map((type) => ({
     label: $t(`project.types.${type}.plural`),
     href: `/${$t(`project.types.${type}.plural`, {locale: 'en'}).toLowerCase()}`,
   }))
-  setContext('navItems', navItems)
+
+  export let dropdownItems = []
 
   let hideDropdown: boolean
-
-  let dropdown
-  $: dropdown = [
-    {
-      label: '@' + $user?.username,
-      sublabel: 'Go to my profile',
-      href: `/user/${$user?.username}`,
-    },
-    {
-      divider: true,
-    },
-    ...(['admin', 'moderator'].includes($user?.role) ? [{
-      label: 'Moderation',
-      href: '/moderation',
-      icon: IconModeration,
-    }] : []),
-    {
-      label: 'Following',
-      href: '/following',
-      icon: IconHeart,
-    },
-    {
-      label: 'Create',
-      action: create,
-      icon: IconPlus,
-    },
-    {
-      label: 'Settings',
-      href: '/settings',
-      icon: IconSettings,
-    },
-    {
-      divider: true,
-    },
-    {
-      label: 'Log out',
-      action: () => {
-        $user = null
-        $token = ''
-        document.cookie =
-          'modrinth-token' + '=test; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-        // window.location.replace($page.url.toString()); // Reloads page after logout
-      },
-      icon: IconLogout,
-    },
-  ]
 </script>
 
 <header class="header">
@@ -92,7 +40,7 @@
           <IconChevronDown/>
         </div>
         <div class="avatar__dropdown">
-          {#each dropdown as item}
+          {#each dropdownItems as item}
             {#if item.divider}
               <hr class="divider"/>
             {:else if item.href}
@@ -128,7 +76,7 @@
         href={browser ? `${import.meta.env.VITE_API_URL}auth/init?url=${window.location.href}` : ''}
         color="brand"
         label="Sign in with GitHub"
-        icon={IconGitHub}
+        icon={IconGithub}
       />
     {/if}
   </div>

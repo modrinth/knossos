@@ -183,7 +183,8 @@
       }
 
       @media (width < 500px) {
-        height: 2.5rem;
+        height: auto;
+        width: 100%;
       }
     }
 

@@ -17,7 +17,7 @@ specifiers:
   '@typescript-eslint/parser': ^4.33.0
   autoprefixer: ^10.4.2
   cookie: ^0.4.1
-  cssnano: 5.0.17
+  cssnano: ^5.0.17
   esbuild: ^0.14.21
   eslint: ^7.32.0
   eslint-config-prettier: ^8.3.0
