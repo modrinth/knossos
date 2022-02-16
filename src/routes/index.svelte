@@ -6,6 +6,12 @@
   import { random } from '$generated/homepage.json'
   import { goto } from '$app/navigation'
   import { t } from "svelte-intl-precompile";
+  import ImageNotebook from '$assets/images/homepage/3dicons/notebook-dynamic-color.webp'
+  import ImageDollar from '$assets/images/homepage/3dicons/dollar-dynamic-color.webp'
+  import ImageExplorer from '$assets/images/homepage/3dicons/explorer-dynamic-color.webp'
+  import ImageChatBubble from '$assets/images/homepage/3dicons/chat-bubble-dynamic-color.webp'
+  import ImagePuzzle from '$assets/images/homepage/3dicons/puzzle-dynamic-color.webp'
+  import ImageBookmarkFav from '$assets/images/homepage/3dicons/bookmark-fav-dynamic-color.webp'
 
   const colorsOffset = projects.length < 100 ? 0 : Math.floor(random * 60) // 100 (total projects) - 40 (used)
 
@@ -51,7 +57,7 @@
   description="Download Minecraft mods and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
 />
 
-<div class="home">
+<div class="hero">
   <div class="stacks">
     {#each layout as row, rowIndex}
       <div class="stacks__row">
@@ -68,22 +74,80 @@
     {/each}
   </div>
 
-  <Wordmark class="home__wordmark"/>
-  <h1 class="home__tagline">Discover, Play, & Create Minecraft content</h1>
-  <form class="home__search" on:submit|preventDefault={search}>
-    <input type="text" placeholder={$t('project.types.mod.search')} name="term" class="home__search__input"/>
-    <button type="submit" class="home__search__button" title="Search">
+  <Wordmark class="hero__wordmark"/>
+  <h1 class="hero__tagline">Discover, Play, & Create Minecraft content</h1>
+  <form class="hero__search" on:submit|preventDefault={search}>
+    <input type="text" placeholder={$t('project.types.mod.search')} name="term" class="hero__search__input"/>
+    <button type="submit" class="hero__search__button" title="Search">
       <IconSearch/>
     </button>
   </form>
-  <p class="home__description">
+  <p class="hero__description">
     Find enjoyable and quality content through our open-source modding platform built for the community. Create stuff,
     get paid*, and deploy your project with our fully documented API!
   </p>
 </div>
 
+<div class="features">
+  <div class="features__item">
+      <img src={ImageNotebook} alt="Book with bookmark" class="features__item__image"/>
+      <div class="features__item__text">
+        <h3 class="title-secondary">Easy to use API</h3>
+        <p class="summary">
+          Backed by a fully documented API facilitating the growth of 3rd party integrations & launchers.
+        </p>
+      </div>
+  </div>
+  <div class="features__item">
+    <img src={ImageDollar} alt="Gold coin" class="features__item__image"/>
+    <div class="features__item__text">
+      <h3 class="title-secondary">Creator earnings</h3>
+      <p class="summary">
+        Planning to give creators 100% of ad revenue from their project pages.
+        *Payouts are currently in development.
+      </p>
+    </div>
+  </div>
+  <div class="features__item">
+    <img src={ImageExplorer} alt="Speedometer" class="features__item__image"/>
+    <div class="features__item__text">
+      <h3 class="title-secondary">Lightning-fast search</h3>
+      <p class="summary">
+        Powered by fast and adaptable search algorithms so you don't have to wait.
+      </p>
+    </div>
+  </div>
+  <div class="features__item">
+    <img src={ImageChatBubble} alt="Two chat bubbles" class="features__item__image"/>
+    <div class="features__item__text">
+      <h3 class="title-secondary">Helpful community</h3>
+      <p class="summary">
+        Get support, develop, and hangout on our Discord server with over 1K members.
+      </p>
+    </div>
+  </div>
+  <div class="features__item">
+    <img src={ImagePuzzle} alt="Puzzle piece" class="features__item__image"/>
+    <div class="features__item__text">
+      <h3 class="title-secondary">Extensible by design</h3>
+      <p class="summary">
+        Integrates with build tools, repositories, launchers, and custom applications.
+      </p>
+    </div>
+  </div>
+  <div class="features__item">
+    <img src={ImageBookmarkFav} alt="Bookmark with star" class="features__item__image"/>
+    <div class="features__item__text">
+      <h3 class="title-secondary">Follow favorite projects</h3>
+      <p class="summary">
+        Get notified when your favorite mods and modpacks are updated.
+      </p>
+    </div>
+  </div>
+</div>
+
 <style lang="postcss">
-  .home {
+  .hero {
     width: 100%;
     min-height: 32rem;
 
@@ -235,6 +299,50 @@
 
       font-size: 1.2rem;
       line-height: 130%;
+    }
+  }
+
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      align-items: center;
+      flex-basis: 33.33%;
+      text-align: center;
+      grid-gap: 0.75rem;
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 0.75rem;
+      }
+
+      @media (width <= 820px) {
+        flex-basis: 50%;
+      }
+    }
+
+    @media (width <= 500px) {
+      grid-gap: 1rem;
+
+      &__item {
+        flex-basis: 100%;
+        flex-direction: row;
+        grid-gap: 1rem;
+        text-align: left;
+
+        &__image {
+          width: 6rem;
+        }
+
+        &:nth-child(odd) {
+          flex-direction: row-reverse;
+        }
+      }
     }
   }
 </style>

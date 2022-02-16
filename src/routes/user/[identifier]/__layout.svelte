@@ -16,10 +16,14 @@
             .html_url,
         },
       }
-    } catch {
-      return {
-        status: 404,
-        error: new Error(`The user you were looking for cannot be found.`),
+    } catch (error) {
+      if (error?.status === 404) {
+        return {
+          status: 404,
+          error: new Error(`The user you were looking for cannot be found.`),
+        }
+      } else {
+        return {}
       }
     }
   }
@@ -37,6 +41,8 @@
   import IconFlag from 'virtual:icons/heroicons-outline/flag'
   import IconPlus from 'virtual:icons/heroicons-outline/plus'
   import IconGithub from 'virtual:icons/simple-icons/github'
+  import IconX from 'virtual:icons/heroicons-outline/x'
+  import IconUpload from 'virtual:icons/heroicons-outline/upload'
   import IconSave from 'virtual:icons/lucide/save'
   import { setContext } from 'svelte'
   import Badge from '$components/elements/Badge.svelte'
@@ -120,6 +126,7 @@
           {#if user.id === $currentUser?.id}
             {#if isEditing}
               <Button label="Save" icon={IconSave} color="brand" on:click={editUser}/>
+              <Button label="Cancel" icon={IconX} on:click={editUser}/>
             {:else }
               <Button label="Edit" icon={IconPencil} on:click={startEditing}/>
             {/if}
@@ -138,6 +145,9 @@
 
         <p><b>Private email</b> (only for moderators)</p>
         <Input type="text" placeholder="Add a bio..." bind:value={modifiedUser.email} />
+
+        <Button label="Upload avatar" icon={IconUpload} />
+
       {:else}
         <Badge label={$t('roles.' + user.role)} color={roleColors[user.role]}/>
 

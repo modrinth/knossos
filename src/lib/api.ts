@@ -40,7 +40,7 @@ export async function send(
 	fetching.set(get(fetching) - 1);
 
 	if (!response.ok) {
-		throw new Error('Error when communicating with API');
+		throw response;
 	}
 
 	let parsed = {};

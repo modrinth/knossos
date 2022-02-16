@@ -122,20 +122,24 @@
           transform: scaleY(0.9);
           opacity: 0;
           transform-origin: top;
-          transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+          transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
           position: absolute;
-          top: calc(100% + 0.1rem);
+          top: calc(100% + 0.2rem);
           width: auto;
           background-color: var(--color-raised-bg);
           border-radius: var(--rounded);
           box-shadow: var(--shadow-floating);
-          padding: 0.75rem;
+          padding: 0.6rem;
           z-index: 5;
           border: 0.1rem solid var(--color-raised-bg-hover);
           display: flex;
           flex-direction: column;
           grid-gap: 0.25rem;
           right: 0;
+
+          @media (width >= 1200px) {
+            right: -1rem;
+          }
 
           &__item {
             padding: 0.2rem 0.4rem;

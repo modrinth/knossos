@@ -37,10 +37,14 @@
           versions: $versions,
         },
       }
-    } catch {
-      return {
-        status: 404,
-        error: new Error(`The ${params.type} you were looking for cannot be found.`),
+    } catch (error) {
+      if (error?.status === 404) {
+        return {
+          status: 404,
+          error: new Error(`The ${params.type} you were looking for cannot be found.`),
+        }
+      } else {
+        return {}
       }
     }
   }
