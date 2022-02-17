@@ -226,7 +226,7 @@
           >
         </p>
         <p>modrinth/knossos {{ version }}</p>
-        <p>© Guavy LLC</p>
+        <p>© Rinth, Inc.</p>
       </div>
       <div class="links links-1" role="region" aria-label="Legal">
         <h4 aria-hidden="true">Legal</h4>

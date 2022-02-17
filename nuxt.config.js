@@ -33,7 +33,7 @@ export default {
       {
         hid: 'publisher',
         name: 'publisher',
-        content: 'Guavy LLC',
+        content: 'Rinth, Inc.',
       },
       {
         hid: 'apple-mobile-web-app-title',
