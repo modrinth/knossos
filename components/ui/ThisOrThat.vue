@@ -1,6 +1,7 @@
 <template>
   <div class="styled-tabs">
     <button
+      v-if="items.length !== 1"
       v-for="item in items"
       :key="item"
       class="tab"
