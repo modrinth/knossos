@@ -75,9 +75,9 @@
             <p>
               We are always adding new features and working towards making
               Modrinth have the friendliest user experience possible. Right now,
-              we're working on finishing modpacks finally paying out creators on
-              our site. If you have any more feature ideas, feel free to join
-              our
+              we're working on finishing modpacks and finally paying out
+              creators on our site. If you have any more feature ideas, feel
+              free to join our
               <a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>!
             </p>
             <div class="features">
