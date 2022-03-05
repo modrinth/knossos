@@ -117,12 +117,6 @@ export default {
 
   .multiselect {
     flex-grow: 1;
-    max-height: unset;
-    width: fit-content;
-
-    input::placeholder {
-      color: var(--color-text);
-    }
   }
 
   .checkbox-outer {
