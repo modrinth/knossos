@@ -53,7 +53,7 @@
               <div v-if="$auth.user" ref="mobileMenu" class="dropdown">
                 <button class="control">
                   <img :src="$auth.user.avatar_url" class="user-icon" />
-                  <span class="caret"></span>
+                  <DropdownIcon class="caret" />
                 </button>
                 <ul class="content card" @click="removeFocus">
                   <li>
@@ -280,6 +280,7 @@ import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
@@ -305,6 +306,7 @@ export default {
     ShieldIcon,
     ModerationIcon,
     PlusIcon,
+    DropdownIcon,
   },
   directives: {
     ClickOutside,
@@ -565,10 +567,10 @@ export default {
                 width: 2rem;
               }
 
-              .caret::after {
-                content: '\23F7';
+              .caret {
                 color: inherit;
                 margin-left: 0.25rem;
+                width: 1rem;
               }
             }
 
