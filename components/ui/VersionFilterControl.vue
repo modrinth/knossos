@@ -32,7 +32,10 @@
       @input="updateVersionFilters()"
     ></Multiselect>
     <Checkbox
-      v-if="getValidVersions().length > 1"
+      v-if="
+        getValidVersions().length > 1 &&
+        getValidVersions().some((v) => v.version_type !== 'release')
+      "
       v-model="showSnapshots"
       label="Include snapshots"
       description="Include snapshots"
