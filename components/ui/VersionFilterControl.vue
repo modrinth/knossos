@@ -5,7 +5,7 @@
   >
     <Multiselect
       v-if="getValidLoaders().length > 1"
-      v-model="selectedLoaders"
+      v-model="selectedLoader"
       :options="getValidLoaders()"
       :multiple="false"
       :searchable="true"
