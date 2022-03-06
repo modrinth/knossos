@@ -464,6 +464,15 @@
       background: var(--color-button-bg-hover);
     }
   }
+
+  &.multiselect--disabled {
+    background: none;
+
+    .multiselect__current,
+    .multiselect__select {
+      background: none;
+    }
+  }
 }
 
 label {
