@@ -55,7 +55,12 @@ html {
   --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
   --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
 
+  --color-grey-link: var(--color-text);
+  --color-grey-link-hover: var(--color-heading);
+  --color-grey-link-active: var(--color-text-dark);
   --color-link: #2089ff;
+  --color-link-hover: #1a76e7;
+  --color-link-active: #146fd7;
 
   --color-badge-gray-text: #646161;
   --color-badge-gray-bg: #c8c1c1;
@@ -131,6 +136,8 @@ html {
   --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
 
   --color-link: #74b6f3;
+  --color-link-hover: #92c0f5;
+  --color-link-active: #b5d5fd;
 
   --color-badge-gray-bg: #646161;
   --color-badge-gray-text: #c8c1c1;

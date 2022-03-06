@@ -154,39 +154,41 @@
             @input="onSearchChange(1)"
           />
         </div>
-        <div class="labeled-control">
-          <span class="labeled-control__label">Sort by</span>
-          <Multiselect
-            v-model="sortType"
-            placeholder="Select one"
-            class="search-controls__sorting labeled-control__control"
-            track-by="display"
-            label="display"
-            :options="sortTypes"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            @input="onSearchChange(1)"
-          >
-            <template slot="singleLabel" slot-scope="{ option }">{{
-              option.display
-            }}</template>
-          </Multiselect>
-        </div>
-        <div class="labeled-control">
-          <span class="labeled-control__label">Show per page</span>
-          <Multiselect
-            v-model="maxResults"
-            placeholder="Select one"
-            class="labeled-control__control"
-            :options="[5, 10, 15, 20, 50, 100]"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            @input="onSearchChange(currentPage)"
-          />
+        <div class="sort-controls">
+          <div class="labeled-control">
+            <span class="labeled-control__label">Sort by</span>
+            <Multiselect
+              v-model="sortType"
+              placeholder="Select one"
+              class="search-controls__sorting labeled-control__control"
+              track-by="display"
+              label="display"
+              :options="sortTypes"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="onSearchChange(1)"
+            >
+              <template slot="singleLabel" slot-scope="{ option }">{{
+                option.display
+              }}</template>
+            </Multiselect>
+          </div>
+          <div class="labeled-control">
+            <span class="labeled-control__label">Show per page</span>
+            <Multiselect
+              v-model="maxResults"
+              placeholder="Select one"
+              class="labeled-control__control"
+              :options="[5, 10, 15, 20, 50, 100]"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="onSearchChange(currentPage)"
+            />
+          </div>
         </div>
       </div>
       <pagination
@@ -584,29 +586,83 @@ export default {
 
 .search-controls {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: var(--spacing-card-md);
+
+  .sort-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-card-md);
+    flex-wrap: wrap;
+
+    .labeled-control {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .labeled-control__label {
+        white-space: nowrap;
+      }
+    }
+  }
 
   .iconified-input {
-    margin-left: 6px;
+    flex: 1;
 
     input {
-      width: calc(100% + 8px);
+      min-width: 15rem;
+      width: 100%;
     }
   }
 }
 
 .search-controls__sorting {
-  min-width: 15rem;
+  min-width: 14rem;
 }
 
 .labeled-control__label,
 .labeled-control__control {
   display: block;
-  margin: 0.5rem 0;
 }
 
 .no-results {
   text-align: center;
+}
+
+@media (min-width: 700px) {
+  .search-controls {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .sort-controls {
+    min-width: fit-content;
+    max-width: fit-content;
+    flex-wrap: nowrap;
+  }
+
+  .labeled-control {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    max-width: fit-content;
+  }
+
+  .labeled-control__label {
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (min-width: 800px) {
+  .labeled-control {
+    flex-wrap: nowrap !important;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -617,24 +673,6 @@ export default {
 
   .sidebar-menu-close-button {
     display: none;
-  }
-
-  .search-controls {
-    flex-direction: row;
-  }
-
-  .labeled-control {
-    align-items: center;
-    display: flex;
-  }
-
-  .labeled-control__label,
-  .labeled-control__control {
-    margin: 0 0 0 1rem;
-  }
-
-  .labeled-control__label {
-    flex-shrink: 0;
   }
 }
 </style>
