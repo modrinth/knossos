@@ -48,18 +48,35 @@
       description="Include snapshots"
       :border="false"
     />
+    <button
+      title="Clear filters"
+      :disabled="
+        selectedLoader === getDefaultLoader() &&
+        selectedGameVersions.length === 0
+      "
+      class="iconified-button"
+      @click="
+        selectedLoader = getDefaultLoader()
+        selectedGameVersions = []
+      "
+    >
+      <CrossIcon />
+      Clear filters
+    </button>
   </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect'
 import Checkbox from '~/components/ui/Checkbox'
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
 
 export default {
   name: 'VersionFilterControl',
   components: {
     Multiselect,
     Checkbox,
+    CrossIcon,
   },
   props: {
     versions: {
@@ -138,6 +155,31 @@ export default {
 
   .checkbox-outer {
     min-width: fit-content;
+  }
+}
+
+.circle-button {
+  display: flex;
+  max-width: 2rem;
+  padding: 0.5rem;
+  background-color: var(--color-button-bg);
+  border-radius: var(--size-rounded-max);
+  box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-button-bg-hover);
+    color: var(--color-button-text-hover);
+  }
+
+  &:active {
+    background-color: var(--color-button-bg-active);
+    color: var(--color-button-text-active);
+  }
+
+  svg {
+    height: 1rem;
+    width: 1rem;
   }
 }
 </style>
