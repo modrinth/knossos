@@ -5,6 +5,29 @@
   display: inline-flex;
   position: relative;
 
+  &:hover:not([disabled]):not(:focus-within) {
+    input:not(:focus) {
+      background-color: var(--color-button-bg-hover);
+      color: var(--color-button-text-hover);
+      border-color: var(--color-divider-dark);
+    }
+
+    svg {
+      color: var(--color-button-text-hover);
+    }
+  }
+
+  &:focus-within {
+    input {
+      outline: none !important;
+      border-color: var(--color-brand);
+    }
+
+    svg {
+      color: var(--color-brand) !important;
+    }
+  }
+
   input {
     padding-left: 2rem;
     width: 100%;

@@ -257,15 +257,19 @@ textarea {
   color: var(--color-text);
   padding: 0.5rem 1rem;
   border: 2px solid transparent;
+  border-radius: var(--size-rounded-max);
+  outline-color: var(--color-brand);
 
   &:hover:not([disabled]):not(:focus) {
     background: var(--color-button-bg-hover);
-    color: var(--color-text);
+    color: var(--color-button-text-hover);
+    border-color: var(--color-divider-dark);
   }
 
   &:focus {
-    background: var(--color-raised-bg);
-    border-color: var(--color-divider-dark);
+    outline: none !important;
+    border-color: var(--color-brand);
+    color: var(--color-button-text-active);
   }
 
   &:disabled,
