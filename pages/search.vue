@@ -599,7 +599,7 @@ export default {
     .labeled-control {
       flex: 1;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       flex-wrap: wrap;
       gap: 0.5rem;
@@ -633,7 +633,7 @@ export default {
   text-align: center;
 }
 
-@media (min-width: 700px) {
+@media screen and (min-width: 700px) {
   .search-controls {
     flex-wrap: nowrap;
     flex-direction: row;
@@ -648,7 +648,8 @@ export default {
   .labeled-control {
     align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column !important;
+    flex-wrap: wrap;
     gap: 0.5rem;
     max-width: fit-content;
   }
@@ -659,13 +660,14 @@ export default {
   }
 }
 
-@media (min-width: 800px) {
+@media screen and (min-width: 860px) {
   .labeled-control {
     flex-wrap: nowrap !important;
+    flex-direction: row !important;
   }
 }
 
-@media (min-width: 1024px) {
+@media screen and (min-width: 1024px) {
   .sidebar-menu {
     display: block;
     margin-top: 0;
@@ -673,6 +675,18 @@ export default {
 
   .sidebar-menu-close-button {
     display: none;
+  }
+
+  .labeled-control {
+    flex-wrap: wrap !important;
+    flex-direction: column !important;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .labeled-control {
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
   }
 }
 </style>
