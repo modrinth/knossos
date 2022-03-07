@@ -166,6 +166,14 @@
 
   a {
     color: var(--color-link);
+
+    &:focus-visible,
+    &:hover {
+      color: var(--color-link-hover);
+    }
+    &:active {
+      color: var(--color-link-active);
+    }
   }
 
   img {

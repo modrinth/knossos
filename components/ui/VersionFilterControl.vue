@@ -8,7 +8,7 @@
       v-model="selectedLoader"
       :options="getValidLoaders()"
       :multiple="false"
-      :searchable="true"
+      :searchable="false"
       :show-no-results="false"
       :close-on-select="true"
       :clear-search-on-select="false"
@@ -32,8 +32,8 @@
       :searchable="true"
       :show-no-results="false"
       :close-on-select="false"
-      :clear-search-on-select="false"
       :show-labels="false"
+      :hide-selected="true"
       :selectable="() => selectedGameVersions.length <= 6"
       placeholder="Filter versions..."
       @input="updateVersionFilters()"
@@ -134,7 +134,6 @@ export default {
 
   .multiselect {
     flex: 1;
-    min-width: fit-content;
   }
 
   .checkbox-outer {
