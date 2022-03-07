@@ -30,7 +30,7 @@ html {
   --color-button-text-hover: #1b1e24;
   --color-button-bg-active: #c3c6cb;
   --color-button-text-active: var(--color-button-text-hover);
-  --color-button-bg-disabled: #eceef0;
+  --color-button-bg-disabled: #cacdd2;
   --color-button-text-disabled: #9da3ac;
   --color-transparent-button-bg-hover: var(--color-button-bg);
   --color-transparent-button-text-hover: var(--color-text-dark);
@@ -111,7 +111,8 @@ html {
   --color-button-text-hover: #ffffff;
   --color-button-bg-active: #616570;
   --color-button-text-active: var(--color-button-text-hover);
-  --color-button-text-disabled: #797979;
+  --color-button-bg-disabled: #3a434d;
+  --color-button-text-disabled: #555d65;
   --color-transparent-button-bg-hover: var(--color-button-bg);
   --color-transparent-button-text-hover: var(--color-text-dark);
   --color-transparent-button-bg-active: var(--color-button-bg-hover);
@@ -257,8 +258,6 @@ textarea {
   color: var(--color-text);
   padding: 0.5rem 1rem;
   border: 2px solid transparent;
-  border-radius: var(--size-rounded-max);
-  outline-color: var(--color-brand);
 
   &:hover:not([disabled]):not(:focus) {
     background: var(--color-button-bg-hover);
