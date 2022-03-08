@@ -436,8 +436,12 @@ export default {
       max-width: 2rem;
       background-color: var(--color-button-bg);
       border-radius: var(--size-rounded-max);
-      margin: 0 0.5rem 0 0;
+      margin: 0;
       box-shadow: inset 0px -1px 1px rgb(17 24 39 / 10%);
+
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
 
       &:hover {
         background-color: var(--color-button-bg-hover) !important;
