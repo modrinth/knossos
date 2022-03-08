@@ -494,43 +494,6 @@ export default {
         border-radius: var(--size-rounded-card);
       }
     }
-
-    .footer {
-      position: absolute;
-      left: calc(var(--spacing-card-lg));
-      top: calc(var(--spacing-card-lg));
-      width: calc(100vh - 2 * var(--spacing-card-lg));
-      z-index: 100;
-      display: flex;
-      flex-direction: row;
-      margin: 0.5rem 0.75rem 0.75rem 0.75rem;
-
-      .buttons {
-        display: flex;
-        flex-direction: row;
-        flex-grow: 0;
-        align-items: center;
-
-        .circle-button {
-          background-color: var(--color-button-bg);
-        }
-      }
-
-      .description {
-        flex-grow: 1;
-        width: min-content;
-
-        h2 {
-          margin-bottom: 0.25rem;
-          font-size: 1.25rem;
-        }
-
-        p {
-          margin: 0;
-          font-size: 1rem;
-        }
-      }
-    }
   }
 }
 
