@@ -468,6 +468,7 @@ export default {
       transform: translate(-50%, -50%);
       width: auto;
       height: calc(100vh - 2 * var(--spacing-card-lg));
+      max-width: calc(100vw - 2 * var(--spacing-card-lg));
       border-radius: var(--size-rounded-card);
     }
 
