@@ -466,11 +466,9 @@ export default {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      object-fit: contain;
-      max-width: calc(100vw - 2 * var(--spacing-card-lg));
-      max-height: calc(100vh - 2 * var(--spacing-card-lg));
+      width: auto;
+      height: calc(100vh - 2 * var(--spacing-card-lg));
       border-radius: var(--size-rounded-card);
-      overflow: hidden;
     }
 
     .floating {
