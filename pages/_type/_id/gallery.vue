@@ -486,6 +486,7 @@ export default {
         margin-bottom: 0.25rem;
         font-size: 1.25rem;
         text-shadow: 1px 1px 10px #000000d4;
+        text-align: center;
       }
       .controls {
         background-color: var(--color-raised-bg);
