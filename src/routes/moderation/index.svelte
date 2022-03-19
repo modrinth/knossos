@@ -12,8 +12,12 @@
   import IconEye from 'virtual:icons/heroicons-outline/eye'
   import IconTrash from 'virtual:icons/heroicons-outline/trash'
   import { popups } from '$stores/app'
+  import NoData from '$assets/images/illustrations/undraw_no_data.svg'
 
   let items = getContext('items')
+
+  let filteredItems: []
+  $: filteredItems = items.filter((item) => ($page.url.searchParams.get('type') ? item.moderation_type === $page.url.searchParams.get('type') : true))
 
   async function changeStatus(id) {
     $popups = [{
@@ -25,7 +29,7 @@
       },
       button: {
         label: 'Confirm',
-        click: async ({ status, body }) => {
+        click: async ({status, body}) => {
           await send('PATCH', `project/${id}`, {
             status,
             ...(body ? ({
@@ -35,7 +39,7 @@
           })
           removeItem(id)
         },
-      }
+      },
     }, ...$popups]
   }
 
@@ -44,42 +48,49 @@
   }
 </script>
 
-{#each items.filter((item) => ($page.url.searchParams.get('type') ? item.moderation_type === $page.url.searchParams.get('type') : true)) as item}
-  {#if item.moderation_type === 'report'}
-    <div class="card report">
-      <div class="report__info">
-        <div class="report__info__title">
-          <h3>{item.item_type} <a href={item.url}>{item.item_id}</a></h3>
-          reported by <a href="/user/{item.reporter}">{item.reporter}</a>
+{#if filteredItems.length > 0}
+  {#each filteredItems as item}
+    {#if item.moderation_type === 'report'}
+      <div class="card report">
+        <div class="report__info">
+          <div class="report__info__title">
+            <h3>{item.item_type} <a href={item.url}>{item.item_id}</a></h3>
+            reported by <a href="/user/{item.reporter}">{item.reporter}</a>
+          </div>
+          {#if item.body}
+            {@html markdownXSS(item.body)}
+          {/if}
+          <Badge label="Marked as {item.report_type}" color="yellow"/>
         </div>
-        {#if item.body}
-          {@html markdownXSS(item.body)}
-        {/if}
-        <Badge label="Marked as {item.report_type}" color="yellow"/>
-      </div>
-      <div class="actions">
-        <Button label="Delete report" icon={IconTrash} on:click={async () => {
+        <div class="actions">
+          <Button label="Delete report" icon={IconTrash} on:click={async () => {
                 await send('DELETE', `report/${item.id}`)
                  removeItem(item.id)
           }}/>
-        <span class="stat">
+          <span class="stat">
           <IconCalendar/>
-          {@html $t('stats.created', {values: {ago: ago(item.created)}})}
+            {@html $t('stats.created', {values: {ago: ago(item.created)}})}
         </span>
+        </div>
       </div>
-    </div>
-  {:else}
-    <ProjectCard project={item}>
-      <div slot="actions" class="actions">
-        <Button label="Change status" on:click={() => changeStatus(item.id)} icon={IconEye}/>
-        <span class="stat">
+    {:else}
+      <ProjectCard project={item}>
+        <div slot="actions" class="actions">
+          <Button label="Change status" on:click={() => changeStatus(item.id)} icon={IconEye}/>
+          <span class="stat">
           <IconCalendar/>
-          {@html $t('stats.created', {values: {ago: ago(item.published)}})}
+            {@html $t('stats.created', {values: {ago: ago(item.published)}})}
         </span>
-      </div>
-    </ProjectCard>
-  {/if}
-{/each}
+        </div>
+      </ProjectCard>
+    {/if}
+  {/each}
+{:else}
+  <div class="illustration">
+    <NoData class="illustration__image"/>
+    <p class="illustration__description">You are up to date!</p>
+  </div>
+{/if}
 
 <style lang="postcss">
   .report {

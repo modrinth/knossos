@@ -11,7 +11,7 @@
   import ImageExplorer from '$assets/images/homepage/3dicons/explorer-dynamic-color.webp'
   import ImageChatBubble from '$assets/images/homepage/3dicons/chat-bubble-dynamic-color.webp'
   import ImagePuzzle from '$assets/images/homepage/3dicons/puzzle-dynamic-color.webp'
-  import ImageBookmarkFav from '$assets/images/homepage/3dicons/bookmark-fav-dynamic-color.webp'
+  import ImageTool from '$assets/images/homepage/3dicons/tool-dynamic-color.webp'
 
   const colorsOffset = projects.length < 100 ? 0 : Math.floor(random * 60) // 100 (total projects) - 40 (used)
 
@@ -136,11 +136,11 @@
     </div>
   </div>
   <div class="features__item">
-    <img src={ImageBookmarkFav} alt="Bookmark with star" class="features__item__image"/>
+    <img src={ImageTool} alt="Screwdriver and wrench" class="features__item__image"/>
     <div class="features__item__text">
-      <h3 class="title-secondary">Follow favorite projects</h3>
+      <h3 class="title-secondary">Fully open source</h3>
       <p class="summary">
-        Get notified when your favorite mods and modpacks are updated.
+        An open source project maintained by an active community that welcomes contributions.
       </p>
     </div>
   </div>
@@ -248,7 +248,7 @@
 
       @media (width < 500px) {
         height: auto;
-        width: 100%;
+        width: 80%;
       }
     }
 

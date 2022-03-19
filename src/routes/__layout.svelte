@@ -42,6 +42,7 @@
   import IconModeration from 'virtual:icons/fa-regular/life-ring'
   import IconPlus from 'virtual:icons/heroicons-outline/plus'
   import { create } from '$lib/create'
+  import Meta from "$components/utils/Meta.svelte";
 
   onMount(() => {
     if ($page.url.searchParams.get('code')) {

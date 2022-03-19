@@ -159,6 +159,7 @@
 		"food": "Food",
 		"equipment": "Equipment",
 		"miscellaneous": "Miscellaneous",
+    "optimization": "Optimization",
     "fabric": "Fabric",
     "forge": "Forge",
     "server": "Server",

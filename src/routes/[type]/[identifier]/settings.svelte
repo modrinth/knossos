@@ -61,21 +61,21 @@
       <b>Change visibility</b><br />
       This project is currently public.
     </div>
-      <Button label="Change visibility" color="danger" on:click={() => {}} icon={IconEye} />
+      <Button label="Change visibility" color="danger-light" on:click={() => {}} icon={IconEye} />
   </div>
   <div class="setting">
     <div class="setting__label">
       <b>Transfer ownership</b><br />
       Transfer this project to another user.
     </div>
-    <Button label="Transfer ownership" color="danger" on:click={() => {}} icon={IconSwitchHorizontal} />
+    <Button label="Transfer ownership" color="danger-light" on:click={() => {}} icon={IconSwitchHorizontal} />
   </div>
   <div class="setting">
     <div class="setting__label">
       <b>Delete project</b><br />
       Deleting a project erases all project data, including versions.
     </div>
-    <Button label="Delete project" color="red" on:click={() => {}} icon={IconTrash} />
+    <Button label="Delete project" color="danger" on:click={() => {}} icon={IconTrash} />
   </div>
 </div>
 

@@ -19,7 +19,7 @@ export function create(type: 'project' | 'user' | 'version', id: string): void {
 					// Test for slug conflict
 					try {
 						await send('GET', `project/${slug}`);
-						// There is a conflict
+						// Doesn't 404, meaning there is a conflict, so add random suffix
 						slug +=
 							'-' + (window.crypto || window.msCrypto).getRandomValues(new Uint16Array(1)).join('');
 					} catch {

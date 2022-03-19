@@ -93,7 +93,7 @@ Once you have completed those steps, press the continue button below.
       including projects, from our servers.
     </p>
     <div class="button-group">
-      <Button label="Delete account" color="red" on:click={deleteAccount} />
+      <Button label="Delete account" color="danger" on:click={deleteAccount} />
     </div>
   </div>
 </div>

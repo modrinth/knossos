@@ -53,7 +53,6 @@
 <script lang="ts">
   import Nav from '$components/elements/Nav.svelte'
   import { t } from 'svelte-intl-precompile'
-  import { onMount } from 'svelte'
   import Button from '$components/elements/Button.svelte'
   import IconHeart from 'virtual:icons/heroicons-outline/heart'
   import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
@@ -61,7 +60,7 @@
   import IconDownload from 'virtual:icons/heroicons-outline/download'
   import IconIssues from 'virtual:icons/heroicons-outline/exclamation'
   import IconCode from 'virtual:icons/heroicons-outline/code'
-  import IconUpdated from 'virtual:icons/heroicons-outline/refresh'
+  import IconClock from 'virtual:icons/lucide/flag-triangle-right'
   import IconWiki from 'virtual:icons/heroicons-outline/book-open'
   import IconDiscord from 'virtual:icons/simple-icons/discord'
   import IconPatreon from 'virtual:icons/simple-icons/patreon'
@@ -243,15 +242,15 @@
           <IconCalendar/>
           <span
           >{@html
-            $t('stats.created', {values: {ago: ago($project.published)}})
+            $t('stats.updated', {values: {ago: ago($project.updated)}})
           }</span
           >
         </div>
         <div class="stat stat--color-light">
-          <IconUpdated/>
+          <IconClock/>
           <span
           >{@html
-            $t('stats.updated', {values: {ago: ago($project.updated)}})
+            $t('stats.created', {values: {ago: ago($project.published)}})
           }</span
           >
         </div>

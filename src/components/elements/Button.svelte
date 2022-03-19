@@ -1,14 +1,15 @@
 <script lang="ts">
-	export let href = '';
-	export let color = '';
-	export let label = '';
-	export let title = '';
-  export let badge = false;
-	export let newTab = false;
-	// @ts-ignore: Icon components passed in as SvelteComponentDev can't be type-checked
-	export let icon: any = null;
-  export let disabled = false;
-  export let evenPadding = icon && !label;
+  export let href = ''
+  export let color:
+    '' | 'brand' | 'brand-light' | 'transparent' | 'danger' | 'danger-light' = ''
+  export let label = ''
+  export let title = ''
+  export let badge = false
+  export let newTab = false
+  // @ts-ignore: Icon components passed in as SvelteComponentDev can't be type-checked
+  export let icon: any = null
+  export let disabled = false
+  export let evenPadding = icon && !label
 
   let className = ''
 
@@ -18,73 +19,74 @@
     } ${badge ? 'has-badge' : ''}`
   }
 
-	export let iconSize = 16;
+  export let iconSize = 16
 </script>
 
 {#if href}
-	<a {href} {title} class={className} target={newTab ? '_blank' : ''} {disabled}>
-		<svelte:component this={icon} height={iconSize} width={iconSize} />
-		{label}
-	</a>
+  <a {href} {title} class={className} target={newTab ? '_blank' : ''} {disabled}>
+    <svelte:component this={icon} height={iconSize} width={iconSize}/>
+    {label}
+  </a>
 {:else}
-	<button {title} class={className} on:click {disabled}>
-		<svelte:component this={icon} height={iconSize} width={iconSize} />
-		{label}
-	</button>
+  <button {title} class={className} on:click {disabled}>
+    <svelte:component this={icon} height={iconSize} width={iconSize}/>
+    {label}
+  </button>
 {/if}
 
 <style lang="postcss">
-	.button {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		padding: 0.25rem 1rem;
-		grid-gap: 0.4rem;
-		cursor: pointer;
+  .button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.25rem 1rem;
+    grid-gap: 0.4rem;
+    cursor: pointer;
     position: relative;
 
-		box-shadow: var(--shadow-inset-sm);
+    box-shadow: var(--shadow-inset-sm);
 
-		background-color: var(--color-button-bg);
-		border-radius: var(--rounded);
+    background-color: var(--color-button-bg);
+    border-radius: var(--rounded);
     transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
 
     &:hover {
-			background-color: var(--color-button-bg-hover);
-		}
+      background-color: var(--color-button-bg-hover);
+    }
 
-		&--color-raised {
-			background-color: var(--color-raised-bg);
+    &--color-raised {
+      background-color: var(--color-raised-bg);
 
       &:hover {
         background-color: var(--color-raised-bg-hover);
       }
-		}
+    }
 
-		&--color-brand {
-			background-color: var(--color-brand);
-			color: var(--color-brand-contrast);
+    &--color-brand {
+      background-color: var(--color-brand);
+      color: var(--color-brand-contrast);
 
-			&:hover {
-				background-color: var(--color-brand-dark);
-			}
-		}
+      &:hover {
+        background-color: var(--color-brand-dark);
+      }
+    }
 
     &--color-brand-light {
       background-color: var(--color-brand-light);
       transition: filter 0s ease-in-out;
+
       &:hover {
         background-color: var(--color-brand-light);
         filter: brightness(0.9);
       }
     }
 
-		&--color-transparent {
-			background-color: transparent;
-			box-shadow: none;
-		}
+    &--color-transparent {
+      background-color: transparent;
+      box-shadow: none;
+    }
 
-    &--color-red {
+    &--color-danger {
       background-color: var(--color-badge-red-dot);
       color: var(--color-brand-contrast);
 
@@ -93,9 +95,10 @@
       }
     }
 
-    &--color-danger {
+    &--color-danger-light {
       color: var(--color-danger-text);
       transition: filter 0s ease-in-out;
+
       &:hover {
         filter: brightness(0.9);
       }
@@ -108,18 +111,18 @@
       filter: grayscale(50%);
     }
 
-		&--pad-even {
-			padding: 0.5rem;
+    &--pad-even {
+      padding: 0.5rem;
       font-size: 1rem;
       line-height: 0;
       min-width: 2rem;
       min-height: 2rem;
       justify-content: center;
-		}
+    }
 
-		&.is-iconified {
-			padding: 0.25rem 0.75rem;
-		}
+    &.is-iconified {
+      padding: 0.25rem 0.75rem;
+    }
 
     &.has-badge::after {
       content: '';
@@ -131,5 +134,5 @@
       top: 0.5rem;
       right: 0.5rem;
     }
-	}
+  }
 </style>

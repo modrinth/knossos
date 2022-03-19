@@ -62,7 +62,7 @@
           <Button label={$t('generic.actions.cancel')} icon={IconX} on:click={() => isEditing = false}/>
         {/if}
       {:else}
-        <Button label={$t('generic.actions.edit')} icon={IconPencil} on:click={() => {viewMode = 'editor'; isEditing = true}}/>
+        <Button label={$t('generic.actions.edit')} color="brand-light" icon={IconPencil} on:click={() => {viewMode = 'editor'; isEditing = true}}/>
       {/if}
     {/if}
   </div>
