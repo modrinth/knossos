@@ -207,7 +207,7 @@
           <LogoAnimated aria-hidden="true" />
           <p>Loading...</p>
         </div>
-        <div v-else role="list" aria-label="Search results">
+        <div v-else id="search-results" role="list" aria-label="Search results">
           <SearchResult
             v-for="result in results"
             :id="result.slug ? result.slug : result.project_id"
@@ -304,6 +304,8 @@ export default {
       maxResults: 20,
 
       sidebarMenuOpen: false,
+
+      skipLink: '#search-results',
     }
   },
   async fetch() {
@@ -372,6 +374,17 @@ export default {
         await this.clearFilters()
       },
     },
+  },
+  created() {
+    // This is currently using the global event bus as I couldn't figure out how to use the local one
+    this.$nuxt.$emit('registerSkipLink', {
+      id: '#search-results',
+      text: 'Skip to Search Results',
+    })
+  },
+  destroyed() {
+    // Not sure about this
+    this.$nuxt.$emit('registerSkipLink')
   },
   methods: {
     async clearFilters() {
