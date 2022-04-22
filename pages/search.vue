@@ -377,6 +377,8 @@ export default {
   methods: {
     async clearFilters() {
       for (const facet of [...this.facets]) await this.toggleFacet(facet, true)
+      for (const facet of [...this.orFacets])
+        await this.toggleOrFacet(facet, true)
 
       this.selectedLicenses = []
       this.selectedVersions = []
