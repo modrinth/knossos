@@ -70,11 +70,11 @@
                 x.supported_project_types.includes(projectType)
               )"
               :key="loader.name"
-              :active-filters="facets"
+              :active-filters="orFacets"
               :display-name="loader.name"
               :facet-name="`categories:${loader.name}`"
               :icon="loader.icon"
-              @toggle="toggleFacet"
+              @toggle="toggleOrFacet"
             />
           </section>
           <section aria-label="Environment filters">
@@ -286,6 +286,7 @@ export default {
       selectedEnvironments: [],
 
       facets: [],
+      orFacets: [],
       results: null,
       pages: [],
       currentPage: 1,
@@ -382,7 +383,7 @@ export default {
       this.selectedEnvironments = []
       await this.onSearchChange(1)
     },
-    async toggleFacet(elementName, sendRequest) {
+    async toggleFacet(elementName, doNotSendRequest) {
       const index = this.facets.indexOf(elementName)
       if (index !== -1) {
         this.facets.splice(index, 1)
@@ -390,7 +391,17 @@ export default {
         this.facets.push(elementName)
       }
 
-      if (!sendRequest) await this.onSearchChange(1)
+      if (!doNotSendRequest) await this.onSearchChange(1)
+    },
+    async toggleOrFacet(elementName, doNotSendRequest) {
+      const index = this.orFacets.indexOf(elementName)
+      if (index !== -1) {
+        this.orFacets.splice(index, 1)
+      } else {
+        this.orFacets.push(elementName)
+      }
+
+      if (!doNotSendRequest) await this.onSearchChange(1)
     },
     async toggleEnv(environment, sendRequest) {
       const index = this.selectedEnvironments.indexOf(environment)
@@ -429,6 +440,10 @@ export default {
           let formattedFacets = []
           for (const facet of this.facets) {
             formattedFacets.push([facet])
+          }
+
+          if (this.orFacets.length > 0) {
+            formattedFacets.push(this.orFacets)
           }
 
           if (this.selectedVersions.length > 0) {
