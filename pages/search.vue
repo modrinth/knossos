@@ -24,7 +24,8 @@
               selectedLicenses.length === 0 &&
               selectedEnvironments.length === 0 &&
               selectedVersions.length === 0 &&
-              facets.length === 0
+              facets.length === 0 &&
+              orFacets.length === 0
             "
             class="iconified-button"
             @click="clearFilters"
