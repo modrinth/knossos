@@ -577,7 +577,7 @@ export default {
             }
           }
 
-          await this.$router.push({ path: url })
+          await this.$router.replace({ path: url })
         }
       } catch (err) {
         // eslint-disable-next-line no-console
