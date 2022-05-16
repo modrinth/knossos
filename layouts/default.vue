@@ -315,7 +315,7 @@ export default {
     NotificationIcon,
     HomeIcon,
     ModIcon,
-    // ModpackIcon,
+    ModpackIcon,
     HamburgerIcon,
     CookieConsent,
     SettingsIcon,
