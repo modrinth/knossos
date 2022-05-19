@@ -47,11 +47,11 @@
 		"changelog": "Changelog",
 		"versions": "Versions",
 		"settings": "Settings",
-    "reports": "Reports",
-    "moderation": "Moderation",
-    "notifications": "Notifications",
-    "about": "About",
-    "following": "Following",
+		"reports": "Reports",
+		"moderation": "Moderation",
+		"notifications": "Notifications",
+		"about": "About",
+		"following": "Following",
 		"all": "All"
 	},
 	"generic": {
@@ -66,10 +66,10 @@
 			"unfollow": "Unfollow",
 			"report": "Report",
 			"new_project": "New project",
-      "download": "Download",
-      "save": "Save",
-      "cancel": "Cancel",
-      "discard": "Discard changes"
+			"download": "Download",
+			"save": "Save",
+			"cancel": "Cancel",
+			"discard": "Discard changes"
 		},
 		"external": {
 			"github_profile": "GitHub profile",
@@ -93,22 +93,22 @@
 				"required": "Required",
 				"unsupported": "Unsupported",
 				"optional": "Optional",
-        "unknown": "Unknown"
+				"unknown": "Unknown"
 			}
 		},
-    "byline": "by <u>{author}</u>"
+		"byline": "by <u>{author}</u>"
 	},
 	"project": {
 		"types": {
 			"mod": {
 				"singular": "Mod",
 				"plural": "Mods",
-        "search": "Search mods..."
+				"search": "Search mods..."
 			},
 			"modpack": {
 				"singular": "Modpack",
 				"plural": "Modpacks",
-        "search": "Search modpacks..."
+				"search": "Search modpacks..."
 			}
 		},
 		"sidebar_headings": {
@@ -138,7 +138,7 @@
 	},
 	"stats": {
 		"joined": "Joined {ago}",
-    "notified": "Notified {ago}",
+		"notified": "Notified {ago}",
 		"downloads": "{downloads, plural, one {<b>1</b> download} other {<b>#</b> downloads}}",
 		"followers_of_projects": "{followers, plural, one {<b>1</b> follower of projects} other {<b>#</b> followers of projects}}",
 		"followers": "{followers, plural, one {<b>1</b> follower} other {<b>#</b> followers}}",
@@ -160,19 +160,19 @@
 		"equipment": "Equipment",
 		"miscellaneous": "Miscellaneous",
 		"challenging": "Challenging",
-		"combat": "Combas",
+		"combat": "Combat",
 		"kitchen-sink": "Kitchen Sink",
 		"lightweight": "Lightweight",
 		"multiplayer": "Multiplayer",
 		"quests": "Quests",
-    "optimization": "Optimization",
-    "fabric": "Fabric",
-    "forge": "Forge",
-    "quilt": "Quilt",
-    "server": "Server",
-    "client": "Client",
-    "good": "Good",
-    "trash": "Trash",
-    "misc": "Miscellaneous"
+		"optimization": "Optimization",
+		"fabric": "Fabric",
+		"forge": "Forge",
+		"quilt": "Quilt",
+		"server": "Server",
+		"client": "Client",
+		"good": "Good",
+		"trash": "Trash",
+		"misc": "Miscellaneous"
 	}
 }
