@@ -50,13 +50,10 @@
     />
     <button
       title="Clear filters"
-      :disabled="
-        selectedLoader === getDefaultLoader() &&
-        selectedGameVersions.length === 0
-      "
+      :disabled="selectedGameVersions.length === 0"
       class="iconified-button"
       @click="
-        selectedLoader = getDefaultLoader()
+        selectedLoader = null
         selectedGameVersions = []
         updateVersionFilters()
       "
@@ -92,18 +89,10 @@ export default {
       cachedValidVersions: null,
       cachedValidLoaders: null,
       selectedGameVersions: [],
-      selectedLoader: this.getDefaultLoader(),
+      selectedLoader: null,
     }
   },
   methods: {
-    getDefaultLoader() {
-      const loaders = this.getValidLoaders()
-      if (loaders.includes('fabric')) {
-        return 'fabric'
-      } else {
-        return loaders[0]
-      }
-    },
     getValidVersions() {
       if (!this.cachedValidVersions) {
         this.cachedValidVersions = this.$tag.gameVersions.filter((gameVer) =>
