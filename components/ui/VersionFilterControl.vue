@@ -6,7 +6,9 @@
     <Multiselect
       v-if="getValidLoaders().length > 1"
       v-model="selectedLoader"
-      :options="getValidLoaders()"
+      :options="
+        getValidLoaders().map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+      "
       :multiple="false"
       :searchable="false"
       :show-no-results="false"
@@ -50,7 +52,7 @@
     />
     <button
       title="Clear filters"
-      :disabled="selectedGameVersions.length === 0"
+      :disabled="selectedLoader === null && selectedGameVersions.length === 0"
       class="iconified-button"
       @click="
         selectedLoader = null
@@ -121,9 +123,9 @@ export default {
         (projectVersion) =>
           (this.selectedGameVersions.length === 0 ||
             this.selectedGameVersions.some((gameVersion) =>
-              projectVersion.game_versions.includes(gameVersion)
+              projectVersion.game_versions.includes(gameVersion.toLowerCase())
             )) &&
-          projectVersion.loaders.includes(this.selectedLoader)
+          projectVersion.loaders.includes(this.selectedLoader.toLowerCase())
       )
       this.$emit('updateVersions', temp)
     },
