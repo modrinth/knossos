@@ -398,6 +398,7 @@
             <input
               v-model="newDependencyId"
               type="text"
+              oninput="this.value=this.value.replace(/[^a-z]/gi,'')"
               :placeholder="`Enter the ${dependencyAddMode} ID...`"
             />
             <Multiselect
