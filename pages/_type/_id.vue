@@ -432,8 +432,7 @@
         small-screen="destroy"
       />
       <div class="content">
-        <div class="project-main">
-          <div v-if="project.project_type === 'modpack'" class="card warning">
+        <div v-if="project.project_type === 'modpack'" class="card warning">
             To install this modpack, visit
             <a
               href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
@@ -441,10 +440,10 @@
               >our documentation</a
             >
             which provides instructions on using
-            <a href="https://atlauncher.com/about" target="_blank"
-              >ATLauncher</a
-            >
-            and <a href="https://multimc.org/" target="_blank">MultiMC</a>.
+            <a href="https://atlauncher.com/about" target="_blank">ATLauncher</a
+            >, <a href="https://multimc.org/" target="_blank">MultiMC</a>
+            and
+            <a href="https://polymc.org/" target="_blank">PolyMC</a>.
           </div>
           <div class="card styled-tabs">
             <nuxt-link
