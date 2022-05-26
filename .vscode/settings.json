@@ -6,5 +6,6 @@
 	"code-runner.runInTerminal": true,
 	"code-runner.executorMapByGlob": {
 		"*": "cd $workspaceRoot && pnpm dev"
-	}
+	},
+	"nuxt.isNuxtApp": false
 }

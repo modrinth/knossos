@@ -69,7 +69,7 @@ const GENERATED_PATH = './src/generated/';
 				await (
 					await fetch(API_URL + `search?limit=100&facets=[["project_type:mod"]]&offset=${i * 100}`)
 				).json()
-			).hits,
+			).hits || [],
 		];
 	}
 

@@ -13,6 +13,7 @@ export function create(type: 'project' | 'user' | 'version', id: string): void {
 				creation: 'project',
 			},
 			button: {
+				label: '',
 				click: async ({ project_type, name, body }) => {
 					let slug = name.toLowerCase().replace(/ /g, '-');
 
@@ -21,7 +22,10 @@ export function create(type: 'project' | 'user' | 'version', id: string): void {
 						await send('GET', `project/${slug}`);
 						// Doesn't 404, meaning there is a conflict, so add random suffix
 						slug +=
-							'-' + (window.crypto || window.msCrypto).getRandomValues(new Uint16Array(1)).join('');
+							'-' +
+							(window.crypto || (window as any).msCrypto)
+								.getRandomValues(new Uint16Array(1))
+								.join('');
 					} catch {
 						// Do nothing because there is no slug conflict
 					}

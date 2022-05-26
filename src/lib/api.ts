@@ -11,7 +11,7 @@ export const fetching = writable<number>(0);
 export async function send(
 	method: string,
 	route: string,
-	data: unknown = null,
+	data: any = null,
 	overrides: Overrides = { token: '', fetch: null }
 ): Promise<unknown> {
 	fetching.set(get(fetching) + 1);
@@ -32,7 +32,7 @@ export async function send(
 	} else if (data && !data.entries) {
 		// Data is an object that is not a FormData
 		options.headers['Content-Type'] = 'application/json';
-		options.body = JSON.stringify(data);
+		(options as any).body = JSON.stringify(data);
 	}
 
 	const response = await (overrides.fetch || fetch)(import.meta.env.VITE_API_URL + route, options);
