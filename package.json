@@ -12,7 +12,8 @@
         "generate": "node ./scripts/generate.js",
         "postinstall": "pnpm generate",
         "preview:wrangler": "pnpm wrangler pages dev .svelte-kit/cloudflare",
-        "fmt": "prettier --write --ignore-path .gitignore --plugin-search-dir=. ."
+        "fmt": "prettier --write --ignore-path .gitignore --plugin-search-dir=. .",
+        "start": "serve -s .svelte-kit"
     },
     "devDependencies": {
         "@babel/core": "^7.16.10",
@@ -24,10 +25,11 @@
         "@iconify-json/simple-icons": "^1.0.18",
         "@poppanator/sveltekit-svg": "^0.2.2",
         "@sveltejs/adapter-auto": "1.0.0-next.48",
-        "@sveltejs/kit": "1.0.0-next.265",
+        "@sveltejs/kit": "1.0.0-next.345",
         "@trivago/prettier-plugin-sort-imports": "^3.2.0",
         "@types/cookie": "^0.4.1",
         "@types/marked": "^4.0.1",
+        "@types/node": "^17.0.35",
         "@types/nprogress": "^0.2.0",
         "@typescript-eslint/eslint-plugin": "^4.33.0",
         "@typescript-eslint/parser": "^4.33.0",
@@ -55,6 +57,7 @@
         "prettier": "^2.5.1",
         "prettier-plugin-svelte": "^2.6.0",
         "sanitize.css": "^13.0.0",
+        "serve": "^13.0.2",
         "sharp": "^0.29.3",
         "svelte": "^3.46.2",
         "svelte-autosize": "^1.0.1",
@@ -64,6 +67,7 @@
         "svelte-tiny-virtual-list": "^1.1.7",
         "svelte-use-click-outside": "^1.0.0",
         "throttle-debounce": "^3.0.1",
+        "ts-node": "^10.8.0",
         "tslib": "^2.3.1",
         "typescript": "^4.5.4",
         "unplugin-icons": "^0.12.23",
@@ -72,6 +76,12 @@
     },
     "type": "module",
     "dependencies": {
-        "axios": "^0.27.2"
+        "@sveltejs/adapter-node": "1.0.0-next.76",
+        "@sveltejs/adapter-static": "1.0.0-next.32",
+        "axios": "^0.27.2",
+        "glob": "^8.0.3",
+        "stream": "^0.0.2",
+        "util": "^0.12.4",
+        "zlib": "^1.0.5"
     }
 }

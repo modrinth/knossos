@@ -1,7 +1,7 @@
-import { App } from "APP";
+import { Server } from "APP";
 import { manifest, prerendered } from "MANIFEST";
 
-const app = new App(manifest);
+const app = new Server(manifest);
 
 const prefix = `/${manifest.appDir}/`;
 

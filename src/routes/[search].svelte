@@ -64,12 +64,14 @@
         licenses,
     } from "$generated/tags.json";
     import { simplify } from "$lib/number";
+    import { Modpack } from "$lib/pack";
     import { t } from "svelte-intl-precompile";
     import VirtualList from "svelte-tiny-virtual-list";
     import { debounce } from "throttle-debounce";
     import IconCode from "virtual:icons/heroicons-outline/code";
     import IconSearch from "virtual:icons/heroicons-outline/search";
     import IconTrash from "virtual:icons/heroicons-outline/trash";
+    import IconBox from "virtual:icons/lucide/box";
     import IconExpand from "virtual:icons/lucide/expand";
     import IconServer from "virtual:icons/lucide/hard-drive";
     import IconClient from "virtual:icons/lucide/laptop";
@@ -171,6 +173,15 @@
     function clearFilters() {
         searchParams = { v: [], h: "", l: [], e: [], c: [], i: [] };
     }
+
+    const buildModpack = () => {
+        const packMods: (Project | ProjectResult)[] =
+            JSON.parse(localStorage.getItem("pack_mods")) || [];
+        const mods = packMods.map((m) => m.slug);
+        new Modpack(mods, (pack) => {
+            alert(JSON.stringify(pack.serialize()));
+        });
+    };
 </script>
 
 <Meta
@@ -200,6 +211,13 @@
                         on:click={clearFilters}
                         icon={IconTrash}
                     />
+                    {#if builder}
+                        <Button
+                            label="Build Modpack"
+                            on:click={buildModpack}
+                            icon={IconBox}
+                        />
+                    {/if}
                 </div>
 
                 <hr class="divider" />

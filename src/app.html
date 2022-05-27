@@ -54,7 +54,7 @@
         <!-- TODO: Remove when going into production -->
         <meta name="robots" content="noindex" />
 
-        %svelte.head%
+        %sveltekit.head%
     </head>
 
     <body>
@@ -62,7 +62,7 @@
             if (window.THEME)
                 document.body.classList.add(`${window.THEME}-theme`);
         </script>
-        %svelte.body%
+        %sveltekit.body%
     </body>
     <script>
         if (

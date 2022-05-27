@@ -5,11 +5,11 @@
     import { simplify } from "$lib/number";
     import Button from "./Button.svelte";
     import ProfilePicture from "./ProfilePicture.svelte";
+    import { onMount } from "svelte";
     import { t } from "svelte-intl-precompile";
     import IconDownload from "virtual:icons/heroicons-outline/download";
     import IconCalendar from "virtual:icons/lucide/calendar";
     import IconHeart from "virtual:icons/lucide/heart";
-    import { onMount } from "svelte";
 
     let packMods: (Project | ProjectResult)[] = [];
 
