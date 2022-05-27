@@ -9,7 +9,7 @@
 	export let links: Link[];
 	export let query: string = '';
 
-  export let resetScroll = false
+	export let resetScroll = false;
 
 	/** Path level in URL, zero-indexed */
 	export let level = 0;
@@ -36,15 +36,14 @@
 				: level === 0
 				? link.href
 				: basePath + link.href}
-
-      on:click={() => { if (resetScroll) document.body.scrollTo(0,0)}}
-
+			on:click={() => {
+				if (resetScroll) document.body.scrollTo(0, 0);
+			}}
 			class="navigation__link"
 			class:is-active={query
 				? ($page.url.searchParams.get(query) || '') === link.href
 				: path[level] === link.href || path[level] === link.href.slice(0, -1)}
-      sveltekit:noscroll={!resetScroll}
-    >{link.label}</a
+			sveltekit:noscroll={!resetScroll}>{link.label}</a
 		>
 	{/each}
 </nav>
@@ -55,7 +54,7 @@
 		flex-direction: row;
 		align-items: center;
 		grid-gap: 1rem;
-    flex-wrap: wrap;
+		flex-wrap: wrap;
 
 		&__link {
 			font-weight: var(--font-weight-bold);

@@ -48,6 +48,20 @@ const config = {
 					$generated: path.resolve('./src/generated'),
 				},
 			},
+			server: {
+				hmr: process.env.GITPOD_WORKSPACE_URL
+					? {
+							protocol: 'wss',
+							clientPort: 443,
+							host: process.env.GITPOD_WORKSPACE_URL.replace('https://', '3000-'),
+					  }
+					: true,
+				host: '0.0.0.0',
+				cors: false,
+				strictPort: true,
+				port: 3000,
+				https: false,
+			},
 		},
 	},
 };

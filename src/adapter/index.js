@@ -2,10 +2,11 @@ import { writeFileSync } from 'fs';
 import { posix } from 'path';
 import { fileURLToPath } from 'url';
 import * as esbuild from 'esbuild';
+import adapter from '@sveltejs/adapter-auto';
 
-/** @type {import('.')} */
 export default function (options = {}) {
 	return {
+		...adapter(),
 		name: '@sveltejs/adapter-cloudflare',
 		async adapt(builder) {
 			const files = fileURLToPath(new URL('./files', import.meta.url));
