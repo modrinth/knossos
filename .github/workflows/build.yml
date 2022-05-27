@@ -21,6 +21,7 @@ jobs:
           corepack enable
           pnpm install --shamefully-hoist
           pnpm run build
+          touch build/.nojekyll
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3
