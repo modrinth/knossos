@@ -11,29 +11,28 @@ const pipe = util.promisify(stream.pipeline);
 
 /**
  * @param {import(".").AdapterOptions} options
- * @returns
  */
-export default function (options = {}) {
+export default function ({
+    pages = "build",
+    assets = pages,
+    fallback,
+    precompress = false,
+} = {}) {
     /**
      * @type {import("@sveltejs/kit").Adapter}
      */
     const adapter = {
         name: "@sveltejs/adapter-cloudflare",
         async adapt(builder) {
-            const {
-                pages = "build",
-                assets = pages,
-                fallback,
-                precompress = false,
-            } = options;
-
             if (!fallback && !builder.config.kit.prerender.default) {
                 builder.log.warn(
                     "You should set `config.kit.prerender.default` to `true` if no fallback is specified"
                 );
             }
 
-            const files = url.fileURLToPath(new URL("./files", import.meta.url));
+            const files = url.fileURLToPath(
+                new URL("./files", import.meta.url)
+            );
             const dest = builder.getBuildDirectory("cloudflare");
             const tmp = builder.getBuildDirectory("cloudflare-tmp");
 
@@ -98,7 +97,6 @@ export default function (options = {}) {
             await esbuild.build({
                 target: "es2020",
                 platform: "browser",
-                ...options,
                 entryPoints: [`${tmp}/_worker.js`],
                 outfile: `${dest}/_worker.js`,
                 allowOverwrite: true,
