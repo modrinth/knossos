@@ -1,8 +1,10 @@
 <script lang="ts">
-	import Meta from '$components/utils/Meta.svelte';
+	import Meta from '$components/utils/Meta.svelte'
 </script>
 
-<Meta title="Terms and conditions" description="See our terms and conditions and how they relate to you." />
+<Meta
+	title="Terms and conditions"
+	description="See our terms and conditions and how they relate to you." />
 
 <h1>Terms and conditions</h1>
 
@@ -88,7 +90,7 @@
 
 <p>
 	Please read our
-	<nuxt-link to="/legal/privacy"> Privacy Policy</nuxt-link>.
+	<a href="/legal/privacy"> Privacy Policy</a>.
 </p>
 
 <h2>9. Governing Law</h2>

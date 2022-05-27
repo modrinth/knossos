@@ -1,56 +1,56 @@
-import { token as tokenStore } from '$stores/server';
-import { get, writable } from 'svelte/store';
+import { token as tokenStore } from '$stores/server'
+import { get, writable } from 'svelte/store'
 
 interface Overrides {
-	token?: string;
-	fetch?: any;
+	token?: string
+	fetch?: any
 }
 
-export const fetching = writable<number>(0);
+export const fetching = writable<number>(0)
 
 export async function send(
 	method: string,
 	route: string,
-	data: unknown = null,
+	data: any = null,
 	overrides: Overrides = { token: '', fetch: null }
 ): Promise<unknown> {
-	fetching.set(get(fetching) + 1);
+	fetching.set(get(fetching) + 1)
 
-	const options = {
+	const options: { method: string; headers: Record<string, string>; body?: string } = {
 		method,
 		headers: {},
-	};
+	}
 
-	const token = get(tokenStore) || overrides.token;
+	const token = get(tokenStore) || overrides.token
 	if (token) {
-		options.headers['Authorization'] = token;
+		options.headers['Authorization'] = token
 	}
 
 	if (data?.type && data?.lastModified && data?.size) {
 		// Data is a File
-		options.headers['Content-Type'] = data.type;
+		options.headers['Content-Type'] = data.type
 	} else if (data && !data.entries) {
 		// Data is an object that is not a FormData
-		options.headers['Content-Type'] = 'application/json';
-		options.body = JSON.stringify(data);
+		options.headers['Content-Type'] = 'application/json'
+		options.body = JSON.stringify(data)
 	}
 
-	const response = await (overrides.fetch || fetch)(import.meta.env.VITE_API_URL + route, options);
+	const response = await (overrides.fetch || fetch)(import.meta.env.VITE_API_URL + route, options)
 
-	fetching.set(get(fetching) - 1);
+	fetching.set(get(fetching) - 1)
 
 	if (!response.ok) {
-		throw response;
+		throw response
 	}
 
-	let parsed = {};
+	let parsed = {}
 	if (response.status !== 204) {
 		try {
-			parsed = await response.json();
+			parsed = await response.json()
 		} catch {
-			console.error('Could not parse API response');
+			console.error('Could not parse API response')
 		}
 	}
 
-	return parsed;
+	return parsed
 }

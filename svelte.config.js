@@ -1,42 +1,25 @@
-import preprocess from 'svelte-preprocess';
-import adapter from './src/adapter/index.js';
-import svelteSvg from '@poppanator/sveltekit-svg';
-import path from 'path';
-import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin';
-import Icons from 'unplugin-icons/vite';
+import adapter from './src/adapter/index.js'
+import path from 'path'
+import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin'
+import Generator from 'omorphia/plugins/generator'
+import { preprocess, plugins } from 'omorphia/config/svelte.config'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	preprocess: [
-		preprocess({
-			babel: {
-				presets: [
-					[
-						'@babel/preset-env',
-						{
-							loose: true,
-							modules: false,
-							targets: {
-								esmodules: true,
-							},
-						},
-					],
-				],
-			},
-			postcss: true,
-			preserve: ['ld+json'],
-		}),
-	],
+	preprocess: [preprocess],
 
 	kit: {
 		adapter: adapter(),
 		vite: {
 			plugins: [
-				svelteSvg(),
-				precompileIntl('locales'),
-				Icons({
-					compiler: 'svelte',
+				...plugins,
+				Generator({
+					landingPage: true,
+					projectColors: true,
+					gameVersions: true,
+					tags: true,
 				}),
+				precompileIntl('locales'),
 			],
 			resolve: {
 				alias: {
@@ -45,11 +28,17 @@ const config = {
 					$lib: path.resolve('./src/lib'),
 					$stores: path.resolve('./src/stores'),
 					$styles: path.resolve('./src/styles'),
-					$generated: path.resolve('./src/generated'),
+					$generated: path.resolve('./generated'),
+				},
+			},
+
+			server: {
+				fs: {
+					allow: ['generated'],
 				},
 			},
 		},
 	},
-};
+}
 
-export default config;
+export default config

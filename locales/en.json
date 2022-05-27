@@ -169,6 +169,8 @@
 		"fabric": "Fabric",
 		"forge": "Forge",
 		"quilt": "Quilt",
+		"modloader": "ModLoader",
+		"rift": "Rift",
 		"server": "Server",
 		"client": "Client",
 		"good": "Good",

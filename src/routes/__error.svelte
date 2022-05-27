@@ -5,26 +5,25 @@
 				status,
 				message: error.message,
 			},
-		};
+		}
 	}
 </script>
 
 <script lang="ts">
-	import { t } from 'svelte-intl-precompile';
-	import Logo404 from '$assets/images/logo/404.svg';
-	import Button from '$components/elements/Button.svelte';
-	import Meta from '$components/utils/Meta.svelte';
-  import { markdownInline } from "$lib/parse";
+	import { t } from 'svelte-intl-precompile'
+	import Logo404 from '$assets/images/logo/404.svg'
+	import { Button } from 'omorphia'
+	import { markdownInline } from 'omorphia/utils'
+	import Meta from '$components/utils/Meta.svelte'
 
-	export let status: number;
-	export let message = '';
+	export let status: number
+	export let message = ''
 </script>
 
 <Meta
 	title={$t('error.status', { values: { status } })}
 	description={message || $t('error.message.default')}
-  noindex
-/>
+	noindex />
 
 <div class="status">
 	{#if status === 404}
@@ -45,8 +44,8 @@
 </p>
 
 <div class="error-actions">
-	<Button href="/" label={$t('error.actions.home')} color="brand" />
-	<Button href="/discord" label={$t('error.actions.discord')} color="raised" newTab={true} />
+	<Button href="/" color="primary">{$t('error.actions.home')}</Button>
+	<Button href="/discord" color="raised" target="_blank">{$t('error.actions.discord')}</Button>
 </div>
 
 <style lang="postcss">
@@ -54,7 +53,7 @@
 		display: flex;
 		margin: 2rem 0;
 		max-width: 600px;
-    font-size: 2rem;
+		font-size: 2rem;
 	}
 
 	.error-actions {
@@ -63,17 +62,17 @@
 		flex-wrap: wrap;
 	}
 
-  .error-message {
-    text-align: center;
-    line-height: 200%;
-    margin-top: -1rem;
+	.error-message {
+		text-align: center;
+		line-height: 200%;
+		margin-top: -1rem;
 
-    :global(a) {
-      color: var(--color-link);
+		:global(a) {
+			color: var(--color-link);
 
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 </style>

@@ -1,41 +1,40 @@
-import { writeFileSync } from 'fs';
-import { posix } from 'path';
-import { fileURLToPath } from 'url';
-import * as esbuild from 'esbuild';
+import { writeFileSync } from 'fs'
+import { posix } from 'path'
+import { fileURLToPath } from 'url'
+import * as esbuild from 'esbuild'
 
 /** @type {import('.')} */
 export default function (options = {}) {
 	return {
 		name: '@sveltejs/adapter-cloudflare',
 		async adapt(builder) {
-			const files = fileURLToPath(new URL('./files', import.meta.url));
-			const dest = builder.getBuildDirectory('cloudflare');
-			const tmp = builder.getBuildDirectory('cloudflare-tmp');
+			const files = fileURLToPath(new URL('./files', import.meta.url).href)
+			const dest = builder.getBuildDirectory('cloudflare')
+			const tmp = builder.getBuildDirectory('cloudflare-tmp')
 
-			builder.rimraf(dest);
-			builder.rimraf(tmp);
-			builder.mkdirp(tmp);
+			builder.rimraf(dest)
+			builder.rimraf(tmp)
+			builder.mkdirp(tmp)
 
-			builder.writeStatic(dest);
-			builder.writeClient(dest);
+			builder.writeStatic(dest)
+			builder.writeClient(dest)
+			builder.writePrerendered(dest)
 
-			const { paths } = await builder.prerender({ dest });
-
-			const relativePath = posix.relative(tmp, builder.getServerDirectory());
+			const relativePath = posix.relative(tmp, builder.getServerDirectory())
 
 			writeFileSync(
 				`${tmp}/manifest.js`,
 				`export const manifest = ${builder.generateManifest({
 					relativePath,
-				})};\n\nexport const prerendered = new Set(${JSON.stringify(paths)});\n`
-			);
+				})};\n\nexport const prerendered = new Set(${JSON.stringify(builder.prerendered.paths)});\n`
+			)
 
 			builder.copy(`${files}/worker.js`, `${tmp}/_worker.js`, {
 				replace: {
-					APP: `${relativePath}/app.js`,
+					SERVER: `${relativePath}/index.js`,
 					MANIFEST: './manifest.js',
 				},
-			});
+			})
 
 			await esbuild.build({
 				target: 'es2020',
@@ -46,7 +45,7 @@ export default function (options = {}) {
 				allowOverwrite: true,
 				format: 'esm',
 				bundle: true,
-			});
+			})
 		},
-	};
+	}
 }

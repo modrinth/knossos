@@ -1,8 +1,8 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit'
 
 interface page {
-	path: string;
-	modified?: string;
+	path: string
+	modified?: string
 }
 
 export const get: RequestHandler = async ({ url }) => {
@@ -28,11 +28,11 @@ export const get: RequestHandler = async ({ url }) => {
 		{
 			path: '/legal/terms',
 		},
-	];
+	]
 
-	let projects = [];
+	let projects = []
 	const projectCount = (await (await fetch(import.meta.env.VITE_API_URL + 'search?limit=0')).json())
-		.total_hits;
+		.total_hits
 
 	for (let i = 0; i < Math.ceil(projectCount / 100); i++) {
 		projects = projects.concat(
@@ -41,11 +41,11 @@ export const get: RequestHandler = async ({ url }) => {
 					await fetch(import.meta.env.VITE_API_URL + `search?limit=100&offset=${i * 100}`)
 				).json()
 			).hits
-		);
+		)
 	}
 
 	for (const project of projects) {
-		const base = `/${project.project_type}/${project.slug || project.id}`;
+		const base = `/${project.project_type}/${project.slug || project.id}`
 		pages = pages.concat([
 			{
 				path: base,
@@ -65,15 +65,15 @@ export const get: RequestHandler = async ({ url }) => {
 				path: `${base}/changelog`,
 				modified: project.date_modified,
 			},
-		]);
+		])
 	}
 
-	const authors = projects.map((it) => it.author);
+	const authors = projects.map((it) => it.author)
 
 	for (const author of authors) {
 		pages.push({
 			path: `/user/${author}`,
-		});
+		})
 	}
 
 	const urlTags = pages.map(
@@ -81,12 +81,12 @@ export const get: RequestHandler = async ({ url }) => {
     <loc>${url.origin}${page.path}</loc>
     ${page.modified ? `<lastmod>${toW3CString(new Date(page.modified))}</lastmod>` : ''}
   </url>`
-	);
+	)
 
 	const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${urlTags.join('\n')}
-</urlset>`;
+</urlset>`
 
 	return {
 		status: 200,
@@ -94,8 +94,8 @@ export const get: RequestHandler = async ({ url }) => {
 		headers: {
 			'Content-Type': 'application/xml',
 		},
-	};
-};
+	}
+}
 
 function toW3CString(date: Date): string {
 	return (
@@ -110,5 +110,5 @@ function toW3CString(date: Date): string {
 		date.getUTCMinutes().toString().padStart(2, '0') +
 		':' +
 		date.getUTCMilliseconds().toString().padStart(2, '0')
-	);
+	)
 }

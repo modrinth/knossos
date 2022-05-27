@@ -1,15 +1,17 @@
 <script lang="ts">
-	import Meta from '$components/utils/Meta.svelte';
+	import Meta from '$components/utils/Meta.svelte'
 </script>
 
-<Meta title="Project rules" description="See our project rules and how they relate to your projects." />
+<Meta
+	title="Project rules"
+	description="See our project rules and how they relate to your projects." />
 
 <h1>Project rules</h1>
 
 <p>
 	In order to facilitate the Modrinth's
-	<nuxt-link to="/legal/terms">Terms of Service</nuxt-link>, all Projects (a form of Content as
-	defined there) must obey the following Rules.
+	<a href="/legal/terms">Terms of Service</a>, all Projects (a form of Content as defined there)
+	must obey the following Rules.
 </p>
 
 <h2 id="malware">1. Malware</h2>

@@ -1,8 +1,8 @@
-import { popups } from '$stores/app';
-import { get } from 'svelte/store';
-import { send } from '$lib/api';
-import { user } from '$stores/server';
-import { licenses } from '$generated/tags.json';
+import { popups } from '$stores/app'
+import { get } from 'svelte/store'
+import { send } from '$lib/api'
+import { user } from '$stores/server'
+import { licenses } from '$generated/tags.json'
 
 export function create(type: 'project' | 'user' | 'version', id: string): void {
 	popups.set([
@@ -14,19 +14,19 @@ export function create(type: 'project' | 'user' | 'version', id: string): void {
 			},
 			button: {
 				click: async ({ project_type, name, body }) => {
-					let slug = name.toLowerCase().replace(/ /g, '-');
+					let slug = name.toLowerCase().replace(/ /g, '-')
 
 					// Test for slug conflict
 					try {
-						await send('GET', `project/${slug}`);
+						await send('GET', `project/${slug}`)
 						// Doesn't 404, meaning there is a conflict, so add random suffix
 						slug +=
-							'-' + (window.crypto || window.msCrypto).getRandomValues(new Uint16Array(1)).join('');
+							'-' + (window.crypto || window.msCrypto).getRandomValues(new Uint16Array(1)).join('')
 					} catch {
 						// Do nothing because there is no slug conflict
 					}
 
-					const formData = new FormData();
+					const formData = new FormData()
 
 					formData.append(
 						'data',
@@ -70,12 +70,12 @@ Questions? [Join the Modrinth Discord server for support!](/discord)`,
 								: licenses[0].short,
 							is_draft: true,
 						})
-					);
+					)
 
-					await send('POST', 'project', formData);
+					await send('POST', 'project', formData)
 				},
 			},
 		},
 		...get(popups),
-	]);
+	])
 }

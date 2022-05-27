@@ -1,36 +1,61 @@
 {
-  "version" : "1.2",
-  "profiles" : [ {
-    "id" : "4056c53b-fe9e-47c6-8c52-de22586a9d96",
-    "name" : "Default",
-    "keyNamingPattern" : "SNAKE_CASE_PATTERN",
-    "sink" : {
-      "id" : "4fc959b9-5283-46e9-8f23-38f5ee5bec79",
-      "type" : "namespaced",
-      "translationsDirectory" : "$PROJECT_DIR$/locales",
-      "fileType" : "json",
-      "defaultLocale" : "en",
-      "namespaces" : [ "messages" ],
-      "outputFilenameTemplate" : "%locale%.json",
-      "nestingType" : "DISABLED",
-      "placeholderFormatterName" : "I18NEXT"
-    },
-    "sources" : [ {
-      "id" : "2502af75-8635-49ec-a063-82504eadd4bb",
-      "type" : "js",
-      "scopeName" : "Unnamed",
-      "scopePattern" : "file[knossos]:*/",
-      "defaultReplacementTemplate" : "$t('%key%', values: { %map% })",
-      "recognizedReplacementTemplates" : [ ],
-      "skipDefaultNamespace" : false
-    } ]
-  } ],
-  "ignores" : {
-    "valuesInProject" : [ "use strict", "hljs language-", "profile-picture ${\n\t\tcircle ? 'profile-picture--circle' : ''\n\t} profile-picture--size-${size} ${floatUp ? 'profile-picture--float-up' : ''}" ],
-    "valuesInFile" : { },
-    "filesInProject" : [ ],
-    "unignoredFunctionNames" : [ ],
-    "unignoredFunctionArguments" : { },
-    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "el", "query", "type", "sql", "layout", "component", "condition", "name", "selector", "id", "class", "key", "middleware" ]
-  }
+	"version": "1.2",
+	"profiles": [
+		{
+			"id": "4056c53b-fe9e-47c6-8c52-de22586a9d96",
+			"name": "Default",
+			"keyNamingPattern": "SNAKE_CASE_PATTERN",
+			"sink": {
+				"id": "4fc959b9-5283-46e9-8f23-38f5ee5bec79",
+				"type": "namespaced",
+				"translationsDirectory": "$PROJECT_DIR$/locales",
+				"fileType": "json",
+				"defaultLocale": "en",
+				"namespaces": ["messages"],
+				"outputFilenameTemplate": "%locale%.json",
+				"nestingType": "DISABLED",
+				"placeholderFormatterName": "I18NEXT"
+			},
+			"sources": [
+				{
+					"id": "2502af75-8635-49ec-a063-82504eadd4bb",
+					"type": "js",
+					"scopeName": "Unnamed",
+					"scopePattern": "file[knossos]:*/",
+					"defaultReplacementTemplate": "$t('%key%', values: { %map% })",
+					"recognizedReplacementTemplates": [],
+					"skipDefaultNamespace": false
+				}
+			]
+		}
+	],
+	"ignores": {
+		"valuesInProject": [
+			"use strict",
+			"hljs language-",
+			"profile-picture ${\n\t\tcircle ? 'profile-picture--circle' : ''\n\t} profile-picture--size-${size} ${floatUp ? 'profile-picture--float-up' : ''}"
+		],
+		"valuesInFile": {},
+		"filesInProject": [],
+		"unignoredFunctionNames": [],
+		"unignoredFunctionArguments": {},
+		"ignoredArrayKeys": [
+			"template",
+			"date",
+			"dateFormat",
+			"el",
+			"query",
+			"type",
+			"sql",
+			"layout",
+			"component",
+			"condition",
+			"name",
+			"selector",
+			"id",
+			"class",
+			"key",
+			"middleware"
+		]
+	}
 }

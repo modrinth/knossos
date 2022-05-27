@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Meta from '$components/utils/Meta.svelte';
+	import Meta from '$components/utils/Meta.svelte'
 </script>
 
 <Meta title="Privacy policy" description="See our privacy policy and how it relates to you." />
@@ -88,8 +88,7 @@
 	internet. However, visitors may choose to decline the use of DART cookies by visiting the Google
 	ad and content network Privacy Policy at the following URL –
 	<a href="https://policies.google.com/technologies/ads"
-		>https://policies.google.com/technologies/ads</a
-	>
+		>https://policies.google.com/technologies/ads</a>
 </p>
 
 <h2>Privacy Policies</h2>

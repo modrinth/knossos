@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Nav from '$components/elements/Nav.svelte';
+	import { NavRow } from 'omorphia'
 </script>
 
 <div class="single-layout">
 	<div class="card">
-		<Nav
+		<NavRow
 			links={[
 				{
 					label: 'Terms and conditions',
@@ -19,10 +19,9 @@
 					href: '/rules',
 				},
 			]}
-			level={1}
-		/>
+			level={1} />
 	</div>
-	<div class="card text">
+	<div class="card markdown">
 		<slot />
 	</div>
 </div>

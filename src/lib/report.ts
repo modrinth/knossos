@@ -1,6 +1,6 @@
-import { popups } from '$stores/app';
-import { get } from 'svelte/store';
-import { send } from '$lib/api';
+import { popups } from '$stores/app'
+import { get } from 'svelte/store'
+import { send } from '$lib/api'
 
 export function report(type: 'project' | 'user' | 'version', id: string): void {
 	popups.set([
@@ -18,10 +18,10 @@ export function report(type: 'project' | 'user' | 'version', id: string): void {
 						body,
 						item_id: id,
 						item_type: type,
-					});
+					})
 				},
 			},
 		},
 		...get(popups),
-	]);
+	])
 }

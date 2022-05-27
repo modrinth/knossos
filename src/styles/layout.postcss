@@ -20,29 +20,29 @@
 }
 
 .single-layout {
-  display: flex;
-  flex-direction: column;
-  grid-gap: 1rem;
-  max-width: 800px;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	grid-gap: 1rem;
+	max-width: 800px;
+	width: 100%;
 }
 
 .grid {
-  display: grid;
-  grid-gap: 1rem;
-  padding-right: 1rem;
+	display: grid;
+	grid-gap: 1rem;
+	padding-right: 1rem;
 
-  &--col-2-1 {
-    grid-template-columns: 66% 34%;
+	&--col-2-1 {
+		grid-template-columns: 66% 34%;
 
-    @media (width <= 930px) {
-      grid-template-columns: 1fr;
-    }
-  }
+		@media (width <= 930px) {
+			grid-template-columns: 1fr;
+		}
+	}
 
-  &__col {
-    display: flex;
-    flex-direction: column;
-    grid-gap: 1rem;
-  }
+	&__col {
+		display: flex;
+		flex-direction: column;
+		grid-gap: 1rem;
+	}
 }

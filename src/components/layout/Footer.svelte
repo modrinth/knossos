@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { t, locale, locales } from 'svelte-intl-precompile';
-	import { theme } from '$stores/server';
-	import LogoWordmark from '$assets/images/logo/wordmark.svg';
-	import Multiselect from '$components/elements/Multiselect.svelte';
-  import IconLanguages from 'virtual:icons/lucide/languages';
-  import IconMoon from 'virtual:icons/heroicons-outline/moon';
-  import IconSun from 'virtual:icons/heroicons-outline/sun';
+	import { t, locale, locales } from 'svelte-intl-precompile'
+	import { theme } from '$stores/server'
+	import LogoWordmark from '$assets/images/logo/wordmark.svg'
+	import { Select } from 'omorphia'
+	import IconLanguages from 'virtual:icons/lucide/languages'
+	import IconMoon from 'virtual:icons/heroicons-outline/moon'
+	import IconSun from 'virtual:icons/heroicons-outline/sun'
 </script>
 
 <footer class="footer">
@@ -32,7 +32,7 @@
 		<a href="https://docs.modrinth.com/">{$t('footer.resources.docs')}</a>
 	</div>
 	<div class="footer__buttons">
-		<Multiselect
+		<Select
 			label={$t('footer.buttons.theme.label')}
 			options={[
 				{
@@ -54,18 +54,17 @@
 			]}
 			color="raised"
 			bind:value={$theme}
-      icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon}
-		/>
-<!--		<Multiselect-->
-<!--			label={$t('footer.buttons.language.label')}-->
-<!--			options={$locales.map((locale) => ({-->
-<!--				label: $t(`footer.buttons.language.${locale}`),-->
-<!--				value: locale,-->
-<!--			}))}-->
-<!--			color="raised"-->
-<!--			bind:value={$locale}-->
-<!--      icon={IconLanguages}-->
-<!--		/>-->
+			icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon} />
+		<!--		<Select-->
+		<!--			label={$t('footer.buttons.language.label')}-->
+		<!--			options={$locales.map((locale) => ({-->
+		<!--				label: $t(`footer.buttons.language.${locale}`),-->
+		<!--				value: locale,-->
+		<!--			}))}-->
+		<!--			color="raised"-->
+		<!--			bind:value={$locale}-->
+		<!--      icon={IconLanguages}-->
+		<!--		/>-->
 	</div>
 </footer>
 
@@ -89,6 +88,7 @@
 		&__brand {
 			grid-area: brand;
 			flex: 1;
+			gap: 1rem;
 		}
 
 		&__list {
