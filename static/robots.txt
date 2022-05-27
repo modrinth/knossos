@@ -1,3 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
+Disallow: /
 User-agent: *
 Sitemap: https://modrinth.com/sitemap.xml
