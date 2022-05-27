@@ -1,43 +1,43 @@
 <script lang="ts">
-	export let label = '';
-	export let color = '';
+    export let label = "";
+    export let color = "";
 </script>
 
 <div class="badge badge--color-{color}">
-	{label}
+    {label}
 </div>
 
 <style lang="postcss">
-	.badge {
-		font-weight: var(--font-weight-bold);
-    display: inline;
-    position: relative;
-    padding-left: 0.9rem;
-    line-height: 1rem;
+    .badge {
+        font-weight: var(--font-weight-bold);
+        display: inline;
+        position: relative;
+        padding-left: 0.9rem;
+        line-height: 1rem;
 
-		&--color-green {
-			color: var(--color-badge-green-text);
-			--color-dot: var(--color-badge-green-dot);
-		}
-		&--color-yellow {
-			color: var(--color-badge-yellow-text);
-			--color-dot: var(--color-badge-yellow-dot);
-		}
-		&--color-red {
-			color: var(--color-badge-red-text);
-			--color-dot: var(--color-badge-red-dot);
-		}
+        &--color-green {
+            color: var(--color-badge-green-text);
+            --color-dot: var(--color-badge-green-dot);
+        }
+        &--color-yellow {
+            color: var(--color-badge-yellow-text);
+            --color-dot: var(--color-badge-yellow-dot);
+        }
+        &--color-red {
+            color: var(--color-badge-red-text);
+            --color-dot: var(--color-badge-red-dot);
+        }
 
-		&::before {
-			content: '';
-			display: inline-block;
-			width: 0.5rem;
-			height: 0.5rem;
-			border-radius: 50%;
-			background-color: var(--color-dot);
-      position: absolute;
-      left: 0;
-      bottom: 25%;
-		}
-	}
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--color-dot);
+            position: absolute;
+            left: 0;
+            bottom: 25%;
+        }
+    }
 </style>

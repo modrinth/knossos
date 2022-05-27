@@ -1,92 +1,94 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
+    import { onMount } from "svelte";
 
-  export let src: string | null;
-	export let size: 'xs' | 'sm' | 'md' | 'lg';
-	export let circle = false;
-	export let floatUp = false;
+    export let src: string | null;
+    export let size: "xs" | "sm" | "md" | "lg";
+    export let circle = false;
+    export let floatUp = false;
 
-	let classList = `profile-picture ${
-		circle ? 'profile-picture--circle' : ''
-	} profile-picture--size-${size} ${floatUp ? 'profile-picture--float-up' : ''}`;
+    let classList = `profile-picture ${
+        circle ? "profile-picture--circle" : ""
+    } profile-picture--size-${size} ${
+        floatUp ? "profile-picture--float-up" : ""
+    }`;
 
-  let img;
+    let img;
 
-  onMount(() => {
-    if (img) {
-      const isPixelated = () => {
-        if (img?.naturalWidth < 96 && img?.naturalWidth > 0) {
-          img.style = "image-rendering: pixelated;"
+    onMount(() => {
+        if (img) {
+            const isPixelated = () => {
+                if (img?.naturalWidth < 96 && img?.naturalWidth > 0) {
+                    img.style = "image-rendering: pixelated;";
+                }
+            };
+
+            if (img?.naturalWidth) {
+                isPixelated();
+            } else {
+                img.onload = isPixelated;
+            }
         }
-      }
-
-      if (img?.naturalWidth) {
-        isPixelated()
-      } else {
-        img.onload = isPixelated
-      }
-    }
-  })
+    });
 </script>
 
 {#if src}
-	<img {src} bind:this={img} class={classList} alt="" />
+    <img {src} bind:this={img} class={classList} alt="" />
 {:else}
-	<svg
-		class={classList}
-		xml:space="preserve"
-		fill-rule="evenodd"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		stroke-miterlimit="1.5"
-		clip-rule="evenodd"
-		viewBox="0 0 104 104"
-	>
-		<path fill="none" d="M0 0h103.4v103.4H0z" />
-		<path
-			fill="none"
-			stroke="#9a9a9a"
-			stroke-width="5"
-			d="M51.7 92.5V51.7L16.4 31.3l35.3 20.4L87 31.3 51.7 11 16.4 31.3v40.8l35.3 20.4L87 72V31.3L51.7 11"
-		/>
-	</svg>
+    <svg
+        class={classList}
+        xml:space="preserve"
+        fill-rule="evenodd"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-miterlimit="1.5"
+        clip-rule="evenodd"
+        viewBox="0 0 104 104"
+    >
+        <path fill="none" d="M0 0h103.4v103.4H0z" />
+        <path
+            fill="none"
+            stroke="#9a9a9a"
+            stroke-width="5"
+            d="M51.7 92.5V51.7L16.4 31.3l35.3 20.4L87 31.3 51.7 11 16.4 31.3v40.8l35.3 20.4L87 72V31.3L51.7 11"
+        />
+    </svg>
 {/if}
 
 <style lang="postcss">
-	.profile-picture {
-		border-radius: var(--rounded);
-		box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
-		height: var(--size);
-		width: var(--size);
-		background-color: var(--color-button-bg);
+    .profile-picture {
+        border-radius: var(--rounded);
+        box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
+        height: var(--size);
+        width: var(--size);
+        background-color: var(--color-button-bg);
 
-		&--size {
-      &-xs {
-        --size: 2.25rem;
-        box-shadow: var(--shadow-inset), var(--shadow-raised);
-        border-radius: var(--rounded-sm);
-      }
+        &--size {
+            &-xs {
+                --size: 2.25rem;
+                box-shadow: var(--shadow-inset), var(--shadow-raised);
+                border-radius: var(--rounded-sm);
+            }
 
-			&-sm {
-				--size: 3rem;
-        box-shadow: var(--shadow-inset), var(--shadow-raised);
-        border-radius: var(--rounded-sm);
-			}
-			&-md {
-				--size: 6rem;
-			}
-			&-lg {
-				--size: 9rem;
-        background-color: var(--color-brand-contrast);
-			}
-		}
+            &-sm {
+                --size: 3rem;
+                box-shadow: var(--shadow-inset), var(--shadow-raised);
+                border-radius: var(--rounded-sm);
+            }
+            &-md {
+                --size: 6rem;
+            }
+            &-lg {
+                --size: 9rem;
+                background-color: var(--color-brand-contrast);
+            }
+        }
 
-		&--float-up {
-			margin-top: calc(var(--size) * (-2 / 3));
-		}
+        &--float-up {
+            margin-top: calc(var(--size) * (-2 / 3));
+        }
 
-		&--circle {
-			border-radius: 50%;
-		}
-	}
+        &--circle {
+            border-radius: 50%;
+        }
+    }
 </style>

@@ -1,15 +1,16 @@
 /// <reference types="@sveltejs/kit" />
 /// <reference types="unplugin-icons/types/svelte" />
 
-declare module '$assets/images/*' {
-	export { SvelteComponentDev as default } from 'svelte/internal';
+declare module "$assets/images/*" {
+    export { SvelteComponentDev as default } from "svelte/internal";
 }
-declare module '$locales/*';
+declare module "$locales/*";
+declare module "$locales";
 
-declare module '*.svg' {
-	import { SvelteComponent } from 'svelte';
-	const content: SvelteComponent;
-	export default content;
+declare module "*.svg" {
+    import { SvelteComponent } from "svelte";
+    const content: SvelteComponent;
+    export default content;
 }
 
 /**
@@ -17,241 +18,254 @@ declare module '*.svg' {
  */
 
 interface GalleryItemType {
-	url: string;
-	featured: boolean;
-	title: string;
-	description: string;
+    url: string;
+    featured: boolean;
+    title: string;
+    description: string;
 }
 
 interface BaseProject {
-	/** The slug of a project, used for vanity URLs */
-	slug: string;
-	/** The title or name of the project */
-	title: string;
-	/** A short description of the project */
-	description: string;
-	/** A list of the categories that the project is in */
-	categories: string[];
-	/** The client side support of the project */
-	client_side: 'required' | 'optional' | 'unsupported';
-	/** The server side support of the project */
-	server_side: 'required' | 'optional' | 'unsupported';
+    /** The slug of a project, used for vanity URLs */
+    slug: string;
+    /** The title or name of the project */
+    title: string;
+    /** A short description of the project */
+    description: string;
+    /** A list of the categories that the project is in */
+    categories: string[];
+    /** The client side support of the project */
+    client_side: "required" | "optional" | "unsupported";
+    /** The server side support of the project */
+    server_side: "required" | "optional" | "unsupported";
 
-	gallery: GalleryItemType[];
+    gallery: GalleryItemType[];
 }
 
 interface ServerRenderedProject extends BaseProject {
-	/** The project type of the project */
-	project_type: 'mod' | 'modpack';
-	/** The total number of downloads of the project */
-	downloads: number;
-	/** The total number of users following the project */
-	followers: number;
-	/** The URL of the project's icon */
-	icon_url: string;
+    /** The project type of the project */
+    project_type: "mod" | "modpack";
+    /** The total number of downloads of the project */
+    downloads: number;
+    /** The total number of users following the project */
+    followers: number;
+    follows?: number;
+    /** The URL of the project's icon */
+    icon_url: string;
 
-	gallery: Array<{
-		url: string;
-		featured: boolean;
-		title: string;
-		description: string;
-		created: string;
-	}>;
+    gallery: Array<{
+        url: string;
+        featured: boolean;
+        title: string;
+        description: string;
+        created: string;
+    }>;
 }
 
 interface ProjectResult extends ServerRenderedProject {
-	/** The ID of the project */
-	project_id: string;
-	/** The username of the project's author */
-	author: string;
-	/** A list of the minecraft versions supported by the project */
-	versions: string[];
-	/** The date the project was created */
-	date_created: string;
-	/** The date the project was last modified */
-	date_modified: string;
-	/** The latest version of minecraft that this project supports */
-	latest_version: string;
-	/** The license of the project */
-	license: string;
+    /** The ID of the project */
+    project_id: string;
+    /** The username of the project's author */
+    author: string;
+    /** A list of the minecraft versions supported by the project */
+    versions: string[];
+    /** The date the project was created */
+    date_created: string;
+    /** The date the project was last modified */
+    date_modified: string;
+    /** The latest version of minecraft that this project supports */
+    latest_version: string;
+    /** The license of the project */
+    license: string;
 }
 
 interface EditableProject extends BaseProject {
-	/** A long form description of the mod */
-	body: string;
-	/** @deprecated The link to the long description of the project */
-	body_url: string;
-	/** The status of the project */
-	status: 'approved' | 'rejected' | 'draft' | 'unlisted' | 'processing' | 'unknown';
-	/** The license of the project */
-	license: {
-		/** The license id of a project, retrieved from the licenses get route */
-		id: string;
-		/** The long name of a license */
-		name: string;
-		/** The URL to this license */
-		url: string;
-	};
-	/** An optional link to where to submit bugs or issues with the project */
-	issues_url: string;
-	/** An optional link to the source code of the project */
-	source_url: string;
-	/** An optional link to the project's wiki page or other relevant information */
-	wiki_url: string;
-	/** An optional invite link to the project's discord */
-	discord_url: string;
-	/** A list of donation links for the project */
-	donation_urls: {
-		/** The ID of the donation platform */
-		id: 'patreon' | 'bmac' | 'paypal' | 'github' | 'ko-fi' | 'other';
-		/** The donation platform this link is to */
-		platform: 'Patreon' | 'By Me a Coffee' | 'PayPal' | 'GitHub Sponsors' | 'Ko-Fi' | 'Other';
-		/** The URL of the donation platform and user */
-		url: string;
-	}[];
+    /** A long form description of the mod */
+    body: string;
+    /** @deprecated The link to the long description of the project */
+    body_url: string;
+    /** The status of the project */
+    status:
+        | "approved"
+        | "rejected"
+        | "draft"
+        | "unlisted"
+        | "processing"
+        | "unknown";
+    /** The license of the project */
+    license: {
+        /** The license id of a project, retrieved from the licenses get route */
+        id: string;
+        /** The long name of a license */
+        name: string;
+        /** The URL to this license */
+        url: string;
+    };
+    /** An optional link to where to submit bugs or issues with the project */
+    issues_url: string;
+    /** An optional link to the source code of the project */
+    source_url: string;
+    /** An optional link to the project's wiki page or other relevant information */
+    wiki_url: string;
+    /** An optional invite link to the project's discord */
+    discord_url: string;
+    /** A list of donation links for the project */
+    donation_urls: {
+        /** The ID of the donation platform */
+        id: "patreon" | "bmac" | "paypal" | "github" | "ko-fi" | "other";
+        /** The donation platform this link is to */
+        platform:
+            | "Patreon"
+            | "By Me a Coffee"
+            | "PayPal"
+            | "GitHub Sponsors"
+            | "Ko-Fi"
+            | "Other";
+        /** The URL of the donation platform and user */
+        url: string;
+    }[];
 }
 
 interface CreatableProject extends EditableProject {
-	project_type: 'mod' | 'modpack';
-	/** A list of initial versions to upload with the created project */
-	initial_versions: EditableVersion[];
-	/** Whether the project should be saved as a draft instead of being sent to moderation for review */
-	is_draft: boolean;
-	/** The icon of the project. Supported types: `.png`, `.jpeg`, `.bmp`, `.gif`, `.webp`, `.svg(z)`, .rgb */
-	icon: string;
+    project_type: "mod" | "modpack";
+    /** A list of initial versions to upload with the created project */
+    initial_versions: EditableVersion[];
+    /** Whether the project should be saved as a draft instead of being sent to moderation for review */
+    is_draft: boolean;
+    /** The icon of the project. Supported types: `.png`, `.jpeg`, `.bmp`, `.gif`, `.webp`, `.svg(z)`, .rgb */
+    icon: string;
 }
 
 interface Project extends EditableProject, ServerRenderedProject {
-	/** The ID of the project, encoded as a base62 string */
-	id: string;
-	/** The ID of the team that has ownership of this project */
-	team: string;
-	/** A message that a moderator sent regarding the project */
-	moderator_message: string;
-	/** The date the project was published */
-	published: string;
-	/** The date the project was last updated */
-	updated: string;
-	/** A list of the version IDs of the project */
-	versions: string[];
+    /** The ID of the project, encoded as a base62 string */
+    id: string;
+    /** The ID of the team that has ownership of this project */
+    team: string;
+    /** A message that a moderator sent regarding the project */
+    moderator_message: string;
+    /** The date the project was published */
+    published: string;
+    /** The date the project was last updated */
+    updated: string;
+    /** A list of the version IDs of the project */
+    versions: string[];
 
-	gallery: Array<{
-		url: string;
-		featured: boolean;
-		title: string;
-		description: string;
-		created: string;
-	}>;
+    gallery: Array<{
+        url: string;
+        featured: boolean;
+        title: string;
+        description: string;
+        created: string;
+    }>;
 }
 
 interface BaseVersion {
-	/** The name of this version */
-	name: string;
-	/** The version number. Ideally will follow semantic versioning */
-	version_number: string;
-	/** The changelog for this version */
-	changelog: string;
-	/** @deprecated A link to the changelog for this version */
-	changelog_url: string;
-	/** A list of specific versions of projects that this version depends on */
-	dependencies: string[];
-	/** A list of versions of Minecraft that this version supports */
-	game_versions: string[];
-	/** The release channel for this version */
-	version_type: 'release' | 'beta' | 'alpha';
-	/** The mod loaders that this version supports */
-	loaders: string[];
-	/** Whether the version is featured or not */
-	featured: boolean;
+    /** The name of this version */
+    name: string;
+    /** The version number. Ideally will follow semantic versioning */
+    version_number: string;
+    /** The changelog for this version */
+    changelog: string;
+    /** @deprecated A link to the changelog for this version */
+    changelog_url: string;
+    /** A list of specific versions of projects that this version depends on */
+    dependencies: string[];
+    /** A list of versions of Minecraft that this version supports */
+    game_versions: string[];
+    /** The release channel for this version */
+    version_type: "release" | "beta" | "alpha";
+    /** The mod loaders that this version supports */
+    loaders: string[];
+    /** Whether the version is featured or not */
+    featured: boolean;
 }
 interface EditableVersion extends BaseVersion {
-	/** An array of the multipart field names of each file that goes with this version */
-	file_parts: string[];
+    /** An array of the multipart field names of each file that goes with this version */
+    file_parts: string[];
 }
 interface CreatableVersion {
-	data: BaseVersion & {
-		file_parts: string[];
-	};
+    data: BaseVersion & {
+        file_parts: string[];
+    };
 }
 interface Version extends BaseVersion {
-	/** The ID of the version, encoded as a base62 string */
-	id: string;
-	/** The ID of the project this version is for */
-	project_id: string;
-	/** The ID of the author who published this version */
-	author_id: string;
-	date_published: string;
-	/** The number of times this version has been downloaded */
-	downloads: number;
-	/** A list of files available for download for this version */
-	files: {
-		/** A map of hashes of the file. The key is the hashing algorithm and the value is the string version of the hash. */
-		hashes: {
-			sha512: string;
-			sha1: string;
-		};
-		/** A direct link to the file */
-		url: string;
-		/** The name of the file */
-		filename: string;
-		primary: boolean;
-	}[];
+    /** The ID of the version, encoded as a base62 string */
+    id: string;
+    /** The ID of the project this version is for */
+    project_id: string;
+    /** The ID of the author who published this version */
+    author_id: string;
+    date_published: string;
+    /** The number of times this version has been downloaded */
+    downloads: number;
+    /** A list of files available for download for this version */
+    files: {
+        /** A map of hashes of the file. The key is the hashing algorithm and the value is the string version of the hash. */
+        hashes: {
+            sha512: string;
+            sha1: string;
+        };
+        /** A direct link to the file */
+        url: string;
+        /** The name of the file */
+        filename: string;
+        primary: boolean;
+    }[];
 }
 
 interface EditableUser {
-	/** The user's username */
-	username: string;
-	/** The user's display name */
-	name: string;
-	/** The user's email */
-	email: string;
-	/** A description of the user */
-	bio: string;
+    /** The user's username */
+    username: string;
+    /** The user's display name */
+    name: string;
+    /** The user's email */
+    email: string;
+    /** A description of the user */
+    bio: string;
 }
 
 interface User extends EditableUser {
-	/** The user's id */
-	id: string;
-	/** The user's GitHub id */
-	github_id: number;
-	/** The user's avatar url */
-	avatar_url: string;
-	/** The time at which the user was created */
-	created: string;
-	/** The user's role */
-	role: 'admin' | 'moderator' | 'developer';
+    /** The user's id */
+    id: string;
+    /** The user's GitHub id */
+    github_id: number;
+    /** The user's avatar url */
+    avatar_url: string;
+    /** The time at which the user was created */
+    created: string;
+    /** The user's role */
+    role: "admin" | "moderator" | "developer";
 }
 
 interface Notification {
-	/** The id of the notification */
-	id: string;
-	/** The id of the user who received the notification */
-	user_id: string;
-	/** The type of notification */
-	type: string;
-	/** The title of the notification */
-	title: string;
-	/** The body text of the notification */
-	text: string;
-	/** A link to the related project or version */
-	link: string;
-	/** Whether the notification has been read or not */
-	read: boolean;
-	/** The time at which the notification was created */
-	created: string;
-	/** A list of actions that can be performed */
-	actions: { [key: string]: unknown }[];
+    /** The id of the notification */
+    id: string;
+    /** The id of the user who received the notification */
+    user_id: string;
+    /** The type of notification */
+    type: string;
+    /** The title of the notification */
+    title: string;
+    /** The body text of the notification */
+    text: string;
+    /** A link to the related project or version */
+    link: string;
+    /** Whether the notification has been read or not */
+    read: boolean;
+    /** The time at which the notification was created */
+    created: string;
+    /** A list of actions that can be performed */
+    actions: { [key: string]: unknown }[];
 }
 
 interface Team {
-	/** The team's ID */
-	team_id: string;
-	/** The user's ID */
-	user_id: string;
-	/** The user's role on the team */
-	role: string;
-	/** The user's permissions in bitflag format (requires authorization) */
-	permissions: number;
-	/** Whether the user has accepted to be on the team (requires authorization) */
-	accepted: boolean;
+    /** The team's ID */
+    team_id: string;
+    /** The user's ID */
+    user_id: string;
+    /** The user's role on the team */
+    role: string;
+    /** The user's permissions in bitflag format (requires authorization) */
+    permissions: number;
+    /** Whether the user has accepted to be on the team (requires authorization) */
+    accepted: boolean;
 }

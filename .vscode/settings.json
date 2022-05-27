@@ -1,11 +1,11 @@
 {
-	"prettier.endOfLine": "lf",
-	"editor.formatOnSave": true,
-	"discord.enabled": false,
-	"cSpell.words": ["unplugin"],
-	"code-runner.runInTerminal": true,
-	"code-runner.executorMapByGlob": {
-		"*": "cd $workspaceRoot && pnpm dev"
-	},
-	"nuxt.isNuxtApp": false
+    "prettier.endOfLine": "lf",
+    "editor.formatOnSave": true,
+    "discord.enabled": false,
+    "cSpell.words": ["unplugin"],
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMapByGlob": {
+        "*": "cd $workspaceRoot && pnpm dev"
+    },
+    "nuxt.isNuxtApp": false
 }

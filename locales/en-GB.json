@@ -1,8 +1,8 @@
 {
-	"footer": {
-		"description": "Bloody Modrinth is open source software."
-	},
-	"error": {
-		"status": "Woopise {status}"
-	}
+    "footer": {
+        "description": "Bloody Modrinth is open source software."
+    },
+    "error": {
+        "status": "Woopise {status}"
+    }
 }
