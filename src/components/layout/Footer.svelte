@@ -55,16 +55,16 @@
 			color="raised"
 			bind:value={$theme}
 			icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon} />
-		<!--		<Select-->
-		<!--			label={$t('footer.buttons.language.label')}-->
-		<!--			options={$locales.map((locale) => ({-->
-		<!--				label: $t(`footer.buttons.language.${locale}`),-->
-		<!--				value: locale,-->
-		<!--			}))}-->
-		<!--			color="raised"-->
-		<!--			bind:value={$locale}-->
-		<!--      icon={IconLanguages}-->
-		<!--		/>-->
+				<Select
+					label={$t('footer.buttons.language.label')}
+					options={$locales.map((locale) => ({
+						label: $t(`footer.buttons.language.${locale}`),
+						value: locale,
+					}))}
+					color="raised"
+					bind:value={$locale}
+		      icon={IconLanguages}
+				/>
 	</div>
 </footer>
 
