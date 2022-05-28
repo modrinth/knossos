@@ -48,6 +48,7 @@ const config = {
                     $stores: path.resolve("./src/stores"),
                     $styles: path.resolve("./src/styles"),
                     $generated: path.resolve("./src/generated"),
+                    $package: path.resolve("./node_modules/omorphia"),
                 },
             },
             server: {

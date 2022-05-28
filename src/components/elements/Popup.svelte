@@ -1,6 +1,5 @@
 <script lang="ts">
     import { navigating } from "$app/stores";
-    import Button from "$components/elements/Button.svelte";
     import Chips from "$components/elements/Chips.svelte";
     import ImageUpload from "$components/elements/ImageUpload.svelte";
     import Input from "$components/elements/Input.svelte";
@@ -9,6 +8,7 @@
     import { markdown } from "$lib/parse";
     import { popups } from "$stores/app";
     import FileDropzone from "./FileDropzone.svelte";
+    import { Button } from "omorphia";
     import { clickOutside } from "svelte-use-click-outside";
     import { fade } from "svelte/transition";
     import IconArrowRight from "virtual:icons/heroicons-outline/arrow-right";
@@ -68,13 +68,9 @@
         >
             <h1 class="popup__card__top">
                 <h2 class="title-secondary">{popup.title}</h2>
-                <Button
-                    title="Close"
-                    icon={IconX}
-                    color="transparent"
-                    iconSize={20}
-                    on:click={close}
-                />
+                <Button color="transparent" on:click={close}
+                    ><IconX width={20} /></Button
+                >
             </h1>
             {#if popup?.type?.deletion}
                 <div class="popup__card__warning">
@@ -233,10 +229,11 @@
             {/if}
             <div class="popup__card__buttons">
                 {#if popup?.type?.deletion}
-                    <Button label="Cancel" on:click={close} />
+                    <Button color="primary-light" on:click={close}
+                        >Cancel</Button
+                    >
                 {/if}
                 <Button
-                    label={popup?.button?.label || "Continue"}
                     on:click={async () => {
                         await popup.button?.click({
                             body,
@@ -252,19 +249,19 @@
                             releaseChannel,
                             modLoader,
                         });
-                        // close();
+                        close();
                     }}
-                    color={popup?.type?.deletion ? "red" : "brand"}
-                    icon={popup?.type?.deletion || popup?.type?.report
-                        ? null
-                        : IconArrowRight}
+                    color={popup?.type?.deletion ? "danger" : "primary"}
                     disabled={(popup?.type?.deletion &&
                         popup.type.deletion.key !== deletionKey) ||
                         (popup?.type?.report && !report_type) ||
                         (popup?.type?.creation === "project" &&
                             (!project_type || !name || !body)) ||
                         (popup?.type?.creation === "galleryItem" && !file)}
-                />
+                    >{#if !popup?.type?.deletion && !popup?.type?.report}
+                        <IconArrowRight />
+                    {/if}{popup?.button?.label || "Continue"}</Button
+                >
             </div>
         </div>
     </div>

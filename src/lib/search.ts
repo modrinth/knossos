@@ -2,7 +2,8 @@ import { send } from "$lib/api";
 
 export async function search(
     params: Record<string, string | string[]>,
-    projectType: string
+    projectType: string,
+    overrides: { fetch?: any } = {}
 ): Promise<unknown> {
     let facets = [[`project_type:${projectType}`]];
 
@@ -68,6 +69,8 @@ export async function search(
         `search?${new URLSearchParams({
             ...(searchParams as Record<string, string>),
             facets: JSON.stringify(facets),
-        })}`
+        })}`,
+        null,
+        overrides
     );
 }

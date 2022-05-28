@@ -89,7 +89,7 @@ export default function ({
 
             builder.copy(`${files}/worker.js`, `${tmp}/_worker.js`, {
                 replace: {
-                    APP: `${relativePath}/index.js`,
+                    SERVER: `${relativePath}/index.js`,
                     MANIFEST: "./manifest.js",
                 },
             });

@@ -1,16 +1,12 @@
 /// <reference types="@sveltejs/kit" />
 /// <reference types="unplugin-icons/types/svelte" />
 
-declare module "$assets/images/*" {
-    export { SvelteComponentDev as default } from "svelte/internal";
-}
+declare module "$assets/images/*";
 declare module "$locales/*";
 declare module "$locales";
 
-declare module "*.svg" {
-    import { SvelteComponent } from "svelte";
-    const content: SvelteComponent;
-    export default content;
+declare module "$assets/images/*.svg" {
+    export { SvelteComponentDev as default } from "svelte/internal";
 }
 
 /**

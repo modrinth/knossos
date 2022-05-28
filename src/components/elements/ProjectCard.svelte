@@ -1,10 +1,10 @@
 <script lang="ts">
     // noinspection ES6UnusedImports
     import { tagIcons } from "$generated/tags.json";
-    import { ago } from "$lib/ago";
     import { simplify } from "$lib/number";
     import Button from "./Button.svelte";
-    import ProfilePicture from "./ProfilePicture.svelte";
+    import { Avatar } from "omorphia";
+    import { ago } from "omorphia/utils/ago";
     import { onMount } from "svelte";
     import { t } from "svelte-intl-precompile";
     import IconDownload from "virtual:icons/heroicons-outline/download";
@@ -51,7 +51,7 @@
 <div class="card project-card">
     <div class="project-card__main">
         <a {href} tabindex="-1">
-            <ProfilePicture src={project.icon_url} size="md" />
+            <Avatar src={project.icon_url} size="md" />
         </a>
 
         <div class="project-card__main__info">

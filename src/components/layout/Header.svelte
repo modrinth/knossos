@@ -1,12 +1,11 @@
 <script lang="ts">
     import { browser } from "$app/env";
-    import Button from "$components/elements/Button.svelte";
     import LogoLoader from "$components/elements/LogoLoader.svelte";
-    import Nav from "$components/elements/Nav.svelte";
     import ThemePicker from "$components/elements/ThemePicker.svelte";
     import { projectTypes } from "$generated/tags.json";
     import { notifications } from "$stores/self";
     import { user } from "$stores/server";
+    import { Button, NavRow } from "omorphia";
     import { t } from "svelte-intl-precompile";
     import IconBell from "virtual:icons/fa-regular/bell";
     import IconChevronDown from "virtual:icons/lucide/chevron-down";
@@ -39,7 +38,7 @@
     <a href="/" aria-label="Modrinth Home">
         <LogoLoader height={"24px"} />
     </a>
-    <Nav level={0} links={navItems} />
+    <NavRow level={0} links={navItems} />
 
     <div class="header__actions">
         <ThemePicker />
@@ -47,10 +46,8 @@
             <Button
                 href="/notifications"
                 color="transparent"
-                title="Notifications"
-                icon={IconBell}
-                badge={$notifications.length > 0}
-            />
+                badge={$notifications.length > 0}><IconBell /></Button
+            >
             <div class="avatar" class:hide-dropdown={hideDropdown} tabindex="0">
                 <div
                     class="avatar__toggle"
@@ -127,10 +124,8 @@
                           window.location.href
                       }`
                     : ""}
-                color="brand"
-                label="Sign in with GitHub"
-                icon={IconGithub}
-            />
+                color="primary"><IconGithub /> Sign in with GitHub</Button
+            >
         {/if}
     </div>
 </header>

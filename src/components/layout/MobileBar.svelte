@@ -2,9 +2,9 @@
     import { browser } from "$app/env";
     import { page } from "$app/stores";
     import LogoIcon from "$assets/images/logo/icon.svg";
-    import Nav from "$components/elements/Nav.svelte";
     import { projectTypes } from "$generated/tags.json";
     import { user } from "$stores/server";
+    import { NavRow } from "omorphia";
     import { t } from "svelte-intl-precompile";
     import { clickOutside } from "svelte-use-click-outside";
     import IconX from "virtual:icons/heroicons-outline/x";
@@ -37,7 +37,7 @@
         >
             <LogoIcon />
         </a>
-        <Nav level={0} links={navItems} resetScroll />
+        <NavRow level={0} links={navItems} resetScroll />
         {#if showMenu}
             <button
                 class="mobile-bar__nav__item"

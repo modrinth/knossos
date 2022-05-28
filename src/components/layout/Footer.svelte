@@ -1,7 +1,7 @@
 <script lang="ts">
     import LogoWordmark from "$assets/images/logo/wordmark.svg";
-    import Multiselect from "$components/elements/Multiselect.svelte";
     import ThemePicker from "$components/elements/ThemePicker.svelte";
+    import { Select } from "omorphia";
     import { t, locale, locales } from "svelte-intl-precompile";
     import IconLanguages from "virtual:icons/lucide/languages";
 </script>
@@ -34,7 +34,7 @@
     </div>
     <div class="footer__buttons">
         <ThemePicker />
-        <Multiselect
+        <Select
             label={$t("footer.buttons.language.label")}
             options={$locales.map((locale) => ({
                 label: $t(`footer.buttons.language.${locale}`),

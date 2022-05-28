@@ -1,14 +1,19 @@
 {
     "prettier.endOfLine": "lf",
     "editor.formatOnSave": true,
-    "discord.enabled": false,
     "cSpell.words": ["unplugin"],
-    "code-runner.runInTerminal": true,
-    "code-runner.executorMapByGlob": {
-        "*": "cd $workspaceRoot && pnpm dev"
-    },
     "nuxt.isNuxtApp": false,
     "yaml.schemas": {
         "https://json.schemastore.org/github-workflow.json": "file:///workspace/modrinth-dev/.github/workflows/build.yml"
-    }
+    },
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.currentLine.pullRequests.enabled": false,
+    "gitlens.currentLine.scrollable": true,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.hovers.enabled": false,
+    "svelte.enable-ts-plugin": true,
+    "svelte.ask-to-enable-ts-plugin": false
 }

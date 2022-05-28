@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "$components/elements/Button.svelte";
     import FileDropzone from "$components/elements/FileDropzone.svelte";
+    import { Button } from "omorphia";
     import { onMount } from "svelte";
     import IconTrash from "virtual:icons/heroicons-outline/trash";
 
@@ -32,13 +32,12 @@
             class="image-upload__preview"
         />
         <Button
-            label="Replace image"
+            color="danger"
             on:click={() => {
                 files = [];
                 file = undefined;
-            }}
-            icon={IconTrash}
-        />
+            }}><IconTrash /> Replace image</Button
+        >
     {/if}
 </div>
 

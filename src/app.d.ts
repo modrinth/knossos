@@ -11,6 +11,10 @@ declare namespace App {
         env: {
             API_CACHE: DurableObjectNamespace;
         };
+        context: {
+            waitUntil: (promise: Promise<void>) => void;
+        };
+        caches: CacheStorage & { default: Cache };
     }
 
     // interface Session {}

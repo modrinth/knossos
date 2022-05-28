@@ -1,106 +1,72 @@
-import { Server } from "APP";
 import { manifest, prerendered } from "MANIFEST";
+import { Server } from "SERVER";
+import * as Cache from "worktop/cfw.cache";
 
-const app = new Server(manifest);
+const server = new Server(manifest);
 
 const prefix = `/${manifest.appDir}/`;
 
-const parseCookie = (str) =>
-    str !== null
-        ? str
-              .split(";")
-              .map((v) => v.split("="))
-              .reduce((acc, v) => {
-                  acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(
-                      v[1].trim()
-                  );
-                  return acc;
-              }, {})
-        : {};
-
-// Time to cache in seconds
-const DEFAULT_TTL = 60;
-const LONG_TTL_PAGES = ["/sitemap.xml", "/", "/api/random.json"];
-
-export default {
+/** @type {import('worktop/cfw').Module.Worker<{ ASSETS: import('worktop/cfw.durable').Durable.Object }>} */
+const worker = {
     async fetch(req, env, context) {
-        const url = new URL(req.url);
+        // skip cache if "cache-control: no-cache" in request
+        let pragma = req.headers.get("cache-control") || "";
+        let res = !pragma.includes("no-cache") && (await Cache.lookup(req));
+        if (res) return res;
+
+        let { pathname } = new URL(req.url);
 
         // static assets
-        if (url.pathname.startsWith(prefix)) {
-            /** @type {Response} */
-            const res = await env.ASSETS.fetch(req);
+        if (pathname.startsWith(prefix)) {
+            res = await env.ASSETS.fetch(req);
 
-            return new Response(res.body, {
+            const cache_control = pathname.startsWith(prefix + "immutable/")
+                ? "public, immutable, max-age=31536000"
+                : "no-cache";
+
+            res = new Response(res.body, {
                 headers: {
-                    // include original cache headers, minus cache-control which
+                    // include original headers, minus cache-control which
                     // is overridden, and etag which is no longer useful
-                    "cache-control": "public, immutable, max-age=31536000",
+                    "cache-control": cache_control,
                     "content-type": res.headers.get("content-type"),
                     "x-robots-tag": "noindex",
                 },
             });
-        }
+        } else {
+            // prerendered pages and index.html files
+            pathname = pathname.replace(/\/$/, "") || "/";
 
-        // prerendered pages and index.html files
-        const pathname = url.pathname.replace(/\/$/, "");
-        let file = pathname.substring(1);
+            let file = pathname.substring(1);
 
-        try {
-            file = decodeURIComponent(file);
-        } catch (err) {
-            // ignore
-        }
-
-        if (
-            manifest.assets.has(file) ||
-            manifest.assets.has(file + "/index.html") ||
-            prerendered.has(pathname || "/")
-        ) {
-            return env.ASSETS.fetch(req);
-        }
-
-        // dynamically-generated pages
-        try {
-            const cookies = parseCookie(req.headers.get("Cookie"));
-            if (
-                !cookies["modrinth-token"] &&
-                !url.searchParams.has("code") &&
-                req.method === "GET"
-            ) {
-                // Request valid for caching
-                const cacheKey =
-                    req.url +
-                    (cookies["modrinth-theme"]
-                        ? "&theme=" + cookies["modrinth-theme"]
-                        : "");
-                //+ (req.headers.has('Accept-Language') ? '&lang=' + req.headers.get('Accept-Language') : '')
-                const cache = caches.default;
-
-                let response = await cache.match(cacheKey);
-                console.log("response", response);
-                if (!response) {
-                    // Not present in cache, rendering & caching
-                    response = await app.render(req, { platform: { env } });
-                    response.headers.append(
-                        "Cache-Control",
-                        `s-maxage=${
-                            LONG_TTL_PAGES.includes(url.pathname)
-                                ? 43200 /* 12 hours */
-                                : DEFAULT_TTL
-                        }`
-                    );
-                    context.waitUntil(cache.put(cacheKey, response.clone()));
-                }
-                return response;
-            } else {
-                return await app.render(req, { platform: { env } });
+            try {
+                file = decodeURIComponent(file);
+            } catch (err) {
+                // ignore
             }
-        } catch (e) {
-            return new Response(
-                "Error rendering route: " + (e.message || e.toString()),
-                { status: 500 }
-            );
+
+            if (
+                manifest.assets.has(file) ||
+                manifest.assets.has(file + "/index.html") ||
+                prerendered.has(pathname)
+            ) {
+                res = await env.ASSETS.fetch(req);
+            } else {
+                console.log({ caches });
+                // dynamically-generated pages
+                res = await server.respond(req, {
+                    platform: { env, context, caches },
+                    getClientAddress() {
+                        return req.headers.get("cf-connecting-ip");
+                    },
+                });
+            }
         }
+
+        // Writes to Cache only if allowed & specified
+        pragma = res.headers.get("cache-control");
+        return pragma ? Cache.save(req, res, context) : res;
     },
 };
+
+export default worker;

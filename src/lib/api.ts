@@ -19,7 +19,11 @@ export function send(
         try {
             fetching.set(get(fetching) + 1);
 
-            const options: RequestInit = {
+            const options: {
+                method: string;
+                headers: Record<string, string>;
+                body?: string;
+            } = {
                 method: method,
                 headers: {},
             };
@@ -190,18 +194,16 @@ export function sendAxiosMulti(
             }
 
             try {
-                response = await axios.default(
-                    {
-                        ...options,
-                        url: baseUrl + (baseUrl.endsWith("/") ? "" : "/") + route,
-                        method: method,
-                        data: fData,
-                        headers: {
-                            ...options.headers,
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
+                response = await axios.default({
+                    ...options,
+                    url: baseUrl + (baseUrl.endsWith("/") ? "" : "/") + route,
+                    method: method,
+                    data: fData,
+                    headers: {
+                        ...options.headers,
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
             } catch (e) {
                 fetching.set(get(fetching) - 1);
                 return reject(e);

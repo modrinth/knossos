@@ -2,12 +2,13 @@
     import { onMount } from "svelte";
 
     export let placement = "";
-
-    let failed = false;
-
+    let state: "waiting" | "blocked" | "ready" = "waiting";
     onMount(() => {
         if ((window as any).ethicalads) {
-            (window as any).ethicalads.load();
+            state = "ready";
+            setTimeout(() => {
+                (window as any).ethicalads.load();
+            }, 20);
         } else {
             console.log(
                 "%c" + "You are using an adblocker.",
@@ -22,17 +23,31 @@
                 "%c" + "https://github.com/modrinth/",
                 "font-family: Inter; font-size: 16px; line-height: 20px; text-decoration: underline; color: hsl(210deg,50%,50%); font-style: normal;"
             );
-            failed = true;
+            state = "blocked";
         }
     });
 </script>
 
-{#if !failed}
+{#if state === "waiting"}
+    <div class="ad">
+        <div class="ea-content" />
+    </div>
+{:else if state === "blocked"}
+    <div class="ad">
+        <div class="ea-placement ea-type-text">
+            <div class="ea-content">
+                <div class="ea-text">
+                    A privacy respecting ad would have been shown here.
+                </div>
+            </div>
+        </div>
+    </div>
+{:else if state === "ready"}
     <div
         data-ea-publisher="modrinth-com"
         data-ea-type="text"
         class="ad"
-        id={placement ? `ea-${placement}` : ""}
+        id={placement ? `ea-${placement}` : "ea-unknown"}
     >
         <div class="ea-content" />
     </div>
