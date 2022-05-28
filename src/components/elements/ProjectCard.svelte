@@ -46,6 +46,17 @@
             packMods.filter((v) => v.slug === project.slug).length > 0;
         localStorage.setItem("pack_mods", JSON.stringify(packMods));
     };
+
+    // TODO: Add the latest version's download URL into Labyrinth's search page.
+    const download = () => {
+        // @ts-ignore
+        if (!project.download) {
+            alert("Modrinth hasn't implemented this feature yet!");
+        } else {
+            // @ts-ignore
+            window.open(project.download);
+        }
+    };
 </script>
 
 <div class="card project-card">
@@ -113,7 +124,7 @@
                         label="Download"
                         evenPadding
                         icon={IconDownload}
-                        on:click={addMod}
+                        on:click={download}
                     />
                 {/if}
                 &nbsp;&nbsp;
