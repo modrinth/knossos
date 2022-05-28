@@ -65,7 +65,7 @@ specifiers:
   unplugin-icons: ^0.12.23
   util: ^0.12.4
   vite: ^2.9.9
-  worktop: ^0.7.3
+  worktop: 0.8.0-next.14
   wrangler: ^0.0.16
   zlib: ^1.0.5
 
@@ -137,7 +137,7 @@ devDependencies:
   typescript: 4.8.0-dev.20220527
   unplugin-icons: 0.12.23_vite@2.9.9
   vite: 2.9.9
-  worktop: 0.7.3
+  worktop: 0.8.0-next.14
   wrangler: 0.0.16
 
 packages:
@@ -7179,13 +7179,6 @@ packages:
   /word-wrap/1.2.3:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
     engines: {node: '>=0.10.0'}
-    dev: true
-
-  /worktop/0.7.3:
-    resolution: {integrity: sha512-WBHP1hk8pLP7ahAw13fugDWcO0SUAOiCD6DHT/bfLWoCIA/PL9u7GKdudT2nGZ8EGR1APbGCAI6ZzKG1+X+PnQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      regexparam: 2.0.0
     dev: true
 
   /worktop/0.8.0-next.14:

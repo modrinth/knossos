@@ -112,6 +112,7 @@
                         color="brand"
                         label="Download"
                         evenPadding
+                        icon={IconDownload}
                         on:click={addMod}
                     />
                 {/if}

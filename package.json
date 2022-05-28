@@ -72,7 +72,7 @@
         "typescript": "4.8.0-dev.20220527",
         "unplugin-icons": "^0.12.23",
         "vite": "^2.9.9",
-        "worktop": "^0.7.3",
+        "worktop": "0.8.0-next.14",
         "wrangler": "^0.0.16"
     },
     "type": "module",
