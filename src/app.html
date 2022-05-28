@@ -58,7 +58,13 @@
     </head>
 
     <body>
-        <script>
+        <script lang="javascript">
+            if (!window.THEME) {
+                const theme = localStorage.getItem("modrinth__theme");
+                if(!theme) localStorage.setItem("modrinth__theme", "light");
+                window.THEME = theme;
+            }
+
             if (window.THEME)
                 document.body.classList.add(`${window.THEME}-theme`);
         </script>

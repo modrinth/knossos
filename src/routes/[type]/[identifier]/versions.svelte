@@ -4,11 +4,19 @@
     import Meta from "$components/utils/Meta.svelte";
     import { tagIcons } from "$generated/tags.json";
     import { simplify } from "$lib/number";
-    import { formatVersions } from "$lib/versions";
+    import { createVersion, formatVersions } from "$lib/versions";
     import { downloadUrl, getPrimary } from "$lib/versions";
-    import { members, project, releaseColors, versions, color } from "./_store";
+    import {
+        members,
+        project,
+        releaseColors,
+        versions,
+        color,
+        permissions,
+    } from "./_store";
     import { t } from "svelte-intl-precompile";
     import IconDownload from "virtual:icons/heroicons-outline/download";
+    import IconPlus from "virtual:icons/heroicons-outline/plus";
 
     const dateFormat = new Intl.DateTimeFormat("en", {
         year: "numeric",
@@ -27,6 +35,17 @@
     color={$color}
     image={$project?.icon_url}
 />
+
+{#if $permissions.data.uploadVersions}
+    <div class="button-group">
+        <Button
+            label="Create version"
+            icon={IconPlus}
+            color="brand"
+            on:click={() => createVersion($project.id)}
+        />
+    </div>
+{/if}
 
 <div class="versions">
     {#each $versions as version}

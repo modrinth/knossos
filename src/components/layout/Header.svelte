@@ -3,6 +3,7 @@
     import Button from "$components/elements/Button.svelte";
     import LogoLoader from "$components/elements/LogoLoader.svelte";
     import Nav from "$components/elements/Nav.svelte";
+    import ThemePicker from "$components/elements/ThemePicker.svelte";
     import { projectTypes } from "$generated/tags.json";
     import { notifications } from "$stores/self";
     import { user } from "$stores/server";
@@ -41,6 +42,7 @@
     <Nav level={0} links={navItems} />
 
     <div class="header__actions">
+        <ThemePicker />
         {#if $user}
             <Button
                 href="/notifications"

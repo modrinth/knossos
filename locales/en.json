@@ -20,7 +20,10 @@
                 "system": "System theme",
                 "light": "Light mode",
                 "dark": "Dark mode",
-                "oled": "OLED mode"
+                "oled": "OLED mode",
+                "modrinth-dark": "Classic Dark",
+                "modrinth-light": "Classic Light",
+                "modrinth-oled": "Classic OLED"
             },
             "language": {
                 "label": "Select language",

@@ -2,7 +2,7 @@
     import Button from "$components/elements/Button.svelte";
     import Input from "$components/elements/Input.svelte";
     import Meta from "$components/utils/Meta.svelte";
-    import { send } from "$lib/api";
+    import { send, sendAxios } from "$lib/api";
     import { popups } from "$stores/app";
     import { permissions, project, color } from "./_store";
     import { t } from "svelte-intl-precompile";
@@ -15,15 +15,23 @@
     let modifiedItems = {};
 
     async function editItem(item) {
-        await send(
-            "PATCH",
-            `project/${$project.id}/gallery?${new URLSearchParams({
-                url: item.url,
-                featured: "false",
-                title: item.title || "\u200b",
-                description: item.description || "\u200b",
-            })}`
-        );
+        try {
+            await sendAxios(
+                "PATCH",
+                `project/${$project.id}/gallery?${new URLSearchParams({
+                    url: item.url,
+                    featured: "false",
+                    title: item.title || "\u200b",
+                    description: item.description || "\u200b",
+                })}`,
+                {
+                    type: "application/json",
+                    useFormData: false,
+                }
+            );
+        } catch (e) {
+            console.error(e);
+        }
         delete modifiedItems[item.url];
         modifiedItems = modifiedItems;
     }
@@ -38,18 +46,26 @@
                 },
                 button: {
                     click: async ({ name, body, file }) => {
-                        await send(
-                            "POST",
-                            `project/${
-                                $project.id
-                            }/gallery?${new URLSearchParams({
-                                ext: file.name.split(".").pop(),
-                                featured: "false",
-                                title: name || "\u200b",
-                                description: body || "\u200b",
-                            })}`,
-                            file
-                        );
+                        try {
+                            await sendAxios(
+                                "POST",
+                                `project/${
+                                    $project.id
+                                }/gallery?${new URLSearchParams({
+                                    ext: file.name.split(".").pop(),
+                                    featured: "false",
+                                    title: name || "\u200b",
+                                    description: body || "\u200b",
+                                })}`,
+                                file,
+                                {
+                                    type: "image/png",
+                                    useFormData: false,
+                                }
+                            );
+                        } catch (e) {
+                            console.error(e);
+                        }
                         $project.gallery = (
                             await send("GET", `project/${$project.id}`)
                         ).gallery;
@@ -67,12 +83,21 @@
                 "Are you sure you want to delete this gallery image?"
             )
         ) {
-            await send(
-                "DELETE",
-                `project/${$project.id}/gallery?${new URLSearchParams({
-                    url: item.url,
-                })}`
-            );
+            try {
+                await sendAxios(
+                    "DELETE",
+                    `project/${$project.id}/gallery?${new URLSearchParams({
+                        url: item.url,
+                    })}`,
+                    {},
+                    {
+                        type: "application/json",
+                        useFormData: false,
+                    }
+                );
+            } catch (e) {
+                console.error(e);
+            }
             $project.gallery = $project.gallery.filter(
                 (it) => it.url !== item.url
             );

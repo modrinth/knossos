@@ -104,7 +104,9 @@ const GENERATED_PATH = "./src/generated/";
     let others = [];
 
     for (let i = 0; i < Math.ceil(otherCount / 100); i++) {
-        console.log(`Fetching ${i * 100} / ${Math.ceil(otherCount / 100) * 100}...`);
+        console.log(
+            `Fetching ${i * 100} / ${Math.ceil(otherCount / 100) * 100}...`
+        );
         others = [
             ...others,
             ...(

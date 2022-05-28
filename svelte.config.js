@@ -68,13 +68,9 @@ const config = {
                 https: false,
             },
         },
-        browser: {
-            hydrate: true,
-            router: true,
-        },
         paths: {
             base: process.env.GITHUB_ACTIONS ? "/knossos" : "",
-        }
+        },
     },
 };
 

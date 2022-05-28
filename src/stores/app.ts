@@ -8,7 +8,7 @@ interface Popup {
             key: string;
         };
         report?: boolean;
-        creation?: "project" | "galleryItem";
+        creation?: "project" | "galleryItem" | "version";
         moderation?: boolean;
     };
     button?: {
@@ -20,6 +20,12 @@ interface Popup {
             project_type,
             name,
             file,
+            files,
+            versionId,
+            versionName,
+            changelog,
+            releaseChannel,
+            modLoader,
         }) => Promise<void>;
     };
     style?: {

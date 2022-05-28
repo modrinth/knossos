@@ -4,7 +4,8 @@
     export let multiple = false;
     export let accept: string;
 
-    export let files = [];
+    export let files: File[] = [];
+
     let inputElement;
 
     function openFileDialog() {
@@ -13,7 +14,7 @@
         }
     }
 
-    function dropFiles(e) {
+    function dropFiles(e: DragEvent) {
         const droppedFiles = e.dataTransfer.files;
 
         if (droppedFiles) {
@@ -37,16 +38,23 @@
     on:dragover|preventDefault
     on:click={openFileDialog}
 >
-    <IconUpload />
-    Drag and drop to upload or click to select
+    {#if files.length <= 0}
+        <IconUpload />
+        Drag and drop to upload or click to select
+    {/if}
     <input
         type="file"
         {multiple}
         {accept}
         style:display="none"
         bind:this={inputElement}
-        on:change={(event) => (files = [...event.target.files])}
+        on:change={(e) => {
+            files = [...files, ...e.target.files];
+        }}
     />
+    {files.map((file) => {
+        return file.name;
+    })}
 </div>
 
 <style lang="postcss">

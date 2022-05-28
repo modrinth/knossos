@@ -100,17 +100,18 @@
                 })}
             </span>
             <span class="stat">
+                {#if builder}
+                    <Button
+                        color={includesMod ? "danger" : "brand"}
+                        label={includesMod ? "Remove from pack" : "Add to pack"}
+                        evenPadding
+                        on:click={addMod}
+                    />
+                {/if}
+                &nbsp;&nbsp;
                 <IconCalendar />
                 {@html $t("stats.updated", { values: { ago: ago(updated) } })}
             </span>
-            {#if builder}
-                <Button
-                    color={includesMod ? "danger" : "brand"}
-                    label={includesMod ? "Remove from pack" : "Add to pack"}
-                    evenPadding
-                    on:click={addMod}
-                />
-            {/if}
         </div>
     {:else}
         <slot name="actions" />

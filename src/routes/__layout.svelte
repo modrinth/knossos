@@ -23,7 +23,7 @@
 
 <script lang="ts">
     import { browser } from "$app/env";
-    import { navigating, page } from "$app/stores";
+    import { page } from "$app/stores";
     import Popup from "$components/elements/Popup.svelte";
     import Footer from "$components/layout/Footer.svelte";
     import Header from "$components/layout/Header.svelte";
@@ -38,6 +38,7 @@
     import { debounce } from "throttle-debounce";
     import IconModeration from "virtual:icons/fa-regular/life-ring";
     import IconPlus from "virtual:icons/heroicons-outline/plus";
+    import IconBell from "virtual:icons/lucide/bell";
     import IconHeart from "virtual:icons/lucide/heart";
     import IconLogout from "virtual:icons/lucide/log-out";
     import IconSettings from "virtual:icons/lucide/settings";
@@ -54,6 +55,11 @@
             .addEventListener("change", () => {
                 if ($theme === "system") setSystemTheme();
             });
+
+        const storageTheme = localStorage.getItem("modrinth__theme");
+        if (storageTheme) theme.set(storageTheme);
+
+        theme.subscribe((t) => localStorage.setItem("modrinth__theme", t));
 
         updateSelf();
     });
@@ -101,6 +107,11 @@
                   },
               ]
             : []),
+        {
+            label: "Notifications",
+            href: "/notifications",
+            icon: IconBell,
+        },
         {
             label: "Following",
             href: "/following",
@@ -153,9 +164,21 @@
         <script>
             window.THEME = "dark";
         </script>
+    {:else if ($theme === "system" ? $systemTheme : $theme) === "modrinth-light"}
+        <script>
+            window.THEME = "modrinth-light";
+        </script>
+    {:else if ($theme === "system" ? $systemTheme : $theme) === "modrinth-dark"}
+        <script>
+            window.THEME = "modrinth-dark";
+        </script>
     {:else if $theme === "oled"}
         <script>
             window.THEME = "oled";
+        </script>
+    {:else if $theme === "modrinth-oled"}
+        <script>
+            window.THEME = "modrinth-oled";
         </script>
     {/if}
 </svelte:head>
@@ -185,7 +208,7 @@
         &__content {
             display: flex;
             flex-direction: column;
-            width: 1100px;
+            width: 1275px;
             max-width: 100%;
 
             .main {

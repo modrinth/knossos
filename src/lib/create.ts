@@ -1,8 +1,7 @@
 import { licenses } from "$generated/tags.json";
 import { send, sendAxios } from "$lib/api";
 import { popups } from "$stores/app";
-import { token as tokenStore, user } from "$stores/server";
-import type { AxiosError, AxiosResponse } from "axios";
+import { user } from "$stores/server";
 import { get } from "svelte/store";
 
 export function create(type: "project" | "user" | "version", id: string): void {
@@ -14,7 +13,7 @@ export function create(type: "project" | "user" | "version", id: string): void {
                 creation: "project",
             },
             button: {
-                label: "click me",
+                label: "",
                 click: async ({ project_type, name, body }) => {
                     let slug = name.toLowerCase().replace(/ /g, "-");
 

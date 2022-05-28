@@ -1,10 +1,8 @@
 <script lang="ts">
     import LogoWordmark from "$assets/images/logo/wordmark.svg";
     import Multiselect from "$components/elements/Multiselect.svelte";
-    import { theme } from "$stores/server";
+    import ThemePicker from "$components/elements/ThemePicker.svelte";
     import { t, locale, locales } from "svelte-intl-precompile";
-    import IconMoon from "virtual:icons/heroicons-outline/moon";
-    import IconSun from "virtual:icons/heroicons-outline/sun";
     import IconLanguages from "virtual:icons/lucide/languages";
 </script>
 
@@ -35,40 +33,17 @@
         <a href="https://docs.modrinth.com/">{$t("footer.resources.docs")}</a>
     </div>
     <div class="footer__buttons">
+        <ThemePicker />
         <Multiselect
-            label={$t("footer.buttons.theme.label")}
-            options={[
-                {
-                    label: $t("footer.buttons.theme.system"),
-                    value: "system",
-                },
-                {
-                    label: $t("footer.buttons.theme.light"),
-                    value: "light",
-                },
-                {
-                    label: $t("footer.buttons.theme.dark"),
-                    value: "dark",
-                },
-                {
-                    label: $t("footer.buttons.theme.oled"),
-                    value: "oled",
-                },
-            ]}
+            label={$t("footer.buttons.language.label")}
+            options={$locales.map((locale) => ({
+                label: $t(`footer.buttons.language.${locale}`),
+                value: locale,
+            }))}
             color="raised"
-            bind:value={$theme}
-            icon={["dark", "oled"].includes($theme) ? IconSun : IconMoon}
+            bind:value={$locale}
+            icon={IconLanguages}
         />
-        <!--		<Multiselect-->
-        <!--			label={$t('footer.buttons.language.label')}-->
-        <!--			options={$locales.map((locale) => ({-->
-        <!--				label: $t(`footer.buttons.language.${locale}`),-->
-        <!--				value: locale,-->
-        <!--			}))}-->
-        <!--			color="raised"-->
-        <!--			bind:value={$locale}-->
-        <!--      icon={IconLanguages}-->
-        <!--		/>-->
     </div>
 </footer>
 

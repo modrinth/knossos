@@ -1,4 +1,39 @@
 import gameVersions from "$generated/gameVersions.json";
+import { popups } from "$stores/app";
+import { sendAxios, sendAxiosMulti } from "./api";
+import { get } from "svelte/store";
+
+export interface VersionType {
+    name: string;
+    version_number: string;
+    game_versions: string[];
+    version_type: "release" | "beta" | "alpha";
+    loaders: string[];
+    featured: boolean;
+    project_id: string;
+    file_parts: string[];
+    primary_file?: string;
+    changelog?: string | null;
+    dependencies?:
+        | {
+              version_id?: string | null;
+              project_id?: string | null;
+              dependency_type: "required" | "optional" | "incompatable";
+          }[]
+        | null;
+}
+
+export interface VersionMetaInfo {
+    name?: string;
+    id?: string;
+    type?: "release" | "beta" | "alpha";
+    changelog?: string;
+    featured?: boolean;
+    gameVersions?: string[];
+    loaders?: string[];
+    fileParts?: string[];
+    projectId: string;
+}
 
 export function formatVersions(versionArray: string[]): string {
     const allVersions = gameVersions.slice().reverse();
@@ -104,4 +139,61 @@ export function downloadUrl(file): string {
         import.meta.env.VITE_API_URL +
         `version_file/${file?.hashes.sha1}/download`
     );
+}
+
+export const generateMetadata = (data: VersionMetaInfo) => {
+    const version: VersionType = {
+        featured: data.featured || false,
+        name: data.name || "",
+        version_number: data.id || "",
+        version_type: data.type || "alpha",
+        game_versions: data.gameVersions || [],
+        loaders: data.loaders || [],
+        project_id: data.projectId,
+        file_parts: data.fileParts || [],
+    };
+    return version;
+};
+
+export function createVersion(projectId: string): void {
+    popups.set([
+        {
+            title: `Create version`,
+            body: `New versions are created as drafts, and can be found in the versions section of your project.`,
+            type: {
+                creation: "version",
+            },
+            button: {
+                label: "",
+                click: async ({
+                    versionId,
+                    versionName,
+                    releaseChannel,
+                    modLoader,
+                    files,
+                    changelog,
+                }) => {
+                    const fileParts = [];
+                    for (let i = 0; i < files.length; i++) {
+                        fileParts.push(files[i].name.split("/").pop());
+                    }
+                    const data = generateMetadata({
+                        projectId,
+                        changelog,
+                        id: versionId,
+                        name: versionName,
+                        type: releaseChannel,
+                        loaders: [modLoader],
+                        fileParts,
+                    });
+                    try {
+                        await sendAxiosMulti("POST", "version", data, files);
+                    } catch (e) {
+                        alert(e);
+                    }
+                },
+            },
+        },
+        ...get(popups),
+    ]);
 }

@@ -5,8 +5,10 @@
     import ImageUpload from "$components/elements/ImageUpload.svelte";
     import Input from "$components/elements/Input.svelte";
     import Multiselect from "$components/elements/Multiselect.svelte";
+    import { loaders } from "$generated/tags.json";
     import { markdown } from "$lib/parse";
     import { popups } from "$stores/app";
+    import FileDropzone from "./FileDropzone.svelte";
     import { clickOutside } from "svelte-use-click-outside";
     import { fade } from "svelte/transition";
     import IconArrowRight from "virtual:icons/heroicons-outline/arrow-right";
@@ -23,6 +25,14 @@
     let name = "";
     let file;
 
+    let versionId;
+    let versionName;
+    let releaseChannel = "alpha";
+    let modLoader;
+    let changelog;
+
+    let files: File[] = [];
+
     function close() {
         deletionKey = "";
         report_type = "";
@@ -31,6 +41,12 @@
         project_type = "";
         name = "";
         file = undefined;
+        files = [];
+        versionId = "";
+        versionName = "";
+        changelog = "";
+        releaseChannel = "alpha";
+        modLoader = "";
         $popups = $popups.slice(1, $popups.length - 1);
     }
 
@@ -148,6 +164,52 @@
                     bind:value={body}
                 />
             {/if}
+            {#if popup?.type?.creation === "version"}
+                <p><b>Release channel</b></p>
+                <Chips
+                    bind:value={releaseChannel}
+                    options={[
+                        { label: "Release", value: "release" },
+                        { label: "Beta", value: "beta" },
+                        { label: "Alpha", value: "alpha" },
+                    ]}
+                />
+                <p><b>Version ID</b></p>
+                <Input
+                    type="text"
+                    placeholder="Enter version ID..."
+                    bind:value={versionId}
+                />
+                <p><b>Version name</b></p>
+                <Input
+                    type="text"
+                    placeholder="Enter version name..."
+                    bind:value={versionName}
+                />
+                <p>
+                    <b>Mod loader</b>
+                </p>
+                <Multiselect
+                    options={loaders.map((v) => ({
+                        label: v.name.charAt(0).toUpperCase() + v.name.slice(1),
+                        value: v.name,
+                    }))}
+                    value={modLoader}
+                />
+                <p>
+                    <b>Changelog</b><br />This is the changes that were made in
+                    the version that are different from the last.
+                </p>
+                <Input
+                    type="textarea"
+                    placeholder="Enter a version changelog..."
+                    bind:value={changelog}
+                />
+                <p>
+                    <b>Version files</b>
+                </p>
+                <FileDropzone accept=".mrpack,.jar" multiple bind:files />
+            {/if}
             {#if popup?.type?.moderation}
                 <p><b>Status</b></p>
                 <Multiselect
@@ -183,8 +245,14 @@
                             project_type,
                             name,
                             file,
+                            files,
+                            versionId,
+                            versionName,
+                            changelog,
+                            releaseChannel,
+                            modLoader,
                         });
-                        close();
+                        // close();
                     }}
                     color={popup?.type?.deletion ? "red" : "brand"}
                     icon={popup?.type?.deletion || popup?.type?.report

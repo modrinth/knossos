@@ -6,6 +6,7 @@
     import { send, sendAxios } from "$lib/api";
     import { markdownXSS } from "$lib/parse";
     import { permissions, project, color, members } from "./_store";
+    import type { AxiosError } from "axios";
     import { onDestroy, onMount } from "svelte";
     import autosize from "svelte-autosize";
     import { t } from "svelte-intl-precompile";
@@ -40,14 +41,23 @@
     async function save(): Promise<void> {
         if (dirty) {
             try {
-                await sendAxios("PATCH", `project/${$project.id}`, {
-                    body: modifiedBody,
-                });
+                await sendAxios(
+                    "PATCH",
+                    `project/${$project.id}`,
+                    {
+                        body: modifiedBody,
+                    },
+                    {
+                        type: "application/json",
+                        useFormData: false,
+                    }
+                );
             } catch (e) {
-                alert(e);
+                console.error(e);
             }
             $project.body = modifiedBody;
         }
+
         isEditing = false;
     }
 </script>

@@ -150,7 +150,7 @@
 />
 
 <div class="user-header">
-    <ProfilePicture src={user.avatar_url} size="lg" circle />
+    <ProfilePicture src={user.avatar_url} size="md" circle />
     <h1 class="user-header__title">
         {modifiedUser?.username ?? user.username}
     </h1>
@@ -316,11 +316,11 @@
         padding: 0 1rem;
         margin-bottom: -2.5rem;
         z-index: 1;
-        grid-gap: 1.5rem;
+        grid-gap: 0.75rem;
         align-items: center;
 
         &__title {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
 
             @media (width <= 500px) {
                 display: none;
