@@ -128,7 +128,7 @@
             padding: 0.5rem;
             font-size: 1rem;
             line-height: 0;
-            min-width: 2rem;
+            min-width: 2.5rem;
             min-height: 2rem;
             justify-content: center;
         }
