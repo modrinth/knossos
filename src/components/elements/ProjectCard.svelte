@@ -103,7 +103,14 @@
                 {#if builder}
                     <Button
                         color={includesMod ? "danger" : "brand"}
-                        label={includesMod ? "Remove from pack" : "Add to pack"}
+                        label={includesMod ? "Remove" : "Add"}
+                        evenPadding
+                        on:click={addMod}
+                    />
+                {:else}
+                    <Button
+                        color="brand"
+                        label="Download"
                         evenPadding
                         on:click={addMod}
                     />

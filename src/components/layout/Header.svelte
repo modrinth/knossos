@@ -3,6 +3,7 @@
     import LogoLoader from "$components/elements/LogoLoader.svelte";
     import ThemePicker from "$components/elements/ThemePicker.svelte";
     import { projectTypes } from "$generated/tags.json";
+    import { search } from "$lib/search";
     import { notifications } from "$stores/self";
     import { user } from "$stores/server";
     import { Button, NavRow } from "omorphia";
@@ -10,6 +11,7 @@
     import IconBell from "virtual:icons/fa-regular/bell";
     import IconChevronDown from "virtual:icons/lucide/chevron-down";
     import IconGithub from "virtual:icons/simple-icons/github";
+    import IconSearch from "virtual:icons/heroicons-outline/search";
 
     let navItems = projectTypes.map((type) => ({
         label: $t(`project.types.${type}.plural`),
@@ -38,7 +40,20 @@
     <a href="/" aria-label="Modrinth Home">
         <LogoLoader height={"24px"} />
     </a>
+
     <NavRow level={0} links={navItems} />
+
+    <form class="nav__search" on:submit|preventDefault={() => {}}>
+        <input
+            type="text"
+            placeholder={$t("project.types.mod.search")}
+            name="term"
+            class="nav__search__input"
+        />
+        <button type="submit" class="nav__search__button" title="Search">
+            <IconSearch />
+        </button>
+    </form>
 
     <div class="header__actions">
         <ThemePicker />
@@ -131,6 +146,32 @@
 </header>
 
 <style lang="postcss">
+    .nav {
+        &__search {
+            width: 40%;
+            @media (width < 950px) {
+                display: none;
+            }
+            display: flex;
+            align-items: center;
+
+            &__input {
+                background-color: var(--color-button-bg);
+                border-radius: 0.8rem;
+                box-shadow: var(--shadow-raised), var(--shadow-inset);
+                padding: 0.5rem 1.25rem;
+                border: none;
+                width: 100%;
+            }
+
+            &__button {
+                margin-left: -2.25rem;
+                z-index: 2;
+                display: flex;
+            }
+        }
+    }
+
     .header {
         display: flex;
         align-items: center;
