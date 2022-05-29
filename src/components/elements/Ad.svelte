@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-    import { t } from 'svelte-intl-precompile'
+	import { t } from 'svelte-intl-precompile'
 
 	export let placement = ''
 
@@ -21,10 +21,10 @@
 				'%c' + $t('ads.console.line2'),
 				'font-family: Inter; font-size: 14px; line-height: 20px;'
 			)
-            console.log(
-                '%c' + $t('ads.console.line3'),
-                'font-family: Inter; font-size: 14px; line-height: 20px;'
-            )
+			console.log(
+				'%c' + $t('ads.console.line3'),
+				'font-family: Inter; font-size: 14px; line-height: 20px;'
+			)
 			console.log(
 				'%c' + $t('ads.console.line4'),
 				'font-family: Inter; font-size: 16px; line-height: 20px; text-decoration: underline; color: hsl(210deg,50%,50%); font-style: normal;'

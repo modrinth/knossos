@@ -1,6 +1,6 @@
 <script lang="ts">
 	import IconUpload from 'virtual:icons/heroicons-outline/upload'
-    import { t } from 'svelte-intl-precompile'
+	import { t } from 'svelte-intl-precompile'
 
 	export let multiple = false
 	export let accept: string

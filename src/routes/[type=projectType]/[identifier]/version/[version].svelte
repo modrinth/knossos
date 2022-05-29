@@ -11,7 +11,7 @@
 		} else {
 			return {
 				status: 404,
-                // TODO make this translatable
+				// TODO make this translatable
 				error: new Error(`The version you were looking for cannot be found.`),
 			}
 		}

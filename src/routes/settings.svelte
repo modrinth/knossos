@@ -6,7 +6,7 @@
 	import { popups } from '$stores/app'
 	import { goto } from '$app/navigation'
 	import { send } from '$lib/api'
-    import IconCheck from 'virtual:icons/heroicons-outline/check'
+	import IconCheck from 'virtual:icons/heroicons-outline/check'
 
 	let copiedToken = false
 

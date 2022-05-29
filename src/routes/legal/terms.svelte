@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Meta from '$components/utils/Meta.svelte'
-    import { t, locale } from 'svelte-intl-precompile'
+	import { t, locale } from 'svelte-intl-precompile'
 </script>
 
 <Meta

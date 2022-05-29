@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { t } from 'svelte-intl-precompile'
+	import { t } from 'svelte-intl-precompile'
 	import { popups } from '$stores/app'
 	import { clickOutside } from 'svelte-use-click-outside'
 	import { Button, Select, Chips, TextInput } from 'omorphia'
@@ -7,7 +7,7 @@
 	import IconX from 'virtual:icons/heroicons-outline/x'
 	import IconArrowRight from 'virtual:icons/heroicons-outline/arrow-right'
 	import IconExclamation from 'virtual:icons/heroicons-outline/exclamation'
-    import { reportTypes } from '$generated/tags.json'
+	import { reportTypes } from '$generated/tags.json'
 	import { fade } from 'svelte/transition'
 	import { navigating } from '$app/stores'
 	import ImageUpload from '$components/elements/ImageUpload.svelte'
