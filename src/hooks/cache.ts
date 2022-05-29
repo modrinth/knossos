@@ -6,7 +6,7 @@ const LONG_TTL_PAGES = ['/sitemap.xml', '/']
 
 export const cache: Handle = async ({ event, resolve }) => {
 	// Only attempt to cache if in production
-	if (event.platform) {
+	if (event?.platform?.caches) {
 		const cacheKey = event.url + (event.locals.theme ? '&theme=' + event.locals.theme : '')
 
 		const cache = event.platform.caches.default

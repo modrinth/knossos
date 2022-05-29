@@ -137,7 +137,7 @@
 					top: calc(100% + 0.2rem);
 					width: auto;
 					background-color: var(--color-raised-bg);
-					border-radius: var(--rounded);
+					border-radius: var(--rounded-lg);
 					box-shadow: var(--shadow-floating);
 					padding: 0.6rem;
 					z-index: 5;
