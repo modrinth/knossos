@@ -64,7 +64,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"omorphia": "^0.0.27",
+		"omorphia": "^0.0.28",
 		"prando": "^6.0.1"
 	}
 }

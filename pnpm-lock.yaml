@@ -26,7 +26,7 @@ specifiers:
   node-fetch: ^3.1.1
   node-vibrant: 3.1.6
   nprogress: ^0.2.0
-  omorphia: ^0.0.27
+  omorphia: ^0.0.28
   postcss: ^8.4.5
   postcss-extend-rule: ^3.0.0
   postcss-import: ^14.0.2
@@ -54,7 +54,7 @@ specifiers:
   wrangler: ^0.0.16
 
 dependencies:
-  omorphia: 0.0.27_mbstdawxqszbxgvbyicvq3tzsy
+  omorphia: 0.0.28_mbstdawxqszbxgvbyicvq3tzsy
   prando: 6.0.1
 
 devDependencies:
@@ -3282,7 +3282,7 @@ packages:
     dev: true
 
   /globby/6.1.0:
-    resolution: {integrity: sha1-9abXDoOV4hyFj7BInWTfAkJNUGw=}
+    resolution: {integrity: sha512-KVbFv2TQtbzCoxAnfD6JcHZTYCzyliEaaeM/gH8qQdkKr5s0OP9scEgvdcngyk7AVdY6YVW/TJHd+lQ/Df3Daw==}
     engines: {node: '>=0.10.0'}
     dependencies:
       array-union: 1.0.2
@@ -3854,8 +3854,8 @@ packages:
   /omggif/1.0.10:
     resolution: {integrity: sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw==}
 
-  /omorphia/0.0.27_mbstdawxqszbxgvbyicvq3tzsy:
-    resolution: {integrity: sha512-Ng/cHkUjjUokzz6F74nWfIjJ1QrS7NQ8gS8EqZe5tb3HJ60rYb50o2435k0fnjJF2/VaUFlebBOQQFIyidNoAA==}
+  /omorphia/0.0.28_mbstdawxqszbxgvbyicvq3tzsy:
+    resolution: {integrity: sha512-p4mGf2YbK9NIMxXqHnas04Ww9o2mr5zFiNgjcY+uNktAOME5wwQBoqle1EDoN1pYyB6erq37ijzebb6o1ZLH4Q==}
     engines: {node: '>=16.5.0'}
     dependencies:
       '@iconify-json/carbon': 1.1.5
