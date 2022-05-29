@@ -7,7 +7,7 @@ const ENABLED = false // TODO: enable when needed (when we go into production & 
 
 export const cache: Handle = async ({ event, resolve }) => {
 	// Only attempt to cache if in production
-	if (ENABLED && event.platform) {
+	if (ENABLED && event?.platform?.caches) {
 		const cacheKey = event.url + (event.locals.theme ? '&theme=' + event.locals.theme : '')
 
 		const cache = event.platform.caches.default

@@ -13,11 +13,16 @@
 	import ImagePuzzle from '$assets/images/homepage/3dicons/puzzle-dynamic-color.webp'
 	import ImageTool from '$assets/images/homepage/3dicons/tool-dynamic-color.webp'
 	import Prando from 'prando'
+	import { onMount } from 'svelte'
+	import { fly } from 'svelte/transition'
 
-	export let seed: number
-	let random = new Prando(seed)
+	let random
+	let modOffset
 
-	const colorsOffset = mods.length < 100 ? 0 : Math.floor(random.nextInt(0, 60)) // 100 (total projects) - 40 (used)
+	onMount(() => {
+		random = new Prando()
+		modOffset = mods.length < 100 ? 0 : Math.floor(random.nextInt(0, 60)) // 100 (total projects) - 40 (used)
+	})
 
 	function search(event: SubmitEvent) {
 		const data = new FormData(event.target as HTMLFormElement)
@@ -65,28 +70,36 @@
 
 <div class="hero">
 	<div class="stacks">
-		{#each layout as row, rowIndex}
-			<div class="stacks__row">
-				{#each row as column, colIndex}
-					{@const index = rowIndex * layout[rowIndex].length + colIndex + colorsOffset}
-					{#if column === 1 && mods?.[index]?.[0]}
-						<a
-							class="stacks__row__column"
-							href="/mod/{mods?.[index]?.[1] || mods?.[index]?.[0]}"
-							tabindex="-1"
-							style:--color={projectColors[mods?.[index]?.[0]] || 'grey'}
-							style:--offset="{Math.round(random.nextInt(-20, 20))}px"
-							title={mods?.[index]?.[1]}>
-							<div class="stacks__row__column__background" />
-							<img
-								class="stacks__row__column__face"
-								src="https://{cdnDomain}/data/{mods?.[index]?.[0]}/icon.{mods?.[index]?.[2] || ''}"
-								alt="" />
-						</a>
-					{/if}
-				{/each}
-			</div>
-		{/each}
+		{#if random && modOffset}
+			{#each layout as row, rowIndex}
+				<div class="stacks__row">
+					{#each row as column, colIndex}
+						{@const index = rowIndex * layout[rowIndex].length + colIndex + modOffset}
+						{#if column === 1 && mods?.[index]?.[0]}
+							<a
+								class="stacks__row__column"
+								href="/mod/{mods?.[index]?.[1] || mods?.[index]?.[0]}"
+								tabindex="-1"
+								style:--color={projectColors[mods?.[index]?.[0]] || 'grey'}
+								style:--offset="{Math.round(random.nextInt(-25, 25))}px"
+								title={mods?.[index]?.[1]}
+								in:fly={{
+									delay: random.nextInt(0, 40) * 70,
+									y: 300,
+									duration: 700,
+								}}>
+								<div class="stacks__row__column__background" />
+								<img
+									class="stacks__row__column__face"
+									src="https://{cdnDomain}/data/{mods?.[index]?.[0]}/icon.{mods?.[index]?.[2] ||
+										''}"
+									alt="" />
+							</a>
+						{/if}
+					{/each}
+				</div>
+			{/each}
+		{/if}
 	</div>
 
 	<Wordmark class="hero__wordmark" />
