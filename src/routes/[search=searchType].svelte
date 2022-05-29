@@ -236,7 +236,7 @@
 			</div>
 
 			<div class="search-bar__field">
-				Show per page
+				{$t('search.per_page')}
 				<Select
 					options={[
 						{ value: '5', label: '5' },
