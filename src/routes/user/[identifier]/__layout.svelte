@@ -138,16 +138,16 @@
 			{/if}
 
 			{#if isEditing}
-				<b>Username</b>
-				<TextInput placeholder="Enter username..." bind:value={modifiedUser.username} />
+				<b>{$t('settings.username.text')}</b>
+				<TextInput placeholder={$t('settings.username.placeholder')} bind:value={modifiedUser.username} />
 
-				<b>Bio</b>
-				<TextInput multiline placeholder="Add a bio..." bind:value={modifiedUser.bio} />
+				<b>{$t('settings.bio.text')}</b>
+				<TextInput multiline placeholder={$t('settings.bio.placeholder')} bind:value={modifiedUser.bio} />
 
-				<p><b>Private email</b> (only for moderators)</p>
-				<TextInput placeholder="Add a bio..." bind:value={modifiedUser.email} />
+				<p>{$t('settings.email.text')}</p>
+				<TextInput placeholder={$t('settings.email.placeholder')} bind:value={modifiedUser.email} />
 
-				<Button><IconUpload /> Upload avatar</Button>
+				<Button><IconUpload /> {$t('settings.avatar')}</Button>
 			{:else}
 				<Badge label={$t('roles.' + user.role)} color={roleColors[user.role]} />
 

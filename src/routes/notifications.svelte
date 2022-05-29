@@ -85,7 +85,7 @@
 	{:else}
 		<div class="illustration">
 			<UpToDate class="illustration__image" />
-			<p class="illustration__description">You are up to date!</p>
+			<p class="illustration__description">{$t('generic.up_to_date')}</p>
 		</div>
 	{/if}
 </div>

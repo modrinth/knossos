@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from 'svelte-intl-precompile'
 	import { popups } from '$stores/app'
 	import { clickOutside } from 'svelte-use-click-outside'
 	import { Button, Select, Chips, TextInput } from 'omorphia'
@@ -6,6 +7,7 @@
 	import IconX from 'virtual:icons/heroicons-outline/x'
 	import IconArrowRight from 'virtual:icons/heroicons-outline/arrow-right'
 	import IconExclamation from 'virtual:icons/heroicons-outline/exclamation'
+	import { reportTypes } from '$generated/tags.json'
 	import { fade } from 'svelte/transition'
 	import { navigating } from '$app/stores'
 	import ImageUpload from '$components/elements/ImageUpload.svelte'
@@ -52,7 +54,7 @@
 			</h1>
 			{#if popup?.type?.deletion}
 				<div class="popup__card__warning">
-					<IconExclamation height="26px" width="26px" /><span>This is extremely important.</span>
+					<IconExclamation height="26px" width="26px" /><span>{$t('generic.popup.important')}</span>
 				</div>
 			{/if}
 			{#if popup.body}
@@ -60,22 +62,16 @@
 			{/if}
 			{#if popup?.type?.deletion}
 				<p><b>To verify, type</b> <i>{popup.type.deletion.key}</i> <b>below:</b></p>
-				<TextInput placeholder="Type here..." bind:value={deletionKey} />
+				<TextInput placeholder="{$t('generic.popup.placeholder')}" bind:value={deletionKey} />
 			{/if}
 			{#if popup?.type?.report}
 				<p><b>Reason</b></p>
 				<Select
 					bind:value={report_type}
-					options={[
-						{ label: 'Spam', value: 'spam' },
-						{ label: 'Copyright', value: 'copyright' },
-						{ label: 'Inappropriate', value: 'inappropriate' },
-						{ label: 'Malicious', value: 'malicious' },
-						{ label: 'Name-squatting', value: 'name-squatting' },
-					]} />
+					options={reportTypes.map(({ name }) => ({ label: $t(`report.type.${name}`), value: name }))}
+				/>
 				<p>
-					<b>Additional Information</b><br />Include links and images if possible. Markdown
-					formatting is supported.
+					<b>{$t('report.new.information')}</b><br />{$t('report.new.description')}
 				</p>
 				<TextInput multiline placeholder="Enter additional information..." bind:value={body} />
 			{/if}

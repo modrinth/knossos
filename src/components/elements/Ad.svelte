@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { t } from 'svelte-intl-precompile'
 
 	export let placement = ''
 
@@ -13,16 +14,19 @@
 			}, 20)
 		} else {
 			console.log(
-				'%c' + 'You are using an adblocker.',
+				'%c' + $t('ads.console.line1'),
 				'font-family: Inter; font-size: 20px; line-height: 60px; font-weight:bold; background-color: darkgreen; border-radius: 10px; padding: 10px 30px; color: white;'
 			)
 			console.log(
-				'%c' +
-					'Your adblocker prevented Modrinth from showing Ethical Ads, its only source of income. Contribute to Modrinth on GitHub!',
+				'%c' + $t('ads.console.line2'),
 				'font-family: Inter; font-size: 14px; line-height: 20px;'
 			)
 			console.log(
-				'%c' + 'https://github.com/modrinth/',
+				'%c' + $t('ads.console.line3'),
+				'font-family: Inter; font-size: 14px; line-height: 20px;'
+			)
+			console.log(
+				'%c' + $t('ads.console.line4'),
 				'font-family: Inter; font-size: 16px; line-height: 20px; text-decoration: underline; color: hsl(210deg,50%,50%); font-style: normal;'
 			)
 			state = 'blocked'
@@ -38,7 +42,7 @@
 	<div class="ad">
 		<div class="ea-placement ea-type-text">
 			<div class="ea-content">
-				<div class="ea-text">A privacy respecting ad would have been shown here.</div>
+				<div class="ea-text">{$t('ads.privacy_respecting')}</div>
 			</div>
 		</div>
 	</div>

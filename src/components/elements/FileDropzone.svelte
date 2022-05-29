@@ -1,5 +1,6 @@
 <script lang="ts">
 	import IconUpload from 'virtual:icons/heroicons-outline/upload'
+	import { t } from 'svelte-intl-precompile'
 
 	export let multiple = false
 	export let accept: string
@@ -37,7 +38,7 @@
 	on:dragover|preventDefault
 	on:click={openFileDialog}>
 	<IconUpload />
-	Drag and drop to upload or click to select
+	{$t('images.how_to')}
 	<input
 		type="file"
 		{multiple}
