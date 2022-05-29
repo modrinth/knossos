@@ -69,7 +69,7 @@
 	const replaceStateWithQuery = (values: Record<string, unknown>) => {
 		const url = new URL(window.location.toString())
 		for (let [k, v] of Object.entries(values)) {
-			if (!!v) {
+			if (v) {
 				if (Array.isArray(v)) v = v.join('~')
 				url.searchParams.set(encodeURIComponent(k), encodeURIComponent(v))
 			} else {
@@ -204,7 +204,7 @@
 					bind:value={searchParams.i} />
 
 				<div class="button-group">
-					<Button on:click={clearFilters}><IconTrash /> Clear filters</Button>
+					<Button on:click={clearFilters}><IconTrash /> {$t('search.filters.clear')}</Button>
 				</div>
 			</div>
 		</div>
