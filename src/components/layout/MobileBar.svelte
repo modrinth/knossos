@@ -77,7 +77,7 @@
 					: ''}>
 				<span class="mobile-bar__menu__item__title">
 					<IconGithub />
-					Sign in with GitHub
+					{$t('header.github')}
 				</span>
 			</a>
 		{/if}

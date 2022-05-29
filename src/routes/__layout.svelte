@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import { theme, token, user } from '$stores/server'
 
-	import { init, waitLocale } from 'svelte-intl-precompile'
+	import { t, init, waitLocale } from 'svelte-intl-precompile'
 	import { registerAll } from '$locales'
 
 	registerAll()
@@ -85,7 +85,7 @@
 	$: dropdownItems = [
 		{
 			label: '@' + $user?.username,
-			sublabel: 'Go to my profile',
+			sublabel: $t('header.my_profile'),
 			href: `/user/${$user?.username}`,
 		},
 		{
@@ -94,25 +94,25 @@
 		...(['admin', 'moderator'].includes($user?.role)
 			? [
 					{
-						label: 'Moderation',
+						label: $t('pages.moderation'),
 						href: '/moderation',
 						icon: IconModeration,
 					},
 			  ]
 			: []),
 		{
-			label: 'Following',
+			label: $t('pages.following'),
 			href: '/following',
 			icon: IconHeart,
 		},
 		{
-			id: 'create',
+			id: $t('generic.actions.create'),
 			label: 'Create',
 			action: create,
 			icon: IconPlus,
 		},
 		{
-			label: 'Settings',
+			label: $t('pages.settings'),
 			href: '/settings',
 			icon: IconSettings,
 		},
@@ -121,7 +121,7 @@
 		},
 		{
 			id: 'logout',
-			label: 'Log out',
+			label: $t('header.logout'),
 			action: () => {
 				$user = null
 				$token = ''

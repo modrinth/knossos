@@ -90,7 +90,7 @@
 	</div>
 
 	<Wordmark class="hero__wordmark" />
-	<h1 class="hero__tagline">Discover, Play, & Create Minecraft content</h1>
+	<h1 class="hero__tagline">{$t('index.tagline')}</h1>
 	<form class="hero__search" on:submit|preventDefault={search}>
 		<input
 			type="text"
@@ -101,67 +101,50 @@
 			<IconSearch />
 		</button>
 	</form>
-	<p class="hero__description">
-		Find enjoyable and quality content through our open-source modding platform built for the
-		community. Create stuff, get paid*, and deploy your project with our fully documented API!
-	</p>
+	<p class="hero__description">{$t('index.description')}</p>
 </div>
 
 <div class="features">
 	<div class="features__item">
 		<img src={ImageNotebook} alt="Book with bookmark" class="features__item__image" />
 		<div class="features__item__text">
-			<h3 class="title-secondary">Easy to use API</h3>
-			<p class="summary">
-				Backed by a fully documented API facilitating the growth of 3rd party integrations &
-				launchers.
-			</p>
+			<h3 class="title-secondary">{$t('index.features.book.title')}</h3>
+			<p class="summary">{$t('index.features.book.description')}</p>
 		</div>
 	</div>
 	<div class="features__item">
 		<img src={ImageDollar} alt="Gold coin" class="features__item__image" />
 		<div class="features__item__text">
-			<h3 class="title-secondary">Creator earnings</h3>
-			<p class="summary">
-				Planning to give creators 100% of ad revenue from their project pages. *Payouts are
-				currently in development.
-			</p>
+			<h3 class="title-secondary">{$t('index.features.coin.title')}</h3>
+			<p class="summary">{$t('index.features.coin.description')}</p>
 		</div>
 	</div>
 	<div class="features__item">
 		<img src={ImageExplorer} alt="Speedometer" class="features__item__image" />
 		<div class="features__item__text">
-			<h3 class="title-secondary">Lightning-fast search</h3>
-			<p class="summary">
-				Powered by fast and adaptable search algorithms so you don't have to wait.
-			</p>
+			<h3 class="title-secondary">{$t('index.features.speedometer.title')}</h3>
+			<p class="summary">{$t('index.features.speedometer.description')}</p>
 		</div>
 	</div>
 	<div class="features__item">
 		<img src={ImageChatBubble} alt="Two chat bubbles" class="features__item__image" />
 		<div class="features__item__text">
-			<h3 class="title-secondary">Helpful community</h3>
-			<p class="summary">
-				Get support, develop, and hangout on our Discord server with over 1K members.
-			</p>
+			<h3 class="title-secondary">{$t('index.features.chat.title')}</h3>
+			<p class="summary">{$t('index.features.chat.description')}</p>
 		</div>
 	</div>
 	<div class="features__item">
 		<img src={ImagePuzzle} alt="Puzzle piece" class="features__item__image" />
 		<div class="features__item__text">
-			<h3 class="title-secondary">Extensible by design</h3>
-			<p class="summary">
-				Integrates with build tools, repositories, launchers, and custom applications.
-			</p>
+			<h3 class="title-secondary">{$t('index.features.puzzle.title')}</h3>
+			<p class="summary">{$t('index.features.puzzle.description')}</p>
 		</div>
 	</div>
 	<div class="features__item">
 		<img src={ImageTool} alt="Screwdriver and wrench" class="features__item__image" />
 		<div class="features__item__text">
-			<h3 class="title-secondary">Fully open source</h3>
-			<p class="summary">
-				An open source project maintained by an active community that welcomes contributions.
-			</p>
+			<h3 class="title-secondary">{$t('index.features.tools.title')}</h3>
+			<p class="summary">{$t('index.features.tools.description')}</p>
 		</div>
 	</div>
 </div>

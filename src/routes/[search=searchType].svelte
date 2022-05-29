@@ -153,26 +153,25 @@
 			<div class="button-group filters-button">
 				<Button on:click={() => (showFilters = !showFilters)}>
 					{#if showFilters}
-						<IconShrink />
+						<IconShrink /> {$t('search.filters.hide')}
 					{:else}
-						<IconExpand />
+						<IconExpand /> {$t('search.filters.show')}
 					{/if}
-					{showFilters ? 'Hide' : 'Show'} filters
 				</Button>
 			</div>
 
 			<div style:display={showFilters ? 'flex' : 'none'} class="filters">
-				<h3>Minecraft versions</h3>
+				<h3>{$t('generic.labels.minecraft_versions')}</h3>
 				<CheckboxVirtualList
 					height={180}
 					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
 					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}><IconCode /> Show snapshots</Checkbox>
-				<TextInput placeholder="Search versions..." bind:value={filterTerm} />
+				<Checkbox bind:checked={searchParams.h}><IconCode />{$t('search.filters.show_snapshots')}</Checkbox>
+				<TextInput placeholder="{$t('search.filters.search_versions')}" bind:value={filterTerm} />
 
 				<hr class="divider" />
 
-				<h3>Mod Loaders</h3>
+				<h3>{$t('generic.labels.mod_loaders')}</h3>
 				<CheckboxList
 					options={loaders
 						.filter((it) => it.supported_project_types.includes(projectType))
@@ -181,7 +180,7 @@
 
 				<hr class="divider" />
 
-				<h3>Environments</h3>
+				<h3>{$t('generic.environments.plural')}</h3>
 				<CheckboxList
 					options={[
 						{ label: $t(`tags.client`), value: 'client', icon: IconClient },
@@ -192,14 +191,14 @@
 
 				<hr class="divider" />
 
-				<h3>Categories</h3>
+				<h3>{$t('generic.labels.categories')}</h3>
 				<CheckboxList
 					options={categories
 						.filter((it) => it.project_type === projectType)
 						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
 					bind:value={searchParams.c} />
 
-				<h3>Licenses</h3>
+				<h3>{$t('generic.labels.license.plural')}</h3>
 				<CheckboxList
 					options={licenses.map(({ short }) => ({ label: short.toUpperCase(), value: short }))}
 					bind:value={searchParams.i} />
@@ -224,14 +223,14 @@
 			</div>
 
 			<div class="search-bar__field">
-				Sort by
+				{$t('search.sort.by')}
 				<Select
 					options={[
-						{ value: '', label: 'Relevance' },
-						{ value: 'downloads', label: 'Downloads' },
-						{ value: 'follows', label: 'Followers' },
-						{ value: 'newest', label: 'Recently created' },
-						{ value: 'updated', label: 'Recently updated' },
+						{ value: '', label: $t('search.sort.relevance') },
+						{ value: 'downloads', label: $t('search.sort.downloads') },
+						{ value: 'follows', label: $t('search.sort.follows') },
+						{ value: 'newest', label: $t('search.sort.newest') },
+						{ value: 'updated', label: $t('search.sort.updated') },
 					]}
 					bind:value={searchParams.s} />
 			</div>

@@ -16,7 +16,7 @@
 		<p class="summary">
 			{$t('footer.description')}
 		</p>
-		<p><br />{$t('footer.copyright')}</p>
+		<p><br />© Rinth, Inc.</p>
 	</div>
 	<div class="footer__list">
 		<span class="footer__list__header">{$t('footer.legal.heading')}</span>
@@ -55,16 +55,15 @@
 			color="raised"
 			bind:value={$theme}
 			icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon} />
-		<!--		<Select-->
-		<!--			label={$t('footer.buttons.language.label')}-->
-		<!--			options={$locales.map((locale) => ({-->
-		<!--				label: $t(`footer.buttons.language.${locale}`),-->
-		<!--				value: locale,-->
-		<!--			}))}-->
-		<!--			color="raised"-->
-		<!--			bind:value={$locale}-->
-		<!--      icon={IconLanguages}-->
-		<!--		/>-->
+		<Select
+			label={$t('footer.buttons.language.label')}
+			options={$locales.map((locale) => ({
+				label: $t(`footer.buttons.language.${locale}`),
+				value: locale,
+			}))}
+			color="raised"
+			bind:value={$locale}
+			icon={IconLanguages} />
 	</div>
 </footer>
 

@@ -40,6 +40,7 @@
 			if (error?.status === 404) {
 				return {
 					status: 404,
+                    // TODO make this translatable
 					error: new Error(`The ${params.type} you were looking for cannot be found.`),
 				}
 			} else {
@@ -329,7 +330,7 @@
 			<h2 class="title-secondary">{$t('project.sidebar_headings.technical_information')}</h2>
 			<div class="info-table">
 				<span class="info-table__label">
-					{$t('generic.labels.license')}
+					{$t('generic.labels.license.singular')}
 				</span>
 				<span class="info-table__value info-table__value--link">
 					<a href={$project.license.url} class="link">{$project.license.id.toUpperCase()}</a>

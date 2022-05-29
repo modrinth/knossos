@@ -1,12 +1,17 @@
 <script lang="ts">
 	import Meta from '$components/utils/Meta.svelte'
+    import { t, locale } from 'svelte-intl-precompile'
 </script>
 
 <Meta
 	title="Terms and conditions"
 	description="See our terms and conditions and how they relate to you." />
 
-<h1>Terms and conditions</h1>
+<h1>{$t('pages.terms')}</h1>
+
+{#if ($locale !== 'en')}
+	<p><b>{$t('locale.no_translation')}</b></p>
+{/if}
 
 <h2>1. Terms</h2>
 

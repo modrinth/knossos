@@ -31,7 +31,7 @@
 			<Button
 				href="/notifications"
 				color="transparent"
-				title="Notifications"
+				title={$t('pages.notifications')}
 				badge={$notifications.length > 0}><IconBell /></Button>
 			<div class="avatar" class:hide-dropdown={hideDropdown} tabindex="0">
 				<div
@@ -86,7 +86,7 @@
 		{:else}
 			<Button
 				href={browser ? `${import.meta.env.VITE_API_URL}auth/init?url=${window.location.href}` : ''}
-				color="primary"><IconGithub /> Sign in with GitHub</Button>
+				color="primary"><IconGithub /> {$t('header.github')}</Button>
 		{/if}
 	</div>
 </header>

@@ -30,7 +30,7 @@
 	function createItem() {
 		$popups = [
 			{
-				title: `Upload gallery image`,
+				title: $t('project.gallery.upload'),
 				body: ``,
 				type: {
 					creation: 'galleryItem',
@@ -49,7 +49,7 @@
 						)
 						$project.gallery = (await send('GET', `project/${$project.id}`)).gallery
 					},
-					label: 'Upload image',
+					label: $t('project.gallery.upload'),
 				},
 			},
 			...$popups,
@@ -57,7 +57,7 @@
 	}
 
 	async function deleteItem(item) {
-		if (window.confirm('Are you sure you want to delete this gallery image?')) {
+		if (window.confirm($t('project.gallery.confirm'))) {
 			await send(
 				'DELETE',
 				`project/${$project.id}/gallery?${new URLSearchParams({
@@ -78,7 +78,7 @@
 
 {#if $permissions.data.editDetails}
 	<div class="button-group">
-		<Button color="primary" on:click={createItem}><IconPlus /> Upload image</Button>
+		<Button color="primary" on:click={createItem}><IconPlus /> {$t('project.gallery.upload')}</Button>
 	</div>
 {/if}
 
@@ -89,10 +89,10 @@
 		<div class="card gallery__item">
 			<img class="gallery__item__image" src={item.url} alt="" />
 			{#if modifiedItems[item.url]}
-				<TextInput placeholder="Enter title..." bind:value={modifiedItems[item.url].title} />
+				<TextInput placeholder={$t('project.gallery.placeholder.title')} bind:value={modifiedItems[item.url].title} />
 				<TextInput
 					multiline
-					placeholder="Enter description..."
+					placeholder={$t('project.gallery.placeholder.description')}
 					bind:value={modifiedItems[item.url].description} />
 			{:else}
 				<h1 class="title">{item.title}</h1>
@@ -107,14 +107,14 @@
 								delete modifiedItems[item.url]
 								modifiedItems = modifiedItems
 							}}>
-							<IconX /> Cancel
+							<IconX /> {$t('generic.actions.cancel')}
 						</Button>
 					{:else}
 						<Button on:click={() => (modifiedItems[item.url] = item)}>
-							<IconPencil /> Edit
+							<IconPencil /> {$t('generic.actions.edit')}
 						</Button>
 						<Button on:click={() => deleteItem(item)}>
-							<IconTrash /> Delete
+							<IconTrash /> {$t('generic.actions.delete')}
 						</Button>
 					{/if}
 				</div>

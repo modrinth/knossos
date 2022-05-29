@@ -1,12 +1,17 @@
 <script lang="ts">
 	import Meta from '$components/utils/Meta.svelte'
+    import { t, locale } from 'svelte-intl-precompile'
 </script>
 
 <Meta
 	title="Project rules"
 	description="See our project rules and how they relate to your projects." />
 
-<h1>Project rules</h1>
+<h1>{$t('pages.rules')}</h1>
+
+{#if ($locale !== 'en')}
+	<p><b>{$t('locale.no_translation')}</b></p>
+{/if}
 
 <p>
 	In order to facilitate the Modrinth's

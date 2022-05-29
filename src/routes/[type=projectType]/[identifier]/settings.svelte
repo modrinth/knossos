@@ -25,7 +25,7 @@
 	noindex
 	color={$color} />
 
-<h2 class="title">Members</h2>
+<h2 class="title">{$t('project.members')}</h2>
 {#each $members as member, index}
 	<div class="card edit-member">
 		<div class="edit-member__column">
@@ -34,57 +34,82 @@
 				<h2 class="title-secondary">{member.user.username}</h2>
 			</div>
 			<div class="button-group">
-				<Button><IconTrash /> Remove</Button>
+				<Button><IconTrash /> {$t('generic.actions.remove')}</Button>
 			</div>
 		</div>
 
 		<div class="edit-member__column">
-			<b>Role</b>
-			<TextInput placeholder="Enter role..." bind:value={modifiedMembers[index].role} />
+			<b>{$t('project.role.text')}</b>
+			<TextInput placeholder={$t('project.role.placeholder')} bind:value={modifiedMembers[index].role} />
 		</div>
 
 		<div class="edit-member__column">
-			<b>Permissions</b>
+			<b>{$t('project.permissions')}</b>
+			<!-- TODO make this prettier (not code-wise) -->
 			<CheckboxList
 				options={[
 					{
-						label: 'Upload version',
+						label: $t('project.permission.upload_version'),
 						value: 1 << 0,
 					},
 					{
-						label: 'Delete version',
+						label: $t('project.permission.delete_version'),
 						value: 1 << 1,
+					},
+					{
+						label: $t('project.permission.edit_details'),
+						value: 1 << 2,
+					},
+					{
+						label: $t('project.permission.edit_body'),
+						value: 1 << 3,
+					},
+					{
+						label: $t('project.permission.manage_invites'),
+						value: 1 << 4,
+					},
+					{
+						label: $t('project.permission.remove_member'),
+						value: 1 << 5,
+					},
+					{
+						label: $t('project.permission.edit_member'),
+						value: 1 << 6,
+					},
+					{
+						label: $t('project.permission.delete_project'),
+						value: 1 << 7,
 					},
 				]} />
 		</div>
 	</div>
 {/each}
 
-<h2 class="title">Advanced</h2>
+<h2 class="title">{$t('project.advanced')}</h2>
 <div class="card">
 	<div class="setting">
 		<div class="setting__label">
-			<b>Change visibility</b><br />
-			This project is currently public.
+			<b>{$t('project.visibility.title')}</b><br />
+			{$t('project.visibility.description', { values: { status: $t(`status.${$project.status}`) } })}
 		</div>
-		<Button color="danger-light" on:click={() => {}}><IconEye /> Change visibility</Button>
+		<Button color="danger-light" on:click={() => {}}><IconEye /> {$t('project.visibility.action')}</Button>
 	</div>
 	<div class="setting">
 		<div class="setting__label">
-			<b>Transfer ownership</b><br />
-			Transfer this project to another user.
+			<b>{$t('project.ownership.title')}</b><br />
+			{$t('project.ownership.description')}
 		</div>
 		<Button color="danger-light" on:click={() => {}}>
-			<IconSwitchHorizontal /> Transfer ownership
+			<IconSwitchHorizontal /> {$t('project.ownership.action')}
 		</Button>
 	</div>
 	<div class="setting">
 		<div class="setting__label">
-			<b>Delete project</b><br />
-			Deleting a project erases all project data, including versions.
+			<b>{$t('project.delete.title')}</b><br />
+			{$t('project.delete.description')}
 		</div>
 		<Button color="danger" on:click={() => {}}>
-			<IconTrash /> Delete project
+			<IconTrash /> {$t('project.delete.action')}
 		</Button>
 	</div>
 </div>

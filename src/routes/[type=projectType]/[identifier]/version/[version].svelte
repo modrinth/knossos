@@ -11,6 +11,7 @@
 		} else {
 			return {
 				status: 404,
+                // TODO make this translatable
 				error: new Error(`The version you were looking for cannot be found.`),
 			}
 		}
@@ -78,24 +79,24 @@
 <h1 class="title">
 	{version.name || version.version_number}
 	{#if version.featured}
-		<div class="featured"><IconStar /> Featured</div>
+		<div class="featured"><IconStar /> {$t('version.featured')}</div>
 	{:else if $featuredVersions.find((it) => it.id === version.id)}
-		<div class="featured"><IconStar /> Auto-featured</div>
+		<div class="featured"><IconStar /> {$t('version.autofeatured')}</div>
 	{/if}
 </h1>
 
 {#if $user}
 	<div class="button-group">
 		{#if $permissions.data.uploadVersions}
-			<Button color="raised"><IconStar /> Feature</Button>
-			<Button color="raised"><IconPencil /> Edit</Button>
+			<Button color="raised"><IconStar /> {$t('generic.actions.feature')}</Button>
+			<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
 		{:else}
 			<Button color="raised" on:click={() => report('version', version.id)}>
-				<IconFlag /> Report
+				<IconFlag /> {$t('generic.actions.report')}
 			</Button>
 		{/if}
 		{#if $permissions.data.deleteVersion}
-			<Button color="raised"><IconTrash /> Delete</Button>
+			<Button color="raised"><IconTrash /> {$t('generic.actions.delete')}</Button>
 		{/if}
 	</div>
 {/if}
@@ -103,7 +104,7 @@
 <div class="grid grid--col-2-1">
 	<div class="grid__col">
 		<div class="card">
-			<h2 class="title-secondary">Files</h2>
+			<h2 class="title-secondary">{$t('generic.labels.files')}</h2>
 			{#each version.files as file}
 				<a
 					class="file"
@@ -120,7 +121,7 @@
 
 		{#if version.changelog}
 			<div class="card">
-				<h2 class="title-secondary">Changelog</h2>
+				<h2 class="title-secondary">{$t('pages.changelog')}</h2>
 				<div class="markdown">
 					{@html markdown(version.changelog)}
 				</div>
@@ -129,7 +130,7 @@
 
 		{#if versionDependencies.length > 0}
 			<div class="card">
-				<h2 class="title-secondary">Dependencies</h2>
+				<h2 class="title-secondary">{$t('version.dependencies')}</h2>
 				{#each versionDependencies as dep}
 					<a
 						class="dependency"
@@ -140,6 +141,7 @@
 						<div class="dependency__info">
 							<b>{dep.project.title}</b>
 							{#if dep.version}
+								<!-- TODO make this translatable -->
 								<p>Version {dep.version.version_number} is {dep.dependency_type}</p>
 							{/if}
 						</div>
@@ -151,19 +153,19 @@
 
 	<div class="grid__col">
 		<div class="card">
-			<h2 class="title-secondary">Metadata</h2>
+			<h2 class="title-secondary">{$t('version.metadata')}</h2>
 			<div>
-				<b>Release channel</b><br />
+				<b>{$t('version.release_channel')}</b><br />
 				<Badge
 					label={$t(`release_channels.${version.version_type}`)}
 					color={releaseColors[version.version_type]} />
 			</div>
 			<div>
-				<b>Version number</b><br />
+				<b>{$t('version.number')}</b><br />
 				{version.version_number}
 			</div>
 			<div>
-				<b>Mod loaders</b><br />
+				<b>{$t('generic.labels.mod_loaders')}</b><br />
 				<div class="tag-group">
 					{#each version.loaders as loader, index}
 						<div class="tag">
@@ -173,19 +175,19 @@
 				</div>
 			</div>
 			<div>
-				<b>Minecraft versions</b><br />
+				<b>{$t('generic.labels.minecraft_versions')}</b><br />
 				{gameVersions}
 			</div>
 			<div>
-				<b>Downloads</b><br />
+				<b>{$t('generic.labels.downloads')}</b><br />
 				{version.downloads}
 			</div>
 			<div>
-				<b>Publication date</b><br />
+				<b>{$t('version.publication_date')}</b><br />
 				{dateFormat.format(new Date(version.date_published))}
 			</div>
 			<div>
-				<b>Publisher</b><br />
+				<b>{$t('version.publisher')}</b><br />
 				<a class="member" href="/user/{publisher.user.username}">
 					<Avatar src={publisher.user.avatar_url} size="sm" circle />
 					<div class="member__info">

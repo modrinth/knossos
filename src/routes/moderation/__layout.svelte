@@ -89,7 +89,7 @@
 					href: '',
 				},
 				{
-					label: $t('pages.reports'),
+					label: $t('report.plural'),
 					href: 'report',
 				},
 				...projectTypes.map((type) => ({

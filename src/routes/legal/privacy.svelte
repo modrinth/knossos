@@ -1,10 +1,15 @@
 <script lang="ts">
 	import Meta from '$components/utils/Meta.svelte'
+    import { t, locale } from 'svelte-intl-precompile'
 </script>
 
 <Meta title="Privacy policy" description="See our privacy policy and how it relates to you." />
 
-<h1>Privacy policy</h1>
+<h1>{$t('pages.privacy')}</h1>
+
+{#if ($locale !== 'en')}
+	<p><b>{$t('locale.no_translation')}</b></p>
+{/if}
 
 <p>
 	At Modrinth, accessible from https://modrinth.com, one of our main priorities is the privacy of

@@ -6,24 +6,22 @@
 	import { popups } from '$stores/app'
 	import { goto } from '$app/navigation'
 	import { send } from '$lib/api'
+    import IconCheck from 'virtual:icons/heroicons-outline/check'
 
 	let copiedToken = false
 
 	function deleteAccount() {
 		$popups = [
 			{
-				title: 'Are you sure you want to do this?',
+				title: $t('user.delete.confirm_title'),
 				type: {
 					deletion: {
 						key: $user.username,
 					},
 				},
-				body: `
-We will **immediately delete all of your projects** and follows. Deleting your account cannot be reversed.
-
-If you need help with your account, get support on the [Modrinth Discord](/discord).`,
+				body: $t('user.delete.confirm_body'),
 				button: {
-					label: 'Delete my account',
+					label: $t('user.delete.yes_I_want_to_do_this'),
 					click: async () => {
 						await send('DELETE', `user/${$user.id}`)
 						await logOut()
@@ -40,23 +38,10 @@ If you need help with your account, get support on the [Modrinth Discord](/disco
 	function revokeToken() {
 		$popups = [
 			{
-				title: 'Revoke your Modrinth token',
-				body: `
-Revoking your Modrinth token can have unintended consequences. Please be aware that the following could break:
- - Any application that uses your token to access the API.
- - Gradle - if Minotaur is given a incorrect token, your Gradle builds could fail.
- - GitHub - if you use a GitHub action that uses the Modrinth API, it will cause errors.
-
-If you are willing to continue, complete the following steps:
-
- 1. Head to the [Modrinth Application page on GitHub](https://github.com/settings/connections/applications/3acffb2e808d16d4b226). Make sure to be logged into the GitHub account you used for Modrinth!
- 2. Press the big red "Revoke Access" button next to the "Permissions" header.
-
-Once you have completed those steps, press the continue button below.
-
-**This will log you out of Modrinth, however, when you log back in, your token will be regenerated.**`,
+				title: $t('user.revoke_token.title'),
+				body: $t('user.revoke_token.body'),
 				button: {
-					label: 'Revoke token and logout',
+					label: $t('user.revoke_token.action'),
 					click: async () => {
 						await logOut()
 					},
@@ -79,30 +64,25 @@ Once you have completed those steps, press the continue button below.
 <div class="single-layout">
 	<h1>{$t('pages.settings')}</h1>
 	<div class="card markdown">
-		<h3>Authorization token</h3>
-		<p>
-			Your authorization token can be used with the Modrinth API, the Minotaur Gradle plugin, and
-			other applications that interact with Modrinth's API. Be sure to keep this secret!
-		</p>
+		<h3>{$t('user.auth.title')}</h3>
+		<p>{$t('user.auth.body')}</p>
 		<div class="button-group">
 			<Button
 				on:click={async () => {
 					await navigator.clipboard.writeText($token)
 					copiedToken = true
 				}}>
-				{copiedToken ? 'Copied' : 'Copy'} token to clipboard
+				{#if (copiedToken)}<IconCheck />{/if}
+				{$t(`user.auth.${copiedToken ? 'copied' : 'copy'}`)}
 			</Button>
-			<Button on:click={revokeToken}>Revoke token</Button>
+			<Button on:click={revokeToken}>{$t('user.auth.revoke')}</Button>
 		</div>
 	</div>
 	<div class="card markdown">
-		<h3>Delete account</h3>
-		<p>
-			Once you delete your account, there is no going back. Deleting your account will remove all
-			attached data, including projects, from our servers.
-		</p>
+		<h3>{$t('user.delete.title')}</h3>
+		<p>{$t('user.delete.body')}</p>
 		<div class="button-group">
-			<Button color="danger" on:click={deleteAccount}>Delete account</Button>
+			<Button color="danger" on:click={deleteAccount}>{$t('user.delete.title')}</Button>
 		</div>
 	</div>
 </div>

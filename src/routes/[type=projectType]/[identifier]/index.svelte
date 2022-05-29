@@ -95,11 +95,11 @@
 				bind:value={viewMode}
 				options={[
 					{
-						label: 'Editor',
+						label: $t('project.body.editor'),
 						value: 'editor',
 					},
 					{
-						label: 'Preview',
+						label: $t('generic.actions.preview'),
 						value: 'preview',
 					},
 				]}
@@ -108,7 +108,7 @@
 		{#if viewMode === 'editor'}
 			<textarea
 				class="project-body__editor"
-				placeholder="Enter project body..."
+				placeholder={$t('project.body.placeholder')}
 				bind:value={modifiedBody}
 				use:autosize />
 		{:else}
@@ -121,7 +121,7 @@
 			{#if $project.body}
 				{@html markdown($project.body)}
 			{:else}
-				<p class="project-body__text__placeholder">This project description is empty.</p>
+				<p class="project-body__text__placeholder">{$t('project.body.empty')}</p>
 			{/if}
 		</div>
 	{/if}

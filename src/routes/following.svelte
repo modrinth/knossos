@@ -23,7 +23,7 @@
 		<h1>{$t('pages.following')}</h1>
 	</div>
 	{#if !$loaded}
-		Loading followed projects...
+		{$t('user.following.loaded')}
 	{:else if $following.length > 0}
 		{#each $following.sort((a, b) => a.title - b.title) as project}
 			<ProjectCard {project}>
@@ -46,7 +46,7 @@
 	{:else}
 		<div class="illustration">
 			<FollowIllustration class="illustration__image" />
-			<p class="illustration__description">You haven't followed any projects.</p>
+			<p class="illustration__description">{$t('user.following.none')}</p>
 		</div>
 	{/if}
 </div>
