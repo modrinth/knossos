@@ -62,14 +62,16 @@
 			{/if}
 			{#if popup?.type?.deletion}
 				<p><b>To verify, type</b> <i>{popup.type.deletion.key}</i> <b>below:</b></p>
-				<TextInput placeholder="{$t('generic.popup.placeholder')}" bind:value={deletionKey} />
+				<TextInput placeholder={$t('generic.popup.placeholder')} bind:value={deletionKey} />
 			{/if}
 			{#if popup?.type?.report}
 				<p><b>Reason</b></p>
 				<Select
 					bind:value={report_type}
-					options={reportTypes.map(({ name }) => ({ label: $t(`report.type.${name}`), value: name }))}
-				/>
+					options={reportTypes.map(({ name }) => ({
+						label: $t(`report.type.${name}`),
+						value: name,
+					}))} />
 				<p>
 					<b>{$t('report.new.information')}</b><br />{$t('report.new.description')}
 				</p>

@@ -40,7 +40,9 @@
 
 		<div class="edit-member__column">
 			<b>{$t('project.role.text')}</b>
-			<TextInput placeholder={$t('project.role.placeholder')} bind:value={modifiedMembers[index].role} />
+			<TextInput
+				placeholder={$t('project.role.placeholder')}
+				bind:value={modifiedMembers[index].role} />
 		</div>
 
 		<div class="edit-member__column">
@@ -90,9 +92,12 @@
 	<div class="setting">
 		<div class="setting__label">
 			<b>{$t('project.visibility.title')}</b><br />
-			{$t('project.visibility.description', { values: { status: $t(`status.${$project.status}`) } })}
+			{$t('project.visibility.description', {
+				values: { status: $t(`status.${$project.status}`) },
+			})}
 		</div>
-		<Button color="danger-light" on:click={() => {}}><IconEye /> {$t('project.visibility.action')}</Button>
+		<Button color="danger-light" on:click={() => {}}
+			><IconEye /> {$t('project.visibility.action')}</Button>
 	</div>
 	<div class="setting">
 		<div class="setting__label">
@@ -100,7 +105,8 @@
 			{$t('project.ownership.description')}
 		</div>
 		<Button color="danger-light" on:click={() => {}}>
-			<IconSwitchHorizontal /> {$t('project.ownership.action')}
+			<IconSwitchHorizontal />
+			{$t('project.ownership.action')}
 		</Button>
 	</div>
 	<div class="setting">
@@ -109,7 +115,8 @@
 			{$t('project.delete.description')}
 		</div>
 		<Button color="danger" on:click={() => {}}>
-			<IconTrash /> {$t('project.delete.action')}
+			<IconTrash />
+			{$t('project.delete.action')}
 		</Button>
 	</div>
 </div>

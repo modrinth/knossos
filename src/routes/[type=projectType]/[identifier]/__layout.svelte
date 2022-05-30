@@ -70,6 +70,7 @@
 	import IconGithubSponsors from 'virtual:icons/simple-icons/githubsponsors'
 	import IconOther from 'virtual:icons/heroicons-outline/globe-alt'
 	import IconDownloadFile from 'virtual:icons/heroicons-outline/document-download'
+	import IconUpload from 'virtual:icons/heroicons-outline/upload'
 	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 
 	import IconCalendar from 'virtual:icons/lucide/calendar'
@@ -90,6 +91,7 @@
 	import { report } from '$lib/report'
 	import { simplify } from '$lib/number'
 	import { following } from '$stores/self'
+	import { browser } from '$app/env'
 
 	export let data
 	$project = data.project
@@ -285,9 +287,14 @@
 				<div class="limited-list">
 					{#each $featuredVersions as version}
 						<div class="featured-version">
-							<a class="featured-version__download" href={downloadUrl(getPrimary(version.files))}>
-								<IconDownloadFile width={24} height={24} />
-							</a>
+							{#if browser && document.cookie.indexOf('integration-enabled=true') == -1}
+								<a
+									style="margin-right:0"
+									class="featured-version__buttons__download"
+									href={downloadUrl(getPrimary(version.files))}>
+									<IconDownloadFile width={24} height={24} />
+								</a>
+							{/if}
 							<div class="featured-version__info">
 								<a
 									class="featured-version__info__name"
@@ -308,6 +315,19 @@
 								</div>
 							</div>
 						</div>
+						{#if browser && document.cookie.indexOf('integration-enabled=true') != -1}
+							<div class="featured-version__buttons">
+								<Button
+									color="brand"
+									icon={IconUpload}
+									label={$t('generic.actions.with_manager')}
+									on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)} />
+								<Button
+									color="brand"
+									icon={IconDownload}
+									href={downloadUrl(getPrimary(version.files))} />
+							</div>
+						{/if}
 					{/each}
 				</div>
 
@@ -418,20 +438,27 @@
 		display: flex;
 		grid-gap: 0.75rem;
 
-		&__download {
-			background-color: var(--color-brand);
-			color: var(--color-brand-contrast);
-			border-radius: var(--rounded-max);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			min-width: 2.5rem;
-			height: 2.5rem;
-			box-shadow: var(--shadow-inset-sm);
+		&__buttons {
+      display: flex;
+      margin-top: -0.75rem;
+      grid-gap: 0 0.5rem;
 
-			&:hover {
-				background-color: var(--color-brand-dark);
-			}
+      &__download {
+        background-color: var(--color-brand);
+        color: var(--color-brand-contrast);
+        border-radius: var(--rounded-max);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: max-content;
+        padding: 0rem 0.5rem;
+        height: 2.5rem;
+        margin-right: 0.5rem;
+        box-shadow: var(--shadow-inset-sm);
+		
+        &:hover {
+          background-color: var(--color-brand-dark);
+        }
 		}
 
 		&__info {

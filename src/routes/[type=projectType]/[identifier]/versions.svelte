@@ -5,8 +5,10 @@
 	import { formatVersions, downloadUrl, getPrimary } from 'omorphia/utils'
 	import { Button, Badge } from 'omorphia'
 	import IconDownload from 'virtual:icons/heroicons-outline/download'
+	import IconUpload from 'virtual:icons/heroicons-outline/upload'
 	import { tagIcons } from '$generated/tags.json'
 	import { simplify } from '$lib/number'
+	import { browser } from '$app/env'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',
@@ -60,10 +62,19 @@
 					{@html $t('stats.downloads', { values: { downloads: version.downloads } })}
 				</div>
 			</div>
-			<Button href={downloadUrl(getPrimary(version.files))}>
-				<IconDownload />
-				{$t('generic.actions.download')}
-			</Button>
+			<div style="display:inline-flex;">
+				{#if browser && document.cookie.indexOf('integration-enabled') != -1}
+					<div style="width:max-content;margin-right:0.5rem;">
+						<Button
+							label={$t('generic.actions.with_manager')}
+							icon={IconUpload}
+							on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)} />
+					</div>
+				{/if}
+				<div>
+					<Button icon={IconDownload} href={downloadUrl(getPrimary(version.files))} />
+				</div>
+			</div>
 		</div>
 	{/each}
 </div>

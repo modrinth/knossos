@@ -45,13 +45,24 @@
 	import IconPlus from 'virtual:icons/heroicons-outline/plus'
 	import { create } from '$lib/create'
 
-	onMount(() => {
-		if ($page.url.searchParams.get('code')) {
-			const url = new URL($page.url)
-			url.searchParams.delete('code')
-			history.replaceState({}, '', url)
-		}
+	let integration_enabled = false
 
+	if (browser) {
+		if ($page.url.searchParams.has('code')) {
+			$page.url.searchParams.delete('code')
+			history.replaceState({}, '', $page.url)
+		}
+		if ($page.url.searchParams.has('manager-integration')) {
+			$page.url.searchParams.delete('manager-integration')
+			window.history.replaceState(null, '', $page.url)
+			window.document.cookie = 'integration-enabled=true; path=/; max-age=2147483647;'
+		}
+		if (document.cookie.indexOf('integration-enabled=true') != -1) {
+			integration_enabled = true
+		}
+	}
+
+	onMount(() => {
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
 			if ($theme === 'system') setSystemTheme()
 		})
@@ -130,6 +141,17 @@
 			},
 			icon: IconLogout,
 		},
+		...(integration_enabled
+			? [
+					{
+						label: 'Disable Integration',
+						action: () => {
+							document.cookie = 'integration-enabled=true; path=/; max-age=0;'
+							location.reload() // reload page to remove integration components
+						},
+					},
+			  ]
+			: []),
 	]
 </script>
 

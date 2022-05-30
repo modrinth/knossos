@@ -139,10 +139,15 @@
 
 			{#if isEditing}
 				<b>{$t('settings.username.text')}</b>
-				<TextInput placeholder={$t('settings.username.placeholder')} bind:value={modifiedUser.username} />
+				<TextInput
+					placeholder={$t('settings.username.placeholder')}
+					bind:value={modifiedUser.username} />
 
 				<b>{$t('settings.bio.text')}</b>
-				<TextInput multiline placeholder={$t('settings.bio.placeholder')} bind:value={modifiedUser.bio} />
+				<TextInput
+					multiline
+					placeholder={$t('settings.bio.placeholder')}
+					bind:value={modifiedUser.bio} />
 
 				<p>{$t('settings.email.text')}</p>
 				<TextInput placeholder={$t('settings.email.placeholder')} bind:value={modifiedUser.email} />

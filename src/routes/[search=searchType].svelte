@@ -166,8 +166,9 @@
 					height={180}
 					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
 					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}><IconCode />{$t('search.filters.show_snapshots')}</Checkbox>
-				<TextInput placeholder="{$t('search.filters.search_versions')}" bind:value={filterTerm} />
+				<Checkbox bind:checked={searchParams.h}
+					><IconCode />{$t('search.filters.show_snapshots')}</Checkbox>
+				<TextInput placeholder={$t('search.filters.search_versions')} bind:value={filterTerm} />
 
 				<hr class="divider" />
 

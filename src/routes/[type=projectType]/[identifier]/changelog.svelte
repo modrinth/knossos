@@ -4,7 +4,8 @@
 	import { members, project, releaseColors, versions, color } from './_store'
 	import { Button, Badge } from 'omorphia'
 	import { markdown, formatVersions, downloadUrl, getPrimary } from 'omorphia/utils'
-	import IconDownload from 'virtual:icons/heroicons-outline/download'
+	import IconDownload from 'virtual:icons/heroicons-outline/document-download'
+	import IconUpload from 'virtual:icons/heroicons-outline/upload'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',
@@ -38,25 +39,38 @@
 				class:has-body={version.changelog}
 				class:is-duplicate={version.duplicate} />
 			<div class="changelog__item__body">
-				<div class="changelog__item__body__title">
-					<a href="./version/{version.version_number || version.id}"
-						><h1 class="title-secondary">{version.name || version.version_number}</h1></a>
-					<a
-						href="/user/{$members.find((member) => member.user.id === version.author_id).user
-							.username}"
-						>{@html $t('generic.byline', {
-							values: {
-								author: $members.find((member) => member.user.id === version.author_id).user
-									.username,
-							},
-						})}</a>
-					&bull;
-					<span>{dateFormat.format(new Date(version.date_published))}</span>
-					<Button href={downloadUrl(getPrimary(version.files))}>
-						<IconDownload /> {$t('generic.actions.download')}</Button>
+				<div style="display:flex;">
+					<div class="changelog__item__body__title">
+						<a href="./version/{version.version_number || version.id}"
+							><h1 class="title-secondary">{version.name || version.version_number}</h1></a>
+						<a
+							href="/user/{$members.find((member) => member.user.id === version.author_id).user
+								.username}"
+							>{@html $t('generic.byline', {
+								values: {
+									author: $members.find((member) => member.user.id === version.author_id).user
+										.username,
+								},
+							})}</a>
+						&bull;
+						<span>{dateFormat.format(new Date(version.date_published))}</span>
+					</div>
+					<div style="display:flex;margin-left:auto;">
+						{#if browser && document.cookie.indexOf('integration-enabled=true') != -1}
+							<div style="width:max-content;margin-right:0.5rem;">
+								<Button
+									label={$t('generic.actions.with_manager')}
+									icon={IconUpload}
+									on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)} />
+							</div>
+						{/if}
+						<div>
+							<Button icon={IconDownload} href={downloadUrl(getPrimary(version.files))} />
+						</div>
+					</div>
 				</div>
 				{#if version.changelog && !version.duplicate}
-					<div class="changelog__item__body__log markdown">
+					<div class="changelog__item__body__log text">
 						{@html markdown(version.changelog)}
 					</div>
 				{/if}
@@ -122,9 +136,13 @@
 
 				&__title {
 					display: flex;
-					grid-gap: 0.5rem;
-					align-items: baseline;
+					grid-gap: 0 0.5rem;
+					align-items: center;
 					flex-wrap: wrap;
+				}
+
+				&__log {
+					margin-top: 0.5rem;
 				}
 			}
 		}

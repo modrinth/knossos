@@ -72,7 +72,7 @@
 					await navigator.clipboard.writeText($token)
 					copiedToken = true
 				}}>
-				{#if (copiedToken)}<IconCheck />{/if}
+				{#if copiedToken}<IconCheck />{/if}
 				{$t(`user.auth.${copiedToken ? 'copied' : 'copy'}`)}
 			</Button>
 			<Button on:click={revokeToken}>{$t('user.auth.revoke')}</Button>
