@@ -74,6 +74,9 @@
 				<div>
 					<Button href={downloadUrl(getPrimary(version.files))}>
 						<IconDownload />
+						{#if browser && document.cookie.indexOf('integration-enabled') == -1}
+							{$t('generic.actions.download')}
+						{/if}
 					</Button>
 				</div>
 			</div>

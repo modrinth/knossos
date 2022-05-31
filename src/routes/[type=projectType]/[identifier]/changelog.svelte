@@ -68,6 +68,7 @@
 						<div>
 							<Button href={downloadUrl(getPrimary(version.files))}>
 								<IconDownload />
+								{$t('generic.actions.download')}
 							</Button>
 						</div>
 					</div>
