@@ -288,12 +288,9 @@
 					{#each $featuredVersions as version}
 						<div class="featured-version">
 							{#if browser && document.cookie.indexOf('integration-enabled=true') == -1}
-								<a
-									style="margin-right:0"
-									class="featured-version__buttons__download"
-									href={downloadUrl(getPrimary(version.files))}>
-									<IconDownloadFile width={24} height={24} />
-								</a>
+								<Button color="primary" href={downloadUrl(getPrimary(version.files))}>
+									<IconDownload />
+								</Button>
 							{/if}
 							<div class="featured-version__info">
 								<a
@@ -318,14 +315,14 @@
 						{#if browser && document.cookie.indexOf('integration-enabled=true') != -1}
 							<div class="featured-version__buttons">
 								<Button
-									color="brand"
-									icon={IconUpload}
-									label={$t('generic.actions.with_manager')}
-									on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)} />
-								<Button
-									color="brand"
-									icon={IconDownload}
-									href={downloadUrl(getPrimary(version.files))} />
+									color="primary"
+									on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)}>
+									<IconUpload />
+									{$t('generic.actions.with_manager')}
+								</Button>
+								<Button color="primary" href={downloadUrl(getPrimary(version.files))}>
+									<IconDownload />
+								</Button>
 							</div>
 						{/if}
 					{/each}
@@ -439,26 +436,27 @@
 		grid-gap: 0.75rem;
 
 		&__buttons {
-      display: flex;
-      margin-top: -0.75rem;
-      grid-gap: 0 0.5rem;
+			display: flex;
+			margin-top: -0.75rem;
+			grid-gap: 0 0.5rem;
 
-      &__download {
-        background-color: var(--color-brand);
-        color: var(--color-brand-contrast);
-        border-radius: var(--rounded-max);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: max-content;
-        padding: 0rem 0.5rem;
-        height: 2.5rem;
-        margin-right: 0.5rem;
-        box-shadow: var(--shadow-inset-sm);
-		
-        &:hover {
-          background-color: var(--color-brand-dark);
-        }
+			&__download {
+				background-color: var(--color-brand);
+				color: var(--color-brand-contrast);
+				border-radius: var(--rounded-max);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: max-content;
+				padding: 0rem 0.5rem;
+				height: 2.5rem;
+				margin-right: 0.5rem;
+				box-shadow: var(--shadow-inset-sm);
+
+				&:hover {
+					background-color: var(--color-brand-dark);
+				}
+			}
 		}
 
 		&__info {

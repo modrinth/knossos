@@ -6,6 +6,7 @@
 	import { markdown, formatVersions, downloadUrl, getPrimary } from 'omorphia/utils'
 	import IconDownload from 'virtual:icons/heroicons-outline/document-download'
 	import IconUpload from 'virtual:icons/heroicons-outline/upload'
+	import { browser } from '$app/env'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',
@@ -38,7 +39,7 @@
 				style:--color="var(--color-badge-{releaseColors[version.version_type]}-dot)"
 				class:has-body={version.changelog}
 				class:is-duplicate={version.duplicate} />
-			<div class="changelog__item__body">
+			<div class="changelog__item__body" style="display:flex; flex:1;">
 				<div style="display:flex;">
 					<div class="changelog__item__body__title">
 						<a href="./version/{version.version_number || version.id}"
@@ -55,17 +56,19 @@
 						&bull;
 						<span>{dateFormat.format(new Date(version.date_published))}</span>
 					</div>
-					<div style="display:flex;margin-left:auto;">
+					<div style="display:flex; flex:1; justify-content:right;">
 						{#if browser && document.cookie.indexOf('integration-enabled=true') != -1}
 							<div style="width:max-content;margin-right:0.5rem;">
-								<Button
-									label={$t('generic.actions.with_manager')}
-									icon={IconUpload}
-									on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)} />
+								<Button on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)}>
+									<IconUpload />
+									{$t('generic.actions.with_manager')}
+								</Button>
 							</div>
 						{/if}
 						<div>
-							<Button icon={IconDownload} href={downloadUrl(getPrimary(version.files))} />
+							<Button href={downloadUrl(getPrimary(version.files))}>
+								<IconDownload />
+							</Button>
 						</div>
 					</div>
 				</div>

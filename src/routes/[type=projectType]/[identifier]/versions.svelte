@@ -65,14 +65,16 @@
 			<div style="display:inline-flex;">
 				{#if browser && document.cookie.indexOf('integration-enabled') != -1}
 					<div style="width:max-content;margin-right:0.5rem;">
-						<Button
-							label={$t('generic.actions.with_manager')}
-							icon={IconUpload}
-							on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)} />
+						<Button on:click={(e) => (location.href = 'modrinth:/add-item/' + version.id)}>
+							<IconUpload />
+							{$t('generic.actions.with_manager')}
+						</Button>
 					</div>
 				{/if}
 				<div>
-					<Button icon={IconDownload} href={downloadUrl(getPrimary(version.files))} />
+					<Button href={downloadUrl(getPrimary(version.files))}>
+						<IconDownload />
+					</Button>
 				</div>
 			</div>
 		</div>
