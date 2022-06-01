@@ -48,6 +48,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"highlight.js": "^11.5.1",
 		"insane": "^2.6.2",
 		"omorphia": "^0.0.30",
 		"prando": "^6.0.1",

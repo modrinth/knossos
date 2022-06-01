@@ -18,6 +18,7 @@ specifiers:
   eslint: ^7.32.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^3.4.0
+  highlight.js: ^11.5.1
   insane: ^2.6.2
   nprogress: ^0.2.0
   omorphia: ^0.0.30
@@ -39,6 +40,7 @@ specifiers:
   wrangler: ^2.0.7
 
 dependencies:
+  highlight.js: 11.5.1
   insane: 2.6.2
   omorphia: 0.0.30_mbstdawxqszbxgvbyicvq3tzsy
   prando: 6.0.1

@@ -70,7 +70,7 @@
 
 <div class="hero">
 	<div class="stacks">
-		{#if random && modOffset}
+		{#if random && typeof modOffset !== 'undefined'}
 			{#each layout as row, rowIndex}
 				<div class="stacks__row">
 					{#each row as column, colIndex}
