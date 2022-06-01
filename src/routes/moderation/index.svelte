@@ -12,23 +12,21 @@
 	import { popups } from '$stores/app'
 	import NoData from '$assets/images/illustrations/undraw_no_data.svg'
 
-	let items = getContext('items')
+	let items: Array<any> = getContext('items')
 
-	let filteredItems: []
+	let filteredItems: Array<any> = []
 	$: filteredItems = items.filter((item) =>
 		$page.url.searchParams.get('type')
 			? item.moderation_type === $page.url.searchParams.get('type')
 			: true
 	)
 
-	async function changeStatus(id) {
+	async function changeStatus(id: string) {
 		$popups = [
 			{
 				title: 'Change project status',
 				type: {
-					moderation: {
-						id,
-					},
+					moderation: true,
 				},
 				button: {
 					label: 'Confirm',
@@ -50,7 +48,7 @@
 		]
 	}
 
-	function removeItem(id) {
+	function removeItem(id: string) {
 		items = items.filter((item) => item.id !== id)
 	}
 </script>

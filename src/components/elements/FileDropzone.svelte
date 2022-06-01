@@ -30,6 +30,10 @@
 			})
 		}
 	}
+
+	function onInputChange(event) {
+		files = [...event.target.files]
+	}
 </script>
 
 <div
@@ -45,7 +49,7 @@
 		{accept}
 		style:display="none"
 		bind:this={inputElement}
-		on:change={(event) => (files = [...event.target.files])} />
+		on:change={onInputChange} />
 </div>
 
 <style lang="postcss">

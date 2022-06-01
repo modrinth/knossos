@@ -3,7 +3,7 @@ import { browser } from '$app/env'
 
 export const token = writable('')
 
-export const user = writable<User | null>()
+export const user = writable<any | null>()
 
 export const theme = writable('system')
 export const systemTheme = writable('light')

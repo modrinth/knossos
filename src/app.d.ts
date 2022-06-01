@@ -3,7 +3,7 @@
 declare namespace App {
 	interface Locals {
 		token: string
-		user: User
+		user: any
 		theme: string
 	}
 

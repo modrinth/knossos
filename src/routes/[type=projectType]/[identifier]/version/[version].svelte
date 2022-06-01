@@ -92,7 +92,8 @@
 			<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
 		{:else}
 			<Button color="raised" on:click={() => report('version', version.id)}>
-				<IconFlag /> {$t('generic.actions.report')}
+				<IconFlag />
+				{$t('generic.actions.report')}
 			</Button>
 		{/if}
 		{#if $permissions.data.deleteVersion}

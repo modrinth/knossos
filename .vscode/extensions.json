@@ -6,6 +6,7 @@
 		"pivaszbs.svelte-autoimport",
 		"svelte.svelte-vscode",
 		"ardenivanov.svelte-intellisense",
-		"csstools.postcss"
+		"csstools.postcss",
+		"ms-playwright.playwright"
 	]
 }

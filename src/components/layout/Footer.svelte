@@ -57,12 +57,10 @@
 			icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon} />
 		<Select
 			label={$t('footer.buttons.language.label')}
-			options={$locales
-				.filter((locale) => locale !== 'crowdin')
-				.map((locale) => ({
-					label: new Intl.DisplayNames([locale], { type: 'language' }).of(locale),
-					value: locale,
-				}))}
+			options={$locales.map((locale) => ({
+				label: new Intl.DisplayNames([locale], { type: 'language' }).of(locale),
+				value: locale,
+			}))}
 			color="raised"
 			bind:value={$locale}
 			icon={IconLanguages} />

@@ -1,18 +1,18 @@
 <script context="module" lang="ts">
 	import { send } from '$lib/api'
 
-	export async function load({ params, fetch, session, stuff }) {
+	export async function load({ params, fetch }) {
 		try {
-			const user: User = (await send('GET', `user/${params.identifier}`, null, {
+			const user: any = await send('GET', `user/${params.identifier}`, null, {
 				fetch,
-			})) as User
+			})
 
 			return {
 				props: {
 					user,
-					projects: (await send('GET', `user/${params.identifier}/projects`, null, { fetch })).sort(
-						(a, b) => b.downloads - a.downloads
-					),
+					projects: (
+						(await send('GET', `user/${params.identifier}/projects`, null, { fetch })) as any
+					).sort((a, b) => b.downloads - a.downloads),
 					github_url: (await (await fetch(`https://api.github.com/user/${user.github_id}`)).json())
 						.html_url,
 				},
@@ -55,8 +55,8 @@
 	import { create } from '$lib/create'
 	import { project } from '../../[type=projectType]/[identifier]/_store'
 
-	export let user: User
-	export let projects: Project[]
+	export let user
+	export let projects
 	setContext('projects', projects)
 	export let github_url: string
 
@@ -139,10 +139,15 @@
 
 			{#if isEditing}
 				<b>{$t('settings.username.text')}</b>
-				<TextInput placeholder={$t('settings.username.placeholder')} bind:value={modifiedUser.username} />
+				<TextInput
+					placeholder={$t('settings.username.placeholder')}
+					bind:value={modifiedUser.username} />
 
 				<b>{$t('settings.bio.text')}</b>
-				<TextInput multiline placeholder={$t('settings.bio.placeholder')} bind:value={modifiedUser.bio} />
+				<TextInput
+					multiline
+					placeholder={$t('settings.bio.placeholder')}
+					bind:value={modifiedUser.bio} />
 
 				<p>{$t('settings.email.text')}</p>
 				<TextInput placeholder={$t('settings.email.placeholder')} bind:value={modifiedUser.email} />

@@ -24,7 +24,7 @@
 		modOffset = mods.length < 100 ? 0 : Math.floor(random.nextInt(0, 60)) // 100 (total projects) - 40 (used)
 	})
 
-	function search(event: SubmitEvent) {
+	function search(event: Event) {
 		const data = new FormData(event.target as HTMLFormElement)
 		goto(`/mods?q=${data.get('term')}`)
 	}

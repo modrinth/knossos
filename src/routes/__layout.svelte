@@ -7,7 +7,7 @@
 	registerAll()
 
 	/** @type {import('@sveltejs/kit').Load} */
-	export async function load({ fetch, session, stuff }) {
+	export async function load({ session }) {
 		init({
 			fallbackLocale: 'en',
 			initialLocale: session.acceptedLanguage,

@@ -5,7 +5,7 @@ on:
     - cron: '0 19 * * *'
 
 jobs:
-  build:
+  regenerate:
     runs-on: ubuntu-latest
     steps:
       - name: Re-deploy site

@@ -29,7 +29,9 @@
 
 	function fromUrl(params: URLSearchParams) {
 		const entries = Array.from(params.entries()).map(([key, value]) => {
-			if (['v', 'c', 'e', 'l', 'i'].includes(key)) value = value.split('~')
+			if (['v', 'c', 'e', 'l', 'i'].includes(key)) {
+				return [key, value.split('~')]
+			}
 			return [key, value]
 		})
 		return Object.fromEntries(entries)
@@ -71,7 +73,7 @@
 		for (let [k, v] of Object.entries(values)) {
 			if (v) {
 				if (Array.isArray(v)) v = v.join('~')
-				url.searchParams.set(encodeURIComponent(k), encodeURIComponent(v))
+				url.searchParams.set(encodeURIComponent(k), encodeURIComponent(v.toString()))
 			} else {
 				url.searchParams.delete(k)
 			}
@@ -166,8 +168,9 @@
 					height={180}
 					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
 					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}><IconCode />{$t('search.filters.show_snapshots')}</Checkbox>
-				<TextInput placeholder="{$t('search.filters.search_versions')}" bind:value={filterTerm} />
+				<Checkbox bind:checked={searchParams.h}
+					><IconCode />{$t('search.filters.show_snapshots')}</Checkbox>
+				<TextInput placeholder={$t('search.filters.search_versions')} bind:value={filterTerm} />
 
 				<hr class="divider" />
 

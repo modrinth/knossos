@@ -12,26 +12,24 @@ export async function updateSelf(force = false): Promise<void> {
 		const userValue = get(user)
 		await Promise.all([
 			following.set(
-				((await send('GET', `user/${userValue.id}/follows`)) as Project[]).sort((a, b) =>
+				((await send('GET', `user/${userValue.id}/follows`)) as any[]).sort((a, b) =>
 					a.title > b.title ? 1 : -1
 				)
 			),
 			notifications.set(
-				((await send('GET', `user/${userValue.id}/notifications`)) as Notification[]).map(
-					(notif) => {
-						if (notif.type === null && notif.title.startsWith('A mod you followed')) {
-							// Migrate old (Labrinth v1) notification format
-							const name = notif.text.match(/Mod (.*) has been/)[1]
-							return {
-								...notif,
-								title: `**${name}** has been updated`,
-								type: 'project_update',
-							}
-						} else {
-							return notif
+				((await send('GET', `user/${userValue.id}/notifications`)) as any[]).map((notif) => {
+					if (notif.type === null && notif.title.startsWith('A mod you followed')) {
+						// Migrate old (Labrinth v1) notification format
+						const name = notif.text.match(/Mod (.*) has been/)[1]
+						return {
+							...notif,
+							title: `**${name}** has been updated`,
+							type: 'project_update',
 						}
+					} else {
+						return notif
 					}
-				)
+				})
 			),
 		])
 

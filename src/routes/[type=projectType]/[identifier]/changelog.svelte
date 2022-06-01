@@ -12,7 +12,7 @@
 		day: 'numeric',
 	})
 
-	let changelogVersions: Array<Version & { duplicate: boolean }>
+	let changelogVersions = []
 	$: changelogVersions = $versions.map((version, index) => {
 		const nextVersion = $versions[index + 1]
 		if (nextVersion && version.changelog && nextVersion.changelog === version.changelog) {

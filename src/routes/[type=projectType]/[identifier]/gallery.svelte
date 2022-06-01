@@ -47,7 +47,7 @@
 							})}`,
 							file
 						)
-						$project.gallery = (await send('GET', `project/${$project.id}`)).gallery
+						$project.gallery = ((await send('GET', `project/${$project.id}`)) as any).gallery
 					},
 					label: $t('project.gallery.upload'),
 				},
@@ -78,7 +78,8 @@
 
 {#if $permissions.data.editDetails}
 	<div class="button-group">
-		<Button color="primary" on:click={createItem}><IconPlus /> {$t('project.gallery.upload')}</Button>
+		<Button color="primary" on:click={createItem}
+			><IconPlus /> {$t('project.gallery.upload')}</Button>
 	</div>
 {/if}
 
@@ -89,7 +90,9 @@
 		<div class="card gallery__item">
 			<img class="gallery__item__image" src={item.url} alt="" />
 			{#if modifiedItems[item.url]}
-				<TextInput placeholder={$t('project.gallery.placeholder.title')} bind:value={modifiedItems[item.url].title} />
+				<TextInput
+					placeholder={$t('project.gallery.placeholder.title')}
+					bind:value={modifiedItems[item.url].title} />
 				<TextInput
 					multiline
 					placeholder={$t('project.gallery.placeholder.description')}
@@ -107,14 +110,17 @@
 								delete modifiedItems[item.url]
 								modifiedItems = modifiedItems
 							}}>
-							<IconX /> {$t('generic.actions.cancel')}
+							<IconX />
+							{$t('generic.actions.cancel')}
 						</Button>
 					{:else}
 						<Button on:click={() => (modifiedItems[item.url] = item)}>
-							<IconPencil /> {$t('generic.actions.edit')}
+							<IconPencil />
+							{$t('generic.actions.edit')}
 						</Button>
 						<Button on:click={() => deleteItem(item)}>
-							<IconTrash /> {$t('generic.actions.delete')}
+							<IconTrash />
+							{$t('generic.actions.delete')}
 						</Button>
 					{/if}
 				</div>

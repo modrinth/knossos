@@ -7,7 +7,7 @@
 
 <h1>{$t('pages.privacy')}</h1>
 
-{#if ($locale !== 'en')}
+{#if $locale !== 'en'}
 	<p><b>{$t('locale.no_translation')}</b></p>
 {/if}
 
