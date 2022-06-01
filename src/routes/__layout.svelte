@@ -1,16 +1,16 @@
 <script context="module" lang="ts">
 	import { theme, token, user } from '$stores/server'
 
-	import { t, init, waitLocale } from 'svelte-intl-precompile'
-	import { registerAll } from '$locales'
+	import { init, waitLocale, t } from 'svelte-intl-precompile'
+	import { registerAll, availableLocales } from '$locales'
+	import { getLocaleFromAcceptLanguageHeader } from '$utils/locales'
 
 	registerAll()
 
-	/** @type {import('@sveltejs/kit').Load} */
-	export async function load({ session }) {
+	export const load: import('@sveltejs/kit').Load = async ({ session }) => {
 		init({
 			fallbackLocale: 'en',
-			initialLocale: session.acceptedLanguage,
+			initialLocale: getLocaleFromAcceptLanguageHeader(session.acceptLanguage, availableLocales),
 		})
 		await waitLocale()
 
@@ -34,7 +34,7 @@
 	import Popup from '$components/elements/Popup.svelte'
 	import NProgress from 'nprogress'
 	import { updateSelf } from '$stores/self'
-	import { fetching } from '$lib/api'
+	import { fetching } from '$utils/api'
 	import { browser } from '$app/env'
 	import { debounce } from 'throttle-debounce'
 	import MobileBar from '$components/layout/MobileBar.svelte'
@@ -43,7 +43,7 @@
 	import IconHeart from 'virtual:icons/lucide/heart'
 	import IconModeration from 'virtual:icons/fa-regular/life-ring'
 	import IconPlus from 'virtual:icons/heroicons-outline/plus'
-	import { create } from '$lib/create'
+	import { create } from '$utils/create'
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
@@ -152,6 +152,8 @@
 <style lang="postcss">
 	:global(body) {
 		overflow: hidden scroll;
+		--rounded: 14px;
+		--rounded-lg: 16px;
 	}
 
 	.app {

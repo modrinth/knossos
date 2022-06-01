@@ -14,7 +14,12 @@ declare namespace App {
 		caches: CacheStorage & { default: Cache }
 	}
 
-	// interface Session {}
+	interface Session {
+		theme: string
+		token: string
+		user: any
+		acceptLanguage: string
+	}
 
 	// interface Stuff {}
 }
