@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 
 	/** @type {import('./__types/[identifier]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
@@ -87,8 +87,8 @@
 		color,
 	} from './_store'
 	import Ad from '$components/elements/Ad.svelte'
-	import { report } from '$lib/report'
-	import { simplify } from '$lib/number'
+	import { report } from '$utils/report'
+	import { simplify } from '$utils/number'
 	import { following } from '$stores/self'
 
 	export let data

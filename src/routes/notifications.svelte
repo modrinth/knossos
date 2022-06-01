@@ -5,7 +5,7 @@
 	import { Button } from 'omorphia'
 	import { markdownInline, ago } from 'omorphia/utils'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import { onMount } from 'svelte'
 	import UpToDate from '$assets/images/illustrations/undraw_notify.svg'
 

@@ -6,7 +6,7 @@
 	import { markdown, ago } from 'omorphia/utils'
 	import IconCalendar from 'virtual:icons/lucide/calendar'
 	import { t } from 'svelte-intl-precompile'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import IconEye from 'virtual:icons/heroicons-outline/eye'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import { popups } from '$stores/app'

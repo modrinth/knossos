@@ -40,7 +40,7 @@
 	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 	import IconStar from 'virtual:icons/heroicons-outline/star'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
-	import { report } from '$lib/report'
+	import { report } from '$utils/report'
 	import { user } from '$stores/server'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {

@@ -6,7 +6,7 @@
 	import { Button, Badge } from 'omorphia'
 	import IconDownload from 'virtual:icons/heroicons-outline/download'
 	import { tagIcons } from '$generated/tags.json'
-	import { simplify } from '$lib/number'
+	import { simplify } from '$utils/number'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',

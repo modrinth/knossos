@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 
 	export async function load({ params, fetch, session, stuff }) {
 		try {

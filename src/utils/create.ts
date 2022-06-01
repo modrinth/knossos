@@ -1,6 +1,6 @@
 import { popups } from '$stores/app'
 import { get } from 'svelte/store'
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 import { user } from '$stores/server'
 import { licenses } from '$generated/tags.json'
 

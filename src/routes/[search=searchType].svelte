@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { search } from '$lib/search'
+	import { search } from '$utils/search'
 	import { projectTypes } from '$generated/tags.json'
 
 	/** @type {import('@sveltejs/kit').Load} */
@@ -56,7 +56,7 @@
 	import { Button, Checkbox, CheckboxList, Select, TextInput, CheckboxVirtualList } from 'omorphia'
 	import Ad from '$components/elements/Ad.svelte'
 	import { Pagination } from 'omorphia'
-	import { simplify } from '$lib/number'
+	import { simplify } from '$utils/number'
 	import { page } from '$app/stores'
 
 	let showFilters = false

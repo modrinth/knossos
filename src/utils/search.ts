@@ -1,4 +1,4 @@
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 
 export async function search(
 	params: Record<string, string | string[]>,

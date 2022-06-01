@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store'
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 import { token, user } from '$stores/server'
 
 export const loaded = writable(false)

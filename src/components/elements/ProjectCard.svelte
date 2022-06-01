@@ -6,7 +6,7 @@
 	import { Avatar } from 'omorphia'
 	import { ago } from 'omorphia/utils'
 	import { tagIcons } from '$generated/tags.json'
-	import { simplify } from '$lib/number'
+	import { simplify } from '$utils/number'
 
 	export let project
 

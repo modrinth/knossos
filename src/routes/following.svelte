@@ -5,7 +5,7 @@
 	import { Button } from 'omorphia'
 	import { ago } from 'omorphia/utils'
 	import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import { onMount } from 'svelte'
 	import FollowIllustration from '$assets/images/illustrations/undraw_appreciation.svg'
 	import ProjectCard from '$components/elements/ProjectCard.svelte'

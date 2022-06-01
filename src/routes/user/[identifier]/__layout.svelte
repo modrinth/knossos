@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 
 	export async function load({ params, fetch }) {
 		try {
@@ -50,9 +50,9 @@
 	import Meta from '$components/utils/Meta.svelte'
 	import { user as currentUser } from '$stores/server'
 	import Ad from '$components/elements/Ad.svelte'
-	import { report } from '$lib/report'
-	import { simplify } from '$lib/number'
-	import { create } from '$lib/create'
+	import { report } from '$utils/report'
+	import { simplify } from '$utils/number'
+	import { create } from '$utils/create'
 	import { project } from '../../[type=projectType]/[identifier]/_store'
 
 	export let user

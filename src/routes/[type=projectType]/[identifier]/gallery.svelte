@@ -8,7 +8,7 @@
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
 	import IconX from 'virtual:icons/heroicons-outline/x'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import { popups } from '$stores/app'
 
 	let modifiedItems = {}

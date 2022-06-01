@@ -1,4 +1,4 @@
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 import cookie from 'cookie'
 import type { Handle } from '@sveltejs/kit'
 

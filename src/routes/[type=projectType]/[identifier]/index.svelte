@@ -10,7 +10,7 @@
 	import { permissions, project, color, members } from './_store'
 	import autosize from 'svelte-autosize'
 	import { onDestroy, onMount } from 'svelte'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import { browser } from '$app/env'
 
 	let isEditing = false
