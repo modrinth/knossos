@@ -9,9 +9,9 @@
     import { Button, NavRow } from "omorphia";
     import { t } from "svelte-intl-precompile";
     import IconBell from "virtual:icons/fa-regular/bell";
+    import IconSearch from "virtual:icons/heroicons-outline/search";
     import IconChevronDown from "virtual:icons/lucide/chevron-down";
     import IconGithub from "virtual:icons/simple-icons/github";
-    import IconSearch from "virtual:icons/heroicons-outline/search";
 
     let navItems = projectTypes.map((type) => ({
         label: $t(`project.types.${type}.plural`),
@@ -49,7 +49,9 @@
             placeholder={$t("project.types.mod.search")}
             name="term"
             class="nav__search__input"
+            autocomplete="off"
         />
+
         <button type="submit" class="nav__search__button" title="Search">
             <IconSearch />
         </button>
@@ -154,6 +156,7 @@
             }
             display: flex;
             align-items: center;
+            margin-left: 2rem;
 
             &__input {
                 background-color: var(--color-button-bg);

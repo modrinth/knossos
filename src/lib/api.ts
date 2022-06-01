@@ -1,4 +1,6 @@
 import { token as tokenStore } from "$stores/server";
+import { Modpack } from "./pack";
+import type { ModpackOpts } from "./pack";
 import * as axios from "axios";
 import { get, writable } from "svelte/store";
 
@@ -231,4 +233,8 @@ export function sendAxiosMulti(
             return reject("An unknown error occured: " + e);
         }
     });
+}
+
+export function createModpack(mods?: string[], opts?: ModpackOpts) {
+    return new Modpack(mods || [], opts || {});
 }

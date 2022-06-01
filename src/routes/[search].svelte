@@ -63,10 +63,16 @@
         tagIcons,
         licenses,
     } from "$generated/tags.json";
+    import { createModpack } from "$lib/api";
     import { simplify } from "$lib/number";
-    import { Modpack } from "$lib/pack";
+    import type { FetchStage, Modpack, ModpackInfo } from "$lib/pack";
+    import { capitalize, capitalizeAll, formatBytes } from "$lib/util";
+    import { formatVersions } from "$lib/versions";
+    import { packMods, popups } from "$stores/app";
+    import { onMount } from "svelte";
     import { t } from "svelte-intl-precompile";
     import VirtualList from "svelte-tiny-virtual-list";
+    import { get } from "svelte/store";
     import { debounce } from "throttle-debounce";
     import IconCode from "virtual:icons/heroicons-outline/code";
     import IconSearch from "virtual:icons/heroicons-outline/search";
@@ -76,6 +82,8 @@
     import IconServer from "virtual:icons/lucide/hard-drive";
     import IconClient from "virtual:icons/lucide/laptop";
     import IconShrink from "virtual:icons/lucide/shrink";
+    import JSZip from "jszip";
+    import { saveAs } from "file-saver";
 
     let showFilters = false;
     let builder = false;
@@ -174,13 +182,110 @@
         searchParams = { v: [], h: "", l: [], e: [], c: [], i: [] };
     }
 
+    onMount(() => {
+        packMods.set(
+            JSON.parse(localStorage.getItem("modrinth_pack_mods")) || []
+        );
+        packMods.subscribe((v) =>
+            localStorage.setItem("modrinth_pack_mods", JSON.stringify(v))
+        );
+    });
+
+    let cachedPack = { pack: null, mods: [] };
+
+    const handleComplete = (pack: Modpack) => {
+        const serialized = pack.serialize();
+        const json: ModpackInfo = JSON.parse(serialized);
+
+        let size = 0;
+        json.files.forEach((v) => (size += v.fileSize));
+
+        // const mods = Object.keys(json.dependencies)
+        //     .map(
+        //         (k) =>
+        //             `<li><b>${capitalizeAll(k)}</b> @ ${
+        //                 json.dependencies[k]
+        //             }</li>`
+        //     )
+        //     .join("");
+
+        const mods = Object.keys(json._dependencies)
+            .map(
+                (dep) =>
+                    `<li><b>${json._dependencies[dep].mod.title}</b> @ ${
+                        json._dependencies[dep].version.version_number
+                    } (${capitalize(
+                        json._dependencies[dep].version.version_type
+                    )})<br />Minecraft ${formatVersions(
+                        json._dependencies[dep].version.game_versions
+                    )}, ${json._dependencies[dep].version.loaders
+                        .map((l) => capitalize(l))
+                        .join(", ")}</li>`
+            )
+            .join("");
+
+        popups.set([
+            {
+                title: "Modpack Info",
+                body: `Pack Name: ${
+                    json.name || "Unknown"
+                }<br />Pack Version: v${
+                    json.versionId
+                }<br />Pack Size: ${formatBytes(
+                    size
+                )}<br /><br />Mods: <ul>${mods}</ul>Files: <ul>${json.files
+                    .map(
+                        (file) =>
+                            `<li><b>${file.path}</b><br />(${formatBytes(
+                                file.fileSize
+                            )}, downloaded from <code>${
+                                new URL(file.downloads[0]).host
+                            }</code>)</li>`
+                    )
+                    .join("")}</ul>`,
+                button: {
+                    label: "",
+                    click: (data) => {
+                        const zip = new JSZip();
+                        zip.file("modrinth.index.json", serialized + "\n");
+                        zip.generateAsync({ type: "blob" }).then((blob) => {
+                            saveAs(blob, "modpack.mrpack");
+                        });
+                    },
+                },
+            },
+            ...get(popups),
+        ]);
+    };
+
+    let stage: FetchStage;
+
+    $: current = 0;
+    $: total = $packMods.length;
+    $: stage = "none";
+    $: mod = "None";
+
     const buildModpack = () => {
-        const packMods: (Project | ProjectResult)[] =
-            JSON.parse(localStorage.getItem("pack_mods")) || [];
-        const mods = packMods.map((m) => m.slug);
-        new Modpack(mods, (pack) => {
-            alert(JSON.stringify(pack.serialize()));
-        });
+        const mods = get(packMods).map((m) => m.slug);
+        const pack = createModpack(mods);
+
+        if (cachedPack.mods == mods) {
+            handleComplete(cachedPack.pack);
+        } else {
+            pack.resolve((i, t, m, d, s) => {
+                current = i;
+                total = t;
+                stage = s;
+                mod = m || "Unknown";
+            })
+                .then(() => {
+                    cachedPack = { pack, mods };
+                    handleComplete(pack);
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
+        }
     };
 </script>
 
@@ -205,7 +310,12 @@
             </div>
 
             <div style:display={showFilters ? "flex" : "none"} class="filters">
-                <div class="button-group">
+                <div class={`button-group ${builder ? "flex__col" : ""}`}>
+                    {#if builder}
+                        Mod: {mod}<br />
+                        Fetching: {current + 1} of {total}<br />
+                        Stage: {capitalize(stage)}<br />
+                    {/if}
                     <Button
                         label="Clear filters"
                         on:click={clearFilters}
@@ -405,6 +515,10 @@
         display: flex;
         flex-direction: column;
         grid-gap: 0.6rem;
+    }
+
+    .flex__col {
+        flex-direction: column;
     }
 
     @media (width >= 800px) {

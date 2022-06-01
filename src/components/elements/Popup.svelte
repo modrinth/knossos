@@ -21,7 +21,7 @@
     let body = "";
     let report_type = "";
     let status = "approved";
-    let project_type = "";
+    let project_type = popup?.type?.creation == "modpack" ? "modpack" : "";
     let name = "";
     let file;
 
@@ -124,6 +124,23 @@
                         { label: "Modpack", value: "modpack" },
                     ]}
                 />
+                <p><b>Name</b></p>
+                <Input
+                    type="text"
+                    placeholder="Enter project name..."
+                    bind:value={name}
+                />
+                <p>
+                    <b>Summary</b><br />This appears in search and on the
+                    sidebar of your project's page.
+                </p>
+                <Input
+                    type="textarea"
+                    placeholder="Enter short summary of project..."
+                    bind:value={body}
+                />
+            {/if}
+            {#if popup?.type?.creation === "modpack"}
                 <p><b>Name</b></p>
                 <Input
                     type="text"

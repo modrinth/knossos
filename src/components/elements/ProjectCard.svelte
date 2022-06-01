@@ -2,21 +2,22 @@
     // noinspection ES6UnusedImports
     import { tagIcons } from "$generated/tags.json";
     import { simplify } from "$lib/number";
+    import { packMods } from "$stores/app";
     import Button from "./Button.svelte";
     import { Avatar } from "omorphia";
     import { ago } from "omorphia/utils/ago";
     import { onMount } from "svelte";
     import { t } from "svelte-intl-precompile";
+    import { get } from "svelte/store";
     import IconDownload from "virtual:icons/heroicons-outline/download";
     import IconCalendar from "virtual:icons/lucide/calendar";
     import IconHeart from "virtual:icons/lucide/heart";
 
-    let packMods: (Project | ProjectResult)[] = [];
-
     export let project: Project | ProjectResult;
     export let builder = false;
 
-    $: includesMod = packMods.filter((v) => v.slug === project.slug).length > 0;
+    $: includesMod =
+        get(packMods).filter((v) => v.slug == project.slug).length > 0;
 
     // @ts-ignore: Author is only available in the result
     let author = project.author ?? "";
@@ -29,22 +30,18 @@
 
     const href = `/${project.project_type}/${project.slug || id}`;
 
-    onMount(() => {
-        packMods = JSON.parse(localStorage.getItem("pack_mods")) || [];
-        includesMod =
-            packMods.filter((v) => v.slug === project.slug).length > 0;
+    packMods.subscribe((v) => {
+        includesMod = v.filter((v) => v.slug == project.slug).length > 0;
     });
 
     const addMod = () => {
-        if (!packMods.includes(project)) {
-            packMods.push(project);
+        if (!includesMod) {
+            packMods.set([project, ...get(packMods)]);
         } else {
-            packMods = packMods.filter((v) => v !== project);
+            packMods.set([
+                ...get(packMods).filter((v) => v.slug != project.slug),
+            ]);
         }
-
-        includesMod =
-            packMods.filter((v) => v.slug === project.slug).length > 0;
-        localStorage.setItem("pack_mods", JSON.stringify(packMods));
     };
 
     // TODO: Add the latest version's download URL into Labyrinth's search page.

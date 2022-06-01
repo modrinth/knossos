@@ -1,5 +1,7 @@
+import { fetching } from "./api";
 import { Serializable } from "./util";
 import axios from "axios";
+import { get } from "svelte/store";
 
 export type SideMetadata = "required" | "optional" | "unsupported";
 export type ProjectType = "mod" | "modpack";
@@ -121,32 +123,81 @@ export class ModInfo implements ModInfoMetadata {
     private version: string;
     private raw: ModMetadata;
     private rawVersion: VersionMetadata;
+    private opts: ModpackOpts;
 
-    constructor(id: string, resolveCallback?: (modInfo: ModInfo) => void) {
+    constructor(id: string, opts?: ModpackOpts) {
         this.id = id;
-        this.resolve().then(() => {
-            if (resolveCallback) resolveCallback(this);
-        });
+        this.opts = opts || {};
     }
 
-    private async resolve() {
+    public async resolve(index: number, total: number, onUpdate?: (index: number, total: number, mod: string, done: boolean, stage: FetchStage) => any) {
         // const baseUrl = import.meta.env.VITE_API_URL.toString();
+        fetching.set(get(fetching) + 1);
+
+        if(onUpdate) onUpdate(index, total, this.name, false, "info");
+
         const baseUrl =
-            process.env.VITE_API_URL?.toString() ||
+            import.meta.env.VITE_API_URL?.toString() ||
             "https://api.modrinth.com/v2/";
         const url = `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}project/${
             this.id
         }`;
-        const result = await axios.get(url);
+        let result;
+
+        try {
+            result = await axios.get(url);
+        } catch (e) {
+            fetching.set(get(fetching) - 1);
+            throw e;
+        }
+
         this.raw = result.data;
         this.slug = this.raw.slug;
         this.name = this.raw.title;
-        this.version = this.version || this.raw.versions[0] || "latest";
+
+        if(onUpdate) onUpdate(index, total, this.name, false, "versions");
+
+        const versionsUrl = `${baseUrl}${
+            baseUrl.endsWith("/") ? "" : "/"
+        }project/${this.id}/version?loaders=["${
+            this.opts.loader || "fabric"
+        }"]&game_versions=["${this.opts.gameVersion || "1.18.2"}"]`;
+
+        fetching.set(get(fetching) - 1);
+        fetching.set(get(fetching) + 1);
+
+        let result2;
+
+        try {
+            result2 = await axios.get(versionsUrl);
+        } catch (e) {
+            fetching.set(get(fetching) - 1);
+            throw e;
+        }
+
+        this.version = this.version || result2.data[0].id || "latest";
+
+        if(onUpdate) onUpdate(index, total, this.name, false, "version");
+
         const versionUrl = `${baseUrl}${
             baseUrl.endsWith("/") ? "" : "/"
         }version/${this.version}`;
-        const result2 = await axios.get(versionUrl);
-        this.rawVersion = result2.data;
+
+        fetching.set(get(fetching) - 1);
+        fetching.set(get(fetching) + 1);
+
+        let result3;
+
+        try {
+            result3 = await axios.get(versionUrl);
+        } catch (e) {
+            fetching.set(get(fetching) - 1);
+            throw e;
+        }
+
+        this.rawVersion = result3.data;
+
+        fetching.set(get(fetching) - 1);
     }
 
     get(): ModMetadata {
@@ -171,7 +222,7 @@ export class ModInfo implements ModInfoMetadata {
 
     async setVersion(name: string): Promise<void> {
         this.version = name;
-        this.resolve();
+        await this.resolve(0, 1);
     }
 }
 
@@ -197,14 +248,25 @@ export interface ModpackInfo {
     summary?: string;
     files: ModpackFile[];
     dependencies: { [key: string]: string | number };
+    _dependencies: {
+        [key: string]: { version: VersionMetadata; mod: ModMetadata };
+    };
 }
+
+export interface ModpackOpts {
+    gameVersion?: string;
+    loader?: string;
+}
+
+export type FetchStage = "none" | "prefetch" | "info" | "versions" | "version" | "postfetch";
 
 export class Modpack extends Serializable {
     private mods: ModInfo[];
     private modNames: string[];
     private pack: ModpackInfo;
+    private opts: ModpackOpts;
 
-    constructor(mods: string[] = [], callback?: (pack: Modpack) => void) {
+    constructor(mods: string[] = [], opts?: ModpackOpts) {
         super();
         this.pack = {
             formatVersion: 1,
@@ -213,21 +275,38 @@ export class Modpack extends Serializable {
             name: "",
             files: [],
             dependencies: {},
+            _dependencies: {},
         };
         this.mods = [];
         this.modNames = mods;
-        this.resolve().then(() => {
-            if (callback) callback(this);
-        });
+        this.opts = {
+            gameVersion: opts.gameVersion || "1.18.2",
+            loader: opts.loader || "fabric",
+        };
     }
 
-    private async resolve() {
+    public async resolve(
+        onUpdate?: (index: number, total: number, mod: string, done: boolean, stage: FetchStage) => any
+    ) {
         for (let i = 0; i < this.modNames.length; i++) {
             const mod = this.modNames[i];
-            const modInfo = await new Promise<ModInfo>((resolve) => {
-                new ModInfo(mod, (m) => resolve(m));
-            });
+            const modInfo = new ModInfo(mod, this.opts);
+
+            if (onUpdate) onUpdate(i, this.modNames.length, mod, false, "prefetch");
+
+            try {
+                await modInfo.resolve(i, this.modNames.length, onUpdate);
+            } catch (e) {
+                throw e;
+            }
+
+            if (onUpdate) onUpdate(i, this.modNames.length, mod, true, "postfetch");
+
             this.mods.push(modInfo);
+            this.pack._dependencies[mod] = {
+                mod: modInfo.get(),
+                version: modInfo.getVersion(),
+            };
         }
     }
 

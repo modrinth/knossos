@@ -8,7 +8,7 @@ interface Popup {
             key: string;
         };
         report?: boolean;
-        creation?: "project" | "galleryItem" | "version";
+        creation?: "project" | "galleryItem" | "version" | "modpack";
         moderation?: boolean;
     };
     button?: {
@@ -26,7 +26,7 @@ interface Popup {
             changelog,
             releaseChannel,
             modLoader,
-        }) => Promise<void>;
+        }) => void | Promise<void>;
     };
     style?: {
         wide?: boolean;
@@ -34,3 +34,4 @@ interface Popup {
 }
 
 export const popups = writable<Popup[]>([]);
+export const packMods = writable<(Project | ProjectResult)[]>([]);

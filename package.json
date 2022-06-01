@@ -79,10 +79,13 @@
     "dependencies": {
         "@sveltejs/adapter-node": "1.0.0-next.76",
         "axios": "^0.27.2",
+        "file-saver": "^2.0.5",
         "glob": "^8.0.3",
+        "jszip": "^3.10.0",
         "omorphia": "^0.0.13",
         "prando": "^6.0.1",
         "stream": "^0.0.2",
+        "svelte-tiny-virtual-list": "^2.0.5",
         "util": "^0.12.4",
         "zlib": "^1.0.5"
     }
