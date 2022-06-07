@@ -59,7 +59,7 @@
 		padding: 1.5rem 1rem;
 		justify-content: center;
 		align-items: center;
-		grid-gap: 0.5rem;
+		gap: 0.5rem;
 		background-color: var(--color-button-bg);
 		border-radius: var(--rounded-sm);
 		border: dashed 0.3rem var(--color-text-lightest);

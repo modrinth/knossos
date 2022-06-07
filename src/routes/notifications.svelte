@@ -99,7 +99,7 @@
 		@media (width <= 400px) {
 			flex-direction: column;
 			align-items: flex-start;
-			grid-gap: 0.75rem;
+			gap: 0.75rem;
 		}
 	}
 
@@ -115,13 +115,13 @@
 		&__info {
 			display: flex;
 			flex-direction: column;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 
 			&__title {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				grid-gap: 0.5rem;
+				gap: 0.5rem;
 
 				@media (width <= 800px) {
 					flex-direction: column;
@@ -142,7 +142,7 @@
 			display: flex;
 			flex-direction: row;
 			align-items: flex-end;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 		}
 	}
 </style>

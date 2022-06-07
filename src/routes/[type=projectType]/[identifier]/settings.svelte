@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, Avatar, Chips, TextInput, CheckboxList } from 'omorphia'
-	import { markdown } from 'omorphia/utils'
+	import { Button, Avatar, Chips, TextInput, Checkbox } from 'omorphia'
+	import { markdown, Permissions } from 'omorphia/utils'
 	import Meta from '$components/utils/Meta.svelte'
 	import { t } from 'svelte-intl-precompile'
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil'
@@ -13,7 +13,7 @@
 	import { send } from '$utils/api'
 
 	let modifiedMembers = $members.map(({ permissions, role, user }) => ({
-		permissions,
+		permissions: new Permissions(permissions),
 		role,
 		id: user.id,
 	}))
@@ -29,9 +29,15 @@
 {#each $members as member, index}
 	<div class="card edit-member">
 		<div class="edit-member__column">
-			<div class="edit-member__column__row">
-				<Avatar size="xs" src={member.user.avatar_url} circle />
+			<div class="edit-member__column__row avatar">
+				<Avatar size="sm" src={member.user.avatar_url} circle />
 				<h2 class="title-secondary">{member.user.username}</h2>
+			</div>
+			<div class="edit-member__column">
+				<b>{$t('project.role.text')}</b>
+				<TextInput
+					placeholder={$t('project.role.placeholder')}
+					bind:value={modifiedMembers[index].role} />
 			</div>
 			<div class="button-group">
 				<Button><IconTrash /> {$t('generic.actions.remove')}</Button>
@@ -39,50 +45,33 @@
 		</div>
 
 		<div class="edit-member__column">
-			<b>{$t('project.role.text')}</b>
-			<TextInput
-				placeholder={$t('project.role.placeholder')}
-				bind:value={modifiedMembers[index].role} />
-		</div>
-
-		<div class="edit-member__column">
 			<b>{$t('project.permissions')}</b>
-			<!-- TODO make this prettier (not code-wise) -->
-			<CheckboxList
-				options={[
-					{
-						label: $t('project.permission.upload_version'),
-						value: 1 << 0,
-					},
-					{
-						label: $t('project.permission.delete_version'),
-						value: 1 << 1,
-					},
-					{
-						label: $t('project.permission.edit_details'),
-						value: 1 << 2,
-					},
-					{
-						label: $t('project.permission.edit_body'),
-						value: 1 << 3,
-					},
-					{
-						label: $t('project.permission.manage_invites'),
-						value: 1 << 4,
-					},
-					{
-						label: $t('project.permission.remove_member'),
-						value: 1 << 5,
-					},
-					{
-						label: $t('project.permission.edit_member'),
-						value: 1 << 6,
-					},
-					{
-						label: $t('project.permission.delete_project'),
-						value: 1 << 7,
-					},
-				]} />
+			<div class="edit-member__column__grid">
+				<Checkbox bind:checked={modifiedMembers[index].permissions.uploadVersions}>
+					{$t('project.permission.upload_version')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.deleteVersion}>
+					{$t('project.permission.delete_version')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.editDetails}>
+					{$t('project.permission.edit_details')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.editBody}>
+					{$t('project.permission.edit_body')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.manageInvites}>
+					{$t('project.permission.manage_invites')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.removeMember}>
+					{$t('project.permission.remove_member')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.editMember}>
+					{$t('project.permission.edit_member')}
+				</Checkbox>
+				<Checkbox bind:checked={modifiedMembers[index].permissions.deleteProject}>
+					{$t('project.permission.delete_project')}
+				</Checkbox>
+			</div>
 		</div>
 	</div>
 {/each}
@@ -122,26 +111,32 @@
 
 <style lang="postcss">
 	.edit-member {
-		display: grid;
-		grid-auto-flow: column;
+		display: flex;
+		margin-top: 40px;
 
 		&__column {
 			display: flex;
 			flex-direction: column;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 
 			&__row {
 				display: flex;
 				align-items: center;
-				grid-gap: 0.75rem;
+				gap: 0.75rem;
+
+				&.avatar {
+					margin-top: -55px;
+				}
+			}
+
+			&__grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+				gap: 0.5rem;
 			}
 
 			.button-group {
 				margin-top: auto;
-			}
-
-			&:last-child {
-				margin-left: auto;
 			}
 		}
 	}
@@ -149,7 +144,7 @@
 	.setting {
 		display: flex;
 		flex-wrap: wrap;
-		grid-gap: 1rem;
+		gap: 1rem;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;

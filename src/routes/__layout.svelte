@@ -152,8 +152,6 @@
 <style lang="postcss">
 	:global(body) {
 		overflow: hidden scroll;
-		--rounded: 14px;
-		--rounded-lg: 16px;
 	}
 
 	.app {
@@ -171,7 +169,7 @@
 
 			.main {
 				display: flex;
-				grid-gap: 1rem;
+				gap: 1rem;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;

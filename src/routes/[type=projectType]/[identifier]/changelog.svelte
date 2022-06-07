@@ -69,11 +69,11 @@
 	.changelog {
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1rem;
+		gap: 1rem;
 
 		&__item {
 			display: flex;
-			grid-gap: 0.8rem;
+			gap: 0.8rem;
 			position: relative;
 			padding-left: 1.8rem;
 
@@ -122,7 +122,7 @@
 
 				&__title {
 					display: flex;
-					grid-gap: 0.5rem;
+					gap: 0.5rem;
 					align-items: baseline;
 					flex-wrap: wrap;
 				}

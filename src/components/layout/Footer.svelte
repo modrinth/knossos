@@ -33,7 +33,6 @@
 	</div>
 	<div class="footer__buttons">
 		<Select
-			label={$t('footer.buttons.theme.label')}
 			options={[
 				{
 					label: $t('footer.buttons.theme.system'),
@@ -54,9 +53,8 @@
 			]}
 			color="raised"
 			bind:value={$theme}
-			icon={['dark', 'oled'].includes($theme) ? IconSun : IconMoon} />
+			icon={['dark', 'oled'].includes($theme) ? IconMoon : IconSun} />
 		<Select
-			label={$t('footer.buttons.language.label')}
 			options={$locales.map((locale) => ({
 				label: new Intl.DisplayNames([locale], { type: 'language' }).of(locale),
 				value: locale,
@@ -70,7 +68,7 @@
 <style lang="postcss">
 	.footer {
 		display: grid;
-		grid-gap: 1rem 3rem;
+		gap: 1rem 3rem;
 		grid-template-areas: 'brand list-1 list-2 buttons';
 		margin-top: auto;
 		padding-bottom: 1rem;
@@ -81,7 +79,7 @@
 		> * {
 			display: flex;
 			flex-direction: column;
-			grid-gap: 0.3rem;
+			gap: 0.3rem;
 		}
 
 		&__brand {
@@ -105,7 +103,7 @@
 		&__buttons {
 			grid-area: buttons;
 			align-items: flex-end;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 		}
 
 		@media (width < 900px) {

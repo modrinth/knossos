@@ -230,7 +230,7 @@
 		padding: 0 1rem;
 		margin-bottom: -2.5rem;
 		z-index: 1;
-		grid-gap: 1.5rem;
+		gap: 1.5rem;
 		align-items: center;
 
 		&__title {

@@ -60,7 +60,7 @@
 		@media (width <= 400px) {
 			flex-direction: column;
 			align-items: flex-start;
-			grid-gap: 0.75rem;
+			gap: 0.75rem;
 		}
 	}
 </style>

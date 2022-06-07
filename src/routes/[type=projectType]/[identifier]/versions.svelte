@@ -72,7 +72,7 @@
 	.versions {
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1rem;
+		gap: 1rem;
 
 		.version {
 			&__info {
@@ -83,7 +83,7 @@
 				&__row {
 					display: flex;
 					align-items: center;
-					grid-gap: 0 0.4rem;
+					gap: 0 0.4rem;
 					flex-wrap: wrap;
 				}
 			}

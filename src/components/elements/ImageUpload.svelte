@@ -39,7 +39,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		grid-gap: 1rem;
+		gap: 1rem;
 
 		&__preview {
 			border-radius: var(--rounded-sm);

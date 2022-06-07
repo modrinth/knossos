@@ -51,6 +51,7 @@
 	import IconExpand from 'virtual:icons/lucide/expand'
 	import IconShrink from 'virtual:icons/lucide/shrink'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
+	import IconFilter from 'virtual:icons/heroicons-outline/filter'
 	import { categories, loaders, tagIcons, licenses } from '$generated/tags.json'
 	import gameVersions from '$generated/gameVersions.json'
 	import { Button, Checkbox, CheckboxList, Select, TextInput, CheckboxVirtualList } from 'omorphia'
@@ -168,9 +169,14 @@
 					height={180}
 					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
 					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}
-					><IconCode />{$t('search.filters.show_snapshots')}</Checkbox>
-				<TextInput placeholder={$t('search.filters.search_versions')} bind:value={filterTerm} />
+				<Checkbox bind:checked={searchParams.h}>
+					<IconCode />{$t('search.filters.show_snapshots')}
+				</Checkbox>
+				<TextInput
+					placeholder={$t('search.filters.search_versions')}
+					bind:value={filterTerm}
+					icon={IconFilter}
+					fill />
 
 				<hr class="divider" />
 
@@ -215,15 +221,12 @@
 
 	<div class="column-layout__content">
 		<Ad />
-		<div class="card card--gap-compressed card--row card--overflow-visible search-bar">
-			<div class="search">
-				<IconSearch class="search__icon" />
-				<input
-					class="search__input"
-					type="text"
-					placeholder={$t(`project.types.${projectType}.search`)}
-					bind:value={searchParams.q} />
-			</div>
+		<div class="card card--gap-compressed card--row search-bar">
+			<TextInput
+				placeholder={$t(`project.types.${projectType}.search`)}
+				bind:value={searchParams.q}
+				icon={IconSearch}
+				fill />
 
 			<div class="search-bar__field">
 				{$t('search.sort.by')}
@@ -276,7 +279,7 @@
 	.filters {
 		display: flex;
 		flex-direction: column;
-		grid-gap: 0.6rem;
+		gap: 0.6rem;
 	}
 
 	@media (width >= 800px) {
@@ -290,32 +293,9 @@
 	}
 
 	.search-bar {
-		.search {
-			position: relative;
-			display: flex;
-			align-items: center;
-			flex: 1;
-
-			:global(&__icon) {
-				position: absolute;
-				left: 0.5rem;
-				height: 1rem;
-				opacity: 0.7;
-			}
-
-			&__input {
-				width: 100%;
-				border-radius: var(--rounded-sm);
-				box-shadow: var(--shadow-inset-sm);
-				background-color: var(--color-button-bg);
-				border: none;
-				padding: 0.25rem 0.5rem 0.25rem 2rem;
-			}
-		}
-
 		&__field {
 			display: flex;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 			align-items: center;
 			flex-wrap: wrap;
 		}
@@ -323,8 +303,8 @@
 		@media (width <= 1050px) {
 			flex-wrap: wrap;
 
-			.search {
-				flex: unset;
+			:global(.text-input) {
+				flex: unset !important;
 			}
 		}
 	}
