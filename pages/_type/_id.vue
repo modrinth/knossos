@@ -135,8 +135,11 @@
       </div>
       <div
         v-if="
-          currentMember &&
-          (project.status === 'processing' ||
+          (currentMember ||
+            ($auth.user &&
+              ($auth.user.role === 'moderator' ||
+                $auth.user.role === 'admin'))) &&
+          (project.status !== 'approved' ||
             (project.moderator_message &&
               (project.moderator_message.message ||
                 project.moderator_message.body)))
@@ -189,22 +192,44 @@
         </div>
         <div class="buttons">
           <button
-            v-if="
-              project.status !== 'processing' && project.status !== 'approved'
-            "
-            class="iconified-button"
+            v-if="project.status === 'rejected'"
+            class="iconified-button brand-button-colors"
             @click="submitForReview"
           >
-            Resubmit for approval
+            <CheckIcon />
+            Resubmit for review
+          </button>
+          <button
+            v-if="project.status === 'draft'"
+            class="iconified-button brand-button-colors"
+            @click="submitForReview"
+          >
+            <CheckIcon />
+            Submit for review
           </button>
           <button
             v-if="project.status === 'approved'"
             class="iconified-button"
             @click="clearMessage"
           >
+            <ClearIcon />
             Clear message
           </button>
         </div>
+        <div v-if="showKnownErrors" class="known-errors">
+          <ul>
+            <li v-if="project.body === ''">
+              Your project must have a body to submit for review.
+            </li>
+            <li v-if="project.versions.length < 1">
+              Your project must have at least one version to submit for review.
+            </li>
+          </ul>
+        </div>
+        <p v-if="project.status === 'rejected'">
+          Do not resubmit for review until you've addressed the moderator
+          message!
+        </p>
       </div>
       <div class="extra-info card">
         <template
@@ -339,6 +364,12 @@
             class="featured-version"
           >
             <a
+              v-tooltip="
+                findPrimary(version).filename +
+                ' (' +
+                $formatBytes(findPrimary(version).size) +
+                ')'
+              "
               :href="findPrimary(version).url"
               class="download"
               :title="`Download ${version.name}`"
@@ -360,7 +391,11 @@
               >
                 {{
                   version.loaders
-                    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+                    .map((x) =>
+                      x.toLowerCase() === 'modloader'
+                        ? 'ModLoader'
+                        : x.charAt(0).toUpperCase() + x.slice(1)
+                    )
                     .join(', ')
                 }}
                 {{ $formatVersion(version.game_versions) }}
@@ -480,7 +515,7 @@
               <span>Changelog</span>
             </nuxt-link>
             <nuxt-link
-              v-if="project.versions.length > 0"
+              v-if="project.versions.length > 0 || currentMember"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions`"
@@ -526,6 +561,8 @@
 
 <script>
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
 import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
@@ -551,6 +588,8 @@ export default {
     IssuesIcon,
     DownloadIcon,
     CalendarIcon,
+    CheckIcon,
+    ClearIcon,
     UpdateIcon,
     CodeIcon,
     ReportIcon,
@@ -638,6 +677,11 @@ export default {
         statusCode: 404,
         message: 'Project not found',
       })
+    }
+  },
+  data() {
+    return {
+      showKnownErrors: false,
     }
   },
   head() {
@@ -732,28 +776,32 @@ export default {
       this.$nuxt.$loading.finish()
     },
     async submitForReview() {
-      this.$nuxt.$loading.start()
+      if (this.project.body === '' || this.project.versions.length < 1) {
+        this.showKnownErrors = true
+      } else {
+        this.$nuxt.$loading.start()
 
-      try {
-        await this.$axios.patch(
-          `project/${this.project.id}`,
-          {
-            status: 'processing',
-          },
-          this.$auth.headers
-        )
+        try {
+          await this.$axios.patch(
+            `project/${this.project.id}`,
+            {
+              status: 'processing',
+            },
+            this.$auth.headers
+          )
 
-        this.project.status = 'processing'
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.response.data.description,
-          type: 'error',
-        })
+          this.project.status = 'processing'
+        } catch (err) {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: err.response.data.description,
+            type: 'error',
+          })
+        }
+
+        this.$nuxt.$loading.finish()
       }
-
-      this.$nuxt.$loading.finish()
     },
   },
 }

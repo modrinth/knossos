@@ -65,20 +65,18 @@
         </div>
       </div>
     </div>
-    <div v-if="currentMember" class="card buttons">
+    <div v-if="currentMember" class="card buttons header-buttons">
       <button
-        class="iconified-button"
-        @click="
-          newGalleryItems.push({
-            title: '',
-            description: '',
-            featured: false,
-            url: '',
-          })
+        v-if="
+          newGalleryItems.length > 0 ||
+          editGalleryIndexes.length > 0 ||
+          deleteGalleryUrls.length > 0
         "
+        class="action iconified-button"
+        @click="resetGallery"
       >
-        <UploadIcon />
-        Upload
+        <CrossIcon />
+        Cancel
       </button>
       <button
         v-if="
@@ -90,19 +88,21 @@
         @click="saveGallery"
       >
         <CheckIcon />
-        Save
+        Save changes
       </button>
       <button
-        v-if="
-          newGalleryItems.length > 0 ||
-          editGalleryIndexes.length > 0 ||
-          deleteGalleryUrls.length > 0
+        class="iconified-button"
+        @click="
+          newGalleryItems.push({
+            title: '',
+            description: '',
+            featured: false,
+            url: '',
+          })
         "
-        class="action iconified-button"
-        @click="resetGallery"
       >
-        <TrashIcon />
-        Discard Changes
+        <PlusIcon />
+        Add an image
       </button>
     </div>
     <div class="items">
@@ -177,7 +177,7 @@
               "
             >
               <TrashIcon />
-              Delete
+              Remove
             </button>
           </div>
         </div>
@@ -225,7 +225,7 @@
                 @click="newGalleryItems.splice(index, 1)"
               >
                 <TrashIcon />
-                Delete
+                Remove
               </button>
             </div>
           </div>
@@ -236,7 +236,7 @@
 </template>
 
 <script>
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
@@ -254,7 +254,7 @@ import Checkbox from '~/components/ui/Checkbox'
 export default {
   components: {
     CalendarIcon,
-    UploadIcon,
+    PlusIcon,
     Checkbox,
     EditIcon,
     TrashIcon,
@@ -615,7 +615,7 @@ export default {
     }
 
     input {
-      width: calc(100% - 2rem - 4px);
+      width: 100%;
       margin: 0 0 0.25rem;
     }
 
@@ -663,6 +663,15 @@ export default {
     .gallery-buttons {
       display: flex;
     }
+
+    .columns {
+      margin-bottom: 0.5rem;
+    }
   }
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: right;
 }
 </style>
