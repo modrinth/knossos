@@ -1,0 +1,89 @@
+<template>
+  <div class="columns">
+    <label class="button" @drop.prevent="addFile" @dragover.prevent>
+      <span>
+        <UploadIcon />
+        {{ prompt }}
+      </span>
+      <input
+        type="file"
+        :multiple="multiple"
+        :accept="accept"
+        @change="onChange"
+      />
+    </label>
+  </div>
+</template>
+
+<script>
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+
+export default {
+  name: 'StatelessFileInput',
+  components: {
+    UploadIcon,
+  },
+  props: {
+    prompt: {
+      type: String,
+      default: 'Select file',
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    accept: {
+      type: String,
+      default: null,
+    },
+  },
+  methods: {
+    onChange(addedFiles) {
+      this.$emit('change', addedFiles)
+    },
+    addFile(e) {
+      const droppedFiles = e.dataTransfer.files
+
+      if (!droppedFiles) return
+
+      if (!this.multiple && droppedFiles.length > 0) {
+        this.onChange([droppedFiles[0]])
+        return
+      }
+
+      this.onChange(droppedFiles)
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-card-sm) var(--spacing-card-md);
+  margin-bottom: var(--spacing-card-sm);
+}
+
+span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  border: 2px dashed var(--color-divider-dark);
+  border-radius: var(--size-rounded-control);
+  padding: var(--spacing-card-md) var(--spacing-card-lg);
+
+  svg {
+    height: 1.25rem;
+  }
+}
+
+input {
+  display: none;
+}
+</style>
