@@ -36,6 +36,10 @@ const config = {
 				fs: {
 					allow: ['generated'],
 				},
+				hmr: process.env.GITPOD_WORKSPACE_URL ? {
+					clientPort: 443,
+					protocol: "wss",
+				} : true
 			},
 		},
 	},

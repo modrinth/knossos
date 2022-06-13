@@ -327,6 +327,10 @@
 	.features {
 		display: flex;
 		flex-wrap: wrap;
+		background-color: var(--color-raised-bg);
+		border-radius: 2rem;
+		margin-top: 2rem;
+		padding: 2rem;
 
 		&__item {
 			display: flex;

@@ -4,7 +4,7 @@
 
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ params, url, fetch, session, stuff }) {
-		const projectType = params.search.slice(0, -1)
+		const projectType = (params.search.endsWith("s") ? params.search : params.search + "s").slice(0, -1)
 
 		const searchParams = {
 			c: [],
@@ -19,7 +19,7 @@
 
 		return {
 			props: {
-				results: await search(searchParams, projectType, { fetch }),
+				results: await search(searchParams, (projectType == "builder" ? "mod" : projectType), { fetch }),
 				projectType,
 				searchParams,
 				serverRendered: true,
@@ -91,7 +91,7 @@
 	}
 
 	const runSearch = debounce(200, false, () =>
-		search(searchParams, projectType).then((data) => (results = data))
+		search(searchParams, (projectType == "builder" ? "mod" : projectType)).then((data) => (results = data))
 	)
 
 	export let serverRendered: boolean

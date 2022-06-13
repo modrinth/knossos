@@ -10,7 +10,10 @@
 	import { notifications } from '$stores/self'
 	import IconChevronDown from 'virtual:icons/lucide/chevron-down'
 
-	let navItems = projectTypes.map((type) => ({
+	const _projectTypes = projectTypes;
+	if(!_projectTypes.includes("builder")) _projectTypes.push("builder");
+
+	let navItems = _projectTypes.map((type) => ({
 		label: $t(`project.types.${type}.plural`),
 		href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
 	}))

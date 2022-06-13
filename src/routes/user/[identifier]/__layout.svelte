@@ -204,7 +204,7 @@
 						label: $t('pages.all'),
 						href: '',
 					},
-					...projectTypes.map((type) => ({
+					...projectTypes.filter((t) => t != "builder").map((type) => ({
 						label: $t(`project.types.${type}.plural`),
 						href: type,
 					})),
