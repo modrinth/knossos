@@ -164,26 +164,19 @@
 			</div>
 
 			<div style:display={showFilters ? 'flex' : 'none'} class="filters">
-				<h3>{$t('generic.labels.minecraft_versions')}</h3>
-				<CheckboxVirtualList
-					height={180}
-					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
-					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}>
-					<IconCode />{$t('search.filters.show_snapshots')}
-				</Checkbox>
-				<TextInput
-					placeholder={$t('search.filters.search_versions')}
-					bind:value={filterTerm}
-					icon={IconFilter}
-					fill />
-
+				<h3>{$t('generic.labels.categories')}</h3>
+				<CheckboxList
+					options={categories
+						.filter((it) => it.project_type === (projectType == "builder" ? "mod" : projectType))
+						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
+					bind:value={searchParams.c} />
+				
 				<hr class="divider" />
 
 				<h3>{$t('generic.labels.mod_loaders')}</h3>
 				<CheckboxList
 					options={loaders
-						.filter((it) => it.supported_project_types.includes(projectType))
+						.filter((it) => it.supported_project_types.includes((projectType == "builder" ? "mod" : projectType)))
 						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
 					bind:value={searchParams.l} />
 
@@ -199,13 +192,24 @@
 					wrap />
 
 				<hr class="divider" />
+				
+				<h3>{$t('generic.labels.minecraft_versions')}</h3>
+				<CheckboxVirtualList
+					height={180}
+					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
+					bind:value={searchParams.v} />
+				
+				<Checkbox bind:checked={searchParams.h}>
+					<IconCode />{$t('search.filters.show_snapshots')}
+				</Checkbox>
 
-				<h3>{$t('generic.labels.categories')}</h3>
-				<CheckboxList
-					options={categories
-						.filter((it) => it.project_type === projectType)
-						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
-					bind:value={searchParams.c} />
+				<TextInput
+					placeholder={$t('search.filters.search_versions')}
+					bind:value={filterTerm}
+					icon={IconFilter}
+					fill />
+
+				<hr class="divider" />
 
 				<h3>{$t('generic.labels.license.plural')}</h3>
 				<CheckboxList

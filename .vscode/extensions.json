@@ -7,6 +7,8 @@
 		"svelte.svelte-vscode",
 		"ardenivanov.svelte-intellisense",
 		"csstools.postcss",
-		"ms-playwright.playwright"
+		"ms-playwright.playwright",
+		"rust-lang.rust",
+		"matklad.rust-analyzer"
 	]
 }

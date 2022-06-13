@@ -110,7 +110,7 @@
 				class="project-body__editor"
 				placeholder={$t('project.body.placeholder')}
 				bind:value={modifiedBody}
-				use:autosize />
+				use:autosize wrap="off" />
 		{:else}
 			<div class="project-body__text markdown">
 				{@html markdown(modifiedBody)}
@@ -149,6 +149,9 @@
 			border: none;
 			padding: 1rem;
 			background-color: var(--color-input-text-light);
+			font-family: monospace;
+			white-space: pre;
+			overflow: scroll !important;
 		}
 	}
 </style>

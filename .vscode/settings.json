@@ -19,5 +19,6 @@
 	"editor.formatOnPaste": true,
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"nuxt.isNuxtApp": false
 }
