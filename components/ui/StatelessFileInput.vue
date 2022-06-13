@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <label class="button" @drop.prevent="addFile" @dragover.prevent>
+    <label class="button" @drop.prevent="handleDrop" @dragover.prevent>
       <span>
         <UploadIcon />
         {{ prompt }}
@@ -9,7 +9,7 @@
         type="file"
         :multiple="multiple"
         :accept="accept"
-        @change="onChange"
+        @change="handleChange"
       />
     </label>
   </div>
@@ -41,17 +41,21 @@ export default {
     onChange(addedFiles) {
       this.$emit('change', addedFiles)
     },
-    addFile(e) {
-      const droppedFiles = e.dataTransfer.files
+    addFiles(filesToAdd) {
+      if (!filesToAdd) return
 
-      if (!droppedFiles) return
-
-      if (!this.multiple && droppedFiles.length > 0) {
-        this.onChange([droppedFiles[0]])
+      if (!this.multiple && filesToAdd.length > 0) {
+        this.onChange([filesToAdd[0]])
         return
       }
 
-      this.onChange(droppedFiles)
+      this.onChange(filesToAdd)
+    },
+    handleDrop(e) {
+      this.addFiles(e.dataTransfer.files)
+    },
+    handleChange(e) {
+      this.addFiles(e.target.files)
     },
   },
 }
