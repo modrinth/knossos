@@ -4,17 +4,17 @@ The source code of the knossos repository is licensed under GNU Affero General P
 
 The following files are licensed under the license below in the "_Logo Licenses_" section:
 
--   [`src/assets/images/logo/icon.svg`](src/assets/images/logo/icon.svg)
--   [`src/assets/images/logo/wordmark.svg`](src/assets/images/logo/wordmark.svg)
--   [`src/assets/images/logo/404.svg`](src/assets/images/logo/404.svg)
--   [`src/assets/images/home/illustration.svg`](src/assets/images/home/illustration.svg)
--   [`src/components/elements/LogoLoader.svelte`](src/components/elements/LogoLoader.svelte)
--   [`static/favicon.ico`](static/favicon.ico)
--   [`static/images/logo/icon.png`](static/images/logo/icon.png)
+- [`src/assets/images/logo/icon.svg`](src/assets/images/logo/icon.svg)
+- [`src/assets/images/logo/wordmark.svg`](src/assets/images/logo/wordmark.svg)
+- [`src/assets/images/logo/404.svg`](src/assets/images/logo/404.svg)
+- [`src/assets/images/home/illustration.svg`](src/assets/images/home/illustration.svg)
+- [`src/components/elements/LogoLoader.svelte`](src/components/elements/LogoLoader.svelte)
+- [`static/favicon.ico`](static/favicon.ico)
+- [`static/images/logo/icon.png`](static/images/logo/icon.png)
 
 The following folders, including all of their files are licensed under the license below in the "Logo Licenses" section:
 
--   [`static/favicons`](static/favicons)
+- [`static/favicons`](static/favicons)
 
 ### Logo Licenses
 

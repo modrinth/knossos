@@ -1,0 +1,4 @@
+files:
+  - source: /en.json
+    translation: /%locale%.json
+    skip_untranslated_strings: true

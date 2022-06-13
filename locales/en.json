@@ -1,188 +1,382 @@
 {
-    "footer": {
-        "description": "Modrinth is open source software.",
-        "copyright": "© Guavy LLC",
-        "legal": {
-            "heading": "Legal",
-            "terms": "Terms",
-            "privacy": "Privacy",
-            "rules": "Rules"
-        },
-        "resources": {
-            "heading": "Resources",
-            "blog": "Blog",
-            "docs": "Docs"
-        },
-        "buttons": {
-            "privacy": "Set privacy preferences",
-            "theme": {
-                "label": "Change theme",
-                "system": "System theme",
-                "light": "Light mode",
-                "dark": "Dark mode",
-                "oled": "OLED mode",
-                "modrinth-dark": "Classic Dark",
-                "modrinth-light": "Classic Light",
-                "modrinth-oled": "Classic OLED"
-            },
-            "language": {
-                "label": "Select language",
-                "en": "English",
-                "en-GB": "English (UK)"
-            }
-        }
-    },
-    "error": {
-        "status": "{status} Error",
-        "message": {
-            "404": "Uh oh, looks like you got lost in the [Labyrinth](https://github.com/modrinth/labrinth).<br />The page you are looking for could not be found.",
-            "project_missing": "The {type} you were looking for cannot be found.",
-            "default": "An unexpected error has occurred."
-        },
-        "actions": {
-            "home": "Go home",
-            "discord": "Get help on Discord"
-        }
-    },
-    "pages": {
-        "description": "Description",
-        "gallery": "Gallery",
-        "changelog": "Changelog",
-        "versions": "Versions",
-        "settings": "Settings",
-        "reports": "Reports",
-        "moderation": "Moderation",
-        "notifications": "Notifications",
-        "about": "About",
-        "following": "Following",
-        "all": "All"
-    },
-    "generic": {
-        "labels": {
-            "license": "License",
-            "project_id": "Project ID",
-            "project_status": "Project status"
-        },
-        "actions": {
-            "edit": "Edit",
-            "follow": "Follow",
-            "unfollow": "Unfollow",
-            "report": "Report",
-            "new_project": "New project",
-            "download": "Download",
-            "save": "Save",
-            "cancel": "Cancel",
-            "discard": "Discard changes"
-        },
-        "external": {
-            "github_profile": "GitHub profile",
-            "discord": "Discord",
-            "github": "GitHub",
-            "issues": "Issues",
-            "source": "Source",
-            "wiki": "Wiki",
-            "patreon": "Patreon",
-            "paypal": "PayPal",
-            "buy_me_a_coffee": "Buy Me a Coffee",
-            "github_sponsors": "GitHub Sponsors",
-            "donate": "Donate",
-            "kofi": "Ko-Fi"
-        },
-        "environments": {
-            "label": "Environment",
-            "server_side": "Server side",
-            "client_side": "Client side",
-            "values": {
-                "required": "Required",
-                "unsupported": "Unsupported",
-                "optional": "Optional",
-                "unknown": "Unknown"
-            }
-        },
-        "byline": "by <u>{author}</u>"
-    },
-    "project": {
-        "types": {
-            "mod": {
-                "singular": "Mod",
-                "plural": "Mods",
-                "search": "Search mods..."
-            },
-            "modpack": {
-                "singular": "Modpack",
-                "plural": "Modpacks",
-                "search": "Search modpacks..."
-            },
-            "builder": {
-                "singular": "Builder",
-                "plural": "Mods",
-                "search": "Search mods..."
-            }
-        },
-        "sidebar_headings": {
-            "external_resources": "External resources",
-            "featured_versions": "Featured versions",
-            "project_members": "Project members",
-            "technical_information": "Technical information"
-        }
-    },
-    "status": {
-        "approved": "Approved",
-        "rejected": "Rejected",
-        "draft": "Draft",
-        "unlisted": "Unlisted",
-        "processing": "Under review",
-        "unknown": "Unknown"
-    },
-    "release_channels": {
-        "release": "Release",
-        "beta": "Beta",
-        "alpha": "Alpha"
-    },
-    "roles": {
-        "developer": "Developer",
-        "admin": "Admin",
-        "moderator": "Moderator"
-    },
-    "stats": {
-        "joined": "Joined {ago}",
-        "notified": "Notified {ago}",
-        "downloads": "{downloads, plural, one {<b>1</b> download} other {<b>#</b> downloads}}",
-        "followers_of_projects": "{followers, plural, one {<b>1</b> follower of projects} other {<b>#</b> followers of projects}}",
-        "followers": "{followers, plural, one {<b>1</b> follower} other {<b>#</b> followers}}",
-        "user_id": "User ID: {id}",
-        "created": "Created {ago}",
-        "updated": "Updated {ago}"
-    },
-    "tags": {
-        "technology": "Technology",
-        "adventure": "Adventure",
-        "magic": "Magic",
-        "utility": "Utility",
-        "decoration": "Decoration",
-        "library": "Library",
-        "cursed": "Cursed",
-        "worldgen": "World generation",
-        "storage": "Storage",
-        "food": "Food",
-        "equipment": "Equipment",
-        "miscellaneous": "Miscellaneous",
-        "challenging": "Challenging",
-        "combat": "Combat",
-        "kitchen-sink": "Kitchen Sink",
-        "lightweight": "Lightweight",
-        "modloader": "ModLoader",
-        "multiplayer": "Multiplayer",
-        "quests": "Quests",
-        "rift": "Rift",
-        "optimization": "Optimization",
-        "fabric": "Fabric",
-        "forge": "Forge",
-        "quilt": "Quilt",
-        "server": "Server",
-        "client": "Client",
-        "good": "Good",
-        "trash": "Trash",
-        "misc": "Miscellaneous"
+  "locale": {
+    "no_translation": "Due to the nature of this page, the only official version of this content is in English."
+  },
+  "index": {
+    "tagline": "Discover, play, and create Minecraft content",
+    "description": "Find enjoyable and quality content through our open-source modding platform built for the community. Create stuff, get paid*, and deploy your project with our fully documented API!",
+    "features": {
+      "book": {
+        "title": "Easy to use API",
+        "description": "Backed by a fully documented API facilitating the growth of 3rd party integrations & launchers."
+      },
+      "coin": {
+        "title": "Creator earnings",
+        "description": "Planning to give creators 100% of ad revenue from their project pages. *Payouts are currently in development."
+      },
+      "speedometer": {
+        "title": "Lightning-fast search",
+        "description": "Powered by fast and adaptable search algorithms so you don't have to wait."
+      },
+      "chat": {
+        "title": "Helpful community",
+        "description": "Get support, develop, and hang out on our Discord server with over 1,500 members."
+      },
+      "puzzle": {
+        "title": "Extensible by design",
+        "description": "Integrates with build tools, repositories, launchers, and custom applications."
+      },
+      "tools": {
+        "title": "Fully open source",
+        "description": "An open source project maintained by an active community that welcomes contributions."
+      }
     }
+  },
+  "header": {
+    "my_profile": "Go to my profile",
+    "logout": "Log out",
+    "github": "Sign in with GitHub"
+  },
+  "footer": {
+    "description": "Modrinth is open source software.",
+    "legal": {
+      "heading": "Legal",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "rules": "Rules"
+    },
+    "resources": {
+      "heading": "Resources",
+      "blog": "Blog",
+      "docs": "Docs"
+    },
+    "buttons": {
+      "privacy": "Set privacy preferences",
+      "theme": {
+        "label": "Change theme",
+        "system": "System theme",
+        "light": "Light mode",
+        "dark": "Dark mode",
+        "oled": "OLED mode"
+      },
+      "language": {
+        "label": "Select language"
+      }
+    }
+  },
+  "error": {
+    "status": "{status} Error",
+    "message": {
+      "404": "Uh oh, looks like you got lost in the [Labyrinth](https://github.com/modrinth/labrinth).<br />The page you are looking for could not be found.",
+      "project_missing": "The {type} you were looking for cannot be found.",
+      "default": "An unexpected error has occurred."
+    },
+    "actions": {
+      "home": "Go home",
+      "discord": "Get help on Discord"
+    }
+  },
+  "pages": {
+    "description": "Description",
+    "gallery": "Gallery",
+    "changelog": "Changelog",
+    "versions": "Versions",
+    "settings": "Settings",
+    "moderation": "Moderation",
+    "notifications": "Notifications",
+    "about": "About",
+    "following": "Following",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy",
+    "rules": "Project rules",
+    "all": "All"
+  },
+  "generic": {
+    "labels": {
+      "license": {
+        "singular": "License",
+        "plural": "Licenses"
+      },
+      "project_id": "Project ID",
+      "project_status": "Project status",
+      "minecraft_versions": "Minecraft versions",
+      "mod_loaders": "Mod loaders",
+      "categories": "Categories",
+      "downloads": "Downloads",
+      "files": "Files"
+    },
+    "actions": {
+      "create": "Create",
+      "edit": "Edit",
+      "follow": "Follow",
+      "unfollow": "Unfollow",
+      "feature": "Feature",
+      "report": "Report",
+      "new_project": "New project",
+      "preview": "Preview",
+      "download": "Download",
+      "save": "Save",
+      "confirm": "Confirm",
+      "remove": "Remove",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "discard": "Discard changes"
+    },
+    "popup": {
+      "verify": "To verify, type <i>{content}</i> below:",
+      "important": "This is extremely important.",
+      "placeholder": "Type here..."
+    },
+    "external": {
+      "github_profile": "GitHub profile",
+      "discord": "Discord",
+      "github": "GitHub",
+      "issues": "Issues",
+      "source": "Source",
+      "wiki": "Wiki",
+      "patreon": "Patreon",
+      "paypal": "PayPal",
+      "buy_me_a_coffee": "Buy Me a Coffee",
+      "github_sponsors": "GitHub Sponsors",
+      "donate": "Donate",
+      "kofi": "Ko-fi"
+    },
+    "environments": {
+      "singular": "Environment",
+      "plural": "Environments",
+      "server_side": "Server side",
+      "client_side": "Client side",
+      "values": {
+        "required": "Required",
+        "unsupported": "Unsupported",
+        "optional": "Optional",
+        "unknown": "Unknown"
+      }
+    },
+    "up_to_date": "You are up to date!",
+    "byline": "by <u>{author}</u>"
+  },
+  "project": {
+    "types": {
+      "mod": {
+        "singular": "Mod",
+        "plural": "Mods",
+        "search": "Search mods..."
+      },
+      "modpack": {
+        "singular": "Modpack",
+        "plural": "Modpacks",
+        "search": "Search modpacks..."
+      }
+    },
+    "sidebar_headings": {
+      "external_resources": "External resources",
+      "featured_versions": "Featured versions",
+      "project_members": "Project members",
+      "technical_information": "Technical information"
+    },
+    "gallery": {
+      "upload": "Upload gallery image",
+      "confirm": "Are you sure you want to delete this gallery image?",
+      "placeholder": {
+        "title": "Enter image title...",
+        "description": "Enter image description..."
+      }
+    },
+    "body": {
+      "editor": "Editor",
+      "placeholder": "Enter project body...",
+      "empty": "This project description is empty."
+    },
+    "members": "Members",
+    "permissions": "Permissions",
+    "permission": {
+      "upload_version": "Upload version",
+      "delete_version": "Delete version",
+      "edit_details": "Edit details",
+      "edit_body": "Edit body",
+      "manage_invites": "Manage invites",
+      "remove_member": "Remove members",
+      "edit_member": "Edit members",
+      "delete_project": "Delete project"
+    },
+    "role": {
+      "text": "Role",
+      "placeholder": "Enter roles..."
+    },
+    "advanced": "Advanced",
+    "visibility": {
+      "title": "Visibility",
+      "description": "This project is currently {status}.",
+      "action": "Change visibility"
+    },
+    "ownership": {
+      "title": "Ownership",
+      "description": "Transfer ownership of this project to another user.",
+      "action": "Transfer ownership"
+    },
+    "delete": {
+      "title": "Delete project",
+      "description": "Deleting a project erases all project data, including versions.",
+      "action": "Delete project"
+    }
+  },
+  "version": {
+    "featured": "Featured",
+    "autofeatured": "Auto-featured",
+    "feature_action": "Feature",
+    "dependencies": "Dependencies",
+    "metadata": "Metadata",
+    "release_channel": "Release channel",
+    "number": "Version number",
+    "publication_date": "Publication date",
+    "publisher": "Publisher"
+  },
+  "search": {
+    "filters": {
+      "clear": "Clear filters",
+      "hide": "Hide filters",
+      "show": "Show filters",
+      "show_snapshots": "Show snapshots",
+      "search_versions": "Search versions...",
+      "licenses": "Licenses"
+    },
+    "sort": {
+      "by": "Sort by",
+      "relevance": "Relevance",
+      "downloads": "Download count",
+      "follows": "Follower count",
+      "newest": "Recently created",
+      "updated": "Recently updated"
+    },
+    "per_page": "Show per page"
+  },
+  "status": {
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "draft": "Draft",
+    "unlisted": "Unlisted",
+    "processing": "Under review",
+    "unknown": "Unknown"
+  },
+  "release_channels": {
+    "release": "Release",
+    "beta": "Beta",
+    "alpha": "Alpha"
+  },
+  "roles": {
+    "developer": "Developer",
+    "admin": "Admin",
+    "moderator": "Moderator"
+  },
+  "stats": {
+    "joined": "Joined {ago}",
+    "notified": "Notified {ago}",
+    "downloads": "{downloads, plural, one {<b>#</b> download} other {<b>#</b> downloads}}",
+    "followers_of_projects": "{followers, plural, one {<b>#</b> follower of projects} other {<b>#</b> followers of projects}}",
+    "followers": "{followers, plural, one {<b>#</b> follower} other {<b>#</b> followers}}",
+    "user_id": "User ID: {id}",
+    "created": "Created {ago}",
+    "updated": "Updated {ago}"
+  },
+  "settings": {
+    "username": {
+      "text": "Username",
+      "placeholder": "Add a username..."
+    },
+    "bio": {
+      "text": "Bio",
+      "placeholder": "Add a bio..."
+    },
+    "email": {
+      "text": "<b>Private email</b> (visible only to moderators)",
+      "placeholder": "Add an email..."
+    },
+    "avatar": "Upload avatar"
+  },
+  "report": {
+    "singular": "Report",
+    "plural": "Reports",
+    "type": {
+      "spam": "Spam",
+      "copyright": "Copyright",
+      "inappropriate": "Inappropriate",
+      "malicious": "Malicious",
+      "name-squatting": "Name-squatting",
+      "other": "Other"
+    },
+    "new": {
+      "information": "Additional information",
+      "description": "Include links and images if possible. Markdown formatting is supported."
+    }
+  },
+  "user": {
+    "following": {
+      "loading": "Loading followed projects...",
+      "none": "You haven't followed any projects."
+    },
+    "delete": {
+      "title": "Delete account",
+      "body": "Once you delete your account, there is no going back. Deleting your account will remove all attached data, including projects, from our servers.",
+      "confirm_title": "Are you sure you want to delete your account?",
+      "confirm_body": "This will **immediately delete all of your projects** and follows. Deleting your account cannot be reversed.\n\nIf you need help with your account, get support on the [Modrinth Discord](/discord).",
+      "yes_I_want_to_do_this": "Yes, irrecoverably delete my account"
+    },
+    "auth": {
+      "title": "Authorization token",
+      "body": "Your authorization token can be used with the Modrinth API, the Minotaur Gradle plugin, and other applications that interact with Modrinth's API. Be sure to keep this secret!",
+      "copy": "Copy token to clipboard",
+      "copied": "Copied token to clipboard",
+      "revoke": "Revoke token"
+    },
+    "revoke_token": {
+      "title": "Revoke your Modrinth token",
+      "body": "Revoking your Modrinth token can have unintended consequences. Please be aware that the following could break:\n - Any application that uses your token to access the API.\n - Gradle - if Minotaur is given a incorrect token, your Gradle builds could fail.\n - GitHub - if you use a GitHub action that uses the Modrinth API, it will cause errors.\n\nIf you are willing to continue, complete the following steps:\n\n 1. Head to the [Modrinth Application page on GitHub](https://github.com/settings/connections/applications/3acffb2e808d16d4b226). Make sure to be logged into the GitHub account you used for Modrinth!\n 2. Press the big red \"Revoke Access\" button next to the \"Permissions\" header.\n\nOnce you have completed those steps, press the continue button below.\n\n**This will log you out of Modrinth, however, when you log back in, your token will be regenerated.**",
+      "action": "Log out"
+    }
+  },
+  "images": {
+    "replace": "Replace image",
+    "how_to": "Drag and drop to upload or click to select"
+  },
+  "ads": {
+    "privacy_respecting": "A privacy-respecting ad would have been shown here.",
+    "console": {
+      "line1": "You are using an adblocker.",
+      "line2": "Your adblocker prevented Modrinth from showing an ad, our only source of income.",
+      "line3": "If you still want to help Modrinth without viewing ads, you can contribute to Modrinth on GitHub!",
+      "line4": "https://github.com/modrinth/"
+    }
+  },
+  "tags": {
+    "technology": "Technology",
+    "adventure": "Adventure",
+    "magic": "Magic",
+    "utility": "Utility",
+    "decoration": "Decoration",
+    "library": "Library",
+    "cursed": "Cursed",
+    "worldgen": "World generation",
+    "storage": "Storage",
+    "food": "Food",
+    "equipment": "Equipment",
+    "miscellaneous": "Miscellaneous",
+    "challenging": "Challenging",
+    "combat": "Combat",
+    "kitchen-sink": "Kitchen Sink",
+    "lightweight": "Lightweight",
+    "multiplayer": "Multiplayer",
+    "quests": "Quests",
+    "optimization": "Optimization",
+    "fabric": "Fabric",
+    "forge": "Forge",
+    "quilt": "Quilt",
+    "modloader": "ModLoader",
+    "rift": "Rift",
+    "server": "Server",
+    "client": "Client",
+    "good": "Good",
+    "trash": "Trash",
+    "misc": "Miscellaneous"
+  }
 }

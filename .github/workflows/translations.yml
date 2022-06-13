@@ -1,0 +1,25 @@
+name: Update translations
+
+on:
+  repository_dispatch:
+    types: [translations]
+
+jobs:
+  translations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Update submodules
+        run: |
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update translations submodule'
+          push: false # TODO: Remove once rewrite is in production
+          default_author: github_actions

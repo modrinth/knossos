@@ -1,74 +1,69 @@
 <script lang="ts">
-    import IconUpload from "virtual:icons/heroicons-outline/upload";
+	import IconUpload from 'virtual:icons/heroicons-outline/upload'
+	import { t } from 'svelte-intl-precompile'
 
-    export let multiple = false;
-    export let accept: string;
+	export let multiple = false
+	export let accept: string
 
-    export let files: File[] = [];
+	export let files = []
+	let inputElement
 
-    let inputElement;
+	function openFileDialog() {
+		if (inputElement) {
+			inputElement.click()
+		}
+	}
 
-    function openFileDialog() {
-        if (inputElement) {
-            inputElement.click();
-        }
-    }
+	function dropFiles(e) {
+		const droppedFiles = e.dataTransfer.files
 
-    function dropFiles(e: DragEvent) {
-        const droppedFiles = e.dataTransfer.files;
+		if (droppedFiles) {
+			if (!multiple) {
+				files = []
+				inputElement.value = ''
+			}
 
-        if (droppedFiles) {
-            if (!multiple) {
-                files = [];
-                inputElement.value = "";
-            }
+			;[...droppedFiles].forEach((file, index) => {
+				if (multiple || index === 0) {
+					files.push(file)
+				}
+			})
+		}
+	}
 
-            [...droppedFiles].forEach((file, index) => {
-                if (multiple || index === 0) {
-                    files.push(file);
-                }
-            });
-        }
-    }
+	function onInputChange(event) {
+		files = [...event.target.files]
+	}
 </script>
 
 <div
-    class="file-dropzone"
-    on:drop|preventDefault={dropFiles}
-    on:dragover|preventDefault
-    on:click={openFileDialog}
->
-    {#if files.length <= 0}
-        <IconUpload />
-        Drag and drop to upload or click to select
-    {/if}
-    <input
-        type="file"
-        {multiple}
-        {accept}
-        style:display="none"
-        bind:this={inputElement}
-        on:change={(e) => {
-            files = [...files, ...e.target.files];
-        }}
-    />
-    {files.map((file) => {
-        return file.name;
-    })}
+	class="file-dropzone"
+	on:drop|preventDefault={dropFiles}
+	on:dragover|preventDefault
+	on:click={openFileDialog}>
+	<IconUpload />
+	{$t('images.how_to')}
+	<input
+		type="file"
+		{multiple}
+		{accept}
+		style:display="none"
+		bind:this={inputElement}
+		on:change={onInputChange} />
 </div>
 
 <style lang="postcss">
-    .file-dropzone {
-        display: flex;
-        width: 100%;
-        padding: 1.5rem 1rem;
-        justify-content: center;
-        align-items: center;
-        grid-gap: 0.5rem;
-        background-color: var(--color-button-bg);
-        border-radius: var(--rounded-sm);
-        border: dashed 0.3rem var(--color-text-lightest);
-        cursor: pointer;
-        color: var(--color-text-light);
-    }
+	.file-dropzone {
+		display: flex;
+		width: 100%;
+		padding: 1.5rem 1rem;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+		background-color: var(--color-button-bg);
+		border-radius: var(--rounded-sm);
+		border: dashed 0.3rem var(--color-text-lightest);
+		cursor: pointer;
+		color: var(--color-text-light);
+	}
 </style>

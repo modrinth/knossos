@@ -1,0 +1,382 @@
+{
+  "locale": {
+    "no_translation": "페이지의 특성상 이 내용의 공식 버전은 영어로만 제공됩니다."
+  },
+  "index": {
+    "tagline": "Minecraft 콘텐츠를 찾고, 즐기고, 만드세요",
+    "description": "커뮤니티를 위해 만들어진 오픈 소스 모드 플랫폼을 통해 재밌고 좋은 콘텐츠를 찾아보세요. 무언가를 만들고, 보상을 받고*, 완전히 문서화된 API로 프로젝트를 배포하세요!",
+    "features": {
+      "book": {
+        "title": "사용하기 쉬운 API",
+        "description": "완전히 문서화된 API는 제3자 통합 및 런처의 개발을 편하게 하도록 지원합니다."
+      },
+      "coin": {
+        "title": "제작자 수익",
+        "description": "제작자에게 프로젝트 페이지의 광고 수익을 100% 제공할 계획입니다. *지불 시스템은 개발 중입니다."
+      },
+      "speedometer": {
+        "title": "번개처럼 빠른 검색",
+        "description": "빠르고 유연한 검색 알고리즘을 사용하여 기다릴 필요가 없습니다."
+      },
+      "chat": {
+        "title": "유용한 커뮤니티",
+        "description": "1,500명 이상의 멤버가 있는 Discord 서버에서 지원을 받고, 개발하고, 다양한 정보를 얻을 수 있습니다."
+      },
+      "puzzle": {
+        "title": "확장 가능한 디자인",
+        "description": "빌드 도구, 저장소, 런처, 사용자 지정 응용 프로그램과의 통합이 가능합니다."
+      },
+      "tools": {
+        "title": "완전한 오픈 소스",
+        "description": "활발한 커뮤니티가 유지하는 오픈 소스 프로젝트이며, 모든 기여는 환영합니다."
+      }
+    }
+  },
+  "header": {
+    "my_profile": "내 프로필로 이동",
+    "logout": "로그아웃",
+    "github": "GitHub으로 로그인"
+  },
+  "footer": {
+    "description": "Modrinth는 오픈 소스 소프트웨어입니다.",
+    "legal": {
+      "heading": "법률",
+      "terms": "이용약관",
+      "privacy": "개인정보",
+      "rules": "규칙"
+    },
+    "resources": {
+      "heading": "자료",
+      "blog": "블로그",
+      "docs": "문서"
+    },
+    "buttons": {
+      "privacy": "개인정보 설정",
+      "theme": {
+        "label": "테마 변경",
+        "system": "시스템 테마",
+        "light": "라이트 모드",
+        "dark": "다크 모드",
+        "oled": "OLED 모드"
+      },
+      "language": {
+        "label": "언어 선택"
+      }
+    }
+  },
+  "error": {
+    "status": "{status} 오류",
+    "message": {
+      "404": "이런, 아무래도 [Labyrinth](https://github.com/modrinth/labrinth)에서 길을 잃은 것 같습니다.<br />요청하신 페이지를 찾을 수 없습니다.",
+      "project_missing": "요청하신 {type}을(를) 찾을 수 없습니다.",
+      "default": "예기치 않은 오류가 발생했습니다."
+    },
+    "actions": {
+      "home": "홈으로 이동",
+      "discord": "Discord에서 도움 받기"
+    }
+  },
+  "pages": {
+    "description": "설명",
+    "gallery": "갤러리",
+    "changelog": "체인지로그",
+    "versions": "버전",
+    "settings": "설정",
+    "moderation": "관리",
+    "notifications": "알림",
+    "about": "소개",
+    "following": "팔로우 중",
+    "terms": "이용약관",
+    "privacy": "개인정보처리방침",
+    "rules": "프로젝트 규칙",
+    "all": "모두"
+  },
+  "generic": {
+    "labels": {
+      "license": {
+        "singular": "라이센스",
+        "plural": "라이센스"
+      },
+      "project_id": "프로젝트 ID",
+      "project_status": "프로젝트 상태",
+      "minecraft_versions": "Minecraft 버전",
+      "mod_loaders": "모드 로더",
+      "categories": "카테고리",
+      "downloads": "다운로드",
+      "files": "파일"
+    },
+    "actions": {
+      "create": "만들기",
+      "edit": "편집",
+      "follow": "팔로우",
+      "unfollow": "팔로우 해제",
+      "feature": "추천",
+      "report": "신고",
+      "new_project": "새 프로젝트",
+      "preview": "미리보기",
+      "download": "다운로드",
+      "save": "저장",
+      "confirm": "확인",
+      "remove": "제거",
+      "delete": "삭제",
+      "cancel": "취소",
+      "discard": "변경 사항 취소"
+    },
+    "popup": {
+      "verify": "계속하려면 <i>{content}</i>를 아래에 입력하세요.",
+      "important": "이것은 매우 중요합니다.",
+      "placeholder": "여기에 입력..."
+    },
+    "external": {
+      "github_profile": "GitHub 프로필",
+      "discord": "Discord",
+      "github": "GitHub",
+      "issues": "이슈",
+      "source": "소스",
+      "wiki": "위키",
+      "patreon": "Patreon",
+      "paypal": "PayPal",
+      "buy_me_a_coffee": "Buy Me a Coffee",
+      "github_sponsors": "GitHub Sponsors",
+      "donate": "후원",
+      "kofi": "Ko-Fi"
+    },
+    "environments": {
+      "singular": "실행 환경",
+      "plural": "실행 환경",
+      "server_side": "서버 사이드",
+      "client_side": "클라이언트 사이드",
+      "values": {
+        "required": "필수",
+        "unsupported": "미지원",
+        "optional": "선택사항",
+        "unknown": "알 수 없음"
+      }
+    },
+    "up_to_date": "최신 상태입니다!",
+    "byline": "<u>{author}</u>이(가) 만듦"
+  },
+  "project": {
+    "types": {
+      "mod": {
+        "singular": "모드",
+        "plural": "모드",
+        "search": "모드 검색..."
+      },
+      "modpack": {
+        "singular": "모드팩",
+        "plural": "모드팩",
+        "search": "모드팩 검색..."
+      }
+    },
+    "sidebar_headings": {
+      "external_resources": "외부 리소스",
+      "featured_versions": "출시된 버전",
+      "project_members": "프로젝트 구성원",
+      "technical_information": "기술적 정보"
+    },
+    "gallery": {
+      "upload": "갤러리 이미지 업로드",
+      "confirm": "정말 이 갤러리 이미지를 삭제하시겠습니까?",
+      "placeholder": {
+        "title": "이미지의 제목을 입력하세요...",
+        "description": "이미지의 설명을 입력하세요..."
+      }
+    },
+    "body": {
+      "editor": "편집기",
+      "placeholder": "프로젝트의 본문을 입력하세요...",
+      "empty": "이 프로젝트의 설명이 없습니다."
+    },
+    "members": "구성원",
+    "permissions": "권한",
+    "permission": {
+      "upload_version": "버전 업로드",
+      "delete_version": "버전 삭제",
+      "edit_details": "세부 정보 수정",
+      "edit_body": "본문 수정",
+      "manage_invites": "초대 관리",
+      "remove_member": "구성원 제거",
+      "edit_member": "구성원 편집",
+      "delete_project": "프로젝트 삭제"
+    },
+    "role": {
+      "text": "역할",
+      "placeholder": "역할 입력..."
+    },
+    "advanced": "고급",
+    "visibility": {
+      "title": "공개 설정",
+      "description": "이 프로젝트는 현재 {status} 상태입니다.",
+      "action": "공개 설정 변경"
+    },
+    "ownership": {
+      "title": "소유권",
+      "description": "프로젝트의 소유권을 다른 유저에게 이전합니다.",
+      "action": "소유권 이전"
+    },
+    "delete": {
+      "title": "프로젝트 삭제",
+      "description": "프로젝트를 지우는 것은 버전을 포함한 모든 프로젝트 데이터를 지웁니다.",
+      "action": "프로젝트 삭제"
+    }
+  },
+  "version": {
+    "featured": "추천됨",
+    "autofeatured": "자동으로 추천됨",
+    "feature_action": "추천",
+    "dependencies": "의존성",
+    "metadata": "부가 정보",
+    "release_channel": "릴리스 채널",
+    "number": "버전 구분",
+    "publication_date": "출시일",
+    "publisher": "출시자"
+  },
+  "search": {
+    "filters": {
+      "clear": "필터 초기화",
+      "hide": "필터 숨기기",
+      "show": "필터 표시",
+      "show_snapshots": "스냅샷 표시",
+      "search_versions": "버전 검색...",
+      "licenses": "라이센스"
+    },
+    "sort": {
+      "by": "정렬 기준",
+      "relevance": "연관성",
+      "downloads": "다운로드 수",
+      "follows": "팔로워 수",
+      "newest": "최근 생성",
+      "updated": "최근 업데이트"
+    },
+    "per_page": "페이지 당 표시 수"
+  },
+  "status": {
+    "approved": "승인",
+    "rejected": "거부",
+    "draft": "초안",
+    "unlisted": "비공개",
+    "processing": "검토 중",
+    "unknown": "알 수 없음"
+  },
+  "release_channels": {
+    "release": "릴리즈",
+    "beta": "베타",
+    "alpha": "알파"
+  },
+  "roles": {
+    "developer": "개발자",
+    "admin": "관리자",
+    "moderator": "운영자"
+  },
+  "stats": {
+    "joined": "{ago} 전에 가입함",
+    "notified": "{ago} 전에 알림을 받음",
+    "downloads": "{downloads, plural, other {<b>#</b> 다운로드}}",
+    "followers_of_projects": "{followers, plural, other {<b>#</b> 프로젝트 팔로워}}",
+    "followers": "{followers, plural, other {<b>#</b> 팔로워}}",
+    "user_id": "사용자 ID: {id}",
+    "created": "{ago} 전에 생성됨",
+    "updated": "{ago} 전에 업데이트됨"
+  },
+  "settings": {
+    "username": {
+      "text": "사용자명",
+      "placeholder": "사용자명 입력..."
+    },
+    "bio": {
+      "text": "자기소개",
+      "placeholder": "자기소개 추가..."
+    },
+    "email": {
+      "text": "<b>비공개 이메일</b> (운영자에게만 보임)",
+      "placeholder": "이메일 추가..."
+    },
+    "avatar": "아바타 업로드"
+  },
+  "report": {
+    "singular": "신고",
+    "plural": "신고",
+    "type": {
+      "spam": "스팸",
+      "copyright": "저작권",
+      "inappropriate": "부적절",
+      "malicious": "악의성",
+      "name-squatting": "이름 도용",
+      "other": "기타"
+    },
+    "new": {
+      "information": "추가 정보",
+      "description": "가능하다면 이미지와 링크를 포함하세요. 마크다운 형식을 지원합니다."
+    }
+  },
+  "user": {
+    "following": {
+      "loading": "팔로우한 프로젝트 불러오는 중...",
+      "none": "팔로우한 프로젝트가 없습니다."
+    },
+    "delete": {
+      "title": "계정 삭제",
+      "body": "계정을 삭제하면 되돌릴 수 없습니다. 계정을 삭제하는 것은 프로젝트를 포함한 모든 연관된 데이터를 서버에서 제거합니다.",
+      "confirm_title": "계정을 삭제하시겠습니까?",
+      "confirm_body": "이것은 **즉시 모든 프로젝트**와 팔로우를 **삭제**할 것입니다. 계정 삭제는 되돌릴 수 없습니다.\n계정에 대한 도움이 필요하시면 [Modrinth Discord](/discord)에서 도움을 받으세요.",
+      "yes_I_want_to_do_this": "예, 영원히 제 계정을 삭제하겠습니다"
+    },
+    "auth": {
+      "title": "인증 토큰",
+      "body": "인증 토큰은 Modrinth API, Minotaur Gradle 플러그인, Modrinth API와 상호작용하는 기타 응용 프로그램과 함께 사용할 수 있습니다. 토큰을 안전하게 보관하세요!",
+      "copy": "클립보드에 토큰 복사",
+      "copied": "클립보드에 토큰 복사됨",
+      "revoke": "토큰 취소"
+    },
+    "revoke_token": {
+      "title": "Modrinth 토큰 취소",
+      "body": "Modrinth 토큰을 취소하는 것은 의도치 않은 결과를 초래할 수 있습니다. 다음과 같은 것들이 망가질 수 있다는 것을 상기하세요:\n - API에 접근하기 위해 토큰을 사용하는 모든 응용 프로그램.\n - Gradle - Minotaur가 잘못된 토큰을 받는다면 Gradle 빌드가 실패할 수 있습니다.\n - GitHub - Modrinth API를 사용하는 GitHub 액션을 사용한다면 에러가 발생할 것입니다.\n\n계속할 용의가 있다면 다음과 같은 단계를 완료하세요:\n\n 1. [GitHub의 Modrinth 응용 프로그램 페이지] 방문하기(https://github.com/settings/connections/applications/3acffb2e808d16d4b226). Modrinth에서 사용한 GitHub 계정으로 로그인했는지 확인하세요!\n 2. \"Permissions\" 헤더 옆에 있는 크고 빨간 \"Revoke Access\" 버튼을 누르기\n\n이러한 단계를 완료했으면 아래의 계속 버튼을 누르세요.\n\n**이렇게 하면 Modrinth에서 로그아웃되지만 다시 로그인하면 토큰이 다시 생성됩니다.**",
+      "action": "로그아웃"
+    }
+  },
+  "images": {
+    "replace": "이미지 교체",
+    "how_to": "끌어다 놓아 업로드하거나 클릭하여 선택"
+  },
+  "ads": {
+    "privacy_respecting": "개인정보를 존중하는 광고가 여기에 표시되었을 것입니다.",
+    "console": {
+      "line1": "광고 차단 프로그램을 사용중입니다.",
+      "line2": "광고 차단 프로그램이 Modrinth의 유일한 수입원인 광고를 보여주는 것을 방지했습니다.",
+      "line3": "광고를 보지 않고도 Modrinth를 돕길 원하신다면 Github에서 Modrinth에 기여하실 수 있습니다!",
+      "line4": "https://github.com/modrinth/"
+    }
+  },
+  "tags": {
+    "technology": "기술",
+    "adventure": "어드벤처",
+    "magic": "마법",
+    "utility": "유틸리티",
+    "decoration": "장식",
+    "library": "라이브러리",
+    "cursed": "요상함",
+    "worldgen": "세계 생성",
+    "storage": "창고",
+    "food": "음식",
+    "equipment": "장비",
+    "miscellaneous": "기타",
+    "challenging": "도전",
+    "combat": "전투",
+    "kitchen-sink": "키친 싱크",
+    "lightweight": "가벼움",
+    "multiplayer": "멀티플레이어",
+    "quests": "퀘스트",
+    "optimization": "최적화",
+    "fabric": "Fabric",
+    "forge": "Forge",
+    "quilt": "Quilt",
+    "modloader": "ModLoader",
+    "rift": "Rift",
+    "server": "서버",
+    "client": "클라이언트",
+    "good": "양호함",
+    "trash": "쓰레기",
+    "misc": "기타"
+  }
+}

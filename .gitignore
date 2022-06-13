@@ -8,6 +8,7 @@ build/
 .idea/discord.xml
 .vercel_build_output
 .pnpm-debug.log
-# generated/
+generated/
 !.gitkeep
 .mf
+.pnpm-store/

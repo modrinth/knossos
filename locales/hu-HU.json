@@ -1,0 +1,382 @@
+{
+  "locale": {
+    "no_translation": "Ezen származása miatt, az oldal tartalma csak az eredeti nyelven érhető el."
+  },
+  "index": {
+    "tagline": "Fedezz fel, játsz és készíts Minecraft tartalmat",
+    "description": "Keress érdekes és minőségi tartalmat a nyílt forráskódú mod platformon keresztül, amely a közösségért készült. Hozz létre, keress pénzt* és fejleszd a saját projektedet a teljesen dokumentált API-val!",
+    "features": {
+      "book": {
+        "title": "Könnyen használható API",
+        "description": "Teljesen dokumentált API biztosítja a fejlődését harmadik fél által készített integrációknak és indítóknak."
+      },
+      "coin": {
+        "title": "Alkotó jutalmak",
+        "description": "Az alkotók az oldalaik által termelt reklám bevétel 100%-át megkapják. *A bevételküldés jelenleg fejlesztés alatt áll."
+      },
+      "speedometer": {
+        "title": "Villámgyors kereső",
+        "description": "Gyors algoritmusok által működtetett kereső, hogy ne kelljen várakozni."
+      },
+      "chat": {
+        "title": "Segítőkész közösség",
+        "description": "Kérj segítséget, fejlessz és beszélgess Discord szerverünkön több mint 1500 taggal."
+      },
+      "puzzle": {
+        "title": "Bővíthető infrastruktúra",
+        "description": "Integrálható build eszközökkel, adattárakkal, indítókkal és egyéni alkalmazásokkal."
+      },
+      "tools": {
+        "title": "Teljesen nyílt forráskódú",
+        "description": "Egy teljesen nyílt forráskódú projekt az aktív közösségünk által, amely üdvözli a közreműködést."
+      }
+    }
+  },
+  "header": {
+    "my_profile": "Saját profil",
+    "logout": "Kijelentkezés",
+    "github": "Bejelentkezés GitHub-al"
+  },
+  "footer": {
+    "description": "A Modrinth nyílt forráskódú szoftver.",
+    "legal": {
+      "heading": "Jogi megjegyzések",
+      "terms": "Felhasználási feltételek",
+      "privacy": "Adatvédelem",
+      "rules": "Szabályzat"
+    },
+    "resources": {
+      "heading": "Források",
+      "blog": "Blog",
+      "docs": "Dokumentáció"
+    },
+    "buttons": {
+      "privacy": "Adatvédelmi beállítások",
+      "theme": {
+        "label": "Téma váltása",
+        "system": "Rendszer téma",
+        "light": "Világos mód",
+        "dark": "Sötét mód",
+        "oled": "OLED mód"
+      },
+      "language": {
+        "label": "Nyelv kiválasztása"
+      }
+    }
+  },
+  "error": {
+    "status": "{status} Hiba",
+    "message": {
+      "404": "Hoppá! Úgy tűnik elvesztél a [Labyrinth](https://github.com/modrinth/labrinth)-ben.<br />Az oldal amit keresel nem található!",
+      "project_missing": "{type} nem található.",
+      "default": "Váratlan hiba történt!"
+    },
+    "actions": {
+      "home": "Főoldal",
+      "discord": "Kérj segítséget Discord-on"
+    }
+  },
+  "pages": {
+    "description": "Leírás",
+    "gallery": "Galéria",
+    "changelog": "Változtatások",
+    "versions": "Verziók",
+    "settings": "Beállítások",
+    "moderation": "Moderáció",
+    "notifications": "Értesítések",
+    "about": "Rólunk",
+    "following": "Követés",
+    "terms": "Felhasználási feltételek",
+    "privacy": "Adatvédelmi feltételek",
+    "rules": "Szabályok",
+    "all": "Összes"
+  },
+  "generic": {
+    "labels": {
+      "license": {
+        "singular": "Licenc",
+        "plural": "Licencek"
+      },
+      "project_id": "Projekt ID",
+      "project_status": "Projekt státusz",
+      "minecraft_versions": "Minecraft verziók",
+      "mod_loaders": "Mod betöltők",
+      "categories": "Kategóriák",
+      "downloads": "Letöltések",
+      "files": "Fájlok"
+    },
+    "actions": {
+      "create": "Létrehozás",
+      "edit": "Szerkesztés",
+      "follow": "Követés",
+      "unfollow": "Követés törlése",
+      "feature": "Funkció",
+      "report": "Jelentés",
+      "new_project": "Új projekt",
+      "preview": "Előnézet",
+      "download": "Letöltés",
+      "save": "Mentés",
+      "confirm": "Kész",
+      "remove": "Eltávolítás",
+      "delete": "Törlés",
+      "cancel": "Mégsem",
+      "discard": "Változások elvétése"
+    },
+    "popup": {
+      "verify": "A megerősítéshez, írd be: <i>{content}</i>",
+      "important": "Ez nagyon fontos!",
+      "placeholder": "Írd ide..."
+    },
+    "external": {
+      "github_profile": "GitHub profil",
+      "discord": "Discord",
+      "github": "GitHub",
+      "issues": "Issues",
+      "source": "Forrás",
+      "wiki": "Wiki",
+      "patreon": "Patreon",
+      "paypal": "PayPal",
+      "buy_me_a_coffee": "Buy Me a Coffee",
+      "github_sponsors": "GitHub Sponsors",
+      "donate": "Donate",
+      "kofi": "Ko-Fi"
+    },
+    "environments": {
+      "singular": "Környezet",
+      "plural": "Környezetek",
+      "server_side": "Szerver oldali",
+      "client_side": "Kliens oldali",
+      "values": {
+        "required": "Szükséges",
+        "unsupported": "Nem támogatott",
+        "optional": "Opcionális",
+        "unknown": "Ismeretlen"
+      }
+    },
+    "up_to_date": "Naprakész vagy!",
+    "byline": "készítette <u>{author}</u>"
+  },
+  "project": {
+    "types": {
+      "mod": {
+        "singular": "Mod",
+        "plural": "Modok",
+        "search": "Keress modokat..."
+      },
+      "modpack": {
+        "singular": "Modpack",
+        "plural": "Modpackek",
+        "search": "Keress modpackeket..."
+      }
+    },
+    "sidebar_headings": {
+      "external_resources": "Külső források",
+      "featured_versions": "Kiemelt verziók",
+      "project_members": "Projekt tagok",
+      "technical_information": "Technika információk"
+    },
+    "gallery": {
+      "upload": "Tölts fel egy képe a galériába",
+      "confirm": "Biztos vagy benne, hogy törölni akarod ezt a képet a galériából?",
+      "placeholder": {
+        "title": "Írd be a kép címét...",
+        "description": "Írd be a kép leírását..."
+      }
+    },
+    "body": {
+      "editor": "Szerkesztő",
+      "placeholder": "Írd be a projekt leírását...",
+      "empty": "Ennek a projektnek a leírása üres."
+    },
+    "members": "Tagok",
+    "permissions": "Jogosultságok",
+    "permission": {
+      "upload_version": "Verzió feltöltése",
+      "delete_version": "Verzió törlése",
+      "edit_details": "Részletek szerkesztése",
+      "edit_body": "Leírás szerkesztése",
+      "manage_invites": "Meghívások kezelése",
+      "remove_member": "Tagok eltávolítása",
+      "edit_member": "Tagok szerkesztése",
+      "delete_project": "Projekt törlése"
+    },
+    "role": {
+      "text": "Rang",
+      "placeholder": "Írj be rangokat..."
+    },
+    "advanced": "Haladó",
+    "visibility": {
+      "title": "Láthatóság",
+      "description": "Ez a projekt jelenleg {status}.",
+      "action": "Láthatóság megváltoztatása"
+    },
+    "ownership": {
+      "title": "Tulajdonjog",
+      "description": "A projekt tulajdonjogának átadása másik felhasználónak.",
+      "action": "Tulajdonjog átadása"
+    },
+    "delete": {
+      "title": "Projekt törlése",
+      "description": "A projekt törlése töröl minden adatot, még a verziókat is.",
+      "action": "Törlés mindenképpen"
+    }
+  },
+  "version": {
+    "featured": "Kiemelt",
+    "autofeatured": "Automatikusan kiemelt",
+    "feature_action": "Kiemelés",
+    "dependencies": "Függőségek",
+    "metadata": "Metaadatok",
+    "release_channel": "Kiadási csatorna",
+    "number": "Verziószám",
+    "publication_date": "Publikálás dátuma",
+    "publisher": "Publikáló"
+  },
+  "search": {
+    "filters": {
+      "clear": "Szűrők törlése",
+      "hide": "Szűrők elrejtése",
+      "show": "Szűrők mutatása",
+      "show_snapshots": "Snapshotok mutatása",
+      "search_versions": "Verziók keresése...",
+      "licenses": "Licencek"
+    },
+    "sort": {
+      "by": "Rendezés",
+      "relevance": "Jelentősség",
+      "downloads": "Letöltések száma",
+      "follows": "Követők száma",
+      "newest": "Újonnan létrehozva",
+      "updated": "Nemrég frissítve"
+    },
+    "per_page": "Oldalanként"
+  },
+  "status": {
+    "approved": "Elfogadva",
+    "rejected": "Elutasítva",
+    "draft": "Piszkozat",
+    "unlisted": "Nem listázott",
+    "processing": "Felülvizsgálat alatt",
+    "unknown": "Ismeretlen"
+  },
+  "release_channels": {
+    "release": "Kiadás",
+    "beta": "Béta",
+    "alpha": "Alfa"
+  },
+  "roles": {
+    "developer": "Fejlesztő",
+    "admin": "Adminisztrátor",
+    "moderator": "Moderátor"
+  },
+  "stats": {
+    "joined": "{ago} csatlakozott",
+    "notified": "{ago} értesítve",
+    "downloads": "{downloads, plural, one {<b>1</b> letöltés} other {<b>#</b> letöltések}}",
+    "followers_of_projects": "{followers, plural, one {<b>1</b> projektet követ} other {<b>#</b> követi a projektjeit}}",
+    "followers": "{followers, plural, one {<b>1</b> követő} other {<b>#</b> követők}}",
+    "user_id": "Felhasználói ID: {id}",
+    "created": "Létrehozva {ago}",
+    "updated": "Frissítve {ago}"
+  },
+  "settings": {
+    "username": {
+      "text": "Felhasználónév",
+      "placeholder": "Adj hozzá egy felhasználónevet..."
+    },
+    "bio": {
+      "text": "Bemutatkozás",
+      "placeholder": "Mutatkozz be!"
+    },
+    "email": {
+      "text": "<b>Privát E-Mail</b> (csak Moderátorok láthatják)",
+      "placeholder": "Adj hozzá E-Mailt..."
+    },
+    "avatar": "Profilkép feltöltése"
+  },
+  "report": {
+    "singular": "Jelentés",
+    "plural": "Jelentések",
+    "type": {
+      "spam": "Spam",
+      "copyright": "Szerzói jog",
+      "inappropriate": "Nem megfelelő",
+      "malicious": "Káros",
+      "name-squatting": "Lopott név",
+      "other": "Egyéb"
+    },
+    "new": {
+      "information": "Egyéb információ",
+      "description": "Adj hozzá linkeket és képeket, ha lehet. A Markdown formázás engedélyzett!"
+    }
+  },
+  "user": {
+    "following": {
+      "loading": "Követett projektek betöltése...",
+      "none": "Nem követsz projektet."
+    },
+    "delete": {
+      "title": "Fiók törlése",
+      "body": "Ha törlöd a fiókodat, minden adatod és minden projekted azonnal törlődni fog a szervereinkről.",
+      "confirm_title": "Biztosan ki akarod törölni a fiókodat?",
+      "confirm_body": "Ez **azonnal törölni fog minden projektedet** és követésedet. Ez nem visszavonható!\n\nHa segítségre van szükséged a fiókoddal, írj nekünk a [Modrinth Discord](/discord)-on.",
+      "yes_I_want_to_do_this": "Igen, visszafordíthatatlanul törölni akarom a fiókomat."
+    },
+    "auth": {
+      "title": "Hitelesítő token",
+      "body": "A hitelesítő tokened használható a Modrinth API-val, a Minotaur Gradle pluginnal és egyéb alkalmazásokkal, amik kapcsolatban vannak a Modrinth API-val. Figyelj rá, hogy titokban tartsad!",
+      "copy": "Token másolása a vágólapra",
+      "copied": "Token másolva vágólapra",
+      "revoke": "Token visszavonása"
+    },
+    "revoke_token": {
+      "title": "Modrinth tokened visszavonása",
+      "body": "A Modrinth tokened visszavonása váratlan hibákat okozhat. Figyelj rá, hogy ezek elromolhatnak:\n - Minden alkalmazás, ami a tokenedet használja az API eléréséhez.\n - Gradle - ha a Minotaur-nak hibás tokent adtál meg, a Gradle buildek sikertelenek lehetnek.\n - GitHub - ha a GitHub Actions a rossz tokent használja, hibálat fog okozni.\n\nHa szeretnéd folytatni, tedd meg a következő lépéseket:\n\n 1. Menj a [Modrinth Alkalmazás oldalra GitHub-on](https://github.com/settings/connections/applications/3acffb2e808d16d4b226). Figyelj arra, hogy azt a GitHub fiókod használd, amivel Modrinth-re is belépsz!\n 2. Nyomd meg a nagy vörös \"Revoke Access\" gombot a \"Permissions\" fejléc mellett.\n\nAmint megtetted ezeket a lépéseket nyomj a \"Continue\" gombra lent.\n\n**Ez ki fog jelentkeztetni téged Modrinth-ről, de amikor visszalépsz, a tokened újra lesz generálva.**",
+      "action": "Kilépés"
+    }
+  },
+  "images": {
+    "replace": "Kép módosítása",
+    "how_to": "Húzd ide a fájlt vagy kattints a kiválasztáshoz!"
+  },
+  "ads": {
+    "privacy_respecting": "Egy adatvédelmet tisztelő hirdetés jelnt volna meg itt.",
+    "console": {
+      "line1": "Adblocker-t használsz.",
+      "line2": "Az Adblockered megakadályozta a Modrinth-et, hogy hirdetést jelenítsen meg, az egyetlen bevételi forrásunkat.",
+      "line3": "Ha szeretnéd támogatni a Modrinth-et hirdetések megtekintése nélkül, segíts nekünk fejleszteni a Modrinth-et!",
+      "line4": "https://github.com/modrinth/"
+    }
+  },
+  "tags": {
+    "technology": "Technológia",
+    "adventure": "Felfedezés",
+    "magic": "Mágia",
+    "utility": "Hasznos",
+    "decoration": "Dekoráció",
+    "library": "Könyvtár",
+    "cursed": "Elátkozott",
+    "worldgen": "Világgenerálás",
+    "storage": "Tárhely",
+    "food": "Étel",
+    "equipment": "Felszerelés",
+    "miscellaneous": "Egyéb",
+    "challenging": "Kihívó",
+    "combat": "Csata",
+    "kitchen-sink": "Süjjesztő",
+    "lightweight": "Könnyű",
+    "multiplayer": "Többjátékos",
+    "quests": "Küldetések",
+    "optimization": "Optimalizálás",
+    "fabric": "Fabric",
+    "forge": "Forge",
+    "quilt": "Quilt",
+    "modloader": "ModLoader",
+    "rift": "Rift",
+    "server": "Szerver",
+    "client": "Kliens",
+    "good": "Jó",
+    "trash": "Szutyok",
+    "misc": "Egyéb"
+  }
+}
