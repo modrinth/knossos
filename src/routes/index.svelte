@@ -2,6 +2,8 @@
 	import Meta from '$components/utils/Meta.svelte'
 	import Wordmark from '$assets/images/logo/wordmark.svg'
 	import IconSearch from 'virtual:icons/heroicons-outline/search'
+	import IconCheck from "virtual:icons/heroicons-outline/check"
+	import IconRefresh from "virtual:icons/heroicons-outline/refresh"
 	import projectColors from '$generated/projects.json'
 	import { mods } from '$generated/landingPage.json'
 	import { goto } from '$app/navigation'
@@ -158,6 +160,81 @@
 		<div class="features__item__text">
 			<h3 class="title-secondary">{$t('index.features.tools.title')}</h3>
 			<p class="summary">{$t('index.features.tools.description')}</p>
+		</div>
+	</div>
+</div>
+
+<div class="info">
+	<h3>Packed with features</h3>
+	<h2>Constantly evolving and improving</h2>
+	<p>
+		We are always adding new features and working
+		towards making Modrinth have the friendliest
+		user experience possible. Right now, we're
+		working on finishing modpacks and finally
+		paying out creators on our site. If you have
+		any more feature ideas, feel free to join our
+		<a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>!
+	</p>
+	<div class="info__grid">
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			100% open source
+		</div>
+
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			Real-time search
+		</div>
+		
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			Customizable project pages
+		</div>
+		
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			Robust team management
+		</div>
+		
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			Completely documented API
+		</div>
+		
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			Dependency management
+		</div>
+		
+		<div class="info__grid__item">
+			<IconCheck color="lime" width="30" height="30" />
+			Modpacks
+		</div>
+		
+		<div class="info__grid__item">
+			<IconRefresh color="orange" width="30" height="30" />
+			Creator payouts
+		</div>
+		
+		<div class="info__grid__item">
+			<IconRefresh color="orange" width="30" height="30" />
+			More project types
+		</div>
+		
+		<div class="info__grid__item">
+			<IconRefresh color="orange" width="30" height="30" />
+			Creator analytics
+		</div>
+		
+		<div class="info__grid__item">
+			<IconRefresh color="orange" width="30" height="30" />
+			In-house authentication
+		</div>
+		
+		<div class="info__grid__item">
+			<IconRefresh color="orange" width="30" height="30" />
+			Project comments
 		</div>
 	</div>
 </div>
@@ -356,6 +433,73 @@
 			gap: 1rem;
 
 			&__item {
+				flex-basis: 100%;
+				flex-direction: row;
+				gap: 1rem;
+				text-align: left;
+
+				&__image {
+					width: 6rem;
+				}
+
+				&:nth-child(odd) {
+					flex-direction: row-reverse;
+				}
+			}
+		}
+	}
+
+	.info {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		background-color: var(--color-raised-bg);
+		border-radius: 2rem;
+		margin-top: 2rem;
+		padding: 2rem;
+
+		h3 {
+			margin-bottom: 1rem;
+			color: lightgreen;
+		}
+
+		h2 {
+			margin-bottom: 1rem;
+		}
+
+		p {
+			font-size: 1.1rem;
+			line-height: 1.5rem;
+		}
+
+		&__grid {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			padding: 1rem;
+			text-align: center;
+			gap: 0.75rem;
+
+			&__item {
+				display: flex;
+				flex-direction: row;
+				gap: 0.75rem;
+				font-size: 1.1rem;
+
+				:global(svg) {
+					height: 25px;
+					width: 25px;
+				}
+			}
+
+			@media (width <= 820px) {
+				grid-template-columns: auto;
+			}
+		}
+
+		@media (width <= 500px) {
+			gap: 1rem;
+
+			&__grid {
 				flex-basis: 100%;
 				flex-direction: row;
 				gap: 1rem;
