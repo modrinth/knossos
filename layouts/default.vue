@@ -256,13 +256,20 @@
           Modrinth is
           <a
             target="_blank"
-            href="https://github.com/modrinth/knossos"
+            href="https://github.com/modrinth"
             class="text-link"
           >
             open source</a
           >.
         </p>
-        <p>{{ owner }}/{{ slug }} {{ branch }}@{{ hash.substring(0, 7) }}</p>
+        <p>
+          {{ owner }}/{{ slug }} {{ branch }}@<a
+            target="_blank"
+            :href="'https://github.com/' + owner + '/' + slug + '/tree/' + hash"
+            class="text-link"
+            >{{ hash.substring(0, 7) }}</a
+          >
+        </p>
         <p>© Rinth, Inc.</p>
       </div>
       <div class="links links-1" role="region" aria-label="Legal">

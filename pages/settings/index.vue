@@ -20,6 +20,7 @@
           <img :src="previewImage ? previewImage : $auth.user.avatar_url" />
           <div class="uploader">
             <SmartFileInput
+              :show-icon="false"
               :max-size="2097152"
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image"

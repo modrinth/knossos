@@ -219,13 +219,13 @@
         </h3>
         <span>
           You can type an extended description of your mod here. This editor
-          supports Markdown. Its syntax can be found
+          supports
           <a
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
-            >here</a
+            >Markdown</a
           >. HTML can also be used inside your description, not including
           styles, scripts, and iframes (though YouTube iframes are allowed).
         </span>
@@ -540,7 +540,7 @@
           </div>
           <div class="files">
             <h3>Files<span class="required">*</span></h3>
-            <SmartFileInput
+            <StatelessFileInput
               :class="{
                 'known-error':
                   versions[currentVersionIndex].files.length < 1 &&
@@ -577,14 +577,13 @@
             <h3>Changes</h3>
             <span>
               Let everyone know what's changed since the last version. This
-              editor supports the same Markdown syntax that the project's body
-              supports. Its syntax can be found
+              editor supports
               <a
                 class="text-link"
                 href="https://guides.github.com/features/mastering-markdown/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >here</a
+                >Markdown</a
               >.
             </span>
             <ThisOrThat
@@ -1053,6 +1052,7 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import SmartFileInput from '~/components/ui/SmartFileInput'
+import StatelessFileInput from '~/components/ui/StatelessFileInput'
 import ThisOrThat from '~/components/ui/ThisOrThat'
 import VersionBadge from '~/components/ui/Badge'
 
@@ -1066,6 +1066,7 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 export default {
   components: {
     SmartFileInput,
+    StatelessFileInput,
     Multiselect,
     CheckIcon,
     PlusIcon,

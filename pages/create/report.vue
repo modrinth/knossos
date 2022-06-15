@@ -80,13 +80,13 @@
         </h3>
         <span>
           You can type the of the long form of your description here. This
-          editor supports markdown. You can find the syntax
+          editor supports
           <a
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
             class="text-link"
-            >here</a
+            >Markdown</a
           >.
         </span>
         <ThisOrThat

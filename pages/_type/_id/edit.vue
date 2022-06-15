@@ -169,6 +169,7 @@
       />
       <SmartFileInput
         :max-size="262144"
+        :show-icon="false"
         accept="image/png,image/jpeg,image/gif,image/webp"
         class="choose-image"
         prompt="Choose image or drag it here"
@@ -245,13 +246,13 @@
       </h3>
       <span>
         You can type an extended description of your mod here. This editor
-        supports Markdown. Its syntax can be found
+        supports
         <a
           class="text-link"
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
           rel="noopener noreferrer"
-          >here</a
+          >Markdown</a
         >. HTML can also be used inside your description, not including styles,
         scripts, and iframes (though YouTube iframes are allowed).
       </span>
