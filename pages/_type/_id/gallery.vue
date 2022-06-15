@@ -214,6 +214,7 @@
         </div>
         <div class="gallery-bottom">
           <SmartFileInput
+            :max-size="5242880"
             accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
             prompt="Choose image or drag it here"
             @change="(files) => showPreviewImage(files, index)"

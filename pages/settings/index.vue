@@ -19,7 +19,8 @@
         <div class="profile-picture">
           <img :src="previewImage ? previewImage : $auth.user.avatar_url" />
           <div class="uploader">
-            <file-input
+            <SmartFileInput
+              :max-size="2097152"
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image"
               prompt="Choose image or drag it here"
@@ -128,7 +129,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import FileInput from '~/components/ui/FileInput'
+import SmartFileInput from '~/components/ui/SmartFileInput'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 
@@ -136,7 +137,7 @@ export default {
   components: {
     TrashIcon,
     SaveIcon,
-    FileInput,
+    SmartFileInput,
     Multiselect,
   },
   asyncData(ctx) {

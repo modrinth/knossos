@@ -515,6 +515,7 @@
           class="choose-files"
           accept=".jar,application/java-archive,.zip,application/zip,.mrpack"
           prompt="Choose files or drag them here"
+          :max-size="524288000"
           @change="(x) => x.forEach((y) => newFiles.push(y))"
         />
       </section>

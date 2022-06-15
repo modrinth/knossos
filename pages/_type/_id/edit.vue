@@ -167,7 +167,8 @@
         "
         alt="preview-image"
       />
-      <file-input
+      <SmartFileInput
+        :max-size="262144"
         accept="image/png,image/jpeg,image/gif,image/webp"
         class="choose-image"
         prompt="Choose image or drag it here"
@@ -251,8 +252,8 @@
           target="_blank"
           rel="noopener noreferrer"
           >here</a
-        >. HTML can also be used inside your description, excluding scripts and
-        iframes.
+        >. HTML can also be used inside your description, not including styles,
+        scripts, and iframes (though YouTube iframes are allowed).
       </span>
       <ThisOrThat
         v-model="bodyViewMode"
@@ -448,12 +449,12 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
-import FileInput from '~/components/ui/FileInput'
 import ThisOrThat from '~/components/ui/ThisOrThat'
+import SmartFileInput from '~/components/ui/SmartFileInput'
 
 export default {
   components: {
-    FileInput,
+    SmartFileInput,
     ThisOrThat,
     Multiselect,
     CrossIcon,

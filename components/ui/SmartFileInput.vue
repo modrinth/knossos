@@ -2,7 +2,7 @@
   <div class="columns">
     <label class="button" @drop.prevent="addFile" @dragover.prevent>
       <span>
-        <UploadIcon />
+        <UploadIcon v-if="showIcon" />
         {{ prompt }}
       </span>
       <input
@@ -37,8 +37,12 @@ export default {
       default: null,
     },
     maxSize: {
-      type: String,
+      type: Number,
       default: null,
+    },
+    showIcon: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

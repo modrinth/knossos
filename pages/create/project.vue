@@ -155,8 +155,9 @@
           "
           alt="preview-image"
         />
-        <file-input
-          max-size="262144"
+        <SmartFileInput
+          :show-icon="false"
+          :max-size="262144"
           accept="image/png,image/jpeg,image/gif,image/webp"
           class="choose-image"
           prompt="Choose image or drag it here"
@@ -225,8 +226,8 @@
             target="_blank"
             rel="noopener noreferrer"
             >here</a
-          >. HTML can also be used inside your description, excluding scripts
-          and iframes.
+          >. HTML can also be used inside your description, not including
+          styles, scripts, and iframes (though YouTube iframes are allowed).
         </span>
         <ThisOrThat
           v-model="bodyViewMode"
@@ -549,7 +550,7 @@
               multiple
               accept=".jar,application/java-archive,.zip,application/zip,.mrpack"
               prompt="Choose files or drag them here"
-              max-size="524288000"
+              :max-size="524288000"
               @change="
                 (x) =>
                   x.forEach((y) => versions[currentVersionIndex].files.push(y))
@@ -803,7 +804,7 @@
             />
             <div class="bottom">
               <SmartFileInput
-                max-size="5242880"
+                :max-size="5242880"
                 accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
                 prompt="Upload"
                 :class="{
@@ -834,7 +835,7 @@
         <div class="gallery-items">
           <div
             v-for="(item, index) in gallery.filter((it) =>
-              currentGalleryIndex !== -1
+              currentGalleryIndex === -1 || it !== gallery[currentGalleryIndex]
                 ? it !== gallery[currentGalleryIndex]
                 : true
             )"
@@ -1051,7 +1052,6 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import FileInput from '~/components/ui/FileInput'
 import SmartFileInput from '~/components/ui/SmartFileInput'
 import ThisOrThat from '~/components/ui/ThisOrThat'
 import VersionBadge from '~/components/ui/Badge'
@@ -1065,7 +1065,6 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 
 export default {
   components: {
-    FileInput,
     SmartFileInput,
     Multiselect,
     CheckIcon,
