@@ -57,19 +57,17 @@ export default {
       this.files = [...this.files].filter((file) => {
         if (this.maxSize === null) {
           return true
-        } else {
+        } else if (file.size > this.maxSize) {
           console.log('File size: ' + file.size + ', max size: ' + this.maxSize)
-          if (file.size > parseInt(this.maxSize)) {
-            alert(
-              'File ' +
-                file.name +
-                ' is too big! Must be less than ' +
-                this.$formatBytes(this.maxSize)
-            )
-            return false
-          } else {
-            return true
-          }
+          alert(
+            'File ' +
+              file.name +
+              ' is too big! Must be less than ' +
+              this.$formatBytes(this.maxSize)
+          )
+          return false
+        } else {
+          return true
         }
       })
 
