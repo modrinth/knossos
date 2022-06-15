@@ -332,7 +332,7 @@
       </section>
       <section
         v-if="
-          version.dependencies.length > 0 ||
+          version.dependencies.filter((x) => !x.file_name).length > 0 ||
           mode === 'edit' ||
           mode === 'create'
         "
@@ -340,7 +340,9 @@
         <h3>Dependencies</h3>
         <div class="dependencies">
           <div
-            v-for="(dependency, index) in version.dependencies"
+            v-for="(dependency, index) in version.dependencies.filter(
+              (x) => !x.file_name
+            )"
             :key="index"
             class="dependency"
           >
@@ -443,6 +445,32 @@
         <hr class="card-divider" />
       </section>
       <section
+        v-if="version.dependencies.filter((x) => x.file_name).length > 0"
+      >
+        <div>
+          <h3>External Dependencies</h3>
+          <InfoIcon
+            v-tooltip="
+              'Mods not part of the Modrinth platform but depended on by this project'
+            "
+          />
+        </div>
+        <div class="external-dependency">
+          <div
+            v-for="(dependency, index) in version.dependencies.filter(
+              (x) => x.file_name
+            )"
+            :key="index"
+            class="external-dependency"
+          >
+            <p v-if="dependency.file_name">
+              {{ decodeURIComponent(dependency.file_name) }}
+            </p>
+          </div>
+        </div>
+        <hr class="card-divider" />
+      </section>
+      <section
         v-if="version.files.length > 0 || mode === 'edit' || mode === 'create'"
       >
         <h3>Files</h3>
@@ -509,7 +537,7 @@
             </button>
           </div>
         </div>
-        <SmartFileInput
+        <StatelessFileInput
           v-if="mode === 'edit' || mode === 'create'"
           multiple
           class="choose-files"
@@ -526,8 +554,9 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
-import SmartFileInput from '~/components/ui/SmartFileInput'
+import StatelessFileInput from '~/components/ui/StatelessFileInput'
 
+import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
@@ -559,7 +588,8 @@ export default {
     SaveIcon,
     PlusIcon,
     CrossIcon,
-    SmartFileInput,
+    StatelessFileInput,
+    InfoIcon,
   },
   beforeRouteLeave(to, from, next) {
     if (this.mode === 'create') {
@@ -1043,6 +1073,12 @@ section {
         margin: 0 0.25rem 0 0;
       }
     }
+  }
+}
+
+.external-dependency {
+  p {
+    margin: 0.25rem 0;
   }
 }
 

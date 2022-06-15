@@ -89,7 +89,9 @@
         </div>
         <div class="dates">
           <div
-            v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+            v-tooltip="
+              $dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')
+            "
             class="date"
           >
             <CalendarIcon aria-hidden="true" />
@@ -97,7 +99,9 @@
             <span class="value">{{ $dayjs(project.published).fromNow() }}</span>
           </div>
           <div
-            v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+            v-tooltip="
+              $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
+            "
             class="date"
           >
             <UpdateIcon aria-hidden="true" />
@@ -237,7 +241,8 @@
             project.issues_url ||
             project.source_url ||
             project.wiki_url ||
-            project.discord_url
+            project.discord_url ||
+            project.donation_urls.length > 0
           "
         >
           <h3 class="card-header">External resources</h3>
