@@ -652,7 +652,6 @@ export default {
   },
   methods: {
     reset() {
-      this.mode = 'version'
       this.changelogViewMode = 'source'
       this.dependencyAddMode = 'project'
       this.newDependencyId = ''
