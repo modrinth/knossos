@@ -2,7 +2,7 @@
   <div class="columns">
     <label class="button" @drop.prevent="handleDrop" @dragover.prevent>
       <span>
-        <UploadIcon />
+        <UploadIcon v-if="showIcon" />
         {{ prompt }}
       </span>
       <input
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { fileIsValid } from '~/plugins/fileUtils'
 import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 
 export default {
@@ -36,20 +37,33 @@ export default {
       type: String,
       default: null,
     },
+    /**
+     * The max file size in bytes
+     */
+    maxSize: {
+      type: Number,
+      default: null,
+    },
+    showIcon: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     onChange(addedFiles) {
-      this.$emit('change', addedFiles)
+      const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
+      const validFiles = [...addedFiles].filter((file) =>
+        fileIsValid(file, validationOptions)
+      )
+
+      if (validFiles.length > 0) {
+        this.$emit('change', validFiles)
+      }
     },
     addFiles(filesToAdd) {
       if (!filesToAdd) return
 
-      if (!this.multiple && filesToAdd.length > 0) {
-        this.onChange([filesToAdd[0]])
-        return
-      }
-
-      this.onChange(filesToAdd)
+      this.onChange(this.multiple ? filesToAdd : [filesToAdd[0]])
     },
     handleDrop(e) {
       this.addFiles(e.dataTransfer.files)
