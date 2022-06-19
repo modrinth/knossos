@@ -51,23 +51,32 @@ export default {
   },
   methods: {
     onChange(addedFiles) {
+      this.$emit('change', addedFiles)
+    },
+    /**
+     * @param {FileList} filesToAdd
+     */
+    addFiles(filesToAdd) {
+      if (!filesToAdd) return
+
       const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
-      const validFiles = [...addedFiles].filter((file) =>
+      const validFiles = [...filesToAdd].filter((file) =>
         fileIsValid(file, validationOptions)
       )
 
       if (validFiles.length > 0) {
-        this.$emit('change', validFiles)
+        this.onChange(this.multiple ? validFiles : [validFiles[0]])
       }
     },
-    addFiles(filesToAdd) {
-      if (!filesToAdd) return
-
-      this.onChange(this.multiple ? filesToAdd : [filesToAdd[0]])
-    },
+    /**
+     * @param {DragEvent} e
+     */
     handleDrop(e) {
       this.addFiles(e.dataTransfer.files)
     },
+    /**
+     * @param {Event} e native file input event
+     */
     handleChange(e) {
       this.addFiles(e.target.files)
     },
