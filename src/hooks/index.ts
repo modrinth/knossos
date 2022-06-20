@@ -9,9 +9,7 @@ export const handle = sequence(locals, cache, login, theme)
 
 export const getSession: GetSession = (event) => {
 	return {
-		acceptedLanguage:
-			event.request.headers['accept-language'] &&
-			event.request.headers['accept-language'].split(',')[0],
+		acceptLanguage: event.request.headers.get('Accept-Language') || '',
 		...event.locals,
 	}
 }

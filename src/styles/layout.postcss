@@ -3,15 +3,15 @@
 	width: 100%;
 	display: grid;
 	grid-template-columns: 20rem 1fr;
-	grid-gap: 1rem;
+	gap: 1rem;
 
 	&__sidebar,
 	&__content {
-		overflow: hidden; /* prevents the parent grid from streching */
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1rem;
+		gap: 1rem;
 		padding-bottom: 0.5rem; /* protects the shadow from the overflow */
+		min-width: 0; /* prevents the parent grid from streching */
 	}
 
 	@media (width <= 800px) {
@@ -22,14 +22,14 @@
 .single-layout {
 	display: flex;
 	flex-direction: column;
-	grid-gap: 1rem;
+	gap: 1rem;
 	max-width: 800px;
 	width: 100%;
 }
 
 .grid {
 	display: grid;
-	grid-gap: 1rem;
+	gap: 1rem;
 	padding-right: 1rem;
 
 	&--col-2-1 {
@@ -43,6 +43,6 @@
 	&__col {
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1rem;
+		gap: 1rem;
 	}
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { navigating } from '$app/stores'
-	import { fetching } from '$lib/api'
+	import { fetching } from '$utils/api'
 
 	export let height = '100%'
 </script>

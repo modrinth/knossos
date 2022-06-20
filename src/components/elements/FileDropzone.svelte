@@ -30,6 +30,10 @@
 			})
 		}
 	}
+
+	function onInputChange(event) {
+		files = [...event.target.files]
+	}
 </script>
 
 <div
@@ -45,7 +49,7 @@
 		{accept}
 		style:display="none"
 		bind:this={inputElement}
-		on:change={(event) => (files = [...event.target.files])} />
+		on:change={onInputChange} />
 </div>
 
 <style lang="postcss">
@@ -55,7 +59,7 @@
 		padding: 1.5rem 1rem;
 		justify-content: center;
 		align-items: center;
-		grid-gap: 0.5rem;
+		gap: 0.5rem;
 		background-color: var(--color-button-bg);
 		border-radius: var(--rounded-sm);
 		border: dashed 0.3rem var(--color-text-lightest);

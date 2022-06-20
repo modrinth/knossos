@@ -1,18 +1,18 @@
 <script context="module" lang="ts">
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 
-	export async function load({ params, fetch, session, stuff }) {
+	export async function load({ params, fetch }) {
 		try {
-			const user: User = (await send('GET', `user/${params.identifier}`, null, {
+			const user: any = await send('GET', `user/${params.identifier}`, null, {
 				fetch,
-			})) as User
+			})
 
 			return {
 				props: {
 					user,
-					projects: (await send('GET', `user/${params.identifier}/projects`, null, { fetch })).sort(
-						(a, b) => b.downloads - a.downloads
-					),
+					projects: (
+						(await send('GET', `user/${params.identifier}/projects`, null, { fetch })) as any
+					).sort((a, b) => b.downloads - a.downloads),
 					github_url: (await (await fetch(`https://api.github.com/user/${user.github_id}`)).json())
 						.html_url,
 				},
@@ -50,13 +50,13 @@
 	import Meta from '$components/utils/Meta.svelte'
 	import { user as currentUser } from '$stores/server'
 	import Ad from '$components/elements/Ad.svelte'
-	import { report } from '$lib/report'
-	import { simplify } from '$lib/number'
-	import { create } from '$lib/create'
+	import { report } from '$utils/report'
+	import { simplify } from '$utils/number'
+	import { create } from '$utils/create'
 	import { project } from '../../[type=projectType]/[identifier]/_store'
 
-	export let user: User
-	export let projects: Project[]
+	export let user
+	export let projects
 	setContext('projects', projects)
 	export let github_url: string
 
@@ -230,7 +230,7 @@
 		padding: 0 1rem;
 		margin-bottom: -2.5rem;
 		z-index: 1;
-		grid-gap: 1.5rem;
+		gap: 1.5rem;
 		align-items: center;
 
 		&__title {

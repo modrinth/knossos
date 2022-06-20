@@ -10,7 +10,7 @@
 	import { permissions, project, color, members } from './_store'
 	import autosize from 'svelte-autosize'
 	import { onDestroy, onMount } from 'svelte'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import { browser } from '$app/env'
 
 	let isEditing = false
@@ -55,7 +55,7 @@
 
 <div class="card project-body card--gap-none" style:--padding="0">
 	<div class="card__overlay card__overlay--row">
-		{#if $permissions.data.editBody}
+		{#if $permissions.editBody}
 			{#if isEditing}
 				{#if dirty}
 					<Button
@@ -148,7 +148,7 @@
 		&__editor {
 			border: none;
 			padding: 1rem;
-			background-color: var(--color-input-light);
+			background-color: var(--color-input-text-light);
 		}
 	}
 </style>

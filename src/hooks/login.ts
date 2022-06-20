@@ -1,15 +1,15 @@
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 import cookie from 'cookie'
 import type { Handle } from '@sveltejs/kit'
 
-export const login: Handle = async ({ event, resolve }) => {
-	const LOGGED_IN_PAGES = ['/following', '/report', '/moderation', '/settings']
+const LOGGED_IN_PAGES = ['/following', '/report', '/moderation', '/settings', '/notifications']
 
+export const login: Handle = async ({ event, resolve }) => {
 	let token = event.locals.token || event.url.searchParams.get('code') || ''
 
 	if (token) {
 		try {
-			event.locals.user = (await send('GET', 'user', null, { token })) as User
+			event.locals.user = await send('GET', 'user', null, { token })
 		} catch {
 			// Invalid token
 			token = ''

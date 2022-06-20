@@ -5,7 +5,7 @@ on:
     types: [translations]
 
 jobs:
-  build:
+  translations:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository and submodules

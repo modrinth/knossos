@@ -24,7 +24,7 @@
 		modOffset = mods.length < 100 ? 0 : Math.floor(random.nextInt(0, 60)) // 100 (total projects) - 40 (used)
 	})
 
-	function search(event: SubmitEvent) {
+	function search(event: Event) {
 		const data = new FormData(event.target as HTMLFormElement)
 		goto(`/mods?q=${data.get('term')}`)
 	}
@@ -70,7 +70,7 @@
 
 <div class="hero">
 	<div class="stacks">
-		{#if random && modOffset}
+		{#if random && typeof modOffset !== 'undefined'}
 			{#each layout as row, rowIndex}
 				<div class="stacks__row">
 					{#each row as column, colIndex}
@@ -175,7 +175,7 @@
 		padding: 4rem;
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1.5rem;
+		gap: 1.5rem;
 		align-items: flex-start;
 
 		@media (width < 750px) {
@@ -335,12 +335,12 @@
 			align-items: center;
 			flex-basis: 33.33%;
 			text-align: center;
-			grid-gap: 0.75rem;
+			gap: 0.75rem;
 
 			&__text {
 				display: flex;
 				flex-direction: column;
-				grid-gap: 0.75rem;
+				gap: 0.75rem;
 			}
 
 			@media (width <= 820px) {
@@ -349,12 +349,12 @@
 		}
 
 		@media (width <= 500px) {
-			grid-gap: 1rem;
+			gap: 1rem;
 
 			&__item {
 				flex-basis: 100%;
 				flex-direction: row;
-				grid-gap: 1rem;
+				gap: 1rem;
 				text-align: left;
 
 				&__image {

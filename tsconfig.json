@@ -1,16 +1,8 @@
 {
 	"compilerOptions": {
-		"paths": {
-			"$assets/*": ["src/assets/*"],
-			"$components/*": ["src/components/*"],
-			"$stores/*": ["src/stores/*"],
-			"$styles/*": ["src/styles/*"],
-			"$generated/*": ["generated/*"],
-			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"]
-		},
 		"resolveJsonModule": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"lib": ["esnext", "DOM", "dom.iterable"]
 	},
 	"extends": "./.svelte-kit/tsconfig.json"
 }

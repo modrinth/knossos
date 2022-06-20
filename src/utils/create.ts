@@ -1,10 +1,10 @@
 import { popups } from '$stores/app'
 import { get } from 'svelte/store'
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 import { user } from '$stores/server'
 import { licenses } from '$generated/tags.json'
 
-export function create(type: 'project' | 'user' | 'version', id: string): void {
+export function create(): void {
 	popups.set([
 		{
 			title: `Create project`,
@@ -20,8 +20,7 @@ export function create(type: 'project' | 'user' | 'version', id: string): void {
 					try {
 						await send('GET', `project/${slug}`)
 						// Doesn't 404, meaning there is a conflict, so add random suffix
-						slug +=
-							'-' + (window.crypto || window.msCrypto).getRandomValues(new Uint16Array(1)).join('')
+						slug += '-' + window.crypto.getRandomValues(new Uint16Array(1)).join('')
 					} catch {
 						// Do nothing because there is no slug conflict
 					}

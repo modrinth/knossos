@@ -6,17 +6,17 @@
 	import { Avatar } from 'omorphia'
 	import { ago } from 'omorphia/utils'
 	import { tagIcons } from '$generated/tags.json'
-	import { simplify } from '$lib/number'
+	import { simplify } from '$utils/number'
 
-	export let project: Project | ProjectResult
+	export let project
 
-	// @ts-ignore: Author is only available in the result
+	// Author is only available in the result
 	let author = project.author ?? ''
 
-	// @ts-ignore: ID is in different locations in the result and project
+	// ID is in different locations in the result and project
 	let id = project.id ?? project.project_id
 
-	// @ts-ignore: Updated is in different locations in the result and project
+	// Updated is in different locations in the result and project
 	let updated = project.date_modified ?? project.updated
 
 	const href = `/${project.project_type}/${project.slug || id}`
@@ -85,7 +85,7 @@
 
 		&__main {
 			display: flex;
-			grid-gap: 1rem;
+			gap: 1rem;
 
 			:global(.profile-picture) {
 				@media (width <= 700px) {
@@ -97,7 +97,7 @@
 			&__info {
 				display: flex;
 				flex-direction: column;
-				grid-gap: 0.25rem;
+				gap: 0.25rem;
 				line-height: 100%;
 				margin-top: 0.2rem;
 

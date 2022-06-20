@@ -14,7 +14,7 @@
 		day: 'numeric',
 	})
 
-	let changelogVersions: Array<Version & { duplicate: boolean }>
+	let changelogVersions = []
 	$: changelogVersions = $versions.map((version, index) => {
 		const nextVersion = $versions[index + 1]
 		if (nextVersion && version.changelog && nextVersion.changelog === version.changelog) {
@@ -87,11 +87,11 @@
 	.changelog {
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1rem;
+		gap: 1rem;
 
 		&__item {
 			display: flex;
-			grid-gap: 0.8rem;
+			gap: 0.8rem;
 			position: relative;
 			padding-left: 1.8rem;
 

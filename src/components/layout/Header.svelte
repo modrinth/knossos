@@ -95,13 +95,13 @@
 	.header {
 		display: flex;
 		align-items: center;
-		grid-gap: 1rem;
+		gap: 1rem;
 		margin-bottom: 1rem;
 
 		&__actions {
 			display: flex;
 			margin-left: auto;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 
 			.avatar {
 				position: relative;
@@ -144,7 +144,7 @@
 					border: 0.1rem solid var(--color-divider);
 					display: flex;
 					flex-direction: column;
-					grid-gap: 0.25rem;
+					gap: 0.25rem;
 					right: 0;
 
 					@media (width >= 1200px) {
@@ -156,7 +156,7 @@
 						border-radius: var(--rounded-sm);
 						display: flex;
 						align-items: center;
-						grid-gap: 0.3rem;
+						gap: 0.3rem;
 
 						&:hover {
 							filter: brightness(0.8);

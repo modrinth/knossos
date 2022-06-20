@@ -8,7 +8,7 @@
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
 	import IconX from 'virtual:icons/heroicons-outline/x'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import { popups } from '$stores/app'
 
 	let modifiedItems = {}
@@ -47,7 +47,7 @@
 							})}`,
 							file
 						)
-						$project.gallery = (await send('GET', `project/${$project.id}`)).gallery
+						$project.gallery = ((await send('GET', `project/${$project.id}`)) as any).gallery
 					},
 					label: $t('project.gallery.upload'),
 				},
@@ -76,7 +76,7 @@
 	color={$color}
 	image={$project?.icon_url} />
 
-{#if $permissions.data.editDetails}
+{#if $permissions.editDetails}
 	<div class="button-group">
 		<Button color="primary" on:click={createItem}
 			><IconPlus /> {$t('project.gallery.upload')}</Button>
@@ -101,7 +101,7 @@
 				<h1 class="title">{item.title}</h1>
 				<p class="gallery__item__description">{item.description}</p>
 			{/if}
-			{#if $permissions.data.editDetails}
+			{#if $permissions.editDetails}
 				<div class="button-group">
 					{#if modifiedItems[item.url]}
 						<Button color="primary" on:click={() => editItem(item)}><IconCheck /> Save</Button>
@@ -133,13 +133,14 @@
 	.gallery {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-		grid-gap: 1rem;
+		gap: 1rem;
 
 		&__item {
 			&__image {
 				margin: -1rem -1rem 0 -1rem;
 				height: auto;
 				width: calc(100% + 2rem);
+				border-radius: var(--rounded-top);
 			}
 			&__description {
 				line-height: normal;

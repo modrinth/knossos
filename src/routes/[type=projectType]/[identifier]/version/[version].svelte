@@ -40,7 +40,7 @@
 	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 	import IconStar from 'virtual:icons/heroicons-outline/star'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
-	import { report } from '$lib/report'
+	import { report } from '$utils/report'
 	import { user } from '$stores/server'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
@@ -87,7 +87,7 @@
 
 {#if $user}
 	<div class="button-group">
-		{#if $permissions.data.uploadVersions}
+		{#if $permissions.uploadVersions}
 			<Button color="raised"><IconStar /> {$t('generic.actions.feature')}</Button>
 			<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
 		{:else}
@@ -96,7 +96,7 @@
 				{$t('generic.actions.report')}
 			</Button>
 		{/if}
-		{#if $permissions.data.deleteVersion}
+		{#if $permissions.deleteVersion}
 			<Button color="raised"><IconTrash /> {$t('generic.actions.delete')}</Button>
 		{/if}
 	</div>
@@ -203,10 +203,10 @@
 
 <style lang="postcss">
 	.featured {
-		font-size: var(--font-size-nm);
+		font-size: var(--font-size);
 		color: var(--color-text-lightest);
 		display: inline-flex;
-		grid-gap: 0.25rem;
+		gap: 0.25rem;
 		align-items: center;
 		margin-left: 0.5rem;
 		font-weight: var(--font-weight-medium);
@@ -218,7 +218,7 @@
 		background-color: var(--color-bg);
 		padding: 0.75rem 1rem;
 		border-radius: var(--rounded);
-		grid-gap: 0.5rem;
+		gap: 0.5rem;
 		box-shadow: var(--shadow-inset);
 		flex-wrap: wrap;
 
@@ -236,7 +236,7 @@
 		&__download {
 			margin-left: auto;
 			display: flex;
-			grid-gap: 0.5rem;
+			gap: 0.5rem;
 		}
 
 		&:hover {
@@ -246,6 +246,6 @@
 
 	.dependency {
 		display: flex;
-		grid-gap: 1rem;
+		gap: 1rem;
 	}
 </style>

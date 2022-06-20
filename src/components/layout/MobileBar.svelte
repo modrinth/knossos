@@ -130,7 +130,7 @@
 			justify-content: flex-end;
 			flex-direction: column;
 			padding: 1rem;
-			grid-gap: 1rem;
+			gap: 1rem;
 			transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
 
 			&.is-shown {
@@ -149,7 +149,7 @@
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
-				grid-gap: 0.25rem;
+				gap: 0.25rem;
 				border-radius: var(--rounded);
 				box-shadow: var(--shadow-raised), var(--shadow-inset);
 
@@ -167,7 +167,7 @@
 
 				&__title {
 					display: flex;
-					grid-gap: 0.5rem;
+					gap: 0.5rem;
 					align-items: center;
 				}
 

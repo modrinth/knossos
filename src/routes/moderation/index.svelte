@@ -6,29 +6,27 @@
 	import { markdown, ago } from 'omorphia/utils'
 	import IconCalendar from 'virtual:icons/lucide/calendar'
 	import { t } from 'svelte-intl-precompile'
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 	import IconEye from 'virtual:icons/heroicons-outline/eye'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import { popups } from '$stores/app'
 	import NoData from '$assets/images/illustrations/undraw_no_data.svg'
 
-	let items = getContext('items')
+	let items: Array<any> = getContext('items')
 
-	let filteredItems: []
+	let filteredItems: Array<any> = []
 	$: filteredItems = items.filter((item) =>
 		$page.url.searchParams.get('type')
 			? item.moderation_type === $page.url.searchParams.get('type')
 			: true
 	)
 
-	async function changeStatus(id) {
+	async function changeStatus(id: string) {
 		$popups = [
 			{
 				title: 'Change project status',
 				type: {
-					moderation: {
-						id,
-					},
+					moderation: true,
 				},
 				button: {
 					label: 'Confirm',
@@ -50,7 +48,7 @@
 		]
 	}
 
-	function removeItem(id) {
+	function removeItem(id: string) {
 		items = items.filter((item) => item.id !== id)
 	}
 </script>
@@ -108,12 +106,12 @@
 		flex-direction: row;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		grid-gap: 1rem;
+		gap: 1rem;
 
 		> div {
 			display: flex;
 			flex-direction: column;
-			grid-gap: 0.75rem;
+			gap: 0.75rem;
 		}
 
 		&__info {
@@ -123,7 +121,7 @@
 			&__title {
 				display: flex;
 				align-items: center;
-				grid-gap: 0.5rem;
+				gap: 0.5rem;
 				flex-wrap: wrap;
 
 				h3 {

@@ -12,7 +12,7 @@ interface Popup {
 		moderation?: boolean
 	}
 	button?: {
-		label: string
+		label?: string
 		click: ({ body, status, report_type, project_type, name, file }) => Promise<void>
 	}
 	style?: {

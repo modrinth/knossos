@@ -1,6 +1,6 @@
 import { popups } from '$stores/app'
 import { get } from 'svelte/store'
-import { send } from '$lib/api'
+import { send } from '$utils/api'
 
 export function report(type: 'project' | 'user' | 'version', id: string): void {
 	popups.set([

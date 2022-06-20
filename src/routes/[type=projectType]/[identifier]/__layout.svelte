@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { send } from '$lib/api'
+	import { send } from '$utils/api'
 
 	/** @type {import('./__types/[identifier]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
@@ -88,8 +88,8 @@
 		color,
 	} from './_store'
 	import Ad from '$components/elements/Ad.svelte'
-	import { report } from '$lib/report'
-	import { simplify } from '$lib/number'
+	import { report } from '$utils/report'
+	import { simplify } from '$utils/number'
 	import { following } from '$stores/self'
 	import { browser } from '$app/env'
 
@@ -183,7 +183,7 @@
 	<div class="column-layout__sidebar">
 		<div class="card">
 			<div class="card__overlay">
-				{#if $permissions.data.editDetails}
+				{#if $permissions.editDetails}
 					<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
 				{:else if $user}
 					<Button color="raised" on:click={() => report('project', $project.id)}>
@@ -214,13 +214,13 @@
 			</div>
 			{#if banner}
 				<img
-					class="card__banner card__banner--short"
+					class=" card__banner"
 					src={banner.url}
 					alt={banner.description}
 					style:background-color={$color || 'var(--color-divider)'} />
 			{:else}
 				<div
-					class="card__banner card__banner--short card__banner--dark"
+					class="card__banner card__banner--dark"
 					style:background-color={$color || 'var(--color-divider)'} />
 			{/if}
 			<Avatar src={$project.icon_url} size="md" floatUp />
@@ -394,7 +394,7 @@
 						label: $t('pages.versions'),
 						href: '/versions',
 					},
-					...($project.gallery.length > 0 || $permissions.data.editDetails
+					...($project.gallery.length > 0 || $permissions.editDetails
 						? [
 								{
 									label: $t('pages.gallery'),
@@ -427,13 +427,13 @@
 		max-height: 18rem;
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1rem;
+		gap: 1rem;
 		overflow-y: auto;
 	}
 
 	.featured-version {
 		display: flex;
-		grid-gap: 0.75rem;
+		gap: 0.75rem;
 
 		&__buttons {
 			display: flex;
@@ -465,13 +465,13 @@
 
 			&__name {
 				font-weight: var(--font-weight-medium);
-				font-size: var(--font-size-nm);
+				font-size: var(--font-size);
 				line-height: 120%;
 			}
 
 			&__details {
 				display: flex;
-				grid-gap: 0.5rem;
+				gap: 0.5rem;
 				align-items: center;
 			}
 		}
