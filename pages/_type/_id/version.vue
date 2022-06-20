@@ -474,6 +474,10 @@
         v-if="version.files.length > 0 || mode === 'edit' || mode === 'create'"
       >
         <h3>Files</h3>
+        <span>
+          You may upload multiple files, but this should only be used for cases
+          like sources or Javadocs.
+        </span>
         <div
           v-for="(file, index) in version.files"
           :key="file.hashes.sha1"
