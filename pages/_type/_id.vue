@@ -109,6 +109,7 @@
             <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
           </div>
         </div>
+        <hr class="card-divider" />
         <div class="buttons">
           <nuxt-link
             :to="`/create/report?id=${project.id}&t=project`"
@@ -117,7 +118,6 @@
             <ReportIcon aria-hidden="true" />
             Report
           </nuxt-link>
-          <hr v-if="$auth.user" class="card-divider" />
           <button
             v-if="$auth.user && !$user.follows.find((x) => x.id === project.id)"
             class="iconified-button"
