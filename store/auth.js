@@ -1,7 +1,9 @@
 export const state = () => ({
   user: null,
   token: '',
-  headers: {},
+  headers: {
+    'x-ratelimit-key': process.server ? process.env.RATE_LIMIT_IGNORE_KEY : '',
+  },
 })
 
 export const mutations = {
@@ -17,23 +19,22 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchUser({ commit }, { token }) {
+  async fetchUser({ commit, state }, { token }) {
+    const headers = {
+      headers: {
+        Authorization: token,
+        'x-ratelimit-key': process.server
+          ? process.env.RATE_LIMIT_IGNORE_KEY
+          : '',
+      },
+    }
+
     try {
-      const user = (
-        await this.$axios.get(`user`, {
-          headers: {
-            Authorization: token,
-          },
-        })
-      ).data
+      const user = (await this.$axios.get(`user`, headers)).data
 
       commit('SET_USER', user)
       commit('SET_TOKEN', token)
-      commit('SET_HEADERS', {
-        headers: {
-          Authorization: token,
-        },
-      })
+      commit('SET_HEADERS', headers)
     } catch (e) {
       console.error('Request for user info encountered an error: ', e)
     }

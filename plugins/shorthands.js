@@ -2,6 +2,13 @@ export default ({ store }, inject) => {
   inject('user', store.state.user)
   inject('tag', store.state.tag)
   inject('auth', store.state.auth)
+  inject('defaultHeaders', {
+    headers: {
+      'x-ratelimit-key': process.server
+        ? process.env.RATE_LIMIT_IGNORE_KEY
+        : '',
+    },
+  })
   inject('formatNumber', formatNumber)
   inject('formatVersion', (versionArray) => {
     const allVersions = store.state.tag.gameVersions.slice().reverse()
