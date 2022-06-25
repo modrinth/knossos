@@ -2,12 +2,18 @@ export default ({ store }, inject) => {
   inject('user', store.state.user)
   inject('tag', store.state.tag)
   inject('auth', store.state.auth)
-  inject('defaultHeaders', {
-    headers: {
-      'x-ratelimit-key': process.server
-        ? process.env.RATE_LIMIT_IGNORE_KEY
-        : '',
-    },
+  inject('defaultHeaders', () => {
+    const obj = { headers: {} }
+
+    if (process.server && process.env.RATE_LIMIT_IGNORE_KEY) {
+      obj.headers['x-ratelimit-key'] = process.env.RATE_LIMIT_IGNORE_KEY
+    }
+
+    if (store.state.auth.user) {
+      obj.headers.Authorization = store.state.auth.token
+    }
+
+    return obj
   })
   inject('formatNumber', formatNumber)
   inject('formatVersion', (versionArray) => {
