@@ -421,6 +421,16 @@
               />
             </div>
           </div>
+          <div class="links">
+            <nuxt-link
+              v-if="project.versions.length > 0 || currentMember"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`"
+            >
+              <span>All versions</span>
+            </nuxt-link>
+          </div>
           <hr class="card-divider" />
         </template>
         <h3 class="card-header">Project members</h3>
