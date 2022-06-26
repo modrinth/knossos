@@ -475,7 +475,7 @@
                   v-model="newDependencyType"
                   class="input"
                   placeholder="Select one"
-                  :options="['required', 'optional', 'incompatible']"
+                  :options="['required', 'optional', 'incompatible', 'embedded']"
                   :custom-label="
                     (value) => value.charAt(0).toUpperCase() + value.slice(1)
                   "
