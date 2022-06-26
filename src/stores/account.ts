@@ -4,14 +4,14 @@ import { send } from 'omorphia/utils'
 export const loaded = writable(false)
 
 export const token = writable('')
-export const user = writable<User>()
+export const user = writable<User | undefined>()
 
 export const following = writable<Project[]>([])
 export const notifications = writable<schemas['Notification'][]>([])
 
 export async function updateSelf(force = false): Promise<void> {
 	if ((!get(loaded) || force) && get(token)) {
-		const userValue = get(user)
+		const userValue = get(user) as User
 
 		const [follows, notifs] = await Promise.all([
 			send<'getFollowedProjects'>('GET', `user/${userValue.id}/follows`),

@@ -3,7 +3,7 @@
 	import { t } from 'svelte-intl-precompile'
 	import Meta from '$components/utils/Meta.svelte'
 	import { Button, ModalDeletion, Modal } from 'omorphia'
-	import { token, user } from '$stores/server'
+	import { token, user } from '$stores/account'
 	import { goto } from '$app/navigation'
 	import { send } from 'omorphia/utils'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
@@ -13,7 +13,7 @@
 
 	async function logOut() {
 		await goto('/')
-		$user = null
+		$user = undefined
 		$token = ''
 		document.cookie = 'modrinth-token' + '=test; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 	}
