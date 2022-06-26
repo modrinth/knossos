@@ -1,12 +1,15 @@
 {
 	"recommendations": [
-		"stylelint.vscode-stylelint",
-		"eamodio.gitlens",
-		"esbenp.prettier-vscode",
-		"pivaszbs.svelte-autoimport",
-		"svelte.svelte-vscode",
-		"ardenivanov.svelte-intellisense",
-		"csstools.postcss",
-		"ms-playwright.playwright"
-	]
+    "stylelint.vscode-stylelint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "pivaszbs.svelte-autoimport",
+    "svelte.svelte-vscode",
+    "ardenivanov.svelte-intellisense",
+    "csstools.postcss",
+    "ms-playwright.playwright",
+    "lokalise.i18n-ally",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker"
+  ]
 }

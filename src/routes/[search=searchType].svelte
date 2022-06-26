@@ -1,9 +1,11 @@
 <script context="module" lang="ts">
 	import { search } from '$utils/search'
-	import { projectTypes } from '$generated/tags.json'
 
-	/** @type {import('@sveltejs/kit').Load} */
-	export async function load({ params, url, fetch, session, stuff }) {
+	export const load: import('./__types/[search=searchType]').Load = async ({
+		params,
+		url,
+		fetch,
+	}) => {
 		const projectType = params.search.slice(0, -1)
 
 		const searchParams = {
@@ -17,13 +19,20 @@
 			...fromUrl(url.searchParams),
 		}
 
-		return {
-			props: {
-				results: await search(searchParams, projectType, { fetch }),
-				projectType,
-				searchParams,
-				serverRendered: true,
-			},
+		try {
+			return {
+				props: {
+					results: await search(searchParams, projectType, { fetch }),
+					projectType,
+					searchParams,
+					skipSearchTries: 2, // Prevents re-running search on hydration
+				},
+			}
+		} catch (error) {
+			return {
+				status: error.status,
+				error: error.message,
+			}
 		}
 	}
 
@@ -58,7 +67,6 @@
 	import Ad from '$components/elements/Ad.svelte'
 	import { Pagination } from 'omorphia'
 	import { simplify } from '$utils/number'
-	import { page } from '$app/stores'
 
 	let showFilters = false
 
@@ -94,11 +102,11 @@
 		search(searchParams, projectType).then((data) => (results = data))
 	)
 
-	export let serverRendered: boolean
+	export let skipSearchTries: number
 
 	$: if (searchParams && browser) {
-		if (serverRendered) {
-			serverRendered = false
+		if (skipSearchTries > 0) {
+			skipSearchTries--
 		}
 		// If certain params have changed, go to page 1
 		else if (

@@ -1,61 +1,21 @@
 <script lang="ts">
+	import IconArrowRight from 'virtual:icons/heroicons-outline/arrow-right'
 	import { t } from 'svelte-intl-precompile'
 	import Meta from '$components/utils/Meta.svelte'
-	import { Button } from 'omorphia'
+	import { Button, ModalDeletion, Modal } from 'omorphia'
 	import { token, user } from '$stores/server'
-	import { popups } from '$stores/app'
 	import { goto } from '$app/navigation'
-	import { send } from '$utils/api'
+	import { send } from 'omorphia/utils'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
+	import { markdown } from 'omorphia/utils'
 
 	let copiedToken = false
 
-	function deleteAccount() {
-		$popups = [
-			{
-				title: $t('user.delete.confirm_title'),
-				type: {
-					deletion: {
-						key: $user.username,
-					},
-				},
-				body: $t('user.delete.confirm_body'),
-				button: {
-					label: $t('user.delete.yes_I_want_to_do_this'),
-					click: async () => {
-						await send('DELETE', `user/${$user.id}`)
-						await logOut()
-					},
-				},
-				style: {
-					wide: true,
-				},
-			},
-			...$popups,
-		]
-	}
-
-	function revokeToken() {
-		$popups = [
-			{
-				title: $t('user.revoke_token.title'),
-				body: $t('user.revoke_token.body'),
-				button: {
-					label: $t('user.revoke_token.action'),
-					click: async () => {
-						await logOut()
-					},
-				},
-			},
-			...$popups,
-		]
-	}
-
 	async function logOut() {
+		await goto('/')
 		$user = null
 		$token = ''
 		document.cookie = 'modrinth-token' + '=test; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-		await goto('/')
 	}
 </script>
 
@@ -75,14 +35,36 @@
 				{#if copiedToken}<IconCheck />{/if}
 				{$t(`user.auth.${copiedToken ? 'copied' : 'copy'}`)}
 			</Button>
-			<Button on:click={revokeToken}>{$t('user.auth.revoke')}</Button>
+			<Modal title={$t('user.revoke_token.title')} size="lg">
+				<Button slot="trigger" let:trigger on:click={trigger}>{$t('user.auth.revoke')}</Button>
+
+				{@html markdown($t('user.revoke_token.body'))}
+
+				<Button
+					slot="button"
+					color="primary"
+					let:close
+					on:click={async () => {
+						close()
+						await logOut()
+					}}><IconArrowRight /> {$t('user.revoke_token.action')}</Button>
+			</Modal>
 		</div>
 	</div>
 	<div class="card markdown">
 		<h3>{$t('user.delete.title')}</h3>
 		<p>{$t('user.delete.body')}</p>
 		<div class="button-group">
-			<Button color="danger" on:click={deleteAccount}>{$t('user.delete.title')}</Button>
+			<ModalDeletion
+				type="account"
+				key={$user.username}
+				let:trigger
+				on:deletion={async () => {
+					await send('DELETE', `user/${$user.id}`)
+					await logOut()
+				}}>
+				<Button slot="trigger" color="danger" on:click={trigger}>{$t('user.delete.title')}</Button>
+			</ModalDeletion>
 		</div>
 	</div>
 </div>

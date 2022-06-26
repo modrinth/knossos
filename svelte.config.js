@@ -1,8 +1,8 @@
 import adapter from './src/adapter/index.js'
 import path from 'path'
 import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin'
-import Generator from 'omorphia/plugins/generator'
-import { preprocess, plugins } from 'omorphia/config/svelte.config'
+import { Generator } from 'omorphia/plugins'
+import { preprocess, plugins } from 'omorphia/config/svelte'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -30,8 +30,13 @@ const config = {
 					gameVersions: true,
 					tags: true,
 				}),
-				precompileIntl('locales'),
+				precompileIntl('locales', {
+					exclude: /crowdin\.yml/,
+				}),
 			],
+			// optimizeDeps: {
+			// 	exclude: ['omorphia'], // Allows using omorphia when linked locally `pnpm link`
+			// },
 			server: {
 				fs: {
 					allow: ['generated'],

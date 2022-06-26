@@ -17,4 +17,14 @@ module.exports = {
 		es2017: true,
 		node: true,
 	},
+	rules: {
+		'@typescript-eslint/no-non-null-assertion': 'off',
+	},
+	globals: {
+		schemas: true,
+		Project: true,
+		Version: true,
+		User: true,
+		Report: true,
+	},
 }

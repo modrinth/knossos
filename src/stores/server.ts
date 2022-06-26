@@ -1,10 +1,6 @@
 import { writable } from 'svelte/store'
 import { browser } from '$app/env'
 
-export const token = writable('')
-
-export const user = writable<any | null>()
-
 export const theme = writable('system')
 export const systemTheme = writable('light')
 

@@ -1,4 +1,4 @@
-import { send } from '$utils/api'
+import { send } from 'omorphia/utils'
 import cookie from 'cookie'
 import type { Handle } from '@sveltejs/kit'
 
@@ -9,7 +9,7 @@ export const login: Handle = async ({ event, resolve }) => {
 
 	if (token) {
 		try {
-			event.locals.user = await send('GET', 'user', null, { token })
+			event.locals.user = await send<'getUser'>('GET', 'user', null, { token })
 		} catch {
 			// Invalid token
 			token = ''

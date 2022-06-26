@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
 	import Meta from '$components/utils/Meta.svelte'
-	import { notifications, updateSelf, loaded } from '$stores/self'
+	import { notifications, updateSelf, loaded } from '$stores/account'
 	import { Button } from 'omorphia'
 	import { markdownInline, ago } from 'omorphia/utils'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
-	import { send } from '$utils/api'
+	import { send } from 'omorphia/utils'
 	import { onMount } from 'svelte'
 	import UpToDate from '$assets/images/illustrations/undraw_notify.svg'
 

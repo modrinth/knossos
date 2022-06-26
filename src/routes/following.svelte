@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
 	import Meta from '$components/utils/Meta.svelte'
-	import { following, updateSelf, loaded } from '$stores/self'
+	import { following, updateSelf, loaded } from '$stores/account'
 	import { Button } from 'omorphia'
 	import { ago } from 'omorphia/utils'
 	import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
-	import { send } from '$utils/api'
+	import { send } from 'omorphia/utils'
 	import { onMount } from 'svelte'
 	import FollowIllustration from '$assets/images/illustrations/undraw_appreciation.svg'
 	import ProjectCard from '$components/elements/ProjectCard.svelte'
@@ -22,7 +22,7 @@
 	<div class="title-bar">
 		<h1>{$t('pages.following')}</h1>
 	</div>
-	{#if !$loaded}
+	{#if !Array.isArray($following)}
 		{$t('user.following.loaded')}
 	{:else if $following.length > 0}
 		{#each $following.sort((a, b) => a.title - b.title) as project}

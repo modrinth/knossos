@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
-	export function load({ error, status }) {
+	export const load: import('./__types/__error').Load = async ({ error, status }) => {
 		return {
 			props: {
 				status,
-				message: error.message,
+				message: error?.message || '',
 			},
 		}
 	}

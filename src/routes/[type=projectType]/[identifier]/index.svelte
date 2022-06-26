@@ -1,3 +1,13 @@
+<script context="module" lang="ts">
+	export const load: import('./__types/index').Load = async ({ stuff }) => {
+		return {
+			props: {
+				...stuff,
+			},
+		}
+	}
+</script>
+
 <script lang="ts">
 	import { Button, Chips } from 'omorphia'
 	import { markdown } from 'omorphia/utils'
@@ -7,19 +17,21 @@
 	import IconX from 'virtual:icons/heroicons-outline/x'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconSave from 'virtual:icons/lucide/save'
-	import { permissions, project, color, members } from './_store'
+	import { permissions, color, members } from './_store'
 	import autosize from 'svelte-autosize'
 	import { onDestroy, onMount } from 'svelte'
-	import { send } from '$utils/api'
+	import { send } from 'omorphia/utils'
 	import { browser } from '$app/env'
+
+	export let project: schemas['Project']
 
 	let isEditing = false
 	let viewMode: 'editor' | 'preview' = 'editor'
 
-	let modifiedBody = $project.body
+	let modifiedBody = project.body
 
 	let dirty: boolean
-	$: dirty = $project.body !== modifiedBody
+	$: dirty = project.body !== modifiedBody
 
 	function preventLeave(e) {
 		if (dirty && isEditing) {
@@ -38,20 +50,20 @@
 
 	async function save(): Promise<void> {
 		if (dirty) {
-			await send('PATCH', `project/${$project.id}`, { body: modifiedBody })
-			$project.body = modifiedBody
+			await send('PATCH', `project/${project.id}`, { body: modifiedBody })
+			project.body = modifiedBody
 		}
 		isEditing = false
 	}
 </script>
 
 <Meta
-	title="{$project.title} - Minecraft {$t(`project.types.${$project.project_type}.singular`)}"
-	description="{$project.description} - Download the Minecraft {$project.project_type} {$project.title} by {$members.find(
+	title="{project.title} - Minecraft {$t(`project.types.${project.project_type}.singular`)}"
+	description="{project.description} - Download the Minecraft {project.project_type} {project.title} by {$members.find(
 		(it) => it.role === 'Owner'
 	).user.username} on Modrinth."
 	color={$color}
-	image={$project?.icon_url} />
+	image={project?.icon_url} />
 
 <div class="card project-body card--gap-none" style:--padding="0">
 	<div class="card__overlay card__overlay--row">
@@ -60,7 +72,7 @@
 				{#if dirty}
 					<Button
 						on:click={() => {
-							modifiedBody = $project.body
+							modifiedBody = project.body
 							isEditing = false
 						}}>
 						<IconTrash />
@@ -118,8 +130,8 @@
 		{/if}
 	{:else}
 		<div class="project-body__text markdown">
-			{#if $project.body}
-				{@html markdown($project.body)}
+			{#if project.body}
+				{@html markdown(project.body)}
 			{:else}
 				<p class="project-body__text__placeholder">{$t('project.body.empty')}</p>
 			{/if}

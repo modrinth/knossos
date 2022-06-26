@@ -8,9 +8,6 @@
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconEye from 'virtual:icons/heroicons-outline/eye'
 	import { permissions, project, members, color } from './_store'
-	import autosize from 'svelte-autosize'
-	import { onDestroy, onMount } from 'svelte'
-	import { send } from '$utils/api'
 
 	let modifiedMembers = $members.map(({ permissions, role, user }) => ({
 		permissions: new Permissions(permissions),

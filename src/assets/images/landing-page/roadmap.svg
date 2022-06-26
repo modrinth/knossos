@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1144 157">
+  <path stroke="#DDD" stroke-linecap="round" stroke-width="5" d="M1117 99H13" />
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 179 -421)">
+    <tspan x="0" y="15">Real-time </tspan>
+    <tspan x="0" y="34">search</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 230 -812)">
+    <tspan x="0" y="15">Team </tspan>
+    <tspan x="0" y="34">management</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 290 -1268)">
+    <tspan x="0" y="15">Complete API </tspan>
+    <tspan x="0" y="34">documentation</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 421 -1706)">
+    <tspan x="0" y="15">Dependencies</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 473 -2101)">
+    <tspan x="0" y="15">Modpacks</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 529 -2527)">
+    <tspan x="0" y="15">Launcher</tspan>
+  </text>
+  <text xml:space="preserve" fill="#266BD2" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="translate(513 137)">
+    <tspan x="0" y="15">Under development</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 587 -2967)">
+    <tspan x="0" y="15">Creator Payouts</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 647 -3419)">
+    <tspan x="0" y="15">More project types</tspan>
+  </text>
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 698 -3810)">
+    <tspan x="0" y="15">Creator analytics</tspan>
+  </text>
+  <circle cx="20" cy="99" r="20" fill="#18B572" />
+  <circle cx="130" cy="99" r="20" fill="#18B572" />
+  <circle cx="240" cy="99" r="20" fill="#18B572" />
+  <circle cx="350" cy="99" r="20" fill="#18B572" />
+  <circle cx="460" cy="99" r="20" fill="#18B572" />
+  <circle cx="570" cy="99" r="20" fill="#6396E3" />
+  <circle cx="680" cy="99" r="20" fill="#6396E3" />
+  <circle cx="790" cy="99" r="20" fill="#6396E3" />
+  <circle cx="900" cy="99" r="20" fill="#8A50E9" />
+  <circle cx="1010" cy="99" r="20" fill="#B48FF0" />
+  <circle cx="1120" cy="99" r="20" fill="#D9C7F7" />
+  <text xml:space="preserve" fill="currentColor" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="rotate(-15 125 -11)">
+    <tspan x="0" y="15">100% open </tspan>
+    <tspan x="0" y="34">source</tspan>
+  </text>
+  <path stroke="#50A0E9" stroke-dasharray="6 9" stroke-linecap="round" stroke-width="5" d="M515 74v49" />
+  <text xml:space="preserve" fill="#7242C0" font-family="Inter" font-size="16" letter-spacing="0em"
+    style="white-space:pre" transform="translate(842 137)">
+    <tspan x="0" y="15">Planned</tspan>
+  </text>
+  <path stroke="#A27CE0" stroke-dasharray="6 9" stroke-linecap="round" stroke-width="5" d="M844 74v49" />
+</svg>

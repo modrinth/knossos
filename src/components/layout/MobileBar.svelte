@@ -5,7 +5,7 @@
 	import { NavRow } from 'omorphia'
 	import IconMenu from 'virtual:icons/lucide/menu'
 	import { page } from '$app/stores'
-	import { user } from '$stores/server'
+	import { user } from '$stores/account'
 	import { browser } from '$app/env'
 	import IconX from 'virtual:icons/heroicons-outline/x'
 	import IconGithub from 'virtual:icons/simple-icons/github'

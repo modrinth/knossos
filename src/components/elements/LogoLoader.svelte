@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { navigating } from '$app/stores'
-	import { fetching } from '$utils/api'
+	import { fetching } from 'omorphia/utils'
 
 	export let height = '100%'
 </script>

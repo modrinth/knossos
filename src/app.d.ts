@@ -3,7 +3,7 @@
 declare namespace App {
 	interface Locals {
 		token: string
-		user: any
+		user: User
 		theme: string
 	}
 
@@ -17,7 +17,7 @@ declare namespace App {
 	interface Session {
 		theme: string
 		token: string
-		user: any
+		user: User
 		acceptLanguage: string
 	}
 

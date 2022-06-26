@@ -1,4 +1,4 @@
-import { send } from '$utils/api'
+import { send } from 'omorphia/utils'
 
 export async function search(
 	params: Record<string, string | string[]>,
@@ -9,8 +9,8 @@ export async function search(
 
 	const searchParams = {
 		query: params.q ?? '',
-		limit: params.m || '10',
-		offset: params.o || '0',
+		limit: params.m || 10,
+		offset: params.o || 0,
 		index: params.s || 'relevance',
 	}
 
@@ -62,11 +62,11 @@ export async function search(
 
 	return await send(
 		'GET',
-		`search?${new URLSearchParams({
-			...(searchParams as Record<string, string>),
+		'search',
+		{
+			...searchParams,
 			facets: JSON.stringify(facets),
-		})}`,
-		null,
+		},
 		overrides
 	)
 }

@@ -1,17 +1,20 @@
 <script lang="ts">
+	import IconArrowRight from 'virtual:icons/heroicons-outline/arrow-right'
 	import Meta from '$components/utils/Meta.svelte'
 	import { t } from 'svelte-intl-precompile'
 	import { permissions, project, color } from './_store'
-	import { Button, TextInput } from 'omorphia'
+	import { Button, TextInput, Modal, Field } from 'omorphia'
 	import IconPlus from 'virtual:icons/heroicons-outline/plus'
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
 	import IconX from 'virtual:icons/heroicons-outline/x'
-	import { send } from '$utils/api'
-	import { popups } from '$stores/app'
+	import { send } from 'omorphia/utils'
+	import ImageUpload from '$components/elements/ImageUpload.svelte'
 
 	let modifiedItems = {}
+
+	let newItem: { file?: File; name?: string; body?: string } = {}
 
 	async function editItem(item) {
 		await send(
@@ -27,45 +30,29 @@
 		modifiedItems = modifiedItems
 	}
 
-	function createItem() {
-		$popups = [
+	async function createItem() {
+		await send<'addGalleryImage'>(
+			'POST',
+			`project/${$project.id}/gallery`,
 			{
-				title: $t('project.gallery.upload'),
-				body: ``,
-				type: {
-					creation: 'galleryItem',
-				},
-				button: {
-					click: async ({ name, body, file }) => {
-						await send(
-							'POST',
-							`project/${$project.id}/gallery?${new URLSearchParams({
-								ext: file.name.split('.').pop(),
-								featured: 'false',
-								title: name || '\u200b',
-								description: body || '\u200b',
-							})}`,
-							file
-						)
-						$project.gallery = ((await send('GET', `project/${$project.id}`)) as any).gallery
-					},
-					label: $t('project.gallery.upload'),
-				},
+				ext: newItem.file.name.split('.').pop(),
+				featured: 'false',
+				title: newItem.name || '\u200b',
+				description: newItem.body || '\u200b',
 			},
-			...$popups,
-		]
+			{ file: newItem.file }
+		)
+		$project.gallery = (await send('GET', `project/${$project.id}`)).gallery
 	}
 
 	async function deleteItem(item) {
-		if (window.confirm($t('project.gallery.confirm'))) {
-			await send(
-				'DELETE',
-				`project/${$project.id}/gallery?${new URLSearchParams({
-					url: item.url,
-				})}`
-			)
-			$project.gallery = $project.gallery.filter((it) => it.url !== item.url)
-		}
+		await send(
+			'DELETE',
+			`project/${$project.id}/gallery?${new URLSearchParams({
+				url: item.url,
+			})}`
+		)
+		$project.gallery = $project.gallery.filter((it) => it.url !== item.url)
 	}
 </script>
 
@@ -77,26 +64,65 @@
 	image={$project?.icon_url} />
 
 {#if $permissions.editDetails}
-	<div class="button-group">
-		<Button color="primary" on:click={createItem}
-			><IconPlus /> {$t('project.gallery.upload')}</Button>
-	</div>
+	<Modal title={$t('modal.creation.image.title')} bind:data={newItem}>
+		<div class="button-group" slot="trigger" let:trigger>
+			<Button color="primary" on:click={trigger}>
+				<IconPlus />
+				{$t('project.gallery.upload')}
+			</Button>
+		</div>
+
+		<Field label="Image file">
+			<ImageUpload bind:file={newItem.file} />
+		</Field>
+		<Field label={$t('modal.creation.image.fields.title.label')} let:id>
+			<TextInput
+				bind:value={newItem.name}
+				placeholder={$t('modal.creation.image.fields.title.placeholder')}
+				{id} />
+		</Field>
+		<Field label={$t('modal.creation.image.fields.description.label')} let:id>
+			<TextInput
+				multiline
+				placeholder={$t('modal.creation.image.fields.description.placeholder')}
+				bind:value={newItem.body}
+				{id} />
+		</Field>
+
+		<Button
+			slot="button"
+			color="primary"
+			let:close
+			on:click={async () => {
+				await createItem()
+				close()
+			}}>
+			<IconArrowRight />
+			{$t('modal.creation.image.action')}
+		</Button>
+	</Modal>
 {/if}
 
 <div class="gallery">
-	{#each $project.gallery.filter((item, index) => $project.gallery
-				.map((it) => it.url)
-				.indexOf(item.url) === index) as item (item.url)}
+	{#each $project.gallery.sort((a, b) => new Date(a.created).valueOf() - new Date(b.created).valueOf()) as item (item.url)}
 		<div class="card gallery__item">
 			<img class="gallery__item__image" src={item.url} alt="" />
 			{#if modifiedItems[item.url]}
-				<TextInput
-					placeholder={$t('project.gallery.placeholder.title')}
-					bind:value={modifiedItems[item.url].title} />
-				<TextInput
-					multiline
-					placeholder={$t('project.gallery.placeholder.description')}
-					bind:value={modifiedItems[item.url].description} />
+				<Field label="Title" let:id>
+					<TextInput
+						placeholder={$t('project.gallery.placeholder.title')}
+						bind:value={modifiedItems[item.url].title}
+						fill
+						{id} />
+				</Field>
+				<Field label="Description" let:id>
+					<TextInput
+						multiline
+						placeholder={$t('project.gallery.placeholder.description')}
+						bind:value={modifiedItems[item.url].description}
+						fill
+						{id} />
+				</Field>
 			{:else}
 				<h1 class="title">{item.title}</h1>
 				<p class="gallery__item__description">{item.description}</p>
@@ -118,10 +144,23 @@
 							<IconPencil />
 							{$t('generic.actions.edit')}
 						</Button>
-						<Button on:click={() => deleteItem(item)}>
-							<IconTrash />
-							{$t('generic.actions.delete')}
-						</Button>
+						<Modal let:trigger size="sm">
+							<Button on:click={trigger} slot="trigger">
+								<IconTrash />
+								{$t('generic.actions.delete')}
+							</Button>
+
+							{$t('modal.deletion.image.description')}
+
+							<Button
+								color="primary"
+								slot="button"
+								let:close
+								on:click={() => {
+									deleteItem(item)
+									close()
+								}}><IconTrash /> {$t('modal.deletion.image.action')}</Button>
+						</Modal>
 					{/if}
 				</div>
 			{/if}

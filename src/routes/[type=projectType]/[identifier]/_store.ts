@@ -9,7 +9,7 @@ interface Member {
 	accepted: boolean
 }
 
-export const project = writable<any>()
+export const project = writable<Project>()
 export const members = writable<any[]>([])
 export const versions = writable<any[]>([])
 export const featuredVersions = writable<any[]>([])

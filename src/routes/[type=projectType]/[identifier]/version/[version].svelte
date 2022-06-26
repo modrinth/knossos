@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export async function load({ params, fetch, session, stuff }) {
+	export const load: import('./__types/[version]').Load = async ({ params, stuff }) => {
 		const version = stuff.versions.find((it) => [it.version_number, it.id].includes(params.version))
 
 		if (version) {
@@ -35,13 +35,13 @@
 	import IconDownload from 'virtual:icons/heroicons-outline/download'
 	import IconFile from 'virtual:icons/lucide/file'
 	import { tagIcons } from '$generated/tags.json'
-	import { formatVersions, downloadUrl, getPrimary } from 'omorphia/utils'
+	import { formatVersions, downloadUrl } from 'omorphia/utils'
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil'
 	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 	import IconStar from 'virtual:icons/heroicons-outline/star'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import { report } from '$utils/report'
-	import { user } from '$stores/server'
+	import { user } from '$stores/account'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',
@@ -51,15 +51,25 @@
 		minute: 'numeric',
 	})
 
-	export let version
+	export let version: Version
 
 	const gameVersions = formatVersions(version.game_versions)
 
-	$: versionDependencies = version.dependencies.map((dep) => ({
-		...dep,
-		project: $dependencies.projects.find(({ id }) => dep.project_id === id),
-		version: $dependencies.versions.find(({ id }) => dep.version_id === id),
-	}))
+	$: versionDependencies = (version.dependencies || [])
+		.filter((dep) => dep)
+		.map((dep) => {
+			if (dep && dep.version_id) {
+				const version = $dependencies.versions.find(({ id }) => dep.version_id === id)
+				return {
+					...dep,
+					project: $dependencies.projects.find(({ id }) => version.project_id === id),
+					version,
+				}
+			} else {
+				return dep
+			}
+		})
+		.sort((a, b) => (a.file_name || a.project.title).localeCompare(b.file_name || b.project.title))
 
 	$: publisher = $members.find((it) => it.user.id === version.author_id)
 </script>
@@ -133,20 +143,27 @@
 			<div class="card">
 				<h2 class="title-secondary">{$t('version.dependencies')}</h2>
 				{#each versionDependencies as dep}
-					<a
-						class="dependency"
-						href="/{dep.project.project_type}/{dep.project.slug || dep.project.id}{dep.version
-							? `/version/${dep.version.version_number}`
-							: ''}">
-						<Avatar size="sm" src={dep?.project?.icon_url} />
-						<div class="dependency__info">
-							<b>{dep.project.title}</b>
-							{#if dep.version}
-								<!-- TODO make this translatable -->
+					{#if dep.version}
+						<a
+							class="dependency"
+							href="/{dep.project.project_type}/{dep.project.slug || dep.project.id}{dep.version
+								? `/version/${dep.version.version_number}`
+								: ''}">
+							<Avatar size="sm" src={dep?.project?.icon_url} />
+							<div class="dependency__info">
+								<b>{dep.project.title}</b>
 								<p>Version {dep.version.version_number} is {dep.dependency_type}</p>
-							{/if}
+							</div>
+						</a>
+					{:else if dep.file_name}
+						<div class="dependency">
+							<Avatar size="sm" src="" />
+							<div class="dependency__info">
+								<b>{dep.file_name}</b>
+								<p>Added via overrides</p>
+							</div>
 						</div>
-					</a>
+					{/if}
 				{/each}
 			</div>
 		{/if}
@@ -168,7 +185,7 @@
 			<div>
 				<b>{$t('generic.labels.mod_loaders')}</b><br />
 				<div class="tag-group">
-					{#each version.loaders as loader, index}
+					{#each version.loaders as loader}
 						<div class="tag">
 							{@html tagIcons[loader]}{$t(`tags.${loader}`)}
 						</div>

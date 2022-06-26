@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
-	import { theme, token, user } from '$stores/server'
+	import { theme } from '$stores/server'
+	import { token, user } from '$stores/account'
 
-	import { init, waitLocale, t } from 'svelte-intl-precompile'
+	import { init, waitLocale, t, getLocaleFromAcceptLanguageHeader } from 'svelte-intl-precompile'
 	import { registerAll, availableLocales } from '$locales'
-	import { getLocaleFromAcceptLanguageHeader } from '$utils/locales'
 
 	registerAll()
 
@@ -31,12 +31,10 @@
 	import { setSystemTheme, systemTheme } from '$stores/server'
 	import { onMount } from 'svelte'
 	import { page } from '$app/stores'
-	import Popup from '$components/elements/Popup.svelte'
 	import NProgress from 'nprogress'
-	import { updateSelf } from '$stores/self'
-	import { fetching } from '$utils/api'
+	import { updateSelf } from '$stores/account'
+	import { fetching } from 'omorphia/utils'
 	import { browser } from '$app/env'
-	import { debounce } from 'throttle-debounce'
 	import MobileBar from '$components/layout/MobileBar.svelte'
 	import IconSettings from 'virtual:icons/lucide/settings'
 	import IconLogout from 'virtual:icons/lucide/log-out'
@@ -69,19 +67,11 @@
 		trickleSpeed: 20,
 	})
 
-	const progressStart = debounce(400, true, () => NProgress.start())
-	const progressDone = debounce(400, false, () => NProgress.done())
-
 	$: if (browser) {
-		if ($fetching) {
-			progressStart()
-		}
-		if (!$fetching) {
-			progressDone()
-		}
+		if ($fetching) NProgress.start()
+		if (!$fetching) NProgress.done()
 	}
 
-	let dropdownItems
 	$: dropdownItems = [
 		{
 			label: '@' + $user?.username,
@@ -132,8 +122,6 @@
 		},
 	]
 </script>
-
-<Popup />
 
 <div class="app">
 	<div class="app__content">

@@ -1,6 +1,14 @@
 {
 	"prettier.endOfLine": "lf",
-	"cSpell.words": ["unplugin"],
+	"cSpell.words": [
+    "notif",
+    "notifs",
+    "onchange",
+    "precompile",
+    "Roadmap",
+    "unplugin",
+    "Wordmark"
+  ],
 	"gitlens.showWelcomeOnInstall": false,
 	"gitlens.showWhatsNewAfterUpgrades": false,
 	"gitlens.plusFeatures.enabled": false,
@@ -19,5 +27,49 @@
 	"editor.formatOnPaste": true,
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  },
+  "i18n-ally.autoDetection": true,
+  "i18n-ally.displayLanguage": "en",
+  "i18n-ally.enabledFrameworks": [
+    "svelte"
+  ],
+  "i18n-ally.localesPaths": [
+    "locales"
+  ],
+  "i18n-ally.extract.ignored": [
+    "\n\t\t\t\t\t\t{#each row as column, colIndex}\n\t\t\t\t\t\t\t{@const index = rowIndex * layout[rowIndex].length + colIndex + modOffset}\n\t\t\t\t\t\t\t{#if column === 1 ",
+    "\n\t\t\t\t\t\t{#each row as column, colIndex}\n\t\t\t\t\t\t\t{@const index = rowIndex * layout[rowIndex].length + colIndex + modOffset}\n\t\t\t\t\t\t\t{#if column === 1 ",
+    "&",
+    "&",
+    "& mods?.[index]?.[0]}\n\t\t\t\t\t\t\t\t"
+  ],
+  "i18n-ally.ignoreFiles": [
+  "crowdin.yml"
+  ],
+  "i18n-ally.review.enabled": false,
+  "i18n-ally.review.gutters": false,
+  "i18n-ally.annotationMaxLength": 200,
+  "i18n-ally.sourceLanguage": "en",
+  "ltex.enabled": [
+    "svelte",
+    "bibtex",
+    "context",
+    "context.tex",
+    "html",
+    "latex",
+    "markdown",
+    "org",
+    "restructuredtext",
+    "rsweave"
+  ],
+  "cSpell.enableFiletypes": [
+    "svelte"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

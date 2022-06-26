@@ -1,16 +1,15 @@
 <script context="module" lang="ts">
-	import { send } from '$utils/api'
+	import { send } from 'omorphia/utils'
 
-	/** @type {import('./__types/[identifier]').Load} */
-	export async function load({ params, fetch, session, stuff }) {
+	export const load: import('./__types/__layout').Load = async ({ params, fetch }) => {
 		try {
 			const [project, members, versions, featuredVersions, dependencies]: any[] = await Promise.all(
 				[
-					await send('GET', `project/${params.identifier}`, null, { fetch }),
-					await send('GET', `project/${params.identifier}/members`, null, { fetch }),
-					await send('GET', `project/${params.identifier}/version`, null, { fetch }),
-					await send('GET', `project/${params.identifier}/version?featured=true`, null, { fetch }),
-					await send('GET', `project/${params.identifier}/dependencies`, null, { fetch }),
+					send('GET', `project/${params.identifier}`, null, { fetch }),
+					send('GET', `project/${params.identifier}/members`, null, { fetch }),
+					send('GET', `project/${params.identifier}/version`, null, { fetch }),
+					send('GET', `project/${params.identifier}/version?featured=true`, null, { fetch }),
+					send('GET', `project/${params.identifier}/dependencies`, null, { fetch }),
 				]
 			)
 
@@ -33,7 +32,11 @@
 					},
 				},
 				stuff: {
+					project,
+					members,
 					versions,
+					featuredVersions,
+					dependencies,
 				},
 			}
 		} catch (error) {
@@ -44,7 +47,10 @@
 					error: new Error(`The ${params.type} you were looking for cannot be found.`),
 				}
 			} else {
-				return {}
+				return {
+					status: error.status,
+					error: error.message,
+				}
 			}
 		}
 	}
@@ -69,13 +75,12 @@
 	import IconBMAC from 'virtual:icons/simple-icons/buymeacoffee'
 	import IconGithubSponsors from 'virtual:icons/simple-icons/githubsponsors'
 	import IconOther from 'virtual:icons/heroicons-outline/globe-alt'
-	import IconDownloadFile from 'virtual:icons/heroicons-outline/document-download'
 	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 
 	import IconCalendar from 'virtual:icons/lucide/calendar'
 	import { tagIcons } from '$generated/tags.json'
 	import projectColors from '$generated/projects.json'
-	import { user } from '$stores/server'
+	import { user } from '$stores/account'
 	import {
 		project,
 		members,
@@ -89,7 +94,7 @@
 	import Ad from '$components/elements/Ad.svelte'
 	import { report } from '$utils/report'
 	import { simplify } from '$utils/number'
-	import { following } from '$stores/self'
+	import { following } from '$stores/account'
 
 	export let data
 	$project = data.project
@@ -222,7 +227,7 @@
 					style:background-color={$color || 'var(--color-divider)'} />
 			{/if}
 			<Avatar src={$project.icon_url} size="md" floatUp />
-			<h1 class="title">{$project.title}</h1>
+			<h1 class="title">{$project.title.replace(/([a-z])([A-Z])/g, '$1\u200B$2')}</h1>
 			<p class="summary">{$project.description}</p>
 
 			<div class="tag-group">
@@ -286,7 +291,7 @@
 					{#each $featuredVersions as version}
 						<div class="featured-version">
 							<a class="featured-version__download" href={downloadUrl(getPrimary(version.files))}>
-								<IconDownloadFile width={24} height={24} />
+								<IconDownload />
 							</a>
 							<div class="featured-version__info">
 								<a
@@ -431,6 +436,12 @@
 
 			&:hover {
 				background-color: var(--color-brand-dark);
+			}
+
+			:global(.icon) {
+				/* slightly larger than default icon size to fill the button */
+				width: 22px;
+				height: 22px;
 			}
 		}
 

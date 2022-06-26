@@ -1,4 +1,6 @@
 <script lang="ts">
+	import IconGithub from 'virtual:icons/simple-icons/github'
+	import IconTerminal from 'virtual:icons/heroicons-outline/terminal'
 	import Meta from '$components/utils/Meta.svelte'
 	import Wordmark from '$assets/images/logo/wordmark.svg'
 	import IconSearch from 'virtual:icons/heroicons-outline/search'
@@ -6,22 +8,23 @@
 	import { mods } from '$generated/landingPage.json'
 	import { goto } from '$app/navigation'
 	import { t } from 'svelte-intl-precompile'
-	import ImageNotebook from '$assets/images/homepage/3dicons/notebook-dynamic-color.webp'
-	import ImageDollar from '$assets/images/homepage/3dicons/dollar-dynamic-color.webp'
-	import ImageExplorer from '$assets/images/homepage/3dicons/explorer-dynamic-color.webp'
-	import ImageChatBubble from '$assets/images/homepage/3dicons/chat-bubble-dynamic-color.webp'
-	import ImagePuzzle from '$assets/images/homepage/3dicons/puzzle-dynamic-color.webp'
-	import ImageTool from '$assets/images/homepage/3dicons/tool-dynamic-color.webp'
-	import Prando from 'prando'
+	import ImageRoadmap from '$assets/images/landing-page/roadmap.svg'
+	import ImageIllustrationUrl from '$assets/images/landing-page/illustration.svg?url'
 	import { onMount } from 'svelte'
 	import { fly } from 'svelte/transition'
+	import { Button } from 'omorphia'
+	import { user } from '$stores/account'
+	import { browser } from '$app/env'
 
-	let random
-	let modOffset
+	let modOffset = -1
+
+	/** Random integer number in a range (inclusive) */
+	function randomInt(min: number, max: number) {
+		return Math.round(Math.random() * (max - min) + min)
+	}
 
 	onMount(() => {
-		random = new Prando()
-		modOffset = mods.length < 100 ? 0 : Math.floor(random.nextInt(0, 60)) // 100 (total projects) - 40 (used)
+		modOffset = mods.length < 100 ? 0 : randomInt(0, 60) // 100 (total projects) - 40 (used)
 	})
 
 	function search(event: Event) {
@@ -68,101 +71,137 @@
 	fullTitle="Modrinth: Download and publish Minecraft Mods & Modpacks"
 	description="Download Minecraft mods and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API." />
 
-<div class="hero">
-	<div class="stacks">
-		{#if random && typeof modOffset !== 'undefined'}
-			{#each layout as row, rowIndex}
-				<div class="stacks__row">
-					{#each row as column, colIndex}
-						{@const index = rowIndex * layout[rowIndex].length + colIndex + modOffset}
-						{#if column === 1 && mods?.[index]?.[0]}
-							<a
-								class="stacks__row__column"
-								href="/mod/{mods?.[index]?.[1] || mods?.[index]?.[0]}"
-								tabindex="-1"
-								style:--color={projectColors[mods?.[index]?.[0]] || 'grey'}
-								style:--offset="{Math.round(random.nextInt(-25, 25))}px"
-								title={mods?.[index]?.[1]}
-								in:fly={{
-									delay: random.nextInt(0, 40) * 70,
-									y: 300,
-									duration: 700,
-								}}>
-								<div class="stacks__row__column__background" />
-								<img
-									class="stacks__row__column__face"
-									src="https://{cdnDomain}/data/{mods?.[index]?.[0]}/icon.{mods?.[index]?.[2] ||
-										''}"
-									alt="" />
-							</a>
-						{/if}
-					{/each}
-				</div>
-			{/each}
-		{/if}
+<div class="index-layout">
+	<div class="hero">
+		<div class="stacks">
+			{#if modOffset !== -1}
+				{#each layout as row, rowIndex}
+					<div class="stacks__row">
+						{#each row as column, colIndex}
+							{@const index = rowIndex * layout[rowIndex].length + colIndex + modOffset}
+							{#if column === 1 && mods?.[index]?.[0]}
+								<a
+									class="stacks__row__column"
+									href="/mod/{mods?.[index]?.[1] || mods?.[index]?.[0]}"
+									tabindex="-1"
+									style:--color={projectColors[mods[index][0]] || 'grey'}
+									style:--offset="{randomInt(-25, 25)}px"
+									title={mods?.[index]?.[1]}
+									in:fly={{
+										delay: randomInt(0, 40) * 40,
+										y: 300,
+										duration: 700,
+									}}>
+									<div class="stacks__row__column__background" />
+									<img
+										class="stacks__row__column__face"
+										src="https://{cdnDomain}/data/{mods?.[index]?.[0]}/icon.{mods?.[index]?.[2] ||
+											''}"
+										alt="" />
+								</a>
+							{/if}
+						{/each}
+					</div>
+				{/each}
+			{/if}
+		</div>
+
+		<Wordmark class="hero__wordmark" />
+		<h1 class="hero__tagline">{$t('index.tagline')}</h1>
+		<form class="hero__search" on:submit|preventDefault={search}>
+			<input
+				type="text"
+				placeholder={$t('project.types.mod.search')}
+				name="term"
+				class="hero__search__input" />
+			<button type="submit" class="hero__search__button" title="Search">
+				<IconSearch />
+			</button>
+		</form>
+		<p class="hero__description">{$t('index.description')}</p>
 	</div>
 
-	<Wordmark class="hero__wordmark" />
-	<h1 class="hero__tagline">{$t('index.tagline')}</h1>
-	<form class="hero__search" on:submit|preventDefault={search}>
-		<input
-			type="text"
-			placeholder={$t('project.types.mod.search')}
-			name="term"
-			class="hero__search__input" />
-		<button type="submit" class="hero__search__button" title="Search">
-			<IconSearch />
-		</button>
-	</form>
-	<p class="hero__description">{$t('index.description')}</p>
-</div>
+	<div class="card feature feature--column">
+		<div class="feature__content">
+			<h3 class="feature__content__title">Constantly evolving and improving</h3>
+			<p>
+				The Modrinth team and contributors update the platform constantly to ensure sharing and
+				finding Minecraft content is as easy and seamless as possible. Modrinth relies on its
+				community to steer development and to suggest features. Track our progress on GitHub, and
+				get involved via Discord.
+			</p>
+			<ImageRoadmap />
+		</div>
+	</div>
 
-<div class="features">
-	<div class="features__item">
-		<img src={ImageNotebook} alt="Book with bookmark" class="features__item__image" />
-		<div class="features__item__text">
-			<h3 class="title-secondary">{$t('index.features.book.title')}</h3>
-			<p class="summary">{$t('index.features.book.description')}</p>
+	<div class="card feature">
+		<div class="feature__content">
+			<h3 class="feature__content__title">A growing platform</h3>
+			<p>
+				Since its start in 2020, Modrinth has experienced rapid growth, in both its functionality
+				and selection of mods. With no stopping in sight, Modrinth intends to keep expanding and
+				growing to be the best Minecraft content platform it can be.
+			</p>
+			{#if $user}
+				<Button href={`/user/${$user.username}`} color="primary"
+					><IconGithub /> Go to your profile</Button>
+			{:else}
+				<Button
+					href={browser
+						? `${import.meta.env.VITE_API_URL}auth/init?url=${window.location.href}`
+						: ''}
+					color="primary">
+					<IconGithub />
+					{$t('header.github')}
+				</Button>
+			{/if}
 		</div>
+
+		<img
+			src={ImageIllustrationUrl}
+			alt="A Minecraft village at night with players wrestling to control a dinosaur, fighting one another, and a player riding an ender dragon." />
 	</div>
-	<div class="features__item">
-		<img src={ImageDollar} alt="Gold coin" class="features__item__image" />
-		<div class="features__item__text">
-			<h3 class="title-secondary">{$t('index.features.coin.title')}</h3>
-			<p class="summary">{$t('index.features.coin.description')}</p>
+
+	<div class="card feature theme-dark">
+		<div class="feature__content">
+			<h3 class="feature__content__title">Open straightforward API</h3>
+			<p>
+				Modrinth enables rich integration with its free-to-use API. With no restrictions, developers
+				are empowered to
+			</p>
+			<Button href="https://docs.modrinth.com/api-spec" color="tertiary">
+				<IconTerminal /> View API documentation
+			</Button>
 		</div>
-	</div>
-	<div class="features__item">
-		<img src={ImageExplorer} alt="Speedometer" class="features__item__image" />
-		<div class="features__item__text">
-			<h3 class="title-secondary">{$t('index.features.speedometer.title')}</h3>
-			<p class="summary">{$t('index.features.speedometer.description')}</p>
-		</div>
-	</div>
-	<div class="features__item">
-		<img src={ImageChatBubble} alt="Two chat bubbles" class="features__item__image" />
-		<div class="features__item__text">
-			<h3 class="title-secondary">{$t('index.features.chat.title')}</h3>
-			<p class="summary">{$t('index.features.chat.description')}</p>
-		</div>
-	</div>
-	<div class="features__item">
-		<img src={ImagePuzzle} alt="Puzzle piece" class="features__item__image" />
-		<div class="features__item__text">
-			<h3 class="title-secondary">{$t('index.features.puzzle.title')}</h3>
-			<p class="summary">{$t('index.features.puzzle.description')}</p>
-		</div>
-	</div>
-	<div class="features__item">
-		<img src={ImageTool} alt="Screwdriver and wrench" class="features__item__image" />
-		<div class="features__item__text">
-			<h3 class="title-secondary">{$t('index.features.tools.title')}</h3>
-			<p class="summary">{$t('index.features.tools.description')}</p>
-		</div>
+
+		<pre><code class="hljs language-js"
+				><span class="hljs-keyword">const</span> response = <span class="hljs-keyword"
+					>await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string"
+					>'https://api.modrinth.com/v2/search'</span
+				>)
+<span class="hljs-keyword">const</span> results = <span class="hljs-keyword"
+					>await</span> response.<span class="hljs-title function_">json</span>()
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span
+				>(results)
+
+<span class="hljs-comment"
+					>// hits: Array(10) [ &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, … ]</span>
+<span class="hljs-comment">// limit: 10</span>
+<span class="hljs-comment">// offset: 0</span>
+<span class="hljs-comment">// total_hits: 3232</span>
+</code></pre>
 	</div>
 </div>
 
 <style lang="postcss">
+	.index-layout {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		width: 100%;
+	}
+
 	.hero {
 		width: 100%;
 		min-height: 32rem;
@@ -324,47 +363,52 @@
 		}
 	}
 
-	.features {
-		display: flex;
-		flex-wrap: wrap;
+	.feature {
+		padding: 2rem;
+		display: grid;
+		grid-template-columns: 4fr 5fr;
+		gap: 2rem;
+		border-radius: 2rem;
+		max-height: 24rem;
+		color: var(--color-text);
 
-		&__item {
+		&--column {
 			display: flex;
-			flex-direction: column;
-			padding: 1rem;
-			align-items: center;
-			flex-basis: 33.33%;
-			text-align: center;
-			gap: 0.75rem;
+		}
 
-			&__text {
-				display: flex;
-				flex-direction: column;
-				gap: 0.75rem;
-			}
-
-			@media (width <= 820px) {
-				flex-basis: 50%;
+		&:nth-child(odd) {
+			> .feature__content {
+				order: 2;
 			}
 		}
 
-		@media (width <= 500px) {
-			gap: 1rem;
+		&__content {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1.5rem;
+			padding: 1rem 0.5rem;
 
-			&__item {
-				flex-basis: 100%;
-				flex-direction: row;
-				gap: 1rem;
-				text-align: left;
-
-				&__image {
-					width: 6rem;
-				}
-
-				&:nth-child(odd) {
-					flex-direction: row-reverse;
-				}
+			&__title {
+				font-weight: 400;
+				font-size: 30px;
+				margin: 0;
 			}
+
+			:global(.button) {
+				margin-top: auto;
+			}
+		}
+
+		> :global(img) {
+			border-radius: var(--rounded);
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+		}
+
+		pre {
+			font-size: 14px;
 		}
 	}
 </style>

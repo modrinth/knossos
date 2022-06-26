@@ -4,10 +4,10 @@
 	import IconBell from 'virtual:icons/fa-regular/bell'
 	import IconGithub from 'virtual:icons/simple-icons/github'
 	import { browser } from '$app/env'
-	import { user } from '$stores/server'
+	import { user } from '$stores/account'
 	import { projectTypes } from '$generated/tags.json'
 	import LogoLoader from '$components/elements/LogoLoader.svelte'
-	import { notifications } from '$stores/self'
+	import { notifications } from '$stores/account'
 	import IconChevronDown from 'virtual:icons/lucide/chevron-down'
 
 	let navItems = projectTypes.map((type) => ({
@@ -114,6 +114,7 @@
 						border-radius: 100%;
 						border: 0.15rem solid transparent;
 						transition: border-color 0.2s ease-in-out;
+						aspect-ratio: 1 / 1;
 					}
 
 					&::after {
@@ -152,14 +153,14 @@
 					}
 
 					&__item {
-						padding: 0.2rem 0.4rem;
+						padding: 0.2rem 0.6rem;
 						border-radius: var(--rounded-sm);
 						display: flex;
 						align-items: center;
 						gap: 0.3rem;
 
 						&:hover {
-							filter: brightness(0.8);
+							filter: brightness(0.9);
 							background-color: var(--color-raised-bg);
 						}
 
