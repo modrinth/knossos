@@ -11,8 +11,8 @@ interface Member {
 
 export const project = writable<Project>()
 export const members = writable<any[]>([])
-export const versions = writable<any[]>([])
-export const featuredVersions = writable<any[]>([])
+export const versions = writable<Version[]>([])
+export const featuredVersions = writable<Version[]>([])
 export const dependencies = writable<{ projects: any[]; versions: any[] }>()
 export const permissions = writable<Permissions>()
 export const color = writable<string>()

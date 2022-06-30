@@ -77,11 +77,13 @@
 
 	let modifiedUser: { username?: string; bio?: string; email?: string | null; icon?: File } = {}
 
+	$: editingSelf = $currentUser.id === user.id
+
 	function startEditing() {
 		modifiedUser = {
 			username: user.username,
 			bio: user.bio || '',
-			...($currentUser.id === user.id && { email: $currentUser.email }),
+			...(editingSelf && { email: $currentUser.email }),
 		}
 		isEditing = true
 	}
@@ -112,7 +114,7 @@
 				if (Object.keys(patch).length > 0) {
 					await send('PATCH', `user/${user.id}`, patch)
 					user = { ...user, ...modifiedUser }
-					if (user.id === $currentUser.id) [($currentUser = user)]
+					if (editingSelf) [($currentUser = user)]
 					if (oldUsername !== user.username) {
 						history.replaceState(null, '', `/user/${modifiedUser.username}`)
 					}
@@ -128,7 +130,7 @@
 					)
 
 					user = { ...user, avatar_url: URL.createObjectURL(modifiedUser.icon) }
-					if (user.id === $currentUser.id) [($currentUser = user)]
+					if (editingSelf) [($currentUser = user)]
 				}
 			})(),
 		])
@@ -190,7 +192,7 @@
 						{id} />
 				</Field>
 
-				{#if modifiedUser.email}
+				{#if editingSelf}
 					<Field label={$t('settings.email.text')} helper={$t('settings.email.helper')} let:id>
 						<TextInput
 							placeholder={$t('settings.email.placeholder')}

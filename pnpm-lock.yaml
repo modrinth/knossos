@@ -21,7 +21,7 @@ specifiers:
   highlight.js: ^11.5.1
   insane: ^2.6.2
   nprogress: ^0.2.0
-  omorphia: ^0.0.52
+  omorphia: ^0.0.54
   prettier: ^2.5.1
   prettier-plugin-svelte: ^2.6.0
   svelte: ^3.48.0
@@ -40,7 +40,7 @@ specifiers:
 dependencies:
   highlight.js: 11.5.1
   insane: 2.6.2
-  omorphia: 0.0.52_tzay27putsntwouttn46v5n6he
+  omorphia: 0.0.54_tzay27putsntwouttn46v5n6he
   svelte-autosize: 1.0.1
   svelte-intl-precompile: 0.11.1_svelte@3.48.0
 
@@ -3511,8 +3511,8 @@ packages:
     resolution: {integrity: sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw==}
     dev: false
 
-  /omorphia/0.0.52_tzay27putsntwouttn46v5n6he:
-    resolution: {integrity: sha512-YuthACegdNl2FIlOdRhMH8eOQuGi52pX8VnR+YAEaGFKqVJ6rjzACcTIrf2fe5+/pmfpSDtpYEBYEOucnwdDkw==}
+  /omorphia/0.0.54_tzay27putsntwouttn46v5n6he:
+    resolution: {integrity: sha512-wjtc2oaSMVtV6V2fgZJFgXDBjb3AUFaiYO2PPcpJIcNwZwRmPrTspTAnqagOYs2e0Pp7FLPQP892pUb3oJU6Gg==}
     engines: {node: '>=16.5.0'}
     dependencies:
       '@iconify-json/carbon': 1.1.5

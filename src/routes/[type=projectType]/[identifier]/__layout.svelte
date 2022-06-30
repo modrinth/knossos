@@ -95,6 +95,7 @@
 	import { report } from '$utils/report'
 	import { simplify } from '$utils/number'
 	import { following } from '$stores/account'
+	import { goto } from '$app/navigation'
 
 	export let data
 	$project = data.project
@@ -287,24 +288,26 @@
 
 			{#if $featuredVersions.length > 0}
 				<h2 class="title-secondary">{$t('project.sidebar_headings.featured_versions')}</h2>
-				<div class="limited-list">
+				<div class="sidebar-list">
 					{#each $featuredVersions as version}
-						<div class="featured-version">
+						<!-- Uses `button` tag because nested 'a' tags cause rendering issues on page load -->
+						<button
+							class="featured-version"
+							on:click={() => goto(`${baseUrl}/version/${version.version_number}`)}>
 							<a class="featured-version__download" href={downloadUrl(getPrimary(version.files))}>
 								<IconDownload />
 							</a>
 							<div class="featured-version__info">
-								<a
-									class="featured-version__info__name"
-									href="{baseUrl}/version/{version.version_number}"
-									>{version.name || version.version_number}</a>
+								<div class="featured-version__info__name">
+									{version.name || version.version_number}
+								</div>
 								<div class="featured-version__info__details">
 									<Badge
 										label={$t(`release_channels.${version.version_type}`)}
 										color={releaseColors[version.version_type]} />
 									•
 									<div class="tag-group">
-										{#each version.loaders as loader, index}
+										{#each version.loaders as loader}
 											<div class="tag">
 												{@html tagIcons[loader]}{$t(`tags.${loader}`)}
 											</div>
@@ -312,7 +315,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</button>
 					{/each}
 				</div>
 
@@ -320,15 +323,17 @@
 			{/if}
 
 			<h2 class="title-secondary">{$t('project.sidebar_headings.project_members')}</h2>
-			{#each $members.filter((member) => member.accepted) as member}
-				<a class="member" href="/user/{member.user.username}">
-					<Avatar src={member.user.avatar_url} size="sm" circle />
-					<div class="member__info">
-						<span class="member__info__link">{member.user.username}</span>
-						<span>{member.role}</span>
-					</div>
-				</a>
-			{/each}
+			<div class="sidebar-list">
+				{#each $members.filter((member) => member.accepted) as member}
+					<a class="member" href="/user/{member.user.username}">
+						<Avatar src={member.user.avatar_url} size="sm" circle />
+						<div class="member__info">
+							<span class="member__info__link">{member.user.username}</span>
+							<span>{member.role}</span>
+						</div>
+					</a>
+				{/each}
+			</div>
 
 			<hr class="divider" />
 
@@ -411,17 +416,23 @@
 </div>
 
 <style lang="postcss">
-	.limited-list {
-		max-height: 18rem;
+	.sidebar-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
-		overflow-y: auto;
+		margin-top: -0.5rem;
 	}
 
 	.featured-version {
 		display: flex;
 		gap: 0.75rem;
+		border-radius: var(--rounded-sm);
+		padding: 0.5rem;
+		transition: background-color 0.1s ease-in-out;
+		text-align: left;
+
+		&:hover {
+			background-color: var(--color-button-bg);
+		}
 
 		&__download {
 			background-color: var(--color-brand);
@@ -448,11 +459,12 @@
 		&__info {
 			display: flex;
 			flex-direction: column;
+			line-height: 100%;
+			justify-content: space-around;
 
 			&__name {
 				font-weight: var(--font-weight-medium);
 				font-size: var(--font-size);
-				line-height: 120%;
 			}
 
 			&__details {
