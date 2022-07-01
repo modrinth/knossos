@@ -40,9 +40,9 @@
 	</div>
 {:else if state === 'blocked'}
 	<div class="ad">
-		<div class="ea-placement ea-type-text">
-			<div class="ea-content">
-				<div class="ea-text">{$t('ads.privacy_respecting')}</div>
+		<div class="blocked-placement">
+			<div class="blocked-content">
+				<div class="blocked-text">{$t('ads.privacy_respecting')}</div>
 			</div>
 		</div>
 	</div>
@@ -61,7 +61,8 @@
 		margin-bottom: -0.6rem;
 		min-height: 4.375rem;
 
-		:global(.ea-content) {
+		:global(.ea-content),
+		:global(.blocked-content) {
 			margin: 0 !important;
 			border-radius: var(--rounded-lg) !important;
 			padding: 1rem 1.1rem !important;
@@ -69,14 +70,17 @@
 			box-shadow: var(--shadow-raised), var(--shadow-inset) !important;
 			min-height: 3.125rem;
 			font-size: 14px;
+			line-height: 18.2px;
 			color: var(--color-text-light) !important;
 		}
 
-		:global(.ea-content strong) {
+		:global(.ea-content strong),
+		:global(.blocked-content strong) {
 			color: var(--color-ad-link) !important;
 		}
 
-		:global(.ea-content span) {
+		:global(.ea-content span),
+		:global(.blocked-content span) {
 			color: var(--color-text-light) !important;
 		}
 

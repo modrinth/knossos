@@ -7,8 +7,8 @@
 	import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
 	import { send } from 'omorphia/utils'
 	import { onMount } from 'svelte'
-	import FollowIllustration from '$assets/images/illustrations/undraw_appreciation.svg'
-	import ProjectCard from '$components/elements/ProjectCard.svelte'
+	import FollowIllustration from '$assets/illustrations/undraw_appreciation.svg'
+	import ProjectCard from '$components/ProjectCard.svelte'
 	import IconCalendar from 'virtual:icons/lucide/calendar'
 
 	onMount(async () => {

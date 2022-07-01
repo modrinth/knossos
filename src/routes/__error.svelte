@@ -11,7 +11,7 @@
 
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
-	import Logo404 from '$assets/images/logo/404.svg'
+	import Logo404 from '$assets/logo/404.svg'
 	import { Button } from 'omorphia'
 	import { markdownInline } from 'omorphia/utils'
 	import Meta from '$components/utils/Meta.svelte'

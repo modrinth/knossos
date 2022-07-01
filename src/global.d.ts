@@ -1,10 +1,9 @@
 /// <reference types="@sveltejs/kit" />
 /// <reference types="unplugin-icons/types/svelte" />
 
-declare module '$assets/images/*'
+declare module '$assets/*'
 declare module '$locales'
-declare module '$generated/*'
-declare module '$assets/images/*.svg'
+declare module '$assets/*.svg'
 
 type schemas = import('$generated/openapi').components['schemas']
 type Project = schemas['Project']

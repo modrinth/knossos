@@ -53,12 +53,12 @@
 	import { projectTypes } from '$generated/tags.json'
 	import Meta from '$components/utils/Meta.svelte'
 	import { user as currentUser } from '$stores/account'
-	import Ad from '$components/elements/Ad.svelte'
-	import { report } from '$utils/report'
+	import Ad from '$components/Ad.svelte'
 	import { simplify } from '$utils/number'
-	import { create } from '$utils/create'
-	import ProjectCard from '$components/elements/ProjectCard.svelte'
+	import ProjectCard from '$components/ProjectCard.svelte'
 	import { page } from '$app/stores'
+	import ModalReport from '$components/ModalReport.svelte'
+	import ModalCreation from '$components/ModalCreation.svelte'
 
 	export let user: User
 	export let projects: Project[]
@@ -77,13 +77,13 @@
 
 	let modifiedUser: { username?: string; bio?: string; email?: string | null; icon?: File } = {}
 
-	$: editingSelf = $currentUser.id === user.id
+	$: editingSelf = $currentUser?.id === user.id
 
 	function startEditing() {
 		modifiedUser = {
 			username: user.username,
 			bio: user.bio || '',
-			...(editingSelf && { email: $currentUser.email }),
+			...(editingSelf && { email: $currentUser!.email }),
 		}
 		isEditing = true
 	}
@@ -168,7 +168,7 @@
 							<Button on:click={startEditing}><IconPencil /> Edit</Button>
 						{/if}
 					{:else}
-						<Button on:click={() => report('user', user.id)}><IconFlag /> Report</Button>
+						<ModalReport type="user" id={user.id} />
 					{/if}
 				</div>
 			{/if}
@@ -266,11 +266,13 @@
 				]}
 				query="type" />
 
-			{#if $currentUser && $currentUser.id === user.id}
-				<Button color="primary" on:click={create}>
-					<IconPlus />
-					{$t('generic.actions.new_project')}
-				</Button>
+			{#if editingSelf}
+				<ModalCreation let:trigger>
+					<Button color="primary" on:click={trigger}>
+						<IconPlus />
+						{$t('generic.actions.new_project')}
+					</Button>
+				</ModalCreation>
 			{/if}
 		</div>
 

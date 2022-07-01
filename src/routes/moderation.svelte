@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-	import { create } from '$utils/create'
 	import { send } from 'omorphia/utils'
 
 	export const load: import('./__types/moderation').Load = async ({ fetch }) => {
@@ -54,11 +53,6 @@
 				})
 			)
 
-			interface ReportItem {
-				published?: boolean
-				created?: boolean
-			}
-
 			const items = [...projects, ...reports].sort(
 				(a: any, b: any) =>
 					new Date(a.published || a.created).valueOf() -
@@ -83,7 +77,7 @@
 	import { projectTypes } from '$generated/tags.json'
 	import { t } from 'svelte-intl-precompile'
 	import Meta from '$components/utils/Meta.svelte'
-	import ProjectCard from '$components/elements/ProjectCard.svelte'
+	import ProjectCard from '$components/ProjectCard.svelte'
 	import { page } from '$app/stores'
 	import { Button, Badge, Field, Select, TextInput, Modal } from 'omorphia'
 	import { ago, markdown } from 'omorphia/utils'
@@ -91,11 +85,11 @@
 	import IconEye from 'virtual:icons/heroicons-outline/eye'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
-	import NoData from '$assets/images/illustrations/undraw_no_data.svg'
+	import NoData from '$assets/illustrations/undraw_no_data.svg'
 
-	export let items
+	export let items: Report[]
 
-	let newStatus: any = {}
+	let newStatus = { status: 'approved' }
 
 	$: filteredItems = items.filter((item) =>
 		$page.url.searchParams.get('type')
@@ -180,7 +174,7 @@
 							let:trigger
 							bind:data={newStatus}
 							defaultData={{
-								status: 'approve',
+								status: 'approved',
 							}}>
 							<Button slot="trigger" on:click={trigger}>
 								<IconEye /> Change status

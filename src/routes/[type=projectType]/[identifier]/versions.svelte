@@ -25,18 +25,17 @@
 
 <div class="versions">
 	{#each $versions as version}
+		{@const author = $members.find((member) => member.user.id === version.author_id)?.user.username}
 		<div class="card card--pad-x card--strip version">
 			<div class="version__info">
 				<div class="version__info__row">
-					<a href="./version/{version.version_number || version.id}"
-						><b>{version.name || version.version_number}</b></a>
-					<a
-						href="/user/{$members.find((member) => member.user.id === version.author_id).user
-							.username}"
+					<a href="./version/{version.version_number || version.id}">
+						<b>{version.name || version.version_number}</b>
+					</a>
+					<a href="/user/{author}"
 						>{@html $t('generic.byline', {
 							values: {
-								author: $members.find((member) => member.user.id === version.author_id).user
-									.username,
+								author: author,
 							},
 						})}</a>
 					&bull;

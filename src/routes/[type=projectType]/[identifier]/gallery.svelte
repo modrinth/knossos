@@ -3,14 +3,13 @@
 	import Meta from '$components/utils/Meta.svelte'
 	import { t } from 'svelte-intl-precompile'
 	import { permissions, project, color } from './_store'
-	import { Button, TextInput, Modal, Field } from 'omorphia'
+	import { Button, TextInput, Modal, Field, FileUpload } from 'omorphia'
 	import IconPlus from 'virtual:icons/heroicons-outline/plus'
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import IconCheck from 'virtual:icons/heroicons-outline/check'
 	import IconX from 'virtual:icons/heroicons-outline/x'
 	import { send } from 'omorphia/utils'
-	import ImageUpload from '$components/elements/ImageUpload.svelte'
 
 	let modifiedItems = {}
 
@@ -73,7 +72,7 @@
 		</div>
 
 		<Field label="Image file">
-			<ImageUpload bind:file={newItem.file} />
+			<FileUpload accept="image/*" constrained bind:file={newItem.file} />
 		</Field>
 		<Field label={$t('modal.creation.image.fields.title.label')} let:id>
 			<TextInput
@@ -124,7 +123,7 @@
 						{id} />
 				</Field>
 			{:else}
-				<h1 class="title">{item.title}</h1>
+				<h1 class="title-secondary">{item.title}</h1>
 				<p class="gallery__item__description">{item.description}</p>
 			{/if}
 			{#if $permissions.editDetails}
@@ -153,7 +152,7 @@
 							{$t('modal.deletion.image.description')}
 
 							<Button
-								color="primary"
+								color="danger"
 								slot="button"
 								let:close
 								on:click={() => {

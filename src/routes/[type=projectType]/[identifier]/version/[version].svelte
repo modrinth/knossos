@@ -40,8 +40,8 @@
 	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 	import IconStar from 'virtual:icons/heroicons-outline/star'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
-	import { report } from '$utils/report'
 	import { user } from '$stores/account'
+	import ModalReport from '$components/ModalReport.svelte'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',
@@ -101,10 +101,7 @@
 			<Button color="raised"><IconStar /> {$t('generic.actions.feature')}</Button>
 			<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
 		{:else}
-			<Button color="raised" on:click={() => report('version', version.id)}>
-				<IconFlag />
-				{$t('generic.actions.report')}
-			</Button>
+			<ModalReport type="version" id={version.id} buttonColor="raised" />
 		{/if}
 		{#if $permissions.deleteVersion}
 			<Button color="raised"><IconTrash /> {$t('generic.actions.delete')}</Button>

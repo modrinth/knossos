@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t, locale, locales } from 'svelte-intl-precompile'
 	import { theme } from '$stores/server'
-	import LogoWordmark from '$assets/images/logo/wordmark.svg'
+	import LogoWordmark from '$assets/logo/wordmark.svg'
 	import { Select } from 'omorphia'
 	import IconLanguages from 'virtual:icons/lucide/languages'
 	import IconMoon from 'virtual:icons/heroicons-outline/moon'

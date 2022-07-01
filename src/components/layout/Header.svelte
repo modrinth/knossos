@@ -6,7 +6,7 @@
 	import { browser } from '$app/env'
 	import { user } from '$stores/account'
 	import { projectTypes } from '$generated/tags.json'
-	import LogoLoader from '$components/elements/LogoLoader.svelte'
+	import LogoLoader from '$components/LogoLoader.svelte'
 	import { notifications } from '$stores/account'
 	import IconChevronDown from 'virtual:icons/lucide/chevron-down'
 

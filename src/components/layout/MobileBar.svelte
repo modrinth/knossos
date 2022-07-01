@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LogoIcon from '$assets/images/logo/icon.svg'
+	import LogoIcon from '$assets/logo/icon.svg'
 	import { projectTypes } from '$generated/tags.json'
 	import { t } from 'svelte-intl-precompile'
 	import { NavRow } from 'omorphia'

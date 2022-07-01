@@ -7,7 +7,7 @@
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
 	import { send } from 'omorphia/utils'
 	import { onMount } from 'svelte'
-	import UpToDate from '$assets/images/illustrations/undraw_notify.svg'
+	import UpToDate from '$assets/illustrations/undraw_notify.svg'
 
 	onMount(async () => {
 		await updateSelf()

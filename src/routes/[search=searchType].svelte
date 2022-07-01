@@ -48,7 +48,7 @@
 </script>
 
 <script lang="ts">
-	import ProjectCard from '$components/elements/ProjectCard.svelte'
+	import ProjectCard from '$components/ProjectCard.svelte'
 	import { t } from 'svelte-intl-precompile'
 	import { browser } from '$app/env'
 	import { debounce } from 'throttle-debounce'
@@ -64,7 +64,7 @@
 	import { categories, loaders, tagIcons, licenses } from '$generated/tags.json'
 	import gameVersions from '$generated/gameVersions.json'
 	import { Button, Checkbox, CheckboxList, Select, TextInput, CheckboxVirtualList } from 'omorphia'
-	import Ad from '$components/elements/Ad.svelte'
+	import Ad from '$components/Ad.svelte'
 	import { Pagination } from 'omorphia'
 	import { simplify } from '$utils/number'
 

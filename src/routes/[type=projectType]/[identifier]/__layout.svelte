@@ -75,8 +75,6 @@
 	import IconBMAC from 'virtual:icons/simple-icons/buymeacoffee'
 	import IconGithubSponsors from 'virtual:icons/simple-icons/githubsponsors'
 	import IconOther from 'virtual:icons/heroicons-outline/globe-alt'
-	import IconFlag from 'virtual:icons/heroicons-outline/flag'
-
 	import IconCalendar from 'virtual:icons/lucide/calendar'
 	import { tagIcons } from '$generated/tags.json'
 	import projectColors from '$generated/projects.json'
@@ -91,8 +89,8 @@
 		permissions,
 		color,
 	} from './_store'
-	import Ad from '$components/elements/Ad.svelte'
-	import { report } from '$utils/report'
+	import Ad from '$components/Ad.svelte'
+	import ModalReport from '$components/ModalReport.svelte'
 	import { simplify } from '$utils/number'
 	import { following } from '$stores/account'
 	import { goto } from '$app/navigation'
@@ -190,10 +188,7 @@
 				{#if $permissions.editDetails}
 					<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
 				{:else if $user}
-					<Button color="raised" on:click={() => report('project', $project.id)}>
-						<IconFlag />
-						{$t('generic.actions.report')}
-					</Button>
+					<ModalReport type="project" id={$project.id} buttonColor="raised" />
 				{/if}
 				{#if $user}
 					<Button
@@ -395,10 +390,14 @@
 								},
 						  ]
 						: []),
-					{
-						label: $t('pages.changelog'),
-						href: '/changelog',
-					},
+					...($versions.length > 0
+						? [
+								{
+									label: $t('pages.changelog'),
+									href: '/changelog',
+								},
+						  ]
+						: []),
 					...($permissions.settingsPage
 						? [
 								{

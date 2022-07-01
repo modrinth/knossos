@@ -17,7 +17,7 @@
 	{#if image}
 		<meta name="og:image" content={image} />
 	{:else}
-		<meta name="og:image" content="/images/logo/icon.png" />
+		<meta name="og:image" content="/logo/icon.png" />
 	{/if}
 	<meta name="theme-color" content={color} />
 	{#if noindex}

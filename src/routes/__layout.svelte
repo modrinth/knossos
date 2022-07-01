@@ -41,7 +41,9 @@
 	import IconHeart from 'virtual:icons/lucide/heart'
 	import IconModeration from 'virtual:icons/fa-regular/life-ring'
 	import IconPlus from 'virtual:icons/heroicons-outline/plus'
-	import { create } from '$utils/create'
+	import ModalCreation from '$components/ModalCreation.svelte'
+
+	let creationModalOpen = false
 
 	onMount(() => {
 		if ($page.url.searchParams.get('code')) {
@@ -98,7 +100,7 @@
 		{
 			id: $t('generic.actions.create'),
 			label: 'Create',
-			action: create,
+			action: () => (creationModalOpen = true),
 			icon: IconPlus,
 		},
 		{
@@ -122,6 +124,8 @@
 		},
 	]
 </script>
+
+<ModalCreation bind:open={creationModalOpen} />
 
 <div class="app">
 	<div class="app__content">

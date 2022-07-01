@@ -2,7 +2,7 @@ import { send } from 'omorphia/utils'
 import cookie from 'cookie'
 import type { Handle } from '@sveltejs/kit'
 
-const LOGGED_IN_PAGES = ['/following', '/report', '/moderation', '/settings', '/notifications']
+const LOGGED_IN_PAGES = ['/following', '/moderation', '/settings', '/notifications']
 
 export const login: Handle = async ({ event, resolve }) => {
 	let token = event.locals.token || event.url.searchParams.get('code') || ''
