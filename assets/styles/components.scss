@@ -798,12 +798,6 @@ label {
   }
 }
 
-.outer-card {
-  border-radius: var(--size-rounded-card);
-  overflow: hidden;
-  padding: 0;
-}
-
 .card {
   min-height: var(--font-size-2xl);
   padding: var(--spacing-card-md) var(--spacing-card-lg);
