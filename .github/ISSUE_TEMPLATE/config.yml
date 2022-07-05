@@ -1,4 +1,4 @@
-enable_blank_issues: true
+blank_issues_enabled: true
 contact_links:
   - name: Discord
     about: Ask questions on our Discord Server.
