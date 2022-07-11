@@ -42,7 +42,7 @@
 	<div class="ad">
 		<div class="blocked-placement">
 			<div class="blocked-content">
-				<div class="blocked-text">{$t('ads.privacy_respecting')}</div>
+				<div class="blocked-text"><span>{$t('ads.privacy_respecting')}</span></div>
 			</div>
 		</div>
 	</div>
@@ -57,7 +57,7 @@
 {/if}
 
 <style lang="postcss">
-	.ad {
+	:global(.ad) {
 		margin-bottom: -0.6rem;
 		min-height: 4.375rem;
 

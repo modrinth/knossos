@@ -1,4 +1,4 @@
-import adapter from './src/adapter/index.js'
+import adapter from '@sveltejs/adapter-cloudflare'
 import path from 'path'
 import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin'
 import { Generator } from 'omorphia/plugins'
@@ -29,6 +29,7 @@ const config = {
 					projectColors: true,
 					gameVersions: true,
 					tags: true,
+					openapi: true,
 				}),
 				precompileIntl('locales', {
 					exclude: /crowdin\.yml/,

@@ -44,8 +44,8 @@
 </p>
 
 <div class="error-actions">
-	<Button href="/" color="primary">{$t('error.actions.home')}</Button>
-	<Button href="/discord" color="raised" target="_blank">{$t('error.actions.discord')}</Button>
+	<Button href="/" raised color="primary">{$t('error.actions.home')}</Button>
+	<Button href="/discord" raised target="_blank">{$t('error.actions.discord')}</Button>
 </div>
 
 <style lang="postcss">

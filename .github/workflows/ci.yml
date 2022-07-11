@@ -6,7 +6,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
@@ -27,7 +30,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
@@ -38,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Install Playwright
-        run: pnpm playwright install --with-deps
+        run: pnpm playwright install --with-deps chromium
       - name: Run your tests
         run: pnpm test
       - name: Upload test results

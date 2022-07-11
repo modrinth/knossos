@@ -37,14 +37,13 @@
 
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
-	import { Button, Avatar, Badge, NavRow, TextInput, Field, Modal, FileUpload } from 'omorphia'
+	import { Button, Avatar, Badge, NavRow, TextInput, Field } from 'omorphia'
 	import { ago } from 'omorphia/utils'
 	import IconHeart from 'virtual:icons/lucide/heart'
 	import IconUser from 'virtual:icons/lucide/user'
 	import IconDownload from 'virtual:icons/heroicons-outline/download'
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil'
 	import IconCake from 'virtual:icons/heroicons-outline/cake'
-	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 	import IconPlus from 'virtual:icons/heroicons-outline/plus'
 	import IconGithub from 'virtual:icons/simple-icons/github'
 	import IconX from 'virtual:icons/heroicons-outline/x'
@@ -86,19 +85,6 @@
 			...(editingSelf && { email: $currentUser!.email }),
 		}
 		isEditing = true
-	}
-
-	function pickAvatar() {
-		const input = document.createElement('input')
-		input.type = 'file'
-
-		input.onchange = (event: any) => {
-			const files: FileList = event.target.files
-
-			if (files[0]) modifiedUser.icon = files[0]
-		}
-
-		input.click()
 	}
 
 	async function editUser() {
@@ -160,7 +146,12 @@
 				<div class="card__overlay">
 					{#if user.id === $currentUser?.id}
 						{#if isEditing}
-							<Button on:click={pickAvatar}>
+							<Button
+								as="file"
+								on:files={({ detail }) => {
+									const file = detail[0]
+									if (file) modifiedUser.icon = file
+								}}>
 								<IconUpload />
 								{$t('settings.avatar')}
 							</Button>

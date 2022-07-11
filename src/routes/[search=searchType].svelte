@@ -67,6 +67,7 @@
 	import Ad from '$components/Ad.svelte'
 	import { Pagination } from 'omorphia'
 	import { simplify } from '$utils/number'
+	import GameVersions from '$components/GameVersions.svelte'
 
 	let showFilters = false
 
@@ -132,19 +133,6 @@
 		previousParams = { ...searchParams }
 	}
 
-	let filteredVersions = []
-	let filterTerm = ''
-
-	$: if (filterTerm && (searchParams.h || !searchParams.h)) {
-		filteredVersions = gameVersions.filter((it) => it.version.includes(filterTerm))
-	} else if (!searchParams.h) {
-		filteredVersions = gameVersions.filter(
-			(it) => it.version_type === 'release' || searchParams.v?.includes(it.version)
-		)
-	} else {
-		filteredVersions = gameVersions
-	}
-
 	function clearFilters() {
 		searchParams = { v: [], h: false, l: [], e: [], c: [], i: [] }
 	}
@@ -173,18 +161,7 @@
 
 			<div style:display={showFilters ? 'flex' : 'none'} class="filters">
 				<h3>{$t('generic.labels.minecraft_versions')}</h3>
-				<CheckboxVirtualList
-					height={180}
-					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
-					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}>
-					<IconCode />{$t('search.filters.show_snapshots')}
-				</Checkbox>
-				<TextInput
-					placeholder={$t('search.filters.search_versions')}
-					bind:value={filterTerm}
-					icon={IconFilter}
-					fill />
+				<GameVersions bind:value={searchParams.v} bind:snapshots={searchParams.h} />
 
 				<hr class="divider" />
 

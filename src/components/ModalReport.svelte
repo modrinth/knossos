@@ -8,7 +8,8 @@
 
 	export let type: 'project' | 'version' | 'user'
 	export let id: string
-	export let buttonColor: '' | 'raised' = ''
+	export let buttonColor = ''
+	export let buttonRaised = false
 
 	let open = false
 
@@ -27,7 +28,7 @@
 
 <Modal title={$t(`modal.report.${type}.action`)} bind:open bind:data defaultData={{ reason: '' }}>
 	<svelte:fragment slot="trigger" let:trigger>
-		<Button color={buttonColor} on:click={trigger}>
+		<Button raised={buttonRaised} color={buttonColor} on:click={trigger}>
 			<IconFlag />
 			{$t('generic.actions.report')}
 		</Button>

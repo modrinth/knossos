@@ -37,7 +37,7 @@
 				{/if}
 			</span>
 
-			<p class="summary">
+			<p class="project-card__main__info__summary summary">
 				{project.description}
 			</p>
 
@@ -100,6 +100,14 @@
 				gap: 0.25rem;
 				line-height: 100%;
 				margin-top: 0.2rem;
+
+				&__summary {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 3;
+					-webkit-box-orient: vertical;
+				}
 
 				&__author {
 					white-space: nowrap;

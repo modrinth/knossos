@@ -31,6 +31,9 @@
 
 <div class="card changelog">
 	{#each changelogVersions as version}
+		{@const publisher = (
+			$members.find((member) => member.user.id === version.author_id) || $members[0]
+		).user.username}
 		<div class="changelog__item">
 			<div
 				class="changelog__item__color"
@@ -39,15 +42,13 @@
 				class:is-duplicate={version.duplicate} />
 			<div class="changelog__item__body">
 				<div class="changelog__item__body__title">
-					<a href="./version/{version.version_number || version.id}"
-						><h1 class="title-secondary">{version.name || version.version_number}</h1></a>
-					<a
-						href="/user/{$members.find((member) => member.user.id === version.author_id).user
-							.username}"
+					<a href="./version/{version.version_number || version.id}">
+						<h1 class="title-secondary">{version.name || version.version_number}</h1>
+					</a>
+					<a href="/user/{publisher}"
 						>{@html $t('generic.byline', {
 							values: {
-								author: $members.find((member) => member.user.id === version.author_id).user
-									.username,
+								author: publisher,
 							},
 						})}</a>
 					&bull;
@@ -119,6 +120,7 @@
 			&__body {
 				display: flex;
 				flex-direction: column;
+				max-width: 100%;
 
 				&__title {
 					display: flex;

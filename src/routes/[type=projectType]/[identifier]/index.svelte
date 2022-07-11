@@ -161,6 +161,7 @@
 			border: none;
 			padding: 1rem;
 			background-color: var(--color-input-text-light);
+			border-radius: var(--rounded-bottom);
 		}
 	}
 </style>

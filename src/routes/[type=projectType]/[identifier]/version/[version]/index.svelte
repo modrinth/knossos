@@ -1,17 +1,18 @@
 <script context="module" lang="ts">
-	export const load: import('./__types/[version]').Load = async ({ params, stuff }) => {
-		const version = stuff.versions.find((it) => [it.version_number, it.id].includes(params.version))
+	import { user } from '$stores/account'
+	import { versions } from '../../_store'
 
-		if (version) {
-			return {
-				props: {
-					version,
-				},
-			}
+	export const load: import('./__types/index').Load = async ({ params, stuff }) => {
+		// Check if version exists
+		if (
+			stuff.versions!.find((it) => [it.version_number, it.id].includes(params.version)) ||
+			get(versions).find((it) => [it.version_number, it.id].includes(params.version))
+		) {
+			return {}
 		} else {
 			return {
 				status: 404,
-				// TODO make this translatable
+				// TODO: make this translatable
 				error: new Error(`The version you were looking for cannot be found.`),
 			}
 		}
@@ -29,19 +30,19 @@
 		permissions,
 		color,
 		featuredVersions,
-	} from '../_store'
-	import { Button, Avatar, Badge } from 'omorphia'
-	import { markdown } from 'omorphia/utils'
+	} from '../../_store'
+	import { Button, Avatar, Badge, Code, Modal } from 'omorphia'
+	import { getPrimary, markdown, send } from 'omorphia/utils'
 	import IconDownload from 'virtual:icons/heroicons-outline/download'
 	import IconFile from 'virtual:icons/lucide/file'
 	import { tagIcons } from '$generated/tags.json'
 	import { formatVersions, downloadUrl } from 'omorphia/utils'
 	import IconPencil from 'virtual:icons/heroicons-outline/pencil'
-	import IconFlag from 'virtual:icons/heroicons-outline/flag'
 	import IconStar from 'virtual:icons/heroicons-outline/star'
 	import IconTrash from 'virtual:icons/heroicons-outline/trash'
-	import { user } from '$stores/account'
 	import ModalReport from '$components/ModalReport.svelte'
+	import { page } from '$app/stores'
+	import { get } from 'svelte/store'
 
 	const dateFormat = new Intl.DateTimeFormat('en', {
 		year: 'numeric',
@@ -51,34 +52,28 @@
 		minute: 'numeric',
 	})
 
-	export let version: Version
+	export let version: Version = $versions.find((it) =>
+		[it.version_number, it.id].includes($page.params.version)
+	)!
 
-	const gameVersions = formatVersions(version.game_versions)
+	interface RemoteFile {
+		name: string
+		remote: true
+	}
 
-	$: versionDependencies = (version.dependencies || [])
-		.filter((dep) => dep)
-		.map((dep) => {
-			if (dep && dep.version_id) {
-				const version = $dependencies.versions.find(({ id }) => dep.version_id === id)
-				return {
-					...dep,
-					project: $dependencies.projects.find(({ id }) => version.project_id === id),
-					version,
-				}
-			} else {
-				return dep
-			}
-		})
-		.sort((a, b) => (a.file_name || a.project.title).localeCompare(b.file_name || b.project.title))
+	const primaryFile = getPrimary(version.files)
 
-	$: publisher = $members.find((it) => it.user.id === version.author_id)
+	$: gameVersions = formatVersions(version.game_versions.sort() || [])
+
+	$: publisher = $members.find((it) => it.user.id === version.author_id) || $members[0]
 </script>
 
 <Meta
 	title="{version.name || version.version_number} - {$project.title}"
-	description="Download {$project.title} {version.version_number} on Modrinth. Supports {gameVersions} {version.loaders
-		.map((it) => $t(`tags.${it}`))
-		.join(' & ')}. Published on {new Date(version.date_published).toLocaleDateString('en', {
+	description="Download {$project.title} {version.version_number} on Modrinth. Supports {gameVersions} {version.loaders &&
+		version.loaders.map((it) => $t(`tags.${it}`)).join(' & ')}. Published on {new Date(
+		version.date_published
+	).toLocaleDateString('en', {
 		year: 'numeric',
 		month: 'short',
 		day: 'numeric',
@@ -86,25 +81,39 @@
 	color={$color}
 	image={$project?.icon_url} />
 
-<h1 class="title">
-	{version.name || version.version_number}
+<span class="version-title">
+	<h1>
+		{version.name || version.version_number}
+	</h1>
+
 	{#if version.featured}
-		<div class="featured"><IconStar /> {$t('version.featured')}</div>
+		<span class="tag"><IconStar /> {$t('version.featured')}</span>
 	{:else if $featuredVersions.find((it) => it.id === version.id)}
-		<div class="featured"><IconStar /> {$t('version.autofeatured')}</div>
+		<span class="tag"><IconStar /> {$t('version.autofeatured')}</span>
 	{/if}
-</h1>
+</span>
 
 {#if $user}
 	<div class="button-group">
 		{#if $permissions.uploadVersions}
-			<Button color="raised"><IconStar /> {$t('generic.actions.feature')}</Button>
-			<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
+			<Button raised href="./{$page.params.version}/edit"><IconPencil /> Edit version</Button>
 		{:else}
-			<ModalReport type="version" id={version.id} buttonColor="raised" />
+			<ModalReport type="version" id={version.id} buttonRaised />
 		{/if}
 		{#if $permissions.deleteVersion}
-			<Button color="raised"><IconTrash /> {$t('generic.actions.delete')}</Button>
+			<Modal size="sm" title={$t('modal.deletion.version.title')}>
+				<svelte:fragment slot="trigger" let:trigger>
+					<Button on:click={trigger} color="danger-light" raised
+						><IconTrash /> {$t('generic.actions.delete')}</Button>
+				</svelte:fragment>
+
+				{$t('modal.deletion.version.description')}
+
+				<svelte:fragment slot="button" let:close>
+					<Button on:click={close} color="danger" raised
+						><IconTrash /> {$t('modal.deletion.version.action')}</Button>
+				</svelte:fragment>
+			</Modal>
 		{/if}
 	</div>
 {/if}
@@ -117,10 +126,10 @@
 				<a
 					class="file"
 					href={downloadUrl(file)}
-					class:file--primary={file.primary || version.files.length === 1}>
-					<IconFile />
-					<div class="file__name"><b>{file.filename}</b></div>
-					<div class="file__download">
+					class:file--primary={primaryFile.filename === file.filename}>
+					<div class="file__tab">
+						<IconFile />
+						<div class="file__tab__name"><b>{file.filename}</b></div>
 						<IconDownload />
 					</div>
 				</a>
@@ -136,23 +145,11 @@
 			</div>
 		{/if}
 
-		{#if versionDependencies.length > 0}
+		{#if version?.dependencies?.length}
 			<div class="card">
 				<h2 class="title-secondary">{$t('version.dependencies')}</h2>
-				{#each versionDependencies as dep}
-					{#if dep.version}
-						<a
-							class="dependency"
-							href="/{dep.project.project_type}/{dep.project.slug || dep.project.id}{dep.version
-								? `/version/${dep.version.version_number}`
-								: ''}">
-							<Avatar size="sm" src={dep?.project?.icon_url} />
-							<div class="dependency__info">
-								<b>{dep.project.title}</b>
-								<p>Version {dep.version.version_number} is {dep.dependency_type}</p>
-							</div>
-						</a>
-					{:else if dep.file_name}
+				{#each version.dependencies as dep}
+					{#if dep.file_name}
 						<div class="dependency">
 							<Avatar size="sm" src="" />
 							<div class="dependency__info">
@@ -160,6 +157,26 @@
 								<p>Added via overrides</p>
 							</div>
 						</div>
+					{:else}
+						{@const version = $dependencies.versions.find((it) => it.id === dep.version_id)}
+						{@const project = $dependencies.projects.find(
+							(it) => it.id === dep.project_id || version?.project_id === it.id
+						)}
+						<a
+							class="dependency"
+							href="/{project.project_type}/{project.slug || project.id}{version
+								? `/version/${version.version_number}`
+								: ''}">
+							<Avatar size="sm" src={project?.icon_url} />
+							<div class="dependency__info">
+								<b>{project.title}</b>
+								{#if version}
+									<p>Version {version.version_number} is {dep.dependency_type}</p>
+								{:else}
+									<p>{dep.dependency_type}</p>
+								{/if}
+							</div>
+						</a>
 					{/if}
 				{/each}
 			</div>
@@ -199,7 +216,7 @@
 			</div>
 			<div>
 				<b>{$t('version.publication_date')}</b><br />
-				{dateFormat.format(new Date(version.date_published))}
+				{dateFormat.format(new Date(version.date_published || 0))}
 			</div>
 			<div>
 				<b>{$t('version.publisher')}</b><br />
@@ -211,11 +228,21 @@
 					</div>
 				</a>
 			</div>
+			<div>
+				<b>Version ID</b><br />
+				<Code text={version.id} />
+			</div>
 		</div>
 	</div>
 </div>
 
 <style lang="postcss">
+	.version-title {
+		display: flex;
+		align-items: flex-end;
+		gap: 1rem;
+	}
+
 	.featured {
 		font-size: var(--font-size);
 		color: var(--color-text-lightest);
@@ -226,40 +253,17 @@
 		font-weight: var(--font-weight-medium);
 	}
 
-	.file {
-		display: flex;
-		align-items: center;
-		background-color: var(--color-bg);
-		padding: 0.75rem 1rem;
-		border-radius: var(--rounded);
-		gap: 0.5rem;
-		box-shadow: var(--shadow-inset);
-		flex-wrap: wrap;
-
-		&--primary {
-			background-color: var(--color-brand-light);
-		}
-
-		&__name {
-			max-width: calc(100% - 4rem);
-			@media (width <= 900px) {
-				word-break: break-all;
-			}
-		}
-
-		&__download {
-			margin-left: auto;
-			display: flex;
-			gap: 0.5rem;
-		}
-
-		&:hover {
-			filter: brightness(0.9);
-		}
-	}
-
 	.dependency {
 		display: flex;
 		gap: 1rem;
+		align-items: center;
+
+		&__info {
+			margin-right: auto;
+
+			p {
+				text-transform: capitalize;
+			}
+		}
 	}
 </style>

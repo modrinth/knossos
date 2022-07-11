@@ -58,7 +58,7 @@
 
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
-	import { Button, Avatar, Badge, NavRow } from 'omorphia'
+	import { Button, Avatar, Badge, NavRow, Code } from 'omorphia'
 	import { ago, Permissions, downloadUrl, getPrimary } from 'omorphia/utils'
 	import IconHeart from 'virtual:icons/heroicons-outline/heart'
 	import IconHeartSolid from 'virtual:icons/heroicons-solid/heart'
@@ -112,7 +112,7 @@
 		$permissions = new Permissions(0)
 	}
 
-	$: banner = $project.gallery.find((item) => item.featured)
+	$: banner = $project.gallery.find((item) => item.featured) || $project.gallery[0]
 
 	let externalResources = [
 		{
@@ -186,13 +186,13 @@
 		<div class="card">
 			<div class="card__overlay">
 				{#if $permissions.editDetails}
-					<Button color="raised"><IconPencil /> {$t('generic.actions.edit')}</Button>
+					<Button raised><IconPencil /> {$t('generic.actions.edit')}</Button>
 				{:else if $user}
-					<ModalReport type="project" id={$project.id} buttonColor="raised" />
+					<ModalReport type="project" id={$project.id} buttonRaised />
 				{/if}
 				{#if $user}
 					<Button
-						color="raised"
+						raised
 						on:click={async () => {
 							await send(isFollowed ? 'DELETE' : 'POST', `project/${$project.id}/follow`)
 							if (isFollowed) {
@@ -353,16 +353,16 @@
 					{$t(`generic.environments.values.${$project.server_side}`)}
 				</span>
 				<span class="info-table__label">
-					{$t('generic.labels.project_id')}
-				</span>
-				<span class="info-table__value">
-					{$project.id}
-				</span>
-				<span class="info-table__label">
 					{$t('generic.labels.project_status')}
 				</span>
 				<span class="info-table__value">
 					{$t(`status.${$project.status}`)}
+				</span>
+				<span class="info-table__label">
+					{$t('generic.labels.project_id')}
+				</span>
+				<span class="info-table__value">
+					<Code text={$project.id} />
 				</span>
 			</div>
 		</div>
@@ -418,7 +418,7 @@
 	.sidebar-list {
 		display: flex;
 		flex-direction: column;
-		margin-top: -0.5rem;
+		margin: -0.5rem 0;
 	}
 
 	.featured-version {

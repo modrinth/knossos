@@ -1,6 +1,10 @@
 {
 	"prettier.endOfLine": "lf",
 	"cSpell.words": [
+    "autosize",
+    "dragenter",
+    "dragleave",
+    "instanceof",
     "notif",
     "notifs",
     "onchange",

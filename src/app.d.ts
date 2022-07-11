@@ -21,5 +21,7 @@ declare namespace App {
 		acceptLanguage: string
 	}
 
-	// interface Stuff {}
+	interface Stuff {
+		versions: Version[]
+	}
 }

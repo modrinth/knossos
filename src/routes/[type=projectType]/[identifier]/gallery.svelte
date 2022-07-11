@@ -143,7 +143,7 @@
 							<IconPencil />
 							{$t('generic.actions.edit')}
 						</Button>
-						<Modal let:trigger size="sm">
+						<Modal let:trigger size="sm" title={$t('modal.deletion.image.title')}>
 							<Button on:click={trigger} slot="trigger">
 								<IconTrash />
 								{$t('generic.actions.delete')}
