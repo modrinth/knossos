@@ -26,7 +26,7 @@
         admin@modrinth.com.
       </p>
 
-      <h2 id="malicious-content">2. Malicious Content</h2>
+      <h2 id="malicious-content">1. Malicious Content</h2>
 
       <p>
         Content cannot contain or download malware, which we define as anything
@@ -43,7 +43,7 @@
         </li>
       </ul>
 
-      <h2 id="clear-and-honest-function">3. Clear and honest function</h2>
+      <h2 id="clear-and-honest-function">2. Clear and honest function</h2>
 
       <p>
         Content, especially projects, must make a clear and honest attempt to
@@ -57,7 +57,7 @@
         Modrinth.
       </p>
 
-      <h3 id="general-expectations">3.1. General expectations</h3>
+      <h3 id="general-expectations">2.1. General expectations</h3>
 
       <p>
         Projects in particular must attempt to describe the following three
@@ -83,7 +83,7 @@
         moderators' discretion.
       </p>
 
-      <h2 id="cheats-and-hacks">4. Cheats and Hacks</h2>
+      <h2 id="cheats-and-hacks">3. Cheats and Hacks</h2>
 
       <p>
         Projects cannot contain or download "cheats", which we define as a
@@ -114,7 +114,7 @@
       </ul>
 
       <h2 id="copyright-and-legality-of-content">
-        5. Copyright and legality of Content
+        4. Copyright and legality of Content
       </h2>
 
       <p>
@@ -141,7 +141,7 @@
         the United States and of the State of Delaware.
       </p>
 
-      <h2 id="prohibited-content">6. Prohibited Content</h2>
+      <h2 id="prohibited-content">5. Prohibited Content</h2>
 
       <p>
         Content on Modrinth is meant to be appropriate for audiences 13 years of
