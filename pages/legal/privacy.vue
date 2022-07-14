@@ -1,6 +1,6 @@
 <template>
-  <div className="main">
-    <div className="card">
+  <div class="main">
+    <div class="card">
       <h1>Privacy Policy</h1>
 
       <p>
@@ -90,14 +90,14 @@
       <p>
         For more general information on cookies, please read
         <a href="https://www.privacypolicies.com/blog/cookies/"
-        >"What Are Cookies"</a
+          >"What Are Cookies"</a
         >.
       </p>
 
       <h2>Privacy Policies</h2>
 
       <P
-      >You may consult this list to find the Privacy Policy for each of the
+        >You may consult this list to find the Privacy Policy for each of the
         advertising partners of Modrinth.</P
       >
 

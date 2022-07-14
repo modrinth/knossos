@@ -204,13 +204,4 @@ a {
   text-decoration: underline;
   color: var(--color-link);
 }
-
-.has-icon {
-  display: flex;
-  align-items: center;
-  height: 2em;
-  svg {
-    width: 1em;
-  }
-}
 </style>
