@@ -3,95 +3,139 @@
     <div class="card">
       <h1>Terms and Conditions</h1>
 
-      <h2>0. Boilerplate</h2>
+      <h2>1. Terms</h2>
 
       <p>
-        References in this document to "Modrinth", "we", "us", and "our" refer
-        to Rinth, Inc., a domestic corporation registered in the State of
-        Delaware. "Our website" refers to the website which you are browsing
-        right now, which can primarily be accessed through
-        <a href="https://modrinth.com">modrinth.com</a>.
-      </p>
-
-      <p>
-        Any claim related to Rinth, Inc. and our website shall be governed by
-        the laws of the United States and of the State of Delaware, without
-        regard to conflict of law.
-      </p>
-
-      <h2>1. About these Terms</h2>
-
-      <p>
-        By accessing our website, you are agreeing to be bound by these Terms
-        and Conditions as well as our
-        <nuxt-link to="/legal/privacy">Privacy Policy</nuxt-link>. You agree
-        that you are responsible for the agreement with regard to any applicable
+        By accessing this Website, accessible from https://modrinth.com, you are
+        agreeing to be bound by these Website Terms and Conditions of Use and
+        agree that you are responsible for the agreement with any applicable
         local laws. If you disagree with any of these terms, you are prohibited
-        from accessing this site. The materials contained in our website are
+        from accessing this site. The materials contained in this Website are
         protected by copyright and trade mark law.
       </p>
 
-      <h2>2. Disclaimer</h2>
+      <h2>2. Use License</h2>
 
       <p>
-        All the materials on our website are provided "as is". We make no
-        warranties, may it be expressed or implied, including but not limited to
-        the warranties of merchantability, fitness for a particular purpose, and
-        noninfringement. Furthermore, we do not make any guarantee concerning
-        the accuracy or reliability of the use of the materials on our website.
+        Permission is granted to temporarily download one copy of the materials
+        on Rinth, Inc.'s Website for personal, non-commercial transitory viewing
+        only. This is the grant of a license, not a transfer of title, and under
+        this license you may not:
       </p>
 
-      <h2>3. Limitations</h2>
+      <ul>
+        <li>modify or copy the materials;</li>
+        <li>
+          use the materials for any commercial purpose or for any public
+          display;
+        </li>
+        <li>
+          attempt to reverse engineer any software contained on Rinth, Inc.'s
+          Website;
+        </li>
+        <li>
+          remove any copyright or other proprietary notations from the
+          materials; or
+        </li>
+        <li>
+          transferring the materials to another person or "mirror" the materials
+          on any other server.
+        </li>
+      </ul>
 
       <p>
-        Rinth, Inc. and its suppliers will not be hold accountable for any
+        This will let Rinth, Inc. to terminate upon violations of any of these
+        restrictions. Upon termination, your viewing right will also be
+        terminated and you should destroy any downloaded materials in your
+        possession whether it is printed or electronic format.
+      </p>
+
+      <h2>3. Disclaimer</h2>
+
+      <p>
+        All the materials on Rinth, Inc.’s Website are provided "as is". Rinth,
+        Inc. makes no warranties, may it be expressed or implied, therefore
+        negates all other warranties. Furthermore, Rinth, Inc. does not make any
+        representations concerning the accuracy or reliability of the use of the
+        materials on its Website or otherwise relating to such materials or any
+        sites linked to this Website.
+      </p>
+
+      <h2>4. Limitations</h2>
+
+      <p>
+        Rinth, Inc. or its suppliers will not be hold accountable for any
         damages that will arise with the use or inability to use the materials
-        on our website, even if we or an authorized representative of ours has
-        been notified, orally or written, of the possibility of such damage.
-        Some jurisdictions do not allow limitations on implied warranties or
-        limitations of liability for incidental damages, so these limitations
-        may not apply to you.
+        on Rinth, Inc.’s Website, even if Rinth, Inc. or an authorize
+        representative of this Website has been notified, orally or written, of
+        the possibility of such damage. Some jurisdiction does not allow
+        limitations on implied warranties or limitations of liability for
+        incidental damages, these limitations may not apply to you.
       </p>
 
-      <h2>4. Revisions and errata</h2>
+      <h2>5. Revisions and Errata</h2>
 
       <p>
-        The materials appearing on our website may include technical,
-        typographical, or photographic errors. We do not promise that any of the
-        materials on our website are accurate, complete, or current. We may
-        change the materials contained on our website at any time without
-        notice, though we do not make any commitment to updating the materials.
+        The materials appearing on Rinth, Inc.’s Website may include technical,
+        typographical, or photographic errors. Rinth, Inc. will not promise that
+        any of the materials in this Website are accurate, complete, or current.
+        Rinth, Inc. may change the materials contained on its Website at any
+        time without notice. Rinth, Inc. does not make any commitment to update
+        the materials.
       </p>
 
-      <h2>5. External links</h2>
+      <h2>6. Links</h2>
 
       <p>
-        We have not reviewed all of the sites linked externally from our website
-        and we are not responsible for the contents of any such linked site. The
-        presence of a link does not imply our endorsement of the site. The use
-        of any linked website is at the user's own risk.
+        Rinth, Inc. has not reviewed all of the sites linked to its Website and
+        is not responsible for the contents of any such linked site. The
+        presence of any link does not imply endorsement by Rinth, Inc. of the
+        site. The use of any linked website is at the user’s own risk.
       </p>
 
-      <h2>6. Modifications of these Terms</h2>
+      <h2>7. Site Terms of Use Modifications</h2>
 
       <p>
-        We may revise these Terms and Conditions for our website at any time
+        Rinth, Inc. may revise these Terms of Use for its Website at any time
         without prior notice. By using this Website, you are agreeing to be
-        bound by the current version of these Terms and Conditions.
+        bound by the current version of these Terms and Conditions of Use.
       </p>
 
-      <h2>7. Content</h2>
+      <h2>8. Your Privacy</h2>
+
+      <p>
+        Please read our
+        <nuxt-link to="/legal/privacy"> Privacy Policy</nuxt-link>.
+      </p>
+
+      <h2>9. Governing Law</h2>
+
+      <p>
+        Any claim related to Rinth, Inc.'s Website shall be governed by the laws
+        of us without regards to its conflict of law provisions.
+      </p>
+
+      <h2>10. Content</h2>
 
       <p>
         When you upload text, software, mods, scripts, graphics, photos, audio,
         videos, links, interactive features and other materials that may be
-        viewed on or accessed through Modrinth, we refer to it as "Content".
+        viewed on, or accessed through Modrinth, we refer to it as “Content”.
       </p>
 
       <ul>
         <li>
+          You must own or have the necessary licenses, rights, consents, and
+          permissions to store, share or distribute the Content that is uploaded
+          under your Modrinth account.
+        </li>
+        <li>
           You are responsible for all activity and Content that is uploaded
           under your Modrinth account.
+        </li>
+        <li>
+          You must not transmit any viruses, worms, malware, or any other code
+          of a destructive nature through Modrinth.
         </li>
         <li>
           You retain all of your ownership rights to your Content. We do not
@@ -106,74 +150,11 @@
         </li>
       </ul>
 
-      <p>
-        All Content on Modrinth must obey the
-        <nuxt-link to="/legal/rules">Content Rules</nuxt-link>. Please be aware
-        of these Rules before uploading any Content to Modrinth.
-      </p>
-
-      <h2>8. License</h2>
+      <h2>11. Project Rules</h2>
 
       <p>
-        As a user of Modrinth, you have certain irrevocable rights regarding the
-        source code of Modrinth's website under the terms of the GNU Affero
-        General Public License. Please refer to the
-        <a href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
-          >license</a
-        >
-        governing Modrinth's code, which does not cover its branding, naming, or
-        trademarks.
-      </p>
-
-      <p>
-        For all purposes other than the source code, the use license in section
-        8.1 shall apply.
-      </p>
-
-      <p>
-        Content on our Website is uploaded by our users. Modrinth does not claim
-        any ownership over user-uploaded Content, nor do we provide any warranty
-        whatsoever regarding this Content. Thus, the owners of a relevant piece
-        of Content may provide their own use license for their Content. In
-        addition to but not as a replacement for that use license, the use
-        license in section 8.1 applies. No use license for Content on Modrinth
-        may take away permissions granted by our use license, but they may
-        provide additional permissions.
-      </p>
-
-      <h3>8.1. Use License</h3>
-
-      <p>
-        Permission is granted to temporarily download one copy of the materials
-        on our Website for personal, non-commercial transitory viewing only.
-        This is the grant of a license, and not a transfer of title. Under this
-        license you may not:
-      </p>
-
-      <ul>
-        <li>modify or copy the materials;</li>
-        <li>
-          use the materials for any commercial purpose or for any public
-          display;
-        </li>
-        <li>
-          attempt to reverse engineer any software downloaded from our Website;
-        </li>
-        <li>
-          remove any copyright or other proprietary notations from the
-          materials; or
-        </li>
-        <li>
-          transfer the materials to another person or "mirror" the materials on
-          any other server.
-        </li>
-      </ul>
-
-      <p>
-        We may terminate this Use License upon violations of any of these
-        restrictions. Upon termination, your viewing right will also be
-        terminated and you should destroy any downloaded materials in your
-        possession whether it is printed or electronic format.
+        Please read our
+        <nuxt-link to="/legal/rules">Project Rules</nuxt-link>.
       </p>
     </div>
   </div>
@@ -189,17 +170,17 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'The Terms and Conditions of Modrinth, an open source modding platform focused on Minecraft.',
+          'The Terms of Service of Modrinth, an open source modding platform. Modrinth currently supports Minecraft, including the forge and fabric mod loaders.',
       },
       {
         hid: 'apple-mobile-web-app-title',
         name: 'apple-mobile-web-app-title',
-        content: 'Terms and Conditions',
+        content: 'Terms of Service',
       },
       {
         hid: 'og:title',
         name: 'og:title',
-        content: 'Terms and Conditions',
+        content: 'Terms of Service',
       },
       {
         hid: 'og:url',

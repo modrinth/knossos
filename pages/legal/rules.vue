@@ -3,26 +3,8 @@
     <div class="card">
       <h1>Content Rules</h1>
 
-      <h2 id="boilerplate">0. Boilerplate</h2>
-
       <p>
-        References in this document to "Modrinth", "we", "us", and "our" refer
-        to Rinth, Inc., a domestic corporation registered in the State of
-        Delaware. "Our website" refers to the website which you are browsing
-        right now, which can primarily be accessed through
-        <a href="https://modrinth.com">modrinth.com</a>.
-      </p>
-
-      <p>
-        Any claim related to Rinth, Inc. and our website shall be governed by
-        the laws of the United States and of the State of Delaware, without
-        regard to conflict of law.
-      </p>
-
-      <h2 id="about-these-rules">1. About these Rules</h2>
-
-      <p>
-        In order to facilitate the our
+        In order to facilitate Modrinth's
         <nuxt-link to="/legal/terms">Terms and Conditions</nuxt-link>, all
         Content must obey the following Rules. For more information on what
         exactly Content is, please refer to the Content section of the Terms.
