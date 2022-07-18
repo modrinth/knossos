@@ -1,5 +1,5 @@
 <template>
-  <div class="page-contents">
+  <form class="page-contents">
     <header class="card">
       <div class="columns">
         <h3 class="column-grow-1">Edit project</h3>
@@ -152,6 +152,8 @@
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
+          title='3 to 64 characters of letters, numbers, and the following symbols: !@$()`.+,_"-'
+          pattern="[\w!@$()`.+,\x22-]{3,64}"
         />
       </label>
     </section>
@@ -438,7 +440,7 @@
         />
       </div>
     </section>
-  </div>
+  </form>
 </template>
 
 <script>

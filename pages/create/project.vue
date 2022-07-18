@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="page-contents">
+    <form class="page-contents">
       <header class="card">
         <div class="columns">
           <h3 class="column-grow-1">Create a project</h3>
@@ -142,6 +142,8 @@
             :class="{ 'known-error': slug === '' && showKnownErrors }"
             type="text"
             placeholder="Enter the vanity URL"
+            title='3 to 64 characters of letters, numbers, and the following symbols: !@$()`.+,_"-'
+            pattern="[\w!@$()`.+,\x22-]{3,64}"
           />
         </label>
       </section>
@@ -454,7 +456,10 @@
               />
             </label>
           </div>
-          <div class="dependencies">
+          <div
+            v-if="projectType.toLowerCase() !== 'modpack'"
+            class="dependencies"
+          >
             <h3>Dependencies</h3>
             <div class="dependency-selector">
               <ThisOrThat
@@ -1080,7 +1085,7 @@
           </label>
         </div>
       </section>
-    </div>
+    </form>
   </div>
 </template>
 

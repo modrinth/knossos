@@ -333,7 +333,8 @@
         v-if="
           version.dependencies.filter((x) => !x.file_name).length > 0 ||
           mode === 'edit' ||
-          mode === 'create'
+          (mode === 'create' &&
+            project.project_type.toLowerCase() !== 'modpack')
         "
       >
         <h3>Dependencies</h3>
