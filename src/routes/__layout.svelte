@@ -142,10 +142,6 @@
 </div>
 
 <style lang="postcss">
-	:global(body) {
-		overflow: hidden scroll;
-	}
-
 	.app {
 		width: 100%;
 		display: flex;

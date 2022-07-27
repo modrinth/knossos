@@ -93,7 +93,8 @@
 	import ModalReport from '$components/ModalReport.svelte'
 	import { simplify } from '$utils/number'
 	import { following } from '$stores/account'
-	import { goto } from '$app/navigation'
+	import { goto, prefetchRoutes } from '$app/navigation'
+	import { onMount } from 'svelte'
 
 	export let data
 	$project = data.project
@@ -179,6 +180,15 @@
 
 	let baseUrl: string
 	$: baseUrl = `/${$project.project_type}/${$project.slug || $project.id}`
+
+	onMount(async () => {
+		await prefetchRoutes([
+			baseUrl,
+			`${baseUrl}/versions`,
+			`${baseUrl}/changelog`,
+			`${baseUrl}/gallery`,
+		])
+	})
 </script>
 
 <div class="column-layout">

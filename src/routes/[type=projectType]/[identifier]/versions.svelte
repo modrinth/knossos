@@ -21,7 +21,7 @@
 
 	async function newVersion(file: File) {
 		try {
-			const inferredVersion = await inferVersion(file, $project.id)
+			const inferredVersion = await inferVersion(file, $project)
 			goto('./version/new/edit', {
 				state: {
 					inferredVersion,

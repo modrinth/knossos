@@ -5,7 +5,7 @@ export const theme: Handle = async ({ event, resolve }) => {
 	return await resolve(event, {
 		...(event.locals.theme
 			? {
-					transformPage: async ({ html }) =>
+					transformPageChunk: async ({ html }) =>
 						html.replace('<body class="base">', `<body class="base theme-${event.locals.theme}">`),
 			  }
 			: {}),

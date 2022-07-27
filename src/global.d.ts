@@ -4,6 +4,7 @@
 declare module '$assets/*'
 declare module '$locales'
 declare module '$assets/*.svg'
+declare module 'markty-toml'
 
 type schemas = import('$generated/openapi').components['schemas']
 type Project = schemas['Project']

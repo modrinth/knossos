@@ -315,96 +315,99 @@
 				</Field>
 			</div>
 
-			<div class="card">
-				<h2 class="title-secondary">{$t('version.dependencies')}</h2>
-				{#each version.dependencies as dep, index}
-					{@const versionData = dependencyData.versions.find((it) => it.id === dep.version_id)}
-					{@const projectData = dependencyData.projects.find(
-						(it) => it.id === dep.project_id || versionData?.project_id === it.id
-					)}
-					{#if projectData}
-						<div class="dependency">
-							<Avatar size="sm" src={projectData.icon_url} />
-							<div class="dependency__info">
-								{#if projectData}
-									<b>{projectData.title}</b>
-								{:else if dep.file_name}
-									<b>{dep.file_name}</b>
-								{/if}
-								{#if versionData}
-									<p>Version {versionData.version_number} is {dep.dependency_type}</p>
-								{:else if projectData}
-									<p>{dep.dependency_type}</p>
-								{:else}
-									<p>Added via overrides</p>
-								{/if}
+			<!-- Mod pack dependencies are auto-generated -->
+			{#if $project.project_type !== 'modpack'}
+				<div class="card">
+					<h2 class="title-secondary">{$t('version.dependencies')}</h2>
+					{#each version.dependencies as dep, index}
+						{@const versionData = dependencyData.versions.find((it) => it.id === dep.version_id)}
+						{@const projectData = dependencyData.projects.find(
+							(it) => it.id === dep.project_id || versionData?.project_id === it.id
+						)}
+						{#if projectData}
+							<div class="dependency">
+								<Avatar size="sm" src={projectData.icon_url} />
+								<div class="dependency__info">
+									{#if projectData}
+										<b>{projectData.title}</b>
+									{:else if dep.file_name}
+										<b>{dep.file_name}</b>
+									{/if}
+									{#if versionData}
+										<p>Version {versionData.version_number} is {dep.dependency_type}</p>
+									{:else if projectData}
+										<p>{dep.dependency_type}</p>
+									{:else}
+										<p>Added via overrides</p>
+									{/if}
+								</div>
+								<Button
+									on:click={() => {
+										version.dependencies = version.dependencies.filter((it) =>
+											dep.project_id
+												? it.project_id !== dep.project_id
+												: it.version_id !== dep.version_id
+										)
+									}}>
+									<IconTrash />
+									{$t('generic.actions.remove')}
+								</Button>
 							</div>
-							<Button
-								on:click={() => {
-									version.dependencies = version.dependencies.filter((it) =>
-										dep.project_id
-											? it.project_id !== dep.project_id
-											: it.version_id !== dep.version_id
-									)
-								}}>
-								<IconTrash />
-								{$t('generic.actions.remove')}
-							</Button>
-						</div>
-					{:else if dep.file_name}
-						<div class="dependency">
-							<Avatar size="sm" src="" />
-							<div class="dependency__info" />
-						</div>
-					{/if}
-				{/each}
-				<hr class="divider" />
-				<h3 class="title-tertiary">Add dependency</h3>
-				<div class="button-group">
-					<Select
-						options={[
-							{
-								label: 'Project',
-								value: 'project',
-							},
-							{
-								label: 'Version',
-								value: 'version',
-							},
-						]}
-						bind:value={newDependency.target} />
-					<TextInput
-						bind:value={newDependency.identifier}
-						placeholder="Enter {newDependency.target} {newDependency.target === 'project'
-							? 'slug/ID'
-							: 'ID'}..."
-						fill />
-					<Select
-						options={[
-							{
-								label: 'Required',
-								value: 'required',
-							},
-							{
-								label: 'Optional',
-								value: 'optional',
-							},
-							{
-								label: 'Incompatible',
-								value: 'incompatible',
-							},
-							{
-								label: 'Embedded',
-								value: 'embedded',
-							},
-						]}
-						bind:value={newDependency.type} />
+						{:else if dep.file_name}
+							<div class="dependency">
+								<Avatar size="sm" src="" />
+								<div class="dependency__info" />
+							</div>
+						{/if}
+					{/each}
+					<hr class="divider" />
+					<h3 class="title-tertiary">Add dependency</h3>
+					<div class="button-group">
+						<Select
+							options={[
+								{
+									label: 'Project',
+									value: 'project',
+								},
+								{
+									label: 'Version',
+									value: 'version',
+								},
+							]}
+							bind:value={newDependency.target} />
+						<TextInput
+							bind:value={newDependency.identifier}
+							placeholder="Enter {newDependency.target} {newDependency.target === 'project'
+								? 'slug/ID'
+								: 'ID'}..."
+							fill />
+						<Select
+							options={[
+								{
+									label: 'Required',
+									value: 'required',
+								},
+								{
+									label: 'Optional',
+									value: 'optional',
+								},
+								{
+									label: 'Incompatible',
+									value: 'incompatible',
+								},
+								{
+									label: 'Embedded',
+									value: 'embedded',
+								},
+							]}
+							bind:value={newDependency.type} />
+					</div>
+					<div class="button-group">
+						<Button color="primary" on:click={() => addDependency()}
+							><IconPlus /> Add dependency</Button>
+					</div>
 				</div>
-				<div class="button-group">
-					<Button color="primary" on:click={() => addDependency()}
-						><IconPlus /> Add dependency</Button>
-				</div>
-			</div>
+			{/if}
 		</div>
 
 		<div class="grid__col">

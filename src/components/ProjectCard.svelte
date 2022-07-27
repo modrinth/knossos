@@ -24,15 +24,15 @@
 
 <div class="card project-card">
 	<div class="project-card__main">
-		<a {href} tabindex="-1">
+		<a {href} tabindex="-1" sveltekit:prefetch>
 			<Avatar src={project.icon_url} size="md" />
 		</a>
 
 		<div class="project-card__main__info">
 			<span
-				><a class="title-primary" {href}>{project.title}</a>
+				><a class="title-primary" {href} sveltekit:prefetch>{project.title}</a>
 				{#if author}
-					<a href="/user/{author}" class="project-card__main__info__author"
+					<a href="/user/{author}" class="project-card__main__info__author" sveltekit:prefetch
 						>{@html $t('generic.byline', { values: { author } })}</a>
 				{/if}
 			</span>

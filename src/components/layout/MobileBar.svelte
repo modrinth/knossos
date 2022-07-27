@@ -32,7 +32,7 @@
 			style:--color-brand={$page.url.pathname === '/' ? '' : 'var(--color-text-lightest)'}>
 			<LogoIcon />
 		</a>
-		<NavRow level={0} links={navItems} resetScroll />
+		<NavRow level={0} links={navItems} />
 		{#if showMenu}
 			<button class="mobile-bar__nav__item" on:click={() => (showMenu = false)}>
 				<IconX />

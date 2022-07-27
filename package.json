@@ -1,9 +1,9 @@
 {
 	"name": "knossos",
 	"scripts": {
-		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
-		"preview": "svelte-kit preview",
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
 		"prepare": "svelte-kit sync",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -19,8 +19,8 @@
 		"@iconify-json/lucide": "^1.1.36",
 		"@iconify-json/simple-icons": "^1.0.18",
 		"@playwright/test": "^1.22.2",
-		"@sveltejs/adapter-cloudflare": "1.0.0-next.25",
-		"@sveltejs/kit": "1.0.0-next.350",
+		"@sveltejs/adapter-cloudflare": "1.0.0-next.31",
+		"@sveltejs/kit": "1.0.0-next.394",
 		"@types/cookie": "^0.4.1",
 		"@types/marked": "^4.0.1",
 		"@types/nprogress": "^0.2.0",
@@ -40,7 +40,8 @@
 		"throttle-debounce": "^3.0.1",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
-		"unplugin-icons": "^0.14.3"
+		"unplugin-icons": "^0.14.3",
+		"vite": "^3.0.3"
 	},
 	"type": "module",
 	"dependencies": {
@@ -48,7 +49,7 @@
 		"highlight.js": "^11.5.1",
 		"insane": "^2.6.2",
 		"markty-toml": "^0.1.1",
-		"omorphia": "^0.0.59",
+		"omorphia": "^0.0.63",
 		"svelte-autosize": "^1.0.1",
 		"svelte-intl-precompile": "^0.11.1",
 		"wrangler": "^2.0.17"

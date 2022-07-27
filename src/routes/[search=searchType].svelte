@@ -120,10 +120,13 @@
 			searchParams.e !== previousParams.e ||
 			searchParams.i !== previousParams.i
 		) {
+			// Go back to first page if filters/query changed
 			searchParams.o = ''
 			replaceStateWithQuery(searchParams)
 			runSearch()
 		} else if (searchParams.o !== previousParams.o) {
+			// Page change
+			window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 			replaceStateWithQuery(searchParams)
 			runSearch()
 		} else {
