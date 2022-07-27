@@ -19,7 +19,7 @@
 		"@iconify-json/lucide": "^1.1.36",
 		"@iconify-json/simple-icons": "^1.0.18",
 		"@playwright/test": "^1.22.2",
-		"@sveltejs/adapter-cloudflare": "1.0.0-next.31",
+		"@sveltejs/adapter-cloudflare": "1.0.0-next.30",
 		"@sveltejs/kit": "1.0.0-next.394",
 		"@types/cookie": "^0.4.1",
 		"@types/marked": "^4.0.1",
@@ -41,7 +41,8 @@
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
 		"unplugin-icons": "^0.14.3",
-		"vite": "^3.0.3"
+		"vite": "^3.0.3",
+		"wrangler": "^2.0.23"
 	},
 	"type": "module",
 	"dependencies": {
@@ -51,7 +52,6 @@
 		"markty-toml": "^0.1.1",
 		"omorphia": "^0.0.63",
 		"svelte-autosize": "^1.0.1",
-		"svelte-intl-precompile": "^0.11.1",
-		"wrangler": "^2.0.17"
+		"svelte-intl-precompile": "^0.11.1"
 	}
 }
