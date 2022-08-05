@@ -19,6 +19,12 @@
               <NuxtLink to="/mods" class="tab">
                 <span>Mods</span>
               </NuxtLink>
+              <NuxtLink to="/plugins" class="tab">
+                <span>Plugins</span>
+              </NuxtLink>
+              <NuxtLink to="/resourcepacks" class="tab">
+                <span>Resource Packs</span>
+              </NuxtLink>
               <NuxtLink to="/modpacks" class="tab tab--alpha">
                 <span>Modpacks</span>
               </NuxtLink>
