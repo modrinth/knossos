@@ -33,7 +33,8 @@ export default {
         .filter(
           (x) =>
             this.categories.includes(x.name) &&
-            (!x.project_type || x.project_type === this.type)
+            (!x.project_type || x.project_type === this.type) &&
+            x.name !== 'minecraft'
         )
     },
   },

@@ -209,8 +209,8 @@
               color="red"
             />
           </div>
-          <div class="data">
-            <p class="title">Mod loaders</p>
+          <div v-if="project.project_type !== 'resourcepack'" class="data">
+            <p class="title">Loaders</p>
             <multiselect
               v-if="mode === 'edit' || mode === 'create'"
               v-model="version.loaders"
@@ -238,7 +238,7 @@
               :show-labels="false"
               :limit="6"
               :hide-selected="true"
-              placeholder="Choose mod loaders..."
+              placeholder="Choose loaders..."
             />
             <p v-else class="value">
               {{
@@ -920,6 +920,10 @@ export default {
       const formData = new FormData()
 
       const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
+
+      if (this.project.project_type === 'resourcepack') {
+        this.version.loaders = ['minecraft']
+      }
 
       const newVersion = {
         project_id: this.version.project_id,

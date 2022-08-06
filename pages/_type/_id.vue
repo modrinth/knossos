@@ -34,40 +34,43 @@
         >
           <h1 class="title">{{ project.title }}</h1>
         </nuxt-link>
-        <div
-          v-if="
-            project.client_side === 'optional' &&
-            project.server_side === 'optional'
-          "
-          class="side-descriptor"
-        >
-          <InfoIcon aria-hidden="true" />
-          Universal {{ project.project_type }}
+        <div v-if="project.project_type !== 'resourcepack'">
+          <div
+            v-if="
+              project.client_side === 'optional' &&
+              project.server_side === 'optional'
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon aria-hidden="true" />
+            Universal {{ project.project_type }}
+          </div>
+          <div
+            v-else-if="
+              (project.client_side === 'optional' ||
+                project.client_side === 'required') &&
+              (project.server_side === 'optional' ||
+                project.server_side === 'unsupported')
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon aria-hidden="true" />
+            Client {{ project.project_type }}
+          </div>
+          <div
+            v-else-if="
+              (project.server_side === 'optional' ||
+                project.server_side === 'required') &&
+              (project.client_side === 'optional' ||
+                project.client_side === 'unsupported')
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon aria-hidden="true" />
+            Server {{ project.project_type }}
+          </div>
         </div>
-        <div
-          v-else-if="
-            (project.client_side === 'optional' ||
-              project.client_side === 'required') &&
-            (project.server_side === 'optional' ||
-              project.server_side === 'unsupported')
-          "
-          class="side-descriptor"
-        >
-          <InfoIcon aria-hidden="true" />
-          Client {{ project.project_type }}
-        </div>
-        <div
-          v-else-if="
-            (project.server_side === 'optional' ||
-              project.server_side === 'required') &&
-            (project.client_side === 'optional' ||
-              project.client_side === 'unsupported')
-          "
-          class="side-descriptor"
-        >
-          <InfoIcon aria-hidden="true" />
-          Server {{ project.project_type }}
-        </div>
+
         <p class="description">
           {{ project.description }}
         </p>
@@ -455,13 +458,13 @@
               }}</a>
             </div>
           </div>
-          <div class="info">
+          <div v-if="project.project_type !== 'resourcepack'" class="info">
             <div class="key">Client side</div>
             <div class="value">
               {{ project.client_side }}
             </div>
           </div>
-          <div class="info">
+          <div v-if="project.project_type !== 'resourcepack'" class="info">
             <div class="key">Server side</div>
             <div class="value">
               {{ project.server_side }}
@@ -647,7 +650,7 @@ export default {
     Categories,
   },
   async asyncData(data) {
-    const projectTypes = ['mod', 'modpack']
+    const projectTypes = ['mod', 'modpack', 'resourcepack']
 
     try {
       if (

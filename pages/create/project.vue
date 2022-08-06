@@ -65,7 +65,7 @@
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
-            @input="setCategories"
+            @input="setCategories(true)"
           />
         </label>
         <label>
@@ -123,7 +123,7 @@
             :limit="6"
             :hide-selected="true"
             placeholder="Choose categories"
-            @input="setCategories"
+            @input="setCategories(false)"
           />
         </label>
         <label>
@@ -153,7 +153,7 @@
             :limit="6"
             :hide-selected="true"
             placeholder="Choose additional categories"
-            @input="setCategories"
+            @input="setCategories(false)"
           />
         </label>
         <label>
@@ -203,7 +203,13 @@
           Reset
         </button>
       </section>
-      <section class="card game-sides">
+      <section
+        v-if="
+          projectType.realId !== 'resourcepack' &&
+          projectType.realId !== 'plugin'
+        "
+        class="card game-sides"
+      >
         <div class="columns">
           <div class="column">
             <h3>Supported environments</h3>
@@ -347,7 +353,7 @@
                 Your version must have a unique version number.
               </li>
               <li v-if="versions[currentVersionIndex].loaders.length < 1">
-                Your version must have the supported mod loaders selected.
+                Your version must have the supported loaders selected.
               </li>
               <li v-if="versions[currentVersionIndex].game_versions.length < 1">
                 Your version must have the supported Minecraft versions
@@ -416,10 +422,10 @@
                 :allow-empty="false"
               />
             </label>
-            <label>
+            <label v-if="projectType.realId !== 'resourcepack'">
               <span>
-                <h3>Mod loaders<span class="required">*</span></h3>
-                <span> Select all mod loaders this version supports. </span>
+                <h3>Loaders<span class="required">*</span></h3>
+                <span> Select all loaders this version supports. </span>
               </span>
               <multiselect
                 v-model="versions[currentVersionIndex].loaders"
@@ -430,9 +436,15 @@
                 }"
                 :options="
                   $tag.loaders
-                    .filter((x) =>
-                      x.supported_project_types.includes(projectType.id)
-                    )
+                    .filter((x) => {
+                      if (projectType.realId === 'plugin') {
+                        return $tag.loaderData.allPluginLoaders.includes(x.name)
+                      } else if (projectType.realId === 'mod') {
+                        return $tag.loaderData.modLoaders.includes(x.name)
+                      }
+
+                      return x.supported_project_types.includes(projectType.id)
+                    })
                     .map((it) => it.name)
                 "
                 :custom-label="
@@ -450,7 +462,7 @@
                 :show-labels="false"
                 :limit="6"
                 :hide-selected="true"
-                placeholder="Choose mod loaders..."
+                placeholder="Choose loaders..."
               />
             </label>
             <label>
@@ -574,7 +586,7 @@
             <h3>Files<span class="required">*</span></h3>
             <span>
               You may upload multiple files, but this should only be used for
-              cases like sources or Javadocs.
+              cases like sources or Javadocs for mods/plugins.
             </span>
             <p v-if="projectType.id === 'modpack'" aria-label="Warning">
               Modpack support is currently in alpha, and you may encounter
@@ -685,7 +697,7 @@
             >
               <th>Name</th>
               <th>Version</th>
-              <th>Mod loaders</th>
+              <th>Project loaders</th>
               <th>Minecraft versions</th>
               <th>Release channel</th>
               <th>Actions</th>
@@ -1175,21 +1187,35 @@ export default {
 
       projectTypes: [
         {
-          display: 'Mod / Plugin',
+          display: 'Mod',
           id: 'mod',
+          realId: 'mod',
+        },
+        {
+          display: 'Plugin',
+          id: 'mod',
+          realId: 'plugin',
+        },
+        {
+          display: 'Mod + Plugin',
+          id: 'mod',
+          realId: 'mod+plugin',
         },
         {
           display: 'Modpack',
           id: 'modpack',
+          realId: 'modpack',
         },
         {
           display: 'Resource Pack',
           id: 'resourcepack',
+          realId: 'resourcepack',
         },
       ],
       projectType: {
-        display: 'Mod / Plugin',
+        display: 'Mod',
         id: 'mod',
+        realId: 'mod',
       },
 
       sideTypes: ['Required', 'Optional', 'Unsupported'],
@@ -1246,7 +1272,7 @@ export default {
     })
   },
   methods: {
-    setCategories() {
+    setCategories(reset) {
       this.selectableCategories = this.$tag.categories
         .filter(
           (x) =>
@@ -1262,6 +1288,11 @@ export default {
             !this.categories.includes(x.name)
         )
         .map((it) => it.name)
+
+      if (reset) {
+        this.categories = []
+        this.additional_categories = []
+      }
     },
     checkFields() {
       const reviewConditions = this.body !== '' && this.versions.length > 0
@@ -1315,6 +1346,18 @@ export default {
       }
 
       const formData = new FormData()
+
+      if (this.projectType.realId === 'resourcepack') {
+        this.clientSideType = 'required'
+        this.serverSideType = 'optional'
+
+        for (let i = 0; i < this.versions.length; i++) {
+          this.versions.loaders = ['minecraft']
+        }
+      } else if (this.projectType.realId === 'plugin') {
+        this.clientSideType = 'unsupported'
+        this.serverSideType = 'required'
+      }
 
       formData.append(
         'data',

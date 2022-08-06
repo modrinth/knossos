@@ -28,7 +28,7 @@
               </nuxt-link>
             </p>
           </div>
-          <div class="side-type">
+          <div v-if="type !== 'resourcepack'" class="side-type">
             <div
               v-if="clientSide === 'optional' && serverSide === 'optional'"
               class="side-descriptor"

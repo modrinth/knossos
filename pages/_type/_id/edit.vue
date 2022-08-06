@@ -167,7 +167,7 @@
         <span>
           <h3>Vanity URL (slug)<span class="required">*</span></h3>
           <span class="slug-description"
-            >https://modrinth.com/{{ newProject.project_type.toLowerCase() }}/{{
+            >https://modrinth.com/{{ project.project_type.toLowerCase() }}/{{
               newProject.slug ? newProject.slug : 'your-slug'
             }}
           </span>
@@ -218,7 +218,10 @@
         Reset
       </button>
     </section>
-    <section class="card game-sides">
+    <section
+      v-if="project.project_type !== 'resourcepack'"
+      class="card game-sides"
+    >
       <div class="columns">
         <div>
           <h3>Supported environments</h3>
@@ -622,7 +625,7 @@ export default {
       this.selectableCategories = this.$tag.categories
         .filter(
           (x) =>
-            x.project_type === this.projectType.id &&
+            x.project_type === this.project.project_type &&
             !this.additional_categories.includes(x.name)
         )
         .map((it) => it.name)
@@ -630,7 +633,7 @@ export default {
       this.selectableAdditionalCategories = this.$tag.categories
         .filter(
           (x) =>
-            x.project_type === this.projectType.id &&
+            x.project_type === this.project.project_type &&
             !this.categories.includes(x.name)
         )
         .map((it) => it.name)

@@ -84,8 +84,13 @@
                 ) {
                   return false
                 }
+
+                if (projectType === 'mod' && showAllLoaders) {
+                  return $tag.loaderData.modLoaders.includes(x.name)
+                }
+
                 return isPlugins
-                  ? pluginLoaders.includes(x.name)
+                  ? $tag.loaderData.pluginLoaders.includes(x.name)
                   : x.supported_project_types.includes(projectType)
               })"
               :key="loader.name"
@@ -120,7 +125,7 @@
             </h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) =>
-                pluginPlatformLoaders.includes(x.name)
+                $tag.loaderData.pluginPlatformLoaders.includes(x.name)
               )"
               :key="loader.name"
               :active-filters="orFacets"
@@ -390,17 +395,6 @@ export default {
       showAllLoaders: false,
 
       skipLink: '#search-results',
-
-      pluginLoaders: ['bukkit', 'spigot', 'paper', 'purpur', 'sponge'],
-      pluginPlatformLoaders: ['bungeecord', 'waterfall', 'velocity'],
-      modLoaders: [
-        'forge',
-        'fabric',
-        'quilt',
-        'liteloader',
-        'modloader',
-        'rift',
-      ],
     }
   },
   async fetch() {
@@ -454,6 +448,7 @@ export default {
       this.$route.name.length - 1
     )
 
+    console.log(this.$tag.loaderData)
     if (this.projectType === 'plugin') {
       this.projectType = 'mod'
       this.isPlugins = true
@@ -600,13 +595,17 @@ export default {
             formattedFacets.push(this.orFacets)
           } else if (this.isPlugins) {
             formattedFacets.push(
-              this.pluginLoaders.map((x) => `categories:${x}`)
+              this.$tag.loaderData.pluginLoaders.map((x) => `categories:${x}`)
             )
             formattedFacets.push(
-              this.pluginPlatformLoaders.map((x) => `categories:${x}`)
+              this.$tag.loaderData.pluginPlatformLoaders.map(
+                (x) => `categories:${x}`
+              )
             )
           } else if (this.projectType === 'mod') {
-            formattedFacets.push(this.modLoaders.map((x) => `categories:${x}`))
+            formattedFacets.push(
+              this.$tag.loaderData.modLoaders.map((x) => `categories:${x}`)
+            )
           }
 
           if (this.selectedVersions.length > 0) {
