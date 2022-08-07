@@ -147,6 +147,8 @@ export const formatCategory = (name) => {
     return '8x or lower'
   } else if (name === '512x+') {
     return '512x or higher'
+  } else if (name === 'kitchen-sink') {
+    return 'Kitchen sink'
   }
   return name.charAt(0).toUpperCase() + name.slice(1)
 }
