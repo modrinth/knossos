@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div ref="layout" class="layout">
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
@@ -168,34 +168,47 @@
           </section>
         </section>
       </section>
-      <section class="mobile-navbar">
-        <NuxtLink to="/" class="tab">
-          <HomeIcon />
-          <span>Home</span>
-        </NuxtLink>
-        <NuxtLink to="/mods" class="tab">
-          <ModIcon />
-          <span>Mods</span>
-        </NuxtLink>
+      <section ref="mobileNavBar" class="mobile-navbar">
+        <div class="top-row">
+          <NuxtLink to="/" class="tab" @click.native="closeBrowseMenu()">
+            <HomeIcon />
+          </NuxtLink>
+          <div class="spacer"></div>
+          <button class="tab browse" @click="toggleBrowseMenu()">
+            <DropdownIcon :class="{ closed: !isBrowseMenuOpen }" />
+            <span>Browse</span>
+          </button>
+          <div class="spacer"></div>
+          <button class="tab" @click="toggleMobileMenu()">
+            <HamburgerIcon v-if="!isMobileMenuOpen" />
+            <CrossIcon v-else />
+          </button>
+        </div>
+        <div v-if="isBrowseMenuOpen" class="project-types">
+          <NuxtLink to="/mods" class="tab" @click.native="closeBrowseMenu()">
+            <span>Mods</span>
+          </NuxtLink>
 
-        <NuxtLink to="/plugins" class="tab">
-          <ModpackIcon />
-          <span>Plugins</span>
-        </NuxtLink>
+          <NuxtLink to="/plugins" class="tab" @click.native="closeBrowseMenu()">
+            <span>Plugins</span>
+          </NuxtLink>
 
-        <NuxtLink to="/resourcepacks" class="tab">
-          <ModpackIcon />
-          <span>Resource Packs</span>
-        </NuxtLink>
+          <NuxtLink
+            to="/resourcepacks"
+            class="tab"
+            @click.native="closeBrowseMenu()"
+          >
+            <span>Resource Packs</span>
+          </NuxtLink>
 
-        <NuxtLink to="/modpacks" class="tab">
-          <ModpackIcon />
-          <span>Modpacks</span>
-        </NuxtLink>
-        <button class="tab" @click="toggleMobileMenu()">
-          <HamburgerIcon />
-          <span>{{ isMobileMenuOpen ? 'Less' : 'More' }}</span>
-        </button>
+          <NuxtLink
+            to="/modpacks"
+            class="tab"
+            @click.native="closeBrowseMenu()"
+          >
+            <span>Modpacks</span>
+          </NuxtLink>
+        </div>
       </section>
       <section ref="mobileMenu" class="mobile-menu">
         <div class="mobile-menu-wrapper">
@@ -329,14 +342,15 @@ import ClickOutside from 'vue-click-outside'
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
 
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
-import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
-import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
+// import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
+// import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
@@ -360,8 +374,7 @@ export default {
     GitHubIcon,
     NotificationIcon,
     HomeIcon,
-    ModIcon,
-    ModpackIcon,
+    CrossIcon,
     HamburgerIcon,
     CookieConsent,
     SettingsIcon,
@@ -382,6 +395,7 @@ export default {
       branch: process.env.branch || 'master',
       hash: process.env.hash || 'unknown',
       isMobileMenuOpen: false,
+      isBrowseMenuOpen: false,
       registeredSkipLink: null,
       moderationNotifications: 0,
     }
@@ -446,6 +460,37 @@ export default {
         document.body.style.overflowY !== 'hidden' ? 'hidden' : overflowStyle
 
       this.isMobileMenuOpen = !currentlyActive
+
+      if (this.isMobileMenuOpen) {
+        this.$refs.mobileNavBar.className = `mobile-navbar`
+        this.$refs.layout.className = `layout`
+
+        this.isBrowseMenuOpen = false
+      }
+    },
+    toggleBrowseMenu() {
+      const currentlyActive =
+        this.$refs.mobileNavBar.className === 'mobile-navbar expanded'
+      this.$refs.mobileNavBar.className = `mobile-navbar${
+        currentlyActive ? '' : ' expanded'
+      }`
+      this.$refs.layout.className = `layout${
+        currentlyActive ? '' : ' expanded-mobile-nav'
+      }`
+
+      this.isBrowseMenuOpen = !currentlyActive
+
+      if (this.isBrowseMenuOpen) {
+        this.$refs.mobileMenu.className = `mobile-menu`
+
+        this.isMobileMenuOpen = false
+      }
+    },
+    closeBrowseMenu() {
+      this.$refs.mobileNavBar.className = `mobile-navbar`
+      this.$refs.layout.className = `layout`
+
+      this.isBrowseMenuOpen = false
     },
     async logout() {
       this.$cookies.set('auth-token-reset', true)
@@ -836,6 +881,7 @@ export default {
     .mobile-navbar {
       display: none;
       width: 100%;
+      transition: height 0.25s ease-in-out;
       height: var(--size-mobile-navbar-height);
       position: fixed;
       left: 0;
@@ -843,21 +889,21 @@ export default {
       background-color: var(--color-raised-bg);
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
       z-index: 6;
+      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+      flex-direction: column;
 
       overflow-x: auto;
-      column-gap: 2rem;
 
       .tab {
         background: none;
         display: flex;
-        flex-grow: 1;
         flex-basis: 0;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        flex-direction: row;
+        gap: 0.25rem;
         font-weight: bold;
         padding: 0;
-        margin: auto;
         transition: color ease-in-out 0.15s;
         color: var(--color-text-inactive);
         text-align: center;
@@ -865,7 +911,6 @@ export default {
         svg {
           height: 1.75rem;
           width: 1.75rem;
-          margin-bottom: 0.25rem;
         }
 
         &:hover,
@@ -880,18 +925,66 @@ export default {
 
           color: var(--color-text);
         }
+      }
 
-        &:first-child {
-          margin-left: 2rem;
+      .top-row {
+        height: var(--size-mobile-navbar-height);
+        display: flex;
+        width: 100%;
+
+        .browse {
+          flex-grow: 10;
+
+          svg {
+            transition: transform 0.125s ease-in-out;
+
+            &.closed {
+              transform: rotate(180deg);
+            }
+          }
         }
 
-        &:last-child {
-          margin-right: 2rem;
+        .tab {
+          &:first-child {
+            margin-left: 2rem;
+          }
+
+          &:last-child {
+            margin-right: 2rem;
+          }
+        }
+
+        .spacer {
+          flex-grow: 1;
+        }
+      }
+
+      .project-types {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        .tab {
+          flex: 0 0 fit-content;
+          background-color: var(--color-button-bg);
+          padding: 0.5rem 1.25rem;
+          border-radius: var(--size-rounded-max);
+
+          &.nuxt-link-exact-active {
+            background-color: var(--color-brand);
+            color: var(--color-brand-inverted);
+          }
         }
       }
 
       @media screen and (max-width: 750px) {
         display: flex;
+      }
+
+      &.expanded {
+        height: var(--size-mobile-navbar-height-expanded);
       }
     }
   }
@@ -901,12 +994,13 @@ export default {
     position: absolute;
     top: 0;
     background-color: var(--color-bg);
-    height: calc(100% - var(--size-mobile-navbar-height));
+    height: 100%;
     width: 100%;
     z-index: 5;
 
     .mobile-menu-wrapper {
       max-height: calc(100vh - var(--size-mobile-navbar-height));
+      margin-bottom: var(--size-mobile-navbar-height);
       overflow-y: auto;
       margin-top: auto;
 
@@ -930,6 +1024,7 @@ export default {
 
           &.nuxt-link-exact-active {
             color: var(--color-button-text-active);
+
             svg {
               color: var(--color-brand);
             }
