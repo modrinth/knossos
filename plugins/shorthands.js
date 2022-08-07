@@ -105,6 +105,7 @@ export default ({ store }, inject) => {
   inject('formatBytes', formatBytes)
   inject('formatCategory', formatCategory)
   inject('formatCategoryHeader', formatCategoryHeader)
+  inject('formatUserName', formatUserName)
 }
 
 export const formatNumber = (number) => {
@@ -155,4 +156,11 @@ export const formatCategory = (name) => {
 
 export const formatCategoryHeader = (name) => {
   return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
+export const formatUserName = (user) => {
+  if (user.name) {
+    return user.name
+  }
+  return user.username
 }

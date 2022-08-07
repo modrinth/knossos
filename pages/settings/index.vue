@@ -55,6 +55,18 @@
         </label>
         <label>
           <span>
+            <h3>Display name</h3>
+            <span>This is shown in most places instead of your username.</span>
+          </span>
+
+          <input
+            v-model="name"
+            type="text"
+            placeholder="Enter your display name"
+          />
+        </label>
+        <label>
+          <span>
             <h3>Email (optional)</h3>
             <span>This is kept private.</span>
           </span>
@@ -146,6 +158,7 @@ export default {
       username: ctx.$auth.user.username,
       email: ctx.$auth.user.email,
       bio: ctx.$auth.user.bio,
+      name: ctx.$auth.user.name,
     }
   },
   data() {
@@ -227,6 +240,7 @@ export default {
         const data = {
           email: this.email,
           bio: this.bio,
+          name: this.name,
         }
 
         if (this.username !== this.$auth.user.username) {

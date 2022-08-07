@@ -95,7 +95,9 @@
                       @click="removeFocus"
                     >
                       <div class="title profile-link">
-                        <div class="username">@{{ $auth.user.username }}</div>
+                        <div class="username">
+                          {{ $formatUserName($auth.user) }}
+                        </div>
                         <div class="prompt">Go to my profile</div>
                       </div>
                     </NuxtLink>
@@ -220,7 +222,7 @@
             >
               <img :src="$auth.user.avatar_url" class="user-icon" />
               <div class="profile-link">
-                <div class="username">@{{ $auth.user.username }}</div>
+                <div class="username">{{ $formatUserName($auth.user) }}</div>
                 <div class="prompt">Go to my profile</div>
               </div>
             </NuxtLink>

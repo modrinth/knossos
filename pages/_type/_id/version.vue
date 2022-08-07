@@ -302,8 +302,9 @@
                       .username
                   "
                   >{{
-                    members.find((x) => x.user.id === version.author_id).user
-                      .username
+                    $formatUserName(
+                      members.find((x) => x.user.id === version.author_id).user
+                    )
                   }}</nuxt-link
                 >
               </span>
