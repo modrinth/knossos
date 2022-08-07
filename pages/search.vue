@@ -134,7 +134,7 @@
               )"
               :key="loader.name"
               :active-filters="orFacets"
-              :display-name="loader.name"
+              :display-name="$formatCategory(loader.name)"
               :facet-name="`categories:${loader.name}`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"

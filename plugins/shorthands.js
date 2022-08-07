@@ -133,6 +133,8 @@ export const formatBytes = (bytes, decimals = 2) => {
 export const formatCategory = (name) => {
   if (name === 'modloader') {
     return "Risugami's ModLoader"
+  } else if (name === 'bungeecord') {
+    return 'BungeeCord'
   } else if (name === 'game-mechanics') {
     return 'Game mechanics'
   } else if (name === 'worldgen') {
