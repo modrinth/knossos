@@ -223,12 +223,7 @@
                   )
                   .map((it) => it.name)
               "
-              :custom-label="
-                (value) =>
-                  value === 'modloader'
-                    ? 'Risugami\'s ModLoader'
-                    : value.charAt(0).toUpperCase() + value.slice(1)
-              "
+              :custom-label="(value) => $formatCategory(value)"
               :loading="$tag.loaders.length === 0"
               :multiple="true"
               :searchable="false"
@@ -241,15 +236,7 @@
               placeholder="Choose loaders..."
             />
             <p v-else class="value">
-              {{
-                version.loaders
-                  .map((x) =>
-                    x.toLowerCase() === 'modloader'
-                      ? "Risugami's ModLoader"
-                      : x.charAt(0).toUpperCase() + x.slice(1)
-                  )
-                  .join(', ')
-              }}
+              {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
             </p>
           </div>
           <div v-if="mode === 'version'" class="data">

@@ -6,17 +6,17 @@
 export default {
   name: 'ResourcePacks',
   head: {
-    title: 'Resource Packs - Modrinth',
+    title: 'Resource packs - Modrinth',
     meta: [
       {
         hid: 'apple-mobile-web-app-title',
         name: 'apple-mobile-web-app-title',
-        content: 'Resource Packs - Modrinth',
+        content: 'Resource packs - Modrinth',
       },
       {
         hid: 'og:title',
         name: 'og:title',
-        content: 'Resource Packs - Modrinth',
+        content: 'Resource packs - Modrinth',
       },
       {
         hid: 'og:url',

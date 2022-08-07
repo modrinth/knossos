@@ -79,16 +79,15 @@ export default {
   z-index: 2;
   position: fixed;
   right: 0;
-  bottom: var(--size-mobile-navbar-height);
-
-  transition: bottom 0.25s ease-in-out;
-  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+  bottom: 0;
 
   .banner {
-    padding: 1rem;
     font-size: 1.05rem;
     border-radius: 0;
     margin-bottom: 0;
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+    padding: 1rem 1rem calc(var(--size-mobile-navbar-height) + 1rem);
+    transition: padding-bottom 0.25s ease-in-out;
   }
   .actions {
     display: flex;
@@ -106,11 +105,15 @@ export default {
   }
 
   &.mobile-menu-open {
-    bottom: var(--size-mobile-navbar-height-expanded);
+    .banner {
+      padding-bottom: calc(var(--size-mobile-navbar-height-expanded) + 1rem);
+    }
   }
 
   @media screen and (min-width: 750px) {
-    bottom: 0;
+    .banner {
+      padding-bottom: 1rem;
+    }
 
     &.mobile-menu-open {
       bottom: 0;
@@ -122,7 +125,9 @@ export default {
     text-align: unset;
 
     .banner {
-      max-width: 18vw;
+      border-radius: var(--size-rounded-card);
+      width: 18vw;
+      min-width: 16rem;
       border-left: solid 5px var(--color-brand);
       margin: 0 2rem 2rem 0;
     }

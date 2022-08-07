@@ -23,7 +23,7 @@
                 <span>Plugins</span>
               </NuxtLink>
               <NuxtLink to="/resourcepacks" class="tab">
-                <span>Resource Packs</span>
+                <span>Resource packs</span>
               </NuxtLink>
               <NuxtLink to="/modpacks" class="tab tab--alpha">
                 <span>Modpacks</span>
@@ -198,7 +198,7 @@
             class="tab"
             @click.native="closeBrowseMenu()"
           >
-            <span>Resource Packs</span>
+            <span>Resource packs</span>
           </NuxtLink>
 
           <NuxtLink
@@ -890,6 +890,7 @@ export default {
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
       z-index: 6;
       flex-direction: column;
+      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
 
       overflow-x: auto;
 

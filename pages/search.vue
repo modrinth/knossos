@@ -42,7 +42,7 @@
                 "
                 class="sidebar-menu-heading"
               >
-                {{ header }}
+                {{ $formatCategoryHeader(header) }}
               </h3>
 
               <SearchFilter
@@ -58,7 +58,7 @@
                   })"
                 :key="category.name"
                 :active-filters="facets"
-                :display-name="category.name"
+                :display-name="$formatCategory(category.name)"
                 :facet-name="`categories:${category.name}`"
                 :icon="header === 'resolutions' ? null : category.icon"
                 @toggle="toggleFacet"
@@ -102,9 +102,7 @@
               })"
               :key="loader.name"
               :active-filters="orFacets"
-              :display-name="
-                loader.name === 'modloader' ? 'ModLoader' : loader.name
-              "
+              :display-name="$formatCategory(loader.name)"
               :facet-name="`categories:${loader.name}`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
@@ -767,7 +765,6 @@ export default {
 }
 
 .sidebar-menu-heading {
-  text-transform: capitalize;
   margin: 1.5rem 0 0.5rem 0;
 }
 

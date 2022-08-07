@@ -3,10 +3,7 @@
     <span
       v-for="category in categoriesFiltered"
       :key="category.name"
-      v-html="
-        category.icon +
-        (category.name === 'modloader' ? 'ModLoader' : category.name)
-      "
+      v-html="category.icon + $formatCategory(category.name)"
     />
   </div>
 </template>
@@ -53,7 +50,6 @@ export default {
     flex-direction: row;
     color: var(--color-icon);
     margin-right: 1em;
-    text-transform: capitalize;
 
     svg {
       width: 1rem;

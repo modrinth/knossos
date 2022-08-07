@@ -401,15 +401,7 @@
                 v-if="version.game_versions.length > 0"
                 class="game-version item"
               >
-                {{
-                  version.loaders
-                    .map((x) =>
-                      x.toLowerCase() === 'modloader'
-                        ? 'ModLoader'
-                        : x.charAt(0).toUpperCase() + x.slice(1)
-                    )
-                    .join(', ')
-                }}
+                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
                 {{ $formatVersion(version.game_versions) }}
               </div>
               <VersionBadge

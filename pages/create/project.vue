@@ -447,12 +447,7 @@
                     })
                     .map((it) => it.name)
                 "
-                :custom-label="
-                  (value) =>
-                    value === 'modloader'
-                      ? 'Risugami\'s ModLoader'
-                      : value.charAt(0).toUpperCase() + value.slice(1)
-                "
+                :custom-label="(value) => $formatCategory(value)"
                 :loading="$tag.loaders.length === 0"
                 :multiple="true"
                 :searchable="false"

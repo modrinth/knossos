@@ -103,6 +103,8 @@ export default ({ store }, inject) => {
     return output.join(', ')
   })
   inject('formatBytes', formatBytes)
+  inject('formatCategory', formatCategory)
+  inject('formatCategoryHeader', formatCategoryHeader)
 }
 
 export const formatNumber = (number) => {
@@ -126,4 +128,27 @@ export const formatBytes = (bytes, decimals = 2) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
+
+export const formatCategory = (name) => {
+  if (name === 'modloader') {
+    return "Risugami's ModLoader"
+  } else if (name === 'game-mechanics') {
+    return 'Game mechanics'
+  } else if (name === 'worldgen') {
+    return 'World generation'
+  } else if (name === 'core-shaders') {
+    return 'Core shaders'
+  } else if (name === 'gui') {
+    return 'GUI'
+  } else if (name === '8x-') {
+    return '8x or lower'
+  } else if (name === '512x+') {
+    return '512x or higher'
+  }
+  return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
+export const formatCategoryHeader = (name) => {
+  return name.charAt(0).toUpperCase() + name.slice(1)
 }
