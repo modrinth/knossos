@@ -70,8 +70,10 @@ export default {
 
   z-index: 20;
   position: fixed;
-  bottom: 4rem;
+  top: 0;
   right: 0;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+
   .banner {
     padding: 1rem;
     font-size: 1.05rem;
@@ -91,6 +93,7 @@ export default {
 
   @media screen and (min-width: 750px) {
     bottom: 0;
+    top: unset;
 
     .banner {
       margin-bottom: 0;
