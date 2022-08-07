@@ -236,6 +236,10 @@ body {
   --font-weight-text: var(--font-weight-medium);
   --font-weight-heading: var(--font-weight-extrabold);
   --font-weight-title: var(--font-weight-extrabold);
+
+  @media screen and (min-width: 492px) {
+    --size-mobile-navbar-height-expanded: 7rem;
+  }
 }
 
 svg {

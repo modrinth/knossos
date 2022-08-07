@@ -263,6 +263,14 @@
   > :last-child {
     margin-bottom: 0 !important;
   }
+
+  @media screen and (max-width: 850px) {
+    iframe {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 
 .tooltip {
@@ -826,12 +834,12 @@ label {
 }
 
 .vue-notification {
-  background: #44A4FC;
-  border-left: 5px solid #44A4FC;
+  background: #44a4fc;
+  border-left: 5px solid #44a4fc;
 
   &.success {
-    background: #68CD86;
-    border-left-color: #68CD86;
+    background: #68cd86;
+    border-left-color: #68cd86;
   }
 
   &.warn {
@@ -840,8 +848,8 @@ label {
   }
 
   &.error {
-    background: #E54D42;
-    border-left-color: #E54D42;
+    background: #e54d42;
+    border-left-color: #e54d42;
   }
 }
 

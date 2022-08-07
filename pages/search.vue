@@ -457,7 +457,6 @@ export default {
       this.$route.name.length - 1
     )
 
-    console.log(this.$tag.loaderData)
     if (this.projectType === 'plugin') {
       this.projectType = 'mod'
       this.isPlugins = true
@@ -604,10 +603,7 @@ export default {
             formattedFacets.push(this.orFacets)
           } else if (this.isPlugins) {
             formattedFacets.push(
-              this.$tag.loaderData.pluginLoaders.map((x) => `categories:${x}`)
-            )
-            formattedFacets.push(
-              this.$tag.loaderData.pluginPlatformLoaders.map(
+              this.$tag.loaderData.allPluginLoaders.map(
                 (x) => `categories:${x}`
               )
             )

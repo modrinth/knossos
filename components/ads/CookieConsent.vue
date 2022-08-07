@@ -3,13 +3,15 @@
     <div
       ref="container"
       class="container"
-      :style="{ visibility: shown ? 'visible' : 'hidden' }"
+      :class="{ 'mobile-menu-open': mobileMenuOpen }"
+      :style="{
+        visibility: shown ? 'visible' : 'hidden',
+      }"
     >
       <div class="card banner">
         <span>
-          Modrinth uses cookies for various purposes, including advertising.<br />
-          We encourage you to review your privacy settings by clicking on the
-          button below:
+          Modrinth uses cookies for various purposes. We encourage you to review
+          your privacy settings by clicking on the button below:
         </span>
         <div class="actions">
           <button class="btn button" @click="review">Review</button>
@@ -24,6 +26,12 @@
 import scopes from '~/privacy-toggles'
 export default {
   name: 'CookieConsent',
+  props: {
+    mobileMenuOpen: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       shown: false,
@@ -68,10 +76,12 @@ export default {
   width: 100%;
   text-align: center;
 
-  z-index: 20;
+  z-index: 2;
   position: fixed;
-  top: 0;
   right: 0;
+  bottom: var(--size-mobile-navbar-height);
+
+  transition: bottom 0.25s ease-in-out;
   box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
 
   .banner {
@@ -91,12 +101,19 @@ export default {
     }
   }
 
+  .banner {
+    margin-bottom: 0;
+  }
+
+  &.mobile-menu-open {
+    bottom: var(--size-mobile-navbar-height-expanded);
+  }
+
   @media screen and (min-width: 750px) {
     bottom: 0;
-    top: unset;
 
-    .banner {
-      margin-bottom: 0;
+    &.mobile-menu-open {
+      bottom: 0;
     }
   }
 

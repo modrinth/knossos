@@ -269,7 +269,7 @@
       </section>
     </header>
     <main>
-      <CookieConsent />
+      <CookieConsent :mobile-menu-open="isBrowseMenuOpen" />
       <notifications
         group="main"
         position="bottom right"
@@ -889,7 +889,6 @@ export default {
       background-color: var(--color-raised-bg);
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
       z-index: 6;
-      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
       flex-direction: column;
 
       overflow-x: auto;

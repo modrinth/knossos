@@ -1,5 +1,6 @@
 export default function (to, from, savedPosition) {
   if (
+    from == null ||
     (to.name.startsWith('type-id') && from.name.startsWith('type-id')) ||
     to.name === from.name
   ) {
