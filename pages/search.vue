@@ -46,14 +46,23 @@
               </h3>
 
               <SearchFilter
-                v-for="category in categories.filter(
-                  (x) => x.project_type === projectType
-                )"
+                v-for="category in categories
+                  .filter((x) => x.project_type === projectType)
+                  .sort((a, b) => {
+                    if (header.toLowerCase() === 'resolutions') {
+                      return (
+                        a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
+                      )
+                    }
+                    return 0
+                  })"
                 :key="category.name"
                 :active-filters="facets"
                 :display-name="category.name"
                 :facet-name="`categories:${category.name}`"
-                :icon="category.icon"
+                :icon="
+                  header.toLowerCase() === 'resolutions' ? null : category.icon
+                "
                 @toggle="toggleFacet"
               />
             </div>
