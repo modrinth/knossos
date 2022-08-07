@@ -1316,6 +1316,7 @@ export default {
       return false
     },
     async createDraft() {
+      this.setValues()
       this.savingAsDraft = true
       if (this.checkFields()) {
         this.draft = true
@@ -1323,9 +1324,23 @@ export default {
       }
     },
     async createProjectForReview() {
+      this.setValues()
       this.savingAsDraft = false
       if (this.checkFields()) {
         await this.createProject()
+      }
+    },
+    setValues() {
+      if (this.projectType.realId === 'resourcepack') {
+        this.clientSideType = 'required'
+        this.serverSideType = 'optional'
+
+        for (let i = 0; i < this.versions.length; i++) {
+          this.versions.loaders = ['minecraft']
+        }
+      } else if (this.projectType.realId === 'plugin') {
+        this.clientSideType = 'unsupported'
+        this.serverSideType = 'required'
       }
     },
     async createProject() {
@@ -1346,18 +1361,6 @@ export default {
       }
 
       const formData = new FormData()
-
-      if (this.projectType.realId === 'resourcepack') {
-        this.clientSideType = 'required'
-        this.serverSideType = 'optional'
-
-        for (let i = 0; i < this.versions.length; i++) {
-          this.versions.loaders = ['minecraft']
-        }
-      } else if (this.projectType.realId === 'plugin') {
-        this.clientSideType = 'unsupported'
-        this.serverSideType = 'required'
-      }
 
       formData.append(
         'data',

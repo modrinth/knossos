@@ -177,6 +177,17 @@
           <ModIcon />
           <span>Mods</span>
         </NuxtLink>
+
+        <NuxtLink to="/plugins" class="tab">
+          <ModpackIcon />
+          <span>Plugins</span>
+        </NuxtLink>
+
+        <NuxtLink to="/resourcepacks" class="tab">
+          <ModpackIcon />
+          <span>Resource Packs</span>
+        </NuxtLink>
+
         <NuxtLink to="/modpacks" class="tab">
           <ModpackIcon />
           <span>Modpacks</span>
@@ -829,11 +840,12 @@ export default {
       position: fixed;
       left: 0;
       bottom: 0;
-      justify-content: center;
-      align-items: center;
       background-color: var(--color-raised-bg);
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
       z-index: 6;
+
+      overflow-x: auto;
+      column-gap: 2rem;
 
       .tab {
         background: none;
@@ -848,6 +860,7 @@ export default {
         margin: auto;
         transition: color ease-in-out 0.15s;
         color: var(--color-text-inactive);
+        text-align: center;
 
         svg {
           height: 1.75rem;
@@ -866,6 +879,14 @@ export default {
           }
 
           color: var(--color-text);
+        }
+
+        &:first-child {
+          margin-left: 2rem;
+        }
+
+        &:last-child {
+          margin-right: 2rem;
         }
       }
 
