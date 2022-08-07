@@ -136,6 +136,8 @@ export const formatCategory = (name) => {
     return "Risugami's ModLoader"
   } else if (name === 'bungeecord') {
     return 'BungeeCord'
+  } else if (name === 'liteloader') {
+    return 'LiteLoader'
   } else if (name === 'game-mechanics') {
     return 'Game mechanics'
   } else if (name === 'worldgen') {
