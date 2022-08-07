@@ -552,8 +552,6 @@ export default {
     }
   },
   fetch() {
-    this.setCategories()
-
     this.newProject = this.project
 
     this.newProject.license.short = this.newProject.license.id
@@ -581,6 +579,8 @@ export default {
     this.serverSideType =
       this.newProject.server_side.charAt(0) +
       this.newProject.server_side.slice(1)
+
+    this.setCategories()
   },
   watch: {
     license(newValue, oldValue) {
@@ -626,7 +626,7 @@ export default {
         .filter(
           (x) =>
             x.project_type === this.project.project_type &&
-            !this.additional_categories.includes(x.name)
+            !this.newProject.additional_categories.includes(x.name)
         )
         .map((it) => it.name)
 
@@ -634,7 +634,7 @@ export default {
         .filter(
           (x) =>
             x.project_type === this.project.project_type &&
-            !this.categories.includes(x.name)
+            !this.newProject.categories.includes(x.name)
         )
         .map((it) => it.name)
     },

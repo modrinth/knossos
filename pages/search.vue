@@ -49,7 +49,7 @@
                 v-for="category in categories
                   .filter((x) => x.project_type === projectType)
                   .sort((a, b) => {
-                    if (header.toLowerCase() === 'resolutions') {
+                    if (header === 'resolutions') {
                       return (
                         a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
                       )
@@ -60,9 +60,7 @@
                 :active-filters="facets"
                 :display-name="category.name"
                 :facet-name="`categories:${category.name}`"
-                :icon="
-                  header.toLowerCase() === 'resolutions' ? null : category.icon
-                "
+                :icon="header === 'resolutions' ? null : category.icon"
                 @toggle="toggleFacet"
               />
             </div>
@@ -769,6 +767,7 @@ export default {
 }
 
 .sidebar-menu-heading {
+  text-transform: capitalize;
   margin: 1.5rem 0 0.5rem 0;
 }
 
