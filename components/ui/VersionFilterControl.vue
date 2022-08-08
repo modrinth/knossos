@@ -51,10 +51,12 @@
     />
     <button
       title="Clear filters"
-      :disabled="selectedLoader === null && selectedGameVersions.length === 0"
+      :disabled="
+        selectedLoaders.length === 0 && selectedGameVersions.length === 0
+      "
       class="iconified-button"
       @click="
-        selectedLoader = null
+        selectedLoaders = []
         selectedGameVersions = []
         updateVersionFilters()
       "
