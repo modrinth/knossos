@@ -101,6 +101,7 @@
                   : x.supported_project_types.includes(projectType)
               })"
               :key="loader.name"
+              ref="loaderFilters"
               :active-filters="orFacets"
               :display-name="$formatCategory(loader.name)"
               :facet-name="`categories:${loader.name}`"
@@ -133,6 +134,7 @@
                 $tag.loaderData.pluginPlatformLoaders.includes(x.name)
               )"
               :key="loader.name"
+              ref="platformFilters"
               :active-filters="orFacets"
               :display-name="$formatCategory(loader.name)"
               :facet-name="`categories:${loader.name}`"
@@ -551,6 +553,18 @@ export default {
       if (index !== -1) {
         this.orFacets.splice(index, 1)
       } else {
+        if (elementName === 'categories:purpur') {
+          this.orFacets.push('categories:paper')
+          this.orFacets.push('categories:spigot')
+          this.orFacets.push('categories:bukkit')
+        } else if (elementName === 'categories:paper') {
+          this.orFacets.push('categories:spigot')
+          this.orFacets.push('categories:bukkit')
+        } else if (elementName === 'categories:spigot') {
+          this.orFacets.push('categories:bukkit')
+        } else if (elementName === 'categories:waterfall') {
+          this.orFacets.push('categories:bungeecord')
+        }
         this.orFacets.push(elementName)
       }
 
