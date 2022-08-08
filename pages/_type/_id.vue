@@ -434,7 +434,7 @@
           </nuxt-link>
           <div class="member-info">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p class="title-link">{{ $formatUserName(member.user) }}</p>
+              <p class="title-link">{{ member.name }}</p>
             </nuxt-link>
             <p class="role">{{ member.role }}</p>
           </div>

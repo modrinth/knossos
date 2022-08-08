@@ -28,9 +28,8 @@
                     .username
                 "
                 >{{
-                  $formatUserName(
-                    members.find((x) => x.user.id === version.author_id).user
-                  )
+                  members.find((x) => x.user.id === version.author_id).user
+                    .username
                 }}</nuxt-link
               >
             </span>

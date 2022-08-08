@@ -5,9 +5,9 @@
         <img
           class="sidebar__item profile-picture"
           :src="user.avatar_url"
-          :alt="$formatUserName(user)"
+          :alt="user.username"
         />
-        <h1 class="sidebar__item username">{{ $formatUserName(user) }}</h1>
+        <h1 class="sidebar__item username">{{ user.username }}</h1>
         <div class="sidebar__item">
           <Badge v-if="user.role === 'admin'" type="admin" color="red" />
           <Badge
@@ -198,7 +198,7 @@ export default {
   },
   head() {
     return {
-      title: this.$formatUserName(this.user) + ' - Modrinth',
+      title: this.user.username + ' - Modrinth',
       meta: [
         {
           hid: 'og:type',
@@ -208,12 +208,12 @@ export default {
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.$formatUserName(this.user),
+          content: this.user.username,
         },
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.$formatUserName(this.user),
+          content: this.user.username,
         },
         {
           hid: 'og:description',
@@ -230,7 +230,7 @@ export default {
         {
           hid: 'og:url',
           name: 'og:url',
-          content: `https://modrinth.com/user/${this.user.username}`,
+          content: `https://modrinth.com/user/${this.user.id}`,
         },
         {
           hid: 'og:image',
