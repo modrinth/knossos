@@ -1192,7 +1192,7 @@ export default {
           realId: 'plugin',
         },
         {
-          display: 'Mod + Plugin',
+          display: 'Mod and plugin',
           id: 'mod',
           realId: 'mod+plugin',
         },
@@ -1202,7 +1202,7 @@ export default {
           realId: 'modpack',
         },
         {
-          display: 'Resource Pack',
+          display: 'Resource pack',
           id: 'resourcepack',
           realId: 'resourcepack',
         },
