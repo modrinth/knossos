@@ -507,6 +507,8 @@ export default {
         this.query = ''
         this.maxResults = 20
         this.sortType = { display: 'Relevance', name: 'relevance' }
+        this.showAllLoaders = false
+        this.sidebarMenuOpen = false
 
         await this.clearFilters()
       },
