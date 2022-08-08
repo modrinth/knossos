@@ -28,13 +28,16 @@
               </nuxt-link>
             </p>
           </div>
-          <div v-if="type !== 'resourcepack'" class="side-type">
+          <div
+            v-if="type !== 'resourcepack' && projectTypeDisplay !== 'plugin'"
+            class="side-type"
+          >
             <div
               v-if="clientSide === 'optional' && serverSide === 'optional'"
               class="side-descriptor"
             >
               <InfoIcon aria-hidden="true" />
-              Universal {{ type }}
+              Universal {{ projectTypeDisplay }}
             </div>
             <div
               v-else-if="
@@ -44,7 +47,7 @@
               class="side-descriptor"
             >
               <InfoIcon aria-hidden="true" />
-              Client {{ type }}
+              Client {{ projectTypeDisplay }}
             </div>
             <div
               v-else-if="
@@ -54,7 +57,7 @@
               class="side-descriptor"
             >
               <InfoIcon aria-hidden="true" />
-              Server {{ type }}
+              Server {{ projectTypeDisplay }}
             </div>
           </div>
           <p class="description">
@@ -216,6 +219,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+  },
+  computed: {
+    projectTypeDisplay() {
+      return this.$getProjectTypeForDisplay(this.type, this.categories) // TODO: Does not actually contain loaders so will never return "plugin"
     },
   },
 }

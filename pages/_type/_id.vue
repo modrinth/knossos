@@ -34,7 +34,12 @@
         >
           <h1 class="title">{{ project.title }}</h1>
         </nuxt-link>
-        <div v-if="project.project_type !== 'resourcepack'">
+        <div
+          v-if="
+            project.project_type !== 'resourcepack' &&
+            projectTypeDisplay !== 'plugin'
+          "
+        >
           <div
             v-if="
               project.client_side === 'optional' &&
@@ -43,7 +48,7 @@
             class="side-descriptor"
           >
             <InfoIcon aria-hidden="true" />
-            Universal {{ project.project_type }}
+            Universal {{ projectTypeDisplay }}
           </div>
           <div
             v-else-if="
@@ -55,7 +60,7 @@
             class="side-descriptor"
           >
             <InfoIcon aria-hidden="true" />
-            Client {{ project.project_type }}
+            Client {{ projectTypeDisplay }}
           </div>
           <div
             v-else-if="
@@ -67,7 +72,7 @@
             class="side-descriptor"
           >
             <InfoIcon aria-hidden="true" />
-            Server {{ project.project_type }}
+            Server {{ projectTypeDisplay }}
           </div>
         </div>
 
@@ -773,6 +778,14 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    projectTypeDisplay() {
+      return this.$getProjectTypeForDisplay(
+        this.project.project_type,
+        this.project.categories
+      )
+    },
   },
   methods: {
     findPrimary(version) {

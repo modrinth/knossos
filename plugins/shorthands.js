@@ -105,6 +105,19 @@ export default ({ store }, inject) => {
   inject('formatBytes', formatBytes)
   inject('formatCategory', formatCategory)
   inject('formatCategoryHeader', formatCategoryHeader)
+  inject('getProjectTypeForDisplay', (type, categories) => {
+    if (type === 'mod') {
+      const isPlugin = categories.some((category) => {
+        return store.state.tag.loaderData.allPluginLoaders.includes(category)
+      })
+      const isMod = categories.some((category) => {
+        return store.state.tag.loaderData.modLoaders.includes(category)
+      })
+      return isPlugin && isMod ? 'mod/plugin' : isPlugin ? 'plugin' : 'mod'
+    } else {
+      return type
+    }
+  })
 }
 
 export const formatNumber = (number) => {
