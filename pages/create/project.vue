@@ -1329,10 +1329,6 @@ export default {
       if (this.projectType.realId === 'resourcepack') {
         this.clientSideType = 'required'
         this.serverSideType = 'optional'
-
-        for (let i = 0; i < this.versions.length; i++) {
-          this.versions.loaders = ['minecraft']
-        }
       } else if (this.projectType.realId === 'plugin') {
         this.clientSideType = 'unsupported'
         this.serverSideType = 'required'
@@ -1511,6 +1507,9 @@ export default {
 
     saveVersion() {
       const version = this.versions[this.currentVersionIndex]
+      if (this.projectType.realId === 'resourcepack') {
+        version.loaders = ['minecraft']
+      }
       if (
         version.version_number !== '' &&
         version.releaseChannels !== null &&
