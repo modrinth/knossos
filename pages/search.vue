@@ -127,7 +127,7 @@
               "
               class="sidebar-menu-heading"
             >
-              Platforms
+              Proxies
             </h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) =>
