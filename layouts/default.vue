@@ -4,9 +4,11 @@
       <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
           <a href="#main">Skip to Main Content</a>
-          <a v-if="registeredSkipLink" :href="registeredSkipLink.id">{{
-            registeredSkipLink.text
-          }}</a>
+          <a
+            v-show="!!registeredSkipLink"
+            :href="(registeredSkipLink || {}).id"
+            >{{ (registeredSkipLink || {}).text }}</a
+          >
         </section>
         <section class="logo column" role="presentation">
           <NuxtLink to="/" aria-label="Modrinth home page">
@@ -23,7 +25,7 @@
                 <span>Plugins</span>
               </NuxtLink>
               <NuxtLink to="/resourcepacks" class="tab">
-                <span>Resource packs</span>
+                <span>Resource Packs</span>
               </NuxtLink>
               <NuxtLink to="/modpacks" class="tab tab--alpha">
                 <span>Modpacks</span>
@@ -198,7 +200,7 @@
             class="tab"
             @click.native="closeBrowseMenu()"
           >
-            <span>Resource packs</span>
+            <span>Resource Packs</span>
           </NuxtLink>
 
           <NuxtLink
