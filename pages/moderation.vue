@@ -79,7 +79,6 @@
               ? projects.filter((x) => x.project_type === selectedType)
               : projects"
             :id="project.slug || project.id"
-            :author="project.author"
             :key="project.id"
             :name="project.title"
             :description="project.description"
