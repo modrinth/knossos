@@ -59,9 +59,9 @@
               <InfoIcon aria-hidden="true" />
               Server {{ projectTypeDisplay }}
             </div>
-            <div v-else class="side-descriptor">
+            <div v-else-if="moderation" class="side-descriptor">
               <InfoIcon aria-hidden="true" />
-              {{ projectTypeDisplay }}
+              A {{ projectTypeDisplay }}
             </div>
           </div>
           <div v-else-if="moderation" class="side-descriptor">
