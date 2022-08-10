@@ -79,6 +79,7 @@
               ? projects.filter((x) => x.project_type === selectedType)
               : projects"
             :id="project.slug || project.id"
+            :author="project.author"
             :key="project.id"
             :name="project.title"
             :description="project.description"
@@ -89,6 +90,7 @@
             :client-side="project.client_side"
             :server-side="project.server_side"
             :type="project.project_type"
+            :moderation="true"
           >
             <button
               class="iconified-button"

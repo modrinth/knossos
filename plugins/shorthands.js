@@ -103,6 +103,7 @@ export default ({ store }, inject) => {
     return output.join(', ')
   })
   inject('formatBytes', formatBytes)
+  inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
   inject('formatCategoryHeader', formatCategoryHeader)
   inject('getProjectTypeForDisplay', (type, categories) => {
@@ -113,9 +114,9 @@ export default ({ store }, inject) => {
       const isMod = categories.some((category) => {
         return store.state.tag.loaderData.modLoaders.includes(category)
       })
-      return isPlugin && isMod ? 'mod/plugin' : isPlugin ? 'plugin' : 'mod'
+      return isPlugin && isMod ? 'mod and plugin' : isPlugin ? 'plugin' : 'mod'
     } else {
-      return type
+      return formatProjectType(type)
     }
   })
 }
@@ -141,6 +142,13 @@ export const formatBytes = (bytes, decimals = 2) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
+
+export const formatProjectType = (name) => {
+  if (name === 'resourcepack') {
+    return 'resource pack'
+  }
+  return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
 export const formatCategory = (name) => {

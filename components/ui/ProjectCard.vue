@@ -59,6 +59,14 @@
               <InfoIcon aria-hidden="true" />
               Server {{ projectTypeDisplay }}
             </div>
+            <div v-else class="side-descriptor">
+              <InfoIcon aria-hidden="true" />
+              {{ projectTypeDisplay }}
+            </div>
+          </div>
+          <div v-else-if="moderation" class="side-descriptor">
+            <InfoIcon aria-hidden="true" />
+            A {{ projectTypeDisplay }}
           </div>
           <p class="description">
             {{ description }}
@@ -220,10 +228,15 @@ export default {
       required: false,
       default: '',
     },
+    moderation: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     projectTypeDisplay() {
-      return this.$getProjectTypeForDisplay(this.type, this.categories) // TODO: Does not actually contain loaders so will never return "plugin"
+      return this.$getProjectTypeForDisplay(this.type, this.categories)
     },
   },
 }

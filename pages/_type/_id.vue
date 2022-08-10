@@ -455,13 +455,25 @@
               }}</a>
             </div>
           </div>
-          <div v-if="project.project_type !== 'resourcepack'" class="info">
+          <div
+            v-if="
+              project.project_type !== 'resourcepack' &&
+              projectTypeDisplay !== 'plugin'
+            "
+            class="info"
+          >
             <div class="key">Client side</div>
             <div class="value">
               {{ project.client_side }}
             </div>
           </div>
-          <div v-if="project.project_type !== 'resourcepack'" class="info">
+          <div
+            v-if="
+              project.project_type !== 'resourcepack' &&
+              projectTypeDisplay !== 'plugin'
+            "
+            class="info"
+          >
             <div class="key">Server side</div>
             <div class="value">
               {{ project.server_side }}
@@ -706,6 +718,16 @@ export default {
         project.body = (await data.$axios.get(project.body_url)).data
       }
 
+      const loaders = []
+
+      versions.forEach((version) => {
+        version.loaders.forEach((loader) => {
+          if (!loaders.includes(loader)) {
+            loaders.push(loader)
+          }
+        })
+      })
+
       return {
         project,
         versions,
@@ -714,6 +736,7 @@ export default {
         allMembers: members,
         currentMember,
         dependencies,
+        loaders,
       }
     } catch {
       data.error({
@@ -783,7 +806,7 @@ export default {
     projectTypeDisplay() {
       return this.$getProjectTypeForDisplay(
         this.project.project_type,
-        this.project.categories
+        this.loaders
       )
     },
   },
