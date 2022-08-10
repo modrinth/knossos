@@ -151,11 +151,11 @@ export const formatCategory = (name) => {
   } else if (name === 'liteloader') {
     return 'LiteLoader'
   } else if (name === 'game-mechanics') {
-    return 'Game mechanics'
+    return 'Game Mechanics'
   } else if (name === 'worldgen') {
-    return 'World generation'
+    return 'World Generation'
   } else if (name === 'core-shaders') {
-    return 'Core shaders'
+    return 'Core Shaders'
   } else if (name === 'gui') {
     return 'GUI'
   } else if (name === '8x-') {
@@ -163,7 +163,7 @@ export const formatCategory = (name) => {
   } else if (name === '512x+') {
     return '512x or higher'
   } else if (name === 'kitchen-sink') {
-    return 'Kitchen sink'
+    return 'Kitchen Sink'
   }
   return name.charAt(0).toUpperCase() + name.slice(1)
 }
