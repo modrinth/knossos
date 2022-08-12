@@ -1150,7 +1150,10 @@ export default {
 
     .value {
       width: 50%;
-      text-transform: capitalize;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
 
       &.lowercase {
         text-transform: none;
