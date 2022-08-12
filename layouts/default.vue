@@ -186,16 +186,30 @@
             <CrossIcon v-else />
           </button>
         </div>
-        <div v-if="isBrowseMenuOpen" class="project-types">
-          <NuxtLink to="/mods" class="tab" @click.native="closeBrowseMenu()">
+        <div
+          :class="{ 'disable-childern': isBrowseMenuOpen }"
+          class="project-types"
+        >
+          <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
+            to="/mods"
+            class="tab"
+            @click.native="closeBrowseMenu()"
+          >
             <span>Mods</span>
           </NuxtLink>
 
-          <NuxtLink to="/plugins" class="tab" @click.native="closeBrowseMenu()">
+          <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
+            to="/plugins"
+            class="tab"
+            @click.native="closeBrowseMenu()"
+          >
             <span>Plugins</span>
           </NuxtLink>
 
           <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
             class="tab"
             @click.native="closeBrowseMenu()"
@@ -204,6 +218,7 @@
           </NuxtLink>
 
           <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/modpacks"
             class="tab"
             @click.native="closeBrowseMenu()"
@@ -894,7 +909,7 @@ export default {
       flex-direction: column;
       border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
 
-      overflow-x: auto;
+      overflow: hidden;
 
       .tab {
         background: none;
@@ -930,7 +945,7 @@ export default {
       }
 
       .top-row {
-        height: var(--size-mobile-navbar-height);
+        min-height: var(--size-mobile-navbar-height);
         display: flex;
         width: 100%;
 
@@ -958,6 +973,12 @@ export default {
 
         .spacer {
           flex-grow: 1;
+        }
+      }
+
+      .disable-childern {
+        a {
+          pointer-events: none;
         }
       }
 
