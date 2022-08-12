@@ -273,7 +273,7 @@
           for="body"
           title="You can type an extended description of your project here."
         >
-          Body<span class="required">*</span>
+          Description<span class="required">*</span>
         </label>
       </h3>
       <span>
