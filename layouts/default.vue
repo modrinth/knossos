@@ -27,7 +27,7 @@
               <NuxtLink to="/resourcepacks" class="tab">
                 <span>Resource Packs</span>
               </NuxtLink>
-              <NuxtLink to="/modpacks" class="tab tab--alpha">
+              <NuxtLink to="/modpacks" class="tab">
                 <span>Modpacks</span>
               </NuxtLink>
             </div>
@@ -187,7 +187,7 @@
           </button>
         </div>
         <div
-          :class="{ 'disable-childern': isBrowseMenuOpen }"
+          :class="{ 'disable-childern': !isBrowseMenuOpen }"
           class="project-types"
         >
           <NuxtLink
@@ -987,12 +987,13 @@ export default {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        row-gap: 0.5rem;
 
         .tab {
           flex: 0 0 fit-content;
           background-color: var(--color-button-bg);
           padding: 0.5rem 1.25rem;
+          margin: 0 0.25rem;
           border-radius: var(--size-rounded-max);
 
           &.nuxt-link-exact-active {
