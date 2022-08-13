@@ -291,6 +291,7 @@
         group="main"
         position="bottom right"
         :max="5"
+        :class="{ 'browse-menu-open': isBrowseMenuOpen }"
         :ignore-duplicates="true"
         :duration="10000"
       />
@@ -366,10 +367,8 @@ import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
-// import ModIcon from '~/assets/images/sidebar/mod.svg?inline'
-// import ModpackIcon from '~/assets/images/sidebar/modpack.svg?inline'
-import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 
+import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
@@ -531,16 +530,6 @@ export default {
     },
     removeFocus() {
       document.activeElement.blur() // This doesn't work, sadly. Help
-    },
-    async getModerationCount() {
-      const [projects, reports] = (
-        await Promise.all([
-          this.$axios.get(`moderation/projects`, this.$defaultHeaders()),
-          this.$axios.get(`report`, this.$defaultHeaders()),
-        ])
-      ).map((it) => it.data)
-
-      return projects.length + reports.length
     },
   },
 }
