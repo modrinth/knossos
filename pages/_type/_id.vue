@@ -397,7 +397,7 @@
               <nuxt-link
                 :to="`/${project.project_type}/${
                   project.slug ? project.slug : project.id
-                }/version/${encodeURIComponent(version.version_number)}`"
+                }/version/${encodeURIComponent(version.displayUrlEnding)}`"
                 class="top title-link"
               >
                 {{ version.name }}
@@ -749,6 +749,10 @@ export default {
     return {
       showKnownErrors: false,
     }
+  },
+  fetch() {
+    this.versions = this.$computeVersions(this.versions)
+    this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
   head() {
     return {

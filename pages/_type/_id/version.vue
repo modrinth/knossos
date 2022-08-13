@@ -26,7 +26,7 @@
         Back to list
       </nuxt-link>
     </div>
-    <div>
+    <div v-if="version">
       <div v-if="mode === 'version'" class="version-header">
         <h2>{{ version.name }}</h2>
 
@@ -47,7 +47,7 @@
           v-if="$auth.user"
           :to="`/${project.project_type}/${
             project.slug ? project.slug : project.id
-          }/version/${encodeURIComponent(version.version_number)}`"
+          }/version/${encodeURIComponent(version.displayUrlEnding)}`"
           class="iconified-button"
         >
           <CrossIcon aria-hidden="true" />
@@ -113,7 +113,7 @@
           class="action iconified-button"
           :to="`/${project.project_type}/${
             project.slug ? project.slug : project.id
-          }/version/${encodeURIComponent(version.version_number)}/edit`"
+          }/version/${encodeURIComponent(version.displayUrlEnding)}/edit`"
           @click.prevent="mode = 'edit'"
         >
           <EditIcon aria-hidden="true" />
@@ -741,8 +741,17 @@ export default {
 
       if (!this.version)
         this.version = this.versions.find(
-          (x) => x.version_number === this.$route.params.version
+          (x) => x.displayUrlEnding === this.$route.params.version
         )
+
+      if (!this.version) {
+        this.$nuxt.context.error({
+          statusCode: 404,
+          message: 'The page could not be found',
+        })
+
+        return
+      }
 
       this.version = JSON.parse(JSON.stringify(this.version))
       this.primaryFile =
@@ -878,8 +887,9 @@ export default {
         const index = this.versions.findIndex((x) => x.id === this.version.id)
         editedVersions.splice(index, 1, version)
 
-        this.$emit('update:versions', editedVersions)
+        const newEditedVersions = this.$computeVersions(editedVersions)
 
+        this.$emit('update:versions', newEditedVersions)
         this.$emit('update:featuredVersions', featuredVersions)
 
         this.newFiles = []
@@ -888,7 +898,9 @@ export default {
         await this.$router.replace(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
-          }/version/${encodeURIComponent(this.version.version_number)}`
+          }/version/${encodeURIComponent(
+            newEditedVersions[index].displayUrlEnding
+          )}`
         )
       } catch (err) {
         this.$notify({
@@ -949,15 +961,17 @@ export default {
         ).data
 
         const newProject = JSON.parse(JSON.stringify(this.project))
-        newProject.versions = newProject.versions.concat([data])
+        newProject.versions = newProject.versions.concat([data.id])
+
+        const newVersions = this.$computeVersions(this.versions.concat([data]))
 
         await this.$emit('update:project', newProject)
-        await this.$emit('update:versions', this.versions.concat([data]))
+        await this.$emit('update:versions', newVersions)
 
         await this.$router.push(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.project_id
-          }/version/${encodeURIComponent(this.version.version_number)}`
+          }/version/${encodeURIComponent(newVersions[newVersions.length - 1])}`
         )
       } catch (err) {
         this.$notify({
