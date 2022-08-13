@@ -48,7 +48,7 @@
                   <nuxt-link
                     :to="`/${project.project_type}/${
                       project.slug ? project.slug : project.id
-                    }/version/${encodeURIComponent(version.displayUrlEnding)}`"
+                    }/version/${encodeURI(version.displayUrlEnding)}`"
                   >
                     {{ version.name }}
                   </nuxt-link>

@@ -43,6 +43,7 @@ export default {
 
 <style scoped>
 button {
+  text-transform: capitalize;
   margin: 0;
   padding: 0;
   background-color: transparent;

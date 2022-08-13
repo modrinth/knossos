@@ -47,7 +47,7 @@
           v-if="$auth.user"
           :to="`/${project.project_type}/${
             project.slug ? project.slug : project.id
-          }/version/${encodeURIComponent(version.displayUrlEnding)}`"
+          }/version/${encodeURI(version.displayUrlEnding)}`"
           class="iconified-button"
         >
           <CrossIcon aria-hidden="true" />
@@ -113,7 +113,7 @@
           class="action iconified-button"
           :to="`/${project.project_type}/${
             project.slug ? project.slug : project.id
-          }/version/${encodeURIComponent(version.displayUrlEnding)}/edit`"
+          }/version/${encodeURI(version.displayUrlEnding)}/edit`"
           @click.prevent="mode = 'edit'"
         >
           <EditIcon aria-hidden="true" />
@@ -352,7 +352,7 @@
                           dependency.project.slug
                             ? dependency.project.slug
                             : dependency.project.id
-                        }/version/${encodeURIComponent(
+                        }/version/${encodeURI(
                           dependency.version.version_number
                         )}`
                       : `/${dependency.project.project_type}/${
@@ -898,9 +898,7 @@ export default {
         await this.$router.replace(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
-          }/version/${encodeURIComponent(
-            newEditedVersions[index].displayUrlEnding
-          )}`
+          }/version/${encodeURI(newEditedVersions[index].displayUrlEnding)}`
         )
       } catch (err) {
         this.$notify({
@@ -971,7 +969,7 @@ export default {
         await this.$router.push(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.project_id
-          }/version/${encodeURIComponent(
+          }/version/${encodeURI(
             newVersions[newVersions.length - 1].displayUrlEnding
           )}`
         )
