@@ -61,7 +61,7 @@
             placeholder="Select one"
             label="display"
             :options="projectTypes"
-            :searchable="true"
+            :searchable="false"
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
