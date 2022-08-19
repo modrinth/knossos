@@ -705,10 +705,6 @@ export default {
         project.project_type,
         Object.keys(projectLoaders)
       )
-      data.params.type = data.$getProjectTypeForUrl(
-        data.params.type,
-        Object.keys(projectLoaders)
-      )
 
       if (
         project.project_type !== data.params.type ||

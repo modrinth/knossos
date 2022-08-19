@@ -211,7 +211,7 @@ export default {
       for (const project of projects) {
         project.categories = project.categories.concat(project.loaders)
 
-        project.project_type = data.$getProjectTypeForDisplay(
+        project.project_type = data.$getProjectTypeForUrl(
           project.project_type,
           project.categories
         )
