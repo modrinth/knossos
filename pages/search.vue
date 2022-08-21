@@ -557,22 +557,22 @@ export default {
         this.orFacets.splice(index, 1)
       } else {
         if (elementName === 'categories:purpur') {
-          if (this.orFacets.includes('categories:paper'))
+          if (!this.orFacets.includes('categories:paper'))
             this.orFacets.push('categories:paper')
-          if (this.orFacets.includes('categories:spigot'))
+          if (!this.orFacets.includes('categories:spigot'))
             this.orFacets.push('categories:spigot')
-          if (this.orFacets.includes('categories:bukkit'))
+          if (!this.orFacets.includes('categories:bukkit'))
             this.orFacets.push('categories:bukkit')
         } else if (elementName === 'categories:paper') {
-          if (this.orFacets.includes('categories:spigot'))
+          if (!this.orFacets.includes('categories:spigot'))
             this.orFacets.push('categories:spigot')
-          if (this.orFacets.includes('categories:bukkit'))
+          if (!this.orFacets.includes('categories:bukkit'))
             this.orFacets.push('categories:bukkit')
         } else if (elementName === 'categories:spigot') {
-          if (this.orFacets.includes('categories:bukkit'))
+          if (!this.orFacets.includes('categories:bukkit'))
             this.orFacets.push('categories:bukkit')
         } else if (elementName === 'categories:waterfall') {
-          if (this.orFacets.includes('categories:bungeecord'))
+          if (!this.orFacets.includes('categories:bungeecord'))
             this.orFacets.push('categories:bungeecord')
         }
         this.orFacets.push(elementName)
