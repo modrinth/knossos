@@ -566,7 +566,6 @@ export default {
         } else if (elementName === 'categories:waterfall') {
           this.orFacets.push('categories:bungeecord')
         }
-        p
         this.orFacets.push(elementName)
       }
 
