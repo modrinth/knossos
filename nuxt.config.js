@@ -114,7 +114,7 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.bunny.net/css2?family=Inter:wght@400;500;700;800&display=swap',
+        href: 'https://cdn-raw.modrinth.com/fonts/inter/inter.css',
       },
       {
         rel: 'search',
@@ -128,8 +128,7 @@ export default {
 
   vue: {
     config: {
-      productionTip: false,
-      devtools: true,
+      devtools: false,
     },
   },
   router: {
@@ -154,6 +153,16 @@ export default {
             path: '/modpacks',
             component: resolve(__dirname, 'pages/search/modpacks.vue'),
             name: 'modpacks',
+          },
+          {
+            path: '/plugins',
+            component: resolve(__dirname, 'pages/search/plugins.vue'),
+            name: 'plugins',
+          },
+          {
+            path: '/resourcepacks',
+            component: resolve(__dirname, 'pages/search/resourcepacks.vue'),
+            name: 'resourcepacks',
           },
         ],
       })
@@ -222,7 +231,7 @@ export default {
       '/search/**',
       '/create/**',
     ],
-    routes: ['mods', 'modpacks'],
+    routes: ['mods', 'modpacks', 'resourcepacks', 'plugins'],
   },
   /*
    ** Axios module configuration
@@ -309,7 +318,7 @@ export default {
   },
   hooks: {
     render: {
-      routeDone(url) {
+      routeDone(url, result, context) {
         setTimeout(() => {
           axios
             .post(
@@ -323,6 +332,12 @@ export default {
               {
                 headers: {
                   'Modrinth-Admin': process.env.ARIADNE_ADMIN_KEY || 'feedbeef',
+                  'User-Agent':
+                    context.req.rawHeaders[
+                      context.req.rawHeaders.findIndex(
+                        (x) => x === 'User-Agent'
+                      ) + 1
+                    ],
                 },
               }
             )
