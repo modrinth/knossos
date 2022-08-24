@@ -445,7 +445,10 @@
         <hr class="card-divider" />
       </section>
       <section
-        v-if="version.dependencies.filter((x) => x.file_name).length > 0"
+        v-if="
+          version.dependencies.filter((x) => x.file_name).length > 0 &&
+          mode === 'version'
+        "
       >
         <div>
           <h3>External Dependencies</h3>
