@@ -331,9 +331,9 @@
       </section>
       <section
         v-if="
-          version.dependencies.filter((x) => !x.file_name).length > 0 ||
-          mode === 'edit' ||
-          (mode === 'create' &&
+          (mode === 'version' &&
+            version.dependencies.filter((x) => !x.file_name).length > 0) ||
+          ((mode === 'edit' || mode === 'create') &&
             project.project_type.toLowerCase() !== 'modpack')
         "
       >
