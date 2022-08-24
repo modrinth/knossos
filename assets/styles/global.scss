@@ -112,6 +112,8 @@ html {
     inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
   --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2),
     inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
+
+  --color-card-link-bg: rgba(0,0,0,7%);
 }
 
 .dark-mode {
@@ -203,12 +205,11 @@ html {
   --color-editor-quote: #3ece5d;
   --color-editor-code: #9e8913;
 
-  
   // stuff like lists/bullet points
   --color-editor-var-2: #92dbfd;
-  
   --color-editor-selection-bg: rgba(255, 255, 255, 0.2);
 
+  --color-card-link-bg: rgb(255, 255, 255, 15%);
 }
 
 .oled-mode {
