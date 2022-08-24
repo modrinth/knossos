@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <form class="page-contents">
+    <div class="page-contents">
       <header class="card">
         <div class="columns">
           <h3 class="column-grow-1">Create a project</h3>
@@ -142,8 +142,6 @@
             :class="{ 'known-error': slug === '' && showKnownErrors }"
             type="text"
             placeholder="Enter the vanity URL"
-            title='3 to 64 characters of letters, numbers, and the following symbols: !@$()`.+,_"-'
-            pattern="[\w!@$()`.+,\x22-]{3,64}"
           />
         </label>
       </section>
@@ -1085,7 +1083,7 @@
           </label>
         </div>
       </section>
-    </form>
+    </div>
   </div>
 </template>
 
