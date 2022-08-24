@@ -278,7 +278,6 @@
                 :class="{ 'known-error': body === '' && showKnownErrors }"
                 :options="{
                   mode: 'text/markdown',
-                  theme: 'base16-dark',
                   line: true,
                   styleActiveLine: true,
                   lineNumbers: true,
@@ -677,7 +676,6 @@
                     v-model="versions[currentVersionIndex].version_body"
                     :options="{
                       mode: 'text/markdown',
-                      theme: 'base16-dark',
                       line: true,
                       styleActiveLine: true,
                       lineNumbers: true,
@@ -1742,6 +1740,7 @@ section.description {
   .edit-wrapper * {
     min-height: 10rem;
     max-height: 40rem;
+    overflow: hidden;
   }
 
   .markdown-body {

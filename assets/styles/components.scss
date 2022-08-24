@@ -918,3 +918,72 @@ textarea.known-error {
 .known-errors {
   color: var(--color-badge-red-bg);
 }
+
+// Markdown editor styling
+
+.cm-s-default {
+  padding: 0.75rem 0;
+  border-radius: 16px;
+  background: var(--color-button-bg) !important;
+
+  .CodeMirror-gutters {
+    background: var(--color-button-bg) !important;
+    border-right-color: var(--color-divider-dark);
+    padding-right: 0.15rem;
+  }
+
+  .cm-content {
+    margin-top: 2rem;
+    overflow: hidden;
+  }
+
+  .CodeMirror-cursor {
+    border-left-color: var(--color-text) !important;
+  }
+
+  .CodeMirror-selected {
+    background: var(--color-editor-selection-bg) !important;
+  }
+  
+  span.cm-error {
+    color: var(--color-editor-error-text) !important;
+    background-color: var(--color-editor-error-bg);
+  }
+
+  .cm-header {
+    color: var(--color-editor-header) !important;
+  }
+
+  .cm-link {
+    color: var(--color-editor-link) !important;
+  }
+
+  .cm-url {
+    color: var(--color-editor-url) !important;
+  }
+
+  .cm-tag {
+    color: var(--color-editor-tag) !important;
+  }
+
+  .cm-quote {
+    color: var(--color-editor-var-2) !important;
+  }
+
+  .cm-comment {
+    color: var(--color-editor-code) !important;
+  }
+
+  // lists/bullet points
+  .cm-variable-2 {
+    color: var(--color-editor-var-2) !important;
+  }
+
+  // default text color (eg. paragraphs)
+  .CodeMirror-line {
+    span {
+      color: var(--color-text);
+    }
+  }
+
+}
