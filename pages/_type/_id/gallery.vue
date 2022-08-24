@@ -129,11 +129,25 @@
               placeholder="Enter the title..."
             />
             <div class="textarea-wrapper">
-              <textarea
-                id="body"
-                v-model="item.description"
-                placeholder="Enter the description..."
-              />
+              <client-only>
+                <codemirror
+                  id="body"
+                  v-model="newProject.body"
+                  :class="{
+                    'known-error': newProject.body === '' && showKnownErrors,
+                  }"
+                  :disabled="
+                    (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
+                  "
+                  :options="{
+                    mode: 'text/markdown',
+                    theme: 'base16-dark',
+                    line: true,
+                    styleActiveLine: true,
+                    lineNumbers: true,
+                  }"
+                />
+              </client-only>
             </div>
             <Checkbox v-model="item.featured" label="Featured" />
           </div>
@@ -203,11 +217,20 @@
               placeholder="Enter the title..."
             />
             <div class="textarea-wrapper">
-              <textarea
-                id="body"
-                v-model="item.description"
-                placeholder="Enter the description..."
-              />
+              <client-only>
+                <codemirror
+                  id="body"
+                  v-model="item.description"
+                  placeholder="Enter the description..."
+                  :options="{
+                    mode: 'text/markdown',
+                    theme: 'base16-dark',
+                    line: true,
+                    styleActiveLine: true,
+                    lineNumbers: true,
+                  }"
+                />
+              </client-only>
             </div>
             <Checkbox v-model="item.featured" label="Featured" />
           </div>

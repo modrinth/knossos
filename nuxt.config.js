@@ -174,7 +174,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~assets/styles/global.scss'],
+  css: [
+    '~assets/styles/global.scss',
+    'codemirror/lib/codemirror.css',
+    'codemirror/theme/base16-dark.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -185,6 +189,7 @@ export default {
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/shorthands.js',
+    { src: '~/plugins/vue-codemirror.js', ssr: false },
   ],
   /*
    ** Auto import components

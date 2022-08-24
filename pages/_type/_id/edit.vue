@@ -296,14 +296,23 @@
       />
       <div class="edit-wrapper">
         <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
-          <textarea
-            id="body"
-            v-model="newProject.body"
-            :class="{
-              'known-error': newProject.body === '' && showKnownErrors,
-            }"
-            :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
-          />
+          <client-only>
+            <codemirror
+              id="body"
+              v-model="newProject.body"
+              :class="{
+                'known-error': newProject.body === '' && showKnownErrors,
+              }"
+              :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
+              :options="{
+                mode: 'text/markdown',
+                theme: 'base16-dark',
+                line: true,
+                styleActiveLine: true,
+                lineNumbers: true,
+              }"
+            />
+          </client-only>
         </div>
         <div
           v-if="bodyViewMode === 'preview'"

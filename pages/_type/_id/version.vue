@@ -140,12 +140,21 @@
           :items="['source', 'preview']"
         />
         <div v-if="changelogViewMode === 'source'" class="textarea-wrapper">
-          <textarea
-            id="body"
-            v-model="version.changelog"
-            class="changelog-textarea"
-            spellcheck="true"
-          />
+          <client-only>
+            <codemirror
+              id="body"
+              v-model="version.changelog"
+              class="changelog-textarea"
+              spellcheck="true"
+              :options="{
+                mode: 'text/markdown',
+                theme: 'base16-dark',
+                line: true,
+                styleActiveLine: true,
+                lineNumbers: true,
+              }"
+            />
+          </client-only>
         </div>
         <div
           v-if="changelogViewMode === 'preview'"

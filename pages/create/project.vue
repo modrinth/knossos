@@ -271,11 +271,20 @@
         />
         <div class="edit-wrapper">
           <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
-            <textarea
-              id="body"
-              v-model="body"
-              :class="{ 'known-error': body === '' && showKnownErrors }"
-            />
+            <client-only>
+              <codemirror
+                id="body"
+                v-model="body"
+                :class="{ 'known-error': body === '' && showKnownErrors }"
+                :options="{
+                  mode: 'text/markdown',
+                  theme: 'base16-dark',
+                  line: true,
+                  styleActiveLine: true,
+                  lineNumbers: true,
+                }"
+              />
+            </client-only>
           </div>
           <div
             v-if="bodyViewMode === 'preview'"
@@ -662,10 +671,19 @@
                 v-if="changelogViewMode === 'source'"
                 class="textarea-wrapper"
               >
-                <textarea
-                  id="body"
-                  v-model="versions[currentVersionIndex].version_body"
-                />
+                <client-only>
+                  <codemirror
+                    id="body"
+                    v-model="versions[currentVersionIndex].version_body"
+                    :options="{
+                      mode: 'text/markdown',
+                      theme: 'base16-dark',
+                      line: true,
+                      styleActiveLine: true,
+                      lineNumbers: true,
+                    }"
+                  />
+                </client-only>
               </div>
               <div
                 v-if="changelogViewMode === 'preview'"
