@@ -37,7 +37,7 @@
         <div
           v-if="
             project.project_type !== 'resourcepack' &&
-            projectTypeDisplay !== 'plugin'
+            project.project_type !== 'plugin'
           "
         >
           <div
@@ -81,7 +81,7 @@
         </p>
         <Categories
           :categories="project.categories"
-          :type="project.project_type"
+          :type="project.actualProjectType"
           class="categories"
         />
         <hr class="card-divider" />
@@ -333,7 +333,22 @@
           <hr class="card-divider" />
         </template>
         <template v-if="featuredVersions.length > 0">
-          <h3 class="card-header">Featured versions</h3>
+          <div class="featured-header">
+            <h3 class="card-header">Featured versions</h3>
+            <nuxt-link
+              v-if="project.versions.length > 0 || currentMember"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`"
+              class="all-link"
+            >
+              See all
+              <ChevronRightIcon
+                class="featured-header-chevron"
+                aria-hidden="true"
+              />
+            </nuxt-link>
+          </div>
           <div
             v-for="version in featuredVersions"
             :key="version.id"
@@ -417,7 +432,7 @@
           <div
             v-if="
               project.project_type !== 'resourcepack' &&
-              projectTypeDisplay !== 'plugin'
+              project.project_type !== 'plugin'
             "
             class="info"
           >
@@ -429,7 +444,7 @@
           <div
             v-if="
               project.project_type !== 'resourcepack' &&
-              projectTypeDisplay !== 'plugin'
+              project.project_type !== 'plugin'
             "
             class="info"
           >
@@ -592,6 +607,7 @@ import KoFiIcon from '~/assets/images/external/kofi.svg?inline'
 import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
@@ -619,6 +635,7 @@ export default {
     Categories,
     PatreonIcon,
     KoFiIcon,
+    ChevronRightIcon,
   },
   async asyncData(data) {
     const projectTypes = ['mod', 'modpack', 'resourcepack', 'plugin', 'project']
@@ -662,6 +679,10 @@ export default {
           projectLoaders[loader] = true
         }
       }
+
+      project.actualProjectType = JSON.parse(
+        JSON.stringify(project.project_type)
+      )
 
       project.project_type = data.$getProjectTypeForUrl(
         project.project_type,
@@ -1009,6 +1030,33 @@ export default {
   font-weight: bold;
   color: var(--color-heading);
   margin-bottom: 0.3rem;
+  width: fit-content;
+  display: inline;
+}
+
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .card-header {
+    height: 23px;
+  }
+
+  .all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px 3px 5px 7px; // <- 3px & -> 7px to compensate for chevron
+    border-radius: 5px;
+    transition: 0.05s all ease-in-out;
+  }
+
+  .all-link:hover,
+  .all-link:focus {
+    color: var(--color-link-active);
+    background: var(--color-card-link-bg);
+  }
 }
 
 .featured-version {
