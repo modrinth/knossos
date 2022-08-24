@@ -306,7 +306,6 @@
               :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
               :options="{
                 mode: 'text/markdown',
-                theme: 'base16-dark',
                 line: true,
                 styleActiveLine: true,
                 lineNumbers: true,

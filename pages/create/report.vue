@@ -102,7 +102,6 @@
                 v-model="body"
                 :options="{
                   mode: 'text/markdown',
-                  theme: 'base16-dark',
                   line: true,
                   styleActiveLine: true,
                   lineNumbers: true,

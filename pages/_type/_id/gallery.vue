@@ -141,7 +141,6 @@
                   "
                   :options="{
                     mode: 'text/markdown',
-                    theme: 'base16-dark',
                     line: true,
                     styleActiveLine: true,
                     lineNumbers: true,
@@ -224,7 +223,6 @@
                   placeholder="Enter the description..."
                   :options="{
                     mode: 'text/markdown',
-                    theme: 'base16-dark',
                     line: true,
                     styleActiveLine: true,
                     lineNumbers: true,

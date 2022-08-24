@@ -177,7 +177,6 @@ export default {
   css: [
     '~assets/styles/global.scss',
     'codemirror/lib/codemirror.css',
-    'codemirror/theme/base16-dark.css',
   ],
   /*
    ** Plugins to load before mounting the App
