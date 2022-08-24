@@ -362,6 +362,15 @@
         </template>
         <template v-if="featuredVersions.length > 0">
           <h3 class="card-header">Featured versions</h3>
+          <span class="links">
+            <nuxt-link
+              v-if="project.versions.length > 0 || currentMember"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`"
+              ><span>(See all)</span></nuxt-link
+            ></span
+          >
           <div
             v-for="version in featuredVersions"
             :key="version.id"
@@ -420,16 +429,6 @@
                 color="red"
               />
             </div>
-          </div>
-          <div class="links">
-            <nuxt-link
-              v-if="project.versions.length > 0 || currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`"
-            >
-              <span>All versions</span>
-            </nuxt-link>
           </div>
           <hr class="card-divider" />
         </template>
@@ -966,6 +965,8 @@ export default {
   font-weight: bold;
   color: var(--color-heading);
   margin-bottom: 0.3rem;
+  width: fit-content;
+  display: inline;
 }
 
 .featured-version {
