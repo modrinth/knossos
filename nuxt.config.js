@@ -174,10 +174,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    '~assets/styles/global.scss',
-    'codemirror/lib/codemirror.css',
-  ],
+  css: ['~assets/styles/global.scss', 'codemirror/lib/codemirror.css'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
