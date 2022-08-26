@@ -54,6 +54,7 @@ html {
   --color-kbd-shadow: rgba(0, 0, 0, 0.25);
 
   --color-ad: #d6e6f9;
+  --color-ad-raised: #b1c8e4;
 
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
@@ -94,7 +95,7 @@ html {
   --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2),
     inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
 
-  --color-card-link-bg: rgba(0,0,0,7%);
+  --color-card-link-bg: rgba(0, 0, 0, 7%);
 }
 
 .dark-mode {
@@ -145,7 +146,8 @@ html {
 
   --color-kbd-shadow: rgba(0, 0, 0, 0.35);
 
-  --color-ad: #2c323a;
+  --color-ad: #1f324a;
+  --color-ad-raised: #2e4057;
 
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   --shadow-dropdown-strong: 3px 3px 20px hsla(0, 0%, 0%, 0.15);
