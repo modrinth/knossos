@@ -509,6 +509,15 @@
             >, <a href="https://multimc.org/" target="_blank">MultiMC</a>, and
             <a href="https://polymc.org/" target="_blank">PolyMC</a>.
           </div>
+          <Advertisement
+            v-if="
+              project.status === 'approved' || project.status === 'unlisted'
+            "
+            type="banner"
+            small-screen="square"
+            ethical-ads-small
+            ethical-ads-big
+          />
           <div class="card styled-tabs">
             <nuxt-link
               :to="`/${project.project_type}/${
@@ -556,15 +565,6 @@
               <span>Settings</span>
             </nuxt-link>
           </div>
-          <Advertisement
-            v-if="
-              project.status === 'approved' || project.status === 'unlisted'
-            "
-            type="banner"
-            small-screen="square"
-            ethical-ads-small
-            ethical-ads-big
-          />
           <div class="project-content">
             <NuxtChild
               :project.sync="project"
