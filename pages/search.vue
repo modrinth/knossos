@@ -847,6 +847,10 @@ export default {
 }
 
 @media screen and (min-width: 700px) {
+  .filters-card {
+    position: fixed;
+  }
+  
   .search-controls {
     flex-wrap: nowrap;
     flex-direction: row;
