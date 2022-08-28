@@ -1,6 +1,5 @@
 <template>
   <div class="info-wrapper">
-    <div ref="adBanner" class="adBanner"><div></div></div>
     <div v-if="isBlocked" id="info-popup">
       <span>
         <span class="info-popup-wrap">
@@ -11,7 +10,7 @@
             />
           </span>
           <span class="info-popup-text">
-            Please disable your adblocker. Advertisments support this site and
+            Please disable your adblocker. Advertisements support this site and
             its creators.
           </span>
         </span>
@@ -25,7 +24,7 @@
       </span>
     </div>
     <script
-      v-else
+      v-show="!isBlocked"
       id="_carbonads_js"
       async
       type="text/javascript"
@@ -43,29 +42,60 @@ export default {
     }
   },
   mounted() {
-    if (this.$refs.adBanner.clientHeight !== 2) {
-      this.isBlocked = true
-    }
+    setTimeout(() => this.checkAds(0), 1000)
+  },
+  methods: {
+    checkAds(tries) {
+      if (!window._carbonads) {
+        this.isBlocked = true
+
+        if (tries < 20) {
+          setTimeout(() => this.checkAds(tries + 1), 250)
+        }
+      } else {
+        this.isBlocked = false
+      }
+    },
   },
 }
 </script>
 
 <style lang="scss">
-.adBanner {
-  position: absolute;
+.do-not-style {
+  position: absolute !important;
 
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 2px;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  top: 0 !important;
+  left: 0 !important;
+  min-height: 2px !important;
+  height: 2px !important;
+  max-height: 2px !important;
+
+  min-width: 2px !important;
+  width: 2px !important;
+  max-width: 2px !important;
+
+  background: none !important;
+  border: none !important;
 }
 
 .info-wrapper {
-  min-height: 114px;
+  min-height: 122px;
   color: var(--color-text);
   background: var(--color-ad);
-  border-radius: var(--size-rounded-card);
   margin-bottom: var(--spacing-card-md);
+  border-radius: var(--size-rounded-card);
+
+  border: 3px solid var(--color-ad-raised);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#carbonads_1 {
+  display: none;
 }
 
 #carbonads,
@@ -74,10 +104,10 @@ export default {
   max-width: 100%;
   position: relative;
 
-  padding: var(--spacing-card-md) var(--spacing-card-md);
-
   font-size: 22px;
   box-sizing: content-box;
+
+  padding: var(--spacing-card-sm) var(--spacing-card-sm);
 
   > span {
     display: block;
@@ -107,7 +137,7 @@ export default {
 
   img {
     display: block;
-    height: 90px;
+    height: 100px;
     width: auto;
     border-radius: var(--size-rounded-card);
   }
@@ -132,7 +162,7 @@ export default {
   font-weight: 600;
   font-size: 0.5em;
   line-height: 1;
-  border-top-left-radius: 10px;
+  border-top-left-radius: var(--size-rounded-card);
   position: absolute;
   bottom: 0;
   right: 0;
