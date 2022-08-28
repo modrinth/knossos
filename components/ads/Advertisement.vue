@@ -92,6 +92,8 @@ export default {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+
+  position: relative;
 }
 
 #carbonads_1 {
@@ -102,7 +104,6 @@ export default {
 #info-popup {
   overflow: hidden;
   max-width: 100%;
-  position: relative;
 
   font-size: 22px;
   box-sizing: content-box;
@@ -154,7 +155,7 @@ export default {
 .carbon-poweredby,
 .info-popup-poweredby {
   display: block;
-  padding: 6px 8px;
+  padding: 8px 10px;
   background: var(--color-ad-raised);
   text-align: center;
   text-transform: uppercase;
@@ -164,8 +165,9 @@ export default {
   line-height: 1;
   border-top-left-radius: var(--size-rounded-card);
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: -3px;
+  right: -3px;
+  border-bottom-right-radius: var(--size-rounded-card);
 }
 
 @media only screen and (min-width: 320px) and (max-width: 759px) {
