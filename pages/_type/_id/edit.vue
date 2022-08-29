@@ -919,6 +919,7 @@ section.game-sides {
 
 section.description {
   grid-area: description;
+  overflow: hidden;
 
   .separator {
     margin: var(--spacing-card-sm) 0;

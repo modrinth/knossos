@@ -612,6 +612,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0;
+  overflow: hidden;
 
   img {
     width: 100%;

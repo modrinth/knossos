@@ -101,11 +101,15 @@ html {
 
   // stuff like lists/bullet points
   --color-editor-var-2: #05a;
-
   
   --color-editor-selection-bg: rgba(0, 0, 0, 0.1);
   --color-editor-error-text: #b63258;
   --color-editor-error-bg: rgba(255, 0, 0, 0.2);
+
+  // scrollbar
+  --color-editor-scrollbar-thumb: #575b5f;
+  --color-editor-scrollbar-thumb-hover: #383b3d;
+  --color-editor-scrollbar-track: rgba(26, 28, 31, 0.25);
 
 
   --shadow-card: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.1),
@@ -208,6 +212,11 @@ html {
   // stuff like lists/bullet points
   --color-editor-var-2: #92dbfd;
   --color-editor-selection-bg: rgba(255, 255, 255, 0.2);
+
+  // scrollbar
+  --color-editor-scrollbar-thumb: #888c91;
+  --color-editor-scrollbar-thumb-hover: #a3a7aa;
+  --color-editor-scrollbar-track: rgba(26, 28, 31, 0.65);
 
   --color-card-link-bg: rgb(255, 255, 255, 15%);
 }

@@ -1732,6 +1732,7 @@ section.game-sides {
 
 section.description {
   grid-area: description;
+  overflow: hidden;
 
   .separator {
     margin: var(--spacing-card-sm) 0;
@@ -1739,7 +1740,11 @@ section.description {
 
   .edit-wrapper * {
     min-height: 10rem;
-    max-height: 40rem;
+    /*
+      max height causes weird behavior when resizing the text box beyond
+      this limit, preventing you from resizing it back below the limit.
+    */
+    // max-height: 40rem;
     overflow: hidden;
   }
 
