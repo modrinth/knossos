@@ -42,17 +42,20 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => this.checkAds(0), 1000)
+    if (!this.$store.state.cosmetics.notUsingBlockers) {
+      setTimeout(() => this.checkAds(0), 1000)
+    }
   },
   methods: {
     checkAds(tries) {
       if (!window._carbonads) {
         this.isBlocked = true
 
-        if (tries < 20) {
+        if (tries < 50) {
           setTimeout(() => this.checkAds(tries + 1), 250)
         }
       } else {
+        this.$store.state.cosmetics.commit('SET_NOT_USING_BLOCKERS', true)
         this.isBlocked = false
       }
     },
@@ -170,9 +173,9 @@ export default {
   border-bottom-right-radius: var(--size-rounded-card);
 }
 
-@media only screen and (min-width: 320px) and (max-width: 759px) {
+@media only screen and (max-width: 759px) {
   .carbon-text,
-  info-popup-text {
+  .info-popup-text {
     font-size: 14px;
   }
 }
