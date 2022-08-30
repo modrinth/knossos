@@ -37,19 +37,34 @@
           placeholder="Enter the message..."
         />
         <h3>Body</h3>
-        <ThisOrThat v-model="bodyViewMode" :items="['source', 'preview']" />
-        <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
-          <textarea
-            id="body"
-            v-model="currentProject.moderation_message_body"
-          />
-        </div>
-        <div
-          v-if="bodyViewMode === 'preview'"
-          v-highlightjs
-          class="markdown-body"
-          v-html="$xss($md.render(currentProject.moderation_message_body))"
-        ></div>
+        <section class="body">
+          <ThisOrThat v-model="bodyViewMode" :items="['source', 'preview']" />
+          <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
+            <!-- <textarea
+              id="body"
+              v-model="currentProject.moderation_message_body"
+            /> -->
+            <client-only>
+              <codemirror
+                id="body"
+                v-model="currentProject.moderation_message_body"
+                :class="{ 'known-error': body === '' && showKnownErrors }"
+                :options="{
+                  mode: 'text/markdown',
+                  line: true,
+                  styleActiveLine: true,
+                  lineNumbers: true,
+                }"
+              />
+            </client-only>
+          </div>
+          <div
+            v-if="bodyViewMode === 'preview'"
+            v-highlightjs
+            class="markdown-body"
+            v-html="$xss($md.render(currentProject.moderation_message_body))"
+          ></div>
+        </section>
         <div class="buttons">
           <button class="iconified-button" @click="currentProject = null">
             <CrossIcon />
@@ -298,9 +313,23 @@ export default {
 }
 </script>
 
+<!-- codemirror doesn't like it when it's scoped -->
+<style lang="scss">
+.moderation-popup {
+  section.body {
+    overflow-x: hidden;
+
+    .cm-s-default {
+      height: auto;
+    }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 .moderation-popup {
-  width: auto;
+  width: 42rem;
+  height: auto;
   padding: var(--spacing-card-md) var(--spacing-card-lg);
 
   .status {
@@ -347,6 +376,20 @@ h1 {
 @media screen and (min-width: 1024px) {
   .page-contents {
     max-width: calc(1280px - 20rem) !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .moderation-popup {
+    width: 22rem;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .moderation-popup {
+    width: 18rem;
+    overflow: hidden;
   }
 }
 </style>
