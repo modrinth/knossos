@@ -221,10 +221,6 @@ export default {
     FeaturesIllustration,
   },
   auth: false,
-  data() {
-    return {}
-  },
-  methods: {},
 }
 </script>
 

@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filter ::v-deep {
+.filter :deep() {
   margin-bottom: 0.5rem;
 
   .filter-text {

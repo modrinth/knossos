@@ -1,7 +1,9 @@
 import { sortRoutes } from '@nuxt/utils'
 import axios from 'axios'
 
-export default {
+import { defineNuxtConfig } from '@nuxt/bridge'
+
+export default defineNuxtConfig({
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -11,6 +13,11 @@ export default {
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
    */
+
+  bridge: {
+    // nitro: false,
+  },
+
   head: {
     htmlAttrs: {
       lang: 'en',
@@ -352,7 +359,7 @@ export default {
       },
     },
   },
-}
+})
 
 function getDomain() {
   if (process.env.NODE_ENV === 'production') {

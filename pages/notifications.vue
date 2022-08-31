@@ -217,7 +217,7 @@ h1 {
         align-items: baseline;
         flex-direction: column;
 
-        h3 ::v-deep {
+        h3 :deep() {
           font-size: var(--font-size-lg);
           margin: 0 0.5rem 0 0;
 

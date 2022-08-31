@@ -1,5 +1,10 @@
 <template>
-  <div ref="layout" class="layout">
+  <div
+    class="layout"
+    :class="{
+      'expanded-mobile-nav': isBrowseMenuOpen,
+    }"
+  >
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
@@ -170,9 +175,9 @@
           </section>
         </section>
       </section>
-      <section ref="mobileNavBar" class="mobile-navbar">
+      <section class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen }">
         <div class="top-row">
-          <NuxtLink to="/" class="tab" @click.native="closeBrowseMenu()">
+          <NuxtLink to="/" class="tab" @click.native="isBrowseMenuOpen = false">
             <HomeIcon />
           </NuxtLink>
           <div class="spacer"></div>
@@ -187,14 +192,14 @@
           </button>
         </div>
         <div
-          :class="{ 'disable-childern': !isBrowseMenuOpen }"
+          :class="{ 'disable-children': !isBrowseMenuOpen }"
           class="project-types"
         >
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/mods"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Mods</span>
           </NuxtLink>
@@ -202,7 +207,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/plugins"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Plugins</span>
           </NuxtLink>
@@ -211,7 +216,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Resource Packs</span>
           </NuxtLink>
@@ -219,13 +224,18 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/modpacks"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Modpacks</span>
           </NuxtLink>
         </div>
       </section>
-      <section ref="mobileMenu" class="mobile-menu">
+      <section
+        class="mobile-menu"
+        :class="{
+          active: isMobileMenuOpen,
+        }"
+      >
         <div class="mobile-menu-wrapper">
           <div class="items-container rows">
             <NuxtLink
@@ -441,10 +451,7 @@ export default {
   },
   watch: {
     $route() {
-      this.$refs.mobileMenu.className = 'mobile-menu'
-      this.isMobileMenuOpen =
-        this.$refs.mobileMenu.className === 'mobile-menu active'
-
+      this.isMobileMenuOpen = false
       document.body.style.overflowY = overflowStyle
 
       this.$store.dispatch('user/fetchAll')
@@ -463,48 +470,18 @@ export default {
   methods: {
     toggleMobileMenu() {
       window.scrollTo(0, 0)
-      const currentlyActive =
-        this.$refs.mobileMenu.className === 'mobile-menu active'
-      this.$refs.mobileMenu.className = `mobile-menu${
-        currentlyActive ? '' : ' active'
-      }`
       document.body.scrollTop = 0
 
       document.body.style.overflowY =
         document.body.style.overflowY !== 'hidden' ? 'hidden' : overflowStyle
 
-      this.isMobileMenuOpen = !currentlyActive
-
-      if (this.isMobileMenuOpen) {
-        this.$refs.mobileNavBar.className = `mobile-navbar`
-        this.$refs.layout.className = `layout`
-
-        this.isBrowseMenuOpen = false
-      }
+      this.isMobileMenuOpen = !this.isMobileMenuOpen
+      this.isBrowseMenuOpen = false
     },
     toggleBrowseMenu() {
-      const currentlyActive =
-        this.$refs.mobileNavBar.className === 'mobile-navbar expanded'
-      this.$refs.mobileNavBar.className = `mobile-navbar${
-        currentlyActive ? '' : ' expanded'
-      }`
-      this.$refs.layout.className = `layout${
-        currentlyActive ? '' : ' expanded-mobile-nav'
-      }`
-
-      this.isBrowseMenuOpen = !currentlyActive
-
-      if (this.isBrowseMenuOpen) {
-        this.$refs.mobileMenu.className = `mobile-menu`
-
-        this.isMobileMenuOpen = false
-      }
-    },
-    closeBrowseMenu() {
-      this.$refs.mobileNavBar.className = `mobile-navbar`
-      this.$refs.layout.className = `layout`
-
-      this.isBrowseMenuOpen = false
+      this.isBrowseMenuOpen = !this.isBrowseMenuOpen
+      this.isMobileMenuOpen = false
+      document.body.style.overflowY = overflowStyle
     },
     async logout() {
       this.$cookies.set('auth-token-reset', true)
@@ -963,7 +940,7 @@ export default {
         }
       }
 
-      .disable-childern {
+      .disable-children {
         a {
           pointer-events: none;
         }
