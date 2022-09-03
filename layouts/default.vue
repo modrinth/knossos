@@ -286,7 +286,6 @@
       </section>
     </header>
     <main>
-      <CookieConsent :mobile-menu-open="isBrowseMenuOpen" />
       <notifications
         group="main"
         position="bottom right"
