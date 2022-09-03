@@ -51,7 +51,7 @@ export default {
       if (!window._carbonads) {
         this.isBlocked = true
 
-        if (tries < 50) {
+        if (tries < 1000) {
           setTimeout(() => this.checkAds(tries + 1), 250)
         }
       } else {
