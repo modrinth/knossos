@@ -340,10 +340,6 @@
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
       </div>
       <div class="buttons">
-        <nuxt-link to="/settings/privacy" class="iconified-button">
-          <ShieldIcon aria-hidden="true" />
-          Privacy settings
-        </nuxt-link>
         <button class="iconified-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
@@ -364,7 +360,6 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
-import ShieldIcon from '~/assets/images/utils/shield.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
 
@@ -376,8 +371,6 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
-
-import CookieConsent from '~/components/ads/CookieConsent'
 
 const overflowStyle = 'scroll'
 
@@ -392,9 +385,7 @@ export default {
     HomeIcon,
     CrossIcon,
     HamburgerIcon,
-    CookieConsent,
     SettingsIcon,
-    ShieldIcon,
     ModerationIcon,
     PlusIcon,
     DropdownIcon,
