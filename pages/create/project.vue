@@ -452,7 +452,7 @@
                 :multiple="true"
                 :searchable="false"
                 :show-no-results="false"
-                :close-on-select="true"
+                :close-on-select="false"
                 :clear-on-select="false"
                 :show-labels="false"
                 :limit="6"
@@ -1192,7 +1192,7 @@ export default {
           realId: 'plugin',
         },
         {
-          display: 'Mod and plugin',
+          display: 'Mod and Plugin',
           id: 'mod',
           realId: 'mod+plugin',
         },
@@ -1202,7 +1202,7 @@ export default {
           realId: 'modpack',
         },
         {
-          display: 'Resource pack',
+          display: 'Resource Pack',
           id: 'resourcepack',
           realId: 'resourcepack',
         },
