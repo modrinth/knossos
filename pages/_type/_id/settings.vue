@@ -97,7 +97,7 @@
           <img :src="member.avatar_url" :alt="member.name" />
           <div class="text">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p class="title-link">{{ member.name }}</p>
+              <p>{{ member.name }}</p>
             </nuxt-link>
             <p>{{ member.role }}</p>
           </div>

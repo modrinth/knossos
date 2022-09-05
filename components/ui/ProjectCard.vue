@@ -276,6 +276,9 @@ export default {
       margin: 0 var(--spacing-card-md) var(--spacing-card-md) 0;
       border-radius: var(--size-rounded-icon);
       object-fit: contain;
+
+      background-color: var(--color-button-bg);
+      box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
     }
   }
 

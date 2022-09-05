@@ -83,14 +83,16 @@ export default {
 
 <style scoped lang="scss">
 button {
-  box-shadow: var(--shadow-card);
+  color: var(--color-button-text);
+  box-shadow: var(--shadow-raised), var(--shadow-inset);
 
-  padding: 0;
+  padding: 0.5rem 1rem;
   margin: 0;
-  width: 2rem;
-  height: 2rem;
   border-radius: 2rem;
   background: var(--color-raised-bg);
+
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
+    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
 
   &.page-number.current {
     background: var(--color-brand);
@@ -105,15 +107,13 @@ button {
     box-shadow: inset 0 0 0 1px var(--color-button-bg-disabled);
   }
 
-  &:focus-visible,
-  &:hover {
-    background-color: var(--color-button-bg-hover);
-    color: var(--color-button-text-hover);
+  &:hover:not(&:disabled) {
+    filter: brightness(0.85);
   }
 
-  &:active {
-    background-color: var(--color-button-bg-active);
-    color: var(--color-button-text-active);
+  &:active:not(&:disabled) {
+    transform: scale(0.95);
+    filter: brightness(0.8);
   }
 }
 
@@ -132,8 +132,6 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 2em;
-  width: 2em;
 }
 
 .paginates {
@@ -147,12 +145,6 @@ button,
   @media screen and (min-width: 350px) {
     font-size: 100%;
   }
-}
-
-.shrink {
-  font-size: 0.9rem;
-  height: 2.225em;
-  width: 2.225em;
 }
 
 .left-arrow {

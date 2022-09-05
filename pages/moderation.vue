@@ -325,7 +325,6 @@ export default {
 
 h1 {
   color: var(--color-text-dark);
-  margin: 0 0 1rem 1.5rem;
 }
 
 .report {

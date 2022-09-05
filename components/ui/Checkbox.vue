@@ -138,6 +138,10 @@ export default {
   padding: 0;
   margin: 0 0.5rem 0 0;
 
+  color: var(--color-button-text);
+  background-color: var(--color-button-bg);
+  border-radius: var(--size-rounded-control);
+
   &.checked {
     background-color: var(--color-brand);
   }

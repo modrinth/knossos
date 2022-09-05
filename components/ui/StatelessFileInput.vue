@@ -93,6 +93,7 @@ label {
   text-align: center;
   padding: var(--spacing-card-sm) var(--spacing-card-md);
   margin-bottom: var(--spacing-card-sm);
+  box-shadow: var(--shadow-inset-sm);
 }
 
 span {

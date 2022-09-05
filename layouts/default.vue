@@ -34,25 +34,6 @@
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
-              <button
-                class="control-button"
-                title="Switch theme"
-                @click="changeTheme"
-              >
-                <MoonIcon
-                  v-if="$colorMode.value === 'light'"
-                  aria-hidden="true"
-                />
-                <SunIcon v-else aria-hidden="true" />
-              </button>
-              <nuxt-link
-                v-if="$auth.user"
-                to="/create/project"
-                class="control-button"
-                title="Create project"
-              >
-                <PlusIcon aria-hidden="true" />
-              </nuxt-link>
               <nuxt-link
                 v-if="$auth.user"
                 to="/notifications"
@@ -64,21 +45,18 @@
                   {{ $user.notifications.length }}
                 </div>
               </nuxt-link>
-              <nuxt-link
-                v-if="
-                  $auth.user &&
-                  ($auth.user.role === 'moderator' ||
-                    $auth.user.role === 'admin')
-                "
-                to="/moderation"
+              <button
+                v-else
                 class="control-button"
-                title="Moderation"
+                title="Switch theme"
+                @click="changeTheme"
               >
-                <ModerationIcon aria-hidden="true" />
-                <div v-if="moderationNotifications > 0" class="bubble">
-                  {{ moderationNotifications }}
-                </div>
-              </nuxt-link>
+                <MoonIcon
+                  v-if="$colorMode.value === 'light'"
+                  aria-hidden="true"
+                />
+                <SunIcon v-else aria-hidden="true" />
+              </button>
               <div v-if="$auth.user" ref="mobileMenu" class="dropdown">
                 <button class="control" value="Profile Dropdown">
                   <img
@@ -411,7 +389,6 @@ export default {
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
-      moderationNotifications: 0,
     }
   },
   async fetch() {
@@ -420,19 +397,6 @@ export default {
       this.$store.dispatch('tag/fetchAllTags'),
       this.$store.dispatch('cosmetics/fetchCosmetics', this.$cookies),
     ])
-    if (
-      (this.$auth.user && this.$auth.user.role === 'moderator') ||
-      (this.$auth.user && this.$auth.user.role === 'admin')
-    ) {
-      const [projects, reports] = (
-        await Promise.all([
-          this.$axios.get(`moderation/projects`, this.$defaultHeaders()),
-          this.$axios.get(`report`, this.$defaultHeaders()),
-        ])
-      ).map((it) => it.data)
-
-      this.moderationNotifications = projects.length + reports.length
-    }
   },
   computed: {
     authUrl() {
@@ -646,7 +610,7 @@ export default {
             position: relative;
             top: 50%;
             transform: translateY(-50%);
-            margin-top: 3px;
+            margin-top: 4px;
             margin-left: 2rem;
 
             a {
@@ -685,27 +649,15 @@ export default {
           position: relative;
           top: 50%;
           transform: translateY(-50%);
-          min-width: 12rem;
+          min-width: 6rem;
 
           .control-button {
             display: flex;
             max-width: 2rem;
             padding: 0.5rem;
-            background-color: var(--color-raised-bg);
-            border-radius: var(--size-rounded-max);
-            margin: 0 0.5rem 0 0;
-            box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
-
-            &:hover,
-            &:focus-visible {
-              background-color: var(--color-button-bg-hover);
-              color: var(--color-button-text-hover);
-            }
-
-            &:active {
-              background-color: var(--color-button-bg-active);
-              color: var(--color-button-text-active);
-            }
+            margin: 0 1rem 0 0;
+            background: none;
+            color: var(--color-text);
 
             svg {
               height: 1rem;
@@ -748,10 +700,11 @@ export default {
                 height: 2rem;
                 outline: 2px solid var(--color-raised-bg);
                 width: 2rem;
+                transition: outline-color 0.1s ease-in-out;
               }
 
               .caret {
-                color: inherit;
+                color: var(--color-button-text);
                 margin-left: 0.25rem;
                 width: 1rem;
               }
@@ -775,6 +728,7 @@ export default {
               visibility: hidden;
               width: max-content;
               z-index: 1;
+              box-shadow: var(--shadow-floating);
 
               .divider {
                 background-color: var(--color-divider-dark);
@@ -821,10 +775,8 @@ export default {
             }
           }
 
-          .dropdown:hover .user-icon,
-          .dropdown:focus .user-icon,
-          .dropdown:focus-within .user-icon {
-            outline-color: var(--color-raised-bg-hover);
+          .dropdown:hover .user-icon {
+            outline-color: var(--color-brand);
           }
 
           .dropdown:hover .content {

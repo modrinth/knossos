@@ -899,18 +899,12 @@
         </div>
         <div class="gallery-items">
           <div
-            v-for="(item, index) in gallery.filter((it) =>
-              currentGalleryIndex === -1 || it !== gallery[currentGalleryIndex]
-                ? it !== gallery[currentGalleryIndex]
-                : true
+            v-for="(item, index) in gallery.filter(
+              (it) => it !== gallery[currentGalleryIndex] && currentGalleryNew
             )"
             :key="index"
             class="gallery-item"
           >
-            <div class="info">
-              <h3>{{ item.title }}</h3>
-              <h4 v-if="item.description">{{ item.description }}</h4>
-            </div>
             <div class="image">
               <img
                 :src="
@@ -920,6 +914,10 @@
                 "
                 alt="preview-image"
               />
+            </div>
+            <div class="info">
+              <h3>{{ item.title }}</h3>
+              <p v-if="item.description">{{ item.description }}</p>
             </div>
             <div class="controls">
               <button
@@ -2012,17 +2010,37 @@ section.gallery {
       flex-direction: column;
       gap: 0.5rem;
 
+      border: 1px solid var(--color-divider);
+      border-radius: var(--size-rounded-card);
+      padding: 1rem;
+
+      width: 100%;
+
       h2 {
         margin: 0;
       }
-      h4 {
+      p {
         margin: 0;
+        word-wrap: anywhere;
       }
-      width: calc((100% - 2 * var(--spacing-card-lg)) / 3);
 
       img {
+        object-fit: cover;
+        min-height: 10rem;
         width: 100%;
         border-radius: var(--size-rounded-card);
+      }
+
+      .controls {
+        margin-top: auto;
+      }
+
+      @media screen and (min-width: 800px) {
+        width: calc(((100% / 2) - 3.25rem));
+      }
+
+      @media screen and (min-width: 1024px) {
+        width: calc((100% / 3) - 3.25rem);
       }
     }
   }

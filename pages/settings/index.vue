@@ -262,7 +262,7 @@ export default {
 
     .profile-picture {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       gap: 0.5rem;
       align-items: center;
 

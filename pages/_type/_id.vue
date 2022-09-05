@@ -353,6 +353,13 @@
             v-for="version in featuredVersions"
             :key="version.id"
             class="featured-version"
+            @click="
+              $router.push(
+                `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/version/${encodeURI(version.displayUrlEnding)}`
+              )
+            "
           >
             <a
               v-tooltip="
@@ -364,6 +371,7 @@
               :href="findPrimary(version).url"
               class="download"
               :title="`Download ${version.name}`"
+              @click.stop="(event) => event.stopPropagation()"
             >
               <DownloadIcon aria-hidden="true" />
             </a>
@@ -372,7 +380,7 @@
                 :to="`/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/version/${encodeURI(version.displayUrlEnding)}`"
-                class="top title-link"
+                class="top"
               >
                 {{ version.name }}
               </nuxt-link>
@@ -407,13 +415,13 @@
           v-for="member in members"
           :key="member.user.id"
           class="team-member columns"
+          @click="$router.push('/user/' + member.user.username)"
         >
-          <nuxt-link :to="'/user/' + member.user.username" class="name">
-            <img :src="member.avatar_url" alt="profile-picture" />
-          </nuxt-link>
+          <img :src="member.avatar_url" alt="profile-picture" />
+
           <div class="member-info">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p class="title-link">{{ member.name }}</p>
+              <p>{{ member.name }}</p>
             </nuxt-link>
             <p class="role">{{ member.role }}</p>
           </div>
@@ -926,6 +934,9 @@ export default {
     height: 6rem;
     object-fit: contain;
     border-radius: var(--size-rounded-icon);
+
+    background-color: var(--color-button-bg);
+    box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
   }
 
   .title {
@@ -1065,7 +1076,15 @@ export default {
 .featured-version {
   display: flex;
   flex-direction: row;
-  margin-top: var(--spacing-card-md);
+  padding: 0.5rem;
+  border-radius: var(--size-rounded-sm);
+
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-button-bg);
+    cursor: pointer;
+  }
 
   .download {
     display: flex;
@@ -1099,6 +1118,7 @@ export default {
 
     .top {
       font-weight: bold;
+      word-wrap: anywhere;
     }
   }
 }
@@ -1147,7 +1167,16 @@ export default {
 
 .team-member {
   align-items: center;
-  margin-bottom: 0.25rem;
+
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--size-rounded-sm);
+
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-button-bg);
+    cursor: pointer;
+  }
 
   img {
     border-radius: var(--size-rounded-sm);

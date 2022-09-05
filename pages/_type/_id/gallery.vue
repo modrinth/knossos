@@ -454,6 +454,7 @@ export default {
       line-height: 1;
       display: flex;
       max-width: 2rem;
+      color: var(--color-button-text);
       background-color: var(--color-button-bg);
       border-radius: var(--size-rounded-max);
       margin: 0;

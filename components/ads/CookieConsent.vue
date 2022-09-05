@@ -15,7 +15,9 @@
         </span>
         <div class="actions">
           <button class="btn button" @click="review">Review</button>
-          <button class="btn brand-button" @click="hide">Accept all</button>
+          <button class="btn button brand-button-colors" @click="hide">
+            Accept all
+          </button>
         </div>
       </div>
     </div>

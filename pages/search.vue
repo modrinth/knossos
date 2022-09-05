@@ -244,7 +244,7 @@
             v-model="query"
             type="search"
             name="search"
-            placeholder="Search..."
+            :placeholder="`Search ${$route.name}...`"
             autocomplete="off"
             @input="onSearchChange(1)"
           />
@@ -596,6 +596,8 @@ export default {
       await this.onSearchChange(newPageNumber)
     },
     async onSearchChange(newPageNumber) {
+      this.currentPage = newPageNumber
+
       if (this.query === null) return
 
       try {
@@ -705,7 +707,6 @@ export default {
 
         const pageAmount = Math.ceil(res.data.total_hits / res.data.limit)
 
-        this.currentPage = newPageNumber
         if (pageAmount > 4) {
           if (this.currentPage + 3 >= pageAmount) {
             this.pages = [

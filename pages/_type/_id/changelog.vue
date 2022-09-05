@@ -6,56 +6,62 @@
       @updateVersions="updateVersions"
     />
     <div class="card">
-      <div v-for="version in filteredVersions" :key="version.id">
-        <div class="version-header">
-          <span :class="'circle ' + version.version_type" />
-          <div class="version-header-text">
-            <h2 class="name title-link">
-              <nuxt-link
-                :to="`/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/version/${encodeURI(version.displayUrlEnding)}`"
-                >{{ version.name }}</nuxt-link
+      <div
+        v-for="version in filteredVersions"
+        :key="version.id"
+        class="changelog-item"
+      >
+        <div :class="'changelog-bar ' + version.version_type"></div>
+        <div class="version-wrapper">
+          <div class="version-header">
+            <div class="version-header-text">
+              <h2 class="name">
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURI(version.displayUrlEnding)}`"
+                  >{{ version.name }}</nuxt-link
+                >
+              </h2>
+              <span v-if="members.find((x) => x.user.id === version.author_id)">
+                by
+                <nuxt-link
+                  class="text-link"
+                  :to="
+                    '/user/' +
+                    members.find((x) => x.user.id === version.author_id).user
+                      .username
+                  "
+                  >{{
+                    members.find((x) => x.user.id === version.author_id).user
+                      .username
+                  }}</nuxt-link
+                >
+              </span>
+              <span>
+                on
+                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
               >
-            </h2>
-            <span v-if="members.find((x) => x.user.id === version.author_id)">
-              by
-              <nuxt-link
-                class="text-link"
-                :to="
-                  '/user/' +
-                  members.find((x) => x.user.id === version.author_id).user
-                    .username
-                "
-                >{{
-                  members.find((x) => x.user.id === version.author_id).user
-                    .username
-                }}</nuxt-link
-              >
-            </span>
-            <span>
-              on
-              {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
+            </div>
+            <a
+              :href="$parent.findPrimary(version).url"
+              class="iconified-button download"
+              :title="`Download ${version.name}`"
             >
+              <DownloadIcon aria-hidden="true" />
+              Download
+            </a>
           </div>
-          <a
-            :href="$parent.findPrimary(version).url"
-            class="iconified-button download"
-            :title="`Download ${version.name}`"
-          >
-            <DownloadIcon aria-hidden="true" />
-            Download
-          </a>
+          <div
+            v-highlightjs
+            class="markdown-body"
+            v-html="
+              version.changelog
+                ? $xss($md.render(version.changelog))
+                : 'No changelog specified.'
+            "
+          />
         </div>
-        <div
-          v-highlightjs
-          :class="'markdown-body ' + version.version_type"
-          v-html="
-            version.changelog
-              ? $xss($md.render(version.changelog))
-              : 'No changelog specified.'
-          "
-        />
       </div>
     </div>
   </div>
@@ -104,9 +110,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.changelog-item {
+  display: flex;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 1.8rem;
+
+  .changelog-bar {
+    left: 0;
+    top: 0.5rem;
+    width: 0.2rem;
+    min-width: 0.2rem;
+    position: absolute;
+    margin: 0 0.4rem;
+    border-radius: var(--size-rounded-max);
+    min-height: 100%;
+
+    &:before {
+      content: '';
+      width: 1rem;
+      height: 1rem;
+      position: absolute;
+      top: 0;
+      left: -0.4rem;
+      border-radius: var(--size-rounded-max);
+    }
+
+    &.alpha {
+      background-color: var(--color-badge-red-bg);
+
+      &:before {
+        background-color: var(--color-badge-red-bg);
+      }
+    }
+
+    &.release {
+      background-color: var(--color-badge-green-bg);
+
+      &:before {
+        background-color: var(--color-badge-green-bg);
+      }
+    }
+
+    &.beta {
+      background-color: var(--color-badge-yellow-bg);
+
+      &:before {
+        background-color: var(--color-badge-yellow-bg);
+      }
+    }
+  }
+}
+
 .version-header {
   display: flex;
   align-items: center;
+  margin-top: 0.2rem;
 
   .circle {
     min-width: 0.75rem;
@@ -114,24 +173,11 @@ export default {
     border-radius: 50%;
     display: inline-block;
     margin-right: 0.25rem;
-
-    &.alpha {
-      background-color: var(--color-badge-red-bg);
-    }
-
-    &.release {
-      background-color: var(--color-badge-green-bg);
-    }
-
-    &.beta {
-      background-color: var(--color-badge-yellow-bg);
-    }
   }
 
   .version-header-text {
     display: flex;
     align-items: baseline;
-    margin: 0 0.75rem;
     flex-wrap: wrap;
 
     h2 {
@@ -155,20 +201,6 @@ export default {
 }
 
 .markdown-body {
-  margin: 0.5rem 0.5rem 1rem calc(0.375rem - 1px);
-  padding-left: 1.275rem;
-  border-left: 2px solid var(--color-text);
-
-  &.alpha {
-    border-left-color: var(--color-badge-red-bg);
-  }
-
-  &.release {
-    border-left-color: var(--color-badge-green-bg);
-  }
-
-  &.beta {
-    border-left-color: var(--color-badge-yellow-bg);
-  }
+  margin: 0.5rem 0.5rem 0 0;
 }
 </style>

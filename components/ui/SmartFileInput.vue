@@ -93,6 +93,7 @@ label {
   justify-content: center;
   text-align: center;
   padding: var(--spacing-card-sm) var(--spacing-card-md);
+  box-shadow: var(--shadow-inset-sm);
 }
 
 span {

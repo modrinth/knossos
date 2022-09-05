@@ -44,7 +44,7 @@
             </td>
             <td>
               <div class="info">
-                <div class="top title-link">
+                <div class="top">
                   <nuxt-link
                     :to="`/${project.project_type}/${
                       project.slug ? project.slug : project.id
