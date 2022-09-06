@@ -465,6 +465,30 @@ export default {
 
     await this.onSearchChange(this.currentPage)
   },
+  head() {
+    const name = this.$route.name.substring(0, this.$route.name.length - 1)
+
+    return {
+      title: `Search ${this.$formatProjectType(name)}s - Modrinth`,
+      meta: [
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: `Search ${this.$formatProjectType(name)}s`,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: `Search ${this.$formatProjectType(name)}s`,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `Search and browse thousands of Minecraft ${name}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${name}s.\n`,
+        },
+      ],
+    }
+  },
   computed: {
     categoriesMap() {
       const categories = {}

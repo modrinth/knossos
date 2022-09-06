@@ -71,6 +71,10 @@ export default {
   align-items: center;
   cursor: pointer;
 
+  button {
+    transition: background-color 0.1s ease-in-out;
+  }
+
   &.disabled {
     opacity: 0.6;
     cursor: not-allowed;

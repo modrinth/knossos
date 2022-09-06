@@ -1,10 +1,7 @@
 <template>
   <div class="content">
     <div v-if="currentMember" class="card header-buttons">
-      <nuxt-link
-        to="version/create"
-        class="brand-button-colors iconified-button"
-      >
+      <nuxt-link to="version/create" class="brand-button iconified-button">
         <PlusIcon />
         Create a version
       </nuxt-link>
@@ -159,6 +156,42 @@ export default {
   data() {
     return {
       filteredVersions: this.versions,
+    }
+  },
+  head() {
+    const title = `${this.project.title} - Versions`
+    const description = `Download and browse ${this.versions.length} ${
+      this.project.title
+    } versions. ${this.$formatNumber(
+      this.project.downloads
+    )} total downloads. Last updated ${this.$dayjs(
+      this.versions[0].date_published
+    ).format('MMM D, YYYY')}.`
+
+    return {
+      title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: title,
+        },
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: title,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+      ],
     }
   },
   methods: {

@@ -102,9 +102,9 @@ button {
 
   &.paginate.disabled {
     background-color: transparent;
-    cursor: default;
-    color: var(--color-button-text-disabled);
-    box-shadow: inset 0 0 0 1px var(--color-button-bg-disabled);
+    cursor: not-allowed;
+    filter: grayscale(50%);
+    opacity: 0.5;
   }
 
   &:hover:not(&:disabled) {

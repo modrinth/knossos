@@ -1,32 +1,35 @@
 <template>
-  <Popup :show-popup="display">
+  <Popup ref="popup" :header="title">
     <div class="popup-delete">
-      <span class="title">{{ title }}</span>
-      <span class="description">
-        {{ description }}
-      </span>
+      <div class="markdown-body" v-html="$xss($md.render(description))"></div>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
-          To confirm your action, please type
-          <span class="confirmation-text">{{ confirmationText }}</span>
-          to continue
+          <strong>To verify, type</strong>
+          <em class="confirmation-text">{{ confirmationText }}</em>
+          <strong>below:</strong>
         </span>
       </label>
-      <input
-        v-if="hasToType"
-        id="confirmation"
-        v-model="confirmation_typed"
-        type="text"
-        placeholder="Type the input needed to continue"
-        @input="type"
-      />
-      <div class="actions">
-        <button class="button" @click="cancel">Cancel</button>
+      <div class="confirmation-input">
+        <input
+          v-if="hasToType"
+          id="confirmation"
+          v-model="confirmation_typed"
+          type="text"
+          placeholder="Type here..."
+          @input="type"
+        />
+      </div>
+      <div class="button-group">
+        <button class="iconified-button" @click="cancel">
+          <CrossIcon />
+          Cancel
+        </button>
         <button
-          class="button warn-button"
+          class="iconified-button danger-button"
           :disabled="action_disabled"
           @click="proceed"
         >
+          <TrashIcon />
           {{ proceedLabel }}
         </button>
       </div>
@@ -35,11 +38,15 @@
 </template>
 
 <script>
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import Popup from '~/components/ui/Popup'
 
 export default {
   name: 'ConfirmPopup',
   components: {
+    CrossIcon,
+    TrashIcon,
     Popup,
   },
   props: {
@@ -70,15 +77,14 @@ export default {
     return {
       action_disabled: this.hasToType,
       confirmation_typed: '',
-      display: false,
     }
   },
   methods: {
     cancel() {
-      this.display = false
+      this.$refs.popup.hide()
     },
     proceed() {
-      this.display = false
+      this.$refs.popup.hide()
       this.$emit('proceed')
     },
     type() {
@@ -89,7 +95,7 @@ export default {
       }
     },
     show() {
-      this.display = true
+      this.$refs.popup.show()
     },
   },
 }
@@ -97,7 +103,7 @@ export default {
 
 <style scoped lang="scss">
 .popup-delete {
-  padding: 1.5rem;
+  padding: var(--spacing-card-bg);
   display: flex;
   flex-direction: column;
 
@@ -108,17 +114,8 @@ export default {
     max-width: 40vw;
   }
 
-  .title {
-    font-size: 1.25rem;
-    align-self: stretch;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .description {
-    word-wrap: break-word;
-    padding-bottom: 1rem;
+  .markdown-body {
+    margin-bottom: 1rem;
   }
 
   .confirmation-label {
@@ -126,32 +123,18 @@ export default {
   }
 
   .confirmation-text {
-    font-weight: bold;
-    padding-right: 0;
+    padding-right: 0.25ch;
   }
 
-  .actions {
-    display: flex;
-    flex-direction: row;
+  .confirmation-input {
+    input {
+      width: 20rem;
+    }
+  }
+
+  .button-group {
+    margin-left: auto;
     margin-top: 1.5rem;
-
-    button {
-      flex-grow: 1;
-      width: 100%;
-      margin: 0.75rem 1rem;
-      padding: 0.75rem 0;
-    }
-
-    .warn-button {
-      transition: background-color 1s, color 1s;
-      color: var(--color-brand-inverted);
-      background-color: var(--color-badge-red-bg);
-
-      &:disabled {
-        background-color: var(--color-button-bg);
-        color: var(--color-button-text-disabled);
-      }
-    }
   }
 }
 </style>

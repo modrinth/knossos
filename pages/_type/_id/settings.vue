@@ -45,7 +45,7 @@
           >
         </div>
       </label>
-      <label>
+      <label class="no-margin">
         <span>
           <h3>Delete project</h3>
           <span>
@@ -53,15 +53,15 @@
             this will delete your project, so be extra careful!
           </span>
         </span>
-        <div
-          class="iconified-button"
+        <button
+          class="iconified-button danger-button"
           :disabled="
             (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
           "
           @click="showPopup"
         >
           <TrashIcon />Delete project
-        </div>
+        </button>
       </label>
     </section>
     <div class="card columns team-invite">
@@ -78,7 +78,7 @@
         />
         <label for="username" class="hidden">Username</label>
         <button
-          class="iconified-button brand-button-colors column"
+          class="iconified-button brand-button column"
           @click="inviteTeamMember"
         >
           <PlusIcon />
@@ -235,7 +235,7 @@
             Transfer ownership
           </button>
           <button
-            class="iconified-button brand-button-colors"
+            class="iconified-button brand-button"
             :disabled="
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               member.role === 'Owner'

@@ -5,7 +5,7 @@
         <h3 class="column-grow-1">File a report</h3>
         <button
           title="Create"
-          class="brand-button-colors iconified-button column"
+          class="brand-button iconified-button column"
           :disabled="!$nuxt.$loading"
           @click="createReport"
         >
@@ -203,9 +203,6 @@ export default {
 .title {
   * {
     display: inline;
-  }
-  .button {
-    margin-left: 1rem;
   }
 }
 

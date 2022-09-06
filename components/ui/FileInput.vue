@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <label class="button" @drop.prevent="handleDrop" @dragover.prevent>
+    <label @drop.prevent="addFile" @dragover.prevent>
       <span>
         <UploadIcon v-if="showIcon" />
         {{ prompt }}
@@ -9,7 +9,7 @@
         type="file"
         :multiple="multiple"
         :accept="accept"
-        @change="handleChange"
+        @change="onChange"
       />
     </label>
   </div>
@@ -20,7 +20,7 @@ import { fileIsValid } from '~/plugins/fileUtils'
 import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 
 export default {
-  name: 'StatelessFileInput',
+  name: 'FileInput',
   components: {
     UploadIcon,
   },
@@ -48,37 +48,43 @@ export default {
       type: Boolean,
       default: true,
     },
+    shouldAlwaysReset: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      files: [],
+    }
   },
   methods: {
-    onChange(addedFiles) {
-      this.$emit('change', addedFiles)
-    },
-    /**
-     * @param {FileList} filesToAdd
-     */
-    addFiles(filesToAdd) {
-      if (!filesToAdd) return
+    onChange(files, shouldNotReset) {
+      if (!shouldNotReset || this.shouldAlwaysReset)
+        this.files = files.target.files
 
       const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
-      const validFiles = [...filesToAdd].filter((file) =>
+      this.files = [...this.files].filter((file) =>
         fileIsValid(file, validationOptions)
       )
 
-      if (validFiles.length > 0) {
-        this.onChange(this.multiple ? validFiles : [validFiles[0]])
+      if (this.files.length > 0) {
+        this.$emit('change', this.files)
       }
     },
-    /**
-     * @param {DragEvent} e
-     */
-    handleDrop(e) {
-      this.addFiles(e.dataTransfer.files)
-    },
-    /**
-     * @param {Event} e native file input event
-     */
-    handleChange(e) {
-      this.addFiles(e.target.files)
+    addFile(e) {
+      const droppedFiles = e.dataTransfer.files
+
+      if (!this.multiple) this.files = []
+
+      if (!droppedFiles) return
+      ;[...droppedFiles].forEach((f) => {
+        this.files.push(f)
+      })
+
+      if (!this.multiple && this.files.length > 0) this.files = [this.files[0]]
+
+      if (this.files.length > 0) this.onChange(null, true)
     },
   },
 }
@@ -92,8 +98,23 @@ label {
   justify-content: center;
   text-align: center;
   padding: var(--spacing-card-sm) var(--spacing-card-md);
-  margin-bottom: var(--spacing-card-sm);
   box-shadow: var(--shadow-inset-sm);
+
+  color: var(--color-button-text);
+  background-color: var(--color-button-bg);
+  border-radius: var(--size-rounded-control);
+
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
+    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+
+  &:hover:not(&:disabled) {
+    filter: brightness(0.85);
+  }
+
+  &:active:not(&:disabled) {
+    transform: scale(0.95);
+    filter: brightness(0.8);
+  }
 }
 
 span {
@@ -113,5 +134,18 @@ span {
 
 input {
   display: none;
+}
+
+.known-error label {
+  border-color: var(--color-badge-red-bg) !important;
+  background-color: var(--color-warning-bg) !important;
+
+  span {
+    border-color: var(--color-badge-red-bg);
+  }
+
+  &::placeholder {
+    color: var(--color-warning-text);
+  }
 }
 </style>

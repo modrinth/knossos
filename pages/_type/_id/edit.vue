@@ -28,7 +28,7 @@
         </button>
         <button
           title="Save"
-          class="iconified-button brand-button-colors column"
+          class="iconified-button brand-button column"
           :disabled="!$nuxt.$loading"
           @click="saveProjectNotForReview"
         >
@@ -164,7 +164,7 @@
           @input="setCategories"
         />
       </label>
-      <label class="vertical-input">
+      <label class="vertical-input no-margin">
         <span>
           <h3>Vanity URL (slug)<span class="required">*</span></h3>
           <span class="slug-description"
@@ -197,7 +197,7 @@
         "
         alt="preview-image"
       />
-      <SmartFileInput
+      <FileInput
         :max-size="262144"
         :show-icon="false"
         accept="image/png,image/jpeg,image/gif,image/webp"
@@ -357,7 +357,10 @@
           "
         />
       </label>
-      <label title="An invitation link to your Discord server.">
+      <label
+        class="no-margin"
+        title="An invitation link to your Discord server."
+      >
         <span>Discord invite</span>
         <input
           v-model="newProject.discord_url"
@@ -484,11 +487,11 @@ import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
 import ThisOrThat from '~/components/ui/ThisOrThat'
-import SmartFileInput from '~/components/ui/SmartFileInput'
+import FileInput from '~/components/ui/FileInput'
 
 export default {
   components: {
-    SmartFileInput,
+    FileInput,
     ThisOrThat,
     Multiselect,
     CrossIcon,
@@ -864,9 +867,6 @@ header {
 
 section.essentials {
   grid-area: essentials;
-  label {
-    margin-bottom: 0.5rem;
-  }
 
   @media screen and (min-width: 1024px) {
     input {

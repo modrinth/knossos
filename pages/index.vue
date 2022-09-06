@@ -31,7 +31,7 @@
               autocomplete="off"
             />
           </div>
-          <button class="iconified-button brand-button-colors" type="submit">
+          <button class="iconified-button brand-button" type="submit">
             <RightArrowIcon />
             Search
           </button>
@@ -166,7 +166,7 @@
               <span>14</span>
               <span>15</span>
             </div>
-            <div class="text" v-highlightjs>
+            <div v-highlightjs class="text">
               <span class="command">curl</span>
               <span>https://api.modrinth.com/v2/project/sodium</span>
               <pre><code class="language-json">

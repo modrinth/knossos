@@ -398,6 +398,23 @@ export default {
       this.$store.dispatch('cosmetics/fetchCosmetics', this.$cookies),
     ])
   },
+  head() {
+    return {
+      link: [
+        {
+          rel: 'canonical',
+          href: process.env.domain + this.$route.path,
+        },
+      ],
+      meta: [
+        {
+          hid: 'og:url',
+          name: 'og:url',
+          content: process.env.domain + this.$route.path,
+        },
+      ],
+    }
+  },
   computed: {
     authUrl() {
       return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`

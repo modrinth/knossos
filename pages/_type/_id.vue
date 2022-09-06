@@ -209,7 +209,7 @@
               project.status === 'unlisted' ||
               project.status === 'abandoned'
             "
-            class="iconified-button brand-button-colors"
+            class="iconified-button brand-button"
             @click="submitForReview"
           >
             <CheckIcon />
@@ -217,7 +217,7 @@
           </button>
           <button
             v-if="project.status === 'draft'"
-            class="iconified-button brand-button-colors"
+            class="iconified-button brand-button"
             @click="submitForReview"
           >
             <CheckIcon />
@@ -762,41 +762,38 @@ export default {
     this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
   head() {
+    const title = `${this.project.title} - Minecraft ${
+      this.projectTypeDisplay.charAt(0).toUpperCase() +
+      this.projectTypeDisplay.slice(1)
+    }`
+    const description = `${this.project.description} - Download the Minecraft ${
+      this.projectTypeDisplay
+    } ${this.project.title} by ${
+      this.members.find((x) => x.role === 'Owner').user.username
+    } on Modrinth`
+
     return {
-      title: `${this.project.title} - ${
-        this.project.project_type.charAt(0).toUpperCase() +
-        this.project.project_type.slice(1)
-      }s - Modrinth`,
+      title,
       meta: [
-        {
-          hid: 'og:type',
-          name: 'og:type',
-          content: 'website',
-        },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.project.title,
+          content: title,
         },
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.project.title,
+          content: title,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.project.description,
+          content: description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: `${this.project.title}: ${this.project.description} View other minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform supporting both the Forge and Fabric mod loaders.`,
-        },
-        {
-          hid: 'og:url',
-          name: 'og:url',
-          content: `https://modrinth.com/${this.project.project_type}/${this.project.id}`,
+          content: description,
         },
         {
           hid: 'og:image',
@@ -808,7 +805,11 @@ export default {
         {
           hid: 'robots',
           name: 'robots',
-          content: this.project.status !== 'approved' ? 'noindex' : 'all',
+          content:
+            this.project.status === 'approved' ||
+            this.project.status === 'archived'
+              ? 'all'
+              : 'noindeex',
         },
       ],
     }

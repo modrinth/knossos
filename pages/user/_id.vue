@@ -1,5 +1,6 @@
 <template>
   <div class="normal-page">
+    <div></div>
     <div class="normal-page__sidebar">
       <aside class="card sidebar">
         <img
@@ -74,7 +75,7 @@
         <nuxt-link
           v-if="$auth.user && $auth.user.id === user.id"
           to="/create/project"
-          class="iconified-button brand-button-colors"
+          class="iconified-button brand-button"
         >
           <PlusIcon />
           Create a project

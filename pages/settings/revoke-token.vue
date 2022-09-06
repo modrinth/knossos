@@ -42,7 +42,7 @@
           token will be regenerated.
         </strong>
       </p>
-      <button class="iconified-button brand-button-colors" @click="logout">
+      <button class="iconified-button brand-button" @click="logout">
         <CheckIcon />
         Continue
       </button>

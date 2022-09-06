@@ -15,7 +15,7 @@ export default {
     htmlAttrs: {
       lang: 'en',
     },
-    title: 'Modrinth: Download and publish Minecraft Mods',
+    title: 'Modrinth',
     meta: [
       {
         charset: 'utf-8',
@@ -28,7 +28,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Download Minecraft Fabric and Forge mods on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
+          'Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
       },
 
       {
@@ -44,7 +44,7 @@ export default {
       {
         hid: 'theme-color',
         name: 'theme-color',
-        content: '#30b27b',
+        content: '#1bd96a',
       },
       {
         hid: 'color-scheme',
@@ -63,9 +63,10 @@ export default {
         content: 'An open source modding platform',
       },
       {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Modrinth',
+        hid: 'description',
+        name: 'description',
+        content:
+          'Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
       },
       {
         hid: 'og:type',
@@ -75,7 +76,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: 'https://www.modrinth.com',
+        content: 'https://modrinth.com',
       },
       {
         hid: 'og:image',
@@ -98,19 +99,6 @@ export default {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico',
-        media: '(prefers-color-scheme:no-preference)',
-      },
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon-dark.ico',
-        media: '(prefers-color-scheme:dark)',
-      },
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico',
-        media: '(prefers-color-scheme:light)',
       },
       {
         rel: 'stylesheet',

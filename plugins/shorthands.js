@@ -194,7 +194,7 @@ export const formatBytes = (bytes, decimals = 2) => {
 
 export const formatProjectType = (name) => {
   if (name === 'resourcepack') {
-    return 'resource pack'
+    return 'Resource Pack'
   }
   return name.charAt(0).toUpperCase() + name.slice(1)
 }

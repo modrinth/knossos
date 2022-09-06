@@ -15,7 +15,7 @@
           </button>
           <button
             title="Submit for review"
-            class="iconified-button brand-button-colors column"
+            class="iconified-button brand-button column"
             :disabled="!$nuxt.$loading"
             @click="createProjectForReview"
           >
@@ -156,7 +156,7 @@
             @input="setCategories(false)"
           />
         </label>
-        <label>
+        <label class="no-margin">
           <span>
             <h3>Vanity URL (slug)<span class="required">*</span></h3>
             <span class="slug-description"
@@ -184,7 +184,7 @@
           "
           alt="preview-image"
         />
-        <SmartFileInput
+        <FileInput
           :show-icon="false"
           :max-size="262144"
           accept="image/png,image/jpeg,image/gif,image/webp"
@@ -329,7 +329,7 @@
               </button>
               <button
                 v-if="currentVersionNew"
-                class="brand-button-colors iconified-button"
+                class="brand-button iconified-button"
                 title="Save version"
                 @click="saveVersion()"
               >
@@ -338,7 +338,7 @@
               </button>
               <button
                 v-else
-                class="brand-button-colors iconified-button"
+                class="brand-button iconified-button"
                 title="Save version"
                 @click="saveVersion()"
               >
@@ -600,7 +600,7 @@
               >
               for support.
             </p>
-            <StatelessFileInput
+            <FileInput
               :class="{
                 'known-error':
                   versions[currentVersionIndex].files.length < 1 &&
@@ -608,6 +608,7 @@
               }"
               class="file-input"
               multiple
+              should-always-reset
               :accept="
                 projectType.id === 'modpack'
                   ? '.mrpack,application/x-modrinth-modpack+zip'
@@ -805,7 +806,7 @@
               </button>
               <button
                 v-if="currentGalleryNew"
-                class="brand-button-colors iconified-button"
+                class="brand-button iconified-button"
                 title="Add image"
                 @click="saveGalleryImage()"
               >
@@ -814,7 +815,7 @@
               </button>
               <button
                 v-else
-                class="brand-button-colors iconified-button"
+                class="brand-button iconified-button"
                 title="Save image"
                 @click="saveGalleryImage()"
               >
@@ -868,7 +869,7 @@
               alt="preview-image"
             />
             <div class="bottom">
-              <SmartFileInput
+              <FileInput
                 :max-size="5242880"
                 accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
                 prompt="Upload"
@@ -977,7 +978,10 @@
             placeholder="Enter a valid URL"
           />
         </label>
-        <label title="An invitation link to your Discord server.">
+        <label
+          class="no-margin"
+          title="An invitation link to your Discord server."
+        >
           <span>Discord invite</span>
           <input
             v-model="discord_url"
@@ -1115,8 +1119,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SmartFileInput from '~/components/ui/SmartFileInput'
-import StatelessFileInput from '~/components/ui/StatelessFileInput'
+import FileInput from '~/components/ui/FileInput'
 import ThisOrThat from '~/components/ui/ThisOrThat'
 import VersionBadge from '~/components/ui/Badge'
 
@@ -1129,8 +1132,7 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 
 export default {
   components: {
-    SmartFileInput,
-    StatelessFileInput,
+    FileInput,
     Multiselect,
     CheckIcon,
     PlusIcon,
@@ -1703,7 +1705,6 @@ section.game-sides {
 
     .labeled-control {
       margin-left: var(--spacing-card-lg);
-      margin-bottom: 0.5rem;
 
       h3 {
         margin-bottom: var(--spacing-card-sm);

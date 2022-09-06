@@ -29,7 +29,7 @@
   }
 
   input {
-    transition: outline .1s ease-in-out;
+    transition: outline, background-color .1s ease-in-out;
     padding-left: 2rem;
     width: 100%;
   }
@@ -259,7 +259,7 @@
     color: var(--color-tooltip-text);
     padding: 5px 10px 4px;
     border-radius: var(--size-rounded-tooltip);
-    box-shadow: var(--shadow-tooltip);
+    box-shadow: var(--shadow-floating);
     font-size: 0.9rem;
   }
 
@@ -346,47 +346,15 @@
   }
 }
 
-//buttons: needs to be moved into own component!
-
-.button {
-  //width: max-content;
-  margin: auto 0;
-  padding: 6px 20px;
-  border-radius: var(--size-rounded-control);
-  color: var(--color-button-text);
-  background-color: var(--color-button-bg);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-nm);
-
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-  outline 0.2s ease-in-out;
-
-  &:hover:not(&:disabled) {
-    filter: brightness(0.85);
-  }
-
-  &:active:not(&:disabled) {
-    transform: scale(0.95);
-    filter: brightness(0.8);
-  }
-
-  &:disabled,
-  &[disabled] {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1px var(--color-button-bg-disabled);
-    color: var(--color-button-text-disabled);
-    pointer-events: none;
-    cursor: default;
-  }
-}
-
 .iconified-button {
   display: flex;
-  padding: 0.25rem 1rem;
+  padding: 0 1rem;
   margin: 0 0.25rem 0 0;
   font-size: var(--font-size-nm);
   align-items: center;
   cursor: pointer;
+  min-height: 32px;
+  max-height: 32px;
 
   box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
 
@@ -409,33 +377,68 @@
 
   &:disabled,
   &[disabled] {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1px var(--color-button-bg-disabled);
-    color: var(--color-button-text-disabled);
-    pointer-events: none;
-    cursor: default;
+    cursor: not-allowed;
+    filter: grayscale(50%);
+    opacity: .5;
   }
 
   svg {
     width: 1.25rem;
     margin-right: 0.5rem;
   }
+
+  &.icon-only {
+    padding: 0 0.5rem;
+
+    svg {
+      margin-right: 0;
+    }
+  }
+
+  &.transparent {
+    background: none;
+    box-shadow: none;
+
+    &:hover, &:active, &:disabled {
+      background-color: var(--color-button-bg);
+    }
+  }
 }
 
-.brand-button-colors {
-  box-shadow: inset 0px -1px 1px rgba(0, 0, 0, 0.25);
+.warning-button {
+  background-color:var(--color-warning-bg);
+  color: var(--color-warning-text);
+
+  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
+    background-color:var(--color-warning-bg);
+    color: var(--color-warning-text);
+  }
+}
+
+.danger-button {
+  background-color: var(--color-badge-red-bg);
+  color: var(--color-brand-inverted);
+
+  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
+    color: var(--color-brand-inverted);
+    background-color: var(--color-badge-red-bg);
+  }
+}
+
+.brand-button {
   color: var(--color-brand-inverted);
   background-color: var(--color-brand);
 
-  &:hover:not(&:disabled) {
+  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
     color: var(--color-brand-inverted);
     background-color: var(--color-brand);
   }
+}
 
-  &:active:not(&:disabled) {
-    color: var(--color-brand-inverted);
-    background-color: var(--color-brand);
-  }
+.button-group {
+  display: flex;
+  grid-gap: .5rem;
+  flex-wrap: wrap;
 }
 
 .multiselect--above .multiselect__content-wrapper {
@@ -472,6 +475,8 @@
     cursor: pointer;
     padding-left: 1rem;
     padding-top: 10px;
+
+    transition: background-color .1s ease-in-out;
 
     &:active,
     &:hover {
@@ -552,6 +557,11 @@
 label {
   display: flex;
   flex-direction: column;
+  margin-bottom: 0.5rem;
+
+  &.no-margin {
+    margin-bottom: 0;
+  }
 
   @media screen and (min-width: 1024px) {
     flex-direction: row;

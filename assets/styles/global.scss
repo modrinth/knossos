@@ -32,18 +32,9 @@ html {
   --color-button-text-hover: #1b1e24;
   --color-button-bg-active: #c3c6cb;
   --color-button-text-active: var(--color-button-text-hover);
-  --color-button-bg-disabled: #cacdd2;
-  --color-button-text-disabled: #9da3ac;
-  --color-transparent-button-bg-hover: var(--color-button-bg);
-  --color-transparent-button-text-hover: var(--color-text-dark);
-  --color-transparent-button-bg-active: var(--color-button-bg-hover);
-  --color-transparent-button-text-active: var(--color-text-dark);
 
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
-
-  --color-category-bg: var(--color-bg);
-  --color-category-text: var(--color-text-dark);
 
   --color-tooltip-bg: var(--color-text);
   --color-tooltip-text: var(--color-bg);
@@ -54,10 +45,6 @@ html {
   --color-kbd-shadow: rgba(0, 0, 0, 0.25);
 
   --color-ad: #d6e6f9;
-
-  --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
-  --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
-  --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
 
   --color-grey-link: var(--color-text);
   --color-grey-link-hover: var(--color-heading);
@@ -75,8 +62,8 @@ html {
   --color-badge-yellow-text: #755920;
   --color-badge-yellow-bg: #f7bb43;
 
-  --color-warning-text: hsl(358, 57%, 20%);
-  --color-warning-bg: hsl(358, 57%, 80%);
+  --color-warning-bg: hsl(355, 70%, 88%);
+  --color-warning-text: hsl(342, 70%, 35%);
 
   --color-banner-text: hsl(0, 11%, 16%);
   --color-banner-bg: hsl(356, 59%, 77%);
@@ -89,11 +76,6 @@ html {
   --color-table-border: #dfe2e5;
   --color-table-alternate-row: #f6f8fa;
 
-  --shadow-card: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.1),
-    inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
-  --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2),
-    inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
-
   --shadow-inset-lg: inset 0px -2px 2px hsla(221, 39%, 11%, 0.1);
   --shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
   --shadow-inset-sm: inset 0px -1px 2px hsla(221, 39%, 11%, 0.15);
@@ -102,8 +84,6 @@ html {
   --shadow-raised: 0px 2px 4px hsla(221, 39%, 11%, 0.1);
   --shadow-floating: hsla(0, 0%, 0%, 0) 0px 0px 0px 0px, hsla(0, 0%, 0%, 0) 0px 0px 0px 0px,
   hsla(0, 0%, 0%, 0.1) 0px 4px 6px -1px, hsla(0, 0%, 0%, 0.1) 0px 2px 4px -1px;
-
-  --color-card-link-bg: rgba(0, 0, 0, 7%);
 }
 
 .dark-mode {
@@ -133,18 +113,9 @@ html {
   --color-button-text-hover: #ffffff;
   --color-button-bg-active: #616570;
   --color-button-text-active: var(--color-button-text-hover);
-  --color-button-bg-disabled: #3a434d;
-  --color-button-text-disabled: #555d65;
-  --color-transparent-button-bg-hover: var(--color-button-bg);
-  --color-transparent-button-text-hover: var(--color-text-dark);
-  --color-transparent-button-bg-active: var(--color-button-bg-hover);
-  --color-transparent-button-text-active: var(--color-text-dark);
 
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
-
-  --color-category-bg: var(--color-button-bg);
-  --color-category-text: var(--color-text-dark);
 
   --color-tooltip-bg: var(--color-text);
   --color-tooltip-text: var(--color-bg);
@@ -155,20 +126,6 @@ html {
   --color-kbd-shadow: rgba(0, 0, 0, 0.35);
 
   --color-ad: #2c323a;
-
-  --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
-  --shadow-dropdown-strong: 3px 3px 20px hsla(0, 0%, 0%, 0.15);
-  --shadow-tooltip: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.15);
-
-  --shadow-inset-lg: inset 0px -2px 2px hsla(221, 39%, 11%, 0.1);
-  --shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
-  --shadow-inset-sm: inset 0px -1px 1px hsla(221, 39%, 11%, 0.25);
-
-  --shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
-  --shadow-raised: 0px -2px 4px hsla(221, 39%, 11%, 0.1);
-  --shadow-floating: hsla(0, 0%, 0%, 0) 0px 0px 0px 0px, hsla(0, 0%, 0%, 0) 0px 0px 0px 0px,
-  hsla(0, 0%, 0%, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  --shadow-mobile-bar: hsla(0, 0%, 0%, 0.3) 0 0 20px 2px;
 
   --color-link: #74b6f3;
   --color-link-hover: #92c0f5;
@@ -183,8 +140,8 @@ html {
   --color-badge-yellow-text: #dba22d;
   --color-badge-yellow-bg: #f7bb43;
 
-  --color-warning-text: hsl(358, 57%, 85%);
-  --color-warning-bg: hsl(358, 57%, 25%);
+  --color-warning-bg: hsl(355, 70%, 20%);
+  --color-warning-text: hsl(342, 70%, 75%);
 
   --color-banner-text: hsl(0, 100%, 96%);
   --color-banner-bg: hsl(356, 18%, 18%);
@@ -197,7 +154,14 @@ html {
   --color-table-border: #4f5864;
   --color-table-alternate-row: #262a30;
 
-  --color-card-link-bg: rgb(255, 255, 255, 15%);
+  --shadow-inset-lg: inset 0px -2px 2px hsla(221, 39%, 11%, 0.1);
+  --shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
+  --shadow-inset-sm: inset 0px -1px 1px hsla(221, 39%, 11%, 0.25);
+
+  --shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
+  --shadow-raised: 0px -2px 4px hsla(221, 39%, 11%, 0.1);
+  --shadow-floating: hsla(0, 0%, 0%, 0) 0px 0px 0px 0px, hsla(0, 0%, 0%, 0) 0px 0px 0px 0px,
+  hsla(0, 0%, 0%, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .oled-mode {
@@ -214,8 +178,8 @@ body {
   // Defaults
   background-color: var(--color-bg);
   color: var(--color-text);
-  --font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
-    Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --font-standard: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Segoe UI,
+    Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji;
   font-family: var(--font-standard);
   font-size: 16px;
   font-weight: var(--font-weight-medium);
@@ -294,6 +258,7 @@ h3 {
 input {
   border-radius: 2rem;
   box-sizing: border-box;
+  border: 2px solid transparent;
 }
 
 pre {
@@ -307,7 +272,7 @@ textarea {
   padding: 0.5rem 1rem;
   border: 2px solid transparent;
   box-shadow: var(--shadow-inset-sm);
-  transition: outline .1s ease-in-out;
+  transition: outline, background-color .1s ease-in-out;
 
   &:hover:not([disabled]):not(:focus) {
     background: var(--color-button-bg-hover);
@@ -341,9 +306,10 @@ textarea {
   padding: 0 !important;
 }
 
-button {
+button, input[type=button] {
   cursor: pointer;
   border: none;
+  outline: none;
 }
 
 kbd {

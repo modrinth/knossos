@@ -5,7 +5,7 @@
         <h2 class="title">Account settings</h2>
         <div class="controls">
           <button
-            class="brand-button-colors iconified-button"
+            class="brand-button iconified-button"
             title="Save account settings changes"
             @click="saveChanges()"
           >
@@ -19,7 +19,7 @@
         <div class="profile-picture">
           <img :src="previewImage ? previewImage : $auth.user.avatar_url" />
           <div class="uploader">
-            <SmartFileInput
+            <FileInput
               :show-icon="false"
               :max-size="2097152"
               accept="image/png,image/jpeg,image/gif,image/webp"
@@ -69,68 +69,11 @@
         </label>
       </div>
     </section>
-    <section class="card">
-      <div class="header">
-        <h2 class="title">Display settings</h2>
-      </div>
-      <label>
-        <span>
-          <h3>Theme</h3>
-          <span>Change the global site theme.</span>
-        </span>
-        <Multiselect
-          v-model="$colorMode.preference"
-          :options="['system', 'light', 'dark', 'oled']"
-          :custom-label="
-            (value) =>
-              value === 'oled'
-                ? 'OLED'
-                : value.charAt(0).toUpperCase() + value.slice(1)
-          "
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-        />
-      </label>
-      <label>
-        <span>
-          <h3>Search sidebar on the right</h3>
-          <span>
-            Enabling this will put the search page's filters sidebar on the
-            right side.
-          </span>
-        </span>
-        <input
-          v-model="searchLayout"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="changeLayout"
-        />
-      </label>
-      <label>
-        <span>
-          <h3>Project sidebar on the right</h3>
-
-          <span>
-            Enabling this will put the project pages' info sidebars on the right
-            side.
-          </span>
-        </span>
-        <input
-          v-model="projectLayout"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="changeLayout"
-        />
-      </label>
-    </section>
   </div>
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
-import SmartFileInput from '~/components/ui/SmartFileInput'
+import FileInput from '~/components/ui/FileInput'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 
@@ -138,8 +81,7 @@ export default {
   components: {
     TrashIcon,
     SaveIcon,
-    SmartFileInput,
-    Multiselect,
+    FileInput,
   },
   asyncData(ctx) {
     return {
@@ -152,31 +94,12 @@ export default {
     return {
       icon: null,
       previewImage: null,
-      searchLayout: false,
-      projectLayout: false,
     }
-  },
-  fetch() {
-    this.searchLayout = this.$store.state.cosmetics.searchLayout
-    this.projectLayout = this.$store.state.cosmetics.projectLayout
   },
   head: {
     title: 'Settings - Modrinth',
   },
   methods: {
-    changeTheme() {
-      const shift = event.shiftKey
-      switch (this.$colorMode.preference) {
-        case 'dark':
-          this.$colorMode.preference = shift ? 'light' : 'oled'
-          break
-        case 'oled':
-          this.$colorMode.preference = shift ? 'dark' : 'light'
-          break
-        default:
-          this.$colorMode.preference = shift ? 'oled' : 'dark'
-      }
-    },
     showPreviewImage(files) {
       const reader = new FileReader()
       this.icon = files[0]
@@ -185,22 +108,6 @@ export default {
       reader.onload = (event) => {
         this.previewImage = event.target.result
       }
-    },
-    sumDownloads() {
-      let sum = 0
-
-      for (const projects of this.$user.projects) {
-        sum += projects.downloads
-      }
-
-      return this.$formatNumber(sum)
-    },
-    async changeLayout() {
-      await this.$store.dispatch('cosmetics/save', {
-        searchLayout: this.searchLayout,
-        projectLayout: this.projectLayout,
-        $cookies: this.$cookies,
-      })
     },
     async saveChanges() {
       this.$nuxt.$loading.start()
@@ -267,7 +174,6 @@ export default {
       align-items: center;
 
       img {
-        box-shadow: var(--shadow-card);
         border-radius: var(--size-rounded-md);
         width: 10rem;
         height: 10rem;

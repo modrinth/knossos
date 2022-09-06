@@ -84,7 +84,7 @@
           editGalleryIndexes.length > 0 ||
           deleteGalleryUrls.length > 0
         "
-        class="action brand-button-colors iconified-button"
+        class="action brand-button iconified-button"
         @click="saveGallery"
       >
         <CheckIcon />
@@ -213,7 +213,7 @@
           </div>
         </div>
         <div class="gallery-bottom">
-          <SmartFileInput
+          <FileInput
             :max-size="5242880"
             accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
             prompt="Choose image or drag it here"
@@ -249,7 +249,7 @@ import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
 import ContractIcon from '~/assets/images/utils/contract.svg?inline'
 
-import SmartFileInput from '~/components/ui/SmartFileInput'
+import FileInput from '~/components/ui/FileInput'
 import Checkbox from '~/components/ui/Checkbox'
 
 export default {
@@ -260,7 +260,7 @@ export default {
     EditIcon,
     TrashIcon,
     CheckIcon,
-    SmartFileInput,
+    FileInput,
     CrossIcon,
     RightArrowIcon,
     LeftArrowIcon,
@@ -301,6 +301,36 @@ export default {
   },
   fetch() {
     this.gallery = JSON.parse(JSON.stringify(this.project.gallery))
+  },
+  head() {
+    const title = `${this.project.title} - Gallery`
+    const description = `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`
+
+    return {
+      title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: title,
+        },
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: title,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+      ],
+    }
   },
   mounted() {
     this._keyListener = function (e) {
@@ -563,7 +593,7 @@ export default {
   button {
     margin-right: 0.5rem;
 
-    &.brand-button-colors {
+    &.brand-button {
       background-color: var(--color-brand);
 
       &:hover {

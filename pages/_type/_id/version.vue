@@ -90,7 +90,7 @@
             Cancel
           </nuxt-link>
           <button
-            class="iconified-button brand-button-colors"
+            class="iconified-button brand-button"
             @click="saveEditedVersion"
           >
             <SaveIcon aria-hidden="true" />
@@ -112,10 +112,7 @@
             <CrossIcon aria-hidden="true" />
             Cancel
           </nuxt-link>
-          <button
-            class="iconified-button brand-button-colors"
-            @click="createVersion"
-          >
+          <button class="iconified-button brand-button" @click="createVersion">
             <CheckIcon aria-hidden="true" />
             Create
           </button>
@@ -127,7 +124,7 @@
               primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'
             "
             :href="primaryFile.url"
-            class="bold-button iconified-button brand-button-colors"
+            class="bold-button iconified-button brand-button"
             :title="`Download ${primaryFile.filename}`"
           >
             <DownloadIcon aria-hidden="true" />
@@ -578,9 +575,10 @@
               </button>
             </div>
           </div>
-          <StatelessFileInput
+          <FileInput
             v-if="mode === 'edit' || mode === 'create'"
             multiple
+            should-always-reset
             class="choose-files"
             :accept="
               project.actualProjectType.toLowerCase() === 'modpack'
@@ -626,7 +624,7 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import ConfirmPopup from '~/components/ui/ConfirmPopup'
-import StatelessFileInput from '~/components/ui/StatelessFileInput'
+import FileInput from '~/components/ui/FileInput'
 
 import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
@@ -645,6 +643,7 @@ import ThisOrThat from '~/components/ui/ThisOrThat'
 
 export default {
   components: {
+    FileInput,
     ThisOrThat,
     Checkbox,
     VersionBadge,
@@ -660,7 +659,6 @@ export default {
     SaveIcon,
     PlusIcon,
     CrossIcon,
-    StatelessFileInput,
     InfoIcon,
   },
   beforeRouteLeave(to, from, next) {
@@ -735,6 +733,47 @@ export default {
   },
   async fetch() {
     await this.setVersion()
+  },
+  head() {
+    if (!this.version.game_versions) {
+      return {}
+    }
+    const title = `${this.version.name} - ${this.project.title}`
+    const description = `Download ${this.project.title} ${
+      this.version.version_number
+    } on Modrinth. Supports ${this.$formatVersion(
+      this.version.game_versions
+    )} ${this.version.loaders
+      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+      .join(' & ')}. Published on ${this.$dayjs(
+      this.version.date_published
+    ).format('MMM D, YYYY')}. ${this.version.downloads} downloads.`
+
+    return {
+      title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: title,
+        },
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: title,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+      ],
+    }
   },
   watch: {
     '$route.path': {

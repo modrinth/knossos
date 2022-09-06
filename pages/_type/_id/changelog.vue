@@ -2,7 +2,7 @@
   <div class="content">
     <VersionFilterControl
       class="card"
-      :versions="versions"
+      :versions="changelogVersions"
       @updateVersions="updateVersions"
     />
     <div class="card">
@@ -11,7 +11,11 @@
         :key="version.id"
         class="changelog-item"
       >
-        <div :class="'changelog-bar ' + version.version_type"></div>
+        <div
+          :class="`changelog-bar ${version.version_type} ${
+            version.duplicate ? 'duplicate' : ''
+          }`"
+        ></div>
         <div class="version-wrapper">
           <div class="version-header">
             <div class="version-header-text">
@@ -53,13 +57,10 @@
             </a>
           </div>
           <div
+            v-if="version.changelog && !version.duplicate"
             v-highlightjs
             class="markdown-body"
-            v-html="
-              version.changelog
-                ? $xss($md.render(version.changelog))
-                : 'No changelog specified.'
-            "
+            v-html="$xss($md.render(version.changelog))"
           />
         </div>
       </div>
@@ -97,7 +98,54 @@ export default {
   },
   data() {
     return {
-      filteredVersions: this.versions,
+      changelogVersions: [],
+      filteredVersions: [],
+    }
+  },
+  fetch() {
+    this.changelogVersions = this.versions.map((version, index) => {
+      const nextVersion = this.versions[index + 1]
+      if (
+        nextVersion &&
+        version.changelog &&
+        nextVersion.changelog === version.changelog
+      ) {
+        return { duplicate: true, ...version }
+      } else {
+        return { duplicate: false, ...version }
+      }
+    })
+
+    this.filteredVersions = this.changelogVersions
+  },
+  head() {
+    const title = `${this.project.title} - Changelog`
+    const description = `Explore the changelog of ${this.project.title}'s ${this.versions.length} versions.`
+
+    return {
+      title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: title,
+        },
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: title,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+      ],
     }
   },
   auth: false,
@@ -117,6 +165,20 @@ export default {
   padding-left: 1.8rem;
 
   .changelog-bar {
+    --color: var(--color-badge-green-bg);
+
+    &.alpha {
+      --color: var(--color-badge-red-bg);
+    }
+
+    &.release {
+      --color: var(--color-badge-green-bg);
+    }
+
+    &.beta {
+      --color: var(--color-badge-yellow-bg);
+    }
+
     left: 0;
     top: 0.5rem;
     width: 0.2rem;
@@ -125,6 +187,7 @@ export default {
     margin: 0 0.4rem;
     border-radius: var(--size-rounded-max);
     min-height: 100%;
+    background-color: var(--color);
 
     &:before {
       content: '';
@@ -134,30 +197,19 @@ export default {
       top: 0;
       left: -0.4rem;
       border-radius: var(--size-rounded-max);
+      background-color: var(--color);
     }
 
-    &.alpha {
-      background-color: var(--color-badge-red-bg);
-
-      &:before {
-        background-color: var(--color-badge-red-bg);
-      }
-    }
-
-    &.release {
-      background-color: var(--color-badge-green-bg);
-
-      &:before {
-        background-color: var(--color-badge-green-bg);
-      }
-    }
-
-    &.beta {
-      background-color: var(--color-badge-yellow-bg);
-
-      &:before {
-        background-color: var(--color-badge-yellow-bg);
-      }
+    &.duplicate {
+      height: calc(100% + 1.5rem);
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        transparent 30%,
+        var(--color) 30%,
+        var(--color)
+      );
+      background-size: 100% 10px;
     }
   }
 }

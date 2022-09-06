@@ -14,8 +14,9 @@
           your privacy settings by clicking on the button below:
         </span>
         <div class="actions">
-          <button class="btn button" @click="review">Review</button>
-          <button class="btn button brand-button-colors" @click="hide">
+          <button class="btn iconified-button" @click="review">Review</button>
+          <button class="btn iconified-button brand-button" @click="hide">
+            <CrossIcon />
             Accept all
           </button>
         </div>

@@ -12,7 +12,7 @@
           Allow all
         </button>
         <button
-          class="brand-button-colors iconified-button"
+          class="brand-button iconified-button"
           title="Confirm privacy settings"
           @click="confirm()"
         >

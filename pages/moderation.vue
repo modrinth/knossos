@@ -1,8 +1,7 @@
 <template>
   <div class="page-container">
-    <Popup v-if="currentProject" :show-popup="true">
-      <div class="moderation-popup">
-        <h2>Moderation form</h2>
+    <Popup ref="popup" header="Moderation Form">
+      <div v-if="currentProject !== null" class="moderation-popup">
         <p>
           Both of these fields are optional, but can be used to communicate
           problems with a project's team members. The body supports markdown
@@ -51,14 +50,17 @@
           v-html="$xss($md.render(currentProject.moderation_message_body))"
         ></div>
         <div class="buttons">
-          <button class="iconified-button" @click="currentProject = null">
+          <button
+            class="iconified-button"
+            @click="
+              $refs.popup.hide()
+              currentProject = null
+            "
+          >
             <CrossIcon />
             Cancel
           </button>
-          <button
-            class="iconified-button brand-button-colors"
-            @click="saveProject"
-          >
+          <button class="iconified-button brand-button" @click="saveProject">
             <CheckIcon />
             Confirm
           </button>
@@ -238,6 +240,7 @@ export default {
       project.newStatus = status
 
       this.currentProject = project
+      this.$refs.popup.show()
     },
     async saveProject() {
       this.$nuxt.$loading.start()
@@ -262,6 +265,7 @@ export default {
           1
         )
         this.currentProject = null
+        this.$refs.popup.hide()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -311,6 +315,11 @@ export default {
     span {
       margin-right: 0.5rem;
     }
+  }
+
+  textarea {
+    margin-top: 0.5rem;
+    min-height: 10rem;
   }
 
   .buttons {
