@@ -738,7 +738,9 @@ export default {
     if (!this.version.game_versions) {
       return {}
     }
-    const title = `${this.version.name} - ${this.project.title}`
+    const title = `${
+      this.mode === 'create' ? 'Create Version' : this.version.name
+    } - ${this.project.title}`
     const description = `Download ${this.project.title} ${
       this.version.version_number
     } on Modrinth. Supports ${this.$formatVersion(
