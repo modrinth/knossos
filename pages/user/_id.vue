@@ -38,31 +38,34 @@
           </div>
           <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
           <hr class="card-divider" />
-          <div class="sidebar__item stats-block">
-            <div class="stats-block__item secondary-stat">
-              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span
-                v-tooltip="
-                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
-                "
-                class="secondary-stat__text date"
-              >
-                Joined {{ $dayjs(user.created).fromNow() }}
-              </span>
-            </div>
-            <div class="stats-block__item secondary-stat">
-              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text">User ID: {{ user.id }}</span>
+          <div class="primary-stat">
+            <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+              <span class="primary-stat__label">downloads</span>
             </div>
           </div>
-          <div class="sidebar__item stats-block">
-            <div class="stats-block__item primary-stat">
-              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads() }}</span>
-                <span class="primary-stat__label">downloads</span>
-              </div>
+          <div class="primary-stat">
+            <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">{{ sumFollows() }}</span>
+              <span class="primary-stat__label">followers of projects</span>
             </div>
+          </div>
+          <div class="stats-block__item secondary-stat">
+            <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
+            <span
+              v-tooltip="
+                $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
+              "
+              class="secondary-stat__text date"
+            >
+              Joined {{ $dayjs(user.created).fromNow() }}
+            </span>
+          </div>
+          <div class="stats-block__item secondary-stat">
+            <UserIcon class="secondary-stat__icon" aria-hidden="true" />
+            <span class="secondary-stat__text">User ID: {{ user.id }}</span>
           </div>
           <hr class="card-divider" />
           <a
@@ -163,6 +166,7 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
+import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 export default {
   auth: false,
@@ -180,6 +184,7 @@ export default {
     UserIcon,
     EditIcon,
     Advertisement,
+    HeartIcon,
   },
   async asyncData(data) {
     try {
@@ -317,6 +322,15 @@ export default {
 
       return this.$formatNumber(sum)
     },
+    sumFollows() {
+      let sum = 0
+
+      for (const projects of this.projects) {
+        sum += projects.followers
+      }
+
+      return this.$formatNumber(sum)
+    },
   },
 }
 </script>
@@ -395,14 +409,10 @@ export default {
   display: block;
 }
 
-.stats-block__item {
-  margin-bottom: 0.25rem;
-}
-
 .secondary-stat {
   align-items: center;
-  color: var(--color-text-secondary);
   display: flex;
+  margin-bottom: 0.8rem;
 }
 
 .secondary-stat__icon {
@@ -411,25 +421,26 @@ export default {
 }
 
 .secondary-stat__text {
-  margin-left: 0.25rem;
+  margin-left: 0.4rem;
 }
 
 .primary-stat {
   align-items: center;
   display: flex;
+  margin-bottom: 0.6rem;
 }
 
 .primary-stat__icon {
-  height: 1.25rem;
-  width: 1.25rem;
+  height: 1rem;
+  width: 1rem;
 }
 
 .primary-stat__text {
-  margin-left: 0.25rem;
+  margin-left: 0.4rem;
 }
 
 .primary-stat__counter {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: bold;
 }
 
