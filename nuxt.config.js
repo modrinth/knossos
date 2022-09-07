@@ -320,7 +320,7 @@ export default {
         state.lastGenerated = new Date().toISOString()
 
         const API_URL =
-          process.env.COMPILE_APP_URL ?? 'https://staging-api.modrinth.com/v2/'
+          process.env.BROWSER_BASE_URL ?? 'https://staging-api.modrinth.com/v2/'
 
         const headers = {
           headers: {
