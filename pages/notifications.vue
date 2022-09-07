@@ -9,7 +9,10 @@
             v-model="selectedNotificationType"
             :items="notificationTypes"
           />
-          <button class="iconified-button" @click="clearNotifications">
+          <button
+            class="iconified-button brand-button"
+            @click="clearNotifications"
+          >
             <ClearIcon />
             Clear all
           </button>
@@ -24,14 +27,16 @@
             :key="notification.id"
             class="card notification"
           >
-            <div class="icon">
-              <UpdateIcon v-if="notification.type === 'project_update'" />
-              <UsersIcon v-else-if="notification.type === 'team_invite'" />
-            </div>
             <div class="text">
               <nuxt-link :to="notification.link" class="top">
                 <h3 v-html="$xss($md.render(notification.title))" />
-                <span>
+                <span
+                  v-tooltip="
+                    $dayjs(notification.created).format(
+                      'MMMM D, YYYY [at] h:mm:ss A'
+                    )
+                  "
+                >
                   Notified {{ $dayjs(notification.created).fromNow() }}</span
                 >
               </nuxt-link>
@@ -70,8 +75,6 @@
 
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
-import UsersIcon from '~/assets/images/utils/users.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import ThisOrThat from '~/components/ui/ThisOrThat'
 
@@ -85,8 +88,6 @@ export default {
   components: {
     ThisOrThat,
     ClearIcon,
-    UpdateIcon,
-    UsersIcon,
     UpToDate,
   },
   data() {
@@ -192,19 +193,7 @@ h1 {
   .notification {
     display: flex;
     flex-wrap: wrap;
-    padding: var(--spacing-card-sm) var(--spacing-card-lg);
-
-    .icon {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      svg {
-        height: calc(3rem - var(--spacing-card-sm));
-        width: auto;
-        margin-right: 1rem;
-      }
-    }
+    padding: var(--spacing-card-md) var(--spacing-card-lg);
 
     .text {
       display: flex;
@@ -215,6 +204,7 @@ h1 {
         display: flex;
         align-items: baseline;
         flex-direction: column;
+        margin-bottom: 0.5rem;
 
         h3 ::v-deep {
           font-size: var(--font-size-lg);
@@ -224,9 +214,13 @@ h1 {
             margin: 0;
 
             strong {
-              color: var(--color-brand);
+              text-decoration: underline;
             }
           }
+        }
+
+        span {
+          color: var(--color-icon);
         }
       }
 
@@ -253,7 +247,7 @@ h1 {
 
 @media screen and (min-width: 1024px) {
   .page-contents {
-    max-width: calc(1280px - 20rem) !important;
+    max-width: calc(800px) !important;
   }
 
   .notifications {

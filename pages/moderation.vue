@@ -354,7 +354,7 @@ h1 {
 
 @media screen and (min-width: 1024px) {
   .page-contents {
-    max-width: calc(1280px - 20rem) !important;
+    max-width: 800px;
   }
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
   <div v-if="pages.length > 1" class="columns paginates">
-    <button
+    <a
       :class="{ disabled: currentPage === 1 }"
       class="left-arrow paginate has-icon"
       aria-label="Previous Page"
-      @click="currentPage !== 1 ? switchPage(currentPage - 1) : null"
+      :href="linkFunction(currentPage - 1)"
+      @click.prevent="currentPage !== 1 ? switchPage(currentPage - 1) : null"
     >
       <LeftArrowIcon />
-    </button>
+    </a>
     <div
       v-for="(item, index) in pages"
       :key="'page-' + item + '-' + index"
@@ -20,32 +21,34 @@
       <div v-if="item === '-'" class="has-icon">
         <GapIcon />
       </div>
-      <button
+      <a
         v-else
         :class="{
           'page-number current': currentPage === item,
           shrink: item > 99,
         }"
-        @click="currentPage !== item ? switchPage(item) : null"
+        :href="linkFunction(item)"
+        @click.prevent="currentPage !== item ? switchPage(item) : null"
       >
         {{ item }}
-      </button>
+      </a>
     </div>
 
-    <button
+    <a
       :class="{
         disabled: currentPage === pages[pages.length - 1],
       }"
       class="right-arrow paginate has-icon"
       aria-label="Next Page"
-      @click="
+      :href="linkFunction(currentPage + 1)"
+      @click.prevent="
         currentPage !== pages[pages.length - 1]
           ? switchPage(currentPage + 1)
           : null
       "
     >
       <RightArrowIcon />
-    </button>
+    </a>
   </div>
 </template>
 
@@ -72,6 +75,12 @@ export default {
         return []
       },
     },
+    linkFunction: {
+      type: Function,
+      default() {
+        return () => '/'
+      },
+    },
   },
   methods: {
     switchPage(newPage) {
@@ -82,7 +91,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-button {
+a {
   color: var(--color-button-text);
   box-shadow: var(--shadow-raised), var(--shadow-inset);
 
@@ -120,14 +129,13 @@ button {
 .has-icon {
   display: flex;
   align-items: center;
-  height: 2em;
   svg {
     width: 1em;
   }
 }
 
 .page-number-container,
-button,
+a,
 .has-icon {
   display: flex;
   justify-content: center;

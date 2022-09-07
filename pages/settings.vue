@@ -11,9 +11,6 @@
           <nuxt-link v-if="$auth.user" class="tab" to="/settings/follows">
             <span>Followed projects</span>
           </nuxt-link>
-          <nuxt-link v-if="$auth.user" class="tab" to="/settings/security">
-            <span>Security</span>
-          </nuxt-link>
           <nuxt-link class="tab" to="/settings/privacy">
             <span>Privacy</span>
           </nuxt-link>
@@ -42,7 +39,7 @@ export default {
 
 @media screen and (min-width: 1024px) {
   .page-contents {
-    max-width: 60rem !important;
+    max-width: 800px !important;
   }
 }
 </style>

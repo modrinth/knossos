@@ -8,5 +8,10 @@
   ],
   "github": {
     "silent": true
+  },
+  "build": {
+    "env": {
+      "COMPILE_APP_URL": "@BROWSER_BASE_URL"
+    }
   }
 }

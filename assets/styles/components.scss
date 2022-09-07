@@ -253,6 +253,7 @@
 .tooltip {
   display: block !important;
   z-index: 10000;
+  transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
 
   .tooltip-inner {
     background: var(--color-tooltip-bg);
@@ -336,13 +337,11 @@
   &[aria-hidden='true'] {
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.15s, visibility 0.15s;
   }
 
   &[aria-hidden='false'] {
     visibility: visible;
     opacity: 1;
-    transition: opacity 0.15s;
   }
 }
 
@@ -402,6 +401,10 @@
     &:hover, &:active, &:disabled {
       background-color: var(--color-button-bg);
     }
+  }
+
+  &.bold-button {
+    font-weight: bold;
   }
 }
 
@@ -801,6 +804,7 @@ label {
 }
 
 .card {
+  position: relative;
   min-height: var(--font-size-2xl);
   padding: var(--spacing-card-md) var(--spacing-card-lg);
 
@@ -810,6 +814,17 @@ label {
   margin-bottom: var(--spacing-card-md);
 
   box-shadow: var(--shadow-raised), var(--shadow-inset);
+
+  .card__overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    grid-gap: .5rem;
+    z-index: 2;
+  }
 
   &.warning {
     border-left: 0.5rem solid var(--color-banner-side);

@@ -146,10 +146,7 @@
       </div>
       <div
         v-if="
-          (currentMember ||
-            ($auth.user &&
-              ($auth.user.role === 'moderator' ||
-                $auth.user.role === 'admin'))) &&
+          currentMember &&
           (project.status !== 'approved' ||
             (project.moderator_message &&
               (project.moderator_message.message ||
@@ -717,9 +714,27 @@ export default {
         members[index].name = it.user.username
       })
 
-      const currentMember = data.$auth.user
+      let currentMember = data.$auth.user
         ? members.find((x) => x.user.id === data.$auth.user.id)
         : null
+
+      if (
+        !currentMember &&
+        data.$auth.user &&
+        (data.$auth.user.role === 'admin' ||
+          data.$auth.user.role === 'moderator')
+      ) {
+        currentMember = {
+          team_id: project.team_id,
+          user: data.$auth.user,
+          role: data.$auth.role,
+          permissions: data.$auth.user.role === 'admin' ? 1023 : 12,
+          accepted: true,
+          payouts_split: 0,
+          avatar_url: data.$auth.user.avatar_url,
+          name: data.$auth.user.username,
+        }
+      }
 
       if (project.body_url && !project.body) {
         project.body = (await data.$axios.get(project.body_url)).data
@@ -1180,9 +1195,10 @@ export default {
   }
 
   img {
-    border-radius: var(--size-rounded-sm);
-    height: 50px;
-    width: 50px;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    box-shadow: var(--shadow-inset), var(--shadow-raised);
   }
 
   .member-info {

@@ -38,12 +38,10 @@
                 v-if="$auth.user"
                 to="/notifications"
                 class="control-button"
+                :class="{ bubble: $user.notifications.length > 0 }"
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
-                <div v-if="$user.notifications.length > 0" class="bubble">
-                  {{ $user.notifications.length }}
-                </div>
               </nuxt-link>
               <button
                 v-else
@@ -394,7 +392,6 @@ export default {
   async fetch() {
     await Promise.all([
       this.$store.dispatch('user/fetchAll', { force: true }),
-      this.$store.dispatch('tag/fetchAllTags'),
       this.$store.dispatch('cosmetics/fetchCosmetics', this.$cookies),
     ])
   },
@@ -669,32 +666,36 @@ export default {
           min-width: 6rem;
 
           .control-button {
+            position: relative;
             display: flex;
-            max-width: 2rem;
-            padding: 0.5rem;
+            padding: 0.5rem 0.75rem;
             margin: 0 1rem 0 0;
-            background: none;
+            background-color: var(--color-bg);
             color: var(--color-text);
+            border-radius: 2rem;
+            transition: filter 0.1s ease-in-out;
 
             svg {
               height: 1rem;
               width: 1rem;
             }
 
-            .bubble {
-              position: absolute;
-              margin-left: 0.5rem;
-              bottom: 1rem;
-              border-radius: 0.9rem;
-              height: 0.8rem;
-              padding: 0 0.25rem;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+            &.bubble {
+              &::after {
+                background-color: var(--color-brand);
+                border-radius: var(--size-rounded-max);
+                content: '';
+                height: 0.5rem;
+                position: absolute;
+                right: 0.25rem;
+                top: 0.5rem;
+                width: 0.5rem;
+              }
+            }
 
-              font-size: 0.6rem;
-              background-color: var(--color-brand);
-              color: var(--color-brand-inverted);
+            &:hover {
+              background-color: var(--color-bg);
+              filter: brightness(0.85);
             }
           }
 

@@ -77,7 +77,7 @@
           <Checkbox v-model="version.featured" label="Featured" />
           <hr class="card-divider" />
         </div>
-        <div v-if="mode === 'edit'" class="header-buttons buttons columns">
+        <div v-if="mode === 'edit'" class="header-buttons button-group columns">
           <h3 class="column-grow-1">Edit version</h3>
           <nuxt-link
             v-if="$auth.user"
@@ -99,7 +99,7 @@
         </div>
         <div
           v-else-if="mode === 'create'"
-          class="header-buttons buttons columns"
+          class="header-buttons button-group columns"
         >
           <h3 class="column-grow-1">Create version</h3>
           <nuxt-link
@@ -117,7 +117,7 @@
             Create
           </button>
         </div>
-        <div v-else class="buttons">
+        <div v-else class="button-group">
           <a
             v-if="primaryFile"
             v-tooltip="
@@ -137,14 +137,6 @@
             <ReportIcon aria-hidden="true" />
             Report
           </nuxt-link>
-          <button
-            v-if="currentMember"
-            class="action iconified-button"
-            @click="$refs.delete_version_popup.show()"
-          >
-            <TrashIcon aria-hidden="true" />
-            Delete
-          </button>
           <nuxt-link
             v-if="currentMember"
             class="action iconified-button"
@@ -156,6 +148,14 @@
             <EditIcon aria-hidden="true" />
             Edit
           </nuxt-link>
+          <button
+            v-if="currentMember"
+            class="action iconified-button warning-button"
+            @click="$refs.delete_version_popup.show()"
+          >
+            <TrashIcon aria-hidden="true" />
+            Delete
+          </button>
         </div>
         <section v-if="mode === 'edit' || mode === 'create'">
           <h3>Changelog</h3>
@@ -1162,10 +1162,6 @@ section {
   display: flex;
   flex-wrap: wrap;
   row-gap: 0.5rem;
-
-  .bold-button {
-    font-weight: bold;
-  }
 
   @media screen and (min-width: 1024px) {
     margin-left: auto;

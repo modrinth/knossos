@@ -1,136 +1,148 @@
 <template>
-  <div class="normal-page">
-    <div></div>
-    <div class="normal-page__sidebar">
-      <aside class="card sidebar">
-        <img
-          class="sidebar__item profile-picture"
-          :src="user.avatar_url"
-          :alt="user.username"
-        />
-        <h1 class="sidebar__item username">{{ user.username }}</h1>
-        <div class="sidebar__item">
-          <Badge v-if="user.role === 'admin'" type="admin" color="red" />
-          <Badge
-            v-else-if="user.role === 'moderator'"
-            type="moderator"
-            color="yellow"
-          />
-          <Badge v-else type="developer" color="green" />
-        </div>
-        <hr class="card-divider" />
-        <h3 class="sidebar__item">About me</h3>
-        <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
-        <a
-          :href="githubUrl"
-          target="_blank"
-          class="sidebar__item report-button iconified-button"
-        >
-          <GitHubIcon aria-hidden="true" />
-          View GitHub profile
-        </a>
-        <div class="sidebar__item stats-block">
-          <div class="stats-block__item secondary-stat">
-            <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
-            <span
-              v-tooltip="
-                $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
-              "
-              class="secondary-stat__text date"
+  <div>
+    <div class="user-header-wrapper">
+      <div class="user-header">
+        <img class="user-avatar" :src="user.avatar_url" :alt="user.username" />
+        <h1 class="username">{{ user.username }}</h1>
+      </div>
+    </div>
+    <div class="normal-page">
+      <div class="normal-page__sidebar">
+        <aside class="card sidebar">
+          <h1 class="mobile-username">{{ user.username }}</h1>
+          <div class="card__overlay">
+            <button
+              v-if="$auth.user && $auth.user.id === user.id"
+              class="iconified-button"
             >
-              Joined {{ $dayjs(user.created).fromNow() }}
-            </span>
+              <EditIcon />
+              Edit
+            </button>
+            <nuxt-link
+              v-else
+              :to="`/create/report?id=${user.id}&t=user`"
+              class="report-button iconified-button"
+            >
+              <ReportIcon aria-hidden="true" />
+              Report
+            </nuxt-link>
           </div>
-          <div class="stats-block__item secondary-stat">
-            <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-            <span class="secondary-stat__text">User ID: {{ user.id }}</span>
+          <div class="sidebar__item">
+            <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+            <Badge
+              v-else-if="user.role === 'moderator'"
+              type="moderator"
+              color="yellow"
+            />
+            <Badge v-else type="developer" color="green" />
           </div>
-        </div>
-        <div class="sidebar__item stats-block">
-          <div class="stats-block__item primary-stat">
-            <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-            <div class="primary-stat__text">
-              <span class="primary-stat__counter">{{ sumDownloads() }}</span>
-              <span class="primary-stat__label">downloads</span>
+          <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
+          <hr class="card-divider" />
+          <div class="sidebar__item stats-block">
+            <div class="stats-block__item secondary-stat">
+              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span
+                v-tooltip="
+                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
+                "
+                class="secondary-stat__text date"
+              >
+                Joined {{ $dayjs(user.created).fromNow() }}
+              </span>
+            </div>
+            <div class="stats-block__item secondary-stat">
+              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span class="secondary-stat__text">User ID: {{ user.id }}</span>
             </div>
           </div>
-        </div>
-        <template
-          v-if="!$auth.user || ($auth.user && $auth.user.id !== user.id)"
-        >
+          <div class="sidebar__item stats-block">
+            <div class="stats-block__item primary-stat">
+              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+                <span class="primary-stat__label">downloads</span>
+              </div>
+            </div>
+          </div>
           <hr class="card-divider" />
-          <nuxt-link
-            :to="`/create/report?id=${user.id}&t=user`"
-            class="sidebar__item report-button iconified-button"
+          <a
+            :href="githubUrl"
+            target="_blank"
+            class="sidebar__item github-button iconified-button"
           >
-            <ReportIcon aria-hidden="true" />
-            Report
-          </nuxt-link>
-        </template>
-      </aside>
-    </div>
-    <div class="normal-page__content">
-      <nav class="card user-navigation">
-        <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
-        <nuxt-link
-          v-if="$auth.user && $auth.user.id === user.id"
-          to="/create/project"
-          class="iconified-button brand-button"
-        >
-          <PlusIcon />
-          Create a project
-        </nuxt-link>
-      </nav>
-      <Advertisement
-        type="banner"
-        small-screen="square"
-        ethical-ads-small
-        ethical-ads-big
-      />
-      <div v-if="projects.length > 0">
-        <ProjectCard
-          v-for="project in selectedProjectType !== 'all'
-            ? projects.filter(
-                (x) =>
-                  x.project_type === convertProjectType(selectedProjectType)
-              )
-            : projects"
-          :id="project.slug || project.id"
-          :key="project.id"
-          :name="project.title"
-          :description="project.description"
-          :created-at="project.published"
-          :updated-at="project.updated"
-          :downloads="project.downloads.toString()"
-          :follows="project.followers.toString()"
-          :icon-url="project.icon_url"
-          :categories="project.categories"
-          :client-side="project.client_side"
-          :server-side="project.server_side"
-          :status="project.status"
-          :type="project.project_type"
-        >
+            <GitHubIcon aria-hidden="true" />
+            View GitHub profile
+          </a>
+        </aside>
+      </div>
+      <div class="normal-page__content">
+        <nav class="card user-navigation">
+          <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
           <nuxt-link
             v-if="$auth.user && $auth.user.id === user.id"
-            class="iconified-button"
-            :to="`/${project.project_type}/${
-              project.slug ? project.slug : project.id
-            }/settings`"
+            to="/create/project"
+            class="iconified-button brand-button"
           >
-            <SettingsIcon />
-            Settings
+            <PlusIcon />
+            Create a project
           </nuxt-link>
-        </ProjectCard>
-      </div>
-      <div v-else class="error">
-        <UpToDate class="icon" /><br />
-        <span v-if="$auth.user && $auth.user.id === user.id" class="text"
-          >You don't have any projects.<br />
-          Would you like to
-          <nuxt-link class="link" to="/create/project">create one</nuxt-link
-          >?</span
-        >
-        <span v-else class="text">This user has no projects!</span>
+        </nav>
+        <Advertisement
+          type="banner"
+          small-screen="square"
+          ethical-ads-small
+          ethical-ads-big
+        />
+        <div v-if="projects.length > 0">
+          <ProjectCard
+            v-for="project in selectedProjectType !== 'all'
+              ? projects.filter(
+                  (x) =>
+                    x.project_type === convertProjectType(selectedProjectType)
+                )
+              : projects"
+            :id="project.slug || project.id"
+            :key="project.id"
+            :name="project.title"
+            :description="project.description"
+            :created-at="project.published"
+            :updated-at="project.updated"
+            :downloads="project.downloads.toString()"
+            :follows="project.followers.toString()"
+            :icon-url="project.icon_url"
+            :categories="project.categories"
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :status="
+              $auth.user &&
+              ($auth.user.role === 'admin' || $auth.user.role === 'moderator')
+                ? project.status
+                : null
+            "
+            :type="project.project_type"
+          >
+            <nuxt-link
+              v-if="$auth.user && $auth.user.id === user.id"
+              class="iconified-button"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings`"
+            >
+              <SettingsIcon />
+              Settings
+            </nuxt-link>
+          </ProjectCard>
+        </div>
+        <div v-else class="error">
+          <UpToDate class="icon" /><br />
+          <span v-if="$auth.user && $auth.user.id === user.id" class="text"
+            >You don't have any projects.<br />
+            Would you like to
+            <nuxt-link class="link" to="/create/project">create one</nuxt-link
+            >?</span
+          >
+          <span v-else class="text">This user has no projects!</span>
+        </div>
       </div>
     </div>
   </div>
@@ -150,6 +162,7 @@ import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
+import EditIcon from '~/assets/images/utils/edit.svg?inline'
 
 export default {
   auth: false,
@@ -165,6 +178,7 @@ export default {
     ThisOrThat,
     UpToDate,
     UserIcon,
+    EditIcon,
     Advertisement,
   },
   async asyncData(data) {
@@ -263,11 +277,6 @@ export default {
             ' - View Minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform.',
         },
         {
-          hid: 'og:url',
-          name: 'og:url',
-          content: `https://modrinth.com/user/${this.user.id}`,
-        },
-        {
           hid: 'og:image',
           name: 'og:image',
           content:
@@ -312,7 +321,50 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.user-header-wrapper {
+  display: flex;
+  margin: 0 auto -1.5rem;
+  max-width: 80rem;
+
+  .user-header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    width: 100%;
+    padding: 0 1rem;
+    gap: 1.5rem;
+    align-items: center;
+
+    .user-avatar {
+      border-radius: 50%;
+      height: 9rem;
+      width: 9rem;
+      box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
+      background-color: var(--color-button-bg);
+    }
+
+    .username {
+      display: none;
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.mobile-username {
+  margin: 0.25rem 0;
+}
+
+@media screen and (min-width: 501px) {
+  .mobile-username {
+    display: none;
+  }
+
+  .user-header-wrapper .user-header .username {
+    display: block;
+  }
+}
+
 .user-navigation {
   align-items: center;
   display: flex;
@@ -320,6 +372,11 @@ export default {
   flex-wrap: wrap;
   row-gap: 0.5rem;
 }
+
+.sidebar {
+  padding-top: 2.5rem;
+}
+
 .sidebar__item:not(:last-child) {
   margin: 0 0 0.75rem 0;
 }
@@ -332,10 +389,6 @@ export default {
 
 .username {
   font-size: var(--font-size-xl);
-}
-
-.report-button {
-  display: inline-flex;
 }
 
 .bio {
@@ -382,5 +435,9 @@ export default {
 
 .date {
   cursor: default;
+}
+
+.github-button {
+  display: inline-flex;
 }
 </style>

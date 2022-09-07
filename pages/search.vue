@@ -289,6 +289,7 @@
       <pagination
         :current-page="currentPage"
         :pages="pages"
+        :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
         @switch-page="onSearchChange"
       ></pagination>
       <div>
@@ -329,6 +330,7 @@
       <pagination
         :current-page="currentPage"
         :pages="pages"
+        :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
         @switch-page="onSearchChangeToTop"
       ></pagination>
     </section>
@@ -760,37 +762,7 @@ export default {
         }
 
         if (process.client) {
-          const queryItems = []
-
-          if (this.query) queryItems.push(`q=${encodeURIComponent(this.query)}`)
-          if (offset > 0) queryItems.push(`o=${offset}`)
-          if (this.facets.length > 0)
-            queryItems.push(`f=${encodeURIComponent(this.facets)}`)
-          if (this.orFacets.length > 0)
-            queryItems.push(`g=${encodeURIComponent(this.orFacets)}`)
-          if (this.selectedVersions.length > 0)
-            queryItems.push(`v=${encodeURIComponent(this.selectedVersions)}`)
-          if (this.selectedLicenses.length > 0)
-            queryItems.push(`l=${encodeURIComponent(this.selectedLicenses)}`)
-          if (this.showSnapshots) url += `h=true`
-          if (this.selectedEnvironments.length > 0)
-            queryItems.push(
-              `e=${encodeURIComponent(this.selectedEnvironments)}`
-            )
-          if (this.sortType.name !== 'relevance')
-            queryItems.push(`s=${encodeURIComponent(this.sortType.name)}`)
-          if (this.maxResults !== 20)
-            queryItems.push(`m=${encodeURIComponent(this.maxResults)}`)
-
-          url = `${this.$route.path}`
-
-          if (queryItems.length > 0) {
-            url += `?${queryItems[0]}`
-
-            for (let i = 1; i < queryItems.length; i++) {
-              url += `&${queryItems[i]}`
-            }
-          }
+          url = this.getSearchUrl(offset)
 
           await this.$router.replace({ path: url })
         }
@@ -798,6 +770,39 @@ export default {
         // eslint-disable-next-line no-console
         console.error(err)
       }
+    },
+    getSearchUrl(offset) {
+      const queryItems = []
+
+      if (this.query) queryItems.push(`q=${encodeURIComponent(this.query)}`)
+      if (offset > 0) queryItems.push(`o=${offset}`)
+      if (this.facets.length > 0)
+        queryItems.push(`f=${encodeURIComponent(this.facets)}`)
+      if (this.orFacets.length > 0)
+        queryItems.push(`g=${encodeURIComponent(this.orFacets)}`)
+      if (this.selectedVersions.length > 0)
+        queryItems.push(`v=${encodeURIComponent(this.selectedVersions)}`)
+      if (this.selectedLicenses.length > 0)
+        queryItems.push(`l=${encodeURIComponent(this.selectedLicenses)}`)
+      if (this.showSnapshots) queryItems.push(`h=true`)
+      if (this.selectedEnvironments.length > 0)
+        queryItems.push(`e=${encodeURIComponent(this.selectedEnvironments)}`)
+      if (this.sortType.name !== 'relevance')
+        queryItems.push(`s=${encodeURIComponent(this.sortType.name)}`)
+      if (this.maxResults !== 20)
+        queryItems.push(`m=${encodeURIComponent(this.maxResults)}`)
+
+      let url = `${this.$route.path}`
+
+      if (queryItems.length > 0) {
+        url += `?${queryItems[0]}`
+
+        for (let i = 1; i < queryItems.length; i++) {
+          url += `&${queryItems[i]}`
+        }
+      }
+
+      return url
     },
   },
 }

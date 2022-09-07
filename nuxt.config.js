@@ -1,3 +1,4 @@
+import { promises as fs } from 'fs'
 import { sortRoutes } from '@nuxt/utils'
 import axios from 'axios'
 
@@ -196,7 +197,6 @@ export default {
     '@nuxtjs/dayjs',
     '@nuxtjs/axios',
     '@nuxtjs/robots',
-    '@nuxtjs/sitemap',
     '@nuxtjs/style-resources',
     '@nuxtjs/markdownit',
     'cookie-universal-nuxt',
@@ -208,18 +208,6 @@ export default {
   },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
-  },
-  sitemap: {
-    exclude: [
-      '/settings/**',
-      '/settings',
-      '/notifications',
-      '/moderation',
-      '/search',
-      '/search/**',
-      '/create/**',
-    ],
-    routes: ['mods', 'modpacks', 'resourcepacks', 'plugins'],
   },
   /*
    ** Axios module configuration
@@ -305,6 +293,63 @@ export default {
     },
   },
   hooks: {
+    build: {
+      async before(nuxt, buildOptions) {
+        // 30 minutes
+        const TTL = 30 * 60 * 1000
+
+        let state = {}
+        try {
+          state = JSON.parse(
+            await fs.readFile('./generated/state.json', 'utf8')
+          )
+        } catch {
+          // File doesn't exist, create folder
+          await fs.mkdir('./generated', { recursive: true })
+        }
+
+        if (
+          state.lastGenerated &&
+          new Date(state.lastGenerated).getTime() + TTL > new Date().getTime()
+        ) {
+          return
+        }
+
+        console.log('Generating tags...')
+
+        state.lastGenerated = new Date().toISOString()
+
+        const API_URL =
+          process.env.COMPILE_APP_URL ?? 'https://staging-api.modrinth.com/v2/'
+
+        const headers = {
+          headers: {
+            'user-agent': `Knossos generator (admin@modrinth.com)`,
+          },
+        }
+
+        const [categories, loaders, gameVersions, licenses, donationPlatforms] =
+          (
+            await Promise.all([
+              axios.get(`${API_URL}tag/category`, headers),
+              axios.get(`${API_URL}tag/loader`, headers),
+              axios.get(`${API_URL}tag/game_version`, headers),
+              axios.get(`${API_URL}tag/license`),
+              axios.get(`${API_URL}tag/donation_platform`),
+            ])
+          ).map((it) => it.data)
+
+        state.categories = categories
+        state.loaders = loaders
+        state.gameVersions = gameVersions
+        state.licenses = licenses
+        state.donationPlatforms = donationPlatforms
+
+        await fs.writeFile('./generated/state.json', JSON.stringify(state))
+
+        console.log('Tags generated!')
+      },
+    },
     render: {
       routeDone(url, result, context) {
         setTimeout(() => {
