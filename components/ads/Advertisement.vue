@@ -3,16 +3,22 @@
     <div v-if="isBlocked" id="info-popup">
       <span>
         <span class="info-popup-wrap">
-          <span class="info-popup-img">
+          <a
+            class="info-popup-img"
+            href="https://docs.modrinth.com/docs/details/carbon"
+          >
             <img
               src="https://cdn.modrinth.com/barrier_fixes.png"
               alt="ads via Carbon"
             />
-          </span>
-          <span class="info-popup-text">
+          </a>
+          <a
+            href="https://docs.modrinth.com/docs/details/carbon"
+            class="info-popup-text"
+          >
             Please disable your adblocker. Advertisements support this site and
             its creators.
-          </span>
+          </a>
         </span>
         <a
           href="http://carbonads.net/?utm_source=modrinthcom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon"
