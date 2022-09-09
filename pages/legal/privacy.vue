@@ -144,7 +144,7 @@
       </p>
 
       <p>
-        Modrinth makes use external ads providers. These include BuySellAds. You
+        Modrinth makes use of external ads providers. These include BuySellAds. You
         can read BuySellAds's privacy policy here and the data they collect:
         <a href="https://www.buysellads.com/about/privacy"
           >https://www.buysellads.com/about/privacy</a
