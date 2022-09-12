@@ -811,6 +811,8 @@ export default {
             queryItems.push(`s=${encodeURIComponent(this.sortType.name)}`)
           if (this.maxResults !== 20)
             queryItems.push(`m=${encodeURIComponent(this.maxResults)}`)
+          if (this.excludeFollowed || this.followedOnly)
+            queryItems.push(`w=${this.excludeFollowed ? 'exclude' : 'only'}`)
 
           url = `${this.$route.path}`
 
