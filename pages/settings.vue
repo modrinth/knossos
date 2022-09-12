@@ -8,9 +8,6 @@
           <nuxt-link v-if="$auth.user" class="tab" to="/settings" exact
             ><span>General</span></nuxt-link
           >
-          <nuxt-link v-if="$auth.user" class="tab" to="/settings/follows">
-            <span>Followed projects</span>
-          </nuxt-link>
           <nuxt-link v-if="$auth.user" class="tab" to="/settings/security">
             <span>Security</span>
           </nuxt-link>

@@ -206,6 +206,27 @@
             :allow-empty="true"
             @input="onSearchChange(1)"
           />
+          <div v-if="$auth.user && $user.follows.length > 0">
+            <h3 class="sidebar-menu-heading">Followed mods</h3>
+            <Checkbox
+              v-model="followedOnly"
+              label="Only include projects I follow"
+              description="Only include projects I follow"
+              style="margin-bottom: 0.5rem"
+              :border="false"
+              :disabled="excludeFollowed"
+              @input="onSearchChange(1)"
+            />
+            <Checkbox
+              v-model="excludeFollowed"
+              label="Exclude projects I follow"
+              description="Exclude projects I follow"
+              style="margin-bottom: 0.5rem"
+              :border="false"
+              :disabled="followedOnly"
+              @input="onSearchChange(1)"
+            />
+          </div>
         </div>
       </section>
     </aside>
@@ -386,6 +407,8 @@ export default {
       results: null,
       pages: [],
       currentPage: 1,
+      followedOnly: false,
+      excludeFollowed: false,
 
       projectType: 'mod',
       isPlugins: false,
@@ -452,6 +475,20 @@ export default {
     }
     if (this.$route.query.o)
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
+    if (this.$auth.user) {
+      await this.$store.dispatch('user/fetchFollows')
+
+      if (this.$route.query.w) {
+        switch (this.$route.query.w) {
+          case 'exclude':
+            this.excludeFollowed = true
+            break
+          case 'only':
+            this.followedOnly = true
+            break
+        }
+      }
+    }
 
     this.projectType = this.$route.name.substring(
       0,
@@ -509,6 +546,8 @@ export default {
         this.results = null
         this.pages = []
         this.currentPage = 1
+        this.followedOnly = false
+        this.excludeFollowed = false
         this.query = ''
         this.maxResults = 20
         this.sortType = { display: 'Relevance', name: 'relevance' }
@@ -679,6 +718,22 @@ export default {
             }
 
             formattedFacets = [...formattedFacets, ...environmentFacets]
+          }
+
+          if (this.excludeFollowed) {
+            const excluded = []
+            for (const project of this.$user.follows) {
+              excluded.push([`project_id!=${project.id}`])
+            }
+            formattedFacets = [...formattedFacets, ...excluded]
+          }
+
+          if (this.followedOnly) {
+            const included = []
+            for (const project of this.$user.follows) {
+              included.push(`project_id:${project.id}`)
+            }
+            formattedFacets = [...formattedFacets, ...[included]]
           }
 
           if (this.projectType)

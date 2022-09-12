@@ -117,12 +117,6 @@
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink class="item" to="/settings/follows">
-                      <HeartIcon class="icon" />
-                      <span class="title">Following</span>
-                    </NuxtLink>
-                  </li>
-                  <li>
                     <NuxtLink class="item" to="/settings">
                       <SettingsIcon class="icon" />
                       <span class="title">Settings</span>
@@ -262,10 +256,6 @@
               <ModerationIcon class="icon" />
               <span class="title">Moderation</span>
             </NuxtLink>
-            <NuxtLink v-if="$auth.user" class="item" to="/settings/follows">
-              <HeartIcon class="icon" />
-              <span class="title">Following</span>
-            </NuxtLink>
             <NuxtLink v-if="$auth.user" class="item" to="/notifications">
               <NotificationIcon class="icon" />
               <span class="title">Notifications</span>
@@ -365,7 +355,6 @@ import SunIcon from '~/assets/images/utils/sun.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
@@ -386,7 +375,6 @@ export default {
     ModerationIcon,
     PlusIcon,
     DropdownIcon,
-    HeartIcon,
   },
   directives: {
     ClickOutside,
