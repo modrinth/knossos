@@ -466,12 +466,6 @@
           </div>
         </div>
       </div>
-      <Advertisement
-        v-if="project.status === 'approved' || project.status === 'unlisted'"
-        class="small-advertisement"
-        type="square"
-        small-screen="destroy"
-      />
       <div class="content">
         <div class="project-main">
           <div
@@ -520,6 +514,15 @@
             >, <a href="https://multimc.org/" target="_blank">MultiMC</a>, and
             <a href="https://polymc.org/" target="_blank">PolyMC</a>.
           </div>
+          <Advertisement
+            v-if="
+              project.status === 'approved' || project.status === 'unlisted'
+            "
+            type="banner"
+            small-screen="square"
+            ethical-ads-small
+            ethical-ads-big
+          />
           <div class="card styled-tabs">
             <nuxt-link
               :to="`/${project.project_type}/${
@@ -567,15 +570,6 @@
               <span>Settings</span>
             </nuxt-link>
           </div>
-          <Advertisement
-            v-if="
-              project.status === 'approved' || project.status === 'unlisted'
-            "
-            type="banner"
-            small-screen="square"
-            ethical-ads-small
-            ethical-ads-big
-          />
           <div class="project-content">
             <NuxtChild
               :project.sync="project"
@@ -916,7 +910,6 @@ export default {
     'project-status'
     'content'
     'extra-info'
-    'small-advert'
     / 100%;
 
   @media screen and (min-width: 1024px) {
@@ -924,7 +917,6 @@ export default {
       'header       content' auto
       'project-status      content' auto
       'extra-info       content' auto
-      'small-advert       content' auto
       'dummy content' 1fr
       / 20rem calc(100% - 20rem);
 
@@ -933,7 +925,6 @@ export default {
         'content       header' auto
         'content      project-status' auto
         'content       extra-info' auto
-        'content       small-advert' auto
         'content       dummy' 1fr
         / 1fr 20rem;
     }
@@ -1038,10 +1029,6 @@ export default {
 
 .extra-info {
   grid-area: extra-info;
-}
-
-.small-advertisement {
-  grid-area: small-advert;
 }
 
 .content {

@@ -112,7 +112,6 @@ export default {
         title: 'Modrinth mods',
       },
     ],
-    script: [],
   },
 
   vue: {

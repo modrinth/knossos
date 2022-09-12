@@ -11,9 +11,6 @@
           <nuxt-link v-if="$auth.user" class="tab" to="/settings/follows">
             <span>Followed projects</span>
           </nuxt-link>
-          <nuxt-link class="tab" to="/settings/privacy">
-            <span>Privacy</span>
-          </nuxt-link>
         </div>
         <NuxtChild />
       </div>
