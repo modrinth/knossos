@@ -2,7 +2,11 @@
   <div>
     <div class="user-header-wrapper">
       <div class="user-header">
-        <img class="user-avatar" :src="user.avatar_url" :alt="user.username" />
+        <img
+          class="user-avatar"
+          :src="previewImage ? previewImage : $auth.user.avatar_url"
+          :alt="user.username"
+        />
         <h1 class="username">{{ user.username }}</h1>
       </div>
     </div>
@@ -11,9 +15,19 @@
         <aside class="card sidebar">
           <h1 class="mobile-username">{{ user.username }}</h1>
           <div class="card__overlay">
+            <FileInput
+              v-if="isEditing"
+              :max-size="262144"
+              :show-icon="true"
+              accept="image/png,image/jpeg,image/gif,image/webp"
+              class="choose-image"
+              prompt="Upload avatar"
+              @change="showPreviewImage"
+            />
             <button
-              v-if="$auth.user && $auth.user.id === user.id"
+              v-else-if="$auth.user && $auth.user.id === user.id"
               class="iconified-button"
+              @click="isEditing = true"
             >
               <EditIcon />
               Edit
@@ -27,55 +41,91 @@
               Report
             </nuxt-link>
           </div>
-          <div class="sidebar__item">
-            <Badge v-if="user.role === 'admin'" type="admin" color="red" />
-            <Badge
-              v-else-if="user.role === 'moderator'"
-              type="moderator"
-              color="yellow"
-            />
-            <Badge v-else type="developer" color="green" />
-          </div>
-          <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
-          <hr class="card-divider" />
-          <div class="primary-stat">
-            <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-            <div class="primary-stat__text">
-              <span class="primary-stat__counter">{{ sumDownloads() }}</span>
-              <span class="primary-stat__label">downloads</span>
+          <template v-if="isEditing">
+            <div class="inputs">
+              <label><h3>Username</h3></label>
+              <input v-model="user.username" type="text" />
+              <label><h3>Bio</h3></label>
+              <div class="textarea-wrapper">
+                <textarea v-model="user.bio"></textarea>
+              </div>
+              <label><h3>Private Email</h3></label>
+              <span>Only visible to moderators.</span>
+              <input v-model="user.email" type="email" />
             </div>
-          </div>
-          <div class="primary-stat">
-            <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-            <div class="primary-stat__text">
-              <span class="primary-stat__counter">{{ sumFollows() }}</span>
-              <span class="primary-stat__label">followers of projects</span>
+            <div class="button-group">
+              <button
+                class="iconified-button"
+                @click="
+                  isEditing = false
+                  user = JSON.parse(JSON.stringify($auth.user))
+                  previewImage = null
+                  icon = null
+                "
+              >
+                <CrossIcon /> Cancel
+              </button>
+              <button
+                class="iconified-button brand-button"
+                @click="saveChanges"
+              >
+                <SaveIcon /> Save
+              </button>
             </div>
-          </div>
-          <div class="stats-block__item secondary-stat">
-            <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
-            <span
-              v-tooltip="
-                $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
-              "
-              class="secondary-stat__text date"
+          </template>
+          <template v-else>
+            <div class="sidebar__item">
+              <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+              <Badge
+                v-else-if="user.role === 'moderator'"
+                type="moderator"
+                color="yellow"
+              />
+              <Badge v-else type="developer" color="green" />
+            </div>
+            <span v-if="user.bio" class="sidebar__item bio">{{
+              user.bio
+            }}</span>
+            <hr class="card-divider" />
+            <div class="primary-stat">
+              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+                <span class="primary-stat__label">downloads</span>
+              </div>
+            </div>
+            <div class="primary-stat">
+              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">{{ sumFollows() }}</span>
+                <span class="primary-stat__label">followers of projects</span>
+              </div>
+            </div>
+            <div class="stats-block__item secondary-stat">
+              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span
+                v-tooltip="
+                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
+                "
+                class="secondary-stat__text date"
+              >
+                Joined {{ $dayjs(user.created).fromNow() }}
+              </span>
+            </div>
+            <div class="stats-block__item secondary-stat">
+              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span class="secondary-stat__text">User ID: {{ user.id }}</span>
+            </div>
+            <hr class="card-divider" />
+            <a
+              :href="githubUrl"
+              target="_blank"
+              class="sidebar__item github-button iconified-button"
             >
-              Joined {{ $dayjs(user.created).fromNow() }}
-            </span>
-          </div>
-          <div class="stats-block__item secondary-stat">
-            <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-            <span class="secondary-stat__text">User ID: {{ user.id }}</span>
-          </div>
-          <hr class="card-divider" />
-          <a
-            :href="githubUrl"
-            target="_blank"
-            class="sidebar__item github-button iconified-button"
-          >
-            <GitHubIcon aria-hidden="true" />
-            View GitHub profile
-          </a>
+              <GitHubIcon aria-hidden="true" />
+              View GitHub profile
+            </a>
+          </template>
         </aside>
       </div>
       <div class="normal-page__content">
@@ -167,10 +217,14 @@ import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import FileInput from '~/components/ui/FileInput'
 
 export default {
   auth: false,
   components: {
+    FileInput,
     ProjectCard,
     SunriseIcon,
     DownloadIcon,
@@ -185,6 +239,8 @@ export default {
     EditIcon,
     Advertisement,
     HeartIcon,
+    CrossIcon,
+    SaveIcon,
   },
   async asyncData(data) {
     try {
@@ -248,6 +304,12 @@ export default {
         statusCode: 404,
         message: 'User not found',
       })
+    }
+  },
+  data() {
+    return {
+      isEditing: false,
+      icon: null,
     }
   },
   head() {
@@ -330,6 +392,55 @@ export default {
       }
 
       return this.$formatNumber(sum)
+    },
+    showPreviewImage(files) {
+      const reader = new FileReader()
+      this.icon = files[0]
+      reader.readAsDataURL(this.icon)
+      reader.onload = (event) => {
+        this.previewImage = event.target.result
+      }
+    },
+    async saveChanges() {
+      this.$nuxt.$loading.start()
+      try {
+        if (this.icon) {
+          await this.$axios.patch(
+            `user/${this.$auth.user.id}/icon?ext=${
+              this.icon.type.split('/')[this.icon.type.split('/').length - 1]
+            }`,
+            this.icon,
+            this.$defaultHeaders()
+          )
+        }
+
+        const data = {
+          email: this.user.email,
+          bio: this.user.bio,
+        }
+        if (this.user.username !== this.$auth.user.username) {
+          data.username = this.user.username
+        }
+
+        await this.$axios.patch(
+          `user/${this.$auth.user.id}`,
+          data,
+          this.$defaultHeaders()
+        )
+        await this.$store.dispatch('auth/fetchUser', {
+          token: this.$auth.token,
+        })
+
+        this.isEditing = false
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+      this.$nuxt.$loading.finish()
     },
   },
 }
@@ -450,5 +561,26 @@ export default {
 
 .github-button {
   display: inline-flex;
+}
+
+.inputs {
+  margin-bottom: 1rem;
+
+  input {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  span {
+    color: var(--color-icon);
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.button-group:first-child {
+  margin-left: auto;
 }
 </style>

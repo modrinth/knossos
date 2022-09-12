@@ -102,7 +102,7 @@ label {
 
   color: var(--color-button-text);
   background-color: var(--color-button-bg);
-  border-radius: var(--size-rounded-control);
+  border-radius: var(--size-rounded-max);
 
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
     transform 0.05s ease-in-out, outline 0.2s ease-in-out;
@@ -123,9 +123,7 @@ span {
   justify-content: center;
   text-align: center;
   gap: 0.5rem;
-  border: 2px dashed var(--color-divider-dark);
-  border-radius: var(--size-rounded-control);
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
+  padding-right: 0;
 
   svg {
     height: 1.25rem;

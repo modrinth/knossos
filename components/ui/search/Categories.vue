@@ -49,7 +49,7 @@ export default {
     align-items: center;
     flex-direction: row;
     color: var(--color-icon);
-    margin-right: 1em;
+    margin-right: 0.5rem;
 
     svg {
       width: 1rem;

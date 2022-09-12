@@ -185,11 +185,11 @@
           alt="preview-image"
         />
         <FileInput
-          :show-icon="false"
+          :show-icon="true"
           :max-size="262144"
           accept="image/png,image/jpeg,image/gif,image/webp"
           class="choose-image"
-          prompt="Choose image or drag it here"
+          prompt="Choose image"
           @change="showPreviewImage"
         />
         <button

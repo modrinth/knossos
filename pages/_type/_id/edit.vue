@@ -199,10 +199,10 @@
       />
       <FileInput
         :max-size="262144"
-        :show-icon="false"
+        :show-icon="true"
         accept="image/png,image/jpeg,image/gif,image/webp"
         class="choose-image"
-        prompt="Choose image or drag it here"
+        prompt="Choose image"
         :disabled="(currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS"
         @change="showPreviewImage"
       />
