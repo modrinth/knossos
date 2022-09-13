@@ -1,10 +1,11 @@
 <template>
   <div>
+    <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
       <div class="user-header">
         <img
           class="user-avatar"
-          :src="previewImage ? previewImage : $auth.user.avatar_url"
+          :src="previewImage ? previewImage : user.avatar_url"
           :alt="user.username"
         />
         <h1 class="username">{{ user.username }}</h1>
@@ -32,14 +33,14 @@
               <EditIcon />
               Edit
             </button>
-            <nuxt-link
+            <button
               v-else
-              :to="`/create/report?id=${user.id}&t=user`"
-              class="report-button iconified-button"
+              class="iconified-button"
+              @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
               Report
-            </nuxt-link>
+            </button>
           </div>
           <template v-if="isEditing">
             <div class="inputs">
@@ -220,10 +221,12 @@ import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import FileInput from '~/components/ui/FileInput'
+import ModalReport from '~/components/ui/ModalReport'
 
 export default {
   auth: false,
   components: {
+    ModalReport,
     FileInput,
     ProjectCard,
     SunriseIcon,
@@ -253,6 +256,12 @@ export default {
           ),
         ])
       ).map((it) => it.data)
+
+      if (user.username !== data.params.id) {
+        data.redirect(301, `/user/${user.username}`)
+
+        return
+      }
 
       const [gitHubUser, versions] = (
         await Promise.all([

@@ -386,18 +386,20 @@ export default {
     ])
   },
   head() {
+    const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
+
     return {
       link: [
         {
           rel: 'canonical',
-          href: process.env.domain + this.$route.path,
+          href: link,
         },
       ],
       meta: [
         {
           hid: 'og:url',
           name: 'og:url',
-          content: process.env.domain + this.$route.path,
+          content: link,
         },
       ],
     }

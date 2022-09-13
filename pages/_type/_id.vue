@@ -1,5 +1,10 @@
 <template>
   <div class="page-container">
+    <ModalReport
+      ref="modal_project_report"
+      :item-id="project.id"
+      item-type="project"
+    />
     <div
       :class="{
         'page-contents': true,
@@ -119,13 +124,13 @@
         </div>
         <hr class="card-divider" />
         <div class="buttons">
-          <nuxt-link
-            :to="`/create/report?id=${project.id}&t=project`"
+          <button
             class="iconified-button"
+            @click="$refs.modal_project_report.show()"
           >
             <ReportIcon aria-hidden="true" />
             Report
-          </nuxt-link>
+          </button>
           <button
             v-if="$auth.user && !$user.follows.find((x) => x.id === project.id)"
             class="iconified-button"
@@ -610,11 +615,13 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
+import ModalReport from '~/components/ui/ModalReport'
 
 export default {
   components: {
     VersionBadge,
     Advertisement,
+    ModalReport,
     IssuesIcon,
     DownloadIcon,
     CalendarIcon,
@@ -1097,7 +1104,7 @@ export default {
     border-radius: 1.5rem;
     color: var(--color-brand-inverted);
     background-color: var(--color-brand);
-    margin-right: var(--spacing-card-sm);
+    margin-right: 0.75rem;
 
     &:hover {
       background-color: var(--color-brand-hover);
@@ -1190,7 +1197,7 @@ export default {
 
   .member-info {
     overflow: hidden;
-    margin: auto 0 auto 0.5rem;
+    margin: auto 0 auto 0.75rem;
 
     .name {
       font-weight: bold;

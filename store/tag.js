@@ -6,6 +6,7 @@ export const state = () => ({
   gameVersions: tags.gameVersions,
   licenses: tags.licenses,
   donationPlatforms: tags.donationPlatforms,
+  reportTypes: tags.reportTypes,
   loaderData: {
     pluginLoaders: ['bukkit', 'spigot', 'paper', 'purpur', 'sponge'],
     pluginPlatformLoaders: ['bungeecord', 'waterfall', 'velocity'],

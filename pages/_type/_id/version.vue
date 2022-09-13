@@ -22,13 +22,18 @@
       </ul>
     </div>
     <div class="content card">
-      <ConfirmPopup
-        ref="delete_version_popup"
+      <ModalConfirm
+        ref="modal_confirm"
         title="Are you sure you want to delete this version?"
         description="This will remove this version forever (like really forever)."
         :has-to-type="false"
         proceed-label="Delete version"
         @proceed="deleteVersion()"
+      />
+      <ModalReport
+        ref="modal_version_report"
+        :item-id="version.id"
+        item-type="version"
       />
       <div class="columns">
         <nuxt-link
@@ -130,13 +135,13 @@
             <DownloadIcon aria-hidden="true" />
             Download
           </a>
-          <nuxt-link
-            :to="`/create/report?id=${version.id}&t=version`"
+          <button
             class="action iconified-button"
+            @click="$refs.modal_version_report.show()"
           >
             <ReportIcon aria-hidden="true" />
             Report
-          </nuxt-link>
+          </button>
           <nuxt-link
             v-if="currentMember"
             class="action iconified-button"
@@ -151,7 +156,7 @@
           <button
             v-if="currentMember"
             class="action iconified-button warning-button"
-            @click="$refs.delete_version_popup.show()"
+            @click="$refs.modal_confirm.show()"
           >
             <TrashIcon aria-hidden="true" />
             Delete
@@ -623,7 +628,6 @@
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
 import FileInput from '~/components/ui/FileInput'
 
 import InfoIcon from '~/assets/images/utils/info.svg?inline'
@@ -640,9 +644,13 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
 import Checkbox from '~/components/ui/Checkbox'
 import ThisOrThat from '~/components/ui/ThisOrThat'
+import ModalConfirm from '~/components/ui/ModalConfirm'
+import ModalReport from '~/components/ui/ModalReport'
 
 export default {
   components: {
+    ModalConfirm,
+    ModalReport,
     FileInput,
     ThisOrThat,
     Checkbox,
@@ -652,7 +660,6 @@ export default {
     EditIcon,
     ReportIcon,
     BackIcon,
-    ConfirmPopup,
     StarIcon,
     CheckIcon,
     Multiselect,

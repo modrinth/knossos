@@ -2,10 +2,10 @@
   <div>
     <div
       :class="{ shown: shown }"
-      class="popup-overlay"
+      class="modal-overlay"
       @click="shown = false"
     />
-    <div class="popup-body" :class="{ shown: shown }">
+    <div class="modal-body" :class="{ shown: shown }">
       <div v-if="header" class="header">
         <h1>{{ header }}</h1>
         <button
@@ -26,7 +26,7 @@
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 
 export default {
-  name: 'Popup',
+  name: 'Modal',
   components: {
     CrossIcon,
   },
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.popup-overlay {
+.modal-overlay {
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -72,7 +72,7 @@ export default {
   }
 }
 
-.popup-body {
+.modal-body {
   position: fixed;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -87,7 +87,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-button-bg);
+    background-color: var(--color-bg);
     padding: var(--spacing-card-md) var(--spacing-card-lg);
 
     h1 {
@@ -108,6 +108,10 @@ export default {
     opacity: 1;
     visibility: visible;
     top: 50%;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: 80vw;
   }
 }
 </style>

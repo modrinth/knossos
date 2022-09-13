@@ -327,22 +327,30 @@ export default {
           },
         }
 
-        const [categories, loaders, gameVersions, licenses, donationPlatforms] =
-          (
-            await Promise.all([
-              axios.get(`${API_URL}tag/category`, headers),
-              axios.get(`${API_URL}tag/loader`, headers),
-              axios.get(`${API_URL}tag/game_version`, headers),
-              axios.get(`${API_URL}tag/license`),
-              axios.get(`${API_URL}tag/donation_platform`),
-            ])
-          ).map((it) => it.data)
+        const [
+          categories,
+          loaders,
+          gameVersions,
+          licenses,
+          donationPlatforms,
+          reportTypes,
+        ] = (
+          await Promise.all([
+            axios.get(`${API_URL}tag/category`, headers),
+            axios.get(`${API_URL}tag/loader`, headers),
+            axios.get(`${API_URL}tag/game_version`, headers),
+            axios.get(`${API_URL}tag/license`),
+            axios.get(`${API_URL}tag/donation_platform`),
+            axios.get(`${API_URL}tag/report_type`),
+          ])
+        ).map((it) => it.data)
 
         state.categories = categories
         state.loaders = loaders
         state.gameVersions = gameVersions
         state.licenses = licenses
         state.donationPlatforms = donationPlatforms
+        state.reportTypes = reportTypes
 
         await fs.writeFile('./generated/state.json', JSON.stringify(state))
 

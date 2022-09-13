@@ -1,6 +1,6 @@
 <template>
-  <Popup ref="popup" :header="title">
-    <div class="popup-delete">
+  <Modal ref="modal" :header="title">
+    <div class="modal-delete">
       <div class="markdown-body" v-html="$xss($md.render(description))"></div>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
@@ -34,20 +34,20 @@
         </button>
       </div>
     </div>
-  </Popup>
+  </Modal>
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import Popup from '~/components/ui/Popup'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import Modal from '~/components/ui/Modal'
 
 export default {
-  name: 'ConfirmPopup',
+  name: 'ModalConfirm',
   components: {
     CrossIcon,
     TrashIcon,
-    Popup,
+    Modal,
   },
   props: {
     confirmationText: {
@@ -81,10 +81,10 @@ export default {
   },
   methods: {
     cancel() {
-      this.$refs.popup.hide()
+      this.$refs.modal.hide()
     },
     proceed() {
-      this.$refs.popup.hide()
+      this.$refs.modal.hide()
       this.$emit('proceed')
     },
     type() {
@@ -95,24 +95,17 @@ export default {
       }
     },
     show() {
-      this.$refs.popup.show()
+      this.$refs.modal.show()
     },
   },
 }
 </script>
 
 <style scoped lang="scss">
-.popup-delete {
+.modal-delete {
   padding: var(--spacing-card-bg);
   display: flex;
   flex-direction: column;
-
-  @media screen and (min-width: 900px) {
-  }
-
-  @media screen and (min-width: 1024px) {
-    max-width: 40vw;
-  }
 
   .markdown-body {
     margin-bottom: 1rem;

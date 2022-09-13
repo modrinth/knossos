@@ -21,13 +21,13 @@
             <h2 class="title">
               <nuxt-link
                 :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-              >{{ name }}</nuxt-link
+                >{{ name }}</nuxt-link
               >
             </h2>
             <p v-if="author" class="author">
               by
               <nuxt-link class="title-link" :to="'/user/' + author"
-              >{{ author }}
+                >{{ author }}
               </nuxt-link>
             </p>
           </div>
@@ -108,18 +108,18 @@
             <DownloadIcon aria-hidden="true" />
             <p>
               <strong>{{ $formatNumber(downloads) }}</strong> download<span
-              v-if="downloads !== '1'"
-            >s</span
-            >
+                v-if="downloads !== '1'"
+                >s</span
+              >
             </p>
           </div>
           <div v-if="follows" class="stat">
             <HeartIcon aria-hidden="true" />
             <p>
               <strong>{{ $formatNumber(follows) }}</strong> follower<span
-              v-if="follows !== '1'"
-            >s</span
-            >
+                v-if="follows !== '1'"
+                >s</span
+              >
             </p>
           </div>
           <div v-if="status" class="status">
@@ -330,7 +330,7 @@ export default {
 
       .description {
         margin: var(--spacing-card-sm) var(--spacing-card-md)
-        var(--spacing-card-sm) 0;
+          var(--spacing-card-sm) 0;
       }
 
       .right-categories {

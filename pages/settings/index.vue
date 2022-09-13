@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ConfirmPopup
-      ref="delete_popup"
+    <ModalConfirm
+      ref="modal_confirm"
       title="Are you sure you want to delete your account?"
       description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
       proceed-label="Yes, irrecoverably delete my account"
@@ -104,7 +104,7 @@
         <button
           type="button"
           class="iconified-button danger-button"
-          @click="$refs.delete_popup.show()"
+          @click="$refs.modal_confirm.show()"
         >
           Delete account
         </button>
@@ -115,10 +115,10 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
+import ModalConfirm from '~/components/ui/ModalConfirm'
 
 export default {
-  components: { ConfirmPopup, Multiselect },
+  components: { ModalConfirm, Multiselect },
   data() {
     return {
       searchLayout: false,

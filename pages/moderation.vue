@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
-    <Popup ref="popup" header="Moderation Form">
-      <div v-if="currentProject !== null" class="moderation-popup">
+    <Modal ref="modal" header="Moderation Form">
+      <div v-if="currentProject !== null" class="moderation-modal">
         <p>
           Both of these fields are optional, but can be used to communicate
           problems with a project's team members. The body supports markdown
@@ -53,7 +53,7 @@
           <button
             class="iconified-button"
             @click="
-              $refs.popup.hide()
+              $refs.modal.hide()
               currentProject = null
             "
           >
@@ -66,7 +66,7 @@
           </button>
         </div>
       </div>
-    </Popup>
+    </Modal>
     <div class="page-contents">
       <div class="content">
         <h1>Moderation</h1>
@@ -175,7 +175,7 @@
 <script>
 import ThisOrThat from '~/components/ui/ThisOrThat'
 import ProjectCard from '~/components/ui/ProjectCard'
-import Popup from '~/components/ui/Popup'
+import Modal from '~/components/ui/Modal'
 import Badge from '~/components/ui/Badge'
 
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
@@ -191,7 +191,7 @@ export default {
     CheckIcon,
     CrossIcon,
     UnlistIcon,
-    Popup,
+    Modal,
     Badge,
     Security,
   },
@@ -240,7 +240,7 @@ export default {
       project.newStatus = status
 
       this.currentProject = project
-      this.$refs.popup.show()
+      this.$refs.modal.show()
     },
     async saveProject() {
       this.$nuxt.$loading.start()
@@ -265,7 +265,7 @@ export default {
           1
         )
         this.currentProject = null
-        this.$refs.popup.hide()
+        this.$refs.modal.hide()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -303,7 +303,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.moderation-popup {
+.moderation-modal {
   width: auto;
   padding: var(--spacing-card-md) var(--spacing-card-lg);
 

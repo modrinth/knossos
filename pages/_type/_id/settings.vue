@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ConfirmPopup
-      ref="delete_popup"
+    <ModalConfirm
+      ref="modal_confirm"
       title="Are you sure you want to delete this project?"
       description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
       :has-to-type="true"
@@ -58,7 +58,7 @@
           :disabled="
             (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
           "
-          @click="showPopup"
+          @click="$refs.modal_confirm.show()"
         >
           <TrashIcon />Delete project
         </button>
@@ -252,7 +252,7 @@
 </template>
 
 <script>
-import ConfirmPopup from '~/components/ui/ConfirmPopup'
+import ModalConfirm from '~/components/ui/ModalConfirm'
 import Checkbox from '~/components/ui/Checkbox'
 import Badge from '~/components/ui/Badge'
 
@@ -266,7 +266,7 @@ import UserIcon from '~/assets/images/utils/user.svg?inline'
 export default {
   components: {
     DropdownIcon,
-    ConfirmPopup,
+    ModalConfirm,
     Checkbox,
     Badge,
     PlusIcon,
@@ -412,14 +412,6 @@ export default {
       }
 
       this.$nuxt.$loading.finish()
-    },
-    showPopup() {
-      if (
-        (this.currentMember.permissions & this.DELETE_PROJECT) ===
-        this.DELETE_PROJECT
-      ) {
-        this.$refs.delete_popup.show()
-      }
     },
     async deleteProject() {
       await this.$axios.delete(
