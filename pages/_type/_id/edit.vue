@@ -927,7 +927,6 @@ section.description {
 
   .edit-wrapper * {
     min-height: 10rem;
-    max-height: 40rem;
   }
 
   .markdown-body {
