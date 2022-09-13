@@ -70,6 +70,7 @@
 	import { Pagination } from 'omorphia'
 	import { simplify } from '$utils/number'
 	import GameVersions from '$components/GameVersions.svelte'
+import { project } from './[type=projectType]/[identifier]/_store';
 
 	let showFilters = false
 
@@ -79,6 +80,28 @@
 	export let searchParams: Record<string, any>
 
 	let previousParams = { ...searchParams }
+
+	let modLoaders = loaders.filter((thing) => {
+		// return thing.supported_project_types.includes("mod") &&
+		return thing.name.includes("fabric") ||
+		thing.name.includes("forge") ||
+		thing.name.includes("quilt") ||
+		thing.name.includes("liteloader") ||
+		thing.name.includes("modloader") ||
+		thing.name.includes("rift")
+	})
+
+	let pluginLoaders = loaders.filter((thing) => {
+		return thing.name.includes("purpur") ||
+		thing.name.includes("bukkit") ||
+		thing.name.includes("paper") ||
+		thing.name.includes("spigot") ||
+		thing.name.includes("sponge")
+	})
+
+	// let pluginLoaders = loaders.filter((type) => type.name.includes("purpur" || "bukkit"))
+
+	console.log(loaders)
 
 	const replaceStateWithQuery = (values: Record<string, unknown>) => {
 		const url = new URL(window.location.toString())
@@ -170,10 +193,12 @@
 
 				<hr class="divider" />
 
+				{#if projectType === "mod" || projectType === "modpack"}
 				<h3>{$t('generic.labels.mod_loaders')}</h3>
+				
 				<CheckboxList
-					options={loaders
-						.filter((it) => it.supported_project_types.includes(projectType))
+					options={modLoaders
+						.filter((it) => it.supported_project_types.includes("mod"))
 						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
 					bind:value={searchParams.l} />
 
@@ -189,13 +214,37 @@
 					wrap />
 
 				<hr class="divider" />
+				{:else if projectType === "plugin"}
+				<h3>{$t('generic.labels.plugin_loaders')}</h3>
+
+				<CheckboxList
+					options={pluginLoaders
+						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
+					bind:value={searchParams.l} />
+
+				<hr class="divider" />
 
 				<h3>{$t('generic.labels.categories')}</h3>
 				<CheckboxList
 					options={categories
+						.filter((it) => it.project_type === "mod")
+						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
+					bind:value={searchParams.c} />
+
+				{/if}
+
+				
+				{#if projectType !== "plugin"}
+
+				<h3>{$t('generic.labels.categories')}</h3>
+				
+				<CheckboxList
+				options={categories
 						.filter((it) => it.project_type === projectType)
 						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
 					bind:value={searchParams.c} />
+
+				{/if}
 
 				<h3>{$t('generic.labels.license.plural')}</h3>
 				<CheckboxList
