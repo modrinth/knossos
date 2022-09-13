@@ -1,4 +1,6 @@
-import { projectTypes } from '$generated/tags.json'
+// import { projectTypes } from '$generated/tags.json'
+
+let projectTypes = ['mod', 'modpack', 'plugin', 'resourcepack']
 
 /** @type {import('@sveltejs/kit').ParamMatcher} */
 export function match(param) {

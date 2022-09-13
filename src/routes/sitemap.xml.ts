@@ -17,6 +17,12 @@ export const get: RequestHandler = async ({ url }) => {
 			path: '/modpacks',
 		},
 		{
+			path: '/plugins',
+		},
+		{
+			path: '/resourcepacks',
+		},
+		{
 			path: '/about',
 		},
 		{
