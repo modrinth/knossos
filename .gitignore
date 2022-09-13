@@ -12,3 +12,4 @@ generated/
 !.gitkeep
 .mf
 .pnpm-store/
+.eslintcache

@@ -10,9 +10,11 @@
 	import { notifications } from '$stores/account'
 	import IconChevronDown from 'virtual:icons/lucide/chevron-down'
 
-	let navItems = projectTypes.map((type) => ({
+	let allProjectTypes = ['mod', 'modpack', 'plugin', 'resourcepack']
+
+	let navItems = allProjectTypes.map((type) => ({
 		label: $t(`project.types.${type}.plural`),
-		href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
+		href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase().split(" ").join("")}`,
 	}))
 
 	export let dropdownItems = []

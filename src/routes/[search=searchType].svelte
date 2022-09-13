@@ -8,6 +8,8 @@
 	}) => {
 		const projectType = params.search.slice(0, -1)
 
+		console.log(projectType)
+
 		const searchParams = {
 			c: [],
 			e: [],
