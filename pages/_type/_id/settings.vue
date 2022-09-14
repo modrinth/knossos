@@ -53,15 +53,17 @@
             this will delete your project, so be extra careful!
           </span>
         </span>
-        <button
-          class="iconified-button danger-button"
-          :disabled="
-            (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
-          "
-          @click="$refs.modal_confirm.show()"
-        >
-          <TrashIcon />Delete project
-        </button>
+        <div>
+          <button
+            class="iconified-button danger-button"
+            :disabled="
+              (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+            "
+            @click="$refs.modal_confirm.show()"
+          >
+            <TrashIcon />Delete project</button
+          >*
+        </div>
       </label>
     </section>
     <div class="card columns team-invite">
@@ -554,6 +556,7 @@ section {
 
     div {
       flex: none;
+      width: fit-content;
     }
 
     input {

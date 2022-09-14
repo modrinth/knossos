@@ -149,10 +149,6 @@ a,
   .has-icon {
     margin: 0 0.3em;
   }
-  font-size: 80%;
-  @media screen and (min-width: 350px) {
-    font-size: 100%;
-  }
 }
 
 .left-arrow {
@@ -161,5 +157,18 @@ a,
 
 .right-arrow {
   margin-right: auto !important;
+}
+
+@media screen and (max-width: 400px) {
+  .paginates {
+    font-size: 80%;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  a {
+    width: 2.5rem;
+    padding: 0.5rem 0;
+  }
 }
 </style>

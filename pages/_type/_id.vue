@@ -124,29 +124,41 @@
         </div>
         <hr class="card-divider" />
         <div class="buttons">
-          <button
-            class="iconified-button"
-            @click="$refs.modal_project_report.show()"
-          >
-            <ReportIcon aria-hidden="true" />
-            Report
-          </button>
-          <button
-            v-if="$auth.user && !$user.follows.find((x) => x.id === project.id)"
-            class="iconified-button"
-            @click="$store.dispatch('user/followProject', project)"
-          >
-            <FollowIcon aria-hidden="true" />
-            Follow
-          </button>
-          <button
-            v-if="$auth.user && $user.follows.find((x) => x.id === project.id)"
-            class="iconified-button"
-            @click="$store.dispatch('user/unfollowProject', project)"
-          >
-            <FollowIcon fill="currentColor" aria-hidden="true" />
-            Unfollow
-          </button>
+          <template v-if="$auth.user">
+            <button
+              class="iconified-button"
+              @click="$refs.modal_project_report.show()"
+            >
+              <ReportIcon aria-hidden="true" />
+              Report
+            </button>
+            <button
+              v-if="!$user.follows.find((x) => x.id === project.id)"
+              class="iconified-button"
+              @click="$store.dispatch('user/followProject', project)"
+            >
+              <FollowIcon aria-hidden="true" />
+              Follow
+            </button>
+            <button
+              v-if="$user.follows.find((x) => x.id === project.id)"
+              class="iconified-button"
+              @click="$store.dispatch('user/unfollowProject', project)"
+            >
+              <FollowIcon fill="currentColor" aria-hidden="true" />
+              Unfollow
+            </button>
+          </template>
+          <template v-else>
+            <a class="iconified-button" :href="authUrl">
+              <ReportIcon aria-hidden="true" />
+              Report
+            </a>
+            <a class="iconified-button" :href="authUrl">
+              <FollowIcon fill="currentColor" aria-hidden="true" />
+              Follow
+            </a>
+          </template>
         </div>
       </div>
       <div
@@ -831,6 +843,9 @@ export default {
     }
   },
   computed: {
+    authUrl() {
+      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+    },
     projectTypeDisplay() {
       return this.$getProjectTypeForDisplay(
         this.project.project_type,

@@ -9,11 +9,6 @@
             loading="lazy"
           />
         </nuxt-link>
-        <Categories
-          :categories="categories"
-          :type="type"
-          class="left-categories"
-        />
       </div>
       <div class="card-content">
         <div class="info">
@@ -103,47 +98,57 @@
             </div>
           </div>
         </div>
-        <div class="right-side">
-          <div v-if="downloads" class="stat">
-            <DownloadIcon aria-hidden="true" />
-            <p>
-              <strong>{{ $formatNumber(downloads) }}</strong> download<span
-                v-if="downloads !== '1'"
-                >s</span
-              >
-            </p>
-          </div>
-          <div v-if="follows" class="stat">
-            <HeartIcon aria-hidden="true" />
-            <p>
-              <strong>{{ $formatNumber(follows) }}</strong> follower<span
-                v-if="follows !== '1'"
-                >s</span
-              >
-            </p>
-          </div>
-          <div v-if="status" class="status">
-            <Badge
-              v-if="status === 'approved'"
-              color="green custom-circle"
-              :type="status"
-            />
-            <Badge
-              v-else-if="status === 'processing' || status === 'archived'"
-              color="yellow custom-circle"
-              :type="status"
-            />
-            <Badge
-              v-else-if="status === 'rejected'"
-              color="red custom-circle"
-              :type="status"
-            />
-            <Badge v-else color="gray custom-circle" :type="status" />
-          </div>
-          <div class="buttons">
-            <slot />
-          </div>
+      </div>
+    </div>
+    <div class="right-side">
+      <div v-if="downloads" class="stat">
+        <DownloadIcon aria-hidden="true" />
+        <p>
+          <strong>{{ $formatNumber(downloads) }}</strong> download<span
+            v-if="downloads !== '1'"
+            >s</span
+          >
+        </p>
+      </div>
+      <div v-if="follows" class="stat">
+        <HeartIcon aria-hidden="true" />
+        <p>
+          <strong>{{ $formatNumber(follows) }}</strong> follower<span
+            v-if="follows !== '1'"
+            >s</span
+          >
+        </p>
+      </div>
+      <div class="mobile-dates">
+        <div class="date">
+          <CalendarIcon aria-hidden="true" />
+          Created {{ $dayjs(createdAt).fromNow() }}
         </div>
+        <div class="date">
+          <EditIcon aria-hidden="true" />
+          Updated {{ $dayjs(updatedAt).fromNow() }}
+        </div>
+      </div>
+      <div v-if="status" class="status">
+        <Badge
+          v-if="status === 'approved'"
+          color="green custom-circle"
+          :type="status"
+        />
+        <Badge
+          v-else-if="status === 'processing' || status === 'archived'"
+          color="yellow custom-circle"
+          :type="status"
+        />
+        <Badge
+          v-else-if="status === 'rejected'"
+          color="red custom-circle"
+          :type="status"
+        />
+        <Badge v-else color="gray custom-circle" :type="status" />
+      </div>
+      <div class="buttons">
+        <slot />
       </div>
     </div>
   </article>
@@ -318,8 +323,7 @@ export default {
         font-weight: bolder;
         font-size: var(--font-size-sm);
 
-        margin-top: 0.125rem;
-        margin-bottom: 0.5rem;
+        margin: 0.125rem 0;
 
         svg {
           width: auto;
@@ -355,94 +359,121 @@ export default {
         }
       }
     }
+  }
 
-    .right-side {
-      min-width: 12rem;
-      text-align: right;
+  .right-side {
+    min-width: fit-content;
 
-      .stat {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
+    .stat {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
 
-        svg {
-          width: auto;
-          height: 1.25rem;
+      svg {
+        width: auto;
+        height: 1.25rem;
 
-          margin-left: auto;
-          margin-right: 0.25rem;
-        }
-
-        p {
-          margin: 0;
-
-          strong {
-            font-weight: bolder;
-            font-size: var(--font-size-lg);
-          }
-        }
+        margin-left: auto;
+        margin-right: 0.25rem;
       }
 
-      .status {
-        margin-bottom: 0.5rem;
-      }
+      p {
+        margin: 0;
 
-      .buttons {
-        display: flex;
-        flex-direction: column;
-
-        button,
-        a {
-          margin-right: 0;
-          margin-left: auto;
-          margin-bottom: 0.5rem;
+        strong {
+          font-weight: bolder;
+          font-size: var(--font-size-lg);
         }
       }
     }
+
+    .status {
+      margin-bottom: 0.5rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+
+      button,
+      a {
+        margin-right: 0;
+        margin-left: auto;
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .mobile-dates {
+      display: none;
+    }
   }
 
-  .left-categories {
-    display: none;
-  }
+  @media screen and (max-width: 800px) {
+    flex-wrap: wrap;
 
-  @media screen and (max-width: 560px) {
     .card-content {
       flex-direction: column;
-      margin-left: 0.75rem;
 
       .info {
         .dates {
-          .date {
-            margin-bottom: 0.5rem;
+          display: none;
+        }
+      }
+    }
+
+    .right-side {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+
+      text-align: left;
+
+      .stat {
+        margin-bottom: 0;
+      }
+
+      .stat svg {
+        margin-left: 0;
+      }
+
+      .buttons {
+        flex: 1 1 100%;
+      }
+
+      .buttons button,
+      a {
+        margin-left: unset;
+        margin-right: unset;
+      }
+
+      .status {
+        margin-bottom: 0;
+      }
+
+      .mobile-dates {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.5rem;
+        color: var(--color-icon);
+        font-size: var(--font-size-nm);
+
+        .date {
+          display: flex;
+          align-items: center;
+          cursor: default;
+
+          svg {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.25rem;
           }
         }
       }
-
-      .right-side {
-        padding-top: var(--spacing-card-sm);
-
-        text-align: left;
-
-        .stat svg {
-          margin-left: 0;
-        }
-
-        .buttons button,
-        a {
-          margin-left: unset;
-          margin-right: unset;
-        }
-      }
-    }
-
-    .left-categories {
-      display: flex;
-      margin: 0 0 0.75rem 0;
-      width: 7rem;
-    }
-
-    .right-categories {
-      display: none;
     }
   }
 }

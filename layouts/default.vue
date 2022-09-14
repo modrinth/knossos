@@ -1,5 +1,5 @@
 <template>
-  <div ref="layout" class="layout">
+  <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
@@ -55,7 +55,7 @@
                 />
                 <SunIcon v-else aria-hidden="true" />
               </button>
-              <div v-if="$auth.user" ref="mobileMenu" class="dropdown">
+              <div v-if="$auth.user" class="dropdown">
                 <button class="control" value="Profile Dropdown">
                   <img
                     :src="$auth.user.avatar_url"
@@ -65,13 +65,9 @@
                   />
                   <DropdownIcon class="caret" />
                 </button>
-                <ul class="content card" @click="removeFocus">
+                <ul class="content card">
                   <li>
-                    <NuxtLink
-                      class="item"
-                      :to="`/user/${$auth.user.username}`"
-                      @click="removeFocus"
-                    >
+                    <NuxtLink class="item" :to="`/user/${$auth.user.username}`">
                       <div class="title profile-link">
                         <div class="username">@{{ $auth.user.username }}</div>
                         <div class="prompt">Go to my profile</div>
@@ -146,9 +142,9 @@
           </section>
         </section>
       </section>
-      <section ref="mobileNavBar" class="mobile-navbar">
+      <section class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen }">
         <div class="top-row">
-          <NuxtLink to="/" class="tab" @click.native="closeBrowseMenu()">
+          <NuxtLink to="/" class="tab" @click.native="isBrowseMenuOpen = false">
             <HomeIcon />
           </NuxtLink>
           <div class="spacer"></div>
@@ -170,7 +166,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/mods"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Mods</span>
           </NuxtLink>
@@ -178,7 +174,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/plugins"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Plugins</span>
           </NuxtLink>
@@ -187,7 +183,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Resource Packs</span>
           </NuxtLink>
@@ -195,13 +191,13 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/modpacks"
             class="tab"
-            @click.native="closeBrowseMenu()"
+            @click.native="isBrowseMenuOpen = false"
           >
             <span>Modpacks</span>
           </NuxtLink>
         </div>
       </section>
-      <section ref="mobileMenu" class="mobile-menu">
+      <section class="mobile-menu" :class="{ active: isMobileMenuOpen }">
         <div class="mobile-menu-wrapper">
           <div class="items-container rows">
             <NuxtLink
@@ -345,8 +341,6 @@ import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 
-const overflowStyle = 'scroll'
-
 export default {
   components: {
     ModrinthLogo,
@@ -411,11 +405,8 @@ export default {
   },
   watch: {
     $route() {
-      this.$refs.mobileMenu.className = 'mobile-menu'
-      this.isMobileMenuOpen =
-        this.$refs.mobileMenu.className === 'mobile-menu active'
-
-      document.body.style.overflowY = overflowStyle
+      this.isMobileMenuOpen = false
+      document.body.style.overflowY = 'scroll'
 
       this.$store.dispatch('user/fetchAll')
     },
@@ -433,48 +424,23 @@ export default {
   methods: {
     toggleMobileMenu() {
       window.scrollTo(0, 0)
-      const currentlyActive =
-        this.$refs.mobileMenu.className === 'mobile-menu active'
-      this.$refs.mobileMenu.className = `mobile-menu${
-        currentlyActive ? '' : ' active'
-      }`
       document.body.scrollTop = 0
 
-      document.body.style.overflowY =
-        document.body.style.overflowY !== 'hidden' ? 'hidden' : overflowStyle
-
-      this.isMobileMenuOpen = !currentlyActive
+      this.isMobileMenuOpen = !this.isMobileMenuOpen
 
       if (this.isMobileMenuOpen) {
-        this.$refs.mobileNavBar.className = `mobile-navbar`
-        this.$refs.layout.className = `layout`
-
+        document.body.style.overflowY = 'hidden'
         this.isBrowseMenuOpen = false
+      } else {
+        document.body.style.overflowY = 'scroll'
       }
     },
     toggleBrowseMenu() {
-      const currentlyActive =
-        this.$refs.mobileNavBar.className === 'mobile-navbar expanded'
-      this.$refs.mobileNavBar.className = `mobile-navbar${
-        currentlyActive ? '' : ' expanded'
-      }`
-      this.$refs.layout.className = `layout${
-        currentlyActive ? '' : ' expanded-mobile-nav'
-      }`
-
-      this.isBrowseMenuOpen = !currentlyActive
+      this.isBrowseMenuOpen = !this.isBrowseMenuOpen
 
       if (this.isBrowseMenuOpen) {
-        this.$refs.mobileMenu.className = `mobile-menu`
-
         this.isMobileMenuOpen = false
       }
-    },
-    closeBrowseMenu() {
-      this.$refs.mobileNavBar.className = `mobile-navbar`
-      this.$refs.layout.className = `layout`
-
-      this.isBrowseMenuOpen = false
     },
     async logout() {
       this.$cookies.set('auth-token-reset', true)
@@ -495,9 +461,6 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
-    },
-    removeFocus() {
-      document.activeElement.blur() // This doesn't work, sadly. Help
     },
   },
 }

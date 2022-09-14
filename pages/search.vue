@@ -299,7 +299,7 @@
         @switch-page="onSearchChange"
       ></pagination>
       <div>
-        <div v-if="$fetchState.pending" class="no-results">
+        <div v-if="isLoading" class="no-results">
           <LogoAnimated aria-hidden="true" />
           <p>Loading...</p>
         </div>
@@ -407,6 +407,8 @@ export default {
       showAllLoaders: false,
 
       skipLink: '#search-results',
+
+      isLoading: true,
     }
   },
   async fetch() {
@@ -466,6 +468,8 @@ export default {
     }
 
     await this.onSearchChange(this.currentPage)
+
+    this.isLoading = false
   },
   head() {
     const name = this.$route.name.substring(0, this.$route.name.length - 1)
@@ -520,6 +524,7 @@ export default {
   watch: {
     '$route.path': {
       async handler() {
+        this.isLoading = true
         this.projectType = this.$route.name.substring(
           0,
           this.$route.name.length - 1
@@ -542,6 +547,8 @@ export default {
         this.sidebarMenuOpen = false
 
         await this.clearFilters()
+
+        this.isLoading = false
       },
     },
   },

@@ -1,17 +1,10 @@
 <template>
   <div>
-    <div
-      :class="{ shown: shown }"
-      class="modal-overlay"
-      @click="shown = false"
-    />
+    <div :class="{ shown: shown }" class="modal-overlay" @click="hide" />
     <div class="modal-body" :class="{ shown: shown }">
       <div v-if="header" class="header">
         <h1>{{ header }}</h1>
-        <button
-          class="iconified-button icon-only transparent"
-          @click="shown = false"
-        >
+        <button class="iconified-button icon-only transparent" @click="hide">
           <CrossIcon />
         </button>
       </div>
@@ -44,9 +37,11 @@ export default {
   methods: {
     show() {
       this.shown = true
+      document.body.style.overflowY = 'hidden'
     },
     hide() {
       this.shown = false
+      document.body.style.overflowY = 'scroll'
     },
   },
 }

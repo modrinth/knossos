@@ -34,13 +34,17 @@
               Edit
             </button>
             <button
-              v-else
+              v-else-if="$auth.user"
               class="iconified-button"
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
               Report
             </button>
+            <a v-else class="iconified-button" :href="authUrl">
+              <ReportIcon aria-hidden="true" />
+              Report
+            </a>
           </div>
           <template v-if="isEditing">
             <div class="inputs">
@@ -362,6 +366,9 @@ export default {
     }
   },
   computed: {
+    authUrl() {
+      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+    },
     projectTypes() {
       const obj = { all: true }
 
@@ -463,7 +470,7 @@ export default {
 
   .user-header {
     position: relative;
-    z-index: 10;
+    z-index: 4;
     display: flex;
     width: 100%;
     padding: 0 1rem;

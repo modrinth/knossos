@@ -136,12 +136,17 @@
             Download
           </a>
           <button
+            v-if="$auth.user"
             class="action iconified-button"
             @click="$refs.modal_version_report.show()"
           >
             <ReportIcon aria-hidden="true" />
             Report
           </button>
+          <a v-else class="action iconified-button" :href="authUrl">
+            <ReportIcon aria-hidden="true" />
+            Report
+          </a>
           <nuxt-link
             v-if="currentMember"
             class="action iconified-button"
@@ -783,6 +788,11 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    authUrl() {
+      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+    },
   },
   watch: {
     '$route.path': {
