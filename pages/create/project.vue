@@ -264,7 +264,7 @@
           >. HTML can also be used inside your description, not including
           styles, scripts, and iframes (though YouTube iframes are allowed).
         </span>
-        <ThisOrThat
+        <Chips
           v-model="bodyViewMode"
           class="separator"
           :items="['source', 'preview']"
@@ -491,7 +491,7 @@
           <div class="dependencies">
             <h3>Dependencies</h3>
             <div class="dependency-selector">
-              <ThisOrThat
+              <Chips
                 v-model="dependencyAddMode"
                 class="separator"
                 :items="['project', 'version']"
@@ -653,7 +653,7 @@
                 >Markdown</a
               >.
             </span>
-            <ThisOrThat
+            <Chips
               v-model="changelogViewMode"
               class="separator"
               :items="['source', 'preview']"
@@ -1120,7 +1120,7 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import FileInput from '~/components/ui/FileInput'
-import ThisOrThat from '~/components/ui/ThisOrThat'
+import Chips from '~/components/ui/Chips'
 import VersionBadge from '~/components/ui/Badge'
 
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
@@ -1140,7 +1140,7 @@ export default {
     TrashIcon,
     CrossIcon,
     EditIcon,
-    ThisOrThat,
+    Chips,
     VersionBadge,
   },
   beforeRouteLeave(to, from, next) {

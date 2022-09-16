@@ -5,9 +5,10 @@
         <h1>Notifications</h1>
 
         <div class="divider card">
-          <ThisOrThat
+          <Chips
             v-model="selectedNotificationType"
             :items="notificationTypes"
+            :never-empty="false"
           />
           <button
             class="iconified-button brand-button"
@@ -19,7 +20,7 @@
         </div>
         <div class="notifications">
           <div
-            v-for="notification in selectedNotificationType !== 'all'
+            v-for="notification in selectedNotificationType !== null
               ? $user.notifications.filter(
                   (x) => x.type === NOTIFICATION_TYPES[selectedNotificationType]
                 )
@@ -76,7 +77,7 @@
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import ThisOrThat from '~/components/ui/ThisOrThat'
+import Chips from '~/components/ui/Chips'
 
 const NOTIFICATION_TYPES = {
   'Team invites': 'team_invite',
@@ -86,13 +87,13 @@ const NOTIFICATION_TYPES = {
 export default {
   name: 'Notifications',
   components: {
-    ThisOrThat,
+    Chips,
     ClearIcon,
     UpToDate,
   },
   data() {
     return {
-      selectedNotificationType: 'all',
+      selectedNotificationType: null,
     }
   },
   async fetch() {
@@ -103,7 +104,7 @@ export default {
   },
   computed: {
     notificationTypes() {
-      const obj = { all: true }
+      const obj = {}
 
       for (const notification of this.$user.notifications.filter(
         (it) => it.type !== null

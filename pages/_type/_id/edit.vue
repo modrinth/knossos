@@ -289,7 +289,7 @@
         >. HTML can also be used inside your description, not including styles,
         scripts, and iframes (though YouTube iframes are allowed).
       </span>
-      <ThisOrThat
+      <Chips
         v-model="bodyViewMode"
         class="separator"
         :items="['source', 'preview']"
@@ -486,13 +486,13 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
-import ThisOrThat from '~/components/ui/ThisOrThat'
+import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'
 
 export default {
   components: {
     FileInput,
-    ThisOrThat,
+    Chips,
     Multiselect,
     CrossIcon,
     CheckIcon,

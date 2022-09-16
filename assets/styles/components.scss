@@ -426,6 +426,14 @@
   }
 }
 
+.light-brand-button {
+  background-color: var(--color-brand-light);
+
+  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
+    background-color: var(--color-brand-light);
+  }
+}
+
 .button-group {
   display: flex;
   grid-gap: .5rem;
@@ -697,71 +705,6 @@ label {
     overflow-y: auto;
     resize: none;
     max-width: 100%;
-  }
-}
-
-.styled-tabs {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: var(--spacing-card-sm);
-  font-weight: bold;
-  color: var(--color-text-inactive);
-  overflow-x: scroll;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .tab {
-    padding: 0;
-    margin-right: var(--spacing-card-bg);
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    span {
-      font-weight: bold;
-      display: inline-block;
-      padding-bottom: 6px;
-      position: relative;
-    }
-
-    span::before {
-      background-color: transparent;
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      bottom: 0;
-      //bottom: -6px;
-      border-radius: var(--size-rounded-max);
-    }
-
-    &:hover,
-    &:focus {
-      color: var(--color-text);
-
-      span::before {
-        background-color: var(--tab-underline-hovered);
-      }
-    }
-
-    &.nuxt-link-active,
-    &.selected {
-      color: var(--color-text);
-
-      span::before {
-        background-color: var(--color-brand);
-        box-shadow: 0 0 1px 0 var(--color-brand);
-      }
-    }
-  }
-
-  .right {
-    margin-left: auto;
   }
 }
 

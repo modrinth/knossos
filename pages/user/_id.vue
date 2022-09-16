@@ -135,7 +135,11 @@
       </div>
       <div class="normal-page__content">
         <nav class="card user-navigation">
-          <ThisOrThat v-model="selectedProjectType" :items="projectTypes" />
+          <Chips
+            v-model="selectedProjectType"
+            :items="projectTypes"
+            :never-empty="false"
+          />
           <nuxt-link
             v-if="$auth.user && $auth.user.id === user.id"
             to="/create/project"
@@ -153,7 +157,7 @@
         />
         <div v-if="projects.length > 0">
           <ProjectCard
-            v-for="project in selectedProjectType !== 'all'
+            v-for="project in selectedProjectType !== null
               ? projects.filter(
                   (x) =>
                     x.project_type === convertProjectType(selectedProjectType)
@@ -208,7 +212,7 @@
 
 <script>
 import ProjectCard from '~/components/ui/ProjectCard'
-import ThisOrThat from '~/components/ui/ThisOrThat'
+import Chips from '~/components/ui/Chips'
 import Badge from '~/components/ui/Badge'
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -240,7 +244,7 @@ export default {
     Badge,
     SettingsIcon,
     PlusIcon,
-    ThisOrThat,
+    Chips,
     UpToDate,
     UserIcon,
     EditIcon,
@@ -307,7 +311,7 @@ export default {
       }
 
       return {
-        selectedProjectType: 'all',
+        selectedProjectType: null,
         user,
         projects,
         githubUrl: gitHubUser.html_url,
@@ -370,7 +374,7 @@ export default {
       return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
     },
     projectTypes() {
-      const obj = { all: true }
+      const obj = {}
 
       for (const project of this.projects) {
         if (project.project_type === 'resourcepack') {

@@ -169,8 +169,9 @@
         </div>
         <section v-if="mode === 'edit' || mode === 'create'">
           <h3>Changelog</h3>
-          <ThisOrThat
+          <Chips
             v-model="changelogViewMode"
+            class="separator"
             :items="['source', 'preview']"
           />
           <div v-if="changelogViewMode === 'source'" class="textarea-wrapper">
@@ -449,8 +450,9 @@
             class="edit-dependency"
           >
             <h4>Add dependency</h4>
-            <ThisOrThat
+            <Chips
               v-model="dependencyAddMode"
+              class="separator"
               :items="['project', 'version']"
             />
             <div class="edit-info">
@@ -648,7 +650,7 @@ import StarIcon from '~/assets/images/utils/star.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
 import Checkbox from '~/components/ui/Checkbox'
-import ThisOrThat from '~/components/ui/ThisOrThat'
+import Chips from '~/components/ui/Chips'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import ModalReport from '~/components/ui/ModalReport'
 
@@ -657,7 +659,7 @@ export default {
     ModalConfirm,
     ModalReport,
     FileInput,
-    ThisOrThat,
+    Chips,
     Checkbox,
     VersionBadge,
     DownloadIcon,
@@ -1169,6 +1171,10 @@ section {
   h3 {
     margin-bottom: 0.5rem;
   }
+
+  .separator {
+    margin: var(--spacing-card-sm) 0;
+  }
 }
 
 .header-buttons {
@@ -1326,10 +1332,6 @@ section {
 }
 
 .options {
-  margin-bottom: var(--spacing-card-sm);
-}
-
-.styled-tabs {
   margin-bottom: var(--spacing-card-sm);
 }
 

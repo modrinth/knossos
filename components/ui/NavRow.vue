@@ -59,7 +59,7 @@ export default {
   watch: {
     '$route.path': {
       handler(route) {
-        if (this.activeIndex === -1) {
+        if (this.oldIndex === -1) {
           this.useAnimation = false
 
           setTimeout(() => {

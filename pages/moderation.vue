@@ -36,7 +36,11 @@
           placeholder="Enter the message..."
         />
         <h3>Body</h3>
-        <ThisOrThat v-model="bodyViewMode" :items="['source', 'preview']" />
+        <Chips
+          v-model="bodyViewMode"
+          class="separator"
+          :items="['source', 'preview']"
+        />
         <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
           <textarea
             id="body"
@@ -70,14 +74,15 @@
     <div class="page-contents">
       <div class="content">
         <h1>Moderation</h1>
-        <ThisOrThat
+        <Chips
+          v-if="moderationTypes.length > 0"
           v-model="selectedType"
           class="card"
           :items="moderationTypes"
         />
         <div class="projects">
           <ProjectCard
-            v-for="project in selectedType !== 'all'
+            v-for="project in selectedType !== null
               ? projects.filter((x) => x.project_type === selectedType)
               : projects"
             :id="project.slug || project.id"
@@ -173,7 +178,7 @@
 </template>
 
 <script>
-import ThisOrThat from '~/components/ui/ThisOrThat'
+import Chips from '~/components/ui/Chips'
 import ProjectCard from '~/components/ui/ProjectCard'
 import Modal from '~/components/ui/Modal'
 import Badge from '~/components/ui/Badge'
@@ -186,7 +191,7 @@ import Security from '~/assets/images/illustrations/security.svg?inline'
 export default {
   name: 'Moderation',
   components: {
-    ThisOrThat,
+    Chips,
     ProjectCard,
     CheckIcon,
     CrossIcon,
@@ -206,7 +211,7 @@ export default {
     return {
       projects,
       reports,
-      selectedType: 'all',
+      selectedType: null,
     }
   },
   data() {
@@ -220,7 +225,7 @@ export default {
   },
   computed: {
     moderationTypes() {
-      const obj = { all: true }
+      const obj = {}
 
       for (const project of this.projects) {
         obj[project.project_type] = true
@@ -320,6 +325,10 @@ export default {
   textarea {
     margin-top: 0.5rem;
     min-height: 10rem;
+  }
+
+  .separator {
+    margin: var(--spacing-card-sm) 0;
   }
 
   .buttons {
