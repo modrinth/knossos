@@ -10,6 +10,65 @@
       @proceed="deleteAccount"
     />
 
+    <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
+      <div class="modal-revoke-token markdown-body">
+        <p>
+          Revoking your Modrinth token can have unintended consequences. Please
+          be aware that the following could break:
+        </p>
+        <ul>
+          <li>Any application that uses your token to access the API.</li>
+          <li>
+            Gradle - if Minotaur is given a incorrect token, your Gradle builds
+            could fail.
+          </li>
+          <li>
+            GitHub - if you use a GitHub action that uses the Modrinth API, it
+            will cause errors.
+          </li>
+        </ul>
+        <p>If you are willing to continue, complete the following steps:</p>
+        <ol>
+          <li>
+            <a
+              href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
+              target="_blank"
+            >
+              Head to the Modrinth Application page on GitHub.
+            </a>
+            Make sure to be logged into the GitHub account you used for
+            Modrinth!
+          </li>
+          <li>
+            Press the big red "Revoke Access" button next to the "Permissions"
+            header.
+          </li>
+        </ol>
+        <p>
+          Once you have completed those steps, press the continue button below.
+        </p>
+        <p>
+          <strong>
+            This will log you out of Modrinth, however, when you log back in,
+            your token will be regenerated.
+          </strong>
+        </p>
+        <div class="button-group">
+          <button
+            class="iconified-button"
+            @click="$refs.modal_revoke_token.hide()"
+          >
+            <CrossIcon />
+            Cancel
+          </button>
+          <button class="iconified-button brand-button" @click="logout">
+            <RightArrowIcon />
+            Log out
+          </button>
+        </div>
+      </div>
+    </Modal>
+
     <section class="card">
       <div class="header">
         <h2 class="title">Display settings</h2>
@@ -86,7 +145,7 @@
         <button
           type="button"
           class="iconified-button"
-          @click="$router.replace('/settings/revoke-token')"
+          @click="$refs.modal_revoke_token.show()"
         >
           Revoke token
         </button>
@@ -116,9 +175,13 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import ModalConfirm from '~/components/ui/ModalConfirm'
+import Modal from '~/components/ui/Modal'
+
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 
 export default {
-  components: { ModalConfirm, Multiselect },
+  components: { Modal, ModalConfirm, Multiselect, CrossIcon, RightArrowIcon },
   data() {
     return {
       searchLayout: false,
@@ -179,6 +242,12 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
+    logout() {
+      this.$refs.modal_revoke_token.hide()
+      this.$cookies.set('auth-token-reset', true)
+
+      window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
+    },
   },
 }
 </script>
@@ -189,5 +258,14 @@ export default {
 
 .multiselect {
   max-width: 20rem;
+}
+
+.modal-revoke-token {
+  padding: var(--spacing-card-bg);
+
+  .button-group {
+    width: fit-content;
+    margin-left: auto;
+  }
 }
 </style>

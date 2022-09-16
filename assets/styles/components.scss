@@ -5,18 +5,6 @@
   display: inline-flex;
   position: relative;
 
-  &:hover:not([disabled]):not(:focus-within) {
-    input:not(:focus) {
-      background-color: var(--color-button-bg-hover);
-      color: var(--color-button-text-hover);
-      border-color: var(--color-divider-dark);
-    }
-
-    svg {
-      color: var(--color-button-text-hover);
-    }
-  }
-
   &:focus-within {
     input {
       outline: .25rem solid hsla(155,58%,44%,.7);
@@ -481,8 +469,7 @@
 
     transition: background-color .1s ease-in-out;
 
-    &:active,
-    &:hover {
+    &:active {
       background: var(--color-button-bg-hover);
 
       .multiselect__spinner {
@@ -541,8 +528,7 @@
   .multiselect__spinner {
     background: var(--color-dropdown-bg);
 
-    &:active,
-    &:hover {
+    &:active {
       background: var(--color-button-bg-hover);
     }
   }

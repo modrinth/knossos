@@ -1,0 +1,185 @@
+<template>
+  <nav class="navigation" :class="{ 'use-animation': useAnimation }">
+    <NuxtLink
+      v-for="(link, index) in filteredLinks"
+      :key="index"
+      ref="linkElements"
+      :to="link.href"
+      class="nav-link"
+      :class="{ 'is-active': index === activeIndex }"
+    >
+      <span>{{ link.label }}</span>
+    </NuxtLink>
+
+    <div
+      class="nav-indicator"
+      :style="`visibility: ${
+        useAnimation && activeIndex !== -1 ? 'visible' : 'hidden'
+      }; left: ${indicator.left}px; right: ${indicator.right}px;
+      top: ${indicator.top}px; transition: left 350ms ${
+        indicator.direction === 'left'
+          ? 'cubic-bezier(1,0,.3,1) -140ms'
+          : 'cubic-bezier(.75,-0.01,.24,.99) -40ms'
+      },right 350ms ${
+        indicator.direction === 'right'
+          ? 'cubic-bezier(1,0,.3,1) -140ms'
+          : 'cubic-bezier(.75,-0.01,.24,.99) -40ms'
+      }, top 100ms ease-in-out`"
+    />
+  </nav>
+</template>
+
+<script>
+export default {
+  name: 'NavRow',
+  props: {
+    links: {
+      default: () => [],
+      type: Array,
+    },
+  },
+  data() {
+    return {
+      useAnimation: false,
+      oldIndex: -1,
+      activeIndex: -1,
+      indicator: {
+        left: 0,
+        right: 0,
+        top: 22,
+        direction: 'right',
+      },
+    }
+  },
+  computed: {
+    filteredLinks() {
+      return this.links.filter((x) => (x.shown === undefined ? true : x.shown))
+    },
+  },
+  watch: {
+    '$route.path': {
+      handler(route) {
+        if (this.activeIndex === -1) {
+          this.useAnimation = false
+
+          setTimeout(() => {
+            this.useAnimation = true
+          }, 300)
+        }
+
+        this.activeIndex = this.filteredLinks.findIndex((x) => x.href === route)
+
+        if (this.activeIndex !== -1) {
+          this.startAnimation()
+        }
+      },
+    },
+  },
+  mounted() {
+    this.activeIndex = this.filteredLinks.findIndex(
+      (x) => x.href === this.$route.path
+    )
+
+    setTimeout(() => {
+      this.useAnimation = true
+    }, 300)
+
+    if (this.activeIndex !== -1) {
+      this.startAnimation()
+    }
+  },
+  methods: {
+    startAnimation() {
+      if (this.$refs.linkElements[this.activeIndex]) {
+        this.indicator.direction =
+          this.activeIndex < this.oldIndex ? 'left' : 'right'
+
+        this.indicator.left =
+          this.$refs.linkElements[this.activeIndex].$el.offsetLeft
+        this.indicator.right =
+          this.$refs.linkElements[this.activeIndex].$el.parentElement
+            .offsetWidth -
+          this.$refs.linkElements[this.activeIndex].$el.offsetLeft -
+          this.$refs.linkElements[this.activeIndex].$el.offsetWidth
+        this.indicator.top =
+          this.$refs.linkElements[this.activeIndex].$el.offsetTop +
+          this.$refs.linkElements[this.activeIndex].$el.offsetHeight
+
+        this.$forceUpdate()
+      }
+
+      this.$forceUpdate()
+
+      this.oldIndex = this.activeIndex
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-gap: 1rem;
+  flex-wrap: wrap;
+  position: relative;
+
+  .nav-link {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -4px;
+      width: 100%;
+      border-radius: var(--size-rounded-max);
+      height: 0.25rem;
+      transition: opacity 0.1s ease-in-out;
+      background-color: var(--color-brand);
+      opacity: 0;
+    }
+
+    &:hover {
+      color: var(--color-text);
+
+      &::after {
+        opacity: 0.4;
+      }
+    }
+
+    &:active::after {
+      opacity: 0.2;
+    }
+
+    &.is-active {
+      color: var(--color-text);
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.use-animation {
+    .nav-link {
+      &.is-active::after {
+        opacity: 0;
+      }
+    }
+  }
+
+  .nav-indicator {
+    position: absolute;
+    height: 0.25rem;
+    border-radius: var(--size-rounded-max);
+    background-color: var(--color-brand);
+    transition-property: left, right, top;
+    transition-duration: 350ms;
+    visibility: hidden;
+  }
+}
+</style>

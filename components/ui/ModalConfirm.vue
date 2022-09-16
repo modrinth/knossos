@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import Modal from '~/components/ui/Modal'
 
 export default {

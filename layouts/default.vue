@@ -17,20 +17,27 @@
         </section>
         <section class="nav-group columns" role="presentation">
           <section class="nav" aria-label="Page links">
-            <div class="styled-tabs">
-              <NuxtLink to="/mods" class="tab">
-                <span>Mods</span>
-              </NuxtLink>
-              <NuxtLink to="/plugins" class="tab">
-                <span>Plugins</span>
-              </NuxtLink>
-              <NuxtLink to="/resourcepacks" class="tab">
-                <span>Resource Packs</span>
-              </NuxtLink>
-              <NuxtLink to="/modpacks" class="tab">
-                <span>Modpacks</span>
-              </NuxtLink>
-            </div>
+            <NavRow
+              class="navigation"
+              :links="[
+                {
+                  label: 'Mods',
+                  href: '/mods',
+                },
+                {
+                  label: 'Plugins',
+                  href: '/plugins',
+                },
+                {
+                  label: 'Resource Packs',
+                  href: '/resourcepacks',
+                },
+                {
+                  label: 'Modpacks',
+                  href: '/modpacks',
+                },
+              ]"
+            />
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
@@ -340,9 +347,11 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
+import NavRow from '~/components/ui/NavRow'
 
 export default {
   components: {
+    NavRow,
     ModrinthLogo,
     MoonIcon,
     SunIcon,
@@ -574,12 +583,12 @@ export default {
         section.nav {
           flex-grow: 5;
 
-          .styled-tabs {
+          .navigation {
             display: flex;
+            width: fit-content;
             position: relative;
             top: 50%;
             transform: translateY(-50%);
-            margin-top: 4px;
             margin-left: 2rem;
 
             a {

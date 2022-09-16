@@ -165,7 +165,7 @@ export default {
     } versions. ${this.$formatNumber(
       this.project.downloads
     )} total downloads. Last updated ${this.$dayjs(
-      this.versions[0].date_published
+      this.versions[0] ? this.versions[0].date_published : null
     ).format('MMM D, YYYY')}.`
 
     return {

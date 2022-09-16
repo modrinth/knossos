@@ -4,14 +4,19 @@
       <div class="content">
         <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
         <h1 v-else>Settings</h1>
-        <div class="card styled-tabs">
-          <nuxt-link v-if="$auth.user" class="tab" to="/settings" exact
-            ><span>General</span></nuxt-link
-          >
-          <nuxt-link v-if="$auth.user" class="tab" to="/settings/follows">
-            <span>Followed projects</span>
-          </nuxt-link>
-        </div>
+        <NavRow
+          class="card"
+          :links="[
+            {
+              label: 'General',
+              href: '/settings',
+            },
+            {
+              label: 'Followed projects',
+              href: '/settings/follows',
+            },
+          ]"
+        />
         <NuxtChild />
       </div>
     </div>
@@ -19,8 +24,10 @@
 </template>
 
 <script>
+import NavRow from '~/components/ui/NavRow'
 export default {
   name: 'Settings',
+  components: { NavRow },
 }
 </script>
 

@@ -1,10 +1,5 @@
 <template>
   <div class="content">
-    <VersionFilterControl
-      class="card"
-      :versions="changelogVersions"
-      @updateVersions="updateVersions"
-    />
     <div class="card">
       <div
         v-for="version in filteredVersions"
@@ -69,12 +64,10 @@
 </template>
 <script>
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
   components: {
     DownloadIcon,
-    VersionFilterControl,
   },
   props: {
     project: {

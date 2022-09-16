@@ -61,8 +61,8 @@
             "
             @click="$refs.modal_confirm.show()"
           >
-            <TrashIcon />Delete project</button
-          >*
+            <TrashIcon />Delete project
+          </button>
         </div>
       </label>
     </section>
@@ -462,7 +462,7 @@ export default {
     .info {
       display: flex;
       img {
-        border-radius: var(--size-rounded-icon);
+        border-radius: var(--size-rounded-max);
         height: 50px;
         width: 50px;
       }

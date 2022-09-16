@@ -540,53 +540,45 @@
             ethical-ads-small
             ethical-ads-big
           />
-          <div class="card styled-tabs">
-            <nuxt-link
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }`"
-              class="tab"
-              exact
-            >
-              <span>Description</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="project.gallery.length > 0 || currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/gallery`"
-              class="tab"
-            >
-              <span>Gallery</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="project.versions.length > 0"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/changelog`"
-              class="tab"
-            >
-              <span>Changelog</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="project.versions.length > 0 || currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`"
-              class="tab"
-            >
-              <span>Versions</span>
-            </nuxt-link>
-            <nuxt-link
-              v-if="currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-              class="tab"
-            >
-              <span>Settings</span>
-            </nuxt-link>
-          </div>
+          <NavRow
+            :links="[
+              {
+                label: 'Description',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }`,
+              },
+              {
+                label: 'Gallery',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/gallery`,
+                shown: project.gallery.length > 0 || currentMember,
+              },
+              {
+                label: 'Changelog',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/changelog`,
+                shown: project.versions.length > 0,
+              },
+              {
+                label: 'Versions',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/versions`,
+                shown: project.versions.length > 0 || currentMember,
+              },
+              {
+                label: 'Settings',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/settings`,
+                shown: currentMember,
+              },
+            ]"
+            class="card"
+          />
           <div class="project-content">
             <NuxtChild
               :project.sync="project"
@@ -628,9 +620,11 @@ import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
 import ModalReport from '~/components/ui/ModalReport'
+import NavRow from '~/components/ui/NavRow'
 
 export default {
   components: {
+    NavRow,
     VersionBadge,
     Advertisement,
     ModalReport,

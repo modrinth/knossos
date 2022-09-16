@@ -276,12 +276,6 @@ textarea {
   box-shadow: var(--shadow-inset-sm);
   transition: outline, background-color .1s ease-in-out;
 
-  &:hover:not([disabled]):not(:focus) {
-    background: var(--color-button-bg-hover);
-    color: var(--color-button-text-hover);
-    border-color: var(--color-divider-dark);
-  }
-
   &:focus {
     box-shadow: none;
     outline: .25rem solid hsla(155,58%,44%,.7);
