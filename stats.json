@@ -1,0 +1,16 @@
+Installing 'webpack-cli' (running 'npm install -D webpack-cli')...
+
+added 20 packages, and audited 1539 packages in 6s
+
+143 packages are looking for funding
+  run `npm fund` for details
+
+24 vulnerabilities (3 moderate, 20 high, 1 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.

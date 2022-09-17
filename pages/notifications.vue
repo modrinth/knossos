@@ -5,10 +5,20 @@
         <h1>Notifications</h1>
 
         <div class="divider card">
-          <Chips
-            v-model="selectedNotificationType"
-            :items="notificationTypes"
-            :never-empty="false"
+          <NavRow
+            query="type"
+            :links="[
+              {
+                label: 'all',
+                href: '',
+              },
+              ...notificationTypes.map((x) => {
+                return {
+                  label: NOTIFICATION_TYPES[x],
+                  href: x,
+                }
+              }),
+            ]"
           />
           <button
             class="iconified-button brand-button"
@@ -20,10 +30,8 @@
         </div>
         <div class="notifications">
           <div
-            v-for="notification in selectedNotificationType !== null
-              ? $user.notifications.filter(
-                  (x) => x.type === NOTIFICATION_TYPES[selectedNotificationType]
-                )
+            v-for="notification in $route.query.type !== undefined
+              ? $user.notifications.filter((x) => x.type === $route.query.type)
               : $user.notifications"
             :key="notification.id"
             class="card notification"
@@ -77,26 +85,23 @@
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import Chips from '~/components/ui/Chips'
+import NavRow from '~/components/ui/NavRow'
 
 const NOTIFICATION_TYPES = {
-  'Team invites': 'team_invite',
-  'Project updates': 'project_update',
+  team_invite: 'Team invites',
+  project_update: 'Project updates',
 }
 
 export default {
   name: 'Notifications',
   components: {
-    Chips,
+    NavRow,
     ClearIcon,
     UpToDate,
   },
-  data() {
-    return {
-      selectedNotificationType: null,
-    }
-  },
   async fetch() {
+    this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
+
     await this.$store.dispatch('user/fetchNotifications')
   },
   head: {
@@ -109,18 +114,11 @@ export default {
       for (const notification of this.$user.notifications.filter(
         (it) => it.type !== null
       )) {
-        obj[
-          Object.keys(NOTIFICATION_TYPES).find(
-            (key) => NOTIFICATION_TYPES[key] === notification.type
-          )
-        ] = true
+        obj[notification.type] = true
       }
 
       return Object.keys(obj)
     },
-  },
-  created() {
-    this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
   },
   methods: {
     async clearNotifications() {

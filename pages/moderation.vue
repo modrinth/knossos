@@ -36,23 +36,24 @@
           placeholder="Enter the message..."
         />
         <h3>Body</h3>
-        <Chips
-          v-model="bodyViewMode"
-          class="separator"
-          :items="['source', 'preview']"
-        />
-        <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
+        <div class="textarea-wrapper">
+          <Chips
+            v-model="bodyViewMode"
+            class="separator"
+            :items="['source', 'preview']"
+          />
           <textarea
+            v-if="bodyViewMode === 'source'"
             id="body"
             v-model="currentProject.moderation_message_body"
           />
+          <div
+            v-else
+            v-highlightjs
+            class="markdown-body preview"
+            v-html="$xss($md.render(currentProject.moderation_message_body))"
+          ></div>
         </div>
-        <div
-          v-if="bodyViewMode === 'preview'"
-          v-highlightjs
-          class="markdown-body"
-          v-html="$xss($md.render(currentProject.moderation_message_body))"
-        ></div>
         <div class="buttons">
           <button
             class="iconified-button"
@@ -74,16 +75,26 @@
     <div class="page-contents">
       <div class="content">
         <h1>Moderation</h1>
-        <Chips
-          v-if="moderationTypes.length > 0"
-          v-model="selectedType"
+        <NavRow
           class="card"
-          :items="moderationTypes"
+          query="type"
+          :links="[
+            {
+              label: 'all',
+              href: '',
+            },
+            ...moderationTypes.map((x) => {
+              return {
+                label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
+                href: x,
+              }
+            }),
+          ]"
         />
         <div class="projects">
           <ProjectCard
-            v-for="project in selectedType !== null
-              ? projects.filter((x) => x.project_type === selectedType)
+            v-for="project in $route.query.type !== undefined
+              ? projects.filter((x) => x.project_type === $route.query.type)
               : projects"
             :id="project.slug || project.id"
             :key="project.id"
@@ -122,7 +133,9 @@
           </ProjectCard>
         </div>
         <div
-          v-if="selectedType === 'report' || selectedType === 'all'"
+          v-if="
+            $route.query.type === 'report' || $route.query.type === undefined
+          "
           class="reports"
         >
           <div
@@ -187,10 +200,12 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import UnlistIcon from '~/assets/images/utils/eye-off.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import Security from '~/assets/images/illustrations/security.svg?inline'
+import NavRow from '~/components/ui/NavRow'
 
 export default {
   name: 'Moderation',
   components: {
+    NavRow,
     Chips,
     ProjectCard,
     CheckIcon,
@@ -211,7 +226,6 @@ export default {
     return {
       projects,
       reports,
-      selectedType: null,
     }
   },
   data() {
@@ -322,9 +336,13 @@ export default {
     }
   }
 
-  textarea {
+  .textarea-wrapper {
     margin-top: 0.5rem;
-    min-height: 10rem;
+    height: 15rem;
+
+    .preview {
+      overflow-y: auto;
+    }
   }
 
   .separator {

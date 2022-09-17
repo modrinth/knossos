@@ -4,7 +4,7 @@
       v-for="(link, index) in filteredLinks"
       :key="index"
       ref="linkElements"
-      :to="link.href"
+      :to="query ? (link.href ? `?${query}=${link.href}` : '?') : link.href"
       class="nav-link"
       :class="{ 'is-active': index === activeIndex }"
     >
@@ -37,6 +37,10 @@ export default {
       default: () => [],
       type: Array,
     },
+    query: {
+      default: null,
+      type: String,
+    },
   },
   data() {
     return {
@@ -58,37 +62,41 @@ export default {
   },
   watch: {
     '$route.path': {
-      handler(route) {
-        if (this.oldIndex === -1) {
-          this.useAnimation = false
-
-          setTimeout(() => {
-            this.useAnimation = true
-          }, 300)
-        }
-
-        this.activeIndex = this.filteredLinks.findIndex((x) => x.href === route)
-
-        if (this.activeIndex !== -1) {
-          this.startAnimation()
-        }
+      handler() {
+        this.pickLink()
+      },
+    },
+    '$route.query': {
+      handler() {
+        if (this.query) this.pickLink()
       },
     },
   },
   mounted() {
-    this.activeIndex = this.filteredLinks.findIndex(
-      (x) => x.href === this.$route.path
-    )
-
-    setTimeout(() => {
-      this.useAnimation = true
-    }, 300)
-
-    if (this.activeIndex !== -1) {
-      this.startAnimation()
-    }
+    this.pickLink()
   },
   methods: {
+    pickLink() {
+      if (this.oldIndex === -1) {
+        this.useAnimation = false
+
+        setTimeout(() => {
+          this.useAnimation = true
+        }, 300)
+      }
+
+      this.activeIndex = this.query
+        ? this.filteredLinks.findIndex(
+            (x) =>
+              (x.href === '' ? undefined : x.href) ===
+              this.$route.query[this.query]
+          )
+        : this.filteredLinks.findIndex((x) => x.href === this.$route.path)
+
+      if (this.activeIndex !== -1) {
+        this.startAnimation()
+      }
+    },
     startAnimation() {
       if (this.$refs.linkElements[this.activeIndex]) {
         this.indicator.direction =
@@ -126,6 +134,7 @@ export default {
   position: relative;
 
   .nav-link {
+    text-transform: capitalize;
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
     position: relative;

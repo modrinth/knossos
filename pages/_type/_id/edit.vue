@@ -500,15 +500,6 @@ export default {
     SaveIcon,
     TrashIcon,
   },
-  beforeRouteLeave(to, from, next) {
-    if (
-      this.isEditing &&
-      !window.confirm('Are you sure that you want to leave without saving?')
-    ) {
-      return
-    }
-    next()
-  },
   props: {
     project: {
       type: Object,
@@ -603,16 +594,6 @@ export default {
           this.license_url = `https://cdn.modrinth.com/licenses/${newValue.short}.txt`
       }
     },
-  },
-  mounted() {
-    function preventLeave(e) {
-      e.preventDefault()
-      e.returnValue = ''
-    }
-    window.addEventListener('beforeunload', preventLeave)
-    this.$once('hook:beforeDestroy', () => {
-      window.removeEventListener('beforeunload', preventLeave)
-    })
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0

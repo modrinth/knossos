@@ -37,7 +37,20 @@
         </span>
       </label>
       <div class="textarea-wrapper">
-        <textarea id="additional-information" v-model="body" />
+        <Chips
+          v-model="bodyViewType"
+          class="separator"
+          :items="['source', 'preview']"
+        />
+        <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
+          <textarea id="body" v-model="body" spellcheck="true" />
+        </div>
+        <div
+          v-else
+          v-highlightjs
+          class="preview"
+          v-html="$xss($md.render(body))"
+        ></div>
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
@@ -58,10 +71,12 @@ import Multiselect from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import Modal from '~/components/ui/Modal'
+import Chips from '~/components/ui/Chips'
 
 export default {
   name: 'ModalReport',
   components: {
+    Chips,
     CrossIcon,
     CheckIcon,
     Modal,
@@ -81,10 +96,15 @@ export default {
     return {
       reportType: '',
       body: '',
+      bodyViewType: 'source',
     }
   },
   methods: {
     cancel() {
+      this.reportType = ''
+      this.body = ''
+      this.bodyViewType = 'source'
+
       this.$refs.modal.hide()
     },
     async submitReport() {
@@ -142,8 +162,13 @@ export default {
     margin-top: 1.5rem;
   }
 
-  textarea {
-    min-height: 10rem;
+  .textarea-wrapper {
+    margin-top: 0.5rem;
+    height: 12rem;
+
+    .preview {
+      overflow-y: auto;
+    }
   }
 }
 </style>

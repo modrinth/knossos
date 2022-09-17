@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
       <div class="user-header">
@@ -135,19 +136,29 @@
       </div>
       <div class="normal-page__content">
         <nav class="card user-navigation">
-          <Chips
-            v-model="selectedProjectType"
-            :items="projectTypes"
-            :never-empty="false"
+          <NavRow
+            query="type"
+            :links="[
+              {
+                label: 'all',
+                href: '',
+              },
+              ...projectTypes.map((x) => {
+                return {
+                  label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
+                  href: x,
+                }
+              }),
+            ]"
           />
-          <nuxt-link
+          <button
             v-if="$auth.user && $auth.user.id === user.id"
-            to="/create/project"
             class="iconified-button brand-button"
+            @click="$refs.modal_creation.show()"
           >
             <PlusIcon />
             Create a project
-          </nuxt-link>
+          </button>
         </nav>
         <Advertisement
           type="banner"
@@ -157,11 +168,8 @@
         />
         <div v-if="projects.length > 0">
           <ProjectCard
-            v-for="project in selectedProjectType !== null
-              ? projects.filter(
-                  (x) =>
-                    x.project_type === convertProjectType(selectedProjectType)
-                )
+            v-for="project in $route.query.type !== undefined
+              ? projects.filter((x) => x.project_type === $route.query.type)
               : projects"
             :id="project.slug || project.id"
             :key="project.id"
@@ -212,7 +220,6 @@
 
 <script>
 import ProjectCard from '~/components/ui/ProjectCard'
-import Chips from '~/components/ui/Chips'
 import Badge from '~/components/ui/Badge'
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -230,10 +237,14 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import FileInput from '~/components/ui/FileInput'
 import ModalReport from '~/components/ui/ModalReport'
+import ModalCreation from '~/components/ui/ModalCreation'
+import NavRow from '~/components/ui/NavRow'
 
 export default {
   auth: false,
   components: {
+    NavRow,
+    ModalCreation,
     ModalReport,
     FileInput,
     ProjectCard,
@@ -244,7 +255,6 @@ export default {
     Badge,
     SettingsIcon,
     PlusIcon,
-    Chips,
     UpToDate,
     UserIcon,
     EditIcon,
@@ -311,7 +321,6 @@ export default {
       }
 
       return {
-        selectedProjectType: null,
         user,
         projects,
         githubUrl: gitHubUser.html_url,
@@ -327,6 +336,7 @@ export default {
     return {
       isEditing: false,
       icon: null,
+      previewImage: null,
     }
   },
   head() {
@@ -351,14 +361,12 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.user.bio,
+          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
         },
         {
           hid: 'description',
           name: 'description',
-          content:
-            this.user.bio +
-            ' - View Minecraft mods on Modrinth today! Modrinth is a new and modern Minecraft modding platform.',
+          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
         },
         {
           hid: 'og:image',
@@ -377,24 +385,13 @@ export default {
       const obj = {}
 
       for (const project of this.projects) {
-        if (project.project_type === 'resourcepack') {
-          obj['Resource Packs'] = true
-        } else {
-          obj[project.project_type + 's'] = true
-        }
+        obj[project.project_type] = true
       }
 
       return Object.keys(obj)
     },
   },
   methods: {
-    convertProjectType(name) {
-      if (name === 'Resource Packs') {
-        return 'resourcepack'
-      } else {
-        return name.slice(0, -1)
-      }
-    },
     sumDownloads() {
       let sum = 0
 

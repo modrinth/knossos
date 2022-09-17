@@ -675,19 +675,6 @@ export default {
     CrossIcon,
     InfoIcon,
   },
-  beforeRouteLeave(to, from, next) {
-    if (this.mode === 'create') {
-      if (
-        !window.confirm('Are you sure that you want to leave without saving?')
-      ) {
-        return
-      }
-    }
-
-    this.setVersion()
-
-    next()
-  },
   props: {
     project: {
       type: Object,
@@ -803,31 +790,15 @@ export default {
       },
     },
   },
-  mounted() {
-    if (this.mode === 'create') {
-      function preventLeave(e) {
-        e.preventDefault()
-        e.returnValue = ''
-      }
-      window.addEventListener('beforeunload', preventLeave)
-      this.$once('hook:beforeDestroy', () => {
-        window.removeEventListener('beforeunload', preventLeave)
-      })
-    }
-  },
   methods: {
     checkFields() {
-      if (
+      return !(
         this.version.version_number === '' ||
         this.version.game_versions.length === 0 ||
         (this.version.loaders.length === 0 &&
           this.project.project_type !== 'resourcepack') ||
         (this.newFiles.length === 0 && this.version.files.length === 0)
-      ) {
-        return false
-      }
-
-      return true
+      )
     },
     reset() {
       this.changelogViewMode = 'source'

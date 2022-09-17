@@ -1,5 +1,6 @@
 <template>
   <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+    <ModalCreation ref="modal_creation" />
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
@@ -83,10 +84,10 @@
                   </li>
                   <hr class="divider" />
                   <li>
-                    <NuxtLink class="item" to="/create/project">
+                    <button class="item" @click="$refs.modal_creation.show()">
                       <PlusIcon class="icon" />
                       <span class="title">Create a project</span>
-                    </NuxtLink>
+                    </button>
                   </li>
                   <hr class="divider" />
                   <li>
@@ -348,9 +349,11 @@ import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
+import ModalCreation from '~/components/ui/ModalCreation'
 
 export default {
   components: {
+    ModalCreation,
     NavRow,
     ModrinthLogo,
     MoonIcon,

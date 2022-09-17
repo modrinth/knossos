@@ -60,6 +60,7 @@ export default {
 .chips {
   display: flex;
   grid-gap: 0.5rem;
+  flex-wrap: wrap;
 
   .iconified-button {
     text-transform: capitalize;
