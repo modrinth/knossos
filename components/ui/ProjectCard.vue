@@ -2,7 +2,7 @@
   <article class="project-card card" :aria-label="name" role="listitem">
     <div class="columns">
       <div class="icon">
-        <nuxt-link :to="`/${type}/${id}`">
+        <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
           <img
             :src="iconUrl || 'https://cdn.modrinth.com/placeholder.svg?inline'"
             :alt="name"
@@ -19,7 +19,10 @@
         <div class="info">
           <div class="top">
             <h2 class="title">
-              <nuxt-link :to="`/${type}/${id}`">{{ name }}</nuxt-link>
+              <nuxt-link
+                :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+                >{{ name }}</nuxt-link
+              >
             </h2>
             <p v-if="author" class="author">
               by
@@ -28,13 +31,19 @@
               </nuxt-link>
             </p>
           </div>
-          <div class="side-type">
+          <div
+            v-if="
+              type !== 'resourcepack' &&
+              !(projectTypeDisplay === 'plugin' && search)
+            "
+            class="side-type"
+          >
             <div
               v-if="clientSide === 'optional' && serverSide === 'optional'"
               class="side-descriptor"
             >
               <InfoIcon aria-hidden="true" />
-              Universal {{ type }}
+              Universal {{ projectTypeDisplay }}
             </div>
             <div
               v-else-if="
@@ -44,7 +53,7 @@
               class="side-descriptor"
             >
               <InfoIcon aria-hidden="true" />
-              Client {{ type }}
+              Client {{ projectTypeDisplay }}
             </div>
             <div
               v-else-if="
@@ -54,8 +63,16 @@
               class="side-descriptor"
             >
               <InfoIcon aria-hidden="true" />
-              Server {{ type }}
+              Server {{ projectTypeDisplay }}
             </div>
+            <div v-else-if="moderation" class="side-descriptor">
+              <InfoIcon aria-hidden="true" />
+              A {{ projectTypeDisplay }}
+            </div>
+          </div>
+          <div v-else-if="moderation" class="side-descriptor">
+            <InfoIcon aria-hidden="true" />
+            A {{ projectTypeDisplay }}
           </div>
           <p class="description">
             {{ description }}
@@ -216,6 +233,21 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    moderation: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    search: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+  computed: {
+    projectTypeDisplay() {
+      return this.$getProjectTypeForDisplay(this.type, this.categories)
     },
   },
 }

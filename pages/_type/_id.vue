@@ -36,44 +36,52 @@
         </nuxt-link>
         <div
           v-if="
-            project.client_side === 'optional' &&
-            project.server_side === 'optional'
+            project.project_type !== 'resourcepack' &&
+            project.project_type !== 'plugin'
           "
-          class="side-descriptor"
         >
-          <InfoIcon aria-hidden="true" />
-          Universal {{ project.project_type }}
+          <div
+            v-if="
+              project.client_side === 'optional' &&
+              project.server_side === 'optional'
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon aria-hidden="true" />
+            Universal {{ projectTypeDisplay }}
+          </div>
+          <div
+            v-else-if="
+              (project.client_side === 'optional' ||
+                project.client_side === 'required') &&
+              (project.server_side === 'optional' ||
+                project.server_side === 'unsupported')
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon aria-hidden="true" />
+            Client {{ projectTypeDisplay }}
+          </div>
+          <div
+            v-else-if="
+              (project.server_side === 'optional' ||
+                project.server_side === 'required') &&
+              (project.client_side === 'optional' ||
+                project.client_side === 'unsupported')
+            "
+            class="side-descriptor"
+          >
+            <InfoIcon aria-hidden="true" />
+            Server {{ projectTypeDisplay }}
+          </div>
         </div>
-        <div
-          v-else-if="
-            (project.client_side === 'optional' ||
-              project.client_side === 'required') &&
-            (project.server_side === 'optional' ||
-              project.server_side === 'unsupported')
-          "
-          class="side-descriptor"
-        >
-          <InfoIcon aria-hidden="true" />
-          Client {{ project.project_type }}
-        </div>
-        <div
-          v-else-if="
-            (project.server_side === 'optional' ||
-              project.server_side === 'required') &&
-            (project.client_side === 'optional' ||
-              project.client_side === 'unsupported')
-          "
-          class="side-descriptor"
-        >
-          <InfoIcon aria-hidden="true" />
-          Server {{ project.project_type }}
-        </div>
+
         <p class="description">
           {{ project.description }}
         </p>
         <Categories
           :categories="project.categories"
-          :type="project.project_type"
+          :type="project.actualProjectType"
           class="categories"
         />
         <hr class="card-divider" />
@@ -283,12 +291,7 @@
               :href="project.discord_url"
               target="_blank"
             >
-              <DiscordIcon
-                v-if="$colorMode.value === 'light'"
-                class="shrink"
-                aria-hidden="true"
-              />
-              <DiscordIconWhite v-else class="shrink" aria-hidden="true" />
+              <DiscordIcon class="shrink" aria-hidden="true" />
               <span>Discord</span>
             </a>
             <a
@@ -298,60 +301,24 @@
               target="_blank"
             >
               <BuyMeACoffeeLogo
-                v-if="donation.id === 'bmac' && $colorMode.value === 'light'"
+                v-if="donation.id === 'bmac'"
                 aria-hidden="true"
               />
-              <BuyMeACoffeeLogoWhite
-                v-else-if="
-                  donation.id === 'bmac' && $colorMode.value === 'dark'
-                "
+              <PatreonIcon
+                v-else-if="donation.id === 'patreon'"
                 aria-hidden="true"
               />
-              <img
-                v-else-if="
-                  donation.id === 'patreon' && $colorMode.value === 'light'
-                "
-                class="shrink"
-                alt=""
-                src="~/assets/images/external/patreon.png"
+              <KoFiIcon
+                v-else-if="donation.id === 'ko-fi'"
+                aria-hidden="true"
               />
-              <img
-                v-else-if="
-                  donation.id === 'patreon' && $colorMode.value === 'dark'
-                "
-                class="shrink"
-                alt=""
-                src="~/assets/images/external/patreon-white.png"
+              <PayPalIcon
+                v-else-if="donation.id === 'paypal'"
+                aria-hidden="true"
               />
-              <img
-                v-else-if="
-                  donation.id === 'paypal' && $colorMode.value === 'light'
-                "
-                class="shrink"
-                alt=""
-                src="~/assets/images/external/paypal.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'paypal' && $colorMode.value === 'dark'
-                "
-                class="shrink"
-                alt=""
-                src="~/assets/images/external/paypal-white.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'ko-fi' && $colorMode.value === 'light'
-                "
-                alt=""
-                src="~/assets/images/external/kofi.png"
-              />
-              <img
-                v-else-if="
-                  donation.id === 'ko-fi' && $colorMode.value === 'dark'
-                "
-                alt=""
-                src="~/assets/images/external/kofi-white.png"
+              <OpenCollectiveIcon
+                v-else-if="donation.id === 'open-collective'"
+                aria-hidden="true"
               />
               <FollowIcon v-else-if="donation.id === 'github'" />
               <UnknownIcon v-else />
@@ -366,7 +333,22 @@
           <hr class="card-divider" />
         </template>
         <template v-if="featuredVersions.length > 0">
-          <h3 class="card-header">Featured versions</h3>
+          <div class="featured-header">
+            <h3 class="card-header">Featured versions</h3>
+            <nuxt-link
+              v-if="project.versions.length > 0 || currentMember"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`"
+              class="all-link"
+            >
+              See all
+              <ChevronRightIcon
+                class="featured-header-chevron"
+                aria-hidden="true"
+              />
+            </nuxt-link>
+          </div>
           <div
             v-for="version in featuredVersions"
             :key="version.id"
@@ -389,7 +371,7 @@
               <nuxt-link
                 :to="`/${project.project_type}/${
                   project.slug ? project.slug : project.id
-                }/version/${encodeURIComponent(version.version_number)}`"
+                }/version/${encodeURI(version.displayUrlEnding)}`"
                 class="top title-link"
               >
                 {{ version.name }}
@@ -398,15 +380,7 @@
                 v-if="version.game_versions.length > 0"
                 class="game-version item"
               >
-                {{
-                  version.loaders
-                    .map((x) =>
-                      x.toLowerCase() === 'modloader'
-                        ? 'ModLoader'
-                        : x.charAt(0).toUpperCase() + x.slice(1)
-                    )
-                    .join(', ')
-                }}
+                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
                 {{ $formatVersion(version.game_versions) }}
               </div>
               <VersionBadge
@@ -455,13 +429,25 @@
               }}</a>
             </div>
           </div>
-          <div class="info">
+          <div
+            v-if="
+              project.project_type !== 'resourcepack' &&
+              project.project_type !== 'plugin'
+            "
+            class="info"
+          >
             <div class="key">Client side</div>
             <div class="value">
               {{ project.client_side }}
             </div>
           </div>
-          <div class="info">
+          <div
+            v-if="
+              project.project_type !== 'resourcepack' &&
+              project.project_type !== 'plugin'
+            "
+            class="info"
+          >
             <div class="key">Server side</div>
             <div class="value">
               {{ project.server_side }}
@@ -475,12 +461,6 @@
           </div>
         </div>
       </div>
-      <Advertisement
-        v-if="project.status === 'approved' || project.status === 'unlisted'"
-        class="small-advertisement"
-        type="square"
-        small-screen="destroy"
-      />
       <div class="content">
         <div class="project-main">
           <div
@@ -529,6 +509,15 @@
             >, <a href="https://multimc.org/" target="_blank">MultiMC</a>, and
             <a href="https://polymc.org/" target="_blank">PolyMC</a>.
           </div>
+          <Advertisement
+            v-if="
+              project.status === 'approved' || project.status === 'unlisted'
+            "
+            type="banner"
+            small-screen="square"
+            ethical-ads-small
+            ethical-ads-big
+          />
           <div class="card styled-tabs">
             <nuxt-link
               :to="`/${project.project_type}/${
@@ -576,15 +565,6 @@
               <span>Settings</span>
             </nuxt-link>
           </div>
-          <Advertisement
-            v-if="
-              project.status === 'approved' || project.status === 'unlisted'
-            "
-            type="banner"
-            small-screen="square"
-            ethical-ads-small
-            ethical-ads-big
-          />
           <div class="project-content">
             <NuxtChild
               :project.sync="project"
@@ -615,11 +595,13 @@ import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
 import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
 import DiscordIcon from '~/assets/images/external/discord.svg?inline'
-import DiscordIconWhite from '~/assets/images/external/discord-white.svg?inline'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
-import BuyMeACoffeeLogoWhite from '~/assets/images/external/bmac-white.svg?inline'
-import UnknownIcon from '~/assets/images/utils/unknown.svg?inline'
-
+import PatreonIcon from '~/assets/images/external/patreon.svg?inline'
+import KoFiIcon from '~/assets/images/external/kofi.svg?inline'
+import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
+import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
+import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
@@ -640,20 +622,20 @@ export default {
     InfoIcon,
     WikiIcon,
     DiscordIcon,
-    DiscordIconWhite,
     BuyMeACoffeeLogo,
-    BuyMeACoffeeLogoWhite,
+    PayPalIcon,
+    OpenCollectiveIcon,
     UnknownIcon,
     Categories,
+    PatreonIcon,
+    KoFiIcon,
+    ChevronRightIcon,
   },
   async asyncData(data) {
-    const projectTypes = ['mod', 'modpack']
+    const projectTypes = ['mod', 'modpack', 'resourcepack', 'plugin', 'project']
 
     try {
-      if (
-        !data.params.id ||
-        !projectTypes.includes(data.params.type.toLowerCase())
-      ) {
+      if (!data.params.id || !projectTypes.includes(data.params.type)) {
         data.error({
           statusCode: 404,
           message: 'The page could not be found',
@@ -684,11 +666,34 @@ export default {
         ])
       ).map((it) => it.data)
 
-      if (project.project_type !== data.params.type) {
-        data.error({
-          statusCode: 404,
-          message: 'Project not found',
-        })
+      const projectLoaders = {}
+
+      for (const version of versions) {
+        for (const loader of version.loaders) {
+          projectLoaders[loader] = true
+        }
+      }
+
+      project.actualProjectType = JSON.parse(
+        JSON.stringify(project.project_type)
+      )
+
+      project.project_type = data.$getProjectTypeForUrl(
+        project.project_type,
+        Object.keys(projectLoaders)
+      )
+
+      if (
+        project.project_type !== data.params.type ||
+        data.params.id !== project.slug
+      ) {
+        const route = data.route.fullPath.split('/')
+        route.splice(0, 3)
+
+        data.redirect(
+          301,
+          `/${project.project_type}/${project.slug}/${route.join('/')}`
+        )
 
         return
       }
@@ -706,6 +711,16 @@ export default {
         project.body = (await data.$axios.get(project.body_url)).data
       }
 
+      const loaders = []
+
+      versions.forEach((version) => {
+        version.loaders.forEach((loader) => {
+          if (!loaders.includes(loader)) {
+            loaders.push(loader)
+          }
+        })
+      })
+
       return {
         project,
         versions,
@@ -714,6 +729,7 @@ export default {
         allMembers: members,
         currentMember,
         dependencies,
+        loaders,
       }
     } catch {
       data.error({
@@ -726,6 +742,10 @@ export default {
     return {
       showKnownErrors: false,
     }
+  },
+  fetch() {
+    this.versions = this.$computeVersions(this.versions)
+    this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
   head() {
     return {
@@ -778,6 +798,14 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    projectTypeDisplay() {
+      return this.$getProjectTypeForDisplay(
+        this.project.project_type,
+        this.loaders
+      )
+    },
   },
   methods: {
     findPrimary(version) {
@@ -858,7 +886,6 @@ export default {
     'project-status'
     'content'
     'extra-info'
-    'small-advert'
     / 100%;
 
   @media screen and (min-width: 1024px) {
@@ -866,7 +893,6 @@ export default {
       'header       content' auto
       'project-status      content' auto
       'extra-info       content' auto
-      'small-advert       content' auto
       'dummy content' 1fr
       / 20rem calc(100% - 20rem);
 
@@ -875,7 +901,6 @@ export default {
         'content       header' auto
         'content      project-status' auto
         'content       extra-info' auto
-        'content       small-advert' auto
         'content       dummy' 1fr
         / 1fr 20rem;
     }
@@ -979,10 +1004,6 @@ export default {
   grid-area: extra-info;
 }
 
-.small-advertisement {
-  grid-area: small-advert;
-}
-
 .content {
   grid-area: content;
 }
@@ -996,6 +1017,36 @@ export default {
   font-weight: bold;
   color: var(--color-heading);
   margin-bottom: 0.3rem;
+  width: fit-content;
+  display: inline;
+}
+
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .card-header {
+    height: 23px;
+  }
+
+  .all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+
+    border-radius: 5px;
+    color: var(--color-link);
+  }
+
+  .all-link:hover,
+  .all-link:focus-visible {
+    color: var(--color-link-hover);
+  }
+
+  .all-link:active {
+    color: var(--color-link-active);
+  }
 }
 
 .featured-version {
@@ -1119,10 +1170,15 @@ export default {
 
     .value {
       width: 50%;
-      text-transform: capitalize;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
 
       &.lowercase {
-        text-transform: none;
+        &::first-letter {
+          text-transform: none;
+        }
       }
     }
 

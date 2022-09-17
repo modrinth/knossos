@@ -1,5 +1,8 @@
 import xss from 'xss'
 
+/**
+ * @type {import('xss').IFilterXSSOptions}
+ */
 const options = {
   whiteList: {
     ...xss.whiteList,
@@ -10,8 +13,15 @@ const options = {
     h4: ['id'],
     h5: ['id'],
     h6: ['id'],
+    kbd: ['id'],
     input: ['checked', 'disabled', 'type'],
     iframe: ['width', 'height', 'allowfullscreen', 'frameborder'],
+    img: [...xss.whiteList.img, 'style'],
+  },
+  css: {
+    whiteList: {
+      'image-rendering': /^pixelated$/,
+    },
   },
   onIgnoreTagAttr: (tag, name, value) => {
     // Allow iframes from acceptable sources

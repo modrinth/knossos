@@ -51,7 +51,10 @@ html {
   --color-code-bg: var(--color-bg);
   --color-code-text: var(--color-text-dark);
 
+  --color-kbd-shadow: rgba(0, 0, 0, 0.25);
+
   --color-ad: #d6e6f9;
+  --color-ad-raised: #b1c8e4;
 
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   --shadow-dropdown-strong: 3px 3px 10px hsla(0, 0%, 0%, 0.3);
@@ -91,6 +94,8 @@ html {
     inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.05);
   --shadow-image-md: 0px 2px 4px 0px hsla(221, 39%, 11%, 0.2),
     inset 0px -2px 2px 0px hsla(221, 39%, 11%, 0.1);
+
+  --color-card-link-bg: rgba(0, 0, 0, 7%);
 }
 
 .dark-mode {
@@ -139,7 +144,10 @@ html {
   --color-code-bg: var(--color-button-bg);
   --color-code-text: var(--color-text-dark);
 
-  --color-ad: #2c323a;
+  --color-kbd-shadow: rgba(0, 0, 0, 0.35);
+
+  --color-ad: #1f324a;
+  --color-ad-raised: #2e4057;
 
   --shadow-dropdown: 3px 3px 14px hsla(0, 0%, 0%, 0.15);
   --shadow-dropdown-strong: 3px 3px 20px hsla(0, 0%, 0%, 0.15);
@@ -171,6 +179,8 @@ html {
 
   --color-table-border: #4f5864;
   --color-table-alternate-row: #262a30;
+
+  --color-card-link-bg: rgb(255, 255, 255, 15%);
 }
 
 .oled-mode {
@@ -208,7 +218,8 @@ body {
   --size-rounded-tooltip: 0.25rem;
 
   --size-navbar-height: 3.5rem;
-  --size-mobile-navbar-height: 4rem;
+  --size-mobile-navbar-height: 3.5rem;
+  --size-mobile-navbar-height-expanded: 10rem;
 
   --spacing-card-lg: 1.5rem;
   --spacing-card-bg: 1rem;
@@ -235,6 +246,10 @@ body {
   --font-weight-text: var(--font-weight-medium);
   --font-weight-heading: var(--font-weight-extrabold);
   --font-weight-title: var(--font-weight-extrabold);
+
+  @media screen and (min-width: 501px) {
+    --size-mobile-navbar-height-expanded: 7rem;
+  }
 }
 
 svg {
@@ -330,6 +345,16 @@ button {
     background-color: var(--color-button-bg-active);
     color: var(--color-button-text-active);
   }
+}
+
+kbd {
+  background-color: var(--color-code-bg);
+  color: var(--color-code-text);
+  box-shadow: 0 2px 1px var(--color-kbd-shadow);
+  padding: 0.2em 0.5em 0.1em;
+  border-radius: 3px;
+  line-height: 1;
+  font-size: 0.85em !important;
 }
 
 // @import "vue-select/src/scss/vue-select.scss";
