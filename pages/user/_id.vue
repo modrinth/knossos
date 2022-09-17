@@ -118,11 +118,13 @@
                 Joined {{ $dayjs(user.created).fromNow() }}
               </span>
             </div>
+            <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text">User ID: {{ user.id }}</span>
+              <span class="secondary-stat__text">
+                User ID: <CopyCode :text="user.id" />
+              </span>
             </div>
-            <hr class="card-divider" />
             <a
               :href="githubUrl"
               target="_blank"
@@ -239,10 +241,12 @@ import FileInput from '~/components/ui/FileInput'
 import ModalReport from '~/components/ui/ModalReport'
 import ModalCreation from '~/components/ui/ModalCreation'
 import NavRow from '~/components/ui/NavRow'
+import CopyCode from '~/components/ui/CopyCode'
 
 export default {
   auth: false,
   components: {
+    CopyCode,
     NavRow,
     ModalCreation,
     ModalReport,
@@ -550,6 +554,9 @@ export default {
 
 .secondary-stat__text {
   margin-left: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .primary-stat {

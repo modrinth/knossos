@@ -64,6 +64,11 @@ export default {
 
   .iconified-button {
     text-transform: capitalize;
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
   }
 }
 </style>

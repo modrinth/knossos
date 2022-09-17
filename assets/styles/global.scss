@@ -184,6 +184,7 @@ body {
   color: var(--color-text);
   --font-standard: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Segoe UI,
     Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji;
+  --mono-font: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
   font-family: var(--font-standard);
   font-size: 16px;
   font-weight: var(--font-weight-medium);

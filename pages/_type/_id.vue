@@ -478,7 +478,7 @@
           <div class="info">
             <div class="key">Project ID</div>
             <div class="value lowercase">
-              {{ project.id }}
+              <CopyCode :text="project.id" />
             </div>
           </div>
         </div>
@@ -621,9 +621,11 @@ import VersionBadge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
+import CopyCode from '~/components/ui/CopyCode'
 
 export default {
   components: {
+    CopyCode,
     NavRow,
     VersionBadge,
     Advertisement,

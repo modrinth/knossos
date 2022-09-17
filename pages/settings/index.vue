@@ -140,7 +140,11 @@
           value="Copy to clipboard"
           @click="copyToken"
         >
-          Copy to clipboard
+          <template v-if="copied">
+            <CheckIcon v-if="copied" />
+            Copied token to clipboard
+          </template>
+          <template v-else>Copy token to clipboard</template>
         </button>
         <button
           type="button"
@@ -179,13 +183,22 @@ import Modal from '~/components/ui/Modal'
 
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg?inline'
 
 export default {
-  components: { Modal, ModalConfirm, Multiselect, CrossIcon, RightArrowIcon },
+  components: {
+    Modal,
+    ModalConfirm,
+    Multiselect,
+    CrossIcon,
+    RightArrowIcon,
+    CheckIcon,
+  },
   data() {
     return {
       searchLayout: false,
       projectLayout: false,
+      copied: false,
     }
   },
   fetch() {
@@ -217,13 +230,8 @@ export default {
       }
     },
     async copyToken() {
+      this.copied = true
       await navigator.clipboard.writeText(this.$auth.token)
-      this.$notify({
-        group: 'main',
-        title: 'Copied to clipboard.',
-        text: 'Copied your Modrinth token to the clipboard.',
-        type: 'success',
-      })
     },
     async deleteAccount() {
       this.$nuxt.$loading.start()

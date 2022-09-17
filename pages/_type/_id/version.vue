@@ -366,7 +366,7 @@
             </div>
             <div v-if="mode === 'version'" class="data">
               <p class="title">Version ID</p>
-              <p class="value">{{ version.id }}</p>
+              <p class="value"><CopyCode :text="version.id" /></p>
             </div>
           </div>
           <hr class="card-divider" />
@@ -653,9 +653,11 @@ import Checkbox from '~/components/ui/Checkbox'
 import Chips from '~/components/ui/Chips'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import ModalReport from '~/components/ui/ModalReport'
+import CopyCode from '~/components/ui/CopyCode'
 
 export default {
   components: {
+    CopyCode,
     ModalConfirm,
     ModalReport,
     FileInput,
