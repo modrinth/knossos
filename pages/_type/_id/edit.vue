@@ -464,7 +464,9 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
+import Avatar from '~/components/ui/Avatar'
 import FileInput from '~/components/ui/FileInput'
+import MarkdownEditor from '~/components/ui/MarkdownEditor'
 
 export default {
   components: {
