@@ -16,44 +16,112 @@
         </div>
         <div class="notifications">
           <div
-            v-for="notification in selectedNotificationType !== 'all'
-              ? $user.notifications.filter(
-                  (x) => x.type === NOTIFICATION_TYPES[selectedNotificationType]
-                )
-              : $user.notifications"
-            :key="notification.id"
+            v-for="(
+              notificationMeta, notificationIndex
+            ) in notificationsGrouped.keys()"
+            :key="notificationMeta.title"
             class="card notification"
           >
-            <div class="icon">
-              <UpdateIcon v-if="notification.type === 'project_update'" />
-              <UsersIcon v-else-if="notification.type === 'team_invite'" />
+            <div class="header">
+              <div class="icon">
+                <UpdateIcon v-if="notificationMeta.type === 'project_update'" />
+                <UsersIcon
+                  v-else-if="notificationMeta.type === 'team_invite'"
+                />
+              </div>
+              <div class="text">
+                <div>
+                  <h3
+                    v-html="
+                      $xss(
+                        $md.render('**' + notificationMeta.projectName + '**')
+                      )
+                    "
+                  />
+                </div>
+                <p>
+                  {{ notificationMeta.projectName }} has been updated
+                  {{
+                    notificationMeta.count == 1
+                      ? '1 time'
+                      : `${notificationMeta.count} times`
+                  }}
+                </p>
+              </div>
             </div>
-            <div class="text">
-              <nuxt-link :to="notification.link" class="top">
-                <h3 v-html="$xss($md.render(notification.title))" />
+            <button
+              class="iconified-button"
+              @click="clearNotificationGroup(notificationMeta.projectName)"
+            >
+              Dismiss all
+            </button>
+            <hr class="card-divider" />
+            <div
+              v-for="(notification, index) in notificationsGrouped.get(
+                notificationMeta
+              )"
+              :key="notification.id"
+              class="version"
+              v-show="
+                index < MAX_VERSIONS
+                  ? true
+                  : expandedNames.includes(notificationMeta.projectName)
+              "
+            >
+              <div>
+                <nuxt-link :to="notification.link">
+                  Version
+                  {{
+                    notification.text.match(
+                      /The project, .*, has released a new version: (.*)/m
+                    )[1]
+                  }}
+                </nuxt-link>
                 <span>
-                  Notified {{ $dayjs(notification.created).fromNow() }}</span
+                  Notified {{ $dayjs(notification.created).fromNow() }}
+                </span>
+              </div>
+              <div class="buttons">
+                <button
+                  v-for="(action, actionIndex) in notification.actions"
+                  :key="actionIndex"
+                  class="iconified-button"
+                  @click="
+                    performAction(notification, notificationIndex, actionIndex)
+                    {
+                      {
+                        action.title
+                      }
+                    }
+                  "
+                ></button>
+                <button
+                  v-if="notification.actions.length === 0"
+                  class="iconified-button"
+                  @click="performAction(notification, notificationIndex, null)"
                 >
-              </nuxt-link>
-              <p>{{ notification.text }}</p>
+                  Dismiss
+                </button>
+              </div>
             </div>
-            <div class="buttons">
+            <hr
+              class="card-divider"
+              v-if="notificationMeta.count > MAX_VERSIONS"
+            />
+            <div class="more">
               <button
-                v-for="(action, actionIndex) in notification.actions"
-                :key="actionIndex"
                 class="iconified-button"
-                @click="
-                  performAction(notification, notificationIndex, actionIndex)
-                "
+                v-if="notificationMeta.count > MAX_VERSIONS"
+                @click="toggleVersionExpand(notificationMeta.projectName)"
               >
-                {{ action.title }}
-              </button>
-              <button
-                v-if="notification.actions.length === 0"
-                class="iconified-button"
-                @click="performAction(notification, notificationIndex, null)"
-              >
-                Dismiss
+                <span
+                  v-show="!expandedNames.includes(notificationMeta.projectName)"
+                  >And {{ notificationMeta.count - MAX_VERSIONS }} more</span
+                >
+                <span
+                  v-show="expandedNames.includes(notificationMeta.projectName)"
+                  >Collapse</span
+                >
               </button>
             </div>
           </div>
@@ -80,6 +148,8 @@ const NOTIFICATION_TYPES = {
   'Project updates': 'project_update',
 }
 
+const MAX_VERSIONS = 3
+
 export default {
   name: 'Notifications',
   components: {
@@ -92,6 +162,7 @@ export default {
   data() {
     return {
       selectedNotificationType: 'all',
+      expandedNames: [],
     }
   },
   async fetch() {
@@ -101,6 +172,44 @@ export default {
     title: 'Notifications - Modrinth',
   },
   computed: {
+    notificationsUngrouped() {
+      return this.selectedNotificationType !== 'all'
+        ? this.$user.notifications.filter(
+            (x) => x.type === NOTIFICATION_TYPES[this.selectedNotificationType]
+          )
+        : this.$user.notifications
+    },
+    notificationsGrouped() {
+      const grouped = new Map()
+
+      const titleToMetadata = new Map()
+
+      for (const notification of this.notificationsUngrouped) {
+        const a = grouped.get(notification.title) || []
+        a.push(notification)
+        grouped.set(notification.title, a)
+      }
+      console.log(grouped)
+
+      const withMetadata = new Map()
+
+      grouped.forEach((val, key) => {
+        if (!titleToMetadata.has(key)) {
+          const meta = {
+            type: val[0].type,
+            projectName: key.match(/\*\*(.*)\*\* has been updated!/m)[1],
+            count: grouped.get(key).length,
+          }
+          titleToMetadata.set(key, meta)
+        }
+
+        withMetadata.set(titleToMetadata.get(key), grouped.get(key))
+      })
+
+      console.log(withMetadata)
+
+      return withMetadata
+    },
     notificationTypes() {
       const obj = { all: true }
 
@@ -119,8 +228,26 @@ export default {
   },
   created() {
     this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
+    this.MAX_VERSIONS = MAX_VERSIONS
   },
   methods: {
+    toggleVersionExpand(title) {
+      const isExpanded = this.$data.expandedNames.includes(title)
+
+      if (isExpanded) {
+        this.$data.expandedNames = this.$data.expandedNames.filter(
+          (el) => el !== title
+        )
+      } else {
+        this.$data.expandedNames.push(title)
+      }
+      console.log(this.$data.expandedNames)
+    },
+    // async clearNotificationGroup(projectName) {
+    //   await this.notificationsGrouped.get(projectName).forEach(async (el) => {
+    //     await this.performAction(el, null)
+    //   })
+    // },
     async clearNotifications() {
       try {
         const ids = this.$user.notifications.map((x) => x.id)
@@ -191,7 +318,7 @@ h1 {
 
 .notifications {
   .notification {
-    display: flex;
+    // display: flex;
     flex-wrap: wrap;
     padding: var(--spacing-card-sm) var(--spacing-card-lg);
 
@@ -207,25 +334,62 @@ h1 {
       }
     }
 
-    .text {
+    .version {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      margin-bottom: var(--spacing-card-sm);
 
-      .top {
+      :not(.buttons) {
+        margin-bottom: var(--spacing-card-sm);
+        // display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        span {
+          color: var(--color-text-secondary);
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    // .version:nth-of-type(n + 4) {
+    //   display: none;
+    // }
+
+    .version:nth-last-of-type(2) {
+      margin-bottom: 0;
+      div {
+        margin-bottom: 0;
+      }
+    }
+
+    .more {
+      display: flex;
+      justify-content: end;
+    }
+
+    .header {
+      display: inline-flex;
+      margin-bottom: var(--spacing-card-md);
+
+      .text {
         display: flex;
-        align-items: baseline;
         flex-direction: column;
+        justify-content: space-between;
 
-        h3 ::v-deep {
-          font-size: var(--font-size-lg);
-          margin: 0 0.5rem 0 0;
+        div {
+          display: flex;
+          align-items: baseline;
+          flex-direction: column;
 
-          p {
-            margin: 0;
+          h3 ::v-deep {
+            font-size: var(--font-size-lg);
+            margin: 0 0.5rem 0 0;
 
-            strong {
-              color: var(--color-brand);
+            p {
+              margin: 0;
+
+              strong {
+                color: var(--color-brand);
+              }
             }
           }
         }
@@ -257,8 +421,23 @@ h1 {
     max-width: calc(1280px - 20rem) !important;
   }
 
+  .version {
+    :not(.button) {
+      span {
+        float: right;
+      }
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+
   .notifications {
     .notification {
+      transition: 0.15s height;
+      button {
+        float: right;
+      }
       flex-wrap: nowrap;
 
       .text {
