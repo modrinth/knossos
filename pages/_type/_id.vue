@@ -20,15 +20,8 @@
             (project.slug ? project.slug : project.id)
           "
         >
-          <img
-            class="icon"
-            :src="
-              project.icon_url
-                ? project.icon_url
-                : 'https://cdn.modrinth.com/placeholder.svg?inline'
-            "
-            alt="project - icon"
-        /></nuxt-link>
+          <Avatar :src="project.icon_url" :alt="project.title" size="md" />
+        </nuxt-link>
         <nuxt-link
           :to="
             '/' +
@@ -431,7 +424,12 @@
           class="team-member columns"
           @click="$router.push('/user/' + member.user.username)"
         >
-          <img :src="member.avatar_url" alt="profile-picture" />
+          <Avatar
+            :src="member.avatar_url"
+            :alt="member.username"
+            size="sm"
+            circle
+          />
 
           <div class="member-info">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
@@ -622,9 +620,11 @@ import Categories from '~/components/ui/search/Categories'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
+    Avatar,
     CopyCode,
     NavRow,
     VersionBadge,
@@ -954,16 +954,6 @@ export default {
 .header {
   grid-area: header;
 
-  .icon {
-    width: 6rem;
-    height: 6rem;
-    object-fit: contain;
-    border-radius: var(--size-rounded-icon);
-
-    background-color: var(--color-button-bg);
-    box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
-  }
-
   .title {
     margin: 0.25rem 0;
     color: var(--color-text-dark);
@@ -1197,13 +1187,6 @@ export default {
   &:hover {
     background-color: var(--color-button-bg);
     cursor: pointer;
-  }
-
-  img {
-    border-radius: 50%;
-    height: 3rem;
-    width: 3rem;
-    box-shadow: var(--shadow-inset), var(--shadow-raised);
   }
 
   .member-info {

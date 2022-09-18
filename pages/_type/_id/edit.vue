@@ -187,13 +187,14 @@
     </section>
     <section class="card project-icon">
       <h3>Icon</h3>
-      <img
+      <Avatar
+        size="lg"
         :src="
           previewImage
             ? previewImage
             : newProject.icon_url && !iconChanged
             ? newProject.icon_url
-            : 'https://cdn.modrinth.com/placeholder.svg'
+            : null
         "
         alt="preview-image"
       />
@@ -464,10 +465,10 @@ import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
 import FileInput from '~/components/ui/FileInput'
-import MarkdownEditor from '~/components/ui/MarkdownEditor.vue'
 
 export default {
   components: {
+    Avatar,
     FileInput,
     Multiselect,
     CrossIcon,
@@ -836,9 +837,7 @@ section.project-icon {
   grid-area: project-icon;
 
   img {
-    max-width: 100%;
     margin-bottom: 0.25rem;
-    border-radius: var(--size-rounded-lg);
   }
 
   .iconified-button {

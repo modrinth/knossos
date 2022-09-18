@@ -623,7 +623,7 @@ export default {
         }
 
         .user-outer {
-          z-index: 4;
+          z-index: 5;
         }
 
         section.user-controls {

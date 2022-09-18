@@ -4,9 +4,10 @@
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
       <div class="user-header">
-        <img
-          class="user-avatar"
+        <Avatar
           :src="previewImage ? previewImage : user.avatar_url"
+          size="lg"
+          circle
           :alt="user.username"
         />
         <h1 class="username">{{ user.username }}</h1>
@@ -243,10 +244,12 @@ import ModalReport from '~/components/ui/ModalReport'
 import ModalCreation from '~/components/ui/ModalCreation'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   auth: false,
   components: {
+    Avatar,
     CopyCode,
     NavRow,
     ModalCreation,
@@ -482,14 +485,6 @@ export default {
     padding: 0 1rem;
     gap: 1.5rem;
     align-items: center;
-
-    .user-avatar {
-      border-radius: 50%;
-      height: 9rem;
-      width: 9rem;
-      box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
-      background-color: var(--color-button-bg);
-    }
 
     .username {
       display: none;

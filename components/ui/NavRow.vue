@@ -91,7 +91,9 @@ export default {
               (x.href === '' ? undefined : x.href) ===
               this.$route.query[this.query]
           )
-        : this.filteredLinks.findIndex((x) => x.href === this.$route.path)
+        : this.filteredLinks.findIndex(
+            (x) => x.href === decodeURIComponent(this.$route.path)
+          )
 
       if (this.activeIndex !== -1) {
         this.startAnimation()
