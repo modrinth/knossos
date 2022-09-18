@@ -289,33 +289,10 @@
         >. HTML can also be used inside your description, not including styles,
         scripts, and iframes (though YouTube iframes are allowed).
       </span>
-      <Chips
-        v-model="bodyViewMode"
-        class="separator"
-        :items="['source', 'preview']"
+      <MarkdownEditor
+        :body-view-mode="bodyViewMode"
+        :new-project="newProject"
       />
-      <div class="edit-wrapper">
-        <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
-          <textarea
-            id="body"
-            v-model="newProject.body"
-            :class="{
-              'known-error': newProject.body === '' && showKnownErrors,
-            }"
-            :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
-          />
-        </div>
-        <div
-          v-if="bodyViewMode === 'preview'"
-          v-highlightjs
-          class="markdown-body"
-          v-html="
-            newProject.body
-              ? $xss($md.render(newProject.body))
-              : 'No body specified.'
-          "
-        ></div>
-      </div>
     </section>
     <section class="card extra-links">
       <div class="title">
@@ -486,19 +463,19 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
-import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'
+import MarkdownEditor from '~/components/ui/MarkdownEditor.vue'
 
 export default {
   components: {
     FileInput,
-    Chips,
     Multiselect,
     CrossIcon,
     CheckIcon,
     PlusIcon,
     SaveIcon,
     TrashIcon,
+    MarkdownEditor,
   },
   props: {
     project: {
@@ -540,7 +517,6 @@ export default {
       sideTypes: ['Required', 'Optional', 'Unsupported'],
 
       isEditing: true,
-      bodyViewMode: 'source',
 
       showKnownErrors: false,
       savingAsDraft: false,

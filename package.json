@@ -29,6 +29,7 @@
     "vue-highlightjs": "^1.3.3",
     "vue-multiselect": "^2.1.6",
     "vue-notification": "^1.3.20",
+    "vue-prism-editor": "^1.3.0",
     "xss": "^1.0.8"
   },
   "devDependencies": {
