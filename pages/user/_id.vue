@@ -207,12 +207,13 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="$auth.user && $auth.user.id === user.id" class="text"
-            >You don't have any projects.<br />
+          <span v-if="$auth.user && $auth.user.id === user.id" class="text">
+            You don't have any projects.<br />
             Would you like to
-            <nuxt-link class="link" to="/create/project">create one</nuxt-link
-            >?</span
-          >
+            <a class="link" @click.prevent="$refs.modal_creation.show()">
+              create one </a
+            >?
+          </span>
           <span v-else class="text">This user has no projects!</span>
         </div>
       </div>

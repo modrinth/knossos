@@ -1,6 +1,5 @@
 <template>
   <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
-    <ModalCreation ref="modal_creation" />
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
@@ -223,10 +222,14 @@
               <LogOutIcon class="icon" />
               <span class="dropdown-item__text">Log out</span>
             </button>
-            <NuxtLink v-if="$auth.user" class="item" to="/create/project">
+            <button
+              v-if="$auth.user"
+              class="item"
+              @click="$refs.modal_creation.show()"
+            >
               <PlusIcon class="icon" />
               <span class="title">Create a project</span>
-            </NuxtLink>
+            </button>
             <NuxtLink v-if="$auth.user" class="item" to="/settings">
               <SettingsIcon class="icon" />
               <span class="title">Settings</span>
@@ -264,6 +267,7 @@
       </section>
     </header>
     <main>
+      <ModalCreation ref="modal_creation" />
       <notifications
         group="main"
         position="bottom right"

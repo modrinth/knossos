@@ -390,6 +390,15 @@
   }
 }
 
+.raised-button {
+  background-color: var(--color-raised-bg);
+  box-shadow: var(--shadow-inset-sm), var(--shadow-raised);
+
+  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
+    background-color: var(--color-raised-bg);
+  }
+}
+
 .warning-button {
   background-color:var(--color-warning-bg);
   color: var(--color-warning-text);
@@ -722,6 +731,7 @@ label {
   }
 
   .link {
+    cursor: pointer;
     text-decoration: underline;
   }
 }
