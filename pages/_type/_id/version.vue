@@ -387,16 +387,10 @@
               :key="index"
               class="dependency"
             >
-              <img
-                class="icon"
-                :src="
-                  dependency.project
-                    ? dependency.project.icon_url
-                      ? dependency.project.icon_url
-                      : 'https://cdn.modrinth.com/placeholder.svg?inline'
-                    : 'https://cdn.modrinth.com/placeholder.svg?inline'
-                "
+              <Avatar
+                :src="dependency.project ? dependency.project.icon_url : null"
                 alt="dependency-icon"
+                size="sm"
               />
               <div class="info">
                 <nuxt-link
@@ -654,9 +648,11 @@ import Chips from '~/components/ui/Chips'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import ModalReport from '~/components/ui/ModalReport'
 import CopyCode from '~/components/ui/CopyCode'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
+    Avatar,
     CopyCode,
     ModalConfirm,
     ModalReport,
@@ -1215,17 +1211,10 @@ section {
   .dependency {
     align-items: center;
     display: flex;
+    gap: 0.25rem;
 
     @media screen and (min-width: 800px) {
       flex-basis: 30%;
-    }
-
-    .icon {
-      width: 3rem;
-      height: 3rem;
-      margin-right: 0.5rem;
-      border-radius: var(--size-rounded-xs);
-      object-fit: contain;
     }
 
     .info {

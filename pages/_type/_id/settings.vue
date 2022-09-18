@@ -96,7 +96,12 @@
     >
       <div class="member-header">
         <div class="info">
-          <img :src="member.avatar_url" :alt="member.name" />
+          <Avatar
+            :src="member.avatar_url"
+            :alt="member.username"
+            size="sm"
+            circle
+          />
           <div class="text">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
               <p>{{ member.name }}</p>
@@ -264,9 +269,11 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
+    Avatar,
     DropdownIcon,
     ModalConfirm,
     Checkbox,
@@ -461,11 +468,6 @@ export default {
     justify-content: space-between;
     .info {
       display: flex;
-      img {
-        border-radius: var(--size-rounded-max);
-        height: 50px;
-        width: 50px;
-      }
       .text {
         margin: auto 0 auto 0.5rem;
         font-size: var(--font-size-sm);

@@ -187,13 +187,14 @@
     </section>
     <section class="card project-icon">
       <h3>Icon</h3>
-      <img
+      <Avatar
+        size="lg"
         :src="
           previewImage
             ? previewImage
             : newProject.icon_url && !iconChanged
             ? newProject.icon_url
-            : 'https://cdn.modrinth.com/placeholder.svg'
+            : null
         "
         alt="preview-image"
       />
@@ -488,9 +489,11 @@ import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
 import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
+    Avatar,
     FileInput,
     Chips,
     Multiselect,
@@ -860,9 +863,7 @@ section.project-icon {
   grid-area: project-icon;
 
   img {
-    max-width: 100%;
     margin-bottom: 0.25rem;
-    border-radius: var(--size-rounded-lg);
   }
 
   .iconified-button {

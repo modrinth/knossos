@@ -3,11 +3,7 @@
     <div class="columns">
       <div class="icon">
         <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
-          <img
-            :src="iconUrl || 'https://cdn.modrinth.com/placeholder.svg?inline'"
-            :alt="name"
-            loading="lazy"
-          />
+          <Avatar :src="iconUrl" :alt="name" size="md" />
         </nuxt-link>
       </div>
       <div class="card-content">
@@ -163,10 +159,12 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import EditIcon from '~/assets/images/utils/updated.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   name: 'ProjectCard',
   components: {
+    Avatar,
     Categories,
     Badge,
     InfoIcon,
@@ -275,16 +273,7 @@ export default {
   }
 
   .icon {
-    img {
-      width: 6rem;
-      height: 6rem;
-      margin: 0 var(--spacing-card-md) var(--spacing-card-md) 0;
-      border-radius: var(--size-rounded-icon);
-      object-fit: contain;
-
-      background-color: var(--color-button-bg);
-      box-shadow: var(--shadow-inset-lg), var(--shadow-raised-lg);
-    }
+    margin: 0 var(--spacing-card-md) var(--spacing-card-md) 0;
   }
 
   .card-content {
