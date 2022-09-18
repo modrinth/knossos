@@ -13,6 +13,7 @@
     "fix": "eslint --fix --ext .js,.vue --ignore-path .eslintignore ."
   },
   "dependencies": {
+    "@formatjs/intl": "^2.4.1",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/dayjs": "^1.2.0",
     "@nuxtjs/markdownit": "^2.0.0",
@@ -22,6 +23,7 @@
     "core-js": "^3.9.1",
     "highlight.js": "^10.3.2",
     "markdown-it-task-lists": "^2.1.1",
+    "lodash": "^4.17.21",
     "nuxt": "^2.15.3",
     "sass": "^1.32.12",
     "v-tooltip": "^2.0.3",

@@ -6,7 +6,11 @@
       "@/*": ["./*"],
       "~~/*": ["./*"],
       "@@/*": ["./*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "target": "es2022",
+    "module": "node16",
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

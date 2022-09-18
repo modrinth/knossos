@@ -176,6 +176,7 @@ export default {
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/shorthands.js',
+    '~/plugins/i18n.js',
   ],
   /*
    ** Auto import components

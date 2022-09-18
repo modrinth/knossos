@@ -71,22 +71,17 @@
 
     <section class="card">
       <div class="header">
-        <h2 class="title">Display settings</h2>
+        <h2 class="title">{{ $t('settings.display_settings.title') }}</h2>
       </div>
       <label>
         <span>
-          <h3>Theme</h3>
-          <span>Change the global site theme.</span>
+          <h3>{{ $t('settings.theme.title') }}</h3>
+          <span>{{ $t('settings.theme.description') }}</span>
         </span>
         <Multiselect
           v-model="$colorMode.preference"
           :options="['system', 'light', 'dark', 'oled']"
-          :custom-label="
-            (value) =>
-              value === 'oled'
-                ? 'OLED'
-                : value.charAt(0).toUpperCase() + value.slice(1)
-          "
+          :custom-label="(value) => $t(`settings.theme.value.${value}`)"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
@@ -95,10 +90,30 @@
       </label>
       <label>
         <span>
-          <h3>Search sidebar on the right</h3>
+          <h3>{{ $t('settings.locale.title') }}</h3>
+          <span>{{ $t('settings.locale.description') }}</span>
+        </span>
+        <Multiselect
+          :value="$i18n.locale"
+          :options="$i18n.availableLocales"
+          :custom-label="
+            (locale) =>
+              new Intl.DisplayNames(locale, {
+                type: 'language',
+              }).of(locale)
+          "
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+          @select="(locale) => $i18n.changeLocale(locale)"
+        />
+      </label>
+      <label>
+        <span>
+          <h3>{{ $t('settings.right_search_sidebar.title') }}</h3>
           <span>
-            Enabling this will put the search page's filters sidebar on the
-            right side.
+            {{ $t('settings.right_search_sidebar.description') }}
           </span>
         </span>
         <input
@@ -110,11 +125,10 @@
       </label>
       <label>
         <span>
-          <h3>Project sidebar on the right</h3>
+          <h3>{{ $t('settings.right_project_sidebar.title') }}</h3>
 
           <span>
-            Enabling this will put the project pages' info sidebars on the right
-            side.
+            {{ $t('settings.right_project_sidebar.description') }}
           </span>
         </span>
         <input

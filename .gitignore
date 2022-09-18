@@ -95,3 +95,6 @@ sw.*
 
 # pnpm files
 pnpm-lock.yaml
+
+# Vercel
+.vercel
