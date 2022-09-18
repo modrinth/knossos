@@ -1,7 +1,10 @@
 import { promises as fs } from 'fs'
 import { sortRoutes } from '@nuxt/utils'
+import { basename } from 'path'
 import axios from 'axios'
+import glob from 'glob'
 
+/** @type {import('@nuxt/types').Configuration} */
 export default {
   /*
    ** Nuxt target
@@ -176,7 +179,6 @@ export default {
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/shorthands.js',
-    '~/plugins/i18n.js',
   ],
   /*
    ** Auto import components
@@ -203,6 +205,7 @@ export default {
     '@nuxtjs/style-resources',
     '@nuxtjs/markdownit',
     'cookie-universal-nuxt',
+    '~/modules/i18n',
   ],
   ads: {
     // Module options
@@ -395,6 +398,53 @@ export default {
         })
       },
     },
+  },
+  /** @type {import('modules/i18n/index').Options} */
+  i18n: {
+    defaultLocale: 'en-US',
+    locales: (() => {
+      /**
+       * Custom locale names. They must be written in the target language and
+       * abide by the capitalisation for words mid-sentence, rather than be
+       * capitalised by default.
+       *
+       * For example, in English all languages are always capitalised, but in,
+       * say, Polish, language names are always lowercase unless at the
+       * beginning of the sentence; the regions (countries, cities, etc),
+       * however, are always capitalised.
+       *
+       * There are efforts to bring Intl API that allows title capitalisation
+       * respecting language rules, but for now, for consistency, it's better to
+       * follow the rules of CLDR.
+       *
+       * @type {Record<string, string>}
+       */
+      const customLocaleNames = Object.assign(Object.create(null), {
+        'en-PIRATE': 'Pirate English (Seven Seas)',
+        'en-UPDOWN': 'ɥsᴉʅƃuƎ uʍop ǝpᴉsdՈ',
+        'en-LOLCAT': 'LOLCAT (CATZWORLT)',
+        'ru-bandit': 'русский (Бандитский Петербург)',
+      })
+
+      return glob.sync('i18n/nuxt/*.json', { nodir: true }).map((it) => {
+        const code = basename(it, '.json')
+
+        let data
+
+        if (customLocaleNames[code] != null) {
+          data = {
+            customLocaleName: customLocaleNames[code],
+          }
+        }
+
+        return {
+          code,
+          file: basename(it),
+          data,
+        }
+      })
+    })(),
+    localesDir: 'i18n/nuxt',
   },
 }
 

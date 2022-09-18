@@ -94,19 +94,21 @@
           <span>{{ $t('settings.locale.description') }}</span>
         </span>
         <Multiselect
-          :value="$i18n.locale"
+          :value="$i18n.availableLocales.find((it) => it.code === $i18n.locale)"
           :options="$i18n.availableLocales"
           :custom-label="
             (locale) =>
-              new Intl.DisplayNames(locale, {
-                type: 'language',
-              }).of(locale)
+              locale.data != null && locale.data.customLocaleName != null
+                ? locale.data.customLocaleName
+                : new Intl.DisplayNames(locale.code, {
+                    type: 'language',
+                  }).of(locale.code)
           "
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
           :allow-empty="false"
-          @select="(locale) => $i18n.changeLocale(locale)"
+          @select="(locale) => $i18n.changeLocale(locale.code)"
         />
       </label>
       <label>

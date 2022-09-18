@@ -10,7 +10,8 @@
     "resolveJsonModule": true,
     "target": "es2022",
     "module": "node16",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "strict": true
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }
