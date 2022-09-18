@@ -276,12 +276,12 @@ textarea {
   color: var(--color-text);
   padding: 0.5rem 1rem;
   border: 2px solid transparent;
-  box-shadow: var(--shadow-inset-sm);
-  transition: outline, background-color .1s ease-in-out;
+  outline: none;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+  transition: box-shadow 0.1s ease-in-out;
 
   &:focus {
-    box-shadow: none;
-    outline: .25rem solid hsla(155,58%,44%,.7);
+    box-shadow: inset 0 0 0 transparent, 0 0 0 .25rem hsla(155,58%,44%,.7);
     color: var(--color-button-text-active);
   }
 

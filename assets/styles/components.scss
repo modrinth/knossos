@@ -6,18 +6,12 @@
   position: relative;
 
   &:focus-within {
-    input {
-      outline: .25rem solid hsla(155,58%,44%,.7);
-      box-shadow: none;
-    }
-
     svg {
       color: var(--color-button-text-active) !important;
     }
   }
 
   input {
-    transition: outline, background-color .1s ease-in-out;
     padding-left: 2rem;
     width: 100%;
   }
