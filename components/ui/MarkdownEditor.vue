@@ -1,12 +1,15 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div>
-    <Chips v-model="viewMode" :items="['source', 'preview']" />
-    <div v-if="viewMode === 'source'" class="editor-wrapper">
+    <div class="chips-container">
+      <Chips v-model="bodyViewMode" :items="['source', 'preview']" />
+    </div>
+    <div v-if="bodyViewMode === 'source'">
       <prism-editor
         v-model="newProject.body"
         class="md-editor"
         :highlight="highlighter"
+        line-numbers
       ></prism-editor>
     </div>
     <div
@@ -22,14 +25,19 @@
 </template>
 
 <script>
+import 'vue-prism-editor/dist/prismeditor.min.css' // import the styles somewhere
+
 import hljs from 'highlight.js/lib/core'
 import markdown from 'highlight.js/lib/languages/markdown'
 
 import { PrismEditor } from 'vue-prism-editor'
 
+import Chips from './Chips.vue'
+
 export default {
   components: {
     PrismEditor,
+    Chips,
   },
   props: {
     bodyViewMode: {
@@ -45,11 +53,11 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      viewMode: 'source',
-    }
-  },
+  // data() {
+  //   return {
+  //     viewMode: 'source',
+  //   }
+  // },
   methods: {
     highlighter(body) {
       hljs.registerLanguage('markdown', markdown)
@@ -59,26 +67,41 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .separator {
   margin: var(--spacing-card-sm) 0;
 }
 
+.chips-container {
+  margin: 0.75rem 0;
+}
+
 // from the example https://github.com/koca/vue-prism-editor
 .md-editor {
-  background: #2d2d2d;
-  color: #ccc;
+  background-color: var(--color-button-bg);
 
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
-  padding: 5px !important;
 
-  width: 100%;
-  height: 100%;
+  padding: 1rem 0.65rem;
+
+  border-radius: 1em;
+
+  width: auto;
+
+  pre.prism-editor__editor {
+    border-radius: 0 !important;
+  }
 }
 
-.prism-editor__textarea:focus {
-  outline: none;
+.prism-editor__textarea {
+  &:focus {
+    // outline: none;
+  }
+}
+
+pre {
+  border-radius: 0 !important;
 }
 </style>
