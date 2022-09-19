@@ -15,14 +15,14 @@
         v-for="(action, actionIndex) in notification.actions"
         :key="actionIndex"
         class="iconified-button"
-        @click="performAction(notification, notificationIndex, actionIndex)"
+        @click="performAction(notification, 0, actionIndex)"
       >
         {{ action.title }}
       </button>
       <button
         v-if="notification.actions.length === 0"
         class="iconified-button"
-        @click="performAction(notification, notificationIndex, null)"
+        @click="performAction(notification, 0, null)"
       >
         Dismiss
       </button>
