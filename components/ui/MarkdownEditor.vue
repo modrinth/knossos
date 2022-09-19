@@ -96,6 +96,7 @@ export default {
 }
 
 .prism-editor__textarea {
+  box-shadow: none;
   &:focus {
     // outline: none;
   }
