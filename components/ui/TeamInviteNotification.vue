@@ -6,7 +6,7 @@
     <div class="text">
       <nuxt-link :to="notification.link" class="top">
         <h3 v-html="$xss($md.render(notification.title))" />
-        <span> Notified {{ $dayjs(notification.created).fromNow() }}</span>
+        <span> Invited {{ $dayjs(notification.created).fromNow() }}</span>
       </nuxt-link>
       <p>{{ notification.text }}</p>
     </div>

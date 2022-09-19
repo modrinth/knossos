@@ -32,7 +32,7 @@
           Version
           {{ notification.version }}
         </nuxt-link>
-        <span>Notified {{ $dayjs(notification.created).fromNow() }}</span>
+        <span>Released {{ $dayjs(notification.created).fromNow() }}</span>
       </div>
       <div class="buttons">
         <button
@@ -56,11 +56,11 @@
     <div class="more">
       <button
         class="iconified-button"
-        v-if="versions.length > maxVersions"
         @click="toggleExpand()"
+        v-if="versions.length > maxVersions"
       >
         <span v-show="!isExpanded"
-          >And {{ versions.length - maxVersions }} more</span
+          >Show {{ versions.length - maxVersions }} more</span
         >
         <span v-show="isExpanded">Collapse</span>
       </button>
