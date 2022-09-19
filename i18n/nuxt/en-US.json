@@ -34,5 +34,6 @@
   "settings.right_search_sidebar.title": "Search sidebar on the right",
   "settings.right_search_sidebar.description": "Enabling this will put the search page's filters sidebar on the right side.",
   "settings.right_project_sidebar.title": "Project sidebar on the right",
-  "settings.right_project_sidebar.description": "Enabling this will put the project pages' info sidebars on the right side."
+  "settings.right_project_sidebar.description": "Enabling this will put the project pages' info sidebars on the right side.",
+  "project-card.author": "by {author}"
 }

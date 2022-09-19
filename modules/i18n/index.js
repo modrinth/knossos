@@ -67,9 +67,7 @@ export default async function (moduleOptions) {
   )
 
   /** Options to be passed to tempate generator. */
-  const templateOptions = {
-    options,
-  }
+  const templateOptions = { options }
 
   // We need to have all files in the same namespace or else imports will break.
   const templatesDir = join(__dirname, 'templates')

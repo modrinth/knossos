@@ -16,10 +16,14 @@
               >
             </h2>
             <p v-if="author" class="author">
-              by
-              <nuxt-link class="title-link" :to="'/user/' + author"
-                >{{ author }}
-              </nuxt-link>
+              <i18n-formatted message-id="project-card.author">
+                <nuxt-link
+                  v-i18n:value="'author'"
+                  class="title-link"
+                  :to="'/user/' + author"
+                  >{{ author }}
+                </nuxt-link>
+              </i18n-formatted>
             </p>
           </div>
           <div

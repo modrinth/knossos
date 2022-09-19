@@ -16,9 +16,6 @@ Vue.use(createIntlPlugin())
 
 /** @type {import('@nuxt/types').Plugin} */
 export default async function (_context) {
-  // on server -> register all locale imports
-  // on client -> set current locale
-
   /**
    * All tracked registrations of locale imports to know at runtime.
    *
@@ -77,5 +74,6 @@ export default async function (_context) {
 
   extendController(Vue.prototype.$i18n)
 
+  // TODO: restore user preferred locale, or try to guess locale based on Accept-Languages request or navigator.languages
   await Vue.prototype.$i18n.changeLocale(defaultLocale)
 }

@@ -175,6 +175,18 @@ export function createRef(initialValue) {
 }
 
 /**
+ * Represents a function that accepts translation ID, as well as values for the
+ * placeholders inside the translation (if there are any).
+ *
+ * @callback TranslateFunction
+ * @param {string} id String ID.
+ * @param {Record<string, any>} [values] Values for the placeholders inside the
+ *   translations.
+ * @returns {any} Either formatted string (if all elements were strings) or
+ *   array of formatted elements.
+ */
+
+/**
  * @param {import('vue').VueConstructor} vue Vue instance.
  * @param {Ref<InstanceType<typeof IntlController> | null>} intlRef Reference to
  *   Intl object.
@@ -187,11 +199,7 @@ function initVueHelpers(vue, intlRef) {
     return intlRef.current
   }
 
-  /**
-   * @param {import('@formatjs/intl').MessageDescriptor['id']!} id String
-   *   identifier.
-   * @param {Record<string, any>} values Values to replace.
-   */
+  /** @type {TranslateFunction} */
   function translate(id, values) {
     // In React you can pass components in values to create fluid layout and avoid HTML injects.
     // e.g. "Hi there, {name}!" => "Привет, {name}!" and then you throw
@@ -241,9 +249,74 @@ export function createIntlPlugin() {
 
       installed = true
 
-      controllerRef.current = new IntlController()
+      const controller = new IntlController()
+
+      controllerRef.current = controller
 
       initVueHelpers(vue, controllerRef)
+
+      vue.directive('i18n', {}) // doesn't actually do anything
+
+      vue.component('i18n-formatted', {
+        name: 'i18n-formatted',
+
+        functional: true,
+
+        props: {
+          messageId: {
+            type: String,
+            required: true,
+          },
+          values: {
+            type: Object,
+          },
+        },
+
+        render(_createElement, context) {
+          const children = context.children.map((child) => child)
+
+          /** @type {Record<string, any>} */
+          const values = Object.create(null)
+
+          if (context.props.values != null) {
+            merge(values, context.props.values)
+          }
+
+          let unkeyed = 0
+
+          for (const child of children) {
+            /** @type {string | null} */
+            let key = null
+
+            const directives = child.data?.directives
+            if (directives != null) {
+              for (const directive of directives) {
+                if (directive.name === 'i18n' && directive.arg === 'value') {
+                  const t = typeof directive.value
+                  if (t !== 'string') {
+                    throw new Error(
+                      `Expected v-i18n:value to be a string, got ${t}`
+                    )
+                  }
+
+                  key = directive.value
+                }
+              }
+            }
+
+            if (key == null) {
+              key = unkeyed++ + ''
+            }
+
+            values[key] = child
+          }
+
+          return controller.intl.formatMessage(
+            { id: context.props.messageId },
+            values
+          )
+        },
+      })
     },
   }
 }

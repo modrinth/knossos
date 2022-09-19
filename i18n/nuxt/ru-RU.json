@@ -34,5 +34,6 @@
   "settings.right_search_sidebar.title": "Панель фильтров справа",
   "settings.right_search_sidebar.description": "Если включено, панель фильтров поиска будет отображаться справа.",
   "settings.right_project_sidebar.title": "Панель информации о проекте справа",
-  "settings.right_project_sidebar.description": "Если включено, панель с информацией о проекте будет отображаться справа."
+  "settings.right_project_sidebar.description": "Если включено, панель с информацией о проекте будет отображаться справа.",
+  "project-card.author": "от {author}"
 }
