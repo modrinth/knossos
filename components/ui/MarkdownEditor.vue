@@ -76,19 +76,16 @@ export default {
   margin: 0.75rem 0;
 }
 
-// from the example https://github.com/koca/vue-prism-editor
 .md-editor {
   background-color: var(--color-button-bg);
+  width: auto;
 
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
 
   padding: 1rem 0.65rem;
-
   border-radius: 1em;
-
-  width: auto;
 
   pre.prism-editor__editor {
     border-radius: 0 !important;
@@ -97,9 +94,6 @@ export default {
 
 .prism-editor__textarea {
   box-shadow: none;
-  &:focus {
-    // outline: none;
-  }
 }
 
 pre {
