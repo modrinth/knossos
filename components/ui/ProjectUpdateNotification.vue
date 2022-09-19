@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     projectPageLink() {
-      return this.versions[0].link.match(/(.*\/.*)\/version\/.*/m)[0]
+      return this.versions[0].link.match(/(.*\/.*)\/version\/.*/m)[1] || ''
     },
   },
   methods: {
