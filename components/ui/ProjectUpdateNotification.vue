@@ -133,9 +133,6 @@ export default {
   data() {
     return { isExpanded: false }
   },
-  created() {
-    console.log(this.versions)
-  },
 }
 </script>
 
