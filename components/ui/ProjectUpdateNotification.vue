@@ -6,7 +6,13 @@
       </div>
       <div class="text">
         <div>
-          <h3 v-html="$xss($md.render('**' + projectTitle + '**'))" />
+          <h3>
+            <nuxt-link :to="projectPageLink">
+              <strong>
+                {{ projectTitle }}
+              </strong>
+            </nuxt-link>
+          </h3>
         </div>
         <p>
           {{ projectTitle }} has been updated
@@ -16,6 +22,7 @@
     </div>
     <button
       class="iconified-button"
+      v-if="versions.length > 1"
       @click="clearNotificationGroup(projectTitle)"
     >
       <ClearIcon />Dismiss all
@@ -88,6 +95,11 @@ export default {
     ClearIcon,
     UpdateIcon,
   },
+  computed: {
+    projectPageLink() {
+      return this.versions[0].link.match(/(.*\/.*)\/version\/.*/m)[0]
+    },
+  },
   methods: {
     toggleExpand() {
       this.isExpanded = !this.isExpanded
@@ -150,10 +162,12 @@ export default {
 }
 .version {
   display: flex;
-  margin-bottom: var(--spacing-card-sm);
+  &:not(:nth-last-of-type(2)) {
+    margin-bottom: var(--spacing-card-sm);
+  }
 
   :not(.buttons) {
-    margin-bottom: var(--spacing-card-sm);
+    // margin-bottom: var(--spacing-card-sm);
     // display: flex;
     flex-grow: 1;
     justify-content: space-between;
@@ -162,17 +176,23 @@ export default {
       float: left;
       margin-right: 1rem;
     }
+    a {
+      text-decoration: underline;
+    }
   }
 }
 .more {
   display: flex;
   justify-content: end;
+  margin-bottom: calc(var(--spacing-card-sm) / 2);
 }
 
+.header + button {
+  margin-top: var(--spacing-card-md);
+}
 .header {
   display: inline-flex;
-  margin-bottom: var(--spacing-card-md);
-
+  // margin-bottom: var(--spacing-card-md);
   .text {
     display: flex;
     flex-direction: column;
@@ -187,7 +207,7 @@ export default {
         font-size: var(--font-size-lg);
         margin: 0 0.5rem 0 0;
 
-        p {
+        * {
           margin: 0;
 
           strong {
@@ -235,6 +255,7 @@ export default {
 
   button {
     float: right;
+    margin-top: 0 !important;
   }
 
   .text {
