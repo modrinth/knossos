@@ -2,9 +2,9 @@
 <template>
   <div>
     <div class="chips-container">
-      <Chips v-model="bodyViewMode" :items="['source', 'preview']" />
+      <Chips v-model="viewMode" :items="['source', 'preview']" />
     </div>
-    <div v-if="bodyViewMode === 'source'">
+    <div v-if="viewMode === 'source'">
       <prism-editor
         v-model="newProject.body"
         class="md-editor"
@@ -13,7 +13,7 @@
       ></prism-editor>
     </div>
     <div
-      v-if="bodyViewMode === 'preview'"
+      v-if="viewMode === 'preview'"
       class="markdown-body"
       v-html="
         newProject.body
@@ -40,12 +40,6 @@ export default {
     Chips,
   },
   props: {
-    bodyViewMode: {
-      type: String,
-      default() {
-        return 'source'
-      },
-    },
     newProject: {
       type: Object,
       default() {
@@ -53,11 +47,11 @@ export default {
       },
     },
   },
-  // data() {
-  //   return {
-  //     viewMode: 'source',
-  //   }
-  // },
+  data() {
+    return {
+      viewMode: 'source',
+    }
+  },
   methods: {
     highlighter(body) {
       hljs.registerLanguage('markdown', markdown)

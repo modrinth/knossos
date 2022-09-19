@@ -290,10 +290,7 @@
         >. HTML can also be used inside your description, not including styles,
         scripts, and iframes (though YouTube iframes are allowed).
       </span>
-      <MarkdownEditor
-        :body-view-mode="bodyViewMode"
-        :new-project="newProject"
-      />
+      <MarkdownEditor :new-project="newProject" />
     </section>
     <section class="card extra-links">
       <div class="title">
