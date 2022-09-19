@@ -178,6 +178,7 @@ export default {
     }
     a {
       text-decoration: underline;
+      font-weight: bold;
     }
   }
 }
@@ -212,6 +213,7 @@ export default {
 
           strong {
             color: var(--color-brand);
+            text-decoration: underline;
           }
         }
       }
@@ -246,9 +248,6 @@ export default {
     :not(.buttons) {
       span {
         float: right;
-      }
-      a {
-        font-weight: bold;
       }
     }
   }
