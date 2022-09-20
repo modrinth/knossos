@@ -94,11 +94,17 @@
           <span>{{ $t('settings.locale.description') }}</span>
         </span>
         <Multiselect
-          :value="$i18n.availableLocales.find((it) => it.code === $i18n.locale)"
-          :options="$i18n.availableLocales"
+          :value="
+            $i18n.automatic
+              ? 'auto'
+              : $i18n.availableLocales.find((it) => it.code === $i18n.locale)
+          "
+          :options="['auto', ...$i18n.availableLocales]"
           :custom-label="
             (locale) =>
-              locale.data != null && locale.data.customLocaleName != null
+              locale === 'auto'
+                ? $t('settings.locale.option.sync-with-browser')
+                : locale.data != null && locale.data.customLocaleName != null
                 ? locale.data.customLocaleName
                 : new Intl.DisplayNames(locale.code, {
                     type: 'language',
@@ -108,7 +114,10 @@
           :close-on-select="true"
           :show-labels="false"
           :allow-empty="false"
-          @select="(locale) => $i18n.changeLocale(locale.code)"
+          @select="
+            (locale) =>
+              $i18n.changeLocale(locale === 'auto' ? locale : locale.code)
+          "
         />
       </label>
       <label>

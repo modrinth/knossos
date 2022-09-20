@@ -31,6 +31,7 @@
   "settings.theme.value.oled": "OLED",
   "settings.locale.title": "Language",
   "settings.locale.description": "Change language used on the site.",
+  "settings.locale.option.sync-with-browser": "Sync with the browser",
   "settings.right_search_sidebar.title": "Search sidebar on the right",
   "settings.right_search_sidebar.description": "Enabling this will put the search page's filters sidebar on the right side.",
   "settings.right_project_sidebar.title": "Project sidebar on the right",

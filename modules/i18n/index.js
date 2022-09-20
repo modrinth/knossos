@@ -73,10 +73,14 @@ export default async function (moduleOptions) {
   const templatesDir = join(__dirname, 'templates')
   for await (const fileName of filesWithin(templatesDir)) {
     if (fileName.startsWith('plugin.')) {
-      this.addPlugin({
+      const { dst } = this.addTemplate({
         src: join(templatesDir, fileName),
         fileName: join(customNamespace, fileName),
         options: templateOptions,
+      })
+
+      this.options.plugins.push({
+        src: join(this.options.buildDir, dst),
       })
     } else {
       this.addTemplate({
