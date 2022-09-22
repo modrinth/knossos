@@ -134,7 +134,6 @@ export default {
   position: relative;
 
   .nav-link {
-    text-transform: capitalize;
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
     position: relative;
