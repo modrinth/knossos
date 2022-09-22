@@ -2,17 +2,21 @@
   <div class="page-container">
     <div class="page-contents">
       <div class="content">
-        <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
-        <h1 v-else>Settings</h1>
+        <h1 v-if="$auth.user">
+          {{
+            $t('settings.title.authorized', { username: $auth.user.username })
+          }}
+        </h1>
+        <h1 v-else>{{ $t('settings.title.generic') }}</h1>
         <NavRow
           class="card"
           :links="[
             {
-              label: 'General',
+              label: $t('settings.tab.general'),
               href: '/settings',
             },
             {
-              label: 'Followed projects',
+              label: $t('settings.tab.followed-projects'),
               href: '/settings/follows',
             },
           ]"

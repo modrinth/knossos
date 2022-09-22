@@ -45,5 +45,9 @@
   "notifications.no-notifications": "You are up-to-date!",
   "notifications.category.all": "All",
   "notifications.category.team-invite": "Team invites",
-  "notifications.category.project-update": "Project updates"
+  "notifications.category.project-update": "Project updates",
+  "settings.tab.general": "General",
+  "settings.tab.followed-projects": "Followed projects",
+  "settings.title.authorized": "Settings for {username}",
+  "settings.title.generic": "Settings"
 }
