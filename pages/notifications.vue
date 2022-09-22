@@ -2,19 +2,19 @@
   <div class="page-container">
     <div class="page-contents">
       <div class="content">
-        <h1>Notifications</h1>
+        <h1>{{ $t('notifications.title') }}</h1>
 
         <div class="divider card">
           <NavRow
             query="type"
             :links="[
               {
-                label: 'all',
+                label: $t('notifications.category.all'),
                 href: '',
               },
               ...notificationTypes.map((x) => {
                 return {
-                  label: NOTIFICATION_TYPES[x],
+                  label: $t(`notifications.category.${x.replace(/_/g, '-')}`),
                   href: x,
                 }
               }),
@@ -24,8 +24,7 @@
             class="iconified-button brand-button"
             @click="clearNotifications"
           >
-            <ClearIcon />
-            Clear all
+            <ClearIcon /> {{ $t('notifications.actions.clear-all') }}
           </button>
         </div>
         <div class="notifications">
@@ -41,13 +40,18 @@
                 <h3 v-html="$xss($md.render(notification.title))" />
                 <span
                   v-tooltip="
-                    $dayjs(notification.created).format(
-                      'MMMM D, YYYY [at] h:mm:ss A'
-                    )
+                    $fmt.date(notification.created, {
+                      dateStyle: 'long',
+                      timeStyle: 'long',
+                    })
                   "
                 >
-                  Notified {{ $dayjs(notification.created).fromNow() }}</span
-                >
+                  {{
+                    $t('notifications.notification.notified-ago', {
+                      ago: $fmt.timeDifference(notification.created),
+                    })
+                  }}
+                </span>
               </nuxt-link>
               <p>{{ notification.text }}</p>
             </div>
@@ -67,14 +71,14 @@
                 class="iconified-button"
                 @click="performAction(notification, notificationIndex, null)"
               >
-                Dismiss
+                {{ $t('notifications.notification.actions.dismiss') }}
               </button>
             </div>
           </div>
           <div v-if="$user.notifications.length === 0" class="error">
             <UpToDate class="icon"></UpToDate>
             <br />
-            <span class="text">You are up-to-date!</span>
+            <span class="text">{{ $t('notifications.no-notifications') }}</span>
           </div>
         </div>
       </div>
@@ -104,8 +108,12 @@ export default {
 
     await this.$store.dispatch('user/fetchNotifications')
   },
-  head: {
-    title: 'Notifications - Modrinth',
+  head() {
+    return {
+      title: this.$t('meta.title-format', {
+        title: this.$t('notifications.title'),
+      }),
+    }
   },
   computed: {
     notificationTypes() {
@@ -134,7 +142,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -164,7 +172,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })

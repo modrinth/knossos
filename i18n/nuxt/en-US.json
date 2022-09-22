@@ -10,6 +10,7 @@
   "about.api.h-backend-docs": "Backend Documentation",
   "about.api.p-where-find-docs": "Documentation for the Modrinth API (Labrinth) can be found on the GitHub repository's wiki <docs-link>here</docs-link>.",
   "about.meta.description": "View information about Modrinth, an open source modding platform here! Modrinth currently supports Minecraft, including the forge and fabric mod loaders.",
+  "error.generic": "An error occurred",
   "landing.title": "Discover, Play, and Create Minecraft content",
   "landing.headline": "Find enjoyable, quality content through our <repo-link>open-source</repo-link> modding platform built for the community. Create stuff, get paid<sup>WIP</sup>, and deploy your project with our <docs-link>fully documented</docs-link> API!",
   "landing.search-field.label": "Search Mods",
@@ -36,5 +37,13 @@
   "landing.feature.api.title": "Simple to integrate",
   "landing.feature.api.headline": "An open-source API for everyone to use",
   "landing.feature.api.body": "We have created an open source modding platform for the community. We're committed to open source so the community can trust us as their modding platform. Our API is <docs-link>fully documented</docs-link> so anyone can use it. We will never add restrictions on our API!",
-  "meta.title-format": "{title} — Modrinth"
+  "meta.title-format": "{title} — Modrinth",
+  "notifications.title": "Notifications",
+  "notifications.actions.clear-all": "Clear all",
+  "notifications.notification.notified-ago": "Notified {ago}",
+  "notifications.notification.actions.dismiss": "Dismiss",
+  "notifications.no-notifications": "You are up-to-date!",
+  "notifications.category.all": "All",
+  "notifications.category.team-invite": "Team invites",
+  "notifications.category.project-update": "Project updates"
 }
