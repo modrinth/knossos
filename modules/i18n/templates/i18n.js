@@ -4,6 +4,7 @@ import { createIntl, createIntlCache } from '@formatjs/intl'
 import merge from 'lodash/merge'
 import Vue from 'vue'
 import { hasOwn } from './utils'
+import { isVNode, createTextNode, cloneVNode } from './vueUtils'
 
 /**
  * @typedef {object} IntlFormatAliases
@@ -77,15 +78,18 @@ export class IntlController {
     const currentFormats = this.formats
 
     this._setFormats(
-      Object.assign(currentFormats != null ? currentFormats : {}, {
-        date: intl.formatDate.bind(intl),
-        dateTimeRange: intl.formatDateTimeRange.bind(intl),
-        displayName: intl.formatDisplayName.bind(intl),
-        number: intl.formatNumber.bind(intl),
-        plural: intl.formatPlural.bind(intl),
-        relativeTime: intl.formatRelativeTime.bind(intl),
-        time: intl.formatTime.bind(intl),
-      })
+      Object.assign(
+        currentFormats != null ? currentFormats : {},
+        /** @type {IntlFormatAliases} */ ({
+          date: intl.formatDate.bind(intl),
+          dateTimeRange: intl.formatDateTimeRange.bind(intl),
+          displayName: intl.formatDisplayName.bind(intl),
+          number: intl.formatNumber.bind(intl),
+          plural: intl.formatPlural.bind(intl),
+          relativeTime: intl.formatRelativeTime.bind(intl),
+          time: intl.formatTime.bind(intl),
+        })
+      )
     )
   }
 
@@ -273,52 +277,91 @@ export function createIntlPlugin() {
         },
 
         render(_createElement, context) {
-          const children = context.children.map((child) => child)
-
           /** @type {Record<string, any>} */
           const values = Object.create(null)
 
           if (context.props.values != null) {
+            if (typeof context.props.values !== 'object') {
+              throw new TypeError('"values" property only accepts objects')
+            }
+
             merge(values, context.props.values)
           }
 
           let unkeyed = 0
 
-          for (const child of children) {
+          for (const child of context.children ?? []) {
             /** @type {string | null} */
             let key = null
 
-            const directives = child.data?.directives
-            if (directives != null) {
-              for (const directive of directives) {
-                if (directive.name === 'i18n' && directive.arg === 'value') {
-                  const t = typeof directive.value
-                  if (t !== 'string') {
-                    throw new Error(
-                      `Expected v-i18n:value to be a string, got ${t}`
+            /**
+             * @type {| string
+             *   | import('vue').VNode
+             *   | import('intl-messageformat').FormatXMLElementFn<
+             *       import('vue').VNode
+             *     >
+             *   | null}
+             */
+            let value = null
+
+            for (const directive of child.data?.directives ?? []) {
+              if (directive.name === 'i18n') {
+                if (directive.arg === 'value') {
+                  if (typeof directive.value !== 'string') {
+                    throw new TypeError(
+                      'Value for directive "v-i18n:value" is not a string'
                     )
                   }
 
                   key = directive.value
+                  value = child
+                } else if (directive.arg === 'wrap') {
+                  if (typeof directive.value !== 'string') {
+                    throw new TypeError(
+                      'Value for directive "v-i18n:wrap" is not a string'
+                    )
+                  }
+
+                  key = directive.value
+
+                  value = (parts) => {
+                    let cloned = cloneVNode(child)
+
+                    cloned.children = parts.map((part) =>
+                      isVNode(part) ? part : createTextNode(part)
+                    )
+
+                    return cloned
+                  }
                 }
               }
             }
 
-            if (key == null) {
-              key = unkeyed++ + ''
+            if (value == null) {
+              value = child
             }
 
-            values[key] = child
+            if (key == null) {
+              key = String(unkeyed)
+              unkeyed += 1
+            }
+
+            values[key] = value
           }
 
-          return controller.intl.formatMessage(
+          /** @type {string | (string | import('vue').VNode)[]} */
+          let formatted = controller.intl.formatMessage(
             { id: context.props.messageId },
             values
           )
+
+          if (!Array.isArray(formatted)) {
+            formatted = [formatted]
+          }
+
+          return formatted.map((it) => (isVNode(it) ? it : createTextNode(it)))
         },
       })
     },
   }
 }
-
-// Vue.use(createIntlPlugin())
