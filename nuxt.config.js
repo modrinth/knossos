@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import { sortRoutes } from '@nuxt/utils'
 import { basename } from 'path'
+import { match as localeMatch } from '@formatjs/intl-localematcher'
 import axios from 'axios'
 import glob from 'glob'
 
@@ -179,6 +180,7 @@ export default {
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/shorthands.js',
+    '~/plugins/i18n-helpers.js',
   ],
   /*
    ** Auto import components
@@ -426,8 +428,17 @@ export default {
         'ru-bandit': 'русский (Бандитский Петербург)',
       })
 
+      const availableNFLocales = glob
+        .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
+          nodir: true,
+        })
+        .map((it) => basename(it, '.js'))
+
       return glob.sync('i18n/nuxt/*.json', { nodir: true }).map((it) => {
         const code = basename(it, '.json')
+
+        /** @type {string[] | undefined} */
+        let additionalImports = undefined
 
         let data
 
@@ -437,10 +448,27 @@ export default {
           }
         }
 
+        {
+          const nfLocaleMatch = localeMatch(
+            [code],
+            availableNFLocales,
+            'en-US-x-placeholder'
+          )
+
+          if (nfLocaleMatch !== 'en-US-x-placeholder') {
+            ;(additionalImports ?? (additionalImports = [])).push(
+              require.resolve(
+                `@formatjs/intl-numberformat/locale-data/${nfLocaleMatch}.js`
+              )
+            )
+          }
+        }
+
         return {
           code,
           file: basename(it),
           data,
+          additionalImports,
         }
       })
     })(),

@@ -3,6 +3,7 @@
 import { createIntl, createIntlCache } from '@formatjs/intl'
 import merge from 'lodash/merge'
 import Vue from 'vue'
+import { formatCompactNumber } from './compactNumber'
 import { hasOwn } from './utils'
 import { isVNode, createTextNode, cloneVNode } from './vueUtils'
 
@@ -15,6 +16,7 @@ import { isVNode, createTextNode, cloneVNode } from './vueUtils'
  * @property {import('@formatjs/intl').IntlShape['formatPlural']} plural
  * @property {import('@formatjs/intl').IntlShape['formatRelativeTime']} relativeTime
  * @property {import('@formatjs/intl').IntlShape['formatTime']} time
+ * @property {import('./compactNumber').FormatCompactNumberFormatter} compactNumber
  */
 
 export class IntlController {
@@ -88,6 +90,11 @@ export class IntlController {
           plural: intl.formatPlural.bind(intl),
           relativeTime: intl.formatRelativeTime.bind(intl),
           time: intl.formatTime.bind(intl),
+          compactNumber: formatCompactNumber.bind(
+            null,
+            intl,
+            intl.formatters.getNumberFormat
+          ),
         })
       )
     )

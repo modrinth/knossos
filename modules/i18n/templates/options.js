@@ -32,15 +32,14 @@
     } else {
       const varName = `locale${hash(locale.file)}`
       const webpackChunkName = `locale-${locale.code}`
-      const ext = locale.file.split('.').pop()
 
       let functionBlock = ''
 
-      functionBlock += `const ${varName} = await import(/* webpackChunkName: "${webpackChunkName}.${ext}", webpackMode: "lazy" */  "${localeFilePath}");\n`
+      functionBlock += `const ${varName} = await import(/* webpackChunkName: "${webpackChunkName}", webpackMode: "lazy" */  "${localeFilePath}");\n`
 
-      if (locale.additionalImports != null) {
+      if (Array.isArray(locale.additionalImports)) {
         for (const additionalImport of locale.additionalImports) {
-          functionBlock += `await import("${additionalImport}" /* webpackChunkName: "etc-${webpackChunkName}.js", webpackMode: "lazy" */);\n`
+          functionBlock += `await import(/* webpackChunkName: "${webpackChunkName}-data", webpackMode: "lazy" */ "${additionalImport}");\n`
         }
       }
 
@@ -51,7 +50,7 @@
     }
 
     if (locale.data != null) {
-      localeDeclarationBlock += `data: ${JSON.stringify(locale.data, 2)},`
+      localeDeclarationBlock += `data: ${JSON.stringify(locale.data, null, 2)},`
     }
 
     localeDeclarationBlock += '\n},'
