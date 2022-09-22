@@ -4,6 +4,7 @@ import { createIntl, createIntlCache } from '@formatjs/intl'
 import merge from 'lodash/merge'
 import Vue from 'vue'
 import { formatCompactNumber } from './compactNumber'
+import { formatTimeDifference } from './timeDifferenceFormatter'
 import { hasOwn } from './utils'
 import { isVNode, createTextNode, cloneVNode } from './vueUtils'
 
@@ -17,6 +18,7 @@ import { isVNode, createTextNode, cloneVNode } from './vueUtils'
  * @property {import('@formatjs/intl').IntlShape['formatRelativeTime']} relativeTime
  * @property {import('@formatjs/intl').IntlShape['formatTime']} time
  * @property {import('./compactNumber').FormatCompactNumberFormatter} compactNumber
+ * @property {import('./timeDifferenceFormatter').FormatTimeDifferenceFormatter} timeDifference
  */
 
 export class IntlController {
@@ -94,6 +96,10 @@ export class IntlController {
             null,
             intl,
             intl.formatters.getNumberFormat
+          ),
+          timeDifference: formatTimeDifference.bind(
+            null,
+            intl.formatRelativeTime
           ),
         })
       )
