@@ -22,6 +22,8 @@ export default (ctx, inject) => {
   inject('formatBytes', formatBytes)
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
+  inject('categoryTranslationKey', categoryTranslationKey)
+  inject('loaderTranslationKey', loaderTranslationKey)
   inject('formatCategoryHeader', formatCategoryHeader)
   inject('computeVersions', (versions) => {
     const versionsMap = {}
@@ -222,6 +224,40 @@ export const formatCategory = (name) => {
     return 'Kitchen Sink'
   }
   return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
+/**
+ * Normalises category name and returns translation key to use when displaying
+ * the category name.
+ *
+ * @param {string} category Normal name of the category.
+ * @returns {string} Translation key to use.
+ */
+export function categoryTranslationKey(category) {
+  let normalizedKey = category
+
+  switch (category) {
+    case '512x+': {
+      normalizedKey = '512x-or-higher'
+      break
+    }
+    case '8x-': {
+      normalizedKey = '8x-or-lower'
+      break
+    }
+  }
+
+  return `category.${normalizedKey}`
+}
+
+/**
+ * Returns translation key to use when displaying the loader name.
+ *
+ * @param {string} loader Normal name of the loader.
+ * @returns {string} Translation key to use.
+ */
+export function loaderTranslationKey(loader) {
+  return `loader.${loader}`
 }
 
 export const formatCategoryHeader = (name) => {

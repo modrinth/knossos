@@ -13,7 +13,11 @@
         >
           <EyeOffIcon v-if="sidebarMenuOpen" aria-hidden="true" />
           <EyeIcon v-else aria-hidden="true" />
-          {{ sidebarMenuOpen ? 'Hide filters' : 'Show filters' }}
+          {{
+            sidebarMenuOpen
+              ? $t('search.sidebar.actions.hide-filters')
+              : $t('search.sidebar.actions.show-filters')
+          }}
         </button>
         <div
           class="sidebar-menu"
@@ -31,9 +35,9 @@
             @click="clearFilters"
           >
             <ClearIcon aria-hidden="true" />
-            Clear filters
+            {{ $t('search.sidebar.actions.clear-filters') }}
           </button>
-          <section aria-label="Category filters">
+          <section :aria-label="$t('search.filters.category.aria-label')">
             <div v-for="(categories, header) in categoriesMap" :key="header">
               <h3
                 v-if="
@@ -59,7 +63,7 @@
                   })"
                 :key="category.name"
                 :active-filters="facets"
-                :display-name="$formatCategory(category.name)"
+                :display-name="$t($categoryTranslationKey(category.name))"
                 :facet-name="`categories:'${encodeURIComponent(
                   category.name
                 )}'`"
@@ -70,7 +74,7 @@
           </section>
           <section
             v-if="projectType.id !== 'resourcepack'"
-            aria-label="Loader filters"
+            :aria-label="$t('search.filters.loader.aria-label')"
           >
             <h3
               v-if="
@@ -80,7 +84,7 @@
               "
               class="sidebar-menu-heading"
             >
-              Loaders
+              {{ $t('search.filters.loader.title') }}
             </h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) => {
@@ -105,7 +109,7 @@
               :key="loader.name"
               ref="loaderFilters"
               :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
+              :display-name="$t($loaderTranslationKey(loader.name))"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
@@ -113,8 +117,14 @@
             <Checkbox
               v-if="projectType.id === 'mod'"
               v-model="showAllLoaders"
-              :label="showAllLoaders ? 'Less' : 'More'"
-              description="Show all loaders"
+              :label="
+                $t(
+                  `search.filters.loader.show-all.label.${
+                    showAllLoaders ? 'less' : 'more'
+                  }`
+                )
+              "
+              :description="$t('search.filters.loader.show-all.description')"
               style="margin-bottom: 0.5rem"
               :border="false"
               :collapsing-toggle-style="true"
@@ -122,7 +132,7 @@
           </section>
           <section
             v-if="projectType.id === 'plugin'"
-            aria-label="Platform loader filters"
+            :aria-label="$t('search.filters.platform.aria-label')"
           >
             <h3
               v-if="
@@ -132,7 +142,7 @@
               "
               class="sidebar-menu-heading"
             >
-              Proxies
+              {{ $t('search.filters.platform.title') }}
             </h3>
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) =>
@@ -141,20 +151,24 @@
               :key="loader.name"
               ref="platformFilters"
               :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
+              :display-name="$t($loaderTranslationKey(loader.name))"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
             />
           </section>
           <section
-            v-if="['resourcepack', 'plugin'].includes(projectType.id)"
-            aria-label="Environment filters"
+            v-if="
+              projectType.id === 'resourcepack' || projectType.id === 'plugin'
+            "
+            :aria-label="$t('search.filters.environment.aria-label')"
           >
-            <h3 class="sidebar-menu-heading">Environments</h3>
+            <h3 class="sidebar-menu-heading">
+              {{ $t('search.filters.environment.title') }}
+            </h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
-              display-name="Client"
+              :display-name="$t('search.filters.enivornment.value.client')"
               facet-name="client"
               @toggle="toggleEnv"
             >
@@ -162,18 +176,22 @@
             </SearchFilter>
             <SearchFilter
               :active-filters="selectedEnvironments"
-              display-name="Server"
+              :display-name="$t('search.filters.enivornment.value.server')"
               facet-name="server"
               @toggle="toggleEnv"
             >
               <ServerSide aria-hidden="true" />
             </SearchFilter>
           </section>
-          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
+          <h3 class="sidebar-menu-heading">
+            {{ $t('search.filters.versions.title') }}
+          </h3>
           <Checkbox
             v-model="showSnapshots"
-            label="Include snapshots"
-            description="Include snapshots"
+            :label="$t('search.filters.versions.include-snapshots.label')"
+            :description="
+              $t('search.filters.versions.include-snapshots.description')
+            "
             style="margin-bottom: 0.5rem"
             :border="false"
           />
@@ -193,13 +211,15 @@
             :clear-search-on-select="false"
             :show-labels="false"
             :selectable="() => selectedVersions.length <= 6"
-            placeholder="Choose versions..."
+            :placeholder="$t('search.filters.versions.field.placeholder')"
             @input="onSearchChange(1)"
           ></multiselect>
-          <h3 class="sidebar-menu-heading">Licenses</h3>
+          <h3 class="sidebar-menu-heading">
+            {{ $t('search.filters.licenses.title') }}
+          </h3>
           <Multiselect
             v-model="selectedLicenses"
-            placeholder="Choose licenses..."
+            :placeholder="$t('search.filters.licenses.field.placeholder')"
             :loading="$tag.licenses.length === 0"
             :options="$tag.licenses.map((x) => x.short.toUpperCase())"
             :multiple="true"
@@ -216,27 +236,40 @@
       <div
         v-if="projectType.id === 'modpack'"
         class="card warning"
-        aria-label="Warning"
+        :aria-label="$t('search.notice.type.warning')"
       >
-        Modpack support is currently in alpha, and you may encounter issues. Our
-        documentation includes instructions on
-        <a
-          href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-          target="_blank"
-          >playing modpacks</a
-        >
-        with
-        <a href="https://atlauncher.com/about" target="_blank">ATLauncher</a>,
-        <a href="https://multimc.org/" target="_blank">MultiMC</a>, and
-        <a href="https://polymc.org" target="_blank">PolyMC</a>. Pack creators
-        can reference our documentation on
-        <a
-          href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
-          target="_blank"
-          >creating modpacks</a
-        >. Join us on
-        <a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>
-        for support.
+        <i18n-formatted message-id="search.notice.modpacks-alpha">
+          <a
+            v-i18n:wrap="'doc-play-link'"
+            href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
+            target="_blank"
+          />
+          <a
+            v-i18n:wrap="'atl-link'"
+            href="https://atlauncher.com/about"
+            target="_blank"
+          />
+          <a
+            v-i18n:wrap="'mmc-link'"
+            href="https://multimc.org/"
+            target="_blank"
+          />
+          <a
+            v-i18n:wrap="'pmc-link'"
+            href="https://polymc.org"
+            target="_blank"
+          />
+          <a
+            v-i18n:wrap="'doc-create-link'"
+            href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
+            target="_blank"
+          />
+          <a
+            v-i18n:wrap="'discord-link'"
+            href="https://discord.gg/EUHuJHt"
+            target="_blank"
+          />
+        </i18n-formatted>
       </div>
       <Advertisement
         type="banner"
@@ -246,24 +279,30 @@
       />
       <div class="card search-controls">
         <div class="iconified-input">
-          <label class="hidden" for="search">Search</label>
+          <label class="hidden" for="search">{{
+            $t('search.controls.search-field.label')
+          }}</label>
           <SearchIcon aria-hidden="true" />
           <input
             id="search"
             v-model="query"
             type="search"
             name="search"
-            :placeholder="`Search ${projectType.display}s...`"
+            :placeholder="
+              $t(`search.controls.search-field.placeholder.${projectType.id}`)
+            "
             autocomplete="off"
             @input="onSearchChange(1)"
           />
         </div>
         <div class="sort-controls">
           <div class="labeled-control">
-            <span class="labeled-control__label">Sort by</span>
+            <span class="labeled-control__label">{{
+              $t('search.controls.sort-by.label')
+            }}</span>
             <Multiselect
               v-model="sortType"
-              placeholder="Select one"
+              :placeholder="$t('search.controls.sort-by.placeholder')"
               class="search-controls__sorting labeled-control__control"
               track-by="display"
               label="display"
@@ -275,15 +314,17 @@
               @input="onSearchChange(1)"
             >
               <template slot="singleLabel" slot-scope="{ option }">{{
-                option.display
+                $t(`search.controls.sort-by.value.${option.name}`)
               }}</template>
             </Multiselect>
           </div>
           <div class="labeled-control">
-            <span class="labeled-control__label">Show per page</span>
+            <span class="labeled-control__label">{{
+              $t('search.controls.per-page.label')
+            }}</span>
             <Multiselect
               v-model="maxResults"
-              placeholder="Select one"
+              :placeholder="$t('search.controls.per-page.placeholder')"
               class="labeled-control__control"
               :options="[5, 10, 15, 20, 50, 100]"
               :searchable="false"
@@ -304,9 +345,14 @@
       <div>
         <div v-if="isLoading" class="no-results">
           <LogoAnimated aria-hidden="true" />
-          <p>Loading...</p>
+          <p>{{ $t('search.loading') }}</p>
         </div>
-        <div v-else id="search-results" role="list" aria-label="Search results">
+        <div
+          v-else
+          id="search-results"
+          role="list"
+          :aria-label="$t('search.search-results.aria-label')"
+        >
           <SearchResult
             v-for="result in results"
             :id="result.slug ? result.slug : result.project_id"
@@ -326,7 +372,7 @@
             :search="true"
           />
           <div v-if="results && results.length === 0" class="no-results">
-            <p>No results found for your query!</p>
+            <p>{{ $t('search.no-results') }}</p>
           </div>
         </div>
       </div>
@@ -468,25 +514,27 @@ export default {
     this.isLoading = false
   },
   head() {
-    const name = this.$route.name.substring(0, this.$route.name.length - 1)
+    const name = this.$route.name
 
     return {
-      title: `Search ${this.$formatProjectType(name)}s - Modrinth`,
+      title: this.$t('meta.title-format', {
+        title: this.$t(`search.meta.title.${name}`),
+      }),
       meta: [
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: `Search ${this.$formatProjectType(name)}s`,
+          content: this.$t(`search.meta.title.${name}`),
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: `Search ${this.$formatProjectType(name)}s`,
+          content: this.$t(`search.meta.title.${name}`),
         },
         {
           hid: 'description',
           name: 'description',
-          content: `Search and browse thousands of Minecraft ${name}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${name}s.\n`,
+          content: this.$t(`search.meta.description.${name}`),
         },
       ],
     }
