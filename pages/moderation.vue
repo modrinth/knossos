@@ -1,41 +1,62 @@
 <template>
   <div class="page-container">
-    <Modal ref="modal" header="Moderation Form">
+    <Modal ref="modal" :header="$t('moderation.form.title')">
       <div v-if="currentProject !== null" class="moderation-modal">
         <p>
-          Both of these fields are optional, but can be used to communicate
-          problems with a project's team members. The body supports markdown
-          formatting!
+          {{ $t('moderation.form.description') }}
         </p>
         <div class="status">
-          <span>New project status: </span>
-          <Badge
-            v-if="currentProject.newStatus === 'approved'"
-            color="green"
-            :type="currentProject.newStatus"
-          />
-          <Badge
-            v-else-if="
-              currentProject.newStatus === 'processing' ||
-              currentProject.newStatus === 'unlisted' ||
-              currentProject.newStatus === 'archived'
-            "
-            color="yellow"
-            :type="currentProject.newStatus"
-          />
-          <Badge
-            v-else-if="currentProject.newStatus === 'rejected'"
-            color="red"
-            :type="currentProject.newStatus"
-          />
-          <Badge v-else color="gray" :type="currentProject.newStatus" />
+          <i18n-formatted message-id="moderation.form.new-status">
+            <span v-i18n:value="'status'">
+              <Badge
+                v-if="currentProject.newStatus === 'approved'"
+                color="green"
+                :type="
+                  $t('project-status.approved', {
+                    projectType: currentProject.project_type,
+                  })
+                "
+              />
+              <Badge
+                v-else-if="
+                  currentProject.newStatus === 'processing' ||
+                  currentProject.newStatus === 'unlisted' ||
+                  currentProject.newStatus === 'archived'
+                "
+                color="yellow"
+                :type="
+                  $t(`project-status.${currentProject.newStatus}`, {
+                    projectType: currentProject.project_type,
+                  })
+                "
+              />
+              <Badge
+                v-else-if="currentProject.newStatus === 'rejected'"
+                color="red"
+                :type="
+                  $t('project.status.rejected', {
+                    projectType: currentProject.project_type,
+                  })
+                "
+              />
+              <Badge
+                v-else
+                color="gray"
+                :type="
+                  $t(`project.status.${currentProject.newStatus}`, {
+                    projectType: currentProject.project_type,
+                  })
+                "
+              />
+            </span>
+          </i18n-formatted>
         </div>
         <input
           v-model="currentProject.moderation_message"
           type="text"
-          placeholder="Enter the message..."
+          :placeholder="$t('moderation.form.field.message.placeholder')"
         />
-        <h3>Body</h3>
+        <h3>{{ $t('moderation.form.body.header') }}</h3>
         <div class="textarea-wrapper">
           <Chips
             v-model="bodyViewMode"
@@ -62,30 +83,28 @@
               currentProject = null
             "
           >
-            <CrossIcon />
-            Cancel
+            <CrossIcon /> {{ $t('moderation.form.action.cancel') }}
           </button>
           <button class="iconified-button brand-button" @click="saveProject">
-            <CheckIcon />
-            Confirm
+            <CheckIcon /> {{ $t('moderation.form.action.confirm') }}
           </button>
         </div>
       </div>
     </Modal>
     <div class="page-contents">
       <div class="content">
-        <h1>Moderation</h1>
+        <h1>{{ $t('moderation.title') }}</h1>
         <NavRow
           class="card"
           query="type"
           :links="[
             {
-              label: 'all',
+              label: $t('moderation.filter.all'),
               href: '',
             },
             ...moderationTypes.map((x) => {
               return {
-                label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
+                label: $t(`moderation.filter.${x}`),
                 href: x,
               }
             }),
@@ -113,22 +132,19 @@
               class="iconified-button"
               @click="setProjectStatus(project, 'approved')"
             >
-              <CheckIcon />
-              Approve
+              <CheckIcon /> {{ $t('moderation.project.actions.approve') }}
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'unlisted')"
             >
-              <UnlistIcon />
-              Unlist
+              <UnlistIcon /> {{ $t('moderation.project.actions.unlist') }}
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'rejected')"
             >
-              <CrossIcon />
-              Reject
+              <CrossIcon /> {{ $t('moderation.project.actions.reject') }}
             </button>
           </ProjectCard>
         </div>
@@ -145,12 +161,17 @@
           >
             <div class="info">
               <div class="title">
-                <h3>
-                  {{ item.item_type }}
-                  <a :href="item.url">{{ item.item_id }}</a>
-                </h3>
-                reported by
-                <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
+                <i18n-formatted message-id="moderation.report.title">
+                  <h3 v-i18n:value="'item'">
+                    {{ item.item_type }}
+                    <a :href="item.url">{{ item.item_id }}</a>
+                  </h3>
+                  <a
+                    v-i18n:value="'reporter'"
+                    :href="`/user/${item.reporter}`"
+                    >{{ item.reporter }}</a
+                  >
+                </i18n-formatted>
               </div>
               <div
                 v-highlightjs
@@ -161,18 +182,23 @@
             </div>
             <div class="actions">
               <button class="iconified-button" @click="deleteReport(index)">
-                <TrashIcon /> Delete report
+                <TrashIcon /> {{ $t('moderation.report.actions.delete') }}
               </button>
               <span
                 v-tooltip="
-                  $dayjs(item.created).format(
-                    '[Created at] YYYY-MM-DD [at] HH:mm A'
-                  )
+                  $fmt.date(item.created, {
+                    dateStyle: 'long',
+                    timeStyle: 'long',
+                  })
                 "
                 class="stat"
               >
                 <CalendarIcon />
-                Created {{ $dayjs(item.created).fromNow() }}
+                {{
+                  $t('moderation.report.created', {
+                    ago: $fmt.timeDifference(item.created),
+                  })
+                }}
               </span>
             </div>
           </div>
@@ -180,7 +206,7 @@
         <div v-if="reports.length === 0 && projects.length === 0" class="error">
           <Security class="icon"></Security>
           <br />
-          <span class="text">You are up-to-date!</span>
+          <span class="text">{{ $t('moderation.no-reports') }}</span>
         </div>
       </div>
     </div>
@@ -294,8 +320,12 @@ export default {
       currentProject: null,
     }
   },
-  head: {
-    title: 'Moderation - Modrinth',
+  head() {
+    return {
+      title: this.$t('meta.title-format', {
+        title: this.$t('moderation.title'),
+      }),
+    }
   },
   computed: {
     moderationTypes() {
@@ -348,7 +378,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -369,7 +399,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -392,7 +422,7 @@ export default {
     margin-bottom: 0.5rem;
 
     span {
-      margin-right: 0.5rem;
+      margin-left: 0.5rem;
     }
   }
 
