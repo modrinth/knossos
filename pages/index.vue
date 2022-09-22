@@ -8,32 +8,39 @@
         alt="cover-image"
       />
       <div class="text">
-        <h1>Discover, Play, and Create Minecraft content</h1>
+        <h1>{{ $t('landing.title') }}</h1>
         <h3>
-          Find enjoyable, quality content through our
-          <a href="https://github.com/modrinth" target="_blank">open-source</a>
-          modding platform built for the community. Create stuff, get
-          paid<sup>WIP</sup>, and deploy your project with our
-          <a href="https://docs.modrinth.com" target="_blank"
-            >fully documented</a
-          >
-          API!
+          <i18n-formatted message-id="landing.headline">
+            <a
+              v-i18n:wrap="'repo-link'"
+              href="https://github.com/modrinth"
+              target="_blank"
+            />
+            <a
+              v-i18n:wrap="'docs-link'"
+              href="https://docs.modrinth.com"
+              target="_blank"
+            />
+            <sup v-i18n:wrap="'sup'" />
+          </i18n-formatted>
         </h3>
         <form action="/mods">
           <div class="iconified-input">
-            <label class="hidden" for="q">Search Mods</label>
+            <label class="hidden" for="q">{{
+              $t('landing.search-field.label')
+            }}</label>
             <SearchIcon />
             <input
               id="q"
               type="search"
               name="q"
-              placeholder="Search mods..."
+              :placeholder="$t('landing.search-field.placeholder')"
               autocomplete="off"
             />
           </div>
           <button class="iconified-button brand-button" type="submit">
             <RightArrowIcon />
-            Search
+            {{ $t('landing.search-button.text') }}
           </button>
         </form>
       </div>
@@ -59,85 +66,91 @@
           />
         </div>
         <div class="text-container">
-          <h3 class="subheader">Fast and powerful search</h3>
-          <h1>Find what you want, quickly and easily</h1>
+          <h3 class="subheader">{{ $t('landing.feature.search.title') }}</h3>
+          <h1>{{ $t('landing.feature.search.headline') }}</h1>
           <p>
-            We are invested in making it extremely simple to find what you want
-            to play. Our search is adaptable, customizable, and easy to use!
-            Whether you're a power user or someone who just discovered the world
-            of Minecraft modding, we've got you covered.
+            {{ $t('landing.feature.search.body') }}
           </p>
         </div>
       </div>
       <div class="point left">
         <div class="text-container">
           <div>
-            <h3 class="subheader">Packed with features</h3>
-            <h1>Constantly evolving and improving</h1>
+            <h3 class="subheader">
+              {{ $t('landing.feature.active-development.title') }}
+            </h3>
+            <h1>{{ $t('landing.feature.active-development.headline') }}</h1>
             <p>
-              We are always adding new features and working towards making
-              Modrinth have the friendliest user experience possible. Right now,
-              we're working on finishing modpacks and finally paying out
-              creators on our site. If you have any more feature ideas, feel
-              free to join our
-              <a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>!
+              <i18n-formatted
+                message-id="landing.feature.active-development.body"
+              >
+                <a
+                  v-i18n:wrap="'discord-link'"
+                  href="https://discord.gg/EUHuJHt"
+                  target="_blank"
+                />
+              </i18n-formatted>
             </p>
             <div class="features">
               <div class="feature completed">
                 <CheckIcon />
                 <p>
-                  <a href="https://github.com/modrinth" target="_blank">
-                    100% open source
-                  </a>
+                  <a href="https://github.com/modrinth" target="_blank">{{
+                    $t('landing.feature.feature-set.open-source')
+                  }}</a>
                 </p>
               </div>
               <div class="feature completed">
                 <CheckIcon />
-                <p>Real-time search</p>
+                <p>{{ $t('landing.feature.feature-set.search') }}</p>
               </div>
               <div class="feature completed">
                 <CheckIcon />
-                <p>Customizable project pages</p>
+                <p>
+                  {{ $t('landing.feature.feature-set.project-customization') }}
+                </p>
               </div>
               <div class="feature completed">
                 <CheckIcon />
-                <p>Robust team management</p>
+                <p>{{ $t('landing.feature.feature-set.teams') }}</p>
               </div>
               <div class="feature completed">
                 <CheckIcon />
                 <p>
                   <a href="https://docs.modrinth.com" target="_blank">
-                    Completely documented API
+                    {{ $t('landing.feature.feature-set.api') }}
                   </a>
                 </p>
               </div>
               <div class="feature completed">
                 <CheckIcon />
-                <p>Dependency management</p>
+                <p>{{ $t('landing.feature.feature-set.dependencies') }}</p>
               </div>
               <div class="feature in-progress">
                 <CheckIcon />
-                <p>Modpacks</p>
+                <p>{{ $t('landing.feature.feature-set.modpacks') }}</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
-                <p>Creator payouts</p>
+                <p>{{ $t('landing.feature.feature-set.payouts') }}</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
-                <p>More project types</p>
+                <p>
+                  {{ $t('landing.feature.feature-set.more-project-types') }}
+                </p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
-                <p>Creator analytics</p>
+                <p>{{ $t('landing.feature.feature-set.analytics') }}</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
-                <p>In-house authentication</p>
+                <p>{{ $t('landing.feature.feature-set.auth-system') }}</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
-                <p>Project comments</p>
+                <p>{{ $t('landing.feature.feature-set.feedback') }}</p>
               </div>
             </div>
           </div>
@@ -187,16 +200,16 @@
           </div>
         </div>
         <div class="text-container">
-          <h3 class="subheader">Simple to integrate</h3>
-          <h1>An open-source API for everyone to use</h1>
+          <h3 class="subheader">{{ $t('landing.feature.api.title') }}</h3>
+          <h1>{{ $t('landing.feature.api.headline') }}</h1>
           <p>
-            We have created an open source modding platform for the community.
-            We're committed to open source so the community can trust us as
-            their modding platform. Our API is
-            <a href="https://docs.modrinth.com" target="_blank"
-              >fully documented</a
-            >
-            so anyone can use it. We will never add restrictions on our API!
+            <i18n-formatted message-id="landing.feature.api.body">
+              <a
+                v-i18n:wrap="'docs-link'"
+                href="https://docs.modrinth.com"
+                target="_blank"
+              />
+            </i18n-formatted>
           </p>
         </div>
       </div>
