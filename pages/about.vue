@@ -1,55 +1,72 @@
 <template>
   <div class="main">
     <div class="card">
-      <h1>About</h1>
+      <h1>{{ $t('about.title') }}</h1>
       <p>
-        Founded in 2020, Modrinth was created to provide modders with an open
-        and intuitive platform to publish their projects on.
+        {{ $t('about.story.p-founding') }}
       </p>
 
       <p>
-        Our primary goal is to be as open as possible, with all our code being
-        <a target="_blank" href="https://github.com/modrinth">open source</a>,
-        while giving back to the modding community as much as possible.
+        <i18n-formatted message-id="about.story.p-goals">
+          <a
+            v-i18n:wrap="'gh-org-link'"
+            target="_blank"
+            href="https://github.com/modrinth"
+          />
+        </i18n-formatted>
       </p>
 
       <p>
-        While we still are in beta, we hope we can be a major modding platform
-        for all modders.
+        {{ $t('about.story.p-beta') }}
       </p>
-      <h2>How does Modrinth work?</h2>
+      <h2>{{ $t('about.making.h-how-does-work') }}</h2>
       <p>
-        Modrinth is not just a website: it is made of several different
-        components that all come together to make a fast and flexible modding
-        platform.
+        {{ $t('about.making.p-not-just-site') }}
       </p>
 
       <p>
-        On the technical level, Modrinth is made up of two main components: the
-        Rust-based backend named
-        <a target="_blank" href="https://github.com/modrinth/labrinth"
-          >Labrinth</a
-        >, and the Vue-based frontend named
-        <a target="_blank" href="https://github.com/modrinth/knossos">Knossos</a
-        >.
+        <i18n-formatted message-id="about.making.p-technology">
+          <a
+            v-i18n:wrap="'l-repo-link'"
+            target="_blank"
+            href="https://github.com/modrinth/labrinth"
+          />
+          <a
+            v-i18n:wrap="'k-repo-link'"
+            target="_blank"
+            href="https://github.com/modrinth/knossos"
+          />
+        </i18n-formatted>
       </p>
 
       <p>
-        Additionally, some other custom-created resources exist, including but
-        not limited to:
-        <a target="_blank" href="https://github.com/modrinth/minotaur"
-          >Minotaur</a
-        >, a Gradle plugin for easily publishing mods to Modrinth, and
-        <a target="_blank" href="https://github.com/modrinth/minos">Minos</a>,
-        an authentication provider. All of Modrinth's code can be found on
-        <a target="_blank" href="https://github.com/modrinth">our GitHub page</a
-        >.
+        <i18n-formatted message-id="about.making.p-tools">
+          <a
+            v-i18n:wrap="'minotaur-link'"
+            target="_blank"
+            href="https://github.com/modrinth/minotaur"
+          />
+          <a
+            v-i18n:wrap="'minos-link'"
+            target="_blank"
+            href="https://github.com/modrinth/minos"
+          />
+          <a
+            v-i18n:wrap="'gh-org-link'"
+            target="_blank"
+            href="https://github.com/modrinth"
+          />
+        </i18n-formatted>
       </p>
-      <h2>Backend Documentation</h2>
+      <h2>{{ $t('about.api.h-backend-docs') }}</h2>
       <p>
-        Documentation for the Modrinth API (Labrinth) can be found on the GitHub
-        repository's wiki
-        <a target="_blank" href="https://docs.modrinth.com">here</a>.
+        <i18n-formatted message-id="about.api.p-where-find-docs">
+          <a
+            v-i18n:wrap="'docs-link'"
+            target="_blank"
+            href="https://docs.modrinth.com"
+          />
+        </i18n-formatted>
       </p>
     </div>
   </div>
@@ -58,31 +75,32 @@
 <script>
 export default {
   auth: false,
-  head: {
-    title: 'About - Modrinth',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'View information about Modrinth, an open source modding platform here! Modrinth currently supports Minecraft, including the forge and fabric mod loaders.',
-      },
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'About',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'About',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: `https://modrinth.com/about`,
-      },
-    ],
+  head() {
+    return {
+      title: this.$t('meta.title-format', { title: this.$t('about.title') }),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.$t('about.meta.description'),
+        },
+        {
+          hid: 'apple-mobile-web-app-title',
+          name: 'apple-mobile-web-app-title',
+          content: this.$t('about.title'),
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.$t('about.title'),
+        },
+        {
+          hid: 'og:url',
+          name: 'og:url',
+          content: `https://modrinth.com/about`,
+        },
+      ],
+    }
   },
 }
 </script>
