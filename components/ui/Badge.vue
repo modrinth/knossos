@@ -25,7 +25,6 @@ export default {
   display: flex;
   align-items: center;
   font-weight: bold;
-  text-transform: capitalize;
 
   .circle {
     width: 0.5rem;
