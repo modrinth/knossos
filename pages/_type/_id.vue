@@ -1053,7 +1053,6 @@ export default {
   color: var(--color-heading);
   margin-bottom: 0.3rem;
   width: fit-content;
-  display: inline;
 }
 
 .featured-header {
@@ -1066,11 +1065,11 @@ export default {
   }
 
   .all-link {
-    display: inline-flex;
+    display: flex;
+    margin-bottom: 0.3rem;
     align-items: center;
     gap: 3px;
 
-    border-radius: 5px;
     color: var(--color-link);
   }
 
