@@ -23,41 +23,46 @@
         <div class="version-wrapper">
           <div class="version-header">
             <div class="version-header-text">
-              <h2 class="name">
+              <i18n-formatted
+                message-id="project.changelog.item"
+                :values="{
+                  publishedAt: new Date(version.date_published),
+                }"
+              >
+                <h2 v-i18n:value="'name'" class="name">
+                  <nuxt-link
+                    :to="`/${project.project_type}/${
+                      project.slug ? project.slug : project.id
+                    }/version/${encodeURI(version.displayUrlEnding)}`"
+                    v-text="version.name"
+                  />
+                </h2>
                 <nuxt-link
-                  :to="`/${project.project_type}/${
-                    project.slug ? project.slug : project.id
-                  }/version/${encodeURI(version.displayUrlEnding)}`"
-                  >{{ version.name }}</nuxt-link
-                >
-              </h2>
-              <span v-if="members.find((x) => x.user.id === version.author_id)">
-                by
-                <nuxt-link
+                  v-i18n:value="'publisher'"
                   class="text-link"
                   :to="
                     '/user/' +
                     members.find((x) => x.user.id === version.author_id).user
                       .username
                   "
-                  >{{
+                  v-text="
                     members.find((x) => x.user.id === version.author_id).user
                       .username
-                  }}</nuxt-link
-                >
-              </span>
-              <span>
-                on
-                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
-              >
+                  "
+                />
+              </i18n-formatted>
             </div>
             <a
               :href="$parent.findPrimary(version).url"
               class="iconified-button download"
-              :title="`Download ${version.name}`"
+              :title="
+                $t('project.changelog.download-button.title', {
+                  version: version.name,
+                })
+              "
             >
               <DownloadIcon aria-hidden="true" />
-              Download
+              {{ $t('project.changelog.download-button.label') }}
             </a>
           </div>
           <div
@@ -130,8 +135,14 @@ export default {
     })
   },
   head() {
-    const title = `${this.project.title} - Changelog`
-    const description = `Explore the changelog of ${this.project.title}'s ${this.versions.length} versions.`
+    const title = this.$t('project.changelog.meta.title', {
+      project: this.project.title,
+    })
+
+    const description = this.$t('project.changelog.meta.description', {
+      project: this.project.title,
+      versions: this.versions.length,
+    })
 
     return {
       title,
@@ -244,7 +255,6 @@ export default {
 .version-header {
   display: flex;
   align-items: center;
-  margin-top: 0.2rem;
 
   .circle {
     min-width: 0.75rem;
@@ -258,20 +268,17 @@ export default {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
+    white-space: pre-wrap;
 
     h2 {
       margin: 0;
       font-size: var(--font-size-lg);
     }
-
-    h2,
-    span {
-      padding-right: 0.25rem;
-    }
   }
 
   .download {
     display: none;
+    margin-left: 0.25rem;
 
     @media screen and (min-width: 800px) {
       display: flex;
