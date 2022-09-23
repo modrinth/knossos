@@ -75,8 +75,7 @@
         class="action iconified-button"
         @click="resetGallery"
       >
-        <CrossIcon />
-        Cancel
+        <CrossIcon /> {{ $t('project.gallery.action.cancel') }}
       </button>
       <button
         v-if="
@@ -87,8 +86,7 @@
         class="action brand-button iconified-button"
         @click="saveGallery"
       >
-        <CheckIcon />
-        Save changes
+        <CheckIcon /> {{ $t('project.gallery.action.save') }}
       </button>
       <button
         class="iconified-button"
@@ -101,8 +99,7 @@
           })
         "
       >
-        <PlusIcon />
-        Add an image
+        <PlusIcon /> {{ $t('project.gallery.action.add-image') }}
       </button>
     </div>
     <div class="items">
@@ -126,13 +123,13 @@
             <input
               v-model="item.title"
               type="text"
-              placeholder="Enter the title..."
+              :placeholder="$t('project.gallery.title.placeholder')"
             />
             <div class="textarea-wrapper">
               <textarea
                 id="body"
                 v-model="item.description"
-                placeholder="Enter the description..."
+                :placeholder="$t('project.gallery.description.placeholder')"
               />
             </div>
             <Checkbox v-model="item.featured" label="Featured" />
@@ -145,7 +142,11 @@
         <div class="gallery-bottom">
           <div class="gallery-created">
             <CalendarIcon />
-            {{ $dayjs(item.created).format('MMMM D, YYYY') }}
+            {{
+              $t('project.gallery.created-at', {
+                created: new Date(item.created),
+              })
+            }}
           </div>
           <div v-if="currentMember" class="gallery-buttons">
             <button
@@ -158,16 +159,14 @@
                 )
               "
             >
-              <CrossIcon />
-              Cancel
+              <CrossIcon /> {{ $t('project.gallery.action.cancel') }}
             </button>
             <button
               v-else
               class="iconified-button"
               @click="editGalleryIndexes.push(index)"
             >
-              <EditIcon />
-              Edit
+              <EditIcon /> {{ $t('project.gallery.action.edit') }}
             </button>
             <button
               class="iconified-button"
@@ -176,8 +175,7 @@
                 gallery.splice(index, 1)
               "
             >
-              <TrashIcon />
-              Remove
+              <TrashIcon /> {{ $t('project.gallery.action.remove') }}
             </button>
           </div>
         </div>
@@ -200,23 +198,26 @@
             <input
               v-model="item.title"
               type="text"
-              placeholder="Enter the title..."
+              :placeholder="$t('project.gallery.title.placeholder')"
             />
             <div class="textarea-wrapper">
               <textarea
                 id="body"
                 v-model="item.description"
-                placeholder="Enter the description..."
+                :placeholder="$t('project.gallery.description.placeholder')"
               />
             </div>
-            <Checkbox v-model="item.featured" label="Featured" />
+            <Checkbox
+              v-model="item.featured"
+              :label="$t('project.gallery.featured.label')"
+            />
           </div>
         </div>
         <div class="gallery-bottom">
           <FileInput
             :max-size="5242880"
             accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
-            prompt="Choose image or drag it here"
+            :prompt="$t('project.gallery.image.prompt')"
             @change="(files) => showPreviewImage(files, index)"
           />
           <div class="gallery-buttons">
@@ -225,8 +226,7 @@
                 class="iconified-button"
                 @click="newGalleryItems.splice(index, 1)"
               >
-                <TrashIcon />
-                Remove
+                <TrashIcon /> {{ $t('project.gallery.action.remove') }}
               </button>
             </div>
           </div>
@@ -303,8 +303,14 @@ export default {
     this.gallery = JSON.parse(JSON.stringify(this.project.gallery))
   },
   head() {
-    const title = `${this.project.title} - Gallery`
-    const description = `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`
+    const title = this.$t('project.gallery.meta.title', {
+      project: this.project.title,
+    })
+
+    const description = this.$t('project.gallery.meta.description', {
+      project: this.project.title,
+      images: this.project.gallery.length,
+    })
 
     return {
       title,
@@ -420,7 +426,7 @@ export default {
 
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: description,
           type: 'error',
         })
