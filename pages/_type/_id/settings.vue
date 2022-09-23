@@ -10,28 +10,27 @@
       @proceed="deleteProject"
     />
     <div class="card">
-      <h3>General</h3>
+      <h3>{{ $t('project.settings.general.title') }}</h3>
     </div>
     <section class="card main-settings">
       <label>
         <span>
-          <h3>Edit project</h3>
+          <h3>{{ $t('project.settings.general.edit.title') }}</h3>
           <span>
-            This leads you to a page where you can edit your project.
+            {{ $t('project.settings.general.edit.description') }}
           </span>
         </span>
         <div>
-          <nuxt-link class="iconified-button" to="edit"
-            ><EditIcon />Edit</nuxt-link
-          >
+          <nuxt-link class="iconified-button" to="edit">
+            <EditIcon /> {{ $t('project.settings.general.edit.action') }}
+          </nuxt-link>
         </div>
       </label>
       <label>
         <span>
-          <h3>Create a version</h3>
+          <h3>{{ $t('project.settings.general.create-version.title') }}</h3>
           <span>
-            This leads to a page where you can create a version for your
-            project.
+            {{ $t('project.settings.general.create-version.description') }}
           </span>
         </span>
         <div>
@@ -41,16 +40,17 @@
             :disabled="
               (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
             "
-            ><PlusIcon />Create a version</nuxt-link
           >
+            <PlusIcon />
+            {{ $t('project.settings.general.create-version.action') }}
+          </nuxt-link>
         </div>
       </label>
       <label class="no-margin">
         <span>
-          <h3>Delete project</h3>
+          <h3>{{ $t('project.settings.general.delete-project.title') }}</h3>
           <span>
-            Removes your project from Modrinth's servers and search. Clicking on
-            this will delete your project, so be extra careful!
+            {{ $t('project.settings.general.delete-project.description') }}
           </span>
         </span>
         <div>
@@ -61,13 +61,14 @@
             "
             @click="$refs.modal_confirm.show()"
           >
-            <TrashIcon />Delete project
+            <TrashIcon />
+            {{ $t('project.settings.general.delete-project.action') }}
           </button>
         </div>
       </label>
     </section>
     <div class="card columns team-invite">
-      <h3>Team members</h3>
+      <h3>{{ $t('project.settings.team-members.title') }}</h3>
       <div
         v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
         class="column"
@@ -76,15 +77,18 @@
           id="username"
           v-model="currentUsername"
           type="text"
-          placeholder="Username"
+          :placeholder="
+            $t('project.settings.invite-member.username.placeholder')
+          "
         />
-        <label for="username" class="hidden">Username</label>
+        <label for="username" class="hidden">
+          {{ $t('project.settings.invite-member.username.label') }}
+        </label>
         <button
           class="iconified-button brand-button column"
           @click="inviteTeamMember"
         >
-          <PlusIcon />
-          Invite
+          <PlusIcon /> {{ $t('project.settings.invite-member.action') }}
         </button>
       </div>
     </div>
@@ -106,12 +110,26 @@
             <nuxt-link :to="'/user/' + member.user.username" class="name">
               <p>{{ member.name }}</p>
             </nuxt-link>
-            <p>{{ member.role }}</p>
+            <p>
+              {{
+                member.role === 'Owner'
+                  ? $t('project.member-role.owner')
+                  : member.role
+              }}
+            </p>
           </div>
         </div>
         <div class="side-buttons">
-          <Badge v-if="member.accepted" type="accepted" color="green" />
-          <Badge v-else type="pending" color="yellow" />
+          <Badge
+            v-if="member.accepted"
+            :type="$t('project.settings.team-member.status.accepted')"
+            color="green"
+          />
+          <Badge
+            v-else
+            :type="$t('project.settings.team-member.status.pending')"
+            color="yellow"
+          />
           <button
             v-if="member.role !== 'Owner'"
             class="dropdown-icon"
@@ -130,7 +148,7 @@
       <div class="content">
         <div class="main-info">
           <label>
-            Role:
+            {{ $t('project.settings.team-member.role.label') }}
             <input
               v-model="allTeamMembers[index].role"
               type="text"
@@ -141,10 +159,10 @@
             />
           </label>
           <ul v-if="member.role === 'Owner'" class="known-errors">
-            <li>A project can only have one 'Owner'.</li>
+            <li>{{ $t('project.settings.error.only-one-owner') }}</li>
           </ul>
         </div>
-        <h3>Permissions</h3>
+        <h3>{{ $t('project.settings.team-member.permissions.title') }}</h3>
         <div class="permissions">
           <Checkbox
             :value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
@@ -152,7 +170,9 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
             "
-            label="Upload version"
+            :label="
+              $t('project.settings.team-member.permission.upload-version')
+            "
             @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
           />
           <Checkbox
@@ -161,7 +181,9 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
             "
-            label="Delete version"
+            :label="
+              $t('project.settings.team-member.permission.delete-version')
+            "
             @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
           />
           <Checkbox
@@ -170,7 +192,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
-            label="Edit details"
+            :label="$t('project.settings.team-member.permission.edit-details')"
             @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
           />
           <Checkbox
@@ -179,7 +201,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
             "
-            label="Edit body"
+            :label="$t('project.settings.team-member.permission.edit-body')"
             @input="allTeamMembers[index].permissions ^= EDIT_BODY"
           />
           <Checkbox
@@ -188,7 +210,9 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
             "
-            label="Manage invites"
+            :label="
+              $t('project.settings.team-member.permission.manage-invites')
+            "
             @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
           />
           <Checkbox
@@ -197,7 +221,7 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
             "
-            label="Remove member"
+            :label="$t('project.settings.team-member.permission.remove-member')"
             @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
           />
           <Checkbox
@@ -205,7 +229,7 @@
             :disabled="
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
             "
-            label="Edit member"
+            :label="$t('project.settings.team-member.permission.edit-member')"
             @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
           />
           <Checkbox
@@ -214,7 +238,9 @@
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
             "
-            label="Delete project"
+            :label="
+              $t('project.settings.team-member.permission.delete-project')
+            "
             @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
           />
         </div>
@@ -227,7 +253,7 @@
             @click="removeTeamMember(index)"
           >
             <TrashIcon />
-            Remove member
+            {{ $t('project.settings.team-member.actions.remove') }}
           </button>
           <button
             v-if="
@@ -239,7 +265,7 @@
             @click="transferOwnership(index)"
           >
             <UserIcon />
-            Transfer ownership
+            {{ $t('project.settings.team-member.actions.make-owner') }}
           </button>
           <button
             class="iconified-button brand-button"
@@ -250,7 +276,7 @@
             @click="updateTeamMember(index)"
           >
             <CheckIcon />
-            Save changes
+            {{ $t('project.settings.team-member.actions.save') }}
           </button>
         </div>
       </div>
@@ -345,7 +371,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -365,7 +391,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -391,7 +417,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -414,7 +440,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -431,8 +457,8 @@ export default {
       await this.$router.push(`/user/${this.$auth.user.username}`)
       this.$notify({
         group: 'main',
-        title: 'Action Success',
-        text: 'Your project has been successfully deleted.',
+        title: this.$t('project.settings.deleted.title'),
+        text: this.$t('project.settings.text'),
         type: 'success',
       })
     },
