@@ -427,9 +427,8 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 1rem;
-  padding: var(--spacing-card-bg);
+  padding: 1rem;
 
   > div {
     display: flex;
@@ -444,7 +443,7 @@ h1 {
     .title {
       display: flex;
       align-items: baseline;
-      gap: 0.5rem;
+      gap: 0.25rem;
       flex-wrap: wrap;
 
       h3 {
@@ -462,14 +461,23 @@ h1 {
     }
   }
 
-  .stat {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    grid-gap: 0.5rem;
+  .actions {
+    min-width: fit-content;
 
-    svg {
-      width: 1em;
+    .iconified-button {
+      margin-left: auto;
+      width: fit-content;
+    }
+
+    .stat {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      grid-gap: 0.5rem;
+
+      svg {
+        width: 1em;
+      }
     }
   }
 }

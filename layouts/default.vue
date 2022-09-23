@@ -62,7 +62,7 @@
                 />
                 <SunIcon v-else aria-hidden="true" />
               </button>
-              <div v-if="$auth.user" class="dropdown">
+              <div v-if="$auth.user" class="dropdown" tabindex="0">
                 <button class="control" value="Profile Dropdown">
                   <img
                     :src="$auth.user.avatar_url"
@@ -72,72 +72,56 @@
                   />
                   <DropdownIcon class="caret" />
                 </button>
-                <ul class="content card">
-                  <li>
-                    <NuxtLink class="item" :to="`/user/${$auth.user.username}`">
-                      <div class="title profile-link">
-                        <div class="username">@{{ $auth.user.username }}</div>
-                        <div class="prompt">Go to my profile</div>
-                      </div>
-                    </NuxtLink>
-                  </li>
+                <div class="content card">
+                  <NuxtLink class="item" :to="`/user/${$auth.user.username}`">
+                    <div class="title profile-link">
+                      <div class="username">@{{ $auth.user.username }}</div>
+                      <div class="prompt">Go to my profile</div>
+                    </div>
+                  </NuxtLink>
                   <hr class="divider" />
-                  <li>
-                    <button class="item" @click="$refs.modal_creation.show()">
-                      <PlusIcon class="icon" />
-                      <span class="title">Create a project</span>
-                    </button>
-                  </li>
+                  <button class="item" @click="$refs.modal_creation.show()">
+                    <PlusIcon class="icon" />
+                    <span class="title">Create a project</span>
+                  </button>
                   <hr class="divider" />
-                  <li>
-                    <NuxtLink class="item" to="/notifications">
-                      <NotificationIcon class="icon" />
-                      <span class="title">Notifications</span>
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink class="item" to="/settings/follows">
-                      <HeartIcon class="icon" />
-                      <span class="title">Following</span>
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink class="item" to="/settings">
-                      <SettingsIcon class="icon" />
-                      <span class="title">Settings</span>
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      v-if="
-                        $auth.user.role === 'moderator' ||
-                        $auth.user.role === 'admin'
-                      "
-                      class="item"
-                      to="/moderation"
-                    >
-                      <ModerationIcon class="icon" />
-                      <span class="title">Moderation</span>
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <button class="item" @click="changeTheme">
-                      <MoonIcon
-                        v-if="$colorMode.value === 'light'"
-                        class="icon"
-                      />
-                      <SunIcon v-else class="icon" />
-                      <span class="dropdown-item__text">Change theme</span>
-                    </button>
-                  </li>
+                  <NuxtLink class="item" to="/notifications">
+                    <NotificationIcon class="icon" />
+                    <span class="title">Notifications</span>
+                  </NuxtLink>
+                  <NuxtLink class="item" to="/settings/follows">
+                    <HeartIcon class="icon" />
+                    <span class="title">Following</span>
+                  </NuxtLink>
+                  <NuxtLink class="item" to="/settings">
+                    <SettingsIcon class="icon" />
+                    <span class="title">Settings</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    v-if="
+                      $auth.user.role === 'moderator' ||
+                      $auth.user.role === 'admin'
+                    "
+                    class="item"
+                    to="/moderation"
+                  >
+                    <ModerationIcon class="icon" />
+                    <span class="title">Moderation</span>
+                  </NuxtLink>
+                  <button class="item" @click="changeTheme">
+                    <MoonIcon
+                      v-if="$colorMode.value === 'light'"
+                      class="icon"
+                    />
+                    <SunIcon v-else class="icon" />
+                    <span class="dropdown-item__text">Change theme</span>
+                  </button>
                   <hr class="divider" />
-                  <li>
-                    <button class="item" @click="logout">
-                      <LogOutIcon class="icon" />
-                      <span class="dropdown-item__text">Log out</span>
-                    </button>
-                  </li>
-                </ul>
+                  <button class="item" @click="logout">
+                    <LogOutIcon class="icon" />
+                    <span class="dropdown-item__text">Log out</span>
+                  </button>
+                </div>
               </div>
               <section v-else class="auth-prompt">
                 <a :href="authUrl" class="log-in-button">
@@ -425,6 +409,10 @@ export default {
       document.body.style.overflowY = 'scroll'
 
       this.$store.dispatch('user/fetchAll')
+
+      document.body.setAttribute('tabindex', '-1')
+      document.body.focus()
+      document.body.removeAttribute('tabindex')
     },
   },
   beforeCreate() {
@@ -744,8 +732,7 @@ export default {
                 }
               }
 
-              .item:hover,
-              .item:focus {
+              .item:hover {
                 background-color: var(--color-bg);
               }
 
@@ -768,7 +755,9 @@ export default {
             outline-color: var(--color-brand);
           }
 
-          .dropdown:hover .content {
+          .dropdown:hover .content,
+          .dropdown:focus .content,
+          .dropdown:focus-within .content {
             opacity: 1;
             transform: scaleY(1);
             visibility: visible;

@@ -1,11 +1,11 @@
 <template>
-  <div v-if="pages.length > 1" class="columns paginates">
+  <div v-if="count > 1" class="columns paginates">
     <a
-      :class="{ disabled: currentPage === 1 }"
+      :class="{ disabled: page === 1 }"
       class="left-arrow paginate has-icon"
       aria-label="Previous Page"
-      :href="linkFunction(currentPage - 1)"
-      @click.prevent="currentPage !== 1 ? switchPage(currentPage - 1) : null"
+      :href="linkFunction(page - 1)"
+      @click.prevent="page !== 1 ? switchPage(page - 1) : null"
     >
       <LeftArrowIcon />
     </a>
@@ -13,7 +13,7 @@
       v-for="(item, index) in pages"
       :key="'page-' + item + '-' + index"
       :class="{
-        'page-number': currentPage !== item,
+        'page-number': page !== item,
         shrink: item > 99,
       }"
       class="page-number-container"
@@ -24,11 +24,11 @@
       <a
         v-else
         :class="{
-          'page-number current': currentPage === item,
+          'page-number current': page === item,
           shrink: item > 99,
         }"
         :href="linkFunction(item)"
-        @click.prevent="currentPage !== item ? switchPage(item) : null"
+        @click.prevent="page !== item ? switchPage(item) : null"
       >
         {{ item }}
       </a>
@@ -36,15 +36,13 @@
 
     <a
       :class="{
-        disabled: currentPage === pages[pages.length - 1],
+        disabled: page === pages[pages.length - 1],
       }"
       class="right-arrow paginate has-icon"
       aria-label="Next Page"
-      :href="linkFunction(currentPage + 1)"
+      :href="linkFunction(page + 1)"
       @click.prevent="
-        currentPage !== pages[pages.length - 1]
-          ? switchPage(currentPage + 1)
-          : null
+        page !== pages[pages.length - 1] ? switchPage(page + 1) : null
       "
     >
       <RightArrowIcon />
@@ -65,21 +63,54 @@ export default {
     RightArrowIcon,
   },
   props: {
-    currentPage: {
+    page: {
       type: Number,
       default: 1,
     },
-    pages: {
-      type: Array,
-      default() {
-        return []
-      },
+    count: {
+      type: Number,
+      default: 1,
     },
     linkFunction: {
       type: Function,
       default() {
         return () => '/'
       },
+    },
+  },
+  computed: {
+    pages() {
+      let pages = []
+
+      if (this.count > 4) {
+        if (this.page + 3 >= this.count) {
+          pages = [
+            1,
+            '-',
+            this.count - 4,
+            this.count - 3,
+            this.count - 2,
+            this.count - 1,
+            this.count,
+          ]
+        } else if (this.page > 4) {
+          pages = [
+            1,
+            '-',
+            this.page - 1,
+            this.page,
+            this.page + 1,
+            '-',
+            this.count,
+          ]
+        } else {
+          pages = [1, 2, 3, 4, 5, '-', this.count]
+        }
+      } else {
+        pages = Array.from({ length: this.count }, (_, i) => i + 1)
+      }
+
+      return pages
     },
   },
   methods: {

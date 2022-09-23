@@ -39,14 +39,14 @@
         <nuxt-link
           v-if="mode === 'version'"
           class="iconified-button back-button"
-          :to="`/${project.project_type}/${
-            project.slug ? project.slug : project.id
-          }/${
-            $nuxt.context.from
-              ? $nuxt.context.from.name === 'type-id-changelog'
-                ? 'changelog'
-                : 'versions'
-              : 'versions'
+          :to="`${
+            $nuxt.context.from &&
+            ($nuxt.context.from.name === 'type-id-changelog' ||
+              $nuxt.context.from.name === 'type-id-versions')
+              ? $nuxt.context.from.fullPath
+              : `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/versions`
           }`"
         >
           <BackIcon aria-hidden="true" />
@@ -731,6 +731,7 @@ export default {
     }
   },
   async fetch() {
+    console.log(this.$nuxt.context.from)
     await this.setVersion()
   },
   head() {

@@ -321,10 +321,13 @@ kbd {
   font-size: 0.85em !important;
 }
 
-// @import "vue-select/src/scss/vue-select.scss";
-
 @import '~assets/styles/highlightjs.scss';
 @import '~assets/styles/layout.scss';
 @import '~assets/styles/utils.scss';
 @import '~assets/styles/components.scss';
 @import '~assets/styles/normalize.scss';
+
+button:focus-visible, a:focus-visible, input:focus-visible, [tabindex="0"]:focus-visible {
+  outline: .25rem solid #ea80ff;
+  border-radius: .25rem;
+}

@@ -293,8 +293,8 @@
         </div>
       </div>
       <pagination
-        :current-page="currentPage"
-        :pages="pages"
+        :page="currentPage"
+        :count="pageCount"
         :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
         @switch-page="onSearchChange"
       ></pagination>
@@ -328,8 +328,8 @@
         </div>
       </div>
       <pagination
-        :current-page="currentPage"
-        :pages="pages"
+        :page="currentPage"
+        :count="pageCount"
         :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
         @switch-page="onSearchChangeToTop"
       ></pagination>
@@ -386,7 +386,7 @@ export default {
       facets: [],
       orFacets: [],
       results: null,
-      pages: [],
+      pageCount: 1,
       currentPage: 1,
 
       projectType: 'mod',
@@ -538,7 +538,7 @@ export default {
         }
 
         this.results = null
-        this.pages = []
+        this.pageCount = 1
         this.currentPage = 1
         this.query = ''
         this.maxResults = 20
@@ -738,35 +738,7 @@ export default {
         const res = await this.$axios.get(url, this.$defaultHeaders())
         this.results = res.data.hits
 
-        const pageAmount = Math.ceil(res.data.total_hits / res.data.limit)
-
-        if (pageAmount > 4) {
-          if (this.currentPage + 3 >= pageAmount) {
-            this.pages = [
-              1,
-              '-',
-              pageAmount - 4,
-              pageAmount - 3,
-              pageAmount - 2,
-              pageAmount - 1,
-              pageAmount,
-            ]
-          } else if (this.currentPage > 4) {
-            this.pages = [
-              1,
-              '-',
-              this.currentPage - 1,
-              this.currentPage,
-              this.currentPage + 1,
-              '-',
-              pageAmount,
-            ]
-          } else {
-            this.pages = [1, 2, 3, 4, 5, '-', pageAmount]
-          }
-        } else {
-          this.pages = Array.from({ length: pageAmount }, (_, i) => i + 1)
-        }
+        this.pageCount = Math.ceil(res.data.total_hits / res.data.limit)
 
         if (process.client) {
           url = this.getSearchUrl(offset)

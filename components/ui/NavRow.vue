@@ -16,7 +16,7 @@
       :style="`visibility: ${
         useAnimation && activeIndex !== -1 ? 'visible' : 'hidden'
       }; left: ${indicator.left}px; right: ${indicator.right}px;
-      top: ${indicator.top}px; transition: left 350ms ${
+          top: ${indicator.top}px; transition: left 350ms ${
         indicator.direction === 'left'
           ? 'cubic-bezier(1,0,.3,1) -140ms'
           : 'cubic-bezier(.75,-0.01,.24,.99) -40ms'
@@ -113,12 +113,9 @@ export default {
           this.$refs.linkElements[this.activeIndex].$el.offsetWidth
         this.indicator.top =
           this.$refs.linkElements[this.activeIndex].$el.offsetTop +
-          this.$refs.linkElements[this.activeIndex].$el.offsetHeight
-
-        this.$forceUpdate()
+          this.$refs.linkElements[this.activeIndex].$el.offsetHeight +
+          1
       }
-
-      this.$forceUpdate()
 
       this.oldIndex = this.activeIndex
     },
@@ -145,7 +142,7 @@ export default {
       content: '';
       display: block;
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
       width: 100%;
       border-radius: var(--size-rounded-max);
       height: 0.25rem;

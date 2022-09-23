@@ -1,15 +1,24 @@
 <template>
   <div class="content">
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(changelogVersions.length / 50)"
+      :link-function="getPageLink"
+      @switch-page="switchPage"
+    />
     <div class="card">
       <div
-        v-for="version in filteredVersions"
+        v-for="(version, index) in changelogVersions.slice(
+          (currentPage - 1) * 50,
+          currentPage * 50
+        )"
         :key="version.id"
         class="changelog-item"
       >
         <div
           :class="`changelog-bar ${version.version_type} ${
             version.duplicate ? 'duplicate' : ''
-          }`"
+          } ${index === 50 - 1 ? 'last-child' : ''}`"
         ></div>
         <div class="version-wrapper">
           <div class="version-header">
@@ -60,13 +69,21 @@
         </div>
       </div>
     </div>
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(changelogVersions.length / 50)"
+      :link-function="getPageLink"
+      @switch-page="(page) => switchPage(page, true)"
+    />
   </div>
 </template>
 <script>
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import Pagination from '~/components/ui/Pagination'
 
 export default {
   components: {
+    Pagination,
     DownloadIcon,
   },
   props: {
@@ -92,10 +109,13 @@ export default {
   data() {
     return {
       changelogVersions: [],
-      filteredVersions: [],
+      currentPage: 1,
     }
   },
   fetch() {
+    if (this.$route.query.page)
+      this.currentPage = parseInt(this.$route.query.page)
+
     this.changelogVersions = this.versions.map((version, index) => {
       const nextVersion = this.versions[index + 1]
       if (
@@ -108,8 +128,6 @@ export default {
         return { duplicate: false, ...version }
       }
     })
-
-    this.filteredVersions = this.changelogVersions
   },
   head() {
     const title = `${this.project.title} - Changelog`
@@ -141,12 +159,25 @@ export default {
       ],
     }
   },
-  auth: false,
   methods: {
-    updateVersions(updatedVersions) {
-      this.filteredVersions = updatedVersions
+    switchPage(page, toTop) {
+      this.currentPage = page
+      this.$router.replace(this.getPageLink(page))
+
+      if (toTop) {
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
+      }
+    },
+    getPageLink(page) {
+      if (page === 1) {
+        return this.$route.path
+      } else {
+        return `${this.$route.path}?page=${this.currentPage}`
+      }
     },
   },
+  auth: false,
 }
 </script>
 
@@ -194,7 +225,6 @@ export default {
     }
 
     &.duplicate {
-      height: calc(100% + 1.5rem);
       background: linear-gradient(
         to bottom,
         transparent,
@@ -203,6 +233,10 @@ export default {
         var(--color)
       );
       background-size: 100% 10px;
+    }
+
+    &.duplicate:not(&.last-child) {
+      height: calc(100% + 1.5rem);
     }
   }
 }

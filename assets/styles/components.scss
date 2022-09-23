@@ -328,6 +328,9 @@
 }
 
 .iconified-button {
+  --text-color: var(--color-button-text);
+  --background-color: var(--color-button-bg);
+
   display: flex;
   padding: 0 1rem;
   margin: 0 0.25rem 0 0;
@@ -339,8 +342,8 @@
 
   box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
 
-  color: var(--color-button-text);
-  background-color: var(--color-button-bg);
+  color: var(--text-color);
+  background-color: var(--background-color);
   text-decoration: none;
   border-radius: 2rem;
 
@@ -391,50 +394,27 @@
 }
 
 .raised-button {
-  background-color: var(--color-raised-bg);
+  --background-color: var(--color-raised-bg);
   box-shadow: var(--shadow-inset-sm), var(--shadow-raised);
-
-  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
-    background-color: var(--color-raised-bg);
-  }
 }
 
 .warning-button {
-  background-color:var(--color-warning-bg);
-  color: var(--color-warning-text);
-
-  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
-    background-color:var(--color-warning-bg);
-    color: var(--color-warning-text);
-  }
+  --background-color:var(--color-warning-bg);
+  --text-color: var(--color-warning-text);
 }
 
 .danger-button {
-  background-color: var(--color-badge-red-bg);
-  color: var(--color-brand-inverted);
-
-  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
-    color: var(--color-brand-inverted);
-    background-color: var(--color-badge-red-bg);
-  }
+  --background-color: var(--color-badge-red-bg);
+  --text-color: var(--color-brand-inverted);
 }
 
 .brand-button {
-  color: var(--color-brand-inverted);
-  background-color: var(--color-brand);
-
-  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
-    color: var(--color-brand-inverted);
-    background-color: var(--color-brand);
-  }
+  --background-color: var(--color-brand);
+  --text-color: var(--color-brand-inverted);
 }
 
 .light-brand-button {
-  background-color: var(--color-brand-light);
-
-  &:hover:not(&:disabled), &:active:not(&:disabled), &:focus:not(&:disabled) {
-    background-color: var(--color-brand-light);
-  }
+  --background-color: var(--color-brand-light);
 }
 
 .button-group {
@@ -463,6 +443,7 @@
 
   input {
     background: transparent;
+    box-shadow: none;
   }
 
   input::placeholder {
