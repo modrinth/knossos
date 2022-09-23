@@ -8,7 +8,7 @@
       @click="toggleItem(item)"
     >
       <CheckIcon v-if="selected === item" />
-      <span>{{ item }}</span>
+      <span>{{ customLabel(item) }}</span>
     </button>
   </div>
 </template>
@@ -25,6 +25,10 @@ export default {
     items: {
       required: true,
       type: Array,
+    },
+    customLabel: {
+      type: Function,
+      default: (item) => item,
     },
     neverEmpty: {
       default: true,
@@ -63,8 +67,6 @@ export default {
   flex-wrap: wrap;
 
   .iconified-button {
-    text-transform: capitalize;
-
     svg {
       width: 1em;
       height: 1em;

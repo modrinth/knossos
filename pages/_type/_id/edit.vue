@@ -9,8 +9,7 @@
           }/settings`"
           class="iconified-button column"
         >
-          <CrossIcon />
-          Cancel
+          <CrossIcon /> {{ $t('project.edit.actions.cancel') }}
         </nuxt-link>
         <button
           v-if="
@@ -18,45 +17,43 @@
             project.status === 'draft' ||
             project.status === 'unlisted'
           "
-          title="Submit for review"
           class="iconified-button column"
           :disabled="!$nuxt.$loading"
           @click="saveProjectReview"
         >
-          <CheckIcon />
-          Submit for review
+          <CheckIcon /> {{ $t('project.edit.actions.submit-for-review') }}
         </button>
         <button
-          title="Save"
           class="iconified-button brand-button column"
           :disabled="!$nuxt.$loading"
           @click="saveProjectNotForReview"
         >
-          <SaveIcon />
-          Save changes
+          <SaveIcon /> {{ $t('project.edit.actions.save') }}
         </button>
       </div>
       <div v-if="showKnownErrors" class="known-errors">
         <ul>
-          <li v-if="newProject.title === ''">Your project must have a name.</li>
+          <li v-if="newProject.title === ''">
+            {{ $t('project.edit.error.no-title') }}
+          </li>
           <li v-if="newProject.description === ''">
-            Your project must have a summary.
+            {{ $t('project.edit.error.no-description') }}
           </li>
           <li v-if="newProject.slug === ''">
-            Your project must have a vanity URL.
+            {{ $t('project.edit.error.no-slug') }}
           </li>
           <li v-if="!savingAsDraft && newProject.body === ''">
-            Your project must have a body to submit for review.
+            {{ $t('project.edit.error.no-body') }}
           </li>
           <li v-if="!savingAsDraft && project.versions.length < 1">
-            Your project must have at least one version to submit for review.
+            {{ $t('project.edit.error.no-versions') }}
           </li>
           <li
             v-if="
               license === null || license_url === null || license_url === ''
             "
           >
-            Your project must have a license.
+            {{ $t('project.edit.error.no-license') }}
           </li>
         </ul>
       </div>
@@ -64,16 +61,20 @@
     <section class="card essentials">
       <label>
         <span>
-          <h3>Name<span class="required">*</span></h3>
+          <h3>
+            <i18n-formatted message-id="project.edit.name.title">
+              <span v-i18n:wrap="'required'" class="required" />
+            </i18n-formatted>
+          </h3>
           <span>
-            Be creative! Generic project names will be harder to search for.
+            {{ $t('project.edit.name.description') }}
           </span>
         </span>
         <input
           v-model="newProject.title"
           :class="{ 'known-error': newProject.title === '' && showKnownErrors }"
           type="text"
-          placeholder="Enter the name"
+          :placeholder="$t('project.edit.name.placeholder')"
           maxlength="64"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -82,10 +83,13 @@
       </label>
       <label>
         <span>
-          <h3>Summary<span class="required">*</span></h3>
+          <h3>
+            <i18n-formatted message-id="project.edit.description.title">
+              <span v-i18n:wrap="'required'" class="required" />
+            </i18n-formatted>
+          </h3>
           <span>
-            Give a short description of your project that will appear on search
-            pages.
+            {{ $t('project.edit.description.description') }}
           </span>
         </span>
         <input
@@ -94,7 +98,7 @@
             'known-error': newProject.description === '' && showKnownErrors,
           }"
           type="text"
-          placeholder="Enter the summary"
+          :placeholder="$t('project.edit.description.placeholder')"
           maxlength="256"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -103,19 +107,16 @@
       </label>
       <label>
         <span>
-          <h3>Categories</h3>
+          <h3>{{ $t('project.edit.categories.title') }}</h3>
           <span class="no-padding">
-            Select up to 3 categories that will help others <br />
-            find your project.
+            {{ $t('project.edit.categories.description') }}
           </span>
         </span>
         <Multiselect
           id="categories"
           v-model="newProject.categories"
           :options="selectableCategories"
-          :custom-label="
-            (value) => value.charAt(0).toUpperCase() + value.slice(1)
-          "
+          :custom-label="(value) => $t($categoryTranslationKey(value))"
           :loading="$tag.categories.length === 0"
           :multiple="true"
           :searchable="true"
@@ -126,7 +127,7 @@
           :max="3"
           :limit="6"
           :hide-selected="true"
-          placeholder="Choose categories"
+          :placeholder="$t('project.edit.categories.placeholder')"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -135,20 +136,16 @@
       </label>
       <label>
         <span>
-          <h3>Additional Categories</h3>
-          <span class="no-padding">
-            Select more categories that will help others <br />
-            find your project. These are searchable, but not <br />
-            displayed in search.
-          </span>
+          <h3>{{ $t('project.edit.additional-categories.title') }}</h3>
+          <span class="no-padding">{{
+            $t('project.edit.additional-categories.description')
+          }}</span>
         </span>
         <Multiselect
           id="additional_categories"
           v-model="newProject.additional_categories"
           :options="selectableAdditionalCategories"
-          :custom-label="
-            (value) => value.charAt(0).toUpperCase() + value.slice(1)
-          "
+          :custom-label="(value) => $t($categoryTranslationKey(value))"
           :loading="$tag.categories.length === 0"
           :multiple="true"
           :searchable="true"
@@ -159,7 +156,7 @@
           :max="255"
           :limit="6"
           :hide-selected="true"
-          placeholder="Choose additional categories"
+          :placeholder="$t('project.edit.additional-categories.placeholder')"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -168,7 +165,11 @@
       </label>
       <label class="vertical-input no-margin">
         <span>
-          <h3>Vanity URL (slug)<span class="required">*</span></h3>
+          <h3>
+            <i18n-formatted message-id="project.edit.slug.title">
+              <span v-i18n:wrap="'required'" class="required" />
+            </i18n-formatted>
+          </h3>
           <span class="slug-description"
             >https://modrinth.com/{{ project.project_type.toLowerCase() }}/{{
               newProject.slug ? newProject.slug : 'your-slug'
@@ -180,7 +181,7 @@
           v-model="newProject.slug"
           :class="{ 'known-error': newProject.slug === '' && showKnownErrors }"
           type="text"
-          placeholder="Enter the vanity URL"
+          :placeholder="$t('project.edit.slug.placeholder')"
           maxlength="64"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -189,7 +190,7 @@
       </label>
     </section>
     <section class="card project-icon">
-      <h3>Icon</h3>
+      <h3>{{ $t('project.edit.icon.title') }}</h3>
       <Avatar
         size="lg"
         :src="
@@ -206,7 +207,7 @@
         :show-icon="true"
         accept="image/png,image/jpeg,image/gif,image/webp"
         class="choose-image"
-        prompt="Choose image"
+        :prompt="$t('project.edit.icon.label')"
         :disabled="(currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS"
         @change="showPreviewImage"
       />
@@ -219,8 +220,7 @@
           iconChanged = true
         "
       >
-        <TrashIcon />
-        Reset
+        <TrashIcon /> {{ $t('project.edit.actions.reset-icon') }}
       </button>
     </section>
     <section
@@ -229,20 +229,24 @@
     >
       <div class="columns">
         <div>
-          <h3>Supported environments</h3>
+          <h3>{{ $t('project.edit.supported-environments.title') }}</h3>
           <span>
-            Let others know what environments your project supports.
+            {{ $t('project.edit.supported-environments.description') }}
           </span>
         </div>
         <div class="labeled-control">
-          <h3>Client<span class="required">*</span></h3>
+          <h3>
+            <i18n-formatted
+              message-id="project.edit.supported-environments-client.title"
+            >
+              <span v-i18n:wrap="'required'" class="required" />
+            </i18n-formatted>
+          </h3>
           <Multiselect
             v-model="clientSideType"
-            placeholder="Select one"
+            :placeholder="$t('project.edit.supported-environments.placeholder')"
             :options="sideTypes"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => $t(`project.environment-status.${value}`)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -253,14 +257,18 @@
           />
         </div>
         <div class="labeled-control">
-          <h3>Server<span class="required">*</span></h3>
+          <h3>
+            <i18n-formatted
+              message-id="project.edit.supported-environments-server.title"
+            >
+              <span v-i18n:wrap="'required'" class="required" />
+            </i18n-formatted>
+          </h3>
           <Multiselect
             v-model="serverSideType"
-            placeholder="Select one"
+            :placeholder="$t('project.edit.supported-environments.placeholder')"
             :options="sideTypes"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => $t(`project.environment-status.${value}`)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -274,29 +282,28 @@
     </section>
     <section class="card description">
       <h3>
-        <label
-          for="body"
-          title="You can type an extended description of your project here."
-        >
-          Description<span class="required">*</span>
+        <label for="body">
+          <i18n-formatted message-id="project.edit.body.title">
+            <span v-i18n:wrap="'required'" class="required" />
+          </i18n-formatted>
         </label>
       </h3>
       <span>
-        You can type an extended description of your mod here. This editor
-        supports
-        <a
-          class="text-link"
-          href="https://guides.github.com/features/mastering-markdown/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Markdown</a
-        >. HTML can also be used inside your description, not including styles,
-        scripts, and iframes (though YouTube iframes are allowed).
+        <i18n-formatted message-id="project.edit.body.description">
+          <a
+            v-i18n:wrap="'md-help-link'"
+            class="text-link"
+            href="https://guides.github.com/features/mastering-markdown/"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        </i18n-formatted>
       </span>
       <Chips
         v-model="bodyViewMode"
         class="separator"
         :items="['source', 'preview']"
+        :custom-label="(item) => $t(`project.edit.body.tab.${item}`)"
       />
       <div class="edit-wrapper">
         <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">
@@ -310,7 +317,7 @@
           />
         </div>
         <div
-          v-if="bodyViewMode === 'preview'"
+          v-if="bodyViewMode === 'preview' && newProject.body"
           v-highlightjs
           class="markdown-body"
           v-html="
@@ -319,61 +326,58 @@
               : 'No body specified.'
           "
         ></div>
+        <div
+          v-if="bodyViewMode === 'preview' && !newProject.body"
+          class="markdown-body"
+        >
+          {{ $t('project.edit.body.preview.no-body') }}
+        </div>
       </div>
     </section>
     <section class="card extra-links">
       <div class="title">
-        <h3>External links</h3>
+        <h3>{{ $t('project.edit.external-links.title') }}</h3>
       </div>
-      <label
-        title="A place for users to report bugs, issues, and concerns about your project."
-      >
-        <span>Issue tracker</span>
+      <label :title="$t('project.edit.issue-tracker.description')">
+        <span>{{ $t('project.edit.issue-tracker.title') }}</span>
         <input
           v-model="newProject.issues_url"
           type="url"
-          placeholder="Enter a valid URL"
+          :placeholder="$t('project.edit.generic-url-placeholder')"
           maxlength="2048"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
         />
       </label>
-      <label
-        title="A page/repository containing the source code for your project"
-      >
-        <span>Source code</span>
+      <label :title="$t('project.edit.source-code.description')">
+        <span>{{ $t('project.edit.source-code.title') }}</span>
         <input
           v-model="newProject.source_url"
           type="url"
           maxlength="2048"
-          placeholder="Enter a valid URL"
+          :placeholder="$t('project.edit.generic-url-placeholder')"
         />
       </label>
-      <label
-        title="A page containing information, documentation, and help for the project."
-      >
-        <span>Wiki page</span>
+      <label :title="$t('project.edit.wiki.description')">
+        <span>{{ $t('project.edit.wiki.title') }}</span>
         <input
           v-model="newProject.wiki_url"
           type="url"
           maxlength="2048"
-          placeholder="Enter a valid URL"
+          :placeholder="$t('project.edit.generic-url-placeholder')"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
         />
       </label>
-      <label
-        class="no-margin"
-        title="An invitation link to your Discord server."
-      >
-        <span>Discord invite</span>
+      <label class="no-margin" :title="$t('project.edit.discord.description')">
+        <span>{{ $t('project.edit.discord.title') }}</span>
         <input
           v-model="newProject.discord_url"
           type="url"
           maxlength="2048"
-          placeholder="Enter a valid URL"
+          :placeholder="$t('project.edit.generic-url-placeholder')"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -382,28 +386,28 @@
     </section>
     <section class="card license">
       <div class="title">
-        <h3>License<span class="required">*</span></h3>
+        <h3>
+          <i18n-formatted message-id="project.edit.license.title">
+            <span v-i18n:wrap="'required'" class="required" />
+          </i18n-formatted>
+        </h3>
       </div>
       <label>
-        <span>
-          It is very important to choose a proper license for your mod. You may
-          choose one from our list or provide a URL to a custom license.
-          <br />
-          Confused? See our
-          <a
-            href="https://blog.modrinth.com/licensing-guide/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-link"
-          >
-            licensing guide</a
-          >
-          for more information.
+        <span class="pre">
+          <i18n-formatted message-id="project.edit.license.description">
+            <a
+              v-i18n:wrap="'guide-link'"
+              href="https://blog.modrinth.com/licensing-guide/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-link"
+            />
+          </i18n-formatted>
         </span>
         <div class="input-group">
           <Multiselect
             v-model="license"
-            placeholder="Choose license..."
+            :placeholder="$t('project.edit.license.placeholder')"
             track-by="short"
             label="short"
             :options="$tag.licenses"
@@ -419,7 +423,7 @@
             v-model="license_url"
             type="url"
             maxlength="2048"
-            placeholder="License URL"
+            :placeholder="$t('project.edit.license-url.placeholder')"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
@@ -429,9 +433,8 @@
     </section>
     <section class="card donations">
       <div class="title">
-        <h3>Donation links</h3>
+        <h3>{{ $t('project.edit.donation-links.title') }}</h3>
         <button
-          title="Add a link"
           class="iconified-button"
           :disabled="false"
           @click="
@@ -439,24 +442,25 @@
             donationLinks.push('')
           "
         >
-          <PlusIcon />
-          Add a link
+          <PlusIcon /> {{ $t('project.edit.donation-links.actions.add-link') }}
         </button>
       </div>
       <div v-for="(item, index) in donationPlatforms" :key="index">
-        <label title="The donation link.">
-          <span>Donation Link</span>
+        <label>
+          <span>{{ $t('project.edit.donation-links.link.title') }}</span>
           <input
             v-model="donationLinks[index]"
             type="url"
-            placeholder="Enter a valid URL"
+            :placeholder="$t('project.edit.generic-url-placeholder')"
           />
         </label>
         <label title="The donation platform of the link.">
-          <span>Donation Platform</span>
+          <span>{{ $t('project.edit.donation-links.platform.title') }}</span>
           <Multiselect
             v-model="donationPlatforms[index]"
-            placeholder="Select one"
+            :placeholder="
+              $t('project.edit.donation-links.platform.placeholder')
+            "
             track-by="short"
             label="name"
             :options="$tag.donationPlatforms"
@@ -473,7 +477,7 @@
           "
         >
           <TrashIcon />
-          Remove link
+          {{ $t('project.edit.donation-links.actions.remove-link') }}
         </button>
         <hr
           v-if="
@@ -548,7 +552,7 @@ export default {
       icon: null,
       iconChanged: false,
 
-      sideTypes: ['Required', 'Optional', 'Unsupported'],
+      sideTypes: ['required', 'optional', 'unsupported'],
 
       isEditing: true,
       bodyViewMode: 'source',
@@ -579,12 +583,8 @@ export default {
 
     this.license_url = this.newProject.license.url
 
-    this.clientSideType =
-      this.newProject.client_side.charAt(0) +
-      this.newProject.client_side.slice(1)
-    this.serverSideType =
-      this.newProject.server_side.charAt(0) +
-      this.newProject.server_side.slice(1)
+    this.clientSideType = this.newProject.client_side
+    this.serverSideType = this.newProject.server_side
 
     this.setCategories()
   },
@@ -689,8 +689,8 @@ export default {
             ? this.newProject.discord_url
             : null,
           license_id: this.license.short,
-          client_side: this.clientSideType.toLowerCase(),
-          server_side: this.serverSideType.toLowerCase(),
+          client_side: this.clientSideType,
+          server_side: this.serverSideType,
           slug: this.newProject.slug,
           license: this.license.short,
           donation_urls: this.donationPlatforms.map((it, index) => {
@@ -739,7 +739,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
@@ -773,6 +773,10 @@ export default {
   h3 {
     margin-top: 0;
   }
+}
+
+.pre {
+  white-space: pre-wrap;
 }
 
 label {
