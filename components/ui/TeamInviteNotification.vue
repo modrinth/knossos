@@ -33,14 +33,14 @@
 import UsersIcon from '~/assets/images/utils/users.svg?inline'
 export default {
   name: 'TeamInviteNotification',
+  components: {
+    UsersIcon,
+  },
   props: {
     notification: {
       required: true,
       type: Object,
     },
-  },
-  components: {
-    UsersIcon,
   },
   methods: {
     async performAction(notification, notificationIndex, actionIndex) {
