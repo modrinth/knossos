@@ -26,9 +26,9 @@
         </h3>
         <form action="/mods">
           <div class="iconified-input">
-            <label class="hidden" for="q">{{
-              $t('landing.search-field.label')
-            }}</label>
+            <label class="hidden" for="q">
+              {{ $t('landing.search-field.label') }}
+            </label>
             <SearchIcon />
             <input
               id="q"
