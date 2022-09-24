@@ -20,13 +20,13 @@
             :key="index"
           >
             <ProjectUpdateNotification
-              :projectTitle="notification.projectName"
-              :versions="notification.data"
               v-if="notification.type === 'project_update'"
+              :project-title="notification.projectName"
+              :versions="notification.data"
             />
             <TeamInviteNotification
-              :notification="notification.data"
               v-if="notification.type === 'team_invite'"
+              :notification="notification.data"
             />
           </div>
 
