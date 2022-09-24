@@ -21,8 +21,8 @@
       </div>
     </div>
     <button
-      class="iconified-button"
       v-if="versions.length > 1"
+      class="iconified-button"
       @click="clearNotificationGroup(projectTitle)"
     >
       <ClearIcon />Dismiss all
@@ -30,9 +30,9 @@
     <hr class="card-divider" />
     <div
       v-for="(notification, index) in versions"
+      v-show="index < maxVersions ? true : isExpanded"
       :key="notification.id"
       class="version"
-      v-show="index < maxVersions ? true : isExpanded"
     >
       <div>
         <nuxt-link :to="notification.link">
@@ -59,12 +59,12 @@
         </button>
       </div>
     </div>
-    <hr class="card-divider" v-if="versions.length > maxVersions" />
+    <hr v-if="versions.length > maxVersions" class="card-divider" />
     <div class="more">
       <button
+        v-if="versions.length > maxVersions"
         class="iconified-button"
         @click="toggleExpand()"
-        v-if="versions.length > maxVersions"
       >
         <span v-show="!isExpanded"
           >Show {{ versions.length - maxVersions }} more</span
@@ -80,6 +80,10 @@ import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
 
 export default {
   name: 'ProjectUpdateNotification',
+  components: {
+    ClearIcon,
+    UpdateIcon,
+  },
   props: {
     projectTitle: {
       required: true,
@@ -91,9 +95,9 @@ export default {
     },
     maxVersions: { type: Number, default: 3 },
   },
-  components: {
-    ClearIcon,
-    UpdateIcon,
+
+  data() {
+    return { isExpanded: false }
   },
   computed: {
     projectPageLink() {
@@ -141,10 +145,6 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
-
-  data() {
-    return { isExpanded: false }
-  },
 }
 </script>
 
@@ -184,8 +184,10 @@ export default {
 }
 .more {
   display: flex;
-  justify-content: end;
   margin-bottom: calc(var(--spacing-card-sm) / 2);
+  button {
+    margin-left: auto;
+  }
 }
 
 .header + button {
