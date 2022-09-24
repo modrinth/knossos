@@ -13,6 +13,7 @@ import { isVNode, createTextNode, cloneVNode } from './vueUtils'
  * @property {import('@formatjs/intl').IntlShape['formatDate']} date
  * @property {import('@formatjs/intl').IntlShape['formatDateTimeRange']} dateTimeRange
  * @property {import('@formatjs/intl').IntlShape['formatDisplayName']} displayName
+ * @property {import('@formatjs/intl').IntlShape['formatList']} list
  * @property {import('@formatjs/intl').IntlShape['formatNumber']} number
  * @property {import('@formatjs/intl').IntlShape['formatPlural']} plural
  * @property {import('@formatjs/intl').IntlShape['formatRelativeTime']} relativeTime
@@ -88,6 +89,7 @@ export class IntlController {
           date: intl.formatDate.bind(intl),
           dateTimeRange: intl.formatDateTimeRange.bind(intl),
           displayName: intl.formatDisplayName.bind(intl),
+          list: intl.formatList,
           number: intl.formatNumber.bind(intl),
           plural: intl.formatPlural.bind(intl),
           relativeTime: intl.formatRelativeTime.bind(intl),
