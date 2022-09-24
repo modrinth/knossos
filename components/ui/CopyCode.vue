@@ -47,6 +47,8 @@ export default {
   display: flex;
   grid-gap: 0.5rem;
   font-family: var(--mono-font);
+  font-size: var(--font-size-sm);
+  margin: 0;
   padding: 0.25rem 0.5rem;
   background-color: var(--color-code-bg);
   width: min-content;
