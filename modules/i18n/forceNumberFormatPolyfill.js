@@ -1,8 +1,7 @@
 // @ts-check
 
-import { NumberFormat } from '@formatjs/intl-numberformat'
+import { NumberFormat } from '@formatjs/intl-numberformat/src/core'
 import { toLocaleString as _toLocaleString } from '@formatjs/intl-numberformat/src/to_locale_string'
-import { defineProperty } from '@formatjs/ecma402-abstract'
 
 /**
  * @param {Parameters<typeof _toLocaleString>[1]} locales
@@ -49,7 +48,7 @@ for (const target of injectionSites) {
   if (target == null) continue
 
   if (/** @type {any} */ ((target.Intl ?? {}).NumberFormat) !== NumberFormat) {
-    defineProperty(
+    Object.defineProperty(
       target.Intl ?? (target.Intl = /** @type {any} */ ({})),
       'NumberFormat',
       {
@@ -59,7 +58,7 @@ for (const target of injectionSites) {
   }
 
   if (target.Number.prototype.toLocaleString !== toLocaleString) {
-    defineProperty(target.Number.prototype, 'toLocaleString', {
+    Object.defineProperty(target.Number.prototype, 'toLocaleString', {
       value: toLocaleString,
     })
   }

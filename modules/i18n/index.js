@@ -5,6 +5,7 @@
 //
 // @nuxtjs/i18n source code: https://github.com/nuxt-community/i18n-module/
 
+import './forceNumberFormatPolyfill'
 import { join } from 'path'
 import { readdir, stat } from 'fs/promises'
 import { customNamespace } from './consts'

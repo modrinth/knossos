@@ -7,7 +7,7 @@
 
 import { IntlError, IntlErrorCode } from '@formatjs/intl'
 
-import './forceNumberFormatPolyfill'
+import '~/modules/i18n/forceNumberFormatPolyfill'
 
 import { getFormatter } from '@formatjs/intl/src/number'
 
