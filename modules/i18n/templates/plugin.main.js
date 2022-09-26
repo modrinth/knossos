@@ -1,12 +1,10 @@
 // @ts-check
 
 import Vue from 'vue'
-import { createIntlPlugin } from './i18n'
+import { createInjector, createIntlPlugin } from './i18n'
 import { hasOwn } from './utils'
 import { localesDefinitions, defaultLocale } from './options'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
-
-Vue.use(createIntlPlugin())
 
 /** @type {import('cookie-universal-nuxt').SetParams['opts']} */
 const cookieDefaults = {
@@ -338,7 +336,17 @@ export default async function (context) {
     return /** @type {ExtendedIntlController} */ (controller)
   }
 
-  const controller = extendController(Vue.prototype.$i18n)
+  const plugin = createIntlPlugin()
+
+  const controller = extendController(plugin.getOrCreateController())
+
+  Vue.use(plugin)
+
+  plugin.inject(createInjector(context))
+  plugin.inject(createInjector(app))
+  if (app.store != null) {
+    plugin.inject(createInjector(app.store))
+  }
 
   if (process.client) {
     window.addEventListener('languagechange', () => {

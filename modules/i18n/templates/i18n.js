@@ -199,80 +199,102 @@ export function createRef(initialValue) {
  *
  * @callback TranslateFunction
  * @param {string} id String ID.
- * @param {Record<string, any>} [values] Values for the placeholders inside the
- *   translations.
+ * @param {Parameters<
+ *   import('@formatjs/intl').IntlFormatters['formatMessage']
+ * >[1]} values
+ *   Values for the placeholders inside the translations.
+ * @param {Parameters<
+ *   import('@formatjs/intl').IntlFormatters['formatMessage']
+ * >[2]} opts
  * @returns {any} Either formatted string (if all elements were strings) or
  *   array of formatted elements.
  */
 
 /**
- * @param {import('vue').VueConstructor} vue Vue instance.
- * @param {Ref<InstanceType<typeof IntlController> | null>} intlRef Reference to
- *   Intl object.
+ * @callback InjectionFunction
+ * @param {'i18n' | 't' | 'fmt'} property
+ * @param {unknown} value
  */
-function initVueHelpers(vue, intlRef) {
-  function getControllerOrThrow() {
-    if (intlRef.current == null) {
-      throw new Error('Intl Controller has not been initialised')
+
+/**
+ * Creates an injector for any object instance to which Intl helpers need to be
+ * injected. All injected properties will be prefixed with dollar sign (`$`),
+ * they are added using `Object.defineProperty` and marked as configurable, thus
+ * can be re-defined, but not modified.
+ *
+ * @param {object} target Target to which properties will be injected.
+ * @returns {InjectionFunction}
+ */
+export function createInjector(target) {
+  return (property, value) => {
+    /** @type {PropertyDescriptor} */
+    let descriptor = {
+      configurable: true,
     }
-    return intlRef.current
-  }
 
-  /** @type {TranslateFunction} */
-  function translate(id, values) {
-    // In React you can pass components in values to create fluid layout and avoid HTML injects.
-    // e.g. "Hi there, {name}!" => "Привет, {name}!" and then you throw
-    // `{ name: <b>{name}</b> }` and it results in, speaking HTML:
-    // "Hi there, <b>world</b>!" and "Привет, <b>world</b>".
-    //
-    // So, yea, I wonder how do you do this with Vue, because I think there
-    // will be moments where that would be necessary. Needs research...
-    //
-    // - @Brawaru
-    return getControllerOrThrow().intl.formatMessage({ id }, values)
-  }
+    switch (property) {
+      case 'fmt': {
+        descriptor.get = /** @type {() => IntlFormatAliases} */ (value)
+        break
+      }
+      case 'i18n': {
+        descriptor.value = /** @type {IntlController} */ (value)
+        break
+      }
+      case 't': {
+        descriptor.value = /** @type {TranslateFunction} */ (value)
+        break
+      }
+    }
 
-  Object.defineProperties(vue.prototype, {
-    $i18n: {
-      configurable: true,
-      get() {
-        return intlRef.current
-      },
-    },
-    $t: {
-      configurable: true,
-      value: translate,
-    },
-    // TODO: test if this shortcut works (a-la `{{ $fmt.date(new Date()) }}`)
-    $fmt: {
-      configurable: true,
-      get() {
-        return getControllerOrThrow().formats
-      },
-    },
-  })
+    Object.defineProperty(target, `$${property}`, descriptor)
+  }
 }
 
-/** @returns {import('vue').PluginObject<never>} */
-export function createIntlPlugin() {
-  let installed = false
+/**
+ * @typedef {object} IntlPlugin
+ * @property {() => InstanceType<typeof IntlController>} getOrCreateController
+ *   This method returns existing controller or initalizes a new one and returns
+ *   it.
+ * @property {(f: InjectionFunction) => void} inject Calls the callback to
+ *   inject all of the helpers. The function will be called for every property:
+ *   `i18n` with {@link IntlController}, `t` with {@link TranslateFunction}, `fmt`
+ *   with function that returns actual {@link IntlFormatAliases} of
+ *   {@link IntlController}.
+ */
 
-  /** @type {Ref<IntlController | null>} */
-  const controllerRef = createRef(null)
+/** @returns {import('vue').PluginObject<never> & IntlPlugin} */
+export function createIntlPlugin() {
+  /** @type {InstanceType<typeof IntlController> | null} */
+  let controllerInstance = null
 
   return {
-    install(vue) {
-      if (installed) {
-        return
+    getOrCreateController() {
+      if (controllerInstance == null) {
+        controllerInstance = new IntlController()
+      }
+      return controllerInstance
+    },
+    inject(inject) {
+      const controller = this.getOrCreateController()
+
+      /** @type {TranslateFunction} */
+      function translate(id, values, opts) {
+        return controller.intl.formatMessage({ id }, values, opts)
       }
 
-      installed = true
+      function formats$getter() {
+        return controller.formats
+      }
 
-      const controller = new IntlController()
+      inject('i18n', controller)
+      inject('t', translate)
+      inject('fmt', formats$getter)
+    },
+    install(vue) {
+      const controller = this.getOrCreateController()
 
-      controllerRef.current = controller
-
-      initVueHelpers(vue, controllerRef)
+      this.inject(createInjector(vue.prototype))
 
       vue.directive('i18n', {}) // doesn't actually do anything
 

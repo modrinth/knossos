@@ -200,6 +200,7 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    '~/modules/i18n',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/dayjs',
     '@nuxtjs/axios',
@@ -207,7 +208,6 @@ export default {
     '@nuxtjs/style-resources',
     '@nuxtjs/markdownit',
     'cookie-universal-nuxt',
-    '~/modules/i18n',
   ],
   ads: {
     // Module options
