@@ -216,12 +216,13 @@ export default async function (context) {
     }
   }
 
+  /** @typedef {'default' | 'override' | 'storage' | 'navigator'} DetectionSource */
+
   /**
    * @private
    * @typedef {object} DetectedLocale
    * @property {string} locale Detected preferred locale.
-   * @property {boolean} restored Whether the preferred locale was restored from
-   *   the storage (cookies or localStorage).
+   * @property {DetectionSource} source Source where locale comes from.
    */
 
   /**
@@ -233,6 +234,32 @@ export default async function (context) {
    */
   function detectLocale(restore = true) {
     const availableLocaleCodes = availableLocales.map((it) => it.code)
+
+    /** @type {null | string | (string | null)[]} */
+    let hostLanguage = context.query?.hl ?? null
+
+    if (Array.isArray(hostLanguage)) {
+      if (hostLanguage.length < 1) {
+        hostLanguage = null
+      } else {
+        hostLanguage = [hostLanguage[0]] ?? null
+      }
+    }
+
+    if (hostLanguage === '') {
+      hostLanguage = null
+    }
+
+    if (hostLanguage != null) {
+      return {
+        locale: matchLocale(
+          [/** @type {string} */ (hostLanguage)],
+          availableLocaleCodes,
+          defaultLocale
+        ),
+        source: 'override',
+      }
+    }
 
     if (restore) {
       /** @type {string | null} */
@@ -254,19 +281,28 @@ export default async function (context) {
         if (availableRestoredLocale !== 'en-x-placeholder') {
           return {
             locale: availableRestoredLocale,
-            restored: true,
+            source: 'storage',
           }
         }
       }
     }
 
-    return {
-      locale: matchLocale(
-        getNavigatorLocales(),
-        availableLocaleCodes,
-        defaultLocale
-      ),
-      restored: false,
+    const navigatorLocale = matchLocale(
+      getNavigatorLocales(),
+      availableLocaleCodes,
+      'en-x-placeholder'
+    )
+
+    if (navigatorLocale === 'en-x-placeholder') {
+      return {
+        locale: defaultLocale,
+        source: 'navigator',
+      }
+    } else {
+      return {
+        locale: navigatorLocale,
+        source: 'navigator',
+      }
     }
   }
 
@@ -370,14 +406,15 @@ export default async function (context) {
   )
 
   {
-    const { locale: detectedLocale, restored } = detectLocale()
+    const { locale: detectedLocale, source: detectionSource } = detectLocale()
     await controller.changeLocale(detectedLocale, false)
-    isAuto = !restored
+
+    isAuto = detectionSource === 'navigator' || detectionSource === 'default'
 
     if (context.isDev) {
       console.log('[knossos-i18n] setup completed', {
         detectedLocale,
-        restored,
+        detectionSource,
         isAuto,
       })
     }
