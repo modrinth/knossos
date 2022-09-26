@@ -19,7 +19,7 @@ export default (ctx, inject) => {
   inject('formatVersion', (versionsArray) =>
     formatVersions(versionsArray, ctx.store)
   )
-  inject('formatBytes', formatBytes)
+  inject('formatBytes', formatBytes(ctx.$t, ctx.$fmt))
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
   inject('categoryTranslationKey', categoryTranslationKey)
@@ -182,17 +182,29 @@ export const formatNumber = (number) => {
   }
 }
 
-export const formatBytes = (bytes, decimals = 2) => {
-  if (bytes === 0) return '0 Bytes'
+export const formatBytes =
+  ($t, $fmt) =>
+  (bytes, maximumFractionDigits = 2) => {
+    if (bytes === 0) {
+      return $t('size.bytes', { value: 0 })
+    }
 
-  const k = 1024
-  const dm = decimals < 0 ? 0 : decimals
-  const sizes = ['Bytes', 'KiB', 'MiB', 'GiB']
+    const k = 1024
+    const sizes = [
+      'size.bytes',
+      'size.kibibytes',
+      'size.mebibytes',
+      'size.gibibytes',
+    ]
 
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
-}
+    return $t(sizes[i], {
+      value: $fmt.number(bytes / Math.pow(k, i), {
+        maximumFractionDigits,
+      }),
+    })
+  }
 
 export const formatProjectType = (name) => {
   if (name === 'resourcepack') {

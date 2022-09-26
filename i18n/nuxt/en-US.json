@@ -377,5 +377,9 @@
   "settings.tab.general": "General",
   "settings.tab.followed-projects": "Followed projects",
   "settings.title.authorized": "Settings for {username}",
-  "settings.title.generic": "Settings"
+  "settings.title.generic": "Settings",
+  "size.bytes": "{value} B",
+  "size.kibibytes": "{value} KiB",
+  "size.mebibytes": "{value} MiB",
+  "size.gibibytes": "{value} GiB"
 }
