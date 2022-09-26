@@ -63,6 +63,8 @@ export const localesDefinitions = Object.assign(Object.create(null), {
   ${importMapDefinitionBlock}
 });
 
+export const baseURL = ${JSON.stringify(opts.baseURL ?? null)};
+
 export const defaultLocale = ${JSON.stringify(opts.defaultLocale)};
 `
 

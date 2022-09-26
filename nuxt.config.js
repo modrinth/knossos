@@ -94,7 +94,6 @@ export default {
           name: 'twitter:site',
           content: '@modrinth',
         },
-        ...i18nHead.meta,
       ],
       link: [
         {
@@ -469,6 +468,7 @@ export default {
       })
     })(),
     localesDir: 'i18n/nuxt',
+    baseURL: getDomain(),
   },
 }
 

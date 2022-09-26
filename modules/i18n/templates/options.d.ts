@@ -34,6 +34,9 @@ export interface LocaleDefinition {
  */
 export type LocalesDefinitionsMap = Record<string, LocaleDefinition>
 
+/** Base URL of the site (domain name). */
+export declare const baseURL: string | null
+
 /**
  * Default locale as specified in the module config, to use when user's locale
  * has not been set and cannot be detected automatically based on the browser's

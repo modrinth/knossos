@@ -1,67 +1,76 @@
 // @ts-check
 
-/** @type {import('@nuxt/types').Plugin} */
-export default async function (context, inject) {
-  if (context.app.$i18n == null) {
-    throw new Error('i18n is not available in context')
+import Vue from 'vue'
+import { baseURL } from './options'
+
+/**
+ * Describes a function that generates head elements related to localisation.
+ *
+ * @callback I18nHeadFunction
+ * @returns {Pick<import('vue-meta').MetaInfo, 'htmlAttrs' | 'link'>}
+ * @this {Vue}
+ */
+
+/**
+ * @type {I18nHeadFunction}
+ * @this {Vue}
+ */
+function i18nHead() {
+  const { $i18n, $route } = this
+
+  /** @type {import('vue-meta').LinkPropertyHref[]} */
+  const links = []
+
+  const currentLocale = new Intl.Locale($i18n.locale)
+
+  /** @type {import('vue-meta').MetaInfo} */
+  const head = {
+    htmlAttrs: {
+      lang: currentLocale.baseName,
+    },
   }
 
-  const { $i18n } = context
-
-  const currentURL = `${process.env.domain}${context.route.fullPath}`
-
-  inject('i18nHead', () => {
-    /** @type {import('vue-meta').MetaPropertyProperty[]} */
-    const metaLocales = []
-
-    /** @type {import('vue-meta').LinkPropertyHref[]} */
-    const links = []
-
-    for (const locale of $i18n.availableLocales) {
-      const intlLocale = new Intl.Locale(locale.code)
-
-      // this should weed out custom locales:
-      if (intlLocale.baseName === locale.code) {
-        metaLocales.push({
-          property: 'og:locale:alternate',
-          content: `${intlLocale.language}_${
-            intlLocale.region?.toUpperCase() ?? 'US'
-          }`,
-          hid: `i18n-og-locale-${locale.code}`,
-        })
-
-        const href = new URL(currentURL)
-
-        href.searchParams.set('hl', locale.code)
-
-        links.push({
-          rel: 'alternate',
-          href: href.toString(),
-          hreflang: intlLocale.baseName,
-          hid: `i18n-hreflang-${locale.code}`,
-        })
-      }
-    }
-
-    const currentLocale = new Intl.Locale($i18n.locale)
-
-    metaLocales.push({
-      property: 'og:locale',
-      content: `${currentLocale.language}_${
-        currentLocale.region?.toUpperCase() ?? 'US'
-      }`,
-      hid: 'i18n-og-current-locale',
-    })
-
-    /** @type {import('vue-meta').MetaInfo} */
-    const head = {
-      htmlAttrs: {
-        lang: currentLocale.baseName,
-      },
-      link: links,
-      meta: metaLocales,
-    }
-
+  if (baseURL === null || baseURL === '') {
     return head
+  }
+
+  let currentURL = baseURL
+
+  if (currentURL.endsWith('/')) {
+    currentURL = currentURL.slice(0, -1)
+  }
+
+  currentURL += $route.fullPath
+
+  for (const locale of $i18n.availableLocales) {
+    const intlLocale = new Intl.Locale(locale.code)
+
+    // this should weed out custom locales:
+    if (intlLocale.baseName === locale.code) {
+      const href = new URL(currentURL)
+
+      href.searchParams.set('hl', locale.code)
+
+      links.push({
+        rel: 'alternate',
+        href: href.toString(),
+        hreflang: intlLocale.baseName,
+        hid: `i18n-hreflang-${locale.code}`,
+      })
+    }
+  }
+
+  head.link = links
+
+  return head
+}
+
+/** @type {import('@nuxt/types').Plugin} */
+export default async function () {
+  Vue.use((vue) => {
+    Object.defineProperty(vue.prototype, '$i18nHead', {
+      configurable: true,
+      value: i18nHead,
+    })
   })
 }

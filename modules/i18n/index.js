@@ -24,6 +24,9 @@ import merge from 'lodash/merge'
  * @typedef {object} Options
  * @property {string} defaultLocale BCP47 code of the locale to use by default.
  * @property {string} localesDir Directory containing locale descriptor files.
+ * @property {string | null} [baseURL=null] Base URL (domain of the site).
+ *   Default is `null`. If not set, head meta tags won't generate. Default is
+ *   `null`
  * @property {LocaleDescriptor[]} locales All locales that are present on the
  *   runtime.
  */
@@ -31,6 +34,7 @@ import merge from 'lodash/merge'
 /** @type {Options} */
 const defaultOptions = {
   defaultLocale: 'en-US',
+  baseURL: null,
   locales: [
     {
       code: 'en-US',
