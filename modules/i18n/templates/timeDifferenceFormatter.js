@@ -125,7 +125,5 @@ export function formatTimeDifference(format, range, options) {
     }
   }
 
-  console.log("didn't work")
-
   return String(diff)
 }
