@@ -417,10 +417,10 @@ export default {
        * @type {Record<string, string>}
        */
       const customLocaleNames = Object.assign(Object.create(null), {
-        'en-PIRATE': 'Pirate English (Seven Seas)',
-        'en-UPDOWN': 'ɥsᴉʅƃuƎ uʍop ǝpᴉsdՈ',
-        'en-LOLCAT': 'LOLCAT (CATZWORLT)',
-        'ru-bandit': 'русский (Бандитский Петербург)',
+        'en-x-pirate': 'Pirate English (Seven Seas)',
+        'en-x-updown': 'ɥsᴉʅƃuƎ uʍop ǝpᴉsdՈ',
+        'en-x-lolcat': 'LOLCAT (CATZWORLT)',
+        'ru-x-bandit': 'русский (Бандитский Петербург)',
       })
 
       const availableNFLocales = glob
