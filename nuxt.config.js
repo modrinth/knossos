@@ -12,9 +12,10 @@ export default {
    ** See https://nuxtjs.org/api/configuration-target
    */
   target: 'server',
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
+  /**
+   * Headers of the page See https://nuxtjs.org/api/configuration-head
+   *
+   * @this {import('vue/types/vue').Vue}
    */
   head() {
     const i18nHead = this.$i18nHead()
@@ -35,8 +36,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content:
-            'Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
+          content: this.$t('meta.description'),
         },
         {
           hid: 'publisher',
@@ -67,7 +67,7 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: 'An open source modding platform',
+          content: this.$t('meta.og-description'),
         },
         {
           hid: 'og:type',

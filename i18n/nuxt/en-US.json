@@ -100,6 +100,8 @@
   "loader.sponge": "Sponge",
   "loader.velocity": "Velocity",
   "loader.waterfall": "Waterfall",
+  "meta.description": "Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.",
+  "meta.og-description": "An open source modding platform",
   "meta.title-format": "{title} — Modrinth",
   "moderation.title": "Moderation",
   "moderation.form.title": "Moderation Form",
