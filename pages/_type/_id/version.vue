@@ -27,7 +27,7 @@
         title="Are you sure you want to delete this version?"
         description="This will remove this version forever (like really forever)."
         :has-to-type="false"
-        proceed-label="Delete version"
+        proceed-label="Delete"
         @proceed="deleteVersion()"
       />
       <ModalReport

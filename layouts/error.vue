@@ -12,7 +12,7 @@
           href="https://discord.gg/EUHuJHt"
           class="iconified-button raised-button"
         >
-          Get help on discord
+          Get help on Discord
         </a>
       </div>
     </div>

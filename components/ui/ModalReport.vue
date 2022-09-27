@@ -59,7 +59,7 @@
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
           <CheckIcon />
-          Report {{ itemType }}
+          Report
         </button>
       </div>
     </div>

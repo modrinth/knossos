@@ -6,7 +6,7 @@
       description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
       :has-to-type="true"
       :confirmation-text="project.title"
-      proceed-label="Delete project"
+      proceed-label="Delete"
       @proceed="deleteProject"
     />
     <div class="card">

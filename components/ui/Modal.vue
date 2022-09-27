@@ -37,11 +37,9 @@ export default {
   methods: {
     show() {
       this.shown = true
-      document.body.style.overflowY = 'hidden'
     },
     hide() {
       this.shown = false
-      document.body.style.overflowY = 'scroll'
     },
   },
 }

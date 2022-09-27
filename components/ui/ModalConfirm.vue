@@ -122,6 +122,7 @@ export default {
   .confirmation-input {
     input {
       width: 20rem;
+      max-width: 100%;
     }
   }
 
