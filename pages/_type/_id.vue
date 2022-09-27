@@ -1126,6 +1126,7 @@ export default {
 
   .info {
     display: flex;
+    align-items: center;
     flex-direction: column;
 
     .top {
@@ -1209,6 +1210,7 @@ export default {
 .infos {
   .info {
     display: flex;
+    align-items: center;
     margin: 0.5rem 0;
 
     .key {
