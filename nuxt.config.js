@@ -31,11 +31,15 @@ export default {
         content:
           'Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
       },
-
       {
         hid: 'publisher',
         name: 'publisher',
         content: 'Rinth, Inc.',
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Modrinth',
       },
       {
         hid: 'apple-mobile-web-app-title',
@@ -52,7 +56,6 @@ export default {
         name: 'color-scheme',
         content: 'light dark',
       },
-
       {
         hid: 'og:site_name',
         name: 'og:site_name',
