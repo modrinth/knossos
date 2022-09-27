@@ -62,13 +62,22 @@
                 />
                 <SunIcon v-else aria-hidden="true" />
               </button>
-              <div v-if="$auth.user" class="dropdown" tabindex="0">
+              <div
+                v-if="$auth.user"
+                class="dropdown"
+                :class="{ closed: !isDropdownOpen }"
+                tabindex="0"
+                @mouseover="isDropdownOpen = true"
+                @focus="isDropdownOpen = true"
+                @mouseleave="isDropdownOpen = false"
+              >
                 <button class="control" value="Profile Dropdown">
-                  <img
+                  <Avatar
                     :src="$auth.user.avatar_url"
                     class="user-icon"
-                    aria-hidden="true"
                     alt="Your avatar"
+                    aria-hidden="true"
+                    circle
                   />
                   <DropdownIcon class="caret" />
                 </button>
@@ -338,9 +347,11 @@ import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
+import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
+    Avatar,
     ModalCreation,
     NavRow,
     ModrinthLogo,
@@ -371,6 +382,7 @@ export default {
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
+      hideDropdown: false,
     }
   },
   async fetch() {
@@ -673,10 +685,9 @@ export default {
               padding: 0;
 
               .user-icon {
-                border-radius: 100%;
                 height: 2rem;
-                outline: 2px solid var(--color-raised-bg);
                 width: 2rem;
+                outline: 2px solid var(--color-raised-bg);
                 transition: outline-color 0.1s ease-in-out;
               }
 
@@ -755,9 +766,9 @@ export default {
             outline-color: var(--color-brand);
           }
 
-          .dropdown:hover .content,
-          .dropdown:focus .content,
-          .dropdown:focus-within .content {
+          .dropdown:hover:not(.closed) .content,
+          .dropdown:focus:not(.closed) .content,
+          .dropdown:focus-within:not(.closed) .content {
             opacity: 1;
             transform: scaleY(1);
             visibility: visible;
@@ -780,9 +791,9 @@ export default {
             border-radius: var(--size-rounded-max);
             background-color: var(--color-brand);
             white-space: nowrap;
-            //outline: none; Bad for accessibility
             color: var(--color-brand-inverted);
             padding: 0.5rem 0.75rem;
+            height: 20px;
 
             svg {
               vertical-align: middle;
@@ -999,7 +1010,6 @@ export default {
             .user-icon {
               width: 4rem;
               height: 4rem;
-              border-radius: var(--size-rounded-max);
             }
           }
         }

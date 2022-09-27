@@ -182,12 +182,11 @@ body {
   // Defaults
   background-color: var(--color-bg);
   color: var(--color-text);
-  --font-standard: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, Segoe UI,
-    Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji;
+  --font-standard: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Roboto,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
   --mono-font: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
   font-family: var(--font-standard);
   font-size: 16px;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-regular);
   margin: 0;
   padding: 0;
 
@@ -280,7 +279,7 @@ textarea {
   box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
   transition: box-shadow 0.1s ease-in-out;
 
-  &:focus {
+  &:focus, &:focus-visible {
     box-shadow: inset 0 0 0 transparent, 0 0 0 .25rem hsla(155,58%,44%,.7);
     color: var(--color-button-text-active);
   }
@@ -327,7 +326,7 @@ kbd {
 @import '~assets/styles/components.scss';
 @import '~assets/styles/normalize.scss';
 
-button:focus-visible, a:focus-visible, input:focus-visible, [tabindex="0"]:focus-visible {
+button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
   outline: .25rem solid #ea80ff;
   border-radius: .25rem;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <label @drop.prevent="addFile" @dragover.prevent>
+    <label @drop.prevent="handleDrop" @dragover.prevent>
       <span>
         <UploadIcon v-if="showIcon" />
         {{ prompt }}
@@ -9,7 +9,7 @@
         type="file"
         :multiple="multiple"
         :accept="accept"
-        @change="onChange"
+        @change="handleChange"
       />
     </label>
   </div>
@@ -59,9 +59,8 @@ export default {
     }
   },
   methods: {
-    onChange(files, shouldNotReset) {
-      if (!shouldNotReset || this.shouldAlwaysReset)
-        this.files = files.target.files
+    addFiles(files, shouldNotReset) {
+      if (!shouldNotReset || this.shouldAlwaysReset) this.files = files
 
       const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
       this.files = [...this.files].filter((file) =>
@@ -72,19 +71,11 @@ export default {
         this.$emit('change', this.files)
       }
     },
-    addFile(e) {
-      const droppedFiles = e.dataTransfer.files
-
-      if (!this.multiple) this.files = []
-
-      if (!droppedFiles) return
-      ;[...droppedFiles].forEach((f) => {
-        this.files.push(f)
-      })
-
-      if (!this.multiple && this.files.length > 0) this.files = [this.files[0]]
-
-      if (this.files.length > 0) this.onChange(null, true)
+    handleDrop(e) {
+      this.addFiles(e.dataTransfer.files)
+    },
+    handleChange(e) {
+      this.addFiles(e.target.files)
     },
   },
 }

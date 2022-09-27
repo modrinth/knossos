@@ -37,8 +37,9 @@
             <div v-for="(categories, header) in categoriesMap" :key="header">
               <h3
                 v-if="
-                  categories.filter((x) => x.project_type === projectType)
-                    .length > 0
+                  categories.filter(
+                    (x) => x.project_type === projectType.actual
+                  ).length > 0
                 "
                 class="sidebar-menu-heading"
               >
@@ -47,7 +48,7 @@
 
               <SearchFilter
                 v-for="category in categories
-                  .filter((x) => x.project_type === projectType)
+                  .filter((x) => x.project_type === projectType.actual)
                   .sort((a, b) => {
                     if (header === 'resolutions') {
                       return (
@@ -68,13 +69,13 @@
             </div>
           </section>
           <section
-            v-if="projectType !== 'resourcepack'"
+            v-if="projectType.id !== 'resourcepack'"
             aria-label="Loader filters"
           >
             <h3
               v-if="
                 $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType)
+                  x.supported_project_types.includes(projectType.actual)
                 ).length > 0
               "
               class="sidebar-menu-heading"
@@ -84,8 +85,7 @@
             <SearchFilter
               v-for="loader in $tag.loaders.filter((x) => {
                 if (
-                  projectType === 'mod' &&
-                  !isPlugins &&
+                  projectType.id === 'mod' &&
                   !showAllLoaders &&
                   x.name !== 'forge' &&
                   x.name !== 'fabric' &&
@@ -94,13 +94,13 @@
                   return false
                 }
 
-                if (projectType === 'mod' && showAllLoaders) {
+                if (projectType.id === 'mod' && showAllLoaders) {
                   return $tag.loaderData.modLoaders.includes(x.name)
                 }
 
-                return isPlugins
+                return projectType.id === 'plugin'
                   ? $tag.loaderData.pluginLoaders.includes(x.name)
-                  : x.supported_project_types.includes(projectType)
+                  : x.supported_project_types.includes(projectType.actual)
               })"
               :key="loader.name"
               ref="loaderFilters"
@@ -111,7 +111,7 @@
               @toggle="toggleOrFacet"
             />
             <Checkbox
-              v-if="projectType === 'mod' && !isPlugins"
+              v-if="projectType.id === 'mod'"
               v-model="showAllLoaders"
               :label="showAllLoaders ? 'Less' : 'More'"
               description="Show all loaders"
@@ -120,11 +120,14 @@
               :collapsing-toggle-style="true"
             />
           </section>
-          <section v-if="isPlugins" aria-label="Platform loader filters">
+          <section
+            v-if="projectType.id === 'plugin'"
+            aria-label="Platform loader filters"
+          >
             <h3
               v-if="
                 $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType)
+                  x.supported_project_types.includes(projectType.actual)
                 ).length > 0
               "
               class="sidebar-menu-heading"
@@ -145,7 +148,7 @@
             />
           </section>
           <section
-            v-if="projectType !== 'resourcepack' && !isPlugins"
+            v-if="['resourcepack', 'plugin'].includes(projectType.id)"
             aria-label="Environment filters"
           >
             <h3 class="sidebar-menu-heading">Environments</h3>
@@ -211,7 +214,7 @@
     </aside>
     <section class="normal-page__content">
       <div
-        v-if="projectType === 'modpack'"
+        v-if="projectType.id === 'modpack'"
         class="card warning"
         aria-label="Warning"
       >
@@ -250,7 +253,7 @@
             v-model="query"
             type="search"
             name="search"
-            :placeholder="`Search ${$route.name}...`"
+            :placeholder="`Search ${projectType.display}s...`"
             autocomplete="off"
             @input="onSearchChange(1)"
           />
@@ -389,8 +392,7 @@ export default {
       pageCount: 1,
       currentPage: 1,
 
-      projectType: 'mod',
-      isPlugins: false,
+      projectType: { id: 'mod', display: 'mod', actual: 'mod' },
 
       sortTypes: [
         { display: 'Relevance', name: 'relevance' },
@@ -457,15 +459,9 @@ export default {
     if (this.$route.query.o)
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
 
-    this.projectType = this.$route.name.substring(
-      0,
-      this.$route.name.length - 1
+    this.projectType = this.$tag.projectTypes.find(
+      (x) => x.id === this.$route.name.substring(0, this.$route.name.length - 1)
     )
-
-    if (this.projectType === 'plugin') {
-      this.projectType = 'mod'
-      this.isPlugins = true
-    }
 
     await this.onSearchChange(this.currentPage)
 
@@ -525,17 +521,10 @@ export default {
     '$route.path': {
       async handler() {
         this.isLoading = true
-        this.projectType = this.$route.name.substring(
-          0,
-          this.$route.name.length - 1
+        this.projectType = this.$tag.projectTypes.find(
+          (x) =>
+            x.id === this.$route.name.substring(0, this.$route.name.length - 1)
         )
-
-        if (this.projectType === 'plugin') {
-          this.projectType = 'mod'
-          this.isPlugins = true
-        } else {
-          this.isPlugins = false
-        }
 
         this.results = null
         this.pageCount = 1
@@ -658,13 +647,13 @@ export default {
           // loaders specifier
           if (this.orFacets.length > 0) {
             formattedFacets.push(this.orFacets)
-          } else if (this.isPlugins) {
+          } else if (this.projectType.id === 'plugin') {
             formattedFacets.push(
               this.$tag.loaderData.allPluginLoaders.map(
                 (x) => `categories:'${encodeURIComponent(x)}'`
               )
             )
-          } else if (this.projectType === 'mod') {
+          } else if (this.projectType.id === 'mod') {
             formattedFacets.push(
               this.$tag.loaderData.modLoaders.map(
                 (x) => `categories:'${encodeURIComponent(x)}'`
@@ -717,7 +706,7 @@ export default {
           }
 
           if (this.projectType)
-            formattedFacets.push([`project_type:${this.projectType}`])
+            formattedFacets.push([`project_type:${this.projectType.actual}`])
 
           params.push(`facets=${JSON.stringify(formattedFacets)}`)
         }

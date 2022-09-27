@@ -15,7 +15,7 @@
       <Chips
         id="project-type"
         v-model="projectType"
-        :items="['mod', 'plugin', 'resource pack', 'modpack']"
+        :items="$tag.projectTypes.map((x) => x.display)"
       />
       <label class="create-label" for="name">
         <strong>Name</strong>
@@ -24,7 +24,7 @@
         id="name"
         v-model="name"
         type="text"
-        maxlength="256"
+        maxlength="64"
         placeholder="Enter project name..."
       />
       <label class="create-label" for="slug">
@@ -48,7 +48,7 @@
         <textarea
           id="additional-information"
           v-model="description"
-          maxlength="2048"
+          maxlength="256"
         />
       </div>
       <div class="button-group">
@@ -104,8 +104,9 @@ export default {
     async createProject() {
       this.$nuxt.$loading.start()
 
-      const projectType =
-        this.projectType === 'Resource Pack' ? 'resourcepack' : this.projectType
+      const projectType = this.$tag.projectTypes.find(
+        (x) => this.projectType === x.display
+      )
 
       const formData = new FormData()
 
@@ -113,11 +114,11 @@ export default {
         'data',
         JSON.stringify({
           title: this.name,
-          project_type: projectType,
+          project_type: projectType.actual,
           slug: this.slug,
           description: this.description,
           body: `# Placeholder description
-This is your new ${projectType}, ${this.name}. A checklist below is provided to help prepare for release.
+This is your new ${projectType.display}, ${this.name}. A checklist below is provided to help prepare for release.
 
 ### Before submitting for review
 - [ ] Upload at least one version
@@ -165,7 +166,7 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
         })
 
         this.$refs.modal.hide()
-        await this.$router.replace(`/${projectType}/${this.slug}`)
+        await this.$router.replace(`/${projectType.display}/${this.slug}`)
       } catch (err) {
         this.$notify({
           group: 'main',

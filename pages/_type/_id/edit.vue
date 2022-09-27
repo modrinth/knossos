@@ -74,6 +74,7 @@
           :class="{ 'known-error': newProject.title === '' && showKnownErrors }"
           type="text"
           placeholder="Enter the name"
+          maxlength="64"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -94,6 +95,7 @@
           }"
           type="text"
           placeholder="Enter the summary"
+          maxlength="256"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -179,6 +181,7 @@
           :class="{ 'known-error': newProject.slug === '' && showKnownErrors }"
           type="text"
           placeholder="Enter the vanity URL"
+          maxlength="64"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -330,6 +333,7 @@
           v-model="newProject.issues_url"
           type="url"
           placeholder="Enter a valid URL"
+          maxlength="2048"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
           "
@@ -342,6 +346,7 @@
         <input
           v-model="newProject.source_url"
           type="url"
+          maxlength="2048"
           placeholder="Enter a valid URL"
         />
       </label>
@@ -352,6 +357,7 @@
         <input
           v-model="newProject.wiki_url"
           type="url"
+          maxlength="2048"
           placeholder="Enter a valid URL"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -366,6 +372,7 @@
         <input
           v-model="newProject.discord_url"
           type="url"
+          maxlength="2048"
           placeholder="Enter a valid URL"
           :disabled="
             (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -411,6 +418,7 @@
           <input
             v-model="license_url"
             type="url"
+            maxlength="2048"
             placeholder="License URL"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS

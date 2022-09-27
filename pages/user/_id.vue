@@ -51,14 +51,14 @@
           <template v-if="isEditing">
             <div class="inputs">
               <label><h3>Username</h3></label>
-              <input v-model="user.username" type="text" />
+              <input v-model="user.username" maxlength="39" type="text" />
               <label><h3>Bio</h3></label>
               <div class="textarea-wrapper">
-                <textarea v-model="user.bio"></textarea>
+                <textarea v-model="user.bio" maxlength="160"></textarea>
               </div>
               <label><h3>Private Email</h3></label>
               <span>Only visible to moderators.</span>
-              <input v-model="user.email" type="email" />
+              <input v-model="user.email" maxlength="2048" type="email" />
             </div>
             <div class="button-group">
               <button

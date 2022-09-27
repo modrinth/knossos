@@ -101,14 +101,17 @@
   p {
     padding: 0;
     line-height: 1.5;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
   }
 
   h1,
   h2 {
     padding: 10px 0 5px;
     border-bottom: 1px solid var(--color-header-underline);
+  }
+
+  h1, h2, h3, h4, h5, h6, li, p {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
   }
 
   blockquote {

@@ -551,7 +551,7 @@
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/gallery`,
-                shown: project.gallery.length > 0 || currentMember,
+                shown: project.gallery.length > 0 || !!currentMember,
               },
               {
                 label: 'Changelog',
@@ -565,14 +565,14 @@
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/versions`,
-                shown: project.versions.length > 0 || currentMember,
+                shown: project.versions.length > 0 || !!currentMember,
               },
               {
                 label: 'Settings',
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/settings`,
-                shown: currentMember,
+                shown: !!currentMember,
               },
             ]"
             class="card"
@@ -652,10 +652,11 @@ export default {
     ChevronRightIcon,
   },
   async asyncData(data) {
-    const projectTypes = ['mod', 'modpack', 'resourcepack', 'plugin', 'project']
-
     try {
-      if (!data.params.id || !projectTypes.includes(data.params.type)) {
+      if (
+        !data.params.id ||
+        !data.$tag.projectTypes.find((x) => x.id === data.params.type)
+      ) {
         data.error({
           statusCode: 404,
           message: 'The page could not be found',
@@ -985,9 +986,10 @@ export default {
   }
 
   .description {
+    line-height: 1.3;
+
     margin-top: var(--spacing-card-sm);
     margin-bottom: 0.5rem;
-    color: var(--color-text-dark);
     font-size: var(--font-size-nm);
   }
 
@@ -1128,7 +1130,8 @@ export default {
 
     .top {
       font-weight: bold;
-      word-wrap: anywhere;
+      word-wrap: break-word;
+      overflow-wrap: anywhere;
     }
   }
 }

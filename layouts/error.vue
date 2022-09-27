@@ -8,7 +8,10 @@
         <nuxt-link to="/" class="iconified-button raised-button brand-button">
           Go home
         </nuxt-link>
-        <a href="" class="iconified-button raised-button">
+        <a
+          href="https://discord.gg/EUHuJHt"
+          class="iconified-button raised-button"
+        >
           Get help on discord
         </a>
       </div>

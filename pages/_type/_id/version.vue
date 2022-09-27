@@ -78,6 +78,7 @@
             class="full-width-input"
             type="text"
             placeholder="Enter an optional version name..."
+            maxlength="64"
           />
           <Checkbox v-model="version.featured" label="Featured" />
           <hr class="card-divider" />
@@ -297,6 +298,7 @@
                 v-model="version.version_number"
                 type="text"
                 placeholder="Enter the version number..."
+                maxlength="32"
               />
               <p v-else class="value">{{ version.version_number }}</p>
             </div>

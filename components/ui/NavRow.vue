@@ -2,6 +2,7 @@
   <nav class="navigation" :class="{ 'use-animation': useAnimation }">
     <NuxtLink
       v-for="(link, index) in filteredLinks"
+      v-show="link.shown === undefined ? true : link.shown"
       :key="index"
       ref="linkElements"
       :to="query ? (link.href ? `?${query}=${link.href}` : '?') : link.href"
