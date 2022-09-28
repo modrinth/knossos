@@ -22,6 +22,7 @@ export default (ctx, inject) => {
   inject('formatBytes', formatBytes(ctx.$t, ctx.$fmt))
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
+  inject('formatLoader', createFormatLoader(ctx.$t))
   inject('categoryTranslationKey', categoryTranslationKey)
   inject('loaderTranslationKey', loaderTranslationKey)
   inject('formatCategoryHeader', formatCategoryHeader)
@@ -270,6 +271,18 @@ export function categoryTranslationKey(category) {
  */
 export function loaderTranslationKey(loader) {
   return `loader.${loader}`
+}
+
+/**
+ * @param {import('~/modules/i18n/templates/i18n').TranslateFunction} $t
+ *   Translation function.
+ */
+export function createFormatLoader($t) {
+  /** @param {string} loader Loader identifier. */
+  function formatLoader(loader) {
+    return $t(`loader.${loader}`)
+  }
+  return formatLoader
 }
 
 export const formatCategoryHeader = (name) => {

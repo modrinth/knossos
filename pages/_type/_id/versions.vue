@@ -3,7 +3,7 @@
     <div v-if="currentMember" class="card header-buttons">
       <nuxt-link to="version/create" class="brand-button iconified-button">
         <PlusIcon />
-        Create a version
+        {{ $t('project.versions.actions.create') }}
       </nuxt-link>
     </div>
     <Pagination
@@ -17,9 +17,9 @@
         <thead>
           <tr>
             <th role="presentation"></th>
-            <th>Version</th>
-            <th>Supports</th>
-            <th>Stats</th>
+            <th>{{ $t('project.versions.column.version') }}</th>
+            <th>{{ $t('project.versions.column.supports') }}</th>
+            <th>{{ $t('project.versions.column.stats') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -33,15 +33,19 @@
             <td>
               <a
                 v-tooltip="
-                  $parent.findPrimary(version).filename +
-                  ' (' +
-                  $formatBytes($parent.findPrimary(version).size) +
-                  ')'
+                  $t('project.versions.download.tooltip', {
+                    fileName: $parent.findPrimary(version).filename,
+                    size: $formatBytes($parent.findPrimary(version).size),
+                  })
                 "
                 :href="$parent.findPrimary(version).url"
                 class="download-button"
                 :class="version.version_type"
-                :title="`Download ${version.name}`"
+                :title="
+                  $t('project.versions.download.title', {
+                    versionName: version.name,
+                  })
+                "
               >
                 <DownloadIcon aria-hidden="true" />
               </a>
@@ -60,17 +64,17 @@
                 <div class="bottom">
                   <VersionBadge
                     v-if="version.version_type === 'release'"
-                    type="release"
+                    :type="$t('release-channel.release')"
                     color="green"
                   />
                   <VersionBadge
                     v-else-if="version.version_type === 'beta'"
-                    type="beta"
+                    :type="$t('release-channel.beta')"
                     color="yellow"
                   />
                   <VersionBadge
                     v-else-if="version.version_type === 'alpha'"
-                    type="alpha"
+                    :type="$t('release-channel.alpha')"
                     color="red"
                   />
                   <span class="divider" />
@@ -81,43 +85,70 @@
                 <div class="mobile-info">
                   <p>
                     {{
-                      version.loaders
-                        .map((x) => $formatCategory(x))
-                        .join(', ') +
-                      ' ' +
-                      $formatVersion(version.game_versions)
+                      $t('project.versions.supports', {
+                        loaders: $fmt.list(
+                          version.loaders.map((x) => $formatLoader(x))
+                        ),
+                        versions: $formatVersion(version.game_versions),
+                      })
                     }}
                   </p>
                   <p></p>
                   <p>
-                    <strong>{{ $formatNumber(version.downloads) }}</strong>
-                    downloads
+                    <i18n-formatted
+                      message-id="project.versions.downloads"
+                      :values="
+                        $deunionize(
+                          $fmt.compactNumber(version.downloads),
+                          'counter',
+                          'count'
+                        )
+                      "
+                    >
+                      <strong v-i18n:wrap="'strong'" />
+                    </i18n-formatted>
                   </p>
                   <p>
-                    Published on
-                    <strong>{{
-                      $dayjs(version.date_published).format('MMM D, YYYY')
-                    }}</strong>
+                    <i18n-formatted
+                      message-id="project.versions.published"
+                      :values="{
+                        publishedAt: new Date(version.date_published),
+                      }"
+                    >
+                      <strong v-i18n:wrap="'strong'" />
+                    </i18n-formatted>
                   </p>
                 </div>
               </div>
             </td>
             <td>
               <p>
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+                {{ $fmt.list(version.loaders.map((x) => $formatLoader(x))) }}
               </p>
               <p>{{ $formatVersion(version.game_versions) }}</p>
             </td>
             <td>
               <p>
-                <span>{{ $formatNumber(version.downloads) }}</span>
-                downloads
+                <i18n-formatted
+                  message-id="project.versions.downloads"
+                  :values="
+                    $deunionize(
+                      $fmt.compactNumber(version.downloads),
+                      'counter',
+                      'count'
+                    )
+                  "
+                >
+                  <span v-i18n:wrap="'strong'" />
+                </i18n-formatted>
               </p>
               <p>
-                Published on
-                <span>{{
-                  $dayjs(version.date_published).format('MMM D, YYYY')
-                }}</span>
+                <i18n-formatted
+                  message-id="project.versions.published"
+                  :values="{ publishedAt: new Date(version.date_published) }"
+                >
+                  <span v-i18n:wrap="'strong'" />
+                </i18n-formatted>
               </p>
             </td>
           </tr>
@@ -176,14 +207,20 @@ export default {
       this.currentPage = parseInt(this.$route.query.page)
   },
   head() {
-    const title = `${this.project.title} - Versions`
-    const description = `Download and browse ${this.versions.length} ${
-      this.project.title
-    } versions. ${this.$formatNumber(
-      this.project.downloads
-    )} total downloads. Last updated ${this.$dayjs(
-      this.versions[0] ? this.versions[0].date_published : null
-    ).format('MMM D, YYYY')}.`
+    console.log(this.project)
+    const title = this.$t('project.versions.meta.title', {
+      project: this.project.title,
+    })
+    const description = this.$t('project.versions.meta.description', {
+      versions: this.versions.length,
+      project: this.project.title,
+      ...this.$deunionize(
+        this.$fmt.compactNumber(this.project.downloads),
+        'downloadsCounter',
+        'downloads'
+      ),
+      lastUpdatedAt: new Date(this.versions[0]?.date_published ?? 0),
+    })
 
     return {
       title,
