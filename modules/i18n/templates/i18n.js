@@ -201,11 +201,11 @@ export function createRef(initialValue) {
  * @param {string} id String ID.
  * @param {Parameters<
  *   import('@formatjs/intl').IntlFormatters['formatMessage']
- * >[1]} values
+ * >[1]} [values]
  *   Values for the placeholders inside the translations.
  * @param {Parameters<
  *   import('@formatjs/intl').IntlFormatters['formatMessage']
- * >[2]} opts
+ * >[2]} [opts]
  * @returns {any} Either formatted string (if all elements were strings) or
  *   array of formatted elements.
  */
