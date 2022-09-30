@@ -32,45 +32,10 @@
         >
           <h1 class="title">{{ project.title }}</h1>
         </nuxt-link>
-        <div
-          v-if="
-            project.project_type !== 'resourcepack' &&
-            project.project_type !== 'plugin'
-          "
-        >
-          <div
-            v-if="
-              project.client_side === 'optional' &&
-              project.server_side === 'optional'
-            "
-            class="side-descriptor"
-          >
+        <div v-if="sideTip != null">
+          <div class="side-descriptor">
             <InfoIcon aria-hidden="true" />
-            Universal {{ projectTypeDisplay }}
-          </div>
-          <div
-            v-else-if="
-              (project.client_side === 'optional' ||
-                project.client_side === 'required') &&
-              (project.server_side === 'optional' ||
-                project.server_side === 'unsupported')
-            "
-            class="side-descriptor"
-          >
-            <InfoIcon aria-hidden="true" />
-            Client {{ projectTypeDisplay }}
-          </div>
-          <div
-            v-else-if="
-              (project.server_side === 'optional' ||
-                project.server_side === 'required') &&
-              (project.client_side === 'optional' ||
-                project.client_side === 'unsupported')
-            "
-            class="side-descriptor"
-          >
-            <InfoIcon aria-hidden="true" />
-            Server {{ projectTypeDisplay }}
+            {{ sideTip }}
           </div>
         </div>
 
@@ -84,35 +49,67 @@
         />
         <hr class="card-divider" />
         <div class="stats">
-          <span class="stat">{{ $formatNumber(project.downloads) }}</span>
-          <span class="label"
-            >download<span v-if="project.downloads !== 1">s</span></span
-          >
-          <span class="stat">{{ $formatNumber(project.followers) }}</span>
-          <span class="label"
-            >follower<span v-if="project.followers !== 1">s</span></span
-          >
+          <span>
+            <i18n-formatted
+              message-id="project.stats.downloads"
+              :values="
+                $deunionize(
+                  $fmt.compactNumber(project.downloads),
+                  'counter',
+                  'downloads'
+                )
+              "
+            >
+              <span v-i18n:wrap="'stat'" class="stat"></span>
+            </i18n-formatted>
+          </span>
+          <span>
+            <i18n-formatted
+              message-id="project.stats.followers"
+              :values="
+                $deunionize(
+                  $fmt.compactNumber(project.followers),
+                  'counter',
+                  'followers'
+                )
+              "
+            >
+              <span v-i18n:wrap="'stat'" class="stat"></span>
+            </i18n-formatted>
+          </span>
         </div>
         <div class="dates">
           <div
             v-tooltip="
-              $dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')
+              $fmt.date(new Date(project.published), {
+                dateStyle: 'long',
+                timeStyle: 'short',
+              })
             "
             class="date"
           >
             <CalendarIcon aria-hidden="true" />
-            <span class="label">Created</span>
-            <span class="value">{{ $dayjs(project.published).fromNow() }}</span>
+            {{
+              $t('project.stats.created', {
+                ago: $fmt.timeDifference(project.published),
+              })
+            }}
           </div>
           <div
             v-tooltip="
-              $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
+              $fmt.date(new Date(project.updated), {
+                dateStyle: 'long',
+                timeStyle: 'short',
+              })
             "
             class="date"
           >
             <UpdateIcon aria-hidden="true" />
-            <span class="label">Updated</span>
-            <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
+            {{
+              $t('project.stats.updated', {
+                ago: $fmt.timeDifference(project.updated),
+              })
+            }}
           </div>
         </div>
         <hr class="card-divider" />
@@ -123,7 +120,7 @@
               @click="$refs.modal_project_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ $t('project-page.actions.report') }}
             </button>
             <button
               v-if="!$user.follows.find((x) => x.id === project.id)"
@@ -131,7 +128,7 @@
               @click="$store.dispatch('user/followProject', project)"
             >
               <FollowIcon aria-hidden="true" />
-              Follow
+              {{ $t('project-page.actions.follow') }}
             </button>
             <button
               v-if="$user.follows.find((x) => x.id === project.id)"
@@ -139,17 +136,17 @@
               @click="$store.dispatch('user/unfollowProject', project)"
             >
               <FollowIcon fill="currentColor" aria-hidden="true" />
-              Unfollow
+              {{ $t('project-page.actions.unfollow') }}
             </button>
           </template>
           <template v-else>
             <a class="iconified-button" :href="authUrl">
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ $t('project-page.actions.report') }}
             </a>
             <a class="iconified-button" :href="authUrl">
               <FollowIcon fill="currentColor" aria-hidden="true" />
-              Follow
+              {{ $t('project-page.actions.follow') }}
             </a>
           </template>
         </div>
@@ -164,40 +161,43 @@
         "
         class="project-status card"
       >
-        <h3 class="card-header">Project status</h3>
+        <h3 class="card-header">{{ $t('project-page.status.title') }}</h3>
         <div class="status-info"></div>
         <p>
-          Your project is currently:
+          {{ $t('project-page.status.description') }}
           <VersionBadge
             v-if="project.status === 'approved'"
             color="green"
-            :type="project.status"
+            :type="$t('project-status.approved')"
           />
           <VersionBadge
             v-else-if="
               project.status === 'processing' || project.status === 'archived'
             "
             color="yellow"
-            :type="project.status"
+            :type="$t(`project-status.${project.status}`)"
           />
           <VersionBadge
             v-else-if="project.status === 'rejected'"
             color="red"
-            :type="project.status"
+            :type="$t('project-status.rejected')"
           />
-          <VersionBadge v-else color="gray" :type="project.status" />
+          <VersionBadge
+            v-else
+            color="gray"
+            :type="$t(`project-status.${project.status}`)"
+          />
         </p>
         <div class="message">
           <p v-if="project.status === 'processing'">
-            Your project is currently not viewable by people who are not part of
-            your team. Please wait for our moderators to manually review your
-            project to see if it abides by our
-            <nuxt-link to="/legal/rules">content rules!</nuxt-link>
+            <i18n-formatted
+              message-id="project-page.status.messages.processing"
+            >
+              <nuxt-link v-i18n:wrap="'rules-link'" to="/legal/rules" />
+            </i18n-formatted>
           </p>
           <p v-if="project.status === 'draft'">
-            Your project is currently not viewable by people who are not part of
-            your team. If your project is ready for review, click the button
-            below to make your mod public!
+            {{ $t('project-page.status.messages.draft') }}
           </p>
           <p v-if="project.moderator_message">
             {{ project.moderator_message.message }}
@@ -220,7 +220,7 @@
             @click="submitForReview"
           >
             <CheckIcon />
-            Resubmit for review
+            {{ $t('project-page.actions.resubmit-for-review') }}
           </button>
           <button
             v-if="project.status === 'draft'"
@@ -228,7 +228,7 @@
             @click="submitForReview"
           >
             <CheckIcon />
-            Submit for review
+            {{ $t('project-page.actions.submit-for-review') }}
           </button>
           <button
             v-if="project.status === 'approved'"
@@ -236,22 +236,21 @@
             @click="clearMessage"
           >
             <ClearIcon />
-            Clear message
+            {{ $t('project-page.actions.clear-message') }}
           </button>
         </div>
         <div v-if="showKnownErrors" class="known-errors">
           <ul>
             <li v-if="project.body === ''">
-              Your project must have a body to submit for review.
+              {{ $t('project-page.submit-errors.no-body') }}
             </li>
             <li v-if="project.versions.length < 1">
-              Your project must have at least one version to submit for review.
+              {{ $t('project-page.submit-errors.no-versions') }}
             </li>
           </ul>
         </div>
         <p v-if="project.status === 'rejected'">
-          Do not resubmit for review until you've addressed the moderator
-          message!
+          {{ $t('project-page.notice.no-resubmit') }}
         </p>
       </div>
       <div class="extra-info card">
@@ -264,7 +263,9 @@
             project.donation_urls.length > 0
           "
         >
-          <h3 class="card-header">External resources</h3>
+          <h3 class="card-header">
+            {{ $t('project-page.external-resources.title') }}
+          </h3>
           <div class="links">
             <a
               v-if="project.issues_url"
@@ -273,7 +274,7 @@
               target="_blank"
             >
               <IssuesIcon aria-hidden="true" />
-              <span>Issues</span>
+              <span>{{ $t('project-page.external-resources.issues') }}</span>
             </a>
             <a
               v-if="project.source_url"
@@ -282,7 +283,7 @@
               target="_blank"
             >
               <CodeIcon aria-hidden="true" />
-              <span>Source</span>
+              <span>{{ $t('project-page.external-resources.source') }}</span>
             </a>
             <a
               v-if="project.wiki_url"
@@ -291,7 +292,7 @@
               target="_blank"
             >
               <WikiIcon aria-hidden="true" />
-              <span>Wiki</span>
+              <span>{{ $t('project-page.external-resources.wiki') }}</span>
             </a>
             <a
               v-if="project.discord_url"
@@ -299,7 +300,7 @@
               target="_blank"
             >
               <DiscordIcon class="shrink" aria-hidden="true" />
-              <span>Discord</span>
+              <span>{{ $t('project-page.external-resources.discord') }}</span>
             </a>
             <a
               v-for="(donation, index) in project.donation_urls"
@@ -329,19 +330,33 @@
               />
               <FollowIcon v-else-if="donation.id === 'github'" />
               <UnknownIcon v-else />
-              <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
-              <span v-else-if="donation.id === 'patreon'">Patreon</span>
-              <span v-else-if="donation.id === 'paypal'">PayPal</span>
-              <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
-              <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
-              <span v-else>Donate</span>
+              <span v-if="donation.id === 'bmac'">{{
+                $t('project-page.external-resources.buy-me-a-coffee')
+              }}</span>
+              <span v-else-if="donation.id === 'patreon'">{{
+                $t('project-page.external-resources.patreon')
+              }}</span>
+              <span v-else-if="donation.id === 'paypal'">{{
+                $t('project-page.external-resources.paypal')
+              }}</span>
+              <span v-else-if="donation.id === 'ko-fi'">{{
+                $t('project-page.external-resources.kofi')
+              }}</span>
+              <span v-else-if="donation.id === 'github'">{{
+                $t('project-page.external-resources.github-sponsors')
+              }}</span>
+              <span v-else>{{
+                $t('project-page.external-resources.donate')
+              }}</span>
             </a>
           </div>
           <hr class="card-divider" />
         </template>
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
-            <h3 class="card-header">Featured versions</h3>
+            <h3 class="card-header">
+              {{ $t('project-page.featured-versions.title') }}
+            </h3>
             <nuxt-link
               v-if="project.versions.length > 0 || currentMember"
               :to="`/${project.project_type}/${
@@ -349,7 +364,7 @@
               }/versions`"
               class="all-link"
             >
-              See all
+              {{ $t('project-page.featured-versions.see-all') }}
               <ChevronRightIcon
                 class="featured-header-chevron"
                 aria-hidden="true"
@@ -370,14 +385,15 @@
           >
             <a
               v-tooltip="
-                findPrimary(version).filename +
-                ' (' +
-                $formatBytes(findPrimary(version).size) +
-                ')'
+                ((primary) =>
+                  $t('project.versions.download.tooltip', {
+                    fileName: primary.filename,
+                    size: $formatBytes(primary.size),
+                  }))(findPrimary(version))
               "
               :href="findPrimary(version).url"
               class="download"
-              :title="`Download ${version.name}`"
+              :title="$t('project-page.featured-versions.download.title')"
               @click.stop="(event) => event.stopPropagation()"
             >
               <DownloadIcon aria-hidden="true" />
@@ -395,29 +411,34 @@
                 v-if="version.game_versions.length > 0"
                 class="game-version item"
               >
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+                {{
+                  $fmt.list(
+                    version.loaders.map((x) => $formatLoader(x)),
+                    { type: 'unit' }
+                  )
+                }}
                 {{ $formatVersion(version.game_versions) }}
               </div>
               <VersionBadge
                 v-if="version.version_type === 'release'"
-                type="release"
+                :type="$t('release-channel.release')"
                 color="green"
               />
               <VersionBadge
                 v-else-if="version.version_type === 'beta'"
-                type="beta"
+                :type="$t('release-channel.beta')"
                 color="yellow"
               />
               <VersionBadge
                 v-else-if="version.version_type === 'alpha'"
-                type="alpha"
+                :type="$t('release-channel.alpha')"
                 color="red"
               />
             </div>
           </div>
           <hr class="card-divider" />
         </template>
-        <h3 class="card-header">Project members</h3>
+        <h3 class="card-header">{{ $t('project-page.members.title') }}</h3>
         <div
           v-for="member in members"
           :key="member.user.id"
@@ -435,18 +456,24 @@
             <nuxt-link :to="'/user/' + member.user.username" class="name">
               <p>{{ member.name }}</p>
             </nuxt-link>
-            <p class="role">{{ member.role }}</p>
+            <p class="role">
+              {{ member.role }}
+            </p>
           </div>
         </div>
         <hr class="card-divider" />
-        <h3 class="card-header">Technical information</h3>
+        <h3 class="card-header">
+          {{ $t('project-page.technical-info.title') }}
+        </h3>
         <div class="infos">
           <div class="info">
-            <div class="key">License</div>
+            <div class="key">
+              {{ $t('project-page.technical-info.license') }}
+            </div>
             <div class="value uppercase">
-              <a class="text-link" :href="project.license.url || null">{{
-                project.license.id
-              }}</a>
+              <a class="text-link" :href="project.license.url || null">
+                {{ project.license.id }}
+              </a>
             </div>
           </div>
           <div
@@ -456,7 +483,9 @@
             "
             class="info"
           >
-            <div class="key">Client side</div>
+            <div class="key">
+              {{ $t('project-page.technical-info.client-side') }}
+            </div>
             <div class="value">
               {{ project.client_side }}
             </div>
@@ -468,13 +497,17 @@
             "
             class="info"
           >
-            <div class="key">Server side</div>
+            <div class="key">
+              {{ $t('project-page.technical-info.server-side') }}
+            </div>
             <div class="value">
               {{ project.server_side }}
             </div>
           </div>
           <div class="info">
-            <div class="key">Project ID</div>
+            <div class="key">
+              {{ $t('project-page.technical-info.project-id') }}
+            </div>
             <div class="value lowercase">
               <CopyCode :text="project.id" />
             </div>
@@ -483,51 +516,58 @@
       </div>
       <div class="content">
         <div class="project-main">
-          <div
-            v-if="project.status === 'unlisted'"
-            class="card warning"
-            aria-label="Warning"
-          >
-            {{ project.title }} is not viewable in search — either because the
-            author has marked it as such or because it has been found to be in
-            violation of one of
-            <nuxt-link to="/legal/rules">Modrinth's content rules</nuxt-link>.
-            Modrinth makes no guarantees as to whether {{ project.title }} is
-            safe for use in a multiplayer context.
-          </div>
-          <div
-            v-if="project.status === 'archived'"
-            class="card warning"
-            aria-label="Warning"
-          >
-            {{ project.title }} has been archived by the project author.
-            {{ project.title }} will not receive any further updates unless the
-            author decides to unarchive the project.
-          </div>
-          <div
-            v-if="project.status === 'abandoned'"
-            class="card warning"
-            aria-label="Warning"
-          >
-            {{ project.title }} has been marked as abandoned by Modrinth's
-            moderators. {{ project.title }} will not receive any further updates
-            unless the author decides to return.
-          </div>
-          <div
-            v-if="project.project_type === 'modpack'"
-            class="card warning"
-            aria-label="Warning"
-          >
-            To install {{ project.title }}, visit
-            <a
-              href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-              target="_blank"
-              >our documentation</a
+          <div v-if="project.status === 'unlisted'" class="card warning">
+            <i18n-formatted
+              message-id="project-page.notice.unlisted"
+              :values="{ project: project.title }"
             >
-            which provides instructions on using
-            <a href="https://atlauncher.com/about" target="_blank">ATLauncher</a
-            >, <a href="https://multimc.org/" target="_blank">MultiMC</a>, and
-            <a href="https://polymc.org/" target="_blank">PolyMC</a>.
+              <div v-i18n:wrap="'sr-only'" class="sr-only" />
+              <nuxt-link v-i18n:wrap="'rules-link'" to="/legal/rules" />
+            </i18n-formatted>
+          </div>
+          <div v-if="project.status === 'archived'" class="card warning">
+            <i18n-formatted
+              message-id="project-page.notice.archived"
+              :values="{ project: project.title }"
+            >
+              <div v-i18n:wrap="'sr-only'" class="sr-only" />
+            </i18n-formatted>
+          </div>
+          <div v-if="project.status === 'abandoned'" class="card warning">
+            <i18n-formatted
+              message-id="project-page.notice.abandoned"
+              :values="{ project: project.title }"
+            >
+              <div v-i18n:wrap="'sr-only'" class="sr-only" />
+            </i18n-formatted>
+          </div>
+          <div v-if="project.project_type === 'modpack'" class="card warning">
+            <i18n-formatted
+              message-id="project-page.notice.modpacks-preview"
+              :values="{ project: project.title }"
+            >
+              <div v-i18n:wrap="'sr-only'" class="sr-only" />
+              <a
+                v-i18n:wrap="'docs-link'"
+                href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
+                target="_blank"
+              />
+              <a
+                v-i18n:wrap="'atl-link'"
+                href="https://atlauncher.com/about"
+                target="_blank"
+              />
+              <a
+                v-i18n:wrap="'mmc-link'"
+                href="https://multimc.org/"
+                target="_blank"
+              />
+              <a
+                v-i18n:wrap="'pmc-link'"
+                href="https://polymc.org/"
+                target="_blank"
+              />
+            </i18n-formatted>
           </div>
           <Advertisement
             v-if="
@@ -541,34 +581,34 @@
           <NavRow
             :links="[
               {
-                label: 'Description',
+                label: $t('project-page.tabs.description'),
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }`,
               },
               {
-                label: 'Gallery',
+                label: $t('project-page.tabs.gallery'),
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/gallery`,
                 shown: project.gallery.length > 0 || !!currentMember,
               },
               {
-                label: 'Changelog',
+                label: $t('project-page.tabs.changelog'),
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/changelog`,
                 shown: project.versions.length > 0,
               },
               {
-                label: 'Versions',
+                label: $t('project-page.tabs.versions'),
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/versions`,
                 shown: project.versions.length > 0 || !!currentMember,
               },
               {
-                label: 'Settings',
+                label: $t('project-page.tabs.settings'),
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/settings`,
@@ -659,7 +699,7 @@ export default {
       ) {
         data.error({
           statusCode: 404,
-          message: 'The page could not be found',
+          message: data.$t('project.version.not-found'),
         })
 
         return
@@ -773,7 +813,7 @@ export default {
     } catch {
       data.error({
         statusCode: 404,
-        message: 'Project not found',
+        message: data.$t('project-page.errors.not-found'),
       })
     }
   },
@@ -787,15 +827,18 @@ export default {
     this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
   head() {
-    const title = `${this.project.title} - Minecraft ${
-      this.projectTypeDisplay.charAt(0).toUpperCase() +
-      this.projectTypeDisplay.slice(1)
-    }`
-    const description = `${this.project.description} - Download the Minecraft ${
-      this.projectTypeDisplay
-    } ${this.project.title} by ${
-      this.members.find((x) => x.role === 'Owner').user.username
-    } on Modrinth`
+    console.log(this)
+
+    const title = this.$t('project-page.meta.title', {
+      project: this.project.title,
+      projectType: this.coercedProjectType?.replace(/-/g, '_') ?? '',
+    })
+
+    const description = this.$t('project-page.meta.description', {
+      projectDescription: this.project.description,
+      projectType: this.coercedProjectType?.replace(/-/g, '_') ?? '',
+      owner: this.members.find((x) => x.role === 'Owner').user.username,
+    })
 
     return {
       title,
@@ -843,11 +886,20 @@ export default {
     authUrl() {
       return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
     },
-    projectTypeDisplay() {
-      return this.$getProjectTypeForDisplay(
-        this.project.project_type,
-        this.loaders
-      )
+    coercedProjectType() {
+      return /** @type {import('vue/types/vue').Vue} */ (
+        this
+      ).$coerceProjectType(this.project.project_type, this.loaders)
+    },
+    projectSide() {
+      return /** @type {import('vue/types/vue').Vue} */ (
+        this
+      ).$computeProjectSide(this.project)
+    },
+    sideTip() {
+      return /** @type {import('vue/types/vue').Vue} */ (
+        this
+      ).$computeProjectTypeDisplay(this.projectSide, this.coercedProjectType)
     },
   },
   methods: {
@@ -977,7 +1029,9 @@ export default {
 
   .buttons {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 5px;
+    row-gap: 5px;
 
     button,
     a {
@@ -1000,13 +1054,14 @@ export default {
   }
 
   .stats {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 5px;
+
     .stat {
       font-size: var(--font-size-lg);
       font-weight: bold;
-    }
-
-    .label {
-      margin-right: 0.125rem;
     }
   }
 
@@ -1217,19 +1272,7 @@ export default {
       width: 40%;
     }
 
-    .value {
-      width: 50%;
-
-      &::first-letter {
-        text-transform: capitalize;
-      }
-
-      &.lowercase {
-        &::first-letter {
-          text-transform: none;
-        }
-      }
-    }
+    // TODO: CAPITALIZE IDS!!!!!!!
 
     .uppercase {
       text-transform: uppercase;
