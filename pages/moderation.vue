@@ -11,11 +11,7 @@
               <Badge
                 v-if="currentProject.newStatus === 'approved'"
                 color="green"
-                :type="
-                  $t('project-status.approved', {
-                    projectType: currentProject.project_type,
-                  })
-                "
+                :type="$t('project-status.approved')"
               />
               <Badge
                 v-else-if="
@@ -24,29 +20,17 @@
                   currentProject.newStatus === 'archived'
                 "
                 color="yellow"
-                :type="
-                  $t(`project-status.${currentProject.newStatus}`, {
-                    projectType: currentProject.project_type,
-                  })
-                "
+                :type="$t(`project-status.${currentProject.newStatus}`)"
               />
               <Badge
                 v-else-if="currentProject.newStatus === 'rejected'"
                 color="red"
-                :type="
-                  $t('project.status.rejected', {
-                    projectType: currentProject.project_type,
-                  })
-                "
+                :type="$t('project.status.rejected')"
               />
               <Badge
                 v-else
                 color="gray"
-                :type="
-                  $t(`project.status.${currentProject.newStatus}`, {
-                    projectType: currentProject.project_type,
-                  })
-                "
+                :type="$t(`project-status.${currentProject.newStatus}`)"
               />
             </span>
           </i18n-formatted>
