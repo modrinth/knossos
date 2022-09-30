@@ -364,9 +364,15 @@ export function createIntlPlugin() {
                   value = (parts) => {
                     let cloned = cloneVNode(child)
 
-                    cloned.children = parts.map((part) =>
+                    const newChildren = parts.map((part) =>
                       isVNode(part) ? part : createTextNode(part)
                     )
+
+                    if (cloned.componentOptions != null) {
+                      cloned.componentOptions.children = newChildren
+                    } else {
+                      cloned.children = newChildren
+                    }
 
                     return cloned
                   }
