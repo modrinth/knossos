@@ -224,7 +224,6 @@
   "project.settings.invite-member.action": "Invite",
   "project.settings.team-member.status.accepted": "Accepted",
   "project.settings.team-member.status.pending": "Pending",
-  "project.member-role.owner": "Owner",
   "project.settings.team-member.role.label": "Role:",
   "project.settings.team-member.permissions.title": "Permissions",
   "project.settings.team-member.permission.upload-version": "Upload version",

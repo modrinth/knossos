@@ -111,11 +111,7 @@
               <p>{{ member.name }}</p>
             </nuxt-link>
             <p>
-              {{
-                member.role === 'Owner'
-                  ? $t('project.member-role.owner')
-                  : member.role
-              }}
+              {{ member.role }}
             </p>
           </div>
         </div>
