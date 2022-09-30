@@ -175,6 +175,7 @@ export default {
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/shorthands.js',
+    '~/plugins/shorthands-ts.js',
     '~/plugins/i18n-helpers.js',
   ],
   /*
