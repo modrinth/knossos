@@ -45,6 +45,7 @@ export class IntlController {
   /**
    * Initialises or re-initialises Intl using provided locale and its messages.
    *
+   * @private
    * @param {string} locale Locale which Intl being initialised with.
    * @throws On attempt to initialise (not re-initialise) Intl using non-default
    *   locale.
@@ -121,7 +122,10 @@ export class IntlController {
     return this._vm.$data.locales
   }
 
-  /** @param {Record<string, Record<string, string>>} value */
+  /**
+   * @private
+   * @param {Record<string, Record<string, string>>} value
+   */
   _setLocales(value) {
     this._vm.$data.locales = value
   }
@@ -134,6 +138,7 @@ export class IntlController {
   /**
    * Changes Intl value.
    *
+   * @private
    * @param {import('@formatjs/intl').IntlShape} value New value.
    */
   _setIntl(value) {
@@ -148,6 +153,7 @@ export class IntlController {
   /**
    * Changes formatters.
    *
+   * @private
    * @param {IntlFormatAliases} value New formats.
    */
   _setFormats(value) {
