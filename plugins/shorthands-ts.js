@@ -127,10 +127,53 @@ function computeProjectTypeDisplay(side, type) {
 }
 
 /**
+ * Provides localised category name.
+ *
+ * @param {string} categoryName Original category name provided by the API.
+ * @returns {string} Localised category name.
+ * @this {import('@nuxt/types').Context}
+ */
+function translateCategory(categoryName) {
+  /** @type {string} */
+  let normalizedKey
+
+  switch (categoryName) {
+    case '512x+': {
+      normalizedKey = '512x-or-higher'
+      break
+    }
+    case '8x-': {
+      normalizedKey = '8x-or-lower'
+      break
+    }
+    default: {
+      normalizedKey = categoryName
+    }
+  }
+
+  normalizedKey = normalizedKey.replace(/_/g, '-')
+
+  return this.$t(`category.${normalizedKey}`)
+}
+
+/**
+ * Provides localised loader name.
+ *
+ * @param {string} loaderName Original loader name provided by the API.
+ * @returns {string} Localised loader name.
+ * @this {import('@nuxt/types').Context}
+ */
+function translateLoader(loaderName) {
+  return this.$t(`loader.${loaderName}`)
+}
+
+/**
  * @typedef {object} DefinedHelpers
  * @property {typeof computeProjectSide} $computeProjectSide
  * @property {typeof coerceProjectType} $coerceProjectType
  * @property {typeof computeProjectTypeDisplay} $computeProjectTypeDisplay
+ * @property {typeof translateCategory} $translateCategory
+ * @property {typeof translateLoader} $translateLoader
  */
 
 /** @type {import('@nuxt/types').Plugin} */
@@ -138,4 +181,6 @@ export default (ctx, inject) => {
   inject('computeProjectSide', computeProjectSide)
   inject('coerceProjectType', coerceProjectType.bind(ctx))
   inject('computeProjectTypeDisplay', computeProjectTypeDisplay.bind(ctx))
+  inject('translateCategory', translateCategory.bind(ctx))
+  inject('translateLoader', translateLoader.bind(ctx))
 }
