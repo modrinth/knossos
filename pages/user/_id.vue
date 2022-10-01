@@ -24,7 +24,7 @@
               :show-icon="true"
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image"
-              prompt="Upload avatar"
+              :prompt="$t('user.edit.avatar.prompt')"
               @change="showPreviewImage"
             />
             <button
@@ -33,7 +33,7 @@
               @click="isEditing = true"
             >
               <EditIcon />
-              Edit
+              {{ $t('user.actions.edit') }}
             </button>
             <button
               v-else-if="$auth.user"
@@ -41,23 +41,29 @@
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ $t('user.actions.report') }}
             </button>
             <a v-else class="iconified-button" :href="authUrl">
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ $t('user.actions.report') }}
             </a>
           </div>
           <template v-if="isEditing">
             <div class="inputs">
-              <label><h3>Username</h3></label>
+              <label>
+                <h3>{{ $t('user.edit.username.title') }}</h3>
+              </label>
               <input v-model="user.username" maxlength="39" type="text" />
-              <label><h3>Bio</h3></label>
+              <label>
+                <h3>{{ $t('user.edit.bio.title') }}</h3>
+              </label>
               <div class="textarea-wrapper">
                 <textarea v-model="user.bio" maxlength="160"></textarea>
               </div>
-              <label><h3>Private Email</h3></label>
-              <span>Only visible to moderators.</span>
+              <label>
+                <h3>{{ $t('user.edit.email.title') }}</h3>
+              </label>
+              <span>{{ $t('user.edit.email.description') }}</span>
               <input v-model="user.email" maxlength="2048" type="email" />
             </div>
             <div class="button-group">
@@ -70,60 +76,93 @@
                   icon = null
                 "
               >
-                <CrossIcon /> Cancel
+                <CrossIcon /> {{ $t('user.edit.actions.cancel') }}
               </button>
               <button
                 class="iconified-button brand-button"
                 @click="saveChanges"
               >
-                <SaveIcon /> Save
+                <SaveIcon /> {{ $t('user.edit.actions.save') }}
               </button>
             </div>
           </template>
           <template v-else>
             <div class="sidebar__item">
-              <Badge v-if="user.role === 'admin'" type="admin" color="red" />
+              <Badge
+                v-if="user.role === 'admin'"
+                :type="$t('user.status.admin')"
+                color="red"
+              />
               <Badge
                 v-else-if="user.role === 'moderator'"
-                type="moderator"
+                :type="$t('user.status.moderator')"
                 color="yellow"
               />
-              <Badge v-else type="developer" color="green" />
+              <Badge v-else :type="$t('user.status.regular')" color="green" />
             </div>
-            <span v-if="user.bio" class="sidebar__item bio">{{
-              user.bio
-            }}</span>
+            <span v-if="user.bio" class="sidebar__item bio">
+              {{ user.bio }}
+            </span>
             <hr class="card-divider" />
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads() }}</span>
-                <span class="primary-stat__label">downloads</span>
+                <i18n-formatted
+                  message-id="user.stats.total-downloads"
+                  :values="
+                    $deunionize(
+                      $fmt.compactNumber(sumDownloads()),
+                      'counter',
+                      'downloads'
+                    )
+                  "
+                >
+                  <span v-i18n:wrap="'stat'" class="primary-stat__counter" />
+                </i18n-formatted>
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumFollows() }}</span>
-                <span class="primary-stat__label">followers of projects</span>
+                <i18n-formatted
+                  message-id="user.stats.total-followers"
+                  :values="
+                    $deunionize(
+                      $fmt.compactNumber(sumFollows()),
+                      'counter',
+                      'followers'
+                    )
+                  "
+                >
+                  <span v-i18n:wrap="'stat'" class="primary-stat__counter" />
+                </i18n-formatted>
               </div>
             </div>
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
                 v-tooltip="
-                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
+                  $fmt.date(new Date(user.created), {
+                    dateStyle: 'long',
+                    timeStyle: 'medium',
+                  })
                 "
                 class="secondary-stat__text date"
               >
-                Joined {{ $dayjs(user.created).fromNow() }}
+                {{
+                  $t('user.stats.joined', {
+                    ago: $fmt.timeDifference(user.created),
+                  })
+                }}
               </span>
             </div>
             <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text">
-                User ID: <CopyCode :text="user.id" />
+                <i18n-formatted message-id="user.stats.user-id">
+                  <CopyCode v-i18n:value="'userId'" :text="user.id" />
+                </i18n-formatted>
               </span>
             </div>
             <a
@@ -132,7 +171,7 @@
               class="sidebar__item github-button iconified-button"
             >
               <GitHubIcon aria-hidden="true" />
-              View GitHub profile
+              {{ $t('user.actions.open-github') }}
             </a>
           </template>
         </aside>
@@ -160,7 +199,7 @@
             @click="$refs.modal_creation.show()"
           >
             <PlusIcon />
-            Create a project
+            {{ $t('user.actions.create-project') }}
           </button>
         </nav>
         <Advertisement
@@ -202,20 +241,24 @@
               }/settings`"
             >
               <SettingsIcon />
-              Settings
+              {{ $t('user.projects.project.actions.settings') }}
             </nuxt-link>
           </ProjectCard>
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
           <span v-if="$auth.user && $auth.user.id === user.id" class="text">
-            You don't have any projects.<br />
-            Would you like to
-            <a class="link" @click.prevent="$refs.modal_creation.show()">
-              create one </a
-            >?
+            <i18n-formatted message-id="user.projects.no-projects.pov-self">
+              <a
+                v-i18n:wrap="'create-link'"
+                class="link"
+                @click.prevent="$refs.modal_creation.show()"
+              />
+            </i18n-formatted>
           </span>
-          <span v-else class="text">This user has no projects!</span>
+          <span v-else class="text">
+            {{ $t('user.projects.no-projects.pov-others') }}
+          </span>
         </div>
       </div>
     </div>
@@ -336,7 +379,7 @@ export default {
     } catch {
       data.error({
         statusCode: 404,
-        message: 'User not found',
+        message: data.$t('user.errors.not-found'),
       })
     }
   },
@@ -348,8 +391,15 @@ export default {
     }
   },
   head() {
+    const description = this.$t('user.meta.description', {
+      bio: this.user.bio,
+      user: this.user.username,
+    })
+
     return {
-      title: this.user.username + ' - Modrinth',
+      title: this.$t('meta.title-format', {
+        title: this.user.username,
+      }),
       meta: [
         {
           hid: 'og:type',
@@ -369,12 +419,12 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
+          content: description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
+          content: description,
         },
         {
           hid: 'og:image',
@@ -407,7 +457,7 @@ export default {
         sum += projects.downloads
       }
 
-      return this.$formatNumber(sum)
+      return sum
     },
     sumFollows() {
       let sum = 0
@@ -416,7 +466,7 @@ export default {
         sum += projects.followers
       }
 
-      return this.$formatNumber(sum)
+      return sum
     },
     showPreviewImage(files) {
       const reader = new FileReader()
@@ -460,7 +510,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
