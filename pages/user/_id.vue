@@ -182,12 +182,12 @@
             query="type"
             :links="[
               {
-                label: 'all',
+                label: $t('user.filter.all'),
                 href: '',
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
+                  label: $t(`user.filter.${x}`),
                   href: x,
                 }
               }),
