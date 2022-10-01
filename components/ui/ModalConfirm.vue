@@ -1,7 +1,9 @@
 <template>
   <Modal ref="modal" :header="title">
     <div class="modal-delete">
-      <div class="markdown-body" v-html="$xss($md.render(description))"></div>
+      <div class="markdown-body">
+        <slot />
+      </div>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
           <strong>To verify, type</strong>
@@ -61,11 +63,6 @@ export default {
     title: {
       type: String,
       default: 'No title defined',
-      required: true,
-    },
-    description: {
-      type: String,
-      default: 'No description defined',
       required: true,
     },
     proceedLabel: {

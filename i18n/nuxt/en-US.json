@@ -454,7 +454,7 @@
   "settings.follows.actions.unfollow": "Unfollow",
   "settings.follows.empty": "You don't have any followed mods.\nWhy don't you <search-link>search</search-link> for new ones?",
   "settings.modals.delete-account.title": "Are you sure you want to delete your account?",
-  "settings.modals.delete-account.description": "This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.'<br>''<br>'If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt).",
+  "settings.modals.delete-account.description": "This will <strong>immediately delete all of your user data and follows</strong>. This will not delete your projects. Deleting your account cannot be reversed.\n\nIf you need help with your account, get support on the <discord-link>Modrinth Discord</discord-link>.",
   "settings.modals.delete-account.action": "Delete my account",
   "settings.modals.revoke-token.title": "Revoke your Modrinth token",
   "settings.modals.revoke-token.content.1-consequences": "Revoking your Modrinth token can have unintended consequences. Please be aware that the following could break:",

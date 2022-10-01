@@ -3,12 +3,22 @@
     <ModalConfirm
       ref="modal_confirm"
       :title="$t('settings.modals.delete-account.title')"
-      :description="$t('settings.modals.delete-account.description')"
       :proceed-label="$t('settings.modals.delete-account.action')"
       :confirmation-text="$auth.user.username"
       :has-to-type="true"
       @proceed="deleteAccount"
-    />
+    >
+      <div class="pre">
+        <i18n-formatted message-id="settings.modals.delete-account.description">
+          <strong v-i18n:wrap="'strong'" />
+          <a
+            v-i18n:wrap="'discord-link'"
+            href="https://discord.gg/EUHuJHt"
+            target="_blank"
+          />
+        </i18n-formatted>
+      </div>
+    </ModalConfirm>
 
     <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
       <div class="modal-revoke-token markdown-body">
@@ -293,6 +303,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.pre {
+  white-space: pre-line;
+}
+
 .card {
   padding: var(--spacing-card-lg);
 }

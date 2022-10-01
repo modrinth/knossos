@@ -3,12 +3,14 @@
     <ModalConfirm
       ref="modal_confirm"
       title="Are you sure you want to delete this project?"
-      description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
       :has-to-type="true"
       :confirmation-text="project.title"
       proceed-label="Delete"
       @proceed="deleteProject"
-    />
+    >
+      If you proceed, all versions and any attached data will be removed from
+      our servers. This may break other projects, so be careful.
+    </ModalConfirm>
     <div class="card">
       <h3>{{ $t('project.settings.general.title') }}</h3>
     </div>
