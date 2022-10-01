@@ -3,8 +3,15 @@
     <span
       v-for="category in categoriesFiltered"
       :key="category.name"
-      v-html="category.icon + $formatCategory(category.name)"
-    />
+      class="category"
+    >
+      <span class="icon" v-html="category.icon" />
+      {{ $translateCategory(category.name) }}
+    </span>
+    <span v-for="loader in loadersFiltered" :key="loader.name" class="category">
+      <span class="icon" v-html="loader.icon" />
+      {{ $translateLoader(loader.name) }}
+    </span>
   </div>
 </template>
 
@@ -25,14 +32,17 @@ export default {
   },
   computed: {
     categoriesFiltered() {
-      return this.$tag.categories
-        .concat(this.$tag.loaders)
-        .filter(
-          (x) =>
-            this.categories.includes(x.name) &&
-            (!x.project_type || x.project_type === this.type) &&
-            x.name !== 'minecraft'
-        )
+      return this.$tag.categories.filter(
+        (category) =>
+          this.categories.includes(category.name) &&
+          (category.project_type == null || category.project_type === this.type)
+      )
+    },
+    loadersFiltered() {
+      return this.$tag.loaders.filter(
+        (loader) =>
+          this.categories.includes(loader.name) && loader.name !== 'minecraft'
+      )
     },
   },
 }
@@ -41,19 +51,19 @@ export default {
 <style lang="scss" scoped>
 .categories {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  column-gap: 0.5rem;
 
-  span ::v-deep {
+  .category {
     display: flex;
-    align-items: center;
-    flex-direction: row;
+    column-gap: 0.125rem;
     color: var(--color-icon);
-    margin-right: 0.5rem;
+    align-items: center;
 
-    svg {
+    .icon,
+    .icon::v-deep svg {
       width: 1rem;
-      margin-right: 0.125rem;
+      height: 1rem;
     }
   }
 }
