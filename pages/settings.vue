@@ -4,10 +4,10 @@
       <div class="content">
         <h1 v-if="$auth.user">
           {{
-            $t('settings.title.authorized', { username: $auth.user.username })
+            $t('settings.authorized-title', { username: $auth.user.username })
           }}
         </h1>
-        <h1 v-else>{{ $t('settings.title.generic') }}</h1>
+        <h1 v-else>{{ $t('settings.title') }}</h1>
         <NavRow
           class="card"
           :links="[
