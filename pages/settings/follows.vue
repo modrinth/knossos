@@ -20,18 +20,18 @@
         @click="$store.dispatch('user/unfollowProject', project)"
       >
         <HeartIcon />
-        Unfollow
+        {{ $t('settings.follows.actions.unfollow') }}
       </button>
     </ProjectCard>
   </div>
   <div v-else class="error">
     <FollowIllustration class="icon" />
     <br />
-    <span class="text"
-      >You don't have any followed mods. <br />
-      Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for
-      new ones?</span
-    >
+    <span class="text pre">
+      <i18n-formatted message-id="settings.follows.empty">
+        <nuxt-link v-i18n:wrap="'search-link'" class="link" to="/mods" />
+      </i18n-formatted>
+    </span>
   </div>
 </template>
 
@@ -50,9 +50,21 @@ export default {
   async fetch() {
     await this.$store.dispatch('user/fetchFollows')
   },
-  head: {
-    title: 'Followed Projects - Modrinth',
+  head() {
+    return {
+      title: this.$t('meta.title-format', {
+        title: this.$t('settings.follows.title'),
+      }),
+    }
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.error {
+  .text {
+    &.pre {
+      white-space: pre-line;
+    }
+  }
+}
+</style>
