@@ -1,5 +1,10 @@
 <template>
   <div class="main">
+    <div v-if="$i18n.intlLocale.language !== 'en'" class="card warning">
+      <i18n-formatted message-id="legal.common.warning">
+        <span v-i18n:wrap="'sr-only'" class="sr-only" />
+      </i18n-formatted>
+    </div>
     <div class="card">
       <h1>Terms and Conditions</h1>
 
