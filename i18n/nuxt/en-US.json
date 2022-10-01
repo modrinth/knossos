@@ -85,6 +85,7 @@
   "landing.feature.api.title": "Simple to integrate",
   "landing.feature.api.headline": "An open-source API for everyone to use",
   "landing.feature.api.body": "We have created an open source modding platform for the community. We're committed to open source so the community can trust us as their modding platform. Our API is <docs-link>fully documented</docs-link> so anyone can use it. We will never add restrictions on our API!",
+  "legal.common.warning": "<sr-only>Warning:</sr-only>\nDue to the nature of this page, the only official version of this content is in English.",
   "loader.bukkit": "Bukkit",
   "loader.bungeecord": "BungeeCord",
   "loader.fabric": "Fabric",
