@@ -58,6 +58,7 @@
   "category.utility": "Utility",
   "category.vanilla-like": "Vanilla-like",
   "category.worldgen": "World Generation",
+  "component.copy-code.title": "Copy code to clipboard",
   "error.generic": "An error occurred",
   "landing.title": "Discover, Play, and Create Minecraft content",
   "landing.headline": "Find enjoyable, quality content through our <repo-link>open-source</repo-link> modding platform built for the community. Create stuff, get paid<sup>WIP</sup>, and deploy your project with our <docs-link>fully documented</docs-link> API!",

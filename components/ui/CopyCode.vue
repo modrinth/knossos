@@ -2,7 +2,7 @@
   <button
     class="code"
     :class="{ copied }"
-    title="Copy code to clipboard"
+    :title="$t('component.copy-code.title')"
     @click="copyText"
   >
     {{ text }}
