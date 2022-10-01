@@ -42,7 +42,7 @@
                   v-tooltip="
                     $fmt.date(notification.created, {
                       dateStyle: 'long',
-                      timeStyle: 'long',
+                      timeStyle: 'medium',
                     })
                   "
                 >
