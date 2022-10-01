@@ -83,7 +83,7 @@
             v-tooltip="
               $fmt.date(new Date(project.published), {
                 dateStyle: 'long',
-                timeStyle: 'short',
+                timeStyle: 'medium',
               })
             "
             class="date"
@@ -99,7 +99,7 @@
             v-tooltip="
               $fmt.date(new Date(project.updated), {
                 dateStyle: 'long',
-                timeStyle: 'short',
+                timeStyle: 'medium',
               })
             "
             class="date"
