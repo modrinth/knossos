@@ -2,9 +2,9 @@
   <div>
     <ModalConfirm
       ref="modal_confirm"
-      title="Are you sure you want to delete your account?"
-      description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
-      proceed-label="Delete my account"
+      :title="$t('settings.modals.delete-account.title')"
+      :description="$t('settings.modals.delete-account.description')"
+      :proceed-label="$t('settings.modals.delete-account.action')"
       :confirmation-text="$auth.user.username"
       :has-to-type="true"
       @proceed="deleteAccount"
@@ -13,44 +13,42 @@
     <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
       <div class="modal-revoke-token markdown-body">
         <p>
-          Revoking your Modrinth token can have unintended consequences. Please
-          be aware that the following could break:
+          {{ $t('settings.modals.revoke-token.content.1-consequences') }}
         </p>
         <ul>
-          <li>Any application that uses your token to access the API.</li>
           <li>
-            Gradle - if Minotaur is given a incorrect token, your Gradle builds
-            could fail.
+            {{ $t('settings.modals.revoke-token.content.2-breakage-apps') }}
           </li>
           <li>
-            GitHub - if you use a GitHub action that uses the Modrinth API, it
-            will cause errors.
+            {{ $t('settings.modals.revoke-token.content.3-breakage-gradle') }}
+          </li>
+          <li>
+            {{ $t('settings.modals.revoke-token.content.4-breakage-ci') }}
           </li>
         </ul>
-        <p>If you are willing to continue, complete the following steps:</p>
+        <p>{{ $t('settings.modals.revoke-token.content.5-how-to') }}</p>
         <ol>
           <li>
-            <a
-              href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
-              target="_blank"
+            <i18n-formatted
+              message-id="settings.modals.revoke-token.content.6-step-github"
             >
-              Head to the Modrinth Application page on GitHub.
-            </a>
-            Make sure to be logged into the GitHub account you used for
-            Modrinth!
+              <a
+                v-i18n:wrap="'gh-link'"
+                href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
+                target="_blank"
+              />
+            </i18n-formatted>
           </li>
           <li>
-            Press the big red "Revoke Access" button next to the "Permissions"
-            header.
+            {{ $t('settings.modals.revoke-token.content.7-step-revoke') }}
           </li>
         </ol>
         <p>
-          Once you have completed those steps, press the continue button below.
+          {{ $t('settings.modals.revoke-token.content.8-on-complete') }}
         </p>
         <p>
           <strong>
-            This will log you out of Modrinth, however, when you log back in,
-            your token will be regenerated.
+            {{ $t('settings.modals.revoke-token.content.9-logout-warn') }}
           </strong>
         </p>
         <div class="button-group">
@@ -59,11 +57,11 @@
             @click="$refs.modal_revoke_token.hide()"
           >
             <CrossIcon />
-            Cancel
+            {{ $t('settings.modals.revoke-token.actions.cancel') }}
           </button>
           <button class="iconified-button brand-button" @click="logout">
             <RightArrowIcon />
-            Log out
+            {{ $t('settings.modals.revoke-token.actions.log-out') }}
           </button>
         </div>
       </div>
@@ -71,7 +69,7 @@
 
     <section class="card">
       <div class="header">
-        <h2 class="title">{{ $t('settings.display_settings.title') }}</h2>
+        <h2 class="title">{{ $t('settings.display-settings.title') }}</h2>
       </div>
       <label>
         <span>
@@ -90,8 +88,8 @@
       </label>
       <label>
         <span>
-          <h3>{{ $t('settings.locale.title') }}</h3>
-          <span>{{ $t('settings.locale.description') }}</span>
+          <h3>{{ $t('settings.language.title') }}</h3>
+          <span>{{ $t('settings.language.description') }}</span>
         </span>
         <Multiselect
           :value="
@@ -101,14 +99,22 @@
           "
           :options="['auto', ...$i18n.availableLocales]"
           :custom-label="
-            (locale) =>
-              locale === 'auto'
-                ? $t('settings.locale.option.sync-with-browser')
-                : locale.data != null && locale.data.customLocaleName != null
-                ? locale.data.customLocaleName
-                : new Intl.DisplayNames(locale.code, {
-                    type: 'language',
-                  }).of(locale.code)
+            (locale) => {
+              if (locale === 'auto') {
+                return $t('settings.language.value.auto')
+              }
+
+              const customName =
+                locale.data != null ? locale.data.customLocaleName : null
+
+              if (customName == null) {
+                return new Intl.DisplayNames(locale.code, {
+                  type: 'language',
+                }).of(locale.code)
+              }
+
+              return customName
+            }
           "
           :searchable="false"
           :close-on-select="true"
@@ -122,9 +128,9 @@
       </label>
       <label>
         <span>
-          <h3>{{ $t('settings.right_search_sidebar.title') }}</h3>
+          <h3>{{ $t('settings.right-search-sidebar.title') }}</h3>
           <span>
-            {{ $t('settings.right_search_sidebar.description') }}
+            {{ $t('settings.right-search-sidebar.description') }}
           </span>
         </span>
         <input
@@ -136,10 +142,10 @@
       </label>
       <label>
         <span>
-          <h3>{{ $t('settings.right_project_sidebar.title') }}</h3>
+          <h3>{{ $t('settings.right-project-sidebar.title') }}</h3>
 
           <span>
-            {{ $t('settings.right_project_sidebar.description') }}
+            {{ $t('settings.right-project-sidebar.description') }}
           </span>
         </span>
         <input
@@ -152,11 +158,9 @@
     </section>
 
     <section class="card">
-      <h2 class="title">Authorization token</h2>
+      <h2 class="title">{{ $t('settings.auth-token.title') }}</h2>
       <p>
-        Your authorization token can be used with the Modrinth API, the Minotaur
-        Gradle plugin, and other applications that interact with Modrinth's API.
-        Be sure to keep this secret!
+        {{ $t('settings.auth-token.description') }}
       </p>
       <div class="button-group">
         <button
@@ -167,26 +171,26 @@
         >
           <template v-if="copied">
             <CheckIcon v-if="copied" />
-            Copied token to clipboard
+            {{ $t('settings.auth-token.copied') }}
           </template>
-          <template v-else>Copy token to clipboard</template>
+          <template v-else>
+            {{ $t('settings.auth-token.actions.copy') }}
+          </template>
         </button>
         <button
           type="button"
           class="iconified-button"
           @click="$refs.modal_revoke_token.show()"
         >
-          Revoke token
+          {{ $t('settings.auth-token.actions.revoke-token') }}
         </button>
       </div>
     </section>
 
     <section class="card">
-      <h2 class="title">Delete account</h2>
+      <h2 class="title">{{ $t('settings.delete-account.title') }}</h2>
       <p>
-        Once you delete your account, there is no going back. Deleting your
-        account will remove all attached data, excluding projects, from our
-        servers.
+        {{ $t('settings.delete-account.description') }}
       </p>
       <div class="button-group">
         <button
@@ -194,7 +198,7 @@
           class="iconified-button danger-button"
           @click="$refs.modal_confirm.show()"
         >
-          Delete account
+          {{ $t('settings.delete-account.action') }}
         </button>
       </div>
     </section>
@@ -230,8 +234,12 @@ export default {
     this.searchLayout = this.$store.state.cosmetics.searchLayout
     this.projectLayout = this.$store.state.cosmetics.projectLayout
   },
-  head: {
-    title: 'Settings - Modrinth',
+  head() {
+    return {
+      title: this.$t('meta.title-format', {
+        title: this.$t('settings.title'),
+      }),
+    }
   },
   methods: {
     async changeLayout() {
@@ -268,7 +276,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
