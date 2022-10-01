@@ -487,7 +487,11 @@
               {{ $t('project-page.technical-info.client-side') }}
             </div>
             <div class="value">
-              {{ project.client_side }}
+              {{
+                $t(
+                  `project-page.technical-info.side-requirement-values.${project.client_side}`
+                )
+              }}
             </div>
           </div>
           <div
@@ -501,7 +505,11 @@
               {{ $t('project-page.technical-info.server-side') }}
             </div>
             <div class="value">
-              {{ project.server_side }}
+              {{
+                $t(
+                  `project-page.technical-info.side-requirement-values.${project.server_side}`
+                )
+              }}
             </div>
           </div>
           <div class="info">
