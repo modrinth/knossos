@@ -6,9 +6,13 @@
       </div>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
-          <strong>To verify, type</strong>
-          <em class="confirmation-text">{{ confirmationText }}</em>
-          <strong>below:</strong>
+          <i18n-formatted
+            message-id="component.confirm-modal.verification.title"
+          >
+            <strong v-i18n:value="'text'" class="confirmation-text">
+              {{ confirmationText }}
+            </strong>
+          </i18n-formatted>
         </span>
       </label>
       <div class="confirmation-input">
@@ -17,14 +21,14 @@
           id="confirmation"
           v-model="confirmation_typed"
           type="text"
-          placeholder="Type here..."
+          :placeholder="$t('component.confirm-modal.verification.placeholder')"
           @input="type"
         />
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          Cancel
+          {{ $t('component.confirm-modal.actions.cancel') }}
         </button>
         <button
           class="iconified-button danger-button"
