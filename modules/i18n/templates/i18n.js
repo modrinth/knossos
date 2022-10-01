@@ -37,6 +37,7 @@ export class IntlController {
           locales: Object.create(null),
           intl: null,
           formats: null,
+          intlLocale: null,
         }
       },
     })
@@ -107,6 +108,8 @@ export class IntlController {
         })
       )
     )
+
+    this._setIntlLocale(new Intl.Locale(locale))
   }
 
   get defaultLocale() {
@@ -158,6 +161,21 @@ export class IntlController {
    */
   _setFormats(value) {
     this._vm.$data.formats = value
+  }
+
+  /** @type {Intl.Locale} */
+  get intlLocale() {
+    return this._vm.$data.intlLocale
+  }
+
+  /**
+   * Changes current Intl Locale.
+   *
+   * @private
+   * @param {Intl.Locale} value New {@link Intl.Locale}.
+   */
+  _setIntlLocale(value) {
+    this._vm.$data.intlLocale = value
   }
 
   /**
