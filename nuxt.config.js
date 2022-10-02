@@ -264,6 +264,12 @@ export default {
         loader: astLoader,
         type: 'javascript/auto',
       })
+
+      config.module.rules.push({
+        test: /\.md$/,
+        include: path.resolve(__dirname, 'i18n/nuxt'),
+        loader: 'raw-loader',
+      })
     },
   },
   loading: {
