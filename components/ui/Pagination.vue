@@ -3,7 +3,7 @@
     <a
       :class="{ disabled: page === 1 }"
       class="left-arrow paginate has-icon"
-      aria-label="Previous Page"
+      :aria-label="$t('component.pagination.previous-page.aria-label')"
       :href="linkFunction(page - 1)"
       @click.prevent="page !== 1 ? switchPage(page - 1) : null"
     >
@@ -39,7 +39,7 @@
         disabled: page === pages[pages.length - 1],
       }"
       class="right-arrow paginate has-icon"
-      aria-label="Next Page"
+      :aria-label="$t('component.pagination.next-page.aria-label')"
       :href="linkFunction(page + 1)"
       @click.prevent="
         page !== pages[pages.length - 1] ? switchPage(page + 1) : null
