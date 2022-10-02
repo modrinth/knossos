@@ -835,8 +835,6 @@ export default {
     this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
   head() {
-    console.log(this)
-
     const title = this.$t('project-page.meta.title', {
       project: this.project.title,
       projectType: this.coercedProjectType?.replace(/-/g, '_') ?? '',
