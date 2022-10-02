@@ -157,7 +157,7 @@ export default {
         })
 
         this.$refs.modal.hide()
-        await this.$router.replace(`/${this.projectType.display}/${this.slug}`)
+        await this.$router.replace(`/${this.projectType.actual}/${this.slug}`)
       } catch (err) {
         this.$notify({
           group: 'main',
