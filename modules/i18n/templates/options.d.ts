@@ -1,12 +1,9 @@
 /** Represents map of messages, keyed by their IDs, with translations as values. */
 export type Messages = Record<string, string>
 
-/**
- * Rough representation of how imported locale module looks like, it should have
- * a default value which contains all of the locale's own messages.
- */
-export interface LocaleModule {
-  default: Messages
+export interface LocaleImport {
+  messages: Messages
+  importedData: Record<string, any>
 }
 
 /**
@@ -15,7 +12,7 @@ export interface LocaleModule {
  *
  * @returns Promise that resolves with locale's messages.
  */
-export type LocaleImportFunction = () => Promise<LocaleModule>
+export type LocaleImportFunction = () => Promise<LocaleImport>
 
 /**
  * Represents a locale definition, generated automatically from the building

@@ -12,11 +12,41 @@ import { customNamespace } from './consts'
 import merge from 'lodash/merge'
 
 /**
+ * Describes a path that should be imported.
+ *
+ * @typedef {string} ImportPath
+ */
+
+/**
+ * Represents value for improted data. It can be just path to import, for which
+ * 'default' will be assumed to be importKey, or array (tuple) of import path
+ * and key to use from imported module.
+ *
+ * For example, if you define your module as
+ *
+ * ```js
+ * export const importMe = 'hello world'
+ *
+ * export default {}
+ * ```
+ *
+ * And want to import just `importMe`, then you should use combination of `path`
+ * and `importKey` as such: `['./path-to-my-module.js', 'importMe']`
+ *
+ * @typedef {ImportPath | [path: ImportPath, importKey: string]} DataImport
+ */
+
+/**
  * @typedef {object} LocaleDescriptor
  * @property {string} code BCP47 code for the locale.
  * @property {string} file Relative to locales directory path.
- * @property {string[] | null} [additionalImports] List of additional imports
- *   (like polyfils).
+ * @property {ImportPath[] | null} [additionalImports] List of additional
+ *   imports (like polyfils).
+ * @property {Record<string, DataImport>} [importedData={}] List of mapped
+ *   imports. Unlike additional imports, these imports will be mapped to
+ *   provided key. This is useful for language-associated documents, which would
+ *   otherwise create frustrating experience for translators be they left as
+ *   regular strings in locale file. Default is `{}`
  * @property {unknown | null} [data] Custom data for the locale.
  */
 
@@ -26,7 +56,7 @@ import merge from 'lodash/merge'
  * @property {string} localesDir Directory containing locale descriptor files.
  * @property {string | null} [baseURL=null] Base URL (domain of the site).
  *   Default is `null`. If not set, head meta tags won't generate. Default is
- *   `null`
+ *   `null`. Default is `null`
  * @property {LocaleDescriptor[]} locales All locales that are present on the
  *   runtime.
  */
@@ -39,6 +69,7 @@ const defaultOptions = {
     {
       code: 'en-US',
       file: 'en-US.json',
+      importedData: {},
     },
   ],
   localesDir: 'i18n',

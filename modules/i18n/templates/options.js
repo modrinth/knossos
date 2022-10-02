@@ -14,38 +14,99 @@
   let importMapDefinitionBlock = ''
 
   for (const locale of opts.locales) {
-    const localeFilePath = '../' + relativeToBuild(opts.localesDir, locale.file)
+    const localeFilePath = JSON.stringify(
+      '../' + relativeToBuild(opts.localesDir, locale.file)
+    )
+
+    const localeHash = hash(locale.file)
 
     let localeDeclarationBlock = '{\n'
 
     if (locale.code === opts.defaultLocale) {
-      let syncVarName = `locale${hash(locale.file)}`
-      syncImportsBlock += `import ${syncVarName} from "${localeFilePath}";\n`
+      let syncVarName = `locale${localeHash}`
+
+      syncImportsBlock += `import ${syncVarName} from ${localeFilePath};\n`
+
+      let functionBlock = 'const importedData = Object.create(null);\n'
+
+      for (const [key, value] of Object.entries(locale.importedData)) {
+        const mapKey = JSON.stringify(key)
+        /** @type {string} */
+        let importPath
+        /** @type {string} */
+        let importKey
+
+        if (Array.isArray(value)) {
+          importPath = value[0]
+          importKey = value[1] ?? 'default'
+        } else {
+          importPath = value
+          importKey = 'default'
+        }
+
+        const dataVarName = `locale${localeHash}Data${hash(importPath)}`
+
+        importPath = JSON.stringify(importPath)
+        importKey = JSON.stringify(importKey)
+
+        syncImportsBlock += `import * as ${dataVarName} from ${importPath};\n`
+
+        functionBlock += `importedData[${mapKey}] = ${dataVarName}[${importKey}];\n`
+      }
 
       if (locale.additionalImports != null) {
         for (const additionalImport of locale.additionalImports) {
-          syncImportsBlock += `import "${additionalImport}";\n`
+          const importPath = JSON.stringify(additionalImport)
+          syncImportsBlock += `import ${importPath};\n`
         }
       }
 
-      localeDeclarationBlock += `importFunction: () => Promise.resolve({ default: ${syncVarName} }),\n`
+      localeDeclarationBlock += `importFunction: () => {
+        ${functionBlock}
+        return Promise.resolve({ messages: ${syncVarName}, importedData });
+      },\n`
     } else {
       const varName = `locale${hash(locale.file)}`
-      const webpackChunkName = `locale-${locale.code}`
+      const chunkName = JSON.stringify(`locale-${locale.code}`)
+      const dataChunkName = JSON.stringify(`locale-${locale.code}-data`)
 
       let functionBlock = ''
 
-      functionBlock += `const ${varName} = await import(/* webpackChunkName: "${webpackChunkName}", webpackMode: "lazy" */  "${localeFilePath}");\n`
+      functionBlock += `const ${varName} = (await import(/* webpackChunkName: ${chunkName}, webpackMode: "lazy" */  ${localeFilePath}))["default"];\n`
 
       if (Array.isArray(locale.additionalImports)) {
         for (const additionalImport of locale.additionalImports) {
-          functionBlock += `await import(/* webpackChunkName: "${webpackChunkName}-data", webpackMode: "lazy" */ "${additionalImport}");\n`
+          let importPath = JSON.stringify(additionalImport)
+          functionBlock += `await import(/* webpackChunkName: ${dataChunkName}, webpackMode: "lazy" */ ${importPath});\n`
         }
+      }
+
+      functionBlock += 'const importedData = Object.create(null);\n'
+
+      for (const [key, value] of Object.entries(locale.importedData)) {
+        const mapKey = JSON.stringify(key)
+        /** @type {string} */
+        let importPath
+        /** @type {string} */
+        let importKey
+
+        if (Array.isArray(value)) {
+          importPath = value[0]
+          importKey = value[1] ?? 'default'
+        } else {
+          importPath = value
+          importKey = 'default'
+        }
+
+        importPath = JSON.stringify(importPath)
+        importKey = JSON.stringify(importKey)
+
+        functionBlock += `importedData[${mapKey}] = (await import(/* webpackChunkName: ${dataChunkName}, webpackMode: "lazy" */ ${importPath}))[${importKey}];\n`
       }
 
       localeDeclarationBlock += `importFunction: async () => {
         ${functionBlock}
-        return ${varName};
+        return { messages: ${varName}, importedData };
       },\n`
     }
 

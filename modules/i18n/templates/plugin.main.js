@@ -47,6 +47,8 @@ const cookieDefaults = {
  * @property {ChangeLocaleFunction} changeLocale Function to change locale. This
  *   property is read-only. See {@link ChangeLocaleFunction} for the
  *   documentation of this function.
+ * @property {Record<string, any>} data Imported data for the locale, as defined
+ *   in the config.
  */
 
 /** @typedef {import('./i18n').IntlController & ExtendedIntlControllerImpl} ExtendedIntlController */
@@ -74,7 +76,7 @@ export default async function (context) {
   /**
    * @param {string} locale Locale which messages need to be loaded and
    *   returned.
-   * @returns {Promise<import('./options').Messages>} Locale messages.
+   * @returns {Promise<import('./options').LocaleImport>} Locale messages.
    * @throws If locale is not found in the import map or import fails.
    */
   async function loadLocaleMessages(locale) {
@@ -84,7 +86,7 @@ export default async function (context) {
       )
     }
 
-    return localesDefinitions[locale].importFunction().then((r) => r.default)
+    return localesDefinitions[locale].importFunction()
   }
 
   /**
@@ -306,6 +308,41 @@ export default async function (context) {
     }
   }
 
+  /**
+   * @private
+   * @typedef {Record<string, any>} ImportData
+   */
+
+  /**
+   * Import data for the default locale.
+   *
+   * Must be initialised only once on boot and never changed after.
+   *
+   * @type {ImportData}
+   */
+  let defaultImportData = Object.create(null)
+
+  /**
+   * Current import data. Do not change manually, use {@link setImportData}!
+   *
+   * @type {ImportData}
+   */
+  let importedData = Object.create(null)
+
+  /**
+   * Generates mix of imported data from the original locale and new locale.
+   * Used to fill in the gaps left by missing data.
+   *
+   * @param {ImportData} newData New data that was just imported.
+   */
+  function setImportData(newData) {
+    importedData = Object.assign(
+      Object.create(null),
+      defaultImportData,
+      newData
+    )
+  }
+
   /** Whether the current locale is driven by the browser's preferences. */
   let isAuto = false
 
@@ -325,7 +362,11 @@ export default async function (context) {
       normalizedLocale = detectedLocale
     }
 
-    this.initWith(normalizedLocale, await loadLocaleMessages(normalizedLocale))
+    const localeImport = await loadLocaleMessages(normalizedLocale)
+
+    this.initWith(normalizedLocale, localeImport.messages)
+
+    setImportData(localeImport.importedData)
 
     isAuto = locale === 'auto'
 
@@ -367,6 +408,12 @@ export default async function (context) {
           return isAuto
         },
       },
+      data: {
+        configurable: true,
+        get() {
+          return importedData
+        },
+      },
     })
 
     return /** @type {ExtendedIntlController} */ (controller)
@@ -400,10 +447,15 @@ export default async function (context) {
     })
   }
 
-  controller.addLocaleData(
-    defaultLocale,
-    await loadLocaleMessages(defaultLocale)
-  )
+  {
+    // Load default locale data.
+
+    const localeImport = await loadLocaleMessages(defaultLocale)
+
+    controller.addLocaleData(defaultLocale, localeImport.messages)
+
+    defaultImportData = localeImport.importedData
+  }
 
   {
     const { locale: detectedLocale, source: detectionSource } = detectLocale()
