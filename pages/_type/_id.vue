@@ -900,7 +900,7 @@ export default {
     projectSide() {
       return /** @type {import('vue/types/vue').Vue} */ (
         this
-      ).$computeProjectSide(this.project)
+      ).$computeProjectSide(this.project.client_side, this.project.server_side)
     },
     sideTip() {
       return /** @type {import('vue/types/vue').Vue} */ (

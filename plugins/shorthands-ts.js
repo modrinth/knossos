@@ -22,11 +22,11 @@
  * This helper function should be defined as `$computeProjectSide` in both Vue
  * and Nuxt's Context types.
  *
- * @param {Project} project Project which side to check.
+ * @param {SideRequirement} clientSide Project's requirement for client.
+ * @param {SideRequirement} serverSide Project's requirement for server.
  * @returns {ProjectSide} Project side.
  */
-function computeProjectSide(project) {
-  const { client_side: clientSide, server_side: serverSide } = project
+function computeProjectSide(clientSide, serverSide) {
   if (clientSide === 'optional' && serverSide === 'optional') {
     return 'universal'
   }
