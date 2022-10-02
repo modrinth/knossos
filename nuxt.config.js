@@ -177,6 +177,7 @@ export default {
     '~/plugins/shorthands.js',
     '~/plugins/shorthands-ts.js',
     '~/plugins/i18n-helpers.js',
+    '~/plugins/markdown.js',
   ],
   /*
    ** Auto import components
@@ -202,7 +203,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/robots',
     '@nuxtjs/style-resources',
-    '@nuxtjs/markdownit',
     'cookie-universal-nuxt',
   ],
   ads: {
@@ -265,13 +265,6 @@ export default {
         type: 'javascript/auto',
       })
     },
-  },
-  markdownit: {
-    preset: 'default',
-    html: true,
-    linkify: true,
-    breaks: false,
-    use: ['markdown-it-task-lists'],
   },
   loading: {
     color: '#1bd96a',
