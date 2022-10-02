@@ -4,6 +4,7 @@ import { createIntl, createIntlCache } from '@formatjs/intl'
 import merge from 'lodash/merge'
 import Vue from 'vue'
 import { formatCompactNumber } from './compactNumber'
+import { formatCustomMessage } from './customMessage'
 import { formatTimeDifference } from './timeDifferenceFormatter'
 import { hasOwn } from './utils'
 import { isVNode, createTextNode, cloneVNode } from './vueUtils'
@@ -20,6 +21,7 @@ import { isVNode, createTextNode, cloneVNode } from './vueUtils'
  * @property {import('@formatjs/intl').IntlShape['formatTime']} time
  * @property {import('./compactNumber').FormatCompactNumberFormatter} compactNumber
  * @property {import('./timeDifferenceFormatter').FormatTimeDifferenceFormatter} timeDifference
+ * @property {import('./customMessage').CustomMessageFormatter} customMessage
  */
 
 export class IntlController {
@@ -105,6 +107,7 @@ export class IntlController {
             null,
             intl.formatRelativeTime
           ),
+          customMessage: formatCustomMessage.bind(null, intl),
         })
       )
     )
