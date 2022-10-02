@@ -1,39 +1,36 @@
 <template>
-  <Modal ref="modal" :header="`Report ${itemType}`">
+  <Modal ref="modal" :header="$t('component.report-modal.title', { itemType })">
     <div class="modal-report">
       <div class="markdown-body">
         <p>
-          Modding should be safe for everyone, so we take abuse and malicious
-          intent seriously at Modrinth. We want to hear about harmful content on
-          the site that violates our
-          <nuxt-link to="/legal/terms">ToS</nuxt-link> and
-          <nuxt-link to="/legal/rules">Rules</nuxt-link>. Rest assured, we’ll
-          keep your identifying information private.
+          <i18n-formatted message-id="component.report-modal.description">
+            <nuxt-link v-i18n:wrap="'tos-link'" to="/legal/terms" />
+            <nuxt-link v-i18n:wrap="'rules-link'" to="/legal/rules" />
+          </i18n-formatted>
         </p>
       </div>
       <label class="report-label" for="report-type">
         <span>
-          <strong>Reason</strong>
+          <strong>{{ $t('component.report-modal.reason.title') }}</strong>
         </span>
       </label>
       <multiselect
         id="report-type"
         v-model="reportType"
         :options="$store.state.tag.reportTypes"
-        :custom-label="
-          (value) => value.charAt(0).toUpperCase() + value.slice(1)
-        "
+        :custom-label="(value) => $t(`report-type.${value}`)"
         :multiple="false"
         :searchable="false"
         :show-no-results="false"
         :show-labels="false"
-        placeholder="Choose report type"
+        :placeholder="$t('component.report-modal.reason.placeholder')"
       />
       <label class="report-label" for="additional-information">
-        <strong>Additional information</strong>
+        <strong>
+          {{ $t('component.report-modal.additional-info.title') }}
+        </strong>
         <span>
-          Include links and images if possible. Markdown formatting is
-          supported.
+          {{ $t('component.report-modal.additional-info.description') }}
         </span>
       </label>
       <div class="textarea-wrapper">
@@ -41,6 +38,9 @@
           v-model="bodyViewType"
           class="separator"
           :items="['source', 'preview']"
+          :custom-label="
+            (x) => $t(`component.report-modal.additional-info.tab.${x}`)
+          "
         />
         <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
           <textarea id="body" v-model="body" spellcheck="true" />
@@ -55,11 +55,11 @@
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          Cancel
+          {{ $t('component.report-modal.actions.cancel') }}
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
           <CheckIcon />
-          Report
+          {{ $t('component.report-modal.actions.report') }}
         </button>
       </div>
     </div>
@@ -122,7 +122,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
