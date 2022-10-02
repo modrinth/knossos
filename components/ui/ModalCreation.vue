@@ -1,47 +1,49 @@
 <template>
-  <Modal ref="modal" header="Create project">
+  <Modal ref="modal" :header="$t('component.create-modal.title')">
     <div class="modal-creation">
       <div class="markdown-body">
         <p>
-          New projects are created as drafts, and can be found under your
-          profile page.
+          {{ $t('component.create-modal.description') }}
         </p>
       </div>
       <label class="create-label" for="project-type">
         <span>
-          <strong>Project type</strong>
+          <strong>
+            {{ $t('component.create-modal.project-type.title') }}
+          </strong>
         </span>
       </label>
       <Chips
         id="project-type"
         v-model="projectType"
-        :items="$tag.projectTypes.map((x) => x.display)"
+        :items="$tag.projectTypes"
+        :custom-label="(x) => $t(`project-type.${x.id}`)"
       />
       <label class="create-label" for="name">
-        <strong>Name</strong>
+        <strong>{{ $t('component.create-modal.name.title') }}</strong>
       </label>
       <input
         id="name"
         v-model="name"
         type="text"
         maxlength="64"
-        placeholder="Enter project name..."
+        :placeholder="$t('component.create-modal.name.placeholder')"
       />
       <label class="create-label" for="slug">
-        <strong>Slug</strong>
-        <span>The slug is a vanity URL for your project</span>
+        <strong>{{ $t('component.create-modal.slug.title') }}</strong>
+        <span>{{ $t('component.create-modal.slug.description') }}</span>
       </label>
       <input
         id="slug"
         v-model="slug"
         type="text"
         maxlength="64"
-        placeholder="Enter project slug..."
+        :placeholder="$t('component.create-modal.slug.placeholder')"
       />
       <label class="create-label" for="additional-information">
-        <strong>Summary</strong>
+        <strong>{{ $t('component.create-modal.summary.title') }}</strong>
         <span>
-          This appears in search and on the sidebar of your project's page.
+          {{ $t('component.create-modal.summary.description') }}
         </span>
       </label>
       <div class="textarea-wrapper">
@@ -54,11 +56,11 @@
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          Cancel
+          {{ $t('component.create-modal.actions.cancel') }}
         </button>
         <button class="iconified-button brand-button" @click="createProject">
           <CheckIcon />
-          Continue
+          {{ $t('component.create-modal.actions.continue') }}
         </button>
       </div>
     </div>
@@ -104,36 +106,25 @@ export default {
     async createProject() {
       this.$nuxt.$loading.start()
 
-      const projectType = this.$tag.projectTypes.find(
-        (x) => this.projectType === x.display
-      )
-
       const formData = new FormData()
 
       formData.append(
         'data',
         JSON.stringify({
           title: this.name,
-          project_type: projectType.actual,
+          project_type: this.projectType.actual,
           slug: this.slug,
           description: this.description,
-          body: `# Placeholder description
-This is your new ${projectType.display}, ${this.name}. A checklist below is provided to help prepare for release.
-
-### Before submitting for review
-- [ ] Upload at least one version
-- [ ] Edit project description
-- [ ] Update metadata
-  - [ ] Select license
-  - [ ] Set up environments
-  - [ ] Choose categories
-  - [ ] Add source, wiki, Discord and donation links (optional)
-- [ ] Add images to gallery (optional)
-- [ ] Invite project team members (optional)
-
-> Submissions are normally reviewed within 24 hours, but may take up to 48 hours
-
-Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`,
+          body: this.$fmt.customMessage(
+            this.$i18n.data['starter.md'],
+            {
+              projectType: this.projectType.id,
+              projectName: this.name,
+            },
+            {
+              ignoreTag: true,
+            }
+          ),
           initial_versions: [],
           team_members: [
             {
@@ -166,11 +157,11 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
         })
 
         this.$refs.modal.hide()
-        await this.$router.replace(`/${projectType.display}/${this.slug}`)
+        await this.$router.replace(`/${this.projectType.display}/${this.slug}`)
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: this.$t('error.generic'),
           text: err.response.data.description,
           type: 'error',
         })
