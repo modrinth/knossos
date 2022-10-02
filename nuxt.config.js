@@ -466,11 +466,24 @@ export default {
           }
         }
 
+        /** @type {import('modules/i18n/index').LocaleDescriptor['importedData']} */
+        const importedData = Object.create(null)
+
+        const dataFiles = glob.sync(`i18n/nuxt/*.${code}.*`, { nodir: true })
+
+        for (const dataFile of dataFiles) {
+          const ext = path.extname(dataFile)
+          const ip = require.resolve(path.join(__dirname, dataFile))
+
+          importedData[path.basename(dataFile, `.${code}${ext}`) + ext] = ip
+        }
+
         return {
           code,
           file: path.basename(it),
           data,
           additionalImports,
+          importedData,
         }
       })
     })(),
