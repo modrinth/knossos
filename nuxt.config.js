@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs'
 import { sortRoutes } from '@nuxt/utils'
-import { basename } from 'path'
+import path from 'path'
 import { match as localeMatch } from '@formatjs/intl-localematcher'
 import axios from 'axios'
 import glob from 'glob'
@@ -252,6 +252,19 @@ export default {
         ],
       ],
     },
+    /** @param {import('webpack').Configuration} config */
+    extend(config) {
+      const astLoader = path.resolve(
+        path.join(__dirname, 'loaders/messageFormatASTLoader.js')
+      )
+
+      config.module.rules.push({
+        test: /\.json$/,
+        include: path.resolve(__dirname, 'i18n/nuxt'),
+        loader: astLoader,
+        type: 'javascript/auto',
+      })
+    },
   },
   markdownit: {
     preset: 'default',
@@ -428,10 +441,10 @@ export default {
         .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
           nodir: true,
         })
-        .map((it) => basename(it, '.js'))
+        .map((it) => path.basename(it, '.js'))
 
       return glob.sync('i18n/nuxt/*.json', { nodir: true }).map((it) => {
-        const code = basename(it, '.json')
+        const code = path.basename(it, '.json')
 
         /** @type {string[] | undefined} */
         let additionalImports = undefined
@@ -462,7 +475,7 @@ export default {
 
         return {
           code,
-          file: basename(it),
+          file: path.basename(it),
           data,
           additionalImports,
         }
