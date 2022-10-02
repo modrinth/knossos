@@ -1,8 +1,8 @@
 <template>
   <div class="chips">
     <button
-      v-for="item in items"
-      :key="item"
+      v-for="(item, index) in items"
+      :key="index"
       class="iconified-button"
       :class="{ 'light-brand-button': selected === item }"
       @click="toggleItem(item)"
