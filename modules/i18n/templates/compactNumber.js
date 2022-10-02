@@ -19,6 +19,7 @@ import {
 import getInternalSlots from '@formatjs/intl-numberformat/src/get_internal_slots'
 
 /**
+ * @private
  * @typedef {object} FormatNumberConfig
  * @property {string} locale
  * @property {import('@formatjs/intl').CustomFormats} formats
@@ -51,15 +52,15 @@ function calculateRounded(nf, value) {
  */
 
 /**
+ * @private
+ * @typedef {import('@formatjs/intl').Formatters['getNumberFormat']} Formatter
+ */
+
+/**
  * @param {FormatNumberConfig} config
- * @param {import('@formatjs/intl').Formatters['getNumberFormat']} getNumberFormat
+ * @param {Formatter} getNumberFormat
  * @param {number} value
- * @param {Omit<
- *   NonUndefined<
- *     Parameters<import('@formatjs/intl').IntlFormatters['formatNumber']>[1]
- *   >,
- *   'notation'
- * >} [options]
+ * @param {Omit<NonUndefined<Parameters<Formatter>[1]>, 'notation'>} [options]
  * @returns {[formattedNumber: string, roundedNumber: number]}
  */
 export function formatCompactNumber(config, getNumberFormat, value, options) {
@@ -89,14 +90,9 @@ export function formatCompactNumber(config, getNumberFormat, value, options) {
 
 /**
  * @param {FormatNumberConfig} config
- * @param {import('@formatjs/intl').Formatters['getNumberFormat']} getNumberFormat
+ * @param {Formatter} getNumberFormat
  * @param {number} value
- * @param {Omit<
- *   NonUndefined<
- *     Parameters<import('@formatjs/intl').IntlFormatters['formatNumber']>[1]
- *   >,
- *   'notation'
- * >} [options]
+ * @param {Omit<NonUndefined<Parameters<Formatter>[1]>, 'notation'>} [options]
  * @returns {[formatParts: Intl.NumberFormatPart[], roundedNumber: number]}
  */
 export function formatCompactNumberToParts(
@@ -132,11 +128,6 @@ export function formatCompactNumberToParts(
 /**
  * @callback FormatCompactNumberFormatter
  * @param {number} value
- * @param {Omit<
- *   NonUndefined<
- *     Parameters<import('@formatjs/intl').IntlFormatters['formatNumber']>[1]
- *   >,
- *   'notation'
- * >} [options]
+ * @param {Omit<NonUndefined<Parameters<Formatter>[1]>, 'notation'>} [options]
  * @returns {[formattedNumber: string, roundedNumber: number]}
  */
