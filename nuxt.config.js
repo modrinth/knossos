@@ -254,14 +254,15 @@ export default {
     },
     /** @param {import('webpack').Configuration} config */
     extend(config) {
-      const astLoader = path.resolve(
-        path.join(__dirname, 'loaders/messageFormatASTLoader.js')
+      const translationsLoader = path.resolve(
+        __dirname,
+        'loaders/translationsLoader.js'
       )
 
       config.module.rules.push({
-        test: /\.json$/,
+        test: /\.toml$/,
         include: path.resolve(__dirname, 'i18n/nuxt'),
-        loader: astLoader,
+        loader: translationsLoader,
         type: 'javascript/auto',
       })
 
@@ -442,8 +443,8 @@ export default {
         })
         .map((it) => path.basename(it, '.js'))
 
-      return glob.sync('i18n/nuxt/*.json', { nodir: true }).map((it) => {
-        const code = path.basename(it, '.json')
+      return glob.sync('i18n/nuxt/*.toml', { nodir: true }).map((it) => {
+        const code = path.basename(it, '.toml')
 
         /** @type {string[] | undefined} */
         let additionalImports = undefined
