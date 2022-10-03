@@ -13,7 +13,7 @@ import { IntlError, IntlErrorCode } from '@formatjs/intl'
  * @param {Parameters<ReturnType<Formatter>['format']>[0]} [values] Values to
  *   format message with.
  * @param {Parameters<Formatter>[3]} [opts] Custom formatter options.
- * @returns {unknown | ''} Formatted message or empty string if it cannot be
+ * @returns {any | ''} Formatted message or empty string if it cannot be
  *   formatted.
  */
 export function formatCustomMessage(config, message, values, opts) {
@@ -48,7 +48,7 @@ export function formatCustomMessage(config, message, values, opts) {
  * @param {Parameters<Formatter>[0]} message Message to format.
  * @param {Parameters<ReturnType<Formatter>['format']>[0]} [values] Values to
  *   format message with.
- * @param {Parameters<Formatter>[3]} opts Custom formatter options.
- * @returns {unknown | ''} Formatted message or empty string if it cannot be
+ * @param {Parameters<Formatter>[3]} [opts] Custom formatter options.
+ * @returns {any | ''} Formatted message or empty string if it cannot be
  *   formatted.
  */
