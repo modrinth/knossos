@@ -260,14 +260,22 @@ export default {
     },
   },
   computed: {
+    loaders() {
+      const loaders = []
+
+      for (const { name: loader } of this.$tag.loaders) {
+        if (this.categories.includes(loader) && !loaders.includes(loader)) {
+          loaders.push(loader)
+        }
+      }
+
+      return loaders
+    },
     coercedProjectType() {
       console.log(this)
       return /** @type {import('vue/types/vue').Vue} */ (
         this
-      ).$coerceProjectType(
-        this.type,
-        this.$tag.loaders.filter((x) => this.categories.includes(x.name))
-      )
+      ).$coerceProjectType(this.type, this.loaders)
     },
     projectSide() {
       return /** @type {import('vue/types/vue').Vue} */ (
