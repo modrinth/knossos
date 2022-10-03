@@ -333,7 +333,11 @@ export function createIntlPlugin() {
         props: {
           messageId: {
             type: String,
-            required: true,
+            required: false,
+          },
+          message: {
+            type: String,
+            required: false,
           },
           values: {
             type: Object,
@@ -341,6 +345,15 @@ export function createIntlPlugin() {
         },
 
         render(_createElement, context) {
+          if (
+            context.props.messageId == null &&
+            context.props.message == null
+          ) {
+            throw new Error(
+              "Attempt to render i18n-formatted without 'message-id' or 'message' properties"
+            )
+          }
+
           /** @type {Record<string, any>} */
           const values = Object.create(null)
 
@@ -420,10 +433,19 @@ export function createIntlPlugin() {
           }
 
           /** @type {string | (string | import('vue').VNode)[]} */
-          let formatted = controller.intl.formatMessage(
-            { id: context.props.messageId },
-            values
-          )
+          let formatted
+
+          if (context.props.messageId != null) {
+            formatted = controller.intl.formatMessage(
+              { id: context.props.messageId },
+              values
+            )
+          } else {
+            formatted = controller.formats.customMessage(
+              context.props.message ?? '',
+              values
+            )
+          }
 
           if (!Array.isArray(formatted)) {
             formatted = [formatted]
