@@ -1,5 +1,15 @@
 {
   "semi": false,
   "singleQuote": true,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": ["i18n/nuxt/**.html"],
+      "options": {
+        "proseWrap": "never",
+        "htmlWhitespaceSensitivity": "strict",
+        "printWidth": 1111691111
+      }
+    }
+  ]
 }

@@ -271,6 +271,12 @@ export default {
         include: path.resolve(__dirname, 'i18n/nuxt'),
         loader: 'raw-loader',
       })
+
+      config.module.rules.push({
+        test: /\.html$/,
+        include: path.resolve(__dirname, 'i18n/nuxt'),
+        loader: 'raw-loader',
+      })
     },
   },
   loading: {

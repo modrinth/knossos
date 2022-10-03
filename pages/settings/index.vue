@@ -20,47 +20,21 @@
       </div>
     </ModalConfirm>
 
-    <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
+    <Modal
+      ref="modal_revoke_token"
+      :header="$t('settings.modals.revoke-token.title')"
+    >
       <div class="modal-revoke-token markdown-body">
-        <p>
-          {{ $t('settings.modals.revoke-token.content.1-consequences') }}
-        </p>
-        <ul>
-          <li>
-            {{ $t('settings.modals.revoke-token.content.2-breakage-apps') }}
-          </li>
-          <li>
-            {{ $t('settings.modals.revoke-token.content.3-breakage-gradle') }}
-          </li>
-          <li>
-            {{ $t('settings.modals.revoke-token.content.4-breakage-ci') }}
-          </li>
-        </ul>
-        <p>{{ $t('settings.modals.revoke-token.content.5-how-to') }}</p>
-        <ol>
-          <li>
-            <i18n-formatted
-              message-id="settings.modals.revoke-token.content.6-step-github"
-            >
-              <a
-                v-i18n:wrap="'gh-link'"
-                href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
-                target="_blank"
-              />
-            </i18n-formatted>
-          </li>
-          <li>
-            {{ $t('settings.modals.revoke-token.content.7-step-revoke') }}
-          </li>
-        </ol>
-        <p>
-          {{ $t('settings.modals.revoke-token.content.8-on-complete') }}
-        </p>
-        <p>
-          <strong>
-            {{ $t('settings.modals.revoke-token.content.9-logout-warn') }}
-          </strong>
-        </p>
+        <i18n-formatted
+          :message="$i18n.data['revoke-token.html']"
+          :tags="['p', 'ul', 'ol', 'li', 'strong']"
+        >
+          <a
+            v-i18n:wrap="'gh-link'"
+            href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
+            target="_blank"
+          />
+        </i18n-formatted>
         <div class="button-group">
           <button
             class="iconified-button"
