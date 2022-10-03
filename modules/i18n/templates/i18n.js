@@ -279,6 +279,14 @@ export function createInjector(target) {
 }
 
 /**
+ * @private
+ * @typedef {| string
+ *   | import('vue').VNode
+ *   | import('intl-messageformat').FormatXMLElementFn<import('vue').VNode>
+ *   | null} Value
+ */
+
+/**
  * @typedef {object} IntlPlugin
  * @property {() => InstanceType<typeof IntlController>} getOrCreateController
  *   This method returns existing controller or initalizes a new one and returns
@@ -342,9 +350,16 @@ export function createIntlPlugin() {
           values: {
             type: Object,
           },
+          tags: {
+            type: Array,
+            required: false,
+            validator(value) {
+              return value.every((x) => typeof x === 'string')
+            },
+          },
         },
 
-        render(_createElement, context) {
+        render(createElement, context) {
           if (
             context.props.messageId == null &&
             context.props.message == null
@@ -354,8 +369,21 @@ export function createIntlPlugin() {
             )
           }
 
-          /** @type {Record<string, any>} */
+          /** @type {Record<string, Value>} */
           const values = Object.create(null)
+
+          if (Array.isArray(context.props.tags)) {
+            for (const tag of context.props.tags) {
+              values[tag] = (parts) => {
+                return createElement(
+                  tag,
+                  parts.map((part) =>
+                    isVNode(part) ? part : createTextNode(part)
+                  )
+                )
+              }
+            }
+          }
 
           if (context.props.values != null) {
             if (typeof context.props.values !== 'object') {
@@ -371,14 +399,7 @@ export function createIntlPlugin() {
             /** @type {string | null} */
             let key = null
 
-            /**
-             * @type {| string
-             *   | import('vue').VNode
-             *   | import('intl-messageformat').FormatXMLElementFn<
-             *       import('vue').VNode
-             *     >
-             *   | null}
-             */
+            /** @type {Value} */
             let value = null
 
             for (const directive of child.data?.directives ?? []) {
