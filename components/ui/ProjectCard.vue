@@ -272,7 +272,6 @@ export default {
       return loaders
     },
     coercedProjectType() {
-      console.log(this)
       return /** @type {import('vue/types/vue').Vue} */ (
         this
       ).$coerceProjectType(this.type, this.loaders)
