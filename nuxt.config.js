@@ -482,13 +482,13 @@ export default {
         /** @type {import('modules/i18n/index').LocaleDescriptor['importedData']} */
         const importedData = Object.create(null)
 
-        const dataFiles = glob.sync(`i18n/nuxt/*.${code}.*`, { nodir: true })
+        const dataFiles = glob.sync(`i18n/nuxt/${code}.*.*`, { nodir: true })
 
         for (const dataFile of dataFiles) {
-          const ext = path.extname(dataFile)
-          const ip = require.resolve(path.join(__dirname, dataFile))
+          const importPath = require.resolve(path.join(__dirname, dataFile))
+          const fileName = path.basename(dataFile).slice(`${code}.`.length)
 
-          importedData[path.basename(dataFile, `.${code}${ext}`) + ext] = ip
+          importedData[fileName] = importPath
         }
 
         return {
