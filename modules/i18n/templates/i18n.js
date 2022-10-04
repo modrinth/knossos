@@ -221,18 +221,19 @@ export function createRef(initialValue) {
 }
 
 /**
+ * @private
+ * @typedef {import('@formatjs/intl').IntlFormatters['formatMessage']} MessageFormatter
+ */
+
+/**
  * Represents a function that accepts translation ID, as well as values for the
  * placeholders inside the translation (if there are any).
  *
  * @callback TranslateFunction
- * @param {string} id String ID.
- * @param {Parameters<
- *   import('@formatjs/intl').IntlFormatters['formatMessage']
- * >[1]} [values]
- *   Values for the placeholders inside the translations.
- * @param {Parameters<
- *   import('@formatjs/intl').IntlFormatters['formatMessage']
- * >[2]} [opts]
+ * @param {'string'} descriptor String ID or message descriptor.
+ * @param {Parameters<MessageFormatter>[1]} [values] Values for the placeholders
+ *   inside the translations.
+ * @param {Parameters<MessageFormatter>[2]} [opts]
  * @returns {any} Either formatted string (if all elements were strings) or
  *   array of formatted elements.
  */
