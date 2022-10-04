@@ -41,7 +41,7 @@
             @click="$refs.modal_revoke_token.hide()"
           >
             <CrossIcon />
-            {{ $t('settings.modals.revoke-token.action.cancel') }}
+            {{ $t('generic.action.cancel') }}
           </button>
           <button class="iconified-button brand-button" @click="logout">
             <RightArrowIcon />

@@ -75,7 +75,7 @@
         class="action iconified-button"
         @click="resetGallery"
       >
-        <CrossIcon /> {{ $t('project.gallery.action.cancel') }}
+        <CrossIcon /> {{ $t('generic.action.cancel') }}
       </button>
       <button
         v-if="
@@ -159,7 +159,7 @@
                 )
               "
             >
-              <CrossIcon /> {{ $t('project.gallery.action.cancel') }}
+              <CrossIcon /> {{ $t('generic.action.cancel') }}
             </button>
             <button
               v-else

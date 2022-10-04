@@ -9,7 +9,7 @@
           }/settings`"
           class="iconified-button column"
         >
-          <CrossIcon /> {{ $t('project.edit.action.cancel') }}
+          <CrossIcon /> {{ $t('generic.action.cancel') }}
         </nuxt-link>
         <button
           v-if="

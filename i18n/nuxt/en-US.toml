@@ -55,9 +55,6 @@ title = "Copy code to clipboard"
 title = "To verify, type {text} below:"
 placeholder = "Type here..."
 
-[component.confirm-modal.action]
-cancel = "Cancel"
-
 [component.create-modal]
 title = "Create project"
 description = "New projects are created as drafts, and can be found under your profile page."
@@ -79,7 +76,6 @@ title = "Summary"
 description = "This appears in search and on the sidebar of your project's page."
 
 [component.create-modal.action]
-cancel = "Cancel"
 continue = "Continue"
 
 [component.pagination.previous-page]
@@ -112,7 +108,6 @@ source = "Source"
 preview = "Preview"
 
 [component.report-modal.action]
-cancel = "Cancel"
 report = "Report"
 
 [error]
@@ -152,6 +147,9 @@ docs = "Docs"
 
 [footer.action]
 change-theme = "Change theme"
+
+[generic.action]
+cancel = "Cancel"
 
 [header.skip-to-content]
 label = "Skip to Main Content"
@@ -263,7 +261,6 @@ placeholder = "Enter the message..."
 header = "Body"
 
 [moderation.form.action]
-cancel = "Cancel"
 confirm = "Confirm"
 
 [moderation.filter]
@@ -326,7 +323,6 @@ title = "Edit project"
 generic-url-placeholder = "Enter a valid URL"
 
 [project.edit.action]
-cancel = "Cancel"
 submit-for-review = "Submit for review"
 save = "Save"
 reset-icon = "Reset"
@@ -437,7 +433,6 @@ created-at = "{created, date, long}"
 
 [project.gallery.action]
 add-image = "Add an image"
-cancel = "Cancel"
 edit = "Edit"
 remove = "Remove"
 save = "Save changes"
@@ -557,7 +552,6 @@ action = "Delete"
 
 [project.version.action]
 back-to-list = "Back to list"
-cancel = "Cancel"
 save = "Save"
 create = "Create"
 download = "Download"
@@ -974,7 +968,6 @@ action = "Delete my account"
 title = "Revoke your Modrinth token"
 
 [settings.modals.revoke-token.action]
-cancel = "Cancel"
 log-out = "Log out"
 
 [settings.display-settings]
@@ -1043,7 +1036,6 @@ title = "Private Email"
 description = "Only visible to moderators."
 
 [user.edit.action]
-cancel = "Cancel"
 save = "Save"
 
 [user.action]

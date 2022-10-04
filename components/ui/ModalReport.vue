@@ -55,7 +55,7 @@
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          {{ $t('component.report-modal.action.cancel') }}
+          {{ $t('generic.action.cancel') }}
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
           <CheckIcon />

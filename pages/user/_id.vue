@@ -76,7 +76,7 @@
                   icon = null
                 "
               >
-                <CrossIcon /> {{ $t('user.edit.action.cancel') }}
+                <CrossIcon /> {{ $t('generic.action.cancel') }}
               </button>
               <button
                 class="iconified-button brand-button"

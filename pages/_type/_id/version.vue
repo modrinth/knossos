@@ -95,7 +95,7 @@
             class="iconified-button"
           >
             <CrossIcon aria-hidden="true" />
-            {{ $t('project.version.action.cancel') }}
+            {{ $t('generic.action.cancel') }}
           </nuxt-link>
           <button
             class="iconified-button brand-button"
@@ -120,7 +120,7 @@
             class="iconified-button"
           >
             <CrossIcon aria-hidden="true" />
-            {{ $t('project.version.action.cancel') }}
+            {{ $t('generic.action.cancel') }}
           </nuxt-link>
           <button class="iconified-button brand-button" @click="createVersion">
             <CheckIcon aria-hidden="true" />
