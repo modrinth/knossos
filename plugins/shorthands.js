@@ -23,7 +23,6 @@ export default (ctx, inject) => {
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
   inject('formatLoader', createFormatLoader(ctx.$t))
-  inject('loaderTranslationKey', loaderTranslationKey)
   inject('formatCategoryHeader', formatCategoryHeader)
   inject('computeVersions', (versions) => {
     const versionsMap = {}
@@ -236,16 +235,6 @@ export const formatCategory = (name) => {
     return 'Kitchen Sink'
   }
   return name.charAt(0).toUpperCase() + name.slice(1)
-}
-
-/**
- * Returns translation key to use when displaying the loader name.
- *
- * @param {string} loader Normal name of the loader.
- * @returns {string} Translation key to use.
- */
-export function loaderTranslationKey(loader) {
-  return `loader.${loader}`
 }
 
 /**
