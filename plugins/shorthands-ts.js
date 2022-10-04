@@ -153,7 +153,7 @@ function translateCategory(categoryName) {
 
   normalizedKey = normalizedKey.replace(/_/g, '-')
 
-  return this.$t(`categories.${normalizedKey}`)
+  return this.$t(`category.${normalizedKey}`)
 }
 
 /**
