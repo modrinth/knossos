@@ -160,12 +160,6 @@ aria-label = "Modrinth home page"
 [header.page-links]
 aria-label = "Page links"
 
-[header.tabs]
-mods = "Mods"
-plugins = "Plugins"
-resourcepacks = "Resource Packs"
-modpacks = "Modpacks"
-
 [header.notifications]
 title = "Notifications"
 
@@ -265,10 +259,6 @@ confirm = "Confirm"
 
 [moderation.filter]
 all = "All"
-resourcepack = "Resource packs"
-mod = "Mods"
-modpack = "Modpacks"
-plugin = "Plugins"
 
 [moderation.project.action]
 approve = "Approve"
@@ -820,11 +810,11 @@ plugin = "{side, select, client {Client} server {Server} other {Universal}} plug
 modpack = "{side, select, client {Client} server {Server} other {Universal}} modpack"
 
 [project-type]
-mod-and-plugin = { singular = "Mod and plugin", plural = "Mods and plugins" }
+mod-and-plugin = { singular = "Mod and Plugin", plural = "Mods and Plugins" }
 mod = { singular = "Mod", plural = "Mods" }
 modpack = { singular = "Modpack", plural = "Modpacks" }
 plugin = { singular = "Plugin", plural = "Plugins" }
-resourcepack = { singular = "Resource pack", plural = "Resource packs" }
+resourcepack = { singular = "Resource Pack", plural = "Resource Packs" }
 
 [release-channel]
 release = "Release"
@@ -1057,10 +1047,6 @@ user-id = "User ID: {userId}"
 
 [user.filter]
 all = "All"
-mod = "Mods"
-modpack = "Modpacks"
-plugin = "Plugins"
-resourcepack = "Resource packs"
 
 [user.projects.project.action]
 settings = "Settings"

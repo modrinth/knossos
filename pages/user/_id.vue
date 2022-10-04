@@ -187,7 +187,7 @@
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: $t(`user.filter.${x}`),
+                  label: $t(`project-type.${x}.plural`),
                   href: x,
                 }
               }),

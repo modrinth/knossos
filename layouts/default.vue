@@ -21,19 +21,19 @@
               class="navigation"
               :links="[
                 {
-                  label: $t('header.tabs.mods'),
+                  label: $t('project-type.mod.plural'),
                   href: '/mods',
                 },
                 {
-                  label: $t('header.tabs.plugins'),
+                  label: $t('project-type.plugin.plural'),
                   href: '/plugins',
                 },
                 {
-                  label: $t('header.tabs.resourcepacks'),
+                  label: $t('project-type.resourcepack.plural'),
                   href: '/resourcepacks',
                 },
                 {
-                  label: $t('header.tabs.modpacks'),
+                  label: $t('project-type.modpack.plural'),
                   href: '/modpacks',
                 },
               ]"
@@ -186,7 +186,7 @@
             class="tab"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>{{ $t('header.tabs.mods') }}</span>
+            <span>{{ $t('project-type.mod.plural') }}</span>
           </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
@@ -194,7 +194,7 @@
             class="tab"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>{{ $t('header.tabs.plugins') }}</span>
+            <span>{{ $t('project-type.plugin.plural') }}</span>
           </NuxtLink>
 
           <NuxtLink
@@ -203,7 +203,7 @@
             class="tab"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>{{ $t('header.tabs.resourcepacks') }}</span>
+            <span>{{ $t('project-type.resourcepack.plural') }}</span>
           </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
@@ -211,7 +211,7 @@
             class="tab"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>{{ $t('header.tabs.modpacks') }}</span>
+            <span>{{ $t('project-type.modpack.plural') }}</span>
           </NuxtLink>
         </div>
       </section>

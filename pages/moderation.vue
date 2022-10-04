@@ -88,7 +88,7 @@
             },
             ...moderationTypes.map((x) => {
               return {
-                label: $t(`moderation.filter.${x}`),
+                label: $t(`project-type.${x}.plural`),
                 href: x,
               }
             }),
