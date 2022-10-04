@@ -1,24 +1,3 @@
-[about]
-title = "About"
-
-[about.story]
-p-founding = "Founded in 2020, Modrinth was created to provide modders with an open and intuitive platform to publish their projects on."
-p-goals = "Our primary goal is to be as open as possible, with all our code being <gh-org-link>open source</gh-org-link>, while giving back to the modding community as much as possible."
-p-beta = "While we still are in beta, we hope we can be a major modding platform for all modders."
-
-[about.making]
-h-how-does-work = "How does Modrinth work?"
-p-not-just-site = "Modrinth is not just a website: it is made of several different components that all come together to make a fast and flexible modding platform."
-p-technology = "On the technical level, Modrinth is made up of two main components: the Rust-based backend named <l-repo-link>Labrinth</l-repo-link>, and the Vue-based frontend named <k-repo-link>Knossos</k-repo-link>."
-p-tools = "Additionally, some other custom-created resources exist, including but not limited to: <minotaur-link>Minotaur</minotaur-link>, a Gradle plugin for easily publishing mods to Modrinth, and <minos-link>Minos</minos-link>, an authentication provider. All of Modrinth's code can be found on <gh-org-link>our GitHub page</gh-org-link>."
-
-[about.api]
-h-backend-docs = "Backend Documentation"
-p-where-find-docs = "Documentation for the Modrinth API (Labrinth) can be found on the GitHub repository's wiki <docs-link>here</docs-link>."
-
-[about.meta]
-description = "View information about Modrinth, an open source modding platform here! Modrinth currently supports Minecraft, including the forge and fabric mod loaders."
-
 [category]
 128x = "128x"
 16x = "16x"
