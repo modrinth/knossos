@@ -63,7 +63,7 @@
                   })"
                 :key="category.name"
                 :active-filters="facets"
-                :display-name="$t($categoryTranslationKey(category.name))"
+                :display-name="$translateCategory(category.name)"
                 :facet-name="`categories:'${encodeURIComponent(
                   category.name
                 )}'`"
