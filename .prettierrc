@@ -2,6 +2,7 @@
   "semi": false,
   "singleQuote": true,
   "endOfLine": "auto",
+  "plugins": ["prettier-plugin-jsdoc"],
   "overrides": [
     {
       "files": ["i18n/nuxt/**.html"],
