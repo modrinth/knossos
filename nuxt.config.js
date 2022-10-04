@@ -259,6 +259,8 @@ export default {
         'loaders/translationsLoader.js'
       )
 
+      const messageLoader = path.resolve(__dirname, 'loaders/messageLoader.js')
+
       config.module.rules.push({
         test: /\.toml$/,
         include: path.resolve(__dirname, 'i18n/nuxt'),
@@ -269,13 +271,13 @@ export default {
       config.module.rules.push({
         test: /\.md$/,
         include: path.resolve(__dirname, 'i18n/nuxt'),
-        loader: 'raw-loader',
+        loader: messageLoader,
       })
 
       config.module.rules.push({
         test: /\.html$/,
         include: path.resolve(__dirname, 'i18n/nuxt'),
-        loader: 'raw-loader',
+        loader: messageLoader,
       })
     },
   },
