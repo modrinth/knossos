@@ -230,7 +230,7 @@ export function createRef(initialValue) {
  * placeholders inside the translation (if there are any).
  *
  * @callback TranslateFunction
- * @param {'string'} descriptor String ID or message descriptor.
+ * @param {string} descriptor String ID or message descriptor.
  * @param {Parameters<MessageFormatter>[1]} [values] Values for the placeholders
  *   inside the translations.
  * @param {Parameters<MessageFormatter>[2]} [opts]
