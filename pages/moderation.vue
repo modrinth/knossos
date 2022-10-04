@@ -116,19 +116,19 @@
               class="iconified-button"
               @click="setProjectStatus(project, 'approved')"
             >
-              <CheckIcon /> {{ $t('moderation.project.actions.approve') }}
+              <CheckIcon /> {{ $t('moderation.project.action.approve') }}
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'unlisted')"
             >
-              <UnlistIcon /> {{ $t('moderation.project.actions.unlist') }}
+              <UnlistIcon /> {{ $t('moderation.project.action.unlist') }}
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'rejected')"
             >
-              <CrossIcon /> {{ $t('moderation.project.actions.reject') }}
+              <CrossIcon /> {{ $t('moderation.project.action.reject') }}
             </button>
           </ProjectCard>
         </div>
@@ -166,7 +166,7 @@
             </div>
             <div class="actions">
               <button class="iconified-button" @click="deleteReport(index)">
-                <TrashIcon /> {{ $t('moderation.report.actions.delete') }}
+                <TrashIcon /> {{ $t('moderation.report.action.delete') }}
               </button>
               <span
                 v-tooltip="

@@ -24,7 +24,7 @@
             class="iconified-button brand-button"
             @click="clearNotifications"
           >
-            <ClearIcon /> {{ $t('notifications.actions.clear-all') }}
+            <ClearIcon /> {{ $t('notifications.action.clear-all') }}
           </button>
         </div>
         <div class="notifications">
@@ -71,7 +71,7 @@
                 class="iconified-button"
                 @click="performAction(notification, notificationIndex, null)"
               >
-                {{ $t('notifications.notification.actions.dismiss') }}
+                {{ $t('notifications.notification.action.dismiss') }}
               </button>
             </div>
           </div>

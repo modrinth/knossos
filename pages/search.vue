@@ -15,8 +15,8 @@
           <EyeIcon v-else aria-hidden="true" />
           {{
             sidebarMenuOpen
-              ? $t('search.sidebar.actions.hide-filters')
-              : $t('search.sidebar.actions.show-filters')
+              ? $t('search.sidebar.action.hide-filters')
+              : $t('search.sidebar.action.show-filters')
           }}
         </button>
         <div
@@ -35,7 +35,7 @@
             @click="clearFilters"
           >
             <ClearIcon aria-hidden="true" />
-            {{ $t('search.sidebar.actions.clear-filters') }}
+            {{ $t('search.sidebar.action.clear-filters') }}
           </button>
           <section :aria-label="$t('search.filters.category.aria-label')">
             <div v-for="(categories, header) in categoriesMap" :key="header">

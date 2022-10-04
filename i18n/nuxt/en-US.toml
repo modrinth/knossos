@@ -55,7 +55,7 @@ title = "Copy code to clipboard"
 title = "To verify, type {text} below:"
 placeholder = "Type here..."
 
-[component.confirm-modal.actions]
+[component.confirm-modal.action]
 cancel = "Cancel"
 
 [component.create-modal]
@@ -78,7 +78,7 @@ placeholder = "Enter project slug..."
 title = "Summary"
 description = "This appears in search and on the sidebar of your project's page."
 
-[component.create-modal.actions]
+[component.create-modal.action]
 cancel = "Cancel"
 continue = "Continue"
 
@@ -111,7 +111,7 @@ description = "Include links and images if possible. Markdown formatting is supp
 source = "Source"
 preview = "Preview"
 
-[component.report-modal.actions]
+[component.report-modal.action]
 cancel = "Cancel"
 report = "Report"
 
@@ -121,7 +121,7 @@ generic = "An error occurred"
 [error-page]
 title = "An error occured!"
 
-[error-page.actions]
+[error-page.action]
 go-home = "Go home"
 join-discord = "Get help on Discord"
 
@@ -150,7 +150,7 @@ discord = "Discord"
 github = "GitHub"
 docs = "Docs"
 
-[footer.actions]
+[footer.action]
 change-theme = "Change theme"
 
 [header.skip-to-content]
@@ -273,7 +273,7 @@ mod = "Mods"
 modpack = "Modpacks"
 plugin = "Plugins"
 
-[moderation.project.actions]
+[moderation.project.action]
 approve = "Approve"
 unlist = "Unlist"
 reject = "Reject"
@@ -282,20 +282,20 @@ reject = "Reject"
 title = "{item} reported by {reporter}"
 created = "Created {ago}"
 
-[moderation.report.actions]
+[moderation.report.action]
 delete = "Delete report"
 
 [notifications]
 title = "Notifications"
 no-notifications = "You are up-to-date!"
 
-[notifications.actions]
+[notifications.action]
 clear-all = "Clear all"
 
 [notifications.notification]
 notified-ago = "Notified {ago}"
 
-[notifications.notification.actions]
+[notifications.notification.action]
 dismiss = "Dismiss"
 
 [notifications.category]
@@ -317,7 +317,7 @@ follows = "Following"
 settings = "Settings"
 moderation = "Moderation"
 
-[profile-dropdown.actions]
+[profile-dropdown.action]
 change-theme = "Change theme"
 log-out = "Log out"
 
@@ -325,7 +325,7 @@ log-out = "Log out"
 title = "Edit project"
 generic-url-placeholder = "Enter a valid URL"
 
-[project.edit.actions]
+[project.edit.action]
 cancel = "Cancel"
 submit-for-review = "Submit for review"
 save = "Save"
@@ -421,7 +421,7 @@ placeholder = "License URL"
 [project.edit.donation-links]
 title = "Donation links"
 
-[project.edit.donation-links.actions]
+[project.edit.donation-links.action]
 add-link = "Add a link"
 remove-link = "Remove link"
 
@@ -530,7 +530,7 @@ remove-member = "Remove member"
 edit-member = "Edit member"
 delete-project = "Delete project"
 
-[project.settings.team-member.actions]
+[project.settings.team-member.action]
 remove = "Remove member"
 make-owner = "Transfer ownership"
 save = "Save changes"
@@ -555,7 +555,7 @@ title = "Are you sure you want to delete this version?"
 description = "This will remove this version forever (like really forever)."
 action = "Delete"
 
-[project.version.actions]
+[project.version.action]
 back-to-list = "Back to list"
 cancel = "Cancel"
 save = "Save"
@@ -591,7 +591,7 @@ include-snapshots = "Include snapshots"
 [project.version.edit.files]
 title = "Files<required>*</required>"
 
-[project.version.edit.files.file.actions]
+[project.version.edit.files.file.action]
 remove = "Remove"
 make-primary = "Make primary"
 
@@ -648,7 +648,7 @@ title = "Dependencies"
 version-bound = "Version {version} is {type, select, required {required} optional {optional} incompatible {incompatible} embedded {embedded} other {{type}}}."
 project-bound = "{type, select, required {Required} optional {Optional} incompatible {Incompatible} embedded {Embedded} other {{type}}}."
 
-[project.version.dependency.actions]
+[project.version.dependency.action]
 remove = "Remove"
 
 [project.version.add-dependency]
@@ -686,7 +686,7 @@ title = "Files"
 [project.version.files.file]
 primary = "Primary"
 
-[project.version.files.file.actions.download]
+[project.version.files.file.action.download]
 label = "Download"
 tooltip = "Download {fileName}"
 
@@ -703,7 +703,7 @@ supports = "{loaders} {versions}"
 downloads = "{count, plural, one {<strong>{counter}</strong> download} other {<strong>{counter}</strong> downloads}}"
 published = "Published on <strong>{publishedAt, date, medium}</strong>"
 
-[project.versions.actions]
+[project.versions.action]
 create = "Create a version"
 
 [project.versions.column]
@@ -738,7 +738,7 @@ unknown = "Unknown"
 title = "{project} - Minecraft {projectType, select, mod {Mod} mod_and_plugin {Mod and Plugin} plugin {Plugin} modpack {Modpack} resourcepack {Resource Pack} other {Project}}"
 description = "{projectDescription} — Download the Minecraft {projectType, select, mod {mod} plugin {plugin} mod_and_plugin {mod and plugin} modpack {modpack} resourcepack {resource pack} other {project}} by {owner} on Modrinth."
 
-[project-page.actions]
+[project-page.action]
 report = "Report"
 follow = "Follow"
 unfollow = "Unfollow"
@@ -849,7 +849,7 @@ other = "Other"
 loading = "Loading..."
 no-results = "No results found for your query!"
 
-[search.sidebar.actions]
+[search.sidebar.action]
 hide-filters = "Hide filters"
 show-filters = "Show filters"
 clear-filters = "Clear filters"
@@ -959,7 +959,7 @@ empty = """\
 You don't have any followed mods.
 Why don't you <search-link>search</search-link> for new ones?"""
 
-[settings.follows.actions]
+[settings.follows.action]
 unfollow = "Unfollow"
 
 [settings.modals.delete-account]
@@ -973,7 +973,7 @@ action = "Delete my account"
 [settings.modals.revoke-token]
 title = "Revoke your Modrinth token"
 
-[settings.modals.revoke-token.actions]
+[settings.modals.revoke-token.action]
 cancel = "Cancel"
 log-out = "Log out"
 
@@ -1010,7 +1010,7 @@ title = "Authorization token"
 description = "Your authorization token can be used with the Modrinth API, the Minotaur Gradle plugin, and other applications that interact with Modrinth's API. Be sure to keep this secret!"
 copied = "Copied token to clipboard"
 
-[settings.auth-token.actions]
+[settings.auth-token.action]
 copy = "Copy token to clipboard"
 revoke-token = "Revoke token"
 
@@ -1042,11 +1042,11 @@ title = "Bio"
 title = "Private Email"
 description = "Only visible to moderators."
 
-[user.edit.actions]
+[user.edit.action]
 cancel = "Cancel"
 save = "Save"
 
-[user.actions]
+[user.action]
 edit = "Edit"
 report = "Report"
 open-github = "View GitHub profile"
@@ -1070,7 +1070,7 @@ modpack = "Modpacks"
 plugin = "Plugins"
 resourcepack = "Resource packs"
 
-[user.projects.project.actions]
+[user.projects.project.action]
 settings = "Settings"
 
 [user.projects.no-projects]

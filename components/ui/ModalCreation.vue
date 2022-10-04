@@ -56,11 +56,11 @@
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          {{ $t('component.create-modal.actions.cancel') }}
+          {{ $t('component.create-modal.action.cancel') }}
         </button>
         <button class="iconified-button brand-button" @click="createProject">
           <CheckIcon />
-          {{ $t('component.create-modal.actions.continue') }}
+          {{ $t('component.create-modal.action.continue') }}
         </button>
       </div>
     </div>

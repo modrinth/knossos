@@ -9,7 +9,7 @@
           }/settings`"
           class="iconified-button column"
         >
-          <CrossIcon /> {{ $t('project.edit.actions.cancel') }}
+          <CrossIcon /> {{ $t('project.edit.action.cancel') }}
         </nuxt-link>
         <button
           v-if="
@@ -21,14 +21,14 @@
           :disabled="!$nuxt.$loading"
           @click="saveProjectReview"
         >
-          <CheckIcon /> {{ $t('project.edit.actions.submit-for-review') }}
+          <CheckIcon /> {{ $t('project.edit.action.submit-for-review') }}
         </button>
         <button
           class="iconified-button brand-button column"
           :disabled="!$nuxt.$loading"
           @click="saveProjectNotForReview"
         >
-          <SaveIcon /> {{ $t('project.edit.actions.save') }}
+          <SaveIcon /> {{ $t('project.edit.action.save') }}
         </button>
       </div>
       <div v-if="showKnownErrors" class="known-errors">
@@ -220,7 +220,7 @@
           iconChanged = true
         "
       >
-        <TrashIcon /> {{ $t('project.edit.actions.reset-icon') }}
+        <TrashIcon /> {{ $t('project.edit.action.reset-icon') }}
       </button>
     </section>
     <section
@@ -442,7 +442,7 @@
             donationLinks.push('')
           "
         >
-          <PlusIcon /> {{ $t('project.edit.donation-links.actions.add-link') }}
+          <PlusIcon /> {{ $t('project.edit.donation-links.action.add-link') }}
         </button>
       </div>
       <div v-for="(item, index) in donationPlatforms" :key="index">
@@ -477,7 +477,7 @@
           "
         >
           <TrashIcon />
-          {{ $t('project.edit.donation-links.actions.remove-link') }}
+          {{ $t('project.edit.donation-links.action.remove-link') }}
         </button>
         <hr
           v-if="

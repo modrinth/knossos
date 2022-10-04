@@ -41,11 +41,11 @@
             @click="$refs.modal_revoke_token.hide()"
           >
             <CrossIcon />
-            {{ $t('settings.modals.revoke-token.actions.cancel') }}
+            {{ $t('settings.modals.revoke-token.action.cancel') }}
           </button>
           <button class="iconified-button brand-button" @click="logout">
             <RightArrowIcon />
-            {{ $t('settings.modals.revoke-token.actions.log-out') }}
+            {{ $t('settings.modals.revoke-token.action.log-out') }}
           </button>
         </div>
       </div>
@@ -159,7 +159,7 @@
           </span>
           <span :class="{ active: !copied }">
             <ClipboardCopyIcon />
-            {{ $t('settings.auth-token.actions.copy') }}
+            {{ $t('settings.auth-token.action.copy') }}
           </span>
         </button>
         <button
@@ -167,7 +167,7 @@
           class="iconified-button"
           @click="$refs.modal_revoke_token.show()"
         >
-          {{ $t('settings.auth-token.actions.revoke-token') }}
+          {{ $t('settings.auth-token.action.revoke-token') }}
         </button>
       </div>
     </section>

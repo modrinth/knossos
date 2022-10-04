@@ -33,7 +33,7 @@
               @click="isEditing = true"
             >
               <EditIcon />
-              {{ $t('user.actions.edit') }}
+              {{ $t('user.action.edit') }}
             </button>
             <button
               v-else-if="$auth.user"
@@ -41,11 +41,11 @@
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              {{ $t('user.actions.report') }}
+              {{ $t('user.action.report') }}
             </button>
             <a v-else class="iconified-button" :href="authUrl">
               <ReportIcon aria-hidden="true" />
-              {{ $t('user.actions.report') }}
+              {{ $t('user.action.report') }}
             </a>
           </div>
           <template v-if="isEditing">
@@ -76,13 +76,13 @@
                   icon = null
                 "
               >
-                <CrossIcon /> {{ $t('user.edit.actions.cancel') }}
+                <CrossIcon /> {{ $t('user.edit.action.cancel') }}
               </button>
               <button
                 class="iconified-button brand-button"
                 @click="saveChanges"
               >
-                <SaveIcon /> {{ $t('user.edit.actions.save') }}
+                <SaveIcon /> {{ $t('user.edit.action.save') }}
               </button>
             </div>
           </template>
@@ -171,7 +171,7 @@
               class="sidebar__item github-button iconified-button"
             >
               <GitHubIcon aria-hidden="true" />
-              {{ $t('user.actions.open-github') }}
+              {{ $t('user.action.open-github') }}
             </a>
           </template>
         </aside>
@@ -199,7 +199,7 @@
             @click="$refs.modal_creation.show()"
           >
             <PlusIcon />
-            {{ $t('user.actions.create-project') }}
+            {{ $t('user.action.create-project') }}
           </button>
         </nav>
         <Advertisement
@@ -241,7 +241,7 @@
               }/settings`"
             >
               <SettingsIcon />
-              {{ $t('user.projects.project.actions.settings') }}
+              {{ $t('user.projects.project.action.settings') }}
             </nuxt-link>
           </ProjectCard>
         </div>

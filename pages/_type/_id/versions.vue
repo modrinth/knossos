@@ -3,7 +3,7 @@
     <div v-if="currentMember" class="card header-buttons">
       <nuxt-link to="version/create" class="brand-button iconified-button">
         <PlusIcon />
-        {{ $t('project.versions.actions.create') }}
+        {{ $t('project.versions.action.create') }}
       </nuxt-link>
     </div>
     <Pagination

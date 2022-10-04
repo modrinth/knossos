@@ -6,13 +6,13 @@
       <p>{{ error.message }}</p>
       <div class="button-group">
         <nuxt-link to="/" class="iconified-button raised-button brand-button">
-          {{ $t('error-page.actions.go-home') }}
+          {{ $t('error-page.action.go-home') }}
         </nuxt-link>
         <a
           href="https://discord.gg/EUHuJHt"
           class="iconified-button raised-button"
         >
-          {{ $t('error-page.actions.join-discord') }}
+          {{ $t('error-page.action.join-discord') }}
         </a>
       </div>
     </div>

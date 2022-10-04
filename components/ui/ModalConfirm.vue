@@ -28,7 +28,7 @@
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          {{ $t('component.confirm-modal.actions.cancel') }}
+          {{ $t('component.confirm-modal.action.cancel') }}
         </button>
         <button
           class="iconified-button danger-button"

@@ -120,7 +120,7 @@
               @click="$refs.modal_project_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              {{ $t('project-page.actions.report') }}
+              {{ $t('project-page.action.report') }}
             </button>
             <button
               v-if="!$user.follows.find((x) => x.id === project.id)"
@@ -128,7 +128,7 @@
               @click="$store.dispatch('user/followProject', project)"
             >
               <FollowIcon aria-hidden="true" />
-              {{ $t('project-page.actions.follow') }}
+              {{ $t('project-page.action.follow') }}
             </button>
             <button
               v-if="$user.follows.find((x) => x.id === project.id)"
@@ -136,17 +136,17 @@
               @click="$store.dispatch('user/unfollowProject', project)"
             >
               <FollowIcon fill="currentColor" aria-hidden="true" />
-              {{ $t('project-page.actions.unfollow') }}
+              {{ $t('project-page.action.unfollow') }}
             </button>
           </template>
           <template v-else>
             <a class="iconified-button" :href="authUrl">
               <ReportIcon aria-hidden="true" />
-              {{ $t('project-page.actions.report') }}
+              {{ $t('project-page.action.report') }}
             </a>
             <a class="iconified-button" :href="authUrl">
               <FollowIcon fill="currentColor" aria-hidden="true" />
-              {{ $t('project-page.actions.follow') }}
+              {{ $t('project-page.action.follow') }}
             </a>
           </template>
         </div>
@@ -220,7 +220,7 @@
             @click="submitForReview"
           >
             <CheckIcon />
-            {{ $t('project-page.actions.resubmit-for-review') }}
+            {{ $t('project-page.action.resubmit-for-review') }}
           </button>
           <button
             v-if="project.status === 'draft'"
@@ -228,7 +228,7 @@
             @click="submitForReview"
           >
             <CheckIcon />
-            {{ $t('project-page.actions.submit-for-review') }}
+            {{ $t('project-page.action.submit-for-review') }}
           </button>
           <button
             v-if="project.status === 'approved'"
@@ -236,7 +236,7 @@
             @click="clearMessage"
           >
             <ClearIcon />
-            {{ $t('project-page.actions.clear-message') }}
+            {{ $t('project-page.action.clear-message') }}
           </button>
         </div>
         <div v-if="showKnownErrors" class="known-errors">

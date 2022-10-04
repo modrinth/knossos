@@ -50,7 +50,7 @@
           }`"
         >
           <BackIcon aria-hidden="true" />
-          {{ $t('project.version.actions.back-to-list') }}
+          {{ $t('project.version.action.back-to-list') }}
         </nuxt-link>
       </div>
       <div v-if="version">
@@ -95,14 +95,14 @@
             class="iconified-button"
           >
             <CrossIcon aria-hidden="true" />
-            {{ $t('project.version.actions.cancel') }}
+            {{ $t('project.version.action.cancel') }}
           </nuxt-link>
           <button
             class="iconified-button brand-button"
             @click="saveEditedVersion"
           >
             <SaveIcon aria-hidden="true" />
-            {{ $t('project.version.actions.save') }}
+            {{ $t('project.version.action.save') }}
           </button>
         </div>
         <div
@@ -120,11 +120,11 @@
             class="iconified-button"
           >
             <CrossIcon aria-hidden="true" />
-            {{ $t('project.version.actions.cancel') }}
+            {{ $t('project.version.action.cancel') }}
           </nuxt-link>
           <button class="iconified-button brand-button" @click="createVersion">
             <CheckIcon aria-hidden="true" />
-            {{ $t('project.version.actions.create') }}
+            {{ $t('project.version.action.create') }}
           </button>
         </div>
         <div v-else class="button-group">
@@ -138,7 +138,7 @@
             :title="`Download ${primaryFile.filename}`"
           >
             <DownloadIcon aria-hidden="true" />
-            {{ $t('project.version.actions.download') }}
+            {{ $t('project.version.action.download') }}
           </a>
           <button
             v-if="$auth.user"
@@ -146,11 +146,11 @@
             @click="$refs.modal_version_report.show()"
           >
             <ReportIcon aria-hidden="true" />
-            {{ $t('project.version.actions.report') }}
+            {{ $t('project.version.action.report') }}
           </button>
           <a v-else class="action iconified-button" :href="authUrl">
             <ReportIcon aria-hidden="true" />
-            {{ $t('project.version.actions.report') }}
+            {{ $t('project.version.action.report') }}
           </a>
           <nuxt-link
             v-if="currentMember"
@@ -161,7 +161,7 @@
             @click.prevent="mode = 'edit'"
           >
             <EditIcon aria-hidden="true" />
-            {{ $t('project.version.actions.edit') }}
+            {{ $t('project.version.action.edit') }}
           </nuxt-link>
           <button
             v-if="currentMember"
@@ -169,7 +169,7 @@
             @click="$refs.modal_confirm.show()"
           >
             <TrashIcon aria-hidden="true" />
-            {{ $t('project.version.actions.delete') }}
+            {{ $t('project.version.action.delete') }}
           </button>
         </div>
         <section v-if="mode === 'edit' || mode === 'create'">
@@ -497,7 +497,7 @@
                     @click="version.dependencies.splice(index, 1)"
                   >
                     <TrashIcon />
-                    {{ $t('project.version.dependency.actions.remove') }}
+                    {{ $t('project.version.dependency.action.remove') }}
                   </button>
                 </div>
               </div>
@@ -612,14 +612,14 @@
               :href="file.url"
               class="action iconified-button"
               :title="
-                $t('project.version.files.file.actions.download.tooltip', {
+                $t('project.version.files.file.action.download.tooltip', {
                   fileName: file.filename,
                 })
               "
               tabindex="0"
             >
               <DownloadIcon aria-hidden="true" />
-              {{ $t('project.version.files.file.actions.download.label') }}
+              {{ $t('project.version.files.file.action.download.label') }}
             </a>
             <p v-if="mode === 'version'">({{ $formatBytes(file.size) }})</p>
             <button
@@ -631,7 +631,7 @@
               "
             >
               <TrashIcon aria-hidden="true" />
-              {{ $t('project.version.edit.files.file.actions.remove') }}
+              {{ $t('project.version.edit.files.file.action.remove') }}
             </button>
             <button
               v-if="
@@ -641,7 +641,7 @@
               @click="primaryFile = file"
             >
               <StarIcon aria-hidden="true" />
-              {{ $t('project.version.edit.files.file.actions.make-primary') }}
+              {{ $t('project.version.edit.files.file.action.make-primary') }}
             </button>
           </div>
           <div v-if="mode === 'edit' || mode === 'create'">
@@ -656,7 +656,7 @@
                 @click="newFiles.splice(index, 1)"
               >
                 <TrashIcon aria-hidden="true" />
-                {{ $t('project.version.edit.files.file.actions.remove') }}
+                {{ $t('project.version.edit.files.file.action.remove') }}
               </button>
             </div>
           </div>

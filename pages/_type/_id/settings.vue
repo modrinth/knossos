@@ -250,7 +250,7 @@
             @click="removeTeamMember(index)"
           >
             <TrashIcon />
-            {{ $t('project.settings.team-member.actions.remove') }}
+            {{ $t('project.settings.team-member.action.remove') }}
           </button>
           <button
             v-if="
@@ -262,7 +262,7 @@
             @click="transferOwnership(index)"
           >
             <UserIcon />
-            {{ $t('project.settings.team-member.actions.make-owner') }}
+            {{ $t('project.settings.team-member.action.make-owner') }}
           </button>
           <button
             class="iconified-button brand-button"
@@ -273,7 +273,7 @@
             @click="updateTeamMember(index)"
           >
             <CheckIcon />
-            {{ $t('project.settings.team-member.actions.save') }}
+            {{ $t('project.settings.team-member.action.save') }}
           </button>
         </div>
       </div>
