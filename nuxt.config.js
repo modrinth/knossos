@@ -422,30 +422,6 @@ export default {
   i18n: {
     defaultLocale: 'en-US',
     locales: (() => {
-      /**
-       * Custom locale names. They must be written in the target language and
-       * abide by the capitalisation for words mid-sentence, rather than be
-       * capitalised by default.
-       *
-       * For example, in English all languages are always capitalised, but in,
-       * say, Polish, language names are always lowercase unless at the
-       * beginning of the sentence; the regions (countries, cities, etc),
-       * however, are always capitalised.
-       *
-       * There are efforts to bring Intl API that allows title capitalisation
-       * respecting language rules, but for now, for consistency, it's better to
-       * follow the rules of CLDR.
-       *
-       * @type {Record<string, string>}
-       */
-      const customLocaleNames = Object.assign(Object.create(null), {
-        'en-x-pirate': 'Pirate English (Seven Seas)',
-        'en-x-updown': 'ɥsᴉʅƃuƎ uʍop ǝpᴉsdՈ',
-        'en-x-lolcat': 'LOLCAT (CATZWORLT)',
-        'ru-x-bandit': 'русский (Бандитский Петербург)',
-        'en-x-uwu': 'UwUified English',
-      })
-
       const availableNFLocales = glob
         .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
           nodir: true,
@@ -456,15 +432,9 @@ export default {
         const code = path.basename(it, '.toml')
 
         /** @type {string[] | undefined} */
-        let additionalImports = undefined
+        let additionalImports
 
         let data
-
-        if (customLocaleNames[code] != null) {
-          data = {
-            customLocaleName: customLocaleNames[code],
-          }
-        }
 
         {
           const nfLocaleMatch = localeMatch(
@@ -490,6 +460,25 @@ export default {
         for (const dataFile of dataFiles) {
           const importPath = require.resolve(path.join(__dirname, dataFile))
           const fileName = path.basename(dataFile).slice(`${code}.`.length)
+
+          if (fileName === 'meta.json') {
+            delete require.cache[require.resolve(importPath)]
+
+            const meta = Object.fromEntries(
+              Object.entries(require(importPath)).map(([key, value]) => [
+                key,
+                value.message,
+              ])
+            )
+
+            if (meta.name != null) {
+              data = {
+                customLocaleName: meta.name,
+              }
+            }
+
+            continue
+          }
 
           importedData[fileName] = importPath
         }
