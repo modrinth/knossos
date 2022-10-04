@@ -820,11 +820,11 @@ plugin = "{side, select, client {Client} server {Server} other {Universal}} plug
 modpack = "{side, select, client {Client} server {Server} other {Universal}} modpack"
 
 [project-type]
-mod-and-plugin = "Mod and plugin"
-mod = "Mod"
-modpack = "Modpack"
-plugin = "Plugin"
-resourcepack = "Resource pack"
+mod-and-plugin = { singular = "Mod and plugin", plural = "Mods and plugins" }
+mod = { singular = "Mod", plural = "Mods" }
+modpack = { singular = "Modpack", plural = "Modpacks" }
+plugin = { singular = "Plugin", plural = "Plugins" }
+resourcepack = { singular = "Resource pack", plural = "Resource packs" }
 
 [release-channel]
 release = "Release"

@@ -17,7 +17,7 @@
         id="project-type"
         v-model="projectType"
         :items="$tag.projectTypes"
-        :custom-label="(x) => $t(`project-type.${x.id}`)"
+        :custom-label="(x) => $t(`project-type.${x.id}.singular`)"
       />
       <label class="create-label" for="name">
         <strong>{{ $t('component.create-modal.name.title') }}</strong>

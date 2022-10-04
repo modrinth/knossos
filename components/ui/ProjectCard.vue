@@ -40,7 +40,7 @@
           </div>
           <div v-else-if="moderation" class="side-descriptor">
             <InfoIcon aria-hidden="true" />
-            {{ $t(`project-type.${coercedProjectType}`) }}
+            {{ $t(`project-type.${coercedProjectType}.singular`) }}
           </div>
           <p class="description">
             {{ description }}
