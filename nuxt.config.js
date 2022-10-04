@@ -443,6 +443,7 @@ export default {
         'en-x-updown': 'ɥsᴉʅƃuƎ uʍop ǝpᴉsdՈ',
         'en-x-lolcat': 'LOLCAT (CATZWORLT)',
         'ru-x-bandit': 'русский (Бандитский Петербург)',
+        'en-x-uwu': 'UwUified English',
       })
 
       const availableNFLocales = glob
