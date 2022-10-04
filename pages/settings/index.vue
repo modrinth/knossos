@@ -149,17 +149,18 @@
       <div class="button-group">
         <button
           type="button"
-          class="iconified-button"
+          class="iconified-button stateful-button"
           value="Copy to clipboard"
           @click="copyToken"
         >
-          <template v-if="copied">
-            <CheckIcon v-if="copied" />
+          <span :class="{ active: copied }">
+            <CheckIcon />
             {{ $t('settings.auth-token.copied') }}
-          </template>
-          <template v-else>
+          </span>
+          <span :class="{ active: !copied }">
+            <ClipboardCopyIcon />
             {{ $t('settings.auth-token.actions.copy') }}
-          </template>
+          </span>
         </button>
         <button
           type="button"
@@ -197,6 +198,7 @@ import Modal from '~/components/ui/Modal'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
 
 export default {
   components: {
@@ -206,6 +208,7 @@ export default {
     CrossIcon,
     RightArrowIcon,
     CheckIcon,
+    ClipboardCopyIcon,
   },
   data() {
     return {

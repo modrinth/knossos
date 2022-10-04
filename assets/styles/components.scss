@@ -420,6 +420,25 @@
   --background-color: var(--color-brand-light);
 }
 
+.stateful-button {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  & > span {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+    &.active {
+      visibility: visible;
+    }
+  }
+}
+
 .button-group {
   display: flex;
   grid-gap: .5rem;
