@@ -622,7 +622,12 @@ export function createIntlPlugin() {
             }
           }
 
-          /** @type {any | any[]} */
+          /**
+           * @private
+           * @typedef {import('vue').VNode | string} _FormattedValue
+           */
+
+          /** @type {_FormattedValue | _FormattedValue[]} */
           let formatted
 
           if (context.props.message != null) {
@@ -639,13 +644,13 @@ export function createIntlPlugin() {
             )
           }
 
-          if (Array.isArray(formatted)) {
-            formatted = formatted.flat().map((child) => {
-              return isVNode(child) ? child : createTextNode(child)
-            })
+          if (!Array.isArray(formatted)) {
+            formatted = [formatted]
           }
 
-          return formatted
+          return formatted.flat().map((child) => {
+            return isVNode(child) ? child : createTextNode(child)
+          })
         },
       })
     },
