@@ -10,19 +10,18 @@
       <div class="text">
         <h1>{{ $t('landing.title') }}</h1>
         <h3>
-          <i18n-formatted message-id="landing.headline">
-            <a
-              v-i18n:wrap="'repo-link'"
-              href="https://github.com/modrinth"
-              target="_blank"
-            />
-            <a
-              v-i18n:wrap="'docs-link'"
-              href="https://docs.modrinth.com"
-              target="_blank"
-            />
-            <sup v-i18n:wrap="'sup'" />
-          </i18n-formatted>
+          <IntlFormatted message-id="landing.headline" :tags="['sup']">
+            <template #repo-link="{ children }">
+              <a href="https://github.com/modrinth" target="_blank">
+                <Fragment :of="children" />
+              </a>
+            </template>
+            <template #docs-link="{ children }">
+              <a href="https://docs.modrinth.com" target="_blank">
+                <Fragment :of="children" />
+              </a>
+            </template>
+          </IntlFormatted>
         </h3>
         <form action="/mods">
           <div class="iconified-input">
@@ -81,20 +80,21 @@
             </h3>
             <h1>{{ $t('landing.feature.active-development.headline') }}</h1>
             <p>
-              <i18n-formatted
+              <IntlFormatted
                 message-id="landing.feature.active-development.body"
               >
-                <a
-                  v-i18n:wrap="'discord-link'"
-                  href="https://discord.gg/EUHuJHt"
-                  target="_blank"
-                />
-              </i18n-formatted>
+                <template #discord-link="{ children }">
+                  <a href="https://discord.gg/EUHuJHt" target="_blank">
+                    <Fragment :of="children" />
+                  </a>
+                </template>
+              </IntlFormatted>
             </p>
             <div class="features">
               <div class="feature completed">
                 <CheckIcon />
                 <p>
+                  <!-- FIXME: mess here below -->
                   <a href="https://github.com/modrinth" target="_blank">{{
                     $t('landing.feature.feature-set.open-source')
                   }}</a>
@@ -203,13 +203,13 @@
           <h3 class="subheader">{{ $t('landing.feature.api.title') }}</h3>
           <h1>{{ $t('landing.feature.api.headline') }}</h1>
           <p>
-            <i18n-formatted message-id="landing.feature.api.body">
-              <a
-                v-i18n:wrap="'docs-link'"
-                href="https://docs.modrinth.com"
-                target="_blank"
-              />
-            </i18n-formatted>
+            <IntlFormatted message-id="landing.feature.api.body">
+              <template #docs-link="{ children }">
+                <a href="https://docs.modrinth.com" target="_blank">
+                  <Fragment :of="children"></Fragment>
+                </a>
+              </template>
+            </IntlFormatted>
           </p>
         </div>
       </div>

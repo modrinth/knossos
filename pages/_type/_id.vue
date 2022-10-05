@@ -50,7 +50,8 @@
         <hr class="card-divider" />
         <div class="stats">
           <span>
-            <i18n-formatted
+            <!-- FIXME: use computed values below -->
+            <IntlFormatted
               message-id="project.stats.downloads"
               :values="
                 $deunionize(
@@ -60,11 +61,14 @@
                 )
               "
             >
-              <span v-i18n:wrap="'stat'" class="stat"></span>
-            </i18n-formatted>
+              <template #stat="{ children }">
+                <span class="stat"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </span>
           <span>
-            <i18n-formatted
+            <!-- FIXME: use computed values below -->
+            <IntlFormatted
               message-id="project.stats.followers"
               :values="
                 $deunionize(
@@ -74,8 +78,10 @@
                 )
               "
             >
-              <span v-i18n:wrap="'stat'" class="stat"></span>
-            </i18n-formatted>
+              <template #stat="{ children }">
+                <span class="stat"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </span>
         </div>
         <div class="dates">
@@ -190,11 +196,13 @@
         </p>
         <div class="message">
           <p v-if="project.status === 'processing'">
-            <i18n-formatted
-              message-id="project-page.status.messages.processing"
-            >
-              <nuxt-link v-i18n:wrap="'rules-link'" to="/legal/rules" />
-            </i18n-formatted>
+            <IntlFormatted message-id="project-page.status.messages.processing">
+              <template #rules-link="{ children }">
+                <nuxt-link to="/legal/rules">
+                  <Fragment :of="children" />
+                </nuxt-link>
+              </template>
+            </IntlFormatted>
           </p>
           <p v-if="project.status === 'draft'">
             {{ $t('project-page.status.messages.draft') }}
@@ -525,57 +533,68 @@
       <div class="content">
         <div class="project-main">
           <div v-if="project.status === 'unlisted'" class="card warning">
-            <i18n-formatted
+            <IntlFormatted
               message-id="project-page.notice.unlisted"
               :values="{ project: project.title }"
             >
-              <div v-i18n:wrap="'sr-only'" class="sr-only" />
-              <nuxt-link v-i18n:wrap="'rules-link'" to="/legal/rules" />
-            </i18n-formatted>
+              <template #sr-only="{ children }">
+                <div class="sr-only"><Fragment :of="children" /></div>
+              </template>
+              <template #rules-link="{ children }">
+                <nuxt-link to="/legal/rules">
+                  <Fragment :of="children" />
+                </nuxt-link>
+              </template>
+            </IntlFormatted>
           </div>
           <div v-if="project.status === 'archived'" class="card warning">
-            <i18n-formatted
+            <IntlFormatted
               message-id="project-page.notice.archived"
               :values="{ project: project.title }"
             >
-              <div v-i18n:wrap="'sr-only'" class="sr-only" />
-            </i18n-formatted>
+              <template #sr-only="{ children }">
+                <div class="sr-only">
+                  <Fragment :of="children" />
+                </div>
+              </template>
+            </IntlFormatted>
           </div>
           <div v-if="project.status === 'abandoned'" class="card warning">
-            <i18n-formatted
+            <IntlFormatted
               message-id="project-page.notice.abandoned"
               :values="{ project: project.title }"
             >
-              <div v-i18n:wrap="'sr-only'" class="sr-only" />
-            </i18n-formatted>
+              <template #sr-only="{ children }">
+                <div class="sr-only">
+                  <Fragment :of="children" />
+                </div>
+              </template>
+            </IntlFormatted>
           </div>
           <div v-if="project.project_type === 'modpack'" class="card warning">
-            <i18n-formatted
+            <IntlFormatted
               message-id="project-page.notice.modpacks-preview"
               :values="{ project: project.title }"
             >
-              <div v-i18n:wrap="'sr-only'" class="sr-only" />
-              <a
-                v-i18n:wrap="'docs-link'"
-                href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-                target="_blank"
-              />
-              <a
-                v-i18n:wrap="'atl-link'"
-                href="https://atlauncher.com/about"
-                target="_blank"
-              />
-              <a
-                v-i18n:wrap="'mmc-link'"
-                href="https://multimc.org/"
-                target="_blank"
-              />
-              <a
-                v-i18n:wrap="'pmc-link'"
-                href="https://polymc.org/"
-                target="_blank"
-              />
-            </i18n-formatted>
+              <template #sr-only="{ children }">
+                <div class="sr-only">
+                  <Fragment :of="children" />
+                </div>
+              </template>
+              <template
+                v-for="(url, key) in {
+                  docs: 'https://docs.modrinth.com/docs/modpacks/playing_modpacks/',
+                  atl: 'https://atlauncher.com/about',
+                  mmc: 'https://multimc.org/',
+                  pmc: 'https://polymc.org/',
+                }"
+                #[`${key}-link`]="{ children }"
+              >
+                <a :key="key" :href="url" target="_blank">
+                  <Fragment :of="children" />
+                </a>
+              </template>
+            </IntlFormatted>
           </div>
           <Advertisement
             v-if="

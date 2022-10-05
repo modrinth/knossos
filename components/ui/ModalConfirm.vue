@@ -6,13 +6,13 @@
       </div>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
-          <i18n-formatted
+          <IntlFormatted
             message-id="component.confirm-modal.verification.title"
           >
-            <strong v-i18n:value="'text'" class="confirmation-text">
-              {{ confirmationText }}
-            </strong>
-          </i18n-formatted>
+            <template #~text>
+              <strong class="confirmation-text">{{ confirmationText }}</strong>
+            </template>
+          </IntlFormatted>
         </span>
       </label>
       <div class="confirmation-input">

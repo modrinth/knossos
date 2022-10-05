@@ -62,9 +62,11 @@
       <label>
         <span>
           <h3>
-            <i18n-formatted message-id="project.edit.name.title">
-              <span v-i18n:wrap="'required'" class="required" />
-            </i18n-formatted>
+            <IntlFormatted message-id="project.edit.name.title">
+              <template #required="{ children }">
+                <span class="required"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </h3>
           <span>
             {{ $t('project.edit.name.description') }}
@@ -84,9 +86,11 @@
       <label>
         <span>
           <h3>
-            <i18n-formatted message-id="project.edit.description.title">
-              <span v-i18n:wrap="'required'" class="required" />
-            </i18n-formatted>
+            <IntlFormatted message-id="project.edit.description.title">
+              <template #required="{ children }">
+                <span class="required"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </h3>
           <span>
             {{ $t('project.edit.description.description') }}
@@ -166,9 +170,11 @@
       <label class="vertical-input no-margin">
         <span>
           <h3>
-            <i18n-formatted message-id="project.edit.slug.title">
-              <span v-i18n:wrap="'required'" class="required" />
-            </i18n-formatted>
+            <IntlFormatted message-id="project.edit.slug.title">
+              <template #required="{ children }">
+                <span class="required"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </h3>
           <span class="slug-description"
             >https://modrinth.com/{{ project.project_type.toLowerCase() }}/{{
@@ -236,11 +242,13 @@
         </div>
         <div class="labeled-control">
           <h3>
-            <i18n-formatted
+            <IntlFormatted
               message-id="project.edit.supported-environments-client.title"
             >
-              <span v-i18n:wrap="'required'" class="required" />
-            </i18n-formatted>
+              <template #required="{ children }">
+                <span class="required"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </h3>
           <Multiselect
             v-model="clientSideType"
@@ -258,11 +266,13 @@
         </div>
         <div class="labeled-control">
           <h3>
-            <i18n-formatted
+            <IntlFormatted
               message-id="project.edit.supported-environments-server.title"
             >
-              <span v-i18n:wrap="'required'" class="required" />
-            </i18n-formatted>
+              <template #required="{ children }">
+                <span class="required"><Fragment :of="children" /></span>
+              </template>
+            </IntlFormatted>
           </h3>
           <Multiselect
             v-model="serverSideType"
@@ -283,21 +293,26 @@
     <section class="card description">
       <h3>
         <label for="body">
-          <i18n-formatted message-id="project.edit.body.title">
-            <span v-i18n:wrap="'required'" class="required" />
-          </i18n-formatted>
+          <IntlFormatted message-id="project.edit.body.title">
+            <template #required="{ children }">
+              <span class="required"><Fragment :of="children" /></span>
+            </template>
+          </IntlFormatted>
         </label>
       </h3>
       <span>
-        <i18n-formatted message-id="project.edit.body.description">
-          <a
-            v-i18n:wrap="'md-help-link'"
-            class="text-link"
-            href="https://guides.github.com/features/mastering-markdown/"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-        </i18n-formatted>
+        <IntlFormatted message-id="project.edit.body.title">
+          <template #md-help-link="{ children }">
+            <a
+              class="text-link"
+              href="https://guides.github.com/features/mastering-markdown/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Fragment :of="children" />
+            </a>
+          </template>
+        </IntlFormatted>
       </span>
       <Chips
         v-model="bodyViewMode"
@@ -387,22 +402,27 @@
     <section class="card license">
       <div class="title">
         <h3>
-          <i18n-formatted message-id="project.edit.license.title">
-            <span v-i18n:wrap="'required'" class="required" />
-          </i18n-formatted>
+          <IntlFormatted message-id="project.edit.license.title">
+            <template #required="{ children }">
+              <span class="required"><Fragment :of="children" /></span>
+            </template>
+          </IntlFormatted>
         </h3>
       </div>
       <label>
         <span class="pre">
-          <i18n-formatted message-id="project.edit.license.description">
-            <a
-              v-i18n:wrap="'guide-link'"
-              href="https://blog.modrinth.com/licensing-guide/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link"
-            />
-          </i18n-formatted>
+          <IntlFormatted message-id="project.edit.license.description">
+            <template #guide-link="{ children }">
+              <a
+                href="https://blog.modrinth.com/licensing-guide/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+              >
+                <Fragment :of="children" />
+              </a>
+            </template>
+          </IntlFormatted>
         </span>
         <div class="input-group">
           <Multiselect

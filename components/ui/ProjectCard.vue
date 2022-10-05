@@ -17,16 +17,16 @@
               </nuxt-link>
             </h2>
             <p v-if="author" class="author">
-              <i18n-formatted
+              <IntlFormatted
                 message-id="component.project-card.author"
                 :values="{ author }"
               >
-                <nuxt-link
-                  v-i18n:wrap="'link'"
-                  class="title-link"
-                  :to="'/user/' + author"
-                />
-              </i18n-formatted>
+                <template #link="{ children }">
+                  <nuxt-link class="title-link" :to="'/user/' + author">
+                    <Fragment :of="children" />
+                  </nuxt-link>
+                </template>
+              </IntlFormatted>
             </p>
           </div>
           <div
@@ -91,27 +91,33 @@
       <div v-if="downloads" class="stat">
         <DownloadIcon aria-hidden="true" />
         <p>
-          <i18n-formatted
+          <!-- FIXME: use computed values -->
+          <IntlFormatted
             message-id="component.project-card.downloads"
             :values="
               $deunionize($fmt.compactNumber(downloads), 'counter', 'downloads')
             "
           >
-            <strong v-i18n:wrap="'stat'" />
-          </i18n-formatted>
+            <template #stat="{ children }">
+              <strong><Fragment :of="children" /></strong>
+            </template>
+          </IntlFormatted>
         </p>
       </div>
       <div v-if="follows" class="stat">
         <HeartIcon aria-hidden="true" />
         <p>
-          <i18n-formatted
+          <!-- FIXME: use computed values -->
+          <IntlFormatted
             message-id="component.project-card.followers"
             :values="
               $deunionize($fmt.compactNumber(follows), 'counter', 'followers')
             "
           >
-            <strong v-i18n:wrap="'stat'" />
-          </i18n-formatted>
+            <template #stat="{ children }">
+              <strong><Fragment :of="children" /></strong>
+            </template>
+          </IntlFormatted>
         </p>
       </div>
       <div class="mobile-dates">

@@ -28,9 +28,13 @@
     <FollowIllustration class="icon" />
     <br />
     <span class="text pre">
-      <i18n-formatted message-id="settings.follows.empty">
-        <nuxt-link v-i18n:wrap="'search-link'" class="link" to="/mods" />
-      </i18n-formatted>
+      <IntlFormatted message-id="settings.follows.empty">
+        <template #search-link="{ children }">
+          <nuxt-link class="link" to="/mods">
+            <Fragment :of="children" />
+          </nuxt-link>
+        </template>
+      </IntlFormatted>
     </span>
   </div>
 </template>

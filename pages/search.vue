@@ -238,38 +238,25 @@
         class="card warning"
         :aria-label="$t('search.notice.type.warning')"
       >
-        <i18n-formatted message-id="search.notice.modpacks-alpha">
-          <a
-            v-i18n:wrap="'doc-play-link'"
-            href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-            target="_blank"
-          />
-          <a
-            v-i18n:wrap="'atl-link'"
-            href="https://atlauncher.com/about"
-            target="_blank"
-          />
-          <a
-            v-i18n:wrap="'mmc-link'"
-            href="https://multimc.org/"
-            target="_blank"
-          />
-          <a
-            v-i18n:wrap="'pmc-link'"
-            href="https://polymc.org"
-            target="_blank"
-          />
-          <a
-            v-i18n:wrap="'doc-create-link'"
-            href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
-            target="_blank"
-          />
-          <a
-            v-i18n:wrap="'discord-link'"
-            href="https://discord.gg/EUHuJHt"
-            target="_blank"
-          />
-        </i18n-formatted>
+        <IntlFormatted message-id="search.notice.modpacks-alpha">
+          <template
+            v-for="(value, key) in {
+              'doc-play':
+                'https://docs.modrinth.com/docs/modpacks/playing_modpacks/',
+              atl: 'https://atlauncher.com/about',
+              mmc: 'https://multimc.org/',
+              pmc: 'https://polymc.org',
+              'doc-create':
+                'https://docs.modrinth.com/docs/modpacks/creating_modpacks/',
+              discord: 'https://discord.gg/EUHuJHt',
+            }"
+            #[`${key}-link`]="{ children }"
+          >
+            <a :key="key" :href="value" target="_blank">
+              <Fragment :of="children" />
+            </a>
+          </template>
+        </IntlFormatted>
       </div>
       <Advertisement
         type="banner"

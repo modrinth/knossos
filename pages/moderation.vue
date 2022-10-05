@@ -6,8 +6,8 @@
           {{ $t('moderation.form.description') }}
         </p>
         <div class="status">
-          <i18n-formatted message-id="moderation.form.new-status">
-            <span v-i18n:value="'status'">
+          <IntlFormatted message-id="moderation.form.new-status">
+            <template #~status>
               <Badge
                 v-if="currentProject.newStatus === 'approved'"
                 color="green"
@@ -32,8 +32,8 @@
                 color="gray"
                 :type="$t(`project-status.${currentProject.newStatus}`)"
               />
-            </span>
-          </i18n-formatted>
+            </template>
+          </IntlFormatted>
         </div>
         <input
           v-model="currentProject.moderation_message"
@@ -145,17 +145,19 @@
           >
             <div class="info">
               <div class="title">
-                <i18n-formatted message-id="moderation.report.title">
-                  <h3 v-i18n:value="'item'">
-                    {{ item.item_type }}
-                    <a :href="item.url">{{ item.item_id }}</a>
-                  </h3>
-                  <a
-                    v-i18n:value="'reporter'"
-                    :href="`/user/${item.reporter}`"
-                    >{{ item.reporter }}</a
-                  >
-                </i18n-formatted>
+                <IntlFormatted message-id="moderation.report.title">
+                  <template #~item>
+                    <h3>
+                      {{ item.item_type }}
+                      <a :href="item.url">{{ item.item_id }}</a>
+                    </h3>
+                  </template>
+                  <template #~reporter>
+                    <a :href="`/user/${item.reporter}`">
+                      {{ item.reporter }}
+                    </a>
+                  </template>
+                </IntlFormatted>
               </div>
               <div
                 v-highlightjs

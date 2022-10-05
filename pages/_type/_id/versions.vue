@@ -95,7 +95,7 @@
                   </p>
                   <p></p>
                   <p>
-                    <i18n-formatted
+                    <IntlFormatted
                       message-id="project.versions.downloads"
                       :values="
                         $deunionize(
@@ -104,19 +104,17 @@
                           'count'
                         )
                       "
-                    >
-                      <strong v-i18n:wrap="'strong'" />
-                    </i18n-formatted>
+                      :tags="['strong']"
+                    />
                   </p>
                   <p>
-                    <i18n-formatted
+                    <IntlFormatted
                       message-id="project.versions.published"
                       :values="{
                         publishedAt: new Date(version.date_published),
                       }"
-                    >
-                      <strong v-i18n:wrap="'strong'" />
-                    </i18n-formatted>
+                      :tags="['strong']"
+                    />
                   </p>
                 </div>
               </div>
@@ -129,7 +127,7 @@
             </td>
             <td>
               <p>
-                <i18n-formatted
+                <IntlFormatted
                   message-id="project.versions.downloads"
                   :values="
                     $deunionize(
@@ -139,16 +137,20 @@
                     )
                   "
                 >
-                  <span v-i18n:wrap="'strong'" />
-                </i18n-formatted>
+                  <template #strong="{ children }">
+                    <span><Fragment :of="children" /></span>
+                  </template>
+                </IntlFormatted>
               </p>
               <p>
-                <i18n-formatted
+                <IntlFormatted
                   message-id="project.versions.published"
                   :values="{ publishedAt: new Date(version.date_published) }"
                 >
-                  <span v-i18n:wrap="'strong'" />
-                </i18n-formatted>
+                  <template #strong="{ children }">
+                    <span><Fragment :of="children" /></span>
+                  </template>
+                </IntlFormatted>
               </p>
             </td>
           </tr>

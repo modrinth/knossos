@@ -9,14 +9,16 @@
       @proceed="deleteAccount"
     >
       <div class="pre">
-        <i18n-formatted message-id="settings.modals.delete-account.description">
-          <strong v-i18n:wrap="'strong'" />
-          <a
-            v-i18n:wrap="'discord-link'"
-            href="https://discord.gg/EUHuJHt"
-            target="_blank"
-          />
-        </i18n-formatted>
+        <IntlFormatted
+          message-id="settings.modals.delete-account.description"
+          :tags="['strong']"
+        >
+          <template #discord-link="{ children }">
+            <a href="https://discord.gg/EUHuJHt" target="_blank">
+              <Fragment :of="children" />
+            </a>
+          </template>
+        </IntlFormatted>
       </div>
     </ModalConfirm>
 
@@ -25,16 +27,19 @@
       :header="$t('settings.modals.revoke-token.title')"
     >
       <div class="modal-revoke-token markdown-body">
-        <i18n-formatted
+        <IntlFormatted
           :message="$i18n.data['revoke-token.html']"
           :tags="['p', 'ul', 'ol', 'li', 'strong']"
         >
-          <a
-            v-i18n:wrap="'gh-link'"
-            href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
-            target="_blank"
-          />
-        </i18n-formatted>
+          <template #gh-link="{ children }">
+            <a
+              href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
+              target="_blank"
+            >
+              <Fragment :of="children" />
+            </a>
+          </template>
+        </IntlFormatted>
         <div class="button-group">
           <button
             class="iconified-button"

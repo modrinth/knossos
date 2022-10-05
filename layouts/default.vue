@@ -313,14 +313,17 @@
       >
         <ModrinthLogo aria-hidden="true" class="text-logo" />
         <p>
-          <i18n-formatted message-id="footer.info.open-source">
-            <a
-              v-i18n:wrap="'gh-link'"
-              target="_blank"
-              href="https://github.com/modrinth"
-              class="text-link"
-            />
-          </i18n-formatted>
+          <IntlFormatted message-id="footer.info.open-source">
+            <template #gh-link="{ children }">
+              <a
+                target="_blank"
+                href="https://github.com/modrinth"
+                class="text-link"
+              >
+                <Fragment :of="children" />
+              </a>
+            </template>
+          </IntlFormatted>
         </p>
         <p>
           {{ owner }}/{{ slug }} {{ branch }}@<a

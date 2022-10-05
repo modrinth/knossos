@@ -107,7 +107,7 @@
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <i18n-formatted
+                <IntlFormatted
                   message-id="user.stats.total-downloads"
                   :values="
                     $deunionize(
@@ -117,14 +117,18 @@
                     )
                   "
                 >
-                  <span v-i18n:wrap="'stat'" class="primary-stat__counter" />
-                </i18n-formatted>
+                  <template #stat="{ children }">
+                    <span class="primary-stat__counter">
+                      <Fragment :of="children" />
+                    </span>
+                  </template>
+                </IntlFormatted>
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <i18n-formatted
+                <IntlFormatted
                   message-id="user.stats.total-followers"
                   :values="
                     $deunionize(
@@ -134,8 +138,12 @@
                     )
                   "
                 >
-                  <span v-i18n:wrap="'stat'" class="primary-stat__counter" />
-                </i18n-formatted>
+                  <template #stat="{ children }">
+                    <span class="primary-stat__counter">
+                      <Fragment :of="children" />
+                    </span>
+                  </template>
+                </IntlFormatted>
               </div>
             </div>
             <div class="stats-block__item secondary-stat">
@@ -160,9 +168,11 @@
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text">
-                <i18n-formatted message-id="user.stats.user-id">
-                  <CopyCode v-i18n:value="'userId'" :text="user.id" />
-                </i18n-formatted>
+                <IntlFormatted message-id="user.stats.user-id">
+                  <template #~userId>
+                    <CopyCode :text="user.id" />
+                  </template>
+                </IntlFormatted>
               </span>
             </div>
             <a
@@ -247,14 +257,18 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="$auth.user && $auth.user.id === user.id" class="text">
-            <i18n-formatted message-id="user.projects.no-projects.pov-self">
-              <a
-                v-i18n:wrap="'create-link'"
-                class="link"
-                @click.prevent="$refs.modal_creation.show()"
-              />
-            </i18n-formatted>
+          <span
+            v-if="$auth.user && $auth.user.id === user.id"
+            class="text"
+            style="white-space: pre-line"
+          >
+            <IntlFormatted message-id="user.projects.no-projects.pov-self">
+              <template #create-link="{ children }">
+                <a class="link" @click.prevent="$refs.modal_creation.show()">
+                  <Fragment :of="children" />
+                </a>
+              </template>
+            </IntlFormatted>
           </span>
           <span v-else class="text">
             {{ $t('user.projects.no-projects.pov-others') }}

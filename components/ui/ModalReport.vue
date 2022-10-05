@@ -3,10 +3,18 @@
     <div class="modal-report">
       <div class="markdown-body">
         <p>
-          <i18n-formatted message-id="component.report-modal.description">
-            <nuxt-link v-i18n:wrap="'tos-link'" to="/legal/terms" />
-            <nuxt-link v-i18n:wrap="'rules-link'" to="/legal/rules" />
-          </i18n-formatted>
+          <IntlFormatted message-id="component.report-modal.description">
+            <template #tos-link="{ children }">
+              <nuxt-link to="/legal/terms">
+                <Fragment :of="children" />
+              </nuxt-link>
+            </template>
+            <template #rules-link="{ children }">
+              <nuxt-link to="/legal/rules">
+                <Fragment :of="children" />
+              </nuxt-link>
+            </template>
+          </IntlFormatted>
         </p>
       </div>
       <label class="report-label" for="report-type">

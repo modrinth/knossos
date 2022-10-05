@@ -23,34 +23,37 @@
         <div class="version-wrapper">
           <div class="version-header">
             <div class="version-header-text">
-              <i18n-formatted
+              <IntlFormatted
                 message-id="project.changelog.item"
                 :values="{
                   publishedAt: new Date(version.date_published),
                 }"
               >
-                <h2 v-i18n:value="'name'" class="name">
+                <template #~name>
+                  <h2 class="name">
+                    <nuxt-link
+                      :to="`/${project.project_type}/${
+                        project.slug ? project.slug : project.id
+                      }/version/${encodeURI(version.displayUrlEnding)}`"
+                      v-text="version.name"
+                    />
+                  </h2>
+                </template>
+                <template #~publisher>
                   <nuxt-link
-                    :to="`/${project.project_type}/${
-                      project.slug ? project.slug : project.id
-                    }/version/${encodeURI(version.displayUrlEnding)}`"
-                    v-text="version.name"
+                    class="text-link"
+                    :to="
+                      '/user/' +
+                      members.find((x) => x.user.id === version.author_id).user
+                        .username
+                    "
+                    v-text="
+                      members.find((x) => x.user.id === version.author_id).user
+                        .username
+                    "
                   />
-                </h2>
-                <nuxt-link
-                  v-i18n:value="'publisher'"
-                  class="text-link"
-                  :to="
-                    '/user/' +
-                    members.find((x) => x.user.id === version.author_id).user
-                      .username
-                  "
-                  v-text="
-                    members.find((x) => x.user.id === version.author_id).user
-                      .username
-                  "
-                />
-              </i18n-formatted>
+                </template>
+              </IntlFormatted>
             </div>
             <a
               :href="$parent.findPrimary(version).url"

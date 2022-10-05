@@ -261,13 +261,15 @@
             </div>
             <div v-if="project.project_type !== 'resourcepack'" class="data">
               <p class="title">
-                <i18n-formatted
+                <IntlFormatted
                   v-if="mode === 'edit' || mode === 'create'"
                   message-id="project.version.edit.loader.title"
                 >
-                  <span v-i18n:wrap="'required'" class="required" />
-                </i18n-formatted>
-                <i18n-formatted
+                  <template #required="{ children }">
+                    <span class="required"><Fragment :of="children" /></span>
+                  </template>
+                </IntlFormatted>
+                <IntlFormatted
                   v-else
                   message-id="project.version.metadata.loader.title"
                 />
@@ -310,13 +312,15 @@
             </div>
             <div class="data">
               <p class="title">
-                <i18n-formatted
+                <IntlFormatted
                   v-if="mode === 'edit' || mode === 'create'"
                   message-id="project.version.edit.version-number.title"
                 >
-                  <span v-i18n:wrap="'required'" class="required" />
-                </i18n-formatted>
-                <i18n-formatted
+                  <template #required="{ children }">
+                    <span class="required"><Fragment :of="children" /></span>
+                  </template>
+                </IntlFormatted>
+                <IntlFormatted
                   v-else
                   message-id="project.version.metadata.version-number.title"
                 />
@@ -334,13 +338,15 @@
             </div>
             <div class="data">
               <p class="title">
-                <i18n-formatted
+                <IntlFormatted
                   v-if="mode === 'edit' || mode === 'create'"
                   message-id="project.version.edit.game-versions.title"
                 >
-                  <span v-i18n:wrap="'required'" />
-                </i18n-formatted>
-                <i18n-formatted
+                  <template #required="{ children }">
+                    <span class="required"><Fragment :of="children" /></span>
+                  </template>
+                </IntlFormatted>
+                <IntlFormatted
                   v-else
                   message-id="project.version.metadata.game-versions.title"
                 />
@@ -389,12 +395,13 @@
                 {{ $t('project.version.metadata.published.title') }}
               </p>
               <p class="value">
-                <i18n-formatted
+                <!-- FIXME: members.find blah blah can be moved to computed of Version -->
+                <IntlFormatted
                   v-if="members.find((x) => x.user.id === version.author_id)"
                   message-id="project.version.metadata.published.value"
                   :values="{ publishedAt: new Date(version.date_published) }"
                 >
-                  <span v-i18n:value="'publisher'">
+                  <template #~publisher>
                     <nuxt-link
                       class="text-link"
                       :to="
@@ -402,14 +409,14 @@
                         members.find((x) => x.user.id === version.author_id)
                           .user.username
                       "
-                      >{{
+                      v-text="
                         members.find((x) => x.user.id === version.author_id)
                           .user.username
-                      }}</nuxt-link
-                    >
-                  </span>
-                </i18n-formatted>
-                <i18n-formatted
+                      "
+                    />
+                  </template>
+                </IntlFormatted>
+                <IntlFormatted
                   v-else
                   message-id="project.version.metadata.published.value-alt"
                   :values="{ publishedAt: new Date(version.date_published) }"
@@ -585,13 +592,15 @@
           "
         >
           <h3>
-            <i18n-formatted
+            <IntlFormatted
               v-if="mode === 'edit' || mode === 'create'"
               message-id="project.version.edit.files.title"
             >
-              <span v-i18n:wrap="'required'" class="required" />
-            </i18n-formatted>
-            <i18n-formatted v-else message-id="project.version.files.title" />
+              <template #required="{ children }">
+                <span class="required"><Formatted :of="children" /></span>
+              </template>
+            </IntlFormatted>
+            <IntlFormatted v-else message-id="project.version.files.title" />
           </h3>
           <div
             v-for="(file, index) in version.files"
@@ -684,22 +693,21 @@
                 $t('project.version.edit.modpacks-support-notice.aria-label')
               "
             >
-              <i18n-formatted
+              <IntlFormatted
                 message-id="project.version.edit.modpacks-support-notice.message"
               >
-                <a
-                  v-i18n:wrap="'doc-link'"
-                  href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
-                  target="_blank"
-                  class="text-link"
-                />
-                <a
-                  v-i18n:wrap="'discord-link'"
-                  href="https://discord.gg/EUHuJHt"
-                  target="_blank"
-                  class="text-link"
-                />
-              </i18n-formatted>
+                <template
+                  v-for="(value, key) in {
+                    doc: 'https://docs.modrinth.com/docs/modpacks/creating_modpacks/',
+                    discord: 'https://discord.gg/EUHuJHt',
+                  }"
+                  #[`${key}-link`]="{ children }"
+                >
+                  <a :key="key" :href="value" target="_blank" class="text-link">
+                    <Fragment :of="children" />
+                  </a>
+                </template>
+              </IntlFormatted>
             </p>
           </span>
         </section>
