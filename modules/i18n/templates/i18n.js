@@ -640,7 +640,7 @@ export function createIntlPlugin() {
           }
 
           if (Array.isArray(formatted)) {
-            formatted = formatted.map((child) => {
+            formatted = formatted.flat().map((child) => {
               return isVNode(child) ? child : createTextNode(child)
             })
           }
