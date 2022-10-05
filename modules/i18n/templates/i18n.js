@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 // @ts-check
 
 import { createIntl, createIntlCache } from '@formatjs/intl'
@@ -482,6 +483,169 @@ export function createIntlPlugin() {
           }
 
           return formatted.map((it) => (isVNode(it) ? it : createTextNode(it)))
+        },
+      })
+
+      vue.component('IntlFormatted', {
+        name: 'IntlFormatted',
+
+        functional: true,
+
+        props: {
+          messageId: {
+            type: String,
+            required: false,
+            default: null,
+          },
+          message: {
+            required: false,
+            default: null,
+            validator(value) {
+              return typeof value === 'string' || Array.isArray(value)
+            },
+          },
+          values: {
+            type: Object,
+            default() {
+              return {}
+            },
+          },
+          tags: {
+            type: Array,
+            required: false,
+            default() {
+              return []
+            },
+            validator(value) {
+              return value.every((x) => typeof x === 'string')
+            },
+          },
+        },
+
+        render(createElement, context) {
+          if (
+            context.props.messageId == null &&
+            context.props.message == null
+          ) {
+            throw new Error(
+              'IntlFormatted cannot be rendered without "message-id" or "message" properties'
+            )
+          }
+
+          /**
+           * @private
+           * @typedef {string | number | import('vue').VNode[] | undefined} _Values
+           */
+
+          /**
+           * @private
+           * @typedef {(chunks: _Values[]) => _Values} _Instantinator
+           */
+
+          /**
+           * Initial values are passed to the slots.
+           *
+           * @type {Record<string, unknown>}
+           */
+          const initialValues = Object.create(null)
+
+          /**
+           * Provided values are values that were automatically provided by the
+           * IntlFormatted component. They are also used to format the message.
+           *
+           * Initial values are to be merged before assigning provided values.
+           *
+           * @type {Record<string, _Values | _Instantinator>}
+           */
+          const values = Object.create(null)
+
+          if (context.props.values != null) {
+            Object.assign(initialValues, context.props.values)
+            Object.assign(values, initialValues)
+          }
+
+          if (Array.isArray(context.props.tags)) {
+            for (const tag of context.props.tags) {
+              /** @type {string} */
+              let key
+
+              /** @type {import('vue').Component | string} */
+              let component
+
+              if (Array.isArray(tag)) {
+                key = tag[0]
+                component = tag[1]
+              } else {
+                if (typeof tag !== 'string') {
+                  throw new Error(
+                    'Custom components must be provided as array of [name, component]'
+                  )
+                }
+
+                key = tag
+                component = tag
+              }
+
+              values[key] = (children) => {
+                const newChildren = []
+
+                for (const child of children) {
+                  if (Array.isArray(child)) {
+                    newChildren.push(...child)
+                  } else {
+                    newChildren.push(
+                      isVNode(child) ? child : createTextNode(child)
+                    )
+                  }
+                }
+
+                return [createElement(component, newChildren)]
+              }
+            }
+          } else if (context.props.tags != null) {
+            throw new Error(
+              'Property "tags" of IntlFormatted needs to be of array type or null / undefined'
+            )
+          }
+
+          for (const [name, slot] of Object.entries(context.scopedSlots)) {
+            if (name.startsWith('~')) {
+              values[name.slice(1)] = slot({
+                values: initialValues,
+              })
+            } else {
+              values[name] = (children) =>
+                slot({
+                  children,
+                  values: initialValues,
+                })
+            }
+          }
+
+          /** @type {any | any[]} */
+          let formatted
+
+          if (context.props.message != null) {
+            formatted = controller.formats.customMessage(
+              context.props.message,
+              values
+            )
+          } else {
+            formatted = controller.intl.formatMessage(
+              {
+                id: context.props.messageId,
+              },
+              values
+            )
+          }
+
+          if (Array.isArray(formatted)) {
+            formatted = formatted.map((child) => {
+              return isVNode(child) ? child : createTextNode(child)
+            })
+          }
+
+          return formatted
         },
       })
     },
