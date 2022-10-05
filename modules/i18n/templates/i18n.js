@@ -1,4 +1,3 @@
-/* eslint-disable vue/one-component-per-file */
 // @ts-check
 
 import { createIntl, createIntlCache } from '@formatjs/intl'
@@ -8,7 +7,7 @@ import { formatCompactNumber } from './compactNumber'
 import { formatCustomMessage } from './customMessage'
 import { formatTimeDifference } from './timeDifferenceFormatter'
 import { hasOwn } from './utils'
-import { isVNode, createTextNode, cloneVNode } from './vueUtils'
+import { isVNode, createTextNode } from './vueUtils'
 
 /**
  * @typedef {object} IntlFormatAliases
@@ -330,161 +329,6 @@ export function createIntlPlugin() {
       const controller = this.getOrCreateController()
 
       this.inject(createInjector(vue.prototype))
-
-      vue.directive('i18n', {}) // doesn't actually do anything
-
-      vue.component('i18n-formatted', {
-        name: 'i18n-formatted',
-
-        functional: true,
-
-        props: {
-          messageId: {
-            type: String,
-            required: false,
-            default: null,
-          },
-          message: {
-            required: false,
-            default: null,
-            validator(value) {
-              return typeof value === 'string' || Array.isArray(value)
-            },
-          },
-          values: {
-            type: Object,
-            default() {
-              return {}
-            },
-          },
-          tags: {
-            type: Array,
-            required: false,
-            default() {
-              return []
-            },
-            validator(value) {
-              return value.every((x) => typeof x === 'string')
-            },
-          },
-        },
-
-        render(createElement, context) {
-          if (
-            context.props.messageId == null &&
-            context.props.message == null
-          ) {
-            throw new Error(
-              "i18n-formatted cannot be rendered without 'message-id' or 'message' properties"
-            )
-          }
-
-          /** @type {Record<string, Value>} */
-          const values = Object.create(null)
-
-          if (Array.isArray(context.props.tags)) {
-            for (const tag of context.props.tags) {
-              values[tag] = (parts) => {
-                return createElement(
-                  tag,
-                  parts.map((part) =>
-                    isVNode(part) ? part : createTextNode(part)
-                  )
-                )
-              }
-            }
-          }
-
-          if (context.props.values != null) {
-            if (typeof context.props.values !== 'object') {
-              throw new TypeError('"values" property only accepts objects')
-            }
-
-            merge(values, context.props.values)
-          }
-
-          let unkeyed = 0
-
-          for (const child of context.children ?? []) {
-            /** @type {string | null} */
-            let key = null
-
-            /** @type {Value} */
-            let value = null
-
-            for (const directive of child.data?.directives ?? []) {
-              if (directive.name === 'i18n') {
-                if (directive.arg === 'value') {
-                  if (typeof directive.value !== 'string') {
-                    throw new TypeError(
-                      'Value for directive "v-i18n:value" is not a string'
-                    )
-                  }
-
-                  key = directive.value
-                  value = child
-                } else if (directive.arg === 'wrap') {
-                  if (typeof directive.value !== 'string') {
-                    throw new TypeError(
-                      'Value for directive "v-i18n:wrap" is not a string'
-                    )
-                  }
-
-                  key = directive.value
-
-                  value = (parts) => {
-                    const cloned = cloneVNode(child)
-
-                    const newChildren = parts.map((part) =>
-                      isVNode(part) ? part : createTextNode(part)
-                    )
-
-                    if (cloned.componentOptions != null) {
-                      cloned.componentOptions.children = newChildren
-                    } else {
-                      cloned.children = newChildren
-                    }
-
-                    return cloned
-                  }
-                }
-              }
-            }
-
-            if (value == null) {
-              value = child
-            }
-
-            if (key == null) {
-              key = String(unkeyed)
-              unkeyed += 1
-            }
-
-            values[key] = value
-          }
-
-          /** @type {string | (string | import('vue').VNode)[]} */
-          let formatted
-
-          if (context.props.messageId != null) {
-            formatted = controller.intl.formatMessage(
-              { id: context.props.messageId },
-              values
-            )
-          } else {
-            formatted = controller.formats.customMessage(
-              context.props.message ?? '',
-              values
-            )
-          }
-
-          if (!Array.isArray(formatted)) {
-            formatted = [formatted]
-          }
-
-          return formatted.map((it) => (isVNode(it) ? it : createTextNode(it)))
-        },
-      })
 
       vue.component('IntlFormatted', {
         name: 'IntlFormatted',
