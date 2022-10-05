@@ -178,6 +178,7 @@ export default {
     '~/plugins/shorthands-ts.js',
     '~/plugins/i18n-helpers.js',
     '~/plugins/markdown.js',
+    '~/plugins/vue-fragment.js',
   ],
   /*
    ** Auto import components
