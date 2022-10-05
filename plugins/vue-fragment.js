@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint-disable vue/require-prop-types */
 
 import Vue from 'vue'
 
