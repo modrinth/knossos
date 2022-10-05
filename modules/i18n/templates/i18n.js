@@ -256,9 +256,7 @@ export function createRef(initialValue) {
 export function createInjector(target) {
   return (property, value) => {
     /** @type {PropertyDescriptor} */
-    let descriptor = {
-      configurable: true,
-    }
+    const descriptor = { configurable: true }
 
     switch (property) {
       case 'fmt': {
@@ -343,17 +341,27 @@ export function createIntlPlugin() {
           messageId: {
             type: String,
             required: false,
+            default: null,
           },
           message: {
-            type: String,
             required: false,
+            default: null,
+            validator(value) {
+              return typeof value === 'string' || Array.isArray(value)
+            },
           },
           values: {
             type: Object,
+            default() {
+              return {}
+            },
           },
           tags: {
             type: Array,
             required: false,
+            default() {
+              return []
+            },
             validator(value) {
               return value.every((x) => typeof x === 'string')
             },
@@ -366,7 +374,7 @@ export function createIntlPlugin() {
             context.props.message == null
           ) {
             throw new Error(
-              "Attempt to render i18n-formatted without 'message-id' or 'message' properties"
+              "i18n-formatted cannot be rendered without 'message-id' or 'message' properties"
             )
           }
 
@@ -424,7 +432,7 @@ export function createIntlPlugin() {
                   key = directive.value
 
                   value = (parts) => {
-                    let cloned = cloneVNode(child)
+                    const cloned = cloneVNode(child)
 
                     const newChildren = parts.map((part) =>
                       isVNode(part) ? part : createTextNode(part)
