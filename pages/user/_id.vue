@@ -21,6 +21,7 @@
         <h3 class="sidebar__item">About me</h3>
         <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
         <a
+          v-if="githubUrl"
           :href="githubUrl"
           target="_blank"
           class="sidebar__item report-button iconified-button"
@@ -173,19 +174,28 @@ export default {
         ])
       ).map((it) => it.data)
 
-      const [gitHubUser, versions] = (
-        await Promise.all([
-          data.$axios.get(`https://api.github.com/user/` + user.github_id),
-          data.$axios.get(
-            `versions?ids=${JSON.stringify(
-              [].concat.apply(
-                [],
-                projects.map((x) => x.versions)
-              )
-            )}`
-          ),
-        ])
-      ).map((it) => it.data)
+      const versions = (
+        await data.$axios.get(
+          `versions?ids=${JSON.stringify(
+            [].concat.apply(
+              [],
+              projects.map((x) => x.versions)
+            )
+          )}`
+        )
+      ).data
+
+      let gitHubUser
+      try {
+        if (user.github_id)
+          gitHubUser = (
+            await data.$axios.get(
+              `https://api.github.com/user/` + user.github_id
+            )
+          ).data
+      } catch {
+        gitHubUser = null
+      }
 
       for (const version of versions) {
         const projectIndex = projects.findIndex(
@@ -216,7 +226,7 @@ export default {
         selectedProjectType: 'all',
         user,
         projects,
-        githubUrl: gitHubUser.html_url,
+        githubUrl: gitHubUser?.html_url,
       }
     } catch {
       data.error({
