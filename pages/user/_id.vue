@@ -112,14 +112,14 @@
                   :values="
                     $deunionize(
                       $fmt.compactNumber(sumDownloads()),
-                      'counter',
+                      '$counter',
                       'downloads'
                     )
                   "
                 >
-                  <template #stat="{ children }">
+                  <template #~counter="{ values: { $counter } }">
                     <span class="primary-stat__counter">
-                      <Fragment :of="children" />
+                      {{ $counter }}
                     </span>
                   </template>
                 </IntlFormatted>
@@ -133,14 +133,14 @@
                   :values="
                     $deunionize(
                       $fmt.compactNumber(sumFollows()),
-                      'counter',
+                      '$counter',
                       'followers'
                     )
                   "
                 >
-                  <template #stat="{ children }">
+                  <template #~counter="{ values: { $counter } }">
                     <span class="primary-stat__counter">
-                      <Fragment :of="children" />
+                      {{ $counter }}
                     </span>
                   </template>
                 </IntlFormatted>

@@ -56,30 +56,29 @@
               :values="
                 $deunionize(
                   $fmt.compactNumber(project.downloads),
-                  'counter',
+                  '$counter',
                   'downloads'
                 )
               "
             >
-              <template #stat="{ children }">
-                <span class="stat"><Fragment :of="children" /></span>
+              <template #~counter="{ values: { $counter } }">
+                <span class="stat">{{ $counter }}</span>
               </template>
             </IntlFormatted>
           </span>
           <span>
-            <!-- FIXME: use computed values below -->
             <IntlFormatted
               message-id="project.stats.followers"
               :values="
                 $deunionize(
                   $fmt.compactNumber(project.followers),
-                  'counter',
+                  '$counter',
                   'followers'
                 )
               "
             >
-              <template #stat="{ children }">
-                <span class="stat"><Fragment :of="children" /></span>
+              <template #~counter="{ values: { $counter } }">
+                <span class="stat">{{ $counter }}</span>
               </template>
             </IntlFormatted>
           </span>

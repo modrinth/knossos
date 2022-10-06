@@ -100,12 +100,15 @@
                       :values="
                         $deunionize(
                           $fmt.compactNumber(version.downloads),
-                          'counter',
+                          '$counter',
                           'count'
                         )
                       "
-                      :tags="['strong']"
-                    />
+                    >
+                      <template #~counter="{ values: { $counter } }">
+                        <strong>{{ $counter }}</strong>
+                      </template>
+                    </IntlFormatted>
                   </p>
                   <p>
                     <IntlFormatted
@@ -132,13 +135,13 @@
                   :values="
                     $deunionize(
                       $fmt.compactNumber(version.downloads),
-                      'counter',
+                      '$counter',
                       'count'
                     )
                   "
                 >
-                  <template #strong="{ children }">
-                    <span><Fragment :of="children" /></span>
+                  <template #~counter="{ values: { $counter } }">
+                    <span>{{ $counter }}</span>
                   </template>
                 </IntlFormatted>
               </p>

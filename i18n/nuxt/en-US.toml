@@ -88,8 +88,8 @@ aria-label = "Next Page"
 author = "by <link>{author}</link>"
 created = "Created {ago}"
 updated = "Updated {ago}"
-downloads = "{downloads, plural, one {<stat>{counter}</stat> download} other {<stat>{counter}</stat> downloads}}"
-followers = "{followers, plural, one {<stat>{counter}</stat> follower} other {<stat>{counter}</stat> followers}}"
+downloads = "{downloads, plural, one {{counter} download} other {{counter} downloads}}"
+followers = "{followers, plural, one {{counter} follower} other {{counter} followers}}"
 
 [component.report-modal]
 title = "Report {itemType, select, user {user} other {project}}"
@@ -686,7 +686,7 @@ default = "Download {project} on Modrinth. Supports {gameVersions} of {loaders}.
 
 [project.versions]
 supports = "{loaders} {versions}"
-downloads = "{count, plural, one {<strong>{counter}</strong> download} other {<strong>{counter}</strong> downloads}}"
+downloads = "{count, plural, one {{counter} download} other {{counter} downloads}}"
 published = "Published on <strong>{publishedAt, date, medium}</strong>"
 
 [project.versions.action]
@@ -706,8 +706,8 @@ title = "{project} - Versions"
 description = "Download and browse {versions, plural, one {# version} other {# versions}} of {project}. {downloads, plural, one {{downloadsCounter} download in total} other {{downloadsCounter} total downloads}}. Last updated {lastUpdatedAt, date, medium}."
 
 [project.stats]
-downloads = "<stat>{counter}</stat> {downloads, plural, one {download} other {downloads}}"
-followers = "<stat>{counter}</stat> {followers, plural, one {follower} other {followers}}"
+downloads = "{downloads, plural, one {{counter} download} other {{counter} downloads}}"
+followers = "{followers, plural, one {{counter} follower} other {{counter} followers}}"
 created = "Created {ago}"
 updated = "Updated {ago}"
 
@@ -1042,8 +1042,8 @@ moderator = "Moderator"
 regular = "Developer"
 
 [user.stats]
-total-downloads = "{downloads, plural, one {<stat>{counter}</stat> download} other {<stat>{counter}</stat> downloads}}"
-total-followers = "{followers, plural, one {<stat>{counter}</stat> follower} other {<stat>{counter}</stat> followers}} of projects"
+total-downloads = "{downloads, plural, one {{counter} download} other {{counter} downloads}}"
+total-followers = "{followers, plural, one {{counter} follower} other {{counter} followers}} of projects"
 joined = "Joined {ago}"
 user-id = "User ID: {userId}"
 

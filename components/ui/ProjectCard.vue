@@ -91,15 +91,18 @@
       <div v-if="downloads" class="stat">
         <DownloadIcon aria-hidden="true" />
         <p>
-          <!-- FIXME: use computed values -->
           <IntlFormatted
             message-id="component.project-card.downloads"
             :values="
-              $deunionize($fmt.compactNumber(downloads), 'counter', 'downloads')
+              $deunionize(
+                $fmt.compactNumber(downloads),
+                '$counter',
+                'downloads'
+              )
             "
           >
-            <template #stat="{ children }">
-              <strong><Fragment :of="children" /></strong>
+            <template #~counter="{ values: { $counter } }">
+              <strong>{{ $counter }}</strong>
             </template>
           </IntlFormatted>
         </p>
@@ -107,15 +110,14 @@
       <div v-if="follows" class="stat">
         <HeartIcon aria-hidden="true" />
         <p>
-          <!-- FIXME: use computed values -->
           <IntlFormatted
             message-id="component.project-card.followers"
             :values="
-              $deunionize($fmt.compactNumber(follows), 'counter', 'followers')
+              $deunionize($fmt.compactNumber(follows), '$counter', 'followers')
             "
           >
-            <template #stat="{ children }">
-              <strong><Fragment :of="children" /></strong>
+            <template #~counter="{ values: { $counter } }">
+              <strong>{{ $counter }}</strong>
             </template>
           </IntlFormatted>
         </p>
