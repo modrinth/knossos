@@ -273,7 +273,7 @@
             @click="updateTeamMember(index)"
           >
             <CheckIcon />
-            {{ $t('project.settings.team-member.action.save') }}
+            {{ $t('generic.action.save-changes') }}
           </button>
         </div>
       </div>

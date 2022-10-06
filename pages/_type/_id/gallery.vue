@@ -86,7 +86,7 @@
         class="action brand-button iconified-button"
         @click="saveGallery"
       >
-        <CheckIcon /> {{ $t('project.gallery.action.save') }}
+        <CheckIcon /> {{ $t('generic.action.save-changes') }}
       </button>
       <button
         class="iconified-button"

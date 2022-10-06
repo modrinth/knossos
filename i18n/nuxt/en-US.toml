@@ -140,6 +140,7 @@ docs = "Docs"
 [generic.action]
 cancel = "Cancel"
 edit = "Edit"
+save-changes = "Save changes"
 
 [header.skip-to-content]
 label = "Skip to Main Content"
@@ -413,7 +414,6 @@ created-at = "{created, date, long}"
 [project.gallery.action]
 add-image = "Add an image"
 remove = "Remove"
-save = "Save changes"
 
 [project.gallery.title]
 placeholder = "Enter the title..."
@@ -506,7 +506,6 @@ delete-project = "Delete project"
 [project.settings.team-member.action]
 remove = "Remove member"
 make-owner = "Transfer ownership"
-save = "Save changes"
 
 [project.settings.error]
 only-one-owner = "A project can only have one 'Owner'."
