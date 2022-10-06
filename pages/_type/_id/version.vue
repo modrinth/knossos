@@ -161,7 +161,7 @@
             @click.prevent="mode = 'edit'"
           >
             <EditIcon aria-hidden="true" />
-            {{ $t('project.version.action.edit') }}
+            {{ $t('generic.action.edit') }}
           </nuxt-link>
           <button
             v-if="currentMember"

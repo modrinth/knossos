@@ -33,7 +33,7 @@
               @click="isEditing = true"
             >
               <EditIcon />
-              {{ $t('user.action.edit') }}
+              {{ $t('generic.action.edit') }}
             </button>
             <button
               v-else-if="$auth.user"

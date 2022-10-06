@@ -166,7 +166,7 @@
               class="iconified-button"
               @click="editGalleryIndexes.push(index)"
             >
-              <EditIcon /> {{ $t('project.gallery.action.edit') }}
+              <EditIcon /> {{ $t('generic.action.edit') }}
             </button>
             <button
               class="iconified-button"

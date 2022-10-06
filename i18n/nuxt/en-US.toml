@@ -139,6 +139,7 @@ docs = "Docs"
 
 [generic.action]
 cancel = "Cancel"
+edit = "Edit"
 
 [header.skip-to-content]
 label = "Skip to Main Content"
@@ -411,7 +412,6 @@ created-at = "{created, date, long}"
 
 [project.gallery.action]
 add-image = "Add an image"
-edit = "Edit"
 remove = "Remove"
 save = "Save changes"
 
@@ -534,7 +534,6 @@ save = "Save"
 create = "Create"
 download = "Download"
 report = "Report"
-edit = "Edit"
 delete = "Delete"
 
 [project.version.featured]
@@ -1014,7 +1013,6 @@ description = "Only visible to moderators."
 save = "Save"
 
 [user.action]
-edit = "Edit"
 report = "Report"
 open-github = "View GitHub profile"
 
