@@ -400,7 +400,11 @@
               "
               :href="findPrimary(version).url"
               class="download"
-              :title="$t('project-page.featured-versions.download.title')"
+              :title="
+                $t('project-page.featured-versions.download.title', {
+                  fileName: findPrimary(version).filename,
+                })
+              "
               @click.stop="(event) => event.stopPropagation()"
             >
               <DownloadIcon aria-hidden="true" />
