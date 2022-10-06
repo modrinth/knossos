@@ -139,6 +139,7 @@ docs = "Docs"
 
 [generic.action]
 cancel = "Cancel"
+delete = "Delete"
 edit = "Edit"
 save-changes = "Save changes"
 
@@ -453,7 +454,6 @@ text = "Your project has been successfully deleted."
 [project.settings.modals.delete-project]
 title = "Are you sure you want to delete this project?"
 description = "If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
-action = "Delete"
 
 [project.settings.general]
 title = "General"
@@ -524,7 +524,6 @@ no-loaders = "Your version must have the supported mod loaders selected."
 [project.version.deletion-modal]
 title = "Are you sure you want to delete this version?"
 description = "This will remove this version forever (like really forever)."
-action = "Delete"
 
 [project.version.action]
 back-to-list = "Back to list"
@@ -532,7 +531,6 @@ save = "Save"
 create = "Create"
 download = "Download"
 report = "Report"
-delete = "Delete"
 
 [project.version.featured]
 manual = "Featured"

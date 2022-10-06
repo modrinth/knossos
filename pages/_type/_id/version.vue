@@ -27,7 +27,7 @@
         :title="$t('project.version.deletion-modal.title')"
         :description="$t('project.version.deletion-modal.description')"
         :has-to-type="false"
-        :proceed-label="$t('project.version.deletion-modal.action')"
+        :proceed-label="$t('generic.action.delete')"
         @proceed="deleteVersion()"
       />
       <ModalReport
@@ -169,7 +169,7 @@
             @click="$refs.modal_confirm.show()"
           >
             <TrashIcon aria-hidden="true" />
-            {{ $t('project.version.action.delete') }}
+            {{ $t('generic.action.delete') }}
           </button>
         </div>
         <section v-if="mode === 'edit' || mode === 'create'">

@@ -5,7 +5,7 @@
       :title="$t('project.settings.modals.delete-project.title')"
       :has-to-type="true"
       :confirmation-text="project.title"
-      :proceed-label="$t('project.settings.modals.delete-project.action')"
+      :proceed-label="$t('generic.action.delete')"
       @proceed="deleteProject"
     >
       {{ $t('project.settings.modals.delete-project.description') }}
