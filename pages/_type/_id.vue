@@ -97,6 +97,7 @@
             {{
               $t('project.stats.created', {
                 ago: $fmt.timeDifference(project.published),
+                projectType: safeProjectType,
               })
             }}
           </div>
@@ -113,6 +114,7 @@
             {{
               $t('project.stats.updated', {
                 ago: $fmt.timeDifference(project.updated),
+                projectType: safeProjectType,
               })
             }}
           </div>
@@ -918,6 +920,9 @@ export default {
       return /** @type {import('vue/types/vue').Vue} */ (
         this
       ).$coerceProjectType(this.project.project_type, this.loaders)
+    },
+    safeProjectType() {
+      return this.coercedProjectType.replace(/-/g, '_')
     },
     projectSide() {
       return /** @type {import('vue/types/vue').Vue} */ (

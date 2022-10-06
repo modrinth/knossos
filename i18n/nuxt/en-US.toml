@@ -695,8 +695,8 @@ description = "Download and browse {versions, plural, one {# version} other {# v
 [project.stats]
 downloads = "{downloads, plural, one {{counter} download} other {{counter} downloads}}"
 followers = "{followers, plural, one {{counter} follower} other {{counter} followers}}"
-created = "Created {ago}"
-updated = "Updated {ago}"
+created = "{projectType, select, other {Created {ago}}}"
+updated = "{projectType, select, other {Updated {ago}}}"
 
 [project-status]
 approved = "Approved"
