@@ -793,6 +793,7 @@ project-id = "Project ID"
 required = "Required"
 optional = "Optional"
 unsupported = "Unsupported"
+unknown = "Unknown"
 
 [project-page.tabs]
 description = "Description"
