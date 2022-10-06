@@ -595,7 +595,7 @@
               message-id="project.version.edit.files.title"
             >
               <template #required="{ children }">
-                <span class="required"><Formatted :of="children" /></span>
+                <span class="required"><Fragment :of="children" /></span>
               </template>
             </IntlFormatted>
             <IntlFormatted v-else message-id="project.version.files.title" />
