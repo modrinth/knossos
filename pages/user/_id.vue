@@ -209,7 +209,7 @@
             @click="$refs.modal_creation.show()"
           >
             <PlusIcon />
-            {{ $t('user.action.create-project') }}
+            {{ $t('layout.action.create-project') }}
           </button>
         </nav>
         <Advertisement

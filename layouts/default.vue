@@ -94,7 +94,7 @@
                   <button class="item" @click="$refs.modal_creation.show()">
                     <PlusIcon class="icon" />
                     <span class="title">
-                      {{ $t('profile-dropdown.links.create-project') }}
+                      {{ $t('layout.action.create-project') }}
                     </span>
                   </button>
                   <hr class="divider" />
@@ -244,7 +244,7 @@
             >
               <PlusIcon class="icon" />
               <span class="title">
-                {{ $t('profile-dropdown.links.create-project') }}
+                {{ $t('layout.action.create-project') }}
               </span>
             </button>
             <NuxtLink v-if="$auth.user" class="item" to="/settings">

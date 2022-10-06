@@ -197,6 +197,7 @@ body = "We have created an open source modding platform for the community. We're
 
 [layout.action]
 change-theme = "Change theme"
+create-project = "Create a project"
 
 [legal.common]
 warning = """\
@@ -293,7 +294,6 @@ alt = "Your avatar"
 
 [profile-dropdown.links]
 profile = "Go to my profile"
-create-project = "Create a project"
 follows = "Following"
 settings = "Settings"
 
@@ -1017,7 +1017,6 @@ save = "Save"
 edit = "Edit"
 report = "Report"
 open-github = "View GitHub profile"
-create-project = "Create a project"
 
 [user.status]
 admin = "Administrator"
