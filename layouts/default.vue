@@ -369,7 +369,7 @@
           {{ $t('footer.resources.links.blog') }}
         </a>
         <a target="_blank" href="https://discord.gg/EUHuJHt">
-          {{ $t('footer.resources.links.discord') }}
+          {{ $t('project-page.external-resources.discord') }}
         </a>
         <a target="_blank" href="https://github.com/modrinth/knossos">
           {{ $t('footer.resources.links.github') }}
