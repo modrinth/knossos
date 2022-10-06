@@ -301,7 +301,7 @@
         </label>
       </h3>
       <span>
-        <IntlFormatted message-id="project.edit.body.title">
+        <IntlFormatted message-id="project.edit.body.description">
           <template #md-help-link="{ children }">
             <a
               class="text-link"
