@@ -140,6 +140,7 @@ docs = "Docs"
 [generic.action]
 cancel = "Cancel"
 delete = "Delete"
+download = "Download"
 edit = "Edit"
 save-changes = "Save changes"
 
@@ -442,7 +443,6 @@ item = "{name} by {publisher} on {publishedAt, date, long}"
 
 [project.changelog.download-button]
 title = "Download {version}"
-label = "Download"
 
 [project.changelog.meta]
 title = "{project} - Changelog"
@@ -529,7 +529,6 @@ description = "This will remove this version forever (like really forever)."
 back-to-list = "Back to list"
 save = "Save"
 create = "Create"
-download = "Download"
 report = "Report"
 
 [project.version.featured]
@@ -650,7 +649,6 @@ title = "Files"
 primary = "Primary"
 
 [project.version.files.file.action.download]
-label = "Download"
 tooltip = "Download {fileName}"
 
 [project.version.meta.title]

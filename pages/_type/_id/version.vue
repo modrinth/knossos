@@ -138,7 +138,7 @@
             :title="`Download ${primaryFile.filename}`"
           >
             <DownloadIcon aria-hidden="true" />
-            {{ $t('project.version.action.download') }}
+            {{ $t('generic.action.download') }}
           </a>
           <button
             v-if="$auth.user"
@@ -626,7 +626,7 @@
               tabindex="0"
             >
               <DownloadIcon aria-hidden="true" />
-              {{ $t('project.version.files.file.action.download.label') }}
+              {{ $t('generic.action.download') }}
             </a>
             <p v-if="mode === 'version'">({{ $formatBytes(file.size) }})</p>
             <button

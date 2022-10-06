@@ -65,7 +65,7 @@
               "
             >
               <DownloadIcon aria-hidden="true" />
-              {{ $t('project.changelog.download-button.label') }}
+              {{ $t('generic.action.download') }}
             </a>
           </div>
           <div
