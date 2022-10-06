@@ -141,6 +141,7 @@ docs = "Docs"
 cancel = "Cancel"
 delete = "Delete"
 download = "Download"
+download-file = "Download {fileName}"
 edit = "Edit"
 save-changes = "Save changes"
 
@@ -648,9 +649,6 @@ title = "Files"
 [project.version.files.file]
 primary = "Primary"
 
-[project.version.files.file.action.download]
-tooltip = "Download {fileName}"
-
 [project.version.meta.title]
 create = "Create version — {project}"
 default = "{version} — {project}"
@@ -750,10 +748,6 @@ donate = "Donate"
 [project-page.featured-versions]
 title = "Featured versions"
 see-all = "See all"
-
-[project-page.featured-versions.download]
-tooltip = "{filename} ({size})"
-title = "Download {fileName}"
 
 [project-page.members]
 title = "Project members"

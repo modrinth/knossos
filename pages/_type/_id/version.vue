@@ -619,7 +619,7 @@
               :href="file.url"
               class="action iconified-button"
               :title="
-                $t('project.version.files.file.action.download.tooltip', {
+                $t('generic.action.download-file', {
                   fileName: file.filename,
                 })
               "

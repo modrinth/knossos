@@ -403,7 +403,7 @@
               :href="findPrimary(version).url"
               class="download"
               :title="
-                $t('project-page.featured-versions.download.title', {
+                $t('generic.action.download-file', {
                   fileName: findPrimary(version).filename,
                 })
               "
