@@ -43,7 +43,7 @@
             "
           >
             <PlusIcon />
-            {{ $t('project.settings.general.create-version.action') }}
+            {{ $t('project.versions.action.create') }}
           </nuxt-link>
         </div>
       </label>

@@ -466,7 +466,6 @@ action = "Edit"
 [project.settings.general.create-version]
 title = "Create a version"
 description = "This leads to a page where you can create a version for your project."
-action = "Create a version"
 
 [project.settings.general.delete-project]
 title = "Delete project"
