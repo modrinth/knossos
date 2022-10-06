@@ -46,9 +46,7 @@
           v-model="bodyViewType"
           class="separator"
           :items="['source', 'preview']"
-          :custom-label="
-            (x) => $t(`component.report-modal.additional-info.tab.${x}`)
-          "
+          :custom-label="(x) => $t(`markdown-editor.tab.${x}`)"
         />
         <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
           <textarea id="body" v-model="body" spellcheck="true" />

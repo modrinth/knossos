@@ -178,9 +178,7 @@
             v-model="changelogViewMode"
             class="separator"
             :items="['source', 'preview']"
-            :custom-label="
-              (value) => $t(`project.version.changelog.tab.${value}`)
-            "
+            :custom-label="(value) => $t(`markdown-editor.tab.${value}`)"
           />
           <div v-if="changelogViewMode === 'source'" class="textarea-wrapper">
             <textarea

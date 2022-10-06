@@ -318,7 +318,7 @@
         v-model="bodyViewMode"
         class="separator"
         :items="['source', 'preview']"
-        :custom-label="(item) => $t(`project.edit.body.tab.${item}`)"
+        :custom-label="(item) => $t(`markdown-editor.tab.${item}`)"
       />
       <div class="edit-wrapper">
         <div v-if="bodyViewMode === 'source'" class="textarea-wrapper">

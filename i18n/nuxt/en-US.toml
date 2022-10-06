@@ -103,10 +103,6 @@ placeholder = "Choose report type"
 title = "Additional information"
 description = "Include links and images if possible. Markdown formatting is supported."
 
-[component.report-modal.additional-info.tab]
-source = "Source"
-preview = "Preview"
-
 [component.report-modal.action]
 report = "Report"
 
@@ -230,6 +226,10 @@ spigot = "Spigot"
 sponge = "Sponge"
 velocity = "Velocity"
 waterfall = "Waterfall"
+
+[markdown-editor.tab]
+source = "Source"
+preview = "Preview"
 
 [meta]
 description = "Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
@@ -368,10 +368,6 @@ title = "Server<required>*</required>"
 [project.edit.body]
 title = "Description<required>*</required>"
 description = "You can type an extended description of your mod here. This editor supports <md-help-link>Markdown</md-help-link>. HTML can also be used inside your description, not including styles, scripts, and iframes (though YouTube iframes are allowed)."
-
-[project.edit.body.tab]
-source = "Source"
-preview = "Preview"
 
 [project.edit.body.preview]
 no-body = "No body specified."
@@ -594,10 +590,6 @@ title = "Create version"
 [project.version.changelog]
 title = "Changelog"
 preview-empty = "No changelog specified"
-
-[project.version.changelog.tab]
-source = "Source"
-preview = "Preview"
 
 [project.version.metadata]
 title = "Metadata"
