@@ -59,7 +59,7 @@
               :href="$parent.findPrimary(version).url"
               class="iconified-button download"
               :title="
-                $t('project.changelog.download-button.title', {
+                $t('project.version.action.download', {
                   version: version.name,
                 })
               "

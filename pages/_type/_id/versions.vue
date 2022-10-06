@@ -42,8 +42,8 @@
                 class="download-button"
                 :class="version.version_type"
                 :title="
-                  $t('project.versions.download.title', {
-                    versionName: version.name,
+                  $t('project.version.action.download', {
+                    version: version.name,
                   })
                 "
               >

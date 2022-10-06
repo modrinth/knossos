@@ -442,9 +442,6 @@ unsupported = "Unsupported"
 [project.changelog]
 item = "{name} by {publisher} on {publishedAt, date, long}"
 
-[project.changelog.download-button]
-title = "Download {version}"
-
 [project.changelog.meta]
 title = "{project} - Changelog"
 description = "Explore the changelog of {project}'s {versions, plural, one {# version} other {# versions}}"
@@ -531,6 +528,7 @@ back-to-list = "Back to list"
 save = "Save"
 create = "Create"
 report = "Report"
+download = "Download {version}"
 
 [project.version.featured]
 manual = "Featured"
@@ -672,7 +670,6 @@ stats = "Stats"
 
 [project.versions.download]
 tooltip = "{fileName} ({size})"
-title = "Download {versionName}"
 
 [project.versions.meta]
 title = "{project} - Versions"
