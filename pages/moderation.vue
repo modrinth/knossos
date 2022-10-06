@@ -164,7 +164,14 @@
                 class="markdown-body"
                 v-html="$xss($md.render(item.body))"
               />
-              <Badge :type="`Marked as ${item.report_type}`" color="yellow" />
+              <Badge
+                :type="
+                  $t('moderation.report.report-type', {
+                    reason: item.report_type.replace(/-/g, '_'),
+                  })
+                "
+                color="yellow"
+              />
             </div>
             <div class="actions">
               <button class="iconified-button" @click="deleteReport(index)">
