@@ -86,10 +86,10 @@
               label: $t('moderation.filter.all'),
               href: '',
             },
-            ...moderationTypes.map((x) => {
+            ...filters.map((filter) => {
               return {
-                label: $t(`project-type.${x}.plural`),
-                href: x,
+                label: filter.title,
+                href: filter.type,
               }
             }),
           ]"
@@ -314,18 +314,39 @@ export default {
     }
   },
   computed: {
-    moderationTypes() {
-      const obj = {}
+    filters() {
+      /**
+       * @typedef {object} Filter
+       * @property {string} type
+       * @property {string} title
+       */
+
+      /**
+       * Tab types mapped to Filter objects.
+       *
+       * @type {Map<string, Filter>}
+       */
+      const knownTypes = new Map()
 
       for (const project of this.projects) {
-        obj[project.project_type] = true
+        const { project_type: type } = project
+
+        if (!knownTypes.has(type)) {
+          knownTypes.set(type, {
+            type,
+            title: this.$t(`project-type.${type}.plural`),
+          })
+        }
       }
 
       if (this.reports.length > 0) {
-        obj.report = true
+        knownTypes.set('report', {
+          type: 'report',
+          title: this.$t('moderation.filter.report'),
+        })
       }
 
-      return Object.keys(obj)
+      return Array.from(knownTypes.values())
     },
   },
   methods: {

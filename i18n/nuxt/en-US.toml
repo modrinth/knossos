@@ -259,6 +259,7 @@ confirm = "Confirm"
 
 [moderation.filter]
 all = "All"
+report = "Reports"
 
 [moderation.project.action]
 approve = "Approve"
