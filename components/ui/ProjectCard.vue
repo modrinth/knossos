@@ -92,7 +92,7 @@
         <DownloadIcon aria-hidden="true" />
         <p>
           <IntlFormatted
-            message-id="component.project-card.downloads"
+            message-id="project.stats.downloads"
             :values="
               $deunionize(
                 $fmt.compactNumber(downloads),
@@ -111,7 +111,7 @@
         <HeartIcon aria-hidden="true" />
         <p>
           <IntlFormatted
-            message-id="component.project-card.followers"
+            message-id="project.stats.followers"
             :values="
               $deunionize($fmt.compactNumber(follows), '$counter', 'followers')
             "
