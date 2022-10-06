@@ -296,7 +296,6 @@ profile = "Go to my profile"
 create-project = "Create a project"
 follows = "Following"
 settings = "Settings"
-moderation = "Moderation"
 
 [profile-dropdown.action]
 log-out = "Log out"

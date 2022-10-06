@@ -126,7 +126,7 @@
                   >
                     <ModerationIcon class="icon" />
                     <span class="title">
-                      {{ $t('profile-dropdown.links.moderation') }}
+                      {{ $t('moderation.title') }}
                     </span>
                   </NuxtLink>
                   <button class="item" @click="changeTheme">
@@ -263,7 +263,7 @@
             >
               <ModerationIcon class="icon" />
               <span class="title">
-                {{ $t('profile-dropdown.links.moderation') }}
+                {{ $t('moderation.title') }}
               </span>
             </NuxtLink>
             <NuxtLink v-if="$auth.user" class="item" to="/settings/follows">
