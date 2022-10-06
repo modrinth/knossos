@@ -86,8 +86,6 @@ aria-label = "Next Page"
 
 [component.project-card]
 author = "by <link>{author}</link>"
-created = "Created {ago}"
-updated = "Updated {ago}"
 downloads = "{downloads, plural, one {{counter} download} other {{counter} downloads}}"
 followers = "{followers, plural, one {{counter} follower} other {{counter} followers}}"
 
