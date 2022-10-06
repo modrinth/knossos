@@ -46,7 +46,7 @@
                 to="/notifications"
                 class="control-button"
                 :class="{ bubble: $user.notifications.length > 0 }"
-                :title="$t('header.notifications.title')"
+                :title="$t('notifications.title')"
               >
                 <NotificationIcon aria-hidden="true" />
               </nuxt-link>
@@ -101,7 +101,7 @@
                   <NuxtLink class="item" to="/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">
-                      {{ $t('profile-dropdown.links.notifications') }}
+                      {{ $t('notifications.title') }}
                     </span>
                   </NuxtLink>
                   <NuxtLink class="item" to="/settings/follows">
@@ -275,7 +275,7 @@
             <NuxtLink v-if="$auth.user" class="item" to="/notifications">
               <NotificationIcon class="icon" />
               <span class="title">
-                {{ $t('profile-dropdown.links.notifications') }}
+                {{ $t('notifications.title') }}
               </span>
             </NuxtLink>
             <button class="item" @click="changeTheme">

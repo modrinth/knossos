@@ -149,9 +149,6 @@ aria-label = "Modrinth home page"
 [header.page-links]
 aria-label = "Page links"
 
-[header.notifications]
-title = "Notifications"
-
 [header.theme-swither]
 title = "Switch theme"
 
@@ -297,7 +294,6 @@ alt = "Your avatar"
 [profile-dropdown.links]
 profile = "Go to my profile"
 create-project = "Create a project"
-notifications = "Notifications"
 follows = "Following"
 settings = "Settings"
 moderation = "Moderation"
