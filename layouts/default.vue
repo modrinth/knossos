@@ -136,7 +136,7 @@
                     />
                     <SunIcon v-else class="icon" />
                     <span class="dropdown-item__text">
-                      {{ $t('profile-dropdown.action.change-theme') }}
+                      {{ $t('layout.action.change-theme') }}
                     </span>
                   </button>
                   <hr class="divider" />
@@ -282,7 +282,7 @@
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">
-                {{ $t('profile-dropdown.action.change-theme') }}
+                {{ $t('layout.action.change-theme') }}
               </span>
             </button>
             <a v-if="!$auth.user" :href="authUrl" class="item log-in">
@@ -382,7 +382,7 @@
         <button class="iconified-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
-          {{ $t('footer.action.change-theme') }}
+          {{ $t('layout.action.change-theme') }}
         </button>
       </div>
     </footer>

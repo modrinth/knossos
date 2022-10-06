@@ -145,9 +145,6 @@ discord = "Discord"
 github = "GitHub"
 docs = "Docs"
 
-[footer.action]
-change-theme = "Change theme"
-
 [generic.action]
 cancel = "Cancel"
 
@@ -208,6 +205,9 @@ feedback = "Project comments"
 title = "Simple to integrate"
 headline = "An open-source API for everyone to use"
 body = "We have created an open source modding platform for the community. We're committed to open source so the community can trust us as their modding platform. Our API is <docs-link>fully documented</docs-link> so anyone can use it. We will never add restrictions on our API!"
+
+[layout.action]
+change-theme = "Change theme"
 
 [legal.common]
 warning = """\
@@ -307,7 +307,6 @@ settings = "Settings"
 moderation = "Moderation"
 
 [profile-dropdown.action]
-change-theme = "Change theme"
 log-out = "Log out"
 
 [project.edit]
