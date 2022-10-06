@@ -973,7 +973,6 @@ action = "Delete account"
 
 [settings.tab]
 general = "General"
-followed-projects = "Followed projects"
 
 [size]
 bytes = "{value} B"

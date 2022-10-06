@@ -16,7 +16,7 @@
               href: '/settings',
             },
             {
-              label: $t('settings.tab.followed-projects'),
+              label: $t('settings.follows.title'),
               href: '/settings/follows',
             },
           ]"
