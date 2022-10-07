@@ -523,7 +523,9 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: this.$t(`search.meta.description.${name}`),
+          content: this.$t(`search.meta.description`, {
+            projectsType: name,
+          }),
         },
       ],
     }

@@ -852,20 +852,11 @@ aria-label = "Search results"
 
 [search.meta]
 title = "Search {projectsType, select, mods {Mods} plugins {Plugins} resourcepacks {Resource Packs} modpacks {Modpacks} other {Projects}}"
-
-[search.meta.description]
-mods = """\
-Search and browse thousands of Minecraft mods on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft mods.
-"""
-plugins = """\
-Search and browse thousands of Minecraft plugins on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft plugins.
-"""
-resourcepacks = """\
-Search and browse thousands of Minecraft resource packs on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft resource packs.
-"""
-modpacks = """\
-Search and browse thousands of Minecraft modpacks on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft modpacks.
-"""
+description = """\
+Search and browse thousands of Minecraft {projectsType, select, mods {mods} \
+plugins {plugins} resourcepacks {resource packs} modpacks {modpacks} other \
+{projects}} on Modrinth with instant, accurate search results. Our filters \
+help you quickly find the best Minecraft mods."""
 
 [selector]
 generic-placeholder = "Select one"
