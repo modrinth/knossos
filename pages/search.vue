@@ -505,7 +505,9 @@ export default {
 
     return {
       title: this.$t('meta.title-format', {
-        title: this.$t(`search.meta.title.${name}`),
+        title: this.$t(`search.meta.title`, {
+          projectsType: name,
+        }),
       }),
       meta: [
         {

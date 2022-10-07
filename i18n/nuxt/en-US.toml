@@ -858,11 +858,8 @@ placeholder = "Select one"
 [search.search-results]
 aria-label = "Search results"
 
-[search.meta.title]
-mods = "Search Mods"
-plugins = "Search Plugins"
-resourcepacks = "Search Resource Packs"
-modpacks = "Search Modpacks"
+[search.meta]
+title = "Search {projectsType, select, mods {Mods} plugins {Plugins} resourcepacks {Resource Packs} modpacks {Modpacks} other {Projects}}"
 
 [search.meta.description]
 mods = """\
