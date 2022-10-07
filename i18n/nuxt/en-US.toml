@@ -142,6 +142,7 @@ delete = "Delete"
 download = "Download"
 download-file = "Download {fileName}"
 edit = "Edit"
+remove = "Remove"
 save-changes = "Save changes"
 
 [header.skip-to-content]
@@ -415,7 +416,6 @@ created-at = "{created, date, long}"
 
 [project.gallery.action]
 add-image = "Add an image"
-remove = "Remove"
 
 [project.gallery.title]
 placeholder = "Enter the title..."
@@ -556,7 +556,6 @@ placeholder = "Choose versions..."
 title = "Files<required>*</required>"
 
 [project.version.edit.files.file.action]
-remove = "Remove"
 make-primary = "Make primary"
 
 [project.version.edit.files.upload]
@@ -607,9 +606,6 @@ title = "Dependencies"
 [project.version.dependency]
 version-bound = "Version {version} is {type, select, required {required} optional {optional} incompatible {incompatible} embedded {embedded} other {{type}}}."
 project-bound = "{type, select, required {Required} optional {Optional} incompatible {Incompatible} embedded {Embedded} other {{type}}}."
-
-[project.version.dependency.action]
-remove = "Remove"
 
 [project.version.add-dependency]
 title = "Add dependency"

@@ -175,7 +175,7 @@
                 gallery.splice(index, 1)
               "
             >
-              <TrashIcon /> {{ $t('project.gallery.action.remove') }}
+              <TrashIcon /> {{ $t('generic.action.remove') }}
             </button>
           </div>
         </div>
@@ -226,7 +226,7 @@
                 class="iconified-button"
                 @click="newGalleryItems.splice(index, 1)"
               >
-                <TrashIcon /> {{ $t('project.gallery.action.remove') }}
+                <TrashIcon /> {{ $t('generic.action.remove') }}
               </button>
             </div>
           </div>

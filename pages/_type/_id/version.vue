@@ -498,7 +498,7 @@
                     @click="version.dependencies.splice(index, 1)"
                   >
                     <TrashIcon />
-                    {{ $t('project.version.dependency.action.remove') }}
+                    {{ $t('generic.action.remove') }}
                   </button>
                 </div>
               </div>
@@ -634,7 +634,7 @@
               "
             >
               <TrashIcon aria-hidden="true" />
-              {{ $t('project.version.edit.files.file.action.remove') }}
+              {{ $t('generic.action.remove') }}
             </button>
             <button
               v-if="
@@ -659,7 +659,7 @@
                 @click="newFiles.splice(index, 1)"
               >
                 <TrashIcon aria-hidden="true" />
-                {{ $t('project.version.edit.files.file.action.remove') }}
+                {{ $t('generic.action.remove') }}
               </button>
             </div>
           </div>
