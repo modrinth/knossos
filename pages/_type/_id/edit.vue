@@ -51,11 +51,7 @@
           <li v-if="!savingAsDraft && project.versions.length < 1">
             Your project must have at least one version to submit for review.
           </li>
-          <li
-            v-if="
-              license === null || license_url === null || license_url === ''
-            "
-          >
+          <li v-if="newProject.license.id === ''">
             Your project must have a license.
           </li>
         </ul>
@@ -348,6 +344,9 @@
           type="url"
           maxlength="2048"
           placeholder="Enter a valid URL"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
         />
       </label>
       <label
@@ -386,8 +385,15 @@
       </div>
       <label>
         <span>
-          It is very important to choose a proper license for your mod. You may
-          choose one from our list or provide a URL to a custom license.
+          It is very important to choose a proper license for your mod. You must
+          provide a valid
+          <a
+            href="https://spdx.org/licenses/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-link"
+            >SPDX license identifier</a
+          >, and you may also provide a URL to your chosen license.
           <br />
           Confused? See our
           <a
@@ -401,22 +407,20 @@
           for more information.
         </span>
         <div class="input-group">
-          <Multiselect
-            v-model="license"
-            placeholder="Choose license..."
-            track-by="short"
-            label="short"
-            :options="$tag.licenses"
-            :custom-label="(value) => value.short.toUpperCase()"
-            :searchable="true"
-            :close-on-select="true"
-            :show-labels="false"
+          <input
+            v-model="newProject.license.id"
+            type="text"
+            maxlength="2048"
+            placeholder="SPDX identifier"
+            :class="{
+              'known-error': newProject.license.id === '' && showKnownErrors,
+            }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
           />
           <input
-            v-model="license_url"
+            v-model="newProject.license.url"
             type="url"
             maxlength="2048"
             placeholder="License URL"
@@ -532,9 +536,6 @@ export default {
       clientSideType: '',
       serverSideType: '',
 
-      license: { short: '', name: '' },
-      license_url: '',
-
       donationPlatforms: [],
       donationLinks: [],
 
@@ -560,8 +561,6 @@ export default {
   fetch() {
     this.newProject = this.project
 
-    this.newProject.license.short = this.newProject.license.id
-
     if (this.newProject.donation_urls) {
       for (const platform of this.newProject.donation_urls) {
         this.donationPlatforms.push({
@@ -572,13 +571,6 @@ export default {
       }
     }
 
-    this.license = {
-      short: this.newProject.license.id,
-      name: this.newProject.license.name,
-    }
-
-    this.license_url = this.newProject.license.url
-
     this.clientSideType =
       this.newProject.client_side.charAt(0) +
       this.newProject.client_side.slice(1)
@@ -587,24 +579,6 @@ export default {
       this.newProject.server_side.slice(1)
 
     this.setCategories()
-  },
-  watch: {
-    license(newValue, oldValue) {
-      if (newValue == null) {
-        this.license_url = ''
-        return
-      }
-
-      switch (newValue.short) {
-        case 'custom':
-          if (oldValue === null || oldValue.short !== '') {
-            this.license_url = ''
-          }
-          break
-        default:
-          this.license_url = `https://cdn.modrinth.com/licenses/${newValue.short}.txt`
-      }
-    },
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0
@@ -641,9 +615,7 @@ export default {
         this.newProject.name !== '' &&
         this.newProject.description !== '' &&
         this.newProject.slug !== '' &&
-        this.license.short !== null &&
-        this.license_url !== null &&
-        this.license_url !== ''
+        this.newProject.license.id !== ''
       ) {
         if (this.savingAsDraft) {
           return true
@@ -684,15 +656,16 @@ export default {
             ? this.newProject.source_url
             : null,
           wiki_url: this.newProject.wiki_url ? this.newProject.wiki_url : null,
-          license_url: this.license_url,
+          license_url: this.newProject.license.url
+            ? this.newProject.license.url
+            : null,
           discord_url: this.newProject.discord_url
             ? this.newProject.discord_url
             : null,
-          license_id: this.license.short,
+          license_id: this.newProject.license.id,
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
           slug: this.newProject.slug,
-          license: this.license.short,
           donation_urls: this.donationPlatforms.map((it, index) => {
             return {
               id: it.short,
@@ -723,7 +696,7 @@ export default {
         }
 
         this.newProject.license = {
-          id: this.newProject.license.short,
+          id: this.newProject.license.id,
           url: this.newProject.license.url,
         }
 

@@ -443,10 +443,14 @@
         <div class="infos">
           <div class="info">
             <div class="key">License</div>
-            <div class="value uppercase">
-              <a class="text-link" :href="project.license.url || null">{{
-                project.license.id
-              }}</a>
+            <div class="value lowercase">
+              <a
+                v-if="project.license.url"
+                class="text-link"
+                :href="project.license.url"
+                >{{ project.license.id }}</a
+              >
+              <span v-else>{{ project.license.id }}</span>
             </div>
           </div>
           <div
