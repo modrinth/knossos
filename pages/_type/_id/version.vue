@@ -374,12 +374,8 @@
                 />
                 <Checkbox
                   v-model="showSnapshots"
-                  :label="
-                    $t('project.version.edit.game-versions.include-snapshots')
-                  "
-                  :description="
-                    $t('project.version.edit.game-versions.include-snapshots')
-                  "
+                  :label="$t('version-selection.include-snapshots')"
+                  :description="$t('version-selection.include-snapshots')"
                   style="margin-top: 0.5rem"
                   :border="false"
                 />

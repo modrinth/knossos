@@ -188,10 +188,8 @@
           </h3>
           <Checkbox
             v-model="showSnapshots"
-            :label="$t('search.filters.versions.include-snapshots.label')"
-            :description="
-              $t('search.filters.versions.include-snapshots.description')
-            "
+            :label="$t('version-selection.include-snapshots')"
+            :description="$t('version-selection.include-snapshots')"
             style="margin-bottom: 0.5rem"
             :border="false"
           />

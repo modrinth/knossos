@@ -551,7 +551,6 @@ placeholder = "Enter the version number..."
 [project.version.edit.game-versions]
 title = "Minecraft versions<required>*</required>"
 placeholder = "Choose versions..."
-include-snapshots = "Include snapshots"
 
 [project.version.edit.files]
 title = "Files<required>*</required>"
@@ -836,10 +835,6 @@ server = "Server"
 [search.filters.versions]
 title = "Minecraft versions"
 
-[search.filters.versions.include-snapshots]
-label = "Include snapshots"
-description = "Include snapshots"
-
 [search.filters.versions.field]
 placeholder = "Choose versions..."
 
@@ -1028,3 +1023,6 @@ not-found = "User not found"
 
 [user.meta]
 description = "{bio} — Download {user}'s projects on Modrinth."
+
+[version-selection]
+include-snapshots = "Include snapshots"
