@@ -228,9 +228,7 @@
                 v-if="mode === 'edit' || mode === 'create'"
                 v-model="version.version_type"
                 class="input"
-                :placeholder="
-                  $t('project.version.metadata.channel.placeholder')
-                "
+                :placeholder="$t('selector.generic-placeholder')"
                 :options="['release', 'beta', 'alpha']"
                 :custom-label="(value) => $t(`release-channel.${value}`)"
                 :searchable="false"
@@ -532,9 +530,7 @@
               <Multiselect
                 v-model="newDependencyType"
                 class="input"
-                :placeholder="
-                  $t('project.version.add-dependency.type.placeholder')
-                "
+                :placeholder="$t('selector.generic-placeholder')"
                 :options="['required', 'optional', 'incompatible', 'embedded']"
                 :custom-label="
                   (type) =>

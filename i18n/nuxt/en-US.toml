@@ -352,7 +352,6 @@ label = "Choose image"
 [project.edit.supported-environments]
 title = "Supported environments"
 description = "Let others know what environments your project supports."
-placeholder = "Select one"
 
 [project.edit.supported-environments-client]
 title = "Client<required>*</required>"
@@ -408,7 +407,6 @@ title = "Donation link"
 
 [project.edit.donation-links.platform]
 title = "Donation platform"
-placeholder = "Select one"
 
 [project.gallery]
 created-at = "{created, date, long}"
@@ -575,7 +573,6 @@ title = "Metadata"
 
 [project.version.metadata.channel]
 title = "Release channel"
-placeholder = "Select one"
 
 [project.version.metadata.loader]
 title = "Loaders"
@@ -615,9 +612,6 @@ version = "Version"
 [project.version.add-dependency.placeholder]
 project = "Enter the project ID/slug"
 version = "Enter the version ID"
-
-[project.version.add-dependency.type]
-placeholder = "Select one"
 
 [project.version.add-dependency.type.value]
 required = "Required"
@@ -842,7 +836,6 @@ placeholder = "Search {projectType, select, mod {mods} plugin {plugins} resource
 
 [search.controls.sort-by]
 label = "Sort by"
-placeholder = "Select one"
 
 [search.controls.sort-by.value]
 relevance = "Relevance"
@@ -853,7 +846,6 @@ updated = "Recently updated"
 
 [search.controls.per-page]
 label = "Show per page"
-placeholder = "Select one"
 
 [search.search-results]
 aria-label = "Search results"
@@ -874,6 +866,9 @@ Search and browse thousands of Minecraft resource packs on Modrinth with instant
 modpacks = """\
 Search and browse thousands of Minecraft modpacks on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft modpacks.
 """
+
+[selector]
+generic-placeholder = "Select one"
 
 [settings]
 authorized-title = "Settings for {username}"

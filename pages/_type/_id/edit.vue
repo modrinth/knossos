@@ -252,7 +252,7 @@
           </h3>
           <Multiselect
             v-model="clientSideType"
-            :placeholder="$t('project.edit.supported-environments.placeholder')"
+            :placeholder="$t('selector.generic-placeholder')"
             :options="sideTypes"
             :custom-label="(value) => $t(`project.environment-status.${value}`)"
             :searchable="false"
@@ -276,7 +276,7 @@
           </h3>
           <Multiselect
             v-model="serverSideType"
-            :placeholder="$t('project.edit.supported-environments.placeholder')"
+            :placeholder="$t('selector.generic-placeholder')"
             :options="sideTypes"
             :custom-label="(value) => $t(`project.environment-status.${value}`)"
             :searchable="false"
@@ -478,9 +478,7 @@
           <span>{{ $t('project.edit.donation-links.platform.title') }}</span>
           <Multiselect
             v-model="donationPlatforms[index]"
-            :placeholder="
-              $t('project.edit.donation-links.platform.placeholder')
-            "
+            :placeholder="$t('selector.generic-placeholder')"
             track-by="short"
             label="name"
             :options="$tag.donationPlatforms"

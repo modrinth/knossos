@@ -289,7 +289,7 @@
             }}</span>
             <Multiselect
               v-model="sortType"
-              :placeholder="$t('search.controls.sort-by.placeholder')"
+              :placeholder="$t('selector.generic-placeholder')"
               class="search-controls__sorting labeled-control__control"
               track-by="display"
               label="display"
@@ -311,7 +311,7 @@
             }}</span>
             <Multiselect
               v-model="maxResults"
-              :placeholder="$t('search.controls.per-page.placeholder')"
+              :placeholder="$t('selector.generic-placeholder')"
               class="labeled-control__control"
               :options="[5, 10, 15, 20, 50, 100]"
               :searchable="false"
