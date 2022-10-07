@@ -313,12 +313,14 @@ follows = "Following"
 [profile-dropdown.action]
 log-out = "Log out"
 
+[project.action]
+submit-for-review = "Submit for review"
+
 [project.edit]
 title = "Edit project"
 generic-url-placeholder = "Enter a valid URL"
 
 [project.edit.action]
-submit-for-review = "Submit for review"
 reset-icon = "Reset"
 
 [project.edit.error]
@@ -686,7 +688,6 @@ description = "{projectDescription} — Download the Minecraft {projectType, sel
 follow = "Follow"
 unfollow = "Unfollow"
 resubmit-for-review = "Resubmit for review"
-submit-for-review = "Submit for review"
 clear-message = "Clear message"
 
 [project-page.status]

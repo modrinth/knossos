@@ -21,7 +21,7 @@
           :disabled="!$nuxt.$loading"
           @click="saveProjectReview"
         >
-          <CheckIcon /> {{ $t('project.edit.action.submit-for-review') }}
+          <CheckIcon /> {{ $t('project.action.submit-for-review') }}
         </button>
         <button
           class="iconified-button brand-button column"

@@ -237,7 +237,7 @@
             @click="submitForReview"
           >
             <CheckIcon />
-            {{ $t('project-page.action.submit-for-review') }}
+            {{ $t('project.action.submit-for-review') }}
           </button>
           <button
             v-if="project.status === 'approved'"
