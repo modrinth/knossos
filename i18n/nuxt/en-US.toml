@@ -152,6 +152,9 @@ save = "Save"
 save-changes = "Save changes"
 unfollow = "Unfollow"
 
+[generic.name]
+username = "Username"
+
 [generic.title]
 settings = "Settings"
 
@@ -483,10 +486,6 @@ title = "Team members"
 
 [project.settings.invite-member]
 action = "Invite"
-
-[project.settings.invite-member.username]
-placeholder = "Username"
-label = "Username"
 
 [project.settings.team-member.status]
 accepted = "Accepted"
@@ -939,9 +938,6 @@ gibibytes = "{value} GiB"
 
 [user.edit.avatar]
 prompt = "Upload avatar"
-
-[user.edit.username]
-title = "Username"
 
 [user.edit.bio]
 title = "Bio"

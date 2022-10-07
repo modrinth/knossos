@@ -78,12 +78,10 @@
           id="username"
           v-model="currentUsername"
           type="text"
-          :placeholder="
-            $t('project.settings.invite-member.username.placeholder')
-          "
+          :placeholder="$t('generic.name.username')"
         />
         <label for="username" class="hidden">
-          {{ $t('project.settings.invite-member.username.label') }}
+          {{ $t('generic.name.username') }}
         </label>
         <button
           class="iconified-button brand-button column"

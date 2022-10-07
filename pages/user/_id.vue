@@ -51,7 +51,7 @@
           <template v-if="isEditing">
             <div class="inputs">
               <label>
-                <h3>{{ $t('user.edit.username.title') }}</h3>
+                <h3>{{ $t('generic.name.username') }}</h3>
               </label>
               <input v-model="user.username" maxlength="39" type="text" />
               <label>
