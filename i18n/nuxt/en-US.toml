@@ -90,6 +90,7 @@ author = "by <link>{author}</link>"
 [component.report-modal]
 title = "Report {itemType, select, user {user} other {project}}"
 description = "Modding should be safe for everyone, so we take abuse and malicious intent seriously at Modrinth. We want to hear about harmful content on the site that violates our <tos-link>ToS</tos-link> and <rules-link>Rules</rules-link>. Rest assured, we’ll keep your identifying information private."
+action = "Report"
 
 [component.report-modal.reason]
 title = "Reason"
@@ -98,9 +99,6 @@ placeholder = "Choose report type"
 [component.report-modal.additional-info]
 title = "Additional information"
 description = "Include links and images if possible. Markdown formatting is supported."
-
-[component.report-modal.action]
-report = "Report"
 
 [error]
 generic = "An error occurred"

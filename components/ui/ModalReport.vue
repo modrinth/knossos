@@ -65,7 +65,7 @@
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
           <CheckIcon />
-          {{ $t('component.report-modal.action.report') }}
+          {{ $t('component.report-modal.action') }}
         </button>
       </div>
     </div>
