@@ -306,7 +306,6 @@ alt = "Your avatar"
 [profile-dropdown.links]
 profile = "Go to my profile"
 follows = "Following"
-settings = "Settings"
 
 [profile-dropdown.action]
 log-out = "Log out"
