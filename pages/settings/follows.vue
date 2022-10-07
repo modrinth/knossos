@@ -20,7 +20,7 @@
         @click="$store.dispatch('user/unfollowProject', project)"
       >
         <HeartIcon />
-        {{ $t('settings.follows.action.unfollow') }}
+        {{ $t('generic.action.unfollow') }}
       </button>
     </ProjectCard>
   </div>

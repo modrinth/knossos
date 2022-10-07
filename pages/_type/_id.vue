@@ -143,7 +143,7 @@
               @click="$store.dispatch('user/unfollowProject', project)"
             >
               <FollowIcon fill="currentColor" aria-hidden="true" />
-              {{ $t('project-page.action.unfollow') }}
+              {{ $t('generic.action.unfollow') }}
             </button>
           </template>
           <template v-else>

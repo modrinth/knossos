@@ -150,6 +150,7 @@ remove = "Remove"
 report = "Report"
 save = "Save"
 save-changes = "Save changes"
+unfollow = "Unfollow"
 
 [generic.title]
 settings = "Settings"
@@ -686,7 +687,6 @@ description = "{projectDescription} — Download the Minecraft {projectType, sel
 
 [project-page.action]
 follow = "Follow"
-unfollow = "Unfollow"
 resubmit-for-review = "Resubmit for review"
 clear-message = "Clear message"
 
@@ -871,9 +871,6 @@ title = "Followed Projects"
 empty = """\
 You don't have any followed mods.
 Why don't you <search-link>search</search-link> for new ones?"""
-
-[settings.follows.action]
-unfollow = "Unfollow"
 
 [settings.modals.delete-account]
 title = "Are you sure you want to delete your account?"
