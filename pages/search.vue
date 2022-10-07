@@ -503,22 +503,22 @@ export default {
   head() {
     const name = this.$route.name
 
+    const title = this.$t(`search.meta.title`, {
+      projectsType: name,
+    })
+
     return {
-      title: this.$t('meta.title-format', {
-        title: this.$t(`search.meta.title`, {
-          projectsType: name,
-        }),
-      }),
+      title: this.$t('meta.title-format', { title }),
       meta: [
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.$t(`search.meta.title.${name}`),
+          content: title,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.$t(`search.meta.title.${name}`),
+          content: title,
         },
         {
           hid: 'description',
