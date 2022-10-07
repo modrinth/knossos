@@ -420,82 +420,152 @@ export default {
     },
   },
   /** @type {import('modules/i18n/index').Options} */
-  i18n: {
-    defaultLocale: 'en-US',
-    locales: (() => {
-      const availableNFLocales = glob
-        .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
-          nodir: true,
-        })
-        .map((it) => path.basename(it, '.js'))
+  i18n: (() => {
+    const defaultLocale = 'en-US'
+    const localesDir = 'i18n/nuxt'
 
-      return glob.sync('i18n/nuxt/*.toml', { nodir: true }).map((it) => {
-        const code = path.basename(it, '.toml')
+    // #region Automatic locales gathering
 
-        /** @type {string[] | undefined} */
-        let additionalImports
+    /** @type {import('modules/i18n/index').LocaleDescriptor[]} */
+    const locales = []
 
-        let data
+    const availableNFLocales = glob
+      .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
+        nodir: true,
+      })
+      .map((it) => path.basename(it, '.js'))
 
-        {
-          const nfLocaleMatch = localeMatch(
-            [code],
-            availableNFLocales,
-            'en-US-x-placeholder'
+    for (const localeDir of glob.sync(`${localesDir}/*/`)) {
+      const code = path.basename(localeDir)
+
+      /**
+       * Relative to {@link localesDir} path to locale source file.
+       *
+       * If `null` after iterating through the resources, then an exception must
+       * be thrown.
+       *
+       * @type {string | null}
+       */
+      let file = null
+
+      /**
+       * All additional imports to add with this locale.
+       *
+       * @type {string[] | undefined}
+       */
+      let additionalImports
+
+      /**
+       * Represents custom data associated with the locale.
+       *
+       * @private
+       * @typedef {object} LocaleData
+       * @property {string} [customLocaleName] Custom name for the locale.
+       */
+
+      /**
+       * Custom data associated with the locale.
+       *
+       * @type {LocaleData}
+       */
+      let data = Object.create(null)
+
+      /** @type {import('modules/i18n/index').LocaleDescriptor['importedData']} */
+      let importedData = Object.create(null)
+
+      for (const resourcePath of glob.sync(`${localeDir}/*`)) {
+        const resourceName = path.basename(resourcePath)
+        const resourceBaseName = path.basename(
+          resourcePath,
+          path.extname(resourcePath)
+        )
+        const importPath = require.resolve(path.join(__dirname, resourcePath))
+
+        // All files named 'index' are considered source files.
+        // There must be only one to avoid prioritisation issues.
+        if (resourceBaseName === 'index') {
+          if (file != null) {
+            throw new Error(`Duplicate source file: ${resourcePath}`)
+          }
+
+          file = path.relative(localesDir, resourcePath)
+
+          continue
+        }
+
+        // meta.json is a special file in format similar to Chrome messages
+        // format, but without any placeholders. This file is used to extract
+        // some of the data variables for the locale.
+        if (resourceName === 'meta.json') {
+          /**
+           * @private
+           * @typedef {object} Message
+           * @property {string} message Contents of the message.
+           * @property {string} [comment] Comment for the message.
+           */
+
+          /** @typedef {Record<string, Message | undefined>} MetaFile */
+
+          delete require.cache[importPath] // Clear previous meta on every build.
+
+          const meta = /** @type {MetaFile} */ (require(importPath))
+
+          if (meta.name) {
+            data.customLocaleName = meta.name.message
+          }
+
+          continue
+        }
+
+        importedData[resourceName] = importPath
+
+        console.log(
+          `[knossos-i18n] Additional resource for "${code}": ${resourceName}`
+        )
+      }
+
+      if (file == null) {
+        throw new Error(`Locale directory missing source file: ${localeDir}`)
+      }
+
+      {
+        const nfLocaleMatch = localeMatch(
+          [code],
+          availableNFLocales,
+          'en-US-x-placeholder'
+        )
+
+        if (nfLocaleMatch !== 'en-US-x-placeholder') {
+          ;(additionalImports ?? (additionalImports = [])).push(
+            require.resolve(
+              `@formatjs/intl-numberformat/locale-data/${nfLocaleMatch}.js`
+            )
           )
 
-          if (nfLocaleMatch !== 'en-US-x-placeholder') {
-            ;(additionalImports ?? (additionalImports = [])).push(
-              require.resolve(
-                `@formatjs/intl-numberformat/locale-data/${nfLocaleMatch}.js`
-              )
-            )
-          }
+          console.log(
+            `[knossos-i18n] Found Intl.NumberFormat data for "${code}": ${nfLocaleMatch}`
+          )
         }
+      }
 
-        /** @type {import('modules/i18n/index').LocaleDescriptor['importedData']} */
-        const importedData = Object.create(null)
-
-        const dataFiles = glob.sync(`i18n/nuxt/${code}.*.*`, { nodir: true })
-
-        for (const dataFile of dataFiles) {
-          const importPath = require.resolve(path.join(__dirname, dataFile))
-          const fileName = path.basename(dataFile).slice(`${code}.`.length)
-
-          if (fileName === 'meta.json') {
-            delete require.cache[require.resolve(importPath)]
-
-            const meta = Object.fromEntries(
-              Object.entries(require(importPath)).map(([key, value]) => [
-                key,
-                value.message,
-              ])
-            )
-
-            if (meta.name != null) {
-              data = {
-                customLocaleName: meta.name,
-              }
-            }
-
-            continue
-          }
-
-          importedData[fileName] = importPath
-        }
-
-        return {
-          code,
-          file: path.basename(it),
-          data,
-          additionalImports,
-          importedData,
-        }
+      locales.push({
+        code,
+        file,
+        additionalImports,
+        data,
+        importedData,
       })
-    })(),
-    localesDir: 'i18n/nuxt',
-    baseURL: getDomain(),
-  },
+    }
+
+    return {
+      defaultLocale,
+      locales,
+      localesDir,
+      baseURL: getDomain(),
+    }
+
+    // #endregion
+  })(),
 }
 
 function getDomain() {
