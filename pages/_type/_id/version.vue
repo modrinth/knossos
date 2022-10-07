@@ -146,11 +146,11 @@
             @click="$refs.modal_version_report.show()"
           >
             <ReportIcon aria-hidden="true" />
-            {{ $t('project.version.action.report') }}
+            {{ $t('generic.action.report') }}
           </button>
           <a v-else class="action iconified-button" :href="authUrl">
             <ReportIcon aria-hidden="true" />
-            {{ $t('project.version.action.report') }}
+            {{ $t('generic.action.report') }}
           </a>
           <nuxt-link
             v-if="currentMember"

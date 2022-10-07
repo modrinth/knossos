@@ -143,6 +143,7 @@ download = "Download"
 download-file = "Download {fileName}"
 edit = "Edit"
 remove = "Remove"
+report = "Report"
 save-changes = "Save changes"
 
 [header.skip-to-content]
@@ -527,7 +528,6 @@ description = "This will remove this version forever (like really forever)."
 back-to-list = "Back to list"
 save = "Save"
 create = "Create"
-report = "Report"
 download = "Download {version}"
 
 [project.version.featured]
@@ -690,7 +690,6 @@ title = "{project} - Minecraft {projectType, select, mod {Mod} mod_and_plugin {M
 description = "{projectDescription} — Download the Minecraft {projectType, select, mod {mod} plugin {plugin} mod_and_plugin {mod and plugin} modpack {modpack} resourcepack {resource pack} other {project}} by {owner} on Modrinth."
 
 [project-page.action]
-report = "Report"
 follow = "Follow"
 unfollow = "Unfollow"
 resubmit-for-review = "Resubmit for review"
@@ -982,7 +981,6 @@ description = "Only visible to moderators."
 save = "Save"
 
 [user.action]
-report = "Report"
 open-github = "View GitHub profile"
 
 [user.status]

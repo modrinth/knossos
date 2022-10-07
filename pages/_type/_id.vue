@@ -127,7 +127,7 @@
               @click="$refs.modal_project_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              {{ $t('project-page.action.report') }}
+              {{ $t('generic.action.report') }}
             </button>
             <button
               v-if="!$user.follows.find((x) => x.id === project.id)"
@@ -149,7 +149,7 @@
           <template v-else>
             <a class="iconified-button" :href="authUrl">
               <ReportIcon aria-hidden="true" />
-              {{ $t('project-page.action.report') }}
+              {{ $t('generic.action.report') }}
             </a>
             <a class="iconified-button" :href="authUrl">
               <FollowIcon fill="currentColor" aria-hidden="true" />

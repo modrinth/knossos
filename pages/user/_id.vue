@@ -41,11 +41,11 @@
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              {{ $t('user.action.report') }}
+              {{ $t('generic.action.report') }}
             </button>
             <a v-else class="iconified-button" :href="authUrl">
               <ReportIcon aria-hidden="true" />
-              {{ $t('user.action.report') }}
+              {{ $t('generic.action.report') }}
             </a>
           </div>
           <template v-if="isEditing">
