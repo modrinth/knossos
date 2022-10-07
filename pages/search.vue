@@ -200,7 +200,6 @@
           <Checkbox
             v-model="onlyOpenSource"
             label="Only include open source projects"
-            description="As defined by the Open Source Initiative"
             style="margin-bottom: 0.5rem"
             :border="false"
             @input="onSearchChange(1)"
