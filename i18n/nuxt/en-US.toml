@@ -437,6 +437,7 @@ description = "View {images, plural, one {# image} other {# images}} of {project
 required = "Required"
 optional = "Optional"
 unsupported = "Unsupported"
+unknown = "Unknown"
 
 [project.changelog]
 item = "{name} by {publisher} on {publishedAt, date, long}"
@@ -753,12 +754,6 @@ license = "License"
 client-side = "Client side"
 server-side = "Server side"
 project-id = "Project ID"
-
-[project-page.technical-info.side-requirement-values]
-required = "Required"
-optional = "Optional"
-unsupported = "Unsupported"
-unknown = "Unknown"
 
 [project-page.tabs]
 description = "Description"
