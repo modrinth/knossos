@@ -121,7 +121,6 @@ open-source = "Modrinth is <gh-link>open source</gh-link>."
 
 [footer.legal]
 title = "Legal"
-license = "License"
 
 [footer.legal.links]
 terms = "Terms"

@@ -354,7 +354,7 @@
           target="_blank"
           href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
         >
-          {{ $t('footer.legal.license') }}
+          {{ $t('project-page.technical-info.license') }}
         </a>
       </div>
       <div
