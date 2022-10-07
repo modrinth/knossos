@@ -102,7 +102,7 @@
             @click="saveEditedVersion"
           >
             <SaveIcon aria-hidden="true" />
-            {{ $t('project.version.action.save') }}
+            {{ $t('generic.action.save') }}
           </button>
         </div>
         <div

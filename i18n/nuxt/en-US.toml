@@ -142,6 +142,7 @@ download-file = "Download {fileName}"
 edit = "Edit"
 remove = "Remove"
 report = "Report"
+save = "Save"
 save-changes = "Save changes"
 
 [header.skip-to-content]
@@ -310,7 +311,6 @@ generic-url-placeholder = "Enter a valid URL"
 
 [project.edit.action]
 submit-for-review = "Submit for review"
-save = "Save"
 reset-icon = "Reset"
 
 [project.edit.error]
@@ -524,7 +524,6 @@ description = "This will remove this version forever (like really forever)."
 
 [project.version.action]
 back-to-list = "Back to list"
-save = "Save"
 create = "Create"
 download = "Download {version}"
 
@@ -974,9 +973,6 @@ title = "Bio"
 [user.edit.email]
 title = "Private Email"
 description = "Only visible to moderators."
-
-[user.edit.action]
-save = "Save"
 
 [user.action]
 open-github = "View GitHub profile"

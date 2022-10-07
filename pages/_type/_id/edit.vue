@@ -28,7 +28,7 @@
           :disabled="!$nuxt.$loading"
           @click="saveProjectNotForReview"
         >
-          <SaveIcon /> {{ $t('project.edit.action.save') }}
+          <SaveIcon /> {{ $t('generic.action.save') }}
         </button>
       </div>
       <div v-if="showKnownErrors" class="known-errors">

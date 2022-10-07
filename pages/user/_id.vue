@@ -82,7 +82,7 @@
                 class="iconified-button brand-button"
                 @click="saveChanges"
               >
-                <SaveIcon /> {{ $t('user.edit.action.save') }}
+                <SaveIcon /> {{ $t('generic.action.save') }}
               </button>
             </div>
           </template>
