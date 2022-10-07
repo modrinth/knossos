@@ -229,7 +229,7 @@ export default {
   head() {
     return {
       title: this.$t('meta.title-format', {
-        title: this.$t('settings.title'),
+        title: this.$t('generic.title.settings'),
       }),
     }
   },

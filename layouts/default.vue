@@ -113,7 +113,7 @@
                   <NuxtLink class="item" to="/settings">
                     <SettingsIcon class="icon" />
                     <span class="title">
-                      {{ $t('settings.title') }}
+                      {{ $t('generic.title.settings') }}
                     </span>
                   </NuxtLink>
                   <NuxtLink
@@ -250,7 +250,7 @@
             <NuxtLink v-if="$auth.user" class="item" to="/settings">
               <SettingsIcon class="icon" />
               <span class="title">
-                {{ $t('settings.title') }}
+                {{ $t('generic.title.settings') }}
               </span>
             </NuxtLink>
             <NuxtLink

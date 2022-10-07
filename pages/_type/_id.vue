@@ -632,7 +632,7 @@
                 shown: project.versions.length > 0 || !!currentMember,
               },
               {
-                label: $t('project-page.tabs.settings'),
+                label: $t('generic.title.settings'),
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/settings`,

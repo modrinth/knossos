@@ -151,6 +151,9 @@ report = "Report"
 save = "Save"
 save-changes = "Save changes"
 
+[generic.title]
+settings = "Settings"
+
 [header.skip-to-content]
 label = "Skip to Main Content"
 
@@ -745,7 +748,6 @@ description = "Description"
 gallery = "Gallery"
 changelog = "Changelog"
 versions = "Versions"
-settings = "Settings"
 
 [project-page.errors]
 not-found = "Project not found"
@@ -862,7 +864,6 @@ generic-placeholder = "Select one"
 
 [settings]
 authorized-title = "Settings for {username}"
-title = "Settings"
 
 [settings.follows]
 title = "Followed Projects"
@@ -967,9 +968,6 @@ user-id = "User ID: {userId}"
 
 [user.filter]
 all = "All"
-
-[user.projects.project.action]
-settings = "Settings"
 
 [user.projects.no-projects]
 pov-self = """\

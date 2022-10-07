@@ -7,7 +7,7 @@
             $t('settings.authorized-title', { username: $auth.user.username })
           }}
         </h1>
-        <h1 v-else>{{ $t('settings.title') }}</h1>
+        <h1 v-else>{{ $t('generic.title.settings') }}</h1>
         <NavRow
           class="card"
           :links="[

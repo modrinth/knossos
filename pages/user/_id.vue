@@ -251,7 +251,7 @@
               }/settings`"
             >
               <SettingsIcon />
-              {{ $t('user.projects.project.action.settings') }}
+              {{ $t('generic.title.settings') }}
             </nuxt-link>
           </ProjectCard>
         </div>
