@@ -838,12 +838,7 @@ warning = "Warning"
 
 [search.controls.search-field]
 label = "Search"
-
-[search.controls.search-field.placeholder]
-mod = "Search mods..."
-plugin = "Search plugins..."
-resourcepack = "Search resource packs..."
-modpack = "Search modpacks..."
+placeholder = "Search {projectType, select, mod {mods} plugin {plugins} resourcepack {resource packs} modpack {modpacks} other {projects}}..."
 
 [search.controls.sort-by]
 label = "Sort by"

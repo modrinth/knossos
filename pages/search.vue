@@ -274,7 +274,9 @@
             type="search"
             name="search"
             :placeholder="
-              $t(`search.controls.search-field.placeholder.${projectType.id}`)
+              $t(`search.controls.search-field.placeholder`, {
+                projectType: projectType.id,
+              })
             "
             autocomplete="off"
             @input="onSearchChange(1)"
