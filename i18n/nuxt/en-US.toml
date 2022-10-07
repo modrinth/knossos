@@ -100,6 +100,12 @@ placeholder = "Choose report type"
 title = "Additional information"
 description = "Include links and images if possible. Markdown formatting is supported."
 
+[dependency-type]
+required = "Required"
+optional = "Optional"
+incompatible = "Incompatible"
+embedded = "Embedded"
+
 [error]
 generic = "An error occurred"
 
@@ -612,12 +618,6 @@ version = "Version"
 [project.version.add-dependency.placeholder]
 project = "Enter the project ID/slug"
 version = "Enter the version ID"
-
-[project.version.add-dependency.type.value]
-required = "Required"
-optional = "Optional"
-incompatible = "Incompatible"
-embedded = "Embedded"
 
 [project.version.add-dependency.error.invalid-dependency]
 title = "Invalid Dependency"

@@ -532,10 +532,7 @@
                 class="input"
                 :placeholder="$t('selector.generic-placeholder')"
                 :options="['required', 'optional', 'incompatible', 'embedded']"
-                :custom-label="
-                  (type) =>
-                    $t(`project.version.add-dependency.type.value.${type}`)
-                "
+                :custom-label="(type) => $t(`dependency-type.${type}`)"
                 :searchable="false"
                 :close-on-select="true"
                 :show-labels="false"
