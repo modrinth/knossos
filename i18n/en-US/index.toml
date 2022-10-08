@@ -59,6 +59,16 @@ placeholder = "Type here..."
 title = "Create project"
 description = "New projects are created as drafts, and can be found under your profile page."
 
+[component.create-modal.auto-description]
+language-warning = """\
+**⚠ Warning**: This description is provided automatically by Modrinth in your \
+language, however, since Modrinth is an international site, unless your \
+{projectType, select, mod {mod} plugin {plugin} resourcepack {resource pack} \
+modpack {modpack} other {project}} is targetted at the very specific language \
+community, **please provide your description in English language**. For other \
+languages you can [use `'<details>'` tag](https://developer.mozilla.org/en-US/\
+docs/Web/HTML/Element/details)."""
+
 [component.create-modal.project-type]
 title = "Project type"
 

@@ -115,16 +115,35 @@ export default {
           project_type: this.projectType.actual,
           slug: this.slug,
           description: this.description,
-          body: this.$fmt.customMessage(
-            this.$i18n.data['starter.md'],
-            {
-              projectType: this.projectType.id,
-              projectName: this.name,
-            },
-            {
-              ignoreTag: true,
+          body: (() => {
+            let body = ''
+
+            if (
+              this.$i18n.intlLocale.language !== 'en' ||
+              this.$i18n.locale.includes('-x-')
+            ) {
+              body += this.$t(
+                'component.create-modal.auto-description.language-warning',
+                {
+                  projectType: this.projectType.id,
+                }
+              )
+              body += '\n\n'
             }
-          ),
+
+            body += this.$fmt.customMessage(
+              this.$i18n.data['starter.md'],
+              {
+                projectType: this.projectType.id,
+                projectName: this.name,
+              },
+              {
+                ignoreTag: true,
+              }
+            )
+
+            return body
+          })(),
           initial_versions: [],
           team_members: [
             {
