@@ -264,20 +264,20 @@ export default {
 
       config.module.rules.push({
         test: /\.toml$/,
-        include: path.resolve(__dirname, 'i18n/nuxt'),
+        include: path.resolve(__dirname, 'i18n'),
         loader: translationsLoader,
         type: 'javascript/auto',
       })
 
       config.module.rules.push({
         test: /\.md$/,
-        include: path.resolve(__dirname, 'i18n/nuxt'),
+        include: path.resolve(__dirname, 'i18n'),
         loader: messageLoader,
       })
 
       config.module.rules.push({
         test: /\.html$/,
-        include: path.resolve(__dirname, 'i18n/nuxt'),
+        include: path.resolve(__dirname, 'i18n'),
         loader: messageLoader,
       })
     },
@@ -422,7 +422,7 @@ export default {
   /** @type {import('modules/i18n/index').Options} */
   i18n: (() => {
     const defaultLocale = 'en-US'
-    const localesDir = 'i18n/nuxt'
+    const localesDir = 'i18n'
 
     // #region Automatic locales gathering
 
