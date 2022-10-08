@@ -1,0 +1,7 @@
+project_id: 540290
+preserve_hierarchy: true
+
+files:
+  - source: /i18n/en-US/*
+    dest: /%original_file_name%
+    translation: /i18n/%locale%/%original_file_name%
