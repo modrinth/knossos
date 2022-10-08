@@ -674,15 +674,13 @@
           />
           <span v-if="mode === 'edit' || mode === 'create'">
             {{ $t('project.version.edit.files.upload.description') }}
-            <p
-              v-if="project.project_type.toLowerCase() === 'modpack'"
-              :aria-label="
-                $t('project.version.edit.modpacks-support-notice.aria-label')
-              "
-            >
+            <p v-if="project.project_type.toLowerCase() === 'modpack'">
               <IntlFormatted
                 message-id="project.version.edit.modpacks-support-notice.message"
               >
+                <template #sr-only="{ children }">
+                  <div class="sr-only"><Fragment :of="children" /></div>
+                </template>
                 <template
                   v-for="(value, key) in {
                     doc: 'https://docs.modrinth.com/docs/modpacks/creating_modpacks/',

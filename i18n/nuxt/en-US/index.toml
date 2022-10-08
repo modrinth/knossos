@@ -568,8 +568,9 @@ prompt = "Choose files or drag them here"
 description = "You may upload multiple files, but this should only be used for cases like sources or Javadocs."
 
 [project.version.edit.modpacks-support-notice]
-aria-label = "Warning"
-message = "Modpack support is currently in alpha, and you may encounter issues. Our documentation includes instructions on <doc-link>creating modpacks</doc-link>. Join us on <discord-link>Discord</discord-link> for support."
+message = """\
+<sr-only>Warning:</sr-only>
+Modpack support is currently in alpha, and you may encounter issues. Our documentation includes instructions on <doc-link>creating modpacks</doc-link>. Join us on <discord-link>Discord</discord-link> for support."""
 
 [project.version.create]
 title = "Create version"
@@ -826,10 +827,9 @@ title = "Licenses"
 placeholder = "Choose licenses..."
 
 [search.notice]
-modpacks-alpha = "Modpack support is currently in alpha, and you may encounter issues. Our documentation includes instructions on <doc-play-link>playing modpacks</doc-play-link> with <atl-link>ATLauncher</atl-link>, <mmc-link>MultiMC</mmc-link>, and <pmc-link>PolyMC</pmc-link>. Pack creators can reference our documentation on <doc-create-link>creating modpacks</doc-create-link>. Join us on <discord-link>Discord</discord-link> for support."
-
-[search.notice.type]
-warning = "Warning"
+modpacks-alpha = """\
+<sr-only>Warning:</sr-only>
+Modpack support is currently in alpha, and you may encounter issues. Our documentation includes instructions on <doc-play-link>playing modpacks</doc-play-link> with <atl-link>ATLauncher</atl-link>, <mmc-link>MultiMC</mmc-link>, and <pmc-link>PolyMC</pmc-link>. Pack creators can reference our documentation on <doc-create-link>creating modpacks</doc-create-link>. Join us on <discord-link>Discord</discord-link> for support."""
 
 [search.controls.search-field]
 label = "Search"

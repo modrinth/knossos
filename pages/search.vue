@@ -231,12 +231,11 @@
       </section>
     </aside>
     <section class="normal-page__content">
-      <div
-        v-if="projectType.id === 'modpack'"
-        class="card warning"
-        :aria-label="$t('search.notice.type.warning')"
-      >
+      <div v-if="projectType.id === 'modpack'" class="card warning">
         <IntlFormatted message-id="search.notice.modpacks-alpha">
+          <template #sr-only="{ children }">
+            <div class="sr-only"><Fragment :of="children" /></div>
+          </template>
           <template
             v-for="(value, key) in {
               'doc-play':
