@@ -518,10 +518,6 @@ export default {
         }
 
         importedData[resourceName] = importPath
-
-        console.log(
-          `[knossos-i18n] Additional resource for "${code}": ${resourceName}`
-        )
       }
 
       if (file == null) {
@@ -540,10 +536,6 @@ export default {
             require.resolve(
               `@formatjs/intl-numberformat/locale-data/${nfLocaleMatch}.js`
             )
-          )
-
-          console.log(
-            `[knossos-i18n] Found Intl.NumberFormat data for "${code}": ${nfLocaleMatch}`
           )
         }
       }
