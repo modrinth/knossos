@@ -395,7 +395,7 @@
             <a
               v-tooltip="
                 ((primary) =>
-                  $t('project.versions.download.tooltip', {
+                  $t('generic.format.file-and-size', {
                     fileName: primary.filename,
                     size: $formatBytes(primary.size),
                   }))(findPrimary(version))

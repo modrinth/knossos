@@ -152,6 +152,9 @@ save = "Save"
 save-changes = "Save changes"
 unfollow = "Unfollow"
 
+[generic.format]
+file-and-size = "{fileName} ({size})"
+
 [generic.name]
 username = "Username"
 
@@ -656,9 +659,6 @@ create = "Create a version"
 version = "Version"
 supports = "Supports"
 stats = "Stats"
-
-[project.versions.download]
-tooltip = "{fileName} ({size})"
 
 [project.versions.meta]
 title = "{project} - Versions"

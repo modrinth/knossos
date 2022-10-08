@@ -33,7 +33,7 @@
             <td>
               <a
                 v-tooltip="
-                  $t('project.versions.download.tooltip', {
+                  $t('generic.format.file-and-size', {
                     fileName: $parent.findPrimary(version).filename,
                     size: $formatBytes($parent.findPrimary(version).size),
                   })
