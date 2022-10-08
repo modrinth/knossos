@@ -251,10 +251,10 @@
         <div v-if="showKnownErrors" class="known-errors">
           <ul>
             <li v-if="project.body === ''">
-              {{ $t('project-page.submit-errors.no-body') }}
+              {{ $t('project.submit-error.no-body') }}
             </li>
             <li v-if="project.versions.length < 1">
-              {{ $t('project-page.submit-errors.no-versions') }}
+              {{ $t('project.submit-error.no-versions') }}
             </li>
           </ul>
         </div>

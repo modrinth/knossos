@@ -331,8 +331,6 @@ reset-icon = "Reset"
 no-title = "Your project must have a name."
 no-description = "Your project must have a summary."
 no-slug = "Your project must have a vanity URL."
-no-body = "Your project must have a body to submit for review."
-no-versions = "Your project must have at least one version to submit for review."
 no-license = "Your project must have a license."
 
 [project.edit.name]
@@ -672,6 +670,10 @@ followers = "{followers, plural, one {{counter} follower} other {{counter} follo
 created = "{projectType, select, other {Created {ago}}}"
 updated = "{projectType, select, other {Updated {ago}}}"
 
+[project.submit-error]
+no-body = "Your project must have a body to submit for review."
+no-versions = "Your project must have at least one version to submit for review."
+
 [project-status]
 approved = "Approved"
 rejected = "Rejected"
@@ -697,10 +699,6 @@ description = "Your project is currently:"
 [project-page.status.messages]
 processing = "Your project is currently not viewable by people who are not part of your team. Please wait for our moderators to manually review your project to see if it abides by our <rules-link>content rules</rules-link>!"
 draft = "Your project is currently not viewable by people who are not part of your team. If your project is ready for review, click the button below to make your mod public!"
-
-[project-page.submit-errors]
-no-body = "Your project must have a body to submit for review."
-no-versions = "Your project must have at least one version to submit for review."
 
 [project-page.notice]
 no-resubmit = "Do not resubmit for review until you've addressed the moderator message!"

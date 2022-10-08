@@ -43,10 +43,10 @@
             {{ $t('project.edit.error.no-slug') }}
           </li>
           <li v-if="!savingAsDraft && newProject.body === ''">
-            {{ $t('project.edit.error.no-body') }}
+            {{ $t('project.submit-error.no-body') }}
           </li>
           <li v-if="!savingAsDraft && project.versions.length < 1">
-            {{ $t('project.edit.error.no-versions') }}
+            {{ $t('project.submit-error.no-versions') }}
           </li>
           <li
             v-if="
