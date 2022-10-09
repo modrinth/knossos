@@ -521,7 +521,7 @@ export default {
       }
 
       if (file == null) {
-        throw new Error(`Locale directory missing source file: ${localeDir}`)
+        throw new Error(`Locale directory is missing source file: ${localeDir}`)
       }
 
       {
