@@ -280,6 +280,9 @@ export default {
         include: path.resolve(__dirname, 'i18n'),
         loader: messageLoader,
       })
+
+      config.resolve.alias['@formatjs/icu-messageformat-parser'] =
+        '@formatjs/icu-messageformat-parser/no-parser'
     },
   },
   loading: {
