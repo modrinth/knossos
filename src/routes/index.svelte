@@ -174,7 +174,7 @@
 			</Button>
 		</div>
 
-		<pre><code class="hljs language-js"
+		<pre class="hljs-wrapper"><code class="hljs language-js"
 				><span class="hljs-keyword">const</span> response = <span class="hljs-keyword"
 					>await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string"
 					>'https://api.modrinth.com/v2/search'</span
@@ -410,5 +410,12 @@
 		pre {
 			font-size: 14px;
 		}
+
+        pre.hljs-wrapper {
+            display: block;
+            padding: 16px;
+            border-radius: 16px;
+            background: #0d1117;
+        }
 	}
 </style>
