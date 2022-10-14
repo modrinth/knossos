@@ -5,7 +5,7 @@
   "plugins": ["prettier-plugin-jsdoc"],
   "overrides": [
     {
-      "files": ["i18n/nuxt/**.html"],
+      "files": ["i18n/*/*.html"],
       "options": {
         "proseWrap": "never",
         "htmlWhitespaceSensitivity": "strict",

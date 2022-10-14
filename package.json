@@ -43,6 +43,7 @@
     "@nuxtjs/eslint-config": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/svg": "^0.1.12",
+    "@types/loader-utils": "^2.0.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
@@ -50,6 +51,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "flat": "^5.0.2",
     "glob": "^8.0.3",
+    "loader-utils": "^2.0.2",
     "prettier": "^2.2.1",
     "prettier-plugin-jsdoc": "^0.4.2",
     "sass-loader": "^10.1.1"

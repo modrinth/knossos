@@ -1,6 +1,13 @@
 // @ts-check
 
 const parser = require('@formatjs/icu-messageformat-parser')
+const { getOptions } = require('loader-utils')
+
+/**
+ * @typedef {object} MessageLoaderOptions
+ * @property {boolean} [trim=true] Whether to trim the message. Default is
+ *   `true`. Default is `true`
+ */
 
 /**
  * Loads text file contents, parses it as ICU Message Format AST and emits it as
@@ -18,6 +25,13 @@ function MessageASTLoader(source) {
   } else {
     text = source
   }
+
+  // Actually webpack recommends that we validate schema and sum, but since its
+  // our own module we'll just let it slide, hoping that no one will pass
+  // invalid options... :clueless:
+  const { trim = true } = getOptions(this)
+
+  if (trim) text = text.trim()
 
   return `export default ${JSON.stringify(parser.parse(text))}`
 }
