@@ -58,15 +58,46 @@ export default async function (context) {
   const { app } = context
 
   /**
-   * All tracked registrations of locale imports to know at runtime.
-   *
-   * @type {LocaleDescriptor[]}
+   * @private
+   * @typedef {Record<string, any>} ImportData
    */
-  const availableLocales = []
+
+  /**
+   * @typedef {object} Settings
+   * @property {LocaleDescriptor[]} availableLocales An array of available
+   *   locales.
+   * @property {boolean} isAuto Whether the current locale is driven by the
+   *   browser's preferences.
+   * @property {ImportData} importData Import data for the current locale.
+   * @property {ImportData} defaultImportData Import data for the default
+   *   locale.
+   */
+
+  const settings = new Vue({
+    /** @returns {Settings} */
+    data() {
+      return {
+        availableLocales: [],
+        isAuto: false,
+        defaultImportData: Object.create(null),
+        importData: Object.create(null),
+      }
+    },
+    computed: {
+      /** @returns {ImportData} */
+      mergedImportData() {
+        return Object.assign(
+          Object.create(null),
+          this.defaultImportData,
+          this.importData
+        )
+      },
+    },
+  })
 
   {
     for (const code in localesDefinitions) {
-      availableLocales.push({
+      settings.availableLocales.push({
         code,
         data: localesDefinitions[code].data,
       })
@@ -235,6 +266,7 @@ export default async function (context) {
    * @returns {DetectedLocale} Detected locale to use.
    */
   function detectLocale(restore = true) {
+    const { availableLocales } = settings
     const availableLocaleCodes = availableLocales.map((it) => it.code)
 
     /** @type {null | string | (string | null)[]} */
@@ -309,44 +341,6 @@ export default async function (context) {
   }
 
   /**
-   * @private
-   * @typedef {Record<string, any>} ImportData
-   */
-
-  /**
-   * Import data for the default locale.
-   *
-   * Must be initialised only once on boot and never changed after.
-   *
-   * @type {ImportData}
-   */
-  let defaultImportData = Object.create(null)
-
-  /**
-   * Current import data. Do not change manually, use {@link setImportData}!
-   *
-   * @type {ImportData}
-   */
-  let importedData = Object.create(null)
-
-  /**
-   * Generates mix of imported data from the original locale and new locale.
-   * Used to fill in the gaps left by missing data.
-   *
-   * @param {ImportData} newData New data that was just imported.
-   */
-  function setImportData(newData) {
-    importedData = Object.assign(
-      Object.create(null),
-      defaultImportData,
-      newData
-    )
-  }
-
-  /** Whether the current locale is driven by the browser's preferences. */
-  let isAuto = false
-
-  /**
    * @param {string} locale BCP47 locale code of new locale or `'auto'` to use
    *   browser locale.
    * @param {boolean} save Whether to save the locale to all means of storage
@@ -366,9 +360,10 @@ export default async function (context) {
 
     this.initWith(normalizedLocale, localeImport.messages)
 
-    setImportData(localeImport.importedData)
+    settings.importData = localeImport.importedData
 
-    isAuto = locale === 'auto'
+    const isAuto = locale === 'auto'
+    settings.isAuto = isAuto
 
     if (save) {
       setLocaleCookie(isAuto ? null : locale)
@@ -393,7 +388,7 @@ export default async function (context) {
       availableLocales: {
         configurable: true,
         get() {
-          return availableLocales
+          return settings.availableLocales
         },
       },
       changeLocale: {
@@ -405,13 +400,13 @@ export default async function (context) {
       automatic: {
         configurable: true,
         get() {
-          return isAuto
+          return settings.isAuto
         },
       },
       data: {
         configurable: true,
         get() {
-          return importedData
+          return settings.mergedImportData
         },
       },
     })
@@ -433,7 +428,7 @@ export default async function (context) {
 
   if (process.client) {
     window.addEventListener('languagechange', () => {
-      if (isAuto) {
+      if (settings.isAuto) {
         controller.changeLocale('auto').then(
           () => {},
           (err) => {
@@ -454,14 +449,17 @@ export default async function (context) {
 
     controller.addLocaleData(defaultLocale, localeImport.messages)
 
-    defaultImportData = localeImport.importedData
+    settings.defaultImportData = localeImport.importedData
   }
 
   {
     const { locale: detectedLocale, source: detectionSource } = detectLocale()
     await controller.changeLocale(detectedLocale, false)
 
-    isAuto = detectionSource === 'navigator' || detectionSource === 'default'
+    const isAuto =
+      detectionSource === 'navigator' || detectionSource === 'default'
+
+    settings.isAuto = isAuto
 
     if (context.isDev) {
       console.log('[knossos-i18n] setup completed', {
