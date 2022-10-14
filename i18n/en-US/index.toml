@@ -912,6 +912,13 @@ description = "Change the language used on the site."
 [settings.language.value]
 auto = "Sync with browser"
 
+[settings.language-notice]
+content = """\
+<sr-only>Note:</sr-only> Modrinth is translated to \
+<lang>{languageName}</lang> by volunteers. <crowdin-link>You can \
+contribute!</crowdin-link>
+"""
+
 [settings.right-search-sidebar]
 title = "Search sidebar on the right"
 description = "Enabling this will put the search page's filters sidebar on the right side."

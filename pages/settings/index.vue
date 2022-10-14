@@ -81,30 +81,9 @@
           <span>{{ $t('settings.language.description') }}</span>
         </span>
         <Multiselect
-          :value="
-            $i18n.automatic
-              ? 'auto'
-              : $i18n.availableLocales.find((it) => it.code === $i18n.locale)
-          "
+          :value="activeLocale"
           :options="['auto', ...$i18n.availableLocales]"
-          :custom-label="
-            (locale) => {
-              if (locale === 'auto') {
-                return $t('settings.language.value.auto')
-              }
-
-              const customName =
-                locale.data != null ? locale.data.customLocaleName : null
-
-              if (customName == null) {
-                return new Intl.DisplayNames(locale.code, {
-                  type: 'language',
-                }).of(locale.code)
-              }
-
-              return customName
-            }
-          "
+          :custom-label="localeDisplayName"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
@@ -115,6 +94,24 @@
           "
         />
       </label>
+      <div class="language-notice" v-if="$i18n.locale !== $i18n.defaultLocale">
+        <IntlFormatted
+          message-id="settings.language-notice.content"
+          :values="{ languageName: localeDisplayName(activeLocale) }"
+        >
+          <template #sr-only="{ children }">
+            <span class="sr-only"><Fragment :of="children" /></span>
+          </template>
+          <template #crowdin-link="{ children }">
+            <a href="https://crowdin.com/project/modrinth">
+              <Fragment :of="children" />
+            </a>
+          </template>
+          <template #lang="{ children }">
+            <strong><Fragment :of="children" /></strong>
+          </template>
+        </IntlFormatted>
+      </div>
       <label>
         <span>
           <h3>{{ $t('settings.right-search-sidebar.title') }}</h3>
@@ -233,6 +230,19 @@ export default {
       }),
     }
   },
+  computed: {
+    activeLocale() {
+      if (this.$i18n.automatic) {
+        return 'auto'
+      }
+
+      const activeLocaleCode = this.$i18n.locale
+
+      return this.$i18n.availableLocales.find(
+        (it) => it.code === activeLocaleCode
+      )
+    },
+  },
   methods: {
     async changeLayout() {
       await this.$store.dispatch('cosmetics/save', {
@@ -281,6 +291,22 @@ export default {
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
     },
+    localeDisplayName(locale) {
+      if (locale === 'auto') {
+        return this.$t('settings.language.value.auto')
+      }
+
+      const customName =
+        locale.data != null ? locale.data.customLocaleName : null
+
+      if (customName == null) {
+        return new Intl.DisplayNames(locale.code, {
+          type: 'language',
+        }).of(locale.code)
+      }
+
+      return customName
+    },
   },
 }
 </script>
@@ -303,6 +329,32 @@ export default {
   .button-group {
     width: fit-content;
     margin-left: auto;
+  }
+}
+
+.language-notice {
+  padding: var(--spacing-card-bg);
+  background: #cce4ff;
+  box-shadow: var(--shadow-raised), var(--shadow-inset);
+  border-radius: var(--size-rounded-card);
+  margin-bottom: var(--spacing-card-md);
+  margin-top: var(--spacing-card-md);
+
+  .dark-mode & {
+    background: #2a4a6f;
+    color: var(--color-text-dark);
+  }
+
+  a {
+    color: #005fcc;
+
+    .dark-mode & {
+      color: #b8d7f9;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 </style>
