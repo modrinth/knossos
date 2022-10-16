@@ -1,4 +1,4 @@
-// @ts-chick
+// @ts-check
 
 import { IntlError, IntlErrorCode } from '@formatjs/intl'
 
@@ -25,7 +25,7 @@ const intervals = [
   { ge: DAY, divisor: DAY, unit: 'day' },
   { ge: HOUR, divisor: HOUR, unit: 'hour' },
   { ge: MINUTE, divisor: MINUTE, unit: 'minute' },
-  { ge: 0, divisor: SECOND, unit: 'seconds' },
+  { ge: 0, divisor: SECOND, unit: 'second' },
 ]
 
 /**
@@ -92,10 +92,10 @@ function toTimestamp(convertable) {
  */
 export function formatTimeDifference(format, range, options) {
   /** @type {number} */
-  let from = null
+  let from
 
   /** @type {number} */
-  let to = null
+  let to
 
   if (Array.isArray(range)) {
     if (range.length <= 0 || range.length > 2) {
@@ -107,8 +107,10 @@ export function formatTimeDifference(format, range, options) {
 
     from = toTimestamp(range[0])
 
-    if (range.length > 1) {
+    if (range.length > 1 && range[1] != null) {
       to = toTimestamp(range[1])
+    } else {
+      to = toTimestamp(new Date())
     }
   } else {
     from = toTimestamp(range)
