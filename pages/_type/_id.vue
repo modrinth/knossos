@@ -583,7 +583,6 @@
                   docs: 'https://docs.modrinth.com/docs/modpacks/playing_modpacks/',
                   atl: 'https://atlauncher.com/about',
                   mmc: 'https://multimc.org/',
-                  pmc: 'https://polymc.org/',
                 }"
                 #[`${key}-link`]="{ children }"
               >
