@@ -242,6 +242,7 @@
                 'https://docs.modrinth.com/docs/modpacks/playing_modpacks/',
               atl: 'https://atlauncher.com/about',
               mmc: 'https://multimc.org/',
+              pl: 'https://prismlauncher.org/',
               'doc-create':
                 'https://docs.modrinth.com/docs/modpacks/creating_modpacks/',
               discord: 'https://discord.gg/EUHuJHt',
