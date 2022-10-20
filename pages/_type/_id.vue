@@ -509,7 +509,9 @@
               >ATLauncher</a
             >
             , <a href="https://multimc.org/" target="_blank">MultiMC</a>
-            and <a href="https://prismlauncher.org">Prism Launcher</a>.
+            and <a href="https://prismlauncher.org" target="_blank"
+              >Prism Launcher</a
+            >.
           </div>
           <Advertisement
             v-if="
