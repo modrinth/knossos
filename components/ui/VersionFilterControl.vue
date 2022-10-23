@@ -95,7 +95,23 @@ export default {
       selectedLoaders: [],
     }
   },
+  mounted() {
+    this.selectedLoaders = this.getQueryAsArray(this.$route.query.loaders)
+    this.selectedGameVersions = this.getQueryAsArray(
+      this.$route.query.gameVersions
+    )
+    this.updateVersionFilters()
+  },
   methods: {
+    getQueryAsArray(query) {
+      if (Array.isArray(query)) {
+        return query
+      } else if (typeof query === 'string') {
+        return query.split(',')
+      } else {
+        return []
+      }
+    },
     getValidVersions() {
       if (!this.cachedValidVersions) {
         this.cachedValidVersions = this.$tag.gameVersions.filter((gameVer) =>
@@ -120,6 +136,7 @@ export default {
       return this.cachedValidLoaders
     },
     updateVersionFilters() {
+      this.validateFilters()
       const temp = this.versions.filter(
         (projectVersion) =>
           (this.selectedGameVersions.length === 0 ||
@@ -131,7 +148,35 @@ export default {
               projectVersion.loaders.includes(loader)
             ))
       )
+      this.updateQuery()
       this.$emit('updateVersions', temp)
+    },
+    validateFilters() {
+      this.selectedLoaders = this.selectedLoaders.filter((loader) =>
+        this.getValidLoaders().includes(loader)
+      )
+      this.selectedGameVersions = this.selectedGameVersions.filter((version) =>
+        this.getValidVersions().some(
+          (validVersion) => validVersion.version === version
+        )
+      )
+    },
+    updateQuery() {
+      this.$router
+        .replace({
+          query: {
+            ...this.$route.query,
+            loaders: this.getAsQuery(this.selectedLoaders),
+            gameVersions: this.getAsQuery(this.selectedGameVersions),
+          },
+        })
+        .catch(() => {})
+    },
+    getAsQuery(elements) {
+      if (elements.length === 0) {
+        return undefined
+      }
+      return elements.join(',')
     },
   },
 }
