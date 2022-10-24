@@ -95,11 +95,17 @@ export default {
       selectedLoaders: [],
     }
   },
+  watch: {
+    showSnapshots() {
+      this.updateQuery()
+    },
+  },
   mounted() {
     this.selectedLoaders = this.getQueryAsArray(this.$route.query.loaders)
     this.selectedGameVersions = this.getQueryAsArray(
       this.$route.query.gameVersions
     )
+    this.showSnapshots = this.$route.query.showSnapshots === 'true'
     this.updateVersionFilters()
   },
   methods: {
@@ -168,6 +174,7 @@ export default {
             ...this.$route.query,
             loaders: this.getAsQuery(this.selectedLoaders),
             gameVersions: this.getAsQuery(this.selectedGameVersions),
+            showSnapshots: this.showSnapshots ? true : undefined,
           },
         })
         .catch(() => {})
