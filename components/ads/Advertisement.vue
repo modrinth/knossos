@@ -42,7 +42,7 @@
       <script
         async
         src="https://media.ethicalads.io/media/client/ethicalads.min.js"
-        @error="onBlocked"
+        @error="isBlocked = true"
       />
     </client-only>
   </div>
@@ -56,19 +56,17 @@ export default {
       isBlocked: false,
     }
   },
-  methods: {
-    onBlocked() {
-      this.isBlocked = true
-      console.log('meaenie :(')
-    },
-  },
 }
 </script>
 
 <style lang="scss">
 .content-wrapper {
-  min-height: 52.2px;
+  min-height: 46.2px;
   margin-bottom: var(--spacing-card-md);
+
+  background: var(--color-ad) !important;
+  border: 3px solid var(--color-ad-raised) !important;
+  border-radius: var(--size-rounded-card) !important;
 }
 
 .loaded {
@@ -77,18 +75,20 @@ export default {
 
 .ea-content {
   color: var(--color-text) !important;
-  background: var(--color-ad) !important;
-  border: 3px solid var(--color-ad-raised) !important;
+
+  box-shadow: none !important;
+  background: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+
   padding: 1em;
   text-align: left;
-  border-radius: var(--size-rounded-card) !important;
-  margin: 0 !important;
 }
 
 .ea-callout {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: -2px;
+  right: -2px;
   text-align: center;
   font-weight: 600;
   text-transform: uppercase;
