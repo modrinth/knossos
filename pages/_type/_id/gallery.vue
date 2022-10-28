@@ -91,7 +91,7 @@
         Save changes
       </button>
       <button
-        class="iconified-button"
+        class="brand-button iconified-button"
         @click="
           newGalleryItems.push({
             title: '',
