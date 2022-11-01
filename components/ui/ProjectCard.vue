@@ -128,16 +128,18 @@
         <div class="date">
           <CalendarIcon aria-hidden="true" />
           {{
-            $t('component.project-card.created', {
+            $t('project.stats.created', {
               ago: $fmt.timeDifference(createdAt),
+              projectType: safeProjectType,
             })
           }}
         </div>
         <div class="date">
           <EditIcon aria-hidden="true" />
           {{
-            $t('component.project-card.updated', {
+            $t('project.stats.updated', {
               ago: $fmt.timeDifference(updatedAt),
+              projectType: safeProjectType,
             })
           }}
         </div>
