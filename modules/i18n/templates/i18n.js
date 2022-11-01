@@ -1,7 +1,6 @@
 // @ts-check
 
 import { createIntl, createIntlCache } from '@formatjs/intl'
-import merge from 'lodash/merge'
 import Vue from 'vue'
 import { formatCompactNumber } from './compactNumber'
 import { formatCustomMessage } from './customMessage'
@@ -73,7 +72,7 @@ export class IntlController {
         messages:
           locale === this._defaultLocale
             ? locales[locale]
-            : merge(
+            : Object.assign(
                 Object.create(null),
                 locales[this._defaultLocale],
                 locales[locale]
