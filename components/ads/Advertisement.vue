@@ -19,11 +19,11 @@
               rel="nofollow noopener"
               target="_blank"
             >
-              <span>
-                Please disable your adblocker. Advertisements support this site
-                and its creators.
-              </span>
-              <strong>View instructions here!</strong>
+              <IntlFormatted message-id="ads.blocked-message">
+                <template #doc-link="{ children }">
+                  <strong><Fragment :of="children" /></strong>
+                </template>
+              </IntlFormatted>
             </a>
           </div>
         </div>
@@ -33,7 +33,7 @@
             target="_blank"
             href="https://ethicalads.io?ref=ea-text"
           >
-            Ad by EthicalAds
+            <IntlFormatted message-id="ads.provider" />
           </a>
         </div>
       </div>

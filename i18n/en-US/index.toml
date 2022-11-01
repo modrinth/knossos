@@ -1,3 +1,8 @@
+[ads]
+blocked-message = """Please disable your adblocker. Advertisements support \
+this site and its creators. <doc-link>View instructions here!</doc-link>"""
+provider = "Ads by EthicalAds"
+
 [category]
 128x = "128x"
 16x = "16x"
