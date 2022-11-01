@@ -14,9 +14,7 @@
   let importMapDefinitionBlock = ''
 
   for (const locale of opts.locales) {
-    const localeFilePath = JSON.stringify(
-      '../' + relativeToBuild(opts.localesDir, locale.file)
-    )
+    const localeFilePath = JSON.stringify(locale.file)
 
     const localeHash = hash(locale.file)
 

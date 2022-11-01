@@ -53,7 +53,6 @@ import merge from 'lodash/merge'
 /**
  * @typedef {object} Options
  * @property {string} defaultLocale BCP47 code of the locale to use by default.
- * @property {string} localesDir Directory containing locale descriptor files.
  * @property {string | null} [baseURL=null] Base URL (domain of the site).
  *   Default is `null`. If not set, head meta tags won't generate. Default is
  *   `null`. Default is `null`
@@ -72,7 +71,6 @@ const defaultOptions = {
       importedData: {},
     },
   ],
-  localesDir: 'i18n',
 }
 
 /**
