@@ -22,6 +22,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.9.1",
+    "esm": "^3.2.25",
     "highlight.js": "^10.3.2",
     "lodash": "^4.17.21",
     "markdown-it": "^13.0.1",
