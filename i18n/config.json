@@ -1,0 +1,31 @@
+{
+  "_comment": "This file is generated automatically. Use `bin/i18n-config-gen.mjs` script to re-generate it.",
+  "defaultLocale": "en-US",
+  "locales": [
+    {
+      "code": "en-US",
+      "file": "~/i18n/en-US/index.toml",
+      "additionalImports": [
+        "@formatjs/intl-numberformat/locale-data/en.js"
+      ],
+      "data": {
+        "customLocaleName": "American English"
+      },
+      "importedData": {
+        "revoke-token.html": "~/i18n/en-US/revoke-token.html",
+        "starter.md": "~/i18n/en-US/starter.md"
+      }
+    },
+    {
+      "code": "ru",
+      "file": "~/i18n/ru/index.toml",
+      "additionalImports": [
+        "@formatjs/intl-numberformat/locale-data/ru.js"
+      ],
+      "data": {
+        "customLocaleName": "Русский"
+      },
+      "importedData": {}
+    }
+  ]
+}

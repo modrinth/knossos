@@ -1,9 +1,8 @@
-import { promises as fs } from 'fs'
+import fs from 'fs/promises'
 import { sortRoutes } from '@nuxt/utils'
 import path from 'path'
-import { match as localeMatch } from '@formatjs/intl-localematcher'
 import axios from 'axios'
-import glob from 'glob'
+import i18nConfig from './i18n/config.json'
 
 /** @type {import('@nuxt/types').Configuration} */
 export default {
@@ -423,144 +422,7 @@ export default {
     },
   },
   /** @type {import('modules/i18n/index').Options} */
-  i18n: (() => {
-    const defaultLocale = 'en-US'
-    const localesDir = 'i18n'
-
-    // #region Automatic locales gathering
-
-    /** @type {import('modules/i18n/index').LocaleDescriptor[]} */
-    const locales = []
-
-    const availableNFLocales = glob
-      .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
-        nodir: true,
-      })
-      .map((it) => path.basename(it, '.js'))
-
-    for (const localeDir of glob.sync(`${localesDir}/*/`)) {
-      const code = path.basename(localeDir)
-
-      /**
-       * Relative to {@link localesDir} path to locale source file.
-       *
-       * If `null` after iterating through the resources, then an exception must
-       * be thrown.
-       *
-       * @type {string | null}
-       */
-      let file = null
-
-      /**
-       * All additional imports to add with this locale.
-       *
-       * @type {string[] | undefined}
-       */
-      let additionalImports
-
-      /**
-       * Represents custom data associated with the locale.
-       *
-       * @private
-       * @typedef {object} LocaleData
-       * @property {string} [customLocaleName] Custom name for the locale.
-       */
-
-      /**
-       * Custom data associated with the locale.
-       *
-       * @type {LocaleData}
-       */
-      let data = Object.create(null)
-
-      /** @type {import('modules/i18n/index').LocaleDescriptor['importedData']} */
-      let importedData = Object.create(null)
-
-      for (const resourcePath of glob.sync(`${localeDir}/*`)) {
-        const resourceName = path.basename(resourcePath)
-        const resourceBaseName = path.basename(
-          resourcePath,
-          path.extname(resourcePath)
-        )
-        const importPath = require.resolve(path.join(__dirname, resourcePath))
-
-        // All files named 'index' are considered source files.
-        // There must be only one to avoid prioritisation issues.
-        if (resourceBaseName === 'index') {
-          if (file != null) {
-            throw new Error(`Duplicate source file: ${resourcePath}`)
-          }
-
-          file = path.relative(localesDir, resourcePath)
-
-          continue
-        }
-
-        // meta.json is a special file in format similar to Chrome messages
-        // format, but without any placeholders. This file is used to extract
-        // some of the data variables for the locale.
-        if (resourceName === 'meta.json') {
-          /**
-           * @private
-           * @typedef {object} Message
-           * @property {string} message Contents of the message.
-           * @property {string} [comment] Comment for the message.
-           */
-
-          /** @typedef {Record<string, Message | undefined>} MetaFile */
-
-          delete require.cache[importPath] // Clear previous meta on every build.
-
-          const meta = /** @type {MetaFile} */ (require(importPath))
-
-          if (meta.name) {
-            data.customLocaleName = meta.name.message
-          }
-
-          continue
-        }
-
-        importedData[resourceName] = importPath
-      }
-
-      if (file == null) {
-        throw new Error(`Locale directory is missing source file: ${localeDir}`)
-      }
-
-      {
-        const nfLocaleMatch = localeMatch(
-          [code],
-          availableNFLocales,
-          'en-US-x-placeholder'
-        )
-
-        if (nfLocaleMatch !== 'en-US-x-placeholder') {
-          ;(additionalImports ?? (additionalImports = [])).push(
-            require.resolve(
-              `@formatjs/intl-numberformat/locale-data/${nfLocaleMatch}.js`
-            )
-          )
-        }
-      }
-
-      locales.push({
-        code,
-        file,
-        additionalImports,
-        data,
-        importedData,
-      })
-    }
-
-    return {
-      defaultLocale,
-      locales,
-      localesDir,
-      baseURL: getDomain(),
-    }
-
-    // #endregion
-  })(),
+  i18n: Object.assign(i18nConfig, { baseURL: getDomain() }),
 }
 
 function getDomain() {
