@@ -799,6 +799,7 @@ export default {
   flex-direction: row;
   gap: var(--spacing-card-md);
   flex-wrap: wrap;
+  padding: var(--spacing-card-md);
 
   .sort-controls {
     width: 100%;

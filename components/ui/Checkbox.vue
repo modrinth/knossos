@@ -1,6 +1,6 @@
 <template>
   <div
-    class="checkbox-outer"
+    class="checkbox-outer button-within"
     :class="{ disabled }"
     role="presentation"
     @click="toggle"
@@ -71,62 +71,10 @@ export default {
   align-items: center;
   cursor: pointer;
 
-  button {
-    transition: background-color 0.1s ease-in-out;
-  }
-
-  &.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-
-    button {
-      cursor: not-allowed;
-
-      &:active,
-      &:hover,
-      &:focus {
-        background-color: var(--color-button-bg);
-      }
-    }
-  }
-
   p {
     user-select: none;
     padding: 0.2rem 0rem;
     margin: 0;
-  }
-
-  &:focus-visible,
-  &:hover {
-    color: var(--color-heading);
-
-    .checkbox.collapsing svg {
-      color: var(--color-heading);
-    }
-
-    button {
-      background-color: var(--color-button-bg-hover);
-
-      &.checked {
-        background-color: var(--color-brand-hover);
-      }
-    }
-  }
-
-  &:active {
-    color: var(--color-text-dark);
-
-    .checkbox.collapsing svg {
-      color: var(--color-text-dark);
-    }
-
-    button {
-      background-color: var(--color-button-bg-active);
-
-      &.checked {
-        background-color: var(--color-brand-active);
-      }
-    }
   }
 }
 
@@ -145,13 +93,14 @@ export default {
   color: var(--color-button-text);
   background-color: var(--color-button-bg);
   border-radius: var(--size-rounded-control);
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
 
   &.checked {
     background-color: var(--color-brand);
   }
 
   svg {
-    color: var(--color-text-inverted);
+    color: var(--color-brand-inverted);
     stroke-width: 0.2rem;
     height: 0.8rem;
     width: 0.8rem;
@@ -160,6 +109,7 @@ export default {
 
   &.collapsing {
     background-color: transparent !important;
+    box-shadow: none;
 
     svg {
       color: inherit;

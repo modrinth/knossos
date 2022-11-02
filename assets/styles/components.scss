@@ -5,25 +5,25 @@
   display: inline-flex;
   position: relative;
 
-  &:focus-within {
-    svg {
-      color: var(--color-button-text-active) !important;
-    }
+  input {
+    padding-left: 2.25rem;
+    width: 100%;
   }
 
-  input {
-    padding-left: 2rem;
-    width: 100%;
+  &:focus-within svg {
+    color: var(--color-button-text-active);
+    opacity: 1;
   }
 
   svg {
     position: absolute;
-    left: 0.6rem;
-    height: 1rem;
+    left: 0.75rem;
+    height: 1.25rem;
+    width: 1.25rem;
     z-index: 1;
 
-    color: var(--color-text);
-    margin-right: -2rem;
+    color: var(--color-button-text);
+    opacity: 0.6;
   }
 }
 
@@ -149,7 +149,7 @@
   pre {
     margin-top: 1rem;
     padding: 14px;
-    border-radius: var(--size-rounded-control);
+    border-radius: var(--size-rounded-sm);
     background-color: var(--color-code-bg);
     overflow-x: auto;
 
@@ -163,7 +163,7 @@
   code {
     padding: 0.2em 0.4em;
     font-size: 80%;
-    border-radius: var(--size-rounded-control);
+    border-radius: var(--size-rounded-sm);
     background-color: var(--color-code-bg);
     color: var(--color-code-text);
   }
@@ -198,7 +198,7 @@
 
   details {
     border: 0.15rem solid var(--color-button-bg);
-    border-radius: var(--size-rounded-control);
+    border-radius: var(--size-rounded-sm);
     padding: 0.5rem 0.5rem 0;
 
     summary {
@@ -330,29 +330,13 @@
   }
 }
 
-.iconified-button {
-  --text-color: var(--color-button-text);
-  --background-color: var(--color-button-bg);
-
-  display: flex;
-  padding: 0 1rem;
-  margin: 0 0.25rem 0 0;
-  font-size: var(--font-size-nm);
-  align-items: center;
-  cursor: pointer;
-  min-height: 32px;
-  max-height: 32px;
-
-  box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
-
-  color: var(--text-color);
-  background-color: var(--background-color);
-  text-decoration: none;
-  border-radius: 2rem;
-
+.button-base {
+  font-weight: 500;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
   outline 0.2s ease-in-out;
 
+  &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled) {
     filter: brightness(0.85);
   }
@@ -366,8 +350,56 @@
   &[disabled] {
     cursor: not-allowed;
     filter: grayscale(50%);
-    opacity: .5;
+    opacity: 0.5;
+    box-shadow: none;
   }
+}
+
+.button-within {
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
+  outline 0.2s ease-in-out;
+
+  &:focus-visible:not(&:disabled),
+  &:hover:not(&:disabled) {
+    filter: brightness(0.85);
+  }
+
+  &:active:not(&:disabled) {
+    filter: brightness(0.8);
+    button {
+      transform: scale(0.95);
+    }
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    filter: grayscale(50%);
+    opacity: 0.5;
+    box-shadow: none;
+  }
+}
+
+.iconified-button {
+  @extend .button-base;
+
+  --text-color: var(--color-button-text);
+  --background-color: var(--color-button-bg);
+
+  box-sizing: border-box;
+  display: flex;
+  padding: 0 1rem;
+  margin: 0 0.25rem 0 0;
+  font-size: var(--font-size-nm);
+  align-items: center;
+  cursor: pointer;
+  min-height: 32px;
+  max-height: 32px;
+
+  color: var(--text-color);
+  background-color: var(--background-color);
+  text-decoration: none;
+  border-radius: var(--size-rounded-sm);
 
   svg {
     width: 1em;
@@ -385,14 +417,28 @@
   &.transparent {
     background: none;
     box-shadow: none;
-
-    &:hover, &:active, &:disabled {
-      background-color: var(--color-button-bg);
-    }
   }
 
   &.bold-button {
     font-weight: bold;
+  }
+}
+
+.header-button {
+  @extend .iconified-button;
+
+  box-sizing: content-box;
+  min-height: unset;
+  border-radius: var(--size-rounded-max);
+  white-space: nowrap;
+  padding: 0.5rem 0.75rem;
+  max-height: 1.75rem;
+
+  svg {
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 }
 
@@ -414,10 +460,6 @@
 .brand-button {
   --background-color: var(--color-brand);
   --text-color: var(--color-brand-inverted);
-}
-
-.light-brand-button {
-  --background-color: var(--color-brand-light);
 }
 
 .button-group {
@@ -454,12 +496,12 @@
   }
 
   .multiselect__tags {
-    border-radius: 1.25rem;
+    border-radius: var(--size-rounded-sm);
     background: var(--color-dropdown-bg);
     box-shadow: var(--shadow-inset-sm);
     border: none;
     cursor: pointer;
-    padding-left: 1rem;
+    padding-left: 7px;
     padding-top: 10px;
 
     transition: background-color .1s ease-in-out;
@@ -477,7 +519,7 @@
     }
 
     .multiselect__tag {
-      border-radius: 2rem;
+      border-radius: var(--size-rounded-sm);
       color: var(--color-text-dark);
       background: transparent;
       border: 2px solid var(--color-brand);
@@ -492,7 +534,9 @@
     }
 
     .multiselect__placeholder {
-      color: var(--color-text);
+      color: var(--color-button-text);
+      margin-left: 8px;
+      opacity: 0.6;
       font-size: 16px;
       line-height: 20px;
     }
@@ -502,8 +546,8 @@
     background: var(--color-dropdown-bg);
     border: none;
     overflow-x: hidden;
-    border-bottom-left-radius: var(--size-rounded-card);
-    border-bottom-right-radius: var(--size-rounded-card);
+    border-bottom-left-radius: var(--size-rounded-sm);
+    border-bottom-right-radius: var(--size-rounded-sm);
     box-shadow: var(--shadow-inset-sm), var(--shadow-floating);
 
     .multiselect__element {
@@ -610,71 +654,65 @@ label {
 }
 
 .stylized-toggle {
+  @extend .button-base;
+
+  box-sizing: content-box;
   min-height: 32px;
   height: 32px;
   width: 52px;
   max-width: 52px;
-  border-radius: 16px;
+  border-radius: var(--size-rounded-max);
   display: inline-block;
   position: relative;
   margin: 0;
-  border: 2px solid var(--color-button-bg);
   transition: all 0.2s ease;
   background: var(--color-button-bg);
 
   &:after {
     content: '';
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 24px;
-    height: 24px;
+    top: 7px;
+    left: 7px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background: white;
-    box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
+    background: var(--color-toggle-handle);
     transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
   }
 
   &:checked {
     background: var(--color-brand);
-    border: 2px solid var(--color-brand);
 
     &:after {
       transform: translatex(20px);
+      background: var(--color-brand-inverted);
     }
   }
 
   &:hover &:focus {
     background: var(--color-button-bg);
-    border: 2px solid var(--color-button-bg);
   }
 
   &:hover:checked &:focus:checked {
     background: var(--color-brand);
-    border: 2px solid var(--color-brand);
   }
 }
 
 .download-button {
+  @extend .button-base;
+
   display: flex;
   align-items: center;
-  height: 1.75rem;
-  width: 1.75rem;
-  border-radius: 1.5rem;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: var(--size-rounded-sm);
   color: var(--color-brand-inverted);
   background-color: var(--color-brand);
   margin-right: var(--spacing-card-sm);
 
-  &:hover {
-    background-color: var(--color-brand-hover);
-  }
-
-  &:active {
-    background-color: var(--color-brand-active);
-  }
-
   svg {
     width: 1.25rem;
+    height: 1.25rem;
     margin: auto;
   }
 
@@ -730,7 +768,7 @@ label {
 
   margin-bottom: var(--spacing-card-md);
 
-  box-shadow: var(--shadow-raised), var(--shadow-inset);
+  box-shadow: var(--shadow-card);
 
   .card__overlay {
     position: absolute;

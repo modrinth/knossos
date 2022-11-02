@@ -4,7 +4,7 @@
       v-for="item in items"
       :key="item"
       class="iconified-button"
-      :class="{ 'light-brand-button': selected === item }"
+      :class="{ 'brand-button': selected === item }"
       @click="toggleItem(item)"
     >
       <CheckIcon v-if="selected === item" />

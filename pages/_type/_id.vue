@@ -376,7 +376,7 @@
                 ')'
               "
               :href="findPrimary(version).url"
-              class="download"
+              class="download download-button"
               :title="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
             >
@@ -1099,29 +1099,14 @@ export default {
   }
 
   .download {
-    display: flex;
-    align-items: center;
     height: 2.5rem;
     width: 2.5rem;
-    border-radius: 1.5rem;
-    color: var(--color-brand-inverted);
-    background-color: var(--color-brand);
     margin-right: 0.75rem;
-
-    &:hover {
-      background-color: var(--color-brand-hover);
-    }
-
-    &:active {
-      background-color: var(--color-brand-active);
-    }
 
     svg {
       width: 1.5rem;
-      margin: auto;
+      height: 1.5rem;
     }
-
-    flex-shrink: 0;
   }
 
   .info {

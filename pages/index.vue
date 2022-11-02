@@ -240,6 +240,7 @@ export default {
       height: 40rem;
       object-fit: cover;
       object-position: 15% 12.5%;
+      box-shadow: var(--shadow-card);
 
       @media screen and (max-width: 1280px) {
         border-radius: 0;
@@ -279,8 +280,9 @@ export default {
         gap: 0.25rem;
         box-sizing: border-box;
 
-        input {
-          box-sizing: content-box;
+        button {
+          max-height: unset;
+          min-height: 40px;
         }
       }
 

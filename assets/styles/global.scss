@@ -11,7 +11,7 @@ html {
   --color-text-inactive: hsl(215, 14%, 34%);
   --color-text-dark: #1a202c;
   --color-heading: #2c313d;
-  --color-bg: hsl(220, 13%, 91%);
+  --color-bg: #e5e7eb;
   --color-raised-bg: #ffffff;
   --color-divider: hsl(220, 13%, 91%);
   --color-divider-dark: #c8cdd3;
@@ -19,10 +19,8 @@ html {
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
 
-  --color-brand: #30b27b;
-  --color-brand-light: hsl(135, 50%, 78%);
-  --color-brand-hover: #1e9565;
-  --color-brand-active: #177955;
+  --color-brand: #02c051;
+  --color-brand-shadow: rgba(2, 192, 81, 0.7);
   --color-brand-inverted: #ffffff;
 
   --tab-underline-hovered: #e2e8f0;
@@ -33,6 +31,8 @@ html {
   --color-button-text-hover: #1b1e24;
   --color-button-bg-active: #c3c6cb;
   --color-button-text-active: var(--color-button-text-hover);
+
+  --color-toggle-handle: var(--color-icon);
 
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
@@ -51,7 +51,7 @@ html {
   --color-grey-link: var(--color-text);
   --color-grey-link-hover: var(--color-heading);
   --color-grey-link-active: var(--color-text-dark);
-  --color-link: #2089ff;
+  --color-link: #0d60bb;
   --color-link-hover: #1a76e7;
   --color-link-active: #146fd7;
 
@@ -83,9 +83,13 @@ html {
   --shadow-inset-sm: inset 0px -1px 2px hsla(221, 39%, 11%, 0.15);
 
   --shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
-  --shadow-raised: 0px 2px 4px hsla(221, 39%, 11%, 0.1);
+  --shadow-raised: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.15),
+  1px 2px 2.2px -1.7px hsl(var(--shadow-color) / 0.12),
+  4.4px 8.8px 9.7px -3.4px hsl(var(--shadow-color) / 0.09);
   --shadow-floating: hsla(0, 0%, 0%, 0) 0px 0px 0px 0px, hsla(0, 0%, 0%, 0) 0px 0px 0px 0px,
   hsla(0, 0%, 0%, 0.1) 0px 4px 6px -1px, hsla(0, 0%, 0%, 0.1) 0px 2px 4px -1px;
+
+  --shadow-card: rgba(50, 50, 100, 0.1) 0px 2px 4px 0px;
 }
 
 .dark-mode {
@@ -103,9 +107,7 @@ html {
   --color-bg-inverted: var(--color-text);
 
   --color-brand: #1bd96a;
-  --color-brand-light: hsl(155, 54%, 35%);
-  --color-brand-hover: #2de391;
-  --color-brand-active: #55f5ae;
+  --color-brand-shadow: rgba(27, 217, 106, 0.7);
   --color-brand-inverted: #000;
 
   --tab-underline-hovered: #414146;
@@ -116,6 +118,8 @@ html {
   --color-button-text-hover: #ffffff;
   --color-button-bg-active: #616570;
   --color-button-text-active: var(--color-button-text-hover);
+
+  --color-toggle-handle: var(--color-button-text);
 
   --color-dropdown-bg: var(--color-button-bg);
   --color-dropdown-text: var(--color-button-text);
@@ -166,6 +170,8 @@ html {
   --shadow-raised: 0px -2px 4px hsla(221, 39%, 11%, 0.1);
   --shadow-floating: hsla(0, 0%, 0%, 0) 0px 0px 0px 0px, hsla(0, 0%, 0%, 0) 0px 0px 0px 0px,
   hsla(0, 0%, 0%, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+  --shadow-card: rgba(0, 0, 0, 0.25) 0px 2px 4px 0px;
 }
 
 .oled-mode {
@@ -178,11 +184,17 @@ html {
   --color-button-bg-active: #3c3c40;
 }
 
+.midas-mode {
+  @extend .dark-mode;
+  --color-brand: #fac413;
+  --color-brand-shadow: rgba(250, 196, 19, 0.7);
+}
+
 body {
   // Defaults
   background-color: var(--color-bg);
   color: var(--color-text);
-  --font-standard: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Roboto,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  --font-standard: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --mono-font: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
   font-family: var(--font-standard);
   font-size: 16px;
@@ -260,7 +272,7 @@ h3 {
 }
 
 input {
-  border-radius: 2rem;
+  border-radius: var(--size-rounded-sm);
   box-sizing: border-box;
   border: 2px solid transparent;
 }
@@ -274,13 +286,15 @@ textarea {
   background: var(--color-button-bg);
   color: var(--color-text);
   padding: 0.5rem 1rem;
-  border: 2px solid transparent;
+  font-weight: var(--font-weight-medium);
+  border: none;
   outline: none;
   box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
   transition: box-shadow 0.1s ease-in-out;
+  min-height: 40px;
 
   &:focus, &:focus-visible {
-    box-shadow: inset 0 0 0 transparent, 0 0 0 .25rem hsla(155,58%,44%,.7);
+    box-shadow: inset 0 0 0 transparent, 0 0 0 .25rem var(--color-brand-shadow);
     color: var(--color-button-text-active);
   }
 
@@ -289,6 +303,15 @@ textarea {
     opacity: 0.6;
     pointer-events: none;
     cursor: not-allowed;
+  }
+
+  &:focus::placeholder {
+    opacity: 0.8;
+  }
+
+  &::placeholder {
+    color: var(--color-button-text);
+    opacity: 0.6;
   }
 }
 

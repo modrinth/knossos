@@ -1,7 +1,7 @@
 <template>
   <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
     <header class="site-header" role="presentation">
-      <section class="navbar columns" role="navigation">
+      <section class="navbar card columns" role="navigation">
         <section class="skip column" role="presentation">
           <a href="#main">Skip to Main Content</a>
           <a
@@ -133,7 +133,10 @@
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <a :href="authUrl" class="log-in-button">
+                <a
+                  :href="authUrl"
+                  class="log-in-button header-button brand-button"
+                >
                   <GitHubIcon aria-hidden="true" />
                   Sign in with GitHub</a
                 >
@@ -314,7 +317,7 @@
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
       </div>
       <div class="buttons">
-        <button class="iconified-button" @click="changeTheme">
+        <button class="iconified-button raised-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
@@ -534,7 +537,6 @@ export default {
 
     .navbar {
       margin: 0 var(--spacing-card-lg);
-      padding: 0 var(--spacing-card-lg);
       max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
@@ -637,18 +639,18 @@ export default {
           min-width: 6rem;
 
           .control-button {
+            background-color: transparent;
             position: relative;
             display: flex;
-            padding: 0.5rem 0.75rem;
+            padding: 0.5rem 0.5rem;
             margin: 0 1rem 0 0;
-            background-color: var(--color-bg);
             color: var(--color-text);
             border-radius: 2rem;
             transition: filter 0.1s ease-in-out;
 
             svg {
-              height: 1rem;
-              width: 1rem;
+              height: 1.25rem;
+              width: 1.25rem;
             }
 
             &.bubble {
@@ -665,8 +667,11 @@ export default {
             }
 
             &:hover {
-              background-color: var(--color-bg);
-              filter: brightness(0.85);
+              background-color: var(--color-button-bg-hover);
+            }
+
+            &:active {
+              background-color: var(--color-button-bg-active);
             }
           }
 
@@ -783,31 +788,6 @@ export default {
 
           .log-in-button {
             margin: 0 auto;
-
-            display: flex;
-            align-items: center;
-
-            text-align: center;
-            border-radius: var(--size-rounded-max);
-            background-color: var(--color-brand);
-            white-space: nowrap;
-            color: var(--color-brand-inverted);
-            padding: 0.5rem 0.75rem;
-            height: 20px;
-
-            svg {
-              vertical-align: middle;
-              margin-right: 0.5rem;
-            }
-
-            &:hover,
-            &:focus {
-              background-color: var(--color-brand-hover);
-            }
-
-            &:active {
-              background-color: var(--color-brand-active);
-            }
           }
         }
       }
@@ -1089,16 +1069,9 @@ export default {
 
       button,
       a {
-        background-color: var(--color-raised-bg);
-
         margin-bottom: 0.5rem;
         margin-left: auto;
         margin-right: auto;
-
-        &:hover,
-        &:focus-visible {
-          background-color: var(--color-button-bg-hover);
-        }
       }
     }
 

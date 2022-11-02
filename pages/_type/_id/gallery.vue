@@ -592,18 +592,6 @@ export default {
 
   button {
     margin-right: 0.5rem;
-
-    &.brand-button {
-      background-color: var(--color-brand);
-
-      &:hover {
-        background-color: var(--color-brand-hover);
-      }
-
-      &:active {
-        background-color: var(--color-brand-active);
-      }
-    }
   }
 }
 
