@@ -25,8 +25,9 @@ function LocaleTOMLLoader(source) {
 
   const table = TOML.parse(text, { joiner: '\n' })
 
-  /** @type {Record<string, string>} */
-  const flattened = flatten(table, { delimiter: '.' })
+  const flattened = /** @type {Record<string, string>} */ (
+    flatten(table, { delimiter: '.' })
+  )
 
   /** @type {Record<string, parser.MessageFormatElement[]>} */
   const result = Object.create(null)
