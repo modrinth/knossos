@@ -138,7 +138,7 @@
               class="iconified-button"
               @click="$store.dispatch('user/unfollowProject', project)"
             >
-              <FollowingIcon fill="currentColor" aria-hidden="true" />
+              <FollowIcon fill="currentColor" aria-hidden="true" />
               Unfollow
             </button>
           </template>
@@ -604,8 +604,7 @@ import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
 import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import FollowIcon from '~/assets/images/utils/bell.svg?inline'
-import FollowingIcon from '~/assets/images/utils/bell-ring.svg?inline'
+import FollowIcon from '~/assets/images/utils/heart.svg?inline'
 import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
 import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
@@ -642,7 +641,6 @@ export default {
     CodeIcon,
     ReportIcon,
     FollowIcon,
-    FollowingIcon,
     InfoIcon,
     WikiIcon,
     DiscordIcon,

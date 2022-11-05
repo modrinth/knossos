@@ -107,7 +107,7 @@
         </p>
       </div>
       <div v-if="follows" class="stat">
-        <FollowIcon aria-hidden="true" />
+        <HeartIcon aria-hidden="true" />
         <p>
           <strong>{{ $formatNumber(follows) }}</strong> follower<span
             v-if="follows !== '1'"
@@ -158,7 +158,7 @@ import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import EditIcon from '~/assets/images/utils/updated.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import FollowIcon from '~/assets/images/utils/bell-ring.svg?inline'
+import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 
 export default {
@@ -171,7 +171,7 @@ export default {
     CalendarIcon,
     EditIcon,
     DownloadIcon,
-    FollowIcon,
+    HeartIcon,
   },
   props: {
     id: {
