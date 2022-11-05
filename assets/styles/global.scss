@@ -15,6 +15,7 @@ html {
   --color-raised-bg: #ffffff;
   --color-divider: hsl(220, 13%, 91%);
   --color-divider-dark: #c8cdd3;
+  --color-contrast-bg: rgba(255, 255, 255, 0.85);
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);
@@ -146,6 +147,7 @@ html {
   --color-raised-bg: #26292f;
   --color-divider: #474b54;
   --color-divider-dark: #646c75;
+  --color-contrast-bg: rgba(16, 16, 19, 0.75);
 
   --color-text-inverted: var(--color-bg);
   --color-bg-inverted: var(--color-text);

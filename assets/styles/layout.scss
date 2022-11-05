@@ -37,6 +37,17 @@
   }
 }
 
+.stacked-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0 0.75rem;
+
+  .normal-page {
+    padding: 0;
+  }
+}
+
 .normal-page {
   display: grid;
   padding: 0 0.75rem;
@@ -65,6 +76,14 @@
 }
 
 @media (min-width: 1024px) {
+  .stacked-page {
+    margin: 0 auto;
+    max-width: 80rem;
+  }
+  .stacked-page .normal-page {
+    margin: unset;
+  }
+
   .normal-page {
     margin: 0 auto;
     max-width: 80rem;
