@@ -1,81 +1,76 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <div class="content">
+  <div class="normal-page">
+    <div class="normal-page__sidebar">
+      <aside class="card sidebar">
         <h1>Notifications</h1>
-
-        <div class="divider card">
-          <NavRow
-            query="type"
-            :links="[
-              {
-                label: 'all',
-                href: '',
-              },
-              ...notificationTypes.map((x) => {
-                return {
-                  label: NOTIFICATION_TYPES[x],
-                  href: x,
-                }
-              }),
-            ]"
-          />
-          <button
-            class="iconified-button brand-button"
-            @click="clearNotifications"
+        <button
+          class="iconified-button brand-button"
+          @click="clearNotifications"
+        >
+          <ClearIcon />
+          Clear all
+        </button>
+        <NavStack>
+          <h3>Filter by type</h3>
+          <NavStackItem link="" label="All"> </NavStackItem>
+          <NavStackItem
+            v-for="type in notificationTypes"
+            :key="type"
+            :link="'?type=' + type"
+            :label="NOTIFICATION_TYPES[type]"
           >
-            <ClearIcon />
-            Clear all
-          </button>
-        </div>
-        <div class="notifications">
-          <div
-            v-for="notification in $route.query.type !== undefined
-              ? $user.notifications.filter((x) => x.type === $route.query.type)
-              : $user.notifications"
-            :key="notification.id"
-            class="card notification"
-          >
-            <div class="text">
-              <nuxt-link :to="notification.link" class="top">
-                <h3 v-html="$xss($md.render(notification.title))" />
-                <span
-                  v-tooltip="
-                    $dayjs(notification.created).format(
-                      'MMMM D, YYYY [at] h:mm:ss A'
-                    )
-                  "
-                >
-                  Notified {{ $dayjs(notification.created).fromNow() }}</span
-                >
-              </nuxt-link>
-              <p>{{ notification.text }}</p>
-            </div>
-            <div class="buttons">
-              <button
-                v-for="(action, actionIndex) in notification.actions"
-                :key="actionIndex"
-                class="iconified-button"
-                @click="
-                  performAction(notification, notificationIndex, actionIndex)
+          </NavStackItem>
+        </NavStack>
+      </aside>
+    </div>
+    <div class="normal-page__content">
+      <div class="notifications">
+        <div
+          v-for="notification in $route.query.type !== undefined
+            ? $user.notifications.filter((x) => x.type === $route.query.type)
+            : $user.notifications"
+          :key="notification.id"
+          class="card notification"
+        >
+          <div class="text">
+            <nuxt-link :to="notification.link" class="top">
+              <h3 v-html="$xss($md.render(notification.title))" />
+              <span
+                v-tooltip="
+                  $dayjs(notification.created).format(
+                    'MMMM D, YYYY [at] h:mm:ss A'
+                  )
                 "
               >
-                {{ action.title }}
-              </button>
-              <button
-                v-if="notification.actions.length === 0"
-                class="iconified-button"
-                @click="performAction(notification, notificationIndex, null)"
+                Notified {{ $dayjs(notification.created).fromNow() }}</span
               >
-                Dismiss
-              </button>
-            </div>
+            </nuxt-link>
+            <p>{{ notification.text }}</p>
           </div>
-          <div v-if="$user.notifications.length === 0" class="error">
-            <UpToDate class="icon"></UpToDate>
-            <br />
-            <span class="text">You are up-to-date!</span>
+          <div class="buttons">
+            <button
+              v-for="(action, actionIndex) in notification.actions"
+              :key="actionIndex"
+              class="iconified-button"
+              @click="
+                performAction(notification, notificationIndex, actionIndex)
+              "
+            >
+              {{ action.title }}
+            </button>
+            <button
+              v-if="notification.actions.length === 0"
+              class="iconified-button"
+              @click="performAction(notification, notificationIndex, null)"
+            >
+              Dismiss
+            </button>
           </div>
+        </div>
+        <div v-if="$user.notifications.length === 0" class="error">
+          <UpToDate class="icon"></UpToDate>
+          <br />
+          <span class="text">You are up-to-date!</span>
         </div>
       </div>
     </div>
@@ -85,7 +80,8 @@
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import NavRow from '~/components/ui/NavRow'
+import NavStack from '~/components/ui/NavStack'
+import NavStackItem from '~/components/ui/NavStackItem'
 
 const NOTIFICATION_TYPES = {
   team_invite: 'Team invites',
@@ -95,7 +91,8 @@ const NOTIFICATION_TYPES = {
 export default {
   name: 'Notifications',
   components: {
-    NavRow,
+    NavStack,
+    NavStackItem,
     ClearIcon,
     UpToDate,
   },
@@ -176,8 +173,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  color: var(--color-text-dark);
+.sidebar {
+  padding-block: var(--spacing-card-lg);
+
+  h1 {
+    color: var(--color-text-dark);
+    margin: 0 0 var(--spacing-card-sm) 0;
+  }
 }
 
 .divider {

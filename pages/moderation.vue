@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div>
     <Modal ref="modal" header="Moderation Form">
       <div v-if="currentProject !== null" class="moderation-modal">
         <p>
@@ -72,25 +72,23 @@
         </div>
       </div>
     </Modal>
-    <div class="page-contents">
-      <div class="content">
-        <h1>Moderation</h1>
-        <NavRow
-          class="card"
-          query="type"
-          :links="[
-            {
-              label: 'all',
-              href: '',
-            },
-            ...moderationTypes.map((x) => {
-              return {
-                label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
-                href: x,
-              }
-            }),
-          ]"
-        />
+    <div class="normal-page">
+      <div class="normal-page__sidebar">
+        <aside class="card sidebar">
+          <h1>Moderation</h1>
+          <NavStack>
+            <NavStackItem link="" label="All"> </NavStackItem>
+            <NavStackItem
+              v-for="type in moderationTypes"
+              :key="type"
+              :link="'?type=' + type"
+              :label="$formatProjectType(type) + 's'"
+            >
+            </NavStackItem>
+          </NavStack>
+        </aside>
+      </div>
+      <div class="normal-page__content">
         <div class="projects">
           <ProjectCard
             v-for="project in $route.query.type !== undefined
@@ -199,12 +197,14 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import Security from '~/assets/images/illustrations/security.svg?inline'
-import NavRow from '~/components/ui/NavRow'
+import NavStack from '~/components/ui/NavStack'
+import NavStackItem from '~/components/ui/NavStackItem'
 
 export default {
   name: 'Moderation',
   components: {
-    NavRow,
+    NavStack,
+    NavStackItem,
     Chips,
     ProjectCard,
     CheckIcon,
@@ -382,6 +382,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sidebar {
+  padding-block: var(--spacing-card-lg);
+
+  h1 {
+    color: var(--color-text-dark);
+    margin: 0 0 var(--spacing-card-sm) 0;
+  }
+}
+
 .moderation-modal {
   width: auto;
   padding: var(--spacing-card-md) var(--spacing-card-lg);

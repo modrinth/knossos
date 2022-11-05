@@ -1,43 +1,59 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <div class="content">
-        <h1 v-if="$auth.user">Settings for {{ $auth.user.username }}</h1>
-        <h1 v-else>Settings</h1>
-        <NavRow
-          class="card"
-          :links="[
-            {
-              label: 'General',
-              href: '/settings',
-            },
-            {
-              label: 'Followed projects',
-              href: '/settings/follows',
-            },
-          ]"
-        />
-        <NuxtChild />
-      </div>
+  <div class="normal-page">
+    <div class="normal-page__sidebar">
+      <aside class="card sidebar">
+        <h1>Settings</h1>
+        <NavStack>
+          <NavStackItem link="/settings" label="Appearance">
+            <PaintbrushIcon />
+          </NavStackItem>
+          <template v-if="$auth.user">
+            <h3>User settings</h3>
+            <NavStackItem link="/settings/account" label="Account">
+              <UserIcon />
+            </NavStackItem>
+            <NavStackItem link="/settings/follows" label="Followed projects">
+              <RingingBellIcon />
+            </NavStackItem>
+          </template>
+        </NavStack>
+      </aside>
+    </div>
+    <div class="normal-page__content">
+      <NuxtChild />
     </div>
   </div>
 </template>
 
 <script>
-import NavRow from '~/components/ui/NavRow'
+import NavStack from '~/components/ui/NavStack'
+import NavStackItem from '~/components/ui/NavStackItem'
+
+import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
+import UserIcon from '~/assets/images/utils/user.svg?inline'
+import RingingBellIcon from '~/assets/images/utils/bell-ring.svg?inline'
+
 export default {
   name: 'Settings',
-  components: { NavRow },
+  components: {
+    NavStack,
+    NavStackItem,
+    PaintbrushIcon,
+    UserIcon,
+    RingingBellIcon,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.page-contents {
+.sidebar {
   display: flex;
   flex-direction: column;
+  padding-block: var(--spacing-card-lg);
 
   h1 {
     color: var(--color-text-dark);
+    margin: 0 0 var(--spacing-card-sm) 0;
   }
 }
 

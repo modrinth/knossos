@@ -51,7 +51,7 @@ export default {
     await this.$store.dispatch('user/fetchFollows')
   },
   head: {
-    title: 'Followed Projects - Modrinth',
+    title: 'Followed projects - Modrinth',
   },
 }
 </script>
