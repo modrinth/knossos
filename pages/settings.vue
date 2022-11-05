@@ -2,8 +2,8 @@
   <div class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="card sidebar">
-        <h1>Settings</h1>
         <NavStack>
+          <h1>Settings</h1>
           <NavStackItem link="/settings" label="Appearance">
             <PaintbrushIcon />
           </NavStackItem>
@@ -13,7 +13,7 @@
               <UserIcon />
             </NavStackItem>
             <NavStackItem link="/settings/follows" label="Followed projects">
-              <RingingBellIcon />
+              <HeartIcon />
             </NavStackItem>
           </template>
         </NavStack>
@@ -31,7 +31,7 @@ import NavStackItem from '~/components/ui/NavStackItem'
 
 import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
-import RingingBellIcon from '~/assets/images/utils/bell-ring.svg?inline'
+import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 
 export default {
   name: 'Settings',
@@ -40,7 +40,7 @@ export default {
     NavStackItem,
     PaintbrushIcon,
     UserIcon,
-    RingingBellIcon,
+    HeartIcon,
   },
 }
 </script>
