@@ -266,6 +266,7 @@ export default {
   flex-direction: row;
   padding: var(--spacing-card-bg);
   width: calc(100% - 2 * var(--spacing-card-bg));
+  overflow: hidden;
 
   @media screen and (min-width: 1024px) {
     flex-direction: row;
@@ -280,6 +281,7 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-grow: 1;
+    overflow: hidden;
 
     .info {
       display: flex;
@@ -298,11 +300,13 @@ export default {
           overflow-wrap: anywhere;
           color: var(--color-text-dark);
           font-size: var(--font-size-xl);
+          word-wrap: break-word;
         }
 
         .author {
           margin: auto 0 0 0;
           color: var(--color-text);
+          line-break: anywhere;
         }
       }
 
@@ -408,6 +412,10 @@ export default {
       flex-direction: column;
 
       .info {
+        .top {
+          flex-direction: column;
+        }
+
         .dates {
           display: none;
         }
