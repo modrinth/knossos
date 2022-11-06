@@ -192,13 +192,7 @@
       <h3>Icon</h3>
       <Avatar
         size="lg"
-        :src="
-          previewImage
-            ? previewImage
-            : newProject.icon_url && !iconChanged
-            ? newProject.icon_url
-            : null
-        "
+        :src="previewImage ? previewImage : newProject.icon_url"
         alt="preview-image"
       />
       <FileInput
@@ -216,11 +210,11 @@
         @click="
           icon = null
           previewImage = null
-          iconChanged = true
+          iconChanged = false
         "
       >
-        <TrashIcon />
-        Remove
+        <RevertIcon />
+        Revert
       </button>
     </section>
     <section
@@ -494,6 +488,7 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import RevertIcon from '~/assets/images/utils/undo.svg?inline'
 
 import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'
@@ -510,6 +505,7 @@ export default {
     PlusIcon,
     SaveIcon,
     TrashIcon,
+    RevertIcon,
   },
   props: {
     project: {
