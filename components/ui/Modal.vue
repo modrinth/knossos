@@ -18,6 +18,9 @@
       <div class="content">
         <slot></slot>
       </div>
+      <div v-if="$slots.footer != null" class="footer">
+        <slot name="footer"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -84,6 +87,10 @@ export default {
     }
   }
 
+  .content,
+  .footer {
+    background: var(--color-raised-bg);
+  }
   .content {
     background-color: var(--color-raised-bg);
   }

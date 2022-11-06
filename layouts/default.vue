@@ -41,6 +41,14 @@
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
+              <button
+                v-if="$auth.user == null"
+                :title="$t('layout.action.change-language')"
+                @click="showLanguagesModal"
+                class="control-button"
+              >
+                <LanguageIcon aria-hidden="true" />
+              </button>
               <nuxt-link
                 v-if="$auth.user"
                 to="/notifications"
@@ -137,6 +145,12 @@
                     <SunIcon v-else class="icon" />
                     <span class="dropdown-item__text">
                       {{ $t('layout.action.change-theme') }}
+                    </span>
+                  </button>
+                  <button class="item" @click="showLanguagesModal">
+                    <LanguageIcon aria-hidden="true" class="icon" />
+                    <span class="dropdown-item__text">
+                      {{ $t('layout.action.change-language') }}
                     </span>
                   </button>
                   <hr class="divider" />
@@ -285,6 +299,10 @@
                 {{ $t('layout.action.change-theme') }}
               </span>
             </button>
+            <button class="item" @click="showLanguagesModal">
+              <LanguageIcon aria-hidden="true" class="icon" />
+              <span>{{ $t('layout.action.change-language') }}</span>
+            </button>
             <a v-if="!$auth.user" :href="authUrl" class="item log-in">
               <GitHubIcon aria-hidden="true" />
               {{ $t('header.sign-in.lable') }}
@@ -295,6 +313,7 @@
     </header>
     <main>
       <ModalCreation ref="modal_creation" />
+      <ModalLanguages />
       <notifications
         group="main"
         position="bottom right"
@@ -384,6 +403,10 @@
           <SunIcon v-else aria-hidden="true" />
           {{ $t('layout.action.change-theme') }}
         </button>
+        <button class="iconified-button" @click="showLanguagesModal">
+          <LanguageIcon aria-hidden="true" />
+          {{ $t('layout.action.change-language') }}
+        </button>
       </div>
     </footer>
   </div>
@@ -404,6 +427,7 @@ import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
 
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
+import LanguageIcon from '~/assets/images/utils/language.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
@@ -413,13 +437,16 @@ import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
+import ModalLanguages from '~/components/ui/ModalLanguages.vue'
 
 export default {
   components: {
     Avatar,
     ModalCreation,
+    ModalLanguages,
     NavRow,
     ModrinthLogo,
+    LanguageIcon,
     MoonIcon,
     SunIcon,
     LogOutIcon,
@@ -542,6 +569,9 @@ export default {
     changeTheme() {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
+    },
+    showLanguagesModal() {
+      this.$store.dispatch('i18n/toggleLanguageModal', true)
     },
   },
 }

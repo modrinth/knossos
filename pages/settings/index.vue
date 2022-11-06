@@ -81,38 +81,11 @@
           <h3>{{ $t('settings.language.title') }}</h3>
           <span>{{ $t('settings.language.description') }}</span>
         </span>
-        <Multiselect
-          :value="activeLocale"
-          :options="['auto', ...$i18n.availableLocales]"
-          :custom-label="localeDisplayName"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-          @select="
-            (locale) =>
-              $i18n.changeLocale(locale === 'auto' ? locale : locale.code)
-          "
-        />
+        <button class="iconified-button" @click="showLanguageModal">
+          <LanguageIcon aria-hidden="true" />
+          {{ $t('settings.language.action') }}
+        </button>
       </label>
-      <div class="language-notice" v-if="$i18n.locale !== $i18n.defaultLocale">
-        <IntlFormatted
-          message-id="settings.language-notice.content"
-          :values="{ languageName: localeDisplayName(activeLocale) }"
-        >
-          <template #sr-only="{ children }">
-            <span class="sr-only"><Fragment :of="children" /></span>
-          </template>
-          <template #crowdin-link="{ children }">
-            <a href="https://crowdin.com/project/modrinth">
-              <Fragment :of="children" />
-            </a>
-          </template>
-          <template #lang="{ children }">
-            <strong><Fragment :of="children" /></strong>
-          </template>
-        </IntlFormatted>
-      </div>
       <label>
         <span>
           <h3>{{ $t('settings.right-search-sidebar.title') }}</h3>
@@ -212,6 +185,7 @@ export default {
     RightArrowIcon,
     CheckIcon,
     ClipboardCopyIcon,
+    LanguageIcon,
   },
   data() {
     return {
@@ -302,21 +276,8 @@ export default {
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
     },
-    localeDisplayName(locale) {
-      if (locale === 'auto') {
-        return this.$t('settings.language.value.auto')
-      }
-
-      const customName =
-        locale.data != null ? locale.data.customLocaleName : null
-
-      if (customName == null) {
-        return new Intl.DisplayNames(locale.code, {
-          type: 'language',
-        }).of(locale.code)
-      }
-
-      return customName
+    showLanguageModal() {
+      this.$store.dispatch('i18n/toggleLanguageModal', true)
     },
   },
 }
