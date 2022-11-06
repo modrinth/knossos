@@ -1,3 +1,5 @@
+import { LocaleData } from './types'
+
 /** Represents map of messages, keyed by their IDs, with translations as values. */
 export type Messages = Record<string, string>
 
@@ -22,7 +24,7 @@ export interface LocaleDefinition {
   /** Function to import required locale's requirements and own messages. */
   importFunction: LocaleImportFunction
   /** Additional custom data associated with the locale. */
-  data?: unknown
+  data?: LocaleData
 }
 
 /**

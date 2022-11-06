@@ -1,12 +1,14 @@
 // @ts-check
 
+// TODO(Brawaru): backport and refresh this module
+
 import { createIntl, createIntlCache } from '@formatjs/intl'
 import Vue from 'vue'
 import { formatCompactNumber } from './compactNumber'
 import { formatCustomMessage } from './customMessage'
+import { createIntlFormattedComponent } from './IntlFormatted'
 import { formatTimeDifference } from './timeDifferenceFormatter'
 import { hasOwn } from './utils'
-import { isVNode, createTextNode } from './vueUtils'
 
 /**
  * @typedef {object} IntlFormatAliases
@@ -23,21 +25,55 @@ import { isVNode, createTextNode } from './vueUtils'
  * @property {import('./customMessage').CustomMessageFormatter} customMessage
  */
 
+/**
+ * @private
+ * @typedef {import('@formatjs/intl').IntlShape<import('vue').VNode>} IntlShape
+ */
+
 export class IntlController {
   /**
    * @param {string} defaultLocale Locale to use by default, it will be imported
    *   on import.
    */
   constructor(defaultLocale = 'en-US') {
+    /**
+     * Intl cache used to avoid memory leakage and performance.
+     *
+     * @private
+     */
     this._intlCache = createIntlCache()
+
+    /**
+     * Default locale used by this controller.
+     *
+     * @private
+     */
     this._defaultLocale = defaultLocale
-    /** All reactive properties. */
+
+    /**
+     * All reactive properties.
+     *
+     * @private
+     */
     this._vm = new Vue({
+      // TODO: switch to using composition api after upgrading to Vue 2.7
+      props: {},
       data() {
         return {
+          /**
+           * @type {Partial<
+           *   Record<string, import('./i18n.types').MessagesMap>
+           * >}
+           */
           locales: Object.create(null),
+
+          /** @type {IntlShape | null} */
           intl: null,
+
+          /** @type {IntlFormatAliases | null} */
           formats: null,
+
+          /** @type {Intl.Locale | null} */
           intlLocale: null,
         }
       },
@@ -122,7 +158,10 @@ export class IntlController {
     return this.intl.locale
   }
 
-  /** @returns {Record<string, Record<string, string>>} */
+  /**
+   * @private
+   * @returns {Record<string, Record<string, string>>}
+   */
   _getLocales() {
     return this._vm.$data.locales
   }
@@ -220,37 +259,13 @@ export function createRef(initialValue) {
 }
 
 /**
- * @private
- * @typedef {import('@formatjs/intl').IntlFormatters['formatMessage']} MessageFormatter
- */
-
-/**
- * Represents a function that accepts translation ID, as well as values for the
- * placeholders inside the translation (if there are any).
- *
- * @callback TranslateFunction
- * @param {string} descriptor String ID or message descriptor.
- * @param {Parameters<MessageFormatter>[1]} [values] Values for the placeholders
- *   inside the translations.
- * @param {Parameters<MessageFormatter>[2]} [opts]
- * @returns {any} Either formatted string (if all elements were strings) or
- *   array of formatted elements.
- */
-
-/**
- * @callback InjectionFunction
- * @param {'i18n' | 't' | 'fmt'} property
- * @param {unknown} value
- */
-
-/**
  * Creates an injector for any object instance to which Intl helpers need to be
  * injected. All injected properties will be prefixed with dollar sign (`$`),
  * they are added using `Object.defineProperty` and marked as configurable, thus
  * can be re-defined, but not modified.
  *
  * @param {object} target Target to which properties will be injected.
- * @returns {InjectionFunction}
+ * @returns {import('~/modules/i18n/templates/i18n.types').InjectionFunction}
  */
 export function createInjector(target) {
   return (property, value) => {
@@ -267,7 +282,10 @@ export function createInjector(target) {
         break
       }
       case 't': {
-        descriptor.value = /** @type {TranslateFunction} */ (value)
+        descriptor.value =
+          /** @type {import('~/modules/i18n/templates/i18n.types').TranslateFunction} */ (
+            value
+          )
         break
       }
     }
@@ -284,36 +302,37 @@ export function createInjector(target) {
  *   | null} Value
  */
 
-/**
- * @typedef {object} IntlPlugin
- * @property {() => InstanceType<typeof IntlController>} getOrCreateController
- *   This method returns existing controller or initalizes a new one and returns
- *   it.
- * @property {(f: InjectionFunction) => void} inject Calls the callback to
- *   inject all of the helpers. The function will be called for every property:
- *   `i18n` with {@link IntlController}, `t` with {@link TranslateFunction}, `fmt`
- *   with function that returns actual {@link IntlFormatAliases} of
- *   {@link IntlController}.
- */
-
-/** @returns {import('vue').PluginObject<never> & IntlPlugin} */
-export function createIntlPlugin() {
+function createIntlPluginBase() {
   /** @type {InstanceType<typeof IntlController> | null} */
   let controllerInstance = null
 
   return {
+    /** @returns Existing controller or just initialized one. */
     getOrCreateController() {
       if (controllerInstance == null) {
         controllerInstance = new IntlController()
       }
       return controllerInstance
     },
+    /**
+     * Calls the callback to inject all of the helpers. The function will be
+     * called for every property: `i18n` with {@link IntlController}, `t` with
+     * {@link TranslateFunction}, `fmt` with function that returns actual
+     * {@link IntlFormatAliases} of {@link IntlController}.
+     *
+     * @param {import('./i18n.types').InjectionFunction} inject Injection
+     *   function.
+     */
     inject(inject) {
       const controller = this.getOrCreateController()
 
-      /** @type {TranslateFunction} */
-      function translate(id, values, opts) {
-        return controller.intl.formatMessage({ id }, values, opts)
+      /** @type {import('./i18n.types').TranslateFunction} */
+      function translate(descriptor, values, opts) {
+        if (typeof descriptor === 'string') {
+          return controller.intl.formatMessage({ id: descriptor }, values, opts)
+        } else {
+          return controller.intl.formatMessage(descriptor, values, opts)
+        }
       }
 
       function formats$getter() {
@@ -324,178 +343,26 @@ export function createIntlPlugin() {
       inject('t', translate)
       inject('fmt', formats$getter)
     },
+  }
+}
+
+/**
+ * @returns {import('vue').PluginObject<never> &
+ *   ReturnType<typeof createIntlPluginBase>}
+ */
+export function createIntlPlugin() {
+  const base = createIntlPluginBase()
+
+  /** @type {import('vue').PluginObject<never>} */
+  const vuePlugin = {
     install(vue) {
       const controller = this.getOrCreateController()
 
       this.inject(createInjector(vue.prototype))
 
-      vue.component('IntlFormatted', {
-        name: 'IntlFormatted',
-
-        functional: true,
-
-        props: {
-          messageId: {
-            type: String,
-            required: false,
-            default: null,
-          },
-          message: {
-            required: false,
-            default: null,
-            validator(value) {
-              return typeof value === 'string' || Array.isArray(value)
-            },
-          },
-          values: {
-            type: Object,
-            default() {
-              return {}
-            },
-          },
-          tags: {
-            type: Array,
-            required: false,
-            default() {
-              return []
-            },
-            validator(value) {
-              return value.every((x) => typeof x === 'string')
-            },
-          },
-        },
-
-        render(createElement, context) {
-          if (
-            context.props.messageId == null &&
-            context.props.message == null
-          ) {
-            throw new Error(
-              'IntlFormatted cannot be rendered without "message-id" or "message" properties'
-            )
-          }
-
-          /**
-           * @private
-           * @typedef {string | number | import('vue').VNode[] | undefined} _Values
-           */
-
-          /**
-           * @private
-           * @typedef {(chunks: _Values[]) => _Values} _Instantinator
-           */
-
-          /**
-           * Initial values are passed to the slots.
-           *
-           * @type {Record<string, unknown>}
-           */
-          const initialValues = Object.create(null)
-
-          /**
-           * Provided values are values that were automatically provided by the
-           * IntlFormatted component. They are also used to format the message.
-           *
-           * Initial values are to be merged before assigning provided values.
-           *
-           * @type {Record<string, _Values | _Instantinator>}
-           */
-          const values = Object.create(null)
-
-          if (context.props.values != null) {
-            Object.assign(initialValues, context.props.values)
-            Object.assign(values, initialValues)
-          }
-
-          if (Array.isArray(context.props.tags)) {
-            for (const tag of context.props.tags) {
-              /** @type {string} */
-              let key
-
-              /** @type {import('vue').Component | string} */
-              let component
-
-              if (Array.isArray(tag)) {
-                key = tag[0]
-                component = tag[1]
-              } else {
-                if (typeof tag !== 'string') {
-                  throw new Error(
-                    'Custom components must be provided as array of [name, component]'
-                  )
-                }
-
-                key = tag
-                component = tag
-              }
-
-              values[key] = (children) => {
-                const newChildren = []
-
-                for (const child of children) {
-                  if (Array.isArray(child)) {
-                    newChildren.push(...child)
-                  } else {
-                    newChildren.push(
-                      isVNode(child) ? child : createTextNode(child)
-                    )
-                  }
-                }
-
-                return [createElement(component, newChildren)]
-              }
-            }
-          } else if (context.props.tags != null) {
-            throw new Error(
-              'Property "tags" of IntlFormatted needs to be of array type or null / undefined'
-            )
-          }
-
-          for (const [name, slot] of Object.entries(context.scopedSlots)) {
-            if (name.startsWith('~')) {
-              values[name.slice(1)] = slot({
-                values: initialValues,
-              })
-            } else {
-              values[name] = (children) =>
-                slot({
-                  children,
-                  values: initialValues,
-                })
-            }
-          }
-
-          /**
-           * @private
-           * @typedef {import('vue').VNode | string} _FormattedValue
-           */
-
-          /** @type {_FormattedValue | _FormattedValue[]} */
-          let formatted
-
-          if (context.props.message != null) {
-            formatted = controller.formats.customMessage(
-              context.props.message,
-              values
-            )
-          } else {
-            formatted = controller.intl.formatMessage(
-              {
-                id: context.props.messageId,
-              },
-              values
-            )
-          }
-
-          if (!Array.isArray(formatted)) {
-            formatted = [formatted]
-          }
-
-          return formatted.flat().map((child) => {
-            return isVNode(child) ? child : createTextNode(child)
-          })
-        },
-      })
+      vue.component('IntlFormatted', createIntlFormattedComponent(controller))
     },
   }
+
+  return Object.assign({}, base, vuePlugin)
 }

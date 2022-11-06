@@ -1,11 +1,14 @@
 // @ts-check
 
-import { IntlFormatAliases, TranslateFunction } from './i18n'
-import { ExtendedIntlController } from './plugin.main'
+import { Import } from '@babel/types'
+import { FunctionalComponentOptions } from 'vue'
+import { IntlFormatAliases } from './i18n'
+import { ExtendedIntlController } from './types'
 
 interface I18nPluginHelpers {
   $i18n: ExtendedIntlController
-  $t: TranslateFunction
+  /** Represent a translation function. See {@link TranslateFunction} for details. */
+  $t: import('./i18n.types').TranslateFunction
   $fmt: IntlFormatAliases
 }
 

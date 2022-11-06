@@ -16,43 +16,6 @@ const cookieDefaults = {
   path: '/',
 }
 
-/**
- * @typedef {object} LocaleDescriptor
- * @property {string} code BCP47 locale code.
- * @property {unknown} [data] Custom data associated with locale to be used at
- *   runtime.
- */
-
-/**
- * @callback ChangeLocaleFunction
- * @param {'auto' | string} locale Locale to use or `'auto'` to switch locale to
- *   one preferred by the navigator and enable automatic mode.
- * @param {boolean} [save=true] Whether the changes apply must be stored in
- *   persistent storage for later restoration. Default is `true`
- * @returns {Promise<void>} Promise that resolves after successful locale change
- *   and errors if anything went wrong.
- * @throws If provided locale is not present in the imports map.
- */
-
-/**
- * @private
- * @typedef {object} ExtendedIntlControllerImpl
- * @property {boolean} automatic Whether current locale is automatically driven
- *   by the navigator (browser) locale. This property is read-only. Automatic
- *   mode can be enabled by changing locale to `'auto'`, and disabled by
- *   changing it to any available locale.
- * @property {LocaleDescriptor[]} availableLocales List of all available
- *   locales. This property is read-only, however the array that it returns is
- *   mutable; do not change it unless you know what you're doing.
- * @property {ChangeLocaleFunction} changeLocale Function to change locale. This
- *   property is read-only. See {@link ChangeLocaleFunction} for the
- *   documentation of this function.
- * @property {Record<string, any>} data Imported data for the locale, as defined
- *   in the config.
- */
-
-/** @typedef {import('./i18n').IntlController & ExtendedIntlControllerImpl} ExtendedIntlController */
-
 /** @type {import('@nuxt/types').Plugin} */
 export default async function (context) {
   const { app } = context
@@ -64,8 +27,8 @@ export default async function (context) {
 
   /**
    * @typedef {object} Settings
-   * @property {LocaleDescriptor[]} availableLocales An array of available
-   *   locales.
+   * @property {import('./types').LocaleDescriptor[]} availableLocales An array
+   *   of available locales.
    * @property {boolean} isAuto Whether the current locale is driven by the
    *   browser's preferences.
    * @property {ImportData} importData Import data for the current locale.
@@ -84,6 +47,7 @@ export default async function (context) {
         isAuto: false,
         defaultImportData: Object.create(null),
         importData: Object.create(null),
+        browserLocale: 'en-US',
       }
     },
     computed: {
@@ -381,8 +345,8 @@ export default async function (context) {
    *
    * @param {InstanceType<typeof import('./i18n').IntlController>} controller
    *   Controller to extend.
-   * @returns {ExtendedIntlController} The same controller but with changed
-   *   type.
+   * @returns {import('./types').ExtendedIntlController} The same controller but
+   *   with changed type.
    */
   function extendController(controller) {
     const boundChangeLocale = changeLocale.bind(controller)
@@ -420,7 +384,7 @@ export default async function (context) {
       },
     })
 
-    return /** @type {ExtendedIntlController} */ (controller)
+    return /** @type {import('./types').ExtendedIntlController} */ (controller)
   }
 
   const plugin = createIntlPlugin()
