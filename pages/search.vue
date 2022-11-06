@@ -148,7 +148,7 @@
             />
           </section>
           <section
-            v-if="['resourcepack', 'plugin'].includes(projectType.id)"
+            v-if="!['resourcepack', 'plugin'].includes(projectType.id)"
             aria-label="Environment filters"
           >
             <h3 class="sidebar-menu-heading">Environments</h3>
