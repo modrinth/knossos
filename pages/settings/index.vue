@@ -175,6 +175,7 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
+import LanguageIcon from '~/assets/images/utils/language.svg?inline'
 
 export default {
   components: {
