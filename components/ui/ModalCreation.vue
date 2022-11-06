@@ -1,5 +1,9 @@
 <template>
-  <Modal ref="modal" :header="$t('component.create-modal.title')">
+  <Modal
+    :header="$t('component.create-modal.title')"
+    :show="isShowing"
+    @close="cancel"
+  >
     <div class="modal-creation">
       <div class="markdown-body">
         <p>
@@ -97,11 +101,12 @@ export default {
       name: '',
       slug: '',
       description: '',
+      isShowing: false,
     }
   },
   methods: {
     cancel() {
-      this.$refs.modal.hide()
+      this.isShowing = false
     },
     async createProject() {
       this.$nuxt.$loading.start()
@@ -175,7 +180,7 @@ export default {
           },
         })
 
-        this.$refs.modal.hide()
+        this.isShowing = false
         await this.$router.replace(`/${this.projectType.actual}/${this.slug}`)
       } catch (err) {
         this.$notify({
@@ -188,7 +193,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
     show() {
-      this.$refs.modal.show()
+      this.isShowing = true
     },
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal" :header="title">
+  <Modal :header="title" :show="isShowing" @close="cancel" style="--owo: red">
     <div class="modal-delete">
       <div class="markdown-body">
         <slot />
@@ -78,14 +78,15 @@ export default {
     return {
       action_disabled: this.hasToType,
       confirmation_typed: '',
+      isShowing: false,
     }
   },
   methods: {
     cancel() {
-      this.$refs.modal.hide()
+      this.isShowing = false
     },
     proceed() {
-      this.$refs.modal.hide()
+      this.isShowing = false
       this.$emit('proceed')
     },
     type() {
@@ -96,7 +97,7 @@ export default {
       }
     },
     show() {
-      this.$refs.modal.show()
+      this.isShowing = true
     },
   },
 }

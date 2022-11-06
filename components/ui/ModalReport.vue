@@ -1,5 +1,13 @@
 <template>
-  <Modal ref="modal" :header="$t('component.report-modal.title', { itemType })">
+  <Modal
+    :header="$t('component.report-modal.title', { itemType })"
+    :show="isShowing"
+    @close="
+      () => {
+        isShowing = false
+      }
+    "
+  >
     <div class="modal-report">
       <div class="markdown-body">
         <p>
@@ -103,6 +111,7 @@ export default {
       reportType: '',
       body: '',
       bodyViewType: 'source',
+      isShowing: false,
     }
   },
   methods: {
@@ -110,8 +119,7 @@ export default {
       this.reportType = ''
       this.body = ''
       this.bodyViewType = 'source'
-
-      this.$refs.modal.hide()
+      this.isShowing = false
     },
     async submitReport() {
       this.$nuxt.$loading.start()
@@ -124,7 +132,7 @@ export default {
         }
         await this.$axios.post('report', data, this.$defaultHeaders())
 
-        this.$refs.modal.hide()
+        this.isShowing = false
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -136,7 +144,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
     show() {
-      this.$refs.modal.show()
+      this.isShowing = true
     },
   },
 }

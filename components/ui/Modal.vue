@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div :class="{ shown: shown }" class="modal-overlay" @click="hide" />
-    <div class="modal-body" :class="{ shown: shown }">
+    <div
+      :class="{ shown: show }"
+      class="modal-overlay"
+      @click="$emit('close')"
+    ></div>
+    <div class="modal-body" :class="{ shown: show }">
       <div v-if="header" class="header">
         <h1>{{ header }}</h1>
-        <button class="iconified-button icon-only transparent" @click="hide">
+        <button
+          class="iconified-button icon-only transparent"
+          @click="$emit('close')"
+        >
           <CrossIcon />
         </button>
       </div>
@@ -26,20 +33,9 @@ export default {
   props: {
     header: {
       type: String,
-      default: null,
     },
-  },
-  data() {
-    return {
-      shown: false,
-    }
-  },
-  methods: {
-    show() {
-      this.shown = true
-    },
-    hide() {
-      this.shown = false
+    show: {
+      type: Boolean,
     },
   },
 }

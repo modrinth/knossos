@@ -23,8 +23,9 @@
     </ModalConfirm>
 
     <Modal
-      ref="modal_revoke_token"
       :header="$t('settings.modals.revoke-token.title')"
+      :show="showRevokeModal"
+      @close="() => toggleRevokeModal(false)"
     >
       <div class="modal-revoke-token markdown-body">
         <IntlFormatted
@@ -43,7 +44,7 @@
         <div class="button-group">
           <button
             class="iconified-button"
-            @click="$refs.modal_revoke_token.hide()"
+            @click="() => toggleRevokeModal(false)"
           >
             <CrossIcon />
             {{ $t('generic.action.cancel') }}
@@ -167,7 +168,7 @@
         <button
           type="button"
           class="iconified-button"
-          @click="$refs.modal_revoke_token.show()"
+          @click="() => toggleRevokeModal(true)"
         >
           {{ $t('settings.auth-token.action.revoke-token') }}
         </button>
@@ -217,6 +218,8 @@ export default {
       searchLayout: false,
       projectLayout: false,
       copied: false,
+      showRevokeModal: false,
+      showDeleteModal: false,
     }
   },
   fetch() {
@@ -244,6 +247,14 @@ export default {
     },
   },
   methods: {
+    /** @param {boolean} [newState] Whether to show the revoke modal. */
+    toggleRevokeModal(newState) {
+      this.showRevokeModal = newState ?? !this.showRevokeModal
+    },
+    /** @param {boolean} [newState] Whether to show the account deletion modal. */
+    toggleDeleteModal(newState) {
+      this.showDeleteModal = newState ?? !this.showDeleteModal
+    },
     async changeLayout() {
       await this.$store.dispatch('cosmetics/save', {
         searchLayout: this.searchLayout,
@@ -286,7 +297,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
     logout() {
-      this.$refs.modal_revoke_token.hide()
+      this.showRevokeModal = false
       this.$cookies.set('auth-token-reset', true)
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
