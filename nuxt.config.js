@@ -421,7 +421,7 @@ export default {
       },
     },
   },
-  /** @type {import('modules/i18n/index').Options} */
+  /** @type {import('modules/i18n').Options} */
   i18n: Object.assign(i18nConfig, { baseURL: getDomain() }),
 }
 
