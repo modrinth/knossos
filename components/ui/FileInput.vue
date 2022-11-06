@@ -1,10 +1,12 @@
 <template>
   <div class="columns">
-    <label @drop.prevent="handleDrop" @dragover.prevent>
-      <span>
-        <UploadIcon v-if="showIcon" />
-        {{ prompt }}
-      </span>
+    <label
+      class="iconified-button"
+      @drop.prevent="handleDrop"
+      @dragover.prevent
+    >
+      <UploadIcon v-if="showIcon" />
+      {{ prompt }}
       <input
         type="file"
         :multiple="multiple"
@@ -83,43 +85,12 @@ export default {
 
 <style lang="scss" scoped>
 label {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--spacing-card-sm) var(--spacing-card-md);
-  box-shadow: var(--shadow-inset-sm);
-
-  color: var(--color-button-text);
-  background-color: var(--color-button-bg);
-  border-radius: var(--size-rounded-max);
-
+  flex-direction: unset;
   margin-bottom: 0;
-
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
-
-  &:hover:not(&:disabled) {
-    filter: brightness(0.85);
-  }
-
-  &:active:not(&:disabled) {
-    transform: scale(0.95);
-    filter: brightness(0.8);
-  }
-}
-
-span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 0.5rem;
-  padding-right: 0;
+  max-height: unset;
 
   svg {
-    height: 1.25rem;
+    height: 1rem;
   }
 }
 

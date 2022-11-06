@@ -220,7 +220,7 @@
         "
       >
         <TrashIcon />
-        Reset
+        Remove
       </button>
     </section>
     <section

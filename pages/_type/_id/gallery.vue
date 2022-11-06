@@ -67,6 +67,32 @@
     </div>
     <div v-if="currentMember" class="card buttons header-buttons">
       <button
+        class="iconified-button"
+        :class="{
+          'brand-button':
+            newGalleryItems.length === 0 &&
+            editGalleryIndexes.length === 0 &&
+            deleteGalleryUrls.length === 0,
+        }"
+        @click="
+          newGalleryItems.push({
+            title: '',
+            description: '',
+            featured: false,
+            url: '',
+          })
+        "
+      >
+        <PlusIcon />
+        {{
+          newGalleryItems.length === 0 &&
+          editGalleryIndexes.length === 0 &&
+          deleteGalleryUrls.length === 0
+            ? 'Add an image'
+            : 'Add another image'
+        }}
+      </button>
+      <button
         v-if="
           newGalleryItems.length > 0 ||
           editGalleryIndexes.length > 0 ||
@@ -89,20 +115,6 @@
       >
         <CheckIcon />
         Save changes
-      </button>
-      <button
-        class="iconified-button"
-        @click="
-          newGalleryItems.push({
-            title: '',
-            description: '',
-            featured: false,
-            url: '',
-          })
-        "
-      >
-        <PlusIcon />
-        Add an image
       </button>
     </div>
     <div class="items">
