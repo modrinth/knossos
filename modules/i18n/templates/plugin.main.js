@@ -71,7 +71,10 @@ export default async function (context) {
    * @property {ImportData} importData Import data for the current locale.
    * @property {ImportData} defaultImportData Import data for the default
    *   locale.
+   * @property {string} browserLocale Current locale preferred by the browser.
    */
+
+  // TODO: perhaps can move all methods to settings object
 
   const settings = new Vue({
     /** @returns {Settings} */
@@ -391,6 +394,12 @@ export default async function (context) {
           return settings.availableLocales
         },
       },
+      browserLocale: {
+        configurable: true,
+        get() {
+          return settings.browserLocale
+        },
+      },
       changeLocale: {
         configurable: true,
         get() {
@@ -428,6 +437,9 @@ export default async function (context) {
 
   if (process.client) {
     window.addEventListener('languagechange', () => {
+      const { locale: detectedLocale } = detectLocale(false)
+      settings.browserLocale = detectedLocale
+
       if (settings.isAuto) {
         controller.changeLocale('auto').then(
           () => {},
@@ -460,6 +472,8 @@ export default async function (context) {
       detectionSource === 'navigator' || detectionSource === 'default'
 
     settings.isAuto = isAuto
+
+    settings.browserLocale = detectLocale(false).locale
 
     if (context.isDev) {
       console.log('[knossos-i18n] setup completed', {
