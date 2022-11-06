@@ -365,7 +365,7 @@
             <div
               v-for="version in featuredVersions"
               :key="version.id"
-              class="featured-version"
+              class="featured-version button-animation"
               @click="
                 $router.push(
                   `/${project.project_type}/${
@@ -429,7 +429,7 @@
           <div
             v-for="member in members"
             :key="member.user.id"
-            class="team-member columns"
+            class="team-member columns button-animation"
             @click="$router.push('/user/' + member.user.username)"
           >
             <Avatar

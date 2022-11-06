@@ -330,11 +330,20 @@
   }
 }
 
-.button-base {
-  font-weight: 500;
-  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+.button-animation {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
   outline 0.2s ease-in-out;
+
+  &:active:not(&:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.button-base {
+  @extend .button-animation;
+
+  font-weight: 500;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
 
   &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled) {
@@ -342,7 +351,6 @@
   }
 
   &:active:not(&:disabled) {
-    transform: scale(0.95);
     filter: brightness(0.8);
   }
 
