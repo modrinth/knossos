@@ -1,6 +1,6 @@
 {
   "displayName": {
-    "message": "Русский",
+    "message": "עברית",
     "description": "Name of the language in ‘dialect’ form, to be displayed in the language selector.\n\n⚠ DO NOT translate ‘American English’: it supposed to be translation for your target language; the one you're translating Modrinth to. E.g. if you're translating Modrinth to French, please translate this to ‘Français’, NOT ‘Anglais américain’.\n\nHere are some examples:\n• British English ⇒ British English\n• Portuguese ⇒ Português\n• Brazilian Portuguese ⇒ Português brasileiro\n• German ⇒ Deutsch\n• Swiss High German ⇒ Schweizer Hochdeutsch\n• Simplified Chinese ⇒ 简体中文\n• Traditional Chinese ⇒ 繁體中文."
   }
 }

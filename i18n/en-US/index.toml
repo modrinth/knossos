@@ -230,8 +230,31 @@ title = "Simple to integrate"
 headline = "An open-source API for everyone to use"
 body = "We have created an open source modding platform for the community. We're committed to open source so the community can trust us as their modding platform. Our API is <docs-link>fully documented</docs-link> so anyone can use it. We will never add restrictions on our API!"
 
+[language-modal]
+title = "Change language"
+contribution-notice = """Modrinth is translated by volunteers. \
+<crowdin-link>You can contribute!</crowdin-link>"""
+no-results = "No results"
+
+[language-modal.action]
+enable-automatic = "Automatic"
+
+[language-modal.automatic]
+title = "Using your browser's language"
+description = """Modrinth is currently using {language}, the language that \
+best matches your browser settings."""
+action = "Use a different language"
+
+[language-modal.language]
+browser-preferred = "Browser language"
+currently-used = "Currently used"
+
+[language-modal.search-field]
+placeholder = "Search language..."
+
 [layout.action]
 change-theme = "Change theme"
+change-language = "Change language"
 create-project = "Create a project"
 
 [legal.common]
@@ -913,6 +936,7 @@ oled = "OLED"
 [settings.language]
 title = "Language"
 description = "Change the language used on the site."
+action = "Change language"
 
 [settings.language.value]
 auto = "Sync with browser"

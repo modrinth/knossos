@@ -3,29 +3,468 @@
   "defaultLocale": "en-US",
   "locales": [
     {
+      "code": "be",
+      "file": "~/i18n/be/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/be/index.toml"
+      },
+      "data": {
+        "displayName": "Беларуская"
+      }
+    },
+    {
+      "code": "ca",
+      "file": "~/i18n/ca/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/ca/index.toml"
+      },
+      "data": {
+        "displayName": "català"
+      }
+    },
+    {
+      "code": "cs",
+      "file": "~/i18n/cs/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/cs/index.toml"
+      },
+      "data": {
+        "displayName": "čeština"
+      }
+    },
+    {
+      "code": "da",
+      "file": "~/i18n/da/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/da/index.toml"
+      },
+      "data": {
+        "displayName": "dansk"
+      }
+    },
+    {
+      "code": "de-CH",
+      "file": "~/i18n/de-CH/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/de-CH/index.toml"
+      },
+      "data": {
+        "displayName": "Schweizer Hochdeutsch"
+      }
+    },
+    {
+      "code": "de",
+      "file": "~/i18n/de/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/de/index.toml"
+      },
+      "data": {
+        "displayName": "Deutsch"
+      }
+    },
+    {
+      "code": "el",
+      "file": "~/i18n/el/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/el/index.toml"
+      },
+      "data": {
+        "displayName": "Ελληνικά"
+      }
+    },
+    {
+      "code": "en-GB",
+      "file": "~/i18n/en-GB/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/en-GB/index.toml"
+      },
+      "data": {
+        "displayName": "British English"
+      }
+    },
+    {
       "code": "en-US",
       "file": "~/i18n/en-US/index.toml",
-      "additionalImports": [
-        "@formatjs/intl-numberformat/locale-data/en.js"
-      ],
-      "data": {
-        "customLocaleName": "American English"
-      },
+      "additionalImports": [],
       "importedData": {
+        "index.toml": "~/i18n/en-US/index.toml",
         "revoke-token.html": "~/i18n/en-US/revoke-token.html",
         "starter.md": "~/i18n/en-US/starter.md"
+      },
+      "data": {
+        "displayName": "American English"
+      }
+    },
+    {
+      "code": "en-x-lolcat",
+      "file": "~/i18n/en-x-lolcat/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/en-x-lolcat/index.toml"
+      },
+      "data": {
+        "displayName": "LOLCAT"
+      }
+    },
+    {
+      "code": "en-x-pirate",
+      "file": "~/i18n/en-x-pirate/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/en-x-pirate/index.toml"
+      },
+      "data": {
+        "displayName": "Pirate English"
+      }
+    },
+    {
+      "code": "en-x-updown",
+      "file": "~/i18n/en-x-updown/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/en-x-updown/index.toml"
+      },
+      "data": {
+        "displayName": "Upside down English"
+      }
+    },
+    {
+      "code": "en-x-uwu",
+      "file": "~/i18n/en-x-uwu/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/en-x-uwu/index.toml"
+      },
+      "data": {
+        "displayName": "English (UwU)"
+      }
+    },
+    {
+      "code": "eo",
+      "file": "~/i18n/eo/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/eo/index.toml"
+      },
+      "data": {
+        "displayName": "esperanto"
+      }
+    },
+    {
+      "code": "es",
+      "file": "~/i18n/es/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/es/index.toml"
+      },
+      "data": {
+        "displayName": "español"
+      }
+    },
+    {
+      "code": "et",
+      "file": "~/i18n/et/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/et/index.toml"
+      },
+      "data": {
+        "displayName": "eesti"
+      }
+    },
+    {
+      "code": "fi",
+      "file": "~/i18n/fi/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/fi/index.toml"
+      },
+      "data": {
+        "displayName": "suomi"
+      }
+    },
+    {
+      "code": "fr-BE",
+      "file": "~/i18n/fr-BE/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/fr-BE/index.toml"
+      },
+      "data": {
+        "displayName": "français (Belgique)"
+      }
+    },
+    {
+      "code": "fr-CA",
+      "file": "~/i18n/fr-CA/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/fr-CA/index.toml"
+      },
+      "data": {
+        "displayName": "français canadien"
+      }
+    },
+    {
+      "code": "fr",
+      "file": "~/i18n/fr/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/fr/index.toml"
+      },
+      "data": {
+        "displayName": "français"
+      }
+    },
+    {
+      "code": "he",
+      "file": "~/i18n/he/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/he/index.toml"
+      },
+      "data": {
+        "displayName": "עברית"
+      }
+    },
+    {
+      "code": "hi",
+      "file": "~/i18n/hi/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/hi/index.toml"
+      },
+      "data": {
+        "displayName": "हिन्दी"
+      }
+    },
+    {
+      "code": "hu",
+      "file": "~/i18n/hu/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/hu/index.toml"
+      },
+      "data": {
+        "displayName": "magyar"
+      }
+    },
+    {
+      "code": "it",
+      "file": "~/i18n/it/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/it/index.toml"
+      },
+      "data": {
+        "displayName": "italiano"
+      }
+    },
+    {
+      "code": "ja",
+      "file": "~/i18n/ja/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/ja/index.toml"
+      },
+      "data": {
+        "displayName": "日本語"
+      }
+    },
+    {
+      "code": "ko",
+      "file": "~/i18n/ko/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/ko/index.toml"
+      },
+      "data": {
+        "displayName": "한국어"
+      }
+    },
+    {
+      "code": "lt",
+      "file": "~/i18n/lt/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/lt/index.toml"
+      },
+      "data": {
+        "displayName": "lietuvių"
+      }
+    },
+    {
+      "code": "lv",
+      "file": "~/i18n/lv/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/lv/index.toml"
+      },
+      "data": {
+        "displayName": "latviešu"
+      }
+    },
+    {
+      "code": "nb",
+      "file": "~/i18n/nb/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/nb/index.toml"
+      },
+      "data": {
+        "displayName": "norsk bokmål"
+      }
+    },
+    {
+      "code": "nl",
+      "file": "~/i18n/nl/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/nl/index.toml"
+      },
+      "data": {
+        "displayName": "Nederlands"
+      }
+    },
+    {
+      "code": "nn",
+      "file": "~/i18n/nn/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/nn/index.toml"
+      },
+      "data": {
+        "displayName": "norsk nynorsk"
+      }
+    },
+    {
+      "code": "pl",
+      "file": "~/i18n/pl/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/pl/index.toml"
+      },
+      "data": {
+        "displayName": "polski"
+      }
+    },
+    {
+      "code": "pt-BR",
+      "file": "~/i18n/pt-BR/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/pt-BR/index.toml"
+      },
+      "data": {
+        "displayName": "português (Brasil)"
+      }
+    },
+    {
+      "code": "pt",
+      "file": "~/i18n/pt/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/pt/index.toml"
+      },
+      "data": {
+        "displayName": "português"
+      }
+    },
+    {
+      "code": "ru-x-bandit",
+      "file": "~/i18n/ru-x-bandit/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/ru-x-bandit/index.toml"
+      },
+      "data": {
+        "displayName": "Русский (Бандитский Петербург)"
       }
     },
     {
       "code": "ru",
       "file": "~/i18n/ru/index.toml",
-      "additionalImports": [
-        "@formatjs/intl-numberformat/locale-data/ru.js"
-      ],
-      "data": {
-        "customLocaleName": "Русский"
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/ru/index.toml"
       },
-      "importedData": {}
+      "data": {
+        "displayName": "Русский"
+      }
+    },
+    {
+      "code": "sv",
+      "file": "~/i18n/sv/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/sv/index.toml"
+      },
+      "data": {
+        "displayName": "svenska"
+      }
+    },
+    {
+      "code": "tr",
+      "file": "~/i18n/tr/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/tr/index.toml"
+      },
+      "data": {
+        "displayName": "Türkçe"
+      }
+    },
+    {
+      "code": "uk",
+      "file": "~/i18n/uk/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/uk/index.toml"
+      },
+      "data": {
+        "displayName": "Українська"
+      }
+    },
+    {
+      "code": "vi",
+      "file": "~/i18n/vi/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/vi/index.toml"
+      },
+      "data": {
+        "displayName": "Tiếng Việt"
+      }
+    },
+    {
+      "code": "zh-Hans",
+      "file": "~/i18n/zh-Hans/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/zh-Hans/index.toml"
+      },
+      "data": {
+        "displayName": "简体中文"
+      }
+    },
+    {
+      "code": "zh-Hant",
+      "file": "~/i18n/zh-Hant/index.toml",
+      "additionalImports": [],
+      "importedData": {
+        "index.toml": "~/i18n/zh-Hant/index.toml"
+      },
+      "data": {
+        "displayName": "繁體中文"
+      }
     }
   ]
 }
