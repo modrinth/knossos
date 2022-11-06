@@ -214,3 +214,5 @@ export function createIntlFormattedComponent(controller) {
     },
   })
 }
+
+/** @typedef {ReturnType<typeof createIntlFormattedComponent>} IntlFormattedComponentType */

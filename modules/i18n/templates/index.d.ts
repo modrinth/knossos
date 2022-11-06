@@ -23,3 +23,10 @@ type I18nPluginVueHelpers = I18nPluginHelpers & {
 declare module 'vue/types/vue' {
   interface Vue extends I18nPluginVueHelpers {}
 }
+
+declare module '@vue/runtime-dom' {
+  // FIXME: change above to 'vue' after upgrade to 2.7
+  interface GlobalComponents {
+    IntlFormatted: import('./IntlFormatted').IntlFormattedComponentType
+  }
+}
