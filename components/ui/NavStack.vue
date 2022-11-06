@@ -16,7 +16,6 @@ export default {
   flex-direction: column;
   grid-gap: 0.25rem;
   flex-wrap: wrap;
-  padding-top: var(--spacing-card-md);
 
   h3 {
     margin: var(--spacing-card-lg) 0 var(--spacing-card-sm) 0;

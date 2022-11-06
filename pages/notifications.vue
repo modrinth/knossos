@@ -3,15 +3,7 @@
     <div class="normal-page__sidebar">
       <aside class="card sidebar">
         <h1>Notifications</h1>
-        <button
-          class="iconified-button brand-button"
-          @click="clearNotifications"
-        >
-          <ClearIcon />
-          Clear all
-        </button>
         <NavStack>
-          <h3>Filter by type</h3>
           <NavStackItem link="" label="All"> </NavStackItem>
           <NavStackItem
             v-for="type in notificationTypes"
@@ -21,6 +13,20 @@
           >
           </NavStackItem>
         </NavStack>
+        <h3>Manage</h3>
+        <div class="actions">
+          <NuxtLink class="iconified-button" to="/settings/follows">
+            <SettingsIcon />
+            Followed projects
+          </NuxtLink>
+          <button
+            class="iconified-button danger-button"
+            @click="clearNotifications"
+          >
+            <ClearIcon />
+            Clear all
+          </button>
+        </div>
       </aside>
     </div>
     <div class="normal-page__content">
@@ -79,6 +85,7 @@
 
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
@@ -94,6 +101,7 @@ export default {
     NavStack,
     NavStackItem,
     ClearIcon,
+    SettingsIcon,
     UpToDate,
   },
   async fetch() {
@@ -179,6 +187,21 @@ export default {
   h1 {
     color: var(--color-text-dark);
     margin: 0 0 var(--spacing-card-sm) 0;
+  }
+
+  h3 {
+    margin: var(--spacing-card-lg) 0 var(--spacing-card-sm) 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-card-sm);
+
+    .iconified-button {
+      flex-grow: 0;
+      width: fit-content;
+    }
   }
 }
 
