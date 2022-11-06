@@ -65,6 +65,8 @@ export default {
 }
 
 .modal-body {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -72,8 +74,8 @@ export default {
   box-shadow: var(--shadow-raised), var(--shadow-inset);
   border-radius: var(--size-rounded-lg);
   max-height: 80%;
-  overflow-y: auto;
-  width: 600px;
+  overflow: hidden;
+  width: max-content;
 
   .header {
     display: flex;
@@ -91,8 +93,9 @@ export default {
   .footer {
     background: var(--color-raised-bg);
   }
+
   .content {
-    background-color: var(--color-raised-bg);
+    overflow-y: auto;
   }
 
   top: calc(100% + 400px);
