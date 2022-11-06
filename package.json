@@ -11,7 +11,9 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "lint": "npm run lint:js",
     "fix": "eslint --fix --ext .js,.vue --ignore-path .eslintignore .",
-    "i18n:refresh": "node ./bin/i18n-config-gen.mjs"
+    "i18n:refresh": "node ./bin/i18n-config-gen.mjs",
+    "i18n:types": "node ./bin/i18n-type-gen.mjs",
+    "i18n:watch": "node ./bin/i18n-type-gen.mjs -w"
   },
   "dependencies": {
     "@formatjs/intl": "^2.4.1",
@@ -47,7 +49,11 @@
     "@nuxtjs/eslint-config": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/svg": "^0.1.12",
+    "@types/flat": "^5.0.2",
+    "@types/glob": "^8.0.0",
     "@types/loader-utils": "^2.0.3",
+    "@types/lodash": "^4.14.188",
+    "@types/prettier": "^2.7.1",
     "@types/yargs": "^17.0.13",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.22.0",

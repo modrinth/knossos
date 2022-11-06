@@ -2,37 +2,29 @@
 
 // @ts-check
 
-import path from 'path'
-import posixPath from 'path/posix'
 import { match as localeMatch } from '@formatjs/intl-localematcher'
-import glob from 'glob'
-import fs from 'fs'
-import { fileURLToPath } from 'url'
-import { createRequire } from 'module'
+import consola from 'consola'
+import _glob from 'glob'
+import fs from 'node:fs/promises'
+import { createRequire } from 'node:module'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
+import { scanLocaleDirectory } from './i18n/localeDir.mjs'
+import { finalizePath, toPOSIX } from './i18n/paths.mjs'
+import { formatterFor } from './i18n/prettier.mjs'
 
+const glob = promisify(_glob)
+
+// @ts-ignore We're in MJS!!
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+// @ts-ignore Same!!
 const require = createRequire(import.meta.url)
 
-/**
- * Converts provided path to POSIX path.
- *
- * @param {string} p Path to convert.
- */
-function toPOSIX(p) {
-  return p.split(path.sep).join(posixPath.sep)
-}
-
-/**
- * @param {string} p Path to finalize.
- * @param {string} [src] Path where to expect the file to be located.
- */
-function finalizePath(p, src) {
-  if (src == null) return p
-  return `~/${toPOSIX(path.relative(src, p))}`
-}
+const memo = require('lodash/memoize')
 
 /**
  * @typedef {object} GeneratorOptions
@@ -44,140 +36,127 @@ function finalizePath(p, src) {
 
 /**
  * @template T
- * @typedef {T extends undefined ? never : T} NonUndefined
+ * @typedef {T extends undefined ? never : T extends null ? never : T} Provided
  */
+
+/**
+ * Represents an Intl.NumberFormat data resolver that takes in BCP 47 locale tag
+ * and searches for data file associated with that locale, if there is no data
+ * file that matches the locale, then `null` is returned. That data must be
+ * additionally imported with the locale files so that polyfilled
+ * Intl.NumberFormat propertly works.
+ *
+ * @callback NumberFormatDataResolver
+ * @param {string} code BCP 47 locale code that needs resolving.
+ * @returns {string | null} Path
+ */
+
+/**
+ * @returns {NumberFormatDataResolver} A resolver for polyfilled
+ *   Intl.NumberFormat locale data. The return value is memoized and can be
+ *   called multiple times without performance drawbacks.
+ */
+const getNumberFormatDataResolver = memo(async () => {
+  const numberFormatDir = toPOSIX(
+    require.resolve('@formatjs/intl-numberformat')
+  )
+
+  const localeDataFiles = await glob(`${numberFormatDir}/locale-data/*.js`, {
+    nodir: true,
+  })
+
+  const supportedLocales = localeDataFiles.map((it) => path.basename(it, '.js'))
+
+  /** @param {string} code BCP 47 locale code to search locale data for. */
+  function resolver(code) {
+    const match = localeMatch([code], supportedLocales, 'en-US-x-placeholder')
+
+    if (match === 'en-US-x-placeholder') {
+      return null
+    }
+
+    return `@formatjs/intl-numberformat/locale-data/${match}.js`
+  }
+
+  return resolver
+})
+
+/**
+ * Generates config from the locale directory
+ *
+ * @param {string} dirPath Path to the locale directory.
+ * @param {string} [srcDirPath] Path to the source directory.
+ * @returns {Promise<import('modules/i18n').LocaleDescriptor>} Locale descriptor
+ *   for the provided path.
+ */
+async function createDescriptorForLocaleDir(dirPath, srcDirPath) {
+  const code = path.basename(dirPath)
+  const localeDir = await scanLocaleDirectory(dirPath)
+
+  if (localeDir.sourceFile == null) {
+    throw new Error(`Locale directory is missing source file: ${localeDir}`)
+  }
+
+  /**
+   * @type {Provided<
+   *   import('modules/i18n').LocaleDescriptor['importedData']
+   * >}
+   */
+  const importedData = Object.create(null)
+
+  for (const [resourceName, resourcePath] of Object.entries(
+    localeDir.additionalResources
+  )) {
+    importedData[resourceName] = finalizePath(resourcePath, srcDirPath)
+  }
+
+  /**
+   * @type {Provided<
+   *   import('modules/i18n').LocaleDescriptor['additionalImports']
+   * >}
+   */
+  const additionalImports = []
+
+  {
+    const resolveDataImport = await getNumberFormatDataResolver()
+
+    const dataImport = resolveDataImport(code)
+
+    if (dataImport != null) {
+      additionalImports.push(dataImport)
+    }
+  }
+
+  return {
+    code,
+    file: finalizePath(localeDir.sourceFile, srcDirPath),
+    additionalImports,
+    importedData,
+    data: (await localeDir.parseMetaFile()).getContents(),
+  }
+}
 
 /**
  * Generates the configuration using the provided options.
  *
  * @param {GeneratorOptions} opts Generator options.
  */
-function generateConfig(opts) {
+async function generateConfig(opts) {
   const { localesDir, defaultLocale, srcDir } = opts
 
-  // #region Automatic locales gathering
-  /** @type {import('modules/i18n/index').LocaleDescriptor[]} */
+  /** @type {import('modules/i18n').LocaleDescriptor[]} */
   const locales = []
 
-  const availableNFLocales = glob
-    .sync('node_modules/@formatjs/intl-numberformat/locale-data/*.js', {
-      nodir: true,
-    })
-    .map((it) => path.basename(it, '.js'))
-
-  for (const _localeDirBase of glob.sync(`*/`, { cwd: localesDir })) {
+  for (const _localeDirBase of await glob(`*/`, { cwd: localesDir })) {
     const localeDir = path.join(localesDir, _localeDirBase)
-    const code = path.basename(localeDir)
 
-    /**
-     * Relative to {@link localesDir} path to locale source file.
-     *
-     * If `null` after iterating through the resources, then an exception must
-     * be thrown.
-     *
-     * @type {string | null}
-     */
-    let file = null
-
-    /**
-     * All additional imports to add with this locale.
-     *
-     * @type {string[] | undefined}
-     */
-    let additionalImports
-
-    /**
-     * Represents custom data associated with the locale.
-     *
-     * @private
-     * @typedef {object} LocaleData
-     * @property {string} [customLocaleName] Custom name for the locale.
-     */
-    /**
-     * Custom data associated with the locale.
-     *
-     * @type {LocaleData}
-     */
-    let data = Object.create(null)
-
-    /**
-     * @type {NonUndefined<
-     *   import('modules/i18n/index').LocaleDescriptor['importedData']
-     * >}
-     */
-    let importedData = Object.create(null)
-
-    for (const _resourcePathBase of glob.sync(`*`, { cwd: localeDir })) {
-      const resourcePath = path.join(localeDir, _resourcePathBase)
-      const resourceName = path.basename(resourcePath)
-      const resourceBaseName = path.basename(
-        resourcePath,
-        path.extname(resourcePath)
-      )
-      const importPath = require.resolve(resourcePath)
-
-      // All files named 'index' are considered source files.
-      // There must be only one to avoid prioritisation issues.
-      if (resourceBaseName === 'index') {
-        if (file != null) {
-          throw new Error(`Duplicate source file: ${resourcePath}`)
-        }
-
-        file = finalizePath(resourcePath, srcDir)
-
-        continue
-      }
-
-      // meta.json is a special file in format similar to Chrome messages
-      // format, but without any placeholders. This file is used to extract
-      // some of the data variables for the locale.
-      if (resourceName === 'meta.json') {
-        /**
-         * @private
-         * @typedef {object} Message
-         * @property {string} message Contents of the message.
-         * @property {string} [comment] Comment for the message.
-         */
-        /** @typedef {Record<string, Message | undefined>} MetaFile */
-        delete require.cache[importPath] // Clear previous meta on every build.
-
-        const meta = /** @type {MetaFile} */ (require(importPath))
-
-        if (meta.name) {
-          data.customLocaleName = meta.name.message
-        }
-
-        continue
-      }
-
-      importedData[resourceName] = finalizePath(importPath, srcDir)
+    try {
+      locales.push(await createDescriptorForLocaleDir(localeDir, opts.srcDir))
+    } catch (err) {
+      throw new Error(`Cannot create descriptor for locale: "${localeDir}"`, {
+        cause: err,
+      })
     }
-
-    if (file == null) {
-      throw new Error(`Locale directory is missing source file: ${localeDir}`)
-    }
-
-    {
-      const nfLocaleMatch = localeMatch(
-        [code],
-        availableNFLocales,
-        'en-US-x-placeholder'
-      )
-
-      if (nfLocaleMatch !== 'en-US-x-placeholder') {
-        ;(additionalImports ?? (additionalImports = [])).push(
-          `@formatjs/intl-numberformat/locale-data/${nfLocaleMatch}.js`
-        )
-      }
-    }
-
-    locales.push({
-      code,
-      file,
-      additionalImports,
-      data,
-      importedData,
-    })
   }
 
   return {
@@ -186,8 +165,6 @@ function generateConfig(opts) {
     defaultLocale,
     locales,
   }
-
-  // #endregion
 }
 
 let parser = yargs(hideBin(process.argv))
@@ -218,26 +195,30 @@ let parser = yargs(hideBin(process.argv))
 
 parser = parser.wrap(parser.terminalWidth())
 
-const argv = parser.parseSync()
+async function runProgram() {
+  const argv = await parser.parse()
 
-const outFile = path.resolve(process.cwd(), argv.output)
-
-{
   const srcDir = path.resolve(process.cwd(), argv.srcDir)
+  const outFile = path.resolve(process.cwd(), argv.output)
 
-  fs.writeFileSync(
-    outFile,
-    JSON.stringify(
-      generateConfig({
-        defaultLocale: argv.defaultLocale,
-        localesDir: path.resolve(srcDir, argv.localesDir),
-        srcDir,
-      }),
-      null,
-      2
-    ),
-    { encoding: 'utf-8' }
-  )
+  const config = await generateConfig({
+    defaultLocale: argv.defaultLocale,
+    localesDir: path.resolve(srcDir, argv.localesDir),
+    srcDir,
+  })
+
+  const format = await formatterFor(outFile)
+  const contents = format(JSON.stringify(config, null, 2))
+
+  await fs.writeFile(outFile, contents, { encoding: 'utf-8' })
+
+  consola.success('Generated new configuration at %s', outFile)
 }
 
-console.log('Generated new configuration at %s', outFile)
+runProgram().then(
+  () => process.exit(0),
+  (err) => {
+    consola.fatal('Cannot generate configuration:', err)
+    process.exit(1)
+  }
+)
