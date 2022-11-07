@@ -4,7 +4,7 @@
       v-for="item in items"
       :key="item"
       class="iconified-button"
-      :class="{ 'brand-button': selected === item }"
+      :class="{ selected: selected === item }"
       @click="toggleItem(item)"
     >
       <CheckIcon v-if="selected === item" />
@@ -73,6 +73,12 @@ export default {
       width: 1em;
       height: 1em;
     }
+  }
+
+  .selected {
+    color: var(--color-button-text-active);
+    background-color: var(--color-brand-highlight);
+    border: 2px solid var(--color-brand);
   }
 }
 </style>

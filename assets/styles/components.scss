@@ -341,9 +341,7 @@
 
 .button-base {
   @extend .button-animation;
-
   font-weight: 500;
-  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
 
   &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled) {
@@ -360,6 +358,20 @@
     filter: grayscale(50%);
     opacity: 0.5;
     box-shadow: none;
+  }
+}
+
+.button-transparent {
+  @extend .button-base;
+  background-color: transparent;
+
+  &:focus-visible:not(&:disabled),
+  &:hover:not(&:disabled) {
+    background-color: var(--color-raised-bg);
+  }
+
+  &:active:not(&:disabled) {
+    background-color: var(--color-raised-bg);
   }
 }
 
@@ -403,6 +415,7 @@
   cursor: pointer;
   min-height: 32px;
   max-height: 32px;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
 
   color: var(--text-color);
   background-color: var(--background-color);
@@ -914,4 +927,13 @@ h1 {
   border-radius: var(--size-rounded-max);
   margin-left: 0.5rem;
   font-weight: bold;
+}
+
+.nuxt-link-exact-active {
+  .beta-badge {
+    background-color: transparent;
+    box-sizing: border-box;
+    outline: 2px solid var(--color-button-text-active);
+    color: var(--color-button-text-active);
+  }
 }

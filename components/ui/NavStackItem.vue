@@ -1,6 +1,5 @@
 <template>
   <NuxtLink class="nav-link button-base" :to="link">
-    <div class="nav-indicator" />
     <div class="nav-content">
       <slot />
       <span>{{ label }}</span>
@@ -40,39 +39,23 @@ export default {
   box-shadow: none;
 
   .nav-content {
+    box-sizing: border-box;
     padding: 0.5rem 0.75rem;
-    border-radius: var(--size-rounded-xs);
+    border-radius: var(--size-rounded-sm);
     display: flex;
     align-items: center;
     gap: 0.4rem;
     flex-grow: 1;
     background-color: var(--color-raised-bg);
-  }
-
-  .nav-indicator {
-    border-radius: var(--size-rounded-max);
-    width: 0.25rem;
-    transition: opacity 0.15s ease-in-out;
-    background-color: var(--color-brand);
-    opacity: 0;
+    border: 2px solid transparent;
   }
 
   &.nuxt-link-exact-active {
     .nav-content {
       color: var(--color-button-text-active);
-      background-color: var(--color-button-bg);
+      background-color: var(--color-brand-highlight);
+      border: 2px solid var(--color-brand);
       box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
-    }
-
-    .nav-indicator {
-      opacity: 1;
-    }
-  }
-
-  &:hover,
-  &:focus {
-    .nav-indicator {
-      opacity: 0.4;
     }
   }
 

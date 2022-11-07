@@ -11,11 +11,7 @@
           >
         </section>
         <section class="logo column" role="presentation">
-          <NuxtLink
-            class="button-animation"
-            to="/"
-            aria-label="Modrinth home page"
-          >
+          <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
             <ModrinthLogo aria-hidden="true" class="text-logo" />
           </NuxtLink>
         </section>
@@ -48,7 +44,7 @@
               <nuxt-link
                 v-if="$auth.user"
                 to="/notifications"
-                class="control-button button-animation"
+                class="control-button button-transparent"
                 :class="{ bubble: $user.notifications.length > 0 }"
                 title="Notifications"
               >
@@ -56,7 +52,7 @@
               </nuxt-link>
               <button
                 v-else
-                class="control-button button-animation"
+                class="control-button button-transparent"
                 title="Switch theme"
                 @click="changeTheme"
               >
@@ -87,7 +83,7 @@
                 </button>
                 <div class="content card">
                   <NuxtLink
-                    class="item button-animation"
+                    class="item button-transparent"
                     :to="`/user/${$auth.user.username}`"
                   >
                     <div class="title profile-link">
@@ -97,30 +93,30 @@
                   </NuxtLink>
                   <hr class="divider" />
                   <button
-                    class="item button-animation"
+                    class="item button-transparent"
                     @click="$refs.modal_creation.show()"
                   >
                     <PlusIcon class="icon" />
                     <span class="title">Create a project</span>
                   </button>
                   <hr class="divider" />
-                  <NuxtLink class="item button-animation" to="/notifications">
+                  <NuxtLink class="item button-transparent" to="/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
-                  <NuxtLink class="item button-animation" to="/dashboard">
+                  <NuxtLink class="item button-transparent" to="/dashboard">
                     <ChartIcon class="icon" />
                     <span class="title">Dashboard</span
                     ><span class="beta-badge">BETA</span>
                   </NuxtLink>
                   <NuxtLink
-                    class="item button-animation"
+                    class="item button-transparent"
                     to="/settings/follows"
                   >
                     <HeartIcon class="icon" />
                     <span class="title">Following</span>
                   </NuxtLink>
-                  <NuxtLink class="item button-animation" to="/settings">
+                  <NuxtLink class="item button-transparent" to="/settings">
                     <SettingsIcon class="icon" />
                     <span class="title">Settings</span>
                   </NuxtLink>
@@ -129,13 +125,13 @@
                       $auth.user.role === 'moderator' ||
                       $auth.user.role === 'admin'
                     "
-                    class="item button-animation"
+                    class="item button-transparent"
                     to="/moderation"
                   >
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
-                  <button class="item button-animation" @click="changeTheme">
+                  <button class="item button-transparent" @click="changeTheme">
                     <MoonIcon
                       v-if="$colorMode.value === 'light'"
                       class="icon"
@@ -144,7 +140,7 @@
                     <span class="dropdown-item__text">Change theme</span>
                   </button>
                   <hr class="divider" />
-                  <button class="item button-animation" @click="logout">
+                  <button class="item button-transparent" @click="logout">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
@@ -165,16 +161,23 @@
       </section>
       <section class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen }">
         <div class="top-row">
-          <NuxtLink to="/" class="tab" @click.native="isBrowseMenuOpen = false">
+          <NuxtLink
+            to="/"
+            class="tab button-animation"
+            @click.native="isBrowseMenuOpen = false"
+          >
             <HomeIcon />
           </NuxtLink>
           <div class="spacer"></div>
-          <button class="tab browse" @click="toggleBrowseMenu()">
+          <button
+            class="tab browse button-animation"
+            @click="toggleBrowseMenu()"
+          >
             <DropdownIcon :class="{ closed: !isBrowseMenuOpen }" />
             <span>Browse</span>
           </button>
           <div class="spacer"></div>
-          <button class="tab" @click="toggleMobileMenu()">
+          <button class="tab button-animation" @click="toggleMobileMenu()">
             <HamburgerIcon v-if="!isMobileMenuOpen" />
             <CrossIcon v-else />
           </button>
@@ -186,7 +189,7 @@
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/mods"
-            class="tab"
+            class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
             <span>Mods</span>
@@ -194,7 +197,7 @@
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/plugins"
-            class="tab"
+            class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
             <span>Plugins</span>
@@ -203,7 +206,7 @@
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
-            class="tab"
+            class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
             <span>Resource Packs</span>
@@ -211,7 +214,7 @@
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/modpacks"
-            class="tab"
+            class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
             <span>Modpacks</span>
@@ -693,7 +696,6 @@ export default {
           min-width: 6rem;
 
           .control-button {
-            background-color: transparent;
             position: relative;
             display: flex;
             padding: 0.5rem 0.5rem;
@@ -701,6 +703,8 @@ export default {
             color: var(--color-text);
             border-radius: 2rem;
             transition: filter 0.1s ease-in-out;
+            border: 2px solid transparent;
+            box-sizing: border-box;
 
             svg {
               height: 1.25rem;
@@ -720,12 +724,10 @@ export default {
               }
             }
 
-            &:hover {
-              background-color: var(--color-button-bg-hover);
-            }
-
-            &:active {
-              background-color: var(--color-button-bg-active);
+            &.nuxt-link-exact-active {
+              color: var(--color-button-text-active);
+              background-color: var(--color-brand-highlight);
+              border-color: var(--color-brand);
             }
           }
 
@@ -787,13 +789,13 @@ export default {
 
               .item {
                 align-items: center;
-                background: none;
                 border-radius: 0.5rem;
                 box-sizing: border-box;
                 color: inherit;
                 display: flex;
                 padding: 0.5rem;
                 width: 100%;
+                border: 2px solid transparent;
 
                 .icon {
                   margin-right: 0.5rem;
@@ -803,16 +805,18 @@ export default {
 
                 &.nuxt-link-exact-active {
                   color: var(--color-button-text-active);
-                  background-color: var(--color-bg);
+                  background-color: var(--color-brand-highlight);
+                  border-color: var(--color-brand);
 
-                  svg {
-                    color: var(--color-brand);
+                  .profile-link {
+                    .username {
+                      margin-block: 0.7rem;
+                    }
+                    .prompt {
+                      display: none;
+                    }
                   }
                 }
-              }
-
-              .item:hover {
-                background-color: var(--color-bg);
               }
 
               .profile-link {
@@ -963,13 +967,14 @@ export default {
         .tab {
           flex: 0 0 fit-content;
           background-color: var(--color-button-bg);
-          padding: 0.5rem 1.25rem;
+          padding: 0.4rem 1.25rem;
           margin: 0 0.25rem;
-          border-radius: var(--size-rounded-max);
+          max-height: unset;
 
           &.nuxt-link-exact-active {
-            background-color: var(--color-brand);
-            color: var(--color-brand-inverted);
+            color: var(--color-button-text-active);
+            background-color: var(--color-brand-highlight);
+            border: 2px solid var(--color-brand);
           }
         }
       }
@@ -1020,9 +1025,13 @@ export default {
 
           &.nuxt-link-exact-active {
             color: var(--color-button-text-active);
+            background-color: var(--color-brand-highlight);
+            border: 2px solid var(--color-brand);
 
-            svg {
-              color: var(--color-brand);
+            .profile-link {
+              .prompt {
+                display: none;
+              }
             }
           }
 
