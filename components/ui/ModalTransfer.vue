@@ -24,9 +24,21 @@
             parseInput() >= minWithdraw &&
             parseInput() <= balance
           "
-          v-model="consented"
+          v-model="consentedFee"
         >
-          I acknowledge that I am transferring ${{ parseInput() }} to the
+          I acknowledge that {{ $formatWallet(wallet) }} charges a $0.25
+          processing fee for every transfer and it will be subtracted from the
+          total I receive.
+        </Checkbox>
+        <Checkbox
+          v-if="
+            isValidInput() &&
+            parseInput() >= minWithdraw &&
+            parseInput() <= balance
+          "
+          v-model="consentedAccount"
+        >
+          I acknowledge that I am transferring ${{ parseInput() - 0.25 }} to the
           following {{ $formatWallet(wallet) }} account: {{ account }}
         </Checkbox>
         <span
@@ -43,13 +55,16 @@
         >
       </div>
       <div class="button-group">
+        <NuxtLink class="iconified-button" to="/settings/monetization">
+          <SettingsIcon /> Monetization settings
+        </NuxtLink>
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
           Cancel
         </button>
         <button
           class="iconified-button brand-button"
-          :disabled="!consented"
+          :disabled="!consentedFee || !consentedAccount"
           @click="proceed"
         >
           <TransferIcon />
@@ -63,6 +78,7 @@
 <script>
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import Modal from '~/components/ui/Modal'
 import Checkbox from '~/components/ui/Checkbox'
 
@@ -71,6 +87,7 @@ export default {
   components: {
     Checkbox,
     CrossIcon,
+    SettingsIcon,
     TransferIcon,
     Modal,
   },
@@ -98,7 +115,8 @@ export default {
   },
   data() {
     return {
-      consented: false,
+      consentedFee: false,
+      consentedAccount: false,
       amount: '',
       validInput: false,
     }
@@ -106,7 +124,8 @@ export default {
   methods: {
     cancel() {
       this.amount = ''
-      this.consented = false
+      this.consentedFee = false
+      this.consentedAccount = false
       this.validInput = false
       this.$refs.modal.hide()
     },
@@ -160,7 +179,10 @@ export default {
 
   .confirm-text {
     margin-top: var(--spacing-card-sm);
-    min-height: 4rem;
+    min-height: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-card-sm);
   }
 }
 </style>
