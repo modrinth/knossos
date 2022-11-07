@@ -860,13 +860,7 @@ export default {
       }
 
       @media screen and (max-width: 750px) {
-        section.nav-group {
-          display: none;
-
-          .hide-desktop {
-            display: unset;
-          }
-        }
+        display: none;
       }
     }
 
