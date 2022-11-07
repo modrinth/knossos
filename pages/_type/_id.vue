@@ -365,7 +365,7 @@
             <div
               v-for="version in featuredVersions"
               :key="version.id"
-              class="featured-version button-animation"
+              class="featured-version button-transparent"
               @click="
                 $router.push(
                   `/${project.project_type}/${
@@ -429,7 +429,7 @@
           <div
             v-for="member in members"
             :key="member.user.id"
-            class="team-member columns button-animation"
+            class="team-member columns button-transparent"
             @click="$router.push('/user/' + member.user.username)"
           >
             <Avatar
@@ -1034,14 +1034,6 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 0.5rem;
-  border-radius: var(--size-rounded-sm);
-
-  transition: background-color 0.1s ease-in-out;
-
-  &:hover {
-    background-color: var(--color-button-bg);
-    cursor: pointer;
-  }
 
   .download {
     height: 2.5rem;
@@ -1110,16 +1102,7 @@ export default {
 
 .team-member {
   align-items: center;
-
   padding: 0.25rem 0.5rem;
-  border-radius: var(--size-rounded-sm);
-
-  transition: background-color 0.1s ease-in-out;
-
-  &:hover {
-    background-color: var(--color-button-bg);
-    cursor: pointer;
-  }
 
   .member-info {
     overflow: hidden;

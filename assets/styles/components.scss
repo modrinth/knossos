@@ -345,6 +345,7 @@
 
   &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled) {
+    cursor: pointer;
     filter: brightness(0.85);
   }
 
@@ -364,6 +365,7 @@
 .button-transparent {
   @extend .button-base;
   background-color: transparent;
+  border-radius: var(--size-rounded-sm);
 
   &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled) {
