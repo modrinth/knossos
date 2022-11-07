@@ -899,3 +899,19 @@ textarea.known-error {
 .goto-link:active {
   color: var(--color-link-active);
 }
+
+h1 {
+  .beta-badge {
+    font-size: 0.4em;
+  }
+}
+
+.beta-badge {
+  font-size: 0.7em;
+  padding: 0.25rem 0.5rem;
+  color: var(--color-raised-bg);
+  background-color: var(--color-badge-red-bg);
+  border-radius: var(--size-rounded-max);
+  margin-left: 0.5rem;
+  font-weight: bold;
+}

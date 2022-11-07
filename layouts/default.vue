@@ -110,7 +110,8 @@
                   </NuxtLink>
                   <NuxtLink class="item button-animation" to="/dashboard">
                     <ChartIcon class="icon" />
-                    <span class="title">Creator dashboard</span>
+                    <span class="title">Dashboard</span
+                    ><span class="beta-badge">BETA</span>
                   </NuxtLink>
                   <NuxtLink
                     class="item button-animation"
@@ -266,7 +267,8 @@
               to="/dashboard"
             >
               <ChartIcon class="icon" />
-              <span class="dropdown-item__text">Creator dashboard</span>
+              <span class="dropdown-item__text">Dashboard</span>
+              <span class="beta-badge">BETA</span>
             </NuxtLink>
             <NuxtLink
               v-if="

@@ -3,7 +3,7 @@
     <div class="normal-page__sidebar">
       <aside class="card sidebar">
         <NavStack>
-          <h1>Dashboard</h1>
+          <h1>Dashboard<span class="beta-badge">BETA</span></h1>
           <NavStackItem link="/dashboard" label="Overview">
             <DashboardIcon />
           </NavStackItem>
@@ -74,5 +74,10 @@ export default {
   .page-contents {
     max-width: 800px !important;
   }
+}
+
+h1 {
+  display: flex;
+  align-items: center;
 }
 </style>

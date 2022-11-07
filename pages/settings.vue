@@ -15,7 +15,11 @@
             <NavStackItem link="/settings/follows" label="Followed projects">
               <HeartIcon />
             </NavStackItem>
-            <NavStackItem link="/settings/monetization" label="Monetization">
+            <NavStackItem
+              link="/settings/monetization"
+              label="Monetization"
+              beta
+            >
               <CurrencyIcon />
             </NavStackItem>
           </template>

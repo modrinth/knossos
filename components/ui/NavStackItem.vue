@@ -4,6 +4,7 @@
     <div class="nav-content">
       <slot />
       <span>{{ label }}</span>
+      <span v-if="beta" class="beta-badge">BETA</span>
     </div>
   </NuxtLink>
 </template>
@@ -19,6 +20,10 @@ export default {
     label: {
       required: true,
       type: String,
+    },
+    beta: {
+      default: false,
+      type: Boolean,
     },
   },
 }
@@ -69,6 +74,10 @@ export default {
     .nav-indicator {
       opacity: 0.4;
     }
+  }
+
+  .beta-badge {
+    margin: 0;
   }
 }
 </style>
