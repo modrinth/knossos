@@ -1,20 +1,19 @@
 <template>
   <div
     :class="{
+      'search-page': true,
       'normal-page': true,
       'alt-layout': $store.state.cosmetics.searchLayout,
     }"
   >
-    <aside class="normal-page__sidebar" aria-label="Filters">
+    <aside
+      :class="{
+        'normal-page__sidebar': true,
+        open: sidebarMenuOpen,
+      }"
+      aria-label="Filters"
+    >
       <section class="card filters-card" role="presentation">
-        <button
-          class="iconified-button sidebar-menu-close-button"
-          @click="sidebarMenuOpen = !sidebarMenuOpen"
-        >
-          <EyeOffIcon v-if="sidebarMenuOpen" aria-hidden="true" />
-          <EyeIcon v-else aria-hidden="true" />
-          {{ sidebarMenuOpen ? 'Hide filters' : 'Show filters' }}
-        </button>
         <div
           class="sidebar-menu"
           :class="{ 'sidebar-menu_open': sidebarMenuOpen }"
@@ -245,18 +244,28 @@
         ethical-ads-big
       />
       <div class="card search-controls">
-        <div class="iconified-input">
-          <label class="hidden" for="search">Search</label>
-          <SearchIcon aria-hidden="true" />
-          <input
-            id="search"
-            v-model="query"
-            type="search"
-            name="search"
-            :placeholder="`Search ${projectType.display}s...`"
-            autocomplete="off"
-            @input="onSearchChange(1)"
-          />
+        <div class="search-filter-container">
+          <button
+            class="iconified-button sidebar-menu-close-button"
+            @click="sidebarMenuOpen = !sidebarMenuOpen"
+          >
+            <EyeOffIcon v-if="sidebarMenuOpen" aria-hidden="true" />
+            <EyeIcon v-else aria-hidden="true" />
+            Filters...
+          </button>
+          <div class="iconified-input">
+            <label class="hidden" for="search">Search</label>
+            <SearchIcon aria-hidden="true" />
+            <input
+              id="search"
+              v-model="query"
+              type="search"
+              name="search"
+              :placeholder="`Search ${projectType.display}s...`"
+              autocomplete="off"
+              @input="onSearchChange(1)"
+            />
+          </div>
         </div>
         <div class="sort-controls">
           <div class="labeled-control">
@@ -299,9 +308,10 @@
         :page="currentPage"
         :count="pageCount"
         :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
+        class="pagination-before"
         @switch-page="onSearchChange"
       ></pagination>
-      <div>
+      <div class="search-results-container">
         <div v-if="isLoading" class="no-results">
           <LogoAnimated aria-hidden="true" />
           <p>Loading...</p>
@@ -334,6 +344,7 @@
         :page="currentPage"
         :count="pageCount"
         :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
+        class="pagination-after"
         @switch-page="onSearchChangeToTop"
       ></pagination>
     </section>
@@ -777,13 +788,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// Mobile-first CSS: search page is grid on mobile...
+.search-page {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 100%;
+
+  // ...and flex on desktop
+  @media screen and (min-width: 1024px) {
+    display: flex;
+
+    // Note that the actual flex layout properties come from .normal-page
+  }
+}
+
+.normal-page__content {
+  // Passthrough children as grid items on mobile
+  display: contents;
+
+  @media screen and (min-width: 1024px) {
+    display: block;
+  }
+}
+
+// Move the filters "sidebar" on mobile underneath the search card
+.normal-page__sidebar {
+  grid-row: 3;
+
+  // Hide on mobile unless open
+  @media screen and (max-width: 1024px) {
+    display: none;
+
+    &.open {
+      display: block;
+    }
+  }
+}
+
 .filters-card {
-  padding: var(--spacing-card-lg);
+  padding: var(--spacing-card-md);
+
+  @media screen and (min-width: 1024px) {
+    padding: var(--spacing-card-lg);
+  }
 }
 
 .sidebar-menu {
   display: none;
-  margin-top: 1rem;
 }
 
 .sidebar-menu_open {
@@ -794,12 +845,35 @@ export default {
   margin: 1.5rem 0 0.5rem 0;
 }
 
+// EthicalAds
+.content-wrapper {
+  grid-row: 1;
+}
+
 .search-controls {
   display: flex;
   flex-direction: row;
   gap: var(--spacing-card-md);
   flex-wrap: wrap;
   padding: var(--spacing-card-md);
+  grid-row: 2;
+
+  .search-filter-container {
+    display: flex;
+
+    .sidebar-menu-close-button {
+      max-height: none;
+    }
+
+    .iconified-input {
+      flex: 1;
+
+      input {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
 
   .sort-controls {
     width: 100%;
@@ -821,15 +895,6 @@ export default {
       }
     }
   }
-
-  .iconified-input {
-    flex: 1;
-
-    input {
-      min-width: 15rem;
-      width: 100%;
-    }
-  }
 }
 
 .search-controls__sorting {
@@ -839,6 +904,18 @@ export default {
 .labeled-control__label,
 .labeled-control__control {
   display: block;
+}
+
+.pagination-before {
+  grid-row: 4;
+}
+
+.search-results-container {
+  grid-row: 5;
+}
+
+.pagination-after {
+  grid-row: 6;
 }
 
 .no-results {
