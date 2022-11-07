@@ -84,8 +84,8 @@ export default {
   justify-content: center;
   cursor: pointer;
 
-  width: 1rem;
-  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
 
   padding: 0;
   margin: 0 0.5rem 0 0;

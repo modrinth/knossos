@@ -6,7 +6,7 @@
       :key="index"
       ref="linkElements"
       :to="query ? (link.href ? `?${query}=${link.href}` : '?') : link.href"
-      class="nav-link"
+      class="nav-link button-animation"
       :class="{ 'is-active': index === activeIndex }"
     >
       <span>{{ link.label }}</span>

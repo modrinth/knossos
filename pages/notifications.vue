@@ -20,6 +20,7 @@
             Followed projects
           </NuxtLink>
           <button
+            v-if="$user.notifications.length > 0"
             class="iconified-button danger-button"
             @click="clearNotifications"
           >

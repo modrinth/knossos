@@ -353,7 +353,7 @@
                 :to="`/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/versions`"
-                class="all-link"
+                class="goto-link"
               >
                 See all
                 <ChevronRightIcon
@@ -1025,22 +1025,8 @@ export default {
     height: 23px;
   }
 
-  .all-link {
-    display: flex;
+  .goto-link {
     margin-bottom: 0.3rem;
-    align-items: center;
-    gap: 3px;
-
-    color: var(--color-link);
-  }
-
-  .all-link:hover,
-  .all-link:focus-visible {
-    color: var(--color-link-hover);
-  }
-
-  .all-link:active {
-    color: var(--color-link-active);
   }
 }
 

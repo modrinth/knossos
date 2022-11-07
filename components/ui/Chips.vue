@@ -8,7 +8,7 @@
       @click="toggleItem(item)"
     >
       <CheckIcon v-if="selected === item" />
-      <span>{{ item }}</span>
+      <span>{{ formatLabel(item) }}</span>
     </button>
   </div>
 </template>
@@ -29,6 +29,10 @@ export default {
     neverEmpty: {
       default: true,
       type: Boolean,
+    },
+    formatLabel: {
+      default: (x) => x,
+      type: Function,
     },
   },
   data() {

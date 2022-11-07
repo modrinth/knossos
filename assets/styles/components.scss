@@ -882,3 +882,20 @@ textarea.known-error {
 .known-errors {
   color: var(--color-badge-red-bg);
 }
+
+.goto-link {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  color: var(--color-link);
+}
+
+.goto-link:hover,
+.goto-link:focus-visible {
+  color: var(--color-link-hover);
+}
+
+.goto-link:active {
+  color: var(--color-link-active);
+}

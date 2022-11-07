@@ -11,7 +11,11 @@
           >
         </section>
         <section class="logo column" role="presentation">
-          <NuxtLink to="/" aria-label="Modrinth home page">
+          <NuxtLink
+            class="button-animation"
+            to="/"
+            aria-label="Modrinth home page"
+          >
             <ModrinthLogo aria-hidden="true" class="text-logo" />
           </NuxtLink>
         </section>
@@ -44,7 +48,7 @@
               <nuxt-link
                 v-if="$auth.user"
                 to="/notifications"
-                class="control-button"
+                class="control-button button-animation"
                 :class="{ bubble: $user.notifications.length > 0 }"
                 title="Notifications"
               >
@@ -52,7 +56,7 @@
               </nuxt-link>
               <button
                 v-else
-                class="control-button"
+                class="control-button button-animation"
                 title="Switch theme"
                 @click="changeTheme"
               >
@@ -82,27 +86,40 @@
                   <DropdownIcon class="caret" />
                 </button>
                 <div class="content card">
-                  <NuxtLink class="item" :to="`/user/${$auth.user.username}`">
+                  <NuxtLink
+                    class="item button-animation"
+                    :to="`/user/${$auth.user.username}`"
+                  >
                     <div class="title profile-link">
                       <div class="username">@{{ $auth.user.username }}</div>
                       <div class="prompt">Go to my profile</div>
                     </div>
                   </NuxtLink>
                   <hr class="divider" />
-                  <button class="item" @click="$refs.modal_creation.show()">
+                  <button
+                    class="item button-animation"
+                    @click="$refs.modal_creation.show()"
+                  >
                     <PlusIcon class="icon" />
                     <span class="title">Create a project</span>
                   </button>
                   <hr class="divider" />
-                  <NuxtLink class="item" to="/notifications">
+                  <NuxtLink class="item button-animation" to="/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
-                  <NuxtLink class="item" to="/settings/follows">
+                  <NuxtLink class="item button-animation" to="/dashboard">
+                    <ChartIcon class="icon" />
+                    <span class="title">Creator dashboard</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    class="item button-animation"
+                    to="/settings/follows"
+                  >
                     <HeartIcon class="icon" />
                     <span class="title">Following</span>
                   </NuxtLink>
-                  <NuxtLink class="item" to="/settings">
+                  <NuxtLink class="item button-animation" to="/settings">
                     <SettingsIcon class="icon" />
                     <span class="title">Settings</span>
                   </NuxtLink>
@@ -111,13 +128,13 @@
                       $auth.user.role === 'moderator' ||
                       $auth.user.role === 'admin'
                     "
-                    class="item"
+                    class="item button-animation"
                     to="/moderation"
                   >
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
-                  <button class="item" @click="changeTheme">
+                  <button class="item button-animation" @click="changeTheme">
                     <MoonIcon
                       v-if="$colorMode.value === 'light'"
                       class="icon"
@@ -126,7 +143,7 @@
                     <span class="dropdown-item__text">Change theme</span>
                   </button>
                   <hr class="divider" />
-                  <button class="item" @click="logout">
+                  <button class="item button-animation" @click="logout">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
@@ -242,6 +259,14 @@
             >
               <SettingsIcon class="icon" />
               <span class="dropdown-item__text">Settings</span>
+            </NuxtLink>
+            <NuxtLink
+              v-if="$auth.user"
+              class="iconified-button raised-button"
+              to="/dashboard"
+            >
+              <ChartIcon class="icon" />
+              <span class="dropdown-item__text">Creator dashboard</span>
             </NuxtLink>
             <NuxtLink
               v-if="
@@ -371,6 +396,7 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
@@ -396,6 +422,7 @@ export default {
     PlusIcon,
     DropdownIcon,
     HeartIcon,
+    ChartIcon,
   },
   directives: {
     ClickOutside,
@@ -770,6 +797,15 @@ export default {
                   margin-right: 0.5rem;
                   height: 20px;
                   width: 20px;
+                }
+
+                &.nuxt-link-exact-active {
+                  color: var(--color-button-text-active);
+                  background-color: var(--color-bg);
+
+                  svg {
+                    color: var(--color-brand);
+                  }
                 }
               }
 

@@ -15,6 +15,9 @@
             <NavStackItem link="/settings/follows" label="Followed projects">
               <HeartIcon />
             </NavStackItem>
+            <NavStackItem link="/settings/monetization" label="Monetization">
+              <CurrencyIcon />
+            </NavStackItem>
           </template>
         </NavStack>
       </aside>
@@ -32,6 +35,7 @@ import NavStackItem from '~/components/ui/NavStackItem'
 import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
 
 export default {
   name: 'Settings',
@@ -41,6 +45,7 @@ export default {
     PaintbrushIcon,
     UserIcon,
     HeartIcon,
+    CurrencyIcon,
   },
 }
 </script>
