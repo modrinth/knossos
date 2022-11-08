@@ -483,7 +483,6 @@ export default {
       this.$store.dispatch('user/fetchAll')
 
       document.body.setAttribute('tabindex', '-1')
-      document.body.focus()
       document.body.removeAttribute('tabindex')
     },
   },
