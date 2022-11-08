@@ -247,10 +247,10 @@
         <div class="search-filter-container">
           <button
             class="iconified-button sidebar-menu-close-button"
+            :class="{ open: sidebarMenuOpen }"
             @click="sidebarMenuOpen = !sidebarMenuOpen"
           >
-            <EyeOffIcon v-if="sidebarMenuOpen" aria-hidden="true" />
-            <EyeIcon v-else aria-hidden="true" />
+            <FilterIcon aria-hidden="true" />
             Filters...
           </button>
           <div class="iconified-input">
@@ -364,8 +364,7 @@ import ServerSide from '~/assets/images/categories/server.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import EyeIcon from '~/assets/images/utils/eye.svg?inline'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg?inline'
+import FilterIcon from '~/assets/images/utils/filter.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -382,8 +381,7 @@ export default {
     ServerSide,
     SearchIcon,
     ClearIcon,
-    EyeIcon,
-    EyeOffIcon,
+    FilterIcon,
     LogoAnimated,
   },
   data() {
@@ -863,6 +861,12 @@ export default {
 
     .sidebar-menu-close-button {
       max-height: none;
+
+      &.open {
+        color: var(--color-button-text-active);
+        background-color: var(--color-brand-highlight);
+        outline: 2px solid var(--color-brand);
+      }
     }
 
     .iconified-input {
