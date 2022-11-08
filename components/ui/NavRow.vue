@@ -98,6 +98,8 @@ export default {
 
       if (this.activeIndex !== -1) {
         this.startAnimation()
+      } else {
+        this.oldIndex = -1
       }
     },
     startAnimation() {
