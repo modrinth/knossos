@@ -115,12 +115,12 @@
                 <CheckIcon />
                 <p>Dependency management</p>
               </div>
-              <div class="feature in-progress">
+              <div class="feature completed">
                 <CheckIcon />
                 <p>Modpacks</p>
               </div>
-              <div class="feature in-progress">
-                <InProgressIcon />
+              <div class="feature completed">
+                <CheckIcon />
                 <p>Creator payouts</p>
               </div>
               <div class="feature in-progress">
