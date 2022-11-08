@@ -76,10 +76,10 @@
             <h1>Constantly evolving and improving</h1>
             <p>
               We are always adding new features and working towards making
-              Modrinth have the friendliest user experience possible. Right now,
-              we're working on finishing modpacks and finally paying out
-              creators on our site. If you have any more feature ideas, feel
-              free to join our
+              Modrinth have the best possible user experience. Right now, we're
+              working on giving creators more analytics, adding new types of
+              projects, our launcher, and much more! If you have any more
+              feature ideas, feel free to join our
               <a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>!
             </p>
             <div class="features">
@@ -94,14 +94,6 @@
               <div class="feature completed">
                 <CheckIcon />
                 <p>Real-time search</p>
-              </div>
-              <div class="feature completed">
-                <CheckIcon />
-                <p>Customizable project pages</p>
-              </div>
-              <div class="feature completed">
-                <CheckIcon />
-                <p>Robust team management</p>
               </div>
               <div class="feature completed">
                 <CheckIcon />
@@ -121,15 +113,23 @@
               </div>
               <div class="feature completed">
                 <CheckIcon />
-                <p>Creator payouts</p>
-              </div>
-              <div class="feature in-progress">
-                <InProgressIcon />
-                <p>More project types</p>
+                <p>Creator monetization</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
                 <p>Creator analytics</p>
+              </div>
+              <div class="feature in-progress blurred">
+                <InProgressIcon />
+                <p>[Redacted]</p>
+              </div>
+              <div class="feature in-progress">
+                <InProgressIcon />
+                <p>More types of projects</p>
+              </div>
+              <div class="feature in-progress">
+                <InProgressIcon />
+                <p>Game launcher</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
@@ -346,7 +346,15 @@ export default {
 
             &.in-progress {
               svg {
-                color: var(--color-badge-yellow-text);
+                color: var(--color-badge-yellow-bg);
+              }
+            }
+
+            &.blurred {
+              p {
+                user-select: none;
+                color: transparent;
+                text-shadow: 0 0 12px var(--color-badge-yellow-bg);
               }
             }
           }
