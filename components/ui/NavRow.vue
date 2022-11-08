@@ -191,6 +191,10 @@ export default {
     transition-property: left, right, top;
     transition-duration: 350ms;
     visibility: hidden;
+
+    @media (prefers-reduced-motion) {
+      transition: none !important;
+    }
   }
 }
 </style>

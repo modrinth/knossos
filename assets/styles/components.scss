@@ -388,6 +388,7 @@
 
   &:active:not(&:disabled) {
     filter: brightness(0.8);
+
     button {
       transform: scale(0.95);
     }
@@ -471,7 +472,7 @@
 }
 
 .warning-button {
-  --background-color:var(--color-warning-bg);
+  --background-color: var(--color-warning-bg);
   --text-color: var(--color-warning-text);
 }
 
@@ -701,6 +702,10 @@ label {
     border-radius: 50%;
     background: var(--color-toggle-handle);
     transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
+
+    @media (prefers-reduced-motion) {
+      transition: none;
+    }
   }
 
   &:checked {
@@ -938,5 +943,11 @@ h1 {
     box-sizing: border-box;
     outline: 2px solid var(--color-button-text-active);
     color: var(--color-button-text-active);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .button-animation, button {
+    transform: none !important;
   }
 }
