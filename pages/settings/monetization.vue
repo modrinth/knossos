@@ -93,7 +93,10 @@ export default {
   data() {
     return {
       editing: false,
-      enrolled: false,
+      enrolled:
+        this.$auth.user.payout_data.payout_wallet &&
+        this.$auth.user.payout_data.payout_wallet_type &&
+        this.$auth.user.payout_data.payout_address,
       wallets: ['paypal', 'venmo'],
       selectedWallet: 'paypal',
       accountType: this.getAccountTypes()[0],
@@ -135,9 +138,37 @@ export default {
         this.accountType = 'user_handle'
       }
     },
-    saveInformation() {
-      this.editing = false
-      this.enrolled = true
+    async saveInformation() {
+      this.$nuxt.$loading.start()
+      try {
+        const data = {
+          payout_data: {
+            payout_wallet: this.selectedWallet,
+            payout_wallet_type: this.accountType,
+            payout_address: this.account,
+          },
+        }
+
+        await this.$axios.patch(
+          `user/${this.$auth.user.id}`,
+          data,
+          this.$defaultHeaders()
+        )
+        await this.$store.dispatch('auth/fetchUser', {
+          token: this.$auth.token,
+        })
+
+        this.editing = false
+        this.enrolled = true
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+      this.$nuxt.$loading.finish()
     },
   },
 }

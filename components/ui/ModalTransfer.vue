@@ -129,8 +129,30 @@ export default {
       this.validInput = false
       this.$refs.modal.hide()
     },
-    proceed() {
-      this.$refs.modal.hide()
+    async proceed() {
+      this.$nuxt.$loading.start()
+      try {
+        await this.$axios.post(
+          `user/${this.$auth.user.id}/payouts`,
+          {
+            amount: Number(this.amount.replace('$', '')),
+          },
+          this.$defaultHeaders()
+        )
+        await this.$store.dispatch('auth/fetchUser', {
+          token: this.$auth.token,
+        })
+
+        this.$refs.modal.hide()
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+      this.$nuxt.$loading.finish()
     },
     show() {
       this.$refs.modal.show()

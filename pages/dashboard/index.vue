@@ -5,7 +5,13 @@
       <div class="metrics">
         <div class="metric">
           <div class="label">Total downloads</div>
-          <div class="value">{{ $formatNumber(totalDownloads) }}</div>
+          <div class="value">
+            {{
+              $formatNumber(
+                $user.projects.reduce((agg, x) => agg + x.downloads, 0)
+              )
+            }}
+          </div>
           <span>{{ $formatNumber(monthDownloads) }} this month</span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
@@ -27,8 +33,8 @@
         </div>
         <div class="metric">
           <div class="label">Total revenue</div>
-          <div class="value">${{ $formatNumber(totalRevenue) }}</div>
-          <span>${{ $formatNumber(monthRevenue) }} this month</span>
+          <div class="value">${{ $formatNumber(payouts.all_time) }}</div>
+          <span>${{ $formatNumber(payouts.last_month) }} this month</span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -38,9 +44,11 @@
         </div>
         <div class="metric">
           <div class="label">Current balance</div>
-          <div class="value">${{ $formatNumber(currentBalance) }}</div>
+          <div class="value">
+            ${{ $formatNumber($auth.user.payout_data.balance) }}
+          </div>
           <NuxtLink
-            v-if="currentBalance >= 5"
+            v-if="$auth.user.payout_data.balance >= minWithdraw"
             class="goto-link"
             to="/dashboard/revenue"
             >Withdraw earnings
@@ -67,16 +75,29 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 
 export default {
   components: { ChevronRightIcon },
+  async asyncData(data) {
+    const [payouts] = (
+      await Promise.all([
+        data.$axios.get(
+          `user/${data.$auth.user.id}/payouts`,
+          data.$defaultHeaders()
+        ),
+      ])
+    ).map((it) => it.data)
+
+    payouts.all_time = Math.floor(payouts.all_time * 100) / 100
+    payouts.last_month = Math.floor(payouts.last_month * 100) / 100
+
+    return {
+      payouts,
+    }
+  },
   data() {
     return {
-      totalDownloads: 32421,
       totalImpressions: 124124,
-      totalRevenue: 2321,
-      currentBalance: 61,
-      minWithdraw: 5,
+      minWithdraw: 0.25,
       monthDownloads: 4232,
       monthImpressions: 21412,
-      monthRevenue: 127,
     }
   },
   fetch() {},

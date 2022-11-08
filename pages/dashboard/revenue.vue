@@ -1,20 +1,21 @@
 <template>
   <div>
     <ModalTransfer
+      v-if="enrolled"
       ref="modal_transfer"
-      :wallet="wallet"
-      :account-type="accountType"
-      :account="account"
-      :balance="currentBalance"
+      :wallet="$auth.user.payout_data.payout_wallet"
+      :account-type="$auth.user.payout_data.payout_wallet_type"
+      :account="$auth.user.payout_data.payout_address"
+      :balance="$auth.user.payout_data.balance"
       :min-withdraw="minWithdraw"
     />
     <section class="card">
       <h2>Withdraw</h2>
-      <div v-if="currentBalance >= minWithdraw">
+      <div v-if="$auth.user.payout_data.balance >= minWithdraw">
         <p>
           You have
-          <span class="balance">${{ currentBalance }}</span> available to
-          withdraw.
+          <span class="balance">${{ $auth.user.payout_data.balance }}</span>
+          available to withdraw.
           <span v-if="!enrolled"
             >Enroll in the Creator Monetization Program to withdraw your
             revenue.</span
@@ -26,7 +27,8 @@
             class="iconified-button brand-button"
             @click="$refs.modal_transfer.show()"
           >
-            <TransferIcon /> Transfer to {{ $formatWallet(wallet) }}
+            <TransferIcon /> Transfer to
+            {{ $formatWallet($auth.user.payout_data.payout_wallet) }}
           </button>
           <NuxtLink class="iconified-button" to="/settings/monetization">
             <SettingsIcon /> Monetization settings
@@ -35,7 +37,7 @@
       </div>
       <p v-else>
         You have made
-        <span class="balance">${{ currentBalance }}</span
+        <span class="balance">${{ $auth.user.payout_data.balance }}</span
         >, however you have not yet met the minimum of ${{ minWithdraw }} to
         withdraw.
       </p>
@@ -74,15 +76,13 @@ export default {
   components: { TransferIcon, SettingsIcon, ModalTransfer },
   data() {
     return {
-      currentBalance: 61,
-      minWithdraw: 5,
-      wallet: 'paypal',
-      accountType: 'email',
-      account: 'example@gmail.com',
-      enrolled: true,
+      minWithdraw: 0.25,
+      enrolled:
+        this.$auth.user.payout_data.payout_wallet &&
+        this.$auth.user.payout_data.payout_wallet_type &&
+        this.$auth.user.payout_data.payout_address,
     }
   },
-  fetch() {},
   head: {
     title: 'Revenue - Modrinth',
   },
