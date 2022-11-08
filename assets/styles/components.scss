@@ -704,11 +704,12 @@ label {
   }
 
   &:checked {
-    background: var(--color-brand);
+    background-color: var(--color-brand-highlight);
+    outline: 2px solid var(--color-brand);
 
     &:after {
       transform: translatex(20px);
-      background: var(--color-brand-inverted);
+      background: var(--color-button-text-active);
     }
   }
 
