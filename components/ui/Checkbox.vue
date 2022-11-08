@@ -96,11 +96,12 @@ export default {
   box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
 
   &.checked {
-    background-color: var(--color-brand);
+    background-color: var(--color-brand-highlight);
+    outline: 2px solid var(--color-brand);
   }
 
   svg {
-    color: var(--color-brand-inverted);
+    color: var(--color-button-text-active);
     stroke-width: 0.2rem;
     height: 0.8rem;
     width: 0.8rem;
