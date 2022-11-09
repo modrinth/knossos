@@ -58,12 +58,21 @@
               Format: +18888888888 or +1-888-888-8888
             </span>
           </div>
-          <button
-            class="save-button iconified-button brand-button"
-            @click="saveInformation()"
-          >
-            <SaveIcon /> Save information
-          </button>
+          <div class="columns buttons">
+            <button
+              class="save-button iconified-button brand-button"
+              @click="updatePayoutData(false)"
+            >
+              <SaveIcon /> Save information
+            </button>
+            <button
+              v-if="enrolled"
+              class="save-button iconified-button danger-button"
+              @click="updatePayoutData(true)"
+            >
+              <TrashIcon /> Remove enrollment
+            </button>
+          </div>
         </div>
       </template>
       <template v-else>
@@ -83,6 +92,7 @@
 import Multiselect from 'vue-multiselect'
 import Chips from '~/components/ui/Chips'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 
@@ -91,6 +101,7 @@ export default {
     Multiselect,
     Chips,
     SaveIcon,
+    TrashIcon,
     EditIcon,
     ChartIcon,
   },
@@ -106,8 +117,7 @@ export default {
       accountType:
         this.$auth.user.payout_data.payout_wallet_type ??
         this.getAccountTypes()[0],
-      account:
-        this.$auth.user.payout_data.payout_address ?? 'example@gmail.com',
+      account: this.$auth.user.payout_data.payout_address ?? '',
     }
   },
   head: {
@@ -145,15 +155,22 @@ export default {
         this.accountType = 'user_handle'
       }
     },
-    async saveInformation() {
+    async updatePayoutData(unenroll) {
       this.$nuxt.$loading.start()
+      if (unenroll) {
+        this.selectedWallet = 'paypal'
+        this.accountType = this.getAccountTypes()[0]
+        this.account = ''
+      }
       try {
         const data = {
-          payout_data: {
-            payout_wallet: this.selectedWallet,
-            payout_wallet_type: this.accountType,
-            payout_address: this.account,
-          },
+          payout_data: unenroll
+            ? null
+            : {
+                payout_wallet: this.selectedWallet,
+                payout_wallet_type: this.accountType,
+                payout_address: this.account,
+              },
         }
 
         await this.$axios.patch(
@@ -166,7 +183,7 @@ export default {
         })
 
         this.editing = false
-        this.enrolled = true
+        this.enrolled = !unenroll
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -219,6 +236,10 @@ export default {
     @media screen and (max-width: 750px) {
       flex-direction: column;
     }
+  }
+
+  .buttons {
+    gap: var(--spacing-card-sm);
   }
 }
 </style>
