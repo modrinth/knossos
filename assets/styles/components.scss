@@ -488,7 +488,7 @@
 
 .button-group {
   display: flex;
-  grid-gap: .5rem;
+  grid-gap: var(--spacing-card-sm);
   flex-wrap: wrap;
 }
 

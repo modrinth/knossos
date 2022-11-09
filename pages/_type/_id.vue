@@ -119,7 +119,7 @@
             </div>
           </div>
           <hr class="card-divider" />
-          <div class="buttons">
+          <div class="button-group">
             <template v-if="$auth.user">
               <button
                 class="iconified-button"
@@ -943,16 +943,6 @@ export default {
     svg {
       height: 1.25rem;
       margin-right: 0.125rem;
-    }
-  }
-
-  .buttons {
-    display: flex;
-    flex-direction: row;
-
-    button,
-    a {
-      display: flex;
     }
   }
 
