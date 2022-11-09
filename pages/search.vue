@@ -858,14 +858,19 @@ export default {
 
   .search-filter-container {
     display: flex;
+    width: 100%;
+    align-items: center;
 
     .sidebar-menu-close-button {
       max-height: none;
+      // match height of the search field
+      height: 40px;
+      transition: box-shadow 0.1s ease-in-out;
 
       &.open {
         color: var(--color-button-text-active);
         background-color: var(--color-brand-highlight);
-        outline: 2px solid var(--color-brand);
+        box-shadow: inset 0 0 0 transparent, 0 0 0 2px var(--color-brand);
       }
     }
 

@@ -85,8 +85,8 @@ html {
 
   --shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
   --shadow-raised: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.15),
-  1px 2px 2.2px -1.7px hsl(var(--shadow-color) / 0.12),
-  4.4px 8.8px 9.7px -3.4px hsl(var(--shadow-color) / 0.09);
+    1px 2px 2.2px -1.7px hsl(var(--shadow-color) / 0.12),
+    4.4px 8.8px 9.7px -3.4px hsl(var(--shadow-color) / 0.09);
   --shadow-floating: hsla(0, 0%, 0%, 0) 0px 0px 0px 0px, hsla(0, 0%, 0%, 0) 0px 0px 0px 0px,
   hsla(0, 0%, 0%, 0.1) 0px 4px 6px -1px, hsla(0, 0%, 0%, 0.1) 0px 2px 4px -1px;
 
@@ -277,6 +277,9 @@ input {
   border-radius: var(--size-rounded-sm);
   box-sizing: border-box;
   border: 2px solid transparent;
+  // safari iOS rounds inputs by default
+  // set the appearance to none to prevent this
+  appearance: none !important;
 }
 
 pre {

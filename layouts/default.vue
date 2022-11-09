@@ -983,6 +983,7 @@ export default {
     display: none;
     position: absolute;
     top: 0;
+    left: 0;
     background-color: var(--color-bg);
     height: 100%;
     width: 100%;
