@@ -12,7 +12,7 @@
               )
             }}
           </div>
-          <span>{{ $formatNumber(monthDownloads) }} this month</span>
+          <span> </span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -21,9 +21,15 @@
           <!--          /></NuxtLink>-->
         </div>
         <div class="metric">
-          <div class="label">Total impressions</div>
-          <div class="value">{{ $formatNumber(totalImpressions) }}</div>
-          <span>{{ $formatNumber(monthImpressions) }} this month</span>
+          <div class="label">Total followers</div>
+          <div class="value">
+            {{
+              $formatNumber(
+                $user.projects.reduce((agg, x) => agg + x.followers, 0)
+              )
+            }}
+          </div>
+          <span> </span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -94,10 +100,7 @@ export default {
   },
   data() {
     return {
-      totalImpressions: 124124,
       minWithdraw: 0.25,
-      monthDownloads: 4232,
-      monthImpressions: 21412,
     }
   },
   fetch() {},
