@@ -18,6 +18,7 @@
         <div class="enroll">
           <Chips
             v-model="selectedWallet"
+            :starting-value="selectedWallet"
             :items="wallets"
             :format-label="$formatWallet"
             @input="onChangeWallet()"
@@ -53,6 +54,9 @@
               )} ${formatAccountType(accountType).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
             />
+            <span v-if="accountType === 'phone'">
+              Format: +18888888888 or +1-888-888-8888
+            </span>
           </div>
           <button
             class="save-button iconified-button brand-button"
@@ -98,9 +102,12 @@ export default {
         this.$auth.user.payout_data.payout_wallet_type &&
         this.$auth.user.payout_data.payout_address,
       wallets: ['paypal', 'venmo'],
-      selectedWallet: 'paypal',
-      accountType: this.getAccountTypes()[0],
-      account: 'example@gmail.com',
+      selectedWallet: this.$auth.user.payout_data.payout_wallet ?? 'paypal',
+      accountType:
+        this.$auth.user.payout_data.payout_wallet_type ??
+        this.getAccountTypes()[0],
+      account:
+        this.$auth.user.payout_data.payout_address ?? 'example@gmail.com',
     }
   },
   head: {

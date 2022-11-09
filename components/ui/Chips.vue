@@ -22,6 +22,11 @@ export default {
     CheckIcon,
   },
   props: {
+    startingValue: {
+      required: false,
+      type: Object,
+      default: null,
+    },
     items: {
       required: true,
       type: Array,
@@ -41,7 +46,9 @@ export default {
     }
   },
   created() {
-    if (this.items.length > 0 && this.neverEmpty) {
+    if (this.startingValue) {
+      this.selected = this.startingValue
+    } else if (this.items.length > 0 && this.neverEmpty) {
       this.selected = this.items[0]
       this.$emit('input', this.selected)
     }

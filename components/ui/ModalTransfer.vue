@@ -38,8 +38,10 @@
           "
           v-model="consentedAccount"
         >
-          I acknowledge that I am transferring ${{ parseInput() - 0.25 }} to the
-          following {{ $formatWallet(wallet) }} account: {{ account }}
+          I acknowledge that I am transferring ${{
+            Math.floor((parseInput() - 0.25) * 100) / 100
+          }}
+          to the following {{ $formatWallet(wallet) }} account: {{ account }}
         </Checkbox>
         <span
           v-else-if="validInput && parseInput() < minWithdraw"

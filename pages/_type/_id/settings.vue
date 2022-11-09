@@ -113,7 +113,6 @@
           <Badge v-if="member.accepted" type="accepted" color="green" />
           <Badge v-else type="pending" color="yellow" />
           <button
-            v-if="member.role !== 'Owner'"
             class="dropdown-icon"
             @click="
               openTeamMembers.indexOf(member.user.id) === -1
@@ -129,7 +128,7 @@
       </div>
       <div class="content">
         <div class="main-info">
-          <label>
+          <label v-if="member.oldRole !== 'Owner'">
             Role:
             <input
               v-model="allTeamMembers[index].role"
@@ -140,86 +139,120 @@
               "
             />
           </label>
-          <ul v-if="member.role === 'Owner'" class="known-errors">
+          <label>
+            Payouts Weight:
+            <input
+              v-model="allTeamMembers[index].payouts_split"
+              type="number"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
+              "
+            />
+          </label>
+          <ul
+            v-if="member.role === 'Owner' && member.oldRole !== 'Owner'"
+            class="known-errors"
+          >
             <li>A project can only have one 'Owner'.</li>
           </ul>
         </div>
-        <h3>Permissions</h3>
-        <div class="permissions">
-          <Checkbox
-            :value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
-            "
-            label="Upload version"
-            @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
-          />
-          <Checkbox
-            :value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
-            "
-            label="Delete version"
-            @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
-          />
-          <Checkbox
-            :value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
-            "
-            label="Edit details"
-            @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
-          />
-          <Checkbox
-            :value="(member.permissions & EDIT_BODY) === EDIT_BODY"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
-            "
-            label="Edit body"
-            @input="allTeamMembers[index].permissions ^= EDIT_BODY"
-          />
-          <Checkbox
-            :value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
-            "
-            label="Manage invites"
-            @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
-          />
-          <Checkbox
-            :value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
-            "
-            label="Remove member"
-            @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
-          />
-          <Checkbox
-            :value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-            "
-            label="Edit member"
-            @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
-          />
-          <Checkbox
-            :value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
-            "
-            label="Delete project"
-            @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
-          />
-        </div>
+        <template v-if="member.oldRole !== 'Owner'">
+          <h3>Permissions</h3>
+          <div class="permissions">
+            <Checkbox
+              :value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
+              "
+              label="Upload version"
+              @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
+            />
+            <Checkbox
+              :value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
+              "
+              label="Delete version"
+              @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
+            />
+            <Checkbox
+              :value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+              "
+              label="Edit details"
+              @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
+            />
+            <Checkbox
+              :value="(member.permissions & EDIT_BODY) === EDIT_BODY"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
+              "
+              label="Edit body"
+              @input="allTeamMembers[index].permissions ^= EDIT_BODY"
+            />
+            <Checkbox
+              :value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
+              "
+              label="Manage invites"
+              @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
+            />
+            <Checkbox
+              :value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
+              "
+              label="Remove member"
+              @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
+            />
+            <Checkbox
+              :value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
+              "
+              label="Edit member"
+              @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
+            />
+            <Checkbox
+              :value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+              "
+              label="Delete project"
+              @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
+            />
+            <Checkbox
+              :value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
+              "
+              label="Delete project"
+              @input="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
+            />
+            <Checkbox
+              :value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
+              "
+              label="Delete project"
+              @input="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
+            />
+          </div>
+        </template>
         <div class="actions">
           <button
+            v-if="member.oldRole !== 'Owner'"
             class="iconified-button"
             :disabled="
               (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
@@ -231,7 +264,7 @@
           </button>
           <button
             v-if="
-              member.role !== 'Owner' &&
+              member.oldRole !== 'Owner' &&
               currentMember.role === 'Owner' &&
               member.accepted
             "
@@ -244,8 +277,7 @@
           <button
             class="iconified-button brand-button"
             :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-              member.role === 'Owner'
+              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
             "
             @click="updateTeamMember(index)"
           >
@@ -313,6 +345,8 @@ export default {
   },
   fetch() {
     this.allTeamMembers = this.allMembers
+
+    this.allTeamMembers.forEach((x) => (x.oldRole = x.role))
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0
@@ -323,6 +357,8 @@ export default {
     this.REMOVE_MEMBER = 1 << 5
     this.EDIT_MEMBER = 1 << 6
     this.DELETE_PROJECT = 1 << 7
+    this.VIEW_ANALYTICS = 1 << 8
+    this.VIEW_PAYOUTS = 1 << 9
   },
   methods: {
     async inviteTeamMember() {
@@ -377,10 +413,16 @@ export default {
       this.$nuxt.$loading.start()
 
       try {
-        const data = {
-          permissions: this.allTeamMembers[index].permissions,
-          role: this.allTeamMembers[index].role,
-        }
+        const data =
+          this.allTeamMembers[index].oldRole !== 'Owner'
+            ? {
+                permissions: this.allTeamMembers[index].permissions,
+                role: this.allTeamMembers[index].role,
+                payouts_split: this.allTeamMembers[index].payouts_split,
+              }
+            : {
+                payouts_split: this.allTeamMembers[index].payouts_split,
+              }
 
         await this.$axios.patch(
           `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,

@@ -722,12 +722,6 @@ export default {
                 width: 0.5rem;
               }
             }
-
-            &.nuxt-link-exact-active {
-              color: var(--color-button-text-active);
-              background-color: var(--color-brand-highlight);
-              border-color: var(--color-brand);
-            }
           }
 
           .hide-desktop {
