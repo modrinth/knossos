@@ -236,7 +236,7 @@
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                 (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
               "
-              label="Delete project"
+              label="View analytics"
               @input="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
             />
             <Checkbox
@@ -245,7 +245,7 @@
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                 (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
               "
-              label="Delete project"
+              label="View payouts"
               @input="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
             />
           </div>
@@ -487,6 +487,7 @@ export default {
       ).data.map((it) => ({
         avatar_url: it.user.avatar_url,
         name: it.user.username,
+        oldRole: it.role,
         ...it,
       }))
     },

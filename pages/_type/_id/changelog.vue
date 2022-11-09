@@ -1,24 +1,20 @@
 <template>
   <div class="content">
-    <Pagination
-      :page="currentPage"
-      :count="Math.ceil(changelogVersions.length / 50)"
-      :link-function="getPageLink"
-      @switch-page="switchPage"
+    <VersionFilterControl
+      class="card"
+      :versions="versions"
+      @updateVersions="updateVersions"
     />
     <div class="card">
       <div
-        v-for="(version, index) in changelogVersions.slice(
-          (currentPage - 1) * 50,
-          currentPage * 50
-        )"
+        v-for="version in filteredVersions"
         :key="version.id"
         class="changelog-item"
       >
         <div
           :class="`changelog-bar ${version.version_type} ${
             version.duplicate ? 'duplicate' : ''
-          } ${index === 50 - 1 ? 'last-child' : ''}`"
+          }`"
         ></div>
         <div class="version-wrapper">
           <div class="version-header">
@@ -69,21 +65,15 @@
         </div>
       </div>
     </div>
-    <Pagination
-      :page="currentPage"
-      :count="Math.ceil(changelogVersions.length / 50)"
-      :link-function="getPageLink"
-      @switch-page="(page) => switchPage(page, true)"
-    />
   </div>
 </template>
 <script>
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import Pagination from '~/components/ui/Pagination'
+import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
   components: {
-    Pagination,
+    VersionFilterControl,
     DownloadIcon,
   },
   props: {
@@ -108,7 +98,7 @@ export default {
   },
   data() {
     return {
-      changelogVersions: [],
+      filteredVersions: this.versions,
       currentPage: 1,
     }
   },
@@ -116,7 +106,7 @@ export default {
     if (this.$route.query.page)
       this.currentPage = parseInt(this.$route.query.page)
 
-    this.changelogVersions = this.versions.map((version, index) => {
+    this.filteredVersions = this.versions.map((version, index) => {
       const nextVersion = this.versions[index + 1]
       if (
         nextVersion &&
@@ -175,6 +165,9 @@ export default {
       } else {
         return `${this.$route.path}?page=${this.currentPage}`
       }
+    },
+    updateVersions(updatedVersions) {
+      this.filteredVersions = updatedVersions
     },
   },
   auth: false,
@@ -235,7 +228,7 @@ export default {
       background-size: 100% 10px;
     }
 
-    &.duplicate:not(&.last-child) {
+    &.duplicate {
       height: calc(100% + 1.5rem);
     }
   }

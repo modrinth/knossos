@@ -6,11 +6,10 @@
         Create a version
       </nuxt-link>
     </div>
-    <Pagination
-      :page="currentPage"
-      :count="Math.ceil(versions.length / 50)"
-      :link-function="getPageLink"
-      @switch-page="switchPage"
+    <VersionFilterControl
+      class="card"
+      :versions="versions"
+      @updateVersions="updateVersions"
     />
     <div v-if="versions.length > 0" class="card">
       <table>
@@ -23,13 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="version in versions.slice(
-              (currentPage - 1) * 50,
-              currentPage * 50
-            )"
-            :key="version.id"
-          >
+          <tr v-for="version in filteredVersions" :key="version.id">
             <td>
               <a
                 v-tooltip="
@@ -124,26 +117,20 @@
         </tbody>
       </table>
     </div>
-    <Pagination
-      :page="currentPage"
-      :count="Math.ceil(versions.length / 50)"
-      :link-function="getPageLink"
-      @switch-page="(page) => switchPage(page, true)"
-    />
   </div>
 </template>
 <script>
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
-import Pagination from '~/components/ui/Pagination'
+import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
   components: {
-    Pagination,
     PlusIcon,
     DownloadIcon,
     VersionBadge,
+    VersionFilterControl,
   },
   auth: false,
   props: {
@@ -168,7 +155,7 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
+      filteredVersions: this.versions,
     }
   },
   fetch() {
@@ -212,21 +199,8 @@ export default {
     }
   },
   methods: {
-    switchPage(page, toTop) {
-      this.currentPage = page
-      this.$router.replace(this.getPageLink(page))
-
-      if (toTop) {
-        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
-        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
-      }
-    },
-    getPageLink(page) {
-      if (page === 1) {
-        return this.$route.path
-      } else {
-        return `${this.$route.path}?page=${this.currentPage}`
-      }
+    updateVersions(updatedVersions) {
+      this.filteredVersions = updatedVersions
     },
   },
 }
