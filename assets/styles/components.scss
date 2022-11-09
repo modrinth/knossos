@@ -709,21 +709,16 @@ label {
   }
 
   &:checked {
-    background-color: var(--color-brand-highlight);
-    outline: 2px solid var(--color-brand);
+    background-color: var(--color-brand);
 
     &:after {
       transform: translatex(20px);
-      background: var(--color-button-text-active);
+      background: var(--color-brand-inverted);
     }
   }
 
   &:hover &:focus {
     background: var(--color-button-bg);
-  }
-
-  &:hover:checked &:focus:checked {
-    background: var(--color-brand);
   }
 }
 
@@ -931,7 +926,7 @@ h1 {
   font-size: 0.7em;
   padding: 0.25rem 0.5rem;
   color: var(--color-raised-bg);
-  background-color: var(--color-badge-red-bg);
+  background-color: var(--color-badge-yellow-bg);
   border-radius: var(--size-rounded-max);
   margin-left: 0.5rem;
   font-weight: bold;

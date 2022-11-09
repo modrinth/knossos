@@ -47,15 +47,13 @@ export default {
     gap: 0.4rem;
     flex-grow: 1;
     background-color: var(--color-raised-bg);
-    border: 2px solid transparent;
   }
 
   &.nuxt-link-exact-active {
     .nav-content {
       color: var(--color-button-text-active);
-      background-color: var(--color-brand-highlight);
-      border: 2px solid var(--color-brand);
-      box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+      background-color: var(--color-button-bg);
+      box-shadow: none;
     }
   }
 

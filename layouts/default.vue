@@ -722,6 +722,11 @@ export default {
                 width: 0.5rem;
               }
             }
+
+            &.nuxt-link-exact-active {
+              color: var(--color-button-text-active);
+              background-color: var(--color-button-bg);
+            }
           }
 
           .hide-desktop {
@@ -788,7 +793,6 @@ export default {
                 display: flex;
                 padding: 0.5rem;
                 width: 100%;
-                border: 2px solid transparent;
 
                 .icon {
                   margin-right: 0.5rem;
@@ -798,8 +802,7 @@ export default {
 
                 &.nuxt-link-exact-active {
                   color: var(--color-button-text-active);
-                  background-color: var(--color-brand-highlight);
-                  border-color: var(--color-brand);
+                  background-color: var(--color-button-bg);
 
                   .profile-link {
                     .username {
