@@ -196,48 +196,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-//.card {
-//  padding: var(--spacing-card-lg);
-//}
-//
-//.iconified-button {
-//  width: fit-content;
-//}
-//
-//.enroll {
-//  display: flex;
-//  flex-direction: column;
-//  gap: var(--spacing-card-md);
-//
-//  p {
-//    margin: 0;
-//  }
-//
-//  .enroll-form {
-//    display: flex;
-//    flex-direction: row;
-//    justify-content: left;
-//    width: 100%;
-//    gap: var(--spacing-card-md);
-//
-//    .multiselect {
-//      width: 15rem;
-//      flex-shrink: 1;
-//    }
-//
-//    input {
-//      box-sizing: border-box;
-//      max-height: 40px;
-//      width: 24rem;
-//      flex-basis: 24rem;
-//      flex-shrink: 2;
-//      margin: 0;
-//    }
-//
-//    @media screen and (max-width: 750px) {
-//      flex-direction: column;
-//    }
-//  }
-//}
-</style>
+<style lang="scss" scoped></style>
