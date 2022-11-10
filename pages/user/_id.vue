@@ -49,12 +49,25 @@
             </a>
           </div>
           <template v-if="isEditing">
-            <div class="inputs">
-              <label><h3>Username</h3></label>
-              <input v-model="user.username" maxlength="39" type="text" />
-              <label><h3>Bio</h3></label>
+            <div class="inputs universal-labels">
+              <label for="user-username"
+                ><span class="label__title">Username</span></label
+              >
+              <input
+                id="user-username"
+                v-model="user.username"
+                maxlength="39"
+                type="text"
+              />
+              <label for="user-bio"
+                ><span class="label__title">Bio</span></label
+              >
               <div class="textarea-wrapper">
-                <textarea v-model="user.bio" maxlength="160"></textarea>
+                <textarea
+                  id="user-bio"
+                  v-model="user.bio"
+                  maxlength="160"
+                ></textarea>
               </div>
             </div>
             <div class="button-group">
@@ -586,10 +599,6 @@ export default {
   input {
     margin-top: 0.5rem;
     width: 100%;
-  }
-
-  span {
-    color: var(--color-icon);
   }
 
   label {

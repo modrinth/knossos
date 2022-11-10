@@ -1,6 +1,6 @@
 <template>
   <Modal ref="modal" header="Create project">
-    <div class="modal-creation">
+    <div class="modal-creation legacy-label-styles">
       <div class="markdown-body">
         <p>
           New projects are created as drafts, and can be found under your

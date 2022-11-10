@@ -1,5 +1,5 @@
 <template>
-  <div class="page-contents">
+  <div class="page-contents legacy-label-styles">
     <header class="header-card">
       <div class="header__row">
         <h2 class="header__title">Edit project</h2>
@@ -977,56 +977,6 @@ section.donations {
 
   * {
     margin-bottom: var(--spacing-card-sm);
-  }
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.5rem;
-
-  &.no-margin {
-    margin-bottom: 0;
-  }
-
-  @media screen and (min-width: 1024px) {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  span {
-    flex: 2;
-    padding-right: var(--spacing-card-lg);
-
-    &.no-padding {
-      padding-right: 0;
-    }
-  }
-
-  input,
-  .multiselect,
-  .input-group {
-    flex: 3;
-    height: fit-content;
-  }
-
-  input[type='button'] {
-    height: fit-content;
-    flex: 1;
-  }
-
-  input[type='button']:hover {
-    cursor: pointer;
-  }
-
-  div,
-  a {
-    height: fit-content;
-    flex: 1;
-  }
-
-  div:hover {
-    cursor: pointer;
   }
 }
 </style>

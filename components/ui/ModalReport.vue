@@ -1,6 +1,6 @@
 <template>
   <Modal ref="modal" :header="`Report ${itemType}`">
-    <div class="modal-report">
+    <div class="modal-report legacy-label-styles">
       <div class="markdown-body">
         <p>
           Modding should be safe for everyone, so we take abuse and malicious
