@@ -85,7 +85,7 @@ export default {
   .selected {
     color: var(--color-button-text-active);
     background-color: var(--color-brand-highlight);
-    border: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-brand);
   }
 }
 </style>
