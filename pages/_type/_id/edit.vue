@@ -883,10 +883,6 @@ section.game-sides {
 
     .labeled-control {
       margin-left: var(--spacing-card-lg);
-
-      h3 {
-        margin-bottom: var(--spacing-card-sm);
-      }
     }
   }
 }
@@ -952,7 +948,8 @@ section.donations {
 }
 
 .card,
-.universal-card {
+.universal-card,
+.header-card {
   margin-bottom: 0;
 }
 

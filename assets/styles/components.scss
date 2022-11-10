@@ -1059,7 +1059,7 @@ h1 {
     }
   }
 
-  .adjacent-input {
+  .adjacent-input, &.adjacent-input {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1086,6 +1086,11 @@ h1 {
 
         .stylized-toggle {
           flex-basis: 0;
+        }
+
+        > :first-child {
+          margin-right: 0;
+          margin-bottom: var(--spacing-card-md);
         }
       }
     }

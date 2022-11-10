@@ -277,8 +277,7 @@ h2 {
 }
 
 h3 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.25rem;
+  margin-block: var(--spacing-card-md) var(--spacing-card-sm);
   color: var(--color-text-dark);
 }
 

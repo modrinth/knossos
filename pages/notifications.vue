@@ -1,7 +1,7 @@
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
-      <aside class="card sidebar">
+      <aside class="universal-card">
         <h1>Notifications</h1>
         <NavStack>
           <NavStackItem link="" label="All"> </NavStackItem>
@@ -14,7 +14,7 @@
           </NavStackItem>
         </NavStack>
         <h3>Manage</h3>
-        <div class="actions">
+        <div class="input-group">
           <NuxtLink class="iconified-button" to="/settings/follows">
             <SettingsIcon />
             Followed projects
@@ -37,28 +37,37 @@
             ? $user.notifications.filter((x) => x.type === $route.query.type)
             : $user.notifications"
           :key="notification.id"
-          class="card notification"
+          class="universal-card adjacent-input"
         >
-          <div class="text">
-            <nuxt-link :to="notification.link" class="top">
-              <h3 v-html="$xss($md.render(notification.title))" />
+          <div class="label">
+            <span class="label__title">
+              <nuxt-link :to="notification.link">
+                <h3 v-html="$xss($md.render(notification.title))" />
+              </nuxt-link>
+            </span>
+            <div class="label__description">
+              <p>{{ notification.text }}</p>
               <span
                 v-tooltip="
                   $dayjs(notification.created).format(
                     'MMMM D, YYYY [at] h:mm:ss A'
                   )
                 "
+                class="date"
               >
-                Notified {{ $dayjs(notification.created).fromNow() }}</span
+                <CalendarIcon />
+                Received {{ $dayjs(notification.created).fromNow() }}</span
               >
-            </nuxt-link>
-            <p>{{ notification.text }}</p>
+            </div>
           </div>
-          <div class="buttons">
+          <div class="input-group">
             <button
               v-for="(action, actionIndex) in notification.actions"
               :key="actionIndex"
               class="iconified-button"
+              :class="`action-button-${action.title
+                .toLowerCase()
+                .replaceAll(' ', '-')}`"
               @click="
                 performAction(notification, notificationIndex, actionIndex)
               "
@@ -87,6 +96,7 @@
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
@@ -103,6 +113,7 @@ export default {
     NavStackItem,
     ClearIcon,
     SettingsIcon,
+    CalendarIcon,
     UpToDate,
   },
   async fetch() {
@@ -182,109 +193,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar {
-  padding-block: var(--spacing-card-lg);
-
-  h1 {
-    color: var(--color-text-dark);
-    margin: 0 0 var(--spacing-card-sm) 0;
-  }
-
-  h3 {
-    margin: var(--spacing-card-lg) 0 var(--spacing-card-sm) 0;
-  }
-
-  .actions {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-card-sm);
-
-    .iconified-button {
-      flex-grow: 0;
-      width: fit-content;
-    }
-  }
-}
-
-.divider {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 0.5rem;
-}
-
 .notifications {
-  .notification {
-    display: flex;
-    flex-wrap: wrap;
-    padding: var(--spacing-card-md) var(--spacing-card-lg);
-
-    .text {
+  .label {
+    .label__title {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      gap: var(--spacing-card-sm);
+      align-items: baseline;
+      margin-block-start: 0;
 
-      .top {
+      h3 ::v-deep {
+        margin: 0;
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .label__description {
+      margin: 0;
+
+      .date {
         display: flex;
-        align-items: baseline;
-        flex-direction: column;
-        margin-bottom: 0.5rem;
-
-        h3 ::v-deep {
-          font-size: var(--font-size-lg);
-          margin: 0 0.5rem 0 0;
-
-          p {
-            margin: 0;
-
-            strong {
-              text-decoration: underline;
-            }
-          }
-        }
-
-        span {
-          color: var(--color-icon);
-        }
+        align-items: center;
+        gap: var(--spacing-card-xs);
+        color: var(--color-heading);
+        font-weight: 500;
+        font-size: 1rem;
+        width: fit-content;
       }
 
       p {
-        padding: 0;
-        margin: 0;
-      }
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-left: auto;
-      text-align: right;
-
-      button {
-        margin-left: auto;
-        margin-bottom: 0.25rem;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: calc(800px) !important;
-  }
-
-  .notifications {
-    .notification {
-      flex-wrap: nowrap;
-
-      .text {
-        flex-direction: column;
-
-        .top {
-          flex-direction: row;
-        }
+        margin-block: 0 var(--spacing-card-md);
       }
     }
   }

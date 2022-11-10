@@ -1144,10 +1144,6 @@ export default {
 section {
   margin: 1rem 0;
 
-  h3 {
-    margin-bottom: 0.5rem;
-  }
-
   .separator {
     margin: var(--spacing-card-sm) 0;
   }

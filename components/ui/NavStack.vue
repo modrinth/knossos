@@ -16,9 +16,5 @@ export default {
   flex-direction: column;
   grid-gap: var(--spacing-card-xs);
   flex-wrap: wrap;
-
-  h3 {
-    margin-block: var(--spacing-card-md) var(--spacing-card-sm);
-  }
 }
 </style>
