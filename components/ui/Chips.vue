@@ -86,6 +86,7 @@ export default {
     color: var(--color-button-text-active);
     background-color: var(--color-brand-highlight);
     outline: 2px solid var(--color-brand);
+    box-shadow: none;
   }
 }
 </style>
