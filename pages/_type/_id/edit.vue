@@ -1,40 +1,42 @@
 <template>
   <div class="page-contents">
-    <header class="card">
-      <div class="columns">
-        <h3 class="column-grow-1">Edit project</h3>
-        <nuxt-link
-          :to="`/${project.project_type}/${
-            project.slug ? project.slug : project.id
-          }/settings`"
-          class="iconified-button column"
-        >
-          <CrossIcon />
-          Cancel
-        </nuxt-link>
-        <button
-          v-if="
-            project.status === 'rejected' ||
-            project.status === 'draft' ||
-            project.status === 'unlisted'
-          "
-          title="Submit for review"
-          class="iconified-button column"
-          :disabled="!$nuxt.$loading"
-          @click="saveProjectReview"
-        >
-          <CheckIcon />
-          Submit for review
-        </button>
-        <button
-          title="Save"
-          class="iconified-button brand-button column"
-          :disabled="!$nuxt.$loading"
-          @click="saveProjectNotForReview"
-        >
-          <SaveIcon />
-          Save changes
-        </button>
+    <header class="header-card">
+      <div class="header__row">
+        <h2 class="header__title">Edit project</h2>
+        <div class="input-group">
+          <nuxt-link
+            :to="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings`"
+            class="iconified-button column"
+          >
+            <CrossIcon />
+            Cancel
+          </nuxt-link>
+          <button
+            v-if="
+              project.status === 'rejected' ||
+              project.status === 'draft' ||
+              project.status === 'unlisted'
+            "
+            title="Submit for review"
+            class="iconified-button column"
+            :disabled="!$nuxt.$loading"
+            @click="saveProjectReview"
+          >
+            <CheckIcon />
+            Submit for review
+          </button>
+          <button
+            title="Save"
+            class="iconified-button brand-button column"
+            :disabled="!$nuxt.$loading"
+            @click="saveProjectNotForReview"
+          >
+            <SaveIcon />
+            Save changes
+          </button>
+        </div>
       </div>
       <div v-if="showKnownErrors" class="known-errors">
         <ul>
@@ -394,7 +396,7 @@
           >
           for more information.
         </span>
-        <div class="input-group">
+        <div class="legacy-input-group">
           <Multiselect
             v-model="license"
             placeholder="Choose license..."
@@ -414,6 +416,9 @@
             type="url"
             maxlength="2048"
             placeholder="License URL"
+            :class="{
+              'known-error': newProject.body === '' && showKnownErrors,
+            }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
@@ -421,21 +426,23 @@
         </div>
       </label>
     </section>
-    <section class="card donations">
-      <div class="title">
-        <h3>Donation links</h3>
-        <button
-          title="Add a link"
-          class="iconified-button"
-          :disabled="false"
-          @click="
-            donationPlatforms.push({})
-            donationLinks.push('')
-          "
-        >
-          <PlusIcon />
-          Add a link
-        </button>
+    <section class="header-card donations">
+      <div class="header__row">
+        <h3 class="header__title">Donation links</h3>
+        <div class="input-group">
+          <button
+            title="Add a link"
+            class="iconified-button"
+            :disabled="false"
+            @click="
+              donationPlatforms.push({})
+              donationLinks.push('')
+            "
+          >
+            <PlusIcon />
+            Add a link
+          </button>
+        </div>
       </div>
       <div v-for="(item, index) in donationPlatforms" :key="index">
         <label title="The donation link.">
@@ -634,7 +641,7 @@ export default {
       const reviewConditions =
         this.newProject.body !== '' && this.newProject.versions.length > 0
       if (
-        this.newProject.name !== '' &&
+        this.newProject.title !== '' &&
         this.newProject.description !== '' &&
         this.newProject.slug !== '' &&
         this.license.short !== null &&
@@ -780,13 +787,13 @@ label {
 
   input,
   .multiselect,
-  .input-group {
+  .legacy-input-group {
     flex: 3;
     height: fit-content;
   }
 }
 
-.input-group {
+.legacy-input-group {
   display: flex;
   flex-direction: column;
 
@@ -840,17 +847,6 @@ label {
 
 header {
   grid-area: header;
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
-
-  h3 {
-    margin: auto 0;
-    color: var(--color-text-dark);
-    font-weight: var(--font-weight-extrabold);
-  }
-
-  button {
-    margin-left: 0.5rem;
-  }
 }
 
 section.essentials {
@@ -945,10 +941,6 @@ section.donations {
       flex: 1;
     }
   }
-
-  button {
-    margin: 0.5rem 0;
-  }
 }
 
 .footer {
@@ -959,7 +951,8 @@ section.donations {
   cursor: pointer;
 }
 
-.card {
+.card,
+.universal-card {
   margin-bottom: 0;
 }
 
@@ -975,6 +968,65 @@ section.donations {
 
   input {
     margin-left: 0 !important;
+  }
+}
+
+.legacy-input-group {
+  display: flex;
+  flex-direction: column;
+
+  * {
+    margin-bottom: var(--spacing-card-sm);
+  }
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+
+  &.no-margin {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  span {
+    flex: 2;
+    padding-right: var(--spacing-card-lg);
+
+    &.no-padding {
+      padding-right: 0;
+    }
+  }
+
+  input,
+  .multiselect,
+  .input-group {
+    flex: 3;
+    height: fit-content;
+  }
+
+  input[type='button'] {
+    height: fit-content;
+    flex: 1;
+  }
+
+  input[type='button']:hover {
+    cursor: pointer;
+  }
+
+  div,
+  a {
+    height: fit-content;
+    flex: 1;
+  }
+
+  div:hover {
+    cursor: pointer;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <section class="card">
-      <h2 class="title">Overview</h2>
+    <section class="universal-card">
+      <h2>Overview</h2>
       <div class="metrics">
         <div class="metric">
           <div class="label">Total downloads</div>
@@ -66,8 +66,8 @@
         </div>
       </div>
     </section>
-    <section class="card more-soon">
-      <h2 class="title">More coming soon!</h2>
+    <section class="universal-card more-soon">
+      <h2>More coming soon!</h2>
       <p>
         Stay tuned for more metrics and analytics (pretty graphs, anyone? 👀)
         coming to the creators dashboard soon!
@@ -111,14 +111,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-lg);
-
-  p:last-child {
-    margin-bottom: 0;
-  }
-}
-
 .metrics {
   display: grid;
   grid-gap: var(--spacing-card-md);

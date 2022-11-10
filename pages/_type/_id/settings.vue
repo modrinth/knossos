@@ -9,89 +9,73 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
-    <div class="card">
-      <h3>General</h3>
-    </div>
-    <section class="card main-settings">
-      <label>
-        <span>
-          <h3>Edit project</h3>
-          <span>
-            This leads you to a page where you can edit your project.
+    <div class="universal-card">
+      <h2>General settings</h2>
+      <div class="adjacent-input">
+        <label>
+          <span class="label__title">Edit project information</span>
+          <span class="label__description">
+            Edit your project's name, description, categories, and more.
           </span>
-        </span>
-        <div>
-          <nuxt-link class="iconified-button" to="edit"
-            ><EditIcon />Edit</nuxt-link
-          >
-        </div>
-      </label>
-      <label>
-        <span>
-          <h3>Create a version</h3>
-          <span>
-            This leads to a page where you can create a version for your
-            project.
-          </span>
-        </span>
-        <div>
-          <nuxt-link
-            class="iconified-button"
-            to="version/create"
-            :disabled="
-              (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
-            "
-            ><PlusIcon />Create a version</nuxt-link
-          >
-        </div>
-      </label>
-      <label class="no-margin">
-        <span>
-          <h3>Delete project</h3>
-          <span>
+        </label>
+        <nuxt-link class="iconified-button" to="edit"
+          ><EditIcon />Edit</nuxt-link
+        >
+      </div>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title">Delete project</span>
+          <span class="label__description">
             Removes your project from Modrinth's servers and search. Clicking on
             this will delete your project, so be extra careful!
           </span>
         </span>
-        <div>
+        <button
+          class="iconified-button danger-button"
+          :disabled="
+            (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+          "
+          @click="$refs.modal_confirm.show()"
+        >
+          <TrashIcon />Delete project
+        </button>
+      </div>
+    </div>
+    <div class="universal-card">
+      <h2>Manage members</h2>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title">Invite a member</span>
+          <span class="label__description">
+            Enter the Modrinth username of the person you'd like to invite to be
+            a member of this project.
+          </span>
+        </span>
+        <div
+          v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
+          class="input-group"
+        >
+          <input
+            id="username"
+            v-model="currentUsername"
+            type="text"
+            placeholder="Username"
+          />
+          <label for="username" class="hidden">Username</label>
           <button
-            class="iconified-button danger-button"
-            :disabled="
-              (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
-            "
-            @click="$refs.modal_confirm.show()"
+            class="iconified-button brand-button"
+            @click="inviteTeamMember"
           >
-            <TrashIcon />Delete project
+            <PlusIcon />
+            Invite
           </button>
         </div>
-      </label>
-    </section>
-    <div class="card columns team-invite">
-      <h3>Team members</h3>
-      <div
-        v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
-        class="column"
-      >
-        <input
-          id="username"
-          v-model="currentUsername"
-          type="text"
-          placeholder="Username"
-        />
-        <label for="username" class="hidden">Username</label>
-        <button
-          class="iconified-button brand-button column"
-          @click="inviteTeamMember"
-        >
-          <PlusIcon />
-          Invite
-        </button>
       </div>
     </div>
     <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
-      class="card member"
+      class="universal-card member"
       :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">
@@ -127,37 +111,53 @@
         </div>
       </div>
       <div class="content">
-        <div class="main-info">
-          <label v-if="member.oldRole !== 'Owner'">
-            Role:
-            <input
-              v-model="allTeamMembers[index].role"
-              type="text"
-              :class="{ 'known-error': member.role === 'Owner' }"
-              :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-              "
-            />
+        <div v-if="member.oldRole !== 'Owner'" class="adjacent-input">
+          <label :for="`member-${allTeamMembers[index].user.username}-role`">
+            <span class="label__title">Role</span>
+            <span class="label__description">
+              The title of the role that this member plays for this project.
+            </span>
           </label>
-          <label>
-            Payouts Weight:
-            <input
-              v-model="allTeamMembers[index].payouts_split"
-              type="number"
-              :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-              "
-            />
-          </label>
-          <ul
-            v-if="member.role === 'Owner' && member.oldRole !== 'Owner'"
-            class="known-errors"
-          >
-            <li>A project can only have one 'Owner'.</li>
-          </ul>
+          <input
+            :id="`member-${allTeamMembers[index].user.username}-role`"
+            v-model="allTeamMembers[index].role"
+            type="text"
+            :class="{ 'known-error': member.role === 'Owner' }"
+            :disabled="
+              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
+            "
+          />
         </div>
+        <div class="adjacent-input">
+          <label
+            :for="`member-${allTeamMembers[index].user.username}-monetization-weight`"
+          >
+            <span class="label__title">Monetization weight</span>
+            <span class="label__description">
+              Relative to all other members' monetization weights, this
+              determines what portion of this project's revenue goes to this
+              member.
+            </span>
+          </label>
+          <input
+            :id="`member-${allTeamMembers[index].user.username}-monetization-weight`"
+            v-model="allTeamMembers[index].payouts_split"
+            type="number"
+            :disabled="
+              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
+            "
+          />
+        </div>
+        <ul
+          v-if="member.role === 'Owner' && member.oldRole !== 'Owner'"
+          class="known-errors"
+        >
+          <li>A project can only have one 'Owner'.</li>
+        </ul>
         <template v-if="member.oldRole !== 'Owner'">
-          <h3>Permissions</h3>
+          <span class="label">
+            <span class="label__title">Permissions</span>
+          </span>
           <div class="permissions">
             <Checkbox
               :value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
@@ -245,12 +245,12 @@
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                 (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
               "
-              label="View payouts"
+              label="View revenue"
               @input="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
             />
           </div>
         </template>
-        <div class="actions">
+        <div class="button-group push-right">
           <button
             v-if="member.oldRole !== 'Owner'"
             class="iconified-button"
@@ -496,16 +496,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  h3 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-}
-
 .member {
-  margin-bottom: var(--spacing-card-md);
-
   .member-header {
     display: flex;
     justify-content: space-between;
@@ -538,33 +529,18 @@ export default {
 
   .content {
     display: none;
+    flex-direction: column;
+    padding-top: var(--spacing-card-md);
 
     .main-info {
       margin-bottom: var(--spacing-card-lg);
-
-      @media screen and (min-width: 1024px) {
-        label {
-          align-items: center;
-          input {
-            margin-left: 1rem;
-          }
-        }
-      }
     }
     .permissions {
-      margin: 1rem 0;
+      margin-bottom: var(--spacing-card-md);
       max-width: 45rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
       grid-gap: 0.5rem;
-
-      label {
-        flex-direction: row;
-        input {
-          flex: none;
-          margin-right: 0.5rem;
-        }
-      }
     }
   }
 
@@ -575,91 +551,8 @@ export default {
       }
     }
     .content {
-      display: unset;
-      margin: var(--spacing-card-lg);
-    }
-  }
-}
-
-input,
-button {
-  &:disabled {
-    cursor: not-allowed !important;
-  }
-}
-
-section {
-  margin-bottom: var(--spacing-card-md);
-
-  label {
-    display: flex;
-
-    span {
-      flex: 2;
-      padding-right: var(--spacing-card-lg);
-    }
-
-    div {
-      flex: none;
-      width: fit-content;
-    }
-
-    input {
-      flex: 3;
-      height: fit-content;
-    }
-  }
-}
-
-.team-invite {
-  gap: 0.5rem;
-  @media screen and (max-width: 1024px) {
-    flex-direction: column;
-    h3 {
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  h3 {
-    margin: auto auto auto 0;
-  }
-
-  > div {
-    display: flex;
-    align-items: center;
-
-    input {
-      margin-right: 1rem;
-    }
-
-    @media screen and (max-width: 500px) {
       display: flex;
-      flex-direction: column;
-
-      input {
-        margin: 0;
-      }
-
-      button {
-        margin-top: 0.5rem;
-      }
     }
   }
-}
-
-.actions {
-  display: flex;
-
-  button {
-    margin-right: 0.5rem;
-
-    &:first-child {
-      margin-left: auto;
-    }
-  }
-}
-
-.main-settings span {
-  margin-bottom: 1rem;
 }
 </style>

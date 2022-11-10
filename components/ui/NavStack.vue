@@ -14,11 +14,11 @@ export default {
 .navigation {
   display: flex;
   flex-direction: column;
-  grid-gap: 0.25rem;
+  grid-gap: var(--spacing-card-xs);
   flex-wrap: wrap;
 
   h3 {
-    margin: var(--spacing-card-lg) 0 var(--spacing-card-sm) 0;
+    margin-block: var(--spacing-card-md) var(--spacing-card-sm);
   }
 }
 </style>

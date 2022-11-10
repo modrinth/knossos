@@ -1,15 +1,14 @@
 <template>
   <div>
-    <section class="card">
-      <div class="header">
-        <h2 class="title">Display settings</h2>
-      </div>
-      <label>
-        <span>
-          <h3>Theme</h3>
-          <span>Change the global site theme.</span>
-        </span>
+    <section class="universal-card">
+      <h2>Display settings</h2>
+      <div class="adjacent-input">
+        <label for="theme-selector">
+          <span class="label__title">Theme</span>
+          <span class="label__description">Change the global site theme.</span>
+        </label>
         <Multiselect
+          id="theme-selector"
           v-model="$colorMode.preference"
           :options="['system', 'light', 'dark', 'oled']"
           :custom-label="
@@ -23,38 +22,40 @@
           :show-labels="false"
           :allow-empty="false"
         />
-      </label>
-      <label>
-        <span>
-          <h3>Search sidebar on the right</h3>
-          <span>
-            Enabling this will put the search page's filters sidebar on the
-            right side.
-          </span>
-        </span>
+      </div>
+
+      <div class="adjacent-input small">
+        <label for="search-layout-toggle">
+          <span class="label__title">Search sidebar on the right</span>
+          <span class="label__description"
+            >Enabling this will put the search page's filters sidebar on the
+            right side.</span
+          >
+        </label>
         <input
+          id="search-layout-toggle"
           v-model="searchLayout"
           class="switch stylized-toggle"
           type="checkbox"
           @change="changeLayout"
         />
-      </label>
-      <label>
-        <span>
-          <h3>Project sidebar on the right</h3>
-
-          <span>
-            Enabling this will put the project pages' info sidebars on the right
-            side.
-          </span>
-        </span>
+      </div>
+      <div class="adjacent-input small">
+        <label for="project-layout-toggle">
+          <span class="label__title">Project sidebar on the right</span>
+          <span class="label__description"
+            >Enabling this will put the project pages' info sidebars on the
+            right side.</span
+          >
+        </label>
         <input
+          id="project-layout-toggle"
           v-model="projectLayout"
           class="switch stylized-toggle"
           type="checkbox"
           @change="changeLayout"
         />
-      </label>
+      </div>
     </section>
   </div>
 </template>
@@ -103,12 +104,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-lg);
-}
-
-.multiselect {
-  max-width: 20rem;
-}
-</style>
+<style lang="scss" scoped></style>

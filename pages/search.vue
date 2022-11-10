@@ -866,6 +866,7 @@ export default {
       // match height of the search field
       height: 40px;
       transition: box-shadow 0.1s ease-in-out;
+      margin-right: var(--spacing-card-md);
 
       &.open {
         color: var(--color-button-text-active);
@@ -931,7 +932,7 @@ export default {
   text-align: center;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 750px) {
   .search-controls {
     flex-wrap: nowrap;
     flex-direction: row;

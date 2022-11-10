@@ -1,7 +1,7 @@
 <template>
   <div>
-    <section class="card">
-      <h2 class="title">Projects</h2>
+    <section class="universal-card">
+      <h2>Projects</h2>
     </section>
   </div>
 </template>
@@ -19,8 +19,4 @@ export default {
   methods: {},
 }
 </script>
-<style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-lg);
-}
-</style>
+<style lang="scss" scoped></style>

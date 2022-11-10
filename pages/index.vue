@@ -8,6 +8,7 @@
         alt="cover-image"
       />
       <div class="text">
+        <ModrinthLogo aria-hidden="true" class="modrinth-logo" />
         <h1>Discover, Play, and Create Minecraft content</h1>
         <h3>
           Find enjoyable, quality content through our
@@ -211,6 +212,7 @@ import InProgressIcon from '~/assets/images/utils/updated.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 
 import FeaturesIllustration from '~/assets/images/illustrations/features.svg?inline'
+import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 
 export default {
   components: {
@@ -219,6 +221,7 @@ export default {
     CheckIcon,
     InProgressIcon,
     FeaturesIllustration,
+    ModrinthLogo,
   },
   auth: false,
   data() {
@@ -256,6 +259,10 @@ export default {
 
       color: #fff;
 
+      .modrinth-logo {
+        display: none;
+      }
+
       h1 {
         color: #fff;
         margin: 1rem 0;
@@ -287,7 +294,16 @@ export default {
       }
 
       @media screen and (max-width: 750px) {
-        padding: 1rem;
+        padding: 1rem 1.5rem;
+        top: 5rem;
+
+        .modrinth-logo {
+          --color-brand: currentColor;
+          display: unset;
+          width: 14rem;
+          max-width: 100%;
+          height: auto;
+        }
       }
     }
   }

@@ -9,7 +9,7 @@
       :balance="$auth.user.payout_data.balance"
       :min-withdraw="minWithdraw"
     />
-    <section class="card">
+    <section class="universal-card">
       <h2>Withdraw</h2>
       <div v-if="$auth.user.payout_data.balance >= minWithdraw">
         <p>
@@ -47,7 +47,7 @@
         </NuxtLink>
       </div>
     </section>
-    <section class="card">
+    <section class="universal-card">
       <h2>Processing fees</h2>
       <p>
         PayPal (and by extension, Venmo) charge a $0.25 processing fee for each
@@ -90,18 +90,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-lg);
-
-  > :last-child {
-    margin-bottom: 0;
-  }
-
-  .iconified-button {
-    width: fit-content;
-  }
-}
-
 .balance {
   color: var(--color-text-dark);
   font-weight: bold;

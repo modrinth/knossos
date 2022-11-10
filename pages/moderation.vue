@@ -74,7 +74,7 @@
     </Modal>
     <div class="normal-page">
       <div class="normal-page__sidebar">
-        <aside class="card sidebar">
+        <aside class="universal-card">
           <h1>Moderation</h1>
           <NavStack>
             <NavStackItem link="" label="All"> </NavStackItem>
@@ -382,15 +382,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar {
-  padding-block: var(--spacing-card-lg);
-
-  h1 {
-    color: var(--color-text-dark);
-    margin: 0 0 var(--spacing-card-sm) 0;
-  }
-}
-
 .moderation-modal {
   width: auto;
   padding: var(--spacing-card-md) var(--spacing-card-lg);

@@ -69,14 +69,51 @@
       </div>
     </Modal>
 
-    <section class="card">
-      <h2 class="title">Authorization token</h2>
+    <section class="universal-card">
+      <h2>User profile</h2>
+      <p>Visit your user profile to edit your profile information.</p>
+      <NuxtLink class="iconified-button" :to="`/user/${$auth.user.username}`">
+        <UserIcon /> Visit your profile
+      </NuxtLink>
+    </section>
+
+    <section class="universal-card">
+      <h2>Account information</h2>
+      <p>Your account information is not displayed publicly.</p>
+      <label for="email-input"
+        ><span class="label__title">Email address</span>
+        <span class="label__description"
+          >Your email address is private information that is not displayed on
+          your profile.
+        </span></label
+      >
+      <input
+        id="email-input"
+        v-model="email"
+        maxlength="2048"
+        type="email"
+        :placeholder="`Enter your email address...`"
+      />
+      <div class="button-group">
+        <button
+          type="button"
+          class="iconified-button brand-button"
+          @click="saveChanges()"
+        >
+          <SaveIcon />
+          Save changes
+        </button>
+      </div>
+    </section>
+
+    <section class="universal-card">
+      <h2>Authorization token</h2>
       <p>
         Your authorization token can be used with the Modrinth API, the Minotaur
         Gradle plugin, and other applications that interact with Modrinth's API.
         Be sure to keep this secret!
       </p>
-      <div class="button-group">
+      <div class="input-group">
         <button
           type="button"
           class="iconified-button"
@@ -84,37 +121,37 @@
           @click="copyToken"
         >
           <template v-if="copied">
-            <CheckIcon v-if="copied" />
+            <CheckIcon />
             Copied token to clipboard
           </template>
-          <template v-else>Copy token to clipboard</template>
+          <template v-else><CopyIcon />Copy token to clipboard</template>
         </button>
         <button
           type="button"
           class="iconified-button"
           @click="$refs.modal_revoke_token.show()"
         >
+          <SlashIcon />
           Revoke token
         </button>
       </div>
     </section>
 
-    <section class="card">
-      <h2 class="title">Delete account</h2>
+    <section class="universal-card">
+      <h2>Delete account</h2>
       <p>
         Once you delete your account, there is no going back. Deleting your
         account will remove all attached data, excluding projects, from our
         servers.
       </p>
-      <div class="button-group">
-        <button
-          type="button"
-          class="iconified-button danger-button"
-          @click="$refs.modal_confirm.show()"
-        >
-          Delete account
-        </button>
-      </div>
+      <button
+        type="button"
+        class="iconified-button danger-button"
+        @click="$refs.modal_confirm.show()"
+      >
+        <TrashIcon />
+        Delete account
+      </button>
     </section>
   </div>
 </template>
@@ -126,6 +163,11 @@ import Modal from '~/components/ui/Modal'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import UserIcon from '~/assets/images/utils/user.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import CopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import SlashIcon from '~/assets/images/utils/slash.svg?inline'
 
 export default {
   components: {
@@ -134,10 +176,16 @@ export default {
     CrossIcon,
     RightArrowIcon,
     CheckIcon,
+    SaveIcon,
+    UserIcon,
+    CopyIcon,
+    TrashIcon,
+    SlashIcon,
   },
   data() {
     return {
       copied: false,
+      email: this.$auth.user.email,
     }
   },
   head: {
@@ -171,14 +219,35 @@ export default {
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
     },
+    async saveChanges() {
+      this.$nuxt.$loading.start()
+      try {
+        const data = {
+          email: this.email,
+        }
+
+        await this.$axios.patch(
+          `user/${this.$auth.user.id}`,
+          data,
+          this.$defaultHeaders()
+        )
+        await this.$store.dispatch('auth/fetchUser', {
+          token: this.$auth.token,
+        })
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+      this.$nuxt.$loading.finish()
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-lg);
-}
-
 .modal-revoke-token {
   padding: var(--spacing-card-bg);
 

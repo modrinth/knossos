@@ -1,9 +1,9 @@
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
-      <aside class="card sidebar">
+      <aside class="universal-card">
+        <h1>Settings</h1>
         <NavStack>
-          <h1>Settings</h1>
           <NavStackItem link="/settings" label="Appearance">
             <PaintbrushIcon />
           </NavStackItem>
@@ -54,21 +54,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  padding-block: var(--spacing-card-lg);
-
-  h1 {
-    color: var(--color-text-dark);
-    margin: 0 0 var(--spacing-card-sm) 0;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: 800px !important;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

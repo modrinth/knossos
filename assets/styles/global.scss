@@ -218,12 +218,13 @@ body {
 
   --size-navbar-height: 3.5rem;
   --size-mobile-navbar-height: 3.5rem;
-  --size-mobile-navbar-height-expanded: 10rem;
+  --size-mobile-navbar-height-expanded: 11.75rem;
 
   --spacing-card-lg: 1.5rem;
   --spacing-card-bg: 1rem;
   --spacing-card-md: 0.75rem;
   --spacing-card-sm: 0.5rem;
+  --spacing-card-xs: 0.25rem;
 
   // Font Sizes
   --font-size-xxs: 0.625rem; //10px
@@ -246,7 +247,11 @@ body {
   --font-weight-heading: var(--font-weight-extrabold);
   --font-weight-title: var(--font-weight-extrabold);
 
-  @media screen and (min-width: 501px) {
+  @media screen and (min-width: 318px) {
+    --size-mobile-navbar-height-expanded: 9.25rem;
+  }
+
+  @media screen and (min-width: 517px) {
     --size-mobile-navbar-height-expanded: 7rem;
   }
 }
@@ -259,6 +264,10 @@ svg {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h1 {
+  color: var(--color-text-dark);
 }
 
 h2 {

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <section v-if="enrolled" class="card">
-      <h2 class="title">Revenue and metrics</h2>
+    <section v-if="enrolled" class="universal-card">
+      <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
       <NuxtLink class="iconified-button" to="/dashboard/revenue">
         <ChartIcon /> Visit creator dashboard
       </NuxtLink>
     </section>
-    <section class="card">
+    <section class="universal-card">
       <h2 class="title">Enrollment</h2>
       <template v-if="editing || !enrolled">
         <p v-if="!enrolled">
@@ -29,7 +29,7 @@
             {{ $formatWallet(selectedWallet) }} account you would like to
             receive your revenue from the Creator Monetization Program:
           </p>
-          <div class="enroll-form">
+          <div class="input-group">
             <Multiselect
               v-model="accountType"
               :options="getAccountTypes()"
@@ -48,7 +48,6 @@
             <input
               id="account-input"
               v-model="account"
-              name="account-input"
               :placeholder="`Enter your ${$formatWallet(
                 selectedWallet
               )} ${formatAccountType(accountType).toLowerCase()}...`"
@@ -58,16 +57,16 @@
               Format: +18888888888 or +1-888-888-8888
             </span>
           </div>
-          <div class="columns buttons">
+          <div class="input-group">
             <button
-              class="save-button iconified-button brand-button"
+              class="iconified-button brand-button"
               @click="updatePayoutData(false)"
             >
               <SaveIcon /> Save information
             </button>
             <button
               v-if="enrolled"
-              class="save-button iconified-button danger-button"
+              class="iconified-button danger-button"
               @click="updatePayoutData(true)"
             >
               <TrashIcon /> Remove enrollment
@@ -198,48 +197,47 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-lg);
-}
-
-.iconified-button {
-  width: fit-content;
-}
-
-.enroll {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-card-md);
-
-  p {
-    margin: 0;
-  }
-
-  .enroll-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    width: 100%;
-    gap: var(--spacing-card-md);
-
-    .multiselect {
-      width: 15rem;
-    }
-
-    input {
-      box-sizing: border-box;
-      max-height: 40px;
-      width: 50%;
-      margin: 0;
-    }
-
-    @media screen and (max-width: 750px) {
-      flex-direction: column;
-    }
-  }
-
-  .buttons {
-    gap: var(--spacing-card-sm);
-  }
-}
+//.card {
+//  padding: var(--spacing-card-lg);
+//}
+//
+//.iconified-button {
+//  width: fit-content;
+//}
+//
+//.enroll {
+//  display: flex;
+//  flex-direction: column;
+//  gap: var(--spacing-card-md);
+//
+//  p {
+//    margin: 0;
+//  }
+//
+//  .enroll-form {
+//    display: flex;
+//    flex-direction: row;
+//    justify-content: left;
+//    width: 100%;
+//    gap: var(--spacing-card-md);
+//
+//    .multiselect {
+//      width: 15rem;
+//      flex-shrink: 1;
+//    }
+//
+//    input {
+//      box-sizing: border-box;
+//      max-height: 40px;
+//      width: 24rem;
+//      flex-basis: 24rem;
+//      flex-shrink: 2;
+//      margin: 0;
+//    }
+//
+//    @media screen and (max-width: 750px) {
+//      flex-direction: column;
+//    }
+//  }
+//}
 </style>

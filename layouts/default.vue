@@ -953,6 +953,7 @@ export default {
         justify-content: center;
         flex-wrap: wrap;
         row-gap: 0.5rem;
+        margin-inline: var(--spacing-card-sm);
 
         .tab {
           flex: 0 0 fit-content;
@@ -962,9 +963,8 @@ export default {
           max-height: unset;
 
           &.nuxt-link-exact-active {
-            color: var(--color-button-text-active);
-            background-color: var(--color-brand-highlight);
-            border: 2px solid var(--color-brand);
+            color: var(--color-brand-inverted);
+            background-color: var(--color-brand);
           }
         }
       }
@@ -1015,14 +1015,20 @@ export default {
           }
 
           &.nuxt-link-exact-active {
-            color: var(--color-button-text-active);
-            background-color: var(--color-brand-highlight);
-            border: 2px solid var(--color-brand);
+            color: var(--color-brand-inverted);
+            background-color: var(--color-brand);
 
             .profile-link {
               .prompt {
                 display: none;
               }
+            }
+
+            .beta-badge {
+              background-color: var(--color-brand-inverted);
+              box-sizing: border-box;
+              outline: none;
+              color: var(--color-text-dark);
             }
           }
 

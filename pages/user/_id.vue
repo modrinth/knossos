@@ -56,9 +56,6 @@
               <div class="textarea-wrapper">
                 <textarea v-model="user.bio" maxlength="160"></textarea>
               </div>
-              <label><h3>Private Email</h3></label>
-              <span>Only visible to moderators.</span>
-              <input v-model="user.email" maxlength="2048" type="email" />
             </div>
             <div class="button-group">
               <button
@@ -602,5 +599,9 @@ export default {
 
 .button-group:first-child {
   margin-left: auto;
+}
+
+.textarea-wrapper {
+  height: 10rem;
 }
 </style>
