@@ -9,7 +9,20 @@
     </section>
     <section class="universal-card">
       <h2 class="title">Enrollment</h2>
-      <template v-if="editing || !enrolled">
+      <template v-if="!enrolled && !$auth.user.email">
+        <p v-if="!enrolled">
+          You are not currently enrolled in Modrinth's Creator Monetization
+          Program. In order to enroll, you must first add a valid email address
+          to your account.
+        </p>
+        <NuxtLink
+          class="iconified-button"
+          to="/settings/account#account-information"
+        >
+          <SettingsIcon /> Visit account settings
+        </NuxtLink>
+      </template>
+      <template v-else-if="editing || !enrolled">
         <p v-if="!enrolled">
           You are not currently enrolled in Modrinth's Creator Monetization
           Program. Setup a method of receiving payments below to enable
@@ -94,6 +107,7 @@ import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import ChartIcon from '~/assets/images/utils/chart.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 export default {
   components: {
@@ -103,6 +117,7 @@ export default {
     TrashIcon,
     EditIcon,
     ChartIcon,
+    SettingsIcon,
   },
   data() {
     return {

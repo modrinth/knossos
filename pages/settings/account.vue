@@ -69,7 +69,7 @@
       </div>
     </Modal>
 
-    <section class="universal-card">
+    <section id="user-profile" class="universal-card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
       <NuxtLink class="iconified-button" :to="`/user/${$auth.user.username}`">
@@ -77,9 +77,15 @@
       </NuxtLink>
     </section>
 
-    <section class="universal-card">
+    <section id="account-information" class="universal-card">
       <h2>Account information</h2>
       <p>Your account information is not displayed publicly.</p>
+      <ul class="known-errors">
+        <li v-if="hasMonetizationEnabled() && !email">
+          You must have an email address set since you are enrolled in the
+          Creator Monetization Program.
+        </li>
+      </ul>
       <label for="email-input"
         ><span class="label__title">Email address</span>
         <span class="label__description"
@@ -98,6 +104,7 @@
         <button
           type="button"
           class="iconified-button brand-button"
+          :disabled="hasMonetizationEnabled() && !email"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -106,7 +113,7 @@
       </div>
     </section>
 
-    <section class="universal-card">
+    <section id="authorization-token" class="universal-card">
       <h2>Authorization token</h2>
       <p>
         Your authorization token can be used with the Modrinth API, the Minotaur
@@ -137,7 +144,7 @@
       </div>
     </section>
 
-    <section class="universal-card">
+    <section id="delete-account" class="universal-card">
       <h2>Delete account</h2>
       <p>
         Once you delete your account, there is no going back. Deleting your
@@ -186,6 +193,7 @@ export default {
     return {
       copied: false,
       email: this.$auth.user.email,
+      showKnownErrors: false,
     }
   },
   head: {
@@ -219,11 +227,22 @@ export default {
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
     },
+    hasMonetizationEnabled() {
+      return (
+        this.$auth.user.payout_data.payout_wallet &&
+        this.$auth.user.payout_data.payout_wallet_type &&
+        this.$auth.user.payout_data.payout_address
+      )
+    },
     async saveChanges() {
+      if (this.hasMonetizationEnabled() && !this.email) {
+        this.showKnownErrors = true
+        return
+      }
       this.$nuxt.$loading.start()
       try {
         const data = {
-          email: this.email,
+          email: this.email ? this.email : null,
         }
 
         await this.$axios.patch(

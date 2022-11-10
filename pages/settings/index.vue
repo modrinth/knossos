@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section id="display-settings" class="universal-card">
       <h2>Display settings</h2>
       <div class="adjacent-input">
         <label for="theme-selector">
