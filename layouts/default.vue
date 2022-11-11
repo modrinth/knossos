@@ -893,7 +893,7 @@ export default {
             }
 
             .notifications {
-              margin-right: 2rem;
+              margin-right: 2rem !important;
 
               .notification-holder {
                 max-height: 50vh;
