@@ -72,7 +72,7 @@ export default {
   z-index: 21;
   box-shadow: var(--shadow-raised), var(--shadow-inset);
   border-radius: var(--size-rounded-lg);
-  max-height: 80%;
+  max-height: calc(100% - 2 * var(--spacing-card-bg));
   overflow-y: auto;
   width: 600px;
 
@@ -104,7 +104,7 @@ export default {
   }
 
   @media screen and (max-width: 650px) {
-    width: 80vw;
+    width: calc(100% - 2 * var(--spacing-card-bg));
   }
 }
 </style>

@@ -119,7 +119,7 @@
             </div>
           </div>
           <hr class="card-divider" />
-          <div class="button-group">
+          <div class="input-group">
             <template v-if="$auth.user">
               <button
                 class="iconified-button"

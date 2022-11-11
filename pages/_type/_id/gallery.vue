@@ -167,7 +167,7 @@
             <CalendarIcon />
             {{ $dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
-          <div v-if="currentMember" class="gallery-buttons">
+          <div v-if="currentMember" class="gallery-buttons input-group">
             <button
               v-if="editGalleryIndexes.includes(index)"
               class="iconified-button"

@@ -1,24 +1,24 @@
 <template>
-  <Modal ref="modal" header="Create project">
-    <div class="modal-creation legacy-label-styles">
+  <Modal ref="modal" header="Create a project">
+    <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>
-          New projects are created as drafts, and can be found under your
-          profile page.
+          New projects are created as drafts and can be found under your profile
+          page.
         </p>
       </div>
-      <label class="create-label" for="project-type">
-        <span>
-          <strong>Project type</strong>
-        </span>
+      <label for="project-type">
+        <span class="label__title"
+          >Project type<span class="required">*</span></span
+        >
       </label>
       <Chips
         id="project-type"
         v-model="projectType"
         :items="$tag.projectTypes.map((x) => x.display)"
       />
-      <label class="create-label" for="name">
-        <strong>Name</strong>
+      <label for="name">
+        <span class="label__title">Name<span class="required">*</span></span>
       </label>
       <input
         id="name"
@@ -26,23 +26,33 @@
         type="text"
         maxlength="64"
         placeholder="Enter project name..."
+        autocomplete="off"
+        @input="updatedName()"
       />
-      <label class="create-label" for="slug">
-        <strong>Slug</strong>
-        <span>The slug is a vanity URL for your project</span>
+      <label for="slug">
+        <span class="label__title">URL<span class="required">*</span></span>
       </label>
-      <input
-        id="slug"
-        v-model="slug"
-        type="text"
-        maxlength="64"
-        placeholder="Enter project slug..."
-      />
-      <label class="create-label" for="additional-information">
-        <strong>Summary</strong>
-        <span>
-          This appears in search and on the sidebar of your project's page.
-        </span>
+      <div class="text-input-wrapper">
+        <div class="text-input-wrapper__before">
+          https://modrinth.com/{{
+            getProjectType() ? getProjectType().id : '???'
+          }}/
+        </div>
+        <input
+          id="slug"
+          v-model="slug"
+          type="text"
+          maxlength="64"
+          autocomplete="off"
+          @input="manualSlug = true"
+        />
+      </div>
+      <label for="additional-information">
+        <span class="label__title">Summary<span class="required">*</span></span>
+        <span class="label__description"
+          >This appears in search and on the sidebar of your project's
+          page.</span
+        >
       </label>
       <div class="textarea-wrapper">
         <textarea
@@ -51,7 +61,7 @@
           maxlength="256"
         />
       </div>
-      <div class="button-group">
+      <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
           Cancel
@@ -95,18 +105,20 @@ export default {
       name: '',
       slug: '',
       description: '',
+      manualSlug: false,
     }
   },
   methods: {
     cancel() {
       this.$refs.modal.hide()
     },
+    getProjectType() {
+      return this.$tag.projectTypes.find((x) => this.projectType === x.display)
+    },
     async createProject() {
       this.$nuxt.$loading.start()
 
-      const projectType = this.$tag.projectTypes.find(
-        (x) => this.projectType === x.display
-      )
+      const projectType = this.getProjectType()
 
       const formData = new FormData()
 
@@ -180,6 +192,11 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
     show() {
       this.$refs.modal.show()
     },
+    updatedName() {
+      if (!this.manualSlug) {
+        this.slug = this.name.toLowerCase().replaceAll(' ', '-')
+      }
+    },
   },
 }
 </script>
@@ -195,23 +212,20 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
   }
 
   input {
-    max-width: 20rem;
+    width: 20rem;
+    max-width: 100%;
   }
 
-  .create-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 0.75rem;
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
+  .text-input-wrapper {
+    width: 100%;
   }
 
   textarea {
     min-height: 5rem;
+  }
+
+  .input-group {
+    margin-top: var(--spacing-card-md);
   }
 }
 </style>
