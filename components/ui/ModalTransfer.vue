@@ -52,7 +52,7 @@
           v-else-if="validInput && parseInput() < minWithdraw"
           class="invalid"
         >
-          The amount must at least ${{ minWithdraw }}</span
+          The amount must be at least ${{ minWithdraw }}</span
         >
         <span v-else-if="validInput && parseInput() > balance" class="invalid">
           The amount must be no more than ${{ balance }}</span
