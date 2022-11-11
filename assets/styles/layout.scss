@@ -60,11 +60,13 @@
   }
 
   .normal-page__sidebar {
+    min-width: 20rem;
     width: 20rem;
   }
 
   .normal-page__content {
     width: 60rem;
+    max-width: 60rem;
   }
 
   .site-header {
