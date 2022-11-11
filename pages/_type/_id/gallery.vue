@@ -32,7 +32,7 @@
             </p>
           </div>
           <div class="controls">
-            <div v-if="gallery.length > 1" class="buttons">
+            <div class="buttons">
               <button
                 class="close circle-button"
                 @click="expandedGalleryItem = null"
@@ -54,10 +54,18 @@
                 <ExpandIcon v-if="!zoomedIn" aria-hidden="true" />
                 <ContractIcon v-else aria-hidden="true" />
               </button>
-              <button class="previous circle-button" @click="previousImage()">
+              <button
+                v-if="gallery.length > 1"
+                class="previous circle-button"
+                @click="previousImage()"
+              >
                 <LeftArrowIcon aria-hidden="true" />
               </button>
-              <button class="next circle-button" @click="nextImage()">
+              <button
+                v-if="gallery.length > 1"
+                class="next circle-button"
+                @click="nextImage()"
+              >
                 <RightArrowIcon aria-hidden="true" />
               </button>
             </div>
