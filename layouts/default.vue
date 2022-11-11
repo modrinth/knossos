@@ -131,15 +131,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <nuxt-link
-                v-if="$auth.user"
-                to="/notifications"
-                class="control-button button-transparent"
-                :class="{ bubble: $user.notifications.length > 0 }"
-                title="Notifications"
-              >
-                <NotificationIcon aria-hidden="true" />
-              </nuxt-link> -->
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
