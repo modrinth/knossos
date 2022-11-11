@@ -907,7 +907,7 @@ h1 {
   font-weight: bold;
 }
 
-.nuxt-link-exact-active {
+.nuxt-link-exact-active, h1, h2, h3 {
   .beta-badge {
     background-color: var(--color-button-text-active);
     box-sizing: border-box;
