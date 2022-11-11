@@ -161,7 +161,7 @@
           </nuxt-link>
           <button
             v-if="currentMember"
-            class="action iconified-button warning-button"
+            class="action iconified-button danger-button"
             @click="$refs.modal_confirm.show()"
           >
             <TrashIcon aria-hidden="true" />

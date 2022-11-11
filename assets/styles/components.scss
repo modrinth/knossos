@@ -499,11 +499,6 @@
   box-shadow: var(--shadow-inset-sm), var(--shadow-raised);
 }
 
-.warning-button {
-  --background-color: var(--color-warning-bg);
-  --text-color: var(--color-warning-text);
-}
-
 .danger-button {
   --background-color: var(--color-badge-red-bg);
   --text-color: var(--color-brand-inverted);
