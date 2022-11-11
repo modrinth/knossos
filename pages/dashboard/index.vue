@@ -12,7 +12,11 @@
               )
             }}
           </div>
-          <span> </span>
+          <span
+            >from {{ $user.projects.length }} project{{
+              $user.projects.length === 1 ? '' : 's'
+            }}</span
+          >
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -29,7 +33,13 @@
               )
             }}
           </div>
-          <span> </span>
+          <span>
+            <span
+              >from {{ $user.projects.length }} project{{
+                $user.projects.length === 1 ? '' : 's'
+              }}</span
+            ></span
+          >
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -100,7 +110,7 @@ export default {
   },
   data() {
     return {
-      minWithdraw: 0.25,
+      minWithdraw: 0.26,
     }
   },
   fetch() {},

@@ -26,9 +26,16 @@
           "
           v-model="consentedFee"
         >
-          I acknowledge that {{ $formatWallet(wallet) }} charges a $0.25
-          processing fee for every transfer and it will be subtracted from the
-          total I receive.
+          <template v-if="wallet === 'venmo'"
+            >I acknowledge that $0.25 will be deducted from the amount I receive
+            to cover {{ $formatWallet(wallet) }} processing fees.</template
+          >
+          <template v-else
+            >I acknowledge that an estimated {{ calcProcessingFees() }} will be
+            deducted from the amount I receive to cover
+            {{ $formatWallet(wallet) }} processing fees and that any excess will
+            be returned to my Modrinth balance.</template
+          >
         </Checkbox>
         <Checkbox
           v-if="
@@ -38,16 +45,14 @@
           "
           v-model="consentedAccount"
         >
-          I acknowledge that I am transferring ${{
-            Math.floor((parseInput() - 0.25) * 100) / 100
-          }}
-          to the following {{ $formatWallet(wallet) }} account: {{ account }}
+          I confirm that I an initiating a transfer to the following
+          {{ $formatWallet(wallet) }} account: {{ account }}
         </Checkbox>
         <span
           v-else-if="validInput && parseInput() < minWithdraw"
           class="invalid"
         >
-          The amount must be at least ${{ minWithdraw }}</span
+          The amount must at least ${{ minWithdraw }}</span
         >
         <span v-else-if="validInput && parseInput() > balance" class="invalid">
           The amount must be no more than ${{ balance }}</span
@@ -168,6 +173,13 @@ export default {
       const regex = /^\$?(\d*(\.\d{2})?)$/gm
       const matches = regex.exec(this.amount)
       return parseFloat(matches[1])
+    },
+    calcProcessingFees() {
+      if (this.wallet === 'venmo') {
+        return 0.25
+      } else {
+        return Math.min(0.25, Math.max(this.parseInput() * 0.2, 20))
+      }
     },
   },
 }

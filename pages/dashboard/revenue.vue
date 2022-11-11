@@ -50,11 +50,28 @@
     <section class="universal-card">
       <h2>Processing fees</h2>
       <p>
-        PayPal (and by extension, Venmo) charge a $0.25 processing fee for each
-        transaction and this fee will come out of the money being transferred to
-        you. To avoid paying unnecessary fees, you may want to transfer your
-        money out after it accumulates a bit rather than transferring as soon as
-        you reach the minimum of ${{ minWithdraw }}.
+        To avoid paying unnecessary fee deductions, you may want to wait to
+        transfer your money out after it accumulates for a bit rather than
+        transferring as soon as you reach the minimum of ${{ minWithdraw }}.
+      </p>
+      <h3>PayPal</h3>
+      <p>
+        For transactions within the United States, PayPal charges a flat $0.25
+        processing fee per transaction, and for international transactions,
+        PayPal charges a 2% (up to $20) processing fee for each transaction.
+      </p>
+      <p>
+        Since Modrinth cannot determine if you are international or not before
+        initiating a transfer, each transaction made by any user will have 2%
+        (up to $20) deducted from it in order to account for international
+        PayPal processing fees. If the deduction from your Modrinth balance is
+        more than the fee PayPal charges, the difference will be returned to
+        your Modrinth balance.
+      </p>
+      <h3>Venmo (United States only)</h3>
+      <p>
+        Venmo will charge a $0.25 processing fee per transaction, which will be
+        deducted from the amount you choose to transfer.
       </p>
       <h2>Currency conversions</h2>
       <p>
@@ -76,7 +93,7 @@ export default {
   components: { TransferIcon, SettingsIcon, ModalTransfer },
   data() {
     return {
-      minWithdraw: 0.25,
+      minWithdraw: 0.26,
       enrolled:
         this.$auth.user.payout_data.payout_wallet &&
         this.$auth.user.payout_data.payout_wallet_type &&
