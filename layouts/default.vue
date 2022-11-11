@@ -374,10 +374,10 @@
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
         <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
+        <a target="_blank" href="https://twitter.com/modrinth">Twitter</a>
         <a target="_blank" rel="me" href="https://floss.social/@modrinth">
           Mastodon
         </a>
-        <a target="_blank" href="https://twitter.com/modrinth">Twitter</a>
         <a target="_blank" href="https://crowdin.com/project/modrinth">
           Crowdin
         </a>
