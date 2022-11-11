@@ -41,7 +41,97 @@
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
-              <nuxt-link
+              <div
+                v-if="$auth.user"
+                class="dropdown"
+                :class="{ closed: !isDropdownOpen }"
+                @mouseover="isDropdownOpen = true"
+                @focus="isDropdownOpen = true"
+                @mouseleave="isDropdownOpen = false"
+              >
+                <button class="control" value="Notifications Dropdown">
+                  <nuxt-link
+                    v-if="$auth.user"
+                    to="/notifications"
+                    class="control-button"
+                    :class="{ bubble: $user.notifications.length > 0 }"
+                  >
+                    <NotificationIcon aria-hidden="true" />
+                  </nuxt-link>
+                </button>
+                <div class="content notifications card">
+                  <div v-if="$user.notifications.length === 0" class="error">
+                    <span class="text">You are up-to-date!</span>
+                  </div>
+                  <div
+                    v-for="notification in $route.query.type !== undefined
+                      ? $user.notifications.filter(
+                          (x) => x.type === $route.query.type
+                        )
+                      : $user.notifications"
+                    :key="notification.id"
+                    class="notification"
+                  >
+                    <div
+                      v-if="notification.actions.length === 0"
+                      class="button-transparent"
+                      @click="
+                        performAction(notification, notificationIndex, null)
+                      "
+                    >
+                      <CrossIcon />
+                    </div>
+                    <div class="label">
+                      <span class="label__title">
+                        <nuxt-link
+                          v-if="notification.actions.length === 0"
+                          :to="notification.link"
+                        >
+                          <h3 v-html="$xss($md.render(notification.title))" />
+                        </nuxt-link>
+                        <nuxt-link
+                          v-if="notification.actions.length !== 0"
+                          to="/notifications"
+                        >
+                          <h3 v-html="$xss($md.render(notification.title))" />
+                        </nuxt-link>
+                      </span>
+                      <div class="label__description">
+                        <span
+                          v-tooltip="
+                            $dayjs(notification.created).format(
+                              'MMMM D, YYYY [at] h:mm:ss A'
+                            )
+                          "
+                          class="date"
+                        >
+                          Received
+                          {{ $dayjs(notification.created).fromNow() }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <button
+                      v-if="$user.notifications.length > 0"
+                      class="iconified-button danger-button"
+                      @click="clearNotifications"
+                    >
+                      <ClearIcon />
+                      Clear all
+                    </button>
+                    <nuxt-link
+                      v-if="$auth.user"
+                      to="/notifications"
+                      class="iconified-button"
+                    >
+                      <NotificationIcon aria-hidden="true" />
+                      See all
+                    </nuxt-link>
+                  </div>
+                </div>
+              </div>
+              <!-- <nuxt-link
                 v-if="$auth.user"
                 to="/notifications"
                 class="control-button button-transparent"
@@ -49,7 +139,7 @@
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
-              </nuxt-link>
+              </nuxt-link> -->
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
@@ -396,6 +486,7 @@ import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
+import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 
 import MoonIcon from '~/assets/images/utils/moon.svg?inline'
 import SunIcon from '~/assets/images/utils/sun.svg?inline'
@@ -422,6 +513,7 @@ export default {
     GitHubIcon,
     NotificationIcon,
     HomeIcon,
+    ClearIcon,
     CrossIcon,
     HamburgerIcon,
     SettingsIcon,
@@ -499,6 +591,56 @@ export default {
     })
   },
   methods: {
+    async clearNotifications() {
+      try {
+        const ids = this.$user.notifications.map((x) => x.id)
+
+        await this.$axios.delete(
+          `notifications?ids=${JSON.stringify(ids)}`,
+          this.$defaultHeaders()
+        )
+
+        ids.forEach((x) => this.$store.dispatch('user/deleteNotification', x))
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+    },
+    async performAction(notification, notificationIndex, actionIndex) {
+      this.$nuxt.$loading.start()
+      try {
+        await this.$axios.delete(
+          `notification/${notification.id}`,
+          this.$defaultHeaders()
+        )
+
+        await this.$store.dispatch('user/deleteNotification', notification.id)
+
+        if (actionIndex !== null) {
+          const config = {
+            method:
+              notification.actions[actionIndex].action_route[0].toLowerCase(),
+            url: `${notification.actions[actionIndex].action_route[1]}`,
+            headers: {
+              Authorization: this.$auth.token,
+            },
+          }
+          await this.$axios(config)
+        }
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+      this.$nuxt.$loading.finish()
+    },
     toggleMobileMenu() {
       window.scrollTo(0, 0)
       document.body.scrollTop = 0
@@ -759,6 +901,10 @@ export default {
               }
             }
 
+            .notifications {
+              margin-right: 2rem !important;
+            }
+
             .content {
               border: 1px solid var(--color-divider-dark);
               list-style: none;
@@ -778,6 +924,10 @@ export default {
               width: max-content;
               z-index: 1;
               box-shadow: var(--shadow-floating);
+
+              .text {
+                margin: 0;
+              }
 
               .divider {
                 background-color: var(--color-divider-dark);
@@ -823,11 +973,58 @@ export default {
                   color: var(--color-text-secondary);
                 }
               }
+
+              .notification {
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-card-sm);
+                margin-bottom: var(--spacing-card-md);
+
+                .util {
+                  .actions {
+                    display: flex;
+                    gap: var(--spacing-card-sm);
+                  }
+                }
+              }
+
+              .label {
+                .label__title {
+                  display: flex;
+                  margin: 0;
+
+                  h3 {
+                    font-size: 1rem;
+                    margin: 0;
+                    p {
+                      margin: 0;
+                    }
+                  }
+                }
+
+                .label__description {
+                  margin: 0;
+
+                  .date {
+                    color: var(--color-heading);
+                    font-weight: 500;
+                    font-size: 0.75rem;
+                  }
+
+                  p {
+                    margin-block: 0;
+                  }
+                }
+              }
             }
 
             @media screen and (max-width: 1300px) {
               .content {
                 margin-right: 1rem;
+              }
+
+              .notifications {
+                margin-right: 2rem;
               }
             }
           }
