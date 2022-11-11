@@ -63,51 +63,53 @@
                   <div v-if="$user.notifications.length === 0" class="error">
                     <span class="text">You are up-to-date!</span>
                   </div>
-                  <div
-                    v-for="notification in $route.query.type !== undefined
-                      ? $user.notifications.filter(
-                          (x) => x.type === $route.query.type
-                        )
-                      : $user.notifications"
-                    :key="notification.id"
-                    class="notification"
-                  >
+                  <div class="notification-holder">
                     <div
-                      v-if="notification.actions.length === 0"
-                      class="button-transparent"
-                      @click="
-                        performAction(notification, notificationIndex, null)
-                      "
+                      v-for="notification in $route.query.type !== undefined
+                        ? $user.notifications.filter(
+                            (x) => x.type === $route.query.type
+                          )
+                        : $user.notifications"
+                      :key="notification.id"
+                      class="notification"
                     >
-                      <CrossIcon />
-                    </div>
-                    <div class="label">
-                      <span class="label__title">
-                        <nuxt-link
-                          v-if="notification.actions.length === 0"
-                          :to="notification.link"
-                        >
-                          <h3 v-html="$xss($md.render(notification.title))" />
-                        </nuxt-link>
-                        <nuxt-link
-                          v-if="notification.actions.length !== 0"
-                          to="/notifications"
-                        >
-                          <h3 v-html="$xss($md.render(notification.title))" />
-                        </nuxt-link>
-                      </span>
-                      <div class="label__description">
-                        <span
-                          v-tooltip="
-                            $dayjs(notification.created).format(
-                              'MMMM D, YYYY [at] h:mm:ss A'
-                            )
-                          "
-                          class="date"
-                        >
-                          Received
-                          {{ $dayjs(notification.created).fromNow() }}
+                      <div
+                        v-if="notification.actions.length === 0"
+                        class="button-transparent"
+                        @click="
+                          performAction(notification, notificationIndex, null)
+                        "
+                      >
+                        <CrossIcon />
+                      </div>
+                      <div class="label">
+                        <span class="label__title">
+                          <nuxt-link
+                            v-if="notification.actions.length === 0"
+                            :to="notification.link"
+                          >
+                            <h3 v-html="$xss($md.render(notification.title))" />
+                          </nuxt-link>
+                          <nuxt-link
+                            v-if="notification.actions.length !== 0"
+                            to="/notifications"
+                          >
+                            <h3 v-html="$xss($md.render(notification.title))" />
+                          </nuxt-link>
                         </span>
+                        <div class="label__description">
+                          <span
+                            v-tooltip="
+                              $dayjs(notification.created).format(
+                                'MMMM D, YYYY [at] h:mm:ss A'
+                              )
+                            "
+                            class="date"
+                          >
+                            Received
+                            {{ $dayjs(notification.created).fromNow() }}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -893,7 +895,12 @@ export default {
             }
 
             .notifications {
-              margin-right: 2rem !important;
+              margin-right: 2rem;
+
+              .notification-holder {
+                max-height: 50vh;
+                overflow-y: scroll;
+              }
             }
 
             .content {
@@ -970,13 +977,6 @@ export default {
                 align-items: center;
                 gap: var(--spacing-card-sm);
                 margin-bottom: var(--spacing-card-md);
-
-                .util {
-                  .actions {
-                    display: flex;
-                    gap: var(--spacing-card-sm);
-                  }
-                }
               }
 
               .label {
