@@ -88,11 +88,7 @@
       </ul>
       <label for="email-input"
         ><span class="label__title">Email address</span>
-        <span class="label__description"
-          >Your email address is private information that is not displayed on
-          your profile.
-        </span></label
-      >
+      </label>
       <input
         id="email-input"
         v-model="email"
