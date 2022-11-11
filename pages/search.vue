@@ -213,12 +213,16 @@
     </aside>
     <section class="normal-page__content">
       <div
-        v-if="projectType.id === 'modpack'"
+        v-if="
+          projectType.id === 'modpack' &&
+          $orElse($store.state.cosmetics.modpacksAlphaNotice, true)
+        "
         class="card warning"
         aria-label="Warning"
       >
-        Modpack support is currently in alpha, and you may encounter issues. Our
-        documentation includes instructions on
+        Modpack support is currently in alpha, and can only be created and
+        installed through third party tools. Our documentation includes
+        instructions on
         <a
           href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
           target="_blank"

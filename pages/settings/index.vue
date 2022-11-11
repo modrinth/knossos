@@ -37,7 +37,7 @@
           v-model="searchLayout"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="changeLayout"
+          @change="saveCosmeticSettings"
         />
       </div>
       <div class="adjacent-input small">
@@ -53,7 +53,25 @@
           v-model="projectLayout"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="changeLayout"
+          @change="saveCosmeticSettings"
+        />
+      </div>
+    </section>
+    <section id="warning-notices" class="universal-card">
+      <h2>Warning notices</h2>
+      <div class="adjacent-input small">
+        <label for="modpacks-alpha-notice">
+          <span class="label__title">Modpacks alpha notice</span>
+          <span class="label__description"
+            >Shows a banner stating that modpacks are in alpha.</span
+          >
+        </label>
+        <input
+          id="modpacks-alpha-notice"
+          v-model="modpacksAlphaNotice"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmeticSettings"
         />
       </div>
     </section>
@@ -71,20 +89,27 @@ export default {
     return {
       searchLayout: false,
       projectLayout: false,
+      modpacksAlphaNotice: true,
     }
   },
   fetch() {
-    this.searchLayout = this.$store.state.cosmetics.searchLayout
-    this.projectLayout = this.$store.state.cosmetics.projectLayout
+    this.searchLayout =
+      this.$store.state.cosmetics.searchLayout ?? this.searchLayout
+    this.projectLayout =
+      this.$store.state.cosmetics.projectLayout ?? this.projectLayout
+    this.modpacksAlphaNotice =
+      this.$store.state.cosmetics.modpacksAlphaNotice ??
+      this.modpacksAlphaNotice
   },
   head: {
     title: 'Display settings - Modrinth',
   },
   methods: {
-    async changeLayout() {
+    async saveCosmeticSettings() {
       await this.$store.dispatch('cosmetics/save', {
         searchLayout: this.searchLayout,
         projectLayout: this.projectLayout,
+        modpacksAlphaNotice: this.modpacksAlphaNotice,
         $cookies: this.$cookies,
       })
     },

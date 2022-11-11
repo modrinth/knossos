@@ -19,6 +19,7 @@ export default (ctx, inject) => {
   inject('formatVersion', (versionsArray) =>
     formatVersions(versionsArray, ctx.store)
   )
+  inject('orElse', (first, otherwise) => first ?? otherwise)
   inject('formatBytes', formatBytes)
   inject('formatWallet', formatWallet)
   inject('formatProjectType', formatProjectType)
