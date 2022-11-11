@@ -178,7 +178,7 @@ export default {
       if (this.wallet === 'venmo') {
         return 0.25
       } else {
-        return Math.min(0.25, Math.max(this.parseInput() * 0.2, 20))
+        return Math.max(0.25, Math.min(this.parseInput() * 0.2, 20))
       }
     },
   },
