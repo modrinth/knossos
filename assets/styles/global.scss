@@ -351,6 +351,6 @@ kbd {
 @import '~assets/styles/normalize.scss';
 
 button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
-  outline: .25rem solid #ea80ff !important;
+  outline: .25rem solid #ea80ff;
   border-radius: .25rem;
 }
