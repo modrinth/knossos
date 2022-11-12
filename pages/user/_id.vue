@@ -6,7 +6,7 @@
       <div class="user-header">
         <Avatar
           :src="previewImage ? previewImage : user.avatar_url"
-          size="lg"
+          size="md"
           circle
           :alt="user.username"
         />
@@ -148,6 +148,12 @@
         </aside>
       </div>
       <div class="normal-page__content">
+        <Advertisement
+          type="banner"
+          small-screen="square"
+          ethical-ads-small
+          ethical-ads-big
+        />
         <nav class="card user-navigation">
           <NavRow
             query="type"
@@ -173,12 +179,6 @@
             Create a project
           </button>
         </nav>
-        <Advertisement
-          type="banner"
-          small-screen="square"
-          ethical-ads-small
-          ethical-ads-big
-        />
         <div v-if="projects.length > 0">
           <ProjectCard
             v-for="project in $route.query.type !== undefined
@@ -493,12 +493,13 @@ export default {
     display: flex;
     width: 100%;
     padding: 0 1rem;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
 
     .username {
       display: none;
-      font-size: 2.5rem;
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
     }
   }
 }
