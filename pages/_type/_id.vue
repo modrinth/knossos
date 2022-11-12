@@ -235,7 +235,7 @@
             </button>
             <button
               v-if="project.status === 'approved'"
-              class="iconified-button"
+              class="clear-mod-message iconified-button"
               @click="clearMessage"
             >
               <ClearIcon />
@@ -1159,5 +1159,9 @@ export default {
   .content {
     max-width: calc(1280px - 21rem);
   }
+}
+
+.clear-mod-message {
+  margin-top: var(--spacing-card-sm);
 }
 </style>
