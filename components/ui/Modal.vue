@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div :class="{ shown: shown }" class="modal-overlay" @click="hide" />
+    <div
+      :class="{
+        shown: shown,
+        noblur: !$orElse($store.state.cosmetics.advancedRendering, true),
+      }"
+      class="modal-overlay"
+      @click="hide"
+    />
     <div class="modal-body" :class="{ shown: shown }">
       <div v-if="header" class="header">
         <h1>{{ header }}</h1>
@@ -62,6 +69,10 @@ export default {
     visibility: visible;
     background: hsla(0, 0%, 0%, 0.5);
     backdrop-filter: blur(3px);
+  }
+
+  &.noblur {
+    backdrop-filter: none;
   }
 }
 

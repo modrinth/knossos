@@ -1,11 +1,13 @@
 <template>
   <div>
     <section class="universal-card">
-      <h2>Display settings</h2>
+      <h2>Themes</h2>
       <div class="adjacent-input">
         <label for="theme-selector">
-          <span class="label__title">Theme</span>
-          <span class="label__description">Change the global site theme.</span>
+          <span class="label__title">Color theme</span>
+          <span class="label__description"
+            >Change the global site color theme.</span
+          >
         </label>
         <Multiselect
           id="theme-selector"
@@ -58,7 +60,23 @@
       </div>
     </section>
     <section class="universal-card">
-      <h2>Warning notices</h2>
+      <h2>Feature flags</h2>
+      <div class="adjacent-input small">
+        <label for="advanced-rendering">
+          <span class="label__title">Advanced rendering</span>
+          <span class="label__description"
+            >Enables advanced rendering such as blur effects that may cause
+            performance issues without hardware-accelerated rendering.</span
+          >
+        </label>
+        <input
+          id="advanced-rendering"
+          v-model="advancedRendering"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmeticSettings"
+        />
+      </div>
       <div class="adjacent-input small">
         <label for="modpacks-alpha-notice">
           <span class="label__title">Modpacks alpha notice</span>
@@ -91,6 +109,7 @@ export default {
       searchLayout: false,
       projectLayout: false,
       modpacksAlphaNotice: true,
+      advancedRendering: true,
     }
   },
   fetch() {
@@ -101,6 +120,8 @@ export default {
     this.modpacksAlphaNotice =
       this.$store.state.cosmetics.modpacksAlphaNotice ??
       this.modpacksAlphaNotice
+    this.advancedRendering =
+      this.$store.state.cosmetics.advancedRendering ?? this.advancedRendering
   },
   head: {
     title: 'Display settings - Modrinth',
@@ -111,6 +132,7 @@ export default {
         searchLayout: this.searchLayout,
         projectLayout: this.projectLayout,
         modpacksAlphaNotice: this.modpacksAlphaNotice,
+        advancedRendering: this.advancedRendering,
         $cookies: this.$cookies,
       })
     },
