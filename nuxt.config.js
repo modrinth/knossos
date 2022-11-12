@@ -67,12 +67,6 @@ export default {
         content: 'An open source modding platform',
       },
       {
-        hid: 'description',
-        name: 'description',
-        content:
-          'Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
-      },
-      {
         hid: 'og:type',
         name: 'og:type',
         content: 'website',
@@ -229,7 +223,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://staging-api.modrinth.com/v2/',
+    baseURL: getApiUrl(),
     headers: {
       common: {
         Accept: 'application/json',
@@ -280,8 +274,7 @@ export default {
     branch: process.env.VERCEL_GIT_COMMIT_REF || 'master',
     hash: process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
     domain: getDomain(),
-    authURLBase:
-      process.env.BROWSER_BASE_URL || 'https://staging-api.modrinth.com/v2/',
+    authURLBase: getApiUrl(),
   },
   publicRuntimeConfig: {
     axios: {
@@ -322,9 +315,16 @@ export default {
           await fs.mkdir('./generated', { recursive: true })
         }
 
+        const API_URL = getApiUrl()
+
         if (
+          // Skip regeneration if within TTL...
           state.lastGenerated &&
-          new Date(state.lastGenerated).getTime() + TTL > new Date().getTime()
+          new Date(state.lastGenerated).getTime() + TTL >
+            new Date().getTime() &&
+          // ...but only if the API URL is the same
+          state.apiUrl &&
+          state.apiUrl === API_URL
         ) {
           return
         }
@@ -333,8 +333,7 @@ export default {
 
         state.lastGenerated = new Date().toISOString()
 
-        const API_URL =
-          process.env.BROWSER_BASE_URL ?? 'https://staging-api.modrinth.com/v2/'
+        state.apiUrl = API_URL
 
         const headers = {
           headers: {
@@ -354,9 +353,9 @@ export default {
             axios.get(`${API_URL}tag/category`, headers),
             axios.get(`${API_URL}tag/loader`, headers),
             axios.get(`${API_URL}tag/game_version`, headers),
-            axios.get(`${API_URL}tag/license`),
-            axios.get(`${API_URL}tag/donation_platform`),
-            axios.get(`${API_URL}tag/report_type`),
+            axios.get(`${API_URL}tag/license`, headers),
+            axios.get(`${API_URL}tag/donation_platform`, headers),
+            axios.get(`${API_URL}tag/report_type`, headers),
           ])
         ).map((it) => it.data)
 
@@ -409,6 +408,10 @@ export default {
   },
 }
 
+function getApiUrl() {
+  return process.env.BROWSER_BASE_URL ?? 'https://staging-api.modrinth.com/v2/'
+}
+
 function getDomain() {
   if (process.env.NODE_ENV === 'production') {
     if (process.env.SITE_URL) {
@@ -417,6 +420,8 @@ function getDomain() {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`
+    } else if (getApiUrl() === 'https://staging-api.modrinth.com/v2/') {
+      return 'https://staging.modrinth.com'
     } else {
       return 'https://modrinth.com'
     }
