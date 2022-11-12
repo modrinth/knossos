@@ -15,10 +15,7 @@
           Program. In order to enroll, you must first add a valid email address
           to your account.
         </p>
-        <NuxtLink
-          class="iconified-button"
-          to="/settings/account#account-information"
-        >
+        <NuxtLink class="iconified-button" to="/settings/account">
           <SettingsIcon /> Visit account settings
         </NuxtLink>
       </template>

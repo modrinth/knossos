@@ -69,7 +69,7 @@
       </div>
     </Modal>
 
-    <section id="user-profile" class="universal-card">
+    <section class="universal-card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
       <NuxtLink class="iconified-button" :to="`/user/${$auth.user.username}`">
@@ -77,7 +77,7 @@
       </NuxtLink>
     </section>
 
-    <section id="account-information" class="universal-card">
+    <section class="universal-card">
       <h2>Account information</h2>
       <p>Your account information is not displayed publicly.</p>
       <ul class="known-errors">
@@ -109,7 +109,7 @@
       </div>
     </section>
 
-    <section id="authorization-token" class="universal-card">
+    <section class="universal-card">
       <h2>Authorization token</h2>
       <p>
         Your authorization token can be used with the Modrinth API, the Minotaur

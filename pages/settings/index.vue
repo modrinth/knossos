@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section id="display-settings" class="universal-card">
+    <section class="universal-card">
       <h2>Display settings</h2>
       <div class="adjacent-input">
         <label for="theme-selector">
@@ -57,7 +57,7 @@
         />
       </div>
     </section>
-    <section id="warning-notices" class="universal-card">
+    <section class="universal-card">
       <h2>Warning notices</h2>
       <div class="adjacent-input small">
         <label for="modpacks-alpha-notice">
