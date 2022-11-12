@@ -269,7 +269,6 @@ export default {
     html: true,
     linkify: true,
     breaks: false,
-    use: ['markdown-it-task-lists'],
   },
   loading: {
     color: '#1bd96a',

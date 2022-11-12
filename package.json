@@ -21,7 +21,6 @@
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.9.1",
     "highlight.js": "^10.3.2",
-    "markdown-it-task-lists": "^2.1.1",
     "nuxt": "^2.15.3",
     "sass": "^1.32.12",
     "v-tooltip": "^2.0.3",

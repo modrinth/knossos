@@ -133,15 +133,15 @@ export default {
 This is your new ${projectType.display}, ${this.name}. A checklist below is provided to help prepare for release.
 
 ### Before submitting for review
-- [ ] Upload at least one version
-- [ ] Edit project description
-- [ ] Update metadata
-  - [ ] Select license
-  - [ ] Set up environments
-  - [ ] Choose categories
-  - [ ] Add source, wiki, Discord and donation links (optional)
-- [ ] Add images to gallery (optional)
-- [ ] Invite project team members (optional)
+- Upload at least one version
+- Edit project description
+- Update metadata
+  - Select license
+  - Set up environments
+  - Choose categories
+  - Add source, wiki, Discord and donation links (optional)
+- Add images to gallery (optional)
+- Invite project team members (optional)
 
 > Submissions are normally reviewed within 24 hours, but may take up to 48 hours
 
