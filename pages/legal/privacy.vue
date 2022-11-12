@@ -43,7 +43,8 @@
       If you are a resident of the European Economic Area (EEA), you have
       certain data protection rights. If you wish to be informed what Personal
       Information we hold about you and if you want it to be removed from our
-      systems, please contact us.
+      systems, please contact us by email at
+      <a href="mailto:gdpr@modrinth.com">gdpr@modrinth.com</a>.
     </p>
 
     <p>
@@ -52,13 +53,12 @@
     <ul>
       <li>
         The right to access, update or to delete the information we have on you.
-        (please email admin@modrinth.com for data requests)
       </li>
       <li>The right of rectification.</li>
       <li>The right to object.</li>
       <li>The right of restriction.</li>
-      <li>The right to data portability</li>
-      <li>The right to withdraw consent</li>
+      <li>The right to data portability.</li>
+      <li>The right to withdraw consent.</li>
     </ul>
 
     <h2>Log Files</h2>

@@ -21,7 +21,8 @@
     <p>
       If you find any violations of these Rules on our website, it is your
       responsibility to report it. You may use the Report button on any project,
-      version, or user page, or you may email us at admin@modrinth.com.
+      version, or user page, or you may email us at
+      <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
     </p>
 
     <h2 id="malicious-content">1. Malicious Content</h2>
