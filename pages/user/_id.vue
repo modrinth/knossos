@@ -222,7 +222,7 @@
             You don't have any projects.<br />
             Would you like to
             <a class="link" @click.prevent="$refs.modal_creation.show()">
-              create one </a
+              create one</a
             >?
           </span>
           <span v-else class="text">This user has no projects!</span>
