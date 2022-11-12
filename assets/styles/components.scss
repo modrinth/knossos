@@ -1188,6 +1188,7 @@ button {
   grid-gap: var(--spacing-card-sm);
   flex-wrap: wrap;
   max-width: 100%;
+  align-items: center;
 
   .multiselect {
     width: 15rem;
