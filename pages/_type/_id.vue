@@ -258,7 +258,7 @@
             message!
           </p>
         </div>
-        <div class="extra-info card">
+        <div class="extra-info-desktop card">
           <template
             v-if="
               project.issues_url ||
@@ -593,6 +593,237 @@
           :all-members.sync="allMembers"
           :dependencies.sync="dependencies"
         />
+        <div class="extra-info-mobile card">
+          <template
+            v-if="
+              project.issues_url ||
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url ||
+              project.donation_urls.length > 0
+            "
+          >
+            <h3 class="card-header">External resources</h3>
+            <div class="links">
+              <a
+                v-if="project.issues_url"
+                :href="project.issues_url"
+                class="title"
+                target="_blank"
+              >
+                <IssuesIcon aria-hidden="true" />
+                <span>Issues</span>
+              </a>
+              <a
+                v-if="project.source_url"
+                :href="project.source_url"
+                class="title"
+                target="_blank"
+              >
+                <CodeIcon aria-hidden="true" />
+                <span>Source</span>
+              </a>
+              <a
+                v-if="project.wiki_url"
+                :href="project.wiki_url"
+                class="title"
+                target="_blank"
+              >
+                <WikiIcon aria-hidden="true" />
+                <span>Wiki</span>
+              </a>
+              <a
+                v-if="project.discord_url"
+                :href="project.discord_url"
+                target="_blank"
+              >
+                <DiscordIcon class="shrink" aria-hidden="true" />
+                <span>Discord</span>
+              </a>
+              <a
+                v-for="(donation, index) in project.donation_urls"
+                :key="index"
+                :href="donation.url"
+                target="_blank"
+              >
+                <BuyMeACoffeeLogo
+                  v-if="donation.id === 'bmac'"
+                  aria-hidden="true"
+                />
+                <PatreonIcon
+                  v-else-if="donation.id === 'patreon'"
+                  aria-hidden="true"
+                />
+                <KoFiIcon
+                  v-else-if="donation.id === 'ko-fi'"
+                  aria-hidden="true"
+                />
+                <PayPalIcon
+                  v-else-if="donation.id === 'paypal'"
+                  aria-hidden="true"
+                />
+                <OpenCollectiveIcon
+                  v-else-if="donation.id === 'open-collective'"
+                  aria-hidden="true"
+                />
+                <FollowIcon v-else-if="donation.id === 'github'" />
+                <UnknownIcon v-else />
+                <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
+                <span v-else-if="donation.id === 'patreon'">Patreon</span>
+                <span v-else-if="donation.id === 'paypal'">PayPal</span>
+                <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
+                <span v-else-if="donation.id === 'github'"
+                  >GitHub Sponsors</span
+                >
+                <span v-else>Donate</span>
+              </a>
+            </div>
+            <hr class="card-divider" />
+          </template>
+          <template v-if="featuredVersions.length > 0">
+            <div class="featured-header">
+              <h3 class="card-header">Featured versions</h3>
+              <nuxt-link
+                v-if="project.versions.length > 0 || currentMember"
+                :to="`/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/versions`"
+                class="goto-link"
+              >
+                See all
+                <ChevronRightIcon
+                  class="featured-header-chevron"
+                  aria-hidden="true"
+                />
+              </nuxt-link>
+            </div>
+            <div
+              v-for="version in featuredVersions"
+              :key="version.id"
+              class="featured-version button-transparent"
+              @click="
+                $router.push(
+                  `/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURI(version.displayUrlEnding)}`
+                )
+              "
+            >
+              <a
+                v-tooltip="
+                  findPrimary(version).filename +
+                  ' (' +
+                  $formatBytes(findPrimary(version).size) +
+                  ')'
+                "
+                :href="findPrimary(version).url"
+                class="download download-button"
+                :title="`Download ${version.name}`"
+                @click.stop="(event) => event.stopPropagation()"
+              >
+                <DownloadIcon aria-hidden="true" />
+              </a>
+              <div class="info">
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURI(version.displayUrlEnding)}`"
+                  class="top"
+                >
+                  {{ version.name }}
+                </nuxt-link>
+                <div
+                  v-if="version.game_versions.length > 0"
+                  class="game-version item"
+                >
+                  {{
+                    version.loaders.map((x) => $formatCategory(x)).join(', ')
+                  }}
+                  {{ $formatVersion(version.game_versions) }}
+                </div>
+                <VersionBadge
+                  v-if="version.version_type === 'release'"
+                  type="release"
+                  color="green"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'beta'"
+                  type="beta"
+                  color="yellow"
+                />
+                <VersionBadge
+                  v-else-if="version.version_type === 'alpha'"
+                  type="alpha"
+                  color="red"
+                />
+              </div>
+            </div>
+            <hr class="card-divider" />
+          </template>
+          <h3 class="card-header">Project members</h3>
+          <div
+            v-for="member in members"
+            :key="member.user.id"
+            class="team-member columns button-transparent"
+            @click="$router.push('/user/' + member.user.username)"
+          >
+            <Avatar
+              :src="member.avatar_url"
+              :alt="member.username"
+              size="sm"
+              circle
+            />
+
+            <div class="member-info">
+              <nuxt-link :to="'/user/' + member.user.username" class="name">
+                <p>{{ member.name }}</p>
+              </nuxt-link>
+              <p class="role">{{ member.role }}</p>
+            </div>
+          </div>
+          <hr class="card-divider" />
+          <h3 class="card-header">Technical information</h3>
+          <div class="infos">
+            <div class="info">
+              <div class="key">License</div>
+              <div class="value uppercase">
+                <a class="text-link" :href="project.license.url || null">{{
+                  project.license.id
+                }}</a>
+              </div>
+            </div>
+            <div
+              v-if="
+                project.project_type !== 'resourcepack' &&
+                project.project_type !== 'plugin'
+              "
+              class="info"
+            >
+              <div class="key">Client side</div>
+              <div class="value">
+                {{ project.client_side }}
+              </div>
+            </div>
+            <div
+              v-if="
+                project.project_type !== 'resourcepack' &&
+                project.project_type !== 'plugin'
+              "
+              class="info"
+            >
+              <div class="key">Server side</div>
+              <div class="value">
+                {{ project.server_side }}
+              </div>
+            </div>
+            <div class="info">
+              <div class="key">Project ID</div>
+              <div class="value lowercase">
+                <CopyCode :text="project.id" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -926,6 +1157,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
+  grid-area: header;
   .title {
     margin: 0.25rem 0;
     color: var(--color-text-dark);
@@ -1158,6 +1390,16 @@ export default {
 @media screen and (min-width: 1024px) {
   .content {
     max-width: calc(1280px - 21rem);
+  }
+
+  .extra-info-mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .extra-info-desktop {
+    display: none;
   }
 }
 
