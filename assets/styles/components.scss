@@ -872,9 +872,10 @@ tr.button-transparent {
   margin: var(--spacing-card-bg) 0;
 }
 
+.text-input-wrapper.known-error,
 input.known-error,
 textarea.known-error {
-  border-color: var(--color-badge-red-bg) !important;
+  outline: 2px solid var(--color-badge-red-bg);
   background-color: var(--color-warning-bg) !important;
 
   &::placeholder {
@@ -1168,7 +1169,7 @@ button {
       align-items: center;
     }
 
-    span {
+    > span {
       flex: 2;
       padding-right: var(--spacing-card-lg);
 
@@ -1177,29 +1178,29 @@ button {
       }
     }
 
-    input,
-    .multiselect,
-    .input-group {
+    > input,
+    > .multiselect,
+    > .input-group {
       flex: 3;
       height: fit-content;
     }
 
-    input[type='button'] {
+    > input[type='button'] {
       height: fit-content;
       flex: 1;
     }
 
-    input[type='button']:hover {
+    > input[type='button']:hover {
       cursor: pointer;
     }
 
-    div,
-    a {
+    > div,
+    > a {
       height: fit-content;
       flex: 1;
     }
 
-    div:hover {
+    > div:hover {
       cursor: pointer;
     }
   }

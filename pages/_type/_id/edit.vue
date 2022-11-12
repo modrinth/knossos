@@ -45,7 +45,7 @@
             Your project must have a summary.
           </li>
           <li v-if="newProject.slug === ''">
-            Your project must have a vanity URL.
+            Your project cannot have an empty URL suffix.
           </li>
           <li v-if="!savingAsDraft && newProject.body === ''">
             Your project must have a body to submit for review.
@@ -168,27 +168,30 @@
           @input="setCategories"
         />
       </label>
-      <label class="vertical-input no-margin">
-        <span>
-          <h3>Vanity URL (slug)<span class="required">*</span></h3>
-          <span class="slug-description"
-            >https://modrinth.com/{{ project.project_type.toLowerCase() }}/{{
-              newProject.slug ? newProject.slug : 'your-slug'
-            }}
-          </span>
-        </span>
-        <input
-          id="name"
-          v-model="newProject.slug"
+      <div class="universal-labels">
+        <label for="slug">
+          <span class="label__title">URL<span class="required">*</span></span>
+        </label>
+        <div
+          class="text-input-wrapper"
           :class="{ 'known-error': newProject.slug === '' && showKnownErrors }"
-          type="text"
-          placeholder="Enter the vanity URL"
-          maxlength="64"
-          :disabled="
-            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
-          "
-        />
-      </label>
+        >
+          <div class="text-input-wrapper__before">
+            https://modrinth.com/{{ project.project_type.toLowerCase() }}/
+          </div>
+          <input
+            id="slug"
+            v-model="newProject.slug"
+            type="text"
+            maxlength="64"
+            autocomplete="off"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+            @input="manualSlug = true"
+          />
+        </div>
+      </div>
     </section>
     <section class="card project-icon">
       <h3>Icon</h3>
@@ -418,7 +421,7 @@
             maxlength="2048"
             placeholder="License URL"
             :class="{
-              'known-error': newProject.body === '' && showKnownErrors,
+              'known-error': newProject.license_url === '' && showKnownErrors,
             }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -559,6 +562,7 @@ export default {
 
       showKnownErrors: false,
       savingAsDraft: false,
+      manualSlug: false,
     }
   },
   fetch() {
@@ -862,6 +866,10 @@ section.essentials {
 
 section.project-icon {
   grid-area: project-icon;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-card-sm);
 
   .avatar {
     margin-bottom: var(--spacing-card-sm);
@@ -976,5 +984,14 @@ section.donations {
   * {
     margin-bottom: var(--spacing-card-sm);
   }
+}
+
+.text-input-wrapper {
+  width: 100%;
+
+  input {
+    margin-left: 0 !important;
+  }
+  margin-bottom: var(--spacing-card-md);
 }
 </style>
