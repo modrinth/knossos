@@ -1223,6 +1223,7 @@ button {
     filter: grayscale(50%);
     opacity: 0.5;
     box-shadow: none;
+    flex-shrink: 0;
   }
 
   input {
