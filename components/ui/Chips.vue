@@ -82,7 +82,7 @@ export default {
     }
 
     &:focus-visible {
-      outline: 0.25rem solid #ea80ff !important;
+      outline: 0.25rem solid #ea80ff;
       border-radius: 0.25rem;
     }
   }
