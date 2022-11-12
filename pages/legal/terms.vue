@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div>
     <h1>Terms and Conditions</h1>
 
     <h2>1. Terms</h2>

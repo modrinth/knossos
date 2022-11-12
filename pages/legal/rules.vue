@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div>
     <h1>Content rules</h1>
 
     <p>

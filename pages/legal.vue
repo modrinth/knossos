@@ -17,7 +17,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <NuxtChild />
+      <NuxtChild class="universal-card" />
     </div>
   </div>
 </template>

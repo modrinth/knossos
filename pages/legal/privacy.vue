@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div>
     <h1>Privacy policy</h1>
 
     <p>
