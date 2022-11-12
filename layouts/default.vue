@@ -174,7 +174,7 @@
           </button>
         </div>
         <div
-          :class="{ 'disable-childern': !isBrowseMenuOpen }"
+          :class="{ 'disable-children': !isBrowseMenuOpen }"
           class="project-types"
         >
           <NuxtLink
@@ -233,14 +233,6 @@
             </NuxtLink>
             <button
               v-if="$auth.user"
-              class="iconified-button danger-button"
-              @click="logout"
-            >
-              <LogOutIcon class="icon" />
-              <span class="dropdown-item__text">Log out</span>
-            </button>
-            <button
-              v-if="$auth.user"
               class="iconified-button raised-button"
               @click="$refs.modal_creation.show()"
             >
@@ -250,10 +242,10 @@
             <NuxtLink
               v-if="$auth.user"
               class="iconified-button raised-button"
-              to="/settings"
+              to="/notifications"
             >
-              <SettingsIcon class="icon" />
-              <span class="dropdown-item__text">Settings</span>
+              <NotificationIcon class="icon" />
+              <span class="dropdown-item__text">Notifications</span>
             </NuxtLink>
             <NuxtLink
               v-if="$auth.user"
@@ -263,17 +255,6 @@
               <ChartIcon class="icon" />
               <span class="dropdown-item__text">Dashboard</span>
               <span class="beta-badge">BETA</span>
-            </NuxtLink>
-            <NuxtLink
-              v-if="
-                $auth.user &&
-                ($auth.user.role === 'moderator' || $auth.user.role === 'admin')
-              "
-              class="iconified-button raised-button"
-              to="/moderation"
-            >
-              <ModerationIcon class="icon" />
-              <span class="dropdown-item__text">Moderation</span>
             </NuxtLink>
             <NuxtLink
               v-if="$auth.user"
@@ -286,21 +267,36 @@
             <NuxtLink
               v-if="$auth.user"
               class="iconified-button raised-button"
-              to="/notifications"
+              to="/settings"
             >
-              <NotificationIcon class="icon" />
-              <span class="dropdown-item__text">Notifications</span>
+              <SettingsIcon class="icon" />
+              <span class="dropdown-item__text">Settings</span>
+            </NuxtLink>
+            <NuxtLink
+              v-if="
+                $auth.user &&
+                ($auth.user.role === 'moderator' || $auth.user.role === 'admin')
+              "
+              class="iconified-button raised-button"
+              to="/moderation"
+            >
+              <ModerationIcon class="icon" />
+              <span class="dropdown-item__text">Moderation</span>
             </NuxtLink>
             <button class="iconified-button raised-button" @click="changeTheme">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
             </button>
-            <a
-              v-if="!$auth.user"
-              :href="authUrl"
-              class="iconified-button brand-button"
+            <button
+              v-if="$auth.user"
+              class="iconified-button danger-button"
+              @click="logout"
             >
+              <LogOutIcon class="icon" />
+              <span class="dropdown-item__text">Log out</span>
+            </button>
+            <a v-else :href="authUrl" class="iconified-button brand-button">
               <GitHubIcon aria-hidden="true" />
               Sign in with GitHub</a
             >
@@ -947,7 +943,7 @@ export default {
         }
       }
 
-      .disable-childern {
+      .disable-children {
         a {
           pointer-events: none;
         }
