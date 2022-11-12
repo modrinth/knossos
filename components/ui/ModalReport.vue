@@ -163,8 +163,13 @@ export default {
   }
 
   .textarea-wrapper {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     height: 12rem;
+
+    textarea {
+      // here due to a bug in safari
+      max-height: 9rem;
+    }
 
     .preview {
       overflow-y: auto;

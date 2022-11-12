@@ -721,10 +721,10 @@ export default {
               }
             }
 
-            &.nuxt-link-exact-active {
-              color: var(--color-button-text-active);
-              background-color: var(--color-button-bg);
-            }
+            //&.nuxt-link-exact-active {
+            //  color: var(--color-button-text-active);
+            //  background-color: var(--color-button-bg);
+            //}
           }
 
           .hide-desktop {
