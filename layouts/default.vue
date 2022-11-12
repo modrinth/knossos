@@ -388,6 +388,10 @@
           <SunIcon v-else aria-hidden="true" />
           Change theme
         </button>
+        <nuxt-link class="iconified-button raised-button" to="/settings">
+          <SettingsIcon aria-hidden="true" />
+          Settings
+        </nuxt-link>
       </div>
     </footer>
   </div>
@@ -531,8 +535,8 @@ export default {
     async logout() {
       this.$cookies.set('auth-token-reset', true)
       // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (this.$route.path.startsWith('/settings')) {
-        window.location.href = '/'
+      if (this.$route.path.startsWith('/settings/')) {
+        window.location.href = '/settings'
       } else {
         await this.$router.go(null)
 

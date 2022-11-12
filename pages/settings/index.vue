@@ -85,6 +85,7 @@ export default {
   components: {
     Multiselect,
   },
+  auth: false,
   data() {
     return {
       searchLayout: false,
