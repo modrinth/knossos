@@ -252,7 +252,7 @@ export default {
 
     .text {
       position: absolute;
-      top: calc(5rem + var(--size-navbar-height));
+      top: calc(8rem + var(--size-navbar-height));
       max-width: 30rem;
       text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
       padding-left: 6rem;
