@@ -264,11 +264,7 @@
               <HeartIcon class="icon" />
               <span class="dropdown-item__text">Following</span>
             </NuxtLink>
-            <NuxtLink
-              v-if="$auth.user"
-              class="iconified-button raised-button"
-              to="/settings"
-            >
+            <NuxtLink class="iconified-button raised-button" to="/settings">
               <SettingsIcon class="icon" />
               <span class="dropdown-item__text">Settings</span>
             </NuxtLink>

@@ -179,12 +179,16 @@
           <div class="text-input-wrapper__before">
             https://modrinth.com/{{ project.project_type.toLowerCase() }}/
           </div>
-          <input
+          <!-- this is a textarea so it is horizontally scrollable on mobile -->
+          <textarea
             id="slug"
             v-model="newProject.slug"
             type="text"
             maxlength="64"
+            autocorrect="off"
             autocomplete="off"
+            autocapitalize="none"
+            rows="1"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
@@ -988,9 +992,18 @@ section.donations {
 
 .text-input-wrapper {
   width: 100%;
+  display: flex;
+  align-items: center;
 
-  input {
+  textarea {
+    width: 100%;
+    height: 100%;
     margin-left: 0 !important;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: none;
+    resize: none;
+    min-height: 0;
   }
   margin-bottom: var(--spacing-card-md);
 }

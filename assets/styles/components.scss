@@ -923,7 +923,7 @@ h1 {
   padding: 0.25rem 0.5rem;
   background-color: transparent;
   box-sizing: border-box;
-  outline: 2px solid var(--color-text);
+  border: 2px solid var(--color-text);
   color: var(--color-text);
   border-radius: var(--size-rounded-max);
   margin-left: 0.5rem;
@@ -1254,7 +1254,7 @@ button {
     flex-shrink: 0;
   }
 
-  input {
+  input, textarea {
     border-radius: 0;
     background-color: transparent;
     box-shadow: unset;
