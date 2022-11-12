@@ -51,7 +51,6 @@
                 <NotificationIcon aria-hidden="true" />
               </nuxt-link>
               <button
-                v-else
                 class="control-button button-transparent"
                 title="Switch theme"
                 @click="changeTheme"
@@ -131,14 +130,6 @@
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
-                  <button class="item button-transparent" @click="changeTheme">
-                    <MoonIcon
-                      v-if="$colorMode.value === 'light'"
-                      class="icon"
-                    />
-                    <SunIcon v-else class="icon" />
-                    <span class="dropdown-item__text">Change theme</span>
-                  </button>
                   <hr class="divider" />
                   <button class="item button-transparent" @click="logout">
                     <LogOutIcon class="icon" />
