@@ -80,6 +80,11 @@ export default {
       width: 1em;
       height: 1em;
     }
+
+    &:focus-visible {
+      outline: 0.25rem solid #ea80ff !important;
+      border-radius: 0.25rem;
+    }
   }
 
   .selected {
