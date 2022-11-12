@@ -2,6 +2,9 @@ import { promises as fs } from 'fs'
 import { sortRoutes } from '@nuxt/utils'
 import axios from 'axios'
 
+const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
+const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
+
 export default {
   /*
    ** Nuxt target
@@ -284,9 +287,7 @@ export default {
       ethicalAds: process.env.ETHICAL_ADS,
     },
     analytics: {
-      base_url:
-        process.env.BROWSER_ARIADNE_URL ||
-        'https://staging-ariadne.modrinth.com/v1/',
+      base_url: process.env.BROWSER_ARIADNE_URL || STAGING_ARIADNE_URL,
     },
   },
   privateRuntimeConfig: {
@@ -376,10 +377,7 @@ export default {
         setTimeout(() => {
           axios
             .post(
-              `${
-                process.env.ARIADNE_URL ||
-                'https://staging-ariadne.modrinth.com/v1/'
-              }view`,
+              `${process.env.ARIADNE_URL || STAGING_ARIADNE_URL}view`,
               {
                 url: getDomain() + url,
               },
@@ -409,7 +407,7 @@ export default {
 }
 
 function getApiUrl() {
-  return process.env.BROWSER_BASE_URL ?? 'https://staging-api.modrinth.com/v2/'
+  return process.env.BROWSER_BASE_URL ?? STAGING_API_URL
 }
 
 function getDomain() {
@@ -420,7 +418,7 @@ function getDomain() {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`
-    } else if (getApiUrl() === 'https://staging-api.modrinth.com/v2/') {
+    } else if (getApiUrl() === STAGING_API_URL) {
       return 'https://staging.modrinth.com'
     } else {
       return 'https://modrinth.com'
