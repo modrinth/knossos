@@ -84,6 +84,10 @@
 }
 
 .markdown-body {
+  h1:first-child {
+    margin-top: 0;
+  }
+
   blockquote,
   details,
   dl,
