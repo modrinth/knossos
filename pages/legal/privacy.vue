@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Privacy policy</h1>
+    <h1>Privacy Policy</h1>
 
     <p>
       At Modrinth, accessible from https://modrinth.com, one of our main
@@ -191,7 +191,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'The privacy policy of Modrinth, an open source modding platform. Modrinth currently supports Minecraft, including the forge and fabric mod loaders.',
+          'The Privacy Policy of Modrinth, an open source modding platform focused on Minecraft.',
       },
       {
         hid: 'apple-mobile-web-app-title',

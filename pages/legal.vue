@@ -7,10 +7,10 @@
           <NavStackItem link="/legal/terms" label="Terms and Conditions">
             <TermsIcon />
           </NavStackItem>
-          <NavStackItem link="/legal/privacy" label="Privacy policy">
+          <NavStackItem link="/legal/privacy" label="Privacy Policy">
             <PrivacyIcon />
           </NavStackItem>
-          <NavStackItem link="/legal/rules" label="Content rules">
+          <NavStackItem link="/legal/rules" label="Content Rules">
             <RulesIcon />
           </NavStackItem>
         </NavStack>

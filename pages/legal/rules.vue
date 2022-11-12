@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Content rules</h1>
+    <h1>Content Rules</h1>
 
     <p>
       In order to facilitate Modrinth's
