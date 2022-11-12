@@ -22,10 +22,9 @@ export default {
     CheckIcon,
   },
   props: {
-    startingValue: {
-      required: false,
-      type: Object,
-      default: null,
+    value: {
+      required: true,
+      type: String,
     },
     items: {
       required: true,
@@ -40,17 +39,19 @@ export default {
       type: Function,
     },
   },
-  data() {
-    return {
-      selected: null,
-    }
+  computed: {
+    selected: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      },
+    },
   },
   created() {
-    if (this.startingValue) {
-      this.selected = this.startingValue
-    } else if (this.items.length > 0 && this.neverEmpty) {
+    if (this.items.length > 0 && this.neverEmpty) {
       this.selected = this.items[0]
-      this.$emit('input', this.selected)
     }
   },
   methods: {
@@ -60,8 +61,6 @@ export default {
       } else {
         this.selected = item
       }
-
-      this.$emit('input', this.selected)
     },
   },
 }
