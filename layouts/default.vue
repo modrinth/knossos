@@ -367,9 +367,20 @@
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
         <a target="_blank" href="https://blog.modrinth.com">Blog</a>
-        <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
-        <a target="_blank" href="https://github.com/modrinth/knossos">GitHub</a>
         <a target="_blank" href="https://docs.modrinth.com">Docs</a>
+        <a target="_blank" href="https://status.modrinth.com">Status</a>
+        <a target="_blank" href="https://github.com/modrinth">GitHub</a>
+      </div>
+      <div class="links links-3" role="region" aria-label="Interact">
+        <h4 aria-hidden="true">Interact</h4>
+        <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
+        <a target="_blank" href="https://twitter.com/modrinth">Twitter</a>
+        <a target="_blank" rel="me" href="https://floss.social/@modrinth">
+          Mastodon
+        </a>
+        <a target="_blank" href="https://crowdin.com/project/modrinth">
+          Crowdin
+        </a>
       </div>
       <div class="buttons">
         <button class="iconified-button raised-button" @click="changeTheme">
@@ -1083,10 +1094,10 @@ export default {
     text-align: center;
     display: grid;
     grid-template:
-      'logo-info logo-info' auto
-      'links-1   links-2' auto
-      'buttons buttons' auto
-      / 1fr 1fr;
+      'logo-info logo-info logo-info' auto
+      'links-1   links-2   links-3' auto
+      'buttons   buttons   buttons' auto
+      / 1fr 1fr 1fr;
 
     .logo-info {
       margin-left: auto;
@@ -1121,6 +1132,10 @@ export default {
 
       &.links-2 {
         grid-area: links-2;
+      }
+
+      &.links-3 {
+        grid-area: links-3;
       }
     }
 
