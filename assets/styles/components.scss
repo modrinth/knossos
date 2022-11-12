@@ -383,19 +383,42 @@
   }
 }
 
-.button-transparent {
+:not(tr).button-transparent {
   @extend .button-base;
   background-color: transparent;
   border-radius: var(--size-rounded-sm);
 
   &:focus-visible:not(&:disabled),
-  &:hover:not(&:disabled) {
-    background-color: var(--color-raised-bg);
-  }
-
+  &:hover:not(&:disabled),
   &:active:not(&:disabled) {
     background-color: var(--color-raised-bg);
   }
+}
+
+tr.button-transparent {
+  @extend .button-animation;
+  background-color: transparent;
+  border-radius: var(--size-rounded-sm);
+
+    &:focus-visible:not(&:disabled) > *,
+    &:hover:not(&:disabled) > * {
+      cursor: pointer;
+      filter: brightness(0.85);
+      background-color: var(--color-raised-bg);
+    }
+
+    &:active:not(&:disabled) > * {
+      filter: brightness(0.8);
+      background-color: var(--color-raised-bg);
+    }
+
+    &:disabled > *,
+    &[disabled] > * {
+      cursor: not-allowed;
+      filter: grayscale(50%);
+      opacity: 0.5;
+      box-shadow: none;
+    }
 }
 
 .button-within {

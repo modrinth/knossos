@@ -313,6 +313,9 @@ table {
 }
 
 .version-row {
+  background-color: transparent;
+  border-radius: var(--size-rounded-card);
+
   td {
     padding-block: var(--spacing-card-sm);
   }
@@ -323,8 +326,15 @@ table {
     padding-left: var(--spacing-card-sm);
   }
 
-  .last-on-mobile,
   td:last-child {
+    border-top-right-radius: var(--size-rounded-card);
+    border-bottom-right-radius: var(--size-rounded-card);
+    padding-right: var(--spacing-card-sm);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .last-on-mobile {
     border-top-right-radius: var(--size-rounded-card);
     border-bottom-right-radius: var(--size-rounded-card);
     padding-right: var(--spacing-card-sm);
