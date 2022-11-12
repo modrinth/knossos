@@ -14,7 +14,7 @@
       <div v-if="$auth.user.payout_data.balance >= minWithdraw">
         <p>
           You have
-          <span class="balance">${{ $auth.user.payout_data.balance }}</span>
+          <strong>${{ $auth.user.payout_data.balance }}</strong>
           available to withdraw.
           <span v-if="!enrolled"
             >Enroll in the Creator Monetization Program to withdraw your
@@ -37,7 +37,7 @@
       </div>
       <p v-else>
         You have made
-        <span class="balance">${{ $auth.user.payout_data.balance }}</span
+        <strong>${{ $auth.user.payout_data.balance }}</strong
         >, however you have not yet met the minimum of ${{ minWithdraw }} to
         withdraw.
       </p>
@@ -55,18 +55,24 @@
         transferring as soon as you reach the minimum of ${{ minWithdraw }}.
       </p>
       <h3>PayPal</h3>
+      <ul>
+        <li>
+          In the <strong>United States</strong>, PayPal charges a flat
+          <strong>$0.25</strong>
+          fee per transaction.
+        </li>
+        <li>
+          In the rest of the world, PayPal charges a <strong>2%</strong> (up to
+          $20) fee per transaction.
+        </li>
+      </ul>
       <p>
-        For transactions within the United States, PayPal charges a flat $0.25
-        processing fee per transaction, and for international transactions,
-        PayPal charges a 2% (up to $20) processing fee for each transaction.
-      </p>
-      <p>
-        Since Modrinth cannot determine if you are international or not before
-        initiating a transfer, each transaction made by any user will have 2%
-        (up to $20) deducted from it in order to account for international
-        PayPal processing fees. If the deduction from your Modrinth balance is
-        more than the fee PayPal charges, the difference will be returned to
-        your Modrinth balance.
+        Modrinth will deduct <strong>2%</strong> for the fee (minimum of $0.25
+        and maximum of $20) from <strong>all transfers</strong> and if the fee
+        PayPal charges is less than the amount we deducted, the difference will
+        be added back to your Modrinth balance. This happens as Modrinth cannot
+        determine if a transaction will be in the United States or international
+        or not until after the transaction has been made.
       </p>
       <h3>Venmo (United States only)</h3>
       <p>
@@ -107,9 +113,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.balance {
+strong {
   color: var(--color-text-dark);
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .buttons {

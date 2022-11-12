@@ -4,8 +4,8 @@
       <span
         >You are initiating a transfer of your revenue from Modrinth's Creator
         Monetization Program. How much of your
-        <span class="important-text">${{ balance }}</span> balance would you
-        like to transfer?</span
+        <strong>${{ balance }}</strong> balance would you like to
+        transfer?</span
       >
       <div class="confirmation-input">
         <input
@@ -204,9 +204,9 @@ export default {
     margin-top: 1.5rem;
   }
 
-  .important-text {
+  strong {
     color: var(--color-text-dark);
-    font-weight: bold;
+    font-weight: 500;
   }
 
   .invalid {
