@@ -22,7 +22,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="version in filteredVersions" :key="version.id">
+          <tr
+            v-for="version in filteredVersions"
+            :key="version.id"
+            class="version-row button-transparent"
+            @click="
+              $router.push(
+                `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/version/${encodeURI(version.displayUrlEnding)}`
+              )
+            "
+          >
             <td>
               <a
                 v-tooltip="
@@ -39,7 +50,7 @@
                 <DownloadIcon aria-hidden="true" />
               </a>
             </td>
-            <td>
+            <td class="last-on-mobile">
               <div class="info">
                 <div class="top">
                   <nuxt-link
@@ -209,11 +220,13 @@ export default {
 <style lang="scss" scoped>
 table {
   border-collapse: separate;
-  border-spacing: 0 0.75rem;
+  border-spacing: 0 0;
 
   th {
     text-align: left;
     font-size: var(--font-size-md);
+    padding-block: var(--spacing-card-md);
+    color: var(--color-text-dark);
 
     &:nth-child(3),
     &:nth-child(4) {
@@ -286,10 +299,35 @@ table {
   .mobile-info {
     display: none;
   }
+
+  .version-row .last-on-mobile {
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+    padding-right: unset;
+  }
 }
 
 .header-buttons {
   display: flex;
   justify-content: right;
+}
+
+.version-row {
+  td {
+    padding-block: var(--spacing-card-sm);
+  }
+
+  td:first-child {
+    border-top-left-radius: var(--size-rounded-card);
+    border-bottom-left-radius: var(--size-rounded-card);
+    padding-left: var(--spacing-card-sm);
+  }
+
+  .last-on-mobile,
+  td:last-child {
+    border-top-right-radius: var(--size-rounded-card);
+    border-bottom-right-radius: var(--size-rounded-card);
+    padding-right: var(--spacing-card-sm);
+  }
 }
 </style>
