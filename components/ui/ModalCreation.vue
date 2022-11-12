@@ -130,11 +130,15 @@ export default {
           slug: this.slug,
           description: this.description,
           body: `# Placeholder description
-This is your new ${projectType.display}, ${this.name}. A checklist below is provided to help prepare for release.
+This is your new ${projectType.display}, ${
+            this.name
+          }. A checklist below is provided to help prepare for release.
 
 ### Before submitting for review
 - Upload at least one version
-- Edit project description
+- [Edit project description](https://modrinth.com/${this.getProjectType().id}/${
+            this.slug
+          }/edit)
 - Update metadata
   - Select license
   - Set up environments
