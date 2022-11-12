@@ -1147,6 +1147,10 @@ section {
   .separator {
     margin: var(--spacing-card-sm) 0;
   }
+
+  .choose-files {
+    margin-bottom: var(--spacing-card-sm);
+  }
 }
 
 .header-buttons {

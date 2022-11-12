@@ -101,7 +101,7 @@ export default {
   },
   data() {
     return {
-      projectType: '',
+      projectType: this.$tag.projectTypes[0].display,
       name: '',
       slug: '',
       description: '',
@@ -190,6 +190,11 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
       this.$nuxt.$loading.finish()
     },
     show() {
+      this.projectType = this.$tag.projectTypes[0].display
+      this.name = ''
+      this.slug = ''
+      this.description = ''
+      this.manualSlug = false
       this.$refs.modal.show()
     },
     updatedName() {

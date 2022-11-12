@@ -194,6 +194,7 @@
       <h3>Icon</h3>
       <Avatar
         size="lg"
+        class="avatar"
         :src="previewImage ? previewImage : newProject.icon_url"
         alt="preview-image"
       />
@@ -862,12 +863,12 @@ section.essentials {
 section.project-icon {
   grid-area: project-icon;
 
-  img {
-    margin-bottom: 0.25rem;
+  .avatar {
+    margin-bottom: var(--spacing-card-sm);
   }
 
   .iconified-button {
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-card-sm);
   }
 }
 
