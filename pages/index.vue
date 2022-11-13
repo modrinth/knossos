@@ -13,8 +13,8 @@
         <h3>
           Find enjoyable, quality content through our
           <a href="https://github.com/modrinth" target="_blank">open-source</a>
-          modding platform built for the community. Create stuff, get
-          paid<sup>WIP</sup>, and deploy your project with our
+          modding platform built for the community. Create stuff, get paid, and
+          deploy your project with our
           <a href="https://docs.modrinth.com" target="_blank"
             >fully documented</a
           >
