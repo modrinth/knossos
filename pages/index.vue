@@ -122,7 +122,7 @@
               </div>
               <div class="feature in-progress blurred">
                 <InProgressIcon />
-                <p>[Redacted]</p>
+                <p>[Redacted]</p> <!-- "Inspect element" goes brrr! -->
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
