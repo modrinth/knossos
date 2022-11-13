@@ -226,59 +226,67 @@ export default {
 
     const newReports = await Promise.all(
       reports.map(async (report) => {
-        report.item_id = report.item_id?.replace
-          ? report.item_id.replace(/"/g, '')
-          : report.item_id
-        let url = ''
+        try {
+          report.item_id = report.item_id?.replace
+            ? report.item_id.replace(/"/g, '')
+            : report.item_id
+          let url = ''
 
-        if (report.item_type === 'user') {
-          const user = (
-            await data.$axios.get(
-              `user/${report.item_id}`,
-              data.$defaultHeaders()
-            )
-          ).data
-          url = `/user/${user.username}`
-          report.item_id = user.username
-        } else if (report.item_type === 'project') {
-          const project = (
-            await data.$axios.get(
-              `project/${report.item_id}`,
-              data.$defaultHeaders()
-            )
-          ).data
-          report.item_id = project.slug || report.item_id
-          url = `/${project.project_type}/${report.item_id}`
-        } else if (report.item_type === 'version') {
-          const version = (
-            await data.$axios.get(
-              `version/${report.item_id}`,
-              data.$defaultHeaders()
-            )
-          ).data
-          const project = (
-            await data.$axios.get(
-              `project/${version.project_id}`,
-              data.$defaultHeaders()
-            )
-          ).data
-          report.item_id = version.version_number || report.item_id
-          url = `/${project.project_type}/${
-            project.slug || project.id
-          }/version/${report.item_id}`
-        }
+          if (report.item_type === 'user') {
+            const user = (
+              await data.$axios.get(
+                `user/${report.item_id}`,
+                data.$defaultHeaders()
+              )
+            ).data
+            url = `/user/${user.username}`
+            report.item_id = user.username
+          } else if (report.item_type === 'project') {
+            const project = (
+              await data.$axios.get(
+                `project/${report.item_id}`,
+                data.$defaultHeaders()
+              )
+            ).data
+            report.item_id = project.slug || report.item_id
+            url = `/${project.project_type}/${report.item_id}`
+          } else if (report.item_type === 'version') {
+            const version = (
+              await data.$axios.get(
+                `version/${report.item_id}`,
+                data.$defaultHeaders()
+              )
+            ).data
+            const project = (
+              await data.$axios.get(
+                `project/${version.project_id}`,
+                data.$defaultHeaders()
+              )
+            ).data
+            report.item_id = version.version_number || report.item_id
+            url = `/${project.project_type}/${
+              project.slug || project.id
+            }/version/${report.item_id}`
+          }
 
-        report.reporter = (
-          await data.$axios.get(
-            `user/${report.reporter}`,
-            data.$defaultHeaders()
-          )
-        ).data.username
+          report.reporter = (
+            await data.$axios.get(
+              `user/${report.reporter}`,
+              data.$defaultHeaders()
+            )
+          ).data.username
 
-        return {
-          ...report,
-          moderation_type: 'report',
-          url,
+          return {
+            ...report,
+            moderation_type: 'report',
+            url,
+          }
+        } catch (err) {
+          return {
+            ...report,
+            url: 'error',
+            moderation_type: 'report',
+          }
         }
       })
     )

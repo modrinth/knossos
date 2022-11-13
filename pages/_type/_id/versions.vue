@@ -237,7 +237,6 @@ table {
   tr {
     td:nth-child(2) {
       padding-right: 2rem;
-      min-width: 16rem;
       .top {
         font-weight: bold;
       }
@@ -287,6 +286,10 @@ table {
 @media screen and (min-width: 1024px) {
   table {
     tr {
+      td:nth-child(2) {
+        min-width: 16rem;
+      }
+
       th:nth-child(3),
       td:nth-child(3),
       th:nth-child(4),
