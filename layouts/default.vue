@@ -1024,8 +1024,6 @@ export default {
 
             .beta-badge {
               background-color: var(--color-brand-inverted);
-              box-sizing: border-box;
-              outline: none;
               color: var(--color-text-dark);
             }
           }
