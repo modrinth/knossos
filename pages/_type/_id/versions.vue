@@ -282,6 +282,12 @@ table {
       }
     }
   }
+
+  tbody tr {
+    &:active:not(&:disabled) {
+      transform: scale(0.99) !important;
+    }
+  }
 }
 
 @media screen and (min-width: 1024px) {
