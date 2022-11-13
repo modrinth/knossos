@@ -41,6 +41,7 @@
           class="download-button"
           :class="version.version_type"
           :title="`Download ${version.name}`"
+          @click.stop="(event) => event.stopPropagation()"
         >
           <DownloadIcon aria-hidden="true" />
         </a>
@@ -247,6 +248,10 @@ export default {
       flex-direction: column;
       gap: var(--spacing-card-xs);
     }
+
+    &:active:not(&:disabled) {
+      transform: scale(0.99) !important;
+    }
   }
 }
 
@@ -279,10 +284,6 @@ export default {
       .version__metadata {
         margin: 0;
       }
-    }
-
-    &:active:not(&:disabled) {
-      transform: scale(0.99) !important;
     }
   }
 }
