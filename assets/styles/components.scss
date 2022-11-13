@@ -1062,8 +1062,7 @@ h1 {
   input {
     box-sizing: border-box;
     max-height: 40px;
-    width: 100%;
-    max-width: 24rem;
+    width: 24rem;
     flex-basis: 24rem;
 
     &:not(.stylized-toggle) {

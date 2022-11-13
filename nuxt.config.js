@@ -82,7 +82,7 @@ export default {
       {
         hid: 'og:image',
         name: 'og:image',
-        content: 'https://cdn.modrinth.com/modrinth-new.png',
+        content: 'https://cdn.modrinth.com/modrinth-new.png?',
       },
       {
         hid: 'twitter:card',

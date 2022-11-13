@@ -46,6 +46,7 @@
                 class="download-button"
                 :class="version.version_type"
                 :title="`Download ${version.name}`"
+                @click.stop="(event) => event.stopPropagation()"
               >
                 <DownloadIcon aria-hidden="true" />
               </a>

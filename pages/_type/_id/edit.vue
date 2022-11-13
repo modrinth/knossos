@@ -459,6 +459,7 @@
             v-model="donationLinks[index]"
             type="url"
             placeholder="Enter a valid URL"
+            class="donation-link-input"
           />
         </label>
         <label title="The donation platform of the link.">
@@ -1006,5 +1007,9 @@ section.donations {
     min-height: 0;
   }
   margin-bottom: var(--spacing-card-md);
+}
+
+.donation-link-input {
+  width: 100%;
 }
 </style>
