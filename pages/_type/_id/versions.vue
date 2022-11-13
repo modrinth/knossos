@@ -11,123 +11,78 @@
       :versions="versions"
       @updateVersions="updateVersions"
     />
-    <div v-if="versions.length > 0" class="card">
-      <table>
-        <thead>
-          <tr>
-            <th role="presentation"></th>
-            <th>Version</th>
-            <th>Supports</th>
-            <th>Stats</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="version in filteredVersions"
-            :key="version.id"
-            class="version-row button-transparent"
-            @click="
-              $router.push(
-                `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/version/${encodeURI(version.displayUrlEnding)}`
-              )
-            "
-          >
-            <td>
-              <a
-                v-tooltip="
-                  $parent.findPrimary(version).filename +
-                  ' (' +
-                  $formatBytes($parent.findPrimary(version).size) +
-                  ')'
-                "
-                :href="$parent.findPrimary(version).url"
-                class="download-button"
-                :class="version.version_type"
-                :title="`Download ${version.name}`"
-                @click.stop="(event) => event.stopPropagation()"
-              >
-                <DownloadIcon aria-hidden="true" />
-              </a>
-            </td>
-            <td class="last-on-mobile">
-              <div class="info">
-                <div class="top">
-                  <nuxt-link
-                    :to="`/${project.project_type}/${
-                      project.slug ? project.slug : project.id
-                    }/version/${encodeURI(version.displayUrlEnding)}`"
-                  >
-                    {{ version.name }}
-                  </nuxt-link>
-                </div>
-                <div class="bottom">
-                  <VersionBadge
-                    v-if="version.version_type === 'release'"
-                    type="release"
-                    color="green"
-                  />
-                  <VersionBadge
-                    v-else-if="version.version_type === 'beta'"
-                    type="beta"
-                    color="yellow"
-                  />
-                  <VersionBadge
-                    v-else-if="version.version_type === 'alpha'"
-                    type="alpha"
-                    color="red"
-                  />
-                  <span class="divider" />
-                  <span class="version_number">{{
-                    version.version_number
-                  }}</span>
-                </div>
-                <div class="mobile-info">
-                  <p>
-                    {{
-                      version.loaders
-                        .map((x) => $formatCategory(x))
-                        .join(', ') +
-                      ' ' +
-                      $formatVersion(version.game_versions)
-                    }}
-                  </p>
-                  <p></p>
-                  <p>
-                    <strong>{{ $formatNumber(version.downloads) }}</strong>
-                    downloads
-                  </p>
-                  <p>
-                    Published on
-                    <strong>{{
-                      $dayjs(version.date_published).format('MMM D, YYYY')
-                    }}</strong>
-                  </p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p>
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
-              </p>
-              <p>{{ $formatVersion(version.game_versions) }}</p>
-            </td>
-            <td>
-              <p>
-                <span>{{ $formatNumber(version.downloads) }}</span>
-                downloads
-              </p>
-              <p>
-                Published on
-                <span>{{
-                  $dayjs(version.date_published).format('MMM D, YYYY')
-                }}</span>
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div v-if="versions.length > 0" class="universal-card all-versions">
+      <div class="header">
+        <div></div>
+        <div>Version</div>
+        <div>Supports</div>
+        <div>Stats</div>
+      </div>
+      <div
+        v-for="version in filteredVersions"
+        :key="version.id + '-new'"
+        class="version-button button-transparent"
+        @click="
+          $router.push(
+            `/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/version/${encodeURI(version.displayUrlEnding)}`
+          )
+        "
+      >
+        <a
+          v-tooltip="
+            $parent.findPrimary(version).filename +
+            ' (' +
+            $formatBytes($parent.findPrimary(version).size) +
+            ')'
+          "
+          :href="$parent.findPrimary(version).url"
+          class="download-button"
+          :class="version.version_type"
+          :title="`Download ${version.name}`"
+        >
+          <DownloadIcon aria-hidden="true" />
+        </a>
+        <span class="version__title">{{ version.name }}</span>
+        <div class="version__metadata">
+          <VersionBadge
+            v-if="version.version_type === 'release'"
+            type="release"
+            color="green"
+          />
+          <VersionBadge
+            v-else-if="version.version_type === 'beta'"
+            type="beta"
+            color="yellow"
+          />
+          <VersionBadge
+            v-else-if="version.version_type === 'alpha'"
+            type="alpha"
+            color="red"
+          />
+          <span class="divider" />
+          <span class="version_number">{{ version.version_number }}</span>
+        </div>
+        <div class="version__supports">
+          <span>
+            {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+          </span>
+          <span>{{ $formatVersion(version.game_versions) }}</span>
+        </div>
+        <div class="version__stats">
+          <span>
+            <strong>{{ $formatNumber(version.downloads) }}</strong>
+            downloads
+          </span>
+          <span>
+            Published on
+            <strong>{{
+              $dayjs(version.date_published).format('MMM D, YYYY')
+            }}</strong>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -219,135 +174,116 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table {
-  border-collapse: separate;
-  border-spacing: 0 0;
-
-  th {
-    text-align: left;
-    font-size: var(--font-size-md);
-    padding-block: var(--spacing-card-md);
-    color: var(--color-text-dark);
-
-    &:nth-child(3),
-    &:nth-child(4) {
-      display: none;
-    }
-  }
-
-  tr {
-    td:nth-child(2) {
-      padding-right: 2rem;
-      .top {
-        font-weight: bold;
-      }
-      .bottom {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        text-overflow: ellipsis;
-        margin-top: 0.25rem;
-
-        .divider {
-          width: 0.25rem;
-          height: 0.25rem;
-          border-radius: 50%;
-          display: inline-block;
-          margin: 0 0.25rem;
-          background-color: var(--color-text);
-        }
-      }
-
-      .mobile-info {
-        p {
-          margin: 0.25rem 0 0;
-        }
-      }
-    }
-    td:nth-child(3) {
-      display: none;
-      width: 100%;
-      p {
-        margin: 0.25rem 0;
-      }
-    }
-    td:nth-child(4) {
-      display: none;
-      min-width: 15rem;
-      p {
-        margin: 0.25rem 0;
-        span {
-          font-weight: bold;
-        }
-      }
-    }
-  }
-
-  tbody tr {
-    &:active:not(&:disabled) {
-      transform: scale(0.99) !important;
-    }
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  table {
-    tr {
-      td:nth-child(2) {
-        min-width: 16rem;
-      }
-
-      th:nth-child(3),
-      td:nth-child(3),
-      th:nth-child(4),
-      td:nth-child(4) {
-        display: table-cell;
-      }
-    }
-  }
-
-  .mobile-info {
-    display: none;
-  }
-
-  .version-row .last-on-mobile {
-    border-top-right-radius: unset;
-    border-bottom-right-radius: unset;
-    padding-right: unset;
-  }
-}
-
 .header-buttons {
   display: flex;
   justify-content: right;
 }
 
-.version-row {
-  background-color: transparent;
-  border-radius: var(--size-rounded-card);
+.all-versions {
+  display: flex;
+  flex-direction: column;
 
-  td {
-    padding-block: var(--spacing-card-sm);
+  .header {
+    display: grid;
+    grid-template: 'download title supports stats';
+    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    color: var(--color-text-dark);
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    justify-content: left;
+    margin-inline: var(--spacing-card-md);
+    margin-bottom: var(--spacing-card-sm);
+    column-gap: var(--spacing-card-sm);
+
+    div:first-child {
+      grid-area: download;
+    }
+
+    div:nth-child(2) {
+      grid-area: title;
+    }
+
+    div:nth-child(3) {
+      grid-area: supports;
+    }
+
+    div:nth-child(4) {
+      grid-area: stats;
+    }
   }
 
-  td:first-child {
-    border-top-left-radius: var(--size-rounded-card);
-    border-bottom-left-radius: var(--size-rounded-card);
-    padding-left: var(--spacing-card-sm);
-  }
+  .version-button {
+    display: grid;
+    grid-template: 'download title supports stats' 'download metadata supports stats';
+    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    column-gap: var(--spacing-card-sm);
+    justify-content: left;
+    padding: var(--spacing-card-md);
 
-  td:last-child {
-    border-top-right-radius: var(--size-rounded-card);
-    border-bottom-right-radius: var(--size-rounded-card);
-    padding-right: var(--spacing-card-sm);
+    .download-button {
+      grid-area: download;
+    }
+    .version__title {
+      grid-area: title;
+      font-weight: bold;
+    }
+    .version__metadata {
+      grid-area: metadata;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--spacing-card-xs);
+      margin-top: var(--spacing-card-xs);
+    }
+    .version__supports {
+      grid-area: supports;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-card-xs);
+    }
+    .version__stats {
+      grid-area: stats;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-card-xs);
+    }
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .last-on-mobile {
-    border-top-right-radius: var(--size-rounded-card);
-    border-bottom-right-radius: var(--size-rounded-card);
-    padding-right: var(--spacing-card-sm);
+  .all-versions {
+    .header {
+      grid-template: 'download title';
+      grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr;
+
+      div:nth-child(3) {
+        display: none;
+      }
+
+      div:nth-child(4) {
+        display: none;
+      }
+    }
+
+    .version-button {
+      grid-template: 'download title' 'download metadata' 'download supports' 'download stats';
+      grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr;
+      row-gap: var(--spacing-card-xs);
+
+      .version__supports {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: var(--spacing-card-xs);
+      }
+      .version__metadata {
+        margin: 0;
+      }
+    }
+
+    &:active:not(&:disabled) {
+      transform: scale(0.99) !important;
+    }
   }
 }
 </style>
