@@ -42,21 +42,20 @@
     <div class="points card">
       <div class="point">
         <div class="image">
-          <video
+          <img
             v-if="$colorMode.value === 'light'"
-            autoplay
-            loop
-            muted
-            src="https://cdn.modrinth.com/homepage/search.mp4"
-            playsinline
+            src="https://cdn.modrinth.com/homepage/search-light.webp"
+            alt="Screenshot of Modrinth's 'search mods' page"
           />
-          <video
+          <img
+            v-else-if="$colorMode.value === 'oled'"
+            src="https://cdn.modrinth.com/homepage/search-oled.webp"
+            alt="Screenshot of Modrinth's 'search mods' page"
+          />
+          <img
             v-else
-            autoplay
-            loop
-            muted
-            src="https://cdn.modrinth.com/homepage/search-dark.mp4"
-            playsinline
+            src="https://cdn.modrinth.com/homepage/search-dark.webp"
+            alt="Screenshot of Modrinth's 'search mods' page"
           />
         </div>
         <div class="text-container">
@@ -387,9 +386,9 @@ export default {
           height: unset;
         }
 
-        img,
-        video {
+        img {
           border-radius: var(--size-rounded-lg);
+          box-shadow: var(--shadow-floating);
           width: 40rem;
         }
 
@@ -401,6 +400,7 @@ export default {
           font-family: monospace;
           font-size: 80%;
           line-height: 1.5rem;
+          box-shadow: var(--shadow-floating);
 
           .line-nums {
             display: flex;
