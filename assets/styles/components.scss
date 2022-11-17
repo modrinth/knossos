@@ -1051,7 +1051,7 @@ h1 {
     width: 15rem;
   }
 
-  input + *, .input-group + * {
+  > input + *, > .input-group + * {
     margin-block-start: var(--spacing-card-md);
   }
 

@@ -71,6 +71,42 @@
           </button>
         </div>
       </div>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title"
+            >CurseForge publisher <FlameIcon class="cf-publisher"
+          /></span>
+          <span class="label__description">
+            If a member is selected, new versions of this project uploaded to
+            Modrinth will automatically be published to CurseForge as well.
+          </span>
+        </span>
+        <div class="input-group">
+          <Multiselect
+            v-model="curseForgePublisher"
+            :options="getValidCFPublishers()"
+            :custom-label="
+              (value) => (value === null ? 'None' : value.username)
+            "
+            :multiple="false"
+            :searchable="false"
+            :show-no-results="false"
+            :close-on-select="true"
+            :clear-search-on-select="false"
+            :show-labels="false"
+            :allow-empty="true"
+            placeholder="Select publisher..."
+            :disabled="getValidCFPublishers().length === 0"
+          ></Multiselect>
+          <button
+            v-if="curseForgePublisher !== null"
+            class="iconified-button"
+            @click="curseForgePublisher = null"
+          >
+            <TrashIcon /> Remove
+          </button>
+        </div>
+      </div>
     </div>
     <div
       v-for="(member, index) in allTeamMembers"
@@ -88,7 +124,16 @@
           />
           <div class="text">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p>{{ member.name }}</p>
+              <p>
+                {{ member.name }}
+                <FlameIcon
+                  v-if="
+                    curseForgePublisher &&
+                    curseForgePublisher.id === member.user.id
+                  "
+                  class="cf-publisher"
+                />
+              </p>
             </nuxt-link>
             <p>{{ member.role }}</p>
           </div>
@@ -291,6 +336,7 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Checkbox from '~/components/ui/Checkbox'
 import Badge from '~/components/ui/Badge'
@@ -301,10 +347,12 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
+import FlameIcon from '~/assets/images/utils/flame.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
+    Multiselect,
     Avatar,
     DropdownIcon,
     ModalConfirm,
@@ -315,6 +363,7 @@ export default {
     EditIcon,
     TrashIcon,
     UserIcon,
+    FlameIcon,
   },
   props: {
     project: {
@@ -341,6 +390,7 @@ export default {
       currentUsername: '',
       openTeamMembers: [],
       allTeamMembers: [],
+      curseForgePublisher: null,
     }
   },
   fetch() {
@@ -491,6 +541,15 @@ export default {
         ...it,
       }))
     },
+    getValidCFPublishers() {
+      return this.allTeamMembers
+        .filter((member) => member.accepted)
+        .map((member) => member.user)
+    },
+    updateCFPublisher() {},
+    resetCFPublisher() {
+      this.curseForgePublisher = null
+    },
   },
 }
 </script>
@@ -554,5 +613,9 @@ export default {
       display: flex;
     }
   }
+}
+
+.cf-publisher {
+  color: var(--color-badge-yellow-text);
 }
 </style>

@@ -12,6 +12,13 @@
             <NavStackItem link="/settings/account" label="Account">
               <UserIcon />
             </NavStackItem>
+            <NavStackItem
+              link="/settings/integrations"
+              label="Integrations"
+              beta
+            >
+              <PlugIcon />
+            </NavStackItem>
             <NavStackItem link="/settings/follows" label="Followed projects">
               <HeartIcon />
             </NavStackItem>
@@ -40,6 +47,7 @@ import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
+import PlugIcon from '~/assets/images/utils/plug.svg?inline'
 
 export default {
   name: 'Settings',
@@ -49,6 +57,7 @@ export default {
     PaintbrushIcon,
     UserIcon,
     HeartIcon,
+    PlugIcon,
     CurrencyIcon,
   },
 }
