@@ -1,9 +1,6 @@
 <template>
   <div class="card notification">
     <div class="header">
-      <div class="icon">
-        <UpdateIcon />
-      </div>
       <div class="text">
         <div>
           <h3>
@@ -34,12 +31,17 @@
       :key="notification.id"
       class="version"
     >
-      <div>
+      <div class="content">
         <nuxt-link :to="notification.link">
           Version
           {{ notification.version }}
         </nuxt-link>
-        <span>Released {{ $dayjs(notification.created).fromNow() }}</span>
+        <span
+          v-tooltip="
+            $dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')
+          "
+          >Released {{ $dayjs(notification.created).fromNow() }}<CalendarIcon
+        /></span>
       </div>
       <div class="buttons">
         <button
@@ -76,13 +78,13 @@
 </template>
 <script>
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
+import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 
 export default {
   name: 'ProjectUpdateNotification',
   components: {
     ClearIcon,
-    UpdateIcon,
+    CalendarIcon,
   },
   props: {
     projectTitle: {
@@ -149,33 +151,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.icon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  svg {
-    height: calc(3rem - var(--spacing-card-sm));
-    width: auto;
-    margin-right: 1rem;
-  }
-}
 .version {
   display: flex;
   &:not(:nth-last-of-type(2)) {
     margin-bottom: var(--spacing-card-sm);
   }
 
-  :not(.buttons) {
-    // margin-bottom: var(--spacing-card-sm);
-    // display: flex;
-    flex-grow: 1;
+  .content {
     justify-content: space-between;
+    width: 100%;
     span {
       color: var(--color-text-secondary);
       float: left;
       margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      svg {
+        margin-left: 0.3rem;
+      }
     }
+
     a {
       text-decoration: underline;
       font-weight: bold;
@@ -247,7 +244,9 @@ export default {
   }
 
   .version {
-    :not(.buttons) {
+    .content {
+      display: flex;
+      align-items: center;
       span {
         float: right;
       }
@@ -261,10 +260,6 @@ export default {
 
   .text {
     flex-direction: column;
-
-    .top {
-      flex-direction: row;
-    }
   }
 }
 </style>

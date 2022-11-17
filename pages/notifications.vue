@@ -55,7 +55,6 @@
 </template>
 
 <script>
-
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import ProjectUpdateNotification from '~/components/ui/ProjectUpdateNotification.vue'
 import TeamInviteNotification from '~/components/ui/TeamInviteNotification.vue'
@@ -80,7 +79,6 @@ export default {
     ProjectUpdateNotification,
     TeamInviteNotification,
   },
-
   data() {
     return {
       selectedNotificationType: 'all',
@@ -189,59 +187,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-h1 {
-  color: var(--color-text-dark);
-  margin: 0 0 1rem 1.5rem;
-}
-
 .divider {
   align-items: center;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 0.5rem;
-}
-
-@media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: calc(1280px - 20rem) !important;
-  }
-}
-
-.notifications {
-  .label {
-    .label__title {
-      display: flex;
-      gap: var(--spacing-card-sm);
-      align-items: baseline;
-      margin-block-start: 0;
-
-      h3 ::v-deep {
-        margin: 0;
-        p {
-          margin: 0;
-        }
-      }
-    }
-
-    .label__description {
-      margin: 0;
-
-      .date {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-card-xs);
-        color: var(--color-heading);
-        font-weight: 500;
-        font-size: 1rem;
-        width: fit-content;
-      }
-
-      p {
-        margin-block: 0 var(--spacing-card-md);
-      }
-    }
-  }
 }
 </style>
