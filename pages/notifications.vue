@@ -1,40 +1,53 @@
 <template>
-  <div class="page-container">
-    <div class="page-contents">
-      <div class="content">
+  <div class="normal-page">
+    <div class="normal-page__sidebar">
+      <aside class="universal-card">
         <h1>Notifications</h1>
-
-        <div class="divider card">
-          <ThisOrThat
-            v-model="selectedNotificationType"
-            :items="notificationTypes"
-          />
-          <button class="iconified-button" @click="clearNotifications">
+        <NavStack>
+          <NavStackItem link="" label="All"> </NavStackItem>
+          <NavStackItem
+            v-for="type in notificationTypes"
+            :key="type"
+            :link="'?type=' + type"
+            :label="NOTIFICATION_TYPES[type]"
+          >
+          </NavStackItem>
+        </NavStack>
+        <h3>Manage</h3>
+        <div class="input-group">
+          <NuxtLink class="iconified-button" to="/settings/follows">
+            <SettingsIcon />
+            Followed projects
+          </NuxtLink>
+          <button
+            v-if="$user.notifications.length > 0"
+            class="iconified-button danger-button"
+            @click="clearNotifications"
+          >
             <ClearIcon />
             Clear all
           </button>
         </div>
-        <div class="notifications">
-          <div
-            v-for="(notification, index) in notificationsGrouped"
-            :key="index"
-          >
-            <ProjectUpdateNotification
-              v-if="notification.type === 'project_update'"
-              :project-title="notification.projectName"
-              :versions="notification.data"
-            />
-            <TeamInviteNotification
-              v-if="notification.type === 'team_invite'"
-              :notification="notification.data"
-            />
-          </div>
+      </aside>
+    </div>
+    <div class="normal-page__content">
+      <div class="notifications">
+        <div v-for="(notification, index) in notificationsGrouped" :key="index">
+          <ProjectUpdateNotification
+            v-if="notification.type === 'project_update'"
+            :project-title="notification.projectName"
+            :versions="notification.data"
+          />
+          <TeamInviteNotification
+            v-if="notification.type === 'team_invite'"
+            :notification="notification.data"
+          />
+        </div>
 
-          <div v-if="$user.notifications.length === 0" class="error">
-            <UpToDate class="icon"></UpToDate>
-            <br />
-            <span class="text">You are up-to-date!</span>
-          </div>
+        <div v-if="$user.notifications.length === 0" class="error">
+          <UpToDate class="icon"></UpToDate>
+          <br />
+          <span class="text">You are up-to-date!</span>
         </div>
       </div>
     </div>
@@ -42,21 +55,25 @@
 </template>
 
 <script>
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import ThisOrThat from '~/components/ui/ThisOrThat'
 import ProjectUpdateNotification from '~/components/ui/ProjectUpdateNotification.vue'
 import TeamInviteNotification from '~/components/ui/TeamInviteNotification.vue'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import NavStack from '~/components/ui/NavStack'
+import NavStackItem from '~/components/ui/NavStackItem'
+import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 
 const NOTIFICATION_TYPES = {
-  'Team invites': 'team_invite',
-  'Project updates': 'project_update',
+  team_invite: 'Team invites',
+  project_update: 'Project updates',
 }
 
 export default {
   name: 'Notifications',
   components: {
-    ThisOrThat,
+    NavStack,
+    NavStackItem,
+    SettingsIcon,
     ClearIcon,
     UpToDate,
     ProjectUpdateNotification,
@@ -66,9 +83,12 @@ export default {
     return {
       selectedNotificationType: 'all',
       expandedNames: [],
+      NOTIFICATION_TYPES,
     }
   },
   async fetch() {
+    this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
+
     await this.$store.dispatch('user/fetchNotifications')
   },
   head: {
@@ -76,9 +96,9 @@ export default {
   },
   computed: {
     notificationsUngrouped() {
-      return this.selectedNotificationType !== 'all'
+      return this.$route.query.type !== undefined
         ? this.$user.notifications.filter(
-            (x) => x.type === NOTIFICATION_TYPES[this.selectedNotificationType]
+            (x) => x.type === this.$route.query.type
           )
         : this.$user.notifications
     },
@@ -131,23 +151,16 @@ export default {
       return groupedArray
     },
     notificationTypes() {
-      const obj = { all: true }
+      const obj = {}
 
       for (const notification of this.$user.notifications.filter(
         (it) => it.type !== null
       )) {
-        obj[
-          Object.keys(NOTIFICATION_TYPES).find(
-            (key) => NOTIFICATION_TYPES[key] === notification.type
-          )
-        ] = true
+        obj[notification.type] = true
       }
 
       return Object.keys(obj)
     },
-  },
-  created() {
-    this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
   },
   methods: {
     async clearNotifications() {
@@ -190,6 +203,41 @@ h1 {
 @media screen and (min-width: 1024px) {
   .page-contents {
     max-width: calc(1280px - 20rem) !important;
+  }
+}
+.notifications {
+  .label {
+    .label__title {
+      display: flex;
+      gap: var(--spacing-card-sm);
+      align-items: baseline;
+      margin-block-start: 0;
+
+      h3 ::v-deep {
+        margin: 0;
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .label__description {
+      margin: 0;
+
+      .date {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-card-xs);
+        color: var(--color-heading);
+        font-weight: 500;
+        font-size: 1rem;
+        width: fit-content;
+      }
+
+      p {
+        margin-block: 0 var(--spacing-card-md);
+      }
+    }
   }
 }
 </style>
