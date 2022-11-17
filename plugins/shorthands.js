@@ -16,10 +16,13 @@ export default (ctx, inject) => {
     return obj
   })
   inject('formatNumber', formatNumber)
+  inject('formatMoney', (number) => '$' + formatNumber(number.toFixed(2)))
   inject('formatVersion', (versionsArray) =>
     formatVersions(versionsArray, ctx.store)
   )
+  inject('orElse', (first, otherwise) => first ?? otherwise)
   inject('formatBytes', formatBytes)
+  inject('formatWallet', formatWallet)
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
   inject('formatCategoryHeader', formatCategoryHeader)
@@ -192,9 +195,16 @@ export const formatBytes = (bytes, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
+export const formatWallet = (name) => {
+  if (name === 'paypal') {
+    return 'PayPal'
+  }
+  return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
 export const formatProjectType = (name) => {
   if (name === 'resourcepack') {
-    return 'resource pack'
+    return 'Resource Pack'
   }
   return name.charAt(0).toUpperCase() + name.slice(1)
 }

@@ -8,12 +8,13 @@
         alt="cover-image"
       />
       <div class="text">
+        <ModrinthLogo aria-hidden="true" class="modrinth-logo" />
         <h1>Discover, Play, and Create Minecraft content</h1>
         <h3>
           Find enjoyable, quality content through our
           <a href="https://github.com/modrinth" target="_blank">open-source</a>
-          modding platform built for the community. Create stuff, get
-          paid<sup>WIP</sup>, and deploy your project with our
+          modding platform built for the community. Create stuff, get paid, and
+          deploy your project with our
           <a href="https://docs.modrinth.com" target="_blank"
             >fully documented</a
           >
@@ -31,7 +32,7 @@
               autocomplete="off"
             />
           </div>
-          <button class="iconified-button brand-button-colors" type="submit">
+          <button class="iconified-button brand-button" type="submit">
             <RightArrowIcon />
             Search
           </button>
@@ -41,21 +42,20 @@
     <div class="points card">
       <div class="point">
         <div class="image">
-          <video
+          <img
             v-if="$colorMode.value === 'light'"
-            autoplay
-            loop
-            muted
-            src="https://cdn.modrinth.com/homepage/search.mp4"
-            playsinline
+            src="https://cdn.modrinth.com/homepage/search-light.webp"
+            alt="Screenshot of Modrinth's 'search mods' page"
           />
-          <video
+          <img
+            v-else-if="$colorMode.value === 'oled'"
+            src="https://cdn.modrinth.com/homepage/search-oled.webp"
+            alt="Screenshot of Modrinth's 'search mods' page"
+          />
+          <img
             v-else
-            autoplay
-            loop
-            muted
-            src="https://cdn.modrinth.com/homepage/search-dark.mp4"
-            playsinline
+            src="https://cdn.modrinth.com/homepage/search-dark.webp"
+            alt="Screenshot of Modrinth's 'search mods' page"
           />
         </div>
         <div class="text-container">
@@ -76,10 +76,10 @@
             <h1>Constantly evolving and improving</h1>
             <p>
               We are always adding new features and working towards making
-              Modrinth have the friendliest user experience possible. Right now,
-              we're working on finishing modpacks and finally paying out
-              creators on our site. If you have any more feature ideas, feel
-              free to join our
+              Modrinth have the best possible user experience. Right now, we're
+              working on giving creators more analytics, adding new types of
+              projects, our launcher, and much more! If you have any more
+              feature ideas, feel free to join our
               <a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>!
             </p>
             <div class="features">
@@ -97,14 +97,6 @@
               </div>
               <div class="feature completed">
                 <CheckIcon />
-                <p>Customizable project pages</p>
-              </div>
-              <div class="feature completed">
-                <CheckIcon />
-                <p>Robust team management</p>
-              </div>
-              <div class="feature completed">
-                <CheckIcon />
                 <p>
                   <a href="https://docs.modrinth.com" target="_blank">
                     Completely documented API
@@ -115,21 +107,29 @@
                 <CheckIcon />
                 <p>Dependency management</p>
               </div>
-              <div class="feature in-progress">
+              <div class="feature completed">
                 <CheckIcon />
                 <p>Modpacks</p>
               </div>
-              <div class="feature in-progress">
-                <InProgressIcon />
-                <p>Creator payouts</p>
-              </div>
-              <div class="feature in-progress">
-                <InProgressIcon />
-                <p>More project types</p>
+              <div class="feature completed">
+                <CheckIcon />
+                <p>Creator monetization</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
                 <p>Creator analytics</p>
+              </div>
+              <div class="feature in-progress blurred">
+                <InProgressIcon />
+                <p>[Redacted]</p>
+              </div>
+              <div class="feature in-progress">
+                <InProgressIcon />
+                <p>More types of projects</p>
+              </div>
+              <div class="feature in-progress">
+                <InProgressIcon />
+                <p>Game launcher</p>
               </div>
               <div class="feature in-progress">
                 <InProgressIcon />
@@ -166,7 +166,7 @@
               <span>14</span>
               <span>15</span>
             </div>
-            <div class="text" v-highlightjs>
+            <div v-highlightjs class="text">
               <span class="command">curl</span>
               <span>https://api.modrinth.com/v2/project/sodium</span>
               <pre><code class="language-json">
@@ -211,6 +211,7 @@ import InProgressIcon from '~/assets/images/utils/updated.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 
 import FeaturesIllustration from '~/assets/images/illustrations/features.svg?inline'
+import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 
 export default {
   components: {
@@ -219,6 +220,7 @@ export default {
     CheckIcon,
     InProgressIcon,
     FeaturesIllustration,
+    ModrinthLogo,
   },
   auth: false,
   data() {
@@ -240,6 +242,7 @@ export default {
       height: 40rem;
       object-fit: cover;
       object-position: 15% 12.5%;
+      box-shadow: var(--shadow-card);
 
       @media screen and (max-width: 1280px) {
         border-radius: 0;
@@ -248,12 +251,16 @@ export default {
 
     .text {
       position: absolute;
-      top: calc(5rem + var(--size-navbar-height));
+      top: calc(8rem + var(--size-navbar-height));
       max-width: 30rem;
       text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
       padding-left: 6rem;
 
       color: #fff;
+
+      .modrinth-logo {
+        display: none;
+      }
 
       h1 {
         color: #fff;
@@ -279,13 +286,23 @@ export default {
         gap: 0.25rem;
         box-sizing: border-box;
 
-        input {
-          box-sizing: content-box;
+        button {
+          max-height: unset;
+          min-height: 40px;
         }
       }
 
       @media screen and (max-width: 750px) {
-        padding: 1rem;
+        padding: 1rem 1.5rem;
+        top: 5rem;
+
+        .modrinth-logo {
+          --color-brand: currentColor;
+          display: unset;
+          width: 14rem;
+          max-width: 100%;
+          height: auto;
+        }
       }
     }
   }
@@ -344,7 +361,15 @@ export default {
 
             &.in-progress {
               svg {
-                color: var(--color-badge-yellow-text);
+                color: var(--color-badge-yellow-bg);
+              }
+            }
+
+            &.blurred {
+              p {
+                user-select: none;
+                color: transparent;
+                text-shadow: 0 0 12px var(--color-badge-yellow-bg);
               }
             }
           }
@@ -361,9 +386,9 @@ export default {
           height: unset;
         }
 
-        img,
-        video {
+        img {
           border-radius: var(--size-rounded-lg);
+          box-shadow: var(--shadow-floating);
           width: 40rem;
         }
 
@@ -375,6 +400,7 @@ export default {
           font-family: monospace;
           font-size: 80%;
           line-height: 1.5rem;
+          box-shadow: var(--shadow-floating);
 
           .line-nums {
             display: flex;

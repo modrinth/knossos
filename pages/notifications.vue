@@ -55,6 +55,7 @@
 </template>
 
 <script>
+
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import ProjectUpdateNotification from '~/components/ui/ProjectUpdateNotification.vue'
 import TeamInviteNotification from '~/components/ui/TeamInviteNotification.vue'
@@ -79,6 +80,7 @@ export default {
     ProjectUpdateNotification,
     TeamInviteNotification,
   },
+
   data() {
     return {
       selectedNotificationType: 'all',
@@ -187,6 +189,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 h1 {
   color: var(--color-text-dark);
   margin: 0 0 1rem 1.5rem;
@@ -205,6 +208,7 @@ h1 {
     max-width: calc(1280px - 20rem) !important;
   }
 }
+
 .notifications {
   .label {
     .label__title {

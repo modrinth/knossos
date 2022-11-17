@@ -1,181 +1,172 @@
 <template>
-  <div class="info-wrapper">
-    <client-only>
-      <script
-        id="_carbonads_js"
-        ref="carbon-script"
-        async
-        type="text/javascript"
-        src="//cdn.carbonads.com/carbon.js?serve=CEAIKK3N&placement=modrinthcom"
-        @error="onBlocked"
-      ></script>
-    </client-only>
+  <div class="content-wrapper">
+    <div data-ea-publisher="modrinth-com" data-ea-type="text" class="loaded">
+      <div class="ea-placement ea-type-text">
+        <div class="ea-content">
+          <div class="ea-text">
+            <a
+              href="https://exaroton.com/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
+              rel="nofollow noopener"
+              target="_blank"
+            >
+              <LightIcon
+                v-if="$colorMode.value === 'light'"
+                class="brand-icon"
+              />
+              <DarkIcon v-else class="brand-icon" />
+              <span>
+                <span> Host your Minecraft server on </span>
+                <strong>exaroton</strong>
+                <span>
+                  - only pay while the server is running - billed per second.
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="ea-callout">
+          <a
+            rel="nofollow noopener"
+            target="_blank"
+            href="https://modrinth.com"
+          >
+            Ads via Adrinth
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import LightIcon from '~/assets/images/external/exaroton-light.svg?inline'
+import DarkIcon from '~/assets/images/external/exaroton-dark.svg?inline'
+
 export default {
   name: 'Advertisement',
-  methods: {
-    onBlocked() {
-      this.$refs['carbon-script'].outerHTML += `
-      <div id="info-popup">
-        <span>
-          <span class="info-popup-wrap">
-            <a
-              class="info-popup-img"
-              href="https://docs.modrinth.com/docs/details/carbon"
-            >
-              <img
-                src="https://cdn.modrinth.com/barrier_fixes.png"
-                alt="ads via Carbon"
-              />
-            </a>
-            <a
-              href="https://docs.modrinth.com/docs/details/carbon"
-              class="info-popup-text"
-            >
-              Please disable your adblocker. Advertisements support this site
-              and its creators.
-            </a>
-          </span>
-          <a
-            href="https://docs.modrinth.com/docs/details/carbon"
-            class="info-popup-poweredby"
-            target="_blank"
-            rel="noopener sponsored"
-            >ads via Carbon
-          </a>
-        </span>
-      </div>
-      `
-    },
+  components: {
+    LightIcon,
+    DarkIcon,
+  },
+  data() {
+    return {
+      isBlocked: true,
+    }
   },
 }
 </script>
 
 <style lang="scss">
-.do-not-style {
-  position: absolute !important;
+.content-wrapper {
+  min-height: 46.2px;
+  margin-bottom: var(--spacing-card-md);
 
-  padding: 0 !important;
+  background: var(--color-ad) !important;
+  border: 3px solid var(--color-ad-raised) !important;
+  border-radius: var(--size-rounded-card) !important;
+}
+
+.loaded {
+  position: relative;
+}
+
+.ea-content {
+  color: var(--color-text) !important;
+
+  box-shadow: none !important;
+  background: none !important;
+  border-radius: 0 !important;
   margin: 0 !important;
 
-  top: 0 !important;
-  left: 0 !important;
-  min-height: 2px !important;
-  height: 2px !important;
-  max-height: 2px !important;
-
-  min-width: 2px !important;
-  width: 2px !important;
-  max-width: 2px !important;
-
-  background: none !important;
-  border: none !important;
-}
-
-.info-wrapper {
-  min-height: 122px;
-  color: var(--color-text);
-  background: var(--color-ad);
-  margin-bottom: var(--spacing-card-md);
-  border-radius: var(--size-rounded-card);
-
-  border: 3px solid var(--color-ad-raised);
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-
-  position: relative;
-
-  & > * {
-    display: none;
-  }
-
-  div:last-child {
-    display: block;
-  }
-}
-
-#carbonads_1 {
-  display: none;
-}
-
-#carbonads,
-#info-popup {
-  overflow: hidden;
-  max-width: 100%;
-
-  font-size: 22px;
-  box-sizing: content-box;
-
-  padding: var(--spacing-card-sm) var(--spacing-card-sm);
-
-  > span {
-    display: block;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-
-    &:hover {
-      color: inherit;
-    }
-  }
-}
-
-.carbon-wrap,
-.info-popup-wrap {
-  display: flex;
-  align-items: center;
-}
-
-.carbon-img,
-.info-popup-img {
-  display: block;
-  margin: 0;
-  line-height: 1;
-
-  img {
-    display: block;
-    height: 100px;
-    width: auto;
-    border-radius: var(--size-rounded-card);
-  }
-}
-
-.carbon-text,
-.info-popup-text {
-  display: block;
-  padding: 0 1em;
-  line-height: 1.35;
+  padding: 1em;
   text-align: left;
 }
 
-.carbon-poweredby,
-.info-popup-poweredby {
-  display: block;
-  padding: 8px 10px;
-  background: var(--color-ad-raised);
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.1ch;
-  font-weight: 600;
-  font-size: 0.5em;
-  line-height: 1;
-  border-top-left-radius: var(--size-rounded-card);
+.brand-icon {
+  padding-top: 1px;
+  height: 1.2rem;
+  width: auto;
+}
+
+.ea-callout {
   position: absolute;
-  bottom: -3px;
-  right: -3px;
+  bottom: -2px;
+  right: -2px;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  background: var(--color-ad-raised);
+  letter-spacing: 0.1ch;
+
+  font-style: normal !important;
+  margin: 0 !important;
+  padding: 2px 10px !important;
+  border-top-left-radius: var(--size-rounded-card);
   border-bottom-right-radius: var(--size-rounded-card);
 }
 
-@media only screen and (max-width: 759px) {
-  .carbon-text,
-  .info-popup-text {
-    font-size: 14px;
+[data-ea-publisher].loaded .ea-callout a,
+[data-ea-type].loaded .ea-callout a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 0.8em;
+
+  &:hover {
+    color: var(--color-text) !important;
+  }
+
+  &:link {
+    color: var(--color-text) !important;
+  }
+}
+
+[data-ea-publisher].loaded .ea-content a,
+[data-ea-type].loaded .ea-content a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  b,
+  strong {
+    color: #088cdb;
+  }
+
+  &:link {
+    color: var(--color-text) !important;
+  }
+}
+
+[data-ea-type='text'].loaded .ea-content,
+.ea-type-text .ea-content {
+  text-align: left;
+}
+
+[data-ea-publisher].loaded .ea-content,
+[data-ea-type].loaded .ea-content {
+  color: #505050;
+}
+
+[data-ea-publisher].loaded,
+[data-ea-type].loaded {
+  font-size: 14px;
+  font-family: var(--font-standard) !important;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.3em;
+}
+
+@media screen and (max-width: 800px) {
+  [data-ea-publisher].loaded .ea-content a,
+  [data-ea-type].loaded .ea-content a {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ea-text {
+    margin-bottom: 0.5rem;
   }
 }
 </style>

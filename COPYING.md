@@ -9,6 +9,10 @@ assets/images/text-logo-white.svg <br />
 static/favicon.ico <br />
 components/ui/search/LogoAnimated.vue <br />
 assets/images/landing.svg <br />
+assets/images/404.svg <br />
+
+The following files are owned by their respective copyholders and must be used within each of their Brand Guidlines: <br />
+assets/images/external/*
 
 ## Logo Licenses
 All rights reserved. ©2020-2022 Rinth, Inc.
