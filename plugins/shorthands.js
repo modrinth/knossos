@@ -2,6 +2,7 @@ export default (ctx, inject) => {
   inject('user', ctx.store.state.user)
   inject('tag', ctx.store.state.tag)
   inject('auth', ctx.store.state.auth)
+  inject('cosmetics', ctx.store.state.cosmetics)
   inject('defaultHeaders', () => {
     const obj = { headers: {} }
 
@@ -21,6 +22,10 @@ export default (ctx, inject) => {
     formatVersions(versionsArray, ctx.store)
   )
   inject('orElse', (first, otherwise) => first ?? otherwise)
+  inject('external', () => {
+    if (ctx.store.state.cosmetics.externalLinksNewTab) return '_blank'
+    return ''
+  })
   inject('formatBytes', formatBytes)
   inject('formatWallet', formatWallet)
   inject('formatProjectType', formatProjectType)
