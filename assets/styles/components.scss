@@ -251,10 +251,10 @@
         margin-bottom: 0.5rem;
         border-radius: var(--size-rounded-xs) var(--size-rounded-xs) 0 0;
       }
-    }
 
-    > :last-child {
-      margin-bottom: 0 !important;
+      > :last-child:not(summary) {
+        margin-bottom: 0 !important;
+      }
     }
   }
 
@@ -367,8 +367,8 @@
 }
 
 .button-animation {
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
+    outline 0.2s ease-in-out;
 
   &:active:not(&:disabled) {
     transform: scale(0.95);
@@ -415,20 +415,20 @@ tr.button-transparent {
   background-color: transparent;
   border-radius: var(--size-rounded-sm);
 
-  &:focus-visible:not(&:disabled) > *,
-  &:hover:not(&:disabled) > * {
+  &:focus-visible:not(&:disabled)>*,
+  &:hover:not(&:disabled)>* {
     cursor: pointer;
     filter: brightness(0.85);
     background-color: var(--color-raised-bg);
   }
 
-  &:active:not(&:disabled) > * {
+  &:active:not(&:disabled)>* {
     filter: brightness(0.8);
     background-color: var(--color-raised-bg);
   }
 
-  &:disabled > *,
-  &[disabled] > * {
+  &:disabled>*,
+  &[disabled]>* {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.5;
@@ -437,8 +437,8 @@ tr.button-transparent {
 }
 
 .button-within {
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
+    outline 0.2s ease-in-out;
 
   &:focus-visible:not(&.disabled),
   &:hover:not(&.disabled) {
@@ -589,7 +589,7 @@ tr.button-transparent {
     padding-left: 7px;
     padding-top: 10px;
 
-    transition: background-color 0.1s ease-in-out;
+    transition: background-color .1s ease-in-out;
 
     &:active {
       background: var(--color-button-bg-hover);
@@ -803,7 +803,7 @@ tr.button-transparent {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    grid-gap: 0.5rem;
+    grid-gap: .5rem;
     z-index: 2;
   }
 
@@ -954,6 +954,7 @@ h3 {
 }
 
 @media (prefers-reduced-motion) {
+
   .button-animation,
   button {
     transform: none !important;
@@ -980,7 +981,7 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    grid-gap: 0.5rem;
+    grid-gap: .5rem;
     z-index: 2;
   }
 
@@ -1001,6 +1002,7 @@ h3 {
 }
 
 .universal-labels {
+
   label,
   .label {
     .label__title {
@@ -1016,6 +1018,7 @@ h3 {
         color: var(--color-badge-red-bg);
       }
     }
+
     .label__description {
       display: block;
       margin-block-end: var(--spacing-card-sm);
@@ -1067,8 +1070,8 @@ h3 {
     width: 15rem;
   }
 
-  input + *,
-  .input-group + * {
+  input+*,
+  .input-group+* {
     margin-block-start: var(--spacing-card-md);
   }
 
@@ -1194,7 +1197,7 @@ button {
       align-items: center;
     }
 
-    > span {
+    >span {
       flex: 2;
       padding-right: var(--spacing-card-lg);
 
@@ -1203,29 +1206,29 @@ button {
       }
     }
 
-    > input,
-    > .multiselect,
-    > .input-group {
+    >input,
+    >.multiselect,
+    >.input-group {
       flex: 3;
       height: fit-content;
     }
 
-    > input[type='button'] {
+    >input[type='button'] {
       height: fit-content;
       flex: 1;
     }
 
-    > input[type='button']:hover {
+    >input[type='button']:hover {
       cursor: pointer;
     }
 
-    > div,
-    > a {
+    >div,
+    >a {
       height: fit-content;
       flex: 1;
     }
 
-    > div:hover {
+    >div:hover {
       cursor: pointer;
     }
   }
@@ -1287,7 +1290,7 @@ button {
   &:focus,
   &:focus-visible,
   &:focus-within {
-    box-shadow: inset 0 0 0 transparent, 0 0 0 0.25rem var(--color-brand-shadow);
+    box-shadow: inset 0 0 0 transparent, 0 0 0 .25rem var(--color-brand-shadow);
     color: var(--color-button-text-active);
   }
 }
