@@ -113,14 +113,7 @@
     border-bottom: 1px solid var(--color-header-underline);
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  li,
-  p {
+  h1, h2, h3, h4, h5, h6, li, p {
     word-wrap: break-word;
     overflow-wrap: anywhere;
   }
@@ -368,7 +361,7 @@
 
 .button-animation {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-    outline 0.2s ease-in-out;
+  outline 0.2s ease-in-out;
 
   &:active:not(&:disabled) {
     transform: scale(0.95);
@@ -415,30 +408,30 @@ tr.button-transparent {
   background-color: transparent;
   border-radius: var(--size-rounded-sm);
 
-  &:focus-visible:not(&:disabled)>*,
-  &:hover:not(&:disabled)>* {
-    cursor: pointer;
-    filter: brightness(0.85);
-    background-color: var(--color-raised-bg);
-  }
+    &:focus-visible:not(&:disabled) > *,
+    &:hover:not(&:disabled) > * {
+      cursor: pointer;
+      filter: brightness(0.85);
+      background-color: var(--color-raised-bg);
+    }
 
-  &:active:not(&:disabled)>* {
-    filter: brightness(0.8);
-    background-color: var(--color-raised-bg);
-  }
+    &:active:not(&:disabled) > * {
+      filter: brightness(0.8);
+      background-color: var(--color-raised-bg);
+    }
 
-  &:disabled>*,
-  &[disabled]>* {
-    cursor: not-allowed;
-    filter: grayscale(50%);
-    opacity: 0.5;
-    box-shadow: none;
-  }
+    &:disabled > *,
+    &[disabled] > * {
+      cursor: not-allowed;
+      filter: grayscale(50%);
+      opacity: 0.5;
+      box-shadow: none;
+    }
 }
 
 .button-within {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-    outline 0.2s ease-in-out;
+  outline 0.2s ease-in-out;
 
   &:focus-visible:not(&.disabled),
   &:hover:not(&.disabled) {
@@ -941,10 +934,7 @@ h1 {
   font-weight: bold;
 }
 
-.nuxt-link-exact-active,
-h1,
-h2,
-h3 {
+.nuxt-link-exact-active, h1, h2, h3 {
   .beta-badge {
     background-color: var(--color-button-text-active);
     box-sizing: border-box;
@@ -954,9 +944,7 @@ h3 {
 }
 
 @media (prefers-reduced-motion) {
-
-  .button-animation,
-  button {
+  .button-animation, button {
     transform: none !important;
   }
 }
@@ -1002,9 +990,7 @@ h3 {
 }
 
 .universal-labels {
-
-  label,
-  .label {
+  label, .label {
     .label__title {
       display: block;
       margin-block: var(--spacing-card-md) var(--spacing-card-sm);
@@ -1018,7 +1004,6 @@ h3 {
         color: var(--color-badge-red-bg);
       }
     }
-
     .label__description {
       display: block;
       margin-block-end: var(--spacing-card-sm);
@@ -1070,14 +1055,11 @@ h3 {
     width: 15rem;
   }
 
-  input+*,
-  .input-group+* {
+  input + *, .input-group + * {
     margin-block-start: var(--spacing-card-md);
   }
 
-  button,
-  .button,
-  .iconified-button {
+  button, .button, .iconified-button {
     width: fit-content;
   }
 
@@ -1092,14 +1074,12 @@ h3 {
     }
   }
 
-  .adjacent-input,
-  &.adjacent-input {
+  .adjacent-input, &.adjacent-input {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    .iconified-button,
-    .input-group {
+    .iconified-button, .input-group {
       flex-shrink: 0;
     }
 
@@ -1197,7 +1177,7 @@ button {
       align-items: center;
     }
 
-    >span {
+    > span {
       flex: 2;
       padding-right: var(--spacing-card-lg);
 
@@ -1206,29 +1186,29 @@ button {
       }
     }
 
-    >input,
-    >.multiselect,
-    >.input-group {
+    > input,
+    > .multiselect,
+    > .input-group {
       flex: 3;
       height: fit-content;
     }
 
-    >input[type='button'] {
+    > input[type='button'] {
       height: fit-content;
       flex: 1;
     }
 
-    >input[type='button']:hover {
+    > input[type='button']:hover {
       cursor: pointer;
     }
 
-    >div,
-    >a {
+    > div,
+    > a {
       height: fit-content;
       flex: 1;
     }
 
-    >div:hover {
+    > div:hover {
       cursor: pointer;
     }
   }
@@ -1278,8 +1258,7 @@ button {
     flex-shrink: 0;
   }
 
-  input,
-  textarea {
+  input, textarea {
     border-radius: 0;
     background-color: transparent;
     box-shadow: unset;
@@ -1287,9 +1266,7 @@ button {
     flex-grow: 1;
   }
 
-  &:focus,
-  &:focus-visible,
-  &:focus-within {
+  &:focus, &:focus-visible, &:focus-within {
     box-shadow: inset 0 0 0 transparent, 0 0 0 .25rem var(--color-brand-shadow);
     color: var(--color-button-text-active);
   }
