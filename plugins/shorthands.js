@@ -22,10 +22,9 @@ export default (ctx, inject) => {
     formatVersions(versionsArray, ctx.store)
   )
   inject('orElse', (first, otherwise) => first ?? otherwise)
-  inject('external', () => {
-    if (ctx.store.state.cosmetics.externalLinksNewTab) return '_blank'
-    return ''
-  })
+  inject('external', () =>
+    ctx.store.state.cosmetics.externalLinksNewTab ? '_blank' : ''
+  )
   inject('formatBytes', formatBytes)
   inject('formatWallet', formatWallet)
   inject('formatProjectType', formatProjectType)
