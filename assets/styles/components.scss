@@ -743,7 +743,7 @@ tr.button-transparent {
     border-radius: var(--size-rounded-sm);
     flex: 1;
     overflow-y: auto;
-    resize: vertical;
+    resize: none;
     max-width: 100%;
   }
 }
