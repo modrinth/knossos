@@ -5,13 +5,13 @@
         <h1>Legal</h1>
         <NavStack>
           <NavStackItem link="/legal/terms" label="Terms and Conditions">
-            <TermsIcon />
+            <TermsIcon aria-hidden="true" />
           </NavStackItem>
           <NavStackItem link="/legal/privacy" label="Privacy Policy">
-            <PrivacyIcon />
+            <PrivacyIcon aria-hidden="true" />
           </NavStackItem>
           <NavStackItem link="/legal/rules" label="Content Rules">
-            <RulesIcon />
+            <RulesIcon aria-hidden="true" />
           </NavStackItem>
         </NavStack>
       </aside>

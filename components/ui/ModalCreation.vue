@@ -63,11 +63,11 @@
       </div>
       <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <CrossIcon aria-hidden="true" />
           Cancel
         </button>
         <button class="iconified-button brand-button" @click="createProject">
-          <CheckIcon />
+          <CheckIcon aria-hidden="true" />
           Continue
         </button>
       </div>

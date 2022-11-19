@@ -32,7 +32,7 @@
               class="iconified-button"
               @click="isEditing = true"
             >
-              <EditIcon />
+              <EditIcon aria-hidden="true" />
               Edit
             </button>
             <button
@@ -80,13 +80,13 @@
                   icon = null
                 "
               >
-                <CrossIcon /> Cancel
+                <CrossIcon aria-hidden="true" /> Cancel
               </button>
               <button
                 class="iconified-button brand-button"
                 @click="saveChanges"
               >
-                <SaveIcon /> Save
+                <SaveIcon aria-hidden="true" /> Save
               </button>
             </div>
           </template>
@@ -175,7 +175,7 @@
             class="iconified-button brand-button"
             @click="$refs.modal_creation.show()"
           >
-            <PlusIcon />
+            <PlusIcon aria-hidden="true" />
             Create a project
           </button>
         </nav>
@@ -211,7 +211,7 @@
                 project.slug ? project.slug : project.id
               }/settings`"
             >
-              <SettingsIcon />
+              <SettingsIcon aria-hidden="true" />
               Settings
             </nuxt-link>
           </ProjectCard>

@@ -2,7 +2,7 @@
   <div class="content">
     <div v-if="currentMember" class="card header-buttons">
       <nuxt-link to="version/create" class="brand-button iconified-button">
-        <PlusIcon />
+        <PlusIcon aria-hidden="true" />
         Create a version
       </nuxt-link>
     </div>

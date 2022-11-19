@@ -54,11 +54,11 @@
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <CrossIcon aria-hidden="true" />
           Cancel
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
-          <CheckIcon />
+          <CheckIcon aria-hidden="true" />
           Report
         </button>
       </div>

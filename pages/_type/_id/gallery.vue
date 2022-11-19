@@ -59,14 +59,14 @@
                 class="previous circle-button"
                 @click="previousImage()"
               >
-                <LeftArrowIcon aria-hidden="true" />
+                <LeftArrowIcon aria-label="Change image left" />
               </button>
               <button
                 v-if="gallery.length > 1"
                 class="next circle-button"
                 @click="nextImage()"
               >
-                <RightArrowIcon aria-hidden="true" />
+                <RightArrowIcon aria-label="Change image right" />
               </button>
             </div>
           </div>
@@ -91,7 +91,7 @@
           })
         "
       >
-        <PlusIcon />
+        <PlusIcon aria-hidden="true" />
         {{
           newGalleryItems.length === 0 &&
           editGalleryIndexes.length === 0 &&
@@ -109,7 +109,7 @@
         class="action iconified-button"
         @click="resetGallery"
       >
-        <CrossIcon />
+        <CrossIcon aria-hidden="true" />
         Cancel
       </button>
       <button
@@ -121,7 +121,7 @@
         class="action brand-button iconified-button"
         @click="saveGallery"
       >
-        <CheckIcon />
+        <CheckIcon aria-hidden="true" />
         Save changes
       </button>
     </div>
@@ -164,7 +164,7 @@
         </div>
         <div class="gallery-bottom">
           <div class="gallery-created">
-            <CalendarIcon />
+            <CalendarIcon aria-hidden="true" />
             {{ $dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
@@ -178,7 +178,7 @@
                 )
               "
             >
-              <CrossIcon />
+              <CrossIcon aria-hidden="true" />
               Cancel
             </button>
             <button
@@ -186,7 +186,7 @@
               class="iconified-button"
               @click="editGalleryIndexes.push(index)"
             >
-              <EditIcon />
+              <EditIcon aria-hidden="true" />
               Edit
             </button>
             <button
@@ -196,7 +196,7 @@
                 gallery.splice(index, 1)
               "
             >
-              <TrashIcon />
+              <TrashIcon aria-hidden="true" />
               Remove
             </button>
           </div>
@@ -245,7 +245,7 @@
                 class="iconified-button"
                 @click="newGalleryItems.splice(index, 1)"
               >
-                <TrashIcon />
+                <TrashIcon aria-hidden="true" />
                 Remove
               </button>
             </div>

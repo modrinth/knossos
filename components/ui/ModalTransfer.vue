@@ -64,10 +64,10 @@
       </div>
       <div class="button-group">
         <NuxtLink class="iconified-button" to="/settings/monetization">
-          <SettingsIcon /> Monetization settings
+          <SettingsIcon aria-hidden="true" /> Monetization settings
         </NuxtLink>
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <CrossIcon aria-hidden="true" />
           Cancel
         </button>
         <button
@@ -75,7 +75,7 @@
           :disabled="!consentedFee || !consentedAccount"
           @click="proceed"
         >
-          <TransferIcon />
+          <TransferIcon aria-hidden="true" />
           Transfer
         </button>
       </div>

@@ -5,20 +5,20 @@
         <h1>Dashboard<span class="beta-badge">BETA</span></h1>
         <NavStack>
           <NavStackItem link="/dashboard" label="Overview">
-            <DashboardIcon />
+            <DashboardIcon aria-hidden="true" />
           </NavStackItem>
           <!--          <NavStackItem link="/dashboard/projects" label="Projects">-->
-          <!--            <ListIcon />-->
+          <!--            <ListIcon aria-hidden="true" />-->
           <!--          </NavStackItem>-->
           <!--          <NavStackItem link="/dashboard/analytics" label="Analytics">-->
-          <!--            <ChartIcon />-->
+          <!--            <ChartIcon aria-hidden="true" />-->
           <!--          </NavStackItem>-->
           <NavStackItem
             v-if="hasMonetization()"
             link="/dashboard/revenue"
             label="Revenue"
           >
-            <CurrencyIcon />
+            <CurrencyIcon aria-hidden="true" />
           </NavStackItem>
         </NavStack>
       </aside>

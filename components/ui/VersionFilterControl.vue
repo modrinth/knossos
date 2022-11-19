@@ -61,7 +61,7 @@
         updateVersionFilters()
       "
     >
-      <ClearIcon />
+      <ClearIcon aria-hidden="true" />
       Clear filters
     </button>
   </div>

@@ -7,7 +7,7 @@
       :href="linkFunction(page - 1)"
       @click.prevent="page !== 1 ? switchPage(page - 1) : null"
     >
-      <LeftArrowIcon />
+      <LeftArrowIcon aria-label="Change page left" />
     </a>
     <div
       v-for="(item, index) in pages"
@@ -19,7 +19,7 @@
       class="page-number-container"
     >
       <div v-if="item === '-'" class="has-icon">
-        <GapIcon />
+        <GapIcon aria-hidden="true" />
       </div>
       <a
         v-else
@@ -45,7 +45,7 @@
         page !== pages[pages.length - 1] ? switchPage(page + 1) : null
       "
     >
-      <RightArrowIcon />
+      <RightArrowIcon aria-label="Change page right" />
     </a>
   </div>
 </template>

@@ -27,11 +27,11 @@
             class="iconified-button brand-button"
             @click="$refs.modal_transfer.show()"
           >
-            <TransferIcon /> Transfer to
+            <TransferIcon aria-hidden="true" /> Transfer to
             {{ $formatWallet($auth.user.payout_data.payout_wallet) }}
           </button>
           <NuxtLink class="iconified-button" to="/settings/monetization">
-            <SettingsIcon /> Monetization settings
+            <SettingsIcon aria-hidden="true" /> Monetization settings
           </NuxtLink>
         </div>
       </div>
@@ -48,7 +48,8 @@
       </p>
       <div v-if="!enrolled">
         <NuxtLink class="iconified-button" to="/settings/monetization">
-          <SettingsIcon /> Enroll in the Creator Monetization Program
+          <SettingsIcon aria-hidden="true" />
+          Enroll in the Creator Monetization Program
         </NuxtLink>
       </div>
     </section>

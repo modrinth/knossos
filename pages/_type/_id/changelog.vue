@@ -52,7 +52,7 @@
               class="iconified-button download"
               :title="`Download ${version.name}`"
             >
-              <DownloadIcon />
+              <DownloadIcon aria-hidden="true" />
               Download
             </a>
           </div>

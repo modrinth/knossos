@@ -16,7 +16,7 @@
         <h3>Manage</h3>
         <div class="input-group">
           <NuxtLink class="iconified-button" to="/settings/follows">
-            <SettingsIcon />
+            <SettingsIcon aria-hidden="true" />
             Followed projects
           </NuxtLink>
           <button
@@ -24,7 +24,7 @@
             class="iconified-button danger-button"
             @click="clearNotifications"
           >
-            <ClearIcon />
+            <ClearIcon aria-hidden="true" />
             Clear all
           </button>
         </div>
@@ -55,7 +55,7 @@
                 "
                 class="date"
               >
-                <CalendarIcon />
+                <CalendarIcon aria-hidden="true" />
                 Received {{ $dayjs(notification.created).fromNow() }}</span
               >
             </div>

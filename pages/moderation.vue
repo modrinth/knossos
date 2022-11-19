@@ -62,11 +62,11 @@
               currentProject = null
             "
           >
-            <CrossIcon />
+            <CrossIcon aria-hidden="true" />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="saveProject">
-            <CheckIcon />
+            <CheckIcon aria-hidden="true" />
             Confirm
           </button>
         </div>
@@ -111,21 +111,21 @@
               class="iconified-button"
               @click="setProjectStatus(project, 'approved')"
             >
-              <CheckIcon />
+              <CheckIcon aria-hidden="true" />
               Approve
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'unlisted')"
             >
-              <UnlistIcon />
+              <UnlistIcon aria-hidden="true" />
               Unlist
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'rejected')"
             >
-              <CrossIcon />
+              <CrossIcon aria-hidden="true" />
               Reject
             </button>
           </ProjectCard>
@@ -159,7 +159,7 @@
             </div>
             <div class="actions">
               <button class="iconified-button" @click="deleteReport(index)">
-                <TrashIcon /> Delete report
+                <TrashIcon aria-hidden="true" /> Delete report
               </button>
               <span
                 v-tooltip="
@@ -169,7 +169,7 @@
                 "
                 class="stat"
               >
-                <CalendarIcon />
+                <CalendarIcon aria-hidden="true" />
                 Created {{ $dayjs(item.created).fromNow() }}
               </span>
             </div>

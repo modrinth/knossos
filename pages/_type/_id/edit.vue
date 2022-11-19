@@ -10,7 +10,7 @@
             }/settings`"
             class="iconified-button column"
           >
-            <CrossIcon />
+            <CrossIcon aria-hidden="true" />
             Cancel
           </nuxt-link>
           <button
@@ -24,7 +24,7 @@
             :disabled="!$nuxt.$loading"
             @click="saveProjectReview"
           >
-            <CheckIcon />
+            <CheckIcon aria-hidden="true" />
             Submit for review
           </button>
           <button
@@ -33,7 +33,7 @@
             :disabled="!$nuxt.$loading"
             @click="saveProjectNotForReview"
           >
-            <SaveIcon />
+            <SaveIcon aria-hidden="true" />
             Save changes
           </button>
         </div>
@@ -223,7 +223,7 @@
           iconChanged = false
         "
       >
-        <RevertIcon />
+        <RevertIcon aria-hidden="true" />
         Revert
       </button>
     </section>
@@ -447,7 +447,7 @@
               donationLinks.push('')
             "
           >
-            <PlusIcon />
+            <PlusIcon aria-hidden="true" />
             Add a link
           </button>
         </div>
@@ -482,7 +482,7 @@
             donationLinks.splice(index, 1)
           "
         >
-          <TrashIcon />
+          <TrashIcon aria-hidden="true" />
           Remove link
         </button>
         <hr

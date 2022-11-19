@@ -436,7 +436,7 @@
                     class="iconified-button"
                     @click="version.dependencies.splice(index, 1)"
                   >
-                    <TrashIcon /> Remove
+                    <TrashIcon aria-hidden="true" /> Remove
                   </button>
                 </div>
               </div>
@@ -476,7 +476,7 @@
                 :allow-empty="false"
               />
               <button class="iconified-button" @click="addDependency">
-                <PlusIcon />
+                <PlusIcon aria-hidden="true" />
                 Add
               </button>
             </div>

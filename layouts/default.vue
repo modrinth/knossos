@@ -157,7 +157,7 @@
             class="tab button-animation"
             @click.native="isBrowseMenuOpen = false"
           >
-            <HomeIcon />
+            <HomeIcon aria-label="Home" />
           </NuxtLink>
           <div class="spacer"></div>
           <button

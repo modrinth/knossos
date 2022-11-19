@@ -23,7 +23,7 @@
         <form action="/mods">
           <div class="iconified-input">
             <label class="hidden" for="q">Search Mods</label>
-            <SearchIcon />
+            <SearchIcon aria-hidden="true" />
             <input
               id="q"
               type="search"
@@ -33,7 +33,7 @@
             />
           </div>
           <button class="iconified-button brand-button" type="submit">
-            <RightArrowIcon />
+            <RightArrowIcon aria-hidden="true" />
             Search
           </button>
         </form>
@@ -84,7 +84,7 @@
             </p>
             <div class="features">
               <div class="feature completed">
-                <CheckIcon />
+                <CheckIcon aria-label="Completed feature" />
                 <p>
                   <a href="https://github.com/modrinth" target="_blank">
                     100% open source
@@ -92,11 +92,11 @@
                 </p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <CheckIcon aria-label="Completed feature" />
                 <p>Real-time search</p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <CheckIcon aria-label="Completed feature" />
                 <p>
                   <a href="https://docs.modrinth.com" target="_blank">
                     Completely documented API
@@ -104,39 +104,39 @@
                 </p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <CheckIcon aria-label="Completed feature" />
                 <p>Dependency management</p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <CheckIcon aria-label="Completed feature" />
                 <p>Modpacks</p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <CheckIcon aria-label="Completed feature" />
                 <p>Creator monetization</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <InProgressIcon aria-label="In-progress feature" />
                 <p>Creator analytics</p>
               </div>
               <div class="feature in-progress blurred">
-                <InProgressIcon />
+                <InProgressIcon aria-label="In-progress feature" />
                 <p>[Redacted]</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <InProgressIcon aria-label="In-progress feature" />
                 <p>More types of projects</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <InProgressIcon aria-label="In-progress feature" />
                 <p>Game launcher</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <InProgressIcon aria-label="In-progress feature" />
                 <p>In-house authentication</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <InProgressIcon aria-label="In-progress feature" />
                 <p>Project comments</p>
               </div>
             </div>

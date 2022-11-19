@@ -19,7 +19,7 @@
         class="iconified-button"
         @click="$store.dispatch('user/unfollowProject', project)"
       >
-        <HeartIcon />
+        <HeartIcon aria-hidden="true" />
         Unfollow
       </button>
     </ProjectCard>

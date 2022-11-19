@@ -4,7 +4,7 @@
       <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
       <NuxtLink class="iconified-button" to="/dashboard/revenue">
-        <ChartIcon /> Visit creator dashboard
+        <ChartIcon aria-hidden="true" /> Visit creator dashboard
       </NuxtLink>
     </section>
     <section class="universal-card">
@@ -16,7 +16,7 @@
           to your account.
         </p>
         <NuxtLink class="iconified-button" to="/settings/account">
-          <SettingsIcon /> Visit account settings
+          <SettingsIcon aria-hidden="true" /> Visit account settings
         </NuxtLink>
       </template>
       <template v-else-if="editing || !enrolled">
@@ -72,14 +72,14 @@
               class="iconified-button brand-button"
               @click="updatePayoutData(false)"
             >
-              <SaveIcon /> Save information
+              <SaveIcon aria-hidden="true" /> Save information
             </button>
             <button
               v-if="enrolled"
               class="iconified-button danger-button"
               @click="updatePayoutData(true)"
             >
-              <UnenrollIcon /> Remove enrollment
+              <UnenrollIcon aria-hidden="true" /> Remove enrollment
             </button>
           </div>
         </div>
@@ -90,7 +90,7 @@
           {{ $formatWallet(selectedWallet) }} account.
         </p>
         <button class="iconified-button brand-button" @click="editing = true">
-          <EditIcon /> Edit information
+          <EditIcon aria-hidden="true" /> Edit information
         </button>
       </template>
     </section>

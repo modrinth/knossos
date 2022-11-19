@@ -12,7 +12,7 @@
       <div v-if="header" class="header">
         <h1>{{ header }}</h1>
         <button class="iconified-button icon-only transparent" @click="hide">
-          <CrossIcon />
+          <CrossIcon aria-label="Exit" />
         </button>
       </div>
       <div class="content">

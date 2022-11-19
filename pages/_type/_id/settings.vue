@@ -19,7 +19,7 @@
           </span>
         </label>
         <nuxt-link class="iconified-button" to="edit"
-          ><EditIcon />Edit</nuxt-link
+          ><EditIcon aria-hidden="true" />Edit</nuxt-link
         >
       </div>
       <div class="adjacent-input">
@@ -37,7 +37,7 @@
           "
           @click="$refs.modal_confirm.show()"
         >
-          <TrashIcon />Delete project
+          <TrashIcon aria-hidden="true" />Delete project
         </button>
       </div>
     </div>
@@ -66,7 +66,7 @@
             class="iconified-button brand-button"
             @click="inviteTeamMember"
           >
-            <PlusIcon />
+            <PlusIcon aria-hidden="true" />
             Invite
           </button>
         </div>
@@ -106,7 +106,7 @@
                   ))
             "
           >
-            <DropdownIcon />
+            <DropdownIcon aria-label="Toggle dropdown" />
           </button>
         </div>
       </div>
@@ -259,7 +259,7 @@
             "
             @click="removeTeamMember(index)"
           >
-            <RemoveUserIcon />
+            <RemoveUserIcon aria-hidden="true" />
             Remove member
           </button>
           <button
@@ -271,7 +271,7 @@
             class="iconified-button"
             @click="transferOwnership(index)"
           >
-            <UserIcon />
+            <UserIcon aria-hidden="true" />
             Transfer ownership
           </button>
           <button
@@ -281,7 +281,7 @@
             "
             @click="updateTeamMember(index)"
           >
-            <CheckIcon />
+            <CheckIcon aria-hidden="true" />
             Save changes
           </button>
         </div>

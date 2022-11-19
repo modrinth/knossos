@@ -222,7 +222,7 @@
               class="iconified-button brand-button"
               @click="submitForReview"
             >
-              <CheckIcon />
+              <CheckIcon aria-hidden="true" />
               Resubmit for review
             </button>
             <button
@@ -230,7 +230,7 @@
               class="iconified-button brand-button"
               @click="submitForReview"
             >
-              <CheckIcon />
+              <CheckIcon aria-hidden="true" />
               Submit for review
             </button>
             <button
@@ -238,7 +238,7 @@
               class="clear-mod-message iconified-button"
               @click="clearMessage"
             >
-              <ClearIcon />
+              <ClearIcon aria-hidden="true" />
               Clear message
             </button>
           </div>

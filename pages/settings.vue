@@ -5,22 +5,22 @@
         <h1>Settings</h1>
         <NavStack>
           <NavStackItem link="/settings" label="Appearance">
-            <PaintbrushIcon />
+            <PaintbrushIcon aria-hidden="true" />
           </NavStackItem>
           <template v-if="$auth.user">
             <h3>User settings</h3>
             <NavStackItem link="/settings/account" label="Account">
-              <UserIcon />
+              <UserIcon aria-hidden="true" />
             </NavStackItem>
             <NavStackItem link="/settings/follows" label="Followed projects">
-              <HeartIcon />
+              <HeartIcon aria-hidden="true" />
             </NavStackItem>
             <NavStackItem
               link="/settings/monetization"
               label="Monetization"
               beta
             >
-              <CurrencyIcon />
+              <CurrencyIcon aria-hidden="true" />
             </NavStackItem>
           </template>
         </NavStack>

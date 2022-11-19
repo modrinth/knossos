@@ -58,11 +58,11 @@
             class="iconified-button"
             @click="$refs.modal_revoke_token.hide()"
           >
-            <CrossIcon />
+            <CrossIcon aria-hidden="true" />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="logout">
-            <RightArrowIcon />
+            <RightArrowIcon aria-hidden="true" />
             Log out
           </button>
         </div>
@@ -73,7 +73,7 @@
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
       <NuxtLink class="iconified-button" :to="`/user/${$auth.user.username}`">
-        <UserIcon /> Visit your profile
+        <UserIcon aria-hidden="true" /> Visit your profile
       </NuxtLink>
     </section>
 
@@ -103,7 +103,7 @@
           :disabled="hasMonetizationEnabled() && !email"
           @click="saveChanges()"
         >
-          <SaveIcon />
+          <SaveIcon aria-hidden="true" />
           Save changes
         </button>
       </div>
@@ -124,17 +124,20 @@
           @click="copyToken"
         >
           <template v-if="copied">
-            <CheckIcon />
+            <CheckIcon aria-hidden="true" />
             Copied token to clipboard
           </template>
-          <template v-else><CopyIcon />Copy token to clipboard</template>
+          <template v-else>
+            <CopyIcon aria-hidden="true" />
+            Copy token to clipboard
+          </template>
         </button>
         <button
           type="button"
           class="iconified-button"
           @click="$refs.modal_revoke_token.show()"
         >
-          <SlashIcon />
+          <SlashIcon aria-hidden="true" />
           Revoke token
         </button>
       </div>
@@ -152,7 +155,7 @@
         class="iconified-button danger-button"
         @click="$refs.modal_confirm.show()"
       >
-        <TrashIcon />
+        <TrashIcon aria-hidden="true" />
         Delete account
       </button>
     </section>
