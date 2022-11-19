@@ -199,28 +199,46 @@
             <VersionBadge v-else color="gray" :type="project.status" />
           </p>
           <div class="message">
+            <p v-if="project.status === 'rejected'">
+              Your project has been rejected by Modrinth's staff. In most cases,
+              you can resubmit for review after addressing the staff's message,
+              which is below. Do not resubmit until you've addressed the
+              moderator message!
+            </p>
             <p v-if="project.status === 'processing'">
               Your project is currently not viewable by people who are not part
               of your team. Please wait for our moderators to manually review
               your project to see if it abides by our
-              <nuxt-link to="/legal/rules">content rules!</nuxt-link>
+              <nuxt-link class="text-link" to="/legal/rules"
+                >content rules!
+              </nuxt-link>
             </p>
             <p v-if="project.status === 'draft'">
               Your project is currently not viewable by people who are not part
               of your team. If your project is ready for review, click the
               button below to make your mod public!
             </p>
-            <p v-if="project.moderator_message">
-              {{ project.moderator_message.message }}
-            </p>
-            <div
-              v-if="project.moderator_message && project.moderator_message.body"
-              v-highlightjs
-              class="markdown-body"
-              v-html="$xss($md.render(project.moderator_message.body))"
-            ></div>
+            <div v-if="project.moderator_message">
+              <hr class="card-divider" />
+              <div v-if="project.moderator_message.body">
+                <h3 class="card-header">
+                  Message from Modrinth staff:
+                  {{ project.moderator_message.message }}
+                </h3>
+                <div
+                  v-highlightjs
+                  class="markdown-body"
+                  v-html="$xss($md.render(project.moderator_message.body))"
+                />
+              </div>
+              <div v-else>
+                <h3 class="card-header">Message from Modrinth staff</h3>
+                <p>{{ project.moderator_message.message }}</p>
+              </div>
+              <hr class="card-divider" />
+            </div>
           </div>
-          <div class="buttons">
+          <div class="buttons status-buttons">
             <button
               v-if="
                 project.status === 'rejected' ||
@@ -243,7 +261,7 @@
             </button>
             <button
               v-if="project.status === 'approved'"
-              class="clear-mod-message iconified-button"
+              class="iconified-button"
               @click="clearMessage"
             >
               <ClearIcon />
@@ -261,10 +279,6 @@
               </li>
             </ul>
           </div>
-          <p v-if="project.status === 'rejected'">
-            Do not resubmit for review until you've addressed the moderator
-            message!
-          </p>
         </div>
         <div class="extra-info-desktop card">
           <template
@@ -460,9 +474,14 @@
             <div class="info">
               <div class="key">License</div>
               <div class="value uppercase">
-                <a class="text-link" :href="project.license.url || null">{{
-                  project.license.id
-                }}</a>
+                <a
+                  v-if="project.license.url"
+                  class="text-link"
+                  :href="project.license.url"
+                >
+                  {{ project.license.id }}
+                </a>
+                <span v-else>{{ project.license.id }}</span>
               </div>
             </div>
             <div
@@ -795,9 +814,14 @@
             <div class="info">
               <div class="key">License</div>
               <div class="value uppercase">
-                <a class="text-link" :href="project.license.url || null">{{
-                  project.license.id
-                }}</a>
+                <a
+                  v-if="project.license.url"
+                  class="text-link"
+                  :href="project.license.url"
+                >
+                  {{ project.license.id }}
+                </a>
+                <span v-else>{{ project.license.id }}</span>
               </div>
             </div>
             <div
@@ -1400,7 +1424,7 @@ export default {
   }
 }
 
-.clear-mod-message {
+.status-buttons {
   margin-top: var(--spacing-card-sm);
 }
 </style>
