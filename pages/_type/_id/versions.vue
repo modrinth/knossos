@@ -88,8 +88,8 @@
   </div>
 </template>
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import { PackagePlus as PlusIcon, Download as DownloadIcon } from 'lucide-vue'
+
 import VersionBadge from '~/components/ui/Badge'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 

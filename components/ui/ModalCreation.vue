@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import { X as CrossIcon, ArrowRight as CheckIcon } from 'lucide-vue'
+
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 

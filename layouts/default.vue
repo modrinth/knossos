@@ -342,7 +342,7 @@
         <nuxt-link to="/legal/rules">Rules</nuxt-link>
         <a
           target="_blank"
-          href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
+          href="https://github.com/modrinth/knossos/blob/master/LICENSE"
         >
           License
         </a>
@@ -385,27 +385,27 @@
 </template>
 
 <script>
+import {
+  Github as GitHubIcon,
+  Settings as SettingsIcon,
+  Plus as PlusIcon,
+  Heart as HeartIcon,
+  X as CrossIcon,
+  Menu as HamburgerIcon,
+  Bell as NotificationIcon,
+  Scale as ModerationIcon,
+  Moon as MoonIcon,
+  Sun as SunIcon,
+  ChevronDown as DropdownIcon,
+  LogOut as LogOutIcon,
+  BarChart3 as ChartIcon,
+} from 'lucide-vue'
+
 import ClickOutside from 'vue-click-outside'
 
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
+import HomeIcon from '~/assets/images/home.svg'
 
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
-import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
-
-import MoonIcon from '~/assets/images/utils/moon.svg?inline'
-import SunIcon from '~/assets/images/utils/sun.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'

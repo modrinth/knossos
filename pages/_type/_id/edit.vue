@@ -499,12 +499,14 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import RevertIcon from '~/assets/images/utils/undo.svg?inline'
+import {
+  X as CrossIcon,
+  Check as CheckIcon,
+  Plus as PlusIcon,
+  Save as SaveIcon,
+  Trash2 as TrashIcon,
+  Undo as RevertIcon,
+} from 'lucide-vue'
 
 import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'

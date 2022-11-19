@@ -79,7 +79,7 @@
               class="iconified-button danger-button"
               @click="updatePayoutData(true)"
             >
-              <TrashIcon /> Remove enrollment
+              <UnenrollIcon /> Remove enrollment
             </button>
           </div>
         </div>
@@ -98,20 +98,23 @@
 </template>
 
 <script>
+import {
+  ListX as UnenrollIcon,
+  Edit as EditIcon,
+  BarChart3 as ChartIcon,
+  Settings as SettingsIcon,
+  Save as SaveIcon,
+} from 'lucide-vue'
+
 import Multiselect from 'vue-multiselect'
 import Chips from '~/components/ui/Chips'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 export default {
   components: {
     Multiselect,
     Chips,
     SaveIcon,
-    TrashIcon,
+    UnenrollIcon,
     EditIcon,
     ChartIcon,
     SettingsIcon,

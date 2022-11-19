@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import { X as CrossIcon } from 'lucide-vue'
 
 export default {
   name: 'Modal',

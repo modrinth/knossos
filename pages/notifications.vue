@@ -94,10 +94,14 @@
 </template>
 
 <script>
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
+import {
+  XCircle as ClearIcon,
+  Settings as SettingsIcon,
+  Calendar as CalendarIcon,
+} from 'lucide-vue'
+
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
+
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 

@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import ProjectCard from '~/components/ui/ProjectCard'
+import { Heart as HeartIcon } from 'lucide-vue'
 
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import ProjectCard from '~/components/ui/ProjectCard'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg?inline'
 
 export default {

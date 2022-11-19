@@ -233,22 +233,25 @@
 </template>
 
 <script>
+import {
+  Github as GitHubIcon,
+  Download as DownloadIcon,
+  Flag as ReportIcon,
+  Sunrise as SunriseIcon,
+  Settings as SettingsIcon,
+  Plus as PlusIcon,
+  User as UserIcon,
+  Edit as EditIcon,
+  Heart as HeartIcon,
+  X as CrossIcon,
+  Save as SaveIcon,
+} from 'lucide-vue'
+
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
+
 import ProjectCard from '~/components/ui/ProjectCard'
 import Badge from '~/components/ui/Badge'
 import Advertisement from '~/components/ads/Advertisement'
-
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import FileInput from '~/components/ui/FileInput'
 import ModalReport from '~/components/ui/ModalReport'
 import ModalCreation from '~/components/ui/ModalCreation'

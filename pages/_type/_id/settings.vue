@@ -259,7 +259,7 @@
             "
             @click="removeTeamMember(index)"
           >
-            <TrashIcon />
+            <RemoveUserIcon />
             Remove member
           </button>
           <button
@@ -291,16 +291,19 @@
 </template>
 
 <script>
+import {
+  ChevronDown as DropdownIcon,
+  Check as CheckIcon,
+  UserPlus as PlusIcon,
+  Trash2 as TrashIcon,
+  Edit as EditIcon,
+  User as UserIcon,
+  UserX as RemoveUserIcon,
+} from 'lucide-vue'
+
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Checkbox from '~/components/ui/Checkbox'
 import Badge from '~/components/ui/Badge'
-
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 
 export default {
@@ -315,6 +318,7 @@ export default {
     EditIcon,
     TrashIcon,
     UserIcon,
+    RemoveUserIcon,
   },
   props: {
     project: {

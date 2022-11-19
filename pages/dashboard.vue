@@ -30,13 +30,15 @@
 </template>
 
 <script>
+import {
+  LayoutDashboard as DashboardIcon,
+  // BarChart3 as ChartIcon,
+  Banknote as CurrencyIcon,
+  // LayoutList as ListIcon,
+} from 'lucide-vue'
+
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
-
-import DashboardIcon from '~/assets/images/utils/dashboard.svg?inline'
-// import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
-// import ListIcon from '~/assets/images/utils/list.svg?inline'
 
 const monetization = true
 

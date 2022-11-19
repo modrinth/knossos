@@ -830,25 +830,29 @@
 </template>
 
 <script>
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
-import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import FollowIcon from '~/assets/images/utils/heart.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
-import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
+import {
+  Check as CheckIcon,
+  Info as InfoIcon,
+  Download as DownloadIcon,
+  Flag as ReportIcon,
+  Calendar as CalendarIcon,
+  XCircle as ClearIcon,
+  RefreshCw as UpdateIcon,
+  Code2 as CodeIcon,
+  Heart as FollowIcon,
+  AlertTriangle as IssuesIcon,
+  BookOpen as WikiIcon,
+  DollarSign as UnknownIcon,
+  ChevronRight as ChevronRightIcon,
+} from 'lucide-vue'
+
 import DiscordIcon from '~/assets/images/external/discord.svg?inline'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
 import PatreonIcon from '~/assets/images/external/patreon.svg?inline'
 import KoFiIcon from '~/assets/images/external/kofi.svg?inline'
 import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
-import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+
 import Advertisement from '~/components/ads/Advertisement'
 import VersionBadge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'

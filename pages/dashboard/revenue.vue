@@ -96,8 +96,11 @@
 </template>
 
 <script>
-import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import {
+  ArrowLeftRight as TransferIcon,
+  Settings as SettingsIcon,
+} from 'lucide-vue'
+
 import ModalTransfer from '~/components/ui/ModalTransfer'
 
 export default {

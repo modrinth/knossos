@@ -52,7 +52,7 @@
               class="iconified-button download"
               :title="`Download ${version.name}`"
             >
-              <DownloadIcon aria-hidden="true" />
+              <DownloadIcon />
               Download
             </a>
           </div>
@@ -68,7 +68,7 @@
   </div>
 </template>
 <script>
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import { Download as DownloadIcon } from 'lucide-vue'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {

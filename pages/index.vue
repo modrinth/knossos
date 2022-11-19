@@ -205,10 +205,12 @@
 </template>
 
 <script>
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import InProgressIcon from '~/assets/images/utils/updated.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import {
+  PackageSearch as SearchIcon,
+  Check as CheckIcon,
+  RefreshCw as InProgressIcon,
+  ArrowRight as RightArrowIcon,
+} from 'lucide-vue'
 
 import FeaturesIllustration from '~/assets/images/illustrations/features.svg?inline'
 import ModrinthLogo from '~/assets/images/text-logo.svg?inline'

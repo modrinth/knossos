@@ -160,17 +160,19 @@
 </template>
 
 <script>
+import {
+  X as CrossIcon,
+  Check as CheckIcon,
+  Trash2 as TrashIcon,
+  Save as SaveIcon,
+  ArrowRight as RightArrowIcon,
+  User as UserIcon,
+  ClipboardCopy as CopyIcon,
+  Slash as SlashIcon,
+} from 'lucide-vue'
+
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Modal from '~/components/ui/Modal'
-
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import CopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import SlashIcon from '~/assets/images/utils/slash.svg?inline'
 
 export default {
   components: {

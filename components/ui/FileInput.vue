@@ -18,8 +18,9 @@
 </template>
 
 <script>
+import { Upload as UploadIcon } from 'lucide-vue'
+
 import { fileIsValid } from '~/plugins/fileUtils'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 
 export default {
   name: 'FileInput',

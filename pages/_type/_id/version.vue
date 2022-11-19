@@ -634,20 +634,22 @@
   </div>
 </template>
 <script>
+import {
+  X as CrossIcon,
+  Check as CheckIcon,
+  Plus as PlusIcon,
+  Trash2 as TrashIcon,
+  Edit as EditIcon,
+  Info as InfoIcon,
+  Save as SaveIcon,
+  Download as DownloadIcon,
+  Flag as ReportIcon,
+  ArrowLeft as BackIcon,
+  Star as StarIcon,
+} from 'lucide-vue'
+
 import Multiselect from 'vue-multiselect'
 import FileInput from '~/components/ui/FileInput'
-
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
 import Checkbox from '~/components/ui/Checkbox'
 import Chips from '~/components/ui/Chips'

@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import { X as CrossIcon, Trash2 as TrashIcon } from 'lucide-vue'
+
 import Modal from '~/components/ui/Modal'
 
 export default {

@@ -51,9 +51,11 @@
 </template>
 
 <script>
-import GapIcon from '~/assets/images/utils/gap.svg?inline'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import {
+  ArrowLeft as LeftArrowIcon,
+  ArrowRight as RightArrowIcon,
+  Minus as GapIcon,
+} from 'lucide-vue'
 
 export default {
   name: 'Pagination',

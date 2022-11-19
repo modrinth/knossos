@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import { ChevronRight as ChevronRightIcon } from 'lucide-vue'
 
 export default {
   components: { ChevronRightIcon },

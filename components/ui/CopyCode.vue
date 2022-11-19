@@ -12,8 +12,10 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
+import {
+  Check as CheckIcon,
+  ClipboardCopy as ClipboardCopyIcon,
+} from 'lucide-vue'
 
 export default {
   name: 'CopyCode',

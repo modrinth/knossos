@@ -23,12 +23,14 @@
 </template>
 
 <script>
+import {
+  HeartHandshake as TermsIcon,
+  Lock as PrivacyIcon,
+  Scale as RulesIcon,
+} from 'lucide-vue'
+
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
-
-import TermsIcon from '~/assets/images/utils/heart-handshake.svg?inline'
-import PrivacyIcon from '~/assets/images/utils/lock.svg?inline'
-import RulesIcon from '~/assets/images/sidebar/admin.svg?inline'
 
 export default {
   name: 'Settings',

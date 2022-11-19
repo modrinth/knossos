@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
+import { Check as CheckIcon, ChevronDown as DropdownIcon } from 'lucide-vue'
 
 export default {
   name: 'Checkbox',

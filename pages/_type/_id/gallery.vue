@@ -257,17 +257,19 @@
 </template>
 
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ExternalIcon from '~/assets/images/utils/external.svg?inline'
-import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
-import ContractIcon from '~/assets/images/utils/contract.svg?inline'
+import {
+  X as CrossIcon,
+  Check as CheckIcon,
+  ImagePlus as PlusIcon,
+  Trash2 as TrashIcon,
+  Calendar as CalendarIcon,
+  ArrowLeft as LeftArrowIcon,
+  ArrowRight as RightArrowIcon,
+  Edit as EditIcon,
+  ExternalLink as ExternalIcon,
+  Expand as ExpandIcon,
+  Shrink as ContractIcon,
+} from 'lucide-vue'
 
 import FileInput from '~/components/ui/FileInput'
 import Checkbox from '~/components/ui/Checkbox'

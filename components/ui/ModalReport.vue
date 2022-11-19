@@ -67,9 +67,9 @@
 </template>
 
 <script>
+import { X as CrossIcon, ArrowRight as CheckIcon } from 'lucide-vue'
+
 import Multiselect from 'vue-multiselect'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 

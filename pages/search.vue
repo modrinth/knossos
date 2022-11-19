@@ -356,20 +356,20 @@
 </template>
 
 <script>
+import {
+  Search as SearchIcon,
+  XCircle as ClearIcon,
+  Monitor as ClientSide,
+  HardDrive as ServerSide,
+  Filter as FilterIcon,
+} from 'lucide-vue'
+
 import Multiselect from 'vue-multiselect'
 import SearchResult from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
-
-import ClientSide from '~/assets/images/categories/client.svg?inline'
-import ServerSide from '~/assets/images/categories/server.svg?inline'
-
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import FilterIcon from '~/assets/images/utils/filter.svg?inline'
-
 import Advertisement from '~/components/ads/Advertisement'
 
 export default {

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import { Check as CheckIcon } from 'lucide-vue'
 
 export default {
   name: 'Chips',
