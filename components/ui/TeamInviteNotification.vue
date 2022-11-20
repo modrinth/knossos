@@ -1,12 +1,15 @@
 <template>
   <div class="card notification">
-    <div class="icon">
-      <UsersIcon />
-    </div>
     <div class="text">
       <nuxt-link :to="notification.link" class="top">
         <h3 v-html="$xss($md.render(notification.title))" />
-        <span> Invited {{ $dayjs(notification.created).fromNow() }}</span>
+        <span
+          v-tooltip="
+            $dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')
+          "
+        >
+          Invited {{ $dayjs(notification.created).fromNow() }}<CalendarIcon
+        /></span>
       </nuxt-link>
       <p>{{ notification.text }}</p>
     </div>
@@ -30,11 +33,12 @@
   </div>
 </template>
 <script>
-import UsersIcon from '~/assets/images/utils/users.svg?inline'
+import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
+
 export default {
   name: 'TeamInviteNotification',
   components: {
-    UsersIcon,
+    CalendarIcon,
   },
   props: {
     notification: {
@@ -87,23 +91,19 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   padding: var(--spacing-card-sm) var(--spacing-card-lg);
-  .icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    svg {
-      height: calc(3rem - var(--spacing-card-sm));
-      width: auto;
-      margin-right: 1rem;
-    }
-  }
+
   .text {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     a {
       span {
+        display: flex;
+        align-items: center;
         color: var(--color-text-secondary);
+        svg {
+          margin-left: 0.3rem;
+        }
       }
     }
     .top {
@@ -113,6 +113,10 @@ h1 {
       h3 ::v-deep {
         font-size: var(--font-size-lg);
         margin: 0 0.5rem 0 0;
+
+        color: var(--color-brand);
+        text-decoration: underline;
+
         p {
           margin: 0;
           strong {
@@ -128,22 +132,18 @@ h1 {
   }
   .buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     margin-left: auto;
     text-align: right;
     button {
-      margin-left: auto;
-      margin-bottom: 0.25rem;
+      margin-left: 0.5rem;
+      // margin-bottom: 0.25rem;
     }
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .page-contents {
-    max-width: calc(1280px - 20rem) !important;
-  }
-
   .notification {
     flex-wrap: nowrap;
     .text {
@@ -154,7 +154,7 @@ h1 {
 
       a {
         span {
-          color: var(--color-text);
+          color: var(--color-text-secondary);
         }
       }
     }
