@@ -41,14 +41,14 @@
             :project-title="notification.projectName"
             :versions="notification.data"
           />
-          <TeamInviteNotification
+          <CompactNotification
             v-if="
               notification.type === 'project_update' &&
               notification.data.length == 1
             "
             :notification="notification.data[0]"
           />
-          <TeamInviteNotification
+          <CompactNotification
             v-if="notification.type === 'team_invite'"
             :notification="notification.data"
           />
@@ -67,7 +67,7 @@
 <script>
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import ProjectUpdateNotification from '~/components/ui/ProjectUpdateNotification.vue'
-import TeamInviteNotification from '~/components/ui/TeamInviteNotification.vue'
+import CompactNotification from '~/components/ui/CompactNotification.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
@@ -87,7 +87,7 @@ export default {
     ClearIcon,
     UpToDate,
     ProjectUpdateNotification,
-    TeamInviteNotification,
+    CompactNotification,
   },
   data() {
     return {
@@ -198,13 +198,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.divider {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 0.5rem;
-}
-</style>

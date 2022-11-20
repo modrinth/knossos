@@ -37,7 +37,7 @@
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 
 export default {
-  name: 'TeamInviteNotification',
+  name: 'CompactNotification',
   components: {
     CalendarIcon,
   },
