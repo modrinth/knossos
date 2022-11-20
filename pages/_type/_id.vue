@@ -202,8 +202,8 @@
             <p v-if="project.status === 'rejected'">
               Your project has been rejected by Modrinth's staff. In most cases,
               you can resubmit for review after addressing the staff's message,
-              which is below. Do not resubmit until you've addressed the
-              moderator message!
+              which is below. Do not resubmit until you've addressed the message
+              from the moderators!
             </p>
             <p v-if="project.status === 'processing'">
               Your project is currently not viewable by people who are not part
@@ -213,18 +213,23 @@
                 >content rules!
               </nuxt-link>
             </p>
-            <p v-if="project.status === 'draft'">
+            <template v-if="project.status === 'draft'">
               Your project is currently not viewable by people who are not part
-              of your team. If your project is ready for review, click the
-              button below to make your mod public!
-            </p>
+              of your team. If you would like to publish your project, click the
+              button below to send your project in for review.
+            </template>
             <div v-if="project.moderator_message">
               <hr class="card-divider" />
               <div v-if="project.moderator_message.body">
                 <h3 class="card-header">
-                  Message from Modrinth staff:
-                  {{ project.moderator_message.message }}
+                  Message from the Modrinth moderators:
                 </h3>
+                <p
+                  v-if="project.moderator_message.message"
+                  class="mod-message__title"
+                >
+                  {{ project.moderator_message.message }}
+                </p>
                 <div
                   v-highlightjs
                   class="markdown-body"
@@ -232,7 +237,9 @@
                 />
               </div>
               <div v-else>
-                <h3 class="card-header">Message from Modrinth staff</h3>
+                <h3 class="card-header">
+                  Message from the Modrinth moderators:
+                </h3>
                 <p>{{ project.moderator_message.message }}</p>
               </div>
               <hr class="card-divider" />
@@ -1426,5 +1433,11 @@ export default {
 
 .status-buttons {
   margin-top: var(--spacing-card-sm);
+}
+
+.mod-message__title {
+  font-weight: bold;
+  margin-bottom: var(--spacing-card-xs);
+  font-size: 1.125rem;
 }
 </style>

@@ -16,9 +16,9 @@
                 <IssuesIcon
                   v-if="hasModMessage"
                   v-tooltip="
-                    'Project has a message from moderators. View the project to see more.'
+                    'Project has a message from the moderators. View the project to see more.'
                   "
-                  aria-label="Project has a message from moderators. View the project to see more."
+                  aria-label="Project has a message from the moderators. View the project to see more."
                 />
                 {{ name }}
               </nuxt-link>
