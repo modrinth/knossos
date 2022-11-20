@@ -76,7 +76,7 @@
           <p class="description">
             {{ description }}
           </p>
-          <Categories
+          <ProjectCategories
             :categories="categories"
             :type="type"
             class="right-categories"
@@ -144,23 +144,16 @@
 </template>
 
 <script>
-import Categories from '~/components/ui/search/Categories'
-import Badge from '~/components/ui/Badge'
-
 import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import EditIcon from '~/assets/images/utils/updated.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import Avatar from '~/components/ui/Avatar'
 
 export default {
   name: 'ProjectCard',
   components: {
-    Avatar,
-    Categories,
-    Badge,
     InfoIcon,
     IssuesIcon,
     CalendarIcon,

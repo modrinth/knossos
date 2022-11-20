@@ -87,17 +87,13 @@
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import Modal from '~/components/ui/Modal'
-import Checkbox from '~/components/ui/Checkbox'
 
 export default {
   name: 'ModalTransfer',
   components: {
-    Checkbox,
     CrossIcon,
     SettingsIcon,
     TransferIcon,
-    Modal,
   },
   props: {
     wallet: {

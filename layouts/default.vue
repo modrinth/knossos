@@ -406,15 +406,9 @@ import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
-import NavRow from '~/components/ui/NavRow'
-import ModalCreation from '~/components/ui/ModalCreation'
-import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
-    Avatar,
-    ModalCreation,
-    NavRow,
     ModrinthLogo,
     MoonIcon,
     SunIcon,

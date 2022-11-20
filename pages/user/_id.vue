@@ -146,12 +146,7 @@
         </aside>
       </div>
       <div class="normal-page__content">
-        <Advertisement
-          type="banner"
-          small-screen="square"
-          ethical-ads-small
-          ethical-ads-big
-        />
+        <Advertisement type="banner" />
         <nav class="card user-navigation">
           <NavRow
             query="type"
@@ -233,10 +228,6 @@
 </template>
 
 <script>
-import ProjectCard from '~/components/ui/ProjectCard'
-import Badge from '~/components/ui/Badge'
-import Advertisement from '~/components/ads/Advertisement'
-
 import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
@@ -249,34 +240,19 @@ import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import FileInput from '~/components/ui/FileInput'
-import ModalReport from '~/components/ui/ModalReport'
-import ModalCreation from '~/components/ui/ModalCreation'
-import NavRow from '~/components/ui/NavRow'
-import CopyCode from '~/components/ui/CopyCode'
-import Avatar from '~/components/ui/Avatar'
 
 export default {
   auth: false,
   components: {
-    Avatar,
-    CopyCode,
-    NavRow,
-    ModalCreation,
-    ModalReport,
-    FileInput,
-    ProjectCard,
     SunriseIcon,
     DownloadIcon,
     GitHubIcon,
     ReportIcon,
-    Badge,
     SettingsIcon,
     PlusIcon,
     UpToDate,
     UserIcon,
     EditIcon,
-    Advertisement,
     HeartIcon,
     CrossIcon,
     SaveIcon,

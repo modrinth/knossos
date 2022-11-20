@@ -30,9 +30,6 @@
 </template>
 
 <script>
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
-
 import DashboardIcon from '~/assets/images/utils/dashboard.svg?inline'
 // import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
@@ -43,8 +40,6 @@ const monetization = true
 export default {
   name: 'Dashboard',
   components: {
-    NavStack,
-    NavStackItem,
     DashboardIcon,
     // ChartIcon,
     CurrencyIcon,

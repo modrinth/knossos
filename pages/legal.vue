@@ -23,9 +23,6 @@
 </template>
 
 <script>
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
-
 import TermsIcon from '~/assets/images/utils/heart-handshake.svg?inline'
 import PrivacyIcon from '~/assets/images/utils/lock.svg?inline'
 import RulesIcon from '~/assets/images/sidebar/admin.svg?inline'
@@ -33,8 +30,6 @@ import RulesIcon from '~/assets/images/sidebar/admin.svg?inline'
 export default {
   name: 'Settings',
   components: {
-    NavStack,
-    NavStackItem,
     TermsIcon,
     PrivacyIcon,
     RulesIcon,

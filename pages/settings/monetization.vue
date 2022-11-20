@@ -99,7 +99,6 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import Chips from '~/components/ui/Chips'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
@@ -109,7 +108,6 @@ import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 export default {
   components: {
     Multiselect,
-    Chips,
     SaveIcon,
     TrashIcon,
     EditIcon,

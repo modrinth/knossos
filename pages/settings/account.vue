@@ -160,9 +160,6 @@
 </template>
 
 <script>
-import ModalConfirm from '~/components/ui/ModalConfirm'
-import Modal from '~/components/ui/Modal'
-
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
@@ -174,8 +171,6 @@ import SlashIcon from '~/assets/images/utils/slash.svg?inline'
 
 export default {
   components: {
-    Modal,
-    ModalConfirm,
     CrossIcon,
     RightArrowIcon,
     CheckIcon,

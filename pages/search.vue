@@ -243,12 +243,7 @@
         <a href="https://discord.gg/EUHuJHt" :target="$external()">Discord</a>
         for support.
       </div>
-      <Advertisement
-        type="banner"
-        small-screen="square"
-        ethical-ads-small
-        ethical-ads-big
-      />
+      <Advertisement type="banner" />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -310,20 +305,20 @@
           </div>
         </div>
       </div>
-      <pagination
+      <SearchPagination
         :page="currentPage"
         :count="pageCount"
         :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
         class="pagination-before"
         @switch-page="onSearchChange"
-      ></pagination>
+      />
       <div class="search-results-container">
         <div v-if="isLoading" class="no-results">
-          <LogoAnimated aria-hidden="true" />
+          <SearchLogoAnimated aria-hidden="true" />
           <p>Loading...</p>
         </div>
         <div v-else id="search-results" role="list" aria-label="Search results">
-          <SearchResult
+          <ProjectCard
             v-for="result in results"
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
@@ -346,24 +341,19 @@
           </div>
         </div>
       </div>
-      <pagination
+      <SearchPagination
         :page="currentPage"
         :count="pageCount"
         :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
         class="pagination-after"
         @switch-page="onSearchChangeToTop"
-      ></pagination>
+      />
     </section>
   </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SearchResult from '~/components/ui/ProjectCard'
-import Pagination from '~/components/ui/Pagination'
-import SearchFilter from '~/components/ui/search/SearchFilter'
-import LogoAnimated from '~/components/ui/search/LogoAnimated'
-import Checkbox from '~/components/ui/Checkbox'
 
 import ClientSide from '~/assets/images/categories/client.svg?inline'
 import ServerSide from '~/assets/images/categories/server.svg?inline'
@@ -372,23 +362,15 @@ import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import FilterIcon from '~/assets/images/utils/filter.svg?inline'
 
-import Advertisement from '~/components/ads/Advertisement'
-
 export default {
   auth: false,
   components: {
-    Advertisement,
-    SearchResult,
-    Pagination,
     Multiselect,
-    SearchFilter,
-    Checkbox,
     ClientSide,
     ServerSide,
     SearchIcon,
     ClearIcon,
     FilterIcon,
-    LogoAnimated,
   },
   data() {
     return {

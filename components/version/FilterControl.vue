@@ -69,13 +69,12 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
+
 export default {
   name: 'VersionFilterControl',
   components: {
     Multiselect,
-    Checkbox,
     ClearIcon,
   },
   props: {

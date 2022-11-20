@@ -14,13 +14,8 @@
 </template>
 
 <script>
-import Checkbox from '~/components/ui/Checkbox'
-
 export default {
   name: 'SearchFilter',
-  components: {
-    Checkbox,
-  },
   props: {
     facetName: {
       type: String,

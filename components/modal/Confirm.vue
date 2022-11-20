@@ -40,14 +40,12 @@
 <script>
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import Modal from '~/components/ui/Modal'
 
 export default {
   name: 'ModalConfirm',
   components: {
     CrossIcon,
     TrashIcon,
-    Modal,
   },
   props: {
     confirmationText: {

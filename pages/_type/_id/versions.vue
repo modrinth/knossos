@@ -47,17 +47,17 @@
         </a>
         <span class="version__title">{{ version.name }}</span>
         <div class="version__metadata">
-          <VersionBadge
+          <Badge
             v-if="version.version_type === 'release'"
             type="release"
             color="green"
           />
-          <VersionBadge
+          <Badge
             v-else-if="version.version_type === 'beta'"
             type="beta"
             color="orange"
           />
-          <VersionBadge
+          <Badge
             v-else-if="version.version_type === 'alpha'"
             type="alpha"
             color="red"
@@ -90,15 +90,11 @@
 <script>
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import VersionBadge from '~/components/ui/Badge'
-import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
   components: {
     PlusIcon,
     DownloadIcon,
-    VersionBadge,
-    VersionFilterControl,
   },
   auth: false,
   props: {

@@ -78,7 +78,7 @@
           <p class="description">
             {{ project.description }}
           </p>
-          <Categories
+          <ProjectCategories
             :categories="project.categories"
             :type="project.actualProjectType"
             class="categories"
@@ -561,9 +561,6 @@
         <Advertisement
           v-if="project.status === 'approved' || project.status === 'unlisted'"
           type="banner"
-          small-screen="square"
-          ethical-ads-small
-          ethical-ads-big
         />
         <NavRow
           :links="[
@@ -874,22 +871,9 @@ import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
-import Advertisement from '~/components/ads/Advertisement'
-import Badge from '~/components/ui/Badge'
-import Categories from '~/components/ui/search/Categories'
-import ModalReport from '~/components/ui/ModalReport'
-import NavRow from '~/components/ui/NavRow'
-import CopyCode from '~/components/ui/CopyCode'
-import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
-    Avatar,
-    CopyCode,
-    NavRow,
-    Badge,
-    Advertisement,
-    ModalReport,
     IssuesIcon,
     DownloadIcon,
     CalendarIcon,
@@ -906,7 +890,6 @@ export default {
     PayPalIcon,
     OpenCollectiveIcon,
     UnknownIcon,
-    Categories,
     PatreonIcon,
     KoFiIcon,
     ChevronRightIcon,

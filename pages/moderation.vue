@@ -167,32 +167,19 @@
 </template>
 
 <script>
-import Chips from '~/components/ui/Chips'
-import ProjectCard from '~/components/ui/ProjectCard'
-import Modal from '~/components/ui/Modal'
-import Badge from '~/components/ui/Badge'
-
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import UnlistIcon from '~/assets/images/utils/eye-off.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import Security from '~/assets/images/illustrations/security.svg?inline'
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
 
 export default {
   name: 'Moderation',
   components: {
-    NavStack,
-    NavStackItem,
-    Chips,
-    ProjectCard,
     CheckIcon,
     CrossIcon,
     UnlistIcon,
-    Modal,
-    Badge,
     Security,
     TrashIcon,
     CalendarIcon,

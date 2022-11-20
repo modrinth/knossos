@@ -98,10 +98,9 @@
 <script>
 import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import ModalTransfer from '~/components/ui/ModalTransfer'
 
 export default {
-  components: { TransferIcon, SettingsIcon, ModalTransfer },
+  components: { TransferIcon, SettingsIcon },
   data() {
     return {
       minWithdraw: 0.26,

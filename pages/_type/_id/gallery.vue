@@ -269,18 +269,13 @@ import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
 import ContractIcon from '~/assets/images/utils/contract.svg?inline'
 
-import FileInput from '~/components/ui/FileInput'
-import Checkbox from '~/components/ui/Checkbox'
-
 export default {
   components: {
     CalendarIcon,
     PlusIcon,
-    Checkbox,
     EditIcon,
     TrashIcon,
     CheckIcon,
-    FileInput,
     CrossIcon,
     RightArrowIcon,
     LeftArrowIcon,

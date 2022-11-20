@@ -98,8 +98,6 @@ import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
 
 const NOTIFICATION_TYPES = {
   team_invite: 'Team invites',
@@ -109,8 +107,6 @@ const NOTIFICATION_TYPES = {
 export default {
   name: 'Notifications',
   components: {
-    NavStack,
-    NavStackItem,
     ClearIcon,
     SettingsIcon,
     CalendarIcon,

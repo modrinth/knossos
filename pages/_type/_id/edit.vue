@@ -504,15 +504,8 @@ import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import RevertIcon from '~/assets/images/utils/undo.svg?inline'
 
-import Chips from '~/components/ui/Chips'
-import FileInput from '~/components/ui/FileInput'
-import Avatar from '~/components/ui/Avatar'
-
 export default {
   components: {
-    Avatar,
-    FileInput,
-    Chips,
     Multiselect,
     CrossIcon,
     CheckIcon,

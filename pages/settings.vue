@@ -33,9 +33,6 @@
 </template>
 
 <script>
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
-
 import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
@@ -44,8 +41,6 @@ import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
 export default {
   name: 'Settings',
   components: {
-    NavStack,
-    NavStackItem,
     PaintbrushIcon,
     UserIcon,
     HeartIcon,

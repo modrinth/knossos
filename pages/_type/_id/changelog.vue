@@ -69,11 +69,9 @@
 </template>
 <script>
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
   components: {
-    VersionFilterControl,
     DownloadIcon,
   },
   props: {

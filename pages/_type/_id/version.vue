@@ -224,19 +224,19 @@
                 :show-labels="false"
                 :allow-empty="false"
               />
-              <VersionBadge
+              <Badge
                 v-else-if="version.version_type === 'release'"
                 class="value"
                 type="release"
                 color="green"
               />
-              <VersionBadge
+              <Badge
                 v-else-if="version.version_type === 'beta'"
                 class="value"
                 type="beta"
                 color="orange"
               />
-              <VersionBadge
+              <Badge
                 v-else-if="version.version_type === 'alpha'"
                 class="value"
                 type="alpha"
@@ -633,7 +633,6 @@
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
-import FileInput from '~/components/ui/FileInput'
 
 import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
@@ -646,24 +645,9 @@ import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
 import StarIcon from '~/assets/images/utils/star.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import VersionBadge from '~/components/ui/Badge'
-import Checkbox from '~/components/ui/Checkbox'
-import Chips from '~/components/ui/Chips'
-import ModalConfirm from '~/components/ui/ModalConfirm'
-import ModalReport from '~/components/ui/ModalReport'
-import CopyCode from '~/components/ui/CopyCode'
-import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
-    Avatar,
-    CopyCode,
-    ModalConfirm,
-    ModalReport,
-    FileInput,
-    Chips,
-    Checkbox,
-    VersionBadge,
     DownloadIcon,
     TrashIcon,
     EditIcon,
