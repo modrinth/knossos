@@ -106,14 +106,11 @@ export default {
   },
   computed: {
     notificationsUngrouped() {
-      return JSON.parse(
-        '[{"id": "UUVVWWXX","user_id": "EEFFGGHH","type": "team_invite","title": "You have been invited to join a team!","text": "Team invite from xyz to join the team for project abc","link": "mod/AABBCCDD/version/IIJJKKLL","read": false,"created": "string","actions":[{"title": "Accept"}, {"title": "Deny"} ]}, {"id": "asx","user_id": "EEFFGGHH","type": "project_update","title": "**My Project** has been updated!","text": "The project, My Project, has released a new version: 1.0.0","link": "mod/AABBCCDD/version/IIJJKKLL","read": false,"created": "string","actions": []}]'
-      )
-      // return this.$route.query.type !== undefined
-      //   ? this.$user.notifications.filter(
-      //       (x) => x.type === this.$route.query.type
-      //     )
-      //   : this.$user.notifications
+      return this.$route.query.type !== undefined
+        ? this.$user.notifications.filter(
+            (x) => x.type === this.$route.query.type
+          )
+        : this.$user.notifications
     },
     notificationsGrouped() {
       const grouped = new Map()
