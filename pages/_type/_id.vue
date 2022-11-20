@@ -213,11 +213,11 @@
                 >content rules!
               </nuxt-link>
             </p>
-            <template v-if="project.status === 'draft'">
+            <p v-if="project.status === 'draft'">
               Your project is currently not viewable by people who are not part
               of your team. If you would like to publish your project, click the
               button below to send your project in for review.
-            </template>
+            </p>
             <div v-if="project.moderator_message">
               <hr class="card-divider" />
               <div v-if="project.moderator_message.body">
