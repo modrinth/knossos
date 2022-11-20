@@ -35,16 +35,14 @@
         <div v-for="(notification, index) in notificationsGrouped" :key="index">
           <ProjectUpdateNotification
             v-if="
-              notification.type === 'project_update' &&
-              notification.data.length > 1
+              notification.type === 'project_update' && notification.count > 1
             "
             :project-title="notification.projectName"
             :versions="notification.data"
           />
           <CompactNotification
             v-if="
-              notification.type === 'project_update' &&
-              notification.data.length == 1
+              notification.type === 'project_update' && notification.count == 1
             "
             :notification="notification.data[0]"
           />
@@ -113,52 +111,52 @@ export default {
         : this.$user.notifications
     },
     notificationsGrouped() {
-      const grouped = new Map()
+      const groupedByTitle = new Map()
 
       for (const notification of this.notificationsUngrouped) {
-        const a = grouped.get(notification.title) || []
+        const a = groupedByTitle.get(notification.title) || []
         if (notification.type === 'project_update') {
           notification.version = notification.text.match(
             /The project, .*, has released a new version: (.*)/m
           )[1]
         }
         a.push(notification)
-        grouped.set(notification.title, a)
+        groupedByTitle.set(notification.title, a)
       }
 
-      const groupedArray = []
-      const keyToMetadata = new Map()
+      const grouped = []
+      const titleToMetadata = new Map()
 
-      grouped.forEach((val, key) => {
-        if (!keyToMetadata.has(key)) {
+      groupedByTitle.forEach((notifications, title) => {
+        if (!titleToMetadata.has(title)) {
           let name = ''
 
-          if (val[0].type === 'project_update') {
-            name = key.match(/\*\*(.*)\*\* has been updated!/m)[1]
+          if (notifications[0].type === 'project_update') {
+            name = title.match(/\*\*(.*)\*\* has been updated!/m)[1]
           }
 
           const meta = {
-            type: val[0].type,
+            type: notifications[0].type,
             projectName: name,
-            count: grouped.get(key).length,
+            count: groupedByTitle.get(title).length,
             data: undefined,
           }
 
           switch (meta.type) {
             case 'project_update':
-              meta.data = val
+              meta.data = notifications
               break
             case 'team_invite':
-              meta.data = val[0]
+              meta.data = notifications[0]
               break
           }
 
-          keyToMetadata.set(key, meta)
+          titleToMetadata.set(title, meta)
         }
-        groupedArray.push(keyToMetadata.get(key))
+        grouped.push(titleToMetadata.get(title))
       })
 
-      return groupedArray
+      return grouped
     },
     notificationTypes() {
       const obj = {}
