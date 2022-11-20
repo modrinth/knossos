@@ -355,13 +355,13 @@ export default {
 
             &.completed {
               svg {
-                color: var(--color-brand);
+                color: var(--color-special-green);
               }
             }
 
             &.in-progress {
               svg {
-                color: var(--color-badge-yellow-bg);
+                color: var(--color-special-orange);
               }
             }
 
@@ -369,7 +369,7 @@ export default {
               p {
                 user-select: none;
                 color: transparent;
-                text-shadow: 0 0 12px var(--color-badge-yellow-bg);
+                text-shadow: 0 0 12px var(--color-special-orange);
               }
             }
           }

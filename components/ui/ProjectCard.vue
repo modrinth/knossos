@@ -126,22 +126,7 @@
         </div>
       </div>
       <div v-if="status" class="status">
-        <Badge
-          v-if="status === 'approved'"
-          color="green custom-circle"
-          :type="status"
-        />
-        <Badge
-          v-else-if="status === 'processing' || status === 'archived'"
-          color="yellow custom-circle"
-          :type="status"
-        />
-        <Badge
-          v-else-if="status === 'rejected'"
-          color="red custom-circle"
-          :type="status"
-        />
-        <Badge v-else color="gray custom-circle" :type="status" />
+        <Badge :type="status" />
       </div>
       <div class="buttons">
         <slot />
@@ -381,6 +366,8 @@ export default {
     }
 
     .status {
+      display: flex;
+      justify-content: right;
       margin-bottom: 0.5rem;
     }
 

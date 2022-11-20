@@ -179,24 +179,7 @@
           <div class="status-info"></div>
           <p>
             Your project is currently:
-            <VersionBadge
-              v-if="project.status === 'approved'"
-              color="green"
-              :type="project.status"
-            />
-            <VersionBadge
-              v-else-if="
-                project.status === 'processing' || project.status === 'archived'
-              "
-              color="yellow"
-              :type="project.status"
-            />
-            <VersionBadge
-              v-else-if="project.status === 'rejected'"
-              color="red"
-              :type="project.status"
-            />
-            <VersionBadge v-else color="gray" :type="project.status" />
+            <Badge :type="project.status" />
           </p>
           <div class="message">
             <p v-if="project.status === 'processing'">
@@ -414,17 +397,17 @@
                   }}
                   {{ $formatVersion(version.game_versions) }}
                 </div>
-                <VersionBadge
+                <Badge
                   v-if="version.version_type === 'release'"
                   type="release"
                   color="green"
                 />
-                <VersionBadge
+                <Badge
                   v-else-if="version.version_type === 'beta'"
                   type="beta"
-                  color="yellow"
+                  color="orange"
                 />
-                <VersionBadge
+                <Badge
                   v-else-if="version.version_type === 'alpha'"
                   type="alpha"
                   color="red"
@@ -749,17 +732,17 @@
                   }}
                   {{ $formatVersion(version.game_versions) }}
                 </div>
-                <VersionBadge
+                <Badge
                   v-if="version.version_type === 'release'"
                   type="release"
                   color="green"
                 />
-                <VersionBadge
+                <Badge
                   v-else-if="version.version_type === 'beta'"
                   type="beta"
-                  color="yellow"
+                  color="orange"
                 />
-                <VersionBadge
+                <Badge
                   v-else-if="version.version_type === 'alpha'"
                   type="alpha"
                   color="red"
@@ -858,7 +841,7 @@ import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inli
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
-import VersionBadge from '~/components/ui/Badge'
+import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
@@ -870,7 +853,7 @@ export default {
     Avatar,
     CopyCode,
     NavRow,
-    VersionBadge,
+    Badge,
     Advertisement,
     ModalReport,
     IssuesIcon,
