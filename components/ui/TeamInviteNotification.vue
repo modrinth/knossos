@@ -8,7 +8,8 @@
             $dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')
           "
         >
-          Invited {{ $dayjs(notification.created).fromNow() }}<CalendarIcon
+          {{ notification.type == 'team_invite' ? 'Invited' : 'Released' }}
+          {{ $dayjs(notification.created).fromNow() }}<CalendarIcon
         /></span>
       </nuxt-link>
       <p>{{ notification.text }}</p>
@@ -91,6 +92,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   padding: var(--spacing-card-sm) var(--spacing-card-lg);
+  align-items: center;
 
   .text {
     display: flex;
