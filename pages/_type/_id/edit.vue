@@ -53,7 +53,7 @@
           <li v-if="!savingAsDraft && project.versions.length < 1">
             Your project must have at least one version to submit for review.
           </li>
-          <li v-if="license.spdx === ''">Your project must have a license.</li>
+          <li v-if="license.short === ''">Your project must have a license.</li>
         </ul>
       </div>
     </header>
@@ -415,14 +415,14 @@
           <Multiselect
             v-model="license"
             placeholder="Select license (scroll down for GNU licenses)"
-            track-by="spdx"
+            track-by="short"
             label="friendly"
             :options="defaultLicenses"
             :searchable="true"
             :close-on-select="true"
             :show-labels="false"
             :class="{
-              'known-error': license.spdx === '' && showKnownErrors,
+              'known-error': license.short === '' && showKnownErrors,
             }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -430,12 +430,12 @@
           />
           <input
             v-if="license.friendly === 'Custom'"
-            v-model="license.spdx"
+            v-model="license.short"
             type="text"
             maxlength="2048"
             placeholder="SPDX identifier"
             :class="{
-              'known-error': license.spdx === '' && showKnownErrors,
+              'known-error': license.short === '' && showKnownErrors,
             }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -564,29 +564,29 @@ export default {
       serverSideType: '',
 
       defaultLicenses: [
-        { friendly: 'Custom', spdx: '' },
+        { friendly: 'Custom', short: '' },
         {
           friendly: 'All Rights Reserved/No License',
-          spdx: 'LicenseRef-All-Rights-Reserved',
+          short: 'LicenseRef-All-Rights-Reserved',
         },
-        { friendly: 'Apache License 2.0', spdx: 'Apache-2.0' },
-        { friendly: 'BSD 2-Clause', spdx: 'BSD-2-Clause' },
-        { friendly: 'BSD 3-Clause', spdx: 'BSD-3-Clause' },
-        { friendly: 'Creative Commons Zero v1.0', spdx: 'CC0-1.0' },
-        { friendly: 'ISC License', spdx: 'ISC' },
-        { friendly: 'MIT License', spdx: 'MIT' },
-        { friendly: 'Mozilla Public License 2.0', spdx: 'MPL-2.0' },
-        { friendly: 'zlib License', spdx: 'Zlib' },
-        { friendly: 'GNU LGPLv2.1 only', spdx: 'LGPL-2.1-only' },
-        { friendly: 'GNU LGPLv2.1 or later', spdx: 'LGPL-2.1-or-later' },
-        { friendly: 'GNU LGPLv3 only', spdx: 'LGPL-3.0-only' },
-        { friendly: 'GNU LGPLv3 or later', spdx: 'LGPL-3.0-or-later' },
-        { friendly: 'GNU GPLv2 only', spdx: 'GPL-2.0-only' },
-        { friendly: 'GNU GPLv2 or later', spdx: 'GPL-2.0-or-later' },
-        { friendly: 'GNU GPLv3 only', spdx: 'GPL-3.0-only' },
-        { friendly: 'GNU GPLv3 or later', spdx: 'GPL-3.0-or-later' },
+        { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
+        { friendly: 'BSD 2-Clause', short: 'BSD-2-Clause' },
+        { friendly: 'BSD 3-Clause', short: 'BSD-3-Clause' },
+        { friendly: 'Creative Commons Zero v1.0', short: 'CC0-1.0' },
+        { friendly: 'ISC License', short: 'ISC' },
+        { friendly: 'MIT License', short: 'MIT' },
+        { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
+        { friendly: 'zlib License', short: 'Zlib' },
+        { friendly: 'GNU LGPLv2.1 only', short: 'LGPL-2.1-only' },
+        { friendly: 'GNU LGPLv2.1 or later', short: 'LGPL-2.1-or-later' },
+        { friendly: 'GNU LGPLv3 only', short: 'LGPL-3.0-only' },
+        { friendly: 'GNU LGPLv3 or later', short: 'LGPL-3.0-or-later' },
+        { friendly: 'GNU GPLv2 only', short: 'GPL-2.0-only' },
+        { friendly: 'GNU GPLv2 or later', short: 'GPL-2.0-or-later' },
+        { friendly: 'GNU GPLv3 only', short: 'GPL-3.0-only' },
+        { friendly: 'GNU GPLv3 or later', short: 'GPL-3.0-or-later' },
       ],
-      license: { friendly: '', spdx: '' },
+      license: { friendly: '', short: '' },
 
       donationPlatforms: [],
       donationLinks: [],
@@ -625,8 +625,8 @@ export default {
     }
 
     this.license = this.defaultLicenses.find(
-      (x) => x.spdx === this.newProject.license.id
-    ) ?? { friendly: 'Custom', spdx: this.newProject.license.id }
+      (x) => x.short === this.newProject.license.id
+    ) ?? { friendly: 'Custom', short: this.newProject.license.id }
 
     this.clientSideType =
       this.newProject.client_side.charAt(0) +
@@ -672,7 +672,7 @@ export default {
         this.newProject.title !== '' &&
         this.newProject.description !== '' &&
         this.newProject.slug !== '' &&
-        this.newProject.license.id !== ''
+        this.license.short !== ''
       ) {
         if (this.savingAsDraft) {
           return true
@@ -719,7 +719,7 @@ export default {
           discord_url: this.newProject.discord_url
             ? this.newProject.discord_url
             : null,
-          license_id: this.license.spdx,
+          license_id: this.license.short,
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
           slug: this.newProject.slug,
@@ -753,7 +753,7 @@ export default {
         }
 
         this.newProject.license = {
-          id: this.license.spdx,
+          id: this.license.short,
           url: this.newProject.license.url,
         }
 
