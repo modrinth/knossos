@@ -97,11 +97,9 @@ export default {
     }
   },
   mounted() {
-    this.selectedLoaders = this.getQueryAsArray(this.$route.query.loaders)
-    this.selectedGameVersions = this.getQueryAsArray(
-      this.$route.query.gameVersions
-    )
-    this.showSnapshots = this.$route.query.showSnapshots === 'true'
+    this.selectedLoaders = this.getQueryAsArray(this.$route.query.l)
+    this.selectedGameVersions = this.getQueryAsArray(this.$route.query.g)
+    this.showSnapshots = this.$route.query.s === 'true'
     this.updateVersionFilters()
   },
   methods: {
@@ -166,9 +164,9 @@ export default {
         .replace({
           query: {
             ...this.$route.query,
-            loaders: this.getAsQuery(this.selectedLoaders),
-            gameVersions: this.getAsQuery(this.selectedGameVersions),
-            showSnapshots: this.showSnapshots ? true : undefined,
+            l: this.getAsQuery(this.selectedLoaders),
+            g: this.getAsQuery(this.selectedGameVersions),
+            s: this.showSnapshots ? true : undefined,
           },
         })
         .catch(() => {})
