@@ -463,7 +463,7 @@
           <div class="infos">
             <div class="info">
               <div class="key">License</div>
-              <div class="value uppercase">
+              <div class="value">
                 <a
                   v-if="project.license.url"
                   class="text-link"
