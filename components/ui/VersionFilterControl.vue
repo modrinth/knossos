@@ -138,7 +138,15 @@ export default {
       return this.cachedValidLoaders
     },
     updateVersionFilters() {
-      this.validateFilters()
+      this.selectedLoaders = this.selectedLoaders.filter((loader) =>
+        this.getValidLoaders().includes(loader)
+      )
+      this.selectedGameVersions = this.selectedGameVersions.filter((version) =>
+        this.getValidVersions().some(
+          (validVersion) => validVersion.version === version
+        )
+      )
+
       const temp = this.versions.filter(
         (projectVersion) =>
           (this.selectedGameVersions.length === 0 ||
@@ -152,16 +160,6 @@ export default {
       )
       this.updateQuery()
       this.$emit('updateVersions', temp)
-    },
-    validateFilters() {
-      this.selectedLoaders = this.selectedLoaders.filter((loader) =>
-        this.getValidLoaders().includes(loader)
-      )
-      this.selectedGameVersions = this.selectedGameVersions.filter((version) =>
-        this.getValidVersions().some(
-          (validVersion) => validVersion.version === version
-        )
-      )
     },
     updateQuery() {
       this.$router
