@@ -53,9 +53,7 @@
           <li v-if="!savingAsDraft && project.versions.length < 1">
             Your project must have at least one version to submit for review.
           </li>
-          <li v-if="license.spdx === ''">
-            Your project must have a license.
-          </li>
+          <li v-if="license.spdx === ''">Your project must have a license.</li>
         </ul>
       </div>
     </header>
@@ -616,14 +614,6 @@ export default {
   fetch() {
     this.newProject = this.project
 
-    const existingLicense = this.defaultLicenses.find(
-      (x) => x.spdx === this.newProject.license.id
-    )
-    this.license =
-      typeof existingLicense === 'undefined'
-        ? { friendly: 'Custom', spdx: this.newProject.license.id }
-        : existingLicense
-
     if (this.newProject.donation_urls) {
       for (const platform of this.newProject.donation_urls) {
         this.donationPlatforms.push({
@@ -633,6 +623,10 @@ export default {
         this.donationLinks.push(platform.url)
       }
     }
+
+    this.license = this.defaultLicenses.find(
+      (x) => x.spdx === this.newProject.license.id
+    ) ?? { friendly: 'Custom', spdx: this.newProject.license.id }
 
     this.clientSideType =
       this.newProject.client_side.charAt(0) +
@@ -759,7 +753,7 @@ export default {
         }
 
         this.newProject.license = {
-          id: this.newProject.license.id,
+          id: this.license.spdx,
           url: this.newProject.license.url,
         }
 
