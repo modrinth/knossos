@@ -53,7 +53,7 @@
           <li v-if="!savingAsDraft && project.versions.length < 1">
             Your project must have at least one version to submit for review.
           </li>
-          <li v-if="newProject.license.id === ''">
+          <li v-if="license.spdx === ''">
             Your project must have a license.
           </li>
         </ul>
@@ -397,7 +397,7 @@
             >SPDX license identifier</a
           >, and you may also provide a URL to your chosen license.
           <br />
-          <span v-if="selectedLicense && selectedLicense.friendly === 'Custom'">
+          <span v-if="license && license.friendly === 'Custom'">
             To choose a custom license without a SPDX identifier, use
             <code>LicenseRef-License-Name-Here</code>.
             <br />
@@ -415,7 +415,7 @@
         </span>
         <div class="legacy-input-group">
           <Multiselect
-            v-model="selectedLicense"
+            v-model="license"
             placeholder="Select license (scroll down for GNU licenses)"
             track-by="spdx"
             label="friendly"
@@ -424,20 +424,20 @@
             :close-on-select="true"
             :show-labels="false"
             :class="{
-              'known-error': selectedLicense.spdx === '' && showKnownErrors,
+              'known-error': license.spdx === '' && showKnownErrors,
             }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
           />
           <input
-            v-if="selectedLicense.friendly === 'Custom'"
-            v-model="selectedLicense.spdx"
+            v-if="license.friendly === 'Custom'"
+            v-model="license.spdx"
             type="text"
             maxlength="2048"
             placeholder="SPDX identifier"
             :class="{
-              'known-error': selectedLicense.spdx === '' && showKnownErrors,
+              'known-error': license.spdx === '' && showKnownErrors,
             }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -588,7 +588,7 @@ export default {
         { friendly: 'GNU GPLv3 only', spdx: 'GPL-3.0-only' },
         { friendly: 'GNU GPLv3 or later', spdx: 'GPL-3.0-or-later' },
       ],
-      selectedLicense: { friendly: '', spdx: '' },
+      license: { friendly: '', spdx: '' },
 
       donationPlatforms: [],
       donationLinks: [],
@@ -619,7 +619,7 @@ export default {
     const existingLicense = this.defaultLicenses.find(
       (x) => x.spdx === this.newProject.license.id
     )
-    this.selectedLicense =
+    this.license =
       typeof existingLicense === 'undefined'
         ? { friendly: 'Custom', spdx: this.newProject.license.id }
         : existingLicense
@@ -725,7 +725,7 @@ export default {
           discord_url: this.newProject.discord_url
             ? this.newProject.discord_url
             : null,
-          license_id: this.selectedLicense.spdx,
+          license_id: this.license.spdx,
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
           slug: this.newProject.slug,
