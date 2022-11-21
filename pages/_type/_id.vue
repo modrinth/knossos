@@ -11,7 +11,7 @@
         'alt-layout': $cosmetics.projectLayout,
       }"
     >
-      <aside class="normal-page__sidebar">
+      <article class="normal-page__sidebar">
         <div class="header card">
           <nuxt-link
             :to="
@@ -506,7 +506,7 @@
             </div>
           </div>
         </div>
-      </aside>
+      </article>
       <section class="normal-page__content">
         <div
           v-if="project.status === 'unlisted'"
@@ -520,7 +520,7 @@
           Modrinth makes no guarantees as to whether {{ project.title }} is safe
           for use in a multiplayer context.
         </div>
-        <div
+        <diva
           v-if="project.status === 'archived'"
           class="card warning"
           aria-label="Warning"
@@ -528,7 +528,7 @@
           {{ project.title }} has been archived by the project author.
           {{ project.title }} will not receive any further updates unless the
           author decides to unarchive the project.
-        </div>
+        </diva>
         <div
           v-if="project.status === 'abandoned'"
           class="card warning"
