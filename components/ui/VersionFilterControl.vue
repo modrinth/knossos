@@ -96,7 +96,7 @@ export default {
       selectedLoaders: [],
     }
   },
-  mounted() {
+  fetch() {
     this.selectedLoaders = this.getQueryAsArray(this.$route.query.l)
     this.selectedGameVersions = this.getQueryAsArray(this.$route.query.g)
     this.showSnapshots = this.$route.query.s === 'true'
