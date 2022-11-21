@@ -48,6 +48,7 @@
       label="Include snapshots"
       description="Include snapshots"
       :border="false"
+      @input="updateQuery"
     />
     <button
       title="Clear filters"
@@ -94,11 +95,6 @@ export default {
       selectedGameVersions: [],
       selectedLoaders: [],
     }
-  },
-  watch: {
-    showSnapshots() {
-      this.updateQuery()
-    },
   },
   mounted() {
     this.selectedLoaders = this.getQueryAsArray(this.$route.query.loaders)
