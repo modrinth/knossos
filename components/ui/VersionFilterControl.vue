@@ -164,18 +164,18 @@ export default {
         .replace({
           query: {
             ...this.$route.query,
-            l: this.getAsQuery(this.selectedLoaders),
-            g: this.getAsQuery(this.selectedGameVersions),
+            l:
+              this.selectedLoaders.length === 0
+                ? undefined
+                : this.selectedLoaders.join(','),
+            g:
+              this.selectedGameVersions.length === 0
+                ? undefined
+                : this.selectedGameVersions.join(','),
             s: this.showSnapshots ? true : undefined,
           },
         })
         .catch(() => {})
-    },
-    getAsQuery(elements) {
-      if (elements.length === 0) {
-        return undefined
-      }
-      return elements.join(',')
     },
   },
 }
