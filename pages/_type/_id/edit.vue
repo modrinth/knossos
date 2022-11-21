@@ -419,26 +419,7 @@
             placeholder="Select license (scroll down for GNU licenses)"
             track-by="spdx"
             label="friendly"
-            :options="[
-              { friendly: 'Custom', spdx: '' },
-              { friendly: 'All Rights Reserved/No License', spdx: 'ARR' },
-              { friendly: 'Apache License 2.0', spdx: 'Apache-2.0' },
-              { friendly: 'BSD 2-Clause', spdx: 'BSD-2-Clause' },
-              { friendly: 'BSD 3-Clause', spdx: 'BSD-3-Clause' },
-              { friendly: 'Creative Commons Zero v1.0', spdx: 'CC0-1.0' },
-              { friendly: 'ISC License', spdx: 'ISC' },
-              { friendly: 'MIT License', spdx: 'MIT' },
-              { friendly: 'Mozilla Public License 2.0', spdx: 'MPL-2.0' },
-              { friendly: 'zlib License', spdx: 'Zlib' },
-              { friendly: 'GNU LGPL v2.1 only', spdx: 'LGPL-2.1-only' },
-              { friendly: 'GNU LGPL v2.1 or later', spdx: 'LGPL-2.1-or-later' },
-              { friendly: 'GNU LGPL v3.0 only', spdx: 'LGPL-3.0-only' },
-              { friendly: 'GNU LGPL v3.0 or later', spdx: 'LGPL-3.0-or-later' },
-              { friendly: 'GNU GPL v2 only', spdx: 'GPL-2.0-only' },
-              { friendly: 'GNU GPL v2 or later', spdx: 'GPL-2.0-or-later' },
-              { friendly: 'GNU GPL v3 only', spdx: 'GPL-3.0-only' },
-              { friendly: 'GNU GPL v3 or later', spdx: 'GPL-3.0-or-later' },
-            ]"
+            :options="defaultLicenses"
             :searchable="true"
             :close-on-select="true"
             :show-labels="false"
@@ -584,6 +565,29 @@ export default {
       clientSideType: '',
       serverSideType: '',
 
+      defaultLicenses: [
+        { friendly: 'Custom', spdx: '' },
+        {
+          friendly: 'All Rights Reserved/No License',
+          spdx: 'LicenseRef-All-Rights-Reserved',
+        },
+        { friendly: 'Apache License 2.0', spdx: 'Apache-2.0' },
+        { friendly: 'BSD 2-Clause', spdx: 'BSD-2-Clause' },
+        { friendly: 'BSD 3-Clause', spdx: 'BSD-3-Clause' },
+        { friendly: 'Creative Commons Zero v1.0', spdx: 'CC0-1.0' },
+        { friendly: 'ISC License', spdx: 'ISC' },
+        { friendly: 'MIT License', spdx: 'MIT' },
+        { friendly: 'Mozilla Public License 2.0', spdx: 'MPL-2.0' },
+        { friendly: 'zlib License', spdx: 'Zlib' },
+        { friendly: 'GNU LGPL v2.1 only', spdx: 'LGPL-2.1-only' },
+        { friendly: 'GNU LGPL v2.1 or later', spdx: 'LGPL-2.1-or-later' },
+        { friendly: 'GNU LGPL v3.0 only', spdx: 'LGPL-3.0-only' },
+        { friendly: 'GNU LGPL v3.0 or later', spdx: 'LGPL-3.0-or-later' },
+        { friendly: 'GNU GPL v2 only', spdx: 'GPL-2.0-only' },
+        { friendly: 'GNU GPL v2 or later', spdx: 'GPL-2.0-or-later' },
+        { friendly: 'GNU GPL v3 only', spdx: 'GPL-3.0-only' },
+        { friendly: 'GNU GPL v3 or later', spdx: 'GPL-3.0-or-later' },
+      ],
       selectedLicense: { friendly: '', spdx: '' },
 
       donationPlatforms: [],
@@ -612,12 +616,13 @@ export default {
   fetch() {
     this.newProject = this.project
 
-    this.selectedLicense = {
-      friendly: this.newProject.license.id,
-      spdx: this.newProject.license.id,
-    }
-    if (this.selectedLicense.friendly === 'LicenseRef-Custom')
-      this.selectedLicense = { friendly: 'Custom', spdx: '' }
+    const existingLicense = this.defaultLicenses.find(
+      (x) => x.spdx === this.newProject.license.id
+    )
+    this.selectedLicense =
+      typeof existingLicense === 'undefined'
+        ? { friendly: 'Custom', spdx: this.newProject.license.id }
+        : existingLicense
 
     if (this.newProject.donation_urls) {
       for (const platform of this.newProject.donation_urls) {
