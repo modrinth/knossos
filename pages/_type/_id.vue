@@ -1051,11 +1051,6 @@ export default {
       this.projectTypeDisplay.charAt(0).toUpperCase() +
       this.projectTypeDisplay.slice(1)
     }`
-    const description = `${this.project.description} - Download the Minecraft ${
-      this.projectTypeDisplay
-    } ${this.project.title} by ${
-      this.members.find((x) => x.role === 'Owner').user.username
-    } on Modrinth`
 
     return {
       title,
@@ -1073,12 +1068,16 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: description,
+          content: this.project.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: description,
+          content: `${this.project.description} - Download the Minecraft ${
+            this.projectTypeDisplay
+          } ${this.project.title} by ${
+            this.members.find((x) => x.role === 'Owner').user.username
+          } on Modrinth`,
         },
         {
           hid: 'og:image',
