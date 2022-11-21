@@ -387,8 +387,8 @@
       </div>
       <label>
         <span>
-          It is very important to choose a proper license for your mod. You must
-          provide a valid
+          It is very important to choose a proper license for your mod. You may
+          choose one from our list or provide a custom
           <a
             href="https://spdx.org/licenses/"
             target="_blank"
@@ -397,10 +397,11 @@
             >SPDX license identifier</a
           >, and you may also provide a URL to your chosen license.
           <br />
-          To choose a custom license without a SPDX identifier, either use
-          <code>ARR</code> for no license/all rights reserved or use
-          <code>LicenseRef-License-Name-Here</code>.
-          <br />
+          <span v-if="selectedLicense && selectedLicense.friendly === 'Custom'">
+            To choose a custom license without a SPDX identifier, use
+            <code>LicenseRef-License-Name-Here</code>.
+            <br />
+          </span>
           Confused? See our
           <a
             href="https://blog.modrinth.com/licensing-guide/"
@@ -413,13 +414,49 @@
           for more information.
         </span>
         <div class="legacy-input-group">
+          <Multiselect
+            v-model="selectedLicense"
+            placeholder="Select license (scroll down for GNU licenses)"
+            track-by="spdx"
+            label="friendly"
+            :options="[
+              { friendly: 'Custom', spdx: '' },
+              { friendly: 'All Rights Reserved/No License', spdx: 'ARR' },
+              { friendly: 'Apache License 2.0', spdx: 'Apache-2.0' },
+              { friendly: 'BSD 2-Clause', spdx: 'BSD-2-Clause' },
+              { friendly: 'BSD 3-Clause', spdx: 'BSD-3-Clause' },
+              { friendly: 'Creative Commons Zero v1.0', spdx: 'CC0-1.0' },
+              { friendly: 'ISC License', spdx: 'ISC' },
+              { friendly: 'MIT License', spdx: 'MIT' },
+              { friendly: 'Mozilla Public License 2.0', spdx: 'MPL-2.0' },
+              { friendly: 'zlib License', spdx: 'Zlib' },
+              { friendly: 'GNU LGPL v2.1 only', spdx: 'LGPL-2.1-only' },
+              { friendly: 'GNU LGPL v2.1 or later', spdx: 'LGPL-2.1-or-later' },
+              { friendly: 'GNU LGPL v3.0 only', spdx: 'LGPL-3.0-only' },
+              { friendly: 'GNU LGPL v3.0 or later', spdx: 'LGPL-3.0-or-later' },
+              { friendly: 'GNU GPL v2 only', spdx: 'GPL-2.0-only' },
+              { friendly: 'GNU GPL v2 or later', spdx: 'GPL-2.0-or-later' },
+              { friendly: 'GNU GPL v3 only', spdx: 'GPL-3.0-only' },
+              { friendly: 'GNU GPL v3 or later', spdx: 'GPL-3.0-or-later' },
+            ]"
+            :searchable="true"
+            :close-on-select="true"
+            :show-labels="false"
+            :class="{
+              'known-error': selectedLicense.spdx === '' && showKnownErrors,
+            }"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          />
           <input
-            v-model="newProject.license.id"
+            v-if="selectedLicense.friendly === 'Custom'"
+            v-model="selectedLicense.spdx"
             type="text"
             maxlength="2048"
             placeholder="SPDX identifier"
             :class="{
-              'known-error': newProject.license.id === '' && showKnownErrors,
+              'known-error': selectedLicense.spdx === '' && showKnownErrors,
             }"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -547,6 +584,8 @@ export default {
       clientSideType: '',
       serverSideType: '',
 
+      selectedLicense: { friendly: '', spdx: '' },
+
       donationPlatforms: [],
       donationLinks: [],
 
@@ -572,6 +611,13 @@ export default {
   },
   fetch() {
     this.newProject = this.project
+
+    this.selectedLicense = {
+      friendly: this.newProject.license.id,
+      spdx: this.newProject.license.id,
+    }
+    if (this.selectedLicense.friendly === 'LicenseRef-Custom')
+      this.selectedLicense = { friendly: 'Custom', spdx: '' }
 
     if (this.newProject.donation_urls) {
       for (const platform of this.newProject.donation_urls) {
@@ -674,7 +720,7 @@ export default {
           discord_url: this.newProject.discord_url
             ? this.newProject.discord_url
             : null,
-          license_id: this.newProject.license.id,
+          license_id: this.selectedLicense.spdx,
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
           slug: this.newProject.slug,
