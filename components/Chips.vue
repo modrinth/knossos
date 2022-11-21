@@ -7,20 +7,15 @@
       :class="{ selected: selected === item }"
       @click="toggleItem(item)"
     >
-      <CheckIcon v-if="selected === item" />
+      <IconCheck v-if="selected === item" />
       <span>{{ formatLabel(item) }}</span>
     </button>
   </div>
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-
 export default {
   name: 'Chips',
-  components: {
-    CheckIcon,
-  },
   props: {
     value: {
       required: true,

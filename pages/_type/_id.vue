@@ -46,7 +46,7 @@
               "
               class="side-descriptor"
             >
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               Universal {{ projectTypeDisplay }}
             </div>
             <div
@@ -58,7 +58,7 @@
               "
               class="side-descriptor"
             >
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               Client {{ projectTypeDisplay }}
             </div>
             <div
@@ -70,7 +70,7 @@
               "
               class="side-descriptor"
             >
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               Server {{ projectTypeDisplay }}
             </div>
           </div>
@@ -85,7 +85,7 @@
           />
           <hr class="card-divider" />
           <div class="primary-stat">
-            <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+            <IconDownload class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
               <span class="primary-stat__counter">
                 {{ $formatNumber(project.downloads) }}
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="primary-stat">
-            <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+            <IconHeart class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
               <span class="primary-stat__counter">
                 {{ $formatNumber(project.followers) }}
@@ -109,7 +109,7 @@
               "
               class="date"
             >
-              <CalendarIcon aria-hidden="true" />
+              <IconCalendar aria-hidden="true" />
               <span class="label">Created</span>
               <span class="value">{{
                 $dayjs(project.published).fromNow()
@@ -121,7 +121,7 @@
               "
               class="date"
             >
-              <UpdateIcon aria-hidden="true" />
+              <IconUpdate aria-hidden="true" />
               <span class="label">Updated</span>
               <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
             </div>
@@ -133,7 +133,7 @@
                 class="iconified-button"
                 @click="$refs.modal_project_report.show()"
               >
-                <ReportIcon aria-hidden="true" />
+                <IconReport aria-hidden="true" />
                 Report
               </button>
               <button
@@ -141,7 +141,7 @@
                 class="iconified-button"
                 @click="$store.dispatch('user/followProject', project)"
               >
-                <HeartIcon aria-hidden="true" />
+                <IconHeart aria-hidden="true" />
                 Follow
               </button>
               <button
@@ -149,17 +149,17 @@
                 class="iconified-button"
                 @click="$store.dispatch('user/unfollowProject', project)"
               >
-                <HeartIcon fill="currentColor" aria-hidden="true" />
+                <IconHeart fill="currentColor" aria-hidden="true" />
                 Unfollow
               </button>
             </template>
             <template v-else>
               <a class="iconified-button" :href="authUrl">
-                <ReportIcon aria-hidden="true" />
+                <IconReport aria-hidden="true" />
                 Report
               </a>
               <a class="iconified-button" :href="authUrl">
-                <HeartIcon fill="currentColor" aria-hidden="true" />
+                <IconHeart fill="currentColor" aria-hidden="true" />
                 Follow
               </a>
             </template>
@@ -238,7 +238,7 @@
               class="iconified-button brand-button"
               @click="submitForReview"
             >
-              <CheckIcon />
+              <IconCheck />
               Resubmit for review
             </button>
             <button
@@ -246,7 +246,7 @@
               class="iconified-button brand-button"
               @click="submitForReview"
             >
-              <CheckIcon />
+              <IconCheck />
               Submit for review
             </button>
             <button
@@ -254,7 +254,7 @@
               class="iconified-button"
               @click="clearMessage"
             >
-              <ClearIcon />
+              <IconClear />
               Clear message
             </button>
           </div>
@@ -288,7 +288,7 @@
                 class="title"
                 :target="$external()"
               >
-                <IssuesIcon aria-hidden="true" />
+                <IconWarning aria-hidden="true" />
                 <span>Issues</span>
               </a>
               <a
@@ -297,7 +297,7 @@
                 class="title"
                 :target="$external()"
               >
-                <CodeIcon aria-hidden="true" />
+                <IconCode aria-hidden="true" />
                 <span>Source</span>
               </a>
               <a
@@ -306,7 +306,7 @@
                 class="title"
                 :target="$external()"
               >
-                <WikiIcon aria-hidden="true" />
+                <IconWiki aria-hidden="true" />
                 <span>Wiki</span>
               </a>
               <a
@@ -343,8 +343,8 @@
                   v-else-if="donation.id === 'open-collective'"
                   aria-hidden="true"
                 />
-                <HeartIcon v-else-if="donation.id === 'github'" />
-                <UnknownIcon v-else />
+                <IconHeart v-else-if="donation.id === 'github'" />
+                <IconDollar v-else />
                 <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
                 <span v-else-if="donation.id === 'patreon'">Patreon</span>
                 <span v-else-if="donation.id === 'paypal'">PayPal</span>
@@ -368,7 +368,7 @@
                 class="goto-link"
               >
                 See all
-                <ChevronRightIcon
+                <IconChevronRight
                   class="featured-header-chevron"
                   aria-hidden="true"
                 />
@@ -398,7 +398,7 @@
                 :title="`Download ${version.name}`"
                 @click.stop="(event) => event.stopPropagation()"
               >
-                <DownloadIcon aria-hidden="true" />
+                <IconDownload aria-hidden="true" />
               </a>
               <div class="info">
                 <nuxt-link
@@ -628,7 +628,7 @@
                 class="title"
                 :target="$external()"
               >
-                <IssuesIcon aria-hidden="true" />
+                <IconWarning aria-hidden="true" />
                 <span>Issues</span>
               </a>
               <a
@@ -637,7 +637,7 @@
                 class="title"
                 :target="$external()"
               >
-                <CodeIcon aria-hidden="true" />
+                <IconCode aria-hidden="true" />
                 <span>Source</span>
               </a>
               <a
@@ -646,7 +646,7 @@
                 class="title"
                 :target="$external()"
               >
-                <WikiIcon aria-hidden="true" />
+                <IconWiki aria-hidden="true" />
                 <span>Wiki</span>
               </a>
               <a
@@ -654,7 +654,7 @@
                 :href="project.discord_url"
                 :target="$external()"
               >
-                <DiscordIcon class="shrink" aria-hidden="true" />
+                <ExternalDiscord class="shrink" aria-hidden="true" />
                 <span>Discord</span>
               </a>
               <a
@@ -663,28 +663,28 @@
                 :href="donation.url"
                 :target="$external()"
               >
-                <BuyMeACoffeeLogo
+                <ExternalBuyMeACoffee
                   v-if="donation.id === 'bmac'"
                   aria-hidden="true"
                 />
-                <PatreonIcon
+                <ExternalPatreon
                   v-else-if="donation.id === 'patreon'"
                   aria-hidden="true"
                 />
-                <KoFiIcon
+                <ExternalKoFi
                   v-else-if="donation.id === 'ko-fi'"
                   aria-hidden="true"
                 />
-                <PayPalIcon
+                <ExternalPayPal
                   v-else-if="donation.id === 'paypal'"
                   aria-hidden="true"
                 />
-                <OpenCollectiveIcon
+                <ExternalOpenCollective
                   v-else-if="donation.id === 'open-collective'"
                   aria-hidden="true"
                 />
-                <HeartIcon v-else-if="donation.id === 'github'" />
-                <UnknownIcon v-else />
+                <IconHeart v-else-if="donation.id === 'github'" />
+                <IconDollar v-else />
                 <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
                 <span v-else-if="donation.id === 'patreon'">Patreon</span>
                 <span v-else-if="donation.id === 'paypal'">PayPal</span>
@@ -708,7 +708,7 @@
                 class="goto-link"
               >
                 See all
-                <ChevronRightIcon
+                <IconChevronRight
                   class="featured-header-chevron"
                   aria-hidden="true"
                 />
@@ -738,7 +738,7 @@
                 :title="`Download ${version.name}`"
                 @click.stop="(event) => event.stopPropagation()"
               >
-                <DownloadIcon aria-hidden="true" />
+                <IconDownload aria-hidden="true" />
               </a>
               <div class="info">
                 <nuxt-link
@@ -852,48 +852,7 @@
 </template>
 
 <script>
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
-import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
-import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
-import DiscordIcon from '~/assets/images/external/discord.svg?inline'
-import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
-import PatreonIcon from '~/assets/images/external/patreon.svg?inline'
-import KoFiIcon from '~/assets/images/external/kofi.svg?inline'
-import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
-import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
-import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
-
 export default {
-  components: {
-    IssuesIcon,
-    DownloadIcon,
-    CalendarIcon,
-    CheckIcon,
-    ClearIcon,
-    UpdateIcon,
-    CodeIcon,
-    ReportIcon,
-    HeartIcon,
-    InfoIcon,
-    WikiIcon,
-    DiscordIcon,
-    BuyMeACoffeeLogo,
-    PayPalIcon,
-    OpenCollectiveIcon,
-    UnknownIcon,
-    PatreonIcon,
-    KoFiIcon,
-    ChevronRightIcon,
-  },
   async asyncData(data) {
     try {
       if (

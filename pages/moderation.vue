@@ -43,11 +43,11 @@
               currentProject = null
             "
           >
-            <CrossIcon />
+            <IconCross />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="saveProject">
-            <CheckIcon />
+            <IconCheck />
             Confirm
           </button>
         </div>
@@ -92,21 +92,21 @@
               class="iconified-button"
               @click="setProjectStatus(project, 'approved')"
             >
-              <CheckIcon />
+              <IconCheck />
               Approve
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'unlisted')"
             >
-              <UnlistIcon />
+              <IconEyeOff />
               Unlist
             </button>
             <button
               class="iconified-button"
               @click="setProjectStatus(project, 'rejected')"
             >
-              <CrossIcon />
+              <IconCross />
               Reject
             </button>
           </ProjectCard>
@@ -140,7 +140,7 @@
             </div>
             <div class="actions">
               <button class="iconified-button" @click="deleteReport(index)">
-                <TrashIcon /> Delete report
+                <IconTrash /> Delete report
               </button>
               <span
                 v-tooltip="
@@ -150,14 +150,14 @@
                 "
                 class="stat"
               >
-                <CalendarIcon />
+                <IconCalendar />
                 Created {{ $dayjs(item.created).fromNow() }}
               </span>
             </div>
           </div>
         </div>
         <div v-if="reports.length === 0 && projects.length === 0" class="error">
-          <Security class="icon"></Security>
+          <IllustrationSecurity class="icon" />
           <br />
           <span class="text">You are up-to-date!</span>
         </div>
@@ -167,23 +167,8 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import UnlistIcon from '~/assets/images/utils/eye-off.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import Security from '~/assets/images/illustrations/security.svg?inline'
-
 export default {
   name: 'Moderation',
-  components: {
-    CheckIcon,
-    CrossIcon,
-    UnlistIcon,
-    Security,
-    TrashIcon,
-    CalendarIcon,
-  },
   async asyncData(data) {
     const [projects, reports] = (
       await Promise.all([

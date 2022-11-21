@@ -5,20 +5,16 @@
         <h1>Dashboard<span class="beta-badge">BETA</span></h1>
         <NavStack>
           <NavStackItem link="/dashboard" label="Overview">
-            <DashboardIcon />
+            <IconDashboard />
           </NavStackItem>
           <!--          <NavStackItem link="/dashboard/projects" label="Projects">-->
-          <!--            <ListIcon />-->
+          <!--            <IconList />-->
           <!--          </NavStackItem>-->
           <!--          <NavStackItem link="/dashboard/analytics" label="Analytics">-->
-          <!--            <ChartIcon />-->
+          <!--            <IconChart />-->
           <!--          </NavStackItem>-->
-          <NavStackItem
-            v-if="hasMonetization()"
-            link="/dashboard/revenue"
-            label="Revenue"
-          >
-            <CurrencyIcon />
+          <NavStackItem link="/dashboard/revenue" label="Revenue">
+            <IconCurrency />
           </NavStackItem>
         </NavStack>
       </aside>
@@ -30,26 +26,8 @@
 </template>
 
 <script>
-import DashboardIcon from '~/assets/images/utils/dashboard.svg?inline'
-// import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
-// import ListIcon from '~/assets/images/utils/list.svg?inline'
-
-const monetization = true
-
 export default {
   name: 'Dashboard',
-  components: {
-    DashboardIcon,
-    // ChartIcon,
-    CurrencyIcon,
-    // ListIcon,
-  },
-  methods: {
-    hasMonetization() {
-      return monetization
-    },
-  },
 }
 </script>
 

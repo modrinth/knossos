@@ -7,7 +7,7 @@
       :href="linkFunction(page - 1)"
       @click.prevent="page !== 1 ? switchPage(page - 1) : null"
     >
-      <LeftArrowIcon />
+      <IconLeftArrow />
     </a>
     <div
       v-for="(item, index) in pages"
@@ -19,7 +19,7 @@
       class="page-number-container"
     >
       <div v-if="item === '-'" class="has-icon">
-        <GapIcon />
+        <IconGap />
       </div>
       <a
         v-else
@@ -45,23 +45,14 @@
         page !== pages[pages.length - 1] ? switchPage(page + 1) : null
       "
     >
-      <RightArrowIcon />
+      <IconRightArrow />
     </a>
   </div>
 </template>
 
 <script>
-import GapIcon from '~/assets/images/utils/gap.svg?inline'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-
 export default {
   name: 'Pagination',
-  components: {
-    GapIcon,
-    LeftArrowIcon,
-    RightArrowIcon,
-  },
   props: {
     page: {
       type: Number,

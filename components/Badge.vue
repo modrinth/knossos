@@ -7,18 +7,18 @@
       ><ModrinthIcon /> Modrinth Team</template
     >
     <template v-else-if="type === 'moderator'"
-      ><ModeratorIcon /> Moderator</template
+      ><IconScales /> Moderator</template
     >
-    <template v-else-if="type === 'creator'"><CreatorIcon /> Creator</template>
-    <template v-else-if="type === 'approved'"><ListIcon /> Listed</template>
-    <template v-else-if="type === 'unlisted'"><EyeOffIcon /> Unlisted</template>
-    <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
+    <template v-else-if="type === 'creator'"><IconBox /> Creator</template>
+    <template v-else-if="type === 'approved'"><IconList /> Listed</template>
+    <template v-else-if="type === 'unlisted'"><IconEyeOff /> Unlisted</template>
+    <template v-else-if="type === 'draft'"><IconFileText /> Draft</template>
     <template v-else-if="type === 'archived'"
-      ><ArchiveIcon /> Archived</template
+      ><IconArchive /> Archived</template
     >
-    <template v-else-if="type === 'rejected'"><CrossIcon /> Rejected</template>
+    <template v-else-if="type === 'rejected'"><IconCross /> Rejected</template>
     <template v-else-if="type === 'processing'"
-      ><ProcessingIcon /> Under review</template
+      ><IconUpdate /> Under review</template
     >
     <template v-else
       ><span class="circle" /> {{ $capitalizeString(type) }}</template
@@ -27,29 +27,11 @@
 </template>
 
 <script>
-import ModrinthIcon from '~/assets/images/logo.svg?inline'
-import ModeratorIcon from '~/assets/images/sidebar/admin.svg?inline'
-import CreatorIcon from '~/assets/images/utils/box.svg?inline'
-import ListIcon from '~/assets/images/utils/list.svg?inline'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg?inline'
-import DraftIcon from '~/assets/images/utils/file-text.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import ArchiveIcon from '~/assets/images/utils/archive.svg?inline'
-import ProcessingIcon from '~/assets/images/utils/updated.svg?inline'
+import ModrinthIcon from '~/assets/brand/logo.svg?inline'
 
 export default {
   name: 'Badge',
-  components: {
-    ModrinthIcon,
-    ListIcon,
-    DraftIcon,
-    EyeOffIcon,
-    ModeratorIcon,
-    CreatorIcon,
-    CrossIcon,
-    ArchiveIcon,
-    ProcessingIcon,
-  },
+  components: { ModrinthIcon },
   props: {
     type: {
       type: String,

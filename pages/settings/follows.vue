@@ -19,13 +19,13 @@
         class="iconified-button"
         @click="$store.dispatch('user/unfollowProject', project)"
       >
-        <HeartIcon />
+        <IconHeart />
         Unfollow
       </button>
     </ProjectCard>
   </div>
   <div v-else class="error">
-    <FollowIllustration class="icon" />
+    <IllustrationFollow class="icon" />
     <br />
     <span class="text"
       >You don't have any followed projects. <br />
@@ -36,14 +36,7 @@
 </template>
 
 <script>
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg?inline'
-
 export default {
-  components: {
-    HeartIcon,
-    FollowIllustration,
-  },
   async fetch() {
     await this.$store.dispatch('user/fetchFollows')
   },

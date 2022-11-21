@@ -27,11 +27,11 @@
             class="iconified-button brand-button"
             @click="$refs.modal_transfer.show()"
           >
-            <TransferIcon /> Transfer to
+            <IconTransfer /> Transfer to
             {{ $formatWallet($auth.user.payout_data.payout_wallet) }}
           </button>
           <NuxtLink class="iconified-button" to="/settings/monetization">
-            <SettingsIcon /> Monetization settings
+            <IconSettings /> Monetization settings
           </NuxtLink>
         </div>
       </div>
@@ -48,7 +48,7 @@
       </p>
       <div v-if="!enrolled">
         <NuxtLink class="iconified-button" to="/settings/monetization">
-          <SettingsIcon /> Enroll in the Creator Monetization Program
+          <IconSettings /> Enroll in the Creator Monetization Program
         </NuxtLink>
       </div>
     </section>
@@ -96,11 +96,7 @@
 </template>
 
 <script>
-import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-
 export default {
-  components: { TransferIcon, SettingsIcon },
   data() {
     return {
       minWithdraw: 0.26,

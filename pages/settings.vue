@@ -5,22 +5,22 @@
         <h1>Settings</h1>
         <NavStack>
           <NavStackItem link="/settings" label="Appearance">
-            <PaintbrushIcon />
+            <IconPaintbrush />
           </NavStackItem>
           <template v-if="$auth.user">
             <h3>User settings</h3>
             <NavStackItem link="/settings/account" label="Account">
-              <UserIcon />
+              <IconUser />
             </NavStackItem>
             <NavStackItem link="/settings/follows" label="Followed projects">
-              <HeartIcon />
+              <IconHeart />
             </NavStackItem>
             <NavStackItem
               link="/settings/monetization"
               label="Monetization"
               beta
             >
-              <CurrencyIcon />
+              <IconCurrency />
             </NavStackItem>
           </template>
         </NavStack>
@@ -33,19 +33,8 @@
 </template>
 
 <script>
-import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
-
 export default {
   name: 'Settings',
-  components: {
-    PaintbrushIcon,
-    UserIcon,
-    HeartIcon,
-    CurrencyIcon,
-  },
 }
 </script>
 

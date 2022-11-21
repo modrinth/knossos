@@ -19,7 +19,7 @@
           >
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
-          <!--            <ChevronRightIcon-->
+          <!--            <IconChevronRight-->
           <!--              class="featured-header-chevron"-->
           <!--              aria-hidden="true"-->
           <!--          /></NuxtLink>-->
@@ -42,7 +42,7 @@
           >
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
-          <!--            <ChevronRightIcon-->
+          <!--            <IconChevronRight-->
           <!--              class="featured-header-chevron"-->
           <!--              aria-hidden="true"-->
           <!--          /></NuxtLink>-->
@@ -53,7 +53,7 @@
           <span>{{ $formatMoney(payouts.last_month) }} this month</span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
-          <!--            <ChevronRightIcon-->
+          <!--            <IconChevronRight-->
           <!--              class="featured-header-chevron"-->
           <!--              aria-hidden="true"-->
           <!--          /></NuxtLink>-->
@@ -68,7 +68,7 @@
             class="goto-link"
             to="/dashboard/revenue"
             >Withdraw earnings
-            <ChevronRightIcon
+            <IconChevronRight
               class="featured-header-chevron"
               aria-hidden="true"
           /></NuxtLink>
@@ -87,10 +87,7 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
-
 export default {
-  components: { ChevronRightIcon },
   async asyncData(data) {
     const [payouts] = (
       await Promise.all([

@@ -63,11 +63,11 @@
       </div>
       <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <IconCross />
           Cancel
         </button>
         <button class="iconified-button brand-button" @click="createProject">
-          <CheckIcon />
+          <IconRightArrow />
           Continue
         </button>
       </div>
@@ -76,15 +76,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/right-arrow.svg?inline'
-
 export default {
   name: 'ModalCreation',
-  components: {
-    CrossIcon,
-    CheckIcon,
-  },
   props: {
     itemType: {
       type: String,

@@ -32,7 +32,7 @@
               class="iconified-button"
               @click="isEditing = true"
             >
-              <EditIcon />
+              <IconEdit />
               Edit
             </button>
             <button
@@ -40,11 +40,11 @@
               class="iconified-button"
               @click="$refs.modal_report.show()"
             >
-              <ReportIcon aria-hidden="true" />
+              <IconReport aria-hidden="true" />
               Report
             </button>
             <a v-else class="iconified-button" :href="authUrl">
-              <ReportIcon aria-hidden="true" />
+              <IconReport aria-hidden="true" />
               Report
             </a>
           </div>
@@ -80,13 +80,13 @@
                   icon = null
                 "
               >
-                <CrossIcon /> Cancel
+                <IconCross /> Cancel
               </button>
               <button
                 class="iconified-button brand-button"
                 @click="saveChanges"
               >
-                <SaveIcon /> Save
+                <IconSave /> Save
               </button>
             </div>
           </template>
@@ -103,21 +103,21 @@
             }}</span>
             <hr class="card-divider" />
             <div class="primary-stat">
-              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+              <IconDownload class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">{{ sumDownloads() }}</span>
                 downloads
               </div>
             </div>
             <div class="primary-stat">
-              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+              <IconHeart class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">{{ sumFollows() }}</span>
                 followers of projects
               </div>
             </div>
             <div class="stats-block__item secondary-stat">
-              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
+              <IconSunrise class="secondary-stat__icon" aria-hidden="true" />
               <span
                 v-tooltip="
                   $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
@@ -129,7 +129,7 @@
             </div>
             <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
-              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
+              <IconUser class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text">
                 User ID: <CopyCode :text="user.id" />
               </span>
@@ -139,7 +139,7 @@
               :target="$external()"
               class="sidebar__item github-button iconified-button"
             >
-              <GitHubIcon aria-hidden="true" />
+              <ExternalGitHub aria-hidden="true" />
               View GitHub profile
             </a>
           </template>
@@ -168,7 +168,7 @@
             class="iconified-button brand-button"
             @click="$refs.modal_creation.show()"
           >
-            <PlusIcon />
+            <IconPlus />
             Create a project
           </button>
         </nav>
@@ -206,13 +206,13 @@
                 project.slug ? project.slug : project.id
               }/settings`"
             >
-              <SettingsIcon />
+              <IconSettings />
               Settings
             </nuxt-link>
           </ProjectCard>
         </div>
         <div v-else class="error">
-          <UpToDate class="icon" /><br />
+          <IllustrationUpToDate class="icon" /><br />
           <span v-if="$auth.user && $auth.user.id === user.id" class="text">
             You don't have any projects.<br />
             Would you like to
@@ -228,35 +228,8 @@
 </template>
 
 <script>
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-
 export default {
   auth: false,
-  components: {
-    SunriseIcon,
-    DownloadIcon,
-    GitHubIcon,
-    ReportIcon,
-    SettingsIcon,
-    PlusIcon,
-    UpToDate,
-    UserIcon,
-    EditIcon,
-    HeartIcon,
-    CrossIcon,
-    SaveIcon,
-  },
   async asyncData(data) {
     try {
       const [user, projects] = (

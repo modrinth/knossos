@@ -54,11 +54,11 @@
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <IconCross />
           Cancel
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
-          <CheckIcon />
+          <IconCheck />
           Report
         </button>
       </div>
@@ -68,16 +68,10 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
 
 export default {
   name: 'ModalReport',
-  components: {
-    CrossIcon,
-    CheckIcon,
-    Multiselect,
-  },
+  components: { Multiselect },
   props: {
     itemType: {
       type: String,

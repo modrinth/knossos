@@ -61,7 +61,7 @@
         updateVersionFilters()
       "
     >
-      <ClearIcon />
+      <IconClear />
       Clear filters
     </button>
   </div>
@@ -69,14 +69,10 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 
 export default {
   name: 'VersionFilterControl',
-  components: {
-    Multiselect,
-    ClearIcon,
-  },
+  components: { Multiselect },
   props: {
     versions: {
       type: Array,

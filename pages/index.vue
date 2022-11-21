@@ -3,7 +3,7 @@
     <div class="cover">
       <img
         class="cover-image"
-        src="~/assets/images/landing.svg"
+        src="~/assets/brand/landing.svg"
         width="100%"
         alt="cover-image"
       />
@@ -25,7 +25,7 @@
         <form action="/mods">
           <div class="iconified-input">
             <label class="hidden" for="q">Search Mods</label>
-            <SearchIcon />
+            <IconSearch />
             <input
               id="q"
               type="search"
@@ -35,7 +35,7 @@
             />
           </div>
           <button class="iconified-button brand-button" type="submit">
-            <RightArrowIcon />
+            <IconRightArrow />
             Search
           </button>
         </form>
@@ -88,7 +88,7 @@
             </p>
             <div class="features">
               <div class="feature completed">
-                <CheckIcon />
+                <IconCheck />
                 <p>
                   <a href="https://github.com/modrinth" :target="$external()">
                     100% open source
@@ -96,11 +96,11 @@
                 </p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <IconCheck />
                 <p>Real-time search</p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <IconCheck />
                 <p>
                   <a href="https://docs.modrinth.com" :target="$external()">
                     Completely documented API
@@ -108,46 +108,46 @@
                 </p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <IconCheck />
                 <p>Dependency management</p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <IconCheck />
                 <p>Modpacks</p>
               </div>
               <div class="feature completed">
-                <CheckIcon />
+                <IconCheck />
                 <p>Creator monetization</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <IconUpdate />
                 <p>Creator analytics</p>
               </div>
               <div class="feature in-progress blurred">
-                <InProgressIcon />
+                <IconUpdate />
                 <p>[Redacted]</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <IconUpdate />
                 <p>More types of projects</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <IconUpdate />
                 <p>Game launcher</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <IconUpdate />
                 <p>In-house authentication</p>
               </div>
               <div class="feature in-progress">
-                <InProgressIcon />
+                <IconUpdate />
                 <p>Project comments</p>
               </div>
             </div>
           </div>
         </div>
         <div class="image">
-          <FeaturesIllustration />
+          <IllustrationFeatures />
         </div>
       </div>
       <div class="point">
@@ -209,28 +209,11 @@
 </template>
 
 <script>
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import InProgressIcon from '~/assets/images/utils/updated.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-
-import FeaturesIllustration from '~/assets/images/illustrations/features.svg?inline'
-import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
+import ModrinthLogo from '~/assets/brand/text-logo.svg?inline'
 
 export default {
-  components: {
-    SearchIcon,
-    RightArrowIcon,
-    CheckIcon,
-    InProgressIcon,
-    FeaturesIllustration,
-    ModrinthLogo,
-  },
+  components: { ModrinthLogo },
   auth: false,
-  data() {
-    return {}
-  },
-  methods: {},
 }
 </script>
 

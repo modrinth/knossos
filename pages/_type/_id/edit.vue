@@ -10,7 +10,7 @@
             }/settings`"
             class="iconified-button column"
           >
-            <CrossIcon />
+            <IconCross />
             Cancel
           </nuxt-link>
           <button
@@ -24,7 +24,7 @@
             :disabled="!$nuxt.$loading"
             @click="saveProjectReview"
           >
-            <CheckIcon />
+            <IconCheck />
             Submit for review
           </button>
           <button
@@ -33,7 +33,7 @@
             :disabled="!$nuxt.$loading"
             @click="saveProjectNotForReview"
           >
-            <SaveIcon />
+            <IconSave />
             Save changes
           </button>
         </div>
@@ -223,7 +223,7 @@
           iconChanged = false
         "
       >
-        <RevertIcon />
+        <IconUndo />
         Revert
       </button>
     </section>
@@ -445,7 +445,7 @@
               donationLinks.push('')
             "
           >
-            <PlusIcon />
+            <IconPlus />
             Add a link
           </button>
         </div>
@@ -480,7 +480,7 @@
             donationLinks.splice(index, 1)
           "
         >
-          <TrashIcon />
+          <IconTrash />
           Remove link
         </button>
         <hr
@@ -497,23 +497,8 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import RevertIcon from '~/assets/images/utils/undo.svg?inline'
-
 export default {
-  components: {
-    Multiselect,
-    CrossIcon,
-    CheckIcon,
-    PlusIcon,
-    SaveIcon,
-    TrashIcon,
-    RevertIcon,
-  },
+  components: { Multiselect },
   props: {
     project: {
       type: Object,

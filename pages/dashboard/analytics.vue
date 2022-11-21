@@ -8,15 +8,9 @@
 
 <script>
 export default {
-  components: {},
-  data() {
-    return {}
-  },
-  fetch() {},
   head: {
     title: 'Analytics - Modrinth',
   },
-  methods: {},
 }
 </script>
 <style lang="scss" scoped></style>

@@ -64,10 +64,10 @@
       </div>
       <div class="button-group">
         <NuxtLink class="iconified-button" to="/settings/monetization">
-          <SettingsIcon /> Monetization settings
+          <IconSettings /> Monetization settings
         </NuxtLink>
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <IconCross />
           Cancel
         </button>
         <button
@@ -75,7 +75,7 @@
           :disabled="!consentedFee || !consentedAccount"
           @click="proceed"
         >
-          <TransferIcon />
+          <IconTransfer />
           Transfer
         </button>
       </div>
@@ -84,17 +84,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-
 export default {
   name: 'ModalTransfer',
-  components: {
-    CrossIcon,
-    SettingsIcon,
-    TransferIcon,
-  },
   props: {
     wallet: {
       type: String,

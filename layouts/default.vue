@@ -48,18 +48,18 @@
                 :class="{ bubble: $user.notifications.length > 0 }"
                 title="Notifications"
               >
-                <NotificationIcon aria-hidden="true" />
+                <IconBell aria-hidden="true" />
               </nuxt-link>
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
                 @click="changeTheme"
               >
-                <MoonIcon
+                <IconMoon
                   v-if="$colorMode.value === 'light'"
                   aria-hidden="true"
                 />
-                <SunIcon v-else aria-hidden="true" />
+                <IconSun v-else aria-hidden="true" />
               </button>
               <div
                 v-if="$auth.user"
@@ -78,7 +78,7 @@
                     aria-hidden="true"
                     circle
                   />
-                  <DropdownIcon class="caret" />
+                  <IconDropdown class="caret" />
                 </button>
                 <div class="content card">
                   <NuxtLink
@@ -95,16 +95,16 @@
                     class="item button-transparent"
                     @click="$refs.modal_creation.show()"
                   >
-                    <PlusIcon class="icon" />
+                    <IconPlus class="icon" />
                     <span class="title">Create a project</span>
                   </button>
                   <hr class="divider" />
                   <NuxtLink class="item button-transparent" to="/notifications">
-                    <NotificationIcon class="icon" />
+                    <IconBell class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard">
-                    <ChartIcon class="icon" />
+                    <IconChart class="icon" />
                     <span class="title">Dashboard</span
                     ><span class="beta-badge">BETA</span>
                   </NuxtLink>
@@ -112,11 +112,11 @@
                     class="item button-transparent"
                     to="/settings/follows"
                   >
-                    <HeartIcon class="icon" />
+                    <IconHeart class="icon" />
                     <span class="title">Following</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/settings">
-                    <SettingsIcon class="icon" />
+                    <IconSettings class="icon" />
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
@@ -127,12 +127,12 @@
                     class="item button-transparent"
                     to="/moderation"
                   >
-                    <ModerationIcon class="icon" />
+                    <IconScales class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
                   <hr class="divider" />
                   <button class="item button-transparent" @click="logout">
-                    <LogOutIcon class="icon" />
+                    <IconLogOut class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
                 </div>
@@ -142,7 +142,7 @@
                   :href="authUrl"
                   class="log-in-button header-button brand-button"
                 >
-                  <GitHubIcon aria-hidden="true" />
+                  <ExternalGitHub aria-hidden="true" />
                   Sign in with GitHub</a
                 >
               </section>
@@ -164,13 +164,13 @@
             class="tab browse button-animation"
             @click="toggleBrowseMenu()"
           >
-            <DropdownIcon :class="{ closed: !isBrowseMenuOpen }" />
+            <IconDropdown :class="{ closed: !isBrowseMenuOpen }" />
             <span>Browse</span>
           </button>
           <div class="spacer"></div>
           <button class="tab button-animation" @click="toggleMobileMenu()">
-            <HamburgerIcon v-if="!isMobileMenuOpen" />
-            <CrossIcon v-else />
+            <IconHamburger v-if="!isMobileMenuOpen" />
+            <IconCross v-else />
           </button>
         </div>
         <div
@@ -236,7 +236,7 @@
               class="iconified-button raised-button"
               @click="$refs.modal_creation.show()"
             >
-              <PlusIcon class="icon" />
+              <IconPlus class="icon" />
               <span class="dropdown-item__text">Create a project</span>
             </button>
             <NuxtLink
@@ -244,7 +244,7 @@
               class="iconified-button raised-button"
               to="/notifications"
             >
-              <NotificationIcon class="icon" />
+              <IconBell class="icon" />
               <span class="dropdown-item__text">Notifications</span>
             </NuxtLink>
             <NuxtLink
@@ -252,7 +252,7 @@
               class="iconified-button raised-button"
               to="/dashboard"
             >
-              <ChartIcon class="icon" />
+              <IconChart class="icon" />
               <span class="dropdown-item__text">Dashboard</span>
               <span class="beta-badge">BETA</span>
             </NuxtLink>
@@ -261,11 +261,11 @@
               class="iconified-button raised-button"
               to="/settings/follows"
             >
-              <HeartIcon class="icon" />
+              <IconHeart class="icon" />
               <span class="dropdown-item__text">Following</span>
             </NuxtLink>
             <NuxtLink class="iconified-button raised-button" to="/settings">
-              <SettingsIcon class="icon" />
+              <IconSettings class="icon" />
               <span class="dropdown-item__text">Settings</span>
             </NuxtLink>
             <NuxtLink
@@ -276,12 +276,12 @@
               class="iconified-button raised-button"
               to="/moderation"
             >
-              <ModerationIcon class="icon" />
+              <IconScales class="icon" />
               <span class="dropdown-item__text">Moderation</span>
             </NuxtLink>
             <button class="iconified-button raised-button" @click="changeTheme">
-              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-              <SunIcon v-else class="icon" />
+              <IconMoon v-if="$colorMode.value === 'light'" class="icon" />
+              <IconSun v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
             </button>
             <button
@@ -289,11 +289,11 @@
               class="iconified-button danger-button"
               @click="logout"
             >
-              <LogOutIcon class="icon" />
+              <IconLogOut class="icon" />
               <span class="dropdown-item__text">Log out</span>
             </button>
             <a v-else :href="authUrl" class="iconified-button brand-button">
-              <GitHubIcon aria-hidden="true" />
+              <ExternalGitHub aria-hidden="true" />
               Sign in with GitHub</a
             >
           </div>
@@ -367,12 +367,12 @@
       </div>
       <div class="buttons">
         <button class="iconified-button raised-button" @click="changeTheme">
-          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-          <SunIcon v-else aria-hidden="true" />
+          <IconMoon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+          <IconSun v-else aria-hidden="true" />
           Change theme
         </button>
         <nuxt-link class="iconified-button raised-button" to="/settings">
-          <SettingsIcon aria-hidden="true" />
+          <IconSettings aria-hidden="true" />
           Settings
         </nuxt-link>
       </div>
@@ -387,44 +387,11 @@
 <script>
 import ClickOutside from 'vue-click-outside'
 
-import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
-
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
-import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
-
-import MoonIcon from '~/assets/images/utils/moon.svg?inline'
-import SunIcon from '~/assets/images/utils/sun.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
+import ModrinthLogo from '~/assets/brand/text-logo.svg?inline'
+import HomeIcon from '~/assets/brand/logo.svg?inline'
 
 export default {
-  components: {
-    ModrinthLogo,
-    MoonIcon,
-    SunIcon,
-    LogOutIcon,
-    GitHubIcon,
-    NotificationIcon,
-    HomeIcon,
-    CrossIcon,
-    HamburgerIcon,
-    SettingsIcon,
-    ModerationIcon,
-    PlusIcon,
-    DropdownIcon,
-    HeartIcon,
-    ChartIcon,
-  },
+  components: { ModrinthLogo, HomeIcon },
   directives: {
     ClickOutside,
   },

@@ -52,7 +52,7 @@
               class="iconified-button download"
               :title="`Download ${version.name}`"
             >
-              <DownloadIcon aria-hidden="true" />
+              <IconDownload aria-hidden="true" />
               Download
             </a>
           </div>
@@ -68,12 +68,7 @@
   </div>
 </template>
 <script>
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-
 export default {
-  components: {
-    DownloadIcon,
-  },
   props: {
     project: {
       type: Object,

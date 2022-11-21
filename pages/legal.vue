@@ -5,13 +5,13 @@
         <h1>Legal</h1>
         <NavStack>
           <NavStackItem link="/legal/terms" label="Terms and Conditions">
-            <TermsIcon />
+            <IconHeartHandshake />
           </NavStackItem>
           <NavStackItem link="/legal/privacy" label="Privacy Policy">
-            <PrivacyIcon />
+            <IconLock />
           </NavStackItem>
           <NavStackItem link="/legal/rules" label="Content Rules">
-            <RulesIcon />
+            <IconScales />
           </NavStackItem>
         </NavStack>
       </aside>
@@ -23,17 +23,8 @@
 </template>
 
 <script>
-import TermsIcon from '~/assets/images/utils/heart-handshake.svg?inline'
-import PrivacyIcon from '~/assets/images/utils/lock.svg?inline'
-import RulesIcon from '~/assets/images/sidebar/admin.svg?inline'
-
 export default {
   name: 'Settings',
-  components: {
-    TermsIcon,
-    PrivacyIcon,
-    RulesIcon,
-  },
 }
 </script>
 

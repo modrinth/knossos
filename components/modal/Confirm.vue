@@ -21,7 +21,7 @@
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <IconCross />
           Cancel
         </button>
         <button
@@ -29,7 +29,7 @@
           :disabled="action_disabled"
           @click="proceed"
         >
-          <TrashIcon />
+          <IconTrash />
           {{ proceedLabel }}
         </button>
       </div>
@@ -38,15 +38,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-
 export default {
   name: 'ModalConfirm',
-  components: {
-    CrossIcon,
-    TrashIcon,
-  },
   props: {
     confirmationText: {
       type: String,

@@ -20,12 +20,10 @@
 </template>
 
 <script>
-import Logo404 from '~/assets/images/404.svg?inline'
+import Logo404 from '~/assets/brand/404.svg?inline'
 
 export default {
-  components: {
-    Logo404,
-  },
+  components: { Logo404 },
   layout: 'home',
   props: {
     error: {

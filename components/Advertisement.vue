@@ -9,11 +9,11 @@
               rel="nofollow noopener"
               target="_blank"
             >
-              <LightIcon
+              <ExternalExarotonLight
                 v-if="$colorMode.value === 'light'"
                 class="brand-icon"
               />
-              <DarkIcon v-else class="brand-icon" />
+              <ExternalExarotonDark v-else class="brand-icon" />
               <span>
                 <span> Host your Minecraft server on </span>
                 <strong>exaroton</strong>
@@ -39,15 +39,8 @@
 </template>
 
 <script>
-import LightIcon from '~/assets/images/external/exaroton-light.svg?inline'
-import DarkIcon from '~/assets/images/external/exaroton-dark.svg?inline'
-
 export default {
   name: 'Advertisement',
-  components: {
-    LightIcon,
-    DarkIcon,
-  },
   data() {
     return {
       isBlocked: true,

@@ -16,7 +16,7 @@
         <h3>Manage</h3>
         <div class="input-group">
           <NuxtLink class="iconified-button" to="/settings/follows">
-            <SettingsIcon />
+            <IconSettings />
             Followed projects
           </NuxtLink>
           <button
@@ -24,7 +24,7 @@
             class="iconified-button danger-button"
             @click="clearNotifications"
           >
-            <ClearIcon />
+            <IconClear />
             Clear all
           </button>
         </div>
@@ -55,7 +55,7 @@
                 "
                 class="date"
               >
-                <CalendarIcon />
+                <IconCalendar />
                 Received {{ $dayjs(notification.created).fromNow() }}</span
               >
             </div>
@@ -84,7 +84,7 @@
           </div>
         </div>
         <div v-if="$user.notifications.length === 0" class="error">
-          <UpToDate class="icon"></UpToDate>
+          <IllustrationUpToDate class="icon" />
           <br />
           <span class="text">You are up-to-date!</span>
         </div>
@@ -94,11 +94,6 @@
 </template>
 
 <script>
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-
 const NOTIFICATION_TYPES = {
   team_invite: 'Team invites',
   project_update: 'Project updates',
@@ -106,12 +101,6 @@ const NOTIFICATION_TYPES = {
 
 export default {
   name: 'Notifications',
-  components: {
-    ClearIcon,
-    SettingsIcon,
-    CalendarIcon,
-    UpToDate,
-  },
   async fetch() {
     this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
 

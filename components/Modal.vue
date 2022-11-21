@@ -12,7 +12,7 @@
       <div v-if="header" class="header">
         <h1>{{ header }}</h1>
         <button class="iconified-button icon-only transparent" @click="hide">
-          <CrossIcon />
+          <IconCross />
         </button>
       </div>
       <div class="content">
@@ -23,13 +23,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-
 export default {
   name: 'Modal',
-  components: {
-    CrossIcon,
-  },
   props: {
     header: {
       type: String,

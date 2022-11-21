@@ -13,8 +13,8 @@
       :aria-label="description"
       :aria-checked="value"
     >
-      <CheckIcon v-if="value && !collapsingToggleStyle" aria-hidden="true" />
-      <DropdownIcon v-else-if="collapsingToggleStyle" aria-hidden="true" />
+      <IconCheck v-if="value && !collapsingToggleStyle" aria-hidden="true" />
+      <IconDropdown v-else-if="collapsingToggleStyle" aria-hidden="true" />
     </button>
     <!-- aria-hidden is set so screenreaders only use the <button>'s aria-label -->
     <p v-if="label" aria-hidden="true">{{ label }}</p>
@@ -23,15 +23,8 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-
 export default {
   name: 'Checkbox',
-  components: {
-    CheckIcon,
-    DropdownIcon,
-  },
   props: {
     label: {
       type: String,

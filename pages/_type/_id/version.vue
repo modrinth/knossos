@@ -49,7 +49,7 @@
                 }/versions`
           }`"
         >
-          <BackIcon aria-hidden="true" />
+          <IconLeftArrow aria-hidden="true" />
           Back to list
         </nuxt-link>
       </div>
@@ -58,14 +58,14 @@
           <h2>{{ version.name }}</h2>
 
           <div v-if="version.featured" class="featured">
-            <StarIcon aria-hidden="true" />
+            <IconStar aria-hidden="true" />
             Featured
           </div>
           <div
             v-else-if="featuredVersions.find((x) => x.id === version.id)"
             class="featured"
           >
-            <StarIcon aria-hidden="true" />
+            <IconStar aria-hidden="true" />
             Auto-featured
           </div>
         </div>
@@ -92,14 +92,14 @@
             }/version/${encodeURI(version.displayUrlEnding)}`"
             class="iconified-button"
           >
-            <CrossIcon aria-hidden="true" />
+            <IconCross aria-hidden="true" />
             Cancel
           </nuxt-link>
           <button
             class="iconified-button brand-button"
             @click="saveEditedVersion"
           >
-            <SaveIcon aria-hidden="true" />
+            <IconSave aria-hidden="true" />
             Save
           </button>
         </div>
@@ -115,11 +115,11 @@
             }/versions`"
             class="iconified-button"
           >
-            <CrossIcon aria-hidden="true" />
+            <IconCross aria-hidden="true" />
             Cancel
           </nuxt-link>
           <button class="iconified-button brand-button" @click="createVersion">
-            <CheckIcon aria-hidden="true" />
+            <IconCheck aria-hidden="true" />
             Create
           </button>
         </div>
@@ -133,7 +133,7 @@
             class="bold-button iconified-button brand-button"
             :title="`Download ${primaryFile.filename}`"
           >
-            <DownloadIcon aria-hidden="true" />
+            <IconDownload aria-hidden="true" />
             Download
           </a>
           <button
@@ -141,11 +141,11 @@
             class="action iconified-button"
             @click="$refs.modal_version_report.show()"
           >
-            <ReportIcon aria-hidden="true" />
+            <IconReport aria-hidden="true" />
             Report
           </button>
           <a v-else class="action iconified-button" :href="authUrl">
-            <ReportIcon aria-hidden="true" />
+            <IconReport aria-hidden="true" />
             Report
           </a>
           <nuxt-link
@@ -156,7 +156,7 @@
             }/version/${encodeURI(version.displayUrlEnding)}/edit`"
             @click.prevent="mode = 'edit'"
           >
-            <EditIcon aria-hidden="true" />
+            <IconEdit aria-hidden="true" />
             Edit
           </nuxt-link>
           <button
@@ -164,7 +164,7 @@
             class="action iconified-button danger-button"
             @click="$refs.modal_confirm.show()"
           >
-            <TrashIcon aria-hidden="true" />
+            <IconTrash aria-hidden="true" />
             Delete
           </button>
         </div>
@@ -434,7 +434,7 @@
                     class="iconified-button"
                     @click="version.dependencies.splice(index, 1)"
                   >
-                    <TrashIcon /> Remove
+                    <IconTrash /> Remove
                   </button>
                 </div>
               </div>
@@ -474,7 +474,7 @@
                 :allow-empty="false"
               />
               <button class="iconified-button" @click="addDependency">
-                <PlusIcon />
+                <IconPlus />
                 Add
               </button>
             </div>
@@ -489,7 +489,7 @@
         >
           <div>
             <h3>External Dependencies</h3>
-            <InfoIcon
+            <IconInfo
               v-tooltip="
                 'Mods not part of the Modrinth platform but depended on by this project'
               "
@@ -534,7 +534,7 @@
               v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
               class="featured"
             >
-              <StarIcon aria-hidden="true" />
+              <IconStar aria-hidden="true" />
               Primary
             </div>
             <a
@@ -543,7 +543,7 @@
               :title="`Download ${file.filename}`"
               tabindex="0"
             >
-              <DownloadIcon aria-hidden="true" />
+              <IconDownload aria-hidden="true" />
               Download
             </a>
             <p v-if="mode === 'version'">({{ $formatBytes(file.size) }})</p>
@@ -555,7 +555,7 @@
                 version.files.splice(index, 1)
               "
             >
-              <TrashIcon aria-hidden="true" />
+              <IconTrash aria-hidden="true" />
               Remove
             </button>
             <button
@@ -565,7 +565,7 @@
               class="action iconified-button"
               @click="primaryFile = file"
             >
-              <StarIcon aria-hidden="true" />
+              <IconStar aria-hidden="true" />
               Make primary
             </button>
           </div>
@@ -580,7 +580,7 @@
                 class="action iconified-button"
                 @click="newFiles.splice(index, 1)"
               >
-                <TrashIcon aria-hidden="true" />
+                <IconTrash aria-hidden="true" />
                 Remove
               </button>
             </div>
@@ -634,33 +634,8 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-
 export default {
-  components: {
-    DownloadIcon,
-    TrashIcon,
-    EditIcon,
-    ReportIcon,
-    BackIcon,
-    StarIcon,
-    CheckIcon,
-    Multiselect,
-    SaveIcon,
-    PlusIcon,
-    CrossIcon,
-    InfoIcon,
-  },
+  components: { Multiselect },
   props: {
     project: {
       type: Object,

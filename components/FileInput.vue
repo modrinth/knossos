@@ -5,7 +5,7 @@
       @drop.prevent="handleDrop"
       @dragover.prevent
     >
-      <UploadIcon v-if="showIcon" />
+      <IconUpload v-if="showIcon" />
       {{ prompt }}
       <input
         type="file"
@@ -19,13 +19,9 @@
 
 <script>
 import { fileIsValid } from '~/plugins/fileUtils'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 
 export default {
   name: 'FileInput',
-  components: {
-    UploadIcon,
-  },
   props: {
     prompt: {
       type: String,

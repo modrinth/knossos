@@ -37,7 +37,7 @@
                 class="close circle-button"
                 @click="expandedGalleryItem = null"
               >
-                <CrossIcon aria-hidden="true" />
+                <IconCross aria-hidden="true" />
               </button>
               <a
                 class="open circle-button"
@@ -48,25 +48,25 @@
                     : 'https://cdn.modrinth.com/placeholder-banner.svg'
                 "
               >
-                <ExternalIcon aria-hidden="true" />
+                <IconExternal aria-hidden="true" />
               </a>
               <button class="circle-button" @click="zoomedIn = !zoomedIn">
-                <ExpandIcon v-if="!zoomedIn" aria-hidden="true" />
-                <ContractIcon v-else aria-hidden="true" />
+                <IconExpand v-if="!zoomedIn" aria-hidden="true" />
+                <IconContract v-else aria-hidden="true" />
               </button>
               <button
                 v-if="gallery.length > 1"
                 class="previous circle-button"
                 @click="previousImage()"
               >
-                <LeftArrowIcon aria-hidden="true" />
+                <IconLeftArrow aria-hidden="true" />
               </button>
               <button
                 v-if="gallery.length > 1"
                 class="next circle-button"
                 @click="nextImage()"
               >
-                <RightArrowIcon aria-hidden="true" />
+                <IconRightArrow aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -91,7 +91,7 @@
           })
         "
       >
-        <PlusIcon />
+        <IconPlus />
         {{
           newGalleryItems.length === 0 &&
           editGalleryIndexes.length === 0 &&
@@ -109,7 +109,7 @@
         class="action iconified-button"
         @click="resetGallery"
       >
-        <CrossIcon />
+        <IconCross />
         Cancel
       </button>
       <button
@@ -121,7 +121,7 @@
         class="action brand-button iconified-button"
         @click="saveGallery"
       >
-        <CheckIcon />
+        <IconCheck />
         Save changes
       </button>
     </div>
@@ -164,7 +164,7 @@
         </div>
         <div class="gallery-bottom">
           <div class="gallery-created">
-            <CalendarIcon />
+            <IconCalendar />
             {{ $dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
@@ -178,7 +178,7 @@
                 )
               "
             >
-              <CrossIcon />
+              <IconCross />
               Cancel
             </button>
             <button
@@ -186,7 +186,7 @@
               class="iconified-button"
               @click="editGalleryIndexes.push(index)"
             >
-              <EditIcon />
+              <IconEdit />
               Edit
             </button>
             <button
@@ -196,7 +196,7 @@
                 gallery.splice(index, 1)
               "
             >
-              <TrashIcon />
+              <IconTrash />
               Remove
             </button>
           </div>
@@ -245,7 +245,7 @@
                 class="iconified-button"
                 @click="newGalleryItems.splice(index, 1)"
               >
-                <TrashIcon />
+                <IconTrash />
                 Remove
               </button>
             </div>
@@ -257,32 +257,7 @@
 </template>
 
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ExternalIcon from '~/assets/images/utils/external.svg?inline'
-import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
-import ContractIcon from '~/assets/images/utils/contract.svg?inline'
-
 export default {
-  components: {
-    CalendarIcon,
-    PlusIcon,
-    EditIcon,
-    TrashIcon,
-    CheckIcon,
-    CrossIcon,
-    RightArrowIcon,
-    LeftArrowIcon,
-    ExternalIcon,
-    ExpandIcon,
-    ContractIcon,
-  },
   auth: false,
   beforeRouteLeave(to, from, next) {
     this.resetGallery()

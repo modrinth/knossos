@@ -118,9 +118,7 @@
 import Multiselect from 'vue-multiselect'
 
 export default {
-  components: {
-    Multiselect,
-  },
+  components: { Multiselect },
   auth: false,
   data() {
     return {

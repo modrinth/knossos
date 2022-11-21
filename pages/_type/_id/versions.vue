@@ -2,7 +2,7 @@
   <div class="content">
     <div v-if="currentMember" class="card header-buttons">
       <nuxt-link to="version/create" class="brand-button iconified-button">
-        <PlusIcon />
+        <IconPlus />
         Create a version
       </nuxt-link>
     </div>
@@ -43,7 +43,7 @@
           :title="`Download ${version.name}`"
           @click.stop="(event) => event.stopPropagation()"
         >
-          <DownloadIcon aria-hidden="true" />
+          <IconDownload aria-hidden="true" />
         </a>
         <span class="version__title">{{ version.name }}</span>
         <div class="version__metadata">
@@ -88,14 +88,7 @@
   </div>
 </template>
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-
 export default {
-  components: {
-    PlusIcon,
-    DownloadIcon,
-  },
   auth: false,
   props: {
     project: {

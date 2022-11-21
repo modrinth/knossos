@@ -6,21 +6,14 @@
     @click="copyText"
   >
     {{ text }}
-    <CheckIcon v-if="copied" />
-    <ClipboardCopyIcon v-else />
+    <IconCheck v-if="copied" />
+    <IconClipboardCopy v-else />
   </button>
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
-
 export default {
   name: 'CopyCode',
-  components: {
-    CheckIcon,
-    ClipboardCopyIcon,
-  },
   props: {
     text: {
       type: String,

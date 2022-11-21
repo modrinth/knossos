@@ -4,7 +4,7 @@
       <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
       <NuxtLink class="iconified-button" to="/dashboard/revenue">
-        <ChartIcon /> Visit creator dashboard
+        <IconChart /> Visit creator dashboard
       </NuxtLink>
     </section>
     <section class="universal-card">
@@ -16,7 +16,7 @@
           to your account.
         </p>
         <NuxtLink class="iconified-button" to="/settings/account">
-          <SettingsIcon /> Visit account settings
+          <IconSettings /> Visit account settings
         </NuxtLink>
       </template>
       <template v-else-if="editing || !enrolled">
@@ -72,14 +72,14 @@
               class="iconified-button brand-button"
               @click="updatePayoutData(false)"
             >
-              <SaveIcon /> Save information
+              <IconSave /> Save information
             </button>
             <button
               v-if="enrolled"
               class="iconified-button danger-button"
               @click="updatePayoutData(true)"
             >
-              <TrashIcon /> Remove enrollment
+              <IconTrash /> Remove enrollment
             </button>
           </div>
         </div>
@@ -90,7 +90,7 @@
           {{ $formatWallet(selectedWallet) }} account.
         </p>
         <button class="iconified-button brand-button" @click="editing = true">
-          <EditIcon /> Edit information
+          <IconEdit /> Edit information
         </button>
       </template>
     </section>
@@ -99,21 +99,9 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
 export default {
-  components: {
-    Multiselect,
-    SaveIcon,
-    TrashIcon,
-    EditIcon,
-    ChartIcon,
-    SettingsIcon,
-  },
+  components: { Multiselect },
   data() {
     return {
       editing: false,

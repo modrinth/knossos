@@ -13,7 +13,7 @@
               <nuxt-link
                 :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
               >
-                <IssuesIcon
+                <IconWarning
                   v-if="hasModMessage"
                   v-tooltip="
                     'Project has a message from the moderators. View the project to see more.'
@@ -41,7 +41,7 @@
               v-if="clientSide === 'optional' && serverSide === 'optional'"
               class="side-descriptor"
             >
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               Universal {{ projectTypeDisplay }}
             </div>
             <div
@@ -51,7 +51,7 @@
               "
               class="side-descriptor"
             >
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               Client {{ projectTypeDisplay }}
             </div>
             <div
@@ -61,16 +61,16 @@
               "
               class="side-descriptor"
             >
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               Server {{ projectTypeDisplay }}
             </div>
             <div v-else-if="moderation" class="side-descriptor">
-              <InfoIcon aria-hidden="true" />
+              <IconInfo aria-hidden="true" />
               A {{ projectTypeDisplay }}
             </div>
           </div>
           <div v-else-if="moderation" class="side-descriptor">
-            <InfoIcon aria-hidden="true" />
+            <IconInfo aria-hidden="true" />
             A {{ projectTypeDisplay }}
           </div>
           <p class="description">
@@ -88,7 +88,7 @@
               "
               class="date"
             >
-              <CalendarIcon aria-hidden="true" />
+              <IconCalendar aria-hidden="true" />
               Created {{ $dayjs(createdAt).fromNow() }}
             </div>
             <div
@@ -97,7 +97,7 @@
               "
               class="date"
             >
-              <EditIcon aria-hidden="true" />
+              <IconUpdate aria-hidden="true" />
               Updated {{ $dayjs(updatedAt).fromNow() }}
             </div>
           </div>
@@ -106,7 +106,7 @@
     </div>
     <div class="right-side">
       <div v-if="downloads" class="stat">
-        <DownloadIcon aria-hidden="true" />
+        <IconDownload aria-hidden="true" />
         <p>
           <strong>{{ $formatNumber(downloads) }}</strong> download<span
             v-if="downloads !== '1'"
@@ -115,7 +115,7 @@
         </p>
       </div>
       <div v-if="follows" class="stat">
-        <HeartIcon aria-hidden="true" />
+        <IconHeart aria-hidden="true" />
         <p>
           <strong>{{ $formatNumber(follows) }}</strong> follower<span
             v-if="follows !== '1'"
@@ -125,11 +125,11 @@
       </div>
       <div class="mobile-dates">
         <div class="date">
-          <CalendarIcon aria-hidden="true" />
+          <IconCalendar aria-hidden="true" />
           Created {{ $dayjs(createdAt).fromNow() }}
         </div>
         <div class="date">
-          <EditIcon aria-hidden="true" />
+          <IconUpdate aria-hidden="true" />
           Updated {{ $dayjs(updatedAt).fromNow() }}
         </div>
       </div>
@@ -144,23 +144,8 @@
 </template>
 
 <script>
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import EditIcon from '~/assets/images/utils/updated.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-
 export default {
   name: 'ProjectCard',
-  components: {
-    InfoIcon,
-    IssuesIcon,
-    CalendarIcon,
-    EditIcon,
-    DownloadIcon,
-    HeartIcon,
-  },
   props: {
     id: {
       type: String,

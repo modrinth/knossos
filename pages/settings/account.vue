@@ -58,11 +58,11 @@
             class="iconified-button"
             @click="$refs.modal_revoke_token.hide()"
           >
-            <CrossIcon />
+            <IconCross />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="logout">
-            <RightArrowIcon />
+            <IconRightArrow />
             Log out
           </button>
         </div>
@@ -73,7 +73,7 @@
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
       <NuxtLink class="iconified-button" :to="`/user/${$auth.user.username}`">
-        <UserIcon /> Visit your profile
+        <IconUser /> Visit your profile
       </NuxtLink>
     </section>
 
@@ -103,7 +103,7 @@
           :disabled="hasMonetizationEnabled() && !email"
           @click="saveChanges()"
         >
-          <SaveIcon />
+          <IconSave />
           Save changes
         </button>
       </div>
@@ -124,17 +124,19 @@
           @click="copyToken"
         >
           <template v-if="copied">
-            <CheckIcon />
+            <IconCheck />
             Copied token to clipboard
           </template>
-          <template v-else><CopyIcon />Copy token to clipboard</template>
+          <template v-else
+            ><IconClipboardCopy />Copy token to clipboard</template
+          >
         </button>
         <button
           type="button"
           class="iconified-button"
           @click="$refs.modal_revoke_token.show()"
         >
-          <SlashIcon />
+          <IconSlash />
           Revoke token
         </button>
       </div>
@@ -152,7 +154,7 @@
         class="iconified-button danger-button"
         @click="$refs.modal_confirm.show()"
       >
-        <TrashIcon />
+        <IconTrash />
         Delete account
       </button>
     </section>
@@ -160,26 +162,7 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import CopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import SlashIcon from '~/assets/images/utils/slash.svg?inline'
-
 export default {
-  components: {
-    CrossIcon,
-    RightArrowIcon,
-    CheckIcon,
-    SaveIcon,
-    UserIcon,
-    CopyIcon,
-    TrashIcon,
-    SlashIcon,
-  },
   data() {
     return {
       copied: false,

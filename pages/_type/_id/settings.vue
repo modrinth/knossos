@@ -19,7 +19,7 @@
           </span>
         </label>
         <nuxt-link class="iconified-button" to="edit"
-          ><EditIcon />Edit</nuxt-link
+          ><IconEdit />Edit</nuxt-link
         >
       </div>
       <div class="adjacent-input">
@@ -37,7 +37,7 @@
           "
           @click="$refs.modal_confirm.show()"
         >
-          <TrashIcon />Delete project
+          <IconTrash />Delete project
         </button>
       </div>
     </div>
@@ -66,7 +66,7 @@
             class="iconified-button brand-button"
             @click="inviteTeamMember"
           >
-            <PlusIcon />
+            <IconPlus />
             Invite
           </button>
         </div>
@@ -106,7 +106,7 @@
                   ))
             "
           >
-            <DropdownIcon />
+            <IconDropdown />
           </button>
         </div>
       </div>
@@ -259,7 +259,7 @@
             "
             @click="removeTeamMember(index)"
           >
-            <TrashIcon />
+            <IconTrash />
             Remove member
           </button>
           <button
@@ -271,7 +271,7 @@
             class="iconified-button"
             @click="transferOwnership(index)"
           >
-            <UserIcon />
+            <IconUser />
             Transfer ownership
           </button>
           <button
@@ -281,7 +281,7 @@
             "
             @click="updateTeamMember(index)"
           >
-            <CheckIcon />
+            <IconCheck />
             Save changes
           </button>
         </div>
@@ -291,22 +291,7 @@
 </template>
 
 <script>
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-
 export default {
-  components: {
-    DropdownIcon,
-    PlusIcon,
-    CheckIcon,
-    EditIcon,
-    TrashIcon,
-    UserIcon,
-  },
   props: {
     project: {
       type: Object,
