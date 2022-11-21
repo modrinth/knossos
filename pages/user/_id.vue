@@ -368,6 +368,10 @@ export default {
     }
   },
   head() {
+    const description = this.user.bio
+      ? `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`
+      : `Download ${this.user.username}'s projects on Modrinth`
+
     return {
       title: this.user.username + ' - Modrinth',
       meta: [
@@ -384,12 +388,12 @@ export default {
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.user.username,
+          content: description,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
+          content: description,
         },
         {
           hid: 'description',
