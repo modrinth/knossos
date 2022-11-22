@@ -43,7 +43,10 @@
     </div>
     <div class="universal-card">
       <h2>Manage members</h2>
-      <div class="adjacent-input">
+      <div
+        v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
+        class="adjacent-input"
+      >
         <span class="label">
           <span class="label__title">Invite a member</span>
           <span class="label__description">
@@ -51,10 +54,7 @@
             a member of this project.
           </span>
         </span>
-        <div
-          v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
-          class="input-group"
-        >
+        <div class="input-group">
           <input
             id="username"
             v-model="currentUsername"
@@ -68,42 +68,6 @@
           >
             <PlusIcon />
             Invite
-          </button>
-        </div>
-      </div>
-      <div class="adjacent-input">
-        <span class="label">
-          <span class="label__title"
-            >CurseForge publisher <FlameIcon class="cf-publisher"
-          /></span>
-          <span class="label__description">
-            If a member is selected, new versions of this project uploaded to
-            Modrinth will automatically be published to CurseForge as well.
-          </span>
-        </span>
-        <div class="input-group">
-          <Multiselect
-            v-model="curseForgePublisher"
-            :options="getValidCFPublishers()"
-            :custom-label="
-              (value) => (value === null ? 'None' : value.username)
-            "
-            :multiple="false"
-            :searchable="false"
-            :show-no-results="false"
-            :close-on-select="true"
-            :clear-search-on-select="false"
-            :show-labels="false"
-            :allow-empty="true"
-            placeholder="Select publisher..."
-            :disabled="getValidCFPublishers().length === 0"
-          ></Multiselect>
-          <button
-            v-if="curseForgePublisher !== null"
-            class="iconified-button"
-            @click="curseForgePublisher = null"
-          >
-            <TrashIcon /> Remove
           </button>
         </div>
       </div>
@@ -129,7 +93,7 @@
                 <FlameIcon
                   v-if="
                     curseForgePublisher &&
-                    curseForgePublisher.id === member.user.id
+                    curseForgePublisher === member.user.id
                   "
                   class="cf-publisher"
                 />
@@ -332,11 +296,95 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="
+        (currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS &&
+        project.project_type !== 'modpack'
+      "
+      class="universal-card"
+    >
+      <h2>External syncing</h2>
+      <p>
+        External syncing allows you to synchronize your uploads across other
+        platforms. You upload once here, and we integrate it to get it released
+        everywhere else.
+      </p>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title"> CurseForge project identifier</span>
+          <span class="label__description">
+            If a curseforge project ID and publisher is specified, new versions
+            of this project uploaded to Modrinth will automatically be published
+            to CurseForge as well.
+          </span>
+        </span>
+        <div class="input-group">
+          <label class="hidden" for="curse-project-id-input">
+            Curseforge project identifier/label
+          </label>
+          <input
+            id="curse-project-id-input"
+            v-model="curseForgeProjectId"
+            type="number"
+            placeholder="Enter your curseforge project ID..."
+          />
+          <button
+            class="iconified-button brand-button"
+            @click="saveCurseForgeSyncSettings"
+          >
+            <SaveIcon /> Save
+          </button>
+        </div>
+      </div>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title"
+            >CurseForge publisher <FlameIcon class="cf-publisher"
+          /></span>
+          <span class="label__description">
+            The specified team member's API token set in the
+            <nuxt-link class="text-link" to="/settings/integrations">
+              settings page
+            </nuxt-link>
+            will be used to sync your uploads to CurseForge.
+          </span>
+        </span>
+        <div class="input-group">
+          <button
+            v-tooltip="
+              !$auth.user.has_flame_anvil_key
+                ? 'Set your CurseForge API token in the dashboard first!'
+                : null
+            "
+            :disabled="
+              !$auth.user.has_flame_anvil_key ||
+              curseForgePublisher === $auth.user.id
+            "
+            class="iconified-button"
+            @click="
+              curseForgePublisher = $auth.user.id
+              saveCurseForgeSyncSettings()
+            "
+          >
+            <UserIcon /> Set as yourself
+          </button>
+          <button
+            v-if="curseForgePublisher !== null"
+            class="iconified-button"
+            @click="
+              curseForgePublisher = null
+              saveCurseForgeSyncSettings()
+            "
+          >
+            <TrashIcon /> Remove
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Checkbox from '~/components/ui/Checkbox'
 import Badge from '~/components/ui/Badge'
@@ -348,11 +396,11 @@ import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import FlameIcon from '~/assets/images/utils/flame.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 
 export default {
   components: {
-    Multiselect,
     Avatar,
     DropdownIcon,
     ModalConfirm,
@@ -364,6 +412,7 @@ export default {
     TrashIcon,
     UserIcon,
     FlameIcon,
+    SaveIcon,
   },
   props: {
     project: {
@@ -390,7 +439,8 @@ export default {
       currentUsername: '',
       openTeamMembers: [],
       allTeamMembers: [],
-      curseForgePublisher: null,
+      curseForgePublisher: this.project.flame_anvil_user,
+      curseForgeProjectId: this.project.flame_anvil_project,
     }
   },
   fetch() {
@@ -541,14 +591,43 @@ export default {
         ...it,
       }))
     },
-    getValidCFPublishers() {
-      return this.allTeamMembers
-        .filter((member) => member.accepted)
-        .map((member) => member.user)
-    },
-    updateCFPublisher() {},
-    resetCFPublisher() {
-      this.curseForgePublisher = null
+    async saveCurseForgeSyncSettings() {
+      this.$nuxt.$loading.start()
+
+      try {
+        const data = {
+          flame_anvil_project: parseInt(this.curseForgeProjectId),
+          flame_anvil_user: this.curseForgePublisher,
+        }
+
+        if (this.isProcessing) {
+          data.status = 'processing'
+        }
+
+        await this.$axios.patch(
+          `project/${this.project.id}`,
+          data,
+          this.$defaultHeaders()
+        )
+
+        const newProject = JSON.parse(JSON.stringify(this.project))
+
+        newProject.flame_anvil_user = this.curseForgePublisher
+        newProject.flame_anvil_project = this.curseForgeProjectId
+
+        this.$emit('update:project', newProject)
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      this.$nuxt.$loading.finish()
     },
   },
 }
