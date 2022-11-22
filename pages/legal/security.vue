@@ -42,8 +42,8 @@
           high volume of requests
         </li>
         <li>
-          reports indicating that our services do not fully align with “best
-          practice”, for example missing security headers
+          reports indicating that our services do not fully align with "best
+          practice", for example missing security headers
         </li>
       </ul>
       <p>
