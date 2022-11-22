@@ -48,6 +48,7 @@
       If you aren't sure, you can still reach out via email or direct message.
     </p>
     <hr />
+    -
     <p>
       This notice is inspired by the
       <a href="https://www.pythondiscord.com/pages/security-notice/">
