@@ -65,28 +65,28 @@
 export default {
   auth: false,
   head: {
-    title: 'Rules - Modrinth',
+    title: 'Security Notice - Modrinth',
     meta: [
       {
         hid: 'description',
         name: 'description',
         content:
-          'The Content Rules of Modrinth, an open source modding platform focused on Minecraft.',
+          'The Security Notice of Modrinth, an open source modding platform focused on Minecraft.',
       },
       {
         hid: 'apple-mobile-web-app-title',
         name: 'apple-mobile-web-app-title',
-        content: 'Content Rules',
+        content: 'Security Notice',
       },
       {
         hid: 'og:title',
         name: 'og:title',
-        content: 'Content Rules',
+        content: 'Security Notice',
       },
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/rules`,
+        content: `https://modrinth.com/legal/security`,
       },
     ],
   },
