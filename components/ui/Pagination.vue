@@ -142,7 +142,7 @@ a {
 
   &.paginate.disabled {
     background-color: transparent;
-    cursor: not-allowed;
+    pointer-events: none;
     filter: grayscale(50%);
     opacity: 0.5;
   }

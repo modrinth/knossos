@@ -95,6 +95,7 @@
                     curseForgePublisher &&
                     curseForgePublisher === member.user.id
                   "
+                  v-tooltip="'CurseForge publisher'"
                   class="cf-publisher"
                 />
               </p>
@@ -303,30 +304,31 @@
       "
       class="universal-card"
     >
-      <h2>External syncing</h2>
+      <h2>Sync versions to other platforms</h2>
       <p>
-        External syncing allows you to synchronize your uploads across other
-        platforms. You upload once here, and we integrate it to get it released
-        everywhere else.
+        Version syncing allows you to synchronize your version uploads across
+        different platforms. New versions uplodaded to Modrinth will
+        automatically get uploaded to the other platforms you have linked here.
       </p>
       <div class="adjacent-input">
         <span class="label">
           <span class="label__title"> CurseForge project identifier</span>
           <span class="label__description">
-            If a curseforge project ID and publisher is specified, new versions
+            If a CurseForge project ID and publisher is specified, new versions
             of this project uploaded to Modrinth will automatically be published
             to CurseForge as well.
           </span>
         </span>
         <div class="input-group">
           <label class="hidden" for="curse-project-id-input">
-            Curseforge project identifier/label
+            CurseForge project identifier
           </label>
           <input
             id="curse-project-id-input"
             v-model="curseForgeProjectId"
+            class="no-increment-buttons"
             type="number"
-            placeholder="Enter your curseforge project ID..."
+            placeholder="Enter your CurseForge project ID..."
           />
           <button
             class="iconified-button brand-button"
@@ -339,35 +341,47 @@
       <div class="adjacent-input">
         <span class="label">
           <span class="label__title"
-            >CurseForge publisher <FlameIcon class="cf-publisher"
+            >CurseForge publisher
+            <FlameIcon
+              v-if="curseForgePublisher"
+              v-tooltip="'This icon indicates the current CurseForge publisher'"
+              class="cf-publisher"
           /></span>
           <span class="label__description">
-            The specified team member's API token set in the
+            The specified team member's API token set in their
             <nuxt-link class="text-link" to="/settings/integrations">
-              settings page
-            </nuxt-link>
-            will be used to sync your uploads to CurseForge.
+              integrations settings</nuxt-link
+            >
+            will be used to sync this project's uploads to CurseForge. A user
+            must designate themselves as a publisher, they cannot be selected by
+            any other user.
           </span>
         </span>
         <div class="input-group">
-          <button
+          <div
             v-tooltip="
               !$auth.user.has_flame_anvil_key
-                ? 'Set your CurseForge API token in the dashboard first!'
+                ? 'Add your CurseForge API token in settings first!'
+                : curseForgePublisher === $auth.user.id
+                ? 'You are already the CurseForge publisher'
                 : null
             "
-            :disabled="
-              !$auth.user.has_flame_anvil_key ||
-              curseForgePublisher === $auth.user.id
-            "
-            class="iconified-button"
-            @click="
-              curseForgePublisher = $auth.user.id
-              saveCurseForgeSyncSettings()
-            "
+            class="button-wrapper"
           >
-            <UserIcon /> Set as yourself
-          </button>
+            <button
+              :disabled="
+                !$auth.user.has_flame_anvil_key ||
+                curseForgePublisher === $auth.user.id
+              "
+              class="iconified-button"
+              @click="
+                curseForgePublisher = $auth.user.id
+                saveCurseForgeSyncSettings()
+              "
+            >
+              <UserIcon /> Set as yourself
+            </button>
+          </div>
           <button
             v-if="curseForgePublisher !== null"
             class="iconified-button"

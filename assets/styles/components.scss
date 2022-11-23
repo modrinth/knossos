@@ -356,7 +356,7 @@
 
   &:disabled,
   &[disabled] {
-    cursor: not-allowed;
+    pointer-events: none;
     filter: grayscale(50%);
     opacity: 0.5;
     box-shadow: none;
@@ -394,7 +394,7 @@ tr.button-transparent {
 
     &:disabled > *,
     &[disabled] > * {
-      cursor: not-allowed;
+      pointer-events: none;
       filter: grayscale(50%);
       opacity: 0.5;
       box-shadow: none;
@@ -420,14 +420,14 @@ tr.button-transparent {
   }
 
   &.disabled {
-    cursor: not-allowed;
+    pointer-events: none;
     filter: grayscale(50%);
     opacity: 0.5;
     box-shadow: none;
 
     &disabled,
     &[disabled] {
-      cursor: not-allowed;
+      pointer-events: none;
       box-shadow: none;
     }
   }
@@ -1042,7 +1042,7 @@ h1 {
     width: 15rem;
   }
 
-  > input + *, > .input-group + * {
+  > input + *, > .input-group + *, .card-section > input, .card-section > .input-group {
     margin-block-start: var(--spacing-card-md);
   }
 
@@ -1066,7 +1066,7 @@ h1 {
     flex-direction: row;
     align-items: center;
 
-    .iconified-button, .input-group {
+    .iconified-button, .input-group, .button-wrapper {
       flex-shrink: 0;
     }
 
@@ -1120,7 +1120,7 @@ h1 {
 input,
 button {
   &:disabled {
-    cursor: not-allowed !important;
+    pointer-events: none;
   }
 }
 
@@ -1277,4 +1277,13 @@ button {
     font-size: var(--font-size-lg);
     font-weight: bold;
   }
+}
+
+input[type=number].no-increment-buttons::-webkit-inner-spin-button,
+input[type=number].no-increment-buttons::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number].no-increment-buttons {
+  -moz-appearance: textfield;
 }

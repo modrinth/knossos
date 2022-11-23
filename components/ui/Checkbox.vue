@@ -76,10 +76,6 @@ export default {
     padding: 0.2rem 0rem;
     margin: 0;
   }
-
-  &.disabled {
-    cursor: not-allowed;
-  }
 }
 
 .checkbox {
@@ -131,7 +127,6 @@ export default {
 
   &:disabled {
     box-shadow: none;
-    cursor: not-allowed;
   }
 }
 </style>

@@ -16,7 +16,7 @@
               saveChanges()
             "
           >
-            <TrashIcon /> Remove Token
+            <TrashIcon /> Remove token
           </button>
           <button class="iconified-button brand-button" @click="editing = true">
             <EditIcon /> Edit token
@@ -33,7 +33,7 @@
               href="https://www.curseforge.com/account/api-tokens"
               target="_blank"
             >
-              CurseForge account settings </a
+              CurseForge account settings</a
             >.
           </span>
         </label>
