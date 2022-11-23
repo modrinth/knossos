@@ -709,6 +709,6 @@ export default {
 }
 
 .cf-publisher {
-  color: var(--color-badge-yellow-text);
+  color: var(--color-special-orange);
 }
 </style>

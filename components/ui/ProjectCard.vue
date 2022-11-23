@@ -303,7 +303,7 @@ export default {
 
           svg {
             width: auto;
-            color: var(--color-badge-yellow-text);
+            color: var(--color-special-orange);
             height: 1.5rem;
             margin-bottom: -0.25rem;
           }
