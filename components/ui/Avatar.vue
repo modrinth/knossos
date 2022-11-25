@@ -76,21 +76,17 @@ export default {
 <style lang="scss" scoped>
 .avatar {
   border-radius: var(--size-rounded-icon);
-  box-shadow: var(--shadow-inset-lg), var(--shadow-card);
   height: var(--size);
   width: var(--size);
-  background-color: var(--color-button-bg);
   object-fit: contain;
 
   &.size-xs {
     --size: 2.5rem;
-    box-shadow: var(--shadow-inset), var(--shadow-card);
     border-radius: var(--size-rounded-sm);
   }
 
   &.size-sm {
     --size: 3rem;
-    box-shadow: var(--shadow-inset), var(--shadow-card);
     border-radius: var(--size-rounded-sm);
   }
 
