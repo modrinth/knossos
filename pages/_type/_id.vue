@@ -1189,6 +1189,7 @@ export default {
 .header {
   grid-area: header;
   .title {
+    overflow-wrap: break-word;
     margin: 0.25rem 0;
     color: var(--color-text-dark);
     font-size: var(--font-size-xl);
