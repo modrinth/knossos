@@ -7,17 +7,22 @@
   >
     <nuxt-link
       class="icon"
+      tabindex="-1"
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
     >
       <Avatar :src="iconUrl" :alt="name" size="md" />
     </nuxt-link>
-    <div class="gallery">
+    <nuxt-link
+      class="gallery"
+      tabindex="-1"
+      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+    >
       <img
         v-if="galleryImages.length > 0"
         :src="galleryImages[0]"
         alt="Gallery image TODO: improve this lol"
       />
-    </div>
+    </nuxt-link>
     <div class="title">
       <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
         <h2 class="name">
