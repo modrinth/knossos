@@ -157,7 +157,7 @@
               facet-name="client"
               @toggle="toggleEnv"
             >
-              <ClientSide aria-hidden="true" />
+              <ClientIcon aria-hidden="true" />
             </SearchFilter>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -165,7 +165,7 @@
               facet-name="server"
               @toggle="toggleEnv"
             >
-              <ServerSide aria-hidden="true" />
+              <ServerIcon aria-hidden="true" />
             </SearchFilter>
           </section>
           <h3 class="sidebar-menu-heading">Minecraft versions</h3>
@@ -308,6 +308,23 @@
               @input="onSearchChange(currentPage)"
             />
           </div>
+          <button
+            v-tooltip="
+              'Display results in a ' +
+              $cosmetics.searchDisplayMode[projectType.id]
+            "
+            :aria-label="
+              'Display results in a ' +
+              $cosmetics.searchDisplayMode[projectType.id]
+            "
+            class="square-button"
+            @click="cycleSearchDisplayMode()"
+          >
+            <GridIcon
+              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'"
+            />
+            <ListIcon v-else />
+          </button>
         </div>
       </div>
       <pagination
@@ -321,6 +338,40 @@
         <div v-if="isLoading" class="no-results">
           <LogoAnimated aria-hidden="true" />
           <p>Loading...</p>
+        </div>
+        <div
+          v-else-if="true"
+          id="search-results"
+          :class="
+            'display-mode--' + $cosmetics.searchDisplayMode[projectType.id]
+          "
+          role="list"
+          aria-label="Search results"
+        >
+          <NewProjectCard
+            v-for="result in results"
+            :id="result.slug ? result.slug : result.project_id"
+            :key="result.project_id"
+            :display="$cosmetics.searchDisplayMode[projectType.id]"
+            :gallery-images="result.gallery"
+            :type="result.project_type"
+            :author="result.author"
+            :name="result.title"
+            :description="result.description"
+            :created-at="result.date_created"
+            :updated-at="result.date_modified"
+            :downloads="result.downloads.toString()"
+            :follows="result.follows.toString()"
+            :icon-url="result.icon_url"
+            :client-side="result.client_side"
+            :server-side="result.server_side"
+            :categories="result.display_categories"
+            :search="true"
+            :show-updated-date="sortType.name !== 'newest'"
+          />
+          <div v-if="results && results.length === 0" class="no-results">
+            <p>No results found for your query!</p>
+          </div>
         </div>
         <div v-else id="search-results" role="list" aria-label="Search results">
           <SearchResult
@@ -360,17 +411,20 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import SearchResult from '~/components/ui/ProjectCard'
+import NewProjectCard from '~/components/ui/NewProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
 
-import ClientSide from '~/assets/images/categories/client.svg?inline'
-import ServerSide from '~/assets/images/categories/server.svg?inline'
+import ClientIcon from '~/assets/images/categories/client.svg?inline'
+import ServerIcon from '~/assets/images/categories/server.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import FilterIcon from '~/assets/images/utils/filter.svg?inline'
+import GridIcon from '~/assets/images/utils/grid.svg?inline'
+import ListIcon from '~/assets/images/utils/list.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -379,15 +433,18 @@ export default {
   components: {
     Advertisement,
     SearchResult,
+    NewProjectCard,
     Pagination,
     Multiselect,
     SearchFilter,
     Checkbox,
-    ClientSide,
-    ServerSide,
+    ClientIcon,
+    ServerIcon,
     SearchIcon,
     ClearIcon,
     FilterIcon,
+    GridIcon,
+    ListIcon,
     LogoAnimated,
   },
   data() {
@@ -413,7 +470,7 @@ export default {
         { display: 'Relevance', name: 'relevance' },
         { display: 'Download count', name: 'downloads' },
         { display: 'Follow count', name: 'follows' },
-        { display: 'Recently created', name: 'newest' },
+        { display: 'Recently published', name: 'newest' },
         { display: 'Recently updated', name: 'updated' },
       ],
       sortType: { display: 'Relevance', name: 'relevance' },
@@ -787,6 +844,15 @@ export default {
 
       return url
     },
+    async cycleSearchDisplayMode() {
+      const value = this.$cosmetics.searchDisplayMode[this.projectType.id]
+      const newValue = value === 'list' ? 'gallery' : 'list'
+      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
+        projectType: this.projectType.id,
+        mode: newValue,
+        $cookies: this.$cookies,
+      })
+    },
   },
 }
 </script>
@@ -897,6 +963,7 @@ export default {
     flex-direction: row;
     gap: var(--spacing-card-md);
     flex-wrap: wrap;
+    align-items: center;
 
     .labeled-control {
       flex: 1;
@@ -992,6 +1059,27 @@ export default {
   .labeled-control {
     flex-wrap: nowrap !important;
     flex-direction: row !important;
+  }
+}
+
+#search-results {
+  width: 100%;
+  gap: var(--spacing-card-md);
+  overflow: hidden;
+  margin-block: var(--spacing-card-md);
+}
+
+#search-results.display-mode--list {
+  display: flex;
+  flex-direction: column;
+}
+
+#search-results.display-mode--gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 </style>

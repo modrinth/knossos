@@ -394,7 +394,7 @@
                   ')'
                 "
                 :href="findPrimary(version).url"
-                class="download download-button"
+                class="download square-button brand-button"
                 :title="`Download ${version.name}`"
                 @click.stop="(event) => event.stopPropagation()"
               >
@@ -737,7 +737,7 @@
                   ')'
                 "
                 :href="findPrimary(version).url"
-                class="download download-button"
+                class="download square-button brand-button"
                 :title="`Download ${version.name}`"
                 @click.stop="(event) => event.stopPropagation()"
               >
