@@ -117,16 +117,22 @@ export default {
     },
     getClientSide() {
       switch (this.getProjectType().id) {
-        case 'plugin': return 'unsupported';
-        case 'resourcepack': return 'required';
-        default: return 'unknown';
+        case 'plugin':
+          return 'unsupported'
+        case 'resourcepack':
+          return 'required'
+        default:
+          return 'unknown'
       }
     },
     getServerSide() {
       switch (this.getProjectType().id) {
-        case 'plugin': return 'required';
-        case 'resourcepack': return 'unsupported';
-        default: return 'unknown';
+        case 'plugin':
+          return 'required'
+        case 'resourcepack':
+          return 'unsupported'
+        default:
+          return 'unknown'
       }
     },
     async createProject() {
