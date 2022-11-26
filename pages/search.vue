@@ -310,18 +310,18 @@
           </div>
           <button
             v-tooltip="
-              'Display results in a ' +
-              $cosmetics.searchDisplayMode[projectType.id]
+              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
+              ' view'
             "
             :aria-label="
-              'Display results in a ' +
-              $cosmetics.searchDisplayMode[projectType.id]
+              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
+              ' view'
             "
             class="square-button"
             @click="cycleSearchDisplayMode()"
           >
             <GridIcon
-              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'"
+              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'gallery'"
             />
             <ListIcon v-else />
           </button>
@@ -342,13 +342,14 @@
         <div
           v-else-if="true"
           id="search-results"
+          class="project-list"
           :class="
             'display-mode--' + $cosmetics.searchDisplayMode[projectType.id]
           "
           role="list"
           aria-label="Search results"
         >
-          <NewProjectCard
+          <ProjectCard
             v-for="result in results"
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
@@ -373,29 +374,6 @@
             <p>No results found for your query!</p>
           </div>
         </div>
-        <div v-else id="search-results" role="list" aria-label="Search results">
-          <SearchResult
-            v-for="result in results"
-            :id="result.slug ? result.slug : result.project_id"
-            :key="result.project_id"
-            :type="result.project_type"
-            :author="result.author"
-            :name="result.title"
-            :description="result.description"
-            :created-at="result.date_created"
-            :updated-at="result.date_modified"
-            :downloads="result.downloads.toString()"
-            :follows="result.follows.toString()"
-            :icon-url="result.icon_url"
-            :client-side="result.client_side"
-            :server-side="result.server_side"
-            :categories="result.display_categories"
-            :search="true"
-          />
-          <div v-if="results && results.length === 0" class="no-results">
-            <p>No results found for your query!</p>
-          </div>
-        </div>
       </div>
       <pagination
         :page="currentPage"
@@ -410,8 +388,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SearchResult from '~/components/ui/ProjectCard'
-import NewProjectCard from '~/components/ui/NewProjectCard'
+import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import LogoAnimated from '~/components/ui/search/LogoAnimated'
@@ -432,8 +409,7 @@ export default {
   auth: false,
   components: {
     Advertisement,
-    SearchResult,
-    NewProjectCard,
+    ProjectCard,
     Pagination,
     Multiselect,
     SearchFilter,
@@ -1059,27 +1035,6 @@ export default {
   .labeled-control {
     flex-wrap: nowrap !important;
     flex-direction: row !important;
-  }
-}
-
-#search-results {
-  width: 100%;
-  gap: var(--spacing-card-md);
-  overflow: hidden;
-  margin-block: var(--spacing-card-md);
-}
-
-#search-results.display-mode--list {
-  display: flex;
-  flex-direction: column;
-}
-
-#search-results.display-mode--gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  @media screen and (max-width: 750px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 </style>

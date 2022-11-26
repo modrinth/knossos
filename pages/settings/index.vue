@@ -60,32 +60,28 @@
       </div>
     </section>
     <section class="universal-card">
-      <h2>Search display mode</h2>
+      <h2>Project list display mode</h2>
       <div
-        v-for="projectType in $tag.projectTypes.map((type) => type.id)"
-        :key="projectType + '-display-mode-selector'"
+        v-for="projectType in listTypes"
+        :key="projectType.id + '-display-mode-selector'"
         class="adjacent-input small"
       >
-        <label :for="projectType + '-search-display-mode'">
-          <span class="label__title"
-            >{{ $formatProjectType(projectType) }} search display mode</span
-          >
+        <label :for="projectType.id + '-search-display-mode'">
+          <span class="label__title">{{ projectType.name }} display mode</span>
           <span class="label__description"
-            >Change the display view for the
-            {{ $formatProjectType(projectType).toLowerCase() }}s search
-            page.</span
+            >Change the display view for {{ projectType.display }}.</span
           >
         </label>
         <Multiselect
           :id="projectType + '-search-display-mode'"
-          :value="searchDisplayMode[projectType]"
+          :value="searchDisplayMode[projectType.id]"
           :options="['list', 'gallery']"
           :custom-label="$capitalizeString"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
           :allow-empty="false"
-          @input="(value) => setSearchDisplayMode(projectType, value)"
+          @input="(value) => setSearchDisplayMode(projectType.id, value)"
         />
       </div>
     </section>
@@ -164,6 +160,7 @@ export default {
         plugin: 'list',
         resourcepack: 'gallery',
         modpack: 'list',
+        user: 'list',
       },
     }
   },
@@ -177,6 +174,26 @@ export default {
   },
   head: {
     title: 'Display settings - Modrinth',
+  },
+  computed: {
+    listTypes() {
+      const types = this.$tag.projectTypes.map((type) => {
+        return {
+          id: type.id,
+          name: this.$formatProjectType(type.id) + ' search',
+          display:
+            'the ' +
+            this.$formatProjectType(type.id).toLowerCase() +
+            's search page',
+        }
+      })
+      types.push({
+        id: 'user',
+        name: 'User page',
+        display: 'user pages',
+      })
+      return types
+    },
   },
   methods: {
     async saveCosmeticSettings() {

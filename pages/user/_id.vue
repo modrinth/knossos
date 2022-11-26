@@ -169,16 +169,37 @@
               }),
             ]"
           />
-          <button
-            v-if="$auth.user && $auth.user.id === user.id"
-            class="iconified-button brand-button"
-            @click="$refs.modal_creation.show()"
-          >
-            <PlusIcon />
-            Create a project
-          </button>
+          <div class="input-group">
+            <button
+              v-if="$auth.user && $auth.user.id === user.id"
+              class="iconified-button brand-button"
+              @click="$refs.modal_creation.show()"
+            >
+              <PlusIcon />
+              Create a project
+            </button>
+            <button
+              v-tooltip="
+                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
+              "
+              :aria-label="
+                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
+              "
+              class="square-button"
+              @click="cycleSearchDisplayMode()"
+            >
+              <GridIcon
+                v-if="$cosmetics.searchDisplayMode.user === 'gallery'"
+              />
+              <ListIcon v-else />
+            </button>
+          </div>
         </nav>
-        <div v-if="projects.length > 0">
+        <div
+          v-if="projects.length > 0"
+          class="project-list"
+          :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
+        >
           <ProjectCard
             v-for="project in $route.query.type !== undefined
               ? projects.filter((x) => x.project_type === $route.query.type)
@@ -186,6 +207,12 @@
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
+            :display="$cosmetics.searchDisplayMode.user"
+            :gallery-images="
+              project.gallery
+                .sort((a, b) => b.featured - a.featured)
+                .map((x) => x.url)
+            "
             :description="project.description"
             :created-at="project.published"
             :updated-at="project.updated"
@@ -251,6 +278,8 @@ import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import GridIcon from '~/assets/images/utils/grid.svg?inline'
+import ListIcon from '~/assets/images/utils/list.svg?inline'
 import FileInput from '~/components/ui/FileInput'
 import ModalReport from '~/components/ui/ModalReport'
 import ModalCreation from '~/components/ui/ModalCreation'
@@ -282,6 +311,8 @@ export default {
     HeartIcon,
     CrossIcon,
     SaveIcon,
+    GridIcon,
+    ListIcon,
   },
   async asyncData(data) {
     try {
@@ -491,6 +522,15 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
+    async cycleSearchDisplayMode() {
+      const value = this.$cosmetics.searchDisplayMode.user
+      const newValue = value === 'list' ? 'gallery' : 'list'
+      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
+        projectType: 'user',
+        mode: newValue,
+        $cookies: this.$cookies,
+      })
+    },
   },
 }
 </script>
@@ -538,6 +578,7 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 0.5rem;
+  padding-right: var(--spacing-card-bg);
 }
 
 .sidebar {

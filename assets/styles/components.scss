@@ -496,7 +496,6 @@ tr.button-transparent {
   height: 2.25rem;
   width: 2.25rem;
   border-radius: var(--size-rounded-sm);
-  margin-right: var(--spacing-card-sm);
   color: var(--text-color);
   background-color: var(--background-color);
   box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
@@ -1298,5 +1297,33 @@ button {
   .primary-stat__counter {
     font-size: var(--font-size-lg);
     font-weight: bold;
+  }
+}
+
+.project-list {
+  width: 100%;
+  gap: var(--spacing-card-md);
+  overflow: hidden;
+
+  &:not(:first-child) {
+    margin-top: var(--spacing-card-md);
+  }
+
+  &:not(:empty) {
+    margin-bottom: var(--spacing-card-md);
+  }
+}
+
+.project-list.display-mode--list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-list.display-mode--gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
