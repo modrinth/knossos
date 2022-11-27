@@ -11,7 +11,7 @@
         'alt-layout': $cosmetics.projectLayout,
       }"
     >
-      <aside class="normal-page__sidebar">
+      <article class="normal-page__sidebar">
         <div class="header card">
           <nuxt-link
             :to="
@@ -267,6 +267,14 @@
                 Your project must have at least one version to submit for
                 review.
               </li>
+              <li
+                v-if="
+                  project.client_side === 'unknown' ||
+                  project.server_side === 'unknown'
+                "
+              >
+                Your project must have the supported environments selected.
+              </li>
             </ul>
           </div>
         </div>
@@ -506,7 +514,7 @@
             </div>
           </div>
         </div>
-      </aside>
+      </article>
       <section class="normal-page__content">
         <div
           v-if="project.status === 'unlisted'"
@@ -915,7 +923,10 @@ export default {
     try {
       if (
         !data.params.id ||
-        !data.$tag.projectTypes.find((x) => x.id === data.params.type)
+        !(
+          data.$tag.projectTypes.find((x) => x.id === data.params.type) ||
+          data.params.type === 'project'
+        )
       ) {
         data.error({
           statusCode: 404,
@@ -968,12 +979,15 @@ export default {
         project.project_type !== data.params.type ||
         data.params.id !== project.slug
       ) {
-        const route = data.route.fullPath.split('/')
+        let route = data.route.fullPath.split('/')
         route.splice(0, 3)
+        route = route.filter((x) => x)
 
         data.redirect(
           301,
-          `/${project.project_type}/${project.slug}/${route.join('/')}`
+          `/${project.project_type}/${project.slug}${
+            route.length > 0 ? `/${route.join('/')}` : ''
+          }`
         )
 
         return
@@ -1051,11 +1065,6 @@ export default {
       this.projectTypeDisplay.charAt(0).toUpperCase() +
       this.projectTypeDisplay.slice(1)
     }`
-    const description = `${this.project.description} - Download the Minecraft ${
-      this.projectTypeDisplay
-    } ${this.project.title} by ${
-      this.members.find((x) => x.role === 'Owner').user.username
-    } on Modrinth`
 
     return {
       title,
@@ -1073,12 +1082,16 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: description,
+          content: this.project.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: description,
+          content: `${this.project.description} - Download the Minecraft ${
+            this.projectTypeDisplay
+          } ${this.project.title} by ${
+            this.members.find((x) => x.role === 'Owner').user.username
+          } on Modrinth`,
         },
         {
           hid: 'og:image',
@@ -1150,7 +1163,12 @@ export default {
       this.$nuxt.$loading.finish()
     },
     async submitForReview() {
-      if (this.project.body === '' || this.project.versions.length < 1) {
+      if (
+        this.project.body === '' ||
+        this.project.versions.length < 1 ||
+        this.project.client_side === 'unknown' ||
+        this.project.server_side === 'unknown'
+      ) {
         this.showKnownErrors = true
       } else {
         this.$nuxt.$loading.start()

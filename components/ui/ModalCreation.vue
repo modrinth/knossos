@@ -115,6 +115,26 @@ export default {
     getProjectType() {
       return this.$tag.projectTypes.find((x) => this.projectType === x.display)
     },
+    getClientSide() {
+      switch (this.getProjectType().id) {
+        case 'plugin':
+          return 'unsupported'
+        case 'resourcepack':
+          return 'required'
+        default:
+          return 'unknown'
+      }
+    },
+    getServerSide() {
+      switch (this.getProjectType().id) {
+        case 'plugin':
+          return 'required'
+        case 'resourcepack':
+          return 'unsupported'
+        default:
+          return 'unknown'
+      }
+    },
     async createProject() {
       this.$nuxt.$loading.start()
 
@@ -159,14 +179,12 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
             },
           ],
           categories: [],
-          client_side: 'unknown',
-          server_side: 'unknown',
+          client_side: this.getClientSide(),
+          server_side: this.getServerSide(),
           license_id: 'LicenseRef-All-Rights-Reserved',
           is_draft: true,
         })
       )
-
-      console.log(formData)
 
       try {
         await this.$axios({

@@ -87,7 +87,7 @@
                   >
                     <div class="title profile-link">
                       <div class="username">@{{ $auth.user.username }}</div>
-                      <div class="prompt">Go to my profile</div>
+                      <div class="prompt">Visit your profile</div>
                     </div>
                   </NuxtLink>
                   <hr class="divider" />
@@ -228,7 +228,7 @@
               />
               <div class="profile-link">
                 <div class="username">@{{ $auth.user.username }}</div>
-                <div class="prompt">Go to my profile</div>
+                <div class="prompt">Visit your profile</div>
               </div>
             </NuxtLink>
             <button
@@ -340,12 +340,7 @@
         <nuxt-link to="/legal/terms">Terms</nuxt-link>
         <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
         <nuxt-link to="/legal/rules">Rules</nuxt-link>
-        <a
-          :target="$external()"
-          href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
-        >
-          License
-        </a>
+        <nuxt-link to="/legal/security">Security</nuxt-link>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>

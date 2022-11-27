@@ -15,7 +15,7 @@
     </div>
     <div class="normal-page">
       <div class="normal-page__sidebar">
-        <aside class="card sidebar">
+        <article class="card sidebar">
           <h1 class="mobile-username">{{ user.username }}</h1>
           <div class="card__overlay">
             <FileInput
@@ -135,6 +135,7 @@
               </span>
             </div>
             <a
+              v-if="githubUrl"
               :href="githubUrl"
               :target="$external()"
               class="sidebar__item github-button iconified-button"
@@ -143,7 +144,7 @@
               View GitHub profile
             </a>
           </template>
-        </aside>
+        </article>
       </div>
       <div class="normal-page__content">
         <Advertisement
@@ -195,9 +196,10 @@
             :client-side="project.client_side"
             :server-side="project.server_side"
             :status="
-              ($auth.user && $auth.user.id === user.id) ||
-              $auth.user.role === 'admin' ||
-              $auth.user.role === 'moderator'
+              $auth.user &&
+              ($auth.user.id === user.id ||
+                $auth.user.role === 'admin' ||
+                $auth.user.role === 'moderator')
                 ? project.status
                 : null
             "
@@ -299,19 +301,27 @@ export default {
         return
       }
 
-      const [gitHubUser, versions] = (
-        await Promise.all([
-          data.$axios.get(`https://api.github.com/user/` + user.github_id),
-          data.$axios.get(
-            `versions?ids=${JSON.stringify(
-              [].concat.apply(
-                [],
-                projects.map((x) => x.versions)
-              )
-            )}`
-          ),
-        ])
-      ).map((it) => it.data)
+      let gitHubUser = {}
+      let versions = []
+
+      try {
+        const [gitHubUserData, versionsData] = (
+          await Promise.all([
+            data.$axios.get(`https://api.github.com/user/` + user.github_id),
+            data.$axios.get(
+              `versions?ids=${JSON.stringify(
+                [].concat.apply(
+                  [],
+                  projects.map((x) => x.versions)
+                )
+              )}`
+            ),
+          ])
+        ).map((it) => it.data)
+
+        gitHubUser = gitHubUserData
+        versions = versionsData
+      } catch {}
 
       for (const version of versions) {
         const projectIndex = projects.findIndex(
@@ -358,6 +368,10 @@ export default {
     }
   },
   head() {
+    const description = this.user.bio
+      ? `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`
+      : `Download ${this.user.username}'s projects on Modrinth`
+
     return {
       title: this.user.username + ' - Modrinth',
       meta: [
@@ -374,12 +388,12 @@ export default {
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.user.username,
+          content: description,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
+          content: description,
         },
         {
           hid: 'description',
