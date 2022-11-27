@@ -586,7 +586,7 @@ export default {
     margin-bottom: var(--spacing-card-md);
     max-width: 100vw;
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1280px) {
       border-radius: var(--size-rounded-sm);
       max-width: 1280px;
       margin-left: auto;
