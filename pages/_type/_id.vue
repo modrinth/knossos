@@ -1,5 +1,10 @@
 <template>
   <div>
+    <ModalLicense
+      ref="modal_license"
+      :license-name="project.license.name"
+      :license-id="project.license.id"
+    />
     <ModalReport
       ref="modal_project_report"
       :item-id="project.id"
@@ -479,7 +484,12 @@
                 >
                   {{ project.license.id }}
                 </a>
-                <span v-else>{{ project.license.id }}</span>
+                <span v-else-if="project.license.id.includes('LicenseRef')">
+                  {{ project.license.id }}
+                </span>
+                <a v-else class="text-link" @click="$refs.modal_license.show()">
+                  {{ project.license.id }}
+                </a>
               </div>
             </div>
             <div
@@ -885,6 +895,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
+import ModalLicense from '~/components/ui/ModalLicense'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
@@ -918,6 +929,7 @@ export default {
     PatreonIcon,
     KoFiIcon,
     ChevronRightIcon,
+    ModalLicense,
   },
   async asyncData(data) {
     try {
