@@ -52,7 +52,7 @@
     <p>
       This notice is inspired by the
       <a href="https://www.pythondiscord.com/pages/security-notice/">
-        Python Discord Security Notice </a
+        Python Discord Security Notice</a
       >.
     </p>
     <p><em>Version 2022-11</em></p>
