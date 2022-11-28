@@ -112,8 +112,29 @@
         </div>
       </div>
     </Modal>
+    <ModalConfirm
+      :title="`Delete Project${selectedProjects.length > 1 ? 's' : ''}`"
+      :description="`Deleting ${selectedProjects.length} project${
+        selectedProjects.length > 1 ? 's' : ''
+      }. This action is irreversable. Are you sure you want to continue? Only projects that you are owner of will be deleted.`"
+      :has-to-type="true"
+      @proceed="bulkDeleteSelected()"
+      :confirmation-text="$auth.user.username"
+      ref="deleteBulkModal"
+    />
+    <ModalCreation ref="modal_creation" />
     <section class="universal-card">
-      <h2>Projects</h2>
+      <div class="title-button-group input-group">
+        <h2>Projects</h2>
+        <button
+          class="iconified-button brand-button"
+          @click="$refs.modal_creation.show()"
+        >
+          <PlusIcon />
+          Create a project
+        </button>
+      </div>
+
       <div class="metrics">
         <div class="metric">
           <div class="label">Total Projects</div>
@@ -132,13 +153,29 @@
     <section class="universal-card">
       <h2>Management</h2>
       <p>You can bulk edit projects by selecting them on the table.</p>
-      <button
-        class="iconified-button"
-        @click="$refs.editLinksModal.show()"
-        :disabled="selectedProjects.length === 0"
-      >
-        Edit Links
-      </button>
+      <div class="button-group">
+        <button
+          class="iconified-button"
+          @click="$refs.editLinksModal.show()"
+          :disabled="selectedProjects.length === 0"
+        >
+          Edit Links
+        </button>
+        <button
+          class="iconified-button"
+          @click="$refs.editLinksModal.show()"
+          :disabled="true"
+        >
+          Set License
+        </button>
+        <button
+          class="iconified-button danger-button"
+          @click="$refs.deleteBulkModal.show()"
+          :disabled="selectedProjects.length === 0"
+        >
+          <TrashIcon />Delete
+        </button>
+      </div>
       <br />
       <div class="table-container">
         <table>
@@ -158,7 +195,7 @@
             <th>Type</th>
             <th>Status</th>
             <th>Role</th>
-            <th></th>
+            <th><!-- Settings Button Column --></th>
           </tr>
           <tr v-for="project in projects" :key="project.id">
             <td>
@@ -173,7 +210,23 @@
                 "
               />
             </td>
-            <td>{{ project.title }}</td>
+            <td>
+              <div
+                v-tooltip="
+                  project.moderator_message != null
+                    ? project.moderator_message.message
+                    : ''
+                "
+                v-if="project.moderator_message != null"
+                class="inline-icon"
+              >
+                <IssuesIcon color="var(--color-special-orange)" />
+              </div>
+
+              <nuxt-link :to="`/${project.project_type}/${project.id}`">
+                {{ project.title }}
+              </nuxt-link>
+            </td>
             <td>{{ project.id }}</td>
             <td>{{ uppercaseString(project.project_type) }}</td>
             <td>
@@ -202,9 +255,12 @@
 import Badge from '~/components/ui/Badge.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import Modal from '~/components/ui/Modal.vue'
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
 
 export default {
   components: {
@@ -212,7 +268,10 @@ export default {
     SettingsIcon,
     TrashIcon,
     Checkbox,
+    IssuesIcon,
     Modal,
+    ModalConfirm,
+    ModalCreation,
   },
   async asyncData(data) {
     try {
@@ -302,6 +361,36 @@ export default {
     },
     uppercaseString(str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    bulkDeleteSelected() {
+      try {
+        this.selectedProjects
+          .filter(
+            (it) =>
+              (it.permissions & this.DELETE_PROJECT) !== this.DELETE_PROJECT
+          )
+          .forEach(async (project) => {
+            await this.$axios.delete(
+              `project/${project.id}`,
+              this.$defaultHeaders()
+            )
+            await this.$store.dispatch('user/fetchProjects')
+            await this.$router.push(`/user/${this.$auth.user.username}`)
+            this.$notify({
+              group: 'main',
+              title: 'Action Success',
+              text: 'Project(s) has been successfully deleted.',
+              type: 'success',
+            })
+          })
+      } catch (e) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: e,
+          type: 'error',
+        })
+      }
     },
     bulkEditLinks() {
       try {
@@ -441,6 +530,15 @@ td {
   text-align: left;
 }
 
+.title-button-group {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+  padding-right: var(--spacing-card-bg);
+}
+
 .label-button {
   margin-left: var(--spacing-card-sm);
 }
@@ -478,6 +576,11 @@ td {
       }
     }
   }
+}
+
+.inline-icon {
+  vertical-align: middle;
+  display: inline-block;
 }
 
 label {
