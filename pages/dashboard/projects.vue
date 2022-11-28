@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal header="Edit Links" ref="modal">
+    <Modal header="Edit Links" ref="editLinksModal">
       <div class="modal-contents">
         <p>
           Empty inputs will be ignored and not updated across the selected
@@ -12,7 +12,8 @@
           >
             <span>Issue tracker</span>
             <input
-              v-model="bulkEdit.issues_url"
+              v-model="editLinks.issues.val"
+              :disabled="editLinks.issues.clear"
               type="url"
               placeholder="Enter a valid URL"
               maxlength="2048"
@@ -23,7 +24,8 @@
           >
             <span>Source code</span>
             <input
-              v-model="bulkEdit.source_url"
+              v-model="editLinks.source.val"
+              :disabled="editLinks.source.clear"
               type="url"
               maxlength="2048"
               placeholder="Enter a valid URL"
@@ -34,7 +36,8 @@
           >
             <span>Wiki page</span>
             <input
-              v-model="bulkEdit.wiki_url"
+              v-model="editLinks.wiki.val"
+              :disabled="editLinks.wiki.clear"
               type="url"
               maxlength="2048"
               placeholder="Enter a valid URL"
@@ -46,7 +49,8 @@
           >
             <span>Discord invite</span>
             <input
-              v-model="bulkEdit.discord_url"
+              v-model="editLinks.discord.val"
+              :disabled="editLinks.discord.clear"
               type="url"
               maxlength="2048"
               placeholder="Enter a valid URL"
@@ -69,13 +73,13 @@
           permission to edit it's details.
         </p>
         <div class="button-group">
-          <button class="iconified-button" @click="$refs.modal.hide()">
+          <button class="iconified-button" @click="$refs.editLinksModal.hide()">
             <CrossIcon />
             Cancel
           </button>
           <button
             class="iconified-button success-button"
-            @click="$refs.modal.hide()"
+            @click="bulkEditLinks()"
           >
             Apply
           </button>
@@ -104,7 +108,7 @@
       <p>You can bulk edit projects by selecting them on the table.</p>
       <button
         class="iconified-button"
-        @click="$refs.modal.show()"
+        @click="$refs.editLinksModal.show()"
         :disabled="selectedProjects.length === 0"
       >
         Edit Links
@@ -244,8 +248,7 @@ export default {
   data() {
     return {
       selectedProjects: [],
-      bulkEditSelection: '',
-      bulkEdit: {
+      editLinks: {
         source: {
           val: '',
           clear: false,
@@ -263,7 +266,6 @@ export default {
           clear: false,
         },
       },
-      showBulkEditModal: false,
     }
   },
   methods: {
@@ -272,6 +274,59 @@ export default {
     },
     uppercaseString(str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    bulkEditLinks() {
+      try {
+        const baseData = {
+          issues_url:
+            !this.editLinks.issues.clear &&
+            this.editLinks.issues.val.trim() !== ''
+              ? this.editLinks.issues.val
+              : null,
+          source_url:
+            !this.editLinks.source.clear &&
+            this.editLinks.source.val.trim() !== ''
+              ? this.editLinks.source.val
+              : null,
+          wiki_url:
+            !this.editLinks.wiki.clear && this.editLinks.wiki.val.trim() !== ''
+              ? this.editLinks.wiki.val
+              : null,
+          discord_url:
+            !this.editLinks.discord.clear &&
+            this.editLinks.discord.val.trim() !== ''
+              ? this.editLinks.discord.val
+              : null,
+        }
+
+        const validProjects = this.selectedProjects.filter(
+          (it) => (it.permissions & this.EDIT_DETAILS) !== this.EDIT_DETAILS
+        )
+
+        validProjects.forEach(async (project) => {
+          await this.$axios.patch(
+            `project/${project.id}`,
+            baseData,
+            this.$defaultHeaders()
+          )
+        })
+
+        this.$refs.editLinksModal.hide()
+        this.$notify({
+          group: 'main',
+          title: 'Success',
+          text: "Bulk edited selected project's links.",
+          type: 'success',
+        })
+        this.selectedProjects = []
+      } catch (e) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: e,
+          type: 'error',
+        })
+      }
     },
   },
   fetch() {},
