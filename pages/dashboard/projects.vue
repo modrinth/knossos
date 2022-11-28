@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal header="Edit Links" ref="editLinksModal">
+    <Modal ref="editLinksModal" header="Edit Links">
       <div class="modal-contents">
         <p>
           Empty inputs will be ignored and not updated across the selected
@@ -92,7 +92,7 @@
             v-for="project in selectedProjects.filter(
               (it) => (it.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             )"
-            v-bind:key="project.id"
+            :key="project.id"
           >
             {{ project.title }}
           </li>
@@ -113,14 +113,14 @@
       </div>
     </Modal>
     <ModalConfirm
+      ref="deleteBulkModal"
       :title="`Delete Project${selectedProjects.length > 1 ? 's' : ''}`"
       :description="`Deleting ${selectedProjects.length} project${
         selectedProjects.length > 1 ? 's' : ''
       }. This action is irreversable. Are you sure you want to continue? Only projects that you are owner of will be deleted.`"
       :has-to-type="true"
-      @proceed="bulkDeleteSelected()"
       :confirmation-text="$auth.user.username"
-      ref="deleteBulkModal"
+      @proceed="bulkDeleteSelected()"
     />
     <ModalCreation ref="modal_creation" />
     <section class="universal-card">
@@ -156,25 +156,52 @@
       <div class="button-group">
         <button
           class="iconified-button"
-          @click="$refs.editLinksModal.show()"
           :disabled="selectedProjects.length === 0"
+          @click="$refs.editLinksModal.show()"
         >
           Edit Links
         </button>
         <button
           class="iconified-button"
-          @click="$refs.editLinksModal.show()"
           :disabled="true"
+          @click="$refs.editLinksModal.show()"
         >
           Set License
         </button>
         <button
           class="iconified-button danger-button"
-          @click="$refs.deleteBulkModal.show()"
           :disabled="selectedProjects.length === 0"
+          @click="$refs.deleteBulkModal.show()"
         >
           <TrashIcon />Delete
         </button>
+        <div class="align-row-right">
+          <div class="labeled-control-row">
+            Sort By
+            <Multiselect
+              v-model="sortBy"
+              :searchable="false"
+              class="small-select"
+              :options="['Name', 'Status', 'Role', 'Type']"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="sortCurrentPage()"
+            ></Multiselect>
+            Max Per Page
+            <Multiselect
+              v-model="maxPerPage"
+              placeholder="Select one"
+              class="small-select"
+              :options="[1, 5, 10, 15, 20, 50, 100]"
+              :searchable="false"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @input="changeAmountPerPage()"
+            />
+          </div>
+        </div>
       </div>
       <br />
       <div class="table-container">
@@ -182,12 +209,12 @@
           <tr>
             <th>
               <Checkbox
+                :value="selectedProjects === projects"
                 @input="
                   selectedProjects === projects
                     ? (selectedProjects = [])
                     : selectAllProjects()
                 "
-                :value="selectedProjects === projects"
               />
             </th>
             <th>Name</th>
@@ -197,7 +224,7 @@
             <th>Role</th>
             <th><!-- Settings Button Column --></th>
           </tr>
-          <tr v-for="project in projects" :key="project.id">
+          <tr v-for="project in currentSortedTableView" :key="project.id">
             <td>
               <Checkbox
                 :value="selectedProjects.includes(project)"
@@ -212,12 +239,12 @@
             </td>
             <td>
               <div
+                v-if="project.moderator_message != null"
                 v-tooltip="
                   project.moderator_message != null
                     ? project.moderator_message.message
                     : ''
                 "
-                v-if="project.moderator_message != null"
                 class="inline-icon"
               >
                 <IssuesIcon color="var(--color-special-orange)" />
@@ -247,16 +274,25 @@
           </tr>
         </table>
       </div>
+      <Pagination
+        :page="currentPage"
+        :count="pageCount"
+        :link-function="() => '/'"
+        @select-page="switchPage"
+      ></Pagination>
     </section>
   </div>
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
+
 import Badge from '~/components/ui/Badge.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import Modal from '~/components/ui/Modal.vue'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
+import Pagination from '~/components/ui/Pagination.vue'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
@@ -272,6 +308,8 @@ export default {
     Modal,
     ModalConfirm,
     ModalCreation,
+    Multiselect,
+    Pagination,
   },
   async asyncData(data) {
     try {
@@ -322,19 +360,15 @@ export default {
       })
     }
   },
-  created() {
-    this.UPLOAD_VERSION = 1 << 0
-    this.DELETE_VERSION = 1 << 1
-    this.EDIT_DETAILS = 1 << 2
-    this.EDIT_BODY = 1 << 3
-    this.MANAGE_INVITES = 1 << 4
-    this.REMOVE_MEMBER = 1 << 5
-    this.EDIT_MEMBER = 1 << 6
-    this.DELETE_PROJECT = 1 << 7
-  },
   data() {
     return {
       selectedProjects: [],
+      currentSortedTableView: [],
+      maxPerPage: 10,
+      currentPage: 1,
+      pages: [],
+      pageCount: 1,
+      sortBy: 'Name',
       editLinks: {
         source: {
           val: '',
@@ -355,12 +389,100 @@ export default {
       },
     }
   },
+  fetch() {},
+  head: {
+    title: 'Projects - Modrinth',
+  },
+  created() {
+    this.UPLOAD_VERSION = 1 << 0
+    this.DELETE_VERSION = 1 << 1
+    this.EDIT_DETAILS = 1 << 2
+    this.EDIT_BODY = 1 << 3
+    this.MANAGE_INVITES = 1 << 4
+    this.REMOVE_MEMBER = 1 << 5
+    this.EDIT_MEMBER = 1 << 6
+    this.DELETE_PROJECT = 1 << 7
+  },
+  mounted() {},
   methods: {
     selectAllProjects() {
       this.selectedProjects = this.projects
     },
     uppercaseString(str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    sortCurrentPage() {
+      switch (this.sortBy) {
+        case 'Name':
+          this.currentSortedTableView.sort((a, b) => {
+            if (a.title < b.title) {
+              return -1
+            }
+            if (a.title > b.title) {
+              return 1
+            }
+            return 0
+          })
+          break
+        case 'Status':
+          this.currentSortedTableView.sort((a, b) => {
+            if (a.status < b.status) {
+              return -1
+            }
+            if (a.status > b.status) {
+              return 1
+            }
+            return 0
+          })
+          break
+        case 'Role':
+          this.currentSortedTableView.sort((a, b) => {
+            if (a.role < b.role) {
+              return -1
+            }
+            if (a.role > b.role) {
+              return 1
+            }
+            return 0
+          })
+          break
+        case 'Type':
+          this.currentSortedTableView.sort((a, b) => {
+            if (a.project_type < b.project_type) {
+              return -1
+            }
+            if (a.project_type > b.project_type) {
+              return 1
+            }
+            return 0
+          })
+          break
+        default:
+          break
+      }
+    },
+    switchPage(index) {
+      this.currentSortedTableView = this.pages[index - 1]
+      this.sortCurrentPage()
+      this.$nextTick()
+    },
+    changeAmountPerPage() {
+      this.pageCount = Math.ceil(this.projects.length / this.maxPerPage)
+      for (let index = 0; index < this.pageCount; index++) {
+        this.pages[index] = []
+      }
+      let counter = 0
+      let index = 0
+      this.projects.forEach((project) => {
+        if (counter > this.maxPerPage) {
+          counter = 0
+          index++
+        }
+
+        this.pages[index].push(project)
+      })
+      this.switchPage(1)
+      this.sortCurrentPage()
     },
     bulkDeleteSelected() {
       try {
@@ -446,15 +568,21 @@ export default {
       }
     },
   },
-  fetch() {},
-  head: {
-    title: 'Projects - Modrinth',
-  },
 }
 </script>
 <style lang="scss" scoped>
 .status {
   margin-top: var(--spacing-card-xs);
+}
+
+.labeled-control-row {
+  flex: 1;
+  display: flex;
+  font-size: var(--font-size-sm);
+  flex-direction: row;
+  min-width: 0;
+  align-items: center;
+  gap: var(--spacing-card-md);
 }
 
 .metrics {
@@ -484,6 +612,18 @@ export default {
       font-size: 2rem;
     }
   }
+}
+
+.align-row-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.small-select {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .table-container {
