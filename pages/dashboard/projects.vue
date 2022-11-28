@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal header="Bulk Edit" ref="modal">
+    <Modal header="Edit Links" ref="modal">
       <div class="modal-contents">
         <p>
           Empty inputs will be ignored and not updated across the selected
@@ -107,7 +107,7 @@
         @click="$refs.modal.show()"
         :disabled="selectedProjects.length === 0"
       >
-        Bulk Edit
+        Edit Links
       </button>
       <br />
       <div class="table-container">
