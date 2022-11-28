@@ -47,14 +47,36 @@
                 {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
               >
             </div>
-            <a
-              :href="$parent.findPrimary(version).url"
-              class="iconified-button download"
-              :title="`Download ${version.name}`"
-            >
-              <DownloadIcon aria-hidden="true" />
-              Download
-            </a>
+            <div class="multibutton-pill-row">
+              <a
+                v-tooltip="
+                  $parent.findPrimary(version).filename +
+                  ' (' +
+                  $formatBytes($parent.findPrimary(version).size) +
+                  ')'
+                "
+                :href="$parent.findPrimary(version).url"
+                class="iconified-button download"
+                :class="$parent.defaultInstallButton && 'primary-install'"
+              >
+                <DownloadIcon aria-hidden="true" />
+              </a>
+              <a
+                v-if="$parent.integrationEnabled"
+                v-tooltip="'Install with Launcher'"
+                class="iconified-button download"
+                :class="$parent.defaultInstallButton && 'primary-install'"
+                :title="`Download ${version.name}`"
+                @click="
+                  $parent.installWithLauncher(
+                    `modrinth://${project.projectType}/${version.id}`
+                  )
+                "
+                @click.stop="(event) => event.stopPropagation()"
+              >
+                <LaunchIcon aria-hidden="true" />
+              </a>
+            </div>
           </div>
           <div
             v-if="version.changelog && !version.duplicate"
@@ -69,12 +91,14 @@
 </template>
 <script>
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import LaunchIcon from '~/assets/images/utils/rocket.svg?inline'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
   components: {
     VersionFilterControl,
     DownloadIcon,
+    LaunchIcon,
   },
   props: {
     project: {
@@ -177,6 +201,7 @@ export default {
 <style lang="scss" scoped>
 .changelog-item {
   display: flex;
+  width: auto;
   margin-bottom: 1rem;
   position: relative;
   padding-left: 1.8rem;
@@ -234,8 +259,13 @@ export default {
   }
 }
 
+.version-wrapper {
+  width: 100%;
+}
+
 .version-header {
   display: flex;
+  flex-grow: 1;
   align-items: center;
   margin-top: 0.2rem;
 
@@ -274,5 +304,42 @@ export default {
 
 .markdown-body {
   margin: 0.5rem 0.5rem 0 0;
+}
+
+.multibutton-pill-row {
+  display: flex;
+  margin-left: auto;
+  flex-direction: row;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+  border-radius: var(--size-rounded-sm);
+  margin-right: 1rem;
+  width: min-content;
+  height: 2.5rem;
+  gap: 0.5rem;
+
+  a {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+
+    svg {
+      display: block;
+      margin: auto;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &.primary-install:first-child {
+      order: 2;
+      background: var(--color-button-bg);
+      color: var(--color-button-text);
+    }
+
+    &.primary-install:nth-child(2) {
+      order: 1;
+      background: var(--color-brand);
+      color: var(--color-brand-inverted);
+    }
+  }
 }
 </style>

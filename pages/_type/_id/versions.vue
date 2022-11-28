@@ -13,7 +13,7 @@
     />
     <div v-if="versions.length > 0" class="universal-card all-versions">
       <div class="header">
-        <div></div>
+        <div>Actions</div>
         <div>Version</div>
         <div>Supports</div>
         <div>Stats</div>
@@ -30,40 +30,65 @@
           )
         "
       >
-        <a
-          v-tooltip="
-            $parent.findPrimary(version).filename +
-            ' (' +
-            $formatBytes($parent.findPrimary(version).size) +
-            ')'
-          "
-          :href="$parent.findPrimary(version).url"
-          class="download-button"
-          :class="version.version_type"
-          :title="`Download ${version.name}`"
-          @click.stop="(event) => event.stopPropagation()"
-        >
-          <DownloadIcon aria-hidden="true" />
-        </a>
-        <span class="version__title">{{ version.name }}</span>
-        <div class="version__metadata">
-          <VersionBadge
-            v-if="version.version_type === 'release'"
-            type="release"
-            color="green"
-          />
-          <VersionBadge
-            v-else-if="version.version_type === 'beta'"
-            type="beta"
-            color="orange"
-          />
-          <VersionBadge
-            v-else-if="version.version_type === 'alpha'"
-            type="alpha"
-            color="red"
-          />
-          <span class="divider" />
-          <span class="version_number">{{ version.version_number }}</span>
+        <div class="multibutton-pill-row">
+          <a
+            v-tooltip="
+              $parent.findPrimary(version).filename +
+              ' (' +
+              $formatBytes($parent.findPrimary(version).size) +
+              ')'
+            "
+            :href="$parent.findPrimary(version).url"
+            class="iconified-button brand-button"
+            :class="[
+              version.version_type,
+              $parent.defaultInstallButton && 'primary-install',
+            ]"
+            :title="`Download ${version.name}`"
+            @click.stop="(event) => event.stopPropagation()"
+          >
+            <DownloadIcon aria-hidden="true" />
+          </a>
+          <a
+            v-if="$parent.integrationEnabled"
+            v-tooltip="'Install with Launcher'"
+            class="iconified-button download"
+            :class="[
+              version.version_type,
+              $parent.defaultInstallButton && 'primary-install',
+            ]"
+            :title="`Download ${version.name}`"
+            @click="
+              $parent.installWithLauncher(
+                `modrinth://${project.projectType}/${version.id}`
+              )
+            "
+            @click.stop="(event) => event.stopPropagation()"
+          >
+            <LaunchIcon aria-hidden="true" />
+          </a>
+        </div>
+        <div>
+          <span class="version__title">{{ version.name }}</span>
+          <div class="version__metadata">
+            <VersionBadge
+              v-if="version.version_type === 'release'"
+              type="release"
+              color="green"
+            />
+            <VersionBadge
+              v-else-if="version.version_type === 'beta'"
+              type="beta"
+              color="orange"
+            />
+            <VersionBadge
+              v-else-if="version.version_type === 'alpha'"
+              type="alpha"
+              color="red"
+            />
+            <span class="divider" />
+            <span class="version_number">{{ version.version_number }}</span>
+          </div>
         </div>
         <div class="version__supports">
           <span>
@@ -90,6 +115,7 @@
 <script>
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import LaunchIcon from '~/assets/images/utils/rocket.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
@@ -97,6 +123,7 @@ export default {
   components: {
     PlusIcon,
     DownloadIcon,
+    LaunchIcon,
     VersionBadge,
     VersionFilterControl,
   },
@@ -187,7 +214,7 @@ export default {
   .header {
     display: grid;
     grid-template: 'download title supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     color: var(--color-text-dark);
     font-size: var(--font-size-md);
     font-weight: bold;
@@ -216,7 +243,7 @@ export default {
   .version-button {
     display: grid;
     grid-template: 'download title supports stats' 'download metadata supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: var(--spacing-card-sm);
     justify-content: left;
     padding: var(--spacing-card-md);
@@ -225,11 +252,9 @@ export default {
       grid-area: download;
     }
     .version__title {
-      grid-area: title;
       font-weight: bold;
     }
     .version__metadata {
-      grid-area: metadata;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -257,9 +282,15 @@ export default {
 
 @media screen and (max-width: 1024px) {
   .all-versions {
+    display: flex;
+
     .header {
-      grid-template: 'download title';
-      grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr;
+      grid-template: 'title download';
+      grid-template-columns: 1fr 1fr;
+
+      div:nth-child(1) {
+        display: none;
+      }
 
       div:nth-child(3) {
         display: none;
@@ -271,9 +302,17 @@ export default {
     }
 
     .version-button {
-      grid-template: 'download title' 'download metadata' 'download supports' 'download stats';
-      grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr;
+      position: relative;
       row-gap: var(--spacing-card-xs);
+      display: flex;
+      flex-direction: column;
+
+      .multibutton-pill-row {
+        margin-right: 0.5rem;
+        position: absolute;
+        right: 0;
+        flex-direction: column;
+      }
 
       .version__supports {
         display: flex;
@@ -284,6 +323,38 @@ export default {
       .version__metadata {
         margin: 0;
       }
+    }
+  }
+}
+
+.multibutton-pill-row {
+  display: flex;
+  gap: 0.5em;
+  flex-direction: row;
+  border-radius: var(--size-rounded-sm);
+
+  a {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+
+    svg {
+      display: flex;
+      margin: 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &.primary-install:first-child {
+      order: 2;
+      background: var(--color-button-bg);
+      color: var(--color-button-text);
+    }
+
+    &.primary-install:nth-child(2) {
+      order: 1;
+      background: var(--color-brand);
+      color: var(--color-brand-inverted);
     }
   }
 }

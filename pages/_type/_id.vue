@@ -5,6 +5,8 @@
       :item-id="project.id"
       item-type="project"
     />
+    <ModalFirstRun ref="modal_firstrun" />
+    <ModalDidThatWork ref="modal_didthatwork" />
     <div
       :class="{
         'normal-page': true,
@@ -394,20 +396,38 @@
                 )
               "
             >
-              <a
-                v-tooltip="
-                  findPrimary(version).filename +
-                  ' (' +
-                  $formatBytes(findPrimary(version).size) +
-                  ')'
-                "
-                :href="findPrimary(version).url"
-                class="download download-button"
-                :title="`Download ${version.name}`"
-                @click.stop="(event) => event.stopPropagation()"
-              >
-                <DownloadIcon aria-hidden="true" />
-              </a>
+              <div class="multibutton-pill-column">
+                <a
+                  v-tooltip="
+                    findPrimary(version).filename +
+                    ' (' +
+                    $formatBytes(findPrimary(version).size) +
+                    ')'
+                  "
+                  :href="findPrimary(version).url"
+                  class="download download-button"
+                  :class="defaultInstallButton && 'primary-install'"
+                  :title="`Download ${version.name}`"
+                  @click.stop="(event) => event.stopPropagation()"
+                >
+                  <DownloadIcon aria-hidden="true" />
+                </a>
+                <a
+                  v-if="integrationEnabled"
+                  v-tooltip="'Install with Launcher'"
+                  class="download iconified-button"
+                  :class="defaultInstallButton && 'primary-install'"
+                  :title="`Download ${version.name}`"
+                  @click="
+                    installWithLauncher(
+                      `modrinth://${project.projectType}/${version.id}`
+                    )
+                  "
+                  @click.stop="(event) => event.stopPropagation()"
+                >
+                  <LaunchIcon aria-hidden="true" />
+                </a>
+              </div>
               <div class="info">
                 <nuxt-link
                   :to="`/${project.project_type}/${
@@ -735,20 +755,38 @@
                 )
               "
             >
-              <a
-                v-tooltip="
-                  findPrimary(version).filename +
-                  ' (' +
-                  $formatBytes(findPrimary(version).size) +
-                  ')'
-                "
-                :href="findPrimary(version).url"
-                class="download download-button"
-                :title="`Download ${version.name}`"
-                @click.stop="(event) => event.stopPropagation()"
-              >
-                <DownloadIcon aria-hidden="true" />
-              </a>
+              <div class="multibutton-pill-column">
+                <a
+                  v-tooltip="
+                    findPrimary(version).filename +
+                    ' (' +
+                    $formatBytes(findPrimary(version).size) +
+                    ')'
+                  "
+                  :href="findPrimary(version).url"
+                  class="download download-button"
+                  :class="defaultInstallButton && 'primary-install'"
+                  :title="`Download ${version.name}`"
+                  @click.stop="(event) => event.stopPropagation()"
+                >
+                  <DownloadIcon aria-hidden="true" />
+                </a>
+                <a
+                  v-if="integrationEnabled"
+                  v-tooltip="'Install with Launcher'"
+                  class="download iconified-button"
+                  :class="defaultInstallButton && 'primary-install'"
+                  :title="`Download ${version.name}`"
+                  @click="
+                    installWithLauncher(
+                      `modrinth://${project.projectType}/${version.id}`
+                    )
+                  "
+                  @click.stop="(event) => event.stopPropagation()"
+                >
+                  <LaunchIcon aria-hidden="true" />
+                </a>
+              </div>
               <div class="info">
                 <nuxt-link
                   :to="`/${project.project_type}/${
@@ -865,6 +903,7 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import LaunchIcon from '~/assets/images/utils/rocket.svg?inline'
 import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
 import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
@@ -884,9 +923,12 @@ import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
 import ModalReport from '~/components/ui/ModalReport'
+import ModalFirstRun from '~/components/ui/ModalFirstRun'
+import ModalDidThatWork from '~/components/ui/ModalDidThatWork'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
+import { EventBus } from '~/app/event-bus'
 
 export default {
   components: {
@@ -896,8 +938,11 @@ export default {
     Badge,
     Advertisement,
     ModalReport,
+    ModalFirstRun,
+    ModalDidThatWork,
     IssuesIcon,
     DownloadIcon,
+    LaunchIcon,
     CalendarIcon,
     CheckIcon,
     ClearIcon,
@@ -1052,6 +1097,8 @@ export default {
   data() {
     return {
       showKnownErrors: false,
+      integrationEnabled: true,
+      defaultInstallButton: false,
     }
   },
   fetch() {
@@ -1120,6 +1167,20 @@ export default {
         this.loaders
       )
     },
+  },
+  created() {
+    if (process.browser) {
+      this.integrationEnabled =
+        localStorage.getItem('integration-enabled') === 'true'
+      this.defaultInstallButton =
+        localStorage.getItem('default-install-button') === 'true'
+      EventBus.$on('integration-enabled', (value) => {
+        this.integrationEnabled = value
+      })
+      EventBus.$on('default-install-button', (value) => {
+        this.defaultInstallButton = value
+      })
+    }
   },
   methods: {
     findPrimary(version) {
@@ -1191,6 +1252,13 @@ export default {
         }
 
         this.$nuxt.$loading.finish()
+      }
+    },
+    installWithLauncher(link) {
+      if (localStorage.getItem('first-run-completed') === 'true') {
+        window.location = link
+      } else {
+        this.$refs.modal_firstrun.show(link)
       }
     },
   },
@@ -1288,6 +1356,7 @@ export default {
   padding: 0.5rem;
 
   .download {
+    justify-self: start;
     height: 2.5rem;
     width: 2.5rem;
     margin-right: 0.75rem;
@@ -1301,6 +1370,7 @@ export default {
   .info {
     display: flex;
     flex-direction: column;
+    margin: auto 0;
 
     .top {
       font-weight: bold;
@@ -1441,5 +1511,94 @@ export default {
   font-weight: bold;
   margin-bottom: var(--spacing-card-xs);
   font-size: 1.125rem;
+}
+
+.multibutton-pill-row {
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  border-radius: var(--size-rounded-sm);
+  background: var(--color-button-bg);
+  width: min-content;
+  margin-right: 1rem;
+  height: 3rem;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+
+  a {
+    svg {
+      display: flex;
+      margin: 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--color--button-text);
+    }
+
+    &:first-child {
+      margin-left: 0;
+      margin-right: 0;
+      width: 2.5rem;
+      height: 3rem;
+      box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+    }
+
+    &:last-child {
+      margin-left: 0;
+      margin-right: 0;
+      background: var(--color-button-bg);
+      color: var(--color-button-text);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: 3rem;
+      width: 2.5rem;
+    }
+  }
+}
+
+.multibutton-pill-column {
+  display: flex;
+  gap: 0;
+  flex-direction: column;
+  border-radius: var(--size-rounded-sm);
+  background: var(--color-button-bg);
+  width: 2.5rem;
+  margin-right: 1rem;
+  height: fit-content;
+  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+
+  a {
+    padding: 0;
+
+    svg {
+      display: block;
+      margin: 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &:first-child {
+      width: 2.5rem;
+      height: 2.5rem;
+      box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+
+      &.primary-install {
+        order: 2;
+        background: var(--color-button-bg);
+        color: var(--color-button-text);
+      }
+    }
+
+    &:nth-child(2) {
+      background: var(--color-button-bg);
+      color: var(--color-button-text);
+      height: 2.325rem;
+      width: 2.5rem;
+
+      &.primary-install {
+        order: 1;
+        background: var(--color-brand);
+        color: var(--color-brand-inverted);
+      }
+    }
+  }
 }
 </style>

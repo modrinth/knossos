@@ -489,6 +489,12 @@ export default {
     }
   },
   created() {
+    if (process.browser) {
+      if (localStorage.getItem('integration-enabled') === null) {
+        localStorage.setItem('integration-enabled', 'true')
+      }
+    }
+
     this.$nuxt.$on('registerSkipLink', (data) => {
       this.registeredSkipLink = data
     })

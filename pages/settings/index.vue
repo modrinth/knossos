@@ -110,6 +110,40 @@
           @change="saveCosmeticSettings"
         />
       </div>
+      <div class="adjacent-input small">
+        <label for="launcher-integration">
+          <span class="label__title">Launcher integration</span>
+          <span class="label__description">
+            Displays a button next to all downloads that will attempt to open
+            your launcher to install the requested mod.
+          </span>
+        </label>
+        <input
+          id="launcher-integration"
+          v-model="integrationEnabled"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveIntegrationSettings"
+        />
+      </div>
+      <div class="adjacent-input small">
+        <label for="default-install">
+          <span class="label__title">
+            <q>Install with Launcher</q> as default
+          </span>
+          <span class="label__description">
+            Makes <q>Install with Launcher</q> the default button for all
+            downloads.
+          </span>
+        </label>
+        <input
+          id="default-install"
+          v-model="defaultInstallButton"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveIntegrationSettings"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -129,6 +163,8 @@ export default {
       modpacksAlphaNotice: true,
       advancedRendering: true,
       externalLinksNewTab: true,
+      integrationEnabled: true,
+      defaultInstallButton: false,
     }
   },
   fetch() {
@@ -148,6 +184,14 @@ export default {
   head: {
     title: 'Display settings - Modrinth',
   },
+  created() {
+    if (process.browser) {
+      this.integrationEnabled =
+        localStorage.getItem('integration-enabled') === 'true'
+      this.defaultInstallButton =
+        localStorage.getItem('default-install-button') === 'true'
+    }
+  },
   methods: {
     async saveCosmeticSettings() {
       await this.$store.dispatch('cosmetics/save', {
@@ -158,6 +202,10 @@ export default {
         externalLinksNewTab: this.externalLinksNewTab,
         $cookies: this.$cookies,
       })
+    },
+    saveIntegrationSettings() {
+      localStorage.setItem('integration-enabled', this.integrationEnabled)
+      localStorage.setItem('default-install-button', this.defaultInstallButton)
     },
     changeTheme() {
       const shift = event.shiftKey
