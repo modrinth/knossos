@@ -1,15 +1,86 @@
 <template>
   <div>
     <Modal header="Bulk Edit" ref="modal">
-      <section class="card">
-        <p>You have selected the following projects:</p>
+      <div class="modal-contents">
+        <p>
+          Empty inputs will be ignored and not updated across the selected
+          projects.
+        </p>
+        <section class="links">
+          <label
+            title="A place for users to report bugs, issues, and concerns about your project."
+          >
+            <span>Issue tracker</span>
+            <input
+              v-model="bulkEdit.issues_url"
+              type="url"
+              placeholder="Enter a valid URL"
+              maxlength="2048"
+            />
+          </label>
+          <label
+            title="A page/repository containing the source code for your project"
+          >
+            <span>Source code</span>
+            <input
+              v-model="bulkEdit.source_url"
+              type="url"
+              maxlength="2048"
+              placeholder="Enter a valid URL"
+            />
+          </label>
+          <label
+            title="A page containing information, documentation, and help for the project."
+          >
+            <span>Wiki page</span>
+            <input
+              v-model="bulkEdit.wiki_url"
+              type="url"
+              maxlength="2048"
+              placeholder="Enter a valid URL"
+            />
+          </label>
+          <label
+            class="no-margin"
+            title="An invitation link to your Discord server."
+          >
+            <span>Discord invite</span>
+            <input
+              v-model="bulkEdit.discord_url"
+              type="url"
+              maxlength="2048"
+              placeholder="Enter a valid URL"
+            />
+          </label>
+        </section>
+        <p>Changes will be applied to the following projects:</p>
         <ul>
-          <li v-for="project in selectedProjects" v-bind:key="project.id">
+          <li
+            v-for="project in selectedProjects.filter(
+              (it) => (it.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            )"
+            v-bind:key="project.id"
+          >
             {{ project.title }}
           </li>
         </ul>
-        <p>Select a field to edit:</p>
-      </section>
+        <p>
+          If a project you have selected is not in this list - you do not have
+          permission to edit it's details.
+        </p>
+        <div class="button-group">
+          <button class="iconified-button" @click="$refs.modal.hide()">
+            <CrossIcon />
+            Cancel
+          </button>
+          <button
+            class="iconified-button success-button"
+            @click="$refs.modal.hide()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
     </Modal>
     <section class="universal-card">
       <h2>Projects</h2>
@@ -84,7 +155,9 @@
             </td>
             <td>{{ project.role }}</td>
             <td>
-              <nuxt-link :to="`/${project.project_type}/${project.id}/settings`"
+              <nuxt-link
+                class="square-button"
+                :to="`/${project.project_type}/${project.id}/settings`"
                 ><SettingsIcon
               /></nuxt-link>
             </td>
@@ -133,6 +206,7 @@ export default {
         teamData.forEach((member) => {
           if (member.user.id !== data.$auth.user.id) return
           project.role = member.role
+          project.permission = member.permission
           projects.push(project)
         })
 
@@ -157,9 +231,38 @@ export default {
       })
     }
   },
+  created() {
+    this.UPLOAD_VERSION = 1 << 0
+    this.DELETE_VERSION = 1 << 1
+    this.EDIT_DETAILS = 1 << 2
+    this.EDIT_BODY = 1 << 3
+    this.MANAGE_INVITES = 1 << 4
+    this.REMOVE_MEMBER = 1 << 5
+    this.EDIT_MEMBER = 1 << 6
+    this.DELETE_PROJECT = 1 << 7
+  },
   data() {
     return {
       selectedProjects: [],
+      bulkEditSelection: '',
+      bulkEdit: {
+        source: {
+          val: '',
+          clear: false,
+        },
+        discord: {
+          val: '',
+          clear: false,
+        },
+        wiki: {
+          val: '',
+          clear: false,
+        },
+        issues: {
+          val: '',
+          clear: false,
+        },
+      },
       showBulkEditModal: false,
     }
   },
@@ -253,6 +356,50 @@ th,
 td {
   padding: var(--spacing-card-md);
   text-align: left;
-  box-shadow: -1px -1px var(--border-color);
+}
+
+.modal-contents {
+  padding: var(--spacing-card-bg);
+  display: flex;
+  height: auto;
+  flex-direction: column;
+
+  .button-group {
+    margin-left: auto;
+    margin-top: 1.5rem;
+  }
+
+  ul {
+    margin: var(--spacing-card-sm);
+  }
+
+  section.links {
+    display: grid;
+    grid-area: auto;
+
+    label {
+      align-items: center;
+      margin-top: var(--spacing-card-sm);
+
+      span {
+        flex: 1;
+      }
+    }
+  }
+}
+
+label {
+  display: flex;
+
+  span {
+    flex: 2;
+  }
+
+  input,
+  .multiselect,
+  .legacy-input-group {
+    flex: 3;
+    height: fit-content;
+  }
 }
 </style>
