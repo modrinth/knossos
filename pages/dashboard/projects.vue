@@ -4,7 +4,8 @@
       <div class="modal-contents">
         <p>
           Empty inputs will be ignored and not updated across the selected
-          projects.
+          projects. You can also mark a field for clearing by using the trash
+          can button.
         </p>
         <section class="links">
           <label
@@ -18,6 +19,13 @@
               placeholder="Enter a valid URL"
               maxlength="2048"
             />
+            <button
+              class="square-button label-button"
+              :data-active="editLinks.issues.clear"
+              @click="editLinks.issues.clear = !editLinks.issues.clear"
+            >
+              <TrashIcon />
+            </button>
           </label>
           <label
             title="A page/repository containing the source code for your project"
@@ -30,6 +38,13 @@
               maxlength="2048"
               placeholder="Enter a valid URL"
             />
+            <button
+              class="square-button label-button"
+              :data-active="editLinks.source.clear"
+              @click="editLinks.source.clear = !editLinks.source.clear"
+            >
+              <TrashIcon />
+            </button>
           </label>
           <label
             title="A page containing information, documentation, and help for the project."
@@ -42,6 +57,13 @@
               maxlength="2048"
               placeholder="Enter a valid URL"
             />
+            <button
+              class="square-button label-button"
+              :data-active="editLinks.wiki.clear"
+              @click="editLinks.wiki.clear = !editLinks.wiki.clear"
+            >
+              <TrashIcon />
+            </button>
           </label>
           <label
             class="no-margin"
@@ -55,6 +77,13 @@
               maxlength="2048"
               placeholder="Enter a valid URL"
             />
+            <button
+              class="square-button label-button"
+              :data-active="editLinks.discord.clear"
+              @click="editLinks.discord.clear = !editLinks.discord.clear"
+            >
+              <TrashIcon />
+            </button>
           </label>
         </section>
         <p>Changes will be applied to the following projects:</p>
@@ -77,10 +106,7 @@
             <CrossIcon />
             Cancel
           </button>
-          <button
-            class="iconified-button success-button"
-            @click="bulkEditLinks()"
-          >
+          <button class="iconified-button" @click="bulkEditLinks()">
             Apply
           </button>
         </div>
@@ -178,11 +204,13 @@ import Checkbox from '~/components/ui/Checkbox.vue'
 import Modal from '~/components/ui/Modal.vue'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 
 export default {
   components: {
     Badge,
     SettingsIcon,
+    TrashIcon,
     Checkbox,
     Modal,
   },
@@ -411,6 +439,15 @@ th,
 td {
   padding: var(--spacing-card-md);
   text-align: left;
+}
+
+.label-button {
+  margin-left: var(--spacing-card-sm);
+}
+
+.label-button[data-active='true'] {
+  --background-color: var(--color-special-red);
+  --text-color: var(--color-brand-inverted);
 }
 
 .modal-contents {
