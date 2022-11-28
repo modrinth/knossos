@@ -1327,3 +1327,24 @@ button {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
+
+.project-list.display-mode--grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  @media screen and (max-width: 80rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media screen and (max-width: 860px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media screen and (max-width: 550px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

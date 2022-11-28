@@ -321,7 +321,12 @@
             @click="cycleSearchDisplayMode()"
           >
             <GridIcon
-              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'gallery'"
+              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'"
+            />
+            <ImageIcon
+              v-else-if="
+                $cosmetics.searchDisplayMode[projectType.id] === 'gallery'
+              "
             />
             <ListIcon v-else />
           </button>
@@ -402,6 +407,7 @@ import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import FilterIcon from '~/assets/images/utils/filter.svg?inline'
 import GridIcon from '~/assets/images/utils/grid.svg?inline'
 import ListIcon from '~/assets/images/utils/list.svg?inline'
+import ImageIcon from '~/assets/images/utils/image.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -421,6 +427,7 @@ export default {
     FilterIcon,
     GridIcon,
     ListIcon,
+    ImageIcon,
     LogoAnimated,
   },
   data() {
@@ -822,7 +829,8 @@ export default {
     },
     async cycleSearchDisplayMode() {
       const value = this.$cosmetics.searchDisplayMode[this.projectType.id]
-      const newValue = value === 'list' ? 'gallery' : 'list'
+      const newValue =
+        value === 'list' ? 'grid' : value === 'grid' ? 'gallery' : 'list'
       await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
         projectType: this.projectType.id,
         mode: newValue,

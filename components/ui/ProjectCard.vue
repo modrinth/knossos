@@ -124,7 +124,8 @@
         class="stat date"
       >
         <EditIcon aria-hidden="true" />
-        Updated {{ $dayjs(updatedAt).fromNow() }}
+        <span class="date-label">Updated </span
+        >{{ $dayjs(updatedAt).fromNow() }}
       </div>
       <div
         v-else
@@ -132,7 +133,8 @@
         class="stat date"
       >
         <CalendarIcon aria-hidden="true" />
-        Published {{ $dayjs(createdAt).fromNow() }}
+        <span class="date-label">Published </span
+        >{{ $dayjs(createdAt).fromNow() }}
       </div>
     </div>
   </article>
@@ -308,10 +310,12 @@ export default {
   }
 }
 
-.display-mode--gallery .project-card {
+.display-mode--gallery .project-card,
+.display-mode--grid .project-card {
   padding: 0 0 var(--spacing-card-bg) 0;
   grid-template: 'gallery gallery' 'icon title' 'description  description' 'tags tags' 'stats stats';
   grid-template-columns: min-content 1fr;
+  grid-template-rows: min-content min-content 1fr min-content min-content;
   row-gap: var(--spacing-card-sm);
 
   .gallery {
@@ -381,6 +385,20 @@ export default {
     .buttons:not(:empty) + .date {
       flex-basis: 100%;
     }
+  }
+}
+
+.display-mode--grid .project-card {
+  .gallery {
+    display: none;
+  }
+
+  .icon {
+    margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
+  }
+
+  .title {
+    margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
   }
 }
 
