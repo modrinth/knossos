@@ -190,9 +190,7 @@
             >
               <GridIcon v-if="$cosmetics.searchDisplayMode.user === 'grid'" />
               <ImageIcon
-                v-else-if="
-                  $cosmetics.searchDisplayMode[projectType.id] === 'gallery'
-                "
+                v-else-if="$cosmetics.searchDisplayMode.user === 'gallery'"
               />
               <ListIcon v-else />
             </button>
@@ -213,6 +211,7 @@
             :display="$cosmetics.searchDisplayMode.user"
             :gallery-images="
               project.gallery
+                .slice()
                 .sort((a, b) => b.featured - a.featured)
                 .map((x) => x.url)
             "
