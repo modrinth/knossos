@@ -7,8 +7,8 @@
         <a
           href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/#how-do-i-play-a-modpack"
         >
-          install a compatible launcher.
-        </a>
+          install a compatible launcher</a
+        >.
       </span>
       <section class="universal-card">
         <div class="adjacent-input small">
