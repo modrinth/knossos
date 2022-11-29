@@ -75,7 +75,7 @@
         <Multiselect
           :id="projectType + '-search-display-mode'"
           :value="searchDisplayMode[projectType.id]"
-          :options="['list', 'grid', 'gallery']"
+          :options="$tag.projectViewModes"
           :custom-label="$capitalizeString"
           :searchable="false"
           :close-on-select="true"

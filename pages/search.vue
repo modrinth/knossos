@@ -829,8 +829,7 @@ export default {
     },
     async cycleSearchDisplayMode() {
       const value = this.$cosmetics.searchDisplayMode[this.projectType.id]
-      const newValue =
-        value === 'list' ? 'grid' : value === 'grid' ? 'gallery' : 'list'
+      const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
       await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
         projectType: this.projectType.id,
         mode: newValue,
