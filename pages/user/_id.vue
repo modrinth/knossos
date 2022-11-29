@@ -170,14 +170,14 @@
             ]"
           />
           <div class="input-group">
-            <button
+            <NuxtLink
               v-if="$auth.user && $auth.user.id === user.id"
-              class="iconified-button brand-button"
-              @click="$refs.modal_creation.show()"
+              class="iconified-button"
+              to="/dashboard/projects"
             >
-              <PlusIcon />
-              Create a project
-            </button>
+              <SettingsIcon />
+              Manage projects
+            </NuxtLink>
             <button
               v-tooltip="
                 $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
@@ -202,9 +202,12 @@
           :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
         >
           <ProjectCard
-            v-for="project in $route.query.type !== undefined
+            v-for="project in ($route.query.type !== undefined
               ? projects.filter((x) => x.project_type === $route.query.type)
-              : projects"
+              : projects
+            )
+              .slice()
+              .sort((a, b) => b.downloads - a.downloads)"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
@@ -234,18 +237,7 @@
             "
             :has-mod-message="project.moderator_message"
             :type="project.project_type"
-          >
-            <nuxt-link
-              v-if="$auth.user && $auth.user.id === user.id"
-              class="iconified-button"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-            >
-              <SettingsIcon />
-              Settings
-            </nuxt-link>
-          </ProjectCard>
+          />
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
@@ -273,7 +265,6 @@ import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
@@ -306,7 +297,6 @@ export default {
     ReportIcon,
     Badge,
     SettingsIcon,
-    PlusIcon,
     UpToDate,
     UserIcon,
     EditIcon,
