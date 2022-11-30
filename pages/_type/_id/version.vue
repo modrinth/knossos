@@ -571,6 +571,7 @@
                 </template>
               </a>
               <a
+                v-if="file.primary"
                 v-tooltip="'Install with Launcher'"
                 class="action iconified-button"
                 :class="$parent.defaultInstallButton && 'primary-install'"
