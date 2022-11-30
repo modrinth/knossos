@@ -185,7 +185,7 @@
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="sortCurrentPage()"
+              @input="sortPages(currentPage)"
             ></Multiselect>
             Max Per Page
             <Multiselect
@@ -197,7 +197,9 @@
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="changeAmountPerPage()"
+              @input="
+                () => (pageCount = Math.ceil(projects.length / maxPerPage))
+              "
             />
           </div>
         </div>
@@ -223,7 +225,7 @@
             <th>Role</th>
             <th><!-- Settings Button Column --></th>
           </tr>
-          <tr v-for="project in currentSortedTableView" :key="project.id">
+          <tr v-for="project in currentPage" :key="project.id">
             <td>
               <Checkbox
                 :disabled="
@@ -277,10 +279,9 @@
         </table>
       </div>
       <Pagination
-        :page="currentPage"
+        :page="currentPageNumber"
         :count="pageCount"
         :link-function="() => '/'"
-        @select-page="switchPage"
       ></Pagination>
     </section>
   </div>
@@ -365,10 +366,8 @@ export default {
   data() {
     return {
       selectedProjects: [],
-      currentSortedTableView: [],
       maxPerPage: 10,
-      currentPage: 1,
-      pages: [],
+      currentPageNumber: 1,
       pageCount: 1,
       sortBy: 'Name',
       editLinks: {
@@ -395,6 +394,27 @@ export default {
   head: {
     title: 'Projects - Modrinth',
   },
+  computed: {
+    pages() {
+      const pageArray = []
+      for (let index = 0; index < this.pageCount; index++) {
+        pageArray[index] = []
+      }
+      let counter = 0
+      let index = 0
+      this.projects.forEach((project) => {
+        if (counter > this.maxPerPage) {
+          counter = 0
+          index++
+        }
+        pageArray[index].push(project)
+      })
+      return pageArray
+    },
+    currentPage() {
+      return this.pages[this.currentPageNumber - 1]
+    },
+  },
   created() {
     this.UPLOAD_VERSION = 1 << 0
     this.DELETE_VERSION = 1 << 1
@@ -410,10 +430,10 @@ export default {
     uppercaseString(str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
     },
-    sortCurrentPage() {
+    sortPages(pageArray) {
       switch (this.sortBy) {
         case 'Name':
-          this.currentSortedTableView.sort((a, b) => {
+          pageArray.sort((a, b) => {
             if (a.title < b.title) {
               return -1
             }
@@ -424,7 +444,7 @@ export default {
           })
           break
         case 'Status':
-          this.currentSortedTableView.sort((a, b) => {
+          pageArray.sort((a, b) => {
             if (a.status < b.status) {
               return -1
             }
@@ -435,7 +455,7 @@ export default {
           })
           break
         case 'Role':
-          this.currentSortedTableView.sort((a, b) => {
+          pageArray.sort((a, b) => {
             if (a.role < b.role) {
               return -1
             }
@@ -446,7 +466,7 @@ export default {
           })
           break
         case 'Type':
-          this.currentSortedTableView.sort((a, b) => {
+          pageArray.sort((a, b) => {
             if (a.project_type < b.project_type) {
               return -1
             }
@@ -459,29 +479,6 @@ export default {
         default:
           break
       }
-    },
-    switchPage(index) {
-      this.currentSortedTableView = this.pages[index - 1]
-      this.sortCurrentPage()
-      this.$nextTick()
-    },
-    changeAmountPerPage() {
-      this.pageCount = Math.ceil(this.projects.length / this.maxPerPage)
-      for (let index = 0; index < this.pageCount; index++) {
-        this.pages[index] = []
-      }
-      let counter = 0
-      let index = 0
-      this.projects.forEach((project) => {
-        if (counter > this.maxPerPage) {
-          counter = 0
-          index++
-        }
-
-        this.pages[index].push(project)
-      })
-      this.switchPage(1)
-      this.sortCurrentPage()
     },
     bulkDeleteSelected() {
       this.selectedProjects
