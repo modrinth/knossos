@@ -160,20 +160,6 @@
         >
           Edit links
         </button>
-        <button
-          class="iconified-button"
-          :disabled="true"
-          @click="$refs.editLinksModal.show()"
-        >
-          Set License
-        </button>
-        <!-- <button
-          class="iconified-button danger-button"
-          :disabled="selectedProjects.length === 0"
-          @click="$refs.deleteBulkModal.show()"
-        >
-          <TrashIcon />Delete
-        </button> -->
         <div class="align-row-right">
           <div class="labeled-control-row">
             Sort By
@@ -192,7 +178,7 @@
               v-model="maxPerPage"
               placeholder="Select one"
               class="small-select"
-              :options="[1, 5, 10, 15, 20, 50, 100]"
+              :options="[3, 5, 10, 15, 20, 50, 100]"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -228,7 +214,11 @@
             <th>Role</th>
             <th><!-- Settings Button Column --></th>
           </tr>
-          <tr v-for="project in currentPage" :key="project.id">
+          <tr
+            v-for="project in currentPage"
+            :key="project.id"
+            class="actual-row"
+          >
             <td>
               <Checkbox
                 :disabled="
@@ -284,8 +274,8 @@
       <Pagination
         :page="currentPageNumber"
         :count="pageCount"
-        @switch-page="(i) => (currentPageNumber = i)"
         :link-function="() => '/'"
+        @switch-page="(i) => (currentPageNumber = i)"
       ></Pagination>
     </section>
   </div>
@@ -668,6 +658,10 @@ th,
 td {
   padding: var(--spacing-card-md);
   text-align: left;
+}
+
+tr.actual-row:nth-child(odd) {
+  backdrop-filter: brightness(85%);
 }
 
 .title-button-group {
