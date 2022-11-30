@@ -96,10 +96,6 @@
             {{ project.title }}
           </li>
         </ul>
-        <p>
-          If a project you have selected is not in this list - you do not have
-          permission to edit it's details.
-        </p>
         <div class="button-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
             <CrossIcon />
@@ -111,16 +107,6 @@
         </div>
       </div>
     </Modal>
-    <!-- <ModalConfirm
-      ref="deleteBulkModal"
-      :title="`Delete project${selectedProjects.length > 1 ? 's' : ''}`"
-      :description="`Deleting ${selectedProjects.length} project${
-        selectedProjects.length > 1 ? 's' : ''
-      }. This action is irreversable. Are you sure you want to continue? Only projects that you are owner of will be deleted.`"
-      :has-to-type="true"
-      :confirmation-text="$auth.user.username"
-      @proceed="bulkDeleteSelected()"
-    /> -->
     <ModalCreation ref="modal_creation" />
     <section class="universal-card">
       <div class="title-button-group input-group">
