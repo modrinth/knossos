@@ -212,7 +212,7 @@
                 @input="
                   selectedProjects === projects
                     ? (selectedProjects = [])
-                    : selectAllProjects()
+                    : (selectedProjects = projects)
                 "
               />
             </th>
@@ -405,13 +405,8 @@ export default {
     this.EDIT_MEMBER = 1 << 6
     this.DELETE_PROJECT = 1 << 7
   },
-  mounted() {
-    this.changeAmountPerPage()
-  },
+  mounted() {},
   methods: {
-    selectAllProjects() {
-      this.selectedProjects = this.projects
-    },
     uppercaseString(str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
     },
