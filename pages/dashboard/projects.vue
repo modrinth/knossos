@@ -402,7 +402,9 @@ export default {
     this.EDIT_MEMBER = 1 << 6
     this.DELETE_PROJECT = 1 << 7
   },
-  mounted() {},
+  mounted() {
+    this.changeAmountPerPage()
+  },
   methods: {
     selectAllProjects() {
       this.selectedProjects = this.projects
@@ -484,34 +486,33 @@ export default {
       this.sortCurrentPage()
     },
     bulkDeleteSelected() {
-      try {
-        this.selectedProjects
-          .filter(
-            (it) =>
-              (it.permissions & this.DELETE_PROJECT) !== this.DELETE_PROJECT
-          )
-          .forEach(async (project) => {
+      this.selectedProjects
+        .filter(
+          (it) => (it.permissions & this.DELETE_PROJECT) !== this.DELETE_PROJECT
+        )
+        .forEach(async (project) => {
+          try {
             await this.$axios.delete(
               `project/${project.id}`,
               this.$defaultHeaders()
             )
             await this.$store.dispatch('user/fetchProjects')
-            await this.$router.push(`/user/${this.$auth.user.username}`)
+            await this.$router.push(`/dashboard/projects`)
             this.$notify({
               group: 'main',
               title: 'Action Success',
               text: 'Project(s) have been successfully deleted.',
               type: 'success',
             })
-          })
-      } catch (e) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: e,
-          type: 'error',
+          } catch (e) {
+            this.$notify({
+              group: 'main',
+              title: 'Failed to delete ' + project.title,
+              text: e,
+              type: 'error',
+            })
+          }
         })
-      }
     },
     bulkEditLinks() {
       try {
