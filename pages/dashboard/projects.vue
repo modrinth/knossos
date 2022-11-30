@@ -198,7 +198,10 @@
               :show-labels="false"
               :allow-empty="false"
               @input="
-                () => (pageCount = Math.ceil(projects.length / maxPerPage))
+                () => {
+                  pageCount = Math.ceil(projects.length / maxPerPage)
+                  currentPageNumber = 1
+                }
               "
             />
           </div>
@@ -281,6 +284,7 @@
       <Pagination
         :page="currentPageNumber"
         :count="pageCount"
+        @switch-page="(i) => (currentPageNumber = i)"
         :link-function="() => '/'"
       ></Pagination>
     </section>
@@ -403,7 +407,7 @@ export default {
       let counter = 0
       let index = 0
       this.projects.forEach((project) => {
-        if (counter > this.maxPerPage) {
+        if (counter >= this.maxPerPage) {
           counter = 0
           index++
         }
