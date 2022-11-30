@@ -1247,7 +1247,7 @@ export default {
       }
     },
     installWithLauncher(project, version) {
-      const link = `modrinth://${project.project_type}/${version.id}`
+      const link = `modrinth://install/${project.id}/${version.id}`
       if (localStorage.getItem('first-run-completed') === 'true') {
         window.location = link
       } else {
