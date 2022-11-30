@@ -418,11 +418,7 @@
                   class="download iconified-button"
                   :class="defaultInstallButton && 'primary-install'"
                   :title="`Download ${version.name}`"
-                  @click="
-                    installWithLauncher(
-                      `modrinth://${project.projectType}/${version.id}`
-                    )
-                  "
+                  @click="installWithLauncher(project, version)"
                   @click.stop="(event) => event.stopPropagation()"
                 >
                   <LaunchIcon aria-hidden="true" />
@@ -777,11 +773,7 @@
                   class="download iconified-button"
                   :class="defaultInstallButton && 'primary-install'"
                   :title="`Download ${version.name}`"
-                  @click="
-                    installWithLauncher(
-                      `modrinth://${project.projectType}/${version.id}`
-                    )
-                  "
+                  @click="installWithLauncher(project, version)"
                   @click.stop="(event) => event.stopPropagation()"
                 >
                   <LaunchIcon aria-hidden="true" />
@@ -1254,7 +1246,8 @@ export default {
         this.$nuxt.$loading.finish()
       }
     },
-    installWithLauncher(link) {
+    installWithLauncher(project, version) {
+      const link = `modrinth://${project.project_type}/${version.id}`
       if (localStorage.getItem('first-run-completed') === 'true') {
         window.location = link
       } else {

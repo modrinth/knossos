@@ -34,11 +34,7 @@
           <CrossIcon />
           Cancel
         </button>
-        <button
-          class="iconified-button brand-button"
-          :disabled="action_disabled"
-          @click="proceed"
-        >
+        <button class="iconified-button brand-button" @click="proceed">
           <CheckIcon />
           Yes
         </button>
