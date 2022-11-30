@@ -111,7 +111,7 @@
         </div>
       </div>
     </Modal>
-    <ModalConfirm
+    <!-- <ModalConfirm
       ref="deleteBulkModal"
       :title="`Delete project${selectedProjects.length > 1 ? 's' : ''}`"
       :description="`Deleting ${selectedProjects.length} project${
@@ -120,7 +120,7 @@
       :has-to-type="true"
       :confirmation-text="$auth.user.username"
       @proceed="bulkDeleteSelected()"
-    />
+    /> -->
     <ModalCreation ref="modal_creation" />
     <section class="universal-card">
       <div class="title-button-group input-group">
@@ -167,13 +167,13 @@
         >
           Set License
         </button>
-        <button
+        <!-- <button
           class="iconified-button danger-button"
           :disabled="selectedProjects.length === 0"
           @click="$refs.deleteBulkModal.show()"
         >
           <TrashIcon />Delete
-        </button>
+        </button> -->
         <div class="align-row-right">
           <div class="labeled-control-row">
             Sort By
@@ -226,6 +226,9 @@
           <tr v-for="project in currentSortedTableView" :key="project.id">
             <td>
               <Checkbox
+                :disabled="
+                  (project.permissions & EDIT_DETAILS) === EDIT_DETAILS
+                "
                 :value="selectedProjects.includes(project)"
                 @input="
                   selectedProjects.includes(project)
@@ -289,7 +292,7 @@ import Multiselect from 'vue-multiselect'
 import Badge from '~/components/ui/Badge.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import Modal from '~/components/ui/Modal.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+// import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 
@@ -305,7 +308,7 @@ export default {
     Checkbox,
     IssuesIcon,
     Modal,
-    ModalConfirm,
+    // ModalConfirm,
     ModalCreation,
     Multiselect,
     Pagination,
