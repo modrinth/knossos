@@ -408,6 +408,7 @@ export default {
           index++
         }
         pageArray[index].push(project)
+        counter++
       })
       return pageArray
     },
