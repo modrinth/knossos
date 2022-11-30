@@ -124,18 +124,38 @@
           </button>
         </div>
         <div v-else class="button-group">
-          <a
-            v-if="primaryFile"
-            v-tooltip="
-              primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'
-            "
-            :href="primaryFile.url"
-            class="bold-button iconified-button brand-button"
-            :title="`Download ${primaryFile.filename}`"
-          >
-            <DownloadIcon aria-hidden="true" />
-            Download
-          </a>
+          <div class="multibutton-pill-row combined-pill">
+            <a
+              v-if="primaryFile"
+              v-tooltip="
+                primaryFile.filename +
+                ' (' +
+                $formatBytes(primaryFile.size) +
+                ')'
+              "
+              :href="primaryFile.url"
+              class="bold-button iconified-button brand-button"
+              :title="`Download ${primaryFile.filename}`"
+            >
+              <DownloadIcon aria-hidden="true" />
+              <template v-if="!$parent.defaultInstallButton">
+                Download
+              </template>
+            </a>
+            <a
+              v-tooltip="'Install with Launcher'"
+              @click="$parent.installWithLauncher(project, version)"
+              class="action iconified-button"
+              :class="$parent.defaultInstallButton && 'primary-install'"
+              :title="`Download ${primaryFile.filename}`"
+              tabindex="0"
+            >
+              <LaunchIcon aria-hidden="true" />
+              <template v-if="$parent.defaultInstallButton">
+                Install with Launcher
+              </template>
+            </a>
+          </div>
           <button
             v-if="$auth.user"
             class="action iconified-button"
@@ -537,15 +557,32 @@
               <StarIcon aria-hidden="true" />
               Primary
             </div>
-            <a
-              :href="file.url"
-              class="action iconified-button"
-              :title="`Download ${file.filename}`"
-              tabindex="0"
-            >
-              <DownloadIcon aria-hidden="true" />
-              Download
-            </a>
+            <div class="multibutton-pill-row">
+              <a
+                v-tooltip="`Download ${file.filename}`"
+                :href="file.url"
+                class="action iconified-button"
+                :class="$parent.defaultInstallButton && 'primary-install'"
+                tabindex="0"
+              >
+                <DownloadIcon aria-hidden="true" />
+                <template v-if="!$parent.defaultInstallButton">
+                  Download
+                </template>
+              </a>
+              <a
+                v-tooltip="'Install with Launcher'"
+                class="action iconified-button"
+                :class="$parent.defaultInstallButton && 'primary-install'"
+                @click="$parent.installWithLauncher(project, version)"
+                tabindex="0"
+              >
+                <LaunchIcon aria-hidden="true" />
+                <template v-if="$parent.defaultInstallButton">
+                  Install with Launcher
+                </template>
+              </a>
+            </div>
             <p v-if="mode === 'version'">({{ $formatBytes(file.size) }})</p>
             <button
               v-if="mode === 'edit'"
@@ -647,6 +684,7 @@ import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
 import StarIcon from '~/assets/images/utils/star.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import LaunchIcon from '~/assets/images/utils/rocket.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
 import Checkbox from '~/components/ui/Checkbox'
 import Chips from '~/components/ui/Chips'
@@ -677,6 +715,7 @@ export default {
     PlusIcon,
     CrossIcon,
     InfoIcon,
+    LaunchIcon,
   },
   props: {
     project: {
@@ -1305,5 +1344,38 @@ section {
 .full-width-input {
   width: 100%;
   margin-bottom: 0.5rem;
+}
+
+.multibutton-pill-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+  border-radius: var(--size-rounded-sm);
+  width: fit-content;
+  height: fit-content;
+
+  a {
+    padding: var(--spacing-card-sm) var(--spacing-card-bg);
+    margin: 0;
+    width: fit-content;
+    height: auto;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
+
+    svg {
+      display: block;
+      margin: 0 auto;
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    &.primary-install:first-child {
+      order: 2;
+    }
+
+    &.primary-install:nth-child(2) {
+      order: 1;
+    }
+  }
 }
 </style>
