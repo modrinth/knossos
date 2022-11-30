@@ -3,8 +3,7 @@
     <Modal ref="editLinksModal" header="Edit Links">
       <div class="modal-contents">
         <p>
-          Empty inputs will be ignored and not updated across the selected
-          projects. You can also mark a field for clearing by using the trash
+          Empty inputs will be ignored. You can clear a field using the trash
           can button.
         </p>
         <section class="links">
@@ -114,7 +113,7 @@
     </Modal>
     <ModalConfirm
       ref="deleteBulkModal"
-      :title="`Delete Project${selectedProjects.length > 1 ? 's' : ''}`"
+      :title="`Delete project${selectedProjects.length > 1 ? 's' : ''}`"
       :description="`Deleting ${selectedProjects.length} project${
         selectedProjects.length > 1 ? 's' : ''
       }. This action is irreversable. Are you sure you want to continue? Only projects that you are owner of will be deleted.`"
@@ -137,13 +136,13 @@
 
       <div class="metrics">
         <div class="metric">
-          <div class="label">Total Projects</div>
+          <div class="label">Total projects</div>
           <div class="value">
             {{ projects.length }}
           </div>
         </div>
         <div class="metric">
-          <div class="label">Versions Released</div>
+          <div class="label">Versions created</div>
           <div class="value">
             {{ versions.length }}
           </div>
@@ -152,14 +151,14 @@
     </section>
     <section class="universal-card">
       <h2>Management</h2>
-      <p>You can bulk edit projects by selecting them on the table.</p>
+      <p>You can bulk edit projects by selecting them in the table.</p>
       <div class="button-group">
         <button
           class="iconified-button"
           :disabled="selectedProjects.length === 0"
           @click="$refs.editLinksModal.show()"
         >
-          Edit Links
+          Edit links
         </button>
         <button
           class="iconified-button"
@@ -501,7 +500,7 @@ export default {
             this.$notify({
               group: 'main',
               title: 'Action Success',
-              text: 'Project(s) has been successfully deleted.',
+              text: 'Project(s) have been successfully deleted.',
               type: 'success',
             })
           })
