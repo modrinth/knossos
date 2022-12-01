@@ -143,6 +143,7 @@
               </template>
             </a>
             <a
+              v-if="$parent.integrationEnabled"
               v-tooltip="'Install with Launcher'"
               @click="$parent.installWithLauncher(project, version)"
               class="action iconified-button"
@@ -571,7 +572,7 @@
                 </template>
               </a>
               <a
-                v-if="file.primary"
+                v-if="file.primary && $parent.integrationEnabled"
                 v-tooltip="'Install with Launcher'"
                 class="action iconified-button"
                 :class="$parent.defaultInstallButton && 'primary-install'"
