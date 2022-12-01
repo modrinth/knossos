@@ -85,17 +85,20 @@
             </button>
           </label>
         </section>
-        <p>Changes will be applied to the following projects:</p>
-        <ul>
-          <li
-            v-for="project in selectedProjects.filter(
-              (it) => (it.permissions & EDIT_DETAILS) !== EDIT_DETAILS
-            )"
-            :key="project.id"
-          >
-            {{ project.title }}
-          </li>
-        </ul>
+        <details>
+          <summary>
+            This action affects
+            {{ selectedProjects.length }}
+            project{{ selectedProjects.length > 1 ? 's' : '' }}
+          </summary>
+          <div>
+            <ul>
+              <li v-for="project in selectedProjects" :key="project.id">
+                {{ project.title }}
+              </li>
+            </ul>
+          </div>
+        </details>
         <div class="button-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
             <CrossIcon />
@@ -514,11 +517,7 @@ export default {
               : null,
         }
 
-        const validProjects = this.selectedProjects.filter(
-          (it) => (it.permissions & this.EDIT_DETAILS) !== this.EDIT_DETAILS
-        )
-
-        validProjects.forEach(async (project) => {
+        this.selectedProjects.forEach(async (project) => {
           await this.$axios.patch(
             `project/${project.id}`,
             baseData,
@@ -547,6 +546,34 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+details {
+  padding-top: var(--spacing-card-md);
+
+  summary {
+    padding: var(--spacing-card-md);
+    color: var(--color-brand-inverted);
+    background-color: var(--color-brand);
+    border: none;
+    border-radius: var(--size-rounded-md);
+    box-shadow: var(--shadow-raised);
+    cursor: pointer;
+  }
+
+  div {
+    color: var(--color-brand-inverted);
+    background-color: var(--color-brand);
+    padding: 4px;
+    margin: 0;
+    border-bottom-left-radius: var(--size-rounded-md);
+    border-bottom-right-radius: var(--size-rounded-md);
+  }
+}
+
+details[open] > summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .status {
   margin-top: var(--spacing-card-xs);
 }
