@@ -61,6 +61,12 @@
                 />
                 <SunIcon v-else aria-hidden="true" />
               </button>
+              <nuxt-link
+                class="control-button button-transparent"
+                to="/settings"
+              >
+                <SettingsIcon aria-hidden="true" />
+              </nuxt-link>
               <div
                 v-if="$auth.user"
                 class="dropdown"
