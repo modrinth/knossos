@@ -58,7 +58,7 @@
               $parent.defaultInstallButton && 'primary-install',
             ]"
             :title="`Download ${version.name}`"
-            @click="installWithLauncher(project, version)"
+            @click="$parent.installWithLauncher(project, version)"
             @click.stop="(event) => event.stopPropagation()"
           >
             <LaunchIcon aria-hidden="true" />

@@ -67,7 +67,7 @@
                 class="iconified-button download"
                 :class="$parent.defaultInstallButton && 'primary-install'"
                 :title="`Download ${version.name}`"
-                @click="installWithLauncher(project, version)"
+                @click="$parent.installWithLauncher(project, version)"
                 @click.stop="(event) => event.stopPropagation()"
               >
                 <LaunchIcon aria-hidden="true" />
@@ -306,7 +306,6 @@ export default {
   display: flex;
   margin-left: auto;
   flex-direction: row;
-  box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
   border-radius: var(--size-rounded-sm);
   margin-right: 1rem;
   width: min-content;
@@ -317,6 +316,7 @@ export default {
     width: 2.5rem;
     height: 2.5rem;
     padding: 0;
+    box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
 
     svg {
       display: block;
