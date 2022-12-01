@@ -85,20 +85,21 @@
             </button>
           </label>
         </section>
-        <details>
-          <summary>
-            This action affects
-            {{ selectedProjects.length }}
-            project{{ selectedProjects.length > 1 ? 's' : '' }}
-          </summary>
-          <div>
-            <ul>
-              <li v-for="project in selectedProjects" :key="project.id">
-                {{ project.title }}
-              </li>
-            </ul>
-          </div>
-        </details>
+        <Checkbox
+          v-model="editLinks.showAffected"
+          :label="`This action affects ${selectedProjects.length} project${
+            selectedProjects.length > 1 ? 's' : ''
+          }`"
+          description="Show all loaders"
+          style="margin-bottom: 0.5rem; padding-top: 0.5rem"
+          :border="false"
+          :collapsing-toggle-style="true"
+        />
+        <ul :style="editLinks.showAffected ? '' : 'display: none;'">
+          <li v-for="project in selectedProjects" :key="project.id">
+            {{ project.title }}
+          </li>
+        </ul>
         <div class="button-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
             <CrossIcon />
@@ -236,11 +237,22 @@
                 <IssuesIcon color="var(--color-special-orange)" />
               </div>
 
-              <nuxt-link :to="`/${project.project_type}/${project.id}`">
+              <nuxt-link
+                class="hover-link"
+                :to="`/${project.project_type}/${project.id}`"
+              >
                 {{ project.title }}
               </nuxt-link>
             </td>
-            <td>{{ project.id }}</td>
+            <td>
+              <a
+                class="hover-link"
+                :href="`${$axios.defaults.baseURL}project/${project.id}`"
+                target="_blank"
+              >
+                {{ project.id }}
+              </a>
+            </td>
             <td>{{ uppercaseString(project.project_type) }}</td>
             <td>
               <Badge
@@ -354,6 +366,7 @@ export default {
       pageCount: 1,
       sortBy: 'Name',
       editLinks: {
+        showAffected: false,
         source: {
           val: '',
           clear: false,
@@ -546,32 +559,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-details {
-  padding-top: var(--spacing-card-md);
-
-  summary {
-    padding: var(--spacing-card-md);
-    color: var(--color-brand-inverted);
-    background-color: var(--color-brand);
-    border: none;
-    border-radius: var(--size-rounded-md);
-    box-shadow: var(--shadow-raised);
-    cursor: pointer;
-  }
-
-  div {
-    color: var(--color-brand-inverted);
-    background-color: var(--color-brand);
-    padding: 4px;
-    margin: 0;
-    border-bottom-left-radius: var(--size-rounded-md);
-    border-bottom-right-radius: var(--size-rounded-md);
-  }
-}
-
-details[open] > summary {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.hover-link:hover {
+  text-decoration: underline;
 }
 
 .status {
