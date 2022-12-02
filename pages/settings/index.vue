@@ -60,6 +60,43 @@
       </div>
     </section>
     <section class="universal-card">
+      <h2>Launcher integration</h2>
+      <div class="adjacent-input small">
+        <label for="launcher-integration">
+          <span class="label__title">Enable launcher integration</span>
+          <span class="label__description">
+            Displays a button next to all downloads that will attempt to open
+            your launcher to install the requested mod.
+          </span>
+        </label>
+        <input
+          id="launcher-integration"
+          v-model="integrationEnabled"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveIntegrationSettings"
+        />
+      </div>
+      <div class="adjacent-input small">
+        <label for="default-install">
+          <span class="label__title">
+            <q>Install with Launcher</q> as default
+          </span>
+          <span class="label__description">
+            Makes <q>Install with Launcher</q> the default button for all
+            downloads.
+          </span>
+        </label>
+        <input
+          id="default-install"
+          v-model="defaultInstallButton"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveIntegrationSettings"
+        />
+      </div>
+    </section>
+    <section class="universal-card">
       <h2>Feature flags</h2>
       <div class="adjacent-input small">
         <label for="advanced-rendering">
@@ -108,40 +145,6 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmeticSettings"
-        />
-      </div>
-      <div class="adjacent-input small">
-        <label for="launcher-integration">
-          <span class="label__title">Launcher integration</span>
-          <span class="label__description">
-            Displays a button next to all downloads that will attempt to open
-            your launcher to install the requested mod.
-          </span>
-        </label>
-        <input
-          id="launcher-integration"
-          v-model="integrationEnabled"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="saveIntegrationSettings"
-        />
-      </div>
-      <div class="adjacent-input small">
-        <label for="default-install">
-          <span class="label__title">
-            <q>Install with Launcher</q> as default
-          </span>
-          <span class="label__description">
-            Makes <q>Install with Launcher</q> the default button for all
-            downloads.
-          </span>
-        </label>
-        <input
-          id="default-install"
-          v-model="defaultInstallButton"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="saveIntegrationSettings"
         />
       </div>
     </section>
