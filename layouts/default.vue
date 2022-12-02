@@ -694,7 +694,7 @@ export default {
           top: 50%;
           transform: translateY(-50%);
           min-width: 6rem;
-          gap: 1rem;
+          gap: 0.5rem;
 
           .control-button {
             position: relative;
