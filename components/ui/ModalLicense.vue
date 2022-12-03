@@ -37,12 +37,5 @@ export default {
 <style scoped lang="scss">
 .modal-license {
   padding: var(--spacing-card-bg);
-
-  pre {
-    line-break: anywhere;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: var(--size-rounded-sm);
-  }
 }
 </style>
