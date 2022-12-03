@@ -400,8 +400,8 @@
               >
               in the marked area. If your license does not have a SPDX
               identifier (for example, if you created the license yourself or if
-              the license is Minecraft-specific), simply enter the name of the
-              license and check the box.
+              the license is Minecraft-specific), simply check the box and enter
+              the name of the license instead.
               <br />
             </span>
             Confused? See our
@@ -439,7 +439,7 @@
             v-model="license.short"
             type="text"
             maxlength="2048"
-            placeholder="SPDX identifier"
+            :placeholder="nonSpdxLicense ? 'License name' : 'SPDX identifier'"
             :class="{
               'known-error': license.short === '' && showKnownErrors,
             }"
@@ -467,7 +467,7 @@
           </Checkbox>
           <Checkbox
             v-if="license.friendly === 'Custom'"
-            v-model="addLicenseRef"
+            v-model="nonSpdxLicense"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
@@ -661,7 +661,7 @@ export default {
       ],
       license: { friendly: '', short: '', requiresOnlyOrLater: false },
       allowOrLater: false,
-      addLicenseRef: false,
+      nonSpdxLicense: false,
 
       donationPlatforms: [],
       donationLinks: [],
@@ -708,7 +708,7 @@ export default {
       (x) => x.short === trimmedLicenseId
     ) ?? { friendly: 'Custom', short: licenseId.replaceAll('LicenseRef-', '') }
     this.allowOrLater = licenseId.includes('-or-later')
-    this.addLicenseRef = licenseId.includes('LicenseRef-')
+    this.nonSpdxLicense = licenseId.includes('LicenseRef-')
 
     this.clientSideType =
       this.newProject.client_side.charAt(0) +
@@ -723,7 +723,7 @@ export default {
     licenseId() {
       let id = ''
 
-      if (this.addLicenseRef || this.license.short === 'All-Rights-Reserved')
+      if (this.nonSpdxLicense || this.license.short === 'All-Rights-Reserved')
         id += 'LicenseRef-'
 
       id += this.license.short
@@ -736,7 +736,7 @@ export default {
         }
       }
 
-      if (this.addLicenseRef) id.replaceAll(' ', '-')
+      if (this.nonSpdxLicense) id.replaceAll(' ', '-')
 
       return id
     },
