@@ -434,6 +434,24 @@
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
           />
+          <Checkbox
+            v-if="license.requiresOnlyOrLater"
+            v-model="allowOrLater"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          >
+            Allow later editions of this license
+          </Checkbox>
+          <Checkbox
+            v-if="license.friendly === 'Custom'"
+            v-model="nonSpdxLicense"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          >
+            License does not have a SPDX identifier
+          </Checkbox>
           <input
             v-if="license.friendly === 'Custom'"
             v-model="license.short"
@@ -456,24 +474,6 @@
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
           />
-          <Checkbox
-            v-if="license.requiresOnlyOrLater"
-            v-model="allowOrLater"
-            :disabled="
-              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
-            "
-          >
-            Allow later versions of this license
-          </Checkbox>
-          <Checkbox
-            v-if="license.friendly === 'Custom'"
-            v-model="nonSpdxLicense"
-            :disabled="
-              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
-            "
-          >
-            License does not have a SPDX identifier
-          </Checkbox>
         </div>
       </div>
     </section>
