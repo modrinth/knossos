@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modal" :header="licenseName">
     <div class="modal-license">
-      <div class="markdown-body" v-html="$xss($md.render(getLicenseText()))" />
+      <div class="markdown-body" v-html="$xss($md.render(licenseText))" />
     </div>
   </Modal>
 </template>
@@ -21,12 +21,12 @@ export default {
       type: String,
       required: true,
     },
+    licenseText: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
-    async getLicenseText() {
-      return (await this.$axios.get(`tag/license/${this.licenseId}`))
-        .data
-    },
     show() {
       this.$refs.modal.show()
     },

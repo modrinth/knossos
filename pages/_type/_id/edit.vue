@@ -393,7 +393,8 @@
             rel="noopener noreferrer"
             class="text-link"
             >SPDX license identifier</a
-          >, and you may also provide a URL to your chosen license.
+          >. You may also provide a custom URL to your chosen license;
+          otherwise, the license text will be displayed.
           <br />
           <span v-if="license && license.friendly === 'Custom'">
             To choose a custom license without a SPDX identifier, use
@@ -414,7 +415,7 @@
         <div class="legacy-input-group">
           <Multiselect
             v-model="license"
-            placeholder="Select license (scroll down for GNU licenses)"
+            placeholder="Select license..."
             track-by="short"
             label="friendly"
             :options="defaultLicenses"
@@ -450,6 +451,15 @@
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
           />
+          <Checkbox
+            v-if="license.requiresOnlyOrLater"
+            v-model="allowOrLater"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          >
+            Allow later versions of this license
+          </Checkbox>
         </div>
       </label>
     </section>
@@ -528,9 +538,11 @@ import RevertIcon from '~/assets/images/utils/undo.svg?inline'
 import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'
 import Avatar from '~/components/ui/Avatar'
+import Checkbox from '~/components/ui/Checkbox'
 
 export default {
   components: {
+    Checkbox,
     Avatar,
     FileInput,
     Chips,
@@ -570,23 +582,71 @@ export default {
           short: 'LicenseRef-All-Rights-Reserved',
         },
         { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
-        { friendly: 'BSD 2-Clause', short: 'BSD-2-Clause' },
-        { friendly: 'BSD 3-Clause', short: 'BSD-3-Clause' },
-        { friendly: 'Creative Commons Zero v1.0', short: 'CC0-1.0' },
+        {
+          friendly: 'BSD 2-Clause "Simplified" License',
+          short: 'BSD-2-Clause',
+        },
+        {
+          friendly: 'BSD 3-Clause "New" or "Revised" License',
+          short: 'BSD-3-Clause',
+        },
+        {
+          friendly: 'CC Zero (Public Domain equivalent)',
+          short: 'CC0-1.0',
+        },
+        { friendly: 'CC Attribution 4.0', short: 'CC-BY-4.0' },
+        {
+          friendly: 'CC Attribution Share Alike 4.0',
+          short: 'CC-BY-SA-4.0',
+        },
+        {
+          friendly: 'CC Attribution Non Commercial 4.0',
+          short: 'CC-BY-NC-4.0',
+        },
+        {
+          friendly: 'CC Attribution Non Commercial Share Alike 4.0',
+          short: 'CC-BY-NC-SA-4.0',
+        },
+        {
+          friendly: 'CC Attribution No Derivatives 4.0',
+          short: 'CC-BY-ND-4.0',
+        },
+        {
+          friendly: 'CC Attribution Non Commercial No Derivatives 4.0',
+          short: 'CC-BY-NC-ND-4.0',
+        },
+        {
+          friendly: 'GNU Affero General Public License v3',
+          short: 'AGPL-3.0',
+          requiresOnlyOrLater: true,
+        },
+        {
+          friendly: 'GNU Lesser General Public License v2.1',
+          short: 'LGPL-2.1',
+          requiresOnlyOrLater: true,
+        },
+        {
+          friendly: 'GNU Lesser General Public License v3',
+          short: 'LGPL-3.0',
+          requiresOnlyOrLater: true,
+        },
+        {
+          friendly: 'GNU General Public License v2',
+          short: 'GPL-2.0',
+          requiresOnlyOrLater: true,
+        },
+        {
+          friendly: 'GNU General Public License v3',
+          short: 'GPL-3.0',
+          requiresOnlyOrLater: true,
+        },
         { friendly: 'ISC License', short: 'ISC' },
         { friendly: 'MIT License', short: 'MIT' },
         { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
         { friendly: 'zlib License', short: 'Zlib' },
-        { friendly: 'GNU LGPLv2.1 only', short: 'LGPL-2.1-only' },
-        { friendly: 'GNU LGPLv2.1 or later', short: 'LGPL-2.1-or-later' },
-        { friendly: 'GNU LGPLv3 only', short: 'LGPL-3.0-only' },
-        { friendly: 'GNU LGPLv3 or later', short: 'LGPL-3.0-or-later' },
-        { friendly: 'GNU GPLv2 only', short: 'GPL-2.0-only' },
-        { friendly: 'GNU GPLv2 or later', short: 'GPL-2.0-or-later' },
-        { friendly: 'GNU GPLv3 only', short: 'GPL-3.0-only' },
-        { friendly: 'GNU GPLv3 or later', short: 'GPL-3.0-or-later' },
       ],
-      license: { friendly: '', short: '' },
+      license: { friendly: '', short: '', requiresOnlyOrLater: false },
+      allowOrLater: false,
 
       donationPlatforms: [],
       donationLinks: [],
@@ -624,9 +684,13 @@ export default {
       }
     }
 
+    const trimmedLicenseId = this.newProject.license.id
+      .replaceAll('-only', '')
+      .replaceAll('-or-later', '')
     this.license = this.defaultLicenses.find(
-      (x) => x.short === this.newProject.license.id
+      (x) => x.short === trimmedLicenseId
     ) ?? { friendly: 'Custom', short: this.newProject.license.id }
+    this.allowOrLater = this.newProject.license.id.includes('-or-later')
 
     this.clientSideType =
       this.newProject.client_side.charAt(0) +
@@ -719,7 +783,13 @@ export default {
           discord_url: this.newProject.discord_url
             ? this.newProject.discord_url
             : null,
-          license_id: this.license.short,
+          license_id:
+            this.license.short +
+            (this.license.requiresOnlyOrLater
+              ? this.allowOrLater
+                ? '-or-later'
+                : '-only'
+              : ''),
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
           slug: this.newProject.slug,
@@ -753,7 +823,13 @@ export default {
         }
 
         this.newProject.license = {
-          id: this.license.short,
+          id:
+            this.license.short +
+            (this.license.requiresOnlyOrLater
+              ? this.allowOrLater
+                ? '-or-later'
+                : '-only'
+              : ''),
           url: this.newProject.license.url,
         }
 
@@ -814,9 +890,10 @@ label {
 
   input,
   .multiselect,
+  .checkbox,
   .legacy-input-group {
     flex: 3;
-    height: fit-content;
+    // height: fit-content;
   }
 }
 

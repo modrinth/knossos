@@ -34,6 +34,7 @@
   &:focus-visible,
   &:hover {
     color: var(--color-link-hover);
+    cursor: pointer;
   }
 
   &:active {

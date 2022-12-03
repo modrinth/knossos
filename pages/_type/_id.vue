@@ -2,8 +2,9 @@
   <div>
     <ModalLicense
       ref="modal_license"
-      :license-name="project.license.name"
+      :license-name="project.license.name ? project.license.name : 'License'"
       :license-id="project.license.id"
+      :license-text="licenseText"
     />
     <ModalReport
       ref="modal_project_report"
@@ -484,10 +485,19 @@
                 >
                   {{ project.license.id }}
                 </a>
+                <a
+                  v-else-if="
+                    project.license.id === 'LicenseRef-All-Rights-Reserved'
+                  "
+                  class="text-link"
+                  @click="getLicenseData()"
+                >
+                  All Rights Reserved
+                </a>
                 <span v-else-if="project.license.id.includes('LicenseRef')">
-                  {{ project.license.id }}
+                  {{ project.license.id.substring(10).replaceAll('-', ' ') }}
                 </span>
-                <a v-else class="text-link" @click="$refs.modal_license.show()">
+                <a v-else class="text-link" @click="getLicenseData()">
                   {{ project.license.id }}
                 </a>
               </div>
@@ -832,7 +842,21 @@
                 >
                   {{ project.license.id }}
                 </a>
-                <span v-else>{{ project.license.id }}</span>
+                <a
+                  v-else-if="
+                    project.license.id === 'LicenseRef-All-Rights-Reserved'
+                  "
+                  class="text-link"
+                  @click="getLicenseData()"
+                >
+                  All Rights Reserved
+                </a>
+                <span v-else-if="project.license.id.includes('LicenseRef')">
+                  {{ project.license.id.substring(10).replaceAll('-', ' ') }}
+                </span>
+                <a v-else class="text-link" @click="getLicenseData()">
+                  {{ project.license.id }}
+                </a>
               </div>
             </div>
             <div
@@ -1066,6 +1090,7 @@ export default {
   data() {
     return {
       showKnownErrors: false,
+      licenseText: '',
     }
   },
   fetch() {
@@ -1205,6 +1230,17 @@ export default {
         }
 
         this.$nuxt.$loading.finish()
+      }
+    },
+    async getLicenseData() {
+      try {
+        const text = await this.$axios.get(
+          `tag/license/${this.project.license.id}`
+        )
+        this.licenseText = text.data.body
+        this.$refs.modal_license.show()
+      } catch {
+        return 'License text could not be retrieved.'
       }
     },
   },
