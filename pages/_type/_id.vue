@@ -590,8 +590,6 @@
           v-if="project.status === 'approved' || project.status === 'unlisted'"
           type="banner"
           small-screen="square"
-          ethical-ads-small
-          ethical-ads-big
         />
         <NavRow
           :links="[
