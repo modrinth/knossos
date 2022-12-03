@@ -379,41 +379,42 @@
         />
       </label>
     </section>
-    <section class="card license">
-      <div class="title">
-        <h3>License<span class="required">*</span></h3>
-      </div>
-      <label>
-        <span>
-          It is very important to choose a proper license for your mod. You may
-          choose one from our list or provide a custom
-          <a
-            href="https://spdx.org/licenses/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-link"
-            >SPDX license identifier</a
-          >. You may also provide a custom URL to your chosen license;
-          otherwise, the license text will be displayed.
-          <br />
-          <span v-if="license && license.friendly === 'Custom'">
-            To choose a custom license without a SPDX identifier, use
-            <code>LicenseRef-License-Name-Here</code>.
+    <section class="universal-card license">
+      <h3>License<span class="required">*</span></h3>
+      <div class="adjacent-input">
+        <label for="license-multiselect">
+          <span class="label__description">
+            It is very important to choose a proper license for your mod. You
+            may choose one from our list or provide a custom
+            <a
+              href="https://spdx.org/licenses/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-link"
+              >SPDX license identifier</a
+            >. You may also provide a custom URL to your chosen license;
+            otherwise, the license text will be displayed.
             <br />
+            <span v-if="license && license.friendly === 'Custom'">
+              To choose a custom license without a SPDX identifier, use
+              <code>LicenseRef-License-Name-Here</code>.
+              <br />
+            </span>
+            Confused? See our
+            <a
+              href="https://blog.modrinth.com/licensing-guide/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-link"
+            >
+              licensing guide</a
+            >
+            for more information.
           </span>
-          Confused? See our
-          <a
-            href="https://blog.modrinth.com/licensing-guide/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-link"
-          >
-            licensing guide</a
-          >
-          for more information.
-        </span>
+        </label>
         <div class="legacy-input-group">
           <Multiselect
+            id="license-multiselect"
             v-model="license"
             placeholder="Select license..."
             track-by="short"
@@ -461,7 +462,7 @@
             Allow later versions of this license
           </Checkbox>
         </div>
-      </label>
+      </div>
     </section>
     <section class="header-card donations">
       <div class="header__row">
@@ -904,6 +905,11 @@ label {
   * {
     margin-bottom: var(--spacing-card-sm);
   }
+
+  .multiselect {
+    width: unset;
+    height: inherit;
+  }
 }
 
 .resizable-textarea-wrapper textarea {
@@ -1059,15 +1065,6 @@ section.donations {
 
   input {
     margin-left: 0 !important;
-  }
-}
-
-.legacy-input-group {
-  display: flex;
-  flex-direction: column;
-
-  * {
-    margin-bottom: var(--spacing-card-sm);
   }
 }
 

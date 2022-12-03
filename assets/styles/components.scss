@@ -1043,8 +1043,12 @@ h1 {
     width: 15rem;
   }
 
-  input + *, .input-group + * {
-    margin-block-start: var(--spacing-card-md);
+  >,
+  .extend-styling> {
+    input + *,
+    .input-group + * {
+      margin-block-start: var(--spacing-card-md);
+    }
   }
 
   button, .button, .iconified-button {
