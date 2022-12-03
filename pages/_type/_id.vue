@@ -483,7 +483,7 @@
                   class="text-link"
                   :href="project.license.url"
                 >
-                  {{ project.license.id }}
+                  {{ project.license.id.replaceAll('LicenseRef-', '') }}
                 </a>
                 <a
                   v-else-if="
@@ -838,7 +838,7 @@
                   class="text-link"
                   :href="project.license.url"
                 >
-                  {{ project.license.id }}
+                  {{ project.license.id.replaceAll('LicenseRef-', '') }}
                 </a>
                 <a
                   v-else-if="

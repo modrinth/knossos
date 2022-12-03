@@ -385,19 +385,23 @@
         <label for="license-multiselect">
           <span class="label__description">
             It is very important to choose a proper license for your mod. You
-            may choose one from our list or provide a custom
-            <a
-              href="https://spdx.org/licenses/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link"
-              >SPDX license identifier</a
-            >. You may also provide a custom URL to your chosen license;
-            otherwise, the license text will be displayed.
+            may choose one from our list or provide a custom license. You may
+            also provide a custom URL to your chosen license; otherwise, the
+            license text will be displayed.
             <br />
             <span v-if="license && license.friendly === 'Custom'">
-              To choose a custom license without a SPDX identifier, use
-              <code>LicenseRef-License-Name-Here</code>.
+              Enter a valid
+              <a
+                href="https://spdx.org/licenses/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+                >SPDX license identifier</a
+              >
+              in the marked area. If your license does not have a SPDX
+              identifier (for example, if you created the license yourself or if
+              the license is Minecraft-specific), simply enter the name of the
+              license and check the box.
               <br />
             </span>
             Confused? See our
@@ -460,6 +464,15 @@
             "
           >
             Allow later versions of this license
+          </Checkbox>
+          <Checkbox
+            v-if="license.friendly === 'Custom'"
+            v-model="addLicenseRef"
+            :disabled="
+              (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+            "
+          >
+            License does not have a SPDX identifier
           </Checkbox>
         </div>
       </div>
@@ -580,7 +593,7 @@ export default {
         { friendly: 'Custom', short: '' },
         {
           friendly: 'All Rights Reserved/No License',
-          short: 'LicenseRef-All-Rights-Reserved',
+          short: 'All-Rights-Reserved',
         },
         { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
         {
@@ -595,25 +608,25 @@ export default {
           friendly: 'CC Zero (Public Domain equivalent)',
           short: 'CC0-1.0',
         },
-        { friendly: 'CC Attribution 4.0', short: 'CC-BY-4.0' },
+        { friendly: 'CC-BY 4.0', short: 'CC-BY-4.0' },
         {
-          friendly: 'CC Attribution Share Alike 4.0',
+          friendly: 'CC-BY-SA 4.0',
           short: 'CC-BY-SA-4.0',
         },
         {
-          friendly: 'CC Attribution Non Commercial 4.0',
+          friendly: 'CC-BY-NC 4.0',
           short: 'CC-BY-NC-4.0',
         },
         {
-          friendly: 'CC Attribution Non Commercial Share Alike 4.0',
+          friendly: 'CC-BY-NC-SA 4.0',
           short: 'CC-BY-NC-SA-4.0',
         },
         {
-          friendly: 'CC Attribution No Derivatives 4.0',
+          friendly: 'CC-BY-ND 4.0',
           short: 'CC-BY-ND-4.0',
         },
         {
-          friendly: 'CC Attribution Non Commercial No Derivatives 4.0',
+          friendly: 'CC-BY-NC-ND 4.0',
           short: 'CC-BY-NC-ND-4.0',
         },
         {
@@ -648,6 +661,7 @@ export default {
       ],
       license: { friendly: '', short: '', requiresOnlyOrLater: false },
       allowOrLater: false,
+      addLicenseRef: false,
 
       donationPlatforms: [],
       donationLinks: [],
@@ -685,13 +699,16 @@ export default {
       }
     }
 
-    const trimmedLicenseId = this.newProject.license.id
+    const licenseId = this.newProject.license.id
+    const trimmedLicenseId = licenseId
       .replaceAll('-only', '')
       .replaceAll('-or-later', '')
+      .replaceAll('LicenseRef-', '')
     this.license = this.defaultLicenses.find(
       (x) => x.short === trimmedLicenseId
-    ) ?? { friendly: 'Custom', short: this.newProject.license.id }
-    this.allowOrLater = this.newProject.license.id.includes('-or-later')
+    ) ?? { friendly: 'Custom', short: licenseId.replaceAll('LicenseRef-', '') }
+    this.allowOrLater = licenseId.includes('-or-later')
+    this.addLicenseRef = licenseId.includes('LicenseRef-')
 
     this.clientSideType =
       this.newProject.client_side.charAt(0) +
@@ -701,6 +718,28 @@ export default {
       this.newProject.server_side.slice(1)
 
     this.setCategories()
+  },
+  computed: {
+    licenseId() {
+      let id = ''
+
+      if (this.addLicenseRef || this.license.short === 'All-Rights-Reserved')
+        id += 'LicenseRef-'
+
+      id += this.license.short
+
+      if (this.license.requiresOnlyOrLater) {
+        if (this.allowOrLater) {
+          id += 'or-later'
+        } else {
+          id += '-only'
+        }
+      }
+
+      if (this.addLicenseRef) id.replaceAll(' ', '-')
+
+      return id
+    },
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0
@@ -784,13 +823,7 @@ export default {
           discord_url: this.newProject.discord_url
             ? this.newProject.discord_url
             : null,
-          license_id:
-            this.license.short +
-            (this.license.requiresOnlyOrLater
-              ? this.allowOrLater
-                ? '-or-later'
-                : '-only'
-              : ''),
+          license_id: this.licenseId,
           client_side: this.clientSideType.toLowerCase(),
           server_side: this.serverSideType.toLowerCase(),
           slug: this.newProject.slug,
