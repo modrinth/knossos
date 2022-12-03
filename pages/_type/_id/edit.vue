@@ -893,7 +893,7 @@ label {
   .checkbox,
   .legacy-input-group {
     flex: 3;
-    // height: fit-content;
+    height: fit-content;
   }
 }
 
