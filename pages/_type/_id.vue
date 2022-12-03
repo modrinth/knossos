@@ -1240,7 +1240,7 @@ export default {
         this.licenseText = text.data.body
         this.$refs.modal_license.show()
       } catch {
-        return 'License text could not be retrieved.'
+        this.licenseText = 'License text could not be retrieved.'
       }
     },
   },
