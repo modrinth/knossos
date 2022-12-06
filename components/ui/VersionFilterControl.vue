@@ -97,21 +97,12 @@ export default {
     }
   },
   fetch() {
-    this.selectedLoaders = this.getQueryAsArray(this.$route.query.l)
-    this.selectedGameVersions = this.getQueryAsArray(this.$route.query.g)
+    this.selectedLoaders = this.$route.query.l?.split(',') || []
+    this.selectedGameVersions = this.$route.query.g?.split(',') || []
     this.showSnapshots = this.$route.query.s === 'true'
     this.updateVersionFilters()
   },
   methods: {
-    getQueryAsArray(query) {
-      if (Array.isArray(query)) {
-        return query
-      } else if (typeof query === 'string') {
-        return query.split(',')
-      } else {
-        return []
-      }
-    },
     getValidVersions() {
       if (!this.cachedValidVersions) {
         this.cachedValidVersions = this.$tag.gameVersions.filter((gameVer) =>
