@@ -159,23 +159,21 @@ export default {
       this.updateQuery()
       this.$emit('updateVersions', temp)
     },
-    updateQuery() {
-      this.$router
-        .replace({
-          query: {
-            ...this.$route.query,
-            l:
-              this.selectedLoaders.length === 0
-                ? undefined
-                : this.selectedLoaders.join(','),
-            g:
-              this.selectedGameVersions.length === 0
-                ? undefined
-                : this.selectedGameVersions.join(','),
-            s: this.showSnapshots ? true : undefined,
-          },
-        })
-        .catch(() => {})
+    async updateQuery() {
+      await this.$router.replace({
+        query: {
+          ...this.$route.query,
+          l:
+            this.selectedLoaders.length === 0
+              ? undefined
+              : this.selectedLoaders.join(','),
+          g:
+            this.selectedGameVersions.length === 0
+              ? undefined
+              : this.selectedGameVersions.join(','),
+          s: this.showSnapshots ? true : undefined,
+        },
+      })
     },
   },
 }
