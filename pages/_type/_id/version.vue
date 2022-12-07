@@ -1052,6 +1052,7 @@ export default {
         loaders: this.version.loaders,
         release_channel: this.version.version_type,
         featured: this.version.featured,
+        status: 'listed',
       }
 
       formData.append('data', JSON.stringify(newVersion))

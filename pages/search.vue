@@ -198,7 +198,7 @@
           <h3 class="sidebar-menu-heading">Open source</h3>
           <Checkbox
             v-model="onlyOpenSource"
-            label="Only include open source projects"
+            label="Open source only"
             style="margin-bottom: 0.5rem"
             :border="false"
             @input="onSearchChange(1)"

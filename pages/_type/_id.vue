@@ -492,7 +492,7 @@
                   class="text-link"
                   @click="getLicenseData()"
                 >
-                  All Rights Reserved
+                  ARR
                 </a>
                 <span v-else-if="project.license.id.includes('LicenseRef')">
                   {{ project.license.id.substring(10).replaceAll('-', ' ') }}
@@ -847,7 +847,7 @@
                   class="text-link"
                   @click="getLicenseData()"
                 >
-                  All Rights Reserved
+                  ARR
                 </a>
                 <span v-else-if="project.license.id.includes('LicenseRef')">
                   {{ project.license.id.substring(10).replaceAll('-', ' ') }}
@@ -1236,10 +1236,10 @@ export default {
           `tag/license/${this.project.license.id}`
         )
         this.licenseText = text.data.body
-        this.$refs.modal_license.show()
       } catch {
         this.licenseText = 'License text could not be retrieved.'
       }
+      this.$refs.modal_license.show()
     },
   },
 }

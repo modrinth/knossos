@@ -388,8 +388,10 @@
             may choose one from our list or provide a custom license. You may
             also provide a custom URL to your chosen license; otherwise, the
             license text will be displayed.
-            <br />
-            <span v-if="license && license.friendly === 'Custom'">
+            <span
+              v-if="license && license.friendly === 'Custom'"
+              class="label__subdescription"
+            >
               Enter a valid
               <a
                 href="https://spdx.org/licenses/"
@@ -402,18 +404,19 @@
               identifier (for example, if you created the license yourself or if
               the license is Minecraft-specific), simply check the box and enter
               the name of the license instead.
-              <br />
             </span>
-            Confused? See our
-            <a
-              href="https://blog.modrinth.com/licensing-guide/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-link"
-            >
-              licensing guide</a
-            >
-            for more information.
+            <span class="label__subdescription">
+              Confused? See our
+              <a
+                href="https://blog.modrinth.com/licensing-guide/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+              >
+                licensing guide</a
+              >
+              for more information.
+            </span>
           </span>
         </label>
         <div class="legacy-input-group">
@@ -469,7 +472,7 @@
             v-model="newProject.license.url"
             type="url"
             maxlength="2048"
-            placeholder="License URL"
+            placeholder="License URL (optional)"
             :disabled="
               (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
             "
