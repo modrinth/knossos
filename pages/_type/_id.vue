@@ -1,11 +1,13 @@
 <template>
   <div>
-    <ModalLicense
+    <Modal
       ref="modal_license"
-      :license-name="project.license.name ? project.license.name : 'License'"
-      :license-id="project.license.id"
-      :license-text="licenseText"
-    />
+      :header="project.license.name ? project.license.name : 'License'"
+    >
+      <div class="modal-license">
+        <div class="markdown-body" v-html="$xss($md.render(licenseText))" />
+      </div>
+    </Modal>
     <ModalReport
       ref="modal_project_report"
       :item-id="project.id"
@@ -483,23 +485,19 @@
                   class="text-link"
                   :href="project.license.url"
                 >
-                  {{ project.license.id.replaceAll('LicenseRef-', '') }}
+                  {{ licenseIdDisplay }}
                 </a>
                 <a
                   v-else-if="
-                    project.license.id === 'LicenseRef-All-Rights-Reserved'
+                    project.license.id === 'LicenseRef-All-Rights-Reserved' ||
+                    !project.license.id.includes('LicenseRef')
                   "
                   class="text-link"
                   @click="getLicenseData()"
                 >
-                  ARR
+                  {{ licenseIdDisplay }}
                 </a>
-                <span v-else-if="project.license.id.includes('LicenseRef')">
-                  {{ project.license.id.substring(10).replaceAll('-', ' ') }}
-                </span>
-                <a v-else class="text-link" @click="getLicenseData()">
-                  {{ project.license.id }}
-                </a>
+                <span v-else>{{ licenseIdDisplay }}</span>
               </div>
             </div>
             <div
@@ -838,23 +836,19 @@
                   class="text-link"
                   :href="project.license.url"
                 >
-                  {{ project.license.id.replaceAll('LicenseRef-', '') }}
+                  {{ licenseIdDisplay }}
                 </a>
                 <a
                   v-else-if="
-                    project.license.id === 'LicenseRef-All-Rights-Reserved'
+                    project.license.id === 'LicenseRef-All-Rights-Reserved' ||
+                    !project.license.id.includes('LicenseRef')
                   "
                   class="text-link"
                   @click="getLicenseData()"
                 >
-                  ARR
+                  {{ licenseIdDisplay }}
                 </a>
-                <span v-else-if="project.license.id.includes('LicenseRef')">
-                  {{ project.license.id.substring(10).replaceAll('-', ' ') }}
-                </span>
-                <a v-else class="text-link" @click="getLicenseData()">
-                  {{ project.license.id }}
-                </a>
+                <span v-else>{{ licenseIdDisplay }}</span>
               </div>
             </div>
             <div
@@ -917,7 +911,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
-import ModalLicense from '~/components/ui/ModalLicense'
+import Modal from '~/components/ui/Modal'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
@@ -930,6 +924,7 @@ export default {
     NavRow,
     Badge,
     Advertisement,
+    Modal,
     ModalReport,
     IssuesIcon,
     DownloadIcon,
@@ -951,7 +946,6 @@ export default {
     PatreonIcon,
     KoFiIcon,
     ChevronRightIcon,
-    ModalLicense,
   },
   async asyncData(data) {
     try {
@@ -1142,7 +1136,7 @@ export default {
             this.project.status === 'approved' ||
             this.project.status === 'archived'
               ? 'all'
-              : 'noindeex',
+              : 'noindex',
         },
       ],
     }
@@ -1156,6 +1150,17 @@ export default {
         this.project.project_type,
         this.loaders
       )
+    },
+    licenseIdDisplay() {
+      const id = this.project.license.id
+
+      if (id === 'LicenseRef-All-Rights-Reserved') {
+        return 'ARR'
+      } else if (id.includes('LicenseRef')) {
+        return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
+      } else {
+        return id
+      }
     },
   },
   methods: {
@@ -1239,6 +1244,7 @@ export default {
       } catch {
         this.licenseText = 'License text could not be retrieved.'
       }
+
       this.$refs.modal_license.show()
     },
   },
@@ -1489,5 +1495,9 @@ export default {
   font-weight: bold;
   margin-bottom: var(--spacing-card-xs);
   font-size: 1.125rem;
+}
+
+.modal-license {
+  padding: var(--spacing-card-bg);
 }
 </style>
