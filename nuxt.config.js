@@ -165,11 +165,6 @@ export default {
             component: resolve(__dirname, 'pages/search/resourcepacks.vue'),
             name: 'resourcepacks',
           },
-          {
-            path: '/shaders',
-            component: resolve(__dirname, 'pages/search/shaders.vue'),
-            name: 'shaders',
-          },
         ],
       })
 

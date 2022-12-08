@@ -160,7 +160,6 @@ export default {
         plugin: 'list',
         resourcepack: 'gallery',
         modpack: 'list',
-        shader: 'gallery',
         user: 'list',
       },
     }

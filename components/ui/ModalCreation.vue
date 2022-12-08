@@ -121,8 +121,6 @@ export default {
           return 'unsupported'
         case 'resourcepack':
           return 'required'
-        case 'shader':
-          return 'required'
         default:
           return 'unknown'
       }
@@ -132,8 +130,6 @@ export default {
         case 'plugin':
           return 'required'
         case 'resourcepack':
-          return 'unsupported'
-        case 'shader':
           return 'unsupported'
         default:
           return 'unknown'
