@@ -258,7 +258,7 @@
       <h3>Files</h3>
       <div v-if="isEditing && replaceFile" class="file primary">
         <FileIcon />
-        <span>
+        <span class="filename">
           <strong>{{ replaceFile.name }}</strong>
           <span class="file-size">({{ $formatBytes(replaceFile.size) }})</span>
         </span>
@@ -282,7 +282,7 @@
         }"
       >
         <FileIcon />
-        <span>
+        <span class="filename">
           <strong>{{ file.filename }}</strong>
           <span class="file-size">({{ $formatBytes(file.size) }})</span>
         </span>
@@ -328,7 +328,7 @@
       <template v-if="isEditing">
         <div v-for="(file, index) in newFiles" :key="index" class="file">
           <FileIcon />
-          <span>
+          <span class="filename">
             <strong>{{ file.name }}</strong>
             <span class="file-size">({{ $formatBytes(file.size) }})</span>
           </span>
@@ -957,6 +957,100 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
+    async createVersion() {
+      this.$nuxt.$loading.start()
+
+      const formData = new FormData()
+
+      const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
+      if (this.replaceFile) {
+        fileParts.unshift(this.replaceFile.name.concat('-primary'))
+      }
+
+      if (this.project.project_type === 'resourcepack') {
+        this.version.loaders = ['minecraft']
+      }
+
+      const newVersion = {
+        project_id: this.version.project_id,
+        file_parts: fileParts,
+        version_number: this.version.version_number,
+        version_title: this.version.name || this.version.version_number,
+        version_body: this.version.changelog,
+        dependencies: this.version.dependencies,
+        game_versions: this.version.game_versions,
+        loaders: this.version.loaders,
+        release_channel: this.version.version_type,
+        featured: this.version.featured,
+      }
+
+      formData.append('data', JSON.stringify(newVersion))
+
+      if (this.replaceFile) {
+        formData.append(
+          this.replaceFile.name.concat('-primary'),
+          new Blob([this.replaceFile]),
+          this.replaceFile.name
+        )
+      }
+
+      for (let i = 0; i < this.newFiles.length; i++) {
+        formData.append(
+          fileParts[i],
+          new Blob([this.newFiles[i]]),
+          this.newFiles[i].name
+        )
+      }
+
+      try {
+        const data = (
+          await this.$axios({
+            url: 'version',
+            method: 'POST',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$auth.token,
+            },
+          })
+        ).data
+
+        const [versions, featuredVersions] = (
+          await Promise.all([
+            this.$axios.get(
+              `project/${this.version.project_id}/version`,
+              this.$defaultHeaders()
+            ),
+            this.$axios.get(
+              `project/${this.version.project_id}/version?featured=true`,
+              this.$defaultHeaders()
+            ),
+          ])
+        ).map((it) => it.data)
+
+        const newCreatedVersions = this.$computeVersions(versions)
+        this.$emit('update:versions', newCreatedVersions)
+        this.$emit('update:featuredVersions', featuredVersions)
+
+        await this.$router.push(
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : this.project.project_id
+          }/version/${encodeURI(
+            newCreatedVersions.find((x) => x.id === data.id).displayUrlEnding
+          )}`
+        )
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
     async deleteVersion() {
       this.$nuxt.$loading.start()
 
@@ -1099,6 +1193,10 @@ export default {
         min-width: 1.1rem;
         min-height: 1.1rem;
         margin-right: 0.5rem;
+      }
+
+      .filename {
+        word-wrap: anywhere;
       }
 
       .file-size {

@@ -923,7 +923,7 @@ export default {
     async submitForReview() {
       if (
         this.project.body === '' ||
-        this.project.versions.length < 1 ||
+        this.versions.length < 1 ||
         this.project.client_side === 'unknown' ||
         this.project.server_side === 'unknown'
       ) {
