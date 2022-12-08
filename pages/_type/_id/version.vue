@@ -37,7 +37,10 @@
       </div>
       <div v-if="isCreating" class="button-group"></div>
       <div v-else-if="isEditing" class="button-group">
-        <button class="iconified-button brand-button">
+        <button
+          class="iconified-button brand-button"
+          @click="saveEditedVersion"
+        >
           <SaveIcon aria-hidden="true" />
           Save
         </button>
@@ -157,15 +160,16 @@
           (x) => !x.file_name
         )"
         :key="index"
-        class="dependency button-transparent"
-        @click="$router.push(dependency.link)"
+        class="dependency"
+        :class="{ 'button-transparent': !isEditing }"
+        @click="!isEditing ? $router.push(dependency.link) : {}"
       >
         <Avatar
           :src="dependency.project ? dependency.project.icon_url : null"
           alt="dependency-icon"
           size="sm"
         />
-        <nuxt-link :to="dependency.link" class="info">
+        <nuxt-link :to="!isEditing ? dependency.link : '#'" class="info">
           <span class="project-title">
             {{
               dependency.project ? dependency.project.title : 'Unknown Project'
@@ -738,6 +742,114 @@ export default {
           : ''
       }
     },
+    async addDependency() {
+      try {
+        if (this.dependencyAddMode === 'project') {
+          const project = (
+            await this.$axios.get(`project/${this.newDependencyId}`)
+          ).data
+
+          this.version.dependencies.push({
+            project,
+            project_id: project.id,
+            dependency_type: this.newDependencyType,
+            link: `/${project.project_type}/${project.slug ?? project.id}`,
+          })
+
+          this.$emit('update:dependencies', {
+            projects: this.dependencies.projects.concat([project]),
+            versions: this.dependencies.versions,
+          })
+        } else if (this.dependencyAddMode === 'version') {
+          const version = (
+            await this.$axios.get(`version/${this.newDependencyId}`)
+          ).data
+
+          const project = (
+            await this.$axios.get(`project/${version.project_id}`)
+          ).data
+
+          this.version.dependencies.push({
+            version,
+            project,
+            version_id: version.id,
+            project_id: project.id,
+            dependency_type: this.newDependencyType,
+            link: `/${project.project_type}/${
+              project.slug ?? project.id
+            }/version/${encodeURI(version.version_number)}`,
+          })
+
+          this.$emit('update:dependencies', {
+            projects: this.dependencies.projects.concat([project]),
+            versions: this.dependencies.versions.concat([version]),
+          })
+        }
+
+        this.newDependencyId = ''
+      } catch {
+        this.$notify({
+          group: 'main',
+          title: 'Invalid Dependency',
+          text: 'The specified dependency could not be found',
+          type: 'error',
+        })
+      }
+    },
+    async saveEditedVersion() {
+      this.$nuxt.$loading.start()
+
+      try {
+        // TODO: primary file setting and version file management
+        // TODO: redo below on making new object for editing params
+
+        this.version.primary_file = ['sha1', this.primaryFile.hashes.sha1]
+        const copyVersion = JSON.parse(JSON.stringify(this.version))
+        delete copyVersion.downloads
+        copyVersion.name = copyVersion.name || copyVersion.version_number
+
+        await this.$axios.patch(
+          `version/${this.version.id}`,
+          copyVersion,
+          this.$defaultHeaders()
+        )
+
+        const [versions, featuredVersions] = (
+          await Promise.all([
+            this.$axios.get(
+              `project/${this.version.project_id}/version`,
+              this.$defaultHeaders()
+            ),
+            this.$axios.get(
+              `project/${this.version.project_id}/version?featured=true`,
+              this.$defaultHeaders()
+            ),
+          ])
+        ).map((it) => it.data)
+
+        const newEditedVersions = this.$computeVersions(versions)
+        this.$emit('update:versions', newEditedVersions)
+        this.$emit('update:featuredVersions', featuredVersions)
+
+        await this.$router.replace(
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : this.project.id
+          }/version/${encodeURI(
+            newEditedVersions.find((x) => x.id === this.version.id)
+              .displayUrlEnding
+          )}`
+        )
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+      this.$nuxt.$loading.finish()
+    },
     async deleteVersion() {
       this.$nuxt.$loading.start()
 
@@ -751,7 +863,6 @@ export default {
       )
       this.$nuxt.$loading.finish()
     },
-    addDependency() {},
   },
 }
 </script>
