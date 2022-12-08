@@ -73,14 +73,14 @@
     grid-template:
       'sidebar content' auto
       'info content' auto
-      'dummy content' calc(60rem - .75rem)
+      'dummy content' 1fr
       / 20rem 1fr;
 
     &.alt-layout {
       grid-template:
       'content sidebar' auto
       'content info' auto
-      'content dummy'calc(60rem - .75rem)
+      'content dummy' 1fr
       / 1fr 20rem;
     }
   }

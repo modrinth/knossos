@@ -793,15 +793,6 @@ export default {
                 &.nuxt-link-exact-active {
                   color: var(--color-button-text-active);
                   background-color: var(--color-button-bg);
-
-                  .profile-link {
-                    .username {
-                      margin-block: 0.7rem;
-                    }
-                    .prompt {
-                      display: none;
-                    }
-                  }
                 }
               }
 
@@ -1023,12 +1014,6 @@ export default {
           &.nuxt-link-exact-active {
             color: var(--color-brand-inverted);
             background-color: var(--color-brand);
-
-            .profile-link {
-              .prompt {
-                display: none;
-              }
-            }
 
             .beta-badge {
               background-color: var(--color-brand-inverted);

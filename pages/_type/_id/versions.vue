@@ -215,7 +215,10 @@ export default {
 
   .version-button {
     display: grid;
-    grid-template: 'download title supports stats' 'download metadata supports stats';
+    grid-template:
+      'download title supports stats'
+      'download metadata supports stats'
+      'download dummy supports stats';
     grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
     column-gap: var(--spacing-card-sm);
     justify-content: left;
