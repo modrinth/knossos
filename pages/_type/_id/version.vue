@@ -256,8 +256,25 @@
     </div>
     <div class="version-page__files card">
       <h3>Files</h3>
+      <div v-if="isEditing && replaceFile" class="file primary">
+        <FileIcon />
+        <span>
+          <strong>{{ replaceFile.name }}</strong>
+          <span class="file-size">({{ $formatBytes(replaceFile.size) }})</span>
+        </span>
+        <FileInput
+          class="iconified-button raised-button"
+          prompt="Replace"
+          :accept="fileInputAccept"
+          :max-size="524288000"
+          should-always-reset
+          @change="(x) => (replaceFile = x[0])"
+        >
+          <TransferIcon />
+        </FileInput>
+      </div>
       <div
-        v-for="file in version.files"
+        v-for="(file, index) in version.files"
         :key="file.hashes.sha1"
         :class="{
           file: true,
@@ -273,18 +290,27 @@
           v-if="isEditing && primaryFile.hashes.sha1 === file.hashes.sha1"
           class="iconified-button raised-button"
           prompt="Replace"
-          :accept="
-            project.actualProjectType.toLowerCase() === 'modpack'
-              ? '.mrpack,application/x-modrinth-modpack+zip'
-              : project.project_type.toLowerCase() === 'mod'
-              ? '.jar,actualProjectType/java-archive'
-              : '*'
-          "
+          :accept="fileInputAccept"
           :max-size="524288000"
+          should-always-reset
+          @change="
+            (x) => {
+              deleteFiles.push(file.hashes.sha1)
+              version.files.splice(index, 1)
+              replaceFile = x[0]
+            }
+          "
         >
           <TransferIcon />
         </FileInput>
-        <button v-else-if="isEditing" class="iconified-button raised-button">
+        <button
+          v-else-if="isEditing"
+          class="iconified-button raised-button"
+          @click="
+            deleteFiles.push(file.hashes.sha1)
+            version.files.splice(index, 1)
+          "
+        >
           <TrashIcon />
           Remove
         </button>
@@ -299,25 +325,36 @@
           Download
         </a>
       </div>
-      <div v-if="isEditing" class="additional-files">
-        <h4>Upload additional files</h4>
-        <span>Used for files such as sources or Javadocs.</span>
-        <FileInput
-          prompt="Drag and drop to upload or click to select"
-          multiple
-          long-style
-          :accept="
-            project.actualProjectType.toLowerCase() === 'modpack'
-              ? '.mrpack,application/x-modrinth-modpack+zip'
-              : project.project_type.toLowerCase() === 'mod'
-              ? '.jar,actualProjectType/java-archive'
-              : '*'
-          "
-          :max-size="524288000"
-        >
-          <UploadIcon />
-        </FileInput>
-      </div>
+      <template v-if="isEditing">
+        <div v-for="(file, index) in newFiles" :key="index" class="file">
+          <FileIcon />
+          <span>
+            <strong>{{ file.name }}</strong>
+            <span class="file-size">({{ $formatBytes(file.size) }})</span>
+          </span>
+          <button
+            class="iconified-button raised-button"
+            @click="newFiles.splice(index, 1)"
+          >
+            <TrashIcon />
+            Remove
+          </button>
+        </div>
+        <div class="additional-files">
+          <h4>Upload additional files</h4>
+          <span>Used for files such as sources or Javadocs.</span>
+          <FileInput
+            prompt="Drag and drop to upload or click to select"
+            multiple
+            long-style
+            :accept="fileInputAccept"
+            :max-size="524288000"
+            @change="(x) => x.forEach((y) => newFiles.push(y))"
+          >
+            <UploadIcon />
+          </FileInput>
+        </div>
+      </template>
     </div>
     <div class="version-page__metadata">
       <div class="card">
@@ -584,6 +621,10 @@ export default {
 
       changelogViewMode: 'source',
       showSnapshots: false,
+
+      newFiles: [],
+      deleteFiles: [],
+      replaceFile: null,
     }
   },
   fetch() {
@@ -632,6 +673,15 @@ export default {
       ],
     }
   },
+  computed: {
+    fileInputAccept() {
+      return this.project.actualProjectType.toLowerCase() === 'modpack'
+        ? '.mrpack,application/x-modrinth-modpack+zip'
+        : this.project.project_type.toLowerCase() === 'mod'
+        ? '.jar,actualProjectType/java-archive'
+        : '*'
+    },
+  },
   watch: {
     '$route.path': {
       handler() {
@@ -654,6 +704,7 @@ export default {
 
       this.newFiles = []
       this.deleteFiles = []
+      this.replaceFile = null
 
       this.isEditing = false
       this.isCreating = false
@@ -800,19 +851,75 @@ export default {
       this.$nuxt.$loading.start()
 
       try {
-        // TODO: primary file setting and version file management
-        // TODO: redo below on making new object for editing params
+        if (this.replaceFile) {
+          const reader = new FileReader()
+          reader.onloadend = async function (event) {
+            const hash = await crypto.subtle.digest(
+              'SHA-1',
+              event.target.result
+            )
+            this.primaryFile.hashes.sha1 = [...new Uint8Array(hash)]
+              .map((x) => x.toString(16).padStart(2, '0'))
+              .join('')
+          }
 
-        this.version.primary_file = ['sha1', this.primaryFile.hashes.sha1]
-        const copyVersion = JSON.parse(JSON.stringify(this.version))
-        delete copyVersion.downloads
-        copyVersion.name = copyVersion.name || copyVersion.version_number
+          reader.readAsArrayBuffer(this.replaceFile)
+        }
+
+        if (this.newFiles.length > 0 || this.replaceFile) {
+          const formData = new FormData()
+
+          formData.append('data', JSON.stringify({}))
+
+          for (let i = 0; i < this.newFiles.length; i++) {
+            formData.append(
+              this.newFiles[i].name.concat('-' + i),
+              new Blob([this.newFiles[i]]),
+              this.newFiles[i].name
+            )
+          }
+
+          if (this.replaceFile) {
+            formData.append(
+              this.replaceFile.name.concat('-' + this.newFiles.length),
+              new Blob([this.replaceFile]),
+              this.replaceFile.name
+            )
+          }
+
+          await this.$axios({
+            url: `version/${this.version.id}/file`,
+            method: 'POST',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: this.$auth.token,
+            },
+          })
+        }
 
         await this.$axios.patch(
           `version/${this.version.id}`,
-          copyVersion,
+          {
+            name: this.version.name || this.version.version_number,
+            version_number: this.version.version_number,
+            changelog: this.version.changelog,
+            version_type: this.version.version_type,
+            dependencies: this.version.dependencies,
+            game_versions: this.version.game_versions,
+            loaders: this.version.loaders,
+            primary_file: ['sha1', this.primaryFile.hashes.sha1],
+            featured: this.version.featured,
+          },
           this.$defaultHeaders()
         )
+
+        for (const hash of this.deleteFiles) {
+          await this.$axios.delete(
+            `version_file/${hash}`,
+            this.$defaultHeaders()
+          )
+        }
 
         const [versions, featuredVersions] = (
           await Promise.all([
