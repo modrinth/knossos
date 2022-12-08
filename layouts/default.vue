@@ -29,7 +29,11 @@
                   href: '/plugins',
                 },
                 {
-                  label: 'Resource Packs',
+                  label: 'Shaders',
+                  href: '/shaders',
+                },
+                {
+                  label: 'Resourcepacks',
                   href: '/resourcepacks',
                 },
                 {
@@ -193,14 +197,21 @@
           >
             <span>Plugins</span>
           </NuxtLink>
-
+          <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
+            to="/shaders"
+            class="tab iconified-button"
+            @click.native="isBrowseMenuOpen = false"
+          >
+            <span>Shaders</span>
+          </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
             class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>Resource Packs</span>
+            <span>Resourcepacks</span>
           </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"

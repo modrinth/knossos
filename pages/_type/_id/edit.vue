@@ -228,7 +228,10 @@
       </button>
     </section>
     <section
-      v-if="project.project_type !== 'resourcepack'"
+      v-if="
+        project.project_type !== 'resourcepack' &&
+        project.project_type !== 'shader'
+      "
       class="card game-sides"
     >
       <div class="columns">
@@ -737,6 +740,9 @@ export default {
           id: this.newProject.license.short,
           url: this.newProject.license.url,
         }
+
+        this.newProject.client_side = this.clientSideType.toLowerCase()
+        this.newProject.server_side = this.serverSideType.toLowerCase()
 
         this.$emit('update:project', this.newProject)
 

@@ -485,7 +485,8 @@
             <div
               v-if="
                 project.project_type !== 'resourcepack' &&
-                project.project_type !== 'plugin'
+                project.project_type !== 'plugin' &&
+                project.project_type !== 'shader'
               "
               class="info"
             >
@@ -497,7 +498,8 @@
             <div
               v-if="
                 project.project_type !== 'resourcepack' &&
-                project.project_type !== 'plugin'
+                project.project_type !== 'plugin' &&
+                project.project_type !== 'shader'
               "
               class="info"
             >
