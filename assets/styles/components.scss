@@ -885,6 +885,7 @@ textarea.known-error {
 }
 
 .known-errors {
+  min-height: 0;
   color: var(--color-special-red);
 
   ul {

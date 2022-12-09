@@ -209,11 +209,13 @@
         :max-size="262144"
         :show-icon="true"
         accept="image/png,image/jpeg,image/gif,image/webp"
-        class="choose-image"
+        class="choose-image iconified-button"
         prompt="Choose image"
         :disabled="(currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS"
         @change="showPreviewImage"
-      />
+      >
+        <UploadIcon />
+      </FileInput>
       <button
         class="iconified-button"
         :disabled="(currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS"
@@ -503,6 +505,7 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import RevertIcon from '~/assets/images/utils/undo.svg?inline'
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 
 import Chips from '~/components/ui/Chips'
 import FileInput from '~/components/ui/FileInput'
@@ -520,6 +523,7 @@ export default {
     SaveIcon,
     TrashIcon,
     RevertIcon,
+    UploadIcon,
   },
   props: {
     project: {

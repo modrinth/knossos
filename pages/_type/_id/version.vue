@@ -13,6 +13,31 @@
       :item-id="version.id"
       item-type="version"
     />
+    <div v-if="fieldErrors && showKnownErrors" class="known-errors card">
+      <ul>
+        <li v-if="version.version_number === ''">
+          Your version must have a version number.
+        </li>
+        <li v-if="version.game_versions.length === 0">
+          Your version must have the supported Minecraft versions selected.
+        </li>
+        <li
+          v-if="
+            newFiles.length === 0 && version.files.length === 0 && !replaceFile
+          "
+        >
+          Your version must have a file uploaded.
+        </li>
+        <li
+          v-if="
+            version.loaders.length === 0 &&
+            project.project_type !== 'resourcepack'
+          "
+        >
+          Your version must have the supported mod loaders selected.
+        </li>
+      </ul>
+    </div>
     <div class="version-page__title card">
       <div class="version-header">
         <h2>
@@ -644,6 +669,8 @@ export default {
       newFiles: [],
       deleteFiles: [],
       replaceFile: null,
+
+      showKnownErrors: false,
     }
   },
   fetch() {
@@ -694,11 +721,24 @@ export default {
   },
   computed: {
     fileInputAccept() {
+      // TODO: move this to shorthands or store and work with more project types
+
       return this.project.actualProjectType.toLowerCase() === 'modpack'
         ? '.mrpack,application/x-modrinth-modpack+zip'
         : this.project.project_type.toLowerCase() === 'mod'
         ? '.jar,actualProjectType/java-archive'
         : '*'
+    },
+    fieldErrors() {
+      return (
+        this.version.version_number === '' ||
+        this.version.game_versions.length === 0 ||
+        (this.version.loaders.length === 0 &&
+          this.project.project_type !== 'resourcepack') ||
+        (this.newFiles.length === 0 &&
+          this.version.files.length === 0 &&
+          !this.replaceFile)
+      )
     },
   },
   watch: {
@@ -727,6 +767,8 @@ export default {
 
       this.isEditing = false
       this.isCreating = false
+
+      this.showKnownErrors = false
     },
     setVersion() {
       this.reset()
@@ -737,6 +779,12 @@ export default {
       if (mode === 'create') {
         this.isCreating = true
         this.isEditing = true
+
+        // For navigation from versions page / upload file prompt
+        // TODO: Add inferences of files
+        if (this.$route.params.newPrimaryFile) {
+          this.replaceFile = this.$route.params.newPrimaryFile
+        }
 
         this.version = {
           id: 'none',
@@ -869,6 +917,13 @@ export default {
     async saveEditedVersion() {
       this.$nuxt.$loading.start()
 
+      if (this.fieldErrors) {
+        this.showKnownErrors = true
+
+        this.$nuxt.$loading.finish()
+        return
+      }
+
       try {
         if (this.replaceFile) {
           const reader = new FileReader()
@@ -979,6 +1034,13 @@ export default {
     async createVersion() {
       this.$nuxt.$loading.start()
 
+      if (this.fieldErrors) {
+        this.showKnownErrors = true
+
+        this.$nuxt.$loading.finish()
+        return
+      }
+
       const formData = new FormData()
 
       const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
@@ -1079,7 +1141,7 @@ export default {
       )
 
       await this.$router.replace(
-        `/${this.project.project_type}/${this.project.id}`
+        `/${this.project.project_type}/${this.project.id}/versions`
       )
       this.$nuxt.$loading.finish()
     },
@@ -1092,6 +1154,7 @@ export default {
   display: grid;
 
   grid-template:
+    'known-errors' auto
     'title' auto
     'changelog' auto
     'dependencies' auto
@@ -1100,6 +1163,10 @@ export default {
     / 1fr;
 
   column-gap: var(--spacing-card-md);
+
+  .known-errors {
+    grid-area: known-errors;
+  }
 
   .version-page__title {
     grid-area: title;
@@ -1273,6 +1340,7 @@ export default {
 @media (min-width: 1200px) {
   .version-page {
     grid-template:
+      'known-errors known-errors' auto
       'title title' auto
       'changelog metadata' auto
       'dependencies metadata' auto

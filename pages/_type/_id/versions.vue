@@ -1,10 +1,25 @@
 <template>
   <div class="content">
     <div v-if="currentMember" class="card header-buttons">
-      <nuxt-link to="version/create" class="brand-button iconified-button">
+      <FileInput
+        :max-size="5242880"
+        accept="*"
+        prompt="Create a version"
+        class="brand-button iconified-button"
+        @change="
+          (files) =>
+            $router.push({
+              name: 'type-id-version-create',
+              params: {
+                type: project.project_type,
+                id: project.slug ? project.slug : project.id,
+                newPrimaryFile: files[0],
+              },
+            })
+        "
+      >
         <PlusIcon />
-        Create a version
-      </nuxt-link>
+      </FileInput>
     </div>
     <VersionFilterControl
       class="card"
@@ -91,6 +106,7 @@
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
+import FileInput from '~/components/ui/FileInput'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {
@@ -99,6 +115,7 @@ export default {
     DownloadIcon,
     VersionBadge,
     VersionFilterControl,
+    FileInput,
   },
   auth: false,
   props: {
