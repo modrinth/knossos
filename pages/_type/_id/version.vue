@@ -17,7 +17,11 @@
       <div class="version-header">
         <h2>
           <template v-if="isEditing">
-            <input v-model="version.name" type="text" />
+            <input
+              v-model="version.name"
+              type="text"
+              placeholder="Enter a version title..."
+            />
           </template>
           <template v-else>
             {{ version.name }}
@@ -35,7 +39,22 @@
           Auto-featured
         </div>
       </div>
-      <div v-if="isCreating" class="button-group"></div>
+      <div v-if="isCreating" class="button-group">
+        <button class="iconified-button brand-button" @click="createVersion">
+          <PlusIcon aria-hidden="true" />
+          Create
+        </button>
+        <nuxt-link
+          v-if="$auth.user"
+          :to="`/${project.project_type}/${
+            project.slug ? project.slug : project.id
+          }/versions`"
+          class="iconified-button"
+        >
+          <CrossIcon aria-hidden="true" />
+          Cancel
+        </nuxt-link>
+      </div>
       <div v-else-if="isEditing" class="button-group">
         <button
           class="iconified-button brand-button"
