@@ -3,7 +3,7 @@
     <div v-if="currentMember" class="card header-buttons">
       <FileInput
         :max-size="5242880"
-        accept="*"
+        :accept="acceptFileFromProjectType(project.project_type)"
         prompt="Create a version"
         class="brand-button iconified-button"
         @change="
@@ -103,6 +103,7 @@
   </div>
 </template>
 <script>
+import { acceptFileFromProjectType } from '~/plugins/fileUtils'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import VersionBadge from '~/components/ui/Badge'
@@ -184,6 +185,7 @@ export default {
     }
   },
   methods: {
+    acceptFileFromProjectType,
     updateVersions(updatedVersions) {
       this.filteredVersions = updatedVersions
     },

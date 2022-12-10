@@ -275,7 +275,13 @@
             :placeholder="`Enter the ${dependencyAddMode} ID${
               dependencyAddMode === 'project' ? '/slug' : ''
             }`"
-            @keyup.enter="addDependency"
+            @keyup.enter="
+              addDependency(
+                dependencyAddMode,
+                newDependencyId,
+                newDependencyType
+              )
+            "
           />
           <Multiselect
             v-model="newDependencyType"
@@ -291,7 +297,16 @@
           />
         </div>
         <div class="button-group">
-          <button class="iconified-button brand-button" @click="addDependency">
+          <button
+            class="iconified-button brand-button"
+            @click="
+              addDependency(
+                dependencyAddMode,
+                newDependencyId,
+                newDependencyType
+              )
+            "
+          >
             <PlusIcon />
             Add dependency
           </button>
@@ -309,7 +324,7 @@
         <FileInput
           class="iconified-button raised-button"
           prompt="Replace"
-          :accept="fileInputAccept"
+          :accept="acceptFileFromProjectType(project.project_type)"
           :max-size="524288000"
           should-always-reset
           @change="(x) => (replaceFile = x[0])"
@@ -334,7 +349,7 @@
           v-if="isEditing && primaryFile.hashes.sha1 === file.hashes.sha1"
           class="iconified-button raised-button"
           prompt="Replace"
-          :accept="fileInputAccept"
+          :accept="acceptFileFromProjectType(project.project_type)"
           :max-size="524288000"
           should-always-reset
           @change="
@@ -391,7 +406,7 @@
             prompt="Drag and drop to upload or click to select"
             multiple
             long-style
-            :accept="fileInputAccept"
+            :accept="acceptFileFromProjectType(project.project_type)"
             :max-size="524288000"
             @change="(x) => x.forEach((y) => newFiles.push(y))"
           >
@@ -565,6 +580,11 @@
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
+import {
+  acceptFileFromProjectType,
+  inferVersionInfo,
+} from '~/plugins/fileUtils'
+
 import VersionBadge from '~/components/ui/Badge'
 import Avatar from '~/components/ui/Avatar'
 import CopyCode from '~/components/ui/CopyCode'
@@ -673,8 +693,8 @@ export default {
       showKnownErrors: false,
     }
   },
-  fetch() {
-    this.setVersion()
+  async fetch() {
+    await this.setVersion()
   },
   head() {
     if (!this.version || !this.version.game_versions) {
@@ -720,15 +740,6 @@ export default {
     }
   },
   computed: {
-    fileInputAccept() {
-      // TODO: move this to shorthands or store and work with more project types
-
-      return this.project.actualProjectType.toLowerCase() === 'modpack'
-        ? '.mrpack,application/x-modrinth-modpack+zip'
-        : this.project.project_type.toLowerCase() === 'mod'
-        ? '.jar,actualProjectType/java-archive'
-        : '*'
-    },
     fieldErrors() {
       return (
         this.version.version_number === '' ||
@@ -743,12 +754,13 @@ export default {
   },
   watch: {
     '$route.path': {
-      handler() {
-        this.setVersion()
+      async handler() {
+        await this.setVersion()
       },
     },
   },
   methods: {
+    acceptFileFromProjectType,
     reset() {
       this.primaryFile = {}
       this.version = {}
@@ -770,7 +782,7 @@ export default {
 
       this.showKnownErrors = false
     },
-    setVersion() {
+    async setVersion() {
       this.reset()
 
       const path = this.$route.name.split('-')
@@ -779,12 +791,6 @@ export default {
       if (mode === 'create') {
         this.isCreating = true
         this.isEditing = true
-
-        // For navigation from versions page / upload file prompt
-        // TODO: Add inferences of files
-        if (this.$route.params.newPrimaryFile) {
-          this.replaceFile = this.$route.params.newPrimaryFile
-        }
 
         this.version = {
           id: 'none',
@@ -801,6 +807,40 @@ export default {
           game_versions: [],
           loaders: [],
           featured: false,
+        }
+        // For navigation from versions page / upload file prompt
+        if (this.$route.params.newPrimaryFile) {
+          this.replaceFile = this.$route.params.newPrimaryFile
+
+          try {
+            const inferredData = await inferVersionInfo(
+              this.replaceFile,
+              this.project,
+              this.$tag.gameVersions
+            )
+
+            console.log(inferredData)
+
+            if (
+              inferredData.dependencies &&
+              inferredData.dependencies.length > 0
+            ) {
+              await Promise.all(
+                inferredData.dependencies.map((x) =>
+                  this.addDependency(x.target, x.identifier, x.type, true)
+                )
+              )
+            }
+
+            delete inferredData.dependencies
+
+            this.version = {
+              ...this.version,
+              ...inferredData,
+            }
+          } catch (err) {
+            console.error('Error parsing version file data', err)
+          }
         }
         return
       } else if (mode === 'edit') {
@@ -860,17 +900,21 @@ export default {
           : ''
       }
     },
-    async addDependency() {
+    async addDependency(
+      dependencyAddMode,
+      newDependencyId,
+      newDependencyType,
+      hideErrors
+    ) {
       try {
-        if (this.dependencyAddMode === 'project') {
-          const project = (
-            await this.$axios.get(`project/${this.newDependencyId}`)
-          ).data
+        if (dependencyAddMode === 'project') {
+          const project = (await this.$axios.get(`project/${newDependencyId}`))
+            .data
 
           this.version.dependencies.push({
             project,
             project_id: project.id,
-            dependency_type: this.newDependencyType,
+            dependency_type: newDependencyType,
             link: `/${project.project_type}/${project.slug ?? project.id}`,
           })
 
@@ -878,7 +922,7 @@ export default {
             projects: this.dependencies.projects.concat([project]),
             versions: this.dependencies.versions,
           })
-        } else if (this.dependencyAddMode === 'version') {
+        } else if (dependencyAddMode === 'version') {
           const version = (
             await this.$axios.get(`version/${this.newDependencyId}`)
           ).data
@@ -906,12 +950,14 @@ export default {
 
         this.newDependencyId = ''
       } catch {
-        this.$notify({
-          group: 'main',
-          title: 'Invalid Dependency',
-          text: 'The specified dependency could not be found',
-          type: 'error',
-        })
+        if (!hideErrors) {
+          this.$notify({
+            group: 'main',
+            title: 'Invalid Dependency',
+            text: 'The specified dependency could not be found',
+            type: 'error',
+          })
+        }
       }
     },
     async saveEditedVersion() {
