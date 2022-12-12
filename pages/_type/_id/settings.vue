@@ -53,7 +53,7 @@
         </span>
         <div
           v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
-          class="input-group"
+          class="input-group shrink-first"
         >
           <input
             id="username"

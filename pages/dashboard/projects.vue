@@ -1,153 +1,199 @@
 <template>
   <div>
-    <Modal ref="editLinksModal" header="Edit Links">
-      <div class="modal-contents">
+    <Modal ref="editLinksModal" header="Edit links">
+      <div class="universal-modal links-modal">
         <p>
-          Empty inputs will be ignored. You can clear a field using the trash
-          can button.
+          Any links you specify below will be overwritten on each of the
+          selected projects. Any you leave blank will be ignored. You can clear
+          a link from all selected projects using the trash can button.
         </p>
         <section class="links">
-          <label
-            title="A place for users to report bugs, issues, and concerns about your project."
-          >
-            <span>Issue tracker</span>
-            <input
-              v-model="editLinks.issues.val"
-              :disabled="editLinks.issues.clear"
-              type="url"
-              placeholder="Enter a valid URL"
-              maxlength="2048"
-            />
-            <button
-              class="square-button label-button"
-              :data-active="editLinks.issues.clear"
-              @click="editLinks.issues.clear = !editLinks.issues.clear"
+          <div class="adjacent-input">
+            <label
+              for="issue-tracker-input"
+              title="A place for users to report bugs, issues, and concerns about your project."
             >
-              <TrashIcon />
-            </button>
-          </label>
-          <label
-            title="A page/repository containing the source code for your project"
-          >
-            <span>Source code</span>
-            <input
-              v-model="editLinks.source.val"
-              :disabled="editLinks.source.clear"
-              type="url"
-              maxlength="2048"
-              placeholder="Enter a valid URL"
-            />
-            <button
-              class="square-button label-button"
-              :data-active="editLinks.source.clear"
-              @click="editLinks.source.clear = !editLinks.source.clear"
+              <span class="label__title">Issue tracker</span>
+            </label>
+            <div class="input-group shrink-first">
+              <input
+                id="issue-tracker-input"
+                v-model="editLinks.issues.val"
+                :disabled="editLinks.issues.clear"
+                type="url"
+                :placeholder="
+                  editLinks.issues.clear
+                    ? 'Existing link will be cleared'
+                    : 'Enter a valid URL'
+                "
+                maxlength="2048"
+              />
+              <button
+                v-tooltip="'Clear link'"
+                class="square-button label-button"
+                :data-active="editLinks.issues.clear"
+                @click="editLinks.issues.clear = !editLinks.issues.clear"
+              >
+                <TrashIcon />
+              </button>
+            </div>
+          </div>
+          <div class="adjacent-input">
+            <label
+              for="source-code-input"
+              title="A page/repository containing the source code for your project"
             >
-              <TrashIcon />
-            </button>
-          </label>
-          <label
-            title="A page containing information, documentation, and help for the project."
-          >
-            <span>Wiki page</span>
-            <input
-              v-model="editLinks.wiki.val"
-              :disabled="editLinks.wiki.clear"
-              type="url"
-              maxlength="2048"
-              placeholder="Enter a valid URL"
-            />
-            <button
-              class="square-button label-button"
-              :data-active="editLinks.wiki.clear"
-              @click="editLinks.wiki.clear = !editLinks.wiki.clear"
+              <span class="label__title">Source code</span>
+            </label>
+            <div class="input-group shrink-first">
+              <input
+                id="source-code-input"
+                v-model="editLinks.source.val"
+                :disabled="editLinks.source.clear"
+                type="url"
+                maxlength="2048"
+                :placeholder="
+                  editLinks.source.clear
+                    ? 'Existing link will be cleared'
+                    : 'Enter a valid URL'
+                "
+              />
+              <button
+                v-tooltip="'Clear link'"
+                class="square-button label-button"
+                :data-active="editLinks.source.clear"
+                @click="editLinks.source.clear = !editLinks.source.clear"
+              >
+                <TrashIcon />
+              </button>
+            </div>
+          </div>
+          <div class="adjacent-input">
+            <label
+              for="wiki-page-input"
+              title="A page containing information, documentation, and help for the project."
             >
-              <TrashIcon />
-            </button>
-          </label>
-          <label
-            class="no-margin"
-            title="An invitation link to your Discord server."
-          >
-            <span>Discord invite</span>
-            <input
-              v-model="editLinks.discord.val"
-              :disabled="editLinks.discord.clear"
-              type="url"
-              maxlength="2048"
-              placeholder="Enter a valid URL"
-            />
-            <button
-              class="square-button label-button"
-              :data-active="editLinks.discord.clear"
-              @click="editLinks.discord.clear = !editLinks.discord.clear"
+              <span class="label__title">Wiki page</span>
+            </label>
+            <div class="input-group shrink-first">
+              <input
+                id="wiki-page-input"
+                v-model="editLinks.wiki.val"
+                :disabled="editLinks.wiki.clear"
+                type="url"
+                maxlength="2048"
+                :placeholder="
+                  editLinks.wiki.clear
+                    ? 'Existing link will be cleared'
+                    : 'Enter a valid URL'
+                "
+              />
+              <button
+                v-tooltip="'Clear link'"
+                class="square-button label-button"
+                :data-active="editLinks.wiki.clear"
+                @click="editLinks.wiki.clear = !editLinks.wiki.clear"
+              >
+                <TrashIcon />
+              </button>
+            </div>
+          </div>
+          <div class="adjacent-input">
+            <label
+              for="discord-invite-input"
+              title="An invitation link to your Discord server."
             >
-              <TrashIcon />
-            </button>
-          </label>
+              <span class="label__title">Discord invite</span>
+            </label>
+            <div class="input-group shrink-first">
+              <input
+                id="discord-invite-input"
+                v-model="editLinks.discord.val"
+                :disabled="editLinks.discord.clear"
+                type="url"
+                maxlength="2048"
+                :placeholder="
+                  editLinks.discord.clear
+                    ? 'Existing link will be cleared'
+                    : 'Enter a valid Discord invite URL'
+                "
+              />
+              <button
+                v-tooltip="'Clear link'"
+                class="square-button label-button"
+                :data-active="editLinks.discord.clear"
+                @click="editLinks.discord.clear = !editLinks.discord.clear"
+              >
+                <TrashIcon />
+              </button>
+            </div>
+          </div>
         </section>
-        <Checkbox
-          v-model="editLinks.showAffected"
-          :label="`This action affects ${selectedProjects.length} project${
+        <p>
+          Changes will be applied to
+          <strong>{{ selectedProjects.length }}</strong> project{{
             selectedProjects.length > 1 ? 's' : ''
-          }`"
+          }}.
+        </p>
+        <ul>
+          <li
+            v-for="project in selectedProjects.slice(
+              0,
+              editLinks.showAffected ? selectedProjects.length : 3
+            )"
+            :key="project.id"
+          >
+            {{ project.title }}
+          </li>
+          <li v-if="!editLinks.showAffected && selectedProjects.length > 3">
+            <strong>and {{ selectedProjects.length - 3 }} more...</strong>
+          </li>
+        </ul>
+        <Checkbox
+          v-if="selectedProjects.length > 3"
+          v-model="editLinks.showAffected"
+          :label="editLinks.showAffected ? 'Less' : 'More'"
           description="Show all loaders"
-          style="margin-bottom: 0.5rem; padding-top: 0.5rem"
           :border="false"
           :collapsing-toggle-style="true"
         />
-        <ul :style="editLinks.showAffected ? '' : 'display: none;'">
-          <li v-for="project in selectedProjects" :key="project.id">
-            {{ project.title }}
-          </li>
-        </ul>
-        <div class="button-group">
+        <div class="push-right input-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
             <CrossIcon />
             Cancel
           </button>
-          <button class="iconified-button" @click="bulkEditLinks()">
-            Apply
+          <button
+            class="iconified-button brand-button"
+            @click="bulkEditLinks()"
+          >
+            <SaveIcon />
+            Save changes
           </button>
         </div>
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" />
     <section class="universal-card">
-      <div class="title-button-group input-group">
-        <h2>Projects</h2>
-        <button
-          class="iconified-button brand-button"
-          @click="$refs.modal_creation.show()"
-        >
-          <PlusIcon />
-          Create a project
-        </button>
-      </div>
-
-      <div class="metrics">
-        <div class="metric">
-          <div class="label">Total projects</div>
-          <div class="value">
-            {{ projects.length }}
-          </div>
-        </div>
-        <div class="metric">
-          <div class="label">Versions created</div>
-          <div class="value">
-            {{ versions.length }}
-          </div>
+      <div class="header__row">
+        <h2 class="header__title">Projects</h2>
+        <div class="input-group">
+          <button
+            class="iconified-button brand-button"
+            @click="$refs.modal_creation.show()"
+          >
+            <PlusIcon />
+            Create a project
+          </button>
         </div>
       </div>
-    </section>
-    <section class="universal-card">
-      <h2>Management</h2>
-      <p>You can bulk edit projects by selecting them in the table.</p>
+      <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="button-group">
         <button
           class="iconified-button"
           :disabled="selectedProjects.length === 0"
           @click="$refs.editLinksModal.show()"
         >
+          <EditIcon />
           Edit links
         </button>
         <div class="align-row-right">
@@ -157,35 +203,18 @@
               v-model="sortBy"
               :searchable="false"
               class="small-select"
-              :options="['Name', 'Status', 'Role', 'Type']"
+              :options="['Name', 'Status', 'Type']"
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="sortPages(currentPage)"
+              @input="updateSort()"
             ></Multiselect>
-            Max Per Page
-            <Multiselect
-              v-model="maxPerPage"
-              placeholder="Select one"
-              class="small-select"
-              :options="[3, 5, 10, 15, 20, 50, 100]"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="
-                () => {
-                  pageCount = Math.ceil(projects.length / maxPerPage)
-                  currentPageNumber = 1
-                }
-              "
-            />
           </div>
         </div>
       </div>
       <br />
       <div class="table-container">
-        <table>
+        <table class="project-table">
           <tr>
             <th>
               <Checkbox
@@ -197,18 +226,25 @@
                 "
               />
             </th>
-            <th>Name</th>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Role</th>
+            <th class="avatar-column">Icon</th>
+            <th class="single">Name</th>
+            <th class="single">ID</th>
+            <th class="combined-two wrap-as-needed">
+              Name/
+              <wbr />
+              ID
+            </th>
+            <th class="single">Type</th>
+            <th class="single">Status</th>
+            <th class="combined-two wrap-as-needed">
+              Type/
+              <wbr />
+              Status
+            </th>
+            <th class="combined-four wrap-as-needed">Info</th>
             <th><!-- Settings Button Column --></th>
           </tr>
-          <tr
-            v-for="project in currentPage"
-            :key="project.id"
-            class="actual-row"
-          >
+          <tr v-for="project in projects" :key="project.id" class="actual-row">
             <td>
               <Checkbox
                 :disabled="
@@ -224,60 +260,67 @@
                 "
               />
             </td>
-            <td>
-              <div
-                v-if="project.moderator_message != null"
-                v-tooltip="
-                  project.moderator_message != null
-                    ? project.moderator_message.message
-                    : ''
-                "
-                class="inline-icon"
-              >
-                <IssuesIcon color="var(--color-special-orange)" />
-              </div>
-
+            <td class="avatar-column">
               <nuxt-link
-                class="hover-link"
-                :to="`/${project.project_type}/${project.id}`"
+                tabindex="-1"
+                :to="`/${project.project_type}/${project.slug}`"
               >
-                {{ project.title }}
+                <Avatar
+                  :src="project.icon_url"
+                  aria-hidden="true"
+                  :alt="'Icon for ' + project.title"
+                  no-shadow
+                />
               </nuxt-link>
             </td>
-            <td>
-              <a
-                class="hover-link"
-                :href="`${$axios.defaults.baseURL}project/${project.id}`"
-                target="_blank"
-              >
-                {{ project.id }}
-              </a>
-            </td>
-            <td>{{ uppercaseString(project.project_type) }}</td>
-            <td>
-              <Badge
-                v-if="project.status && project.status !== 'approved'"
-                :type="project.status"
-                class="status"
-              />
-            </td>
-            <td>{{ project.role }}</td>
+            <div class="all-group">
+              <div class="mobile-group">
+                <td>
+                  <span class="project-title">
+                    <IssuesIcon
+                      v-if="project.moderator_message"
+                      v-tooltip="
+                        'Project has a message from the moderators. View the project to see more.'
+                      "
+                      aria-label="Project has a message from the moderators. View the project to see more."
+                    />
+
+                    <nuxt-link
+                      class="hover-link wrap-as-needed"
+                      :to="`/${project.project_type}/${project.slug}`"
+                    >
+                      {{ project.title }}
+                    </nuxt-link>
+                  </span>
+                </td>
+                <td>
+                  <CopyCode :text="project.id" />
+                </td>
+              </div>
+              <div class="mobile-group">
+                <td>
+                  {{ $formatProjectType(project.project_type) }}
+                </td>
+                <td>
+                  <Badge
+                    v-if="project.status"
+                    :type="project.status"
+                    class="status"
+                  />
+                </td>
+              </div>
+            </div>
             <td>
               <nuxt-link
                 class="square-button"
                 :to="`/${project.project_type}/${project.id}/settings`"
-                ><SettingsIcon
-              /></nuxt-link>
+              >
+                <SettingsIcon />
+              </nuxt-link>
             </td>
           </tr>
         </table>
       </div>
-      <Pagination
-        :page="currentPageNumber"
-        :count="pageCount"
-        :link-function="() => '/'"
-        @switch-page="(i) => (currentPageNumber = i)"
-      ></Pagination>
     </section>
   </div>
 </template>
@@ -289,81 +332,41 @@ import Badge from '~/components/ui/Badge.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import Modal from '~/components/ui/Modal.vue'
 // import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import Avatar from '~/components/ui/Avatar.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Pagination from '~/components/ui/Pagination.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import EditIcon from '~/assets/images/utils/edit.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg?inline'
 
 export default {
   components: {
+    Avatar,
     Badge,
     SettingsIcon,
     TrashIcon,
     Checkbox,
     IssuesIcon,
+    PlusIcon,
+    CrossIcon,
+    EditIcon,
+    SaveIcon,
     Modal,
     // ModalConfirm,
     ModalCreation,
     Multiselect,
-    Pagination,
-  },
-  async asyncData(data) {
-    try {
-      const [unprocessedProjects] = (
-        await Promise.all([
-          data.$axios.get(
-            `user/${data.$auth.user.id}/projects`,
-            data.$defaultHeaders()
-          ),
-        ])
-      ).map((it) => it.data)
-
-      const projects = []
-      const versions = []
-
-      await unprocessedProjects.forEach(async (project) => {
-        const teamData = (
-          await data.$axios.get(
-            `project/${project.id}/members`,
-            data.$defaultHeaders()
-          )
-        ).data
-        teamData.forEach((member) => {
-          if (member.user.id !== data.$auth.user.id) return
-          project.role = member.role
-          project.permission = member.permission
-          projects.push(project)
-        })
-
-        const versionData = (
-          await data.$axios.get(
-            `project/${project.slug}/version`,
-            data.$defaultHeaders()
-          )
-        ).data
-        project.versions = versionData
-        versions.push(versionData)
-      })
-
-      return {
-        projects,
-        versions,
-      }
-    } catch (e) {
-      data.error({
-        statusCode: 404,
-        message: e,
-      })
-    }
+    CopyCode,
   },
   data() {
     return {
+      projects: [],
+      versions: [],
       selectedProjects: [],
-      maxPerPage: 10,
-      currentPageNumber: 1,
-      pageCount: 1,
       sortBy: 'Name',
       editLinks: {
         showAffected: false,
@@ -386,31 +389,12 @@ export default {
       },
     }
   },
-  fetch() {},
+  fetch() {
+    this.projects = this.$user.projects
+    this.updateSort()
+  },
   head: {
     title: 'Projects - Modrinth',
-  },
-  computed: {
-    pages() {
-      const pageArray = []
-      for (let index = 0; index < this.pageCount; index++) {
-        pageArray[index] = []
-      }
-      let counter = 0
-      let index = 0
-      this.projects.forEach((project) => {
-        if (counter >= this.maxPerPage) {
-          counter = 0
-          index++
-        }
-        pageArray[index].push(project)
-        counter++
-      })
-      return pageArray
-    },
-    currentPage() {
-      return this.pages[this.currentPageNumber - 1]
-    },
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0
@@ -424,13 +408,10 @@ export default {
   },
   mounted() {},
   methods: {
-    uppercaseString(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
-    },
-    sortPages(pageArray) {
+    updateSort() {
       switch (this.sortBy) {
         case 'Name':
-          pageArray.sort((a, b) => {
+          this.projects = this.projects.slice().sort((a, b) => {
             if (a.title < b.title) {
               return -1
             }
@@ -441,7 +422,7 @@ export default {
           })
           break
         case 'Status':
-          pageArray.sort((a, b) => {
+          this.projects = this.projects.slice().sort((a, b) => {
             if (a.status < b.status) {
               return -1
             }
@@ -451,19 +432,8 @@ export default {
             return 0
           })
           break
-        case 'Role':
-          pageArray.sort((a, b) => {
-            if (a.role < b.role) {
-              return -1
-            }
-            if (a.role > b.role) {
-              return 1
-            }
-            return 0
-          })
-          break
         case 'Type':
-          pageArray.sort((a, b) => {
+          this.projects = this.projects.slice().sort((a, b) => {
             if (a.project_type < b.project_type) {
               return -1
             }
@@ -577,35 +547,6 @@ export default {
   gap: var(--spacing-card-md);
 }
 
-.metrics {
-  display: grid;
-  grid-gap: var(--spacing-card-md);
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-
-  .metric {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: center;
-    background-color: var(--color-bg);
-    border-radius: var(--size-rounded-card);
-    padding: var(--spacing-card-lg);
-    gap: var(--spacing-card-md);
-
-    .label {
-      color: var(--color-heading);
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    .value {
-      color: var(--color-text-dark);
-      font-weight: bold;
-      font-size: 2rem;
-    }
-  }
-}
-
 .align-row-right {
   margin-left: auto;
   margin-right: 0;
@@ -614,69 +555,154 @@ export default {
 .small-select {
   width: -moz-fit-content;
   width: fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
 }
 
-.table-container {
-  display: inline-block;
-  overflow: scroll;
-  width: 100%;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.project-table {
+  display: grid;
+  grid-template-columns:
+    min-content min-content minmax(min-content, 2fr)
+    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
+
+  thead,
+  tbody,
+  tr {
+    display: contents;
+  }
+
+  tr.actual-row > *:not(.mobile-group, .all-group, .avatar-column),
+  tr.actual-row > .all-group > .mobile-group > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .all-group,
+  .mobile-group {
+    display: contents;
+  }
+
+  .combined-two,
+  .combined-four {
+    display: none;
+  }
+
+  .project-title {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-card-xs);
+
+    svg {
+      color: var(--color-special-orange);
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    grid-template-columns:
+      min-content min-content minmax(min-content, 2fr)
+      minmax(min-content, 1fr) min-content;
+
+    tr:first-child {
+      th:nth-child(4),
+      th:nth-child(6) {
+        display: none;
+      }
+    }
+
+    .mobile-group {
+      display: flex;
+      flex-direction: column;
+
+      :not(:first-child) {
+        padding-top: 0;
+      }
+    }
+
+    .single {
+      display: none;
+    }
+
+    .combined-two {
+      display: flex;
+    }
+
+    tr:first-child > :nth-child(4) {
+      border-top-right-radius: var(--size-rounded-sm);
+    }
+
+    tr:last-child > :nth-child(4) {
+      border-bottom-right-radius: var(--size-rounded-sm);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-template-columns: min-content min-content minmax(min-content, 1fr) min-content;
+
+    .combined-two {
+      display: none;
+    }
+
+    .combined-four {
+      display: flex;
+    }
+
+    .all-group {
+      display: flex;
+      flex-direction: column;
+
+      :not(:first-child) td {
+        padding-top: 0;
+      }
+    }
+  }
 }
 
-tr:nth-child(even) {
+tr.actual-row:nth-child(odd) > *,
+tr.actual-row:nth-child(odd) > .all-group > .mobile-group > * {
   background-color: var(--color-table-alternate-row);
 }
 
 th {
   background-color: var(--color-bg);
-  color: white;
-}
-
-table {
-  font-size: var(--font-size-sm);
-  border-spacing: 0;
-  border-radius: var(--size-rounded-sm);
-  border-collapse: collapse;
-  width: 100%;
+  color: var(--color-text-dark);
 }
 
 tr:first-child > :first-child {
   border-top-left-radius: var(--size-rounded-sm);
 }
+
 tr:first-child > :last-child {
   border-top-right-radius: var(--size-rounded-sm);
 }
+
 tr:last-child > :first-child {
   border-bottom-left-radius: var(--size-rounded-sm);
 }
+
 tr:last-child > :last-child {
   border-bottom-right-radius: var(--size-rounded-sm);
 }
 
-th,
-td {
-  padding: var(--spacing-card-md);
+th {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-card-sm);
   text-align: left;
 }
 
-tr.actual-row:nth-child(odd) {
-  backdrop-filter: brightness(85%);
+td {
+  padding: var(--spacing-card-sm);
 }
 
-.title-button-group {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 0.5rem;
+tr > :first-child {
+  padding-left: var(--spacing-card-bg);
+}
+
+tr > :last-child {
   padding-right: var(--spacing-card-bg);
 }
 
-.label-button {
-  margin-left: var(--spacing-card-sm);
+tr:first-child > * {
+  padding-block: var(--spacing-card-bg);
 }
 
 .label-button[data-active='true'] {
@@ -684,53 +710,13 @@ tr.actual-row:nth-child(odd) {
   --text-color: var(--color-brand-inverted);
 }
 
-.modal-contents {
-  padding: var(--spacing-card-bg);
-  display: flex;
-  height: auto;
-  flex-direction: column;
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
+.links-modal {
+  .links .adjacent-input {
+    margin-block: var(--spacing-card-sm);
   }
 
   ul {
-    margin: var(--spacing-card-sm);
-  }
-
-  section.links {
-    display: grid;
-    grid-area: auto;
-
-    label {
-      align-items: center;
-      margin-top: var(--spacing-card-sm);
-
-      span {
-        flex: 1;
-      }
-    }
-  }
-}
-
-.inline-icon {
-  vertical-align: middle;
-  display: inline-block;
-}
-
-label {
-  display: flex;
-
-  span {
-    flex: 2;
-  }
-
-  input,
-  .multiselect,
-  .legacy-input-group {
-    flex: 3;
-    height: fit-content;
+    margin: 0 0 var(--spacing-card-sm) 0;
   }
 }
 </style>

@@ -158,7 +158,7 @@ export const formatBytes = (bytes, decimals = 2) => {
 }
 
 export const capitalizeString = (name) => {
-  return name.charAt(0).toUpperCase() + name.slice(1)
+  return name ? name.charAt(0).toUpperCase() + name.slice(1) : name
 }
 
 export const formatWallet = (name) => {
