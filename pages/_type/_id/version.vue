@@ -39,6 +39,22 @@
       </ul>
     </div>
     <div class="version-page__title card">
+      <nuxt-link
+        v-if="!isEditing"
+        :to="`${
+          $nuxt.context.from &&
+          ($nuxt.context.from.name === 'type-id-changelog' ||
+            $nuxt.context.from.name === 'type-id-versions')
+            ? $nuxt.context.from.fullPath
+            : `/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/versions`
+        }`"
+        class="iconified-button"
+      >
+        <BackIcon aria-hidden="true" />
+        Back to list
+      </nuxt-link>
       <div class="version-header">
         <h2>
           <template v-if="isEditing">
@@ -495,7 +511,11 @@
             :hide-selected="true"
             placeholder="Choose loaders..."
           />
-          <Categories v-else :categories="version.loaders" />
+          <Categories
+            v-else
+            :categories="version.loaders"
+            :type="project.actualProjectType"
+          />
         </div>
         <div>
           <h4>Game versions</h4>
@@ -607,6 +627,7 @@ import HashIcon from '~/assets/images/utils/hash.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
 import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
 
 export default {
   components: {
@@ -626,6 +647,7 @@ export default {
     PlusIcon,
     TransferIcon,
     UploadIcon,
+    BackIcon,
     VersionBadge,
     Avatar,
     CopyCode,
@@ -1220,7 +1242,7 @@ export default {
     .version-header {
       display: flex;
       align-items: center;
-      margin-bottom: 1rem;
+      margin: 1rem 0;
 
       h2 {
         margin: 0 0.75rem 0 0;

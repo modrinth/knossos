@@ -46,18 +46,6 @@ export const acceptFileFromProjectType = (projectType) => {
   }
 }
 
-// forge META-INF/mods.toml https://forge.gemwire.uk/wiki/Mods.toml (.jar -> .zip)
-// old forge (mc<1.13) mcmod.info https://docs.minecraftforge.net/en/1.12.x/gettingstarted/structuring/ (.jar -> .zip)
-// quilt quilt.mod.json https://github.com/QuiltMC/rfcs/blob/main/specification/0002-quilt.mod.json.md (why is this file so long lol) (.jar -> .zip)
-// fabric fabric.mod.json (NEED TO PARSE SEMVER RANGES) https://fabricmc.net/wiki/documentation:fabric_mod_json_spec (.jar -> .zip)
-// bukkit/1000 other forks - plugin.yml - https://www.spigotmc.org/wiki/plugin-yml/#required-attributes (.jar -> .zip)
-// bungeecord/waterfall - bungee.yml - no docs (.jar -> .zip)
-// velocity velocity-plugin.json - won't work due to no docs/inconsistent (.jar -> .zip)
-// resource packs/shaderpacks - won't work due to lack of info
-// liteloader/rift/modloader - to niche to do (for now)
-// sponge sponge_plugins.json - lack of docs?
-// modpacks https://docs.modrinth.com/docs/modpacks/format_definition/ - modrinth.index.json (.mrpack -> .zip)
-
 export const inferVersionInfo = async function (
   rawFile,
   project,
@@ -77,6 +65,7 @@ export const inferVersionInfo = async function (
     }
   }
 
+  // TODO: This func does not handle accurate semver parsing. We should eventually
   function gameVersionRange(gameVersionString, gameVersions) {
     if (!gameVersionString) {
       return []
