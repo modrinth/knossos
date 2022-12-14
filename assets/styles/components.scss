@@ -380,25 +380,25 @@ tr.button-transparent {
   background-color: transparent;
   border-radius: var(--size-rounded-sm);
 
-    &:focus-visible:not(&:disabled) > *,
-    &:hover:not(&:disabled) > * {
-      cursor: pointer;
-      filter: brightness(0.85);
-      background-color: var(--color-raised-bg);
-    }
+  &:focus-visible:not(&:disabled) > *,
+  &:hover:not(&:disabled) > * {
+    cursor: pointer;
+    filter: brightness(0.85);
+    background-color: var(--color-raised-bg);
+  }
 
-    &:active:not(&:disabled) > * {
-      filter: brightness(0.8);
-      background-color: var(--color-raised-bg);
-    }
+  &:active:not(&:disabled) > * {
+    filter: brightness(0.8);
+    background-color: var(--color-raised-bg);
+  }
 
-    &:disabled > *,
-    &[disabled] > * {
-      cursor: not-allowed;
-      filter: grayscale(50%);
-      opacity: 0.5;
-      box-shadow: none;
-    }
+  &:disabled > *,
+  &[disabled] > * {
+    cursor: not-allowed;
+    filter: grayscale(50%);
+    opacity: 0.5;
+    box-shadow: none;
+  }
 }
 
 .button-within {
@@ -999,6 +999,7 @@ h1 {
         color: var(--color-special-red);
       }
     }
+
     .label__description {
       display: block;
       margin-block-end: var(--spacing-card-sm);
@@ -1062,8 +1063,15 @@ h1 {
     width: 15rem;
   }
 
-  input + *, .input-group + * {
+  > :where(input + *, .input-group + *) {
     margin-block-start: var(--spacing-card-md);
+  }
+
+  .input-group {
+    .multiselect, input {
+      width: auto;
+      flex-basis: 0;
+    }
   }
 
   button, .button, .iconified-button {
@@ -1135,6 +1143,13 @@ h1 {
 .push-right {
   margin-left: auto;
   margin-right: 0;
+}
+
+.full-width-inputs {
+  .multiselect, input, .iconified-input {
+    width: 100%;
+    flex-basis: 100%;
+  }
 }
 
 input,
@@ -1346,4 +1361,11 @@ button {
   @media screen and (max-width: 550px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }

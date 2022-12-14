@@ -13,32 +13,7 @@
       :item-id="version.id"
       item-type="version"
     />
-    <div v-if="fieldErrors && showKnownErrors" class="known-errors card">
-      <ul>
-        <li v-if="version.version_number === ''">
-          Your version must have a version number.
-        </li>
-        <li v-if="version.game_versions.length === 0">
-          Your version must have the supported Minecraft versions selected.
-        </li>
-        <li
-          v-if="
-            newFiles.length === 0 && version.files.length === 0 && !replaceFile
-          "
-        >
-          Your version must have a file uploaded.
-        </li>
-        <li
-          v-if="
-            version.loaders.length === 0 &&
-            project.project_type !== 'resourcepack'
-          "
-        >
-          Your version must have the supported mod loaders selected.
-        </li>
-      </ul>
-    </div>
-    <div class="version-page__title card">
+    <div class="version-page__title universal-card">
       <nuxt-link
         v-if="!isEditing"
         :to="`${
@@ -50,23 +25,21 @@
                 project.slug ? project.slug : project.id
               }/versions`
         }`"
-        class="iconified-button"
+        class="iconified-button back-button"
       >
         <BackIcon aria-hidden="true" />
         Back to list
       </nuxt-link>
       <div class="version-header">
-        <h2>
-          <template v-if="isEditing">
-            <input
-              v-model="version.name"
-              type="text"
-              placeholder="Enter a version title..."
-            />
-          </template>
-          <template v-else>
-            {{ version.name }}
-          </template>
+        <template v-if="isEditing">
+          <input
+            v-model="version.name"
+            type="text"
+            placeholder="Enter a version title..."
+          />
+        </template>
+        <h2 :class="{ 'sr-only': isEditing }">
+          {{ version.name }}
         </h2>
         <div v-if="version.featured" class="featured">
           <StarIcon aria-hidden="true" />
@@ -80,7 +53,34 @@
           Auto-featured
         </div>
       </div>
-      <div v-if="isCreating" class="button-group">
+      <div v-if="fieldErrors && showKnownErrors" class="known-errors">
+        <ul>
+          <li v-if="version.version_number === ''">
+            Your version must have a version number.
+          </li>
+          <li v-if="version.game_versions.length === 0">
+            Your version must have the supported Minecraft versions selected.
+          </li>
+          <li
+            v-if="
+              newFiles.length === 0 &&
+              version.files.length === 0 &&
+              !replaceFile
+            "
+          >
+            Your version must have a file uploaded.
+          </li>
+          <li
+            v-if="
+              version.loaders.length === 0 &&
+              project.project_type !== 'resourcepack'
+            "
+          >
+            Your version must have the supported mod loaders selected.
+          </li>
+        </ul>
+      </div>
+      <div v-if="isCreating" class="input-group">
         <button class="iconified-button brand-button" @click="createVersion">
           <PlusIcon aria-hidden="true" />
           Create
@@ -96,7 +96,7 @@
           Cancel
         </nuxt-link>
       </div>
-      <div v-else-if="isEditing" class="button-group">
+      <div v-else-if="isEditing" class="input-group">
         <button
           class="iconified-button brand-button"
           @click="saveEditedVersion"
@@ -123,7 +123,7 @@
           Discard changes
         </nuxt-link>
       </div>
-      <div v-else class="button-group">
+      <div v-else class="input-group">
         <a
           v-if="primaryFile"
           v-tooltip="
@@ -163,7 +163,7 @@
         </button>
       </div>
     </div>
-    <div class="version-page__changelog card">
+    <div class="version-page__changelog universal-card">
       <h3>Changelog</h3>
       <template v-if="isEditing">
         <span
@@ -212,7 +212,7 @@
     </div>
     <div
       v-if="version.dependencies.length > 0 || isEditing"
-      class="version-page__dependencies card"
+      class="version-page__dependencies universal-card"
     >
       <h3>Dependencies</h3>
       <div
@@ -312,7 +312,7 @@
             :allow-empty="false"
           />
         </div>
-        <div class="button-group">
+        <div class="input-group">
           <button
             class="iconified-button brand-button"
             @click="
@@ -329,7 +329,7 @@
         </div>
       </div>
     </div>
-    <div class="version-page__files card">
+    <div class="version-page__files universal-card">
       <h3>Files</h3>
       <div v-if="isEditing && replaceFile" class="file primary">
         <FileIcon />
@@ -432,7 +432,7 @@
       </template>
     </div>
     <div class="version-page__metadata">
-      <div class="card">
+      <div class="universal-card full-width-inputs">
         <h3>Metadata</h3>
         <div>
           <h4>Release channel</h4>
@@ -1222,7 +1222,6 @@ export default {
   display: grid;
 
   grid-template:
-    'known-errors' auto
     'title' auto
     'changelog' auto
     'dependencies' auto
@@ -1232,37 +1231,51 @@ export default {
 
   column-gap: var(--spacing-card-md);
 
-  .known-errors {
-    grid-area: known-errors;
-  }
-
   .version-page__title {
     grid-area: title;
 
+    .back-button {
+      margin-bottom: var(--spacing-card-bg);
+    }
+
     .version-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      margin: 1rem 0;
+      margin-bottom: 1rem;
+      gap: var(--spacing-card-md);
 
       h2 {
-        margin: 0 0.75rem 0 0;
+        flex-grow: 2;
+      }
+
+      h2,
+      input[type='text'] {
+        margin: 0;
         font-size: var(--font-size-2xl);
         font-weight: bold;
+      }
 
-        input[type='text'] {
-          font-weight: bold;
-        }
+      input[type='text'] {
+        max-width: 100%;
+        flex-grow: 1;
+        min-width: 0;
+        width: 2rem;
       }
 
       .featured {
         display: flex;
         align-items: center;
-        gap: 0.25rem;
+        gap: var(--spacing-card-xs);
 
         svg {
           height: 1.45rem;
         }
       }
+    }
+
+    .known-errors {
+      margin-bottom: 1rem;
     }
   }
 
@@ -1281,13 +1294,13 @@ export default {
     .dependency {
       align-items: center;
       display: flex;
-      gap: 0.5rem;
-      padding: 0.5rem;
+      gap: var(--spacing-card-sm);
+      padding: var(--spacing-card-sm);
 
       .info {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
+        gap: var(--spacing-card-xs);
 
         .project-title {
           font-weight: bold;
@@ -1305,18 +1318,21 @@ export default {
 
     .add-dependency {
       h4 {
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-card-sm);
       }
 
       .input-group {
-        margin-bottom: 0.5rem;
+        &:not(:last-child) {
+          margin-bottom: var(--spacing-card-sm);
+        }
 
         .multiselect {
           width: 8rem;
+          flex-grow: 1;
         }
 
         input {
-          flex-grow: 1;
+          flex-grow: 2;
         }
       }
     }
@@ -1350,7 +1366,8 @@ export default {
       }
 
       .filename {
-        word-wrap: anywhere;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
       }
 
       .file-size {
@@ -1408,7 +1425,6 @@ export default {
 @media (min-width: 1200px) {
   .version-page {
     grid-template:
-      'known-errors known-errors' auto
       'title title' auto
       'changelog metadata' auto
       'dependencies metadata' auto
