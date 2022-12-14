@@ -1245,10 +1245,6 @@ export default {
       margin-bottom: 1rem;
       gap: var(--spacing-card-md);
 
-      h2 {
-        flex-grow: 2;
-      }
-
       h2,
       input[type='text'] {
         margin: 0;
@@ -1258,8 +1254,8 @@ export default {
 
       input[type='text'] {
         max-width: 100%;
-        flex-grow: 1;
         min-width: 0;
+        flex-grow: 1;
         width: 2rem;
       }
 
