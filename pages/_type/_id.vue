@@ -477,15 +477,25 @@
         <div class="infos">
           <div class="info">
             <div class="key">License</div>
-            <div class="value uppercase">
+            <div class="value lowercase">
               <a
                 v-if="project.license.url"
                 class="text-link"
                 :href="project.license.url"
               >
-                {{ project.license.id }}
+                {{ licenseIdDisplay }}
               </a>
-              <span v-else>{{ project.license.id }}</span>
+              <a
+                v-else-if="
+                  project.license.id === 'LicenseRef-All-Rights-Reserved' ||
+                  !project.license.id.includes('LicenseRef')
+                "
+                class="text-link"
+                @click="getLicenseData()"
+              >
+                {{ licenseIdDisplay }}
+              </a>
+              <span v-else>{{ licenseIdDisplay }}</span>
             </div>
           </div>
           <div
