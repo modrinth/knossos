@@ -126,7 +126,7 @@ export default {
       }
       return this.cachedValidLoaders
     },
-    updateVersionFilters() {
+    async updateVersionFilters() {
       this.selectedLoaders = this.selectedLoaders.filter((loader) =>
         this.getValidLoaders().includes(loader)
       )
@@ -147,7 +147,7 @@ export default {
               projectVersion.loaders.includes(loader)
             ))
       )
-      this.updateQuery()
+      await this.updateQuery()
       this.$emit('updateVersions', temp)
     },
     async updateQuery() {
