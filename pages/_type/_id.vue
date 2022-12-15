@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Modal
+      ref="modal_license"
+      :header="project.license.name ? project.license.name : 'License'"
+    >
+      <div class="modal-license">
+        <div class="markdown-body" v-html="$xss($md.render(licenseText))" />
+      </div>
+    </Modal>
     <ModalReport
       v-if="$auth.user"
       ref="modal_project_report"
@@ -644,6 +652,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
+import Modal from '~/components/ui/Modal'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
@@ -656,6 +665,7 @@ export default {
     NavRow,
     Badge,
     Advertisement,
+    Modal,
     ModalReport,
     IssuesIcon,
     DownloadIcon,
@@ -813,6 +823,7 @@ export default {
   data() {
     return {
       showKnownErrors: false,
+      licenseText: '',
     }
   },
   fetch() {
@@ -866,7 +877,7 @@ export default {
             this.project.status === 'approved' ||
             this.project.status === 'archived'
               ? 'all'
-              : 'noindeex',
+              : 'noindex',
         },
       ],
     }
@@ -880,6 +891,17 @@ export default {
         this.project.project_type,
         this.loaders
       )
+    },
+    licenseIdDisplay() {
+      const id = this.project.license.id
+
+      if (id === 'LicenseRef-All-Rights-Reserved') {
+        return 'ARR'
+      } else if (id.includes('LicenseRef')) {
+        return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
+      } else {
+        return id
+      }
     },
   },
   methods: {
@@ -953,6 +975,18 @@ export default {
 
         this.$nuxt.$loading.finish()
       }
+    },
+    async getLicenseData() {
+      try {
+        const text = await this.$axios.get(
+          `tag/license/${this.project.license.id}`
+        )
+        this.licenseText = text.data.body
+      } catch {
+        this.licenseText = 'License text could not be retrieved.'
+      }
+
+      this.$refs.modal_license.show()
     },
   },
 }
@@ -1192,5 +1226,9 @@ export default {
   font-weight: bold;
   margin-bottom: var(--spacing-card-xs);
   font-size: 1.125rem;
+}
+
+.modal-license {
+  padding: var(--spacing-card-bg);
 }
 </style>

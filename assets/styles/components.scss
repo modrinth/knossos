@@ -34,6 +34,7 @@
   &:focus-visible,
   &:hover {
     color: var(--color-link-hover);
+    cursor: pointer;
   }
 
   &:active {
@@ -1003,6 +1004,11 @@ h1 {
     .label__description {
       display: block;
       margin-block-end: var(--spacing-card-sm);
+
+      .label__subdescription {
+        display: block;
+        margin-block-start: var(--spacing-card-md);
+      }
     }
   }
 }

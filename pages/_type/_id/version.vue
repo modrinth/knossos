@@ -1214,9 +1214,7 @@ export default {
         await this.$router.push(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.project_id
-          }/version/${encodeURI(
-            newCreatedVersions.find((x) => x.id === data.id).displayUrlEnding
-          )}`
+          }/version/${data.id}`
         )
       } catch (err) {
         this.$notify({
