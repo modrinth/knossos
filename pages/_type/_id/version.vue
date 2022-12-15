@@ -9,6 +9,7 @@
       @proceed="deleteVersion()"
     />
     <ModalReport
+      v-if="$auth.user"
       ref="modal_version_report"
       :item-id="version.id"
       item-type="version"
@@ -36,6 +37,7 @@
             v-model="version.name"
             type="text"
             placeholder="Enter a version title..."
+            maxlength="256"
           />
         </template>
         <h2 :class="{ 'sr-only': isEditing }">
@@ -81,7 +83,11 @@
         </ul>
       </div>
       <div v-if="isCreating" class="input-group">
-        <button class="iconified-button brand-button" @click="createVersion">
+        <button
+          class="iconified-button brand-button"
+          :disabled="!$nuxt.$loading"
+          @click="createVersion"
+        >
           <PlusIcon aria-hidden="true" />
           Create
         </button>
@@ -99,6 +105,7 @@
       <div v-else-if="isEditing" class="input-group">
         <button
           class="iconified-button brand-button"
+          :disabled="!$nuxt.$loading"
           @click="saveEditedVersion"
         >
           <SaveIcon aria-hidden="true" />
@@ -137,12 +144,17 @@
           Download
         </a>
         <button
+          v-if="$auth.user"
           class="iconified-button"
           @click="$refs.modal_version_report.show()"
         >
           <ReportIcon aria-hidden="true" />
           Report
         </button>
+        <a v-if="!$auth.user" class="iconified-button" :href="authUrl">
+          <ReportIcon aria-hidden="true" />
+          Report
+        </a>
         <nuxt-link
           v-if="currentMember"
           class="action iconified-button"
@@ -186,7 +198,7 @@
           v-if="changelogViewMode === 'source'"
           class="resizable-textarea-wrapper"
         >
-          <textarea id="body" v-model="version.changelog" />
+          <textarea id="body" v-model="version.changelog" maxlength="65536" />
         </div>
         <div
           v-if="changelogViewMode === 'preview'"
@@ -229,7 +241,7 @@
           alt="dependency-icon"
           size="sm"
         />
-        <nuxt-link :to="!isEditing ? dependency.link : '#'" class="info">
+        <nuxt-link v-if="!isEditing" :to="dependency.link" class="info">
           <span class="project-title">
             {{
               dependency.project ? dependency.project.title : 'Unknown Project'
@@ -243,6 +255,20 @@
             {{ dependency.dependency_type }}
           </span>
         </nuxt-link>
+        <div v-else class="info">
+          <span class="project-title">
+            {{
+              dependency.project ? dependency.project.title : 'Unknown Project'
+            }}
+          </span>
+          <span v-if="dependency.version">
+            Version {{ dependency.version.version_number }} is
+            {{ dependency.dependency_type }}
+          </span>
+          <span v-else class="dep-type">
+            {{ dependency.dependency_type }}
+          </span>
+        </div>
         <button
           v-if="isEditing"
           class="iconified-button"
@@ -481,6 +507,7 @@
               v-model="version.version_number"
               type="text"
               autocomplete="off"
+              maxlength="54"
             />
           </div>
           <span v-else>{{ version.version_number }}</span>
@@ -772,6 +799,9 @@ export default {
           this.version.files.length === 0 &&
           !this.replaceFile)
       )
+    },
+    authUrl() {
+      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
     },
   },
   watch: {

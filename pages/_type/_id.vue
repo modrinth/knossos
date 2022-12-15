@@ -1,6 +1,7 @@
 <template>
   <div>
     <ModalReport
+      v-if="$auth.user"
       ref="modal_project_report"
       :item-id="project.id"
       item-type="project"

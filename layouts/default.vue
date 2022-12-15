@@ -1,5 +1,9 @@
 <template>
-  <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+  <div
+    ref="main_page"
+    class="layout"
+    :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }"
+  >
     <header class="site-header" role="presentation">
       <section class="navbar card columns" role="navigation">
         <section class="skip column" role="presentation">

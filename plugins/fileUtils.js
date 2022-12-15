@@ -181,7 +181,8 @@ export const inferVersionInfo = async function (
         name: `${project.title} ${metadata.version}`,
         version_number: metadata.version,
         version_type: versionType(metadata.version),
-        loaders: ['bukkit'],
+        // We don't know which fork of Bukkit users are using
+        loaders: [],
         game_versions: gameVersions
           .filter(
             (x) =>
