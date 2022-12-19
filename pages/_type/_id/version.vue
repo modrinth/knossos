@@ -15,22 +15,6 @@
       item-type="version"
     />
     <div class="version-page__title universal-card">
-      <nuxt-link
-        v-if="!isEditing"
-        :to="`${
-          $nuxt.context.from &&
-          ($nuxt.context.from.name === 'type-id-changelog' ||
-            $nuxt.context.from.name === 'type-id-versions')
-            ? $nuxt.context.from.fullPath
-            : `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`
-        }`"
-        class="iconified-button back-button"
-      >
-        <BackIcon aria-hidden="true" />
-        Back to list
-      </nuxt-link>
       <div class="version-header">
         <template v-if="isEditing">
           <input
@@ -143,6 +127,21 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
+        <nuxt-link
+          :to="`${
+            $nuxt.context.from &&
+            ($nuxt.context.from.name === 'type-id-changelog' ||
+              $nuxt.context.from.name === 'type-id-versions')
+              ? $nuxt.context.from.fullPath
+              : `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/versions`
+          }`"
+          class="iconified-button"
+        >
+          <BackIcon aria-hidden="true" />
+          Back to list
+        </nuxt-link>
         <button
           v-if="$auth.user"
           class="iconified-button"
@@ -1259,10 +1258,6 @@ export default {
 
   .version-page__title {
     grid-area: title;
-
-    .back-button {
-      margin-bottom: var(--spacing-card-bg);
-    }
 
     .version-header {
       display: flex;
