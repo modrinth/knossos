@@ -529,7 +529,6 @@
 import Multiselect from 'vue-multiselect'
 
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
@@ -548,7 +547,6 @@ export default {
     Chips,
     Multiselect,
     CrossIcon,
-    CheckIcon,
     PlusIcon,
     SaveIcon,
     TrashIcon,
