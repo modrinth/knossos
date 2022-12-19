@@ -871,8 +871,6 @@ export default {
               this.$tag.gameVersions
             )
 
-            console.log(inferredData)
-
             if (
               inferredData.dependencies &&
               inferredData.dependencies.length > 0
