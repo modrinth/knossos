@@ -351,7 +351,6 @@ export default {
           categories,
           loaders,
           gameVersions,
-          licenses,
           donationPlatforms,
           reportTypes,
         ] = (
@@ -359,7 +358,6 @@ export default {
             axios.get(`${API_URL}tag/category`, headers),
             axios.get(`${API_URL}tag/loader`, headers),
             axios.get(`${API_URL}tag/game_version`, headers),
-            axios.get(`${API_URL}tag/license`, headers),
             axios.get(`${API_URL}tag/donation_platform`, headers),
             axios.get(`${API_URL}tag/report_type`, headers),
           ])
@@ -368,7 +366,6 @@ export default {
         state.categories = categories
         state.loaders = loaders
         state.gameVersions = gameVersions
-        state.licenses = licenses
         state.donationPlatforms = donationPlatforms
         state.reportTypes = reportTypes
 
