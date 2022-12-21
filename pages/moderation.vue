@@ -1,58 +1,10 @@
 <template>
   <div>
-    <Modal ref="modal" header="Moderation Form">
-      <div v-if="currentProject !== null" class="moderation-modal">
-        <p>
-          Both of these fields are optional, but can be used to communicate
-          problems with a project's team members. The body supports markdown
-          formatting!
-        </p>
-        <div class="status">
-          <span>New project status: </span>
-          <Badge :type="currentProject.newStatus" />
-        </div>
-        <input
-          v-model="currentProject.moderation_message"
-          type="text"
-          placeholder="Enter the message..."
-        />
-        <h3>Body</h3>
-        <div class="textarea-wrapper">
-          <Chips
-            v-model="bodyViewMode"
-            class="separator"
-            :items="['source', 'preview']"
-          />
-          <textarea
-            v-if="bodyViewMode === 'source'"
-            id="body"
-            v-model="currentProject.moderation_message_body"
-          />
-          <div
-            v-else
-            v-highlightjs
-            class="markdown-body preview"
-            v-html="$xss($md.render(currentProject.moderation_message_body))"
-          ></div>
-        </div>
-        <div class="buttons">
-          <button
-            class="iconified-button"
-            @click="
-              $refs.modal.hide()
-              currentProject = null
-            "
-          >
-            <CrossIcon />
-            Cancel
-          </button>
-          <button class="iconified-button brand-button" @click="saveProject">
-            <CheckIcon />
-            Confirm
-          </button>
-        </div>
-      </div>
-    </Modal>
+    <ModalChangeStatus
+      ref="modal_change_status"
+      item-type="project"
+      moderation
+    />
     <div class="normal-page">
       <div class="normal-page__sidebar">
         <aside class="universal-card">
@@ -70,7 +22,7 @@
         </aside>
       </div>
       <div class="normal-page__content">
-        <div class="project-list display-mode--gallery">
+        <div class="project-list display-mode--list">
           <ProjectCard
             v-for="project in $route.query.type !== undefined
               ? projects.filter((x) => x.project_type === $route.query.type)
@@ -90,24 +42,10 @@
           >
             <button
               class="iconified-button"
-              @click="setProjectStatus(project, 'approved')"
+              @click="$refs.modal_change_status.show(project)"
             >
-              <CheckIcon />
-              Approve
-            </button>
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'unlisted')"
-            >
-              <UnlistIcon />
-              Unlist
-            </button>
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'rejected')"
-            >
-              <CrossIcon />
-              Reject
+              <EditIcon />
+              Change status
             </button>
           </ProjectCard>
         </div>
@@ -157,7 +95,7 @@
           </div>
         </div>
         <div v-if="reports.length === 0 && projects.length === 0" class="error">
-          <Security class="icon"></Security>
+          <SecurityIcon class="icon" />
           <br />
           <span class="text">You are up-to-date!</span>
         </div>
@@ -167,33 +105,27 @@
 </template>
 
 <script>
-import Chips from '~/components/ui/Chips'
 import ProjectCard from '~/components/ui/ProjectCard'
-import Modal from '~/components/ui/Modal'
 import Badge from '~/components/ui/Badge'
 
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import UnlistIcon from '~/assets/images/utils/eye-off.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import Security from '~/assets/images/illustrations/security.svg?inline'
+import SecurityIcon from '~/assets/images/illustrations/security.svg?inline'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
+import ModalChangeStatus from '~/components/ui/ModalChangeStatus.vue'
 
 export default {
   name: 'Moderation',
   components: {
+    ModalChangeStatus,
     NavStack,
     NavStackItem,
-    Chips,
     ProjectCard,
-    CheckIcon,
-    CrossIcon,
-    UnlistIcon,
-    Modal,
+    EditIcon,
     Badge,
-    Security,
+    SecurityIcon,
     TrashIcon,
     CalendarIcon,
   },
@@ -277,12 +209,6 @@ export default {
       reports: newReports,
     }
   },
-  data() {
-    return {
-      bodyViewMode: 'source',
-      currentProject: null,
-    }
-  },
   head: {
     title: 'Moderation - Modrinth',
   },
@@ -302,49 +228,6 @@ export default {
     },
   },
   methods: {
-    setProjectStatus(project, status) {
-      project.moderation_message = ''
-      project.moderation_message_body = ''
-      project.newStatus = status
-
-      this.currentProject = project
-      this.$refs.modal.show()
-    },
-    async saveProject() {
-      this.$nuxt.$loading.start()
-
-      try {
-        await this.$axios.patch(
-          `project/${this.currentProject.id}`,
-          {
-            moderation_message: this.currentProject.moderation_message
-              ? this.currentProject.moderation_message
-              : null,
-            moderation_message_body: this.currentProject.moderation_message_body
-              ? this.currentProject.moderation_message_body
-              : null,
-            status: this.currentProject.newStatus,
-          },
-          this.$defaultHeaders()
-        )
-
-        this.projects.splice(
-          this.projects.findIndex((x) => this.currentProject.id === x.id),
-          1
-        )
-        this.currentProject = null
-        this.$refs.modal.hide()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.response.data.description,
-          type: 'error',
-        })
-      }
-
-      this.$nuxt.$loading.finish()
-    },
     async deleteReport(index) {
       this.$nuxt.$loading.start()
 

@@ -420,6 +420,7 @@
           class="iconified-button raised-button"
           :title="`Download ${file.filename}`"
           tabindex="0"
+          rel="nofollow noopener"
         >
           <DownloadIcon />
           Download

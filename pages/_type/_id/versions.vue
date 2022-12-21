@@ -53,6 +53,7 @@
           class="download-button square-button brand-button"
           :class="version.version_type"
           :title="`Download ${version.name}`"
+          rel="nofollow noopener"
           @click.stop="(event) => event.stopPropagation()"
         >
           <DownloadIcon aria-hidden="true" />

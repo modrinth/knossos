@@ -224,21 +224,40 @@
           >playing modpacks</a
         >
         with
-        <a href="https://atlauncher.com/about" :target="$external()"
+        <a
+          href="https://atlauncher.com/about"
+          :target="$external()"
+          rel="nofollow noopener"
           >ATLauncher</a
-        >, <a href="https://multimc.org/" :target="$external()">MultiMC</a>, and
-        <a href="https://prismlauncher.org" :target="$external()">
+        >,
+        <a
+          href="https://multimc.org/"
+          :target="$external()"
+          rel="nofollow noopener"
+          >MultiMC</a
+        >, and
+        <a
+          href="https://prismlauncher.org"
+          :target="$external()"
+          rel="nofollow noopener"
+        >
           Prism Launcher</a
         >. Pack creators can reference our documentation on
         <a
           href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
           :target="$external()"
+          rel="nofollow noopener"
           >creating modpacks</a
         >. Join us on
-        <a href="https://discord.gg/EUHuJHt" :target="$external()">Discord</a>
+        <a
+          href="https://discord.gg/EUHuJHt"
+          :target="$external()"
+          rel="nofollow noopener"
+          >Discord</a
+        >
         for support.
       </div>
-      <Advertisement type="banner" small-screen="square" />
+      <Advertisement />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -389,8 +408,8 @@ import SearchFilter from '~/components/ui/search/SearchFilter'
 import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
 
-import ClientIcon from '~/assets/images/categories/client.svg?inline'
-import ServerIcon from '~/assets/images/categories/server.svg?inline'
+import ClientIcon from '~/assets/images/utils/client.svg?inline'
+import ServerIcon from '~/assets/images/utils/server.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'

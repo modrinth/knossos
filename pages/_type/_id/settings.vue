@@ -9,6 +9,7 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
+    <ModalChangeStatus ref="modal_change_status" item-type="project" />
     <div class="universal-card">
       <h2>General settings</h2>
       <div class="adjacent-input">
@@ -21,6 +22,23 @@
         <nuxt-link class="iconified-button" to="edit"
           ><EditIcon />Edit</nuxt-link
         >
+      </div>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title">Modify status</span>
+          <span class="label__description">
+            Edit your project's status and schedule its release.
+          </span>
+        </span>
+        <button
+          class="iconified-button"
+          :disabled="
+            (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+          "
+          @click="$refs.modal_change_status.show(project)"
+        >
+          <TrashIcon />Edit status
+        </button>
       </div>
       <div class="adjacent-input">
         <span class="label">
@@ -302,9 +320,11 @@ import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import Avatar from '~/components/ui/Avatar'
+import ModalChangeStatus from '~/components/ui/ModalChangeStatus'
 
 export default {
   components: {
+    ModalChangeStatus,
     Avatar,
     DropdownIcon,
     ModalConfirm,

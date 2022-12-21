@@ -140,6 +140,7 @@
               v-if="githubUrl"
               :href="githubUrl"
               :target="$external()"
+              rel="nofollow noopener"
               class="sidebar__item github-button iconified-button"
             >
               <GitHubIcon aria-hidden="true" />
@@ -149,7 +150,7 @@
         </article>
       </div>
       <div class="normal-page__content">
-        <Advertisement type="banner" small-screen="square" />
+        <Advertisement />
         <nav class="card user-navigation">
           <NavRow
             query="type"
@@ -232,7 +233,7 @@
                 ? project.status
                 : null
             "
-            :has-mod-message="project.moderator_message"
+            :has-mod-message="!!project.moderator_message"
             :type="project.project_type"
           />
         </div>

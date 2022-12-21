@@ -12,14 +12,21 @@
     <template v-else-if="type === 'creator'"><CreatorIcon /> Creator</template>
     <template v-else-if="type === 'approved'"><ListIcon /> Listed</template>
     <template v-else-if="type === 'unlisted'"><EyeOffIcon /> Unlisted</template>
+    <template v-else-if="type === 'withheld'"><EyeOffIcon /> Withheld</template>
     <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
-    <template v-else-if="type === 'archived'"
-      ><ArchiveIcon /> Archived</template
-    >
+    <template v-else-if="type === 'archived'">
+      <ArchiveIcon /> Archived
+    </template>
     <template v-else-if="type === 'rejected'"><CrossIcon /> Rejected</template>
-    <template v-else-if="type === 'processing'"
-      ><ProcessingIcon /> Under review</template
-    >
+    <template v-else-if="type === 'processing'">
+      <ProcessingIcon /> Under review
+    </template>
+    <template v-else-if="type === 'scheduled'">
+      <ScheduledIcon /> Scheduled
+    </template>
+    <template v-else-if="type === 'private'">
+      <PrivateIcon /> Private
+    </template>
     <template v-else
       ><span class="circle" /> {{ $capitalizeString(type) }}</template
     >
@@ -36,6 +43,8 @@ import DraftIcon from '~/assets/images/utils/file-text.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import ArchiveIcon from '~/assets/images/utils/archive.svg?inline'
 import ProcessingIcon from '~/assets/images/utils/updated.svg?inline'
+import ScheduledIcon from '~/assets/images/utils/clock.svg?inline'
+import PrivateIcon from '~/assets/images/utils/lock.svg?inline'
 
 export default {
   name: 'Badge',
@@ -49,6 +58,8 @@ export default {
     CrossIcon,
     ArchiveIcon,
     ProcessingIcon,
+    ScheduledIcon,
+    PrivateIcon,
   },
   props: {
     type: {
@@ -86,12 +97,14 @@ export default {
   }
 
   &.type--rejected,
+  &.type--withheld,
   &.red {
     --badge-color: var(--color-special-red);
   }
 
   &.type--moderator,
   &.type--processing,
+  &.type--scheduled,
   &.orange {
     --badge-color: var(--color-special-orange);
   }
@@ -103,6 +116,7 @@ export default {
 
   &.type--creator,
   &.type--approved,
+  &.type--private,
   &.blue {
     color: var(--color-special-blue);
   }

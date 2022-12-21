@@ -14,13 +14,14 @@
       :item-id="project.id"
       item-type="project"
     />
+    <ModalChangeStatus ref="modal_change_status" item-type="project" />
     <div
       :class="{
         'normal-page': true,
         'alt-layout': $cosmetics.projectLayout,
       }"
     >
-      <article class="normal-page__sidebar">
+      <div class="normal-page__sidebar">
         <div class="header card">
           <nuxt-link
             :to="
@@ -88,7 +89,9 @@
             {{ project.description }}
           </p>
           <Categories
-            :categories="project.categories"
+            :categories="
+              project.categories.concat(project.additional_categories)
+            "
             :type="project.actualProjectType"
             class="categories"
           />
@@ -240,20 +243,12 @@
           <div class="buttons status-buttons">
             <button
               v-if="
+                project.status === 'draft' ||
                 project.status === 'rejected' ||
-                project.status === 'unlisted' ||
-                project.status === 'abandoned'
+                project.status === 'withheld'
               "
               class="iconified-button brand-button"
-              @click="submitForReview"
-            >
-              <CheckIcon />
-              Resubmit for review
-            </button>
-            <button
-              v-if="project.status === 'draft'"
-              class="iconified-button brand-button"
-              @click="submitForReview"
+              @click="$refs.modal_change_status.show(project)"
             >
               <CheckIcon />
               Submit for review
@@ -267,27 +262,8 @@
               Clear message
             </button>
           </div>
-          <div v-if="showKnownErrors" class="known-errors">
-            <ul>
-              <li v-if="project.body === ''">
-                Your project must have a body to submit for review.
-              </li>
-              <li v-if="project.versions.length < 1">
-                Your project must have at least one version to submit for
-                review.
-              </li>
-              <li
-                v-if="
-                  project.client_side === 'unknown' ||
-                  project.server_side === 'unknown'
-                "
-              >
-                Your project must have the supported environments selected.
-              </li>
-            </ul>
-          </div>
         </div>
-      </article>
+      </div>
       <div class="card normal-page__info">
         <template
           v-if="
@@ -305,6 +281,7 @@
               :href="project.issues_url"
               class="title"
               :target="$external()"
+              rel="nofollow noopener"
             >
               <IssuesIcon aria-hidden="true" />
               <span>Issues</span>
@@ -314,6 +291,7 @@
               :href="project.source_url"
               class="title"
               :target="$external()"
+              rel="nofollow noopener"
             >
               <CodeIcon aria-hidden="true" />
               <span>Source</span>
@@ -323,6 +301,7 @@
               :href="project.wiki_url"
               class="title"
               :target="$external()"
+              rel="nofollow noopener"
             >
               <WikiIcon aria-hidden="true" />
               <span>Wiki</span>
@@ -331,6 +310,7 @@
               v-if="project.discord_url"
               :href="project.discord_url"
               :target="$external()"
+              rel="nofollow noopener"
             >
               <DiscordIcon class="shrink" aria-hidden="true" />
               <span>Discord</span>
@@ -340,6 +320,7 @@
               :key="index"
               :href="donation.url"
               :target="$external()"
+              rel="nofollow noopener"
             >
               <BuyMeACoffeeLogo
                 v-if="donation.id === 'bmac'"
@@ -412,6 +393,7 @@
               :href="findPrimary(version).url"
               class="download download-button square-button brand-button"
               :title="`Download ${version.name}`"
+              rel="nofollow noopener"
               @click.stop="(event) => event.stopPropagation()"
             >
               <DownloadIcon aria-hidden="true" />
@@ -532,7 +514,7 @@
       </div>
       <section class="normal-page__content">
         <div
-          v-if="project.status === 'unlisted'"
+          v-if="project.status === 'withheld'"
           class="card warning"
           aria-label="Warning"
         >
@@ -553,15 +535,6 @@
           author decides to unarchive the project.
         </div>
         <div
-          v-if="project.status === 'abandoned'"
-          class="card warning"
-          aria-label="Warning"
-        >
-          {{ project.title }} has been marked as abandoned by Modrinth's
-          moderators. {{ project.title }} will not receive any further updates
-          unless the author decides to return.
-        </div>
-        <div
           v-if="project.project_type === 'modpack'"
           class="card warning"
           aria-label="Warning"
@@ -570,22 +543,32 @@
           <a
             href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
             :target="$external()"
+            rel="nofollow noopener"
             >our documentation</a
           >
           which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()">
-            ATLauncher</a
-          >, <a href="https://multimc.org/" :target="$external()">MultiMC</a>,
-          and
-          <a href="https://prismlauncher.org" :target="$external()">
+          <a
+            href="https://atlauncher.com/about"
+            :target="$external()"
+            rel="nofollow noopener"
+          >
+            ATLauncher </a
+          >,
+          <a
+            href="https://multimc.org/"
+            :target="$external()"
+            rel="nofollow noopener"
+            >MultiMC</a
+          >, and
+          <a
+            href="https://prismlauncher.org"
+            :target="$external()"
+            rel="nofollow noopener"
+          >
             Prism Launcher</a
           >.
         </div>
-        <Advertisement
-          v-if="project.status === 'approved' || project.status === 'unlisted'"
-          type="banner"
-          small-screen="square"
-        />
+        <Advertisement />
         <NavRow
           :links="[
             {
@@ -667,9 +650,11 @@ import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
+import ModalChangeStatus from '~/components/ui/ModalChangeStatus'
 
 export default {
   components: {
+    ModalChangeStatus,
     Avatar,
     CopyCode,
     NavRow,
@@ -832,7 +817,6 @@ export default {
   },
   data() {
     return {
-      showKnownErrors: false,
       licenseText: '',
     }
   },
@@ -952,39 +936,6 @@ export default {
       }
 
       this.$nuxt.$loading.finish()
-    },
-    async submitForReview() {
-      if (
-        this.project.body === '' ||
-        this.versions.length < 1 ||
-        this.project.client_side === 'unknown' ||
-        this.project.server_side === 'unknown'
-      ) {
-        this.showKnownErrors = true
-      } else {
-        this.$nuxt.$loading.start()
-
-        try {
-          await this.$axios.patch(
-            `project/${this.project.id}`,
-            {
-              status: 'processing',
-            },
-            this.$defaultHeaders()
-          )
-
-          this.project.status = 'processing'
-        } catch (err) {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: err.response.data.description,
-            type: 'error',
-          })
-        }
-
-        this.$nuxt.$loading.finish()
-      }
     },
     async getLicenseData() {
       try {
