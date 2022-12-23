@@ -20,7 +20,7 @@
         >
           <button
             :disabled="
-              selectedLicenses.length === 0 &&
+              onlyOpenSource === false &&
               selectedEnvironments.length === 0 &&
               selectedVersions.length === 0 &&
               facets.length === 0 &&
@@ -211,17 +211,12 @@
             placeholder="Choose versions..."
             @input="onSearchChange(1)"
           ></multiselect>
-          <h3 class="sidebar-menu-heading">Licenses</h3>
-          <Multiselect
-            v-model="selectedLicenses"
-            placeholder="Choose licenses..."
-            :loading="$tag.licenses.length === 0"
-            :options="$tag.licenses.map((x) => x.short.toUpperCase())"
-            :multiple="true"
-            :searchable="true"
-            :close-on-select="false"
-            :show-labels="false"
-            :allow-empty="true"
+          <h3 class="sidebar-menu-heading">Open source</h3>
+          <Checkbox
+            v-model="onlyOpenSource"
+            label="Open source only"
+            style="margin-bottom: 0.5rem"
+            :border="false"
             @input="onSearchChange(1)"
           />
         </div>
@@ -445,7 +440,7 @@ export default {
     return {
       query: '',
 
-      selectedLicenses: [],
+      onlyOpenSource: false,
 
       showSnapshots: false,
       selectedVersions: [],
@@ -494,7 +489,7 @@ export default {
     if (this.$route.query.v)
       this.selectedVersions = this.$route.query.v.split(',')
     if (this.$route.query.l)
-      this.selectedLicenses = this.$route.query.l.split(',')
+      this.onlyOpenSource = this.$route.query.l === 'true'
     if (this.$route.query.h) this.showSnapshots = this.$route.query.h === 'true'
     if (this.$route.query.e)
       this.selectedEnvironments = this.$route.query.e.split(',')
@@ -624,7 +619,7 @@ export default {
       for (const facet of [...this.orFacets])
         await this.toggleOrFacet(facet, true)
 
-      this.selectedLicenses = []
+      this.onlyOpenSource = false
       this.selectedVersions = []
       this.selectedEnvironments = []
       await this.onSearchChange(1)
@@ -741,13 +736,7 @@ export default {
             formattedFacets.push(versionFacets)
           }
 
-          if (this.selectedLicenses.length > 0) {
-            const licenseFacets = []
-            for (const facet of this.selectedLicenses) {
-              licenseFacets.push('license:' + facet.toLowerCase())
-            }
-            formattedFacets.push(licenseFacets)
-          }
+          if (this.onlyOpenSource) formattedFacets.push(['open_source:true'])
 
           if (this.selectedEnvironments.length > 0) {
             let environmentFacets = []
@@ -822,8 +811,7 @@ export default {
         queryItems.push(`g=${encodeURIComponent(this.orFacets)}`)
       if (this.selectedVersions.length > 0)
         queryItems.push(`v=${encodeURIComponent(this.selectedVersions)}`)
-      if (this.selectedLicenses.length > 0)
-        queryItems.push(`l=${encodeURIComponent(this.selectedLicenses)}`)
+      if (this.onlyOpenSource) queryItems.push(`l=true`)
       if (this.showSnapshots) queryItems.push(`h=true`)
       if (this.selectedEnvironments.length > 0)
         queryItems.push(`e=${encodeURIComponent(this.selectedEnvironments)}`)
