@@ -29,6 +29,10 @@
                   href: '/plugins',
                 },
                 {
+                  label: 'Datapacks',
+                  href: '/datapacks',
+                },
+                {
                   label: 'Shaders',
                   href: '/shaders',
                 },
@@ -196,6 +200,14 @@
             @click.native="isBrowseMenuOpen = false"
           >
             <span>Plugins</span>
+          </NuxtLink>
+          <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
+            to="/datapacks"
+            class="tab iconified-button"
+            @click.native="isBrowseMenuOpen = false"
+          >
+            <span>Datapacks</span>
           </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"

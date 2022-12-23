@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Resourcepacks',
+  name: 'Datapacks',
 }
 </script>
 

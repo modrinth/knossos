@@ -19,9 +19,14 @@ export const state = () => ({
       display: 'plugin',
     },
     {
+      actual: 'mod',
+      id: 'datapack',
+      display: 'datapack',
+    },
+    {
       actual: 'resourcepack',
       id: 'resourcepack',
-      display: 'resource pack',
+      display: 'resourcepack',
     },
     {
       actual: 'modpack',
@@ -47,6 +52,7 @@ export const state = () => ({
       'waterfall',
       'velocity',
     ],
+    dataPackLoaders: ['datapack'],
     modLoaders: ['forge', 'fabric', 'quilt', 'liteloader', 'modloader', 'rift'],
   },
   projectViewModes: ['list', 'grid', 'gallery'],

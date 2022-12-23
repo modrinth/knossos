@@ -78,7 +78,9 @@
             </div>
           </section>
           <section
-            v-if="projectType.id !== 'resourcepack'"
+            v-if="
+              projectType.id !== 'resourcepack' && projectType.id !== 'datapack'
+            "
             aria-label="Loader filters"
           >
             <h3
@@ -101,15 +103,15 @@
                   x.name !== 'quilt'
                 ) {
                   return false
-                }
-
-                if (projectType.id === 'mod' && showAllLoaders) {
+                } else if (projectType.id === 'mod' && showAllLoaders) {
                   return $tag.loaderData.modLoaders.includes(x.name)
+                } else if (projectType.id === 'plugin') {
+                  return $tag.loaderData.pluginLoaders.includes(x.name)
+                } else if (projectType.id === 'datapack') {
+                  return $tag.loaderData.dataPackLoaders.includes(x.name)
+                } else {
+                  return x.supported_project_types.includes(projectType.actual)
                 }
-
-                return projectType.id === 'plugin'
-                  ? $tag.loaderData.pluginLoaders.includes(x.name)
-                  : x.supported_project_types.includes(projectType.actual)
               })"
               :key="loader.name"
               ref="loaderFilters"
@@ -158,7 +160,9 @@
           </section>
           <section
             v-if="
-              !['resourcepack', 'plugin', 'shader'].includes(projectType.id)
+              !['resourcepack', 'plugin', 'shader', 'datapack'].includes(
+                projectType.id
+              )
             "
             aria-label="Environment filters"
           >
@@ -718,6 +722,12 @@ export default {
           } else if (this.projectType.id === 'mod') {
             formattedFacets.push(
               this.$tag.loaderData.modLoaders.map(
+                (x) => `categories:'${encodeURIComponent(x)}'`
+              )
+            )
+          } else if (this.projectType.id === 'datapack') {
+            formattedFacets.push(
+              this.$tag.loaderData.dataPackLoaders.map(
                 (x) => `categories:'${encodeURIComponent(x)}'`
               )
             )

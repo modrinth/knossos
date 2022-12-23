@@ -158,7 +158,7 @@
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
+                  label: x + 's',
                   href: x,
                 }
               }),
