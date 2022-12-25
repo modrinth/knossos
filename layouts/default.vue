@@ -33,7 +33,7 @@
                   href: '/plugins',
                 },
                 {
-                  label: 'Datapacks',
+                  label: 'Data Packs',
                   href: '/datapacks',
                 },
                 {
@@ -41,7 +41,7 @@
                   href: '/shaders',
                 },
                 {
-                  label: 'Resourcepacks',
+                  label: 'Resource Packs',
                   href: '/resourcepacks',
                 },
                 {
@@ -211,7 +211,7 @@
             class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>Datapacks</span>
+            <span>Data packs</span>
           </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
@@ -227,7 +227,7 @@
             class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>Resourcepacks</span>
+            <span>Resource packs</span>
           </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
@@ -502,12 +502,13 @@ export default {
   watch: {
     $route() {
       this.isMobileMenuOpen = false
-      document.body.style.overflowY = 'scroll'
-
       this.$store.dispatch('user/fetchAll')
 
-      document.body.setAttribute('tabindex', '-1')
-      document.body.removeAttribute('tabindex')
+      if (process.client) {
+        document.body.style.overflowY = 'scroll'
+        document.body.setAttribute('tabindex', '-1')
+        document.body.removeAttribute('tabindex')
+      }
     },
   },
   beforeCreate() {

@@ -541,6 +541,11 @@ tr.button-transparent {
   --text-color: var(--color-brand-inverted);
 }
 
+.alt-brand-button {
+  --background-color: var(--color-brand-highlight);
+  --text-color: var(--color-text);
+}
+
 .button-group {
   display: flex;
   grid-gap: var(--spacing-card-sm);
@@ -563,6 +568,13 @@ tr.button-transparent {
 }
 
 .multiselect {
+  &.raised-multiselect {
+    .multiselect__tags, .multiselect__content-wrapper, .multiselect__spinner {
+      background-color: var(--color-raised-bg);
+      box-shadow: none;
+    }
+  }
+
   color: var(--color-text) !important;
   outline: 2px solid transparent;
 

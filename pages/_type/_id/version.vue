@@ -127,6 +127,26 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
+        <a
+          v-if="alternateFile"
+          v-tooltip="
+            alternateFile.filename +
+            ' (' +
+            $formatBytes(alternateFile.size) +
+            ')'
+          "
+          :href="alternateFile.url"
+          class="iconified-button alt-brand-button"
+          :title="`Download ${alternateFile.filename}`"
+        >
+          <SaveIcon aria-hidden="true" />
+          Download
+          {{
+            fileTypeOptions
+              .find((x) => alternateFile.file_type === x.value)
+              .display.toLowerCase()
+          }}
+        </a>
         <nuxt-link
           :to="`${
             $nuxt.context.from &&
@@ -143,7 +163,7 @@
           Back to list
         </nuxt-link>
         <button
-          v-if="$auth.user"
+          v-if="$auth.user && !currentMember"
           class="iconified-button"
           @click="$refs.modal_version_report.show()"
         >
@@ -222,7 +242,10 @@
       ></div>
     </div>
     <div
-      v-if="version.dependencies.length > 0 || isEditing"
+      v-if="
+        version.dependencies.length > 0 ||
+        (isEditing && project.project_type !== 'modpack')
+      "
       class="version-page__dependencies universal-card"
     >
       <h3>Dependencies</h3>
@@ -269,7 +292,7 @@
           </span>
         </div>
         <button
-          v-if="isEditing"
+          v-if="isEditing && project.project_type !== 'modpack'"
           class="iconified-button"
           @click="version.dependencies.splice(index, 1)"
         >
@@ -385,6 +408,24 @@
         <span class="filename">
           <strong>{{ file.filename }}</strong>
           <span class="file-size">({{ $formatBytes(file.size) }})</span>
+          <span
+            v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
+            class="file-type"
+          >
+            Primary
+          </span>
+          <span
+            v-else-if="file.file_type === 'required-resource-pack'"
+            class="file-type"
+          >
+            Required resource pack
+          </span>
+          <span
+            v-else-if="file.file_type === 'optional-resource-pack'"
+            class="file-type"
+          >
+            Optional resource pack
+          </span>
         </span>
         <FileInput
           v-if="isEditing && primaryFile.hashes.sha1 === file.hashes.sha1"
@@ -432,9 +473,29 @@
             <strong>{{ file.name }}</strong>
             <span class="file-size">({{ $formatBytes(file.size) }})</span>
           </span>
+          <multiselect
+            v-if="
+              version.loaders.some((x) =>
+                $tag.loaderData.dataPackLoaders.includes(x)
+              )
+            "
+            v-model="fileTypes[index]"
+            class="raised-multiselect"
+            placeholder="Select one"
+            :options="fileTypeOptions"
+            track-by="value"
+            label="display"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          />
           <button
             class="iconified-button raised-button"
-            @click="newFiles.splice(index, 1)"
+            @click="
+              newFiles.splice(index, 1)
+              fileTypes.splice(index, 1)
+            "
           >
             <TrashIcon />
             Remove
@@ -442,14 +503,29 @@
         </div>
         <div class="additional-files">
           <h4>Upload additional files</h4>
-          <span>Used for files such as sources or Javadocs.</span>
+          <span
+            v-if="
+              version.loaders.some((x) =>
+                $tag.loaderData.dataPackLoaders.includes(x)
+              )
+            "
+          >
+            Used for additional files such as required/optional resource packs
+          </span>
+          <span v-else>Used for files such as sources or Javadocs.</span>
           <FileInput
             prompt="Drag and drop to upload or click to select"
             multiple
             long-style
             :accept="acceptFileFromProjectType(project.project_type)"
             :max-size="524288000"
-            @change="(x) => x.forEach((y) => newFiles.push(y))"
+            @change="
+              (x) =>
+                x.forEach((y) => {
+                  newFiles.push(y)
+                  fileTypes.push(fileTypeOptions[0])
+                })
+            "
           >
             <UploadIcon />
           </FileInput>
@@ -722,6 +798,7 @@ export default {
   data() {
     return {
       primaryFile: {},
+      alternateFile: {},
       version: {},
 
       isEditing: false,
@@ -737,6 +814,22 @@ export default {
       newFiles: [],
       deleteFiles: [],
       replaceFile: null,
+
+      fileTypes: [],
+      fileTypeOptions: [
+        {
+          display: 'None',
+          value: null,
+        },
+        {
+          display: 'Required resource pack',
+          value: 'required-resource-pack',
+        },
+        {
+          display: 'Optional resource pack',
+          value: 'optional-resource-pack',
+        },
+      ],
 
       showKnownErrors: false,
     }
@@ -916,6 +1009,9 @@ export default {
       this.version = JSON.parse(JSON.stringify(this.version))
       this.primaryFile =
         this.version.files.find((file) => file.primary) ?? this.version.files[0]
+      this.alternateFile = this.version.files.find(
+        (file) => file.file_type && file.file_type.includes('resource-pack')
+      )
 
       this.version.author_member = this.members.find(
         (x) => x.user.id === this.version.author_id
@@ -1090,7 +1186,7 @@ export default {
           )
         }
 
-        const [versions, featuredVersions] = (
+        const [versions, featuredVersions, dependencies] = (
           await Promise.all([
             this.$axios.get(
               `project/${this.version.project_id}/version`,
@@ -1100,12 +1196,17 @@ export default {
               `project/${this.version.project_id}/version?featured=true`,
               this.$defaultHeaders()
             ),
+            this.$axios.get(
+              `project/${this.version.project_id}/dependencies`,
+              this.$defaultHeaders()
+            ),
           ])
         ).map((it) => it.data)
 
         const newEditedVersions = this.$computeVersions(versions)
         this.$emit('update:versions', newEditedVersions)
         this.$emit('update:featuredVersions', featuredVersions)
+        this.$emit('update:dependencies', dependencies)
 
         await this.$router.replace(
           `/${this.project.project_type}/${
@@ -1147,6 +1248,7 @@ export default {
         this.version.loaders = ['minecraft']
       }
 
+      console.log(fileParts)
       const newVersion = {
         project_id: this.version.project_id,
         file_parts: fileParts,
@@ -1158,6 +1260,9 @@ export default {
         loaders: this.version.loaders,
         release_channel: this.version.version_type,
         featured: this.version.featured,
+        file_types: this.fileTypes
+          .filter((x) => !!x.value)
+          .map((x, i) => [fileParts[this.replaceFile ? i + 1 : i], x.value]),
       }
 
       formData.append('data', JSON.stringify(newVersion))
@@ -1172,7 +1277,7 @@ export default {
 
       for (let i = 0; i < this.newFiles.length; i++) {
         formData.append(
-          fileParts[i],
+          fileParts[this.replaceFile ? i + 1 : i],
           new Blob([this.newFiles[i]]),
           this.newFiles[i].name
         )
@@ -1191,7 +1296,7 @@ export default {
           })
         ).data
 
-        const [versions, featuredVersions] = (
+        const [versions, featuredVersions, dependencies] = (
           await Promise.all([
             this.$axios.get(
               `project/${this.version.project_id}/version`,
@@ -1201,12 +1306,17 @@ export default {
               `project/${this.version.project_id}/version?featured=true`,
               this.$defaultHeaders()
             ),
+            this.$axios.get(
+              `project/${this.version.project_id}/dependencies`,
+              this.$defaultHeaders()
+            ),
           ])
         ).map((it) => it.data)
 
         const newCreatedVersions = this.$computeVersions(versions)
         this.$emit('update:versions', newCreatedVersions)
         this.$emit('update:featuredVersions', featuredVersions)
+        this.$emit('update:dependencies', dependencies)
 
         await this.$router.push(
           `/${this.project.project_type}/${
@@ -1383,13 +1493,24 @@ export default {
       }
 
       .filename {
-        word-wrap: break-word;
-        overflow-wrap: anywhere;
+        word-wrap: anywhere;
       }
 
       .file-size {
         font-weight: 400;
         white-space: nowrap;
+      }
+
+      .file-type {
+        font-style: italic;
+        font-weight: 300;
+      }
+
+      .raised-multiselect {
+        margin: 0 0.5rem;
+        height: 40px;
+        max-height: 40px;
+        min-width: 235px;
       }
 
       .iconified-button {

@@ -158,11 +158,11 @@ export default (ctx, inject) => {
       })
 
       if (isMod && isPlugin && isDataPack) {
-        return 'mod, plugin, and datapack'
+        return 'mod, plugin, and data pack'
       } else if (isMod && isPlugin) {
         return 'mod and plugin'
       } else if (isMod && isDataPack) {
-        return 'mod and datapack'
+        return 'mod and data pack'
       }
     }
 
@@ -252,6 +252,12 @@ export const formatWallet = (name) => {
 }
 
 export const formatProjectType = (name) => {
+  if (name === 'resourcepack') {
+    return 'Resource Pack'
+  } else if (name === 'datapack') {
+    return 'Data Pack'
+  }
+
   return capitalizeString(name)
 }
 

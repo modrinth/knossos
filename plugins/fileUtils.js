@@ -15,7 +15,6 @@ import { formatBytes } from '~/plugins/shorthands'
 export const fileIsValid = (file, validationOptions) => {
   const { maxSize, alertOnInvalid } = validationOptions
   if (maxSize !== null && maxSize !== undefined && file.size > maxSize) {
-    console.log(`File size: ${file.size}, max size: ${maxSize}`)
     if (alertOnInvalid) {
       alert(
         `File ${file.name} is too big! Must be less than ${formatBytes(
@@ -38,6 +37,8 @@ export const acceptFileFromProjectType = (projectType) => {
     case 'resourcepack':
       return '.zip,application/zip'
     case 'shader':
+      return '.zip,application/zip'
+    case 'datapack':
       return '.zip,application/zip'
     case 'modpack':
       return '.mrpack,application/x-modrinth-modpack+zip'
@@ -108,8 +109,6 @@ export const inferVersionInfo = async function (
     'META-INF/mods.toml': (file, zip) => {
       const metadata = TOML.parse(file)
 
-      console.log(JSON.stringify(metadata))
-
       // TODO: Parse minecraft version ranges, handle if version is set to value from manifest
       if (metadata.mods && metadata.mods.length > 0) {
         return {
@@ -165,8 +164,10 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.quilt_loader.version),
         game_versions: metadata.quilt_loader.depends
           ? gameVersionRange(
-              metadata.depends.find((x) => x.id === 'minecraft')
-                ? metadata.depends.find((x) => x.id === 'minecraft').versions
+              metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
+                ? metadata.quilt_loader.depends.find(
+                    (x) => x.id === 'minecraft'
+                  ).versions
                 : [],
               gameVersions
             )
@@ -220,6 +221,112 @@ export const inferVersionInfo = async function (
         game_versions: gameVersions
           .filter((x) => x.version === metadata.dependencies.minecraft)
           .map((x) => x.version),
+      }
+    },
+    // Resource Packs + Data Packs
+    'pack.mcmeta': (file) => {
+      const metadata = JSON.parse(file)
+
+      function getRange(versionA, versionB) {
+        const startingIndex = gameVersions.findIndex(
+          (x) => x.version === versionA
+        )
+        const endingIndex = gameVersions.findIndex(
+          (x) => x.version === versionB
+        )
+
+        const final = []
+        const filterOnlyRelease =
+          gameVersions[startingIndex].version_type === 'release'
+
+        for (let i = startingIndex; i >= endingIndex; i--) {
+          if (
+            gameVersions[i].version_type === 'release' ||
+            !filterOnlyRelease
+          ) {
+            final.push(gameVersions[i].version)
+          }
+        }
+
+        return final
+      }
+
+      const loaders = []
+      let newGameVersions = []
+
+      if (project.actualProjectType === 'mod') {
+        loaders.push('datapack')
+
+        switch (metadata.pack.pack_format) {
+          case 4:
+            newGameVersions = getRange('1.13', '1.14.4')
+            break
+          case 5:
+            newGameVersions = getRange('1.15', '1.16.1')
+            break
+          case 6:
+            newGameVersions = getRange('1.16.2', '1.16.5')
+            break
+          case 7:
+            newGameVersions = getRange('1.17', '1.17.1')
+            break
+          case 8:
+            newGameVersions = getRange('1.18', '1.18.1')
+            break
+          case 9:
+            newGameVersions.push('1.18.2')
+            break
+          case 10:
+            newGameVersions = getRange('1.19', '1.19.3')
+            break
+          default:
+        }
+      }
+
+      if (project.actualProjectType === 'resourcepack') {
+        loaders.push('minecraft')
+
+        switch (metadata.pack.pack_format) {
+          case 1:
+            newGameVersions = getRange('1.6.1', '1.8.9')
+            break
+          case 2:
+            newGameVersions = getRange('1.9', '1.10.2')
+            break
+          case 3:
+            newGameVersions = getRange('1.11', '1.12.2')
+            break
+          case 4:
+            newGameVersions = getRange('1.13', '1.14.4')
+            break
+          case 5:
+            newGameVersions = getRange('1.15', '1.16.1')
+            break
+          case 6:
+            newGameVersions = getRange('1.16.2', '1.16.5')
+            break
+          case 7:
+            newGameVersions = getRange('1.17', '1.17.1')
+            break
+          case 8:
+            newGameVersions = getRange('1.18', '1.18.2')
+            break
+          case 9:
+            newGameVersions = getRange('1.19', '1.19.2')
+            break
+          case 11:
+            newGameVersions = getRange('22w42a', '22w44a')
+            break
+          case 12:
+            newGameVersions.push('1.19.3')
+            break
+          default:
+        }
+      }
+
+      return {
+        loaders,
+        game_versions: newGameVersions,
       }
     },
   }

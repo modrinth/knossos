@@ -20,12 +20,12 @@ export const state = () => ({
     {
       actual: 'mod',
       id: 'datapack',
-      display: 'datapack',
+      display: 'data pack',
     },
     {
       actual: 'resourcepack',
       id: 'resourcepack',
-      display: 'resourcepack',
+      display: 'resource pack',
     },
     {
       actual: 'modpack',
