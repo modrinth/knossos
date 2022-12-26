@@ -142,7 +142,7 @@
           <SaveIcon aria-hidden="true" />
           Download
           {{
-            fileTypeOptions
+            fileTypes
               .find((x) => alternateFile.file_type === x.value)
               .display.toLowerCase()
           }}
@@ -331,7 +331,7 @@
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
-            :allow-empty="false"
+            :allow-empty="true"
           />
           <input
             v-model="newDependencyId"
@@ -357,7 +357,7 @@
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
-            :allow-empty="false"
+            :allow-empty="true"
           />
         </div>
         <div class="input-group">
@@ -415,18 +415,41 @@
             Primary
           </span>
           <span
-            v-else-if="file.file_type === 'required-resource-pack'"
+            v-else-if="
+              file.file_type === 'required-resource-pack' && !isEditing
+            "
             class="file-type"
           >
             Required resource pack
           </span>
           <span
-            v-else-if="file.file_type === 'optional-resource-pack'"
+            v-else-if="
+              file.file_type === 'optional-resource-pack' && !isEditing
+            "
             class="file-type"
           >
             Optional resource pack
           </span>
         </span>
+        <multiselect
+          v-if="
+            version.loaders.some((x) =>
+              $tag.loaderData.dataPackLoaders.includes(x)
+            ) &&
+            isEditing &&
+            primaryFile.hashes.sha1 !== file.hashes.sha1
+          "
+          v-model="oldFileTypes[index]"
+          class="raised-multiselect"
+          placeholder="Select file type"
+          :options="fileTypes"
+          track-by="value"
+          label="display"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+        />
         <FileInput
           v-if="isEditing && primaryFile.hashes.sha1 === file.hashes.sha1"
           class="iconified-button raised-button"
@@ -438,6 +461,8 @@
             (x) => {
               deleteFiles.push(file.hashes.sha1)
               version.files.splice(index, 1)
+              oldFileTypes.splice(index, 1)
+
               replaceFile = x[0]
             }
           "
@@ -450,6 +475,7 @@
           @click="
             deleteFiles.push(file.hashes.sha1)
             version.files.splice(index, 1)
+            oldFileTypes.splice(index, 1)
           "
         >
           <TrashIcon />
@@ -479,10 +505,10 @@
                 $tag.loaderData.dataPackLoaders.includes(x)
               )
             "
-            v-model="fileTypes[index]"
+            v-model="newFileTypes[index]"
             class="raised-multiselect"
-            placeholder="Select one"
-            :options="fileTypeOptions"
+            placeholder="Select file type"
+            :options="fileTypes"
             track-by="value"
             label="display"
             :searchable="false"
@@ -494,7 +520,7 @@
             class="iconified-button raised-button"
             @click="
               newFiles.splice(index, 1)
-              fileTypes.splice(index, 1)
+              newFileTypes.splice(index, 1)
             "
           >
             <TrashIcon />
@@ -523,7 +549,7 @@
               (x) =>
                 x.forEach((y) => {
                   newFiles.push(y)
-                  fileTypes.push(fileTypeOptions[0])
+                  newFileTypes.push(null)
                 })
             "
           >
@@ -815,12 +841,9 @@ export default {
       deleteFiles: [],
       replaceFile: null,
 
-      fileTypes: [],
-      fileTypeOptions: [
-        {
-          display: 'None',
-          value: null,
-        },
+      newFileTypes: [],
+      oldFileTypes: [],
+      fileTypes: [
         {
           display: 'Required resource pack',
           value: 'required-resource-pack',
@@ -907,6 +930,7 @@ export default {
     acceptFileFromProjectType,
     reset() {
       this.primaryFile = {}
+      this.alternateFile = {}
       this.version = {}
 
       this.changelogViewMode = 'source'
@@ -920,6 +944,8 @@ export default {
       this.newFiles = []
       this.deleteFiles = []
       this.replaceFile = null
+      this.oldFileTypes = []
+      this.newFileTypes = []
 
       this.isEditing = false
       this.isCreating = false
@@ -1044,6 +1070,10 @@ export default {
             }`
           : ''
       }
+
+      this.oldFileTypes = this.version.files.map((x) =>
+        this.fileTypes.find((y) => y.value === x.file_type)
+      )
     },
     async addDependency(
       dependencyAddMode,
@@ -1133,12 +1163,21 @@ export default {
 
         if (this.newFiles.length > 0 || this.replaceFile) {
           const formData = new FormData()
+          const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
 
-          formData.append('data', JSON.stringify({}))
+          formData.append(
+            'data',
+            JSON.stringify({
+              file_types: this.oldFileTypes.reduce((acc, x, i) => ({
+                ...acc,
+                [fileParts[this.replaceFile ? i + 1 : i]]: [x ? x.value : null],
+              })),
+            })
+          )
 
           for (let i = 0; i < this.newFiles.length; i++) {
             formData.append(
-              this.newFiles[i].name.concat('-' + i),
+              fileParts[i],
               new Blob([this.newFiles[i]]),
               this.newFiles[i].name
             )
@@ -1175,6 +1214,13 @@ export default {
             loaders: this.version.loaders,
             primary_file: ['sha1', this.primaryFile.hashes.sha1],
             featured: this.version.featured,
+            file_types: this.oldFileTypes.map((x, i) => {
+              return {
+                algorithm: 'sha1',
+                hash: this.version.files[i].hashes.sha1,
+                file_type: x ? x.value : null,
+              }
+            }),
           },
           this.$defaultHeaders()
         )
@@ -1248,7 +1294,6 @@ export default {
         this.version.loaders = ['minecraft']
       }
 
-      console.log(fileParts)
       const newVersion = {
         project_id: this.version.project_id,
         file_parts: fileParts,
@@ -1260,9 +1305,10 @@ export default {
         loaders: this.version.loaders,
         release_channel: this.version.version_type,
         featured: this.version.featured,
-        file_types: this.fileTypes
-          .filter((x) => !!x.value)
-          .map((x, i) => [fileParts[this.replaceFile ? i + 1 : i], x.value]),
+        file_types: this.newFileTypes.reduce((acc, x, i) => ({
+          ...acc,
+          [fileParts[this.replaceFile ? i + 1 : i]]: [x ? x.value : null],
+        })),
       }
 
       formData.append('data', JSON.stringify(newVersion))
