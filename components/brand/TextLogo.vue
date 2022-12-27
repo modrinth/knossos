@@ -7,7 +7,7 @@
     stroke-miterlimit="2"
     clip-rule="evenodd"
     viewBox="0 0 3307 593"
-    :class="{ animate: $nuxt.$loading.show }"
+    :class="{ animate: $nuxt.$loading ? $nuxt.$loading.show : false }"
   >
     <path
       fill-rule="nonzero"
