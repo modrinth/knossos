@@ -1,6 +1,7 @@
 <template>
   <div v-if="version" class="version-page">
     <ModalConfirm
+      v-if="$auth.user && currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this version?"
       description="This will remove this version forever (like really forever)."
@@ -14,6 +15,58 @@
       :item-id="version.id"
       item-type="version"
     />
+    <Modal
+      v-if="$auth.user && currentMember"
+      ref="modal_package_mod"
+      header="Package data pack"
+    >
+      <div class="modal-package-mod universal-labels">
+        <div class="markdown-body">
+          <p>
+            Package your data pack as a mod. This will create a new version with
+            support for the selected mod loaders. You will be redirected to the
+            new version and can edit it to your liking.
+          </p>
+        </div>
+        <label for="package-mod-loaders">
+          <span class="label__title">Mod loaders</span>
+          <span class="label__description">
+            The mod loaders you would like to package your data pack for.
+          </span>
+        </label>
+        <multiselect
+          id="package-mod-loaders"
+          v-model="packageLoaders"
+          :options="['fabric', 'forge', 'quilt']"
+          :custom-label="
+            (value) => value.charAt(0).toUpperCase() + value.slice(1)
+          "
+          :multiple="true"
+          :searchable="false"
+          :show-no-results="false"
+          :show-labels="false"
+          placeholder="Choose loaders.."
+          open-direction="top"
+        />
+        <div class="button-group">
+          <button
+            class="iconified-button"
+            @click="$refs.modal_package_mod.hide()"
+          >
+            <CrossIcon />
+            Cancel
+          </button>
+          <button
+            class="iconified-button brand-button"
+            :disabled="!$nuxt.$loading"
+            @click="createDataPackVersion"
+          >
+            <RightArrowIcon />
+            Begin packaging data pack
+          </button>
+        </div>
+      </div>
+    </Modal>
     <div class="version-page__title universal-card">
       <div class="version-header">
         <template v-if="isEditing">
@@ -127,26 +180,6 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
-        <a
-          v-if="alternateFile"
-          v-tooltip="
-            alternateFile.filename +
-            ' (' +
-            $formatBytes(alternateFile.size) +
-            ')'
-          "
-          :href="alternateFile.url"
-          class="iconified-button alt-brand-button"
-          :title="`Download ${alternateFile.filename}`"
-        >
-          <SaveIcon aria-hidden="true" />
-          Download
-          {{
-            fileTypes
-              .find((x) => alternateFile.file_type === x.value)
-              .display.toLowerCase()
-          }}
-        </a>
         <nuxt-link
           :to="`${
             $nuxt.context.from &&
@@ -184,6 +217,19 @@
           <EditIcon aria-hidden="true" />
           Edit
         </nuxt-link>
+        <button
+          v-if="
+            currentMember &&
+            version.loaders.some((x) =>
+              $tag.loaderData.dataPackLoaders.includes(x)
+            )
+          "
+          class="iconified-button"
+          @click="$refs.modal_package_mod.show()"
+        >
+          <BoxIcon aria-hidden="true" />
+          Package as mod
+        </button>
         <button
           v-if="currentMember"
           class="iconified-button danger-button"
@@ -731,6 +777,7 @@ import Multiselect from 'vue-multiselect'
 import {
   acceptFileFromProjectType,
   inferVersionInfo,
+  createDataPackVersion,
 } from '~/plugins/fileUtils'
 
 import VersionBadge from '~/components/ui/Badge'
@@ -756,9 +803,13 @@ import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
 import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
+import BoxIcon from '~/assets/images/utils/box.svg?inline'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import Modal from '~/components/ui/Modal.vue'
 
 export default {
   components: {
+    Modal,
     FileInput,
     Checkbox,
     Chips,
@@ -782,6 +833,8 @@ export default {
     ModalConfirm,
     ModalReport,
     Multiselect,
+    BoxIcon,
+    RightArrowIcon,
   },
   props: {
     project: {
@@ -853,6 +906,8 @@ export default {
           value: 'optional-resource-pack',
         },
       ],
+
+      packageLoaders: ['forge', 'fabric', 'quilt'],
 
       showKnownErrors: false,
     }
@@ -949,6 +1004,8 @@ export default {
 
       this.isEditing = false
       this.isCreating = false
+
+      this.packageLoaders = ['forge', 'fabric', 'quilt']
 
       this.showKnownErrors = false
     },
@@ -1168,10 +1225,13 @@ export default {
           formData.append(
             'data',
             JSON.stringify({
-              file_types: this.oldFileTypes.reduce((acc, x, i) => ({
-                ...acc,
-                [fileParts[this.replaceFile ? i + 1 : i]]: [x ? x.value : null],
-              })),
+              file_types: this.oldFileTypes.reduce(
+                (acc, x, i) => ({
+                  ...acc,
+                  [fileParts[this.replaceFile ? i + 1 : i]]: x ? x.value : null,
+                }),
+                {}
+              ),
             })
           )
 
@@ -1275,7 +1335,6 @@ export default {
     },
     async createVersion() {
       this.$nuxt.$loading.start()
-
       if (this.fieldErrors) {
         this.showKnownErrors = true
 
@@ -1283,6 +1342,21 @@ export default {
         return
       }
 
+      try {
+        await this.createVersionRaw(this.version)
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response ? err.response.data.description : err,
+          type: 'error',
+        })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
+    async createVersionRaw(version) {
       const formData = new FormData()
 
       const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
@@ -1291,24 +1365,27 @@ export default {
       }
 
       if (this.project.project_type === 'resourcepack') {
-        this.version.loaders = ['minecraft']
+        version.loaders = ['minecraft']
       }
 
       const newVersion = {
-        project_id: this.version.project_id,
+        project_id: version.project_id,
         file_parts: fileParts,
-        version_number: this.version.version_number,
-        version_title: this.version.name || this.version.version_number,
-        version_body: this.version.changelog,
-        dependencies: this.version.dependencies,
-        game_versions: this.version.game_versions,
-        loaders: this.version.loaders,
-        release_channel: this.version.version_type,
-        featured: this.version.featured,
-        file_types: this.newFileTypes.reduce((acc, x, i) => ({
-          ...acc,
-          [fileParts[this.replaceFile ? i + 1 : i]]: [x ? x.value : null],
-        })),
+        version_number: version.version_number,
+        version_title: version.name || version.version_number,
+        version_body: version.changelog,
+        dependencies: version.dependencies,
+        game_versions: version.game_versions,
+        loaders: version.loaders,
+        release_channel: version.version_type,
+        featured: version.featured,
+        file_types: this.newFileTypes.reduce(
+          (acc, x, i) => ({
+            ...acc,
+            [fileParts[this.replaceFile ? i + 1 : i]]: x ? x.value : null,
+          }),
+          {}
+        ),
       }
 
       formData.append('data', JSON.stringify(newVersion))
@@ -1329,57 +1406,45 @@ export default {
         )
       }
 
-      try {
-        const data = (
-          await this.$axios({
-            url: 'version',
-            method: 'POST',
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: this.$auth.token,
-            },
-          })
-        ).data
-
-        const [versions, featuredVersions, dependencies] = (
-          await Promise.all([
-            this.$axios.get(
-              `project/${this.version.project_id}/version`,
-              this.$defaultHeaders()
-            ),
-            this.$axios.get(
-              `project/${this.version.project_id}/version?featured=true`,
-              this.$defaultHeaders()
-            ),
-            this.$axios.get(
-              `project/${this.version.project_id}/dependencies`,
-              this.$defaultHeaders()
-            ),
-          ])
-        ).map((it) => it.data)
-
-        const newCreatedVersions = this.$computeVersions(versions)
-        this.$emit('update:versions', newCreatedVersions)
-        this.$emit('update:featuredVersions', featuredVersions)
-        this.$emit('update:dependencies', dependencies)
-
-        await this.$router.push(
-          `/${this.project.project_type}/${
-            this.project.slug ? this.project.slug : this.project.project_id
-          }/version/${data.id}`
-        )
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.response.data.description,
-          type: 'error',
+      const data = (
+        await this.$axios({
+          url: 'version',
+          method: 'POST',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: this.$auth.token,
+          },
         })
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
+      ).data
 
-      this.$nuxt.$loading.finish()
+      const [versions, featuredVersions, dependencies] = (
+        await Promise.all([
+          this.$axios.get(
+            `project/${this.version.project_id}/version`,
+            this.$defaultHeaders()
+          ),
+          this.$axios.get(
+            `project/${this.version.project_id}/version?featured=true`,
+            this.$defaultHeaders()
+          ),
+          this.$axios.get(
+            `project/${this.version.project_id}/dependencies`,
+            this.$defaultHeaders()
+          ),
+        ])
+      ).map((it) => it.data)
+
+      const newCreatedVersions = this.$computeVersions(versions)
+      this.$emit('update:versions', newCreatedVersions)
+      this.$emit('update:featuredVersions', featuredVersions)
+      this.$emit('update:dependencies', dependencies)
+
+      await this.$router.push(
+        `/${this.project.project_type}/${
+          this.project.slug ? this.project.slug : this.project.project_id
+        }/version/${data.id}`
+      )
     },
     async deleteVersion() {
       this.$nuxt.$loading.start()
@@ -1392,6 +1457,56 @@ export default {
       await this.$router.replace(
         `/${this.project.project_type}/${this.project.id}/versions`
       )
+      this.$nuxt.$loading.finish()
+    },
+    async createDataPackVersion() {
+      this.$nuxt.$loading.start()
+      try {
+        const blob = await createDataPackVersion(
+          this.project,
+          this.version,
+          this.primaryFile,
+          this.members,
+          this.$tag.gameVersions,
+          this.packageLoaders
+        )
+
+        this.newFiles = []
+        this.newFileTypes = []
+        this.replaceFile = new File(
+          [blob],
+          `${this.project.slug}-${this.version.version_number}.jar`
+        )
+
+        await this.createVersionRaw({
+          project_id: this.project.id,
+          author_id: this.currentMember.user.id,
+          name: this.version.name,
+          version_number: `${this.version.version_number}+mod`,
+          changelog: this.version.changelog,
+          version_type: this.version.version_type,
+          dependencies: [],
+          game_versions: this.version.game_versions,
+          loaders: this.packageLoaders,
+          featured: this.version.featured,
+        })
+
+        this.$refs.modal_package_mod.hide()
+
+        this.$notify({
+          group: 'main',
+          title: 'Packaging Success',
+          text: 'Your data pack was successfully packaged as a mod! Make sure to test playing to check for errors.',
+          type: 'success',
+        })
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response ? err.response.data.description : err,
+          type: 'error',
+        })
+      }
       this.$nuxt.$loading.finish()
     },
   },
@@ -1553,6 +1668,7 @@ export default {
       }
 
       .raised-multiselect {
+        display: none;
         margin: 0 0.5rem;
         height: 40px;
         max-height: 40px;
@@ -1565,6 +1681,13 @@ export default {
 
       &:not(:nth-child(2)) {
         margin-top: 0.5rem;
+      }
+
+      // TODO: Make file type editing  work on mobile
+      @media (min-width: 600px) {
+        .raised-multiselect {
+          display: block;
+        }
       }
     }
 
@@ -1620,5 +1743,24 @@ export default {
 
 .separator {
   margin: var(--spacing-card-sm) 0;
+}
+
+.modal-package-mod {
+  padding: var(--spacing-card-bg);
+  display: flex;
+  flex-direction: column;
+
+  .markdown-body {
+    margin-bottom: 1rem;
+  }
+
+  .multiselect {
+    max-width: 20rem;
+  }
+
+  .button-group {
+    margin-left: auto;
+    margin-top: 1.5rem;
+  }
 }
 </style>
