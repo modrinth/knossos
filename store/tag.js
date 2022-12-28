@@ -20,7 +20,7 @@ export const state = () => ({
     {
       actual: 'mod',
       id: 'datapack',
-      display: 'data pack',
+      display: 'datapack',
     },
     {
       actual: 'resourcepack',

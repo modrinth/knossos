@@ -360,10 +360,12 @@ export const createDataPackVersion = async function (
     ? version.version_number
     : `1-${version.version_number}`
 
-  const newSlug = project.slug
+  const newSlug = `${project.slug
     .replace('-', '_')
     .replace(/\W/g, '')
-    .substring(0, 62)
+    .substring(0, 63)}_mr`
+
+  const iconPath = `assets/${project.slug}/pack.png`
 
   const fabricModJson = {
     schemaVersion: 1,
@@ -378,7 +380,7 @@ export const createDataPackVersion = async function (
       }`,
     },
     license: project.license.id,
-    icon: 'pack.png',
+    icon: iconPath,
     environment: '*',
     depends: {
       'fabric-resource-loader-v0': '*',
@@ -401,19 +403,19 @@ export const createDataPackVersion = async function (
           }),
           {}
         ),
+        contact: {
+          homepage: `${process.env.domain}/${project.project_type}/${
+            project.slug ?? project.id
+          }`,
+        },
+        icon: iconPath,
       },
       intermediate_mappings: 'net.fabricmc:intermediary',
-      contact: {
-        homepage: `${process.env.domain}/${project.project_type}/${
-          project.slug ?? project.id
-        }`,
-      },
-      license: project.license.id,
-      icon: 'pack.png',
       depends: [
         {
           id: 'quilt_resource_loader',
           versions: '*',
+          unless: 'fabric-resource-loader-v0',
         },
       ],
     },
@@ -421,15 +423,15 @@ export const createDataPackVersion = async function (
 
   const cutoffIndex = allGameVersions.findIndex((x) => x.version === '1.18.2')
 
-  let minimumIndex = Number.MAX_VALUE
+  let maximumIndex = Number.MIN_VALUE
   for (const val of version.game_versions) {
     const index = allGameVersions.findIndex((x) => x.version === val)
-    if (index < minimumIndex) {
-      minimumIndex = index
+    if (index > maximumIndex) {
+      maximumIndex = index
     }
   }
 
-  const newForge = cutoffIndex > minimumIndex
+  const newForge = maximumIndex < cutoffIndex
 
   const forgeModsToml = {
     modLoader: newForge ? 'lowcodefml' : 'javafml',
@@ -442,7 +444,7 @@ export const createDataPackVersion = async function (
         version: newVersionNumber,
         displayName: project.title,
         description: project.description,
-        logoFile: 'pack.png',
+        logoFile: iconPath,
         updateJSONURL: `${process.env.authURLBase.replace(
           '/v2/',
           ''
@@ -457,12 +459,12 @@ export const createDataPackVersion = async function (
   }
 
   if (project.source_url) {
-    quiltModJson.quilt_loader.contact.sources = project.source_url
+    quiltModJson.quilt_loader.metadata.contact.sources = project.source_url
     fabricModJson.contact.sources = project.source_url
   }
 
   if (project.issues_url) {
-    quiltModJson.quilt_loader.contact.issues = project.issues_url
+    quiltModJson.quilt_loader.metadata.contact.issues = project.issues_url
     fabricModJson.contact.issues = project.issues_url
     forgeModsToml.issueTrackerURL = project.issues_url
   }
@@ -480,15 +482,34 @@ export const createDataPackVersion = async function (
     primaryZipReader.file('META-INF/mods.toml', TOML.stringify(forgeModsToml))
 
   if (!newForge && loaders.includes('forge')) {
-    const classFile = await (
-      await fetch('https://cdn.modrinth.com/wrapper/ModrinthWrapper.class')
-    ).text()
+    const classFile = new Uint8Array(
+      await (
+        await fetch(
+          'https://cdn.modrinth.com/wrapper/ModrinthWrapperRenewed.class'
+        )
+      ).arrayBuffer()
+    )
 
-    classFile.replace('needs1to1be1changed1modrinth1mod', newSlug)
+    let binary = ''
+    for (let i = 0; i < classFile.byteLength; i++) {
+      binary += String.fromCharCode(classFile[i])
+    }
+
+    binary = binary
+      .replace(
+        String.fromCharCode(32) + 'needs1to1be1changed1modrinth1mod',
+        String.fromCharCode(newSlug.length) + newSlug
+      )
+      .replace('/wrappera/', `/${project.id.substring(0, 8)}/`)
+
+    const newArr = []
+    for (let i = 0; i < binary.length; i++) {
+      newArr.push(binary.charCodeAt(i))
+    }
 
     primaryZipReader.file(
-      'com/modrinth/wrapper/ModrinthWrapper.class',
-      classFile
+      `com/modrinth/${project.id.substring(0, 8)}/ModrinthWrapper.class`,
+      new Uint8Array(newArr)
     )
   }
 
@@ -509,6 +530,13 @@ export const createDataPackVersion = async function (
         primaryZipReader.file(path, await file.async('uint8array'))
       }
     }
+  }
+
+  if (primaryZipReader.file('pack.png')) {
+    primaryZipReader.file(
+      iconPath,
+      await primaryZipReader.file('pack.png').async('uint8array')
+    )
   }
 
   return await primaryZipReader.generateAsync({

@@ -380,6 +380,9 @@
             :categories="result.display_categories"
             :search="true"
             :show-updated-date="sortType.name !== 'newest'"
+            :hide-loaders="
+              ['resourcepack', 'datapack'].includes(projectType.id)
+            "
           />
           <div v-if="results && results.length === 0" class="no-results">
             <p>No results found for your query!</p>

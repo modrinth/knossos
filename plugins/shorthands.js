@@ -162,7 +162,7 @@ export default (ctx, inject) => {
       } else if (isMod && isPlugin) {
         return 'mod and plugin'
       } else if (isMod && isDataPack) {
-        return 'mod and data pack'
+        return 'mod and datapack'
       }
     }
 
@@ -184,12 +184,12 @@ export default (ctx, inject) => {
         return ctx.store.state.tag.loaderData.dataPackLoaders.includes(category)
       })
 
-      if (isMod) {
-        return 'mod'
+      if (isDataPack) {
+        return 'datapack'
       } else if (isPlugin) {
         return 'plugin'
-      } else if (isDataPack) {
-        return 'datapack'
+      } else if (isMod) {
+        return 'mod'
       } else {
         return 'mod'
       }
@@ -254,8 +254,6 @@ export const formatWallet = (name) => {
 export const formatProjectType = (name) => {
   if (name === 'resourcepack') {
     return 'Resource Pack'
-  } else if (name === 'datapack') {
-    return 'Data Pack'
   }
 
   return capitalizeString(name)
@@ -286,6 +284,8 @@ export const formatCategory = (name) => {
     return 'Path Tracing'
   } else if (name === 'pbr') {
     return 'PBR'
+  } else if (name === 'datapack') {
+    return 'Data pack'
   }
 
   return capitalizeString(name)

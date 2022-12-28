@@ -864,7 +864,7 @@ export default {
         }
       }
 
-      @media screen and (max-width: 750px) {
+      @media screen and (max-width: 1024px) {
         display: none;
       }
     }
@@ -979,7 +979,7 @@ export default {
         }
       }
 
-      @media screen and (max-width: 750px) {
+      @media screen and (max-width: 1024px) {
         display: flex;
       }
 
