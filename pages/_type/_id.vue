@@ -847,10 +847,9 @@ export default {
     this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
   head() {
-    const title = `${this.project.title} - Minecraft ${
-      this.projectTypeDisplay.charAt(0).toUpperCase() +
-      this.projectTypeDisplay.slice(1)
-    }`
+    const title = `${this.project.title} - Minecraft ${this.$formatProjectType(
+      this.projectTypeDisplay
+    )}`
 
     return {
       title,
@@ -873,9 +872,11 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `${this.project.description} - Download the Minecraft ${
+          content: `${
+            this.project.description
+          } - Download the Minecraft ${this.$formatProjectType(
             this.projectTypeDisplay
-          } ${this.project.title} by ${
+          )} ${this.project.title} by ${
             this.members.find((x) => x.role === 'Owner').user.username
           } on Modrinth`,
         },

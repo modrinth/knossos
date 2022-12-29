@@ -254,6 +254,8 @@ export const formatWallet = (name) => {
 export const formatProjectType = (name) => {
   if (name === 'resourcepack') {
     return 'Resource Pack'
+  } else if (name === 'datapack') {
+    return 'Data Pack'
   }
 
   return capitalizeString(name)

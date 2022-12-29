@@ -160,7 +160,7 @@
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: x + 's',
+                  label: $formatProjectType(x),
                   href: x,
                 }
               }),
