@@ -365,7 +365,7 @@ export const createDataPackVersion = async function (
     .replace(/\W/g, '')
     .substring(0, 63)}_mr`
 
-  const iconPath = `assets/${project.slug}/pack.png`
+  const iconPath = `${project.slug}_pack.png`
 
   const fabricModJson = {
     schemaVersion: 1,
@@ -485,7 +485,7 @@ export const createDataPackVersion = async function (
     const classFile = new Uint8Array(
       await (
         await fetch(
-          'https://cdn.modrinth.com/wrapper/ModrinthWrapperRenewed.class'
+          'https://cdn.modrinth.com/wrapper/ModrinthWrapperRestiched.class'
         )
       ).arrayBuffer()
     )

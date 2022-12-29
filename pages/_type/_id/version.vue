@@ -1225,10 +1225,10 @@ export default {
           formData.append(
             'data',
             JSON.stringify({
-              file_types: this.oldFileTypes.reduce(
+              file_types: this.newFileTypes.reduce(
                 (acc, x, i) => ({
                   ...acc,
-                  [fileParts[this.replaceFile ? i + 1 : i]]: x ? x.value : null,
+                  [fileParts[i]]: x ? x.value : null,
                 }),
                 {}
               ),
@@ -1485,7 +1485,7 @@ export default {
           version_number: `${this.version.version_number}+mod`,
           changelog: this.version.changelog,
           version_type: this.version.version_type,
-          dependencies: [],
+          dependencies: this.version.dependencies,
           game_versions: this.version.game_versions,
           loaders: this.packageLoaders,
           featured: this.version.featured,
@@ -1496,7 +1496,7 @@ export default {
         this.$notify({
           group: 'main',
           title: 'Packaging Success',
-          text: 'Your data pack was successfully packaged as a mod! Make sure to test playing to check for errors.',
+          text: 'Your data pack was successfully packaged as a mod! Make sure to playtest to check for errors.',
           type: 'success',
         })
       } catch (err) {
