@@ -234,6 +234,7 @@
             "
             :has-mod-message="project.moderator_message"
             :type="project.project_type"
+            :color="project.color"
           />
         </div>
         <div v-else class="error">

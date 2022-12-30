@@ -1,5 +1,46 @@
 <template>
   <div>
+    <Modal
+      v-if="$auth.user && currentMember"
+      ref="modal_create_image"
+      header="Create gallery image"
+    >
+      <div></div>
+    </Modal>
+    <Modal
+      v-if="$auth.user && currentMember"
+      ref="modal_edit_item"
+      header="Edit gallery item"
+    >
+      <div class="modal-gallery">
+        <div class="button-group">
+          <button
+            class="iconified-button"
+            @click="$refs.modal_edit_item.hide()"
+          >
+            <CrossIcon />
+            Cancel
+          </button>
+          <button
+            class="iconified-button brand-button"
+            :disabled="!$nuxt.$loading"
+            @click="editGalleryItem"
+          >
+            <Checkbox />
+            Save changes
+          </button>
+        </div>
+      </div>
+    </Modal>
+    <ModalConfirm
+      v-if="$auth.user && currentMember"
+      ref="modal_confirm"
+      title="Are you sure you want to delete this gallery image?"
+      description="This will remove this gallery image forever (like really forever)."
+      :has-to-type="false"
+      proceed-label="Delete"
+      @proceed="deleteGalleryImage"
+    />
     <div
       v-if="expandedGalleryItem != null"
       class="expanded-image-modal"
@@ -55,14 +96,14 @@
                 <ContractIcon v-else aria-hidden="true" />
               </button>
               <button
-                v-if="gallery.length > 1"
+                v-if="project.gallery.length > 1"
                 class="previous circle-button"
                 @click="previousImage()"
               >
                 <LeftArrowIcon aria-hidden="true" />
               </button>
               <button
-                v-if="gallery.length > 1"
+                v-if="project.gallery.length > 1"
                 class="next circle-button"
                 @click="nextImage()"
               >
@@ -74,60 +115,14 @@
       </div>
     </div>
     <div v-if="currentMember" class="card buttons header-buttons">
-      <button
-        class="iconified-button"
-        :class="{
-          'brand-button':
-            newGalleryItems.length === 0 &&
-            editGalleryIndexes.length === 0 &&
-            deleteGalleryUrls.length === 0,
-        }"
-        @click="
-          newGalleryItems.push({
-            title: '',
-            description: '',
-            featured: false,
-            url: '',
-          })
-        "
-      >
+      <button class="iconified-button brand-button">
         <PlusIcon />
-        {{
-          newGalleryItems.length === 0 &&
-          editGalleryIndexes.length === 0 &&
-          deleteGalleryUrls.length === 0
-            ? 'Add an image'
-            : 'Add another image'
-        }}
-      </button>
-      <button
-        v-if="
-          newGalleryItems.length > 0 ||
-          editGalleryIndexes.length > 0 ||
-          deleteGalleryUrls.length > 0
-        "
-        class="action iconified-button"
-        @click="resetGallery"
-      >
-        <CrossIcon />
-        Cancel
-      </button>
-      <button
-        v-if="
-          newGalleryItems.length > 0 ||
-          editGalleryIndexes.length > 0 ||
-          deleteGalleryUrls.length > 0
-        "
-        class="action brand-button iconified-button"
-        @click="saveGallery"
-      >
-        <CheckIcon />
-        Save changes
+        Add an image
       </button>
     </div>
     <div class="items">
       <div
-        v-for="(item, index) in gallery"
+        v-for="(item, index) in project.gallery"
         :key="index"
         class="card gallery-item"
       >
@@ -142,22 +137,7 @@
           />
         </a>
         <div class="gallery-body">
-          <div v-if="editGalleryIndexes.includes(index)" class="gallery-info">
-            <input
-              v-model="item.title"
-              type="text"
-              placeholder="Enter the title..."
-            />
-            <div class="textarea-wrapper">
-              <textarea
-                id="body"
-                v-model="item.description"
-                placeholder="Enter the description..."
-              />
-            </div>
-            <Checkbox v-model="item.featured" label="Featured" />
-          </div>
-          <div v-else class="gallery-info">
+          <div class="gallery-info">
             <h2 v-if="item.title">{{ item.title }}</h2>
             <p v-if="item.description">{{ item.description }}</p>
           </div>
@@ -169,22 +149,11 @@
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
-              v-if="editGalleryIndexes.includes(index)"
               class="iconified-button"
               @click="
-                editGalleryIndexes.splice(editGalleryIndexes.indexOf(index), 1)
-                gallery[index] = JSON.parse(
-                  JSON.stringify(project.gallery[index])
-                )
+                editIndex = index
+                $refs.modal_edit_item.show()
               "
-            >
-              <CrossIcon />
-              Cancel
-            </button>
-            <button
-              v-else
-              class="iconified-button"
-              @click="editGalleryIndexes.push(index)"
             >
               <EditIcon />
               Edit
@@ -192,66 +161,13 @@
             <button
               class="iconified-button"
               @click="
-                deleteGalleryUrls.push(item.url)
-                gallery.splice(index, 1)
+                deleteIndex = index
+                $refs.modal_confirm.show()
               "
             >
               <TrashIcon />
               Remove
             </button>
-          </div>
-        </div>
-      </div>
-      <div
-        v-for="(item, index) in newGalleryItems"
-        :key="index + 'new'"
-        class="card gallery-item"
-      >
-        <img
-          :src="
-            newGalleryItems[index].preview
-              ? newGalleryItems[index].preview
-              : 'https://cdn.modrinth.com/placeholder-banner.svg'
-          "
-          :alt="item.title ? item.title : 'gallery-image'"
-        />
-        <div class="gallery-body">
-          <div class="gallery-info">
-            <input
-              v-model="item.title"
-              type="text"
-              placeholder="Enter the title..."
-            />
-            <div class="resizable-textarea-wrapper">
-              <textarea
-                id="body"
-                v-model="item.description"
-                placeholder="Enter the description..."
-              />
-            </div>
-            <Checkbox v-model="item.featured" label="Featured" />
-          </div>
-        </div>
-        <div class="gallery-bottom">
-          <FileInput
-            :max-size="5242880"
-            accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp"
-            prompt="Choose image or drag it here"
-            class="iconified-button"
-            @change="(files) => showPreviewImage(files, index)"
-          >
-            <UploadIcon />
-          </FileInput>
-          <div class="gallery-buttons">
-            <div class="delete-button-container">
-              <button
-                class="iconified-button"
-                @click="newGalleryItems.splice(index, 1)"
-              >
-                <TrashIcon />
-                Remove
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -267,14 +183,16 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
+// import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
 import ContractIcon from '~/assets/images/utils/contract.svg?inline'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-
-import FileInput from '~/components/ui/FileInput'
+// import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+//
+// import FileInput from '~/components/ui/FileInput'
 import Checkbox from '~/components/ui/Checkbox'
+import ModalConfirm from '~/components/ui/ModalConfirm'
+import Modal from '~/components/ui/Modal'
 
 export default {
   components: {
@@ -283,15 +201,17 @@ export default {
     Checkbox,
     EditIcon,
     TrashIcon,
-    CheckIcon,
-    FileInput,
+    // CheckIcon,
+    // FileInput,
     CrossIcon,
     RightArrowIcon,
     LeftArrowIcon,
     ExternalIcon,
     ExpandIcon,
     ContractIcon,
-    UploadIcon,
+    // UploadIcon,
+    ModalConfirm,
+    Modal,
   },
   auth: false,
   beforeRouteLeave(to, from, next) {
@@ -315,17 +235,16 @@ export default {
   },
   data() {
     return {
-      gallery: [],
-      newGalleryItems: [],
-      editGalleryIndexes: [],
-      deleteGalleryUrls: [],
       expandedGalleryItem: null,
       expandedGalleryIndex: 0,
       zoomedIn: false,
+
+      deleteIndex: -1,
+
+      editIndex: -1,
+      editTitle: '',
+      editDescription: '',
     }
-  },
-  fetch() {
-    this.gallery = JSON.parse(JSON.stringify(this.project.gallery))
   },
   head() {
     const title = `${this.project.title} - Gallery`
@@ -371,119 +290,47 @@ export default {
       }
     }
 
-    // eslint-disable-next-line nuxt/no-env-in-hooks
-    if (process.client) {
-      document.addEventListener('keydown', this._keyListener.bind(this))
-    }
+    document.addEventListener('keydown', this._keyListener.bind(this))
   },
   methods: {
-    showPreviewImage(files, index) {
-      const reader = new FileReader()
-      this.newGalleryItems[index].icon = files[0]
-
-      if (this.newGalleryItems[index].icon instanceof Blob) {
-        reader.readAsDataURL(this.newGalleryItems[index].icon)
-
-        reader.onload = (event) => {
-          this.newGalleryItems[index].preview = event.target.result
-
-          // TODO: Find an alternative for this!
-          this.$forceUpdate()
-        }
-      }
-    },
-    async saveGallery() {
-      this.$nuxt.$loading.start()
-
-      try {
-        for (const item of this.newGalleryItems) {
-          let url = `project/${this.project.id}/gallery?ext=${
-            item.icon
-              ? item.icon.type.split('/')[item.icon.type.split('/').length - 1]
-              : null
-          }&featured=${item.featured}`
-
-          if (item.title) url += `&title=${encodeURIComponent(item.title)}`
-          if (item.description)
-            url += `&description=${encodeURIComponent(item.description)}`
-
-          await this.$axios.post(url, item.icon, this.$defaultHeaders())
-        }
-
-        for (const index of this.editGalleryIndexes) {
-          const item = this.gallery[index]
-
-          let url = `project/${
-            this.project.id
-          }/gallery?url=${encodeURIComponent(item.url)}&featured=${
-            item.featured
-          }`
-
-          if (item.title) url += `&title=${encodeURIComponent(item.title)}`
-          if (item.description)
-            url += `&description=${encodeURIComponent(item.description)}`
-
-          await this.$axios.patch(url, {}, this.$defaultHeaders())
-        }
-
-        for (const url of this.deleteGalleryUrls) {
-          await this.$axios.delete(
-            `project/${this.project.id}/gallery?url=${encodeURIComponent(url)}`,
-            this.$defaultHeaders()
-          )
-        }
-
-        const project = (
-          await this.$axios.get(
-            `project/${this.project.id}`,
-            this.$defaultHeaders()
-          )
-        ).data
-        this.$emit('update:project', project)
-        this.gallery = JSON.parse(JSON.stringify(project.gallery))
-
-        this.deleteGalleryUrls = []
-        this.editGalleryIndexes = []
-        this.newGalleryItems = []
-      } catch (err) {
-        const description = err.response.data.description
-
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: description,
-          type: 'error',
-        })
-
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-
-      this.$nuxt.$loading.finish()
-    },
-    resetGallery() {
-      this.newGalleryItems = []
-      this.editGalleryIndexes = []
-      this.deleteGalleryUrls = []
-      this.gallery = JSON.parse(JSON.stringify(this.project.gallery))
-    },
     nextImage() {
       this.expandedGalleryIndex++
-      if (this.expandedGalleryIndex >= this.gallery.length) {
+      if (this.expandedGalleryIndex >= this.project.gallery.length) {
         this.expandedGalleryIndex = 0
       }
-      this.expandedGalleryItem = this.gallery[this.expandedGalleryIndex]
+      this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
     previousImage() {
       this.expandedGalleryIndex--
       if (this.expandedGalleryIndex < 0) {
-        this.expandedGalleryIndex = this.gallery.length - 1
+        this.expandedGalleryIndex = this.project.gallery.length - 1
       }
-      this.expandedGalleryItem = this.gallery[this.expandedGalleryIndex]
+      this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
     expandImage(item, index) {
       this.expandedGalleryItem = item
       this.expandedGalleryIndex = index
       this.zoomedIn = false
+    },
+    async deleteGalleryImage() {
+      await this.$axios.delete(
+        `project/${this.project.id}/gallery?url=${encodeURIComponent(
+          this.project.gallery[this.deleteIndex].url
+        )}`,
+        this.$defaultHeaders()
+      )
+
+      await this.updateProject()
+    },
+    async updateProject() {
+      const project = (
+        await this.$axios.get(
+          `project/${this.project.id}`,
+          this.$defaultHeaders()
+        )
+      ).data
+
+      this.$emit('update:project', project)
     },
   },
 }
@@ -655,15 +502,6 @@ export default {
     flex-grow: 1;
     width: calc(100% - 2 * var(--spacing-card-md));
     padding: var(--spacing-card-sm) var(--spacing-card-md);
-
-    textarea {
-      border-radius: var(--size-rounded-sm);
-    }
-
-    input {
-      width: 100%;
-      margin: 0 0 0.25rem;
-    }
 
     .gallery-info {
       h2 {

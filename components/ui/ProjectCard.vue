@@ -15,11 +15,12 @@
       class="gallery"
       tabindex="-1"
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+      :style="color ? `background-color: ${toColor};` : ''"
     >
       <img
         v-if="galleryImages.length > 0"
         :src="galleryImages[0]"
-        alt="Gallery image TODO: improve this lol"
+        alt="gallery image"
       />
     </nuxt-link>
     <div class="title">
@@ -275,10 +276,24 @@ export default {
       required: false,
       default: false,
     },
+    color: {
+      type: Number,
+      required: false,
+      default: null,
+    },
   },
   computed: {
     projectTypeDisplay() {
       return this.$getProjectTypeForDisplay(this.type, this.categories)
+    },
+    toColor() {
+      let color = JSON.parse(JSON.stringify(this.color))
+
+      color >>>= 0
+      const b = color & 0xff
+      const g = (color & 0xff00) >>> 8
+      const r = (color & 0xff0000) >>> 16
+      return 'rgba(' + [r, g, b, 1].join(',') + ')'
     },
   },
 }
@@ -338,6 +353,8 @@ export default {
     height: 10rem;
     background-color: var(--color-button-bg-active);
 
+    filter: brightness(0.7);
+
     img {
       width: 100%;
       height: 10rem;
@@ -349,6 +366,13 @@ export default {
     margin-left: var(--spacing-card-bg);
     margin-top: -3rem;
     z-index: 1;
+
+    img,
+    svg {
+      border-radius: var(--size-rounded-lg);
+      border: 0.25rem solid var(--color-raised-bg);
+      border-bottom: none;
+    }
   }
 
   .title {

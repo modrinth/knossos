@@ -383,6 +383,7 @@
             :hide-loaders="
               ['resourcepack', 'datapack'].includes(projectType.id)
             "
+            :color="result.color"
           />
           <div v-if="results && results.length === 0" class="no-results">
             <p>No results found for your query!</p>
