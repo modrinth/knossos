@@ -437,7 +437,7 @@ export const createDataPackVersion = async function (
     modLoader: newForge ? 'lowcodefml' : 'javafml',
     loaderVersion: newForge ? '[40,)' : '[25,)',
     license: project.license.id,
-    showAsResourcePack: true,
+    showAsResourcePack: false,
     mods: [
       {
         modId: newSlug,
