@@ -287,7 +287,7 @@ export default {
       return this.$getProjectTypeForDisplay(this.type, this.categories)
     },
     toColor() {
-      let color = JSON.parse(JSON.stringify(this.color))
+      let color = this.color
 
       color >>>= 0
       const b = color & 0xff

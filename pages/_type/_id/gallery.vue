@@ -2,17 +2,86 @@
   <div>
     <Modal
       v-if="$auth.user && currentMember"
-      ref="modal_create_image"
-      header="Create gallery image"
-    >
-      <div></div>
-    </Modal>
-    <Modal
-      v-if="$auth.user && currentMember"
       ref="modal_edit_item"
-      header="Edit gallery item"
+      :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
     >
-      <div class="modal-gallery">
+      <div class="modal-gallery universal-labels">
+        <div class="gallery-file-input">
+          <div class="file-header">
+            <ImageIcon />
+            <strong>{{ editFile ? editFile.name : 'Current image' }}</strong>
+            <FileInput
+              v-if="editIndex === -1"
+              class="iconified-button raised-button"
+              prompt="Replace"
+              :accept="acceptFileTypes"
+              :max-size="524288000"
+              should-always-reset
+              @change="
+                (x) => {
+                  editFile = x[0]
+                  showPreviewImage()
+                }
+              "
+            >
+              <TransferIcon />
+            </FileInput>
+          </div>
+          <img
+            :src="
+              previewImage
+                ? previewImage
+                : project.gallery[editIndex] && project.gallery[editIndex].url
+                ? project.gallery[editIndex].url
+                : 'https://cdn.modrinth.com/placeholder-banner.svg'
+            "
+            alt="gallery-preview"
+          />
+        </div>
+        <label for="gallery-image-title">
+          <span class="label__title">Title</span>
+        </label>
+        <input
+          id="gallery-image-title"
+          v-model="editTitle"
+          type="text"
+          placeholder="Enter title..."
+        />
+        <label for="gallery-image-desc">
+          <span class="label__title">Description</span>
+        </label>
+        <div class="textarea-wrapper">
+          <textarea
+            id="gallery-image-desc"
+            v-model="editDescription"
+            placeholder="Enter description..."
+          />
+        </div>
+        <label for="gallery-image-featured">
+          <span class="label__title">Featured</span>
+          <span class="label__description">
+            A featured gallery image shows up in search and your project card.
+            Only one gallery image can be featured.
+          </span>
+        </label>
+        <button
+          v-if="!editFeatured"
+          id="gallery-image-featured"
+          class="iconified-button"
+          @click="editFeatured = true"
+        >
+          <StarIcon aria-hidden="true" />
+          Feature image
+        </button>
+        <button
+          v-else
+          id="gallery-image-featured"
+          class="iconified-button"
+          @click="editFeatured = false"
+        >
+          <StarIcon fill="currentColor" aria-hidden="true" />
+          Unfeature image
+        </button>
         <div class="button-group">
           <button
             class="iconified-button"
@@ -22,11 +91,21 @@
             Cancel
           </button>
           <button
+            v-if="editIndex === -1"
+            class="iconified-button brand-button"
+            :disabled="!$nuxt.$loading"
+            @click="createGalleryItem"
+          >
+            <PlusIcon />
+            Add gallery image
+          </button>
+          <button
+            v-else
             class="iconified-button brand-button"
             :disabled="!$nuxt.$loading"
             @click="editGalleryItem"
           >
-            <Checkbox />
+            <SaveIcon />
             Save changes
           </button>
         </div>
@@ -114,11 +193,20 @@
         </div>
       </div>
     </div>
-    <div v-if="currentMember" class="card buttons header-buttons">
-      <button class="iconified-button brand-button">
-        <PlusIcon />
-        Add an image
-      </button>
+    <div v-if="currentMember" class="card header-buttons">
+      <FileInput
+        :max-size="524288000"
+        :accept="acceptFileTypes"
+        prompt="Upload an image"
+        class="brand-button iconified-button"
+        @change="handleFiles"
+      >
+        <UploadIcon />
+      </FileInput>
+      <span class="indicator">
+        <InfoIcon /> Click to choose an image or drag one onto this page
+      </span>
+      <DropArea :accept="acceptFileTypes" @change="handleFiles" />
     </div>
     <div class="items">
       <div
@@ -151,7 +239,11 @@
             <button
               class="iconified-button"
               @click="
+                resetEdit()
                 editIndex = index
+                editTitle = item.title
+                editDescription = item.description
+                editFeatured = item.featured
                 $refs.modal_edit_item.show()
               "
             >
@@ -183,14 +275,18 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
-// import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import ExternalIcon from '~/assets/images/utils/external.svg?inline'
 import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
 import ContractIcon from '~/assets/images/utils/contract.svg?inline'
-// import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-//
-// import FileInput from '~/components/ui/FileInput'
-import Checkbox from '~/components/ui/Checkbox'
+import StarIcon from '~/assets/images/utils/star.svg?inline'
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+import InfoIcon from '~/assets/images/utils/info.svg?inline'
+import ImageIcon from '~/assets/images/utils/image.svg?inline'
+import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
+
+import FileInput from '~/components/ui/FileInput'
+import DropArea from '~/components/ui/DropArea'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Modal from '~/components/ui/Modal'
 
@@ -198,27 +294,26 @@ export default {
   components: {
     CalendarIcon,
     PlusIcon,
-    Checkbox,
     EditIcon,
     TrashIcon,
-    // CheckIcon,
-    // FileInput,
+    SaveIcon,
+    StarIcon,
     CrossIcon,
     RightArrowIcon,
     LeftArrowIcon,
     ExternalIcon,
     ExpandIcon,
     ContractIcon,
-    // UploadIcon,
+    UploadIcon,
+    InfoIcon,
+    ImageIcon,
+    TransferIcon,
     ModalConfirm,
     Modal,
+    FileInput,
+    DropArea,
   },
   auth: false,
-  beforeRouteLeave(to, from, next) {
-    this.resetGallery()
-
-    next()
-  },
   props: {
     project: {
       type: Object,
@@ -244,6 +339,9 @@ export default {
       editIndex: -1,
       editTitle: '',
       editDescription: '',
+      editFeatured: false,
+      editFile: null,
+      previewImage: null,
     }
   },
   head() {
@@ -275,6 +373,11 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    acceptFileTypes() {
+      return 'image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp'
+    },
   },
   mounted() {
     this._keyListener = function (e) {
@@ -312,15 +415,110 @@ export default {
       this.expandedGalleryIndex = index
       this.zoomedIn = false
     },
-    async deleteGalleryImage() {
-      await this.$axios.delete(
-        `project/${this.project.id}/gallery?url=${encodeURIComponent(
-          this.project.gallery[this.deleteIndex].url
-        )}`,
-        this.$defaultHeaders()
-      )
+    resetEdit() {
+      this.editIndex = -1
+      this.editTitle = ''
+      this.editDescription = ''
+      this.editFeatured = ''
+      this.editFile = null
+      this.previewImage = null
+    },
+    handleFiles(files) {
+      this.resetEdit()
+      this.editFile = files[0]
 
-      await this.updateProject()
+      this.showPreviewImage()
+      this.$refs.modal_edit_item.show()
+    },
+    showPreviewImage() {
+      const reader = new FileReader()
+      if (this.editFile instanceof Blob) {
+        reader.readAsDataURL(this.editFile)
+        reader.onload = (event) => {
+          this.previewImage = event.target.result
+        }
+      }
+    },
+    async createGalleryItem() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.post(
+          `project/${this.project.id}/gallery?featured=${
+            this.editFeatured
+          }&title=${this.editTitle}&description=${this.editDescription}&ext=${
+            this.editFile
+              ? this.editFile.type.split('/')[
+                  this.editFile.type.split('/').length - 1
+                ]
+              : null
+          }`,
+          this.editFile,
+          this.$defaultHeaders()
+        )
+        await this.updateProject()
+
+        this.$refs.modal_edit_item.hide()
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response ? err.response.data.description : err,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
+    async editGalleryItem() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.project.id}/gallery?url=${encodeURIComponent(
+            this.project.gallery[this.editIndex].url
+          )}&featured=${this.editFeatured}&title=${
+            this.editTitle
+          }&description=${this.editDescription}`,
+          {},
+          this.$defaultHeaders()
+        )
+
+        await this.updateProject()
+        this.$refs.modal_edit_item.hide()
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response ? err.response.data.description : err,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
+    },
+    async deleteGalleryImage() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.delete(
+          `project/${this.project.id}/gallery?url=${encodeURIComponent(
+            this.project.gallery[this.deleteIndex].url
+          )}`,
+          this.$defaultHeaders()
+        )
+
+        await this.updateProject()
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response ? err.response.data.description : err,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
     },
     async updateProject() {
       const project = (
@@ -331,12 +529,26 @@ export default {
       ).data
 
       this.$emit('update:project', project)
+      this.resetEdit()
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .indicator {
+    display: flex;
+    gap: 0.5ch;
+    align-items: center;
+    color: var(--color-text-inactive);
+  }
+}
+
 .expanded-image-modal {
   position: fixed;
   z-index: 20;
@@ -554,8 +766,46 @@ export default {
   }
 }
 
-.header-buttons {
+.modal-gallery {
+  padding: var(--spacing-card-bg);
   display: flex;
-  justify-content: right;
+  flex-direction: column;
+
+  .gallery-file-input {
+    .file-header {
+      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--color-button-bg);
+      padding: var(--spacing-card-md);
+
+      svg {
+        min-width: 1rem;
+      }
+      strong {
+        word-wrap: anywhere;
+      }
+
+      .iconified-button {
+        margin-left: auto;
+      }
+    }
+
+    img {
+      border-radius: 0 0 var(--size-rounded-card) var(--size-rounded-card);
+      width: 100%;
+      height: auto;
+      max-height: 15rem;
+      object-fit: contain;
+      background-color: #000000;
+    }
+  }
+
+  .button-group {
+    margin-left: auto;
+    margin-top: 1.5rem;
+  }
 }
 </style>
