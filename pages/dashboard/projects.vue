@@ -266,7 +266,7 @@
           <div>
             <span class="project-title">
               <IssuesIcon
-                v-if="true"
+                v-if="project.moderator_message"
                 v-tooltip="
                   'Project has a message from the moderators. View the project to see more.'
                 "
