@@ -45,6 +45,7 @@
           id="gallery-image-title"
           v-model="editTitle"
           type="text"
+          maxlength="64"
           placeholder="Enter title..."
         />
         <label for="gallery-image-desc">
@@ -54,9 +55,19 @@
           <textarea
             id="gallery-image-desc"
             v-model="editDescription"
+            maxlength="255"
             placeholder="Enter description..."
           />
         </div>
+        <label for="gallery-image-ordering">
+          <span class="label__title">Order Index</span>
+        </label>
+        <input
+          id="gallery-image-ordering"
+          v-model="editOrder"
+          type="number"
+          placeholder="Enter order index..."
+        />
         <label for="gallery-image-featured">
           <span class="label__title">Featured</span>
           <span class="label__description">
@@ -206,7 +217,14 @@
       <span class="indicator">
         <InfoIcon /> Click to choose an image or drag one onto this page
       </span>
-      <DropArea :accept="acceptFileTypes" @change="handleFiles" />
+      <DropArea
+        v-if="
+          !expandedGalleryItem &&
+          !($refs.modal_edit_item && $refs.modal_edit_item.shown)
+        "
+        :accept="acceptFileTypes"
+        @change="handleFiles"
+      />
     </div>
     <div class="items">
       <div
@@ -340,6 +358,7 @@ export default {
       editTitle: '',
       editDescription: '',
       editFeatured: false,
+      editOrder: null,
       editFile: null,
       previewImage: null,
     }
@@ -419,7 +438,8 @@ export default {
       this.editIndex = -1
       this.editTitle = ''
       this.editDescription = ''
-      this.editFeatured = ''
+      this.editFeatured = false
+      this.editOrder = null
       this.editFile = null
       this.previewImage = null
     },
@@ -443,19 +463,19 @@ export default {
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.post(
-          `project/${this.project.id}/gallery?featured=${
-            this.editFeatured
-          }&title=${this.editTitle}&description=${this.editDescription}&ext=${
-            this.editFile
-              ? this.editFile.type.split('/')[
-                  this.editFile.type.split('/').length - 1
-                ]
-              : null
-          }`,
-          this.editFile,
-          this.$defaultHeaders()
-        )
+        let url = `project/${this.project.id}/gallery?ext=${
+          this.editFile
+            ? this.editFile.type.split('/')[
+                this.editFile.type.split('/').length - 1
+              ]
+            : null
+        }&featured=${this.editFeatured}`
+
+        if (this.editTitle) url += `&title=${this.editTitle}`
+        if (this.editDescription) url += `&description=${this.editDescription}`
+        if (this.editOrder) url += `&order=${this.editOrder}`
+
+        await this.$axios.post(url, this.editFile, this.$defaultHeaders())
         await this.updateProject()
 
         this.$refs.modal_edit_item.hide()
@@ -474,15 +494,15 @@ export default {
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.patch(
-          `project/${this.project.id}/gallery?url=${encodeURIComponent(
-            this.project.gallery[this.editIndex].url
-          )}&featured=${this.editFeatured}&title=${
-            this.editTitle
-          }&description=${this.editDescription}`,
-          {},
-          this.$defaultHeaders()
-        )
+        let url = `project/${this.project.id}/gallery?url=${encodeURIComponent(
+          this.project.gallery[this.editIndex].url
+        )}&featured=${this.editFeatured}`
+
+        if (this.editTitle) url += `&title=${this.editTitle}`
+        if (this.editDescription) url += `&description=${this.editDescription}`
+        if (this.editOrder) url += `&order=${this.editOrder}`
+
+        await this.$axios.patch(url, {}, this.$defaultHeaders())
 
         await this.updateProject()
         this.$refs.modal_edit_item.hide()
