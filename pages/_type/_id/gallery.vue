@@ -467,7 +467,7 @@ export default {
 
         if (this.editTitle) url += `&title=${this.editTitle}`
         if (this.editDescription) url += `&description=${this.editDescription}`
-        if (this.editOrder) url += `&order=${this.editOrder}`
+        if (this.editOrder) url += `&ordering=${this.editOrder}`
 
         await this.$axios.post(url, this.editFile, this.$defaultHeaders())
         await this.updateProject()
@@ -494,7 +494,7 @@ export default {
 
         if (this.editTitle) url += `&title=${this.editTitle}`
         if (this.editDescription) url += `&description=${this.editDescription}`
-        if (this.editOrder) url += `&order=${this.editOrder}`
+        if (this.editOrder) url += `&ordering=${this.editOrder}`
 
         await this.$axios.patch(url, {}, this.$defaultHeaders())
 
@@ -535,14 +535,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
     async updateProject() {
-      const project = (
-        await this.$axios.get(
-          `project/${this.project.id}`,
-          this.$defaultHeaders()
-        )
-      ).data
-
-      this.$emit('update:project', project)
+      await this.$parent.resetProject()
       this.resetEdit()
     },
   },

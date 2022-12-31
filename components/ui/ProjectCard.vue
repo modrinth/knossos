@@ -100,6 +100,14 @@
           <ServerIcon aria-hidden="true" />
           Server
         </template>
+        <template
+          v-else-if="
+            serverSide === 'unsupported' && clientSide === 'unsupported'
+          "
+        >
+          <GlobeIcon aria-hidden="true" />
+          Unsupported
+        </template>
         <template v-else-if="moderation">
           <InfoIcon aria-hidden="true" />
           A {{ projectTypeDisplay }}
@@ -356,6 +364,7 @@ export default {
     filter: brightness(0.7);
 
     img {
+      box-shadow: none;
       width: 100%;
       height: 10rem;
       object-fit: cover;

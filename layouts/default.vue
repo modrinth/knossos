@@ -508,9 +508,9 @@ export default {
       }
     },
   },
-  beforeCreate() {
+  async beforeCreate() {
     if (this.$route.query.code) {
-      this.$router.push(this.$route.path)
+      await this.$router.push(this.$route.path)
     }
   },
   created() {

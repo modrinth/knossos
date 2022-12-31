@@ -967,6 +967,11 @@ export default {
         white-space: nowrap;
       }
     }
+
+    .square-button {
+      margin-top: auto;
+      margin-bottom: 0.25rem;
+    }
   }
 }
 
