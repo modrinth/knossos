@@ -5,9 +5,7 @@
         <h2 class="header__title">Edit project</h2>
         <div class="input-group">
           <nuxt-link
-            :to="`/${project.project_type}/${
-              project.slug ? project.slug : project.id
-            }/settings`"
+            :to="`/${project.project_type}/${project.slug}/settings`"
             class="iconified-button column"
           >
             <CrossIcon />

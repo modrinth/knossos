@@ -187,7 +187,7 @@
         </div>
       </div>
       <p>You can edit multiple projects at once by selecting them below.</p>
-      <div class="button-group">
+      <div class="input-group">
         <button
           class="iconified-button"
           :disabled="selectedProjects.length === 0"
@@ -196,7 +196,7 @@
           <EditIcon />
           Edit links
         </button>
-        <div class="align-row-right">
+        <div class="push-right">
           <div class="labeled-control-row">
             Sort By
             <Multiselect
@@ -212,114 +212,101 @@
           </div>
         </div>
       </div>
-      <br />
-      <div class="table-container">
-        <table class="project-table">
-          <tr>
-            <th>
-              <Checkbox
-                :value="selectedProjects === projects"
-                @input="
-                  selectedProjects === projects
-                    ? (selectedProjects = [])
-                    : (selectedProjects = projects)
-                "
+      <div class="grid-table">
+        <div class="grid-table__row grid-table__header">
+          <div>
+            <Checkbox
+              :value="selectedProjects === projects"
+              @input="
+                selectedProjects === projects
+                  ? (selectedProjects = [])
+                  : (selectedProjects = projects)
+              "
+            />
+          </div>
+          <div>Icon</div>
+          <div>Name</div>
+          <div>ID</div>
+          <div>Type</div>
+          <div>Status</div>
+          <div></div>
+        </div>
+        <div
+          v-for="project in projects"
+          :key="`project-${project.id}`"
+          class="grid-table__row"
+        >
+          <div>
+            <Checkbox
+              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+              :value="selectedProjects.includes(project)"
+              @input="
+                selectedProjects.includes(project)
+                  ? (selectedProjects = selectedProjects.filter(
+                      (it) => it !== project
+                    ))
+                  : selectedProjects.push(project)
+              "
+            />
+          </div>
+          <div>
+            <nuxt-link
+              tabindex="-1"
+              :to="`/${project.project_type}/${project.slug}`"
+            >
+              <Avatar
+                :src="project.icon_url"
+                aria-hidden="true"
+                :alt="'Icon for ' + project.title"
+                no-shadow
               />
-            </th>
-            <th class="avatar-column">Icon</th>
-            <th class="single">Name</th>
-            <th class="single">ID</th>
-            <th class="combined-two wrap-as-needed">
-              Name/
-              <wbr />
-              ID
-            </th>
-            <th class="single">Type</th>
-            <th class="single">Status</th>
-            <th class="combined-two wrap-as-needed">
-              Type/
-              <wbr />
-              Status
-            </th>
-            <th class="combined-four wrap-as-needed">Info</th>
-            <th><!-- Settings Button Column --></th>
-          </tr>
-          <tr v-for="project in projects" :key="project.id" class="actual-row">
-            <td>
-              <Checkbox
-                :disabled="
-                  (project.permissions & EDIT_DETAILS) === EDIT_DETAILS
+            </nuxt-link>
+          </div>
+
+          <div>
+            <span class="project-title">
+              <IssuesIcon
+                v-if="true"
+                v-tooltip="
+                  'Project has a message from the moderators. View the project to see more.'
                 "
-                :value="selectedProjects.includes(project)"
-                @input="
-                  selectedProjects.includes(project)
-                    ? (selectedProjects = selectedProjects.filter(
-                        (it) => it !== project
-                      ))
-                    : selectedProjects.push(project)
-                "
+                aria-label="Project has a message from the moderators. View the project to see more."
               />
-            </td>
-            <td class="avatar-column">
+
               <nuxt-link
-                tabindex="-1"
+                class="hover-link wrap-as-needed"
                 :to="`/${project.project_type}/${project.slug}`"
               >
-                <Avatar
-                  :src="project.icon_url"
-                  aria-hidden="true"
-                  :alt="'Icon for ' + project.title"
-                  no-shadow
-                />
+                {{ project.title }}
               </nuxt-link>
-            </td>
-            <div class="all-group">
-              <div class="mobile-group">
-                <td>
-                  <span class="project-title">
-                    <IssuesIcon
-                      v-if="project.moderator_message"
-                      v-tooltip="
-                        'Project has a message from the moderators. View the project to see more.'
-                      "
-                      aria-label="Project has a message from the moderators. View the project to see more."
-                    />
+            </span>
+          </div>
 
-                    <nuxt-link
-                      class="hover-link wrap-as-needed"
-                      :to="`/${project.project_type}/${project.slug}`"
-                    >
-                      {{ project.title }}
-                    </nuxt-link>
-                  </span>
-                </td>
-                <td>
-                  <CopyCode :text="project.id" />
-                </td>
-              </div>
-              <div class="mobile-group">
-                <td>
-                  {{ $formatProjectType(project.project_type) }}
-                </td>
-                <td>
-                  <Badge
-                    v-if="project.status"
-                    :type="project.status"
-                    class="status"
-                  />
-                </td>
-              </div>
-            </div>
-            <td>
-              <nuxt-link
-                class="square-button"
-                :to="`/${project.project_type}/${project.id}/settings`"
-              >
-                <SettingsIcon />
-              </nuxt-link>
-            </td>
-          </tr>
-        </table>
+          <div>
+            <CopyCode :text="project.id" />
+          </div>
+
+          <div>
+            {{ $formatProjectType(project.project_type) }}
+          </div>
+
+          <div>
+            <Badge
+              v-if="project.status"
+              :type="project.status"
+              class="status"
+            />
+          </div>
+
+          <div>
+            <nuxt-link
+              class="square-button"
+              :to="`/${project.project_type}/${project.slug}/settings`"
+            >
+              <SettingsIcon />
+            </nuxt-link>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -529,12 +516,138 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.hover-link:hover {
-  text-decoration: underline;
+.grid-table {
+  display: grid;
+  grid-template-columns:
+    min-content min-content minmax(min-content, 2fr)
+    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
+  border-radius: var(--size-rounded-sm);
+  overflow: hidden;
+  margin-top: var(--spacing-card-md);
+
+  .grid-table__row {
+    display: contents;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--spacing-card-sm);
+
+      // Left edge of table
+      &:first-child {
+        padding-left: var(--spacing-card-bg);
+      }
+
+      // Right edge of table
+      &:last-child {
+        padding-right: var(--spacing-card-bg);
+      }
+    }
+
+    &:nth-child(2n + 1) > div {
+      background-color: var(--color-table-alternate-row);
+    }
+
+    &.grid-table__header > div {
+      background-color: var(--color-bg);
+      font-weight: bold;
+      color: var(--color-text-dark);
+      padding-top: var(--spacing-card-bg);
+      padding-bottom: var(--spacing-card-bg);
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
+
+    .grid-table__row {
+      display: grid;
+      grid-template: 'checkbox icon name type settings' 'checkbox icon id status settings';
+      grid-template-columns:
+        min-content min-content minmax(min-content, 2fr)
+        minmax(min-content, 1fr) min-content;
+
+      :nth-child(1) {
+        grid-area: checkbox;
+      }
+
+      :nth-child(2) {
+        grid-area: icon;
+      }
+
+      :nth-child(3) {
+        grid-area: name;
+      }
+
+      :nth-child(4) {
+        grid-area: id;
+        padding-top: 0;
+      }
+
+      :nth-child(5) {
+        grid-area: type;
+      }
+
+      :nth-child(6) {
+        grid-area: status;
+        padding-top: 0;
+      }
+
+      :nth-child(7) {
+        grid-area: settings;
+      }
+    }
+
+    .grid-table__header {
+      grid-template: 'checkbox settings';
+      grid-template-columns: min-content minmax(min-content, 1fr);
+
+      :nth-child(2),
+      :nth-child(3),
+      :nth-child(4),
+      :nth-child(5),
+      :nth-child(6) {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 560px) {
+    .grid-table__row {
+      display: grid;
+      grid-template: 'checkbox icon name settings' 'checkbox icon id settings' 'checkbox icon type settings' 'checkbox icon status settings';
+      grid-template-columns: min-content min-content minmax(min-content, 1fr) min-content;
+
+      :nth-child(5) {
+        padding-top: 0;
+      }
+    }
+
+    .grid-table__header {
+      grid-template: 'checkbox settings';
+      grid-template-columns: min-content minmax(min-content, 1fr);
+    }
+  }
+}
+
+.project-title {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-xs);
+
+  svg {
+    color: var(--color-special-orange);
+  }
 }
 
 .status {
   margin-top: var(--spacing-card-xs);
+}
+
+.hover-link:hover {
+  text-decoration: underline;
 }
 
 .labeled-control-row {
@@ -547,162 +660,9 @@ export default {
   gap: var(--spacing-card-md);
 }
 
-.align-row-right {
-  margin-left: auto;
-  margin-right: 0;
-}
-
 .small-select {
   width: -moz-fit-content;
   width: fit-content;
-}
-
-.project-table {
-  display: grid;
-  grid-template-columns:
-    min-content min-content minmax(min-content, 2fr)
-    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
-
-  thead,
-  tbody,
-  tr {
-    display: contents;
-  }
-
-  tr.actual-row > *:not(.mobile-group, .all-group, .avatar-column),
-  tr.actual-row > .all-group > .mobile-group > * {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .all-group,
-  .mobile-group {
-    display: contents;
-  }
-
-  .combined-two,
-  .combined-four {
-    display: none;
-  }
-
-  .project-title {
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-card-xs);
-
-    svg {
-      color: var(--color-special-orange);
-    }
-  }
-
-  @media screen and (max-width: 750px) {
-    grid-template-columns:
-      min-content min-content minmax(min-content, 2fr)
-      minmax(min-content, 1fr) min-content;
-
-    tr:first-child {
-      th:nth-child(4),
-      th:nth-child(6) {
-        display: none;
-      }
-    }
-
-    .mobile-group {
-      display: flex;
-      flex-direction: column;
-
-      :not(:first-child) {
-        padding-top: 0;
-      }
-    }
-
-    .single {
-      display: none;
-    }
-
-    .combined-two {
-      display: flex;
-    }
-
-    tr:first-child > :nth-child(4) {
-      border-top-right-radius: var(--size-rounded-sm);
-    }
-
-    tr:last-child > :nth-child(4) {
-      border-bottom-right-radius: var(--size-rounded-sm);
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    grid-template-columns: min-content min-content minmax(min-content, 1fr) min-content;
-
-    .combined-two {
-      display: none;
-    }
-
-    .combined-four {
-      display: flex;
-    }
-
-    .all-group {
-      display: flex;
-      flex-direction: column;
-
-      :not(:first-child) td {
-        padding-top: 0;
-      }
-    }
-  }
-}
-
-tr.actual-row:nth-child(odd) > *,
-tr.actual-row:nth-child(odd) > .all-group > .mobile-group > * {
-  background-color: var(--color-table-alternate-row);
-}
-
-th {
-  background-color: var(--color-bg);
-  color: var(--color-text-dark);
-}
-
-tr:first-child > :first-child {
-  border-top-left-radius: var(--size-rounded-sm);
-}
-
-tr:first-child > :last-child {
-  border-top-right-radius: var(--size-rounded-sm);
-}
-
-tr:last-child > :first-child {
-  border-bottom-left-radius: var(--size-rounded-sm);
-}
-
-tr:last-child > :last-child {
-  border-bottom-right-radius: var(--size-rounded-sm);
-}
-
-th {
-  display: flex;
-  align-items: center;
-  padding: var(--spacing-card-sm);
-  text-align: left;
-}
-
-td {
-  padding: var(--spacing-card-sm);
-}
-
-tr > :first-child {
-  padding-left: var(--spacing-card-bg);
-}
-
-tr > :last-child {
-  padding-right: var(--spacing-card-bg);
-}
-
-tr:first-child > * {
-  padding-block: var(--spacing-card-bg);
 }
 
 .label-button[data-active='true'] {
