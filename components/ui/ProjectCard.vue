@@ -17,11 +17,7 @@
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
       :style="color ? `background-color: ${toColor};` : ''"
     >
-      <img
-        v-if="galleryImages.length > 0"
-        :src="galleryImages[0]"
-        alt="gallery image"
-      />
+      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" />
     </nuxt-link>
     <div class="title">
       <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
@@ -267,12 +263,10 @@ export default {
       required: false,
       default: false,
     },
-    galleryImages: {
-      type: Array,
+    featuredImage: {
+      type: String,
       required: false,
-      default() {
-        return []
-      },
+      default: null,
     },
     showUpdatedDate: {
       type: Boolean,

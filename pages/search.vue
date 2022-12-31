@@ -365,7 +365,11 @@
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
             :display="$cosmetics.searchDisplayMode[projectType.id]"
-            :gallery-images="result.gallery"
+            :gallery-images="
+              result.featured_gallery
+                ? result.featured_gallery
+                : result.gallery[0]
+            "
             :type="result.project_type"
             :author="result.author"
             :name="result.title"

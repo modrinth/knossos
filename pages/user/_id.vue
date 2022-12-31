@@ -213,7 +213,7 @@
               project.gallery
                 .slice()
                 .sort((a, b) => b.featured - a.featured)
-                .map((x) => x.url)
+                .map((x) => x.url)[0]
             "
             :description="project.description"
             :created-at="project.published"
