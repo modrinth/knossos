@@ -262,6 +262,7 @@
                 editTitle = item.title
                 editDescription = item.description
                 editFeatured = item.featured
+                editOrder = item.ordering
                 $refs.modal_edit_item.show()
               "
             >

@@ -619,10 +619,6 @@ export default {
       margin-left: auto;
       margin-right: auto;
 
-      @media screen and (max-width: 750px) {
-        justify-content: center;
-      }
-
       section.logo {
         display: flex;
         justify-content: space-between;
@@ -1082,7 +1078,7 @@ export default {
     &.active {
       display: flex;
 
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: 1024px) {
         display: none;
       }
     }
