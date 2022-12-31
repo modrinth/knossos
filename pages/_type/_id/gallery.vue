@@ -217,14 +217,7 @@
       <span class="indicator">
         <InfoIcon /> Click to choose an image or drag one onto this page
       </span>
-      <DropArea
-        v-if="
-          !expandedGalleryItem &&
-          !($refs.modal_edit_item && $refs.modal_edit_item.shown)
-        "
-        :accept="acceptFileTypes"
-        @change="handleFiles"
-      />
+      <DropArea :accept="acceptFileTypes" @change="handleFiles" />
     </div>
     <div class="items">
       <div
