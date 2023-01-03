@@ -45,7 +45,7 @@
       Information we hold about you and if you want it to be removed from our
       systems, please contact us by email at
       <a href="mailto:gdpr@modrinth.com" rel="noopener noreferrer nofollow">
-        gdpr@modrinth.com </a
+        gdpr@modrinth.com</a
       >.
     </p>
 
