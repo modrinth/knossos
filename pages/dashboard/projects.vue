@@ -186,128 +186,135 @@
           </button>
         </div>
       </div>
-      <p>You can edit multiple projects at once by selecting them below.</p>
-      <div class="input-group">
-        <button
-          class="iconified-button"
-          :disabled="selectedProjects.length === 0"
-          @click="$refs.editLinksModal.show()"
-        >
-          <EditIcon />
-          Edit links
-        </button>
-        <div class="push-right">
-          <div class="labeled-control-row">
-            Sort By
-            <Multiselect
-              v-model="sortBy"
-              :searchable="false"
-              class="small-select"
-              :options="['Name', 'Status', 'Type']"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="updateSort()"
-            ></Multiselect>
+      <p v-if="projects.length < 1">
+        You don't have any projects yet. Click the green button above to begin.
+      </p>
+      <template v-else>
+        <p>You can edit multiple projects at once by selecting them below.</p>
+        <div class="input-group">
+          <button
+            class="iconified-button"
+            :disabled="selectedProjects.length === 0"
+            @click="$refs.editLinksModal.show()"
+          >
+            <EditIcon />
+            Edit links
+          </button>
+          <div class="push-right">
+            <div class="labeled-control-row">
+              Sort By
+              <Multiselect
+                v-model="sortBy"
+                :searchable="false"
+                class="small-select"
+                :options="['Name', 'Status', 'Type']"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @input="updateSort()"
+              ></Multiselect>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="grid-table">
-        <div class="grid-table__row grid-table__header">
-          <div>
-            <Checkbox
-              :value="selectedProjects === projects"
-              @input="
-                selectedProjects === projects
-                  ? (selectedProjects = [])
-                  : (selectedProjects = projects)
-              "
-            />
-          </div>
-          <div>Icon</div>
-          <div>Name</div>
-          <div>ID</div>
-          <div>Type</div>
-          <div>Status</div>
-          <div></div>
-        </div>
-        <div
-          v-for="project in projects"
-          :key="`project-${project.id}`"
-          class="grid-table__row"
-        >
-          <div>
-            <Checkbox
-              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-              :value="selectedProjects.includes(project)"
-              @input="
-                selectedProjects.includes(project)
-                  ? (selectedProjects = selectedProjects.filter(
-                      (it) => it !== project
-                    ))
-                  : selectedProjects.push(project)
-              "
-            />
-          </div>
-          <div>
-            <nuxt-link
-              tabindex="-1"
-              :to="`/${project.project_type}/${project.slug}`"
-            >
-              <Avatar
-                :src="project.icon_url"
-                aria-hidden="true"
-                :alt="'Icon for ' + project.title"
-                no-shadow
-              />
-            </nuxt-link>
-          </div>
-
-          <div>
-            <span class="project-title">
-              <IssuesIcon
-                v-if="project.moderator_message"
-                v-tooltip="
-                  'Project has a message from the moderators. View the project to see more.'
+        <div class="grid-table">
+          <div class="grid-table__row grid-table__header">
+            <div>
+              <Checkbox
+                :value="selectedProjects === projects"
+                @input="
+                  selectedProjects === projects
+                    ? (selectedProjects = [])
+                    : (selectedProjects = projects)
                 "
-                aria-label="Project has a message from the moderators. View the project to see more."
               />
-
+            </div>
+            <div>Icon</div>
+            <div>Name</div>
+            <div>ID</div>
+            <div>Type</div>
+            <div>Status</div>
+            <div></div>
+          </div>
+          <div
+            v-for="project in projects"
+            :key="`project-${project.id}`"
+            class="grid-table__row"
+          >
+            <div>
+              <Checkbox
+                :disabled="
+                  (project.permissions & EDIT_DETAILS) === EDIT_DETAILS
+                "
+                :value="selectedProjects.includes(project)"
+                @input="
+                  selectedProjects.includes(project)
+                    ? (selectedProjects = selectedProjects.filter(
+                        (it) => it !== project
+                      ))
+                    : selectedProjects.push(project)
+                "
+              />
+            </div>
+            <div>
               <nuxt-link
-                class="hover-link wrap-as-needed"
+                tabindex="-1"
                 :to="`/${project.project_type}/${project.slug}`"
               >
-                {{ project.title }}
+                <Avatar
+                  :src="project.icon_url"
+                  aria-hidden="true"
+                  :alt="'Icon for ' + project.title"
+                  no-shadow
+                />
               </nuxt-link>
-            </span>
-          </div>
+            </div>
 
-          <div>
-            <CopyCode :text="project.id" />
-          </div>
+            <div>
+              <span class="project-title">
+                <IssuesIcon
+                  v-if="project.moderator_message"
+                  v-tooltip="
+                    'Project has a message from the moderators. View the project to see more.'
+                  "
+                  aria-label="Project has a message from the moderators. View the project to see more."
+                />
 
-          <div>
-            {{ $formatProjectType(project.project_type) }}
-          </div>
+                <nuxt-link
+                  class="hover-link wrap-as-needed"
+                  :to="`/${project.project_type}/${project.slug}`"
+                >
+                  {{ project.title }}
+                </nuxt-link>
+              </span>
+            </div>
 
-          <div>
-            <Badge
-              v-if="project.status"
-              :type="project.status"
-              class="status"
-            />
-          </div>
+            <div>
+              <CopyCode :text="project.id" />
+            </div>
 
-          <div>
-            <nuxt-link
-              class="square-button"
-              :to="`/${project.project_type}/${project.slug}/settings`"
-            >
-              <SettingsIcon />
-            </nuxt-link>
+            <div>
+              {{ $formatProjectType(project.project_type) }}
+            </div>
+
+            <div>
+              <Badge
+                v-if="project.status"
+                :type="project.status"
+                class="status"
+              />
+            </div>
+
+            <div>
+              <nuxt-link
+                class="square-button"
+                :to="`/${project.project_type}/${project.slug}/settings`"
+              >
+                <SettingsIcon />
+              </nuxt-link>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </section>
   </div>
 </template>
@@ -463,7 +470,7 @@ export default {
           }
         })
     },
-    bulkEditLinks() {
+    async bulkEditLinks() {
       try {
         const baseData = {
           issues_url:
@@ -487,13 +494,13 @@ export default {
               : null,
         }
 
-        this.selectedProjects.forEach(async (project) => {
+        for (const project of this.selectedProjects) {
           await this.$axios.patch(
             `project/${project.id}`,
             baseData,
             this.$defaultHeaders()
           )
-        })
+        }
 
         this.$refs.editLinksModal.hide()
         this.$notify({
@@ -653,7 +660,6 @@ export default {
 .labeled-control-row {
   flex: 1;
   display: flex;
-  font-size: var(--font-size-sm);
   flex-direction: row;
   min-width: 0;
   align-items: center;

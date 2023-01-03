@@ -169,11 +169,16 @@
 
       // Same styling as h3
       color: var(--color-text-dark);
-      font-size: 1.17em;
+      font-size: 1.17rem;
       font-weight: bold;
 
       .required {
         color: var(--color-special-red);
+      }
+
+      &.size-card-header {
+        font-size: var(--font-size-xl);
+        margin-bottom: 1rem;
       }
     }
 
@@ -185,6 +190,10 @@
         display: block;
         margin-block-start: var(--spacing-card-md);
       }
+    }
+
+    :where(h1, h2, h3, h4) {
+      margin-block: 0;
     }
   }
 }
@@ -244,7 +253,7 @@
     width: 15rem;
   }
 
-  > :where(input + *, .input-group + *) {
+  > :where(input + *, .input-group + *, .textarea-wrapper + *, .chips + *, .resizable-textarea-wrapper + *, .input-div + *) {
     margin-block-start: var(--spacing-card-md);
   }
 
@@ -253,7 +262,6 @@
   }
 
   .input-group {
-    .multiselect,
     input {
       width: auto;
       flex-basis: 0;
@@ -352,6 +360,12 @@
       margin-bottom: var(--spacing-card-md);
     }
   }
+
+  > .label:first-child :where(> :first-child, .label__title),
+  > label:first-child :where(> :first-child, .label__title),
+  > .adjacent-input:first-child :where(> :first-child, .label__title) {
+    margin-block-start: 0;
+  }
 }
 
 .universal-card {
@@ -383,6 +397,19 @@
       align-items: start;
     }
   }
+}
+
+.navigation-card {
+  @extend .base-card;
+  @extend .padding-inline-lg;
+  @extend .padding-block-md;
+
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+  padding-right: var(--spacing-card-bg);
 }
 
 /*
@@ -737,7 +764,7 @@
 
 .button-animation {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+  transform 0.05s ease-in-out, outline 0.2s ease-in-out;
 
   &:active:not(&:disabled) {
     transform: scale(0.95);
@@ -808,7 +835,7 @@ tr.button-transparent {
 
 .button-within {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+  transform 0.05s ease-in-out, outline 0.2s ease-in-out;
 
   &:focus-visible:not(&.disabled),
   &:hover:not(&.disabled) {
@@ -1467,6 +1494,20 @@ button {
     :not(:first-child) {
       flex-shrink: 1;
     }
+  }
+}
+
+.input-stack {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    margin-bottom: var(--spacing-card-sm);
+  }
+
+  > .multiselect {
+    width: unset;
+    height: inherit;
   }
 }
 

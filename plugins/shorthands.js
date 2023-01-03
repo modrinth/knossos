@@ -115,6 +115,26 @@ export default (ctx, inject) => {
     }
   })
   inject('cycleValue', cycleValue)
+  const sortedCategories = ctx.store.state.tag.categories
+    .slice()
+    .sort((a, b) => {
+      const headerCompare = a.header.localeCompare(b.header)
+      if (headerCompare !== 0) {
+        return headerCompare
+      }
+      if (a.header === 'resolutions' && b.header === 'resolutions') {
+        return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
+      } else if (
+        a.header === 'performance impact' &&
+        b.header === 'performance impact'
+      ) {
+        const x = ['potato', 'low', 'medium', 'high', 'screenshot']
+
+        return x.indexOf(a.name) - x.indexOf(b.name)
+      }
+      return 0
+    })
+  inject('sortedCategories', sortedCategories)
 }
 
 export const formatNumber = (number) => {
@@ -205,6 +225,10 @@ export const formatCategory = (name) => {
     return 'PBR'
   } else if (name === 'datapack') {
     return 'Data Pack'
+  } else if (name === 'colored-lighting') {
+    return 'Colored Lighting'
+  } else if (name === 'optifine') {
+    return 'OptiFine'
   }
 
   return capitalizeString(name)

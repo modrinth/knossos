@@ -1,5 +1,80 @@
 <template>
-  <div>
+  <div v-if="isSettings" class="normal-page">
+    <div class="normal-page__sidebar">
+      <aside class="universal-card">
+        <div class="settings-header">
+          <Avatar
+            :src="project.icon_url"
+            :alt="project.title"
+            size="sm"
+            class="settings-header__icon"
+          />
+          <div class="settings-header__text">
+            <h1 class="wrap-as-needed">{{ project.title }}</h1>
+            <nuxt-link
+              :to="`/${project.project_type}/${project.slug}/`"
+              class="goto-link"
+            >
+              Visit project page <ChevronRightIcon aria-hidden="true" />
+            </nuxt-link>
+          </div>
+        </div>
+        <h2>Project settings</h2>
+        <NavStack>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/settings`"
+            label="General"
+          >
+            <SettingsIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/settings/tags`"
+            label="Tags"
+          >
+            <CategoriesIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/settings/description`"
+            label="Description"
+          >
+            <DescriptionIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/settings/license`"
+            label="License"
+          >
+            <LicenseIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/settings/links`"
+            label="Links"
+          >
+            <LinksIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/settings/members`"
+            label="Members"
+          >
+            <UsersIcon />
+          </NavStackItem>
+        </NavStack>
+      </aside>
+    </div>
+    <div class="normal-page__content">
+      <NuxtChild
+        :project.sync="project"
+        :versions.sync="versions"
+        :featured-versions.sync="featuredVersions"
+        :members.sync="members"
+        :current-member="currentMember"
+        :all-members.sync="allMembers"
+        :dependencies.sync="dependencies"
+        :patch-project="patchProject"
+        :patch-icon="patchIcon"
+      />
+    </div>
+  </div>
+  <div v-else>
     <Modal
       ref="modal_license"
       :header="project.license.name ? project.license.name : 'License'"
@@ -618,45 +693,47 @@
           type="banner"
           small-screen="square"
         />
-        <NavRow
-          :links="[
-            {
-              label: 'Description',
-              href: `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }`,
-            },
-            {
-              label: 'Gallery',
-              href: `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/gallery`,
-              shown: project.gallery.length > 0 || !!currentMember,
-            },
-            {
-              label: 'Changelog',
-              href: `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/changelog`,
-              shown: project.versions.length > 0,
-            },
-            {
-              label: 'Versions',
-              href: `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`,
-              shown: project.versions.length > 0 || !!currentMember,
-            },
-            {
-              label: 'Settings',
-              href: `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`,
-              shown: !!currentMember,
-            },
-          ]"
-          class="card"
-        />
+        <div class="navigation-card">
+          <NavRow
+            :links="[
+              {
+                label: 'Description',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }`,
+              },
+              {
+                label: 'Gallery',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/gallery`,
+                shown: project.gallery.length > 0 || !!currentMember,
+              },
+              {
+                label: 'Changelog',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/changelog`,
+                shown: project.versions.length > 0,
+              },
+              {
+                label: 'Versions',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/versions`,
+                shown: project.versions.length > 0 || !!currentMember,
+              },
+            ]"
+          />
+          <div class="input-group">
+            <nuxt-link
+              :to="`/${project.project_type}/${project.slug}/settings`"
+              class="iconified-button"
+            >
+              <SettingsIcon /> Settings
+            </nuxt-link>
+          </div>
+        </div>
         <NuxtChild
           :project.sync="project"
           :versions.sync="versions"
@@ -699,6 +776,14 @@ import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
+import NavStack from '~/components/ui/NavStack'
+import NavStackItem from '~/components/ui/NavStackItem'
+import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import UsersIcon from '~/assets/images/utils/users.svg?inline'
+import CategoriesIcon from '~/assets/images/utils/tags.svg?inline'
+import DescriptionIcon from '~/assets/images/utils/align-left.svg?inline'
+import LinksIcon from '~/assets/images/utils/link.svg?inline'
+import LicenseIcon from '~/assets/images/utils/copyright.svg?inline'
 
 export default {
   components: {
@@ -729,6 +814,14 @@ export default {
     PatreonIcon,
     KoFiIcon,
     ChevronRightIcon,
+    NavStack,
+    NavStackItem,
+    SettingsIcon,
+    UsersIcon,
+    CategoriesIcon,
+    DescriptionIcon,
+    LinksIcon,
+    LicenseIcon,
   },
   async asyncData(data) {
     try {
@@ -868,9 +961,11 @@ export default {
     return {
       showKnownErrors: false,
       licenseText: '',
+      isSettings: false,
     }
   },
   fetch() {
+    this.reset()
     this.versions = this.$computeVersions(this.versions)
     this.featuredVersions = this.$computeVersions(this.featuredVersions)
   },
@@ -949,7 +1044,17 @@ export default {
       }
     },
   },
+  watch: {
+    '$route.path': {
+      async handler() {
+        await this.reset()
+      },
+    },
+  },
   methods: {
+    reset() {
+      this.isSettings = this.$route.name.startsWith('type-id-settings')
+    },
     async resetProject() {
       const project = (
         await this.$axios.get(
@@ -1059,6 +1164,76 @@ export default {
       }
 
       this.$refs.modal_license.show()
+    },
+    async patchProject(data) {
+      let result = false
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.project.id}`,
+          data,
+          this.$defaultHeaders()
+        )
+
+        if (this.iconChanged) {
+          await this.$axios.patch(
+            `project/${this.project.id}/icon?ext=${
+              this.icon.type.split('/')[this.icon.type.split('/').length - 1]
+            }`,
+            this.icon,
+            this.$defaultHeaders()
+          )
+        }
+
+        for (const key in data) {
+          this.project[key] = data[key]
+        }
+
+        this.$emit('update:project', this.project)
+        result = true
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      this.$nuxt.$loading.finish()
+      return result
+    },
+    async patchIcon(icon) {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.project.id}/icon?ext=${
+            icon.type.split('/')[icon.type.split('/').length - 1]
+          }`,
+          icon,
+          this.$defaultHeaders()
+        )
+        const response = await this.$axios.get(
+          `project/${this.project.id}`,
+          this.$defaultHeaders()
+        )
+        this.project.icon_url = response.data.icon_url
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      this.$nuxt.$loading.finish()
     },
   },
 }
@@ -1304,5 +1479,24 @@ export default {
 
 .modal-license {
   padding: var(--spacing-card-bg);
+}
+.settings-header {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-sm);
+  align-items: center;
+  margin-bottom: var(--spacing-card-bg);
+
+  .settings-header__icon {
+    flex-shrink: 0;
+  }
+
+  .settings-header__text {
+    h1 {
+      font-size: var(--font-size-md);
+      margin-top: 0;
+      margin-bottom: var(--spacing-card-sm);
+    }
+  }
 }
 </style>
