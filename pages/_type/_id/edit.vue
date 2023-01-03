@@ -275,7 +275,7 @@
           class="text-link"
           href="https://guides.github.com/features/mastering-markdown/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
           >Markdown</a
         >. HTML can also be used inside your description, not including styles,
         scripts, and iframes (though YouTube iframes are allowed).
@@ -385,7 +385,7 @@
               <a
                 href="https://spdx.org/licenses/"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 class="text-link"
                 >SPDX license identifier</a
               >
@@ -399,7 +399,7 @@
               <a
                 href="https://blog.modrinth.com/licensing-guide/"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 class="text-link"
               >
                 licensing guide</a

@@ -17,6 +17,7 @@ const options = {
     input: ['checked', 'disabled', 'type'],
     iframe: ['width', 'height', 'allowfullscreen', 'frameborder'],
     img: [...xss.whiteList.img, 'style'],
+    a: ['href', 'rel'],
   },
   css: {
     whiteList: {
