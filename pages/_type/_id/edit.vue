@@ -16,7 +16,6 @@
           <button
             title="Save"
             class="iconified-button brand-button column"
-            :disabled="$nuxt.$loading && !$nuxt.$loading.show"
             @click="saveProject"
           >
             <SaveIcon />

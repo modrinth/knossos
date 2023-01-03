@@ -58,7 +58,6 @@
           </button>
           <button
             class="iconified-button brand-button"
-            :disabled="$nuxt.$loading && !$nuxt.$loading.show"
             @click="createDataPackVersion"
           >
             <RightArrowIcon />
@@ -120,11 +119,7 @@
         </ul>
       </div>
       <div v-if="isCreating" class="input-group">
-        <button
-          class="iconified-button brand-button"
-          :disabled="$nuxt.$loading && !$nuxt.$loading.show"
-          @click="createVersion"
-        >
+        <button class="iconified-button brand-button" @click="createVersion">
           <PlusIcon aria-hidden="true" />
           Create
         </button>
@@ -142,7 +137,6 @@
       <div v-else-if="isEditing" class="input-group">
         <button
           class="iconified-button brand-button"
-          :disabled="$nuxt.$loading && !$nuxt.$loading.show"
           @click="saveEditedVersion"
         >
           <SaveIcon aria-hidden="true" />
