@@ -209,7 +209,7 @@
             :key="project.id"
             :name="project.title"
             :display="$cosmetics.searchDisplayMode.user"
-            :gallery-images="
+            :featured-image="
               project.gallery
                 .slice()
                 .sort((a, b) => b.featured - a.featured)

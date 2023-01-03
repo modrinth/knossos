@@ -365,7 +365,7 @@
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
             :display="$cosmetics.searchDisplayMode[projectType.id]"
-            :gallery-images="
+            :featured-image="
               result.featured_gallery
                 ? result.featured_gallery
                 : result.gallery[0]

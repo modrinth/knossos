@@ -104,7 +104,7 @@
           <button
             v-if="editIndex === -1"
             class="iconified-button brand-button"
-            :disabled="!$nuxt.$loading"
+            :disabled="$nuxt.$loading && !$nuxt.$loading.show"
             @click="createGalleryItem"
           >
             <PlusIcon />
@@ -113,7 +113,7 @@
           <button
             v-else
             class="iconified-button brand-button"
-            :disabled="!$nuxt.$loading"
+            :disabled="$nuxt.$loading && !$nuxt.$loading.show"
             @click="editGalleryItem"
           >
             <SaveIcon />

@@ -58,7 +58,7 @@
           </button>
           <button
             class="iconified-button brand-button"
-            :disabled="!$nuxt.$loading"
+            :disabled="$nuxt.$loading && !$nuxt.$loading.show"
             @click="createDataPackVersion"
           >
             <RightArrowIcon />
@@ -122,7 +122,7 @@
       <div v-if="isCreating" class="input-group">
         <button
           class="iconified-button brand-button"
-          :disabled="!$nuxt.$loading"
+          :disabled="$nuxt.$loading && !$nuxt.$loading.show"
           @click="createVersion"
         >
           <PlusIcon aria-hidden="true" />
@@ -142,7 +142,7 @@
       <div v-else-if="isEditing" class="input-group">
         <button
           class="iconified-button brand-button"
-          :disabled="!$nuxt.$loading"
+          :disabled="$nuxt.$loading && !$nuxt.$loading.show"
           @click="saveEditedVersion"
         >
           <SaveIcon aria-hidden="true" />
@@ -1080,6 +1080,22 @@ export default {
         this.version = this.versions.find(
           (x) => x.displayUrlEnding === this.$route.params.version
         )
+
+      // LEGACY- to support old duplicate version URLs
+      const dashIndex = this.$route.params.version.indexOf('-')
+      if (!this.version && dashIndex !== -1) {
+        const version = this.versions.find(
+          (x) =>
+            x.displayUrlEnding ===
+            this.$route.params.version.substring(0, dashIndex)
+        )
+
+        this.$nuxt.context.redirect(
+          301,
+          `/${this.project.project_type}/${this.project.slug}/version/${version.version_number}`
+        )
+        return
+      }
 
       if (!this.version) {
         this.$nuxt.context.error({
