@@ -12,6 +12,7 @@
     <template v-else-if="type === 'creator'"><CreatorIcon /> Creator</template>
     <template v-else-if="type === 'approved'"><ListIcon /> Listed</template>
     <template v-else-if="type === 'unlisted'"><EyeOffIcon /> Unlisted</template>
+    <template v-else-if="type === 'withheld'"><EyeOffIcon /> Withheld</template>
     <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
     <template v-else-if="type === 'archived'"
       ><ArchiveIcon /> Archived</template
@@ -108,6 +109,7 @@ export default {
   }
 
   &.type--unlisted,
+  &.type--withheld,
   &.purple {
     color: var(--color-special-purple);
   }

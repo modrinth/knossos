@@ -97,10 +97,10 @@
             </button>
             <button
               class="iconified-button"
-              @click="setProjectStatus(project, 'unlisted')"
+              @click="setProjectStatus(project, 'withheld')"
             >
-              <UnlistIcon />
-              Unlist
+              <WithholdIcon />
+              Withhold
             </button>
             <button
               class="iconified-button"
@@ -173,7 +173,7 @@ import Modal from '~/components/ui/Modal'
 import Badge from '~/components/ui/Badge'
 
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import UnlistIcon from '~/assets/images/utils/eye-off.svg?inline'
+import WithholdIcon from '~/assets/images/utils/eye-off.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
@@ -190,7 +190,7 @@ export default {
     ProjectCard,
     CheckIcon,
     CrossIcon,
-    UnlistIcon,
+    WithholdIcon,
     Modal,
     Badge,
     Security,
