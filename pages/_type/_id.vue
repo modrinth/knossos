@@ -12,7 +12,7 @@
           <div class="settings-header__text">
             <h1 class="wrap-as-needed">{{ project.title }}</h1>
             <nuxt-link
-              :to="`/${project.project_type}/${project.slug}/`"
+              :to="`/${project.project_type}/${project.slug}`"
               class="goto-link"
             >
               Visit project page <ChevronRightIcon aria-hidden="true" />
