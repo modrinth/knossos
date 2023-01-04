@@ -5,7 +5,7 @@
     :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }"
   >
     <header class="site-header" role="presentation">
-      <section class="navbar card columns" role="navigation">
+      <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
           <a href="#main">Skip to Main Content</a>
           <a
@@ -614,6 +614,7 @@ export default {
     }
 
     .navbar {
+      padding: 0 var(--spacing-card-lg);
       margin: 0 var(--spacing-card-lg);
       max-width: 1280px;
       margin-left: auto;
@@ -665,6 +666,7 @@ export default {
             top: 50%;
             transform: translateY(-50%);
             margin-left: 2rem;
+            grid-gap: 1.5rem;
 
             a {
               margin-left: 0;
