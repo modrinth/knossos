@@ -19,9 +19,16 @@
         </nuxt-link>
       </div>
     </div>
-    <div class="projects-transition"></div>
-    <div class="top-gradient"></div>
-    <div class="users-section"></div>
+    <div class="users-section-outer">
+      <div class="projects-showcase">
+        <div class="project">
+          <img alt="" />
+        </div>
+      </div>
+      <div class="projects-transition"></div>
+      <div class="top-gradient"></div>
+      <div class="users-section"></div>
+    </div>
     <div class="creator-section"></div>
   </div>
 </template>
@@ -114,26 +121,36 @@ export default {
   }
 }
 
-.projects-transition {
+.users-section-outer {
+  position: relative;
+  background: linear-gradient(180deg, #0f1123 0%, #000000 100%), #101321;
   width: 100%;
-  height: 313px;
-  margin-top: -313px;
-  background: linear-gradient(0deg, #0e1020 0%, rgba(14, 16, 32, 0) 100%);
-}
-.top-gradient {
-  display: none;
-  margin-top: -64px;
-  background: linear-gradient(180deg, #101321 0%, rgba(14, 16, 32, 0) 100%);
-  transform: matrix(-1, 0, 0, 1, 0, 0);
-  height: 375px;
-}
 
-.users-section {
-  width: 100%;
-  height: 2474px;
+  .projects-transition {
+    z-index: 9;
+    position: absolute;
+    top: calc(-313px + 67px);
+    width: 100%;
+    height: 313px;
+    background: linear-gradient(0deg, #0e1020 0%, rgba(14, 16, 32, 0) 100%);
+  }
 
-  background: url('~assets/images/landing-lower.png');
-  opacity: 0.4;
+  .top-gradient {
+    z-index: 10;
+    top: -15px;
+    position: absolute;
+    background: linear-gradient(180deg, #101321 0%, rgba(14, 16, 32, 0) 100%);
+    height: 375px;
+    width: 100%;
+  }
+
+  .users-section {
+    width: 100%;
+    height: 2474px;
+
+    background: url('~assets/images/landing-lower.png');
+    opacity: 0.8;
+  }
 }
 
 .creator-section {
