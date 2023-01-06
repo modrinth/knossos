@@ -117,6 +117,43 @@
   }
 }
 
+.grid-display {
+  display: grid;
+  grid-gap: var(--spacing-card-md);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+
+  .grid-display__item {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-bg);
+    border-radius: var(--size-rounded-card);
+    padding: var(--spacing-card-lg);
+    gap: var(--spacing-card-md);
+
+    .label {
+      color: var(--color-heading);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .value {
+      color: var(--color-text-dark);
+      font-weight: bold;
+      font-size: 2rem;
+    }
+  }
+
+  &.width-12 {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+
+  &.width-16 {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+}
+
 /*
   Cards and body styling
 */
@@ -1257,22 +1294,23 @@ tr.button-transparent {
 }
 
 .vue-notification {
-  background: #44a4fc;
-  border-left: 5px solid #44a4fc;
+  background: var(--color-special-blue);
+  border-left: 5px solid var(--color-special-blue);
+  color: var(--color-brand-inverted);
 
   &.success {
-    background: #68cd86;
-    border-left-color: #68cd86;
+    background: var(--color-special-green);
+    border-left-color: var(--color-special-green);
   }
 
   &.warn {
-    background: #ffb648;
-    border-left-color: #ffb648;
+    background: var(--color-special-orange);
+    border-left-color: var(--color-special-orange);
   }
 
   &.error {
-    background: #e54d42;
-    border-left-color: #e54d42;
+    background: var(--color-special-red);
+    border-left-color: var(--color-special-red);
   }
 }
 

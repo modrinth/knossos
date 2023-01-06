@@ -105,6 +105,7 @@
         <button
           type="button"
           class="iconified-button brand-button"
+          :disabled="!hasChanges"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -192,6 +193,53 @@ export default {
       })
       return lists
     },
+    patchData() {
+      const data = {}
+      // Promote selected categories to featured if there are less than 3 featured
+      const newFeaturedTags = this.featuredTags.slice()
+      if (
+        newFeaturedTags.length < 3 &&
+        this.selectedTags.length > newFeaturedTags.length
+      ) {
+        const nonFeaturedCategories = this.selectedTags.filter(
+          (x) => !newFeaturedTags.includes(x)
+        )
+
+        nonFeaturedCategories
+          .slice(
+            0,
+            Math.min(nonFeaturedCategories.length, 3 - newFeaturedTags.length)
+          )
+          .forEach((x) => newFeaturedTags.push(x))
+      }
+      // Convert selected and featured categories to backend-usable arrays
+      const categories = newFeaturedTags.map((x) => x.name)
+      const additionalCategories = this.selectedTags
+        .filter((x) => !newFeaturedTags.includes(x))
+        .map((x) => x.name)
+
+      if (
+        categories.length !== this.project.categories.length ||
+        categories.some((value) => !this.project.categories.includes(value))
+      ) {
+        data.categories = categories
+      }
+
+      if (
+        additionalCategories.length !==
+          this.project.additional_categories.length ||
+        additionalCategories.some(
+          (value) => !this.project.additional_categories.includes(value)
+        )
+      ) {
+        data.additional_categories = additionalCategories
+      }
+
+      return data
+    },
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0
+    },
   },
   methods: {
     toggleCategory(category) {
@@ -212,29 +260,9 @@ export default {
       }
     },
     saveChanges() {
-      const data = {}
-      // Promote selected categories to featured if there are less than 3 featured
-      if (
-        this.featuredTags.length < 3 &&
-        this.selectedTags.length > this.featuredTags.length
-      ) {
-        const nonFeaturedCategories = this.selectedTags.filter(
-          (x) => !this.featuredTags.includes(x)
-        )
-        nonFeaturedCategories
-          .slice(
-            0,
-            Math.min(nonFeaturedCategories.length, 3 - this.featuredTags.length)
-          )
-          .forEach((x) => this.featuredTags.push(x))
+      if (this.hasChanges) {
+        this.patchProject(this.patchData)
       }
-      // Convert selected and featured categories to backend-usable arrays
-      data.categories = this.featuredTags.map((x) => x.name)
-      data.additional_categories = this.selectedTags
-        .filter((x) => !this.featuredTags.includes(x))
-        .map((x) => x.name)
-
-      this.patchProject(data)
     },
   },
 }

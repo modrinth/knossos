@@ -101,6 +101,13 @@
       </aside>
     </div>
     <div class="normal-page__content">
+      <ProjectAuthorPanel
+        :project="project"
+        :versions="versions"
+        :current-member="currentMember"
+        :is-settings="isSettings"
+        :route-name="routeName"
+      />
       <NuxtChild
         :project.sync="project"
         :versions.sync="versions"
@@ -111,6 +118,7 @@
         :dependencies.sync="dependencies"
         :patch-project="patchProject"
         :patch-icon="patchIcon"
+        :update-icon="updateIcon"
       />
     </div>
   </div>
@@ -665,6 +673,13 @@
         </div>
       </div>
       <section class="normal-page__content">
+        <ProjectAuthorPanel
+          :project="project"
+          :versions="versions"
+          :current-member="currentMember"
+          :is-settings="isSettings"
+          :route-name="routeName"
+        />
         <div
           v-if="project.status === 'unlisted'"
           class="card warning"
@@ -819,6 +834,7 @@ import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
+import ProjectAuthorPanel from '~/components/ui/ProjectAuthorPanel'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import UsersIcon from '~/assets/images/utils/users.svg?inline'
 import CategoriesIcon from '~/assets/images/utils/tags.svg?inline'
@@ -837,6 +853,7 @@ export default {
     Advertisement,
     Modal,
     ModalReport,
+    ProjectAuthorPanel,
     IssuesIcon,
     DownloadIcon,
     CalendarIcon,
@@ -1008,6 +1025,7 @@ export default {
       showKnownErrors: false,
       licenseText: '',
       isSettings: false,
+      routeName: '',
       from: '',
     }
   },
@@ -1090,6 +1108,9 @@ export default {
         return id
       }
     },
+    featuredGalleryImage() {
+      return this.project.gallery.find((img) => img.featured)
+    },
   },
   watch: {
     '$route.path': {
@@ -1104,7 +1125,8 @@ export default {
       if (!this.isSettings) {
         this.from = this.$nuxt.context.from ? this.$nuxt.context.from.name : ''
       }
-      this.isSettings = this.$route.name.startsWith('type-id-settings')
+      this.routeName = this.$route.name
+      this.isSettings = this.routeName.startsWith('type-id-settings')
     },
     async resetProject() {
       const project = (
@@ -1216,7 +1238,7 @@ export default {
 
       this.$refs.modal_license.show()
     },
-    async patchProject(data) {
+    async patchProject(data, quiet = false) {
       let result = false
       this.$nuxt.$loading.start()
 
@@ -1241,8 +1263,58 @@ export default {
           this.project[key] = data[key]
         }
 
+        if (data.license_id) {
+          this.project.license.id = data.license_id
+        }
+        if (data.license_url) {
+          this.project.license.url = data.license_url
+        }
+
         this.$emit('update:project', this.project)
         result = true
+        if (!quiet) {
+          this.$notify({
+            group: 'main',
+            title: 'Project updated',
+            text: 'Your project has been updated.',
+            type: 'success',
+          })
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      this.$nuxt.$loading.finish()
+
+      return result
+    },
+    async patchIcon(icon) {
+      let result = false
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.project.id}/icon?ext=${
+            icon.type.split('/')[icon.type.split('/').length - 1]
+          }`,
+          icon,
+          this.$defaultHeaders()
+        )
+        await this.updateIcon()
+        result = true
+        this.$notify({
+          group: 'main',
+          title: 'Project icon updated',
+          text: "Your project's icon has been updated.",
+          type: 'success',
+        })
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -1257,34 +1329,12 @@ export default {
       this.$nuxt.$loading.finish()
       return result
     },
-    async patchIcon(icon) {
-      this.$nuxt.$loading.start()
-
-      try {
-        await this.$axios.patch(
-          `project/${this.project.id}/icon?ext=${
-            icon.type.split('/')[icon.type.split('/').length - 1]
-          }`,
-          icon,
-          this.$defaultHeaders()
-        )
-        const response = await this.$axios.get(
-          `project/${this.project.id}`,
-          this.$defaultHeaders()
-        )
-        this.project.icon_url = response.data.icon_url
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.response.data.description,
-          type: 'error',
-        })
-
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-
-      this.$nuxt.$loading.finish()
+    async updateIcon() {
+      const response = await this.$axios.get(
+        `project/${this.project.id}`,
+        this.$defaultHeaders()
+      )
+      this.project.icon_url = response.data.icon_url
     },
   },
 }

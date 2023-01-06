@@ -1,10 +1,7 @@
 <template>
   <div>
     <section class="universal-card">
-      <label
-        for="project-description"
-        title="You can type an extended description of your project here."
-      >
+      <label for="project-description">
         <span class="label__title size-card-header">Description</span>
         <span class="label__description">
           You can type an extended description of your mod here. This editor
@@ -17,6 +14,14 @@
             >Markdown</a
           >. HTML can also be used inside your description, not including
           styles, scripts, and iframes (though YouTube iframes are allowed).
+          <span class="label__subdescription">
+            The description must clearly and honestly describe the purpose and
+            function of the project. See section 2.1 of the
+            <nuxt-link to="/legal/rules" class="text-link" target="_blank"
+              >Content Rules</nuxt-link
+            >
+            for the full requirements.
+          </span>
         </span>
       </label>
       <Chips v-model="bodyViewMode" :items="['source', 'preview']" />
@@ -39,6 +44,7 @@
         <button
           type="button"
           class="iconified-button brand-button"
+          :disabled="!hasChanges"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -78,6 +84,19 @@ export default {
         return null
       },
     },
+    patchProject: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'Patch project function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
   },
   data() {
     return {
@@ -88,19 +107,27 @@ export default {
   fetch() {
     this.description = this.project.body
   },
-  created() {
-    this.EDIT_BODY = 1 << 3
-  },
-  methods: {
-    saveChanges() {
+  computed: {
+    patchData() {
       const data = {}
 
       if (this.description !== this.project.body) {
         data.body = this.description
       }
 
-      if (Object.keys(data).length > 0) {
-        this.patchProject(data)
+      return data
+    },
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0
+    },
+  },
+  created() {
+    this.EDIT_BODY = 1 << 3
+  },
+  methods: {
+    saveChanges() {
+      if (this.hasChanges) {
+        this.patchProject(this.patchData)
       }
     },
   },

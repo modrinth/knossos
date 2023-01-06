@@ -20,23 +20,34 @@
       </label>
       <div class="input-group">
         <Avatar
-          :src="previewImage ? previewImage : project.icon_url"
+          :src="
+            deletedIcon ? null : previewImage ? previewImage : project.icon_url
+          "
           :alt="project.title"
           size="md"
           class="project__icon"
         />
-        <div class="input-group">
+        <div class="input-stack">
           <FileInput
             :max-size="262144"
             :show-icon="true"
             accept="image/png,image/jpeg,image/gif,image/webp"
-            class="choose-image iconified-button floating-button"
+            class="choose-image iconified-button"
             prompt="Upload icon"
             :disabled="!hasPermission"
             @change="showPreviewImage"
           >
             <UploadIcon />
           </FileInput>
+          <button
+            v-if="!deletedIcon && (previewImage || project.icon_url)"
+            class="iconified-button"
+            :disabled="!hasPermission"
+            @click="markIconForDeletion"
+          >
+            <TrashIcon />
+            Remove icon
+          </button>
         </div>
       </div>
 
@@ -140,6 +151,7 @@
         <button
           type="button"
           class="iconified-button brand-button"
+          :disabled="!hasChanges"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -229,6 +241,19 @@ export default {
         }
       },
     },
+    updateIcon: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'Update icon function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
   },
   data() {
     return {
@@ -239,6 +264,7 @@ export default {
       previewImage: null,
       clientSide: '',
       serverSide: '',
+      deletedIcon: false,
     }
   },
   fetch() {
@@ -256,9 +282,7 @@ export default {
     sideTypes() {
       return ['required', 'optional', 'unsupported']
     },
-  },
-  methods: {
-    saveChanges() {
+    patchData() {
       const data = {}
 
       if (this.name !== this.project.title) {
@@ -277,17 +301,28 @@ export default {
         data.server_side = this.serverSide
       }
 
-      if (Object.keys(data).length > 0) {
-        this.patchProject(data)
+      return data
+    },
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0
+    },
+  },
+  methods: {
+    async saveChanges() {
+      if (this.hasChanges) {
+        await this.patchProject(this.patchData)
       }
 
-      if (this.icon) {
-        this.patchIcon(this.icon)
+      if (this.deletedIcon) {
+        await this.deleteIcon()
+      } else if (this.icon) {
+        await this.patchIcon(this.icon)
       }
     },
     showPreviewImage(files) {
       const reader = new FileReader()
       this.icon = files[0]
+      this.deletedIcon = false
       reader.readAsDataURL(this.icon)
       reader.onload = (event) => {
         this.previewImage = event.target.result
@@ -299,11 +334,29 @@ export default {
         this.$defaultHeaders()
       )
       await this.$store.dispatch('user/fetchProjects')
-      await this.$router.push(`/user/${this.$auth.user.username}`)
+      await this.$router.push(`/dashboard/projects`)
       this.$notify({
         group: 'main',
-        title: 'Action Success',
-        text: 'Your project has been successfully deleted.',
+        title: 'Project deleted',
+        text: 'Your project has been deleted.',
+        type: 'success',
+      })
+    },
+    markIconForDeletion() {
+      this.deletedIcon = true
+      this.icon = null
+      this.previewImage = null
+    },
+    async deleteIcon() {
+      await this.$axios.delete(
+        `project/${this.project.id}/icon`,
+        this.$defaultHeaders()
+      )
+      await this.updateIcon()
+      this.$notify({
+        group: 'main',
+        title: 'Project icon removed',
+        text: "Your project's icon has been removed.",
         type: 'success',
       })
     },

@@ -384,6 +384,12 @@ export default {
           this.$defaultHeaders()
         )
         await this.updateMembers()
+        this.$notify({
+          group: 'main',
+          title: 'Member(s) updated',
+          text: `Your project's member(s) has been updated.`,
+          type: 'success',
+        })
       } catch (err) {
         this.$notify({
           group: 'main',

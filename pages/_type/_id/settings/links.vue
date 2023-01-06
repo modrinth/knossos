@@ -115,6 +115,7 @@
         <button
           type="button"
           class="iconified-button brand-button"
+          :disabled="!hasChanges"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -184,21 +185,19 @@ export default {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
-  },
-  methods: {
-    async saveChanges() {
+    patchData() {
       const data = {}
 
-      if (this.issuesUrl !== this.project.issues_url) {
+      if (this.checkDifference(this.issuesUrl, this.project.issues_url)) {
         data.issues_url = this.issuesUrl
       }
-      if (this.sourceUrl !== this.project.source_url) {
+      if (this.checkDifference(this.sourceUrl, this.project.source_url)) {
         data.source_url = this.sourceUrl
       }
-      if (this.wikiUrl !== this.project.wiki_url) {
+      if (this.checkDifference(this.wikiUrl, this.project.wiki_url)) {
         data.wiki_url = this.wikiUrl
       }
-      if (this.discordUrl !== this.project.discord_url) {
+      if (this.checkDifference(this.discordUrl, this.project.discord_url)) {
         data.discord_url = this.discordUrl
       }
 
@@ -210,18 +209,27 @@ export default {
           (platform) => platform.name === link.platform
         ).short
       })
-      if (donationLinks !== this.project.donation_urls) {
+      if (
+        donationLinks !== this.project.donation_urls &&
+        !(
+          this.project.donation_urls &&
+          this.project.donation_urls.length === 0 &&
+          donationLinks.length === 0
+        )
+      ) {
         data.donation_urls = donationLinks
       }
 
-      if (Object.keys(data).length > 0) {
-        if (await this.patchProject(data)) {
-          this.resetDonationLinks()
-        }
-      }
-
-      if (this.icon) {
-        this.patchIcon(this.icon)
+      return data
+    },
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0
+    },
+  },
+  methods: {
+    async saveChanges() {
+      if (this.patchData && (await this.patchProject(this.patchData))) {
+        this.resetDonationLinks()
       }
     },
     updateDonationLinks() {
@@ -258,6 +266,12 @@ export default {
         platform: null,
         url: null,
       })
+    },
+    checkDifference(a, b) {
+      if (!a && !b) {
+        return false
+      }
+      return a !== b
     },
   },
 }

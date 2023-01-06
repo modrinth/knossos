@@ -91,10 +91,11 @@
           />
         </div>
       </div>
-      <div class="button-group">
+      <div class="input-stack">
         <button
           type="button"
           class="iconified-button brand-button"
+          :disabled="!hasChanges"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -182,7 +183,6 @@ export default {
       if (this.license.requiresOnlyOrLater)
         id += this.allowOrLater ? 'or-later' : '-only'
       if (this.nonSpdxLicense) id.replaceAll(' ', '-')
-      console.log(id)
       return id
     },
     defaultLicenses() {
@@ -257,22 +257,26 @@ export default {
         { friendly: 'zlib License', short: 'Zlib' },
       ]
     },
+    patchData() {
+      const data = {}
+
+      if (this.licenseId !== this.project.license.id) {
+        data.license_id = this.licenseId
+        data.license_url = this.licenseUrl ? this.licenseUrl : null
+      } else if (this.licenseUrl !== this.project.license.url) {
+        data.license_url = this.licenseUrl ? this.licenseUrl : null
+      }
+
+      return data
+    },
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0
+    },
   },
   methods: {
     saveChanges() {
-      const data = {
-        license: {},
-      }
-
-      if (this.licenseId !== this.project.license.id) {
-        data.license.id = this.licenseId
-        data.license.url = this.licenseUrl
-      } else if (this.licenseUrl !== this.project.license.url) {
-        data.license.url = this.licenseUrl
-      }
-
-      if (Object.keys(data).length > 0) {
-        this.patchProject(data)
+      if (this.hasChanges) {
+        this.patchProject(this.patchData)
       }
     },
   },
