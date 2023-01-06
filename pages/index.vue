@@ -15,7 +15,7 @@
           Discover mods
         </nuxt-link>
         <a :href="authUrl" class="iconified-button outline-button">
-          Sign up as creator
+          Sign up as a creator
         </a>
       </div>
     </div>
@@ -61,7 +61,7 @@
       <div class="projects-transition"></div>
       <div class="users-section">
         <div class="section-header">
-          <div class="section-label green">For Gamers</div>
+          <div class="section-label green">For Players</div>
           <h2 class="section-tagline">Discover over 5,000 creations</h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find
@@ -232,7 +232,7 @@
             </svg>
           </div>
           <h4>Discovery</h4>
-          <p>Get discovered by millions of Minecraft gamers</p>
+          <p>Get discovered by millions of Minecraft players</p>
         </div>
         <div class="feature gradient-border">
           <div class="icon gradient-border">
@@ -955,22 +955,6 @@ export default {
     align-items: center;
     text-align: center;
     gap: 1.5rem;
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: 106.25rem;
-    height: 100%;
-    z-index: 1;
-    background: radial-gradient(
-      50% 50% at 50% 50%,
-      #000000 0%,
-      rgba(5, 161, 55, 0.2) 21.22%,
-      rgba(0, 0, 0, 0) 74.41%
-    );
   }
 }
 
