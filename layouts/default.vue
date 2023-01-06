@@ -1100,11 +1100,12 @@ export default {
       'buttons    buttons    buttons' auto
       'notice     notice     notice' auto
       / 1fr 1fr 1fr;
+    max-width: 1280px;
 
     .logo-info {
       margin-left: auto;
       margin-right: auto;
-      max-width: 20rem;
+      max-width: 15rem;
       margin-bottom: 1rem;
       grid-area: logo-info;
 
@@ -1165,18 +1166,17 @@ export default {
     @media screen and (min-width: 1024px) {
       display: grid;
       margin-inline: auto;
-      width: fit-content;
       grid-template:
         'logo-info  links-1 links-2 links-3 buttons' auto
         'notice     notice  notice  notice  notice' auto;
       text-align: unset;
 
       .logo-info {
-        margin-right: 2rem;
+        margin-right: 4rem;
       }
 
       .links {
-        margin-right: 2rem;
+        margin-right: 4rem;
       }
 
       .buttons {

@@ -14,9 +14,9 @@
         <nuxt-link to="/mods" class="iconified-button brand-button">
           Discover mods
         </nuxt-link>
-        <nuxt-link to="/mods" class="iconified-button outline-button">
+        <a :href="authUrl" class="iconified-button outline-button">
           Sign up as creator
-        </nuxt-link>
+        </a>
       </div>
     </div>
     <div class="users-section-outer">
@@ -35,7 +35,12 @@
               class="project gradient-border"
               @click="$router.push(`/${project.project_type}/${project.slug}`)"
             >
-              <Avatar :src="project.icon_url" :alt="project.title" size="sm" />
+              <Avatar
+                :src="project.icon_url"
+                :alt="project.title"
+                size="sm"
+                loading="lazy"
+              />
               <div class="project-info">
                 <nuxt-link
                   :to="`/${project.project_type}/${project.slug}`"
@@ -60,7 +65,7 @@
           <h2 class="section-tagline">Discover over 5,000 creations</h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find
-            add-ons to bring your gameplay to the next level.
+            content to bring your gameplay to the next level.
           </p>
         </div>
         <div class="feature-blob">
@@ -72,7 +77,7 @@
             </p>
           </div>
           <div class="blob-demonstration gradient-border bigger">
-            <div class="demo-search">
+            <div class="blob-demonstration-inner demo-search">
               <div class="search-controls">
                 <div class="iconified-input">
                   <label class="hidden" for="search">Search</label>
@@ -93,19 +98,22 @@
                     v-model="sortType"
                     placeholder="Select one"
                     class="selector"
-                    track-by="display"
-                    label="display"
-                    :options="sortTypes"
+                    :custom-label="
+                      (value) => value.charAt(0).toUpperCase() + value.slice(1)
+                    "
+                    :options="[
+                      'relevance',
+                      'downloads',
+                      'follows',
+                      'updated',
+                      'newest',
+                    ]"
                     :searchable="false"
                     :close-on-select="true"
                     :show-labels="false"
                     :allow-empty="false"
                     @input="updateSearchProjects"
-                  >
-                    <template slot="singleLabel" slot-scope="{ option }">{{
-                      option.display
-                    }}</template>
-                  </Multiselect>
+                  />
                 </div>
               </div>
               <div class="results display-mode--list">
@@ -138,32 +146,66 @@
           <div class="blob-text">
             <h3>Follow projects you love</h3>
             <p>
-              Get notified every time your favorite add-ons update and stay in
+              Get notified every time your favorite projects update and stay in
               the loop
             </p>
           </div>
-          <div class="blob-demonstration gradient-border">todo</div>
+          <div class="blob-demonstration gradient-border">
+            <div class="blob-demonstration-inner notifs-demo">
+              We're working on a cool animation for this but it's still WIP.
+              Check back soon when it's added!
+            </div>
+          </div>
         </div>
         <div class="feature-blob">
           <div class="blob-text">
             <h3>Play with your favorite launcher</h3>
             <p>
               Modrinth’s open-source API enables you to browse and play Modrinth
-              add-ons regardless of what launchers you use. We support
-              ATLauncher, MultiMC, PolyMC, and more!
+              projects regardless of what launchers you use. We support
+              ATLauncher, MultiMC, the Prism Launcher, and our own launcher
+              (coming soon)!
             </p>
           </div>
-          <div class="blob-demonstration gradient-border">todo</div>
+          <div class="blob-demonstration gradient-border">
+            <div class="blob-demonstration-inner launcher-view">
+              <img
+                src="~/assets/images/landing/launcher.png"
+                alt="launcher graphic"
+                class="minecraft-screen"
+              />
+              <div class="launcher-graphics">
+                <div class="graphic gradient-border">
+                  <img
+                    src="~/assets/images/external/prism.svg"
+                    alt="prism launcher logo"
+                  />
+                </div>
+                <div class="graphic gradient-border">
+                  <img
+                    src="~/assets/images/external/multimc.png"
+                    alt="multimc launcher logo"
+                  />
+                </div>
+                <div class="graphic gradient-border">
+                  <img
+                    src="~/assets/images/external/atlauncher.svg"
+                    alt="atlauncher logo"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="creator-section">
       <div class="section-header">
         <div class="section-label blue">For Creators</div>
-        <h2 class="section-tagline">Share your add-ons with the world</h2>
+        <h2 class="section-tagline">Share your content with the world</h2>
         <p class="section-description">
-          Join the ranks of top Minecraft creators and reach a massive audience
-          of dedicated players
+          Give a online home to your creations and reach a massive audience of
+          dedicated players
         </p>
       </div>
       <div class="features">
@@ -215,8 +257,11 @@
             </svg>
           </div>
           <h4>Ready Player Two</h4>
-          <p>Get discovered by millions of Minecraft gamers</p>
+          <p>
+            Invite your teammates and manage roles and permissions with ease
+          </p>
         </div>
+
         <div class="feature gradient-border">
           <div class="icon gradient-border">
             <svg viewBox="0 0 42 30" fill="none">
@@ -240,7 +285,10 @@
             </svg>
           </div>
           <h4>Monetization</h4>
-          <p>Get paid 100% of your ad revenue from your projects</p>
+          <p>
+            Get paid 100% of your ad revenue from your projects and withdraw at
+            any time
+          </p>
         </div>
         <div class="feature gradient-border">
           <div class="icon gradient-border">
@@ -292,6 +340,7 @@
               </defs>
             </svg>
           </div>
+          <div class="additional-label">Coming soon</div>
           <h4>Data & Statistics</h4>
           <p>
             Get detailed reports on page views, download counts, and revenue
@@ -321,22 +370,57 @@
           </div>
           <h4>Constantly Evolving</h4>
           <p>
-            Integrate with your build tools through Minotaur for automatic
-            uploads right when you release a new version
+            Always get the best modding experience possible with constant
+            updates and content
           </p>
         </div>
       </div>
     </div>
     <div class="logo-banner">
-      <ModrinthIcon />
+      <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_127_331)">
+          <rect width="512" height="512" fill="url(#paint0_linear_127_331)" />
+          <g style="mix-blend-mode: overlay">
+            <g opacity="0.5">
+              <path
+                d="M0 274.069H43.65C45.89 299.001 52.25 322.42 62.87 345.249C69.4 342.033 75.37 338.016 81.52 334.3C87.76 330.534 94.07 326.908 100.62 323.061C100.21 321.669 99.95 320.216 99.37 318.914C95.05 309.378 92.47 299.251 90.32 289.114C89.03 283.054 88.41 276.743 87.73 270.513C86.89 262.86 86.94 255.257 87.11 247.654C87.26 241.083 88.11 234.482 89.21 227.991C90.88 218.064 93.39 208.308 96.94 198.852C100.79 188.594 105.19 178.588 111.21 169.382C115.19 163.292 118.97 157.021 123.53 151.382C130.3 142.998 137.75 135.214 146.12 128.273C154.05 121.692 162.16 115.421 171.18 110.483C178.15 106.676 185.39 103.341 192.66 100.115C203.13 95.4674 214.24 92.873 225.39 90.4289C234.67 88.4055 254.03 87.3237 262.96 88.6158C262.51 95.9282 260.63 103.05 259.44 110.262C258.26 117.394 256.94 124.496 255.6 132.109C252.15 132.44 248.73 132.7 245.32 133.121C240.25 133.752 235.15 134.263 230.15 135.265C219.4 137.428 209.13 141.044 199.33 145.973C190.85 150.23 182.98 155.398 175.89 161.709C172.8 164.464 169.52 167.048 166.67 170.033C159.77 177.225 153.99 185.279 148.68 193.713C144.48 200.364 141.45 207.536 138.8 214.839C136.05 222.422 134.33 230.315 132.95 238.308C131.43 247.093 131.9 255.898 132.2 264.653C132.48 272.867 134.18 281 136.49 288.934C137.45 292.239 138.44 295.535 139.62 299.481C156.06 289.705 172.08 280.169 188.47 270.422C185.92 263.631 183.46 257.16 181.05 250.669C178.63 244.178 176.26 237.667 173.78 230.926C176.79 227.871 179.71 224.936 182.6 221.971C193.97 210.291 205.46 198.712 216.6 186.821C219.77 183.436 223.36 181.913 227.66 181.062C238.16 178.978 248.63 176.734 259.11 174.541C265.87 173.128 272.62 171.686 279.69 170.193C285.36 177.175 291.08 184.217 296.94 191.439C295.8 192.671 294.85 193.783 293.82 194.815C287 201.656 279.97 208.308 273.41 215.4C270.18 218.896 266.34 220.709 262.01 221.961C257.09 223.383 252.16 224.745 247.25 226.198C246.5 226.418 245.73 226.909 245.19 227.48C240.62 232.298 236.15 237.216 231.55 241.995C229.9 243.697 229.89 245.31 230.67 247.424C232.91 253.474 234.92 259.604 237.12 265.674C237.5 266.716 238.27 267.668 239.04 268.499C243.55 273.377 248.05 278.266 252.73 282.974C253.48 283.725 255.24 284.055 256.33 283.775C262.57 282.182 268.72 280.289 274.94 278.636C277.49 277.955 279.32 276.443 281.01 274.559C284.1 271.094 287.55 267.898 290.27 264.172C293.55 259.684 297.91 257.901 303.09 256.82C307.44 255.908 311.58 254.045 315.83 252.673C320.23 251.25 324.69 249.998 329.07 248.495C331.08 247.804 332.18 248.305 332.99 250.198C336.16 257.671 339.4 265.114 342.76 272.917C339.97 276.342 337.04 279.919 334.13 283.515C329.45 289.304 324.81 295.124 320.12 300.904C316.16 305.782 311.86 310.42 308.26 315.549C305.66 319.255 302.09 320.717 298.16 321.959C286.33 325.716 274.52 329.502 262.69 333.268C255.61 335.522 248.51 337.756 240.91 340.16C239.33 338.648 237.45 337.055 235.81 335.232C231.16 330.053 226.62 324.794 222.03 319.565C219.63 316.831 217.3 314.006 214.79 311.382C212.08 308.557 211.52 308.557 208.41 310.42C201.88 314.337 195.33 318.243 188.82 322.19C180.32 327.328 171.85 332.507 163.09 337.836C165.26 341.482 168.39 344.257 171.49 346.811C177.22 351.539 183.26 355.907 189.37 360.144C200.53 367.867 212.92 372.815 226.07 376.081C233.82 378.004 241.59 379.286 249.6 379.076C250.74 379.046 251.88 379.446 253.02 379.516C254.64 379.617 256.27 379.667 257.88 379.587C259.19 379.526 260.48 379.106 261.79 379.076C266.03 378.966 266.07 378.996 267.29 383.443C270.74 396.014 274.16 408.585 277.58 421.167C277.7 421.597 277.65 422.068 277.7 422.88C273 423.28 268.42 423.781 263.83 424.022C260.17 424.212 256.5 423.961 252.83 424.092C238.81 424.592 225.08 422.469 211.69 418.733C190.28 412.763 170.56 403.216 152.88 389.523C144.7 383.183 137.41 375.95 130.16 368.648C128.89 367.366 127.97 365.743 126.78 364.371C124.52 361.746 123.87 361.526 120.85 363.189C116.49 365.583 112.24 368.167 107.98 370.722C101.72 374.458 95.49 378.234 89.25 382.001C88.56 382.421 87.91 382.902 87.18 383.403C87.7 387.54 91.09 389.654 93.19 392.448C96.55 396.946 100.45 401.113 104.58 404.939C110.77 410.669 117.38 415.938 123.77 421.457C130.94 427.658 138.86 432.756 146.98 437.604C156.25 443.144 165.84 448.092 175.94 451.808C185.7 455.394 195.65 458.54 205.69 461.244C212.49 463.077 219.62 463.678 226.56 465.061C238.21 467.385 249.99 467.224 261.75 466.924C268.49 466.754 275.21 465.622 281.94 465.071C289.69 464.44 297.25 462.767 304.79 461.014C316.41 458.319 327.64 454.453 338.64 449.795C354.77 442.964 369.63 433.968 383.65 423.601C394.63 415.477 404.59 406.061 413.5 395.774C422.25 385.667 430.72 375.209 436.97 363.219C439.56 358.241 442.38 353.382 445.25 348.184C459.52 353.322 473.65 358.411 488.03 363.59C487.75 364.691 487.65 365.663 487.26 366.484C479.92 381.77 471.35 396.285 460.95 409.727C452.93 420.105 444.71 430.292 435.17 439.307C428.8 445.327 422.41 451.358 415.25 456.496C408.53 461.314 402.16 466.653 395.24 471.151C380.34 480.857 364.49 488.721 347.9 495.262C332.29 501.412 316.07 505.198 299.79 508.774C292.91 510.287 285.7 510.297 278.64 511.058C277.74 511.158 276.89 511.679 276.02 512H233.02C229.58 510.147 225.69 510.908 222.04 510.127C216.73 508.995 211.16 509.055 205.91 507.763C194.54 504.958 183.16 502.043 172.04 498.387C159.77 494.35 147.98 489.101 136.56 482.941C124.86 476.63 113.55 469.779 102.84 461.945C93.2 454.894 84.11 447.171 75.49 438.927C72.39 435.952 69.88 432.356 66.77 429.391C59.89 422.829 54.17 415.267 48.57 407.704C42.48 399.48 36.95 390.755 32.03 381.78C21.57 362.698 12.92 342.835 7.67 321.579C4.7 309.558 1.71 297.578 0.89 285.177C0.86 284.787 0.32 284.436 0.02 284.065C0.02 280.73 0.02 277.404 0.02 274.069H0Z"
+                fill="white"
+              />
+              <path
+                d="M512 277.074C511.69 277.615 511.11 278.136 511.09 278.686C510.56 293.612 507.03 308.016 503.73 322.45C499.99 322.05 466.32 309.939 460.41 306.894C461.6 300.173 462.85 293.431 463.97 286.66C465.13 279.648 465.76 272.606 466.1 265.484C466.43 258.563 466.1 251.691 466.02 244.789C465.94 237.858 465.47 231.006 463.48 223.784C449.94 227.39 436.76 230.896 423.27 234.492C423.19 235.964 422.74 237.507 423.09 238.839C424.63 244.749 423.88 250.739 423.99 256.699C424.43 280.079 419.08 302.226 409.83 323.592C404.73 335.372 398.24 346.311 390.66 356.598C383.95 365.713 376.43 374.228 367.81 381.53C358.36 389.543 348.76 397.497 337.41 402.896C332.18 405.39 327.03 408.045 321.83 410.599C321.43 410.799 320.9 410.759 320.49 410.819C318.33 407.514 310.2 378.274 308.59 368.177C357.62 341.532 381.58 300.664 378.95 244.639C372.26 194.314 345.33 159.555 298.14 139.752C300.69 125.278 303.28 110.593 305.96 95.3973C310 96.7796 313.75 97.8414 317.32 99.3439C328.19 103.932 338.89 108.93 348.68 115.541C361.67 124.316 373.44 134.654 383.65 146.473C394.52 159.055 403.39 173.078 409.96 188.434C411.1 191.099 411.3 191.279 413.95 190.578C426.53 187.272 439.11 183.917 452.08 180.481C451.53 178.608 451.18 176.845 450.5 175.232C442.95 157.262 433.28 140.493 421.33 125.107C414.3 116.052 406.71 107.398 398.08 99.8448C385.23 88.6058 371.51 78.599 356.54 70.1948C345.76 64.1446 334.5 59.3665 322.93 55.3798C312.2 51.6836 301.17 48.8788 289.88 46.9756C274.75 44.4313 259.58 43.7201 244.33 44.221C238.75 44.4013 233.21 45.6033 227.63 46.004C218.2 46.6851 209.07 48.979 199.97 51.2128C191.14 53.3764 182.57 56.4516 174.19 60.0276C170.54 61.5903 166.73 62.8324 163.19 64.6053C157.26 67.5804 151.36 70.6455 145.67 74.0713C140.29 77.3068 135.08 80.8628 130.03 84.5991C124.85 88.4255 119.84 92.5124 114.96 96.7195C110.31 100.726 105.67 104.793 101.47 109.261C91.13 120.259 81.6 131.919 74.05 145.061C70.17 151.812 66.21 158.564 62.88 165.596C55.64 180.881 50.13 196.788 46.94 213.466C46.13 217.674 44.91 221.79 44.92 226.148C44.92 227.36 44.13 228.582 43.6 230.084H0C0 229.083 0 228.081 0 227.089C0.32 226.548 0.92 226.008 0.9 225.477C0.77 220.298 2.02 215.33 2.92 210.291C5.03 198.581 7.94 187.072 11.69 175.803C13.88 169.212 16.51 162.771 19.06 156.31C23.14 145.933 28.4 136.146 34.05 126.57C39.44 117.444 45.43 108.74 51.82 100.265C57.72 92.4423 64.04 84.9797 70.83 77.9879C77.05 71.5771 84.16 66.0378 90.65 59.8774C98.64 52.3046 107.78 46.2644 116.92 40.3544C127.06 33.8034 137.58 27.8033 148.82 23.0953C159.82 18.4876 170.77 13.8598 182.24 10.4941C197.31 6.07663 212.68 3.1517 228.23 1.2585C235.77 0.336948 243.45 0.136611 251.06 0.206729C260.84 0.296881 270.65 -0.714826 280.41 1.05816C287.53 2.35034 294.77 2.98141 301.92 4.14337C313.5 6.02654 324.81 9.12177 335.97 12.6778C345.29 15.6428 354.2 19.6796 363.17 23.5661C372.81 27.7432 381.74 33.1222 390.71 38.4312C396.54 41.877 401.86 46.1642 407.55 49.8705C416.62 55.7705 424.49 63.1529 432.47 70.325C439 76.1949 444.72 82.9663 450.72 89.4172C452.86 91.7211 454.91 94.1352 456.73 96.6795C462.01 104.082 467.32 111.474 472.31 119.057C479.9 130.577 486.42 142.737 491.58 155.519C497.71 170.684 503.37 186.06 506.52 202.197C507.75 208.498 509.02 214.799 509.94 221.149C510.6 225.717 510.7 230.365 511.12 234.973C511.16 235.373 511.69 235.724 511.99 236.095V277.084L512 277.074Z"
+                fill="white"
+              />
+            </g>
+          </g>
+        </g>
+        <defs>
+          <linearGradient
+            id="paint0_linear_127_331"
+            x1="256"
+            y1="0"
+            x2="256"
+            y2="512"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#05CE45" />
+            <stop offset="0.678759" stop-color="#051F10" />
+          </linearGradient>
+          <clipPath id="clip0_127_331">
+            <rect width="512" height="512" rx="256" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
       <div class="overlay">
         <h2 class="main-header">
           Unlock the <strong>future</strong> <br />
           of modding
         </h2>
-        <button class="iconified-button brand-button">
-          Sign up as creator
-        </button>
+        <a
+          href="https://blog.modrinth.com/subscribe"
+          class="iconified-button brand-button"
+        >
+          Sign up for our newsletter
+        </a>
       </div>
     </div>
   </div>
@@ -355,10 +439,10 @@ export default {
   async asyncData(data) {
     const [projects, baseSearch] = (
       await Promise.all([
-        await data.$axios.get('search?limit=70'),
+        await data.$axios.get('projects_random?count=70'),
         await data.$axios.get('search?limit=3&query=flowers'),
       ])
-    ).map((it) => it.data.hits)
+    ).map((it) => it.data)
 
     const val = Math.ceil(projects.length / 3)
 
@@ -368,27 +452,25 @@ export default {
         projects.slice(val, val * 2),
         projects.slice(val * 2, val * 3),
       ],
-      searchProjects: baseSearch,
+      searchProjects: baseSearch.hits,
     }
   },
   data() {
     return {
       searchQuery: 'flowers',
-      sortTypes: [
-        { display: 'Relevance', name: 'relevance' },
-        { display: 'Downloads', name: 'downloads' },
-        { display: 'Follows', name: 'follows' },
-        { display: 'Updated', name: 'newest' },
-        { display: 'New', name: 'updated' },
-      ],
-      sortType: { display: 'Relevance', name: 'relevance' },
+      sortType: 'relevance',
     }
+  },
+  computed: {
+    authUrl() {
+      return `${process.env.authURLBase}auth/init?url=${process.env.domain}/dashboard/projects`
+    },
   },
   methods: {
     async updateSearchProjects() {
       this.searchProjects = (
         await this.$axios.get(
-          `search?query=${this.searchQuery}&limit=3&index=${this.sortType.name}`
+          `search?query=${this.searchQuery}&limit=3&index=${this.sortType}`
         )
       ).data.hits
     },
@@ -398,7 +480,7 @@ export default {
 
 <style lang="scss" scoped>
 .landing-hero {
-  background-image: url('~assets/images/landing.png');
+  background-image: url('~assets/images/landing/landing.png');
   background-size: cover;
   object-fit: contain;
   padding: 12rem 1rem;
@@ -436,11 +518,6 @@ export default {
     gap: 1.25rem;
     margin: 0 auto 5rem;
     justify-content: center;
-
-    .iconified-button {
-      font-weight: 600;
-      min-height: 3rem;
-    }
 
     // TODO: work for both themes and move to components.scss
     .outline-button {
@@ -536,7 +613,8 @@ export default {
         gap: 1rem;
         border-radius: 1rem;
         transition: background 0.5s ease-in-out;
-        backdrop-filter: blur(0.25rem);
+        // Removed due to lag on mobile :(
+        // backdrop-filter: blur(0.25rem);
 
         &:hover {
           background: radial-gradient(
@@ -590,23 +668,17 @@ export default {
     padding-bottom: 5rem;
 
     background: linear-gradient(0deg, #31375f 0%, rgba(8, 14, 55, 0) 100%),
-      url('~assets/images/landing-lower.png');
+      url('~assets/images/landing/landing-lower.png');
     opacity: 0.8;
     background-size: cover;
     background-blend-mode: multiply;
 
     .feature-blob {
       display: flex;
-      padding: 20px 1rem;
+      padding: 1.25rem 1rem;
       justify-content: center;
       flex-wrap: wrap;
-      column-gap: 70px;
-      text-align: center;
-
-      @media screen and (min-width: 1214px) {
-        padding: 80px 1rem;
-        text-align: left;
-      }
+      column-gap: 4.375rem;
 
       &.reverse {
         flex-direction: row-reverse;
@@ -614,35 +686,40 @@ export default {
 
       .blob-text {
         margin-top: 5rem;
-        width: 520px;
-        max-width: 520px;
+        max-width: 32.5rem;
+        text-align: center;
+
         h3 {
           font-weight: 500;
-          font-size: 64px;
+          font-size: 2rem;
           line-height: 110%;
           color: #fff;
+
+          @media screen and (min-width: 560px) {
+            font-size: 4rem;
+          }
         }
 
         p {
           font-weight: 400;
-          font-size: 26px;
+          font-size: 1.625rem;
           line-height: 125%;
           color: #afb6be;
           line-break: loose;
         }
       }
 
-      .blob-demonstration {
-        --height: 500px;
+      @media screen and (min-width: 1214px) {
+        padding: 5rem 1rem;
 
-        &.bigger {
-          --height: 555px;
+        .blob-text {
+          text-align: left;
         }
+      }
 
+      .blob-demonstration {
         position: relative;
-        width: 560px;
-        height: var(--height);
-        max-width: 560px;
+        max-width: 35rem;
         background: radial-gradient(
           50% 50% at 50% 50%,
           rgba(44, 48, 79, 0.35) 0%,
@@ -653,8 +730,9 @@ export default {
         backdrop-filter: blur(6px);
         background-blend-mode: multiply;
         padding: 1rem;
+        transform: scaleY(0.93);
 
-        &:before {
+        &:after {
           content: '';
           position: absolute;
           z-index: -1;
@@ -670,7 +748,12 @@ export default {
           bottom: -2.75rem;
           margin-top: auto;
           width: calc(100% + 3rem);
-          height: calc(0.55 * var(--height));
+          height: 55%;
+        }
+
+        .blob-demonstration-inner {
+          transform: scaleY(calc(1 / 0.93));
+          transform-origin: top;
         }
 
         .demo-search {
@@ -678,6 +761,7 @@ export default {
             display: flex;
             justify-content: space-between;
             margin-bottom: 1rem;
+            gap: 1rem;
 
             .iconified-input {
               svg {
@@ -716,6 +800,54 @@ export default {
               background-blend-mode: multiply;
               backdrop-filter: blur(4px);
             }
+
+            @media screen and (max-width: 400px) {
+              .small-mode:nth-child(n + 2) {
+                display: none;
+              }
+            }
+
+            @media screen and (max-width: 500px) {
+              .small-mode:nth-child(n + 3) {
+                display: none;
+              }
+            }
+          }
+        }
+
+        .launcher-view {
+          .minecraft-screen {
+            width: 100%;
+            border-radius: 0.5rem;
+          }
+
+          .launcher-graphics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.1rem;
+            gap: 0.5rem;
+
+            .graphic {
+              padding: 1.25rem;
+              display: flex;
+              align-items: center;
+              background: rgba(59, 63, 85, 0.15);
+              backdrop-filter: blur(4px);
+              margin: 0 auto;
+
+              @media screen and (min-width: 560px) {
+                margin: 0;
+                padding: 1.25rem 2.75rem;
+              }
+
+              img {
+                width: 4.25rem;
+                height: auto;
+                image-rendering: crisp-edges;
+              }
+            }
           }
         }
       }
@@ -729,19 +861,21 @@ export default {
   padding: 5rem 0;
 
   .features {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    max-width: 1300px;
+    max-width: 81.25rem;
     justify-content: center;
     margin: 7rem auto 0 auto;
-    row-gap: 87px;
-    column-gap: 48px;
+    row-gap: 5.5rem;
+    column-gap: 3rem;
     padding: 1rem;
 
     .feature {
-      width: 547px;
-      min-height: 262px;
+      width: 34.375rem;
+      min-height: 16.375rem;
       padding: 1.25rem;
+      z-index: 1;
       background: radial-gradient(
         50% 50% at 50% 50%,
         rgba(44, 48, 79, 0.15) 0%,
@@ -749,34 +883,47 @@ export default {
       );
 
       .icon {
-        z-index: 1;
-        margin: -59px 0 20px 0;
+        z-index: 2;
+        margin: -3.25rem 0 1.25rem 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 78px;
-        height: 78px;
+        width: 5rem;
+        height: 5rem;
+        background: #020305;
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 32px #393d5e;
-        border-radius: 12px;
+        border-radius: 0.75rem;
 
         svg {
-          width: 36px;
+          width: 2.25rem;
           height: auto;
         }
       }
 
+      .additional-label {
+        position: absolute;
+        top: 12px;
+        left: 112px;
+        padding: 8px 12px;
+        color: #00b1d8;
+        background: rgba(0, 177, 216, 0.15);
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
       h4 {
         font-weight: 500;
-        font-size: 28px;
+        font-size: 1.75rem;
         line-height: 125%;
         color: #fff;
-        margin: 0 0 6px;
+        margin: 0 0 0.375rem;
       }
 
       p {
         margin: 0;
         font-weight: 500;
-        font-size: 26px;
+        font-size: 1.625rem;
         line-height: 125%;
         color: #afb6be;
       }
@@ -791,20 +938,39 @@ export default {
   justify-content: center;
   background: #000;
   border-bottom: 1px solid #a8b1ddbf;
-  padding: 62px 1rem 108px 1rem;
+  padding: 4rem 1rem 6.75rem 1rem;
 
   svg {
+    z-index: 2;
     width: 32rem;
     height: 32rem;
-    background: linear-gradient(180deg, var(--color-brand) 0%, #051f10 67.88%);
-    border-radius: 50%;
   }
 
   .overlay {
+    z-index: 3;
     position: absolute;
+    bottom: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 106.25rem;
+    height: 100%;
+    z-index: 1;
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      #000000 0%,
+      rgba(5, 161, 55, 0.2) 21.22%,
+      rgba(0, 0, 0, 0) 74.41%
+    );
   }
 }
 
@@ -812,7 +978,7 @@ export default {
   position: relative;
   border-radius: 1rem;
 
-  &:after {
+  &:before {
     content: '';
     position: absolute;
     inset: 0;
@@ -858,18 +1024,17 @@ export default {
   .section-tagline {
     margin: 0 auto;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 1.625rem;
     line-height: 125%;
     color: #fff;
     line-break: loose;
   }
 
   .section-description {
-    margin: 6px auto;
+    margin: 0.375rem auto;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 1.625rem;
     line-height: 125%;
-    text-align: center;
     color: #afb6be;
     line-break: loose;
     max-width: 50rem;
@@ -900,11 +1065,15 @@ export default {
       var(--color-brand) 60%
     );
     background-size: 100%;
-
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
+    color: transparent;
   }
+}
+
+.iconified-button {
+  font-weight: 600;
+  min-height: 3rem;
 }
 </style>

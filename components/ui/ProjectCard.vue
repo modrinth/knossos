@@ -9,7 +9,7 @@
       tabindex="-1"
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
     >
-      <Avatar :src="iconUrl" :alt="name" size="md" />
+      <Avatar :src="iconUrl" :alt="name" size="md" loading="lazy" />
     </nuxt-link>
     <nuxt-link
       class="gallery"
