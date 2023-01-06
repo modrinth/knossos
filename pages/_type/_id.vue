@@ -12,6 +12,21 @@
           <div class="settings-header__text">
             <h1 class="wrap-as-needed">{{ project.title }}</h1>
             <nuxt-link
+              v-if="from.startsWith('type-id')"
+              :to="`/${project.project_type}/${project.slug}`"
+              class="goto-link"
+            >
+              Back to project <ChevronRightIcon aria-hidden="true" />
+            </nuxt-link>
+            <nuxt-link
+              v-else-if="from === 'dashboard-projects'"
+              :to="`/dashboard/projects`"
+              class="goto-link"
+            >
+              Back to dashboard <ChevronRightIcon aria-hidden="true" />
+            </nuxt-link>
+            <nuxt-link
+              v-else
               :to="`/${project.project_type}/${project.slug}`"
               class="goto-link"
             >
@@ -56,6 +71,31 @@
             label="Members"
           >
             <UsersIcon />
+          </NavStackItem>
+          <h3>Relevant pages</h3>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}`"
+            label="View project"
+            chevron
+          >
+            <EyeIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/gallery`"
+            label="Gallery"
+            chevron
+          >
+            <GalleryIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug}/versions`"
+            label="Versions"
+            chevron
+          >
+            <VersionIcon />
+          </NavStackItem>
+          <NavStackItem link="/dashboard/projects" label="All projects" chevron>
+            <SettingsIcon />
           </NavStackItem>
         </NavStack>
       </aside>
@@ -768,6 +808,7 @@ import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import EyeIcon from '~/assets/images/utils/eye.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
@@ -784,6 +825,8 @@ import CategoriesIcon from '~/assets/images/utils/tags.svg?inline'
 import DescriptionIcon from '~/assets/images/utils/align-left.svg?inline'
 import LinksIcon from '~/assets/images/utils/link.svg?inline'
 import LicenseIcon from '~/assets/images/utils/copyright.svg?inline'
+import GalleryIcon from '~/assets/images/utils/image.svg?inline'
+import VersionIcon from '~/assets/images/utils/version.svg?inline'
 
 export default {
   components: {
@@ -817,6 +860,9 @@ export default {
     NavStack,
     NavStackItem,
     SettingsIcon,
+    EyeIcon,
+    GalleryIcon,
+    VersionIcon,
     UsersIcon,
     CategoriesIcon,
     DescriptionIcon,
@@ -962,6 +1008,7 @@ export default {
       showKnownErrors: false,
       licenseText: '',
       isSettings: false,
+      from: '',
     }
   },
   fetch() {
@@ -1053,6 +1100,10 @@ export default {
   },
   methods: {
     reset() {
+      // First time going to settings, this will run, but not subsequent times.
+      if (!this.isSettings) {
+        this.from = this.$nuxt.context.from ? this.$nuxt.context.from.name : ''
+      }
       this.isSettings = this.$route.name.startsWith('type-id-settings')
     },
     async resetProject() {
