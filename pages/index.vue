@@ -2,7 +2,7 @@
   <div>
     <div class="landing-hero">
       <ModrinthIcon />
-      <h1>
+      <h1 class="main-header">
         Level up with the <br />
         <strong>best Minecraft mods</strong>
       </h1>
@@ -327,6 +327,18 @@
         </div>
       </div>
     </div>
+    <div class="logo-banner">
+      <ModrinthIcon />
+      <div class="overlay">
+        <h2 class="main-header">
+          Unlock the <strong>future</strong> <br />
+          of modding
+        </h2>
+        <button class="iconified-button brand-button">
+          Sign up as creator
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -343,18 +355,18 @@ export default {
   async asyncData(data) {
     const [projects, baseSearch] = (
       await Promise.all([
-        await data.$axios.get('https://api.modrinth.com/v2/search?limit=70'),
-        await data.$axios.get(
-          'https://api.modrinth.com/v2/search?limit=3&query=flowers'
-        ),
+        await data.$axios.get('search?limit=70'),
+        await data.$axios.get('search?limit=3&query=flowers'),
       ])
     ).map((it) => it.data.hits)
 
+    const val = Math.ceil(projects.length / 3)
+
     return {
       rows: [
-        projects.slice(0, 20),
-        projects.slice(20, 41),
-        projects.slice(41, 62),
+        projects.slice(0, val),
+        projects.slice(val, val * 2),
+        projects.slice(val * 2, val * 3),
       ],
       searchProjects: baseSearch,
     }
@@ -376,7 +388,7 @@ export default {
     async updateSearchProjects() {
       this.searchProjects = (
         await this.$axios.get(
-          `https://api.modrinth.com/v2/search?query=${this.searchQuery}&limit=3&index=${this.sortType.name}`
+          `search?query=${this.searchQuery}&limit=3&index=${this.sortType.name}`
         )
       ).data.hits
     },
@@ -386,12 +398,11 @@ export default {
 
 <style lang="scss" scoped>
 .landing-hero {
-  width: 100%;
   background-image: url('~assets/images/landing.png');
   background-size: cover;
-  height: 64rem;
   object-fit: contain;
-  // Magic number to not cover header (space in rem header occupies)
+  padding: 12rem 1rem;
+  // Magic number to cover header (space in rem header occupies)
   margin-top: -5.75rem;
 
   display: flex;
@@ -406,43 +417,25 @@ export default {
     margin-bottom: 2.5rem;
   }
 
-  h1 {
-    font-size: 5.25rem;
-    font-weight: 600;
-    line-height: 100%;
-    margin: 0 0 0.25rem;
-
-    strong {
-      font-weight: 600;
-      background-color: #00bd3c;
-      background-image: linear-gradient(
-        180deg,
-        #a7d0ff 0%,
-        var(--color-brand) 60%
-      );
-      background-size: 100%;
-
-      -webkit-background-clip: text;
-      -moz-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -moz-text-fill-color: transparent;
-    }
-  }
-
   h2 {
-    font-size: 1.625rem;
+    font-size: 1.5rem;
     line-height: 125%;
     margin: 0 0 1.625rem;
     font-weight: 400;
     line-break: loose;
     color: #afb6be;
     max-width: 50rem;
+
+    @media screen and (min-width: 560px) {
+      font-size: 1.625rem;
+    }
   }
 
   .button-group {
     width: fit-content;
     gap: 1.25rem;
     margin: 0 auto 5rem;
+    justify-content: center;
 
     .iconified-button {
       font-weight: 600;
@@ -562,6 +555,7 @@ export default {
         }
 
         .title p {
+          color: #fff;
           max-width: 13.75rem;
           overflow: hidden;
           white-space: nowrap;
@@ -603,9 +597,16 @@ export default {
 
     .feature-blob {
       display: flex;
-      gap: 70px;
-      padding: 80px;
+      padding: 20px 1rem;
       justify-content: center;
+      flex-wrap: wrap;
+      column-gap: 70px;
+      text-align: center;
+
+      @media screen and (min-width: 1214px) {
+        padding: 80px 1rem;
+        text-align: left;
+      }
 
       &.reverse {
         flex-direction: row-reverse;
@@ -709,6 +710,7 @@ export default {
             gap: 1rem;
 
             .small-mode {
+              z-index: 1;
               background: rgba(59, 63, 85, 0.15);
               box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16);
               background-blend-mode: multiply;
@@ -729,7 +731,8 @@ export default {
   .features {
     display: flex;
     flex-wrap: wrap;
-    max-width: 1230px;
+    max-width: 1300px;
+    justify-content: center;
     margin: 7rem auto 0 auto;
     row-gap: 87px;
     column-gap: 48px;
@@ -737,7 +740,7 @@ export default {
 
     .feature {
       width: 547px;
-      height: 262px;
+      min-height: 262px;
       padding: 1.25rem;
       background: radial-gradient(
         50% 50% at 50% 50%,
@@ -753,11 +756,6 @@ export default {
         justify-content: center;
         width: 78px;
         height: 78px;
-        background: radial-gradient(
-          50% 50% at 50% 50%,
-          #2c304f 0%,
-          rgba(32, 35, 50, 0.77) 100%
-        );
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 32px #393d5e;
         border-radius: 12px;
 
@@ -783,6 +781,30 @@ export default {
         color: #afb6be;
       }
     }
+  }
+}
+
+.logo-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  border-bottom: 1px solid #a8b1ddbf;
+  padding: 62px 1rem 108px 1rem;
+
+  svg {
+    width: 32rem;
+    height: 32rem;
+    background: linear-gradient(180deg, var(--color-brand) 0%, #051f10 67.88%);
+    border-radius: 50%;
+  }
+
+  .overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -851,6 +873,38 @@ export default {
     color: #afb6be;
     line-break: loose;
     max-width: 50rem;
+  }
+}
+
+.main-header {
+  color: #fff;
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 0 0 0.25rem;
+
+  @media screen and (min-width: 560px) {
+    font-size: 4rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    font-size: 5.25rem;
+  }
+
+  strong {
+    font-weight: 600;
+    background-color: #00bd3c;
+    background-image: linear-gradient(
+      180deg,
+      #a7d0ff 0%,
+      var(--color-brand) 60%
+    );
+    background-size: 100%;
+
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
   }
 }
 </style>
