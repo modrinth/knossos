@@ -8,125 +8,117 @@
           a link from all selected projects using the trash can button.
         </p>
         <section class="links">
-          <div class="adjacent-input">
-            <label
-              for="issue-tracker-input"
-              title="A place for users to report bugs, issues, and concerns about your project."
+          <label
+            for="issue-tracker-input"
+            title="A place for users to report bugs, issues, and concerns about your project."
+          >
+            <span class="label__title">Issue tracker</span>
+          </label>
+          <div class="input-group shrink-first">
+            <input
+              id="issue-tracker-input"
+              v-model="editLinks.issues.val"
+              :disabled="editLinks.issues.clear"
+              type="url"
+              :placeholder="
+                editLinks.issues.clear
+                  ? 'Existing link will be cleared'
+                  : 'Enter a valid URL'
+              "
+              maxlength="2048"
+            />
+            <button
+              v-tooltip="'Clear link'"
+              class="square-button label-button"
+              :data-active="editLinks.issues.clear"
+              @click="editLinks.issues.clear = !editLinks.issues.clear"
             >
-              <span class="label__title">Issue tracker</span>
-            </label>
-            <div class="input-group shrink-first">
-              <input
-                id="issue-tracker-input"
-                v-model="editLinks.issues.val"
-                :disabled="editLinks.issues.clear"
-                type="url"
-                :placeholder="
-                  editLinks.issues.clear
-                    ? 'Existing link will be cleared'
-                    : 'Enter a valid URL'
-                "
-                maxlength="2048"
-              />
-              <button
-                v-tooltip="'Clear link'"
-                class="square-button label-button"
-                :data-active="editLinks.issues.clear"
-                @click="editLinks.issues.clear = !editLinks.issues.clear"
-              >
-                <TrashIcon />
-              </button>
-            </div>
+              <TrashIcon />
+            </button>
           </div>
-          <div class="adjacent-input">
-            <label
-              for="source-code-input"
-              title="A page/repository containing the source code for your project"
+          <label
+            for="source-code-input"
+            title="A page/repository containing the source code for your project"
+          >
+            <span class="label__title">Source code</span>
+          </label>
+          <div class="input-group shrink-first">
+            <input
+              id="source-code-input"
+              v-model="editLinks.source.val"
+              :disabled="editLinks.source.clear"
+              type="url"
+              maxlength="2048"
+              :placeholder="
+                editLinks.source.clear
+                  ? 'Existing link will be cleared'
+                  : 'Enter a valid URL'
+              "
+            />
+            <button
+              v-tooltip="'Clear link'"
+              class="square-button label-button"
+              :data-active="editLinks.source.clear"
+              @click="editLinks.source.clear = !editLinks.source.clear"
             >
-              <span class="label__title">Source code</span>
-            </label>
-            <div class="input-group shrink-first">
-              <input
-                id="source-code-input"
-                v-model="editLinks.source.val"
-                :disabled="editLinks.source.clear"
-                type="url"
-                maxlength="2048"
-                :placeholder="
-                  editLinks.source.clear
-                    ? 'Existing link will be cleared'
-                    : 'Enter a valid URL'
-                "
-              />
-              <button
-                v-tooltip="'Clear link'"
-                class="square-button label-button"
-                :data-active="editLinks.source.clear"
-                @click="editLinks.source.clear = !editLinks.source.clear"
-              >
-                <TrashIcon />
-              </button>
-            </div>
+              <TrashIcon />
+            </button>
           </div>
-          <div class="adjacent-input">
-            <label
-              for="wiki-page-input"
-              title="A page containing information, documentation, and help for the project."
+          <label
+            for="wiki-page-input"
+            title="A page containing information, documentation, and help for the project."
+          >
+            <span class="label__title">Wiki page</span>
+          </label>
+          <div class="input-group shrink-first">
+            <input
+              id="wiki-page-input"
+              v-model="editLinks.wiki.val"
+              :disabled="editLinks.wiki.clear"
+              type="url"
+              maxlength="2048"
+              :placeholder="
+                editLinks.wiki.clear
+                  ? 'Existing link will be cleared'
+                  : 'Enter a valid URL'
+              "
+            />
+            <button
+              v-tooltip="'Clear link'"
+              class="square-button label-button"
+              :data-active="editLinks.wiki.clear"
+              @click="editLinks.wiki.clear = !editLinks.wiki.clear"
             >
-              <span class="label__title">Wiki page</span>
-            </label>
-            <div class="input-group shrink-first">
-              <input
-                id="wiki-page-input"
-                v-model="editLinks.wiki.val"
-                :disabled="editLinks.wiki.clear"
-                type="url"
-                maxlength="2048"
-                :placeholder="
-                  editLinks.wiki.clear
-                    ? 'Existing link will be cleared'
-                    : 'Enter a valid URL'
-                "
-              />
-              <button
-                v-tooltip="'Clear link'"
-                class="square-button label-button"
-                :data-active="editLinks.wiki.clear"
-                @click="editLinks.wiki.clear = !editLinks.wiki.clear"
-              >
-                <TrashIcon />
-              </button>
-            </div>
+              <TrashIcon />
+            </button>
           </div>
-          <div class="adjacent-input">
-            <label
-              for="discord-invite-input"
-              title="An invitation link to your Discord server."
+          <label
+            for="discord-invite-input"
+            title="An invitation link to your Discord server."
+          >
+            <span class="label__title">Discord invite</span>
+          </label>
+          <div class="input-group shrink-first">
+            <input
+              id="discord-invite-input"
+              v-model="editLinks.discord.val"
+              :disabled="editLinks.discord.clear"
+              type="url"
+              maxlength="2048"
+              :placeholder="
+                editLinks.discord.clear
+                  ? 'Existing link will be cleared'
+                  : 'Enter a valid Discord invite URL'
+              "
+            />
+            <button
+              v-tooltip="'Clear link'"
+              class="square-button label-button"
+              :data-active="editLinks.discord.clear"
+              @click="editLinks.discord.clear = !editLinks.discord.clear"
             >
-              <span class="label__title">Discord invite</span>
-            </label>
-            <div class="input-group shrink-first">
-              <input
-                id="discord-invite-input"
-                v-model="editLinks.discord.val"
-                :disabled="editLinks.discord.clear"
-                type="url"
-                maxlength="2048"
-                :placeholder="
-                  editLinks.discord.clear
-                    ? 'Existing link will be cleared'
-                    : 'Enter a valid Discord invite URL'
-                "
-              />
-              <button
-                v-tooltip="'Clear link'"
-                class="square-button label-button"
-                :data-active="editLinks.discord.clear"
-                @click="editLinks.discord.clear = !editLinks.discord.clear"
-              >
-                <TrashIcon />
-              </button>
-            </div>
+              <TrashIcon />
+            </button>
           </div>
         </section>
         <p>
@@ -494,13 +486,18 @@ export default {
               : null,
         }
 
-        for (const project of this.selectedProjects) {
-          await this.$axios.patch(
-            `project/${project.id}`,
-            baseData,
-            this.$defaultHeaders()
+        /*
+        JSON.stringify(
+            this.selectedProjects.map((x) => x.id)
           )
-        }
+
+         */
+
+        await this.$axios.patch(
+          `projects?ids=["pJbnbPNs"]`,
+          baseData,
+          this.$defaultHeaders()
+        )
 
         this.$refs.editLinksModal.hide()
         this.$notify({
@@ -677,8 +674,21 @@ export default {
 }
 
 .links-modal {
-  .links .adjacent-input {
-    margin-block: var(--spacing-card-sm);
+  .links {
+    display: grid;
+    gap: var(--spacing-card-sm);
+    grid-template-columns: 1fr 2fr;
+
+    .input-group {
+      flex-wrap: nowrap;
+    }
+
+    @media screen and (max-width: 530px) {
+      grid-template-columns: 1fr;
+      .input-group {
+        flex-wrap: wrap;
+      }
+    }
   }
 
   ul {
