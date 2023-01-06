@@ -416,7 +416,7 @@
           of modding
         </h2>
         <a
-          href="https://blog.modrinth.com/subscribe"
+          href="https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
           class="iconified-button brand-button"
         >
           Sign up for our newsletter
