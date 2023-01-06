@@ -12,21 +12,6 @@
           <div class="settings-header__text">
             <h1 class="wrap-as-needed">{{ project.title }}</h1>
             <nuxt-link
-              v-if="from.startsWith('type-id')"
-              :to="`/${project.project_type}/${project.slug}`"
-              class="goto-link"
-            >
-              Back to project <ChevronRightIcon aria-hidden="true" />
-            </nuxt-link>
-            <nuxt-link
-              v-else-if="from === 'dashboard-projects'"
-              :to="`/dashboard/projects`"
-              class="goto-link"
-            >
-              Back to dashboard <ChevronRightIcon aria-hidden="true" />
-            </nuxt-link>
-            <nuxt-link
-              v-else
               :to="`/${project.project_type}/${project.slug}`"
               class="goto-link"
             >

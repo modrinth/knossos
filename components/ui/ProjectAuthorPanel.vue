@@ -1,5 +1,8 @@
 <template>
-  <div class="author-actions universal-card grid-display width-16">
+  <div
+    v-if="$auth.user && $auth.user.username.toLowerCase() === 'prospector'"
+    class="author-actions universal-card grid-display width-16"
+  >
     <div
       v-if="project.body.startsWith('# Placeholder description')"
       class="grid-display__item"
