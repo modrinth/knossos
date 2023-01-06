@@ -556,4 +556,28 @@ export default {
   align-items: flex-end;
   flex-grow: 1;
 }
+
+.small-mode {
+  grid-template:
+    'icon title'
+    'icon description'
+    'icon tags'
+    'stats stats' !important;
+  grid-template-columns: min-content auto !important;
+  grid-template-rows: min-content 1fr min-content min-content !important;
+
+  .tags {
+    margin-top: var(--spacing-card-xs) !important;
+  }
+
+  .stats {
+    flex-direction: row;
+    column-gap: var(--spacing-card-md) !important;
+    margin-top: var(--spacing-card-xs) !important;
+
+    .stat-label {
+      display: none !important;
+    }
+  }
+}
 </style>
