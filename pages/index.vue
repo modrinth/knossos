@@ -14,9 +14,20 @@
         <nuxt-link to="/mods" class="iconified-button brand-button">
           Discover mods
         </nuxt-link>
-        <a :href="authUrl" class="iconified-button outline-button">
-          Sign up as a creator
+        <a
+          v-if="!$auth.user"
+          :href="authUrl"
+          class="iconified-button outline-button"
+        >
+          Sign up
         </a>
+        <nuxt-link
+          v-else
+          to="/dashboard/projects"
+          class="iconified-button outline-button"
+        >
+          Go to dashboard
+        </nuxt-link>
       </div>
     </div>
     <div class="users-section-outer">
@@ -35,12 +46,7 @@
               class="project gradient-border"
               @click="$router.push(`/${project.project_type}/${project.slug}`)"
             >
-              <Avatar
-                :src="project.icon_url"
-                :alt="project.title"
-                size="sm"
-                loading="lazy"
-              />
+              <Avatar :src="project.icon_url" :alt="project.title" size="sm" />
               <div class="project-info">
                 <nuxt-link
                   :to="`/${project.project_type}/${project.slug}`"
@@ -163,8 +169,8 @@
             <p>
               Modrinth’s open-source API enables you to browse and play Modrinth
               projects regardless of what launchers you use. We support
-              ATLauncher, MultiMC, the Prism Launcher, and our own launcher
-              (coming soon)!
+              ATLauncher, MultiMC, Prism Launcher, and our own launcher (coming
+              soon)!
             </p>
           </div>
           <div class="blob-demonstration gradient-border">
@@ -256,7 +262,7 @@
               </defs>
             </svg>
           </div>
-          <h4>Ready Player Two</h4>
+          <h4>Team Management</h4>
           <p>
             Invite your teammates and manage roles and permissions with ease
           </p>
@@ -286,8 +292,8 @@
           </div>
           <h4>Monetization</h4>
           <p>
-            Get paid 100% of your ad revenue from your projects and withdraw at
-            any time
+            Get paid 100% of your ad revenue from your project pages and
+            withdraw your funds at any time
           </p>
         </div>
         <div class="feature gradient-border">
@@ -463,7 +469,7 @@ export default {
   },
   computed: {
     authUrl() {
-      return `${process.env.authURLBase}auth/init?url=${process.env.domain}/dashboard/projects`
+      return `${process.env.authURLBase}auth/init?url=${process.env.domain}/`
     },
   },
   methods: {
@@ -483,15 +489,19 @@ export default {
   background-image: url('~assets/images/landing/landing.png');
   background-size: cover;
   object-fit: contain;
-  padding: 12rem 1rem;
-  // Magic number to cover header (space in rem header occupies)
-  margin-top: -5.75rem;
+  padding: 6rem 1rem 12rem 1rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   flex-direction: column;
+
+  @media screen and (min-width: 1024px) {
+    padding: 12rem 1rem;
+    // Magic number to cover header (space in rem header occupies)
+    margin-top: -5.75rem;
+  }
 
   svg {
     width: 13rem;
@@ -530,7 +540,7 @@ export default {
 
 .users-section-outer {
   position: relative;
-  background: linear-gradient(180deg, #0f1123 0%, #000000 100%);
+  background: linear-gradient(180deg, #06060d 0%, #000000 100%);
   width: 100%;
 
   &:before {
@@ -579,6 +589,10 @@ export default {
         min-width: 100%;
         gap: var(--gap);
         animation: scroll 100s linear infinite;
+
+        @media (prefers-reduced-motion) {
+          animation-play-state: paused;
+        }
 
         @keyframes scroll {
           from {
@@ -670,7 +684,6 @@ export default {
 
     background: linear-gradient(0deg, #31375f 0%, rgba(8, 14, 55, 0) 100%),
       url('~assets/images/landing/landing-lower.png');
-    opacity: 0.8;
     background-size: cover;
     background-blend-mode: multiply;
 
@@ -687,6 +700,7 @@ export default {
 
       .blob-text {
         margin-top: 5rem;
+        width: 32.5rem;
         max-width: 32.5rem;
         text-align: center;
 
@@ -720,6 +734,7 @@ export default {
 
       .blob-demonstration {
         position: relative;
+        width: 35rem;
         max-width: 35rem;
         background: radial-gradient(
           50% 50% at 50% 50%,
@@ -752,6 +767,12 @@ export default {
         }
 
         .demo-search {
+          height: 37.5rem;
+
+          @media screen and (max-width: 400px) {
+            height: 31.25rem;
+          }
+
           .search-controls {
             display: flex;
             justify-content: space-between;
@@ -997,7 +1018,7 @@ export default {
     }
     &.blue {
       background: rgba(0, 177, 216, 0.15);
-      color: #00b1d8;
+      color: #10c0e7;
     }
   }
 
