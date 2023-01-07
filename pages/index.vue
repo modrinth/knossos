@@ -3,8 +3,18 @@
     <div class="landing-hero">
       <ModrinthIcon />
       <h1 class="main-header">
-        The place for <br />
-        <strong ref="text-edit" class="animate-strong">Minecraft mods</strong>
+        The place for Minecraft
+        <div class="animate-strong">
+          <span>
+            <strong
+              v-for="projectType in $tag.projectTypes"
+              :key="projectType.id"
+              class="main-header-strong"
+            >
+              {{ projectType.display }}s <br />
+            </strong>
+          </span>
+        </div>
       </h1>
       <h2>
         Discover, play, and share Minecraft content through our open-source
@@ -530,8 +540,8 @@
       </svg>
       <div class="overlay">
         <h2 class="main-header">
-          Read more <strong>about</strong> <br />
-          Modrinth
+          Read more about <br />
+          <strong class="main-header-strong">Modrinth</strong>
         </h2>
         <a
           href="https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
@@ -623,15 +633,6 @@ export default {
       return `${process.env.authURLBase}auth/init?url=${process.env.domain}/`
     },
   },
-  mounted() {
-    // this.timer = setInterval(() => {
-    //   this.editLandingText()
-    // }, 1000)
-  },
-
-  beforeDestroy() {
-    // clearInterval(this.timer)
-  },
   methods: {
     async updateSearchProjects() {
       this.searchProjects = (
@@ -639,14 +640,6 @@ export default {
           `search?query=${this.searchQuery}&limit=3&index=${this.sortType}`
         )
       ).data.hits
-    },
-    editLandingText() {
-      this.currentIndex += 1
-      this.$refs['text-edit'].innerText = `Minecraft ${
-        this.$tag.projectTypes[
-          this.currentIndex % this.$tag.projectTypes.length
-        ].display
-      }s`
     },
   },
 }
@@ -1236,29 +1229,57 @@ export default {
   font-weight: 600;
   line-height: 100%;
   margin: 0 0 0.25rem;
+}
 
-  strong {
-    font-weight: 600;
-    background-color: #00bd3c;
-    background-image: linear-gradient(
-      180deg,
-      #a7d0ff 0%,
-      var(--color-brand) 60%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    color: transparent;
-  }
+.main-header-strong {
+  font-weight: 600;
+  background-color: #00bd3c;
+  background-image: linear-gradient(180deg, #a7d0ff 0%, var(--color-brand) 60%);
+  background-size: 100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  color: transparent;
 }
 
 .animate-strong {
+  height: 1.2em;
   line-height: 120%;
-  display: inline-block;
+  position: relative;
   overflow: hidden;
-  white-space: nowrap;
-  animation: slideIn 1s infinite;
+  display: flex;
+  justify-content: center;
+
+  > span {
+    position: absolute;
+    top: 0;
+    animation: slide 7s infinite;
+
+    @media (prefers-reduced-motion) {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes slide {
+    0% {
+      top: 0;
+    }
+    15% {
+      top: -1.2em;
+    }
+    30% {
+      top: -2.4em;
+    }
+    45% {
+      top: -3.6em;
+    }
+    60% {
+      top: -4.8em;
+    }
+    75% {
+      top: -6em;
+    }
+  }
 }
 
 .iconified-button {
