@@ -196,7 +196,7 @@
             <p>
               Modrinth's open-source API lets launchers add deep integration
               with Modrinth. We're already supported by some of the most popular
-              launchers like ATLauncher, MultiMC, Prism Launcher.
+              launchers like ATLauncher, MultiMC, and Prism Launcher.
             </p>
           </div>
           <div class="blob-demonstration gradient-border">
