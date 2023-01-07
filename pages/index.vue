@@ -7,7 +7,7 @@
         <strong ref="text-edit" class="animate-strong">Minecraft mods</strong>
       </h1>
       <h2>
-        Discover, play, and create Minecraft content through our open-source
+        Discover, play, and share Minecraft content through our open-source
         platform built for the community.
       </h2>
       <div class="button-group">
@@ -194,10 +194,9 @@
           <div class="blob-text">
             <h3>Play with your favorite launcher</h3>
             <p>
-              Modrinth’s open-source API enables you to browse and play Modrinth
-              projects regardless of what launchers you use. We support
-              ATLauncher, MultiMC, Prism Launcher, and our own launcher (coming
-              soon)!
+              Modrinth's open-source API lets launchers add deep integration
+              with Modrinth. We're already supported by some of the most popular
+              launchers like ATLauncher, MultiMC, Prism Launcher.
             </p>
           </div>
           <div class="blob-demonstration gradient-border">
@@ -319,8 +318,8 @@
           </div>
           <h4>Monetization</h4>
           <p>
-            Get paid 100% of your ad revenue from your project pages and
-            withdraw your funds at any time
+            Get paid 100% of the ad revenue from your project pages and withdraw
+            your funds at any time
           </p>
         </div>
         <div class="feature gradient-border">
@@ -466,7 +465,6 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import ModrinthIcon from '~/assets/images/logo.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 import ProjectCard from '~/components/ui/ProjectCard'
-import notifications from '~/pages/notifications.vue'
 
 export default {
   components: {
@@ -549,9 +547,6 @@ export default {
     // clearInterval(this.timer)
   },
   methods: {
-    notifications() {
-      return notifications
-    },
     async updateSearchProjects() {
       this.searchProjects = (
         await this.$axios.get(
@@ -661,7 +656,7 @@ export default {
       margin-bottom: var(--gap);
 
       display: flex;
-      overflow-x: hidden;
+      overflow: hidden;
       user-select: none;
 
       &:hover {
@@ -737,7 +732,7 @@ export default {
         .title p {
           color: #fff;
           max-width: 13.75rem;
-          overflow-x: hidden;
+          overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           margin: 0;
@@ -752,7 +747,7 @@ export default {
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
-          overflow-x: hidden;
+          overflow: hidden;
 
           font-weight: 500;
           font-size: 0.875rem;
@@ -983,7 +978,7 @@ export default {
               display: flex;
               align-items: center;
               background: rgba(59, 63, 85, 0.15);
-              backdrop-filter: blur(4px);
+              //backdrop-filter: blur(4px);
               margin: 0 auto;
 
               @media screen and (min-width: 560px) {
@@ -1007,7 +1002,7 @@ export default {
 .creator-section {
   width: 100%;
   background: linear-gradient(180deg, #000000 0%, #0e101d 100%);
-  padding: 5rem 0;
+  padding: 2.5rem 0;
 
   .features {
     position: relative;
