@@ -451,7 +451,7 @@
           href="https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
           class="iconified-button brand-button"
         >
-          Sign up for our newsletter
+          Read the blog
         </a>
       </div>
     </div>
@@ -579,12 +579,6 @@ export default {
   text-align: center;
   flex-direction: column;
 
-  @media screen and (min-width: 1024px) {
-    padding: 12rem 1rem;
-    // Magic number to cover header (space in rem header occupies)
-    margin-top: -5.75rem;
-  }
-
   svg {
     width: 13rem;
     height: 13rem;
@@ -592,17 +586,13 @@ export default {
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 125%;
     margin: 0 0 1.625rem;
     font-weight: 400;
     line-break: loose;
     color: #afb6be;
     max-width: 50rem;
-
-    @media screen and (min-width: 560px) {
-      font-size: 1.625rem;
-    }
   }
 
   .button-group {
@@ -789,14 +779,14 @@ export default {
 
         h3 {
           font-weight: 500;
-          font-size: 4rem;
+          font-size: 2rem;
           line-height: 110%;
           color: #fff;
         }
 
         p {
           font-weight: 400;
-          font-size: 1.625rem;
+          font-size: 1.25rem;
           line-height: 125%;
           color: #afb6be;
           line-break: loose;
@@ -848,11 +838,7 @@ export default {
         }
 
         .demo-search {
-          height: 37.5rem;
-
-          @media screen and (max-width: 600px) {
-            height: max-content;
-          }
+          height: max-content;
 
           .search-controls {
             display: flex;
@@ -884,10 +870,8 @@ export default {
               .selector {
                 max-width: 8rem;
               }
-            }
 
-            @media screen and (max-width: 500px) {
-              .sort-by {
+              @media screen and (max-width: 500px) {
                 display: none;
               }
             }
@@ -987,11 +971,6 @@ export default {
               //backdrop-filter: blur(4px);
               margin: 0 auto;
 
-              @media screen and (min-width: 560px) {
-                margin: 0;
-                padding: 1.25rem 2.75rem;
-              }
-
               img {
                 width: 4.25rem;
                 height: auto;
@@ -1016,14 +995,13 @@ export default {
     flex-wrap: wrap;
     max-width: 81.25rem;
     justify-content: center;
-    margin: 7rem auto 0 auto;
-    row-gap: 5.5rem;
+    margin: 5rem auto 0 auto;
+    row-gap: 3.5rem;
     column-gap: 3rem;
     padding: 1rem;
 
     .feature {
       width: 34.375rem;
-      min-height: 12rem;
       padding: 1.25rem;
       z-index: 1;
       background: radial-gradient(
@@ -1034,27 +1012,26 @@ export default {
 
       .icon {
         z-index: 2;
-        margin: -3.25rem 0 1.25rem 0;
+        margin: -3.25rem 0 0.75rem 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
         background: #020305;
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 32px #393d5e;
         border-radius: 0.75rem;
 
         svg {
-          width: 2.25rem;
+          width: 2rem;
           height: auto;
         }
       }
 
       .additional-label {
-        position: absolute;
-        top: 12px;
-        left: 112px;
-        padding: 8px 12px;
+        width: fit-content;
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.5rem;
         color: #10c0e7;
         background: rgba(0, 177, 216, 0.15);
         border-radius: 6px;
@@ -1062,19 +1039,21 @@ export default {
         font-size: 1rem;
       }
 
-      h4 {
+      h4,
+      p {
         font-weight: 500;
-        font-size: 1.75rem;
         line-height: 125%;
+        margin: 0;
+      }
+
+      h4 {
+        font-size: 1.25rem;
         color: #fff;
-        margin: 0 0 0.375rem;
+        margin-bottom: 0.375rem;
       }
 
       p {
-        margin: 0;
-        font-weight: 500;
-        font-size: 1.5rem;
-        line-height: 125%;
+        font-size: 1.25rem;
         color: #afb6be;
       }
     }
@@ -1155,23 +1134,23 @@ export default {
     }
   }
 
+  .section-tagline,
+  .section-description {
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-break: loose;
+    line-height: 125%;
+    max-width: 50rem;
+  }
+
   .section-tagline {
     margin: 0 auto;
-    font-weight: 400;
-    font-size: 1.625rem;
-    line-height: 125%;
     color: #fff;
-    line-break: loose;
   }
 
   .section-description {
     margin: 0.375rem auto;
-    font-weight: 400;
-    font-size: 1.625rem;
-    line-height: 125%;
     color: #afb6be;
-    line-break: loose;
-    max-width: 50rem;
   }
 }
 
@@ -1181,14 +1160,6 @@ export default {
   font-weight: 600;
   line-height: 100%;
   margin: 0 0 0.25rem;
-
-  @media screen and (min-width: 560px) {
-    font-size: 4rem;
-  }
-
-  @media screen and (min-width: 1024px) {
-    font-size: 5.25rem;
-  }
 
   strong {
     font-weight: 600;
@@ -1217,5 +1188,128 @@ export default {
 .iconified-button {
   font-weight: 600;
   min-height: 3rem;
+}
+
+@media screen and (min-width: 560px) {
+  .landing-hero {
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .users-section-outer {
+    .users-section {
+      .feature-blob {
+        .blob-text {
+          h3 {
+            font-size: 3rem;
+          }
+          p {
+            font-size: 1.5rem;
+          }
+
+          .blob-demonstration {
+            .demo-search {
+              height: 37.5rem;
+            }
+
+            .launcher-view {
+              .launcher-graphics {
+                .graphic {
+                  margin: 0;
+                  padding: 1.25rem 2.75rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .section-header {
+    .section-tagline,
+    .section-description {
+      font-size: 1.5rem;
+    }
+  }
+
+  .main-header {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .landing-hero {
+    h2 {
+      font-size: 1.625rem;
+    }
+
+    padding: 12rem 1rem;
+    // Magic number to cover header (space in rem header occupies)
+    margin-top: -5.75rem;
+  }
+
+  .users-section-outer {
+    .users-section {
+      .feature-blob {
+        .blob-text {
+          h3 {
+            font-size: 4rem;
+          }
+          p {
+            font-size: 1.625rem;
+          }
+        }
+      }
+    }
+  }
+
+  .creator-section {
+    .features {
+      margin-top: 7rem;
+      row-gap: 5.5rem;
+
+      .feature {
+        min-height: 12rem;
+
+        .icon {
+          margin-bottom: 1.25rem;
+          width: 5rem;
+          height: 5rem;
+
+          svg {
+            width: 2.25rem;
+          }
+        }
+
+        .additional-label {
+          position: absolute;
+          top: 12px;
+          left: 112px;
+          margin-bottom: 0;
+        }
+
+        h4 {
+          font-size: 1.75rem;
+        }
+
+        p {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+
+  .section-header {
+    .section-tagline,
+    .section-description {
+      font-size: 1.625rem;
+    }
+  }
+
+  .main-header {
+    font-size: 5.25rem;
+  }
 }
 </style>
