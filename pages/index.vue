@@ -789,13 +789,9 @@ export default {
 
         h3 {
           font-weight: 500;
-          font-size: 2rem;
+          font-size: 4rem;
           line-height: 110%;
           color: #fff;
-
-          @media screen and (min-width: 560px) {
-            font-size: 4rem;
-          }
         }
 
         p {
@@ -1091,7 +1087,6 @@ export default {
   align-items: center;
   justify-content: center;
   background: #000;
-  border-bottom: 1px solid #a8b1ddbf;
   padding: 4rem 1rem 6.75rem 1rem;
 
   svg {
