@@ -214,24 +214,36 @@
                 class="minecraft-screen"
               />
               <div class="launcher-graphics">
-                <div class="graphic gradient-border">
+                <a
+                  rel="noopener noreferrer nofollow"
+                  href="https://prismlauncher.org/"
+                  class="graphic gradient-border"
+                >
                   <img
                     src="~/assets/images/external/prism.svg"
                     alt="prism launcher logo"
                   />
-                </div>
-                <div class="graphic gradient-border">
+                </a>
+                <a
+                  rel="noopener noreferrer nofollow"
+                  href="https://multimc.org/"
+                  class="graphic gradient-border"
+                >
                   <img
                     src="~/assets/images/external/multimc.png"
                     alt="multimc launcher logo"
                   />
-                </div>
-                <div class="graphic gradient-border">
+                </a>
+                <a
+                  rel="noopener noreferrer nofollow"
+                  href="https://atlauncher.com/"
+                  class="graphic gradient-border"
+                >
                   <img
                     src="~/assets/images/external/atlauncher.svg"
                     alt="atlauncher logo"
                   />
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -518,14 +530,14 @@
       </svg>
       <div class="overlay">
         <h2 class="main-header">
-          Unlock the <strong>future</strong> <br />
-          of modding
+          Read more <strong>about</strong> <br />
+          Modrinth
         </h2>
         <a
           href="https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
           class="iconified-button brand-button"
         >
-          Read the blog
+          Visit the blog
         </a>
       </div>
     </div>
