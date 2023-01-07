@@ -132,7 +132,7 @@
       <article class="normal-page__sidebar">
         <div
           class="header project__header base-card padding-0"
-          :class="{ 'has-featured-image': featuredGalleryImage && !isEditing }"
+          :class="{ 'has-featured-image': featuredGalleryImage }"
         >
           <nuxt-link
             class="project__gallery"
