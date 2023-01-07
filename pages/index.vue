@@ -264,7 +264,10 @@
             </svg>
           </div>
           <h4>Discovery</h4>
-          <p>Get discovered by millions of Minecraft players</p>
+          <p>
+            Get your project discovered by thousands of users through search,
+            our home page, discord server, and more ways to come in the future!
+          </p>
         </div>
         <div class="feature gradient-border">
           <div class="icon gradient-border">
