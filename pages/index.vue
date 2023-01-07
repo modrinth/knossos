@@ -204,7 +204,7 @@
         <div class="section-label blue">For Creators</div>
         <h2 class="section-tagline">Share your content with the world</h2>
         <p class="section-description">
-          Give a online home to your creations and reach a massive audience of
+          Give an online home to your creations and reach a massive audience of
           dedicated players
         </p>
       </div>
@@ -617,6 +617,7 @@ export default {
         // backdrop-filter: blur(0.25rem);
 
         &:hover {
+          z-index: -2;
           background: radial-gradient(
             50% 50% at 50% 50%,
             #2c304f 0%,
@@ -730,7 +731,6 @@ export default {
         backdrop-filter: blur(6px);
         background-blend-mode: multiply;
         padding: 1rem;
-        transform: scaleY(0.93);
 
         &:after {
           content: '';
@@ -752,8 +752,6 @@ export default {
         }
 
         .blob-demonstration-inner {
-          transform: scaleY(calc(1 / 0.93));
-          transform-origin: top;
         }
 
         .demo-search {
@@ -826,7 +824,7 @@ export default {
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-top: 2.1rem;
+            margin-top: 1rem;
             gap: 0.5rem;
 
             .graphic {
@@ -967,6 +965,7 @@ export default {
     position: absolute;
     inset: 0;
     padding: 1px;
+    z-index: -1;
     border-radius: 1rem;
     background: linear-gradient(
       to bottom right,
