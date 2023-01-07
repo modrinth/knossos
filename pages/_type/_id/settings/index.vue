@@ -147,6 +147,29 @@
           />
         </div>
       </template>
+      <div class="adjacent-input">
+        <label for="project-visibility">
+          <span class="label__title">Visibility</span>
+          <span class="label__description">
+            Set the visibility of your project. Listed and archived projects are
+            visible in search. Unlisted projects are published, but not visible
+            in search or on user profiles. Private projects are only accessible
+            by members of the project.
+          </span>
+        </label>
+        <Multiselect
+          id="project-visibility"
+          v-model="visibility"
+          placeholder="Select one"
+          :options="statusOptions"
+          :custom-label="(value) => $formatProjectStatus(value)"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+          :disabled="!hasPermission"
+        />
+      </div>
       <div class="button-group">
         <button
           type="button"
@@ -173,6 +196,7 @@
       <button
         type="button"
         class="iconified-button danger-button"
+        :disabled="!hasDeletePermission"
         @click="$refs.modal_confirm.show()"
       >
         <TrashIcon />
@@ -265,6 +289,7 @@ export default {
       clientSide: '',
       serverSide: '',
       deletedIcon: false,
+      visibility: '',
     }
   },
   fetch() {
@@ -273,14 +298,24 @@ export default {
     this.summary = this.project.description
     this.clientSide = this.project.client_side
     this.serverSide = this.project.server_side
+    this.visibility = this.project.requested_status
   },
   computed: {
     hasPermission() {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
+    hasDeletePermission() {
+      const DELETE_PROJECT = 1 << 7
+      return (
+        (this.currentMember.permissions & DELETE_PROJECT) === DELETE_PROJECT
+      )
+    },
     sideTypes() {
       return ['required', 'optional', 'unsupported']
+    },
+    statusOptions() {
+      return ['approved', 'archived', 'unlisted', 'private']
     },
     patchData() {
       const data = {}
@@ -300,11 +335,16 @@ export default {
       if (this.serverSide !== this.project.server_side) {
         data.server_side = this.serverSide
       }
+      if (this.visibility !== this.project.requested_status) {
+        data.requested_status = this.visibility
+      }
 
       return data
     },
     hasChanges() {
-      return Object.keys(this.patchData).length > 0
+      return (
+        Object.keys(this.patchData).length > 0 || this.deletedIcon || this.icon
+      )
     },
   },
   methods: {
@@ -315,8 +355,10 @@ export default {
 
       if (this.deletedIcon) {
         await this.deleteIcon()
+        this.deletedIcon = false
       } else if (this.icon) {
         await this.patchIcon(this.icon)
+        this.icon = null
       }
     },
     showPreviewImage(files) {

@@ -86,12 +86,13 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <ProjectAuthorPanel
+      <ProjectPublishingChecklist
         :project="project"
         :versions="versions"
         :current-member="currentMember"
         :is-settings="isSettings"
         :route-name="routeName"
+        :set-processing="setProcessing"
       />
       <NuxtChild
         :project.sync="project"
@@ -129,167 +130,148 @@
       }"
     >
       <article class="normal-page__sidebar">
-        <div class="header card">
+        <div
+          class="header project__header base-card padding-0"
+          :class="{ 'has-featured-image': featuredGalleryImage && !isEditing }"
+        >
           <nuxt-link
+            class="project__gallery"
+            tabindex="-1"
             :to="
               '/' +
               project.project_type +
               '/' +
-              (project.slug ? project.slug : project.id)
+              (project.slug ? project.slug : project.id) +
+              '/gallery'
             "
           >
-            <Avatar :src="project.icon_url" :alt="project.title" size="md" />
-          </nuxt-link>
-          <nuxt-link
-            :to="
-              '/' +
-              project.project_type +
-              '/' +
-              (project.slug ? project.slug : project.id)
-            "
-          >
-            <h1 class="title">{{ project.title }}</h1>
+            <img
+              v-if="featuredGalleryImage"
+              :src="featuredGalleryImage.url"
+              :alt="
+                featuredGalleryImage.description
+                  ? featuredGalleryImage.description
+                  : featuredGalleryImage.title
+              "
+            />
           </nuxt-link>
           <div
-            v-if="
-              project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
-            "
+            class="project__header__content universal-card full-width-inputs"
           >
-            <div
-              v-if="
-                project.client_side === 'optional' &&
-                project.server_side === 'optional'
-              "
-              class="side-descriptor"
+            <Avatar
+              :src="project.icon_url"
+              :alt="project.title"
+              size="md"
+              class="project__icon"
+              no-shadow
+            />
+            <h1 class="title">
+              {{ project.title }}
+            </h1>
+            <Badge
+              v-if="$auth.user && currentMember"
+              :type="project.status"
+              class="status-badge"
+            />
+            <p class="description">
+              {{ project.description }}
+            </p>
+            <Categories
+              :categories="project.categories"
+              :type="project.actualProjectType"
+              class="categories"
             >
-              <InfoIcon aria-hidden="true" />
-              Universal {{ projectTypeDisplay }}
+              <EnvironmentIndicator
+                :client-side="project.client_side"
+                :server-side="project.server_side"
+                :type="project.project_type"
+              />
+            </Categories>
+            <hr class="card-divider" />
+            <div class="primary-stat">
+              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">
+                  {{ $formatNumber(project.downloads) }}
+                </span>
+                download<span v-if="project.downloads !== 1">s</span>
+              </div>
             </div>
-            <div
-              v-else-if="
-                (project.client_side === 'optional' ||
-                  project.client_side === 'required') &&
-                (project.server_side === 'optional' ||
-                  project.server_side === 'unsupported')
-              "
-              class="side-descriptor"
-            >
-              <InfoIcon aria-hidden="true" />
-              Client {{ projectTypeDisplay }}
+            <div class="primary-stat">
+              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">
+                  {{ $formatNumber(project.followers) }}
+                </span>
+                follower<span v-if="project.followers !== 1">s</span>
+              </div>
             </div>
-            <div
-              v-else-if="
-                (project.server_side === 'optional' ||
-                  project.server_side === 'required') &&
-                (project.client_side === 'optional' ||
-                  project.client_side === 'unsupported')
-              "
-              class="side-descriptor"
-            >
-              <InfoIcon aria-hidden="true" />
-              Server {{ projectTypeDisplay }}
-            </div>
-          </div>
-
-          <p class="description">
-            {{ project.description }}
-          </p>
-          <Categories
-            :categories="project.categories"
-            :type="project.actualProjectType"
-            class="categories"
-          />
-          <hr class="card-divider" />
-          <div class="primary-stat">
-            <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-            <div class="primary-stat__text">
-              <span class="primary-stat__counter">
-                {{ $formatNumber(project.downloads) }}
-              </span>
-              download<span v-if="project.downloads !== 1">s</span>
-            </div>
-          </div>
-          <div class="primary-stat">
-            <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-            <div class="primary-stat__text">
-              <span class="primary-stat__counter">
-                {{ $formatNumber(project.followers) }}
-              </span>
-              follower<span v-if="project.followers !== 1">s</span>
-            </div>
-          </div>
-          <div class="dates">
-            <div
-              v-tooltip="
-                $dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')
-              "
-              class="date"
-            >
-              <CalendarIcon aria-hidden="true" />
-              <span class="label">Created</span>
-              <span class="value">{{
-                $dayjs(project.published).fromNow()
-              }}</span>
-            </div>
-            <div
-              v-tooltip="
-                $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
-              "
-              class="date"
-            >
-              <UpdateIcon aria-hidden="true" />
-              <span class="label">Updated</span>
-              <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
-            </div>
-          </div>
-          <hr class="card-divider" />
-          <div class="input-group">
-            <template v-if="$auth.user">
-              <button
-                class="iconified-button"
-                @click="$refs.modal_project_report.show()"
+            <div class="dates">
+              <div
+                v-tooltip="
+                  $dayjs(project.published).format(
+                    'MMMM D, YYYY [at] h:mm:ss A'
+                  )
+                "
+                class="date"
               >
-                <ReportIcon aria-hidden="true" />
-                Report
-              </button>
-              <button
-                v-if="!$user.follows.find((x) => x.id === project.id)"
-                class="iconified-button"
-                @click="$store.dispatch('user/followProject', project)"
+                <CalendarIcon aria-hidden="true" />
+                <span class="label">Created</span>
+                <span class="value">{{
+                  $dayjs(project.published).fromNow()
+                }}</span>
+              </div>
+              <div
+                v-tooltip="
+                  $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
+                "
+                class="date"
               >
-                <HeartIcon aria-hidden="true" />
-                Follow
-              </button>
-              <button
-                v-if="$user.follows.find((x) => x.id === project.id)"
-                class="iconified-button"
-                @click="$store.dispatch('user/unfollowProject', project)"
-              >
-                <HeartIcon fill="currentColor" aria-hidden="true" />
-                Unfollow
-              </button>
-            </template>
-            <template v-else>
-              <a
-                class="iconified-button"
-                :href="authUrl"
-                rel="noopener noreferrer nofollow"
-              >
-                <ReportIcon aria-hidden="true" />
-                Report
-              </a>
-              <a
-                class="iconified-button"
-                :href="authUrl"
-                rel="noopener noreferrer nofollow"
-              >
-                <HeartIcon aria-hidden="true" />
-                Follow
-              </a>
-            </template>
+                <UpdateIcon aria-hidden="true" />
+                <span class="label">Updated</span>
+                <span class="value">{{
+                  $dayjs(project.updated).fromNow()
+                }}</span>
+              </div>
+            </div>
+            <hr class="card-divider" />
+            <div class="input-group">
+              <template v-if="$auth.user">
+                <button
+                  class="iconified-button"
+                  @click="$refs.modal_project_report.show()"
+                >
+                  <ReportIcon aria-hidden="true" />
+                  Report
+                </button>
+                <button
+                  v-if="!$user.follows.find((x) => x.id === project.id)"
+                  class="iconified-button"
+                  @click="$store.dispatch('user/followProject', project)"
+                >
+                  <HeartIcon aria-hidden="true" />
+                  Follow
+                </button>
+                <button
+                  v-if="$user.follows.find((x) => x.id === project.id)"
+                  class="iconified-button"
+                  @click="$store.dispatch('user/unfollowProject', project)"
+                >
+                  <HeartIcon fill="currentColor" aria-hidden="true" />
+                  Unfollow
+                </button>
+              </template>
+              <template v-else>
+                <a class="iconified-button" :href="authUrl">
+                  <ReportIcon aria-hidden="true" />
+                  Report
+                </a>
+                <a class="iconified-button" :href="authUrl">
+                  <HeartIcon fill="currentColor" aria-hidden="true" />
+                  Follow
+                </a>
+              </template>
+            </div>
           </div>
         </div>
         <div
@@ -322,11 +304,6 @@
               <nuxt-link class="text-link" to="/legal/rules"
                 >content rules!
               </nuxt-link>
-            </p>
-            <p v-if="project.status === 'draft'">
-              Your project is currently not viewable by people who are not part
-              of your team. If you would like to publish your project, click the
-              button below to send your project in for review.
             </p>
             <div v-if="project.moderator_message">
               <hr class="card-divider" />
@@ -367,14 +344,6 @@
             >
               <CheckIcon />
               Resubmit for review
-            </button>
-            <button
-              v-if="project.status === 'draft'"
-              class="iconified-button brand-button"
-              @click="submitForReview"
-            >
-              <CheckIcon />
-              Submit for review
             </button>
             <button
               v-if="project.status === 'approved'"
@@ -658,12 +627,13 @@
         </div>
       </div>
       <section class="normal-page__content">
-        <ProjectAuthorPanel
+        <ProjectPublishingChecklist
           :project="project"
           :versions="versions"
           :current-member="currentMember"
           :is-settings="isSettings"
           :route-name="routeName"
+          :set-processing="setProcessing"
         />
         <div
           v-if="project.status === 'unlisted'"
@@ -765,7 +735,7 @@
               },
             ]"
           />
-          <div class="input-group">
+          <div v-if="$auth.user && currentMember" class="input-group">
             <nuxt-link
               :to="`/${project.project_type}/${project.slug}/settings`"
               class="iconified-button"
@@ -797,7 +767,6 @@ import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
 import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
 import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
 import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
 import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
 import DiscordIcon from '~/assets/images/external/discord.svg?inline'
@@ -812,6 +781,7 @@ import EyeIcon from '~/assets/images/utils/eye.svg?inline'
 import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
+import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator'
 import Modal from '~/components/ui/Modal'
 import ModalReport from '~/components/ui/ModalReport'
 import NavRow from '~/components/ui/NavRow'
@@ -819,7 +789,7 @@ import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
-import ProjectAuthorPanel from '~/components/ui/ProjectAuthorPanel'
+import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import UsersIcon from '~/assets/images/utils/users.svg?inline'
 import CategoriesIcon from '~/assets/images/utils/tags.svg?inline'
@@ -838,7 +808,8 @@ export default {
     Advertisement,
     Modal,
     ModalReport,
-    ProjectAuthorPanel,
+    ProjectPublishingChecklist,
+    EnvironmentIndicator,
     IssuesIcon,
     DownloadIcon,
     CalendarIcon,
@@ -848,7 +819,6 @@ export default {
     CodeIcon,
     ReportIcon,
     HeartIcon,
-    InfoIcon,
     WikiIcon,
     DiscordIcon,
     BuyMeACoffeeLogo,
@@ -1181,35 +1151,39 @@ export default {
     async submitForReview() {
       if (
         this.project.body === '' ||
+        this.project.body.startsWith('# Placeholder description') ||
         this.versions.length < 1 ||
         this.project.client_side === 'unknown' ||
         this.project.server_side === 'unknown'
       ) {
         this.showKnownErrors = true
       } else {
-        this.$nuxt.$loading.start()
-
-        try {
-          await this.$axios.patch(
-            `project/${this.project.id}`,
-            {
-              status: 'processing',
-            },
-            this.$defaultHeaders()
-          )
-
-          this.project.status = 'processing'
-        } catch (err) {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: err.response.data.description,
-            type: 'error',
-          })
-        }
-
-        this.$nuxt.$loading.finish()
+        await this.setProcessing()
       }
+    },
+    async setProcessing() {
+      this.$nuxt.$loading.start()
+
+      try {
+        await this.$axios.patch(
+          `project/${this.project.id}`,
+          {
+            status: 'processing',
+          },
+          this.$defaultHeaders()
+        )
+
+        this.project.status = 'processing'
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.response.data.description,
+          type: 'error',
+        })
+      }
+
+      this.$nuxt.$loading.finish()
     },
     async getLicenseData() {
       try {
@@ -1329,23 +1303,13 @@ export default {
   grid-area: header;
   .title {
     overflow-wrap: break-word;
-    margin: 0.25rem 0;
+    margin: var(--spacing-card-xs) 0;
     color: var(--color-text-dark);
     font-size: var(--font-size-xl);
   }
 
-  .side-descriptor {
-    display: flex;
-    align-items: center;
-    color: var(--color-text-dark);
-    font-weight: bold;
-    font-size: var(--font-size-sm);
-    margin-bottom: 0.5rem;
-
-    svg {
-      height: 1.25rem;
-      margin-right: 0.125rem;
-    }
+  .status-badge {
+    margin-top: var(--spacing-card-sm);
   }
 
   .description {
@@ -1383,6 +1347,39 @@ export default {
         margin-right: 0.25rem;
       }
     }
+  }
+}
+
+.project__header {
+  overflow: hidden;
+  .project__gallery {
+    display: none;
+  }
+  &.has-featured-image {
+    .project__gallery {
+      display: inline-block;
+      width: 100%;
+      height: 10rem;
+      background-color: var(--color-button-bg-active);
+      img {
+        width: 100%;
+        height: 10rem;
+        object-fit: cover;
+      }
+    }
+    .project__icon {
+      --border-width: 4px;
+      margin-top: calc(-3rem - var(--spacing-card-lg) - var(--border-width));
+      margin-left: calc(var(--border-width) * -1);
+      z-index: 1;
+      border: var(--border-width) solid var(--color-raised-bg);
+      border-bottom: none;
+    }
+  }
+  .project__header__content {
+    margin: 0;
+    background: none;
+    border-radius: unset;
   }
 }
 

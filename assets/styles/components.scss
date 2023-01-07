@@ -251,6 +251,10 @@
   padding: var(--spacing-card-sm);
 }
 
+.padding-0 {
+  padding: 0;
+}
+
 .padding-block-lg {
   padding-block: var(--spacing-card-lg);
 }
@@ -267,6 +271,10 @@
   padding-block: var(--spacing-card-sm);
 }
 
+.padding-block-0 {
+  padding-block: 0;
+}
+
 .padding-inline-lg {
   padding-inline: var(--spacing-card-lg);
 }
@@ -281,6 +289,10 @@
 
 .padding-inline-sm {
   padding-inline: var(--spacing-card-sm);
+}
+
+.padding-inline-0 {
+  padding-inline: 0;
 }
 
 .universal-body {
@@ -1002,6 +1014,11 @@ tr.button-transparent {
 
 .danger-button {
   --background-color: var(--color-special-red);
+  --text-color: var(--color-brand-inverted);
+}
+
+.moderation-button {
+  --background-color: var(--color-special-orange);
   --text-color: var(--color-brand-inverted);
 }
 

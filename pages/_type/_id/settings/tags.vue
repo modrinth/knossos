@@ -198,7 +198,7 @@ export default {
       // Promote selected categories to featured if there are less than 3 featured
       const newFeaturedTags = this.featuredTags.slice()
       if (
-        newFeaturedTags.length < 3 &&
+        newFeaturedTags.length < 1 &&
         this.selectedTags.length > newFeaturedTags.length
       ) {
         const nonFeaturedCategories = this.selectedTags.filter(

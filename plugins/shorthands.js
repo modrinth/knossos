@@ -31,6 +31,7 @@ export default (ctx, inject) => {
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
   inject('formatCategoryHeader', formatCategoryHeader)
+  inject('formatProjectStatus', formatProjectStatus)
   inject('computeVersions', (versions) => {
     const visitedVersions = []
     const returnVersions = []
@@ -235,6 +236,16 @@ export const formatCategory = (name) => {
 }
 
 export const formatCategoryHeader = (name) => {
+  return capitalizeString(name)
+}
+
+export const formatProjectStatus = (name) => {
+  if (name === 'approved') {
+    return 'Listed'
+  } else if (name === 'processing') {
+    return 'Under review'
+  }
+
   return capitalizeString(name)
 }
 
