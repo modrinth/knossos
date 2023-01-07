@@ -433,35 +433,6 @@ export default {
           break
       }
     },
-    bulkDeleteSelected() {
-      this.selectedProjects
-        .filter(
-          (it) => (it.permissions & this.DELETE_PROJECT) !== this.DELETE_PROJECT
-        )
-        .forEach(async (project) => {
-          try {
-            await this.$axios.delete(
-              `project/${project.id}`,
-              this.$defaultHeaders()
-            )
-            await this.$store.dispatch('user/fetchProjects')
-            await this.$router.push(`/dashboard/projects`)
-            this.$notify({
-              group: 'main',
-              title: 'Action Success',
-              text: 'Project(s) have been successfully deleted.',
-              type: 'success',
-            })
-          } catch (e) {
-            this.$notify({
-              group: 'main',
-              title: 'Failed to delete ' + project.title,
-              text: e,
-              type: 'error',
-            })
-          }
-        })
-    },
     async bulkEditLinks() {
       try {
         const baseData = {
@@ -486,15 +457,10 @@ export default {
               : null,
         }
 
-        /*
-        JSON.stringify(
-            this.selectedProjects.map((x) => x.id)
-          )
-
-         */
-
         await this.$axios.patch(
-          `projects?ids=["pJbnbPNs"]`,
+          `projects?ids=${JSON.stringify(
+            this.selectedProjects.map((x) => x.id)
+          )}`,
           baseData,
           this.$defaultHeaders()
         )
