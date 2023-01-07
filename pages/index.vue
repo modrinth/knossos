@@ -77,7 +77,7 @@
             </p>
           </div>
           <div class="blob-demonstration gradient-border bigger">
-            <div class="blob-demonstration-inner demo-search">
+            <div class="demo-search">
               <div class="search-controls">
                 <div class="iconified-input">
                   <label class="hidden" for="search">Search</label>
@@ -151,7 +151,7 @@
             </p>
           </div>
           <div class="blob-demonstration gradient-border">
-            <div class="blob-demonstration-inner notifs-demo">
+            <div class="notifs-demo">
               We're working on a cool animation for this but it's still WIP.
               Check back soon when it's added!
             </div>
@@ -168,7 +168,7 @@
             </p>
           </div>
           <div class="blob-demonstration gradient-border">
-            <div class="blob-demonstration-inner launcher-view">
+            <div class="launcher-view">
               <img
                 src="~/assets/images/landing/launcher.png"
                 alt="launcher graphic"
@@ -749,9 +749,6 @@ export default {
           margin-top: auto;
           width: calc(100% + 3rem);
           height: 55%;
-        }
-
-        .blob-demonstration-inner {
         }
 
         .demo-search {
