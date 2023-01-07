@@ -1133,22 +1133,19 @@ export default {
   align-items: center;
   justify-content: center;
   background: var(--landing-raw-bg);
-  padding: 4rem 1rem 6.75rem 1rem;
+  padding: 1rem 1rem 2rem 1rem;
+  overflow: hidden;
 
   svg {
     z-index: 2;
-    width: 32rem;
+    width: auto;
     height: 32rem;
-
-    &.light-height {
-      width: 62rem;
-    }
   }
 
   .overlay {
     z-index: 3;
     position: absolute;
-    bottom: 5rem;
+    bottom: 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1293,6 +1290,14 @@ export default {
     }
   }
 
+  .logo-banner {
+    padding: 3rem 1rem 3.75rem 1rem;
+
+    .overlay {
+      bottom: 3.5rem;
+    }
+  }
+
   .section-header {
     .section-tagline,
     .section-description {
@@ -1364,6 +1369,14 @@ export default {
           font-size: 1.25rem;
         }
       }
+    }
+  }
+
+  .logo-banner {
+    padding: 4rem 1rem 6.75rem 1rem;
+
+    .overlay {
+      bottom: 5rem;
     }
   }
 
