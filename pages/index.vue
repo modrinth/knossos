@@ -3,12 +3,12 @@
     <div class="landing-hero">
       <ModrinthIcon />
       <h1 class="main-header">
-        Level up with the <br />
-        <strong>best Minecraft mods</strong>
+        The place for <br />
+        <strong ref="text-edit" class="animate-strong">Minecraft mods</strong>
       </h1>
       <h2>
-        Find quality mods, plugins, modpacks, and resources through our
-        open-source platform built for the community.
+        Discover, play, and create Minecraft content through our open-source
+        platform built for the community.
       </h2>
       <div class="button-group">
         <nuxt-link to="/mods" class="iconified-button brand-button">
@@ -158,8 +158,35 @@
           </div>
           <div class="blob-demonstration gradient-border">
             <div class="notifs-demo">
-              We're working on a cool animation for this but it's still WIP.
-              Check back soon when it's added!
+              <h3>Notifications</h3>
+              <div class="notifications">
+                <div
+                  v-for="(notification, index) in notifications"
+                  :key="index"
+                  class="notification gradient-border"
+                >
+                  <nuxt-link :to="notification.link">
+                    <Avatar
+                      size="md"
+                      :src="notification.icon_url"
+                      :alt="notification.title"
+                    />
+                  </nuxt-link>
+                  <div>
+                    <nuxt-link :to="notification.link" class="notif-header">
+                      {{ notification.title }} has been updated!
+                    </nuxt-link>
+                    <p class="notif-desc">
+                      Version {{ notification.version }} has been released for
+                      Minecraft {{ notification.gameVersion }}
+                    </p>
+                    <div class="date">
+                      <CalendarIcon />
+                      <span>Received {{ notification.date }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -376,8 +403,8 @@
           </div>
           <h4>Constantly Evolving</h4>
           <p>
-            Always get the best modding experience possible with constant
-            updates and content
+            Get the best modding experience possible with constant updates from
+            the Modrinth team
           </p>
         </div>
       </div>
@@ -435,12 +462,21 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
+import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import ModrinthIcon from '~/assets/images/logo.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 import ProjectCard from '~/components/ui/ProjectCard'
+import notifications from '~/pages/notifications.vue'
 
 export default {
-  components: { Multiselect, Avatar, ModrinthIcon, SearchIcon, ProjectCard },
+  components: {
+    Multiselect,
+    Avatar,
+    ModrinthIcon,
+    SearchIcon,
+    CalendarIcon,
+    ProjectCard,
+  },
   auth: false,
   async asyncData(data) {
     const [projects, baseSearch] = (
@@ -459,12 +495,43 @@ export default {
         projects.slice(val * 2, val * 3),
       ],
       searchProjects: baseSearch.hits,
+      notifications: [
+        {
+          link: '/mod/blast-travel',
+          icon_url:
+            'https://cdn.modrinth.com/data/8zYyDYqD/a11278b05ebcf220c89215312044def875836def.png',
+          title: 'Blast Travel',
+          version: '1.0.3+1.19',
+          gameVersion: 'Quilt 1.19.2',
+          date: '3 days ago',
+        },
+        {
+          link: '/resourcepack/classic-3d',
+          icon_url: 'https://cdn.modrinth.com/data/FRSckbRo/icon.png',
+          title: 'Classic 3D',
+          version: '15.1',
+          gameVersion: '1.19',
+          date: '1 month ago',
+        },
+        {
+          link: '/datapack/tectonic',
+          icon_url:
+            'https://cdn.modrinth.com/data/lWDHr9jE/c2f127f66b5b6d9804c5e49342c251cf9b56d8e7.png',
+          title: 'Tectonic',
+          version: '1.1.1',
+          gameVersion: '1.17.2',
+          date: '2 months ago',
+        },
+      ],
     }
   },
   data() {
     return {
       searchQuery: 'flowers',
       sortType: 'relevance',
+
+      timer: null,
+      currentIndex: -1,
     }
   },
   computed: {
@@ -472,13 +539,33 @@ export default {
       return `${process.env.authURLBase}auth/init?url=${process.env.domain}/`
     },
   },
+  mounted() {
+    // this.timer = setInterval(() => {
+    //   this.editLandingText()
+    // }, 1000)
+  },
+
+  beforeDestroy() {
+    // clearInterval(this.timer)
+  },
   methods: {
+    notifications() {
+      return notifications
+    },
     async updateSearchProjects() {
       this.searchProjects = (
         await this.$axios.get(
           `search?query=${this.searchQuery}&limit=3&index=${this.sortType}`
         )
       ).data.hits
+    },
+    editLandingText() {
+      this.currentIndex += 1
+      this.$refs['text-edit'].innerText = `Minecraft ${
+        this.$tag.projectTypes[
+          this.currentIndex % this.$tag.projectTypes.length
+        ].display
+      }s`
     },
   },
 }
@@ -574,7 +661,7 @@ export default {
       margin-bottom: var(--gap);
 
       display: flex;
-      overflow: hidden;
+      overflow-x: hidden;
       user-select: none;
 
       &:hover {
@@ -650,13 +737,13 @@ export default {
         .title p {
           color: #fff;
           max-width: 13.75rem;
-          overflow: hidden;
+          overflow-x: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           margin: 0;
           font-weight: 600;
           font-size: 1.25rem;
-          line-height: 100%;
+          line-height: 110%;
         }
 
         .description {
@@ -665,7 +752,7 @@ export default {
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
-          overflow: hidden;
+          overflow-x: hidden;
 
           font-weight: 500;
           font-size: 0.875rem;
@@ -743,9 +830,10 @@ export default {
         );
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16),
           inset 2px 2px 64px rgba(57, 61, 94, 0.45);
-        backdrop-filter: blur(6px);
+        // backdrop-filter: blur(6px);
         background-blend-mode: multiply;
         padding: 1rem;
+        z-index: 1;
 
         &:after {
           content: '';
@@ -814,7 +902,7 @@ export default {
               background: rgba(59, 63, 85, 0.15);
               box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16);
               background-blend-mode: multiply;
-              backdrop-filter: blur(4px);
+              // backdrop-filter: blur(4px);
             }
 
             @media screen and (max-width: 400px) {
@@ -826,6 +914,51 @@ export default {
             @media screen and (max-width: 500px) {
               .small-mode:nth-child(n + 3) {
                 display: none;
+              }
+            }
+          }
+        }
+
+        .notifs-demo {
+          h3 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 0 0 0.75rem;
+          }
+
+          .notifications {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .notification {
+              display: flex;
+              gap: 1rem;
+              padding: 0.75rem;
+              background: rgba(59, 63, 85, 0.15);
+              box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16);
+
+              .notif-header {
+                margin: 0;
+                font-weight: 600;
+                font-size: 1.25rem;
+              }
+
+              .notif-desc {
+                margin: 0.5rem 0;
+                font-weight: 500;
+                font-size: 1rem;
+              }
+
+              .date {
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+
+                span {
+                  font-size: 12px;
+                  font-weight: 700;
+                }
               }
             }
           }
@@ -921,7 +1054,7 @@ export default {
         top: 12px;
         left: 112px;
         padding: 8px 12px;
-        color: #00b1d8;
+        color: #10c0e7;
         background: rgba(0, 177, 216, 0.15);
         border-radius: 6px;
         font-weight: 700;
@@ -1071,6 +1204,14 @@ export default {
     -moz-text-fill-color: transparent;
     color: transparent;
   }
+}
+
+.animate-strong {
+  line-height: 120%;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: slideIn 1s infinite;
 }
 
 .iconified-button {
