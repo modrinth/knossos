@@ -203,13 +203,13 @@
             <div class="launcher-view">
               <img
                 v-if="$colorMode.value === 'light'"
-                src="~/assets/images/landing/launcher-light.png"
+                src="https://cdn.modrinth.com/landing/launcher-light.png"
                 alt="launcher graphic"
                 class="minecraft-screen"
               />
               <img
                 v-else
-                src="~/assets/images/landing/launcher.png"
+                src="https://cdn.modrinth.com/landing/launcher.png"
                 alt="launcher graphic"
                 class="minecraft-screen"
               />
