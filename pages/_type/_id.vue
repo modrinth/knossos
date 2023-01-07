@@ -277,7 +277,9 @@
         <div
           v-if="
             currentMember &&
-            (project.status !== 'approved' ||
+            ((project.status !== 'approved' &&
+              project.status !== 'draft' &&
+              project.status !== 'processing') ||
               (project.moderator_message &&
                 (project.moderator_message.message ||
                   project.moderator_message.body)))
@@ -296,14 +298,6 @@
               you can resubmit for review after addressing the staff's message,
               which is below. Do not resubmit until you've addressed the message
               from the moderators!
-            </p>
-            <p v-if="project.status === 'processing'">
-              Your project is currently not viewable by people who are not part
-              of your team. Please wait for our moderators to manually review
-              your project to see if it abides by our
-              <nuxt-link class="text-link" to="/legal/rules"
-                >content rules!
-              </nuxt-link>
             </p>
             <div v-if="project.moderator_message">
               <hr class="card-divider" />

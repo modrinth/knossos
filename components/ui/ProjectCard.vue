@@ -376,6 +376,11 @@ export default {
 
   .icon {
     margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
+
+    img,
+    svg {
+      border: none;
+    }
   }
 
   .title {
