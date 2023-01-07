@@ -775,13 +775,14 @@ export default {
       justify-content: center;
       flex-wrap: wrap;
       column-gap: 4.375rem;
+      margin: 0 0.75rem 0.75rem 0.75rem;
 
       &.reverse {
         flex-direction: row-reverse;
       }
 
       .blob-text {
-        margin-top: 5rem;
+        margin-top: 2.5rem;
         width: 32.5rem;
         max-width: 32.5rem;
         text-align: center;
@@ -806,10 +807,11 @@ export default {
         }
       }
 
-      @media screen and (min-width: 1214px) {
+      @media screen and (min-width: 1238px) {
         padding: 5rem 1rem;
 
         .blob-text {
+          margin-top: 5rem;
           text-align: left;
         }
       }
@@ -842,18 +844,18 @@ export default {
           );
           opacity: 0.2;
           border-radius: 1rem;
-          left: -1.5rem;
-          bottom: -2.75rem;
+          left: -0.75rem;
+          bottom: -0.75rem;
           margin-top: auto;
-          width: calc(100% + 3rem);
+          width: calc(100% + 1.5rem);
           height: 55%;
         }
 
         .demo-search {
           height: 37.5rem;
 
-          @media screen and (max-width: 400px) {
-            height: 31.25rem;
+          @media screen and (max-width: 600px) {
+            height: max-content;
           }
 
           .search-controls {
@@ -863,6 +865,8 @@ export default {
             gap: 1rem;
 
             .iconified-input {
+              width: 100%;
+
               svg {
                 opacity: 1;
                 color: var(--color-button-text-active);
@@ -885,6 +889,12 @@ export default {
                 max-width: 8rem;
               }
             }
+
+            @media screen and (max-width: 500px) {
+              .sort-by {
+                display: none;
+              }
+            }
           }
 
           .results {
@@ -900,7 +910,7 @@ export default {
               // backdrop-filter: blur(4px);
             }
 
-            @media screen and (max-width: 400px) {
+            @media screen and (max-width: 450px) {
               .small-mode:nth-child(n + 2) {
                 display: none;
               }
@@ -1017,7 +1027,7 @@ export default {
 
     .feature {
       width: 34.375rem;
-      min-height: 16.375rem;
+      min-height: 12rem;
       padding: 1.25rem;
       z-index: 1;
       background: radial-gradient(
@@ -1067,7 +1077,7 @@ export default {
       p {
         margin: 0;
         font-weight: 500;
-        font-size: 1.625rem;
+        font-size: 1.5rem;
         line-height: 125%;
         color: #afb6be;
       }

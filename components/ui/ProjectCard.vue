@@ -549,25 +549,27 @@ export default {
 }
 
 .small-mode {
-  grid-template:
-    'icon title'
-    'icon description'
-    'icon tags'
-    'stats stats' !important;
-  grid-template-columns: min-content auto !important;
-  grid-template-rows: min-content 1fr min-content min-content !important;
+  @media screen and (min-width: 750px) {
+    grid-template:
+      'icon title'
+      'icon description'
+      'icon tags'
+      'stats stats' !important;
+    grid-template-columns: min-content auto !important;
+    grid-template-rows: min-content 1fr min-content min-content !important;
 
-  .tags {
-    margin-top: var(--spacing-card-xs) !important;
-  }
+    .tags {
+      margin-top: var(--spacing-card-xs) !important;
+    }
 
-  .stats {
-    flex-direction: row;
-    column-gap: var(--spacing-card-md) !important;
-    margin-top: var(--spacing-card-xs) !important;
+    .stats {
+      flex-direction: row;
+      column-gap: var(--spacing-card-md) !important;
+      margin-top: var(--spacing-card-xs) !important;
 
-    .stat-label {
-      display: none !important;
+      .stat-label {
+        display: none !important;
+      }
     }
   }
 }

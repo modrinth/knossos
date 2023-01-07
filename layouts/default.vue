@@ -887,7 +887,7 @@ export default {
         }
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1095px) {
         display: none;
       }
     }
@@ -1002,7 +1002,7 @@ export default {
         }
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1095px) {
         display: flex;
       }
 
@@ -1108,7 +1108,7 @@ export default {
     &.active {
       display: flex;
 
-      @media screen and (min-width: 1024px) {
+      @media screen and (min-width: 1095px) {
         display: none;
       }
     }
