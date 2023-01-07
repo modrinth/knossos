@@ -1362,11 +1362,10 @@ export default {
       }
     }
     .project__icon {
-      --border-width: 4px;
-      margin-top: calc(-3rem - var(--spacing-card-lg) - var(--border-width));
-      margin-left: calc(var(--border-width) * -1);
+      margin-top: calc(-3rem - var(--spacing-card-lg) - 4px);
+      margin-left: -4px;
       z-index: 1;
-      border: var(--border-width) solid var(--color-raised-bg);
+      border: 4px solid var(--color-raised-bg);
       border-bottom: none;
     }
   }
