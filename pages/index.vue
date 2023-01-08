@@ -13,6 +13,7 @@
             >
               {{ projectType.display }}s <br />
             </strong>
+            <strong class="main-header-strong">mods</strong>
           </span>
         </div>
       </h1>
@@ -1261,28 +1262,35 @@ export default {
 
   @keyframes slide {
     0%,
-    12% {
+    13% {
       top: 0;
     }
-    15%,
-    27% {
+    17%,
+    30% {
       top: -1.2em;
     }
-    30%,
-    42% {
+    33%,
+    46% {
       top: -2.4em;
     }
-    45%,
-    57% {
+    50%,
+    63% {
       top: -3.6em;
     }
-    60%,
-    72% {
+    66%,
+    79% {
       top: -4.8em;
     }
-    75%,
-    83% {
+    83%,
+    96% {
       top: -6em;
+    }
+    99.99997%,
+    99.99998% {
+      top: -7.2em;
+    }
+    99.99999% {
+      top: 0;
     }
   }
 }
