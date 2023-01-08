@@ -55,7 +55,7 @@
           <Badge v-if="member.accepted" type="accepted" />
           <Badge v-else type="pending" />
           <button
-            class="dropdown-icon"
+            class="square-button dropdown-icon"
             @click="
               openTeamMembers.indexOf(member.user.id) === -1
                 ? openTeamMembers.push(member.user.id)
@@ -464,11 +464,10 @@ export default {
       align-items: center;
       .dropdown-icon {
         margin-left: 1rem;
-        cursor: pointer;
-        color: var(--color-text-dark);
-        background-color: unset;
-        transition: 150ms ease transform;
-        padding: unset;
+
+        svg {
+          transition: 150ms ease transform;
+        }
       }
     }
   }
@@ -492,7 +491,7 @@ export default {
 
   &.open {
     .member-header {
-      .dropdown-icon {
+      .dropdown-icon svg {
         transform: rotate(180deg);
       }
     }
