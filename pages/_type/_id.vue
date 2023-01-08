@@ -93,6 +93,8 @@
         :is-settings="isSettings"
         :route-name="routeName"
         :set-processing="setProcessing"
+        :collapsed="collapsedChecklist"
+        :toggle-collapsed="toggleChecklistCollapse"
       />
       <NuxtChild
         :project.sync="project"
@@ -628,6 +630,8 @@
           :is-settings="isSettings"
           :route-name="routeName"
           :set-processing="setProcessing"
+          :collapsed="collapsedChecklist"
+          :toggle-collapsed="toggleChecklistCollapse"
         />
         <div
           v-if="project.status === 'unlisted'"
@@ -976,6 +980,7 @@ export default {
       isSettings: false,
       routeName: '',
       from: '',
+      collapsedChecklist: false,
     }
   },
   fetch() {
@@ -1154,6 +1159,9 @@ export default {
       } else {
         await this.setProcessing()
       }
+    },
+    toggleChecklistCollapse() {
+      this.collapsedChecklist = !this.collapsedChecklist
     },
     async setProcessing() {
       this.$nuxt.$loading.start()

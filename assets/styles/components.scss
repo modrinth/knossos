@@ -126,7 +126,7 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     background-color: var(--color-bg);
     border-radius: var(--size-rounded-card);
     padding: var(--spacing-card-lg);
@@ -142,6 +142,10 @@
       color: var(--color-text-dark);
       font-weight: bold;
       font-size: 2rem;
+    }
+
+    .goto-link {
+      margin-top: auto;
     }
   }
 

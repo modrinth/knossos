@@ -8,8 +8,36 @@
     "
     class="author-actions universal-card"
   >
-    <h2>Publishing checklist</h2>
-    <div class="grid-display width-16">
+    <div class="header__row">
+      <div class="header__title">
+        <h2>Publishing checklist</h2>
+        <div class="checklist">
+          <span class="checklist__title">Progress:</span>
+          <div
+            v-for="nag in nags"
+            :key="`checklist-${nag.id}`"
+            v-tooltip="nag.title"
+            class="circle"
+            :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
+          >
+            <CheckIcon v-if="!nag.condition" />
+            <RequiredIcon v-else-if="nag.status === 'required'" />
+            <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
+            <ModerationIcon v-else-if="nag.status === 'review'" />
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <button
+          class="iconified-button"
+          :class="{ 'not-collapsed': !collapsed }"
+          @click="toggleCollapsed()"
+        >
+          <DropdownIcon /> {{ collapsed ? 'Expand' : 'Collapse' }}
+        </button>
+      </div>
+    </div>
+    <div v-if="!collapsed" class="grid-display width-16">
       <div
         v-for="nag in nags.filter((x) => x.condition)"
         :key="nag.id"
@@ -58,25 +86,12 @@
         </button>
       </div>
     </div>
-    <div class="checklist">
-      <div
-        v-for="nag in nags"
-        :key="`checklist-${nag.id}`"
-        v-tooltip="nag.title"
-        class="circle"
-        :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
-      >
-        <CheckIcon v-if="!nag.condition" />
-        <RequiredIcon v-else-if="nag.status === 'required'" />
-        <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
-        <ModerationIcon v-else-if="nag.status === 'review'" />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import RequiredIcon from '~/assets/images/utils/asterisk.svg?inline'
 import SuggestionIcon from '~/assets/images/utils/lightbulb.svg?inline'
@@ -87,6 +102,7 @@ export default {
   name: 'ProjectPublishingChecklist',
   components: {
     ChevronRightIcon,
+    DropdownIcon,
     CheckIcon,
     RequiredIcon,
     SuggestionIcon,
@@ -110,6 +126,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    collapsed: {
+      type: Boolean,
+      default: false,
+    },
     routeName: {
       type: String,
       default: '',
@@ -122,6 +142,19 @@ export default {
             group: 'main',
             title: 'An error occurred',
             text: 'setProcessing function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
+    toggleCollapsed: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'toggleCollapsed function not found',
             type: 'error',
           })
         }
@@ -286,6 +319,35 @@ export default {
     visibility: hidden;
   }
 
+  .header__row {
+    align-items: center;
+    row-gap: var(--spacing-card-md);
+    flex-wrap: nowrap;
+    max-width: 100%;
+
+    .header__title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-card-md);
+      flex-basis: min-content;
+
+      h2 {
+        margin: 0 auto 0 0;
+      }
+    }
+
+    button {
+      svg {
+        transition: transform 0.25s ease-in-out;
+      }
+
+      &.not-collapsed svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
   .grid-display__item .label {
     display: flex;
     gap: var(--spacing-card-xs);
@@ -307,16 +369,20 @@ export default {
   .checklist {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: var(--spacing-card-md);
-    margin-top: var(--spacing-card-lg);
+    align-items: center;
+    gap: var(--spacing-card-xs);
     flex-wrap: wrap;
 
+    .checklist__title {
+      font-weight: bold;
+      margin-right: var(--spacing-card-xs);
+      color: var(--color-text-dark);
+    }
+
     .circle {
-      --circle-size: 3.25rem;
+      --circle-size: 2rem;
       --background-color: var(--color-bg);
       --content-color: var(--color-special-gray);
-      --border-color: var(--content-color);
       width: var(--circle-size);
       height: var(--circle-size);
       border-radius: 50%;
@@ -324,7 +390,6 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 3px solid var(--border-color);
 
       svg {
         color: var(--content-color);
@@ -346,7 +411,6 @@ export default {
 
       &.done {
         --background-color: var(--color-special-green);
-        --border-color: var(--color-special-green);
         --content-color: var(--color-brand-inverted);
       }
     }
