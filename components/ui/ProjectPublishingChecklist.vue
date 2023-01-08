@@ -13,17 +13,19 @@
         <h2>Publishing checklist</h2>
         <div class="checklist">
           <span class="checklist__title">Progress:</span>
-          <div
-            v-for="nag in nags"
-            :key="`checklist-${nag.id}`"
-            v-tooltip="nag.title"
-            class="circle"
-            :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
-          >
-            <CheckIcon v-if="!nag.condition" />
-            <RequiredIcon v-else-if="nag.status === 'required'" />
-            <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
-            <ModerationIcon v-else-if="nag.status === 'review'" />
+          <div class="checklist__items">
+            <div
+              v-for="nag in nags"
+              :key="`checklist-${nag.id}`"
+              v-tooltip="nag.title"
+              class="circle"
+              :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
+            >
+              <CheckIcon v-if="!nag.condition" />
+              <RequiredIcon v-else-if="nag.status === 'required'" />
+              <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
+              <ModerationIcon v-else-if="nag.status === 'review'" />
+            </div>
           </div>
         </div>
       </div>
@@ -321,15 +323,16 @@ export default {
 
   .header__row {
     align-items: center;
+    column-gap: var(--spacing-card-lg);
     row-gap: var(--spacing-card-md);
-    flex-wrap: nowrap;
     max-width: 100%;
 
     .header__title {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: var(--spacing-card-md);
+      column-gap: var(--spacing-card-lg);
+      row-gap: var(--spacing-card-md);
       flex-basis: min-content;
 
       h2 {
@@ -371,12 +374,23 @@ export default {
     flex-direction: row;
     align-items: center;
     gap: var(--spacing-card-xs);
+    width: fit-content;
     flex-wrap: wrap;
+    max-width: 100%;
 
     .checklist__title {
       font-weight: bold;
       margin-right: var(--spacing-card-xs);
       color: var(--color-text-dark);
+    }
+
+    .checklist__items {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--spacing-card-xs);
+      width: fit-content;
+      max-width: 100%;
     }
 
     .circle {
