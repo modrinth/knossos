@@ -326,8 +326,7 @@
           <div class="buttons status-buttons">
             <button
               v-if="
-                project.status === 'rejected' ||
-                project.status === 'withheld'
+                project.status === 'rejected' || project.status === 'withheld'
               "
               class="iconified-button brand-button"
               @click="submitForReview"
