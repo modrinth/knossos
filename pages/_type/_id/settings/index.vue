@@ -298,7 +298,9 @@ export default {
     this.summary = this.project.description
     this.clientSide = this.project.client_side
     this.serverSide = this.project.server_side
-    this.visibility = this.project.requested_status
+    this.visibility = this.statusOptions.includes(this.project.status)
+      ? this.project.status
+      : this.project.requested_status
   },
   computed: {
     hasPermission() {
@@ -336,7 +338,11 @@ export default {
         data.server_side = this.serverSide
       }
       if (this.visibility !== this.project.requested_status) {
-        data.requested_status = this.visibility
+        if (!this.statusOptions.includes(this.project.status)) {
+          data.requested_status = this.visibility
+        } else {
+          data.status = this.visibility
+        }
       }
 
       return data

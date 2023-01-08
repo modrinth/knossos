@@ -36,7 +36,9 @@ export default (ctx, inject) => {
     const visitedVersions = []
     const returnVersions = []
 
-    for (const version of versions.reverse()) {
+    for (const version of versions.sort(
+      (a, b) => ctx.$dayjs(a.date_published) - ctx.$dayjs(b.date_published)
+    )) {
       if (visitedVersions.includes(version.version_number)) {
         visitedVersions.push(version.version_number)
         version.displayUrlEnding = version.id
@@ -48,18 +50,23 @@ export default (ctx, inject) => {
       returnVersions.push(version)
     }
 
-    return returnVersions.reverse().map((version, index) => {
-      const nextVersion = returnVersions[index + 1]
-      if (
-        nextVersion &&
-        version.changelog &&
-        nextVersion.changelog === version.changelog
-      ) {
-        return { duplicate: true, ...version }
-      } else {
-        return { duplicate: false, ...version }
-      }
-    })
+    return returnVersions
+      .reverse()
+      .map((version, index) => {
+        const nextVersion = returnVersions[index + 1]
+        if (
+          nextVersion &&
+          version.changelog &&
+          nextVersion.changelog === version.changelog
+        ) {
+          return { duplicate: true, ...version }
+        } else {
+          return { duplicate: false, ...version }
+        }
+      })
+      .sort(
+        (a, b) => ctx.$dayjs(b.date_published) - ctx.$dayjs(a.date_published)
+      )
   })
   inject('getProjectTypeForDisplay', (type, categories) => {
     if (type === 'mod') {

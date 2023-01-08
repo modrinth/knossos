@@ -31,11 +31,11 @@
       </div>
       <div class="input-group">
         <button
-          class="iconified-button"
+          class="square-button"
           :class="{ 'not-collapsed': !collapsed }"
           @click="toggleCollapsed()"
         >
-          <DropdownIcon /> {{ collapsed ? 'Expand' : 'Collapse' }}
+          <DropdownIcon />
         </button>
       </div>
     </div>
