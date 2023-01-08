@@ -236,6 +236,11 @@ export default {
           },
         },
         {
+          hide:
+            this.project.project_type === 'resourcepack' ||
+            this.project.project_type === 'plugin' ||
+            this.project.project_type === 'shader' ||
+            this.project.project_type === 'datapack',
           condition:
             this.project.client_side === 'unknown' ||
             this.project.server_side === 'unknown',
@@ -267,17 +272,19 @@ export default {
                 .length > 0,
           },
         },
-      ].sort((a, b) =>
-        this.sortByTrue(
-          !a.condition,
-          !b.condition,
+      ]
+        .filter((x) => !x.hide)
+        .sort((a, b) =>
           this.sortByTrue(
-            a.status === 'required',
-            b.status === 'required',
-            this.sortByFalse(a.status === 'review', b.status === 'review')
+            !a.condition,
+            !b.condition,
+            this.sortByTrue(
+              a.status === 'required',
+              b.status === 'required',
+              this.sortByFalse(a.status === 'review', b.status === 'review')
+            )
           )
         )
-      )
     },
   },
   methods: {
