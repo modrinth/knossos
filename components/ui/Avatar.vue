@@ -59,6 +59,7 @@ export default {
     noShadow: {
       type: Boolean,
       default: false,
+    },
     loading: {
       type: String,
       default: 'eager',

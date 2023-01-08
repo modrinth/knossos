@@ -39,7 +39,7 @@
     padding-left: 7px;
     padding-top: 10px;
 
-    transition: background-color .1s ease-in-out;
+    transition: background-color 0.1s ease-in-out;
 
     &:active {
       background: var(--color-button-bg-hover);
@@ -126,7 +126,7 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     background-color: var(--color-bg);
     border-radius: var(--size-rounded-card);
     padding: var(--spacing-card-lg);
@@ -182,7 +182,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    grid-gap: .5rem;
+    grid-gap: 0.5rem;
     z-index: 2;
   }
 
@@ -203,7 +203,8 @@
 }
 
 .universal-labels {
-  label, .label {
+  label,
+  .label {
     :where(.label__title) {
       display: block;
       margin-block: var(--spacing-card-md) var(--spacing-card-sm);
@@ -306,7 +307,8 @@
     width: 15rem;
   }
 
-  > :where(input + *, .input-group + *, .textarea-wrapper + *, .chips + *, .resizable-textarea-wrapper + *, .input-div + *) {
+  > :where(input + *, .input-group + *, .textarea-wrapper + *, .chips
+      + *, .resizable-textarea-wrapper + *, .input-div + *) {
     margin-block-start: var(--spacing-card-md);
   }
 
@@ -340,7 +342,8 @@
     gap: var(--spacing-card-sm);
     margin-bottom: calc(var(--spacing-card-sm) + var(--spacing-card-md));
 
-    .iconified-button, .input-group {
+    .iconified-button,
+    .input-group {
       flex-shrink: 0;
     }
 
@@ -354,7 +357,8 @@
       flex-basis: min-content;
     }
 
-    label, .label {
+    label,
+    .label {
       .label__title {
         margin-block: 0;
       }
@@ -437,14 +441,16 @@
   }
 
   @media screen and (max-width: 750px) {
-    .adjacent-input, &.adjacent-input &:not(&.small) {
+    .adjacent-input,
+    &.adjacent-input &:not(&.small) {
       flex-direction: row;
       align-items: center;
     }
   }
 
   @media screen and (max-width: calc(600px + 2rem)) {
-    .adjacent-input, &.adjacent-input &:not(&.small) {
+    .adjacent-input,
+    &.adjacent-input &:not(&.small) {
       flex-direction: column;
       align-items: start;
     }
@@ -815,7 +821,7 @@
 
 .button-animation {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-  transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
 
   &:active:not(&:disabled) {
     transform: scale(0.95);
@@ -886,7 +892,7 @@ tr.button-transparent {
 
 .button-within {
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-  transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
 
   &:focus-visible:not(&.disabled),
   &:hover:not(&.disabled) {
