@@ -56,7 +56,12 @@
               class="project gradient-border"
               @click="$router.push(`/${project.project_type}/${project.slug}`)"
             >
-              <Avatar :src="project.icon_url" :alt="project.title" size="sm" />
+              <Avatar
+                :src="project.icon_url"
+                :alt="project.title"
+                size="sm"
+                loading="lazy"
+              />
               <div class="project-info">
                 <nuxt-link
                   :to="`/${project.project_type}/${project.slug}`"
@@ -175,7 +180,9 @@
                   :key="index"
                   class="notification gradient-border"
                 >
-                  <nuxt-link :to="notification.link">
+                  <nuxt-link
+                    :to="`${notification.project_type}/${notification.slug}`"
+                  >
                     <Avatar
                       size="md"
                       :src="notification.icon_url"
@@ -183,16 +190,32 @@
                     />
                   </nuxt-link>
                   <div>
-                    <nuxt-link :to="notification.link" class="notif-header">
+                    <nuxt-link
+                      :to="`${notification.project_type}/${notification.slug}`"
+                      class="notif-header"
+                    >
                       {{ notification.title }} has been updated!
                     </nuxt-link>
                     <p class="notif-desc">
-                      Version {{ notification.version }} has been released for
-                      Minecraft {{ notification.gameVersion }}
+                      Version {{ ['1.1.2', '1.0.3', '15.1'][index] }} has been
+                      released for
+                      {{
+                        $capitalizeString(
+                          notification.categories[
+                            notification.categories.length - 1
+                          ]
+                        )
+                      }}
+                      {{
+                        notification.versions[notification.versions.length - 1]
+                      }}
                     </p>
                     <div class="date">
                       <CalendarIcon />
-                      <span>Received {{ notification.date }}</span>
+                      <span>
+                        Received
+                        {{ $dayjs(notification.date_modified).fromNow() }}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -573,10 +596,11 @@ export default {
   },
   auth: false,
   async asyncData(data) {
-    const [projects, baseSearch] = (
+    const [projects, baseSearch, updated] = (
       await Promise.all([
         await data.$axios.get('projects_random?count=70'),
         await data.$axios.get('search?limit=3&query=flowers'),
+        await data.$axios.get('search?limit=3&query=&index=updated'),
       ])
     ).map((it) => it.data)
 
@@ -589,43 +613,13 @@ export default {
         projects.slice(val * 2, val * 3),
       ],
       searchProjects: baseSearch.hits,
-      notifications: [
-        {
-          link: '/mod/blast-travel',
-          icon_url:
-            'https://cdn.modrinth.com/data/8zYyDYqD/a11278b05ebcf220c89215312044def875836def.png',
-          title: 'Blast Travel',
-          version: '1.0.3+1.19',
-          gameVersion: 'Quilt 1.19.2',
-          date: '3 days ago',
-        },
-        {
-          link: '/resourcepack/classic-3d',
-          icon_url: 'https://cdn.modrinth.com/data/FRSckbRo/icon.png',
-          title: 'Classic 3D',
-          version: '15.1',
-          gameVersion: '1.19',
-          date: '1 month ago',
-        },
-        {
-          link: '/datapack/tectonic',
-          icon_url:
-            'https://cdn.modrinth.com/data/lWDHr9jE/c2f127f66b5b6d9804c5e49342c251cf9b56d8e7.png',
-          title: 'Tectonic',
-          version: '1.1.1',
-          gameVersion: '1.17.2',
-          date: '2 months ago',
-        },
-      ],
+      notifications: updated.hits,
     }
   },
   data() {
     return {
       searchQuery: 'flowers',
       sortType: 'relevance',
-
-      timer: null,
-      currentIndex: -1,
     }
   },
   computed: {
@@ -1253,7 +1247,7 @@ export default {
   > span {
     position: absolute;
     top: 0;
-    animation: slide 7s infinite;
+    animation: slide 9s infinite;
 
     @media (prefers-reduced-motion) {
       animation-play-state: paused;
@@ -1261,22 +1255,28 @@ export default {
   }
 
   @keyframes slide {
-    0% {
+    0%,
+    10% {
       top: 0;
     }
-    15% {
+    15%,
+    25% {
       top: -1.2em;
     }
-    30% {
+    30%,
+    40% {
       top: -2.4em;
     }
-    45% {
+    45%,
+    55% {
       top: -3.6em;
     }
-    60% {
+    60%,
+    70% {
       top: -4.8em;
     }
-    75% {
+    75%,
+    85% {
       top: -6em;
     }
   }
