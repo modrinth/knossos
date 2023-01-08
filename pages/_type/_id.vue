@@ -11,12 +11,7 @@
           />
           <div class="settings-header__text">
             <h1 class="wrap-as-needed">{{ project.title }}</h1>
-            <nuxt-link
-              :to="`/${project.project_type}/${project.slug}`"
-              class="goto-link"
-            >
-              Visit project page <ChevronRightIcon aria-hidden="true" />
-            </nuxt-link>
+            <Badge :type="project.status" />
           </div>
         </div>
         <h2>Project settings</h2>
