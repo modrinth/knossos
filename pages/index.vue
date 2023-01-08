@@ -201,8 +201,8 @@
                       released for
                       {{
                         $capitalizeString(
-                          notification.categories[
-                            notification.categories.length - 1
+                          notification.display_categories[
+                            notification.display_categories.length - 1
                           ]
                         )
                       }}
@@ -1247,7 +1247,7 @@ export default {
   > span {
     position: absolute;
     top: 0;
-    animation: slide 9s infinite;
+    animation: slide 10s infinite;
 
     @media (prefers-reduced-motion) {
       animation-play-state: paused;
@@ -1256,27 +1256,27 @@ export default {
 
   @keyframes slide {
     0%,
-    10% {
+    12% {
       top: 0;
     }
     15%,
-    25% {
+    27% {
       top: -1.2em;
     }
     30%,
-    40% {
+    42% {
       top: -2.4em;
     }
     45%,
-    55% {
+    57% {
       top: -3.6em;
     }
     60%,
-    70% {
+    72% {
       top: -4.8em;
     }
     75%,
-    85% {
+    83% {
       top: -6em;
     }
   }
