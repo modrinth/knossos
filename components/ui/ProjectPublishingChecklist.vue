@@ -215,7 +215,7 @@ export default {
           title: 'Upload a version',
           id: 'upload-version',
           description:
-            'At least one version is required for a project to be submitted.',
+            'At least one version is required for a project to be submitted for review.',
           status: 'required',
           link: {
             path: 'versions',
