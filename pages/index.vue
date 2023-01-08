@@ -992,6 +992,11 @@ export default {
               background: var(--landing-card-bg);
               box-shadow: var(--landing-card-shadow);
 
+              img {
+                width: 4rem;
+                height: 4rem;
+              }
+
               .notif-header {
                 margin: 0;
                 font-weight: 600;
@@ -1315,6 +1320,15 @@ export default {
               .graphic {
                 margin: 0;
                 padding: 1.25rem 2.75rem;
+              }
+            }
+          }
+
+          .notifs-demo {
+            .notifications .notification {
+              img {
+                width: 5rem;
+                height: 5rem;
               }
             }
           }
