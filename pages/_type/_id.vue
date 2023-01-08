@@ -126,7 +126,7 @@
         'alt-layout': $cosmetics.projectLayout,
       }"
     >
-      <article class="normal-page__sidebar">
+      <div class="normal-page__sidebar">
         <div
           class="header project__header base-card padding-0"
           :class="{ 'has-featured-image': featuredGalleryImage }"
@@ -365,7 +365,7 @@
             </ul>
           </div>
         </div>
-      </article>
+      </div>
       <div class="card normal-page__info">
         <template
           v-if="
