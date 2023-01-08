@@ -18,9 +18,9 @@
     <template v-else-if="type === 'withheld'"><EyeOffIcon /> Withheld</template>
     <template v-else-if="type === 'unlisted'"><EyeOffIcon /> Unlisted</template>
     <template v-else-if="type === 'private'"><LockIcon /> Private</template>
-    <template v-else-if="type === 'scheduled'"
-      ><CalendarIcon /> Scheduled</template
-    >
+    <template v-else-if="type === 'scheduled'">
+      <CalendarIcon /> Scheduled
+    </template>
     <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
     <template v-else-if="type === 'archived'">
       <ArchiveIcon /> Archived
