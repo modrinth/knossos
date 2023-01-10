@@ -307,7 +307,9 @@
               v-model="maxResults"
               placeholder="Select one"
               class="labeled-control__control"
-              :options="[5, 10, 15, 20, 50, 100]"
+              :options="
+                maxResultsForView[$cosmetics.searchDisplayMode[projectType.id]]
+              "
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -473,6 +475,12 @@ export default {
 
       maxResults: 20,
 
+      maxResultsForView: {
+        list: [5, 10, 15, 20, 50, 100],
+        grid: [6, 12, 18, 24, 48, 96],
+        gallery: [6, 10, 16, 20, 50, 100],
+      },
+
       sidebarMenuOpen: false,
       showAllLoaders: false,
 
@@ -521,11 +529,13 @@ export default {
           break
       }
     }
+
     if (this.$route.query.m) {
       this.maxResults = this.$route.query.m
     }
-    if (this.$route.query.o)
+    if (this.$route.query.o) {
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
+    }
 
     this.projectType = this.$tag.projectTypes.find(
       (x) => x.id === this.$route.name.substring(0, this.$route.name.length - 1)
@@ -600,6 +610,8 @@ export default {
         await this.clearFilters()
 
         this.isLoading = false
+
+        this.setClosestMaxResults()
       },
     },
   },
@@ -841,6 +853,21 @@ export default {
         mode: newValue,
         $cookies: this.$cookies,
       })
+      this.setClosestMaxResults()
+    },
+    setClosestMaxResults() {
+      const view = this.$cosmetics.searchDisplayMode[this.projectType.id]
+      const maxResultsOptions = this.maxResultsForView[view] ?? [20]
+      const currentMax = this.maxResults
+      console.log(maxResultsOptions)
+      console.log(currentMax)
+      if (!maxResultsOptions.includes(currentMax)) {
+        this.maxResults = maxResultsOptions.reduce(function (prev, curr) {
+          return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax)
+            ? curr
+            : prev
+        })
+      }
     },
   },
 }
