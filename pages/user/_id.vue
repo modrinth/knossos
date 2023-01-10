@@ -258,7 +258,6 @@
                   ? project.status
                   : null
               "
-              :has-mod-message="project.moderator_message"
               :type="project.project_type"
               :color="project.color"
             />
@@ -414,11 +413,14 @@ export default {
       isEditing: false,
       icon: null,
       previewImage: null,
-      decorated: true,
+      decorated: false,
       accentColor1: '#e9a04f',
       accentColor2: '#e94b54',
       bannerImageUrl: 'https://i.imgur.com/wPULBdE.png',
     }
+  },
+  fetch() {
+    this.decorated = this.user.username.toLowerCase() === 'prospector'
   },
   head() {
     const description = this.user.bio
