@@ -45,42 +45,22 @@
                 type="creator"
                 class="badge"
               />
+              <div class="profile__stats">
+                <div class="profile__stats__stat">
+                  <DownloadIcon aria-hidden="true" />
+                  {{ sumDownloads() }}
+                </div>
+                <div class="profile__stats__stat">
+                  <HeartIcon aria-hidden="true" />
+                  {{ sumFollows() }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="normal-page">
         <div class="normal-page__sidebar">
-          <aside class="universal-card">
-            <h3>Filter projects</h3>
-            <NavStack>
-              <NavStackItem link="" label="All"> </NavStackItem>
-              <NavStackItem
-                v-for="type in projectTypes"
-                :key="type"
-                :link="'?type=' + type"
-                :label="$formatProjectType(type) + 's'"
-              >
-              </NavStackItem>
-              <h3>Manage</h3>
-              <NavStackItem
-                v-if="$auth.user && $auth.user.id === user.id"
-                link="/dashboard/projects"
-                label="Manage projects"
-                chevron
-              >
-                <SettingsIcon />
-              </NavStackItem>
-              <NavStackItem
-                :action="cycleSearchDisplayMode"
-                :label="`Change to ${nextDisplayMode} view`"
-              >
-                <GridIcon v-if="nextDisplayMode === 'grid'" />
-                <ImageIcon v-else-if="nextDisplayMode === 'gallery'" />
-                <ListIcon v-else />
-              </NavStackItem>
-            </NavStack>
-          </aside>
           <aside class="universal-card">
             <div class="card__overlay" style="display: none">
               <FileInput
@@ -122,18 +102,18 @@
             </div>
             <template v-if="isEditing">
               <div class="inputs universal-labels">
-                <label for="user-username"
-                  ><span class="label__title">Username</span></label
-                >
+                <label for="user-username">
+                  <span class="label__title">Username</span>
+                </label>
                 <input
                   id="user-username"
                   v-model="user.username"
                   maxlength="39"
                   type="text"
                 />
-                <label for="user-bio"
-                  ><span class="label__title">Bio</span></label
-                >
+                <label for="user-bio">
+                  <span class="label__title">Bio</span>
+                </label>
                 <div class="textarea-wrapper">
                   <textarea
                     id="user-bio"
@@ -167,22 +147,6 @@
                 user.bio
               }}</span>
               <hr class="card-divider" />
-              <div class="primary-stat">
-                <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-                <div class="primary-stat__text">
-                  <span class="primary-stat__counter">{{
-                    sumDownloads()
-                  }}</span>
-                  <span class="primary-stat__label">downloads</span>
-                </div>
-              </div>
-              <div class="primary-stat">
-                <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-                <div class="primary-stat__text">
-                  <span class="primary-stat__counter">{{ sumFollows() }}</span>
-                  <span class="primary-stat__label">followers of projects</span>
-                </div>
-              </div>
               <div class="stats-block__item secondary-stat">
                 <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
                 <span
@@ -194,22 +158,50 @@
                   Joined {{ $dayjs(user.created).fromNow() }}
                 </span>
               </div>
-              <hr class="card-divider" />
               <div class="stats-block__item secondary-stat">
                 <UserIcon class="secondary-stat__icon" aria-hidden="true" />
                 <span class="secondary-stat__text">
                   User ID: <CopyCode :text="user.id" />
                 </span>
               </div>
-              <a
-                :href="githubUrl"
-                target="_blank"
-                class="sidebar__item github-button iconified-button"
+            </template>
+          </aside>
+          <aside class="universal-card">
+            <NavStack>
+              <h3>Filter projects</h3>
+              <NavStackItem link="" label="All"> </NavStackItem>
+              <NavStackItem
+                v-for="type in projectTypes"
+                :key="type"
+                :link="'?type=' + type"
+                :label="$formatProjectType(type) + 's'"
+              >
+              </NavStackItem>
+              <h3>Preferences</h3>
+              <NavStackItem
+                :action="cycleSearchDisplayMode"
+                :label="`Change to ${nextDisplayMode} view`"
+              >
+                <GridIcon v-if="nextDisplayMode === 'grid'" />
+                <ImageIcon v-else-if="nextDisplayMode === 'gallery'" />
+                <ListIcon v-else />
+              </NavStackItem>
+              <h3>Relevant pages</h3>
+              <NavStackItem
+                v-if="$auth.user && $auth.user.id === user.id"
+                link="/dashboard/projects"
+                label="Manage projects"
+                chevron
+              >
+                <SettingsIcon />
+              </NavStackItem>
+              <NavStackItem
+                :external-link="githubUrl"
+                label="Visit GitHub profile"
               >
                 <GitHubIcon aria-hidden="true" />
-                View GitHub profile
-              </a>
-            </template>
+              </NavStackItem>
+            </NavStack>
           </aside>
         </div>
         <div class="normal-page__content">
@@ -603,7 +595,7 @@ export default {
         margin: 0;
       }
       .badge {
-        margin-top: 0.25rem;
+        margin-top: var(--spacing-card-sm);
       }
     }
 
@@ -734,5 +726,25 @@ export default {
 
 .textarea-wrapper {
   height: 10rem;
+}
+
+.profile__stats {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-bg);
+  margin-top: var(--spacing-card-sm);
+
+  .profile__stats__stat {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-card-xs);
+    align-items: center;
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+  }
+}
+
+.stats-block__item:last-child {
+  margin-bottom: 0;
 }
 </style>

@@ -7,6 +7,18 @@
       <span v-if="chevron" class="chevron"><ChevronRightIcon /></span>
     </div>
   </NuxtLink>
+  <a
+    v-else-if="externalLink"
+    class="nav-link button-base"
+    :href="externalLink"
+    target="_blank"
+  >
+    <div class="nav-content">
+      <slot />
+      <span>{{ label }}</span>
+      <span class="chevron"><ExternalLinkIcon /></span>
+    </div>
+  </a>
   <button
     v-else-if="action"
     class="nav-link button-base"
@@ -24,14 +36,20 @@
 
 <script>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import ExternalLinkIcon from '~/assets/images/utils/external.svg?inline'
 
 export default {
   name: 'NavStackItem',
   components: {
     ChevronRightIcon,
+    ExternalLinkIcon,
   },
   props: {
     link: {
+      default: null,
+      type: String,
+    },
+    externalLink: {
       default: null,
       type: String,
     },
