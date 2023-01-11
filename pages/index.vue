@@ -54,7 +54,7 @@
             <nuxt-link
               v-for="project in row"
               :key="project.id"
-              class="project gradient-border"
+              class="project gradient-border button-animation"
               :to="`/${project.project_type}/${project.slug}`"
             >
               <Avatar
@@ -775,7 +775,7 @@ export default {
         padding: 1rem;
         gap: 1rem;
         border-radius: 1rem;
-        transition: background 0.5s ease-in-out;
+        transition: background 0.5s ease-in-out, transform 0.05s ease-in-out;
         // Removed due to lag on mobile :(
         // backdrop-filter: blur(0.25rem);
 
