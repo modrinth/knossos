@@ -189,16 +189,17 @@ export default {
       const data = {}
 
       if (this.checkDifference(this.issuesUrl, this.project.issues_url)) {
-        data.issues_url = this.issuesUrl === '' ? null : this.issuesUrl
+        data.issues_url = this.issuesUrl === '' ? null : this.issuesUrl.trim()
       }
       if (this.checkDifference(this.sourceUrl, this.project.source_url)) {
-        data.source_url = this.sourceUrl === '' ? null : this.sourceUrl
+        data.source_url = this.sourceUrl === '' ? null : this.sourceUrl.trim()
       }
       if (this.checkDifference(this.wikiUrl, this.project.wiki_url)) {
-        data.wiki_url = this.wikiUrl === '' ? null : this.wikiUrl
+        data.wiki_url = this.wikiUrl === '' ? null : this.wikiUrl.trim()
       }
       if (this.checkDifference(this.discordUrl, this.project.discord_url)) {
-        data.discord_url = this.discordUrl === '' ? null : this.discordUrl
+        data.discord_url =
+          this.discordUrl === '' ? null : this.discordUrl.trim()
       }
 
       const donationLinks = this.donationLinks.filter(
