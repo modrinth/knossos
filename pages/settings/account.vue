@@ -4,7 +4,7 @@
       ref="modal_confirm"
       title="Are you sure you want to delete your account?"
       description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
-      proceed-label="Delete my account"
+      proceed-label="Delete this account"
       :confirmation-text="$auth.user.username"
       :has-to-type="true"
       @proceed="deleteAccount"
@@ -33,6 +33,7 @@
             <a
               href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
               target="_blank"
+              rel="noopener noreferrer nofollow"
             >
               Head to the Modrinth Application page on GitHub.
             </a>
@@ -215,6 +216,13 @@ export default {
           type: 'error',
         })
       }
+
+      this.$cookies.set('auth-token-reset', true)
+      alert(
+        'Please note that logging back in with GitHub will create a new account.'
+      )
+      window.location.href = '/'
+
       this.$nuxt.$loading.finish()
     },
     logout() {

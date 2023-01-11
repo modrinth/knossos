@@ -12,22 +12,23 @@
             :label="NOTIFICATION_TYPES[type]"
           >
           </NavStackItem>
-        </NavStack>
-        <h3>Manage</h3>
-        <div class="input-group">
-          <NuxtLink class="iconified-button" to="/settings/follows">
+          <h3>Manage</h3>
+          <NavStackItem
+            link="/settings/follows"
+            label="Followed projects"
+            chevron
+          >
             <SettingsIcon />
-            Followed projects
-          </NuxtLink>
-          <button
+          </NavStackItem>
+          <NavStackItem
             v-if="$user.notifications.length > 0"
-            class="iconified-button danger-button"
-            @click="clearNotifications"
+            :action="clearNotifications"
+            label="Clear all"
+            danger
           >
             <ClearIcon />
-            Clear all
-          </button>
-        </div>
+          </NavStackItem>
+        </NavStack>
       </aside>
     </div>
     <div class="normal-page__content">
@@ -71,11 +72,6 @@ import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 
-const NOTIFICATION_TYPES = {
-  team_invite: 'Team invites',
-  project_update: 'Project updates',
-}
-
 export default {
   name: 'Notifications',
   components: {
@@ -95,8 +91,6 @@ export default {
     }
   },
   async fetch() {
-    this.NOTIFICATION_TYPES = NOTIFICATION_TYPES
-
     await this.$store.dispatch('user/fetchNotifications')
   },
   head: {
@@ -169,6 +163,13 @@ export default {
 
       return Object.keys(obj)
     },
+  },
+  created() {
+    this.NOTIFICATION_TYPES = {
+      team_invite: 'Team invites',
+      project_update: 'Project updates',
+      status_update: 'Status changes',
+    }
   },
   methods: {
     async clearNotifications() {

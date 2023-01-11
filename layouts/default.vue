@@ -1,7 +1,11 @@
 <template>
-  <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+  <div
+    ref="main_page"
+    class="layout"
+    :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }"
+  >
     <header class="site-header" role="presentation">
-      <section class="navbar card columns" role="navigation">
+      <section class="navbar columns" role="navigation">
         <section class="skip column" role="presentation">
           <a href="#main">Skip to Main Content</a>
           <a
@@ -12,7 +16,7 @@
         </section>
         <section class="logo column" role="presentation">
           <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
-            <ModrinthLogo aria-hidden="true" class="text-logo" />
+            <BrandTextLogo aria-hidden="true" class="text-logo" />
           </NuxtLink>
         </section>
         <section class="nav-group columns" role="presentation">
@@ -27,6 +31,14 @@
                 {
                   label: 'Plugins',
                   href: '/plugins',
+                },
+                {
+                  label: 'Data Packs',
+                  href: '/datapacks',
+                },
+                {
+                  label: 'Shaders',
+                  href: '/shaders',
                 },
                 {
                   label: 'Resource Packs',
@@ -87,7 +99,7 @@
                   >
                     <div class="title profile-link">
                       <div class="username">@{{ $auth.user.username }}</div>
-                      <div class="prompt">Go to my profile</div>
+                      <div class="prompt">Visit your profile</div>
                     </div>
                   </NuxtLink>
                   <hr class="divider" />
@@ -141,6 +153,7 @@
                 <a
                   :href="authUrl"
                   class="log-in-button header-button brand-button"
+                  rel="noopener noreferrer nofollow"
                 >
                   <GitHubIcon aria-hidden="true" />
                   Sign in with GitHub</a
@@ -193,7 +206,22 @@
           >
             <span>Plugins</span>
           </NuxtLink>
-
+          <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
+            to="/datapacks"
+            class="tab iconified-button"
+            @click.native="isBrowseMenuOpen = false"
+          >
+            <span>Data Packs</span>
+          </NuxtLink>
+          <NuxtLink
+            :tabindex="isBrowseMenuOpen ? 0 : -1"
+            to="/shaders"
+            class="tab iconified-button"
+            @click.native="isBrowseMenuOpen = false"
+          >
+            <span>Shaders</span>
+          </NuxtLink>
           <NuxtLink
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
@@ -228,7 +256,7 @@
               />
               <div class="profile-link">
                 <div class="username">@{{ $auth.user.username }}</div>
-                <div class="prompt">Go to my profile</div>
+                <div class="prompt">Visit your profile</div>
               </div>
             </NuxtLink>
             <button
@@ -314,22 +342,24 @@
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
-        <ModrinthLogo aria-hidden="true" class="text-logo" />
+        <BrandTextLogo aria-hidden="true" class="text-logo" />
         <p>
           Modrinth is
           <a
-            target="_blank"
+            :target="$external()"
             href="https://github.com/modrinth"
             class="text-link"
+            rel="noopener noreferrer nofollow"
           >
             open source</a
           >.
         </p>
         <p>
           {{ owner }}/{{ slug }} {{ branch }}@<a
-            target="_blank"
+            :target="$external()"
             :href="'https://github.com/' + owner + '/' + slug + '/tree/' + hash"
             class="text-link"
+            rel="noopener noreferrer nofollow"
             >{{ hash.substring(0, 7) }}</a
           >
         </p>
@@ -340,28 +370,48 @@
         <nuxt-link to="/legal/terms">Terms</nuxt-link>
         <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
         <nuxt-link to="/legal/rules">Rules</nuxt-link>
-        <a
-          target="_blank"
-          href="https://github.com/modrinth/knossos/blob/master/LICENSE.md"
-        >
-          License
-        </a>
+        <nuxt-link to="/legal/security">Security</nuxt-link>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
-        <a target="_blank" href="https://blog.modrinth.com">Blog</a>
-        <a target="_blank" href="https://docs.modrinth.com">Docs</a>
-        <a target="_blank" href="https://status.modrinth.com">Status</a>
-        <a target="_blank" href="https://github.com/modrinth">GitHub</a>
+        <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
+        <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
+        <a :target="$external()" href="https://status.modrinth.com">Status</a>
+        <a
+          rel="noopener noreferrer nofollow"
+          :target="$external()"
+          href="https://github.com/modrinth"
+          >GitHub</a
+        >
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
-        <a target="_blank" href="https://discord.gg/EUHuJHt">Discord</a>
-        <a target="_blank" href="https://twitter.com/modrinth">Twitter</a>
-        <a target="_blank" rel="me" href="https://floss.social/@modrinth">
+        <a
+          rel="noopener noreferrer nofollow"
+          :target="$external()"
+          href="https://discord.gg/EUHuJHt"
+        >
+          Discord
+        </a>
+        <a
+          rel="noopener noreferrer nofollow"
+          :target="$external()"
+          href="https://twitter.com/modrinth"
+        >
+          Twitter
+        </a>
+        <a
+          rel="noopener noreferrer nofollow"
+          :target="$external()"
+          href="https://floss.social/@modrinth"
+        >
           Mastodon
         </a>
-        <a target="_blank" href="https://crowdin.com/project/modrinth">
+        <a
+          rel="noopener noreferrer nofollow"
+          :target="$external()"
+          href="https://crowdin.com/project/modrinth"
+        >
           Crowdin
         </a>
       </div>
@@ -386,8 +436,6 @@
 
 <script>
 import ClickOutside from 'vue-click-outside'
-
-import ModrinthLogo from '~/assets/images/text-logo.svg?inline'
 
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
@@ -415,7 +463,6 @@ export default {
     Avatar,
     ModalCreation,
     NavRow,
-    ModrinthLogo,
     MoonIcon,
     SunIcon,
     LogOutIcon,
@@ -480,17 +527,18 @@ export default {
   watch: {
     $route() {
       this.isMobileMenuOpen = false
-      document.body.style.overflowY = 'scroll'
-
       this.$store.dispatch('user/fetchAll')
 
-      document.body.setAttribute('tabindex', '-1')
-      document.body.removeAttribute('tabindex')
+      if (process.client) {
+        document.body.style.overflowY = 'scroll'
+        document.body.setAttribute('tabindex', '-1')
+        document.body.removeAttribute('tabindex')
+      }
     },
   },
-  beforeCreate() {
+  async beforeCreate() {
     if (this.$route.query.code) {
-      this.$router.push(this.$route.path)
+      await this.$router.push(this.$route.path)
     }
   },
   created() {
@@ -586,7 +634,7 @@ export default {
     margin-bottom: var(--spacing-card-md);
     max-width: 100vw;
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1280px) {
       border-radius: var(--size-rounded-sm);
       max-width: 1280px;
       margin-left: auto;
@@ -594,14 +642,11 @@ export default {
     }
 
     .navbar {
+      padding: 0 var(--spacing-card-lg);
       margin: 0 var(--spacing-card-lg);
       max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
-
-      @media screen and (max-width: 750px) {
-        justify-content: center;
-      }
 
       section.logo {
         display: flex;
@@ -620,14 +665,6 @@ export default {
         svg {
           height: 1.75rem;
           width: auto;
-        }
-
-        .badge {
-          margin-left: 0.25rem;
-          display: none;
-          @media screen and (min-width: 430px) {
-            display: unset;
-          }
         }
 
         button {
@@ -657,6 +694,7 @@ export default {
             top: 50%;
             transform: translateY(-50%);
             margin-left: 2rem;
+            grid-gap: 1.5rem;
 
             a {
               margin-left: 0;
@@ -695,12 +733,12 @@ export default {
           top: 50%;
           transform: translateY(-50%);
           min-width: 6rem;
+          gap: 1rem;
 
           .control-button {
             position: relative;
             display: flex;
-            padding: 0.5rem 0.5rem;
-            margin: 0 1rem 0 0;
+            padding: 0.5rem;
             color: var(--color-text);
             border-radius: 2rem;
             transition: filter 0.1s ease-in-out;
@@ -737,6 +775,7 @@ export default {
 
           .dropdown {
             position: relative;
+            margin-left: 0.5rem;
 
             .control {
               align-items: center;
@@ -805,15 +844,6 @@ export default {
                 &.nuxt-link-exact-active {
                   color: var(--color-button-text-active);
                   background-color: var(--color-button-bg);
-
-                  .profile-link {
-                    .username {
-                      margin-block: 0.7rem;
-                    }
-                    .prompt {
-                      display: none;
-                    }
-                  }
                 }
               }
 
@@ -857,7 +887,7 @@ export default {
         }
       }
 
-      @media screen and (max-width: 750px) {
+      @media screen and (max-width: 1095px) {
         display: none;
       }
     }
@@ -867,6 +897,7 @@ export default {
       width: 100%;
       transition: height 0.25s ease-in-out;
       height: var(--size-mobile-navbar-height);
+      padding-bottom: env(safe-area-inset-bottom);
       position: fixed;
       left: 0;
       bottom: 0;
@@ -971,12 +1002,27 @@ export default {
         }
       }
 
-      @media screen and (max-width: 750px) {
+      @media screen and (max-width: 1095px) {
         display: flex;
       }
 
       &.expanded {
         height: var(--size-mobile-navbar-height-expanded);
+
+        &::after {
+          top: var(--size-mobile-navbar-height-expanded);
+        }
+      }
+
+      &::after {
+        content: '';
+        background: var(--color-raised-bg);
+        width: 100%;
+        height: 50px;
+        position: absolute;
+        top: var(--size-mobile-navbar-height);
+        left: 0;
+        transition: top 0.25s ease-in-out;
       }
     }
   }
@@ -1020,12 +1066,6 @@ export default {
             color: var(--color-brand-inverted);
             background-color: var(--color-brand);
 
-            .profile-link {
-              .prompt {
-                display: none;
-              }
-            }
-
             .beta-badge {
               background-color: var(--color-brand-inverted);
               color: var(--color-text-dark);
@@ -1068,7 +1108,7 @@ export default {
     &.active {
       display: flex;
 
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: 1095px) {
         display: none;
       }
     }
@@ -1088,11 +1128,12 @@ export default {
       'buttons    buttons    buttons' auto
       'notice     notice     notice' auto
       / 1fr 1fr 1fr;
+    max-width: 1280px;
 
     .logo-info {
       margin-left: auto;
       margin-right: auto;
-      max-width: 20rem;
+      max-width: 15rem;
       margin-bottom: 1rem;
       grid-area: logo-info;
 
@@ -1153,18 +1194,17 @@ export default {
     @media screen and (min-width: 1024px) {
       display: grid;
       margin-inline: auto;
-      width: fit-content;
       grid-template:
         'logo-info  links-1 links-2 links-3 buttons' auto
         'notice     notice  notice  notice  notice' auto;
       text-align: unset;
 
       .logo-info {
-        margin-right: 2rem;
+        margin-right: 4rem;
       }
 
       .links {
-        margin-right: 2rem;
+        margin-right: 4rem;
       }
 
       .buttons {

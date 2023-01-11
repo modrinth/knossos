@@ -3,21 +3,23 @@
     <div
       :class="{
         shown: shown,
-        noblur: !$orElse($store.state.cosmetics.advancedRendering, true),
+        noblur: !$orElse($cosmetics.advancedRendering, true),
       }"
       class="modal-overlay"
       @click="hide"
     />
     <div class="modal-body" :class="{ shown: shown }">
-      <div v-if="header" class="header">
-        <h1>{{ header }}</h1>
-        <button class="iconified-button icon-only transparent" @click="hide">
-          <CrossIcon />
-        </button>
-      </div>
-      <div class="content">
-        <slot></slot>
-      </div>
+      <template v-if="shown">
+        <div v-if="header" class="header">
+          <h1>{{ header }}</h1>
+          <button class="iconified-button icon-only transparent" @click="hide">
+            <CrossIcon />
+          </button>
+        </div>
+        <div class="content">
+          <slot></slot>
+        </div>
+      </template>
     </div>
   </div>
 </template>

@@ -39,6 +39,21 @@
       placeholder="Filter versions..."
       @input="updateVersionFilters()"
     ></Multiselect>
+    <Multiselect
+      v-if="getValidChannels().length > 1"
+      v-model="selectedChannels"
+      :options="getValidChannels()"
+      :custom-label="(x) => $capitalizeString(x)"
+      :multiple="true"
+      :searchable="false"
+      :show-no-results="false"
+      :close-on-select="true"
+      :clear-search-on-select="false"
+      :show-labels="false"
+      :allow-empty="true"
+      placeholder="Filter channels..."
+      @input="updateVersionFilters()"
+    ></Multiselect>
     <Checkbox
       v-if="
         getValidVersions().length > 1 &&
@@ -48,6 +63,7 @@
       label="Include snapshots"
       description="Include snapshots"
       :border="false"
+      @input="updateQuery"
     />
     <button
       title="Clear filters"
@@ -88,13 +104,31 @@ export default {
     return {
       query: '',
       showSnapshots: false,
+      cachedValidChannels: null,
       cachedValidVersions: null,
       cachedValidLoaders: null,
       selectedGameVersions: [],
       selectedLoaders: [],
+      selectedChannels: [],
     }
   },
+  fetch() {
+    this.selectedLoaders = this.$route.query.l?.split(',') || []
+    this.selectedGameVersions = this.$route.query.g?.split(',') || []
+    this.selectedChannels = this.$route.query.c?.split(',') || []
+    this.showSnapshots = this.$route.query.s === 'true'
+    this.updateVersionFilters()
+  },
   methods: {
+    getValidChannels() {
+      if (!this.cachedValidChannels) {
+        this.cachedValidChannels = ['release', 'beta', 'alpha'].filter(
+          (channel) =>
+            this.versions.some((projVer) => projVer.version_type === channel)
+        )
+      }
+      return this.cachedValidChannels
+    },
     getValidVersions() {
       if (!this.cachedValidVersions) {
         this.cachedValidVersions = this.$tag.gameVersions.filter((gameVer) =>
@@ -118,7 +152,19 @@ export default {
       }
       return this.cachedValidLoaders
     },
-    updateVersionFilters() {
+    async updateVersionFilters() {
+      this.selectedChannels = this.selectedChannels.filter((channel) =>
+        this.getValidChannels().includes(channel)
+      )
+      this.selectedLoaders = this.selectedLoaders.filter((loader) =>
+        this.getValidLoaders().includes(loader)
+      )
+      this.selectedGameVersions = this.selectedGameVersions.filter((version) =>
+        this.getValidVersions().some(
+          (validVersion) => validVersion.version === version
+        )
+      )
+
       const temp = this.versions.filter(
         (projectVersion) =>
           (this.selectedGameVersions.length === 0 ||
@@ -128,9 +174,32 @@ export default {
           (this.selectedLoaders.length === 0 ||
             this.selectedLoaders.some((loader) =>
               projectVersion.loaders.includes(loader)
-            ))
+            )) &&
+          (this.selectedChannels.length === 0 ||
+            this.selectedChannels.includes(projectVersion.version_type))
       )
+      await this.updateQuery()
       this.$emit('updateVersions', temp)
+    },
+    async updateQuery() {
+      await this.$router.replace({
+        query: {
+          ...this.$route.query,
+          l:
+            this.selectedLoaders.length === 0
+              ? undefined
+              : this.selectedLoaders.join(','),
+          g:
+            this.selectedGameVersions.length === 0
+              ? undefined
+              : this.selectedGameVersions.join(','),
+          c:
+            this.selectedChannels.length === 0
+              ? undefined
+              : this.selectedChannels.join(','),
+          s: this.showSnapshots ? true : undefined,
+        },
+      })
     },
   },
 }

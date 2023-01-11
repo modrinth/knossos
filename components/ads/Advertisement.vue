@@ -1,12 +1,12 @@
 <template>
-  <div class="content-wrapper">
+  <div class="modrinth-content-wrapper">
     <div data-ea-publisher="modrinth-com" data-ea-type="text" class="loaded">
       <div class="ea-placement ea-type-text">
         <div class="ea-content">
           <div class="ea-text">
             <a
               href="https://exaroton.com/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
-              rel="nofollow noopener"
+              rel="noopener noreferrer nofollow sponsored"
               target="_blank"
             >
               <LightIcon
@@ -26,9 +26,9 @@
         </div>
         <div class="ea-callout">
           <a
-            rel="nofollow noopener"
+            rel="noopener noreferrer nofollow sponsored"
             target="_blank"
-            href="https://modrinth.com"
+            href="https://adrinth.com"
           >
             Ads via Adrinth
           </a>
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss">
-.content-wrapper {
+.modrinth-content-wrapper {
   min-height: 46.2px;
   margin-bottom: var(--spacing-card-md);
 

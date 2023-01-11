@@ -105,19 +105,6 @@ export default {
   fetch() {
     if (this.$route.query.page)
       this.currentPage = parseInt(this.$route.query.page)
-
-    this.filteredVersions = this.versions.map((version, index) => {
-      const nextVersion = this.versions[index + 1]
-      if (
-        nextVersion &&
-        version.changelog &&
-        nextVersion.changelog === version.changelog
-      ) {
-        return { duplicate: true, ...version }
-      } else {
-        return { duplicate: false, ...version }
-      }
-    })
   },
   head() {
     const title = `${this.project.title} - Changelog`
@@ -150,9 +137,9 @@ export default {
     }
   },
   methods: {
-    switchPage(page, toTop) {
+    async switchPage(page, toTop) {
       this.currentPage = page
-      this.$router.replace(this.getPageLink(page))
+      await this.$router.replace(this.getPageLink(page))
 
       if (toTop) {
         setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
@@ -176,24 +163,24 @@ export default {
 
 <style lang="scss" scoped>
 .changelog-item {
-  display: flex;
+  display: block;
   margin-bottom: 1rem;
   position: relative;
   padding-left: 1.8rem;
 
   .changelog-bar {
-    --color: var(--color-badge-green-bg);
+    --color: var(--color-special-green);
 
     &.alpha {
-      --color: var(--color-badge-red-bg);
+      --color: var(--color-special-red);
     }
 
     &.release {
-      --color: var(--color-badge-green-bg);
+      --color: var(--color-special-green);
     }
 
     &.beta {
-      --color: var(--color-badge-yellow-bg);
+      --color: var(--color-special-orange);
     }
 
     left: 0;

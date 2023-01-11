@@ -9,26 +9,7 @@
         </p>
         <div class="status">
           <span>New project status: </span>
-          <Badge
-            v-if="currentProject.newStatus === 'approved'"
-            color="green"
-            :type="currentProject.newStatus"
-          />
-          <Badge
-            v-else-if="
-              currentProject.newStatus === 'processing' ||
-              currentProject.newStatus === 'unlisted' ||
-              currentProject.newStatus === 'archived'
-            "
-            color="yellow"
-            :type="currentProject.newStatus"
-          />
-          <Badge
-            v-else-if="currentProject.newStatus === 'rejected'"
-            color="red"
-            :type="currentProject.newStatus"
-          />
-          <Badge v-else color="gray" :type="currentProject.newStatus" />
+          <Badge :type="currentProject.newStatus" />
         </div>
         <input
           v-model="currentProject.moderation_message"
@@ -89,7 +70,7 @@
         </aside>
       </div>
       <div class="normal-page__content">
-        <div class="projects">
+        <div class="project-list display-mode--list">
           <ProjectCard
             v-for="project in $route.query.type !== undefined
               ? projects.filter((x) => x.project_type === $route.query.type)
@@ -105,21 +86,29 @@
             :client-side="project.client_side"
             :server-side="project.server_side"
             :type="project.project_type"
+            :color="project.color"
             :moderation="true"
           >
             <button
               class="iconified-button"
-              @click="setProjectStatus(project, 'approved')"
+              @click="
+                setProjectStatus(
+                  project,
+                  project.requested_status
+                    ? project.requested_status
+                    : 'approved'
+                )
+              "
             >
               <CheckIcon />
               Approve
             </button>
             <button
               class="iconified-button"
-              @click="setProjectStatus(project, 'unlisted')"
+              @click="setProjectStatus(project, 'withheld')"
             >
               <UnlistIcon />
-              Unlist
+              Withhold
             </button>
             <button
               class="iconified-button"
@@ -145,7 +134,7 @@
               <div class="title">
                 <h3>
                   {{ item.item_type }}
-                  <a :href="item.url">{{ item.item_id }}</a>
+                  <nuxt-link :to="item.url">{{ item.item_id }}</nuxt-link>
                 </h3>
                 reported by
                 <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
@@ -155,7 +144,7 @@
                 class="markdown-body"
                 v-html="$xss($md.render(item.body))"
               />
-              <Badge :type="`Marked as ${item.report_type}`" color="yellow" />
+              <Badge :type="`Marked as ${item.report_type}`" color="orange" />
             </div>
             <div class="actions">
               <button class="iconified-button" @click="deleteReport(index)">

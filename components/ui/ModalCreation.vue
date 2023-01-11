@@ -115,6 +115,34 @@ export default {
     getProjectType() {
       return this.$tag.projectTypes.find((x) => this.projectType === x.display)
     },
+    getClientSide() {
+      switch (this.getProjectType().id) {
+        case 'plugin':
+          return 'unsupported'
+        case 'resourcepack':
+          return 'required'
+        case 'shader':
+          return 'required'
+        case 'datapack':
+          return 'optional'
+        default:
+          return 'unknown'
+      }
+    },
+    getServerSide() {
+      switch (this.getProjectType().id) {
+        case 'plugin':
+          return 'required'
+        case 'resourcepack':
+          return 'unsupported'
+        case 'shader':
+          return 'unsupported'
+        case 'datapack':
+          return 'required'
+        default:
+          return 'unknown'
+      }
+    },
     async createProject() {
       this.$nuxt.$loading.start()
 
@@ -125,31 +153,11 @@ export default {
       formData.append(
         'data',
         JSON.stringify({
-          title: this.name,
+          title: this.name.trim(),
           project_type: projectType.actual,
           slug: this.slug,
-          description: this.description,
-          body: `# Placeholder description
-This is your new ${projectType.display}, ${
-            this.name
-          }. A checklist below is provided to help prepare for release.
-
-### Before submitting for review
-- Upload at least one version
-- [Edit project description](https://modrinth.com/${this.getProjectType().id}/${
-            this.slug
-          }/edit)
-- Update metadata
-  - Select license
-  - Set up environments
-  - Choose categories
-  - Add source, wiki, Discord and donation links (optional)
-- Add images to gallery (optional)
-- Invite project team members (optional)
-
-> Submissions are normally reviewed within 24 hours, but may take up to 48 hours
-
-Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`,
+          description: this.description.trim(),
+          body: '',
           initial_versions: [],
           team_members: [
             {
@@ -159,16 +167,12 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
             },
           ],
           categories: [],
-          client_side: 'unknown',
-          server_side: 'unknown',
-          license_id: this.$tag.licenses.map((it) => it.short).includes('arr')
-            ? 'arr'
-            : this.$tag.licenses[0].short,
+          client_side: this.getClientSide(),
+          server_side: this.getServerSide(),
+          license_id: 'LicenseRef-Unknown',
           is_draft: true,
         })
       )
-
-      console.log(formData)
 
       try {
         await this.$axios({
@@ -182,7 +186,14 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
         })
 
         this.$refs.modal.hide()
-        await this.$router.replace(`/${projectType.actual}/${this.slug}`)
+        await this.$router.push({
+          name: 'type-id',
+          params: {
+            type: projectType.id,
+            id: this.slug,
+            overrideProjectType: projectType.id,
+          },
+        })
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -203,7 +214,12 @@ Questions? [Join the Modrinth Discord for support!](https://discord.gg/EUHuJHt)`
     },
     updatedName() {
       if (!this.manualSlug) {
-        this.slug = this.name.toLowerCase().replaceAll(' ', '-')
+        this.slug = this.name
+          .trim()
+          .toLowerCase()
+          .replaceAll(' ', '-')
+          .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
+          .replaceAll(/--+/gm, '-')
       }
     },
   },

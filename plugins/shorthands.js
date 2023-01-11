@@ -2,6 +2,7 @@ export default (ctx, inject) => {
   inject('user', ctx.store.state.user)
   inject('tag', ctx.store.state.tag)
   inject('auth', ctx.store.state.auth)
+  inject('cosmetics', ctx.store.state.cosmetics)
   inject('defaultHeaders', () => {
     const obj = { headers: {} }
 
@@ -16,127 +17,56 @@ export default (ctx, inject) => {
     return obj
   })
   inject('formatNumber', formatNumber)
-  inject('formatMoney', (number) => '$' + formatNumber(number.toFixed(2)))
+  inject('capitalizeString', capitalizeString)
+  inject('formatMoney', formatMoney)
   inject('formatVersion', (versionsArray) =>
     formatVersions(versionsArray, ctx.store)
   )
   inject('orElse', (first, otherwise) => first ?? otherwise)
+  inject('external', () =>
+    ctx.store.state.cosmetics.externalLinksNewTab ? '_blank' : ''
+  )
   inject('formatBytes', formatBytes)
   inject('formatWallet', formatWallet)
   inject('formatProjectType', formatProjectType)
   inject('formatCategory', formatCategory)
   inject('formatCategoryHeader', formatCategoryHeader)
+  inject('formatProjectStatus', formatProjectStatus)
   inject('computeVersions', (versions) => {
-    const versionsMap = {}
+    const visitedVersions = []
+    const returnVersions = []
 
     for (const version of versions.sort(
       (a, b) => ctx.$dayjs(a.date_published) - ctx.$dayjs(b.date_published)
     )) {
-      if (versionsMap[version.version_number]) {
-        versionsMap[version.version_number].push(version)
+      if (visitedVersions.includes(version.version_number)) {
+        visitedVersions.push(version.version_number)
+        version.displayUrlEnding = version.id
       } else {
-        versionsMap[version.version_number] = [version]
+        visitedVersions.push(version.version_number)
+        version.displayUrlEnding = version.version_number
       }
+
+      returnVersions.push(version)
     }
 
-    const returnVersions = []
-
-    for (const id in versionsMap) {
-      const versions = versionsMap[id]
-
-      if (versions.length === 1) {
-        versions[0].displayUrlEnding = versions[0].version_number
-
-        returnVersions.push(versions[0])
-      } else {
-        const reservedNames = {}
-
-        const seenLoaders = {}
-        const duplicateLoaderIndexes = []
-
-        for (let i = 0; i < versions.length; i++) {
-          const version = versions[i]
-          const value = version.loaders.join('+')
-
-          if (seenLoaders[value]) {
-            duplicateLoaderIndexes.push(i)
-          } else {
-            if (i !== 0) {
-              version.displayUrlEnding = `${version.version_number}-${value}`
-            } else {
-              version.displayUrlEnding = version.version_number
-            }
-
-            reservedNames[version.displayUrlEnding] = true
-
-            version.displayName = version.loaders
-              .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-              .join(', ')
-
-            returnVersions.push(version)
-
-            seenLoaders[value] = true
-          }
+    return returnVersions
+      .reverse()
+      .map((version, index) => {
+        const nextVersion = returnVersions[index + 1]
+        if (
+          nextVersion &&
+          version.changelog &&
+          nextVersion.changelog === version.changelog
+        ) {
+          return { duplicate: true, ...version }
+        } else {
+          return { duplicate: false, ...version }
         }
-
-        const seenGameVersions = {}
-        const duplicateGameVersionIndexes = []
-
-        for (const i of duplicateLoaderIndexes) {
-          const version = versions[i]
-          const value = version.game_versions.join('+')
-
-          if (seenGameVersions[value]) {
-            duplicateGameVersionIndexes.push(i)
-          } else {
-            if (i !== 0) {
-              let setDisplayUrl = false
-
-              for (const gameVersion in version.game_versions) {
-                const displayUrlEnding = `${version.version_number}-${gameVersion}`
-
-                if (!reservedNames[version.version_number]) {
-                  version.displayUrlEnding = displayUrlEnding
-                  reservedNames[displayUrlEnding] = true
-                  setDisplayUrl = true
-
-                  break
-                }
-              }
-
-              if (!setDisplayUrl) {
-                version.displayUrlEnding = `${version.version_number}-${value}`
-              }
-            } else if (!reservedNames[version.version_number]) {
-              version.displayUrlEnding = version.version_number
-              reservedNames[version.version_number] = true
-            }
-
-            version.displayName = formatVersions(
-              version.game_versions,
-              ctx.store
-            )
-
-            returnVersions.push(version)
-
-            seenGameVersions[value] = true
-          }
-        }
-
-        for (const i in duplicateGameVersionIndexes) {
-          const version = versions[i]
-
-          version.displayUrlEnding = version.id
-          version.displayName = version.id
-
-          returnVersions.push(version)
-        }
-      }
-    }
-
-    return returnVersions.sort(
-      (a, b) => ctx.$dayjs(b.date_published) - ctx.$dayjs(a.date_published)
-    )
+      })
+      .sort(
+        (a, b) => ctx.$dayjs(b.date_published) - ctx.$dayjs(a.date_published)
+      )
   })
   inject('getProjectTypeForDisplay', (type, categories) => {
     if (type === 'mod') {
@@ -148,28 +78,71 @@ export default (ctx, inject) => {
       const isMod = categories.some((category) => {
         return ctx.store.state.tag.loaderData.modLoaders.includes(category)
       })
-      return isPlugin && isMod ? 'mod and plugin' : isPlugin ? 'plugin' : 'mod'
-    } else {
-      return formatProjectType(type)
+      const isDataPack = categories.some((category) => {
+        return ctx.store.state.tag.loaderData.dataPackLoaders.includes(category)
+      })
+
+      if (isMod && isPlugin && isDataPack) {
+        return 'mod, plugin, and data pack'
+      } else if (isMod && isPlugin) {
+        return 'mod and plugin'
+      } else if (isMod && isDataPack) {
+        return 'mod and datapack'
+      }
     }
+
+    return type
   })
   inject('getProjectTypeForUrl', (type, categories) => {
     if (type === 'mod') {
+      const isMod = categories.some((category) => {
+        return ctx.store.state.tag.loaderData.modLoaders.includes(category)
+      })
+
       const isPlugin = categories.some((category) => {
         return ctx.store.state.tag.loaderData.allPluginLoaders.includes(
           category
         )
       })
 
-      const isMod = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.modLoaders.includes(category)
+      const isDataPack = categories.some((category) => {
+        return ctx.store.state.tag.loaderData.dataPackLoaders.includes(category)
       })
 
-      return isPlugin && isMod ? 'mod' : isPlugin ? 'plugin' : 'mod'
+      if (isDataPack) {
+        return 'datapack'
+      } else if (isPlugin) {
+        return 'plugin'
+      } else if (isMod) {
+        return 'mod'
+      } else {
+        return 'mod'
+      }
     } else {
       return type
     }
   })
+  inject('cycleValue', cycleValue)
+  const sortedCategories = ctx.store.state.tag.categories
+    .slice()
+    .sort((a, b) => {
+      const headerCompare = a.header.localeCompare(b.header)
+      if (headerCompare !== 0) {
+        return headerCompare
+      }
+      if (a.header === 'resolutions' && b.header === 'resolutions') {
+        return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
+      } else if (
+        a.header === 'performance impact' &&
+        b.header === 'performance impact'
+      ) {
+        const x = ['potato', 'low', 'medium', 'high', 'screenshot']
+
+        return x.indexOf(a.name) - x.indexOf(b.name)
+      }
+      return 0
+    })
+  inject('sortedCategories', sortedCategories)
 }
 
 export const formatNumber = (number) => {
@@ -180,6 +153,23 @@ export const formatNumber = (number) => {
     return (x / 1000).toFixed(1).toString() + 'K'
   } else {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+}
+
+export const formatMoney = (number) => {
+  const x = +number
+  if (x >= 1000000) {
+    return '$' + (x / 1000000).toFixed(2).toString() + 'M'
+  } else if (x >= 10000) {
+    return '$' + (x / 1000).toFixed(1).toString() + 'K'
+  } else {
+    return (
+      '$' +
+      x
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    )
   }
 }
 
@@ -195,18 +185,25 @@ export const formatBytes = (bytes, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
+export const capitalizeString = (name) => {
+  return name ? name.charAt(0).toUpperCase() + name.slice(1) : name
+}
+
 export const formatWallet = (name) => {
   if (name === 'paypal') {
     return 'PayPal'
   }
-  return name.charAt(0).toUpperCase() + name.slice(1)
+  return capitalizeString(name)
 }
 
 export const formatProjectType = (name) => {
   if (name === 'resourcepack') {
     return 'Resource Pack'
+  } else if (name === 'datapack') {
+    return 'Data Pack'
   }
-  return name.charAt(0).toUpperCase() + name.slice(1)
+
+  return capitalizeString(name)
 }
 
 export const formatCategory = (name) => {
@@ -230,12 +227,33 @@ export const formatCategory = (name) => {
     return '512x or higher'
   } else if (name === 'kitchen-sink') {
     return 'Kitchen Sink'
+  } else if (name === 'path-tracing') {
+    return 'Path Tracing'
+  } else if (name === 'pbr') {
+    return 'PBR'
+  } else if (name === 'datapack') {
+    return 'Data Pack'
+  } else if (name === 'colored-lighting') {
+    return 'Colored Lighting'
+  } else if (name === 'optifine') {
+    return 'OptiFine'
   }
-  return name.charAt(0).toUpperCase() + name.slice(1)
+
+  return capitalizeString(name)
 }
 
 export const formatCategoryHeader = (name) => {
-  return name.charAt(0).toUpperCase() + name.slice(1)
+  return capitalizeString(name)
+}
+
+export const formatProjectStatus = (name) => {
+  if (name === 'approved') {
+    return 'Listed'
+  } else if (name === 'processing') {
+    return 'Under review'
+  }
+
+  return capitalizeString(name)
 }
 
 export const formatVersions = (versionArray, store) => {
@@ -323,4 +341,9 @@ export const formatVersions = (versionArray, store) => {
   }
 
   return output.join(', ')
+}
+
+export const cycleValue = (value, values) => {
+  const index = values.indexOf(value) + 1
+  return values[index % values.length]
 }

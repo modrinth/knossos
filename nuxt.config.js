@@ -32,7 +32,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Download Minecraft mods, plugins, resource packs, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
+          'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
       },
       {
         hid: 'publisher',
@@ -165,6 +165,16 @@ export default {
             component: resolve(__dirname, 'pages/search/resourcepacks.vue'),
             name: 'resourcepacks',
           },
+          {
+            path: '/shaders',
+            component: resolve(__dirname, 'pages/search/shaders.vue'),
+            name: 'shaders',
+          },
+          {
+            path: '/datapacks',
+            component: resolve(__dirname, 'pages/search/datapacks.vue'),
+            name: 'datapacks',
+          },
         ],
       })
 
@@ -186,6 +196,7 @@ export default {
     '~/plugins/xss.js',
     '~/plugins/vue-syntax.js',
     '~/plugins/shorthands.js',
+    '~/plugins/markdown.js',
   ],
   /*
    ** Auto import components
@@ -208,9 +219,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/dayjs',
     '@nuxtjs/axios',
-    '@nuxtjs/robots',
     '@nuxtjs/style-resources',
-    '@nuxtjs/markdownit',
     'cookie-universal-nuxt',
   ],
   ads: {
@@ -260,12 +269,6 @@ export default {
         ],
       ],
     },
-  },
-  markdownit: {
-    preset: 'default',
-    html: true,
-    linkify: true,
-    breaks: false,
   },
   loading: {
     color: '#1bd96a',
@@ -346,7 +349,6 @@ export default {
           categories,
           loaders,
           gameVersions,
-          licenses,
           donationPlatforms,
           reportTypes,
         ] = (
@@ -354,7 +356,6 @@ export default {
             axios.get(`${API_URL}tag/category`, headers),
             axios.get(`${API_URL}tag/loader`, headers),
             axios.get(`${API_URL}tag/game_version`, headers),
-            axios.get(`${API_URL}tag/license`, headers),
             axios.get(`${API_URL}tag/donation_platform`, headers),
             axios.get(`${API_URL}tag/report_type`, headers),
           ])
@@ -363,7 +364,6 @@ export default {
         state.categories = categories
         state.loaders = loaders
         state.gameVersions = gameVersions
-        state.licenses = licenses
         state.donationPlatforms = donationPlatforms
         state.reportTypes = reportTypes
 
@@ -375,6 +375,7 @@ export default {
     render: {
       routeDone(url, result, context) {
         setTimeout(() => {
+          if (process.env.NODE_ENV !== 'production') return
           axios
             .post(
               `${process.env.ARIADNE_URL || STAGING_ARIADNE_URL}view`,

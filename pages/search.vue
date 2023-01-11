@@ -3,7 +3,7 @@
     :class="{
       'search-page': true,
       'normal-page': true,
-      'alt-layout': $store.state.cosmetics.searchLayout,
+      'alt-layout': $cosmetics.searchLayout,
     }"
   >
     <aside
@@ -20,7 +20,7 @@
         >
           <button
             :disabled="
-              selectedLicenses.length === 0 &&
+              onlyOpenSource === false &&
               selectedEnvironments.length === 0 &&
               selectedVersions.length === 0 &&
               facets.length === 0 &&
@@ -46,16 +46,9 @@
               </h3>
 
               <SearchFilter
-                v-for="category in categories
-                  .filter((x) => x.project_type === projectType.actual)
-                  .sort((a, b) => {
-                    if (header === 'resolutions') {
-                      return (
-                        a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
-                      )
-                    }
-                    return 0
-                  })"
+                v-for="category in categories.filter(
+                  (x) => x.project_type === projectType.actual
+                )"
                 :key="category.name"
                 :active-filters="facets"
                 :display-name="$formatCategory(category.name)"
@@ -68,7 +61,9 @@
             </div>
           </section>
           <section
-            v-if="projectType.id !== 'resourcepack'"
+            v-if="
+              projectType.id !== 'resourcepack' && projectType.id !== 'datapack'
+            "
             aria-label="Loader filters"
           >
             <h3
@@ -91,15 +86,15 @@
                   x.name !== 'quilt'
                 ) {
                   return false
-                }
-
-                if (projectType.id === 'mod' && showAllLoaders) {
+                } else if (projectType.id === 'mod' && showAllLoaders) {
                   return $tag.loaderData.modLoaders.includes(x.name)
+                } else if (projectType.id === 'plugin') {
+                  return $tag.loaderData.pluginLoaders.includes(x.name)
+                } else if (projectType.id === 'datapack') {
+                  return $tag.loaderData.dataPackLoaders.includes(x.name)
+                } else {
+                  return x.supported_project_types.includes(projectType.actual)
                 }
-
-                return projectType.id === 'plugin'
-                  ? $tag.loaderData.pluginLoaders.includes(x.name)
-                  : x.supported_project_types.includes(projectType.actual)
               })"
               :key="loader.name"
               ref="loaderFilters"
@@ -147,7 +142,11 @@
             />
           </section>
           <section
-            v-if="!['resourcepack', 'plugin'].includes(projectType.id)"
+            v-if="
+              !['resourcepack', 'plugin', 'shader', 'datapack'].includes(
+                projectType.id
+              )
+            "
             aria-label="Environment filters"
           >
             <h3 class="sidebar-menu-heading">Environments</h3>
@@ -157,7 +156,7 @@
               facet-name="client"
               @toggle="toggleEnv"
             >
-              <ClientSide aria-hidden="true" />
+              <ClientIcon aria-hidden="true" />
             </SearchFilter>
             <SearchFilter
               :active-filters="selectedEnvironments"
@@ -165,7 +164,7 @@
               facet-name="server"
               @toggle="toggleEnv"
             >
-              <ServerSide aria-hidden="true" />
+              <ServerIcon aria-hidden="true" />
             </SearchFilter>
           </section>
           <h3 class="sidebar-menu-heading">Minecraft versions</h3>
@@ -195,17 +194,12 @@
             placeholder="Choose versions..."
             @input="onSearchChange(1)"
           ></multiselect>
-          <h3 class="sidebar-menu-heading">Licenses</h3>
-          <Multiselect
-            v-model="selectedLicenses"
-            placeholder="Choose licenses..."
-            :loading="$tag.licenses.length === 0"
-            :options="$tag.licenses.map((x) => x.short.toUpperCase())"
-            :multiple="true"
-            :searchable="true"
-            :close-on-select="false"
-            :show-labels="false"
-            :allow-empty="true"
+          <h3 class="sidebar-menu-heading">Open source</h3>
+          <Checkbox
+            v-model="onlyOpenSource"
+            label="Open source only"
+            style="margin-bottom: 0.5rem"
+            :border="false"
             @input="onSearchChange(1)"
           />
         </div>
@@ -215,38 +209,53 @@
       <div
         v-if="
           projectType.id === 'modpack' &&
-          $orElse($store.state.cosmetics.modpacksAlphaNotice, true)
+          $orElse($cosmetics.modpacksAlphaNotice, true)
         "
         class="card warning"
         aria-label="Warning"
       >
-        Modpack support is currently in alpha, and can only be created and
-        installed through third party tools. Our documentation includes
+        Modpack support is currently in alpha, and modpacks can only be created
+        and installed through third party tools. Our documentation includes
         instructions on
         <a
           href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-          target="_blank"
+          :target="$external()"
           >playing modpacks</a
         >
         with
-        <a href="https://atlauncher.com/about" target="_blank">ATLauncher</a>,
-        <a href="https://multimc.org/" target="_blank">MultiMC</a>, and
-        <a href="https://prismlauncher.org" target="_blank">Prism Launcher</a>.
-        Pack creators can reference our documentation on
+        <a
+          rel="noopener noreferrer nofollow"
+          href="https://atlauncher.com/about"
+          :target="$external()"
+          >ATLauncher</a
+        >,
+        <a
+          rel="noopener noreferrer nofollow"
+          href="https://multimc.org/"
+          :target="$external()"
+          >MultiMC</a
+        >, and
+        <a
+          rel="noopener noreferrer nofollow"
+          href="https://prismlauncher.org"
+          :target="$external()"
+        >
+          Prism Launcher</a
+        >. Pack creators can reference our documentation on
         <a
           href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
-          target="_blank"
+          :target="$external()"
           >creating modpacks</a
         >. Join us on
-        <a href="https://discord.gg/EUHuJHt" target="_blank">Discord</a>
+        <a
+          rel="noopener noreferrer nofollow"
+          href="https://discord.gg/EUHuJHt"
+          :target="$external()"
+          >Discord</a
+        >
         for support.
       </div>
-      <Advertisement
-        type="banner"
-        small-screen="square"
-        ethical-ads-small
-        ethical-ads-big
-      />
+      <Advertisement type="banner" small-screen="square" />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -298,14 +307,38 @@
               v-model="maxResults"
               placeholder="Select one"
               class="labeled-control__control"
-              :options="[5, 10, 15, 20, 50, 100]"
+              :options="
+                maxResultsForView[$cosmetics.searchDisplayMode[projectType.id]]
+              "
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="onSearchChange(currentPage)"
+              @input="onMaxResultsChange(currentPage)"
             />
           </div>
+          <button
+            v-tooltip="
+              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
+              ' view'
+            "
+            :aria-label="
+              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
+              ' view'
+            "
+            class="square-button"
+            @click="cycleSearchDisplayMode()"
+          >
+            <GridIcon
+              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'"
+            />
+            <ImageIcon
+              v-else-if="
+                $cosmetics.searchDisplayMode[projectType.id] === 'gallery'
+              "
+            />
+            <ListIcon v-else />
+          </button>
         </div>
       </div>
       <pagination
@@ -317,14 +350,29 @@
       ></pagination>
       <div class="search-results-container">
         <div v-if="isLoading" class="no-results">
-          <LogoAnimated aria-hidden="true" />
+          <BrandLogoAnimated aria-hidden="true" />
           <p>Loading...</p>
         </div>
-        <div v-else id="search-results" role="list" aria-label="Search results">
-          <SearchResult
+        <div
+          v-else-if="true"
+          id="search-results"
+          class="project-list"
+          :class="
+            'display-mode--' + $cosmetics.searchDisplayMode[projectType.id]
+          "
+          role="list"
+          aria-label="Search results"
+        >
+          <ProjectCard
             v-for="result in results"
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
+            :display="$cosmetics.searchDisplayMode[projectType.id]"
+            :featured-image="
+              result.featured_gallery
+                ? result.featured_gallery
+                : result.gallery[0]
+            "
             :type="result.project_type"
             :author="result.author"
             :name="result.title"
@@ -338,6 +386,11 @@
             :server-side="result.server_side"
             :categories="result.display_categories"
             :search="true"
+            :show-updated-date="sortType.name !== 'newest'"
+            :hide-loaders="
+              ['resourcepack', 'datapack'].includes(projectType.id)
+            "
+            :color="result.color"
           />
           <div v-if="results && results.length === 0" class="no-results">
             <p>No results found for your query!</p>
@@ -357,18 +410,20 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SearchResult from '~/components/ui/ProjectCard'
+import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
-import LogoAnimated from '~/components/ui/search/LogoAnimated'
 import Checkbox from '~/components/ui/Checkbox'
 
-import ClientSide from '~/assets/images/categories/client.svg?inline'
-import ServerSide from '~/assets/images/categories/server.svg?inline'
+import ClientIcon from '~/assets/images/categories/client.svg?inline'
+import ServerIcon from '~/assets/images/categories/server.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
 import FilterIcon from '~/assets/images/utils/filter.svg?inline'
+import GridIcon from '~/assets/images/utils/grid.svg?inline'
+import ListIcon from '~/assets/images/utils/list.svg?inline'
+import ImageIcon from '~/assets/images/utils/image.svg?inline'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -376,23 +431,25 @@ export default {
   auth: false,
   components: {
     Advertisement,
-    SearchResult,
+    ProjectCard,
     Pagination,
     Multiselect,
     SearchFilter,
     Checkbox,
-    ClientSide,
-    ServerSide,
+    ClientIcon,
+    ServerIcon,
     SearchIcon,
     ClearIcon,
     FilterIcon,
-    LogoAnimated,
+    GridIcon,
+    ListIcon,
+    ImageIcon,
   },
   data() {
     return {
       query: '',
 
-      selectedLicenses: [],
+      onlyOpenSource: false,
 
       showSnapshots: false,
       selectedVersions: [],
@@ -411,12 +468,19 @@ export default {
         { display: 'Relevance', name: 'relevance' },
         { display: 'Download count', name: 'downloads' },
         { display: 'Follow count', name: 'follows' },
-        { display: 'Recently created', name: 'newest' },
+        { display: 'Recently published', name: 'newest' },
         { display: 'Recently updated', name: 'updated' },
       ],
       sortType: { display: 'Relevance', name: 'relevance' },
 
       maxResults: 20,
+      previousMaxResults: 20,
+
+      maxResultsForView: {
+        list: [5, 10, 15, 20, 50, 100],
+        grid: [6, 12, 18, 24, 48, 96],
+        gallery: [6, 10, 16, 20, 50, 100],
+      },
 
       sidebarMenuOpen: false,
       showAllLoaders: false,
@@ -441,7 +505,7 @@ export default {
     if (this.$route.query.v)
       this.selectedVersions = this.$route.query.v.split(',')
     if (this.$route.query.l)
-      this.selectedLicenses = this.$route.query.l.split(',')
+      this.onlyOpenSource = this.$route.query.l === 'true'
     if (this.$route.query.h) this.showSnapshots = this.$route.query.h === 'true'
     if (this.$route.query.e)
       this.selectedEnvironments = this.$route.query.e.split(',')
@@ -456,7 +520,7 @@ export default {
           this.sortType.display = 'Downloads'
           break
         case 'newest':
-          this.sortType.display = 'Recently created'
+          this.sortType.display = 'Recently published'
           break
         case 'updated':
           this.sortType.display = 'Recently updated'
@@ -466,11 +530,13 @@ export default {
           break
       }
     }
+
     if (this.$route.query.m) {
       this.maxResults = this.$route.query.m
     }
-    if (this.$route.query.o)
+    if (this.$route.query.o) {
       this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
+    }
 
     this.projectType = this.$tag.projectTypes.find(
       (x) => x.id === this.$route.name.substring(0, this.$route.name.length - 1)
@@ -508,7 +574,7 @@ export default {
     categoriesMap() {
       const categories = {}
 
-      for (const category of this.$tag.categories) {
+      for (const category of this.$sortedCategories) {
         if (categories[category.header]) {
           categories[category.header].push(category)
         } else {
@@ -516,16 +582,10 @@ export default {
         }
       }
 
-      const newVals = Object.keys(categories)
-        .sort()
-        .reduce((obj, key) => {
-          obj[key] = categories[key]
-          return obj
-        }, {})
-
-      for (const header of Object.keys(categories)) {
-        newVals[header].sort((a, b) => a.name.localeCompare(b.name))
-      }
+      const newVals = Object.keys(categories).reduce((obj, key) => {
+        obj[key] = categories[key]
+        return obj
+      }, {})
 
       return newVals
     },
@@ -551,6 +611,8 @@ export default {
         await this.clearFilters()
 
         this.isLoading = false
+
+        this.setClosestMaxResults()
       },
     },
   },
@@ -571,7 +633,7 @@ export default {
       for (const facet of [...this.orFacets])
         await this.toggleOrFacet(facet, true)
 
-      this.selectedLicenses = []
+      this.onlyOpenSource = false
       this.selectedVersions = []
       this.selectedEnvironments = []
       await this.onSearchChange(1)
@@ -630,6 +692,19 @@ export default {
 
       await this.onSearchChange(newPageNumber)
     },
+    async onMaxResultsChange(newPageNumber) {
+      newPageNumber = Math.max(
+        1,
+        Math.min(
+          Math.floor(
+            newPageNumber / (this.maxResults / this.previousMaxResults)
+          ),
+          this.pageCount
+        )
+      )
+      this.previousMaxResults = this.maxResults
+      await this.onSearchChange(newPageNumber)
+    },
     async onSearchChange(newPageNumber) {
       this.currentPage = newPageNumber
 
@@ -672,6 +747,12 @@ export default {
                 (x) => `categories:'${encodeURIComponent(x)}'`
               )
             )
+          } else if (this.projectType.id === 'datapack') {
+            formattedFacets.push(
+              this.$tag.loaderData.dataPackLoaders.map(
+                (x) => `categories:'${encodeURIComponent(x)}'`
+              )
+            )
           }
 
           if (this.selectedVersions.length > 0) {
@@ -682,13 +763,7 @@ export default {
             formattedFacets.push(versionFacets)
           }
 
-          if (this.selectedLicenses.length > 0) {
-            const licenseFacets = []
-            for (const facet of this.selectedLicenses) {
-              licenseFacets.push('license:' + facet.toLowerCase())
-            }
-            formattedFacets.push(licenseFacets)
-          }
+          if (this.onlyOpenSource) formattedFacets.push(['open_source:true'])
 
           if (this.selectedEnvironments.length > 0) {
             let environmentFacets = []
@@ -763,8 +838,7 @@ export default {
         queryItems.push(`g=${encodeURIComponent(this.orFacets)}`)
       if (this.selectedVersions.length > 0)
         queryItems.push(`v=${encodeURIComponent(this.selectedVersions)}`)
-      if (this.selectedLicenses.length > 0)
-        queryItems.push(`l=${encodeURIComponent(this.selectedLicenses)}`)
+      if (this.onlyOpenSource) queryItems.push(`l=true`)
       if (this.showSnapshots) queryItems.push(`h=true`)
       if (this.selectedEnvironments.length > 0)
         queryItems.push(`e=${encodeURIComponent(this.selectedEnvironments)}`)
@@ -784,6 +858,28 @@ export default {
       }
 
       return url
+    },
+    async cycleSearchDisplayMode() {
+      const value = this.$cosmetics.searchDisplayMode[this.projectType.id]
+      const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
+      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
+        projectType: this.projectType.id,
+        mode: newValue,
+        $cookies: this.$cookies,
+      })
+      this.setClosestMaxResults()
+    },
+    setClosestMaxResults() {
+      const view = this.$cosmetics.searchDisplayMode[this.projectType.id]
+      const maxResultsOptions = this.maxResultsForView[view] ?? [20]
+      const currentMax = this.maxResults
+      if (!maxResultsOptions.includes(currentMax)) {
+        this.maxResults = maxResultsOptions.reduce(function (prev, curr) {
+          return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax)
+            ? curr
+            : prev
+        })
+      }
     },
   },
 }
@@ -895,6 +991,7 @@ export default {
     flex-direction: row;
     gap: var(--spacing-card-md);
     flex-wrap: wrap;
+    align-items: center;
 
     .labeled-control {
       flex: 1;
@@ -907,6 +1004,11 @@ export default {
       .labeled-control__label {
         white-space: nowrap;
       }
+    }
+
+    .square-button {
+      margin-top: auto;
+      margin-bottom: 0.25rem;
     }
   }
 }

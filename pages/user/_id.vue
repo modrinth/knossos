@@ -15,7 +15,7 @@
     </div>
     <div class="normal-page">
       <div class="normal-page__sidebar">
-        <aside class="card sidebar">
+        <div class="card sidebar">
           <h1 class="mobile-username">{{ user.username }}</h1>
           <div class="card__overlay">
             <FileInput
@@ -23,10 +23,12 @@
               :max-size="262144"
               :show-icon="true"
               accept="image/png,image/jpeg,image/gif,image/webp"
-              class="choose-image"
+              class="choose-image iconified-button"
               prompt="Upload avatar"
               @change="showPreviewImage"
-            />
+            >
+              <UploadIcon />
+            </FileInput>
             <button
               v-else-if="$auth.user && $auth.user.id === user.id"
               class="iconified-button"
@@ -43,7 +45,12 @@
               <ReportIcon aria-hidden="true" />
               Report
             </button>
-            <a v-else class="iconified-button" :href="authUrl">
+            <a
+              v-else
+              class="iconified-button"
+              :href="authUrl"
+              rel="noopener noreferrer nofollow"
+            >
               <ReportIcon aria-hidden="true" />
               Report
             </a>
@@ -92,13 +99,11 @@
           </template>
           <template v-else>
             <div class="sidebar__item">
-              <Badge v-if="user.role === 'admin'" type="admin" color="red" />
               <Badge
-                v-else-if="user.role === 'moderator'"
-                type="moderator"
-                color="yellow"
+                v-if="user.role === 'admin' || user.role === 'moderator'"
+                :type="user.role"
               />
-              <Badge v-else type="developer" color="green" />
+              <Badge v-else-if="projects.length > 0" type="creator" />
             </div>
             <span v-if="user.bio" class="sidebar__item bio">{{
               user.bio
@@ -108,14 +113,14 @@
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">{{ sumDownloads() }}</span>
-                <span class="primary-stat__label">downloads</span>
+                downloads
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">{{ sumFollows() }}</span>
-                <span class="primary-stat__label">followers of projects</span>
+                followers of projects
               </div>
             </div>
             <div class="stats-block__item secondary-stat">
@@ -137,24 +142,21 @@
               </span>
             </div>
             <a
+              v-if="githubUrl"
               :href="githubUrl"
-              target="_blank"
+              :target="$external()"
+              rel="noopener noreferrer nofollow"
               class="sidebar__item github-button iconified-button"
             >
               <GitHubIcon aria-hidden="true" />
               View GitHub profile
             </a>
           </template>
-        </aside>
+        </div>
       </div>
       <div class="normal-page__content">
-        <Advertisement
-          type="banner"
-          small-screen="square"
-          ethical-ads-small
-          ethical-ads-big
-        />
-        <nav class="card user-navigation">
+        <Advertisement type="banner" small-screen="square" />
+        <nav class="navigation-card">
           <NavRow
             query="type"
             :links="[
@@ -164,29 +166,61 @@
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: x === 'resourcepack' ? 'Resource Packs' : x + 's',
+                  label: $formatProjectType(x) + 's',
                   href: x,
                 }
               }),
             ]"
           />
-          <button
-            v-if="$auth.user && $auth.user.id === user.id"
-            class="iconified-button brand-button"
-            @click="$refs.modal_creation.show()"
-          >
-            <PlusIcon />
-            Create a project
-          </button>
+          <div class="input-group">
+            <NuxtLink
+              v-if="$auth.user && $auth.user.id === user.id"
+              class="iconified-button"
+              to="/dashboard/projects"
+            >
+              <SettingsIcon />
+              Manage projects
+            </NuxtLink>
+            <button
+              v-tooltip="
+                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
+              "
+              :aria-label="
+                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
+              "
+              class="square-button"
+              @click="cycleSearchDisplayMode()"
+            >
+              <GridIcon v-if="$cosmetics.searchDisplayMode.user === 'grid'" />
+              <ImageIcon
+                v-else-if="$cosmetics.searchDisplayMode.user === 'gallery'"
+              />
+              <ListIcon v-else />
+            </button>
+          </div>
         </nav>
-        <div v-if="projects.length > 0">
+        <div
+          v-if="projects.length > 0"
+          class="project-list"
+          :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
+        >
           <ProjectCard
-            v-for="project in $route.query.type !== undefined
+            v-for="project in ($route.query.type !== undefined
               ? projects.filter((x) => x.project_type === $route.query.type)
-              : projects"
+              : projects
+            )
+              .slice()
+              .sort((a, b) => b.downloads - a.downloads)"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
+            :display="$cosmetics.searchDisplayMode.user"
+            :featured-image="
+              project.gallery
+                .slice()
+                .sort((a, b) => b.featured - a.featured)
+                .map((x) => x.url)[0]
+            "
             :description="project.description"
             :created-at="project.published"
             :updated-at="project.updated"
@@ -198,23 +232,16 @@
             :server-side="project.server_side"
             :status="
               $auth.user &&
-              ($auth.user.role === 'admin' || $auth.user.role === 'moderator')
+              ($auth.user.id === user.id ||
+                $auth.user.role === 'admin' ||
+                $auth.user.role === 'moderator')
                 ? project.status
                 : null
             "
+            :has-mod-message="project.moderator_message"
             :type="project.project_type"
-          >
-            <nuxt-link
-              v-if="$auth.user && $auth.user.id === user.id"
-              class="iconified-button"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-            >
-              <SettingsIcon />
-              Settings
-            </nuxt-link>
-          </ProjectCard>
+            :color="project.color"
+          />
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
@@ -242,13 +269,16 @@ import ReportIcon from '~/assets/images/utils/report.svg?inline'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
 import DownloadIcon from '~/assets/images/utils/download.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import UserIcon from '~/assets/images/utils/user.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import GridIcon from '~/assets/images/utils/grid.svg?inline'
+import ListIcon from '~/assets/images/utils/list.svg?inline'
+import ImageIcon from '~/assets/images/utils/image.svg?inline'
+import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 import FileInput from '~/components/ui/FileInput'
 import ModalReport from '~/components/ui/ModalReport'
 import ModalCreation from '~/components/ui/ModalCreation'
@@ -272,7 +302,6 @@ export default {
     ReportIcon,
     Badge,
     SettingsIcon,
-    PlusIcon,
     UpToDate,
     UserIcon,
     EditIcon,
@@ -280,6 +309,10 @@ export default {
     HeartIcon,
     CrossIcon,
     SaveIcon,
+    GridIcon,
+    ListIcon,
+    ImageIcon,
+    UploadIcon,
   },
   async asyncData(data) {
     try {
@@ -299,25 +332,30 @@ export default {
         return
       }
 
-      const [gitHubUser, versions] = (
-        await Promise.all([
-          data.$axios.get(`https://api.github.com/user/` + user.github_id),
-          data.$axios.get(
-            `versions?ids=${JSON.stringify(
-              [].concat.apply(
-                [],
-                projects.map((x) => x.versions)
-              )
-            )}`
-          ),
-        ])
-      ).map((it) => it.data)
+      let gitHubUser = {}
+      let versions = []
+      try {
+        const [gitHubUserData, versionsData] = (
+          await Promise.all([
+            data.$axios.get(`https://api.github.com/user/` + user.github_id),
+            data.$axios.get(
+              `versions?ids=${JSON.stringify(
+                [].concat.apply(
+                  [],
+                  projects.map((x) => x.versions)
+                )
+              )}`
+            ),
+          ])
+        ).map((it) => it.data)
+        gitHubUser = gitHubUserData
+        versions = versionsData
+      } catch {}
 
       for (const version of versions) {
         const projectIndex = projects.findIndex(
           (x) => x.id === version.project_id
         )
-
         if (projects[projectIndex].loaders) {
           for (const loader of version.loaders) {
             if (!projects[projectIndex].loaders.includes(loader)) {
@@ -328,10 +366,8 @@ export default {
           projects[projectIndex].loaders = version.loaders
         }
       }
-
       for (const project of projects) {
         project.categories = project.categories.concat(project.loaders)
-
         project.project_type = data.$getProjectTypeForUrl(
           project.project_type,
           project.categories
@@ -358,6 +394,10 @@ export default {
     }
   },
   head() {
+    const description = this.user.bio
+      ? `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`
+      : `Download ${this.user.username}'s projects on Modrinth`
+
     return {
       title: this.user.username + ' - Modrinth',
       meta: [
@@ -374,12 +414,12 @@ export default {
         {
           hid: 'apple-mobile-web-app-title',
           name: 'apple-mobile-web-app-title',
-          content: this.user.username,
+          content: description,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
+          content: description,
         },
         {
           hid: 'description',
@@ -477,6 +517,15 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
+    async cycleSearchDisplayMode() {
+      const value = this.$cosmetics.searchDisplayMode.user
+      const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
+      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
+        projectType: 'user',
+        mode: newValue,
+        $cookies: this.$cookies,
+      })
+    },
   },
 }
 </script>
@@ -518,14 +567,6 @@ export default {
   }
 }
 
-.user-navigation {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 0.5rem;
-}
-
 .sidebar {
   padding-top: 2.5rem;
 }
@@ -546,6 +587,7 @@ export default {
 
 .bio {
   display: block;
+  overflow-wrap: break-word;
 }
 
 .secondary-stat {
@@ -564,26 +606,6 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.primary-stat {
-  align-items: center;
-  display: flex;
-  margin-bottom: 0.6rem;
-}
-
-.primary-stat__icon {
-  height: 1rem;
-  width: 1rem;
-}
-
-.primary-stat__text {
-  margin-left: 0.4rem;
-}
-
-.primary-stat__counter {
-  font-size: var(--font-size-md);
-  font-weight: bold;
 }
 
 .date {
