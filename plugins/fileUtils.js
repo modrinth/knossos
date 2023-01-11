@@ -124,7 +124,8 @@ export const inferVersionInfo = async function (
           const regex = /Implementation-Version: (.*)$/m
           const match = manifestText.match(regex)
           if (match) {
-            versionNum = match[1]
+            // eslint-disable-next-line no-template-curly-in-string
+            versionNum = versionNum.replace('${file.jarVersion}', match[1])
           }
         }
 
