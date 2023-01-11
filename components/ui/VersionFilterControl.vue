@@ -41,19 +41,16 @@
     ></Multiselect>
     <Multiselect
       v-if="getValidChannels().length > 1"
-      v-model="selectedChannel"
+      v-model="selectedChannels"
       :options="getValidChannels()"
-      :custom-label="
-        (x) => (x === 'any' ? 'Any channel' : $capitalizeString(x))
-      "
-      :multiple="false"
+      :custom-label="(x) => $capitalizeString(x)"
+      :multiple="true"
       :searchable="false"
       :show-no-results="false"
       :close-on-select="true"
       :clear-search-on-select="false"
       :show-labels="false"
       :allow-empty="true"
-      class="release-channel"
       placeholder="Filter channels..."
       @input="updateVersionFilters()"
     ></Multiselect>
@@ -112,22 +109,21 @@ export default {
       cachedValidLoaders: null,
       selectedGameVersions: [],
       selectedLoaders: [],
-      selectedChannel: 'any',
+      selectedChannels: [],
     }
   },
   fetch() {
     this.selectedLoaders = this.$route.query.l?.split(',') || []
     this.selectedGameVersions = this.$route.query.g?.split(',') || []
-    this.selectedChannel = this.$route.query.c || 'any'
+    this.selectedChannels = this.$route.query.c?.split(',') || []
     this.showSnapshots = this.$route.query.s === 'true'
     this.updateVersionFilters()
   },
   methods: {
     getValidChannels() {
       if (!this.cachedValidChannels) {
-        this.cachedValidChannels = ['any', 'release', 'beta', 'alpha'].filter(
+        this.cachedValidChannels = ['release', 'beta', 'alpha'].filter(
           (channel) =>
-            channel === 'any' ||
             this.versions.some((projVer) => projVer.version_type === channel)
         )
       }
@@ -157,11 +153,9 @@ export default {
       return this.cachedValidLoaders
     },
     async updateVersionFilters() {
-      this.selectedChannel = this.getValidChannels().includes(
-        this.selectedChannel
+      this.selectedChannels = this.selectedChannels.filter((channel) =>
+        this.getValidChannels().includes(channel)
       )
-        ? this.selectedChannel
-        : 'any'
       this.selectedLoaders = this.selectedLoaders.filter((loader) =>
         this.getValidLoaders().includes(loader)
       )
@@ -181,8 +175,8 @@ export default {
             this.selectedLoaders.some((loader) =>
               projectVersion.loaders.includes(loader)
             )) &&
-          (this.selectedChannel === 'any' ||
-            this.selectedChannel === projectVersion.version_type)
+          (this.selectedChannels.length === 0 ||
+            this.selectedChannels.includes(projectVersion.version_type))
       )
       await this.updateQuery()
       this.$emit('updateVersions', temp)
@@ -200,9 +194,9 @@ export default {
               ? undefined
               : this.selectedGameVersions.join(','),
           c:
-            this.selectedChannel === 'any' || !this.selectedChannel
+            this.selectedChannels.length === 0
               ? undefined
-              : this.selectedChannel,
+              : this.selectedChannels.join(','),
           s: this.showSnapshots ? true : undefined,
         },
       })
@@ -219,11 +213,7 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   .multiselect {
-    flex: 3;
-
-    &.release-channel {
-      flex: 2;
-    }
+    flex: 1;
   }
   .checkbox-outer {
     min-width: fit-content;
