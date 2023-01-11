@@ -153,10 +153,10 @@ export default {
       formData.append(
         'data',
         JSON.stringify({
-          title: this.name,
+          title: this.name.trim(),
           project_type: projectType.actual,
           slug: this.slug,
-          description: this.description,
+          description: this.description.trim(),
           body: '',
           initial_versions: [],
           team_members: [
@@ -215,9 +215,11 @@ export default {
     updatedName() {
       if (!this.manualSlug) {
         this.slug = this.name
+          .trim()
           .toLowerCase()
           .replaceAll(' ', '-')
           .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
+          .replaceAll(/--+/gm, '-')
       }
     },
   },
