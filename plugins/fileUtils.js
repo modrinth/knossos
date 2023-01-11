@@ -526,8 +526,10 @@ export const createDataPackVersion = async function (
       newArr.push(binary.charCodeAt(i))
     }
 
+    const sanitizedId = project.id.replace(targetStartingDigitsRegex, '_$1$2')
+
     primaryZipReader.file(
-      `com/modrinth/${project.id.substring(0, 8)}/ModrinthWrapper.class`,
+      `com/modrinth/${sanitizedId.substring(0, 8)}/ModrinthWrapper.class`,
       new Uint8Array(newArr)
     )
   }
