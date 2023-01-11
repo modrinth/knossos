@@ -360,10 +360,12 @@ export const createDataPackVersion = async function (
     ? version.version_number
     : `1-${version.version_number}`
 
+  const targetStartingDigitsRegex = /^(\d+)(\D+)$/g
   const newSlug = `${project.slug
     .replace('-', '_')
     .replace(/\W/g, '')
-    .replace(/^(\d+)(\D+)$/g, '$2')
+    .replace(targetStartingDigitsRegex, '$2')
+    .replace(/^(\d+)$/g, project.id.replace(targetStartingDigitsRegex, '$2'))
     .substring(0, 63)}_mr`
 
   const iconPath = `${project.slug}_pack.png`
