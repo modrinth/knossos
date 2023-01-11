@@ -859,8 +859,6 @@ export default {
       const view = this.$cosmetics.searchDisplayMode[this.projectType.id]
       const maxResultsOptions = this.maxResultsForView[view] ?? [20]
       const currentMax = this.maxResults
-      console.log(maxResultsOptions)
-      console.log(currentMax)
       if (!maxResultsOptions.includes(currentMax)) {
         this.maxResults = maxResultsOptions.reduce(function (prev, curr) {
           return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax)
