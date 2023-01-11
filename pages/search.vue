@@ -702,7 +702,6 @@ export default {
           this.pageCount
         )
       )
-      console.log(newPageNumber)
       this.previousMaxResults = this.maxResults
       await this.onSearchChange(newPageNumber)
     },
