@@ -121,10 +121,8 @@ export const inferVersionInfo = async function (
           manifestFile !== null
         ) {
           const manifestText = await manifestFile.async('text')
-          console.log(manifestText)
           const regex = /Implementation-Version: (.*)$/m
           const match = manifestText.match(regex)
-          console.log(match)
           if (match) {
             versionNum = match[1]
           }
