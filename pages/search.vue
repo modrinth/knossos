@@ -314,7 +314,7 @@
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="onSearchChange(currentPage)"
+              @input="onMaxResultsChange(currentPage)"
             />
           </div>
           <button
@@ -474,6 +474,7 @@ export default {
       sortType: { display: 'Relevance', name: 'relevance' },
 
       maxResults: 20,
+      previousMaxResults: 20,
 
       maxResultsForView: {
         list: [5, 10, 15, 20, 50, 100],
@@ -519,7 +520,7 @@ export default {
           this.sortType.display = 'Downloads'
           break
         case 'newest':
-          this.sortType.display = 'Recently created'
+          this.sortType.display = 'Recently published'
           break
         case 'updated':
           this.sortType.display = 'Recently updated'
@@ -689,6 +690,20 @@ export default {
     async onSearchChangeToTop(newPageNumber) {
       if (process.client) window.scrollTo({ top: 0, behavior: 'smooth' })
 
+      await this.onSearchChange(newPageNumber)
+    },
+    async onMaxResultsChange(newPageNumber) {
+      newPageNumber = Math.max(
+        1,
+        Math.min(
+          Math.floor(
+            newPageNumber / (this.maxResults / this.previousMaxResults)
+          ),
+          this.pageCount
+        )
+      )
+      console.log(newPageNumber)
+      this.previousMaxResults = this.maxResults
       await this.onSearchChange(newPageNumber)
     },
     async onSearchChange(newPageNumber) {
