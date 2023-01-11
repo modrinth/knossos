@@ -96,3 +96,5 @@ sw.*
 # pnpm files
 pnpm-lock.yaml
 /.npmrc
+
+.output

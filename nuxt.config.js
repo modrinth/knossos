@@ -1,20 +1,15 @@
 import { promises as fs } from 'fs'
-import { sortRoutes } from '@nuxt/utils'
+// import { sortRoutes } from '@nuxt/utils'
 import axios from 'axios'
+import { resolve } from 'pathe'
+
+import { defineNuxtConfig } from '@nuxt/bridge'
 
 const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
 const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
 
-export default {
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
+export default defineNuxtConfig({
   target: 'server',
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
-   */
   head: {
     htmlAttrs: {
       lang: 'en',
@@ -133,59 +128,8 @@ export default {
     },
   },
   router: {
-    extendRoutes(routes, resolve) {
-      routes.splice(
-        routes.findIndex((x) => x.name === 'search'),
-        1
-      )
-
-      routes.push({
-        path: '/search',
-        component: resolve(__dirname, 'pages/search.vue'),
-        name: 'search',
-        chunkName: 'pages/search',
-        children: [
-          {
-            path: '/mods',
-            component: resolve(__dirname, 'pages/search/mods.vue'),
-            name: 'mods',
-          },
-          {
-            path: '/modpacks',
-            component: resolve(__dirname, 'pages/search/modpacks.vue'),
-            name: 'modpacks',
-          },
-          {
-            path: '/plugins',
-            component: resolve(__dirname, 'pages/search/plugins.vue'),
-            name: 'plugins',
-          },
-          {
-            path: '/resourcepacks',
-            component: resolve(__dirname, 'pages/search/resourcepacks.vue'),
-            name: 'resourcepacks',
-          },
-          {
-            path: '/shaders',
-            component: resolve(__dirname, 'pages/search/shaders.vue'),
-            name: 'shaders',
-          },
-          {
-            path: '/datapacks',
-            component: resolve(__dirname, 'pages/search/datapacks.vue'),
-            name: 'datapacks',
-          },
-        ],
-      })
-
-      sortRoutes(routes)
-    },
     middleware: ['auth', 'analytics'],
   },
-  /*
-   ** Global CSS
-   */
-  css: ['~assets/styles/global.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -222,11 +166,6 @@ export default {
     '@nuxtjs/style-resources',
     'cookie-universal-nuxt',
   ],
-  ads: {
-    // Module options
-    ghostMode: true,
-    geoEdgeId: '',
-  },
   robots: {
     Sitemap: 'https://modrinth.com/sitemap.xml',
   },
@@ -285,9 +224,6 @@ export default {
   publicRuntimeConfig: {
     axios: {
       browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
-    ads: {
-      ethicalAds: process.env.ETHICAL_ADS,
     },
     analytics: {
       base_url: process.env.BROWSER_ARIADNE_URL || STAGING_ARIADNE_URL,
@@ -404,8 +340,56 @@ export default {
         })
       },
     },
+    pages: {
+      extend(routes) {
+        console.log(routes)
+        routes.splice(
+          routes.findIndex((x) => x.name === 'search'),
+          1
+        )
+
+        routes.push({
+          path: '/search',
+          component: resolve(__dirname, 'pages/search.vue'),
+          name: 'search',
+          chunkName: 'pages/search',
+          children: [
+            {
+              path: '/mods',
+              component: resolve(__dirname, 'pages/search/mods.vue'),
+              name: 'mods',
+            },
+            {
+              path: '/modpacks',
+              component: resolve(__dirname, 'pages/search/modpacks.vue'),
+              name: 'modpacks',
+            },
+            {
+              path: '/plugins',
+              component: resolve(__dirname, 'pages/search/plugins.vue'),
+              name: 'plugins',
+            },
+            {
+              path: '/resourcepacks',
+              component: resolve(__dirname, 'pages/search/resourcepacks.vue'),
+              name: 'resourcepacks',
+            },
+            {
+              path: '/shaders',
+              component: resolve(__dirname, 'pages/search/shaders.vue'),
+              name: 'shaders',
+            },
+            {
+              path: '/datapacks',
+              component: resolve(__dirname, 'pages/search/datapacks.vue'),
+              name: 'datapacks',
+            },
+          ],
+        })
+      },
+    },
   },
-}
+})
 
 function getApiUrl() {
   return process.env.BROWSER_BASE_URL ?? STAGING_API_URL

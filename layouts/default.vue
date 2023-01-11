@@ -592,6 +592,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~assets/styles/global.scss';
+
 .skip a {
   clip: rect(1px, 1px, 1px, 1px);
   height: 1px;
