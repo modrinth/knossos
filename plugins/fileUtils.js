@@ -363,6 +363,7 @@ export const createDataPackVersion = async function (
   const newSlug = `${project.slug
     .replace('-', '_')
     .replace(/\W/g, '')
+    .replace(/^(\d+)(\D+)$/g, '$2')
     .substring(0, 63)}_mr`
 
   const iconPath = `${project.slug}_pack.png`
