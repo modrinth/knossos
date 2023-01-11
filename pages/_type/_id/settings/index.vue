@@ -334,12 +334,12 @@ export default {
       if (this.serverSide !== this.project.server_side) {
         data.server_side = this.serverSide
       }
-      if (this.visibility !== this.project.requested_status) {
-        if (!this.$tag.approvedStatuses.includes(this.project.status)) {
-          data.requested_status = this.visibility
-        } else {
+      if (this.$tag.approvedStatuses.includes(this.project.status)) {
+        if (this.visibility !== this.project.status) {
           data.status = this.visibility
         }
+      } else if (this.visibility !== this.project.requested_status) {
+        data.requested_status = this.visibility
       }
 
       return data
