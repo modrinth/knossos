@@ -134,7 +134,7 @@ export default {
     this.NOTIFICATION_TYPES = {
       team_invite: 'Team invites',
       project_update: 'Project updates',
-      status_update: 'Project status',
+      status_update: 'Status changes',
     }
   },
   methods: {
