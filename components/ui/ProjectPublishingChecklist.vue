@@ -4,7 +4,8 @@
       $auth.user &&
       currentMember &&
       nags.filter((x) => x.condition).length > 0 &&
-      project.status === 'draft'
+      (project.status === 'draft' ||
+        $tag.rejectedStatuses.includes(project.status))
     "
     class="author-actions universal-card"
   >

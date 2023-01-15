@@ -280,11 +280,8 @@
         <div
           v-if="
             currentMember &&
-            ((!$tag.approvedStatuses.includes(project.status) &&
-              project.status !== 'processing') ||
-              (project.moderator_message &&
-                (project.moderator_message.message ||
-                  project.moderator_message.body)))
+            ($tag.rejectedStatuses.includes(project.status) ||
+              project.moderator_message)
           "
           class="universal-card"
         >
@@ -294,40 +291,41 @@
             <Badge :type="project.status" />
           </div>
           <div class="message">
-            <p v-if="project.status === 'rejected'">
-              Your project has been rejected by Modrinth's staff. In most cases,
-              you can resubmit for review after addressing the staff's message,
-              which is below. Do not resubmit until you've addressed the message
-              from the moderators!
+            <p v-if="$tag.rejectedStatuses.includes(project.status)">
+              Your project has been {{ project.status }} by Modrinth's staff. In
+              most cases, you can resubmit for review after addressing the
+              staff's message, which is below. Do not resubmit until you've
+              addressed the message from the moderators!
             </p>
             <div v-if="project.moderator_message">
               <hr class="card-divider" />
+              <h3 class="card-header">Message from the moderators:</h3>
               <div v-if="project.moderator_message.body">
-                <h3 class="card-header">Message from the moderators:</h3>
                 <p
                   v-if="project.moderator_message.message"
                   class="mod-message__title"
                 >
                   {{ project.moderator_message.message }}
                 </p>
-                <div
-                  v-highlightjs
-                  class="markdown-body"
-                  v-html="$xss($md.render(project.moderator_message.body))"
-                />
               </div>
-              <div v-else>
-                <h3 class="card-header">Message from the moderators:</h3>
-                <p>{{ project.moderator_message.message }}</p>
-              </div>
+              <div
+                v-highlightjs
+                class="markdown-body"
+                v-html="
+                  $xss(
+                    $md.render(
+                      project.moderator_message.body
+                        ? project.moderator_message.body
+                        : project.moderator_message.message
+                    )
+                  )
+                "
+              />
             </div>
           </div>
           <div class="buttons status-buttons">
             <button
-              v-if="
-                !$tag.approvedStatuses.includes(project.status) &&
-                project.status !== 'processing'
-              "
+              v-if="$tag.rejectedStatuses.includes(project.status)"
               class="iconified-button brand-button"
               @click="submitForReview"
             >
@@ -343,31 +341,12 @@
               Clear message
             </button>
           </div>
-          <div v-if="showKnownErrors" class="known-errors">
-            <ul>
-              <li v-if="project.body === ''">
-                Your project must have a body to submit for review.
-              </li>
-              <li v-if="project.versions.length < 1">
-                Your project must have at least one version to submit for
-                review.
-              </li>
-              <li
-                v-if="
-                  project.client_side === 'unknown' ||
-                  project.server_side === 'unknown'
-                "
-              >
-                Your project must have the supported environments selected.
-              </li>
-            </ul>
-          </div>
+          <p v-if="showKnownErrors" class="known-errors">
+            Please complete any required checklist items before resubmitting.
+          </p>
         </div>
         <div
-          v-if="
-            $auth.user &&
-            ($auth.user.role === 'admin' || $auth.user.role === 'moderator')
-          "
+          v-if="$auth.user && $tag.staffRoles.includes($auth.user.role)"
           class="universal-card moderation-card"
         >
           <h3>Moderation actions</h3>
@@ -378,16 +357,11 @@
                 project.status === 'processing'
               "
               class="iconified-button brand-button"
-              @click="
-                openModerationModal(
-                  project.requested_status
-                    ? project.requested_status
-                    : 'approved'
-                )
-              "
+              @click="openModerationModal(requestedStatus)"
             >
               <CheckIcon />
               Approve
+              {{ requestedStatus !== 'approved' ? `(${requestedStatus})` : '' }}
             </button>
             <button
               v-if="
@@ -976,8 +950,7 @@ export default {
       if (
         !currentMember &&
         data.$auth.user &&
-        (data.$auth.user.role === 'admin' ||
-          data.$auth.user.role === 'moderator')
+        data.$tag.staffRoles.includes(data.$auth.user.role)
       ) {
         currentMember = {
           team_id: project.team_id,
@@ -1121,6 +1094,9 @@ export default {
     },
     featuredGalleryImage() {
       return this.project.gallery.find((img) => img.featured)
+    },
+    requestedStatus() {
+      return this.project.requested_status ?? 'approved'
     },
   },
   watch: {
