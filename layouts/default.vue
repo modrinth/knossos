@@ -370,9 +370,9 @@
         <nuxt-link to="/legal/terms">Terms</nuxt-link>
         <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
         <nuxt-link to="/legal/rules">Rules</nuxt-link>
-        <a href="https://careers.modrinth.com"
-          >Careers <span class="count-bubble">2</span></a
-        >
+        <a :target="$external()" href="https://careers.modrinth.com">
+          Careers <span class="count-bubble">2</span>
+        </a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
