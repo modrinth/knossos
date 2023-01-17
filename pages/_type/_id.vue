@@ -674,9 +674,8 @@
           class="card warning"
           aria-label="Warning"
         >
-          {{ project.title }} has been archived by the project author.
-          {{ project.title }} will not receive any further updates unless the
-          author decides to unarchive the project.
+          {{ project.title }} has been archived and will not receive any further
+          updates unless the author decides to unarchive the project.
         </div>
         <div
           v-if="project.project_type === 'modpack'"
