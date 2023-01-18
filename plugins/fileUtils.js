@@ -41,7 +41,7 @@ export const acceptFileFromProjectType = (projectType) => {
     case 'datapack':
       return '.zip,application/zip'
     case 'modpack':
-      return '.mrpack,application/x-modrinth-modpack+zip,application/zip'
+      return '.mrpack,application/x-modrinth-modpack+zip'
     default:
       return '*'
   }
