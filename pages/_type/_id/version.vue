@@ -1624,6 +1624,10 @@ export default {
         }
       }
     }
+
+    .known-errors {
+      margin-bottom: 1rem;
+    }
   }
 
   h3 {
