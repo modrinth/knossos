@@ -152,8 +152,8 @@
       <li>Content containing sexual or explicit material</li>
       <li>Content promoting or sharing harmful or hateful behavior</li>
       <li>
-        Content with a focus on substances (drugs) considered to be illicit in
-        most American jurisdictions
+        Content themed around or containing real-life drugs or illicit
+        substances
       </li>
       <li>Content with an excessive amount of profane language</li>
     </ul>

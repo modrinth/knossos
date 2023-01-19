@@ -278,72 +278,41 @@
           </div>
         </div>
         <div
-          v-if="
-            currentMember &&
-            ($tag.rejectedStatuses.includes(project.status) ||
-              project.moderator_message)
-          "
+          v-if="currentMember && project.moderator_message"
           class="universal-card"
         >
-          <h3 class="card-header">Moderation status</h3>
-          <div class="current-status">
-            Project status:
-            <Badge :type="project.status" />
-          </div>
-          <div class="message">
-            <p v-if="$tag.rejectedStatuses.includes(project.status)">
-              Your project has been {{ project.status }} by Modrinth's staff. In
-              most cases, you can resubmit for review after addressing the
-              staff's message, which is below. Do not resubmit until you've
-              addressed the message from the moderators!
+          <h3 class="card-header">Message from the moderators:</h3>
+          <div v-if="project.moderator_message.body">
+            <p
+              v-if="project.moderator_message.message"
+              class="mod-message__title"
+            >
+              {{ project.moderator_message.message }}
             </p>
-            <div v-if="project.moderator_message">
-              <hr class="card-divider" />
-              <h3 class="card-header">Message from the moderators:</h3>
-              <div v-if="project.moderator_message.body">
-                <p
-                  v-if="project.moderator_message.message"
-                  class="mod-message__title"
-                >
-                  {{ project.moderator_message.message }}
-                </p>
-              </div>
-              <div
-                v-highlightjs
-                class="markdown-body"
-                v-html="
-                  $xss(
-                    $md.render(
-                      project.moderator_message.body
-                        ? project.moderator_message.body
-                        : project.moderator_message.message
-                    )
-                  )
-                "
-              />
-            </div>
           </div>
-          <div class="buttons status-buttons">
-            <button
-              v-if="$tag.rejectedStatuses.includes(project.status)"
-              class="iconified-button brand-button"
-              @click="submitForReview"
-            >
-              <CheckIcon />
-              Resubmit for review
-            </button>
-            <button
-              v-if="$tag.approvedStatuses.includes(project.status)"
-              class="iconified-button"
-              @click="clearMessage"
-            >
-              <ClearIcon />
-              Clear message
-            </button>
-          </div>
-          <p v-if="showKnownErrors" class="known-errors">
-            Please complete any required checklist items before resubmitting.
-          </p>
+          <div
+            v-highlightjs
+            class="markdown-body"
+            v-html="
+              $xss(
+                $md.render(
+                  project.moderator_message.body
+                    ? project.moderator_message.body
+                    : project.moderator_message.message
+                )
+              )
+            "
+          />
+        </div>
+        <div class="buttons status-buttons">
+          <button
+            v-if="$tag.approvedStatuses.includes(project.status)"
+            class="iconified-button"
+            @click="clearMessage"
+          >
+            <ClearIcon />
+            Clear message
+          </button>
         </div>
         <div
           v-if="$auth.user && $tag.staffRoles.includes($auth.user.role)"
@@ -996,7 +965,6 @@ export default {
   },
   data() {
     return {
-      showKnownErrors: false,
       licenseText: '',
       isSettings: false,
       routeName: '',
@@ -1178,19 +1146,6 @@ export default {
       }
 
       this.$nuxt.$loading.finish()
-    },
-    async submitForReview() {
-      if (
-        this.project.body === '' ||
-        this.project.body.startsWith('# Placeholder description') ||
-        this.versions.length < 1 ||
-        this.project.client_side === 'unknown' ||
-        this.project.server_side === 'unknown'
-      ) {
-        this.showKnownErrors = true
-      } else {
-        await this.setProcessing()
-      }
     },
     toggleChecklistCollapse() {
       this.collapsedChecklist = !this.collapsedChecklist
@@ -1619,13 +1574,6 @@ export default {
       margin-bottom: var(--spacing-card-sm);
     }
   }
-}
-
-.current-status {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-card-sm);
-  margin-top: var(--spacing-card-md);
 }
 
 .normal-page__sidebar .mod-button {

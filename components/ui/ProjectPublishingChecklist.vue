@@ -64,6 +64,16 @@
           />{{ nag.title }}</span
         >
         {{ nag.description }}
+        <Checkbox
+          v-if="
+            nag.status === 'review' &&
+            project.moderator_message &&
+            $tag.rejectedStatuses.includes(project.status)
+          "
+          v-model="acknowledgedMessage"
+        >
+          I acknowledge that I have addressed the staff's message on the sidebar
+        </Checkbox>
         <NuxtLink
           v-if="nag.link"
           :class="{ invisible: nag.link.hide }"
@@ -100,10 +110,12 @@ import RequiredIcon from '~/assets/images/utils/asterisk.svg?inline'
 import SuggestionIcon from '~/assets/images/utils/lightbulb.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 import SendIcon from '~/assets/images/utils/send.svg?inline'
+import Checkbox from '~/components/ui/Checkbox'
 
 export default {
   name: 'ProjectPublishingChecklist',
   components: {
+    Checkbox,
     ChevronRightIcon,
     DropdownIcon,
     CheckIcon,
@@ -163,6 +175,11 @@ export default {
         }
       },
     },
+  },
+  data() {
+    return {
+      acknowledgedMessage: !this.project.moderator_message,
+    }
   },
   computed: {
     featuredGalleryImage() {
@@ -291,17 +308,27 @@ export default {
           },
         },
         {
-          condition: this.project.status === 'draft',
-          title: 'Submit for review',
+          condition: true, // This condition is handled for us in the root div
+          title: `${
+            this.project.status === 'draft' ? 'Submit' : 'Resubmit'
+          } for review`,
           id: 'submit-for-review',
           description:
-            'Your project is only viewable by members of the project. It must be reviewed by moderators in order to be published.',
+            this.project.status === 'draft'
+              ? `Your project is only viewable by members of the project. It
+                must be reviewed by moderators in order to be published.`
+              : `Your project has been ${this.project.status} by Modrinth's
+                staff. In most cases, you can resubmit for review after
+                addressing the staff's message.`,
           status: 'review',
           link: null,
           action: {
             onClick: this.submitForReview,
-            title: 'Submit for review',
+            title: `${
+              this.project.status === 'draft' ? 'Submit' : 'Resubmit'
+            } for review`,
             disabled: () =>
+              !this.acknowledgedMessage ||
               this.nags.filter((x) => x.condition && x.status === 'required')
                 .length > 0,
           },
@@ -342,6 +369,7 @@ export default {
     },
     async submitForReview() {
       if (
+        !this.acknowledgedMessage ||
         this.nags.filter((x) => x.condition && x.status === 'required')
           .length === 0
       ) {
