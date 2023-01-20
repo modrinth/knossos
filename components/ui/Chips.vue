@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg'
 
 export default {
   name: 'Chips',

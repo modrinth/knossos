@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it'
 
-export default (ctx, inject) => {
+export default defineNuxtPlugin((nuxtApp) => {
   const md = new MarkdownIt('default', {
     html: true,
     linkify: true,
@@ -19,5 +19,9 @@ export default (ctx, inject) => {
     return defaultRender(tokens, idx, options, env, self)
   }
 
-  inject('md', md)
-}
+  return {
+    provide: {
+      md: (string) => md(string),
+    },
+  }
+})

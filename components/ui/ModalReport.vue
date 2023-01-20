@@ -68,8 +68,8 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 

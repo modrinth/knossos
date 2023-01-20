@@ -49,6 +49,10 @@ const options = {
 
 const configuredXss = new xss.FilterXSS(options)
 
-export default (ctx, inject) => {
-  inject('xss', (string) => configuredXss.process(string))
-}
+export default defineNuxtPlugin(() => {
+  return {
+    provide: {
+      xss: (string) => configuredXss.process(string),
+    },
+  }
+})

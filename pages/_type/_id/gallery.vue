@@ -249,7 +249,7 @@
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
               class="iconified-button"
-              @click="
+              @click="() => {
                 resetEdit()
                 editIndex = index
                 editTitle = item.title
@@ -257,6 +257,7 @@
                 editFeatured = item.featured
                 editOrder = item.ordering
                 $refs.modal_edit_item.show()
+              }
               "
             >
               <EditIcon />
@@ -264,9 +265,10 @@
             </button>
             <button
               class="iconified-button"
-              @click="
+              @click="() => {
                 deleteIndex = index
                 $refs.modal_confirm.show()
+              }
               "
             >
               <TrashIcon />
@@ -280,22 +282,22 @@
 </template>
 
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import ExternalIcon from '~/assets/images/utils/external.svg?inline'
-import ExpandIcon from '~/assets/images/utils/expand.svg?inline'
-import ContractIcon from '~/assets/images/utils/contract.svg?inline'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import ImageIcon from '~/assets/images/utils/image.svg?inline'
-import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
+import PlusIcon from '~/assets/images/utils/plus.svg'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
+import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import ExternalIcon from '~/assets/images/utils/external.svg'
+import ExpandIcon from '~/assets/images/utils/expand.svg'
+import ContractIcon from '~/assets/images/utils/contract.svg'
+import StarIcon from '~/assets/images/utils/star.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import InfoIcon from '~/assets/images/utils/info.svg'
+import ImageIcon from '~/assets/images/utils/image.svg'
+import TransferIcon from '~/assets/images/utils/transfer.svg'
 
 import FileInput from '~/components/ui/FileInput'
 import DropArea from '~/components/ui/DropArea'

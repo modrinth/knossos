@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 
 export default {
   name: 'Checkbox',

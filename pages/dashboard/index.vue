@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default {
   components: { ChevronRightIcon },

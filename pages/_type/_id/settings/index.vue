@@ -212,9 +212,9 @@ import Avatar from '~/components/ui/Avatar'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import FileInput from '~/components/ui/FileInput'
 
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
 
 export default {
   components: {

@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import CheckIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import CheckIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 

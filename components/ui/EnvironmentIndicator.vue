@@ -52,10 +52,10 @@
   </span>
 </template>
 <script>
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import ClientIcon from '~/assets/images/utils/client.svg?inline'
-import GlobeIcon from '~/assets/images/utils/globe.svg?inline'
-import ServerIcon from '~/assets/images/utils/server.svg?inline'
+import InfoIcon from '~/assets/images/utils/info.svg'
+import ClientIcon from '~/assets/images/utils/client.svg'
+import GlobeIcon from '~/assets/images/utils/globe.svg'
+import ServerIcon from '~/assets/images/utils/server.svg'
 export default {
   name: 'EnvironmentIndicator',
   components: {

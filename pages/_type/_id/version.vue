@@ -517,10 +517,11 @@
         <button
           v-else-if="isEditing"
           class="iconified-button raised-button"
-          @click="
+          @click="() => {
             deleteFiles.push(file.hashes.sha1)
             version.files.splice(index, 1)
             oldFileTypes.splice(index, 1)
+          }
           "
         >
           <TrashIcon />
@@ -563,9 +564,10 @@
           />
           <button
             class="iconified-button raised-button"
-            @click="
+            @click="() => {
               newFiles.splice(index, 1)
               newFileTypes.splice(index, 1)
+            }
             "
           >
             <TrashIcon />
@@ -789,21 +791,21 @@ import Chips from '~/components/ui/Chips'
 import Checkbox from '~/components/ui/Checkbox'
 import FileInput from '~/components/ui/FileInput'
 
-import FileIcon from '~/assets/images/utils/file.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import HashIcon from '~/assets/images/utils/hash.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-import BackIcon from '~/assets/images/utils/left-arrow.svg?inline'
-import BoxIcon from '~/assets/images/utils/box.svg?inline'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
+import FileIcon from '~/assets/images/utils/file.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import StarIcon from '~/assets/images/utils/star.svg'
+import ReportIcon from '~/assets/images/utils/report.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import HashIcon from '~/assets/images/utils/hash.svg'
+import PlusIcon from '~/assets/images/utils/plus.svg'
+import TransferIcon from '~/assets/images/utils/transfer.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import BackIcon from '~/assets/images/utils/left-arrow.svg'
+import BoxIcon from '~/assets/images/utils/box.svg'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal.vue'
 
 export default {

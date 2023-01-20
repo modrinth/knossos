@@ -11,8 +11,8 @@
         {{ $formatProjectType(project.project_type).toLowerCase() }}. Make sure
         to select all tags that apply.
       </p>
-      <template v-for="header in Object.keys(categoryLists)">
-        <div :key="`categories-${header}`" class="label">
+      <template :key="`categories-${header}`" v-for="header in Object.keys(categoryLists)">
+        <div class="label">
           <h4>
             <span class="label__title">{{
               $formatCategoryHeader(header)
@@ -41,7 +41,7 @@
             </template>
           </span>
         </div>
-        <div :key="`categories-${header}-list`" class="category-list input-div">
+        <div class="category-list input-div">
           <Checkbox
             v-for="category in categoryLists[header]"
             :key="`category-${header}-${category.name}`"
@@ -118,8 +118,8 @@
 
 <script>
 import Checkbox from '~/components/ui/Checkbox'
-import StarIcon from '~/assets/images/utils/star.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import StarIcon from '~/assets/images/utils/star.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default {
   components: {

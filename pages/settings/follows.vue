@@ -39,8 +39,8 @@
 <script>
 import ProjectCard from '~/components/ui/ProjectCard'
 
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg?inline'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 
 export default {
   components: {

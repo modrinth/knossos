@@ -68,7 +68,7 @@
   </div>
 </template>
 <script>
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
+import DownloadIcon from '~/assets/images/utils/download.svg'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default {

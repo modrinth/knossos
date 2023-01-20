@@ -81,20 +81,12 @@
       <div class="buttons">
         <slot />
       </div>
-      <div
-        v-if="showUpdatedDate"
-        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm:ss A')"
-        class="stat date"
-      >
+      <div v-if="showUpdatedDate" class="stat date">
         <EditIcon aria-hidden="true" />
         <span class="date-label">Updated </span
         >{{ $dayjs(updatedAt).fromNow() }}
       </div>
-      <div
-        v-else
-        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm:ss A')"
-        class="stat date"
-      >
+      <div v-else class="stat date">
         <CalendarIcon aria-hidden="true" />
         <span class="date-label">Published </span
         >{{ $dayjs(createdAt).fromNow() }}
@@ -108,10 +100,10 @@ import Categories from '~/components/ui/search/Categories'
 import Badge from '~/components/ui/Badge'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator'
 
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import EditIcon from '~/assets/images/utils/updated.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import EditIcon from '~/assets/images/utils/updated.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
 import Avatar from '~/components/ui/Avatar'
 
 export default {

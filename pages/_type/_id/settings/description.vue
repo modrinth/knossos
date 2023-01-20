@@ -58,7 +58,7 @@
 <script>
 import Chips from '~/components/ui/Chips'
 
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default {
   components: {

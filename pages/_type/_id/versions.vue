@@ -109,10 +109,10 @@
 </template>
 <script>
 import { acceptFileFromProjectType } from '~/plugins/fileUtils'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
-import InfoIcon from '~/assets/images/utils/info.svg?inline'
-import FeaturedIcon from '~/assets/images/utils/star.svg?inline'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import InfoIcon from '~/assets/images/utils/info.svg'
+import FeaturedIcon from '~/assets/images/utils/star.svg'
 import VersionBadge from '~/components/ui/Badge'
 import FileInput from '~/components/ui/FileInput'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'

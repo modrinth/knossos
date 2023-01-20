@@ -42,18 +42,18 @@
 </template>
 
 <script>
-import ModrinthIcon from '~/assets/images/logo.svg?inline'
-import ModeratorIcon from '~/assets/images/sidebar/admin.svg?inline'
-import CreatorIcon from '~/assets/images/utils/box.svg?inline'
-import ListIcon from '~/assets/images/utils/list.svg?inline'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg?inline'
-import DraftIcon from '~/assets/images/utils/file-text.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import ArchiveIcon from '~/assets/images/utils/archive.svg?inline'
-import ProcessingIcon from '~/assets/images/utils/updated.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import LockIcon from '~/assets/images/utils/lock.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
+import ModrinthIcon from '~/assets/images/logo.svg'
+import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
+import CreatorIcon from '~/assets/images/utils/box.svg'
+import ListIcon from '~/assets/images/utils/list.svg'
+import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
+import DraftIcon from '~/assets/images/utils/file-text.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import ArchiveIcon from '~/assets/images/utils/archive.svg'
+import ProcessingIcon from '~/assets/images/utils/updated.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
+import LockIcon from '~/assets/images/utils/lock.svg'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
 
 export default {
   name: 'Badge',

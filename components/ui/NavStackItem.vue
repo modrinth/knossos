@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default {
   name: 'NavStackItem',
@@ -88,7 +88,7 @@ export default {
     background-color: var(--background-color);
   }
 
-  &.nuxt-link-exact-active {
+  &.router-link-exact-active {
     .nav-content {
       color: var(--color-button-text-active);
       background-color: var(--color-button-bg);

@@ -1,43 +1,54 @@
-export default (ctx, inject) => {
-  inject('user', ctx.store.state.user)
-  inject('tag', ctx.store.state.tag)
-  inject('auth', ctx.store.state.auth)
-  inject('cosmetics', ctx.store.state.cosmetics)
-  inject('defaultHeaders', () => {
+import { useAuthStore } from '~/store/auth'
+import { useTagStore } from '~/store/tag'
+import { useCosmeticsStore } from '~/store/cosmetics'
+import { useUserStore } from '~/store/user'
+
+export default defineNuxtPlugin((nuxtApp) => {
+  let authStore = useAuthStore()
+  let tagStore = useTagStore()
+  let cosmeticsStore = useCosmeticsStore()
+  let userStore = useUserStore()
+
+  nuxtApp.provide('user', userStore)
+  nuxtApp.provide('tag', tagStore)
+  nuxtApp.provide('auth', authStore)
+  nuxtApp.provide('cosmetics', cosmeticsStore)
+  nuxtApp.provide('defaultHeaders', () => {
     const obj = { headers: {} }
 
     if (process.server && process.env.RATE_LIMIT_IGNORE_KEY) {
       obj.headers['x-ratelimit-key'] = process.env.RATE_LIMIT_IGNORE_KEY || ''
     }
 
-    if (ctx.store.state.auth.user) {
-      obj.headers.Authorization = ctx.store.state.auth.token
+    if (authStore.user) {
+      obj.headers.Authorization = authStore.token
     }
 
     return obj
   })
-  inject('formatNumber', formatNumber)
-  inject('capitalizeString', capitalizeString)
-  inject('formatMoney', formatMoney)
-  inject('formatVersion', (versionsArray) =>
-    formatVersions(versionsArray, ctx.store)
+  nuxtApp.provide('formatNumber', formatNumber)
+  nuxtApp.provide('capitalizeString', capitalizeString)
+  nuxtApp.provide('formatMoney', formatMoney)
+  nuxtApp.provide('formatVersion', (versionsArray) =>
+    formatVersions(versionsArray, tagStore)
   )
-  inject('orElse', (first, otherwise) => first ?? otherwise)
-  inject('external', () =>
-    ctx.store.state.cosmetics.externalLinksNewTab ? '_blank' : ''
+  nuxtApp.provide('orElse', (first, otherwise) => first ?? otherwise)
+  nuxtApp.provide('external', () =>
+    cosmeticsStore.externalLinksNewTab ? '_blank' : ''
   )
-  inject('formatBytes', formatBytes)
-  inject('formatWallet', formatWallet)
-  inject('formatProjectType', formatProjectType)
-  inject('formatCategory', formatCategory)
-  inject('formatCategoryHeader', formatCategoryHeader)
-  inject('formatProjectStatus', formatProjectStatus)
-  inject('computeVersions', (versions) => {
+  nuxtApp.provide('formatBytes', formatBytes)
+  nuxtApp.provide('formatWallet', formatWallet)
+  nuxtApp.provide('formatProjectType', formatProjectType)
+  nuxtApp.provide('formatCategory', formatCategory)
+  nuxtApp.provide('formatCategoryHeader', formatCategoryHeader)
+  nuxtApp.provide('formatProjectStatus', formatProjectStatus)
+  nuxtApp.provide('computeVersions', (versions) => {
     const visitedVersions = []
     const returnVersions = []
 
     for (const version of versions.sort(
-      (a, b) => ctx.$dayjs(a.date_published) - ctx.$dayjs(b.date_published)
+      (a, b) =>
+        nuxtApp.$dayjs(a.date_published) - nuxtApp.$dayjs(b.date_published)
     )) {
       if (visitedVersions.includes(version.version_number)) {
         visitedVersions.push(version.version_number)
@@ -68,18 +79,16 @@ export default (ctx, inject) => {
         (a, b) => ctx.$dayjs(b.date_published) - ctx.$dayjs(a.date_published)
       )
   })
-  inject('getProjectTypeForDisplay', (type, categories) => {
+  nuxtApp.provide('getProjectTypeForDisplay', (type, categories) => {
     if (type === 'mod') {
       const isPlugin = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.allPluginLoaders.includes(
-          category
-        )
+        return tagStore.loaderData.allPluginLoaders.includes(category)
       })
       const isMod = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.modLoaders.includes(category)
+        return tagStore.loaderData.modLoaders.includes(category)
       })
       const isDataPack = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.dataPackLoaders.includes(category)
+        return tagStore.loaderData.dataPackLoaders.includes(category)
       })
 
       if (isMod && isPlugin && isDataPack) {
@@ -93,20 +102,18 @@ export default (ctx, inject) => {
 
     return type
   })
-  inject('getProjectTypeForUrl', (type, categories) => {
+  nuxtApp.provide('getProjectTypeForUrl', (type, categories) => {
     if (type === 'mod') {
       const isMod = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.modLoaders.includes(category)
+        return tagStore.loaderData.modLoaders.includes(category)
       })
 
       const isPlugin = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.allPluginLoaders.includes(
-          category
-        )
+        return tagStore.loaderData.allPluginLoaders.includes(category)
       })
 
       const isDataPack = categories.some((category) => {
-        return ctx.store.state.tag.loaderData.dataPackLoaders.includes(category)
+        return tagStore.loaderData.dataPackLoaders.includes(category)
       })
 
       if (isDataPack) {
@@ -122,29 +129,26 @@ export default (ctx, inject) => {
       return type
     }
   })
-  inject('cycleValue', cycleValue)
-  const sortedCategories = ctx.store.state.tag.categories
-    .slice()
-    .sort((a, b) => {
-      const headerCompare = a.header.localeCompare(b.header)
-      if (headerCompare !== 0) {
-        return headerCompare
-      }
-      if (a.header === 'resolutions' && b.header === 'resolutions') {
-        return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
-      } else if (
-        a.header === 'performance impact' &&
-        b.header === 'performance impact'
-      ) {
-        const x = ['potato', 'low', 'medium', 'high', 'screenshot']
+  nuxtApp.provide('cycleValue', cycleValue)
+  const sortedCategories = tagStore.categories.slice().sort((a, b) => {
+    const headerCompare = a.header.localeCompare(b.header)
+    if (headerCompare !== 0) {
+      return headerCompare
+    }
+    if (a.header === 'resolutions' && b.header === 'resolutions') {
+      return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
+    } else if (
+      a.header === 'performance impact' &&
+      b.header === 'performance impact'
+    ) {
+      const x = ['potato', 'low', 'medium', 'high', 'screenshot']
 
-        return x.indexOf(a.name) - x.indexOf(b.name)
-      }
-      return 0
-    })
-  inject('sortedCategories', sortedCategories)
-}
-
+      return x.indexOf(a.name) - x.indexOf(b.name)
+    }
+    return 0
+  })
+  nuxtApp.provide('sortedCategories', sortedCategories)
+})
 export const formatNumber = (number) => {
   const x = +number
   if (x >= 1000000) {
@@ -256,8 +260,8 @@ export const formatProjectStatus = (name) => {
   return capitalizeString(name)
 }
 
-export const formatVersions = (versionArray, store) => {
-  const allVersions = store.state.tag.gameVersions.slice().reverse()
+export const formatVersions = (versionArray, tag) => {
+  const allVersions = tag.gameVersions.slice().reverse()
   const allReleases = allVersions.filter((x) => x.version_type === 'release')
 
   const intervals = []

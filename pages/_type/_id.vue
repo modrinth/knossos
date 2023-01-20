@@ -91,7 +91,7 @@
         :collapsed="collapsedChecklist"
         :toggle-collapsed="toggleChecklistCollapse"
       />
-      <NuxtChild
+      <NuxtPage
         :project.sync="project"
         :versions.sync="versions"
         :featured-versions.sync="featuredVersions"
@@ -783,7 +783,7 @@
             </nuxt-link>
           </div>
         </div>
-        <NuxtChild
+        <NuxtPage
           :project.sync="project"
           :versions.sync="versions"
           :featured-versions.sync="featuredVersions"
@@ -798,25 +798,25 @@
 </template>
 
 <script>
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import UpdateIcon from '~/assets/images/utils/updated.svg?inline'
-import CodeIcon from '~/assets/images/sidebar/mod.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
-import WikiIcon from '~/assets/images/utils/wiki.svg?inline'
-import DiscordIcon from '~/assets/images/external/discord.svg?inline'
-import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg?inline'
-import PatreonIcon from '~/assets/images/external/patreon.svg?inline'
-import KoFiIcon from '~/assets/images/external/kofi.svg?inline'
-import PayPalIcon from '~/assets/images/external/paypal.svg?inline'
-import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg?inline'
-import UnknownIcon from '~/assets/images/utils/unknown-donation.svg?inline'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
-import EyeIcon from '~/assets/images/utils/eye.svg?inline'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
+import ClearIcon from '~/assets/images/utils/clear.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import UpdateIcon from '~/assets/images/utils/updated.svg'
+import CodeIcon from '~/assets/images/sidebar/mod.svg'
+import ReportIcon from '~/assets/images/utils/report.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import IssuesIcon from '~/assets/images/utils/issues.svg'
+import WikiIcon from '~/assets/images/utils/wiki.svg'
+import DiscordIcon from '~/assets/images/external/discord.svg'
+import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
+import PatreonIcon from '~/assets/images/external/patreon.svg'
+import KoFiIcon from '~/assets/images/external/kofi.svg'
+import PayPalIcon from '~/assets/images/external/paypal.svg'
+import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
+import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import EyeIcon from '~/assets/images/utils/eye.svg'
 import Advertisement from '~/components/ads/Advertisement'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
@@ -830,17 +830,17 @@ import Avatar from '~/components/ui/Avatar'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import UsersIcon from '~/assets/images/utils/users.svg?inline'
-import CategoriesIcon from '~/assets/images/utils/tags.svg?inline'
-import DescriptionIcon from '~/assets/images/utils/align-left.svg?inline'
-import LinksIcon from '~/assets/images/utils/link.svg?inline'
-import LicenseIcon from '~/assets/images/utils/copyright.svg?inline'
-import GalleryIcon from '~/assets/images/utils/image.svg?inline'
-import VersionIcon from '~/assets/images/utils/version.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import UsersIcon from '~/assets/images/utils/users.svg'
+import CategoriesIcon from '~/assets/images/utils/tags.svg'
+import DescriptionIcon from '~/assets/images/utils/align-left.svg'
+import LinksIcon from '~/assets/images/utils/link.svg'
+import LicenseIcon from '~/assets/images/utils/copyright.svg'
+import GalleryIcon from '~/assets/images/utils/image.svg'
+import VersionIcon from '~/assets/images/utils/version.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 
 export default {
   components: {

@@ -322,13 +322,13 @@ import Avatar from '~/components/ui/Avatar.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import IssuesIcon from '~/assets/images/utils/issues.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import IssuesIcon from '~/assets/images/utils/issues.svg'
+import PlusIcon from '~/assets/images/utils/plus.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default {
   components: {

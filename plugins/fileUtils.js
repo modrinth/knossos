@@ -1,5 +1,6 @@
+// why is this a plugin???
+
 import JSZip from 'jszip'
-import TOML from '@iarna/toml'
 import yaml from 'js-yaml'
 import { formatBytes } from '~/plugins/shorthands'
 
@@ -107,37 +108,39 @@ export const inferVersionInfo = async function (
   const inferFunctions = {
     // Forge 1.13+
     'META-INF/mods.toml': async (file, zip) => {
-      const metadata = TOML.parse(file)
+      // const metadata = TOML.parse(file)
+      //
+      // // TODO: Parse minecraft version ranges, handle if version is set to value from manifest
+      // if (metadata.mods && metadata.mods.length > 0) {
+      //   let versionNum = metadata.mods[0].version
+      //
+      //   // ${file.jarVersion} -> Implementation-Version from manifest
+      //   const manifestFile = zip.file('META-INF/MANIFEST.MF')
+      //   if (
+      //     // eslint-disable-next-line no-template-curly-in-string
+      //     metadata.mods[0].version.includes('${file.jarVersion}') &&
+      //     manifestFile !== null
+      //   ) {
+      //     const manifestText = await manifestFile.async('text')
+      //     const regex = /Implementation-Version: (.*)$/m
+      //     const match = manifestText.match(regex)
+      //     if (match) {
+      //       // eslint-disable-next-line no-template-curly-in-string
+      //       versionNum = versionNum.replace('${file.jarVersion}', match[1])
+      //     }
+      //   }
+      //
+      //   return {
+      //     name: `${project.title} ${versionNum}`,
+      //     version_number: versionNum,
+      //     version_type: versionType(versionNum),
+      //     loaders: ['forge'],
+      //   }
+      // } else {
+      //   return {}
+      // }
 
-      // TODO: Parse minecraft version ranges, handle if version is set to value from manifest
-      if (metadata.mods && metadata.mods.length > 0) {
-        let versionNum = metadata.mods[0].version
-
-        // ${file.jarVersion} -> Implementation-Version from manifest
-        const manifestFile = zip.file('META-INF/MANIFEST.MF')
-        if (
-          // eslint-disable-next-line no-template-curly-in-string
-          metadata.mods[0].version.includes('${file.jarVersion}') &&
-          manifestFile !== null
-        ) {
-          const manifestText = await manifestFile.async('text')
-          const regex = /Implementation-Version: (.*)$/m
-          const match = manifestText.match(regex)
-          if (match) {
-            // eslint-disable-next-line no-template-curly-in-string
-            versionNum = versionNum.replace('${file.jarVersion}', match[1])
-          }
-        }
-
-        return {
-          name: `${project.title} ${versionNum}`,
-          version_number: versionNum,
-          version_type: versionType(versionNum),
-          loaders: ['forge'],
-        }
-      } else {
-        return {}
-      }
+      return {}
     },
     // Old Forge
     'mcmod.info': (file) => {
@@ -571,3 +574,5 @@ export const createDataPackVersion = async function (
     mimeType: 'application/java-archive',
   })
 }
+
+export default defineNuxtPlugin((nuxtApp) => {})

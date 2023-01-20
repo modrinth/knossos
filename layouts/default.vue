@@ -329,16 +329,8 @@
       </section>
     </header>
     <main>
-      <ModalCreation ref="modal_creation" />
-      <notifications
-        group="main"
-        position="bottom right"
-        :max="5"
-        :class="{ 'browse-menu-open': isBrowseMenuOpen }"
-        :ignore-duplicates="true"
-        :duration="10000"
-      />
-      <Nuxt id="main" />
+      <ModalCreation v-if="$auth.user" ref="modal_creation" />
+      <slot id="main" />
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
@@ -437,29 +429,26 @@
 </template>
 
 <script>
-import ClickOutside from 'vue-click-outside'
+import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
 
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
+import SettingsIcon from '~/assets/images/sidebar/settings.svg'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import HomeIcon from '~/assets/images/sidebar/home.svg'
 
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg?inline'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg?inline'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
-import HomeIcon from '~/assets/images/sidebar/home.svg?inline'
+import MoonIcon from '~/assets/images/utils/moon.svg'
+import SunIcon from '~/assets/images/utils/sun.svg'
+import PlusIcon from '~/assets/images/utils/plus.svg'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg'
+import LogOutIcon from '~/assets/images/utils/log-out.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import ChartIcon from '~/assets/images/utils/chart.svg'
 
-import MoonIcon from '~/assets/images/utils/moon.svg?inline'
-import SunIcon from '~/assets/images/utils/sun.svg?inline'
-import PlusIcon from '~/assets/images/utils/plus.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import LogOutIcon from '~/assets/images/utils/log-out.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
+import GitHubIcon from '~/assets/images/utils/github.svg'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
-
 export default {
   components: {
     Avatar,
@@ -480,16 +469,13 @@ export default {
     HeartIcon,
     ChartIcon,
   },
-  directives: {
-    ClickOutside,
-  },
   data() {
     return {
       isDropdownOpen: false,
-      owner: process.env.owner || 'modrinth',
-      slug: process.env.slug || 'knossos',
-      branch: process.env.branch || 'master',
-      hash: process.env.hash || 'unknown',
+      owner: /*process.env.owner ||*/ 'modrinth',
+      slug: /*process.env.slug ||*/ 'knossos',
+      branch: /*process.env.branch ||*/ 'master',
+      hash: /*process.env.hash ||*/ 'unknown',
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
@@ -498,8 +484,8 @@ export default {
   },
   async fetch() {
     await Promise.all([
-      this.$store.dispatch('user/fetchAll', { force: true }),
-      this.$store.dispatch('cosmetics/fetchCosmetics', this.$cookies),
+      this.$user.fetchAll(this.$auth, true),
+      this.$cosmetics.fetchCosmetics(null),
     ])
   },
   head() {
@@ -523,30 +509,26 @@ export default {
   },
   computed: {
     authUrl() {
-      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+      return `https://staging-api.modrinth.com/v2/auth/init?url=http://localhost:3000/${this.$route.path}`
+      //return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
     },
   },
   watch: {
     $route() {
-      this.isMobileMenuOpen = false
-      this.$store.dispatch('user/fetchAll')
-
-      if (process.client) {
-        document.body.style.overflowY = 'scroll'
-        document.body.setAttribute('tabindex', '-1')
-        document.body.removeAttribute('tabindex')
-      }
+      // this.isMobileMenuOpen = false
+      // this.$user.fetchAll(this.$auth)
+      //
+      // if (process.client) {
+      //   document.body.style.overflowY = 'scroll'
+      //   document.body.setAttribute('tabindex', '-1')
+      //   document.body.removeAttribute('tabindex')
+      // }
     },
   },
   async beforeCreate() {
     if (this.$route.query.code) {
       await this.$router.push(this.$route.path)
     }
-  },
-  created() {
-    this.$nuxt.$on('registerSkipLink', (data) => {
-      this.registeredSkipLink = data
-    })
   },
   methods: {
     toggleMobileMenu() {
@@ -569,23 +551,25 @@ export default {
         this.isMobileMenuOpen = false
       }
     },
-    async logout() {
-      this.$cookies.set('auth-token-reset', true)
-      // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (this.$route.path.startsWith('/settings/')) {
-        window.location.href = '/settings'
-      } else {
-        await this.$router.go(null)
-
-        this.$notify({
-          group: 'main',
-          title: 'Logged Out',
-          text: 'You have logged out successfully!',
-          type: 'success',
-        })
-      }
-    },
+    // async logout() {
+    //   this.$cookies.set('auth-token-reset', true)
+    //   // If users logs out on dashboard, force redirect on the home page to clear cookies
+    //   if (this.$route.path.startsWith('/settings/')) {
+    //     window.location.href = '/settings'
+    //   } else {
+    //     await this.$router.go(null)
+    //
+    //     // TODO: send logout nofication using whatever lib
+    //     // this.$notify({
+    //     //   group: 'main',
+    //     //   title: 'Logged Out',
+    //     //   text: 'You have logged out successfully!',
+    //     //   type: 'success',
+    //     // })
+    //   }
+    // },
     changeTheme() {
+      console.log(this.$colorMode.preference)
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
     },
@@ -765,7 +749,7 @@ export default {
               }
             }
 
-            //&.nuxt-link-exact-active {
+            //&.router-link-exact-active {
             //  color: var(--color-button-text-active);
             //  background-color: var(--color-button-bg);
             //}
@@ -843,7 +827,7 @@ export default {
                   width: 20px;
                 }
 
-                &.nuxt-link-exact-active {
+                &.router-link-exact-active {
                   color: var(--color-button-text-active);
                   background-color: var(--color-button-bg);
                 }
@@ -935,7 +919,7 @@ export default {
           color: var(--color-text);
         }
 
-        &.nuxt-link-exact-active {
+        &.router-link-exact-active {
           svg {
             color: var(--color-brand);
           }
@@ -997,7 +981,7 @@ export default {
           margin: 0 0.25rem;
           max-height: unset;
 
-          &.nuxt-link-exact-active {
+          &.router-link-exact-active {
             color: var(--color-brand-inverted);
             background-color: var(--color-brand);
           }
@@ -1064,7 +1048,7 @@ export default {
             width: 1.25rem;
           }
 
-          &.nuxt-link-exact-active {
+          &.router-link-exact-active {
             color: var(--color-brand-inverted);
             background-color: var(--color-brand);
 
@@ -1249,4 +1233,4 @@ export default {
   }
 }
 </style>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

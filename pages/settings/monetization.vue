@@ -100,11 +100,11 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import Chips from '~/components/ui/Chips'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import ChartIcon from '~/assets/images/utils/chart.svg'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
 
 export default {
   components: {

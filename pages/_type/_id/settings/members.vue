@@ -252,11 +252,11 @@
 import Checkbox from '~/components/ui/Checkbox'
 import Badge from '~/components/ui/Badge'
 
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import TransferIcon from '~/assets/images/utils/transfer.svg?inline'
-import UserPlusIcon from '~/assets/images/utils/user-plus.svg?inline'
-import UserRemoveIcon from '~/assets/images/utils/user-x.svg?inline'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import TransferIcon from '~/assets/images/utils/transfer.svg'
+import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
+import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
 import Avatar from '~/components/ui/Avatar'
 
 export default {

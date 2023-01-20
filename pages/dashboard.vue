@@ -24,7 +24,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <NuxtChild />
+      <NuxtPage />
     </div>
   </div>
 </template>
@@ -33,10 +33,9 @@
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 
-import DashboardIcon from '~/assets/images/utils/dashboard.svg?inline'
-// import ChartIcon from '~/assets/images/utils/chart.svg?inline'
-import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
-import ListIcon from '~/assets/images/utils/list.svg?inline'
+import DashboardIcon from '~/assets/images/utils/dashboard.svg'
+import CurrencyIcon from '~/assets/images/utils/currency.svg'
+import ListIcon from '~/assets/images/utils/list.svg'
 
 const monetization = true
 

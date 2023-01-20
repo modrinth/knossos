@@ -415,15 +415,15 @@ import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import Checkbox from '~/components/ui/Checkbox'
 
-import ClientIcon from '~/assets/images/categories/client.svg?inline'
-import ServerIcon from '~/assets/images/categories/server.svg?inline'
+import ClientIcon from '~/assets/images/categories/client.svg'
+import ServerIcon from '~/assets/images/categories/server.svg'
 
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
-import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import FilterIcon from '~/assets/images/utils/filter.svg?inline'
-import GridIcon from '~/assets/images/utils/grid.svg?inline'
-import ListIcon from '~/assets/images/utils/list.svg?inline'
-import ImageIcon from '~/assets/images/utils/image.svg?inline'
+import SearchIcon from '~/assets/images/utils/search.svg'
+import ClearIcon from '~/assets/images/utils/clear.svg'
+import FilterIcon from '~/assets/images/utils/filter.svg'
+import GridIcon from '~/assets/images/utils/grid.svg'
+import ListIcon from '~/assets/images/utils/list.svg'
+import ImageIcon from '~/assets/images/utils/image.svg'
 
 import Advertisement from '~/components/ads/Advertisement'
 

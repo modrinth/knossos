@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import TrashIcon from '~/assets/images/utils/trash.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 import Badge from '~/components/ui/Badge'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg'
 
 export default {
   name: 'ModalModeration',

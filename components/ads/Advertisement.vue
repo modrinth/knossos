@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import LightIcon from '~/assets/images/external/exaroton-light.svg?inline'
-import DarkIcon from '~/assets/images/external/exaroton-dark.svg?inline'
+import LightIcon from '~/assets/images/external/exaroton-light.svg'
+import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 
 export default {
   name: 'Advertisement',

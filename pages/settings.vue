@@ -23,7 +23,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <NuxtChild />
+      <NuxtPage />
     </div>
   </div>
 </template>
@@ -32,10 +32,10 @@
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 
-import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
+import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
+import UserIcon from '~/assets/images/utils/user.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import CurrencyIcon from '~/assets/images/utils/currency.svg'
 
 export default {
   name: 'Settings',

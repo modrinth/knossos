@@ -128,7 +128,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
+import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default {
   components: {

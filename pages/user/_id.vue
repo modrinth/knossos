@@ -80,12 +80,12 @@
             <div class="button-group">
               <button
                 class="iconified-button"
-                @click="
+                @click="() => {
                   isEditing = false
                   user = JSON.parse(JSON.stringify($auth.user))
                   previewImage = null
                   icon = null
-                "
+                }"
               >
                 <CrossIcon /> Cancel
               </button>
@@ -264,21 +264,21 @@ import ProjectCard from '~/components/ui/ProjectCard'
 import Badge from '~/components/ui/Badge'
 import Advertisement from '~/components/ads/Advertisement'
 
-import GitHubIcon from '~/assets/images/utils/github.svg?inline'
-import ReportIcon from '~/assets/images/utils/report.svg?inline'
-import SunriseIcon from '~/assets/images/utils/sunrise.svg?inline'
-import DownloadIcon from '~/assets/images/utils/download.svg?inline'
-import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
-import UserIcon from '~/assets/images/utils/user.svg?inline'
-import EditIcon from '~/assets/images/utils/edit.svg?inline'
-import HeartIcon from '~/assets/images/utils/heart.svg?inline'
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
-import SaveIcon from '~/assets/images/utils/save.svg?inline'
-import GridIcon from '~/assets/images/utils/grid.svg?inline'
-import ListIcon from '~/assets/images/utils/list.svg?inline'
-import ImageIcon from '~/assets/images/utils/image.svg?inline'
-import UploadIcon from '~/assets/images/utils/upload.svg?inline'
+import GitHubIcon from '~/assets/images/utils/github.svg'
+import ReportIcon from '~/assets/images/utils/report.svg'
+import SunriseIcon from '~/assets/images/utils/sunrise.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
+import UserIcon from '~/assets/images/utils/user.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import GridIcon from '~/assets/images/utils/grid.svg'
+import ListIcon from '~/assets/images/utils/list.svg'
+import ImageIcon from '~/assets/images/utils/image.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
 import FileInput from '~/components/ui/FileInput'
 import ModalReport from '~/components/ui/ModalReport'
 import ModalCreation from '~/components/ui/ModalCreation'

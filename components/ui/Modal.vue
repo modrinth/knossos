@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg'
 
 export default {
   name: 'Modal',

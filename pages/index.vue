@@ -572,16 +572,53 @@
     </div>
   </div>
 </template>
+<script setup>
+const { data: rows } = await useFetch(
+  'https://api.modrinth.com/v2/projects_random?count=70',
+  {
+    transform: (projects) => {
+      const val = Math.ceil(projects.length / 3)
+
+      return [
+        projects.slice(0, val),
+        projects.slice(val, val * 2),
+        projects.slice(val * 2, val * 3),
+      ]
+    },
+  }
+)
+
+const searchQuery = ref('flowers')
+const sortType = ref('relevance')
+const { data: searchProjects, refresh: updateSearchProjects } = await useFetch(
+  () =>
+    `https://api.modrinth.com/v2/search?limit=3&query=${searchQuery.value}&index=${sortType.value}`,
+  {
+    transform: (data) => data.hits,
+  }
+)
+
+const { data: notifications } = await useFetch(
+  'https://api.modrinth.com/v2/search?limit=3&query=&index=updated',
+  {
+    transform: (data) => data.hits,
+  }
+)
+
+const authUrl = ref(
+  'https://staging-api.modrinth.com/v2/auth/init?url=http://localhost:3000/'
+)
+</script>
 
 <script>
 import Multiselect from 'vue-multiselect'
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
-import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
-import ModrinthIcon from '~/assets/images/logo.svg?inline'
+import SearchIcon from '~/assets/images/utils/search.svg'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import ModrinthIcon from '~/assets/images/logo.svg'
 import Avatar from '~/components/ui/Avatar'
 import ProjectCard from '~/components/ui/ProjectCard'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Multiselect,
     Avatar,
@@ -591,48 +628,7 @@ export default {
     ProjectCard,
   },
   auth: false,
-  async asyncData(data) {
-    const [projects, baseSearch, updated] = (
-      await Promise.all([
-        await data.$axios.get('projects_random?count=70'),
-        await data.$axios.get('search?limit=3&query=flowers'),
-        await data.$axios.get('search?limit=3&query=&index=updated'),
-      ])
-    ).map((it) => it.data)
-
-    const val = Math.ceil(projects.length / 3)
-
-    return {
-      rows: [
-        projects.slice(0, val),
-        projects.slice(val, val * 2),
-        projects.slice(val * 2, val * 3),
-      ],
-      searchProjects: baseSearch.hits,
-      notifications: updated.hits,
-    }
-  },
-  data() {
-    return {
-      searchQuery: 'flowers',
-      sortType: 'relevance',
-    }
-  },
-  computed: {
-    authUrl() {
-      return `${process.env.authURLBase}auth/init?url=${process.env.domain}/`
-    },
-  },
-  methods: {
-    async updateSearchProjects() {
-      this.searchProjects = (
-        await this.$axios.get(
-          `search?query=${this.searchQuery}&limit=3&index=${this.sortType}`
-        )
-      ).data.hits
-    },
-  },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,24 @@
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+.md
+
+generated/
+!.gitkeep
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
 /logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
 
 # Runtime data
 pids
@@ -35,7 +48,6 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -56,24 +68,6 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# Nuxt generate
-dist
-
-# vuepress build output
-.vuepress/dist
-
 # Serverless directories
 .serverless
 
@@ -89,4 +83,6 @@ sw.*
 # Vim swap files
 *.swp
 
-Dockerfile
+# pnpm files
+pnpm-lock.yaml
+/.npmrc
