@@ -309,7 +309,7 @@ export default {
         },
         {
           hide: this.project.status !== 'draft',
-          condition: this.project.status === 'draft',
+          condition: true,
           title: 'Submit for review',
           id: 'submit-for-review',
           description:
@@ -326,7 +326,7 @@ export default {
         },
         {
           hide: !$tag.rejectedStatuses.includes(this.project.status),
-          condition: $tag.rejectedStatuses.includes(this.project.status),
+          condition: true,
           title: 'Resubmit for review',
           id: 'resubmit-for-review',
           description: `Your project has been ${this.project.status} by
