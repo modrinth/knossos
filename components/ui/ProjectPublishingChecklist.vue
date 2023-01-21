@@ -308,25 +308,33 @@ export default {
           },
         },
         {
-          condition: true, // This condition is handled for us in the root div
-          title: `${
-            this.project.status === 'draft' ? 'Submit' : 'Resubmit'
-          } for review`,
+          condition: this.project.status === 'draft',
+          title: 'Submit for review',
           id: 'submit-for-review',
           description:
-            this.project.status === 'draft'
-              ? `Your project is only viewable by members of the project. It
-                must be reviewed by moderators in order to be published.`
-              : `Your project has been ${this.project.status} by Modrinth's
-                staff. In most cases, you can resubmit for review after
-                addressing the staff's message.`,
+            'Your project is only viewable by members of the project. It must be reviewed by moderators in order to be published.',
           status: 'review',
           link: null,
           action: {
             onClick: this.submitForReview,
-            title: `${
-              this.project.status === 'draft' ? 'Submit' : 'Resubmit'
-            } for review`,
+            title: 'Submit for review',
+            disabled: () =>
+              this.nags.filter((x) => x.condition && x.status === 'required')
+                .length > 0,
+          },
+        },
+        {
+          condition: $tag.rejectedStatuses.includes(this.project.status),
+          title: 'Resubmit for review',
+          id: 'resubmit-for-review',
+          description: `Your project has been ${this.project.status} by
+            Modrinth's staff. In most cases, you can resubmit for review after
+            addressing the staff's message.`,
+          status: 'review',
+          link: null,
+          action: {
+            onClick: this.submitForReview,
+            title: 'Resubmit for review',
             disabled: () =>
               !this.acknowledgedMessage ||
               this.nags.filter((x) => x.condition && x.status === 'required')
