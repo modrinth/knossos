@@ -325,7 +325,7 @@ export default {
           },
         },
         {
-          hide: !$tag.rejectedStatuses.includes(this.project.status),
+          hide: !this.$tag.rejectedStatuses.includes(this.project.status),
           condition: true,
           title: 'Resubmit for review',
           id: 'resubmit-for-review',
