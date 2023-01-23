@@ -28,7 +28,6 @@
               maxlength="2048"
             />
             <button
-              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.issues.clear"
               @click="editLinks.issues.clear = !editLinks.issues.clear"
@@ -56,7 +55,6 @@
               "
             />
             <button
-              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.source.clear"
               @click="editLinks.source.clear = !editLinks.source.clear"
@@ -84,7 +82,6 @@
               "
             />
             <button
-              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.wiki.clear"
               @click="editLinks.wiki.clear = !editLinks.wiki.clear"
@@ -112,7 +109,6 @@
               "
             />
             <button
-              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.discord.clear"
               @click="editLinks.discord.clear = !editLinks.discord.clear"
@@ -265,9 +261,6 @@
               <span class="project-title">
                 <IssuesIcon
                   v-if="project.moderator_message"
-                  v-tooltip="
-                    'Project has a message from the moderators. View the project to see more.'
-                  "
                   aria-label="Project has a message from the moderators. View the project to see more."
                 />
 

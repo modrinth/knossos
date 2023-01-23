@@ -19,7 +19,7 @@
       <multiselect
         id="report-type"
         v-model="reportType"
-        :options="$store.state.tag.reportTypes"
+        :options="$tag.reportTypes"
         :custom-label="
           (value) => value.charAt(0).toUpperCase() + value.slice(1)
         "
@@ -49,7 +49,7 @@
           v-else
           v-highlightjs
           class="preview"
-          v-html="$xss($md.render(body))"
+          v-html="$xss($md(body))"
         ></div>
       </div>
       <div class="button-group">

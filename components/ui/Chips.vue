@@ -22,7 +22,7 @@ export default {
     CheckIcon,
   },
   props: {
-    value: {
+    modelValue: {
       required: true,
       type: String,
     },
@@ -42,10 +42,10 @@ export default {
   computed: {
     selected: {
       get() {
-        return this.value
+        return this.modelValue
       },
       set(value) {
-        this.$emit('input', value)
+        this.$emit('update:modelValue', value)
       },
     },
   },

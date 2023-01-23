@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isSettings" class="normal-page">
+  <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
         <div class="settings-header">
@@ -85,8 +85,8 @@
         :project="project"
         :versions="versions"
         :current-member="currentMember"
-        :is-settings="isSettings"
-        :route-name="routeName"
+        :is-settings="$route.name.startsWith('type-id-settings')"
+        :route-name="$route.name"
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
         :toggle-collapsed="toggleChecklistCollapse"
@@ -117,7 +117,7 @@
       :header="project.license.name ? project.license.name : 'License'"
     >
       <div class="modal-license">
-        <div class="markdown-body" v-html="$xss($md.render(licenseText))" />
+        <div class="markdown-body" v-html="$xss($md(licenseText))" />
       </div>
     </Modal>
     <ModalReport
@@ -211,11 +211,6 @@
             </div>
             <div class="dates">
               <div
-                v-tooltip="
-                  $dayjs(project.published).format(
-                    'MMMM D, YYYY [at] h:mm:ss A'
-                  )
-                "
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
@@ -225,9 +220,6 @@
                 }}</span>
               </div>
               <div
-                v-tooltip="
-                  $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
-                "
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />
@@ -250,7 +242,7 @@
                 <button
                   v-if="!$user.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
-                  @click="$store.dispatch('user/followProject', project)"
+                  @click="$user.followProject(project, $auth)"
                 >
                   <HeartIcon aria-hidden="true" />
                   Follow
@@ -258,7 +250,7 @@
                 <button
                   v-if="$user.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
-                  @click="$store.dispatch('user/unfollowProject', project)"
+                  @click="$user.unfollowProject(project, $auth)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
@@ -313,7 +305,7 @@
                 <div
                   v-highlightjs
                   class="markdown-body"
-                  v-html="$xss($md.render(project.moderator_message.body))"
+                  v-html="$xss($md(project.moderator_message.body))"
                 />
               </div>
               <div v-else>
@@ -542,13 +534,7 @@
             "
           >
             <a
-              v-tooltip="
-                findPrimary(version).filename +
-                ' (' +
-                $formatBytes(findPrimary(version).size) +
-                ')'
-              "
-              :href="findPrimary(version).url"
+              :href="$findPrimary(project, version).url"
               class="download download-button square-button brand-button"
               :title="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
@@ -678,8 +664,8 @@
           :project="project"
           :versions="versions"
           :current-member="currentMember"
-          :is-settings="isSettings"
-          :route-name="routeName"
+          :is-settings="$route.name.startsWith('type-id-settings')"
+          :route-name="$route.name"
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
           :toggle-collapsed="toggleChecklistCollapse"
@@ -842,7 +828,7 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Avatar,
     CopyCode,
@@ -888,44 +874,48 @@ export default {
     LinksIcon,
     LicenseIcon,
   },
-  async asyncData(data) {
+  async asyncData() {
+    const data = useNuxtApp()
+    const route = useRoute()
+
     try {
       if (
-        !data.params.id ||
+        !route.params.id ||
         !(
-          data.$tag.projectTypes.find((x) => x.id === data.params.type) ||
-          data.params.type === 'project'
+          data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
+          route.params.type === 'project'
         )
       ) {
-        data.error({
+        createError({
+          fatal: true,
           statusCode: 404,
           message: 'The page could not be found',
         })
 
-        return
+        return {}
       }
 
-      const [project, members, dependencies, versions, featuredVersions] = (
+      let [project, members, dependencies, versions, featuredVersions] = (
         await Promise.all([
-          data.$axios.get(`project/${data.params.id}`, data.$defaultHeaders()),
-          data.$axios.get(
-            `project/${data.params.id}/members`,
+          useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
+          useBaseFetch(
+            `project/${route.params.id}/members`,
             data.$defaultHeaders()
           ),
-          data.$axios.get(
-            `project/${data.params.id}/dependencies`,
+          useBaseFetch(
+            `project/${route.params.id}/dependencies`,
             data.$defaultHeaders()
           ),
-          data.$axios.get(
-            `project/${data.params.id}/version`,
+          useBaseFetch(
+            `project/${route.params.id}/version`,
             data.$defaultHeaders()
           ),
-          data.$axios.get(
-            `project/${data.params.id}/version?featured=true`,
+          useBaseFetch(
+            `project/${route.params.id}/version?featured=true`,
             data.$defaultHeaders()
           ),
         ])
-      ).map((it) => it.data)
+      )
 
       const projectLoaders = {}
 
@@ -939,29 +929,24 @@ export default {
         JSON.stringify(project.project_type)
       )
 
-      project.project_type = data.params.overrideProjectType
-        ? data.params.overrideProjectType
+      project.project_type = route.params.overrideProjectType
+        ? route.params.overrideProjectType
         : data.$getProjectTypeForUrl(
             project.project_type,
             Object.keys(projectLoaders)
           )
 
       if (
-        project.project_type !== data.params.type ||
-        data.params.id !== project.slug
+        project.project_type !== route.params.type ||
+        route.params.id !== project.slug
       ) {
-        let route = data.route.fullPath.split('/')
+        let route = route.fullPath.split('/')
         route.splice(0, 3)
         route = route.filter((x) => x)
 
-        data.redirect(
-          301,
-          `/${project.project_type}/${project.slug}${
-            route.length > 0 ? `/${route.join('/')}` : ''
-          }`
-        )
-
-        return
+        await navigateTo(`/${project.project_type}/${project.slug}${
+          route.length > 0 ? `/${route.join('/')}` : ''
+        }`, { redirectCode: 301 })
       }
 
       members.forEach((it, index) => {
@@ -992,7 +977,7 @@ export default {
       }
 
       if (project.body_url && !project.body) {
-        project.body = (await data.$axios.get(project.body_url)).data
+        project.body = await $fetch(project.body_url)
       }
 
       const loaders = []
@@ -1005,15 +990,25 @@ export default {
         })
       })
 
+      versions = data.$computeVersions(versions)
+      featuredVersions = data.$computeVersions(featuredVersions)
+
+      featuredVersions.sort((a, b) => {
+        const aLatest = a.game_versions[a.game_versions.length - 1]
+        const bLatest = b.game_versions[b.game_versions.length - 1]
+        const gameVersions = data.$tag.gameVersions.map((e) => e.version)
+        return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
+      })
+
       return {
-        project,
-        versions,
-        featuredVersions,
-        members: members.filter((x) => x.accepted),
-        allMembers: members,
-        currentMember,
-        dependencies,
-        loaders,
+        project: ref(project),
+        versions: shallowReactive(versions),
+        featuredVersions: shallowReactive(featuredVersions),
+        members: ref(members.filter((x) => x.accepted)),
+        allMembers: ref(members),
+        currentMember: ref(currentMember),
+        dependencies: ref(dependencies),
+        loaders: ref(loaders),
       }
     } catch {
       data.error({
@@ -1026,81 +1021,13 @@ export default {
     return {
       showKnownErrors: false,
       licenseText: '',
-      isSettings: false,
-      routeName: '',
-      from: '',
       collapsedChecklist: false,
       moderationStatus: null,
     }
   },
-  fetch() {
-    this.reset()
-    this.versions = this.$computeVersions(this.versions)
-    this.featuredVersions = this.$computeVersions(this.featuredVersions)
-
-    this.featuredVersions.sort((a, b) => {
-      const aLatest = a.game_versions[a.game_versions.length - 1]
-      const bLatest = b.game_versions[b.game_versions.length - 1]
-      const gameVersions = this.$tag.gameVersions.map((e) => e.version)
-      return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
-    })
-  },
-  head() {
-    const title = `${this.project.title} - Minecraft ${this.$formatProjectType(
-      this.projectTypeDisplay
-    )}`
-
-    return {
-      title,
-      meta: [
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: title,
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: title,
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          content: this.project.description,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${
-            this.project.description
-          } - Download the Minecraft ${this.$formatProjectType(
-            this.projectTypeDisplay
-          )} ${this.project.title} by ${
-            this.members.find((x) => x.role === 'Owner').user.username
-          } on Modrinth`,
-        },
-        {
-          hid: 'og:image',
-          name: 'og:image',
-          content: this.project.icon_url
-            ? this.project.icon_url
-            : 'https://cdn.modrinth.com/placeholder.png',
-        },
-        {
-          hid: 'robots',
-          name: 'robots',
-          content:
-            this.project.status === 'approved' ||
-            this.project.status === 'archived'
-              ? 'all'
-              : 'noindex',
-        },
-      ],
-    }
-  },
   computed: {
     authUrl() {
-      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+      return ``
     },
     projectTypeDisplay() {
       return this.$getProjectTypeForDisplay(
@@ -1123,22 +1050,7 @@ export default {
       return this.project.gallery.find((img) => img.featured)
     },
   },
-  watch: {
-    '$route.path': {
-      async handler() {
-        await this.reset()
-      },
-    },
-  },
   methods: {
-    reset() {
-      // First time going to settings, this will run, but not subsequent times.
-      if (!this.isSettings) {
-        this.from = this.$nuxt.context.from ? this.$nuxt.context.from.name : ''
-      }
-      this.routeName = this.$route.name
-      this.isSettings = this.routeName.startsWith('type-id-settings')
-    },
     async resetProject() {
       const project = (
         await this.$axios.get(
@@ -1165,19 +1077,6 @@ export default {
       )
 
       this.project = project
-    },
-    findPrimary(version) {
-      let file = version.files.find((x) => x.primary)
-
-      if (!file) {
-        file = version.files[0]
-      }
-
-      if (!file) {
-        file = { url: `/project/${this.project.id}/version/${version.id}` }
-      }
-
-      return file
     },
     async clearMessage() {
       this.$nuxt.$loading.start()
@@ -1360,7 +1259,7 @@ export default {
       this.$refs.modal_moderation.show()
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .header {

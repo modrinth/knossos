@@ -1,8 +1,6 @@
 import tags from '~/generated/state.json'
-import { defineStore } from 'pinia'
-
-export const useTagStore = defineStore('tag', {
-  state: () => ({
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.provide('tag', {
     categories: tags.categories,
     loaders: tags.loaders,
     gameVersions: tags.gameVersions,
@@ -65,5 +63,22 @@ export const useTagStore = defineStore('tag', {
     },
     projectViewModes: ['list', 'grid', 'gallery'],
     approvedStatuses: ['approved', 'archived', 'unlisted', 'private'],
-  }),
+  })
+
+  nuxtApp.provide('cosmetics', {
+    searchLayout: false,
+    projectLayout: false,
+    modpacksAlphaNotice: true,
+    advancedRendering: true,
+    externalLinksNewTab: true,
+    searchDisplayMode: {
+      mod: 'list',
+      plugin: 'list',
+      resourcepack: 'gallery',
+      modpack: 'list',
+      shader: 'gallery',
+      datapack: 'list',
+      user: 'list',
+    },
+  })
 })

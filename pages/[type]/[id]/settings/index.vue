@@ -281,26 +281,18 @@ export default {
   },
   data() {
     return {
-      name: '',
-      slug: '',
-      summary: '',
+      name: this.project.title,
+      slug: this.project.slug,
+      summary: this.project.description,
       icon: null,
       previewImage: null,
-      clientSide: '',
-      serverSide: '',
+      clientSide: this.project.client_side,
+      serverSide: this.project.server_side,
       deletedIcon: false,
-      visibility: '',
+      visibility: this.$tag.approvedStatuses.includes(this.project.status)
+        ? this.project.status
+        : this.project.requested_status,
     }
-  },
-  fetch() {
-    this.name = this.project.title
-    this.slug = this.project.slug
-    this.summary = this.project.description
-    this.clientSide = this.project.client_side
-    this.serverSide = this.project.server_side
-    this.visibility = this.$tag.approvedStatuses.includes(this.project.status)
-      ? this.project.status
-      : this.project.requested_status
   },
   computed: {
     hasPermission() {
@@ -378,7 +370,7 @@ export default {
         `project/${this.project.id}`,
         this.$defaultHeaders()
       )
-      await this.$store.dispatch('user/fetchProjects')
+      await this.$user.fetchProjects(this.$auth)
       await this.$router.push(`/dashboard/projects`)
       this.$notify({
         group: 'main',

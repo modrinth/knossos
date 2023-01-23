@@ -43,17 +43,12 @@
           <div class="label">
             <span class="label__title">
               <nuxt-link :to="notification.link">
-                <h3 v-html="$xss($md.render(notification.title))" />
+                <h3 v-html="$xss($md(notification.title))" />
               </nuxt-link>
             </span>
             <div class="label__description">
               <p>{{ notification.text }}</p>
               <span
-                v-tooltip="
-                  $dayjs(notification.created).format(
-                    'MMMM D, YYYY [at] h:mm:ss A'
-                  )
-                "
                 class="date"
               >
                 <CalendarIcon />
@@ -112,7 +107,7 @@ export default {
     UpToDate,
   },
   async fetch() {
-    await this.$store.dispatch('user/fetchNotifications')
+    await this.$user.fetchNotifications(this.$auth)
   },
   head: {
     title: 'Notifications - Modrinth',
@@ -147,7 +142,7 @@ export default {
           this.$defaultHeaders()
         )
 
-        ids.forEach((x) => this.$store.dispatch('user/deleteNotification', x))
+        ids.forEach((x) => this.$user.deleteNotification(x))
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -157,7 +152,7 @@ export default {
         })
       }
     },
-    async performAction(notification, notificationIndex, actionIndex) {
+    async performAction(notification, _notificationIndex, actionIndex) {
       this.$nuxt.$loading.start()
       try {
         await this.$axios.delete(
@@ -165,7 +160,7 @@ export default {
           this.$defaultHeaders()
         )
 
-        await this.$store.dispatch('user/deleteNotification', notification.id)
+        await this.$user.deleteNotification(notification.id)
 
         if (actionIndex !== null) {
           const config = {

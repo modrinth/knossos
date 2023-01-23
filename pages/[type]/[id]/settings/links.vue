@@ -163,22 +163,23 @@ export default {
     },
   },
   data() {
+    let donationLinks = JSON.parse(
+      JSON.stringify(this.project.donation_urls)
+    )
+    donationLinks.push({
+      id: null,
+      platform: null,
+      url: null,
+    })
+
     return {
-      issuesUrl: '',
-      sourceUrl: '',
-      wikiUrl: '',
-      discordUrl: '',
+      issuesUrl: this.project.issues_url,
+      sourceUrl: this.project.source_url,
+      wikiUrl: this.project.wiki_url,
+      discordUrl: this.project.discord_url,
 
-      donationLinks: [],
+      donationLinks,
     }
-  },
-  fetch() {
-    this.issuesUrl = this.project.issues_url
-    this.sourceUrl = this.project.source_url
-    this.wikiUrl = this.project.wiki_url
-    this.discordUrl = this.project.discord_url
-
-    this.resetDonationLinks()
   },
   computed: {
     hasPermission() {
@@ -230,7 +231,14 @@ export default {
   methods: {
     async saveChanges() {
       if (this.patchData && (await this.patchProject(this.patchData))) {
-        this.resetDonationLinks()
+        this.donationLinks = JSON.parse(
+          JSON.stringify(this.project.donation_urls)
+        )
+        this.donationLinks.push({
+          id: null,
+          platform: null,
+          url: null,
+        })
       }
     },
     updateDonationLinks() {
@@ -257,16 +265,6 @@ export default {
           url: null,
         })
       }
-    },
-    resetDonationLinks() {
-      this.donationLinks = JSON.parse(
-        JSON.stringify(this.project.donation_urls)
-      )
-      this.donationLinks.push({
-        id: null,
-        platform: null,
-        url: null,
-      })
     },
     checkDifference(newLink, existingLink) {
       if (newLink === '' && existingLink !== null) {

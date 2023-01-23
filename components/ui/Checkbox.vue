@@ -9,11 +9,11 @@
       class="checkbox"
       role="checkbox"
       :disabled="disabled"
-      :class="{ checked: value, collapsing: collapsingToggleStyle }"
+      :class="{ checked: modelValue, collapsing: collapsingToggleStyle }"
       :aria-label="description"
-      :aria-checked="value"
+      :aria-checked="modelValue"
     >
-      <CheckIcon v-if="value && !collapsingToggleStyle" aria-hidden="true" />
+      <CheckIcon v-if="modelValue && !collapsingToggleStyle" aria-hidden="true" />
       <DropdownIcon v-else-if="collapsingToggleStyle" aria-hidden="true" />
     </button>
     <!-- aria-hidden is set so screenreaders only use the <button>'s aria-label -->
@@ -45,7 +45,7 @@ export default {
       type: String,
       default: '',
     },
-    value: Boolean,
+    modelValue: Boolean,
     clickEvent: {
       type: Function,
       default: () => {},
@@ -58,7 +58,7 @@ export default {
   methods: {
     toggle() {
       if (!this.disabled) {
-        this.$emit('input', !this.value)
+        this.$emit('update:modelValue', !this.modelValue)
       }
     },
   },

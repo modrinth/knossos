@@ -318,10 +318,6 @@
             />
           </div>
           <button
-            v-tooltip="
-              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
-              ' view'
-            "
             :aria-label="
               $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
               ' view'
@@ -485,12 +481,10 @@ export default {
       sidebarMenuOpen: false,
       showAllLoaders: false,
 
-      skipLink: '#search-results',
-
       isLoading: true,
     }
   },
-  async fetch() {
+  async created() {
     if (this.$route.query.q) this.query = this.$route.query.q
     if (this.$route.query.f) {
       const facets = this.$route.query.f.split(',')
@@ -546,30 +540,6 @@ export default {
 
     this.isLoading = false
   },
-  head() {
-    const name = this.$route.name.substring(0, this.$route.name.length - 1)
-
-    return {
-      title: `Search ${this.$formatProjectType(name)}s - Modrinth`,
-      meta: [
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: `Search ${this.$formatProjectType(name)}s`,
-        },
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: `Search ${this.$formatProjectType(name)}s`,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: `Search and browse thousands of Minecraft ${name}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${name}s.\n`,
-        },
-      ],
-    }
-  },
   computed: {
     categoriesMap() {
       const categories = {}
@@ -615,17 +585,6 @@ export default {
         this.setClosestMaxResults()
       },
     },
-  },
-  created() {
-    // This is currently using the global event bus as I couldn't figure out how to use the local one
-    this.$nuxt.$emit('registerSkipLink', {
-      id: '#search-results',
-      text: 'Skip to Search Results',
-    })
-  },
-  destroyed() {
-    // Not sure about this
-    this.$nuxt.$emit('registerSkipLink')
   },
   methods: {
     async clearFilters() {
@@ -812,10 +771,11 @@ export default {
           }
         }
 
-        const res = await this.$axios.get(url, this.$defaultHeaders())
-        this.results = res.data.hits
+        const res = await useBaseFetch(url, this.$defaultHeaders())
 
-        this.pageCount = Math.ceil(res.data.total_hits / res.data.limit)
+        this.results = res.hits
+
+        this.pageCount = Math.ceil(res.total_hits / res.limit)
 
         if (process.client) {
           url = this.getSearchUrl(offset)
@@ -862,11 +822,11 @@ export default {
     async cycleSearchDisplayMode() {
       const value = this.$cosmetics.searchDisplayMode[this.projectType.id]
       const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
-      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
-        projectType: this.projectType.id,
-        mode: newValue,
-        $cookies: this.$cookies,
-      })
+      await this.$cosmetics.saveSearchDisplayMode(
+        this.projectType.id,
+        newValue,
+        this.$cookies,
+      )
       this.setClosestMaxResults()
     },
     setClosestMaxResults() {

@@ -11,7 +11,10 @@
         {{ $formatProjectType(project.project_type).toLowerCase() }}. Make sure
         to select all tags that apply.
       </p>
-      <template :key="`categories-${header}`" v-for="header in Object.keys(categoryLists)">
+      <template
+        :key="`categories-${header}`"
+        v-for="header in Object.keys(categoryLists)"
+      >
         <div class="label">
           <h4>
             <span class="label__title">{{
@@ -162,22 +165,18 @@ export default {
   },
   data() {
     return {
-      selectedTags: [],
-      featuredTags: [],
+      selectedTags: this.$sortedCategories.filter(
+        (x) =>
+          x.project_type === this.project.actualProjectType &&
+          (this.project.categories.includes(x.name) ||
+            this.project.additional_categories.includes(x.name))
+      ),
+      featuredTags: this.$sortedCategories.filter(
+        (x) =>
+          x.project_type === this.project.actualProjectType &&
+          this.project.categories.includes(x.name)
+      ),
     }
-  },
-  fetch() {
-    this.selectedTags = this.$sortedCategories.filter(
-      (x) =>
-        x.project_type === this.project.actualProjectType &&
-        (this.project.categories.includes(x.name) ||
-          this.project.additional_categories.includes(x.name))
-    )
-    this.featuredTags = this.$sortedCategories.filter(
-      (x) =>
-        x.project_type === this.project.actualProjectType &&
-        this.project.categories.includes(x.name)
-    )
   },
   computed: {
     categoryLists() {

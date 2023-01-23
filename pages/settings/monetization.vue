@@ -189,9 +189,7 @@ export default {
           data,
           this.$defaultHeaders()
         )
-        await this.$store.dispatch('auth/fetchUser', {
-          token: this.$auth.token,
-        })
+        await this.$auth.fetchUser(this.$auth.token)
 
         this.editing = false
         this.enrolled = !unenroll

@@ -38,7 +38,7 @@
           v-else
           v-highlightjs
           class="markdown-body preview"
-          v-html="$xss($md.render(moderationMessageBody))"
+          v-html="$xss($md(moderationMessageBody))"
         ></div>
       </div>
       <div class="push-right input-group">
@@ -46,8 +46,10 @@
           v-if="moderationMessage || moderationMessageBody"
           class="iconified-button"
           @click="
-            moderationMessage = ''
-            moderationMessageBody = ''
+            () => {
+              moderationMessage = ''
+              moderationMessageBody = ''
+            }
           "
         >
           <TrashIcon />

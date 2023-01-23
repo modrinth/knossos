@@ -485,7 +485,7 @@ export default {
   async fetch() {
     await Promise.all([
       this.$user.fetchAll(this.$auth, true),
-      this.$cosmetics.fetchCosmetics(null),
+      this.$cosmetics.fetchCosmetics(this.$cookies),
     ])
   },
   head() {
@@ -551,23 +551,23 @@ export default {
         this.isMobileMenuOpen = false
       }
     },
-    // async logout() {
-    //   this.$cookies.set('auth-token-reset', true)
-    //   // If users logs out on dashboard, force redirect on the home page to clear cookies
-    //   if (this.$route.path.startsWith('/settings/')) {
-    //     window.location.href = '/settings'
-    //   } else {
-    //     await this.$router.go(null)
-    //
-    //     // TODO: send logout nofication using whatever lib
-    //     // this.$notify({
-    //     //   group: 'main',
-    //     //   title: 'Logged Out',
-    //     //   text: 'You have logged out successfully!',
-    //     //   type: 'success',
-    //     // })
-    //   }
-    // },
+    async logout() {
+      this.$cookies.set('auth-token-reset', true)
+      // If users logs out on dashboard, force redirect on the home page to clear cookies
+      if (this.$route.path.startsWith('/settings/')) {
+        window.location.href = '/settings'
+      } else {
+        await this.$router.go(null)
+
+        // TODO: send logout nofication using whatever lib
+        // this.$notify({
+        //   group: 'main',
+        //   title: 'Logged Out',
+        //   text: 'You have logged out successfully!',
+        //   type: 'success',
+        // })
+      }
+    },
     changeTheme() {
       console.log(this.$colorMode.preference)
       this.$colorMode.preference =

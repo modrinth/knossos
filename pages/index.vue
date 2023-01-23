@@ -573,8 +573,15 @@
   </div>
 </template>
 <script setup>
-const { data: rows } = await useFetch(
-  'https://api.modrinth.com/v2/projects_random?count=70',
+import Multiselect from 'vue-multiselect'
+import SearchIcon from '~/assets/images/utils/search.svg'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import ModrinthIcon from '~/assets/images/logo.svg'
+import Avatar from '~/components/ui/Avatar'
+import ProjectCard from '~/components/ui/ProjectCard'
+
+const { data: rows } = await useAsyncData(
+  () => useBaseFetch('projects_random?count=70'),
   {
     transform: (projects) => {
       const val = Math.ceil(projects.length / 3)
@@ -590,16 +597,16 @@ const { data: rows } = await useFetch(
 
 const searchQuery = ref('flowers')
 const sortType = ref('relevance')
-const { data: searchProjects, refresh: updateSearchProjects } = await useFetch(
+const { data: searchProjects, refresh: updateSearchProjects } = await useAsyncData(
   () =>
-    `https://api.modrinth.com/v2/search?limit=3&query=${searchQuery.value}&index=${sortType.value}`,
+    useBaseFetch(`search?limit=3&query=${searchQuery.value}&index=${sortType.value}`),
   {
     transform: (data) => data.hits,
   }
 )
 
-const { data: notifications } = await useFetch(
-  'https://api.modrinth.com/v2/search?limit=3&query=&index=updated',
+const { data: notifications } = await useAsyncData(
+  () => useBaseFetch('search?limit=3&query=&index=updated'),
   {
     transform: (data) => data.hits,
   }
@@ -608,27 +615,6 @@ const { data: notifications } = await useFetch(
 const authUrl = ref(
   'https://staging-api.modrinth.com/v2/auth/init?url=http://localhost:3000/'
 )
-</script>
-
-<script>
-import Multiselect from 'vue-multiselect'
-import SearchIcon from '~/assets/images/utils/search.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import ModrinthIcon from '~/assets/images/logo.svg'
-import Avatar from '~/components/ui/Avatar'
-import ProjectCard from '~/components/ui/ProjectCard'
-
-export default defineNuxtComponent({
-  components: {
-    Multiselect,
-    Avatar,
-    ModrinthIcon,
-    SearchIcon,
-    CalendarIcon,
-    ProjectCard,
-  },
-  auth: false,
-})
 </script>
 
 <style lang="scss" scoped>

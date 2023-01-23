@@ -18,7 +18,7 @@
     >
       <button
         class="iconified-button"
-        @click="$store.dispatch('user/unfollowProject', project)"
+        @click="$user.unfollowProject(project, $auth)"
       >
         <HeartIcon />
         Unfollow
@@ -49,7 +49,7 @@ export default {
     FollowIllustration,
   },
   async fetch() {
-    await this.$store.dispatch('user/fetchFollows')
+    await this.$user.fetchFollows(this.$auth)
   },
   head: {
     title: 'Followed projects - Modrinth',

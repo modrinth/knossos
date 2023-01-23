@@ -294,13 +294,11 @@ export default {
     return {
       currentUsername: '',
       openTeamMembers: [],
-      allTeamMembers: [],
+      allTeamMembers: this.allMembers.map((x) => {
+        x.oldRole = x.role
+        return x
+      }),
     }
-  },
-  fetch() {
-    this.allTeamMembers = this.allMembers
-
-    this.allTeamMembers.forEach((x) => (x.oldRole = x.role))
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0

@@ -1,4 +1,5 @@
 import svgLoader from 'vite-svg-loader'
+import { resolve } from 'pathe'
 
 const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
 const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
@@ -98,7 +99,7 @@ export default defineNuxtConfig({
     },
   },
   css: ['~/assets/styles/global.scss'],
-  modules: ['@nuxtjs/color-mode', '@pinia/nuxt'],
+  modules: ['@nuxtjs/color-mode'],
   buildModules: ['floating-vue/nuxt'],
   vite: { plugins: [svgLoader({ svgo: false })] },
   dayjs: {
@@ -106,6 +107,58 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     plugins: ['relativeTime'],
   },
+  hooks: {
+    'pages:extend' (routes) {
+      routes.splice(
+        routes.findIndex((x) => x.name === 'search'),
+        1
+      )
+
+      routes.push({
+        name: 'search',
+        path: '/search',
+        file: resolve(__dirname, 'pages/search.vue'),
+        children: [
+          {
+            name: 'mods',
+            path: '/mods',
+            file: resolve(__dirname, 'pages/search/mods.vue'),
+            children: [],
+          },
+          {
+            name: 'modpacks',
+            path: '/modpacks',
+            file: resolve(__dirname, 'pages/search/modpacks.vue'),
+            children: [],
+          },
+          {
+            name: 'plugins',
+            path: '/plugins',
+            file: resolve(__dirname, 'pages/search/plugins.vue'),
+            children: [],
+          },
+          {
+            name: 'resourcepacks',
+            path: '/resourcepacks',
+            file: resolve(__dirname, 'pages/search/resourcepacks.vue'),
+            children: [],
+          },
+          {
+            name: 'shaders',
+            path: '/shaders',
+            file: resolve(__dirname, 'pages/search/shaders.vue'),
+            children: [],
+          },
+          {
+            name: 'datapacks',
+            path: '/datapacks',
+            file: resolve(__dirname, 'pages/search/datapacks.vue'),
+            children: [],
+          },
+        ],
+      })
+    }
+  }
 })
 
 function getApiUrl() {
@@ -142,3 +195,4 @@ function getDomain() {
 // Update users store to not use axios
 // Migrate (most) things to composition API
 // Fix breaking changes (like emits have to be registered)
+// Add back highlight js

@@ -72,9 +72,11 @@
       "
       class="iconified-button"
       @click="
-        selectedLoaders = []
-        selectedGameVersions = []
-        updateVersionFilters()
+        () => {
+          selectedLoaders = []
+          selectedGameVersions = []
+          updateVersionFilters()
+        }
       "
     >
       <ClearIcon />

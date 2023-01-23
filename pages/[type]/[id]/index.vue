@@ -2,7 +2,7 @@
   <div
     v-highlightjs
     class="markdown-body card"
-    v-html="$xss($md.render(project.body))"
+    v-html="$xss($md(project.body))"
   ></div>
 </template>
 

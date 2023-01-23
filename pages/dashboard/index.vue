@@ -113,7 +113,6 @@ export default {
       minWithdraw: 0.26,
     }
   },
-  fetch() {},
   head: {
     title: 'Creator dashboard - Modrinth',
   },

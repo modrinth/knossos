@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modal" :header="title">
     <div class="modal-delete">
-      <div class="markdown-body" v-html="$xss($md.render(description))"></div>
+      <div class="markdown-body" v-html="$xss($md(description))"></div>
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
           <strong>To verify, type</strong>

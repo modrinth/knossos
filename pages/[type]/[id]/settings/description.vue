@@ -37,7 +37,7 @@
         v-highlightjs
         class="markdown-body"
         v-html="
-          description ? $xss($md.render(description)) : 'No body specified.'
+          description ? $xss($md(description)) : 'No body specified.'
         "
       ></div>
       <div class="input-group">
@@ -100,12 +100,9 @@ export default {
   },
   data() {
     return {
-      description: '',
+      description: this.project.body,
       bodyViewMode: 'source',
     }
-  },
-  fetch() {
-    this.description = this.project.body
   },
   computed: {
     patchData() {

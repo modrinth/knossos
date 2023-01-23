@@ -95,7 +95,7 @@
               <div
                 v-highlightjs
                 class="markdown-body"
-                v-html="$xss($md.render(item.body))"
+                v-html="$xss($md(item.body))"
               />
               <Badge :type="`Marked as ${item.report_type}`" color="orange" />
             </div>
@@ -104,11 +104,6 @@
                 <TrashIcon /> Delete report
               </button>
               <span
-                v-tooltip="
-                  $dayjs(item.created).format(
-                    '[Created at] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
                 class="stat"
               >
                 <CalendarIcon />

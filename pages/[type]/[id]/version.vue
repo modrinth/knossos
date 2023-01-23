@@ -169,9 +169,6 @@
       <div v-else class="input-group">
         <a
           v-if="primaryFile"
-          v-tooltip="
-            primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'
-          "
           :href="primaryFile.url"
           class="iconified-button brand-button"
           :title="`Download ${primaryFile.filename}`"
@@ -270,7 +267,7 @@
           class="markdown-body"
           v-html="
             version.changelog
-              ? $xss($md.render(version.changelog))
+              ? $xss($md(version.changelog))
               : 'No changelog specified.'
           "
         ></div>
@@ -281,7 +278,7 @@
         class="markdown-body"
         v-html="
           version.changelog
-            ? $xss($md.render(version.changelog))
+            ? $xss($md(version.changelog))
             : 'No changelog specified.'
         "
       ></div>
@@ -517,11 +514,12 @@
         <button
           v-else-if="isEditing"
           class="iconified-button raised-button"
-          @click="() => {
-            deleteFiles.push(file.hashes.sha1)
-            version.files.splice(index, 1)
-            oldFileTypes.splice(index, 1)
-          }
+          @click="
+            () => {
+              deleteFiles.push(file.hashes.sha1)
+              version.files.splice(index, 1)
+              oldFileTypes.splice(index, 1)
+            }
           "
         >
           <TrashIcon />
@@ -564,10 +562,11 @@
           />
           <button
             class="iconified-button raised-button"
-            @click="() => {
-              newFiles.splice(index, 1)
-              newFileTypes.splice(index, 1)
-            }
+            @click="
+              () => {
+                newFiles.splice(index, 1)
+                newFileTypes.splice(index, 1)
+              }
             "
           >
             <TrashIcon />
@@ -973,7 +972,7 @@ export default {
       )
     },
     authUrl() {
-      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+      return ``
     },
   },
   watch: {

@@ -199,23 +199,22 @@ export default {
   },
   methods: {
     async saveCosmeticSettings() {
-      await this.$store.dispatch('cosmetics/save', {
-        searchLayout: this.searchLayout,
-        projectLayout: this.projectLayout,
-        modpacksAlphaNotice: this.modpacksAlphaNotice,
-        advancedRendering: this.advancedRendering,
-        externalLinksNewTab: this.externalLinksNewTab,
-        searchDisplayMode: this.searchDisplayMode,
-        $cookies: this.$cookies,
-      })
+      await this.$cosmetics.save(
+        this.projectLayout,
+        this.searchLayout,
+        this.modpacksAlphaNotice,
+        this.advancedRendering,
+        this.externalLinksNewTab,
+        this.$cookies,
+      )
     },
     async setSearchDisplayMode(projectType, value) {
-      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
+      await this.$cosmetics.saveSearchDisplayMode(
         projectType,
-        mode: value,
-        $cookies: this.$cookies,
-      })
-      this.searchDisplayMode = this.$store.state.cosmetics.searchDisplayMode
+        value,
+        this.$cookies,
+      )
+      this.searchDisplayMode = this.$cosmetics.searchDisplayMode
     },
     changeTheme() {
       const shift = event.shiftKey

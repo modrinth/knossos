@@ -21,7 +21,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   return {
     provide: {
-      md: (string) => md(string),
+      md: (string) => md.render(string),
     },
   }
 })

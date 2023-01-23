@@ -1,18 +1,12 @@
-import { useAuthStore } from '~/store/auth'
-import { useTagStore } from '~/store/tag'
-import { useCosmeticsStore } from '~/store/cosmetics'
-import { useUserStore } from '~/store/user'
-
 export default defineNuxtPlugin((nuxtApp) => {
-  let authStore = useAuthStore()
-  let tagStore = useTagStore()
-  let cosmeticsStore = useCosmeticsStore()
-  let userStore = useUserStore()
+  let tagStore = nuxtApp.$tag
+  let cosmeticsStore = nuxtApp.$cosmetics
+
+  let authStore = {}
+  let userStore = {}
 
   nuxtApp.provide('user', userStore)
-  nuxtApp.provide('tag', tagStore)
   nuxtApp.provide('auth', authStore)
-  nuxtApp.provide('cosmetics', cosmeticsStore)
   nuxtApp.provide('defaultHeaders', () => {
     const obj = { headers: {} }
 
@@ -76,7 +70,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       })
       .sort(
-        (a, b) => ctx.$dayjs(b.date_published) - ctx.$dayjs(a.date_published)
+        (a, b) => nuxtApp.$dayjs(b.date_published) - nuxtApp.$dayjs(a.date_published)
       )
   })
   nuxtApp.provide('getProjectTypeForDisplay', (type, categories) => {
@@ -148,6 +142,19 @@ export default defineNuxtPlugin((nuxtApp) => {
     return 0
   })
   nuxtApp.provide('sortedCategories', sortedCategories)
+  nuxtApp.provide('findPrimary', (project, version) => {
+    let file = version.files.find((x) => x.primary)
+
+    if (!file) {
+      file = version.files[0]
+    }
+
+    if (!file) {
+      file = { url: `/project/${project.id}/version/${version.id}` }
+    }
+
+    return file
+  })
 })
 export const formatNumber = (number) => {
   const x = +number

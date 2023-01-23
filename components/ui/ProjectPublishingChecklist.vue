@@ -17,7 +17,6 @@
             <div
               v-for="nag in nags"
               :key="`checklist-${nag.id}`"
-              v-tooltip="nag.title"
               class="circle"
               :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
             >
@@ -48,17 +47,14 @@
         <span class="label">
           <RequiredIcon
             v-if="nag.status === 'required'"
-            v-tooltip="'Required'"
             :class="nag.status"
           />
           <SuggestionIcon
             v-else-if="nag.status === 'suggestion'"
-            v-tooltip="'Suggestion'"
             :class="nag.status"
           />
           <ModerationIcon
             v-else-if="nag.status === 'review'"
-            v-tooltip="'Review'"
             :class="nag.status"
           />{{ nag.title }}</span
         >

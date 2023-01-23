@@ -249,15 +249,16 @@
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
               class="iconified-button"
-              @click="() => {
-                resetEdit()
-                editIndex = index
-                editTitle = item.title
-                editDescription = item.description
-                editFeatured = item.featured
-                editOrder = item.ordering
-                $refs.modal_edit_item.show()
-              }
+              @click="
+                () => {
+                  resetEdit()
+                  editIndex = index
+                  editTitle = item.title
+                  editDescription = item.description
+                  editFeatured = item.featured
+                  editOrder = item.ordering
+                  $refs.modal_edit_item.show()
+                }
               "
             >
               <EditIcon />
@@ -265,10 +266,11 @@
             </button>
             <button
               class="iconified-button"
-              @click="() => {
-                deleteIndex = index
-                $refs.modal_confirm.show()
-              }
+              @click="
+                () => {
+                  deleteIndex = index
+                  $refs.modal_confirm.show()
+                }
               "
             >
               <TrashIcon />

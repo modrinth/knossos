@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user">
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
@@ -80,12 +80,14 @@
             <div class="button-group">
               <button
                 class="iconified-button"
-                @click="() => {
-                  isEditing = false
-                  user = JSON.parse(JSON.stringify($auth.user))
-                  previewImage = null
-                  icon = null
-                }"
+                @click="
+                  () => {
+                    isEditing = false
+                    user = JSON.parse(JSON.stringify($auth.user))
+                    previewImage = null
+                    icon = null
+                  }
+                "
               >
                 <CrossIcon /> Cancel
               </button>
@@ -126,9 +128,6 @@
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
-                v-tooltip="
-                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
-                "
                 class="secondary-stat__text date"
               >
                 Joined {{ $dayjs(user.created).fromNow() }}
@@ -182,9 +181,6 @@
               Manage projects
             </NuxtLink>
             <button
-              v-tooltip="
-                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
-              "
               :aria-label="
                 $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
               "
@@ -286,7 +282,7 @@ import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 
-export default {
+export default defineNuxtComponent({
   auth: false,
   components: {
     Avatar,
@@ -314,22 +310,24 @@ export default {
     ImageIcon,
     UploadIcon,
   },
-  async asyncData(data) {
+  async asyncData() {
+    const data = useNuxtApp()
+    const route = useRoute()
+
     try {
       const [user, projects] = (
         await Promise.all([
-          data.$axios.get(`user/${data.params.id}`, data.$defaultHeaders()),
-          data.$axios.get(
-            `user/${data.params.id}/projects`,
+          useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders()),
+          useBaseFetch(
+            `user/${route.params.id}/projects`,
             data.$defaultHeaders()
           ),
         ])
-      ).map((it) => it.data)
+      )
 
-      if (user.username !== data.params.id) {
-        data.redirect(301, `/user/${user.username}`)
-
-        return
+      if (user.username !== route.params.id) {
+        await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
+        //return {}
       }
 
       let gitHubUser = {}
@@ -337,8 +335,8 @@ export default {
       try {
         const [gitHubUserData, versionsData] = (
           await Promise.all([
-            data.$axios.get(`https://api.github.com/user/` + user.github_id),
-            data.$axios.get(
+            $fetch(`https://api.github.com/user/` + user.github_id),
+            useBaseFetch(
               `versions?ids=${JSON.stringify(
                 [].concat.apply(
                   [],
@@ -347,7 +345,7 @@ export default {
               )}`
             ),
           ])
-        ).map((it) => it.data)
+        )
         gitHubUser = gitHubUserData
         versions = versionsData
       } catch {}
@@ -375,12 +373,13 @@ export default {
       }
 
       return {
-        user,
-        projects,
-        githubUrl: gitHubUser.html_url,
+        user: ref(user),
+        projects: ref(projects),
+        githubUrl: ref(gitHubUser.html_url),
       }
     } catch {
-      data.error({
+      createError({
+        fatal: true,
         statusCode: 404,
         message: 'User not found',
       })
@@ -393,51 +392,9 @@ export default {
       previewImage: null,
     }
   },
-  head() {
-    const description = this.user.bio
-      ? `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`
-      : `Download ${this.user.username}'s projects on Modrinth`
-
-    return {
-      title: this.user.username + ' - Modrinth',
-      meta: [
-        {
-          hid: 'og:type',
-          name: 'og:type',
-          content: 'website',
-        },
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: this.user.username,
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: description,
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          content: description,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
-        },
-        {
-          hid: 'og:image',
-          name: 'og:image',
-          content:
-            this.user.avatar_url || 'https://cdn.modrinth.com/placeholder.png',
-        },
-      ],
-    }
-  },
   computed: {
     authUrl() {
-      return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+      return ``
     },
     projectTypes() {
       const obj = {}
@@ -502,9 +459,7 @@ export default {
           data,
           this.$defaultHeaders()
         )
-        await this.$store.dispatch('auth/fetchUser', {
-          token: this.$auth.token,
-        })
+        await this.$auth.fetchUser(this.$auth.token)
 
         this.isEditing = false
       } catch (err) {
@@ -520,14 +475,14 @@ export default {
     async cycleSearchDisplayMode() {
       const value = this.$cosmetics.searchDisplayMode.user
       const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
-      await this.$store.dispatch('cosmetics/saveSearchDisplayMode', {
-        projectType: 'user',
-        mode: newValue,
-        $cookies: this.$cookies,
-      })
+      await this.$cosmetics.saveSearchDisplayMode(
+        'user',
+        newValue,
+        this.$cookies,
+      )
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

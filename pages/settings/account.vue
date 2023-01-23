@@ -217,7 +217,7 @@ export default {
         })
       }
 
-      this.$cookies.set('auth-token-reset', true)
+      //this.$cookies.set('auth-token-reset', true)
       alert(
         'Please note that logging back in with GitHub will create a new account.'
       )
@@ -227,7 +227,7 @@ export default {
     },
     logout() {
       this.$refs.modal_revoke_token.hide()
-      this.$cookies.set('auth-token-reset', true)
+      //this.$cookies.set('auth-token-reset', true)
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
     },
@@ -254,9 +254,7 @@ export default {
           data,
           this.$defaultHeaders()
         )
-        await this.$store.dispatch('auth/fetchUser', {
-          token: this.$auth.token,
-        })
+        await this.$auth.fetchUser(this.$auth.token)
       } catch (err) {
         this.$notify({
           group: 'main',
