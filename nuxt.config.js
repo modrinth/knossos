@@ -165,7 +165,7 @@ export default defineNuxtConfig({
           $fetch(`${API_URL}tag/donation_platform`, headers),
           $fetch(`${API_URL}tag/report_type`, headers),
         ])
-      ).map((it) => it.data)
+      )
 
       state.categories = categories
       state.loaders = loaders
