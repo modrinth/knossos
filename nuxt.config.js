@@ -1,6 +1,8 @@
+import { promises as fs } from 'fs'
 import svgLoader from 'vite-svg-loader'
 import { resolve } from 'pathe'
 import { defineNuxtConfig } from 'nuxt/config'
+import { $fetch } from "ofetch";
 
 const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
 const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
@@ -109,6 +111,72 @@ export default defineNuxtConfig({
     plugins: ['relativeTime'],
   },
   hooks: {
+    async 'build:before'() {
+      // 30 minutes
+      const TTL = 30 * 60 * 1000
+
+      let state = {}
+      try {
+        state = JSON.parse(
+          await fs.readFile('./generated/state.json', 'utf8')
+        )
+      } catch {
+        // File doesn't exist, create folder
+        await fs.mkdir('./generated', { recursive: true })
+      }
+
+      const API_URL = getApiUrl()
+
+      if (
+        // Skip regeneration if within TTL...
+        state.lastGenerated &&
+        new Date(state.lastGenerated).getTime() + TTL >
+        new Date().getTime() &&
+        // ...but only if the API URL is the same
+        state.apiUrl &&
+        state.apiUrl === API_URL
+      ) {
+        return
+      }
+
+      console.log('Generating tags...')
+
+      state.lastGenerated = new Date().toISOString()
+
+      state.apiUrl = API_URL
+
+      const headers = {
+        headers: {
+          'user-agent': `Knossos generator (support@modrinth.com)`,
+        },
+      }
+
+      const [
+        categories,
+        loaders,
+        gameVersions,
+        donationPlatforms,
+        reportTypes,
+      ] = (
+        await Promise.all([
+          $fetch(`${API_URL}tag/category`,headers),
+          $fetch(`${API_URL}tag/loader`, headers),
+          $fetch(`${API_URL}tag/game_version`, headers),
+          $fetch(`${API_URL}tag/donation_platform`, headers),
+          $fetch(`${API_URL}tag/report_type`, headers),
+        ])
+      ).map((it) => it.data)
+
+      state.categories = categories
+      state.loaders = loaders
+      state.gameVersions = gameVersions
+      state.donationPlatforms = donationPlatforms
+      state.reportTypes = reportTypes
+
+      await fs.writeFile('./generated/state.json', JSON.stringify(state))
+
+      console.log('Tags generated!')
+    },
     'pages:extend' (routes) {
       routes.splice(
         routes.findIndex((x) => x.name === 'search'),
@@ -190,7 +258,7 @@ function getDomain() {
 // Switch from axios to native fetch
 // Figure out app config (env variables and stuff)
 // Switch to new nuxt head settings
-// Generator + Analytics on nuxt hooks
+// Analytics on nuxt hooks
 // Readd toml parser which supports ESM
 // Migrate to new tooltip api
 // Update users store to not use axios

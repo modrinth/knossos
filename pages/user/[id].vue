@@ -327,8 +327,7 @@ export default defineNuxtComponent({
 
       if (user.username !== route.params.id) {
         await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
-        //return {}
-      }
+3      }
 
       let gitHubUser = {}
       let versions = []
