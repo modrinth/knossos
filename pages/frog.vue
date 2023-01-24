@@ -12,7 +12,7 @@
 <script>
 export default defineNuxtComponent({
   auth: false,
-}
+})
 </script>
 
 <style lang="scss" scoped>

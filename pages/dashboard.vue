@@ -54,7 +54,7 @@ export default defineNuxtComponent({
       return monetization
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped></style>
