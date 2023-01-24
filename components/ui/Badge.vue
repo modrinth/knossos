@@ -56,7 +56,6 @@ import LockIcon from '~/assets/images/utils/lock.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 
 export default {
-  name: 'Badge',
   components: {
     ModrinthIcon,
     ListIcon,

@@ -11,14 +11,13 @@
         <aside class="universal-card">
           <h1>Moderation</h1>
           <NavStack>
-            <NavStackItem link="" label="All"> </NavStackItem>
+            <NavStackItem link="" label="All" />
             <NavStackItem
               v-for="type in moderationTypes"
               :key="type"
               :link="'?type=' + type"
               :label="$formatProjectType(type) + 's'"
-            >
-            </NavStackItem>
+            />
           </NavStack>
         </aside>
       </div>
@@ -87,7 +86,9 @@
               <div class="title">
                 <h3>
                   {{ item.item_type }}
-                  <nuxt-link :to="item.url">{{ item.item_id }}</nuxt-link>
+                  <nuxt-link :to="item.url">
+                    {{ item.item_id }}
+                  </nuxt-link>
                 </h3>
                 reported by
                 <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
@@ -113,8 +114,8 @@
           </div>
         </div>
         <div v-if="reports.length === 0 && projects.length === 0" class="error">
-          <Security class="icon"></Security>
-          <br />
+          <Security class="icon" />
+          <br>
           <span class="text">You are up-to-date!</span>
         </div>
       </div>
@@ -151,13 +152,13 @@ export default defineNuxtComponent({
     TrashIcon,
     CalendarIcon,
   },
-  async asyncData(data) {
+  async asyncData (data) {
     const [projects, reports] = (
       await Promise.all([
-        data.$axios.get(`moderation/projects`, data.$defaultHeaders()),
-        data.$axios.get(`report`, data.$defaultHeaders()),
+        data.$axios.get('moderation/projects', data.$defaultHeaders()),
+        data.$axios.get('report', data.$defaultHeaders()),
       ])
-    ).map((it) => it.data)
+    ).map(it => it.data)
 
     const newReports = await Promise.all(
       reports.map(async (report) => {
@@ -231,7 +232,7 @@ export default defineNuxtComponent({
       reports: newReports,
     }
   },
-  data() {
+  data () {
     return {
       currentProject: null,
       currentStatus: null,
@@ -241,7 +242,7 @@ export default defineNuxtComponent({
     title: 'Moderation - Modrinth',
   },
   computed: {
-    moderationTypes() {
+    moderationTypes () {
       const obj = {}
 
       for (const project of this.projects) {
@@ -256,20 +257,20 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    setProjectStatus(project, status) {
+    setProjectStatus (project, status) {
       this.currentProject = project
       this.currentStatus = status
 
       this.$refs.modal.show()
     },
-    onModalClose() {
+    onModalClose () {
       this.projects.splice(
-        this.projects.findIndex((x) => this.currentProject.id === x.id),
+        this.projects.findIndex(x => this.currentProject.id === x.id),
         1
       )
       this.currentProject = null
     },
-    async deleteReport(index) {
+    async deleteReport (index) {
       this.$nuxt.$loading.start()
 
       try {

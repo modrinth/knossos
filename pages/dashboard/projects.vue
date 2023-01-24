@@ -26,7 +26,7 @@
                   : 'Enter a valid URL'
               "
               maxlength="2048"
-            />
+            >
             <button
               class="square-button label-button"
               :data-active="editLinks.issues.clear"
@@ -53,7 +53,7 @@
                   ? 'Existing link will be cleared'
                   : 'Enter a valid URL'
               "
-            />
+            >
             <button
               class="square-button label-button"
               :data-active="editLinks.source.clear"
@@ -80,7 +80,7 @@
                   ? 'Existing link will be cleared'
                   : 'Enter a valid URL'
               "
-            />
+            >
             <button
               class="square-button label-button"
               :data-active="editLinks.wiki.clear"
@@ -107,7 +107,7 @@
                   ? 'Existing link will be cleared'
                   : 'Enter a valid Discord invite URL'
               "
-            />
+            >
             <button
               class="square-button label-button"
               :data-active="editLinks.discord.clear"
@@ -163,7 +163,9 @@
     <ModalCreation ref="modal_creation" />
     <section class="universal-card">
       <div class="header__row">
-        <h2 class="header__title">Projects</h2>
+        <h2 class="header__title">
+          Projects
+        </h2>
         <div class="input-group">
           <button
             class="iconified-button brand-button"
@@ -200,7 +202,7 @@
                 :show-labels="false"
                 :allow-empty="false"
                 @input="updateSort()"
-              ></Multiselect>
+              />
             </div>
           </div>
         </div>
@@ -221,7 +223,7 @@
             <div>ID</div>
             <div>Type</div>
             <div>Status</div>
-            <div></div>
+            <div />
           </div>
           <div
             v-for="project in projects"
@@ -237,8 +239,8 @@
                 @input="
                   selectedProjects.includes(project)
                     ? (selectedProjects = selectedProjects.filter(
-                        (it) => it !== project
-                      ))
+                      (it) => it !== project
+                    ))
                     : selectedProjects.push(project)
                 "
               />
@@ -339,7 +341,7 @@ export default defineNuxtComponent({
     Multiselect,
     CopyCode,
   },
-  data() {
+  data () {
     return {
       projects: [],
       versions: [],
@@ -366,14 +368,14 @@ export default defineNuxtComponent({
       },
     }
   },
-  fetch() {
+  fetch () {
     this.projects = this.$user.projects
     this.updateSort()
   },
   head: {
     title: 'Projects - Modrinth',
   },
-  created() {
+  created () {
     this.UPLOAD_VERSION = 1 << 0
     this.DELETE_VERSION = 1 << 1
     this.EDIT_DETAILS = 1 << 2
@@ -384,7 +386,7 @@ export default defineNuxtComponent({
     this.DELETE_PROJECT = 1 << 7
   },
   methods: {
-    updateSort() {
+    updateSort () {
       switch (this.sortBy) {
         case 'Name':
           this.projects = this.projects.slice().sort((a, b) => {
@@ -423,7 +425,7 @@ export default defineNuxtComponent({
           break
       }
     },
-    async bulkEditLinks() {
+    async bulkEditLinks () {
       try {
         const baseData = {
           issues_url:
@@ -449,7 +451,7 @@ export default defineNuxtComponent({
 
         await this.$axios.patch(
           `projects?ids=${JSON.stringify(
-            this.selectedProjects.map((x) => x.id)
+            this.selectedProjects.map(x => x.id)
           )}`,
           baseData,
           this.$defaultHeaders()

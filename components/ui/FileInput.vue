@@ -4,14 +4,14 @@
     @drop.prevent="handleDrop"
     @dragover.prevent
   >
-    <slot></slot>
+    <slot />
     {{ prompt }}
     <input
       type="file"
       :multiple="multiple"
       :accept="accept"
       @change="handleChange"
-    />
+    >
   </label>
 </template>
 
@@ -54,17 +54,18 @@ export default {
       default: false,
     },
   },
-  data() {
+  emits: ['change'],
+  data () {
     return {
       files: [],
     }
   },
   methods: {
-    addFiles(files, shouldNotReset) {
-      if (!shouldNotReset || this.shouldAlwaysReset) this.files = files
+    addFiles (files, shouldNotReset) {
+      if (!shouldNotReset || this.shouldAlwaysReset) { this.files = files }
 
       const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
-      this.files = [...this.files].filter((file) =>
+      this.files = [...this.files].filter(file =>
         fileIsValid(file, validationOptions)
       )
 
@@ -72,10 +73,10 @@ export default {
         this.$emit('change', this.files)
       }
     },
-    handleDrop(e) {
+    handleDrop (e) {
       this.addFiles(e.dataTransfer.files)
     },
-    handleChange(e) {
+    handleChange (e) {
       this.addFiles(e.target.files)
     },
   },

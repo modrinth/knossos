@@ -6,8 +6,10 @@
     @input="toggle()"
   >
     <div class="filter-text">
-      <div v-if="icon" aria-hidden="true" class="icon" v-html="icon"></div>
-      <div v-else class="icon"><slot /></div>
+      <div v-if="icon" aria-hidden="true" class="icon" v-html="icon" />
+      <div v-else class="icon">
+        <slot />
+      </div>
       <span aria-hidden="true"> {{ displayName }}</span>
     </div>
   </Checkbox>
@@ -36,13 +38,14 @@ export default {
     },
     activeFilters: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
   },
+  emits: ['toggle'],
   methods: {
-    toggle() {
+    toggle () {
       this.$emit('toggle', this.facetName)
     },
   },

@@ -27,12 +27,10 @@
   </div>
   <div v-else class="error">
     <FollowIllustration class="icon" />
-    <br />
-    <span class="text"
-      >You don't have any followed projects. <br />
+    <br>
+    <span class="text">You don't have any followed projects. <br>
       Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for
-      new ones?</span
-    >
+      new ones?</span>
   </div>
 </template>
 
@@ -43,13 +41,13 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 
 export default defineNuxtComponent({
+  async asyncData () {
+    await initUserFollows()
+  },
   components: {
     ProjectCard,
     HeartIcon,
     FollowIllustration,
-  },
-  async fetch() {
-    await this.$user.fetchFollows(this.$auth)
   },
   head: {
     title: 'Followed projects - Modrinth',

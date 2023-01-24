@@ -90,11 +90,15 @@
                     :to="`/user/${$auth.user.username}`"
                   >
                     <div class="title profile-link">
-                      <div class="username">@{{ $auth.user.username }}</div>
-                      <div class="prompt">Visit your profile</div>
+                      <div class="username">
+                        @{{ $auth.user.username }}
+                      </div>
+                      <div class="prompt">
+                        Visit your profile
+                      </div>
                     </div>
                   </NuxtLink>
-                  <hr class="divider" />
+                  <hr class="divider">
                   <button
                     class="item button-transparent"
                     @click="$refs.modal_creation.show()"
@@ -102,15 +106,14 @@
                     <PlusIcon class="icon" />
                     <span class="title">Create a project</span>
                   </button>
-                  <hr class="divider" />
+                  <hr class="divider">
                   <NuxtLink class="item button-transparent" to="/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard">
                     <ChartIcon class="icon" />
-                    <span class="title">Dashboard</span
-                    ><span class="beta-badge">BETA</span>
+                    <span class="title">Dashboard</span><span class="beta-badge">BETA</span>
                   </NuxtLink>
                   <NuxtLink
                     class="item button-transparent"
@@ -126,7 +129,7 @@
                   <NuxtLink
                     v-if="
                       $auth.user.role === 'moderator' ||
-                      $auth.user.role === 'admin'
+                        $auth.user.role === 'admin'
                     "
                     class="item button-transparent"
                     to="/moderation"
@@ -134,7 +137,7 @@
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
-                  <hr class="divider" />
+                  <hr class="divider">
                   <button class="item button-transparent" @click="logout">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
@@ -148,8 +151,7 @@
                   rel="noopener noreferrer nofollow"
                 >
                   <GitHubIcon aria-hidden="true" />
-                  Sign in with GitHub</a
-                >
+                  Sign in with GitHub</a>
               </section>
             </section>
           </section>
@@ -160,11 +162,11 @@
           <NuxtLink
             to="/"
             class="tab button-animation"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <HomeIcon />
           </NuxtLink>
-          <div class="spacer"></div>
+          <div class="spacer" />
           <button
             class="tab browse button-animation"
             @click="toggleBrowseMenu()"
@@ -172,7 +174,7 @@
             <DropdownIcon :class="{ closed: !isBrowseMenuOpen }" />
             <span>Browse</span>
           </button>
-          <div class="spacer"></div>
+          <div class="spacer" />
           <button class="tab button-animation" @click="toggleMobileMenu()">
             <HamburgerIcon v-if="!isMobileMenuOpen" />
             <CrossIcon v-else />
@@ -186,7 +188,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/mods"
             class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <span>Mods</span>
           </NuxtLink>
@@ -194,7 +196,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/plugins"
             class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <span>Plugins</span>
           </NuxtLink>
@@ -202,7 +204,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/datapacks"
             class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <span>Data Packs</span>
           </NuxtLink>
@@ -210,7 +212,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/shaders"
             class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <span>Shaders</span>
           </NuxtLink>
@@ -218,7 +220,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/resourcepacks"
             class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <span>Resource Packs</span>
           </NuxtLink>
@@ -226,7 +228,7 @@
             :tabindex="isBrowseMenuOpen ? 0 : -1"
             to="/modpacks"
             class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
+            @click="isBrowseMenuOpen = false"
           >
             <span>Modpacks</span>
           </NuxtLink>
@@ -245,10 +247,14 @@
                 class="user-icon"
                 aria-hidden="true"
                 alt="User profile icon"
-              />
+              >
               <div class="profile-link">
-                <div class="username">@{{ $auth.user.username }}</div>
-                <div class="prompt">Visit your profile</div>
+                <div class="username">
+                  @{{ $auth.user.username }}
+                </div>
+                <div class="prompt">
+                  Visit your profile
+                </div>
               </div>
             </NuxtLink>
             <button
@@ -291,7 +297,7 @@
             <NuxtLink
               v-if="
                 $auth.user &&
-                ($auth.user.role === 'moderator' || $auth.user.role === 'admin')
+                  ($auth.user.role === 'moderator' || $auth.user.role === 'admin')
               "
               class="iconified-button raised-button"
               to="/moderation"
@@ -314,8 +320,7 @@
             </button>
             <a v-else :href="authUrl" class="iconified-button brand-button">
               <GitHubIcon aria-hidden="true" />
-              Sign in with GitHub</a
-            >
+              Sign in with GitHub</a>
           </div>
         </div>
       </section>
@@ -335,8 +340,7 @@
             class="text-link"
             rel="noopener noreferrer nofollow"
           >
-            open source</a
-          >.
+            open source</a>.
         </p>
         <p>
           {{ owner }}/{{ slug }} {{ branch }}@<a
@@ -344,22 +348,31 @@
             :href="'https://github.com/' + owner + '/' + slug + '/tree/' + hash"
             class="text-link"
             rel="noopener noreferrer nofollow"
-            >{{ hash.substring(0, 7) }}</a
-          >
+          >{{ hash.substring(0, 7) }}</a>
         </p>
         <p>© Rinth, Inc.</p>
       </div>
       <div class="links links-1" role="region" aria-label="Legal">
-        <h4 aria-hidden="true">Company</h4>
-        <nuxt-link to="/legal/terms">Terms</nuxt-link>
-        <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
-        <nuxt-link to="/legal/rules">Rules</nuxt-link>
+        <h4 aria-hidden="true">
+          Company
+        </h4>
+        <nuxt-link to="/legal/terms">
+          Terms
+        </nuxt-link>
+        <nuxt-link to="/legal/privacy">
+          Privacy
+        </nuxt-link>
+        <nuxt-link to="/legal/rules">
+          Rules
+        </nuxt-link>
         <a :target="$external()" href="https://careers.modrinth.com">
           Careers <span class="count-bubble">2</span>
         </a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
-        <h4 aria-hidden="true">Resources</h4>
+        <h4 aria-hidden="true">
+          Resources
+        </h4>
         <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
         <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
         <a :target="$external()" href="https://status.modrinth.com">Status</a>
@@ -367,11 +380,12 @@
           rel="noopener noreferrer nofollow"
           :target="$external()"
           href="https://github.com/modrinth"
-          >GitHub</a
-        >
+        >GitHub</a>
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
-        <h4 aria-hidden="true">Interact</h4>
+        <h4 aria-hidden="true">
+          Interact
+        </h4>
         <a
           rel="noopener noreferrer nofollow"
           :target="$external()"
@@ -461,26 +475,26 @@ export default defineNuxtComponent({
     HeartIcon,
     ChartIcon,
   },
-  data() {
+  data () {
     return {
       isDropdownOpen: false,
-      owner: /*process.env.owner ||*/ 'modrinth',
-      slug: /*process.env.slug ||*/ 'knossos',
-      branch: /*process.env.branch ||*/ 'master',
-      hash: /*process.env.hash ||*/ 'unknown',
+      owner: /* process.env.owner || */ 'modrinth',
+      slug: /* process.env.slug || */ 'knossos',
+      branch: /* process.env.branch || */ 'master',
+      hash: /* process.env.hash || */ 'unknown',
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
       hideDropdown: false,
     }
   },
-  async fetch() {
+  async fetch () {
     await Promise.all([
       this.$user.fetchAll(this.$auth, true),
       this.$cosmetics.fetchCosmetics(this.$cookies),
     ])
   },
-  head() {
+  head () {
     // const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
     //
     // return {
@@ -501,13 +515,13 @@ export default defineNuxtComponent({
     return {}
   },
   computed: {
-    authUrl() {
+    authUrl () {
       return `https://staging-api.modrinth.com/v2/auth/init?url=http://localhost:3000/${this.$route.path}`
-      //return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
+      // return `${process.env.authURLBase}auth/init?url=${process.env.domain}${this.$route.path}`
     },
   },
   watch: {
-    $route() {
+    $route () {
       // this.isMobileMenuOpen = false
       // this.$user.fetchAll(this.$auth)
       //
@@ -518,13 +532,13 @@ export default defineNuxtComponent({
       // }
     },
   },
-  async beforeCreate() {
+  async beforeCreate () {
     if (this.$route.query.code) {
       await this.$router.push(this.$route.path)
     }
   },
   methods: {
-    toggleMobileMenu() {
+    toggleMobileMenu () {
       window.scrollTo(0, 0)
       document.body.scrollTop = 0
 
@@ -537,14 +551,14 @@ export default defineNuxtComponent({
         document.body.style.overflowY = 'scroll'
       }
     },
-    toggleBrowseMenu() {
+    toggleBrowseMenu () {
       this.isBrowseMenuOpen = !this.isBrowseMenuOpen
 
       if (this.isBrowseMenuOpen) {
         this.isMobileMenuOpen = false
       }
     },
-    async logout() {
+    async logout () {
       this.$cookies.set('auth-token-reset', true)
       // If users logs out on dashboard, force redirect on the home page to clear cookies
       if (this.$route.path.startsWith('/settings/')) {
@@ -561,7 +575,7 @@ export default defineNuxtComponent({
         // })
       }
     },
-    changeTheme() {
+    changeTheme () {
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
     },

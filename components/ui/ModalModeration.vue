@@ -15,7 +15,7 @@
         v-model="moderationMessage"
         type="text"
         placeholder="Enter the message..."
-      />
+      >
       <h3>Message body</h3>
       <div class="textarea-wrapper">
         <Chips
@@ -39,7 +39,7 @@
           v-highlightjs
           class="markdown-body preview"
           v-html="$xss($md(moderationMessageBody))"
-        ></div>
+        />
       </div>
       <div class="push-right input-group">
         <button
@@ -100,7 +100,7 @@ export default {
       default: null,
     },
   },
-  data() {
+  data () {
     return {
       bodyViewMode: 'source',
       moderationMessage:
@@ -114,7 +114,7 @@ export default {
     }
   },
   methods: {
-    async saveProject() {
+    async saveProject () {
       this.$nuxt.$loading.start()
 
       try {
@@ -150,7 +150,7 @@ export default {
 
       this.$nuxt.$loading.finish()
     },
-    show() {
+    show () {
       this.$refs.modal.show()
       this.moderationMessage =
         this.project &&

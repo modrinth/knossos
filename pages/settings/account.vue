@@ -87,8 +87,7 @@
           Creator Monetization Program.
         </li>
       </ul>
-      <label for="email-input"
-        ><span class="label__title">Email address</span>
+      <label for="email-input"><span class="label__title">Email address</span>
       </label>
       <input
         id="email-input"
@@ -96,7 +95,7 @@
         maxlength="2048"
         type="email"
         :placeholder="`Enter your email address...`"
-      />
+      >
       <div class="button-group">
         <button
           type="button"
@@ -128,7 +127,9 @@
             <CheckIcon />
             Copied token to clipboard
           </template>
-          <template v-else><CopyIcon />Copy token to clipboard</template>
+          <template v-else>
+            <CopyIcon />Copy token to clipboard
+          </template>
         </button>
         <button
           type="button"
@@ -186,7 +187,7 @@ export default defineNuxtComponent({
     TrashIcon,
     SlashIcon,
   },
-  data() {
+  data () {
     return {
       copied: false,
       email: this.$auth.user.email,
@@ -197,11 +198,11 @@ export default defineNuxtComponent({
     title: 'Account settings - Modrinth',
   },
   methods: {
-    async copyToken() {
+    async copyToken () {
       this.copied = true
       await navigator.clipboard.writeText(this.$auth.token)
     },
-    async deleteAccount() {
+    async deleteAccount () {
       this.$nuxt.$loading.start()
       try {
         await this.$axios.delete(
@@ -217,7 +218,7 @@ export default defineNuxtComponent({
         })
       }
 
-      //this.$cookies.set('auth-token-reset', true)
+      // this.$cookies.set('auth-token-reset', true)
       alert(
         'Please note that logging back in with GitHub will create a new account.'
       )
@@ -225,20 +226,20 @@ export default defineNuxtComponent({
 
       this.$nuxt.$loading.finish()
     },
-    logout() {
+    logout () {
       this.$refs.modal_revoke_token.hide()
-      //this.$cookies.set('auth-token-reset', true)
+      // this.$cookies.set('auth-token-reset', true)
 
       window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
     },
-    hasMonetizationEnabled() {
+    hasMonetizationEnabled () {
       return (
         this.$auth.user.payout_data.payout_wallet &&
         this.$auth.user.payout_data.payout_wallet_type &&
         this.$auth.user.payout_data.payout_address
       )
     },
-    async saveChanges() {
+    async saveChanges () {
       if (this.hasMonetizationEnabled() && !this.email) {
         this.showKnownErrors = true
         return

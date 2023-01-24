@@ -1,11 +1,12 @@
 import { promises as fs } from 'fs'
 import svgLoader from 'vite-svg-loader'
+import eslintPlugin from 'vite-plugin-eslint'
 import { resolve } from 'pathe'
 import { defineNuxtConfig } from 'nuxt/config'
-import { $fetch } from "ofetch";
+import { $fetch } from 'ofetch'
 
 const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
-const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
+// const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
 
 export default defineNuxtConfig({
   app: {
@@ -104,14 +105,14 @@ export default defineNuxtConfig({
   css: ['~/assets/styles/global.scss'],
   modules: ['@nuxtjs/color-mode'],
   buildModules: ['floating-vue/nuxt'],
-  vite: { plugins: [svgLoader({ svgo: false })] },
+  vite: { plugins: [svgLoader({ svgo: false }), eslintPlugin()] },
   dayjs: {
     locales: ['en'],
     defaultLocale: 'en',
     plugins: ['relativeTime'],
   },
   hooks: {
-    async 'build:before'() {
+    async 'build:before' () {
       // 30 minutes
       const TTL = 30 * 60 * 1000
 
@@ -147,7 +148,7 @@ export default defineNuxtConfig({
 
       const headers = {
         headers: {
-          'user-agent': `Knossos generator (support@modrinth.com)`,
+          'user-agent': 'Knossos generator (support@modrinth.com)',
         },
       }
 
@@ -159,7 +160,7 @@ export default defineNuxtConfig({
         reportTypes,
       ] = (
         await Promise.all([
-          $fetch(`${API_URL}tag/category`,headers),
+          $fetch(`${API_URL}tag/category`, headers),
           $fetch(`${API_URL}tag/loader`, headers),
           $fetch(`${API_URL}tag/game_version`, headers),
           $fetch(`${API_URL}tag/donation_platform`, headers),
@@ -179,7 +180,7 @@ export default defineNuxtConfig({
     },
     'pages:extend' (routes) {
       routes.splice(
-        routes.findIndex((x) => x.name === 'search'),
+        routes.findIndex(x => x.name === 'search'),
         1
       )
 
@@ -230,36 +231,34 @@ export default defineNuxtConfig({
   }
 })
 
-function getApiUrl() {
+function getApiUrl () {
   return process.env.BROWSER_BASE_URL ?? STAGING_API_URL
 }
 
-function getDomain() {
-  if (process.env.NODE_ENV === 'production') {
-    if (process.env.SITE_URL) {
-      return process.env.SITE_URL
-    } else if (process.env.HEROKU_APP_NAME) {
-      return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
-    } else if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`
-    } else if (getApiUrl() === STAGING_API_URL) {
-      return 'https://staging.modrinth.com'
-    } else {
-      return 'https://modrinth.com'
-    }
-  } else {
-    return 'http://localhost:3000'
-  }
-}
+// function getDomain () {
+//   if (process.env.NODE_ENV === 'production') {
+//     if (process.env.SITE_URL) {
+//       return process.env.SITE_URL
+//     } else if (process.env.HEROKU_APP_NAME) {
+//       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+//     } else if (process.env.VERCEL_URL) {
+//       return `https://${process.env.VERCEL_URL}`
+//     } else if (getApiUrl() === STAGING_API_URL) {
+//       return 'https://staging.modrinth.com'
+//     } else {
+//       return 'https://modrinth.com'
+//     }
+//   } else {
+//     return 'http://localhost:3000'
+//   }
+// }
 
 // Checklist
-// Redo auth setup using native cookies API
-// Reimplement stores with pinia
+// Add auth redirects
 // Switch from axios to native fetch
 // Figure out app config (env variables and stuff)
 // Analytics on nuxt hooks + middleware
 // Readd toml parser which supports ESM
 // Migrate to new tooltip api
-// Fix breaking changes (like emits have to be registered)
-// Add back highlight js
-// Add back linter and configure it
+// Fix perf issues on changelog/version page (maybe use functional components)
+// Migrate search to asyncData/SSR

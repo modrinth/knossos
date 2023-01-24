@@ -1,12 +1,10 @@
 <template>
   <Modal ref="modal" :header="'Transfer to ' + $formatWallet(wallet)">
     <div class="modal-transfer">
-      <span
-        >You are initiating a transfer of your revenue from Modrinth's Creator
+      <span>You are initiating a transfer of your revenue from Modrinth's Creator
         Monetization Program. How much of your
         <strong>{{ $formatMoney(balance) }}</strong> balance would you like to
-        transfer?</span
-      >
+        transfer?</span>
       <div class="confirmation-input">
         <input
           id="confirmation"
@@ -15,34 +13,34 @@
           pattern="^\d*(\.\d{0,2})?$"
           autocomplete="off"
           placeholder="Amount to transfer..."
-        />
+        >
       </div>
       <div class="confirm-text">
         <Checkbox
           v-if="
             isValidInput() &&
-            parseInput() >= minWithdraw &&
-            parseInput() <= balance
+              parseInput() >= minWithdraw &&
+              parseInput() <= balance
           "
           v-model="consentedFee"
         >
-          <template v-if="wallet === 'venmo'"
-            >I acknowledge that $0.25 will be deducted from the amount I receive
-            to cover {{ $formatWallet(wallet) }} processing fees.</template
-          >
-          <template v-else
-            >I acknowledge that an estimated
+          <template v-if="wallet === 'venmo'">
+            I acknowledge that $0.25 will be deducted from the amount I receive
+            to cover {{ $formatWallet(wallet) }} processing fees.
+          </template>
+          <template v-else>
+            I acknowledge that an estimated
             {{ $formatMoney(calcProcessingFees()) }} will be deducted from the
             amount I receive to cover {{ $formatWallet(wallet) }} processing
             fees and that any excess will be returned to my Modrinth
-            balance.</template
-          >
+            balance.
+          </template>
         </Checkbox>
         <Checkbox
           v-if="
             isValidInput() &&
-            parseInput() >= minWithdraw &&
-            parseInput() <= balance
+              parseInput() >= minWithdraw &&
+              parseInput() <= balance
           "
           v-model="consentedAccount"
         >
@@ -53,14 +51,11 @@
           v-else-if="validInput && parseInput() < minWithdraw"
           class="invalid"
         >
-          The amount must be at least {{ $formatMoney(minWithdraw) }}</span
-        >
+          The amount must be at least {{ $formatMoney(minWithdraw) }}</span>
         <span v-else-if="validInput && parseInput() > balance" class="invalid">
-          The amount must be no more than {{ $formatMoney(balance) }}</span
-        >
+          The amount must be no more than {{ $formatMoney(balance) }}</span>
         <span v-else-if="amount.length > 0" class="invalid">
-          {{ amount }} is not a valid amount</span
-        >
+          {{ amount }} is not a valid amount</span>
       </div>
       <div class="button-group">
         <NuxtLink class="iconified-button" to="/settings/monetization">
@@ -121,7 +116,7 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       consentedFee: false,
       consentedAccount: false,
@@ -130,14 +125,14 @@ export default {
     }
   },
   methods: {
-    cancel() {
+    cancel () {
       this.amount = ''
       this.consentedFee = false
       this.consentedAccount = false
       this.validInput = false
       this.$refs.modal.hide()
     },
-    async proceed() {
+    async proceed () {
       this.$nuxt.$loading.start()
       try {
         await this.$axios.post(
@@ -160,20 +155,20 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
-    show() {
+    show () {
       this.$refs.modal.show()
     },
-    isValidInput() {
+    isValidInput () {
       const regex = /^\$?(\d*(\.\d{2})?)$/gm
       this.validInput = regex.test(this.amount) && this.amount.length > 0
       return this.validInput
     },
-    parseInput() {
+    parseInput () {
       const regex = /^\$?(\d*(\.\d{2})?)$/gm
       const matches = regex.exec(this.amount)
       return parseFloat(matches[1])
     },
-    calcProcessingFees() {
+    calcProcessingFees () {
       if (this.wallet === 'venmo') {
         return 0.25
       } else {

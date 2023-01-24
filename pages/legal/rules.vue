@@ -4,7 +4,9 @@
 
     <p>
       In order to facilitate Modrinth's
-      <nuxt-link to="/legal/terms">Terms and Conditions</nuxt-link>, all Content
+      <nuxt-link to="/legal/terms">
+        Terms and Conditions
+      </nuxt-link>, all Content
       must obey the following Rules. For more information on what exactly
       Content is, please refer to the Content section of the Terms.
     </p>
@@ -25,7 +27,9 @@
       <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
     </p>
 
-    <h2 id="malicious-content">1. Malicious Content</h2>
+    <h2 id="malicious-content">
+      1. Malicious Content
+    </h2>
 
     <p>
       Content cannot contain or download malware, which we define as anything
@@ -42,7 +46,9 @@
       </li>
     </ul>
 
-    <h2 id="clear-and-honest-function">2. Clear and honest function</h2>
+    <h2 id="clear-and-honest-function">
+      2. Clear and honest function
+    </h2>
 
     <p>
       Content, especially projects, must make a clear and honest attempt to
@@ -56,7 +62,9 @@
       Modrinth.
     </p>
 
-    <h3 id="general-expectations">2.1. General expectations</h3>
+    <h3 id="general-expectations">
+      2.1. General expectations
+    </h3>
 
     <p>
       Projects in particular must attempt to describe the following three things
@@ -82,7 +90,9 @@
       discretion.
     </p>
 
-    <h2 id="cheats-and-hacks">3. Cheats and Hacks</h2>
+    <h2 id="cheats-and-hacks">
+      3. Cheats and Hacks
+    </h2>
 
     <p>
       Projects cannot contain or download "cheats", which we define as a
@@ -140,7 +150,9 @@
       United States and of the State of Delaware.
     </p>
 
-    <h2 id="prohibited-content">5. Prohibited Content</h2>
+    <h2 id="prohibited-content">
+      5. Prohibited Content
+    </h2>
 
     <p>
       Content on Modrinth is meant to be appropriate for audiences 13 years of
@@ -184,7 +196,7 @@ export default defineNuxtComponent({
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/rules`,
+        content: 'https://modrinth.com/legal/rules',
       },
     ],
   },

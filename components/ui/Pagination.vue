@@ -56,7 +56,6 @@ import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 
 export default {
-  name: 'Pagination',
   components: {
     GapIcon,
     LeftArrowIcon,
@@ -73,13 +72,14 @@ export default {
     },
     linkFunction: {
       type: Function,
-      default() {
+      default () {
         return () => '/'
       },
     },
   },
+  emits: ['switch-page'],
   computed: {
-    pages() {
+    pages () {
       let pages = []
 
       if (this.count > 4) {
@@ -114,7 +114,7 @@ export default {
     },
   },
   methods: {
-    switchPage(newPage) {
+    switchPage (newPage) {
       this.$emit('switch-page', newPage)
     },
   },

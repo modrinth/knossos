@@ -2,7 +2,7 @@
   <div class="content">
     <Head>
       <Title>
-        {{project.title}} - Versions
+        {{ project.title }} - Versions
       </Title>
       <Meta name="og:title" :content="`${project.title} - Versions`" />
       <Meta name="description" :content="metaDescription" />
@@ -30,11 +30,11 @@
     <VersionFilterControl
       class="card"
       :versions="versions"
-      @updateVersions="updateVersions"
+      @update-versions="updateVersions"
     />
     <div v-if="versions.length > 0" class="universal-card all-versions">
       <div class="header">
-        <div></div>
+        <div />
         <div>Version</div>
         <div>Supports</div>
         <div>Stats</div>
@@ -136,30 +136,30 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
     versions: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
     featuredVersions: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
     currentMember: {
       type: Object,
-      default() {
+      default () {
         return null
       },
     },
   },
-  data() {
+  data () {
     return {
       filteredVersions: this.versions,
       metaDescription: `Download and browse ${this.versions.length} ${
@@ -172,16 +172,16 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    featuredVersionIds() {
-      return this.featuredVersions.map((x) => x.id)
+    featuredVersionIds () {
+      return this.featuredVersions.map(x => x.id)
     },
   },
   methods: {
     acceptFileFromProjectType,
-    updateVersions(updatedVersions) {
+    updateVersions (updatedVersions) {
       this.filteredVersions = updatedVersions
     },
-    async handleFiles(files) {
+    async handleFiles (files) {
       await this.$router.push({
         name: 'type-id-version-create',
         params: {

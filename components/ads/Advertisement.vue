@@ -43,12 +43,11 @@ import LightIcon from '~/assets/images/external/exaroton-light.svg'
 import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 
 export default {
-  name: 'Advertisement',
   components: {
     LightIcon,
     DarkIcon,
   },
-  data() {
+  data () {
     return {
       isBlocked: true,
     }

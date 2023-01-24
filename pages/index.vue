@@ -11,7 +11,7 @@
               :key="projectType.id"
               class="main-header-strong"
             >
-              {{ projectType.display }}s <br />
+              {{ projectType.display }}s <br>
             </strong>
             <strong class="main-header-strong">mods</strong>
           </span>
@@ -75,11 +75,15 @@
           </div>
         </div>
       </div>
-      <div class="projects-transition"></div>
+      <div class="projects-transition" />
       <div class="users-section">
         <div class="section-header">
-          <div class="section-label green">For Players</div>
-          <h2 class="section-tagline">Discover over 5,000 creations</h2>
+          <div class="section-label green">
+            For Players
+          </div>
+          <h2 class="section-tagline">
+            Discover over 5,000 creations
+          </h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find
             content to bring your gameplay to the next level.
@@ -107,7 +111,7 @@
                     :placeholder="`Search...`"
                     autocomplete="off"
                     @input="updateSearchProjects"
-                  />
+                  >
                 </div>
                 <div class="sort-by">
                   <span class="label">Sort by</span>
@@ -235,13 +239,13 @@
                 src="https://cdn.modrinth.com/landing/launcher-light.png"
                 alt="launcher graphic"
                 class="minecraft-screen"
-              />
+              >
               <img
                 v-else
                 src="https://cdn.modrinth.com/landing/launcher.png"
                 alt="launcher graphic"
                 class="minecraft-screen"
-              />
+              >
               <div class="launcher-graphics">
                 <a
                   rel="noopener noreferrer nofollow"
@@ -258,7 +262,7 @@
                   <img
                     src="~/assets/images/external/multimc.png"
                     alt="multimc launcher logo"
-                  />
+                  >
                 </a>
                 <a
                   rel="noopener noreferrer nofollow"
@@ -275,8 +279,12 @@
     </div>
     <div class="creator-section">
       <div class="section-header">
-        <div class="section-label blue">For Creators</div>
-        <h2 class="section-tagline">Share your content with the world</h2>
+        <div class="section-label blue">
+          For Creators
+        </div>
+        <h2 class="section-tagline">
+          Share your content with the world
+        </h2>
         <p class="section-description">
           Give an online home to your creations and reach a massive audience of
           dedicated players
@@ -417,7 +425,9 @@
               </defs>
             </svg>
           </div>
-          <div class="additional-label">Coming soon</div>
+          <div class="additional-label">
+            Coming soon
+          </div>
           <h4>Data & Statistics</h4>
           <p>
             Get detailed reports on page views, download counts, and revenue
@@ -553,7 +563,7 @@
       </svg>
       <div class="overlay">
         <h2 class="main-header">
-          Read more about <br />
+          Read more about <br>
           <strong class="main-header-strong">Modrinth</strong>
         </h2>
         <a
@@ -587,7 +597,7 @@ export default defineNuxtComponent({
     ATLauncherLogo,
   },
   auth: false,
-  async asyncData() {
+  async asyncData () {
     const [projects, baseSearch, updated] = (
       await Promise.all([
         await useBaseFetch('projects_random?count=70'),
@@ -607,19 +617,19 @@ export default defineNuxtComponent({
       notifications: shallowRef(updated.hits),
     }
   },
-  data() {
+  data () {
     return {
       searchQuery: 'flowers',
       sortType: 'relevance',
     }
   },
   computed: {
-    authUrl() {
-      return ``
+    authUrl () {
+      return ''
     },
   },
   methods: {
-    async updateSearchProjects() {
+    async updateSearchProjects () {
       this.searchProjects = (
         await useBaseFetch(
           `search?query=${this.searchQuery}&limit=3&index=${this.sortType}`

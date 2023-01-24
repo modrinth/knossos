@@ -16,10 +16,8 @@
           You have
           <strong>{{ $formatMoney($auth.user.payout_data.balance) }}</strong>
           available to withdraw.
-          <span v-if="!enrolled"
-            >Enroll in the Creator Monetization Program to withdraw your
-            revenue.</span
-          >
+          <span v-if="!enrolled">Enroll in the Creator Monetization Program to withdraw your
+            revenue.</span>
         </p>
 
         <div v-if="enrolled" class="input-group">
@@ -37,14 +35,12 @@
       </div>
       <p v-else-if="$auth.user.payout_data.balance > 0">
         You have made
-        <strong>{{ $formatMoney($auth.user.payout_data.balance) }}</strong
-        >, however you have not yet met the minimum of ${{ minWithdraw }} to
+        <strong>{{ $formatMoney($auth.user.payout_data.balance) }}</strong>, however you have not yet met the minimum of ${{ minWithdraw }} to
         withdraw.
       </p>
       <p v-else>
         You have made
-        <strong>{{ $formatMoney($auth.user.payout_data.balance) }}</strong
-        >, which is under the minimum of ${{ minWithdraw }} to withdraw.
+        <strong>{{ $formatMoney($auth.user.payout_data.balance) }}</strong>, which is under the minimum of ${{ minWithdraw }} to withdraw.
       </p>
       <div v-if="!enrolled">
         <NuxtLink class="iconified-button" to="/settings/monetization">
@@ -102,7 +98,7 @@ import ModalTransfer from '~/components/ui/ModalTransfer'
 
 export default defineNuxtComponent({
   components: { TransferIcon, SettingsIcon, ModalTransfer },
-  data() {
+  data () {
     return {
       minWithdraw: 0.26,
       enrolled:

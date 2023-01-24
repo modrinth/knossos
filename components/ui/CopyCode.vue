@@ -27,13 +27,13 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       copied: false,
     }
   },
   methods: {
-    async copyText() {
+    async copyText () {
       await navigator.clipboard.writeText(this.text)
       this.copied = true
     },

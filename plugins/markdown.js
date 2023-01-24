@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it'
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const md = new MarkdownIt('default', {
     html: true,
     linkify: true,
@@ -9,7 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const defaultRender =
     md.renderer.rules.link_open ||
-    function (tokens, idx, options, env, self) {
+    function (tokens, idx, options, _env, self) {
       return self.renderToken(tokens, idx, options)
     }
 
@@ -21,7 +21,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   return {
     provide: {
-      md: (string) => md.render(string),
+      md: string => md.render(string),
     },
   }
 })

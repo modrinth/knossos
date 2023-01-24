@@ -2,9 +2,9 @@
   <div
     v-if="
       $auth.user &&
-      currentMember &&
-      nags.filter((x) => x.condition).length > 0 &&
-      project.status === 'draft'
+        currentMember &&
+        nags.filter((x) => x.condition).length > 0 &&
+        project.status === 'draft'
     "
     class="author-actions universal-card"
   >
@@ -56,8 +56,7 @@
           <ModerationIcon
             v-else-if="nag.status === 'review'"
             :class="nag.status"
-          />{{ nag.title }}</span
-        >
+          />{{ nag.title }}</span>
         {{ nag.description }}
         <NuxtLink
           v-if="nag.link"
@@ -134,7 +133,7 @@ export default {
     },
     setProcessing: {
       type: Function,
-      default() {
+      default () {
         return () => {
           this.$notify({
             group: 'main',
@@ -147,7 +146,7 @@ export default {
     },
     toggleCollapsed: {
       type: Function,
-      default() {
+      default () {
         return () => {
           this.$notify({
             group: 'main',
@@ -160,10 +159,10 @@ export default {
     },
   },
   computed: {
-    featuredGalleryImage() {
-      return this.project.gallery.find((img) => img.featured)
+    featuredGalleryImage () {
+      return this.project.gallery.find(img => img.featured)
     },
-    nags() {
+    nags () {
       return [
         {
           condition:
@@ -297,12 +296,12 @@ export default {
             onClick: this.submitForReview,
             title: 'Submit for review',
             disabled: () =>
-              this.nags.filter((x) => x.condition && x.status === 'required')
+              this.nags.filter(x => x.condition && x.status === 'required')
                 .length > 0,
           },
         },
       ]
-        .filter((x) => !x.hide)
+        .filter(x => !x.hide)
         .sort((a, b) =>
           this.sortByTrue(
             !a.condition,
@@ -317,7 +316,7 @@ export default {
     },
   },
   methods: {
-    sortByTrue(a, b, ifEqual = 0) {
+    sortByTrue (a, b, ifEqual = 0) {
       if (a === b) {
         return ifEqual
       } else if (a) {
@@ -326,7 +325,7 @@ export default {
         return 1
       }
     },
-    sortByFalse(a, b, ifEqual = 0) {
+    sortByFalse (a, b, ifEqual = 0) {
       if (a === b) {
         return ifEqual
       } else if (b) {
@@ -335,9 +334,9 @@ export default {
         return 1
       }
     },
-    async submitForReview() {
+    async submitForReview () {
       if (
-        this.nags.filter((x) => x.condition && x.status === 'required')
+        this.nags.filter(x => x.condition && x.status === 'required')
           .length === 0
       ) {
         await this.setProcessing()

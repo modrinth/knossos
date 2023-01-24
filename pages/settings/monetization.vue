@@ -8,7 +8,9 @@
       </NuxtLink>
     </section>
     <section class="universal-card">
-      <h2 class="title">Enrollment</h2>
+      <h2 class="title">
+        Enrollment
+      </h2>
       <template v-if="!enrolled && !$auth.user.email">
         <p v-if="!enrolled">
           You are not currently enrolled in Modrinth's Creator Monetization
@@ -50,11 +52,12 @@
               :allow-empty="false"
             />
 
-            <label class="hidden" for="account-input"
-              >{{ $formatWallet(selectedWallet) }}
+            <label
+              class="hidden"
+              for="account-input"
+            >{{ $formatWallet(selectedWallet) }}
               {{ formatAccountType(accountType).toLowerCase() }} input
-              field</label
-            >
+              field</label>
             <input
               id="account-input"
               v-model="account"
@@ -62,7 +65,7 @@
                 selectedWallet
               )} ${formatAccountType(accountType).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
-            />
+            >
             <span v-if="accountType === 'phone'">
               Format: +18888888888 or +1-888-888-8888
             </span>
@@ -116,7 +119,7 @@ export default defineNuxtComponent({
     ChartIcon,
     SettingsIcon,
   },
-  data() {
+  data () {
     return {
       editing: false,
       enrolled:
@@ -135,7 +138,7 @@ export default defineNuxtComponent({
     title: 'Monetization settings - Modrinth',
   },
   methods: {
-    getAccountTypes() {
+    getAccountTypes () {
       const types = []
       if (this.selectedWallet === 'venmo') {
         types.push('user_handle')
@@ -144,7 +147,7 @@ export default defineNuxtComponent({
       types.push('phone')
       return types
     },
-    formatAccountType(value) {
+    formatAccountType (value) {
       switch (value) {
         case 'email':
           return 'Email address'
@@ -156,7 +159,7 @@ export default defineNuxtComponent({
           return value.charAt(0).toUpperCase() + value.slice(1)
       }
     },
-    onChangeWallet() {
+    onChangeWallet () {
       this.account = ''
 
       // Set default account type for each wallet
@@ -166,7 +169,7 @@ export default defineNuxtComponent({
         this.accountType = 'user_handle'
       }
     },
-    async updatePayoutData(unenroll) {
+    async updatePayoutData (unenroll) {
       this.$nuxt.$loading.start()
       if (unenroll) {
         this.selectedWallet = 'paypal'

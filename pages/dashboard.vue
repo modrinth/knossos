@@ -50,7 +50,7 @@ export default defineNuxtComponent({
     ListIcon,
   },
   methods: {
-    hasMonetization() {
+    hasMonetization () {
       return monetization
     },
   },

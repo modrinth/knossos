@@ -19,13 +19,17 @@
           circle
           :alt="user.username"
         />
-        <h1 class="username">{{ user.username }}</h1>
+        <h1 class="username">
+          {{ user.username }}
+        </h1>
       </div>
     </div>
     <div class="normal-page">
       <div class="normal-page__sidebar">
         <div class="card sidebar">
-          <h1 class="mobile-username">{{ user.username }}</h1>
+          <h1 class="mobile-username">
+            {{ user.username }}
+          </h1>
           <div class="card__overlay">
             <FileInput
               v-if="isEditing"
@@ -66,24 +70,20 @@
           </div>
           <template v-if="isEditing">
             <div class="inputs universal-labels">
-              <label for="user-username"
-                ><span class="label__title">Username</span></label
-              >
+              <label for="user-username"><span class="label__title">Username</span></label>
               <input
                 id="user-username"
                 v-model="user.username"
                 maxlength="39"
                 type="text"
-              />
-              <label for="user-bio"
-                ><span class="label__title">Bio</span></label
               >
+              <label for="user-bio"><span class="label__title">Bio</span></label>
               <div class="textarea-wrapper">
                 <textarea
                   id="user-bio"
                   v-model="user.bio"
                   maxlength="160"
-                ></textarea>
+                />
               </div>
             </div>
             <div class="button-group">
@@ -119,7 +119,7 @@
             <span v-if="user.bio" class="sidebar__item bio">{{
               user.bio
             }}</span>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -142,7 +142,7 @@
                 Joined {{ $dayjs(user.created).fromNow() }}
               </span>
             </div>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text">
@@ -237,9 +237,9 @@
             :server-side="project.server_side"
             :status="
               $auth.user &&
-              ($auth.user.id === user.id ||
-                $auth.user.role === 'admin' ||
-                $auth.user.role === 'moderator')
+                ($auth.user.id === user.id ||
+                  $auth.user.role === 'admin' ||
+                  $auth.user.role === 'moderator')
                 ? project.status
                 : null
             "
@@ -249,13 +249,12 @@
           />
         </div>
         <div v-else class="error">
-          <UpToDate class="icon" /><br />
+          <UpToDate class="icon" /><br>
           <span v-if="$auth.user && $auth.user.id === user.id" class="text">
-            You don't have any projects.<br />
+            You don't have any projects.<br>
             Would you like to
             <a class="link" @click.prevent="$refs.modal_creation.show()">
-              create one</a
-            >?
+              create one</a>?
           </span>
           <span v-else class="text">This user has no projects!</span>
         </div>
@@ -319,7 +318,7 @@ export default defineNuxtComponent({
     ImageIcon,
     UploadIcon,
   },
-  async asyncData() {
+  async asyncData () {
     const data = useNuxtApp()
     const route = useRoute()
 
@@ -343,12 +342,12 @@ export default defineNuxtComponent({
       try {
         const [gitHubUserData, versionsData] = (
           await Promise.all([
-            $fetch(`https://api.github.com/user/` + user.github_id),
+            $fetch('https://api.github.com/user/' + user.github_id),
             useBaseFetch(
               `versions?ids=${JSON.stringify(
                 [].concat.apply(
                   [],
-                  projects.map((x) => x.versions)
+                  projects.map(x => x.versions)
                 )
               )}`
             ),
@@ -360,7 +359,7 @@ export default defineNuxtComponent({
 
       for (const version of versions) {
         const projectIndex = projects.findIndex(
-          (x) => x.id === version.project_id
+          x => x.id === version.project_id
         )
         if (projects[projectIndex].loaders) {
           for (const loader of version.loaders) {
@@ -386,8 +385,8 @@ export default defineNuxtComponent({
         githubUrl: ref(gitHubUser.html_url),
         metaDescription: ref(
           user.bio
-          ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
-          : `Download ${user.username}'s projects on Modrinth`
+            ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
+            : `Download ${user.username}'s projects on Modrinth`
         )
       }
     } catch {
@@ -398,7 +397,7 @@ export default defineNuxtComponent({
       })
     }
   },
-  data() {
+  data () {
     return {
       isEditing: false,
       icon: null,
@@ -406,10 +405,10 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    authUrl() {
-      return ``
+    authUrl () {
+      return ''
     },
-    projectTypes() {
+    projectTypes () {
       const obj = {}
 
       for (const project of this.projects) {
@@ -420,7 +419,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    sumDownloads() {
+    sumDownloads () {
       let sum = 0
 
       for (const projects of this.projects) {
@@ -429,7 +428,7 @@ export default defineNuxtComponent({
 
       return this.$formatNumber(sum)
     },
-    sumFollows() {
+    sumFollows () {
       let sum = 0
 
       for (const projects of this.projects) {
@@ -438,7 +437,7 @@ export default defineNuxtComponent({
 
       return this.$formatNumber(sum)
     },
-    showPreviewImage(files) {
+    showPreviewImage (files) {
       const reader = new FileReader()
       this.icon = files[0]
       reader.readAsDataURL(this.icon)
@@ -446,7 +445,7 @@ export default defineNuxtComponent({
         this.previewImage = event.target.result
       }
     },
-    async saveChanges() {
+    async saveChanges () {
       this.$nuxt.$loading.start()
       try {
         if (this.icon) {
@@ -485,7 +484,7 @@ export default defineNuxtComponent({
       }
       this.$nuxt.$loading.finish()
     },
-    async cycleSearchDisplayMode() {
+    async cycleSearchDisplayMode () {
       const value = this.$cosmetics.searchDisplayMode.user
       const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
       await this.$cosmetics.saveSearchDisplayMode(

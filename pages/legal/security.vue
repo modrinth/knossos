@@ -47,12 +47,11 @@
     <p>
       If you aren't sure, you can still reach out via email or direct message.
     </p>
-    <hr />
+    <hr>
     <p>
       This notice is inspired by the
       <a href="https://www.pythondiscord.com/pages/security-notice/">
-        Python Discord Security Notice</a
-      >.
+        Python Discord Security Notice</a>.
     </p>
     <p><em>Version 2022-11</em></p>
   </div>
@@ -83,7 +82,7 @@ export default defineNuxtComponent({
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/security`,
+        content: 'https://modrinth.com/legal/security',
       },
     ],
   },

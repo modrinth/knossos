@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modal" :header="title">
     <div class="modal-delete">
-      <div class="markdown-body" v-html="$xss($md(description))"></div>
+      <div class="markdown-body" v-html="$xss($md(description))" />
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
           <strong>To verify, type</strong>
@@ -17,7 +17,7 @@
           type="text"
           placeholder="Type here..."
           @input="type"
-        />
+        >
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
@@ -73,28 +73,29 @@ export default {
       default: 'Proceed',
     },
   },
-  data() {
+  emits: ['proceed'],
+  data () {
     return {
       action_disabled: this.hasToType,
       confirmation_typed: '',
     }
   },
   methods: {
-    cancel() {
+    cancel () {
       this.$refs.modal.hide()
     },
-    proceed() {
+    proceed () {
       this.$refs.modal.hide()
       this.$emit('proceed')
     },
-    type() {
+    type () {
       if (this.hasToType) {
         this.action_disabled =
           this.confirmation_typed.toLowerCase() !==
           this.confirmationText.toLowerCase()
       }
     },
-    show() {
+    show () {
       this.$refs.modal.show()
     },
   },

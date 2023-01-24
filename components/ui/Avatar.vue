@@ -8,7 +8,7 @@
     :src="src"
     :alt="alt"
     :loading="loading"
-  />
+  >
   <svg
     v-else
     :class="`avatar size-${size} ${circle ? 'circle' : ''} ${
@@ -35,7 +35,6 @@
 
 <script>
 export default {
-  name: 'Avatar',
   props: {
     src: {
       type: String,
@@ -48,7 +47,7 @@ export default {
     size: {
       type: String,
       default: 'sm',
-      validator(value) {
+      validator (value) {
         return ['xs', 'sm', 'md', 'lg'].includes(value)
       },
     },
@@ -65,7 +64,7 @@ export default {
       default: 'eager',
     },
   },
-  mounted() {
+  mounted () {
     if (this.$refs.img && this.$refs.img.naturalWidth) {
       const isPixelated = () => {
         if (

@@ -43,7 +43,7 @@ export default {
       type: String,
     },
   },
-  data() {
+  data () {
     return {
       useAnimation: false,
       oldIndex: -1,
@@ -57,27 +57,27 @@ export default {
     }
   },
   computed: {
-    filteredLinks() {
-      return this.links.filter((x) => (x.shown === undefined ? true : x.shown))
+    filteredLinks () {
+      return this.links.filter(x => (x.shown === undefined ? true : x.shown))
     },
   },
   watch: {
     '$route.path': {
-      handler() {
+      handler () {
         this.pickLink()
       },
     },
     '$route.query': {
-      handler() {
-        if (this.query) this.pickLink()
+      handler () {
+        if (this.query) { this.pickLink() }
       },
     },
   },
-  mounted() {
+  mounted () {
     this.pickLink()
   },
   methods: {
-    pickLink() {
+    pickLink () {
       if (this.oldIndex === -1) {
         this.useAnimation = false
 
@@ -88,13 +88,13 @@ export default {
 
       this.activeIndex = this.query
         ? this.filteredLinks.findIndex(
-            (x) =>
-              (x.href === '' ? undefined : x.href) ===
+          x =>
+            (x.href === '' ? undefined : x.href) ===
               this.$route.query[this.query]
-          )
+        )
         : this.filteredLinks.findIndex(
-            (x) => x.href === decodeURIComponent(this.$route.path)
-          )
+          x => x.href === decodeURIComponent(this.$route.path)
+        )
 
       if (this.activeIndex !== -1) {
         this.startAnimation()
@@ -102,7 +102,7 @@ export default {
         this.oldIndex = -1
       }
     },
-    startAnimation() {
+    startAnimation () {
       if (this.$refs.linkElements[this.activeIndex]) {
         this.indicator.direction =
           this.activeIndex < this.oldIndex ? 'left' : 'right'

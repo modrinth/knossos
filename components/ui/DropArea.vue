@@ -26,16 +26,17 @@ export default {
       default: '',
     },
   },
-  data() {
+  emits: ['change'],
+  data () {
     return {
       fileAllowed: false,
     }
   },
-  mounted() {
+  mounted () {
     document.addEventListener('dragenter', this.allowDrag)
   },
   methods: {
-    allowDrag(event) {
+    allowDrag (event) {
       const file = event.dataTransfer?.items[0]
 
       if (
@@ -52,13 +53,11 @@ export default {
         event.dataTransfer.dropEffect = 'copy'
         event.preventDefault()
 
-        if (this.$refs.drop_area)
-          this.$refs.drop_area.style.visibility = 'visible'
+        if (this.$refs.drop_area) { this.$refs.drop_area.style.visibility = 'visible' }
       } else {
         this.fileAllowed = false
 
-        if (this.$refs.drop_area)
-          this.$refs.drop_area.style.visibility = 'hidden'
+        if (this.$refs.drop_area) { this.$refs.drop_area.style.visibility = 'hidden' }
       }
     },
   },

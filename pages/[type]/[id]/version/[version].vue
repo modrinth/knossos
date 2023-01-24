@@ -81,7 +81,7 @@
             type="text"
             placeholder="Enter a version title..."
             maxlength="256"
-          />
+          >
         </template>
         <h2 :class="{ 'sr-only': isEditing }">
           {{ version.name }}
@@ -109,8 +109,8 @@
           <li
             v-if="
               newFiles.length === 0 &&
-              version.files.length === 0 &&
-              !replaceFile
+                version.files.length === 0 &&
+                !replaceFile
             "
           >
             Your version must have a file uploaded.
@@ -118,7 +118,7 @@
           <li
             v-if="
               version.loaders.length === 0 &&
-              project.project_type !== 'resourcepack'
+                project.project_type !== 'resourcepack'
             "
           >
             Your version must have the supported mod loaders selected.
@@ -159,8 +159,12 @@
           @click="version.featured = !version.featured"
         >
           <StarIcon aria-hidden="true" />
-          <template v-if="!version.featured"> Feature version </template>
-          <template v-else> Unfeature version </template>
+          <template v-if="!version.featured">
+            Feature version
+          </template>
+          <template v-else>
+            Unfeature version
+          </template>
         </button>
         <nuxt-link
           v-if="currentMember"
@@ -187,11 +191,11 @@
           :to="`${
             prevRoute &&
             (prevRoute.name === 'type-id-changelog' ||
-             prevRoute.name === 'type-id-versions')
+              prevRoute.name === 'type-id-versions')
               ? prevRoute.fullPath
               : `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/versions`
+                project.slug ? project.slug : project.id
+              }/versions`
           }`"
           class="iconified-button"
         >
@@ -223,9 +227,9 @@
         <button
           v-if="
             currentMember &&
-            version.loaders.some((x) =>
-              $tag.loaderData.dataPackLoaders.includes(x)
-            )
+              version.loaders.some((x) =>
+                $tag.loaderData.dataPackLoaders.includes(x)
+              )
           "
           class="iconified-button"
           @click="$refs.modal_package_mod.show()"
@@ -246,15 +250,13 @@
     <div class="version-page__changelog universal-card">
       <h3>Changelog</h3>
       <template v-if="isEditing">
-        <span
-        >This editor supports
+        <span>This editor supports
           <a
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer nofollow"
-          >Markdown</a
-          >. HTML can also be used inside your changelog, not including styles,
+          >Markdown</a>. HTML can also be used inside your changelog, not including styles,
           scripts, and iframes.
         </span>
         <Chips
@@ -277,7 +279,7 @@
               ? $xss($md(version.changelog))
               : 'No changelog specified.'
           "
-        ></div>
+        />
       </template>
       <div
         v-else
@@ -288,12 +290,12 @@
             ? $xss($md(version.changelog))
             : 'No changelog specified.'
         "
-      ></div>
+      />
     </div>
     <div
       v-if="
         version.dependencies.length > 0 ||
-        (isEditing && project.project_type !== 'modpack')
+          (isEditing && project.project_type !== 'modpack')
       "
       class="version-page__dependencies universal-card"
     >
@@ -395,7 +397,7 @@
                 newDependencyType
               )
             "
-          />
+          >
           <Multiselect
             v-model="newDependencyType"
             class="input"
@@ -485,8 +487,8 @@
             version.loaders.some((x) =>
               $tag.loaderData.dataPackLoaders.includes(x)
             ) &&
-            isEditing &&
-            primaryFile.hashes.sha1 !== file.hashes.sha1
+              isEditing &&
+              primaryFile.hashes.sha1 !== file.hashes.sha1
           "
           v-model="oldFileTypes[index]"
           class="raised-multiselect"
@@ -662,7 +664,7 @@
               type="text"
               autocomplete="off"
               maxlength="54"
-            />
+            >
           </div>
           <span v-else>{{ version.version_number }}</span>
         </div>
@@ -707,8 +709,8 @@
                 showSnapshots
                   ? $tag.gameVersions.map((x) => x.version)
                   : $tag.gameVersions
-                      .filter((it) => it.version_type === 'release')
-                      .map((x) => x.version)
+                    .filter((it) => it.version_type === 'release')
+                    .map((x) => x.version)
               "
               :loading="$tag.gameVersions.length === 0"
               :multiple="true"
@@ -767,7 +769,9 @@
               >
                 <p>{{ version.author_member.name }}</p>
               </nuxt-link>
-              <p class="role">{{ version.author_member.role }}</p>
+              <p class="role">
+                {{ version.author_member.role }}
+              </p>
             </div>
           </div>
         </div>
@@ -846,42 +850,42 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
     versions: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
     featuredVersions: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
     members: {
       type: Array,
-      default() {
+      default () {
         return [{}]
       },
     },
     currentMember: {
       type: Object,
-      default() {
+      default () {
         return null
       },
     },
     dependencies: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
   },
-  async setup(props) {
+  async setup (props) {
     const data = useNuxtApp()
     const route = useRoute()
 
@@ -955,12 +959,12 @@ export default defineNuxtComponent({
     } else if (route.params.version === 'latest') {
       let versionList = props.versions
       if (route.query.loader) {
-        versionList = versionList.filter((x) =>
+        versionList = versionList.filter(x =>
           x.loaders.includes(route.query.loader)
         )
       }
       if (route.query.version) {
-        versionList = versionList.filter((x) =>
+        versionList = versionList.filter(x =>
           x.game_versions.includes(route.query.version)
         )
       }
@@ -969,19 +973,20 @@ export default defineNuxtComponent({
       )
     } else {
       version = props.versions.find(
-        (x) => x.id === route.params.version
+        x => x.id === route.params.version
       )
 
-      if (!version)
+      if (!version) {
         version = props.versions.find(
-          (x) => x.displayUrlEnding === route.params.version
+          x => x.displayUrlEnding === route.params.version
         )
+      }
 
       // LEGACY- to support old duplicate version URLs
       const dashIndex = route.params.version.indexOf('-')
       if (!version && dashIndex !== -1) {
         const version = props.versions.find(
-          (x) =>
+          x =>
             x.displayUrlEnding ===
             route.params.version.substring(0, dashIndex)
         )
@@ -1002,29 +1007,29 @@ export default defineNuxtComponent({
 
     version = JSON.parse(JSON.stringify(version))
     primaryFile =
-      version.files.find((file) => file.primary) ?? version.files[0]
+      version.files.find(file => file.primary) ?? version.files[0]
     alternateFile = version.files.find(
-      (file) => file.file_type && file.file_type.includes('resource-pack')
+      file => file.file_type && file.file_type.includes('resource-pack')
     )
 
     version.author_member = props.members.find(
-      (x) => x.user.id === version.author_id
+      x => x.user.id === version.author_id
     )
 
     for (const dependency of version.dependencies) {
       dependency.version = props.dependencies.versions.find(
-        (x) => x.id === dependency.version_id
+        x => x.id === dependency.version_id
       )
 
       if (dependency.version) {
         dependency.project = props.dependencies.projects.find(
-          (x) => x.id === dependency.version.project_id
+          x => x.id === dependency.version.project_id
         )
       }
 
       if (!dependency.project) {
         dependency.project = props.dependencies.projects.find(
-          (x) => x.id === dependency.project_id
+          x => x.id === dependency.project_id
         )
       }
 
@@ -1039,8 +1044,8 @@ export default defineNuxtComponent({
         : ''
     }
 
-    oldFileTypes = version.files.map((x) =>
-      fileTypes.find((y) => y.value === x.file_type)
+    oldFileTypes = version.files.map(x =>
+      fileTypes.find(y => y.value === x.file_type)
     )
 
     return {
@@ -1061,13 +1066,13 @@ export default defineNuxtComponent({
       } on Modrinth. Supports ${data.$formatVersion(
         version.game_versions
       )} ${version.loaders
-        .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+        .map(x => x.charAt(0).toUpperCase() + x.slice(1))
         .join(' & ')}. Published on ${data.$dayjs(
         version.date_published
       ).format('MMM D, YYYY')}. ${version.downloads} downloads.`)
     }
   },
-  data() {
+  data () {
     return {
       dependencyAddMode: 'project',
       newDependencyType: 'required',
@@ -1090,13 +1095,13 @@ export default defineNuxtComponent({
       prevRoute: null,
     }
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
+  beforeRouteEnter (_to, from, next) {
+    next((vm) => {
       vm.prevRoute = from
     })
   },
   computed: {
-    fieldErrors() {
+    fieldErrors () {
       return (
         this.version.version_number === '' ||
         this.version.game_versions.length === 0 ||
@@ -1107,13 +1112,13 @@ export default defineNuxtComponent({
           !this.replaceFile)
       )
     },
-    authUrl() {
-      return ``
+    authUrl () {
+      return ''
     },
   },
   methods: {
     acceptFileFromProjectType,
-    async addDependency(
+    async addDependency (
       dependencyAddMode,
       newDependencyId,
       newDependencyType,
@@ -1126,7 +1131,7 @@ export default defineNuxtComponent({
 
           if (
             this.version.dependencies.some(
-              (dep) => project.id === dep.project_id
+              dep => project.id === dep.project_id
             )
           ) {
             this.$notify({
@@ -1159,7 +1164,7 @@ export default defineNuxtComponent({
 
           if (
             this.version.dependencies.some(
-              (dep) => version.id === dep.version_id
+              dep => version.id === dep.version_id
             )
           ) {
             this.$notify({
@@ -1199,7 +1204,7 @@ export default defineNuxtComponent({
         }
       }
     },
-    async saveEditedVersion() {
+    async saveEditedVersion () {
       this.$nuxt.$loading.start()
 
       if (this.fieldErrors) {
@@ -1218,7 +1223,7 @@ export default defineNuxtComponent({
               event.target.result
             )
             this.primaryFile.hashes.sha1 = [...new Uint8Array(hash)]
-              .map((x) => x.toString(16).padStart(2, '0'))
+              .map(x => x.toString(16).padStart(2, '0'))
               .join('')
           }
 
@@ -1314,7 +1319,7 @@ export default defineNuxtComponent({
               this.$defaultHeaders()
             ),
           ])
-        ).map((it) => it.data)
+        ).map(it => it.data)
 
         const newEditedVersions = this.$computeVersions(versions)
         this.$emit('update:versions', newEditedVersions)
@@ -1325,7 +1330,7 @@ export default defineNuxtComponent({
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
           }/version/${encodeURI(
-            newEditedVersions.find((x) => x.id === this.version.id)
+            newEditedVersions.find(x => x.id === this.version.id)
               .displayUrlEnding
           )}`
         )
@@ -1340,7 +1345,7 @@ export default defineNuxtComponent({
       }
       this.$nuxt.$loading.finish()
     },
-    async createVersion() {
+    async createVersion () {
       this.shouldPreventActions = true
       this.$nuxt.$loading.start()
       if (this.fieldErrors) {
@@ -1365,7 +1370,7 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.finish()
       this.shouldPreventActions = false
     },
-    async createVersionRaw(version) {
+    async createVersionRaw (version) {
       const formData = new FormData()
 
       const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
@@ -1442,7 +1447,7 @@ export default defineNuxtComponent({
             this.$defaultHeaders()
           ),
         ])
-      ).map((it) => it.data)
+      ).map(it => it.data)
 
       const newCreatedVersions = this.$computeVersions(versions)
       this.$emit('update:versions', newCreatedVersions)
@@ -1455,7 +1460,7 @@ export default defineNuxtComponent({
         }/version/${data.id}`
       )
     },
-    async deleteVersion() {
+    async deleteVersion () {
       this.$nuxt.$loading.start()
 
       await this.$axios.delete(
@@ -1468,7 +1473,7 @@ export default defineNuxtComponent({
       )
       this.$nuxt.$loading.finish()
     },
-    async createDataPackVersion() {
+    async createDataPackVersion () {
       this.shouldPreventActions = true
       this.$nuxt.$loading.start()
       try {

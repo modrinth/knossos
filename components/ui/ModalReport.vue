@@ -6,8 +6,12 @@
           Modding should be safe for everyone, so we take abuse and malicious
           intent seriously at Modrinth. We want to hear about harmful content on
           the site that violates our
-          <nuxt-link to="/legal/terms">ToS</nuxt-link> and
-          <nuxt-link to="/legal/rules">Rules</nuxt-link>. Rest assured, we’ll
+          <nuxt-link to="/legal/terms">
+            ToS
+          </nuxt-link> and
+          <nuxt-link to="/legal/rules">
+            Rules
+          </nuxt-link>. Rest assured, we’ll
           keep your identifying information private.
         </p>
       </div>
@@ -50,7 +54,7 @@
           v-highlightjs
           class="preview"
           v-html="$xss($md(body))"
-        ></div>
+        />
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
@@ -92,7 +96,7 @@ export default {
       default: '',
     },
   },
-  data() {
+  data () {
     return {
       reportType: '',
       body: '',
@@ -100,14 +104,14 @@ export default {
     }
   },
   methods: {
-    cancel() {
+    cancel () {
       this.reportType = ''
       this.body = ''
       this.bodyViewType = 'source'
 
       this.$refs.modal.hide()
     },
-    async submitReport() {
+    async submitReport () {
       this.$nuxt.$loading.start()
       try {
         const data = {
@@ -129,7 +133,7 @@ export default {
       }
       this.$nuxt.$loading.finish()
     },
-    show() {
+    show () {
       this.$refs.modal.show()
     },
   },

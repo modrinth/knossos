@@ -10,7 +10,9 @@
             class="settings-header__icon"
           />
           <div class="settings-header__text">
-            <h1 class="wrap-as-needed">{{ project.title }}</h1>
+            <h1 class="wrap-as-needed">
+              {{ project.title }}
+            </h1>
             <Badge :type="project.status" />
           </div>
         </div>
@@ -92,13 +94,13 @@
         :toggle-collapsed="toggleChecklistCollapse"
       />
       <NuxtPage
-        :project.sync="project"
-        :versions.sync="versions"
-        :featured-versions.sync="featuredVersions"
-        :members.sync="members"
+        v-model:project="project"
+        v-model:versions="versions"
+        v-model:featured-versions="featuredVersions"
+        v-model:members="members"
+        v-model:all-members="allMembers"
+        v-model:dependencies="dependencies"
         :current-member="currentMember"
-        :all-members.sync="allMembers"
-        :dependencies.sync="dependencies"
         :patch-project="patchProject"
         :patch-icon="patchIcon"
         :update-icon="updateIcon"
@@ -108,14 +110,17 @@
   <div v-else>
     <Head>
       <Title>
-        {{project.title}} - Minecraft {{projectTypeDisplay}}
+        {{ project.title }} - Minecraft {{ projectTypeDisplay }}
       </Title>
       <Meta name="og:title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
-      <Meta name="description" :content="`${
-            project.description
-          } - Download the Minecraft ${projectTypeDisplay} ${project.title} by ${
-            members.find((x) => x.role === 'Owner').user.username
-          } on Modrinth`" />
+      <Meta
+        name="description"
+        :content="`${
+          project.description
+        } - Download the Minecraft ${projectTypeDisplay} ${project.title} by ${
+          members.find((x) => x.role === 'Owner').user.username
+        } on Modrinth`"
+      />
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
       <Meta name="og:description" :content="project.description" />
       <Meta name="og:image" :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'" />
@@ -157,10 +162,10 @@
             tabindex="-1"
             :to="
               '/' +
-              project.project_type +
-              '/' +
-              (project.slug ? project.slug : project.id) +
-              '/gallery'
+                project.project_type +
+                '/' +
+                (project.slug ? project.slug : project.id) +
+                '/gallery'
             "
           >
             <img
@@ -171,7 +176,7 @@
                   ? featuredGalleryImage.description
                   : featuredGalleryImage.title
               "
-            />
+            >
           </nuxt-link>
           <div
             class="project__header__content universal-card full-width-inputs"
@@ -205,7 +210,7 @@
                 :type="project.project_type"
               />
             </Categories>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -244,7 +249,7 @@
                 }}</span>
               </div>
             </div>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="input-group">
               <template v-if="$auth.user">
                 <button
@@ -287,15 +292,17 @@
         <div
           v-if="
             currentMember &&
-            ((!$tag.approvedStatuses.includes(project.status) &&
-              project.status !== 'processing') ||
-              (project.moderator_message &&
-                (project.moderator_message.message ||
-                  project.moderator_message.body)))
+              ((!$tag.approvedStatuses.includes(project.status) &&
+                project.status !== 'processing') ||
+                (project.moderator_message &&
+                  (project.moderator_message.message ||
+                    project.moderator_message.body)))
           "
           class="universal-card"
         >
-          <h3 class="card-header">Moderation status</h3>
+          <h3 class="card-header">
+            Moderation status
+          </h3>
           <div class="current-status">
             Project status:
             <Badge :type="project.status" />
@@ -308,9 +315,11 @@
               from the moderators!
             </p>
             <div v-if="project.moderator_message">
-              <hr class="card-divider" />
+              <hr class="card-divider">
               <div v-if="project.moderator_message.body">
-                <h3 class="card-header">Message from the moderators:</h3>
+                <h3 class="card-header">
+                  Message from the moderators:
+                </h3>
                 <p
                   v-if="project.moderator_message.message"
                   class="mod-message__title"
@@ -324,7 +333,9 @@
                 />
               </div>
               <div v-else>
-                <h3 class="card-header">Message from the moderators:</h3>
+                <h3 class="card-header">
+                  Message from the moderators:
+                </h3>
                 <p>{{ project.moderator_message.message }}</p>
               </div>
             </div>
@@ -333,7 +344,7 @@
             <button
               v-if="
                 !$tag.approvedStatuses.includes(project.status) &&
-                project.status !== 'processing'
+                  project.status !== 'processing'
               "
               class="iconified-button brand-button"
               @click="submitForReview"
@@ -362,7 +373,7 @@
               <li
                 v-if="
                   project.client_side === 'unknown' ||
-                  project.server_side === 'unknown'
+                    project.server_side === 'unknown'
                 "
               >
                 Your project must have the supported environments selected.
@@ -373,7 +384,7 @@
         <div
           v-if="
             $auth.user &&
-            ($auth.user.role === 'admin' || $auth.user.role === 'moderator')
+              ($auth.user.role === 'admin' || $auth.user.role === 'moderator')
           "
           class="universal-card moderation-card"
         >
@@ -382,7 +393,7 @@
             <button
               v-if="
                 !$tag.approvedStatuses.includes(project.status) ||
-                project.status === 'processing'
+                  project.status === 'processing'
               "
               class="iconified-button brand-button"
               @click="
@@ -399,7 +410,7 @@
             <button
               v-if="
                 $tag.approvedStatuses.includes(project.status) ||
-                project.status === 'processing'
+                  project.status === 'processing'
               "
               class="iconified-button danger-button"
               @click="openModerationModal('withheld')"
@@ -410,7 +421,7 @@
             <button
               v-if="
                 $tag.approvedStatuses.includes(project.status) ||
-                project.status === 'processing'
+                  project.status === 'processing'
               "
               class="iconified-button danger-button"
               @click="openModerationModal('rejected')"
@@ -433,13 +444,15 @@
         <template
           v-if="
             project.issues_url ||
-            project.source_url ||
-            project.wiki_url ||
-            project.discord_url ||
-            project.donation_urls.length > 0
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url ||
+              project.donation_urls.length > 0
           "
         >
-          <h3 class="card-header">External resources</h3>
+          <h3 class="card-header">
+            External resources
+          </h3>
           <div class="links">
             <a
               v-if="project.issues_url"
@@ -517,11 +530,13 @@
               <span v-else>Donate</span>
             </a>
           </div>
-          <hr class="card-divider" />
+          <hr class="card-divider">
         </template>
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
-            <h3 class="card-header">Featured versions</h3>
+            <h3 class="card-header">
+              Featured versions
+            </h3>
             <nuxt-link
               v-if="project.versions.length > 0 || currentMember"
               :to="`/${project.project_type}/${
@@ -589,9 +604,11 @@
               />
             </div>
           </div>
-          <hr class="card-divider" />
+          <hr class="card-divider">
         </template>
-        <h3 class="card-header">Project members</h3>
+        <h3 class="card-header">
+          Project members
+        </h3>
         <div
           v-for="member in members"
           :key="member.user.id"
@@ -609,14 +626,20 @@
             <nuxt-link :to="'/user/' + member.user.username" class="name">
               <p>{{ member.name }}</p>
             </nuxt-link>
-            <p class="role">{{ member.role }}</p>
+            <p class="role">
+              {{ member.role }}
+            </p>
           </div>
         </div>
-        <hr class="card-divider" />
-        <h3 class="card-header">Technical information</h3>
+        <hr class="card-divider">
+        <h3 class="card-header">
+          Technical information
+        </h3>
         <div class="infos">
           <div class="info">
-            <div class="key">License</div>
+            <div class="key">
+              License
+            </div>
             <div class="value lowercase">
               <a
                 v-if="project.license.url"
@@ -628,7 +651,7 @@
               <a
                 v-else-if="
                   project.license.id === 'LicenseRef-All-Rights-Reserved' ||
-                  !project.license.id.includes('LicenseRef')
+                    !project.license.id.includes('LicenseRef')
                 "
                 class="text-link"
                 @click="getLicenseData()"
@@ -641,13 +664,15 @@
           <div
             v-if="
               project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
+                project.project_type !== 'plugin' &&
+                project.project_type !== 'shader' &&
+                project.project_type !== 'datapack'
             "
             class="info"
           >
-            <div class="key">Client side</div>
+            <div class="key">
+              Client side
+            </div>
             <div class="value">
               {{ project.client_side }}
             </div>
@@ -655,19 +680,23 @@
           <div
             v-if="
               project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
+                project.project_type !== 'plugin' &&
+                project.project_type !== 'shader' &&
+                project.project_type !== 'datapack'
             "
             class="info"
           >
-            <div class="key">Server side</div>
+            <div class="key">
+              Server side
+            </div>
             <div class="value">
               {{ project.server_side }}
             </div>
           </div>
           <div class="info">
-            <div class="key">Project ID</div>
+            <div class="key">
+              Project ID
+            </div>
             <div class="value lowercase">
               <CopyCode :text="project.id" />
             </div>
@@ -692,7 +721,9 @@
         >
           {{ project.title }} is not viewable in search because it has been
           found to be in violation of one of
-          <nuxt-link to="/legal/rules">Modrinth's content rules</nuxt-link>.
+          <nuxt-link to="/legal/rules">
+            Modrinth's content rules
+          </nuxt-link>.
           Modrinth makes no guarantees as to whether {{ project.title }} is safe
           for use in a multiplayer context.
         </div>
@@ -714,29 +745,25 @@
           <a
             href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
             :target="$external()"
-            >our documentation</a
-          >
+          >our documentation</a>
           which provides instructions on using
           <a
             href="https://atlauncher.com/about"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            ATLauncher</a
-          >,
+            ATLauncher</a>,
           <a
             href="https://multimc.org/"
             :target="$external()"
             rel="noopener noreferrer nofollow"
-            >MultiMC</a
-          >, and
+          >MultiMC</a>, and
           <a
             href="https://prismlauncher.org"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            Prism Launcher</a
-          >.
+            Prism Launcher</a>.
         </div>
         <Advertisement
           v-if="$tag.approvedStatuses.includes(project.status)"
@@ -785,13 +812,13 @@
           </div>
         </div>
         <NuxtPage
-          :project.sync="project"
-          :versions.sync="versions"
-          :featured-versions.sync="featuredVersions"
-          :members.sync="members"
+          v-model:project="project"
+          v-model:versions="versions"
+          v-model:featured-versions="featuredVersions"
+          v-model:members="members"
+          v-model:all-members="allMembers"
+          v-model:dependencies="dependencies"
           :current-member="currentMember"
-          :all-members.sync="allMembers"
-          :dependencies.sync="dependencies"
         />
       </section>
     </div>
@@ -889,7 +916,7 @@ export default defineNuxtComponent({
     LinksIcon,
     LicenseIcon,
   },
-  async asyncData() {
+  async asyncData () {
     const data = useNuxtApp()
     const route = useRoute()
 
@@ -897,7 +924,7 @@ export default defineNuxtComponent({
       if (
         !route.params.id ||
         !(
-          data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
+          data.$tag.projectTypes.find(x => x.id === route.params.type) ||
           route.params.type === 'project'
         )
       ) {
@@ -910,6 +937,7 @@ export default defineNuxtComponent({
         return {}
       }
 
+      // eslint-disable-next-line prefer-const
       let [project, members, dependencies, versions, featuredVersions] = (
         await Promise.all([
           useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
@@ -947,20 +975,20 @@ export default defineNuxtComponent({
       project.project_type = route.params.overrideProjectType
         ? route.params.overrideProjectType
         : data.$getProjectTypeForUrl(
-            project.project_type,
-            Object.keys(projectLoaders)
-          )
+          project.project_type,
+          Object.keys(projectLoaders)
+        )
 
       if (
         project.project_type !== route.params.type ||
         route.params.id !== project.slug
       ) {
-        let route = route.fullPath.split('/')
-        route.splice(0, 3)
-        route = route.filter((x) => x)
+        let path = route.fullPath.split('/')
+        path.splice(0, 3)
+        path = route.filter(x => x)
 
         await navigateTo(`/${project.project_type}/${project.slug}${
-          route.length > 0 ? `/${route.join('/')}` : ''
+          path.length > 0 ? `/${path.join('/')}` : ''
         }`, { redirectCode: 301 })
       }
 
@@ -970,7 +998,7 @@ export default defineNuxtComponent({
       })
 
       let currentMember = data.$auth.user
-        ? members.find((x) => x.user.id === data.$auth.user.id)
+        ? members.find(x => x.user.id === data.$auth.user.id)
         : null
 
       if (
@@ -1011,7 +1039,7 @@ export default defineNuxtComponent({
       featuredVersions.sort((a, b) => {
         const aLatest = a.game_versions[a.game_versions.length - 1]
         const bLatest = b.game_versions[b.game_versions.length - 1]
-        const gameVersions = data.$tag.gameVersions.map((e) => e.version)
+        const gameVersions = data.$tag.gameVersions.map(e => e.version)
         return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
       })
 
@@ -1024,7 +1052,7 @@ export default defineNuxtComponent({
         project: ref(project),
         versions: shallowReactive(versions),
         featuredVersions: shallowReactive(featuredVersions),
-        members: ref(members.filter((x) => x.accepted)),
+        members: ref(members.filter(x => x.accepted)),
         allMembers: ref(members),
         currentMember: ref(currentMember),
         dependencies: ref(dependencies),
@@ -1038,7 +1066,7 @@ export default defineNuxtComponent({
       })
     }
   },
-  data() {
+  data () {
     return {
       showKnownErrors: false,
       licenseText: '',
@@ -1047,16 +1075,16 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    authUrl() {
-      return ``
+    authUrl () {
+      return ''
     },
-    projectTypeDisplay() {
+    projectTypeDisplay () {
       return this.$getProjectTypeForDisplay(
         this.project.project_type,
         this.loaders
       )
     },
-    licenseIdDisplay() {
+    licenseIdDisplay () {
       const id = this.project.license.id
 
       if (id === 'LicenseRef-All-Rights-Reserved') {
@@ -1067,12 +1095,12 @@ export default defineNuxtComponent({
         return id
       }
     },
-    featuredGalleryImage() {
-      return this.project.gallery.find((img) => img.featured)
+    featuredGalleryImage () {
+      return this.project.gallery.find(img => img.featured)
     },
   },
   methods: {
-    async resetProject() {
+    async resetProject () {
       const project = (
         await this.$axios.get(
           `project/${this.project.id}`,
@@ -1099,7 +1127,7 @@ export default defineNuxtComponent({
 
       this.project = project
     },
-    async clearMessage() {
+    async clearMessage () {
       this.$nuxt.$loading.start()
 
       try {
@@ -1124,7 +1152,7 @@ export default defineNuxtComponent({
 
       this.$nuxt.$loading.finish()
     },
-    async submitForReview() {
+    async submitForReview () {
       if (
         this.project.body === '' ||
         this.project.body.startsWith('# Placeholder description') ||
@@ -1137,10 +1165,10 @@ export default defineNuxtComponent({
         await this.setProcessing()
       }
     },
-    toggleChecklistCollapse() {
+    toggleChecklistCollapse () {
       this.collapsedChecklist = !this.collapsedChecklist
     },
-    async setProcessing() {
+    async setProcessing () {
       this.$nuxt.$loading.start()
 
       try {
@@ -1164,19 +1192,19 @@ export default defineNuxtComponent({
 
       this.$nuxt.$loading.finish()
     },
-    async getLicenseData() {
+    async getLicenseData () {
       try {
-        const text = await this.$axios.get(
+        const text = await useBaseFetch(
           `tag/license/${this.project.license.id}`
         )
-        this.licenseText = text.data.body
+        this.licenseText = text.body
       } catch {
         this.licenseText = 'License text could not be retrieved.'
       }
 
       this.$refs.modal_license.show()
     },
-    async patchProject(data, quiet = false) {
+    async patchProject (data, quiet = false) {
       let result = false
       this.$nuxt.$loading.start()
 
@@ -1233,7 +1261,7 @@ export default defineNuxtComponent({
 
       return result
     },
-    async patchIcon(icon) {
+    async patchIcon (icon) {
       let result = false
       this.$nuxt.$loading.start()
 
@@ -1267,14 +1295,14 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.finish()
       return result
     },
-    async updateIcon() {
-      const response = await this.$axios.get(
+    async updateIcon () {
+      const response = await useBaseFetch(
         `project/${this.project.id}`,
         this.$defaultHeaders()
       )
-      this.project.icon_url = response.data.icon_url
+      this.project.icon_url = response.icon_url
     },
-    openModerationModal(status) {
+    openModerationModal (status) {
       this.moderationStatus = status
 
       this.$refs.modal_moderation.show()

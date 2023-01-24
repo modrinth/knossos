@@ -2,7 +2,7 @@
   <div>
     <Head>
       <Title>
-        {{project.title}} - Gallery
+        {{ project.title }} - Gallery
       </Title>
       <Meta name="og:title" :content="`${project.title} - Gallery`" />
       <Meta name="description" :content="metaDescription" />
@@ -41,11 +41,11 @@
               previewImage
                 ? previewImage
                 : project.gallery[editIndex] && project.gallery[editIndex].url
-                ? project.gallery[editIndex].url
-                : 'https://cdn.modrinth.com/placeholder-banner.svg'
+                  ? project.gallery[editIndex].url
+                  : 'https://cdn.modrinth.com/placeholder-banner.svg'
             "
             alt="gallery-preview"
-          />
+          >
         </div>
         <label for="gallery-image-title">
           <span class="label__title">Title</span>
@@ -56,7 +56,7 @@
           type="text"
           maxlength="64"
           placeholder="Enter title..."
-        />
+        >
         <label for="gallery-image-desc">
           <span class="label__title">Description</span>
         </label>
@@ -76,7 +76,7 @@
           v-model="editOrder"
           type="number"
           placeholder="Enter order index..."
-        />
+        >
         <label for="gallery-image-featured">
           <span class="label__title">Featured</span>
           <span class="label__description">
@@ -160,7 +160,7 @@
               : 'gallery-image'
           "
           @click.stop=""
-        />
+        >
 
         <div class="floating" @click.stop="">
           <div class="text">
@@ -242,12 +242,16 @@
                 : 'https://cdn.modrinth.com/placeholder-banner.svg'
             "
             :alt="item.title ? item.title : 'gallery-image'"
-          />
+          >
         </a>
         <div class="gallery-body">
           <div class="gallery-info">
-            <h2 v-if="item.title">{{ item.title }}</h2>
-            <p v-if="item.description">{{ item.description }}</p>
+            <h2 v-if="item.title">
+              {{ item.title }}
+            </h2>
+            <p v-if="item.description">
+              {{ item.description }}
+            </p>
           </div>
         </div>
         <div class="gallery-bottom">
@@ -342,18 +346,18 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default() {
+      default () {
         return null
       },
     },
   },
-  data() {
+  data () {
     return {
       expandedGalleryItem: null,
       expandedGalleryIndex: 0,
@@ -374,11 +378,11 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    acceptFileTypes() {
+    acceptFileTypes () {
       return 'image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp'
     },
   },
-  mounted() {
+  mounted () {
     this._keyListener = function (e) {
       if (this.expandedGalleryItem) {
         e.preventDefault()
@@ -395,26 +399,26 @@ export default defineNuxtComponent({
     document.addEventListener('keydown', this._keyListener.bind(this))
   },
   methods: {
-    nextImage() {
+    nextImage () {
       this.expandedGalleryIndex++
       if (this.expandedGalleryIndex >= this.project.gallery.length) {
         this.expandedGalleryIndex = 0
       }
       this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
-    previousImage() {
+    previousImage () {
       this.expandedGalleryIndex--
       if (this.expandedGalleryIndex < 0) {
         this.expandedGalleryIndex = this.project.gallery.length - 1
       }
       this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
-    expandImage(item, index) {
+    expandImage (item, index) {
       this.expandedGalleryItem = item
       this.expandedGalleryIndex = index
       this.zoomedIn = false
     },
-    resetEdit() {
+    resetEdit () {
       this.editIndex = -1
       this.editTitle = ''
       this.editDescription = ''
@@ -423,14 +427,14 @@ export default defineNuxtComponent({
       this.editFile = null
       this.previewImage = null
     },
-    handleFiles(files) {
+    handleFiles (files) {
       this.resetEdit()
       this.editFile = files[0]
 
       this.showPreviewImage()
       this.$refs.modal_edit_item.show()
     },
-    showPreviewImage() {
+    showPreviewImage () {
       const reader = new FileReader()
       if (this.editFile instanceof Blob) {
         reader.readAsDataURL(this.editFile)
@@ -439,7 +443,7 @@ export default defineNuxtComponent({
         }
       }
     },
-    async createGalleryItem() {
+    async createGalleryItem () {
       this.shouldPreventActions = true
       this.$nuxt.$loading.start()
 
@@ -452,11 +456,9 @@ export default defineNuxtComponent({
             : null
         }&featured=${this.editFeatured}`
 
-        if (this.editTitle)
-          url += `&title=${encodeURIComponent(this.editTitle)}`
-        if (this.editDescription)
-          url += `&description=${encodeURIComponent(this.editDescription)}`
-        if (this.editOrder) url += `&ordering=${this.editOrder}`
+        if (this.editTitle) { url += `&title=${encodeURIComponent(this.editTitle)}` }
+        if (this.editDescription) { url += `&description=${encodeURIComponent(this.editDescription)}` }
+        if (this.editOrder) { url += `&ordering=${this.editOrder}` }
 
         await this.$axios.post(url, this.editFile, this.$defaultHeaders())
         await this.updateProject()
@@ -474,7 +476,7 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.finish()
       this.shouldPreventActions = false
     },
-    async editGalleryItem() {
+    async editGalleryItem () {
       this.shouldPreventActions = true
       this.$nuxt.$loading.start()
 
@@ -483,11 +485,9 @@ export default defineNuxtComponent({
           this.project.gallery[this.editIndex].url
         )}&featured=${this.editFeatured}`
 
-        if (this.editTitle)
-          url += `&title=${encodeURIComponent(this.editTitle)}`
-        if (this.editDescription)
-          url += `&description=${encodeURIComponent(this.editDescription)}`
-        if (this.editOrder) url += `&ordering=${this.editOrder}`
+        if (this.editTitle) { url += `&title=${encodeURIComponent(this.editTitle)}` }
+        if (this.editDescription) { url += `&description=${encodeURIComponent(this.editDescription)}` }
+        if (this.editOrder) { url += `&ordering=${this.editOrder}` }
 
         await this.$axios.patch(url, {}, this.$defaultHeaders())
 
@@ -505,7 +505,7 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.finish()
       this.shouldPreventActions = false
     },
-    async deleteGalleryImage() {
+    async deleteGalleryImage () {
       this.$nuxt.$loading.start()
 
       try {
@@ -528,7 +528,7 @@ export default defineNuxtComponent({
 
       this.$nuxt.$loading.finish()
     },
-    async updateProject() {
+    async updateProject () {
       await this.$parent.resetProject()
       this.resetEdit()
     },

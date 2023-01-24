@@ -2,23 +2,23 @@
   <div class="content">
     <Head>
       <Title>
-        {{project.title}} - Changelog
+        {{ project.title }} - Changelog
       </Title>
       <Meta name="og:title" :content="`${project.title} - Changelog`" />
       <Meta name="description" :content="metaDescription" />
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Changelog`" />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
-<!--    <VersionFilterControl-->
-<!--      class="card"-->
-<!--      :versions="versions"-->
-<!--      @updateVersions="updateVersions"-->
-<!--    />-->
-    <div class="card" v-html="versionHtml"></div>
+    <!--    <VersionFilterControl-->
+    <!--      class="card"-->
+    <!--      :versions="versions"-->
+    <!--      @updateVersions="updateVersions"-->
+    <!--    />-->
+    <div class="card" v-html="versionHtml" />
   </div>
 </template>
 <script>
-import DownloadIcon from '~/assets/images/utils/download.svg'
+// import DownloadIcon from '~/assets/images/utils/download.svg'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default defineNuxtComponent({
@@ -28,44 +28,44 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
     versions: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
     members: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
   },
-  data() {
+  data () {
     return {
       filteredVersions: this.versions,
       metaDescription: `View the changelog of ${this.project.title}'s ${this.versions.length} versions.`
     }
   },
   methods: {
-    updateVersions(updatedVersions) {
+    updateVersions (updatedVersions) {
       this.filteredVersions = updatedVersions
     },
   },
   computed: {
-    versionHtml() {
+    versionHtml () {
       let string = ''
 
       for (const version of this.filteredVersions) {
-        let teamMember = this.members.find((x) => x.user.id === version.author_id)
-        //todo: add back download icon and nuxt link.. somehow and highlighting
+        const teamMember = this.members.find(x => x.user.id === version.author_id)
+        // todo: add back download icon and nuxt link.. somehow and highlighting
         string += `
 <div class="changelog-item">
-  <div class="changelog-bar ${version.version_type} ${ version.duplicate ? 'duplicate' : ''}"></div>
+  <div class="changelog-bar ${version.version_type} ${version.duplicate ? 'duplicate' : ''}"></div>
     <div class="version-wrapper">
       <div class="version-header">
         <div class="version-header-text">
@@ -74,7 +74,8 @@ export default defineNuxtComponent({
               ${version.name}
             </a>
           </h2>
-          ${teamMember ? `<span>
+          ${teamMember
+? `<span>
             by
             <a
               class="text-link"
@@ -82,7 +83,8 @@ export default defineNuxtComponent({
             >
               ${teamMember.user.username}
             </a>
-          </span>` : ''}
+          </span>`
+: ''}
           <span>
             on
             ${this.$dayjs(version.date_published).format('MMM D, YYYY')}
@@ -96,11 +98,13 @@ export default defineNuxtComponent({
           Download
         </a>
       </div>
-      ${version.changelog && !version.duplicate ? `<div
+      ${version.changelog && !version.duplicate
+? `<div
         class="markdown-body"
       >
         ${this.$xss(this.$md(version.changelog))}
-      </div>` : ''}
+      </div>`
+: ''}
   </div>
 </div>
         `

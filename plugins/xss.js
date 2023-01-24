@@ -52,7 +52,7 @@ const configuredXss = new xss.FilterXSS(options)
 export default defineNuxtPlugin(() => {
   return {
     provide: {
-      xss: (string) => configuredXss.process(string),
+      xss: string => configuredXss.process(string),
     },
   }
 })

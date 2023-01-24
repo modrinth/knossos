@@ -1,12 +1,8 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  let tagStore = nuxtApp.$tag
-  let cosmeticsStore = nuxtApp.$cosmetics
+  const tagStore = nuxtApp.$tag
+  const cosmeticsStore = nuxtApp.$cosmetics
+  const authStore = nuxtApp.$auth
 
-  let authStore = {}
-  let userStore = {}
-
-  nuxtApp.provide('user', userStore)
-  nuxtApp.provide('auth', authStore)
   nuxtApp.provide('defaultHeaders', () => {
     const obj = { headers: {} }
 
@@ -23,7 +19,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide('formatNumber', formatNumber)
   nuxtApp.provide('capitalizeString', capitalizeString)
   nuxtApp.provide('formatMoney', formatMoney)
-  nuxtApp.provide('formatVersion', (versionsArray) =>
+  nuxtApp.provide('formatVersion', versionsArray =>
     formatVersions(versionsArray, tagStore)
   )
   nuxtApp.provide('orElse', (first, otherwise) => first ?? otherwise)
@@ -143,7 +139,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   })
   nuxtApp.provide('sortedCategories', sortedCategories)
   nuxtApp.provide('findPrimary', (project, version) => {
-    let file = version.files.find((x) => x.primary)
+    let file = version.files.find(x => x.primary)
 
     if (!file) {
       file = version.files[0]
@@ -185,7 +181,7 @@ export const formatMoney = (number) => {
 }
 
 export const formatBytes = (bytes, decimals = 2) => {
-  if (bytes === 0) return '0 Bytes'
+  if (bytes === 0) { return '0 Bytes' }
 
   const k = 1024
   const dm = decimals < 0 ? 0 : decimals
@@ -269,15 +265,15 @@ export const formatProjectStatus = (name) => {
 
 export const formatVersions = (versionArray, tag) => {
   const allVersions = tag.gameVersions.slice().reverse()
-  const allReleases = allVersions.filter((x) => x.version_type === 'release')
+  const allReleases = allVersions.filter(x => x.version_type === 'release')
 
   const intervals = []
   let currentInterval = 0
 
   for (let i = 0; i < versionArray.length; i++) {
-    const index = allVersions.findIndex((x) => x.version === versionArray[i])
+    const index = allVersions.findIndex(x => x.version === versionArray[i])
     const releaseIndex = allReleases.findIndex(
-      (x) => x.version === versionArray[i]
+      x => x.version === versionArray[i]
     )
 
     if (i === 0) {
@@ -317,7 +313,7 @@ export const formatVersions = (versionArray, tag) => {
               allVersions[j].version,
               j,
               allReleases.findIndex(
-                (x) => x.version === allVersions[j].version
+                x => x.version === allVersions[j].version
               ),
             ],
           ])

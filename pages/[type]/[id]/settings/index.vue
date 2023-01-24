@@ -60,13 +60,15 @@
         maxlength="2048"
         type="text"
         :disabled="!hasPermission"
-      />
+      >
 
       <label for="project-slug">
         <span class="label__title">URL</span>
       </label>
       <div class="text-input-wrapper">
-        <div class="text-input-wrapper__before">https://modrinth.com/mod/</div>
+        <div class="text-input-wrapper__before">
+          https://modrinth.com/mod/
+        </div>
         <input
           id="project-slug"
           v-model="slug"
@@ -74,7 +76,7 @@
           maxlength="64"
           autocomplete="off"
           :disabled="!hasPermission"
-        />
+        >
       </div>
 
       <label for="project-summary">
@@ -86,14 +88,14 @@
           v-model="summary"
           maxlength="256"
           :disabled="!hasPermission"
-        ></textarea>
+        />
       </div>
       <template
         v-if="
           project.project_type !== 'resourcepack' &&
-          project.project_type !== 'plugin' &&
-          project.project_type !== 'shader' &&
-          project.project_type !== 'datapack'
+            project.project_type !== 'plugin' &&
+            project.project_type !== 'shader' &&
+            project.project_type !== 'datapack'
         "
       >
         <div class="adjacent-input">
@@ -229,19 +231,19 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default() {
+      default () {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default() {
+      default () {
         return () => {
           this.$notify({
             group: 'main',
@@ -254,7 +256,7 @@ export default defineNuxtComponent({
     },
     patchIcon: {
       type: Function,
-      default() {
+      default () {
         return () => {
           this.$notify({
             group: 'main',
@@ -267,7 +269,7 @@ export default defineNuxtComponent({
     },
     updateIcon: {
       type: Function,
-      default() {
+      default () {
         return () => {
           this.$notify({
             group: 'main',
@@ -279,7 +281,7 @@ export default defineNuxtComponent({
       },
     },
   },
-  data() {
+  data () {
     return {
       name: this.project.title,
       slug: this.project.slug,
@@ -295,20 +297,20 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    hasPermission() {
+    hasPermission () {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
-    hasDeletePermission() {
+    hasDeletePermission () {
       const DELETE_PROJECT = 1 << 7
       return (
         (this.currentMember.permissions & DELETE_PROJECT) === DELETE_PROJECT
       )
     },
-    sideTypes() {
+    sideTypes () {
       return ['required', 'optional', 'unsupported']
     },
-    patchData() {
+    patchData () {
       const data = {}
 
       if (this.name !== this.project.title) {
@@ -336,14 +338,14 @@ export default defineNuxtComponent({
 
       return data
     },
-    hasChanges() {
+    hasChanges () {
       return (
         Object.keys(this.patchData).length > 0 || this.deletedIcon || this.icon
       )
     },
   },
   methods: {
-    async saveChanges() {
+    async saveChanges () {
       if (this.hasChanges) {
         await this.patchProject(this.patchData)
       }
@@ -356,7 +358,7 @@ export default defineNuxtComponent({
         this.icon = null
       }
     },
-    showPreviewImage(files) {
+    showPreviewImage (files) {
       const reader = new FileReader()
       this.icon = files[0]
       this.deletedIcon = false
@@ -365,13 +367,13 @@ export default defineNuxtComponent({
         this.previewImage = event.target.result
       }
     },
-    async deleteProject() {
+    async deleteProject () {
       await this.$axios.delete(
         `project/${this.project.id}`,
         this.$defaultHeaders()
       )
-      await this.$user.fetchProjects(this.$auth)
-      await this.$router.push(`/dashboard/projects`)
+      await initUserProjects()
+      await this.$router.push('/dashboard/projects')
       this.$notify({
         group: 'main',
         title: 'Project deleted',
@@ -379,12 +381,12 @@ export default defineNuxtComponent({
         type: 'success',
       })
     },
-    markIconForDeletion() {
+    markIconForDeletion () {
       this.deletedIcon = true
       this.icon = null
       this.previewImage = null
     },
-    async deleteIcon() {
+    async deleteIcon () {
       await this.$axios.delete(
         `project/${this.project.id}/icon`,
         this.$defaultHeaders()

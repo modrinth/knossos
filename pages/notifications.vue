@@ -4,14 +4,13 @@
       <aside class="universal-card">
         <h1>Notifications</h1>
         <NavStack>
-          <NavStackItem link="" label="All"> </NavStackItem>
+          <NavStackItem link="" label="All" />
           <NavStackItem
             v-for="type in notificationTypes"
             :key="type"
             :link="'?type=' + type"
             :label="NOTIFICATION_TYPES[type]"
-          >
-          </NavStackItem>
+          />
           <h3>Manage</h3>
           <NavStackItem
             link="/settings/follows"
@@ -52,8 +51,7 @@
                 class="date"
               >
                 <CalendarIcon />
-                Received {{ $dayjs(notification.created).fromNow() }}</span
-              >
+                Received {{ $dayjs(notification.created).fromNow() }}</span>
             </div>
           </div>
           <div class="input-group">
@@ -80,8 +78,8 @@
           </div>
         </div>
         <div v-if="$user.notifications.length === 0" class="error">
-          <UpToDate class="icon"></UpToDate>
-          <br />
+          <UpToDate class="icon" />
+          <br>
           <span class="text">You are up-to-date!</span>
         </div>
       </div>
@@ -106,18 +104,18 @@ export default defineNuxtComponent({
     CalendarIcon,
     UpToDate,
   },
-  async fetch() {
-    await this.$user.fetchNotifications(this.$auth)
+  async asyncData () {
+    await initUserNotifs()
   },
   head: {
     title: 'Notifications - Modrinth',
   },
   computed: {
-    notificationTypes() {
+    notificationTypes () {
       const obj = {}
 
       for (const notification of this.$user.notifications.filter(
-        (it) => it.type !== null
+        it => it.type !== null
       )) {
         obj[notification.type] = true
       }
@@ -125,7 +123,7 @@ export default defineNuxtComponent({
       return Object.keys(obj)
     },
   },
-  created() {
+  created () {
     this.NOTIFICATION_TYPES = {
       team_invite: 'Team invites',
       project_update: 'Project updates',
@@ -133,16 +131,16 @@ export default defineNuxtComponent({
     }
   },
   methods: {
-    async clearNotifications() {
+    async clearNotifications () {
       try {
-        const ids = this.$user.notifications.map((x) => x.id)
+        const ids = this.$user.notifications.map(x => x.id)
 
         await this.$axios.delete(
           `notifications?ids=${JSON.stringify(ids)}`,
           this.$defaultHeaders()
         )
 
-        ids.forEach((x) => this.$user.deleteNotification(x))
+        ids.forEach(x => this.$user.deleteNotification(x))
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -152,7 +150,7 @@ export default defineNuxtComponent({
         })
       }
     },
-    async performAction(notification, _notificationIndex, actionIndex) {
+    async performAction (notification, _notificationIndex, actionIndex) {
       this.$nuxt.$loading.start()
       try {
         await this.$axios.delete(
@@ -196,7 +194,7 @@ export default defineNuxtComponent({
       align-items: baseline;
       margin-block-start: 0;
 
-      h3 ::v-deep {
+      :deep(h3) {
         margin: 0;
         p {
           margin: 0;

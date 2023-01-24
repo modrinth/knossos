@@ -45,8 +45,7 @@
       Information we hold about you and if you want it to be removed from our
       systems, please contact us by email at
       <a href="mailto:gdpr@modrinth.com" rel="noopener noreferrer nofollow">
-        gdpr@modrinth.com</a
-      >.
+        gdpr@modrinth.com</a>.
     </p>
 
     <p>
@@ -89,9 +88,7 @@
 
     <p>
       For more general information on cookies, please read
-      <a href="https://www.privacypolicies.com/etblog/cookies/"
-        >"What Are Cookies"</a
-      >.
+      <a href="https://www.privacypolicies.com/etblog/cookies/">"What Are Cookies"</a>.
     </p>
 
     <h2>Payouts Program</h2>
@@ -107,8 +104,8 @@
 
     <h2>Privacy Policies</h2>
 
-    <p
-      >You may consult this list to find the Privacy Policy for each of the
+    <p>
+      You may consult this list to find the Privacy Policy for each of the
       advertising partners of Modrinth.
     </p>
 
@@ -155,9 +152,7 @@
     <p>
       Modrinth makes use of external ads providers. These include EthicalAds.
       You can read EthicalAds's privacy policy here and the data they collect:
-      <a href="https://www.ethicalads.io/privacy-policy/"
-        >https://www.ethicalads.io/privacy-policy/</a
-      >
+      <a href="https://www.ethicalads.io/privacy-policy/">https://www.ethicalads.io/privacy-policy/</a>
     </p>
 
     <h2>Children's Information</h2>
@@ -219,7 +214,7 @@ export default defineNuxtComponent({
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/privacy`,
+        content: 'https://modrinth.com/legal/privacy',
       },
     ],
   },

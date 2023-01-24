@@ -16,7 +16,7 @@
         </button>
       </div>
       <div class="content">
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </div>
@@ -36,16 +36,16 @@ export default {
       default: null,
     },
   },
-  data() {
+  data () {
     return {
       shown: false,
     }
   },
   methods: {
-    show() {
+    show () {
       this.shown = true
     },
-    hide() {
+    hide () {
       this.shown = false
     },
   },

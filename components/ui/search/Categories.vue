@@ -15,7 +15,7 @@ export default {
   props: {
     categories: {
       type: Array,
-      default() {
+      default () {
         return []
       },
     },
@@ -25,11 +25,11 @@ export default {
     },
   },
   computed: {
-    categoriesFiltered() {
+    categoriesFiltered () {
       return this.$tag.categories
         .concat(this.$tag.loaders)
         .filter(
-          (x) =>
+          x =>
             this.categories.includes(x.name) &&
             (!x.project_type || x.project_type === this.type)
         )

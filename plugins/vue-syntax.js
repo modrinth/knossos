@@ -49,7 +49,7 @@ hljs.registerAliases(['html', 'htm', 'xhtml', 'mcui', 'fxml'], 'xml')
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('highlightjs', {
     deep: true,
-    bind(el, binding) {
+    bind (el, binding) {
       // on first bind, highlight all targets
       const targets = el.querySelectorAll('pre > code')
       targets.forEach((target) => {
@@ -61,7 +61,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         hljs.highlightBlock(target)
       })
     },
-    componentUpdated(el, binding) {
+    componentUpdated (el, binding) {
       // after an update, re-fill the content and then highlight
       const targets = el.querySelectorAll('pre > code')
       targets.forEach((target) => {

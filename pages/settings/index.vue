@@ -5,9 +5,7 @@
       <div class="adjacent-input">
         <label for="theme-selector">
           <span class="label__title">Color theme</span>
-          <span class="label__description"
-            >Change the global site color theme.</span
-          >
+          <span class="label__description">Change the global site color theme.</span>
         </label>
         <Multiselect
           id="theme-selector"
@@ -29,10 +27,8 @@
       <div class="adjacent-input small">
         <label for="search-layout-toggle">
           <span class="label__title">Search sidebar on the right</span>
-          <span class="label__description"
-            >Enabling this will put the search page's filters sidebar on the
-            right side.</span
-          >
+          <span class="label__description">Enabling this will put the search page's filters sidebar on the
+            right side.</span>
         </label>
         <input
           id="search-layout-toggle"
@@ -40,15 +36,13 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmeticSettings"
-        />
+        >
       </div>
       <div class="adjacent-input small">
         <label for="project-layout-toggle">
           <span class="label__title">Project sidebar on the right</span>
-          <span class="label__description"
-            >Enabling this will put the project pages' info sidebars on the
-            right side.</span
-          >
+          <span class="label__description">Enabling this will put the project pages' info sidebars on the
+            right side.</span>
         </label>
         <input
           id="project-layout-toggle"
@@ -56,7 +50,7 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmeticSettings"
-        />
+        >
       </div>
     </section>
     <section class="universal-card">
@@ -68,9 +62,7 @@
       >
         <label :for="projectType.id + '-search-display-mode'">
           <span class="label__title">{{ projectType.name }} display mode</span>
-          <span class="label__description"
-            >Change the display view for {{ projectType.display }}.</span
-          >
+          <span class="label__description">Change the display view for {{ projectType.display }}.</span>
         </label>
         <Multiselect
           :id="projectType + '-search-display-mode'"
@@ -90,10 +82,8 @@
       <div class="adjacent-input small">
         <label for="advanced-rendering">
           <span class="label__title">Advanced rendering</span>
-          <span class="label__description"
-            >Enables advanced rendering such as blur effects that may cause
-            performance issues without hardware-accelerated rendering.</span
-          >
+          <span class="label__description">Enables advanced rendering such as blur effects that may cause
+            performance issues without hardware-accelerated rendering.</span>
         </label>
         <input
           id="advanced-rendering"
@@ -101,14 +91,12 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmeticSettings"
-        />
+        >
       </div>
       <div class="adjacent-input small">
         <label for="modpacks-alpha-notice">
           <span class="label__title">Modpacks alpha notice</span>
-          <span class="label__description"
-            >Shows a banner stating that modpacks are in alpha.</span
-          >
+          <span class="label__description">Shows a banner stating that modpacks are in alpha.</span>
         </label>
         <input
           id="modpacks-alpha-notice"
@@ -116,7 +104,7 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmeticSettings"
-        />
+        >
       </div>
       <div class="adjacent-input small">
         <label for="external-links-new-tab">
@@ -134,7 +122,7 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmeticSettings"
-        />
+        >
       </div>
     </section>
   </div>
@@ -148,7 +136,7 @@ export default defineNuxtComponent({
     Multiselect,
   },
   auth: false,
-  data() {
+  data () {
     return {
       searchLayout: this.$cosmetics.searchLayout,
       projectLayout: this.$cosmetics.projectLayout,
@@ -162,7 +150,7 @@ export default defineNuxtComponent({
     title: 'Display settings - Modrinth',
   },
   computed: {
-    listTypes() {
+    listTypes () {
       const types = this.$tag.projectTypes.map((type) => {
         return {
           id: type.id,
@@ -182,7 +170,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    async saveCosmeticSettings() {
+    async saveCosmeticSettings () {
       await this.$cosmetics.save(
         this.projectLayout,
         this.searchLayout,
@@ -192,7 +180,7 @@ export default defineNuxtComponent({
         this.$cookies,
       )
     },
-    async setSearchDisplayMode(projectType, value) {
+    async setSearchDisplayMode (projectType, value) {
       await this.$cosmetics.saveSearchDisplayMode(
         projectType,
         value,
@@ -200,7 +188,7 @@ export default defineNuxtComponent({
       )
       this.searchDisplayMode = this.$cosmetics.searchDisplayMode
     },
-    changeTheme() {
+    changeTheme () {
       const shift = event.shiftKey
       switch (this.$colorMode.preference) {
         case 'dark':

@@ -103,7 +103,9 @@
 
     <p>
       Please read our
-      <nuxt-link to="/legal/privacy"> Privacy Policy</nuxt-link>.
+      <nuxt-link to="/legal/privacy">
+        Privacy Policy
+      </nuxt-link>.
     </p>
 
     <h2>9. Governing Law</h2>
@@ -141,7 +143,9 @@
 
     <p>
       All Content on Modrinth must obey the
-      <nuxt-link to="/legal/rules">Content Rules</nuxt-link>. Please be aware of
+      <nuxt-link to="/legal/rules">
+        Content Rules
+      </nuxt-link>. Please be aware of
       these Rules before uploading any Content to Modrinth.
     </p>
   </div>
@@ -172,7 +176,7 @@ export default defineNuxtComponent({
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/terms`,
+        content: 'https://modrinth.com/legal/terms',
       },
     ],
   },

@@ -53,7 +53,7 @@ export const inferVersionInfo = async function (
   project,
   gameVersions
 ) {
-  function versionType(number) {
+  function versionType (number) {
     if (number.includes('alpha')) {
       return 'alpha'
     } else if (
@@ -68,7 +68,7 @@ export const inferVersionInfo = async function (
   }
 
   // TODO: This func does not handle accurate semver parsing. We should eventually
-  function gameVersionRange(gameVersionString, gameVersions) {
+  function gameVersionRange (gameVersionString, gameVersions) {
     if (!gameVersionString) {
       return []
     }
@@ -100,47 +100,46 @@ export const inferVersionInfo = async function (
     }
 
     const simplified = gameVersions
-      .filter((it) => it.version_type === 'release')
-      .map((it) => it.version)
-    return simplified.filter((version) => version.startsWith(prefix))
+      .filter(it => it.version_type === 'release')
+      .map(it => it.version)
+    return simplified.filter(version => version.startsWith(prefix))
   }
 
   const inferFunctions = {
     // Forge 1.13+
     'META-INF/mods.toml': async (file, zip) => {
       // const metadata = TOML.parse(file)
-      //
-      // // TODO: Parse minecraft version ranges, handle if version is set to value from manifest
-      // if (metadata.mods && metadata.mods.length > 0) {
-      //   let versionNum = metadata.mods[0].version
-      //
-      //   // ${file.jarVersion} -> Implementation-Version from manifest
-      //   const manifestFile = zip.file('META-INF/MANIFEST.MF')
-      //   if (
-      //     // eslint-disable-next-line no-template-curly-in-string
-      //     metadata.mods[0].version.includes('${file.jarVersion}') &&
-      //     manifestFile !== null
-      //   ) {
-      //     const manifestText = await manifestFile.async('text')
-      //     const regex = /Implementation-Version: (.*)$/m
-      //     const match = manifestText.match(regex)
-      //     if (match) {
-      //       // eslint-disable-next-line no-template-curly-in-string
-      //       versionNum = versionNum.replace('${file.jarVersion}', match[1])
-      //     }
-      //   }
-      //
-      //   return {
-      //     name: `${project.title} ${versionNum}`,
-      //     version_number: versionNum,
-      //     version_type: versionType(versionNum),
-      //     loaders: ['forge'],
-      //   }
-      // } else {
-      //   return {}
-      // }
+      const metadata = { file }
 
-      return {}
+      // TODO: Parse minecraft version ranges, handle if version is set to value from manifest
+      if (metadata.mods && metadata.mods.length > 0) {
+        let versionNum = metadata.mods[0].version
+
+        // ${file.jarVersion} -> Implementation-Version from manifest
+        const manifestFile = zip.file('META-INF/MANIFEST.MF')
+        if (
+          // eslint-disable-next-line no-template-curly-in-string
+          metadata.mods[0].version.includes('${file.jarVersion}') &&
+          manifestFile !== null
+        ) {
+          const manifestText = await manifestFile.async('text')
+          const regex = /Implementation-Version: (.*)$/m
+          const match = manifestText.match(regex)
+          if (match) {
+            // eslint-disable-next-line no-template-curly-in-string
+            versionNum = versionNum.replace('${file.jarVersion}', match[1])
+          }
+        }
+
+        return {
+          name: `${project.title} ${versionNum}`,
+          version_number: versionNum,
+          version_type: versionType(versionNum),
+          loaders: ['forge'],
+        }
+      } else {
+        return {}
+      }
     },
     // Old Forge
     'mcmod.info': (file) => {
@@ -153,11 +152,11 @@ export const inferVersionInfo = async function (
         loaders: ['forge'],
         game_versions: gameVersions
           .filter(
-            (x) =>
+            x =>
               x.version.startsWith(metadata.mcversion) &&
               x.version_type === 'release'
           )
-          .map((x) => x.version),
+          .map(x => x.version),
       }
     },
     // Fabric
@@ -185,13 +184,13 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.quilt_loader.version),
         game_versions: metadata.quilt_loader.depends
           ? gameVersionRange(
-              metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
-                ? metadata.quilt_loader.depends.find(
-                    (x) => x.id === 'minecraft'
-                  ).versions
-                : [],
-              gameVersions
-            )
+            metadata.quilt_loader.depends.find(x => x.id === 'minecraft')
+              ? metadata.quilt_loader.depends.find(
+                x => x.id === 'minecraft'
+              ).versions
+              : [],
+            gameVersions
+          )
           : [],
       }
     },
@@ -207,11 +206,11 @@ export const inferVersionInfo = async function (
         loaders: [],
         game_versions: gameVersions
           .filter(
-            (x) =>
+            x =>
               x.version.startsWith(metadata['api-version']) &&
               x.version_type === 'release'
           )
-          .map((x) => x.version),
+          .map(x => x.version),
       }
     },
     // Bungeecord + Waterfall
@@ -230,9 +229,9 @@ export const inferVersionInfo = async function (
       const metadata = JSON.parse(file)
 
       const loaders = []
-      if ('forge' in metadata.dependencies) loaders.push('forge')
-      if ('fabric-loader' in metadata.dependencies) loaders.push('fabric')
-      if ('quilt-loader' in metadata.dependencies) loaders.push('quilt')
+      if ('forge' in metadata.dependencies) { loaders.push('forge') }
+      if ('fabric-loader' in metadata.dependencies) { loaders.push('fabric') }
+      if ('quilt-loader' in metadata.dependencies) { loaders.push('quilt') }
 
       return {
         name: `${project.title} ${metadata.versionId}`,
@@ -240,20 +239,20 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.versionId),
         loaders,
         game_versions: gameVersions
-          .filter((x) => x.version === metadata.dependencies.minecraft)
-          .map((x) => x.version),
+          .filter(x => x.version === metadata.dependencies.minecraft)
+          .map(x => x.version),
       }
     },
     // Resource Packs + Data Packs
     'pack.mcmeta': (file) => {
       const metadata = JSON.parse(file)
 
-      function getRange(versionA, versionB) {
+      function getRange (versionA, versionB) {
         const startingIndex = gameVersions.findIndex(
-          (x) => x.version === versionA
+          x => x.version === versionA
         )
         const endingIndex = gameVersions.findIndex(
-          (x) => x.version === versionB
+          x => x.version === versionB
         )
 
         const final = []
@@ -395,7 +394,7 @@ export const createDataPackVersion = async function (
     version: newVersionNumber,
     name: project.title,
     description: project.description,
-    authors: members.map((x) => x.name),
+    authors: members.map(x => x.name),
     contact: {
       homepage: `${process.env.domain}/${project.project_type}/${
         project.slug ?? project.id
@@ -443,11 +442,11 @@ export const createDataPackVersion = async function (
     },
   }
 
-  const cutoffIndex = allGameVersions.findIndex((x) => x.version === '1.18.2')
+  const cutoffIndex = allGameVersions.findIndex(x => x.version === '1.18.2')
 
   let maximumIndex = Number.MIN_VALUE
   for (const val of version.game_versions) {
-    const index = allGameVersions.findIndex((x) => x.version === val)
+    const index = allGameVersions.findIndex(x => x.version === val)
     if (index > maximumIndex) {
       maximumIndex = index
     }
@@ -472,7 +471,7 @@ export const createDataPackVersion = async function (
           ''
         )}/updates/${project.id}/forge_updates.json`,
         credits: 'Generated by Modrinth',
-        authors: members.map((x) => x.name).join(', '),
+        authors: members.map(x => x.name).join(', '),
         displayURL: `${process.env.domain}/${project.project_type}/${
           project.slug ?? project.id
         }`,
@@ -496,12 +495,9 @@ export const createDataPackVersion = async function (
   const primaryZipReader = new JSZip()
   await primaryZipReader.loadAsync(primaryFileData)
 
-  if (loaders.includes('fabric'))
-    primaryZipReader.file('fabric.mod.json', JSON.stringify(fabricModJson))
-  if (loaders.includes('quilt'))
-    primaryZipReader.file('quilt.mod.json', JSON.stringify(quiltModJson))
-  if (loaders.includes('forge'))
-    primaryZipReader.file('META-INF/mods.toml', TOML.stringify(forgeModsToml))
+  if (loaders.includes('fabric')) { primaryZipReader.file('fabric.mod.json', JSON.stringify(fabricModJson)) }
+  if (loaders.includes('quilt')) { primaryZipReader.file('quilt.mod.json', JSON.stringify(quiltModJson)) }
+  if (loaders.includes('forge')) { primaryZipReader.file('META-INF/mods.toml', TOML.stringify(forgeModsToml)) }
 
   if (!newForge && loaders.includes('forge')) {
     const classFile = new Uint8Array(
@@ -544,7 +540,7 @@ export const createDataPackVersion = async function (
   }
 
   const resourcePack = version.files.find(
-    (x) => x.file_type === 'required-resource-pack'
+    x => x.file_type === 'required-resource-pack'
   )
 
   const resourcePackData = resourcePack
@@ -575,4 +571,4 @@ export const createDataPackVersion = async function (
   })
 }
 
-export default defineNuxtPlugin((nuxtApp) => {})
+export default defineNuxtPlugin(() => {})

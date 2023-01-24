@@ -17,7 +17,9 @@
       <DropdownIcon v-else-if="collapsingToggleStyle" aria-hidden="true" />
     </button>
     <!-- aria-hidden is set so screenreaders only use the <button>'s aria-label -->
-    <p v-if="label" aria-hidden="true">{{ label }}</p>
+    <p v-if="label" aria-hidden="true">
+      {{ label }}
+    </p>
     <slot v-else />
   </div>
 </template>
@@ -27,7 +29,6 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 
 export default {
-  name: 'Checkbox',
   components: {
     CheckIcon,
     DropdownIcon,
@@ -55,8 +56,9 @@ export default {
       default: false,
     },
   },
+  emits: ['update:modelValue'],
   methods: {
-    toggle() {
+    toggle () {
       if (!this.disabled) {
         this.$emit('update:modelValue', !this.modelValue)
       }
