@@ -36,19 +36,26 @@
         <div v-for="(notification, index) in notificationsGrouped" :key="index">
           <ProjectUpdateNotification
             v-if="
-              notification.type === 'project_update' && notification.count > 1
+              notification.type === 'project_update' &&
+              notification.count >= COLLAPSE_TRESHHOLD
             "
             :project-title="notification.projectName"
             :versions="notification.data"
           />
           <CompactNotification
-            v-if="
-              notification.type === 'project_update' && notification.count == 1
+            v-else-if="
+              notification.type === 'project_update' &&
+              notification.count < COLLAPSE_TRESHHOLD
             "
+            v-for="data_element in notification.data"
+            :key="data_element.id"
             :notification="notification.data[0]"
           />
           <CompactNotification
-            v-if="notification.type === 'team_invite'"
+            v-else-if="
+              notification.type === 'team_invite' ||
+              notification.type == 'status_update'
+            "
             :notification="notification.data"
           />
         </div>
@@ -87,7 +94,7 @@ export default {
     return {
       selectedNotificationType: 'all',
       expandedNames: [],
-      NOTIFICATION_TYPES,
+      COLLAPSE_TRESHHOLD: 2,
     }
   },
   async fetch() {
@@ -111,7 +118,7 @@ export default {
         const a = groupedByTitle.get(notification.title) || []
         if (notification.type === 'project_update') {
           notification.version = notification.text.match(
-            /The project, .*, has released a new version: (.*)/m
+            /The project,? .*,? has released a new version: (.*)/m
           )[1]
         }
         a.push(notification)
@@ -141,6 +148,9 @@ export default {
               meta.data = notifications
               break
             case 'team_invite':
+              meta.data = notifications[0]
+              break
+            case 'status_update':
               meta.data = notifications[0]
               break
           }
