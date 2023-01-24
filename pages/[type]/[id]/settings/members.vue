@@ -259,7 +259,7 @@ import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
 import Avatar from '~/components/ui/Avatar'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Avatar,
     DropdownIcon,
@@ -436,7 +436,7 @@ export default {
       }))
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

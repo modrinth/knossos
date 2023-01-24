@@ -10,7 +10,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   auth: false,
 }
 </script>

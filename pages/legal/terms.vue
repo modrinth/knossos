@@ -148,7 +148,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   auth: false,
   head: {
     title: 'Terms - Modrinth',
@@ -176,7 +176,7 @@ export default {
       },
     ],
   },
-}
+})
 </script>
 
 <style lang="scss" scoped></style>

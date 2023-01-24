@@ -216,7 +216,7 @@ import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Avatar,
     ModalConfirm,
@@ -398,7 +398,7 @@ export default {
       })
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .summary-input {

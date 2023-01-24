@@ -6,14 +6,6 @@
   >
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
-        <section class="skip column" role="presentation">
-          <a href="#main">Skip to Main Content</a>
-          <a
-            v-show="!!registeredSkipLink"
-            :href="(registeredSkipLink || {}).id"
-            >{{ (registeredSkipLink || {}).text }}</a
-          >
-        </section>
         <section class="logo column" role="presentation">
           <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
             <BrandTextLogo aria-hidden="true" class="text-logo" />
@@ -449,7 +441,7 @@ import GitHubIcon from '~/assets/images/utils/github.svg'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
-export default {
+export default defineNuxtComponent({
   components: {
     Avatar,
     ModalCreation,
@@ -489,23 +481,24 @@ export default {
     ])
   },
   head() {
-    const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
-
-    return {
-      link: [
-        {
-          rel: 'canonical',
-          href: link,
-        },
-      ],
-      meta: [
-        {
-          hid: 'og:url',
-          name: 'og:url',
-          content: link,
-        },
-      ],
-    }
+    // const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
+    //
+    // return {
+    //   link: [
+    //     {
+    //       rel: 'canonical',
+    //       href: link,
+    //     },
+    //   ],
+    //   meta: [
+    //     {
+    //       hid: 'og:url',
+    //       name: 'og:url',
+    //       content: link,
+    //     },
+    //   ],
+    // }
+    return {}
   },
   computed: {
     authUrl() {
@@ -569,39 +562,14 @@ export default {
       }
     },
     changeTheme() {
-      console.log(this.$colorMode.preference)
       this.$colorMode.preference =
         this.$colorMode.value === 'dark' ? 'light' : 'dark'
     },
   },
-}
+})
 </script>
 
 <style lang="scss">
-.skip a {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.skip a:focus {
-  clip: auto;
-  height: auto;
-  overflow: auto;
-  position: absolute;
-  width: auto;
-  padding: 0.5rem 0.75rem;
-  background-color: var(--color-brand);
-  color: var(--color-brand-inverted);
-  border-radius: var(--size-rounded-max);
-  margin: 0 0.5rem 0 0;
-  box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
-  z-index: 1;
-}
-
 .layout {
   min-height: 100vh;
   background-color: var(--color-bg);

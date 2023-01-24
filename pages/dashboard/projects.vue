@@ -310,7 +310,6 @@ import Multiselect from 'vue-multiselect'
 import Badge from '~/components/ui/Badge.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import Modal from '~/components/ui/Modal.vue'
-// import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
@@ -323,7 +322,7 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Avatar,
     Badge,
@@ -336,7 +335,6 @@ export default {
     EditIcon,
     SaveIcon,
     Modal,
-    // ModalConfirm,
     ModalCreation,
     Multiselect,
     CopyCode,
@@ -385,7 +383,6 @@ export default {
     this.EDIT_MEMBER = 1 << 6
     this.DELETE_PROJECT = 1 << 7
   },
-  mounted() {},
   methods: {
     updateSort() {
       switch (this.sortBy) {
@@ -476,7 +473,7 @@ export default {
       }
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .grid-table {

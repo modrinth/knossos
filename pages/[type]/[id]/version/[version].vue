@@ -1,5 +1,12 @@
 <template>
   <div v-if="version" class="version-page">
+    <Head>
+      <Title>{{ metaTitle }}</Title>
+      <Meta name="og:title" :content="metaTitle" />
+      <Meta name="description" :content="metaDescription" />
+      <Meta name="apple-mobile-web-app-title" :content="metaDescription" />
+      <Meta name="og:description" :content="metaDescription" />
+    </Head>
     <ModalConfirm
       v-if="$auth.user && currentMember"
       ref="modal_confirm"
@@ -178,10 +185,10 @@
         </a>
         <nuxt-link
           :to="`${
-            $nuxt.context.from &&
-            ($nuxt.context.from.name === 'type-id-changelog' ||
-              $nuxt.context.from.name === 'type-id-versions')
-              ? $nuxt.context.from.fullPath
+            prevRoute &&
+            (prevRoute.name === 'type-id-changelog' ||
+             prevRoute.name === 'type-id-versions')
+              ? prevRoute.fullPath
               : `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/versions`
@@ -240,13 +247,13 @@
       <h3>Changelog</h3>
       <template v-if="isEditing">
         <span
-          >This editor supports
+        >This editor supports
           <a
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer nofollow"
-            >Markdown</a
+          >Markdown</a
           >. HTML can also be used inside your changelog, not including styles,
           scripts, and iframes.
         </span>
@@ -807,7 +814,7 @@ import BoxIcon from '~/assets/images/utils/box.svg'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal.vue'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Modal,
     FileInput,
@@ -874,15 +881,194 @@ export default {
       },
     },
   },
+  async setup(props) {
+    const data = useNuxtApp()
+    const route = useRoute()
+
+    const path = route.name.split('-')
+    const mode = path[path.length - 1]
+
+    console.log(mode)
+
+    const fileTypes = [
+      {
+        display: 'Required resource pack',
+        value: 'required-resource-pack',
+      },
+      {
+        display: 'Optional resource pack',
+        value: 'optional-resource-pack',
+      },
+    ]
+    let oldFileTypes = []
+
+    let isCreating = false
+    let isEditing = false
+
+    let version = {}
+    let primaryFile = {}
+    let alternateFile = {}
+
+    let replaceFile = null
+
+    if (route.params.version === 'create') {
+      isCreating = true
+      isEditing = true
+
+      version = {
+        id: 'none',
+        project_id: props.project.id,
+        author_id: props.currentMember.user.id,
+        name: '',
+        version_number: '',
+        changelog: '',
+        date_published: Date.now(),
+        downloads: 0,
+        version_type: 'release',
+        files: [],
+        dependencies: [],
+        game_versions: [],
+        loaders: [],
+        featured: false,
+      }
+      // For navigation from versions page / upload file prompt
+      if (route.params.newPrimaryFile) {
+        replaceFile = route.params.newPrimaryFile
+
+        try {
+          const inferredData = await inferVersionInfo(
+            replaceFile,
+            props.project,
+            data.$tag.gameVersions
+          )
+
+          version = {
+            ...version,
+            ...inferredData,
+          }
+        } catch (err) {
+          console.error('Error parsing version file data', err)
+        }
+      }
+    } else if (mode === 'edit') {
+      isEditing = true
+    } else if (route.params.version === 'latest') {
+      let versionList = props.versions
+      if (route.query.loader) {
+        versionList = versionList.filter((x) =>
+          x.loaders.includes(route.query.loader)
+        )
+      }
+      if (route.query.version) {
+        versionList = versionList.filter((x) =>
+          x.game_versions.includes(route.query.version)
+        )
+      }
+      version = versionList.reduce((a, b) =>
+        a.date_published > b.date_published ? a : b
+      )
+    } else {
+      version = props.versions.find(
+        (x) => x.id === route.params.version
+      )
+
+      if (!version)
+        version = props.versions.find(
+          (x) => x.displayUrlEnding === route.params.version
+        )
+
+      // LEGACY- to support old duplicate version URLs
+      const dashIndex = route.params.version.indexOf('-')
+      if (!version && dashIndex !== -1) {
+        const version = props.versions.find(
+          (x) =>
+            x.displayUrlEnding ===
+            route.params.version.substring(0, dashIndex)
+        )
+
+        navigateTo(`/${props.project.project_type}/${props.project.slug}/version/${version.version_number}`, { redirectCode: 307 })
+        return
+      }
+    }
+
+    if (!version) {
+      createError({
+        fatal: true,
+        statusCode: 404,
+        message: 'Version not found',
+      })
+      return
+    }
+
+    version = JSON.parse(JSON.stringify(version))
+    primaryFile =
+      version.files.find((file) => file.primary) ?? version.files[0]
+    alternateFile = version.files.find(
+      (file) => file.file_type && file.file_type.includes('resource-pack')
+    )
+
+    version.author_member = props.members.find(
+      (x) => x.user.id === version.author_id
+    )
+
+    for (const dependency of version.dependencies) {
+      dependency.version = props.dependencies.versions.find(
+        (x) => x.id === dependency.version_id
+      )
+
+      if (dependency.version) {
+        dependency.project = props.dependencies.projects.find(
+          (x) => x.id === dependency.version.project_id
+        )
+      }
+
+      if (!dependency.project) {
+        dependency.project = props.dependencies.projects.find(
+          (x) => x.id === dependency.project_id
+        )
+      }
+
+      dependency.link = dependency.project
+        ? `/${dependency.project.project_type}/${
+          dependency.project.slug ?? dependency.project.id
+        }${
+          dependency.version
+            ? `/version/${encodeURI(dependency.version.version_number)}`
+            : ''
+        }`
+        : ''
+    }
+
+    oldFileTypes = version.files.map((x) =>
+      fileTypes.find((y) => y.value === x.file_type)
+    )
+
+    return {
+      fileTypes: ref(fileTypes),
+      oldFileTypes: ref(oldFileTypes),
+      isCreating: ref(isCreating),
+      isEditing: ref(isEditing),
+      version: ref(version),
+      primaryFile: ref(primaryFile),
+      alternateFile: ref(alternateFile),
+      replaceFile: ref(replaceFile),
+
+      metaTitle: computed(() => `${
+        isCreating ? 'Create Version' : version.name
+      } - ${props.project.title}`),
+      metaDescription: computed(() => `Download ${props.project.title} ${
+        version.version_number
+      } on Modrinth. Supports ${data.$formatVersion(
+        version.game_versions
+      )} ${version.loaders
+        .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+        .join(' & ')}. Published on ${data.$dayjs(
+        version.date_published
+      ).format('MMM D, YYYY')}. ${version.downloads} downloads.`)
+    }
+  },
   data() {
     return {
-      primaryFile: {},
-      alternateFile: {},
-      version: {},
-
-      isEditing: false,
-      isCreating: false,
-
       dependencyAddMode: 'project',
       newDependencyType: 'required',
       newDependencyId: '',
@@ -895,69 +1081,19 @@ export default {
       replaceFile: null,
 
       newFileTypes: [],
-      oldFileTypes: [],
-      fileTypes: [
-        {
-          display: 'Required resource pack',
-          value: 'required-resource-pack',
-        },
-        {
-          display: 'Optional resource pack',
-          value: 'optional-resource-pack',
-        },
-      ],
 
       packageLoaders: ['forge', 'fabric', 'quilt'],
 
       showKnownErrors: false,
       shouldPreventActions: false,
-    }
-  },
-  async fetch() {
-    await this.setVersion()
-  },
-  head() {
-    if (!this.version || !this.version.game_versions) {
-      return {}
-    }
-    const title = `${
-      this.isCreating ? 'Create Version' : this.version.name
-    } - ${this.project.title}`
-    const description = `Download ${this.project.title} ${
-      this.version.version_number
-    } on Modrinth. Supports ${this.$formatVersion(
-      this.version.game_versions
-    )} ${this.version.loaders
-      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-      .join(' & ')}. Published on ${this.$dayjs(
-      this.version.date_published
-    ).format('MMM D, YYYY')}. ${this.version.downloads} downloads.`
 
-    return {
-      title,
-      meta: [
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: title,
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: title,
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          content: description,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: description,
-        },
-      ],
+      prevRoute: null,
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
   },
   computed: {
     fieldErrors() {
@@ -975,197 +1111,8 @@ export default {
       return ``
     },
   },
-  watch: {
-    '$route.path': {
-      async handler() {
-        await this.setVersion()
-      },
-    },
-  },
   methods: {
     acceptFileFromProjectType,
-    reset() {
-      this.primaryFile = {}
-      this.alternateFile = {}
-      this.version = {}
-
-      this.changelogViewMode = 'source'
-
-      this.showSnapshots = false
-
-      this.dependencyAddMode = 'project'
-      this.newDependencyId = ''
-      this.newDependencyType = 'required'
-
-      this.newFiles = []
-      this.deleteFiles = []
-      this.replaceFile = null
-      this.oldFileTypes = []
-      this.newFileTypes = []
-
-      this.isEditing = false
-      this.isCreating = false
-
-      this.packageLoaders = ['forge', 'fabric', 'quilt']
-
-      this.showKnownErrors = false
-    },
-    async setVersion() {
-      this.reset()
-
-      const path = this.$route.name.split('-')
-      const mode = path[path.length - 1]
-
-      if (mode === 'create') {
-        this.isCreating = true
-        this.isEditing = true
-
-        this.version = {
-          id: 'none',
-          project_id: this.project.id,
-          author_id: this.currentMember.user.id,
-          name: '',
-          version_number: '',
-          changelog: '',
-          date_published: Date.now(),
-          downloads: 0,
-          version_type: 'release',
-          files: [],
-          dependencies: [],
-          game_versions: [],
-          loaders: [],
-          featured: false,
-        }
-        // For navigation from versions page / upload file prompt
-        if (this.$route.params.newPrimaryFile) {
-          this.replaceFile = this.$route.params.newPrimaryFile
-
-          try {
-            const inferredData = await inferVersionInfo(
-              this.replaceFile,
-              this.project,
-              this.$tag.gameVersions
-            )
-
-            if (
-              inferredData.dependencies &&
-              inferredData.dependencies.length > 0
-            ) {
-              await Promise.all(
-                inferredData.dependencies.map((x) =>
-                  this.addDependency(x.target, x.identifier, x.type, true)
-                )
-              )
-            }
-
-            delete inferredData.dependencies
-
-            this.version = {
-              ...this.version,
-              ...inferredData,
-            }
-          } catch (err) {
-            console.error('Error parsing version file data', err)
-          }
-        }
-        return
-      } else if (mode === 'edit') {
-        this.isEditing = true
-      }
-
-      if (mode === 'latest') {
-        let versionList = this.versions
-        if (this.$route.query.loader) {
-          versionList = versionList.filter((x) =>
-            x.loaders.includes(this.$route.query.loader)
-          )
-        }
-        if (this.$route.query.version) {
-          versionList = versionList.filter((x) =>
-            x.game_versions.includes(this.$route.query.version)
-          )
-        }
-        this.version = versionList.reduce((a, b) =>
-          a.date_published > b.date_published ? a : b
-        )
-      } else {
-        this.version = this.versions.find(
-          (x) => x.id === this.$route.params.version
-        )
-
-        if (!this.version)
-          this.version = this.versions.find(
-            (x) => x.displayUrlEnding === this.$route.params.version
-          )
-
-        // LEGACY- to support old duplicate version URLs
-        const dashIndex = this.$route.params.version.indexOf('-')
-        if (!this.version && dashIndex !== -1) {
-          const version = this.versions.find(
-            (x) =>
-              x.displayUrlEnding ===
-              this.$route.params.version.substring(0, dashIndex)
-          )
-
-          this.$nuxt.context.redirect(
-            301,
-            `/${this.project.project_type}/${this.project.slug}/version/${version.version_number}`
-          )
-          return
-        }
-      }
-
-      if (!this.version) {
-        this.$nuxt.context.error({
-          statusCode: 404,
-          message: 'The page could not be found',
-        })
-        return
-      }
-
-      this.version = JSON.parse(JSON.stringify(this.version))
-      this.primaryFile =
-        this.version.files.find((file) => file.primary) ?? this.version.files[0]
-      this.alternateFile = this.version.files.find(
-        (file) => file.file_type && file.file_type.includes('resource-pack')
-      )
-
-      this.version.author_member = this.members.find(
-        (x) => x.user.id === this.version.author_id
-      )
-
-      for (const dependency of this.version.dependencies) {
-        dependency.version = this.dependencies.versions.find(
-          (x) => x.id === dependency.version_id
-        )
-
-        if (dependency.version) {
-          dependency.project = this.dependencies.projects.find(
-            (x) => x.id === dependency.version.project_id
-          )
-        }
-
-        if (!dependency.project) {
-          dependency.project = this.dependencies.projects.find(
-            (x) => x.id === dependency.project_id
-          )
-        }
-
-        dependency.link = dependency.project
-          ? `/${dependency.project.project_type}/${
-              dependency.project.slug ?? dependency.project.id
-            }${
-              dependency.version
-                ? `/version/${encodeURI(dependency.version.version_number)}`
-                : ''
-            }`
-          : ''
-      }
-
-      this.oldFileTypes = this.version.files.map((x) =>
-        this.fileTypes.find((y) => y.value === x.file_type)
-      )
-    },
     async addDependency(
       dependencyAddMode,
       newDependencyId,
@@ -1574,7 +1521,7 @@ export default {
       this.shouldPreventActions = false
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

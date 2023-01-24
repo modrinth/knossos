@@ -42,7 +42,7 @@ import ProjectCard from '~/components/ui/ProjectCard'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     ProjectCard,
     HeartIcon,
@@ -54,6 +54,6 @@ export default {
   head: {
     title: 'Followed projects - Modrinth',
   },
-}
+})
 </script>
 <style lang="scss" scoped></style>

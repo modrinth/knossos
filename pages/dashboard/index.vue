@@ -89,7 +89,7 @@
 <script>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
-export default {
+export default defineNuxtComponent({
   components: { ChevronRightIcon },
   async asyncData(data) {
     const [payouts] = (
@@ -126,7 +126,6 @@ export default {
         .length
     },
   },
-  methods: {},
-}
+})
 </script>
 <style lang="scss" scoped></style>

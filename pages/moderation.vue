@@ -136,7 +136,7 @@ import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 import ModalModeration from '~/components/ui/ModalModeration'
 
-export default {
+export default defineNuxtComponent({
   name: 'Moderation',
   components: {
     ModalModeration,
@@ -291,7 +291,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

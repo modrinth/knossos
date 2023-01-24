@@ -100,7 +100,7 @@ import TransferIcon from '~/assets/images/utils/transfer.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import ModalTransfer from '~/components/ui/ModalTransfer'
 
-export default {
+export default defineNuxtComponent({
   components: { TransferIcon, SettingsIcon, ModalTransfer },
   data() {
     return {
@@ -115,7 +115,7 @@ export default {
     title: 'Revenue - Modrinth',
   },
   methods: {},
-}
+})
 </script>
 <style lang="scss" scoped>
 strong {

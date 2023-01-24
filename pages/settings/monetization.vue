@@ -106,7 +106,7 @@ import EditIcon from '~/assets/images/utils/edit.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Multiselect,
     Chips,
@@ -204,6 +204,6 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped></style>

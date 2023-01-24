@@ -50,10 +50,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filter ::v-deep {
+.filter {
   margin-bottom: 0.5rem;
 
-  .filter-text {
+  :deep(.filter-text) {
     display: flex;
     align-items: center;
 

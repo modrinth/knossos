@@ -173,7 +173,7 @@ import CopyIcon from '~/assets/images/utils/clipboard-copy.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
 import SlashIcon from '~/assets/images/utils/slash.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Modal,
     ModalConfirm,
@@ -266,7 +266,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .modal-revoke-token {

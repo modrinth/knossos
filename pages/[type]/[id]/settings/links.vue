@@ -130,7 +130,7 @@
 import Multiselect from 'vue-multiselect'
 import SaveIcon from '~/assets/images/utils/save.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Multiselect,
     SaveIcon,
@@ -276,7 +276,7 @@ export default {
       return newLink !== existingLink
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .donation-link-group {

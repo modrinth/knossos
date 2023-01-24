@@ -253,15 +253,13 @@ function getDomain() {
 }
 
 // Checklist
-// Redo middleware using new structure
 // Redo auth setup using native cookies API
+// Reimplement stores with pinia
 // Switch from axios to native fetch
 // Figure out app config (env variables and stuff)
-// Switch to new nuxt head settings
-// Analytics on nuxt hooks
+// Analytics on nuxt hooks + middleware
 // Readd toml parser which supports ESM
 // Migrate to new tooltip api
-// Update users store to not use axios
-// Migrate (most) things to composition API
 // Fix breaking changes (like emits have to be registered)
 // Add back highlight js
+// Add back linter and configure it

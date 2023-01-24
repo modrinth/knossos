@@ -96,7 +96,7 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
-export default {
+export default defineNuxtComponent({
   name: 'Notifications',
   components: {
     NavStack,
@@ -184,7 +184,7 @@ export default {
       this.$nuxt.$loading.finish()
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -44,7 +44,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
 
-  span ::v-deep {
+  :deep(span) {
     display: flex;
     align-items: center;
     flex-direction: row;

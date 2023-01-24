@@ -124,7 +124,7 @@ import Checkbox from '~/components/ui/Checkbox'
 import StarIcon from '~/assets/images/utils/star.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Checkbox,
     SaveIcon,
@@ -264,7 +264,7 @@ export default {
       }
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .label__title {

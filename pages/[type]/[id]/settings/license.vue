@@ -112,7 +112,7 @@ import Multiselect from 'vue-multiselect'
 import Checkbox from '~/components/ui/Checkbox'
 import SaveIcon from '~/assets/images/utils/save.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Multiselect,
     Checkbox,
@@ -292,6 +292,6 @@ export default {
       }
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped></style>

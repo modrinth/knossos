@@ -39,7 +39,7 @@ import ListIcon from '~/assets/images/utils/list.svg'
 
 const monetization = true
 
-export default {
+export default defineNuxtComponent({
   name: 'Dashboard',
   components: {
     NavStack,

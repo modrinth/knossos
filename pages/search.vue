@@ -423,7 +423,7 @@ import ImageIcon from '~/assets/images/utils/image.svg'
 
 import Advertisement from '~/components/ads/Advertisement'
 
-export default {
+export default defineNuxtComponent({
   auth: false,
   components: {
     Advertisement,
@@ -842,7 +842,7 @@ export default {
       }
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

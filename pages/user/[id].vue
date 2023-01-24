@@ -1,5 +1,14 @@
 <template>
   <div v-if="user">
+    <Head>
+      <Title>{{ user.username + ' - Modrinth' }}</Title>
+      <Meta name="og:title" :content="user.username" />
+      <Meta name="description" :content="metaDescription" />
+      <Meta name="og:type" content="website" />
+      <Meta name="apple-mobile-web-app-title" :content="metaDescription" />
+      <Meta name="og:description" :content="metaDescription" />
+      <Meta name="og:image" :content="user.avatar_url ? user.avatar_url : 'https://cdn.modrinth.com/placeholder.png'" />
+    </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
@@ -327,7 +336,7 @@ export default defineNuxtComponent({
 
       if (user.username !== route.params.id) {
         await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
-3      }
+      }
 
       let gitHubUser = {}
       let versions = []
@@ -375,6 +384,11 @@ export default defineNuxtComponent({
         user: ref(user),
         projects: ref(projects),
         githubUrl: ref(gitHubUser.html_url),
+        metaDescription: ref(
+          user.bio
+          ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
+          : `Download ${user.username}'s projects on Modrinth`
+        )
       }
     } catch {
       createError({

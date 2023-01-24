@@ -107,10 +107,10 @@
 
     <h2>Privacy Policies</h2>
 
-    <P
+    <p
       >You may consult this list to find the Privacy Policy for each of the
-      advertising partners of Modrinth.</P
-    >
+      advertising partners of Modrinth.
+    </p>
 
     <p>
       Third-party ad servers or ad networks uses technologies like cookies,
@@ -195,7 +195,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   auth: false,
   head: {
     title: 'Privacy - Modrinth',
@@ -223,7 +223,7 @@ export default {
       },
     ],
   },
-}
+})
 </script>
 
 <style lang="scss" scoped></style>

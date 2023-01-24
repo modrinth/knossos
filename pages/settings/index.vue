@@ -143,36 +143,20 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Multiselect,
   },
   auth: false,
   data() {
     return {
-      searchLayout: false,
-      projectLayout: false,
-      modpacksAlphaNotice: true,
-      advancedRendering: true,
-      externalLinksNewTab: true,
-      searchDisplayMode: {
-        mod: 'list',
-        plugin: 'list',
-        resourcepack: 'gallery',
-        modpack: 'list',
-        shader: 'gallery',
-        datapack: 'list',
-        user: 'list',
-      },
+      searchLayout: this.$cosmetics.searchLayout,
+      projectLayout: this.$cosmetics.projectLayout,
+      modpacksAlphaNotice: this.$cosmetics.modpacksAlphaNotice,
+      advancedRendering: this.$cosmetics.advancedRendering,
+      externalLinksNewTab: this.$cosmetics.externalLinksNewTab,
+      searchDisplayMode: this.$cosmetics.searchDisplayMode,
     }
-  },
-  fetch() {
-    this.searchLayout = this.$store.state.cosmetics.searchLayout
-    this.projectLayout = this.$store.state.cosmetics.projectLayout
-    this.modpacksAlphaNotice = this.$store.state.cosmetics.modpacksAlphaNotice
-    this.advancedRendering = this.$store.state.cosmetics.advancedRendering
-    this.externalLinksNewTab = this.$store.state.cosmetics.externalLinksNewTab
-    this.searchDisplayMode = this.$store.state.cosmetics.searchDisplayMode
   },
   head: {
     title: 'Display settings - Modrinth',
@@ -230,6 +214,6 @@ export default {
       }
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped></style>

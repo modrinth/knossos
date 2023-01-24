@@ -38,7 +38,6 @@ export default {
     allowDrag(event) {
       const file = event.dataTransfer?.items[0]
 
-      console.log(file)
       if (
         file &&
         this.accept

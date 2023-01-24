@@ -7,7 +7,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   auth: false,
   props: {
     project: {
@@ -17,7 +17,7 @@ export default {
       },
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped></style>

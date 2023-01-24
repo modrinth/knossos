@@ -60,7 +60,7 @@ import Chips from '~/components/ui/Chips'
 
 import SaveIcon from '~/assets/images/utils/save.svg'
 
-export default {
+export default defineNuxtComponent({
   components: {
     Chips,
     SaveIcon,
@@ -128,7 +128,7 @@ export default {
       }
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
 .resizable-textarea-wrapper textarea {

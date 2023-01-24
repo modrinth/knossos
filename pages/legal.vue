@@ -34,8 +34,8 @@ import PrivacyIcon from '~/assets/images/utils/lock.svg'
 import RulesIcon from '~/assets/images/sidebar/admin.svg'
 import ShieldIcon from '~/assets/images/utils/shield.svg'
 
-export default {
-  name: 'Settings',
+export default defineNuxtComponent({
+  name: 'Legal',
   components: {
     NavStack,
     NavStackItem,
@@ -44,11 +44,11 @@ export default {
     RulesIcon,
     ShieldIcon,
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
-.normal-page__content ::v-deep a {
+.normal-page__content :deep(a) {
   color: var(--color-link);
   text-decoration: underline;
 

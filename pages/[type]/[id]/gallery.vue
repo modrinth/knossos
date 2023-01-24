@@ -1,5 +1,14 @@
 <template>
   <div>
+    <Head>
+      <Title>
+        {{project.title}} - Gallery
+      </Title>
+      <Meta name="og:title" :content="`${project.title} - Gallery`" />
+      <Meta name="description" :content="metaDescription" />
+      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
+      <Meta name="og:description" :content="metaDescription" />
+    </Head>
     <Modal
       v-if="$auth.user && currentMember"
       ref="modal_edit_item"
@@ -306,7 +315,7 @@ import DropArea from '~/components/ui/DropArea'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Modal from '~/components/ui/Modal'
 
-export default {
+export default defineNuxtComponent({
   components: {
     CalendarIcon,
     PlusIcon,
@@ -360,36 +369,8 @@ export default {
       editFile: null,
       previewImage: null,
       shouldPreventActions: false,
-    }
-  },
-  head() {
-    const title = `${this.project.title} - Gallery`
-    const description = `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`
 
-    return {
-      title,
-      meta: [
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: title,
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: title,
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          content: description,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: description,
-        },
-      ],
+      metaDescription: `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`,
     }
   },
   computed: {
@@ -552,7 +533,7 @@ export default {
       this.resetEdit()
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

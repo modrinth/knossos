@@ -248,10 +248,7 @@
                   href="https://prismlauncher.org/"
                   class="graphic gradient-border"
                 >
-                  <img
-                    src="~/assets/images/external/prism.svg"
-                    alt="prism launcher logo"
-                  />
+                  <PrismLauncherLogo />
                 </a>
                 <a
                   rel="noopener noreferrer nofollow"
@@ -268,10 +265,7 @@
                   href="https://atlauncher.com/"
                   class="graphic gradient-border"
                 >
-                  <img
-                    src="~/assets/images/external/atlauncher.svg"
-                    alt="atlauncher logo"
-                  />
+                  <ATLauncherLogo />
                 </a>
               </div>
             </div>
@@ -572,49 +566,68 @@
     </div>
   </div>
 </template>
-<script setup>
+<script>
 import Multiselect from 'vue-multiselect'
 import SearchIcon from '~/assets/images/utils/search.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ModrinthIcon from '~/assets/images/logo.svg'
+import PrismLauncherLogo from '~/assets/images/external/prism.svg'
+import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
 import Avatar from '~/components/ui/Avatar'
 import ProjectCard from '~/components/ui/ProjectCard'
+export default defineNuxtComponent({
+  components: {
+    Multiselect,
+    Avatar,
+    ModrinthIcon,
+    SearchIcon,
+    CalendarIcon,
+    ProjectCard,
+    PrismLauncherLogo,
+    ATLauncherLogo,
+  },
+  auth: false,
+  async asyncData() {
+    const [projects, baseSearch, updated] = (
+      await Promise.all([
+        await useBaseFetch('projects_random?count=70'),
+        await useBaseFetch('search?limit=3&query=flowers'),
+        await useBaseFetch('search?limit=3&query=&index=updated'),
+      ])
+    )
 
-const { data: rows } = await useAsyncData(
-  () => useBaseFetch('projects_random?count=70'),
-  {
-    transform: (projects) => {
-      const val = Math.ceil(projects.length / 3)
-
-      return [
+    const val = Math.ceil(projects.length / 3)
+    return {
+      rows: markRaw([
         projects.slice(0, val),
         projects.slice(val, val * 2),
         projects.slice(val * 2, val * 3),
-      ]
+      ]),
+      searchProjects: shallowRef(baseSearch.hits),
+      notifications: shallowRef(updated.hits),
+    }
+  },
+  data() {
+    return {
+      searchQuery: 'flowers',
+      sortType: 'relevance',
+    }
+  },
+  computed: {
+    authUrl() {
+      return ``
     },
-  }
-)
-
-const searchQuery = ref('flowers')
-const sortType = ref('relevance')
-const { data: searchProjects, refresh: updateSearchProjects } = await useAsyncData(
-  () =>
-    useBaseFetch(`search?limit=3&query=${searchQuery.value}&index=${sortType.value}`),
-  {
-    transform: (data) => data.hits,
-  }
-)
-
-const { data: notifications } = await useAsyncData(
-  () => useBaseFetch('search?limit=3&query=&index=updated'),
-  {
-    transform: (data) => data.hits,
-  }
-)
-
-const authUrl = ref(
-  'https://staging-api.modrinth.com/v2/auth/init?url=http://localhost:3000/'
-)
+  },
+  methods: {
+    async updateSearchProjects() {
+      this.searchProjects = (
+        await useBaseFetch(
+          `search?query=${this.searchQuery}&limit=3&index=${this.sortType}`
+        )
+      ).hits
+    },
+  },
+})
 </script>
 
 <style lang="scss" scoped>
@@ -1025,7 +1038,7 @@ const authUrl = ref(
               //backdrop-filter: blur(4px);
               margin: 0 auto;
 
-              img {
+              img, svg {
                 width: 4.25rem;
                 height: auto;
                 image-rendering: crisp-edges;

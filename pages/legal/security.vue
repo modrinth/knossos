@@ -59,7 +59,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   auth: false,
   head: {
     title: 'Security Notice - Modrinth',
@@ -87,7 +87,7 @@ export default {
       },
     ],
   },
-}
+})
 </script>
 
 <style lang="scss" scoped></style>

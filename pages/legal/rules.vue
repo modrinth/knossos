@@ -160,7 +160,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   auth: false,
   head: {
     title: 'Rules - Modrinth',
@@ -188,7 +188,7 @@ export default {
       },
     ],
   },
-}
+})
 </script>
 
 <style lang="scss" scoped></style>

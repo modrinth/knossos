@@ -11,15 +11,10 @@
 </template>
 
 <script>
-export default {
-  components: {},
-  data() {
-    return {}
-  },
+export default defineNuxtComponent({
   head: {
     title: 'Analytics - Modrinth',
   },
-  methods: {},
-}
+})
 </script>
 <style lang="scss" scoped></style>

@@ -106,6 +106,21 @@
     </div>
   </div>
   <div v-else>
+    <Head>
+      <Title>
+        {{project.title}} - Minecraft {{projectTypeDisplay}}
+      </Title>
+      <Meta name="og:title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
+      <Meta name="description" :content="`${
+            project.description
+          } - Download the Minecraft ${projectTypeDisplay} ${project.title} by ${
+            members.find((x) => x.role === 'Owner').user.username
+          } on Modrinth`" />
+      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
+      <Meta name="og:description" :content="project.description" />
+      <Meta name="og:image" :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'" />
+      <Meta name="robots" :content="project.status === 'approved' || project.status === 'archived' ? 'all' : 'noindex'" />
+    </Head>
     <ModalModeration
       ref="modal_moderation"
       :project="project"
@@ -1000,6 +1015,11 @@ export default defineNuxtComponent({
         return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
       })
 
+      const projectTypeDisplay = data.$formatProjectType(data.$getProjectTypeForDisplay(
+        project.project_type,
+        loaders
+      ))
+
       return {
         project: ref(project),
         versions: shallowReactive(versions),
@@ -1009,6 +1029,7 @@ export default defineNuxtComponent({
         currentMember: ref(currentMember),
         dependencies: ref(dependencies),
         loaders: ref(loaders),
+        projectTypeDisplay: ref(projectTypeDisplay)
       }
     } catch {
       data.error({

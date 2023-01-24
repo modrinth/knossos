@@ -1,5 +1,14 @@
 <template>
   <div class="content">
+    <Head>
+      <Title>
+        {{project.title}} - Changelog
+      </Title>
+      <Meta name="og:title" :content="`${project.title} - Changelog`" />
+      <Meta name="description" :content="metaDescription" />
+      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Changelog`" />
+      <Meta name="og:description" :content="metaDescription" />
+    </Head>
 <!--    <VersionFilterControl-->
 <!--      class="card"-->
 <!--      :versions="versions"-->
@@ -12,7 +21,7 @@
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
-export default {
+export default defineNuxtComponent({
   components: {
     VersionFilterControl,
   },
@@ -39,36 +48,7 @@ export default {
   data() {
     return {
       filteredVersions: this.versions,
-    }
-  },
-  head() {
-    const title = `${this.project.title} - Changelog`
-    const description = `Explore the changelog of ${this.project.title}'s ${this.versions.length} versions.`
-
-    return {
-      title,
-      meta: [
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: title,
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: title,
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          content: description,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: description,
-        },
-      ],
+      metaDescription: `View the changelog of ${this.project.title}'s ${this.versions.length} versions.`
     }
   },
   methods: {
@@ -130,7 +110,7 @@ export default {
     }
   },
   auth: false,
-}
+})
 </script>
 
 <style lang="scss">
