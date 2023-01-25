@@ -18,7 +18,7 @@
     >
       <button
         class="iconified-button"
-        @click="$user.unfollowProject(project, $auth)"
+        @click="userUnfollowProject(project)"
       >
         <HeartIcon />
         Unfollow

@@ -78,7 +78,6 @@ import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 
 export default {
-  name: 'ModalReport',
   components: {
     Chips,
     CrossIcon,
@@ -120,7 +119,14 @@ export default {
           item_type: this.itemType,
           body: this.body,
         }
-        await this.$axios.post('report', data, this.$defaultHeaders())
+        await useBaseFetch(
+          'report',
+          {
+            method: 'POST',
+            body: data,
+            ...this.$defaultHeaders()
+          }
+        )
 
         this.$refs.modal.hide()
       } catch (err) {

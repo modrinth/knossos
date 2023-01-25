@@ -28,6 +28,7 @@
               maxlength="2048"
             >
             <button
+              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.issues.clear"
               @click="editLinks.issues.clear = !editLinks.issues.clear"
@@ -55,6 +56,7 @@
               "
             >
             <button
+              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.source.clear"
               @click="editLinks.source.clear = !editLinks.source.clear"
@@ -82,6 +84,7 @@
               "
             >
             <button
+              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.wiki.clear"
               @click="editLinks.wiki.clear = !editLinks.wiki.clear"
@@ -109,6 +112,7 @@
               "
             >
             <button
+              v-tooltip="'Clear link'"
               class="square-button label-button"
               :data-active="editLinks.discord.clear"
               @click="editLinks.discord.clear = !editLinks.discord.clear"
@@ -201,7 +205,7 @@
                 :close-on-select="true"
                 :show-labels="false"
                 :allow-empty="false"
-                @input="updateSort()"
+                @update:model-value="projects = updateSort(projects, sortBy)"
               />
             </div>
           </div>
@@ -343,7 +347,7 @@ export default defineNuxtComponent({
   },
   data () {
     return {
-      projects: [],
+      projects: this.updateSort(this.$user.projects, 'Name'),
       versions: [],
       selectedProjects: [],
       sortBy: 'Name',
@@ -368,10 +372,6 @@ export default defineNuxtComponent({
       },
     }
   },
-  fetch () {
-    this.projects = this.$user.projects
-    this.updateSort()
-  },
   head: {
     title: 'Projects - Modrinth',
   },
@@ -386,10 +386,10 @@ export default defineNuxtComponent({
     this.DELETE_PROJECT = 1 << 7
   },
   methods: {
-    updateSort () {
-      switch (this.sortBy) {
+    updateSort (projects, sort) {
+      switch (sort) {
         case 'Name':
-          this.projects = this.projects.slice().sort((a, b) => {
+          return projects.slice().sort((a, b) => {
             if (a.title < b.title) {
               return -1
             }
@@ -398,9 +398,8 @@ export default defineNuxtComponent({
             }
             return 0
           })
-          break
         case 'Status':
-          this.projects = this.projects.slice().sort((a, b) => {
+          return projects.slice().sort((a, b) => {
             if (a.status < b.status) {
               return -1
             }
@@ -409,9 +408,8 @@ export default defineNuxtComponent({
             }
             return 0
           })
-          break
         case 'Type':
-          this.projects = this.projects.slice().sort((a, b) => {
+          return projects.slice().sort((a, b) => {
             if (a.project_type < b.project_type) {
               return -1
             }
@@ -420,7 +418,6 @@ export default defineNuxtComponent({
             }
             return 0
           })
-          break
         default:
           break
       }
@@ -449,12 +446,15 @@ export default defineNuxtComponent({
               : null,
         }
 
-        await this.$axios.patch(
+        await useBaseFetch(
           `projects?ids=${JSON.stringify(
             this.selectedProjects.map(x => x.id)
           )}`,
-          baseData,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: baseData,
+            ...this.$defaultHeaders()
+          }
         )
 
         this.$refs.editLinksModal.hide()

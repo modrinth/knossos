@@ -26,7 +26,6 @@
 import CrossIcon from '~/assets/images/utils/x.svg'
 
 export default {
-  name: 'Modal',
   components: {
     CrossIcon,
   },

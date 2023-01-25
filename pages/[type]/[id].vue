@@ -231,6 +231,11 @@
             </div>
             <div class="dates">
               <div
+                v-tooltip="
+                  $dayjs(project.published).format(
+                    'MMMM D, YYYY [at] h:mm:ss A'
+                  )
+                "
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
@@ -240,6 +245,9 @@
                 }}</span>
               </div>
               <div
+                v-tooltip="
+                  $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
+                "
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />
@@ -262,7 +270,7 @@
                 <button
                   v-if="!$user.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
-                  @click="$user.followProject(project, $auth)"
+                  @click="userFollowProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
                   Follow
@@ -270,7 +278,7 @@
                 <button
                   v-if="$user.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
-                  @click="$user.unfollowProject(project, $auth)"
+                  @click="userUnfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
@@ -564,6 +572,12 @@
             "
           >
             <a
+              v-tooltip="
+                $findPrimary(project, version).filename +
+                  ' (' +
+                  $formatBytes($findPrimary(project, version).size) +
+                  ')'
+              "
               :href="$findPrimary(project, version).url"
               class="download download-button square-button brand-button"
               :title="`Download ${version.name}`"
@@ -1101,12 +1115,10 @@ export default defineNuxtComponent({
   },
   methods: {
     async resetProject () {
-      const project = (
-        await this.$axios.get(
-          `project/${this.project.id}`,
-          this.$defaultHeaders()
-        )
-      ).data
+      const project = await useBaseFetch(
+        `project/${this.project.id}`,
+        this.$defaultHeaders()
+      )
 
       const projectLoaders = {}
 
@@ -1131,13 +1143,16 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.patch(
+        await useBaseFetch(
           `project/${this.project.id}`,
           {
-            moderation_message: null,
-            moderation_message_body: null,
-          },
-          this.$defaultHeaders()
+            method: 'PATCH',
+            body: {
+              moderation_message: null,
+              moderation_message_body: null,
+            },
+            ...this.$defaultHeaders()
+          }
         )
 
         this.project.moderator_message = null
@@ -1172,12 +1187,15 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.patch(
+        await useBaseFetch(
           `project/${this.project.id}`,
           {
-            status: 'processing',
-          },
-          this.$defaultHeaders()
+            method: 'PATCH',
+            body: {
+              status: 'processing',
+            },
+            ...this.$defaultHeaders()
+          }
         )
 
         this.project.status = 'processing'
@@ -1209,19 +1227,25 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.patch(
+        await useBaseFetch(
           `project/${this.project.id}`,
-          data,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: data,
+            ...this.$defaultHeaders()
+          }
         )
 
         if (this.iconChanged) {
-          await this.$axios.patch(
+          await useBaseFetch(
             `project/${this.project.id}/icon?ext=${
               this.icon.type.split('/')[this.icon.type.split('/').length - 1]
             }`,
-            this.icon,
-            this.$defaultHeaders()
+            {
+              method: 'PATCH',
+              body: this.icon,
+              ...this.$defaultHeaders()
+            }
           )
         }
 
@@ -1266,12 +1290,15 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.patch(
+        await useBaseFetch(
           `project/${this.project.id}/icon?ext=${
             icon.type.split('/')[icon.type.split('/').length - 1]
           }`,
-          icon,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: icon,
+            ...this.$defaultHeaders()
+          }
         )
         await this.updateIcon()
         result = true

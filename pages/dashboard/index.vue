@@ -98,15 +98,17 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
   components: { ChevronRightIcon },
-  async asyncData (data) {
+  async asyncData () {
+    const data = useNuxtApp()
+
     const [payouts] = (
       await Promise.all([
-        data.$axios.get(
+        useBaseFetch(
           `user/${data.$auth.user.id}/payouts`,
           data.$defaultHeaders()
         ),
       ])
-    ).map(it => it.data)
+    )
 
     payouts.all_time = Math.floor(payouts.all_time * 100) / 100
     payouts.last_month = Math.floor(payouts.last_month * 100) / 100

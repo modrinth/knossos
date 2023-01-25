@@ -19,7 +19,6 @@
 import Checkbox from '~/components/ui/Checkbox'
 
 export default {
-  name: 'SearchFilter',
   components: {
     Checkbox,
   },

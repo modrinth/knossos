@@ -600,9 +600,9 @@ export default defineNuxtComponent({
   async asyncData () {
     const [projects, baseSearch, updated] = (
       await Promise.all([
-        await useBaseFetch('projects_random?count=70'),
-        await useBaseFetch('search?limit=3&query=flowers'),
-        await useBaseFetch('search?limit=3&query=&index=updated'),
+        useBaseFetch('projects_random?count=70'),
+        useBaseFetch('search?limit=3&query=flowers'),
+        useBaseFetch('search?limit=3&query=&index=updated'),
       ])
     )
 

@@ -19,7 +19,6 @@
 
 <script>
 export default {
-  name: 'DropArea',
   props: {
     accept: {
       type: String,

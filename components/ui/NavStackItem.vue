@@ -26,7 +26,6 @@
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default {
-  name: 'NavStackItem',
   components: {
     ChevronRightIcon,
   },

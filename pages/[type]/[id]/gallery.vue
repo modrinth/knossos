@@ -460,7 +460,14 @@ export default defineNuxtComponent({
         if (this.editDescription) { url += `&description=${encodeURIComponent(this.editDescription)}` }
         if (this.editOrder) { url += `&ordering=${this.editOrder}` }
 
-        await this.$axios.post(url, this.editFile, this.$defaultHeaders())
+        await useBaseFetch(
+          url,
+          {
+            method: 'POST',
+            body: this.editFile,
+            ...this.$defaultHeaders()
+          }
+        )
         await this.updateProject()
 
         this.$refs.modal_edit_item.hide()
@@ -489,7 +496,13 @@ export default defineNuxtComponent({
         if (this.editDescription) { url += `&description=${encodeURIComponent(this.editDescription)}` }
         if (this.editOrder) { url += `&ordering=${this.editOrder}` }
 
-        await this.$axios.patch(url, {}, this.$defaultHeaders())
+        await useBaseFetch(
+          url,
+          {
+            method: 'PATCH',
+            ...this.$defaultHeaders()
+          }
+        )
 
         await this.updateProject()
         this.$refs.modal_edit_item.hide()
@@ -509,11 +522,14 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.delete(
+        await useBaseFetch(
           `project/${this.project.id}/gallery?url=${encodeURIComponent(
             this.project.gallery[this.deleteIndex].url
           )}`,
-          this.$defaultHeaders()
+          {
+            method: 'DELETE',
+            ...this.$defaultHeaders()
+          }
         )
 
         await this.updateProject()

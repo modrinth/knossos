@@ -35,7 +35,6 @@ import RulesIcon from '~/assets/images/sidebar/admin.svg'
 import ShieldIcon from '~/assets/images/utils/shield.svg'
 
 export default defineNuxtComponent({
-  name: 'Legal',
   components: {
     NavStack,
     NavStackItem,

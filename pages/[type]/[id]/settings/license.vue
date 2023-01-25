@@ -21,8 +21,7 @@
                 rel="noopener noreferrer"
                 class="text-link"
               >
-                SPDX license identifier</a
-              >
+                SPDX license identifier</a>
               in the marked area. If your license does not have a SPDX
               identifier (for example, if you created the license yourself or if
               the license is Minecraft-specific), simply check the box and enter
@@ -36,8 +35,7 @@
                 rel="noopener noreferrer"
                 class="text-link"
               >
-                licensing guide</a
-              >
+                licensing guide</a>
               for more information.
             </span>
           </span>
@@ -82,14 +80,14 @@
               'known-error': license.short === '' && showKnownErrors,
             }"
             :disabled="!hasPermission"
-          />
+          >
           <input
             v-model="licenseUrl"
             type="url"
             maxlength="2048"
             placeholder="License URL (optional)"
             :disabled="!hasPermission || licenseId === 'LicenseRef-Unknown'"
-          />
+          >
         </div>
       </div>
       <div class="input-stack">
@@ -121,19 +119,19 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default() {
+      default () {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default() {
+      default () {
         return () => {
           this.$notify({
             group: 'main',
@@ -145,7 +143,7 @@ export default defineNuxtComponent({
       },
     },
   },
-  data() {
+  data () {
     return {
       licenseUrl: '',
       license: { friendly: '', short: '', requiresOnlyOrLater: false },
@@ -154,7 +152,7 @@ export default defineNuxtComponent({
       showKnownErrors: false,
     }
   },
-  fetch() {
+  fetch () {
     this.licenseUrl = this.project.license.url
 
     const licenseId = this.project.license.id
@@ -163,7 +161,7 @@ export default defineNuxtComponent({
       .replaceAll('-or-later', '')
       .replaceAll('LicenseRef-', '')
     this.license = this.defaultLicenses.find(
-      (x) => x.short === trimmedLicenseId
+      x => x.short === trimmedLicenseId
     ) ?? {
       friendly: 'Custom',
       short: licenseId.replaceAll('LicenseRef-', ''),
@@ -178,26 +176,23 @@ export default defineNuxtComponent({
     this.nonSpdxLicense = licenseId.includes('LicenseRef-')
   },
   computed: {
-    hasPermission() {
+    hasPermission () {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
-    licenseId() {
+    licenseId () {
       let id = ''
       if (
         (this.nonSpdxLicense && this.license.friendly === 'Custom') ||
         this.license.short === 'All-Rights-Reserved' ||
         this.license.short === 'Unknown'
-      )
-        id += 'LicenseRef-'
+      ) { id += 'LicenseRef-' }
       id += this.license.short
-      if (this.license.requiresOnlyOrLater)
-        id += this.allowOrLater ? '-or-later' : '-only'
-      if (this.nonSpdxLicense && this.license.friendly === 'Custom')
-        id = id.replaceAll(' ', '-')
+      if (this.license.requiresOnlyOrLater) { id += this.allowOrLater ? '-or-later' : '-only' }
+      if (this.nonSpdxLicense && this.license.friendly === 'Custom') { id = id.replaceAll(' ', '-') }
       return id
     },
-    defaultLicenses() {
+    defaultLicenses () {
       return [
         { friendly: 'Custom', short: '' },
         {
@@ -269,7 +264,7 @@ export default defineNuxtComponent({
         { friendly: 'zlib License', short: 'Zlib' },
       ]
     },
-    patchData() {
+    patchData () {
       const data = {}
 
       if (this.licenseId !== this.project.license.id) {
@@ -281,12 +276,12 @@ export default defineNuxtComponent({
 
       return data
     },
-    hasChanges() {
+    hasChanges () {
       return Object.keys(this.patchData).length > 0
     },
   },
   methods: {
-    saveChanges() {
+    saveChanges () {
       if (this.hasChanges) {
         this.patchProject(this.patchData)
       }

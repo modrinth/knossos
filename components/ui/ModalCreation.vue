@@ -78,7 +78,6 @@ import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 
 export default {
-  name: 'ModalCreation',
   components: {
     Chips,
     CrossIcon,
@@ -171,15 +170,17 @@ export default {
       )
 
       try {
-        await this.$axios({
-          url: 'project',
-          method: 'POST',
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: this.$auth.token,
-          },
-        })
+        await useBaseFetch(
+          'project',
+          {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Content-Disposition': formData,
+              Authorization: this.$auth.token,
+            },
+          }
+        )
 
         this.$refs.modal.hide()
         await this.$router.push({

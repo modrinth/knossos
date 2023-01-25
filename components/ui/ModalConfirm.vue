@@ -43,7 +43,6 @@ import TrashIcon from '~/assets/images/utils/trash.svg'
 import Modal from '~/components/ui/Modal'
 
 export default {
-  name: 'ModalConfirm',
   components: {
     CrossIcon,
     TrashIcon,

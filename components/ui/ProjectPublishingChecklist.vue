@@ -17,6 +17,7 @@
             <div
               v-for="nag in nags"
               :key="`checklist-${nag.id}`"
+              v-tooltip="nag.title"
               class="circle"
               :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
             >
@@ -47,14 +48,17 @@
         <span class="label">
           <RequiredIcon
             v-if="nag.status === 'required'"
+            v-tooltip="'Required'"
             :class="nag.status"
           />
           <SuggestionIcon
             v-else-if="nag.status === 'suggestion'"
+            v-tooltip="'Suggestion'"
             :class="nag.status"
           />
           <ModerationIcon
             v-else-if="nag.status === 'review'"
+            v-tooltip="'Review'"
             :class="nag.status"
           />{{ nag.title }}</span>
         {{ nag.description }}
@@ -96,7 +100,6 @@ import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
 
 export default {
-  name: 'ProjectPublishingChecklist',
   components: {
     ChevronRightIcon,
     DropdownIcon,

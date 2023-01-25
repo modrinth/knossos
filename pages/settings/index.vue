@@ -32,10 +32,10 @@
         </label>
         <input
           id="search-layout-toggle"
-          v-model="searchLayout"
+          v-model="$cosmetics.searchLayout"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="saveCosmeticSettings"
+          @change="saveCosmetics"
         >
       </div>
       <div class="adjacent-input small">
@@ -46,10 +46,10 @@
         </label>
         <input
           id="project-layout-toggle"
-          v-model="projectLayout"
+          v-model="$cosmetics.projectLayout"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="saveCosmeticSettings"
+          @change="saveCosmetics"
         >
       </div>
     </section>
@@ -66,14 +66,14 @@
         </label>
         <Multiselect
           :id="projectType + '-search-display-mode'"
-          :value="searchDisplayMode[projectType.id]"
+          v-model="$cosmetics.searchDisplayMode[projectType.id]"
           :options="$tag.projectViewModes"
           :custom-label="$capitalizeString"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
           :allow-empty="false"
-          @input="(value) => setSearchDisplayMode(projectType.id, value)"
+          @update:model-value="saveCosmetics"
         />
       </div>
     </section>
@@ -87,10 +87,10 @@
         </label>
         <input
           id="advanced-rendering"
-          v-model="advancedRendering"
+          v-model="$cosmetics.advancedRendering"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="saveCosmeticSettings"
+          @change="saveCosmetics"
         >
       </div>
       <div class="adjacent-input small">
@@ -100,10 +100,10 @@
         </label>
         <input
           id="modpacks-alpha-notice"
-          v-model="modpacksAlphaNotice"
+          v-model="$cosmetics.modpacksAlphaNotice"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="saveCosmeticSettings"
+          @change="saveCosmetics"
         >
       </div>
       <div class="adjacent-input small">
@@ -118,10 +118,10 @@
         </label>
         <input
           id="external-links-new-tab"
-          v-model="externalLinksNewTab"
+          v-model="$cosmetics.externalLinksNewTab"
           class="switch stylized-toggle"
           type="checkbox"
-          @change="saveCosmeticSettings"
+          @change="saveCosmetics"
         >
       </div>
     </section>
@@ -138,11 +138,6 @@ export default defineNuxtComponent({
   auth: false,
   data () {
     return {
-      searchLayout: this.$cosmetics.searchLayout,
-      projectLayout: this.$cosmetics.projectLayout,
-      modpacksAlphaNotice: this.$cosmetics.modpacksAlphaNotice,
-      advancedRendering: this.$cosmetics.advancedRendering,
-      externalLinksNewTab: this.$cosmetics.externalLinksNewTab,
       searchDisplayMode: this.$cosmetics.searchDisplayMode,
     }
   },
@@ -170,24 +165,6 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    async saveCosmeticSettings () {
-      await this.$cosmetics.save(
-        this.projectLayout,
-        this.searchLayout,
-        this.modpacksAlphaNotice,
-        this.advancedRendering,
-        this.externalLinksNewTab,
-        this.$cookies,
-      )
-    },
-    async setSearchDisplayMode (projectType, value) {
-      await this.$cosmetics.saveSearchDisplayMode(
-        projectType,
-        value,
-        this.$cookies,
-      )
-      this.searchDisplayMode = this.$cosmetics.searchDisplayMode
-    },
     changeTheme () {
       const shift = event.shiftKey
       switch (this.$colorMode.preference) {

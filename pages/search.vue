@@ -320,6 +320,10 @@
             />
           </div>
           <button
+            v-tooltip="
+              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
+                ' view'
+            "
             :aria-label="
               $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
                 ' view'
@@ -559,32 +563,33 @@ export default defineNuxtComponent({
       return newVals
     },
   },
-  watch: {
-    '$route.path': {
-      async handler () {
-        this.isLoading = true
-        this.projectType = this.$tag.projectTypes.find(
-          x =>
-            x.id === this.$route.name.substring(0, this.$route.name.length - 1)
-        )
-
-        this.results = null
-        this.pageCount = 1
-        this.currentPage = 1
-        this.query = ''
-        this.maxResults = 20
-        this.sortType = { display: 'Relevance', name: 'relevance' }
-        this.showAllLoaders = false
-        this.sidebarMenuOpen = false
-
-        await this.clearFilters()
-
-        this.isLoading = false
-
-        this.setClosestMaxResults()
-      },
-    },
-  },
+  // TODO: get rid of this and move this to it's own child page
+  // watch: {
+  //   '$route.path': {
+  //     async handler () {
+  //       this.isLoading = true
+  //       this.projectType = this.$tag.projectTypes.find(
+  //         x =>
+  //           x.id === this.$route.name.substring(0, this.$route.name.length - 1)
+  //       )
+  //
+  //       this.results = null
+  //       this.pageCount = 1
+  //       this.currentPage = 1
+  //       this.query = ''
+  //       this.maxResults = 20
+  //       this.sortType = { display: 'Relevance', name: 'relevance' }
+  //       this.showAllLoaders = false
+  //       this.sidebarMenuOpen = false
+  //
+  //       await this.clearFilters()
+  //
+  //       this.isLoading = false
+  //
+  //       this.setClosestMaxResults()
+  //     },
+  //   },
+  // },
   methods: {
     async clearFilters () {
       for (const facet of [...this.facets]) { await this.toggleFacet(facet, true) }
@@ -802,14 +807,10 @@ export default defineNuxtComponent({
 
       return url
     },
-    async cycleSearchDisplayMode () {
-      const value = this.$cosmetics.searchDisplayMode[this.projectType.id]
-      const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
-      await this.$cosmetics.saveSearchDisplayMode(
-        this.projectType.id,
-        newValue,
-        this.$cookies,
-      )
+    cycleSearchDisplayMode () {
+      this.$cosmetics.searchDisplayMode[this.projectType.id] =
+        this.$cycleValue(this.$cosmetics.searchDisplayMode[this.projectType.id], this.$tag.projectViewModes)
+      saveCosmetics()
       this.setClosestMaxResults()
     },
     setClosestMaxResults () {

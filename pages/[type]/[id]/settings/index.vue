@@ -368,9 +368,12 @@ export default defineNuxtComponent({
       }
     },
     async deleteProject () {
-      await this.$axios.delete(
+      await useBaseFetch(
         `project/${this.project.id}`,
-        this.$defaultHeaders()
+        {
+          method: 'DELETE',
+          ...this.$defaultHeaders()
+        }
       )
       await initUserProjects()
       await this.$router.push('/dashboard/projects')
@@ -387,9 +390,12 @@ export default defineNuxtComponent({
       this.previewImage = null
     },
     async deleteIcon () {
-      await this.$axios.delete(
+      await useBaseFetch(
         `project/${this.project.id}/icon`,
-        this.$defaultHeaders()
+        {
+          method: 'DELETE',
+          ...this.$defaultHeaders()
+        }
       )
       await this.updateIcon()
       this.$notify({

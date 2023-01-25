@@ -16,7 +16,6 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg'
 
 export default {
-  name: 'CopyCode',
   components: {
     CheckIcon,
     ClipboardCopyIcon,

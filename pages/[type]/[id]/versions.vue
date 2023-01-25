@@ -52,6 +52,12 @@
         "
       >
         <a
+          v-tooltip="
+            $findPrimary(project, version).filename +
+              ' (' +
+              $formatBytes($findPrimary(project, version).size) +
+              ')'
+          "
           :href="$findPrimary(project, version).url"
           class="download-button square-button brand-button"
           :class="version.version_type"

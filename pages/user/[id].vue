@@ -137,6 +137,9 @@
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
+                v-tooltip="
+                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
+                "
                 class="secondary-stat__text date"
               >
                 Joined {{ $dayjs(user.created).fromNow() }}
@@ -190,6 +193,9 @@
               Manage projects
             </NuxtLink>
             <button
+              v-tooltip="
+                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
+              "
               :aria-label="
                 $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
               "
@@ -449,12 +455,15 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
       try {
         if (this.icon) {
-          await this.$axios.patch(
+          await useBaseFetch(
             `user/${this.$auth.user.id}/icon?ext=${
               this.icon.type.split('/')[this.icon.type.split('/').length - 1]
             }`,
-            this.icon,
-            this.$defaultHeaders()
+            {
+              method: 'PATCH',
+              body: this.icon,
+              ...this.$defaultHeaders()
+            }
           )
         }
 
@@ -466,12 +475,15 @@ export default defineNuxtComponent({
           data.username = this.user.username
         }
 
-        await this.$axios.patch(
+        await useBaseFetch(
           `user/${this.$auth.user.id}`,
-          data,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: data,
+            ...this.$defaultHeaders()
+          }
         )
-        await this.$auth.fetchUser(this.$auth.token)
+        this.$auth = await initAuth()
 
         this.isEditing = false
       } catch (err) {
@@ -484,14 +496,9 @@ export default defineNuxtComponent({
       }
       this.$nuxt.$loading.finish()
     },
-    async cycleSearchDisplayMode () {
-      const value = this.$cosmetics.searchDisplayMode.user
-      const newValue = this.$cycleValue(value, this.$tag.projectViewModes)
-      await this.$cosmetics.saveSearchDisplayMode(
-        'user',
-        newValue,
-        this.$cookies,
-      )
+    cycleSearchDisplayMode () {
+      this.$cosmetics.searchDisplayMode.user = this.$cycleValue(this.$cosmetics.searchDisplayMode.user, this.$tag.projectViewModes)
+      saveCosmetics()
     },
   },
 })

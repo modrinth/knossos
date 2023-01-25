@@ -105,6 +105,11 @@
                 <TrashIcon /> Delete report
               </button>
               <span
+                v-tooltip="
+                  $dayjs(item.created).format(
+                    '[Created at] YYYY-MM-DD [at] HH:mm A'
+                  )
+                "
                 class="stat"
               >
                 <CalendarIcon />
@@ -138,7 +143,6 @@ import NavStackItem from '~/components/ui/NavStackItem'
 import ModalModeration from '~/components/ui/ModalModeration'
 
 export default defineNuxtComponent({
-  name: 'Moderation',
   components: {
     ModalModeration,
     NavStack,
@@ -152,13 +156,15 @@ export default defineNuxtComponent({
     TrashIcon,
     CalendarIcon,
   },
-  async asyncData (data) {
+  async asyncData () {
+    const data = useNuxtApp()
+
     const [projects, reports] = (
       await Promise.all([
-        data.$axios.get('moderation/projects', data.$defaultHeaders()),
-        data.$axios.get('report', data.$defaultHeaders()),
+        useBaseFetch('moderation/projects', data.$defaultHeaders()),
+        useBaseFetch('report', data.$defaultHeaders()),
       ])
-    ).map(it => it.data)
+    )
 
     const newReports = await Promise.all(
       reports.map(async (report) => {
@@ -169,36 +175,28 @@ export default defineNuxtComponent({
           let url = ''
 
           if (report.item_type === 'user') {
-            const user = (
-              await data.$axios.get(
-                `user/${report.item_id}`,
-                data.$defaultHeaders()
-              )
-            ).data
+            const user = await useBaseFetch(
+              `user/${report.item_id}`,
+              data.$defaultHeaders()
+            )
             url = `/user/${user.username}`
             report.item_id = user.username
           } else if (report.item_type === 'project') {
-            const project = (
-              await data.$axios.get(
-                `project/${report.item_id}`,
-                data.$defaultHeaders()
-              )
-            ).data
+            const project = await useBaseFetch(
+              `project/${report.item_id}`,
+              data.$defaultHeaders()
+            )
             report.item_id = project.slug || report.item_id
             url = `/${project.project_type}/${report.item_id}`
           } else if (report.item_type === 'version') {
-            const version = (
-              await data.$axios.get(
-                `version/${report.item_id}`,
-                data.$defaultHeaders()
-              )
-            ).data
-            const project = (
-              await data.$axios.get(
-                `project/${version.project_id}`,
-                data.$defaultHeaders()
-              )
-            ).data
+            const version = await useBaseFetch(
+              `version/${report.item_id}`,
+              data.$defaultHeaders()
+            )
+            const project = await useBaseFetch(
+              `project/${version.project_id}`,
+              data.$defaultHeaders()
+            )
             report.item_id = version.version_number || report.item_id
             url = `/${project.project_type}/${
               project.slug || project.id
@@ -206,11 +204,11 @@ export default defineNuxtComponent({
           }
 
           report.reporter = (
-            await data.$axios.get(
+            await useBaseFetch(
               `user/${report.reporter}`,
               data.$defaultHeaders()
             )
-          ).data.username
+          ).username
 
           return {
             ...report,
@@ -274,9 +272,12 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.delete(
+        await useBaseFetch(
           `report/${this.reports[index].id}`,
-          this.$defaultHeaders()
+          {
+            method: 'DELETE',
+            ...this.$defaultHeaders()
+          }
         )
 
         this.reports.splice(index, 1)

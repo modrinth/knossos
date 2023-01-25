@@ -317,17 +317,19 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        const user = (await this.$axios.get(`user/${this.currentUsername}`))
-          .data
+        const user = await useBaseFetch(`user/${this.currentUsername}`)
 
         const data = {
           user_id: user.id.trim(),
         }
 
-        await this.$axios.post(
+        await useBaseFetch(
           `team/${this.project.team}/members`,
-          data,
-          this.$defaultHeaders()
+          {
+            method: 'POST',
+            body: data,
+            ...this.$defaultHeaders()
+          }
         )
         await this.updateMembers()
       } catch (err) {
@@ -345,9 +347,12 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.delete(
+        await useBaseFetch(
           `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
-          this.$defaultHeaders()
+          {
+            method: 'DELETE',
+            ...this.$defaultHeaders()
+          }
         )
         await this.updateMembers()
       } catch (err) {
@@ -376,10 +381,13 @@ export default defineNuxtComponent({
                 payouts_split: this.allTeamMembers[index].payouts_split,
               }
 
-        await this.$axios.patch(
+        await useBaseFetch(
           `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
-          data,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: data,
+            ...this.$defaultHeaders()
+          }
         )
         await this.updateMembers()
         this.$notify({
@@ -403,12 +411,15 @@ export default defineNuxtComponent({
       this.$nuxt.$loading.start()
 
       try {
-        await this.$axios.patch(
+        await useBaseFetch(
           `team/${this.project.team}/owner`,
           {
-            user_id: this.allTeamMembers[index].user.id,
-          },
-          this.$defaultHeaders()
+            method: 'PATCH',
+            body: {
+              user_id: this.allTeamMembers[index].user.id,
+            },
+            ...this.$defaultHeaders()
+          }
         )
         await this.updateMembers()
       } catch (err) {
@@ -424,11 +435,11 @@ export default defineNuxtComponent({
     },
     async updateMembers () {
       this.allTeamMembers = (
-        await this.$axios.get(
+        await useBaseFetch(
           `team/${this.project.team}/members`,
           this.$defaultHeaders()
         )
-      ).data.map(it => ({
+      ).map(it => ({
         avatar_url: it.user.avatar_url,
         name: it.user.username,
         oldRole: it.role,

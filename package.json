@@ -26,10 +26,12 @@
   },
   "dependencies": {
     "dayjs": "^1.11.7",
+    "floating-vue": "^2.0.0-beta.20",
     "highlight.js": "^11.7.0",
     "js-yaml": "^4.1.0",
     "jszip": "^3.10.1",
     "markdown-it": "^13.0.1",
+    "toml": "^3.0.0",
     "vue-multiselect": "^3.0.0-alpha.2",
     "xss": "^1.0.14"
   }

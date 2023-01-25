@@ -41,5 +41,5 @@ export const saveCosmetics = () => {
     path: '/',
   })
 
-  cosmeticsCookie.value = cosmetics
+  cosmeticsCookie.value = cosmetics.value
 }

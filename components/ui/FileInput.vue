@@ -19,7 +19,6 @@
 import { fileIsValid } from '~/plugins/fileUtils'
 
 export default {
-  name: 'FileInput',
   components: {},
   props: {
     prompt: {

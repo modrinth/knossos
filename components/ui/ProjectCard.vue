@@ -80,11 +80,19 @@
       <div class="buttons">
         <slot />
       </div>
-      <div v-if="showUpdatedDate" class="stat date">
+      <div
+        v-if="showUpdatedDate"
+        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+        class="stat date"
+      >
         <EditIcon aria-hidden="true" />
         <span class="date-label">Updated </span>{{ $dayjs(updatedAt).fromNow() }}
       </div>
-      <div v-else class="stat date">
+      <div
+        v-else
+        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+        class="stat date"
+      >
         <CalendarIcon aria-hidden="true" />
         <span class="date-label">Published </span>{{ $dayjs(createdAt).fromNow() }}
       </div>
@@ -104,7 +112,6 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import Avatar from '~/components/ui/Avatar'
 
 export default {
-  name: 'ProjectCard',
   components: {
     EnvironmentIndicator,
     Avatar,

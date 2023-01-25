@@ -77,7 +77,6 @@ import Badge from '~/components/ui/Badge'
 import CheckIcon from '~/assets/images/utils/check.svg'
 
 export default {
-  name: 'ModalModeration',
   components: {
     TrashIcon,
     CrossIcon,
@@ -129,10 +128,13 @@ export default {
         if (this.status) {
           data.status = this.status
         }
-        await this.$axios.patch(
+        await useBaseFetch(
           `project/${this.project.id}`,
-          data,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: data,
+            ...this.$defaultHeaders()
+          }
         )
 
         this.$refs.modal.hide()

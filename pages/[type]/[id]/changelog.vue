@@ -9,21 +9,80 @@
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Changelog`" />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
-    <!--    <VersionFilterControl-->
-    <!--      class="card"-->
-    <!--      :versions="versions"-->
-    <!--      @updateVersions="updateVersions"-->
-    <!--    />-->
-    <div class="card" v-html="versionHtml" />
+    <VersionFilterControl
+      class="card"
+      :versions="versions"
+      @update-versions="updateVersions"
+    />
+    <div class="card">
+      <div
+        v-for="version in filteredVersions"
+        :key="version.id"
+        class="changelog-item"
+      >
+        <div
+          :class="`changelog-bar ${version.version_type} ${
+            version.duplicate ? 'duplicate' : ''
+          }`"
+        />
+        <div class="version-wrapper">
+          <div class="version-header">
+            <div class="version-header-text">
+              <h2 class="name">
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURI(version.displayUrlEnding)}`"
+                >
+                  {{ version.name }}
+                </nuxt-link>
+              </h2>
+              <span v-if="members.find((x) => x.user.id === version.author_id)">
+                by
+                <nuxt-link
+                  class="text-link"
+                  :to="
+                    '/user/' +
+                      members.find((x) => x.user.id === version.author_id).user
+                        .username
+                  "
+                >{{
+                  members.find((x) => x.user.id === version.author_id).user
+                    .username
+                }}</nuxt-link>
+              </span>
+              <span>
+                on
+                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span>
+            </div>
+            <a
+              :href="$findPrimary(project, version).url"
+              class="iconified-button download"
+              :title="`Download ${version.name}`"
+            >
+              <DownloadIcon aria-hidden="true" />
+              Download
+            </a>
+          </div>
+          <div
+            v-if="version.changelog && !version.duplicate"
+            v-highlightjs
+            class="markdown-body"
+            v-html="$xss($md(version.changelog))"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-// import DownloadIcon from '~/assets/images/utils/download.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
 export default defineNuxtComponent({
   components: {
     VersionFilterControl,
+    DownloadIcon,
   },
   props: {
     project: {
@@ -55,63 +114,6 @@ export default defineNuxtComponent({
     updateVersions (updatedVersions) {
       this.filteredVersions = updatedVersions
     },
-  },
-  computed: {
-    versionHtml () {
-      let string = ''
-
-      for (const version of this.filteredVersions) {
-        const teamMember = this.members.find(x => x.user.id === version.author_id)
-        // todo: add back download icon and nuxt link.. somehow and highlighting
-        string += `
-<div class="changelog-item">
-  <div class="changelog-bar ${version.version_type} ${version.duplicate ? 'duplicate' : ''}"></div>
-    <div class="version-wrapper">
-      <div class="version-header">
-        <div class="version-header-text">
-          <h2 class="name">
-            <a href="/${this.project.project_type}/${this.project.slug ? this.project.slug : this.project.id}/version/${encodeURI(version.displayUrlEnding)}">
-              ${version.name}
-            </a>
-          </h2>
-          ${teamMember
-? `<span>
-            by
-            <a
-              class="text-link"
-              href="${'/user/' + teamMember.user.username}"
-            >
-              ${teamMember.user.username}
-            </a>
-          </span>`
-: ''}
-          <span>
-            on
-            ${this.$dayjs(version.date_published).format('MMM D, YYYY')}
-          </span>
-        </div>
-        <a
-          href="${this.$findPrimary(this.project, version).url}"
-          class="iconified-button download"
-          title="Download ${version.name}"
-        >
-          Download
-        </a>
-      </div>
-      ${version.changelog && !version.duplicate
-? `<div
-        class="markdown-body"
-      >
-        ${this.$xss(this.$md(version.changelog))}
-      </div>`
-: ''}
-  </div>
-</div>
-        `
-      }
-
-      return string
-    }
   },
   auth: false,
 })

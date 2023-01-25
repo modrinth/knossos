@@ -38,7 +38,6 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'
 
 export default defineNuxtComponent({
-  name: 'Settings',
   components: {
     NavStack,
     NavStackItem,

@@ -100,4 +100,42 @@ export const initUserProjects = async () => {
   }
 }
 
-// TODO: project following, project unfollowing, delete notifs
+export const userFollowProject = async (project) => {
+  const auth = (await useAuth()).value
+  const user = (await useUser()).value
+
+  user.follows = user.follows.concat(project)
+
+  setTimeout(() => {
+    useBaseFetch(
+      `project/${project.id}/follow`,
+      {
+        method: 'POST',
+        ...auth.headers
+      }
+    )
+  })
+}
+
+export const userUnfollowProject = async (project) => {
+  const auth = (await useAuth()).value
+  const user = (await useUser()).value
+
+  user.follows = user.follows.filter(x => x.id !== project.id)
+
+  setTimeout(() => {
+    useBaseFetch(
+      `project/${project.id}/follow`,
+      {
+        method: 'DELETE',
+        ...auth.headers
+      }
+    )
+  })
+}
+
+export const userDeleteNotification = async (id) => {
+  const user = (await useUser()).value
+
+  user.notifications = user.notifications.filter(x => x.id !== id)
+}

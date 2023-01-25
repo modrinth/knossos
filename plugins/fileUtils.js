@@ -1,5 +1,4 @@
-// why is this a plugin???
-
+import TOML from 'toml'
 import JSZip from 'jszip'
 import yaml from 'js-yaml'
 import { formatBytes } from '~/plugins/shorthands'
@@ -108,8 +107,7 @@ export const inferVersionInfo = async function (
   const inferFunctions = {
     // Forge 1.13+
     'META-INF/mods.toml': async (file, zip) => {
-      // const metadata = TOML.parse(file)
-      const metadata = { file }
+      const metadata = TOML.parse(file)
 
       // TODO: Parse minecraft version ranges, handle if version is set to value from manifest
       if (metadata.mods && metadata.mods.length > 0) {

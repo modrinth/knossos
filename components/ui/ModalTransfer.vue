@@ -86,7 +86,6 @@ import Modal from '~/components/ui/Modal'
 import Checkbox from '~/components/ui/Checkbox'
 
 export default {
-  name: 'ModalTransfer',
   components: {
     Checkbox,
     CrossIcon,
@@ -135,14 +134,17 @@ export default {
     async proceed () {
       this.$nuxt.$loading.start()
       try {
-        await this.$axios.post(
+        await useBaseFetch(
           `user/${this.$auth.user.id}/payouts`,
           {
-            amount: Number(this.amount.replace('$', '')),
-          },
-          this.$defaultHeaders()
+            method: 'POST',
+            body: {
+              amount: Number(this.amount.replace('$', '')),
+            },
+            ...this.$defaultHeaders()
+          }
         )
-        await this.$auth.fetchUser(this.$auth.token)
+        this.$auth = await initAuth()
 
         this.$refs.modal.hide()
       } catch (err) {

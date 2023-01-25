@@ -48,6 +48,11 @@
             <div class="label__description">
               <p>{{ notification.text }}</p>
               <span
+                v-tooltip="
+                  $dayjs(notification.created).format(
+                    'MMMM D, YYYY [at] h:mm:ss A'
+                  )
+                "
                 class="date"
               >
                 <CalendarIcon />
@@ -95,7 +100,6 @@ import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 export default defineNuxtComponent({
-  name: 'Notifications',
   components: {
     NavStack,
     NavStackItem,
@@ -135,12 +139,17 @@ export default defineNuxtComponent({
       try {
         const ids = this.$user.notifications.map(x => x.id)
 
-        await this.$axios.delete(
+        await useBaseFetch(
           `notifications?ids=${JSON.stringify(ids)}`,
-          this.$defaultHeaders()
+          {
+            method: 'DELETE',
+            ...this.$defaultHeaders()
+          }
         )
 
-        ids.forEach(x => this.$user.deleteNotification(x))
+        for (const id of ids) {
+          await userDeleteNotification(id)
+        }
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -153,23 +162,24 @@ export default defineNuxtComponent({
     async performAction (notification, _notificationIndex, actionIndex) {
       this.$nuxt.$loading.start()
       try {
-        await this.$axios.delete(
+        await useBaseFetch(
           `notification/${notification.id}`,
-          this.$defaultHeaders()
+          {
+            method: 'DELETE',
+            ...this.$defaultHeaders()
+          }
         )
 
-        await this.$user.deleteNotification(notification.id)
+        await userDeleteNotification(notification.id)
 
         if (actionIndex !== null) {
-          const config = {
-            method:
-              notification.actions[actionIndex].action_route[0].toLowerCase(),
-            url: `${notification.actions[actionIndex].action_route[1]}`,
-            headers: {
-              Authorization: this.$auth.token,
-            },
-          }
-          await this.$axios(config)
+          await useBaseFetch(
+            `${notification.actions[actionIndex].action_route[1]}`,
+            {
+              method: notification.actions[actionIndex].action_route[0].toUpperCase(),
+              ...this.$defaultHeaders()
+            }
+          )
         }
       } catch (err) {
         this.$notify({

@@ -104,7 +104,6 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/styles/global.scss'],
   modules: ['@nuxtjs/color-mode'],
-  buildModules: ['floating-vue/nuxt'],
   vite: { plugins: [svgLoader({ svgo: false }), eslintPlugin()] },
   dayjs: {
     locales: ['en'],
@@ -255,10 +254,13 @@ function getApiUrl () {
 
 // Checklist
 // Add auth redirects
-// Switch from axios to native fetch
-// Figure out app config (env variables and stuff)
+// Global loading bar style
+// Figure out app config (env variables and stuff) and fix authUrl
 // Analytics on nuxt hooks + middleware
-// Readd toml parser which supports ESM
-// Migrate to new tooltip api
 // Fix perf issues on changelog/version page (maybe use functional components)
 // Migrate search to asyncData/SSR
+// Possibly make auth + userdata fetch not block rendering
+// Move fileutils out of a nuxt plugin
+// Create new notif system
+// Fix multiselect/etc component @input -> @update:model-value
+// Figure out tooltip styling

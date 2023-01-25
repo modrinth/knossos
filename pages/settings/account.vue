@@ -205,9 +205,12 @@ export default defineNuxtComponent({
     async deleteAccount () {
       this.$nuxt.$loading.start()
       try {
-        await this.$axios.delete(
+        await useBaseFetch(
           `user/${this.$auth.user.id}`,
-          this.$defaultHeaders()
+          {
+            method: 'DELETE',
+            ...this.$defaultHeaders()
+          }
         )
       } catch (err) {
         this.$notify({
@@ -250,12 +253,15 @@ export default defineNuxtComponent({
           email: this.email ? this.email : null,
         }
 
-        await this.$axios.patch(
+        await useBaseFetch(
           `user/${this.$auth.user.id}`,
-          data,
-          this.$defaultHeaders()
+          {
+            method: 'PATCH',
+            body: data,
+            ...this.$defaultHeaders()
+          }
         )
-        await this.$auth.fetchUser(this.$auth.token)
+        this.$auth = await initAuth()
       } catch (err) {
         this.$notify({
           group: 'main',

@@ -57,7 +57,6 @@ import ClientIcon from '~/assets/images/utils/client.svg'
 import GlobeIcon from '~/assets/images/utils/globe.svg'
 import ServerIcon from '~/assets/images/utils/server.svg'
 export default {
-  name: 'EnvironmentIndicator',
   components: {
     InfoIcon,
     ClientIcon,

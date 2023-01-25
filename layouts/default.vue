@@ -488,12 +488,6 @@ export default defineNuxtComponent({
       hideDropdown: false,
     }
   },
-  async fetch () {
-    await Promise.all([
-      this.$user.fetchAll(this.$auth, true),
-      this.$cosmetics.fetchCosmetics(this.$cookies),
-    ])
-  },
   head () {
     // const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
     //
@@ -522,14 +516,13 @@ export default defineNuxtComponent({
   },
   watch: {
     $route () {
-      // this.isMobileMenuOpen = false
-      // this.$user.fetchAll(this.$auth)
-      //
-      // if (process.client) {
-      //   document.body.style.overflowY = 'scroll'
-      //   document.body.setAttribute('tabindex', '-1')
-      //   document.body.removeAttribute('tabindex')
-      // }
+      this.isMobileMenuOpen = false
+
+      if (process.client) {
+        document.body.style.overflowY = 'scroll'
+        document.body.setAttribute('tabindex', '-1')
+        document.body.removeAttribute('tabindex')
+      }
     },
   },
   async beforeCreate () {
@@ -559,7 +552,8 @@ export default defineNuxtComponent({
       }
     },
     async logout () {
-      this.$cookies.set('auth-token-reset', true)
+      useCookie('auth-token').value = null
+
       // If users logs out on dashboard, force redirect on the home page to clear cookies
       if (this.$route.path.startsWith('/settings/')) {
         window.location.href = '/settings'

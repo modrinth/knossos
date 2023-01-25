@@ -180,6 +180,9 @@
       <div v-else class="input-group">
         <a
           v-if="primaryFile"
+          v-tooltip="
+            primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'
+          "
           :href="primaryFile.url"
           class="iconified-button brand-button"
           :title="`Download ${primaryFile.filename}`"
@@ -1126,8 +1129,7 @@ export default defineNuxtComponent({
     ) {
       try {
         if (dependencyAddMode === 'project') {
-          const project = (await this.$axios.get(`project/${newDependencyId}`))
-            .data
+          const project = await useBaseFetch(`project/${newDependencyId}`)
 
           if (
             this.version.dependencies.some(
@@ -1154,13 +1156,9 @@ export default defineNuxtComponent({
             })
           }
         } else if (dependencyAddMode === 'version') {
-          const version = (
-            await this.$axios.get(`version/${this.newDependencyId}`)
-          ).data
+          const version = await useBaseFetch(`version/${this.newDependencyId}`)
 
-          const project = (
-            await this.$axios.get(`project/${version.project_id}`)
-          ).data
+          const project = await useBaseFetch(`project/${version.project_id}`)
 
           if (
             this.version.dependencies.some(
@@ -1263,63 +1261,71 @@ export default defineNuxtComponent({
             )
           }
 
-          await this.$axios({
-            url: `version/${this.version.id}/file`,
-            method: 'POST',
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: this.$auth.token,
-            },
-          })
+          await useBaseFetch(
+            `version/${this.version.id}/file`,
+            {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Content-Disposition': formData,
+                Authorization: this.$auth.token,
+              },
+            }
+          )
         }
 
-        await this.$axios.patch(
+        await useBaseFetch(
           `version/${this.version.id}`,
           {
-            name: this.version.name || this.version.version_number,
-            version_number: this.version.version_number,
-            changelog: this.version.changelog,
-            version_type: this.version.version_type,
-            dependencies: this.version.dependencies,
-            game_versions: this.version.game_versions,
-            loaders: this.version.loaders,
-            primary_file: ['sha1', this.primaryFile.hashes.sha1],
-            featured: this.version.featured,
-            file_types: this.oldFileTypes.map((x, i) => {
-              return {
-                algorithm: 'sha1',
-                hash: this.version.files[i].hashes.sha1,
-                file_type: x ? x.value : null,
-              }
-            }),
-          },
-          this.$defaultHeaders()
+            method: 'PATCH',
+            body: {
+              name: this.version.name || this.version.version_number,
+              version_number: this.version.version_number,
+              changelog: this.version.changelog,
+              version_type: this.version.version_type,
+              dependencies: this.version.dependencies,
+              game_versions: this.version.game_versions,
+              loaders: this.version.loaders,
+              primary_file: ['sha1', this.primaryFile.hashes.sha1],
+              featured: this.version.featured,
+              file_types: this.oldFileTypes.map((x, i) => {
+                return {
+                  algorithm: 'sha1',
+                  hash: this.version.files[i].hashes.sha1,
+                  file_type: x ? x.value : null,
+                }
+              }),
+            },
+            ...this.$defaultHeaders()
+          }
         )
 
         for (const hash of this.deleteFiles) {
-          await this.$axios.delete(
+          await useBaseFetch(
             `version_file/${hash}?version_id=${this.version.id}`,
-            this.$defaultHeaders()
+            {
+              method: 'DELETE',
+              ...this.$defaultHeaders()
+            }
           )
         }
 
         const [versions, featuredVersions, dependencies] = (
           await Promise.all([
-            this.$axios.get(
+            useBaseFetch(
               `project/${this.version.project_id}/version`,
               this.$defaultHeaders()
             ),
-            this.$axios.get(
+            useBaseFetch(
               `project/${this.version.project_id}/version?featured=true`,
               this.$defaultHeaders()
             ),
-            this.$axios.get(
+            useBaseFetch(
               `project/${this.version.project_id}/dependencies`,
               this.$defaultHeaders()
             ),
           ])
-        ).map(it => it.data)
+        )
 
         const newEditedVersions = this.$computeVersions(versions)
         this.$emit('update:versions', newEditedVersions)
@@ -1420,34 +1426,34 @@ export default defineNuxtComponent({
         )
       }
 
-      const data = (
-        await this.$axios({
-          url: 'version',
+      const data = await useBaseFetch(
+        'version',
+        {
           method: 'POST',
-          data: formData,
+          body: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Disposition': formData,
             Authorization: this.$auth.token,
           },
-        })
-      ).data
+        }
+      )
 
       const [versions, featuredVersions, dependencies] = (
         await Promise.all([
-          this.$axios.get(
+          useBaseFetch(
             `project/${this.version.project_id}/version`,
             this.$defaultHeaders()
           ),
-          this.$axios.get(
+          useBaseFetch(
             `project/${this.version.project_id}/version?featured=true`,
             this.$defaultHeaders()
           ),
-          this.$axios.get(
+          useBaseFetch(
             `project/${this.version.project_id}/dependencies`,
             this.$defaultHeaders()
           ),
         ])
-      ).map(it => it.data)
+      )
 
       const newCreatedVersions = this.$computeVersions(versions)
       this.$emit('update:versions', newCreatedVersions)
@@ -1463,9 +1469,12 @@ export default defineNuxtComponent({
     async deleteVersion () {
       this.$nuxt.$loading.start()
 
-      await this.$axios.delete(
+      await useBaseFetch(
         `version/${this.version.id}`,
-        this.$defaultHeaders()
+        {
+          method: 'DELETE',
+          ...this.$defaultHeaders()
+        }
       )
 
       await this.$router.replace(
