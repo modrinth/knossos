@@ -196,7 +196,7 @@
             :show-labels="false"
             :selectable="() => selectedVersions.length <= 6"
             placeholder="Choose versions..."
-            @input="onSearchChange(1)"
+            @update:model-value="onSearchChange(1)"
           />
           <h3 class="sidebar-menu-heading">
             Open source
@@ -294,7 +294,7 @@
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="onSearchChange(1)"
+              @update:model-value="onSearchChange(1)"
             >
               <template #singleLabel="{ option }">
                 {{
@@ -316,7 +316,7 @@
               :close-on-select="true"
               :show-labels="false"
               :allow-empty="false"
-              @input="onMaxResultsChange(currentPage)"
+              @update:model-value="onMaxResultsChange(currentPage)"
             />
           </div>
           <button

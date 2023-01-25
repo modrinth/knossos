@@ -100,7 +100,7 @@
           :close-on-select="true"
           :show-labels="false"
           :disabled="!hasPermission"
-          @input="updateDonationLinks"
+          @update:model-value="updateDonationLinks"
         />
         <input
           v-model="donationLink.url"

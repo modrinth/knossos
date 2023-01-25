@@ -1,9 +1,9 @@
 <template>
   <Checkbox
     class="filter"
-    :value="activeFilters.includes(facetName)"
+    :model-value="activeFilters.includes(facetName)"
     :description="displayName"
-    @input="toggle()"
+    @update:model-value="toggle()"
   >
     <div class="filter-text">
       <div v-if="icon" aria-hidden="true" class="icon" v-html="icon" />

@@ -221,7 +221,7 @@ export default defineNuxtComponent({
         })
       }
 
-      // this.$cookies.set('auth-token-reset', true)
+      useCookie('auth-token').value = null
       alert(
         'Please note that logging back in with GitHub will create a new account.'
       )
@@ -231,9 +231,9 @@ export default defineNuxtComponent({
     },
     logout () {
       this.$refs.modal_revoke_token.hide()
-      // this.$cookies.set('auth-token-reset', true)
+      useCookie('auth-token').value = null
 
-      window.location.href = `${this.$axios.defaults.baseURL}auth/init?url=${process.env.domain}`
+      window.location.href = 'authUrl ()'
     },
     hasMonetizationEnabled () {
       return (

@@ -48,7 +48,7 @@
           <Checkbox
             v-for="category in categoryLists[header]"
             :key="`category-${header}-${category.name}`"
-            :value="selectedTags.includes(category)"
+            :model-value="selectedTags.includes(category)"
             :description="$formatCategory(category.name)"
             class="category-selector"
             @input="toggleCategory(category)"
@@ -83,7 +83,7 @@
           v-for="category in selectedTags"
           :key="`featured-category-${category.name}`"
           class="category-selector"
-          :value="featuredTags.includes(category)"
+          :model-value="featuredTags.includes(category)"
           :description="$formatCategory(category.name)"
           :disabled="
             featuredTags.length >= 3 && !featuredTags.includes(category)

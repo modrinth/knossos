@@ -556,7 +556,7 @@ export default defineNuxtComponent({
 
       // If users logs out on dashboard, force redirect on the home page to clear cookies
       if (this.$route.path.startsWith('/settings/')) {
-        window.location.href = '/settings'
+        window.location.href = '/'
       } else {
         await this.$router.go(null)
 

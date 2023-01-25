@@ -133,7 +133,7 @@
                     :close-on-select="true"
                     :show-labels="false"
                     :allow-empty="false"
-                    @input="updateSearchProjects"
+                    @update:model-value="updateSearchProjects"
                   />
                 </div>
               </div>

@@ -118,7 +118,7 @@
           </span>
           <div class="permissions">
             <Checkbox
-              :value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
+              :model-value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
@@ -127,7 +127,7 @@
               @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
             />
             <Checkbox
-              :value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
+              :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
@@ -136,7 +136,7 @@
               @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
             />
             <Checkbox
-              :value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+              :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
@@ -145,7 +145,7 @@
               @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
             />
             <Checkbox
-              :value="(member.permissions & EDIT_BODY) === EDIT_BODY"
+              :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
@@ -154,7 +154,7 @@
               @input="allTeamMembers[index].permissions ^= EDIT_BODY"
             />
             <Checkbox
-              :value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
+              :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
@@ -163,7 +163,7 @@
               @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
             />
             <Checkbox
-              :value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
+              :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
@@ -172,7 +172,7 @@
               @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
             />
             <Checkbox
-              :value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
+              :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
               "
@@ -180,7 +180,7 @@
               @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
             />
             <Checkbox
-              :value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
+              :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
@@ -189,7 +189,7 @@
               @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
             />
             <Checkbox
-              :value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
+              :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
@@ -198,7 +198,7 @@
               @input="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
             />
             <Checkbox
-              :value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
+              :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                   (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS

@@ -17,7 +17,7 @@
       :allow-empty="true"
       :disabled="getValidLoaders().length === 1"
       placeholder="Filter loader..."
-      @input="updateVersionFilters()"
+      @update:model-value="updateVersionFilters()"
     />
     <Multiselect
       v-if="getValidVersions().length > 1"
@@ -37,7 +37,7 @@
       :hide-selected="true"
       :selectable="() => selectedGameVersions.length <= 6"
       placeholder="Filter versions..."
-      @input="updateVersionFilters()"
+      @update:model-value="updateVersionFilters()"
     />
     <Multiselect
       v-if="getValidChannels().length > 1"
@@ -52,7 +52,7 @@
       :show-labels="false"
       :allow-empty="true"
       placeholder="Filter channels..."
-      @input="updateVersionFilters()"
+      @update:model-value="updateVersionFilters()"
     />
     <Checkbox
       v-if="

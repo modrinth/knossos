@@ -214,7 +214,7 @@
           <div class="grid-table__row grid-table__header">
             <div>
               <Checkbox
-                :value="selectedProjects === projects"
+                :model-value="selectedProjects === projects"
                 @input="
                   selectedProjects === projects
                     ? (selectedProjects = [])
@@ -239,7 +239,7 @@
                 :disabled="
                   (project.permissions & EDIT_DETAILS) === EDIT_DETAILS
                 "
-                :value="selectedProjects.includes(project)"
+                :model-value="selectedProjects.includes(project)"
                 @input="
                   selectedProjects.includes(project)
                     ? (selectedProjects = selectedProjects.filter(
