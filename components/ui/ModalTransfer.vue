@@ -132,7 +132,7 @@ export default {
       this.$refs.modal.hide()
     },
     async proceed () {
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         await useBaseFetch(
           `user/${this.$auth.user.id}/payouts`,
@@ -144,7 +144,7 @@ export default {
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth()
+        this.$auth = await initAuth(this.$auth.token)
 
         this.$refs.modal.hide()
       } catch (err) {
@@ -155,7 +155,7 @@ export default {
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     show () {
       this.$refs.modal.show()

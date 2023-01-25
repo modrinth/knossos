@@ -324,7 +324,7 @@ export default defineNuxtComponent({
     ImageIcon,
     UploadIcon,
   },
-  async asyncData () {
+  async setup () {
     const data = useNuxtApp()
     const route = useRoute()
 
@@ -452,7 +452,7 @@ export default defineNuxtComponent({
       }
     },
     async saveChanges () {
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         if (this.icon) {
           await useBaseFetch(
@@ -483,7 +483,7 @@ export default defineNuxtComponent({
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth()
+        this.$auth = await initAuth(this.$auth.token)
 
         this.isEditing = false
       } catch (err) {
@@ -494,7 +494,7 @@ export default defineNuxtComponent({
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     cycleSearchDisplayMode () {
       this.$cosmetics.searchDisplayMode.user = this.$cycleValue(this.$cosmetics.searchDisplayMode.user, this.$tag.projectViewModes)

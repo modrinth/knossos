@@ -445,7 +445,7 @@ export default defineNuxtComponent({
     },
     async createGalleryItem () {
       this.shouldPreventActions = true
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         let url = `project/${this.project.id}/gallery?ext=${
@@ -480,12 +480,12 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
       this.shouldPreventActions = false
     },
     async editGalleryItem () {
       this.shouldPreventActions = true
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         let url = `project/${this.project.id}/gallery?url=${encodeURIComponent(
@@ -515,11 +515,11 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
       this.shouldPreventActions = false
     },
     async deleteGalleryImage () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -542,7 +542,7 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async updateProject () {
       await this.$parent.resetProject()

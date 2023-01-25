@@ -1203,12 +1203,12 @@ export default defineNuxtComponent({
       }
     },
     async saveEditedVersion () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       if (this.fieldErrors) {
         this.showKnownErrors = true
 
-        this.$nuxt.$loading.finish()
+        stopLoading()
         return
       }
 
@@ -1349,15 +1349,15 @@ export default defineNuxtComponent({
         })
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async createVersion () {
       this.shouldPreventActions = true
-      this.$nuxt.$loading.start()
+      startLoading()
       if (this.fieldErrors) {
         this.showKnownErrors = true
 
-        this.$nuxt.$loading.finish()
+        stopLoading()
         return
       }
 
@@ -1373,7 +1373,7 @@ export default defineNuxtComponent({
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
       this.shouldPreventActions = false
     },
     async createVersionRaw (version) {
@@ -1467,7 +1467,7 @@ export default defineNuxtComponent({
       )
     },
     async deleteVersion () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       await useBaseFetch(
         `version/${this.version.id}`,
@@ -1480,11 +1480,11 @@ export default defineNuxtComponent({
       await this.$router.replace(
         `/${this.project.project_type}/${this.project.id}/versions`
       )
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async createDataPackVersion () {
       this.shouldPreventActions = true
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         const blob = await createDataPackVersion(
           this.project,
@@ -1531,7 +1531,7 @@ export default defineNuxtComponent({
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
       this.shouldPreventActions = false
     },
   },

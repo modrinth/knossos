@@ -160,7 +160,7 @@ export default defineNuxtComponent({
       }
     },
     async performAction (notification, _notificationIndex, actionIndex) {
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         await useBaseFetch(
           `notification/${notification.id}`,
@@ -189,7 +189,7 @@ export default defineNuxtComponent({
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
   },
 })

@@ -314,7 +314,7 @@ export default defineNuxtComponent({
   },
   methods: {
     async inviteTeamMember () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         const user = await useBaseFetch(`user/${this.currentUsername}`)
@@ -341,10 +341,10 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async removeTeamMember (index) {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -364,10 +364,10 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async updateTeamMember (index) {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         const data =
@@ -405,10 +405,10 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async transferOwnership (index) {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -431,7 +431,7 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async updateMembers () {
       this.allTeamMembers = (

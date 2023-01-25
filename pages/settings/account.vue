@@ -203,7 +203,7 @@ export default defineNuxtComponent({
       await navigator.clipboard.writeText(this.$auth.token)
     },
     async deleteAccount () {
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         await useBaseFetch(
           `user/${this.$auth.user.id}`,
@@ -227,7 +227,7 @@ export default defineNuxtComponent({
       )
       window.location.href = '/'
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     logout () {
       this.$refs.modal_revoke_token.hide()
@@ -247,7 +247,7 @@ export default defineNuxtComponent({
         this.showKnownErrors = true
         return
       }
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         const data = {
           email: this.email ? this.email : null,
@@ -261,7 +261,7 @@ export default defineNuxtComponent({
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth()
+        this.$auth = await initAuth(this.$auth.token)
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -270,7 +270,7 @@ export default defineNuxtComponent({
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
   },
 })

@@ -139,7 +139,7 @@ export default {
       }
     },
     async createProject () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       const projectType = this.getProjectType()
 
@@ -199,7 +199,7 @@ export default {
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     show () {
       this.projectType = this.$tag.projectTypes[0].display

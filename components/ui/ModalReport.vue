@@ -111,7 +111,7 @@ export default {
       this.$refs.modal.hide()
     },
     async submitReport () {
-      this.$nuxt.$loading.start()
+      startLoading()
       try {
         const data = {
           report_type: this.reportType,
@@ -137,7 +137,7 @@ export default {
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     show () {
       this.$refs.modal.show()

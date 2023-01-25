@@ -1140,7 +1140,7 @@ export default defineNuxtComponent({
       this.project = project
     },
     async clearMessage () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -1165,7 +1165,7 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async submitForReview () {
       if (
@@ -1184,7 +1184,7 @@ export default defineNuxtComponent({
       this.collapsedChecklist = !this.collapsedChecklist
     },
     async setProcessing () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -1208,7 +1208,7 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     async getLicenseData () {
       try {
@@ -1224,7 +1224,7 @@ export default defineNuxtComponent({
     },
     async patchProject (data, quiet = false) {
       let result = false
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -1281,13 +1281,13 @@ export default defineNuxtComponent({
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
 
       return result
     },
     async patchIcon (icon) {
       let result = false
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -1319,7 +1319,7 @@ export default defineNuxtComponent({
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
       return result
     },
     async updateIcon () {

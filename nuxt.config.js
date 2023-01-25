@@ -262,5 +262,5 @@ function getApiUrl () {
 // Possibly make auth + userdata fetch not block rendering
 // Move fileutils out of a nuxt plugin
 // Create new notif system
-// Fix multiselect/etc component @input -> @update:model-value
 // Figure out tooltip styling
+// Fix 404 page

@@ -170,7 +170,7 @@ export default defineNuxtComponent({
       }
     },
     async updatePayoutData (unenroll) {
-      this.$nuxt.$loading.start()
+      startLoading()
       if (unenroll) {
         this.selectedWallet = 'paypal'
         this.accountType = this.getAccountTypes()[0]
@@ -195,7 +195,7 @@ export default defineNuxtComponent({
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth()
+        this.$auth = await initAuth(this.$auth.token)
 
         this.editing = false
         this.enrolled = !unenroll
@@ -207,7 +207,7 @@ export default defineNuxtComponent({
           type: 'error',
         })
       }
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
   },
 })

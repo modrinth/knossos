@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     async saveProject () {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         const data = {
@@ -150,7 +150,7 @@ export default {
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
     show () {
       this.$refs.modal.show()

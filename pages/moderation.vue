@@ -269,7 +269,7 @@ export default defineNuxtComponent({
       this.currentProject = null
     },
     async deleteReport (index) {
-      this.$nuxt.$loading.start()
+      startLoading()
 
       try {
         await useBaseFetch(
@@ -290,7 +290,7 @@ export default defineNuxtComponent({
         })
       }
 
-      this.$nuxt.$loading.finish()
+      stopLoading()
     },
   },
 })

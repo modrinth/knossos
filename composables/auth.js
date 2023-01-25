@@ -8,7 +8,7 @@ export const useAuth = async () => {
   return auth
 }
 
-export const initAuth = async () => {
+export const initAuth = async (oldToken = null) => {
   const auth = {
     user: null,
     token: '',
@@ -22,6 +22,10 @@ export const initAuth = async () => {
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
     path: '/',
   })
+
+  if (oldToken) {
+    authCookie.value = oldToken
+  }
 
   if (route.query.code) {
     authCookie.value = route.query.code
