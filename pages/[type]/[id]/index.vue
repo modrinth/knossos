@@ -1,12 +1,13 @@
 <template>
   <div
-    v-highlightjs
     class="markdown-body card"
-    v-html="$xss($md(project.body))"
+    v-html="renderHighlightedString(project.body)"
   />
 </template>
 
 <script>
+import { renderHighlightedString } from '~/helpers/highlight'
+
 export default defineNuxtComponent({
   auth: false,
   props: {
@@ -17,6 +18,7 @@ export default defineNuxtComponent({
       },
     },
   },
+  methods: { renderHighlightedString }
 })
 </script>
 

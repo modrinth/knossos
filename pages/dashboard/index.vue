@@ -10,7 +10,7 @@
           <div class="value">
             {{
               $formatNumber(
-                $user.projects.reduce((agg, x) => agg + x.downloads, 0)
+                user.projects.reduce((agg, x) => agg + x.downloads, 0)
               )
             }}
           </div>
@@ -31,7 +31,7 @@
           <div class="value">
             {{
               $formatNumber(
-                $user.projects.reduce((agg, x) => agg + x.followers, 0)
+                user.projects.reduce((agg, x) => agg + x.followers, 0)
               )
             }}
           </div>
@@ -98,7 +98,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
   components: { ChevronRightIcon },
-  async asyncData () {
+  async setup () {
     const data = useNuxtApp()
 
     const [payouts] = (
@@ -115,6 +115,7 @@ export default defineNuxtComponent({
 
     return {
       payouts,
+      user: await useUser(),
     }
   },
   data () {
@@ -127,11 +128,11 @@ export default defineNuxtComponent({
   },
   computed: {
     downloadsProjectCount () {
-      return this.$user.projects.filter(project => project.downloads > 0)
+      return this.user.projects.filter(project => project.downloads > 0)
         .length
     },
     followersProjectCount () {
-      return this.$user.projects.filter(project => project.followers > 0)
+      return this.user.projects.filter(project => project.followers > 0)
         .length
     },
   },

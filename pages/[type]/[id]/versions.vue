@@ -27,12 +27,7 @@
         @change="handleFiles"
       />
     </div>
-    <VersionFilterControl
-      class="card"
-      :versions="versions"
-      @update-versions="updateVersions"
-    />
-    <div v-if="versions.length > 0" class="universal-card all-versions">
+    <div class="universal-card all-versions">
       <div class="header">
         <div />
         <div>Version</div>
@@ -40,7 +35,8 @@
         <div>Stats</div>
       </div>
       <div
-        v-for="version in filteredVersions"
+        v-for="version in versions"
+        v-once
         :key="version.id"
         class="version-button button-transparent"
         @click="
@@ -53,12 +49,12 @@
       >
         <a
           v-tooltip="
-            $findPrimary(project, version).filename +
+            version.primaryFile.filename +
               ' (' +
-              $formatBytes($findPrimary(project, version).size) +
+              $formatBytes(version.primaryFile.size) +
               ')'
           "
-          :href="$findPrimary(project, version).url"
+          :href="version.primaryFile.url"
           class="download-button square-button brand-button"
           :class="version.version_type"
           :title="`Download ${version.name}`"
@@ -73,7 +69,6 @@
           class="version__title"
         >
           {{ version.name }}
-          <FeaturedIcon v-if="featuredVersionIds.includes(version.id)" />
         </nuxt-link>
         <div class="version__metadata">
           <VersionBadge
@@ -117,14 +112,13 @@
   </div>
 </template>
 <script>
-import { acceptFileFromProjectType } from '~/plugins/fileUtils'
+import { acceptFileFromProjectType } from '~/helpers/fileUtils'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'
 import FeaturedIcon from '~/assets/images/utils/star.svg'
 import VersionBadge from '~/components/ui/Badge'
 import FileInput from '~/components/ui/FileInput'
-import VersionFilterControl from '~/components/ui/VersionFilterControl'
 import DropArea from '~/components/ui/DropArea.vue'
 
 export default defineNuxtComponent({
@@ -135,7 +129,6 @@ export default defineNuxtComponent({
     InfoIcon,
     FeaturedIcon,
     VersionBadge,
-    VersionFilterControl,
     FileInput,
   },
   auth: false,
@@ -167,7 +160,6 @@ export default defineNuxtComponent({
   },
   data () {
     return {
-      filteredVersions: this.versions,
       metaDescription: `Download and browse ${this.versions.length} ${
         this.project.title
       } versions. ${this.$formatNumber(
@@ -177,16 +169,8 @@ export default defineNuxtComponent({
       ).format('MMM D, YYYY')}.`
     }
   },
-  computed: {
-    featuredVersionIds () {
-      return this.featuredVersions.map(x => x.id)
-    },
-  },
   methods: {
     acceptFileFromProjectType,
-    updateVersions (updatedVersions) {
-      this.filteredVersions = updatedVersions
-    },
     async handleFiles (files) {
       await this.$router.push({
         name: 'type-id-version-create',

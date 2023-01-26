@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modal" :header="title">
     <div class="modal-delete">
-      <div class="markdown-body" v-html="$xss($md(description))" />
+      <div class="markdown-body" v-html="renderString(description)" />
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
         <span>
           <strong>To verify, type</strong>
@@ -41,6 +41,7 @@
 import CrossIcon from '~/assets/images/utils/x.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
 import Modal from '~/components/ui/Modal'
+import { renderString } from '~/helpers/parse'
 
 export default {
   components: {
@@ -80,6 +81,7 @@ export default {
     }
   },
   methods: {
+    renderString,
     cancel () {
       this.$refs.modal.hide()
     },

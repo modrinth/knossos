@@ -351,12 +351,7 @@
         @switch-page="onSearchChange"
       />
       <div class="search-results-container">
-        <div v-if="isLoading" class="no-results">
-          <BrandLogoAnimated aria-hidden="true" />
-          <p>Loading...</p>
-        </div>
         <div
-          v-else-if="true"
           id="search-results"
           class="project-list"
           :class="
@@ -409,7 +404,6 @@
     </section>
   </div>
 </template>
-
 <script>
 import Multiselect from 'vue-multiselect'
 import ProjectCard from '~/components/ui/ProjectCard'
@@ -449,33 +443,6 @@ export default defineNuxtComponent({
   },
   data () {
     return {
-      query: '',
-
-      onlyOpenSource: false,
-
-      showSnapshots: false,
-      selectedVersions: [],
-
-      selectedEnvironments: [],
-
-      facets: [],
-      orFacets: [],
-      results: null,
-      pageCount: 1,
-      currentPage: 1,
-
-      projectType: { id: 'mod', display: 'mod', actual: 'mod' },
-
-      sortTypes: [
-        { display: 'Relevance', name: 'relevance' },
-        { display: 'Download count', name: 'downloads' },
-        { display: 'Follow count', name: 'follows' },
-        { display: 'Recently published', name: 'newest' },
-        { display: 'Recently updated', name: 'updated' },
-      ],
-      sortType: { display: 'Relevance', name: 'relevance' },
-
-      maxResults: 20,
       previousMaxResults: 20,
 
       maxResultsForView: {
@@ -486,62 +453,244 @@ export default defineNuxtComponent({
 
       sidebarMenuOpen: false,
       showAllLoaders: false,
-
-      isLoading: true,
     }
   },
-  async created () {
-    if (this.$route.query.q) { this.query = this.$route.query.q }
-    if (this.$route.query.f) {
-      const facets = this.$route.query.f.split(',')
+  async setup () {
+    const data = useNuxtApp()
+    const route = useRoute()
 
-      for (const facet of facets) { await this.toggleFacet(facet, true) }
+    const query = ref('')
+    const results = shallowRef([])
+    const facets = ref([])
+    const orFacets = ref([])
+    const selectedVersions = ref([])
+    const onlyOpenSource = ref(false)
+    const showSnapshots = ref(false)
+    const selectedEnvironments = ref([])
+    const sortTypes = shallowReadonly([
+      { display: 'Relevance', name: 'relevance' },
+      { display: 'Download count', name: 'downloads' },
+      { display: 'Follow count', name: 'follows' },
+      { display: 'Recently published', name: 'newest' },
+      { display: 'Recently updated', name: 'updated' },
+    ])
+    const sortType = ref({ display: 'Relevance', name: 'relevance' })
+    const maxResults = ref(20)
+    const currentPage = ref(1)
+    const pageCount = ref(1)
+    const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
+
+    if (route.query.q) { query.value = route.query.q }
+    if (route.query.f) {
+      facets.value = route.query.f.split(',')
     }
-    if (this.$route.query.g) {
-      const orFacets = this.$route.query.g.split(',')
-
-      for (const orFacet of orFacets) { await this.toggleOrFacet(orFacet, true) }
+    if (route.query.g) {
+      orFacets.value = route.query.g.split(',')
     }
-    if (this.$route.query.v) { this.selectedVersions = this.$route.query.v.split(',') }
-    if (this.$route.query.l) { this.onlyOpenSource = this.$route.query.l === 'true' }
-    if (this.$route.query.h) { this.showSnapshots = this.$route.query.h === 'true' }
-    if (this.$route.query.e) { this.selectedEnvironments = this.$route.query.e.split(',') }
-    if (this.$route.query.s) {
-      this.sortType.name = this.$route.query.s
+    if (route.query.v) { selectedVersions.value = route.query.v.split(',') }
+    if (route.query.l) { onlyOpenSource.value = route.query.l === 'true' }
+    if (route.query.h) { showSnapshots.value = route.query.h === 'true' }
+    if (route.query.e) { selectedEnvironments.value = route.query.e.split(',') }
+    if (route.query.s) {
+      sortType.value.name = route.query.s
 
-      switch (this.sortType.name) {
+      switch (sortType.value.name) {
         case 'relevance':
-          this.sortType.display = 'Relevance'
+          sortType.value.display = 'Relevance'
           break
         case 'downloads':
-          this.sortType.display = 'Downloads'
+          sortType.value.display = 'Downloads'
           break
         case 'newest':
-          this.sortType.display = 'Recently published'
+          sortType.value.display = 'Recently published'
           break
         case 'updated':
-          this.sortType.display = 'Recently updated'
+          sortType.value.display = 'Recently updated'
           break
         case 'follows':
-          this.sortType.display = 'Follow count'
+          sortType.value.display = 'Follow count'
           break
       }
     }
 
-    if (this.$route.query.m) {
-      this.maxResults = this.$route.query.m
+    if (route.query.m) {
+      maxResults.value = route.query.m
     }
-    if (this.$route.query.o) {
-      this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
+    if (route.query.o) {
+      currentPage.value = Math.ceil(route.query.o / maxResults.value) + 1
     }
 
-    this.projectType = this.$tag.projectTypes.find(
-      x => x.id === this.$route.name.substring(0, this.$route.name.length - 1)
+    projectType.value = data.$tag.projectTypes.find(
+      x => x.id === route.path.substring(1, route.path.length - 1)
     )
 
-    await this.onSearchChange(this.currentPage)
+    const onSearchChange = async (newPageNumber) => {
+      currentPage.value = newPageNumber
 
-    this.isLoading = false
+      if (query.value === null) { return }
+
+      try {
+        const params = [
+          `limit=${maxResults.value}`,
+          `index=${sortType.value.name}`,
+        ]
+
+        if (query.value.length > 0) {
+          params.push(`query=${query.value.replace(/ /g, '+')}`)
+        }
+
+        if (
+          facets.value.length > 0 ||
+          orFacets.value.length > 0 ||
+          selectedVersions.value.length > 0 ||
+          selectedEnvironments.value.length > 0 ||
+          projectType.value
+        ) {
+          let formattedFacets = []
+          for (const facet of facets.value) {
+            formattedFacets.push([facet])
+          }
+
+          // loaders specifier
+          if (orFacets.value.length > 0) {
+            formattedFacets.push(orFacets.value)
+          } else if (projectType.value.id === 'plugin') {
+            formattedFacets.push(
+              data.$tag.loaderData.allPluginLoaders.map(
+                x => `categories:'${encodeURIComponent(x)}'`
+              )
+            )
+          } else if (projectType.value.id === 'mod') {
+            formattedFacets.push(
+              data.$tag.loaderData.modLoaders.map(
+                x => `categories:'${encodeURIComponent(x)}'`
+              )
+            )
+          } else if (projectType.value.id === 'datapack') {
+            formattedFacets.push(
+              data.$tag.loaderData.dataPackLoaders.map(
+                x => `categories:'${encodeURIComponent(x)}'`
+              )
+            )
+          }
+
+          if (selectedVersions.value.length > 0) {
+            const versionFacets = []
+            for (const facet of selectedVersions.value) {
+              versionFacets.push('versions:' + facet)
+            }
+            formattedFacets.push(versionFacets)
+          }
+
+          if (onlyOpenSource.value) { formattedFacets.push(['open_source:true']) }
+
+          if (selectedEnvironments.value.length > 0) {
+            let environmentFacets = []
+
+            const includesClient = selectedEnvironments.value.includes('client')
+            const includesServer = selectedEnvironments.value.includes('server')
+            if (includesClient && includesServer) {
+              environmentFacets = [
+                ['client_side:required'],
+                ['server_side:required'],
+              ]
+            } else {
+              if (includesClient) {
+                environmentFacets = [
+                  ['client_side:optional', 'client_side:required'],
+                  ['server_side:optional', 'server_side:unsupported'],
+                ]
+              }
+              if (includesServer) {
+                environmentFacets = [
+                  ['client_side:optional', 'client_side:unsupported'],
+                  ['server_side:optional', 'server_side:required'],
+                ]
+              }
+            }
+
+            formattedFacets = [...formattedFacets, ...environmentFacets]
+          }
+
+          if (projectType.value) { formattedFacets.push([`project_type:${projectType.value.actual}`]) }
+
+          params.push(`facets=${JSON.stringify(formattedFacets)}`)
+        }
+
+        const offset = (newPageNumber - 1) * maxResults.value
+        if (newPageNumber !== 1) {
+          params.push(`offset=${offset}`)
+        }
+
+        let url = 'search'
+
+        if (params.length > 0) {
+          for (let i = 0; i < params.length; i++) {
+            url += i === 0 ? `?${params[i]}` : `&${params[i]}`
+          }
+        }
+
+        const res = await useBaseFetch(url, data.$defaultHeaders())
+        results.value = res.hits
+
+        pageCount.value = Math.ceil(res.total_hits / res.limit)
+
+        if (process.client) {
+          url = getSearchUrl(offset)
+          window.history.replaceState({}, '', url)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    const getSearchUrl = (offset) => {
+      const queryItems = []
+
+      if (query.value) { queryItems.push(`q=${encodeURIComponent(query.value)}`) }
+      if (offset > 0) { queryItems.push(`o=${offset}`) }
+      if (facets.value.length > 0) { queryItems.push(`f=${encodeURIComponent(facets.value)}`) }
+      if (orFacets.value.length > 0) { queryItems.push(`g=${encodeURIComponent(orFacets.value)}`) }
+      if (selectedVersions.value.length > 0) { queryItems.push(`v=${encodeURIComponent(selectedVersions.value)}`) }
+      if (onlyOpenSource.value) { queryItems.push('l=true') }
+      if (showSnapshots.value) { queryItems.push('h=true') }
+      if (selectedEnvironments.value.length > 0) { queryItems.push(`e=${encodeURIComponent(selectedEnvironments.value)}`) }
+      if (sortType.value.name !== 'relevance') { queryItems.push(`s=${encodeURIComponent(sortType.name.value)}`) }
+      if (maxResults.value !== 20) { queryItems.push(`m=${encodeURIComponent(maxResults.value)}`) }
+
+      let url = `${route.path}`
+
+      if (queryItems.length > 0) {
+        url += `?${queryItems[0]}`
+
+        for (let i = 1; i < queryItems.length; i++) {
+          url += `&${queryItems[i]}`
+        }
+      }
+
+      return url
+    }
+
+    await onSearchChange(currentPage.value)
+
+    return {
+      query,
+      results,
+      facets,
+      orFacets,
+      selectedVersions,
+      onlyOpenSource,
+      showSnapshots,
+      selectedEnvironments,
+      sortTypes,
+      sortType,
+      maxResults,
+      currentPage,
+      pageCount,
+      projectType,
+      onSearchChange,
+      getSearchUrl,
+    }
   },
   computed: {
     categoriesMap () {
@@ -563,33 +712,6 @@ export default defineNuxtComponent({
       return newVals
     },
   },
-  // TODO: get rid of this and move this to it's own child page
-  // watch: {
-  //   '$route.path': {
-  //     async handler () {
-  //       this.isLoading = true
-  //       this.projectType = this.$tag.projectTypes.find(
-  //         x =>
-  //           x.id === this.$route.name.substring(0, this.$route.name.length - 1)
-  //       )
-  //
-  //       this.results = null
-  //       this.pageCount = 1
-  //       this.currentPage = 1
-  //       this.query = ''
-  //       this.maxResults = 20
-  //       this.sortType = { display: 'Relevance', name: 'relevance' }
-  //       this.showAllLoaders = false
-  //       this.sidebarMenuOpen = false
-  //
-  //       await this.clearFilters()
-  //
-  //       this.isLoading = false
-  //
-  //       this.setClosestMaxResults()
-  //     },
-  //   },
-  // },
   methods: {
     async clearFilters () {
       for (const facet of [...this.facets]) { await this.toggleFacet(facet, true) }
@@ -659,153 +781,6 @@ export default defineNuxtComponent({
       )
       this.previousMaxResults = this.maxResults
       await this.onSearchChange(newPageNumber)
-    },
-    async onSearchChange (newPageNumber) {
-      this.currentPage = newPageNumber
-
-      if (this.query === null) { return }
-
-      try {
-        const params = [
-          `limit=${this.maxResults}`,
-          `index=${this.sortType.name}`,
-        ]
-
-        if (this.query.length > 0) {
-          params.push(`query=${this.query.replace(/ /g, '+')}`)
-        }
-
-        if (
-          this.facets.length > 0 ||
-          this.orFacets.length > 0 ||
-          this.selectedVersions.length > 0 ||
-          this.selectedEnvironments.length > 0 ||
-          this.projectType
-        ) {
-          let formattedFacets = []
-          for (const facet of this.facets) {
-            formattedFacets.push([facet])
-          }
-
-          // loaders specifier
-          if (this.orFacets.length > 0) {
-            formattedFacets.push(this.orFacets)
-          } else if (this.projectType.id === 'plugin') {
-            formattedFacets.push(
-              this.$tag.loaderData.allPluginLoaders.map(
-                x => `categories:'${encodeURIComponent(x)}'`
-              )
-            )
-          } else if (this.projectType.id === 'mod') {
-            formattedFacets.push(
-              this.$tag.loaderData.modLoaders.map(
-                x => `categories:'${encodeURIComponent(x)}'`
-              )
-            )
-          } else if (this.projectType.id === 'datapack') {
-            formattedFacets.push(
-              this.$tag.loaderData.dataPackLoaders.map(
-                x => `categories:'${encodeURIComponent(x)}'`
-              )
-            )
-          }
-
-          if (this.selectedVersions.length > 0) {
-            const versionFacets = []
-            for (const facet of this.selectedVersions) {
-              versionFacets.push('versions:' + facet)
-            }
-            formattedFacets.push(versionFacets)
-          }
-
-          if (this.onlyOpenSource) { formattedFacets.push(['open_source:true']) }
-
-          if (this.selectedEnvironments.length > 0) {
-            let environmentFacets = []
-
-            const includesClient = this.selectedEnvironments.includes('client')
-            const includesServer = this.selectedEnvironments.includes('server')
-            if (includesClient && includesServer) {
-              environmentFacets = [
-                ['client_side:required'],
-                ['server_side:required'],
-              ]
-            } else {
-              if (includesClient) {
-                environmentFacets = [
-                  ['client_side:optional', 'client_side:required'],
-                  ['server_side:optional', 'server_side:unsupported'],
-                ]
-              }
-              if (includesServer) {
-                environmentFacets = [
-                  ['client_side:optional', 'client_side:unsupported'],
-                  ['server_side:optional', 'server_side:required'],
-                ]
-              }
-            }
-
-            formattedFacets = [...formattedFacets, ...environmentFacets]
-          }
-
-          if (this.projectType) { formattedFacets.push([`project_type:${this.projectType.actual}`]) }
-
-          params.push(`facets=${JSON.stringify(formattedFacets)}`)
-        }
-
-        const offset = (newPageNumber - 1) * this.maxResults
-        if (newPageNumber !== 1) {
-          params.push(`offset=${offset}`)
-        }
-
-        let url = 'search'
-
-        if (params.length > 0) {
-          for (let i = 0; i < params.length; i++) {
-            url += i === 0 ? `?${params[i]}` : `&${params[i]}`
-          }
-        }
-
-        const res = await useBaseFetch(url, this.$defaultHeaders())
-
-        this.results = res.hits
-
-        this.pageCount = Math.ceil(res.total_hits / res.limit)
-
-        if (process.client) {
-          url = this.getSearchUrl(offset)
-
-          await this.$router.replace({ path: url })
-        }
-      } catch (err) {
-        console.error(err)
-      }
-    },
-    getSearchUrl (offset) {
-      const queryItems = []
-
-      if (this.query) { queryItems.push(`q=${encodeURIComponent(this.query)}`) }
-      if (offset > 0) { queryItems.push(`o=${offset}`) }
-      if (this.facets.length > 0) { queryItems.push(`f=${encodeURIComponent(this.facets)}`) }
-      if (this.orFacets.length > 0) { queryItems.push(`g=${encodeURIComponent(this.orFacets)}`) }
-      if (this.selectedVersions.length > 0) { queryItems.push(`v=${encodeURIComponent(this.selectedVersions)}`) }
-      if (this.onlyOpenSource) { queryItems.push('l=true') }
-      if (this.showSnapshots) { queryItems.push('h=true') }
-      if (this.selectedEnvironments.length > 0) { queryItems.push(`e=${encodeURIComponent(this.selectedEnvironments)}`) }
-      if (this.sortType.name !== 'relevance') { queryItems.push(`s=${encodeURIComponent(this.sortType.name)}`) }
-      if (this.maxResults !== 20) { queryItems.push(`m=${encodeURIComponent(this.maxResults)}`) }
-
-      let url = `${this.$route.path}`
-
-      if (queryItems.length > 0) {
-        url += `?${queryItems[0]}`
-
-        for (let i = 1; i < queryItems.length; i++) {
-          url += `&${queryItems[i]}`
-        }
-      }
-
-      return url
     },
     cycleSearchDisplayMode () {
       this.$cosmetics.searchDisplayMode[this.projectType.id] =

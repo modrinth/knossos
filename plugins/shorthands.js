@@ -1,6 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
   const tagStore = nuxtApp.$tag
-  const cosmeticsStore = nuxtApp.$cosmetics
   const authStore = nuxtApp.$auth
 
   nuxtApp.provide('defaultHeaders', () => {
@@ -23,18 +22,22 @@ export default defineNuxtPlugin((nuxtApp) => {
     formatVersions(versionsArray, tagStore)
   )
   nuxtApp.provide('orElse', (first, otherwise) => first ?? otherwise)
-  nuxtApp.provide('external', () =>
-    cosmeticsStore.externalLinksNewTab ? '_blank' : ''
-  )
+  nuxtApp.provide('external', () => {
+    const cosmeticsStore = useCosmetics().value
+
+    return cosmeticsStore.externalLinksNewTab ? '_blank' : ''
+  })
   nuxtApp.provide('formatBytes', formatBytes)
   nuxtApp.provide('formatWallet', formatWallet)
   nuxtApp.provide('formatProjectType', formatProjectType)
   nuxtApp.provide('formatCategory', formatCategory)
   nuxtApp.provide('formatCategoryHeader', formatCategoryHeader)
   nuxtApp.provide('formatProjectStatus', formatProjectStatus)
-  nuxtApp.provide('computeVersions', (versions) => {
+  nuxtApp.provide('computeVersions', (versions, members) => {
     const visitedVersions = []
     const returnVersions = []
+
+    const authorMembers = {}
 
     for (const version of versions.sort(
       (a, b) =>
@@ -46,6 +49,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       } else {
         visitedVersions.push(version.version_number)
         version.displayUrlEnding = version.version_number
+      }
+      version.primaryFile = version.files.find(file => file.primary) ?? version.files[0]
+
+      version.author = authorMembers[version.author_id]
+      if (!version.author) {
+        version.author = members.find(x => x.user.id === version.author_id)
+        authorMembers[version.author_id] = version.author
       }
 
       returnVersions.push(version)
@@ -138,19 +148,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     return 0
   })
   nuxtApp.provide('sortedCategories', sortedCategories)
-  nuxtApp.provide('findPrimary', (project, version) => {
-    let file = version.files.find(x => x.primary)
-
-    if (!file) {
-      file = version.files[0]
-    }
-
-    if (!file) {
-      file = { url: `/project/${project.id}/version/${version.id}` }
-    }
-
-    return file
-  })
 })
 export const formatNumber = (number) => {
   const x = +number

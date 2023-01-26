@@ -4,12 +4,17 @@
       <aside class="universal-card">
         <h1>Notifications</h1>
         <NavStack>
-          <NavStackItem link="" label="All" />
+          <NavStackItem
+            link="/notifications"
+            label="All"
+            :uses-query="true"
+          />
           <NavStackItem
             v-for="type in notificationTypes"
             :key="type"
-            :link="'?type=' + type"
+            :link="'/notifications/' + type"
             :label="NOTIFICATION_TYPES[type]"
+            :uses-query="true"
           />
           <h3>Manage</h3>
           <NavStackItem
@@ -20,7 +25,7 @@
             <SettingsIcon />
           </NavStackItem>
           <NavStackItem
-            v-if="$user.notifications.length > 0"
+            v-if="user.notifications.length > 0"
             :action="clearNotifications"
             label="Clear all"
             danger
@@ -33,16 +38,16 @@
     <div class="normal-page__content">
       <div class="notifications">
         <div
-          v-for="notification in $route.query.type !== undefined
-            ? $user.notifications.filter((x) => x.type === $route.query.type)
-            : $user.notifications"
+          v-for="notification in $route.params.type !== undefined
+            ? user.notifications.filter((x) => x.type === $route.params.type)
+            : user.notifications"
           :key="notification.id"
           class="universal-card adjacent-input"
         >
           <div class="label">
             <span class="label__title">
               <nuxt-link :to="notification.link">
-                <h3 v-html="$xss($md(notification.title))" />
+                <h3 v-html="renderString(notification.title)" />
               </nuxt-link>
             </span>
             <div class="label__description">
@@ -82,7 +87,7 @@
             </button>
           </div>
         </div>
-        <div v-if="$user.notifications.length === 0" class="error">
+        <div v-if="user.notifications.length === 0" class="error">
           <UpToDate class="icon" />
           <br>
           <span class="text">You are up-to-date!</span>
@@ -99,6 +104,8 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
+import { renderString } from '~/helpers/parse'
+
 export default defineNuxtComponent({
   components: {
     NavStack,
@@ -109,7 +116,10 @@ export default defineNuxtComponent({
     UpToDate,
   },
   async asyncData () {
-    await initUserNotifs()
+    const user = await useUser()
+    if (process.client) { await initUserNotifs() }
+
+    return { user: ref(user) }
   },
   head: {
     title: 'Notifications - Modrinth',
@@ -118,7 +128,7 @@ export default defineNuxtComponent({
     notificationTypes () {
       const obj = {}
 
-      for (const notification of this.$user.notifications.filter(
+      for (const notification of this.user.notifications.filter(
         it => it.type !== null
       )) {
         obj[notification.type] = true
@@ -135,9 +145,10 @@ export default defineNuxtComponent({
     }
   },
   methods: {
+    renderString,
     async clearNotifications () {
       try {
-        const ids = this.$user.notifications.map(x => x.id)
+        const ids = this.user.notifications.map(x => x.id)
 
         await useBaseFetch(
           `notifications?ids=${JSON.stringify(ids)}`,

@@ -261,7 +261,7 @@ export default defineNuxtComponent({
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth(this.$auth.token)
+        await useAuth(this.$auth.token)
       } catch (err) {
         this.$notify({
           group: 'main',

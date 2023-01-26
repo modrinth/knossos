@@ -675,7 +675,6 @@ export default defineNuxtComponent({
     margin: 0 auto 5rem;
     justify-content: center;
 
-    // TODO: work for both themes and move to components.scss
     .outline-button {
       color: var(--landing-color-heading);
       background: none;

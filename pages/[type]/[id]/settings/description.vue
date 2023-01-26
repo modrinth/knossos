@@ -35,10 +35,9 @@
       </div>
       <div
         v-else-if="bodyViewMode === 'preview'"
-        v-highlightjs
         class="markdown-body"
         v-html="
-          description ? $xss($md(description)) : 'No body specified.'
+          description ? renderHighlightedString(description) : 'No body specified.'
         "
       />
       <div class="input-group">
@@ -58,8 +57,8 @@
 
 <script>
 import Chips from '~/components/ui/Chips'
-
 import SaveIcon from '~/assets/images/utils/save.svg'
+import { renderHighlightedString } from '~/helpers/highlight'
 
 export default defineNuxtComponent({
   components: {
@@ -123,6 +122,7 @@ export default defineNuxtComponent({
     this.EDIT_BODY = 1 << 3
   },
   methods: {
+    renderHighlightedString,
     saveChanges () {
       if (this.hasChanges) {
         this.patchProject(this.patchData)

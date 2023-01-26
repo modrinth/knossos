@@ -11,11 +11,11 @@
         <aside class="universal-card">
           <h1>Moderation</h1>
           <NavStack>
-            <NavStackItem link="" label="All" />
+            <NavStackItem link="/moderation" label="All" />
             <NavStackItem
               v-for="type in moderationTypes"
               :key="type"
-              :link="'?type=' + type"
+              :link="'/moderation/' + type"
               :label="$formatProjectType(type) + 's'"
             />
           </NavStack>
@@ -24,8 +24,8 @@
       <div class="normal-page__content">
         <div class="project-list display-mode--list">
           <ProjectCard
-            v-for="project in $route.query.type !== undefined
-              ? projects.filter((x) => x.project_type === $route.query.type)
+            v-for="project in $route.params.type !== undefined
+              ? projects.filter((x) => x.project_type === $route.params.type)
               : projects"
             :id="project.slug || project.id"
             :key="project.id"
@@ -73,7 +73,7 @@
         </div>
         <div
           v-if="
-            $route.query.type === 'report' || $route.query.type === undefined
+            $route.params.type === 'report' || $route.params.type === undefined
           "
           class="reports"
         >
@@ -94,9 +94,8 @@
                 <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
               </div>
               <div
-                v-highlightjs
                 class="markdown-body"
-                v-html="$xss($md(item.body))"
+                v-html="renderHighlightedString(item.body)"
               />
               <Badge :type="`Marked as ${item.report_type}`" color="orange" />
             </div>
@@ -141,6 +140,7 @@ import Security from '~/assets/images/illustrations/security.svg'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 import ModalModeration from '~/components/ui/ModalModeration'
+import { renderHighlightedString } from '~/helpers/highlight'
 
 export default defineNuxtComponent({
   components: {
@@ -156,7 +156,7 @@ export default defineNuxtComponent({
     TrashIcon,
     CalendarIcon,
   },
-  async asyncData () {
+  async setup () {
     const data = useNuxtApp()
 
     const [projects, reports] = (
@@ -255,6 +255,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    renderHighlightedString,
     setProjectStatus (project, status) {
       this.currentProject = project
       this.currentStatus = status

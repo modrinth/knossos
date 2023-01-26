@@ -137,7 +137,7 @@
       :header="project.license.name ? project.license.name : 'License'"
     >
       <div class="modal-license">
-        <div class="markdown-body" v-html="$xss($md(licenseText))" />
+        <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
     <ModalReport
@@ -268,7 +268,7 @@
                   Report
                 </button>
                 <button
-                  v-if="!$user.follows.find((x) => x.id === project.id)"
+                  v-if="!$user.value.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
                   @click="userFollowProject(project)"
                 >
@@ -276,7 +276,7 @@
                   Follow
                 </button>
                 <button
-                  v-if="$user.follows.find((x) => x.id === project.id)"
+                  v-if="$user.value.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
                   @click="userUnfollowProject(project)"
                 >
@@ -335,9 +335,8 @@
                   {{ project.moderator_message.message }}
                 </p>
                 <div
-                  v-highlightjs
                   class="markdown-body"
-                  v-html="$xss($md(project.moderator_message.body))"
+                  v-html="renderString(project.moderator_message.body)"
                 />
               </div>
               <div v-else>
@@ -573,12 +572,12 @@
           >
             <a
               v-tooltip="
-                $findPrimary(project, version).filename +
+                version.primaryFile.filename +
                   ' (' +
-                  $formatBytes($findPrimary(project, version).size) +
+                  $formatBytes(version.primaryFile.size) +
                   ')'
               "
-              :href="$findPrimary(project, version).url"
+              :href="version.primaryFile.url"
               class="download download-button square-button brand-button"
               :title="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
@@ -883,6 +882,7 @@ import VersionIcon from '~/assets/images/utils/version.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import { renderString } from '~/helpers/parse'
 
 export default defineNuxtComponent({
   components: {
@@ -999,7 +999,7 @@ export default defineNuxtComponent({
       ) {
         let path = route.fullPath.split('/')
         path.splice(0, 3)
-        path = route.filter(x => x)
+        path = path.filter(x => x)
 
         await navigateTo(`/${project.project_type}/${project.slug}${
           path.length > 0 ? `/${path.join('/')}` : ''
@@ -1047,8 +1047,8 @@ export default defineNuxtComponent({
         })
       })
 
-      versions = data.$computeVersions(versions)
-      featuredVersions = data.$computeVersions(featuredVersions)
+      versions = data.$computeVersions(versions, members)
+      featuredVersions = data.$computeVersions(featuredVersions, members)
 
       featuredVersions.sort((a, b) => {
         const aLatest = a.game_versions[a.game_versions.length - 1]
@@ -1064,17 +1064,19 @@ export default defineNuxtComponent({
 
       return {
         project: ref(project),
-        versions: shallowReactive(versions),
-        featuredVersions: shallowReactive(featuredVersions),
+        versions: shallowRef(versions),
+        featuredVersions: shallowRef(featuredVersions),
         members: ref(members.filter(x => x.accepted)),
         allMembers: ref(members),
         currentMember: ref(currentMember),
         dependencies: ref(dependencies),
         loaders: ref(loaders),
-        projectTypeDisplay: ref(projectTypeDisplay)
+        projectTypeDisplay: ref(projectTypeDisplay),
       }
-    } catch {
-      data.error({
+    } catch (error) {
+      console.error(error)
+      createError({
+        fatal: true,
         statusCode: 404,
         message: 'Project not found',
       })
@@ -1114,6 +1116,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    renderString,
     async resetProject () {
       const project = await useBaseFetch(
         `project/${this.project.id}`,

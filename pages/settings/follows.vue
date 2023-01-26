@@ -1,7 +1,7 @@
 <template>
-  <div v-if="$user.follows.length > 0" class="project-list display-mode--list">
+  <div v-if="user.follows.length > 0" class="project-list display-mode--list">
     <ProjectCard
-      v-for="project in $user.follows"
+      v-for="project in user.follows"
       :id="project.id"
       :key="project.id"
       :type="project.project_type"
@@ -34,24 +34,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ProjectCard from '~/components/ui/ProjectCard'
 
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 
-export default defineNuxtComponent({
-  async asyncData () {
-    await initUserFollows()
-  },
-  components: {
-    ProjectCard,
-    HeartIcon,
-    FollowIllustration,
-  },
-  head: {
-    title: 'Followed projects - Modrinth',
-  },
-})
+const user = await useUser()
+if (process.client) { await initUserFollows() }
+
+useHead({ title: 'Followed projects - Modrinth' })
 </script>
 <style lang="scss" scoped></style>

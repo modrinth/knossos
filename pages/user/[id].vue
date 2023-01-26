@@ -169,16 +169,15 @@
         <Advertisement type="banner" small-screen="square" />
         <nav class="navigation-card">
           <NavRow
-            query="type"
             :links="[
               {
                 label: 'all',
-                href: '',
+                href: `/user/${user.username}`,
               },
               ...projectTypes.map((x) => {
                 return {
                   label: $formatProjectType(x) + 's',
-                  href: x,
+                  href: `/user/${user.username}/${x}s`,
                 }
               }),
             ]"
@@ -216,8 +215,8 @@
           :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
         >
           <ProjectCard
-            v-for="project in ($route.query.type !== undefined
-              ? projects.filter((x) => x.project_type === $route.query.type)
+            v-for="project in ($route.params.type !== undefined
+              ? projects.filter((x) => x.project_type === $route.params.type.substr(0, $route.params.type.length - 1))
               : projects
             )
               .slice()
@@ -483,7 +482,7 @@ export default defineNuxtComponent({
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth(this.$auth.token)
+        await useAuth(this.$auth.token)
 
         this.isEditing = false
       } catch (err) {
@@ -497,7 +496,8 @@ export default defineNuxtComponent({
       stopLoading()
     },
     cycleSearchDisplayMode () {
-      this.$cosmetics.searchDisplayMode.user = this.$cycleValue(this.$cosmetics.searchDisplayMode.user, this.$tag.projectViewModes)
+      this.$cosmetics.searchDisplayMode.user =
+        this.$cycleValue(this.$cosmetics.searchDisplayMode.user, this.$tag.projectViewModes)
       saveCosmetics()
     },
   },

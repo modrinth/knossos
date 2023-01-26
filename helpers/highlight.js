@@ -1,3 +1,4 @@
+
 import hljs from 'highlight.js/lib/core'
 // Scripting
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -15,6 +16,7 @@ import ini from 'highlight.js/lib/languages/ini'
 import yaml from 'highlight.js/lib/languages/yaml'
 import xml from 'highlight.js/lib/languages/xml'
 import properties from 'highlight.js/lib/languages/properties'
+import { md, configuredXss } from '~/helpers/parse'
 
 /* REGISTRATION */
 // Scripting
@@ -36,40 +38,24 @@ hljs.registerLanguage('properties', properties)
 
 /* ALIASES */
 // Scripting
-hljs.registerAliases(['js'], 'javascript')
-hljs.registerAliases(['py'], 'python')
+hljs.registerAliases(['js'], { languageName: 'javascript' })
+hljs.registerAliases(['py'], { languageName: 'python' })
 // Coding
-hljs.registerAliases(['kt'], 'kotlin')
+hljs.registerAliases(['kt'], { languageName: 'kotlin' })
 // Configs
-hljs.registerAliases(['json5'], 'json')
-hljs.registerAliases(['toml'], 'ini')
-hljs.registerAliases(['yml'], 'yaml')
-hljs.registerAliases(['html', 'htm', 'xhtml', 'mcui', 'fxml'], 'xml')
+hljs.registerAliases(['json5'], { languageName: 'json' })
+hljs.registerAliases(['toml'], { languageName: 'ini' })
+hljs.registerAliases(['yml'], { languageName: 'yaml' })
+hljs.registerAliases(['html', 'htm', 'xhtml', 'mcui', 'fxml'], { languageName: 'xml' })
 
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.directive('highlightjs', {
-    deep: true,
-    bind (el, binding) {
-      // on first bind, highlight all targets
-      const targets = el.querySelectorAll('pre > code')
-      targets.forEach((target) => {
-        // if a value is directly assigned to the directive, use this
-        // instead of the element content.
-        if (binding.value) {
-          target.textContent = binding.value
-        }
-        hljs.highlightBlock(target)
-      })
-    },
-    componentUpdated (el, binding) {
-      // after an update, re-fill the content and then highlight
-      const targets = el.querySelectorAll('pre > code')
-      targets.forEach((target) => {
-        if (binding.value) {
-          target.textContent = binding.value
-          hljs.highlightBlock(target)
-        }
-      })
-    },
-  })
-})
+export const renderHighlightedString = string => configuredXss.process(md({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(str, { language: lang }).value
+      } catch (__) {}
+    }
+
+    return ''
+  }
+}).render(string))

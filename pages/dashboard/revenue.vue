@@ -90,7 +90,6 @@
     </section>
   </div>
 </template>
-
 <script>
 import TransferIcon from '~/assets/images/utils/transfer.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'

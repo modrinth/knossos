@@ -275,22 +275,20 @@
         </div>
         <div
           v-if="changelogViewMode === 'preview'"
-          v-highlightjs
           class="markdown-body"
           v-html="
             version.changelog
-              ? $xss($md(version.changelog))
+              ? renderHighlightedString(version.changelog)
               : 'No changelog specified.'
           "
         />
       </template>
       <div
         v-else
-        v-highlightjs
         class="markdown-body"
         v-html="
           version.changelog
-            ? $xss($md(version.changelog))
+            ? renderHighlightedString(version.changelog)
             : 'No changelog specified.'
         "
       />
@@ -755,25 +753,25 @@
           <div
             class="team-member columns button-transparent"
             @click="
-              $router.push('/user/' + version.author_member.user.username)
+              $router.push('/user/' + version.author.user.username)
             "
           >
             <Avatar
-              :src="version.author_member.avatar_url"
-              :alt="version.author_member.user.username"
+              :src="version.author.avatar_url"
+              :alt="version.author.user.username"
               size="sm"
               circle
             />
 
             <div class="member-info">
               <nuxt-link
-                :to="'/user/' + version.author_member.user.username"
+                :to="'/user/' + version.author.user.username"
                 class="name"
               >
-                <p>{{ version.author_member.name }}</p>
+                <p>{{ version.author.name }}</p>
               </nuxt-link>
               <p class="role">
-                {{ version.author_member.role }}
+                {{ version.author.role }}
               </p>
             </div>
           </div>
@@ -788,11 +786,10 @@
 </template>
 <script>
 import Multiselect from 'vue-multiselect'
-import {
-  acceptFileFromProjectType,
-  inferVersionInfo,
-  createDataPackVersion,
-} from '~/plugins/fileUtils'
+import { acceptFileFromProjectType } from '~/helpers/fileUtils'
+import { inferVersionInfo } from '~/helpers/infer'
+import { createDataPackVersion } from '~/helpers/package'
+import { renderHighlightedString } from '~/helpers/highlight'
 
 import VersionBadge from '~/components/ui/Badge'
 import Avatar from '~/components/ui/Avatar'
@@ -1015,10 +1012,6 @@ export default defineNuxtComponent({
       file => file.file_type && file.file_type.includes('resource-pack')
     )
 
-    version.author_member = props.members.find(
-      x => x.user.id === version.author_id
-    )
-
     for (const dependency of version.dependencies) {
       dependency.version = props.dependencies.versions.find(
         x => x.id === dependency.version_id
@@ -1121,6 +1114,7 @@ export default defineNuxtComponent({
   },
   methods: {
     acceptFileFromProjectType,
+    renderHighlightedString,
     async addDependency (
       dependencyAddMode,
       newDependencyId,
@@ -1327,9 +1321,9 @@ export default defineNuxtComponent({
           ])
         )
 
-        const newEditedVersions = this.$computeVersions(versions)
+        const newEditedVersions = this.$computeVersions(versions, this.members)
         this.$emit('update:versions', newEditedVersions)
-        this.$emit('update:featuredVersions', featuredVersions)
+        this.$emit('update:featuredVersions', this.$computeVersions(featuredVersions, this.members))
         this.$emit('update:dependencies', dependencies)
 
         await this.$router.replace(
@@ -1455,9 +1449,9 @@ export default defineNuxtComponent({
         ])
       )
 
-      const newCreatedVersions = this.$computeVersions(versions)
+      const newCreatedVersions = this.$computeVersions(versions, this.members)
       this.$emit('update:versions', newCreatedVersions)
-      this.$emit('update:featuredVersions', featuredVersions)
+      this.$emit('update:featuredVersions', this.$computeVersions(featuredVersions, this.members))
       this.$emit('update:dependencies', dependencies)
 
       await this.$router.push(

@@ -1,9 +1,7 @@
+import MarkdownIt from 'markdown-it'
 import xss from 'xss'
 
-/**
- * @type {import('xss').IFilterXSSOptions}
- */
-const options = {
+export const configuredXss = new xss.FilterXSS({
   whiteList: {
     ...xss.whiteList,
     summary: [],
@@ -44,15 +42,35 @@ const options = {
         }
       }
     }
+
+    // For Highlight.JS
+    if (name === 'class' && ['pre', 'code', 'span'].includes(tag) && (value.startsWith('hljs-') || value.startsWith('language-'))) {
+      return name + '="' + xss.escapeAttrValue(value) + '"'
+    }
   },
+})
+
+export const md = (options = {}) => {
+  const md = new MarkdownIt('default', {
+    html: true,
+    linkify: true,
+    breaks: false,
+    ...options
+  })
+
+  const defaultRender =
+    md.renderer.rules.link_open ||
+    function (tokens, idx, options, _env, self) {
+      return self.renderToken(tokens, idx, options)
+    }
+
+  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+    tokens[idx].attrJoin('rel', 'noopener noreferrer ugc')
+
+    return defaultRender(tokens, idx, options, env, self)
+  }
+
+  return md
 }
 
-const configuredXss = new xss.FilterXSS(options)
-
-export default defineNuxtPlugin(() => {
-  return {
-    provide: {
-      xss: string => configuredXss.process(string),
-    },
-  }
-})
+export const renderString = string => configuredXss.process(md().render(string))

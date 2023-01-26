@@ -1,8 +1,12 @@
-export const useAuth = async () => {
-  const auth = useState('auth', () => {})
+export const useAuth = async (oldToken = null) => {
+  const auth = useState('auth', () => ({
+    user: null,
+    token: '',
+    headers: {},
+  }))
 
-  if (!auth.value) {
-    auth.value = await initAuth()
+  if (!auth.value.user || oldToken) {
+    auth.value = await initAuth(oldToken)
   }
 
   return auth
@@ -37,7 +41,6 @@ export const initAuth = async (oldToken = null) => {
       auth.user = await useBaseFetch('user', {
         headers: {
           Authorization: auth.token,
-          // TODO: add back ratelimit key
         },
       })
     } catch {}

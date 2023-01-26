@@ -36,9 +36,8 @@
         />
         <div
           v-else
-          v-highlightjs
           class="markdown-body preview"
-          v-html="$xss($md(moderationMessageBody))"
+          v-html="renderString(moderationMessageBody)"
         />
       </div>
       <div class="push-right input-group">
@@ -75,6 +74,7 @@ import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 import Badge from '~/components/ui/Badge'
 import CheckIcon from '~/assets/images/utils/check.svg'
+import { renderString } from '~/helpers/parse'
 
 export default {
   components: {
@@ -113,6 +113,7 @@ export default {
     }
   },
   methods: {
+    renderString,
     async saveProject () {
       startLoading()
 

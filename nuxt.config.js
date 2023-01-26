@@ -6,7 +6,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 import { $fetch } from 'ofetch'
 
 const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
-// const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
+const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
 
 export default defineNuxtConfig({
   app: {
@@ -104,7 +104,22 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/styles/global.scss'],
   modules: ['@nuxtjs/color-mode'],
-  vite: { plugins: [svgLoader({ svgo: false }), eslintPlugin()] },
+  vite: {
+    plugins: [svgLoader({
+      svgoConfig: {
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeViewBox: false,
+              },
+            },
+          },
+        ],
+      }
+    }), eslintPlugin()]
+  },
   dayjs: {
     locales: ['en'],
     defaultLocale: 'en',
@@ -179,88 +194,93 @@ export default defineNuxtConfig({
     },
     'pages:extend' (routes) {
       routes.splice(
-        routes.findIndex(x => x.name === 'search'),
+        routes.findIndex(x => x.name === 'search-type'),
         1
       )
 
       routes.push({
-        name: 'search',
-        path: '/search',
-        file: resolve(__dirname, 'pages/search.vue'),
-        children: [
-          {
-            name: 'mods',
-            path: '/mods',
-            file: resolve(__dirname, 'pages/search/mods.vue'),
-            children: [],
-          },
-          {
-            name: 'modpacks',
-            path: '/modpacks',
-            file: resolve(__dirname, 'pages/search/modpacks.vue'),
-            children: [],
-          },
-          {
-            name: 'plugins',
-            path: '/plugins',
-            file: resolve(__dirname, 'pages/search/plugins.vue'),
-            children: [],
-          },
-          {
-            name: 'resourcepacks',
-            path: '/resourcepacks',
-            file: resolve(__dirname, 'pages/search/resourcepacks.vue'),
-            children: [],
-          },
-          {
-            name: 'shaders',
-            path: '/shaders',
-            file: resolve(__dirname, 'pages/search/shaders.vue'),
-            children: [],
-          },
-          {
-            name: 'datapacks',
-            path: '/datapacks',
-            file: resolve(__dirname, 'pages/search/datapacks.vue'),
-            children: [],
-          },
-        ],
+        name: 'mods',
+        path: '/mods',
+        file: resolve(__dirname, 'pages/search/[type].vue'),
+        children: [],
+      })
+      routes.push({
+        name: 'modpacks',
+        path: '/modpacks',
+        file: resolve(__dirname, 'pages/search/[type].vue'),
+        children: [],
+      })
+      routes.push({
+        name: 'plugins',
+        path: '/plugins',
+        file: resolve(__dirname, 'pages/search/[type].vue'),
+        children: [],
+      })
+      routes.push({
+        name: 'resourcepacks',
+        path: '/resourcepacks',
+        file: resolve(__dirname, 'pages/search/[type].vue'),
+        children: [],
+      })
+      routes.push({
+        name: 'shaders',
+        path: '/shaders',
+        file: resolve(__dirname, 'pages/search/[type].vue'),
+        children: [],
+      })
+      routes.push({
+        name: 'datapacks',
+        path: '/datapacks',
+        file: resolve(__dirname, 'pages/search/[type].vue'),
+        children: [],
       })
     }
-  }
+  },
+  runtimeConfig: {
+    apiBaseUrl: process.env.BASE_URL ?? getApiUrl(),
+    ariadneBaseUrl: process.env.ARIADNE_URL ?? getAriadneUrl(),
+    ariadneAdminKey: process.env.ARIADNE_ADMIN_KEY,
+    rateLimitKey: process.env.RATE_LIMIT_IGNORE_KEY,
+    public: {
+      apiBaseUrl: getApiUrl(),
+      ariadneBaseUrl: getAriadneUrl(),
+      siteUrl: getDomain()
+    }
+  },
 })
 
 function getApiUrl () {
   return process.env.BROWSER_BASE_URL ?? STAGING_API_URL
 }
 
-// function getDomain () {
-//   if (process.env.NODE_ENV === 'production') {
-//     if (process.env.SITE_URL) {
-//       return process.env.SITE_URL
-//     } else if (process.env.HEROKU_APP_NAME) {
-//       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
-//     } else if (process.env.VERCEL_URL) {
-//       return `https://${process.env.VERCEL_URL}`
-//     } else if (getApiUrl() === STAGING_API_URL) {
-//       return 'https://staging.modrinth.com'
-//     } else {
-//       return 'https://modrinth.com'
-//     }
-//   } else {
-//     return 'http://localhost:3000'
-//   }
-// }
+function getAriadneUrl () {
+  return process.env.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
+}
+
+function getDomain () {
+  if (process.env.NODE_ENV === 'production') {
+    if (process.env.SITE_URL) {
+      return process.env.SITE_URL
+    } else if (process.env.HEROKU_APP_NAME) {
+      return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+    } else if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`
+    } else if (getApiUrl() === STAGING_API_URL) {
+      return 'https://staging.modrinth.com'
+    } else {
+      return 'https://modrinth.com'
+    }
+  } else {
+    return 'http://localhost:3000'
+  }
+}
 
 // Checklist
-// Add auth redirects
-// Global loading bar style
-// Figure out app config (env variables and stuff) and fix authUrl
+// Add auth redirects middleware
+// Fix authUrl
 // Analytics on nuxt hooks + middleware
-// Fix perf issues on changelog/version page (maybe use functional components)
-// Migrate search to asyncData/SSR
-// Possibly make auth + userdata fetch not block rendering
-// Move fileutils out of a nuxt plugin
 // Create new notif system
-// Figure out tooltip styling
-// Fix 404 page
+// Fix perf issues on changelog/version page
+// Fix 404 page on user + projects
+// Fix router search thing
+// Fix version edit page nav

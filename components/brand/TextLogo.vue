@@ -7,7 +7,7 @@
     stroke-miterlimit="2"
     clip-rule="evenodd"
     viewBox="0 0 3307 593"
-    :class="{ animate: $loading ? $loading.loading : false }"
+    :class="{ animate: loading.loading }"
   >
     <path
       fill-rule="nonzero"
@@ -29,6 +29,9 @@
     </g>
   </svg>
 </template>
+<script setup>
+const loading = useLoading()
+</script>
 
 <style lang="scss" scoped>
 .animate {

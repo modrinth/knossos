@@ -51,9 +51,8 @@
         </div>
         <div
           v-else
-          v-highlightjs
           class="preview"
-          v-html="$xss($md(body))"
+          v-html="renderString(body)"
         />
       </div>
       <div class="button-group">
@@ -76,6 +75,7 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
+import { renderString } from '~/helpers/parse'
 
 export default {
   components: {
@@ -103,6 +103,7 @@ export default {
     }
   },
   methods: {
+    renderString,
     cancel () {
       this.reportType = ''
       this.body = ''

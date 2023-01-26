@@ -11,8 +11,8 @@
     </Head>
     <VersionFilterControl
       class="card"
-      :versions="versions"
-      @update-versions="updateVersions"
+      :versions="filteredVersions"
+      @update-versions="(newVersions) => (filteredVersions = newVersions)"
     />
     <div class="card">
       <div
@@ -37,18 +37,15 @@
                   {{ version.name }}
                 </nuxt-link>
               </h2>
-              <span v-if="members.find((x) => x.user.id === version.author_id)">
+              <span v-if="version.author">
                 by
                 <nuxt-link
                   class="text-link"
                   :to="
-                    '/user/' +
-                      members.find((x) => x.user.id === version.author_id).user
-                        .username
+                    '/user/' + version.author.user.username
                   "
                 >{{
-                  members.find((x) => x.user.id === version.author_id).user
-                    .username
+                  version.author.user.username
                 }}</nuxt-link>
               </span>
               <span>
@@ -56,7 +53,7 @@
                 {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span>
             </div>
             <a
-              :href="$findPrimary(project, version).url"
+              :href="version.primaryFile.url"
               class="iconified-button download"
               :title="`Download ${version.name}`"
             >
@@ -66,57 +63,36 @@
           </div>
           <div
             v-if="version.changelog && !version.duplicate"
-            v-highlightjs
             class="markdown-body"
-            v-html="$xss($md(version.changelog))"
+            v-html="renderHighlightedString(version.changelog)"
           />
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import VersionFilterControl from '~/components/ui/VersionFilterControl'
+import { renderHighlightedString } from '~/helpers/highlight'
 
-export default defineNuxtComponent({
-  components: {
-    VersionFilterControl,
-    DownloadIcon,
-  },
-  props: {
-    project: {
-      type: Object,
-      default () {
-        return {}
-      },
-    },
-    versions: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
-    members: {
-      type: Array,
-      default () {
-        return []
-      },
+const props = defineProps({
+  project: {
+    type: Object,
+    default () {
+      return {}
     },
   },
-  data () {
-    return {
-      filteredVersions: this.versions,
-      metaDescription: `View the changelog of ${this.project.title}'s ${this.versions.length} versions.`
-    }
-  },
-  methods: {
-    updateVersions (updatedVersions) {
-      this.filteredVersions = updatedVersions
+  versions: {
+    type: Array,
+    default () {
+      return []
     },
   },
-  auth: false,
 })
+
+const filteredVersions = shallowRef(props.versions)
+const metaDescription = computed(() => `View the changelog of ${props.project.title}'s ${props.versions.length} versions.`)
 </script>
 
 <style lang="scss">

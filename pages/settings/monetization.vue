@@ -195,7 +195,7 @@ export default defineNuxtComponent({
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth(this.$auth.token)
+        await useAuth(this.$auth.token)
 
         this.editing = false
         this.enrolled = !unenroll

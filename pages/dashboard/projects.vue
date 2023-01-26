@@ -345,9 +345,15 @@ export default defineNuxtComponent({
     Multiselect,
     CopyCode,
   },
+  async asyncData () {
+    const user = await useUser()
+    if (process.client) { await initUserProjects() }
+
+    return { user: ref(user) }
+  },
   data () {
     return {
-      projects: this.updateSort(this.$user.projects, 'Name'),
+      projects: this.updateSort(this.user.projects, 'Name'),
       versions: [],
       selectedProjects: [],
       sortBy: 'Name',

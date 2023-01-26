@@ -46,10 +46,10 @@
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
               <nuxt-link
-                v-if="$auth.user"
+                v-if="auth.user"
                 to="/notifications"
                 class="control-button button-transparent"
-                :class="{ bubble: $user.notifications.length > 0 }"
+                :class="{ bubble: user.notifications.length > 0 }"
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
@@ -66,7 +66,7 @@
                 <SunIcon v-else aria-hidden="true" />
               </button>
               <div
-                v-if="$auth.user"
+                v-if="auth.user"
                 class="dropdown"
                 :class="{ closed: !isDropdownOpen }"
                 tabindex="0"
@@ -76,7 +76,7 @@
               >
                 <button class="control" value="Profile Dropdown">
                   <Avatar
-                    :src="$auth.user.avatar_url"
+                    :src="auth.user.avatar_url"
                     class="user-icon"
                     alt="Your avatar"
                     aria-hidden="true"
@@ -87,11 +87,11 @@
                 <div class="content card">
                   <NuxtLink
                     class="item button-transparent"
-                    :to="`/user/${$auth.user.username}`"
+                    :to="`/user/${auth.user.username}`"
                   >
                     <div class="title profile-link">
                       <div class="username">
-                        @{{ $auth.user.username }}
+                        @{{ auth.user.username }}
                       </div>
                       <div class="prompt">
                         Visit your profile
@@ -128,8 +128,8 @@
                   </NuxtLink>
                   <NuxtLink
                     v-if="
-                      $auth.user.role === 'moderator' ||
-                        $auth.user.role === 'admin'
+                      auth.user.role === 'moderator' ||
+                        auth.user.role === 'admin'
                     "
                     class="item button-transparent"
                     to="/moderation"
@@ -238,19 +238,19 @@
         <div class="mobile-menu-wrapper">
           <div class="items-container rows">
             <NuxtLink
-              v-if="$auth.user"
+              v-if="auth.user"
               class="iconified-button raised-button user-item"
-              :to="`/user/${$auth.user.username}`"
+              :to="`/user/${auth.user.username}`"
             >
               <img
-                :src="$auth.user.avatar_url"
+                :src="auth.user.avatar_url"
                 class="user-icon"
                 aria-hidden="true"
                 alt="User profile icon"
               >
               <div class="profile-link">
                 <div class="username">
-                  @{{ $auth.user.username }}
+                  @{{ auth.user.username }}
                 </div>
                 <div class="prompt">
                   Visit your profile
@@ -258,7 +258,7 @@
               </div>
             </NuxtLink>
             <button
-              v-if="$auth.user"
+              v-if="auth.user"
               class="iconified-button raised-button"
               @click="$refs.modal_creation.show()"
             >
@@ -266,7 +266,7 @@
               <span class="dropdown-item__text">Create a project</span>
             </button>
             <NuxtLink
-              v-if="$auth.user"
+              v-if="auth.user"
               class="iconified-button raised-button"
               to="/notifications"
             >
@@ -274,7 +274,7 @@
               <span class="dropdown-item__text">Notifications</span>
             </NuxtLink>
             <NuxtLink
-              v-if="$auth.user"
+              v-if="auth.user"
               class="iconified-button raised-button"
               to="/dashboard"
             >
@@ -283,7 +283,7 @@
               <span class="beta-badge">BETA</span>
             </NuxtLink>
             <NuxtLink
-              v-if="$auth.user"
+              v-if="auth.user"
               class="iconified-button raised-button"
               to="/settings/follows"
             >
@@ -296,8 +296,8 @@
             </NuxtLink>
             <NuxtLink
               v-if="
-                $auth.user &&
-                  ($auth.user.role === 'moderator' || $auth.user.role === 'admin')
+                auth.user &&
+                  (auth.user.role === 'moderator' || auth.user.role === 'admin')
               "
               class="iconified-button raised-button"
               to="/moderation"
@@ -311,7 +311,7 @@
               <span class="dropdown-item__text">Change theme</span>
             </button>
             <button
-              v-if="$auth.user"
+              v-if="auth.user"
               class="iconified-button danger-button"
               @click="logout"
             >
@@ -326,7 +326,7 @@
       </section>
     </header>
     <main>
-      <ModalCreation v-if="$auth.user" ref="modal_creation" />
+      <ModalCreation v-if="auth.user" ref="modal_creation" />
       <slot id="main" />
     </main>
     <footer>
@@ -433,8 +433,7 @@
     </footer>
   </div>
 </template>
-
-<script>
+<script setup>
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 
@@ -455,26 +454,13 @@ import GitHubIcon from '~/assets/images/utils/github.svg'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
+
+const auth = await useAuth()
+const user = await useUser()
+</script>
+<script>
+
 export default defineNuxtComponent({
-  components: {
-    Avatar,
-    ModalCreation,
-    NavRow,
-    MoonIcon,
-    SunIcon,
-    LogOutIcon,
-    GitHubIcon,
-    NotificationIcon,
-    HomeIcon,
-    CrossIcon,
-    HamburgerIcon,
-    SettingsIcon,
-    ModerationIcon,
-    PlusIcon,
-    DropdownIcon,
-    HeartIcon,
-    ChartIcon,
-  },
   data () {
     return {
       isDropdownOpen: false,
@@ -560,13 +546,12 @@ export default defineNuxtComponent({
       } else {
         await this.$router.go(null)
 
-        // TODO: send logout nofication using whatever lib
-        // this.$notify({
-        //   group: 'main',
-        //   title: 'Logged Out',
-        //   text: 'You have logged out successfully!',
-        //   type: 'success',
-        // })
+        this.$notify({
+          group: 'main',
+          title: 'Logged Out',
+          text: 'You have logged out successfully!',
+          type: 'success',
+        })
       }
     },
     changeTheme () {

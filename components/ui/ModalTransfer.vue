@@ -144,7 +144,7 @@ export default {
             ...this.$defaultHeaders()
           }
         )
-        this.$auth = await initAuth(this.$auth.token)
+        await useAuth(this.$auth.token)
 
         this.$refs.modal.hide()
       } catch (err) {
