@@ -1,9 +1,7 @@
 <template>
   <div class="content">
     <Head>
-      <Title>
-        {{ project.title }} - Changelog
-      </Title>
+      <Title> {{ project.title }} - Changelog </Title>
       <Meta name="og:title" :content="`${project.title} - Changelog`" />
       <Meta name="description" :content="metaDescription" />
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Changelog`" />
@@ -15,15 +13,9 @@
       @update-versions="(newVersions) => (filteredVersions = newVersions)"
     />
     <div class="card">
-      <div
-        v-for="version in filteredVersions"
-        :key="version.id"
-        class="changelog-item"
-      >
+      <div v-for="version in filteredVersions" :key="version.id" class="changelog-item">
         <div
-          :class="`changelog-bar ${version.version_type} ${
-            version.duplicate ? 'duplicate' : ''
-          }`"
+          :class="`changelog-bar ${version.version_type} ${version.duplicate ? 'duplicate' : ''}`"
         />
         <div class="version-wrapper">
           <div class="version-header">
@@ -39,18 +31,14 @@
               </h2>
               <span v-if="version.author">
                 by
-                <nuxt-link
-                  class="text-link"
-                  :to="
-                    '/user/' + version.author.user.username
-                  "
-                >{{
+                <nuxt-link class="text-link" :to="'/user/' + version.author.user.username">{{
                   version.author.user.username
                 }}</nuxt-link>
               </span>
               <span>
                 on
-                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span>
+                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
+              >
             </div>
             <a
               :href="version.primaryFile.url"
@@ -79,20 +67,22 @@ import { renderHighlightedString } from '~/helpers/highlight'
 const props = defineProps({
   project: {
     type: Object,
-    default () {
+    default() {
       return {}
     },
   },
   versions: {
     type: Array,
-    default () {
+    default() {
       return []
     },
   },
 })
 
 const filteredVersions = shallowRef(props.versions)
-const metaDescription = computed(() => `View the changelog of ${props.project.title}'s ${props.versions.length} versions.`)
+const metaDescription = computed(
+  () => `View the changelog of ${props.project.title}'s ${props.versions.length} versions.`
+)
 </script>
 
 <style lang="scss">

@@ -22,7 +22,7 @@ export const initAuth = async (oldToken = null) => {
   const authCookie = useCookie('auth-token', {
     secure: true,
     sameSite: 'Strict',
-    httpOnly: true,
+    httpOnly: false,
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
     path: '/',
   })
@@ -53,4 +53,11 @@ export const initAuth = async (oldToken = null) => {
   }
 
   return auth
+}
+
+export const getAuthUrl = () => {
+  const config = useRuntimeConfig()
+  const route = useRoute()
+
+  return `${config.public.apiBaseUrl}auth/init?url=${config.public.siteUrl}${route.fullPath}`
 }

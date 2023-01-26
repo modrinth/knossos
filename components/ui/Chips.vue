@@ -34,28 +34,28 @@ export default {
       type: Boolean,
     },
     formatLabel: {
-      default: x => x,
+      default: (x) => x,
       type: Function,
     },
   },
   emits: ['update:modelValue'],
   computed: {
     selected: {
-      get () {
+      get() {
         return this.modelValue
       },
-      set (value) {
+      set(value) {
         this.$emit('update:modelValue', value)
       },
     },
   },
-  created () {
+  created() {
     if (this.items.length > 0 && this.neverEmpty) {
       this.selected = this.items[0]
     }
   },
   methods: {
-    toggleItem (item) {
+    toggleItem(item) {
       if (this.selected === item && !this.neverEmpty) {
         this.selected = null
       } else {

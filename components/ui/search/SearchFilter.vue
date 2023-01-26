@@ -37,14 +37,14 @@ export default {
     },
     activeFilters: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
   },
   emits: ['toggle'],
   methods: {
-    toggle () {
+    toggle() {
       this.$emit('toggle', this.facetName)
     },
   },

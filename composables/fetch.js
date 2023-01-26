@@ -6,7 +6,7 @@ export const useBaseFetch = async (url, options = {}) => {
     options.headers['x-ratelimit-key'] = config.rateLimitKey
   } else if (process.server) {
     options.headers = {
-      'x-ratelimit-key': config.rateLimitKey
+      'x-ratelimit-key': config.rateLimitKey,
     }
   }
 

@@ -102,23 +102,25 @@ export default defineNuxtConfig({
       ],
     },
   },
-  css: ['~/assets/styles/global.scss'],
   modules: ['@nuxtjs/color-mode'],
   vite: {
-    plugins: [svgLoader({
-      svgoConfig: {
-        plugins: [
-          {
-            name: 'preset-default',
-            params: {
-              overrides: {
-                removeViewBox: false,
+    plugins: [
+      svgLoader({
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                },
               },
             },
-          },
-        ],
-      }
-    }), eslintPlugin()]
+          ],
+        },
+      }),
+      eslintPlugin(),
+    ],
   },
   dayjs: {
     locales: ['en'],
@@ -126,15 +128,13 @@ export default defineNuxtConfig({
     plugins: ['relativeTime'],
   },
   hooks: {
-    async 'build:before' () {
+    async 'build:before'() {
       // 30 minutes
       const TTL = 30 * 60 * 1000
 
       let state = {}
       try {
-        state = JSON.parse(
-          await fs.readFile('./generated/state.json', 'utf8')
-        )
+        state = JSON.parse(await fs.readFile('./generated/state.json', 'utf8'))
       } catch {
         // File doesn't exist, create folder
         await fs.mkdir('./generated', { recursive: true })
@@ -145,16 +145,13 @@ export default defineNuxtConfig({
       if (
         // Skip regeneration if within TTL...
         state.lastGenerated &&
-        new Date(state.lastGenerated).getTime() + TTL >
-        new Date().getTime() &&
+        new Date(state.lastGenerated).getTime() + TTL > new Date().getTime() &&
         // ...but only if the API URL is the same
         state.apiUrl &&
         state.apiUrl === API_URL
       ) {
         return
       }
-
-      console.log('Generating tags...')
 
       state.lastGenerated = new Date().toISOString()
 
@@ -166,20 +163,14 @@ export default defineNuxtConfig({
         },
       }
 
-      const [
-        categories,
-        loaders,
-        gameVersions,
-        donationPlatforms,
-        reportTypes,
-      ] = (
-        await Promise.all([
+      const [categories, loaders, gameVersions, donationPlatforms, reportTypes] = await Promise.all(
+        [
           $fetch(`${API_URL}tag/category`, headers),
           $fetch(`${API_URL}tag/loader`, headers),
           $fetch(`${API_URL}tag/game_version`, headers),
           $fetch(`${API_URL}tag/donation_platform`, headers),
           $fetch(`${API_URL}tag/report_type`, headers),
-        ])
+        ]
       )
 
       state.categories = categories
@@ -192,9 +183,9 @@ export default defineNuxtConfig({
 
       console.log('Tags generated!')
     },
-    'pages:extend' (routes) {
+    'pages:extend'(routes) {
       routes.splice(
-        routes.findIndex(x => x.name === 'search-type'),
+        routes.findIndex((x) => x.name === 'search-type'),
         1
       )
 
@@ -234,7 +225,7 @@ export default defineNuxtConfig({
         file: resolve(__dirname, 'pages/search/[type].vue'),
         children: [],
       })
-    }
+    },
   },
   runtimeConfig: {
     apiBaseUrl: process.env.BASE_URL ?? getApiUrl(),
@@ -244,20 +235,20 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: getApiUrl(),
       ariadneBaseUrl: getAriadneUrl(),
-      siteUrl: getDomain()
-    }
+      siteUrl: getDomain(),
+    },
   },
 })
 
-function getApiUrl () {
+function getApiUrl() {
   return process.env.BROWSER_BASE_URL ?? STAGING_API_URL
 }
 
-function getAriadneUrl () {
+function getAriadneUrl() {
   return process.env.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
 }
 
-function getDomain () {
+function getDomain() {
   if (process.env.NODE_ENV === 'production') {
     if (process.env.SITE_URL) {
       return process.env.SITE_URL
@@ -276,11 +267,6 @@ function getDomain () {
 }
 
 // Checklist
-// Add auth redirects middleware
-// Fix authUrl
-// Analytics on nuxt hooks + middleware
+// Analytics on nuxt hooks
 // Create new notif system
 // Fix perf issues on changelog/version page
-// Fix 404 page on user + projects
-// Fix router search thing
-// Fix version edit page nav

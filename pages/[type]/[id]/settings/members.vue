@@ -9,20 +9,15 @@
       <span class="label">
         <span class="label__title">Invite a member</span>
         <span class="label__description">
-          Enter the Modrinth username of the person you'd like to invite to be a
-          member of this project.
+          Enter the Modrinth username of the person you'd like to invite to be a member of this
+          project.
         </span>
       </span>
       <div
         v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
         class="input-group"
       >
-        <input
-          id="username"
-          v-model="currentUsername"
-          type="text"
-          placeholder="Username"
-        >
+        <input id="username" v-model="currentUsername" type="text" placeholder="Username" />
         <label for="username" class="hidden">Username</label>
         <button class="iconified-button brand-button" @click="inviteTeamMember">
           <UserPlusIcon />
@@ -38,12 +33,7 @@
     >
       <div class="member-header">
         <div class="info">
-          <Avatar
-            :src="member.avatar_url"
-            :alt="member.username"
-            size="sm"
-            circle
-          />
+          <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
           <div class="text">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
               <p>{{ member.name }}</p>
@@ -59,9 +49,7 @@
             @click="
               openTeamMembers.indexOf(member.user.id) === -1
                 ? openTeamMembers.push(member.user.id)
-                : (openTeamMembers = openTeamMembers.filter(
-                  (it) => it !== member.user.id
-                ))
+                : (openTeamMembers = openTeamMembers.filter((it) => it !== member.user.id))
             "
           >
             <DropdownIcon />
@@ -81,35 +69,25 @@
             v-model="allTeamMembers[index].role"
             type="text"
             :class="{ 'known-error': member.role === 'Owner' }"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-            "
-          >
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+          />
         </div>
         <div class="adjacent-input">
-          <label
-            :for="`member-${allTeamMembers[index].user.username}-monetization-weight`"
-          >
+          <label :for="`member-${allTeamMembers[index].user.username}-monetization-weight`">
             <span class="label__title">Monetization weight</span>
             <span class="label__description">
-              Relative to all other members' monetization weights, this
-              determines what portion of this project's revenue goes to this
-              member.
+              Relative to all other members' monetization weights, this determines what portion of
+              this project's revenue goes to this member.
             </span>
           </label>
           <input
             :id="`member-${allTeamMembers[index].user.username}-monetization-weight`"
             v-model="allTeamMembers[index].payouts_split"
             type="number"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-            "
-          >
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+          />
         </div>
-        <ul
-          v-if="member.role === 'Owner' && member.oldRole !== 'Owner'"
-          class="known-errors"
-        >
+        <ul v-if="member.role === 'Owner' && member.oldRole !== 'Owner'" class="known-errors">
           <li>A project can only have one 'Owner'.</li>
         </ul>
         <template v-if="member.oldRole !== 'Owner'">
@@ -121,7 +99,7 @@
               :model-value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
+                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
               "
               label="Upload version"
               @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
@@ -130,7 +108,7 @@
               :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
+                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
               "
               label="Delete version"
               @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
@@ -139,7 +117,7 @@
               :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
               "
               label="Edit details"
               @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
@@ -148,7 +126,7 @@
               :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
+                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
               "
               label="Edit body"
               @input="allTeamMembers[index].permissions ^= EDIT_BODY"
@@ -157,7 +135,7 @@
               :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
+                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
               "
               label="Manage invites"
               @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
@@ -166,16 +144,14 @@
               :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
+                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
               "
               label="Remove member"
               @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
             />
             <Checkbox
               :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
-              :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-              "
+              :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
               label="Edit member"
               @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
             />
@@ -183,7 +159,7 @@
               :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
               "
               label="Delete project"
               @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
@@ -192,7 +168,7 @@
               :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
+                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
               "
               label="View analytics"
               @input="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
@@ -201,7 +177,7 @@
               :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                  (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
+                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
               "
               label="View revenue"
               @input="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
@@ -211,9 +187,7 @@
         <div class="input-group">
           <button
             class="iconified-button brand-button"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-            "
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="updateTeamMember(index)"
           >
             <SaveIcon />
@@ -222,20 +196,14 @@
           <button
             v-if="member.oldRole !== 'Owner'"
             class="iconified-button danger-button"
-            :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER
-            "
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="removeTeamMember(index)"
           >
             <UserRemoveIcon />
             Remove member
           </button>
           <button
-            v-if="
-              member.oldRole !== 'Owner' &&
-                currentMember.role === 'Owner' &&
-                member.accepted
-            "
+            v-if="member.oldRole !== 'Owner' && currentMember.role === 'Owner' && member.accepted"
             class="iconified-button"
             @click="transferOwnership(index)"
           >
@@ -273,24 +241,24 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     allMembers: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
   },
-  data () {
+  data() {
     return {
       currentUsername: '',
       openTeamMembers: [],
@@ -300,7 +268,7 @@ export default defineNuxtComponent({
       }),
     }
   },
-  created () {
+  created() {
     this.UPLOAD_VERSION = 1 << 0
     this.DELETE_VERSION = 1 << 1
     this.EDIT_DETAILS = 1 << 2
@@ -313,7 +281,7 @@ export default defineNuxtComponent({
     this.VIEW_PAYOUTS = 1 << 9
   },
   methods: {
-    async inviteTeamMember () {
+    async inviteTeamMember() {
       startLoading()
 
       try {
@@ -323,27 +291,24 @@ export default defineNuxtComponent({
           user_id: user.id.trim(),
         }
 
-        await useBaseFetch(
-          `team/${this.project.team}/members`,
-          {
-            method: 'POST',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`team/${this.project.team}/members`, {
+          method: 'POST',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
         await this.updateMembers()
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async removeTeamMember (index) {
+    async removeTeamMember(index) {
       startLoading()
 
       try {
@@ -351,7 +316,7 @@ export default defineNuxtComponent({
           `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
           {
             method: 'DELETE',
-            ...this.$defaultHeaders()
+            ...this.$defaultHeaders(),
           }
         )
         await this.updateMembers()
@@ -359,14 +324,14 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async updateTeamMember (index) {
+    async updateTeamMember(index) {
       startLoading()
 
       try {
@@ -386,60 +351,54 @@ export default defineNuxtComponent({
           {
             method: 'PATCH',
             body: data,
-            ...this.$defaultHeaders()
+            ...this.$defaultHeaders(),
           }
         )
         await this.updateMembers()
         this.$notify({
           group: 'main',
           title: 'Member(s) updated',
-          text: 'Your project\'s member(s) has been updated.',
+          text: "Your project's member(s) has been updated.",
           type: 'success',
         })
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async transferOwnership (index) {
+    async transferOwnership(index) {
       startLoading()
 
       try {
-        await useBaseFetch(
-          `team/${this.project.team}/owner`,
-          {
-            method: 'PATCH',
-            body: {
-              user_id: this.allTeamMembers[index].user.id,
-            },
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`team/${this.project.team}/owner`, {
+          method: 'PATCH',
+          body: {
+            user_id: this.allTeamMembers[index].user.id,
+          },
+          ...this.$defaultHeaders(),
+        })
         await this.updateMembers()
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async updateMembers () {
+    async updateMembers() {
       this.allTeamMembers = (
-        await useBaseFetch(
-          `team/${this.project.team}/members`,
-          this.$defaultHeaders()
-        )
-      ).map(it => ({
+        await useBaseFetch(`team/${this.project.team}/members`, this.$defaultHeaders())
+      ).map((it) => ({
         avatar_url: it.user.avatar_url,
         name: it.user.username,
         oldRole: it.role,

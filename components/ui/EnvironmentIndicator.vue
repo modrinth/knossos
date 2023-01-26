@@ -6,8 +6,8 @@
   <span
     v-else-if="
       !['resourcepack', 'shader'].includes(type) &&
-        !(type === 'plugin' && search) &&
-        !categories.some((x) => $tag.loaderData.dataPackLoaders.includes(x))
+      !(type === 'plugin' && search) &&
+      !categories.some((x) => $tag.loaderData.dataPackLoaders.includes(x))
     "
     class="environment"
   >
@@ -15,16 +15,14 @@
       <GlobeIcon aria-hidden="true" />
       Client or server
     </template>
-    <template
-      v-else-if="clientSide === 'required' && serverSide === 'required'"
-    >
+    <template v-else-if="clientSide === 'required' && serverSide === 'required'">
       <GlobeIcon aria-hidden="true" />
       Client and server
     </template>
     <template
       v-else-if="
         (clientSide === 'optional' || clientSide === 'required') &&
-          (serverSide === 'optional' || serverSide === 'unsupported')
+        (serverSide === 'optional' || serverSide === 'unsupported')
       "
     >
       <ClientIcon aria-hidden="true" />
@@ -33,15 +31,13 @@
     <template
       v-else-if="
         (serverSide === 'optional' || serverSide === 'required') &&
-          (clientSide === 'optional' || clientSide === 'unsupported')
+        (clientSide === 'optional' || clientSide === 'unsupported')
       "
     >
       <ServerIcon aria-hidden="true" />
       Server
     </template>
-    <template
-      v-else-if="serverSide === 'unsupported' && clientSide === 'unsupported'"
-    >
+    <template v-else-if="serverSide === 'unsupported' && clientSide === 'unsupported'">
       <GlobeIcon aria-hidden="true" />
       Unsupported
     </template>
@@ -96,7 +92,7 @@ export default {
     categories: {
       type: Array,
       required: false,
-      default () {
+      default() {
         return []
       },
     },

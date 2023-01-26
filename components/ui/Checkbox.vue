@@ -58,7 +58,7 @@ export default {
   },
   emits: ['update:modelValue'],
   methods: {
-    toggle () {
+    toggle() {
       if (!this.disabled) {
         this.$emit('update:modelValue', !this.modelValue)
       }

@@ -18,9 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide('formatNumber', formatNumber)
   nuxtApp.provide('capitalizeString', capitalizeString)
   nuxtApp.provide('formatMoney', formatMoney)
-  nuxtApp.provide('formatVersion', versionsArray =>
-    formatVersions(versionsArray, tagStore)
-  )
+  nuxtApp.provide('formatVersion', (versionsArray) => formatVersions(versionsArray, tagStore))
   nuxtApp.provide('orElse', (first, otherwise) => first ?? otherwise)
   nuxtApp.provide('external', () => {
     const cosmeticsStore = useCosmetics().value
@@ -40,8 +38,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const authorMembers = {}
 
     for (const version of versions.sort(
-      (a, b) =>
-        nuxtApp.$dayjs(a.date_published) - nuxtApp.$dayjs(b.date_published)
+      (a, b) => nuxtApp.$dayjs(a.date_published) - nuxtApp.$dayjs(b.date_published)
     )) {
       if (visitedVersions.includes(version.version_number)) {
         visitedVersions.push(version.version_number)
@@ -50,11 +47,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         visitedVersions.push(version.version_number)
         version.displayUrlEnding = version.version_number
       }
-      version.primaryFile = version.files.find(file => file.primary) ?? version.files[0]
+      version.primaryFile = version.files.find((file) => file.primary) ?? version.files[0]
 
       version.author = authorMembers[version.author_id]
       if (!version.author) {
-        version.author = members.find(x => x.user.id === version.author_id)
+        version.author = members.find((x) => x.user.id === version.author_id)
         authorMembers[version.author_id] = version.author
       }
 
@@ -65,19 +62,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       .reverse()
       .map((version, index) => {
         const nextVersion = returnVersions[index + 1]
-        if (
-          nextVersion &&
-          version.changelog &&
-          nextVersion.changelog === version.changelog
-        ) {
+        if (nextVersion && version.changelog && nextVersion.changelog === version.changelog) {
           return { duplicate: true, ...version }
         } else {
           return { duplicate: false, ...version }
         }
       })
-      .sort(
-        (a, b) => nuxtApp.$dayjs(b.date_published) - nuxtApp.$dayjs(a.date_published)
-      )
+      .sort((a, b) => nuxtApp.$dayjs(b.date_published) - nuxtApp.$dayjs(a.date_published))
   })
   nuxtApp.provide('getProjectTypeForDisplay', (type, categories) => {
     if (type === 'mod') {
@@ -137,10 +128,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     if (a.header === 'resolutions' && b.header === 'resolutions') {
       return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
-    } else if (
-      a.header === 'performance impact' &&
-      b.header === 'performance impact'
-    ) {
+    } else if (a.header === 'performance impact' && b.header === 'performance impact') {
       const x = ['potato', 'low', 'medium', 'high', 'screenshot']
 
       return x.indexOf(a.name) - x.indexOf(b.name)
@@ -178,7 +166,9 @@ export const formatMoney = (number) => {
 }
 
 export const formatBytes = (bytes, decimals = 2) => {
-  if (bytes === 0) { return '0 Bytes' }
+  if (bytes === 0) {
+    return '0 Bytes'
+  }
 
   const k = 1024
   const dm = decimals < 0 ? 0 : decimals
@@ -262,16 +252,14 @@ export const formatProjectStatus = (name) => {
 
 export const formatVersions = (versionArray, tag) => {
   const allVersions = tag.gameVersions.slice().reverse()
-  const allReleases = allVersions.filter(x => x.version_type === 'release')
+  const allReleases = allVersions.filter((x) => x.version_type === 'release')
 
   const intervals = []
   let currentInterval = 0
 
   for (let i = 0; i < versionArray.length; i++) {
-    const index = allVersions.findIndex(x => x.version === versionArray[i])
-    const releaseIndex = allReleases.findIndex(
-      x => x.version === versionArray[i]
-    )
+    const index = allVersions.findIndex((x) => x.version === versionArray[i])
+    const releaseIndex = allReleases.findIndex((x) => x.version === versionArray[i])
 
     if (i === 0) {
       intervals.push([[versionArray[i], index, releaseIndex]])
@@ -296,11 +284,7 @@ export const formatVersions = (versionArray, tag) => {
   for (let i = 0; i < intervals.length; i++) {
     const interval = intervals[i]
 
-    if (
-      interval.length === 2 &&
-      interval[0][2] !== -1 &&
-      interval[1][2] === -1
-    ) {
+    if (interval.length === 2 && interval[0][2] !== -1 && interval[1][2] === -1) {
       let lastSnapshot = null
       for (let j = interval[1][1]; j > interval[0][1]; j--) {
         if (allVersions[j].version_type === 'release') {
@@ -309,17 +293,12 @@ export const formatVersions = (versionArray, tag) => {
             [
               allVersions[j].version,
               j,
-              allReleases.findIndex(
-                x => x.version === allVersions[j].version
-              ),
+              allReleases.findIndex((x) => x.version === allVersions[j].version),
             ],
           ])
 
           if (lastSnapshot !== null && lastSnapshot !== j + 1) {
-            newIntervals.push([
-              [allVersions[lastSnapshot].version, lastSnapshot, -1],
-              interval[1],
-            ])
+            newIntervals.push([[allVersions[lastSnapshot].version, lastSnapshot, -1], interval[1]])
           } else {
             newIntervals.push([interval[1]])
           }

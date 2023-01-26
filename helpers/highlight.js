@@ -1,4 +1,3 @@
-
 import hljs from 'highlight.js/lib/core'
 // Scripting
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -48,14 +47,17 @@ hljs.registerAliases(['toml'], { languageName: 'ini' })
 hljs.registerAliases(['yml'], { languageName: 'yaml' })
 hljs.registerAliases(['html', 'htm', 'xhtml', 'mcui', 'fxml'], { languageName: 'xml' })
 
-export const renderHighlightedString = string => configuredXss.process(md({
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(str, { language: lang }).value
-      } catch (__) {}
-    }
+export const renderHighlightedString = (string) =>
+  configuredXss.process(
+    md({
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(str, { language: lang }).value
+          } catch (__) {}
+        }
 
-    return ''
-  }
-}).render(string))
+        return ''
+      },
+    }).render(string)
+  )

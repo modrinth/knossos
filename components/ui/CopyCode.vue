@@ -1,10 +1,5 @@
 <template>
-  <button
-    class="code"
-    :class="{ copied }"
-    title="Copy code to clipboard"
-    @click="copyText"
-  >
+  <button class="code" :class="{ copied }" title="Copy code to clipboard" @click="copyText">
     {{ text }}
     <CheckIcon v-if="copied" />
     <ClipboardCopyIcon v-else />
@@ -26,13 +21,13 @@ export default {
       required: true,
     },
   },
-  data () {
+  data() {
     return {
       copied: false,
     }
   },
   methods: {
-    async copyText () {
+    async copyText() {
       await navigator.clipboard.writeText(this.text)
       this.copied = true
     },
@@ -53,8 +48,8 @@ export default {
   width: min-content;
   border-radius: 10px;
   user-select: text;
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
+    outline 0.2s ease-in-out;
 
   svg {
     width: 1em;

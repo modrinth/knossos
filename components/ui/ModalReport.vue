@@ -3,16 +3,11 @@
     <div class="modal-report legacy-label-styles">
       <div class="markdown-body">
         <p>
-          Modding should be safe for everyone, so we take abuse and malicious
-          intent seriously at Modrinth. We want to hear about harmful content on
-          the site that violates our
-          <nuxt-link to="/legal/terms">
-            ToS
-          </nuxt-link> and
-          <nuxt-link to="/legal/rules">
-            Rules
-          </nuxt-link>. Rest assured, we’ll
-          keep your identifying information private.
+          Modding should be safe for everyone, so we take abuse and malicious intent seriously at
+          Modrinth. We want to hear about harmful content on the site that violates our
+          <nuxt-link to="/legal/terms"> ToS </nuxt-link> and
+          <nuxt-link to="/legal/rules"> Rules </nuxt-link>. Rest assured, we’ll keep your
+          identifying information private.
         </p>
       </div>
       <label class="report-label" for="report-type">
@@ -24,9 +19,7 @@
         id="report-type"
         v-model="reportType"
         :options="$tag.reportTypes"
-        :custom-label="
-          (value) => value.charAt(0).toUpperCase() + value.slice(1)
-        "
+        :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
         :multiple="false"
         :searchable="false"
         :show-no-results="false"
@@ -35,25 +28,14 @@
       />
       <label class="report-label" for="additional-information">
         <strong>Additional information</strong>
-        <span>
-          Include links and images if possible. Markdown formatting is
-          supported.
-        </span>
+        <span> Include links and images if possible. Markdown formatting is supported. </span>
       </label>
       <div class="textarea-wrapper">
-        <Chips
-          v-model="bodyViewType"
-          class="separator"
-          :items="['source', 'preview']"
-        />
+        <Chips v-model="bodyViewType" class="separator" :items="['source', 'preview']" />
         <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
           <textarea id="body" v-model="body" spellcheck="true" />
         </div>
-        <div
-          v-else
-          class="preview"
-          v-html="renderString(body)"
-        />
+        <div v-else class="preview" v-html="renderString(body)" />
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
@@ -95,7 +77,7 @@ export default {
       default: '',
     },
   },
-  data () {
+  data() {
     return {
       reportType: '',
       body: '',
@@ -104,14 +86,14 @@ export default {
   },
   methods: {
     renderString,
-    cancel () {
+    cancel() {
       this.reportType = ''
       this.body = ''
       this.bodyViewType = 'source'
 
       this.$refs.modal.hide()
     },
-    async submitReport () {
+    async submitReport() {
       startLoading()
       try {
         const data = {
@@ -120,27 +102,24 @@ export default {
           item_type: this.itemType,
           body: this.body,
         }
-        await useBaseFetch(
-          'report',
-          {
-            method: 'POST',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch('report', {
+          method: 'POST',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
 
         this.$refs.modal.hide()
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
       stopLoading()
     },
-    show () {
+    show() {
       this.$refs.modal.show()
     },
   },

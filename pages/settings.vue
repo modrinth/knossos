@@ -27,8 +27,7 @@
     </div>
   </div>
 </template>
-
-<script>
+<script setup>
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 
@@ -36,17 +35,6 @@ import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
 import UserIcon from '~/assets/images/utils/user.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'
-
-export default defineNuxtComponent({
-  components: {
-    NavStack,
-    NavStackItem,
-    PaintbrushIcon,
-    UserIcon,
-    HeartIcon,
-    CurrencyIcon,
-  },
-})
 </script>
 
 <style lang="scss" scoped></style>

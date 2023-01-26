@@ -46,42 +46,28 @@
               @click="
                 setProjectStatus(
                   project,
-                  project.requested_status
-                    ? project.requested_status
-                    : 'approved'
+                  project.requested_status ? project.requested_status : 'approved'
                 )
               "
             >
               <CheckIcon />
               Approve
             </button>
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'withheld')"
-            >
+            <button class="iconified-button" @click="setProjectStatus(project, 'withheld')">
               <UnlistIcon />
               Withhold
             </button>
-            <button
-              class="iconified-button"
-              @click="setProjectStatus(project, 'rejected')"
-            >
+            <button class="iconified-button" @click="setProjectStatus(project, 'rejected')">
               <CrossIcon />
               Reject
             </button>
           </ProjectCard>
         </div>
         <div
-          v-if="
-            $route.params.type === 'report' || $route.params.type === undefined
-          "
+          v-if="$route.params.type === 'report' || $route.params.type === undefined"
           class="reports"
         >
-          <div
-            v-for="(item, index) in reports"
-            :key="index"
-            class="card report"
-          >
+          <div v-for="(item, index) in reports" :key="index" class="card report">
             <div class="info">
               <div class="title">
                 <h3>
@@ -93,10 +79,7 @@
                 reported by
                 <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
               </div>
-              <div
-                class="markdown-body"
-                v-html="renderHighlightedString(item.body)"
-              />
+              <div class="markdown-body" v-html="renderHighlightedString(item.body)" />
               <Badge :type="`Marked as ${item.report_type}`" color="orange" />
             </div>
             <div class="actions">
@@ -104,11 +87,7 @@
                 <TrashIcon /> Delete report
               </button>
               <span
-                v-tooltip="
-                  $dayjs(item.created).format(
-                    '[Created at] YYYY-MM-DD [at] HH:mm A'
-                  )
-                "
+                v-tooltip="$dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
                 class="stat"
               >
                 <CalendarIcon />
@@ -119,7 +98,7 @@
         </div>
         <div v-if="reports.length === 0 && projects.length === 0" class="error">
           <Security class="icon" />
-          <br>
+          <br />
           <span class="text">You are up-to-date!</span>
         </div>
       </div>
@@ -156,15 +135,17 @@ export default defineNuxtComponent({
     TrashIcon,
     CalendarIcon,
   },
-  async setup () {
+  async setup() {
     const data = useNuxtApp()
 
-    const [projects, reports] = (
-      await Promise.all([
-        useBaseFetch('moderation/projects', data.$defaultHeaders()),
-        useBaseFetch('report', data.$defaultHeaders()),
-      ])
-    )
+    definePageMeta({
+      middleware: 'auth',
+    })
+
+    const [projects, reports] = await Promise.all([
+      useBaseFetch('moderation/projects', data.$defaultHeaders()),
+      useBaseFetch('report', data.$defaultHeaders()),
+    ])
 
     const newReports = await Promise.all(
       reports.map(async (report) => {
@@ -175,39 +156,25 @@ export default defineNuxtComponent({
           let url = ''
 
           if (report.item_type === 'user') {
-            const user = await useBaseFetch(
-              `user/${report.item_id}`,
-              data.$defaultHeaders()
-            )
+            const user = await useBaseFetch(`user/${report.item_id}`, data.$defaultHeaders())
             url = `/user/${user.username}`
             report.item_id = user.username
           } else if (report.item_type === 'project') {
-            const project = await useBaseFetch(
-              `project/${report.item_id}`,
-              data.$defaultHeaders()
-            )
+            const project = await useBaseFetch(`project/${report.item_id}`, data.$defaultHeaders())
             report.item_id = project.slug || report.item_id
             url = `/${project.project_type}/${report.item_id}`
           } else if (report.item_type === 'version') {
-            const version = await useBaseFetch(
-              `version/${report.item_id}`,
-              data.$defaultHeaders()
-            )
+            const version = await useBaseFetch(`version/${report.item_id}`, data.$defaultHeaders())
             const project = await useBaseFetch(
               `project/${version.project_id}`,
               data.$defaultHeaders()
             )
             report.item_id = version.version_number || report.item_id
-            url = `/${project.project_type}/${
-              project.slug || project.id
-            }/version/${report.item_id}`
+            url = `/${project.project_type}/${project.slug || project.id}/version/${report.item_id}`
           }
 
           report.reporter = (
-            await useBaseFetch(
-              `user/${report.reporter}`,
-              data.$defaultHeaders()
-            )
+            await useBaseFetch(`user/${report.reporter}`, data.$defaultHeaders())
           ).username
 
           return {
@@ -230,7 +197,7 @@ export default defineNuxtComponent({
       reports: newReports,
     }
   },
-  data () {
+  data() {
     return {
       currentProject: null,
       currentStatus: null,
@@ -240,7 +207,7 @@ export default defineNuxtComponent({
     title: 'Moderation - Modrinth',
   },
   computed: {
-    moderationTypes () {
+    moderationTypes() {
       const obj = {}
 
       for (const project of this.projects) {
@@ -256,37 +223,34 @@ export default defineNuxtComponent({
   },
   methods: {
     renderHighlightedString,
-    setProjectStatus (project, status) {
+    setProjectStatus(project, status) {
       this.currentProject = project
       this.currentStatus = status
 
       this.$refs.modal.show()
     },
-    onModalClose () {
+    onModalClose() {
       this.projects.splice(
-        this.projects.findIndex(x => this.currentProject.id === x.id),
+        this.projects.findIndex((x) => this.currentProject.id === x.id),
         1
       )
       this.currentProject = null
     },
-    async deleteReport (index) {
+    async deleteReport(index) {
       startLoading()
 
       try {
-        await useBaseFetch(
-          `report/${this.reports[index].id}`,
-          {
-            method: 'DELETE',
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`report/${this.reports[index].id}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
 
         this.reports.splice(index, 1)
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }

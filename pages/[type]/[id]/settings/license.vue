@@ -6,14 +6,10 @@
           <span class="label__title size-card-header">License</span>
           <span class="label__description">
             It is very important to choose a proper license for your
-            {{ $formatProjectType(project.project_type).toLowerCase() }}. You
-            may choose one from our list or provide a custom license. You may
-            also provide a custom URL to your chosen license; otherwise, the
-            license text will be displayed.
-            <span
-              v-if="license && license.friendly === 'Custom'"
-              class="label__subdescription"
-            >
+            {{ $formatProjectType(project.project_type).toLowerCase() }}. You may choose one from
+            our list or provide a custom license. You may also provide a custom URL to your chosen
+            license; otherwise, the license text will be displayed.
+            <span v-if="license && license.friendly === 'Custom'" class="label__subdescription">
               Enter a valid
               <a
                 href="https://spdx.org/licenses/"
@@ -21,11 +17,11 @@
                 rel="noopener noreferrer"
                 class="text-link"
               >
-                SPDX license identifier</a>
-              in the marked area. If your license does not have a SPDX
-              identifier (for example, if you created the license yourself or if
-              the license is Minecraft-specific), simply check the box and enter
-              the name of the license instead.
+                SPDX license identifier</a
+              >
+              in the marked area. If your license does not have a SPDX identifier (for example, if
+              you created the license yourself or if the license is Minecraft-specific), simply
+              check the box and enter the name of the license instead.
             </span>
             <span class="label__subdescription">
               Confused? See our
@@ -35,7 +31,8 @@
                 rel="noopener noreferrer"
                 class="text-link"
               >
-                licensing guide</a>
+                licensing guide</a
+              >
               for more information.
             </span>
           </span>
@@ -80,14 +77,14 @@
               'known-error': license.short === '' && showKnownErrors,
             }"
             :disabled="!hasPermission"
-          >
+          />
           <input
             v-model="licenseUrl"
             type="url"
             maxlength="2048"
             placeholder="License URL (optional)"
             :disabled="!hasPermission || licenseId === 'LicenseRef-Unknown'"
-          >
+          />
         </div>
       </div>
       <div class="input-stack">
@@ -119,19 +116,19 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -143,7 +140,7 @@ export default defineNuxtComponent({
       },
     },
   },
-  data () {
+  data() {
     return {
       licenseUrl: '',
       license: { friendly: '', short: '', requiresOnlyOrLater: false },
@@ -152,7 +149,7 @@ export default defineNuxtComponent({
       showKnownErrors: false,
     }
   },
-  fetch () {
+  fetch() {
     this.licenseUrl = this.project.license.url
 
     const licenseId = this.project.license.id
@@ -160,9 +157,7 @@ export default defineNuxtComponent({
       .replaceAll('-only', '')
       .replaceAll('-or-later', '')
       .replaceAll('LicenseRef-', '')
-    this.license = this.defaultLicenses.find(
-      x => x.short === trimmedLicenseId
-    ) ?? {
+    this.license = this.defaultLicenses.find((x) => x.short === trimmedLicenseId) ?? {
       friendly: 'Custom',
       short: licenseId.replaceAll('LicenseRef-', ''),
     }
@@ -176,23 +171,29 @@ export default defineNuxtComponent({
     this.nonSpdxLicense = licenseId.includes('LicenseRef-')
   },
   computed: {
-    hasPermission () {
+    hasPermission() {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
-    licenseId () {
+    licenseId() {
       let id = ''
       if (
         (this.nonSpdxLicense && this.license.friendly === 'Custom') ||
         this.license.short === 'All-Rights-Reserved' ||
         this.license.short === 'Unknown'
-      ) { id += 'LicenseRef-' }
+      ) {
+        id += 'LicenseRef-'
+      }
       id += this.license.short
-      if (this.license.requiresOnlyOrLater) { id += this.allowOrLater ? '-or-later' : '-only' }
-      if (this.nonSpdxLicense && this.license.friendly === 'Custom') { id = id.replaceAll(' ', '-') }
+      if (this.license.requiresOnlyOrLater) {
+        id += this.allowOrLater ? '-or-later' : '-only'
+      }
+      if (this.nonSpdxLicense && this.license.friendly === 'Custom') {
+        id = id.replaceAll(' ', '-')
+      }
       return id
     },
-    defaultLicenses () {
+    defaultLicenses() {
       return [
         { friendly: 'Custom', short: '' },
         {
@@ -264,7 +265,7 @@ export default defineNuxtComponent({
         { friendly: 'zlib License', short: 'Zlib' },
       ]
     },
-    patchData () {
+    patchData() {
       const data = {}
 
       if (this.licenseId !== this.project.license.id) {
@@ -276,12 +277,12 @@ export default defineNuxtComponent({
 
       return data
     },
-    hasChanges () {
+    hasChanges() {
       return Object.keys(this.patchData).length > 0
     },
   },
   methods: {
-    saveChanges () {
+    saveChanges() {
       if (this.hasChanges) {
         this.patchProject(this.patchData)
       }

@@ -13,18 +13,14 @@
     <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
       <div class="modal-revoke-token markdown-body">
         <p>
-          Revoking your Modrinth token can have unintended consequences. Please
-          be aware that the following could break:
+          Revoking your Modrinth token can have unintended consequences. Please be aware that the
+          following could break:
         </p>
         <ul>
           <li>Any application that uses your token to access the API.</li>
+          <li>Gradle - if Minotaur is given a incorrect token, your Gradle builds could fail.</li>
           <li>
-            Gradle - if Minotaur is given a incorrect token, your Gradle builds
-            could fail.
-          </li>
-          <li>
-            GitHub - if you use a GitHub action that uses the Modrinth API, it
-            will cause errors.
+            GitHub - if you use a GitHub action that uses the Modrinth API, it will cause errors.
           </li>
         </ul>
         <p>If you are willing to continue, complete the following steps:</p>
@@ -37,28 +33,19 @@
             >
               Head to the Modrinth Application page on GitHub.
             </a>
-            Make sure to be logged into the GitHub account you used for
-            Modrinth!
+            Make sure to be logged into the GitHub account you used for Modrinth!
           </li>
-          <li>
-            Press the big red "Revoke Access" button next to the "Permissions"
-            header.
-          </li>
+          <li>Press the big red "Revoke Access" button next to the "Permissions" header.</li>
         </ol>
-        <p>
-          Once you have completed those steps, press the continue button below.
-        </p>
+        <p>Once you have completed those steps, press the continue button below.</p>
         <p>
           <strong>
-            This will log you out of Modrinth, however, when you log back in,
-            your token will be regenerated.
+            This will log you out of Modrinth, however, when you log back in, your token will be
+            regenerated.
           </strong>
         </p>
         <div class="button-group">
-          <button
-            class="iconified-button"
-            @click="$refs.modal_revoke_token.hide()"
-          >
+          <button class="iconified-button" @click="$refs.modal_revoke_token.hide()">
             <CrossIcon />
             Cancel
           </button>
@@ -83,19 +70,18 @@
       <p>Your account information is not displayed publicly.</p>
       <ul class="known-errors">
         <li v-if="hasMonetizationEnabled() && !email">
-          You must have an email address set since you are enrolled in the
-          Creator Monetization Program.
+          You must have an email address set since you are enrolled in the Creator Monetization
+          Program.
         </li>
       </ul>
-      <label for="email-input"><span class="label__title">Email address</span>
-      </label>
+      <label for="email-input"><span class="label__title">Email address</span> </label>
       <input
         id="email-input"
         v-model="email"
         maxlength="2048"
         type="email"
         :placeholder="`Enter your email address...`"
-      >
+      />
       <div class="button-group">
         <button
           type="button"
@@ -112,30 +98,18 @@
     <section class="universal-card">
       <h2>Authorization token</h2>
       <p>
-        Your authorization token can be used with the Modrinth API, the Minotaur
-        Gradle plugin, and other applications that interact with Modrinth's API.
-        Be sure to keep this secret!
+        Your authorization token can be used with the Modrinth API, the Minotaur Gradle plugin, and
+        other applications that interact with Modrinth's API. Be sure to keep this secret!
       </p>
       <div class="input-group">
-        <button
-          type="button"
-          class="iconified-button"
-          value="Copy to clipboard"
-          @click="copyToken"
-        >
+        <button type="button" class="iconified-button" value="Copy to clipboard" @click="copyToken">
           <template v-if="copied">
             <CheckIcon />
             Copied token to clipboard
           </template>
-          <template v-else>
-            <CopyIcon />Copy token to clipboard
-          </template>
+          <template v-else> <CopyIcon />Copy token to clipboard </template>
         </button>
-        <button
-          type="button"
-          class="iconified-button"
-          @click="$refs.modal_revoke_token.show()"
-        >
+        <button type="button" class="iconified-button" @click="$refs.modal_revoke_token.show()">
           <SlashIcon />
           Revoke token
         </button>
@@ -145,9 +119,8 @@
     <section id="delete-account" class="universal-card">
       <h2>Delete account</h2>
       <p>
-        Once you delete your account, there is no going back. Deleting your
-        account will remove all attached data, excluding projects, from our
-        servers.
+        Once you delete your account, there is no going back. Deleting your account will remove all
+        attached data, excluding projects, from our servers.
       </p>
       <button
         type="button"
@@ -187,7 +160,12 @@ export default defineNuxtComponent({
     TrashIcon,
     SlashIcon,
   },
-  data () {
+  setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
+  },
+  data() {
     return {
       copied: false,
       email: this.$auth.user.email,
@@ -198,51 +176,46 @@ export default defineNuxtComponent({
     title: 'Account settings - Modrinth',
   },
   methods: {
-    async copyToken () {
+    async copyToken() {
       this.copied = true
       await navigator.clipboard.writeText(this.$auth.token)
     },
-    async deleteAccount () {
+    async deleteAccount() {
       startLoading()
       try {
-        await useBaseFetch(
-          `user/${this.$auth.user.id}`,
-          {
-            method: 'DELETE',
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`user/${this.$auth.user.id}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       useCookie('auth-token').value = null
-      alert(
-        'Please note that logging back in with GitHub will create a new account.'
-      )
+      alert('Please note that logging back in with GitHub will create a new account.')
       window.location.href = '/'
 
       stopLoading()
     },
-    logout () {
+    logout() {
       this.$refs.modal_revoke_token.hide()
       useCookie('auth-token').value = null
 
-      window.location.href = 'authUrl ()'
+      window.location.href = getAuthUrl()
     },
-    hasMonetizationEnabled () {
+    hasMonetizationEnabled() {
       return (
         this.$auth.user.payout_data.payout_wallet &&
         this.$auth.user.payout_data.payout_wallet_type &&
         this.$auth.user.payout_data.payout_address
       )
     },
-    async saveChanges () {
+    async saveChanges() {
       if (this.hasMonetizationEnabled() && !this.email) {
         this.showKnownErrors = true
         return
@@ -253,20 +226,17 @@ export default defineNuxtComponent({
           email: this.email ? this.email : null,
         }
 
-        await useBaseFetch(
-          `user/${this.$auth.user.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`user/${this.$auth.user.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
         await useAuth(this.$auth.token)
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }

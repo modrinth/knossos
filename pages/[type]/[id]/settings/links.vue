@@ -9,8 +9,7 @@
         >
           <span class="label__title">Issue tracker</span>
           <span class="label__description">
-            A place for users to report bugs, issues, and concerns about your
-            project.
+            A place for users to report bugs, issues, and concerns about your project.
           </span>
         </label>
         <input
@@ -20,7 +19,7 @@
           placeholder="Enter a valid URL"
           maxlength="2048"
           :disabled="!hasPermission"
-        >
+        />
       </div>
       <div class="adjacent-input">
         <label
@@ -39,7 +38,7 @@
           maxlength="2048"
           placeholder="Enter a valid URL"
           :disabled="!hasPermission"
-        >
+        />
       </div>
       <div class="adjacent-input">
         <label
@@ -48,8 +47,7 @@
         >
           <span class="label__title">Wiki page</span>
           <span class="label__description">
-            A page containing information, documentation, and help for the
-            project.
+            A page containing information, documentation, and help for the project.
           </span>
         </label>
         <input
@@ -59,17 +57,12 @@
           maxlength="2048"
           placeholder="Enter a valid URL"
           :disabled="!hasPermission"
-        >
+        />
       </div>
       <div class="adjacent-input">
-        <label
-          id="project-discord-invite"
-          title="An invitation link to your Discord server."
-        >
+        <label id="project-discord-invite" title="An invitation link to your Discord server.">
           <span class="label__title">Discord invite</span>
-          <span class="label__description">
-            An invitation link to your Discord server.
-          </span>
+          <span class="label__description"> An invitation link to your Discord server. </span>
         </label>
         <input
           id="project-discord-invite"
@@ -78,7 +71,7 @@
           maxlength="2048"
           placeholder="Enter a valid URL"
           :disabled="!hasPermission"
-        >
+        />
       </div>
       <span class="label">
         <span class="label__title">Donation links</span>
@@ -109,7 +102,7 @@
           placeholder="Enter a valid URL"
           :disabled="!hasPermission"
           @input="updateDonationLinks"
-        >
+        />
       </div>
       <div class="button-group">
         <button
@@ -138,19 +131,19 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -162,10 +155,8 @@ export default defineNuxtComponent({
       },
     },
   },
-  data () {
-    const donationLinks = JSON.parse(
-      JSON.stringify(this.project.donation_urls)
-    )
+  data() {
+    const donationLinks = JSON.parse(JSON.stringify(this.project.donation_urls))
     donationLinks.push({
       id: null,
       platform: null,
@@ -182,11 +173,11 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    hasPermission () {
+    hasPermission() {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
-    patchData () {
+    patchData() {
       const data = {}
 
       if (this.checkDifference(this.issuesUrl, this.project.issues_url)) {
@@ -199,16 +190,13 @@ export default defineNuxtComponent({
         data.wiki_url = this.wikiUrl === '' ? null : this.wikiUrl.trim()
       }
       if (this.checkDifference(this.discordUrl, this.project.discord_url)) {
-        data.discord_url =
-          this.discordUrl === '' ? null : this.discordUrl.trim()
+        data.discord_url = this.discordUrl === '' ? null : this.discordUrl.trim()
       }
 
-      const donationLinks = this.donationLinks.filter(
-        link => link.url && link.platform
-      )
+      const donationLinks = this.donationLinks.filter((link) => link.url && link.platform)
       donationLinks.forEach((link) => {
         link.id = this.$tag.donationPlatforms.find(
-          platform => platform.name === link.platform
+          (platform) => platform.name === link.platform
         ).short
       })
       if (
@@ -224,16 +212,14 @@ export default defineNuxtComponent({
 
       return data
     },
-    hasChanges () {
+    hasChanges() {
       return Object.keys(this.patchData).length > 0
     },
   },
   methods: {
-    async saveChanges () {
+    async saveChanges() {
       if (this.patchData && (await this.patchProject(this.patchData))) {
-        this.donationLinks = JSON.parse(
-          JSON.stringify(this.project.donation_urls)
-        )
+        this.donationLinks = JSON.parse(JSON.stringify(this.project.donation_urls))
         this.donationLinks.push({
           id: null,
           platform: null,
@@ -241,7 +227,7 @@ export default defineNuxtComponent({
         })
       }
     },
-    updateDonationLinks () {
+    updateDonationLinks() {
       this.donationLinks.forEach((link) => {
         if (link.url) {
           const url = link.url.toLowerCase()
@@ -258,7 +244,7 @@ export default defineNuxtComponent({
           }
         }
       })
-      if (!this.donationLinks.find(link => !(link.url && link.platform))) {
+      if (!this.donationLinks.find((link) => !(link.url && link.platform))) {
         this.donationLinks.push({
           id: null,
           platform: null,
@@ -266,7 +252,7 @@ export default defineNuxtComponent({
         })
       }
     },
-    checkDifference (newLink, existingLink) {
+    checkDifference(newLink, existingLink) {
       if (newLink === '' && existingLink !== null) {
         return true
       }

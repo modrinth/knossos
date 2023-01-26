@@ -8,18 +8,13 @@
       </div>
       <p>
         Accurate tagging is important to help people find your
-        {{ $formatProjectType(project.project_type).toLowerCase() }}. Make sure
-        to select all tags that apply.
+        {{ $formatProjectType(project.project_type).toLowerCase() }}. Make sure to select all tags
+        that apply.
       </p>
-      <template
-        v-for="header in Object.keys(categoryLists)"
-        :key="`categories-${header}`"
-      >
+      <template v-for="header in Object.keys(categoryLists)" :key="`categories-${header}`">
         <div class="label">
           <h4>
-            <span class="label__title">{{
-              $formatCategoryHeader(header)
-            }}</span>
+            <span class="label__title">{{ $formatCategoryHeader(header) }}</span>
           </h4>
           <span class="label__description">
             <template v-if="header === 'categories'">
@@ -28,8 +23,7 @@
             </template>
             <template v-else-if="header === 'features'">
               Select all of the features that your
-              {{ $formatProjectType(project.project_type).toLowerCase() }} makes
-              use of.
+              {{ $formatProjectType(project.project_type).toLowerCase() }} makes use of.
             </template>
             <template v-else-if="header === 'resolutions'">
               Select the resolution(s) of textures in your
@@ -37,10 +31,9 @@
             </template>
             <template v-else-if="header === 'performance impact'">
               Select the realistic performance impact of your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}.
-              Select multiple if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} is
-              configurable to different levels of performance impact.
+              {{ $formatProjectType(project.project_type).toLowerCase() }}. Select multiple if the
+              {{ $formatProjectType(project.project_type).toLowerCase() }} is configurable to
+              different levels of performance impact.
             </template>
           </span>
         </div>
@@ -60,8 +53,7 @@
                 class="icon"
                 v-html="category.icon"
               />
-              <span aria-hidden="true">
-                {{ $formatCategory(category.name) }}</span>
+              <span aria-hidden="true"> {{ $formatCategory(category.name) }}</span>
             </div>
           </Checkbox>
         </div>
@@ -71,8 +63,8 @@
           <span class="label__title"><StarIcon /> Featured tags</span>
         </h4>
         <span class="label__description">
-          You can feature up to 3 of your most relevant tags. Other tags may be
-          promoted to featured if you do not select all 3.
+          You can feature up to 3 of your most relevant tags. Other tags may be promoted to featured
+          if you do not select all 3.
         </span>
       </div>
       <p v-if="selectedTags.length < 1">
@@ -85,9 +77,7 @@
           class="category-selector"
           :model-value="featuredTags.includes(category)"
           :description="$formatCategory(category.name)"
-          :disabled="
-            featuredTags.length >= 3 && !featuredTags.includes(category)
-          "
+          :disabled="featuredTags.length >= 3 && !featuredTags.includes(category)"
           @input="toggleFeaturedCategory(category)"
         >
           <div class="category-selector__label">
@@ -97,8 +87,7 @@
               class="icon"
               v-html="category.icon"
             />
-            <span aria-hidden="true">
-              {{ $formatCategory(category.name) }}</span>
+            <span aria-hidden="true"> {{ $formatCategory(category.name) }}</span>
           </div>
         </Checkbox>
       </div>
@@ -131,25 +120,25 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     allMembers: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -161,23 +150,23 @@ export default defineNuxtComponent({
       },
     },
   },
-  data () {
+  data() {
     return {
       selectedTags: this.$sortedCategories.filter(
-        x =>
+        (x) =>
           x.project_type === this.project.actualProjectType &&
           (this.project.categories.includes(x.name) ||
             this.project.additional_categories.includes(x.name))
       ),
       featuredTags: this.$sortedCategories.filter(
-        x =>
+        (x) =>
           x.project_type === this.project.actualProjectType &&
           this.project.categories.includes(x.name)
       ),
     }
   },
   computed: {
-    categoryLists () {
+    categoryLists() {
       const lists = {}
       this.$sortedCategories.forEach((x) => {
         if (x.project_type === this.project.actualProjectType) {
@@ -190,73 +179,62 @@ export default defineNuxtComponent({
       })
       return lists
     },
-    patchData () {
+    patchData() {
       const data = {}
       // Promote selected categories to featured if there are less than 3 featured
       const newFeaturedTags = this.featuredTags.slice()
-      if (
-        newFeaturedTags.length < 1 &&
-        this.selectedTags.length > newFeaturedTags.length
-      ) {
-        const nonFeaturedCategories = this.selectedTags.filter(
-          x => !newFeaturedTags.includes(x)
-        )
+      if (newFeaturedTags.length < 1 && this.selectedTags.length > newFeaturedTags.length) {
+        const nonFeaturedCategories = this.selectedTags.filter((x) => !newFeaturedTags.includes(x))
 
         nonFeaturedCategories
-          .slice(
-            0,
-            Math.min(nonFeaturedCategories.length, 3 - newFeaturedTags.length)
-          )
-          .forEach(x => newFeaturedTags.push(x))
+          .slice(0, Math.min(nonFeaturedCategories.length, 3 - newFeaturedTags.length))
+          .forEach((x) => newFeaturedTags.push(x))
       }
       // Convert selected and featured categories to backend-usable arrays
-      const categories = newFeaturedTags.map(x => x.name)
+      const categories = newFeaturedTags.map((x) => x.name)
       const additionalCategories = this.selectedTags
-        .filter(x => !newFeaturedTags.includes(x))
-        .map(x => x.name)
+        .filter((x) => !newFeaturedTags.includes(x))
+        .map((x) => x.name)
 
       if (
         categories.length !== this.project.categories.length ||
-        categories.some(value => !this.project.categories.includes(value))
+        categories.some((value) => !this.project.categories.includes(value))
       ) {
         data.categories = categories
       }
 
       if (
-        additionalCategories.length !==
-          this.project.additional_categories.length ||
-        additionalCategories.some(
-          value => !this.project.additional_categories.includes(value)
-        )
+        additionalCategories.length !== this.project.additional_categories.length ||
+        additionalCategories.some((value) => !this.project.additional_categories.includes(value))
       ) {
         data.additional_categories = additionalCategories
       }
 
       return data
     },
-    hasChanges () {
+    hasChanges() {
       return Object.keys(this.patchData).length > 0
     },
   },
   methods: {
-    toggleCategory (category) {
+    toggleCategory(category) {
       if (this.selectedTags.includes(category)) {
-        this.selectedTags = this.selectedTags.filter(x => x !== category)
+        this.selectedTags = this.selectedTags.filter((x) => x !== category)
         if (this.featuredTags.includes(category)) {
-          this.featuredTags = this.featuredTags.filter(x => x !== category)
+          this.featuredTags = this.featuredTags.filter((x) => x !== category)
         }
       } else {
         this.selectedTags.push(category)
       }
     },
-    toggleFeaturedCategory (category) {
+    toggleFeaturedCategory(category) {
       if (this.featuredTags.includes(category)) {
-        this.featuredTags = this.featuredTags.filter(x => x !== category)
+        this.featuredTags = this.featuredTags.filter((x) => x !== category)
       } else {
         this.featuredTags.push(category)
       }
     },
-    saveChanges () {
+    saveChanges() {
       if (this.hasChanges) {
         this.patchProject(this.patchData)
       }

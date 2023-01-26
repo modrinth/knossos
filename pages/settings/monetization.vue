@@ -8,14 +8,11 @@
       </NuxtLink>
     </section>
     <section class="universal-card">
-      <h2 class="title">
-        Enrollment
-      </h2>
+      <h2 class="title">Enrollment</h2>
       <template v-if="!enrolled && !$auth.user.email">
         <p v-if="!enrolled">
-          You are not currently enrolled in Modrinth's Creator Monetization
-          Program. In order to enroll, you must first add a valid email address
-          to your account.
+          You are not currently enrolled in Modrinth's Creator Monetization Program. In order to
+          enroll, you must first add a valid email address to your account.
         </p>
         <NuxtLink class="iconified-button" to="/settings/account">
           <SettingsIcon /> Visit account settings
@@ -23,9 +20,8 @@
       </template>
       <template v-else-if="editing || !enrolled">
         <p v-if="!enrolled">
-          You are not currently enrolled in Modrinth's Creator Monetization
-          Program. Setup a method of receiving payments below to enable
-          monetization.
+          You are not currently enrolled in Modrinth's Creator Monetization Program. Setup a method
+          of receiving payments below to enable monetization.
         </p>
         <div class="enroll universal-body">
           <Chips
@@ -38,8 +34,8 @@
 
           <p>
             Enter the information for the
-            {{ $formatWallet(selectedWallet) }} account you would like to
-            receive your revenue from the Creator Monetization Program:
+            {{ $formatWallet(selectedWallet) }} account you would like to receive your revenue from
+            the Creator Monetization Program:
           </p>
           <div class="input-group">
             <Multiselect
@@ -52,29 +48,22 @@
               :allow-empty="false"
             />
 
-            <label
-              class="hidden"
-              for="account-input"
-            >{{ $formatWallet(selectedWallet) }}
-              {{ formatAccountType(accountType).toLowerCase() }} input
-              field</label>
+            <label class="hidden" for="account-input"
+              >{{ $formatWallet(selectedWallet) }}
+              {{ formatAccountType(accountType).toLowerCase() }} input field</label
+            >
             <input
               id="account-input"
               v-model="account"
-              :placeholder="`Enter your ${$formatWallet(
-                selectedWallet
-              )} ${formatAccountType(accountType).toLowerCase()}...`"
+              :placeholder="`Enter your ${$formatWallet(selectedWallet)} ${formatAccountType(
+                accountType
+              ).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
-            >
-            <span v-if="accountType === 'phone'">
-              Format: +18888888888 or +1-888-888-8888
-            </span>
+            />
+            <span v-if="accountType === 'phone'"> Format: +18888888888 or +1-888-888-8888 </span>
           </div>
           <div class="input-group">
-            <button
-              class="iconified-button brand-button"
-              @click="updatePayoutData(false)"
-            >
+            <button class="iconified-button brand-button" @click="updatePayoutData(false)">
               <SaveIcon /> Save information
             </button>
             <button
@@ -119,7 +108,12 @@ export default defineNuxtComponent({
     ChartIcon,
     SettingsIcon,
   },
-  data () {
+  setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
+  },
+  data() {
     return {
       editing: false,
       enrolled:
@@ -128,9 +122,7 @@ export default defineNuxtComponent({
         this.$auth.user.payout_data.payout_address,
       wallets: ['paypal', 'venmo'],
       selectedWallet: this.$auth.user.payout_data.payout_wallet ?? 'paypal',
-      accountType:
-        this.$auth.user.payout_data.payout_wallet_type ??
-        this.getAccountTypes()[0],
+      accountType: this.$auth.user.payout_data.payout_wallet_type ?? this.getAccountTypes()[0],
       account: this.$auth.user.payout_data.payout_address ?? '',
     }
   },
@@ -138,7 +130,7 @@ export default defineNuxtComponent({
     title: 'Monetization settings - Modrinth',
   },
   methods: {
-    getAccountTypes () {
+    getAccountTypes() {
       const types = []
       if (this.selectedWallet === 'venmo') {
         types.push('user_handle')
@@ -147,7 +139,7 @@ export default defineNuxtComponent({
       types.push('phone')
       return types
     },
-    formatAccountType (value) {
+    formatAccountType(value) {
       switch (value) {
         case 'email':
           return 'Email address'
@@ -159,7 +151,7 @@ export default defineNuxtComponent({
           return value.charAt(0).toUpperCase() + value.slice(1)
       }
     },
-    onChangeWallet () {
+    onChangeWallet() {
       this.account = ''
 
       // Set default account type for each wallet
@@ -169,7 +161,7 @@ export default defineNuxtComponent({
         this.accountType = 'user_handle'
       }
     },
-    async updatePayoutData (unenroll) {
+    async updatePayoutData(unenroll) {
       startLoading()
       if (unenroll) {
         this.selectedWallet = 'paypal'
@@ -187,14 +179,11 @@ export default defineNuxtComponent({
               },
         }
 
-        await useBaseFetch(
-          `user/${this.$auth.user.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`user/${this.$auth.user.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
         await useAuth(this.$auth.token)
 
         this.editing = false
@@ -203,7 +192,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }

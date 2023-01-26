@@ -9,17 +9,12 @@
               rel="noopener noreferrer nofollow sponsored"
               target="_blank"
             >
-              <LightIcon
-                v-if="$colorMode.value === 'light'"
-                class="brand-icon"
-              />
+              <LightIcon v-if="$colorMode.value === 'light'" class="brand-icon" />
               <DarkIcon v-else class="brand-icon" />
               <span>
                 <span> Host your Minecraft server on </span>
                 <strong>exaroton</strong>
-                <span>
-                  - only pay while the server is running - billed per second.
-                </span>
+                <span> - only pay while the server is running - billed per second. </span>
               </span>
             </a>
           </div>
@@ -47,7 +42,7 @@ export default {
     LightIcon,
     DarkIcon,
   },
-  data () {
+  data() {
     return {
       isBlocked: true,
     }

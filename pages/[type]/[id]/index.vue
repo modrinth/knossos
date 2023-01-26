@@ -1,24 +1,20 @@
 <template>
-  <div
-    class="markdown-body card"
-    v-html="renderHighlightedString(project.body)"
-  />
+  <div class="markdown-body card" v-html="renderHighlightedString(project.body)" />
 </template>
 
 <script>
 import { renderHighlightedString } from '~/helpers/highlight'
 
 export default defineNuxtComponent({
-  auth: false,
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
   },
-  methods: { renderHighlightedString }
+  methods: { renderHighlightedString },
 })
 </script>
 

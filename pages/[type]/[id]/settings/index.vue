@@ -20,9 +20,7 @@
       </label>
       <div class="input-group">
         <Avatar
-          :src="
-            deletedIcon ? null : previewImage ? previewImage : project.icon_url
-          "
+          :src="deletedIcon ? null : previewImage ? previewImage : project.icon_url"
           :alt="project.title"
           size="md"
           class="project__icon"
@@ -60,15 +58,13 @@
         maxlength="2048"
         type="text"
         :disabled="!hasPermission"
-      >
+      />
 
       <label for="project-slug">
         <span class="label__title">URL</span>
       </label>
       <div class="text-input-wrapper">
-        <div class="text-input-wrapper__before">
-          https://modrinth.com/mod/
-        </div>
+        <div class="text-input-wrapper__before">https://modrinth.com/mod/</div>
         <input
           id="project-slug"
           v-model="slug"
@@ -76,7 +72,7 @@
           maxlength="64"
           autocomplete="off"
           :disabled="!hasPermission"
-        >
+        />
       </div>
 
       <label for="project-summary">
@@ -93,9 +89,9 @@
       <template
         v-if="
           project.project_type !== 'resourcepack' &&
-            project.project_type !== 'plugin' &&
-            project.project_type !== 'shader' &&
-            project.project_type !== 'datapack'
+          project.project_type !== 'plugin' &&
+          project.project_type !== 'shader' &&
+          project.project_type !== 'datapack'
         "
       >
         <div class="adjacent-input">
@@ -103,9 +99,9 @@
             <span class="label__title">Client-side</span>
             <span class="label__description">
               Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has
-              functionality on the client side. Just because a mod works in
-              Singleplayer doesn't mean it has actual client-side functionality.
+              {{ $formatProjectType(project.project_type).toLowerCase() }} has functionality on the
+              client side. Just because a mod works in Singleplayer doesn't mean it has actual
+              client-side functionality.
             </span>
           </label>
           <Multiselect
@@ -113,9 +109,7 @@
             v-model="clientSide"
             placeholder="Select one"
             :options="sideTypes"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -128,9 +122,9 @@
             <span class="label__title">Server-side</span>
             <span class="label__description">
               Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has
-              functionality on the <strong>logical</strong> server. Remember
-              that Singleplayer contains an integrated server.
+              {{ $formatProjectType(project.project_type).toLowerCase() }} has functionality on the
+              <strong>logical</strong> server. Remember that Singleplayer contains an integrated
+              server.
             </span>
           </label>
           <Multiselect
@@ -138,9 +132,7 @@
             v-model="serverSide"
             placeholder="Select one"
             :options="sideTypes"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -153,10 +145,9 @@
         <label for="project-visibility">
           <span class="label__title">Visibility</span>
           <span class="label__description">
-            Set the visibility of your project. Listed and archived projects are
-            visible in search. Unlisted projects are published, but not visible
-            in search or on user profiles. Private projects are only accessible
-            by members of the project.
+            Set the visibility of your project. Listed and archived projects are visible in search.
+            Unlisted projects are published, but not visible in search or on user profiles. Private
+            projects are only accessible by members of the project.
           </span>
         </label>
         <Multiselect
@@ -192,8 +183,8 @@
         </h3>
       </div>
       <p>
-        Removes your project from Modrinth's servers and search. Clicking on
-        this will delete your project, so be extra careful!
+        Removes your project from Modrinth's servers and search. Clicking on this will delete your
+        project, so be extra careful!
       </p>
       <button
         type="button"
@@ -231,19 +222,19 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -256,7 +247,7 @@ export default defineNuxtComponent({
     },
     patchIcon: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -269,7 +260,7 @@ export default defineNuxtComponent({
     },
     updateIcon: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -281,7 +272,7 @@ export default defineNuxtComponent({
       },
     },
   },
-  data () {
+  data() {
     return {
       name: this.project.title,
       slug: this.project.slug,
@@ -297,20 +288,18 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    hasPermission () {
+    hasPermission() {
       const EDIT_DETAILS = 1 << 2
       return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
     },
-    hasDeletePermission () {
+    hasDeletePermission() {
       const DELETE_PROJECT = 1 << 7
-      return (
-        (this.currentMember.permissions & DELETE_PROJECT) === DELETE_PROJECT
-      )
+      return (this.currentMember.permissions & DELETE_PROJECT) === DELETE_PROJECT
     },
-    sideTypes () {
+    sideTypes() {
       return ['required', 'optional', 'unsupported']
     },
-    patchData () {
+    patchData() {
       const data = {}
 
       if (this.name !== this.project.title) {
@@ -338,14 +327,12 @@ export default defineNuxtComponent({
 
       return data
     },
-    hasChanges () {
-      return (
-        Object.keys(this.patchData).length > 0 || this.deletedIcon || this.icon
-      )
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0 || this.deletedIcon || this.icon
     },
   },
   methods: {
-    async saveChanges () {
+    async saveChanges() {
       if (this.hasChanges) {
         await this.patchProject(this.patchData)
       }
@@ -358,7 +345,7 @@ export default defineNuxtComponent({
         this.icon = null
       }
     },
-    showPreviewImage (files) {
+    showPreviewImage(files) {
       const reader = new FileReader()
       this.icon = files[0]
       this.deletedIcon = false
@@ -367,14 +354,11 @@ export default defineNuxtComponent({
         this.previewImage = event.target.result
       }
     },
-    async deleteProject () {
-      await useBaseFetch(
-        `project/${this.project.id}`,
-        {
-          method: 'DELETE',
-          ...this.$defaultHeaders()
-        }
-      )
+    async deleteProject() {
+      await useBaseFetch(`project/${this.project.id}`, {
+        method: 'DELETE',
+        ...this.$defaultHeaders(),
+      })
       await initUserProjects()
       await this.$router.push('/dashboard/projects')
       this.$notify({
@@ -384,19 +368,16 @@ export default defineNuxtComponent({
         type: 'success',
       })
     },
-    markIconForDeletion () {
+    markIconForDeletion() {
       this.deletedIcon = true
       this.icon = null
       this.previewImage = null
     },
-    async deleteIcon () {
-      await useBaseFetch(
-        `project/${this.project.id}/icon`,
-        {
-          method: 'DELETE',
-          ...this.$defaultHeaders()
-        }
-      )
+    async deleteIcon() {
+      await useBaseFetch(`project/${this.project.id}/icon`, {
+        method: 'DELETE',
+        ...this.$defaultHeaders(),
+      })
       await this.updateIcon()
       this.$notify({
         group: 'main',

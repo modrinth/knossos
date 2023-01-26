@@ -26,8 +26,8 @@ export default {
     },
   },
   computed: {
-    filteredLinks () {
-      return this.links.filter(x => (x.shown === undefined ? true : x.shown))
+    filteredLinks() {
+      return this.links.filter((x) => (x.shown === undefined ? true : x.shown))
     },
   },
 }

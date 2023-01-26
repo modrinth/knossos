@@ -4,11 +4,7 @@
       <aside class="universal-card">
         <h1>Notifications</h1>
         <NavStack>
-          <NavStackItem
-            link="/notifications"
-            label="All"
-            :uses-query="true"
-          />
+          <NavStackItem link="/notifications" label="All" :uses-query="true" />
           <NavStackItem
             v-for="type in notificationTypes"
             :key="type"
@@ -17,11 +13,7 @@
             :uses-query="true"
           />
           <h3>Manage</h3>
-          <NavStackItem
-            link="/settings/follows"
-            label="Followed projects"
-            chevron
-          >
+          <NavStackItem link="/settings/follows" label="Followed projects" chevron>
             <SettingsIcon />
           </NavStackItem>
           <NavStackItem
@@ -53,15 +45,12 @@
             <div class="label__description">
               <p>{{ notification.text }}</p>
               <span
-                v-tooltip="
-                  $dayjs(notification.created).format(
-                    'MMMM D, YYYY [at] h:mm:ss A'
-                  )
-                "
+                v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="date"
               >
                 <CalendarIcon />
-                Received {{ $dayjs(notification.created).fromNow() }}</span>
+                Received {{ $dayjs(notification.created).fromNow() }}</span
+              >
             </div>
           </div>
           <div class="input-group">
@@ -69,12 +58,8 @@
               v-for="(action, actionIndex) in notification.actions"
               :key="actionIndex"
               class="iconified-button"
-              :class="`action-button-${action.title
-                .toLowerCase()
-                .replaceAll(' ', '-')}`"
-              @click="
-                performAction(notification, notificationIndex, actionIndex)
-              "
+              :class="`action-button-${action.title.toLowerCase().replaceAll(' ', '-')}`"
+              @click="performAction(notification, notificationIndex, actionIndex)"
             >
               {{ action.title }}
             </button>
@@ -89,7 +74,7 @@
         </div>
         <div v-if="user.notifications.length === 0" class="error">
           <UpToDate class="icon" />
-          <br>
+          <br />
           <span class="text">You are up-to-date!</span>
         </div>
       </div>
@@ -115,29 +100,34 @@ export default defineNuxtComponent({
     CalendarIcon,
     UpToDate,
   },
-  async asyncData () {
+  async asyncData() {
     const user = await useUser()
-    if (process.client) { await initUserNotifs() }
+    if (process.client) {
+      await initUserNotifs()
+    }
 
     return { user: ref(user) }
+  },
+  setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
   },
   head: {
     title: 'Notifications - Modrinth',
   },
   computed: {
-    notificationTypes () {
+    notificationTypes() {
       const obj = {}
 
-      for (const notification of this.user.notifications.filter(
-        it => it.type !== null
-      )) {
+      for (const notification of this.user.notifications.filter((it) => it.type !== null)) {
         obj[notification.type] = true
       }
 
       return Object.keys(obj)
     },
   },
-  created () {
+  created() {
     this.NOTIFICATION_TYPES = {
       team_invite: 'Team invites',
       project_update: 'Project updates',
@@ -146,17 +136,14 @@ export default defineNuxtComponent({
   },
   methods: {
     renderString,
-    async clearNotifications () {
+    async clearNotifications() {
       try {
-        const ids = this.user.notifications.map(x => x.id)
+        const ids = this.user.notifications.map((x) => x.id)
 
-        await useBaseFetch(
-          `notifications?ids=${JSON.stringify(ids)}`,
-          {
-            method: 'DELETE',
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`notifications?ids=${JSON.stringify(ids)}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
 
         for (const id of ids) {
           await userDeleteNotification(id)
@@ -165,38 +152,32 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
     },
-    async performAction (notification, _notificationIndex, actionIndex) {
+    async performAction(notification, _notificationIndex, actionIndex) {
       startLoading()
       try {
-        await useBaseFetch(
-          `notification/${notification.id}`,
-          {
-            method: 'DELETE',
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`notification/${notification.id}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
 
         await userDeleteNotification(notification.id)
 
         if (actionIndex !== null) {
-          await useBaseFetch(
-            `${notification.actions[actionIndex].action_route[1]}`,
-            {
-              method: notification.actions[actionIndex].action_route[0].toUpperCase(),
-              ...this.$defaultHeaders()
-            }
-          )
+          await useBaseFetch(`${notification.actions[actionIndex].action_route[1]}`, {
+            method: notification.actions[actionIndex].action_route[0].toUpperCase(),
+            ...this.$defaultHeaders(),
+          })
         }
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }

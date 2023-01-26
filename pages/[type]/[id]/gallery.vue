@@ -1,9 +1,7 @@
 <template>
   <div>
     <Head>
-      <Title>
-        {{ project.title }} - Gallery
-      </Title>
+      <Title> {{ project.title }} - Gallery </Title>
       <Meta name="og:title" :content="`${project.title} - Gallery`" />
       <Meta name="description" :content="metaDescription" />
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
@@ -41,11 +39,11 @@
               previewImage
                 ? previewImage
                 : project.gallery[editIndex] && project.gallery[editIndex].url
-                  ? project.gallery[editIndex].url
-                  : 'https://cdn.modrinth.com/placeholder-banner.svg'
+                ? project.gallery[editIndex].url
+                : 'https://cdn.modrinth.com/placeholder-banner.svg'
             "
             alt="gallery-preview"
-          >
+          />
         </div>
         <label for="gallery-image-title">
           <span class="label__title">Title</span>
@@ -56,7 +54,7 @@
           type="text"
           maxlength="64"
           placeholder="Enter title..."
-        >
+        />
         <label for="gallery-image-desc">
           <span class="label__title">Description</span>
         </label>
@@ -76,12 +74,12 @@
           v-model="editOrder"
           type="number"
           placeholder="Enter order index..."
-        >
+        />
         <label for="gallery-image-featured">
           <span class="label__title">Featured</span>
           <span class="label__description">
-            A featured gallery image shows up in search and your project card.
-            Only one gallery image can be featured.
+            A featured gallery image shows up in search and your project card. Only one gallery
+            image can be featured.
           </span>
         </label>
         <button
@@ -103,10 +101,7 @@
           Unfeature image
         </button>
         <div class="button-group">
-          <button
-            class="iconified-button"
-            @click="$refs.modal_edit_item.hide()"
-          >
+          <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
             <CrossIcon />
             Cancel
           </button>
@@ -154,13 +149,9 @@
               ? expandedGalleryItem.url
               : 'https://cdn.modrinth.com/placeholder-banner.svg'
           "
-          :alt="
-            expandedGalleryItem.title
-              ? expandedGalleryItem.title
-              : 'gallery-image'
-          "
+          :alt="expandedGalleryItem.title ? expandedGalleryItem.title : 'gallery-image'"
           @click.stop=""
-        >
+        />
 
         <div class="floating" @click.stop="">
           <div class="text">
@@ -173,10 +164,7 @@
           </div>
           <div class="controls">
             <div class="buttons">
-              <button
-                class="close circle-button"
-                @click="expandedGalleryItem = null"
-              >
+              <button class="close circle-button" @click="expandedGalleryItem = null">
                 <CrossIcon aria-hidden="true" />
               </button>
               <a
@@ -229,20 +217,12 @@
       <DropArea :accept="acceptFileTypes" @change="handleFiles" />
     </div>
     <div class="items">
-      <div
-        v-for="(item, index) in project.gallery"
-        :key="index"
-        class="card gallery-item"
-      >
+      <div v-for="(item, index) in project.gallery" :key="index" class="card gallery-item">
         <a class="gallery-thumbnail" @click="expandImage(item, index)">
           <img
-            :src="
-              item.url
-                ? item.url
-                : 'https://cdn.modrinth.com/placeholder-banner.svg'
-            "
+            :src="item.url ? item.url : 'https://cdn.modrinth.com/placeholder-banner.svg'"
             :alt="item.title ? item.title : 'gallery-image'"
-          >
+          />
         </a>
         <div class="gallery-body">
           <div class="gallery-info">
@@ -342,22 +322,21 @@ export default defineNuxtComponent({
     FileInput,
     DropArea,
   },
-  auth: false,
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
   },
-  data () {
+  data() {
     return {
       expandedGalleryItem: null,
       expandedGalleryIndex: 0,
@@ -378,11 +357,11 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    acceptFileTypes () {
+    acceptFileTypes() {
       return 'image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp'
     },
   },
-  mounted () {
+  mounted() {
     this._keyListener = function (e) {
       if (this.expandedGalleryItem) {
         e.preventDefault()
@@ -399,26 +378,26 @@ export default defineNuxtComponent({
     document.addEventListener('keydown', this._keyListener.bind(this))
   },
   methods: {
-    nextImage () {
+    nextImage() {
       this.expandedGalleryIndex++
       if (this.expandedGalleryIndex >= this.project.gallery.length) {
         this.expandedGalleryIndex = 0
       }
       this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
-    previousImage () {
+    previousImage() {
       this.expandedGalleryIndex--
       if (this.expandedGalleryIndex < 0) {
         this.expandedGalleryIndex = this.project.gallery.length - 1
       }
       this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
-    expandImage (item, index) {
+    expandImage(item, index) {
       this.expandedGalleryItem = item
       this.expandedGalleryIndex = index
       this.zoomedIn = false
     },
-    resetEdit () {
+    resetEdit() {
       this.editIndex = -1
       this.editTitle = ''
       this.editDescription = ''
@@ -427,14 +406,14 @@ export default defineNuxtComponent({
       this.editFile = null
       this.previewImage = null
     },
-    handleFiles (files) {
+    handleFiles(files) {
       this.resetEdit()
       this.editFile = files[0]
 
       this.showPreviewImage()
       this.$refs.modal_edit_item.show()
     },
-    showPreviewImage () {
+    showPreviewImage() {
       const reader = new FileReader()
       if (this.editFile instanceof Blob) {
         reader.readAsDataURL(this.editFile)
@@ -443,31 +422,32 @@ export default defineNuxtComponent({
         }
       }
     },
-    async createGalleryItem () {
+    async createGalleryItem() {
       this.shouldPreventActions = true
       startLoading()
 
       try {
         let url = `project/${this.project.id}/gallery?ext=${
           this.editFile
-            ? this.editFile.type.split('/')[
-                this.editFile.type.split('/').length - 1
-              ]
+            ? this.editFile.type.split('/')[this.editFile.type.split('/').length - 1]
             : null
         }&featured=${this.editFeatured}`
 
-        if (this.editTitle) { url += `&title=${encodeURIComponent(this.editTitle)}` }
-        if (this.editDescription) { url += `&description=${encodeURIComponent(this.editDescription)}` }
-        if (this.editOrder) { url += `&ordering=${this.editOrder}` }
+        if (this.editTitle) {
+          url += `&title=${encodeURIComponent(this.editTitle)}`
+        }
+        if (this.editDescription) {
+          url += `&description=${encodeURIComponent(this.editDescription)}`
+        }
+        if (this.editOrder) {
+          url += `&ordering=${this.editOrder}`
+        }
 
-        await useBaseFetch(
-          url,
-          {
-            method: 'POST',
-            body: this.editFile,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(url, {
+          method: 'POST',
+          body: this.editFile,
+          ...this.$defaultHeaders(),
+        })
         await this.updateProject()
 
         this.$refs.modal_edit_item.hide()
@@ -475,7 +455,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response ? err.response.data.description : err,
+          text: err.data ? err.data.description : err,
           type: 'error',
         })
       }
@@ -483,7 +463,7 @@ export default defineNuxtComponent({
       stopLoading()
       this.shouldPreventActions = false
     },
-    async editGalleryItem () {
+    async editGalleryItem() {
       this.shouldPreventActions = true
       startLoading()
 
@@ -492,17 +472,20 @@ export default defineNuxtComponent({
           this.project.gallery[this.editIndex].url
         )}&featured=${this.editFeatured}`
 
-        if (this.editTitle) { url += `&title=${encodeURIComponent(this.editTitle)}` }
-        if (this.editDescription) { url += `&description=${encodeURIComponent(this.editDescription)}` }
-        if (this.editOrder) { url += `&ordering=${this.editOrder}` }
+        if (this.editTitle) {
+          url += `&title=${encodeURIComponent(this.editTitle)}`
+        }
+        if (this.editDescription) {
+          url += `&description=${encodeURIComponent(this.editDescription)}`
+        }
+        if (this.editOrder) {
+          url += `&ordering=${this.editOrder}`
+        }
 
-        await useBaseFetch(
-          url,
-          {
-            method: 'PATCH',
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(url, {
+          method: 'PATCH',
+          ...this.$defaultHeaders(),
+        })
 
         await this.updateProject()
         this.$refs.modal_edit_item.hide()
@@ -510,7 +493,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response ? err.response.data.description : err,
+          text: err.data ? err.data.description : err,
           type: 'error',
         })
       }
@@ -518,7 +501,7 @@ export default defineNuxtComponent({
       stopLoading()
       this.shouldPreventActions = false
     },
-    async deleteGalleryImage () {
+    async deleteGalleryImage() {
       startLoading()
 
       try {
@@ -528,7 +511,7 @@ export default defineNuxtComponent({
           )}`,
           {
             method: 'DELETE',
-            ...this.$defaultHeaders()
+            ...this.$defaultHeaders(),
           }
         )
 
@@ -537,14 +520,14 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response ? err.response.data.description : err,
+          text: err.data ? err.data.description : err,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async updateProject () {
+    async updateProject() {
       await this.$parent.resetProject()
       this.resetEdit()
     },
@@ -757,8 +740,7 @@ export default defineNuxtComponent({
 
   .gallery-bottom {
     width: calc(100% - 2 * var(--spacing-card-md));
-    padding: 0 var(--spacing-card-md) var(--spacing-card-sm)
-      var(--spacing-card-md);
+    padding: 0 var(--spacing-card-md) var(--spacing-card-sm) var(--spacing-card-md);
 
     .gallery-created {
       display: flex;

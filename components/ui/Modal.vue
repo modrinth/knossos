@@ -35,16 +35,16 @@ export default {
       default: null,
     },
   },
-  data () {
+  data() {
     return {
       shown: false,
     }
   },
   methods: {
-    show () {
+    show() {
       this.shown = true
     },
-    hide () {
+    hide() {
       this.shown = false
     },
   },

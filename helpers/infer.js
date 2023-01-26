@@ -2,12 +2,8 @@ import TOML from 'toml'
 import JSZip from 'jszip'
 import yaml from 'js-yaml'
 
-export const inferVersionInfo = async function (
-  rawFile,
-  project,
-  gameVersions
-) {
-  function versionType (number) {
+export const inferVersionInfo = async function (rawFile, project, gameVersions) {
+  function versionType(number) {
     if (number.includes('alpha')) {
       return 'alpha'
     } else if (
@@ -22,7 +18,7 @@ export const inferVersionInfo = async function (
   }
 
   // TODO: This func does not handle accurate semver parsing. We should eventually
-  function gameVersionRange (gameVersionString, gameVersions) {
+  function gameVersionRange(gameVersionString, gameVersions) {
     if (!gameVersionString) {
       return []
     }
@@ -54,9 +50,9 @@ export const inferVersionInfo = async function (
     }
 
     const simplified = gameVersions
-      .filter(it => it.version_type === 'release')
-      .map(it => it.version)
-    return simplified.filter(version => version.startsWith(prefix))
+      .filter((it) => it.version_type === 'release')
+      .map((it) => it.version)
+    return simplified.filter((version) => version.startsWith(prefix))
   }
 
   const inferFunctions = {
@@ -104,12 +100,8 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.version),
         loaders: ['forge'],
         game_versions: gameVersions
-          .filter(
-            x =>
-              x.version.startsWith(metadata.mcversion) &&
-              x.version_type === 'release'
-          )
-          .map(x => x.version),
+          .filter((x) => x.version.startsWith(metadata.mcversion) && x.version_type === 'release')
+          .map((x) => x.version),
       }
     },
     // Fabric
@@ -137,13 +129,11 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.quilt_loader.version),
         game_versions: metadata.quilt_loader.depends
           ? gameVersionRange(
-            metadata.quilt_loader.depends.find(x => x.id === 'minecraft')
-              ? metadata.quilt_loader.depends.find(
-                x => x.id === 'minecraft'
-              ).versions
-              : [],
-            gameVersions
-          )
+              metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
+                ? metadata.quilt_loader.depends.find((x) => x.id === 'minecraft').versions
+                : [],
+              gameVersions
+            )
           : [],
       }
     },
@@ -159,11 +149,9 @@ export const inferVersionInfo = async function (
         loaders: [],
         game_versions: gameVersions
           .filter(
-            x =>
-              x.version.startsWith(metadata['api-version']) &&
-              x.version_type === 'release'
+            (x) => x.version.startsWith(metadata['api-version']) && x.version_type === 'release'
           )
-          .map(x => x.version),
+          .map((x) => x.version),
       }
     },
     // Bungeecord + Waterfall
@@ -182,9 +170,15 @@ export const inferVersionInfo = async function (
       const metadata = JSON.parse(file)
 
       const loaders = []
-      if ('forge' in metadata.dependencies) { loaders.push('forge') }
-      if ('fabric-loader' in metadata.dependencies) { loaders.push('fabric') }
-      if ('quilt-loader' in metadata.dependencies) { loaders.push('quilt') }
+      if ('forge' in metadata.dependencies) {
+        loaders.push('forge')
+      }
+      if ('fabric-loader' in metadata.dependencies) {
+        loaders.push('fabric')
+      }
+      if ('quilt-loader' in metadata.dependencies) {
+        loaders.push('quilt')
+      }
 
       return {
         name: `${project.title} ${metadata.versionId}`,
@@ -192,31 +186,23 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.versionId),
         loaders,
         game_versions: gameVersions
-          .filter(x => x.version === metadata.dependencies.minecraft)
-          .map(x => x.version),
+          .filter((x) => x.version === metadata.dependencies.minecraft)
+          .map((x) => x.version),
       }
     },
     // Resource Packs + Data Packs
     'pack.mcmeta': (file) => {
       const metadata = JSON.parse(file)
 
-      function getRange (versionA, versionB) {
-        const startingIndex = gameVersions.findIndex(
-          x => x.version === versionA
-        )
-        const endingIndex = gameVersions.findIndex(
-          x => x.version === versionB
-        )
+      function getRange(versionA, versionB) {
+        const startingIndex = gameVersions.findIndex((x) => x.version === versionA)
+        const endingIndex = gameVersions.findIndex((x) => x.version === versionB)
 
         const final = []
-        const filterOnlyRelease =
-          gameVersions[startingIndex].version_type === 'release'
+        const filterOnlyRelease = gameVersions[startingIndex].version_type === 'release'
 
         for (let i = startingIndex; i >= endingIndex; i--) {
-          if (
-            gameVersions[i].version_type === 'release' ||
-            !filterOnlyRelease
-          ) {
+          if (gameVersions[i].version_type === 'release' || !filterOnlyRelease) {
             final.push(gameVersions[i].version)
           }
         }

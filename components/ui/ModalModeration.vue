@@ -2,27 +2,18 @@
   <Modal ref="modal" header="Project moderation">
     <div v-if="project !== null" class="moderation-modal universal-body">
       <p>
-        A moderation message is optional, but it can be used to communicate
-        problems with a project's team members. The body is also optional and
-        supports markdown formatting!
+        A moderation message is optional, but it can be used to communicate problems with a
+        project's team members. The body is also optional and supports markdown formatting!
       </p>
       <div v-if="status" class="status">
         <span>New project status: </span>
         <Badge :type="status" />
       </div>
       <h3>Message title</h3>
-      <input
-        v-model="moderationMessage"
-        type="text"
-        placeholder="Enter the message..."
-      >
+      <input v-model="moderationMessage" type="text" placeholder="Enter the message..." />
       <h3>Message body</h3>
       <div class="textarea-wrapper">
-        <Chips
-          v-model="bodyViewMode"
-          class="separator"
-          :items="['source', 'preview']"
-        />
+        <Chips v-model="bodyViewMode" class="separator" :items="['source', 'preview']" />
         <textarea
           v-if="bodyViewMode === 'source'"
           id="body"
@@ -34,11 +25,7 @@
               : 'You must add a title before you add a body.'
           "
         />
-        <div
-          v-else
-          class="markdown-body preview"
-          v-html="renderString(moderationMessageBody)"
-        />
+        <div v-else class="markdown-body preview" v-html="renderString(moderationMessageBody)" />
       </div>
       <div class="push-right input-group">
         <button
@@ -99,13 +86,11 @@ export default {
       default: null,
     },
   },
-  data () {
+  data() {
     return {
       bodyViewMode: 'source',
       moderationMessage:
-        this.project && this.project.moderation_message
-          ? this.project.moderation_message
-          : '',
+        this.project && this.project.moderation_message ? this.project.moderation_message : '',
       moderationMessageBody:
         this.project && this.project.moderation_message_body
           ? this.project.moderation_message_body
@@ -114,29 +99,22 @@ export default {
   },
   methods: {
     renderString,
-    async saveProject () {
+    async saveProject() {
       startLoading()
 
       try {
         const data = {
-          moderation_message: this.moderationMessage
-            ? this.moderationMessage
-            : null,
-          moderation_message_body: this.moderationMessageBody
-            ? this.moderationMessageBody
-            : null,
+          moderation_message: this.moderationMessage ? this.moderationMessage : null,
+          moderation_message_body: this.moderationMessageBody ? this.moderationMessageBody : null,
         }
         if (this.status) {
           data.status = this.status
         }
-        await useBaseFetch(
-          `project/${this.project.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`project/${this.project.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
 
         this.$refs.modal.hide()
         if (this.onClose !== null) {
@@ -146,25 +124,21 @@ export default {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response ? err.response.data.description : err,
+          text: err.data ? err.data.description : err,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    show () {
+    show() {
       this.$refs.modal.show()
       this.moderationMessage =
-        this.project &&
-        this.project.moderator_message &&
-        this.project.moderator_message.message
+        this.project && this.project.moderator_message && this.project.moderator_message.message
           ? this.project.moderator_message.message
           : ''
       this.moderationMessageBody =
-        this.project &&
-        this.project.moderator_message &&
-        this.project.moderator_message.body
+        this.project && this.project.moderator_message && this.project.moderator_message.body
           ? this.project.moderator_message.body
           : ''
     },

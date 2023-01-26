@@ -16,10 +16,7 @@
       :server-side="project.server_side"
       :color="project.color"
     >
-      <button
-        class="iconified-button"
-        @click="userUnfollowProject(project)"
-      >
+      <button class="iconified-button" @click="userUnfollowProject(project)">
         <HeartIcon />
         Unfollow
       </button>
@@ -27,10 +24,11 @@
   </div>
   <div v-else class="error">
     <FollowIllustration class="icon" />
-    <br>
-    <span class="text">You don't have any followed projects. <br>
-      Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for
-      new ones?</span>
+    <br />
+    <span class="text"
+      >You don't have any followed projects. <br />
+      Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for new ones?</span
+    >
   </div>
 </template>
 
@@ -41,8 +39,13 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 
 const user = await useUser()
-if (process.client) { await initUserFollows() }
+if (process.client) {
+  await initUserFollows()
+}
 
 useHead({ title: 'Followed projects - Modrinth' })
+definePageMeta({
+  middleware: 'auth',
+})
 </script>
 <style lang="scss" scoped></style>

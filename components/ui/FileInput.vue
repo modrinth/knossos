@@ -1,17 +1,8 @@
 <template>
-  <label
-    :class="{ 'long-style': longStyle }"
-    @drop.prevent="handleDrop"
-    @dragover.prevent
-  >
+  <label :class="{ 'long-style': longStyle }" @drop.prevent="handleDrop" @dragover.prevent>
     <slot />
     {{ prompt }}
-    <input
-      type="file"
-      :multiple="multiple"
-      :accept="accept"
-      @change="handleChange"
-    >
+    <input type="file" :multiple="multiple" :accept="accept" @change="handleChange" />
   </label>
 </template>
 
@@ -54,28 +45,28 @@ export default {
     },
   },
   emits: ['change'],
-  data () {
+  data() {
     return {
       files: [],
     }
   },
   methods: {
-    addFiles (files, shouldNotReset) {
-      if (!shouldNotReset || this.shouldAlwaysReset) { this.files = files }
+    addFiles(files, shouldNotReset) {
+      if (!shouldNotReset || this.shouldAlwaysReset) {
+        this.files = files
+      }
 
       const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
-      this.files = [...this.files].filter(file =>
-        fileIsValid(file, validationOptions)
-      )
+      this.files = [...this.files].filter((file) => fileIsValid(file, validationOptions))
 
       if (this.files.length > 0) {
         this.$emit('change', this.files)
       }
     },
-    handleDrop (e) {
+    handleDrop(e) {
       this.addFiles(e.dataTransfer.files)
     },
-    handleChange (e) {
+    handleChange(e) {
       this.addFiles(e.target.files)
     },
   },

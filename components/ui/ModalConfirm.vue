@@ -17,18 +17,14 @@
           type="text"
           placeholder="Type here..."
           @input="type"
-        >
+        />
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
           Cancel
         </button>
-        <button
-          class="iconified-button danger-button"
-          :disabled="action_disabled"
-          @click="proceed"
-        >
+        <button class="iconified-button danger-button" :disabled="action_disabled" @click="proceed">
           <TrashIcon />
           {{ proceedLabel }}
         </button>
@@ -74,7 +70,7 @@ export default {
     },
   },
   emits: ['proceed'],
-  data () {
+  data() {
     return {
       action_disabled: this.hasToType,
       confirmation_typed: '',
@@ -82,21 +78,20 @@ export default {
   },
   methods: {
     renderString,
-    cancel () {
+    cancel() {
       this.$refs.modal.hide()
     },
-    proceed () {
+    proceed() {
       this.$refs.modal.hide()
       this.$emit('proceed')
     },
-    type () {
+    type() {
       if (this.hasToType) {
         this.action_disabled =
-          this.confirmation_typed.toLowerCase() !==
-          this.confirmationText.toLowerCase()
+          this.confirmation_typed.toLowerCase() !== this.confirmationText.toLowerCase()
       }
     },
-    show () {
+    show() {
       this.$refs.modal.show()
     },
   },

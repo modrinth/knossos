@@ -1,14 +1,6 @@
 <template>
-  <article
-    class="project-card base-card padding-bg"
-    :aria-label="name"
-    role="listitem"
-  >
-    <nuxt-link
-      class="icon"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-    >
+  <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
+    <nuxt-link class="icon" tabindex="-1" :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
       <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
     </nuxt-link>
     <nuxt-link
@@ -18,7 +10,7 @@
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
       :style="color ? `background-color: ${toColor};` : ''"
     >
-      <img v-if="featuredImage" :src="featuredImage" alt="gallery image">
+      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" />
     </nuxt-link>
     <div class="title">
       <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
@@ -28,27 +20,18 @@
       </nuxt-link>
       <p v-if="author" class="author">
         by
-        <nuxt-link
-          class="title-link"
-          :to="'/user/' + author"
-        >
+        <nuxt-link class="title-link" :to="'/user/' + author">
           {{ author }}
         </nuxt-link>
       </p>
-      <Badge
-        v-if="status && status !== 'approved'"
-        :type="status"
-        class="status"
-      />
+      <Badge v-if="status && status !== 'approved'" :type="status" class="status" />
     </div>
     <p class="description">
       {{ description }}
     </p>
     <Categories
       :categories="
-        categories.filter(
-          (x) => !hideLoaders || !$tag.loaders.find((y) => y.name === x)
-        )
+        categories.filter((x) => !hideLoaders || !$tag.loaders.find((y) => y.name === x))
       "
       :type="type"
       class="tags"
@@ -66,15 +49,15 @@
       <div v-if="downloads" class="stat">
         <DownloadIcon aria-hidden="true" />
         <p>
-          <strong>{{ $formatNumber(downloads) }}</strong><span class="stat-label">
-            download<span v-if="downloads !== '1'">s</span></span>
+          <strong>{{ $formatNumber(downloads) }}</strong
+          ><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
         </p>
       </div>
       <div v-if="follows" class="stat">
         <HeartIcon aria-hidden="true" />
         <p>
-          <strong>{{ $formatNumber(follows) }}</strong><span class="stat-label">
-            follower<span v-if="follows !== '1'">s</span></span>
+          <strong>{{ $formatNumber(follows) }}</strong
+          ><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
         </p>
       </div>
       <div class="buttons">
@@ -168,7 +151,7 @@ export default {
     },
     categories: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
@@ -222,16 +205,16 @@ export default {
     },
   },
   computed: {
-    projectTypeDisplay () {
+    projectTypeDisplay() {
       return this.$getProjectTypeForDisplay(this.type, this.categories)
     },
-    toColor () {
+    toColor() {
       let color = this.color
 
       color >>>= 0
-      const b = color & 0xFF
-      const g = (color & 0xFF00) >>> 8
-      const r = (color & 0xFF0000) >>> 16
+      const b = color & 0xff
+      const g = (color & 0xff00) >>> 8
+      const r = (color & 0xff0000) >>> 16
       return 'rgba(' + [r, g, b, 1].join(',') + ')'
     },
   },

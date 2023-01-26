@@ -4,23 +4,19 @@
       <label for="project-description">
         <span class="label__title size-card-header">Description</span>
         <span class="label__description">
-          You can type an extended description of your mod here. This editor
-          supports
+          You can type an extended description of your mod here. This editor supports
           <a
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer"
-          >Markdown</a>. HTML can also be used inside your description, not including
-          styles, scripts, and iframes (though YouTube iframes are allowed).
+            >Markdown</a
+          >. HTML can also be used inside your description, not including styles, scripts, and
+          iframes (though YouTube iframes are allowed).
           <span class="label__subdescription">
-            The description must clearly and honestly describe the purpose and
-            function of the project. See section 2.1 of the
-            <nuxt-link
-              to="/legal/rules"
-              class="text-link"
-              target="_blank"
-            >Content Rules</nuxt-link>
+            The description must clearly and honestly describe the purpose and function of the
+            project. See section 2.1 of the
+            <nuxt-link to="/legal/rules" class="text-link" target="_blank">Content Rules</nuxt-link>
             for the full requirements.
           </span>
         </span>
@@ -36,9 +32,7 @@
       <div
         v-else-if="bodyViewMode === 'preview'"
         class="markdown-body"
-        v-html="
-          description ? renderHighlightedString(description) : 'No body specified.'
-        "
+        v-html="description ? renderHighlightedString(description) : 'No body specified.'"
       />
       <div class="input-group">
         <button
@@ -68,25 +62,25 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     allMembers: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
     patchProject: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -98,14 +92,14 @@ export default defineNuxtComponent({
       },
     },
   },
-  data () {
+  data() {
     return {
       description: this.project.body,
       bodyViewMode: 'source',
     }
   },
   computed: {
-    patchData () {
+    patchData() {
       const data = {}
 
       if (this.description !== this.project.body) {
@@ -114,16 +108,16 @@ export default defineNuxtComponent({
 
       return data
     },
-    hasChanges () {
+    hasChanges() {
       return Object.keys(this.patchData).length > 0
     },
   },
-  created () {
+  created() {
     this.EDIT_BODY = 1 << 3
   },
   methods: {
     renderHighlightedString,
-    saveChanges () {
+    saveChanges() {
       if (this.hasChanges) {
         this.patchProject(this.patchData)
       }

@@ -2,9 +2,9 @@
   <div
     v-if="
       $auth.user &&
-        currentMember &&
-        nags.filter((x) => x.condition).length > 0 &&
-        project.status === 'draft'
+      currentMember &&
+      nags.filter((x) => x.condition).length > 0 &&
+      project.status === 'draft'
     "
     class="author-actions universal-card"
   >
@@ -40,11 +40,7 @@
       </div>
     </div>
     <div v-if="!collapsed" class="grid-display width-16">
-      <div
-        v-for="nag in nags.filter((x) => x.condition)"
-        :key="nag.id"
-        class="grid-display__item"
-      >
+      <div v-for="nag in nags.filter((x) => x.condition)" :key="nag.id" class="grid-display__item">
         <span class="label">
           <RequiredIcon
             v-if="nag.status === 'required'"
@@ -60,21 +56,19 @@
             v-else-if="nag.status === 'review'"
             v-tooltip="'Review'"
             :class="nag.status"
-          />{{ nag.title }}</span>
+          />{{ nag.title }}</span
+        >
         {{ nag.description }}
         <NuxtLink
           v-if="nag.link"
           :class="{ invisible: nag.link.hide }"
           class="goto-link"
-          :to="`/${project.project_type}/${
-            project.slug ? project.slug : project.id
-          }/${nag.link.path}`"
+          :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/${
+            nag.link.path
+          }`"
         >
           {{ nag.link.title }}
-          <ChevronRightIcon
-            class="featured-header-chevron"
-            aria-hidden="true"
-          />
+          <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
         </NuxtLink>
         <button
           v-else-if="nag.action"
@@ -136,7 +130,7 @@ export default {
     },
     setProcessing: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -149,7 +143,7 @@ export default {
     },
     toggleCollapsed: {
       type: Function,
-      default () {
+      default() {
         return () => {
           this.$notify({
             group: 'main',
@@ -162,15 +156,14 @@ export default {
     },
   },
   computed: {
-    featuredGalleryImage () {
-      return this.project.gallery.find(img => img.featured)
+    featuredGalleryImage() {
+      return this.project.gallery.find((img) => img.featured)
     },
-    nags () {
+    nags() {
       return [
         {
           condition:
-            this.project.body === '' ||
-            this.project.body.startsWith('# Placeholder description'),
+            this.project.body === '' || this.project.body.startsWith('# Placeholder description'),
           title: 'Add a description',
           id: 'add-description',
           description:
@@ -199,8 +192,7 @@ export default {
           condition: !this.featuredGalleryImage,
           title: 'Feature a gallery image',
           id: 'feature-gallery-image',
-          description:
-            'Featured gallery images may be the first impression of many users.',
+          description: 'Featured gallery images may be the first impression of many users.',
           status: 'suggestion',
           link: {
             path: 'gallery',
@@ -212,8 +204,7 @@ export default {
           condition: this.versions.length < 1,
           title: 'Upload a version',
           id: 'upload-version',
-          description:
-            'At least one version is required for a project to be submitted for review.',
+          description: 'At least one version is required for a project to be submitted for review.',
           status: 'required',
           link: {
             path: 'versions',
@@ -259,8 +250,7 @@ export default {
             this.project.project_type === 'shader' ||
             this.project.project_type === 'datapack',
           condition:
-            this.project.client_side === 'unknown' ||
-            this.project.server_side === 'unknown',
+            this.project.client_side === 'unknown' || this.project.server_side === 'unknown',
           title: 'Select supported environments',
           id: 'select-environments',
           description: `Select if the ${this.$formatProjectType(
@@ -299,12 +289,11 @@ export default {
             onClick: this.submitForReview,
             title: 'Submit for review',
             disabled: () =>
-              this.nags.filter(x => x.condition && x.status === 'required')
-                .length > 0,
+              this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
           },
         },
       ]
-        .filter(x => !x.hide)
+        .filter((x) => !x.hide)
         .sort((a, b) =>
           this.sortByTrue(
             !a.condition,
@@ -319,7 +308,7 @@ export default {
     },
   },
   methods: {
-    sortByTrue (a, b, ifEqual = 0) {
+    sortByTrue(a, b, ifEqual = 0) {
       if (a === b) {
         return ifEqual
       } else if (a) {
@@ -328,7 +317,7 @@ export default {
         return 1
       }
     },
-    sortByFalse (a, b, ifEqual = 0) {
+    sortByFalse(a, b, ifEqual = 0) {
       if (a === b) {
         return ifEqual
       } else if (b) {
@@ -337,11 +326,8 @@ export default {
         return 1
       }
     },
-    async submitForReview () {
-      if (
-        this.nags.filter(x => x.condition && x.status === 'required')
-          .length === 0
-      ) {
+    async submitForReview() {
+      if (this.nags.filter((x) => x.condition && x.status === 'required').length === 0) {
         await this.setProcessing()
       }
     },

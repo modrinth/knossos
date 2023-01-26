@@ -12,10 +12,7 @@
           v-model="$colorMode.preference"
           :options="['system', 'light', 'dark', 'oled']"
           :custom-label="
-            (value) =>
-              value === 'oled'
-                ? 'OLED'
-                : value.charAt(0).toUpperCase() + value.slice(1)
+            (value) => (value === 'oled' ? 'OLED' : value.charAt(0).toUpperCase() + value.slice(1))
           "
           :searchable="false"
           :close-on-select="true"
@@ -27,8 +24,9 @@
       <div class="adjacent-input small">
         <label for="search-layout-toggle">
           <span class="label__title">Search sidebar on the right</span>
-          <span class="label__description">Enabling this will put the search page's filters sidebar on the
-            right side.</span>
+          <span class="label__description"
+            >Enabling this will put the search page's filters sidebar on the right side.</span
+          >
         </label>
         <input
           id="search-layout-toggle"
@@ -36,13 +34,14 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmetics"
-        >
+        />
       </div>
       <div class="adjacent-input small">
         <label for="project-layout-toggle">
           <span class="label__title">Project sidebar on the right</span>
-          <span class="label__description">Enabling this will put the project pages' info sidebars on the
-            right side.</span>
+          <span class="label__description"
+            >Enabling this will put the project pages' info sidebars on the right side.</span
+          >
         </label>
         <input
           id="project-layout-toggle"
@@ -50,7 +49,7 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmetics"
-        >
+        />
       </div>
     </section>
     <section class="universal-card">
@@ -62,7 +61,9 @@
       >
         <label :for="projectType.id + '-search-display-mode'">
           <span class="label__title">{{ projectType.name }} display mode</span>
-          <span class="label__description">Change the display view for {{ projectType.display }}.</span>
+          <span class="label__description"
+            >Change the display view for {{ projectType.display }}.</span
+          >
         </label>
         <Multiselect
           :id="projectType + '-search-display-mode'"
@@ -82,8 +83,10 @@
       <div class="adjacent-input small">
         <label for="advanced-rendering">
           <span class="label__title">Advanced rendering</span>
-          <span class="label__description">Enables advanced rendering such as blur effects that may cause
-            performance issues without hardware-accelerated rendering.</span>
+          <span class="label__description"
+            >Enables advanced rendering such as blur effects that may cause performance issues
+            without hardware-accelerated rendering.</span
+          >
         </label>
         <input
           id="advanced-rendering"
@@ -91,7 +94,7 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmetics"
-        >
+        />
       </div>
       <div class="adjacent-input small">
         <label for="modpacks-alpha-notice">
@@ -104,16 +107,15 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmetics"
-        >
+        />
       </div>
       <div class="adjacent-input small">
         <label for="external-links-new-tab">
           <span class="label__title">Open external links in new tab</span>
           <span class="label__description">
-            Make links which go outside of Modrinth open in a new tab. No matter
-            this setting, links on the same domain and in Markdown descriptions
-            will open in the same tab, and links on ads and edit pages will open
-            in a new tab.
+            Make links which go outside of Modrinth open in a new tab. No matter this setting, links
+            on the same domain and in Markdown descriptions will open in the same tab, and links on
+            ads and edit pages will open in a new tab.
           </span>
         </label>
         <input
@@ -122,7 +124,7 @@
           class="switch stylized-toggle"
           type="checkbox"
           @change="saveCosmetics"
-        >
+        />
       </div>
     </section>
   </div>
@@ -135,8 +137,7 @@ export default defineNuxtComponent({
   components: {
     Multiselect,
   },
-  auth: false,
-  data () {
+  data() {
     return {
       searchDisplayMode: this.$cosmetics.searchDisplayMode,
     }
@@ -145,15 +146,12 @@ export default defineNuxtComponent({
     title: 'Display settings - Modrinth',
   },
   computed: {
-    listTypes () {
+    listTypes() {
       const types = this.$tag.projectTypes.map((type) => {
         return {
           id: type.id,
           name: this.$formatProjectType(type.id) + ' search',
-          display:
-            'the ' +
-            this.$formatProjectType(type.id).toLowerCase() +
-            's search page',
+          display: 'the ' + this.$formatProjectType(type.id).toLowerCase() + 's search page',
         }
       })
       types.push({
@@ -165,7 +163,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    changeTheme () {
+    changeTheme() {
       const shift = event.shiftKey
       switch (this.$colorMode.preference) {
         case 'dark':

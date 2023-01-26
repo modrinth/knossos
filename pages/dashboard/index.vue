@@ -4,19 +4,15 @@
       <h2>Overview</h2>
       <div class="grid-display">
         <div class="grid-display__item">
-          <div class="label">
-            Total downloads
-          </div>
+          <div class="label">Total downloads</div>
           <div class="value">
-            {{
-              $formatNumber(
-                user.projects.reduce((agg, x) => agg + x.downloads, 0)
-              )
-            }}
+            {{ $formatNumber(user.projects.reduce((agg, x) => agg + x.downloads, 0)) }}
           </div>
-          <span>from
+          <span
+            >from
             {{ downloadsProjectCount }}
-            project{{ downloadsProjectCount === 1 ? '' : 's' }}</span>
+            project{{ downloadsProjectCount === 1 ? '' : 's' }}</span
+          >
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -25,20 +21,17 @@
           <!--          /></NuxtLink>-->
         </div>
         <div class="grid-display__item">
-          <div class="label">
-            Total followers
-          </div>
+          <div class="label">Total followers</div>
           <div class="value">
-            {{
-              $formatNumber(
-                user.projects.reduce((agg, x) => agg + x.followers, 0)
-              )
-            }}
+            {{ $formatNumber(user.projects.reduce((agg, x) => agg + x.followers, 0)) }}
           </div>
           <span>
-            <span>from {{ followersProjectCount }} project{{
-              followersProjectCount === 1 ? '' : 's'
-            }}</span></span>
+            <span
+              >from {{ followersProjectCount }} project{{
+                followersProjectCount === 1 ? '' : 's'
+              }}</span
+            ></span
+          >
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -47,9 +40,7 @@
           <!--          /></NuxtLink>-->
         </div>
         <div class="grid-display__item">
-          <div class="label">
-            Total revenue
-          </div>
+          <div class="label">Total revenue</div>
           <div class="value">
             {{ $formatMoney(payouts.all_time) }}
           </div>
@@ -62,9 +53,7 @@
           <!--          /></NuxtLink>-->
         </div>
         <div class="grid-display__item">
-          <div class="label">
-            Current balance
-          </div>
+          <div class="label">Current balance</div>
           <div class="value">
             {{ $formatMoney($auth.user.payout_data.balance) }}
           </div>
@@ -74,10 +63,7 @@
             to="/dashboard/revenue"
           >
             Withdraw earnings
-            <ChevronRightIcon
-              class="featured-header-chevron"
-              aria-hidden="true"
-            />
+            <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
           </NuxtLink>
           <span v-else>${{ minWithdraw }} is the withdraw minimum</span>
         </div>
@@ -86,8 +72,8 @@
     <section class="universal-card more-soon">
       <h2>More coming soon!</h2>
       <p>
-        Stay tuned for more metrics and analytics (pretty graphs, anyone? 👀)
-        coming to the creators dashboard soon!
+        Stay tuned for more metrics and analytics (pretty graphs, anyone? 👀) coming to the creators
+        dashboard soon!
       </p>
     </section>
   </div>
@@ -98,17 +84,12 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
   components: { ChevronRightIcon },
-  async setup () {
+  async setup() {
     const data = useNuxtApp()
 
-    const [payouts] = (
-      await Promise.all([
-        useBaseFetch(
-          `user/${data.$auth.user.id}/payouts`,
-          data.$defaultHeaders()
-        ),
-      ])
-    )
+    const [payouts] = await Promise.all([
+      useBaseFetch(`user/${data.$auth.user.id}/payouts`, data.$defaultHeaders()),
+    ])
 
     payouts.all_time = Math.floor(payouts.all_time * 100) / 100
     payouts.last_month = Math.floor(payouts.last_month * 100) / 100
@@ -118,7 +99,7 @@ export default defineNuxtComponent({
       user: await useUser(),
     }
   },
-  data () {
+  data() {
     return {
       minWithdraw: 0.26,
     }
@@ -127,13 +108,11 @@ export default defineNuxtComponent({
     title: 'Creator dashboard - Modrinth',
   },
   computed: {
-    downloadsProjectCount () {
-      return this.user.projects.filter(project => project.downloads > 0)
-        .length
+    downloadsProjectCount() {
+      return this.user.projects.filter((project) => project.downloads > 0).length
     },
-    followersProjectCount () {
-      return this.user.projects.filter(project => project.followers > 0)
-        .length
+    followersProjectCount() {
+      return this.user.projects.filter((project) => project.followers > 0).length
     },
   },
 })

@@ -5,15 +5,9 @@
     <img
       src="https://cdn.modrinth.com/frog.png"
       alt="a photorealistic painting of a frog labyrinth"
-    >
+    />
   </div>
 </template>
-
-<script>
-export default defineNuxtComponent({
-  auth: false,
-})
-</script>
 
 <style lang="scss" scoped>
 .card {

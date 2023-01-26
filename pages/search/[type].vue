@@ -14,17 +14,14 @@
       aria-label="Filters"
     >
       <section class="card filters-card" role="presentation">
-        <div
-          class="sidebar-menu"
-          :class="{ 'sidebar-menu_open': sidebarMenuOpen }"
-        >
+        <div class="sidebar-menu" :class="{ 'sidebar-menu_open': sidebarMenuOpen }">
           <button
             :disabled="
               onlyOpenSource === false &&
-                selectedEnvironments.length === 0 &&
-                selectedVersions.length === 0 &&
-                facets.length === 0 &&
-                orFacets.length === 0
+              selectedEnvironments.length === 0 &&
+              selectedVersions.length === 0 &&
+              facets.length === 0 &&
+              orFacets.length === 0
             "
             class="iconified-button"
             @click="clearFilters"
@@ -35,42 +32,31 @@
           <section aria-label="Category filters">
             <div v-for="(categories, header) in categoriesMap" :key="header">
               <h3
-                v-if="
-                  categories.filter(
-                    (x) => x.project_type === projectType.actual
-                  ).length > 0
-                "
+                v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
                 class="sidebar-menu-heading"
               >
                 {{ $formatCategoryHeader(header) }}
               </h3>
 
               <SearchFilter
-                v-for="category in categories.filter(
-                  (x) => x.project_type === projectType.actual
-                )"
+                v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
                 :key="category.name"
                 :active-filters="facets"
                 :display-name="$formatCategory(category.name)"
-                :facet-name="`categories:'${encodeURIComponent(
-                  category.name
-                )}'`"
+                :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
                 :icon="header === 'resolutions' ? null : category.icon"
                 @toggle="toggleFacet"
               />
             </div>
           </section>
           <section
-            v-if="
-              projectType.id !== 'resourcepack' && projectType.id !== 'datapack'
-            "
+            v-if="projectType.id !== 'resourcepack' && projectType.id !== 'datapack'"
             aria-label="Loader filters"
           >
             <h3
               v-if="
-                $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType.actual)
-                ).length > 0
+                $tag.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
+                  .length > 0
               "
               class="sidebar-menu-heading"
             >
@@ -114,15 +100,11 @@
               :collapsing-toggle-style="true"
             />
           </section>
-          <section
-            v-if="projectType.id === 'plugin'"
-            aria-label="Platform loader filters"
-          >
+          <section v-if="projectType.id === 'plugin'" aria-label="Platform loader filters">
             <h3
               v-if="
-                $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType.actual)
-                ).length > 0
+                $tag.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
+                  .length > 0
               "
               class="sidebar-menu-heading"
             >
@@ -142,16 +124,10 @@
             />
           </section>
           <section
-            v-if="
-              !['resourcepack', 'plugin', 'shader', 'datapack'].includes(
-                projectType.id
-              )
-            "
+            v-if="!['resourcepack', 'plugin', 'shader', 'datapack'].includes(projectType.id)"
             aria-label="Environment filters"
           >
-            <h3 class="sidebar-menu-heading">
-              Environments
-            </h3>
+            <h3 class="sidebar-menu-heading">Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
               display-name="Client"
@@ -169,9 +145,7 @@
               <ServerIcon aria-hidden="true" />
             </SearchFilter>
           </section>
-          <h3 class="sidebar-menu-heading">
-            Minecraft versions
-          </h3>
+          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
           <Checkbox
             v-model="showSnapshots"
             label="Include snapshots"
@@ -185,8 +159,8 @@
               showSnapshots
                 ? $tag.gameVersions.map((x) => x.version)
                 : $tag.gameVersions
-                  .filter((it) => it.version_type === 'release')
-                  .map((x) => x.version)
+                    .filter((it) => it.version_type === 'release')
+                    .map((x) => x.version)
             "
             :multiple="true"
             :searchable="true"
@@ -198,9 +172,7 @@
             placeholder="Choose versions..."
             @update:model-value="onSearchChange(1)"
           />
-          <h3 class="sidebar-menu-heading">
-            Open source
-          </h3>
+          <h3 class="sidebar-menu-heading">Open source</h3>
           <Checkbox
             v-model="onlyOpenSource"
             label="Open source only"
@@ -213,46 +185,41 @@
     </aside>
     <section class="normal-page__content">
       <div
-        v-if="
-          projectType.id === 'modpack' &&
-            $orElse($cosmetics.modpacksAlphaNotice, true)
-        "
+        v-if="projectType.id === 'modpack' && $orElse($cosmetics.modpacksAlphaNotice, true)"
         class="card warning"
         aria-label="Warning"
       >
-        Modpack support is currently in alpha, and modpacks can only be created
-        and installed through third party tools. Our documentation includes
-        instructions on
-        <a
-          href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-          :target="$external()"
-        >playing modpacks</a>
+        Modpack support is currently in alpha, and modpacks can only be created and installed
+        through third party tools. Our documentation includes instructions on
+        <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+          >playing modpacks</a
+        >
         with
         <a
           rel="noopener noreferrer nofollow"
           href="https://atlauncher.com/about"
           :target="$external()"
-        >ATLauncher</a>,
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://multimc.org/"
-          :target="$external()"
-        >MultiMC</a>, and
+          >ATLauncher</a
+        >,
+        <a rel="noopener noreferrer nofollow" href="https://multimc.org/" :target="$external()"
+          >MultiMC</a
+        >, and
         <a
           rel="noopener noreferrer nofollow"
           href="https://prismlauncher.org"
           :target="$external()"
         >
-          Prism Launcher</a>. Pack creators can reference our documentation on
-        <a
-          href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
-          :target="$external()"
-        >creating modpacks</a>. Join us on
+          Prism Launcher</a
+        >. Pack creators can reference our documentation on
+        <a href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/" :target="$external()"
+          >creating modpacks</a
+        >. Join us on
         <a
           rel="noopener noreferrer nofollow"
           href="https://discord.gg/EUHuJHt"
           :target="$external()"
-        >Discord</a>
+          >Discord</a
+        >
         for support.
       </div>
       <Advertisement type="banner" small-screen="square" />
@@ -277,7 +244,7 @@
               :placeholder="`Search ${projectType.display}s...`"
               autocomplete="off"
               @input="onSearchChange(1)"
-            >
+            />
           </div>
         </div>
         <div class="sort-controls">
@@ -297,9 +264,7 @@
               @update:model-value="onSearchChange(1)"
             >
               <template #singleLabel="{ option }">
-                {{
-                  option.display
-                }}
+                {{ option.display }}
               </template>
             </Multiselect>
           </div>
@@ -309,9 +274,7 @@
               v-model="maxResults"
               placeholder="Select one"
               class="labeled-control__control"
-              :options="
-                maxResultsForView[$cosmetics.searchDisplayMode[projectType.id]]
-              "
+              :options="maxResultsForView[$cosmetics.searchDisplayMode[projectType.id]]"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -320,25 +283,13 @@
             />
           </div>
           <button
-            v-tooltip="
-              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
-                ' view'
-            "
-            :aria-label="
-              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
-                ' view'
-            "
+            v-tooltip="$capitalizeString($cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+            :aria-label="$capitalizeString($cosmetics.searchDisplayMode[projectType.id]) + ' view'"
             class="square-button"
             @click="cycleSearchDisplayMode()"
           >
-            <GridIcon
-              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'"
-            />
-            <ImageIcon
-              v-else-if="
-                $cosmetics.searchDisplayMode[projectType.id] === 'gallery'
-              "
-            />
+            <GridIcon v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
+            <ImageIcon v-else-if="$cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
             <ListIcon v-else />
           </button>
         </div>
@@ -354,9 +305,7 @@
         <div
           id="search-results"
           class="project-list"
-          :class="
-            'display-mode--' + $cosmetics.searchDisplayMode[projectType.id]
-          "
+          :class="'display-mode--' + $cosmetics.searchDisplayMode[projectType.id]"
           role="list"
           aria-label="Search results"
         >
@@ -365,11 +314,7 @@
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
             :display="$cosmetics.searchDisplayMode[projectType.id]"
-            :featured-image="
-              result.featured_gallery
-                ? result.featured_gallery
-                : result.gallery[0]
-            "
+            :featured-image="result.featured_gallery ? result.featured_gallery : result.gallery[0]"
             :type="result.project_type"
             :author="result.author"
             :name="result.title"
@@ -384,9 +329,7 @@
             :categories="result.display_categories"
             :search="true"
             :show-updated-date="sortType.name !== 'newest'"
-            :hide-loaders="
-              ['resourcepack', 'datapack'].includes(projectType.id)
-            "
+            :hide-loaders="['resourcepack', 'datapack'].includes(projectType.id)"
             :color="result.color"
           />
           <div v-if="results && results.length === 0" class="no-results">
@@ -424,7 +367,6 @@ import ImageIcon from '~/assets/images/utils/image.svg'
 import Advertisement from '~/components/ads/Advertisement'
 
 export default defineNuxtComponent({
-  auth: false,
   components: {
     Advertisement,
     ProjectCard,
@@ -441,7 +383,7 @@ export default defineNuxtComponent({
     ListIcon,
     ImageIcon,
   },
-  data () {
+  data() {
     return {
       previousMaxResults: 20,
 
@@ -455,7 +397,7 @@ export default defineNuxtComponent({
       showAllLoaders: false,
     }
   },
-  async setup () {
+  async setup() {
     const data = useNuxtApp()
     const route = useRoute()
 
@@ -480,17 +422,27 @@ export default defineNuxtComponent({
     const pageCount = ref(1)
     const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
 
-    if (route.query.q) { query.value = route.query.q }
+    if (route.query.q) {
+      query.value = route.query.q
+    }
     if (route.query.f) {
       facets.value = route.query.f.split(',')
     }
     if (route.query.g) {
       orFacets.value = route.query.g.split(',')
     }
-    if (route.query.v) { selectedVersions.value = route.query.v.split(',') }
-    if (route.query.l) { onlyOpenSource.value = route.query.l === 'true' }
-    if (route.query.h) { showSnapshots.value = route.query.h === 'true' }
-    if (route.query.e) { selectedEnvironments.value = route.query.e.split(',') }
+    if (route.query.v) {
+      selectedVersions.value = route.query.v.split(',')
+    }
+    if (route.query.l) {
+      onlyOpenSource.value = route.query.l === 'true'
+    }
+    if (route.query.h) {
+      showSnapshots.value = route.query.h === 'true'
+    }
+    if (route.query.e) {
+      selectedEnvironments.value = route.query.e.split(',')
+    }
     if (route.query.s) {
       sortType.value.name = route.query.s
 
@@ -521,19 +473,18 @@ export default defineNuxtComponent({
     }
 
     projectType.value = data.$tag.projectTypes.find(
-      x => x.id === route.path.substring(1, route.path.length - 1)
+      (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
 
     const onSearchChange = async (newPageNumber) => {
       currentPage.value = newPageNumber
 
-      if (query.value === null) { return }
+      if (query.value === null) {
+        return
+      }
 
       try {
-        const params = [
-          `limit=${maxResults.value}`,
-          `index=${sortType.value.name}`,
-        ]
+        const params = [`limit=${maxResults.value}`, `index=${sortType.value.name}`]
 
         if (query.value.length > 0) {
           params.push(`query=${query.value.replace(/ /g, '+')}`)
@@ -557,19 +508,17 @@ export default defineNuxtComponent({
           } else if (projectType.value.id === 'plugin') {
             formattedFacets.push(
               data.$tag.loaderData.allPluginLoaders.map(
-                x => `categories:'${encodeURIComponent(x)}'`
+                (x) => `categories:'${encodeURIComponent(x)}'`
               )
             )
           } else if (projectType.value.id === 'mod') {
             formattedFacets.push(
-              data.$tag.loaderData.modLoaders.map(
-                x => `categories:'${encodeURIComponent(x)}'`
-              )
+              data.$tag.loaderData.modLoaders.map((x) => `categories:'${encodeURIComponent(x)}'`)
             )
           } else if (projectType.value.id === 'datapack') {
             formattedFacets.push(
               data.$tag.loaderData.dataPackLoaders.map(
-                x => `categories:'${encodeURIComponent(x)}'`
+                (x) => `categories:'${encodeURIComponent(x)}'`
               )
             )
           }
@@ -582,7 +531,9 @@ export default defineNuxtComponent({
             formattedFacets.push(versionFacets)
           }
 
-          if (onlyOpenSource.value) { formattedFacets.push(['open_source:true']) }
+          if (onlyOpenSource.value) {
+            formattedFacets.push(['open_source:true'])
+          }
 
           if (selectedEnvironments.value.length > 0) {
             let environmentFacets = []
@@ -590,10 +541,7 @@ export default defineNuxtComponent({
             const includesClient = selectedEnvironments.value.includes('client')
             const includesServer = selectedEnvironments.value.includes('server')
             if (includesClient && includesServer) {
-              environmentFacets = [
-                ['client_side:required'],
-                ['server_side:required'],
-              ]
+              environmentFacets = [['client_side:required'], ['server_side:required']]
             } else {
               if (includesClient) {
                 environmentFacets = [
@@ -612,7 +560,9 @@ export default defineNuxtComponent({
             formattedFacets = [...formattedFacets, ...environmentFacets]
           }
 
-          if (projectType.value) { formattedFacets.push([`project_type:${projectType.value.actual}`]) }
+          if (projectType.value) {
+            formattedFacets.push([`project_type:${projectType.value.actual}`])
+          }
 
           params.push(`facets=${JSON.stringify(formattedFacets)}`)
         }
@@ -636,27 +586,59 @@ export default defineNuxtComponent({
         pageCount.value = Math.ceil(res.total_hits / res.limit)
 
         if (process.client) {
-          url = getSearchUrl(offset)
-          window.history.replaceState({}, '', url)
+          const router = useRouter()
+          const obj = getSearchUrl(offset, true)
+          router.replace({ path: route.path, query: obj })
         }
       } catch (err) {
         console.error(err)
       }
     }
 
-    const getSearchUrl = (offset) => {
+    const getSearchUrl = (offset, useObj) => {
       const queryItems = []
+      const obj = {}
 
-      if (query.value) { queryItems.push(`q=${encodeURIComponent(query.value)}`) }
-      if (offset > 0) { queryItems.push(`o=${offset}`) }
-      if (facets.value.length > 0) { queryItems.push(`f=${encodeURIComponent(facets.value)}`) }
-      if (orFacets.value.length > 0) { queryItems.push(`g=${encodeURIComponent(orFacets.value)}`) }
-      if (selectedVersions.value.length > 0) { queryItems.push(`v=${encodeURIComponent(selectedVersions.value)}`) }
-      if (onlyOpenSource.value) { queryItems.push('l=true') }
-      if (showSnapshots.value) { queryItems.push('h=true') }
-      if (selectedEnvironments.value.length > 0) { queryItems.push(`e=${encodeURIComponent(selectedEnvironments.value)}`) }
-      if (sortType.value.name !== 'relevance') { queryItems.push(`s=${encodeURIComponent(sortType.name.value)}`) }
-      if (maxResults.value !== 20) { queryItems.push(`m=${encodeURIComponent(maxResults.value)}`) }
+      if (query.value) {
+        queryItems.push(`q=${encodeURIComponent(query.value)}`)
+        obj.q = query.value
+      }
+      if (offset > 0) {
+        queryItems.push(`o=${offset}`)
+        obj.offset = offset
+      }
+      if (facets.value.length > 0) {
+        queryItems.push(`f=${encodeURIComponent(facets.value)}`)
+        obj.f = facets.value
+      }
+      if (orFacets.value.length > 0) {
+        queryItems.push(`g=${encodeURIComponent(orFacets.value)}`)
+        obj.g = orFacets.value
+      }
+      if (selectedVersions.value.length > 0) {
+        queryItems.push(`v=${encodeURIComponent(selectedVersions.value)}`)
+        obj.v = selectedVersions.value
+      }
+      if (onlyOpenSource.value) {
+        queryItems.push('l=true')
+        obj.l = true
+      }
+      if (showSnapshots.value) {
+        queryItems.push('h=true')
+        obj.h = true
+      }
+      if (selectedEnvironments.value.length > 0) {
+        queryItems.push(`e=${encodeURIComponent(selectedEnvironments.value)}`)
+        obj.e = selectedEnvironments.value
+      }
+      if (sortType.value.name !== 'relevance') {
+        queryItems.push(`s=${encodeURIComponent(sortType.value.name)}`)
+        obj.s = sortType.value.name
+      }
+      if (maxResults.value !== 20) {
+        queryItems.push(`m=${encodeURIComponent(maxResults.value)}`)
+        obj.m = maxResults.value
+      }
 
       let url = `${route.path}`
 
@@ -668,7 +650,7 @@ export default defineNuxtComponent({
         }
       }
 
-      return url
+      return useObj ? obj : url
     }
 
     await onSearchChange(currentPage.value)
@@ -693,7 +675,7 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    categoriesMap () {
+    categoriesMap() {
       const categories = {}
 
       for (const category of this.$sortedCategories) {
@@ -713,16 +695,20 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    async clearFilters () {
-      for (const facet of [...this.facets]) { await this.toggleFacet(facet, true) }
-      for (const facet of [...this.orFacets]) { await this.toggleOrFacet(facet, true) }
+    async clearFilters() {
+      for (const facet of [...this.facets]) {
+        await this.toggleFacet(facet, true)
+      }
+      for (const facet of [...this.orFacets]) {
+        await this.toggleOrFacet(facet, true)
+      }
 
       this.onlyOpenSource = false
       this.selectedVersions = []
       this.selectedEnvironments = []
       await this.onSearchChange(1)
     },
-    async toggleFacet (elementName, doNotSendRequest) {
+    async toggleFacet(elementName, doNotSendRequest) {
       const index = this.facets.indexOf(elementName)
       if (index !== -1) {
         this.facets.splice(index, 1)
@@ -730,31 +716,49 @@ export default defineNuxtComponent({
         this.facets.push(elementName)
       }
 
-      if (!doNotSendRequest) { await this.onSearchChange(1) }
+      if (!doNotSendRequest) {
+        await this.onSearchChange(1)
+      }
     },
-    async toggleOrFacet (elementName, doNotSendRequest) {
+    async toggleOrFacet(elementName, doNotSendRequest) {
       const index = this.orFacets.indexOf(elementName)
       if (index !== -1) {
         this.orFacets.splice(index, 1)
       } else {
         if (elementName === 'categories:purpur') {
-          if (!this.orFacets.includes('categories:paper')) { this.orFacets.push('categories:paper') }
-          if (!this.orFacets.includes('categories:spigot')) { this.orFacets.push('categories:spigot') }
-          if (!this.orFacets.includes('categories:bukkit')) { this.orFacets.push('categories:bukkit') }
+          if (!this.orFacets.includes('categories:paper')) {
+            this.orFacets.push('categories:paper')
+          }
+          if (!this.orFacets.includes('categories:spigot')) {
+            this.orFacets.push('categories:spigot')
+          }
+          if (!this.orFacets.includes('categories:bukkit')) {
+            this.orFacets.push('categories:bukkit')
+          }
         } else if (elementName === 'categories:paper') {
-          if (!this.orFacets.includes('categories:spigot')) { this.orFacets.push('categories:spigot') }
-          if (!this.orFacets.includes('categories:bukkit')) { this.orFacets.push('categories:bukkit') }
+          if (!this.orFacets.includes('categories:spigot')) {
+            this.orFacets.push('categories:spigot')
+          }
+          if (!this.orFacets.includes('categories:bukkit')) {
+            this.orFacets.push('categories:bukkit')
+          }
         } else if (elementName === 'categories:spigot') {
-          if (!this.orFacets.includes('categories:bukkit')) { this.orFacets.push('categories:bukkit') }
+          if (!this.orFacets.includes('categories:bukkit')) {
+            this.orFacets.push('categories:bukkit')
+          }
         } else if (elementName === 'categories:waterfall') {
-          if (!this.orFacets.includes('categories:bungeecord')) { this.orFacets.push('categories:bungeecord') }
+          if (!this.orFacets.includes('categories:bungeecord')) {
+            this.orFacets.push('categories:bungeecord')
+          }
         }
         this.orFacets.push(elementName)
       }
 
-      if (!doNotSendRequest) { await this.onSearchChange(1) }
+      if (!doNotSendRequest) {
+        await this.onSearchChange(1)
+      }
     },
-    async toggleEnv (environment, sendRequest) {
+    async toggleEnv(environment, sendRequest) {
       const index = this.selectedEnvironments.indexOf(environment)
       if (index !== -1) {
         this.selectedEnvironments.splice(index, 1)
@@ -762,41 +766,43 @@ export default defineNuxtComponent({
         this.selectedEnvironments.push(environment)
       }
 
-      if (!sendRequest) { await this.onSearchChange(1) }
+      if (!sendRequest) {
+        await this.onSearchChange(1)
+      }
     },
-    async onSearchChangeToTop (newPageNumber) {
-      if (process.client) { window.scrollTo({ top: 0, behavior: 'smooth' }) }
+    async onSearchChangeToTop(newPageNumber) {
+      if (process.client) {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
 
       await this.onSearchChange(newPageNumber)
     },
-    async onMaxResultsChange (newPageNumber) {
+    async onMaxResultsChange(newPageNumber) {
       newPageNumber = Math.max(
         1,
         Math.min(
-          Math.floor(
-            newPageNumber / (this.maxResults / this.previousMaxResults)
-          ),
+          Math.floor(newPageNumber / (this.maxResults / this.previousMaxResults)),
           this.pageCount
         )
       )
       this.previousMaxResults = this.maxResults
       await this.onSearchChange(newPageNumber)
     },
-    cycleSearchDisplayMode () {
-      this.$cosmetics.searchDisplayMode[this.projectType.id] =
-        this.$cycleValue(this.$cosmetics.searchDisplayMode[this.projectType.id], this.$tag.projectViewModes)
+    cycleSearchDisplayMode() {
+      this.$cosmetics.searchDisplayMode[this.projectType.id] = this.$cycleValue(
+        this.$cosmetics.searchDisplayMode[this.projectType.id],
+        this.$tag.projectViewModes
+      )
       saveCosmetics()
       this.setClosestMaxResults()
     },
-    setClosestMaxResults () {
+    setClosestMaxResults() {
       const view = this.$cosmetics.searchDisplayMode[this.projectType.id]
       const maxResultsOptions = this.maxResultsForView[view] ?? [20]
       const currentMax = this.maxResults
       if (!maxResultsOptions.includes(currentMax)) {
         this.maxResults = maxResultsOptions.reduce(function (prev, curr) {
-          return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax)
-            ? curr
-            : prev
+          return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax) ? curr : prev
         })
       }
     },

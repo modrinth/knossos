@@ -22,17 +22,13 @@
       :item-id="version.id"
       item-type="version"
     />
-    <Modal
-      v-if="$auth.user && currentMember"
-      ref="modal_package_mod"
-      header="Package data pack"
-    >
+    <Modal v-if="$auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
           <p>
-            Package your data pack as a mod. This will create a new version with
-            support for the selected mod loaders. You will be redirected to the
-            new version and can edit it to your liking.
+            Package your data pack as a mod. This will create a new version with support for the
+            selected mod loaders. You will be redirected to the new version and can edit it to your
+            liking.
           </p>
         </div>
         <label for="package-mod-loaders">
@@ -45,9 +41,7 @@
           id="package-mod-loaders"
           v-model="packageLoaders"
           :options="['fabric', 'forge', 'quilt']"
-          :custom-label="
-            (value) => value.charAt(0).toUpperCase() + value.slice(1)
-          "
+          :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
           :multiple="true"
           :searchable="false"
           :show-no-results="false"
@@ -56,17 +50,11 @@
           open-direction="top"
         />
         <div class="button-group">
-          <button
-            class="iconified-button"
-            @click="$refs.modal_package_mod.hide()"
-          >
+          <button class="iconified-button" @click="$refs.modal_package_mod.hide()">
             <CrossIcon />
             Cancel
           </button>
-          <button
-            class="iconified-button brand-button"
-            @click="createDataPackVersion"
-          >
+          <button class="iconified-button brand-button" @click="createDataPackVersion">
             <RightArrowIcon />
             Begin packaging data pack
           </button>
@@ -81,7 +69,7 @@
             type="text"
             placeholder="Enter a version title..."
             maxlength="256"
-          >
+          />
         </template>
         <h2 :class="{ 'sr-only': isEditing }">
           {{ version.name }}
@@ -90,37 +78,21 @@
           <StarIcon aria-hidden="true" />
           Featured
         </div>
-        <div
-          v-else-if="featuredVersions.find((x) => x.id === version.id)"
-          class="featured"
-        >
+        <div v-else-if="featuredVersions.find((x) => x.id === version.id)" class="featured">
           <StarIcon aria-hidden="true" />
           Auto-featured
         </div>
       </div>
       <div v-if="fieldErrors && showKnownErrors" class="known-errors">
         <ul>
-          <li v-if="version.version_number === ''">
-            Your version must have a version number.
-          </li>
+          <li v-if="version.version_number === ''">Your version must have a version number.</li>
           <li v-if="version.game_versions.length === 0">
             Your version must have the supported Minecraft versions selected.
           </li>
-          <li
-            v-if="
-              newFiles.length === 0 &&
-                version.files.length === 0 &&
-                !replaceFile
-            "
-          >
+          <li v-if="newFiles.length === 0 && version.files.length === 0 && !replaceFile">
             Your version must have a file uploaded.
           </li>
-          <li
-            v-if="
-              version.loaders.length === 0 &&
-                project.project_type !== 'resourcepack'
-            "
-          >
+          <li v-if="version.loaders.length === 0 && project.project_type !== 'resourcepack'">
             Your version must have the supported mod loaders selected.
           </li>
         </ul>
@@ -136,9 +108,7 @@
         </button>
         <nuxt-link
           v-if="$auth.user"
-          :to="`/${project.project_type}/${
-            project.slug ? project.slug : project.id
-          }/versions`"
+          :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
           class="iconified-button"
         >
           <CrossIcon aria-hidden="true" />
@@ -154,17 +124,10 @@
           <SaveIcon aria-hidden="true" />
           Save
         </button>
-        <button
-          class="iconified-button"
-          @click="version.featured = !version.featured"
-        >
+        <button class="iconified-button" @click="version.featured = !version.featured">
           <StarIcon aria-hidden="true" />
-          <template v-if="!version.featured">
-            Feature version
-          </template>
-          <template v-else>
-            Unfeature version
-          </template>
+          <template v-if="!version.featured"> Feature version </template>
+          <template v-else> Unfeature version </template>
         </button>
         <nuxt-link
           v-if="currentMember"
@@ -180,9 +143,7 @@
       <div v-else class="input-group">
         <a
           v-if="primaryFile"
-          v-tooltip="
-            primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'
-          "
+          v-tooltip="primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'"
           :href="primaryFile.url"
           class="iconified-button brand-button"
           :title="`Download ${primaryFile.filename}`"
@@ -193,12 +154,9 @@
         <nuxt-link
           :to="`${
             prevRoute &&
-            (prevRoute.name === 'type-id-changelog' ||
-              prevRoute.name === 'type-id-versions')
+            (prevRoute.name === 'type-id-changelog' || prevRoute.name === 'type-id-versions')
               ? prevRoute.fullPath
-              : `/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`
+              : `/${project.project_type}/${project.slug ? project.slug : project.id}/versions`
           }`"
           class="iconified-button"
         >
@@ -213,7 +171,7 @@
           <ReportIcon aria-hidden="true" />
           Report
         </button>
-        <a v-if="!$auth.user" class="iconified-button" :href="authUrl">
+        <a v-if="!$auth.user" class="iconified-button" :href="getAuthUrl()">
           <ReportIcon aria-hidden="true" />
           Report
         </a>
@@ -230,9 +188,7 @@
         <button
           v-if="
             currentMember &&
-              version.loaders.some((x) =>
-                $tag.loaderData.dataPackLoaders.includes(x)
-              )
+            version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))
           "
           class="iconified-button"
           @click="$refs.modal_package_mod.show()"
@@ -253,24 +209,19 @@
     <div class="version-page__changelog universal-card">
       <h3>Changelog</h3>
       <template v-if="isEditing">
-        <span>This editor supports
+        <span
+          >This editor supports
           <a
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
             rel="noopener noreferrer nofollow"
-          >Markdown</a>. HTML can also be used inside your changelog, not including styles,
-          scripts, and iframes.
+            >Markdown</a
+          >. HTML can also be used inside your changelog, not including styles, scripts, and
+          iframes.
         </span>
-        <Chips
-          v-model="changelogViewMode"
-          class="separator"
-          :items="['source', 'preview']"
-        />
-        <div
-          v-if="changelogViewMode === 'source'"
-          class="resizable-textarea-wrapper"
-        >
+        <Chips v-model="changelogViewMode" class="separator" :items="['source', 'preview']" />
+        <div v-if="changelogViewMode === 'source'" class="resizable-textarea-wrapper">
           <textarea id="body" v-model="version.changelog" maxlength="65536" />
         </div>
         <div
@@ -287,24 +238,17 @@
         v-else
         class="markdown-body"
         v-html="
-          version.changelog
-            ? renderHighlightedString(version.changelog)
-            : 'No changelog specified.'
+          version.changelog ? renderHighlightedString(version.changelog) : 'No changelog specified.'
         "
       />
     </div>
     <div
-      v-if="
-        version.dependencies.length > 0 ||
-          (isEditing && project.project_type !== 'modpack')
-      "
+      v-if="version.dependencies.length > 0 || (isEditing && project.project_type !== 'modpack')"
       class="version-page__dependencies universal-card"
     >
       <h3>Dependencies</h3>
       <div
-        v-for="(dependency, index) in version.dependencies.filter(
-          (x) => !x.file_name
-        )"
+        v-for="(dependency, index) in version.dependencies.filter((x) => !x.file_name)"
         :key="index"
         class="dependency"
         :class="{ 'button-transparent': !isEditing }"
@@ -317,9 +261,7 @@
         />
         <nuxt-link v-if="!isEditing" :to="dependency.link" class="info">
           <span class="project-title">
-            {{
-              dependency.project ? dependency.project.title : 'Unknown Project'
-            }}
+            {{ dependency.project ? dependency.project.title : 'Unknown Project' }}
           </span>
           <span v-if="dependency.version">
             Version {{ dependency.version.version_number }} is
@@ -331,9 +273,7 @@
         </nuxt-link>
         <div v-else class="info">
           <span class="project-title">
-            {{
-              dependency.project ? dependency.project.title : 'Unknown Project'
-            }}
+            {{ dependency.project ? dependency.project.title : 'Unknown Project' }}
           </span>
           <span v-if="dependency.version">
             Version {{ dependency.version.version_number }} is
@@ -353,9 +293,7 @@
         </button>
       </div>
       <div
-        v-for="(dependency, index) in version.dependencies.filter(
-          (x) => x.file_name
-        )"
+        v-for="(dependency, index) in version.dependencies.filter((x) => x.file_name)"
         :key="index"
         class="dependency"
       >
@@ -367,19 +305,14 @@
           <span>Added via overrides</span>
         </div>
       </div>
-      <div
-        v-if="isEditing && project.project_type !== 'modpack'"
-        class="add-dependency"
-      >
+      <div v-if="isEditing && project.project_type !== 'modpack'" class="add-dependency">
         <h4>Add dependency</h4>
         <div class="input-group">
           <Multiselect
             v-model="dependencyAddMode"
             class="input"
             :options="['project', 'version']"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -391,21 +324,13 @@
             :placeholder="`Enter the ${dependencyAddMode} ID${
               dependencyAddMode === 'project' ? '/slug' : ''
             }`"
-            @keyup.enter="
-              addDependency(
-                dependencyAddMode,
-                newDependencyId,
-                newDependencyType
-              )
-            "
-          >
+            @keyup.enter="addDependency(dependencyAddMode, newDependencyId, newDependencyType)"
+          />
           <Multiselect
             v-model="newDependencyType"
             class="input"
             :options="['required', 'optional', 'incompatible', 'embedded']"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -415,13 +340,7 @@
         <div class="input-group">
           <button
             class="iconified-button brand-button"
-            @click="
-              addDependency(
-                dependencyAddMode,
-                newDependencyId,
-                newDependencyType
-              )
-            "
+            @click="addDependency(dependencyAddMode, newDependencyId, newDependencyType)"
           >
             <PlusIcon />
             Add dependency
@@ -460,24 +379,17 @@
         <span class="filename">
           <strong>{{ file.filename }}</strong>
           <span class="file-size">({{ $formatBytes(file.size) }})</span>
-          <span
-            v-if="primaryFile.hashes.sha1 === file.hashes.sha1"
-            class="file-type"
-          >
+          <span v-if="primaryFile.hashes.sha1 === file.hashes.sha1" class="file-type">
             Primary
           </span>
           <span
-            v-else-if="
-              file.file_type === 'required-resource-pack' && !isEditing
-            "
+            v-else-if="file.file_type === 'required-resource-pack' && !isEditing"
             class="file-type"
           >
             Required resource pack
           </span>
           <span
-            v-else-if="
-              file.file_type === 'optional-resource-pack' && !isEditing
-            "
+            v-else-if="file.file_type === 'optional-resource-pack' && !isEditing"
             class="file-type"
           >
             Optional resource pack
@@ -485,11 +397,9 @@
         </span>
         <multiselect
           v-if="
-            version.loaders.some((x) =>
-              $tag.loaderData.dataPackLoaders.includes(x)
-            ) &&
-              isEditing &&
-              primaryFile.hashes.sha1 !== file.hashes.sha1
+            version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x)) &&
+            isEditing &&
+            primaryFile.hashes.sha1 !== file.hashes.sha1
           "
           v-model="oldFileTypes[index]"
           class="raised-multiselect"
@@ -554,11 +464,7 @@
             <span class="file-size">({{ $formatBytes(file.size) }})</span>
           </span>
           <multiselect
-            v-if="
-              version.loaders.some((x) =>
-                $tag.loaderData.dataPackLoaders.includes(x)
-              )
-            "
+            v-if="version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))"
             v-model="newFileTypes[index]"
             class="raised-multiselect"
             placeholder="Select file type"
@@ -585,13 +491,7 @@
         </div>
         <div class="additional-files">
           <h4>Upload additional files</h4>
-          <span
-            v-if="
-              version.loaders.some((x) =>
-                $tag.loaderData.dataPackLoaders.includes(x)
-              )
-            "
-          >
+          <span v-if="version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))">
             Used for additional files such as required/optional resource packs
           </span>
           <span v-else>Used for files such as sources or Javadocs.</span>
@@ -625,9 +525,7 @@
             class="input"
             placeholder="Select one"
             :options="['release', 'beta', 'alpha']"
-            :custom-label="
-              (value) => value.charAt(0).toUpperCase() + value.slice(1)
-            "
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
@@ -665,7 +563,7 @@
               type="text"
               autocomplete="off"
               maxlength="54"
-            >
+            />
           </div>
           <span v-else>{{ version.version_number }}</span>
         </div>
@@ -677,9 +575,7 @@
             :options="
               $tag.loaders
                 .filter((x) =>
-                  x.supported_project_types.includes(
-                    project.actualProjectType.toLowerCase()
-                  )
+                  x.supported_project_types.includes(project.actualProjectType.toLowerCase())
                 )
                 .map((it) => it.name)
             "
@@ -695,11 +591,7 @@
             :hide-selected="true"
             placeholder="Choose loaders..."
           />
-          <Categories
-            v-else
-            :categories="version.loaders"
-            :type="project.actualProjectType"
-          />
+          <Categories v-else :categories="version.loaders" :type="project.actualProjectType" />
         </div>
         <div>
           <h4>Game versions</h4>
@@ -710,8 +602,8 @@
                 showSnapshots
                   ? $tag.gameVersions.map((x) => x.version)
                   : $tag.gameVersions
-                    .filter((it) => it.version_type === 'release')
-                    .map((x) => x.version)
+                      .filter((it) => it.version_type === 'release')
+                      .map((x) => x.version)
               "
               :loading="$tag.gameVersions.length === 0"
               :multiple="true"
@@ -741,20 +633,14 @@
         <div v-if="!isEditing">
           <h4>Publication date</h4>
           <span>
-            {{
-              $dayjs(version.date_published).format(
-                'MMMM D, YYYY [at] h:mm:ss A'
-              )
-            }}
+            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm:ss A') }}
           </span>
         </div>
         <div v-if="!isEditing">
           <h4>Publisher</h4>
           <div
             class="team-member columns button-transparent"
-            @click="
-              $router.push('/user/' + version.author.user.username)
-            "
+            @click="$router.push('/user/' + version.author.user.username)"
           >
             <Avatar
               :src="version.author.avatar_url"
@@ -764,10 +650,7 @@
             />
 
             <div class="member-info">
-              <nuxt-link
-                :to="'/user/' + version.author.user.username"
-                class="name"
-              >
+              <nuxt-link :to="'/user/' + version.author.user.username" class="name">
                 <p>{{ version.author.name }}</p>
               </nuxt-link>
               <p class="role">
@@ -850,49 +733,47 @@ export default defineNuxtComponent({
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     versions: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     featuredVersions: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     members: {
       type: Array,
-      default () {
+      default() {
         return [{}]
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
     dependencies: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
   },
-  async setup (props) {
+  async setup(props) {
     const data = useNuxtApp()
     const route = useRoute()
 
     const path = route.name.split('-')
     const mode = path[path.length - 1]
-
-    console.log(mode)
 
     const fileTypes = [
       {
@@ -959,90 +840,69 @@ export default defineNuxtComponent({
     } else if (route.params.version === 'latest') {
       let versionList = props.versions
       if (route.query.loader) {
-        versionList = versionList.filter(x =>
-          x.loaders.includes(route.query.loader)
-        )
+        versionList = versionList.filter((x) => x.loaders.includes(route.query.loader))
       }
       if (route.query.version) {
-        versionList = versionList.filter(x =>
-          x.game_versions.includes(route.query.version)
-        )
+        versionList = versionList.filter((x) => x.game_versions.includes(route.query.version))
       }
-      version = versionList.reduce((a, b) =>
-        a.date_published > b.date_published ? a : b
-      )
+      version = versionList.reduce((a, b) => (a.date_published > b.date_published ? a : b))
     } else {
-      version = props.versions.find(
-        x => x.id === route.params.version
-      )
+      version = props.versions.find((x) => x.id === route.params.version)
 
       if (!version) {
-        version = props.versions.find(
-          x => x.displayUrlEnding === route.params.version
-        )
+        version = props.versions.find((x) => x.displayUrlEnding === route.params.version)
       }
 
       // LEGACY- to support old duplicate version URLs
       const dashIndex = route.params.version.indexOf('-')
       if (!version && dashIndex !== -1) {
         const version = props.versions.find(
-          x =>
-            x.displayUrlEnding ===
-            route.params.version.substring(0, dashIndex)
+          (x) => x.displayUrlEnding === route.params.version.substring(0, dashIndex)
         )
 
-        navigateTo(`/${props.project.project_type}/${props.project.slug}/version/${version.version_number}`, { redirectCode: 307 })
+        navigateTo(
+          `/${props.project.project_type}/${props.project.slug}/version/${version.version_number}`,
+          { redirectCode: 307 }
+        )
         return
       }
     }
 
     if (!version) {
-      createError({
+      throw createError({
         fatal: true,
         statusCode: 404,
         message: 'Version not found',
       })
-      return
     }
 
     version = JSON.parse(JSON.stringify(version))
-    primaryFile =
-      version.files.find(file => file.primary) ?? version.files[0]
+    primaryFile = version.files.find((file) => file.primary) ?? version.files[0]
     alternateFile = version.files.find(
-      file => file.file_type && file.file_type.includes('resource-pack')
+      (file) => file.file_type && file.file_type.includes('resource-pack')
     )
 
     for (const dependency of version.dependencies) {
-      dependency.version = props.dependencies.versions.find(
-        x => x.id === dependency.version_id
-      )
+      dependency.version = props.dependencies.versions.find((x) => x.id === dependency.version_id)
 
       if (dependency.version) {
         dependency.project = props.dependencies.projects.find(
-          x => x.id === dependency.version.project_id
+          (x) => x.id === dependency.version.project_id
         )
       }
 
       if (!dependency.project) {
-        dependency.project = props.dependencies.projects.find(
-          x => x.id === dependency.project_id
-        )
+        dependency.project = props.dependencies.projects.find((x) => x.id === dependency.project_id)
       }
 
       dependency.link = dependency.project
-        ? `/${dependency.project.project_type}/${
-          dependency.project.slug ?? dependency.project.id
-        }${
-          dependency.version
-            ? `/version/${encodeURI(dependency.version.version_number)}`
-            : ''
-        }`
+        ? `/${dependency.project.project_type}/${dependency.project.slug ?? dependency.project.id}${
+            dependency.version ? `/version/${encodeURI(dependency.version.version_number)}` : ''
+          }`
         : ''
     }
 
-    oldFileTypes = version.files.map(x =>
-      fileTypes.find(y => y.value === x.file_type)
-    )
+    oldFileTypes = version.files.map((x) => fileTypes.find((y) => y.value === x.file_type))
 
     return {
       fileTypes: ref(fileTypes),
@@ -1054,21 +914,22 @@ export default defineNuxtComponent({
       alternateFile: ref(alternateFile),
       replaceFile: ref(replaceFile),
 
-      metaTitle: computed(() => `${
-        isCreating ? 'Create Version' : version.name
-      } - ${props.project.title}`),
-      metaDescription: computed(() => `Download ${props.project.title} ${
-        version.version_number
-      } on Modrinth. Supports ${data.$formatVersion(
-        version.game_versions
-      )} ${version.loaders
-        .map(x => x.charAt(0).toUpperCase() + x.slice(1))
-        .join(' & ')}. Published on ${data.$dayjs(
-        version.date_published
-      ).format('MMM D, YYYY')}. ${version.downloads} downloads.`)
+      metaTitle: computed(
+        () => `${isCreating ? 'Create Version' : version.name} - ${props.project.title}`
+      ),
+      metaDescription: computed(
+        () =>
+          `Download ${props.project.title} ${
+            version.version_number
+          } on Modrinth. Supports ${data.$formatVersion(version.game_versions)} ${version.loaders
+            .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+            .join(' & ')}. Published on ${data
+            .$dayjs(version.date_published)
+            .format('MMM D, YYYY')}. ${version.downloads} downloads.`
+      ),
     }
   },
-  data () {
+  data() {
     return {
       dependencyAddMode: 'project',
       newDependencyType: 'required',
@@ -1091,45 +952,38 @@ export default defineNuxtComponent({
       prevRoute: null,
     }
   },
-  beforeRouteEnter (_to, from, next) {
+  beforeRouteEnter(_to, from, next) {
     next((vm) => {
       vm.prevRoute = from
     })
   },
   computed: {
-    fieldErrors () {
+    fieldErrors() {
       return (
         this.version.version_number === '' ||
         this.version.game_versions.length === 0 ||
-        (this.version.loaders.length === 0 &&
-          this.project.project_type !== 'resourcepack') ||
-        (this.newFiles.length === 0 &&
-          this.version.files.length === 0 &&
-          !this.replaceFile)
+        (this.version.loaders.length === 0 && this.project.project_type !== 'resourcepack') ||
+        (this.newFiles.length === 0 && this.version.files.length === 0 && !this.replaceFile)
       )
     },
-    authUrl () {
-      return ''
+  },
+  watch: {
+    '$route.path'() {
+      const path = this.$route.name.split('-')
+      const mode = path[path.length - 1]
+
+      this.isEditing = mode === 'edit' || this.$route.params.version === 'create'
     },
   },
   methods: {
     acceptFileFromProjectType,
     renderHighlightedString,
-    async addDependency (
-      dependencyAddMode,
-      newDependencyId,
-      newDependencyType,
-      hideErrors
-    ) {
+    async addDependency(dependencyAddMode, newDependencyId, newDependencyType, hideErrors) {
       try {
         if (dependencyAddMode === 'project') {
           const project = await useBaseFetch(`project/${newDependencyId}`)
 
-          if (
-            this.version.dependencies.some(
-              dep => project.id === dep.project_id
-            )
-          ) {
+          if (this.version.dependencies.some((dep) => project.id === dep.project_id)) {
             this.$notify({
               group: 'main',
               title: 'Dependency already added',
@@ -1154,11 +1008,7 @@ export default defineNuxtComponent({
 
           const project = await useBaseFetch(`project/${version.project_id}`)
 
-          if (
-            this.version.dependencies.some(
-              dep => version.id === dep.version_id
-            )
-          ) {
+          if (this.version.dependencies.some((dep) => version.id === dep.version_id)) {
             this.$notify({
               group: 'main',
               title: 'Dependency already added',
@@ -1172,9 +1022,9 @@ export default defineNuxtComponent({
               version_id: version.id,
               project_id: project.id,
               dependency_type: this.newDependencyType,
-              link: `/${project.project_type}/${
-                project.slug ?? project.id
-              }/version/${encodeURI(version.version_number)}`,
+              link: `/${project.project_type}/${project.slug ?? project.id}/version/${encodeURI(
+                version.version_number
+              )}`,
             })
 
             this.$emit('update:dependencies', {
@@ -1196,7 +1046,7 @@ export default defineNuxtComponent({
         }
       }
     },
-    async saveEditedVersion () {
+    async saveEditedVersion() {
       startLoading()
 
       if (this.fieldErrors) {
@@ -1210,12 +1060,9 @@ export default defineNuxtComponent({
         if (this.replaceFile) {
           const reader = new FileReader()
           reader.onloadend = async function (event) {
-            const hash = await crypto.subtle.digest(
-              'SHA-1',
-              event.target.result
-            )
+            const hash = await crypto.subtle.digest('SHA-1', event.target.result)
             this.primaryFile.hashes.sha1 = [...new Uint8Array(hash)]
-              .map(x => x.toString(16).padStart(2, '0'))
+              .map((x) => x.toString(16).padStart(2, '0'))
               .join('')
           }
 
@@ -1240,11 +1087,7 @@ export default defineNuxtComponent({
           )
 
           for (let i = 0; i < this.newFiles.length; i++) {
-            formData.append(
-              fileParts[i],
-              new Blob([this.newFiles[i]]),
-              this.newFiles[i].name
-            )
+            formData.append(fileParts[i], new Blob([this.newFiles[i]]), this.newFiles[i].name)
           }
 
           if (this.replaceFile) {
@@ -1255,71 +1098,54 @@ export default defineNuxtComponent({
             )
           }
 
-          await useBaseFetch(
-            `version/${this.version.id}/file`,
-            {
-              method: 'POST',
-              body: formData,
-              headers: {
-                'Content-Disposition': formData,
-                Authorization: this.$auth.token,
-              },
-            }
-          )
+          await useBaseFetch(`version/${this.version.id}/file`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Content-Disposition': formData,
+              Authorization: this.$auth.token,
+            },
+          })
         }
 
-        await useBaseFetch(
-          `version/${this.version.id}`,
-          {
-            method: 'PATCH',
-            body: {
-              name: this.version.name || this.version.version_number,
-              version_number: this.version.version_number,
-              changelog: this.version.changelog,
-              version_type: this.version.version_type,
-              dependencies: this.version.dependencies,
-              game_versions: this.version.game_versions,
-              loaders: this.version.loaders,
-              primary_file: ['sha1', this.primaryFile.hashes.sha1],
-              featured: this.version.featured,
-              file_types: this.oldFileTypes.map((x, i) => {
-                return {
-                  algorithm: 'sha1',
-                  hash: this.version.files[i].hashes.sha1,
-                  file_type: x ? x.value : null,
-                }
-              }),
-            },
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`version/${this.version.id}`, {
+          method: 'PATCH',
+          body: {
+            name: this.version.name || this.version.version_number,
+            version_number: this.version.version_number,
+            changelog: this.version.changelog,
+            version_type: this.version.version_type,
+            dependencies: this.version.dependencies,
+            game_versions: this.version.game_versions,
+            loaders: this.version.loaders,
+            primary_file: ['sha1', this.primaryFile.hashes.sha1],
+            featured: this.version.featured,
+            file_types: this.oldFileTypes.map((x, i) => {
+              return {
+                algorithm: 'sha1',
+                hash: this.version.files[i].hashes.sha1,
+                file_type: x ? x.value : null,
+              }
+            }),
+          },
+          ...this.$defaultHeaders(),
+        })
 
         for (const hash of this.deleteFiles) {
-          await useBaseFetch(
-            `version_file/${hash}?version_id=${this.version.id}`,
-            {
-              method: 'DELETE',
-              ...this.$defaultHeaders()
-            }
-          )
+          await useBaseFetch(`version_file/${hash}?version_id=${this.version.id}`, {
+            method: 'DELETE',
+            ...this.$defaultHeaders(),
+          })
         }
 
-        const [versions, featuredVersions, dependencies] = (
-          await Promise.all([
-            useBaseFetch(
-              `project/${this.version.project_id}/version`,
-              this.$defaultHeaders()
-            ),
-            useBaseFetch(
-              `project/${this.version.project_id}/version?featured=true`,
-              this.$defaultHeaders()
-            ),
-            useBaseFetch(
-              `project/${this.version.project_id}/dependencies`,
-              this.$defaultHeaders()
-            ),
-          ])
-        )
+        const [versions, featuredVersions, dependencies] = await Promise.all([
+          useBaseFetch(`project/${this.version.project_id}/version`, this.$defaultHeaders()),
+          useBaseFetch(
+            `project/${this.version.project_id}/version?featured=true`,
+            this.$defaultHeaders()
+          ),
+          useBaseFetch(`project/${this.version.project_id}/dependencies`, this.$defaultHeaders()),
+        ])
 
         const newEditedVersions = this.$computeVersions(versions, this.members)
         this.$emit('update:versions', newEditedVersions)
@@ -1330,22 +1156,21 @@ export default defineNuxtComponent({
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
           }/version/${encodeURI(
-            newEditedVersions.find(x => x.id === this.version.id)
-              .displayUrlEnding
+            newEditedVersions.find((x) => x.id === this.version.id).displayUrlEnding
           )}`
         )
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
       stopLoading()
     },
-    async createVersion () {
+    async createVersion() {
       this.shouldPreventActions = true
       startLoading()
       if (this.fieldErrors) {
@@ -1361,7 +1186,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response ? err.response.data.description : err,
+          text: err.data ? err.data.description : err,
           type: 'error',
         })
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -1370,7 +1195,7 @@ export default defineNuxtComponent({
       stopLoading()
       this.shouldPreventActions = false
     },
-    async createVersionRaw (version) {
+    async createVersionRaw(version) {
       const formData = new FormData()
 
       const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
@@ -1420,34 +1245,23 @@ export default defineNuxtComponent({
         )
       }
 
-      const data = await useBaseFetch(
-        'version',
-        {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Disposition': formData,
-            Authorization: this.$auth.token,
-          },
-        }
-      )
+      const data = await useBaseFetch('version', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Disposition': formData,
+          Authorization: this.$auth.token,
+        },
+      })
 
-      const [versions, featuredVersions, dependencies] = (
-        await Promise.all([
-          useBaseFetch(
-            `project/${this.version.project_id}/version`,
-            this.$defaultHeaders()
-          ),
-          useBaseFetch(
-            `project/${this.version.project_id}/version?featured=true`,
-            this.$defaultHeaders()
-          ),
-          useBaseFetch(
-            `project/${this.version.project_id}/dependencies`,
-            this.$defaultHeaders()
-          ),
-        ])
-      )
+      const [versions, featuredVersions, dependencies] = await Promise.all([
+        useBaseFetch(`project/${this.version.project_id}/version`, this.$defaultHeaders()),
+        useBaseFetch(
+          `project/${this.version.project_id}/version?featured=true`,
+          this.$defaultHeaders()
+        ),
+        useBaseFetch(`project/${this.version.project_id}/dependencies`, this.$defaultHeaders()),
+      ])
 
       const newCreatedVersions = this.$computeVersions(versions, this.members)
       this.$emit('update:versions', newCreatedVersions)
@@ -1460,23 +1274,18 @@ export default defineNuxtComponent({
         }/version/${data.id}`
       )
     },
-    async deleteVersion () {
+    async deleteVersion() {
       startLoading()
 
-      await useBaseFetch(
-        `version/${this.version.id}`,
-        {
-          method: 'DELETE',
-          ...this.$defaultHeaders()
-        }
-      )
+      await useBaseFetch(`version/${this.version.id}`, {
+        method: 'DELETE',
+        ...this.$defaultHeaders(),
+      })
 
-      await this.$router.replace(
-        `/${this.project.project_type}/${this.project.id}/versions`
-      )
+      await this.$router.replace(`/${this.project.project_type}/${this.project.id}/versions`)
       stopLoading()
     },
-    async createDataPackVersion () {
+    async createDataPackVersion() {
       this.shouldPreventActions = true
       startLoading()
       try {
@@ -1521,7 +1330,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response ? err.response.data.description : err,
+          text: err.data ? err.data.description : err,
           type: 'error',
         })
       }

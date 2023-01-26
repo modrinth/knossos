@@ -8,4 +8,5 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.provide('user', userStore)
   nuxtApp.provide('cosmetics', cosmeticsStore.value)
   nuxtApp.provide('tag', tagsStore.value)
+  nuxtApp.provide('notify', (notif) => addNotification(notif))
 })

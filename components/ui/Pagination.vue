@@ -41,9 +41,7 @@
       class="right-arrow paginate has-icon"
       aria-label="Next Page"
       :href="linkFunction(page + 1)"
-      @click.prevent="
-        page !== pages[pages.length - 1] ? switchPage(page + 1) : null
-      "
+      @click.prevent="page !== pages[pages.length - 1] ? switchPage(page + 1) : null"
     >
       <RightArrowIcon />
     </a>
@@ -72,14 +70,14 @@ export default {
     },
     linkFunction: {
       type: Function,
-      default () {
+      default() {
         return () => '/'
       },
     },
   },
   emits: ['switch-page'],
   computed: {
-    pages () {
+    pages() {
       let pages = []
 
       if (this.count > 4) {
@@ -94,15 +92,7 @@ export default {
             this.count,
           ]
         } else if (this.page > 4) {
-          pages = [
-            1,
-            '-',
-            this.page - 1,
-            this.page,
-            this.page + 1,
-            '-',
-            this.count,
-          ]
+          pages = [1, '-', this.page - 1, this.page, this.page + 1, '-', this.count]
         } else {
           pages = [1, 2, 3, 4, 5, '-', this.count]
         }
@@ -114,7 +104,7 @@ export default {
     },
   },
   methods: {
-    switchPage (newPage) {
+    switchPage(newPage) {
       this.$emit('switch-page', newPage)
     },
   },
@@ -131,8 +121,8 @@ a {
   border-radius: 2rem;
   background: var(--color-raised-bg);
 
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out,
-    transform 0.05s ease-in-out, outline 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
+    outline 0.2s ease-in-out;
 
   &.page-number.current {
     background: var(--color-brand);

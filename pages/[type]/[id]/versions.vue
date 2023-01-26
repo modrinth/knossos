@@ -1,9 +1,7 @@
 <template>
   <div class="content">
     <Head>
-      <Title>
-        {{ project.title }} - Versions
-      </Title>
+      <Title> {{ project.title }} - Versions </Title>
       <Meta name="og:title" :content="`${project.title} - Versions`" />
       <Meta name="description" :content="metaDescription" />
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Versions`" />
@@ -22,10 +20,7 @@
       <span class="indicator">
         <InfoIcon /> Click to choose a file or drag one onto this page
       </span>
-      <DropArea
-        :accept="acceptFileFromProjectType(project.project_type)"
-        @change="handleFiles"
-      />
+      <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
     <div class="universal-card all-versions">
       <div class="header">
@@ -49,10 +44,7 @@
       >
         <a
           v-tooltip="
-            version.primaryFile.filename +
-              ' (' +
-              $formatBytes(version.primaryFile.size) +
-              ')'
+            version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
           "
           :href="version.primaryFile.url"
           class="download-button square-button brand-button"
@@ -71,21 +63,9 @@
           {{ version.name }}
         </nuxt-link>
         <div class="version__metadata">
-          <VersionBadge
-            v-if="version.version_type === 'release'"
-            type="release"
-            color="green"
-          />
-          <VersionBadge
-            v-else-if="version.version_type === 'beta'"
-            type="beta"
-            color="orange"
-          />
-          <VersionBadge
-            v-else-if="version.version_type === 'alpha'"
-            type="alpha"
-            color="red"
-          />
+          <VersionBadge v-if="version.version_type === 'release'" type="release" color="green" />
+          <VersionBadge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
+          <VersionBadge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
           <span class="divider" />
           <span class="version_number">{{ version.version_number }}</span>
         </div>
@@ -102,9 +82,7 @@
           </span>
           <span>
             Published on
-            <strong>{{
-              $dayjs(version.date_published).format('MMM D, YYYY')
-            }}</strong>
+            <strong>{{ $dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
           </span>
         </div>
       </div>
@@ -131,34 +109,33 @@ export default defineNuxtComponent({
     VersionBadge,
     FileInput,
   },
-  auth: false,
   props: {
     project: {
       type: Object,
-      default () {
+      default() {
         return {}
       },
     },
     versions: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     featuredVersions: {
       type: Array,
-      default () {
+      default() {
         return []
       },
     },
     currentMember: {
       type: Object,
-      default () {
+      default() {
         return null
       },
     },
   },
-  data () {
+  data() {
     return {
       metaDescription: `Download and browse ${this.versions.length} ${
         this.project.title
@@ -166,12 +143,12 @@ export default defineNuxtComponent({
         this.project.downloads
       )} total downloads. Last updated ${this.$dayjs(
         this.versions[0] ? this.versions[0].date_published : null
-      ).format('MMM D, YYYY')}.`
+      ).format('MMM D, YYYY')}.`,
     }
   },
   methods: {
     acceptFileFromProjectType,
-    async handleFiles (files) {
+    async handleFiles(files) {
       await this.$router.push({
         name: 'type-id-version-create',
         params: {

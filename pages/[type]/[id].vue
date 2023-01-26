@@ -18,10 +18,7 @@
         </div>
         <h2>Project settings</h2>
         <NavStack>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings`"
-            label="General"
-          >
+          <NavStackItem :link="`/${project.project_type}/${project.slug}/settings`" label="General">
             <SettingsIcon />
           </NavStackItem>
           <NavStackItem
@@ -109,22 +106,29 @@
   </div>
   <div v-else>
     <Head>
-      <Title>
-        {{ project.title }} - Minecraft {{ projectTypeDisplay }}
-      </Title>
+      <Title> {{ project.title }} - Minecraft {{ projectTypeDisplay }} </Title>
       <Meta name="og:title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
       <Meta
         name="description"
-        :content="`${
-          project.description
-        } - Download the Minecraft ${projectTypeDisplay} ${project.title} by ${
-          members.find((x) => x.role === 'Owner').user.username
-        } on Modrinth`"
+        :content="`${project.description} - Download the Minecraft ${projectTypeDisplay} ${
+          project.title
+        } by ${members.find((x) => x.role === 'Owner').user.username} on Modrinth`"
       />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
+      <Meta
+        name="apple-mobile-web-app-title"
+        :content="`${project.title} - Minecraft ${projectTypeDisplay}`"
+      />
       <Meta name="og:description" :content="project.description" />
-      <Meta name="og:image" :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'" />
-      <Meta name="robots" :content="project.status === 'approved' || project.status === 'archived' ? 'all' : 'noindex'" />
+      <Meta
+        name="og:image"
+        :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'"
+      />
+      <Meta
+        name="robots"
+        :content="
+          project.status === 'approved' || project.status === 'archived' ? 'all' : 'noindex'
+        "
+      />
     </Head>
     <ModalModeration
       ref="modal_moderation"
@@ -132,10 +136,7 @@
       :status="moderationStatus"
       :on-close="resetProject"
     />
-    <Modal
-      ref="modal_license"
-      :header="project.license.name ? project.license.name : 'License'"
-    >
+    <Modal ref="modal_license" :header="project.license.name ? project.license.name : 'License'">
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
@@ -162,10 +163,10 @@
             tabindex="-1"
             :to="
               '/' +
-                project.project_type +
-                '/' +
-                (project.slug ? project.slug : project.id) +
-                '/gallery'
+              project.project_type +
+              '/' +
+              (project.slug ? project.slug : project.id) +
+              '/gallery'
             "
           >
             <img
@@ -176,11 +177,9 @@
                   ? featuredGalleryImage.description
                   : featuredGalleryImage.title
               "
-            >
+            />
           </nuxt-link>
-          <div
-            class="project__header__content universal-card full-width-inputs"
-          >
+          <div class="project__header__content universal-card full-width-inputs">
             <Avatar
               :src="project.icon_url"
               :alt="project.title"
@@ -191,11 +190,7 @@
             <h1 class="title">
               {{ project.title }}
             </h1>
-            <Badge
-              v-if="$auth.user && currentMember"
-              :type="project.status"
-              class="status-badge"
-            />
+            <Badge v-if="$auth.user && currentMember" :type="project.status" class="status-badge" />
             <p class="description">
               {{ project.description }}
             </p>
@@ -210,7 +205,7 @@
                 :type="project.project_type"
               />
             </Categories>
-            <hr class="card-divider">
+            <hr class="card-divider" />
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -231,39 +226,26 @@
             </div>
             <div class="dates">
               <div
-                v-tooltip="
-                  $dayjs(project.published).format(
-                    'MMMM D, YYYY [at] h:mm:ss A'
-                  )
-                "
+                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
                 <span class="label">Created</span>
-                <span class="value">{{
-                  $dayjs(project.published).fromNow()
-                }}</span>
+                <span class="value">{{ $dayjs(project.published).fromNow() }}</span>
               </div>
               <div
-                v-tooltip="
-                  $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')
-                "
+                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />
                 <span class="label">Updated</span>
-                <span class="value">{{
-                  $dayjs(project.updated).fromNow()
-                }}</span>
+                <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
               </div>
             </div>
-            <hr class="card-divider">
+            <hr class="card-divider" />
             <div class="input-group">
               <template v-if="$auth.user">
-                <button
-                  class="iconified-button"
-                  @click="$refs.modal_project_report.show()"
-                >
+                <button class="iconified-button" @click="$refs.modal_project_report.show()">
                   <ReportIcon aria-hidden="true" />
                   Report
                 </button>
@@ -285,11 +267,11 @@
                 </button>
               </template>
               <template v-else>
-                <a class="iconified-button" :href="authUrl">
+                <a class="iconified-button" :href="getAuthUrl()">
                   <ReportIcon aria-hidden="true" />
                   Report
                 </a>
-                <a class="iconified-button" :href="authUrl">
+                <a class="iconified-button" :href="getAuthUrl()">
                   <HeartIcon aria-hidden="true" />
                   Follow
                 </a>
@@ -300,49 +282,34 @@
         <div
           v-if="
             currentMember &&
-              ((!$tag.approvedStatuses.includes(project.status) &&
-                project.status !== 'processing') ||
-                (project.moderator_message &&
-                  (project.moderator_message.message ||
-                    project.moderator_message.body)))
+            ((!$tag.approvedStatuses.includes(project.status) && project.status !== 'processing') ||
+              (project.moderator_message &&
+                (project.moderator_message.message || project.moderator_message.body)))
           "
           class="universal-card"
         >
-          <h3 class="card-header">
-            Moderation status
-          </h3>
+          <h3 class="card-header">Moderation status</h3>
           <div class="current-status">
             Project status:
             <Badge :type="project.status" />
           </div>
           <div class="message">
             <p v-if="project.status === 'rejected'">
-              Your project has been rejected by Modrinth's staff. In most cases,
-              you can resubmit for review after addressing the staff's message,
-              which is below. Do not resubmit until you've addressed the message
-              from the moderators!
+              Your project has been rejected by Modrinth's staff. In most cases, you can resubmit
+              for review after addressing the staff's message, which is below. Do not resubmit until
+              you've addressed the message from the moderators!
             </p>
             <div v-if="project.moderator_message">
-              <hr class="card-divider">
+              <hr class="card-divider" />
               <div v-if="project.moderator_message.body">
-                <h3 class="card-header">
-                  Message from the moderators:
-                </h3>
-                <p
-                  v-if="project.moderator_message.message"
-                  class="mod-message__title"
-                >
+                <h3 class="card-header">Message from the moderators:</h3>
+                <p v-if="project.moderator_message.message" class="mod-message__title">
                   {{ project.moderator_message.message }}
                 </p>
-                <div
-                  class="markdown-body"
-                  v-html="renderString(project.moderator_message.body)"
-                />
+                <div class="markdown-body" v-html="renderString(project.moderator_message.body)" />
               </div>
               <div v-else>
-                <h3 class="card-header">
-                  Message from the moderators:
-                </h3>
+                <h3 class="card-header">Message from the moderators:</h3>
                 <p>{{ project.moderator_message.message }}</p>
               </div>
             </div>
@@ -350,8 +317,7 @@
           <div class="buttons status-buttons">
             <button
               v-if="
-                !$tag.approvedStatuses.includes(project.status) &&
-                  project.status !== 'processing'
+                !$tag.approvedStatuses.includes(project.status) && project.status !== 'processing'
               "
               class="iconified-button brand-button"
               @click="submitForReview"
@@ -374,40 +340,28 @@
                 Your project must have a body to submit for review.
               </li>
               <li v-if="project.versions.length < 1">
-                Your project must have at least one version to submit for
-                review.
+                Your project must have at least one version to submit for review.
               </li>
-              <li
-                v-if="
-                  project.client_side === 'unknown' ||
-                    project.server_side === 'unknown'
-                "
-              >
+              <li v-if="project.client_side === 'unknown' || project.server_side === 'unknown'">
                 Your project must have the supported environments selected.
               </li>
             </ul>
           </div>
         </div>
         <div
-          v-if="
-            $auth.user &&
-              ($auth.user.role === 'admin' || $auth.user.role === 'moderator')
-          "
+          v-if="$auth.user && ($auth.user.role === 'admin' || $auth.user.role === 'moderator')"
           class="universal-card moderation-card"
         >
           <h3>Moderation actions</h3>
           <div class="input-stack">
             <button
               v-if="
-                !$tag.approvedStatuses.includes(project.status) ||
-                  project.status === 'processing'
+                !$tag.approvedStatuses.includes(project.status) || project.status === 'processing'
               "
               class="iconified-button brand-button"
               @click="
                 openModerationModal(
-                  project.requested_status
-                    ? project.requested_status
-                    : 'approved'
+                  project.requested_status ? project.requested_status : 'approved'
                 )
               "
             >
@@ -416,8 +370,7 @@
             </button>
             <button
               v-if="
-                $tag.approvedStatuses.includes(project.status) ||
-                  project.status === 'processing'
+                $tag.approvedStatuses.includes(project.status) || project.status === 'processing'
               "
               class="iconified-button danger-button"
               @click="openModerationModal('withheld')"
@@ -427,8 +380,7 @@
             </button>
             <button
               v-if="
-                $tag.approvedStatuses.includes(project.status) ||
-                  project.status === 'processing'
+                $tag.approvedStatuses.includes(project.status) || project.status === 'processing'
               "
               class="iconified-button danger-button"
               @click="openModerationModal('rejected')"
@@ -451,15 +403,13 @@
         <template
           v-if="
             project.issues_url ||
-              project.source_url ||
-              project.wiki_url ||
-              project.discord_url ||
-              project.donation_urls.length > 0
+            project.source_url ||
+            project.wiki_url ||
+            project.discord_url ||
+            project.donation_urls.length > 0
           "
         >
-          <h3 class="card-header">
-            External resources
-          </h3>
+          <h3 class="card-header">External resources</h3>
           <div class="links">
             <a
               v-if="project.issues_url"
@@ -507,22 +457,10 @@
               :target="$external()"
               rel="noopener noreferrer nofollow ugc"
             >
-              <BuyMeACoffeeLogo
-                v-if="donation.id === 'bmac'"
-                aria-hidden="true"
-              />
-              <PatreonIcon
-                v-else-if="donation.id === 'patreon'"
-                aria-hidden="true"
-              />
-              <KoFiIcon
-                v-else-if="donation.id === 'ko-fi'"
-                aria-hidden="true"
-              />
-              <PayPalIcon
-                v-else-if="donation.id === 'paypal'"
-                aria-hidden="true"
-              />
+              <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
+              <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
+              <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
+              <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
               <OpenCollectiveIcon
                 v-else-if="donation.id === 'open-collective'"
                 aria-hidden="true"
@@ -537,25 +475,18 @@
               <span v-else>Donate</span>
             </a>
           </div>
-          <hr class="card-divider">
+          <hr class="card-divider" />
         </template>
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
-            <h3 class="card-header">
-              Featured versions
-            </h3>
+            <h3 class="card-header">Featured versions</h3>
             <nuxt-link
               v-if="project.versions.length > 0 || currentMember"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`"
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
               class="goto-link"
             >
               See all
-              <ChevronRightIcon
-                class="featured-header-chevron"
-                aria-hidden="true"
-              />
+              <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
             </nuxt-link>
           </div>
           <div
@@ -572,10 +503,7 @@
           >
             <a
               v-tooltip="
-                version.primaryFile.filename +
-                  ' (' +
-                  $formatBytes(version.primaryFile.size) +
-                  ')'
+                version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
               class="download download-button square-button brand-button"
@@ -593,47 +521,25 @@
               >
                 {{ version.name }}
               </nuxt-link>
-              <div
-                v-if="version.game_versions.length > 0"
-                class="game-version item"
-              >
+              <div v-if="version.game_versions.length > 0" class="game-version item">
                 {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
                 {{ $formatVersion(version.game_versions) }}
               </div>
-              <Badge
-                v-if="version.version_type === 'release'"
-                type="release"
-                color="green"
-              />
-              <Badge
-                v-else-if="version.version_type === 'beta'"
-                type="beta"
-                color="orange"
-              />
-              <Badge
-                v-else-if="version.version_type === 'alpha'"
-                type="alpha"
-                color="red"
-              />
+              <Badge v-if="version.version_type === 'release'" type="release" color="green" />
+              <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
+              <Badge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
             </div>
           </div>
-          <hr class="card-divider">
+          <hr class="card-divider" />
         </template>
-        <h3 class="card-header">
-          Project members
-        </h3>
+        <h3 class="card-header">Project members</h3>
         <div
           v-for="member in members"
           :key="member.user.id"
           class="team-member columns button-transparent"
           @click="$router.push('/user/' + member.user.username)"
         >
-          <Avatar
-            :src="member.avatar_url"
-            :alt="member.username"
-            size="sm"
-            circle
-          />
+          <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
 
           <div class="member-info">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
@@ -644,27 +550,19 @@
             </p>
           </div>
         </div>
-        <hr class="card-divider">
-        <h3 class="card-header">
-          Technical information
-        </h3>
+        <hr class="card-divider" />
+        <h3 class="card-header">Technical information</h3>
         <div class="infos">
           <div class="info">
-            <div class="key">
-              License
-            </div>
+            <div class="key">License</div>
             <div class="value lowercase">
-              <a
-                v-if="project.license.url"
-                class="text-link"
-                :href="project.license.url"
-              >
+              <a v-if="project.license.url" class="text-link" :href="project.license.url">
                 {{ licenseIdDisplay }}
               </a>
               <a
                 v-else-if="
                   project.license.id === 'LicenseRef-All-Rights-Reserved' ||
-                    !project.license.id.includes('LicenseRef')
+                  !project.license.id.includes('LicenseRef')
                 "
                 class="text-link"
                 @click="getLicenseData()"
@@ -677,15 +575,13 @@
           <div
             v-if="
               project.project_type !== 'resourcepack' &&
-                project.project_type !== 'plugin' &&
-                project.project_type !== 'shader' &&
-                project.project_type !== 'datapack'
+              project.project_type !== 'plugin' &&
+              project.project_type !== 'shader' &&
+              project.project_type !== 'datapack'
             "
             class="info"
           >
-            <div class="key">
-              Client side
-            </div>
+            <div class="key">Client side</div>
             <div class="value">
               {{ project.client_side }}
             </div>
@@ -693,23 +589,19 @@
           <div
             v-if="
               project.project_type !== 'resourcepack' &&
-                project.project_type !== 'plugin' &&
-                project.project_type !== 'shader' &&
-                project.project_type !== 'datapack'
+              project.project_type !== 'plugin' &&
+              project.project_type !== 'shader' &&
+              project.project_type !== 'datapack'
             "
             class="info"
           >
-            <div class="key">
-              Server side
-            </div>
+            <div class="key">Server side</div>
             <div class="value">
               {{ project.server_side }}
             </div>
           </div>
           <div class="info">
-            <div class="key">
-              Project ID
-            </div>
+            <div class="key">Project ID</div>
             <div class="value lowercase">
               <CopyCode :text="project.id" />
             </div>
@@ -727,56 +619,39 @@
           :collapsed="collapsedChecklist"
           :toggle-collapsed="toggleChecklistCollapse"
         />
-        <div
-          v-if="project.status === 'withheld'"
-          class="card warning"
-          aria-label="Warning"
-        >
-          {{ project.title }} is not viewable in search because it has been
-          found to be in violation of one of
-          <nuxt-link to="/legal/rules">
-            Modrinth's content rules
-          </nuxt-link>.
-          Modrinth makes no guarantees as to whether {{ project.title }} is safe
-          for use in a multiplayer context.
+        <div v-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
+          {{ project.title }} is not viewable in search because it has been found to be in violation
+          of one of <nuxt-link to="/legal/rules"> Modrinth's content rules </nuxt-link>. Modrinth
+          makes no guarantees as to whether {{ project.title }} is safe for use in a multiplayer
+          context.
         </div>
-        <div
-          v-if="project.status === 'archived'"
-          class="card warning"
-          aria-label="Warning"
-        >
-          {{ project.title }} has been archived by the project author.
-          {{ project.title }} will not receive any further updates unless the
-          author decides to unarchive the project.
+        <div v-if="project.status === 'archived'" class="card warning" aria-label="Warning">
+          {{ project.title }} has been archived by the project author. {{ project.title }} will not
+          receive any further updates unless the author decides to unarchive the project.
         </div>
-        <div
-          v-if="project.project_type === 'modpack'"
-          class="card warning"
-          aria-label="Warning"
-        >
+        <div v-if="project.project_type === 'modpack'" class="card warning" aria-label="Warning">
           To install {{ project.title }}, visit
-          <a
-            href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-            :target="$external()"
-          >our documentation</a>
+          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+            >our documentation</a
+          >
           which provides instructions on using
           <a
             href="https://atlauncher.com/about"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            ATLauncher</a>,
-          <a
-            href="https://multimc.org/"
-            :target="$external()"
-            rel="noopener noreferrer nofollow"
-          >MultiMC</a>, and
+            ATLauncher</a
+          >,
+          <a href="https://multimc.org/" :target="$external()" rel="noopener noreferrer nofollow"
+            >MultiMC</a
+          >, and
           <a
             href="https://prismlauncher.org"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            Prism Launcher</a>.
+            Prism Launcher</a
+          >.
         </div>
         <Advertisement
           v-if="$tag.approvedStatuses.includes(project.status)"
@@ -788,9 +663,7 @@
             :links="[
               {
                 label: 'Description',
-                href: `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }`,
+                href: `/${project.project_type}/${project.slug ? project.slug : project.id}`,
               },
               {
                 label: 'Gallery',
@@ -930,7 +803,7 @@ export default defineNuxtComponent({
     LinksIcon,
     LicenseIcon,
   },
-  async asyncData () {
+  async setup() {
     const data = useNuxtApp()
     const route = useRoute()
 
@@ -938,41 +811,25 @@ export default defineNuxtComponent({
       if (
         !route.params.id ||
         !(
-          data.$tag.projectTypes.find(x => x.id === route.params.type) ||
+          data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
           route.params.type === 'project'
         )
       ) {
-        createError({
+        throw createError({
           fatal: true,
           statusCode: 404,
           message: 'The page could not be found',
         })
-
-        return {}
       }
 
       // eslint-disable-next-line prefer-const
-      let [project, members, dependencies, versions, featuredVersions] = (
-        await Promise.all([
-          useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
-          useBaseFetch(
-            `project/${route.params.id}/members`,
-            data.$defaultHeaders()
-          ),
-          useBaseFetch(
-            `project/${route.params.id}/dependencies`,
-            data.$defaultHeaders()
-          ),
-          useBaseFetch(
-            `project/${route.params.id}/version`,
-            data.$defaultHeaders()
-          ),
-          useBaseFetch(
-            `project/${route.params.id}/version?featured=true`,
-            data.$defaultHeaders()
-          ),
-        ])
-      )
+      let [project, members, dependencies, versions, featuredVersions] = await Promise.all([
+        useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
+        useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
+        useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders()),
+        useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders()),
+        useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders()),
+      ])
 
       const projectLoaders = {}
 
@@ -982,28 +839,21 @@ export default defineNuxtComponent({
         }
       }
 
-      project.actualProjectType = JSON.parse(
-        JSON.stringify(project.project_type)
-      )
+      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
       project.project_type = route.params.overrideProjectType
         ? route.params.overrideProjectType
-        : data.$getProjectTypeForUrl(
-          project.project_type,
-          Object.keys(projectLoaders)
-        )
+        : data.$getProjectTypeForUrl(project.project_type, Object.keys(projectLoaders))
 
-      if (
-        project.project_type !== route.params.type ||
-        route.params.id !== project.slug
-      ) {
+      if (project.project_type !== route.params.type || route.params.id !== project.slug) {
         let path = route.fullPath.split('/')
         path.splice(0, 3)
-        path = path.filter(x => x)
+        path = path.filter((x) => x)
 
-        await navigateTo(`/${project.project_type}/${project.slug}${
-          path.length > 0 ? `/${path.join('/')}` : ''
-        }`, { redirectCode: 301 })
+        await navigateTo(
+          `/${project.project_type}/${project.slug}${path.length > 0 ? `/${path.join('/')}` : ''}`,
+          { redirectCode: 301 }
+        )
       }
 
       members.forEach((it, index) => {
@@ -1012,14 +862,13 @@ export default defineNuxtComponent({
       })
 
       let currentMember = data.$auth.user
-        ? members.find(x => x.user.id === data.$auth.user.id)
+        ? members.find((x) => x.user.id === data.$auth.user.id)
         : null
 
       if (
         !currentMember &&
         data.$auth.user &&
-        (data.$auth.user.role === 'admin' ||
-          data.$auth.user.role === 'moderator')
+        (data.$auth.user.role === 'admin' || data.$auth.user.role === 'moderator')
       ) {
         currentMember = {
           team_id: project.team_id,
@@ -1053,20 +902,19 @@ export default defineNuxtComponent({
       featuredVersions.sort((a, b) => {
         const aLatest = a.game_versions[a.game_versions.length - 1]
         const bLatest = b.game_versions[b.game_versions.length - 1]
-        const gameVersions = data.$tag.gameVersions.map(e => e.version)
+        const gameVersions = data.$tag.gameVersions.map((e) => e.version)
         return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
       })
 
-      const projectTypeDisplay = data.$formatProjectType(data.$getProjectTypeForDisplay(
-        project.project_type,
-        loaders
-      ))
+      const projectTypeDisplay = data.$formatProjectType(
+        data.$getProjectTypeForDisplay(project.project_type, loaders)
+      )
 
       return {
         project: ref(project),
         versions: shallowRef(versions),
         featuredVersions: shallowRef(featuredVersions),
-        members: ref(members.filter(x => x.accepted)),
+        members: ref(members.filter((x) => x.accepted)),
         allMembers: ref(members),
         currentMember: ref(currentMember),
         dependencies: ref(dependencies),
@@ -1074,15 +922,14 @@ export default defineNuxtComponent({
         projectTypeDisplay: ref(projectTypeDisplay),
       }
     } catch (error) {
-      console.error(error)
-      createError({
+      throw createError({
         fatal: true,
         statusCode: 404,
         message: 'Project not found',
       })
     }
   },
-  data () {
+  data() {
     return {
       showKnownErrors: false,
       licenseText: '',
@@ -1091,16 +938,10 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    authUrl () {
-      return ''
+    projectTypeDisplay() {
+      return this.$getProjectTypeForDisplay(this.project.project_type, this.loaders)
     },
-    projectTypeDisplay () {
-      return this.$getProjectTypeForDisplay(
-        this.project.project_type,
-        this.loaders
-      )
-    },
-    licenseIdDisplay () {
+    licenseIdDisplay() {
       const id = this.project.license.id
 
       if (id === 'LicenseRef-All-Rights-Reserved') {
@@ -1111,17 +952,14 @@ export default defineNuxtComponent({
         return id
       }
     },
-    featuredGalleryImage () {
-      return this.project.gallery.find(img => img.featured)
+    featuredGalleryImage() {
+      return this.project.gallery.find((img) => img.featured)
     },
   },
   methods: {
     renderString,
-    async resetProject () {
-      const project = await useBaseFetch(
-        `project/${this.project.id}`,
-        this.$defaultHeaders()
-      )
+    async resetProject() {
+      const project = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
 
       const projectLoaders = {}
 
@@ -1131,9 +969,7 @@ export default defineNuxtComponent({
         }
       }
 
-      project.actualProjectType = JSON.parse(
-        JSON.stringify(project.project_type)
-      )
+      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
       project.project_type = this.$getProjectTypeForUrl(
         project.project_type,
@@ -1142,35 +978,32 @@ export default defineNuxtComponent({
 
       this.project = project
     },
-    async clearMessage () {
+    async clearMessage() {
       startLoading()
 
       try {
-        await useBaseFetch(
-          `project/${this.project.id}`,
-          {
-            method: 'PATCH',
-            body: {
-              moderation_message: null,
-              moderation_message_body: null,
-            },
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`project/${this.project.id}`, {
+          method: 'PATCH',
+          body: {
+            moderation_message: null,
+            moderation_message_body: null,
+          },
+          ...this.$defaultHeaders(),
+        })
 
         this.project.moderator_message = null
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async submitForReview () {
+    async submitForReview() {
       if (
         this.project.body === '' ||
         this.project.body.startsWith('# Placeholder description') ||
@@ -1183,41 +1016,36 @@ export default defineNuxtComponent({
         await this.setProcessing()
       }
     },
-    toggleChecklistCollapse () {
+    toggleChecklistCollapse() {
       this.collapsedChecklist = !this.collapsedChecklist
     },
-    async setProcessing () {
+    async setProcessing() {
       startLoading()
 
       try {
-        await useBaseFetch(
-          `project/${this.project.id}`,
-          {
-            method: 'PATCH',
-            body: {
-              status: 'processing',
-            },
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`project/${this.project.id}`, {
+          method: 'PATCH',
+          body: {
+            status: 'processing',
+          },
+          ...this.$defaultHeaders(),
+        })
 
         this.project.status = 'processing'
       } catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
 
       stopLoading()
     },
-    async getLicenseData () {
+    async getLicenseData() {
       try {
-        const text = await useBaseFetch(
-          `tag/license/${this.project.license.id}`
-        )
+        const text = await useBaseFetch(`tag/license/${this.project.license.id}`)
         this.licenseText = text.body
       } catch {
         this.licenseText = 'License text could not be retrieved.'
@@ -1225,19 +1053,16 @@ export default defineNuxtComponent({
 
       this.$refs.modal_license.show()
     },
-    async patchProject (data, quiet = false) {
+    async patchProject(data, quiet = false) {
       let result = false
       startLoading()
 
       try {
-        await useBaseFetch(
-          `project/${this.project.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`project/${this.project.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
 
         if (this.iconChanged) {
           await useBaseFetch(
@@ -1247,7 +1072,7 @@ export default defineNuxtComponent({
             {
               method: 'PATCH',
               body: this.icon,
-              ...this.$defaultHeaders()
+              ...this.$defaultHeaders(),
             }
           )
         }
@@ -1278,7 +1103,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -1288,7 +1113,7 @@ export default defineNuxtComponent({
 
       return result
     },
-    async patchIcon (icon) {
+    async patchIcon(icon) {
       let result = false
       startLoading()
 
@@ -1300,7 +1125,7 @@ export default defineNuxtComponent({
           {
             method: 'PATCH',
             body: icon,
-            ...this.$defaultHeaders()
+            ...this.$defaultHeaders(),
           }
         )
         await this.updateIcon()
@@ -1315,7 +1140,7 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
 
@@ -1325,14 +1150,11 @@ export default defineNuxtComponent({
       stopLoading()
       return result
     },
-    async updateIcon () {
-      const response = await useBaseFetch(
-        `project/${this.project.id}`,
-        this.$defaultHeaders()
-      )
+    async updateIcon() {
+      const response = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
       this.project.icon_url = response.icon_url
     },
-    openModerationModal (status) {
+    openModerationModal(status) {
       this.moderationStatus = status
 
       this.$refs.modal_moderation.show()

@@ -2,10 +2,7 @@
   <Modal ref="modal" header="Create a project">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
-        <p>
-          New projects are created as drafts and can be found under your profile
-          page.
-        </p>
+        <p>New projects are created as drafts and can be found under your profile page.</p>
       </div>
       <label for="project-type">
         <span class="label__title">Project type<span class="required">*</span></span>
@@ -26,15 +23,13 @@
         placeholder="Enter project name..."
         autocomplete="off"
         @input="updatedName()"
-      >
+      />
       <label for="slug">
         <span class="label__title">URL<span class="required">*</span></span>
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">
-          https://modrinth.com/{{
-            getProjectType() ? getProjectType().id : '???'
-          }}/
+          https://modrinth.com/{{ getProjectType() ? getProjectType().id : '???' }}/
         </div>
         <input
           id="slug"
@@ -43,19 +38,16 @@
           maxlength="64"
           autocomplete="off"
           @input="manualSlug = true"
-        >
+        />
       </div>
       <label for="additional-information">
         <span class="label__title">Summary<span class="required">*</span></span>
-        <span class="label__description">This appears in search and on the sidebar of your project's
-          page.</span>
+        <span class="label__description"
+          >This appears in search and on the sidebar of your project's page.</span
+        >
       </label>
       <div class="textarea-wrapper">
-        <textarea
-          id="additional-information"
-          v-model="description"
-          maxlength="256"
-        />
+        <textarea id="additional-information" v-model="description" maxlength="256" />
       </div>
       <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
@@ -94,7 +86,7 @@ export default {
       default: '',
     },
   },
-  data () {
+  data() {
     return {
       projectType: this.$tag.projectTypes[0].display,
       name: '',
@@ -104,13 +96,13 @@ export default {
     }
   },
   methods: {
-    cancel () {
+    cancel() {
       this.$refs.modal.hide()
     },
-    getProjectType () {
-      return this.$tag.projectTypes.find(x => this.projectType === x.display)
+    getProjectType() {
+      return this.$tag.projectTypes.find((x) => this.projectType === x.display)
     },
-    getClientSide () {
+    getClientSide() {
       switch (this.getProjectType().id) {
         case 'plugin':
           return 'unsupported'
@@ -124,7 +116,7 @@ export default {
           return 'unknown'
       }
     },
-    getServerSide () {
+    getServerSide() {
       switch (this.getProjectType().id) {
         case 'plugin':
           return 'required'
@@ -138,7 +130,7 @@ export default {
           return 'unknown'
       }
     },
-    async createProject () {
+    async createProject() {
       startLoading()
 
       const projectType = this.getProjectType()
@@ -170,17 +162,14 @@ export default {
       )
 
       try {
-        await useBaseFetch(
-          'project',
-          {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Content-Disposition': formData,
-              Authorization: this.$auth.token,
-            },
-          }
-        )
+        await useBaseFetch('project', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Content-Disposition': formData,
+            Authorization: this.$auth.token,
+          },
+        })
 
         this.$refs.modal.hide()
         await this.$router.push({
@@ -195,13 +184,13 @@ export default {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
       stopLoading()
     },
-    show () {
+    show() {
       this.projectType = this.$tag.projectTypes[0].display
       this.name = ''
       this.slug = ''
@@ -209,7 +198,7 @@ export default {
       this.manualSlug = false
       this.$refs.modal.show()
     },
-    updatedName () {
+    updatedName() {
       if (!this.manualSlug) {
         this.slug = this.name
           .trim()

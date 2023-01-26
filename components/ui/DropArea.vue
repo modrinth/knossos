@@ -26,37 +26,37 @@ export default {
     },
   },
   emits: ['change'],
-  data () {
+  data() {
     return {
       fileAllowed: false,
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('dragenter', this.allowDrag)
   },
   methods: {
-    allowDrag (event) {
+    allowDrag(event) {
       const file = event.dataTransfer?.items[0]
 
       if (
         file &&
         this.accept
           .split(',')
-          .reduce(
-            (acc, t) =>
-              acc || file.type.startsWith(t) || file.type === t || t === '*',
-            false
-          )
+          .reduce((acc, t) => acc || file.type.startsWith(t) || file.type === t || t === '*', false)
       ) {
         this.fileAllowed = true
         event.dataTransfer.dropEffect = 'copy'
         event.preventDefault()
 
-        if (this.$refs.drop_area) { this.$refs.drop_area.style.visibility = 'visible' }
+        if (this.$refs.drop_area) {
+          this.$refs.drop_area.style.visibility = 'visible'
+        }
       } else {
         this.fileAllowed = false
 
-        if (this.$refs.drop_area) { this.$refs.drop_area.style.visibility = 'hidden' }
+        if (this.$refs.drop_area) {
+          this.$refs.drop_area.style.visibility = 'hidden'
+        }
       }
     },
   },

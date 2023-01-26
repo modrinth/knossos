@@ -1,6 +1,7 @@
-export const useLoading = () => useState('loading', () => ({
-  loading: false,
-}))
+export const useLoading = () =>
+  useState('loading', () => ({
+    loading: false,
+  }))
 
 export const startLoading = () => {
   const cosmetics = useLoading()

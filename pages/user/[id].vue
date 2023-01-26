@@ -7,7 +7,10 @@
       <Meta name="og:type" content="website" />
       <Meta name="apple-mobile-web-app-title" :content="metaDescription" />
       <Meta name="og:description" :content="metaDescription" />
-      <Meta name="og:image" :content="user.avatar_url ? user.avatar_url : 'https://cdn.modrinth.com/placeholder.png'" />
+      <Meta
+        name="og:image"
+        :content="user.avatar_url ? user.avatar_url : 'https://cdn.modrinth.com/placeholder.png'"
+      />
     </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
@@ -61,7 +64,7 @@
             <a
               v-else
               class="iconified-button"
-              :href="authUrl"
+              :href="getAuthUrl()"
               rel="noopener noreferrer nofollow"
             >
               <ReportIcon aria-hidden="true" />
@@ -71,19 +74,10 @@
           <template v-if="isEditing">
             <div class="inputs universal-labels">
               <label for="user-username"><span class="label__title">Username</span></label>
-              <input
-                id="user-username"
-                v-model="user.username"
-                maxlength="39"
-                type="text"
-              >
+              <input id="user-username" v-model="user.username" maxlength="39" type="text" />
               <label for="user-bio"><span class="label__title">Bio</span></label>
               <div class="textarea-wrapper">
-                <textarea
-                  id="user-bio"
-                  v-model="user.bio"
-                  maxlength="160"
-                />
+                <textarea id="user-bio" v-model="user.bio" maxlength="160" />
               </div>
             </div>
             <div class="button-group">
@@ -100,26 +94,18 @@
               >
                 <CrossIcon /> Cancel
               </button>
-              <button
-                class="iconified-button brand-button"
-                @click="saveChanges"
-              >
+              <button class="iconified-button brand-button" @click="saveChanges">
                 <SaveIcon /> Save
               </button>
             </div>
           </template>
           <template v-else>
             <div class="sidebar__item">
-              <Badge
-                v-if="user.role === 'admin' || user.role === 'moderator'"
-                :type="user.role"
-              />
+              <Badge v-if="user.role === 'admin' || user.role === 'moderator'" :type="user.role" />
               <Badge v-else-if="projects.length > 0" type="creator" />
             </div>
-            <span v-if="user.bio" class="sidebar__item bio">{{
-              user.bio
-            }}</span>
-            <hr class="card-divider">
+            <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
+            <hr class="card-divider" />
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -137,20 +123,16 @@
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
-                v-tooltip="
-                  $dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')
-                "
+                v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="secondary-stat__text date"
               >
                 Joined {{ $dayjs(user.created).fromNow() }}
               </span>
             </div>
-            <hr class="card-divider">
+            <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text">
-                User ID: <CopyCode :text="user.id" />
-              </span>
+              <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
             </div>
             <a
               v-if="githubUrl"
@@ -192,19 +174,13 @@
               Manage projects
             </NuxtLink>
             <button
-              v-tooltip="
-                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
-              "
-              :aria-label="
-                $capitalizeString($cosmetics.searchDisplayMode.user) + ' view'
-              "
+              v-tooltip="$capitalizeString($cosmetics.searchDisplayMode.user) + ' view'"
+              :aria-label="$capitalizeString($cosmetics.searchDisplayMode.user) + ' view'"
               class="square-button"
               @click="cycleSearchDisplayMode()"
             >
               <GridIcon v-if="$cosmetics.searchDisplayMode.user === 'grid'" />
-              <ImageIcon
-                v-else-if="$cosmetics.searchDisplayMode.user === 'gallery'"
-              />
+              <ImageIcon v-else-if="$cosmetics.searchDisplayMode.user === 'gallery'" />
               <ListIcon v-else />
             </button>
           </div>
@@ -216,7 +192,10 @@
         >
           <ProjectCard
             v-for="project in ($route.params.type !== undefined
-              ? projects.filter((x) => x.project_type === $route.params.type.substr(0, $route.params.type.length - 1))
+              ? projects.filter(
+                  (x) =>
+                    x.project_type === $route.params.type.substr(0, $route.params.type.length - 1)
+                )
               : projects
             )
               .slice()
@@ -242,9 +221,9 @@
             :server-side="project.server_side"
             :status="
               $auth.user &&
-                ($auth.user.id === user.id ||
-                  $auth.user.role === 'admin' ||
-                  $auth.user.role === 'moderator')
+              ($auth.user.id === user.id ||
+                $auth.user.role === 'admin' ||
+                $auth.user.role === 'moderator')
                 ? project.status
                 : null
             "
@@ -254,12 +233,11 @@
           />
         </div>
         <div v-else class="error">
-          <UpToDate class="icon" /><br>
+          <UpToDate class="icon" /><br />
           <span v-if="$auth.user && $auth.user.id === user.id" class="text">
-            You don't have any projects.<br>
+            You don't have any projects.<br />
             Would you like to
-            <a class="link" @click.prevent="$refs.modal_creation.show()">
-              create one</a>?
+            <a class="link" @click.prevent="$refs.modal_creation.show()"> create one</a>?
           </span>
           <span v-else class="text">This user has no projects!</span>
         </div>
@@ -296,7 +274,6 @@ import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 
 export default defineNuxtComponent({
-  auth: false,
   components: {
     Avatar,
     CopyCode,
@@ -323,20 +300,15 @@ export default defineNuxtComponent({
     ImageIcon,
     UploadIcon,
   },
-  async setup () {
+  async setup() {
     const data = useNuxtApp()
     const route = useRoute()
 
     try {
-      const [user, projects] = (
-        await Promise.all([
-          useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders()),
-          useBaseFetch(
-            `user/${route.params.id}/projects`,
-            data.$defaultHeaders()
-          ),
-        ])
-      )
+      const [user, projects] = await Promise.all([
+        useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders()),
+        useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+      ])
 
       if (user.username !== route.params.id) {
         await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
@@ -345,27 +317,23 @@ export default defineNuxtComponent({
       let gitHubUser = {}
       let versions = []
       try {
-        const [gitHubUserData, versionsData] = (
-          await Promise.all([
-            $fetch('https://api.github.com/user/' + user.github_id),
-            useBaseFetch(
-              `versions?ids=${JSON.stringify(
-                [].concat.apply(
-                  [],
-                  projects.map(x => x.versions)
-                )
-              )}`
-            ),
-          ])
-        )
+        const [gitHubUserData, versionsData] = await Promise.all([
+          $fetch('https://api.github.com/user/' + user.github_id),
+          useBaseFetch(
+            `versions?ids=${JSON.stringify(
+              [].concat.apply(
+                [],
+                projects.map((x) => x.versions)
+              )
+            )}`
+          ),
+        ])
         gitHubUser = gitHubUserData
         versions = versionsData
       } catch {}
 
       for (const version of versions) {
-        const projectIndex = projects.findIndex(
-          x => x.id === version.project_id
-        )
+        const projectIndex = projects.findIndex((x) => x.id === version.project_id)
         if (projects[projectIndex].loaders) {
           for (const loader of version.loaders) {
             if (!projects[projectIndex].loaders.includes(loader)) {
@@ -378,10 +346,7 @@ export default defineNuxtComponent({
       }
       for (const project of projects) {
         project.categories = project.categories.concat(project.loaders)
-        project.project_type = data.$getProjectTypeForUrl(
-          project.project_type,
-          project.categories
-        )
+        project.project_type = data.$getProjectTypeForUrl(project.project_type, project.categories)
       }
 
       return {
@@ -392,17 +357,17 @@ export default defineNuxtComponent({
           user.bio
             ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
             : `Download ${user.username}'s projects on Modrinth`
-        )
+        ),
       }
     } catch {
-      createError({
+      throw createError({
         fatal: true,
         statusCode: 404,
         message: 'User not found',
       })
     }
   },
-  data () {
+  data() {
     return {
       isEditing: false,
       icon: null,
@@ -410,10 +375,7 @@ export default defineNuxtComponent({
     }
   },
   computed: {
-    authUrl () {
-      return ''
-    },
-    projectTypes () {
+    projectTypes() {
       const obj = {}
 
       for (const project of this.projects) {
@@ -424,7 +386,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    sumDownloads () {
+    sumDownloads() {
       let sum = 0
 
       for (const projects of this.projects) {
@@ -433,7 +395,7 @@ export default defineNuxtComponent({
 
       return this.$formatNumber(sum)
     },
-    sumFollows () {
+    sumFollows() {
       let sum = 0
 
       for (const projects of this.projects) {
@@ -442,7 +404,7 @@ export default defineNuxtComponent({
 
       return this.$formatNumber(sum)
     },
-    showPreviewImage (files) {
+    showPreviewImage(files) {
       const reader = new FileReader()
       this.icon = files[0]
       reader.readAsDataURL(this.icon)
@@ -450,7 +412,7 @@ export default defineNuxtComponent({
         this.previewImage = event.target.result
       }
     },
-    async saveChanges () {
+    async saveChanges() {
       startLoading()
       try {
         if (this.icon) {
@@ -461,7 +423,7 @@ export default defineNuxtComponent({
             {
               method: 'PATCH',
               body: this.icon,
-              ...this.$defaultHeaders()
+              ...this.$defaultHeaders(),
             }
           )
         }
@@ -474,14 +436,11 @@ export default defineNuxtComponent({
           data.username = this.user.username
         }
 
-        await useBaseFetch(
-          `user/${this.$auth.user.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-            ...this.$defaultHeaders()
-          }
-        )
+        await useBaseFetch(`user/${this.$auth.user.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
         await useAuth(this.$auth.token)
 
         this.isEditing = false
@@ -489,15 +448,17 @@ export default defineNuxtComponent({
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.response.data.description,
+          text: err.data.description,
           type: 'error',
         })
       }
       stopLoading()
     },
-    cycleSearchDisplayMode () {
-      this.$cosmetics.searchDisplayMode.user =
-        this.$cycleValue(this.$cosmetics.searchDisplayMode.user, this.$tag.projectViewModes)
+    cycleSearchDisplayMode() {
+      this.$cosmetics.searchDisplayMode.user = this.$cycleValue(
+        this.$cosmetics.searchDisplayMode.user,
+        this.$tag.projectViewModes
+      )
       saveCosmetics()
     },
   },

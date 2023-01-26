@@ -44,7 +44,11 @@ export const configuredXss = new xss.FilterXSS({
     }
 
     // For Highlight.JS
-    if (name === 'class' && ['pre', 'code', 'span'].includes(tag) && (value.startsWith('hljs-') || value.startsWith('language-'))) {
+    if (
+      name === 'class' &&
+      ['pre', 'code', 'span'].includes(tag) &&
+      (value.startsWith('hljs-') || value.startsWith('language-'))
+    ) {
       return name + '="' + xss.escapeAttrValue(value) + '"'
     }
   },
@@ -55,7 +59,7 @@ export const md = (options = {}) => {
     html: true,
     linkify: true,
     breaks: false,
-    ...options
+    ...options,
   })
 
   const defaultRender =
@@ -73,4 +77,4 @@ export const md = (options = {}) => {
   return md
 }
 
-export const renderString = string => configuredXss.process(md().render(string))
+export const renderString = (string) => configuredXss.process(md().render(string))
