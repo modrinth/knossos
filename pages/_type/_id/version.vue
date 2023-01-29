@@ -1146,7 +1146,6 @@ export default {
           this.$defaultHeaders()
         )
         const user = response.data
-        console.log(user)
         this.version.author_member = {
           user,
           name: user.name,
