@@ -511,9 +511,12 @@ export default defineNuxtComponent({
   }
 
   .site-header {
-    margin-top: var(--spacing-card-md);
-    margin-bottom: var(--spacing-card-md);
     max-width: 100vw;
+
+    @media screen and (min-width: 1024px) {
+      margin-top: var(--spacing-card-md);
+      margin-bottom: var(--spacing-card-md);
+    }
 
     @media screen and (min-width: 1280px) {
       border-radius: var(--size-rounded-sm);
