@@ -947,7 +947,7 @@ export default defineNuxtComponent({
 
 .no-results {
   text-align: center;
-  padding-top: var(--spacing-card-md);
+  display: flow-root;
 }
 
 @media screen and (min-width: 750px) {
