@@ -500,7 +500,7 @@ export default defineNuxtComponent({
 .layout {
   min-height: 100vh;
   background-color: var(--color-bg);
-  display: block;
+  display: flow-root;
 
   @media screen and (min-width: 1024px) {
     min-height: calc(100vh - var(--spacing-card-bg));
