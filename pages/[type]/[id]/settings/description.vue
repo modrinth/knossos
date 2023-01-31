@@ -27,6 +27,10 @@
           id="project-description"
           v-model="description"
           :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
+          @input="processInput"
+          @keyup="updateCursorPosition"
+          @click="updateCursorPosition"
+          @select="updateCursorPosition"
         />
       </div>
       <div
@@ -95,6 +99,8 @@ export default defineNuxtComponent({
   data() {
     return {
       description: this.project.body,
+      original: '',
+      cursorPosition: 0,
       bodyViewMode: 'source',
     }
   },
@@ -121,6 +127,41 @@ export default defineNuxtComponent({
       if (this.hasChanges) {
         this.patchProject(this.patchData)
       }
+    },
+    processInput(event) {
+      if (event.inputType === 'insertFromPaste') {
+        // Replaces <div class="spoiler"> with <details> from only the pasted text, not the rest
+        const start = this.cursorPosition
+        const end = start + this.description.length - this.original.length
+        const pasted = event.target.value.slice(start, end)
+        const parsed = new DOMParser().parseFromString(pasted, 'text/html')
+        let spoilers = parsed.querySelectorAll('.spoiler')
+
+        // only hijack paste if it contains spoiler tags
+        if (spoilers.length !== 0) {
+          event.stopPropagation()
+          event.preventDefault()
+
+          const startTimestamp = Date.now()
+          while (spoilers.length && Date.now() - startTimestamp < 1000) {
+            const spoiler = spoilers[0]
+            const details = document.createElement('details')
+            details.innerHTML = spoiler.innerHTML
+            spoiler.replaceWith(details)
+            spoilers = parsed.querySelectorAll('.spoiler')
+          }
+
+          this.description =
+            this.description.slice(0, start) + parsed.body.innerHTML + this.description.slice(end)
+        }
+      }
+
+      this.original = this.description
+      this.updateCursorPosition(event)
+    },
+
+    updateCursorPosition(event) {
+      this.cursorPosition = event.target.selectionStart
     },
   },
 })
