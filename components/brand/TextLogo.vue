@@ -7,7 +7,7 @@
     stroke-miterlimit="2"
     clip-rule="evenodd"
     viewBox="0 0 3307 593"
-    :class="{ animate: loading.loading }"
+    :class="{ animate }"
   >
     <path
       fill-rule="nonzero"
@@ -29,8 +29,32 @@
     </g>
   </svg>
 </template>
+
 <script setup>
 const loading = useLoading()
+const animate = ref(false)
+const interval = { startTime: 0, id: null }
+
+watch(
+  () => loading.value.loading,
+  (loading) => {
+    if (loading) {
+      animate.value = true
+
+      if (!interval.id) {
+        interval.startTime = Date.now()
+      }
+    } else if (!interval.id) {
+      interval.id = setInterval(() => {
+        if (!loading) {
+          clearInterval(interval.id)
+          interval.id = null
+          animate.value = false
+        }
+      }, 2000 - (Date.now() - interval.startTime))
+    }
+  }
+)
 </script>
 
 <style lang="scss" scoped>
