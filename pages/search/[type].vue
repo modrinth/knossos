@@ -302,6 +302,9 @@
         @switch-page="onSearchChange"
       />
       <div class="search-results-container">
+        <div v-if="results && results.length === 0" class="no-results">
+          <p>No results found for your query!</p>
+        </div>
         <div
           id="search-results"
           class="project-list"
@@ -332,9 +335,6 @@
             :hide-loaders="['resourcepack', 'datapack'].includes(projectType.id)"
             :color="result.color"
           />
-          <div v-if="results && results.length === 0" class="no-results">
-            <p>No results found for your query!</p>
-          </div>
         </div>
       </div>
       <pagination
@@ -947,6 +947,7 @@ export default defineNuxtComponent({
 
 .no-results {
   text-align: center;
+  display: flow-root;
 }
 
 @media screen and (min-width: 750px) {
