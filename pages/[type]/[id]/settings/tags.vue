@@ -44,7 +44,7 @@
             :model-value="selectedTags.includes(category)"
             :description="$formatCategory(category.name)"
             class="category-selector"
-            @input="toggleCategory(category)"
+            @update:model-value="toggleCategory(category)"
           >
             <div class="category-selector__label">
               <div
@@ -78,7 +78,7 @@
           :model-value="featuredTags.includes(category)"
           :description="$formatCategory(category.name)"
           :disabled="featuredTags.length >= 3 && !featuredTags.includes(category)"
-          @input="toggleFeaturedCategory(category)"
+          @update:model-value="toggleFeaturedCategory(category)"
         >
           <div class="category-selector__label">
             <div

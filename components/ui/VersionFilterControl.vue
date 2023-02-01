@@ -63,7 +63,7 @@
       label="Include snapshots"
       description="Include snapshots"
       :border="false"
-      @input="updateQuery"
+      @update:model-value="updateQuery"
     />
     <button
       title="Clear filters"

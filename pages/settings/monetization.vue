@@ -29,7 +29,7 @@
             :starting-value="selectedWallet"
             :items="wallets"
             :format-label="$formatWallet"
-            @input="onChangeWallet()"
+            @update:model-value="onChangeWallet()"
           />
 
           <p>

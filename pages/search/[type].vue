@@ -178,7 +178,7 @@
             label="Open source only"
             style="margin-bottom: 0.5rem"
             :border="false"
-            @input="onSearchChange(1)"
+            @update:model-value="onSearchChange(1)"
           />
         </div>
       </section>
@@ -426,13 +426,13 @@ export default defineNuxtComponent({
       query.value = route.query.q
     }
     if (route.query.f) {
-      facets.value = route.query.f.split(',')
+      facets.value = route.query.f
     }
     if (route.query.g) {
-      orFacets.value = route.query.g.split(',')
+      orFacets.value = route.query.g
     }
     if (route.query.v) {
-      selectedVersions.value = route.query.v.split(',')
+      selectedVersions.value = route.query
     }
     if (route.query.l) {
       onlyOpenSource.value = route.query.l === 'true'
@@ -441,7 +441,7 @@ export default defineNuxtComponent({
       showSnapshots.value = route.query.h === 'true'
     }
     if (route.query.e) {
-      selectedEnvironments.value = route.query.e.split(',')
+      selectedEnvironments.value = route.query.e
     }
     if (route.query.s) {
       sortType.value.name = route.query.s
