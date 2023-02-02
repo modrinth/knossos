@@ -182,6 +182,7 @@
             <Categories
               :categories="project.categories"
               :type="project.actualProjectType"
+              :should-link="true"
               class="categories"
             >
               <EnvironmentIndicator

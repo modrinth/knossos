@@ -1,11 +1,21 @@
 <template>
   <div class="categories">
     <slot />
-    <span
-      v-for="category in categoriesFiltered"
-      :key="category.name"
-      v-html="category.icon + $formatCategory(category.name)"
-    />
+    <template v-for="category in categoriesFiltered">
+      <template v-if="shouldLink">
+        <a
+          :key="category.name"
+          :href="`/${type}s?f=categories%3A'${category.name}'`"
+          v-html="category.icon + $formatCategory(category.name)"
+        />
+      </template>
+      <template v-else>
+        <span
+          :key="category.name"
+          v-html="category.icon + $formatCategory(category.name)"
+        />
+      </template>
+    </template>
   </div>
 </template>
 
@@ -22,6 +32,11 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    shouldLink: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {
@@ -44,7 +59,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
 
-  span ::v-deep {
+  :is(a, span) ::v-deep {
     display: flex;
     align-items: center;
     flex-direction: row;
