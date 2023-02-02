@@ -237,6 +237,12 @@
                 }}</span>
               </div>
             </div>
+            <div class="versions">
+              <span class="label">Supports</span>
+              <span class="value">
+                {{ $formatVersion(project.game_versions) }}
+              </span>
+            </div>
             <hr class="card-divider" />
             <div class="input-group">
               <template v-if="$auth.user">
