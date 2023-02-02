@@ -198,7 +198,7 @@
             <div>
               <Checkbox
                 :model-value="selectedProjects === projects"
-                @input="
+                @update:model-value="
                   selectedProjects === projects
                     ? (selectedProjects = [])
                     : (selectedProjects = projects)
@@ -217,7 +217,7 @@
               <Checkbox
                 :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
                 :model-value="selectedProjects.includes(project)"
-                @input="
+                @update:model-value="
                   selectedProjects.includes(project)
                     ? (selectedProjects = selectedProjects.filter((it) => it !== project))
                     : selectedProjects.push(project)

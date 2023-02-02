@@ -5,7 +5,7 @@
       <Meta name="og:title" :content="`${project.title} - Gallery`" />
       <Meta name="description" :content="metaDescription" />
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
-      <Meta name="og:description" :content="metaDescription" />
+      <Meta name="og:description" :contcent="metaDescription" />
     </Head>
     <Modal
       v-if="$auth.user && currentMember"

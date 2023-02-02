@@ -2,6 +2,7 @@
   <div v-if="count > 1" class="columns paginates">
     <a
       :class="{ disabled: page === 1 }"
+      :tabindex="page === 1 ? -1 : 0"
       class="left-arrow paginate has-icon"
       aria-label="Previous Page"
       :href="linkFunction(page - 1)"
@@ -38,6 +39,7 @@
       :class="{
         disabled: page === pages[pages.length - 1],
       }"
+      :tabindex="page === pages[pages.length - 1] ? -1 : 0"
       class="right-arrow paginate has-icon"
       aria-label="Next Page"
       :href="linkFunction(page + 1)"

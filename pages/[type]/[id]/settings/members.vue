@@ -102,7 +102,7 @@
                 (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
               "
               label="Upload version"
-              @input="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
+              @update:model-value="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
             />
             <Checkbox
               :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
@@ -111,7 +111,7 @@
                 (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
               "
               label="Delete version"
-              @input="allTeamMembers[index].permissions ^= DELETE_VERSION"
+              @update:model-value="allTeamMembers[index].permissions ^= DELETE_VERSION"
             />
             <Checkbox
               :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
@@ -120,7 +120,7 @@
                 (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
               "
               label="Edit details"
-              @input="allTeamMembers[index].permissions ^= EDIT_DETAILS"
+              @update:model-value="allTeamMembers[index].permissions ^= EDIT_DETAILS"
             />
             <Checkbox
               :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
@@ -129,7 +129,7 @@
                 (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
               "
               label="Edit body"
-              @input="allTeamMembers[index].permissions ^= EDIT_BODY"
+              @update:model-value="allTeamMembers[index].permissions ^= EDIT_BODY"
             />
             <Checkbox
               :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
@@ -138,7 +138,7 @@
                 (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
               "
               label="Manage invites"
-              @input="allTeamMembers[index].permissions ^= MANAGE_INVITES"
+              @update:model-value="allTeamMembers[index].permissions ^= MANAGE_INVITES"
             />
             <Checkbox
               :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
@@ -147,13 +147,13 @@
                 (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
               "
               label="Remove member"
-              @input="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
+              @update:model-value="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
             />
             <Checkbox
               :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
               :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
               label="Edit member"
-              @input="allTeamMembers[index].permissions ^= EDIT_MEMBER"
+              @update:model-value="allTeamMembers[index].permissions ^= EDIT_MEMBER"
             />
             <Checkbox
               :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
@@ -162,7 +162,7 @@
                 (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
               "
               label="Delete project"
-              @input="allTeamMembers[index].permissions ^= DELETE_PROJECT"
+              @update:model-value="allTeamMembers[index].permissions ^= DELETE_PROJECT"
             />
             <Checkbox
               :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
@@ -171,7 +171,7 @@
                 (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
               "
               label="View analytics"
-              @input="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
+              @update:model-value="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
             />
             <Checkbox
               :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
@@ -180,7 +180,7 @@
                 (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
               "
               label="View revenue"
-              @input="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
+              @update:model-value="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
             />
           </div>
         </template>

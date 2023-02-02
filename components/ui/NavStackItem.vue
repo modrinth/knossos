@@ -87,6 +87,12 @@ export default {
     background-color: var(--background-color);
   }
 
+  &:focus-visible {
+    .nav-content {
+      border-radius: 0.25rem;
+    }
+  }
+
   &.router-link-exact-active {
     .nav-content {
       color: var(--color-button-text-active);

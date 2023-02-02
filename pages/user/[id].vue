@@ -134,16 +134,6 @@
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
             </div>
-            <a
-              v-if="githubUrl"
-              :href="githubUrl"
-              :target="$external()"
-              rel="noopener noreferrer nofollow"
-              class="sidebar__item github-button iconified-button"
-            >
-              <GitHubIcon aria-hidden="true" />
-              View GitHub profile
-            </a>
           </template>
         </div>
       </div>
@@ -314,36 +304,6 @@ export default defineNuxtComponent({
         await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
       }
 
-      let gitHubUser = {}
-      let versions = []
-      try {
-        const [gitHubUserData, versionsData] = await Promise.all([
-          $fetch('https://api.github.com/user/' + user.github_id),
-          useBaseFetch(
-            `versions?ids=${JSON.stringify(
-              [].concat.apply(
-                [],
-                projects.map((x) => x.versions)
-              )
-            )}`
-          ),
-        ])
-        gitHubUser = gitHubUserData
-        versions = versionsData
-      } catch {}
-
-      for (const version of versions) {
-        const projectIndex = projects.findIndex((x) => x.id === version.project_id)
-        if (projects[projectIndex].loaders) {
-          for (const loader of version.loaders) {
-            if (!projects[projectIndex].loaders.includes(loader)) {
-              projects[projectIndex].loaders.push(loader)
-            }
-          }
-        } else {
-          projects[projectIndex].loaders = version.loaders
-        }
-      }
       for (const project of projects) {
         project.categories = project.categories.concat(project.loaders)
         project.project_type = data.$getProjectTypeForUrl(project.project_type, project.categories)
@@ -352,7 +312,6 @@ export default defineNuxtComponent({
       return {
         user: ref(user),
         projects: ref(projects),
-        githubUrl: ref(gitHubUser.html_url),
         metaDescription: ref(
           user.bio
             ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
