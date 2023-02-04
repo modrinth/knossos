@@ -9,8 +9,10 @@
               rel="noopener noreferrer nofollow sponsored"
               target="_blank"
             >
-              <LightIcon v-if="$colorMode.value === 'light'" class="brand-icon" />
-              <DarkIcon v-else class="brand-icon" />
+              <ColorScheme>
+                <LightIcon v-if="$colorMode.value === 'light'" class="brand-icon" />
+                <DarkIcon v-else class="brand-icon" />
+              </ColorScheme>
               <span>
                 <span> Host your Minecraft server on </span>
                 <strong>exaroton</strong>

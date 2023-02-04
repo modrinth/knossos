@@ -7,18 +7,21 @@
           <span class="label__title">Color theme</span>
           <span class="label__description">Change the global site color theme.</span>
         </label>
-        <Multiselect
-          id="theme-selector"
-          v-model="$colorMode.preference"
-          :options="['system', 'light', 'dark', 'oled']"
-          :custom-label="
-            (value) => (value === 'oled' ? 'OLED' : value.charAt(0).toUpperCase() + value.slice(1))
-          "
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-        />
+        <ColorScheme tag="div">
+          <Multiselect
+            id="theme-selector"
+            v-model="$colorMode.preference"
+            :options="['system', 'light', 'dark', 'oled']"
+            :custom-label="
+              (value) =>
+                value === 'oled' ? 'OLED' : value.charAt(0).toUpperCase() + value.slice(1)
+            "
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+          />
+        </ColorScheme>
       </div>
 
       <div class="adjacent-input small">

@@ -171,7 +171,7 @@
           >
             <img
               v-if="featuredGalleryImage"
-              :src="featuredGalleryImage.url"
+              :src="'//wsrv.nl/?output=webp&url=' + featuredGalleryImage.url"
               :alt="
                 featuredGalleryImage.description
                   ? featuredGalleryImage.description
@@ -559,7 +559,7 @@
               <a v-if="project.license.url" class="text-link" :href="project.license.url">
                 {{ licenseIdDisplay }}
               </a>
-              <a
+              <span
                 v-else-if="
                   project.license.id === 'LicenseRef-All-Rights-Reserved' ||
                   !project.license.id.includes('LicenseRef')
@@ -568,7 +568,7 @@
                 @click="getLicenseData()"
               >
                 {{ licenseIdDisplay }}
-              </a>
+              </span>
               <span v-else>{{ licenseIdDisplay }}</span>
             </div>
           </div>
@@ -827,23 +827,16 @@ export default defineNuxtComponent({
         useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
         useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
         useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders()),
-        useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders()),
+        // TEMPORARY- todo actually add pagination
+        useBaseFetch(`project/${route.params.id}/version?limit=20`, data.$defaultHeaders()),
         useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders()),
       ])
-
-      const projectLoaders = {}
-
-      for (const version of versions) {
-        for (const loader of version.loaders) {
-          projectLoaders[loader] = true
-        }
-      }
 
       project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
       project.project_type = route.params.overrideProjectType
         ? route.params.overrideProjectType
-        : data.$getProjectTypeForUrl(project.project_type, Object.keys(projectLoaders))
+        : data.$getProjectTypeForUrl(project.project_type, project.loaders)
 
       if (project.project_type !== route.params.type || route.params.id !== project.slug) {
         let path = route.fullPath.split('/')
@@ -886,16 +879,6 @@ export default defineNuxtComponent({
         project.body = await $fetch(project.body_url)
       }
 
-      const loaders = []
-
-      versions.forEach((version) => {
-        version.loaders.forEach((loader) => {
-          if (!loaders.includes(loader)) {
-            loaders.push(loader)
-          }
-        })
-      })
-
       versions = data.$computeVersions(versions, members)
       featuredVersions = data.$computeVersions(featuredVersions, members)
 
@@ -907,7 +890,7 @@ export default defineNuxtComponent({
       })
 
       const projectTypeDisplay = data.$formatProjectType(
-        data.$getProjectTypeForDisplay(project.project_type, loaders)
+        data.$getProjectTypeForDisplay(project.project_type, project.loaders)
       )
 
       return {
@@ -918,7 +901,6 @@ export default defineNuxtComponent({
         allMembers: ref(members),
         currentMember: ref(currentMember),
         dependencies: ref(dependencies),
-        loaders: ref(loaders),
         projectTypeDisplay: ref(projectTypeDisplay),
       }
     } catch (error) {
@@ -939,7 +921,7 @@ export default defineNuxtComponent({
   },
   computed: {
     projectTypeDisplay() {
-      return this.$getProjectTypeForDisplay(this.project.project_type, this.loaders)
+      return this.$getProjectTypeForDisplay(this.project.project_type, this.project.loaders)
     },
     licenseIdDisplay() {
       const id = this.project.license.id
@@ -961,20 +943,9 @@ export default defineNuxtComponent({
     async resetProject() {
       const project = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
 
-      const projectLoaders = {}
-
-      for (const version of this.versions) {
-        for (const loader of version.loaders) {
-          projectLoaders[loader] = true
-        }
-      }
-
       project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
-      project.project_type = this.$getProjectTypeForUrl(
-        project.project_type,
-        Object.keys(projectLoaders)
-      )
+      project.project_type = this.$getProjectTypeForUrl(project.project_type, project.loaders)
 
       this.project = project
     },

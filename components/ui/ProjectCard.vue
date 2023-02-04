@@ -10,7 +10,11 @@
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
       :style="color ? `background-color: ${toColor};` : ''"
     >
-      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" />
+      <img
+        v-if="featuredImage"
+        :src="'//wsrv.nl/?output=webp&url=' + featuredImage"
+        alt="gallery image"
+      />
     </nuxt-link>
     <div class="title">
       <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
