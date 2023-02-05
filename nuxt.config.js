@@ -90,10 +90,6 @@ export default defineNuxtConfig({
           media: '(prefers-color-scheme:light)',
         },
         {
-          rel: 'stylesheet',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/inter.css',
-        },
-        {
           rel: 'search',
           type: 'application/opensearchdescription+xml',
           href: '/opensearch.xml',
