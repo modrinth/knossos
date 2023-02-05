@@ -827,8 +827,7 @@ export default defineNuxtComponent({
         useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
         useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
         useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders()),
-        // TEMPORARY- todo actually add pagination
-        useBaseFetch(`project/${route.params.id}/version?limit=20`, data.$defaultHeaders()),
+        useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders()),
         useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders()),
       ])
 
