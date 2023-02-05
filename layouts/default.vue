@@ -45,7 +45,7 @@
                   <Avatar
                     :src="auth.user.avatar_url"
                     class="user-icon"
-                    alt="Your avatar"
+                    alt="User profile icon"
                     aria-hidden="true"
                     circle
                   />
