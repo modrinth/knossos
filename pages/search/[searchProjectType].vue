@@ -432,7 +432,7 @@ export default defineNuxtComponent({
       orFacets.value = route.query.g
     }
     if (route.query.v) {
-      selectedVersions.value = route.query
+      selectedVersions.value = route.query.v
     }
     if (route.query.l) {
       onlyOpenSource.value = route.query.l === 'true'

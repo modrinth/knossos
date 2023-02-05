@@ -185,44 +185,44 @@ export default defineNuxtConfig({
     },
     'pages:extend'(routes) {
       routes.splice(
-        routes.findIndex((x) => x.name === 'search-type'),
+        routes.findIndex((x) => x.name === 'search-searchProjectType'),
         1
       )
 
       routes.push({
         name: 'mods',
         path: '/mods',
-        file: resolve(__dirname, 'pages/search/[type].vue'),
+        file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
         name: 'modpacks',
         path: '/modpacks',
-        file: resolve(__dirname, 'pages/search/[type].vue'),
+        file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
         name: 'plugins',
         path: '/plugins',
-        file: resolve(__dirname, 'pages/search/[type].vue'),
+        file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
         name: 'resourcepacks',
         path: '/resourcepacks',
-        file: resolve(__dirname, 'pages/search/[type].vue'),
+        file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
         name: 'shaders',
         path: '/shaders',
-        file: resolve(__dirname, 'pages/search/[type].vue'),
+        file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
         name: 'datapacks',
         path: '/datapacks',
-        file: resolve(__dirname, 'pages/search/[type].vue'),
+        file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
     },
@@ -267,6 +267,5 @@ function getDomain() {
 }
 
 // Checklist
-// Analytics on nuxt hooks
-// Create new notif system
 // Fix perf issues on changelog/version page
+// Replace nuxt color mode with first-party library

@@ -256,7 +256,7 @@
             </div>
 
             <div>
-              {{ $formatProjectType(project.project_type) }}
+              {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
             </div>
 
             <div>
@@ -313,7 +313,7 @@ export default defineNuxtComponent({
     Multiselect,
     CopyCode,
   },
-  async asyncData() {
+  async setup() {
     const user = await useUser()
     if (process.client) {
       await initUserProjects()

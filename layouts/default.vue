@@ -55,8 +55,10 @@
                 title="Switch theme"
                 @click="changeTheme"
               >
-                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-                <SunIcon v-else aria-hidden="true" />
+                <ColorScheme>
+                  <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+                  <SunIcon v-else aria-hidden="true" />
+                </ColorScheme>
               </button>
               <div
                 v-if="auth.user"
@@ -259,8 +261,10 @@
               <span class="dropdown-item__text">Moderation</span>
             </NuxtLink>
             <button class="iconified-button raised-button" @click="changeTheme">
-              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-              <SunIcon v-else class="icon" />
+              <ColorScheme>
+                <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+                <SunIcon v-else class="icon" />
+              </ColorScheme>
               <span class="dropdown-item__text">Change theme</span>
             </button>
             <button v-if="auth.user" class="iconified-button danger-button" @click="logout">
@@ -357,11 +361,13 @@
         </a>
       </div>
       <div class="buttons">
-        <button class="iconified-button raised-button" @click="changeTheme">
-          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-          <SunIcon v-else aria-hidden="true" />
-          Change theme
-        </button>
+        <ColorScheme>
+          <button class="iconified-button raised-button" @click="changeTheme">
+            <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+            <SunIcon v-else aria-hidden="true" />
+            Change theme
+          </button>
+        </ColorScheme>
         <nuxt-link class="iconified-button raised-button" to="/settings">
           <SettingsIcon aria-hidden="true" />
           Settings
@@ -444,9 +450,9 @@ export default defineNuxtComponent({
       }
     },
   },
-  async mounted() {
+  mounted() {
     if (this.$route.query.code) {
-      await this.$router.push(this.$route.path)
+      window.history.replaceState(history.state, null, this.$route.path)
     }
   },
   methods: {
@@ -474,7 +480,7 @@ export default defineNuxtComponent({
       useCookie('auth-token').value = null
 
       // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (this.$route.path.startsWith('/settings/')) {
+      if (this.$route.path.startsWith('/settings/') || this.$route.path.startsWith('/dashboard/')) {
         window.location.href = '/'
       } else {
         await this.$router.go(null)

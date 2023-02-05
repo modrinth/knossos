@@ -177,6 +177,8 @@ export default {
           params: {
             type: projectType.id,
             id: this.slug,
+          },
+          state: {
             overrideProjectType: projectType.id,
           },
         })

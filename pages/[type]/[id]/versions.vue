@@ -22,7 +22,7 @@
       </span>
       <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
-    <div class="universal-card all-versions">
+    <div v-if="versions.length > 0" class="universal-card all-versions">
       <div class="header">
         <div />
         <div>Version</div>
@@ -150,10 +150,13 @@ export default defineNuxtComponent({
     acceptFileFromProjectType,
     async handleFiles(files) {
       await this.$router.push({
-        name: 'type-id-version-create',
+        name: 'type-id-version-version',
         params: {
           type: this.project.project_type,
           id: this.project.slug ? this.project.slug : this.project.id,
+          version: 'create',
+        },
+        state: {
           newPrimaryFile: files[0],
         },
       })

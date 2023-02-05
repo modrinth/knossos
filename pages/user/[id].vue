@@ -181,10 +181,11 @@
           :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
         >
           <ProjectCard
-            v-for="project in ($route.params.type !== undefined
+            v-for="project in ($route.params.projectType !== undefined
               ? projects.filter(
                   (x) =>
-                    x.project_type === $route.params.type.substr(0, $route.params.type.length - 1)
+                    x.project_type ===
+                    $route.params.projectType.substr(0, $route.params.projectType.length - 1)
                 )
               : projects
             )

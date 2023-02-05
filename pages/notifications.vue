@@ -100,18 +100,17 @@ export default defineNuxtComponent({
     CalendarIcon,
     UpToDate,
   },
-  async asyncData() {
+  async setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
+
     const user = await useUser()
     if (process.client) {
       await initUserNotifs()
     }
 
     return { user: ref(user) }
-  },
-  setup() {
-    definePageMeta({
-      middleware: 'auth',
-    })
   },
   head: {
     title: 'Notifications - Modrinth',

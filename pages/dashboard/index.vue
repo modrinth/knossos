@@ -78,43 +78,30 @@
     </section>
   </div>
 </template>
-
-<script>
+<script setup>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
-export default defineNuxtComponent({
-  components: { ChevronRightIcon },
-  async setup() {
-    const data = useNuxtApp()
-
-    const [payouts] = await Promise.all([
-      useBaseFetch(`user/${data.$auth.user.id}/payouts`, data.$defaultHeaders()),
-    ])
-
-    payouts.all_time = Math.floor(payouts.all_time * 100) / 100
-    payouts.last_month = Math.floor(payouts.last_month * 100) / 100
-
-    return {
-      payouts,
-      user: await useUser(),
-    }
-  },
-  data() {
-    return {
-      minWithdraw: 0.26,
-    }
-  },
-  head: {
-    title: 'Creator dashboard - Modrinth',
-  },
-  computed: {
-    downloadsProjectCount() {
-      return this.user.projects.filter((project) => project.downloads > 0).length
-    },
-    followersProjectCount() {
-      return this.user.projects.filter((project) => project.followers > 0).length
-    },
-  },
+useHead({
+  title: 'Creator dashboard - Modrinth',
 })
+
+const app = useNuxtApp()
+
+const [raw] = await Promise.all([
+  useBaseFetch(`user/${app.$auth.user.id}/payouts`, app.$defaultHeaders()),
+])
+const user = await useUser()
+
+raw.all_time = Math.floor(raw.all_time * 100) / 100
+raw.last_month = Math.floor(raw.last_month * 100) / 100
+
+const payouts = ref(raw)
+const minWithdraw = ref(0.26)
+
+const downloadsProjectCount = computed(
+  () => user.value.projects.filter((project) => project.downloads > 0).length
+)
+const followersProjectCount = computed(
+  () => user.value.projects.filter((project) => project.followers > 0).length
+)
 </script>
-<style lang="scss" scoped></style>
