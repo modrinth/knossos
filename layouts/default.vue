@@ -9,35 +9,7 @@
         </section>
         <section class="nav-group columns" role="presentation">
           <section class="nav" aria-label="Page links">
-            <NavRow
-              class="navigation"
-              :links="[
-                {
-                  label: 'Mods',
-                  href: '/mods',
-                },
-                {
-                  label: 'Plugins',
-                  href: '/plugins',
-                },
-                {
-                  label: 'Data Packs',
-                  href: '/datapacks',
-                },
-                {
-                  label: 'Shaders',
-                  href: '/shaders',
-                },
-                {
-                  label: 'Resource Packs',
-                  href: '/resourcepacks',
-                },
-                {
-                  label: 'Modpacks',
-                  href: '/modpacks',
-                },
-              ]"
-            />
+            <NavRow class="navigation" :links="NAV_ROUTES" />
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
@@ -137,145 +109,99 @@
           </section>
         </section>
       </section>
-      <section class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen }">
-        <div class="top-row">
-          <NuxtLink to="/" class="tab button-animation" @click="isBrowseMenuOpen = false">
+      <section class="mobile-navigation">
+        <div class="nav-menu nav-menu-browse" :class="{ expanded: isBrowseMenuOpen }">
+          <h1>Categories</h1>
+          <div class="links">
+            <NuxtLink
+              v-for="route in NAV_ROUTES"
+              :key="route.href"
+              :to="route.href"
+              class="iconified-button"
+            >
+              {{ route.label }}
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="nav-menu nav-menu-mobile" :class="{ expanded: isMobileMenuOpen }">
+          <h1>{{ auth.user ? 'Account' : 'Options' }}</h1>
+          <div class="links">
+            <NuxtLink v-if="!auth.user" class="iconified-button brand-button" :to="getAuthUrl()">
+              <GitHubIcon aria-hidden="true" />
+              Sign in with GitHub
+            </NuxtLink>
+            <template v-if="auth.user">
+              <button class="iconified-button danger-button" @click="logout">
+                <LogOutIcon aria-hidden="true" />
+                Log out
+              </button>
+              <NuxtLink class="iconified-button" to="/notifications">
+                <NotificationIcon aria-hidden="true" />
+                Notifications
+              </NuxtLink>
+              <NuxtLink class="iconified-button" to="/dashboard">
+                <ChartIcon aria-hidden="true" />
+                Dashboard
+              </NuxtLink>
+              <NuxtLink class="iconified-button" to="/settings/follows">
+                <HeartIcon aria-hidden="true" />
+                Following
+              </NuxtLink>
+              <NuxtLink
+                v-if="auth.user.role === 'moderator' || auth.user.role === 'admin'"
+                class="iconified-button"
+                to="/moderation"
+              >
+                <ModerationIcon aria-hidden="true" />
+                Moderation
+              </NuxtLink>
+            </template>
+            <button class="iconified-button" @click="changeTheme">
+              <ColorScheme>
+                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+                <SunIcon v-else aria-hidden="true" />
+              </ColorScheme>
+              Switch theme
+            </button>
+            <NuxtLink class="iconified-button" to="/settings">
+              <SettingsIcon aria-hidden="true" />
+              Settings
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
+          <NuxtLink
+            to="/"
+            class="tab button-animation"
+            @click="
+              () => {
+                isBrowseMenuOpen = false
+                isMobileMenuOpen = false
+              }
+            "
+          >
             <HomeIcon />
           </NuxtLink>
-          <div class="spacer" />
           <button class="tab browse button-animation" @click="toggleBrowseMenu()">
             <DropdownIcon :class="{ closed: !isBrowseMenuOpen }" />
             <span>Browse</span>
           </button>
-          <div class="spacer" />
           <button class="tab button-animation" @click="toggleMobileMenu()">
-            <HamburgerIcon v-if="!isMobileMenuOpen" />
-            <CrossIcon v-else />
-          </button>
-        </div>
-        <div :class="{ 'disable-children': !isBrowseMenuOpen }" class="project-types">
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/mods"
-            class="tab iconified-button"
-            @click="isBrowseMenuOpen = false"
-          >
-            <span>Mods</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/plugins"
-            class="tab iconified-button"
-            @click="isBrowseMenuOpen = false"
-          >
-            <span>Plugins</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/datapacks"
-            class="tab iconified-button"
-            @click="isBrowseMenuOpen = false"
-          >
-            <span>Data Packs</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/shaders"
-            class="tab iconified-button"
-            @click="isBrowseMenuOpen = false"
-          >
-            <span>Shaders</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/resourcepacks"
-            class="tab iconified-button"
-            @click="isBrowseMenuOpen = false"
-          >
-            <span>Resource Packs</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/modpacks"
-            class="tab iconified-button"
-            @click="isBrowseMenuOpen = false"
-          >
-            <span>Modpacks</span>
-          </NuxtLink>
-        </div>
-      </section>
-      <section class="mobile-menu" :class="{ active: isMobileMenuOpen }">
-        <div class="mobile-menu-wrapper">
-          <div class="items-container rows">
-            <NuxtLink
-              v-if="auth.user"
-              class="iconified-button raised-button user-item"
-              :to="`/user/${auth.user.username}`"
-            >
-              <img
+            <template v-if="!auth.user">
+              <HamburgerIcon v-if="!isMobileMenuOpen" />
+              <CrossIcon v-else />
+            </template>
+            <template v-else>
+              <Avatar
                 :src="auth.user.avatar_url"
                 class="user-icon"
+                :class="{ expanded: isMobileMenuOpen }"
+                alt="Your avatar"
                 aria-hidden="true"
-                alt="User profile icon"
+                circle
               />
-              <div class="profile-link">
-                <div class="username">@{{ auth.user.username }}</div>
-                <div class="prompt">Visit your profile</div>
-              </div>
-            </NuxtLink>
-            <button
-              v-if="auth.user"
-              class="iconified-button raised-button"
-              @click="$refs.modal_creation.show()"
-            >
-              <PlusIcon class="icon" />
-              <span class="dropdown-item__text">Create a project</span>
-            </button>
-            <NuxtLink v-if="auth.user" class="iconified-button raised-button" to="/notifications">
-              <NotificationIcon class="icon" />
-              <span class="dropdown-item__text">Notifications</span>
-            </NuxtLink>
-            <NuxtLink v-if="auth.user" class="iconified-button raised-button" to="/dashboard">
-              <ChartIcon class="icon" />
-              <span class="dropdown-item__text">Dashboard</span>
-              <span class="beta-badge">BETA</span>
-            </NuxtLink>
-            <NuxtLink
-              v-if="auth.user"
-              class="iconified-button raised-button"
-              to="/settings/follows"
-            >
-              <HeartIcon class="icon" />
-              <span class="dropdown-item__text">Following</span>
-            </NuxtLink>
-            <NuxtLink class="iconified-button raised-button" to="/settings">
-              <SettingsIcon class="icon" />
-              <span class="dropdown-item__text">Settings</span>
-            </NuxtLink>
-            <NuxtLink
-              v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
-              class="iconified-button raised-button"
-              to="/moderation"
-            >
-              <ModerationIcon class="icon" />
-              <span class="dropdown-item__text">Moderation</span>
-            </NuxtLink>
-            <button class="iconified-button raised-button" @click="changeTheme">
-              <ColorScheme>
-                <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-                <SunIcon v-else class="icon" />
-              </ColorScheme>
-              <span class="dropdown-item__text">Change theme</span>
-            </button>
-            <button v-if="auth.user" class="iconified-button danger-button" @click="logout">
-              <LogOutIcon class="icon" />
-              <span class="dropdown-item__text">Log out</span>
-            </button>
-            <a v-else :href="getAuthUrl()" class="iconified-button brand-button">
-              <GitHubIcon aria-hidden="true" />
-              Sign in with GitHub</a
-            >
-          </div>
+            </template>
+          </button>
         </div>
       </section>
     </header>
@@ -405,6 +331,32 @@ const auth = await useAuth()
 const user = await useUser()
 </script>
 <script>
+const NAV_ROUTES = [
+  {
+    label: 'Mods',
+    href: '/mods',
+  },
+  {
+    label: 'Plugins',
+    href: '/plugins',
+  },
+  {
+    label: 'Data Packs',
+    href: '/datapacks',
+  },
+  {
+    label: 'Shaders',
+    href: '/shaders',
+  },
+  {
+    label: 'Resource Packs',
+    href: '/resourcepacks',
+  },
+  {
+    label: 'Modpacks',
+    href: '/modpacks',
+  },
+]
 export default defineNuxtComponent({
   data() {
     return {
@@ -457,16 +409,9 @@ export default defineNuxtComponent({
   },
   methods: {
     toggleMobileMenu() {
-      window.scrollTo(0, 0)
-      document.body.scrollTop = 0
-
       this.isMobileMenuOpen = !this.isMobileMenuOpen
-
       if (this.isMobileMenuOpen) {
-        document.body.style.overflowY = 'hidden'
         this.isBrowseMenuOpen = false
-      } else {
-        document.body.style.overflowY = 'scroll'
       }
     },
     toggleBrowseMenu() {
@@ -781,209 +726,155 @@ export default defineNuxtComponent({
       }
     }
 
-    .mobile-navbar {
+    .mobile-navigation {
       display: none;
-      width: 100%;
-      transition: height 0.25s ease-in-out;
-      height: var(--size-mobile-navbar-height);
-      padding-bottom: env(safe-area-inset-bottom);
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      background-color: var(--color-raised-bg);
-      box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
-      z-index: 6;
-      flex-direction: column;
-      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
-
-      overflow: hidden;
-
-      .tab {
-        background: none;
-        display: flex;
-        flex-basis: 0;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        gap: 0.25rem;
-        font-weight: bold;
-        padding: 0;
-        transition: color ease-in-out 0.15s;
-        color: var(--color-text-inactive);
-        text-align: center;
-
-        svg {
-          height: 1.75rem;
-          width: 1.75rem;
-        }
-
-        &:hover,
-        &:focus {
-          color: var(--color-text);
-        }
-
-        &.router-link-exact-active {
-          svg {
-            color: var(--color-brand);
-          }
-
-          color: var(--color-text);
-        }
-      }
-
-      .top-row {
-        min-height: var(--size-mobile-navbar-height);
-        display: flex;
+      .nav-menu {
         width: 100%;
-
-        .browse {
-          flex-grow: 10;
-
-          svg {
-            transition: transform 0.125s ease-in-out;
-
-            &.closed {
-              transform: rotate(180deg);
+        position: fixed;
+        bottom: calc(var(--size-mobile-navbar-height) - var(--size-rounded-card));
+        padding-bottom: var(--size-rounded-card);
+        left: 0;
+        background-color: var(--color-raised-bg);
+        z-index: 6;
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
+        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+        box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
+        h1 {
+          text-align: center;
+          color: var(--color-text);
+          font-size: 1.5rem;
+          margin-bottom: 0;
+          font-weight: 600;
+        }
+        .links {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          grid-gap: 1rem;
+          justify-content: center;
+          padding: 1rem;
+          .iconified-button {
+            width: 100%;
+            padding: 0.75rem;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+          }
+        }
+        &-browse {
+          .links {
+            @media screen and (min-width: 354px) {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            @media screen and (min-width: 526px) {
+              grid-template-columns: repeat(3, 1fr);
+            }
+            @media screen and (min-width: 700px) {
+              grid-template-columns: repeat(4, 1fr);
             }
           }
+          &.expanded {
+            transform: translateY(0);
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+          }
         }
-
+        &-mobile {
+          .links {
+            @media screen and (min-width: 455px) {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            @media screen and (min-width: 674px) {
+              grid-template-columns: repeat(3, 1fr);
+            }
+            @media screen and (min-width: 895px) {
+              grid-template-columns: repeat(4, 1fr);
+            }
+          }
+          &.expanded {
+            transform: translateY(0);
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+      .mobile-navbar {
+        display: flex;
+        height: var(--size-mobile-navbar-height);
+        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+        padding-bottom: env(safe-area-inset-bottom);
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        background-color: var(--color-raised-bg);
+        box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+        z-index: 7;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        transition: border-radius 0.3s ease-out;
+        border-top: 2px solid rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        &.expanded {
+          box-shadow: none;
+          border-radius: 0;
+        }
         .tab {
+          background: none;
+          display: flex;
+          flex-basis: 0;
+          justify-content: center;
+          align-items: center;
+          flex-direction: row;
+          gap: 0.25rem;
+          font-weight: bold;
+          padding: 0;
+          transition: color ease-in-out 0.15s;
+          color: var(--color-text-inactive);
+          text-align: center;
+          &.browse {
+            svg {
+              transform: rotate(180deg);
+              transition: transform ease-in-out 0.3s;
+              &.closed {
+                transform: rotate(0deg);
+              }
+            }
+          }
+
+          svg {
+            height: 1.75rem;
+            width: 1.75rem;
+          }
+
+          .user-icon {
+            width: 2rem;
+            height: 2rem;
+            transition: border ease-in-out 0.15s;
+            border: 0 solid var(--color-brand);
+            box-sizing: border-box;
+            &.expanded {
+              border: 2px solid var(--color-brand);
+            }
+          }
+          &:hover,
+          &:focus {
+            color: var(--color-text);
+          }
           &:first-child {
             margin-left: 2rem;
           }
-
           &:last-child {
             margin-right: 2rem;
           }
-        }
-
-        .spacer {
-          flex-grow: 1;
-        }
-      }
-
-      .disable-children {
-        a {
-          pointer-events: none;
-        }
-      }
-
-      .project-types {
-        margin-top: 0.5rem;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        row-gap: 0.5rem;
-        margin-inline: var(--spacing-card-sm);
-
-        .tab {
-          flex: 0 0 fit-content;
-          background-color: var(--color-button-bg);
-          padding: 0.4rem 1.25rem;
-          margin: 0 0.25rem;
-          max-height: unset;
-
           &.router-link-exact-active {
-            color: var(--color-brand-inverted);
-            background-color: var(--color-brand);
+            svg {
+              color: var(--color-brand);
+            }
+            color: var(--color-text);
           }
         }
       }
-
       @media screen and (max-width: 1095px) {
         display: flex;
-      }
-
-      &.expanded {
-        height: var(--size-mobile-navbar-height-expanded);
-
-        &::after {
-          top: var(--size-mobile-navbar-height-expanded);
-        }
-      }
-
-      &::after {
-        content: '';
-        background: var(--color-raised-bg);
-        width: 100%;
-        height: 50px;
-        position: absolute;
-        top: var(--size-mobile-navbar-height);
-        left: 0;
-        transition: top 0.25s ease-in-out;
-      }
-    }
-  }
-
-  .mobile-menu {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: var(--color-bg);
-    height: 100%;
-    width: 100%;
-    z-index: 5;
-
-    .mobile-menu-wrapper {
-      max-height: calc(100vh - var(--size-mobile-navbar-height));
-      margin-bottom: var(--size-mobile-navbar-height);
-      overflow-y: auto;
-      margin-top: auto;
-
-      .items-container {
-        margin: 1rem 2rem;
-
-        .iconified-button {
-          box-sizing: border-box;
-          padding: 0.85rem 1.5rem;
-          align-items: center;
-          justify-content: center;
-          display: flex;
-          column-gap: 0.25rem;
-          width: 100%;
-          max-width: 20rem;
-          max-height: unset;
-
-          svg {
-            height: 1.25rem;
-            width: 1.25rem;
-          }
-
-          &.router-link-exact-active {
-            color: var(--color-brand-inverted);
-            background-color: var(--color-brand);
-
-            .beta-badge {
-              background-color: var(--color-brand-inverted);
-              color: var(--color-text-dark);
-            }
-          }
-
-          &.user-item {
-            flex-direction: column;
-            row-gap: 0.5rem;
-            width: fit-content;
-            max-width: 16rem;
-            flex-grow: 0;
-            padding-inline: 3rem;
-
-            .profile-link {
-              text-align: center;
-
-              .prompt {
-                color: var(--color-text-secondary);
-              }
-            }
-
-            .user-icon {
-              width: 4rem;
-              height: 4rem;
-              border-radius: var(--size-rounded-max);
-            }
-          }
-        }
       }
     }
 
