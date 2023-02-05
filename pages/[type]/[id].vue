@@ -171,7 +171,7 @@
           >
             <img
               v-if="featuredGalleryImage"
-              :src="'//wsrv.nl/?output=webp&url=' + featuredGalleryImage.url"
+              :src="featuredGalleryImage.url"
               :alt="
                 featuredGalleryImage.description
                   ? featuredGalleryImage.description
@@ -834,9 +834,11 @@ export default defineNuxtComponent({
 
       project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
-      project.project_type = route.params.overrideProjectType
-        ? route.params.overrideProjectType
-        : data.$getProjectTypeForUrl(project.project_type, project.loaders)
+      project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
+
+      if (process.client && history.state && history.state.overrideProjectType) {
+        project.project_type = history.state.overrideProjectType
+      }
 
       if (project.project_type !== route.params.type || route.params.id !== project.slug) {
         let path = route.fullPath.split('/')

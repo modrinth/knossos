@@ -155,6 +155,8 @@ export default defineNuxtComponent({
           type: this.project.project_type,
           id: this.project.slug ? this.project.slug : this.project.id,
           version: 'create',
+        },
+        state: {
           newPrimaryFile: files[0],
         },
       })

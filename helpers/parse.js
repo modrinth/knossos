@@ -88,10 +88,15 @@ export const md = (options = {}) => {
       const src = token.attrs[index][1]
 
       const url = new URL(src)
-      const allowedHostnames = ['i.imgur.com', 'cdn-raw.modrinth.com', 'cdn.modrinth.com']
+      const allowedHostnames = [
+        'i.imgur.com',
+        'cdn-raw.modrinth.com',
+        'cdn.modrinth.com',
+        'raw.githubusercontent.com',
+      ]
 
       if (!allowedHostnames.includes(url.hostname)) {
-        token.attrs[index][1] = `//wsrv.nl/?url=${src}&output=webp`
+        token.attrs[index][1] = `//wsrv.nl/?url=${src}`
       }
     }
 

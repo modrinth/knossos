@@ -267,8 +267,5 @@ function getDomain() {
 }
 
 // Checklist
-// Create new notif system
 // Fix perf issues on changelog/version page
 // Replace nuxt color mode with first-party library
-// Update passing params (since unknown ones don't work anymore)
-// External media proxying (somewhat done?)

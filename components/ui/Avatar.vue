@@ -3,7 +3,7 @@
     v-if="src"
     ref="img"
     :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''}`"
-    :src="'//wsrv.nl/?output=webp&url=' + src"
+    :src="src"
     :alt="alt"
     :loading="loading"
   />

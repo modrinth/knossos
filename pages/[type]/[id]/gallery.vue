@@ -220,11 +220,7 @@
       <div v-for="(item, index) in project.gallery" :key="index" class="card gallery-item">
         <a class="gallery-thumbnail" @click="expandImage(item, index)">
           <img
-            :src="
-              '//wsrv.nl/?output=webp&url=' + item.url
-                ? item.url
-                : 'https://cdn.modrinth.com/placeholder-banner.svg'
-            "
+            :src="item.url ? item.url : 'https://cdn.modrinth.com/placeholder-banner.svg'"
             :alt="item.title ? item.title : 'gallery-image'"
           />
         </a>

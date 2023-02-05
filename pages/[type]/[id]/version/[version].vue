@@ -817,8 +817,8 @@ export default defineNuxtComponent({
         featured: false,
       }
       // For navigation from versions page / upload file prompt
-      if (route.params.newPrimaryFile) {
-        replaceFile = route.params.newPrimaryFile
+      if (process.client && history.state && history.state.newPrimaryFile) {
+        replaceFile = history.state.newPrimaryFile
 
         try {
           const inferredData = await inferVersionInfo(
