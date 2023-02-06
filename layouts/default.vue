@@ -111,7 +111,7 @@
       </section>
       <section class="mobile-navigation">
         <div class="nav-menu nav-menu-browse" :class="{ expanded: isBrowseMenuOpen }">
-          <h1>Categories</h1>
+          <h1>Search</h1>
           <div class="links">
             <NuxtLink
               v-for="route in NAV_ROUTES"
@@ -125,24 +125,35 @@
         </div>
         <div class="nav-menu nav-menu-mobile" :class="{ expanded: isMobileMenuOpen }">
           <h1>{{ auth.user ? 'Account' : 'Options' }}</h1>
-          <div class="links">
-            <NuxtLink v-if="!auth.user" class="iconified-button brand-button" :to="getAuthUrl()">
+          <div class="account-container">
+            <NuxtLink
+              v-if="auth.user"
+              :to="`/user/${auth.user.username}`"
+              class="iconified-button account-button"
+            >
+              <Avatar
+                :src="auth.user.avatar_url"
+                class="user-icon"
+                alt="Your avatar"
+                aria-hidden="true"
+                circle
+              />
+              <div class="account-text">
+                <div>@{{ auth.user.username }}</div>
+                <div>Visit your profile</div>
+              </div>
+            </NuxtLink>
+            <NuxtLink v-else class="iconified-button brand-button" :to="getAuthUrl()">
               <GitHubIcon aria-hidden="true" />
               Sign in with GitHub
             </NuxtLink>
+          </div>
+          <div class="links">
             <template v-if="auth.user">
               <button class="iconified-button danger-button" @click="logout">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
-              <NuxtLink class="iconified-button" to="/notifications">
-                <NotificationIcon aria-hidden="true" />
-                Notifications
-              </NuxtLink>
-              <NuxtLink class="iconified-button" to="/dashboard">
-                <ChartIcon aria-hidden="true" />
-                Dashboard
-              </NuxtLink>
               <NuxtLink class="iconified-button" to="/settings/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
@@ -156,36 +167,39 @@
                 Moderation
               </NuxtLink>
             </template>
+            <NuxtLink class="iconified-button" to="/settings">
+              <SettingsIcon aria-hidden="true" />
+              Settings
+            </NuxtLink>
             <button class="iconified-button" @click="changeTheme">
               <ColorScheme>
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
                 <SunIcon v-else aria-hidden="true" />
               </ColorScheme>
-              Switch theme
+              {{ $colorMode.value === 'light' ? 'Dark' : 'Light' }} theme
             </button>
-            <NuxtLink class="iconified-button" to="/settings">
-              <SettingsIcon aria-hidden="true" />
-              Settings
-            </NuxtLink>
           </div>
         </div>
         <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
-          <NuxtLink
-            to="/"
-            class="tab button-animation"
-            @click="
-              () => {
-                isBrowseMenuOpen = false
-                isMobileMenuOpen = false
-              }
-            "
-          >
+          <NuxtLink to="/" class="tab button-animation">
             <HomeIcon />
           </NuxtLink>
-          <button class="tab browse button-animation" @click="toggleBrowseMenu()">
-            <DropdownIcon :class="{ closed: !isBrowseMenuOpen }" />
-            <span>Browse</span>
+          <button
+            class="tab button-animation"
+            :class="{ 'router-link-exact-active': isOnSearchPage }"
+            @click="toggleBrowseMenu()"
+          >
+            <SearchIcon v-if="!isBrowseMenuOpen" />
+            <CrossIcon v-else />
           </button>
+          <template v-if="auth.user">
+            <NuxtLink to="/notifications" class="tab button-animation">
+              <NotificationIcon />
+            </NuxtLink>
+            <NuxtLink to="/dashboard" class="tab button-animation">
+              <ChartIcon />
+            </NuxtLink>
+          </template>
           <button class="tab button-animation" @click="toggleMobileMenu()">
             <template v-if="!auth.user">
               <HamburgerIcon v-if="!isMobileMenuOpen" />
@@ -308,6 +322,7 @@
 <script setup>
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
+import SearchIcon from '~/assets/images/utils/search.svg'
 
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
 import SettingsIcon from '~/assets/images/sidebar/settings.svg'
@@ -357,6 +372,7 @@ const NAV_ROUTES = [
     href: '/modpacks',
   },
 ]
+const SEARCH_PAGES = ['/mods', '/plugins', '/datapacks', '/shaders', '/resourcepacks', '/modpacks']
 export default defineNuxtComponent({
   data() {
     return {
@@ -391,9 +407,15 @@ export default defineNuxtComponent({
     // }
     return {}
   },
+  computed: {
+    isOnSearchPage() {
+      return SEARCH_PAGES.some((page) => this.$route.path.startsWith(page))
+    },
+  },
   watch: {
     '$route.path'() {
       this.isMobileMenuOpen = false
+      this.isBrowseMenuOpen = false
 
       if (process.client) {
         document.body.style.overflowY = 'scroll'
@@ -747,7 +769,8 @@ export default defineNuxtComponent({
           margin-bottom: 0;
           font-weight: 600;
         }
-        .links {
+        .links,
+        .account-container {
           display: grid;
           grid-template-columns: repeat(1, 1fr);
           grid-gap: 1rem;
@@ -761,33 +784,39 @@ export default defineNuxtComponent({
             font-size: 1rem;
           }
         }
-        &-browse {
-          .links {
-            @media screen and (min-width: 354px) {
-              grid-template-columns: repeat(2, 1fr);
-            }
-            @media screen and (min-width: 526px) {
-              grid-template-columns: repeat(3, 1fr);
-            }
-            @media screen and (min-width: 700px) {
-              grid-template-columns: repeat(4, 1fr);
-            }
+        .links {
+          @media screen and (min-width: 354px) {
+            grid-template-columns: repeat(2, 1fr);
           }
+          @media screen and (min-width: 674px) {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          @media screen and (min-width: 895px) {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+        &-browse {
           &.expanded {
             transform: translateY(0);
             box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
           }
         }
         &-mobile {
-          .links {
-            @media screen and (min-width: 455px) {
-              grid-template-columns: repeat(2, 1fr);
-            }
-            @media screen and (min-width: 674px) {
-              grid-template-columns: repeat(3, 1fr);
-            }
-            @media screen and (min-width: 895px) {
-              grid-template-columns: repeat(4, 1fr);
+          .account-container {
+            padding-bottom: 0;
+            .account-button {
+              padding: var(--spacing-card-md);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 0.5rem;
+              .user-icon {
+                width: 2.25rem;
+                height: 2.25rem;
+              }
+              .account-text {
+                flex-grow: 0;
+              }
             }
           }
           &.expanded {
