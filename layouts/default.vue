@@ -186,11 +186,10 @@
           </NuxtLink>
           <button
             class="tab button-animation"
-            :class="{ 'router-link-exact-active': isOnSearchPage }"
+            :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
             @click="toggleBrowseMenu()"
           >
-            <SearchIcon v-if="!isBrowseMenuOpen" />
-            <CrossIcon v-else />
+            <SearchIcon />
           </button>
           <template v-if="auth.user">
             <NuxtLink to="/notifications" class="tab button-animation">
