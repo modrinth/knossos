@@ -629,7 +629,11 @@
           {{ project.title }} has been archived by the project author. {{ project.title }} will not
           receive any further updates unless the author decides to unarchive the project.
         </div>
-        <div v-if="project.project_type === 'modpack'" class="card warning" aria-label="Warning">
+        <div
+          v-if="project.project_type === 'modpack'"
+          class="card information"
+          aria-label="Information"
+        >
           To install {{ project.title }}, visit
           <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
             >our documentation</a
