@@ -62,8 +62,10 @@
       <div class="projects-transition" />
       <div class="users-section">
         <div class="section-header">
-          <div class="section-label green">For Players</div>
-          <h2 class="section-tagline">Discover over 5,000 creations</h2>
+          <div class="section-label green">For players</div>
+          <h2 class="section-tagline">
+            Discover {{ statistics.projects }} projects by {{ statistics.authors }} authors
+          </h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find content to bring your
             gameplay to the next level.
@@ -73,7 +75,7 @@
           <div class="blob-text">
             <h3>Find what you want, quickly and easily</h3>
             <p>
-              Modrinth’s lightning-fast search and powerful filters let you find what you want as
+              Modrinth's lightning-fast search and powerful filters let you find what you want as
               you type.
             </p>
           </div>
@@ -247,7 +249,7 @@
     </div>
     <div class="creator-section">
       <div class="section-header">
-        <div class="section-label blue">For Creators</div>
+        <div class="section-label blue">For creators</div>
         <h2 class="section-tagline">Share your content with the world</h2>
         <p class="section-description">
           Give an online home to your creations and reach a massive audience of dedicated players
@@ -278,7 +280,7 @@
           </div>
           <h3>Discovery</h3>
           <p>
-            Get your project discovered by thousands of users through search, our home page, discord
+            Get your project discovered by thousands of users through search, our home page, Discord
             server, and more ways to come in the future!
           </p>
         </div>
@@ -387,7 +389,7 @@
             </svg>
           </div>
           <div class="additional-label">Coming soon</div>
-          <h3>Data & Statistics</h3>
+          <h3>Data and Statistics</h3>
           <p>Get detailed reports on page views, download counts, and revenue</p>
         </div>
         <div class="feature gradient-border">
@@ -534,6 +536,7 @@ const [
   { data: rows },
   { data: searchProjects, refresh: updateSearchProjects },
   { data: notifications },
+  { data: statistics },
 ] = await Promise.all([
   useAsyncData('projects', () => useBaseFetch('projects_random?count=40'), {
     transform: (result) => {
@@ -550,6 +553,9 @@ const [
     }
   ),
   useAsyncData('updatedProjects', () => useBaseFetch(`search?limit=3&query=&index=updated`), {
+    transform: (result) => result.hits,
+  }),
+  useAsyncData('statistics', () => useBaseFetch(`statistics`), {
     transform: (result) => result.hits,
   }),
 ])
