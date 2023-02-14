@@ -265,3 +265,5 @@ function getDomain() {
 // Checklist
 // Fix perf issues on changelog/version page
 // Replace nuxt color mode with first-party library
+// Fix Day.JS hydration issue
+// Fix page "flickering" issue on switch

@@ -31,7 +31,6 @@
       </div>
       <div
         v-for="version in versions"
-        v-once
         :key="version.id"
         class="version-button button-transparent"
         @click="
@@ -186,7 +185,7 @@ export default defineNuxtComponent({
   .header {
     display: grid;
     grid-template: 'download title supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1.25fr 1fr 1fr;
     color: var(--color-text-dark);
     font-size: var(--font-size-md);
     font-weight: bold;
@@ -218,7 +217,7 @@ export default defineNuxtComponent({
       'download title supports stats'
       'download metadata supports stats'
       'download dummy supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1.25fr 1fr 1fr;
     column-gap: var(--spacing-card-sm);
     justify-content: left;
     padding: var(--spacing-card-md);

@@ -296,27 +296,40 @@ export default defineNuxtComponent({
     const route = useRoute()
 
     try {
-      const [user, projects] = await Promise.all([
-        useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders()),
-        useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+      const [{ data: user }, { data: projects }] = await Promise.all([
+        useAsyncData(`user/${route.params.id}`, () =>
+          useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
+        ),
+        useAsyncData(
+          `user/${route.params.id}/projects`,
+          () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+          {
+            transform: (projects) => {
+              for (const project of projects) {
+                project.categories = project.categories.concat(project.loaders)
+                project.project_type = data.$getProjectTypeForUrl(
+                  project.project_type,
+                  project.categories
+                )
+              }
+
+              return projects
+            },
+          }
+        ),
       ])
 
-      if (user.username !== route.params.id) {
-        await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
-      }
-
-      for (const project of projects) {
-        project.categories = project.categories.concat(project.loaders)
-        project.project_type = data.$getProjectTypeForUrl(project.project_type, project.categories)
+      if (user.value.username !== route.params.id) {
+        await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
       }
 
       return {
-        user: ref(user),
-        projects: ref(projects),
+        user,
+        projects,
         metaDescription: ref(
-          user.bio
-            ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
-            : `Download ${user.username}'s projects on Modrinth`
+          user.value.bio
+            ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
+            : `Download ${user.value.username}'s projects on Modrinth`
         ),
       }
     } catch {

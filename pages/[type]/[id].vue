@@ -807,56 +807,91 @@ export default defineNuxtComponent({
     const data = useNuxtApp()
     const route = useRoute()
 
-    try {
-      if (
-        !route.params.id ||
-        !(
-          data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
-          route.params.type === 'project'
-        )
-      ) {
-        throw createError({
-          fatal: true,
-          statusCode: 404,
-          message: 'The page could not be found',
-        })
-      }
+    if (
+      !route.params.id ||
+      !(
+        data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
+        route.params.type === 'project'
+      )
+    ) {
+      throw createError({
+        fatal: true,
+        statusCode: 404,
+        message: 'The page could not be found',
+      })
+    }
 
-      // eslint-disable-next-line prefer-const
-      let [project, members, dependencies, versions, featuredVersions] = await Promise.all([
-        useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
-        useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
-        useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders()),
-        useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders()),
-        useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders()),
+    try {
+      const [
+        { data: project },
+        { data: members },
+        { data: dependencies },
+        { data: versions },
+        { data: featuredVersions },
+      ] = await Promise.all([
+        useAsyncData(
+          `project/${route.params.id}`,
+          () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
+          {
+            transform: (project) => {
+              project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+
+              project.project_type = data.$getProjectTypeForUrl(
+                project.project_type,
+                project.loaders
+              )
+
+              if (process.client && history.state && history.state.overrideProjectType) {
+                project.project_type = history.state.overrideProjectType
+              }
+
+              return project
+            },
+          }
+        ),
+        useAsyncData(
+          `project/${route.params.id}/members`,
+          () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
+          {
+            transform: (members) => {
+              members.forEach((it, index) => {
+                members[index].avatar_url = it.user.avatar_url
+                members[index].name = it.user.username
+              })
+
+              return members
+            },
+          }
+        ),
+        useAsyncData(`project/${route.params.id}/dependencies`, () =>
+          useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders())
+        ),
+        useAsyncData(`project/${route.params.id}/version`, () =>
+          useBaseFetch(`project/${route.params.id}/version?limit=20`, data.$defaultHeaders())
+        ),
+        useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
+          useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
+        ),
       ])
 
-      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-
-      project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
-
-      if (process.client && history.state && history.state.overrideProjectType) {
-        project.project_type = history.state.overrideProjectType
-      }
-
-      if (project.project_type !== route.params.type || route.params.id !== project.slug) {
+      if (
+        project.value.project_type !== route.params.type ||
+        route.params.id !== project.value.slug
+      ) {
         let path = route.fullPath.split('/')
         path.splice(0, 3)
         path = path.filter((x) => x)
 
         await navigateTo(
-          `/${project.project_type}/${project.slug}${path.length > 0 ? `/${path.join('/')}` : ''}`,
+          `/${project.value.project_type}/${project.value.slug}${
+            path.length > 0 ? `/${path.join('/')}` : ''
+          }`,
           { redirectCode: 301 }
         )
       }
 
-      members.forEach((it, index) => {
-        members[index].avatar_url = it.user.avatar_url
-        members[index].name = it.user.username
-      })
-
       let currentMember = data.$auth.user
-        ? members.find((x) => x.user.id === data.$auth.user.id)
+        ? members.value.find((x) => x.user.id === data.$auth.user.id)
         : null
 
       if (
@@ -876,14 +911,10 @@ export default defineNuxtComponent({
         }
       }
 
-      if (project.body_url && !project.body) {
-        project.body = await $fetch(project.body_url)
-      }
+      versions.value = data.$computeVersions(versions.value, members.value)
+      featuredVersions.value = data.$computeVersions(featuredVersions.value, members.value)
 
-      versions = data.$computeVersions(versions, members)
-      featuredVersions = data.$computeVersions(featuredVersions, members)
-
-      featuredVersions.sort((a, b) => {
+      featuredVersions.value.sort((a, b) => {
         const aLatest = a.game_versions[a.game_versions.length - 1]
         const bLatest = b.game_versions[b.game_versions.length - 1]
         const gameVersions = data.$tag.gameVersions.map((e) => e.version)
@@ -895,13 +926,13 @@ export default defineNuxtComponent({
       )
 
       return {
-        project: ref(project),
-        versions: shallowRef(versions),
-        featuredVersions: shallowRef(featuredVersions),
-        members: ref(members.filter((x) => x.accepted)),
-        allMembers: ref(members),
+        project,
+        versions: shallowRef(toRaw(versions)),
+        featuredVersions: shallowRef(toRaw(featuredVersions)),
+        members: ref(members.value.filter((x) => x.accepted)),
+        allMembers: members,
         currentMember: ref(currentMember),
-        dependencies: ref(dependencies),
+        dependencies,
         projectTypeDisplay: ref(projectTypeDisplay),
       }
     } catch (error) {

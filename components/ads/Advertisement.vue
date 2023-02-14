@@ -1,16 +1,19 @@
 <template>
-  <div class="no-content">
-    <div class="content">
-      <div class="content-1">
-        <div class="content-2">
+  <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF">
+    <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-0">
+      <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-1">
+        <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2">
           <a
             href="https://exaroton.com/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
             rel="noopener noreferrer nofollow sponsored"
             target="_blank"
           >
             <ColorScheme>
-              <LightIcon v-if="$colorMode.value === 'light'" class="brand-icon" />
-              <DarkIcon v-else class="brand-icon" />
+              <LightIcon
+                v-if="$colorMode.value === 'light'"
+                class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
+              />
+              <DarkIcon v-else class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
             </ColorScheme>
             <span>
               <span> Host your Minecraft server on </span>
@@ -20,7 +23,7 @@
           </a>
         </div>
       </div>
-      <div class="content-3">
+      <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-4">
         <a rel="noopener noreferrer nofollow sponsored" target="_blank" href="https://adrinth.com">
           Ads via Adrinth
         </a>
@@ -34,7 +37,7 @@ import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 </script>
 
 <style>
-.no-content {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF {
   position: relative;
   margin-bottom: var(--spacing-card-md);
 
@@ -43,36 +46,36 @@ import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
   border-radius: var(--size-rounded-card);
 }
 
-.content {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-0 {
   font-size: 14px;
   line-height: 1.3em;
 }
 
-.content-1 {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-1 {
   color: var(--color-text);
 
   padding: 1em;
   text-align: left;
 }
 
-.content-2 a {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.content-2 a b,
-.content-2 a strong {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a b,
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a strong {
   color: #088cdb;
 }
 
-.brand-icon {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3 {
   padding-top: 1px;
   height: 1.2rem;
   width: auto;
 }
 
-.content-3 a {
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-4 a {
   position: absolute;
   bottom: -2px;
   right: -2px;
@@ -94,11 +97,11 @@ import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 }
 
 @media screen and (max-width: 800px) {
-  .content-2 {
+  .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 {
     margin-bottom: 0.5rem;
   }
 
-  .content-2 a {
+  .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a {
     align-items: flex-start;
     flex-direction: column;
   }

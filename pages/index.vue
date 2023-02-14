@@ -521,7 +521,7 @@ import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
 import Avatar from '~/components/ui/Avatar'
 import ProjectCard from '~/components/ui/ProjectCard'
 
-const searchQuery = ref('flowers')
+const searchQuery = ref('better')
 const sortType = ref('relevance')
 
 const [
