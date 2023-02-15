@@ -18,13 +18,19 @@
             <span>
               <span> Host your Minecraft server on </span>
               <strong>exaroton</strong>
-              <span> - only pay while the server is running - billed per second. </span>
+              <span>
+                - only pay while the server is running - billed per second.
+              </span>
             </span>
           </a>
         </div>
       </div>
       <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-4">
-        <a rel="noopener noreferrer nofollow sponsored" target="_blank" href="https://adrinth.com">
+        <a
+          rel="noopener noreferrer nofollow sponsored"
+          target="_blank"
+          href="https://adrinth.com"
+        >
           Ads via Adrinth
         </a>
       </div>
@@ -32,7 +38,7 @@
   </div>
 </template>
 <script>
-import LightIcon from '~/assetsC/images/external/exaroton-light.svg?inline'
+import LightIcon from '~/assets/images/external/exaroton-light.svg?inline'
 import DarkIcon from '~/assets/images/external/exaroton-dark.svg?inline'
 
 export default {
