@@ -88,80 +88,53 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { acceptFileFromProjectType } from '~/helpers/fileUtils'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'
-import FeaturedIcon from '~/assets/images/utils/star.svg'
 import VersionBadge from '~/components/ui/Badge'
 import FileInput from '~/components/ui/FileInput'
 import DropArea from '~/components/ui/DropArea.vue'
 
-export default defineNuxtComponent({
-  components: {
-    DropArea,
-    DownloadIcon,
-    UploadIcon,
-    InfoIcon,
-    FeaturedIcon,
-    VersionBadge,
-    FileInput,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    versions: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    featuredVersions: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      metaDescription: `Download and browse ${this.versions.length} ${
-        this.project.title
-      } versions. ${this.$formatNumber(
-        this.project.downloads
-      )} total downloads. Last updated ${this.$dayjs(
-        this.versions[0] ? this.versions[0].date_published : null
-      ).format('MMM D, YYYY')}.`,
-    }
-  },
-  methods: {
-    acceptFileFromProjectType,
-    async handleFiles(files) {
-      await this.$router.push({
-        name: 'type-id-version-version',
-        params: {
-          type: this.project.project_type,
-          id: this.project.slug ? this.project.slug : this.project.id,
-          version: 'create',
-        },
-        state: {
-          newPrimaryFile: files[0],
-        },
-      })
+  members: {
+    type: Array,
+    default() {
+      return []
     },
   },
 })
+
+const metaDescription = computed(
+  () =>
+    `Download and browse ${props.project.versions.length} ${
+      props.project.title
+    } versions. ${this.$formatNumber(
+      props.project.downloads
+    )} total downloads. Last updated ${this.$dayjs(props.project.updated).format('MMM D, YYYY')}.`
+)
+
+async function handleFiles(files) {
+  const router = useRouter()
+  await router.push({
+    name: 'type-id-version-version',
+    params: {
+      type: props.project.project_type,
+      id: props.project.slug ? props.project.slug : props.project.id,
+      version: 'create',
+    },
+    state: {
+      newPrimaryFile: files[0],
+    },
+  })
+}
 </script>
 
 <style lang="scss" scoped>

@@ -10,8 +10,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.provide('tag', tagsStore.value)
   nuxtApp.provide('notify', (notif) => addNotification(notif))
 
-  nuxtApp.hook('app:beforeMount', runAnalytics)
-  nuxtApp.hook('page:start', runAnalytics)
+  // nuxtApp.hook('app:beforeMount', runAnalytics)
+  // nuxtApp.hook('page:start', runAnalytics)
 })
 
 function runAnalytics() {

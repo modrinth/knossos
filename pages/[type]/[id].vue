@@ -81,8 +81,8 @@
     </div>
     <div class="normal-page__content">
       <ProjectPublishingChecklist
+        v-if="currentMember"
         :project="project"
-        :versions="versions"
         :current-member="currentMember"
         :is-settings="$route.name.startsWith('type-id-settings')"
         :route-name="$route.name"
@@ -92,7 +92,6 @@
       />
       <NuxtPage
         v-model:project="project"
-        v-model:versions="versions"
         v-model:featured-versions="featuredVersions"
         v-model:members="members"
         v-model:all-members="allMembers"
@@ -610,8 +609,8 @@
       </div>
       <section class="normal-page__content">
         <ProjectPublishingChecklist
+          v-if="currentMember"
           :project="project"
-          :versions="versions"
           :current-member="currentMember"
           :is-settings="$route.name.startsWith('type-id-settings')"
           :route-name="$route.name"
@@ -699,7 +698,6 @@
         </div>
         <NuxtPage
           v-model:project="project"
-          v-model:versions="versions"
           v-model:featured-versions="featuredVersions"
           v-model:members="members"
           v-model:all-members="allMembers"
@@ -826,7 +824,6 @@ export default defineNuxtComponent({
         { data: project },
         { data: members },
         { data: dependencies },
-        { data: versions },
         { data: featuredVersions },
       ] = await Promise.all([
         useAsyncData(
@@ -865,9 +862,6 @@ export default defineNuxtComponent({
         ),
         useAsyncData(`project/${route.params.id}/dependencies`, () =>
           useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders())
-        ),
-        useAsyncData(`project/${route.params.id}/version`, () =>
-          useBaseFetch(`project/${route.params.id}/version?limit=20`, data.$defaultHeaders())
         ),
         useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
           useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
@@ -911,7 +905,6 @@ export default defineNuxtComponent({
         }
       }
 
-      versions.value = data.$computeVersions(versions.value, members.value)
       featuredVersions.value = data.$computeVersions(featuredVersions.value, members.value)
 
       featuredVersions.value.sort((a, b) => {
@@ -927,7 +920,6 @@ export default defineNuxtComponent({
 
       return {
         project,
-        versions: shallowRef(toRaw(versions)),
         featuredVersions: shallowRef(toRaw(featuredVersions)),
         members: ref(members.value.filter((x) => x.accepted)),
         allMembers: members,
@@ -1010,7 +1002,7 @@ export default defineNuxtComponent({
       if (
         this.project.body === '' ||
         this.project.body.startsWith('# Placeholder description') ||
-        this.versions.length < 1 ||
+        this.project.versions.length < 1 ||
         this.project.client_side === 'unknown' ||
         this.project.server_side === 'unknown'
       ) {

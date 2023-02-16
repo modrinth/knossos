@@ -263,6 +263,8 @@ function getDomain() {
 }
 
 // Checklist
+// Move analytics to middleware
+// Fix gallery update project, make sure update model values work
 // Fix perf issues on changelog/version page
 // Replace nuxt color mode with first-party library
 // Fix Day.JS hydration issue

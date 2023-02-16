@@ -2,16 +2,11 @@
   <div class="content">
     <Head>
       <Title> {{ project.title }} - Changelog </Title>
-      <Meta name="og:title" :content="`${project.title} - Changelog`" />
+      <Meta name="og:title" :content="`${props.project.title} - Changelog`" />
       <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Changelog`" />
+      <Meta name="apple-mobile-web-app-title" :content="`${props.project.title} - Changelog`" />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
-    <VersionFilterControl
-      class="card"
-      :versions="filteredVersions"
-      @update-versions="(newVersions) => (filteredVersions = newVersions)"
-    />
     <div class="card">
       <div v-for="version in filteredVersions" :key="version.id" class="changelog-item">
         <div
@@ -22,8 +17,8 @@
             <div class="version-header-text">
               <h2 class="name">
                 <nuxt-link
-                  :to="`/${project.project_type}/${
-                    project.slug ? project.slug : project.id
+                  :to="`/${props.project.project_type}/${
+                    props.project.slug ? props.project.slug : props.project.id
                   }/version/${encodeURI(version.displayUrlEnding)}`"
                 >
                   {{ version.name }}
@@ -61,8 +56,13 @@
 </template>
 <script setup>
 import DownloadIcon from '~/assets/images/utils/download.svg'
-import VersionFilterControl from '~/components/ui/VersionFilterControl'
 import { renderHighlightedString } from '~/helpers/highlight'
+
+const route = useRoute()
+const data = useNuxtApp()
+const { data: filteredVersions } = await useAsyncData(`allversions`, () =>
+  useBaseFetch(`project/${route.params.id}/version?limit=20`, data.$defaultHeaders())
+)
 
 const props = defineProps({
   project: {
@@ -71,7 +71,7 @@ const props = defineProps({
       return {}
     },
   },
-  versions: {
+  members: {
     type: Array,
     default() {
       return []
@@ -79,9 +79,10 @@ const props = defineProps({
   },
 })
 
-const filteredVersions = shallowRef(props.versions)
+filteredVersions.value = data.$computeVersions(filteredVersions.value, props.members)
+
 const metaDescription = computed(
-  () => `View the changelog of ${props.project.title}'s ${props.versions.length} versions.`
+  () => `View the changelog of ${props.project.title}'s ${props.project.versions.length} versions.`
 )
 </script>
 
