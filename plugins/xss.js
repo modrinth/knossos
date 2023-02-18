@@ -30,7 +30,7 @@ const options = {
       const allowedSources = [
         {
           regex:
-            /^https?:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}(\?&autoplay=[0-1]{1})?$/,
+            /^https?:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}(\?(&?\w+=(\w|\d)+)+)?$/,
           remove: ['&autoplay=1'], // Prevents autoplay
         },
       ]
