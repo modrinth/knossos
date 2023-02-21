@@ -186,8 +186,8 @@
     <section class="normal-page__content">
       <div
         v-if="projectType.id === 'modpack' && $orElse($cosmetics.modpacksAlphaNotice, true)"
-        class="card warning"
-        aria-label="Warning"
+        class="card information"
+        aria-label="Information"
       >
         Modpack support is currently in alpha, and modpacks can only be created and installed
         through third party tools. Our documentation includes instructions on

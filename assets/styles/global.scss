@@ -67,9 +67,13 @@ html {
   --color-warning-bg: hsl(355, 70%, 88%);
   --color-warning-text: hsl(342, 70%, 35%);
 
-  --color-banner-text: hsl(0, 11%, 16%);
-  --color-banner-bg: hsl(0, 100%, 95%);
-  --color-banner-side: hsl(357, 78%, 40%);
+  --color-warning-banner-text: hsl(0, 11%, 16%);
+  --color-warning-banner-bg: hsl(0, 100%, 95%);
+  --color-warning-banner-side: hsl(357, 78%, 40%);
+
+  --color-info-banner-text: var(--color-text);
+  --color-info-banner-bg: var(--color-ad);
+  --color-info-banner-side: var(--color-special-blue);
 
   --color-block-quote: var(--color-tooltip-bg);
   --color-header-underline: var(--color-divider-dark);
@@ -191,9 +195,13 @@ html {
   --color-warning-bg: hsl(355, 70%, 20%);
   --color-warning-text: hsl(342, 70%, 75%);
 
-  --color-banner-text: hsl(0, 100%, 96%);
-  --color-banner-bg: hsl(356, 18%, 18%);
-  --color-banner-side: hsl(357, 78%, 40%);
+  --color-warning-banner-text: hsl(0, 100%, 96%);
+  --color-warning-banner-bg: hsl(356, 18%, 18%);
+  --color-warning-banner-side: hsl(357, 78%, 40%);
+
+  --color-info-banner-text: var(--color-text);
+  --color-info-banner-bg: var(--color-ad);
+  --color-info-banner-side: var(--color-special-blue);
 
   --color-block-quote: var(--color-code-bg);
   --color-header-underline: var(--color-divider-dark);
