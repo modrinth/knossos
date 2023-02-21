@@ -1,16 +1,13 @@
-export const useLoading = () =>
-  useState('loading', () => ({
-    loading: false,
-  }))
+export const useLoading = () => useState('loading', () => false)
 
 export const startLoading = () => {
-  const cosmetics = useLoading()
+  const loading = useLoading()
 
-  cosmetics.value.loading = true
+  loading.value = true
 }
 
 export const stopLoading = () => {
-  const cosmetics = useLoading()
+  const loading = useLoading()
 
-  cosmetics.value.loading = false
+  loading.value = false
 }

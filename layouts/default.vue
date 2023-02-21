@@ -298,12 +298,19 @@
           >.
         </p>
         <p>
-          {{ owner }}/{{ slug }} {{ branch }}@<a
+          {{ config.public.owner }}/{{ config.public.slug }} {{ config.public.branch }}@<a
             :target="$external()"
-            :href="'https://github.com/' + owner + '/' + slug + '/tree/' + hash"
+            :href="
+              'https://github.com/' +
+              config.public.owner +
+              '/' +
+              config.public.slug +
+              '/tree/' +
+              config.public.hash
+            "
             class="text-link"
             rel="noopener noreferrer nofollow"
-            >{{ hash.substring(0, 7) }}</a
+            >{{ config.public.hash.substring(0, 7) }}</a
           >
         </p>
         <p>© Rinth, Inc.</p>
@@ -403,41 +410,30 @@ import Avatar from '~/components/ui/Avatar'
 
 const auth = await useAuth()
 const user = await useUser()
+
+const config = useRuntimeConfig()
+const route = useRoute()
+const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
+useHead({
+  meta: [{ name: 'og:url', content: link }],
+  link: [
+    {
+      rel: 'canonical',
+      href: link,
+    },
+  ],
+})
 </script>
 <script>
 export default defineNuxtComponent({
   data() {
     return {
       isDropdownOpen: false,
-      owner: /* process.env.owner || */ 'modrinth',
-      slug: /* process.env.slug || */ 'knossos',
-      branch: /* process.env.branch || */ 'master',
-      hash: /* process.env.hash || */ 'unknown',
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
       hideDropdown: false,
     }
-  },
-  head() {
-    // const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
-    //
-    // return {
-    //   link: [
-    //     {
-    //       rel: 'canonical',
-    //       href: link,
-    //     },
-    //   ],
-    //   meta: [
-    //     {
-    //       hid: 'og:url',
-    //       name: 'og:url',
-    //       content: link,
-    //     },
-    //   ],
-    // }
-    return {}
   },
   watch: {
     '$route.path'() {
@@ -448,14 +444,34 @@ export default defineNuxtComponent({
         document.body.setAttribute('tabindex', '-1')
         document.body.removeAttribute('tabindex')
       }
+
+      updateCurrentDate()
+      this.runAnalytics()
     },
   },
   mounted() {
+    this.runAnalytics()
     if (this.$route.query.code) {
       window.history.replaceState(history.state, null, this.$route.path)
     }
   },
   methods: {
+    runAnalytics() {
+      const config = useRuntimeConfig()
+
+      setTimeout(() => {
+        $fetch(`${config.public.ariadneBaseUrl}view`, {
+          method: 'POST',
+          body: {
+            url: window.location.href,
+          },
+        })
+          .then(() => {})
+          .catch((e) => {
+            console.error('An error occurred while registering the visit: ', e)
+          })
+      })
+    },
     toggleMobileMenu() {
       window.scrollTo(0, 0)
       document.body.scrollTop = 0

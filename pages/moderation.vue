@@ -91,7 +91,7 @@
                 class="stat"
               >
                 <CalendarIcon />
-                Created {{ $dayjs(item.created).fromNow() }}
+                Created {{ fromNow(item.created) }}
               </span>
             </div>
           </div>

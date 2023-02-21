@@ -232,6 +232,11 @@ export default defineNuxtConfig({
       apiBaseUrl: getApiUrl(),
       ariadneBaseUrl: getAriadneUrl(),
       siteUrl: getDomain(),
+
+      owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
+      slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',
+      branch: process.env.VERCEL_GIT_COMMIT_REF || 'master',
+      hash: process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
     },
   },
 })
@@ -263,9 +268,7 @@ function getDomain() {
 }
 
 // Checklist
-// Move analytics to middleware
 // Fix gallery update project, make sure update model values work
 // Fix perf issues on changelog/version page
 // Replace nuxt color mode with first-party library
-// Fix Day.JS hydration issue
 // Fix page "flickering" issue on switch

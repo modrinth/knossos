@@ -126,7 +126,7 @@
                 v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="secondary-stat__text date"
               >
-                Joined {{ $dayjs(user.created).fromNow() }}
+                Joined {{ fromNow(user.created) }}
               </span>
             </div>
             <hr class="card-divider" />

@@ -69,7 +69,7 @@
         class="stat date"
       >
         <EditIcon aria-hidden="true" />
-        <span class="date-label">Updated </span>{{ $dayjs(updatedAt).fromNow() }}
+        <span class="date-label">Updated </span>{{ fromNow(updatedAt) }}
       </div>
       <div
         v-else
@@ -77,7 +77,7 @@
         class="stat date"
       >
         <CalendarIcon aria-hidden="true" />
-        <span class="date-label">Published </span>{{ $dayjs(createdAt).fromNow() }}
+        <span class="date-label">Published </span>{{ fromNow(createdAt) }}
       </div>
     </div>
   </article>

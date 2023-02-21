@@ -175,7 +175,7 @@
                       <CalendarIcon />
                       <span>
                         Received
-                        {{ $dayjs(notification.date_modified).fromNow() }}
+                        {{ fromNow(notification.date_modified) }}
                       </span>
                     </div>
                   </div>

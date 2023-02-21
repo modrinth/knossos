@@ -230,7 +230,7 @@
               >
                 <CalendarIcon aria-hidden="true" />
                 <span class="label">Created</span>
-                <span class="value">{{ $dayjs(project.published).fromNow() }}</span>
+                <span class="value">{{ fromNow(project.published) }}</span>
               </div>
               <div
                 v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')"
@@ -238,7 +238,7 @@
               >
                 <UpdateIcon aria-hidden="true" />
                 <span class="label">Updated</span>
-                <span class="value">{{ $dayjs(project.updated).fromNow() }}</span>
+                <span class="value">{{ fromNow(project.updated) }}</span>
               </div>
             </div>
             <hr class="card-divider" />
