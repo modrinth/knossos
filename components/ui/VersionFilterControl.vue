@@ -1,12 +1,14 @@
 <template>
   <div
-    v-if="getValidLoaders().length > 1 || getValidVersions().length > 1"
+    v-if="
+      loaderFilters.length > 1 || gameVersionFilters.length > 1 || versionTypeFilters.length > 1
+    "
     class="card search-controls"
   >
     <Multiselect
-      v-if="getValidLoaders().length > 1"
+      v-if="loaderFilters.length > 1"
       v-model="selectedLoaders"
-      :options="getValidLoaders()"
+      :options="loaderFilters"
       :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
       :multiple="true"
       :searchable="false"
@@ -15,19 +17,16 @@
       :clear-search-on-select="false"
       :show-labels="false"
       :allow-empty="true"
-      :disabled="getValidLoaders().length === 1"
       placeholder="Filter loader..."
       @update:model-value="updateVersionFilters()"
     />
     <Multiselect
-      v-if="getValidVersions().length > 1"
+      v-if="gameVersionFilters.length > 1"
       v-model="selectedGameVersions"
       :options="
-        showSnapshots
-          ? getValidVersions().map((x) => x.version)
-          : getValidVersions()
-              .filter((it) => it.version_type === 'release')
-              .map((x) => x.version)
+        includeSnapshots
+          ? gameVersionFilters.map((x) => x.version)
+          : gameVersionFilters.filter((it) => it.version_type === 'release').map((x) => x.version)
       "
       :multiple="true"
       :searchable="true"
@@ -40,9 +39,9 @@
       @update:model-value="updateVersionFilters()"
     />
     <Multiselect
-      v-if="getValidChannels().length > 1"
-      v-model="selectedChannels"
-      :options="getValidChannels()"
+      v-if="versionTypeFilters.length > 1"
+      v-model="selectedVersionTypes"
+      :options="versionTypeFilters"
       :custom-label="(x) => $capitalizeString(x)"
       :multiple="true"
       :searchable="false"
@@ -56,10 +55,10 @@
     />
     <Checkbox
       v-if="
-        getValidVersions().length > 1 &&
-        getValidVersions().some((v) => v.version_type !== 'release')
+        gameVersionFilters.length > 1 &&
+        gameVersionFilters.some((v) => v.version_type !== 'release')
       "
-      v-model="showSnapshots"
+      v-model="includeSnapshots"
       label="Include snapshots"
       description="Include snapshots"
       :border="false"
@@ -73,6 +72,7 @@
         () => {
           selectedLoaders = []
           selectedGameVersions = []
+          selectedVersionTypes = []
           updateVersionFilters()
         }
       "
@@ -88,132 +88,77 @@ import Multiselect from 'vue-multiselect'
 import Checkbox from '~/components/ui/Checkbox'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 
+const emit = defineEmits(['updateVersions'])
 const props = defineProps({
-  project: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
   versions: {
     type: Array,
     default() {
       return []
     },
   },
-  members: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-  currentMember: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
 })
-</script>
 
-<script>
-export default {
-  props: {
-    versions: {
-      type: Array,
-      required: true,
-    },
-  },
-  emits: ['update-versions'],
-  data() {
-    return {
-      query: '',
-      showSnapshots: false,
-      cachedValidChannels: null,
-      cachedValidVersions: null,
-      cachedValidLoaders: null,
-      selectedGameVersions: [],
-      selectedLoaders: [],
-      selectedChannels: [],
-    }
-  },
-  fetch() {
-    this.selectedLoaders = this.$route.query.l?.split(',') || []
-    this.selectedGameVersions = this.$route.query.g?.split(',') || []
-    this.selectedChannels = this.$route.query.c?.split(',') || []
-    this.showSnapshots = this.$route.query.s === 'true'
-    this.updateVersionFilters()
-  },
-  methods: {
-    getValidChannels() {
-      if (!this.cachedValidChannels) {
-        this.cachedValidChannels = ['release', 'beta', 'alpha'].filter((channel) =>
-          this.versions.some((projVer) => projVer.version_type === channel)
-        )
-      }
-      return this.cachedValidChannels
-    },
-    getValidVersions() {
-      if (!this.cachedValidVersions) {
-        this.cachedValidVersions = this.$tag.gameVersions.filter((gameVer) =>
-          this.versions.some((projVer) => projVer.game_versions.includes(gameVer.version))
-        )
-      }
-      return this.cachedValidVersions
-    },
-    getValidLoaders() {
-      if (!this.cachedValidLoaders) {
-        const temp = new Set()
-        for (const version of this.versions) {
-          version.loaders.forEach((v) => {
-            temp.add(v)
-          })
-        }
-        this.cachedValidLoaders = Array.from(temp)
-        this.cachedValidLoaders.sort()
-      }
-      return this.cachedValidLoaders
-    },
-    async updateVersionFilters() {
-      this.selectedChannels = this.selectedChannels.filter((channel) =>
-        this.getValidChannels().includes(channel)
-      )
-      this.selectedLoaders = this.selectedLoaders.filter((loader) =>
-        this.getValidLoaders().includes(loader)
-      )
-      this.selectedGameVersions = this.selectedGameVersions.filter((version) =>
-        this.getValidVersions().some((validVersion) => validVersion.version === version)
-      )
+const data = useNuxtApp()
+const route = useRoute()
 
-      const temp = this.versions.filter(
-        (projectVersion) =>
-          (this.selectedGameVersions.length === 0 ||
-            this.selectedGameVersions.some((gameVersion) =>
-              projectVersion.game_versions.includes(gameVersion)
-            )) &&
-          (this.selectedLoaders.length === 0 ||
-            this.selectedLoaders.some((loader) => projectVersion.loaders.includes(loader))) &&
-          (this.selectedChannels.length === 0 ||
-            this.selectedChannels.includes(projectVersion.version_type))
-      )
-      await this.updateQuery()
-      this.$emit('update-versions', temp)
+const tempLoaders = new Set()
+let tempVersions = new Set()
+const tempReleaseChannels = new Set()
+
+for (const version of props.versions) {
+  for (const loader of version.loaders) {
+    tempLoaders.add(loader)
+  }
+  for (const gameVersion of version.game_versions) {
+    tempVersions.add(gameVersion)
+  }
+  tempReleaseChannels.add(version.version_type)
+}
+
+tempVersions = Array.from(tempVersions)
+
+const loaderFilters = shallowRef(Array.from(tempLoaders))
+const gameVersionFilters = shallowRef(
+  data.$tag.gameVersions.filter((gameVer) => tempVersions.includes(gameVer.version))
+)
+const versionTypeFilters = shallowRef(Array.from(tempReleaseChannels))
+const includeSnapshots = ref(route.query.s === 'true')
+
+const selectedGameVersions = shallowRef(route.query.g ?? [])
+const selectedLoaders = shallowRef(route.query.l ?? [])
+const selectedVersionTypes = shallowRef(route.query.c ?? [])
+
+async function updateVersionFilters() {
+  const temp = props.versions.filter(
+    (projectVersion) =>
+      (selectedGameVersions.value.length === 0 ||
+        selectedGameVersions.value.some((gameVersion) =>
+          projectVersion.game_versions.includes(gameVersion)
+        )) &&
+      (selectedLoaders.value.length === 0 ||
+        selectedLoaders.value.some((loader) => projectVersion.loaders.includes(loader))) &&
+      (selectedVersionTypes.value.length === 0 ||
+        selectedVersionTypes.value.includes(projectVersion.version_type))
+  )
+
+  await updateQuery()
+  console.log(temp)
+  emit('updateVersions', temp)
+}
+
+async function updateQuery() {
+  const router = useRouter()
+  const route = useRoute()
+
+  await router.replace({
+    query: {
+      ...route.query,
+      l: selectedLoaders.value.length === 0 ? undefined : selectedLoaders.value,
+      g: selectedGameVersions.value.length === 0 ? undefined : selectedGameVersions.value,
+      c: selectedVersionTypes.value.length === 0 ? undefined : selectedVersionTypes.value,
+      s: includeSnapshots.value ? true : undefined,
     },
-    async updateQuery() {
-      await this.$router.replace({
-        query: {
-          ...this.$route.query,
-          l: this.selectedLoaders.length === 0 ? undefined : this.selectedLoaders.join(','),
-          g:
-            this.selectedGameVersions.length === 0
-              ? undefined
-              : this.selectedGameVersions.join(','),
-          c: this.selectedChannels.length === 0 ? undefined : this.selectedChannels.join(','),
-          s: this.showSnapshots ? true : undefined,
-        },
-      })
-    },
-  },
+  })
 }
 </script>
 

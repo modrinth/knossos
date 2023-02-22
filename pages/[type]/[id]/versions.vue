@@ -22,83 +22,15 @@
       </span>
       <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
-    <div class="card search-controls">
-      <Multiselect
-        v-if="loaderFilters.length > 1"
-        v-model="selectedLoaders"
-        :options="loaderFilters"
-        :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
-        :multiple="true"
-        :searchable="false"
-        :show-no-results="false"
-        :close-on-select="true"
-        :clear-search-on-select="false"
-        :show-labels="false"
-        :allow-empty="true"
-        placeholder="Filter loader..."
-        @update:model-value="updateVersionFilters()"
-      />
-      <Multiselect
-        v-if="gameVersionFilters.length > 1"
-        v-model="selectedGameVersions"
-        :options="
-          includeSnapshots
-            ? gameVersionFilters.map((x) => x.version)
-            : gameVersionFilters.filter((it) => it.version_type === 'release').map((x) => x.version)
-        "
-        :multiple="true"
-        :searchable="true"
-        :show-no-results="false"
-        :close-on-select="false"
-        :show-labels="false"
-        :hide-selected="true"
-        :selectable="() => selectedGameVersions.length <= 6"
-        placeholder="Filter versions..."
-        @update:model-value="updateVersionFilters()"
-      />
-      <Multiselect
-        v-if="versionTypeFilters.length > 1"
-        v-model="selectedVersionTypes"
-        :options="versionTypeFilters"
-        :custom-label="(x) => $capitalizeString(x)"
-        :multiple="true"
-        :searchable="false"
-        :show-no-results="false"
-        :close-on-select="true"
-        :clear-search-on-select="false"
-        :show-labels="false"
-        :allow-empty="true"
-        placeholder="Filter channels..."
-        @update:model-value="updateVersionFilters()"
-      />
-      <Checkbox
-        v-if="
-          gameVersionFilters.length > 1 &&
-          gameVersionFilters.some((v) => v.version_type !== 'release')
-        "
-        v-model="includeSnapshots"
-        label="Include snapshots"
-        description="Include snapshots"
-        :border="false"
-        @update:model-value="updateQuery"
-      />
-      <button
-        title="Clear filters"
-        :disabled="selectedLoaders.length === 0 && selectedGameVersions.length === 0"
-        class="iconified-button"
-        @click="
-          () => {
-            selectedLoaders = []
-            selectedGameVersions = []
-            selectedVersionTypes = []
-            updateVersionFilters()
-          }
-        "
-      >
-        <ClearIcon />
-        Clear filters
-      </button>
-    </div>
+    <VersionFilterControl
+      :versions="props.versions"
+      @update-versions="
+        (v) => {
+          filteredVersions = v
+          switchPage(1)
+        }
+      "
+    />
     <Pagination
       :page="currentPage"
       :count="Math.ceil(filteredVersions.length / 20)"
@@ -180,19 +112,16 @@
   </div>
 </template>
 <script setup>
-import Multiselect from 'vue-multiselect'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'
-import ClearIcon from '~/assets/images/utils/clear.svg'
-import Checkbox from '~/components/ui/Checkbox'
 import VersionBadge from '~/components/ui/Badge'
 import FileInput from '~/components/ui/FileInput'
 import DropArea from '~/components/ui/DropArea'
 import Pagination from '~/components/ui/Pagination'
+import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
-const data = useNuxtApp()
 const props = defineProps({
   project: {
     type: Object,
@@ -220,6 +149,7 @@ const props = defineProps({
   },
 })
 
+const data = useNuxtApp()
 const metaDescription = computed(
   () =>
     `Download and browse ${props.project.versions.length} ${
@@ -230,74 +160,23 @@ const metaDescription = computed(
 )
 
 const route = useRoute()
-
-const tempLoaders = new Set()
-let tempVersions = new Set()
-const tempReleaseChannels = new Set()
-
-for (const version of props.versions) {
-  for (const loader of version.loaders) {
-    tempLoaders.add(loader)
-  }
-  for (const gameVersion of version.game_versions) {
-    tempVersions.add(gameVersion)
-  }
-  tempReleaseChannels.add(version.version_type)
-}
-
-tempVersions = Array.from(tempVersions)
-
-const loaderFilters = shallowRef(Array.from(tempLoaders))
-const gameVersionFilters = shallowRef(
-  data.$tag.gameVersions.filter((gameVer) => tempVersions.includes(gameVer.version))
-)
-const versionTypeFilters = shallowRef(Array.from(tempReleaseChannels))
-const includeSnapshots = ref(route.query.s === 'true')
-
 const currentPage = ref(Number(route.query.p ?? 1))
-const selectedGameVersions = shallowRef(route.query.g ?? [])
-const selectedLoaders = shallowRef(route.query.l ?? [])
-const selectedVersionTypes = shallowRef(route.query.c ?? [])
-
-const filteredVersions = computed(() =>
-  props.versions.filter(
-    (projectVersion) =>
-      (selectedGameVersions.value.length === 0 ||
-        selectedGameVersions.value.some((gameVersion) =>
-          projectVersion.game_versions.includes(gameVersion)
-        )) &&
-      (selectedLoaders.value.length === 0 ||
-        selectedLoaders.value.some((loader) => projectVersion.loaders.includes(loader))) &&
-      (selectedVersionTypes.value.length === 0 ||
-        selectedVersionTypes.value.includes(projectVersion.version_type))
-  )
-)
+const filteredVersions = shallowRef(props.versions)
 
 async function switchPage(page) {
   currentPage.value = page
 
-  await updateQuery()
-}
-
-async function updateVersionFilters() {
-  await updateQuery()
-}
-
-async function updateQuery() {
   const router = useRouter()
   const route = useRoute()
 
   await router.replace({
     query: {
       ...route.query,
-      l: selectedLoaders.value.length === 0 ? undefined : selectedLoaders.value,
-      g: selectedGameVersions.value.length === 0 ? undefined : selectedGameVersions.value,
-      c: selectedVersionTypes.value.length === 0 ? undefined : selectedVersionTypes.value,
-      s: includeSnapshots.value ? true : undefined,
-      p: currentPage !== 1 ? currentPage.value : undefined,
+      p: currentPage.value !== 1 ? currentPage.value : undefined,
     },
   })
 }
+
 async function handleFiles(files) {
   const router = useRouter()
   await router.push({

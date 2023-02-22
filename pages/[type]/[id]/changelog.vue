@@ -7,8 +7,28 @@
       <Meta name="apple-mobile-web-app-title" :content="`${props.project.title} - Changelog`" />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
+    <VersionFilterControl
+      :versions="props.versions"
+      @update-versions="
+        (v) => {
+          filteredVersions = v
+          switchPage(1)
+        }
+      "
+    />
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(filteredVersions.length / 20)"
+      class="pagination-before"
+      :link-function="(page) => `?page=${page}`"
+      @switch-page="switchPage"
+    />
     <div class="card">
-      <div v-for="version in props.versions" v-once :key="version.id" class="changelog-item">
+      <div
+        v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
+        :key="version.id"
+        class="changelog-item"
+      >
         <div
           :class="`changelog-bar ${version.version_type} ${version.duplicate ? 'duplicate' : ''}`"
         />
@@ -52,11 +72,20 @@
         </div>
       </div>
     </div>
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(filteredVersions.length / 20)"
+      class="pagination-before"
+      :link-function="(page) => `?page=${page}`"
+      @switch-page="switchPage"
+    />
   </div>
 </template>
 <script setup>
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import { renderHighlightedString } from '~/helpers/highlight'
+import VersionFilterControl from '~/components/ui/VersionFilterControl'
+import Pagination from '~/components/ui/Pagination'
 
 const props = defineProps({
   project: {
@@ -82,6 +111,24 @@ const props = defineProps({
 const metaDescription = computed(
   () => `View the changelog of ${props.project.title}'s ${props.project.versions.length} versions.`
 )
+
+const route = useRoute()
+const currentPage = ref(Number(route.query.p ?? 1))
+const filteredVersions = shallowRef(props.versions)
+
+async function switchPage(page) {
+  currentPage.value = page
+
+  const router = useRouter()
+  const route = useRoute()
+
+  await router.replace({
+    query: {
+      ...route.query,
+      p: currentPage.value !== 1 ? currentPage.value : undefined,
+    },
+  })
+}
 </script>
 
 <style lang="scss">

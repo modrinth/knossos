@@ -268,7 +268,7 @@ function getDomain() {
 }
 
 // Checklist
+// Bring back line animation
 // Fix gallery update project, make sure update model values work
-// Fix perf issues on changelog/version page
 // Replace nuxt color mode with first-party library
 // Fix page "flickering" issue on switch
