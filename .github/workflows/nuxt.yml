@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable --immutable-cache --check-cache
       - name: Build Knossos
         run: npm run build
       - name: Run Lint
