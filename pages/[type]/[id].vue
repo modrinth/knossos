@@ -841,6 +841,7 @@ export default defineNuxtComponent({
                 project.project_type,
                 project.loaders
               )
+              console.log(project.project_type)
 
               if (process.client && history.state && history.state.overrideProjectType) {
                 project.project_type = history.state.overrideProjectType
@@ -919,7 +920,7 @@ export default defineNuxtComponent({
       })
 
       const projectTypeDisplay = data.$formatProjectType(
-        data.$getProjectTypeForDisplay(project.project_type, project.loaders)
+        data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
       )
 
       return {

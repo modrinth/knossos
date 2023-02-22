@@ -96,7 +96,7 @@ export const md = (options = {}) => {
       ]
 
       if (!allowedHostnames.includes(url.hostname)) {
-        token.attrs[index][1] = `//wsrv.nl/?url=${src}`
+        token.attrs[index][1] = `//wsrv.nl/?url=${encodeURIComponent(src)}`
       }
     }
 
