@@ -61,7 +61,7 @@
       <li>Some additional metadata about your connection (HTTP headers)</li>
     </ul>
     <p>
-      This data is used to prevent automated access to our files and deliver
+      This data is used to monitor automated access to our service and deliver
       statistics.
     </p>
 
