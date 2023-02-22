@@ -101,7 +101,7 @@
           </template>
           <template v-else>
             <div class="sidebar__item">
-              <Badge v-if="user.role === 'admin' || user.role === 'moderator'" :type="user.role" />
+              <Badge v-if="$tag.staffRoles.includes(user.role)" :type="user.role" />
               <Badge v-else-if="projects.length > 0" type="creator" />
             </div>
             <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
@@ -211,14 +211,10 @@
             :client-side="project.client_side"
             :server-side="project.server_side"
             :status="
-              $auth.user &&
-              ($auth.user.id === user.id ||
-                $auth.user.role === 'admin' ||
-                $auth.user.role === 'moderator')
+              $auth.user && ($auth.user.id === user.id || $tag.staffRoles.includes($auth.user.role))
                 ? project.status
                 : null
             "
-            :has-mod-message="project.moderator_message"
             :type="project.project_type"
             :color="project.color"
           />

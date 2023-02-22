@@ -128,7 +128,7 @@
     <ul>
       <li>Content containing sexual or explicit material</li>
       <li>Content promoting or sharing harmful or hateful behavior</li>
-      <li>Content with a focus on items such as alcohol, tobacco, and other drugs</li>
+      <li>Content themed around or containing real-life drugs or illicit substances</li>
       <li>Content with an excessive amount of profane language</li>
     </ul>
   </div>

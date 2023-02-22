@@ -87,9 +87,13 @@
             :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
           />
         </div>
-        <ul v-if="member.role === 'Owner' && member.oldRole !== 'Owner'" class="known-errors">
-          <li>A project can only have one 'Owner'.</li>
-        </ul>
+        <p
+          v-if="member.role === 'Owner' && member.oldRole !== 'Owner'"
+          class="known-errors"
+        >
+          A project can only have one 'Owner'. Use the 'Transfer ownership'
+          button below if you no longer wish to be owner.
+        </p>
         <template v-if="member.oldRole !== 'Owner'">
           <span class="label">
             <span class="label__title">Permissions</span>

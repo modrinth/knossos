@@ -109,7 +109,7 @@
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
-                    v-if="auth.user.role === 'moderator' || auth.user.role === 'admin'"
+                    v-if="$tag.staffRoles.includes($auth.user.role)"
                     class="item button-transparent"
                     to="/moderation"
                   >
@@ -253,7 +253,7 @@
               <span class="dropdown-item__text">Settings</span>
             </NuxtLink>
             <NuxtLink
-              v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
+              v-if="auth.user && $tag.staffRoles.includes(auth.user.role)"
               class="iconified-button raised-button"
               to="/moderation"
             >
@@ -321,7 +321,7 @@
         <nuxt-link to="/legal/privacy"> Privacy </nuxt-link>
         <nuxt-link to="/legal/rules"> Rules </nuxt-link>
         <a :target="$external()" href="https://careers.modrinth.com">
-          Careers <span class="count-bubble">2</span>
+          Careers
         </a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">

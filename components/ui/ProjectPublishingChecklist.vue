@@ -2,9 +2,10 @@
   <div
     v-if="
       $auth.user &&
-      currentMember &&
+      currrentMember &&
       nags.filter((x) => x.condition).length > 0 &&
-      project.status === 'draft'
+      (project.status === 'draft' ||
+        $tag.rejectedStatuses.includes(project.status))
     "
     class="author-actions universal-card"
   >
@@ -59,6 +60,16 @@
           />{{ nag.title }}</span
         >
         {{ nag.description }}
+        <Checkbox
+          v-if="
+            nag.status === 'review' &&
+            project.moderator_message &&
+            $tag.rejectedStatuses.includes(project.status)
+          "
+          v-model="acknowledgedMessage"
+        >
+          I acknowledge that I have addressed the staff's message on the sidebar
+        </Checkbox>
         <NuxtLink
           v-if="nag.link"
           :class="{ invisible: nag.link.hide }"
@@ -85,16 +96,18 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import RequiredIcon from '~/assets/images/utils/asterisk.svg'
-import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
+import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import RequiredIcon from '~/assets/images/utils/asterisk.svg?inline'
+import SuggestionIcon from '~/assets/images/utils/lightbulb.svg?inline'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
+import SendIcon from '~/assets/images/utils/send.svg?inline'
+import Checkbox from '~/components/ui/Checkbox'
 
 export default {
   components: {
+    Checkbox,
     ChevronRightIcon,
     DropdownIcon,
     CheckIcon,
@@ -150,6 +163,11 @@ export default {
         }
       },
     },
+  },
+  data() {
+    return {
+      acknowledgedMessage: !this.project.moderator_message,
+    }
   },
   computed: {
     featuredGalleryImage() {
@@ -274,7 +292,8 @@ export default {
           },
         },
         {
-          condition: this.project.status === 'draft',
+          hide: this.project.status !== 'draft',
+          condition: true,
           title: 'Submit for review',
           id: 'submit-for-review',
           description:
@@ -286,6 +305,25 @@ export default {
             title: 'Submit for review',
             disabled: () =>
               this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
+          },
+        },
+        {
+          hide: !this.$tag.rejectedStatuses.includes(this.project.status),
+          condition: true,
+          title: 'Resubmit for review',
+          id: 'resubmit-for-review',
+          description: `Your project has been ${this.project.status} by
+            Modrinth's staff. In most cases, you can resubmit for review after
+            addressing the staff's message.`,
+          status: 'review',
+          link: null,
+          action: {
+            onClick: this.submitForReview,
+            title: 'Resubmit for review',
+            disabled: () =>
+              !this.acknowledgedMessage ||
+              this.nags.filter((x) => x.condition && x.status === 'required')
+                .length > 0,
           },
         },
       ]
@@ -323,7 +361,11 @@ export default {
       }
     },
     async submitForReview() {
-      if (this.nags.filter((x) => x.condition && x.status === 'required').length === 0) {
+      if (
+        !this.acknowledgedMessage ||
+        this.nags.filter((x) => x.condition && x.status === 'required')
+          .length === 0
+      ) {
         await this.setProcessing()
       }
     },

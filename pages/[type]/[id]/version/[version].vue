@@ -650,11 +650,19 @@
             />
 
             <div class="member-info">
-              <nuxt-link :to="'/user/' + version.author.user.username" class="name">
-                <p>{{ version.author.name }}</p>
+              <nuxt-link
+                :to="'/user/' + version.author.user.username"
+                class="name"
+              >
+                <p>
+                  {{ version.author.name }}
+                </p>
               </nuxt-link>
-              <p class="role">
+              <p v-if="version.author.role" class="role">
                 {{ version.author.role }}
+              </p>
+              <p v-else-if="version.author_id === 'GVFjtWTf'" class="role">
+                Archivist
               </p>
             </div>
           </div>
