@@ -8,7 +8,7 @@
       <Meta name="og:description" :content="metaDescription" />
     </Head>
     <div class="card">
-      <div v-for="version in filteredVersions" :key="version.id" class="changelog-item">
+      <div v-for="version in props.versions" v-once :key="version.id" class="changelog-item">
         <div
           :class="`changelog-bar ${version.version_type} ${version.duplicate ? 'duplicate' : ''}`"
         />
@@ -58,17 +58,17 @@
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import { renderHighlightedString } from '~/helpers/highlight'
 
-const route = useRoute()
-const data = useNuxtApp()
-const { data: filteredVersions } = await useAsyncData(`allversions`, () =>
-  useBaseFetch(`project/${route.params.id}/version?limit=20`, data.$defaultHeaders())
-)
-
 const props = defineProps({
   project: {
     type: Object,
     default() {
       return {}
+    },
+  },
+  versions: {
+    type: Array,
+    default() {
+      return []
     },
   },
   members: {
@@ -78,8 +78,6 @@ const props = defineProps({
     },
   },
 })
-
-filteredVersions.value = data.$computeVersions(filteredVersions.value, props.members)
 
 const metaDescription = computed(
   () => `View the changelog of ${props.project.title}'s ${props.project.versions.length} versions.`

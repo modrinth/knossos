@@ -636,7 +636,7 @@
             {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm:ss A') }}
           </span>
         </div>
-        <div v-if="!isEditing">
+        <div v-if="!isEditing && version.author">
           <h4>Publisher</h4>
           <div
             class="team-member columns button-transparent"

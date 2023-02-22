@@ -92,6 +92,7 @@
       />
       <NuxtPage
         v-model:project="project"
+        v-model:versions="versions"
         v-model:featured-versions="featuredVersions"
         v-model:members="members"
         v-model:all-members="allMembers"
@@ -702,6 +703,7 @@
         </div>
         <NuxtPage
           v-model:project="project"
+          v-model:versions="versions"
           v-model:featured-versions="featuredVersions"
           v-model:members="members"
           v-model:all-members="allMembers"
@@ -829,6 +831,7 @@ export default defineNuxtComponent({
         { data: members },
         { data: dependencies },
         { data: featuredVersions },
+        { data: versions },
       ] = await Promise.all([
         useAsyncData(
           `project/${route.params.id}`,
@@ -841,7 +844,6 @@ export default defineNuxtComponent({
                 project.project_type,
                 project.loaders
               )
-              console.log(project.project_type)
 
               if (process.client && history.state && history.state.overrideProjectType) {
                 project.project_type = history.state.overrideProjectType
@@ -870,6 +872,9 @@ export default defineNuxtComponent({
         ),
         useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
           useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
+        ),
+        useAsyncData(`project/${route.params.id}/version`, () =>
+          useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders())
         ),
       ])
 
@@ -910,6 +915,7 @@ export default defineNuxtComponent({
         }
       }
 
+      versions.value = data.$computeVersions(versions.value, members.value)
       featuredVersions.value = data.$computeVersions(featuredVersions.value, members.value)
 
       featuredVersions.value.sort((a, b) => {
@@ -925,6 +931,7 @@ export default defineNuxtComponent({
 
       return {
         project,
+        versions: shallowRef(toRaw(versions)),
         featuredVersions: shallowRef(toRaw(featuredVersions)),
         members: ref(members.value.filter((x) => x.accepted)),
         allMembers: members,

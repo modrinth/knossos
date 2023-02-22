@@ -83,16 +83,41 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Multiselect from 'vue-multiselect'
 import Checkbox from '~/components/ui/Checkbox'
 import ClearIcon from '~/assets/images/utils/clear.svg'
-export default {
-  components: {
-    Multiselect,
-    Checkbox,
-    ClearIcon,
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
+    },
   },
+  versions: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+  members: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+})
+</script>
+
+<script>
+export default {
   props: {
     versions: {
       type: Array,
@@ -204,27 +229,6 @@ export default {
   }
   .checkbox-outer {
     min-width: fit-content;
-  }
-}
-.circle-button {
-  display: flex;
-  max-width: 2rem;
-  padding: 0.5rem;
-  background-color: var(--color-button-bg);
-  border-radius: var(--size-rounded-max);
-  box-shadow: inset 0px -1px 1px rgba(17, 24, 39, 0.1);
-  &:hover,
-  &:focus-visible {
-    background-color: var(--color-button-bg-hover);
-    color: var(--color-button-text-hover);
-  }
-  &:active {
-    background-color: var(--color-button-bg-active);
-    color: var(--color-button-text-active);
-  }
-  svg {
-    height: 1rem;
-    width: 1rem;
   }
 }
 </style>
