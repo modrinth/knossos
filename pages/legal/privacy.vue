@@ -69,8 +69,8 @@
     <p>
       When you sign up for our
       <a href="https://blog.modrinth.com/p/creator-monetization-beta">
-        Creator Monetization Program
-      </a>
+        Creator Monetization Program</a
+      >
       (the "CMP"), we collect:
     </p>
     <ul>
@@ -204,7 +204,7 @@
       Chandler, AZ, USA 85224
     </p>
 
-    <h2>How to contact the appropriate authority</h2>
+    <h3>How to contact the appropriate authority</h3>
     <p>
       Should you wish to fill a complaint or if you feel like we haven't
       addressed your concerns or request, you may contact the
