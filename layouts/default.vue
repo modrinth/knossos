@@ -408,7 +408,7 @@ export default defineNuxtComponent({
   },
   computed: {
     isOnSearchPage() {
-      return SEARCH_PAGES.some((page) => this.$route.path.startsWith(page))
+      return NAV_ROUTES.some((route) => this.$route.path.startsWith(route.href))
     },
   },
   watch: {
