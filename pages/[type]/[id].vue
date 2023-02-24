@@ -285,10 +285,7 @@
         >
           <h3 class="card-header">Message from the moderators:</h3>
           <div v-if="project.moderator_message.body">
-            <p
-              v-if="project.moderator_message.message"
-              class="mod-message__title"
-            >
+            <p v-if="project.moderator_message.message" class="mod-message__title">
               {{ project.moderator_message.message }}
             </p>
           </div>
@@ -591,8 +588,8 @@
           context.
         </div>
         <div v-if="project.status === 'archived'" class="card warning" aria-label="Warning">
-          {{ project.title }} has been archived. {{ project.title }} will not
-          receive any further updates unless the author decides to unarchive the project.
+          {{ project.title }} has been archived. {{ project.title }} will not receive any further
+          updates unless the author decides to unarchive the project.
         </div>
         <div
           v-if="project.project_type === 'modpack'"

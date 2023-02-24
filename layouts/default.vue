@@ -320,9 +320,7 @@
         <nuxt-link to="/legal/terms"> Terms </nuxt-link>
         <nuxt-link to="/legal/privacy"> Privacy </nuxt-link>
         <nuxt-link to="/legal/rules"> Rules </nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com">
-          Careers
-        </a>
+        <a :target="$external()" href="https://careers.modrinth.com"> Careers </a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>

@@ -4,8 +4,7 @@
       $auth.user &&
       currrentMember &&
       nags.filter((x) => x.condition).length > 0 &&
-      (project.status === 'draft' ||
-        $tag.rejectedStatuses.includes(project.status))
+      (project.status === 'draft' || $tag.rejectedStatuses.includes(project.status))
     "
     class="author-actions universal-card"
   >
@@ -322,8 +321,7 @@ export default {
             title: 'Resubmit for review',
             disabled: () =>
               !this.acknowledgedMessage ||
-              this.nags.filter((x) => x.condition && x.status === 'required')
-                .length > 0,
+              this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
           },
         },
       ]
@@ -363,8 +361,7 @@ export default {
     async submitForReview() {
       if (
         !this.acknowledgedMessage ||
-        this.nags.filter((x) => x.condition && x.status === 'required')
-          .length === 0
+        this.nags.filter((x) => x.condition && x.status === 'required').length === 0
       ) {
         await this.setProcessing()
       }
