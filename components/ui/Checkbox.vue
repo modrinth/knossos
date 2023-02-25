@@ -9,11 +9,22 @@
       class="checkbox"
       role="checkbox"
       :disabled="disabled"
-      :class="{ checked: value, collapsing: collapsingToggleStyle }"
+      :class="{
+        checked: value == 1,
+        negativeChecked: value == 2,
+        collapsing: collapsingToggleStyle,
+      }"
       :aria-label="description"
       :aria-checked="value"
     >
-      <CheckIcon v-if="value && !collapsingToggleStyle" aria-hidden="true" />
+      <CheckIcon
+        v-if="value == 1 && !collapsingToggleStyle"
+        aria-hidden="true"
+      />
+      <CrossIcon
+        v-if="value == 2 && !collapsingToggleStyle"
+        aria-hidden="true"
+      />
       <DropdownIcon v-else-if="collapsingToggleStyle" aria-hidden="true" />
     </button>
     <!-- aria-hidden is set so screenreaders only use the <button>'s aria-label -->
@@ -24,12 +35,14 @@
 
 <script>
 import CheckIcon from '~/assets/images/utils/check.svg?inline'
+import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
 
 export default {
   name: 'Checkbox',
   components: {
     CheckIcon,
+    CrossIcon,
     DropdownIcon,
   },
   props: {
@@ -45,7 +58,10 @@ export default {
       type: String,
       default: '',
     },
-    value: Boolean,
+    value: {
+      type: Number,
+      default: 0,
+    },
     clickEvent: {
       type: Function,
       default: () => {},
@@ -58,7 +74,7 @@ export default {
   methods: {
     toggle() {
       if (!this.disabled) {
-        this.$emit('input', !this.value)
+        this.$emit('input', (this.value + 1) % 2)
       }
     },
   },
@@ -101,6 +117,10 @@ export default {
 
   &.checked {
     background-color: var(--color-brand);
+  }
+
+  &.negativeChecked {
+    background-color: var(--color-special-red);
   }
 
   svg {

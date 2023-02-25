@@ -1,7 +1,13 @@
 <template>
   <Checkbox
     class="filter"
-    :value="activeFilters.includes(facetName)"
+    :value="
+      activeFilters.includes(facetName)
+        ? 1
+        : negativeFilters.includes(facetName)
+        ? 2
+        : 0
+    "
     :description="displayName"
     @input="toggle()"
   >
@@ -35,6 +41,12 @@ export default {
       default: '',
     },
     activeFilters: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    negativeFilters: {
       type: Array,
       default() {
         return []

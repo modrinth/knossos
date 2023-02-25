@@ -51,6 +51,7 @@
                 )"
                 :key="category.name"
                 :active-filters="facets"
+                :negative-filters="negativeFacets"
                 :display-name="$formatCategory(category.name)"
                 :facet-name="`categories:'${encodeURIComponent(
                   category.name
@@ -457,6 +458,7 @@ export default {
       selectedEnvironments: [],
 
       facets: [],
+      negativeFacets: [],
       orFacets: [],
       results: null,
       pageCount: 1,
@@ -641,9 +643,15 @@ export default {
     async toggleFacet(elementName, doNotSendRequest) {
       const index = this.facets.indexOf(elementName)
       if (index !== -1) {
-        this.facets.splice(index, 1)
+        const removedItem = this.facets.splice(index, 1)[0]
+        this.negativeFacets.push(removedItem)
       } else {
-        this.facets.push(elementName)
+        const negativeIndex = this.negativeFacets.indexOf(elementName)
+        if (negativeIndex !== -1) {
+          this.negativeFacets.splice(negativeIndex, 1)
+        } else {
+          this.facets.push(elementName)
+        }
       }
 
       if (!doNotSendRequest) await this.onSearchChange(1)
@@ -753,6 +761,10 @@ export default {
                 (x) => `categories:'${encodeURIComponent(x)}'`
               )
             )
+          }
+
+          for (const facet of this.negativeFacets) {
+            formattedFacets.push(['NOT ' + facet])
           }
 
           if (this.selectedVersions.length > 0) {
