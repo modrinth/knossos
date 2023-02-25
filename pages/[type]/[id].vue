@@ -292,7 +292,7 @@
           <div
             class="markdown-body"
             v-html="
-              $xss(
+              renderString(
                 $md.render(
                   project.moderator_message.body
                     ? project.moderator_message.body
