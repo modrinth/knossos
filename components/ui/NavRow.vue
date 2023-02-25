@@ -10,7 +10,17 @@
     >
       <span>{{ link.label }}</span>
     </NuxtLink>
-    <div class="nav-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div>
+    <div
+      class="nav-indicator"
+      :style="{
+        left: positionToMoveX,
+        top: positionToMoveY,
+        width: sliderWidth,
+        opacity: activeIndex === -1 ? 0 : 1,
+        // transition: activeIndex === -1 ? 'none' : 'all ease-in-out 0.2s',
+      }"
+      aria-hidden="true"
+    ></div>
   </nav>
 </template>
 
@@ -28,7 +38,8 @@ export default {
   },
   data() {
     return {
-      sliderPosition: 0,
+      sliderPositionX: 0,
+      sliderPositionY: 0,
       selectedElementWidth: 0,
       activeIndex: -1,
       oldIndex: -1,
@@ -38,8 +49,11 @@ export default {
     filteredLinks() {
       return this.links.filter((x) => (x.shown === undefined ? true : x.shown))
     },
-    positionToMove() {
-      return `${this.sliderPosition}px`
+    positionToMoveX() {
+      return `${this.sliderPositionX}px`
+    },
+    positionToMoveY() {
+      return `${this.sliderPositionY}px`
     },
     sliderWidth() {
       return `${this.selectedElementWidth}px`
@@ -58,7 +72,11 @@ export default {
     },
   },
   mounted() {
+    window.addEventListener('resize', this.pickLink)
     this.pickLink()
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.pickLink)
   },
   methods: {
     pickLink() {
@@ -72,13 +90,15 @@ export default {
         this.startAnimation()
       } else {
         this.oldIndex = -1
-        this.sliderPosition = 0
+        this.sliderPositionX = 0
         this.selectedElementWidth = 0
       }
     },
     startAnimation() {
       const el = this.$refs.linkElements[this.activeIndex].$el
-      this.sliderPosition = el.offsetLeft
+
+      this.sliderPositionX = el.offsetLeft
+      this.sliderPositionY = el.offsetTop + el.offsetHeight
       this.selectedElementWidth = el.offsetWidth
     },
   },
@@ -134,9 +154,8 @@ export default {
     height: 0.25rem;
     bottom: -5px;
     left: 0;
-    margin: auto;
     width: 3rem;
-    transition: all ease 0.5s;
+    transition: all ease-in-out 0.2s;
     border-radius: var(--size-rounded-max);
     background-color: var(--color-brand);
 

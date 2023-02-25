@@ -290,7 +290,6 @@
             </p>
           </div>
           <div
-            v-highlightjs
             class="markdown-body"
             v-html="
               $xss(
