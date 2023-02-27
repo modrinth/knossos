@@ -17,7 +17,6 @@
         top: positionToMoveY,
         width: sliderWidth,
         opacity: activeIndex === -1 ? 0 : 1,
-        // transition: activeIndex === -1 ? 'none' : 'all ease-in-out 0.2s',
       }"
       aria-hidden="true"
     ></div>
