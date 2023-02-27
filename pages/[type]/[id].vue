@@ -293,11 +293,9 @@
             class="markdown-body"
             v-html="
               renderString(
-                $md.render(
-                  project.moderator_message.body
-                    ? project.moderator_message.body
-                    : project.moderator_message.message
-                )
+                project.moderator_message.body
+                  ? project.moderator_message.body
+                  : project.moderator_message.message
               )
             "
           />
