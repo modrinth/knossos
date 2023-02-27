@@ -290,15 +290,12 @@
             </p>
           </div>
           <div
-            v-highlightjs
             class="markdown-body"
             v-html="
-              $xss(
-                $md.render(
-                  project.moderator_message.body
-                    ? project.moderator_message.body
-                    : project.moderator_message.message
-                )
+              renderString(
+                project.moderator_message.body
+                  ? project.moderator_message.body
+                  : project.moderator_message.message
               )
             "
           />

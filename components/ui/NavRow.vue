@@ -10,6 +10,16 @@
     >
       <span>{{ link.label }}</span>
     </NuxtLink>
+    <div
+      class="nav-indicator"
+      :style="{
+        left: positionToMoveX,
+        top: positionToMoveY,
+        width: sliderWidth,
+        opacity: activeIndex === -1 ? 0 : 1,
+      }"
+      aria-hidden="true"
+    ></div>
   </nav>
 </template>
 
@@ -25,9 +35,70 @@ export default {
       type: String,
     },
   },
+  data() {
+    return {
+      sliderPositionX: 0,
+      sliderPositionY: 0,
+      selectedElementWidth: 0,
+      activeIndex: -1,
+      oldIndex: -1,
+    }
+  },
   computed: {
     filteredLinks() {
       return this.links.filter((x) => (x.shown === undefined ? true : x.shown))
+    },
+    positionToMoveX() {
+      return `${this.sliderPositionX}px`
+    },
+    positionToMoveY() {
+      return `${this.sliderPositionY}px`
+    },
+    sliderWidth() {
+      return `${this.selectedElementWidth}px`
+    },
+  },
+  watch: {
+    '$route.path': {
+      handler() {
+        this.pickLink()
+      },
+    },
+    '$route.query': {
+      handler() {
+        if (this.query) this.pickLink()
+      },
+    },
+  },
+  mounted() {
+    window.addEventListener('resize', this.pickLink)
+    this.pickLink()
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.pickLink)
+  },
+  methods: {
+    pickLink() {
+      this.activeIndex = this.query
+        ? this.filteredLinks.findIndex(
+            (x) => (x.href === '' ? undefined : x.href) === this.$route.path[this.query]
+          )
+        : this.filteredLinks.findIndex((x) => x.href === decodeURIComponent(this.$route.path))
+
+      if (this.activeIndex !== -1) {
+        this.startAnimation()
+      } else {
+        this.oldIndex = -1
+        this.sliderPositionX = 0
+        this.selectedElementWidth = 0
+      }
+    },
+    startAnimation() {
+      const el = this.$refs.linkElements[this.activeIndex].$el
+
+      this.sliderPositionX = el.offsetLeft
+      this.sliderPositionY = el.offsetTop + el.offsetHeight
+      this.selectedElementWidth = el.offsetWidth
     },
   },
 }
@@ -47,19 +118,6 @@ export default {
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
     position: relative;
-
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: -5px;
-      width: 100%;
-      border-radius: var(--size-rounded-max);
-      height: 0.25rem;
-      transition: opacity 0.1s ease-in-out;
-      background-color: var(--color-brand);
-      opacity: 0;
-    }
 
     &:hover {
       color: var(--color-text);
@@ -93,11 +151,12 @@ export default {
   .nav-indicator {
     position: absolute;
     height: 0.25rem;
+    bottom: -5px;
+    left: 0;
+    width: 3rem;
+    transition: all ease-in-out 0.2s;
     border-radius: var(--size-rounded-max);
     background-color: var(--color-brand);
-    transition-property: left, right, top;
-    transition-duration: 350ms;
-    visibility: hidden;
 
     @media (prefers-reduced-motion) {
       transition: none !important;
