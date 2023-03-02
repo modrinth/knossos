@@ -618,7 +618,6 @@
         </div>
         <Advertisement
           v-if="$tag.approvedStatuses.includes(project.status)"
-          type="banner"
           small-screen="square"
         />
         <div class="navigation-card">

@@ -222,7 +222,7 @@
         >
         for support.
       </div>
-      <Advertisement type="banner" small-screen="square" />
+      <Advertisement />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -593,7 +593,9 @@ export default defineNuxtComponent({
       return `${base}${url}`
     })
     const results = shallowRef(toRaw(rawResults))
-    const pageCount = computed(() => Math.ceil(results.value.total_hits / results.value.limit))
+    const pageCount = computed(() =>
+      results.value ? Math.ceil(results.value.total_hits / results.value.limit) : 1
+    )
 
     const onSearchChange = (newPageNumber) => {
       currentPage.value = newPageNumber

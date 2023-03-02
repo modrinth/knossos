@@ -138,7 +138,7 @@
         </div>
       </div>
       <div class="normal-page__content">
-        <Advertisement type="banner" small-screen="square" />
+        <Advertisement />
         <nav class="navigation-card">
           <NavRow
             :links="[
