@@ -312,8 +312,14 @@
           role="list"
           aria-label="Search results"
         >
+          <div v-if="searchLoading" class="orbit-spinner">
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+          </div>
           <ProjectCard
             v-for="result in results"
+            v-else
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
             :display="$cosmetics.searchDisplayMode[projectType.id]"
@@ -397,12 +403,11 @@ export default defineNuxtComponent({
       showAllLoaders: false,
     }
   },
-  async setup() {
+  setup() {
     const data = useNuxtApp()
     const route = useRoute()
 
     const query = ref('')
-    const results = shallowRef([])
     const facets = ref([])
     const orFacets = ref([])
     const selectedVersions = ref([])
@@ -476,14 +481,15 @@ export default defineNuxtComponent({
       (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
 
-    const onSearchChange = async (newPageNumber) => {
-      currentPage.value = newPageNumber
+    const {
+      data: results,
+      refresh: refreshSearch,
+      pending: searchLoading,
+    } = useLazyFetch(
+      () => {
+        const config = useRuntimeConfig()
+        const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
-      if (query.value === null) {
-        return
-      }
-
-      try {
         const params = [`limit=${maxResults.value}`, `index=${sortType.value.name}`]
 
         if (query.value.length > 0) {
@@ -567,8 +573,8 @@ export default defineNuxtComponent({
           params.push(`facets=${JSON.stringify(formattedFacets)}`)
         }
 
-        const offset = (newPageNumber - 1) * maxResults.value
-        if (newPageNumber !== 1) {
+        const offset = (currentPage.value - 1) * maxResults.value
+        if (currentPage.value !== 1) {
           params.push(`offset=${offset}`)
         }
 
@@ -580,18 +586,84 @@ export default defineNuxtComponent({
           }
         }
 
-        const res = await useBaseFetch(url, data.$defaultHeaders())
-        results.value = res.hits
-
-        pageCount.value = Math.ceil(res.total_hits / res.limit)
-
-        if (process.client) {
-          const router = useRouter()
-          const obj = getSearchUrl(offset, true)
-          router.replace({ path: route.path, query: obj })
+        if (route.query.q) {
+          query.value = route.query.q
         }
-      } catch (err) {
-        console.error(err)
+        if (route.query.f) {
+          facets.value = route.query.f
+        }
+        if (route.query.g) {
+          orFacets.value = route.query.g
+        }
+        if (route.query.v) {
+          selectedVersions.value = route.query.v
+        }
+        if (route.query.l) {
+          onlyOpenSource.value = route.query.l === 'true'
+        }
+        if (route.query.h) {
+          showSnapshots.value = route.query.h === 'true'
+        }
+        if (route.query.e) {
+          selectedEnvironments.value = route.query.e
+        }
+        if (route.query.s) {
+          sortType.value.name = route.query.s
+
+          switch (sortType.value.name) {
+            case 'relevance':
+              sortType.value.display = 'Relevance'
+              break
+            case 'downloads':
+              sortType.value.display = 'Downloads'
+              break
+            case 'newest':
+              sortType.value.display = 'Recently published'
+              break
+            case 'updated':
+              sortType.value.display = 'Recently updated'
+              break
+            case 'follows':
+              sortType.value.display = 'Follow count'
+              break
+          }
+        }
+
+        if (route.query.m) {
+          maxResults.value = route.query.m
+        }
+        if (route.query.o) {
+          currentPage.value = Math.ceil(route.query.o / maxResults.value) + 1
+        }
+
+        projectType.value = data.$tag.projectTypes.find(
+          (x) => x.id === route.path.substring(1, route.path.length - 1)
+        )
+
+        return `${base}${url}`
+      },
+      {
+        transform: (result) => {
+          console.log(result)
+          pageCount.value = Math.ceil(result.total_hits / result.limit)
+          return result.hits
+        },
+      }
+    )
+
+    const onSearchChange = async (newPageNumber) => {
+      currentPage.value = newPageNumber
+
+      if (query.value === null) {
+        return
+      }
+
+      await refreshSearch()
+
+      if (process.client) {
+        const router = useRouter()
+        const obj = getSearchUrl(offset, true)
+        router.replace({ path: route.path, query: obj })
       }
     }
 
@@ -653,10 +725,9 @@ export default defineNuxtComponent({
       return useObj ? obj : url
     }
 
-    await onSearchChange(currentPage.value)
-
     return {
       query,
+      searchLoading,
       results,
       facets,
       orFacets,
@@ -697,10 +768,10 @@ export default defineNuxtComponent({
   methods: {
     async clearFilters() {
       for (const facet of [...this.facets]) {
-        await this.toggleFacet(facet, true)
+        this.toggleFacet(facet, true)
       }
       for (const facet of [...this.orFacets]) {
-        await this.toggleOrFacet(facet, true)
+        this.toggleOrFacet(facet, true)
       }
 
       this.onlyOpenSource = false
@@ -948,6 +1019,85 @@ export default defineNuxtComponent({
 .no-results {
   text-align: center;
   display: flow-root;
+}
+
+// Loading animation
+#search-results {
+  min-height: 20vh;
+}
+
+.orbit-spinner,
+.orbit-spinner * {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
+.orbit-spinner {
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  perspective: 800px;
+}
+
+.orbit-spinner .orbit {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.orbit-spinner .orbit:nth-child(1) {
+  left: 0%;
+  top: 0%;
+  animation: orbit-spinner-orbit-one-animation 1200ms linear infinite;
+  border-bottom: 3px solid var(--color-brand);
+}
+
+.orbit-spinner .orbit:nth-child(2) {
+  right: 0%;
+  top: 0%;
+  animation: orbit-spinner-orbit-two-animation 1200ms linear infinite;
+  border-right: 3px solid var(--color-brand);
+}
+
+.orbit-spinner .orbit:nth-child(3) {
+  right: 0%;
+  bottom: 0%;
+  animation: orbit-spinner-orbit-three-animation 1200ms linear infinite;
+  border-top: 3px solid var(--color-brand) ff1d5e;
+}
+
+@keyframes orbit-spinner-orbit-one-animation {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbit-spinner-orbit-two-animation {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbit-spinner-orbit-three-animation {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
 }
 
 @media screen and (min-width: 750px) {
