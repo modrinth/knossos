@@ -312,7 +312,7 @@
           role="list"
           aria-label="Search results"
         >
-          <div v-if="searchLoading" class="orbit-spinner">
+          <div v-if="searchLoading && results?.length === 0" class="orbit-spinner">
             <div class="orbit"></div>
             <div class="orbit"></div>
             <div class="orbit"></div>
