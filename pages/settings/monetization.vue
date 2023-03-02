@@ -108,10 +108,12 @@ export default defineNuxtComponent({
     ChartIcon,
     SettingsIcon,
   },
-  setup() {
+  async setup() {
     definePageMeta({
       middleware: 'auth',
     })
+    const auth = await useAuth()
+    return { auth }
   },
   data() {
     return {
