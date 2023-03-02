@@ -55,10 +55,10 @@
         <div class="grid-display__item">
           <div class="label">Current balance</div>
           <div class="value">
-            {{ $formatMoney($auth.user.payout_data.balance) }}
+            {{ $formatMoney(auth.user.payout_data.balance) }}
           </div>
           <NuxtLink
-            v-if="$auth.user.payout_data.balance >= minWithdraw"
+            v-if="auth.user.payout_data.balance >= minWithdraw"
             class="goto-link"
             to="/dashboard/revenue"
           >
@@ -85,10 +85,11 @@ useHead({
   title: 'Creator dashboard - Modrinth',
 })
 
+const auth = await useAuth()
 const app = useNuxtApp()
 
 const [raw] = await Promise.all([
-  useBaseFetch(`user/${app.$auth.user.id}/payouts`, app.$defaultHeaders()),
+  useBaseFetch(`user/${auth.user.id}/payouts`, app.$defaultHeaders()),
 ])
 const user = await useUser()
 
