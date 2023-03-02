@@ -639,12 +639,18 @@ export default defineNuxtComponent({
         projectType.value = data.$tag.projectTypes.find(
           (x) => x.id === route.path.substring(1, route.path.length - 1)
         )
-
         return `${base}${url}`
       },
       {
         transform: (result) => {
           pageCount.value = Math.ceil(result.total_hits / result.limit)
+
+          if (process.client) {
+            const offset = (currentPage.value - 1) * maxResults.value
+            const obj = getSearchUrl(offset, false)
+            navigateTo(obj)
+          }
+
           return result.hits
         },
       }
@@ -658,12 +664,6 @@ export default defineNuxtComponent({
       }
 
       await refreshSearch()
-
-      if (process.client) {
-        const router = useRouter()
-        const obj = getSearchUrl(offset, true)
-        router.replace({ path: route.path, query: obj })
-      }
     }
 
     const getSearchUrl = (offset, useObj) => {
@@ -778,15 +778,29 @@ export default defineNuxtComponent({
       this.selectedEnvironments = []
       await this.onSearchChange(1)
     },
-    async toggleFacet(elementName, doNotSendRequest) {
+    async toggleFacet(elementName, doNotSendRequest = false) {
+      const route = useRoute()
+
+      if (!this.facets.value && route.query.f) {
+        const newFacets = []
+        newFacets.push(elementName)
+        this.facets = newFacets
+      }
+      // console.log('facets now populated', this.facets.value)
       const index = this.facets.indexOf(elementName)
+
       if (index !== -1) {
-        this.facets.splice(index, 1)
+        // console.log('we are splicing')
+        this.facets?.splice(index, 1)
+        // console.log('spliced facets', this.facets.value)
       } else {
-        this.facets.push(elementName)
+        this.facets?.push(elementName)
       }
 
+      // console.log('after modifying facets', this.facets.value)
+
       if (!doNotSendRequest) {
+        // console.log('hooray we made it this far')
         await this.onSearchChange(1)
       }
     },
