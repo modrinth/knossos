@@ -644,7 +644,6 @@ export default defineNuxtComponent({
       },
       {
         transform: (result) => {
-          console.log(result)
           pageCount.value = Math.ceil(result.total_hits / result.limit)
           return result.hits
         },

@@ -269,7 +269,4 @@ function getDomain() {
 
 // Checklist
 // Fix setting email when enrolling in CMP not working
-// Bring back line animation
 // Fix gallery update project, make sure update model values work
-// Replace nuxt color mode with first-party library
-// Fix page "flickering" issue on switch
