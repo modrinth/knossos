@@ -268,5 +268,4 @@ function getDomain() {
 }
 
 // Checklist
-// Fix setting email when enrolling in CMP not working
 // Fix gallery update project, make sure update model values work
