@@ -312,7 +312,7 @@
           role="list"
           aria-label="Search results"
         >
-          <LogoAnimated v-if="searchLoading && results?.hits?.length === 0" />
+          <LogoAnimated v-if="searchLoading && (!results || results?.hits?.length === 0)" />
           <ProjectCard
             v-for="result in results?.hits"
             v-else
