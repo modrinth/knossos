@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: yarn install --immutable --immutable-cache --check-cache
-      - name: Build Knossos
-        run: npm run build
       - name: Run Lint
         run: npm run lint
+      - name: Build Knossos
+        run: npm run build
