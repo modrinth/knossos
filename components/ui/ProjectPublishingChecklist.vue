@@ -2,7 +2,7 @@
   <div
     v-if="
       $auth.user &&
-      currrentMember &&
+      currentMember &&
       nags.filter((x) => x.condition).length > 0 &&
       (project.status === 'draft' || $tag.rejectedStatuses.includes(project.status))
     "

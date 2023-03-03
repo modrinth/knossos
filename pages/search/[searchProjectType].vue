@@ -823,12 +823,10 @@ export default defineNuxtComponent({
       }
     },
   },
-  watch: {
-    '$route.path': {
-      handler() {
-        this.results = undefined
-      },
-    },
+  beforeRouteLeave(to) {
+    if (to.name.startsWith('search-')) {
+      this.results = undefined
+    }
   },
 })
 </script>

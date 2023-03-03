@@ -186,37 +186,37 @@ export default defineNuxtConfig({
       )
 
       routes.push({
-        name: 'mods',
+        name: 'search-mods',
         path: '/mods',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'modpacks',
+        name: 'search-modpacks',
         path: '/modpacks',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'plugins',
+        name: 'search-plugins',
         path: '/plugins',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'resourcepacks',
+        name: 'search-resourcepacks',
         path: '/resourcepacks',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'shaders',
+        name: 'search-shaders',
         path: '/shaders',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'datapacks',
+        name: 'search-datapacks',
         path: '/datapacks',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],

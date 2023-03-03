@@ -616,10 +616,7 @@
             Prism Launcher</a
           >.
         </div>
-        <Advertisement
-          v-if="$tag.approvedStatuses.includes(project.status)"
-          small-screen="square"
-        />
+        <Advertisement v-if="$tag.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
           <NavRow
             :links="[
