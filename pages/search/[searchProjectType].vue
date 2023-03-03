@@ -222,7 +222,7 @@
         >
         for support.
       </div>
-      <Advertisement type="banner" small-screen="square" />
+      <Advertisement />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -302,7 +302,7 @@
         @switch-page="onSearchChange"
       />
       <div class="search-results-container">
-        <div v-if="results && results.length === 0" class="no-results">
+        <div v-if="results && results.hits?.length === 0" class="no-results">
           <p>No results found for your query!</p>
         </div>
         <div
@@ -312,8 +312,10 @@
           role="list"
           aria-label="Search results"
         >
+          <LogoAnimated v-if="searchLoading && (!results || results?.hits?.length === 0)" />
           <ProjectCard
-            v-for="result in results"
+            v-for="result in results?.hits"
+            v-else
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
             :display="$cosmetics.searchDisplayMode[projectType.id]"
@@ -365,10 +367,12 @@ import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 
 import Advertisement from '~/components/ads/Advertisement'
+import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 export default defineNuxtComponent({
   components: {
     Advertisement,
+    LogoAnimated,
     ProjectCard,
     Pagination,
     Multiselect,
@@ -397,12 +401,11 @@ export default defineNuxtComponent({
       showAllLoaders: false,
     }
   },
-  async setup() {
+  setup() {
     const data = useNuxtApp()
     const route = useRoute()
 
     const query = ref('')
-    const results = shallowRef([])
     const facets = ref([])
     const orFacets = ref([])
     const selectedVersions = ref([])
@@ -419,20 +422,27 @@ export default defineNuxtComponent({
     const sortType = ref({ display: 'Relevance', name: 'relevance' })
     const maxResults = ref(20)
     const currentPage = ref(1)
-    const pageCount = ref(1)
     const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
+
+    function getArrayOrString(x) {
+      if (typeof x === 'string' || x instanceof String) {
+        return [x]
+      } else {
+        return x
+      }
+    }
 
     if (route.query.q) {
       query.value = route.query.q
     }
     if (route.query.f) {
-      facets.value = route.query.f
+      facets.value = getArrayOrString(route.query.f)
     }
     if (route.query.g) {
-      orFacets.value = route.query.g
+      orFacets.value = getArrayOrString(route.query.g)
     }
     if (route.query.v) {
-      selectedVersions.value = route.query.v
+      selectedVersions.value = getArrayOrString(route.query.v)
     }
     if (route.query.l) {
       onlyOpenSource.value = route.query.l === 'true'
@@ -441,7 +451,7 @@ export default defineNuxtComponent({
       showSnapshots.value = route.query.h === 'true'
     }
     if (route.query.e) {
-      selectedEnvironments.value = route.query.e
+      selectedEnvironments.value = getArrayOrString(route.query.e)
     }
     if (route.query.s) {
       sortType.value.name = route.query.s
@@ -476,122 +486,128 @@ export default defineNuxtComponent({
       (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
 
-    const onSearchChange = async (newPageNumber) => {
+    const {
+      data: rawResults,
+      refresh: refreshSearch,
+      pending: searchLoading,
+    } = useLazyFetch(() => {
+      const config = useRuntimeConfig()
+      const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
+
+      const params = [`limit=${maxResults.value}`, `index=${sortType.value.name}`]
+
+      if (query.value.length > 0) {
+        params.push(`query=${query.value.replace(/ /g, '+')}`)
+      }
+
+      if (
+        facets.value.length > 0 ||
+        orFacets.value.length > 0 ||
+        selectedVersions.value.length > 0 ||
+        selectedEnvironments.value.length > 0 ||
+        projectType.value
+      ) {
+        let formattedFacets = []
+        for (const facet of facets.value) {
+          formattedFacets.push([facet])
+        }
+
+        // loaders specifier
+        if (orFacets.value.length > 0) {
+          formattedFacets.push(orFacets.value)
+        } else if (projectType.value.id === 'plugin') {
+          formattedFacets.push(
+            data.$tag.loaderData.allPluginLoaders.map(
+              (x) => `categories:'${encodeURIComponent(x)}'`
+            )
+          )
+        } else if (projectType.value.id === 'mod') {
+          formattedFacets.push(
+            data.$tag.loaderData.modLoaders.map((x) => `categories:'${encodeURIComponent(x)}'`)
+          )
+        } else if (projectType.value.id === 'datapack') {
+          formattedFacets.push(
+            data.$tag.loaderData.dataPackLoaders.map((x) => `categories:'${encodeURIComponent(x)}'`)
+          )
+        }
+
+        if (selectedVersions.value.length > 0) {
+          const versionFacets = []
+          for (const facet of selectedVersions.value) {
+            versionFacets.push('versions:' + facet)
+          }
+          formattedFacets.push(versionFacets)
+        }
+
+        if (onlyOpenSource.value) {
+          formattedFacets.push(['open_source:true'])
+        }
+
+        if (selectedEnvironments.value.length > 0) {
+          let environmentFacets = []
+
+          const includesClient = selectedEnvironments.value.includes('client')
+          const includesServer = selectedEnvironments.value.includes('server')
+          if (includesClient && includesServer) {
+            environmentFacets = [['client_side:required'], ['server_side:required']]
+          } else {
+            if (includesClient) {
+              environmentFacets = [
+                ['client_side:optional', 'client_side:required'],
+                ['server_side:optional', 'server_side:unsupported'],
+              ]
+            }
+            if (includesServer) {
+              environmentFacets = [
+                ['client_side:optional', 'client_side:unsupported'],
+                ['server_side:optional', 'server_side:required'],
+              ]
+            }
+          }
+
+          formattedFacets = [...formattedFacets, ...environmentFacets]
+        }
+
+        if (projectType.value) {
+          formattedFacets.push([`project_type:${projectType.value.actual}`])
+        }
+
+        params.push(`facets=${JSON.stringify(formattedFacets)}`)
+      }
+
+      const offset = (currentPage.value - 1) * maxResults.value
+      if (currentPage.value !== 1) {
+        params.push(`offset=${offset}`)
+      }
+
+      let url = 'search'
+
+      if (params.length > 0) {
+        for (let i = 0; i < params.length; i++) {
+          url += i === 0 ? `?${params[i]}` : `&${params[i]}`
+        }
+      }
+
+      return `${base}${url}`
+    })
+    const results = shallowRef(toRaw(rawResults))
+    const pageCount = computed(() =>
+      results.value ? Math.ceil(results.value.total_hits / results.value.limit) : 1
+    )
+
+    const onSearchChange = (newPageNumber) => {
       currentPage.value = newPageNumber
 
       if (query.value === null) {
         return
       }
 
-      try {
-        const params = [`limit=${maxResults.value}`, `index=${sortType.value.name}`]
+      refreshSearch()
 
-        if (query.value.length > 0) {
-          params.push(`query=${query.value.replace(/ /g, '+')}`)
-        }
-
-        if (
-          facets.value.length > 0 ||
-          orFacets.value.length > 0 ||
-          selectedVersions.value.length > 0 ||
-          selectedEnvironments.value.length > 0 ||
-          projectType.value
-        ) {
-          let formattedFacets = []
-          for (const facet of facets.value) {
-            formattedFacets.push([facet])
-          }
-
-          // loaders specifier
-          if (orFacets.value.length > 0) {
-            formattedFacets.push(orFacets.value)
-          } else if (projectType.value.id === 'plugin') {
-            formattedFacets.push(
-              data.$tag.loaderData.allPluginLoaders.map(
-                (x) => `categories:'${encodeURIComponent(x)}'`
-              )
-            )
-          } else if (projectType.value.id === 'mod') {
-            formattedFacets.push(
-              data.$tag.loaderData.modLoaders.map((x) => `categories:'${encodeURIComponent(x)}'`)
-            )
-          } else if (projectType.value.id === 'datapack') {
-            formattedFacets.push(
-              data.$tag.loaderData.dataPackLoaders.map(
-                (x) => `categories:'${encodeURIComponent(x)}'`
-              )
-            )
-          }
-
-          if (selectedVersions.value.length > 0) {
-            const versionFacets = []
-            for (const facet of selectedVersions.value) {
-              versionFacets.push('versions:' + facet)
-            }
-            formattedFacets.push(versionFacets)
-          }
-
-          if (onlyOpenSource.value) {
-            formattedFacets.push(['open_source:true'])
-          }
-
-          if (selectedEnvironments.value.length > 0) {
-            let environmentFacets = []
-
-            const includesClient = selectedEnvironments.value.includes('client')
-            const includesServer = selectedEnvironments.value.includes('server')
-            if (includesClient && includesServer) {
-              environmentFacets = [['client_side:required'], ['server_side:required']]
-            } else {
-              if (includesClient) {
-                environmentFacets = [
-                  ['client_side:optional', 'client_side:required'],
-                  ['server_side:optional', 'server_side:unsupported'],
-                ]
-              }
-              if (includesServer) {
-                environmentFacets = [
-                  ['client_side:optional', 'client_side:unsupported'],
-                  ['server_side:optional', 'server_side:required'],
-                ]
-              }
-            }
-
-            formattedFacets = [...formattedFacets, ...environmentFacets]
-          }
-
-          if (projectType.value) {
-            formattedFacets.push([`project_type:${projectType.value.actual}`])
-          }
-
-          params.push(`facets=${JSON.stringify(formattedFacets)}`)
-        }
-
-        const offset = (newPageNumber - 1) * maxResults.value
-        if (newPageNumber !== 1) {
-          params.push(`offset=${offset}`)
-        }
-
-        let url = 'search'
-
-        if (params.length > 0) {
-          for (let i = 0; i < params.length; i++) {
-            url += i === 0 ? `?${params[i]}` : `&${params[i]}`
-          }
-        }
-
-        const res = await useBaseFetch(url, data.$defaultHeaders())
-        results.value = res.hits
-
-        pageCount.value = Math.ceil(res.total_hits / res.limit)
-
-        if (process.client) {
-          const router = useRouter()
-          const obj = getSearchUrl(offset, true)
-          router.replace({ path: route.path, query: obj })
-        }
-      } catch (err) {
-        console.error(err)
+      if (process.client) {
+        const router = useRouter()
+        const obj = getSearchUrl((currentPage.value - 1) * maxResults.value, true)
+        router.replace({ path: route.path, query: obj })
       }
     }
 
@@ -653,10 +669,9 @@ export default defineNuxtComponent({
       return useObj ? obj : url
     }
 
-    await onSearchChange(currentPage.value)
-
     return {
       query,
+      searchLoading,
       results,
       facets,
       orFacets,
@@ -695,21 +710,22 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    async clearFilters() {
+    clearFilters() {
       for (const facet of [...this.facets]) {
-        await this.toggleFacet(facet, true)
+        this.toggleFacet(facet, true)
       }
       for (const facet of [...this.orFacets]) {
-        await this.toggleOrFacet(facet, true)
+        this.toggleOrFacet(facet, true)
       }
 
       this.onlyOpenSource = false
       this.selectedVersions = []
       this.selectedEnvironments = []
-      await this.onSearchChange(1)
+      this.onSearchChange(1)
     },
-    async toggleFacet(elementName, doNotSendRequest) {
+    toggleFacet(elementName, doNotSendRequest = false) {
       const index = this.facets.indexOf(elementName)
+
       if (index !== -1) {
         this.facets.splice(index, 1)
       } else {
@@ -717,10 +733,10 @@ export default defineNuxtComponent({
       }
 
       if (!doNotSendRequest) {
-        await this.onSearchChange(1)
+        this.onSearchChange(1)
       }
     },
-    async toggleOrFacet(elementName, doNotSendRequest) {
+    toggleOrFacet(elementName, doNotSendRequest) {
       const index = this.orFacets.indexOf(elementName)
       if (index !== -1) {
         this.orFacets.splice(index, 1)
@@ -755,10 +771,10 @@ export default defineNuxtComponent({
       }
 
       if (!doNotSendRequest) {
-        await this.onSearchChange(1)
+        this.onSearchChange(1)
       }
     },
-    async toggleEnv(environment, sendRequest) {
+    toggleEnv(environment, sendRequest) {
       const index = this.selectedEnvironments.indexOf(environment)
       if (index !== -1) {
         this.selectedEnvironments.splice(index, 1)
@@ -767,17 +783,17 @@ export default defineNuxtComponent({
       }
 
       if (!sendRequest) {
-        await this.onSearchChange(1)
+        this.onSearchChange(1)
       }
     },
-    async onSearchChangeToTop(newPageNumber) {
+    onSearchChangeToTop(newPageNumber) {
       if (process.client) {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
 
-      await this.onSearchChange(newPageNumber)
+      this.onSearchChange(newPageNumber)
     },
-    async onMaxResultsChange(newPageNumber) {
+    onMaxResultsChange(newPageNumber) {
       newPageNumber = Math.max(
         1,
         Math.min(
@@ -786,7 +802,7 @@ export default defineNuxtComponent({
         )
       )
       this.previousMaxResults = this.maxResults
-      await this.onSearchChange(newPageNumber)
+      this.onSearchChange(newPageNumber)
     },
     cycleSearchDisplayMode() {
       this.$cosmetics.searchDisplayMode[this.projectType.id] = this.$cycleValue(
@@ -805,6 +821,13 @@ export default defineNuxtComponent({
           return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax) ? curr : prev
         })
       }
+    },
+  },
+  watch: {
+    '$route.path': {
+      handler() {
+        this.results = undefined
+      },
     },
   },
 })
@@ -948,6 +971,10 @@ export default defineNuxtComponent({
 .no-results {
   text-align: center;
   display: flow-root;
+}
+
+#search-results {
+  min-height: 20vh;
 }
 
 @media screen and (min-width: 750px) {
