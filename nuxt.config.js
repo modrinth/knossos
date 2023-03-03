@@ -266,6 +266,3 @@ function getDomain() {
     return 'http://localhost:3000'
   }
 }
-
-// Checklist
-// Fix gallery update project, make sure update model values work
