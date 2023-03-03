@@ -302,7 +302,7 @@
         @switch-page="onSearchChange"
       />
       <div class="search-results-container">
-        <div v-if="results && results.hits.length === 0" class="no-results">
+        <div v-if="results && results.hits?.length === 0" class="no-results">
           <p>No results found for your query!</p>
         </div>
         <div
@@ -312,11 +312,7 @@
           role="list"
           aria-label="Search results"
         >
-          <div v-if="searchLoading && results?.hits?.length === 0" class="orbit-spinner">
-            <div class="orbit"></div>
-            <div class="orbit"></div>
-            <div class="orbit"></div>
-          </div>
+          <LogoAnimated v-if="searchLoading && results?.hits?.length === 0" />
           <ProjectCard
             v-for="result in results?.hits"
             v-else
@@ -371,10 +367,12 @@ import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 
 import Advertisement from '~/components/ads/Advertisement'
+import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 export default defineNuxtComponent({
   components: {
     Advertisement,
+    LogoAnimated,
     ProjectCard,
     Pagination,
     Multiselect,
@@ -726,12 +724,6 @@ export default defineNuxtComponent({
       this.onSearchChange(1)
     },
     toggleFacet(elementName, doNotSendRequest = false) {
-      // const route = useRoute()
-      // if (!this.facets.value && route.query.f) {
-      //   const newFacets = []
-      //   newFacets.push(elementName)
-      //   this.facets = newFacets
-      // }
       const index = this.facets.indexOf(elementName)
 
       if (index !== -1) {
@@ -829,6 +821,13 @@ export default defineNuxtComponent({
           return Math.abs(curr - currentMax) <= Math.abs(prev - currentMax) ? curr : prev
         })
       }
+    },
+  },
+  watch: {
+    '$route.path': {
+      handler() {
+        this.results = undefined
+      },
     },
   },
 })
@@ -974,83 +973,8 @@ export default defineNuxtComponent({
   display: flow-root;
 }
 
-// Loading animation
 #search-results {
   min-height: 20vh;
-}
-
-.orbit-spinner,
-.orbit-spinner * {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  margin: auto;
-}
-
-.orbit-spinner {
-  height: 55px;
-  width: 55px;
-  border-radius: 50%;
-  perspective: 800px;
-}
-
-.orbit-spinner .orbit {
-  position: absolute;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.orbit-spinner .orbit:nth-child(1) {
-  left: 0%;
-  top: 0%;
-  animation: orbit-spinner-orbit-one-animation 1200ms linear infinite;
-  border-bottom: 3px solid var(--color-brand);
-}
-
-.orbit-spinner .orbit:nth-child(2) {
-  right: 0%;
-  top: 0%;
-  animation: orbit-spinner-orbit-two-animation 1200ms linear infinite;
-  border-right: 3px solid var(--color-brand);
-}
-
-.orbit-spinner .orbit:nth-child(3) {
-  right: 0%;
-  bottom: 0%;
-  animation: orbit-spinner-orbit-three-animation 1200ms linear infinite;
-  border-top: 3px solid var(--color-brand) ff1d5e;
-}
-
-@keyframes orbit-spinner-orbit-one-animation {
-  0% {
-    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
-  }
-}
-
-@keyframes orbit-spinner-orbit-two-animation {
-  0% {
-    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
-  }
-}
-
-@keyframes orbit-spinner-orbit-three-animation {
-  0% {
-    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
-  }
 }
 
 @media screen and (min-width: 750px) {
