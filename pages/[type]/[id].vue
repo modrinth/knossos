@@ -465,7 +465,7 @@
                 version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
-              class="download download-button square-button brand-button"
+              class="download square-button brand-button"
               :title="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
             >

@@ -942,7 +942,9 @@ export default defineNuxtComponent({
 
     .square-button {
       margin-top: auto;
-      margin-bottom: 0.25rem;
+      // match height of search dropdowns
+      height: 40px;
+      width: 40px; // make it square!
     }
   }
 }
