@@ -92,7 +92,10 @@ export const md = (options = {}) => {
         'i.imgur.com',
         'cdn-raw.modrinth.com',
         'cdn.modrinth.com',
+        'staging-cdn-raw.modrinth.com',
+        'staging-cdn.modrinth.com',
         'raw.githubusercontent.com',
+        'img.shields.io',
       ]
 
       if (!allowedHostnames.includes(url.hostname)) {
