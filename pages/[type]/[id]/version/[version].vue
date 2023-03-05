@@ -152,12 +152,13 @@
           Download
         </a>
         <nuxt-link
-          :to="`${
-            prevRoute &&
-            (prevRoute.name === 'type-id-changelog' || prevRoute.name === 'type-id-versions')
-              ? prevRoute.fullPath
+          :to="
+            $router.options.history.state.back &&
+            ($router.options.history.state.back.includes('changelog') ||
+              $router.options.history.state.back.includes('versions'))
+              ? $router.options.history.state.back
               : `/${project.project_type}/${project.slug ? project.slug : project.id}/versions`
-          }`"
+          "
           class="iconified-button"
         >
           <BackIcon aria-hidden="true" />
@@ -863,7 +864,7 @@ export default defineNuxtComponent({
           (x) => x.displayUrlEnding === route.params.version.substring(0, dashIndex)
         )
 
-        navigateTo(
+        await navigateTo(
           `/${props.project.project_type}/${props.project.slug}/version/${version.version_number}`,
           { redirectCode: 307 }
         )
@@ -951,14 +952,7 @@ export default defineNuxtComponent({
 
       showKnownErrors: false,
       shouldPreventActions: false,
-
-      prevRoute: null,
     }
-  },
-  beforeRouteEnter(_to, from, next) {
-    next((vm) => {
-      vm.prevRoute = from
-    })
   },
   computed: {
     fieldErrors() {

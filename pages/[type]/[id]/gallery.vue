@@ -528,7 +528,13 @@ export default defineNuxtComponent({
       stopLoading()
     },
     async updateProject() {
-      await this.$parent.resetProject()
+      const project = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
+
+      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+
+      project.project_type = this.$getProjectTypeForUrl(project.project_type, project.loaders)
+
+      this.$emit('update:project', project)
       this.resetEdit()
     },
   },

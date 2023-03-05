@@ -301,10 +301,11 @@
         class="pagination-before"
         @switch-page="onSearchChange"
       />
-      <div class="search-results-container">
-        <div v-if="results && results.hits?.length === 0" class="no-results">
-          <p>No results found for your query!</p>
-        </div>
+      <div v-if="results && results.hits && results.hits.length === 0" class="no-results">
+        <p>No results found for your query!</p>
+      </div>
+      <LogoAnimated v-else-if="searchLoading" class="loading-logo" />
+      <div v-else class="search-results-container">
         <div
           id="search-results"
           class="project-list"
@@ -312,10 +313,8 @@
           role="list"
           aria-label="Search results"
         >
-          <LogoAnimated v-if="searchLoading && (!results || results?.hits?.length === 0)" />
           <ProjectCard
             v-for="result in results?.hits"
-            v-else
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
             :display="$cosmetics.searchDisplayMode[projectType.id]"
@@ -486,11 +485,9 @@ export default defineNuxtComponent({
       (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
 
-    const {
-      data: rawResults,
-      refresh: refreshSearch,
-      pending: searchLoading,
-    } = useLazyFetch(() => {
+    const searchLoading = ref(true)
+
+    const { data: rawResults, refresh: refreshSearch } = useLazyFetch(() => {
       const config = useRuntimeConfig()
       const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
@@ -589,6 +586,11 @@ export default defineNuxtComponent({
       }
 
       return `${base}${url}`
+    })
+    watch(rawResults, () => {
+      if (searchLoading.value) {
+        searchLoading.value = false
+      }
     })
     const results = shallowRef(toRaw(rawResults))
     const pageCount = computed(() =>
@@ -825,7 +827,7 @@ export default defineNuxtComponent({
   },
   beforeRouteLeave(to) {
     if (to.name.startsWith('search-')) {
-      this.results = undefined
+      this.searchLoading = true
     }
   },
 })
@@ -969,6 +971,10 @@ export default defineNuxtComponent({
 .no-results {
   text-align: center;
   display: flow-root;
+}
+
+.loading-logo {
+  margin: 2rem;
 }
 
 #search-results {

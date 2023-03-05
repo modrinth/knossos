@@ -142,7 +142,6 @@ async function updateVersionFilters() {
   )
 
   await updateQuery()
-  console.log(temp)
   emit('updateVersions', temp)
 }
 

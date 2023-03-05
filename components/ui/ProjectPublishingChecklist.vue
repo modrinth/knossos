@@ -95,13 +95,13 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg?inline'
-import CheckIcon from '~/assets/images/utils/check.svg?inline'
-import RequiredIcon from '~/assets/images/utils/asterisk.svg?inline'
-import SuggestionIcon from '~/assets/images/utils/lightbulb.svg?inline'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
-import SendIcon from '~/assets/images/utils/send.svg?inline'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
+import RequiredIcon from '~/assets/images/utils/asterisk.svg'
+import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import SendIcon from '~/assets/images/utils/send.svg'
 import Checkbox from '~/components/ui/Checkbox'
 
 export default {

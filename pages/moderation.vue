@@ -193,8 +193,8 @@ export default defineNuxtComponent({
     )
 
     return {
-      projects,
-      reports: newReports,
+      projects: shallowRef(projects),
+      reports: ref(newReports),
     }
   },
   data() {
@@ -244,9 +244,9 @@ export default defineNuxtComponent({
           method: 'DELETE',
           ...this.$defaultHeaders(),
         })
-
         this.reports.splice(index, 1)
       } catch (err) {
+        console.error(err)
         this.$notify({
           group: 'main',
           title: 'An error occurred',

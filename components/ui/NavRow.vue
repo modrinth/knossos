@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       sliderPositionX: 0,
-      sliderPositionY: 0,
+      sliderPositionY: 18,
       selectedElementWidth: 0,
       activeIndex: -1,
       oldIndex: -1,
