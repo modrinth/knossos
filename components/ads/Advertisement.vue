@@ -8,13 +8,16 @@
             rel="noopener noreferrer nofollow sponsored"
             target="_blank"
           >
-            <ColorScheme>
-              <LightIcon
-                v-if="$colorMode.value === 'light'"
-                class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
-              />
-              <DarkIcon v-else class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
-            </ColorScheme>
+            <div>
+              <DarkIcon v-if="$colorMode.unknown" class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
+              <ColorScheme>
+                <LightIcon
+                  v-if="$colorMode.value === 'light'"
+                  class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
+                />
+                <DarkIcon v-else class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
+              </ColorScheme>
+            </div>
             <span>
               <span> Host your Minecraft server on </span>
               <strong>exaroton</strong>
@@ -24,7 +27,7 @@
         </div>
       </div>
       <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-4">
-        <a rel="noopener noreferrer nofollow sponsored" target="_blank" href="https://adrinth.com">
+        <a rel="noopener noreferrer" target="_blank" href="https://adrinth.com">
           Ads via Adrinth
         </a>
       </div>
@@ -70,7 +73,7 @@ import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 }
 
 .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3 {
-  padding-top: 1px;
+  padding-top: 4px;
   height: 1.2rem;
   width: auto;
 }

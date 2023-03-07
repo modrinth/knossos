@@ -34,13 +34,7 @@
     <div class="users-section-outer">
       <div class="projects-showcase">
         <div v-for="(row, index) in rows" :key="index" class="row">
-          <div
-            v-for="n in 2"
-            :key="n"
-            class="row__content"
-            :aria-hidden="n === 1"
-            :class="{ offset: index % 2 }"
-          >
+          <div v-for="n in 2" :key="n" class="row__content" :class="{ offset: index % 2 }">
             <nuxt-link
               v-for="project in row"
               :key="project.id"
@@ -150,7 +144,10 @@
                   :key="index"
                   class="notification gradient-border"
                 >
-                  <nuxt-link :to="`${notification.project_type}/${notification.slug}`">
+                  <nuxt-link
+                    :to="`${notification.project_type}/${notification.slug}`"
+                    :title="notification.title"
+                  >
                     <Avatar size="md" :src="notification.icon_url" :alt="notification.title" />
                   </nuxt-link>
                   <div>
@@ -211,23 +208,26 @@
               </ColorScheme>
               <div class="launcher-graphics">
                 <a
-                  rel="noopener noreferrer nofollow"
+                  rel="noopener noreferrer"
                   href="https://prismlauncher.org/"
                   class="graphic gradient-border"
+                  title="Prism Launcher"
                 >
                   <PrismLauncherLogo />
                 </a>
                 <a
-                  rel="noopener noreferrer nofollow"
+                  rel="noopener noreferrer"
                   href="https://multimc.org/"
                   class="graphic gradient-border"
+                  title="MultiMC"
                 >
                   <img src="~/assets/images/external/multimc.png" alt="multimc launcher logo" />
                 </a>
                 <a
-                  rel="noopener noreferrer nofollow"
+                  rel="noopener noreferrer"
                   href="https://atlauncher.com/"
                   class="graphic gradient-border"
+                  title="ATLauncher"
                 >
                   <ATLauncherLogo />
                 </a>

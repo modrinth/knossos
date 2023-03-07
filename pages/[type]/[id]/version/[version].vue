@@ -216,7 +216,7 @@
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
-            rel="noopener noreferrer nofollow"
+            rel="noopener noreferrer"
             >Markdown</a
           >. HTML can also be used inside your changelog, not including styles, scripts, and
           iframes.

@@ -55,6 +55,7 @@
                 title="Switch theme"
                 @click="changeTheme"
               >
+                <SunIcon v-if="$colorMode.unknown" />
                 <ColorScheme>
                   <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
                   <SunIcon v-else aria-hidden="true" />
@@ -127,7 +128,7 @@
                 <a
                   :href="getAuthUrl()"
                   class="log-in-button header-button brand-button"
-                  rel="noopener noreferrer nofollow"
+                  rel="noopener noreferrer"
                 >
                   <GitHubIcon aria-hidden="true" />
                   Sign in with GitHub</a
@@ -261,6 +262,7 @@
               <span class="dropdown-item__text">Moderation</span>
             </NuxtLink>
             <button class="iconified-button raised-button" @click="changeTheme">
+              <SunIcon v-if="$colorMode.unknown" class="icon" />
               <ColorScheme>
                 <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
                 <SunIcon v-else class="icon" />
@@ -292,7 +294,7 @@
             :target="$external()"
             href="https://github.com/modrinth"
             class="text-link"
-            rel="noopener noreferrer nofollow"
+            rel="noopener noreferrer"
           >
             open source</a
           >.
@@ -309,7 +311,7 @@
               config.public.hash
             "
             class="text-link"
-            rel="noopener noreferrer nofollow"
+            rel="noopener noreferrer"
             >{{ config.public.hash.substring(0, 7) }}</a
           >
         </p>
@@ -327,38 +329,23 @@
         <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
         <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
         <a :target="$external()" href="https://status.modrinth.com">Status</a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://github.com/modrinth"
+        <a rel="noopener noreferrer" :target="$external()" href="https://github.com/modrinth"
           >GitHub</a
         >
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://discord.gg/EUHuJHt"
-        >
+        <a rel="noopener noreferrer" :target="$external()" href="https://discord.gg/EUHuJHt">
           Discord
         </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://twitter.com/modrinth"
-        >
+        <a rel="noopener noreferrer" :target="$external()" href="https://twitter.com/modrinth">
           Twitter
         </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://floss.social/@modrinth"
-        >
+        <a rel="noopener noreferrer" :target="$external()" href="https://floss.social/@modrinth">
           Mastodon
         </a>
         <a
-          rel="noopener noreferrer nofollow"
+          rel="noopener noreferrer"
           :target="$external()"
           href="https://crowdin.com/project/modrinth"
         >

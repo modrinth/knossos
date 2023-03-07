@@ -72,6 +72,41 @@ export default defineNuxtConfig({
       ],
       link: [
         {
+          rel: 'preload',
+          href: 'ttps://cdn-raw.modrinth.com/fonts/inter/Inter-Regular.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Medium.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-SemiBold.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Bold.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-ExtraBold.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
           rel: 'icon',
           type: 'image/x-icon',
           href: '/favicon-light.ico',

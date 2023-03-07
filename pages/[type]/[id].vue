@@ -515,7 +515,12 @@
           <div class="info">
             <div class="key">License</div>
             <div class="value lowercase">
-              <a v-if="project.license.url" class="text-link" :href="project.license.url">
+              <a
+                v-if="project.license.url"
+                class="text-link"
+                :href="project.license.url"
+                rel="noopener noreferrer nofollow ugc"
+              >
                 {{ licenseIdDisplay }}
               </a>
               <span
@@ -598,21 +603,12 @@
             >our documentation</a
           >
           which provides instructions on using
-          <a
-            href="https://atlauncher.com/about"
-            :target="$external()"
-            rel="noopener noreferrer nofollow"
-          >
+          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener noreferrer">
             ATLauncher</a
           >,
-          <a href="https://multimc.org/" :target="$external()" rel="noopener noreferrer nofollow"
-            >MultiMC</a
+          <a href="https://multimc.org/" :target="$external()" rel="noopener noreferrer">MultiMC</a
           >, and
-          <a
-            href="https://prismlauncher.org"
-            :target="$external()"
-            rel="noopener noreferrer nofollow"
-          >
+          <a href="https://prismlauncher.org" :target="$external()" rel="noopener noreferrer">
             Prism Launcher</a
           >.
         </div>

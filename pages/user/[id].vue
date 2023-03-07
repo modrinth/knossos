@@ -61,12 +61,7 @@
               <ReportIcon aria-hidden="true" />
               Report
             </button>
-            <a
-              v-else
-              class="iconified-button"
-              :href="getAuthUrl()"
-              rel="noopener noreferrer nofollow"
-            >
+            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener noreferrer">
               <ReportIcon aria-hidden="true" />
               Report
             </a>

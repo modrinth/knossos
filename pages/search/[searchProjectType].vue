@@ -195,29 +195,18 @@
           >playing modpacks</a
         >
         with
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://atlauncher.com/about"
-          :target="$external()"
+        <a rel="noopener noreferrer" href="https://atlauncher.com/about" :target="$external()"
           >ATLauncher</a
         >,
-        <a rel="noopener noreferrer nofollow" href="https://multimc.org/" :target="$external()"
-          >MultiMC</a
-        >, and
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://prismlauncher.org"
-          :target="$external()"
-        >
+        <a rel="noopener noreferrer" href="https://multimc.org/" :target="$external()">MultiMC</a>,
+        and
+        <a rel="noopener noreferrer" href="https://prismlauncher.org" :target="$external()">
           Prism Launcher</a
         >. Pack creators can reference our documentation on
         <a href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/" :target="$external()"
           >creating modpacks</a
         >. Join us on
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://discord.gg/EUHuJHt"
-          :target="$external()"
+        <a rel="noopener noreferrer" href="https://discord.gg/EUHuJHt" :target="$external()"
           >Discord</a
         >
         for support.
@@ -304,7 +293,6 @@
       <div v-if="results && results.hits && results.hits.length === 0" class="no-results">
         <p>No results found for your query!</p>
       </div>
-      <LogoAnimated v-else-if="searchLoading" class="loading-logo" />
       <div v-else class="search-results-container">
         <div
           id="search-results"
@@ -366,12 +354,10 @@ import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 
 import Advertisement from '~/components/ads/Advertisement'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 export default defineNuxtComponent({
   components: {
     Advertisement,
-    LogoAnimated,
     ProjectCard,
     Pagination,
     Multiselect,
@@ -485,8 +471,6 @@ export default defineNuxtComponent({
       (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
 
-    const searchLoading = ref(true)
-
     const { data: rawResults, refresh: refreshSearch } = useLazyFetch(() => {
       const config = useRuntimeConfig()
       const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
@@ -587,11 +571,7 @@ export default defineNuxtComponent({
 
       return `${base}${url}`
     })
-    watch(rawResults, () => {
-      if (searchLoading.value) {
-        searchLoading.value = false
-      }
-    })
+
     const results = shallowRef(toRaw(rawResults))
     const pageCount = computed(() =>
       results.value ? Math.ceil(results.value.total_hits / results.value.limit) : 1
@@ -673,7 +653,6 @@ export default defineNuxtComponent({
 
     return {
       query,
-      searchLoading,
       results,
       facets,
       orFacets,
@@ -824,11 +803,6 @@ export default defineNuxtComponent({
         })
       }
     },
-  },
-  beforeRouteLeave(to) {
-    if (to.name.startsWith('search-')) {
-      this.searchLoading = true
-    }
   },
 })
 </script>

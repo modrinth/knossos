@@ -69,7 +69,21 @@ export const md = (options = {}) => {
     }
 
   md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
-    tokens[idx].attrJoin('rel', 'noopener noreferrer ugc')
+    const token = tokens[idx]
+    const index = token.attrIndex('href')
+
+    if (index !== -1) {
+      const href = token.attrs[index][1]
+
+      const url = new URL(href)
+      const allowedHostnames = ['modrinth.com']
+
+      if (allowedHostnames.includes(url.hostname)) {
+        return defaultLinkOpenRenderer(tokens, idx, options, env, self)
+      }
+    }
+
+    tokens[idx].attrSet('rel', 'noopener noreferrer nofollow ugc')
 
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
   }

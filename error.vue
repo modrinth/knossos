@@ -12,7 +12,7 @@
           <a
             href="https://discord.gg/EUHuJHt"
             class="iconified-button raised-button"
-            rel="noopener noreferrer nofollow"
+            rel="noopener noreferrer"
           >
             Get help on Discord
           </a>
