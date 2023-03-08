@@ -997,7 +997,7 @@ const [
         height: 4rem;
         background: #020305;
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 32px #393d5e;
-        border-radius: 0.75rem;
+        border-radius: 1rem;
 
         svg {
           width: 2rem;
