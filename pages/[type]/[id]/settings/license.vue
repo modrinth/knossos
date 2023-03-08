@@ -11,12 +11,7 @@
             license; otherwise, the license text will be displayed.
             <span v-if="license && license.friendly === 'Custom'" class="label__subdescription">
               Enter a valid
-              <a
-                href="https://spdx.org/licenses/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-link"
-              >
+              <a href="https://spdx.org/licenses/" target="_blank" rel="noopener" class="text-link">
                 SPDX license identifier</a
               >
               in the marked area. If your license does not have a SPDX identifier (for example, if
@@ -28,7 +23,7 @@
               <a
                 href="https://blog.modrinth.com/licensing-guide/"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
                 class="text-link"
               >
                 licensing guide</a

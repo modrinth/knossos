@@ -125,7 +125,7 @@
                 <a
                   :href="getAuthUrl()"
                   class="log-in-button header-button brand-button"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   <GitHubIcon aria-hidden="true" />
                   Sign in with GitHub</a
@@ -288,7 +288,7 @@
             :target="$external()"
             href="https://github.com/modrinth"
             class="text-link"
-            rel="noopener noreferrer"
+            rel="noopener"
           >
             open source</a
           >.
@@ -305,7 +305,7 @@
               config.public.hash
             "
             class="text-link"
-            rel="noopener noreferrer"
+            rel="noopener"
             >{{ config.public.hash.substring(0, 7) }}</a
           >
         </p>
@@ -323,26 +323,14 @@
         <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
         <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
         <a :target="$external()" href="https://status.modrinth.com">Status</a>
-        <a rel="noopener noreferrer" :target="$external()" href="https://github.com/modrinth"
-          >GitHub</a
-        >
+        <a rel="noopener" :target="$external()" href="https://github.com/modrinth">GitHub</a>
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
-        <a rel="noopener noreferrer" :target="$external()" href="https://discord.gg/EUHuJHt">
-          Discord
-        </a>
-        <a rel="noopener noreferrer" :target="$external()" href="https://twitter.com/modrinth">
-          Twitter
-        </a>
-        <a rel="noopener noreferrer" :target="$external()" href="https://floss.social/@modrinth">
-          Mastodon
-        </a>
-        <a
-          rel="noopener noreferrer"
-          :target="$external()"
-          href="https://crowdin.com/project/modrinth"
-        >
+        <a rel="noopener" :target="$external()" href="https://discord.gg/EUHuJHt"> Discord </a>
+        <a rel="noopener" :target="$external()" href="https://twitter.com/modrinth"> Twitter </a>
+        <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth"> Mastodon </a>
+        <a rel="noopener" :target="$external()" href="https://crowdin.com/project/modrinth">
           Crowdin
         </a>
       </div>

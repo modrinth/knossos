@@ -61,7 +61,7 @@
               <ReportIcon aria-hidden="true" />
               Report
             </button>
-            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener noreferrer">
+            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener">
               <ReportIcon aria-hidden="true" />
               Report
             </a>
@@ -104,14 +104,14 @@
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+                <span class="primary-stat__counter">{{ sumDownloads }}</span>
                 downloads
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumFollows() }}</span>
+                <span class="primary-stat__counter">{{ sumFollows }}</span>
                 followers of projects
               </div>
             </div>
@@ -133,7 +133,7 @@
         </div>
       </div>
       <div class="normal-page__content">
-        <Advertisement />
+        <Promotion />
         <nav class="navigation-card">
           <NavRow
             :links="[
@@ -227,13 +227,12 @@
     </div>
   </div>
 </template>
-
-<script>
+<script setup>
 import ProjectCard from '~/components/ui/ProjectCard'
 import Badge from '~/components/ui/Badge'
-import Advertisement from '~/components/ads/Advertisement'
+import Promotion from '~/components/ads/Promotion'
 
-import GitHubIcon from '~/assets/images/utils/github.svg'
+// import GitHubIcon from '~/assets/images/utils/github.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -255,177 +254,146 @@ import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 
-export default defineNuxtComponent({
-  components: {
-    Avatar,
-    CopyCode,
-    NavRow,
-    ModalCreation,
-    ModalReport,
-    FileInput,
-    ProjectCard,
-    SunriseIcon,
-    DownloadIcon,
-    GitHubIcon,
-    ReportIcon,
-    Badge,
-    SettingsIcon,
-    UpToDate,
-    UserIcon,
-    EditIcon,
-    Advertisement,
-    HeartIcon,
-    CrossIcon,
-    SaveIcon,
-    GridIcon,
-    ListIcon,
-    ImageIcon,
-    UploadIcon,
-  },
-  async setup() {
-    const data = useNuxtApp()
-    const route = useRoute()
+const data = useNuxtApp()
+const route = useRoute()
 
-    try {
-      const [{ data: user }, { data: projects }] = await Promise.all([
-        useAsyncData(`user/${route.params.id}`, () =>
-          useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
-        ),
-        useAsyncData(
-          `user/${route.params.id}/projects`,
-          () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
-          {
-            transform: (projects) => {
-              for (const project of projects) {
-                project.categories = project.categories.concat(project.loaders)
-                project.project_type = data.$getProjectTypeForUrl(
-                  project.project_type,
-                  project.categories
-                )
-              }
-
-              return projects
-            },
+let user, projects
+try {
+  ;[{ data: user }, { data: projects }] = await Promise.all([
+    useAsyncData(`user/${route.params.id}`, () =>
+      useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
+    ),
+    useAsyncData(
+      `user/${route.params.id}/projects`,
+      () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+      {
+        transform: (projects) => {
+          for (const project of projects) {
+            project.categories = project.categories.concat(project.loaders)
+            project.project_type = data.$getProjectTypeForUrl(
+              project.project_type,
+              project.categories
+            )
           }
-        ),
-      ])
 
-      if (user.value.username !== route.params.id) {
-        await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
+          return projects
+        },
       }
+    ),
+  ])
+} catch {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'User not found',
+  })
+}
 
-      return {
-        user,
-        projects,
-        metaDescription: ref(
-          user.value.bio
-            ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
-            : `Download ${user.value.username}'s projects on Modrinth`
-        ),
-      }
-    } catch {
-      throw createError({
-        fatal: true,
-        statusCode: 404,
-        message: 'User not found',
-      })
-    }
-  },
-  data() {
-    return {
-      isEditing: false,
-      icon: null,
-      previewImage: null,
-    }
-  },
-  computed: {
-    projectTypes() {
-      const obj = {}
+if (user.value.username !== route.params.id) {
+  await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
+}
 
-      for (const project of this.projects) {
-        obj[project.project_type] = true
-      }
+const metaDescription = ref(
+  user.value.bio
+    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
+    : `Download ${user.value.username}'s projects on Modrinth`
+)
 
-      return Object.keys(obj)
-    },
-  },
-  methods: {
-    sumDownloads() {
-      let sum = 0
+const projectTypes = computed(() => {
+  const obj = {}
 
-      for (const projects of this.projects) {
-        sum += projects.downloads
-      }
+  for (const project of projects.value) {
+    obj[project.project_type] = true
+  }
 
-      return this.$formatNumber(sum)
-    },
-    sumFollows() {
-      let sum = 0
+  return Object.keys(obj)
+})
+const sumDownloads = computed(() => {
+  let sum = 0
 
-      for (const projects of this.projects) {
-        sum += projects.followers
-      }
+  for (const project of projects.value) {
+    sum += project.downloads
+  }
 
-      return this.$formatNumber(sum)
-    },
-    showPreviewImage(files) {
-      const reader = new FileReader()
-      this.icon = files[0]
-      reader.readAsDataURL(this.icon)
-      reader.onload = (event) => {
-        this.previewImage = event.target.result
-      }
-    },
-    async saveChanges() {
-      startLoading()
-      try {
-        if (this.icon) {
-          await useBaseFetch(
-            `user/${this.$auth.user.id}/icon?ext=${
-              this.icon.type.split('/')[this.icon.type.split('/').length - 1]
-            }`,
-            {
-              method: 'PATCH',
-              body: this.icon,
-              ...this.$defaultHeaders(),
-            }
-          )
-        }
+  return data.$formatNumber(sum)
+})
+const sumFollows = computed(() => {
+  let sum = 0
 
-        const data = {
-          email: this.user.email,
-          bio: this.user.bio,
-        }
-        if (this.user.username !== this.$auth.user.username) {
-          data.username = this.user.username
-        }
+  for (const project of projects.value) {
+    sum += project.followers
+  }
 
-        await useBaseFetch(`user/${this.$auth.user.id}`, {
+  return data.$formatNumber(sum)
+})
+
+const isEditing = ref(false)
+const icon = shallowRef(null)
+const previewImage = shallowRef(null)
+
+function showPreviewImage(files) {
+  const reader = new FileReader()
+  icon.value = files[0]
+  reader.readAsDataURL(icon.value)
+  reader.onload = (event) => {
+    previewImage.value = event.target.result
+  }
+}
+
+async function saveChanges() {
+  startLoading()
+  try {
+    if (icon.value) {
+      await useBaseFetch(
+        `user/${data.$auth.user.id}/icon?ext=${
+          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+        }`,
+        {
           method: 'PATCH',
-          body: data,
-          ...this.$defaultHeaders(),
-        })
-        await useAuth(this.$auth.token)
-
-        this.isEditing = false
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-    cycleSearchDisplayMode() {
-      this.$cosmetics.searchDisplayMode.user = this.$cycleValue(
-        this.$cosmetics.searchDisplayMode.user,
-        this.$tag.projectViewModes
+          body: icon.value,
+          ...data.$defaultHeaders(),
+        }
       )
-      saveCosmetics()
-    },
-  },
+    }
+
+    const data = {
+      email: user.value.email,
+      bio: user.value.bio,
+    }
+    if (user.value.username !== data.$auth.user.username) {
+      data.username = user.value.username
+    }
+
+    await useBaseFetch(`user/${data.$auth.user.id}`, {
+      method: 'PATCH',
+      body: data,
+      ...data.$defaultHeaders(),
+    })
+    await useAuth(data.$auth.token)
+
+    isEditing.value = false
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+function cycleSearchDisplayMode() {
+  data.$cosmetics.searchDisplayMode.user = data.$cycleValue(
+    data.$cosmetics.searchDisplayMode.user,
+    data.$tag.projectViewModes
+  )
+  saveCosmetics()
+}
+</script>
+<script>
+export default defineNuxtComponent({
+  methods: {},
 })
 </script>
 

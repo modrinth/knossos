@@ -206,7 +206,7 @@
               />
               <div class="launcher-graphics">
                 <a
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   href="https://prismlauncher.org/"
                   class="graphic gradient-border"
                   title="Prism Launcher"
@@ -214,7 +214,7 @@
                   <PrismLauncherLogo />
                 </a>
                 <a
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   href="https://multimc.org/"
                   class="graphic gradient-border"
                   title="MultiMC"
@@ -222,7 +222,7 @@
                   <img src="~/assets/images/external/multimc.png" alt="multimc launcher logo" />
                 </a>
                 <a
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   href="https://atlauncher.com/"
                   class="graphic gradient-border"
                   title="ATLauncher"

@@ -88,7 +88,7 @@
         :route-name="$route.name"
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
-        :toggle-collapsed="toggleChecklistCollapse"
+        :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
       />
       <NuxtPage
         v-model:project="project"
@@ -100,7 +100,7 @@
         :current-member="currentMember"
         :patch-project="patchProject"
         :patch-icon="patchIcon"
-        :update-icon="updateIcon"
+        :update-icon="resetProject"
       />
     </div>
   </div>
@@ -131,12 +131,12 @@
       />
     </Head>
     <ModalModeration
-      ref="modal_moderation"
+      ref="modalModeration"
       :project="project"
       :status="moderationStatus"
       :on-close="resetProject"
     />
-    <Modal ref="modal_license" :header="project.license.name ? project.license.name : 'License'">
+    <Modal ref="modalLicense" :header="project.license.name ? project.license.name : 'License'">
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
@@ -375,7 +375,7 @@
               :href="project.issues_url"
               class="title"
               :target="$external()"
-              rel="noopener noreferrer nofollow ugc"
+              rel="noopener nofollow ugc"
             >
               <IssuesIcon aria-hidden="true" />
               <span>Issues</span>
@@ -385,7 +385,7 @@
               :href="project.source_url"
               class="title"
               :target="$external()"
-              rel="noopener noreferrer nofollow ugc"
+              rel="noopener nofollow ugc"
             >
               <CodeIcon aria-hidden="true" />
               <span>Source</span>
@@ -395,7 +395,7 @@
               :href="project.wiki_url"
               class="title"
               :target="$external()"
-              rel="noopener noreferrer nofollow ugc"
+              rel="noopener nofollow ugc"
             >
               <WikiIcon aria-hidden="true" />
               <span>Wiki</span>
@@ -404,7 +404,7 @@
               v-if="project.discord_url"
               :href="project.discord_url"
               :target="$external()"
-              rel="noopener noreferrer nofollow ugc"
+              rel="noopener nofollow ugc"
             >
               <DiscordIcon class="shrink" aria-hidden="true" />
               <span>Discord</span>
@@ -414,7 +414,7 @@
               :key="index"
               :href="donation.url"
               :target="$external()"
-              rel="noopener noreferrer nofollow ugc"
+              rel="noopener nofollow ugc"
             >
               <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
               <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
@@ -519,7 +519,7 @@
                 v-if="project.license.url"
                 class="text-link"
                 :href="project.license.url"
-                rel="noopener noreferrer nofollow ugc"
+                rel="noopener nofollow ugc"
               >
                 {{ licenseIdDisplay }}
               </a>
@@ -581,7 +581,7 @@
           :route-name="$route.name"
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
-          :toggle-collapsed="toggleChecklistCollapse"
+          :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
         />
         <div v-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
           {{ project.title }} is not viewable in search because it has been found to be in violation
@@ -603,16 +603,13 @@
             >our documentation</a
           >
           which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener noreferrer">
-            ATLauncher</a
-          >,
-          <a href="https://multimc.org/" :target="$external()" rel="noopener noreferrer">MultiMC</a
-          >, and
-          <a href="https://prismlauncher.org" :target="$external()" rel="noopener noreferrer">
+          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
+          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
+          <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
             Prism Launcher</a
           >.
         </div>
-        <Advertisement v-if="$tag.approvedStatuses.includes(project.status)" />
+        <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
           <NavRow
             :links="[
@@ -665,8 +662,7 @@
     </div>
   </div>
 </template>
-
-<script>
+<script setup>
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
@@ -686,7 +682,7 @@ import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
-import Advertisement from '~/components/ads/Advertisement'
+import Promotion from '~/components/ads/Promotion'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator'
@@ -712,402 +708,316 @@ import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { renderString } from '~/helpers/parse'
 
-export default defineNuxtComponent({
-  components: {
-    Avatar,
-    CopyCode,
-    NavRow,
-    Badge,
-    Advertisement,
-    Modal,
-    ModalReport,
-    ModalModeration,
-    ProjectPublishingChecklist,
-    EnvironmentIndicator,
-    IssuesIcon,
-    DownloadIcon,
-    CalendarIcon,
-    CheckIcon,
-    ClearIcon,
-    UpdateIcon,
-    CodeIcon,
-    ReportIcon,
-    HeartIcon,
-    WikiIcon,
-    DiscordIcon,
-    BuyMeACoffeeLogo,
-    PayPalIcon,
-    OpenCollectiveIcon,
-    UnknownIcon,
-    Categories,
-    PatreonIcon,
-    KoFiIcon,
-    ChevronRightIcon,
-    NavStack,
-    NavStackItem,
-    SettingsIcon,
-    EyeIcon,
-    CrossIcon,
-    EditIcon,
-    ModerationIcon,
-    GalleryIcon,
-    VersionIcon,
-    UsersIcon,
-    CategoriesIcon,
-    DescriptionIcon,
-    LinksIcon,
-    LicenseIcon,
-  },
-  async setup() {
-    const data = useNuxtApp()
-    const route = useRoute()
+const data = useNuxtApp()
+const route = useRoute()
 
-    if (
-      !route.params.id ||
-      !(
-        data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
-        route.params.type === 'project'
-      )
-    ) {
-      throw createError({
-        fatal: true,
-        statusCode: 404,
-        message: 'The page could not be found',
-      })
-    }
+if (
+  !route.params.id ||
+  !(
+    data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
+    route.params.type === 'project'
+  )
+) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'The page could not be found',
+  })
+}
 
-    try {
-      const [
-        { data: project },
-        { data: members },
-        { data: dependencies },
-        { data: featuredVersions },
-        { data: versions },
-      ] = await Promise.all([
-        useAsyncData(
-          `project/${route.params.id}`,
-          () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
-          {
-            transform: (project) => {
-              project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+let project, allMembers, dependencies, featuredVersions, versions
+try {
+  ;[
+    { data: project },
+    { data: allMembers },
+    { data: dependencies },
+    { data: featuredVersions },
+    { data: versions },
+  ] = await Promise.all([
+    useAsyncData(
+      `project/${route.params.id}`,
+      () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
+      {
+        transform: (project) => {
+          project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
-              project.project_type = data.$getProjectTypeForUrl(
-                project.project_type,
-                project.loaders
-              )
+          project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
 
-              if (process.client && history.state && history.state.overrideProjectType) {
-                project.project_type = history.state.overrideProjectType
-              }
-
-              return project
-            },
+          if (process.client && history.state && history.state.overrideProjectType) {
+            project.project_type = history.state.overrideProjectType
           }
-        ),
-        useAsyncData(
-          `project/${route.params.id}/members`,
-          () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
-          {
-            transform: (members) => {
-              members.forEach((it, index) => {
-                members[index].avatar_url = it.user.avatar_url
-                members[index].name = it.user.username
-              })
 
-              return members
-            },
-          }
-        ),
-        useAsyncData(`project/${route.params.id}/dependencies`, () =>
-          useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders())
-        ),
-        useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
-          useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
-        ),
-        useAsyncData(`project/${route.params.id}/version`, () =>
-          useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders())
-        ),
-      ])
-
-      if (
-        project.value.project_type !== route.params.type ||
-        route.params.id !== project.value.slug
-      ) {
-        let path = route.fullPath.split('/')
-        path.splice(0, 3)
-        path = path.filter((x) => x)
-
-        await navigateTo(
-          `/${project.value.project_type}/${project.value.slug}${
-            path.length > 0 ? `/${path.join('/')}` : ''
-          }`,
-          { redirectCode: 301 }
-        )
+          return project
+        },
       }
-
-      let currentMember = data.$auth.user
-        ? members.value.find((x) => x.user.id === data.$auth.user.id)
-        : null
-
-      if (
-        !currentMember &&
-        data.$auth.user &&
-        data.$tag.staffRoles.includes(data.$auth.user.role)
-      ) {
-        currentMember = {
-          team_id: project.team_id,
-          user: data.$auth.user,
-          role: data.$auth.role,
-          permissions: data.$auth.user.role === 'admin' ? 1023 : 12,
-          accepted: true,
-          payouts_split: 0,
-          avatar_url: data.$auth.user.avatar_url,
-          name: data.$auth.user.username,
-        }
-      }
-
-      versions.value = data.$computeVersions(versions.value, members.value)
-      featuredVersions.value = data.$computeVersions(featuredVersions.value, members.value)
-
-      featuredVersions.value.sort((a, b) => {
-        const aLatest = a.game_versions[a.game_versions.length - 1]
-        const bLatest = b.game_versions[b.game_versions.length - 1]
-        const gameVersions = data.$tag.gameVersions.map((e) => e.version)
-        return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
-      })
-
-      const projectTypeDisplay = data.$formatProjectType(
-        data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
-      )
-
-      return {
-        project,
-        versions: shallowRef(toRaw(versions)),
-        featuredVersions: shallowRef(toRaw(featuredVersions)),
-        members: ref(members.value.filter((x) => x.accepted)),
-        allMembers: members,
-        currentMember: ref(currentMember),
-        dependencies,
-        projectTypeDisplay: ref(projectTypeDisplay),
-      }
-    } catch (error) {
-      throw createError({
-        fatal: true,
-        statusCode: 404,
-        message: 'Project not found',
-      })
-    }
-  },
-  data() {
-    return {
-      licenseText: '',
-      collapsedChecklist: false,
-      moderationStatus: null,
-    }
-  },
-  computed: {
-    projectTypeDisplay() {
-      return this.$getProjectTypeForDisplay(this.project.project_type, this.project.loaders)
-    },
-    licenseIdDisplay() {
-      const id = this.project.license.id
-
-      if (id === 'LicenseRef-All-Rights-Reserved') {
-        return 'ARR'
-      } else if (id.includes('LicenseRef')) {
-        return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
-      } else {
-        return id
-      }
-    },
-    featuredGalleryImage() {
-      return this.project.gallery.find((img) => img.featured)
-    },
-    requestedStatus() {
-      return this.project.requested_status ?? 'approved'
-    },
-  },
-  methods: {
-    renderString,
-    async resetProject() {
-      const project = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
-
-      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-
-      project.project_type = this.$getProjectTypeForUrl(project.project_type, project.loaders)
-
-      this.project = project
-    },
-    async clearMessage() {
-      startLoading()
-
-      try {
-        await useBaseFetch(`project/${this.project.id}`, {
-          method: 'PATCH',
-          body: {
-            moderation_message: null,
-            moderation_message_body: null,
-          },
-          ...this.$defaultHeaders(),
-        })
-
-        this.project.moderator_message = null
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    toggleChecklistCollapse() {
-      this.collapsedChecklist = !this.collapsedChecklist
-    },
-    async setProcessing() {
-      startLoading()
-
-      try {
-        await useBaseFetch(`project/${this.project.id}`, {
-          method: 'PATCH',
-          body: {
-            status: 'processing',
-          },
-          ...this.$defaultHeaders(),
-        })
-
-        this.project.status = 'processing'
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async getLicenseData() {
-      try {
-        const text = await useBaseFetch(`tag/license/${this.project.license.id}`)
-        this.licenseText = text.body
-      } catch {
-        this.licenseText = 'License text could not be retrieved.'
-      }
-
-      this.$refs.modal_license.show()
-    },
-    async patchProject(data, quiet = false) {
-      let result = false
-      startLoading()
-
-      try {
-        await useBaseFetch(`project/${this.project.id}`, {
-          method: 'PATCH',
-          body: data,
-          ...this.$defaultHeaders(),
-        })
-
-        if (this.iconChanged) {
-          await useBaseFetch(
-            `project/${this.project.id}/icon?ext=${
-              this.icon.type.split('/')[this.icon.type.split('/').length - 1]
-            }`,
-            {
-              method: 'PATCH',
-              body: this.icon,
-              ...this.$defaultHeaders(),
-            }
-          )
-        }
-
-        for (const key in data) {
-          this.project[key] = data[key]
-        }
-
-        if (data.license_id) {
-          this.project.license.id = data.license_id
-        }
-        if (data.license_url) {
-          this.project.license.url = data.license_url
-        }
-
-        this.$emit('update:project', this.project)
-        result = true
-        if (!quiet) {
-          this.$notify({
-            group: 'main',
-            title: 'Project updated',
-            text: 'Your project has been updated.',
-            type: 'success',
+    ),
+    useAsyncData(
+      `project/${route.params.id}/members`,
+      () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
+      {
+        transform: (members) => {
+          members.forEach((it, index) => {
+            members[index].avatar_url = it.user.avatar_url
+            members[index].name = it.user.username
           })
-          window.scrollTo({ top: 0, behavior: 'smooth' })
-        }
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+
+          return members
+        },
       }
+    ),
+    useAsyncData(`project/${route.params.id}/dependencies`, () =>
+      useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders())
+    ),
+    useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
+      useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
+    ),
+    useAsyncData(`project/${route.params.id}/version`, () =>
+      useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders())
+    ),
+  ])
 
-      stopLoading()
+  versions = shallowRef(toRaw(versions))
+  featuredVersions = shallowRef(toRaw(featuredVersions))
+} catch (error) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'Project not found',
+  })
+}
 
-      return result
-    },
-    async patchIcon(icon) {
-      let result = false
-      startLoading()
+if (project.value.project_type !== route.params.type || route.params.id !== project.value.slug) {
+  let path = route.fullPath.split('/')
+  path.splice(0, 3)
+  path = path.filter((x) => x)
 
-      try {
-        await useBaseFetch(
-          `project/${this.project.id}/icon?ext=${
-            icon.type.split('/')[icon.type.split('/').length - 1]
-          }`,
-          {
-            method: 'PATCH',
-            body: icon,
-            ...this.$defaultHeaders(),
-          }
-        )
-        await this.updateIcon()
-        result = true
-        this.$notify({
-          group: 'main',
-          title: 'Project icon updated',
-          text: "Your project's icon has been updated.",
-          type: 'success',
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
+  await navigateTo(
+    `/${project.value.project_type}/${project.value.slug}${
+      path.length > 0 ? `/${path.join('/')}` : ''
+    }`,
+    { redirectCode: 301 }
+  )
+}
 
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
+const members = ref(allMembers.value.filter((x) => x.accepted))
+const currentMember = ref(
+  data.$auth.user ? allMembers.value.find((x) => x.user.id === data.$auth.user.id) : null
+)
 
-      stopLoading()
-      return result
-    },
-    async updateIcon() {
-      const response = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
-      this.project.icon_url = response.icon_url
-    },
-    openModerationModal(status) {
-      this.moderationStatus = status
+if (
+  !currentMember.value &&
+  data.$auth.user &&
+  data.$tag.staffRoles.includes(data.$auth.user.role)
+) {
+  currentMember.value = {
+    team_id: project.team_id,
+    user: data.$auth.user,
+    role: data.$auth.role,
+    permissions: data.$auth.user.role === 'admin' ? 1023 : 12,
+    accepted: true,
+    payouts_split: 0,
+    avatar_url: data.$auth.user.avatar_url,
+    name: data.$auth.user.username,
+  }
+}
 
-      this.$refs.modal_moderation.show()
-    },
-  },
+versions.value = data.$computeVersions(versions.value, allMembers.value)
+featuredVersions.value = data.$computeVersions(featuredVersions.value, allMembers.value)
+
+featuredVersions.value.sort((a, b) => {
+  const aLatest = a.game_versions[a.game_versions.length - 1]
+  const bLatest = b.game_versions[b.game_versions.length - 1]
+  const gameVersions = data.$tag.gameVersions.map((e) => e.version)
+  return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
 })
+
+const projectTypeDisplay = computed(() =>
+  data.$formatProjectType(
+    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+  )
+)
+const licenseIdDisplay = computed(() => {
+  const id = project.value.license.id
+
+  if (id === 'LicenseRef-All-Rights-Reserved') {
+    return 'ARR'
+  } else if (id.includes('LicenseRef')) {
+    return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
+  } else {
+    return id
+  }
+})
+const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
+const requestedStatus = computed(() => project.value.requested_status ?? 'approved')
+
+async function resetProject() {
+  const newProject = await useBaseFetch(`project/${project.value.id}`, data.$defaultHeaders())
+
+  newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
+
+  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
+
+  project.value = newProject
+}
+
+async function clearMessage() {
+  startLoading()
+
+  try {
+    await useBaseFetch(`project/${project.value.id}`, {
+      method: 'PATCH',
+      body: {
+        moderation_message: null,
+        moderation_message_body: null,
+      },
+      ...data.$defaultHeaders(),
+    })
+
+    project.value.moderator_message = null
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+async function setProcessing() {
+  startLoading()
+
+  try {
+    await useBaseFetch(`project/${project.value.id}`, {
+      method: 'PATCH',
+      body: {
+        status: 'processing',
+      },
+      ...data.$defaultHeaders(),
+    })
+
+    project.value.status = 'processing'
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const modalLicense = ref(null)
+const licenseText = ref('')
+async function getLicenseData() {
+  try {
+    const text = await useBaseFetch(`tag/license/${project.value.license.id}`)
+    licenseText.value = text.body
+  } catch {
+    licenseText.value = 'License text could not be retrieved.'
+  }
+
+  modalLicense.value.show()
+}
+
+async function patchProject(data, quiet = false) {
+  let result = false
+  startLoading()
+
+  try {
+    await useBaseFetch(`project/${project.value.id}`, {
+      method: 'PATCH',
+      body: data,
+      ...data.$defaultHeaders(),
+    })
+
+    for (const key in data) {
+      project.value[key] = data[key]
+    }
+
+    if (data.license_id) {
+      project.value.license.id = data.license_id
+    }
+    if (data.license_url) {
+      project.value.license.url = data.license_url
+    }
+
+    result = true
+    if (!quiet) {
+      data.$notify({
+        group: 'main',
+        title: 'Project updated',
+        text: 'Your project has been updated.',
+        type: 'success',
+      })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+
+  return result
+}
+
+async function patchIcon(icon) {
+  let result = false
+  startLoading()
+
+  try {
+    await useBaseFetch(
+      `project/${project.value.id}/icon?ext=${
+        icon.type.split('/')[icon.type.split('/').length - 1]
+      }`,
+      {
+        method: 'PATCH',
+        body: icon,
+        ...data.$defaultHeaders(),
+      }
+    )
+    await resetProject()
+    result = true
+    data.$notify({
+      group: 'main',
+      title: 'Project icon updated',
+      text: "Your project's icon has been updated.",
+      type: 'success',
+    })
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+  return result
+}
+
+const modalModeration = ref(null)
+const moderationStatus = ref(null)
+function openModerationModal(status) {
+  moderationStatus.value = status
+
+  modalModeration.value.show()
+}
+
+const collapsedChecklist = ref(false)
 </script>
 <style lang="scss" scoped>
 .header {

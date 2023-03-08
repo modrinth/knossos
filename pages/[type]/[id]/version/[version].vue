@@ -216,7 +216,7 @@
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             >Markdown</a
           >. HTML can also be used inside your changelog, not including styles, scripts, and
           iframes.
@@ -855,20 +855,6 @@ export default defineNuxtComponent({
 
       if (!version) {
         version = props.versions.find((x) => x.displayUrlEnding === route.params.version)
-      }
-
-      // LEGACY- to support old duplicate version URLs
-      const dashIndex = route.params.version.indexOf('-')
-      if (!version && dashIndex !== -1) {
-        const version = props.versions.find(
-          (x) => x.displayUrlEnding === route.params.version.substring(0, dashIndex)
-        )
-
-        await navigateTo(
-          `/${props.project.project_type}/${props.project.slug}/version/${version.version_number}`,
-          { redirectCode: 307 }
-        )
-        return
       }
     }
 

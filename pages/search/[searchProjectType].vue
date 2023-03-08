@@ -195,23 +195,17 @@
           >playing modpacks</a
         >
         with
-        <a rel="noopener noreferrer" href="https://atlauncher.com/about" :target="$external()"
-          >ATLauncher</a
-        >,
-        <a rel="noopener noreferrer" href="https://multimc.org/" :target="$external()">MultiMC</a>,
-        and
-        <a rel="noopener noreferrer" href="https://prismlauncher.org" :target="$external()">
-          Prism Launcher</a
+        <a rel="noopener" href="https://atlauncher.com/about" :target="$external()">ATLauncher</a>,
+        <a rel="noopener" href="https://multimc.org/" :target="$external()">MultiMC</a>, and
+        <a rel="noopener" href="https://prismlauncher.org" :target="$external()"> Prism Launcher</a
         >. Pack creators can reference our documentation on
         <a href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/" :target="$external()"
           >creating modpacks</a
         >. Join us on
-        <a rel="noopener noreferrer" href="https://discord.gg/EUHuJHt" :target="$external()"
-          >Discord</a
-        >
+        <a rel="noopener" href="https://discord.gg/EUHuJHt" :target="$external()">Discord</a>
         for support.
       </div>
-      <Advertisement />
+      <Promotion />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -353,11 +347,11 @@ import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 
-import Advertisement from '~/components/ads/Advertisement'
+import Promotion from '~/components/ads/Promotion.vue'
 
 export default defineNuxtComponent({
   components: {
-    Advertisement,
+    Promotion,
     ProjectCard,
     Pagination,
     Multiselect,
@@ -577,7 +571,6 @@ export default defineNuxtComponent({
     })
 
     watch(pending, (newVal) => {
-      console.log(newVal)
       if (newVal) {
         startLoading()
       } else {

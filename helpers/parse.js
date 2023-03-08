@@ -75,15 +75,17 @@ export const md = (options = {}) => {
     if (index !== -1) {
       const href = token.attrs[index][1]
 
-      const url = new URL(href)
-      const allowedHostnames = ['modrinth.com']
+      try {
+        const url = new URL(href)
+        const allowedHostnames = ['modrinth.com']
 
-      if (allowedHostnames.includes(url.hostname)) {
-        return defaultLinkOpenRenderer(tokens, idx, options, env, self)
-      }
+        if (allowedHostnames.includes(url.hostname)) {
+          return defaultLinkOpenRenderer(tokens, idx, options, env, self)
+        }
+      } catch (err) {}
     }
 
-    tokens[idx].attrSet('rel', 'noopener noreferrer nofollow ugc')
+    tokens[idx].attrSet('rel', 'noopener nofollow ugc')
 
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
   }
@@ -102,19 +104,22 @@ export const md = (options = {}) => {
       const src = token.attrs[index][1]
 
       const url = new URL(src)
-      const allowedHostnames = [
-        'i.imgur.com',
-        'cdn-raw.modrinth.com',
-        'cdn.modrinth.com',
-        'staging-cdn-raw.modrinth.com',
-        'staging-cdn.modrinth.com',
-        'raw.githubusercontent.com',
-        'img.shields.io',
-      ]
+      try {
+        const allowedHostnames = [
+          'i.imgur.com',
+          'cdn-raw.modrinth.com',
+          'cdn.modrinth.com',
+          'staging-cdn-raw.modrinth.com',
+          'staging-cdn.modrinth.com',
+          'raw.githubusercontent.com',
+          'img.shields.io',
+        ]
 
-      if (!allowedHostnames.includes(url.hostname)) {
-        token.attrs[index][1] = `//wsrv.nl/?url=${encodeURIComponent(src)}`
-      }
+        if (allowedHostnames.includes(url.hostname)) {
+          return defaultImageRenderer(tokens, idx, options, env, self)
+        }
+      } catch (err) {}
+      token.attrs[index][1] = `//wsrv.nl/?url=${encodeURIComponent(src)}`
     }
 
     return defaultImageRenderer(tokens, idx, options, env, self)

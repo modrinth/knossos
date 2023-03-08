@@ -5,7 +5,7 @@
         <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2">
           <a
             href="https://exaroton.com/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
-            rel="noopener noreferrer nofollow sponsored"
+            rel="noopener nofollow sponsored"
             target="_blank"
           >
             <div>
@@ -24,9 +24,7 @@
         </div>
       </div>
       <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-4">
-        <a rel="noopener noreferrer" target="_blank" href="https://adrinth.com">
-          Ads via Adrinth
-        </a>
+        <a rel="noopener" target="_blank" href="https://adrinth.com"> Ads via Adrinth </a>
       </div>
     </div>
   </div>
