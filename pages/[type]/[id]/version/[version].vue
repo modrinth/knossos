@@ -146,7 +146,7 @@
           v-tooltip="primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'"
           :href="primaryFile.url"
           class="iconified-button brand-button"
-          :title="`Download ${primaryFile.filename}`"
+          :aria-label="`Download ${primaryFile.filename}`"
         >
           <DownloadIcon aria-hidden="true" />
           Download

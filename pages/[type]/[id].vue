@@ -283,7 +283,7 @@
           v-if="currentMember && project.moderator_message"
           class="universal-card moderation-card"
         >
-          <h3 class="card-header">Message from the moderators:</h3>
+          <h2 class="card-header">Message from the moderators:</h2>
           <div v-if="project.moderator_message.body">
             <p v-if="project.moderator_message.message" class="mod-message__title">
               {{ project.moderator_message.message }}
@@ -314,7 +314,7 @@
           v-if="$auth.user && $tag.staffRoles.includes($auth.user.role)"
           class="universal-card moderation-card"
         >
-          <h3>Moderation actions</h3>
+          <h2>Moderation actions</h2>
           <div class="input-stack">
             <button
               v-if="
@@ -368,7 +368,7 @@
             project.donation_urls.length > 0
           "
         >
-          <h3 class="card-header">External resources</h3>
+          <h2 class="card-header">External resources</h2>
           <div class="links">
             <a
               v-if="project.issues_url"
@@ -438,7 +438,7 @@
         </template>
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
-            <h3 class="card-header">Featured versions</h3>
+            <h2 class="card-header">Featured versions</h2>
             <nuxt-link
               v-if="project.versions.length > 0 || currentMember"
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
@@ -466,7 +466,7 @@
               "
               :href="version.primaryFile.url"
               class="download square-button brand-button"
-              :title="`Download ${version.name}`"
+              :aria-label="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
             >
               <DownloadIcon aria-hidden="true" />
@@ -491,7 +491,7 @@
           </div>
           <hr class="card-divider" />
         </template>
-        <h3 class="card-header">Project members</h3>
+        <h2 class="card-header">Project members</h2>
         <div
           v-for="member in members"
           :key="member.user.id"
@@ -510,7 +510,7 @@
           </div>
         </div>
         <hr class="card-divider" />
-        <h3 class="card-header">Technical information</h3>
+        <h2 class="card-header">Technical information</h2>
         <div class="infos">
           <div class="info">
             <div class="key">License</div>
@@ -1199,8 +1199,10 @@ export default defineNuxtComponent({
 }
 
 .card-header {
+  font-size: 1.125rem;
   font-weight: bold;
   color: var(--color-heading);
+  margin-top: var(--spacing-card-md);
   margin-bottom: 0.3rem;
   width: fit-content;
 }

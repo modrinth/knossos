@@ -64,7 +64,7 @@
           :href="version.primaryFile.url"
           class="download-button square-button brand-button"
           :class="version.version_type"
-          :title="`Download ${version.name}`"
+          :aria-label="`Download ${version.name}`"
           @click.stop="(event) => event.stopPropagation()"
         >
           <DownloadIcon aria-hidden="true" />

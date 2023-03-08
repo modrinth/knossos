@@ -57,6 +57,7 @@
             v-if="license.requiresOnlyOrLater"
             v-model="allowOrLater"
             :disabled="!hasPermission"
+            description="Allow later editions of this license"
           >
             Allow later editions of this license
           </Checkbox>
@@ -64,6 +65,7 @@
             v-if="license.friendly === 'Custom'"
             v-model="nonSpdxLicense"
             :disabled="!hasPermission"
+            description="License does not have a SPDX identifier"
           >
             License does not have a SPDX identifier
           </Checkbox>

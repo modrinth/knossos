@@ -55,11 +55,8 @@
                 title="Switch theme"
                 @click="changeTheme"
               >
-                <SunIcon v-if="$colorMode.unknown" />
-                <ColorScheme>
-                  <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-                  <SunIcon v-else aria-hidden="true" />
-                </ColorScheme>
+                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+                <SunIcon v-else aria-hidden="true" />
               </button>
               <div
                 v-if="auth.user"
@@ -262,11 +259,8 @@
               <span class="dropdown-item__text">Moderation</span>
             </NuxtLink>
             <button class="iconified-button raised-button" @click="changeTheme">
-              <SunIcon v-if="$colorMode.unknown" class="icon" />
-              <ColorScheme>
-                <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-                <SunIcon v-else class="icon" />
-              </ColorScheme>
+              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+              <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
             </button>
             <button v-if="auth.user" class="iconified-button danger-button" @click="logout">
@@ -353,13 +347,11 @@
         </a>
       </div>
       <div class="buttons">
-        <ColorScheme>
-          <button class="iconified-button raised-button" @click="changeTheme">
-            <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-            <SunIcon v-else aria-hidden="true" />
-            Change theme
-          </button>
-        </ColorScheme>
+        <button class="iconified-button raised-button" @click="changeTheme">
+          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+          <SunIcon v-else aria-hidden="true" />
+          Change theme
+        </button>
         <nuxt-link class="iconified-button raised-button" to="/settings">
           <SettingsIcon aria-hidden="true" />
           Settings
@@ -495,7 +487,7 @@ export default defineNuxtComponent({
       }
     },
     changeTheme() {
-      this.$colorMode.preference = this.$colorMode.value === 'dark' ? 'light' : 'dark'
+      updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
     },
   },
 })

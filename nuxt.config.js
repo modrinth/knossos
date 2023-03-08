@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'color-scheme',
-          content: 'light dark',
+          content: 'dark light',
         },
         {
           name: 'og:site_name',
@@ -73,7 +73,7 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'preload',
-          href: 'ttps://cdn-raw.modrinth.com/fonts/inter/Inter-Regular.woff2?v=3.19',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Regular.woff2?v=3.19',
           as: 'font',
           type: 'font/woff2',
           crossorigin: true,
@@ -133,7 +133,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ['@nuxtjs/color-mode'],
   vite: {
     plugins: [
       svgLoader({

@@ -9,14 +9,11 @@
             target="_blank"
           >
             <div>
-              <DarkIcon v-if="$colorMode.unknown" class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
-              <ColorScheme>
-                <LightIcon
-                  v-if="$colorMode.value === 'light'"
-                  class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
-                />
-                <DarkIcon v-else class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
-              </ColorScheme>
+              <LightIcon
+                v-if="$colorMode.value === 'light'"
+                class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
+              />
+              <DarkIcon v-else class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
             </div>
             <span>
               <span> Host your Minecraft server on </span>

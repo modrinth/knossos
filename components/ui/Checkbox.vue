@@ -10,7 +10,7 @@
       role="checkbox"
       :disabled="disabled"
       :class="{ checked: modelValue, collapsing: collapsingToggleStyle }"
-      :aria-label="description"
+      :aria-label="description ?? label"
       :aria-checked="modelValue"
     >
       <CheckIcon v-if="modelValue && !collapsingToggleStyle" aria-hidden="true" />
@@ -44,7 +44,7 @@ export default {
     },
     description: {
       type: String,
-      default: '',
+      default: null,
     },
     modelValue: Boolean,
     clickEvent: {

@@ -20,6 +20,7 @@
         <Checkbox
           v-if="isValidInput() && parseInput() >= minWithdraw && parseInput() <= balance"
           v-model="consentedFee"
+          description="Consent to fee"
         >
           <template v-if="wallet === 'venmo'">
             I acknowledge that $0.25 will be deducted from the amount I receive to cover
@@ -35,6 +36,7 @@
         <Checkbox
           v-if="isValidInput() && parseInput() >= minWithdraw && parseInput() <= balance"
           v-model="consentedAccount"
+          description="Confirm transfer"
         >
           I confirm that I an initiating a transfer to the following
           {{ $formatWallet(wallet) }} account: {{ account }}

@@ -11,14 +11,13 @@
     "fix": "eslint --fix --ext .js,.vue,.ts,.jsx,.tsx,.html,.vue ."
   },
   "devDependencies": {
-    "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-vue": "^9.9.0",
-    "nuxt": "^3.2.2",
+    "nuxt": "^3.2.3",
     "prettier": "^2.8.3",
     "sass": "^1.58.0",
     "typescript": "^4.9.5",

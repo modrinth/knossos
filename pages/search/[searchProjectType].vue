@@ -471,7 +471,11 @@ export default defineNuxtComponent({
       (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
 
-    const { data: rawResults, refresh: refreshSearch } = useLazyFetch(() => {
+    const {
+      data: rawResults,
+      refresh: refreshSearch,
+      pending,
+    } = useLazyFetch(() => {
       const config = useRuntimeConfig()
       const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
@@ -570,6 +574,15 @@ export default defineNuxtComponent({
       }
 
       return `${base}${url}`
+    })
+
+    watch(pending, (newVal) => {
+      console.log(newVal)
+      if (newVal) {
+        startLoading()
+      } else {
+        stopLoading()
+      }
     })
 
     const results = shallowRef(toRaw(rawResults))

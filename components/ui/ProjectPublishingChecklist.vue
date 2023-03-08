@@ -18,6 +18,7 @@
               v-for="nag in nags"
               :key="`checklist-${nag.id}`"
               v-tooltip="nag.title"
+              :aria-label="nag.title"
               class="circle"
               :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
             >
@@ -45,16 +46,19 @@
           <RequiredIcon
             v-if="nag.status === 'required'"
             v-tooltip="'Required'"
+            aria-label="Required"
             :class="nag.status"
           />
           <SuggestionIcon
             v-else-if="nag.status === 'suggestion'"
             v-tooltip="'Suggestion'"
+            aria-label="Suggestion"
             :class="nag.status"
           />
           <ModerationIcon
             v-else-if="nag.status === 'review'"
             v-tooltip="'Review'"
+            aria-label="Review"
             :class="nag.status"
           />{{ nag.title }}</span
         >
@@ -66,6 +70,7 @@
             $tag.rejectedStatuses.includes(project.status)
           "
           v-model="acknowledgedMessage"
+          description="Acknowledge staff message in sidebar"
         >
           I acknowledge that I have addressed the staff's message on the sidebar
         </Checkbox>
