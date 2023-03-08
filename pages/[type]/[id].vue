@@ -739,12 +739,14 @@ try {
       () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
       {
         transform: (project) => {
-          project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+          if (project) {
+            project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
-          project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
+            project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
 
-          if (process.client && history.state && history.state.overrideProjectType) {
-            project.project_type = history.state.overrideProjectType
+            if (process.client && history.state && history.state.overrideProjectType) {
+              project.project_type = history.state.overrideProjectType
+            }
           }
 
           return project
@@ -779,6 +781,14 @@ try {
   versions = shallowRef(toRaw(versions))
   featuredVersions = shallowRef(toRaw(featuredVersions))
 } catch (error) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'Project not found',
+  })
+}
+
+if (!project.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
