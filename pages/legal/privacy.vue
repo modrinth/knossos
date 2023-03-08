@@ -200,7 +200,7 @@
       <a href="mailto:gdpr@modrinth.com">gdpr@modrinth.com</a> or write us at:
     </p>
     <p>
-      Rinth, Inc.
+      Rinth, Inc.<br />
       410 North Scottsdale Road<br />
       Suite 1000<br />
       Tempe, AZ 85281
