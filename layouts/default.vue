@@ -9,7 +9,7 @@
         </section>
         <section class="nav-group columns" role="presentation">
           <section class="nav" aria-label="Page links">
-            <NavRow class="navigation" :links="NAV_ROUTES" />
+            <NavRow class="navigation" :links="navRoutes" />
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
@@ -109,20 +109,18 @@
       </section>
       <section class="mobile-navigation">
         <div class="nav-menu nav-menu-browse" :class="{ expanded: isBrowseMenuOpen }">
-          <h1>Search</h1>
-          <div class="links">
+          <div class="links cascade-links">
             <NuxtLink
-              v-for="route in NAV_ROUTES"
-              :key="route.href"
-              :to="route.href"
+              v-for="navRoute in navRoutes"
+              :key="navRoute.href"
+              :to="navRoute.href"
               class="iconified-button"
             >
-              {{ route.label }}
+              {{ navRoute.label }}
             </NuxtLink>
           </div>
         </div>
         <div class="nav-menu nav-menu-mobile" :class="{ expanded: isMobileMenuOpen }">
-          <h1>{{ auth.user ? 'Account' : 'Options' }}</h1>
           <div class="account-container">
             <NuxtLink
               v-if="auth.user"
@@ -182,10 +180,11 @@
           </NuxtLink>
           <button
             class="tab button-animation"
-            :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
+            :class="{ 'router-link-exact-active': isBrowseMenuOpen, 'search': !auth.user }"
             @click="toggleBrowseMenu()"
           >
             <SearchIcon />
+            <template v-if="!auth.user">Search</template>
           </button>
           <template v-if="auth.user">
             <NuxtLink to="/notifications" class="tab button-animation">
@@ -330,33 +329,6 @@ useHead({
 })
 </script>
 <script>
-const NAV_ROUTES = [
-  {
-    label: 'Mods',
-    href: '/mods',
-  },
-  {
-    label: 'Plugins',
-    href: '/plugins',
-  },
-  {
-    label: 'Data Packs',
-    href: '/datapacks',
-  },
-  {
-    label: 'Shaders',
-    href: '/shaders',
-  },
-  {
-    label: 'Resource Packs',
-    href: '/resourcepacks',
-  },
-  {
-    label: 'Modpacks',
-    href: '/modpacks',
-  },
-]
-const SEARCH_PAGES = ['/mods', '/plugins', '/datapacks', '/shaders', '/resourcepacks', '/modpacks']
 export default defineNuxtComponent({
   data() {
     return {
@@ -365,11 +337,37 @@ export default defineNuxtComponent({
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
       hideDropdown: false,
+      navRoutes: [
+        {
+          label: 'Mods',
+          href: '/mods',
+        },
+        {
+          label: 'Plugins',
+          href: '/plugins',
+        },
+        {
+          label: 'Data Packs',
+          href: '/datapacks',
+        },
+        {
+          label: 'Shaders',
+          href: '/shaders',
+        },
+        {
+          label: 'Resource Packs',
+          href: '/resourcepacks',
+        },
+        {
+          label: 'Modpacks',
+          href: '/modpacks',
+        },
+      ]
     }
   },
   computed: {
     isOnSearchPage() {
-      return NAV_ROUTES.some((route) => this.$route.path.startsWith(route.href))
+      return this.navRoutes.some((route) => this.$route.path.startsWith(route.href))
     },
   },
   watch: {
@@ -742,13 +740,6 @@ export default defineNuxtComponent({
         transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
         border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
         box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
-        h1 {
-          text-align: center;
-          color: var(--color-text);
-          font-size: 1.5rem;
-          margin-bottom: 0;
-          font-weight: 600;
-        }
         .links,
         .account-container {
           display: grid;
@@ -756,23 +747,23 @@ export default defineNuxtComponent({
           grid-gap: 1rem;
           justify-content: center;
           padding: 1rem;
+
           .iconified-button {
             width: 100%;
+            max-width: 500px;
             padding: 0.75rem;
             justify-content: center;
             font-weight: 600;
             font-size: 1rem;
+            margin: 0 auto;
           }
         }
-        .links {
+        .cascade-links {
           @media screen and (min-width: 354px) {
             grid-template-columns: repeat(2, 1fr);
           }
           @media screen and (min-width: 674px) {
             grid-template-columns: repeat(3, 1fr);
-          }
-          @media screen and (min-width: 895px) {
-            grid-template-columns: repeat(4, 1fr);
           }
         }
         &-browse {
@@ -854,6 +845,13 @@ export default defineNuxtComponent({
             width: 1.75rem;
           }
 
+          &.search {
+            svg {
+              width: 1.25rem;
+              height: 1.25rem;
+            }
+          }
+
           .user-icon {
             width: 2rem;
             height: 2rem;
@@ -878,7 +876,7 @@ export default defineNuxtComponent({
             svg {
               color: var(--color-brand);
             }
-            color: var(--color-text);
+            color: var(--color-brand);
           }
         }
       }
