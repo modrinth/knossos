@@ -180,11 +180,16 @@
           </NuxtLink>
           <button
             class="tab button-animation"
-            :class="{ 'router-link-exact-active': isBrowseMenuOpen, 'search': !auth.user }"
+            :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
             @click="toggleBrowseMenu()"
           >
-            <SearchIcon />
-            <template v-if="!auth.user">Search</template>
+            <template v-if="auth.user">
+              <SearchIcon />
+            </template>
+            <template v-else>
+              <DropdownIcon class="smaller" :class="{ closed: !isBrowseMenuOpen }" />
+              Search
+            </template>
           </button>
           <template v-if="auth.user">
             <NuxtLink to="/notifications" class="tab button-animation">
@@ -841,14 +846,18 @@ export default defineNuxtComponent({
           }
 
           svg {
+            transition: transform 0.125s ease-in-out;
+
             height: 1.75rem;
             width: 1.75rem;
-          }
 
-          &.search {
-            svg {
+            &.smaller {
               width: 1.25rem;
               height: 1.25rem;
+            }
+
+            &.closed {
+              transform: rotate(180deg);
             }
           }
 
