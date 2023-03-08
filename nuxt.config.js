@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'color-scheme',
-          content: 'light dark',
+          content: 'dark light',
         },
         {
           name: 'og:site_name',
@@ -72,6 +72,41 @@ export default defineNuxtConfig({
       ],
       link: [
         {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Regular.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Medium.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-SemiBold.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Bold.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
+          rel: 'preload',
+          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-ExtraBold.woff2?v=3.19',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: true,
+        },
+        {
           rel: 'icon',
           type: 'image/x-icon',
           href: '/favicon-light.ico',
@@ -90,10 +125,6 @@ export default defineNuxtConfig({
           media: '(prefers-color-scheme:light)',
         },
         {
-          rel: 'stylesheet',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/inter.css',
-        },
-        {
           rel: 'search',
           type: 'application/opensearchdescription+xml',
           href: '/opensearch.xml',
@@ -102,7 +133,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ['@nuxtjs/color-mode'],
   vite: {
     plugins: [
       svgLoader({
@@ -190,37 +220,37 @@ export default defineNuxtConfig({
       )
 
       routes.push({
-        name: 'mods',
+        name: 'search-mods',
         path: '/mods',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'modpacks',
+        name: 'search-modpacks',
         path: '/modpacks',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'plugins',
+        name: 'search-plugins',
         path: '/plugins',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'resourcepacks',
+        name: 'search-resourcepacks',
         path: '/resourcepacks',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'shaders',
+        name: 'search-shaders',
         path: '/shaders',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
       })
       routes.push({
-        name: 'datapacks',
+        name: 'search-datapacks',
         path: '/datapacks',
         file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
         children: [],
@@ -236,6 +266,11 @@ export default defineNuxtConfig({
       apiBaseUrl: getApiUrl(),
       ariadneBaseUrl: getAriadneUrl(),
       siteUrl: getDomain(),
+
+      owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
+      slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',
+      branch: process.env.VERCEL_GIT_COMMIT_REF || 'master',
+      hash: process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
     },
   },
 })
@@ -265,7 +300,3 @@ function getDomain() {
     return 'http://localhost:3000'
   }
 }
-
-// Checklist
-// Fix perf issues on changelog/version page
-// Replace nuxt color mode with first-party library

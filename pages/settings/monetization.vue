@@ -9,7 +9,7 @@
     </section>
     <section class="universal-card">
       <h2 class="title">Enrollment</h2>
-      <template v-if="!enrolled && !$auth.user.email">
+      <template v-if="!enrolled && !auth.user.email">
         <p v-if="!enrolled">
           You are not currently enrolled in Modrinth's Creator Monetization Program. In order to
           enroll, you must first add a valid email address to your account.
@@ -108,22 +108,24 @@ export default defineNuxtComponent({
     ChartIcon,
     SettingsIcon,
   },
-  setup() {
+  async setup() {
     definePageMeta({
       middleware: 'auth',
     })
+    const auth = await useAuth()
+    return { auth }
   },
   data() {
     return {
       editing: false,
       enrolled:
-        this.$auth.user.payout_data.payout_wallet &&
-        this.$auth.user.payout_data.payout_wallet_type &&
-        this.$auth.user.payout_data.payout_address,
+        this.auth.user.payout_data.payout_wallet &&
+        this.auth.user.payout_data.payout_wallet_type &&
+        this.auth.user.payout_data.payout_address,
       wallets: ['paypal', 'venmo'],
-      selectedWallet: this.$auth.user.payout_data.payout_wallet ?? 'paypal',
-      accountType: this.$auth.user.payout_data.payout_wallet_type ?? this.getAccountTypes()[0],
-      account: this.$auth.user.payout_data.payout_address ?? '',
+      selectedWallet: this.auth.user.payout_data.payout_wallet ?? 'paypal',
+      accountType: this.auth.user.payout_data.payout_wallet_type ?? this.getAccountTypes()[0],
+      account: this.auth.user.payout_data.payout_address ?? '',
     }
   },
   head: {
@@ -179,12 +181,12 @@ export default defineNuxtComponent({
               },
         }
 
-        await useBaseFetch(`user/${this.$auth.user.id}`, {
+        await useBaseFetch(`user/${this.auth.user.id}`, {
           method: 'PATCH',
           body: data,
           ...this.$defaultHeaders(),
         })
-        await useAuth(this.$auth.token)
+        await useAuth(this.auth.token)
 
         this.editing = false
         this.enrolled = !unenroll

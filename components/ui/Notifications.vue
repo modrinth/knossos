@@ -56,7 +56,7 @@ function stopTimer(notif) {
   position: fixed;
   right: 25px;
   bottom: 25px;
-  z-index: 20;
+  z-index: 99999999;
   width: 300px;
 
   .vue-notification-wrapper {

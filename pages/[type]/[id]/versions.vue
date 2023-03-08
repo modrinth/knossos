@@ -22,7 +22,23 @@
       </span>
       <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
-    <div v-if="versions.length > 0" class="universal-card all-versions">
+    <VersionFilterControl
+      :versions="props.versions"
+      @update-versions="
+        (v) => {
+          filteredVersions = v
+          switchPage(1)
+        }
+      "
+    />
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(filteredVersions.length / 20)"
+      class="pagination-before"
+      :link-function="(page) => `?page=${page}`"
+      @switch-page="switchPage"
+    />
+    <div v-if="filteredVersions.length > 0" class="universal-card all-versions">
       <div class="header">
         <div />
         <div>Version</div>
@@ -30,8 +46,7 @@
         <div>Stats</div>
       </div>
       <div
-        v-for="version in versions"
-        v-once
+        v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
         :key="version.id"
         class="version-button button-transparent"
         @click="
@@ -49,7 +64,7 @@
           :href="version.primaryFile.url"
           class="download-button square-button brand-button"
           :class="version.version_type"
-          :title="`Download ${version.name}`"
+          :aria-label="`Download ${version.name}`"
           @click.stop="(event) => event.stopPropagation()"
         >
           <DownloadIcon aria-hidden="true" />
@@ -87,82 +102,95 @@
         </div>
       </div>
     </div>
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(filteredVersions.length / 20)"
+      class="pagination-before"
+      :link-function="(page) => `?page=${page}`"
+      @switch-page="switchPage"
+    />
   </div>
 </template>
-<script>
+<script setup>
 import { acceptFileFromProjectType } from '~/helpers/fileUtils'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'
-import FeaturedIcon from '~/assets/images/utils/star.svg'
 import VersionBadge from '~/components/ui/Badge'
 import FileInput from '~/components/ui/FileInput'
-import DropArea from '~/components/ui/DropArea.vue'
+import DropArea from '~/components/ui/DropArea'
+import Pagination from '~/components/ui/Pagination'
+import VersionFilterControl from '~/components/ui/VersionFilterControl'
 
-export default defineNuxtComponent({
-  components: {
-    DropArea,
-    DownloadIcon,
-    UploadIcon,
-    InfoIcon,
-    FeaturedIcon,
-    VersionBadge,
-    FileInput,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    versions: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    featuredVersions: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      metaDescription: `Download and browse ${this.versions.length} ${
-        this.project.title
-      } versions. ${this.$formatNumber(
-        this.project.downloads
-      )} total downloads. Last updated ${this.$dayjs(
-        this.versions[0] ? this.versions[0].date_published : null
-      ).format('MMM D, YYYY')}.`,
-    }
+  versions: {
+    type: Array,
+    default() {
+      return []
+    },
   },
-  methods: {
-    acceptFileFromProjectType,
-    async handleFiles(files) {
-      await this.$router.push({
-        name: 'type-id-version-version',
-        params: {
-          type: this.project.project_type,
-          id: this.project.slug ? this.project.slug : this.project.id,
-          version: 'create',
-        },
-        state: {
-          newPrimaryFile: files[0],
-        },
-      })
+  members: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return {}
     },
   },
 })
+
+const data = useNuxtApp()
+const metaDescription = computed(
+  () =>
+    `Download and browse ${props.versions.length} ${
+      props.project.title
+    } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
+      .$dayjs(props.project.updated)
+      .format('MMM D, YYYY')}.`
+)
+
+const route = useRoute()
+const currentPage = ref(Number(route.query.p ?? 1))
+const filteredVersions = shallowRef(props.versions)
+
+async function switchPage(page) {
+  currentPage.value = page
+
+  const router = useRouter()
+  const route = useRoute()
+
+  await router.replace({
+    query: {
+      ...route.query,
+      p: currentPage.value !== 1 ? currentPage.value : undefined,
+    },
+  })
+}
+
+async function handleFiles(files) {
+  const router = useRouter()
+  await router.push({
+    name: 'type-id-version-version',
+    params: {
+      type: props.project.project_type,
+      id: props.project.slug ? props.project.slug : props.project.id,
+      version: 'create',
+    },
+    state: {
+      newPrimaryFile: files[0],
+    },
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -186,7 +214,7 @@ export default defineNuxtComponent({
   .header {
     display: grid;
     grid-template: 'download title supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1.25fr 1fr 1fr;
     color: var(--color-text-dark);
     font-size: var(--font-size-md);
     font-weight: bold;
@@ -218,7 +246,7 @@ export default defineNuxtComponent({
       'download title supports stats'
       'download metadata supports stats'
       'download dummy supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr 1fr 1fr;
+    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1.25fr 1fr 1fr;
     column-gap: var(--spacing-card-sm);
     justify-content: left;
     padding: var(--spacing-card-md);
@@ -294,13 +322,17 @@ export default defineNuxtComponent({
   }
 }
 
-.modal-create {
-  padding: var(--spacing-card-bg);
-
-  .input-group {
-    width: fit-content;
-    margin-left: auto;
-    margin-top: 1.5rem;
+.search-controls {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-md);
+  align-items: center;
+  flex-wrap: wrap;
+  .multiselect {
+    flex: 1;
+  }
+  .checkbox-outer {
+    min-width: fit-content;
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="main">
       <div class="error">
         <Logo404 v-if="error.statusCode === '404'" />
-        <h1 v-else>An error occured!</h1>
+        <h1 v-else>An error occurred!</h1>
         <p>{{ error.message }}</p>
         <div class="button-group">
           <nuxt-link to="/" class="iconified-button raised-button brand-button">
@@ -12,7 +12,7 @@
           <a
             href="https://discord.gg/EUHuJHt"
             class="iconified-button raised-button"
-            rel="noopener noreferrer nofollow"
+            rel="noopener"
           >
             Get help on Discord
           </a>

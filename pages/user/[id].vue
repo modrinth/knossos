@@ -61,12 +61,7 @@
               <ReportIcon aria-hidden="true" />
               Report
             </button>
-            <a
-              v-else
-              class="iconified-button"
-              :href="getAuthUrl()"
-              rel="noopener noreferrer nofollow"
-            >
+            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
               <ReportIcon aria-hidden="true" />
               Report
             </a>
@@ -101,7 +96,7 @@
           </template>
           <template v-else>
             <div class="sidebar__item">
-              <Badge v-if="user.role === 'admin' || user.role === 'moderator'" :type="user.role" />
+              <Badge v-if="$tag.staffRoles.includes(user.role)" :type="user.role" />
               <Badge v-else-if="projects.length > 0" type="creator" />
             </div>
             <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
@@ -109,14 +104,14 @@
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads() }}</span>
+                <span class="primary-stat__counter">{{ sumDownloads }}</span>
                 downloads
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumFollows() }}</span>
+                <span class="primary-stat__counter">{{ sumFollows }}</span>
                 followers of projects
               </div>
             </div>
@@ -126,7 +121,7 @@
                 v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="secondary-stat__text date"
               >
-                Joined {{ $dayjs(user.created).fromNow() }}
+                Joined {{ fromNow(user.created) }}
               </span>
             </div>
             <hr class="card-divider" />
@@ -134,11 +129,21 @@
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
             </div>
+            <a
+              v-if="githubUrl"
+              :href="githubUrl"
+              :target="$external()"
+              rel="noopener noreferrer nofollow"
+              class="sidebar__item github-button iconified-button"
+            >
+              <GitHubIcon aria-hidden="true" />
+              View GitHub profile
+            </a>
           </template>
         </div>
       </div>
       <div class="normal-page__content">
-        <Advertisement type="banner" small-screen="square" />
+        <Promotion />
         <nav class="navigation-card">
           <NavRow
             :links="[
@@ -211,14 +216,10 @@
             :client-side="project.client_side"
             :server-side="project.server_side"
             :status="
-              $auth.user &&
-              ($auth.user.id === user.id ||
-                $auth.user.role === 'admin' ||
-                $auth.user.role === 'moderator')
+              $auth.user && ($auth.user.id === user.id || $tag.staffRoles.includes($auth.user.role))
                 ? project.status
                 : null
             "
-            :has-mod-message="project.moderator_message"
             :type="project.project_type"
             :color="project.color"
           />
@@ -236,11 +237,10 @@
     </div>
   </div>
 </template>
-
-<script>
+<script setup>
 import ProjectCard from '~/components/ui/ProjectCard'
 import Badge from '~/components/ui/Badge'
-import Advertisement from '~/components/ads/Advertisement'
+import Promotion from '~/components/ads/Promotion'
 
 import GitHubIcon from '~/assets/images/utils/github.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
@@ -264,164 +264,161 @@ import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 
-export default defineNuxtComponent({
-  components: {
-    Avatar,
-    CopyCode,
-    NavRow,
-    ModalCreation,
-    ModalReport,
-    FileInput,
-    ProjectCard,
-    SunriseIcon,
-    DownloadIcon,
-    GitHubIcon,
-    ReportIcon,
-    Badge,
-    SettingsIcon,
-    UpToDate,
-    UserIcon,
-    EditIcon,
-    Advertisement,
-    HeartIcon,
-    CrossIcon,
-    SaveIcon,
-    GridIcon,
-    ListIcon,
-    ImageIcon,
-    UploadIcon,
-  },
-  async setup() {
-    const data = useNuxtApp()
-    const route = useRoute()
+const data = useNuxtApp()
+const route = useRoute()
 
-    try {
-      const [user, projects] = await Promise.all([
-        useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders()),
-        useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
-      ])
+let user, projects
+try {
+  ;[{ data: user }, { data: projects }] = await Promise.all([
+    useAsyncData(`user/${route.params.id}`, () =>
+      useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
+    ),
+    useAsyncData(
+      `user/${route.params.id}/projects`,
+      () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+      {
+        transform: (projects) => {
+          for (const project of projects) {
+            project.categories = project.categories.concat(project.loaders)
+            project.project_type = data.$getProjectTypeForUrl(
+              project.project_type,
+              project.categories
+            )
+          }
 
-      if (user.username !== route.params.id) {
-        await navigateTo(`/user/${user.username}`, { redirectCode: 301 })
+          return projects
+        },
       }
+    ),
+  ])
+} catch {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'User not found',
+  })
+}
 
-      for (const project of projects) {
-        project.categories = project.categories.concat(project.loaders)
-        project.project_type = data.$getProjectTypeForUrl(project.project_type, project.categories)
-      }
+if (!user.value) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'User not found',
+  })
+}
 
-      return {
-        user: ref(user),
-        projects: ref(projects),
-        metaDescription: ref(
-          user.bio
-            ? `${user.bio} - Download ${user.username}'s projects on Modrinth`
-            : `Download ${user.username}'s projects on Modrinth`
-        ),
-      }
-    } catch {
-      throw createError({
-        fatal: true,
-        statusCode: 404,
-        message: 'User not found',
-      })
-    }
-  },
-  data() {
-    return {
-      isEditing: false,
-      icon: null,
-      previewImage: null,
-    }
-  },
-  computed: {
-    projectTypes() {
-      const obj = {}
+let githubUrl
+try {
+  const githubUser = await $fetch(`https://api.github.com/user/` + user.value.github_id)
+  githubUrl = ref(githubUser.html_url)
+} catch {}
 
-      for (const project of this.projects) {
-        obj[project.project_type] = true
-      }
+if (user.value.username !== route.params.id) {
+  await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
+}
 
-      return Object.keys(obj)
-    },
-  },
-  methods: {
-    sumDownloads() {
-      let sum = 0
+const metaDescription = ref(
+  user.value.bio
+    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
+    : `Download ${user.value.username}'s projects on Modrinth`
+)
 
-      for (const projects of this.projects) {
-        sum += projects.downloads
-      }
+const projectTypes = computed(() => {
+  const obj = {}
 
-      return this.$formatNumber(sum)
-    },
-    sumFollows() {
-      let sum = 0
+  for (const project of projects.value) {
+    obj[project.project_type] = true
+  }
 
-      for (const projects of this.projects) {
-        sum += projects.followers
-      }
+  return Object.keys(obj)
+})
+const sumDownloads = computed(() => {
+  let sum = 0
 
-      return this.$formatNumber(sum)
-    },
-    showPreviewImage(files) {
-      const reader = new FileReader()
-      this.icon = files[0]
-      reader.readAsDataURL(this.icon)
-      reader.onload = (event) => {
-        this.previewImage = event.target.result
-      }
-    },
-    async saveChanges() {
-      startLoading()
-      try {
-        if (this.icon) {
-          await useBaseFetch(
-            `user/${this.$auth.user.id}/icon?ext=${
-              this.icon.type.split('/')[this.icon.type.split('/').length - 1]
-            }`,
-            {
-              method: 'PATCH',
-              body: this.icon,
-              ...this.$defaultHeaders(),
-            }
-          )
-        }
+  for (const project of projects.value) {
+    sum += project.downloads
+  }
 
-        const data = {
-          email: this.user.email,
-          bio: this.user.bio,
-        }
-        if (this.user.username !== this.$auth.user.username) {
-          data.username = this.user.username
-        }
+  return data.$formatNumber(sum)
+})
+const sumFollows = computed(() => {
+  let sum = 0
 
-        await useBaseFetch(`user/${this.$auth.user.id}`, {
+  for (const project of projects.value) {
+    sum += project.followers
+  }
+
+  return data.$formatNumber(sum)
+})
+
+const isEditing = ref(false)
+const icon = shallowRef(null)
+const previewImage = shallowRef(null)
+
+function showPreviewImage(files) {
+  const reader = new FileReader()
+  icon.value = files[0]
+  reader.readAsDataURL(icon.value)
+  reader.onload = (event) => {
+    previewImage.value = event.target.result
+  }
+}
+
+async function saveChanges() {
+  startLoading()
+  try {
+    if (icon.value) {
+      await useBaseFetch(
+        `user/${data.$auth.user.id}/icon?ext=${
+          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+        }`,
+        {
           method: 'PATCH',
-          body: data,
-          ...this.$defaultHeaders(),
-        })
-        await useAuth(this.$auth.token)
-
-        this.isEditing = false
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-    cycleSearchDisplayMode() {
-      this.$cosmetics.searchDisplayMode.user = this.$cycleValue(
-        this.$cosmetics.searchDisplayMode.user,
-        this.$tag.projectViewModes
+          body: icon.value,
+          ...data.$defaultHeaders(),
+        }
       )
-      saveCosmetics()
-    },
-  },
+    }
+
+    const reqData = {
+      email: user.value.email,
+      bio: user.value.bio,
+    }
+    if (user.value.username !== data.$auth.user.username) {
+      reqData.username = user.value.username
+    }
+
+    await useBaseFetch(`user/${data.$auth.user.id}`, {
+      method: 'PATCH',
+      body: reqData,
+      ...data.$defaultHeaders(),
+    })
+    await useAuth(data.$auth.token)
+
+    isEditing.value = false
+  } catch (err) {
+    console.error(err)
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+function cycleSearchDisplayMode() {
+  data.$cosmetics.searchDisplayMode.user = data.$cycleValue(
+    data.$cosmetics.searchDisplayMode.user,
+    data.$tag.projectViewModes
+  )
+  saveCosmetics()
+}
+</script>
+<script>
+export default defineNuxtComponent({
+  methods: {},
 })
 </script>
 

@@ -57,4 +57,6 @@ export const useTags = () =>
     },
     projectViewModes: ['list', 'grid', 'gallery'],
     approvedStatuses: ['approved', 'archived', 'unlisted', 'private'],
+    rejectedStatuses: ['rejected', 'withheld'],
+    staffRoles: ['moderator', 'admin'],
   }))

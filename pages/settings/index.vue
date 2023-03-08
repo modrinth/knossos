@@ -7,7 +7,7 @@
           <span class="label__title">Color theme</span>
           <span class="label__description">Change the global site color theme.</span>
         </label>
-        <ColorScheme tag="div">
+        <div>
           <Multiselect
             id="theme-selector"
             v-model="$colorMode.preference"
@@ -20,8 +20,9 @@
             :close-on-select="true"
             :show-labels="false"
             :allow-empty="false"
+            @update:model-value="(value) => updateTheme(value, true)"
           />
-        </ColorScheme>
+        </div>
       </div>
 
       <div class="adjacent-input small">
@@ -163,21 +164,6 @@ export default defineNuxtComponent({
         display: 'user pages',
       })
       return types
-    },
-  },
-  methods: {
-    changeTheme() {
-      const shift = event.shiftKey
-      switch (this.$colorMode.preference) {
-        case 'dark':
-          this.$colorMode.preference = shift ? 'light' : 'oled'
-          break
-        case 'oled':
-          this.$colorMode.preference = shift ? 'dark' : 'light'
-          break
-        default:
-          this.$colorMode.preference = shift ? 'oled' : 'dark'
-      }
     },
   },
 })

@@ -4,7 +4,7 @@
       $auth.user &&
       currentMember &&
       nags.filter((x) => x.condition).length > 0 &&
-      project.status === 'draft'
+      (project.status === 'draft' || $tag.rejectedStatuses.includes(project.status))
     "
     class="author-actions universal-card"
   >
@@ -18,6 +18,7 @@
               v-for="nag in nags"
               :key="`checklist-${nag.id}`"
               v-tooltip="nag.title"
+              :aria-label="nag.title"
               class="circle"
               :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
             >
@@ -45,20 +46,34 @@
           <RequiredIcon
             v-if="nag.status === 'required'"
             v-tooltip="'Required'"
+            aria-label="Required"
             :class="nag.status"
           />
           <SuggestionIcon
             v-else-if="nag.status === 'suggestion'"
             v-tooltip="'Suggestion'"
+            aria-label="Suggestion"
             :class="nag.status"
           />
           <ModerationIcon
             v-else-if="nag.status === 'review'"
             v-tooltip="'Review'"
+            aria-label="Review"
             :class="nag.status"
           />{{ nag.title }}</span
         >
         {{ nag.description }}
+        <Checkbox
+          v-if="
+            nag.status === 'review' &&
+            project.moderator_message &&
+            $tag.rejectedStatuses.includes(project.status)
+          "
+          v-model="acknowledgedMessage"
+          description="Acknowledge staff message in sidebar"
+        >
+          I acknowledge that I have addressed the staff's message on the sidebar
+        </Checkbox>
         <NuxtLink
           v-if="nag.link"
           :class="{ invisible: nag.link.hide }"
@@ -92,9 +107,11 @@ import RequiredIcon from '~/assets/images/utils/asterisk.svg'
 import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
+import Checkbox from '~/components/ui/Checkbox'
 
 export default {
   components: {
+    Checkbox,
     ChevronRightIcon,
     DropdownIcon,
     CheckIcon,
@@ -110,7 +127,9 @@ export default {
     },
     versions: {
       type: Array,
-      required: true,
+      default() {
+        return []
+      },
     },
     currentMember: {
       type: Object,
@@ -154,6 +173,11 @@ export default {
         }
       },
     },
+  },
+  data() {
+    return {
+      acknowledgedMessage: !this.project.moderator_message,
+    }
   },
   computed: {
     featuredGalleryImage() {
@@ -278,7 +302,8 @@ export default {
           },
         },
         {
-          condition: this.project.status === 'draft',
+          hide: this.project.status !== 'draft',
+          condition: true,
           title: 'Submit for review',
           id: 'submit-for-review',
           description:
@@ -289,6 +314,24 @@ export default {
             onClick: this.submitForReview,
             title: 'Submit for review',
             disabled: () =>
+              this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
+          },
+        },
+        {
+          hide: !this.$tag.rejectedStatuses.includes(this.project.status),
+          condition: true,
+          title: 'Resubmit for review',
+          id: 'resubmit-for-review',
+          description: `Your project has been ${this.project.status} by
+            Modrinth's staff. In most cases, you can resubmit for review after
+            addressing the staff's message.`,
+          status: 'review',
+          link: null,
+          action: {
+            onClick: this.submitForReview,
+            title: 'Resubmit for review',
+            disabled: () =>
+              !this.acknowledgedMessage ||
               this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
           },
         },
@@ -327,7 +370,10 @@ export default {
       }
     },
     async submitForReview() {
-      if (this.nags.filter((x) => x.condition && x.status === 'required').length === 0) {
+      if (
+        !this.acknowledgedMessage ||
+        this.nags.filter((x) => x.condition && x.status === 'required').length === 0
+      ) {
         await this.setProcessing()
       }
     },

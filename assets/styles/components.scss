@@ -187,14 +187,10 @@
     z-index: 2;
   }
 
-  &.warning {
-    border-left: 0.5rem solid var(--color-banner-side);
+  &:where(&.warning, &.information) {
     padding: 1.5rem;
     line-height: 1.5;
-    background-color: var(--color-banner-bg);
-    color: var(--color-banner-text);
     min-height: 0;
-
     a {
       /* Uses active color to increase contrast */
       color: var(--color-link-active);
@@ -202,8 +198,20 @@
     }
   }
 
+  &.warning {
+    border-left: 0.5rem solid var(--color-warning-banner-side);
+    background-color: var(--color-warning-banner-bg);
+    color: var(--color-warning-banner-text);
+  }
+
+  &.information {
+    border-left: 0.5rem solid var(--color-info-banner-side);
+    background-color: var(--color-info-banner-bg);
+    color: var(--color-info-banner-text);
+  }
+
   &.moderation-card {
-    background-color: var(--color-banner-bg);
+    background-color: var(--color-warning-banner-bg);
   }
 }
 
@@ -912,6 +920,7 @@ tr.button-transparent {
 
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 2.25rem;
   width: 2.25rem;
   border-radius: var(--size-rounded-sm);
@@ -1236,19 +1245,27 @@ tr.button-transparent {
     z-index: 2;
   }
 
-  &.warning {
-    border-left: 0.5rem solid var(--color-banner-side);
+  &:where(&.warning, &.information) {
     padding: 1.5rem;
     line-height: 1.5;
-    background-color: var(--color-banner-bg);
-    color: var(--color-banner-text);
     min-height: 0;
-
     a {
       /* Uses active color to increase contrast */
       color: var(--color-link-active);
       text-decoration: underline;
     }
+  }
+
+  &.warning {
+    border-left: 0.5rem solid var(--color-warning-banner-side);
+    background-color: var(--color-warning-banner-bg);
+    color: var(--color-warning-banner-text);
+  }
+
+  &.information {
+    border-left: 0.5rem solid var(--color-info-banner-side);
+    background-color: var(--color-info-banner-bg);
+    color: var(--color-info-banner-text);
   }
 }
 

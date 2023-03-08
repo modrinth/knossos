@@ -69,7 +69,23 @@ export const md = (options = {}) => {
     }
 
   md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
-    tokens[idx].attrJoin('rel', 'noopener noreferrer ugc')
+    const token = tokens[idx]
+    const index = token.attrIndex('href')
+
+    if (index !== -1) {
+      const href = token.attrs[index][1]
+
+      try {
+        const url = new URL(href)
+        const allowedHostnames = ['modrinth.com']
+
+        if (allowedHostnames.includes(url.hostname)) {
+          return defaultLinkOpenRenderer(tokens, idx, options, env, self)
+        }
+      } catch (err) {}
+    }
+
+    tokens[idx].attrSet('rel', 'noopener nofollow ugc')
 
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
   }
@@ -88,16 +104,22 @@ export const md = (options = {}) => {
       const src = token.attrs[index][1]
 
       const url = new URL(src)
-      const allowedHostnames = [
-        'i.imgur.com',
-        'cdn-raw.modrinth.com',
-        'cdn.modrinth.com',
-        'raw.githubusercontent.com',
-      ]
+      try {
+        const allowedHostnames = [
+          'i.imgur.com',
+          'cdn-raw.modrinth.com',
+          'cdn.modrinth.com',
+          'staging-cdn-raw.modrinth.com',
+          'staging-cdn.modrinth.com',
+          'raw.githubusercontent.com',
+          'img.shields.io',
+        ]
 
-      if (!allowedHostnames.includes(url.hostname)) {
-        token.attrs[index][1] = `//wsrv.nl/?url=${src}`
-      }
+        if (allowedHostnames.includes(url.hostname)) {
+          return defaultImageRenderer(tokens, idx, options, env, self)
+        }
+      } catch (err) {}
+      token.attrs[index][1] = `//wsrv.nl/?url=${encodeURIComponent(src)}`
     }
 
     return defaultImageRenderer(tokens, idx, options, env, self)

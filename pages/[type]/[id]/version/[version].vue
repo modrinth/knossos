@@ -146,18 +146,19 @@
           v-tooltip="primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'"
           :href="primaryFile.url"
           class="iconified-button brand-button"
-          :title="`Download ${primaryFile.filename}`"
+          :aria-label="`Download ${primaryFile.filename}`"
         >
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
         <nuxt-link
-          :to="`${
-            prevRoute &&
-            (prevRoute.name === 'type-id-changelog' || prevRoute.name === 'type-id-versions')
-              ? prevRoute.fullPath
+          :to="
+            $router.options.history.state.back &&
+            ($router.options.history.state.back.includes('changelog') ||
+              $router.options.history.state.back.includes('versions'))
+              ? $router.options.history.state.back
               : `/${project.project_type}/${project.slug ? project.slug : project.id}/versions`
-          }`"
+          "
           class="iconified-button"
         >
           <BackIcon aria-hidden="true" />
@@ -171,7 +172,7 @@
           <ReportIcon aria-hidden="true" />
           Report
         </button>
-        <a v-if="!$auth.user" class="iconified-button" :href="getAuthUrl()">
+        <a v-if="!$auth.user" class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
           <ReportIcon aria-hidden="true" />
           Report
         </a>
@@ -215,7 +216,7 @@
             class="text-link"
             href="https://guides.github.com/features/mastering-markdown/"
             target="_blank"
-            rel="noopener noreferrer nofollow"
+            rel="noopener"
             >Markdown</a
           >. HTML can also be used inside your changelog, not including styles, scripts, and
           iframes.
@@ -636,7 +637,7 @@
             {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm:ss A') }}
           </span>
         </div>
-        <div v-if="!isEditing">
+        <div v-if="!isEditing && version.author">
           <h4>Publisher</h4>
           <div
             class="team-member columns button-transparent"
@@ -651,11 +652,14 @@
 
             <div class="member-info">
               <nuxt-link :to="'/user/' + version.author.user.username" class="name">
-                <p>{{ version.author.name }}</p>
+                <p>
+                  {{ version.author.name }}
+                </p>
               </nuxt-link>
-              <p class="role">
+              <p v-if="version.author.role" class="role">
                 {{ version.author.role }}
               </p>
+              <p v-else-if="version.author_id === 'GVFjtWTf'" class="role">Archivist</p>
             </div>
           </div>
         </div>
@@ -852,20 +856,6 @@ export default defineNuxtComponent({
       if (!version) {
         version = props.versions.find((x) => x.displayUrlEnding === route.params.version)
       }
-
-      // LEGACY- to support old duplicate version URLs
-      const dashIndex = route.params.version.indexOf('-')
-      if (!version && dashIndex !== -1) {
-        const version = props.versions.find(
-          (x) => x.displayUrlEnding === route.params.version.substring(0, dashIndex)
-        )
-
-        navigateTo(
-          `/${props.project.project_type}/${props.project.slug}/version/${version.version_number}`,
-          { redirectCode: 307 }
-        )
-        return
-      }
     }
 
     if (!version) {
@@ -948,14 +938,7 @@ export default defineNuxtComponent({
 
       showKnownErrors: false,
       shouldPreventActions: false,
-
-      prevRoute: null,
     }
-  },
-  beforeRouteEnter(_to, from, next) {
-    next((vm) => {
-      vm.prevRoute = from
-    })
   },
   computed: {
     fieldErrors() {
@@ -1175,6 +1158,7 @@ export default defineNuxtComponent({
       startLoading()
       if (this.fieldErrors) {
         this.showKnownErrors = true
+        this.shouldPreventActions = false
 
         stopLoading()
         return

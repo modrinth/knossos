@@ -11,12 +11,7 @@
             license; otherwise, the license text will be displayed.
             <span v-if="license && license.friendly === 'Custom'" class="label__subdescription">
               Enter a valid
-              <a
-                href="https://spdx.org/licenses/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-link"
-              >
+              <a href="https://spdx.org/licenses/" target="_blank" rel="noopener" class="text-link">
                 SPDX license identifier</a
               >
               in the marked area. If your license does not have a SPDX identifier (for example, if
@@ -28,7 +23,7 @@
               <a
                 href="https://blog.modrinth.com/licensing-guide/"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
                 class="text-link"
               >
                 licensing guide</a
@@ -57,6 +52,7 @@
             v-if="license.requiresOnlyOrLater"
             v-model="allowOrLater"
             :disabled="!hasPermission"
+            description="Allow later editions of this license"
           >
             Allow later editions of this license
           </Checkbox>
@@ -64,6 +60,7 @@
             v-if="license.friendly === 'Custom'"
             v-model="nonSpdxLicense"
             :disabled="!hasPermission"
+            description="License does not have a SPDX identifier"
           >
             License does not have a SPDX identifier
           </Checkbox>
@@ -149,26 +146,110 @@ export default defineNuxtComponent({
       showKnownErrors: false,
     }
   },
-  fetch() {
-    this.licenseUrl = this.project.license.url
+  async setup(props) {
+    const defaultLicenses = shallowRef([
+      { friendly: 'Custom', short: '' },
+      {
+        friendly: 'All Rights Reserved/No License',
+        short: 'All-Rights-Reserved',
+      },
+      { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
+      {
+        friendly: 'BSD 2-Clause "Simplified" License',
+        short: 'BSD-2-Clause',
+      },
+      {
+        friendly: 'BSD 3-Clause "New" or "Revised" License',
+        short: 'BSD-3-Clause',
+      },
+      {
+        friendly: 'CC Zero (Public Domain equivalent)',
+        short: 'CC0-1.0',
+      },
+      { friendly: 'CC-BY 4.0', short: 'CC-BY-4.0' },
+      {
+        friendly: 'CC-BY-SA 4.0',
+        short: 'CC-BY-SA-4.0',
+      },
+      {
+        friendly: 'CC-BY-NC 4.0',
+        short: 'CC-BY-NC-4.0',
+      },
+      {
+        friendly: 'CC-BY-NC-SA 4.0',
+        short: 'CC-BY-NC-SA-4.0',
+      },
+      {
+        friendly: 'CC-BY-ND 4.0',
+        short: 'CC-BY-ND-4.0',
+      },
+      {
+        friendly: 'CC-BY-NC-ND 4.0',
+        short: 'CC-BY-NC-ND-4.0',
+      },
+      {
+        friendly: 'GNU Affero General Public License v3',
+        short: 'AGPL-3.0',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU Lesser General Public License v2.1',
+        short: 'LGPL-2.1',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU Lesser General Public License v3',
+        short: 'LGPL-3.0',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU General Public License v2',
+        short: 'GPL-2.0',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU General Public License v3',
+        short: 'GPL-3.0',
+        requiresOnlyOrLater: true,
+      },
+      { friendly: 'ISC License', short: 'ISC' },
+      { friendly: 'MIT License', short: 'MIT' },
+      { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
+      { friendly: 'zlib License', short: 'Zlib' },
+    ])
 
-    const licenseId = this.project.license.id
+    const licenseUrl = ref(props.project.license.url)
+
+    const licenseId = props.project.license.id
     const trimmedLicenseId = licenseId
       .replaceAll('-only', '')
       .replaceAll('-or-later', '')
       .replaceAll('LicenseRef-', '')
-    this.license = this.defaultLicenses.find((x) => x.short === trimmedLicenseId) ?? {
-      friendly: 'Custom',
-      short: licenseId.replaceAll('LicenseRef-', ''),
-    }
+
+    const license = ref(
+      defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
+        friendly: 'Custom',
+        short: licenseId.replaceAll('LicenseRef-', ''),
+      }
+    )
+
     if (licenseId === 'LicenseRef-Unknown') {
-      this.license = {
+      license.value = {
         friendly: 'Unknown',
         short: licenseId.replaceAll('LicenseRef-', ''),
       }
     }
-    this.allowOrLater = licenseId.includes('-or-later')
-    this.nonSpdxLicense = licenseId.includes('LicenseRef-')
+
+    const allowOrLater = computed(() => props.project.license.id.includes('-or-later'))
+    const nonSpdxLicense = computed(() => props.project.license.id.includes('LicenseRef-'))
+
+    return {
+      defaultLicenses,
+      licenseUrl,
+      license,
+      allowOrLater,
+      nonSpdxLicense,
+    }
   },
   computed: {
     hasPermission() {
@@ -192,78 +273,6 @@ export default defineNuxtComponent({
         id = id.replaceAll(' ', '-')
       }
       return id
-    },
-    defaultLicenses() {
-      return [
-        { friendly: 'Custom', short: '' },
-        {
-          friendly: 'All Rights Reserved/No License',
-          short: 'All-Rights-Reserved',
-        },
-        { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
-        {
-          friendly: 'BSD 2-Clause "Simplified" License',
-          short: 'BSD-2-Clause',
-        },
-        {
-          friendly: 'BSD 3-Clause "New" or "Revised" License',
-          short: 'BSD-3-Clause',
-        },
-        {
-          friendly: 'CC Zero (Public Domain equivalent)',
-          short: 'CC0-1.0',
-        },
-        { friendly: 'CC-BY 4.0', short: 'CC-BY-4.0' },
-        {
-          friendly: 'CC-BY-SA 4.0',
-          short: 'CC-BY-SA-4.0',
-        },
-        {
-          friendly: 'CC-BY-NC 4.0',
-          short: 'CC-BY-NC-4.0',
-        },
-        {
-          friendly: 'CC-BY-NC-SA 4.0',
-          short: 'CC-BY-NC-SA-4.0',
-        },
-        {
-          friendly: 'CC-BY-ND 4.0',
-          short: 'CC-BY-ND-4.0',
-        },
-        {
-          friendly: 'CC-BY-NC-ND 4.0',
-          short: 'CC-BY-NC-ND-4.0',
-        },
-        {
-          friendly: 'GNU Affero General Public License v3',
-          short: 'AGPL-3.0',
-          requiresOnlyOrLater: true,
-        },
-        {
-          friendly: 'GNU Lesser General Public License v2.1',
-          short: 'LGPL-2.1',
-          requiresOnlyOrLater: true,
-        },
-        {
-          friendly: 'GNU Lesser General Public License v3',
-          short: 'LGPL-3.0',
-          requiresOnlyOrLater: true,
-        },
-        {
-          friendly: 'GNU General Public License v2',
-          short: 'GPL-2.0',
-          requiresOnlyOrLater: true,
-        },
-        {
-          friendly: 'GNU General Public License v3',
-          short: 'GPL-3.0',
-          requiresOnlyOrLater: true,
-        },
-        { friendly: 'ISC License', short: 'ISC' },
-        { friendly: 'MIT License', short: 'MIT' },
-        { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
-        { friendly: 'zlib License', short: 'Zlib' },
-      ]
     },
     patchData() {
       const data = {}

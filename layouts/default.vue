@@ -27,10 +27,8 @@
                 title="Switch theme"
                 @click="changeTheme"
               >
-                <ColorScheme>
-                  <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-                  <SunIcon v-else aria-hidden="true" />
-                </ColorScheme>
+                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+                <SunIcon v-else aria-hidden="true" />
               </button>
               <div
                 v-if="auth.user"
@@ -81,7 +79,7 @@
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
-                    v-if="auth.user.role === 'moderator' || auth.user.role === 'admin'"
+                    v-if="$tag.staffRoles.includes($auth.user.role)"
                     class="item button-transparent"
                     to="/moderation"
                   >
@@ -99,7 +97,7 @@
                 <a
                   :href="getAuthUrl()"
                   class="log-in-button header-button brand-button"
-                  rel="noopener noreferrer nofollow"
+                  rel="noopener nofollow"
                 >
                   <GitHubIcon aria-hidden="true" />
                   Sign in with GitHub</a
@@ -172,11 +170,9 @@
               Settings
             </NuxtLink>
             <button class="iconified-button" @click="changeTheme">
-              <ColorScheme>
-                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-                <SunIcon v-else aria-hidden="true" />
-              </ColorScheme>
-              {{ $colorMode.value === 'light' ? 'Dark' : 'Light' }} theme
+              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+              <SunIcon v-else class="icon" />
+              <span class="dropdown-item__text">Change theme</span>
             </button>
           </div>
         </div>
@@ -231,18 +227,25 @@
             :target="$external()"
             href="https://github.com/modrinth"
             class="text-link"
-            rel="noopener noreferrer nofollow"
+            rel="noopener"
           >
             open source</a
           >.
         </p>
         <p>
-          {{ owner }}/{{ slug }} {{ branch }}@<a
+          {{ config.public.owner }}/{{ config.public.slug }} {{ config.public.branch }}@<a
             :target="$external()"
-            :href="'https://github.com/' + owner + '/' + slug + '/tree/' + hash"
+            :href="
+              'https://github.com/' +
+              config.public.owner +
+              '/' +
+              config.public.slug +
+              '/tree/' +
+              config.public.hash
+            "
             class="text-link"
-            rel="noopener noreferrer nofollow"
-            >{{ hash.substring(0, 7) }}</a
+            rel="noopener"
+            >{{ config.public.hash.substring(0, 7) }}</a
           >
         </p>
         <p>© Rinth, Inc.</p>
@@ -252,61 +255,30 @@
         <nuxt-link to="/legal/terms"> Terms </nuxt-link>
         <nuxt-link to="/legal/privacy"> Privacy </nuxt-link>
         <nuxt-link to="/legal/rules"> Rules </nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com">
-          Careers <span class="count-bubble">2</span>
-        </a>
+        <a :target="$external()" href="https://careers.modrinth.com"> Careers </a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
         <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
         <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
         <a :target="$external()" href="https://status.modrinth.com">Status</a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://github.com/modrinth"
-          >GitHub</a
-        >
+        <a rel="noopener" :target="$external()" href="https://github.com/modrinth">GitHub</a>
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://discord.gg/EUHuJHt"
-        >
-          Discord
-        </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://twitter.com/modrinth"
-        >
-          Twitter
-        </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://floss.social/@modrinth"
-        >
-          Mastodon
-        </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://crowdin.com/project/modrinth"
-        >
+        <a rel="noopener" :target="$external()" href="https://discord.gg/EUHuJHt"> Discord </a>
+        <a rel="noopener" :target="$external()" href="https://twitter.com/modrinth"> Twitter </a>
+        <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth"> Mastodon </a>
+        <a rel="noopener" :target="$external()" href="https://crowdin.com/project/modrinth">
           Crowdin
         </a>
       </div>
       <div class="buttons">
-        <ColorScheme>
-          <button class="iconified-button raised-button" @click="changeTheme">
-            <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-            <SunIcon v-else aria-hidden="true" />
-            Change theme
-          </button>
-        </ColorScheme>
+        <button class="iconified-button raised-button" @click="changeTheme">
+          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+          <SunIcon v-else aria-hidden="true" />
+          Change theme
+        </button>
         <nuxt-link class="iconified-button raised-button" to="/settings">
           <SettingsIcon aria-hidden="true" />
           Settings
@@ -343,6 +315,19 @@ import Avatar from '~/components/ui/Avatar'
 
 const auth = await useAuth()
 const user = await useUser()
+
+const config = useRuntimeConfig()
+const route = useRoute()
+const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
+useHead({
+  meta: [{ name: 'og:url', content: link }],
+  link: [
+    {
+      rel: 'canonical',
+      href: link,
+    },
+  ],
+})
 </script>
 <script>
 const NAV_ROUTES = [
@@ -376,35 +361,11 @@ export default defineNuxtComponent({
   data() {
     return {
       isDropdownOpen: false,
-      owner: /* process.env.owner || */ 'modrinth',
-      slug: /* process.env.slug || */ 'knossos',
-      branch: /* process.env.branch || */ 'master',
-      hash: /* process.env.hash || */ 'unknown',
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
       hideDropdown: false,
     }
-  },
-  head() {
-    // const link = process.env.domain + this.$route.path.replace(/\/+$/, '')
-    //
-    // return {
-    //   link: [
-    //     {
-    //       rel: 'canonical',
-    //       href: link,
-    //     },
-    //   ],
-    //   meta: [
-    //     {
-    //       hid: 'og:url',
-    //       name: 'og:url',
-    //       content: link,
-    //     },
-    //   ],
-    // }
-    return {}
   },
   computed: {
     isOnSearchPage() {
@@ -421,14 +382,34 @@ export default defineNuxtComponent({
         document.body.setAttribute('tabindex', '-1')
         document.body.removeAttribute('tabindex')
       }
+
+      updateCurrentDate()
+      this.runAnalytics()
     },
   },
   mounted() {
+    this.runAnalytics()
     if (this.$route.query.code) {
       window.history.replaceState(history.state, null, this.$route.path)
     }
   },
   methods: {
+    runAnalytics() {
+      const config = useRuntimeConfig()
+
+      setTimeout(() => {
+        $fetch(`${config.public.ariadneBaseUrl}view`, {
+          method: 'POST',
+          body: {
+            url: window.location.href,
+          },
+        })
+          .then(() => {})
+          .catch((e) => {
+            console.error('An error occurred while registering the visit: ', e)
+          })
+      })
+    },
     toggleMobileMenu() {
       this.isMobileMenuOpen = !this.isMobileMenuOpen
       if (this.isMobileMenuOpen) {
@@ -460,7 +441,7 @@ export default defineNuxtComponent({
       }
     },
     changeTheme() {
-      this.$colorMode.preference = this.$colorMode.value === 'dark' ? 'light' : 'dark'
+      updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
     },
   },
 })

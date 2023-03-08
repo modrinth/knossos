@@ -49,7 +49,7 @@
                 class="date"
               >
                 <CalendarIcon />
-                Received {{ $dayjs(notification.created).fromNow() }}</span
+                Received {{ fromNow(notification.created) }}</span
               >
             </div>
           </div>

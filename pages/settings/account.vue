@@ -5,7 +5,7 @@
       title="Are you sure you want to delete your account?"
       description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
       proceed-label="Delete this account"
-      :confirmation-text="$auth.user.username"
+      :confirmation-text="auth.user.username"
       :has-to-type="true"
       @proceed="deleteAccount"
     />
@@ -29,7 +29,7 @@
             <a
               href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
               target="_blank"
-              rel="noopener noreferrer nofollow"
+              rel="noopener"
             >
               Head to the Modrinth Application page on GitHub.
             </a>
@@ -60,7 +60,7 @@
     <section class="universal-card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
-      <NuxtLink class="iconified-button" :to="`/user/${$auth.user.username}`">
+      <NuxtLink class="iconified-button" :to="`/user/${auth.user.username}`">
         <UserIcon /> Visit your profile
       </NuxtLink>
     </section>
@@ -160,15 +160,19 @@ export default defineNuxtComponent({
     TrashIcon,
     SlashIcon,
   },
-  setup() {
+  async setup() {
     definePageMeta({
       middleware: 'auth',
     })
+
+    const auth = await useAuth()
+
+    return { auth }
   },
   data() {
     return {
       copied: false,
-      email: this.$auth.user.email,
+      email: this.auth.user.email,
       showKnownErrors: false,
     }
   },
@@ -178,12 +182,12 @@ export default defineNuxtComponent({
   methods: {
     async copyToken() {
       this.copied = true
-      await navigator.clipboard.writeText(this.$auth.token)
+      await navigator.clipboard.writeText(this.auth.token)
     },
     async deleteAccount() {
       startLoading()
       try {
-        await useBaseFetch(`user/${this.$auth.user.id}`, {
+        await useBaseFetch(`user/${this.auth.user.id}`, {
           method: 'DELETE',
           ...this.$defaultHeaders(),
         })
@@ -210,9 +214,9 @@ export default defineNuxtComponent({
     },
     hasMonetizationEnabled() {
       return (
-        this.$auth.user.payout_data.payout_wallet &&
-        this.$auth.user.payout_data.payout_wallet_type &&
-        this.$auth.user.payout_data.payout_address
+        this.auth.user.payout_data.payout_wallet &&
+        this.auth.user.payout_data.payout_wallet_type &&
+        this.auth.user.payout_data.payout_address
       )
     },
     async saveChanges() {
@@ -226,12 +230,12 @@ export default defineNuxtComponent({
           email: this.email ? this.email : null,
         }
 
-        await useBaseFetch(`user/${this.$auth.user.id}`, {
+        await useBaseFetch(`user/${this.auth.user.id}`, {
           method: 'PATCH',
           body: data,
           ...this.$defaultHeaders(),
         })
-        await useAuth(this.$auth.token)
+        await useAuth(this.auth.token)
       } catch (err) {
         this.$notify({
           group: 'main',

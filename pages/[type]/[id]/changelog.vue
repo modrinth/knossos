@@ -2,18 +2,33 @@
   <div class="content">
     <Head>
       <Title> {{ project.title }} - Changelog </Title>
-      <Meta name="og:title" :content="`${project.title} - Changelog`" />
+      <Meta name="og:title" :content="`${props.project.title} - Changelog`" />
       <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Changelog`" />
+      <Meta name="apple-mobile-web-app-title" :content="`${props.project.title} - Changelog`" />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
     <VersionFilterControl
-      class="card"
-      :versions="filteredVersions"
-      @update-versions="(newVersions) => (filteredVersions = newVersions)"
+      :versions="props.versions"
+      @update-versions="
+        (v) => {
+          filteredVersions = v
+          switchPage(1)
+        }
+      "
+    />
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(filteredVersions.length / 20)"
+      class="pagination-before"
+      :link-function="(page) => `?page=${page}`"
+      @switch-page="switchPage"
     />
     <div class="card">
-      <div v-for="version in filteredVersions" :key="version.id" class="changelog-item">
+      <div
+        v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
+        :key="version.id"
+        class="changelog-item"
+      >
         <div
           :class="`changelog-bar ${version.version_type} ${version.duplicate ? 'duplicate' : ''}`"
         />
@@ -22,8 +37,8 @@
             <div class="version-header-text">
               <h2 class="name">
                 <nuxt-link
-                  :to="`/${project.project_type}/${
-                    project.slug ? project.slug : project.id
+                  :to="`/${props.project.project_type}/${
+                    props.project.slug ? props.project.slug : props.project.id
                   }/version/${encodeURI(version.displayUrlEnding)}`"
                 >
                   {{ version.name }}
@@ -57,12 +72,20 @@
         </div>
       </div>
     </div>
+    <Pagination
+      :page="currentPage"
+      :count="Math.ceil(filteredVersions.length / 20)"
+      class="pagination-before"
+      :link-function="(page) => `?page=${page}`"
+      @switch-page="switchPage"
+    />
   </div>
 </template>
 <script setup>
 import DownloadIcon from '~/assets/images/utils/download.svg'
-import VersionFilterControl from '~/components/ui/VersionFilterControl'
 import { renderHighlightedString } from '~/helpers/highlight'
+import VersionFilterControl from '~/components/ui/VersionFilterControl'
+import Pagination from '~/components/ui/Pagination'
 
 const props = defineProps({
   project: {
@@ -77,12 +100,35 @@ const props = defineProps({
       return []
     },
   },
+  members: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
 })
 
-const filteredVersions = shallowRef(props.versions)
 const metaDescription = computed(
   () => `View the changelog of ${props.project.title}'s ${props.versions.length} versions.`
 )
+
+const route = useRoute()
+const currentPage = ref(Number(route.query.p ?? 1))
+const filteredVersions = shallowRef(props.versions)
+
+async function switchPage(page) {
+  currentPage.value = page
+
+  const router = useRouter()
+  const route = useRoute()
+
+  await router.replace({
+    query: {
+      ...route.query,
+      p: currentPage.value !== 1 ? currentPage.value : undefined,
+    },
+  })
+}
 </script>
 
 <style lang="scss">
