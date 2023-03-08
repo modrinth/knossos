@@ -2,7 +2,7 @@
   <div>
     <h1>Privacy Policy</h1>
 
-    <p><em>Last edited: February 22, 2023</em></p>
+    <p><em>Last edited: March 8, 2023</em></p>
 
     <h2>Foreword</h2>
 
@@ -183,14 +183,42 @@
       time.
     </p>
 
+    <h2>Children's Information</h2>
+    <p>
+      Another part of our priority is adding protection for children while using
+      the Internet. We encourage parents and guardians to observe, participate
+      in, and/or monitor and guide their online activity.
+    </p>
+    <p>
+      Modrinth does not knowingly collect any Personal Identifiable Information
+      from children under the age of 13. If you think that your child provided
+      this kind of information on our website, we strongly encourage you to
+      contact us immediately and we will do our best efforts to promptly remove
+      such information from our records.
+    </p>
+
+    <h2>Online Privacy Policy Only</h2>
+    <p>
+      This Privacy Policy applies only to our online activities and is valid for
+      visitors to our website with regards to the information that they shared
+      and/or collect in Modrinth. This policy is not applicable to any
+      information collected offline or via channels other than this website.
+    </p>
+
+    <h2>Consent</h2>
+    <p>
+      By using our website, you hereby consent to our Privacy Policy and agree
+      to its Terms and Conditions.
+    </p>
+
     <h2>Changes to the Privacy Policy</h2>
     <p>
       We keep this privacy policy under regular review and place any updates on
       this web page. If we do this, we will post the changes on this page and
       update the "Last edited" date at the top of this page, after which such
       changes will become effective immediately. We will make an effort to keep
-      users updated on any such changes, but because most changes will be minor,
-      a notice will not be sent for all changes.
+      users updated on any such changes, but because most changes do not affect
+      how we process existing data, a notice will not be sent for all changes.
     </p>
 
     <h2>Contact</h2>
