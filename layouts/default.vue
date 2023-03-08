@@ -367,7 +367,7 @@ export default defineNuxtComponent({
           label: 'Modpacks',
           href: '/modpacks',
         },
-      ]
+      ],
     }
   },
   computed: {
