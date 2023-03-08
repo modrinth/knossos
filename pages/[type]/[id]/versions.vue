@@ -152,7 +152,7 @@ const props = defineProps({
 const data = useNuxtApp()
 const metaDescription = computed(
   () =>
-    `Download and browse ${props.project.versions.length} ${
+    `Download and browse ${props.versions.length} ${
       props.project.title
     } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
       .$dayjs(props.project.updated)

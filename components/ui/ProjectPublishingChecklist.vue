@@ -125,6 +125,12 @@ export default {
       type: Object,
       required: true,
     },
+    versions: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
     currentMember: {
       type: Object,
       default: null,
@@ -219,7 +225,7 @@ export default {
           },
         },
         {
-          condition: this.project.versions.length < 1,
+          condition: this.versions.length < 1,
           title: 'Upload a version',
           id: 'upload-version',
           description: 'At least one version is required for a project to be submitted for review.',

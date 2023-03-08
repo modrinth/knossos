@@ -1158,6 +1158,7 @@ export default defineNuxtComponent({
       startLoading()
       if (this.fieldErrors) {
         this.showKnownErrors = true
+        this.shouldPreventActions = false
 
         stopLoading()
         return

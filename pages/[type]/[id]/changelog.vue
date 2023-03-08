@@ -109,7 +109,7 @@ const props = defineProps({
 })
 
 const metaDescription = computed(
-  () => `View the changelog of ${props.project.title}'s ${props.project.versions.length} versions.`
+  () => `View the changelog of ${props.project.title}'s ${props.versions.length} versions.`
 )
 
 const route = useRoute()

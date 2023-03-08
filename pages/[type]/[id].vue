@@ -83,6 +83,7 @@
       <ProjectPublishingChecklist
         v-if="currentMember"
         :project="project"
+        :versions="versions"
         :current-member="currentMember"
         :is-settings="$route.name.startsWith('type-id-settings')"
         :route-name="$route.name"
@@ -440,7 +441,7 @@
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
-              v-if="project.versions.length > 0 || currentMember"
+              v-if="versions.length > 0 || currentMember"
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
               class="goto-link"
             >
@@ -576,6 +577,7 @@
         <ProjectPublishingChecklist
           v-if="currentMember"
           :project="project"
+          :versions="versions"
           :current-member="currentMember"
           :is-settings="$route.name.startsWith('type-id-settings')"
           :route-name="$route.name"
@@ -629,14 +631,14 @@
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/changelog`,
-                shown: project.versions.length > 0,
+                shown: versions.length > 0,
               },
               {
                 label: 'Versions',
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/versions`,
-                shown: project.versions.length > 0 || !!currentMember,
+                shown: versions.length > 0 || !!currentMember,
               },
             ]"
           />
@@ -934,26 +936,26 @@ async function getLicenseData() {
   modalLicense.value.show()
 }
 
-async function patchProject(data, quiet = false) {
+async function patchProject(resData, quiet = false) {
   let result = false
   startLoading()
 
   try {
     await useBaseFetch(`project/${project.value.id}`, {
       method: 'PATCH',
-      body: data,
+      body: resData,
       ...data.$defaultHeaders(),
     })
 
-    for (const key in data) {
-      project.value[key] = data[key]
+    for (const key in resData) {
+      project.value[key] = resData[key]
     }
 
-    if (data.license_id) {
-      project.value.license.id = data.license_id
+    if (resData.license_id) {
+      project.value.license.id = resData.license_id
     }
-    if (data.license_url) {
-      project.value.license.url = data.license_url
+    if (resData.license_url) {
+      project.value.license.url = resData.license_url
     }
 
     result = true
