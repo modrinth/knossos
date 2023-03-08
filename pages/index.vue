@@ -62,9 +62,9 @@
       <div class="projects-transition" />
       <div class="users-section">
         <div class="section-header">
-          <div class="section-label green">For players</div>
+          <div class="section-label green">For Players</div>
           <h2 class="section-tagline">
-            Discover {{ statistics.projects }} projects by {{ statistics.authors }} authors
+            Discover {{ $tag.statistics.projects }} projects by {{ $tag.statistics.authors }} authors
           </h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find content to bring your
@@ -249,7 +249,7 @@
     </div>
     <div class="creator-section">
       <div class="section-header">
-        <div class="section-label blue">For creators</div>
+        <div class="section-label blue">For Creators</div>
         <h2 class="section-tagline">Share your content with the world</h2>
         <p class="section-description">
           Give an online home to your creations and reach a massive audience of dedicated players
@@ -309,7 +309,6 @@
           <h3>Team Management</h3>
           <p>Invite your teammates and manage roles and permissions with ease</p>
         </div>
-
         <div class="feature gradient-border">
           <div class="icon gradient-border">
             <svg viewBox="0 0 42 30" fill="none">
@@ -510,7 +509,7 @@
           <strong class="main-header-strong">Modrinth</strong>
         </h2>
         <a
-          href="https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
+          href="https://blog.modrinth.com/?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
           class="iconified-button brand-button"
         >
           Visit the blog
@@ -536,7 +535,6 @@ const [
   { data: rows },
   { data: searchProjects, refresh: updateSearchProjects },
   { data: notifications },
-  { data: statistics },
 ] = await Promise.all([
   useAsyncData('projects', () => useBaseFetch('projects_random?count=40'), {
     transform: (result) => {
@@ -555,7 +553,6 @@ const [
   useAsyncData('updatedProjects', () => useBaseFetch(`search?limit=3&query=&index=updated`), {
     transform: (result) => result.hits,
   }),
-  useAsyncData('statistics', () => useBaseFetch(`statistics`)),
 ])
 </script>
 
