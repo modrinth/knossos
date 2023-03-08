@@ -61,7 +61,7 @@
               <ReportIcon aria-hidden="true" />
               Report
             </button>
-            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener">
+            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
               <ReportIcon aria-hidden="true" />
               Report
             </a>
@@ -129,6 +129,16 @@
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
             </div>
+            <a
+              v-if="githubUrl"
+              :href="githubUrl"
+              :target="$external()"
+              rel="noopener noreferrer nofollow"
+              class="sidebar__item github-button iconified-button"
+            >
+              <GitHubIcon aria-hidden="true" />
+              View GitHub profile
+            </a>
           </template>
         </div>
       </div>
@@ -232,7 +242,7 @@ import ProjectCard from '~/components/ui/ProjectCard'
 import Badge from '~/components/ui/Badge'
 import Promotion from '~/components/ads/Promotion'
 
-// import GitHubIcon from '~/assets/images/utils/github.svg'
+import GitHubIcon from '~/assets/images/utils/github.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -288,6 +298,20 @@ try {
     message: 'User not found',
   })
 }
+
+if (!user.value) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'User not found',
+  })
+}
+
+let githubUrl
+try {
+  const githubUser = await $fetch(`https://api.github.com/user/` + user.value.github_id)
+  githubUrl = ref(githubUser.html_url)
+} catch {}
 
 if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
@@ -356,23 +380,24 @@ async function saveChanges() {
       )
     }
 
-    const data = {
+    const reqData = {
       email: user.value.email,
       bio: user.value.bio,
     }
     if (user.value.username !== data.$auth.user.username) {
-      data.username = user.value.username
+      reqData.username = user.value.username
     }
 
     await useBaseFetch(`user/${data.$auth.user.id}`, {
       method: 'PATCH',
-      body: data,
+      body: reqData,
       ...data.$defaultHeaders(),
     })
     await useAuth(data.$auth.token)
 
     isEditing.value = false
   } catch (err) {
+    console.error(err)
     data.$notify({
       group: 'main',
       title: 'An error occurred',

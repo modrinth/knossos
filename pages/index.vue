@@ -23,7 +23,12 @@
       </h2>
       <div class="button-group">
         <nuxt-link to="/mods" class="iconified-button brand-button"> Discover mods </nuxt-link>
-        <a v-if="!$auth.user" :href="getAuthUrl()" class="iconified-button outline-button">
+        <a
+          v-if="!$auth.user"
+          :href="getAuthUrl()"
+          class="iconified-button outline-button"
+          rel="noopener nofollow"
+        >
           Sign up
         </a>
         <nuxt-link v-else to="/dashboard/projects" class="iconified-button outline-button">

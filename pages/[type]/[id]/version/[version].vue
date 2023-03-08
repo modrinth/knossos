@@ -172,7 +172,7 @@
           <ReportIcon aria-hidden="true" />
           Report
         </button>
-        <a v-if="!$auth.user" class="iconified-button" :href="getAuthUrl()">
+        <a v-if="!$auth.user" class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
           <ReportIcon aria-hidden="true" />
           Report
         </a>

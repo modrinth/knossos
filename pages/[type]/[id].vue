@@ -267,11 +267,11 @@
                 </button>
               </template>
               <template v-else>
-                <a class="iconified-button" :href="getAuthUrl()">
+                <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
                   <ReportIcon aria-hidden="true" />
                   Report
                 </a>
-                <a class="iconified-button" :href="getAuthUrl()">
+                <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
                   <HeartIcon aria-hidden="true" />
                   Follow
                 </a>

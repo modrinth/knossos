@@ -125,7 +125,7 @@
                 <a
                   :href="getAuthUrl()"
                   class="log-in-button header-button brand-button"
-                  rel="noopener"
+                  rel="noopener nofollow"
                 >
                   <GitHubIcon aria-hidden="true" />
                   Sign in with GitHub</a
@@ -267,7 +267,12 @@
               <LogOutIcon class="icon" />
               <span class="dropdown-item__text">Log out</span>
             </button>
-            <a v-else :href="getAuthUrl()" class="iconified-button brand-button">
+            <a
+              v-else
+              :href="getAuthUrl()"
+              class="iconified-button brand-button"
+              rel="noopener nofollow"
+            >
               <GitHubIcon aria-hidden="true" />
               Sign in with GitHub</a
             >
