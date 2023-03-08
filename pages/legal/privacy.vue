@@ -200,8 +200,10 @@
       <a href="mailto:gdpr@modrinth.com">gdpr@modrinth.com</a> or write us at:
     </p>
     <p>
-      2565 W Flint Street<br />
-      Chandler, AZ, USA 85224
+      Rinth, Inc.
+      410 North Scottsdale Road<br />
+      Suite 1000<br />
+      Tempe, AZ 85281
     </p>
 
     <h3>How to contact the appropriate authority</h3>
