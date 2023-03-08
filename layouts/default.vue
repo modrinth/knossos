@@ -150,6 +150,10 @@
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
+              <button class="iconified-button" @click="$refs.modal_creation.show()">
+                <PlusIcon aria-hidden="true" />
+                Create a project
+              </button>
               <NuxtLink class="iconified-button" to="/settings/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
