@@ -1,6 +1,11 @@
 <template>
   <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
-    <nuxt-link class="icon" tabindex="-1" :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
+    <nuxt-link
+      :title="name"
+      class="icon"
+      tabindex="-1"
+      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+    >
       <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
     </nuxt-link>
     <nuxt-link

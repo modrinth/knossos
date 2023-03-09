@@ -179,12 +179,13 @@
           </div>
         </div>
         <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
-          <NuxtLink to="/" class="tab button-animation">
+          <NuxtLink to="/" class="tab button-animation" title="Home">
             <HomeIcon />
           </NuxtLink>
           <button
             class="tab button-animation"
             :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
+            title="Search"
             @click="toggleBrowseMenu()"
           >
             <template v-if="auth.user">
@@ -203,6 +204,7 @@
                 bubble: user.notifications.length > 0,
                 'no-active': isMobileMenuOpen || isBrowseMenuOpen,
               }"
+              title="Notifications"
               @click="
                 () => {
                   isMobileMenuOpen = false
@@ -212,11 +214,15 @@
             >
               <NotificationIcon />
             </NuxtLink>
-            <NuxtLink to="/dashboard" class="tab button-animation">
+            <NuxtLink to="/dashboard" class="tab button-animation" title="Dashboard">
               <ChartIcon />
             </NuxtLink>
           </template>
-          <button class="tab button-animation" @click="toggleMobileMenu()">
+          <button
+            class="tab button-animation"
+            title="Toggle Mobile Menu"
+            @click="toggleMobileMenu()"
+          >
             <template v-if="!auth.user">
               <HamburgerIcon v-if="!isMobileMenuOpen" />
               <CrossIcon v-else />
