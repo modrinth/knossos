@@ -191,12 +191,25 @@
               <SearchIcon />
             </template>
             <template v-else>
-              <DropdownIcon class="smaller" :class="{ closed: !isBrowseMenuOpen }" />
+              <SearchIcon class="smaller" />
               Search
             </template>
           </button>
           <template v-if="auth.user">
-            <NuxtLink to="/notifications" class="tab button-animation">
+            <NuxtLink
+              to="/notifications"
+              class="tab button-animation"
+              :class="{
+                bubble: user.notifications.length > 0,
+                'no-active': isMobileMenuOpen || isBrowseMenuOpen,
+              }"
+              @click="
+                () => {
+                  isMobileMenuOpen = false
+                  isBrowseMenuOpen = false
+                }
+              "
+            >
               <NotificationIcon />
             </NuxtLink>
             <NuxtLink to="/dashboard" class="tab button-animation">
@@ -434,7 +447,12 @@ export default defineNuxtComponent({
       useCookie('auth-token').value = null
 
       // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (this.$route.path.startsWith('/settings/') || this.$route.path.startsWith('/dashboard/')) {
+      if (
+        this.$route.path.startsWith('/settings/') ||
+        this.$route.path.startsWith('/dashboard/') ||
+        this.$route.path.startsWith('/moderation') ||
+        this.$route.path.startsWith('/notifications')
+      ) {
         window.location.href = '/'
       } else {
         await this.$router.go(null)
@@ -827,6 +845,7 @@ export default defineNuxtComponent({
           border-radius: 0;
         }
         .tab {
+          position: relative;
           background: none;
           display: flex;
           flex-basis: 0;
@@ -849,19 +868,26 @@ export default defineNuxtComponent({
             }
           }
 
-          svg {
-            transition: transform 0.125s ease-in-out;
+          &.bubble {
+            &::after {
+              background-color: var(--color-brand);
+              border-radius: var(--size-rounded-max);
+              content: '';
+              height: 0.5rem;
+              position: absolute;
+              left: 1.5rem;
+              top: 0;
+              width: 0.5rem;
+            }
+          }
 
+          svg {
             height: 1.75rem;
             width: 1.75rem;
 
             &.smaller {
               width: 1.25rem;
               height: 1.25rem;
-            }
-
-            &.closed {
-              transform: rotate(180deg);
             }
           }
 
@@ -885,7 +911,7 @@ export default defineNuxtComponent({
           &:last-child {
             margin-right: 2rem;
           }
-          &.router-link-exact-active {
+          &.router-link-exact-active:not(&.no-active) {
             svg {
               color: var(--color-brand);
             }
