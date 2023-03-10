@@ -30,7 +30,7 @@
     }
     @media screen and (min-width: 1024px) {
       flex-direction: row;
-      max-width: 1280px;
+      //max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -46,6 +46,10 @@
     'content'
     'info'
     / 100%;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: var(--spacing-card-md);
+  }
 
   .normal-page__sidebar {
     grid-area: sidebar;
@@ -78,10 +82,10 @@
 
     &.alt-layout {
       grid-template:
-      'content sidebar' auto
-      'content info' auto
-      'content dummy' 1fr
-      / 1fr 20rem;
+        'content sidebar' auto
+        'content info' auto
+        'content dummy' 1fr
+        / 1fr 20rem;
     }
   }
 
@@ -91,12 +95,12 @@
   }
 
   .normal-page__content {
-    max-width: calc(60rem - .75rem);
+    max-width: calc(60rem - 0.75rem);
   }
 }
 
 @media (min-width: 80rem) {
   .normal-page__content {
-    width: calc(60rem - .75rem);
+    width: calc(60rem - 0.75rem);
   }
 }
