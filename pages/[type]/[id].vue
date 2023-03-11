@@ -253,7 +253,7 @@
                 <button
                   v-if="!$user.value.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
-                  @click="userFollowProject(project)"
+                  @click="followProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
                   Follow
@@ -261,7 +261,7 @@
                 <button
                   v-if="$user.value.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
-                  @click="userUnfollowProject(project)"
+                  @click="unfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
@@ -1019,6 +1019,16 @@ async function patchIcon(icon) {
 
   stopLoading()
   return result
+}
+
+async function followProject(project) {
+  project.followers++
+  await userFollowProject(project)
+}
+
+async function unfollowProject(project) {
+  project.followers--
+  await userUnfollowProject(project)
 }
 
 const modalModeration = ref(null)
