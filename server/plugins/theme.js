@@ -22,9 +22,11 @@ export default defineNitroPlugin((nitroApp) => {
 
       if (cookies['auth-token']) {
         setCookie(event, 'auth-token', cookies['auth-token'], opts)
-      } else if (cookies['color-mode']) {
+      }
+      if (cookies['color-mode']) {
         setCookie(event, 'color-mode', cookies['color-mode'], opts)
-      } else if (cookies.cosmetics) {
+      }
+      if (cookies.cosmetics) {
         setCookie(event, 'cosmetics', cookies.cosmetics, opts)
       }
     }
