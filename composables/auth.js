@@ -21,7 +21,7 @@ export const initAuth = async (oldToken = null) => {
   const route = useRoute()
   const authCookie = useCookie('auth-token', {
     secure: true,
-    sameSite: 'Strict',
+    sameSite: 'Lax',
     httpOnly: false,
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
     path: '/',
