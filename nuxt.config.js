@@ -193,16 +193,15 @@ export default defineNuxtConfig({
         },
       }
 
-      const [categories, loaders, gameVersions, donationPlatforms, reportTypes, statistics] = await Promise.all(
-        [
+      const [categories, loaders, gameVersions, donationPlatforms, reportTypes, statistics] =
+        await Promise.all([
           $fetch(`${API_URL}tag/category`, headers),
           $fetch(`${API_URL}tag/loader`, headers),
           $fetch(`${API_URL}tag/game_version`, headers),
           $fetch(`${API_URL}tag/donation_platform`, headers),
           $fetch(`${API_URL}tag/report_type`, headers),
           $fetch(`${API_URL}statistics`, headers),
-        ]
-      )
+        ])
 
       state.categories = categories
       state.loaders = loaders

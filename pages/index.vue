@@ -64,7 +64,8 @@
         <div class="section-header">
           <div class="section-label green">For Players</div>
           <h2 class="section-tagline">
-            Discover {{ $tag.statistics.projects }} projects by {{ $tag.statistics.authors }} authors
+            Discover {{ $tag.statistics.projects }} projects by
+            {{ $tag.statistics.authors }} authors
           </h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find content to bring your
