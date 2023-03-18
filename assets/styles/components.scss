@@ -191,6 +191,7 @@
     padding: 1.5rem;
     line-height: 1.5;
     min-height: 0;
+
     a {
       /* Uses active color to increase contrast */
       color: var(--color-link-active);
@@ -216,6 +217,7 @@
 }
 
 .universal-labels {
+
   label,
   .label {
     :where(.label__title) {
@@ -320,14 +322,12 @@
     width: 15rem;
   }
 
-  > :where(
-      input + *,
-      .input-group + *,
-      .textarea-wrapper + *,
-      .chips + *,
-      .resizable-textarea-wrapper + *,
-      .input-div + *
-    ) {
+  > :where(input + *,
+    .input-group + *,
+    .textarea-wrapper + *,
+    .chips + *,
+    .resizable-textarea-wrapper + *,
+    .input-div + *) {
     margin-block-start: var(--spacing-card-md);
   }
 
@@ -449,11 +449,12 @@
   display: flex;
   flex-direction: column;
 
-  > p:first-child {
+  >p:first-child {
     margin-top: 0;
   }
 
   @media screen and (max-width: 750px) {
+
     .adjacent-input,
     &.adjacent-input &:not(&.small) {
       flex-direction: row;
@@ -462,6 +463,7 @@
   }
 
   @media screen and (max-width: calc(600px + 2rem)) {
+
     .adjacent-input,
     &.adjacent-input &:not(&.small) {
       flex-direction: column;
@@ -730,6 +732,7 @@
   }
 
   @media screen and (max-width: 1280px) {
+
     iframe,
     video {
       width: 100%;
@@ -803,20 +806,20 @@ tr.button-transparent {
   background-color: transparent;
   border-radius: var(--size-rounded-sm);
 
-  &:focus-visible:not(&:disabled) > *,
-  &:hover:not(&:disabled) > * {
+  &:focus-visible:not(&:disabled)>*,
+  &:hover:not(&:disabled)>* {
     cursor: pointer;
     filter: brightness(0.85);
     background-color: var(--color-raised-bg);
   }
 
-  &:active:not(&:disabled) > * {
+  &:active:not(&:disabled)>* {
     filter: brightness(0.8);
     background-color: var(--color-raised-bg);
   }
 
-  &:disabled > *,
-  &[disabled] > * {
+  &:disabled>*,
+  &[disabled]>* {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.5;
@@ -999,6 +1002,7 @@ tr.button-transparent {
 
 .multiselect {
   &.raised-multiselect {
+
     .multiselect__tags,
     .multiselect__content-wrapper,
     .multiselect__spinner {
@@ -1114,9 +1118,10 @@ tr.button-transparent {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 
-  &:focus {
-    //outline: 0; Bad for accessibility
-  }
+  // Commented due empty ruleset
+  // &:focus {
+  //   //outline: 0; Bad for accessibility
+  // }
 }
 
 .stylized-toggle {
@@ -1243,6 +1248,7 @@ tr.button-transparent {
     padding: 1.5rem;
     line-height: 1.5;
     min-height: 0;
+
     a {
       /* Uses active color to increase contrast */
       color: var(--color-link-active);
@@ -1339,6 +1345,7 @@ h3 {
 }
 
 @media (prefers-reduced-motion) {
+
   .button-animation,
   button {
     transform: none !important;
@@ -1346,12 +1353,13 @@ h3 {
 }
 
 .push-right:not(.input-group),
-.push-right.input-group > :first-child {
+.push-right.input-group> :first-child {
   margin-left: auto;
   margin-right: 0;
 }
 
 .full-width-inputs {
+
   .multiselect,
   input,
   .iconified-input {
@@ -1382,7 +1390,7 @@ button {
       align-items: center;
     }
 
-    > span {
+    >span {
       flex: 2;
       padding-right: var(--spacing-card-lg);
 
@@ -1391,29 +1399,29 @@ button {
       }
     }
 
-    > input,
-    > .multiselect,
-    > .input-group {
+    >input,
+    >.multiselect,
+    >.input-group {
       flex: 3;
       height: fit-content;
     }
 
-    > input[type='button'] {
+    >input[type='button'] {
       height: fit-content;
       flex: 1;
     }
 
-    > input[type='button']:hover {
+    >input[type='button']:hover {
       cursor: pointer;
     }
 
-    > div,
-    > a {
+    >div,
+    >a {
       height: fit-content;
       flex: 1;
     }
 
-    > div:hover {
+    >div:hover {
       cursor: pointer;
     }
   }
@@ -1452,11 +1460,11 @@ button {
   display: flex;
   flex-direction: column;
 
-  > * {
+  >* {
     margin-bottom: var(--spacing-card-sm);
   }
 
-  > .multiselect {
+  >.multiselect {
     width: unset;
     height: inherit;
   }
