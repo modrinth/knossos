@@ -28,15 +28,22 @@ export const configuredXss = new xss.FilterXSS({
       const allowedSources = [
         {
           regex:
-            /^https?:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}(\?&autoplay=[0-1]{1})?$/,
-          remove: ['&autoplay=1'], // Prevents autoplay
+            /^https?:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}((&|\?)\w+=\w+)*$/,
+          remove: ['autoplay=1'], // Prevents autoplay
         },
       ]
 
       for (const source of allowedSources) {
         if (source.regex.test(value)) {
           for (const remove of source.remove) {
-            value = value.replace(remove, '')
+            const index = value.indexOf(remove);
+            if (index !== -1) {
+              if (index - 1 > 0 && value.charAt(index - 1)) === "?") {
+                
+              } else {
+                value = value.replaceAll(`&${remove}`, ""); // can safely be removed
+              }
+            }
           }
           return name + '="' + xss.escapeAttrValue(value) + '"'
         }
