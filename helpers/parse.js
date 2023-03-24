@@ -32,8 +32,7 @@ export const configuredXss = new xss.FilterXSS({
           remove: ['&autoplay=1'], // Prevents autoplay
         },
         {
-          regex:
-            /^https?:\/\/(www\.)?discord\.com\/widget\?id=\d{18,19}(&theme=\w+)?$/,
+          regex: /^https?:\/\/(www\.)?discord\.com\/widget\?id=\d{18,19}(&theme=\w+)?$/,
           remove: [/&theme=\w+/],
         },
       ]
