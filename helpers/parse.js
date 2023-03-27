@@ -44,7 +44,7 @@ export const configuredXss = new xss.FilterXSS({
                 // case where its ?followed=by&another=queryParam
                 if (index + remove.length < value.length && value.charAt(index + remove.length) === '&') {
                   value = value.replace(`${remove}&`, '');
-                } else {
+                } else if (index + remove.length >= value.length) {
                   value = value.replace(`?${remove}`, '');
                 }
               } else {
