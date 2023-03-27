@@ -224,7 +224,12 @@
                   class="graphic gradient-border"
                   title="MultiMC"
                 >
-                  <img src="~/assets/images/external/multimc.webp" alt="multimc launcher logo" width="68" height="68" />
+                  <img
+                    src="~/assets/images/external/multimc.webp"
+                    alt="multimc launcher logo"
+                    width="68"
+                    height="68"
+                  />
                 </a>
                 <a
                   rel="noopener"
