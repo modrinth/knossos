@@ -121,7 +121,7 @@ a {
   padding: 0.5rem 1rem;
   margin: 0;
   border-radius: 2rem;
-  background: var(--color-raised-bg);
+  background: var(--color-button-bg);
 
   transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
     outline 0.2s ease-in-out;

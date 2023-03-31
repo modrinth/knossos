@@ -95,8 +95,8 @@ export default {
 
   &.router-link-exact-active {
     .nav-content {
-      color: var(--color-button-text-active);
-      background-color: var(--color-button-bg);
+      color: var(--color-brand-inverted);
+      background-color: var(--color-brand-secondary);
       box-shadow: none;
     }
   }

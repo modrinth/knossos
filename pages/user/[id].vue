@@ -139,6 +139,7 @@
               <GitHubIcon aria-hidden="true" />
               View GitHub profile
             </a>
+            <Promotion />
           </template>
         </div>
       </div>
@@ -180,6 +181,7 @@
             </button>
           </div>
         </nav>
+        <Promotion />
         <div
           v-if="projects.length > 0"
           class="project-list"

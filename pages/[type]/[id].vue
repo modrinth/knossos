@@ -277,6 +277,7 @@
                   Follow
                 </a>
               </template>
+              <Promotion />
             </div>
           </div>
         </div>
@@ -452,7 +453,49 @@
             </nuxt-link>
           </div>
           <div
-            v-for="version in featuredVersions"
+            v-for="version in featuredVersions.slice(0,1)"
+            :key="version.id"
+            class="featured-version button-transparent"
+            @click="
+              $router.push(
+                `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/version/${encodeURI(version.displayUrlEnding)}`
+              )
+            "
+          >
+            <a
+              v-tooltip="
+                version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+              "
+              :href="version.primaryFile.url"
+              class="download square-button brand-button"
+              :aria-label="`Download ${version.name}`"
+              @click.stop="(event) => event.stopPropagation()"
+            >
+              <DownloadIcon aria-hidden="true" />
+            </a>
+            <div class="info">
+              <nuxt-link
+                :to="`/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/version/${encodeURI(version.displayUrlEnding)}`"
+                class="top"
+              >
+                {{ version.name }}
+              </nuxt-link>
+              <div v-if="version.game_versions.length > 0" class="game-version item">
+                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+                {{ $formatVersion(version.game_versions) }}
+              </div>
+              <Badge v-if="version.version_type === 'release'" type="release" color="green" />
+              <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
+              <Badge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
+            </div>
+          </div>
+          <Promotion />
+          <div
+            v-for="version in featuredVersions.slice(1)"
             :key="version.id"
             class="featured-version button-transparent"
             @click="
@@ -1177,7 +1220,7 @@ const collapsedChecklist = ref(false)
   a {
     display: inline-flex;
     align-items: center;
-    border-radius: 1rem;
+    border-radius: 0;
 
     svg,
     img {

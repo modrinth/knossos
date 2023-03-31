@@ -1,10 +1,11 @@
 <template>
-  <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+  <div ref="main_page" class="layout">
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
           <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
             <BrandTextLogo aria-hidden="true" class="text-logo" />
+            <span class="beta-badge">BETA</span>
           </NuxtLink>
         </section>
         <section class="nav-group columns" role="presentation">
@@ -22,14 +23,7 @@
               >
                 <NotificationIcon aria-hidden="true" />
               </nuxt-link>
-              <button
-                class="control-button button-transparent"
-                title="Switch theme"
-                @click="changeTheme"
-              >
-                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-                <SunIcon v-else aria-hidden="true" />
-              </button>
+              <nuxt-link to="/frog" class="missing-info">Account info missing?</nuxt-link>
               <div
                 v-if="auth.user"
                 class="dropdown"
@@ -171,11 +165,6 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" @click="changeTheme">
-              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-              <SunIcon v-else class="icon" />
-              <span class="dropdown-item__text">Change theme</span>
-            </button>
           </div>
         </div>
         <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
@@ -243,6 +232,25 @@
     </header>
     <main>
       <ModalCreation v-if="auth.user" ref="modal_creation" />
+      <div v-if="countdown > 0" class="please-wait">
+        <TextLogo />
+        Modrinth Technologies™ is preparing your page
+        <span>{{ countdown }}</span>
+      </div>
+      <nuxt-link class="fun-zone-a" to="/frog" :class="{'evasive-maneuver': evasiveManeuver, 'aw-man': sadness}">
+        <img class="spaghet" src="https://i.imgur.com/A0n8tfi.png">
+        <p>19, in your area, and ready to cluck</p>
+        <h2>Want to meet her?</h2>
+        <img class="boron" src="https://i.imgur.com/iumLQ1j.png">
+        <button @click="sadness = true" @mouseover="evasiveManeuver = !evasiveManeuver"><CrossIcon /></button>
+      </nuxt-link>
+      <button class="have-you-ever-heard-the-tragedy-of-darth-plagueis-the-wise" :class="{'speen': speen}" @click="speen = true;unspin()">
+        <img class="its-not-a-story-the-jedi-would-tell-you" src="https://i.imgur.com/nR2pbuD.png">
+      </button>
+      <div class="you-just-lost-the-game">
+        <h2>Not a fan of the future?</h2>
+        <a class="iconified-button danger-button" href="http://www.modrinth.com">Return to the old ways</a>
+      </div>
       <slot id="main" />
     </main>
     <footer>
@@ -301,11 +309,6 @@
         </a>
       </div>
       <div class="buttons">
-        <button class="iconified-button raised-button" @click="changeTheme">
-          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
-          <SunIcon v-else aria-hidden="true" />
-          Change theme
-        </button>
         <nuxt-link class="iconified-button raised-button" to="/settings">
           <SettingsIcon aria-hidden="true" />
           Settings
@@ -313,6 +316,7 @@
       </div>
       <div class="not-affiliated-notice">
         NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.
+        <Promotion />
       </div>
     </footer>
   </div>
@@ -327,8 +331,6 @@ import SettingsIcon from '~/assets/images/sidebar/settings.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import HomeIcon from '~/assets/images/sidebar/home.svg'
 
-import MoonIcon from '~/assets/images/utils/moon.svg'
-import SunIcon from '~/assets/images/utils/sun.svg'
 import PlusIcon from '~/assets/images/utils/plus.svg'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import LogOutIcon from '~/assets/images/utils/log-out.svg'
@@ -339,6 +341,8 @@ import GitHubIcon from '~/assets/images/utils/github.svg'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
+import Promotion from "~/components/ads/Promotion.vue";
+import TextLogo from "~/components/brand/TextLogo.vue";
 
 const auth = await useAuth()
 const user = await useUser()
@@ -365,6 +369,10 @@ export default defineNuxtComponent({
       isBrowseMenuOpen: false,
       registeredSkipLink: null,
       hideDropdown: false,
+      evasiveManeuver: false,
+      countdown: 5,
+      sadness: false,
+      speen: false,
       navRoutes: [
         {
           label: 'Mods',
@@ -414,6 +422,7 @@ export default defineNuxtComponent({
     },
   },
   mounted() {
+    this.decrementCounter();
     this.runAnalytics()
     if (this.$route.query.code) {
       window.history.replaceState(history.state, null, this.$route.path)
@@ -474,6 +483,19 @@ export default defineNuxtComponent({
     changeTheme() {
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
     },
+    decrementCounter() {
+      if (this.countdown > 0) {
+        setTimeout(() => {
+          this.countdown -= 1
+          this.decrementCounter()
+        }, 1600)
+      }
+    },
+    unspin() {
+      setTimeout(() => {
+        this.speen = false
+      }, 1000)
+    }
   },
 })
 </script>
@@ -482,6 +504,7 @@ export default defineNuxtComponent({
 @import '~/assets/styles/global.scss';
 
 .layout {
+  position: relative;
   min-height: 100vh;
   background-color: var(--color-bg);
   display: block;
@@ -579,7 +602,7 @@ export default defineNuxtComponent({
                 content: 'Alpha';
                 background-color: var(--color-warning-bg);
                 color: var(--color-warning-text);
-                border-radius: 1rem;
+                border-radius: 0;
                 padding: 0.25rem 0.5rem;
                 margin-left: 0.4rem;
                 font-size: 0.7rem;
@@ -709,8 +732,8 @@ export default defineNuxtComponent({
                 }
 
                 &.router-link-exact-active {
-                  color: var(--color-button-text-active);
-                  background-color: var(--color-button-bg);
+                  color: var(--color-brand-inverted);
+                  background-color: var(--color-brand-secondary);
                 }
               }
 
@@ -1030,6 +1053,10 @@ export default defineNuxtComponent({
       text-align: center;
       font-weight: 500;
       margin-top: var(--spacing-card-md);
+      margin-bottom: 7rem;
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
     }
 
     @media screen and (min-width: 1024px) {
@@ -1078,5 +1105,167 @@ export default defineNuxtComponent({
     }
   }
 }
+
+.beta-logo {
+  color: white;
+  font-size: 1.25rem;
+  margin-left: 0.25rem;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 0.25rem;
+}
+
+.fun-zone-a {
+  --width: 20%;
+  --height: 80%;
+  position: fixed;
+  top: calc(100vh / 2 - var(--height) / 2);
+  left: 1rem;
+  width: var(--width);
+  height: var(--height);
+  z-index: 100;
+  background-color: white;
+  color: black;
+  text-align: center;
+  animation: bouncing 1.5s infinite ease-in-out;
+  transition: left 0.25s ease-in-out;
+
+  p {
+    margin-top: 0.25rem;
+  }
+
+  h2 {
+    color: black;
+    font-family: sans-serif;
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+
+  .spaghet {
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .boron {
+    margin-top: auto;
+    max-width: 100%;
+  }
+
+  &.evasive-maneuver {
+    left: calc(100dvw - var(--width) - 1rem);
+
+    button {
+      left: unset;
+      right: 0;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+
+    svg {
+      color: black;
+    }
+  }
+}
+
+@keyframes bouncing {
+  0%, 100% {
+    transform: translateY(-25px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+@keyframes hide {
+  0% {
+    display: none;
+  }
+  100% {
+    display: unset;
+  }
+}
+
+@keyframes reveal {
+  0%, 10% {
+    background-color: black;
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.70);
+  }
+}
+
+@keyframes speen {
+  0% {
+    transform: translateX(-50%) rotateZ(0);
+  }
+  100% {
+    transform: translateX(-50%) rotateZ(360deg);
+  }
+}
+
+.have-you-ever-heard-the-tragedy-of-darth-plagueis-the-wise {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background-color: white;
+  color: black;
+  text-align: center;
+
+  &.speen {
+    animation: speen 1s;
+  }
+}
+
+.missing-info {
+  color: var(--color-brand-secondary);
+  font-weight: bold;
+}
+
+.please-wait {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.94);
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  animation: reveal 20s;
+
+  span {
+    font-size: 7rem;
+    font-weight: bold;
+    color: var(--color-brand-secondary);
+  }
+
+  svg {
+    width: 25rem;
+  }
+}
+
+.you-just-lost-the-game {
+  position: fixed;
+  bottom: -20px;
+  right: -20px;
+  z-index: 102;
+  padding: 2rem 3rem 3rem 2rem;
+  background-color: rgba(0, 0, 0, 0.80);
+  transform: skew(-5deg);
+}
+
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

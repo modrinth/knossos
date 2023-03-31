@@ -35,7 +35,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'theme-color',
-          content: '#1bd96a',
+          content: '#7EFFAD',
         },
         {
           name: 'color-scheme',
@@ -47,7 +47,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'og:description',
-          content: 'An open source modding platform',
+          content: 'Power up your experience',
         },
         {
           name: 'og:type',
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'og:image',
-          content: 'https://cdn.modrinth.com/modrinth-new.png?',
+          content: 'http://cdn.modrinth.com/modrinth-technologies.png?',
         },
         {
           name: 'twitter:card',
@@ -72,44 +72,9 @@ export default defineNuxtConfig({
       ],
       link: [
         {
-          rel: 'preload',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Regular.woff2?v=3.19',
-          as: 'font',
-          type: 'font/woff2',
-          crossorigin: true,
-        },
-        {
-          rel: 'preload',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Medium.woff2?v=3.19',
-          as: 'font',
-          type: 'font/woff2',
-          crossorigin: true,
-        },
-        {
-          rel: 'preload',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-SemiBold.woff2?v=3.19',
-          as: 'font',
-          type: 'font/woff2',
-          crossorigin: true,
-        },
-        {
-          rel: 'preload',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-Bold.woff2?v=3.19',
-          as: 'font',
-          type: 'font/woff2',
-          crossorigin: true,
-        },
-        {
-          rel: 'preload',
-          href: 'https://cdn-raw.modrinth.com/fonts/inter/Inter-ExtraBold.woff2?v=3.19',
-          as: 'font',
-          type: 'font/woff2',
-          crossorigin: true,
-        },
-        {
           rel: 'icon',
           type: 'image/x-icon',
-          href: '/favicon-light.ico',
+          href: '/favicon.ico',
           media: '(prefers-color-scheme:no-preference)',
         },
         {
@@ -121,7 +86,7 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           type: 'image/x-icon',
-          href: '/favicon-light.ico',
+          href: '/favicon.ico',
           media: '(prefers-color-scheme:light)',
         },
         {

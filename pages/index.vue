@@ -3,7 +3,7 @@
     <div class="landing-hero">
       <ModrinthIcon />
       <h1 class="main-header">
-        The place for Minecraft
+        Power up your
         <div class="animate-strong">
           <span>
             <strong
@@ -16,6 +16,7 @@
             <strong class="main-header-strong">mods</strong>
           </span>
         </div>
+        <Promotion />
       </h1>
       <h2>
         Discover, play, and share Minecraft content through our open-source platform built for the
@@ -62,6 +63,7 @@
       <div class="projects-transition" />
       <div class="users-section">
         <div class="section-header">
+          <Promotion />
           <div class="section-label green">For Players</div>
           <h2 class="section-tagline">Discover over 5,000 creations</h2>
           <p class="section-description">
@@ -76,6 +78,7 @@
               Modrinth’s lightning-fast search and powerful filters let you find what you want as
               you type.
             </p>
+            <Promotion />
           </div>
           <div class="blob-demonstration gradient-border bigger">
             <div class="demo-search">
@@ -242,6 +245,7 @@
     </div>
     <div class="creator-section">
       <div class="section-header">
+        <Promotion />
         <div class="section-label blue">For Creators</div>
         <h2 class="section-tagline">Share your content with the world</h2>
         <p class="section-description">
@@ -412,6 +416,8 @@
             Get the best modding experience possible with constant updates from the Modrinth team
           </p>
         </div>
+        <Promotion />
+
       </div>
     </div>
     <div class="logo-banner">
@@ -521,6 +527,7 @@ import PrismLauncherLogo from '~/assets/images/external/prism.svg'
 import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
 import Avatar from '~/components/ui/Avatar'
 import ProjectCard from '~/components/ui/ProjectCard'
+import Promotion from "~/components/ads/Promotion.vue";
 
 const searchQuery = ref('better')
 const sortType = ref('relevance')
@@ -552,8 +559,6 @@ const [
 
 <style lang="scss" scoped>
 .landing-hero {
-  background-image: var(--landing-maze-bg);
-  background-size: cover;
   object-fit: contain;
   padding: 6rem 1rem 12rem 1rem;
 
@@ -688,7 +693,7 @@ const [
         cursor: pointer;
         padding: 1rem;
         gap: 1rem;
-        border-radius: 1rem;
+        border-radius: 0;
         border: 1px solid var(--landing-border-color);
         transition: background 0.5s ease-in-out, transform 0.05s ease-in-out;
         // Removed due to lag on mobile :(
@@ -741,8 +746,6 @@ const [
     padding-top: 10rem;
     padding-bottom: 5rem;
 
-    background: var(--landing-maze-gradient-bg);
-    background-size: cover;
     background-blend-mode: multiply;
 
     .feature-blob {
@@ -807,7 +810,7 @@ const [
 
           background: linear-gradient(0deg, #05ce45 0%, rgba(5, 206, 69, 0) 100%);
           opacity: 0.2;
-          border-radius: 1rem;
+          border-radius: 0;
           margin-top: auto;
           width: calc(100% + 1.5rem);
           height: 55%;
@@ -997,7 +1000,7 @@ const [
         height: 4rem;
         background: #020305;
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 32px #393d5e;
-        border-radius: 1rem;
+        border-radius: 0;
 
         svg {
           width: 2rem;
@@ -1066,7 +1069,7 @@ const [
 
 .gradient-border {
   position: relative;
-  border-radius: 1rem;
+  border-radius: 0;
 
   &:before {
     content: '';
@@ -1074,7 +1077,7 @@ const [
     inset: 0;
     padding: 1px;
     z-index: -1;
-    border-radius: 1rem;
+    border-radius: 0;
     background: var(--landing-border-gradient);
 
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);

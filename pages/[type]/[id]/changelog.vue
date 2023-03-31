@@ -207,7 +207,7 @@ function switchPage(page) {
     .circle {
       min-width: 0.75rem;
       min-height: 0.75rem;
-      border-radius: 50%;
+      border-radius: 0;
       display: inline-block;
       margin-right: 0.25rem;
     }

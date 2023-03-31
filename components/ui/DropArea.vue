@@ -85,7 +85,7 @@ export default {
     left: var(--indent);
     width: calc(100% - (2 * var(--indent)));
     height: calc(100% - (2 * var(--indent)));
-    border-radius: 1rem;
+    border-radius: 0;
     border: 0.25rem dashed var(--color-button-bg);
   }
 }

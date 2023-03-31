@@ -58,7 +58,7 @@ const colorMode = useTheme()
 }
 .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a b,
 .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a strong {
-  color: #088cdb;
+  color: var(--color-brand-secondary);
 }
 .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3 {
   padding-top: 1px;
@@ -82,6 +82,7 @@ const colorMode = useTheme()
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: black;
 }
 @media screen and (max-width: 800px) {
   .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 {

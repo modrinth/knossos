@@ -206,6 +206,10 @@
         for support.
       </div>
       <Promotion />
+      <div class="server-banner">
+        <h2>The hottest online Minecraft servers are waiting for you!</h2>
+        <nuxt-link class="iconified-button brand-button" to="/frog">Check it out</nuxt-link>
+      </div>
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
@@ -1019,6 +1023,26 @@ export default defineNuxtComponent({
   .labeled-control {
     flex-wrap: nowrap !important;
     flex-direction: row !important;
+  }
+}
+
+.server-banner {
+  background: url(https://i.imgur.com/ZJSMEpt.png) left center;
+  padding: var(--spacing-card-lg) 4rem var(--spacing-card-lg) 16rem;
+  border-radius: var(--size-rounded-card);
+  margin-bottom: var(--spacing-card-md);
+  border: 3px solid var(--color-brand);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  h2 {
+    margin: 0;
+    color: white;
+  }
+
+  .iconified-button {
+    flex-shrink: 0;
   }
 }
 </style>
