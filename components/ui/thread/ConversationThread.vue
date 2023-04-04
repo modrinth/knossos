@@ -40,8 +40,10 @@
     </div>
     <div class="input-group push-right">
       <button class="iconified-button" :disabled="!replyBody"><ReplyIcon /> Reply</button>
-      <button v-if="replyBody" class="iconified-button danger-button"><CloseIcon /> Close with reply</button>
-      <button v-else class="iconified-button danger-button"><CloseIcon /> Close thread</button>
+      <template v-if="report">
+        <button v-if="replyBody" class="iconified-button danger-button"><CloseIcon /> Close with reply</button>
+        <button v-else class="iconified-button danger-button"><CloseIcon /> Close thread</button>
+      </template>
     </div>
   </div>
 </template>

@@ -20,7 +20,7 @@
     <section class="universal-card">
       <h2>Messages</h2>
       <p>This is a private conversation thread with the Modrinth moderators. They will message you for issues concerning your project on Modrinth, and you are welcome to message them about things concerning your project.</p>
-      <ConversationThread :thread="thread" :report="report" />
+      <ConversationThread :thread="thread" />
     </section>
   </div>
 </template>
@@ -79,8 +79,6 @@ if (reportData.item_type === 'user') {
   reportData.version = versions.find((version) => version.id === reportData.item_id);
   reportData.project = projects.find((project) => project.id === reportData.version.project_id);
 }
-
-const report = ref(reportData)
 
 const thread = {
   id: 'qC2Sd2k5',
