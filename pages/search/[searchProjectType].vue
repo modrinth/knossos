@@ -206,7 +206,7 @@
         for support.
       </div>
       <Promotion />
-      <div class="server-banner">
+      <div v-if="!$cosmetics.hideAds" class="server-banner">
         <h2>The hottest online Minecraft servers are waiting for you!</h2>
         <nuxt-link class="iconified-button brand-button" to="/frog">Check it out</nuxt-link>
       </div>

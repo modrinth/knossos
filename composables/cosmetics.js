@@ -16,6 +16,9 @@ export const useCosmetics = () =>
         advancedRendering: true,
         externalLinksNewTab: true,
         notUsingBlockers: false,
+        hideLoadingScreen: false,
+        hideAprilFoolsBanner: false,
+        hideAds: false,
         searchDisplayMode: {
           mod: 'list',
           plugin: 'list',

@@ -2,29 +2,45 @@
   <div>
     <section class="universal-card">
       <h2>Themes</h2>
-      <div class="adjacent-input">
-        <label for="theme-selector">
-          <span class="label__title">Color theme</span>
-          <span class="label__description">Change the global site color theme.</span>
+      <div class="adjacent-input small">
+        <label for="show-ads-toggle">
+          <span class="label__title">Hide ads</span>
+          <span class="label__description">Controls whether or not to show ads.</span>
         </label>
-        <div>
-          <Multiselect
-            id="theme-selector"
-            v-model="$colorMode.preference"
-            :options="['system', 'light', 'dark', 'oled']"
-            :custom-label="
-              (value) =>
-                value === 'oled' ? 'OLED' : value.charAt(0).toUpperCase() + value.slice(1)
-            "
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            @update:model-value="(value) => updateTheme(value, true)"
-          />
-        </div>
+        <input
+          id="show-ads-toggle"
+          v-model="$cosmetics.hideAds"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmetics"
+        />
       </div>
-
+      <div class="adjacent-input small">
+        <label for="show-loading-screen-toggle">
+          <span class="label__title">Disable loading screen</span>
+          <span class="label__description">Controls whether or not to show the loading screen.</span>
+        </label>
+        <input
+          id="show-loading-screen-toggle"
+          v-model="$cosmetics.hideLoadingScreen"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmetics"
+        />
+      </div>
+      <div class="adjacent-input small">
+        <label for="show-af-message-toggle">
+          <span class="label__title">Disable april fools message</span>
+          <span class="label__description">Controls whether or not to show the april fools banner at the top of the screen.</span>
+        </label>
+        <input
+          id="show-af-message-toggle"
+          v-model="$cosmetics.hideAprilFoolsBanner"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmetics"
+        />
+      </div>
       <div class="adjacent-input small">
         <label for="search-layout-toggle">
           <span class="label__title">Search sidebar on the right</span>

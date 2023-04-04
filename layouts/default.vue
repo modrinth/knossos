@@ -1,6 +1,10 @@
 <template>
   <div ref="main_page" class="layout">
     <header class="site-header" role="presentation">
+      <div v-if="!$cosmetics.hideAprilFoolsBanner" class="april-fools universal-card">
+        Happy April Fools 2023 from the Modrinth team!
+        <button class="square-button" @click="$cosmetics.hideAprilFoolsBanner = true"><CrossIcon/></button>
+      </div>
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
           <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
@@ -232,22 +236,22 @@
     </header>
     <main>
       <ModalCreation v-if="auth.user" ref="modal_creation" />
-      <div v-if="countdown > 0" class="please-wait">
+      <div v-if="!$cosmetics.hideLoadingScreen && countdown > 0" class="please-wait">
         <TextLogo />
         Modrinth Technologies™ is preparing your page
         <span>{{ countdown }}</span>
       </div>
-      <nuxt-link class="fun-zone-a" to="/frog" :class="{'evasive-maneuver': evasiveManeuver, 'aw-man': sadness}">
+      <nuxt-link v-if="!$cosmetics.hideAds" class="fun-zone-a" to="/frog" :class="{'evasive-maneuver': evasiveManeuver, 'aw-man': sadness}">
         <img class="spaghet" src="https://i.imgur.com/A0n8tfi.png">
         <p>19, in your area, and ready to cluck</p>
         <h2>Want to meet her?</h2>
         <img class="boron" src="https://i.imgur.com/iumLQ1j.png">
         <button @click="sadness = true" @mouseover="evasiveManeuver = !evasiveManeuver"><CrossIcon /></button>
       </nuxt-link>
-      <button class="have-you-ever-heard-the-tragedy-of-darth-plagueis-the-wise" :class="{'speen': speen}" @click="speen = true;unspin()">
+      <button v-if="!$cosmetics.hideAds" class="have-you-ever-heard-the-tragedy-of-darth-plagueis-the-wise" :class="{'speen': speen}" @click="speen = true;unspin()">
         <img class="its-not-a-story-the-jedi-would-tell-you" src="https://i.imgur.com/nR2pbuD.png">
       </button>
-      <div class="you-just-lost-the-game">
+      <div v-if="!$cosmetics.hideAds" class="you-just-lost-the-game">
         <h2>Not a fan of the future?</h2>
         <a class="iconified-button danger-button" href="http://www.modrinth.com">Return to the old ways</a>
       </div>
@@ -1267,5 +1271,14 @@ export default defineNuxtComponent({
   transform: skew(-5deg);
 }
 
+.april-fools {
+  display: flex;
+  flex-direction: row;
+  min-height: unset;
+
+  button {
+    margin-left: auto;
+  }
+}
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
