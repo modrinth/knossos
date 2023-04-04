@@ -166,7 +166,6 @@
   @extend .padding-lg;
 
   position: relative;
-  min-height: var(--font-size-2xl);
 
   background-color: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
@@ -212,6 +211,11 @@
 
   &.moderation-card {
     background-color: var(--color-warning-banner-bg);
+  }
+
+  &.recessed {
+    background-color: var(--color-bg);
+    box-shadow: none;
   }
 }
 
@@ -480,6 +484,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 0.5rem;
+  min-height: var(--font-size-2xl);
 }
 
 /*
@@ -1589,4 +1594,80 @@ button {
   width: 0;
   height: 0;
   overflow: hidden;
+}
+
+.backed-svg {
+  --size: 2.5rem;
+  border-radius: var(--size-rounded-sm);
+  background-color: var(--color-button-bg);
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: calc(0.6 * var(--size));
+    height: calc(0.6 * var(--size));
+  }
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.raised {
+    background-color: var(--color-raised-bg);
+  }
+}
+
+a.iconified-link, a.iconified-stacked-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-card-xs);
+  width: fit-content;
+
+  .title {
+    font-weight: bold;
+  }
+
+  .stacked {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &:focus-visible .title,
+  &:hover .title {
+    text-decoration: underline;
+    filter: var(--hover-filter);
+  }
+
+  &:active .title {
+    filter: var(--active-filter);
+  }
+}
+
+a.iconified-link {
+  &:focus-visible span,
+  &:hover span {
+    text-decoration: underline;
+    filter: var(--hover-filter);
+  }
+
+  &:active span {
+    filter: var(--active-filter);
+  }
+}
+
+
+a.subtle-link {
+  &:focus-visible,
+  &:hover {
+    text-decoration: underline;
+    filter: var(--hover-filter);
+  }
+
+  &:active {
+    filter: var(--active-filter);
+  }
 }

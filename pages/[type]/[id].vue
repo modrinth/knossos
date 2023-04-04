@@ -330,17 +330,17 @@
             </button>
             <button
               v-if="
-                $tag.approvedStatuses.includes(project.status) || project.status === 'processing'
+                $tag.approvedStatuses.includes(project.status) || project.status === 'processing' || ($tag.rejectedStatuses.includes(project.status) && project.status !== 'withheld')
               "
               class="iconified-button danger-button"
               @click="openModerationModal('withheld')"
             >
-              <EyeIcon />
+              <EyeOffIcon />
               Withhold
             </button>
             <button
               v-if="
-                $tag.approvedStatuses.includes(project.status) || project.status === 'processing'
+                $tag.approvedStatuses.includes(project.status) || project.status === 'processing' || ($tag.rejectedStatuses.includes(project.status) && project.status !== 'rejected')
               "
               class="iconified-button danger-button"
               @click="openModerationModal('rejected')"
@@ -352,9 +352,13 @@
               <EditIcon />
               Edit message
             </button>
-            <nuxt-link class="iconified-button" to="/moderation">
+            <nuxt-link class="iconified-button" to="/moderation/review">
               <ModerationIcon />
-              Visit moderation queue
+              Visit review queue
+            </nuxt-link>
+            <nuxt-link class="iconified-button" to="/moderation/reports">
+              <ReportIcon />
+              Visit reports
             </nuxt-link>
           </div>
         </div>
@@ -642,6 +646,13 @@
                 }/versions`,
                 shown: versions.length > 0 || !!currentMember,
               },
+              {
+                label: 'Moderation',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/moderation`,
+                shown: !!currentMember,
+              },
             ]"
           />
           <div v-if="$auth.user && currentMember" class="input-group">
@@ -686,6 +697,7 @@ import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
+import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import Promotion from '~/components/ads/Promotion'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'

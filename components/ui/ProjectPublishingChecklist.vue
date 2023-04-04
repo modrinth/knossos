@@ -72,7 +72,7 @@
           v-model="acknowledgedMessage"
           description="Acknowledge staff message in sidebar"
         >
-          I acknowledge that I have addressed the staff's message on the sidebar
+          I acknowledge that I have addressed the messages from the moderators.
         </Checkbox>
         <NuxtLink
           v-if="nag.link"
@@ -176,7 +176,7 @@ export default {
   },
   data() {
     return {
-      acknowledgedMessage: !this.project.moderator_message,
+      acknowledgedMessage: false,
     }
   },
   computed: {
@@ -331,7 +331,7 @@ export default {
             onClick: this.submitForReview,
             title: 'Resubmit for review',
             disabled: () =>
-              !this.acknowledgedMessage ||
+              (this.project.moderator_message && !this.acknowledgedMessage) ||
               this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
           },
         },

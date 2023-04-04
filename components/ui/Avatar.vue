@@ -2,7 +2,7 @@
   <img
     v-if="src"
     ref="img"
-    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''}`"
+    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''} ${raised ? 'raised' : ''}`"
     :src="src"
     :alt="alt"
     :loading="loading"
@@ -44,7 +44,7 @@ export default {
       type: String,
       default: 'sm',
       validator(value) {
-        return ['xs', 'sm', 'md', 'lg'].includes(value)
+        return ['xxs', 'xs', 'sm', 'md', 'lg'].includes(value)
       },
     },
     circle: {
@@ -59,6 +59,10 @@ export default {
       type: String,
       default: 'eager',
     },
+    raised: {
+      type: Boolean,
+      default: false,
+    }
   },
   mounted() {
     if (this.$refs.img && this.$refs.img.naturalWidth) {
@@ -86,6 +90,12 @@ export default {
   width: var(--size);
   background-color: var(--color-button-bg);
   object-fit: contain;
+
+  &.size-xxs {
+    --size: 1.25rem;
+    box-shadow: var(--shadow-inset), var(--shadow-card);
+    border-radius: var(--size-rounded-sm);
+  }
 
   &.size-xs {
     --size: 2.5rem;
@@ -115,6 +125,10 @@ export default {
 
   &.no-shadow {
     box-shadow: none;
+  }
+
+  &.raised {
+    background-color: var(--color-raised-bg);
   }
 }
 </style>

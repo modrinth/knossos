@@ -1,33 +1,31 @@
 <template>
-  <div class="normal-page">
-    <div class="normal-page__sidebar">
-      <aside class="universal-card">
-        <h1>Notifications</h1>
-        <NavStack>
-          <NavStackItem link="/notifications" label="All" :uses-query="true" />
-          <NavStackItem
-            v-for="type in notificationTypes"
-            :key="type"
-            :link="'/notifications/' + type"
-            :label="NOTIFICATION_TYPES[type]"
-            :uses-query="true"
-          />
-          <h3>Manage</h3>
-          <NavStackItem link="/settings/follows" label="Followed projects" chevron>
-            <SettingsIcon />
-          </NavStackItem>
-          <NavStackItem
-            v-if="user.notifications.length > 0"
-            :action="clearNotifications"
-            label="Clear all"
-            danger
-          >
-            <ClearIcon />
-          </NavStackItem>
-        </NavStack>
-      </aside>
-    </div>
-    <div class="normal-page__content">
+  <div>
+    <nav class="navigation-card">
+      <NavRow
+        :links="[
+              {
+                label: 'All',
+                href: `/dashboard/notifications`,
+              },
+              ...notificationTypes.map((type) => {
+                return {
+                  label: NOTIFICATION_TYPES[type],
+                  href: `/dashboard/notifications/${type}`,
+                }
+              }),
+            ]"
+      />
+      <div class="input-group">
+        <button
+          v-if="user.notifications.length > 0"
+          class="iconified-button danger-button"
+          @click="clearNotifications"
+        >
+          <ClearIcon />
+          Clear all
+        </button>
+      </div>
+    </nav>
       <div class="notifications">
         <div
           v-for="notification in $route.params.type !== undefined
@@ -78,23 +76,20 @@
           <span class="text">You are up-to-date!</span>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-import ClearIcon from '~/assets/images/utils/clear.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
+import ClearIcon from 'assets/images/utils/clear.svg'
+import SettingsIcon from 'assets/images/utils/settings.svg'
+import CalendarIcon from 'assets/images/utils/calendar.svg'
+import UpToDate from 'assets/images/illustrations/up_to_date.svg'
+import NavRow from '~/components/ui/NavRow.vue'
 import { renderString } from '~/helpers/parse'
 
 export default defineNuxtComponent({
   components: {
-    NavStack,
-    NavStackItem,
+    NavRow,
     ClearIcon,
     SettingsIcon,
     CalendarIcon,
@@ -187,6 +182,10 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="scss" scoped>
+:deep(.navigation .nav-link) {
+  text-transform: none;
+}
+
 .notifications {
   .label {
     .label__title {

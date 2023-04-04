@@ -1,10 +1,10 @@
 <template>
   <span :class="'version-badge ' + color + ' type--' + type">
-    <template v-if="color"> <span class="circle" /> {{ $capitalizeString(type) }} </template>
+    <template v-if="color"> <span class="circle" /> {{ $capitalizeString(type) }}</template>
 
     <!-- User roles -->
-    <template v-else-if="type === 'admin'"> <ModrinthIcon /> Modrinth Team </template>
-    <template v-else-if="type === 'moderator'"> <ModeratorIcon /> Moderator </template>
+    <template v-else-if="type === 'admin'"> <ModrinthIcon /> Modrinth Team</template>
+    <template v-else-if="type === 'moderator'"> <ModeratorIcon /> Moderator</template>
     <template v-else-if="type === 'creator'"><CreatorIcon /> Creator</template>
 
     <!-- Project statuses -->
@@ -12,16 +12,16 @@
     <template v-else-if="type === 'unlisted'"><EyeOffIcon /> Unlisted</template>
     <template v-else-if="type === 'withheld'"><EyeOffIcon /> Withheld</template>
     <template v-else-if="type === 'private'"><LockIcon /> Private</template>
-    <template v-else-if="type === 'scheduled'"> <CalendarIcon /> Scheduled </template>
+    <template v-else-if="type === 'scheduled'"> <CalendarIcon /> Scheduled</template>
     <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
-    <template v-else-if="type === 'archived'"> <ArchiveIcon /> Archived </template>
+    <template v-else-if="type === 'archived'"> <ArchiveIcon /> Archived</template>
     <template v-else-if="type === 'rejected'"><CrossIcon /> Rejected</template>
-    <template v-else-if="type === 'processing'"> <ProcessingIcon /> Under review </template>
+    <template v-else-if="type === 'processing'"> <ProcessingIcon /> Under review</template>
 
     <!-- Team members -->
     <template v-else-if="type === 'accepted'"><CheckIcon /> Accepted</template>
-    <template v-else-if="type === 'pending'"> <ProcessingIcon /> Pending </template>
-    <template v-else> <span class="circle" /> {{ $capitalizeString(type) }} </template>
+    <template v-else-if="type === 'pending'"> <ProcessingIcon /> Pending</template>
+    <template v-else> <span class="circle" /> {{ $capitalizeString(type) }}</template>
   </span>
 </template>
 

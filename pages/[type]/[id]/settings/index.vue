@@ -360,7 +360,7 @@ export default defineNuxtComponent({
         ...this.$defaultHeaders(),
       })
       await initUserProjects()
-      await this.$router.push('/dashboard/projects')
+      await this.$router.push('/dashboard/review')
       this.$notify({
         group: 'main',
         title: 'Project deleted',

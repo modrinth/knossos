@@ -165,7 +165,6 @@
           Back to list
         </nuxt-link>
         <button
-          v-if="$auth.user && !currentMember"
           class="iconified-button"
           @click="$refs.modal_version_report.show()"
         >

@@ -1,7 +1,47 @@
 <template>
-  <div>
-    <section class="universal-card">
-      <h2>Overview</h2>
+  <div class="dashboard-overview">
+    <section class="universal-card dashboard-header">
+      <Avatar
+        :src="$auth.user.avatar_url"
+        size="md"
+        circle
+        :alt="$auth.user.username"
+      />
+      <div class="username">
+        <h1>
+          {{ $auth.user.username }}
+        </h1>
+        <NuxtLink
+          class="goto-link"
+          :to="`/user/${$auth.user.username}`"
+        >
+          Visit your profile
+          <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
+        </NuxtLink>
+      </div>
+    </section>
+    <!-- Notification system is too awful for this to work -->
+<!--    <section class="universal-card dashboard-notifications">-->
+<!--      <h2>Notifications</h2>-->
+<!--      <div-->
+<!--        v-for="notification in user.notifications.slice(0,4)"-->
+<!--        :key="notification.id"-->
+<!--        class="dark-card notification"-->
+<!--      >-->
+<!--        <div class="label">-->
+<!--          <span class="label__title">-->
+<!--            <nuxt-link :to="notification.link">-->
+<!--              <h3 v-html="renderString(notification.title)" />-->
+<!--            </nuxt-link>-->
+<!--          </span>-->
+<!--          <div class="label__description">-->
+<!--            <p>{{ notification.text }}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+    <section class="universal-card dashboard-analytics">
+      <h2>Analytics</h2>
       <div class="grid-display">
         <div class="grid-display__item">
           <div class="label">Total downloads</div>
@@ -32,25 +72,13 @@
               }}</span
             ></span
           >
-          <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
-          <!--            >View breakdown-->
-          <!--            <ChevronRightIcon-->
-          <!--              class="featured-header-chevron"-->
-          <!--              aria-hidden="true"-->
-          <!--          /></NuxtLink>-->
         </div>
         <div class="grid-display__item">
           <div class="label">Total revenue</div>
           <div class="value">
             {{ $formatMoney(payouts.all_time) }}
           </div>
-          <span>{{ $formatMoney(payouts.last_month) }} this month</span>
-          <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
-          <!--            >View breakdown-->
-          <!--            <ChevronRightIcon-->
-          <!--              class="featured-header-chevron"-->
-          <!--              aria-hidden="true"-->
-          <!--          /></NuxtLink>-->
+          <span>{{ $formatMoney(payouts.last_month) }} in the last month</span>
         </div>
         <div class="grid-display__item">
           <div class="label">Current balance</div>
@@ -69,20 +97,14 @@
         </div>
       </div>
     </section>
-    <section class="universal-card more-soon">
-      <h2>More coming soon!</h2>
-      <p>
-        Stay tuned for more metrics and analytics (pretty graphs, anyone? 👀) coming to the creators
-        dashboard soon!
-      </p>
-    </section>
   </div>
 </template>
 <script setup>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import Avatar from "~/components/ui/Avatar.vue";
 
 useHead({
-  title: 'Creator dashboard - Modrinth',
+  title: 'Dashboard - Modrinth',
 })
 
 const auth = await useAuth()
@@ -106,3 +128,56 @@ const followersProjectCount = computed(
   () => user.value.projects.filter((project) => project.followers > 0).length
 )
 </script>
+<style lang="scss">
+.dashboard-overview {
+  display: grid;
+  grid-template:
+    'header header'
+    'notifications analytics' / 1fr 1fr;
+  gap: var(--spacing-card-md);
+
+  > .universal-card {
+    margin: 0;
+  }
+}
+
+.dashboard-notifications {
+  grid-area: notifications;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card-md);
+
+  .notification {
+    .label__title, h1, h2, h3, h4, p {
+      margin: 0!important;
+    }
+  }
+}
+
+.dashboard-analytics {
+  grid-area: analytics;
+}
+
+.dashboard-header {
+  display: flex;
+  gap: var(--spacing-card-bg);
+  grid-area: header;
+
+  .username {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-card-sm);
+    justify-content: center;
+
+    h1 {
+      margin: 0;
+    }
+  }
+}
+
+.dark-card {
+  background-color: var(--color-bg);
+  border-radius: var(--size-rounded-card);
+  padding: var(--spacing-card-lg);
+}
+</style>

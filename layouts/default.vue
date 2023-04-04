@@ -15,7 +15,7 @@
             <section class="user-controls">
               <nuxt-link
                 v-if="auth.user"
-                to="/notifications"
+                to="/dashboard/notifications"
                 class="control-button button-transparent"
                 :class="{ bubble: user.notifications.length > 0 }"
                 title="Notifications"
@@ -62,15 +62,15 @@
                     <span class="title">Create a project</span>
                   </button>
                   <hr class="divider" />
-                  <NuxtLink class="item button-transparent" to="/notifications">
+                  <NuxtLink class="item button-transparent" to="/dashboard/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard">
                     <ChartIcon class="icon" />
-                    <span class="title">Dashboard</span><span class="beta-badge">BETA</span>
+                    <span class="title">Dashboard</span>
                   </NuxtLink>
-                  <NuxtLink class="item button-transparent" to="/settings/follows">
+                  <NuxtLink class="item button-transparent" to="/dashboard/follows">
                     <HeartIcon class="icon" />
                     <span class="title">Following</span>
                   </NuxtLink>
@@ -154,7 +154,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="iconified-button" to="/settings/follows">
+              <NuxtLink class="iconified-button" to="/dashboard/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -198,7 +198,7 @@
           </button>
           <template v-if="auth.user">
             <NuxtLink
-              to="/notifications"
+              to="/dashboard/notifications"
               class="tab button-animation"
               :class="{
                 bubble: user.notifications.length > 0,
@@ -455,9 +455,7 @@ export default defineNuxtComponent({
       // If users logs out on dashboard, force redirect on the home page to clear cookies
       if (
         this.$route.path.startsWith('/settings/') ||
-        this.$route.path.startsWith('/dashboard/') ||
-        this.$route.path.startsWith('/moderation') ||
-        this.$route.path.startsWith('/notifications')
+        this.$route.path.startsWith('/dashboard/')
       ) {
         window.location.href = '/'
       } else {
