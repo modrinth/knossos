@@ -468,7 +468,8 @@
                 version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
-              class="download square-button brand-button"
+              class="download square-button"
+              :class="{ 'brand-button': $route.name === 'type-id' }"
               :aria-label="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
             >
