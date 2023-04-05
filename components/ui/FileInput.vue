@@ -1,8 +1,19 @@
 <template>
-  <label :class="{ 'long-style': longStyle }" :disabled="disabled" @drop.prevent="handleDrop" @dragover.prevent>
+  <label
+    :class="{ 'long-style': longStyle }"
+    :disabled="disabled"
+    @drop.prevent="handleDrop"
+    @dragover.prevent
+  >
     <slot />
     {{ prompt }}
-    <input type="file" :multiple="multiple" :accept="accept" :disabled="disabled" @change="handleChange" />
+    <input
+      type="file"
+      :multiple="multiple"
+      :accept="accept"
+      :disabled="disabled"
+      @change="handleChange"
+    />
   </label>
 </template>
 
