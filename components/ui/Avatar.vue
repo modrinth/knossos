@@ -2,7 +2,9 @@
   <img
     v-if="src"
     ref="img"
-    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''} ${pixelated ? 'pixelated' : ''}`"
+    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''} ${
+      pixelated ? 'pixelated' : ''
+    }`"
     :src="src"
     :alt="alt"
     :loading="loading"
@@ -73,7 +75,7 @@ export default {
       } else {
         this.pixelated = false
       }
-    }
+    },
   },
 }
 </script>
