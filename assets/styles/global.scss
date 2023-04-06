@@ -276,8 +276,10 @@ html {
 }
 
 .square-mode {
-  *, *::after, *::before {
-    border-radius: 0!important;
+  *,
+  *::after,
+  *::before {
+    border-radius: 0 !important;
   }
 }
 
