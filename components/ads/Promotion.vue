@@ -82,6 +82,7 @@ const colorMode = useTheme()
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  outline: 2px solid transparent;
 }
 @media screen and (max-width: 800px) {
   .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 {

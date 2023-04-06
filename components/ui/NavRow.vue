@@ -133,6 +133,9 @@ export default {
 
     &.router-link-exact-active {
       color: var(--color-text);
+      outline: 2px solid transparent;
+      outline-offset: 5px;
+      border-radius: 0.25rem;
 
       &::after {
         opacity: 1;

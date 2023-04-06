@@ -528,6 +528,12 @@ export default defineNuxtComponent({
         a {
           align-items: center;
           display: flex;
+          outline: none;
+
+          &.router-link-exact-active {
+            outline: 2px solid transparent;
+            border-radius: 0.25rem;
+          }
         }
 
         .small-logo {
@@ -655,6 +661,7 @@ export default defineNuxtComponent({
               display: flex;
               justify-content: center;
               padding: 0;
+              outline: none;
 
               .user-icon {
                 height: 2rem;
@@ -705,6 +712,7 @@ export default defineNuxtComponent({
                 display: flex;
                 padding: 0.5rem;
                 width: 100%;
+                outline: none;
 
                 .icon {
                   margin-right: 0.5rem;
@@ -715,6 +723,7 @@ export default defineNuxtComponent({
                 &.router-link-exact-active {
                   color: var(--color-button-text-active);
                   background-color: var(--color-button-bg);
+                  outline: 2px solid transparent;
                 }
               }
 

@@ -218,7 +218,7 @@ export default defineNuxtComponent({
 .color-theme-selector {
   --_border-color: var(--color-bg);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: var(--spacing-card-sm);
   margin-bottom: calc(var(--spacing-card-md) + var(--spacing-card-sm));
 
@@ -231,6 +231,11 @@ export default defineNuxtComponent({
       height: 0;
       outline: none;
       box-shadow: none;
+
+      &:focus-visible + label {
+        outline: 0.25rem solid #ea80ff;
+        border-radius: 0.25rem;
+      }
     }
     label {
       display: flex;
@@ -255,7 +260,6 @@ export default defineNuxtComponent({
         svg {
           width: 1.25rem;
           height: 1.25rem;
-          stroke-width: 3px;
           margin: 0;
           opacity: 0;
         }
