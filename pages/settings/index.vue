@@ -2,26 +2,62 @@
   <div>
     <section class="universal-card">
       <h2>Themes</h2>
-      <div class="adjacent-input">
-        <label for="theme-selector">
-          <span class="label__title">Color theme</span>
-          <span class="label__description">Change the global site color theme.</span>
-        </label>
-        <div>
-          <Multiselect
-            id="theme-selector"
+      <div class="label">
+        <span class="label__title">Color theme</span>
+        <span class="label__description">Change the global site color theme.</span>
+      </div>
+      <div class="color-theme-selector">
+        <div
+          v-for="theme of themes"
+          :key="theme"
+          class="color-theme-option"
+          :class="{
+            selected: theme === $colorMode.preference,
+          }"
+        >
+          <input
+            :id="`color-theme-option-${theme}`"
             v-model="$colorMode.preference"
-            :options="['system', 'light', 'dark', 'oled']"
-            :custom-label="
-              (value) =>
-                value === 'oled' ? 'OLED' : value.charAt(0).toUpperCase() + value.slice(1)
+            type="radio"
+            name="color-theme-selector"
+            :value="theme"
+            @click="
+              () => {
+                if (theme === $colorMode.preference) {
+                  counter++
+                } else {
+                  counter = 0
+                }
+                if (counter === 69) {
+                  updateTheme(`square-${theme}`, false)
+                  $colorMode.preference = `square-${theme}`
+                  counter = 0
+                }
+              }
             "
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            @update:model-value="(value) => updateTheme(value, true)"
+            @update:model-value="
+              (value) => {
+                if (['dark', 'oled'].includes(value)) {
+                  $cosmetics.preferredDarkTheme = value
+                }
+                updateTheme(value, true)
+              }
+            "
           />
+          <label
+            :for="`color-theme-option-${theme}`"
+            :class="`${theme}-mode`"
+            class="iconified-button"
+          >
+            <div class="indicator"><CheckIcon /></div>
+            <div class="preview universal-card">
+              {{
+                theme === 'oled'
+                  ? 'OLED'
+                  : (theme.charAt(0).toUpperCase() + theme.slice(1)).replace('-', ' ')
+              }}
+            </div>
+          </label>
         </div>
       </div>
 
@@ -136,14 +172,17 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
+import CheckIcon from '~/assets/images/utils/check.svg'
 
 export default defineNuxtComponent({
   components: {
     Multiselect,
+    CheckIcon,
   },
   data() {
     return {
       searchDisplayMode: this.$cosmetics.searchDisplayMode,
+      counter: 0,
     }
   },
   head: {
@@ -165,7 +204,87 @@ export default defineNuxtComponent({
       })
       return types
     },
+    themes() {
+      const modes = ['light', 'dark', 'oled']
+      if (!modes.includes(this.$colorMode.preference)) {
+        modes.push(this.$colorMode.preference)
+      }
+      return modes
+    },
   },
 })
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.color-theme-selector {
+  --_border-color: var(--color-bg);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--spacing-card-sm);
+  margin-bottom: calc(var(--spacing-card-md) + var(--spacing-card-sm));
+
+  .color-theme-option {
+    display: contents;
+    input {
+      appearance: none;
+      position: absolute;
+      width: 0;
+      height: 0;
+      outline: none;
+      box-shadow: none;
+    }
+    label {
+      display: flex;
+      gap: var(--spacing-card-md);
+      padding: var(--spacing-card-lg);
+      outline: 2px solid transparent;
+      width: unset;
+      align-items: center;
+
+      .indicator {
+        display: flex;
+        width: 2rem;
+        height: 2rem;
+        color: var(--color-button-text-active);
+        background-color: var(--color-raised-bg);
+        border: 2px solid var(--color-divider-dark);
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+          stroke-width: 3px;
+          margin: 0;
+          opacity: 0;
+        }
+      }
+
+      .preview {
+        padding: var(--spacing-card-lg);
+        min-width: 2rem;
+        min-height: unset;
+        border-radius: 1rem;
+        flex-grow: 1;
+        background-color: var(--color-raised-bg);
+        color: var(--color-text);
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+
+    &.selected label {
+      .indicator {
+        color: var(--color-button-text-active);
+        background-color: var(--color-brand-highlight);
+        border-color: var(--color-brand);
+
+        svg {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+</style>

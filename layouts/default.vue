@@ -471,7 +471,12 @@ export default defineNuxtComponent({
       }
     },
     changeTheme() {
-      updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
+      updateTheme(
+        ['dark', 'oled'].includes(this.$colorMode.value)
+          ? 'light'
+          : this.$cosmetics.preferredDarkTheme,
+        true
+      )
     },
   },
 })

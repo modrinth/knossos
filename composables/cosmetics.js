@@ -16,6 +16,7 @@ export const useCosmetics = () =>
         advancedRendering: true,
         externalLinksNewTab: true,
         notUsingBlockers: false,
+        preferredDarkTheme: 'dark',
         searchDisplayMode: {
           mod: 'list',
           plugin: 'list',
