@@ -52,9 +52,9 @@
             <div class="indicator"><CheckIcon /></div>
             <div class="preview universal-card">
               {{
-                theme === 'oled'
-                  ? 'OLED'
-                  : (theme.charAt(0).toUpperCase() + theme.slice(1)).replace('-', ' ')
+                (theme.charAt(0).toUpperCase() + theme.slice(1))
+                  .replace('-', ' ')
+                  .replace('Oled', 'OLED')
               }}
             </div>
           </label>
