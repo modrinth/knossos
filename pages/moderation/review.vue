@@ -21,6 +21,33 @@
           <SortAscIcon />Sorting by newest
         </button>
       </div>
+      <p v-if="projectType !== 'all'" class="project-count">
+        Showing
+        {{
+          projects.filter(
+            (x) =>
+              projectType === 'all' ||
+              app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType
+          ).length
+        }}
+        {{ ($formatProjectType(projectType) + 's').toLowerCase() }}
+        of {{ projects.length }} total projects in the queue.
+      </p>
+      <p v-else class="project-count">There are {{ projects.length }} projects in the queue.</p>
+      <p class="warning project-count">
+        <WarningIcon />
+        {{
+          projectsOver24Hours.filter(
+            (x) =>
+              projectType === 'all' ||
+              app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType
+          ).length
+        }}
+        {{
+          projectType === 'all' ? 'projects' : ($formatProjectType(projectType) + 's').toLowerCase()
+        }}
+        have been in the queue for over 24 hours.
+      </p>
       <div
         v-for="project in projects
           .sort((a, b) => {
@@ -158,6 +185,8 @@ const projectTypes = computed(() => {
   return [...set]
 })
 
+const projectsOver24Hours = computed(() => rawProjects.filter((project) => project.age > time24h))
+
 const projects = ref(rawProjects)
 const projectType = ref('all')
 const oldestFirst = ref(true)
@@ -198,14 +227,22 @@ function onModalClose() {
   svg {
     vertical-align: top;
   }
+}
 
-  &.warning {
-    color: var(--color-special-orange);
-  }
+.warning {
+  color: var(--color-special-orange);
+}
 
-  &.danger {
-    color: var(--color-special-red);
-    font-weight: bold;
+.danger {
+  color: var(--color-special-red);
+  font-weight: bold;
+}
+
+.project-count {
+  margin-block: var(--spacing-card-md);
+
+  svg {
+    vertical-align: top;
   }
 }
 
