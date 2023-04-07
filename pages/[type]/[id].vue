@@ -227,7 +227,7 @@
             </div>
             <div class="dates">
               <div
-                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
@@ -235,12 +235,21 @@
                 <span class="value">{{ fromNow(project.published) }}</span>
               </div>
               <div
-                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />
                 <span class="label">Updated</span>
                 <span class="value">{{ fromNow(project.updated) }}</span>
+              </div>
+              <div
+                v-if="project.status === 'processing' && project.queued"
+                v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+                class="date"
+              >
+                <QueuedIcon aria-hidden="true" />
+                <span class="label">Submitted</span>
+                <span class="value">{{ fromNow(project.queued) }}</span>
               </div>
             </div>
             <hr class="card-divider" />
@@ -330,7 +339,9 @@
             </button>
             <button
               v-if="
-                $tag.approvedStatuses.includes(project.status) || project.status === 'processing' || ($tag.rejectedStatuses.includes(project.status) && project.status !== 'withheld')
+                $tag.approvedStatuses.includes(project.status) ||
+                project.status === 'processing' ||
+                ($tag.rejectedStatuses.includes(project.status) && project.status !== 'withheld')
               "
               class="iconified-button danger-button"
               @click="openModerationModal('withheld')"
@@ -340,7 +351,9 @@
             </button>
             <button
               v-if="
-                $tag.approvedStatuses.includes(project.status) || project.status === 'processing' || ($tag.rejectedStatuses.includes(project.status) && project.status !== 'rejected')
+                $tag.approvedStatuses.includes(project.status) ||
+                project.status === 'processing' ||
+                ($tag.rejectedStatuses.includes(project.status) && project.status !== 'rejected')
               "
               class="iconified-button danger-button"
               @click="openModerationModal('rejected')"
@@ -683,6 +696,7 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UpdateIcon from '~/assets/images/utils/updated.svg'
+import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import CodeIcon from '~/assets/images/sidebar/mod.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'

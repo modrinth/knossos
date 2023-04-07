@@ -1,11 +1,5 @@
 <template>
   <div>
-    <ModalModeration
-      ref="modal"
-      :project="currentProject"
-      :status="currentStatus"
-      :on-close="onModalClose"
-    />
     <section class="universal-card">
       <h2>Project queue</h2>
       <div class="input-group">
@@ -82,7 +76,7 @@
             <span>{{ project.owner.username }}</span>
           </nuxt-link>
           is requesting to be
-          <Badge :type="project.requested_status" />
+          <Badge :type="project.requested_status ? project.requested_status : 'approved'" />
         </div>
         <div class="input-group">
           <nuxt-link
@@ -90,29 +84,6 @@
             class="iconified-button raised-button"
             ><EyeIcon /> View project</nuxt-link
           >
-          <button
-            class="iconified-button brand-button"
-            @click="
-              setProjectStatus(
-                project,
-                project.requested_status ? project.requested_status : 'approved'
-              )
-            "
-          >
-            <CheckIcon /> Approve
-          </button>
-          <button
-            class="iconified-button danger-button"
-            @click="setProjectStatus(project, 'withheld')"
-          >
-            <EyeOffIcon /> Withhold
-          </button>
-          <button
-            class="iconified-button danger-button"
-            @click="setProjectStatus(project, 'rejected')"
-          >
-            <CrossIcon /> Reject
-          </button>
         </div>
         <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
           <WarningIcon v-if="project.age_warning" />
@@ -130,15 +101,11 @@
 import Chips from '~/components/ui/Chips.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import UnknownIcon from '~/assets/images/utils/unknown.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
 import SortAscIcon from '~/assets/images/utils/sort-asc.svg'
 import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
 import Badge from '~/components/ui/Badge.vue'
-import ModalModeration from '~/components/ui/ModalModeration'
 
 useHead({
   title: 'Review projects - Modrinth',
@@ -190,39 +157,26 @@ const projectsOver24Hours = computed(() => rawProjects.filter((project) => proje
 const projects = ref(rawProjects)
 const projectType = ref('all')
 const oldestFirst = ref(true)
-
-const currentProject = ref(null)
-const currentStatus = ref(null)
-
-const modal = ref(null)
-
-function setProjectStatus(project, status) {
-  this.currentProject = project
-  this.currentStatus = status
-
-  modal.value.show()
-}
-
-function onModalClose() {
-  this.projects.splice(
-    this.projects.findIndex((x) => this.currentProject.id === x.id),
-    1
-  )
-  this.currentProject = null
-}
 </script>
 <style lang="scss" scoped>
 .project {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-card-sm);
+  @media screen and (min-width: 650px) {
+    display: grid;
+    grid-template: 'title action' 'date action';
+    grid-template-columns: 1fr auto;
+  }
 }
 .project-title {
   gap: var(--spacing-card-sm);
   margin-right: var(--spacing-card-xs);
+  grid-area: title;
 }
 .submitter-info {
   margin: 0;
+  grid-area: date;
 
   svg {
     vertical-align: top;
@@ -244,6 +198,10 @@ function onModalClose() {
   svg {
     vertical-align: top;
   }
+}
+
+.input-group {
+  grid-area: action;
 }
 
 .title-row {
