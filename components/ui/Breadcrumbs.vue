@@ -3,7 +3,7 @@
     <template v-for="(link, index) in linkStack" :key="index">
       <NuxtLink
         :to="link.href"
-        class="breadcrumb"
+        class="breadcrumb goto-link"
         :class="{ trim: link.allowTrimming ? link.allowTrimming : false }"
       >
         {{ link.label }}
@@ -43,7 +43,7 @@ defineProps({
   }
 
   a.breadcrumb {
-    color: var(--color-link);
+    padding-block: var(--spacing-card-xs);
 
     &.trim {
       text-overflow: ellipsis;

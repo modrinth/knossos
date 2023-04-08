@@ -66,10 +66,8 @@
         :current-title="version.name"
         :link-stack="[
           {
-            href: `/${project.project_type}/${project.slug ? project.slug : project.id}/${
-              isPreviousChangelog() ? 'changelog' : 'versions'
-            }`,
-            label: isPreviousChangelog() ? 'Changelog' : 'Versions',
+            href: getPreviousLink(),
+            label: getPreviousLabel(),
           },
         ]"
       />
@@ -963,11 +961,25 @@ export default defineNuxtComponent({
     },
   },
   methods: {
-    isPreviousChangelog() {
-      return (
-        this.$router.options.history.state.back &&
+    getPreviousLink() {
+      if (this.$router.options.history.state.back) {
+        if (
+          this.$router.options.history.state.back.includes('/changelog') ||
+          this.$router.options.history.state.back.includes('/versions')
+        ) {
+          return this.$router.options.history.state.back
+        }
+      }
+      return `/${this.project.project_type}/${
+        this.project.slug ? this.project.slug : this.project.id
+      }/versions`
+    },
+    getPreviousLabel() {
+      console.log(this.$router.options.history.state)
+      return this.$router.options.history.state.back &&
         this.$router.options.history.state.back.endsWith('/changelog')
-      )
+        ? 'Changelog'
+        : 'Versions'
     },
     acceptFileFromProjectType,
     renderHighlightedString,
