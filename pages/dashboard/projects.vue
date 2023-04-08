@@ -229,7 +229,10 @@
               />
             </div>
             <div>
-              <nuxt-link tabindex="-1" :to="`/${project.project_type}/${project.slug}`">
+              <nuxt-link
+                tabindex="-1"
+                :to="`/${project.project_type}/${project.slug ? project.slug : project.id}`"
+              >
                 <Avatar
                   :src="project.icon_url"
                   aria-hidden="true"
@@ -248,7 +251,7 @@
 
                 <nuxt-link
                   class="hover-link wrap-as-needed"
-                  :to="`/${project.project_type}/${project.slug}`"
+                  :to="`/${project.project_type}/${project.slug ? project.slug : project.id}`"
                 >
                   {{ project.title }}
                 </nuxt-link>
@@ -270,7 +273,9 @@
             <div>
               <nuxt-link
                 class="square-button"
-                :to="`/${project.project_type}/${project.slug}/settings`"
+                :to="`/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/settings`"
               >
                 <SettingsIcon />
               </nuxt-link>
