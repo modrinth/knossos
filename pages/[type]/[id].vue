@@ -205,7 +205,17 @@
             <h1 class="title">
               {{ project.title }}
             </h1>
-            <Badge v-if="$auth.user && currentMember" :type="project.status" class="status-badge" />
+            <nuxt-link
+              class="title-link project-type"
+              :to="`/${$getProjectTypeForUrl(project.actualProjectType, project.loaders)}s`"
+            >
+              <BoxIcon />
+              <span>{{
+                $formatProjectType(
+                  $getProjectTypeForDisplay(project.actualProjectType, project.loaders)
+                )
+              }}</span>
+            </nuxt-link>
             <p class="description">
               {{ project.description }}
             </p>
@@ -214,6 +224,11 @@
               :type="project.actualProjectType"
               class="categories"
             >
+              <Badge
+                v-if="$auth.user && currentMember"
+                :type="project.status"
+                class="status-badge"
+              />
               <EnvironmentIndicator
                 :client-side="project.client_side"
                 :server-side="project.server_side"
@@ -455,7 +470,7 @@
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
-              v-if="versions.length > 0 || currentMember"
+              v-if="$route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions#all-versions`"
@@ -698,6 +713,7 @@ import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
+import BoxIcon from '~/assets/images/utils/box.svg'
 import Promotion from '~/components/ads/Promotion'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
@@ -1063,8 +1079,21 @@ const collapsedChecklist = ref(false)
     font-size: var(--font-size-xl);
   }
 
-  .status-badge {
-    margin-top: var(--spacing-card-sm);
+  .project-type {
+    text-decoration: none;
+    font-weight: 500;
+
+    svg {
+      vertical-align: top;
+      margin-right: 0.25em;
+    }
+
+    &:hover,
+    &:focus-visible {
+      span {
+        text-decoration: underline;
+      }
+    }
   }
 
   .description {
