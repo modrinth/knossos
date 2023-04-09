@@ -19,9 +19,32 @@
       }"
       class="page-number-container"
     >
-      <div v-if="item === '-'" class="has-icon">
-        <GapIcon />
-      </div>
+      <template v-if="item === '-'">
+        <input
+          v-if="field === index"
+          id="page-field"
+          :ref="`pageInput-` + index"
+          v-model="fieldValue"
+          type="text"
+          class="page-input"
+          autocomplete="false"
+          @blur="
+            () => {
+              field = null
+            }
+          "
+          @input="switchPage(fieldValue)"
+          @change="switchPage(fieldValue)"
+        />
+        <button
+          v-else
+          class="has-icon square-button gap"
+          @click="openField(index)"
+          @focus="openField(index)"
+        >
+          <GapIcon />
+        </button>
+      </template>
       <a
         v-else
         :class="{
@@ -78,6 +101,13 @@ export default {
     },
   },
   emits: ['switch-page'],
+  data() {
+    return {
+      field: null,
+      fieldValue: this.page,
+      prevFieldValue: this.page,
+    }
+  },
   computed: {
     pages() {
       let pages = []
@@ -102,12 +132,34 @@ export default {
         pages = Array.from({ length: this.count }, (_, i) => i + 1)
       }
 
+      if (this.field !== null && pages[this.field] !== '-') {
+        pages.splice(this.field, 0, '-')
+      }
+
       return pages
+    },
+  },
+  watch: {
+    fieldValue() {
+      this.fieldValue = Math.min(Math.max(this.fieldValue, 1), this.count)
+      if (isNaN(this.fieldValue)) {
+        this.fieldValue = this.prevFieldValue
+      }
+      this.prevFieldValue = this.fieldValue
     },
   },
   methods: {
     switchPage(newPage) {
       this.$emit('switch-page', newPage)
+    },
+    openField(index) {
+      this.field = index
+      this.fieldValue = this.page
+      this.$nextTick(() => {
+        const input = this.$refs[`pageInput-${index}`][0]
+        input.focus()
+        input.select()
+      })
     },
   },
 }
@@ -193,5 +245,23 @@ a,
     width: 2.5rem;
     padding: 0.5rem 0;
   }
+}
+
+.square-button.gap {
+  background: none;
+  box-shadow: none;
+  width: 3rem;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.page-input {
+  background: var(--color-raised-bg);
+  width: 3rem;
+  padding: var(--spacing-card-xs);
+  min-height: 0;
+  height: 2em;
+  box-sizing: border-box;
+  text-align: center;
 }
 </style>
