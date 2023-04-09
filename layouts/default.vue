@@ -413,9 +413,10 @@ export default defineNuxtComponent({
       this.runAnalytics()
     },
   },
-  mounted() {
+  async mounted() {
     this.runAnalytics()
     if (this.$route.query.code) {
+      await useAuth(this.$route.query.code)
       window.history.replaceState(history.state, null, this.$route.path)
     }
   },
@@ -431,9 +432,7 @@ export default defineNuxtComponent({
           },
         })
           .then(() => {})
-          .catch((e) => {
-            console.error('An error occurred while registering the visit: ', e)
-          })
+          .catch(() => {})
       })
     },
     toggleMobileMenu() {

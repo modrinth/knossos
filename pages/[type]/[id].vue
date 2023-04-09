@@ -196,7 +196,7 @@
               {{ project.description }}
             </p>
             <Categories
-              :categories="project.categories"
+              :categories="project.categories.concat(project.additional_categories)"
               :type="project.actualProjectType"
               class="categories"
             >
@@ -512,23 +512,21 @@
           <hr class="card-divider" />
         </template>
         <h2 class="card-header">Project members</h2>
-        <div
+        <nuxt-link
           v-for="member in members"
           :key="member.user.id"
           class="team-member columns button-transparent"
-          @click="$router.push('/user/' + member.user.username)"
+          :to="'/user/' + member.user.username"
         >
           <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
 
           <div class="member-info">
-            <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p>{{ member.name }}</p>
-            </nuxt-link>
+            <p class="name">{{ member.name }}</p>
             <p class="role">
               {{ member.role }}
             </p>
           </div>
-        </div>
+        </nuxt-link>
         <hr class="card-divider" />
         <h2 class="card-header">Technical information</h2>
         <div class="infos">
@@ -862,7 +860,14 @@ if (
 }
 
 versions.value = data.$computeVersions(versions.value, allMembers.value)
-featuredVersions.value = data.$computeVersions(featuredVersions.value, allMembers.value)
+
+// Q: Why do this instead of computing the versions of featuredVersions?
+// A: It will incorrectly generate the version slugs because it doesn't have the full context of
+//    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
+//    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
+///   version
+const featuredIds = featuredVersions.value.map((x) => x.id)
+featuredVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
 
 featuredVersions.value.sort((a, b) => {
   const aLatest = a.game_versions[a.game_versions.length - 1]
