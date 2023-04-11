@@ -273,6 +273,9 @@ export default defineNuxtConfig({
       hash: process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
     },
   },
+  experimental: {
+    renderJsonPayloads: true
+  },
 })
 
 function getApiUrl() {
