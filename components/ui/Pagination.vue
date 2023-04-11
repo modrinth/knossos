@@ -38,7 +38,7 @@
         />
         <button
           v-else
-          class="has-icon square-button gap"
+          class="has-icon square-button button-transparent gap"
           @click="openField(index)"
           @focus="openField(index)"
         >
@@ -210,7 +210,7 @@ a {
   display: flex;
   align-items: center;
   svg {
-    width: 1em;
+    width: 1rem;
   }
 }
 
@@ -253,11 +253,15 @@ a,
 }
 
 .square-button.gap {
-  background: none;
   box-shadow: none;
   width: 3rem;
   box-sizing: border-box;
   margin: 0;
+  cursor: text !important;
+
+  &:hover {
+    border: 2px solid var(--color-divider);
+  }
 }
 
 .page-input {

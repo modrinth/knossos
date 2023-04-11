@@ -608,7 +608,6 @@ export default defineNuxtComponent({
             padding: 0.5rem;
             color: var(--color-text);
             border-radius: 2rem;
-            transition: filter 0.1s ease-in-out;
             border: 2px solid transparent;
             box-sizing: border-box;
 
