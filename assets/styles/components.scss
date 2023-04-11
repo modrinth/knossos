@@ -561,6 +561,14 @@
     margin-bottom: 16px;
   }
 
+  ul,
+  ol {
+    ul,
+    ol {
+      margin-bottom: 0;
+    }
+  }
+
   li,
   p {
     padding: 0;
@@ -778,7 +786,7 @@
   }
 
   &:disabled,
-  &[disabled] {
+  &[disabled='true'] {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.5;
@@ -816,7 +824,7 @@ tr.button-transparent {
   }
 
   &:disabled > *,
-  &[disabled] > * {
+  &[disabled='true'] > * {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.5;
@@ -849,7 +857,7 @@ tr.button-transparent {
     box-shadow: none;
 
     &disabled,
-    &[disabled] {
+    &[disabled='true'] {
       cursor: not-allowed;
       box-shadow: none;
     }
