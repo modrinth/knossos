@@ -174,9 +174,9 @@ export const formatMoney = (number, abbreviate = false) => {
   number = Math.floor(number * 100) / 100
   const x = +number
   if (x >= 1000000 && abbreviate) {
-    return (x / 1000000).toFixed(2).toString() + 'M'
+    return '$' + (x / 1000000).toFixed(2).toString() + 'M'
   } else if (x >= 10000 && abbreviate) {
-    return (x / 1000).toFixed(2).toString() + 'k'
+    return '$' + (x / 1000).toFixed(2).toString() + 'k'
   } else {
     return (
       '$' +
