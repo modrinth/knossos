@@ -112,7 +112,7 @@ export default {
     pages() {
       let pages = []
 
-      if (this.count > 4) {
+      if (this.count > 7) {
         if (this.page + 3 >= this.count) {
           pages = [
             1,
@@ -123,7 +123,7 @@ export default {
             this.count - 1,
             this.count,
           ]
-        } else if (this.page > 4) {
+        } else if (this.page > 5) {
           pages = [1, '-', this.page - 1, this.page, this.page + 1, '-', this.count]
         } else {
           pages = [1, 2, 3, 4, 5, '-', this.count]
