@@ -145,7 +145,9 @@
         <label for="project-visibility">
           <span class="label__title">Visibility</span>
           <span class="label__description">
-            Set the visibility of your project.
+            Listed and archived projects are visible in search. Unlisted projects are published, but
+            not visible in search or on user profiles. Private projects are only accessible by
+            members of the project.
             <ul class="visibility-info">
               <li>
                 <TickIcon
