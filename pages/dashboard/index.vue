@@ -42,9 +42,9 @@
         <div class="grid-display__item">
           <div class="label">Total revenue</div>
           <div class="value">
-            {{ $formatMoney(payouts.all_time) }}
+            {{ $formatMoney(payouts.all_time, true) }}
           </div>
-          <span>{{ $formatMoney(payouts.last_month) }} this month</span>
+          <span>{{ $formatMoney(payouts.last_month, true) }} this month</span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -55,7 +55,7 @@
         <div class="grid-display__item">
           <div class="label">Current balance</div>
           <div class="value">
-            {{ $formatMoney(auth.user.payout_data.balance) }}
+            {{ $formatMoney(auth.user.payout_data.balance, true) }}
           </div>
           <NuxtLink
             v-if="auth.user.payout_data.balance >= minWithdraw"
