@@ -154,11 +154,11 @@
                   v-if="visibility === 'approved' || visibility === 'archived'"
                   class="good"
                 />
-                <CrossIcon v-else class="bad" />
+                <CheckIcon v-else class="bad" />
                 Visible in search
               </li>
               <li>
-                <CrossIcon
+                <CheckIcon
                   v-if="visibility === 'unlisted' || visibility === 'private'"
                   class="bad"
                 />
@@ -240,7 +240,7 @@ import FileInput from '~/components/ui/FileInput'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
-import CrossIcon from '~/assets/images/utils/exit.svg'
+import CheckIcon from '~/assets/images/utils/exit.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 import TickIcon from '~/assets/images/utils/check.svg'
 
@@ -253,7 +253,7 @@ export default defineNuxtComponent({
     UploadIcon,
     SaveIcon,
     TrashIcon,
-    CrossIcon,
+    CheckIcon,
     TickIcon,
     IssuesIcon,
   },
