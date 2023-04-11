@@ -141,16 +141,21 @@ export default {
   },
   watch: {
     fieldValue() {
-      this.fieldValue = Math.min(Math.max(this.fieldValue, 1), this.count)
+      this.fieldValue =
+        this.fieldValue === null || this.fieldValue === ''
+          ? null
+          : Math.min(Math.max(this.fieldValue, 1), this.count)
       if (isNaN(this.fieldValue)) {
-        this.fieldValue = this.prevFieldValue
+        this.fieldValue = null
       }
       this.prevFieldValue = this.fieldValue
     },
   },
   methods: {
     switchPage(newPage) {
-      this.$emit('switch-page', newPage)
+      if (newPage !== null && newPage !== '') {
+        this.$emit('switch-page', newPage)
+      }
     },
     openField(index) {
       this.field = index
