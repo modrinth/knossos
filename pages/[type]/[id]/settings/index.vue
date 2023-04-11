@@ -145,9 +145,39 @@
         <label for="project-visibility">
           <span class="label__title">Visibility</span>
           <span class="label__description">
-            Set the visibility of your project. Listed and archived projects are visible in search.
-            Unlisted projects are published, but not visible in search or on user profiles. Private
-            projects are only accessible by members of the project.
+            Set the visibility of your project.
+            <ul class="visibility-info">
+              <li>
+                <TickIcon
+                  v-if="visibility === 'approved' || visibility === 'archived'"
+                  class="good"
+                />
+                <CrossIcon v-else class="bad" />
+                Visible in search
+              </li>
+              <li>
+                <CrossIcon
+                  v-if="visibility === 'unlisted' || visibility === 'private'"
+                  class="bad"
+                />
+                <TickIcon v-else class="good" />
+                Visible on profile
+              </li>
+              <li>
+                <TickIcon v-if="visibility !== 'private'" class="good" />
+                <IssuesIcon
+                  v-else
+                  v-tooltip="{
+                    content:
+                      visibility === 'private'
+                        ? 'Only members will be able to view the project.'
+                        : '',
+                  }"
+                  class="warn"
+                />
+                Visible via URL
+              </li>
+            </ul>
           </span>
         </label>
         <Multiselect
@@ -208,6 +238,9 @@ import FileInput from '~/components/ui/FileInput'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
+import CrossIcon from '~/assets/images/utils/exit.svg'
+import IssuesIcon from '~/assets/images/utils/issues.svg'
+import TickIcon from '~/assets/images/utils/check.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -218,6 +251,9 @@ export default defineNuxtComponent({
     UploadIcon,
     SaveIcon,
     TrashIcon,
+    CrossIcon,
+    TickIcon,
+    IssuesIcon,
   },
   props: {
     project: {
@@ -390,6 +426,25 @@ export default defineNuxtComponent({
 })
 </script>
 <style lang="scss" scoped>
+.visibility-info {
+  padding: 0;
+  list-style: none;
+}
+
+svg {
+  &.good {
+    color: var(--color-brand-green);
+  }
+
+  &.bad {
+    color: var(--color-special-red);
+  }
+
+  &.warn {
+    color: var(--color-special-orange);
+  }
+}
+
 .summary-input {
   min-height: 8rem;
   max-width: 24rem;
