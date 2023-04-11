@@ -240,7 +240,7 @@ import FileInput from '~/components/ui/FileInput'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
-import ExitIcon from '~/assets/images/utils/exit.svg'
+import ExitIcon from '~/assets/images/utils/x.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 
