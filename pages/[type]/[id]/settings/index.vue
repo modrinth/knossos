@@ -150,23 +150,23 @@
             members of the project.
             <ul class="visibility-info">
               <li>
-                <TickIcon
+                <CheckIcon
                   v-if="visibility === 'approved' || visibility === 'archived'"
                   class="good"
                 />
-                <CheckIcon v-else class="bad" />
+                <ExitIcon v-else class="bad" />
                 Visible in search
               </li>
               <li>
-                <CheckIcon
+                <ExitIcon
                   v-if="visibility === 'unlisted' || visibility === 'private'"
                   class="bad"
                 />
-                <TickIcon v-else class="good" />
+                <CheckIcon v-else class="good" />
                 Visible on profile
               </li>
               <li>
-                <TickIcon v-if="visibility !== 'private'" class="good" />
+                <CheckIcon v-if="visibility !== 'private'" class="good" />
                 <IssuesIcon
                   v-else
                   v-tooltip="{
@@ -240,9 +240,9 @@ import FileInput from '~/components/ui/FileInput'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
-import CheckIcon from '~/assets/images/utils/exit.svg'
+import ExitIcon from '~/assets/images/utils/exit.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
-import TickIcon from '~/assets/images/utils/check.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -253,8 +253,8 @@ export default defineNuxtComponent({
     UploadIcon,
     SaveIcon,
     TrashIcon,
+    ExitIcon,
     CheckIcon,
-    TickIcon,
     IssuesIcon,
   },
   props: {
