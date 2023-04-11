@@ -93,9 +93,6 @@ const [raw] = await Promise.all([
 ])
 const user = await useUser()
 
-raw.all_time = Math.floor(raw.all_time * 100) / 100
-raw.last_month = Math.floor(raw.last_month * 100) / 100
-
 const payouts = ref(raw)
 const minWithdraw = ref(0.26)
 
