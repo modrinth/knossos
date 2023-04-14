@@ -472,6 +472,7 @@ export default defineNuxtComponent({
     }
     if (route.query.o) {
       currentPage.value = Math.ceil(route.query.o / maxResults.value) + 1
+      console.log(currentPage.value)
     }
 
     projectType.value = data.$tag.projectTypes.find(
@@ -627,7 +628,7 @@ export default defineNuxtComponent({
       }
       if (offset > 0) {
         queryItems.push(`o=${offset}`)
-        obj.offset = offset
+        obj.o = offset
       }
       if (facets.value.length > 0) {
         queryItems.push(`f=${encodeURIComponent(facets.value)}`)
