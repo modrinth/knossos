@@ -472,7 +472,6 @@ export default defineNuxtComponent({
     }
     if (route.query.o) {
       currentPage.value = Math.ceil(route.query.o / maxResults.value) + 1
-      console.log(currentPage.value)
     }
 
     projectType.value = data.$tag.projectTypes.find(
