@@ -76,14 +76,14 @@
         <div class="grid-display__item">
           <div class="label">Total revenue</div>
           <div class="value">
-            {{ $formatMoney(payouts.all_time) }}
+            {{ $formatMoney(payouts.all_time, true) }}
           </div>
-          <span>{{ $formatMoney(payouts.last_month) }} in the last month</span>
+          <span>{{ $formatMoney(payouts.last_month, true) }} in the last month</span>
         </div>
         <div class="grid-display__item">
           <div class="label">Current balance</div>
           <div class="value">
-            {{ $formatMoney(auth.user.payout_data.balance) }}
+            {{ $formatMoney(auth.user.payout_data.balance, true) }}
           </div>
           <NuxtLink
             v-if="auth.user.payout_data.balance >= minWithdraw"
@@ -114,9 +114,6 @@ const [raw] = await Promise.all([
   useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders()),
 ])
 const user = await useUser()
-
-raw.all_time = Math.floor(raw.all_time * 100) / 100
-raw.last_month = Math.floor(raw.last_month * 100) / 100
 
 const payouts = ref(raw)
 const minWithdraw = ref(0.26)
@@ -173,11 +170,5 @@ const followersProjectCount = computed(
       margin: 0;
     }
   }
-}
-
-.dark-card {
-  background-color: var(--color-bg);
-  border-radius: var(--size-rounded-card);
-  padding: var(--spacing-card-lg);
 }
 </style>
