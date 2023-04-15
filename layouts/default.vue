@@ -139,7 +139,12 @@
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <a v-else class="iconified-button brand-button" :href="getAuthUrl()" rel="nofollow noopener">
+            <a
+              v-else
+              class="iconified-button brand-button"
+              :href="getAuthUrl()"
+              rel="nofollow noopener"
+            >
               <GitHubIcon aria-hidden="true" />
               Sign in with GitHub
             </a>

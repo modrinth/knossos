@@ -36,7 +36,7 @@ import UserIcon from '~/assets/images/utils/user.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'
 
-const route = useRoute();
+const route = useRoute()
 </script>
 
 <style lang="scss" scoped></style>
