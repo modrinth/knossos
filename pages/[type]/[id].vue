@@ -588,6 +588,38 @@
               <CopyCode :text="project.id" />
             </div>
           </div>
+          <div class="input-group">
+            <a
+              v-if="
+                config.public.apiBaseUrl.startsWith('https://api.modrinth.com') &&
+                config.public.siteUrl !== 'https://modrinth.com'
+              "
+              class="iconified-button"
+              :href="`https://modrinth.com/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }`"
+              rel="noopener nofollow"
+              target="_blank"
+            >
+              <ExternalIcon aria-hidden="true" />
+              View on modrinth.com
+            </a>
+            <a
+              v-else-if="
+                config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com') &&
+                config.public.siteUrl !== 'https://staging.modrinth.com'
+              "
+              class="iconified-button"
+              :href="`https://staging.modrinth.com/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }`"
+              rel="noopener nofollow"
+              target="_blank"
+            >
+              <ExternalIcon aria-hidden="true" />
+              View on staging.modrinth.com
+            </a>
+          </div>
         </div>
       </div>
       <section class="normal-page__content">
@@ -696,6 +728,7 @@ import DownloadIcon from '~/assets/images/utils/download.svg'
 import UpdateIcon from '~/assets/images/utils/updated.svg'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import CodeIcon from '~/assets/images/sidebar/mod.svg'
+import ExternalIcon from '~/assets/images/utils/external.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
@@ -738,6 +771,7 @@ import { renderString } from '~/helpers/parse'
 
 const data = useNuxtApp()
 const route = useRoute()
+const config = useRuntimeConfig()
 
 if (
   !route.params.id ||

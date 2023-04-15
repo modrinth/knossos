@@ -21,6 +21,10 @@
     <!-- Team members -->
     <template v-else-if="type === 'accepted'"><CheckIcon /> Accepted</template>
     <template v-else-if="type === 'pending'"> <ProcessingIcon /> Pending</template>
+
+    <!-- Report status -->
+    <template v-else-if="type === 'closed'"> <CloseIcon /> Closed</template>
+
     <template v-else> <span class="circle" /> {{ $capitalizeString(type) }}</template>
   </span>
 </template>
@@ -38,6 +42,7 @@ import ProcessingIcon from '~/assets/images/utils/updated.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import LockIcon from '~/assets/images/utils/lock.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import CloseIcon from '~/assets/images/utils/check-circle.svg'
 
 export default {
   components: {
@@ -53,6 +58,7 @@ export default {
     CheckIcon,
     LockIcon,
     CalendarIcon,
+    CloseIcon,
   },
   props: {
     type: {
@@ -89,6 +95,7 @@ export default {
     margin-right: 0.25rem;
   }
 
+  &.type--closed,
   &.type--withheld,
   &.type--rejected,
   &.red {

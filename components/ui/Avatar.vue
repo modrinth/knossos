@@ -12,7 +12,9 @@
   />
   <svg
     v-else
-    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''}`"
+    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''} ${
+      raised ? 'raised' : ''
+    }`"
     xml:space="preserve"
     fill-rule="evenodd"
     stroke-linecap="round"
@@ -65,7 +67,7 @@ export default {
     raised: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   data() {
     return {

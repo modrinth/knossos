@@ -1,34 +1,32 @@
 <template>
-  <nuxt-link to="/moderation/report/aW2cfp2s" class="thread-summary" :class="{'raised': raised}">
+  <nuxt-link :to="link" class="thread-summary" :class="{ raised: raised }">
     <div class="thread-title-row">
       <span v-if="report" class="thread-title">Report thread</span>
       <span v-else class="thread-title">Thread</span>
-      <span class="thread-messages">5 messages <ChevronRightIcon /></span>
+      <span class="thread-messages"
+        >{{ props.thread.messages.length }} messages <ChevronRightIcon
+      /></span>
     </div>
-    <div class="thread-message">
-      <span class="user">
-          <Avatar :src="members[lastMessage.author_id].avatar_url" circle size="xxs" no-shadow :raised="true"/>
-          <span>{{ members[lastMessage.author_id].username }}</span>
-      </span>
-      <span v-if="lastMessage.body.type === 'text'" v-html="renderString(lastMessage.body.body).replace(/<\/?[^>]+(>|$)/g, '')" />
-      <span v-else-if="lastMessage.body.type === 'deleted'">posted a message that has been deleted.</span>
-      <span v-else-if="lastMessage.body.type === 'status_change'">changed project status to <Badge :type="lastMessage.body.new_status"/>.</span>
-      <span v-else-if="lastMessage.body.type === 'thread_closure'">closed the thread.</span>
-      <span v-tooltip="$dayjs(lastMessage.created).format('MMMM D, YYYY [at] h:mm A')" class="date">{{ fromNow(lastMessage.created) }}</span>
-    </div>
+    <ThreadMessage
+      v-if="lastMessage !== null"
+      :message="lastMessage"
+      :report="report"
+      :members="members"
+      force-compact
+      no-links
+    />
+    <span v-else>There are no messages in this thread yet.</span>
   </nuxt-link>
 </template>
 
 <script setup>
-import Avatar from "~/components/ui/Avatar.vue";
-import Badge from "~/components/ui/Badge.vue";
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import { renderString } from '~/helpers/parse'
+import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 
 const props = defineProps({
   thread: {
     type: Object,
-    required: true
+    required: true,
   },
   report: {
     type: Object,
@@ -38,7 +36,11 @@ const props = defineProps({
   raised: {
     type: Boolean,
     default: false,
-  }
+  },
+  link: {
+    type: String,
+    required: true,
+  },
 })
 
 const data = useNuxtApp()
@@ -52,7 +54,9 @@ const members = computed(() => {
   return members
 })
 
-const lastMessage = computed(() => props.thread.messages[props.thread.messages.length - 1])
+const lastMessage = computed(() =>
+  props.thread.messages.length > 0 ? props.thread.messages[props.thread.messages.length - 1] : null
+)
 </script>
 
 <style lang="scss" scoped>
@@ -96,7 +100,8 @@ const lastMessage = computed(() => props.thread.messages[props.thread.messages.l
     }
   }
 
-  .thread-message, .thread-message > span {
+  .thread-message,
+  .thread-message > span {
     display: flex;
     flex-direction: row;
     gap: var(--spacing-card-xs);

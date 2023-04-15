@@ -332,7 +332,9 @@
       .resizable-textarea-wrapper + *,
       .input-div + *
     ) {
-    margin-block-start: var(--spacing-card-md);
+    &:not(:empty) {
+      margin-block-start: var(--spacing-card-md);
+    }
   }
 
   :where(button, .button, .iconified-button) {
@@ -1628,7 +1630,8 @@ button {
   }
 }
 
-a.iconified-link, a.iconified-stacked-link {
+a.iconified-link,
+a.iconified-stacked-link {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1666,7 +1669,6 @@ a.iconified-link {
     filter: var(--active-filter);
   }
 }
-
 
 a.subtle-link {
   &:focus-visible,

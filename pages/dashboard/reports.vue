@@ -1,8 +1,8 @@
 <template>
   <div>
     <section class="universal-card">
-      <h2>Reports</h2>
-      <ReportsList moderation />
+      <h2>Reports you've filed</h2>
+      <ReportsList />
     </section>
   </div>
 </template>
@@ -10,7 +10,7 @@
 import ReportsList from '~/components/ui/ReportsList.vue'
 
 useHead({
-  title: 'Reports - Modrinth',
+  title: 'Report history - Modrinth',
 })
 </script>
 <style lang="scss" scoped></style>
