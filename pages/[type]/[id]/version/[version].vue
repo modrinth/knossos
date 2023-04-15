@@ -975,7 +975,6 @@ export default defineNuxtComponent({
       }/versions`
     },
     getPreviousLabel() {
-      console.log(this.$router.options.history.state)
       return this.$router.options.history.state.back &&
         this.$router.options.history.state.back.endsWith('/changelog')
         ? 'Changelog'
