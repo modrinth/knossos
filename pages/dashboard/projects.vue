@@ -405,10 +405,10 @@ export default defineNuxtComponent({
     async bulkEditLinks() {
       try {
         const baseData = {
-          issues_url: this.editLinks.issues.clear ? null : this.editLinks.issues.val,
-          source_url: this.editLinks.source.clear ? null : this.editLinks.source.val,
-          wiki_url: this.editLinks.wiki.clear ? null : this.editLinks.wiki.val,
-          discord_url: this.editLinks.discord.clear ? null : this.editLinks.discord.val,
+          issues_url: this.editLinks.issues.clear ? null : this.editLinks.issues.val.trim(),
+          source_url: this.editLinks.source.clear ? null : this.editLinks.source.val.trim(),
+          wiki_url: this.editLinks.wiki.clear ? null : this.editLinks.wiki.val.trim(),
+          discord_url: this.editLinks.discord.clear ? null : this.editLinks.discord.val.trim(),
         }
 
         if (!baseData.issues_url.length > 0) {
