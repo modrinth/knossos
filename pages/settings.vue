@@ -20,7 +20,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <NuxtPage />
+      <NuxtPage :route="route" />
     </div>
   </div>
 </template>
@@ -31,6 +31,8 @@ import NavStackItem from '~/components/ui/NavStackItem'
 import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
 import UserIcon from '~/assets/images/utils/user.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'
+
+const route = useRoute()
 </script>
 
 <style lang="scss" scoped></style>

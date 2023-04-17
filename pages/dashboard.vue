@@ -28,7 +28,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <NuxtPage />
+      <NuxtPage :route="route" />
     </div>
   </div>
 </template>
@@ -46,5 +46,7 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 definePageMeta({
   middleware: 'auth',
 })
+
+const route = useRoute()
 </script>
 <style lang="scss" scoped></style>
