@@ -405,22 +405,26 @@ export default defineNuxtComponent({
     async bulkEditLinks() {
       try {
         const baseData = {
-          issues_url:
-            !this.editLinks.issues.clear && this.editLinks.issues.val.trim() !== ''
-              ? this.editLinks.issues.val
-              : null,
-          source_url:
-            !this.editLinks.source.clear && this.editLinks.source.val.trim() !== ''
-              ? this.editLinks.source.val
-              : null,
-          wiki_url:
-            !this.editLinks.wiki.clear && this.editLinks.wiki.val.trim() !== ''
-              ? this.editLinks.wiki.val
-              : null,
-          discord_url:
-            !this.editLinks.discord.clear && this.editLinks.discord.val.trim() !== ''
-              ? this.editLinks.discord.val
-              : null,
+          issues_url: this.editLinks.issues.clear ? null : this.editLinks.issues.val,
+          source_url: this.editLinks.source.clear ? null : this.editLinks.source.val,
+          wiki_url: this.editLinks.wiki.clear ? null : this.editLinks.wiki.val,
+          discord_url: this.editLinks.discord.clear ? null : this.editLinks.discord.val,
+        }
+
+        if (!baseData.issues_url.length > 0) {
+          delete baseData.issues_url
+        }
+
+        if (!baseData.source_url.length > 0) {
+          delete baseData.source_url
+        }
+
+        if (!baseData.wiki_url.length > 0) {
+          delete baseData.wiki_url
+        }
+
+        if (!baseData.discord_url.length > 0) {
+          delete baseData.discord_url
         }
 
         await useBaseFetch(
@@ -440,6 +444,15 @@ export default defineNuxtComponent({
           type: 'success',
         })
         this.selectedProjects = []
+
+        this.editLinks.issues.val = ''
+        this.editLinks.source.val = ''
+        this.editLinks.wiki.val = ''
+        this.editLinks.discord.val = ''
+        this.editLinks.issues.clear = false
+        this.editLinks.source.clear = false
+        this.editLinks.wiki.clear = false
+        this.editLinks.discord.clear = false
       } catch (e) {
         this.$notify({
           group: 'main',
