@@ -105,7 +105,6 @@ export default {
     return {
       field: null,
       fieldValue: this.page,
-      prevFieldValue: this.page,
     }
   },
   computed: {
@@ -139,22 +138,10 @@ export default {
       return pages
     },
   },
-  watch: {
-    fieldValue() {
-      this.fieldValue =
-        this.fieldValue === null || this.fieldValue === ''
-          ? null
-          : Math.min(Math.max(this.fieldValue, 1), this.count)
-      if (isNaN(this.fieldValue)) {
-        this.fieldValue = null
-      }
-      this.prevFieldValue = this.fieldValue
-    },
-  },
   methods: {
     switchPage(newPage) {
-      if (newPage !== null && newPage !== '') {
-        this.$emit('switch-page', newPage)
+      if (newPage !== null && newPage !== '' && !isNaN(newPage)) {
+        this.$emit('switch-page', Math.min(Math.max(newPage, 1), this.count))
       }
     },
     openField(index) {
