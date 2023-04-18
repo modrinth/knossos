@@ -157,6 +157,25 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     plugins: ['relativeTime'],
   },
+  modules: [
+    '@kevinmarrec/nuxt-pwa',
+  ],
+  pwa: {
+    icon: {
+      source: './public/icon.png'
+    },
+    manifest: {
+      name: 'Modrinth',
+      description: 'Modrinth is a free and open-source modding platform.',
+      lang: 'en',
+    },
+    meta: {
+      mobileAppIOS: true,
+    },
+    workbox: {
+      enabled: true
+    }
+  },
   hooks: {
     async 'build:before'() {
       // 30 minutes

@@ -11,6 +11,7 @@
     "fix": "eslint --fix --ext .js,.vue,.ts,.jsx,.tsx,.html,.vue ."
   },
   "devDependencies": {
+    "@kevinmarrec/nuxt-pwa": "^0.17.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
