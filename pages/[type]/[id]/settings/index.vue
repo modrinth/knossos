@@ -143,7 +143,7 @@
       </template>
       <div class="adjacent-input">
         <label for="project-visibility">
-          <span class="label__title">Target Visibility</span>
+          <span class="label__title">Target visibility</span>
           <span class="label__description">
             Listed and archived projects are visible in search. Unlisted projects are published, but
             not visible in search or on user profiles. Private projects are only accessible by
@@ -155,7 +155,7 @@
                   class="good"
                 />
                 <ExitIcon v-else class="bad" />
-                Visible in search
+                {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible in search
               </li>
               <li>
                 <ExitIcon
@@ -163,7 +163,7 @@
                   class="bad"
                 />
                 <CheckIcon v-else class="good" />
-                Visible on profile
+                {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible on profile
               </li>
               <li>
                 <CheckIcon v-if="visibility !== 'private'" class="good" />
@@ -177,7 +177,7 @@
                   }"
                   class="warn"
                 />
-                Visible via URL
+                {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible via URL
               </li>
             </ul>
           </span>
@@ -370,6 +370,13 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    hasModifiedVisibility() {
+      const originalVisibility = this.$tag.approvedStatuses.includes(this.project.status)
+        ? this.project.status
+        : this.project.requested_status
+
+      return originalVisibility !== this.visibility
+    },
     async saveChanges() {
       if (this.hasChanges) {
         await this.patchProject(this.patchData)
