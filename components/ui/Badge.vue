@@ -21,6 +21,11 @@
     <!-- Team members -->
     <template v-else-if="type === 'accepted'"><CheckIcon /> Accepted</template>
     <template v-else-if="type === 'pending'"> <ProcessingIcon /> Pending </template>
+
+    <!-- Transaction statuses -->
+    <template v-else-if="type === 'success'"><CheckIcon /> Success</template>
+
+    <!-- Other -->
     <template v-else> <span class="circle" /> {{ $capitalizeString(type) }} </template>
   </span>
 </template>
@@ -105,6 +110,7 @@ export default {
 
   &.type--accepted,
   &.type--admin,
+  &.type--success,
   &.green {
     --badge-color: var(--color-special-green);
   }
@@ -112,12 +118,12 @@ export default {
   &.type--creator,
   &.type--approved,
   &.blue {
-    color: var(--color-special-blue);
+    --badge-color: var(--color-special-blue);
   }
 
   &.type--unlisted,
   &.purple {
-    color: var(--color-special-purple);
+    --badge-color: var(--color-special-purple);
   }
 
   &.type--private,

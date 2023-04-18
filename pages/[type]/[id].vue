@@ -2,6 +2,17 @@
   <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
+        <Breadcrumbs
+          current-title="Settings"
+          :link-stack="[
+            { href: `/dashboard/projects`, label: 'Projects' },
+            {
+              href: `/${project.project_type}/${project.slug ? project.slug : project.id}`,
+              label: project.title,
+              allowTrimming: true,
+            },
+          ]"
+        />
         <div class="settings-header">
           <Avatar
             :src="project.icon_url"
@@ -18,63 +29,66 @@
         </div>
         <h2>Project settings</h2>
         <NavStack>
-          <NavStackItem :link="`/${project.project_type}/${project.slug}/settings`" label="General">
+          <NavStackItem
+            :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
+            label="General"
+          >
             <SettingsIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/tags`"
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/tags`"
             label="Tags"
           >
             <CategoriesIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/description`"
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/description`"
             label="Description"
           >
             <DescriptionIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/license`"
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/license`"
             label="License"
           >
             <LicenseIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/links`"
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/links`"
             label="Links"
           >
             <LinksIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/members`"
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/members`"
             label="Members"
           >
             <UsersIcon />
           </NavStackItem>
-          <h3>Relevant pages</h3>
+          <h3>Upload</h3>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}`"
-            label="View project"
-            chevron
-          >
-            <EyeIcon />
-          </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/gallery`"
+            :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
             label="Gallery"
             chevron
           >
             <GalleryIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/versions`"
+            :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
             label="Versions"
             chevron
           >
             <VersionIcon />
-          </NavStackItem>
-          <NavStackItem link="/dashboard/projects" label="All projects" chevron>
-            <SettingsIcon />
           </NavStackItem>
         </NavStack>
       </aside>
@@ -102,6 +116,7 @@
         :patch-project="patchProject"
         :patch-icon="patchIcon"
         :update-icon="resetProject"
+        :route="route"
       />
     </div>
   </div>
@@ -132,6 +147,7 @@
       />
     </Head>
     <ModalModeration
+      v-if="$auth.user"
       ref="modalModeration"
       :project="project"
       :status="moderationStatus"
@@ -191,7 +207,17 @@
             <h1 class="title">
               {{ project.title }}
             </h1>
-            <Badge v-if="$auth.user && currentMember" :type="project.status" class="status-badge" />
+            <nuxt-link
+              class="title-link project-type"
+              :to="`/${$getProjectTypeForUrl(project.actualProjectType, project.loaders)}s`"
+            >
+              <BoxIcon />
+              <span>{{
+                $formatProjectType(
+                  $getProjectTypeForDisplay(project.actualProjectType, project.loaders)
+                )
+              }}</span>
+            </nuxt-link>
             <p class="description">
               {{ project.description }}
             </p>
@@ -200,6 +226,11 @@
               :type="project.actualProjectType"
               class="categories"
             >
+              <Badge
+                v-if="$auth.user && currentMember"
+                :type="project.status"
+                class="status-badge"
+              />
               <EnvironmentIndicator
                 :client-side="project.client_side"
                 :server-side="project.server_side"
@@ -359,6 +390,95 @@
           </div>
         </div>
       </div>
+      <section class="normal-page__content">
+        <ProjectPublishingChecklist
+          v-if="currentMember"
+          :project="project"
+          :versions="versions"
+          :current-member="currentMember"
+          :is-settings="$route.name.startsWith('type-id-settings')"
+          :route-name="$route.name"
+          :set-processing="setProcessing"
+          :collapsed="collapsedChecklist"
+          :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
+        />
+        <div v-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
+          {{ project.title }} is not viewable in search because it has been found to be in violation
+          of one of <nuxt-link to="/legal/rules"> Modrinth's content rules </nuxt-link>. Modrinth
+          makes no guarantees as to whether {{ project.title }} is safe for use in a multiplayer
+          context.
+        </div>
+        <div v-if="project.status === 'archived'" class="card warning" aria-label="Warning">
+          {{ project.title }} has been archived. {{ project.title }} will not receive any further
+          updates unless the author decides to unarchive the project.
+        </div>
+        <div
+          v-if="project.project_type === 'modpack'"
+          class="card information"
+          aria-label="Information"
+        >
+          To install {{ project.title }}, visit
+          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+            >our documentation</a
+          >
+          which provides instructions on using
+          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
+          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
+          <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
+            Prism Launcher</a
+          >.
+        </div>
+        <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
+        <div class="navigation-card">
+          <NavRow
+            :links="[
+              {
+                label: 'Description',
+                href: `/${project.project_type}/${project.slug ? project.slug : project.id}`,
+              },
+              {
+                label: 'Gallery',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/gallery`,
+                shown: project.gallery.length > 0 || !!currentMember,
+              },
+              {
+                label: 'Changelog',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/changelog`,
+                shown: versions.length > 0,
+              },
+              {
+                label: 'Versions',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/versions`,
+                shown: versions.length > 0 || !!currentMember,
+              },
+            ]"
+          />
+          <div v-if="$auth.user && currentMember" class="input-group">
+            <nuxt-link
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
+              class="iconified-button"
+            >
+              <SettingsIcon /> Settings
+            </nuxt-link>
+          </div>
+        </div>
+        <NuxtPage
+          v-model:project="project"
+          v-model:versions="versions"
+          v-model:featured-versions="featuredVersions"
+          v-model:members="members"
+          v-model:all-members="allMembers"
+          v-model:dependencies="dependencies"
+          :current-member="currentMember"
+          :route="route"
+        />
+      </section>
       <div class="card normal-page__info">
         <template
           v-if="
@@ -441,7 +561,7 @@
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
-              v-if="versions.length > 0 || currentMember"
+              v-if="$route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions#all-versions`"
@@ -573,94 +693,6 @@
           </div>
         </div>
       </div>
-      <section class="normal-page__content">
-        <ProjectPublishingChecklist
-          v-if="currentMember"
-          :project="project"
-          :versions="versions"
-          :current-member="currentMember"
-          :is-settings="$route.name.startsWith('type-id-settings')"
-          :route-name="$route.name"
-          :set-processing="setProcessing"
-          :collapsed="collapsedChecklist"
-          :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
-        />
-        <div v-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
-          {{ project.title }} is not viewable in search because it has been found to be in violation
-          of one of <nuxt-link to="/legal/rules"> Modrinth's content rules </nuxt-link>. Modrinth
-          makes no guarantees as to whether {{ project.title }} is safe for use in a multiplayer
-          context.
-        </div>
-        <div v-if="project.status === 'archived'" class="card warning" aria-label="Warning">
-          {{ project.title }} has been archived. {{ project.title }} will not receive any further
-          updates unless the author decides to unarchive the project.
-        </div>
-        <div
-          v-if="project.project_type === 'modpack'"
-          class="card information"
-          aria-label="Information"
-        >
-          To install {{ project.title }}, visit
-          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
-            >our documentation</a
-          >
-          which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
-          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
-          <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
-            Prism Launcher</a
-          >.
-        </div>
-        <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
-        <div class="navigation-card">
-          <NavRow
-            :links="[
-              {
-                label: 'Description',
-                href: `/${project.project_type}/${project.slug ? project.slug : project.id}`,
-              },
-              {
-                label: 'Gallery',
-                href: `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/gallery`,
-                shown: project.gallery.length > 0 || !!currentMember,
-              },
-              {
-                label: 'Changelog',
-                href: `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/changelog`,
-                shown: versions.length > 0,
-              },
-              {
-                label: 'Versions',
-                href: `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/versions`,
-                shown: versions.length > 0 || !!currentMember,
-              },
-            ]"
-          />
-          <div v-if="$auth.user && currentMember" class="input-group">
-            <nuxt-link
-              :to="`/${project.project_type}/${project.slug}/settings`"
-              class="iconified-button"
-            >
-              <SettingsIcon /> Settings
-            </nuxt-link>
-          </div>
-        </div>
-        <NuxtPage
-          v-model:project="project"
-          v-model:versions="versions"
-          v-model:featured-versions="featuredVersions"
-          v-model:members="members"
-          v-model:all-members="allMembers"
-          v-model:dependencies="dependencies"
-          :current-member="currentMember"
-        />
-      </section>
     </div>
   </div>
 </template>
@@ -684,6 +716,7 @@ import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
+import BoxIcon from '~/assets/images/utils/box.svg'
 import Promotion from '~/components/ads/Promotion'
 import Badge from '~/components/ui/Badge'
 import Categories from '~/components/ui/search/Categories'
@@ -709,6 +742,7 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { renderString } from '~/helpers/parse'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -1048,8 +1082,21 @@ const collapsedChecklist = ref(false)
     font-size: var(--font-size-xl);
   }
 
-  .status-badge {
-    margin-top: var(--spacing-card-sm);
+  .project-type {
+    text-decoration: none;
+    font-weight: 500;
+
+    svg {
+      vertical-align: top;
+      margin-right: 0.25em;
+    }
+
+    &:hover,
+    &:focus-visible {
+      span {
+        text-decoration: underline;
+      }
+    }
   }
 
   .description {
