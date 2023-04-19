@@ -3,17 +3,17 @@
     <nav class="navigation-card">
       <NavRow
         :links="[
-              {
-                label: 'All',
-                href: `/dashboard/notifications`,
-              },
-              ...notificationTypes.map((type) => {
-                return {
-                  label: NOTIFICATION_TYPES[type],
-                  href: `/dashboard/notifications/${type}`,
-                }
-              }),
-            ]"
+          {
+            label: 'All',
+            href: `/dashboard/notifications`,
+          },
+          ...notificationTypes.map((type) => {
+            return {
+              label: NOTIFICATION_TYPES[type],
+              href: `/dashboard/notifications/${type}`,
+            }
+          }),
+        ]"
       />
       <div class="input-group">
         <button
@@ -26,56 +26,56 @@
         </button>
       </div>
     </nav>
-      <div class="notifications">
-        <div
-          v-for="notification in $route.params.type !== undefined
-            ? user.notifications.filter((x) => x.type === $route.params.type)
-            : user.notifications"
-          :key="notification.id"
-          class="universal-card adjacent-input"
-        >
-          <div class="label">
-            <span class="label__title">
-              <nuxt-link :to="notification.link">
-                <h3 v-html="renderString(notification.title)" />
-              </nuxt-link>
-            </span>
-            <div class="label__description">
-              <p>{{ notification.text }}</p>
-              <span
-                v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')"
-                class="date"
-              >
-                <CalendarIcon />
-                Received {{ fromNow(notification.created) }}</span
-              >
-            </div>
-          </div>
-          <div class="input-group">
-            <button
-              v-for="(action, actionIndex) in notification.actions"
-              :key="actionIndex"
-              class="iconified-button"
-              :class="`action-button-${action.title.toLowerCase().replaceAll(' ', '-')}`"
-              @click="performAction(notification, notificationIndex, actionIndex)"
+    <div class="notifications">
+      <div
+        v-for="notification in $route.params.type !== undefined
+          ? user.notifications.filter((x) => x.type === $route.params.type)
+          : user.notifications"
+        :key="notification.id"
+        class="universal-card adjacent-input"
+      >
+        <div class="label">
+          <span class="label__title">
+            <nuxt-link :to="notification.link">
+              <h3 v-html="renderString(notification.title)" />
+            </nuxt-link>
+          </span>
+          <div class="label__description">
+            <p>{{ notification.text }}</p>
+            <span
+              v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')"
+              class="date"
             >
-              {{ action.title }}
-            </button>
-            <button
-              v-if="notification.actions.length === 0"
-              class="iconified-button"
-              @click="performAction(notification, notificationIndex, null)"
+              <CalendarIcon />
+              Received {{ fromNow(notification.created) }}</span
             >
-              Dismiss
-            </button>
           </div>
         </div>
-        <div v-if="user.notifications.length === 0" class="error">
-          <UpToDate class="icon" />
-          <br />
-          <span class="text">You are up-to-date!</span>
+        <div class="input-group">
+          <button
+            v-for="(action, actionIndex) in notification.actions"
+            :key="actionIndex"
+            class="iconified-button"
+            :class="`action-button-${action.title.toLowerCase().replaceAll(' ', '-')}`"
+            @click="performAction(notification, notificationIndex, actionIndex)"
+          >
+            {{ action.title }}
+          </button>
+          <button
+            v-if="notification.actions.length === 0"
+            class="iconified-button"
+            @click="performAction(notification, notificationIndex, null)"
+          >
+            Dismiss
+          </button>
         </div>
       </div>
+      <div v-if="user.notifications.length === 0" class="error">
+        <UpToDate class="icon" />
+        <br />
+        <span class="text">You are up-to-date!</span>
+      </div>
+    </div>
   </div>
 </template>
 

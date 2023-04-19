@@ -160,10 +160,7 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
-        <button
-          class="iconified-button"
-          @click="$refs.modal_version_report.show()"
-        >
+        <button class="iconified-button" @click="$refs.modal_version_report.show()">
           <ReportIcon aria-hidden="true" />
           Report
         </button>

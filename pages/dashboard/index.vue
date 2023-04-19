@@ -1,45 +1,37 @@
 <template>
   <div class="dashboard-overview">
     <section class="universal-card dashboard-header">
-      <Avatar
-        :src="$auth.user.avatar_url"
-        size="md"
-        circle
-        :alt="$auth.user.username"
-      />
+      <Avatar :src="$auth.user.avatar_url" size="md" circle :alt="$auth.user.username" />
       <div class="username">
         <h1>
           {{ $auth.user.username }}
         </h1>
-        <NuxtLink
-          class="goto-link"
-          :to="`/user/${$auth.user.username}`"
-        >
+        <NuxtLink class="goto-link" :to="`/user/${$auth.user.username}`">
           Visit your profile
           <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
         </NuxtLink>
       </div>
     </section>
     <!-- Notification system is too awful for this to work -->
-<!--    <section class="universal-card dashboard-notifications">-->
-<!--      <h2>Notifications</h2>-->
-<!--      <div-->
-<!--        v-for="notification in user.notifications.slice(0,4)"-->
-<!--        :key="notification.id"-->
-<!--        class="dark-card notification"-->
-<!--      >-->
-<!--        <div class="label">-->
-<!--          <span class="label__title">-->
-<!--            <nuxt-link :to="notification.link">-->
-<!--              <h3 v-html="renderString(notification.title)" />-->
-<!--            </nuxt-link>-->
-<!--          </span>-->
-<!--          <div class="label__description">-->
-<!--            <p>{{ notification.text }}</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
+    <!--    <section class="universal-card dashboard-notifications">-->
+    <!--      <h2>Notifications</h2>-->
+    <!--      <div-->
+    <!--        v-for="notification in user.notifications.slice(0,4)"-->
+    <!--        :key="notification.id"-->
+    <!--        class="dark-card notification"-->
+    <!--      >-->
+    <!--        <div class="label">-->
+    <!--          <span class="label__title">-->
+    <!--            <nuxt-link :to="notification.link">-->
+    <!--              <h3 v-html="renderString(notification.title)" />-->
+    <!--            </nuxt-link>-->
+    <!--          </span>-->
+    <!--          <div class="label__description">-->
+    <!--            <p>{{ notification.text }}</p>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </section>-->
     <section class="universal-card dashboard-analytics">
       <h2>Analytics</h2>
       <div class="grid-display">
@@ -101,7 +93,7 @@
 </template>
 <script setup>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import Avatar from "~/components/ui/Avatar.vue";
+import Avatar from '~/components/ui/Avatar.vue'
 
 useHead({
   title: 'Dashboard - Modrinth',
@@ -145,8 +137,13 @@ const followersProjectCount = computed(
   gap: var(--spacing-card-md);
 
   .notification {
-    .label__title, h1, h2, h3, h4, p {
-      margin: 0!important;
+    .label__title,
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin: 0 !important;
     }
   }
 }

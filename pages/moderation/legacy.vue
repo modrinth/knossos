@@ -9,100 +9,100 @@
     <aside class="navigation-card">
       <NavRow
         :links="[
-            {
-              label: 'All',
-              href: `/moderation/legacy`,
-            },
-            ...moderationTypes.map((type) => {
-              return {
-                label: $formatProjectType(type) + 's',
-                href: `/moderation/legacy/${type}`,
-              }
-            }),
-          ]"
+          {
+            label: 'All',
+            href: `/moderation/legacy`,
+          },
+          ...moderationTypes.map((type) => {
+            return {
+              label: $formatProjectType(type) + 's',
+              href: `/moderation/legacy/${type}`,
+            }
+          }),
+        ]"
       />
     </aside>
     <div class="normal-page__content">
-        <div class="project-list display-mode--list">
-          <ProjectCard
-            v-for="project in $route.params.type !== undefined
-              ? projects.filter((x) => x.project_type === $route.params.type)
-              : projects"
-            :id="project.slug || project.id"
-            :key="project.id"
-            :name="project.title"
-            :description="project.description"
-            :created-at="project.queued"
-            :updated-at="project.queued"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :type="project.project_type"
-            :color="project.color"
-            :moderation="true"
-          >
-            <button
-              class="iconified-button"
-              @click="
-                setProjectStatus(
-                  project,
-                  project.requested_status ? project.requested_status : 'approved'
-                )
-              "
-            >
-              <CheckIcon />
-              Approve
-            </button>
-            <button class="iconified-button" @click="setProjectStatus(project, 'withheld')">
-              <UnlistIcon />
-              Withhold
-            </button>
-            <button class="iconified-button" @click="setProjectStatus(project, 'rejected')">
-              <CrossIcon />
-              Reject
-            </button>
-          </ProjectCard>
-        </div>
-        <div
-          v-if="$route.params.type === 'report' || $route.params.type === undefined"
-          class="reports"
+      <div class="project-list display-mode--list">
+        <ProjectCard
+          v-for="project in $route.params.type !== undefined
+            ? projects.filter((x) => x.project_type === $route.params.type)
+            : projects"
+          :id="project.slug || project.id"
+          :key="project.id"
+          :name="project.title"
+          :description="project.description"
+          :created-at="project.queued"
+          :updated-at="project.queued"
+          :icon-url="project.icon_url"
+          :categories="project.categories"
+          :client-side="project.client_side"
+          :server-side="project.server_side"
+          :type="project.project_type"
+          :color="project.color"
+          :moderation="true"
         >
-          <div v-for="(item, index) in reports" :key="index" class="card report">
-            <div class="info">
-              <div class="title">
-                <h3>
-                  {{ item.item_type }}
-                  <nuxt-link :to="item.url">
-                    {{ item.item_id }}
-                  </nuxt-link>
-                </h3>
-                reported by
-                <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
-              </div>
-              <div class="markdown-body" v-html="renderHighlightedString(item.body)" />
-              <Badge :type="`Marked as ${item.report_type}`" color="orange" />
+          <button
+            class="iconified-button"
+            @click="
+              setProjectStatus(
+                project,
+                project.requested_status ? project.requested_status : 'approved'
+              )
+            "
+          >
+            <CheckIcon />
+            Approve
+          </button>
+          <button class="iconified-button" @click="setProjectStatus(project, 'withheld')">
+            <UnlistIcon />
+            Withhold
+          </button>
+          <button class="iconified-button" @click="setProjectStatus(project, 'rejected')">
+            <CrossIcon />
+            Reject
+          </button>
+        </ProjectCard>
+      </div>
+      <div
+        v-if="$route.params.type === 'report' || $route.params.type === undefined"
+        class="reports"
+      >
+        <div v-for="(item, index) in reports" :key="index" class="card report">
+          <div class="info">
+            <div class="title">
+              <h3>
+                {{ item.item_type }}
+                <nuxt-link :to="item.url">
+                  {{ item.item_id }}
+                </nuxt-link>
+              </h3>
+              reported by
+              <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
             </div>
-            <div class="actions">
-              <button class="iconified-button" @click="deleteReport(index)">
-                <TrashIcon /> Delete report
-              </button>
-              <span
-                v-tooltip="$dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
-                class="stat"
-              >
-                <CalendarIcon />
-                Created {{ fromNow(item.created) }}
-              </span>
-            </div>
+            <div class="markdown-body" v-html="renderHighlightedString(item.body)" />
+            <Badge :type="`Marked as ${item.report_type}`" color="orange" />
+          </div>
+          <div class="actions">
+            <button class="iconified-button" @click="deleteReport(index)">
+              <TrashIcon /> Delete report
+            </button>
+            <span
+              v-tooltip="$dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
+              class="stat"
+            >
+              <CalendarIcon />
+              Created {{ fromNow(item.created) }}
+            </span>
           </div>
         </div>
-        <div v-if="reports.length === 0 && projects.length === 0" class="error">
-          <Security class="icon" />
-          <br />
-          <span class="text">You are up-to-date!</span>
-        </div>
       </div>
+      <div v-if="reports.length === 0 && projects.length === 0" class="error">
+        <Security class="icon" />
+        <br />
+        <span class="text">You are up-to-date!</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -116,7 +116,7 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import Security from '~/assets/images/illustrations/security.svg'
-import NavRow from "~/components/ui/NavRow.vue";
+import NavRow from '~/components/ui/NavRow.vue'
 import ModalModeration from '~/components/ui/ModalModeration'
 import { renderHighlightedString } from '~/helpers/highlight'
 

@@ -40,10 +40,7 @@ useHead({
 
 const app = useNuxtApp()
 
-const [raw] = await Promise.all([
-  useBaseFetch(`statistics`, app.$defaultHeaders()),
-])
+const [raw] = await Promise.all([useBaseFetch(`statistics`, app.$defaultHeaders())])
 
 const stats = ref(raw)
-
 </script>
