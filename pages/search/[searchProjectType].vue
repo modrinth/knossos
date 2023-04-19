@@ -194,10 +194,9 @@
       </section>
     </aside>
     <section class="normal-page__content">
-      <div
+      <FlashMessage
         v-if="projectType.id === 'modpack' && $orElse($cosmetics.modpacksAlphaNotice, true)"
-        class="card information"
-        aria-label="Information"
+        messageType="information"
       >
         Modpack support is currently in alpha, and modpacks can only be created and installed
         through third party tools. Our documentation includes instructions on
@@ -214,7 +213,7 @@
         >. Join us on
         <a rel="noopener" href="https://discord.gg/EUHuJHt" :target="$external()">Discord</a>
         for support.
-      </div>
+      </FlashMessage>
       <Promotion />
       <div class="card search-controls">
         <div class="search-filter-container">
@@ -347,6 +346,7 @@ import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import Checkbox from '~/components/ui/Checkbox'
+import FlashMessage from '~/components/ui/FlashMessage'
 import LogoAnimated from '~/components/brand/LogoAnimated'
 
 import ClientIcon from '~/assets/images/categories/client.svg'
@@ -370,6 +370,7 @@ export default defineNuxtComponent({
     Multiselect,
     SearchFilter,
     Checkbox,
+    FlashMessage,
     ClientIcon,
     ServerIcon,
     SearchIcon,
