@@ -114,7 +114,7 @@ useHead({
 const app = useNuxtApp()
 
 const [rawProjects] = await Promise.all([
-  useBaseFetch('moderation/projects', app.$defaultHeaders()),
+  useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders()),
 ])
 
 const teamIds = rawProjects.map((x) => x.team)
