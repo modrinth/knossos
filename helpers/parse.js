@@ -127,7 +127,7 @@ export const md = (options = {}) => {
           return defaultImageRenderer(tokens, idx, options, env, self)
         }
       } catch (err) {}
-      token.attrs[index][1] = `//wsrv.nl/?url=${encodeURIComponent(src)}`
+      token.attrs[index][1] = `https://wsrv.nl/?url=${encodeURIComponent(src)}`
     }
 
     return defaultImageRenderer(tokens, idx, options, env, self)
