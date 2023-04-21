@@ -80,7 +80,7 @@ export const configuredXss = new xss.FilterXSS({
       } catch (err) {}
     }
 
-    return value;
+    return value
   },
 })
 
