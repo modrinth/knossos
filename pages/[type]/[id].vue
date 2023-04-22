@@ -402,17 +402,17 @@
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
         />
-        <FlashMessage v-if="project.status === 'withheld'" messageType="warning">
+        <MessageBanner v-if="project.status === 'withheld'" message-type="warning">
           {{ project.title }} is not viewable in search because it has been found to be in violation
           of one of <nuxt-link to="/legal/rules"> Modrinth's content rules </nuxt-link>. Modrinth
           makes no guarantees as to whether {{ project.title }} is safe for use in a multiplayer
           context.
-        </FlashMessage>
-        <FlashMessage v-if="project.status === 'archived'" messageType="warning">
+        </MessageBanner>
+        <MessageBanner v-if="project.status === 'archived'" message-type="warning">
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
           updates unless the author decides to unarchive the project.
-        </FlashMessage>
-        <FlashMessage v-if="project.project_type === 'modpack'" messageType="information">
+        </MessageBanner>
+        <MessageBanner v-if="project.project_type === 'modpack'" message-type="information">
           To install {{ project.title }}, visit
           <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
             >our documentation</a
@@ -423,7 +423,7 @@
           <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
             Prism Launcher</a
           >.
-        </FlashMessage>
+        </MessageBanner>
         <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
           <NavRow
@@ -726,7 +726,7 @@ import Avatar from '~/components/ui/Avatar'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist'
-import FlashMessage from '~/components/ui/FlashMessage'
+import MessageBanner from '~/components/ui/MessageBanner'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UsersIcon from '~/assets/images/utils/users.svg'
 import CategoriesIcon from '~/assets/images/utils/tags.svg'
