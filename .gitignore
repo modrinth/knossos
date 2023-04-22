@@ -71,7 +71,7 @@ typings/
 .serverless
 
 # IDE / Editor
-.idea
+.idea/
 
 # Service worker
 sw.*
