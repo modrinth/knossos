@@ -51,49 +51,43 @@
 </template>
 
 <script lang="ts" setup>
-import GapIcon from "~/assets/images/utils/gap.svg";
-import LeftArrowIcon from "~/assets/images/utils/left-arrow.svg";
-import RightArrowIcon from "~/assets/images/utils/right-arrow.svg";
+import GapIcon from '~/assets/images/utils/gap.svg'
+import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 
-const props = withDefaults(defineProps<{
-  page: number,
-  count: number,
-  linkFunction: (page: number) => string
-}>(), {
-  page: 1,
-  count: 1,
-  linkFunction: (_: number) => "/"
-});
+const props = withDefaults(
+  defineProps<{
+    page: number
+    count: number
+    linkFunction: (page: number) => string
+  }>(),
+  {
+    page: 1,
+    count: 1,
+    linkFunction: (_: number) => '/',
+  }
+)
 
 const pages = computed((): any[] => {
   if (props.count <= 4) {
-    return Array.from({ length: props.count }, (_, i) => i + 1);
+    return Array.from({ length: props.count }, (_, i) => i + 1)
   }
 
   if (props.page + 3 >= props.count) {
-    return [
-      1,
-      "-",
-      props.count - 4,
-      props.count - 3,
-      props.count - 2,
-      props.count - 1,
-      props.count
-    ];
+    return [1, '-', props.count - 4, props.count - 3, props.count - 2, props.count - 1, props.count]
   }
 
   if (props.page > 4) {
-    return [1, "-", props.page - 1, props.page, props.page + 1, "-", props.count];
+    return [1, '-', props.page - 1, props.page, props.page + 1, '-', props.count]
   }
 
-  return [1, 2, 3, 4, 5, "-", props.count];
-});
+  return [1, 2, 3, 4, 5, '-', props.count]
+})
 
-
-const emits = defineEmits(["switch-page"]);
+const emits = defineEmits(['switch-page'])
 
 function switchPage(newPage: number) {
-  emits("switch-page", Math.min(Math.max(newPage, 1), props.count));
+  emits('switch-page', Math.min(Math.max(newPage, 1), props.count))
 }
 </script>
 
@@ -107,10 +101,8 @@ a {
   border-radius: 2rem;
   background: var(--color-raised-bg);
 
-  transition: opacity 0.5s ease-in-out,
-  filter 0.2s ease-in-out,
-  transform 0.05s ease-in-out,
-  outline 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
+    outline 0.2s ease-in-out;
 }
 
 a.page-number.current {

@@ -19,17 +19,23 @@ export default (unfilteredVersions: Ref<Version[]> | Version[], onQueryChange: (
 
     const selectedGameVersions = arrayFromQuery(route.query.g)
     if (selectedGameVersions.length > 0) {
-      filteredVersions = filteredVersions.filter(v => intersection(selectedGameVersions, v.game_versions).length > 0)
+      filteredVersions = filteredVersions.filter(
+        (v) => intersection(selectedGameVersions, v.game_versions).length > 0
+      )
     }
 
     const selectedLoaders = arrayFromQuery(route.query.l)
     if (selectedLoaders.length > 0) {
-      filteredVersions = filteredVersions.filter((v) => intersection(selectedLoaders, v.loaders).length > 0)
+      filteredVersions = filteredVersions.filter(
+        (v) => intersection(selectedLoaders, v.loaders).length > 0
+      )
     }
 
     const selectedVersionTypes = arrayFromQuery(route.query.c)
     if (selectedVersionTypes.length > 0) {
-      filteredVersions = filteredVersions.filter((v) => selectedVersionTypes.includes(v.version_type))
+      filteredVersions = filteredVersions.filter((v) =>
+        selectedVersionTypes.includes(v.version_type)
+      )
     }
 
     return filteredVersions
