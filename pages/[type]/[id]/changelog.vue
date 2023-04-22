@@ -12,7 +12,7 @@
       :page="currentPage"
       :count="Math.ceil(filteredVersions.length / 20)"
       class="pagination-before"
-      :link-function="(page) => `?page=${page}`"
+      :link-function="(page) => `?p=${page}`"
       @switch-page="switchPage"
     />
     <div class="card">
@@ -68,7 +68,7 @@
       :page="currentPage"
       :count="Math.ceil(filteredVersions.length / 20)"
       class="pagination-before"
-      :link-function="(page) => `?page=${page}`"
+      :link-function="(page) => `?p=${page}`"
       @switch-page="switchPage"
     />
   </div>
@@ -106,24 +106,7 @@ const metaDescription = computed(
 
 const route = useRoute()
 const currentPage = ref(Number(route.query.p ?? 1))
-const filteredVersions = computed(() => {
-  const selectedGameVersions = getArrayOrString(route.query.g) ?? []
-  const selectedLoaders = getArrayOrString(route.query.l) ?? []
-  const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
-
-  currentPage.value = 1
-  return props.versions.filter(
-    (projectVersion) =>
-      (selectedGameVersions.length === 0 ||
-        selectedGameVersions.some((gameVersion) =>
-          projectVersion.game_versions.includes(gameVersion)
-        )) &&
-      (selectedLoaders.length === 0 ||
-        selectedLoaders.some((loader) => projectVersion.loaders.includes(loader))) &&
-      (selectedVersionTypes.length === 0 ||
-        selectedVersionTypes.includes(projectVersion.version_type))
-  )
-})
+const filteredVersions = useFilteredVersions(props.versions, () => switchPage(1))
 
 function switchPage(page) {
   currentPage.value = page

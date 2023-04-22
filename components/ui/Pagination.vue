@@ -50,70 +50,54 @@
   </div>
 </template>
 
-<script>
-import GapIcon from '~/assets/images/utils/gap.svg'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
+<script lang="ts" setup>
+import GapIcon from "~/assets/images/utils/gap.svg";
+import LeftArrowIcon from "~/assets/images/utils/left-arrow.svg";
+import RightArrowIcon from "~/assets/images/utils/right-arrow.svg";
 
-export default {
-  components: {
-    GapIcon,
-    LeftArrowIcon,
-    RightArrowIcon,
-  },
-  props: {
-    page: {
-      type: Number,
-      default: 1,
-    },
-    count: {
-      type: Number,
-      default: 1,
-    },
-    linkFunction: {
-      type: Function,
-      default() {
-        return () => '/'
-      },
-    },
-  },
-  emits: ['switch-page'],
-  computed: {
-    pages() {
-      let pages = []
+const props = withDefaults(defineProps<{
+  page: number,
+  count: number,
+  linkFunction: (page: number) => string
+}>(), {
+  page: 1,
+  count: 1,
+  linkFunction: (_: number) => "/"
+});
 
-      if (this.count > 4) {
-        if (this.page + 3 >= this.count) {
-          pages = [
-            1,
-            '-',
-            this.count - 4,
-            this.count - 3,
-            this.count - 2,
-            this.count - 1,
-            this.count,
-          ]
-        } else if (this.page > 4) {
-          pages = [1, '-', this.page - 1, this.page, this.page + 1, '-', this.count]
-        } else {
-          pages = [1, 2, 3, 4, 5, '-', this.count]
-        }
-      } else {
-        pages = Array.from({ length: this.count }, (_, i) => i + 1)
-      }
+const pages = computed((): any[] => {
+  if (props.count <= 4) {
+    return Array.from({ length: props.count }, (_, i) => i + 1);
+  }
 
-      return pages
-    },
-  },
-  methods: {
-    switchPage(newPage) {
-      this.$emit('switch-page', newPage)
-    },
-  },
+  if (props.page + 3 >= props.count) {
+    return [
+      1,
+      "-",
+      props.count - 4,
+      props.count - 3,
+      props.count - 2,
+      props.count - 1,
+      props.count
+    ];
+  }
+
+  if (props.page > 4) {
+    return [1, "-", props.page - 1, props.page, props.page + 1, "-", props.count];
+  }
+
+  return [1, 2, 3, 4, 5, "-", props.count];
+});
+
+
+const emits = defineEmits(["switch-page"]);
+
+function switchPage(newPage: number) {
+  emits("switch-page", Math.min(Math.max(newPage, 1), props.count));
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 a {
   color: var(--color-button-text);
   box-shadow: var(--shadow-raised), var(--shadow-inset);
@@ -123,38 +107,41 @@ a {
   border-radius: 2rem;
   background: var(--color-raised-bg);
 
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-    outline 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out,
+  filter 0.2s ease-in-out,
+  transform 0.05s ease-in-out,
+  outline 0.2s ease-in-out;
+}
 
-  &.page-number.current {
-    background: var(--color-brand);
-    color: var(--color-brand-inverted);
-    cursor: default;
-  }
+a.page-number.current {
+  background: var(--color-brand);
+  color: var(--color-brand-inverted);
+  cursor: default;
+}
 
-  &.paginate.disabled {
-    background-color: transparent;
-    cursor: not-allowed;
-    filter: grayscale(50%);
-    opacity: 0.5;
-  }
+a.paginate.disabled {
+  background-color: transparent;
+  cursor: not-allowed;
+  filter: grayscale(50%);
+  opacity: 0.5;
+}
 
-  &:hover:not(&:disabled) {
-    filter: brightness(0.85);
-  }
+a:hover:not(:disabled) {
+  filter: brightness(0.85);
+}
 
-  &:active:not(&:disabled) {
-    transform: scale(0.95);
-    filter: brightness(0.8);
-  }
+a:active:not(:disabled) {
+  transform: scale(0.95);
+  filter: brightness(0.8);
 }
 
 .has-icon {
   display: flex;
   align-items: center;
-  svg {
-    width: 1em;
-  }
+}
+
+.has-icon svg {
+  width: 1em;
 }
 
 .page-number-container,
@@ -168,10 +155,11 @@ a,
 .paginates {
   height: 2em;
   margin: 0.5rem 0;
-  > div,
-  .has-icon {
-    margin: 0 0.3em;
-  }
+}
+
+.paginates > div,
+.paginates .has-icon {
+  margin: 0 0.3em;
 }
 
 .left-arrow {
