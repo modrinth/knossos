@@ -291,7 +291,7 @@
                   Report
                 </button>
                 <button
-                  v-if="!$user.value.follows.find((x) => x.id === project.id)"
+                  v-if="!user.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
                   @click="userFollowProject(project)"
                 >
@@ -299,7 +299,7 @@
                   Follow
                 </button>
                 <button
-                  v-if="$user.value.follows.find((x) => x.id === project.id)"
+                  v-if="user.follows.find((x) => x.id === project.id)"
                   class="iconified-button"
                   @click="userUnfollowProject(project)"
                 >
@@ -805,6 +805,8 @@ import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 const data = useNuxtApp()
 const route = useRoute()
 const config = useRuntimeConfig()
+
+const user = await useUser()
 
 if (
   !route.params.id ||

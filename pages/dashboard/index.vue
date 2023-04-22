@@ -38,7 +38,7 @@
         <div class="grid-display__item">
           <div class="label">Total downloads</div>
           <div class="value">
-            {{ $formatNumber(user.projects.reduce((agg, x) => agg + x.downloads, 0)) }}
+            {{ $formatNumber(projects.reduce((agg, x) => agg + x.downloads, 0)) }}
           </div>
           <span
             >from
@@ -55,7 +55,7 @@
         <div class="grid-display__item">
           <div class="label">Total followers</div>
           <div class="value">
-            {{ $formatNumber(user.projects.reduce((agg, x) => agg + x.followers, 0)) }}
+            {{ $formatNumber(projects.reduce((agg, x) => agg + x.followers, 0)) }}
           </div>
           <span>
             <span
@@ -102,19 +102,20 @@ useHead({
 const auth = await useAuth()
 const app = useNuxtApp()
 
-const [raw] = await Promise.all([
+const [rawProjects, rawPayouts] = await Promise.all([
+  useBaseFetch(`user/${auth.value.user.id}/projects`, app.$defaultHeaders()),
   useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders()),
 ])
-const user = await useUser()
 
-const payouts = ref(raw)
+const projects = shallowRef(rawProjects)
+const payouts = ref(rawPayouts)
 const minWithdraw = ref(0.26)
 
 const downloadsProjectCount = computed(
-  () => user.value.projects.filter((project) => project.downloads > 0).length
+  () => projects.value.filter((project) => project.downloads > 0).length
 )
 const followersProjectCount = computed(
-  () => user.value.projects.filter((project) => project.followers > 0).length
+  () => projects.value.filter((project) => project.followers > 0).length
 )
 </script>
 <style lang="scss">
