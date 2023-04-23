@@ -16,7 +16,7 @@ export const configuredXss = new xss.FilterXSS({
     iframe: ['width', 'height', 'allowfullscreen', 'frameborder', 'start', 'end'],
     img: [...xss.whiteList.img, 'style', 'usemap'],
     map: ['name'],
-    area: [...xss.whiteList.a, 'coords']
+    area: [...xss.whiteList.a, 'coords'],
     a: [...xss.whiteList.a, 'rel'],
   },
   css: {
