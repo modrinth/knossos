@@ -8,7 +8,7 @@ interface Version {
 
 export default function useFilteredVersions(
   unfilteredVersions: Ref<Version[]> | Version[],
-  onQueryChange: () => void,
+  onQueryChange: () => void
 ) {
   const route = useRoute()
 
