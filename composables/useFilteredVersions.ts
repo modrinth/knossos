@@ -6,7 +6,10 @@ interface Version {
   version_type: any
 }
 
-export default (unfilteredVersions: Ref<Version[]> | Version[], onQueryChange: () => void) => {
+export default function useFilteredVersions(
+  unfilteredVersions: Ref<Version[]> | Version[],
+  onQueryChange: () => void,
+) {
   const route = useRoute()
 
   watch(
