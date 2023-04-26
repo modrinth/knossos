@@ -1,8 +1,11 @@
 <template>
-  <ReportView :report-id="route.params.id" />
+  <ReportView
+    :report-id="route.params.id"
+    :breadcrumbs-stack="[{ href: '/moderation/reports', label: 'Reports' }]"
+  />
 </template>
 <script setup>
-import ReportView from '~/components/ui/ReportView.vue'
+import ReportView from '~/components/ui/report/ReportView.vue'
 
 const route = useRoute()
 

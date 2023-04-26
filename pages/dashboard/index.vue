@@ -12,26 +12,39 @@
         </NuxtLink>
       </div>
     </section>
-    <!-- Notification system is too awful for this to work -->
-    <!--    <section class="universal-card dashboard-notifications">-->
-    <!--      <h2>Notifications</h2>-->
-    <!--      <div-->
-    <!--        v-for="notification in user.notifications.slice(0,4)"-->
-    <!--        :key="notification.id"-->
-    <!--        class="dark-card notification"-->
-    <!--      >-->
-    <!--        <div class="label">-->
-    <!--          <span class="label__title">-->
-    <!--            <nuxt-link :to="notification.link">-->
-    <!--              <h3 v-html="renderString(notification.title)" />-->
-    <!--            </nuxt-link>-->
-    <!--          </span>-->
-    <!--          <div class="label__description">-->
-    <!--            <p>{{ notification.text }}</p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </section>-->
+    <section class="universal-card dashboard-notifications">
+      <div class="header__row">
+        <h2 class="header__title">Notifications</h2>
+        <nuxt-link v-if="notifications.length > 0" class="goto-link" to="/dashboard/notifications">
+          See all <ChevronRightIcon />
+        </nuxt-link>
+      </div>
+      <template v-if="notifications.length > 0">
+        <NotificationItem
+          v-for="notification in notifications"
+          :key="notification.id"
+          v-model:notifications="allNotifs"
+          class="universal-card recessed"
+          :notification="notification"
+          raised
+          compact
+        />
+        <nuxt-link
+          v-if="extraNotifs > 0"
+          class="goto-link view-more-notifs"
+          to="/dashboard/notifications"
+        >
+          View {{ extraNotifs }} more notification{{ extraNotifs === 1 ? '' : 's' }}
+          <ChevronRightIcon />
+        </nuxt-link>
+      </template>
+      <div v-else class="universal-body">
+        <p>You have no unread notifications.</p>
+        <nuxt-link class="iconified-button" to="/dashboard/notifications">
+          <HistoryIcon /> View notification history
+        </nuxt-link>
+      </div>
+    </section>
     <section class="universal-card dashboard-analytics">
       <h2>Analytics</h2>
       <div class="grid-display">
@@ -93,7 +106,10 @@
 </template>
 <script setup>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import HistoryIcon from '~/assets/images/utils/history.svg'
 import Avatar from '~/components/ui/Avatar.vue'
+import NotificationItem from '~/components/ui/NotificationItem.vue'
+import { fetchNotifications, groupNotifications } from '~/helpers/notifications'
 
 useHead({
   title: 'Dashboard - Modrinth',
@@ -117,6 +133,11 @@ const downloadsProjectCount = computed(
 const followersProjectCount = computed(
   () => projects.value.filter((project) => project.followers > 0).length
 )
+
+const allNotifs = groupNotifications(await fetchNotifications())
+
+const notifications = computed(() => allNotifs.slice(0, 3))
+const extraNotifs = computed(() => allNotifs.length - notifications.value.length)
 </script>
 <style lang="scss">
 .dashboard-overview {
@@ -133,19 +154,14 @@ const followersProjectCount = computed(
 
 .dashboard-notifications {
   grid-area: notifications;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-card-md);
+  //display: flex;
+  //flex-direction: column;
+  //gap: var(--spacing-card-md);
 
-  .notification {
-    .label__title,
-    h1,
-    h2,
-    h3,
-    h4,
-    p {
-      margin: 0 !important;
-    }
+  a.view-more-notifs {
+    display: flex;
+    width: fit-content;
+    margin-left: auto;
   }
 }
 

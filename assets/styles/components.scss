@@ -535,6 +535,15 @@
   &:active {
     color: var(--color-link-active);
   }
+
+  &.no-underline {
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
 }
 
 .title-link {
@@ -811,6 +820,14 @@
   &:hover:not(&:disabled),
   &:active:not(&:disabled) {
     background-color: var(--color-raised-bg);
+  }
+
+  &.brand-button {
+    color: var(--color-brand);
+  }
+
+  &.danger-button {
+    color: var(--color-special-red);
   }
 }
 
@@ -1469,7 +1486,7 @@ button {
   display: flex;
   flex-direction: column;
 
-  > * {
+  > *:not(:last-child) {
     margin-bottom: var(--spacing-card-sm);
   }
 
@@ -1614,7 +1631,7 @@ button {
   background-color: var(--color-button-bg);
   width: var(--size);
   height: var(--size);
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
 
@@ -1634,18 +1651,18 @@ button {
 
 a.iconified-link,
 a.iconified-stacked-link {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--spacing-card-xs);
-  width: fit-content;
+  display: contents;
+
+  .space {
+    opacity: 0;
+  }
 
   .title {
     font-weight: bold;
   }
 
   .stacked {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
   }
 
@@ -1682,4 +1699,9 @@ a.subtle-link {
   &:active {
     filter: var(--active-filter);
   }
+}
+
+.inline-svg svg,
+svg.inline-svg {
+  vertical-align: middle;
 }

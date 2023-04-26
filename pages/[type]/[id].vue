@@ -104,6 +104,8 @@
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
         :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
+        :all-members="allMembers"
+        :update-members="updateMembers"
       />
       <NuxtPage
         v-model:project="project"
@@ -418,6 +420,8 @@
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
+          :all-members="allMembers"
+          :update-members="updateMembers"
         />
         <div v-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
           {{ project.title }} is not viewable in search because it has been found to be in violation
@@ -1129,6 +1133,23 @@ function openModerationModal(status) {
   moderationStatus.value = status
 
   modalModeration.value.show()
+}
+
+async function updateMembers() {
+  allMembers.value = await useAsyncData(
+    `project/${route.params.id}/members`,
+    () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
+    {
+      transform: (members) => {
+        members.forEach((it, index) => {
+          members[index].avatar_url = it.user.avatar_url
+          members[index].name = it.user.username
+        })
+
+        return members
+      },
+    }
+  )
 }
 
 const collapsedChecklist = ref(false)

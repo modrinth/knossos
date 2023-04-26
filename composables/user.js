@@ -109,3 +109,9 @@ export const userDeleteNotification = async (id) => {
 
   user.notifications = user.notifications.filter((x) => x.id !== id)
 }
+
+export const userDeleteNotifications = async (ids) => {
+  const user = (await useUser()).value
+
+  user.notifications = user.notifications.filter((x) => !ids.includes(x.id))
+}

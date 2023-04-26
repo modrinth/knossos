@@ -7,7 +7,7 @@
   </div>
 </template>
 <script setup>
-import ReportsList from '~/components/ui/ReportsList.vue'
+import ReportsList from '~/components/ui/report/ReportsList.vue'
 
 useHead({
   title: 'Reports - Modrinth',

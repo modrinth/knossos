@@ -65,15 +65,17 @@
       :link="`/${moderation ? 'moderation' : 'dashboard'}/report/${report.id}`"
     />
     <div class="reporter-info">
-      Reported by
-      <!--      <span v-if="$auth.user.id === report.reporter.id"> you </span>-->
-      <nuxt-link :to="`/user/${report.reporter.username}`" class="iconified-link">
+      <ReportIcon class="inline-svg" /> Reported by
+      <span v-if="$auth.user.id === report.reporter.id">you</span>
+      <nuxt-link v-else :to="`/user/${report.reporter.username}`" class="iconified-link">
         <Avatar :src="report.reporter.avatar_url" circle size="xxs" no-shadow :raised="raised" />
         <span>{{ report.reporter.username }}</span>
       </nuxt-link>
+      <span>&nbsp;</span>
       <span v-tooltip="$dayjs(report.created).format('MMMM D, YYYY [at] h:mm A')">{{
         fromNow(report.created)
       }}</span>
+      <CopyCode v-if="$cosmetics.developerMode" :text="report.id" class="report-id" />
     </div>
   </div>
 </template>
@@ -82,9 +84,11 @@
 import { renderHighlightedString } from '~/helpers/highlight'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
+import ReportIcon from '~/assets/images/utils/report.svg'
 import UnknownIcon from '~/assets/images/utils/unknown.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
 
 defineProps({
   report: {
@@ -117,13 +121,6 @@ defineProps({
   gap: var(--spacing-card-sm);
   flex-wrap: wrap;
 
-  .item-info,
-  .reporter-info {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
   .report-type {
     grid-area: type;
     display: flex;
@@ -133,13 +130,14 @@ defineProps({
   }
 
   .item-info {
-    gap: var(--spacing-card-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-card-xs);
     color: var(--color-heading);
     grid-area: title;
 
-    .iconified-stacked-link,
-    .iconified-link {
-      gap: var(--spacing-card-sm);
+    img,
+    .backed-svg {
       margin-right: var(--spacing-card-xs);
     }
   }
@@ -152,6 +150,13 @@ defineProps({
     grid-area: reporter;
     gap: var(--spacing-card-xs);
     color: var(--color-text-secondary);
+
+    img {
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+      margin-right: var(--spacing-card-xs);
+    }
 
     a {
       gap: var(--spacing-card-xs);
@@ -168,6 +173,10 @@ defineProps({
 
   &:not(:last-child) {
     margin-bottom: var(--spacing-card-md);
+  }
+
+  .report-id {
+    margin-left: var(--spacing-card-sm);
   }
 }
 </style>

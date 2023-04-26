@@ -7,14 +7,17 @@
         >{{ props.thread.messages.length }} messages <ChevronRightIcon
       /></span>
     </div>
-    <ThreadMessage
-      v-if="lastMessage !== null"
-      :message="lastMessage"
-      :report="report"
-      :members="members"
-      force-compact
-      no-links
-    />
+    <template v-if="displayMessages.length > 0">
+      <ThreadMessage
+        v-for="message of displayMessages"
+        :key="message.id"
+        :message="message"
+        :report="report"
+        :members="members"
+        force-compact
+        no-links
+      />
+    </template>
     <span v-else>There are no messages in this thread yet.</span>
   </nuxt-link>
 </template>
@@ -41,22 +44,36 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  messages: {
+    type: Array,
+    required: false,
+    default() {
+      return []
+    },
+  },
 })
 
-const data = useNuxtApp()
+const app = useNuxtApp()
 
 const members = computed(() => {
   const members = {}
   for (const member of props.thread.members) {
     members[member.id] = member
   }
-  members[data.$auth.user.id] = data.$auth.user
+  members[app.$auth.user.id] = app.$auth.user
   return members
 })
 
-const lastMessage = computed(() =>
-  props.thread.messages.length > 0 ? props.thread.messages[props.thread.messages.length - 1] : null
-)
+const displayMessages = computed(() => {
+  const sortedMessages = props.thread.messages
+    .slice()
+    .sort((a, b) => app.$dayjs(a.created) - app.$dayjs(b.created))
+  if (props.messages.length > 0) {
+    return sortedMessages.filter((msg) => props.messages.includes(msg.id))
+  } else {
+    return sortedMessages.length > 0 ? [sortedMessages[sortedMessages.length - 1]] : []
+  }
+})
 </script>
 
 <style lang="scss" scoped>

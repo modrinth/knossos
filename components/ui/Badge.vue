@@ -1,5 +1,5 @@
 <template>
-  <span :class="'version-badge ' + color + ' type--' + type">
+  <span :class="'badge ' + color + ' type--' + type">
     <template v-if="color"> <span class="circle" /> {{ $capitalizeString(type) }}</template>
 
     <!-- User roles -->
@@ -9,6 +9,7 @@
 
     <!-- Project statuses -->
     <template v-else-if="type === 'approved'"><ListIcon /> Listed</template>
+    <template v-else-if="type === 'approved-general'"><CheckIcon /> Approved</template>
     <template v-else-if="type === 'unlisted'"><EyeOffIcon /> Unlisted</template>
     <template v-else-if="type === 'withheld'"><EyeOffIcon /> Withheld</template>
     <template v-else-if="type === 'private'"><LockIcon /> Private</template>
@@ -78,9 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.version-badge {
-  display: flex;
-  align-items: center;
+.badge {
   font-weight: bold;
   width: fit-content;
   --badge-color: var(--color-special-gray);
@@ -96,7 +95,9 @@ export default {
   }
 
   svg {
-    margin-right: 0.25rem;
+    vertical-align: -15%;
+    width: 1em;
+    height: 1em;
   }
 
   &.type--closed,
@@ -117,6 +118,7 @@ export default {
   &.type--accepted,
   &.type--admin,
   &.type--success,
+  &.type--approved-general,
   &.green {
     --badge-color: var(--color-special-green);
   }

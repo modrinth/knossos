@@ -15,7 +15,7 @@
 </template>
 <script setup>
 import Chips from '~/components/ui/Chips.vue'
-import ReportInfo from '~/components/ui/ReportInfo.vue'
+import ReportInfo from '~/components/ui/report/ReportInfo.vue'
 
 defineProps({
   moderation: {

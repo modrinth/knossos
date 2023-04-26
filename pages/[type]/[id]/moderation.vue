@@ -41,21 +41,33 @@
         </span>
       </span>
     </section>
-    <section class="universal-card">
+    <section id="messages" class="universal-card">
       <h2>Messages</h2>
       <p>
         This is a private conversation thread with the Modrinth moderators. They will message you
         for issues concerning your project on Modrinth, and you are welcome to message them about
         things concerning your project.
       </p>
-      <CopyCode :text="thread.id" />
-      <ConversationThread
-        v-if="thread"
-        :thread="thread"
-        :update-thread="(newThread) => (thread = newThread)"
-        :project="project"
-        :set-status="setStatus"
-      />
+      <template v-if="thread">
+        <ConversationThread
+          v-if="thread"
+          :thread="thread"
+          :update-thread="(newThread) => (thread = newThread)"
+          :project="project"
+          :set-status="setStatus"
+        />
+      </template>
+      <div v-else class="known-errors unavailable-error">
+        <WarningIcon /> Messages are currently not available on this project.
+        <span v-if="config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com')">
+          This is expected on staging because the database has not been fully migrated, please make
+          a new project to try message threads.
+        </span>
+        <span v-else>
+          If you're seeing this, please report this as an issue including your project's ID:
+          <CopyCode :text="project.id" />
+        </span>
+      </div>
     </section>
   </div>
 </template>
@@ -63,6 +75,7 @@
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import Badge from '~/components/ui/Badge.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
+import WarningIcon from '~/assets/images/utils/issues.svg'
 
 const props = defineProps({
   project: {
@@ -76,6 +89,7 @@ const props = defineProps({
 const emit = defineEmits(['update:project'])
 
 const app = useNuxtApp()
+const config = useRuntimeConfig()
 
 // let [rawReports] = await Promise.all([useBaseFetch(`report`, app.$defaultHeaders())])
 //
@@ -142,7 +156,7 @@ async function setStatus(status) {
     const project = props.project
     project.status = status
     emit('update:project', project)
-    await updateThread()
+    thread.value = await useBaseFetch(`thread/${thread.value.id}`, app.$defaultHeaders())
   } catch (err) {
     app.$notify({
       group: 'main',
@@ -162,13 +176,23 @@ async function setStatus(status) {
 }
 
 .status-message {
-  :deep(.version-badge) {
+  :deep(.badge) {
     display: contents;
 
     svg {
       vertical-align: top;
       margin: 0;
     }
+  }
+}
+
+.unavailable-error {
+  .code {
+    margin-top: var(--spacing-card-sm);
+  }
+
+  svg {
+    vertical-align: top;
   }
 }
 </style>

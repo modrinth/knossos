@@ -10,6 +10,9 @@
           <NavStackItem link="/dashboard/notifications" label="Notifications">
             <NotificationsIcon />
           </NavStackItem>
+          <NavStackItem link="/dashboard/notifications-legacy" label="Notifications (legacy)">
+            <NotificationsIcon />
+          </NavStackItem>
           <NavStackItem link="/dashboard/follows" label="Followed projects">
             <HeartIcon />
           </NavStackItem>

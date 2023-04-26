@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="$cosmetics.developerMode" class="thread-id">
+      Thread ID: <CopyCode :text="thread.id" />
+    </div>
     <div v-if="sortedMessages.length > 0" class="messages universal-card recessed">
       <ThreadMessage
         v-for="message in sortedMessages"
@@ -8,12 +11,13 @@
         :message="message"
         :members="members"
         :report="report"
+        raised
       />
     </div>
     <span v-if="report && report.closed">
       This thread is closed and new messages cannot be sent to it.
     </span>
-    <template v-else>
+    <template v-else-if="!report || !report.closed">
       <div class="resizable-textarea-wrapper">
         <Chips v-model="replyViewMode" class="chips" :items="['source', 'preview']" />
         <textarea
@@ -91,6 +95,7 @@
 
 <script setup>
 import Chips from '~/components/ui/Chips.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
 import ReplyIcon from '~/assets/images/utils/reply.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
 import CloseIcon from '~/assets/images/utils/check-circle.svg'
@@ -237,5 +242,11 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
   .preview {
     overflow-y: auto;
   }
+}
+
+.thread-id {
+  margin-bottom: var(--spacing-card-md);
+  font-weight: bold;
+  color: var(--color-heading);
 }
 </style>

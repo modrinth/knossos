@@ -1,4 +1,18 @@
 <template>
+  <div v-if="$auth.user && showInvitation" class="universal-card information invited">
+    <h2>Invitation to join project</h2>
+    <p>
+      You've been invited be a member of this project with the role of '{{ currentMember.role }}'.
+    </p>
+    <div class="input-group">
+      <button class="iconified-button brand-button" @click="acceptInvite()">
+        <CheckIcon />Accept
+      </button>
+      <button class="iconified-button danger-button" @click="declineInvite()">
+        <CrossIcon />Decline
+      </button>
+    </div>
+  </div>
   <div
     v-if="
       $auth.user &&
@@ -103,11 +117,13 @@
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
 import RequiredIcon from '~/assets/images/utils/asterisk.svg'
 import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
 import Checkbox from '~/components/ui/Checkbox'
+import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams'
 
 export default {
   components: {
@@ -115,6 +131,7 @@ export default {
     ChevronRightIcon,
     DropdownIcon,
     CheckIcon,
+    CrossIcon,
     RequiredIcon,
     SuggestionIcon,
     ModerationIcon,
@@ -132,6 +149,10 @@ export default {
       },
     },
     currentMember: {
+      type: Object,
+      default: null,
+    },
+    allMembers: {
       type: Object,
       default: null,
     },
@@ -168,6 +189,19 @@ export default {
             group: 'main',
             title: 'An error occurred',
             text: 'toggleCollapsed function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
+    updateMembers: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'updateMembers function not found',
             type: 'error',
           })
         }
@@ -349,8 +383,23 @@ export default {
           )
         )
     },
+    showInvitation() {
+      if (this.allMembers && this.$auth) {
+        const member = this.allMembers.find((x) => x.user.id === this.$auth.user.id)
+        return member && !member.accepted
+      }
+      return false
+    },
   },
   methods: {
+    acceptInvite() {
+      acceptTeamInvite(this.project.team)
+      this.updateMembers()
+    },
+    declineInvite() {
+      removeSelfFromTeam(this.project.team)
+      this.updateMembers()
+    },
     sortByTrue(a, b, ifEqual = 0) {
       if (a === b) {
         return ifEqual
@@ -382,6 +431,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.invited {
+}
+
 .author-actions {
   &:empty {
     display: none;

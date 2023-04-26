@@ -59,10 +59,10 @@
         :key="`project-${project.id}`"
         class="universal-card recessed project"
       >
-        <div class="title-row">
+        <div class="project-title">
           <nuxt-link
             :to="`/${project.inferred_project_type}/${project.slug}`"
-            class="iconified-stacked-link project-title"
+            class="iconified-stacked-link"
           >
             <Avatar :src="project.icon_url" size="xs" no-shadow raised />
             <span class="stacked">
@@ -169,11 +169,7 @@ const oldestFirst = ref(true)
     grid-template-columns: 1fr auto;
   }
 }
-.project-title {
-  gap: var(--spacing-card-sm);
-  margin-right: var(--spacing-card-xs);
-  grid-area: title;
-}
+
 .submitter-info {
   margin: 0;
   grid-area: date;
@@ -204,15 +200,17 @@ const oldestFirst = ref(true)
   grid-area: action;
 }
 
-.title-row {
+.project-title {
   display: flex;
-  flex-direction: row;
   gap: var(--spacing-card-xs);
   align-items: center;
-  flex-wrap: wrap;
 }
 
 :deep(.avatar) {
   flex-shrink: 0;
+
+  &.size-xs {
+    margin-right: var(--spacing-card-xs);
+  }
 }
 </style>

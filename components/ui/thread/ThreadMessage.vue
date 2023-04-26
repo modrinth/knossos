@@ -14,7 +14,12 @@
         tabindex="-1"
         aria-hidden="true"
       >
-        <Avatar class="message__icon" :src="members[message.author_id].avatar_url" circle raised />
+        <Avatar
+          class="message__icon"
+          :src="members[message.author_id].avatar_url"
+          circle
+          :raised="raised"
+        />
       </ConditionalNuxtLink>
       <span :class="`message__author role-${members[message.author_id].role}`">
         <PrivateIcon
@@ -44,7 +49,7 @@
       </span>
     </template>
     <template v-else>
-      <div class="message__icon backed-svg circle raised moderation-color">
+      <div class="message__icon backed-svg circle moderation-color" :class="{ raised: raised }">
         <ModeratorIcon />
       </div>
       <span class="message__author moderation-color">
@@ -75,11 +80,6 @@
         fromNow(message.created)
       }}</span>
     </span>
-    <!--    <div class="message__actions">-->
-    <!--      <OverflowButton raised>-->
-    <!--        <CopyCode :text="message.id" />-->
-    <!--      </OverflowButton>-->
-    <!--    </div>-->
   </div>
 </template>
 
@@ -92,8 +92,6 @@ import MicIcon from '~/assets/images/utils/mic.svg'
 import PrivateIcon from '~/assets/images/utils/lock.svg'
 import { renderString } from '~/helpers/parse'
 import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
-// import CopyCode from '~/components/ui/CopyCode.vue'
-// import OverflowButton from '~/components/ui/OverflowButton.vue'
 
 const props = defineProps({
   message: {
@@ -113,6 +111,10 @@ const props = defineProps({
     default: false,
   },
   noLinks: {
+    type: Boolean,
+    default: false,
+  },
+  raised: {
     type: Boolean,
     default: false,
   },

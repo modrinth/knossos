@@ -626,7 +626,7 @@
         <div v-if="!isEditing">
           <h4>Publication date</h4>
           <span>
-            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm:ss A') }}
+            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm A') }}
           </span>
         </div>
         <div v-if="!isEditing && version.author">

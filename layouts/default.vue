@@ -252,7 +252,7 @@
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
-        <BrandTextLogo aria-hidden="true" class="text-logo" />
+        <BrandTextLogo aria-hidden="true" class="text-logo" @click="developerModeIncrement()" />
         <p>
           Modrinth is
           <a
@@ -345,6 +345,7 @@ import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
 
+const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
 
@@ -360,6 +361,32 @@ useHead({
     },
   ],
 })
+
+let developerModeCounter = 0
+
+function developerModeIncrement() {
+  if (developerModeCounter >= 5) {
+    app.$cosmetics.developerMode = !app.$cosmetics.developerMode
+    developerModeCounter = 0
+    if (app.$cosmetics.developerMode) {
+      app.$notify({
+        group: 'main',
+        title: 'Developer mode activated',
+        text: 'Developer mode has been enabled',
+        type: 'success',
+      })
+    } else {
+      app.$notify({
+        group: 'main',
+        title: 'Developer mode deactivated',
+        text: 'Developer mode has been disabled',
+        type: 'success',
+      })
+    }
+  } else {
+    developerModeCounter++
+  }
+}
 </script>
 <script>
 export default defineNuxtComponent({

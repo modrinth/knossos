@@ -1,6 +1,11 @@
 <template>
   <div>
     <section class="universal-card">
+      <Breadcrumbs
+        v-if="breadcrumbsStack"
+        :current-title="`Report ${report.id}`"
+        :link-stack="breadcrumbsStack"
+      />
       <h2>Report details</h2>
       <ReportInfo :report="report" :show-thread="false" :show-message="false" />
     </section>
@@ -11,13 +16,18 @@
   </div>
 </template>
 <script setup>
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
-import ReportInfo from '~/components/ui/ReportInfo.vue'
+import ReportInfo from '~/components/ui/report/ReportInfo.vue'
 
 const props = defineProps({
   reportId: {
     type: String,
     required: true,
+  },
+  breadcrumbsStack: {
+    type: Array,
+    default: null,
   },
 })
 
