@@ -37,9 +37,13 @@
   }
 }
 
+.normal-page,
+.abnormal-page {
+  padding: 0 0.75rem;
+}
+
 .normal-page {
   display: grid;
-  padding: 0 0.75rem;
 
   grid-template:
     'sidebar'
@@ -69,11 +73,14 @@
 }
 
 @media (min-width: 1024px) {
+  .abnormal-page,
   .normal-page {
     margin: 0 auto;
     max-width: 80rem;
     column-gap: 0.75rem;
+  }
 
+  .normal-page {
     grid-template:
       'sidebar content' auto
       'info content' auto

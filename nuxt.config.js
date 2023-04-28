@@ -5,7 +5,7 @@ import { resolve } from 'pathe'
 import { defineNuxtConfig } from 'nuxt/config'
 import { $fetch } from 'ofetch'
 
-const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
+const STAGING_API_URL = 'https://api.modrinth.com/v2/'
 const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
 
 export default defineNuxtConfig({

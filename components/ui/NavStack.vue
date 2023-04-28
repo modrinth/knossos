@@ -25,4 +25,17 @@ li {
   display: unset;
   text-align: unset;
 }
+
+@media screen and (max-width: 1024px) {
+  ul {
+    flex-direction: row;
+  }
+
+  :deep(h1),
+  :deep(h2),
+  :deep(h3),
+  :deep(h4) {
+    width: 100%;
+  }
+}
 </style>

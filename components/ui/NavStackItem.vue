@@ -5,6 +5,7 @@
       <span>{{ label }}</span>
       <span v-if="beta" class="beta-badge">BETA</span>
       <span v-if="chevron" class="chevron"><ChevronRightIcon /></span>
+      <span v-if="count !== null" class="count-badge">{{ count }}</span>
     </div>
   </NuxtLink>
   <button
@@ -17,6 +18,7 @@
       <slot />
       <span>{{ label }}</span>
       <span v-if="beta" class="beta-badge">BETA</span>
+      <span v-if="count !== null" class="count-badge">{{ count }}</span>
     </span>
   </button>
   <span v-else>i forgor 💀</span>
@@ -54,6 +56,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    count: {
+      default: null,
+      type: Number,
+    },
   },
 }
 </script>
@@ -85,6 +91,7 @@ export default {
     gap: 0.4rem;
     flex-grow: 1;
     background-color: var(--background-color);
+    box-shadow: none;
   }
 
   &:focus-visible {
@@ -93,11 +100,22 @@ export default {
     }
   }
 
+  &:hover,
+  &:focus-visible &.router-link-exact-active {
+    .nav-content {
+      background-color: var(--color-raised-bg);
+      filter: none;
+    }
+  }
+
   &.router-link-exact-active {
     .nav-content {
       color: var(--color-button-text-active);
       background-color: var(--color-button-bg);
-      box-shadow: none;
+
+      .count-badge {
+        background-color: var(--color-raised-bg);
+      }
     }
   }
 
@@ -105,8 +123,21 @@ export default {
     margin: 0;
   }
 
+  .count-badge {
+    background-color: var(--color-bg);
+    padding: 0.125rem 0.3rem;
+    border-radius: var(--size-rounded-max);
+    font-size: 0.75rem;
+  }
+
   .chevron {
     margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .nav-link {
+    width: fit-content;
   }
 }
 </style>

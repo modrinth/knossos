@@ -1,5 +1,5 @@
 <template>
-  <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF">
+  <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF" :class="{ sidebar: sidebar }">
     <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-0">
       <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-1">
         <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2">
@@ -31,10 +31,17 @@
 import LightIcon from '~/assets/images/external/exaroton-light.svg'
 import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 
+defineProps({
+  sidebar: {
+    type: Boolean,
+    default: false,
+  },
+})
+
 const colorMode = useTheme()
 </script>
 
-<style>
+<style lang="scss" scoped>
 .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF {
   position: relative;
   margin-bottom: var(--spacing-card-md);
@@ -84,6 +91,16 @@ const colorMode = useTheme()
   gap: 0.5rem;
 }
 @media screen and (max-width: 800px) {
+  .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 {
+    margin-bottom: 0.5rem;
+  }
+  .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 a {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.sidebar {
   .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 {
     margin-bottom: 0.5rem;
   }
