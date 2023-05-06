@@ -7,7 +7,6 @@ export const useTags = () =>
     gameVersions: tags.gameVersions,
     donationPlatforms: tags.donationPlatforms,
     reportTypes: tags.reportTypes,
-    statistics: tags.statistics,
     projectTypes: [
       {
         actual: 'mod',
