@@ -6,7 +6,7 @@
         <div class="grid-display__item">
           <div class="label">Total downloads</div>
           <div class="value">
-            {{ $formatNumber(user.projects.reduce((agg, x) => agg + x.downloads, 0)) }}
+            {{ $formatNumber(projects.reduce((agg, x) => agg + x.downloads, 0)) }}
           </div>
           <span
             >from
@@ -23,7 +23,7 @@
         <div class="grid-display__item">
           <div class="label">Total followers</div>
           <div class="value">
-            {{ $formatNumber(user.projects.reduce((agg, x) => agg + x.followers, 0)) }}
+            {{ $formatNumber(projects.reduce((agg, x) => agg + x.followers, 0)) }}
           </div>
           <span>
             <span
@@ -42,9 +42,9 @@
         <div class="grid-display__item">
           <div class="label">Total revenue</div>
           <div class="value">
-            {{ $formatMoney(payouts.all_time) }}
+            {{ $formatMoney(payouts.all_time, true) }}
           </div>
-          <span>{{ $formatMoney(payouts.last_month) }} this month</span>
+          <span>{{ $formatMoney(payouts.last_month, true) }} this month</span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics"-->
           <!--            >View breakdown-->
           <!--            <ChevronRightIcon-->
@@ -55,7 +55,7 @@
         <div class="grid-display__item">
           <div class="label">Current balance</div>
           <div class="value">
-            {{ $formatMoney(auth.user.payout_data.balance) }}
+            {{ $formatMoney(auth.user.payout_data.balance, true) }}
           </div>
           <NuxtLink
             v-if="auth.user.payout_data.balance >= minWithdraw"
@@ -88,21 +88,19 @@ useHead({
 const auth = await useAuth()
 const app = useNuxtApp()
 
-const [raw] = await Promise.all([
+const [rawProjects, rawPayouts] = await Promise.all([
+  useBaseFetch(`user/${auth.value.user.id}/projects`, app.$defaultHeaders()),
   useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders()),
 ])
-const user = await useUser()
 
-raw.all_time = Math.floor(raw.all_time * 100) / 100
-raw.last_month = Math.floor(raw.last_month * 100) / 100
-
-const payouts = ref(raw)
+const projects = shallowRef(rawProjects)
+const payouts = ref(rawPayouts)
 const minWithdraw = ref(0.26)
 
 const downloadsProjectCount = computed(
-  () => user.value.projects.filter((project) => project.downloads > 0).length
+  () => projects.value.filter((project) => project.downloads > 0).length
 )
 const followersProjectCount = computed(
-  () => user.value.projects.filter((project) => project.followers > 0).length
+  () => projects.value.filter((project) => project.followers > 0).length
 )
 </script>

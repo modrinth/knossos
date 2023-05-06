@@ -561,6 +561,14 @@
     margin-bottom: 16px;
   }
 
+  ul,
+  ol {
+    ul,
+    ol {
+      margin-bottom: 0;
+    }
+  }
+
   li,
   p {
     padding: 0;
@@ -597,6 +605,7 @@
     &:focus-visible,
     &:hover {
       color: var(--color-link-hover);
+      text-decoration: underline;
     }
 
     &:active {
@@ -607,6 +616,7 @@
   img {
     max-width: 100%;
     height: auto;
+    vertical-align: middle;
   }
 
   html:not(.dark-mode, .oled-mode) & img[src$='#gh-dark-mode-only'] {
@@ -778,7 +788,7 @@
   }
 
   &:disabled,
-  &[disabled] {
+  &[disabled='true'] {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.5;
@@ -816,7 +826,7 @@ tr.button-transparent {
   }
 
   &:disabled > *,
-  &[disabled] > * {
+  &[disabled='true'] > * {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.5;
@@ -849,7 +859,7 @@ tr.button-transparent {
     box-shadow: none;
 
     &disabled,
-    &[disabled] {
+    &[disabled='true'] {
       cursor: not-allowed;
       box-shadow: none;
     }
@@ -1302,6 +1312,7 @@ textarea.known-error {
 .goto-link:hover,
 .goto-link:focus-visible {
   color: var(--color-link-hover);
+  text-decoration: underline;
 }
 
 .goto-link:active {

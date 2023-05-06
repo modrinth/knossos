@@ -108,7 +108,12 @@
         </section>
       </section>
       <section class="mobile-navigation">
-        <div class="nav-menu nav-menu-browse" :class="{ expanded: isBrowseMenuOpen }">
+        <div
+          class="nav-menu nav-menu-browse"
+          :class="{ expanded: isBrowseMenuOpen }"
+          @focusin="isBrowseMenuOpen = true"
+          @focusout="isBrowseMenuOpen = false"
+        >
           <div class="links cascade-links">
             <NuxtLink
               v-for="navRoute in navRoutes"
@@ -120,7 +125,12 @@
             </NuxtLink>
           </div>
         </div>
-        <div class="nav-menu nav-menu-mobile" :class="{ expanded: isMobileMenuOpen }">
+        <div
+          class="nav-menu nav-menu-mobile"
+          :class="{ expanded: isMobileMenuOpen }"
+          @focusin="isMobileMenuOpen = true"
+          @focusout="isMobileMenuOpen = false"
+        >
           <div class="account-container">
             <NuxtLink
               v-if="auth.user"
@@ -139,10 +149,15 @@
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <NuxtLink v-else class="iconified-button brand-button" :to="getAuthUrl()">
+            <a
+              v-else
+              class="iconified-button brand-button"
+              :href="getAuthUrl()"
+              rel="nofollow noopener"
+            >
               <GitHubIcon aria-hidden="true" />
               Sign in with GitHub
-            </NuxtLink>
+            </a>
           </div>
           <div class="links">
             <template v-if="auth.user">
@@ -242,12 +257,6 @@
       </section>
     </header>
     <main>
-      <div v-if="$orElse(!$cosmetics.hideBetaPrompt, true)" class="beta-prompt universal-card">
-        <span class="text">The <span class="colored">NEW</span> Modrinth Technologies™ website BETA is now live!!</span>
-        <a href="https://blog.modrinth.com/p/new-site-beta" class="iconified-button" target="_blank">Learn more</a>
-        <a href="https://beta.modrinth.com/" class="iconified-button primary">Try it out</a>
-        <button class="square-button" aria-label="Close banner" @click="$cosmetics.hideBetaPrompt = true;saveCosmetics()"><CrossIcon/></button>
-      </div>
       <ModalCreation v-if="auth.user" ref="modal_creation" />
       <slot id="main" />
     </main>
@@ -285,9 +294,9 @@
       </div>
       <div class="links links-1" role="region" aria-label="Legal">
         <h4 aria-hidden="true">Company</h4>
-        <nuxt-link to="/legal/terms"> Terms </nuxt-link>
-        <nuxt-link to="/legal/privacy"> Privacy </nuxt-link>
-        <nuxt-link to="/legal/rules"> Rules </nuxt-link>
+        <nuxt-link to="/legal/terms"> Terms</nuxt-link>
+        <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
+        <nuxt-link to="/legal/rules"> Rules</nuxt-link>
         <a :target="$external()" href="https://careers.modrinth.com"> Careers </a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
@@ -419,9 +428,10 @@ export default defineNuxtComponent({
       this.runAnalytics()
     },
   },
-  mounted() {
+  async mounted() {
     this.runAnalytics()
     if (this.$route.query.code) {
+      await useAuth(this.$route.query.code)
       window.history.replaceState(history.state, null, this.$route.path)
     }
   },
@@ -765,6 +775,7 @@ export default defineNuxtComponent({
 
     .mobile-navigation {
       display: none;
+
       .nav-menu {
         width: 100%;
         position: fixed;
@@ -777,6 +788,7 @@ export default defineNuxtComponent({
         transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
         border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
         box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
+
         .links,
         .account-container {
           display: grid;
@@ -795,6 +807,7 @@ export default defineNuxtComponent({
             margin: 0 auto;
           }
         }
+
         .cascade-links {
           @media screen and (min-width: 354px) {
             grid-template-columns: repeat(2, 1fr);
@@ -803,36 +816,43 @@ export default defineNuxtComponent({
             grid-template-columns: repeat(3, 1fr);
           }
         }
+
         &-browse {
           &.expanded {
             transform: translateY(0);
             box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
           }
         }
+
         &-mobile {
           .account-container {
             padding-bottom: 0;
+
             .account-button {
               padding: var(--spacing-card-md);
               display: flex;
               align-items: center;
               justify-content: center;
               gap: 0.5rem;
+
               .user-icon {
                 width: 2.25rem;
                 height: 2.25rem;
               }
+
               .account-text {
                 flex-grow: 0;
               }
             }
           }
+
           &.expanded {
             transform: translateY(0);
             box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
           }
         }
       }
+
       .mobile-navbar {
         display: flex;
         height: var(--size-mobile-navbar-height);
@@ -850,10 +870,12 @@ export default defineNuxtComponent({
         transition: border-radius 0.3s ease-out;
         border-top: 2px solid rgba(0, 0, 0, 0);
         box-sizing: border-box;
+
         &.expanded {
           box-shadow: none;
           border-radius: 0;
         }
+
         .tab {
           position: relative;
           background: none;
@@ -868,10 +890,12 @@ export default defineNuxtComponent({
           transition: color ease-in-out 0.15s;
           color: var(--color-text-inactive);
           text-align: center;
+
           &.browse {
             svg {
               transform: rotate(180deg);
               transition: transform ease-in-out 0.3s;
+
               &.closed {
                 transform: rotate(0deg);
               }
@@ -907,28 +931,35 @@ export default defineNuxtComponent({
             transition: border ease-in-out 0.15s;
             border: 0 solid var(--color-brand);
             box-sizing: border-box;
+
             &.expanded {
               border: 2px solid var(--color-brand);
             }
           }
+
           &:hover,
           &:focus {
             color: var(--color-text);
           }
+
           &:first-child {
             margin-left: 2rem;
           }
+
           &:last-child {
             margin-right: 2rem;
           }
+
           &.router-link-exact-active:not(&.no-active) {
             svg {
               color: var(--color-brand);
             }
+
             color: var(--color-brand);
           }
         }
       }
+
       @media screen and (max-width: 1095px) {
         display: flex;
       }
@@ -1080,56 +1111,6 @@ export default defineNuxtComponent({
         }
       }
     }
-  }
-}
-.beta-prompt {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: #002B4B;
-  border-radius: 0;
-  border: 1px solid #14679E;
-  font-family: serif;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  gap: 1rem;
-  flex-wrap: wrap;
-  max-width: 20rem;
-  z-index: 100;
-  margin: 1rem;
-
-  .colored {
-    color: #BDA9FF;
-  }
-
-  .iconified-button, .square-button {
-    background-color: #00111e;
-    border-radius: 0;
-    color: white;
-    flex-shrink: 0;
-
-    &.primary {
-      background-color: #7EFFAD;
-      color: black;
-    }
-  }
-
-  .square-button {
-    background-color: transparent;
-
-    &:hover, &:active {
-      background-color: rgba(0, 17, 30, 0.3);
-    }
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .beta-prompt {
-    display: none;
   }
 }
 </style>
