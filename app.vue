@@ -5,7 +5,8 @@
     <NuxtPage />
   </NuxtLayout>
 </template>
-<script setup lang="ts">
+<script setup>
+// For some reason, this file cannot be TypeScript. Why?
 import ModrinthLoadingIndicator from '~/components/ui/modrinth-loading-indicator'
 import Notifications from '~/components/ui/Notifications'
 </script>
