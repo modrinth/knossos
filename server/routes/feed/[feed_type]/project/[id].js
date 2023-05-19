@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
     })
   })
 
-  switch (event.context.params.feed_type) {
+  switch (event.context.params.feed_type.toLowerCase()) {
     case 'rss':
       return resultFeed.rss2()
     case 'atom':
