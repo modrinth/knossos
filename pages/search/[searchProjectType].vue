@@ -31,7 +31,8 @@
               selectedEnvironments.length === 0 &&
               selectedVersions.length === 0 &&
               facets.length === 0 &&
-              orFacets.length === 0
+              legacyOrFacets.length === 0 &&
+              selectedLoaders.length === 0
             "
             class="iconified-button"
             @click="clearFilters"
@@ -94,11 +95,11 @@
               })"
               :key="loader.name"
               ref="loaderFilters"
-              :active-filters="orFacets"
+              :active-filters="selectedLoaders"
               :display-name="$formatCategory(loader.name)"
-              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
+              :facet-name="loader.name"
               :icon="loader.icon"
-              @toggle="toggleOrFacet"
+              @toggle="toggleLoader"
             />
             <Checkbox
               v-if="projectType.id === 'mod'"
@@ -126,11 +127,11 @@
               )"
               :key="loader.name"
               ref="platformFilters"
-              :active-filters="orFacets"
+              :active-filters="selectedLoaders"
               :display-name="$formatCategory(loader.name)"
-              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
+              :facet-name="loader.name"
               :icon="loader.icon"
-              @toggle="toggleOrFacet"
+              @toggle="toggleLoader"
             />
           </section>
           <section
@@ -399,7 +400,11 @@ export default defineNuxtComponent({
 
     const query = ref('')
     const facets = ref([])
-    const orFacets = ref([])
+    // These only exist for backwards-compatibility
+    // with old search URLs, this shouldn't be used
+    // for anything new. Use `selectedLoaders` instead.
+    const legacyOrFacets = ref([])
+    const selectedLoaders = ref([])
     const selectedVersions = ref([])
     const onlyOpenSource = ref(false)
     const showSnapshots = ref(false)
@@ -431,10 +436,13 @@ export default defineNuxtComponent({
       facets.value = getArrayOrString(route.query.f)
     }
     if (route.query.g) {
-      orFacets.value = getArrayOrString(route.query.g)
+      legacyOrFacets.value = getArrayOrString(route.query.g)
     }
     if (route.query.v) {
       selectedVersions.value = getArrayOrString(route.query.v)
+    }
+    if (route.query.a) {
+      selectedLoaders.value = getArrayOrString(route.query.a)
     }
     if (route.query.l) {
       onlyOpenSource.value = route.query.l === 'true'
@@ -473,7 +481,6 @@ export default defineNuxtComponent({
     if (route.query.o) {
       currentPage.value = Math.ceil(route.query.o / maxResults.value) + 1
     }
-
     projectType.value = data.$tag.projectTypes.find(
       (x) => x.id === route.path.substring(1, route.path.length - 1)
     )
@@ -496,8 +503,9 @@ export default defineNuxtComponent({
 
         if (
           facets.value.length > 0 ||
-          orFacets.value.length > 0 ||
+          legacyOrFacets.value.length > 0 ||
           selectedVersions.value.length > 0 ||
+          selectedLoaders.value.length > 0 ||
           selectedEnvironments.value.length > 0 ||
           projectType.value
         ) {
@@ -507,27 +515,39 @@ export default defineNuxtComponent({
           }
 
           // loaders specifier
-          if (orFacets.value.length > 0) {
-            formattedFacets.push(orFacets.value)
-          } else if (projectType.value.id === 'plugin') {
-            formattedFacets.push(
-              data.$tag.loaderData.allPluginLoaders.map(
-                (x) => `categories:'${encodeURIComponent(x)}'`
+          if (legacyOrFacets.value.length > 0) {
+            formattedFacets.push(legacyOrFacets.value)
+          } else if (selectedVersions.value.length === 0 && selectedLoaders.value.length > 0) {
+            formattedFacets.push(selectedLoaders.value.map((x) => `categories:${x}`))
+          } else if (selectedLoaders.value.length === 0) {
+            if (projectType.value.id === 'plugin') {
+              formattedFacets.push(
+                data.$tag.loaderData.allPluginLoaders.map(
+                  (x) => `categories:'${encodeURIComponent(x)}'`
+                )
               )
-            )
-          } else if (projectType.value.id === 'mod') {
-            formattedFacets.push(
-              data.$tag.loaderData.modLoaders.map((x) => `categories:'${encodeURIComponent(x)}'`)
-            )
-          } else if (projectType.value.id === 'datapack') {
-            formattedFacets.push(
-              data.$tag.loaderData.dataPackLoaders.map(
-                (x) => `categories:'${encodeURIComponent(x)}'`
+            } else if (projectType.value.id === 'mod') {
+              formattedFacets.push(
+                data.$tag.loaderData.modLoaders.map((x) => `categories:'${encodeURIComponent(x)}'`)
               )
-            )
+            } else if (projectType.value.id === 'datapack') {
+              formattedFacets.push(
+                data.$tag.loaderData.dataPackLoaders.map(
+                  (x) => `categories:'${encodeURIComponent(x)}'`
+                )
+              )
+            }
           }
 
-          if (selectedVersions.value.length > 0) {
+          if (selectedLoaders.value.length > 0 && selectedVersions.value.length > 0) {
+            const comboFacets = []
+            for (const loader of selectedLoaders.value) {
+              for (const version of selectedVersions.value) {
+                comboFacets.push(`loader_game_combos:${loader}-${version}`)
+              }
+            }
+            formattedFacets.push(comboFacets)
+          } else if (selectedVersions.value.length > 0) {
             const versionFacets = []
             for (const facet of selectedVersions.value) {
               versionFacets.push('versions:' + facet)
@@ -633,13 +653,17 @@ export default defineNuxtComponent({
         queryItems.push(`f=${encodeURIComponent(facets.value)}`)
         obj.f = facets.value
       }
-      if (orFacets.value.length > 0) {
-        queryItems.push(`g=${encodeURIComponent(orFacets.value)}`)
-        obj.g = orFacets.value
+      if (legacyOrFacets.value.length > 0) {
+        queryItems.push(`g=${encodeURIComponent(legacyOrFacets.value)}`)
+        obj.g = legacyOrFacets.value
       }
       if (selectedVersions.value.length > 0) {
         queryItems.push(`v=${encodeURIComponent(selectedVersions.value)}`)
         obj.v = selectedVersions.value
+      }
+      if (selectedLoaders.value.length > 0) {
+        queryItems.push(`a=${encodeURIComponent(selectedLoaders.value)}`)
+        obj.a = selectedLoaders.value
       }
       if (onlyOpenSource.value) {
         queryItems.push('l=true')
@@ -679,7 +703,7 @@ export default defineNuxtComponent({
       query,
       results,
       facets,
-      orFacets,
+      legacyOrFacets,
       selectedVersions,
       onlyOpenSource,
       showSnapshots,
@@ -695,6 +719,7 @@ export default defineNuxtComponent({
       searchLoading,
       noLoad,
       metaDescription,
+      selectedLoaders,
     }
   },
   computed: {
@@ -719,13 +744,9 @@ export default defineNuxtComponent({
   },
   methods: {
     clearFilters() {
-      for (const facet of [...this.facets]) {
-        this.toggleFacet(facet, true)
-      }
-      for (const facet of [...this.orFacets]) {
-        this.toggleOrFacet(facet, true)
-      }
-
+      this.facets = []
+      this.legacyOrFacets = []
+      this.selectedLoaders = []
       this.onlyOpenSource = false
       this.selectedVersions = []
       this.selectedEnvironments = []
@@ -744,38 +765,12 @@ export default defineNuxtComponent({
         this.onSearchChange(1)
       }
     },
-    toggleOrFacet(elementName, doNotSendRequest) {
-      const index = this.orFacets.indexOf(elementName)
+    toggleLoader(elementName, doNotSendRequest) {
+      const index = this.selectedLoaders.indexOf(elementName)
       if (index !== -1) {
-        this.orFacets.splice(index, 1)
+        this.selectedLoaders.splice(index, 1)
       } else {
-        if (elementName === 'categories:purpur') {
-          if (!this.orFacets.includes('categories:paper')) {
-            this.orFacets.push('categories:paper')
-          }
-          if (!this.orFacets.includes('categories:spigot')) {
-            this.orFacets.push('categories:spigot')
-          }
-          if (!this.orFacets.includes('categories:bukkit')) {
-            this.orFacets.push('categories:bukkit')
-          }
-        } else if (elementName === 'categories:paper') {
-          if (!this.orFacets.includes('categories:spigot')) {
-            this.orFacets.push('categories:spigot')
-          }
-          if (!this.orFacets.includes('categories:bukkit')) {
-            this.orFacets.push('categories:bukkit')
-          }
-        } else if (elementName === 'categories:spigot') {
-          if (!this.orFacets.includes('categories:bukkit')) {
-            this.orFacets.push('categories:bukkit')
-          }
-        } else if (elementName === 'categories:waterfall') {
-          if (!this.orFacets.includes('categories:bungeecord')) {
-            this.orFacets.push('categories:bungeecord')
-          }
-        }
-        this.orFacets.push(elementName)
+        this.selectedLoaders.push(elementName)
       }
 
       if (!doNotSendRequest) {
