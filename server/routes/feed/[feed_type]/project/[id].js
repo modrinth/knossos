@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     featuredImage = featuredImage.url
   }
 
-  const resultFeed = new Feed({
+  const feed = new Feed({
     title: projectInformation.title,
     id: projectInformation.id,
     description: renderString(projectInformation.description),
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
   })
 
   projectVersions.forEach((version) => {
-    resultFeed.addItem({
+    feed.addItem({
       title: `New Version Released: ${version.name}`,
       id: `release-${version.id}`,
       link:
@@ -56,13 +56,16 @@ export default defineEventHandler(async (event) => {
 
   switch (event.context.params.feed_type.toLowerCase()) {
     case 'rss':
-      return resultFeed.rss2()
+      setResponseHeader(event, 'Content-Type', 'application/rss+xml')
+      return feed.rss2()
     case 'atom':
-      return resultFeed.atom1()
+      setResponseHeader(event, 'Content-Type', 'application/atom+xml')
+      return feed.atom1()
     case 'json':
-      return resultFeed.json1()
+      setResponseHeader(event, 'Content-Type', 'application/feed+json')
+      return feed.json1()
     default:
-      setResponseStatus(event, 404)
+      setResponseStatus(event, 500)
       return 'Invalid Feed Type'
   }
 })
