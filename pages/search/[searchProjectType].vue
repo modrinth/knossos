@@ -770,6 +770,32 @@ export default defineNuxtComponent({
       if (index !== -1) {
         this.selectedLoaders.splice(index, 1)
       } else {
+        if (elementName === 'purpur') {
+          if (!this.selectedLoaders.includes('paper')) {
+            this.selectedLoaders.push('paper')
+          }
+          if (!this.selectedLoaders.includes('spigot')) {
+            this.selectedLoaders.push('spigot')
+          }
+          if (!this.selectedLoaders.includes('bukkit')) {
+            this.selectedLoaders.push('bukkit')
+          }
+        } else if (elementName === 'paper') {
+          if (!this.selectedLoaders.includes('spigot')) {
+            this.selectedLoaders.push('spigot')
+          }
+          if (!this.selectedLoaders.includes('bukkit')) {
+            this.selectedLoaders.push('bukkit')
+          }
+        } else if (elementName === 'spigot') {
+          if (!this.selectedLoaders.includes('bukkit')) {
+            this.selectedLoaders.push('bukkit')
+          }
+        } else if (elementName === 'waterfall') {
+          if (!this.selectedLoaders.includes('bungeecord')) {
+            this.selectedLoaders.push('bungeecord')
+          }
+        }
         this.selectedLoaders.push(elementName)
       }
 
