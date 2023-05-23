@@ -1,6 +1,7 @@
 import TOML from '@ltd/j-toml'
 import JSZip from 'jszip'
 import yaml from 'js-yaml'
+import { VersionRange } from "./versionRange.js";
 
 export const inferVersionInfo = async function (rawFile, project, gameVersions) {
   function versionType(number) {
@@ -26,33 +27,12 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
     // Truncate characters after `-` & `+`
     const gameString = gameVersionString.replace(/-|\+.*$/g, '')
 
-    let prefix = ''
-    if (gameString.includes('~')) {
-      // Include minor versions
-      // ~1.2.3 -> 1.2
-      prefix = gameString.replace('~', '').split('.').slice(0, 2).join('.')
-    } else if (gameString.includes('>=')) {
-      // Include minor versions
-      // >=1.2.3 -> 1.2
-      prefix = gameString.replace('>=', '').split('.').slice(0, 2).join('.')
-    } else if (gameString.includes('^')) {
-      // Include major versions
-      // ^1.2.3 -> 1
-      prefix = gameString.replace('^', '').split('.')[0]
-    } else if (gameString.includes('x')) {
-      // Include versions that match `x.x.x`
-      // 1.2.x -> 1.2
-      prefix = gameString.replace(/\.x$/, '')
-    } else {
-      // Include exact version
-      // 1.2.3 -> 1.2.3
-      prefix = gameString
-    }
+    const range = new VersionRange(gameString.trim())
 
     const simplified = gameVersions
       .filter((it) => it.version_type === 'release')
       .map((it) => it.version)
-    return simplified.filter((version) => version.startsWith(prefix))
+    return simplified.filter((version) => range.test(version))
   }
 
   const inferFunctions = {
