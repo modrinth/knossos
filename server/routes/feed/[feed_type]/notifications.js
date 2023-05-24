@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
       title: `Notifications for ${userInfo.username}`,
       link: WEBSITE_URL + '/notifications',
       generator: 'Modrinth',
+      id: WEBSITE_URL + '/notifications',
       description: `${userInfo.username} has ${userNotifications.length} notification${
         userNotifications.length === 1 ? '' : 's'
       }`,
@@ -41,11 +42,17 @@ export default defineEventHandler(async (event) => {
 
     userNotifications.forEach((notification) => {
       feed.addItem({
-        title: renderString(notification.title),
+        title: notification.title,
         description: renderString(notification.text),
-        id: notification.id,
+        id: WEBSITE_URL + notification.link,
         link: WEBSITE_URL + notification.link,
         date: new Date(notification.created),
+        author: [
+          {
+            name: userInfo.username,
+            link: WEBSITE_URL + `/user/${userInfo.id}`,
+          },
+        ],
       })
     })
 
@@ -65,8 +72,6 @@ export default defineEventHandler(async (event) => {
     }
   } catch (e) {
     setResponseStatus(event, 401)
-    return (
-      'Please pass a valid authentication token to view your notifications as an RSS feed.\n\n' + e
-    )
+    return 'There was an error generating the feed.\n\n' + e
   }
 })
