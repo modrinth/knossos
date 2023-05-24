@@ -1,5 +1,5 @@
 import { Feed } from 'feed'
-import { renderString } from '~/helpers/parse'
+import { renderString, escapeXmlAttr } from '~/helpers/parse'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
@@ -18,8 +18,23 @@ export default defineEventHandler(async (event) => {
 
   const feed = new Feed({
     title: projectInformation.title,
-    id: projectInformation.id,
-    description: renderString(projectInformation.description),
+    id: WEBSITE_URL + `/${projectInformation.project_type}/${projectInformation.id}`,
+    description:
+      `${projectInformation.title} is a ${projectInformation.project_type} with ${
+        projectInformation.downloads
+      } download${projectInformation.downloads > 1 ? 's' : ''}` +
+      `${
+        projectInformation.followers > 0
+          ? 'and ' + projectInformation.followers + ' follower' + projectInformation.followers > 1
+            ? 's'
+            : ''
+          : ''
+      } that is available on Modrinth, an open-source platform to host mods, modpacks, shaders, resource packs, plugins and datapacks.`,
+    feedLinks: {
+      json: WEBSITE_URL + `/feed/json/project/${projectInformation.id}`,
+      atom: WEBSITE_URL + `/feed/atom/project/${projectInformation.id}`,
+      rss: WEBSITE_URL + `/feed/rss/project/${projectInformation.id}`,
+    },
     generator: 'Modrinth',
     link: WEBSITE_URL + `/${projectInformation.project_type}/${projectInformation.id}`,
     language: 'en',
@@ -31,17 +46,21 @@ export default defineEventHandler(async (event) => {
   projectVersions.forEach((version) => {
     feed.addItem({
       title: `New Version Released: ${version.name}`,
-      id: `release-${version.id}`,
+      id:
+        WEBSITE_URL +
+        `/${projectInformation.project_type}/${projectInformation.id}/version/${version.id}`,
       link:
         WEBSITE_URL +
         `/${projectInformation.project_type}/${projectInformation.id}/version/${version.id}`,
-      content:
-        `This version is for ${version.game_versions.join(', ')}<br>` +
-        // Check for changelog length being greater than 1 to ensure no blank changelog section.
-        // Legacy changelog support.
-        `<h3>Changelog</h3>${renderString(
-          version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
-        )}`,
+      content: escapeXmlAttr(
+        `This version is for ${version.loaders.join(
+          ', '
+        )} and works on the following Minecraft versions: ${version.game_versions.join(', ')}<br>` +
+          // Check for changelog length being greater than 1 to ensure no blank changelog section.
+          `<h3>Changelog</h3>${renderString(
+            version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
+          )}`
+      ),
       author: [
         ...projectTeam.map((member) => {
           return {

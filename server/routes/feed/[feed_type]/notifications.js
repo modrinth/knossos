@@ -32,6 +32,11 @@ export default defineEventHandler(async (event) => {
       description: `${userInfo.username} has ${userNotifications.length} notification${
         userNotifications.length === 1 ? '' : 's'
       }`,
+      feedLinks: {
+        json: WEBSITE_URL + '/feed/json/notifications',
+        atom: WEBSITE_URL + '/feed/atom/notifications',
+        rss: WEBSITE_URL + '/feed/rss/notifications',
+      },
     })
 
     userNotifications.forEach((notification) => {
