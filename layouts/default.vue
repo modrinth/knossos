@@ -25,8 +25,8 @@
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
-                @click="changeTheme"
                 :disabled="isThemeSwitchOnHold"
+                @click="changeTheme"
               >
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
                 <SunIcon v-else aria-hidden="true" />
@@ -187,7 +187,7 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" @click="changeTheme" :disabled="isThemeSwitchOnHold">
+            <button class="iconified-button" :disabled="isThemeSwitchOnHold" @click="changeTheme">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -317,7 +317,11 @@
         </a>
       </div>
       <div class="buttons">
-        <button class="iconified-button raised-button" @click="changeTheme" :disabled="isThemeSwitchOnHold">
+        <button
+          class="iconified-button raised-button"
+          :disabled="isThemeSwitchOnHold"
+          @click="changeTheme"
+        >
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
@@ -488,9 +492,14 @@ export default defineNuxtComponent({
       }
     },
     changeTheme() {
-      this.isThemeSwitchOnHold = true;
+      this.isThemeSwitchOnHold = true
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
-      setTimeout(() => {this.isThemeSwitchOnHold = false}, 1000)
+      setTimeout(
+        () => {
+          this.isThemeSwitchOnHold = false
+        },
+        1000
+      )
     },
   },
 })
