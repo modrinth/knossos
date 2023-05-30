@@ -524,8 +524,8 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ModrinthIcon from '~/assets/images/logo.svg'
 import PrismLauncherLogo from '~/assets/images/external/prism.svg'
 import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
-import Avatar from '~/components/ui/Avatar'
-import ProjectCard from '~/components/ui/ProjectCard'
+import Avatar from '~/components/ui/Avatar.vue'
+import ProjectCard from '~/components/ui/ProjectCard.vue'
 
 const searchQuery = ref('better')
 const sortType = ref('relevance')
