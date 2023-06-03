@@ -14,7 +14,9 @@ export const configuredXss = new xss.FilterXSS({
     kbd: ['id'],
     input: ['checked', 'disabled', 'type'],
     iframe: ['width', 'height', 'allowfullscreen', 'frameborder', 'start', 'end'],
-    img: [...xss.whiteList.img, 'style'],
+    img: [...xss.whiteList.img, 'usemap'],
+    map: ['name'],
+    area: [...xss.whiteList.a, 'coords'],
     a: [...xss.whiteList.a, 'rel'],
   },
   css: {
@@ -56,7 +58,7 @@ export const configuredXss = new xss.FilterXSS({
       return name + '="' + xss.escapeAttrValue(value) + '"'
     }
   },
-  safeAttrValue(tag, name, value, _cssFilter) {
+  safeAttrValue(tag, name, value, cssFilter) {
     if (tag === 'img' && name === 'src' && !value.startsWith('data:')) {
       try {
         const url = new URL(value)
@@ -73,15 +75,22 @@ export const configuredXss = new xss.FilterXSS({
           'img.shields.io',
           'i.postimg.cc',
           'wsrv.nl',
+          'cf.way2muchnoise.eu',
+          'bstats.org',
         ]
 
         if (!allowedHostnames.includes(url.hostname)) {
-          return `https://wsrv.nl/?url=${encodeURIComponent(value)}`
+          return xss.safeAttrValue(
+            tag,
+            name,
+            `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`,
+            cssFilter
+          )
         }
       } catch (err) {}
     }
 
-    return value
+    return xss.safeAttrValue(tag, name, value, cssFilter)
   },
 })
 

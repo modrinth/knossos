@@ -664,7 +664,7 @@
   </div>
 </template>
 <script>
-import Multiselect from 'vue-multiselect'
+import { Multiselect } from 'vue-multiselect'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils'
 import { inferVersionInfo } from '~/helpers/infer'
 import { createDataPackVersion } from '~/helpers/package'
