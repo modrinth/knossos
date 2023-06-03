@@ -3,17 +3,17 @@
     <nav class="navigation-card">
       <NavRow
         :links="[
-              {
-                label: 'All',
-                href: `/dashboard/notifications`,
-              },
-              ...notificationTypes.map((type) => {
-                return {
-                  label: NOTIFICATION_TYPES[type],
-                  href: `/dashboard/notifications/${type}`,
-                }
-              }),
-            ]"
+          {
+            label: 'All',
+            href: `/dashboard/notifications`,
+          },
+          ...notificationTypes.map((type) => {
+            return {
+              label: NOTIFICATION_TYPES[type],
+              href: `/dashboard/notifications/${type}`,
+            }
+          }),
+        ]"
       />
       <div class="input-group">
         <button
