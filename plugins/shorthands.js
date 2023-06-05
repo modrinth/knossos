@@ -32,6 +32,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide('formatWallet', formatWallet)
   nuxtApp.provide('formatProjectType', formatProjectType)
   nuxtApp.provide('formatCategory', formatCategory)
+  nuxtApp.provide('getCategoryDescription', getCategoryDescription)
   nuxtApp.provide('formatCategoryHeader', formatCategoryHeader)
   nuxtApp.provide('formatProjectStatus', formatProjectStatus)
 
@@ -257,6 +258,15 @@ export const formatCategory = (name) => {
   }
 
   return capitalizeString(name)
+}
+
+const CATEGORY_DESCRIPTIONS_BY_ID = {
+  "cursed": "Mods that make questionable changes to the game.",
+  "optimization": "Mods that improve how the game performs.",
+}
+
+export const getCategoryDescription = (name) => {
+  return CATEGORY_DESCRIPTIONS_BY_ID[name] ?? null;
 }
 
 export const formatCategoryHeader = (name) => {
