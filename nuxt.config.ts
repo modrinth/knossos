@@ -118,11 +118,11 @@ export default defineNuxtConfig({
 
       if (
         // Skip regeneration if within TTL...
-        (state.lastGenerated &&
-          new Date(state.lastGenerated).getTime() + TTL > new Date().getTime() &&
-          // ...but only if the API URL is the same
-          state.apiUrl === API_URL) ||
-        homePageProjects.length === 0
+        state.lastGenerated &&
+        new Date(state.lastGenerated).getTime() + TTL > new Date().getTime() &&
+        // ...but only if the API URL is the same
+        state.apiUrl === API_URL &&
+        homePageProjects.length !== 0
       ) {
         return
       }
