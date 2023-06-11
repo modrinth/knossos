@@ -38,5 +38,5 @@
     "vue-multiselect": "^3.0.0-alpha.2",
     "xss": "^1.0.14"
   },
-  "packageManager": "pnpm@8.5.1"
+  "packageManager": "pnpm@8.6.1"
 }
