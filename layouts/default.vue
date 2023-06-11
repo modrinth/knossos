@@ -25,6 +25,7 @@
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
+                :disabled="isThemeSwitchOnHold"
                 @click="changeTheme"
               >
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
@@ -186,7 +187,7 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" @click="changeTheme">
+            <button class="iconified-button" :disabled="isThemeSwitchOnHold" @click="changeTheme">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -318,7 +319,11 @@
         </a>
       </div>
       <div class="buttons">
-        <button class="iconified-button raised-button" @click="changeTheme">
+        <button
+          class="iconified-button raised-button"
+          :disabled="isThemeSwitchOnHold"
+          @click="changeTheme"
+        >
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
@@ -353,9 +358,9 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
 import GitHubIcon from '~/assets/images/utils/github.svg'
-import NavRow from '~/components/ui/NavRow'
-import ModalCreation from '~/components/ui/ModalCreation'
-import Avatar from '~/components/ui/Avatar'
+import NavRow from '~/components/ui/NavRow.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
+import Avatar from '~/components/ui/Avatar.vue'
 
 const auth = await useAuth()
 const user = await useUser()
@@ -380,6 +385,7 @@ export default defineNuxtComponent({
       isDropdownOpen: false,
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
+      isThemeSwitchOnHold: false,
       registeredSkipLink: null,
       hideDropdown: false,
       navRoutes: [
@@ -488,7 +494,11 @@ export default defineNuxtComponent({
       }
     },
     changeTheme() {
+      this.isThemeSwitchOnHold = true
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
+      setTimeout(() => {
+        this.isThemeSwitchOnHold = false
+      }, 1000)
     },
   },
 })
