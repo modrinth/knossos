@@ -140,6 +140,7 @@ export default {
   },
   methods: {
     switchPage(newPage) {
+      this.$emit('switch-page', newPage)
       if (newPage !== null && newPage !== '' && !isNaN(newPage)) {
         this.$emit('switch-page', Math.min(Math.max(newPage, 1), this.count))
       }

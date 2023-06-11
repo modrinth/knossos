@@ -158,8 +158,8 @@
           <h3 class="sidebar-menu-heading">Minecraft versions</h3>
           <Checkbox
             v-model="showSnapshots"
-            label="Include snapshots"
-            description="Include snapshots"
+            label="Show all versions"
+            description="Show all versions"
             style="margin-bottom: 0.5rem"
             :border="false"
           />
@@ -342,12 +342,12 @@
   </div>
 </template>
 <script>
-import Multiselect from 'vue-multiselect'
-import ProjectCard from '~/components/ui/ProjectCard'
-import Pagination from '~/components/ui/Pagination'
-import SearchFilter from '~/components/ui/search/SearchFilter'
-import Checkbox from '~/components/ui/Checkbox'
-import LogoAnimated from '~/components/brand/LogoAnimated'
+import { Multiselect } from 'vue-multiselect'
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+import Pagination from '~/components/ui/Pagination.vue'
+import SearchFilter from '~/components/ui/search/SearchFilter.vue'
+import Checkbox from '~/components/ui/Checkbox.vue'
+import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 import ClientIcon from '~/assets/images/categories/client.svg'
 import ServerIcon from '~/assets/images/categories/server.svg'

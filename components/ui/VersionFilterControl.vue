@@ -59,8 +59,8 @@
         gameVersionFilters.some((v) => v.version_type !== 'release')
       "
       v-model="includeSnapshots"
-      label="Include snapshots"
-      description="Include snapshots"
+      label="Show all versions"
+      description="Show all versions"
       :border="false"
       @update:model-value="updateQuery"
     />
@@ -84,8 +84,8 @@
 </template>
 
 <script setup>
-import Multiselect from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox'
+import { Multiselect } from 'vue-multiselect'
+import Checkbox from '~/components/ui/Checkbox.vue'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 
 const props = defineProps({
