@@ -574,8 +574,8 @@
             :key="version.id"
             class="featured-version button-transparent"
             :to="`/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/version/${encodeURI(version.displayUrlEnding)}`"
+              project.slug ? project.slug : project.id
+            }/version/${encodeURI(version.displayUrlEnding)}`"
           >
             <a
               v-tooltip="
