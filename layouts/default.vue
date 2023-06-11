@@ -496,12 +496,9 @@ export default defineNuxtComponent({
     changeTheme() {
       this.isThemeSwitchOnHold = true
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
-      setTimeout(
-        () => {
-          this.isThemeSwitchOnHold = false
-        },
-        1000
-      )
+      setTimeout(() => {
+        this.isThemeSwitchOnHold = false
+      }, 1000)
     },
   },
 })
