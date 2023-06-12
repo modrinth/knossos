@@ -1,6 +1,6 @@
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
   const tagStore = nuxtApp.$tag
-  const authStore = nuxtApp.$auth
+  const { user, token } = useAuth()
 
   nuxtApp.provide('defaultHeaders', () => {
     const obj = { headers: {} }
@@ -11,8 +11,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         obj.headers['x-ratelimit-key'] = config.rateLimitKey || ''
     }
 
-    if (authStore.user)
-      obj.headers.Authorization = authStore.token
+    if (user)
+      obj.headers.Authorization = token
 
     return obj
   })
@@ -140,21 +140,23 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
   })
   nuxtApp.provide('cycleValue', cycleValue)
-  const sortedCategories = tagStore.categories.slice().sort((a, b) => {
-    const headerCompare = a.header.localeCompare(b.header)
-    if (headerCompare !== 0)
-      return headerCompare
+  const sortedCategories = tagStore && tagStore.categories
+    ? tagStore.categories.slice().sort((a, b) => {
+      const headerCompare = a.header.localeCompare(b.header)
+      if (headerCompare !== 0)
+        return headerCompare
 
-    if (a.header === 'resolutions' && b.header === 'resolutions') {
-      return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
-    }
-    else if (a.header === 'performance impact' && b.header === 'performance impact') {
-      const x = ['potato', 'low', 'medium', 'high', 'screenshot']
+      if (a.header === 'resolutions' && b.header === 'resolutions') {
+        return a.name.replace(/\D/g, '') - b.name.replace(/\D/g, '')
+      }
+      else if (a.header === 'performance impact' && b.header === 'performance impact') {
+        const x = ['potato', 'low', 'medium', 'high', 'screenshot']
 
-      return x.indexOf(a.name) - x.indexOf(b.name)
-    }
-    return 0
-  })
+        return x.indexOf(a.name) - x.indexOf(b.name)
+      }
+      return 0
+    })
+    : null
   nuxtApp.provide('sortedCategories', sortedCategories)
 })
 export function formatNumber(number, abbreviate = true) {

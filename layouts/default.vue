@@ -17,12 +17,11 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
 import GitHubIcon from '~/assets/images/utils/github.svg'
-import NavRow from '~/components/ui/NavRow.vue'
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 const auth = await useAuth()
 const user = await useUser()
+
+await auth.initAuth()
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -36,128 +35,119 @@ useHead({
     },
   ],
 })
-</script>
 
-<script>
-export default defineNuxtComponent({
-  data() {
-    return {
-      isDropdownOpen: false,
-      isMobileMenuOpen: false,
-      isBrowseMenuOpen: false,
-      isThemeSwitchOnHold: false,
-      registeredSkipLink: null,
-      hideDropdown: false,
-      navRoutes: [
-        {
-          label: 'Mods',
-          href: '/mods',
-        },
-        {
-          label: 'Plugins',
-          href: '/plugins',
-        },
-        {
-          label: 'Data Packs',
-          href: '/datapacks',
-        },
-        {
-          label: 'Shaders',
-          href: '/shaders',
-        },
-        {
-          label: 'Resource Packs',
-          href: '/resourcepacks',
-        },
-        {
-          label: 'Modpacks',
-          href: '/modpacks',
-        },
-      ],
+const isDropdownOpen = ref(false)
+const isMobileMenuOpen = ref(false)
+const isBrowseMenuOpen = ref(false)
+const isThemeSwitchOnHold = ref(false)
+const navRoutes = ref([
+  {
+    label: 'Mods',
+    href: '/mods',
+  },
+  {
+    label: 'Plugins',
+    href: '/plugins',
+  },
+  {
+    label: 'Data Packs',
+    href: '/datapacks',
+  },
+  {
+    label: 'Shaders',
+    href: '/shaders',
+  },
+  {
+    label: 'Resource Packs',
+    href: '/resourcepacks',
+  },
+  {
+    label: 'Modpacks',
+    href: '/modpacks',
+  },
+])
+
+watch(
+  () => route.path,
+  () => {
+    isMobileMenuOpen.value = false
+    isBrowseMenuOpen.value = false
+
+    if (process.client) {
+      document.body.style.overflowY = 'scroll'
+      document.body.setAttribute('tabindex', '-1')
+      document.body.removeAttribute('tabindex')
     }
+
+    updateCurrentDate()
+    runAnalytics()
   },
-  computed: {
-    isOnSearchPage() {
-      return this.navRoutes.some(route => this.$route.path.startsWith(route.href))
-    },
-  },
-  watch: {
-    '$route.path': function () {
-      this.isMobileMenuOpen = false
-      this.isBrowseMenuOpen = false
+)
 
-      if (process.client) {
-        document.body.style.overflowY = 'scroll'
-        document.body.setAttribute('tabindex', '-1')
-        document.body.removeAttribute('tabindex')
-      }
-
-      updateCurrentDate()
-      this.runAnalytics()
-    },
-  },
-  async mounted() {
-    this.runAnalytics()
-    if (this.$route.query.code) {
-      await useAuth(this.$route.query.code)
-      window.history.replaceState(history.state, null, this.$route.path)
-    }
-  },
-  methods: {
-    runAnalytics() {
-      const config = useRuntimeConfig()
-
-      setTimeout(() => {
-        $fetch(`${config.public.ariadneBaseUrl}view`, {
-          method: 'POST',
-          body: {
-            url: window.location.href,
-          },
-        })
-          .then(() => {})
-          .catch(() => {})
-      })
-    },
-    toggleMobileMenu() {
-      this.isMobileMenuOpen = !this.isMobileMenuOpen
-      if (this.isMobileMenuOpen)
-        this.isBrowseMenuOpen = false
-    },
-    toggleBrowseMenu() {
-      this.isBrowseMenuOpen = !this.isBrowseMenuOpen
-
-      if (this.isBrowseMenuOpen)
-        this.isMobileMenuOpen = false
-    },
-    logout() {
-      useCookie('auth-token').value = null
-
-      this.$notify({
-        group: 'main',
-        title: 'Logged Out',
-        text: 'You have logged out successfully!',
-        type: 'success',
-      })
-
-      useRouter()
-        .push('/')
-        .then(() => {
-          useRouter().go()
-        })
-    },
-    changeTheme() {
-      this.isThemeSwitchOnHold = true
-      this.$colorMode.preference = this.$colorMode.preference === 'dark' ? 'light' : 'dark'
-      setTimeout(() => {
-        this.isThemeSwitchOnHold = false
-      }, 1000)
-    },
-  },
+onMounted(async () => {
+  runAnalytics()
+  if (route.query.code) {
+    await useAuth(route.query.code)
+    window.history.replaceState(history.state, null, route.path)
+  }
 })
+
+function runAnalytics() {
+  const config = useRuntimeConfig()
+
+  setTimeout(() => {
+    $fetch(`${config.public.ariadneBaseUrl}view`, {
+      method: 'POST',
+      body: {
+        url: window.location.href,
+      },
+    })
+      .then(() => {})
+      .catch(() => {})
+  })
+}
+
+function toggleMobileMenu() {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (isMobileMenuOpen.value)
+    isBrowseMenuOpen.value = false
+}
+
+function toggleBrowseMenu() {
+  isBrowseMenuOpen.value = !isBrowseMenuOpen.value
+
+  if (isBrowseMenuOpen.value)
+    isMobileMenuOpen.value = false
+}
+
+function logout() {
+  useCookie('auth-token').value = null
+
+  notify({
+    group: 'main',
+    title: 'Logged Out',
+    text: 'You have logged out successfully!',
+    type: 'success',
+  })
+
+  useRouter()
+    .push('/')
+    .then(() => {
+      useRouter().go()
+    })
+}
+
+function changeTheme() {
+  isThemeSwitchOnHold.value = true
+  useColorMode().preference = useColorMode().preference === 'dark' ? 'light' : 'dark'
+  setTimeout(() => {
+    isThemeSwitchOnHold.value = false
+  }, 1000)
+}
 </script>
 
 <template>
-  <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+  <div class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
@@ -167,11 +157,11 @@ export default defineNuxtComponent({
         </section>
         <section class="nav-group columns" role="presentation">
           <section class="nav" aria-label="Page links">
-            <NavRow class="navigation" :links="navRoutes" />
+            <UiNavRow class="navigation" :links="navRoutes" />
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
-              <nuxt-link
+              <NuxtLink
                 v-if="auth.user"
                 to="/notifications"
                 class="control-button button-transparent"
@@ -179,7 +169,7 @@ export default defineNuxtComponent({
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
-              </nuxt-link>
+              </NuxtLink>
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
@@ -199,7 +189,7 @@ export default defineNuxtComponent({
                 @mouseleave="isDropdownOpen = false"
               >
                 <button class="control" value="Profile Dropdown">
-                  <Avatar
+                  <UiAvatar
                     :src="auth.user.avatar_url"
                     class="user-icon"
                     alt="Your avatar"
@@ -242,7 +232,7 @@ export default defineNuxtComponent({
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
-                    v-if="$tag.staffRoles.includes($auth.user.role)"
+                    v-if="$tag.staffRoles.includes(useAuth().user.role)"
                     class="item button-transparent"
                     to="/moderation"
                   >
@@ -299,7 +289,7 @@ export default defineNuxtComponent({
               :to="`/user/${auth.user.username}`"
               class="iconified-button account-button"
             >
-              <Avatar
+              <UiAvatar
                 :src="auth.user.avatar_url"
                 class="user-icon"
                 alt="Your avatar"
@@ -405,7 +395,7 @@ export default defineNuxtComponent({
               <CrossIcon v-else />
             </template>
             <template v-else>
-              <Avatar
+              <UiAvatar
                 :src="auth.user.avatar_url"
                 class="user-icon"
                 :class="{ expanded: isMobileMenuOpen }"
@@ -419,7 +409,7 @@ export default defineNuxtComponent({
       </section>
     </header>
     <main>
-      <ModalCreation v-if="auth.user" ref="modal_creation" />
+      <UiModalCreation v-if="auth.user" ref="modal_creation" />
       <slot id="main" />
     </main>
     <footer>
@@ -456,15 +446,15 @@ export default defineNuxtComponent({
         <h4 aria-hidden="true">
           Company
         </h4>
-        <nuxt-link to="/legal/terms">
+        <NuxtLink to="/legal/terms">
           Terms
-        </nuxt-link>
-        <nuxt-link to="/legal/privacy">
+        </NuxtLink>
+        <NuxtLink to="/legal/privacy">
           Privacy
-        </nuxt-link>
-        <nuxt-link to="/legal/rules">
+        </NuxtLink>
+        <NuxtLink to="/legal/rules">
           Rules
-        </nuxt-link>
+        </NuxtLink>
         <a :target="$external()" href="https://careers.modrinth.com">Careers <span class="count-bubble">1</span></a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
@@ -497,10 +487,10 @@ export default defineNuxtComponent({
           <SunIcon v-else aria-hidden="true" />
           Change theme
         </button>
-        <nuxt-link class="iconified-button raised-button" to="/settings">
+        <NuxtLink class="iconified-button raised-button" to="/settings">
           <SettingsIcon aria-hidden="true" />
           Settings
-        </nuxt-link>
+        </NuxtLink>
       </div>
       <div class="not-affiliated-notice">
         NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.

@@ -62,7 +62,7 @@ const rows = shallowRef([
           Discover mods
         </nuxt-link>
         <a
-          v-if="!$auth.user"
+          v-if="!useAuth().user"
           :href="getAuthUrl()"
           class="iconified-button outline-button"
           rel="noopener nofollow"
