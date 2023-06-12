@@ -16,7 +16,7 @@
             <CrossIcon />
           </button>
         </div>
-        <div class="content">
+        <div ref="focusRef" class="content">
           <slot />
         </div>
       </div>
@@ -27,6 +27,7 @@
 
 <script>
 import CrossIcon from '~/assets/images/utils/x.svg'
+import useFocus from '~/composables/useFocus.js'
 
 export default {
   components: {
@@ -37,6 +38,13 @@ export default {
       type: String,
       default: null,
     },
+  },
+  setup() {
+    const { focusRef } = useFocus()
+
+    return {
+      focusRef,
+    }
   },
   data() {
     return {
