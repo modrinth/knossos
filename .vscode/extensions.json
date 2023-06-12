@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "antfu.goto-alias",
+    "bradlc.vscode-tailwindcss",
+    "csstools.postcss",
+    "cpylua.language-postcss",
+    "dbaeumer.vscode-eslint",
+    "vue.volar"
+  ]
+}

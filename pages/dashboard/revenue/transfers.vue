@@ -1,35 +1,3 @@
-<template>
-  <div>
-    <section class="universal-card payout-history">
-      <Breadcrumbs
-        current-title="Transfer history"
-        :link-stack="[{ href: '/dashboard/revenue', label: 'Revenue' }]"
-      />
-      <h2>Transfer history</h2>
-      <p>
-        All of your transfers from your Modrinth balance to your PayPal or Venmo accounts will be
-        listed here:
-      </p>
-      <div class="grid-table">
-        <div class="grid-table__row grid-table__header">
-          <div class="desktop">Date</div>
-          <div class="desktop">Status</div>
-          <div class="desktop">Amount</div>
-          <div class="mobile">Transaction</div>
-        </div>
-        <div
-          v-for="(payout, index) in payouts.payouts.filter((x) => x.status === 'success')"
-          :key="`payout-${index}`"
-          class="grid-table__row"
-        >
-          <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
-          <div><Badge :type="payout.status" /></div>
-          <div class="amount">{{ $formatMoney(payout.amount) }}</div>
-        </div>
-      </div>
-    </section>
-  </div>
-</template>
 <script setup>
 import Badge from '~/components/ui/Badge.vue'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
@@ -47,6 +15,50 @@ const [raw] = await Promise.all([
 
 const payouts = ref(raw)
 </script>
+
+<template>
+  <div>
+    <section class="universal-card payout-history">
+      <Breadcrumbs
+        current-title="Transfer history"
+        :link-stack="[{ href: '/dashboard/revenue', label: 'Revenue' }]"
+      />
+      <h2>Transfer history</h2>
+      <p>
+        All of your transfers from your Modrinth balance to your PayPal or Venmo accounts will be
+        listed here:
+      </p>
+      <div class="grid-table">
+        <div class="grid-table__row grid-table__header">
+          <div class="desktop">
+            Date
+          </div>
+          <div class="desktop">
+            Status
+          </div>
+          <div class="desktop">
+            Amount
+          </div>
+          <div class="mobile">
+            Transaction
+          </div>
+        </div>
+        <div
+          v-for="(payout, index) in payouts.payouts.filter((x) => x.status === 'success')"
+          :key="`payout-${index}`"
+          class="grid-table__row"
+        >
+          <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
+          <div><Badge :type="payout.status" /></div>
+          <div class="amount">
+            {{ $formatMoney(payout.amount) }}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .grid-table {
   display: grid;

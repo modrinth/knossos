@@ -1,4 +1,8 @@
 {
-  "prettier.endOfLine": "lf",
-  "editor.formatOnSave": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  }
 }

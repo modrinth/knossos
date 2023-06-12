@@ -1,12 +1,12 @@
 export const useLoading = () => useState('loading', () => false)
 
-export const startLoading = () => {
+export function startLoading() {
   const loading = useLoading()
 
   loading.value = true
 }
 
-export const stopLoading = () => {
+export function stopLoading() {
   const loading = useLoading()
 
   loading.value = false

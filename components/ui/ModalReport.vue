@@ -1,61 +1,3 @@
-<template>
-  <Modal ref="modal" :header="`Report ${itemType}`">
-    <div class="modal-report legacy-label-styles">
-      <div class="markdown-body">
-        <p>
-          Modding should be safe for everyone, so we take abuse and malicious intent seriously at
-          Modrinth. We want to hear about harmful content on the site that violates our
-          <nuxt-link to="/legal/terms"> ToS </nuxt-link> and
-          <nuxt-link to="/legal/rules"> Rules </nuxt-link>. Rest assured, we’ll keep your
-          identifying information private.
-        </p>
-        <p v-if="itemType === 'project' || itemType === 'version'">
-          Please <strong>do not</strong> use this to report bugs with the project itself. This form
-          is only for submitting a report to Modrinth staff. If the project has an Issues link or a
-          Discord invite, consider reporting it there.
-        </p>
-      </div>
-      <label class="report-label" for="report-type">
-        <span>
-          <strong>Reason</strong>
-        </span>
-      </label>
-      <Multiselect
-        id="report-type"
-        v-model="reportType"
-        :options="$tag.reportTypes"
-        :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
-        :multiple="false"
-        :searchable="false"
-        :show-no-results="false"
-        :show-labels="false"
-        placeholder="Choose report type"
-      />
-      <label class="report-label" for="additional-information">
-        <strong>Additional information</strong>
-        <span> Include links and images if possible. Markdown formatting is supported. </span>
-      </label>
-      <div class="textarea-wrapper">
-        <Chips v-model="bodyViewType" class="separator" :items="['source', 'preview']" />
-        <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
-          <textarea id="body" v-model="body" spellcheck="true" />
-        </div>
-        <div v-else class="preview" v-html="renderString(body)" />
-      </div>
-      <div class="button-group">
-        <button class="iconified-button" @click="cancel">
-          <CrossIcon />
-          Cancel
-        </button>
-        <button class="iconified-button brand-button" @click="submitReport">
-          <CheckIcon />
-          Report
-        </button>
-      </div>
-    </div>
-  </Modal>
-</template>
-
 <script>
 import { Multiselect } from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg'
@@ -114,7 +56,8 @@ export default {
         })
 
         this.$refs.modal.hide()
-      } catch (err) {
+      }
+      catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
@@ -130,6 +73,68 @@ export default {
   },
 }
 </script>
+
+<template>
+  <Modal ref="modal" :header="`Report ${itemType}`">
+    <div class="modal-report legacy-label-styles">
+      <div class="markdown-body">
+        <p>
+          Modding should be safe for everyone, so we take abuse and malicious intent seriously at
+          Modrinth. We want to hear about harmful content on the site that violates our
+          <nuxt-link to="/legal/terms">
+            ToS
+          </nuxt-link> and
+          <nuxt-link to="/legal/rules">
+            Rules
+          </nuxt-link>. Rest assured, we’ll keep your
+          identifying information private.
+        </p>
+        <p v-if="itemType === 'project' || itemType === 'version'">
+          Please <strong>do not</strong> use this to report bugs with the project itself. This form
+          is only for submitting a report to Modrinth staff. If the project has an Issues link or a
+          Discord invite, consider reporting it there.
+        </p>
+      </div>
+      <label class="report-label" for="report-type">
+        <span>
+          <strong>Reason</strong>
+        </span>
+      </label>
+      <Multiselect
+        id="report-type"
+        v-model="reportType"
+        :options="$tag.reportTypes"
+        :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
+        :multiple="false"
+        :searchable="false"
+        :show-no-results="false"
+        :show-labels="false"
+        placeholder="Choose report type"
+      />
+      <label class="report-label" for="additional-information">
+        <strong>Additional information</strong>
+        <span> Include links and images if possible. Markdown formatting is supported. </span>
+      </label>
+      <div class="textarea-wrapper">
+        <Chips v-model="bodyViewType" class="separator" :items="['source', 'preview']" />
+        <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
+          <textarea id="body" v-model="body" spellcheck="true" />
+        </div>
+        <div v-else class="preview" v-html="renderString(body)" />
+      </div>
+      <div class="button-group">
+        <button class="iconified-button" @click="cancel">
+          <CrossIcon />
+          Cancel
+        </button>
+        <button class="iconified-button brand-button" @click="submitReport">
+          <CheckIcon />
+          Report
+        </button>
+      </div>
+    </div>
+  </Modal>
+</template>
 
 <style scoped lang="scss">
 .modal-report {

@@ -1,93 +1,3 @@
-<template>
-  <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
-    <nuxt-link
-      :title="name"
-      class="icon"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-    >
-      <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
-    </nuxt-link>
-    <nuxt-link
-      class="gallery"
-      :class="{ 'no-image': !featuredImage }"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-      :style="color ? `background-color: ${toColor};` : ''"
-    >
-      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" loading="lazy" />
-    </nuxt-link>
-    <div class="title">
-      <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
-        <h2 class="name">
-          {{ name }}
-        </h2>
-      </nuxt-link>
-      <p v-if="author" class="author">
-        by
-        <nuxt-link class="title-link" :to="'/user/' + author">
-          {{ author }}
-        </nuxt-link>
-      </p>
-      <Badge v-if="status && status !== 'approved'" :type="status" class="status" />
-    </div>
-    <p class="description">
-      {{ description }}
-    </p>
-    <Categories
-      :categories="
-        categories.filter((x) => !hideLoaders || !$tag.loaders.find((y) => y.name === x))
-      "
-      :type="type"
-      class="tags"
-    >
-      <EnvironmentIndicator
-        :type-only="moderation"
-        :client-side="clientSide"
-        :server-side="serverSide"
-        :type="projectTypeDisplay"
-        :search="search"
-        :categories="categories"
-      />
-    </Categories>
-    <div class="stats">
-      <div v-if="downloads" class="stat">
-        <DownloadIcon aria-hidden="true" />
-        <p>
-          <strong>{{ $formatNumber(downloads) }}</strong
-          ><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
-        </p>
-      </div>
-      <div v-if="follows" class="stat">
-        <HeartIcon aria-hidden="true" />
-        <p>
-          <strong>{{ $formatNumber(follows) }}</strong
-          ><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
-        </p>
-      </div>
-      <div class="buttons">
-        <slot />
-      </div>
-      <div
-        v-if="showUpdatedDate"
-        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm:ss A')"
-        class="stat date"
-      >
-        <EditIcon aria-hidden="true" />
-        <span class="date-label">Updated </span>{{ fromNow(updatedAt) }}
-      </div>
-      <div
-        v-else
-        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm:ss A')"
-        class="stat date"
-      >
-        <CalendarIcon aria-hidden="true" />
-        <span class="date-label">Published </span>{{ fromNow(createdAt) }}
-      </div>
-    </div>
-  </article>
-</template>
-
 <script>
 import Categories from '~/components/ui/search/Categories.vue'
 import Badge from '~/components/ui/Badge.vue'
@@ -217,14 +127,102 @@ export default {
       let color = this.color
 
       color >>>= 0
-      const b = color & 0xff
-      const g = (color & 0xff00) >>> 8
-      const r = (color & 0xff0000) >>> 16
-      return 'rgba(' + [r, g, b, 1].join(',') + ')'
+      const b = color & 0xFF
+      const g = (color & 0xFF00) >>> 8
+      const r = (color & 0xFF0000) >>> 16
+      return `rgba(${[r, g, b, 1].join(',')})`
     },
   },
 }
 </script>
+
+<template>
+  <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
+    <nuxt-link
+      :title="name"
+      class="icon"
+      tabindex="-1"
+      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+    >
+      <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
+    </nuxt-link>
+    <nuxt-link
+      class="gallery"
+      :class="{ 'no-image': !featuredImage }"
+      tabindex="-1"
+      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+      :style="color ? `background-color: ${toColor};` : ''"
+    >
+      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" loading="lazy">
+    </nuxt-link>
+    <div class="title">
+      <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
+        <h2 class="name">
+          {{ name }}
+        </h2>
+      </nuxt-link>
+      <p v-if="author" class="author">
+        by
+        <nuxt-link class="title-link" :to="`/user/${author}`">
+          {{ author }}
+        </nuxt-link>
+      </p>
+      <Badge v-if="status && status !== 'approved'" :type="status" class="status" />
+    </div>
+    <p class="description">
+      {{ description }}
+    </p>
+    <Categories
+      :categories="
+        categories.filter((x) => !hideLoaders || !$tag.loaders.find((y) => y.name === x))
+      "
+      :type="type"
+      class="tags"
+    >
+      <EnvironmentIndicator
+        :type-only="moderation"
+        :client-side="clientSide"
+        :server-side="serverSide"
+        :type="projectTypeDisplay"
+        :search="search"
+        :categories="categories"
+      />
+    </Categories>
+    <div class="stats">
+      <div v-if="downloads" class="stat">
+        <DownloadIcon aria-hidden="true" />
+        <p>
+          <strong>{{ $formatNumber(downloads) }}</strong><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
+        </p>
+      </div>
+      <div v-if="follows" class="stat">
+        <HeartIcon aria-hidden="true" />
+        <p>
+          <strong>{{ $formatNumber(follows) }}</strong><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
+        </p>
+      </div>
+      <div class="buttons">
+        <slot />
+      </div>
+      <div
+        v-if="showUpdatedDate"
+        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+        class="stat date"
+      >
+        <EditIcon aria-hidden="true" />
+        <span class="date-label">Updated </span>{{ fromNow(updatedAt) }}
+      </div>
+      <div
+        v-else
+        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+        class="stat date"
+      >
+        <CalendarIcon aria-hidden="true" />
+        <span class="date-label">Published </span>{{ fromNow(createdAt) }}
+      </div>
+    </div>
+  </article>
+</template>
 
 <style lang="scss" scoped>
 .project-card {

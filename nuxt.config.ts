@@ -1,7 +1,7 @@
-import { promises as fs } from 'fs'
+import { promises as fs } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 import svgLoader from 'vite-svg-loader'
-import { resolve, basename } from 'pathe'
+import { basename, resolve } from 'pathe'
 import { defineNuxtConfig } from 'nuxt/config'
 import { $fetch } from 'ofetch'
 import { globIterate } from 'glob'
@@ -24,9 +24,9 @@ const favicons = {
 }
 
 const meta = {
-  description:
+  'description':
     'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
-  publisher: 'Rinth, Inc.',
+  'publisher': 'Rinth, Inc.',
   'apple-mobile-web-app-title': 'Modrinth',
   'theme-color': '#1bd96a',
   'color-scheme': 'dark light',
@@ -102,7 +102,7 @@ export default defineNuxtConfig({
     ],
   },
   hooks: {
-    async 'build:before'() {
+    'build:before': async function () {
       // 30 minutes
       const TTL = 30 * 60 * 1000
 
@@ -120,7 +120,8 @@ export default defineNuxtConfig({
       try {
         state = JSON.parse(await fs.readFile('./generated/state.json', 'utf8'))
         homePageProjects = JSON.parse(await fs.readFile('./generated/homepage.json', 'utf8'))
-      } catch {
+      }
+      catch {
         // File doesn't exist, create folder
         await fs.mkdir('./generated', { recursive: true })
       }
@@ -129,14 +130,13 @@ export default defineNuxtConfig({
 
       if (
         // Skip regeneration if within TTL...
-        state.lastGenerated &&
-        new Date(state.lastGenerated).getTime() + TTL > new Date().getTime() &&
+        state.lastGenerated
+        && new Date(state.lastGenerated).getTime() + TTL > new Date().getTime()
         // ...but only if the API URL is the same
-        state.apiUrl === API_URL &&
-        homePageProjects.length !== 0
-      ) {
+        && state.apiUrl === API_URL
+        && homePageProjects.length !== 0
+      )
         return
-      }
 
       state.lastGenerated = new Date().toISOString()
 
@@ -148,8 +148,8 @@ export default defineNuxtConfig({
         },
       }
 
-      const [categories, loaders, gameVersions, donationPlatforms, reportTypes, projects] =
-        await Promise.all([
+      const [categories, loaders, gameVersions, donationPlatforms, reportTypes, projects]
+        = await Promise.all([
           $fetch(`${API_URL}tag/category`, headers),
           $fetch(`${API_URL}tag/loader`, headers),
           $fetch(`${API_URL}tag/game_version`, headers),
@@ -170,24 +170,24 @@ export default defineNuxtConfig({
 
       console.log('Tags generated!')
     },
-    'pages:extend'(routes) {
+    'pages:extend': function (routes) {
       routes.splice(
-        routes.findIndex((x) => x.name === 'search-searchProjectType'),
-        1
+        routes.findIndex(x => x.name === 'search-searchProjectType'),
+        1,
       )
 
       const types = ['mods', 'modpacks', 'plugins', 'resourcepacks', 'shaders', 'datapacks']
 
-      types.forEach((type) =>
+      types.forEach(type =>
         routes.push({
           name: `search-${type}`,
           path: `/${type}`,
           file: resolve(__dirname, 'pages/search/[searchProjectType].vue'),
           children: [],
-        })
+        }),
       )
     },
-    async 'vintl:extendOptions'(opts) {
+    'vintl:extendOptions': async function (opts) {
       opts.locales ??= []
 
       const resolveCompactNumberDataImport = await (async () => {
@@ -196,7 +196,7 @@ export default defineNuxtConfig({
 
         for await (const localeFile of globIterate(
           'node_modules/@vintl/compact-number/dist/locale-data/*.mjs',
-          { ignore: '**/*.data.mjs' }
+          { ignore: '**/*.data.mjs' },
         )) {
           const tag = basename(localeFile, '.mjs')
           compactNumberLocales.push(tag)
@@ -215,11 +215,12 @@ export default defineNuxtConfig({
 
       for await (const localeDir of globIterate('locales/*/', { posix: true })) {
         const tag = basename(localeDir)
-        if (!ENABLED_LOCALES.includes(tag) && opts.defaultLocale !== tag) continue
+        if (!ENABLED_LOCALES.includes(tag) && opts.defaultLocale !== tag)
+          continue
 
-        const locale =
-          opts.locales.find((locale) => locale.tag === tag) ??
-          opts.locales[opts.locales.push({ tag }) - 1]
+        const locale
+          = opts.locales.find(locale => locale.tag === tag)
+          ?? opts.locales[opts.locales.push({ tag }) - 1]
 
         for await (const localeFile of globIterate(`${localeDir}/*`, { posix: true })) {
           const fileName = basename(localeFile)
@@ -229,27 +230,29 @@ export default defineNuxtConfig({
                 from: `./${localeFile}`,
                 format: 'crowdin',
               }
-            } else {
-              ;(locale.files ??= []).push({
+            }
+            else {
+              (locale.files ??= []).push({
                 from: `./${localeFile}`,
                 format: 'crowdin',
               })
             }
-          } else if (fileName === 'meta.json') {
+          }
+          else if (fileName === 'meta.json') {
             /** @type {Record<string, { message: string }>} */
-            const meta = await fs.readFile(localeFile, 'utf8').then((date) => JSON.parse(date))
+            const meta = await fs.readFile(localeFile, 'utf8').then(date => JSON.parse(date))
             locale.meta ??= {}
-            for (const key in meta) {
+            for (const key in meta)
               locale.meta[key] = meta[key].message
-            }
-          } else {
-            ;(locale.resources ??= {})[fileName] = `./${localeFile}`
+          }
+          else {
+            (locale.resources ??= {})[fileName] = `./${localeFile}`
           }
         }
 
         const cnDataImport = resolveCompactNumberDataImport(tag)
         if (cnDataImport != null) {
-          ;(locale.additionalImports ??= []).push({
+          (locale.additionalImports ??= []).push({
             from: cnDataImport,
             resolve: false,
           })
@@ -282,7 +285,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: ['@vintl/nuxt'],
+  modules: ['@vintl/nuxt', '@nuxt/image', '@nuxtjs/color-mode'],
   vintl: {
     defaultLocale: 'en-US',
     storage: 'cookie',
@@ -290,6 +293,22 @@ export default defineNuxtConfig({
   },
   nitro: {
     moduleSideEffects: ['@vintl/compact-number/locale-data'],
+  },
+  image: {
+    provider: 'ipx',
+    // presets: {
+    //   blog: {
+    //     modifiers: {
+    //       format: 'webp',
+    //       fit: 'cover',
+    //       quality: '90',
+    //     },
+    //   },
+    // },
+  },
+  colorMode: {
+    preference: 'light',
+    fallback: 'light',
   },
 })
 
@@ -303,18 +322,18 @@ function getAriadneUrl() {
 
 function getDomain() {
   if (process.env.NODE_ENV === 'production') {
-    if (process.env.SITE_URL) {
+    if (process.env.SITE_URL)
       return process.env.SITE_URL
-    } else if (process.env.HEROKU_APP_NAME) {
+    else if (process.env.HEROKU_APP_NAME)
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
-    } else if (process.env.VERCEL_URL) {
+    else if (process.env.VERCEL_URL)
       return `https://${process.env.VERCEL_URL}`
-    } else if (getApiUrl() === STAGING_API_URL) {
+    else if (getApiUrl() === STAGING_API_URL)
       return 'https://staging.modrinth.com'
-    } else {
+    else
       return 'https://modrinth.com'
-    }
-  } else {
+  }
+  else {
     return 'http://localhost:3000'
   }
 }

@@ -1,3 +1,11 @@
+<script setup>
+const notifications = useNotifications()
+
+function stopTimer(notif) {
+  clearTimeout(notif.timer)
+}
+</script>
+
 <template>
   <div class="vue-notification-group">
     <transition-group name="notifs">
@@ -10,20 +18,14 @@
         @mouseleave="setNotificationTimer(item)"
       >
         <div class="vue-notification-template vue-notification" :class="{ [item.type]: true }">
-          <div class="notification-title" v-html="item.title"></div>
-          <div class="notification-content" v-html="item.text"></div>
+          <div class="notification-title" v-html="item.title" />
+          <div class="notification-content" v-html="item.text" />
         </div>
       </div>
     </transition-group>
   </div>
 </template>
-<script setup>
-const notifications = useNotifications()
 
-function stopTimer(notif) {
-  clearTimeout(notif.timer)
-}
-</script>
 <style lang="scss" scoped>
 .vue-notification {
   background: var(--color-special-blue) !important;

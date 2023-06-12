@@ -1,30 +1,3 @@
-<template>
-  <div v-if="shown">
-    <div
-      :class="{
-        shown: actuallyShown,
-        noblur: !$orElse($cosmetics.advancedRendering, true),
-      }"
-      class="modal-overlay"
-      @click="hide"
-    />
-    <div class="modal-container" :class="{ shown: actuallyShown }">
-      <div class="modal-body">
-        <div v-if="header" class="header">
-          <h1>{{ header }}</h1>
-          <button class="iconified-button icon-only transparent" @click="hide">
-            <CrossIcon />
-          </button>
-        </div>
-        <div class="content">
-          <slot />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div v-else />
-</template>
-
 <script>
 import CrossIcon from '~/assets/images/utils/x.svg'
 
@@ -60,6 +33,33 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div v-if="shown">
+    <div
+      :class="{
+        shown: actuallyShown,
+        noblur: !$orElse($cosmetics.advancedRendering, true),
+      }"
+      class="modal-overlay"
+      @click="hide"
+    />
+    <div class="modal-container" :class="{ shown: actuallyShown }">
+      <div class="modal-body">
+        <div v-if="header" class="header">
+          <h1>{{ header }}</h1>
+          <button class="iconified-button icon-only transparent" @click="hide">
+            <CrossIcon />
+          </button>
+        </div>
+        <div class="content">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else />
+</template>
 
 <style lang="scss" scoped>
 .modal-overlay {

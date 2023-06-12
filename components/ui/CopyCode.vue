@@ -1,11 +1,3 @@
-<template>
-  <button class="code" :class="{ copied }" title="Copy code to clipboard" @click="copyText">
-    {{ text }}
-    <CheckIcon v-if="copied" />
-    <ClipboardCopyIcon v-else />
-  </button>
-</template>
-
 <script>
 import CheckIcon from '~/assets/images/utils/check.svg'
 import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg'
@@ -34,6 +26,14 @@ export default {
   },
 }
 </script>
+
+<template>
+  <button class="code" :class="{ copied }" title="Copy code to clipboard" @click="copyText">
+    {{ text }}
+    <CheckIcon v-if="copied" />
+    <ClipboardCopyIcon v-else />
+  </button>
+</template>
 
 <style lang="scss" scoped>
 .code {

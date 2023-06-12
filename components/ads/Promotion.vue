@@ -1,3 +1,8 @@
+<script setup>
+import LightIcon from '~/assets/images/external/exaroton-light.svg'
+import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
+</script>
+
 <template>
   <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF">
     <div class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-0">
@@ -9,7 +14,7 @@
             target="_blank"
           >
             <LightIcon
-              v-if="colorMode.value === 'light'"
+              v-if="$colorMode.preference === 'light'"
               class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
             />
             <DarkIcon v-else class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3" />
@@ -27,12 +32,6 @@
     </div>
   </div>
 </template>
-<script setup>
-import LightIcon from '~/assets/images/external/exaroton-light.svg'
-import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
-
-const colorMode = useTheme()
-</script>
 
 <style>
 .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF {

@@ -7,5 +7,5 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.provide('auth', authStore.value)
   nuxtApp.provide('cosmetics', cosmeticsStore.value)
   nuxtApp.provide('tag', tagsStore.value)
-  nuxtApp.provide('notify', (notif) => addNotification(notif))
+  nuxtApp.provide('notify', notif => addNotification(notif))
 })

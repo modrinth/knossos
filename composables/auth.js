@@ -1,18 +1,17 @@
-export const useAuth = async (oldToken = null) => {
+export async function useAuth(oldToken = null) {
   const auth = useState('auth', () => ({
     user: null,
     token: '',
     headers: {},
   }))
 
-  if (!auth.value.user || oldToken) {
+  if (!auth.value.user || oldToken)
     auth.value = await initAuth(oldToken)
-  }
 
   return auth
 }
 
-export const initAuth = async (oldToken = null) => {
+export async function initAuth(oldToken = null) {
   const auth = {
     user: null,
     token: '',
@@ -27,13 +26,11 @@ export const initAuth = async (oldToken = null) => {
     path: '/',
   })
 
-  if (oldToken) {
+  if (oldToken)
     authCookie.value = oldToken
-  }
 
-  if (route.query.code) {
+  if (route.query.code)
     authCookie.value = route.query.code
-  }
 
   if (authCookie.value) {
     auth.token = authCookie.value
@@ -43,7 +40,8 @@ export const initAuth = async (oldToken = null) => {
           Authorization: auth.token,
         },
       })
-    } catch {}
+    }
+    catch {}
 
     auth.headers = {
       headers: {
@@ -55,7 +53,7 @@ export const initAuth = async (oldToken = null) => {
   return auth
 }
 
-export const getAuthUrl = () => {
+export function getAuthUrl() {
   const config = useRuntimeConfig()
   const route = useRoute()
 

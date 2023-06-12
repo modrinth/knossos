@@ -1,38 +1,3 @@
-<template>
-  <Modal ref="modal" :header="title">
-    <div class="modal-delete">
-      <div class="markdown-body" v-html="renderString(description)" />
-      <label v-if="hasToType" for="confirmation" class="confirmation-label">
-        <span>
-          <strong>To verify, type</strong>
-          <em class="confirmation-text">{{ confirmationText }}</em>
-          <strong>below:</strong>
-        </span>
-      </label>
-      <div class="confirmation-input">
-        <input
-          v-if="hasToType"
-          id="confirmation"
-          v-model="confirmation_typed"
-          type="text"
-          placeholder="Type here..."
-          @input="type"
-        />
-      </div>
-      <div class="button-group">
-        <button class="iconified-button" @click="cancel">
-          <CrossIcon />
-          Cancel
-        </button>
-        <button class="iconified-button danger-button" :disabled="action_disabled" @click="proceed">
-          <TrashIcon />
-          {{ proceedLabel }}
-        </button>
-      </div>
-    </div>
-  </Modal>
-</template>
-
 <script>
 import CrossIcon from '~/assets/images/utils/x.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
@@ -87,8 +52,8 @@ export default {
     },
     type() {
       if (this.hasToType) {
-        this.action_disabled =
-          this.confirmation_typed.toLowerCase() !== this.confirmationText.toLowerCase()
+        this.action_disabled
+          = this.confirmation_typed.toLowerCase() !== this.confirmationText.toLowerCase()
       }
     },
     show() {
@@ -97,6 +62,41 @@ export default {
   },
 }
 </script>
+
+<template>
+  <Modal ref="modal" :header="title">
+    <div class="modal-delete">
+      <div class="markdown-body" v-html="renderString(description)" />
+      <label v-if="hasToType" for="confirmation" class="confirmation-label">
+        <span>
+          <strong>To verify, type</strong>
+          <em class="confirmation-text">{{ confirmationText }}</em>
+          <strong>below:</strong>
+        </span>
+      </label>
+      <div class="confirmation-input">
+        <input
+          v-if="hasToType"
+          id="confirmation"
+          v-model="confirmation_typed"
+          type="text"
+          placeholder="Type here..."
+          @input="type"
+        >
+      </div>
+      <div class="button-group">
+        <button class="iconified-button" @click="cancel">
+          <CrossIcon />
+          Cancel
+        </button>
+        <button class="iconified-button danger-button" :disabled="action_disabled" @click="proceed">
+          <TrashIcon />
+          {{ proceedLabel }}
+        </button>
+      </div>
+    </div>
+  </Modal>
+</template>
 
 <style scoped lang="scss">
 .modal-delete {

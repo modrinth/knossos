@@ -1,7 +1,7 @@
 import tags from '~/generated/state.json'
 
-export const useTags = () =>
-  useState('tags', () => ({
+export function useTags() {
+  return useState('tags', () => ({
     categories: tags.categories,
     loaders: tags.loaders,
     gameVersions: tags.gameVersions,
@@ -61,3 +61,4 @@ export const useTags = () =>
     rejectedStatuses: ['rejected', 'withheld'],
     staffRoles: ['moderator', 'admin'],
   }))
+}

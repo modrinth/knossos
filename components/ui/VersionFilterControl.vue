@@ -1,3 +1,63 @@
+<script setup>
+import { Multiselect } from 'vue-multiselect'
+import Checkbox from '~/components/ui/Checkbox.vue'
+import ClearIcon from '~/assets/images/utils/clear.svg'
+
+const props = defineProps({
+  versions: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+})
+
+const data = useNuxtApp()
+const route = useRoute()
+
+const tempLoaders = new Set()
+let tempVersions = new Set()
+const tempReleaseChannels = new Set()
+
+for (const version of props.versions) {
+  for (const loader of version.loaders)
+    tempLoaders.add(loader)
+
+  for (const gameVersion of version.game_versions)
+    tempVersions.add(gameVersion)
+
+  tempReleaseChannels.add(version.version_type)
+}
+
+tempVersions = Array.from(tempVersions)
+
+const loaderFilters = shallowRef(Array.from(tempLoaders))
+const gameVersionFilters = shallowRef(
+  data.$tag.gameVersions.filter(gameVer => tempVersions.includes(gameVer.version)),
+)
+const versionTypeFilters = shallowRef(Array.from(tempReleaseChannels))
+const includeSnapshots = ref(route.query.s === 'true')
+
+const selectedGameVersions = shallowRef(getArrayOrString(route.query.g) ?? [])
+const selectedLoaders = shallowRef(getArrayOrString(route.query.l) ?? [])
+const selectedVersionTypes = shallowRef(getArrayOrString(route.query.c) ?? [])
+
+async function updateQuery() {
+  const router = useRouter()
+  const route = useRoute()
+
+  await router.replace({
+    query: {
+      ...route.query,
+      l: selectedLoaders.value.length === 0 ? undefined : selectedLoaders.value,
+      g: selectedGameVersions.value.length === 0 ? undefined : selectedGameVersions.value,
+      c: selectedVersionTypes.value.length === 0 ? undefined : selectedVersionTypes.value,
+      s: includeSnapshots.value ? true : undefined,
+    },
+  })
+}
+</script>
+
 <template>
   <div
     v-if="
@@ -55,8 +115,8 @@
     />
     <Checkbox
       v-if="
-        gameVersionFilters.length > 1 &&
-        gameVersionFilters.some((v) => v.version_type !== 'release')
+        gameVersionFilters.length > 1
+          && gameVersionFilters.some((v) => v.version_type !== 'release')
       "
       v-model="includeSnapshots"
       label="Show all versions"
@@ -82,66 +142,6 @@
     </button>
   </div>
 </template>
-
-<script setup>
-import { Multiselect } from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import ClearIcon from '~/assets/images/utils/clear.svg'
-
-const props = defineProps({
-  versions: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-})
-
-const data = useNuxtApp()
-const route = useRoute()
-
-const tempLoaders = new Set()
-let tempVersions = new Set()
-const tempReleaseChannels = new Set()
-
-for (const version of props.versions) {
-  for (const loader of version.loaders) {
-    tempLoaders.add(loader)
-  }
-  for (const gameVersion of version.game_versions) {
-    tempVersions.add(gameVersion)
-  }
-  tempReleaseChannels.add(version.version_type)
-}
-
-tempVersions = Array.from(tempVersions)
-
-const loaderFilters = shallowRef(Array.from(tempLoaders))
-const gameVersionFilters = shallowRef(
-  data.$tag.gameVersions.filter((gameVer) => tempVersions.includes(gameVer.version))
-)
-const versionTypeFilters = shallowRef(Array.from(tempReleaseChannels))
-const includeSnapshots = ref(route.query.s === 'true')
-
-const selectedGameVersions = shallowRef(getArrayOrString(route.query.g) ?? [])
-const selectedLoaders = shallowRef(getArrayOrString(route.query.l) ?? [])
-const selectedVersionTypes = shallowRef(getArrayOrString(route.query.c) ?? [])
-
-async function updateQuery() {
-  const router = useRouter()
-  const route = useRoute()
-
-  await router.replace({
-    query: {
-      ...route.query,
-      l: selectedLoaders.value.length === 0 ? undefined : selectedLoaders.value,
-      g: selectedGameVersions.value.length === 0 ? undefined : selectedGameVersions.value,
-      c: selectedVersionTypes.value.length === 0 ? undefined : selectedVersionTypes.value,
-      s: includeSnapshots.value ? true : undefined,
-    },
-  })
-}
-</script>
 
 <style lang="scss" scoped>
 .search-controls {

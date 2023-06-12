@@ -1,22 +1,3 @@
-<template>
-  <label
-    :class="{ 'long-style': longStyle }"
-    :disabled="disabled"
-    @drop.prevent="handleDrop"
-    @dragover.prevent
-  >
-    <slot />
-    {{ prompt }}
-    <input
-      type="file"
-      :multiple="multiple"
-      :accept="accept"
-      :disabled="disabled"
-      @change="handleChange"
-    />
-  </label>
-</template>
-
 <script>
 import { fileIsValid } from '~/helpers/fileUtils.js'
 
@@ -67,16 +48,14 @@ export default {
   },
   methods: {
     addFiles(files, shouldNotReset) {
-      if (!shouldNotReset || this.shouldAlwaysReset) {
+      if (!shouldNotReset || this.shouldAlwaysReset)
         this.files = files
-      }
 
       const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
-      this.files = [...this.files].filter((file) => fileIsValid(file, validationOptions))
+      this.files = [...this.files].filter(file => fileIsValid(file, validationOptions))
 
-      if (this.files.length > 0) {
+      if (this.files.length > 0)
         this.$emit('change', this.files)
-      }
     },
     handleDrop(e) {
       this.addFiles(e.dataTransfer.files)
@@ -87,6 +66,25 @@ export default {
   },
 }
 </script>
+
+<template>
+  <label
+    :class="{ 'long-style': longStyle }"
+    :disabled="disabled"
+    @drop.prevent="handleDrop"
+    @dragover.prevent
+  >
+    <slot />
+    {{ prompt }}
+    <input
+      type="file"
+      :multiple="multiple"
+      :accept="accept"
+      :disabled="disabled"
+      @change="handleChange"
+    >
+  </label>
+</template>
 
 <style lang="scss" scoped>
 label {

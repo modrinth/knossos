@@ -1,3 +1,19 @@
+<script setup>
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
+
+const user = await useUser()
+if (process.client)
+  await initUserFollows()
+
+useHead({ title: 'Followed projects - Modrinth' })
+definePageMeta({
+  middleware: 'auth',
+})
+</script>
+
 <template>
   <div v-if="user.follows.length > 0" class="project-list display-mode--list">
     <ProjectCard
@@ -24,28 +40,10 @@
   </div>
   <div v-else class="error">
     <FollowIllustration class="icon" />
-    <br />
-    <span class="text"
-      >You don't have any followed projects. <br />
-      Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for new ones?</span
-    >
+    <br>
+    <span class="text">You don't have any followed projects. <br>
+      Why don't you <nuxt-link class="link" to="/mods">search</nuxt-link> for new ones?</span>
   </div>
 </template>
 
-<script setup>
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
-
-const user = await useUser()
-if (process.client) {
-  await initUserFollows()
-}
-
-useHead({ title: 'Followed projects - Modrinth' })
-definePageMeta({
-  middleware: 'auth',
-})
-</script>
 <style lang="scss" scoped></style>

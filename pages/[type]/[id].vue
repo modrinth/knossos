@@ -1,3 +1,384 @@
+<script setup>
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
+import ClearIcon from '~/assets/images/utils/clear.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import UpdateIcon from '~/assets/images/utils/updated.svg'
+import CodeIcon from '~/assets/images/sidebar/mod.svg'
+import ReportIcon from '~/assets/images/utils/report.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import IssuesIcon from '~/assets/images/utils/issues.svg'
+import WikiIcon from '~/assets/images/utils/wiki.svg'
+import DiscordIcon from '~/assets/images/external/discord.svg'
+import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
+import PatreonIcon from '~/assets/images/external/patreon.svg'
+import KoFiIcon from '~/assets/images/external/kofi.svg'
+import PayPalIcon from '~/assets/images/external/paypal.svg'
+import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
+import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import EyeIcon from '~/assets/images/utils/eye.svg'
+import BoxIcon from '~/assets/images/utils/box.svg'
+import Promotion from '~/components/ads/Promotion.vue'
+import Badge from '~/components/ui/Badge.vue'
+import Categories from '~/components/ui/search/Categories.vue'
+import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
+import Modal from '~/components/ui/Modal.vue'
+import ModalReport from '~/components/ui/ModalReport.vue'
+import ModalModeration from '~/components/ui/ModalModeration.vue'
+import NavRow from '~/components/ui/NavRow.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
+import Avatar from '~/components/ui/Avatar.vue'
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist.vue'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import UsersIcon from '~/assets/images/utils/users.svg'
+import CategoriesIcon from '~/assets/images/utils/tags.svg'
+import DescriptionIcon from '~/assets/images/utils/align-left.svg'
+import LinksIcon from '~/assets/images/utils/link.svg'
+import LicenseIcon from '~/assets/images/utils/copyright.svg'
+import GalleryIcon from '~/assets/images/utils/image.svg'
+import VersionIcon from '~/assets/images/utils/version.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import { renderString } from '~/helpers/parse.js'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+
+const data = useNuxtApp()
+const route = useRoute()
+
+const user = await useUser()
+
+if (
+  !route.params.id
+  || !(
+    data.$tag.projectTypes.find(x => x.id === route.params.type)
+    || route.params.type === 'project'
+  )
+) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'The page could not be found',
+  })
+}
+
+let project, allMembers, dependencies, featuredVersions, versions
+try {
+  [
+    { data: project },
+    { data: allMembers },
+    { data: dependencies },
+    { data: featuredVersions },
+    { data: versions },
+  ] = await Promise.all([
+    useAsyncData(
+      `project/${route.params.id}`,
+      () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
+      {
+        transform: (project) => {
+          if (project) {
+            project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+
+            project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
+
+            if (process.client && history.state && history.state.overrideProjectType)
+              project.project_type = history.state.overrideProjectType
+          }
+
+          return project
+        },
+      },
+    ),
+    useAsyncData(
+      `project/${route.params.id}/members`,
+      () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
+      {
+        transform: (members) => {
+          members.forEach((it, index) => {
+            members[index].avatar_url = it.user.avatar_url
+            members[index].name = it.user.username
+          })
+
+          return members
+        },
+      },
+    ),
+    useAsyncData(`project/${route.params.id}/dependencies`, () =>
+      useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders()),
+    ),
+    useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
+      useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders()),
+    ),
+    useAsyncData(`project/${route.params.id}/version`, () =>
+      useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders()),
+    ),
+  ])
+
+  versions = shallowRef(toRaw(versions))
+  featuredVersions = shallowRef(toRaw(featuredVersions))
+}
+catch (error) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'Project not found',
+  })
+}
+
+if (!project.value) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'Project not found',
+  })
+}
+
+if (project.value.project_type !== route.params.type || route.params.id !== project.value.slug) {
+  let path = route.fullPath.split('/')
+  path.splice(0, 3)
+  path = path.filter(x => x)
+
+  await navigateTo(
+    `/${project.value.project_type}/${project.value.slug}${
+      path.length > 0 ? `/${path.join('/')}` : ''
+    }`,
+    { redirectCode: 301, replace: true },
+  )
+}
+
+const members = ref(allMembers.value.filter(x => x.accepted))
+const currentMember = ref(
+  data.$auth.user ? allMembers.value.find(x => x.user.id === data.$auth.user.id) : null,
+)
+
+if (
+  !currentMember.value
+  && data.$auth.user
+  && data.$tag.staffRoles.includes(data.$auth.user.role)
+) {
+  currentMember.value = {
+    team_id: project.team_id,
+    user: data.$auth.user,
+    role: data.$auth.role,
+    permissions: data.$auth.user.role === 'admin' ? 1023 : 12,
+    accepted: true,
+    payouts_split: 0,
+    avatar_url: data.$auth.user.avatar_url,
+    name: data.$auth.user.username,
+  }
+}
+
+versions.value = data.$computeVersions(versions.value, allMembers.value)
+
+// Q: Why do this instead of computing the versions of featuredVersions?
+// A: It will incorrectly generate the version slugs because it doesn't have the full context of
+//    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
+//    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
+///   version
+const featuredIds = featuredVersions.value.map(x => x.id)
+featuredVersions.value = versions.value.filter(version => featuredIds.includes(version.id))
+
+featuredVersions.value.sort((a, b) => {
+  const aLatest = a.game_versions[a.game_versions.length - 1]
+  const bLatest = b.game_versions[b.game_versions.length - 1]
+  const gameVersions = data.$tag.gameVersions.map(e => e.version)
+  return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
+})
+
+const projectTypeDisplay = computed(() =>
+  data.$formatProjectType(
+    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders),
+  ),
+)
+const licenseIdDisplay = computed(() => {
+  const id = project.value.license.id
+
+  if (id === 'LicenseRef-All-Rights-Reserved')
+    return 'ARR'
+  else if (id.includes('LicenseRef'))
+    return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
+  else
+    return id
+})
+const featuredGalleryImage = computed(() => project.value.gallery.find(img => img.featured))
+const requestedStatus = computed(() => project.value.requested_status ?? 'approved')
+
+async function resetProject() {
+  const newProject = await useBaseFetch(`project/${project.value.id}`, data.$defaultHeaders())
+
+  newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
+
+  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
+
+  project.value = newProject
+}
+
+async function clearMessage() {
+  startLoading()
+
+  try {
+    await useBaseFetch(`project/${project.value.id}`, {
+      method: 'PATCH',
+      body: {
+        moderation_message: null,
+        moderation_message_body: null,
+      },
+      ...data.$defaultHeaders(),
+    })
+
+    project.value.moderator_message = null
+  }
+  catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+async function setProcessing() {
+  startLoading()
+
+  try {
+    await useBaseFetch(`project/${project.value.id}`, {
+      method: 'PATCH',
+      body: {
+        status: 'processing',
+      },
+      ...data.$defaultHeaders(),
+    })
+
+    project.value.status = 'processing'
+  }
+  catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const modalLicense = ref(null)
+const licenseText = ref('')
+async function getLicenseData() {
+  try {
+    const text = await useBaseFetch(`tag/license/${project.value.license.id}`)
+    licenseText.value = text.body
+  }
+  catch {
+    licenseText.value = 'License text could not be retrieved.'
+  }
+
+  modalLicense.value.show()
+}
+
+async function patchProject(resData, quiet = false) {
+  let result = false
+  startLoading()
+
+  try {
+    await useBaseFetch(`project/${project.value.id}`, {
+      method: 'PATCH',
+      body: resData,
+      ...data.$defaultHeaders(),
+    })
+
+    for (const key in resData)
+      project.value[key] = resData[key]
+
+    if (resData.license_id)
+      project.value.license.id = resData.license_id
+
+    if (resData.license_url)
+      project.value.license.url = resData.license_url
+
+    result = true
+    if (!quiet) {
+      data.$notify({
+        group: 'main',
+        title: 'Project updated',
+        text: 'Your project has been updated.',
+        type: 'success',
+      })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+  catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+
+  return result
+}
+
+async function patchIcon(icon) {
+  let result = false
+  startLoading()
+
+  try {
+    await useBaseFetch(
+      `project/${project.value.id}/icon?ext=${
+        icon.type.split('/')[icon.type.split('/').length - 1]
+      }`,
+      {
+        method: 'PATCH',
+        body: icon,
+        ...data.$defaultHeaders(),
+      },
+    )
+    await resetProject()
+    result = true
+    data.$notify({
+      group: 'main',
+      title: 'Project icon updated',
+      text: 'Your project\'s icon has been updated.',
+      type: 'success',
+    })
+  }
+  catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+  return result
+}
+
+const modalModeration = ref(null)
+const moderationStatus = ref(null)
+function openModerationModal(status) {
+  moderationStatus.value = status
+
+  modalModeration.value.show()
+}
+
+const collapsedChecklist = ref(false)
+</script>
+
 <template>
   <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
@@ -165,8 +546,7 @@
       item-type="project"
     />
     <div
-      :class="{
-        'normal-page': true,
+      class="normal-page" :class="{
         'alt-layout': $cosmetics.projectLayout,
       }"
     >
@@ -179,11 +559,11 @@
             class="project__gallery"
             tabindex="-1"
             :to="
-              '/' +
-              project.project_type +
-              '/' +
-              (project.slug ? project.slug : project.id) +
-              '/gallery'
+              `/${
+                project.project_type
+              }/${
+                project.slug ? project.slug : project.id
+              }/gallery`
             "
           >
             <img
@@ -194,7 +574,7 @@
                   ? featuredGalleryImage.description
                   : featuredGalleryImage.title
               "
-            />
+            >
           </nuxt-link>
           <div class="project__header__content universal-card full-width-inputs">
             <Avatar
@@ -214,7 +594,7 @@
               <BoxIcon />
               <span>{{
                 $formatProjectType(
-                  $getProjectTypeForDisplay(project.actualProjectType, project.loaders)
+                  $getProjectTypeForDisplay(project.actualProjectType, project.loaders),
                 )
               }}</span>
             </nuxt-link>
@@ -237,7 +617,7 @@
                 :type="project.project_type"
               />
             </Categories>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -274,7 +654,7 @@
                 <span class="value">{{ fromNow(project.updated) }}</span>
               </div>
             </div>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="input-group">
               <template v-if="$auth.user">
                 <button class="iconified-button" @click="$refs.modal_project_report.show()">
@@ -315,7 +695,9 @@
           v-if="currentMember && project.moderator_message"
           class="universal-card moderation-card"
         >
-          <h2 class="card-header">Message from the moderators:</h2>
+          <h2 class="card-header">
+            Message from the moderators:
+          </h2>
           <div v-if="project.moderator_message.body">
             <p v-if="project.moderator_message.message" class="mod-message__title">
               {{ project.moderator_message.message }}
@@ -327,7 +709,7 @@
               renderString(
                 project.moderator_message.body
                   ? project.moderator_message.body
-                  : project.moderator_message.message
+                  : project.moderator_message.message,
               )
             "
           />
@@ -416,15 +798,11 @@
           aria-label="Information"
         >
           To install {{ project.title }}, visit
-          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
-            >our documentation</a
-          >
+          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()">our documentation</a>
           which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
-          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
+          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a>, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
           <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
-            Prism Launcher</a
-          >.
+            Prism Launcher</a>.
         </div>
         <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
@@ -480,14 +858,16 @@
       <div class="card normal-page__info">
         <template
           v-if="
-            project.issues_url ||
-            project.source_url ||
-            project.wiki_url ||
-            project.discord_url ||
-            project.donation_urls.length > 0
+            project.issues_url
+              || project.source_url
+              || project.wiki_url
+              || project.discord_url
+              || project.donation_urls.length > 0
           "
         >
-          <h2 class="card-header">External resources</h2>
+          <h2 class="card-header">
+            External resources
+          </h2>
           <div class="links">
             <a
               v-if="project.issues_url"
@@ -553,11 +933,13 @@
               <span v-else>Donate</span>
             </a>
           </div>
-          <hr class="card-divider" />
+          <hr class="card-divider">
         </template>
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
-            <h2 class="card-header">Featured versions</h2>
+            <h2 class="card-header">
+              Featured versions
+            </h2>
             <nuxt-link
               v-if="$route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
@@ -581,7 +963,7 @@
             >
               <NuxtLink
                 v-tooltip="
-                  version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+                  `${version.primaryFile.filename} (${$formatBytes(version.primaryFile.size)})`
                 "
                 :to="version.primaryFile.url"
                 external
@@ -609,29 +991,37 @@
               </div>
             </NuxtLink>
           </ClientOnly>
-          <hr class="card-divider" />
+          <hr class="card-divider">
         </template>
-        <h2 class="card-header">Project members</h2>
+        <h2 class="card-header">
+          Project members
+        </h2>
         <nuxt-link
           v-for="member in members"
           :key="member.user.id"
           class="team-member columns button-transparent"
-          :to="'/user/' + member.user.username"
+          :to="`/user/${member.user.username}`"
         >
           <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
 
           <div class="member-info">
-            <p class="name">{{ member.name }}</p>
+            <p class="name">
+              {{ member.name }}
+            </p>
             <p class="role">
               {{ member.role }}
             </p>
           </div>
         </nuxt-link>
-        <hr class="card-divider" />
-        <h2 class="card-header">Technical information</h2>
+        <hr class="card-divider">
+        <h2 class="card-header">
+          Technical information
+        </h2>
         <div class="infos">
           <div class="info">
-            <div class="key">License</div>
+            <div class="key">
+              License
+            </div>
             <div class="value lowercase">
               <a
                 v-if="project.license.url"
@@ -643,8 +1033,8 @@
               </a>
               <span
                 v-else-if="
-                  project.license.id === 'LicenseRef-All-Rights-Reserved' ||
-                  !project.license.id.includes('LicenseRef')
+                  project.license.id === 'LicenseRef-All-Rights-Reserved'
+                    || !project.license.id.includes('LicenseRef')
                 "
                 class="text-link"
                 @click="getLicenseData()"
@@ -656,34 +1046,40 @@
           </div>
           <div
             v-if="
-              project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
+              project.project_type !== 'resourcepack'
+                && project.project_type !== 'plugin'
+                && project.project_type !== 'shader'
+                && project.project_type !== 'datapack'
             "
             class="info"
           >
-            <div class="key">Client side</div>
+            <div class="key">
+              Client side
+            </div>
             <div class="value">
               {{ project.client_side }}
             </div>
           </div>
           <div
             v-if="
-              project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
+              project.project_type !== 'resourcepack'
+                && project.project_type !== 'plugin'
+                && project.project_type !== 'shader'
+                && project.project_type !== 'datapack'
             "
             class="info"
           >
-            <div class="key">Server side</div>
+            <div class="key">
+              Server side
+            </div>
             <div class="value">
               {{ project.server_side }}
             </div>
           </div>
           <div class="info">
-            <div class="key">Project ID</div>
+            <div class="key">
+              Project ID
+            </div>
             <div class="value lowercase">
               <CopyCode :text="project.id" />
             </div>
@@ -693,384 +1089,7 @@
     </div>
   </div>
 </template>
-<script setup>
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ClearIcon from '~/assets/images/utils/clear.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UpdateIcon from '~/assets/images/utils/updated.svg'
-import CodeIcon from '~/assets/images/sidebar/mod.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import WikiIcon from '~/assets/images/utils/wiki.svg'
-import DiscordIcon from '~/assets/images/external/discord.svg'
-import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
-import PatreonIcon from '~/assets/images/external/patreon.svg'
-import KoFiIcon from '~/assets/images/external/kofi.svg'
-import PayPalIcon from '~/assets/images/external/paypal.svg'
-import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
-import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import EyeIcon from '~/assets/images/utils/eye.svg'
-import BoxIcon from '~/assets/images/utils/box.svg'
-import Promotion from '~/components/ads/Promotion.vue'
-import Badge from '~/components/ui/Badge.vue'
-import Categories from '~/components/ui/search/Categories.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
-import Modal from '~/components/ui/Modal.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
-import ModalModeration from '~/components/ui/ModalModeration.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist.vue'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import UsersIcon from '~/assets/images/utils/users.svg'
-import CategoriesIcon from '~/assets/images/utils/tags.svg'
-import DescriptionIcon from '~/assets/images/utils/align-left.svg'
-import LinksIcon from '~/assets/images/utils/link.svg'
-import LicenseIcon from '~/assets/images/utils/copyright.svg'
-import GalleryIcon from '~/assets/images/utils/image.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import { renderString } from '~/helpers/parse.js'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
-const data = useNuxtApp()
-const route = useRoute()
-
-const user = await useUser()
-
-if (
-  !route.params.id ||
-  !(
-    data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
-    route.params.type === 'project'
-  )
-) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-    message: 'The page could not be found',
-  })
-}
-
-let project, allMembers, dependencies, featuredVersions, versions
-try {
-  ;[
-    { data: project },
-    { data: allMembers },
-    { data: dependencies },
-    { data: featuredVersions },
-    { data: versions },
-  ] = await Promise.all([
-    useAsyncData(
-      `project/${route.params.id}`,
-      () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
-      {
-        transform: (project) => {
-          if (project) {
-            project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-
-            project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
-
-            if (process.client && history.state && history.state.overrideProjectType) {
-              project.project_type = history.state.overrideProjectType
-            }
-          }
-
-          return project
-        },
-      }
-    ),
-    useAsyncData(
-      `project/${route.params.id}/members`,
-      () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
-      {
-        transform: (members) => {
-          members.forEach((it, index) => {
-            members[index].avatar_url = it.user.avatar_url
-            members[index].name = it.user.username
-          })
-
-          return members
-        },
-      }
-    ),
-    useAsyncData(`project/${route.params.id}/dependencies`, () =>
-      useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders())
-    ),
-    useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
-      useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
-    ),
-    useAsyncData(`project/${route.params.id}/version`, () =>
-      useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders())
-    ),
-  ])
-
-  versions = shallowRef(toRaw(versions))
-  featuredVersions = shallowRef(toRaw(featuredVersions))
-} catch (error) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-    message: 'Project not found',
-  })
-}
-
-if (!project.value) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-    message: 'Project not found',
-  })
-}
-
-if (project.value.project_type !== route.params.type || route.params.id !== project.value.slug) {
-  let path = route.fullPath.split('/')
-  path.splice(0, 3)
-  path = path.filter((x) => x)
-
-  await navigateTo(
-    `/${project.value.project_type}/${project.value.slug}${
-      path.length > 0 ? `/${path.join('/')}` : ''
-    }`,
-    { redirectCode: 301, replace: true }
-  )
-}
-
-const members = ref(allMembers.value.filter((x) => x.accepted))
-const currentMember = ref(
-  data.$auth.user ? allMembers.value.find((x) => x.user.id === data.$auth.user.id) : null
-)
-
-if (
-  !currentMember.value &&
-  data.$auth.user &&
-  data.$tag.staffRoles.includes(data.$auth.user.role)
-) {
-  currentMember.value = {
-    team_id: project.team_id,
-    user: data.$auth.user,
-    role: data.$auth.role,
-    permissions: data.$auth.user.role === 'admin' ? 1023 : 12,
-    accepted: true,
-    payouts_split: 0,
-    avatar_url: data.$auth.user.avatar_url,
-    name: data.$auth.user.username,
-  }
-}
-
-versions.value = data.$computeVersions(versions.value, allMembers.value)
-
-// Q: Why do this instead of computing the versions of featuredVersions?
-// A: It will incorrectly generate the version slugs because it doesn't have the full context of
-//    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
-//    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
-///   version
-const featuredIds = featuredVersions.value.map((x) => x.id)
-featuredVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
-
-featuredVersions.value.sort((a, b) => {
-  const aLatest = a.game_versions[a.game_versions.length - 1]
-  const bLatest = b.game_versions[b.game_versions.length - 1]
-  const gameVersions = data.$tag.gameVersions.map((e) => e.version)
-  return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
-})
-
-const projectTypeDisplay = computed(() =>
-  data.$formatProjectType(
-    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
-  )
-)
-const licenseIdDisplay = computed(() => {
-  const id = project.value.license.id
-
-  if (id === 'LicenseRef-All-Rights-Reserved') {
-    return 'ARR'
-  } else if (id.includes('LicenseRef')) {
-    return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
-  } else {
-    return id
-  }
-})
-const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
-const requestedStatus = computed(() => project.value.requested_status ?? 'approved')
-
-async function resetProject() {
-  const newProject = await useBaseFetch(`project/${project.value.id}`, data.$defaultHeaders())
-
-  newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
-
-  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
-
-  project.value = newProject
-}
-
-async function clearMessage() {
-  startLoading()
-
-  try {
-    await useBaseFetch(`project/${project.value.id}`, {
-      method: 'PATCH',
-      body: {
-        moderation_message: null,
-        moderation_message_body: null,
-      },
-      ...data.$defaultHeaders(),
-    })
-
-    project.value.moderator_message = null
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-
-  stopLoading()
-}
-
-async function setProcessing() {
-  startLoading()
-
-  try {
-    await useBaseFetch(`project/${project.value.id}`, {
-      method: 'PATCH',
-      body: {
-        status: 'processing',
-      },
-      ...data.$defaultHeaders(),
-    })
-
-    project.value.status = 'processing'
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-
-  stopLoading()
-}
-
-const modalLicense = ref(null)
-const licenseText = ref('')
-async function getLicenseData() {
-  try {
-    const text = await useBaseFetch(`tag/license/${project.value.license.id}`)
-    licenseText.value = text.body
-  } catch {
-    licenseText.value = 'License text could not be retrieved.'
-  }
-
-  modalLicense.value.show()
-}
-
-async function patchProject(resData, quiet = false) {
-  let result = false
-  startLoading()
-
-  try {
-    await useBaseFetch(`project/${project.value.id}`, {
-      method: 'PATCH',
-      body: resData,
-      ...data.$defaultHeaders(),
-    })
-
-    for (const key in resData) {
-      project.value[key] = resData[key]
-    }
-
-    if (resData.license_id) {
-      project.value.license.id = resData.license_id
-    }
-    if (resData.license_url) {
-      project.value.license.url = resData.license_url
-    }
-
-    result = true
-    if (!quiet) {
-      data.$notify({
-        group: 'main',
-        title: 'Project updated',
-        text: 'Your project has been updated.',
-        type: 'success',
-      })
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  stopLoading()
-
-  return result
-}
-
-async function patchIcon(icon) {
-  let result = false
-  startLoading()
-
-  try {
-    await useBaseFetch(
-      `project/${project.value.id}/icon?ext=${
-        icon.type.split('/')[icon.type.split('/').length - 1]
-      }`,
-      {
-        method: 'PATCH',
-        body: icon,
-        ...data.$defaultHeaders(),
-      }
-    )
-    await resetProject()
-    result = true
-    data.$notify({
-      group: 'main',
-      title: 'Project icon updated',
-      text: "Your project's icon has been updated.",
-      type: 'success',
-    })
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  stopLoading()
-  return result
-}
-
-const modalModeration = ref(null)
-const moderationStatus = ref(null)
-function openModerationModal(status) {
-  moderationStatus.value = status
-
-  modalModeration.value.show()
-}
-
-const collapsedChecklist = ref(false)
-</script>
 <style lang="scss" scoped>
 .header {
   grid-area: header;

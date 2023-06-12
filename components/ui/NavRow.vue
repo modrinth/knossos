@@ -1,28 +1,3 @@
-<template>
-  <nav class="navigation">
-    <NuxtLink
-      v-for="(link, index) in filteredLinks"
-      v-show="link.shown === undefined ? true : link.shown"
-      :key="index"
-      ref="linkElements"
-      :to="query ? (link.href ? `?${query}=${link.href}` : '?') : link.href"
-      class="nav-link button-animation"
-    >
-      <span>{{ link.label }}</span>
-    </NuxtLink>
-    <div
-      class="nav-indicator"
-      :style="{
-        left: positionToMoveX,
-        top: positionToMoveY,
-        width: sliderWidth,
-        opacity: activeIndex === -1 ? 0 : 1,
-      }"
-      aria-hidden="true"
-    ></div>
-  </nav>
-</template>
-
 <script>
 export default {
   props: {
@@ -46,7 +21,7 @@ export default {
   },
   computed: {
     filteredLinks() {
-      return this.links.filter((x) => (x.shown === undefined ? true : x.shown))
+      return this.links.filter(x => (x.shown === undefined ? true : x.shown))
     },
     positionToMoveX() {
       return `${this.sliderPositionX}px`
@@ -66,7 +41,8 @@ export default {
     },
     '$route.query': {
       handler() {
-        if (this.query) this.pickLink()
+        if (this.query)
+          this.pickLink()
       },
     },
   },
@@ -81,13 +57,14 @@ export default {
     pickLink() {
       this.activeIndex = this.query
         ? this.filteredLinks.findIndex(
-            (x) => (x.href === '' ? undefined : x.href) === this.$route.path[this.query]
-          )
-        : this.filteredLinks.findIndex((x) => x.href === decodeURIComponent(this.$route.path))
+          x => (x.href === '' ? undefined : x.href) === this.$route.path[this.query],
+        )
+        : this.filteredLinks.findIndex(x => x.href === decodeURIComponent(this.$route.path))
 
       if (this.activeIndex !== -1) {
         this.startAnimation()
-      } else {
+      }
+      else {
         this.oldIndex = -1
         this.sliderPositionX = 0
         this.selectedElementWidth = 0
@@ -103,6 +80,31 @@ export default {
   },
 }
 </script>
+
+<template>
+  <nav class="navigation">
+    <NuxtLink
+      v-for="(link, index) in filteredLinks"
+      v-show="link.shown === undefined ? true : link.shown"
+      :key="index"
+      ref="linkElements"
+      :to="query ? (link.href ? `?${query}=${link.href}` : '?') : link.href"
+      class="nav-link button-animation"
+    >
+      <span>{{ link.label }}</span>
+    </NuxtLink>
+    <div
+      class="nav-indicator"
+      :style="{
+        left: positionToMoveX,
+        top: positionToMoveY,
+        width: sliderWidth,
+        opacity: activeIndex === -1 ? 0 : 1,
+      }"
+      aria-hidden="true"
+    />
+  </nav>
+</template>
 
 <style lang="scss" scoped>
 .navigation {

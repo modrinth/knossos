@@ -1,3 +1,161 @@
+<script setup>
+import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import SearchIcon from '~/assets/images/utils/search.svg'
+
+import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
+import SettingsIcon from '~/assets/images/sidebar/settings.svg'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import HomeIcon from '~/assets/images/sidebar/home.svg'
+
+import MoonIcon from '~/assets/images/utils/moon.svg'
+import SunIcon from '~/assets/images/utils/sun.svg'
+import PlusIcon from '~/assets/images/utils/plus.svg'
+import DropdownIcon from '~/assets/images/utils/dropdown.svg'
+import LogOutIcon from '~/assets/images/utils/log-out.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import ChartIcon from '~/assets/images/utils/chart.svg'
+
+import GitHubIcon from '~/assets/images/utils/github.svg'
+import NavRow from '~/components/ui/NavRow.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
+import Avatar from '~/components/ui/Avatar.vue'
+
+const auth = await useAuth()
+const user = await useUser()
+
+const config = useRuntimeConfig()
+const route = useRoute()
+const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
+useHead({
+  meta: [{ name: 'og:url', content: link }],
+  link: [
+    {
+      rel: 'canonical',
+      href: link,
+    },
+  ],
+})
+</script>
+
+<script>
+export default defineNuxtComponent({
+  data() {
+    return {
+      isDropdownOpen: false,
+      isMobileMenuOpen: false,
+      isBrowseMenuOpen: false,
+      isThemeSwitchOnHold: false,
+      registeredSkipLink: null,
+      hideDropdown: false,
+      navRoutes: [
+        {
+          label: 'Mods',
+          href: '/mods',
+        },
+        {
+          label: 'Plugins',
+          href: '/plugins',
+        },
+        {
+          label: 'Data Packs',
+          href: '/datapacks',
+        },
+        {
+          label: 'Shaders',
+          href: '/shaders',
+        },
+        {
+          label: 'Resource Packs',
+          href: '/resourcepacks',
+        },
+        {
+          label: 'Modpacks',
+          href: '/modpacks',
+        },
+      ],
+    }
+  },
+  computed: {
+    isOnSearchPage() {
+      return this.navRoutes.some(route => this.$route.path.startsWith(route.href))
+    },
+  },
+  watch: {
+    '$route.path': function () {
+      this.isMobileMenuOpen = false
+      this.isBrowseMenuOpen = false
+
+      if (process.client) {
+        document.body.style.overflowY = 'scroll'
+        document.body.setAttribute('tabindex', '-1')
+        document.body.removeAttribute('tabindex')
+      }
+
+      updateCurrentDate()
+      this.runAnalytics()
+    },
+  },
+  async mounted() {
+    this.runAnalytics()
+    if (this.$route.query.code) {
+      await useAuth(this.$route.query.code)
+      window.history.replaceState(history.state, null, this.$route.path)
+    }
+  },
+  methods: {
+    runAnalytics() {
+      const config = useRuntimeConfig()
+
+      setTimeout(() => {
+        $fetch(`${config.public.ariadneBaseUrl}view`, {
+          method: 'POST',
+          body: {
+            url: window.location.href,
+          },
+        })
+          .then(() => {})
+          .catch(() => {})
+      })
+    },
+    toggleMobileMenu() {
+      this.isMobileMenuOpen = !this.isMobileMenuOpen
+      if (this.isMobileMenuOpen)
+        this.isBrowseMenuOpen = false
+    },
+    toggleBrowseMenu() {
+      this.isBrowseMenuOpen = !this.isBrowseMenuOpen
+
+      if (this.isBrowseMenuOpen)
+        this.isMobileMenuOpen = false
+    },
+    logout() {
+      useCookie('auth-token').value = null
+
+      this.$notify({
+        group: 'main',
+        title: 'Logged Out',
+        text: 'You have logged out successfully!',
+        type: 'success',
+      })
+
+      useRouter()
+        .push('/')
+        .then(() => {
+          useRouter().go()
+        })
+    },
+    changeTheme() {
+      this.isThemeSwitchOnHold = true
+      this.$colorMode.preference = this.$colorMode.preference === 'dark' ? 'light' : 'dark'
+      setTimeout(() => {
+        this.isThemeSwitchOnHold = false
+      }, 1000)
+    },
+  },
+})
+</script>
+
 <template>
   <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
     <header class="site-header" role="presentation">
@@ -28,7 +186,7 @@
                 :disabled="isThemeSwitchOnHold"
                 @click="changeTheme"
               >
-                <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+                <MoonIcon v-if="$colorMode.preference === 'light'" aria-hidden="true" />
                 <SunIcon v-else aria-hidden="true" />
               </button>
               <div
@@ -53,16 +211,20 @@
                 <div class="content card">
                   <NuxtLink class="item button-transparent" :to="`/user/${auth.user.username}`">
                     <div class="title profile-link">
-                      <div class="username">@{{ auth.user.username }}</div>
-                      <div class="prompt">Visit your profile</div>
+                      <div class="username">
+                        @{{ auth.user.username }}
+                      </div>
+                      <div class="prompt">
+                        Visit your profile
+                      </div>
                     </div>
                   </NuxtLink>
-                  <hr class="divider" />
+                  <hr class="divider">
                   <button class="item button-transparent" @click="$refs.modal_creation.show()">
                     <PlusIcon class="icon" />
                     <span class="title">Create a project</span>
                   </button>
-                  <hr class="divider" />
+                  <hr class="divider">
                   <NuxtLink class="item button-transparent" to="/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
@@ -87,7 +249,7 @@
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
-                  <hr class="divider" />
+                  <hr class="divider">
                   <button class="item button-transparent" @click="logout()">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
@@ -101,8 +263,7 @@
                   rel="noopener nofollow"
                 >
                   <GitHubIcon aria-hidden="true" />
-                  Sign in with GitHub</a
-                >
+                  Sign in with GitHub</a>
               </section>
             </section>
           </section>
@@ -188,7 +349,7 @@
               Settings
             </NuxtLink>
             <button class="iconified-button" :disabled="isThemeSwitchOnHold" @click="changeTheme">
-              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+              <MoonIcon v-if="$colorMode.preference === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
             </button>
@@ -217,7 +378,7 @@
               to="/notifications"
               class="tab button-animation"
               :class="{
-                bubble: user.notifications.length > 0,
+                'bubble': user.notifications.length > 0,
                 'no-active': isMobileMenuOpen || isBrowseMenuOpen,
               }"
               title="Notifications"
@@ -272,45 +433,53 @@
             class="text-link"
             rel="noopener"
           >
-            open source</a
-          >.
+            open source</a>.
         </p>
         <p>
           {{ config.public.owner }}/{{ config.public.slug }} {{ config.public.branch }}@<a
             :target="$external()"
             :href="
-              'https://github.com/' +
-              config.public.owner +
-              '/' +
-              config.public.slug +
-              '/tree/' +
-              config.public.hash
+              `https://github.com/${
+                config.public.owner
+              }/${
+                config.public.slug
+              }/tree/${
+                config.public.hash}`
             "
             class="text-link"
             rel="noopener"
-            >{{ config.public.hash.substring(0, 7) }}</a
-          >
+          >{{ config.public.hash.substring(0, 7) }}</a>
         </p>
         <p>© Rinth, Inc.</p>
       </div>
       <div class="links links-1" role="region" aria-label="Legal">
-        <h4 aria-hidden="true">Company</h4>
-        <nuxt-link to="/legal/terms"> Terms</nuxt-link>
-        <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
-        <nuxt-link to="/legal/rules"> Rules</nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com"
-          >Careers <span class="count-bubble">1</span></a
-        >
+        <h4 aria-hidden="true">
+          Company
+        </h4>
+        <nuxt-link to="/legal/terms">
+          Terms
+        </nuxt-link>
+        <nuxt-link to="/legal/privacy">
+          Privacy
+        </nuxt-link>
+        <nuxt-link to="/legal/rules">
+          Rules
+        </nuxt-link>
+        <a :target="$external()" href="https://careers.modrinth.com">Careers <span class="count-bubble">1</span></a>
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
-        <h4 aria-hidden="true">Resources</h4>
+        <h4 aria-hidden="true">
+          Resources
+        </h4>
         <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
         <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
         <a :target="$external()" href="https://status.modrinth.com">Status</a>
         <a rel="noopener" :target="$external()" href="https://github.com/modrinth">GitHub</a>
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
-        <h4 aria-hidden="true">Interact</h4>
+        <h4 aria-hidden="true">
+          Interact
+        </h4>
         <a rel="noopener" :target="$external()" href="https://discord.gg/EUHuJHt"> Discord </a>
         <a rel="noopener" :target="$external()" href="https://twitter.com/modrinth"> Twitter </a>
         <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth"> Mastodon </a>
@@ -324,7 +493,7 @@
           :disabled="isThemeSwitchOnHold"
           @click="changeTheme"
         >
-          <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+          <MoonIcon v-if="$colorMode.preference === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
         </button>
@@ -339,164 +508,6 @@
     </footer>
   </div>
 </template>
-<script setup>
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SearchIcon from '~/assets/images/utils/search.svg'
-
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import HomeIcon from '~/assets/images/sidebar/home.svg'
-
-import MoonIcon from '~/assets/images/utils/moon.svg'
-import SunIcon from '~/assets/images/utils/sun.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import LogOutIcon from '~/assets/images/utils/log-out.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-
-import GitHubIcon from '~/assets/images/utils/github.svg'
-import NavRow from '~/components/ui/NavRow.vue'
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-
-const auth = await useAuth()
-const user = await useUser()
-
-const config = useRuntimeConfig()
-const route = useRoute()
-const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
-useHead({
-  meta: [{ name: 'og:url', content: link }],
-  link: [
-    {
-      rel: 'canonical',
-      href: link,
-    },
-  ],
-})
-</script>
-<script>
-export default defineNuxtComponent({
-  data() {
-    return {
-      isDropdownOpen: false,
-      isMobileMenuOpen: false,
-      isBrowseMenuOpen: false,
-      isThemeSwitchOnHold: false,
-      registeredSkipLink: null,
-      hideDropdown: false,
-      navRoutes: [
-        {
-          label: 'Mods',
-          href: '/mods',
-        },
-        {
-          label: 'Plugins',
-          href: '/plugins',
-        },
-        {
-          label: 'Data Packs',
-          href: '/datapacks',
-        },
-        {
-          label: 'Shaders',
-          href: '/shaders',
-        },
-        {
-          label: 'Resource Packs',
-          href: '/resourcepacks',
-        },
-        {
-          label: 'Modpacks',
-          href: '/modpacks',
-        },
-      ],
-    }
-  },
-  computed: {
-    isOnSearchPage() {
-      return this.navRoutes.some((route) => this.$route.path.startsWith(route.href))
-    },
-  },
-  watch: {
-    '$route.path'() {
-      this.isMobileMenuOpen = false
-      this.isBrowseMenuOpen = false
-
-      if (process.client) {
-        document.body.style.overflowY = 'scroll'
-        document.body.setAttribute('tabindex', '-1')
-        document.body.removeAttribute('tabindex')
-      }
-
-      updateCurrentDate()
-      this.runAnalytics()
-    },
-  },
-  async mounted() {
-    this.runAnalytics()
-    if (this.$route.query.code) {
-      await useAuth(this.$route.query.code)
-      window.history.replaceState(history.state, null, this.$route.path)
-    }
-  },
-  methods: {
-    runAnalytics() {
-      const config = useRuntimeConfig()
-
-      setTimeout(() => {
-        $fetch(`${config.public.ariadneBaseUrl}view`, {
-          method: 'POST',
-          body: {
-            url: window.location.href,
-          },
-        })
-          .then(() => {})
-          .catch(() => {})
-      })
-    },
-    toggleMobileMenu() {
-      this.isMobileMenuOpen = !this.isMobileMenuOpen
-      if (this.isMobileMenuOpen) {
-        this.isBrowseMenuOpen = false
-      }
-    },
-    toggleBrowseMenu() {
-      this.isBrowseMenuOpen = !this.isBrowseMenuOpen
-
-      if (this.isBrowseMenuOpen) {
-        this.isMobileMenuOpen = false
-      }
-    },
-    logout() {
-      useCookie('auth-token').value = null
-
-      this.$notify({
-        group: 'main',
-        title: 'Logged Out',
-        text: 'You have logged out successfully!',
-        type: 'success',
-      })
-
-      useRouter()
-        .push('/')
-        .then(() => {
-          useRouter().go()
-        })
-    },
-    changeTheme() {
-      this.isThemeSwitchOnHold = true
-      updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
-      setTimeout(() => {
-        this.isThemeSwitchOnHold = false
-      }, 1000)
-    },
-  },
-})
-</script>
 
 <style lang="scss">
 @import '~/assets/styles/global.scss';
@@ -1120,4 +1131,5 @@ export default defineNuxtComponent({
   }
 }
 </style>
+
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

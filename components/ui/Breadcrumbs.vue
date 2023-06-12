@@ -1,3 +1,18 @@
+<script setup>
+import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+
+defineProps({
+  linkStack: {
+    type: Array,
+    default: () => [],
+  },
+  currentTitle: {
+    type: String,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <nav class="breadcrumbs">
     <template v-for="(link, index) in linkStack" :key="index">
@@ -13,21 +28,6 @@
     <span class="breadcrumb">{{ currentTitle }}</span>
   </nav>
 </template>
-
-<script setup>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-
-defineProps({
-  linkStack: {
-    type: Array,
-    default: () => [],
-  },
-  currentTitle: {
-    type: String,
-    required: true,
-  },
-})
-</script>
 
 <style lang="scss" scoped>
 .breadcrumbs {

@@ -1,55 +1,3 @@
-<template>
-  <div v-if="count > 1" class="columns paginates">
-    <a
-      :class="{ disabled: page === 1 }"
-      :tabindex="page === 1 ? -1 : 0"
-      class="left-arrow paginate has-icon"
-      aria-label="Previous Page"
-      :href="linkFunction(page - 1)"
-      @click.prevent="page !== 1 ? switchPage(page - 1) : null"
-    >
-      <LeftArrowIcon />
-    </a>
-    <div
-      v-for="(item, index) in pages"
-      :key="'page-' + item + '-' + index"
-      :class="{
-        'page-number': page !== item,
-        shrink: item > 99,
-      }"
-      class="page-number-container"
-    >
-      <div v-if="item === '-'" class="has-icon">
-        <GapIcon />
-      </div>
-      <a
-        v-else
-        :class="{
-          'page-number current': page === item,
-          shrink: item > 99,
-        }"
-        :href="linkFunction(item)"
-        @click.prevent="page !== item ? switchPage(item) : null"
-      >
-        {{ item }}
-      </a>
-    </div>
-
-    <a
-      :class="{
-        disabled: page === pages[pages.length - 1],
-      }"
-      :tabindex="page === pages[pages.length - 1] ? -1 : 0"
-      class="right-arrow paginate has-icon"
-      aria-label="Next Page"
-      :href="linkFunction(page + 1)"
-      @click.prevent="page !== pages[pages.length - 1] ? switchPage(page + 1) : null"
-    >
-      <RightArrowIcon />
-    </a>
-  </div>
-</template>
-
 <script>
 import GapIcon from '~/assets/images/utils/gap.svg'
 import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
@@ -93,12 +41,15 @@ export default {
             this.count - 1,
             this.count,
           ]
-        } else if (this.page > 5) {
+        }
+        else if (this.page > 5) {
           pages = [1, '-', this.page - 1, this.page, this.page + 1, '-', this.count]
-        } else {
+        }
+        else {
           pages = [1, 2, 3, 4, 5, '-', this.count]
         }
-      } else {
+      }
+      else {
         pages = Array.from({ length: this.count }, (_, i) => i + 1)
       }
 
@@ -108,13 +59,64 @@ export default {
   methods: {
     switchPage(newPage) {
       this.$emit('switch-page', newPage)
-      if (newPage !== null && newPage !== '' && !isNaN(newPage)) {
+      if (newPage !== null && newPage !== '' && !isNaN(newPage))
         this.$emit('switch-page', Math.min(Math.max(newPage, 1), this.count))
-      }
     },
   },
 }
 </script>
+
+<template>
+  <div v-if="count > 1" class="columns paginates">
+    <a
+      :class="{ disabled: page === 1 }"
+      :tabindex="page === 1 ? -1 : 0"
+      class="left-arrow paginate has-icon"
+      aria-label="Previous Page"
+      :href="linkFunction(page - 1)"
+      @click.prevent="page !== 1 ? switchPage(page - 1) : null"
+    >
+      <LeftArrowIcon />
+    </a>
+    <div
+      v-for="(item, index) in pages"
+      :key="`page-${item}-${index}`"
+      :class="{
+        'page-number': page !== item,
+        'shrink': item > 99,
+      }"
+      class="page-number-container"
+    >
+      <div v-if="item === '-'" class="has-icon">
+        <GapIcon />
+      </div>
+      <a
+        v-else
+        :class="{
+          'page-number current': page === item,
+          'shrink': item > 99,
+        }"
+        :href="linkFunction(item)"
+        @click.prevent="page !== item ? switchPage(item) : null"
+      >
+        {{ item }}
+      </a>
+    </div>
+
+    <a
+      :class="{
+        disabled: page === pages[pages.length - 1],
+      }"
+      :tabindex="page === pages[pages.length - 1] ? -1 : 0"
+      class="right-arrow paginate has-icon"
+      aria-label="Next Page"
+      :href="linkFunction(page + 1)"
+      @click.prevent="page !== pages[pages.length - 1] ? switchPage(page + 1) : null"
+    >
+      <RightArrowIcon />
+    </a>
+  </div>
+</template>
 
 <style scoped lang="scss">
 a {

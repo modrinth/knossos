@@ -1,14 +1,3 @@
-<template>
-  <div class="categories">
-    <slot />
-    <span
-      v-for="category in categoriesFiltered"
-      :key="category.name"
-      v-html="category.icon + $formatCategory(category.name)"
-    />
-  </div>
-</template>
-
 <script>
 export default {
   props: {
@@ -28,13 +17,24 @@ export default {
       return this.$tag.categories
         .concat(this.$tag.loaders)
         .filter(
-          (x) =>
-            this.categories.includes(x.name) && (!x.project_type || x.project_type === this.type)
+          x =>
+            this.categories.includes(x.name) && (!x.project_type || x.project_type === this.type),
         )
     },
   },
 }
 </script>
+
+<template>
+  <div class="categories">
+    <slot />
+    <span
+      v-for="category in categoriesFiltered"
+      :key="category.name"
+      v-html="category.icon + $formatCategory(category.name)"
+    />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .categories {

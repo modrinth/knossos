@@ -1,29 +1,3 @@
-<template>
-  <div
-    class="checkbox-outer button-within"
-    :class="{ disabled }"
-    role="presentation"
-    @click="toggle"
-  >
-    <button
-      class="checkbox"
-      role="checkbox"
-      :disabled="disabled"
-      :class="{ checked: modelValue, collapsing: collapsingToggleStyle }"
-      :aria-label="description ?? label"
-      :aria-checked="modelValue"
-    >
-      <CheckIcon v-if="modelValue && !collapsingToggleStyle" aria-hidden="true" />
-      <DropdownIcon v-else-if="collapsingToggleStyle" aria-hidden="true" />
-    </button>
-    <!-- aria-hidden is set so screenreaders only use the <button>'s aria-label -->
-    <p v-if="label" aria-hidden="true">
-      {{ label }}
-    </p>
-    <slot v-else />
-  </div>
-</template>
-
 <script>
 import CheckIcon from '~/assets/images/utils/check.svg'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
@@ -59,13 +33,38 @@ export default {
   emits: ['update:modelValue'],
   methods: {
     toggle() {
-      if (!this.disabled) {
+      if (!this.disabled)
         this.$emit('update:modelValue', !this.modelValue)
-      }
     },
   },
 }
 </script>
+
+<template>
+  <div
+    class="checkbox-outer button-within"
+    :class="{ disabled }"
+    role="presentation"
+    @click="toggle"
+  >
+    <button
+      class="checkbox"
+      role="checkbox"
+      :disabled="disabled"
+      :class="{ checked: modelValue, collapsing: collapsingToggleStyle }"
+      :aria-label="description ?? label"
+      :aria-checked="modelValue"
+    >
+      <CheckIcon v-if="modelValue && !collapsingToggleStyle" aria-hidden="true" />
+      <DropdownIcon v-else-if="collapsingToggleStyle" aria-hidden="true" />
+    </button>
+    <!-- aria-hidden is set so screenreaders only use the <button>'s aria-label -->
+    <p v-if="label" aria-hidden="true">
+      {{ label }}
+    </p>
+    <slot v-else />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .checkbox-outer {

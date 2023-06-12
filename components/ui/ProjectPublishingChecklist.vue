@@ -1,104 +1,3 @@
-<template>
-  <div
-    v-if="
-      $auth.user &&
-      currentMember &&
-      nags.filter((x) => x.condition).length > 0 &&
-      (project.status === 'draft' || $tag.rejectedStatuses.includes(project.status))
-    "
-    class="author-actions universal-card"
-  >
-    <div class="header__row">
-      <div class="header__title">
-        <h2>Publishing checklist</h2>
-        <div class="checklist">
-          <span class="checklist__title">Progress:</span>
-          <div class="checklist__items">
-            <div
-              v-for="nag in nags"
-              :key="`checklist-${nag.id}`"
-              v-tooltip="nag.title"
-              :aria-label="nag.title"
-              class="circle"
-              :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
-            >
-              <CheckIcon v-if="!nag.condition" />
-              <RequiredIcon v-else-if="nag.status === 'required'" />
-              <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
-              <ModerationIcon v-else-if="nag.status === 'review'" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="input-group">
-        <button
-          class="square-button"
-          :class="{ 'not-collapsed': !collapsed }"
-          @click="toggleCollapsed()"
-        >
-          <DropdownIcon />
-        </button>
-      </div>
-    </div>
-    <div v-if="!collapsed" class="grid-display width-16">
-      <div v-for="nag in nags.filter((x) => x.condition)" :key="nag.id" class="grid-display__item">
-        <span class="label">
-          <RequiredIcon
-            v-if="nag.status === 'required'"
-            v-tooltip="'Required'"
-            aria-label="Required"
-            :class="nag.status"
-          />
-          <SuggestionIcon
-            v-else-if="nag.status === 'suggestion'"
-            v-tooltip="'Suggestion'"
-            aria-label="Suggestion"
-            :class="nag.status"
-          />
-          <ModerationIcon
-            v-else-if="nag.status === 'review'"
-            v-tooltip="'Review'"
-            aria-label="Review"
-            :class="nag.status"
-          />{{ nag.title }}</span
-        >
-        {{ nag.description }}
-        <Checkbox
-          v-if="
-            nag.status === 'review' &&
-            project.moderator_message &&
-            $tag.rejectedStatuses.includes(project.status)
-          "
-          v-model="acknowledgedMessage"
-          description="Acknowledge staff message in sidebar"
-        >
-          I acknowledge that I have addressed the staff's message on the sidebar
-        </Checkbox>
-        <NuxtLink
-          v-if="nag.link"
-          :class="{ invisible: nag.link.hide }"
-          class="goto-link"
-          :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/${
-            nag.link.path
-          }`"
-        >
-          {{ nag.link.title }}
-          <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
-        </NuxtLink>
-        <button
-          v-else-if="nag.action"
-          class="iconified-button moderation-button"
-          :disabled="nag.action.disabled()"
-          @click="nag.action.onClick"
-        >
-          <SendIcon />
-          {{ nag.action.title }}
-        </button>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
@@ -181,7 +80,7 @@ export default {
   },
   computed: {
     featuredGalleryImage() {
-      return this.project.gallery.find((img) => img.featured)
+      return this.project.gallery.find(img => img.featured)
     },
     nags() {
       return [
@@ -191,7 +90,7 @@ export default {
           title: 'Add a description',
           id: 'add-description',
           description:
-            "A description that clearly describes the project's purpose and function is required.",
+            'A description that clearly describes the project\'s purpose and function is required.',
           status: 'required',
           link: {
             path: 'settings/description',
@@ -250,11 +149,11 @@ export default {
         },
         {
           condition: !(
-            this.project.issues_url ||
-            this.project.source_url ||
-            this.project.wiki_url ||
-            this.project.discord_url ||
-            this.project.donation_urls.length > 0
+            this.project.issues_url
+            || this.project.source_url
+            || this.project.wiki_url
+            || this.project.discord_url
+            || this.project.donation_urls.length > 0
           ),
           title: 'Add external links',
           id: 'add-links',
@@ -269,16 +168,16 @@ export default {
         },
         {
           hide:
-            this.project.project_type === 'resourcepack' ||
-            this.project.project_type === 'plugin' ||
-            this.project.project_type === 'shader' ||
-            this.project.project_type === 'datapack',
+            this.project.project_type === 'resourcepack'
+            || this.project.project_type === 'plugin'
+            || this.project.project_type === 'shader'
+            || this.project.project_type === 'datapack',
           condition:
             this.project.client_side === 'unknown' || this.project.server_side === 'unknown',
           title: 'Select supported environments',
           id: 'select-environments',
           description: `Select if the ${this.$formatProjectType(
-            this.project.project_type
+            this.project.project_type,
           ).toLowerCase()} functions on the client-side and/or server-side.`,
           status: 'required',
           link: {
@@ -292,7 +191,7 @@ export default {
           title: 'Select license',
           id: 'select-license',
           description: `Select the license your ${this.$formatProjectType(
-            this.project.project_type
+            this.project.project_type,
           ).toLowerCase()} is distributed under.`,
           status: 'required',
           link: {
@@ -314,7 +213,7 @@ export default {
             onClick: this.submitForReview,
             title: 'Submit for review',
             disabled: () =>
-              this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
+              this.nags.filter(x => x.condition && x.status === 'required').length > 0,
           },
         },
         {
@@ -331,12 +230,12 @@ export default {
             onClick: this.submitForReview,
             title: 'Resubmit for review',
             disabled: () =>
-              !this.acknowledgedMessage ||
-              this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
+              !this.acknowledgedMessage
+              || this.nags.filter(x => x.condition && x.status === 'required').length > 0,
           },
         },
       ]
-        .filter((x) => !x.hide)
+        .filter(x => !x.hide)
         .sort((a, b) =>
           this.sortByTrue(
             !a.condition,
@@ -344,42 +243,139 @@ export default {
             this.sortByTrue(
               a.status === 'required',
               b.status === 'required',
-              this.sortByFalse(a.status === 'review', b.status === 'review')
-            )
-          )
+              this.sortByFalse(a.status === 'review', b.status === 'review'),
+            ),
+          ),
         )
     },
   },
   methods: {
     sortByTrue(a, b, ifEqual = 0) {
-      if (a === b) {
+      if (a === b)
         return ifEqual
-      } else if (a) {
+      else if (a)
         return -1
-      } else {
+      else
         return 1
-      }
     },
     sortByFalse(a, b, ifEqual = 0) {
-      if (a === b) {
+      if (a === b)
         return ifEqual
-      } else if (b) {
+      else if (b)
         return -1
-      } else {
+      else
         return 1
-      }
     },
     async submitForReview() {
       if (
-        !this.acknowledgedMessage ||
-        this.nags.filter((x) => x.condition && x.status === 'required').length === 0
-      ) {
+        !this.acknowledgedMessage
+        || this.nags.filter(x => x.condition && x.status === 'required').length === 0
+      )
         await this.setProcessing()
-      }
     },
   },
 }
 </script>
+
+<template>
+  <div
+    v-if="
+      $auth.user
+        && currentMember
+        && nags.filter((x) => x.condition).length > 0
+        && (project.status === 'draft' || $tag.rejectedStatuses.includes(project.status))
+    "
+    class="author-actions universal-card"
+  >
+    <div class="header__row">
+      <div class="header__title">
+        <h2>Publishing checklist</h2>
+        <div class="checklist">
+          <span class="checklist__title">Progress:</span>
+          <div class="checklist__items">
+            <div
+              v-for="nag in nags"
+              :key="`checklist-${nag.id}`"
+              v-tooltip="nag.title"
+              :aria-label="nag.title"
+              class="circle"
+              :class="`circle ${!nag.condition ? 'done ' : ''}${nag.status}`"
+            >
+              <CheckIcon v-if="!nag.condition" />
+              <RequiredIcon v-else-if="nag.status === 'required'" />
+              <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
+              <ModerationIcon v-else-if="nag.status === 'review'" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <button
+          class="square-button"
+          :class="{ 'not-collapsed': !collapsed }"
+          @click="toggleCollapsed()"
+        >
+          <DropdownIcon />
+        </button>
+      </div>
+    </div>
+    <div v-if="!collapsed" class="grid-display width-16">
+      <div v-for="nag in nags.filter((x) => x.condition)" :key="nag.id" class="grid-display__item">
+        <span class="label">
+          <RequiredIcon
+            v-if="nag.status === 'required'"
+            v-tooltip="'Required'"
+            aria-label="Required"
+            :class="nag.status"
+          />
+          <SuggestionIcon
+            v-else-if="nag.status === 'suggestion'"
+            v-tooltip="'Suggestion'"
+            aria-label="Suggestion"
+            :class="nag.status"
+          />
+          <ModerationIcon
+            v-else-if="nag.status === 'review'"
+            v-tooltip="'Review'"
+            aria-label="Review"
+            :class="nag.status"
+          />{{ nag.title }}</span>
+        {{ nag.description }}
+        <Checkbox
+          v-if="
+            nag.status === 'review'
+              && project.moderator_message
+              && $tag.rejectedStatuses.includes(project.status)
+          "
+          v-model="acknowledgedMessage"
+          description="Acknowledge staff message in sidebar"
+        >
+          I acknowledge that I have addressed the staff's message on the sidebar
+        </Checkbox>
+        <NuxtLink
+          v-if="nag.link"
+          :class="{ invisible: nag.link.hide }"
+          class="goto-link"
+          :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/${
+            nag.link.path
+          }`"
+        >
+          {{ nag.link.title }}
+          <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
+        </NuxtLink>
+        <button
+          v-else-if="nag.action"
+          class="iconified-button moderation-button"
+          :disabled="nag.action.disabled()"
+          @click="nag.action.onClick"
+        >
+          <SendIcon />
+          {{ nag.action.title }}
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .author-actions {

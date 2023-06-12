@@ -1,11 +1,11 @@
 export const useNotifications = () => useState('notifications', () => [])
 
-export const addNotification = (notification) => {
+export function addNotification(notification) {
   const notifications = useNotifications()
 
   const existingNotif = notifications.value.find(
-    (x) =>
-      x.text === notification.text && x.title === notification.title && x.type === notification.type
+    x =>
+      x.text === notification.text && x.title === notification.title && x.type === notification.type,
   )
   if (existingNotif) {
     setNotificationTimer(existingNotif)
@@ -19,14 +19,14 @@ export const addNotification = (notification) => {
   notifications.value.push(notification)
 }
 
-export const setNotificationTimer = (notification) => {
-  if (!notification) return
+export function setNotificationTimer(notification) {
+  if (!notification)
+    return
 
   const notifications = useNotifications()
 
-  if (notification.timer) {
+  if (notification.timer)
     clearTimeout(notification.timer)
-  }
 
   notification.timer = setTimeout(() => {
     notifications.value.splice(notifications.value.indexOf(notification), 1)

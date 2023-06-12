@@ -1,5 +1,5 @@
-export const useCosmetics = () =>
-  useState('cosmetics', () => {
+export function useCosmetics() {
+  return useState('cosmetics', () => {
     const cosmetics = useCookie('cosmetics', {
       maxAge: 60 * 60 * 24 * 365 * 10,
       sameSite: 'lax',
@@ -30,8 +30,9 @@ export const useCosmetics = () =>
 
     return cosmetics.value
   })
+}
 
-export const saveCosmetics = () => {
+export function saveCosmetics() {
   const cosmetics = useCosmetics()
 
   const cosmeticsCookie = useCookie('cosmetics', {

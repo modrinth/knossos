@@ -44,10 +44,10 @@ export const configuredXss = new xss.FilterXSS({
 
       for (const source of allowedSources) {
         if (source.regex.test(value)) {
-          for (const remove of source.remove) {
+          for (const remove of source.remove)
             value = value.replace(remove, '')
-          }
-          return name + '="' + xss.escapeAttrValue(value) + '"'
+
+          return `${name}="${xss.escapeAttrValue(value)}"`
         }
       }
     }
@@ -56,11 +56,10 @@ export const configuredXss = new xss.FilterXSS({
     if (name === 'class' && ['pre', 'code', 'span'].includes(tag)) {
       const allowedClasses = []
       for (const className of value.split(/\s/g)) {
-        if (className.startsWith('hljs-') || className.startsWith('language-')) {
+        if (className.startsWith('hljs-') || className.startsWith('language-'))
           allowedClasses.push(className)
-        }
       }
-      return name + '="' + xss.escapeAttrValue(allowedClasses.join(' ')) + '"'
+      return `${name}="${xss.escapeAttrValue(allowedClasses.join(' '))}"`
     }
   },
   safeAttrValue(tag, name, value, cssFilter) {
@@ -89,17 +88,18 @@ export const configuredXss = new xss.FilterXSS({
             tag,
             name,
             `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`,
-            cssFilter
+            cssFilter,
           )
         }
-      } catch (err) {}
+      }
+      catch (err) {}
     }
 
     return xss.safeAttrValue(tag, name, value, cssFilter)
   },
 })
 
-export const md = (options = {}) => {
+export function md(options = {}) {
   const md = new MarkdownIt('default', {
     html: true,
     linkify: true,
@@ -107,9 +107,9 @@ export const md = (options = {}) => {
     ...options,
   })
 
-  const defaultLinkOpenRenderer =
-    md.renderer.rules.link_open ||
-    function (tokens, idx, options, _env, self) {
+  const defaultLinkOpenRenderer
+    = md.renderer.rules.link_open
+    || function (tokens, idx, options, _env, self) {
       return self.renderToken(tokens, idx, options)
     }
 
@@ -124,10 +124,10 @@ export const md = (options = {}) => {
         const url = new URL(href)
         const allowedHostnames = ['modrinth.com']
 
-        if (allowedHostnames.includes(url.hostname)) {
+        if (allowedHostnames.includes(url.hostname))
           return defaultLinkOpenRenderer(tokens, idx, options, env, self)
-        }
-      } catch (err) {}
+      }
+      catch (err) {}
     }
 
     tokens[idx].attrSet('rel', 'noopener nofollow ugc')
@@ -138,4 +138,4 @@ export const md = (options = {}) => {
   return md
 }
 
-export const renderString = (string) => configuredXss.process(md().render(string))
+export const renderString = string => configuredXss.process(md().render(string))

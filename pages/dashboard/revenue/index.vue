@@ -1,3 +1,32 @@
+<script>
+import TransferIcon from '~/assets/images/utils/transfer.svg'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import HistoryIcon from '~/assets/images/utils/history.svg'
+import ModalTransfer from '~/components/ui/ModalTransfer.vue'
+
+export default defineNuxtComponent({
+  components: { TransferIcon, SettingsIcon, HistoryIcon, ModalTransfer },
+  async setup() {
+    const auth = await useAuth()
+
+    return { auth }
+  },
+  data() {
+    return {
+      minWithdraw: 0.26,
+      enrolled:
+        this.auth.user.payout_data.payout_wallet
+        && this.auth.user.payout_data.payout_wallet_type
+        && this.auth.user.payout_data.payout_address,
+    }
+  },
+  head: {
+    title: 'Revenue - Modrinth',
+  },
+  methods: {},
+})
+</script>
+
 <template>
   <div>
     <ModalTransfer
@@ -16,9 +45,7 @@
           You have
           <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong>
           available to withdraw.
-          <span v-if="!enrolled"
-            >Enroll in the Creator Monetization Program to withdraw your revenue.</span
-          >
+          <span v-if="!enrolled">Enroll in the Creator Monetization Program to withdraw your revenue.</span>
         </p>
 
         <div v-if="enrolled" class="input-group">
@@ -36,13 +63,11 @@
       </div>
       <p v-else-if="auth.user.payout_data.balance > 0">
         You have made
-        <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong
-        >, however you have not yet met the minimum of ${{ minWithdraw }} to withdraw.
+        <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong>, however you have not yet met the minimum of ${{ minWithdraw }} to withdraw.
       </p>
       <p v-else>
         You have made
-        <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong
-        >, which is under the minimum of ${{ minWithdraw }} to withdraw.
+        <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong>, which is under the minimum of ${{ minWithdraw }} to withdraw.
       </p>
       <div v-if="!enrolled">
         <NuxtLink class="iconified-button" to="/settings/monetization">
@@ -90,34 +115,7 @@
     </section>
   </div>
 </template>
-<script>
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import HistoryIcon from '~/assets/images/utils/history.svg'
-import ModalTransfer from '~/components/ui/ModalTransfer.vue'
 
-export default defineNuxtComponent({
-  components: { TransferIcon, SettingsIcon, HistoryIcon, ModalTransfer },
-  async setup() {
-    const auth = await useAuth()
-
-    return { auth }
-  },
-  data() {
-    return {
-      minWithdraw: 0.26,
-      enrolled:
-        this.auth.user.payout_data.payout_wallet &&
-        this.auth.user.payout_data.payout_wallet_type &&
-        this.auth.user.payout_data.payout_address,
-    }
-  },
-  head: {
-    title: 'Revenue - Modrinth',
-  },
-  methods: {},
-})
-</script>
 <style lang="scss" scoped>
 strong {
   color: var(--color-text-dark);

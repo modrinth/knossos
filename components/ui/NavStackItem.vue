@@ -1,27 +1,3 @@
-<template>
-  <NuxtLink v-if="link !== null" class="nav-link button-base" :to="link">
-    <div class="nav-content">
-      <slot />
-      <span>{{ label }}</span>
-      <span v-if="beta" class="beta-badge">BETA</span>
-      <span v-if="chevron" class="chevron"><ChevronRightIcon /></span>
-    </div>
-  </NuxtLink>
-  <button
-    v-else-if="action"
-    class="nav-link button-base"
-    :class="{ 'danger-button': danger }"
-    @click="action"
-  >
-    <span class="nav-content">
-      <slot />
-      <span>{{ label }}</span>
-      <span v-if="beta" class="beta-badge">BETA</span>
-    </span>
-  </button>
-  <span v-else>i forgor 💀</span>
-</template>
-
 <script>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
@@ -57,6 +33,30 @@ export default {
   },
 }
 </script>
+
+<template>
+  <NuxtLink v-if="link !== null" class="nav-link button-base" :to="link">
+    <div class="nav-content">
+      <slot />
+      <span>{{ label }}</span>
+      <span v-if="beta" class="beta-badge">BETA</span>
+      <span v-if="chevron" class="chevron"><ChevronRightIcon /></span>
+    </div>
+  </NuxtLink>
+  <button
+    v-else-if="action"
+    class="nav-link button-base"
+    :class="{ 'danger-button': danger }"
+    @click="action"
+  >
+    <span class="nav-content">
+      <slot />
+      <span>{{ label }}</span>
+      <span v-if="beta" class="beta-badge">BETA</span>
+    </span>
+  </button>
+  <span v-else>i forgor 💀</span>
+</template>
 
 <style lang="scss" scoped>
 .nav-link {

@@ -1,59 +1,3 @@
-<template>
-  <Modal ref="modal" header="Project moderation">
-    <div v-if="project !== null" class="moderation-modal universal-body">
-      <p>
-        A moderation message is optional, but it can be used to communicate problems with a
-        project's team members. The body is also optional and supports markdown formatting!
-      </p>
-      <div v-if="status" class="status">
-        <span>New project status: </span>
-        <Badge :type="status" />
-      </div>
-      <h3>Message title</h3>
-      <input v-model="moderationMessage" type="text" placeholder="Enter the message..." />
-      <h3>Message body</h3>
-      <div class="textarea-wrapper">
-        <Chips v-model="bodyViewMode" class="separator" :items="['source', 'preview']" />
-        <textarea
-          v-if="bodyViewMode === 'source'"
-          id="body"
-          v-model="moderationMessageBody"
-          :disabled="!moderationMessage"
-          :placeholder="
-            moderationMessage
-              ? 'Type a body to your moderation message here...'
-              : 'You must add a title before you add a body.'
-          "
-        />
-        <div v-else class="markdown-body preview" v-html="renderString(moderationMessageBody)" />
-      </div>
-      <div class="push-right input-group">
-        <button
-          v-if="moderationMessage || moderationMessageBody"
-          class="iconified-button"
-          @click="
-            () => {
-              moderationMessage = ''
-              moderationMessageBody = ''
-            }
-          "
-        >
-          <TrashIcon />
-          Clear message
-        </button>
-        <button class="iconified-button" @click="$refs.modal.hide()">
-          <CrossIcon />
-          Cancel
-        </button>
-        <button class="iconified-button brand-button" @click="saveProject">
-          <CheckIcon />
-          Confirm
-        </button>
-      </div>
-    </div>
-  </Modal>
-</template>
-
 <script>
 import TrashIcon from '~/assets/images/utils/trash.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
@@ -107,9 +51,9 @@ export default {
           moderation_message: this.moderationMessage ? this.moderationMessage : null,
           moderation_message_body: this.moderationMessageBody ? this.moderationMessageBody : null,
         }
-        if (this.status) {
+        if (this.status)
           data.status = this.status
-        }
+
         await useBaseFetch(`project/${this.project.id}`, {
           method: 'PATCH',
           body: data,
@@ -117,10 +61,10 @@ export default {
         })
 
         this.$refs.modal.hide()
-        if (this.onClose !== null) {
+        if (this.onClose !== null)
           this.onClose()
-        }
-      } catch (err) {
+      }
+      catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
@@ -133,18 +77,74 @@ export default {
     },
     show() {
       this.$refs.modal.show()
-      this.moderationMessage =
-        this.project && this.project.moderator_message && this.project.moderator_message.message
+      this.moderationMessage
+        = this.project && this.project.moderator_message && this.project.moderator_message.message
           ? this.project.moderator_message.message
           : ''
-      this.moderationMessageBody =
-        this.project && this.project.moderator_message && this.project.moderator_message.body
+      this.moderationMessageBody
+        = this.project && this.project.moderator_message && this.project.moderator_message.body
           ? this.project.moderator_message.body
           : ''
     },
   },
 }
 </script>
+
+<template>
+  <Modal ref="modal" header="Project moderation">
+    <div v-if="project !== null" class="moderation-modal universal-body">
+      <p>
+        A moderation message is optional, but it can be used to communicate problems with a
+        project's team members. The body is also optional and supports markdown formatting!
+      </p>
+      <div v-if="status" class="status">
+        <span>New project status: </span>
+        <Badge :type="status" />
+      </div>
+      <h3>Message title</h3>
+      <input v-model="moderationMessage" type="text" placeholder="Enter the message...">
+      <h3>Message body</h3>
+      <div class="textarea-wrapper">
+        <Chips v-model="bodyViewMode" class="separator" :items="['source', 'preview']" />
+        <textarea
+          v-if="bodyViewMode === 'source'"
+          id="body"
+          v-model="moderationMessageBody"
+          :disabled="!moderationMessage"
+          :placeholder="
+            moderationMessage
+              ? 'Type a body to your moderation message here...'
+              : 'You must add a title before you add a body.'
+          "
+        />
+        <div v-else class="markdown-body preview" v-html="renderString(moderationMessageBody)" />
+      </div>
+      <div class="push-right input-group">
+        <button
+          v-if="moderationMessage || moderationMessageBody"
+          class="iconified-button"
+          @click="
+            () => {
+              moderationMessage = ''
+              moderationMessageBody = ''
+            }
+          "
+        >
+          <TrashIcon />
+          Clear message
+        </button>
+        <button class="iconified-button" @click="$refs.modal.hide()">
+          <CrossIcon />
+          Cancel
+        </button>
+        <button class="iconified-button brand-button" @click="saveProject">
+          <CheckIcon />
+          Confirm
+        </button>
+      </div>
+    </div>
+  </Modal>
+</template>
 
 <style scoped lang="scss">
 .moderation-modal {

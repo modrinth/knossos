@@ -1,22 +1,3 @@
-<template>
-  <div
-    ref="drop_area"
-    class="drop-area"
-    @drop.stop.prevent="
-      (event) => {
-        $refs.drop_area.style.visibility = 'hidden'
-
-        if (event.dataTransfer && event.dataTransfer.files && fileAllowed) {
-          $emit('change', event.dataTransfer.files)
-        }
-      }
-    "
-    @dragenter.prevent="allowDrag"
-    @dragover.prevent="allowDrag"
-    @dragleave.prevent="$refs.drop_area.style.visibility = 'hidden'"
-  />
-</template>
-
 <script>
 export default {
   props: {
@@ -39,8 +20,8 @@ export default {
       const file = event.dataTransfer?.items[0]
 
       if (
-        file &&
-        this.accept
+        file
+        && this.accept
           .split(',')
           .reduce((acc, t) => acc || file.type.startsWith(t) || file.type === t || t === '*', false)
       ) {
@@ -48,20 +29,38 @@ export default {
         event.dataTransfer.dropEffect = 'copy'
         event.preventDefault()
 
-        if (this.$refs.drop_area) {
+        if (this.$refs.drop_area)
           this.$refs.drop_area.style.visibility = 'visible'
-        }
-      } else {
+      }
+      else {
         this.fileAllowed = false
 
-        if (this.$refs.drop_area) {
+        if (this.$refs.drop_area)
           this.$refs.drop_area.style.visibility = 'hidden'
-        }
       }
     },
   },
 }
 </script>
+
+<template>
+  <div
+    ref="drop_area"
+    class="drop-area"
+    @drop.stop.prevent="
+      (event) => {
+        $refs.drop_area.style.visibility = 'hidden'
+
+        if (event.dataTransfer && event.dataTransfer.files && fileAllowed) {
+          $emit('change', event.dataTransfer.files)
+        }
+      }
+    "
+    @dragenter.prevent="allowDrag"
+    @dragover.prevent="allowDrag"
+    @dragleave.prevent="$refs.drop_area.style.visibility = 'hidden'"
+  />
+</template>
 
 <style lang="scss" scoped>
 .drop-area {

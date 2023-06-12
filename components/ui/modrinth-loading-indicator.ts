@@ -43,11 +43,10 @@ export default defineComponent({
     const loading = useLoading()
 
     watch(loading, (newValue) => {
-      if (newValue) {
+      if (newValue)
         indicator.start()
-      } else {
+      else
         indicator.finish()
-      }
     })
 
     return () =>
@@ -70,7 +69,7 @@ export default defineComponent({
             zIndex: 999999,
           },
         },
-        slots
+        slots,
       )
   },
 })
@@ -91,7 +90,8 @@ function useLoadingIndicator(opts: { duration: number; throttle: number }) {
         isLoading.value = true
         _startTimer()
       }, opts.throttle)
-    } else {
+    }
+    else {
       isLoading.value = true
       _startTimer()
     }

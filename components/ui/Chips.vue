@@ -1,18 +1,3 @@
-<template>
-  <div class="chips">
-    <button
-      v-for="item in items"
-      :key="item"
-      class="iconified-button"
-      :class="{ selected: selected === item }"
-      @click="toggleItem(item)"
-    >
-      <CheckIcon v-if="selected === item" />
-      <span>{{ formatLabel(item) }}</span>
-    </button>
-  </div>
-</template>
-
 <script>
 import CheckIcon from '~/assets/images/utils/check.svg'
 
@@ -34,7 +19,7 @@ export default {
       type: Boolean,
     },
     formatLabel: {
-      default: (x) => x,
+      default: x => x,
       type: Function,
     },
   },
@@ -50,21 +35,34 @@ export default {
     },
   },
   created() {
-    if (this.items.length > 0 && this.neverEmpty) {
+    if (this.items.length > 0 && this.neverEmpty)
       this.selected = this.items[0]
-    }
   },
   methods: {
     toggleItem(item) {
-      if (this.selected === item && !this.neverEmpty) {
+      if (this.selected === item && !this.neverEmpty)
         this.selected = null
-      } else {
+      else
         this.selected = item
-      }
     },
   },
 }
 </script>
+
+<template>
+  <div class="chips">
+    <button
+      v-for="item in items"
+      :key="item"
+      class="iconified-button"
+      :class="{ selected: selected === item }"
+      @click="toggleItem(item)"
+    >
+      <CheckIcon v-if="selected === item" />
+      <span>{{ formatLabel(item) }}</span>
+    </button>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .chips {

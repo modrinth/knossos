@@ -1,13 +1,16 @@
 import hljs from 'highlight.js/lib/core'
+
 // Scripting
 import javascript from 'highlight.js/lib/languages/javascript'
 import python from 'highlight.js/lib/languages/python'
 import lua from 'highlight.js/lib/languages/lua'
+
 // Coding
 import java from 'highlight.js/lib/languages/java'
 import kotlin from 'highlight.js/lib/languages/kotlin'
 import scala from 'highlight.js/lib/languages/scala'
 import groovy from 'highlight.js/lib/languages/groovy'
+
 // Configs
 import gradle from 'highlight.js/lib/languages/gradle'
 import json from 'highlight.js/lib/languages/json'
@@ -15,7 +18,7 @@ import ini from 'highlight.js/lib/languages/ini'
 import yaml from 'highlight.js/lib/languages/yaml'
 import xml from 'highlight.js/lib/languages/xml'
 import properties from 'highlight.js/lib/languages/properties'
-import { md, configuredXss } from '~/helpers/parse.js'
+import { configuredXss, md } from '~/helpers/parse.js'
 
 /* REGISTRATION */
 // Scripting
@@ -47,17 +50,19 @@ hljs.registerAliases(['toml'], { languageName: 'ini' })
 hljs.registerAliases(['yml'], { languageName: 'yaml' })
 hljs.registerAliases(['html', 'htm', 'xhtml', 'mcui', 'fxml'], { languageName: 'xml' })
 
-export const renderHighlightedString = (string) =>
-  configuredXss.process(
+export function renderHighlightedString(string) {
+  return configuredXss.process(
     md({
-      highlight: function (str, lang) {
+      highlight(str, lang) {
         if (lang && hljs.getLanguage(lang)) {
           try {
             return hljs.highlight(str, { language: lang }).value
-          } catch (__) {}
+          }
+          catch (__) {}
         }
 
         return ''
       },
-    }).render(string)
+    }).render(string),
   )
+}

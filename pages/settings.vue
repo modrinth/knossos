@@ -1,3 +1,15 @@
+<script setup>
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+
+import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
+import UserIcon from '~/assets/images/utils/user.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import CurrencyIcon from '~/assets/images/utils/currency.svg'
+
+const route = useRoute()
+</script>
+
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
@@ -27,16 +39,5 @@
     </div>
   </div>
 </template>
-<script setup>
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-
-import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import CurrencyIcon from '~/assets/images/utils/currency.svg'
-
-const route = useRoute()
-</script>
 
 <style lang="scss" scoped></style>

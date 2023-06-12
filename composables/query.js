@@ -1,7 +1,6 @@
-export const getArrayOrString = (x) => {
-  if (typeof x === 'string' || x instanceof String) {
+export function getArrayOrString(x) {
+  if (typeof x === 'string' || x instanceof String)
     return [x]
-  } else {
+  else
     return x
-  }
 }

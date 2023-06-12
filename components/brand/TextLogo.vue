@@ -1,3 +1,7 @@
+<script setup>
+const loading = useLoading()
+</script>
+
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -29,10 +33,6 @@
     </g>
   </svg>
 </template>
-
-<script setup>
-const loading = useLoading()
-</script>
 
 <style lang="scss" scoped>
 .animate {

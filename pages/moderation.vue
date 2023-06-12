@@ -1,111 +1,3 @@
-<template>
-  <div>
-    <ModalModeration
-      ref="modal"
-      :project="currentProject"
-      :status="currentStatus"
-      :on-close="onModalClose"
-    />
-    <div class="normal-page">
-      <div class="normal-page__sidebar">
-        <aside class="universal-card">
-          <h1>Moderation</h1>
-          <NavStack>
-            <NavStackItem link="/moderation" label="All" />
-            <NavStackItem
-              v-for="type in moderationTypes"
-              :key="type"
-              :link="'/moderation/' + type"
-              :label="$formatProjectType(type) + 's'"
-            />
-          </NavStack>
-        </aside>
-      </div>
-      <div class="normal-page__content">
-        <div class="project-list display-mode--list">
-          <ProjectCard
-            v-for="project in $route.params.type !== undefined
-              ? projects.filter((x) => x.project_type === $route.params.type)
-              : projects"
-            :id="project.slug || project.id"
-            :key="project.id"
-            :name="project.title"
-            :description="project.description"
-            :created-at="project.queued"
-            :updated-at="project.queued"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :type="project.project_type"
-            :color="project.color"
-            :moderation="true"
-          >
-            <button
-              class="iconified-button"
-              @click="
-                setProjectStatus(
-                  project,
-                  project.requested_status ? project.requested_status : 'approved'
-                )
-              "
-            >
-              <CheckIcon />
-              Approve
-            </button>
-            <button class="iconified-button" @click="setProjectStatus(project, 'withheld')">
-              <UnlistIcon />
-              Withhold
-            </button>
-            <button class="iconified-button" @click="setProjectStatus(project, 'rejected')">
-              <CrossIcon />
-              Reject
-            </button>
-          </ProjectCard>
-        </div>
-        <div
-          v-if="$route.params.type === 'report' || $route.params.type === undefined"
-          class="reports"
-        >
-          <div v-for="(item, index) in reports" :key="index" class="card report">
-            <div class="info">
-              <div class="title">
-                <h3>
-                  {{ item.item_type }}
-                  <nuxt-link :to="item.url">
-                    {{ item.item_id }}
-                  </nuxt-link>
-                </h3>
-                reported by
-                <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
-              </div>
-              <div class="markdown-body" v-html="renderHighlightedString(item.body)" />
-              <Badge :type="`Marked as ${item.report_type}`" color="orange" />
-            </div>
-            <div class="actions">
-              <button class="iconified-button" @click="deleteReport(index)">
-                <TrashIcon /> Delete report
-              </button>
-              <span
-                v-tooltip="$dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
-                class="stat"
-              >
-                <CalendarIcon />
-                Created {{ fromNow(item.created) }}
-              </span>
-            </div>
-          </div>
-        </div>
-        <div v-if="reports.length === 0 && projects.length === 0" class="error">
-          <Security class="icon" />
-          <br />
-          <span class="text">You are up-to-date!</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
@@ -159,15 +51,17 @@ export default defineNuxtComponent({
             const user = await useBaseFetch(`user/${report.item_id}`, data.$defaultHeaders())
             url = `/user/${user.username}`
             report.item_id = user.username
-          } else if (report.item_type === 'project') {
+          }
+          else if (report.item_type === 'project') {
             const project = await useBaseFetch(`project/${report.item_id}`, data.$defaultHeaders())
             report.item_id = project.slug || report.item_id
             url = `/${project.project_type}/${report.item_id}`
-          } else if (report.item_type === 'version') {
+          }
+          else if (report.item_type === 'version') {
             const version = await useBaseFetch(`version/${report.item_id}`, data.$defaultHeaders())
             const project = await useBaseFetch(
               `project/${version.project_id}`,
-              data.$defaultHeaders()
+              data.$defaultHeaders(),
             )
             report.item_id = version.version_number || report.item_id
             url = `/${project.project_type}/${project.slug || project.id}/version/${report.item_id}`
@@ -182,14 +76,15 @@ export default defineNuxtComponent({
             moderation_type: 'report',
             url,
           }
-        } catch (err) {
+        }
+        catch (err) {
           return {
             ...report,
             url: 'error',
             moderation_type: 'report',
           }
         }
-      })
+      }),
     )
 
     return {
@@ -210,13 +105,11 @@ export default defineNuxtComponent({
     moderationTypes() {
       const obj = {}
 
-      for (const project of this.projects) {
+      for (const project of this.projects)
         obj[project.project_type] = true
-      }
 
-      if (this.reports.length > 0) {
+      if (this.reports.length > 0)
         obj.report = true
-      }
 
       return Object.keys(obj)
     },
@@ -231,8 +124,8 @@ export default defineNuxtComponent({
     },
     onModalClose() {
       this.projects.splice(
-        this.projects.findIndex((x) => this.currentProject.id === x.id),
-        1
+        this.projects.findIndex(x => this.currentProject.id === x.id),
+        1,
       )
       this.currentProject = null
     },
@@ -245,7 +138,8 @@ export default defineNuxtComponent({
           ...this.$defaultHeaders(),
         })
         this.reports.splice(index, 1)
-      } catch (err) {
+      }
+      catch (err) {
         console.error(err)
         this.$notify({
           group: 'main',
@@ -260,6 +154,114 @@ export default defineNuxtComponent({
   },
 })
 </script>
+
+<template>
+  <div>
+    <ModalModeration
+      ref="modal"
+      :project="currentProject"
+      :status="currentStatus"
+      :on-close="onModalClose"
+    />
+    <div class="normal-page">
+      <div class="normal-page__sidebar">
+        <aside class="universal-card">
+          <h1>Moderation</h1>
+          <NavStack>
+            <NavStackItem link="/moderation" label="All" />
+            <NavStackItem
+              v-for="type in moderationTypes"
+              :key="type"
+              :link="`/moderation/${type}`"
+              :label="`${$formatProjectType(type)}s`"
+            />
+          </NavStack>
+        </aside>
+      </div>
+      <div class="normal-page__content">
+        <div class="project-list display-mode--list">
+          <ProjectCard
+            v-for="project in $route.params.type !== undefined
+              ? projects.filter((x) => x.project_type === $route.params.type)
+              : projects"
+            :id="project.slug || project.id"
+            :key="project.id"
+            :name="project.title"
+            :description="project.description"
+            :created-at="project.queued"
+            :updated-at="project.queued"
+            :icon-url="project.icon_url"
+            :categories="project.categories"
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :type="project.project_type"
+            :color="project.color"
+            :moderation="true"
+          >
+            <button
+              class="iconified-button"
+              @click="
+                setProjectStatus(
+                  project,
+                  project.requested_status ? project.requested_status : 'approved',
+                )
+              "
+            >
+              <CheckIcon />
+              Approve
+            </button>
+            <button class="iconified-button" @click="setProjectStatus(project, 'withheld')">
+              <UnlistIcon />
+              Withhold
+            </button>
+            <button class="iconified-button" @click="setProjectStatus(project, 'rejected')">
+              <CrossIcon />
+              Reject
+            </button>
+          </ProjectCard>
+        </div>
+        <div
+          v-if="$route.params.type === 'report' || $route.params.type === undefined"
+          class="reports"
+        >
+          <div v-for="(item, index) in reports" :key="index" class="card report">
+            <div class="info">
+              <div class="title">
+                <h3>
+                  {{ item.item_type }}
+                  <nuxt-link :to="item.url">
+                    {{ item.item_id }}
+                  </nuxt-link>
+                </h3>
+                reported by
+                <a :href="`/user/${item.reporter}`">{{ item.reporter }}</a>
+              </div>
+              <div class="markdown-body" v-html="renderHighlightedString(item.body)" />
+              <Badge :type="`Marked as ${item.report_type}`" color="orange" />
+            </div>
+            <div class="actions">
+              <button class="iconified-button" @click="deleteReport(index)">
+                <TrashIcon /> Delete report
+              </button>
+              <span
+                v-tooltip="$dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
+                class="stat"
+              >
+                <CalendarIcon />
+                Created {{ fromNow(item.created) }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div v-if="reports.length === 0 && projects.length === 0" class="error">
+          <Security class="icon" />
+          <br>
+          <span class="text">You are up-to-date!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 h1 {

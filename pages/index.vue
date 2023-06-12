@@ -1,3 +1,39 @@
+<script setup>
+import { Multiselect } from 'vue-multiselect'
+import SearchIcon from '~/assets/images/utils/search.svg'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import ModrinthIcon from '~/assets/images/logo.svg'
+import PrismLauncherLogo from '~/assets/images/external/prism.svg'
+import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
+import Avatar from '~/components/ui/Avatar.vue'
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+import homepageProjects from '~/generated/homepage.json'
+
+const searchQuery = ref('better')
+const sortType = ref('relevance')
+
+const [{ data: searchProjects, refresh: updateSearchProjects }, { data: notifications }]
+  = await Promise.all([
+    useAsyncData(
+      'demoSearchProjects',
+      () => useBaseFetch(`search?limit=3&query=${searchQuery.value}&index=${sortType.value}`),
+      {
+        transform: result => result.hits,
+      },
+    ),
+    useAsyncData('updatedProjects', () => useBaseFetch('search?limit=3&query=&index=updated'), {
+      transform: result => result.hits,
+    }),
+  ])
+
+const val = Math.ceil(homepageProjects.length / 3)
+const rows = shallowRef([
+  homepageProjects.slice(0, val),
+  homepageProjects.slice(val, val * 2),
+  homepageProjects.slice(val * 2, val * 3),
+])
+</script>
+
 <template>
   <div>
     <div class="landing-hero">
@@ -11,7 +47,7 @@
               :key="projectType.id"
               class="main-header-strong"
             >
-              {{ projectType.display }}s <br />
+              {{ projectType.display }}s <br>
             </strong>
             <strong class="main-header-strong">mods</strong>
           </span>
@@ -22,7 +58,9 @@
         community.
       </h2>
       <div class="button-group">
-        <nuxt-link to="/mods" class="iconified-button brand-button"> Discover mods </nuxt-link>
+        <nuxt-link to="/mods" class="iconified-button brand-button">
+          Discover mods
+        </nuxt-link>
         <a
           v-if="!$auth.user"
           :href="getAuthUrl()"
@@ -62,8 +100,12 @@
       <div class="projects-transition" />
       <div class="users-section">
         <div class="section-header">
-          <div class="section-label green">For Players</div>
-          <h2 class="section-tagline">Discover over 10,000 creations</h2>
+          <div class="section-label green">
+            For Players
+          </div>
+          <h2 class="section-tagline">
+            Discover over 10,000 creations
+          </h2>
           <p class="section-description">
             From magical biomes to cursed dungeons, you can be sure to find content to bring your
             gameplay to the next level.
@@ -88,10 +130,10 @@
                     v-model="searchQuery"
                     type="search"
                     name="search"
-                    :placeholder="`Search...`"
+                    placeholder="Search..."
                     autocomplete="off"
                     @input="updateSearchProjects"
-                  />
+                  >
                 </div>
                 <div class="sort-by">
                   <span class="label">Sort by</span>
@@ -168,7 +210,7 @@
                         $capitalizeString(
                           notification.display_categories[
                             notification.display_categories.length - 1
-                          ]
+                          ],
                         )
                       }}
                       {{ notification.versions[notification.versions.length - 1] }}
@@ -198,17 +240,17 @@
           <div class="blob-demonstration gradient-border">
             <div class="launcher-view">
               <img
-                v-if="$colorMode.value === 'light'"
+                v-if="$colorMode.preference === 'light'"
                 src="https://cdn.modrinth.com/landing-new/launcher-light.webp"
                 alt="launcher graphic"
                 class="minecraft-screen"
-              />
+              >
               <img
                 v-else
                 src="https://cdn.modrinth.com/landing-new/launcher.webp"
                 alt="launcher graphic"
                 class="minecraft-screen"
-              />
+              >
               <div class="launcher-graphics">
                 <a
                   rel="noopener"
@@ -229,7 +271,7 @@
                     alt="multimc launcher logo"
                     width="68"
                     height="68"
-                  />
+                  >
                 </a>
                 <a
                   rel="noopener"
@@ -247,8 +289,12 @@
     </div>
     <div class="creator-section">
       <div class="section-header">
-        <div class="section-label blue">For Creators</div>
-        <h2 class="section-tagline">Share your content with the world</h2>
+        <div class="section-label blue">
+          For Creators
+        </div>
+        <h2 class="section-tagline">
+          Share your content with the world
+        </h2>
         <p class="section-description">
           Give an online home to your creations and reach a massive audience of dedicated players
         </p>
@@ -385,7 +431,9 @@
               </defs>
             </svg>
           </div>
-          <div class="additional-label">Coming soon</div>
+          <div class="additional-label">
+            Coming soon
+          </div>
           <h3>Data and Statistics</h3>
           <p>Get detailed reports on page views, download counts, and revenue</p>
         </div>
@@ -420,7 +468,7 @@
     </div>
     <div class="logo-banner">
       <svg
-        v-if="$colorMode.value === 'light'"
+        v-if="$colorMode.preference === 'light'"
         viewBox="0 0 865 512"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -503,7 +551,7 @@
       </svg>
       <div class="overlay">
         <h2 class="main-header">
-          Read more about <br />
+          Read more about <br>
           <strong class="main-header-strong">Modrinth</strong>
         </h2>
         <a
@@ -516,41 +564,6 @@
     </div>
   </div>
 </template>
-<script setup>
-import { Multiselect } from 'vue-multiselect'
-import SearchIcon from '~/assets/images/utils/search.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import ModrinthIcon from '~/assets/images/logo.svg'
-import PrismLauncherLogo from '~/assets/images/external/prism.svg'
-import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
-import Avatar from '~/components/ui/Avatar.vue'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import homepageProjects from '~/generated/homepage.json'
-
-const searchQuery = ref('better')
-const sortType = ref('relevance')
-
-const [{ data: searchProjects, refresh: updateSearchProjects }, { data: notifications }] =
-  await Promise.all([
-    useAsyncData(
-      'demoSearchProjects',
-      () => useBaseFetch(`search?limit=3&query=${searchQuery.value}&index=${sortType.value}`),
-      {
-        transform: (result) => result.hits,
-      }
-    ),
-    useAsyncData('updatedProjects', () => useBaseFetch(`search?limit=3&query=&index=updated`), {
-      transform: (result) => result.hits,
-    }),
-  ])
-
-const val = Math.ceil(homepageProjects.length / 3)
-const rows = shallowRef([
-  homepageProjects.slice(0, val),
-  homepageProjects.slice(val, val * 2),
-  homepageProjects.slice(val * 2, val * 3),
-])
-</script>
 
 <style lang="scss" scoped>
 .landing-hero {

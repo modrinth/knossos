@@ -1,7 +1,191 @@
+<script setup>
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+import Badge from '~/components/ui/Badge.vue'
+import Promotion from '~/components/ads/Promotion.vue'
+
+import GitHubIcon from '~/assets/images/utils/github.svg'
+import ReportIcon from '~/assets/images/utils/report.svg'
+import SunriseIcon from '~/assets/images/utils/sunrise.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
+import UserIcon from '~/assets/images/utils/user.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import GridIcon from '~/assets/images/utils/grid.svg'
+import ListIcon from '~/assets/images/utils/list.svg'
+import ImageIcon from '~/assets/images/utils/image.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import FileInput from '~/components/ui/FileInput.vue'
+import ModalReport from '~/components/ui/ModalReport.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
+import NavRow from '~/components/ui/NavRow.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
+import Avatar from '~/components/ui/Avatar.vue'
+
+const data = useNuxtApp()
+const route = useRoute()
+
+let user, projects
+try {
+  [{ data: user }, { data: projects }] = await Promise.all([
+    useAsyncData(`user/${route.params.id}`, () =>
+      useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders()),
+    ),
+    useAsyncData(
+      `user/${route.params.id}/projects`,
+      () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+      {
+        transform: (projects) => {
+          for (const project of projects) {
+            project.categories = project.categories.concat(project.loaders)
+            project.project_type = data.$getProjectTypeForUrl(
+              project.project_type,
+              project.categories,
+            )
+          }
+
+          return projects
+        },
+      },
+    ),
+  ])
+}
+catch {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'User not found',
+  })
+}
+
+if (!user.value) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'User not found',
+  })
+}
+
+let githubUrl
+try {
+  const githubUser = await $fetch(`https://api.github.com/user/${user.value.github_id}`)
+  githubUrl = ref(githubUser.html_url)
+}
+catch {}
+
+if (user.value.username !== route.params.id)
+  await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
+
+const metaDescription = ref(
+  user.value.bio
+    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
+    : `Download ${user.value.username}'s projects on Modrinth`,
+)
+
+const projectTypes = computed(() => {
+  const obj = {}
+
+  for (const project of projects.value)
+    obj[project.project_type] = true
+
+  return Object.keys(obj)
+})
+const sumDownloads = computed(() => {
+  let sum = 0
+
+  for (const project of projects.value)
+    sum += project.downloads
+
+  return data.$formatNumber(sum)
+})
+const sumFollows = computed(() => {
+  let sum = 0
+
+  for (const project of projects.value)
+    sum += project.followers
+
+  return data.$formatNumber(sum)
+})
+
+const isEditing = ref(false)
+const icon = shallowRef(null)
+const previewImage = shallowRef(null)
+
+function showPreviewImage(files) {
+  const reader = new FileReader()
+  icon.value = files[0]
+  reader.readAsDataURL(icon.value)
+  reader.onload = (event) => {
+    previewImage.value = event.target.result
+  }
+}
+
+async function saveChanges() {
+  startLoading()
+  try {
+    if (icon.value) {
+      await useBaseFetch(
+        `user/${data.$auth.user.id}/icon?ext=${
+          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+        }`,
+        {
+          method: 'PATCH',
+          body: icon.value,
+          ...data.$defaultHeaders(),
+        },
+      )
+    }
+
+    const reqData = {
+      email: user.value.email,
+      bio: user.value.bio,
+    }
+    if (user.value.username !== data.$auth.user.username)
+      reqData.username = user.value.username
+
+    await useBaseFetch(`user/${data.$auth.user.id}`, {
+      method: 'PATCH',
+      body: reqData,
+      ...data.$defaultHeaders(),
+    })
+    await useAuth(data.$auth.token)
+
+    isEditing.value = false
+  }
+  catch (err) {
+    console.error(err)
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+function cycleSearchDisplayMode() {
+  data.$cosmetics.searchDisplayMode.user = data.$cycleValue(
+    data.$cosmetics.searchDisplayMode.user,
+    data.$tag.projectViewModes,
+  )
+  saveCosmetics()
+}
+</script>
+
+<script>
+export default defineNuxtComponent({
+  methods: {},
+})
+</script>
+
 <template>
   <div v-if="user">
     <Head>
-      <Title>{{ user.username + ' - Modrinth' }}</Title>
+      <Title>{{ `${user.username} - Modrinth` }}</Title>
       <Meta name="og:title" :content="user.username" />
       <Meta name="description" :content="metaDescription" />
       <Meta name="og:type" content="website" />
@@ -69,7 +253,7 @@
           <template v-if="isEditing">
             <div class="inputs universal-labels">
               <label for="user-username"><span class="label__title">Username</span></label>
-              <input id="user-username" v-model="user.username" maxlength="39" type="text" />
+              <input id="user-username" v-model="user.username" maxlength="39" type="text">
               <label for="user-bio"><span class="label__title">Bio</span></label>
               <div class="textarea-wrapper">
                 <textarea id="user-bio" v-model="user.bio" maxlength="160" />
@@ -100,7 +284,7 @@
               <Badge v-else-if="projects.length > 0" type="creator" />
             </div>
             <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -124,7 +308,7 @@
                 Joined {{ fromNow(user.created) }}
               </span>
             </div>
-            <hr class="card-divider" />
+            <hr class="card-divider">
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
@@ -153,7 +337,7 @@
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: $formatProjectType(x) + 's',
+                  label: `${$formatProjectType(x)}s`,
                   href: `/user/${user.username}/${x}s`,
                 }
               }),
@@ -169,8 +353,8 @@
               Manage projects
             </NuxtLink>
             <button
-              v-tooltip="$capitalizeString($cosmetics.searchDisplayMode.user) + ' view'"
-              :aria-label="$capitalizeString($cosmetics.searchDisplayMode.user) + ' view'"
+              v-tooltip="`${$capitalizeString($cosmetics.searchDisplayMode.user)} view`"
+              :aria-label="`${$capitalizeString($cosmetics.searchDisplayMode.user)} view`"
               class="square-button"
               @click="cycleSearchDisplayMode()"
             >
@@ -183,15 +367,15 @@
         <div
           v-if="projects.length > 0"
           class="project-list"
-          :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
+          :class="`display-mode--${$cosmetics.searchDisplayMode.user}`"
         >
           <ProjectCard
             v-for="project in (route.params.projectType !== undefined
               ? projects.filter(
-                  (x) =>
-                    x.project_type ===
-                    route.params.projectType.substr(0, route.params.projectType.length - 1)
-                )
+                (x) =>
+                  x.project_type
+                  === route.params.projectType.substr(0, route.params.projectType.length - 1),
+              )
               : projects
             )
               .slice()
@@ -225,9 +409,9 @@
           />
         </div>
         <div v-else class="error">
-          <UpToDate class="icon" /><br />
+          <UpToDate class="icon" /><br>
           <span v-if="$auth.user && $auth.user.id === user.id" class="text">
-            You don't have any projects.<br />
+            You don't have any projects.<br>
             Would you like to
             <a class="link" @click.prevent="$refs.modal_creation.show()"> create one</a>?
           </span>
@@ -237,190 +421,6 @@
     </div>
   </div>
 </template>
-<script setup>
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Badge from '~/components/ui/Badge.vue'
-import Promotion from '~/components/ads/Promotion.vue'
-
-import GitHubIcon from '~/assets/images/utils/github.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import SunriseIcon from '~/assets/images/utils/sunrise.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import FileInput from '~/components/ui/FileInput.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-
-const data = useNuxtApp()
-const route = useRoute()
-
-let user, projects
-try {
-  ;[{ data: user }, { data: projects }] = await Promise.all([
-    useAsyncData(`user/${route.params.id}`, () =>
-      useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
-    ),
-    useAsyncData(
-      `user/${route.params.id}/projects`,
-      () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
-      {
-        transform: (projects) => {
-          for (const project of projects) {
-            project.categories = project.categories.concat(project.loaders)
-            project.project_type = data.$getProjectTypeForUrl(
-              project.project_type,
-              project.categories
-            )
-          }
-
-          return projects
-        },
-      }
-    ),
-  ])
-} catch {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-    message: 'User not found',
-  })
-}
-
-if (!user.value) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-    message: 'User not found',
-  })
-}
-
-let githubUrl
-try {
-  const githubUser = await $fetch(`https://api.github.com/user/` + user.value.github_id)
-  githubUrl = ref(githubUser.html_url)
-} catch {}
-
-if (user.value.username !== route.params.id) {
-  await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
-}
-
-const metaDescription = ref(
-  user.value.bio
-    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
-    : `Download ${user.value.username}'s projects on Modrinth`
-)
-
-const projectTypes = computed(() => {
-  const obj = {}
-
-  for (const project of projects.value) {
-    obj[project.project_type] = true
-  }
-
-  return Object.keys(obj)
-})
-const sumDownloads = computed(() => {
-  let sum = 0
-
-  for (const project of projects.value) {
-    sum += project.downloads
-  }
-
-  return data.$formatNumber(sum)
-})
-const sumFollows = computed(() => {
-  let sum = 0
-
-  for (const project of projects.value) {
-    sum += project.followers
-  }
-
-  return data.$formatNumber(sum)
-})
-
-const isEditing = ref(false)
-const icon = shallowRef(null)
-const previewImage = shallowRef(null)
-
-function showPreviewImage(files) {
-  const reader = new FileReader()
-  icon.value = files[0]
-  reader.readAsDataURL(icon.value)
-  reader.onload = (event) => {
-    previewImage.value = event.target.result
-  }
-}
-
-async function saveChanges() {
-  startLoading()
-  try {
-    if (icon.value) {
-      await useBaseFetch(
-        `user/${data.$auth.user.id}/icon?ext=${
-          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon.value,
-          ...data.$defaultHeaders(),
-        }
-      )
-    }
-
-    const reqData = {
-      email: user.value.email,
-      bio: user.value.bio,
-    }
-    if (user.value.username !== data.$auth.user.username) {
-      reqData.username = user.value.username
-    }
-
-    await useBaseFetch(`user/${data.$auth.user.id}`, {
-      method: 'PATCH',
-      body: reqData,
-      ...data.$defaultHeaders(),
-    })
-    await useAuth(data.$auth.token)
-
-    isEditing.value = false
-  } catch (err) {
-    console.error(err)
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
-
-function cycleSearchDisplayMode() {
-  data.$cosmetics.searchDisplayMode.user = data.$cycleValue(
-    data.$cosmetics.searchDisplayMode.user,
-    data.$tag.projectViewModes
-  )
-  saveCosmetics()
-}
-</script>
-<script>
-export default defineNuxtComponent({
-  methods: {},
-})
-</script>
 
 <style lang="scss" scoped>
 .user-header-wrapper {

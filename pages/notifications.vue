@@ -1,3 +1,106 @@
+<script>
+import ClearIcon from '~/assets/images/utils/clear.svg'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+import CalendarIcon from '~/assets/images/utils/calendar.svg'
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+import { renderString } from '~/helpers/parse.js'
+
+export default defineNuxtComponent({
+  components: {
+    NavStack,
+    NavStackItem,
+    ClearIcon,
+    SettingsIcon,
+    CalendarIcon,
+    UpToDate,
+  },
+  async setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
+
+    const user = await useUser()
+    if (process.client)
+      await initUserNotifs()
+
+    return { user: ref(user) }
+  },
+  head: {
+    title: 'Notifications - Modrinth',
+  },
+  computed: {
+    notificationTypes() {
+      const obj = {}
+
+      for (const notification of this.user.notifications.filter(it => it.type !== null))
+        obj[notification.type] = true
+
+      return Object.keys(obj)
+    },
+  },
+  created() {
+    this.NOTIFICATION_TYPES = {
+      team_invite: 'Team invites',
+      project_update: 'Project updates',
+      status_update: 'Status changes',
+    }
+  },
+  methods: {
+    renderString,
+    async clearNotifications() {
+      try {
+        const ids = this.user.notifications.map(x => x.id)
+
+        await useBaseFetch(`notifications?ids=${JSON.stringify(ids)}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
+
+        for (const id of ids)
+          await userDeleteNotification(id)
+      }
+      catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data.description,
+          type: 'error',
+        })
+      }
+    },
+    async performAction(notification, _notificationIndex, actionIndex) {
+      startLoading()
+      try {
+        await useBaseFetch(`notification/${notification.id}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
+
+        await userDeleteNotification(notification.id)
+
+        if (actionIndex !== null) {
+          await useBaseFetch(`${notification.actions[actionIndex].action_route[1]}`, {
+            method: notification.actions[actionIndex].action_route[0].toUpperCase(),
+            ...this.$defaultHeaders(),
+          })
+        }
+      }
+      catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data.description,
+          type: 'error',
+        })
+      }
+      stopLoading()
+    },
+  },
+})
+</script>
+
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
@@ -8,7 +111,7 @@
           <NavStackItem
             v-for="type in notificationTypes"
             :key="type"
-            :link="'/notifications/' + type"
+            :link="`/notifications/${type}`"
             :label="NOTIFICATION_TYPES[type]"
             :uses-query="true"
           />
@@ -49,8 +152,7 @@
                 class="date"
               >
                 <CalendarIcon />
-                Received {{ fromNow(notification.created) }}</span
-              >
+                Received {{ fromNow(notification.created) }}</span>
             </div>
           </div>
           <div class="input-group">
@@ -74,117 +176,13 @@
         </div>
         <div v-if="user.notifications.length === 0" class="error">
           <UpToDate class="icon" />
-          <br />
+          <br>
           <span class="text">You are up-to-date!</span>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import ClearIcon from '~/assets/images/utils/clear.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-import { renderString } from '~/helpers/parse.js'
-
-export default defineNuxtComponent({
-  components: {
-    NavStack,
-    NavStackItem,
-    ClearIcon,
-    SettingsIcon,
-    CalendarIcon,
-    UpToDate,
-  },
-  async setup() {
-    definePageMeta({
-      middleware: 'auth',
-    })
-
-    const user = await useUser()
-    if (process.client) {
-      await initUserNotifs()
-    }
-
-    return { user: ref(user) }
-  },
-  head: {
-    title: 'Notifications - Modrinth',
-  },
-  computed: {
-    notificationTypes() {
-      const obj = {}
-
-      for (const notification of this.user.notifications.filter((it) => it.type !== null)) {
-        obj[notification.type] = true
-      }
-
-      return Object.keys(obj)
-    },
-  },
-  created() {
-    this.NOTIFICATION_TYPES = {
-      team_invite: 'Team invites',
-      project_update: 'Project updates',
-      status_update: 'Status changes',
-    }
-  },
-  methods: {
-    renderString,
-    async clearNotifications() {
-      try {
-        const ids = this.user.notifications.map((x) => x.id)
-
-        await useBaseFetch(`notifications?ids=${JSON.stringify(ids)}`, {
-          method: 'DELETE',
-          ...this.$defaultHeaders(),
-        })
-
-        for (const id of ids) {
-          await userDeleteNotification(id)
-        }
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-    },
-    async performAction(notification, _notificationIndex, actionIndex) {
-      startLoading()
-      try {
-        await useBaseFetch(`notification/${notification.id}`, {
-          method: 'DELETE',
-          ...this.$defaultHeaders(),
-        })
-
-        await userDeleteNotification(notification.id)
-
-        if (actionIndex !== null) {
-          await useBaseFetch(`${notification.actions[actionIndex].action_route[1]}`, {
-            method: notification.actions[actionIndex].action_route[0].toUpperCase(),
-            ...this.$defaultHeaders(),
-          })
-        }
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-  },
-})
-</script>
 
 <style lang="scss" scoped>
 .notifications {

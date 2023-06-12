@@ -1,3 +1,15 @@
+<script setup>
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+
+import TermsIcon from '~/assets/images/utils/heart-handshake.svg'
+import PrivacyIcon from '~/assets/images/utils/lock.svg'
+import RulesIcon from '~/assets/images/sidebar/admin.svg'
+import ShieldIcon from '~/assets/images/utils/shield.svg'
+
+const route = useRoute()
+</script>
+
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
@@ -24,18 +36,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-
-import TermsIcon from '~/assets/images/utils/heart-handshake.svg'
-import PrivacyIcon from '~/assets/images/utils/lock.svg'
-import RulesIcon from '~/assets/images/sidebar/admin.svg'
-import ShieldIcon from '~/assets/images/utils/shield.svg'
-
-const route = useRoute()
-</script>
 
 <style lang="scss" scoped>
 .normal-page__content :deep(a) {

@@ -1,68 +1,3 @@
-<template>
-  <Modal ref="modal" header="Create a project">
-    <div class="modal-creation universal-labels">
-      <div class="markdown-body">
-        <p>New projects are created as drafts and can be found under your profile page.</p>
-      </div>
-      <label for="project-type">
-        <span class="label__title">Project type<span class="required">*</span></span>
-      </label>
-      <Chips
-        id="project-type"
-        v-model="projectType"
-        :items="$tag.projectTypes.map((x) => x.display)"
-      />
-      <label for="name">
-        <span class="label__title">Name<span class="required">*</span></span>
-      </label>
-      <input
-        id="name"
-        v-model="name"
-        type="text"
-        maxlength="64"
-        placeholder="Enter project name..."
-        autocomplete="off"
-        @input="updatedName()"
-      />
-      <label for="slug">
-        <span class="label__title">URL<span class="required">*</span></span>
-      </label>
-      <div class="text-input-wrapper">
-        <div class="text-input-wrapper__before">
-          https://modrinth.com/{{ getProjectType() ? getProjectType().id : '???' }}/
-        </div>
-        <input
-          id="slug"
-          v-model="slug"
-          type="text"
-          maxlength="64"
-          autocomplete="off"
-          @input="manualSlug = true"
-        />
-      </div>
-      <label for="additional-information">
-        <span class="label__title">Summary<span class="required">*</span></span>
-        <span class="label__description"
-          >This appears in search and on the sidebar of your project's page.</span
-        >
-      </label>
-      <div class="textarea-wrapper">
-        <textarea id="additional-information" v-model="description" maxlength="256" />
-      </div>
-      <div class="push-right input-group">
-        <button class="iconified-button" @click="cancel">
-          <CrossIcon />
-          Cancel
-        </button>
-        <button class="iconified-button brand-button" @click="createProject">
-          <CheckIcon />
-          Continue
-        </button>
-      </div>
-    </div>
-  </Modal>
-</template>
-
 <script>
 import CrossIcon from '~/assets/images/utils/x.svg'
 import CheckIcon from '~/assets/images/utils/right-arrow.svg'
@@ -100,7 +35,7 @@ export default {
       this.$refs.modal.hide()
     },
     getProjectType() {
-      return this.$tag.projectTypes.find((x) => this.projectType === x.display)
+      return this.$tag.projectTypes.find(x => this.projectType === x.display)
     },
     getClientSide() {
       switch (this.getProjectType().id) {
@@ -158,7 +93,7 @@ export default {
           server_side: this.getServerSide(),
           license_id: 'LicenseRef-Unknown',
           is_draft: true,
-        })
+        }),
       )
 
       try {
@@ -167,7 +102,7 @@ export default {
           body: formData,
           headers: {
             'Content-Disposition': formData,
-            Authorization: this.$auth.token,
+            'Authorization': this.$auth.token,
           },
         })
 
@@ -182,7 +117,8 @@ export default {
             overrideProjectType: projectType.id,
           },
         })
-      } catch (err) {
+      }
+      catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
@@ -213,6 +149,69 @@ export default {
   },
 }
 </script>
+
+<template>
+  <Modal ref="modal" header="Create a project">
+    <div class="modal-creation universal-labels">
+      <div class="markdown-body">
+        <p>New projects are created as drafts and can be found under your profile page.</p>
+      </div>
+      <label for="project-type">
+        <span class="label__title">Project type<span class="required">*</span></span>
+      </label>
+      <Chips
+        id="project-type"
+        v-model="projectType"
+        :items="$tag.projectTypes.map((x) => x.display)"
+      />
+      <label for="name">
+        <span class="label__title">Name<span class="required">*</span></span>
+      </label>
+      <input
+        id="name"
+        v-model="name"
+        type="text"
+        maxlength="64"
+        placeholder="Enter project name..."
+        autocomplete="off"
+        @input="updatedName()"
+      >
+      <label for="slug">
+        <span class="label__title">URL<span class="required">*</span></span>
+      </label>
+      <div class="text-input-wrapper">
+        <div class="text-input-wrapper__before">
+          https://modrinth.com/{{ getProjectType() ? getProjectType().id : '???' }}/
+        </div>
+        <input
+          id="slug"
+          v-model="slug"
+          type="text"
+          maxlength="64"
+          autocomplete="off"
+          @input="manualSlug = true"
+        >
+      </div>
+      <label for="additional-information">
+        <span class="label__title">Summary<span class="required">*</span></span>
+        <span class="label__description">This appears in search and on the sidebar of your project's page.</span>
+      </label>
+      <div class="textarea-wrapper">
+        <textarea id="additional-information" v-model="description" maxlength="256" />
+      </div>
+      <div class="push-right input-group">
+        <button class="iconified-button" @click="cancel">
+          <CrossIcon />
+          Cancel
+        </button>
+        <button class="iconified-button brand-button" @click="createProject">
+          <CheckIcon />
+          Continue
+        </button>
+      </div>
+    </div>
+  </Modal>
+</template>
 
 <style scoped lang="scss">
 .modal-creation {

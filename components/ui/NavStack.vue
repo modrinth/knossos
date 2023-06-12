@@ -1,3 +1,7 @@
+<script>
+export default {}
+</script>
+
 <template>
   <nav>
     <ul>
@@ -5,10 +9,6 @@
     </ul>
   </nav>
 </template>
-
-<script>
-export default {}
-</script>
 
 <style lang="scss" scoped>
 ul {

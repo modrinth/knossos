@@ -1,3 +1,34 @@
+<script>
+export default defineNuxtComponent({
+  head: {
+    title: 'Terms - Modrinth',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'The Terms and Conditions of Modrinth, an open source modding platform focused on Minecraft.',
+      },
+      {
+        hid: 'apple-mobile-web-app-title',
+        name: 'apple-mobile-web-app-title',
+        content: 'Terms and Conditions',
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Terms and Conditions',
+      },
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        content: 'https://modrinth.com/legal/terms',
+      },
+    ],
+  },
+})
+</script>
+
 <template>
   <div>
     <h1>Terms and Conditions</h1>
@@ -86,7 +117,9 @@
 
     <p>
       Please read our
-      <nuxt-link to="/legal/privacy"> Privacy Policy </nuxt-link>.
+      <nuxt-link to="/legal/privacy">
+        Privacy Policy
+      </nuxt-link>.
     </p>
 
     <h2>9. Governing Law</h2>
@@ -123,41 +156,12 @@
 
     <p>
       All Content on Modrinth must obey the
-      <nuxt-link to="/legal/rules"> Content Rules </nuxt-link>. Please be aware of these Rules
+      <nuxt-link to="/legal/rules">
+        Content Rules
+      </nuxt-link>. Please be aware of these Rules
       before uploading any Content to Modrinth.
     </p>
   </div>
 </template>
-
-<script>
-export default defineNuxtComponent({
-  head: {
-    title: 'Terms - Modrinth',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'The Terms and Conditions of Modrinth, an open source modding platform focused on Minecraft.',
-      },
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Terms and Conditions',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Terms and Conditions',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: 'https://modrinth.com/legal/terms',
-      },
-    ],
-  },
-})
-</script>
 
 <style lang="scss" scoped></style>

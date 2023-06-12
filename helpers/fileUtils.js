@@ -1,18 +1,18 @@
 import { formatBytes } from '~/plugins/shorthands.js'
 
-export const fileIsValid = (file, validationOptions) => {
+export function fileIsValid(file, validationOptions) {
   const { maxSize, alertOnInvalid } = validationOptions
   if (maxSize !== null && maxSize !== undefined && file.size > maxSize) {
-    if (alertOnInvalid) {
+    if (alertOnInvalid)
       alert(`File ${file.name} is too big! Must be less than ${formatBytes(maxSize)}`)
-    }
+
     return false
   }
 
   return true
 }
 
-export const acceptFileFromProjectType = (projectType) => {
+export function acceptFileFromProjectType(projectType) {
   switch (projectType) {
     case 'mod':
       return '.jar,.zip,.litemod,application/java-archive,application/x-java-archive,application/zip'

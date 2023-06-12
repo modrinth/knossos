@@ -1,3 +1,121 @@
+<script>
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import Modal from '~/components/ui/Modal.vue'
+
+import CrossIcon from '~/assets/images/utils/x.svg'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
+import UserIcon from '~/assets/images/utils/user.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import CopyIcon from '~/assets/images/utils/clipboard-copy.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import SlashIcon from '~/assets/images/utils/slash.svg'
+
+export default defineNuxtComponent({
+  components: {
+    Modal,
+    ModalConfirm,
+    CrossIcon,
+    RightArrowIcon,
+    CheckIcon,
+    SaveIcon,
+    UserIcon,
+    CopyIcon,
+    TrashIcon,
+    SlashIcon,
+  },
+  async setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
+
+    const auth = await useAuth()
+
+    return { auth }
+  },
+  data() {
+    return {
+      copied: false,
+      email: this.auth.user.email,
+      showKnownErrors: false,
+    }
+  },
+  head: {
+    title: 'Account settings - Modrinth',
+  },
+  methods: {
+    async copyToken() {
+      this.copied = true
+      await navigator.clipboard.writeText(this.auth.token)
+    },
+    async deleteAccount() {
+      startLoading()
+      try {
+        await useBaseFetch(`user/${this.auth.user.id}`, {
+          method: 'DELETE',
+          ...this.$defaultHeaders(),
+        })
+      }
+      catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data.description,
+          type: 'error',
+        })
+      }
+
+      useCookie('auth-token').value = null
+      alert('Please note that logging back in with GitHub will create a new account.')
+      window.location.href = '/'
+
+      stopLoading()
+    },
+    logout() {
+      this.$refs.modal_revoke_token.hide()
+      useCookie('auth-token').value = null
+
+      window.location.href = getAuthUrl()
+    },
+    hasMonetizationEnabled() {
+      return (
+        this.auth.user.payout_data.payout_wallet
+        && this.auth.user.payout_data.payout_wallet_type
+        && this.auth.user.payout_data.payout_address
+      )
+    },
+    async saveChanges() {
+      if (this.hasMonetizationEnabled() && !this.email) {
+        this.showKnownErrors = true
+        return
+      }
+      startLoading()
+      try {
+        const data = {
+          email: this.email ? this.email : null,
+        }
+
+        await useBaseFetch(`user/${this.auth.user.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
+        await useAuth(this.auth.token)
+      }
+      catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data.description,
+          type: 'error',
+        })
+      }
+      stopLoading()
+    },
+  },
+})
+</script>
+
 <template>
   <div>
     <ModalConfirm
@@ -80,8 +198,8 @@
         v-model="email"
         maxlength="2048"
         type="email"
-        :placeholder="`Enter your email address...`"
-      />
+        placeholder="Enter your email address..."
+      >
       <div class="button-group">
         <button
           type="button"
@@ -107,7 +225,9 @@
             <CheckIcon />
             Copied token to clipboard
           </template>
-          <template v-else> <CopyIcon />Copy token to clipboard </template>
+          <template v-else>
+            <CopyIcon />Copy token to clipboard
+          </template>
         </button>
         <button type="button" class="iconified-button" @click="$refs.modal_revoke_token.show()">
           <SlashIcon />
@@ -134,121 +254,6 @@
   </div>
 </template>
 
-<script>
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
-
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import CopyIcon from '~/assets/images/utils/clipboard-copy.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import SlashIcon from '~/assets/images/utils/slash.svg'
-
-export default defineNuxtComponent({
-  components: {
-    Modal,
-    ModalConfirm,
-    CrossIcon,
-    RightArrowIcon,
-    CheckIcon,
-    SaveIcon,
-    UserIcon,
-    CopyIcon,
-    TrashIcon,
-    SlashIcon,
-  },
-  async setup() {
-    definePageMeta({
-      middleware: 'auth',
-    })
-
-    const auth = await useAuth()
-
-    return { auth }
-  },
-  data() {
-    return {
-      copied: false,
-      email: this.auth.user.email,
-      showKnownErrors: false,
-    }
-  },
-  head: {
-    title: 'Account settings - Modrinth',
-  },
-  methods: {
-    async copyToken() {
-      this.copied = true
-      await navigator.clipboard.writeText(this.auth.token)
-    },
-    async deleteAccount() {
-      startLoading()
-      try {
-        await useBaseFetch(`user/${this.auth.user.id}`, {
-          method: 'DELETE',
-          ...this.$defaultHeaders(),
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      useCookie('auth-token').value = null
-      alert('Please note that logging back in with GitHub will create a new account.')
-      window.location.href = '/'
-
-      stopLoading()
-    },
-    logout() {
-      this.$refs.modal_revoke_token.hide()
-      useCookie('auth-token').value = null
-
-      window.location.href = getAuthUrl()
-    },
-    hasMonetizationEnabled() {
-      return (
-        this.auth.user.payout_data.payout_wallet &&
-        this.auth.user.payout_data.payout_wallet_type &&
-        this.auth.user.payout_data.payout_address
-      )
-    },
-    async saveChanges() {
-      if (this.hasMonetizationEnabled() && !this.email) {
-        this.showKnownErrors = true
-        return
-      }
-      startLoading()
-      try {
-        const data = {
-          email: this.email ? this.email : null,
-        }
-
-        await useBaseFetch(`user/${this.auth.user.id}`, {
-          method: 'PATCH',
-          body: data,
-          ...this.$defaultHeaders(),
-        })
-        await useAuth(this.auth.token)
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-  },
-})
-</script>
 <style lang="scss" scoped>
 .modal-revoke-token {
   padding: var(--spacing-card-bg);

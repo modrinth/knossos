@@ -1,281 +1,3 @@
-<template>
-  <div>
-    <Head>
-      <Title>{{ project.title }} - Gallery</Title>
-      <Meta name="og:title" :content="`${project.title} - Gallery`" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
-      <Meta name="og:description" :contcent="metaDescription" />
-    </Head>
-    <Modal
-      v-if="$auth.user && currentMember"
-      ref="modal_edit_item"
-      :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
-    >
-      <div class="modal-gallery universal-labels">
-        <div class="gallery-file-input">
-          <div class="file-header">
-            <ImageIcon />
-            <strong>{{ editFile ? editFile.name : 'Current image' }}</strong>
-            <FileInput
-              v-if="editIndex === -1"
-              class="iconified-button raised-button"
-              prompt="Replace"
-              :accept="acceptFileTypes"
-              :max-size="524288000"
-              should-always-reset
-              @change="
-                (x) => {
-                  editFile = x[0]
-                  showPreviewImage()
-                }
-              "
-            >
-              <TransferIcon />
-            </FileInput>
-          </div>
-          <img
-            :src="
-              previewImage
-                ? previewImage
-                : project.gallery[editIndex] && project.gallery[editIndex].url
-                ? project.gallery[editIndex].url
-                : 'https://cdn.modrinth.com/placeholder-banner.svg'
-            "
-            alt="gallery-preview"
-          />
-        </div>
-        <label for="gallery-image-title">
-          <span class="label__title">Title</span>
-        </label>
-        <input
-          id="gallery-image-title"
-          v-model="editTitle"
-          type="text"
-          maxlength="64"
-          placeholder="Enter title..."
-        />
-        <label for="gallery-image-desc">
-          <span class="label__title">Description</span>
-        </label>
-        <div class="textarea-wrapper">
-          <textarea
-            id="gallery-image-desc"
-            v-model="editDescription"
-            maxlength="255"
-            placeholder="Enter description..."
-          />
-        </div>
-        <label for="gallery-image-ordering">
-          <span class="label__title">Order Index</span>
-        </label>
-        <input
-          id="gallery-image-ordering"
-          v-model="editOrder"
-          type="number"
-          placeholder="Enter order index..."
-        />
-        <label for="gallery-image-featured">
-          <span class="label__title">Featured</span>
-          <span class="label__description">
-            A featured gallery image shows up in search and your project card. Only one gallery
-            image can be featured.
-          </span>
-        </label>
-        <button
-          v-if="!editFeatured"
-          id="gallery-image-featured"
-          class="iconified-button"
-          @click="editFeatured = true"
-        >
-          <StarIcon aria-hidden="true" />
-          Feature image
-        </button>
-        <button
-          v-else
-          id="gallery-image-featured"
-          class="iconified-button"
-          @click="editFeatured = false"
-        >
-          <StarIcon fill="currentColor" aria-hidden="true" />
-          Unfeature image
-        </button>
-        <div class="button-group">
-          <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
-            <CrossIcon />
-            Cancel
-          </button>
-          <button
-            v-if="editIndex === -1"
-            class="iconified-button brand-button"
-            :disabled="shouldPreventActions"
-            @click="createGalleryItem"
-          >
-            <PlusIcon />
-            Add gallery image
-          </button>
-          <button
-            v-else
-            class="iconified-button brand-button"
-            :disabled="shouldPreventActions"
-            @click="editGalleryItem"
-          >
-            <SaveIcon />
-            Save changes
-          </button>
-        </div>
-      </div>
-    </Modal>
-    <ModalConfirm
-      v-if="$auth.user && currentMember"
-      ref="modal_confirm"
-      title="Are you sure you want to delete this gallery image?"
-      description="This will remove this gallery image forever (like really forever)."
-      :has-to-type="false"
-      proceed-label="Delete"
-      @proceed="deleteGalleryImage"
-    />
-    <div
-      v-if="expandedGalleryItem != null"
-      class="expanded-image-modal"
-      @click="expandedGalleryItem = null"
-    >
-      <div class="content">
-        <img
-          class="image"
-          :class="{ 'zoomed-in': zoomedIn }"
-          :src="
-            expandedGalleryItem.url
-              ? expandedGalleryItem.url
-              : 'https://cdn.modrinth.com/placeholder-banner.svg'
-          "
-          :alt="expandedGalleryItem.title ? expandedGalleryItem.title : 'gallery-image'"
-          @click.stop
-        />
-
-        <div class="floating" @click.stop>
-          <div class="text">
-            <h2 v-if="expandedGalleryItem.title">
-              {{ expandedGalleryItem.title }}
-            </h2>
-            <p v-if="expandedGalleryItem.description">
-              {{ expandedGalleryItem.description }}
-            </p>
-          </div>
-          <div class="controls">
-            <div class="buttons">
-              <button class="close circle-button" @click="expandedGalleryItem = null">
-                <CrossIcon aria-hidden="true" />
-              </button>
-              <a
-                class="open circle-button"
-                target="_blank"
-                :href="
-                  expandedGalleryItem.url
-                    ? expandedGalleryItem.url
-                    : 'https://cdn.modrinth.com/placeholder-banner.svg'
-                "
-              >
-                <ExternalIcon aria-hidden="true" />
-              </a>
-              <button class="circle-button" @click="zoomedIn = !zoomedIn">
-                <ExpandIcon v-if="!zoomedIn" aria-hidden="true" />
-                <ContractIcon v-else aria-hidden="true" />
-              </button>
-              <button
-                v-if="project.gallery.length > 1"
-                class="previous circle-button"
-                @click="previousImage()"
-              >
-                <LeftArrowIcon aria-hidden="true" />
-              </button>
-              <button
-                v-if="project.gallery.length > 1"
-                class="next circle-button"
-                @click="nextImage()"
-              >
-                <RightArrowIcon aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="currentMember" class="card header-buttons">
-      <FileInput
-        :max-size="524288000"
-        :accept="acceptFileTypes"
-        prompt="Upload an image"
-        class="brand-button iconified-button"
-        @change="handleFiles"
-      >
-        <UploadIcon />
-      </FileInput>
-      <span class="indicator">
-        <InfoIcon /> Click to choose an image or drag one onto this page
-      </span>
-      <DropArea :accept="acceptFileTypes" @change="handleFiles" />
-    </div>
-    <div class="items">
-      <div v-for="(item, index) in project.gallery" :key="index" class="card gallery-item">
-        <a class="gallery-thumbnail" @click="expandImage(item, index)">
-          <img
-            :src="item.url ? item.url : 'https://cdn.modrinth.com/placeholder-banner.svg'"
-            :alt="item.title ? item.title : 'gallery-image'"
-          />
-        </a>
-        <div class="gallery-body">
-          <div class="gallery-info">
-            <h2 v-if="item.title">
-              {{ item.title }}
-            </h2>
-            <p v-if="item.description">
-              {{ item.description }}
-            </p>
-          </div>
-        </div>
-        <div class="gallery-bottom">
-          <div class="gallery-created">
-            <CalendarIcon />
-            {{ $dayjs(item.created).format('MMMM D, YYYY') }}
-          </div>
-          <div v-if="currentMember" class="gallery-buttons input-group">
-            <button
-              class="iconified-button"
-              @click="
-                () => {
-                  resetEdit()
-                  editIndex = index
-                  editTitle = item.title
-                  editDescription = item.description
-                  editFeatured = item.featured
-                  editOrder = item.ordering
-                  $refs.modal_edit_item.show()
-                }
-              "
-            >
-              <EditIcon />
-              Edit
-            </button>
-            <button
-              class="iconified-button"
-              @click="
-                () => {
-                  deleteIndex = index
-                  $refs.modal_confirm.show()
-                }
-              "
-            >
-              <TrashIcon />
-              Remove
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import PlusIcon from '~/assets/images/utils/plus.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
@@ -365,13 +87,12 @@ export default defineNuxtComponent({
     this._keyListener = function (e) {
       if (this.expandedGalleryItem) {
         e.preventDefault()
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape')
           this.expandedGalleryItem = null
-        } else if (e.key === 'ArrowLeft') {
+        else if (e.key === 'ArrowLeft')
           this.previousImage()
-        } else if (e.key === 'ArrowRight') {
+        else if (e.key === 'ArrowRight')
           this.nextImage()
-        }
       }
     }
 
@@ -380,16 +101,16 @@ export default defineNuxtComponent({
   methods: {
     nextImage() {
       this.expandedGalleryIndex++
-      if (this.expandedGalleryIndex >= this.project.gallery.length) {
+      if (this.expandedGalleryIndex >= this.project.gallery.length)
         this.expandedGalleryIndex = 0
-      }
+
       this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
     previousImage() {
       this.expandedGalleryIndex--
-      if (this.expandedGalleryIndex < 0) {
+      if (this.expandedGalleryIndex < 0)
         this.expandedGalleryIndex = this.project.gallery.length - 1
-      }
+
       this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
     },
     expandImage(item, index) {
@@ -433,15 +154,14 @@ export default defineNuxtComponent({
             : null
         }&featured=${this.editFeatured}`
 
-        if (this.editTitle) {
+        if (this.editTitle)
           url += `&title=${encodeURIComponent(this.editTitle)}`
-        }
-        if (this.editDescription) {
+
+        if (this.editDescription)
           url += `&description=${encodeURIComponent(this.editDescription)}`
-        }
-        if (this.editOrder) {
+
+        if (this.editOrder)
           url += `&ordering=${this.editOrder}`
-        }
 
         await useBaseFetch(url, {
           method: 'POST',
@@ -451,7 +171,8 @@ export default defineNuxtComponent({
         await this.updateProject()
 
         this.$refs.modal_edit_item.hide()
-      } catch (err) {
+      }
+      catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
@@ -469,18 +190,17 @@ export default defineNuxtComponent({
 
       try {
         let url = `project/${this.project.id}/gallery?url=${encodeURIComponent(
-          this.project.gallery[this.editIndex].url
+          this.project.gallery[this.editIndex].url,
         )}&featured=${this.editFeatured}`
 
-        if (this.editTitle) {
+        if (this.editTitle)
           url += `&title=${encodeURIComponent(this.editTitle)}`
-        }
-        if (this.editDescription) {
+
+        if (this.editDescription)
           url += `&description=${encodeURIComponent(this.editDescription)}`
-        }
-        if (this.editOrder) {
+
+        if (this.editOrder)
           url += `&ordering=${this.editOrder}`
-        }
 
         await useBaseFetch(url, {
           method: 'PATCH',
@@ -489,7 +209,8 @@ export default defineNuxtComponent({
 
         await this.updateProject()
         this.$refs.modal_edit_item.hide()
-      } catch (err) {
+      }
+      catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
@@ -507,16 +228,17 @@ export default defineNuxtComponent({
       try {
         await useBaseFetch(
           `project/${this.project.id}/gallery?url=${encodeURIComponent(
-            this.project.gallery[this.deleteIndex].url
+            this.project.gallery[this.deleteIndex].url,
           )}`,
           {
             method: 'DELETE',
             ...this.$defaultHeaders(),
-          }
+          },
         )
 
         await this.updateProject()
-      } catch (err) {
+      }
+      catch (err) {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
@@ -540,6 +262,284 @@ export default defineNuxtComponent({
   },
 })
 </script>
+
+<template>
+  <div>
+    <Head>
+      <Title>{{ project.title }} - Gallery</Title>
+      <Meta name="og:title" :content="`${project.title} - Gallery`" />
+      <Meta name="description" :content="metaDescription" />
+      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
+      <Meta name="og:description" :contcent="metaDescription" />
+    </Head>
+    <Modal
+      v-if="$auth.user && currentMember"
+      ref="modal_edit_item"
+      :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
+    >
+      <div class="modal-gallery universal-labels">
+        <div class="gallery-file-input">
+          <div class="file-header">
+            <ImageIcon />
+            <strong>{{ editFile ? editFile.name : 'Current image' }}</strong>
+            <FileInput
+              v-if="editIndex === -1"
+              class="iconified-button raised-button"
+              prompt="Replace"
+              :accept="acceptFileTypes"
+              :max-size="524288000"
+              should-always-reset
+              @change="
+                (x) => {
+                  editFile = x[0]
+                  showPreviewImage()
+                }
+              "
+            >
+              <TransferIcon />
+            </FileInput>
+          </div>
+          <img
+            :src="
+              previewImage
+                ? previewImage
+                : project.gallery[editIndex] && project.gallery[editIndex].url
+                  ? project.gallery[editIndex].url
+                  : 'https://cdn.modrinth.com/placeholder-banner.svg'
+            "
+            alt="gallery-preview"
+          >
+        </div>
+        <label for="gallery-image-title">
+          <span class="label__title">Title</span>
+        </label>
+        <input
+          id="gallery-image-title"
+          v-model="editTitle"
+          type="text"
+          maxlength="64"
+          placeholder="Enter title..."
+        >
+        <label for="gallery-image-desc">
+          <span class="label__title">Description</span>
+        </label>
+        <div class="textarea-wrapper">
+          <textarea
+            id="gallery-image-desc"
+            v-model="editDescription"
+            maxlength="255"
+            placeholder="Enter description..."
+          />
+        </div>
+        <label for="gallery-image-ordering">
+          <span class="label__title">Order Index</span>
+        </label>
+        <input
+          id="gallery-image-ordering"
+          v-model="editOrder"
+          type="number"
+          placeholder="Enter order index..."
+        >
+        <label for="gallery-image-featured">
+          <span class="label__title">Featured</span>
+          <span class="label__description">
+            A featured gallery image shows up in search and your project card. Only one gallery
+            image can be featured.
+          </span>
+        </label>
+        <button
+          v-if="!editFeatured"
+          id="gallery-image-featured"
+          class="iconified-button"
+          @click="editFeatured = true"
+        >
+          <StarIcon aria-hidden="true" />
+          Feature image
+        </button>
+        <button
+          v-else
+          id="gallery-image-featured"
+          class="iconified-button"
+          @click="editFeatured = false"
+        >
+          <StarIcon fill="currentColor" aria-hidden="true" />
+          Unfeature image
+        </button>
+        <div class="button-group">
+          <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
+            <CrossIcon />
+            Cancel
+          </button>
+          <button
+            v-if="editIndex === -1"
+            class="iconified-button brand-button"
+            :disabled="shouldPreventActions"
+            @click="createGalleryItem"
+          >
+            <PlusIcon />
+            Add gallery image
+          </button>
+          <button
+            v-else
+            class="iconified-button brand-button"
+            :disabled="shouldPreventActions"
+            @click="editGalleryItem"
+          >
+            <SaveIcon />
+            Save changes
+          </button>
+        </div>
+      </div>
+    </Modal>
+    <ModalConfirm
+      v-if="$auth.user && currentMember"
+      ref="modal_confirm"
+      title="Are you sure you want to delete this gallery image?"
+      description="This will remove this gallery image forever (like really forever)."
+      :has-to-type="false"
+      proceed-label="Delete"
+      @proceed="deleteGalleryImage"
+    />
+    <div
+      v-if="expandedGalleryItem != null"
+      class="expanded-image-modal"
+      @click="expandedGalleryItem = null"
+    >
+      <div class="content">
+        <img
+          class="image"
+          :class="{ 'zoomed-in': zoomedIn }"
+          :src="
+            expandedGalleryItem.url
+              ? expandedGalleryItem.url
+              : 'https://cdn.modrinth.com/placeholder-banner.svg'
+          "
+          :alt="expandedGalleryItem.title ? expandedGalleryItem.title : 'gallery-image'"
+          @click.stop
+        >
+
+        <div class="floating" @click.stop>
+          <div class="text">
+            <h2 v-if="expandedGalleryItem.title">
+              {{ expandedGalleryItem.title }}
+            </h2>
+            <p v-if="expandedGalleryItem.description">
+              {{ expandedGalleryItem.description }}
+            </p>
+          </div>
+          <div class="controls">
+            <div class="buttons">
+              <button class="close circle-button" @click="expandedGalleryItem = null">
+                <CrossIcon aria-hidden="true" />
+              </button>
+              <a
+                class="open circle-button"
+                target="_blank"
+                :href="
+                  expandedGalleryItem.url
+                    ? expandedGalleryItem.url
+                    : 'https://cdn.modrinth.com/placeholder-banner.svg'
+                "
+              >
+                <ExternalIcon aria-hidden="true" />
+              </a>
+              <button class="circle-button" @click="zoomedIn = !zoomedIn">
+                <ExpandIcon v-if="!zoomedIn" aria-hidden="true" />
+                <ContractIcon v-else aria-hidden="true" />
+              </button>
+              <button
+                v-if="project.gallery.length > 1"
+                class="previous circle-button"
+                @click="previousImage()"
+              >
+                <LeftArrowIcon aria-hidden="true" />
+              </button>
+              <button
+                v-if="project.gallery.length > 1"
+                class="next circle-button"
+                @click="nextImage()"
+              >
+                <RightArrowIcon aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="currentMember" class="card header-buttons">
+      <FileInput
+        :max-size="524288000"
+        :accept="acceptFileTypes"
+        prompt="Upload an image"
+        class="brand-button iconified-button"
+        @change="handleFiles"
+      >
+        <UploadIcon />
+      </FileInput>
+      <span class="indicator">
+        <InfoIcon /> Click to choose an image or drag one onto this page
+      </span>
+      <DropArea :accept="acceptFileTypes" @change="handleFiles" />
+    </div>
+    <div class="items">
+      <div v-for="(item, index) in project.gallery" :key="index" class="card gallery-item">
+        <a class="gallery-thumbnail" @click="expandImage(item, index)">
+          <img
+            :src="item.url ? item.url : 'https://cdn.modrinth.com/placeholder-banner.svg'"
+            :alt="item.title ? item.title : 'gallery-image'"
+          >
+        </a>
+        <div class="gallery-body">
+          <div class="gallery-info">
+            <h2 v-if="item.title">
+              {{ item.title }}
+            </h2>
+            <p v-if="item.description">
+              {{ item.description }}
+            </p>
+          </div>
+        </div>
+        <div class="gallery-bottom">
+          <div class="gallery-created">
+            <CalendarIcon />
+            {{ $dayjs(item.created).format('MMMM D, YYYY') }}
+          </div>
+          <div v-if="currentMember" class="gallery-buttons input-group">
+            <button
+              class="iconified-button"
+              @click="
+                () => {
+                  resetEdit()
+                  editIndex = index
+                  editTitle = item.title
+                  editDescription = item.description
+                  editFeatured = item.featured
+                  editOrder = item.ordering
+                  $refs.modal_edit_item.show()
+                }
+              "
+            >
+              <EditIcon />
+              Edit
+            </button>
+            <button
+              class="iconified-button"
+              @click="
+                () => {
+                  deleteIndex = index
+                  $refs.modal_confirm.show()
+                }
+              "
+            >
+              <TrashIcon />
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .header-buttons {

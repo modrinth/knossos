@@ -1,3 +1,207 @@
+<script>
+import { Multiselect } from 'vue-multiselect'
+import Avatar from '~/components/ui/Avatar.vue'
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import FileInput from '~/components/ui/FileInput.vue'
+
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import ExitIcon from '~/assets/images/utils/x.svg'
+import IssuesIcon from '~/assets/images/utils/issues.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
+
+export default defineNuxtComponent({
+  components: {
+    Avatar,
+    ModalConfirm,
+    FileInput,
+    Multiselect,
+    UploadIcon,
+    SaveIcon,
+    TrashIcon,
+    ExitIcon,
+    CheckIcon,
+    IssuesIcon,
+  },
+  props: {
+    project: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+    currentMember: {
+      type: Object,
+      default() {
+        return null
+      },
+    },
+    patchProject: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'Patch project function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
+    patchIcon: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'Patch icon function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
+    updateIcon: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'Update icon function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
+  },
+  data() {
+    return {
+      name: this.project.title,
+      slug: this.project.slug,
+      summary: this.project.description,
+      icon: null,
+      previewImage: null,
+      clientSide: this.project.client_side,
+      serverSide: this.project.server_side,
+      deletedIcon: false,
+      visibility: this.$tag.approvedStatuses.includes(this.project.status)
+        ? this.project.status
+        : this.project.requested_status,
+    }
+  },
+  computed: {
+    hasPermission() {
+      const EDIT_DETAILS = 1 << 2
+      return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
+    },
+    hasDeletePermission() {
+      const DELETE_PROJECT = 1 << 7
+      return (this.currentMember.permissions & DELETE_PROJECT) === DELETE_PROJECT
+    },
+    sideTypes() {
+      return ['required', 'optional', 'unsupported']
+    },
+    patchData() {
+      const data = {}
+
+      if (this.name !== this.project.title)
+        data.title = this.name.trim()
+
+      if (this.slug !== this.project.slug)
+        data.slug = this.slug.trim()
+
+      if (this.summary !== this.project.description)
+        data.description = this.summary.trim()
+
+      if (this.clientSide !== this.project.client_side)
+        data.client_side = this.clientSide
+
+      if (this.serverSide !== this.project.server_side)
+        data.server_side = this.serverSide
+
+      if (this.$tag.approvedStatuses.includes(this.project.status)) {
+        if (this.visibility !== this.project.status)
+          data.status = this.visibility
+      }
+      else if (this.visibility !== this.project.requested_status) {
+        data.requested_status = this.visibility
+      }
+
+      return data
+    },
+    hasChanges() {
+      return Object.keys(this.patchData).length > 0 || this.deletedIcon || this.icon
+    },
+  },
+  methods: {
+    hasModifiedVisibility() {
+      const originalVisibility = this.$tag.approvedStatuses.includes(this.project.status)
+        ? this.project.status
+        : this.project.requested_status
+
+      return originalVisibility !== this.visibility
+    },
+    async saveChanges() {
+      if (this.hasChanges)
+        await this.patchProject(this.patchData)
+
+      if (this.deletedIcon) {
+        await this.deleteIcon()
+        this.deletedIcon = false
+      }
+      else if (this.icon) {
+        await this.patchIcon(this.icon)
+        this.icon = null
+      }
+    },
+    showPreviewImage(files) {
+      const reader = new FileReader()
+      this.icon = files[0]
+      this.deletedIcon = false
+      reader.readAsDataURL(this.icon)
+      reader.onload = (event) => {
+        this.previewImage = event.target.result
+      }
+    },
+    async deleteProject() {
+      await useBaseFetch(`project/${this.project.id}`, {
+        method: 'DELETE',
+        ...this.$defaultHeaders(),
+      })
+      await initUserProjects()
+      await this.$router.push('/dashboard/projects')
+      this.$notify({
+        group: 'main',
+        title: 'Project deleted',
+        text: 'Your project has been deleted.',
+        type: 'success',
+      })
+    },
+    markIconForDeletion() {
+      this.deletedIcon = true
+      this.icon = null
+      this.previewImage = null
+    },
+    async deleteIcon() {
+      await useBaseFetch(`project/${this.project.id}/icon`, {
+        method: 'DELETE',
+        ...this.$defaultHeaders(),
+      })
+      await this.updateIcon()
+      this.$notify({
+        group: 'main',
+        title: 'Project icon removed',
+        text: 'Your project\'s icon has been removed.',
+        type: 'success',
+      })
+    },
+  },
+})
+</script>
+
 <template>
   <div>
     <ModalConfirm
@@ -59,7 +263,7 @@
         maxlength="2048"
         type="text"
         :disabled="!hasPermission"
-      />
+      >
 
       <label for="project-slug">
         <span class="label__title">URL</span>
@@ -75,7 +279,7 @@
           maxlength="64"
           autocomplete="off"
           :disabled="!hasPermission"
-        />
+        >
       </div>
 
       <label for="project-summary">
@@ -91,10 +295,10 @@
       </div>
       <template
         v-if="
-          project.project_type !== 'resourcepack' &&
-          project.project_type !== 'plugin' &&
-          project.project_type !== 'shader' &&
-          project.project_type !== 'datapack'
+          project.project_type !== 'resourcepack'
+            && project.project_type !== 'plugin'
+            && project.project_type !== 'shader'
+            && project.project_type !== 'datapack'
         "
       >
         <div class="adjacent-input">
@@ -234,209 +438,6 @@
   </div>
 </template>
 
-<script>
-import { Multiselect } from 'vue-multiselect'
-import Avatar from '~/components/ui/Avatar.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import ExitIcon from '~/assets/images/utils/x.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-
-export default defineNuxtComponent({
-  components: {
-    Avatar,
-    ModalConfirm,
-    FileInput,
-    Multiselect,
-    UploadIcon,
-    SaveIcon,
-    TrashIcon,
-    ExitIcon,
-    CheckIcon,
-    IssuesIcon,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-    patchProject: {
-      type: Function,
-      default() {
-        return () => {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: 'Patch project function not found',
-            type: 'error',
-          })
-        }
-      },
-    },
-    patchIcon: {
-      type: Function,
-      default() {
-        return () => {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: 'Patch icon function not found',
-            type: 'error',
-          })
-        }
-      },
-    },
-    updateIcon: {
-      type: Function,
-      default() {
-        return () => {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: 'Update icon function not found',
-            type: 'error',
-          })
-        }
-      },
-    },
-  },
-  data() {
-    return {
-      name: this.project.title,
-      slug: this.project.slug,
-      summary: this.project.description,
-      icon: null,
-      previewImage: null,
-      clientSide: this.project.client_side,
-      serverSide: this.project.server_side,
-      deletedIcon: false,
-      visibility: this.$tag.approvedStatuses.includes(this.project.status)
-        ? this.project.status
-        : this.project.requested_status,
-    }
-  },
-  computed: {
-    hasPermission() {
-      const EDIT_DETAILS = 1 << 2
-      return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
-    },
-    hasDeletePermission() {
-      const DELETE_PROJECT = 1 << 7
-      return (this.currentMember.permissions & DELETE_PROJECT) === DELETE_PROJECT
-    },
-    sideTypes() {
-      return ['required', 'optional', 'unsupported']
-    },
-    patchData() {
-      const data = {}
-
-      if (this.name !== this.project.title) {
-        data.title = this.name.trim()
-      }
-      if (this.slug !== this.project.slug) {
-        data.slug = this.slug.trim()
-      }
-      if (this.summary !== this.project.description) {
-        data.description = this.summary.trim()
-      }
-      if (this.clientSide !== this.project.client_side) {
-        data.client_side = this.clientSide
-      }
-      if (this.serverSide !== this.project.server_side) {
-        data.server_side = this.serverSide
-      }
-      if (this.$tag.approvedStatuses.includes(this.project.status)) {
-        if (this.visibility !== this.project.status) {
-          data.status = this.visibility
-        }
-      } else if (this.visibility !== this.project.requested_status) {
-        data.requested_status = this.visibility
-      }
-
-      return data
-    },
-    hasChanges() {
-      return Object.keys(this.patchData).length > 0 || this.deletedIcon || this.icon
-    },
-  },
-  methods: {
-    hasModifiedVisibility() {
-      const originalVisibility = this.$tag.approvedStatuses.includes(this.project.status)
-        ? this.project.status
-        : this.project.requested_status
-
-      return originalVisibility !== this.visibility
-    },
-    async saveChanges() {
-      if (this.hasChanges) {
-        await this.patchProject(this.patchData)
-      }
-
-      if (this.deletedIcon) {
-        await this.deleteIcon()
-        this.deletedIcon = false
-      } else if (this.icon) {
-        await this.patchIcon(this.icon)
-        this.icon = null
-      }
-    },
-    showPreviewImage(files) {
-      const reader = new FileReader()
-      this.icon = files[0]
-      this.deletedIcon = false
-      reader.readAsDataURL(this.icon)
-      reader.onload = (event) => {
-        this.previewImage = event.target.result
-      }
-    },
-    async deleteProject() {
-      await useBaseFetch(`project/${this.project.id}`, {
-        method: 'DELETE',
-        ...this.$defaultHeaders(),
-      })
-      await initUserProjects()
-      await this.$router.push('/dashboard/projects')
-      this.$notify({
-        group: 'main',
-        title: 'Project deleted',
-        text: 'Your project has been deleted.',
-        type: 'success',
-      })
-    },
-    markIconForDeletion() {
-      this.deletedIcon = true
-      this.icon = null
-      this.previewImage = null
-    },
-    async deleteIcon() {
-      await useBaseFetch(`project/${this.project.id}/icon`, {
-        method: 'DELETE',
-        ...this.$defaultHeaders(),
-      })
-      await this.updateIcon()
-      this.$notify({
-        group: 'main',
-        title: 'Project icon removed',
-        text: "Your project's icon has been removed.",
-        type: 'success',
-      })
-    },
-  },
-})
-</script>
 <style lang="scss" scoped>
 .visibility-info {
   padding: 0;

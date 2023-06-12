@@ -1,20 +1,3 @@
-<template>
-  <Checkbox
-    class="filter"
-    :model-value="activeFilters.includes(facetName)"
-    :description="displayName"
-    @update:model-value="toggle()"
-  >
-    <div class="filter-text">
-      <div v-if="icon" aria-hidden="true" class="icon" v-html="icon" />
-      <div v-else class="icon">
-        <slot />
-      </div>
-      <span aria-hidden="true"> {{ displayName }}</span>
-    </div>
-  </Checkbox>
-</template>
-
 <script>
 import Checkbox from '~/components/ui/Checkbox.vue'
 
@@ -50,6 +33,23 @@ export default {
   },
 }
 </script>
+
+<template>
+  <Checkbox
+    class="filter"
+    :model-value="activeFilters.includes(facetName)"
+    :description="displayName"
+    @update:model-value="toggle()"
+  >
+    <div class="filter-text">
+      <div v-if="icon" aria-hidden="true" class="icon" v-html="icon" />
+      <div v-else class="icon">
+        <slot />
+      </div>
+      <span aria-hidden="true"> {{ displayName }}</span>
+    </div>
+  </Checkbox>
+</template>
 
 <style lang="scss" scoped>
 .filter {

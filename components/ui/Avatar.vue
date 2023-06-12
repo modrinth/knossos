@@ -1,37 +1,3 @@
-<template>
-  <img
-    v-if="src"
-    ref="img"
-    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''} ${
-      pixelated ? 'pixelated' : ''
-    }`"
-    :src="src"
-    :alt="alt"
-    :loading="loading"
-    @load="updatePixelated"
-  />
-  <svg
-    v-else
-    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''}`"
-    xml:space="preserve"
-    fill-rule="evenodd"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-miterlimit="1.5"
-    clip-rule="evenodd"
-    viewBox="0 0 104 104"
-    aria-hidden="true"
-  >
-    <path fill="none" d="M0 0h103.4v103.4H0z" />
-    <path
-      fill="none"
-      stroke="#9a9a9a"
-      stroke-width="5"
-      d="M51.7 92.5V51.7L16.4 31.3l35.3 20.4L87 31.3 51.7 11 16.4 31.3v40.8l35.3 20.4L87 72V31.3L51.7 11"
-    />
-  </svg>
-</template>
-
 <script>
 export default {
   props: {
@@ -70,15 +36,48 @@ export default {
   },
   methods: {
     updatePixelated() {
-      if (this.$refs.img && this.$refs.img.naturalWidth && this.$refs.img.naturalWidth <= 96) {
+      if (this.$refs.img && this.$refs.img.naturalWidth && this.$refs.img.naturalWidth <= 96)
         this.pixelated = true
-      } else {
+      else
         this.pixelated = false
-      }
     },
   },
 }
 </script>
+
+<template>
+  <img
+    v-if="src"
+    ref="img"
+    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''} ${
+      pixelated ? 'pixelated' : ''
+    }`"
+    :src="src"
+    :alt="alt"
+    :loading="loading"
+    @load="updatePixelated"
+  >
+  <svg
+    v-else
+    :class="`avatar size-${size} ${circle ? 'circle' : ''} ${noShadow ? 'no-shadow' : ''}`"
+    xml:space="preserve"
+    fill-rule="evenodd"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-miterlimit="1.5"
+    clip-rule="evenodd"
+    viewBox="0 0 104 104"
+    aria-hidden="true"
+  >
+    <path fill="none" d="M0 0h103.4v103.4H0z" />
+    <path
+      fill="none"
+      stroke="#9a9a9a"
+      stroke-width="5"
+      d="M51.7 92.5V51.7L16.4 31.3l35.3 20.4L87 31.3 51.7 11 16.4 31.3v40.8l35.3 20.4L87 72V31.3L51.7 11"
+    />
+  </svg>
+</template>
 
 <style lang="scss" scoped>
 .avatar {

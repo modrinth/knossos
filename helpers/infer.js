@@ -4,24 +4,22 @@ import yaml from 'js-yaml'
 
 export const inferVersionInfo = async function (rawFile, project, gameVersions) {
   function versionType(number) {
-    if (number.includes('alpha')) {
+    if (number.includes('alpha'))
       return 'alpha'
-    } else if (
-      number.includes('beta') ||
-      number.match(/[^A-z](rc)[^A-z]/) || // includes `rc`
-      number.match(/[^A-z](pre)[^A-z]/) // includes `pre`
-    ) {
+    else if (
+      number.includes('beta')
+      || number.match(/[^A-z](rc)[^A-z]/) // includes `rc`
+      || number.match(/[^A-z](pre)[^A-z]/) // includes `pre`
+    )
       return 'beta'
-    } else {
+    else
       return 'release'
-    }
   }
 
   // TODO: This func does not handle accurate semver parsing. We should eventually
   function gameVersionRange(gameVersionString, gameVersions) {
-    if (!gameVersionString) {
+    if (!gameVersionString)
       return []
-    }
 
     // Truncate characters after `-` & `+`
     const gameString = gameVersionString.replace(/-|\+.*$/g, '')
@@ -31,28 +29,32 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
       // Include minor versions
       // ~1.2.3 -> 1.2
       prefix = gameString.replace('~', '').split('.').slice(0, 2).join('.')
-    } else if (gameString.includes('>=')) {
+    }
+    else if (gameString.includes('>=')) {
       // Include minor versions
       // >=1.2.3 -> 1.2
       prefix = gameString.replace('>=', '').split('.').slice(0, 2).join('.')
-    } else if (gameString.includes('^')) {
+    }
+    else if (gameString.includes('^')) {
       // Include major versions
       // ^1.2.3 -> 1
       prefix = gameString.replace('^', '').split('.')[0]
-    } else if (gameString.includes('x')) {
+    }
+    else if (gameString.includes('x')) {
       // Include versions that match `x.x.x`
       // 1.2.x -> 1.2
       prefix = gameString.replace(/\.x$/, '')
-    } else {
+    }
+    else {
       // Include exact version
       // 1.2.3 -> 1.2.3
       prefix = gameString
     }
 
     const simplified = gameVersions
-      .filter((it) => it.version_type === 'release')
-      .map((it) => it.version)
-    return simplified.filter((version) => version.startsWith(prefix))
+      .filter(it => it.version_type === 'release')
+      .map(it => it.version)
+    return simplified.filter(version => version.startsWith(prefix))
   }
 
   const inferFunctions = {
@@ -68,8 +70,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         const manifestFile = zip.file('META-INF/MANIFEST.MF')
         if (
           // eslint-disable-next-line no-template-curly-in-string
-          metadata.mods[0].version.includes('${file.jarVersion}') &&
-          manifestFile !== null
+          metadata.mods[0].version.includes('${file.jarVersion}')
+          && manifestFile !== null
         ) {
           const manifestText = await manifestFile.async('text')
           const regex = /Implementation-Version: (.*)$/m
@@ -86,7 +88,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
           version_type: versionType(versionNum),
           loaders: ['forge'],
         }
-      } else {
+      }
+      else {
         return {}
       }
     },
@@ -100,8 +103,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         version_type: versionType(metadata.version),
         loaders: ['forge'],
         game_versions: gameVersions
-          .filter((x) => x.version.startsWith(metadata.mcversion) && x.version_type === 'release')
-          .map((x) => x.version),
+          .filter(x => x.version.startsWith(metadata.mcversion) && x.version_type === 'release')
+          .map(x => x.version),
       }
     },
     // Fabric
@@ -129,11 +132,11 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         version_type: versionType(metadata.quilt_loader.version),
         game_versions: metadata.quilt_loader.depends
           ? gameVersionRange(
-              metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
-                ? metadata.quilt_loader.depends.find((x) => x.id === 'minecraft').versions
-                : [],
-              gameVersions
-            )
+            metadata.quilt_loader.depends.find(x => x.id === 'minecraft')
+              ? metadata.quilt_loader.depends.find(x => x.id === 'minecraft').versions
+              : [],
+            gameVersions,
+          )
           : [],
       }
     },
@@ -149,9 +152,9 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         loaders: [],
         game_versions: gameVersions
           .filter(
-            (x) => x.version.startsWith(metadata['api-version']) && x.version_type === 'release'
+            x => x.version.startsWith(metadata['api-version']) && x.version_type === 'release',
           )
-          .map((x) => x.version),
+          .map(x => x.version),
       }
     },
     // Bungeecord + Waterfall
@@ -170,15 +173,14 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
       const metadata = JSON.parse(file)
 
       const loaders = []
-      if ('forge' in metadata.dependencies) {
+      if ('forge' in metadata.dependencies)
         loaders.push('forge')
-      }
-      if ('fabric-loader' in metadata.dependencies) {
+
+      if ('fabric-loader' in metadata.dependencies)
         loaders.push('fabric')
-      }
-      if ('quilt-loader' in metadata.dependencies) {
+
+      if ('quilt-loader' in metadata.dependencies)
         loaders.push('quilt')
-      }
 
       return {
         name: `${project.title} ${metadata.versionId}`,
@@ -186,8 +188,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         version_type: versionType(metadata.versionId),
         loaders,
         game_versions: gameVersions
-          .filter((x) => x.version === metadata.dependencies.minecraft)
-          .map((x) => x.version),
+          .filter(x => x.version === metadata.dependencies.minecraft)
+          .map(x => x.version),
       }
     },
     // Resource Packs + Data Packs
@@ -195,16 +197,15 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
       const metadata = JSON.parse(file)
 
       function getRange(versionA, versionB) {
-        const startingIndex = gameVersions.findIndex((x) => x.version === versionA)
-        const endingIndex = gameVersions.findIndex((x) => x.version === versionB)
+        const startingIndex = gameVersions.findIndex(x => x.version === versionA)
+        const endingIndex = gameVersions.findIndex(x => x.version === versionB)
 
         const final = []
         const filterOnlyRelease = gameVersions[startingIndex].version_type === 'release'
 
         for (let i = startingIndex; i >= endingIndex; i--) {
-          if (gameVersions[i].version_type === 'release' || !filterOnlyRelease) {
+          if (gameVersions[i].version_type === 'release' || !filterOnlyRelease)
             final.push(gameVersions[i].version)
-          }
         }
 
         return final

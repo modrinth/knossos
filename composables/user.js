@@ -1,14 +1,13 @@
-export const useUser = async (force = false) => {
+export async function useUser(force = false) {
   const user = useState('user', () => {})
 
-  if (!user.value || force || (user.value && Date.now() - user.value.lastUpdated > 300000)) {
+  if (!user.value || force || (user.value && Date.now() - user.value.lastUpdated > 300000))
     user.value = await initUser()
-  }
 
   return user
 }
 
-export const initUser = async () => {
+export async function initUser() {
   const auth = (await useAuth()).value
 
   const user = {
@@ -27,7 +26,8 @@ export const initUser = async () => {
       user.notifications = notifications
       user.follows = follows
       user.lastUpdated = Date.now()
-    } catch (err) {
+    }
+    catch (err) {
       console.error(err)
     }
   }
@@ -35,46 +35,49 @@ export const initUser = async () => {
   return user
 }
 
-export const initUserNotifs = async () => {
+export async function initUserNotifs() {
   const auth = (await useAuth()).value
   const user = (await useUser()).value
 
   if (auth.user && auth.user.id) {
     try {
       user.notifications = await useBaseFetch(`user/${auth.user.id}/notifications`, auth.headers)
-    } catch (err) {
+    }
+    catch (err) {
       console.error(err)
     }
   }
 }
 
-export const initUserFollows = async () => {
+export async function initUserFollows() {
   const auth = (await useAuth()).value
   const user = (await useUser()).value
 
   if (auth.user && auth.user.id) {
     try {
       user.follows = await useBaseFetch(`user/${auth.user.id}/follows`, auth.headers)
-    } catch (err) {
+    }
+    catch (err) {
       console.error(err)
     }
   }
 }
 
-export const initUserProjects = async () => {
+export async function initUserProjects() {
   const auth = (await useAuth()).value
   const user = (await useUser()).value
 
   if (auth.user && auth.user.id) {
     try {
       user.projects = await useBaseFetch(`user/${auth.user.id}/projects`, auth.headers)
-    } catch (err) {
+    }
+    catch (err) {
       console.error(err)
     }
   }
 }
 
-export const userFollowProject = async (project) => {
+export async function userFollowProject(project) {
   const auth = (await useAuth()).value
   const user = (await useUser()).value
 
@@ -89,11 +92,11 @@ export const userFollowProject = async (project) => {
   })
 }
 
-export const userUnfollowProject = async (project) => {
+export async function userUnfollowProject(project) {
   const auth = (await useAuth()).value
   const user = (await useUser()).value
 
-  user.follows = user.follows.filter((x) => x.id !== project.id)
+  user.follows = user.follows.filter(x => x.id !== project.id)
   project.followers--
 
   setTimeout(() => {
@@ -104,8 +107,8 @@ export const userUnfollowProject = async (project) => {
   })
 }
 
-export const userDeleteNotification = async (id) => {
+export async function userDeleteNotification(id) {
   const user = (await useUser()).value
 
-  user.notifications = user.notifications.filter((x) => x.id !== id)
+  user.notifications = user.notifications.filter(x => x.id !== id)
 }

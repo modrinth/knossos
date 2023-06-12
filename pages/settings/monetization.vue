@@ -1,3 +1,118 @@
+<script>
+import { Multiselect } from 'vue-multiselect'
+import Chips from '~/components/ui/Chips.vue'
+import SaveIcon from '~/assets/images/utils/save.svg'
+import TrashIcon from '~/assets/images/utils/trash.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import ChartIcon from '~/assets/images/utils/chart.svg'
+import SettingsIcon from '~/assets/images/utils/settings.svg'
+
+export default defineNuxtComponent({
+  components: {
+    Multiselect,
+    Chips,
+    SaveIcon,
+    TrashIcon,
+    EditIcon,
+    ChartIcon,
+    SettingsIcon,
+  },
+  async setup() {
+    definePageMeta({
+      middleware: 'auth',
+    })
+    const auth = await useAuth()
+    return { auth }
+  },
+  data() {
+    return {
+      editing: false,
+      enrolled:
+        this.auth.user.payout_data.payout_wallet
+        && this.auth.user.payout_data.payout_wallet_type
+        && this.auth.user.payout_data.payout_address,
+      wallets: ['paypal', 'venmo'],
+      selectedWallet: this.auth.user.payout_data.payout_wallet ?? 'paypal',
+      accountType: this.auth.user.payout_data.payout_wallet_type ?? this.getAccountTypes()[0],
+      account: this.auth.user.payout_data.payout_address ?? '',
+    }
+  },
+  head: {
+    title: 'Monetization settings - Modrinth',
+  },
+  methods: {
+    getAccountTypes() {
+      const types = []
+      if (this.selectedWallet === 'venmo')
+        types.push('user_handle')
+
+      types.push('email')
+      types.push('phone')
+      return types
+    },
+    formatAccountType(value) {
+      switch (value) {
+        case 'email':
+          return 'Email address'
+        case 'phone':
+          return 'Phone number'
+        case 'user_handle':
+          return 'Username'
+        default:
+          return value.charAt(0).toUpperCase() + value.slice(1)
+      }
+    },
+    onChangeWallet() {
+      this.account = ''
+
+      // Set default account type for each wallet
+      if (this.selectedWallet === 'paypal')
+        this.accountType = 'email'
+      else if (this.selectedWallet === 'venmo')
+        this.accountType = 'user_handle'
+    },
+    async updatePayoutData(unenroll) {
+      startLoading()
+      if (unenroll) {
+        this.selectedWallet = 'paypal'
+        this.accountType = this.getAccountTypes()[0]
+        this.account = ''
+      }
+      try {
+        const data = {
+          payout_data: unenroll
+            ? null
+            : {
+                payout_wallet: this.selectedWallet,
+                payout_wallet_type: this.accountType,
+                payout_address: this.account,
+              },
+        }
+
+        await useBaseFetch(`user/${this.auth.user.id}`, {
+          method: 'PATCH',
+          body: data,
+          ...this.$defaultHeaders(),
+        })
+        await useAuth(this.auth.token)
+
+        this.editing = false
+        this.enrolled = !unenroll
+      }
+      catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data.description,
+          type: 'error',
+        })
+      }
+      stopLoading()
+    },
+  },
+})
+</script>
+
 <template>
   <div>
     <section v-if="enrolled" class="universal-card">
@@ -8,7 +123,9 @@
       </NuxtLink>
     </section>
     <section class="universal-card">
-      <h2 class="title">Enrollment</h2>
+      <h2 class="title">
+        Enrollment
+      </h2>
       <template v-if="!enrolled && !auth.user.email">
         <p v-if="!enrolled">
           You are not currently enrolled in Modrinth's Creator Monetization Program. In order to
@@ -48,18 +165,16 @@
               :allow-empty="false"
             />
 
-            <label class="hidden" for="account-input"
-              >{{ $formatWallet(selectedWallet) }}
-              {{ formatAccountType(accountType).toLowerCase() }} input field</label
-            >
+            <label class="hidden" for="account-input">{{ $formatWallet(selectedWallet) }}
+              {{ formatAccountType(accountType).toLowerCase() }} input field</label>
             <input
               id="account-input"
               v-model="account"
               :placeholder="`Enter your ${$formatWallet(selectedWallet)} ${formatAccountType(
-                accountType
+                accountType,
               ).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
-            />
+            >
             <span v-if="accountType === 'phone'"> Format: +18888888888 or +1-888-888-8888 </span>
           </div>
           <div class="input-group">
@@ -89,118 +204,4 @@
   </div>
 </template>
 
-<script>
-import { Multiselect } from 'vue-multiselect'
-import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-
-export default defineNuxtComponent({
-  components: {
-    Multiselect,
-    Chips,
-    SaveIcon,
-    TrashIcon,
-    EditIcon,
-    ChartIcon,
-    SettingsIcon,
-  },
-  async setup() {
-    definePageMeta({
-      middleware: 'auth',
-    })
-    const auth = await useAuth()
-    return { auth }
-  },
-  data() {
-    return {
-      editing: false,
-      enrolled:
-        this.auth.user.payout_data.payout_wallet &&
-        this.auth.user.payout_data.payout_wallet_type &&
-        this.auth.user.payout_data.payout_address,
-      wallets: ['paypal', 'venmo'],
-      selectedWallet: this.auth.user.payout_data.payout_wallet ?? 'paypal',
-      accountType: this.auth.user.payout_data.payout_wallet_type ?? this.getAccountTypes()[0],
-      account: this.auth.user.payout_data.payout_address ?? '',
-    }
-  },
-  head: {
-    title: 'Monetization settings - Modrinth',
-  },
-  methods: {
-    getAccountTypes() {
-      const types = []
-      if (this.selectedWallet === 'venmo') {
-        types.push('user_handle')
-      }
-      types.push('email')
-      types.push('phone')
-      return types
-    },
-    formatAccountType(value) {
-      switch (value) {
-        case 'email':
-          return 'Email address'
-        case 'phone':
-          return 'Phone number'
-        case 'user_handle':
-          return 'Username'
-        default:
-          return value.charAt(0).toUpperCase() + value.slice(1)
-      }
-    },
-    onChangeWallet() {
-      this.account = ''
-
-      // Set default account type for each wallet
-      if (this.selectedWallet === 'paypal') {
-        this.accountType = 'email'
-      } else if (this.selectedWallet === 'venmo') {
-        this.accountType = 'user_handle'
-      }
-    },
-    async updatePayoutData(unenroll) {
-      startLoading()
-      if (unenroll) {
-        this.selectedWallet = 'paypal'
-        this.accountType = this.getAccountTypes()[0]
-        this.account = ''
-      }
-      try {
-        const data = {
-          payout_data: unenroll
-            ? null
-            : {
-                payout_wallet: this.selectedWallet,
-                payout_wallet_type: this.accountType,
-                payout_address: this.account,
-              },
-        }
-
-        await useBaseFetch(`user/${this.auth.user.id}`, {
-          method: 'PATCH',
-          body: data,
-          ...this.$defaultHeaders(),
-        })
-        await useAuth(this.auth.token)
-
-        this.editing = false
-        this.enrolled = !unenroll
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-  },
-})
-</script>
 <style lang="scss" scoped></style>

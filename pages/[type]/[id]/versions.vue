@@ -1,3 +1,101 @@
+<script setup>
+import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import InfoIcon from '~/assets/images/utils/info.svg'
+import VersionBadge from '~/components/ui/Badge.vue'
+import FileInput from '~/components/ui/FileInput.vue'
+import DropArea from '~/components/ui/DropArea.vue'
+import Pagination from '~/components/ui/Pagination.vue'
+import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+  versions: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+  members: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return null
+    },
+  },
+})
+
+const data = useNuxtApp()
+const metaDescription = computed(
+  () =>
+    `Download and browse ${props.versions.length} ${
+      props.project.title
+    } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
+      .$dayjs(props.project.updated)
+      .format('MMM D, YYYY')}.`,
+)
+
+const route = useRoute()
+const currentPage = ref(Number(route.query.p ?? 1))
+const filteredVersions = computed(() => {
+  const selectedGameVersions = getArrayOrString(route.query.g) ?? []
+  const selectedLoaders = getArrayOrString(route.query.l) ?? []
+  const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
+
+  return props.versions.filter(
+    projectVersion =>
+      (selectedGameVersions.length === 0
+        || selectedGameVersions.some(gameVersion =>
+          projectVersion.game_versions.includes(gameVersion),
+        ))
+      && (selectedLoaders.length === 0
+        || selectedLoaders.some(loader => projectVersion.loaders.includes(loader)))
+      && (selectedVersionTypes.length === 0
+        || selectedVersionTypes.includes(projectVersion.version_type)),
+  )
+})
+
+function switchPage(page) {
+  currentPage.value = page
+
+  const router = useRouter()
+  const route = useRoute()
+
+  router.replace({
+    query: {
+      ...route.query,
+      p: currentPage.value !== 1 ? currentPage.value : undefined,
+    },
+  })
+}
+
+async function handleFiles(files) {
+  const router = useRouter()
+  await router.push({
+    name: 'type-id-version-version',
+    params: {
+      type: props.project.project_type,
+      id: props.project.slug ? props.project.slug : props.project.id,
+      version: 'create',
+    },
+    state: {
+      newPrimaryFile: files[0],
+    },
+  })
+}
+</script>
+
 <template>
   <div class="content">
     <Head>
@@ -45,13 +143,13 @@
           $router.push(
             `/${project.project_type}/${
               project.slug ? project.slug : project.id
-            }/version/${encodeURI(version.displayUrlEnding)}`
+            }/version/${encodeURI(version.displayUrlEnding)}`,
           )
         "
       >
         <a
           v-tooltip="
-            version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+            `${version.primaryFile.filename} (${$formatBytes(version.primaryFile.size)})`
           "
           :href="version.primaryFile.url"
           class="download-button square-button brand-button"
@@ -103,103 +201,6 @@
     />
   </div>
 </template>
-<script setup>
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
-import VersionBadge from '~/components/ui/Badge.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import Pagination from '~/components/ui/Pagination.vue'
-import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
-
-const props = defineProps({
-  project: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-  versions: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-  members: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-  currentMember: {
-    type: Object,
-    default() {
-      return null
-    },
-  },
-})
-
-const data = useNuxtApp()
-const metaDescription = computed(
-  () =>
-    `Download and browse ${props.versions.length} ${
-      props.project.title
-    } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
-      .$dayjs(props.project.updated)
-      .format('MMM D, YYYY')}.`
-)
-
-const route = useRoute()
-const currentPage = ref(Number(route.query.p ?? 1))
-const filteredVersions = computed(() => {
-  const selectedGameVersions = getArrayOrString(route.query.g) ?? []
-  const selectedLoaders = getArrayOrString(route.query.l) ?? []
-  const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
-
-  return props.versions.filter(
-    (projectVersion) =>
-      (selectedGameVersions.length === 0 ||
-        selectedGameVersions.some((gameVersion) =>
-          projectVersion.game_versions.includes(gameVersion)
-        )) &&
-      (selectedLoaders.length === 0 ||
-        selectedLoaders.some((loader) => projectVersion.loaders.includes(loader))) &&
-      (selectedVersionTypes.length === 0 ||
-        selectedVersionTypes.includes(projectVersion.version_type))
-  )
-})
-
-function switchPage(page) {
-  currentPage.value = page
-
-  const router = useRouter()
-  const route = useRoute()
-
-  router.replace({
-    query: {
-      ...route.query,
-      p: currentPage.value !== 1 ? currentPage.value : undefined,
-    },
-  })
-}
-
-async function handleFiles(files) {
-  const router = useRouter()
-  await router.push({
-    name: 'type-id-version-version',
-    params: {
-      type: props.project.project_type,
-      id: props.project.slug ? props.project.slug : props.project.id,
-      version: 'create',
-    },
-    state: {
-      newPrimaryFile: files[0],
-    },
-  })
-}
-</script>
 
 <style lang="scss" scoped>
 .header-buttons {
