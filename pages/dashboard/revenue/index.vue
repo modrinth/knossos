@@ -43,7 +43,7 @@ export default defineNuxtComponent({
       <div v-if="auth.user.payout_data.balance >= minWithdraw">
         <p>
           You have
-          <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong>
+          <strong>{{ formatMoney(auth.user.payout_data.balance) }}</strong>
           available to withdraw.
           <span v-if="!enrolled">Enroll in the Creator Monetization Program to withdraw your revenue.</span>
         </p>
@@ -51,7 +51,7 @@ export default defineNuxtComponent({
         <div v-if="enrolled" class="input-group">
           <button class="iconified-button brand-button" @click="$refs.modal_transfer.show()">
             <TransferIcon /> Transfer to
-            {{ $formatWallet(auth.user.payout_data.payout_wallet) }}
+            {{ formatWallet(auth.user.payout_data.payout_wallet) }}
           </button>
           <NuxtLink class="iconified-button" to="/dashboard/revenue/transfers">
             <HistoryIcon /> View transfer history
@@ -63,11 +63,11 @@ export default defineNuxtComponent({
       </div>
       <p v-else-if="auth.user.payout_data.balance > 0">
         You have made
-        <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong>, however you have not yet met the minimum of ${{ minWithdraw }} to withdraw.
+        <strong>{{ formatMoney(auth.user.payout_data.balance) }}</strong>, however you have not yet met the minimum of ${{ minWithdraw }} to withdraw.
       </p>
       <p v-else>
         You have made
-        <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong>, which is under the minimum of ${{ minWithdraw }} to withdraw.
+        <strong>{{ formatMoney(auth.user.payout_data.balance) }}</strong>, which is under the minimum of ${{ minWithdraw }} to withdraw.
       </p>
       <div v-if="!enrolled">
         <NuxtLink class="iconified-button" to="/settings/monetization">

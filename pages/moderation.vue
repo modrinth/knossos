@@ -173,7 +173,7 @@ export default defineNuxtComponent({
               v-for="type in moderationTypes"
               :key="type"
               :link="`/moderation/${type}`"
-              :label="`${$formatProjectType(type)}s`"
+              :label="`${formatProjectType(type)}s`"
             />
           </NavStack>
         </aside>

@@ -39,7 +39,7 @@ export default {
     <div
       :class="{
         shown: actuallyShown,
-        noblur: !$orElse($cosmetics.advancedRendering, true),
+        noblur: !orElse($cosmetics.advancedRendering, true),
       }"
       class="modal-overlay"
       @click="hide"

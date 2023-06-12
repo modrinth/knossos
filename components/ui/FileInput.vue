@@ -1,69 +1,63 @@
-<script>
-import { fileIsValid } from '~/helpers/fileUtils.js'
-
-export default {
-  components: {},
-  props: {
-    prompt: {
-      type: String,
-      default: 'Select file',
-    },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-    accept: {
-      type: String,
-      default: null,
-    },
-    /**
-     * The max file size in bytes
-     */
-    maxSize: {
-      type: Number,
-      default: null,
-    },
-    showIcon: {
-      type: Boolean,
-      default: true,
-    },
-    shouldAlwaysReset: {
-      type: Boolean,
-      default: false,
-    },
-    longStyle: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
+<script setup lang="ts">
+const props = defineProps({
+  prompt: {
+    type: String,
+    default: 'Select file',
   },
-  emits: ['change'],
-  data() {
-    return {
-      files: [],
-    }
+  multiple: {
+    type: Boolean,
+    default: false,
   },
-  methods: {
-    addFiles(files, shouldNotReset) {
-      if (!shouldNotReset || this.shouldAlwaysReset)
-        this.files = files
-
-      const validationOptions = { maxSize: this.maxSize, alertOnInvalid: true }
-      this.files = [...this.files].filter(file => fileIsValid(file, validationOptions))
-
-      if (this.files.length > 0)
-        this.$emit('change', this.files)
-    },
-    handleDrop(e) {
-      this.addFiles(e.dataTransfer.files)
-    },
-    handleChange(e) {
-      this.addFiles(e.target.files)
-    },
+  accept: {
+    type: String,
+    default: null,
   },
+  /**
+   * The max file size in bytes
+   */
+  maxSize: {
+    type: Number,
+    default: null,
+  },
+  showIcon: {
+    type: Boolean,
+    default: true,
+  },
+  shouldAlwaysReset: {
+    type: Boolean,
+    default: false,
+  },
+  longStyle: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits(['change'])
+
+const files = ref<any[]>([])
+
+function addFiles(selectedFiles: any[], shouldNotReset = false) {
+  if (!shouldNotReset || props.shouldAlwaysReset)
+    files.value = selectedFiles
+
+  const validationOptions = { maxSize: props.maxSize, alertOnInvalid: true }
+  files.value = [...files.value].filter(file => fileIsValid(file, validationOptions))
+
+  if (files.value.length > 0)
+    emit('change', files.value)
+}
+
+function handleDrop(e: any) {
+  addFiles(e.dataTransfer.files)
+}
+
+function handleChange(e: any) {
+  addFiles(e.target.files)
 }
 </script>
 

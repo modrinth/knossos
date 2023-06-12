@@ -145,13 +145,13 @@ export default defineNuxtComponent({
             v-model="selectedWallet"
             :starting-value="selectedWallet"
             :items="wallets"
-            :format-label="$formatWallet"
+            :format-label="formatWallet"
             @update:model-value="onChangeWallet()"
           />
 
           <p>
             Enter the information for the
-            {{ $formatWallet(selectedWallet) }} account you would like to receive your revenue from
+            {{ formatWallet(selectedWallet) }} account you would like to receive your revenue from
             the Creator Monetization Program:
           </p>
           <div class="input-group">
@@ -165,12 +165,12 @@ export default defineNuxtComponent({
               :allow-empty="false"
             />
 
-            <label class="hidden" for="account-input">{{ $formatWallet(selectedWallet) }}
+            <label class="hidden" for="account-input">{{ formatWallet(selectedWallet) }}
               {{ formatAccountType(accountType).toLowerCase() }} input field</label>
             <input
               id="account-input"
               v-model="account"
-              :placeholder="`Enter your ${$formatWallet(selectedWallet)} ${formatAccountType(
+              :placeholder="`Enter your ${formatWallet(selectedWallet)} ${formatAccountType(
                 accountType,
               ).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
@@ -194,7 +194,7 @@ export default defineNuxtComponent({
       <template v-else>
         <p>
           You are currently enrolled in the Creator Monetization Program with a
-          {{ $formatWallet(selectedWallet) }} account.
+          {{ formatWallet(selectedWallet) }} account.
         </p>
         <button class="iconified-button brand-button" @click="editing = true">
           <EditIcon /> Edit information

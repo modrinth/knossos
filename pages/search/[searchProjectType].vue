@@ -75,9 +75,9 @@ export default defineNuxtComponent({
 
     const metaDescription = computed(
       () =>
-        `Search and browse thousands of Minecraft ${data.$formatProjectType(
+        `Search and browse thousands of Minecraft ${formatProjectType(
           projectType.value.display,
-        )}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${data.$formatProjectType(
+        )}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${formatProjectType(
           projectType.value.display,
         )}s.`,
     )
@@ -353,7 +353,7 @@ export default defineNuxtComponent({
     categoriesMap() {
       const categories = {}
 
-      for (const category of this.$sortedCategories) {
+      for (const category of this.$sortedCategories()) {
         if (categories[category.header])
           categories[category.header].push(category)
         else
@@ -457,7 +457,7 @@ export default defineNuxtComponent({
       this.onSearchChange(newPageNumber)
     },
     cycleSearchDisplayMode() {
-      this.$cosmetics.searchDisplayMode[this.projectType.id] = this.$cycleValue(
+      this.$cosmetics.searchDisplayMode[this.projectType.id] = this.cycleValue(
         this.$cosmetics.searchDisplayMode[this.projectType.id],
         this.$tag.projectViewModes,
       )
@@ -485,12 +485,12 @@ export default defineNuxtComponent({
     }"
   >
     <Head>
-      <Title>Search {{ $formatProjectType(projectType.display) }}s - Modrinth</Title>
-      <Meta name="og:title" :content="`Search ${$formatProjectType(projectType.display)}s`" />
+      <Title>Search {{ formatProjectType(projectType.display) }}s - Modrinth</Title>
+      <Meta name="og:title" :content="`Search ${formatProjectType(projectType.display)}s`" />
       <Meta name="description" :content="metaDescription" />
       <Meta
         name="apple-mobile-web-app-title"
-        :content="`Search ${$formatProjectType(projectType.display)}s`"
+        :content="`Search ${formatProjectType(projectType.display)}s`"
       />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
@@ -522,14 +522,14 @@ export default defineNuxtComponent({
                 v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
                 class="sidebar-menu-heading"
               >
-                {{ $formatCategoryHeader(header) }}
+                {{ formatCategoryHeader(header) }}
               </h3>
 
               <SearchFilter
                 v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
                 :key="category.name"
                 :active-filters="facets"
-                :display-name="$formatCategory(category.name)"
+                :display-name="formatCategory(category.name)"
                 :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
                 :icon="header === 'resolutions' ? null : category.icon"
                 @toggle="toggleFacet"
@@ -576,7 +576,7 @@ export default defineNuxtComponent({
               :key="loader.name"
               ref="loaderFilters"
               :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
+              :display-name="formatCategory(loader.name)"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
@@ -608,7 +608,7 @@ export default defineNuxtComponent({
               :key="loader.name"
               ref="platformFilters"
               :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
+              :display-name="formatCategory(loader.name)"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
@@ -682,7 +682,7 @@ export default defineNuxtComponent({
     </aside>
     <section class="normal-page__content">
       <div
-        v-if="projectType.id === 'modpack' && $orElse($cosmetics.modpacksAlphaNotice, true)"
+        v-if="projectType.id === 'modpack' && orElse($cosmetics.modpacksAlphaNotice, true)"
         class="card information"
         aria-label="Information"
       >
@@ -758,8 +758,8 @@ export default defineNuxtComponent({
             />
           </div>
           <button
-            v-tooltip="`${$capitalizeString($cosmetics.searchDisplayMode[projectType.id])} view`"
-            :aria-label="`${$capitalizeString($cosmetics.searchDisplayMode[projectType.id])} view`"
+            v-tooltip="`${capitalizeString($cosmetics.searchDisplayMode[projectType.id])} view`"
+            :aria-label="`${capitalizeString($cosmetics.searchDisplayMode[projectType.id])} view`"
             class="square-button"
             @click="cycleSearchDisplayMode()"
           >

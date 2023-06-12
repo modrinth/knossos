@@ -189,7 +189,7 @@ featuredVersions.value.sort((a, b) => {
 })
 
 const projectTypeDisplay = computed(() =>
-  data.$formatProjectType(
+  formatProjectType(
     data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders),
   ),
 )
@@ -593,7 +593,7 @@ const collapsedChecklist = ref(false)
             >
               <BoxIcon />
               <span>{{
-                $formatProjectType(
+                formatProjectType(
                   $getProjectTypeForDisplay(project.actualProjectType, project.loaders),
                 )
               }}</span>
@@ -622,7 +622,7 @@ const collapsedChecklist = ref(false)
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">
-                  {{ $formatNumber(project.downloads) }}
+                  {{ formatNumber(project.downloads) }}
                 </span>
                 download<span v-if="project.downloads !== 1">s</span>
               </div>
@@ -631,7 +631,7 @@ const collapsedChecklist = ref(false)
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">
-                  {{ $formatNumber(project.followers) }}
+                  {{ formatNumber(project.followers) }}
                 </span>
                 follower<span v-if="project.followers !== 1">s</span>
               </div>
@@ -963,7 +963,7 @@ const collapsedChecklist = ref(false)
             >
               <NuxtLink
                 v-tooltip="
-                  `${version.primaryFile.filename} (${$formatBytes(version.primaryFile.size)})`
+                  `${version.primaryFile.filename} (${formatBytes(version.primaryFile.size)})`
                 "
                 :to="version.primaryFile.url"
                 external
@@ -982,8 +982,8 @@ const collapsedChecklist = ref(false)
                   {{ version.name }}
                 </NuxtLink>
                 <div v-if="version.game_versions.length > 0" class="game-version item">
-                  {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
-                  {{ $formatVersion(version.game_versions) }}
+                  {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
+                  {{ $formatVersions(version.game_versions) }}
                 </div>
                 <Badge v-if="version.version_type === 'release'" type="release" color="green" />
                 <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />

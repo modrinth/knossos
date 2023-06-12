@@ -51,7 +51,7 @@ const payouts = ref(raw)
           <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
           <div><Badge :type="payout.status" /></div>
           <div class="amount">
-            {{ $formatMoney(payout.amount) }}
+            {{ formatMoney(payout.amount) }}
           </div>
         </div>
       </div>

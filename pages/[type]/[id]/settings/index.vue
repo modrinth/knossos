@@ -306,7 +306,7 @@ export default defineNuxtComponent({
             <span class="label__title">Client-side</span>
             <span class="label__description">
               Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has functionality on the
+              {{ formatProjectType(project.project_type).toLowerCase() }} has functionality on the
               client side. Just because a mod works in Singleplayer doesn't mean it has actual
               client-side functionality.
             </span>
@@ -329,7 +329,7 @@ export default defineNuxtComponent({
             <span class="label__title">Server-side</span>
             <span class="label__description">
               Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has functionality on the
+              {{ formatProjectType(project.project_type).toLowerCase() }} has functionality on the
               <strong>logical</strong> server. Remember that Singleplayer contains an integrated
               server.
             </span>
@@ -394,7 +394,7 @@ export default defineNuxtComponent({
           v-model="visibility"
           placeholder="Select one"
           :options="$tag.approvedStatuses"
-          :custom-label="(value) => $formatProjectStatus(value)"
+          :custom-label="(value) => formatProjectStatus(value)"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"

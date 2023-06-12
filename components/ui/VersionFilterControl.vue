@@ -102,7 +102,7 @@ async function updateQuery() {
       v-if="versionTypeFilters.length > 1"
       v-model="selectedVersionTypes"
       :options="versionTypeFilters"
-      :custom-label="(x) => $capitalizeString(x)"
+      :custom-label="(x) => capitalizeString(x)"
       :multiple="true"
       :searchable="false"
       :show-no-results="false"

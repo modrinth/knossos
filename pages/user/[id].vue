@@ -99,7 +99,7 @@ const sumDownloads = computed(() => {
   for (const project of projects.value)
     sum += project.downloads
 
-  return data.$formatNumber(sum)
+  return formatNumber(sum)
 })
 const sumFollows = computed(() => {
   let sum = 0
@@ -107,7 +107,7 @@ const sumFollows = computed(() => {
   for (const project of projects.value)
     sum += project.followers
 
-  return data.$formatNumber(sum)
+  return formatNumber(sum)
 })
 
 const isEditing = ref(false)
@@ -168,7 +168,7 @@ async function saveChanges() {
 }
 
 function cycleSearchDisplayMode() {
-  data.$cosmetics.searchDisplayMode.user = data.$cycleValue(
+  data.$cosmetics.searchDisplayMode.user = cycleValue(
     data.$cosmetics.searchDisplayMode.user,
     data.$tag.projectViewModes,
   )
@@ -337,7 +337,7 @@ export default defineNuxtComponent({
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: `${$formatProjectType(x)}s`,
+                  label: `${formatProjectType(x)}s`,
                   href: `/user/${user.username}/${x}s`,
                 }
               }),
@@ -353,8 +353,8 @@ export default defineNuxtComponent({
               Manage projects
             </NuxtLink>
             <button
-              v-tooltip="`${$capitalizeString($cosmetics.searchDisplayMode.user)} view`"
-              :aria-label="`${$capitalizeString($cosmetics.searchDisplayMode.user)} view`"
+              v-tooltip="`${capitalizeString($cosmetics.searchDisplayMode.user)} view`"
+              :aria-label="`${capitalizeString($cosmetics.searchDisplayMode.user)} view`"
               class="square-button"
               @click="cycleSearchDisplayMode()"
             >

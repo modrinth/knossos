@@ -176,7 +176,7 @@ export default {
             this.project.client_side === 'unknown' || this.project.server_side === 'unknown',
           title: 'Select supported environments',
           id: 'select-environments',
-          description: `Select if the ${this.$formatProjectType(
+          description: `Select if the ${this.formatProjectType(
             this.project.project_type,
           ).toLowerCase()} functions on the client-side and/or server-side.`,
           status: 'required',
@@ -190,7 +190,7 @@ export default {
           condition: this.project.license.id === 'LicenseRef-Unknown',
           title: 'Select license',
           id: 'select-license',
-          description: `Select the license your ${this.$formatProjectType(
+          description: `Select the license your ${this.formatProjectType(
             this.project.project_type,
           ).toLowerCase()} is distributed under.`,
           status: 'required',

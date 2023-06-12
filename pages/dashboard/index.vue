@@ -35,7 +35,7 @@ const followersProjectCount = computed(
             Total downloads
           </div>
           <div class="value">
-            {{ $formatNumber(projects.reduce((agg, x) => agg + x.downloads, 0)) }}
+            {{ formatNumber(projects.reduce((agg, x) => agg + x.downloads, 0)) }}
           </div>
           <span>from
             {{ downloadsProjectCount }}
@@ -52,7 +52,7 @@ const followersProjectCount = computed(
             Total followers
           </div>
           <div class="value">
-            {{ $formatNumber(projects.reduce((agg, x) => agg + x.followers, 0)) }}
+            {{ formatNumber(projects.reduce((agg, x) => agg + x.followers, 0)) }}
           </div>
           <span>
             <span>from {{ followersProjectCount }} project{{
@@ -70,9 +70,9 @@ const followersProjectCount = computed(
             Total revenue
           </div>
           <div class="value">
-            {{ $formatMoney(payouts.all_time, true) }}
+            {{ formatMoney(payouts.all_time, true) }}
           </div>
-          <span>{{ $formatMoney(payouts.last_month, true) }} this month</span>
+          <span>{{ formatMoney(payouts.last_month, true) }} this month</span>
           <!--          <NuxtLink class="goto-link" to="/dashboard/analytics" -->
           <!--            >View breakdown -->
           <!--            <ChevronRightIcon -->
@@ -85,7 +85,7 @@ const followersProjectCount = computed(
             Current balance
           </div>
           <div class="value">
-            {{ $formatMoney(auth.user.payout_data.balance, true) }}
+            {{ formatMoney(auth.user.payout_data.balance, true) }}
           </div>
           <NuxtLink
             v-if="auth.user.payout_data.balance >= minWithdraw"

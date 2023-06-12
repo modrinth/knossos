@@ -207,7 +207,7 @@ const rows = shallowRef([
                     <p class="notif-desc">
                       Version {{ ['1.1.2', '1.0.3', '15.1'][index] }} has been released for
                       {{
-                        $capitalizeString(
+                        capitalizeString(
                           notification.display_categories[
                             notification.display_categories.length - 1
                           ],

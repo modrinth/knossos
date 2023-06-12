@@ -466,7 +466,7 @@ export default defineNuxtComponent({
             </div>
 
             <div>
-              {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
+              {{ formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
             </div>
 
             <div>

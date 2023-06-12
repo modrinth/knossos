@@ -1,13 +1,7 @@
-<script setup>
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+<script setup lang="ts">
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'
-import VersionBadge from '~/components/ui/Badge.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import Pagination from '~/components/ui/Pagination.vue'
-import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
 
 const props = defineProps({
   project: {
@@ -41,32 +35,32 @@ const metaDescription = computed(
   () =>
     `Download and browse ${props.versions.length} ${
       props.project.title
-    } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
+    } versions. ${formatNumber(props.project.downloads)} total downloads. Last updated ${data
       .$dayjs(props.project.updated)
       .format('MMM D, YYYY')}.`,
 )
 
 const route = useRoute()
 const currentPage = ref(Number(route.query.p ?? 1))
-const filteredVersions = computed(() => {
+const filteredVersions = computed<any[]>(() => {
   const selectedGameVersions = getArrayOrString(route.query.g) ?? []
   const selectedLoaders = getArrayOrString(route.query.l) ?? []
   const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
 
   return props.versions.filter(
-    projectVersion =>
+    (projectVersion: any) =>
       (selectedGameVersions.length === 0
-        || selectedGameVersions.some(gameVersion =>
+        || selectedGameVersions.some((gameVersion: any) =>
           projectVersion.game_versions.includes(gameVersion),
         ))
       && (selectedLoaders.length === 0
-        || selectedLoaders.some(loader => projectVersion.loaders.includes(loader)))
+        || selectedLoaders.some((loader: any) => projectVersion.loaders.includes(loader)))
       && (selectedVersionTypes.length === 0
         || selectedVersionTypes.includes(projectVersion.version_type)),
   )
 })
 
-function switchPage(page) {
+function switchPage(page: number) {
   currentPage.value = page
 
   const router = useRouter()
@@ -80,7 +74,7 @@ function switchPage(page) {
   })
 }
 
-async function handleFiles(files) {
+async function handleFiles(files: any[]) {
   const router = useRouter()
   await router.push({
     name: 'type-id-version-version',
@@ -106,7 +100,7 @@ async function handleFiles(files) {
       <Meta name="og:description" :content="metaDescription" />
     </Head>
     <div v-if="currentMember" class="card header-buttons">
-      <FileInput
+      <UiFileInput
         :max-size="524288000"
         :accept="acceptFileFromProjectType(project.project_type)"
         prompt="Upload a version"
@@ -114,18 +108,18 @@ async function handleFiles(files) {
         @change="handleFiles"
       >
         <UploadIcon />
-      </FileInput>
+      </UiFileInput>
       <span class="indicator">
         <InfoIcon /> Click to choose a file or drag one onto this page
       </span>
-      <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
+      <UiDropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
-    <VersionFilterControl :versions="props.versions" />
-    <Pagination
+    <UiVersionFilterControl :versions="props.versions" />
+    <UiPagination
       :page="currentPage"
       :count="Math.ceil(filteredVersions.length / 20)"
       class="pagination-before"
-      :link-function="(page) => `?page=${page}`"
+      :link-function="(page: any) => `?page=${page}`"
       @switch-page="switchPage"
     />
     <div v-if="filteredVersions.length > 0" id="all-versions" class="universal-card all-versions">
@@ -149,7 +143,7 @@ async function handleFiles(files) {
       >
         <a
           v-tooltip="
-            `${version.primaryFile.filename} (${$formatBytes(version.primaryFile.size)})`
+            `${version.primaryFile.filename} (${formatBytes(version.primaryFile.size)})`
           "
           :href="version.primaryFile.url"
           class="download-button square-button brand-button"
@@ -168,21 +162,21 @@ async function handleFiles(files) {
           {{ version.name }}
         </nuxt-link>
         <div class="version__metadata">
-          <VersionBadge v-if="version.version_type === 'release'" type="release" color="green" />
-          <VersionBadge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
-          <VersionBadge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
+          <UiBadge v-if="version.version_type === 'release'" type="release" color="green" />
+          <UiBadge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
+          <UiBadge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
           <span class="divider" />
           <span class="version_number">{{ version.version_number }}</span>
         </div>
         <div class="version__supports">
           <span>
-            {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+            {{ version.loaders.map((x: string) => formatCategory(x)).join(', ') }}
           </span>
-          <span>{{ $formatVersion(version.game_versions) }}</span>
+          <span>{{ $formatVersions(version.game_versions) }}</span>
         </div>
         <div class="version__stats">
           <span>
-            <strong>{{ $formatNumber(version.downloads) }}</strong>
+            <strong>{{ formatNumber(version.downloads) }}</strong>
             download<span v-if="version.downloads !== 1">s</span>
           </span>
           <span>
@@ -192,11 +186,11 @@ async function handleFiles(files) {
         </div>
       </div>
     </div>
-    <Pagination
+    <UiPagination
       :page="currentPage"
       :count="Math.ceil(filteredVersions.length / 20)"
       class="pagination-before"
-      :link-function="(page) => `?page=${page}`"
+      :link-function="(page: any) => `?page=${page}`"
       @switch-page="switchPage"
     />
   </div>

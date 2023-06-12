@@ -141,31 +141,31 @@ export default defineNuxtComponent({
       </div>
       <p>
         Accurate tagging is important to help people find your
-        {{ $formatProjectType(project.project_type).toLowerCase() }}. Make sure to select all tags
+        {{ formatProjectType(project.project_type).toLowerCase() }}. Make sure to select all tags
         that apply.
       </p>
       <template v-for="header in Object.keys(categoryLists)" :key="`categories-${header}`">
         <div class="label">
           <h4>
-            <span class="label__title">{{ $formatCategoryHeader(header) }}</span>
+            <span class="label__title">{{ formatCategoryHeader(header) }}</span>
           </h4>
           <span class="label__description">
             <template v-if="header === 'categories'">
               Select all categories that reflect the themes or function of your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}.
+              {{ formatProjectType(project.project_type).toLowerCase() }}.
             </template>
             <template v-else-if="header === 'features'">
               Select all of the features that your
-              {{ $formatProjectType(project.project_type).toLowerCase() }} makes use of.
+              {{ formatProjectType(project.project_type).toLowerCase() }} makes use of.
             </template>
             <template v-else-if="header === 'resolutions'">
               Select the resolution(s) of textures in your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}.
+              {{ formatProjectType(project.project_type).toLowerCase() }}.
             </template>
             <template v-else-if="header === 'performance impact'">
               Select the realistic performance impact of your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}. Select multiple if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} is configurable to
+              {{ formatProjectType(project.project_type).toLowerCase() }}. Select multiple if the
+              {{ formatProjectType(project.project_type).toLowerCase() }} is configurable to
               different levels of performance impact.
             </template>
           </span>
@@ -175,7 +175,7 @@ export default defineNuxtComponent({
             v-for="category in categoryLists[header]"
             :key="`category-${header}-${category.name}`"
             :model-value="selectedTags.includes(category)"
-            :description="$formatCategory(category.name)"
+            :description="formatCategory(category.name)"
             class="category-selector"
             @update:model-value="toggleCategory(category)"
           >
@@ -186,7 +186,7 @@ export default defineNuxtComponent({
                 class="icon"
                 v-html="category.icon"
               />
-              <span aria-hidden="true"> {{ $formatCategory(category.name) }}</span>
+              <span aria-hidden="true"> {{ formatCategory(category.name) }}</span>
             </div>
           </Checkbox>
         </div>
@@ -209,7 +209,7 @@ export default defineNuxtComponent({
           :key="`featured-category-${category.name}`"
           class="category-selector"
           :model-value="featuredTags.includes(category)"
-          :description="$formatCategory(category.name)"
+          :description="formatCategory(category.name)"
           :disabled="featuredTags.length >= 3 && !featuredTags.includes(category)"
           @update:model-value="toggleFeaturedCategory(category)"
         >
@@ -220,7 +220,7 @@ export default defineNuxtComponent({
               class="icon"
               v-html="category.icon"
             />
-            <span aria-hidden="true"> {{ $formatCategory(category.name) }}</span>
+            <span aria-hidden="true"> {{ formatCategory(category.name) }}</span>
           </div>
         </Checkbox>
       </div>

@@ -192,13 +192,13 @@ export default {
       <div v-if="downloads" class="stat">
         <DownloadIcon aria-hidden="true" />
         <p>
-          <strong>{{ $formatNumber(downloads) }}</strong><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
+          <strong>{{ formatNumber(downloads) }}</strong><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
         </p>
       </div>
       <div v-if="follows" class="stat">
         <HeartIcon aria-hidden="true" />
         <p>
-          <strong>{{ $formatNumber(follows) }}</strong><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
+          <strong>{{ formatNumber(follows) }}</strong><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
         </p>
       </div>
       <div class="buttons">

@@ -99,10 +99,10 @@ export default {
 </script>
 
 <template>
-  <Modal ref="modal" :header="`Transfer to ${$formatWallet(wallet)}`">
+  <Modal ref="modal" :header="`Transfer to ${formatWallet(wallet)}`">
     <div class="modal-transfer">
       <span>You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
-        How much of your <strong>{{ $formatMoney(balance) }}</strong> balance would you like to
+        How much of your <strong>{{ formatMoney(balance) }}</strong> balance would you like to
         transfer?</span>
       <div class="confirmation-input">
         <input
@@ -122,12 +122,12 @@ export default {
         >
           <template v-if="wallet === 'venmo'">
             I acknowledge that $0.25 will be deducted from the amount I receive to cover
-            {{ $formatWallet(wallet) }} processing fees.
+            {{ formatWallet(wallet) }} processing fees.
           </template>
           <template v-else>
             I acknowledge that an estimated
-            {{ $formatMoney(calcProcessingFees()) }} will be deducted from the amount I receive to
-            cover {{ $formatWallet(wallet) }} processing fees and that any excess will be returned
+            {{ formatMoney(calcProcessingFees()) }} will be deducted from the amount I receive to
+            cover {{ formatWallet(wallet) }} processing fees and that any excess will be returned
             to my Modrinth balance.
           </template>
         </Checkbox>
@@ -137,12 +137,12 @@ export default {
           description="Confirm transfer"
         >
           I confirm that I an initiating a transfer to the following
-          {{ $formatWallet(wallet) }} account: {{ account }}
+          {{ formatWallet(wallet) }} account: {{ account }}
         </Checkbox>
         <span v-else-if="validInput && parseInput() < minWithdraw" class="invalid">
-          The amount must be at least {{ $formatMoney(minWithdraw) }}</span>
+          The amount must be at least {{ formatMoney(minWithdraw) }}</span>
         <span v-else-if="validInput && parseInput() > balance" class="invalid">
-          The amount must be no more than {{ $formatMoney(balance) }}</span>
+          The amount must be no more than {{ formatMoney(balance) }}</span>
         <span v-else-if="amount.length > 0" class="invalid">
           {{ amount }} is not a valid amount</span>
       </div>

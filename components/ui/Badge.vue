@@ -42,7 +42,7 @@ export default {
 
 <template>
   <span :class="`version-badge ${color} type--${type}`">
-    <template v-if="color"> <span class="circle" /> {{ $capitalizeString(type) }} </template>
+    <template v-if="color"> <span class="circle" /> {{ capitalizeString(type) }} </template>
 
     <!-- User roles -->
     <template v-else-if="type === 'admin'"> <ModrinthIcon /> Modrinth Team </template>
@@ -68,7 +68,7 @@ export default {
     <template v-else-if="type === 'success'"><CheckIcon /> Success</template>
 
     <!-- Other -->
-    <template v-else> <span class="circle" /> {{ $capitalizeString(type) }} </template>
+    <template v-else> <span class="circle" /> {{ capitalizeString(type) }} </template>
   </span>
 </template>
 

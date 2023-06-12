@@ -1,6 +1,6 @@
 <script>
 import { Multiselect } from 'vue-multiselect'
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import { acceptFileFromProjectType } from '~/utils/file.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
 import { renderHighlightedString } from '~/helpers/highlight.js'
@@ -244,7 +244,7 @@ export default defineNuxtComponent({
         () =>
           `Download ${props.project.title} ${
             version.version_number
-          } on Modrinth. Supports ${data.$formatVersion(version.game_versions)} ${version.loaders
+          } on Modrinth. Supports ${$formatVersions(version.game_versions)} ${version.loaders
             .map(x => x.charAt(0).toUpperCase() + x.slice(1))
             .join(' & ')}. Published on ${data
             .$dayjs(version.date_published)
@@ -838,7 +838,7 @@ export default defineNuxtComponent({
       <div v-else class="input-group">
         <a
           v-if="primaryFile"
-          v-tooltip="`${primaryFile.filename} (${$formatBytes(primaryFile.size)})`"
+          v-tooltip="`${primaryFile.filename} (${formatBytes(primaryFile.size)})`"
           :href="primaryFile.url"
           class="iconified-button brand-button"
           :aria-label="`Download ${primaryFile.filename}`"
@@ -1035,7 +1035,7 @@ export default defineNuxtComponent({
         <FileIcon />
         <span class="filename">
           <strong>{{ replaceFile.name }}</strong>
-          <span class="file-size">({{ $formatBytes(replaceFile.size) }})</span>
+          <span class="file-size">({{ formatBytes(replaceFile.size) }})</span>
         </span>
         <FileInput
           class="iconified-button raised-button"
@@ -1058,7 +1058,7 @@ export default defineNuxtComponent({
         <FileIcon />
         <span class="filename">
           <strong>{{ file.filename }}</strong>
-          <span class="file-size">({{ $formatBytes(file.size) }})</span>
+          <span class="file-size">({{ formatBytes(file.size) }})</span>
           <span v-if="primaryFile.hashes.sha1 === file.hashes.sha1" class="file-type">
             Primary
           </span>
@@ -1141,7 +1141,7 @@ export default defineNuxtComponent({
           <FileIcon />
           <span class="filename">
             <strong>{{ file.name }}</strong>
-            <span class="file-size">({{ $formatBytes(file.size) }})</span>
+            <span class="file-size">({{ formatBytes(file.size) }})</span>
           </span>
           <multiselect
             v-if="version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))"
@@ -1259,7 +1259,7 @@ export default defineNuxtComponent({
                 )
                 .map((it) => it.name)
             "
-            :custom-label="(value) => $formatCategory(value)"
+            :custom-label="(value) => formatCategory(value)"
             :loading="$tag.loaders.length === 0"
             :multiple="true"
             :searchable="false"
@@ -1304,7 +1304,7 @@ export default defineNuxtComponent({
               :border="false"
             />
           </template>
-          <span v-else>{{ $formatVersion(version.game_versions) }}</span>
+          <span v-else>{{ $formatVersions(version.game_versions) }}</span>
         </div>
         <div v-if="!isEditing">
           <h4>Downloads</h4>

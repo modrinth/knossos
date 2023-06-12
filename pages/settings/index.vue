@@ -18,8 +18,8 @@ export default defineNuxtComponent({
       const types = this.$tag.projectTypes.map((type) => {
         return {
           id: type.id,
-          name: `${this.$formatProjectType(type.id)} search`,
-          display: `the ${this.$formatProjectType(type.id).toLowerCase()}s search page`,
+          name: `${this.formatProjectType(type.id)} search`,
+          display: `the ${this.formatProjectType(type.id).toLowerCase()}s search page`,
         }
       })
       types.push({
@@ -102,7 +102,7 @@ export default defineNuxtComponent({
           :id="`${projectType}-search-display-mode`"
           v-model="$cosmetics.searchDisplayMode[projectType.id]"
           :options="$tag.projectViewModes"
-          :custom-label="$capitalizeString"
+          :custom-label="capitalizeString"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
