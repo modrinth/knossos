@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import ModrinthLoadingIndicator from '~/components/ui/modrinth-loading-indicator.ts'
-import Notifications from '~/components/ui/Notifications.vue'
 </script>
 
 <template>
+  <NuxtLoadingIndicator color="repeating-linear-gradient(to right, var(--color-brand-green) 0%, var(--landing-green-label) 100%)" :height="3" :throttle="50" :duration="500" />
   <NuxtLayout>
-    <ModrinthLoadingIndicator />
-    <Notifications />
+    <UiNotifications />
     <NuxtPage />
   </NuxtLayout>
 </template>
