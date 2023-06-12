@@ -461,6 +461,7 @@ export default {
       gap: var(--spacing-card-xs);
       width: fit-content;
       max-width: 100%;
+      flex-wrap: wrap;
     }
 
     .circle {
