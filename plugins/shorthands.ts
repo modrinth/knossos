@@ -1,6 +1,7 @@
-export default defineNuxtPlugin(async (nuxtApp) => {
+export default defineNuxtPlugin(async () => {
   const { tags } = useTag()
   const { user, token } = useAuth()
+  const { cosmetics } = useCosmetics()
 
   return {
     provide: {
@@ -20,15 +21,14 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       },
       formatVersions: (versionsArray: string | any[]) => formatVersions(versionsArray, tags),
       external: () => {
-        const cosmeticsStore = useCosmetics().value
-
-        return cosmeticsStore.externalLinksNewTab ? '_blank' : ''
+        return cosmetics.externalLinksNewTab ? '_blank' : ''
       },
       computeVersions: (versions: any[], members: any[]) => {
         const visitedVersions: any[] = []
         const returnVersions: any[] = []
 
-        const authorMembers = {}
+        const authorMembers: { [key: string]: any } = {} // Update type declaration
+
         const sortedVersions = versions.sort(
           (a: { date_published: any }, b: { date_published: any }) => dayjs(a.date_published).valueOf() - dayjs(b.date_published).valueOf(),
         )
@@ -79,8 +79,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             else
               return { duplicate: false, ...version }
           })
-          .sort((a, b) => dayjs(b.date_published) - dayjs(a.date_published))
+          .sort((a, b) => dayjs(a.date_published).valueOf() - dayjs(b.date_published).valueOf())
       },
+
       getProjectTypeForDisplay: (type: string, categories: any[]) => {
         if (type === 'mod') {
           const isPlugin = categories.some((category: any) => {

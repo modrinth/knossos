@@ -30,13 +30,12 @@ const props = defineProps({
   },
 })
 
-const data = useNuxtApp()
 const metaDescription = computed(
   () =>
     `Download and browse ${props.versions.length} ${
       props.project.title
-    } versions. ${formatNumber(props.project.downloads)} total downloads. Last updated ${data
-      .dayjs(props.project.updated)
+    } versions. ${formatNumber(props.project.downloads)} total downloads. Last updated ${
+      dayjs(props.project.updated)
       .format('MMM D, YYYY')}.`,
 )
 
