@@ -36,7 +36,7 @@ const metaDescription = computed(
     `Download and browse ${props.versions.length} ${
       props.project.title
     } versions. ${formatNumber(props.project.downloads)} total downloads. Last updated ${data
-      .$dayjs(props.project.updated)
+      .dayjs(props.project.updated)
       .format('MMM D, YYYY')}.`,
 )
 
@@ -181,7 +181,7 @@ async function handleFiles(files: any[]) {
           </span>
           <span>
             Published on
-            <strong>{{ $dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
+            <strong>{{ dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
           </span>
         </div>
       </div>

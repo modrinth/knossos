@@ -502,7 +502,7 @@ export default defineNuxtComponent({
         <div class="gallery-bottom">
           <div class="gallery-created">
             <CalendarIcon />
-            {{ $dayjs(item.created).format('MMMM D, YYYY') }}
+            {{ dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button

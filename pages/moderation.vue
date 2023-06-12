@@ -88,7 +88,7 @@ export default defineNuxtComponent({
     )
 
     return {
-      projects: shallowRef(projects.sort((a, b) => data.$dayjs(a.queued) - data.$dayjs(b.queued))),
+      projects: shallowRef(projects.sort((a, b) => data.dayjs(a.queued) - data.dayjs(b.queued))),
       reports: ref(newReports),
     }
   },
@@ -244,7 +244,7 @@ export default defineNuxtComponent({
                 <TrashIcon /> Delete report
               </button>
               <span
-                v-tooltip="$dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
+                v-tooltip="dayjs(item.created).format('[Created at] YYYY-MM-DD [at] HH:mm A')"
                 class="stat"
               >
                 <CalendarIcon />

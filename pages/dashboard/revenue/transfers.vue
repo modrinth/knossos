@@ -48,7 +48,7 @@ const payouts = ref(raw)
           :key="`payout-${index}`"
           class="grid-table__row"
         >
-          <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
+          <div>{{ dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
           <div><Badge :type="payout.status" /></div>
           <div class="amount">
             {{ formatMoney(payout.amount) }}

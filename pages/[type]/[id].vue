@@ -638,7 +638,7 @@ const collapsedChecklist = ref(false)
             </div>
             <div class="dates">
               <div
-                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
@@ -646,7 +646,7 @@ const collapsedChecklist = ref(false)
                 <span class="value">{{ fromNow(project.published) }}</span>
               </div>
               <div
-                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />

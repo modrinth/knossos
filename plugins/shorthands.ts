@@ -29,10 +29,14 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         const returnVersions: any[] = []
 
         const authorMembers = {}
+        const sortedVersions = versions.sort(
+          (a: { date_published: any }, b: { date_published: any }) => dayjs(a.date_published).valueOf() - dayjs(b.date_published).valueOf(),
+        )
 
-        for (const version of versions.sort(
-          (a: { date_published: any }, b: { date_published: any }) => nuxtApp.$dayjs(a.date_published) - nuxtApp.$dayjs(b.date_published),
-        )) {
+        if (!sortedVersions || sortedVersions.length === 0)
+          return []
+
+        for (const version of sortedVersions) {
           if (visitedVersions.includes(version.version_number)) {
             visitedVersions.push(version.version_number)
             version.displayUrlEnding = version.id
@@ -75,7 +79,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             else
               return { duplicate: false, ...version }
           })
-          .sort((a, b) => nuxtApp.$dayjs(b.date_published) - nuxtApp.$dayjs(a.date_published))
+          .sort((a, b) => dayjs(b.date_published) - dayjs(a.date_published))
       },
       getProjectTypeForDisplay: (type: string, categories: any[]) => {
         if (type === 'mod') {

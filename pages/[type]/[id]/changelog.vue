@@ -110,7 +110,7 @@ function switchPage(page) {
               </span>
               <span>
                 on
-                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span>
+                {{ dayjs(version.date_published).format('MMM D, YYYY') }}</span>
             </div>
             <a
               :href="version.primaryFile.url"

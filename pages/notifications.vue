@@ -148,7 +148,7 @@ export default defineNuxtComponent({
             <div class="label__description">
               <p>{{ notification.text }}</p>
               <span
-                v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="dayjs(notification.created).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="date"
               >
                 <CalendarIcon />

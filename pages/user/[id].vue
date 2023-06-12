@@ -302,7 +302,7 @@ export default defineNuxtComponent({
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
-                v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')"
                 class="secondary-stat__text date"
               >
                 Joined {{ fromNow(user.created) }}
