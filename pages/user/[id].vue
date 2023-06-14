@@ -295,6 +295,7 @@ const sortTypes = shallowReadonly([
   { display: 'Follow count', name: 'follows' },
   { display: 'Recently published', name: 'newest' },
   { display: 'Recently updated', name: 'updated' },
+  { display: 'Alphabetical', name: 'alphabetical' },
 ])
 const sortType = ref({ display: 'Downloads', name: 'downloads' })
 
@@ -363,6 +364,8 @@ const sortProjects = (a, b) => {
       return Date.parse(b.updated) - Date.parse(a.updated)
     case 'follows':
       return b.followers - a.followers
+    case 'alphabetical':
+      return b.title < a.title
   }
 }
 const projectTypes = computed(() => {
