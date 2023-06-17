@@ -13,5 +13,23 @@
   },
   "frog.title": {
     "message": "Frog"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automatic"
+  },
+  "settings.language.categories.default": {
+    "message": "Standard languages"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Experimental languages"
+  },
+  "settings.language.categories.fun": {
+    "message": "Fun languages"
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sync with the system language"
+  },
+  "settings.language.languages.title": {
+    "message": "Languages"
   }
 }
