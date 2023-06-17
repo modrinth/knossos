@@ -22,7 +22,7 @@
               <CurrencyIcon />
             </NavStackItem>
           </template>
-          <NavStackItem link="/settings/language" label="Languages">
+          <NavStackItem link="/settings/language" label="Language">
             <LanguagesIcon />
           </NavStackItem>
         </NavStack>
