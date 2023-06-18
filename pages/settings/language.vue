@@ -475,8 +475,6 @@ function onSearchSubmit(e: KeyboardEvent) {
 
 .language-search {
   width: 100%;
-  font-size: var(--font-size-md);
-  padding: var(--spacing-card-md);
 }
 
 .search-container {
