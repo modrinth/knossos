@@ -76,9 +76,16 @@ type Category = keyof typeof categoryNames
 
 const categoryOrder: Category[] = ['auto', 'default', 'fun', 'experimental']
 
-const $defaultNames = useDisplayNames(() => vintl.defaultLocale)
-
-const $translatedNames = useDisplayNames(() => vintl.locale)
+function normalizeCategoryName(name?: string): keyof typeof categoryNames {
+  switch (name) {
+    case 'auto':
+    case 'fun':
+    case 'experimental':
+      return name
+    default:
+      return 'default'
+  }
+}
 
 type LocaleBase = {
   category: Category
@@ -99,27 +106,9 @@ type CommonLocale = LocaleBase & {
 
 type Locale = AutomaticLocale | CommonLocale
 
-function normalizeCategoryName(name?: string): keyof typeof categoryNames {
-  switch (name) {
-    case 'auto':
-    case 'fun':
-    case 'experimental':
-      return name
-    default:
-      return 'default'
-  }
-}
+const $defaultNames = useDisplayNames(() => vintl.defaultLocale)
 
-const $searchQuery = ref('')
-
-const $search = computed(
-  () =>
-    new Fuse($locales.value, {
-      keys: ['tag', 'displayName', 'translatedName', 'englishName', 'searchTerms'],
-      threshold: 0.4,
-      distance: 100,
-    })
-)
+const $translatedNames = useDisplayNames(() => vintl.locale)
 
 const $locales = computed(() => {
   const locales: Locale[] = []
@@ -170,6 +159,16 @@ const $locales = computed(() => {
   return locales
 })
 
+const $query = ref('')
+
+const fuse = new Fuse<Locale>([], {
+  keys: ['tag', 'displayName', 'translatedName', 'englishName', 'searchTerms'],
+  threshold: 0.4,
+  distance: 100,
+})
+
+watchSyncEffect(() => fuse.setCollection($locales.value))
+
 const $categories = computed(() => {
   const categories = new Map<Category, Locale[]>()
 
@@ -195,19 +194,18 @@ const $categories = computed(() => {
   return categories
 })
 
+function isQueryEmpty() {
+  return $query.value.trim().length === 0
+}
+
 const $searchResults = computed(() => {
   return new Map<Category, Locale[]>([
-    [
-      'searchResult',
-      $searchQuery.value.trim().length === 0
-        ? []
-        : $search.value.search($searchQuery.value).map(({ item }) => item),
-    ],
+    ['searchResult', isQueryEmpty() ? [] : fuse.search($query.value).map(({ item }) => item)],
   ])
 })
 
 const $displayCategories = computed(() =>
-  $searchQuery.value.trim().length === 0 ? $categories.value : $searchResults.value
+  isQueryEmpty() ? $categories.value : $searchResults.value
 )
 
 const $changingTo = ref<string | undefined>()
@@ -267,7 +265,7 @@ function onSearchSubmit(e: KeyboardEvent) {
       <div class="search-container">
         <input
           id="language-search"
-          v-model="$searchQuery"
+          v-model="$query"
           name="language"
           type="search"
           :placeholder="formatMessage(messages.searchFieldPlaceholder)"
@@ -283,7 +281,7 @@ function onSearchSubmit(e: KeyboardEvent) {
 
         <div id="language-search-results-announcements" class="visually-hidden" aria-live="polite">
           {{
-            $searchQuery === ''
+            isQueryEmpty()
               ? ''
               : formatMessage(messages.searchResultsAnnouncement, {
                   matches: $searchResults.get('searchResult')?.length ?? 0,
@@ -343,7 +341,7 @@ function onSearchSubmit(e: KeyboardEvent) {
             <div
               v-if="$failedLocale === locale.tag"
               :id="`language__${locale.tag}__fail`"
-              class="language-errored"
+              class="language-load-error"
             >
               <WarningIcon /> {{ formatMessage(messages.loadFailed) }}
             </div>
@@ -389,72 +387,68 @@ function onSearchSubmit(e: KeyboardEvent) {
       }
     }
 
-    &.pending {
-      &::after {
-        // shimmer gradient
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+    &.pending::after {
+      // shimmer gradient
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
 
+      background-image: linear-gradient(
+        102deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 20%,
+        rgba(0, 0, 0, 0.1) 45%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0) 80%,
+        rgba(0, 0, 0, 0) 100%
+      );
+
+      background-repeat: no-repeat;
+      animation: placeholderShimmer 2.5s ease-out infinite;
+
+      .dark-mode &,
+      .oled-mode & {
         background-image: linear-gradient(
           102deg,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0) 20%,
-          rgba(0, 0, 0, 0.1) 45%,
-          rgba(0, 0, 0, 0.1) 50%,
-          rgba(0, 0, 0, 0) 80%,
-          rgba(0, 0, 0, 0) 100%
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0) 20%,
+          rgba(255, 255, 255, 0.1) 45%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0) 80%,
+          rgba(255, 255, 255, 0) 100%
         );
+      }
 
-        background-repeat: no-repeat;
-        animation: placeholderShimmer 2.5s ease-out infinite;
-        // opacity: 0.2;
-
-        .dark-mode &,
-        .oled-mode & {
-          background-image: linear-gradient(
-            102deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0) 20%,
-            rgba(255, 255, 255, 0.1) 45%,
-            rgba(255, 255, 255, 0.1) 50%,
-            rgba(255, 255, 255, 0) 80%,
-            rgba(255, 255, 255, 0) 100%
-          );
-
-          // opacity: 0.1;
+      @keyframes placeholderShimmer {
+        from {
+          left: -100%;
+        }
+        to {
+          left: 100%;
         }
       }
     }
   }
 
   &.changing {
-    label {
-      opacity: 0.9;
+    label:not(.pending) {
+      opacity: 0.8;
+      pointer-events: none;
+      cursor: default;
     }
   }
 }
 
-.language-errored {
+.language-load-error {
   color: var(--color-special-red);
   font-size: var(--font-size-sm);
   margin-left: 0.3rem;
   display: flex;
   align-items: center;
   gap: 0.3rem;
-}
-
-@keyframes placeholderShimmer {
-  from {
-    left: -100%;
-  }
-
-  to {
-    left: 100%;
-  }
 }
 
 .radio {
@@ -483,17 +477,7 @@ function onSearchSubmit(e: KeyboardEvent) {
 
 .card-description {
   margin-bottom: calc(var(--spacing-card-sm) + var(--spacing-card-md));
-}
 
-.contribution-notice {
-  background-color: var(--color-info-banner-bg);
-  color: var(--color-info-banner-text);
-  min-height: unset;
-  padding: var(--spacing-card-bg);
-}
-
-.contribution-notice,
-.card-description {
   a {
     color: var(--color-link);
 
