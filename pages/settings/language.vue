@@ -3,6 +3,7 @@ import Fuse from 'fuse.js/dist/fuse.basic'
 import RadioButtonIcon from '~/assets/images/utils/radio-button.svg'
 import RadioButtonCheckedIcon from '~/assets/images/utils/radio-button-checked.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
+import { isModifierKeyDown } from '~/helpers/events.ts'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
@@ -46,6 +47,18 @@ const messages = defineMessages({
   loadFailed: {
     id: 'settings.language.languages.load-failed',
     defaultMessage: 'Cannot load this language. Try again in a bit.',
+  },
+  languageLabel: {
+    id: 'settings.language.languages.language-label',
+    defaultMessage: '{translatedName}. {displayName}',
+  },
+  languageLabelApplying: {
+    id: 'settings.language.languages.language-label-applying',
+    defaultMessage: '{label}. Applying...',
+  },
+  languageLabelError: {
+    id: 'settings.language.languages.language-label-error',
+    defaultMessage: '{label}. Error',
   },
 })
 
@@ -209,6 +222,9 @@ const $displayCategories = computed(() =>
 )
 
 const $changingTo = ref<string | undefined>()
+
+const isChanging = () => $changingTo.value != null
+
 const $failedLocale = ref<string>()
 
 const $activeLocale = computed({
@@ -223,6 +239,10 @@ const $activeLocale = computed({
     $changingTo.value = value
     ;(async () => {
       try {
+        // await new Promise((resolve) => setTimeout(resolve, 3000))
+        // if (Math.random() > 0.5) {
+        //   throw new Error('Failed to change locale')
+        // }
         await vintl.changeLocale(value)
         $failedLocale.value = undefined
       } catch (err) {
@@ -237,13 +257,52 @@ const $activeLocale = computed({
 const $languagesList = ref<HTMLDivElement | undefined>()
 
 function onSearchSubmit(e: KeyboardEvent) {
-  if (e.key !== 'Enter' || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return
+  if (e.key !== 'Enter' || isModifierKeyDown(e)) return
 
   const focusableTarget = $languagesList.value?.querySelector(
     'input, [tabindex]:not([tabindex="-1"])'
   ) as HTMLElement | undefined
 
   focusableTarget?.focus()
+}
+
+function onItemKeydown(e: KeyboardEvent, locale: Locale) {
+  switch (e.key) {
+    case 'Enter':
+    case ' ':
+      break
+    default:
+      return
+  }
+
+  if (isModifierKeyDown(e) || isChanging()) return
+
+  $activeLocale.value = locale.tag
+}
+
+function onItemClick(e: MouseEvent, locale: Locale) {
+  if (isModifierKeyDown(e) || isChanging()) return
+
+  $activeLocale.value = locale.tag
+}
+
+function getItemLabel(locale: Locale) {
+  const label = locale.auto
+    ? formatMessage(messages.automaticLocale)
+    : formatMessage(messages.languageLabel, {
+        translatedName: locale.translatedName,
+        displayName: locale.displayName,
+      })
+
+  if ($changingTo.value === locale.tag) {
+    return formatMessage(messages.languageLabelApplying, { label })
+  }
+
+  if ($failedLocale.value === locale.tag) {
+    return formatMessage(messages.languageLabelError, { label })
+  }
+
+  return label
 }
 </script>
 
@@ -271,7 +330,7 @@ function onSearchSubmit(e: KeyboardEvent) {
           :placeholder="formatMessage(messages.searchFieldPlaceholder)"
           class="language-search"
           aria-describedby="language-search-description"
-          :disabled="$changingTo != null"
+          :disabled="isChanging()"
           @keypress="onSearchSubmit"
         />
 
@@ -290,7 +349,7 @@ function onSearchSubmit(e: KeyboardEvent) {
         </div>
       </div>
 
-      <div ref="$languagesList" :class="{ 'languages-list': true, changing: $changingTo != null }">
+      <div ref="$languagesList" :class="{ 'languages-list': true, changing: isChanging() }">
         <template v-for="[category, locales] in $displayCategories" :key="category">
           <strong class="category-name">
             {{ formatMessage(categoryNames[category]) }}
@@ -305,25 +364,23 @@ function onSearchSubmit(e: KeyboardEvent) {
           </div>
 
           <template v-for="locale in locales" :key="locale.tag">
-            <label
+            <div
+              role="button"
+              :aria-pressed="$activeLocale === locale.tag"
               :class="{
+                'language-item': true,
                 pending: $changingTo == locale.tag,
                 errored: $failedLocale == locale.tag,
               }"
               :aria-describedby="
                 $failedLocale == locale.tag ? `language__${locale.tag}__fail` : undefined
               "
+              :aria-disabled="isChanging() && $changingTo !== locale.tag"
+              :tabindex="0"
+              :aria-label="getItemLabel(locale)"
+              @click="(e) => onItemClick(e, locale)"
+              @keydown="(e) => onItemKeydown(e, locale)"
             >
-              <input
-                :id="`language__${locale.tag}`"
-                v-model="$activeLocale"
-                name="language"
-                :value="locale.tag"
-                type="radio"
-                class="visually-hidden"
-                :disabled="$changingTo != null"
-              />
-
               <RadioButtonCheckedIcon v-if="$activeLocale === locale.tag" class="radio" />
               <RadioButtonIcon v-else class="radio" />
 
@@ -336,7 +393,7 @@ function onSearchSubmit(e: KeyboardEvent) {
                   {{ locale.translatedName }}
                 </div>
               </div>
-            </label>
+            </div>
 
             <div
               v-if="$failedLocale === locale.tag"
@@ -358,7 +415,7 @@ function onSearchSubmit(e: KeyboardEvent) {
   flex-direction: column;
   gap: 0.6rem;
 
-  label {
+  .language-item {
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
@@ -370,7 +427,7 @@ function onSearchSubmit(e: KeyboardEvent) {
     position: relative;
     overflow: hidden;
 
-    &:not(:has(input[disabled])):hover {
+    &:not([aria-disabled='true']):hover {
       border-color: var(--color-button-bg-hover);
     }
 
@@ -434,7 +491,7 @@ function onSearchSubmit(e: KeyboardEvent) {
   }
 
   &.changing {
-    label:not(.pending) {
+    .language-item:not(.pending) {
       opacity: 0.8;
       pointer-events: none;
       cursor: default;
