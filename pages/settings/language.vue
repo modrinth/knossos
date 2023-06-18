@@ -237,11 +237,15 @@ const $activeLocale = computed({
 })
 
 const $languagesList = ref<HTMLDivElement | undefined>()
-const $noResultsPlaceholder = ref<HTMLDivElement[]>([])
 
 function onSearchSubmit(e: KeyboardEvent) {
   if (e.key !== 'Enter' || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return
-  ;($languagesList.value?.querySelector('input') ?? $noResultsPlaceholder.value[0])?.focus()
+
+  const focusableTarget = $languagesList.value?.querySelector(
+    'input, [tabindex]:not([tabindex="-1"])'
+  ) as HTMLElement | undefined
+
+  focusableTarget?.focus()
 }
 </script>
 
@@ -296,7 +300,6 @@ function onSearchSubmit(e: KeyboardEvent) {
 
           <div
             v-if="category === 'searchResult' && locales.length === 0"
-            ref="$noResultsPlaceholder"
             class="no-results"
             tabindex="0"
           >
