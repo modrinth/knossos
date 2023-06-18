@@ -290,9 +290,9 @@ function onSearchSubmit(e: KeyboardEvent) {
 
       <div ref="$languagesList" :class="{ 'languages-list': true, changing: $changingTo != null }">
         <template v-for="[category, locales] in $displayCategories" :key="category">
-          <div class="category-name">
-            <strong>{{ formatMessage(categoryNames[category]) }}</strong>
-          </div>
+          <strong class="category-name">
+            {{ formatMessage(categoryNames[category]) }}
+          </strong>
 
           <div
             v-if="category === 'searchResult' && locales.length === 0"
@@ -504,5 +504,9 @@ function onSearchSubmit(e: KeyboardEvent) {
       color: var(--color-link-active);
     }
   }
+}
+
+.category-name {
+  margin-top: var(--spacing-card-md);
 }
 </style>
