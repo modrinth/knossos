@@ -76,8 +76,8 @@ devDependencies:
     specifier: ^2.0.1
     version: 2.0.1(@formatjs/intl@2.7.2)
   '@vintl/nuxt':
-    specifier: ^1.2.3
-    version: 1.2.3(typescript@5.0.4)(vite@4.3.9)(vue@3.3.4)
+    specifier: ^1.3.0
+    version: 1.3.0(typescript@5.0.4)(vite@4.3.9)(vue@3.3.4)
   eslint:
     specifier: ^8.41.0
     version: 8.41.0
@@ -982,6 +982,12 @@ packages:
       tslib: 2.6.0
     dev: true
 
+  /@formatjs/intl-localematcher@0.4.0:
+    resolution: {integrity: sha512-bRTd+rKomvfdS4QDlVJ6TA/Jx1F2h/TBVO5LjvhQ7QPPHp19oPNMIum7W2CMEReq/zPxpmCeB31F9+5gl/qtvw==}
+    dependencies:
+      tslib: 2.6.0
+    dev: true
+
   /@formatjs/intl@2.7.2(typescript@5.0.4):
     resolution: {integrity: sha512-ziiQfnXwY0/rXhtohSAmYMqDjRsihoMKdl8H2aA+FvxG9638E0XrvfBFCb+1HhimNiuqRz5fTY7F/bZtsJxsjA==}
     peerDependencies:
@@ -1814,10 +1820,11 @@ packages:
       intl-messageformat: 10.3.5
     dev: true
 
-  /@vintl/nuxt@1.2.3(typescript@5.0.4)(vite@4.3.9)(vue@3.3.4):
-    resolution: {integrity: sha512-7grMFQqWc6S9nUU7q9K+fhRZ/SvPzG4Dll/fcCnDbIzGBgzH+Nni2b+yFuoT0sjmXN3lsksHa+5hxyJDxq9Q0A==}
+  /@vintl/nuxt@1.3.0(typescript@5.0.4)(vite@4.3.9)(vue@3.3.4):
+    resolution: {integrity: sha512-gH0Db4XB3RCzOaBQtoBf/Sc9bMneyVtt7RBjrLWzzNf7gN1NJNPlrfdCVAp2si/P7dt06wRegGHaSBuQ3oQQZg==}
     dependencies:
       '@formatjs/intl': 2.7.2(typescript@5.0.4)
+      '@formatjs/intl-localematcher': 0.4.0
       '@nuxt/kit': 3.6.1
       '@vintl/unplugin': 1.2.4(vite@4.3.9)
       '@vintl/vintl': 4.2.1(typescript@5.0.4)(vue@3.3.4)
