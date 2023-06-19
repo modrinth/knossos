@@ -1,3 +1,5 @@
+import { useAutoRef, type AutoRef } from './auto-ref.ts'
+
 const safeTags = new Map<string, string>()
 
 function safeTagFor(locale: string) {
@@ -78,18 +80,12 @@ export function createDisplayNames(
   return wrapper
 }
 
-type MaybeRefOrGetter<T> = T | Ref<T> | (() => T)
-type MaybeRef<T> = T | Ref<T>
-
 export function useDisplayNames(
-  locale: string | Ref<string> | (() => string),
-  options?: MaybeRefOrGetter<Intl.DisplayNamesOptions | undefined>
+  locale: AutoRef<string>,
+  options?: AutoRef<Intl.DisplayNamesOptions | undefined>
 ) {
-  const $locale: MaybeRef<string> | string =
-    typeof locale === 'function' ? computed(locale) : locale
+  const $locale = useAutoRef(locale)
+  const $options = useAutoRef(options)
 
-  const $options: MaybeRef<Intl.DisplayNamesOptions | undefined> =
-    typeof options === 'function' ? computed(options) : options
-
-  return computed(() => createDisplayNames(unref($locale), unref($options)))
+  return computed(() => createDisplayNames($locale.value, $options.value))
 }
