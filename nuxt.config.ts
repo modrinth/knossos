@@ -48,7 +48,7 @@ const meta = {
  * Preferably only the locales that reach a certain threshold of complete
  * translations would be included in this array.
  */
-const enabledLocales: string[] = ['en-x-pirate']
+const enabledLocales: string[] = []
 
 /**
  * Overrides for the categories of the certain locales.
