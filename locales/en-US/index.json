@@ -35,8 +35,14 @@
   "settings.language.languages.automatic": {
     "message": "Sync with the system language"
   },
-  "settings.language.languages.contribution-notice": {
-    "message": "Modrinth is translated by volunteers. <crowdin-link>You can contribute!</crowdin-link>"
+  "settings.language.languages.language-label": {
+    "message": "{translatedName}. {displayName}"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Applying..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Error"
   },
   "settings.language.languages.load-failed": {
     "message": "Cannot load this language. Try again in a bit."

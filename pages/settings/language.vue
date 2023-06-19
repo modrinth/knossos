@@ -39,11 +39,6 @@ const messages = defineMessages({
     defaultMessage:
       '{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search.',
   },
-  contributionNotice: {
-    id: 'settings.language.languages.contribution-notice',
-    defaultMessage:
-      'Modrinth is translated by volunteers. <crowdin-link>You can contribute!</crowdin-link>',
-  },
   loadFailed: {
     id: 'settings.language.languages.load-failed',
     defaultMessage: 'Cannot load this language. Try again in a bit.',
