@@ -169,6 +169,8 @@ const $locales = computed(() => {
 
 const $query = ref('')
 
+const isQueryEmpty = () => $query.value.trim().length === 0
+
 const fuse = new Fuse<Locale>([], {
   keys: ['tag', 'displayName', 'translatedName', 'englishName', 'searchTerms'],
   threshold: 0.4,
@@ -202,10 +204,6 @@ const $categories = computed(() => {
   return categories
 })
 
-function isQueryEmpty() {
-  return $query.value.trim().length === 0
-}
-
 const $searchResults = computed(() => {
   return new Map<Category, Locale[]>([
     ['searchResult', isQueryEmpty() ? [] : fuse.search($query.value).map(({ item }) => item)],
@@ -222,36 +220,29 @@ const isChanging = () => $changingTo.value != null
 
 const $failedLocale = ref<string>()
 
-const $activeLocale = computed({
-  get() {
-    if ($changingTo.value != null) {
-      return $changingTo.value
-    }
-
-    return vintl.automatic ? 'auto' : vintl.locale
-  },
-  set(value) {
-    $changingTo.value = value
-    ;(async () => {
-      try {
-        // await new Promise((resolve) => setTimeout(resolve, 3000))
-        // if (Math.random() > 0.5) {
-        //   throw new Error('Failed to change locale')
-        // }
-        await vintl.changeLocale(value)
-        $failedLocale.value = undefined
-      } catch (err) {
-        $failedLocale.value = value
-      } finally {
-        $changingTo.value = undefined
-      }
-    })()
-  },
+const $activeLocale = computed(() => {
+  if ($changingTo.value != null) return $changingTo.value
+  return vintl.automatic ? 'auto' : vintl.locale
 })
+
+async function changeLocale(value: string) {
+  if ($activeLocale.value === value) return
+
+  $changingTo.value = value
+
+  try {
+    await vintl.changeLocale(value)
+    $failedLocale.value = undefined
+  } catch (err) {
+    $failedLocale.value = value
+  } finally {
+    $changingTo.value = undefined
+  }
+}
 
 const $languagesList = ref<HTMLDivElement | undefined>()
 
-function onSearchSubmit(e: KeyboardEvent) {
+function onSearchKeydown(e: KeyboardEvent) {
   if (e.key !== 'Enter' || isModifierKeyDown(e)) return
 
   const focusableTarget = $languagesList.value?.querySelector(
@@ -272,13 +263,13 @@ function onItemKeydown(e: KeyboardEvent, locale: Locale) {
 
   if (isModifierKeyDown(e) || isChanging()) return
 
-  $activeLocale.value = locale.tag
+  changeLocale(locale.tag)
 }
 
 function onItemClick(e: MouseEvent, locale: Locale) {
   if (isModifierKeyDown(e) || isChanging()) return
 
-  $activeLocale.value = locale.tag
+  changeLocale(locale.tag)
 }
 
 function getItemLabel(locale: Locale) {
@@ -326,7 +317,7 @@ function getItemLabel(locale: Locale) {
           class="language-search"
           aria-describedby="language-search-description"
           :disabled="isChanging()"
-          @keypress="onSearchSubmit"
+          @keydown="onSearchKeydown"
         />
 
         <div id="language-search-description" class="visually-hidden">
@@ -344,7 +335,7 @@ function getItemLabel(locale: Locale) {
         </div>
       </div>
 
-      <div ref="$languagesList" :class="{ 'languages-list': true, changing: isChanging() }">
+      <div ref="$languagesList" class="languages-list">
         <template v-for="[category, locales] in $displayCategories" :key="category">
           <strong class="category-name">
             {{ formatMessage(categoryNames[category]) }}
@@ -409,88 +400,85 @@ function getItemLabel(locale: Locale) {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+}
 
-  .language-item {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    border: 0.15rem solid transparent;
-    border-radius: var(--spacing-card-md);
-    background: var(--color-button-bg);
-    padding: var(--spacing-card-md);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+.language-item {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  border: 0.15rem solid transparent;
+  border-radius: var(--spacing-card-md);
+  background: var(--color-button-bg);
+  padding: var(--spacing-card-md);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 
-    &:not([aria-disabled='true']):hover {
-      border-color: var(--color-button-bg-hover);
-    }
+  &:not([aria-disabled='true']):hover {
+    border-color: var(--color-button-bg-hover);
+  }
 
-    &:focus-visible,
-    &:has(:focus-visible) {
-      outline: 2px solid var(--color-brand);
-    }
+  &:focus-visible,
+  &:has(:focus-visible) {
+    outline: 2px solid var(--color-brand);
+  }
 
-    &.errored {
+  &.errored {
+    border-color: var(--color-special-red);
+
+    &:hover {
       border-color: var(--color-special-red);
-
-      &:hover {
-        border-color: var(--color-special-red);
-      }
     }
+  }
 
-    &.pending::after {
-      // shimmer gradient
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+  &.pending::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 
+    background-image: linear-gradient(
+      102deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0.1) 45%,
+      rgba(0, 0, 0, 0.1) 50%,
+      rgba(0, 0, 0, 0) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+
+    background-repeat: no-repeat;
+    animation: shimmerSliding 2.5s ease-out infinite;
+
+    .dark-mode &,
+    .oled-mode & {
       background-image: linear-gradient(
         102deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0) 20%,
-        rgba(0, 0, 0, 0.1) 45%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(0, 0, 0, 0) 80%,
-        rgba(0, 0, 0, 0) 100%
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 20%,
+        rgba(255, 255, 255, 0.1) 45%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 80%,
+        rgba(255, 255, 255, 0) 100%
       );
+    }
 
-      background-repeat: no-repeat;
-      animation: placeholderShimmer 2.5s ease-out infinite;
-
-      .dark-mode &,
-      .oled-mode & {
-        background-image: linear-gradient(
-          102deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0) 20%,
-          rgba(255, 255, 255, 0.1) 45%,
-          rgba(255, 255, 255, 0.1) 50%,
-          rgba(255, 255, 255, 0) 80%,
-          rgba(255, 255, 255, 0) 100%
-        );
+    @keyframes shimmerSliding {
+      from {
+        left: -100%;
       }
-
-      @keyframes placeholderShimmer {
-        from {
-          left: -100%;
-        }
-        to {
-          left: 100%;
-        }
+      to {
+        left: 100%;
       }
     }
   }
 
-  &.changing {
-    .language-item:not(.pending) {
-      opacity: 0.8;
-      pointer-events: none;
-      cursor: default;
-    }
+  &[aria-disabled='true']:not(.pending) {
+    opacity: 0.8;
+    pointer-events: none;
+    cursor: default;
   }
 }
 
