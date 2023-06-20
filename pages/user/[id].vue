@@ -141,29 +141,6 @@
             </a>
           </template>
         </div>
-        <div class="card search-controls">
-          <div class="sort-controls">
-            <div class="labeled-control">
-              <span class="labeled-control__label">Sort by</span>
-              <Multiselect
-                v-model="sortType"
-                placeholder="Select one"
-                class="search-controls__sorting labeled-control__control"
-                track-by="display"
-                label="display"
-                :options="sortTypes"
-                :searchable="false"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-              >
-                <template #singleLabel="{ option }">
-                  {{ option.display }}
-                </template>
-              </Multiselect>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="normal-page__content">
         <Promotion />
@@ -203,6 +180,29 @@
             </button>
           </div>
         </nav>
+        <div class="card search-controls">
+          <div class="sort-controls">
+            <div class="labeled-control">
+              <span class="labeled-control__label">Sort by</span>
+              <Multiselect
+                v-model="sortType"
+                placeholder="Select one"
+                class="search-controls__sorting labeled-control__control"
+                track-by="display"
+                label="display"
+                :options="sortTypes"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+              >
+                <template #singleLabel="{ option }">
+                  {{ option.display }}
+                </template>
+              </Multiselect>
+            </div>
+          </div>
+        </div>
         <div
           v-if="projects.length > 0"
           class="project-list"
@@ -507,6 +507,10 @@ export default defineNuxtComponent({
 
     .labeled-control__label {
       white-space: nowrap;
+    }
+
+    .search-controls__sorting {
+      width: 15rem;
     }
   }
 }
