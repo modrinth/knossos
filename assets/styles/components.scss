@@ -616,6 +616,7 @@
   img {
     max-width: 100%;
     height: auto;
+    vertical-align: middle;
   }
 
   html:not(.dark-mode, .oled-mode) & img[src$='#gh-dark-mode-only'] {
@@ -707,6 +708,10 @@
       cursor: pointer;
       background-color: var(--color-button-bg);
       border-radius: var(--size-rounded-xs);
+
+      > * {
+        display: inline-block;
+      }
 
       &:hover {
         background-color: var(--color-button-bg-hover);

@@ -413,7 +413,7 @@
                 Report
               </button>
               <button
-                v-if="!$user.value.follows.find((x) => x.id === project.id)"
+                v-if="!user.follows.find((x) => x.id === project.id)"
                 class="iconified-button"
                 @click="userFollowProject(project)"
               >
@@ -421,7 +421,7 @@
                 Follow
               </button>
               <button
-                v-if="$user.value.follows.find((x) => x.id === project.id)"
+                v-if="user.follows.find((x) => x.id === project.id)"
                 class="iconified-button"
                 @click="userUnfollowProject(project)"
               >
@@ -501,11 +501,9 @@
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
         />
-        <div v-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
-          {{ project.title }} is not viewable in search because it has been found to be in violation
-          of one of <nuxt-link to="/legal/rules"> Modrinth's content rules </nuxt-link>. Modrinth
-          makes no guarantees as to whether {{ project.title }} is safe for use in a multiplayer
-          context.
+        <div v-else-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
+          {{ project.title }} has been removed from search by Modrinth's moderators. Please use
+          {{ project.title }} at your own risk.
         </div>
         <div v-if="project.status === 'archived'" class="card warning" aria-label="Warning">
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
@@ -795,18 +793,18 @@ import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
-import Promotion from '~/components/ads/Promotion'
-import Badge from '~/components/ui/Badge'
-import Categories from '~/components/ui/search/Categories'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator'
-import Modal from '~/components/ui/Modal'
-import ModalReport from '~/components/ui/ModalReport'
-import ModalModeration from '~/components/ui/ModalModeration'
-import CopyCode from '~/components/ui/CopyCode'
-import Avatar from '~/components/ui/Avatar'
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
-import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist'
+import Promotion from '~/components/ads/Promotion.vue'
+import Badge from '~/components/ui/Badge.vue'
+import Categories from '~/components/ui/search/Categories.vue'
+import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
+import Modal from '~/components/ui/Modal.vue'
+import ModalReport from '~/components/ui/ModalReport.vue'
+import ModalModeration from '~/components/ui/ModalModeration.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
+import Avatar from '~/components/ui/Avatar.vue'
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UsersIcon from '~/assets/images/utils/users.svg'
 import CategoriesIcon from '~/assets/images/utils/tags.svg'
@@ -820,11 +818,13 @@ import InfoIcon from '~/assets/images/utils/info.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
+
+const user = await useUser()
 
 if (
   !route.params.id ||
@@ -920,7 +920,7 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
     `/${project.value.project_type}/${project.value.slug}${
       path.length > 0 ? `/${path.join('/')}` : ''
     }`,
-    { redirectCode: 301 }
+    { redirectCode: 301, replace: true }
   )
 }
 
