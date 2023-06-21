@@ -9,7 +9,7 @@
     </div>
     <template v-if="displayMessages.length > 0">
       <ThreadMessage
-        v-for="message of displayMessages"
+        v-for="message in displayMessages"
         :key="message.id"
         :message="message"
         :report="report"
