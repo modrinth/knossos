@@ -518,6 +518,7 @@ export default defineNuxtComponent({
 
 <style lang="scss">
 @import '~/assets/styles/global.scss';
+@import 'omorphia/dist/style.css';
 
 .layout {
   min-height: 100vh;
