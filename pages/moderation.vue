@@ -28,8 +28,8 @@
   </div>
 </template>
 <script setup>
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
 
 import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
