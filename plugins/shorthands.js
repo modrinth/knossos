@@ -110,6 +110,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         return 'mod and plugin'
       } else if (isMod && isDataPack) {
         return 'mod and data pack'
+      } else if (isPlugin && isDataPack) {
+        return 'plugin and data pack'
       } else if (isDataPack) {
         return 'data pack'
       } else if (isPlugin) {
