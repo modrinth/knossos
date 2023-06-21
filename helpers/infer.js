@@ -1,7 +1,7 @@
 import TOML from '@ltd/j-toml'
 import JSZip from 'jszip'
 import yaml from 'js-yaml'
-import { VersionRange } from "./versionRange.js";
+import { VersionRange } from './versionRange.js'
 
 export const inferVersionInfo = async function (rawFile, project, gameVersions) {
   function versionType(number) {
@@ -19,20 +19,20 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
   }
 
   // TODO: This func does not handle accurate semver parsing. We should eventually
-  function gameVersionRange(gameVersionString, gameVersions) {
-    if (!gameVersionString) {
+  function gameVersionRange(gameVersion, gameVersions) {
+    if (!gameVersion) {
       return []
     }
 
-    // Truncate characters after `-` & `+`
-    const gameString = gameVersionString.replace(/-|\+.*$/g, '')
-
-    const range = new VersionRange(gameString.trim())
+    const versionRanges = Array.isArray(gameVersion) ? gameVersion : [gameVersion]
+    const ranges = versionRanges.map(
+      (range) => new VersionRange(range.replace(/-|\+.*$/g, '').trim())
+    )
 
     const simplified = gameVersions
       .filter((it) => it.version_type === 'release')
       .map((it) => it.version)
-    return simplified.filter((version) => range.test(version))
+    return simplified.filter((version) => ranges.some((range) => range.test(version)))
   }
 
   const inferFunctions = {
