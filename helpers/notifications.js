@@ -17,20 +17,22 @@ export const fetchNotifications = async () => {
   const versionIds = []
 
   for (const notification of notifications) {
-    if (notification.body.project_id) {
-      projectIds.push(notification.body.project_id)
-    }
-    if (notification.body.version_id) {
-      versionIds.push(notification.body.version_id)
-    }
-    if (notification.body.report_id) {
-      reportIds.push(notification.body.report_id)
-    }
-    if (notification.body.thread_id) {
-      threadIds.push(notification.body.thread_id)
-    }
-    if (notification.body.invited_by) {
-      userIds.push(notification.body.invited_by)
+    if (notification.body) {
+      if (notification.body.project_id) {
+        projectIds.push(notification.body.project_id)
+      }
+      if (notification.body.version_id) {
+        versionIds.push(notification.body.version_id)
+      }
+      if (notification.body.report_id) {
+        reportIds.push(notification.body.report_id)
+      }
+      if (notification.body.thread_id) {
+        threadIds.push(notification.body.thread_id)
+      }
+      if (notification.body.invited_by) {
+        userIds.push(notification.body.invited_by)
+      }
     }
   }
 
@@ -58,38 +60,46 @@ export const fetchNotifications = async () => {
 
   for (const notification of notifications) {
     notification.extra_data = {}
-    if (notification.body.project_id) {
-      notification.extra_data.project = projects.find((x) => x.id === notification.body.project_id)
-    }
-    if (notification.body.report_id) {
-      notification.extra_data.report = reports.find((x) => x.id === notification.body.report_id)
-
-      const type = notification.extra_data.report.item_type
-      if (type === 'project') {
+    if (notification.body) {
+      if (notification.body.project_id) {
         notification.extra_data.project = projects.find(
-          (x) => x.id === notification.extra_data.report.item_id
-        )
-      } else if (type === 'user') {
-        notification.extra_data.user = users.find(
-          (x) => x.id === notification.extra_data.report.item_id
-        )
-      } else if (type === 'version') {
-        notification.extra_data.version = versions.find(
-          (x) => x.id === notification.extra_data.report.item_id
-        )
-        notification.extra_data.project = projects.find(
-          (x) => x.id === notification.extra_data.version.project_id
+          (x) => x.id === notification.body.project_id
         )
       }
-    }
-    if (notification.body.thread_id) {
-      notification.extra_data.thread = threads.find((x) => x.id === notification.body.thread_id)
-    }
-    if (notification.body.invited_by) {
-      notification.extra_data.invited_by = users.find((x) => x.id === notification.body.invited_by)
-    }
-    if (notification.body.version_id) {
-      notification.extra_data.version = versions.find((x) => x.id === notification.body.version_id)
+      if (notification.body.report_id) {
+        notification.extra_data.report = reports.find((x) => x.id === notification.body.report_id)
+
+        const type = notification.extra_data.report.item_type
+        if (type === 'project') {
+          notification.extra_data.project = projects.find(
+            (x) => x.id === notification.extra_data.report.item_id
+          )
+        } else if (type === 'user') {
+          notification.extra_data.user = users.find(
+            (x) => x.id === notification.extra_data.report.item_id
+          )
+        } else if (type === 'version') {
+          notification.extra_data.version = versions.find(
+            (x) => x.id === notification.extra_data.report.item_id
+          )
+          notification.extra_data.project = projects.find(
+            (x) => x.id === notification.extra_data.version.project_id
+          )
+        }
+      }
+      if (notification.body.thread_id) {
+        notification.extra_data.thread = threads.find((x) => x.id === notification.body.thread_id)
+      }
+      if (notification.body.invited_by) {
+        notification.extra_data.invited_by = users.find(
+          (x) => x.id === notification.body.invited_by
+        )
+      }
+      if (notification.body.version_id) {
+        notification.extra_data.version = versions.find(
+          (x) => x.id === notification.body.version_id
+        )
+      }
     }
   }
 
@@ -100,23 +110,27 @@ export const groupNotifications = (notifications, includeRead = false) => {
   const grouped = []
   for (const notification of notifications.filter((notif) => includeRead || !notif.read)) {
     // Group notifications of the same thread or project id
-    const index = grouped.findIndex(
-      (notif) =>
-        notif.body.thread_id === notification.body.thread_id ||
-        notif.body.project_id === notification.body.project_id
-    )
-    const notif = grouped[index]
-    if (
-      notif &&
-      (notification.body.type === 'moderator_message' ||
-        notification.body.type === 'project_update')
-    ) {
-      let groupedNotifs = notif.grouped_notifs
-      if (!groupedNotifs) {
-        groupedNotifs = []
+    if (notification.body) {
+      const index = grouped.findIndex(
+        (notif) =>
+          notif.body.thread_id === notification.body.thread_id ||
+          notif.body.project_id === notification.body.project_id
+      )
+      const notif = grouped[index]
+      if (
+        notif &&
+        (notification.body.type === 'moderator_message' ||
+          notification.body.type === 'project_update')
+      ) {
+        let groupedNotifs = notif.grouped_notifs
+        if (!groupedNotifs) {
+          groupedNotifs = []
+        }
+        groupedNotifs.push(notification)
+        grouped[index].grouped_notifs = groupedNotifs
+      } else {
+        grouped.push(notification)
       }
-      groupedNotifs.push(notification)
-      grouped[index].grouped_notifs = groupedNotifs
     } else {
       grouped.push(notification)
     }
