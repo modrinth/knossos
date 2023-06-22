@@ -1,5 +1,5 @@
 <template>
-  <div class="markdown-body card" v-html="renderHighlightedString(project.body)" />
+  <div class="markdown-body universal-card" v-html="renderHighlightedString(project.body)" />
 </template>
 
 <script>
@@ -18,4 +18,16 @@ export default defineNuxtComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.markdown-body {
+  :deep(> :first-child) {
+    margin-top: 0;
+  }
+
+  :deep(> h1, > h2, > h3, > h4) {
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+</style>

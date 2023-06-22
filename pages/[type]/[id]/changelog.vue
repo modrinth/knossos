@@ -15,7 +15,7 @@
       :link-function="(page) => `?page=${page}`"
       @switch-page="switchPage"
     />
-    <div class="card">
+    <div class="universal-card">
       <div
         v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
         :key="version.id"
