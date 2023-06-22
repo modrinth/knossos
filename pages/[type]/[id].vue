@@ -447,7 +447,7 @@
           </div>
         </div>
         <div
-          v-if="false && $auth.user && $tag.staffRoles.includes($auth.user.role)"
+          v-if="$auth.user && $tag.staffRoles.includes($auth.user.role)"
           class="universal-card moderation-card"
         >
           <h2>Moderation actions</h2>
