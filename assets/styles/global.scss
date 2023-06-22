@@ -29,7 +29,7 @@ html {
 
   --tab-underline-hovered: #e2e8f0;
 
-  --color-button-bg: hsl(220, 13%, 91%);
+  --color-button-bg: #fff;
   --color-button-text: var(--color-text-dark);
   --color-button-bg-hover: #d9dce0;
   --color-button-text-hover: #1b1e24;
@@ -86,7 +86,8 @@ html {
 
   --shadow-inset-lg: inset 0px -2px 2px hsla(221, 39%, 11%, 0.1);
   --shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
-  --shadow-inset-sm: inset 0px -1px 2px hsla(221, 39%, 11%, 0.15);
+  --shadow-inset-sm: inset 0px -1px 2px hsla(221, 39%, 11%, 0.05),
+    inset 0px 0px 0px 1px hsla(220, 31%, 6%, 0.15), 0px 0.5px 1px 1px hsla(220, 31%, 6%, 0.05);
 
   --shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
   --shadow-raised: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.15),
@@ -214,7 +215,8 @@ html {
 
   --shadow-inset-lg: inset 0px -2px 2px hsla(221, 39%, 11%, 0.1);
   --shadow-inset: inset 0px -2px 2px hsla(221, 39%, 11%, 0.05);
-  --shadow-inset-sm: inset 0px -1px 1px hsla(221, 39%, 11%, 0.25);
+  --shadow-inset-sm: inset 0px -1px 1px hsla(221, 39%, 11%, 0.25),
+    inset 0px 0px 0px 1px hsla(0, 0%, 100%, 0.2);
 
   --shadow-raised-lg: 0px 2px 4px hsla(221, 39%, 11%, 0.2);
   --shadow-raised: 0px -2px 4px hsla(221, 39%, 11%, 0.1);
