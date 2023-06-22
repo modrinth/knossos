@@ -607,85 +607,84 @@
         />
       </section>
       <div class="normal-page__info">
-        <div class="universal-card">
-          <template
-            v-if="
-              project.issues_url ||
-              project.source_url ||
-              project.wiki_url ||
-              project.discord_url ||
-              project.donation_urls.length > 0
-            "
-          >
-            <h2 class="card-header">Links</h2>
-            <div class="links">
-              <a
-                v-if="project.issues_url"
-                :href="project.issues_url"
-                class="iconified-button"
-                :target="$external()"
-                rel="noopener nofollow ugc"
-              >
-                <IssuesIcon aria-hidden="true" />
-                <span>Issues</span>
-              </a>
-              <a
-                v-if="project.source_url"
-                :href="project.source_url"
-                class="iconified-button"
-                :target="$external()"
-                rel="noopener nofollow ugc"
-              >
-                <CodeIcon aria-hidden="true" />
-                <span>Source</span>
-              </a>
-              <a
-                v-if="project.wiki_url"
-                :href="project.wiki_url"
-                class="iconified-button"
-                :target="$external()"
-                rel="noopener nofollow ugc"
-              >
-                <WikiIcon aria-hidden="true" />
-                <span>Wiki</span>
-              </a>
-              <a
-                v-if="project.discord_url"
-                :href="project.discord_url"
-                class="iconified-button"
-                :target="$external()"
-                rel="noopener nofollow ugc"
-              >
-                <DiscordIcon class="shrink" aria-hidden="true" />
-                <span>Discord</span>
-              </a>
-              <a
-                v-for="(donation, index) in project.donation_urls"
-                :key="index"
-                :href="donation.url"
-                class="iconified-button"
-                :target="$external()"
-                rel="noopener nofollow ugc"
-              >
-                <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
-                <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
-                <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
-                <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
-                <OpenCollectiveIcon
-                  v-else-if="donation.id === 'open-collective'"
-                  aria-hidden="true"
-                />
-                <HeartIcon v-else-if="donation.id === 'github'" />
-                <UnknownIcon v-else />
-                <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
-                <span v-else-if="donation.id === 'patreon'">Patreon</span>
-                <span v-else-if="donation.id === 'paypal'">PayPal</span>
-                <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
-                <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
-                <span v-else>Donate</span>
-              </a>
-            </div>
-          </template>
+        <div
+          v-if="
+            project.issues_url ||
+            project.source_url ||
+            project.wiki_url ||
+            project.discord_url ||
+            project.donation_urls.length > 0
+          "
+          class="universal-card"
+        >
+          <h2 class="card-header">Links</h2>
+          <div class="links">
+            <a
+              v-if="project.issues_url"
+              :href="project.issues_url"
+              class="iconified-button"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <IssuesIcon aria-hidden="true" />
+              <span>Issues</span>
+            </a>
+            <a
+              v-if="project.source_url"
+              :href="project.source_url"
+              class="iconified-button"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <CodeIcon aria-hidden="true" />
+              <span>Source</span>
+            </a>
+            <a
+              v-if="project.wiki_url"
+              :href="project.wiki_url"
+              class="iconified-button"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <WikiIcon aria-hidden="true" />
+              <span>Wiki</span>
+            </a>
+            <a
+              v-if="project.discord_url"
+              :href="project.discord_url"
+              class="iconified-button"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <DiscordIcon class="shrink" aria-hidden="true" />
+              <span>Discord</span>
+            </a>
+            <a
+              v-for="(donation, index) in project.donation_urls"
+              :key="index"
+              :href="donation.url"
+              class="iconified-button"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
+              <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
+              <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
+              <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
+              <OpenCollectiveIcon
+                v-else-if="donation.id === 'open-collective'"
+                aria-hidden="true"
+              />
+              <HeartIcon v-else-if="donation.id === 'github'" />
+              <UnknownIcon v-else />
+              <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
+              <span v-else-if="donation.id === 'patreon'">Patreon</span>
+              <span v-else-if="donation.id === 'paypal'">PayPal</span>
+              <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
+              <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
+              <span v-else>Donate</span>
+            </a>
+          </div>
         </div>
         <div class="universal-card">
           <h2 class="card-header">Members</h2>
