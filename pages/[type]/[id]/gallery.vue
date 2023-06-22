@@ -76,10 +76,11 @@
           placeholder="Enter order index..."
         />
         <label for="gallery-image-featured">
-          <span class="label__title">Featured</span>
+          <span class="label__title">Set as project banner</span>
           <span class="label__description">
-            A featured gallery image shows up in search and your project card. Only one gallery
-            image can be featured.
+            Project banners may be cropped arbitrarily and displayed in search and project pages, so
+            try to pick an image that would look good no matter how it's cropped. Only one gallery
+            image can be set as the project banner.
           </span>
         </label>
         <button
@@ -89,7 +90,7 @@
           @click="editFeatured = true"
         >
           <StarIcon aria-hidden="true" />
-          Feature image
+          Set as banner
         </button>
         <button
           v-else
@@ -98,7 +99,7 @@
           @click="editFeatured = false"
         >
           <StarIcon fill="currentColor" aria-hidden="true" />
-          Unfeature image
+          Remove as banner
         </button>
         <div class="button-group">
           <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
