@@ -25,7 +25,7 @@
   </div>
 </template>
 <script setup>
-import { fetchNotifications, groupNotifications } from '~/helpers/notifications'
+import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import Chips from '~/components/ui/Chips.vue'
 

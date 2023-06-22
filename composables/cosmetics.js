@@ -17,6 +17,7 @@ export const useCosmetics = () =>
         externalLinksNewTab: true,
         developerMode: false,
         notUsingBlockers: false,
+        featuredVersionsSidebar: false,
         searchDisplayMode: {
           mod: 'list',
           plugin: 'list',

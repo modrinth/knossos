@@ -85,7 +85,7 @@ import SettingsIcon from 'assets/images/utils/settings.svg'
 import CalendarIcon from 'assets/images/utils/calendar.svg'
 import UpToDate from 'assets/images/illustrations/up_to_date.svg'
 import NavRow from '~/components/ui/NavRow.vue'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 
 export default defineNuxtComponent({
   components: {

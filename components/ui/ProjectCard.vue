@@ -89,15 +89,10 @@
 </template>
 
 <script>
+import { Avatar, CalendarIcon, EditIcon, DownloadIcon, HeartIcon } from 'omorphia'
 import Categories from '~/components/ui/search/Categories.vue'
 import Badge from '~/components/ui/Badge.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
-
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import EditIcon from '~/assets/images/utils/updated.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import Avatar from '~/components/ui/Avatar.vue'
 
 export default {
   components: {
@@ -279,6 +274,7 @@ export default {
     width: 100%;
     height: 10rem;
     background-color: var(--color-button-bg-active);
+    overflow: hidden;
 
     &.no-image {
       filter: brightness(0.7);
@@ -289,6 +285,11 @@ export default {
       width: 100%;
       height: 10rem;
       object-fit: cover;
+    }
+
+    &:active {
+      //scale: 1;
+      border-radius: var(--size-rounded-card);
     }
   }
 

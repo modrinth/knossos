@@ -102,7 +102,7 @@ import CloseIcon from '~/assets/images/utils/check-circle.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 
 const props = defineProps({
@@ -153,7 +153,7 @@ const sortedMessages = computed(() => {
   return []
 })
 
-async function updateThread() {
+async function preUpdateThread() {
   let threadId = null
   if (props.project) {
     threadId = props.project.thread_id
@@ -180,7 +180,7 @@ async function sendReply(status = null) {
       ...app.$defaultHeaders(),
     })
     replyBody.value = ''
-    await updateThread()
+    await preUpdateThread()
     if (status !== null) {
       props.setStatus(status)
     }
@@ -207,7 +207,7 @@ async function closeReport(reply) {
       },
       ...app.$defaultHeaders(),
     })
-    await updateThread()
+    await preUpdateThread()
   } catch (err) {
     app.$notify({
       group: 'main',

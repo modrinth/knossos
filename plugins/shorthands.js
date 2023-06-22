@@ -1,4 +1,4 @@
-import { getProjectTypeForUrlShorthand } from '~/helpers/projects'
+import { getProjectTypeForUrlShorthand } from '~/helpers/projects.js'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const tagStore = nuxtApp.$tag

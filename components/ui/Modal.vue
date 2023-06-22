@@ -112,7 +112,7 @@ export default {
     border-radius: var(--size-rounded-lg);
     max-height: calc(100% - 2 * var(--spacing-card-bg));
     overflow-y: auto;
-    width: 600px;
+    width: 40rem;
     pointer-events: auto;
 
     .header {

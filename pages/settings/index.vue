@@ -130,6 +130,21 @@
           @change="saveCosmetics"
         />
       </div>
+      <div class="adjacent-input small">
+        <label for="featured-versions-sidebar">
+          <span class="label__title">Show featured versions in the sidebar</span>
+          <span class="label__description">
+            If enabled, featured versions will be shown in the sidebar on project pages.
+          </span>
+        </label>
+        <input
+          id="featured-versions-sidebar"
+          v-model="$cosmetics.featuredVersionsSidebar"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmetics"
+        />
+      </div>
     </section>
   </div>
 </template>

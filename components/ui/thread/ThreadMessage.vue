@@ -90,7 +90,7 @@ import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
 import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
 import MicIcon from '~/assets/images/utils/mic.svg'
 import PrivateIcon from '~/assets/images/utils/lock.svg'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
 
 const props = defineProps({
