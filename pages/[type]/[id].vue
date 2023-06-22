@@ -334,52 +334,28 @@
               />
             </Categories>
             <hr class="card-divider" />
-            <div class="primary-stat">
-              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">
+            <div class="stats">
+              <div class="stat-badge">
+                <DownloadIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
                   {{ $formatNumber(project.downloads) }}
                 </span>
-                download<span v-if="project.downloads !== 1">s</span>
               </div>
-            </div>
-            <div class="primary-stat">
-              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">
+              <div class="stat-badge">
+                <HeartIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
                   {{ $formatNumber(project.followers) }}
                 </span>
-                follower<span v-if="project.followers !== 1">s</span>
+              </div>
+              <div
+                v-tooltip="'Updated ' + $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
+                class="stat-badge"
+              >
+                <UpdatedIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text"> Updated {{ fromNow(project.updated) }} </span>
               </div>
             </div>
-            <div class="dates">
-              <div
-                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
-                class="date"
-              >
-                <CalendarIcon aria-hidden="true" />
-                <span class="label">Created</span>
-                <span class="value">{{ fromNow(project.published) }}</span>
-              </div>
-              <div
-                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
-                class="date"
-              >
-                <UpdatedIcon aria-hidden="true" />
-                <span class="label">Updated</span>
-                <span class="value">{{ fromNow(project.updated) }}</span>
-              </div>
-              <div
-                v-if="project.status === 'processing' && project.queued"
-                v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
-                class="date"
-              >
-                <QueuedIcon aria-hidden="true" />
-                <span class="label">Submitted</span>
-                <span class="value">{{ fromNow(project.queued) }}</span>
-              </div>
-            </div>
-            <div class="input-group">
+            <div class="input-group user-action-buttons">
               <template v-if="$auth.user">
                 <button class="iconified-button" @click="$refs.modal_project_report.show()">
                   <ReportIcon aria-hidden="true" />
@@ -763,6 +739,22 @@
               </div>
             </div>
             <div class="info">
+              <div class="key">Published</div>
+              <div class="value lowercase">
+                <span v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')">{{
+                  fromNow(project.published)
+                }}</span>
+              </div>
+            </div>
+            <div v-if="project.queued && project.status === 'processing'" class="info">
+              <div class="key">Submitted</div>
+              <div class="value lowercase">
+                <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
+                  fromNow(project.queued)
+                }}</span>
+              </div>
+            </div>
+            <div class="info">
               <div class="key">Project ID</div>
               <div class="value lowercase">
                 <CopyCode :text="project.id" />
@@ -868,7 +860,6 @@
 <script setup>
 import {
   Button,
-  CalendarIcon,
   CheckIcon,
   ClearIcon,
   DownloadIcon,
@@ -886,7 +877,6 @@ import {
   DropdownSelect,
   Avatar,
 } from 'omorphia'
-import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import DiscordIcon from '~/assets/images/external/discord.svg'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
 import PatreonIcon from '~/assets/images/external/patreon.svg'
@@ -1707,5 +1697,25 @@ const collapsedChecklist = ref(false)
       margin: 0;
     }
   }
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-card-sm);
+
+  .stat-badge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--spacing-card-sm) var(--spacing-card-md);
+    background-color: var(--color-bg);
+    border-radius: var(--size-rounded-sm);
+    gap: var(--spacing-card-sm);
+  }
+}
+
+.user-action-buttons {
+  margin-top: var(--spacing-card-md);
 }
 </style>
