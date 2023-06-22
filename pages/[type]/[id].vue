@@ -171,54 +171,59 @@
       :header="formatMessage(messages.modalDownloadTitle, { title: project.title })"
     >
       <div class="universal-modal download-modal">
-        <h3>Minecraft version</h3>
-        <div class="searchable-chips">
-          <div class="input-group">
-            <div class="iconified-input">
-              <SearchIcon />
-              <input
-                v-model="downloadModalGameVersionFilter"
-                type="text"
-                placeholder="Search Minecraft versions..."
+        <div class="columns">
+          <div>
+            <h3>Minecraft version</h3>
+            <div class="searchable-chips">
+              <div class="input-group">
+                <div class="iconified-input">
+                  <SearchIcon />
+                  <input
+                    v-model="downloadModalGameVersionFilter"
+                    type="text"
+                    placeholder="Search Minecraft versions..."
+                  />
+                  <Button @click="() => (downloadModalGameVersionFilter = '')">
+                    <XIcon />
+                  </Button>
+                </div>
+                <DropdownSelect
+                  v-model="downloadModalFilterValue"
+                  :options="downloadModalFilterOptions"
+                  name="Filter Minecraft version type"
+                  :display-name="
+                    (option) => {
+                      if (option === 'major') {
+                        return 'Major versions'
+                      } else if (option === 'release') {
+                        return 'Release versions'
+                      } else {
+                        return 'All versions'
+                      }
+                    }
+                  "
+                />
+              </div>
+              <Chips
+                v-if="downloadModalGameVersionOptions.length > 0"
+                v-model="downloadModalGameVersion"
+                :items="downloadModalGameVersionOptions"
               />
-              <Button @click="() => (downloadModalGameVersionFilter = '')">
-                <XIcon />
-              </Button>
+              <div v-else class="no-versions-text">
+                Could not find any supported Minecraft versions.
+              </div>
             </div>
-            <DropdownSelect
-              v-model="downloadModalFilterValue"
-              :options="downloadModalFilterOptions"
-              name="Filter Minecraft version type"
-              :display-name="
-                (option) => {
-                  if (option === 'major') {
-                    return 'Major versions'
-                  } else if (option === 'release') {
-                    return 'Release versions'
-                  } else {
-                    return 'All versions'
-                  }
-                }
-              "
+          </div>
+          <div v-if="project.loaders.length > 1">
+            <h3>Mod loader</h3>
+            <Chips
+              v-model="downloadModalLoader"
+              :items="project.loaders"
+              :format-label="formatCategory"
             />
           </div>
-          <Chips
-            v-if="downloadModalGameVersionOptions.length > 0"
-            v-model="downloadModalGameVersion"
-            :items="downloadModalGameVersionOptions"
-          />
-          <div v-else class="no-versions-text">
-            Could not find any supported Minecraft versions.
-          </div>
         </div>
-        <template v-if="project.loaders.length > 1">
-          <h3>Mod loader</h3>
-          <Chips
-            v-model="downloadModalLoader"
-            :items="project.loaders"
-            :format-label="formatCategory"
-          />
-        </template>
+
         <div v-if="!foundVersion" class="no-versions-text">
           Could not find any versions of {{ project.title }} for {{ downloadModalGameVersion }} and
           {{ formatCategory(downloadModalLoader) }}.
@@ -1724,10 +1729,16 @@ const collapsedChecklist = ref(false)
 .download-modal {
   .input-group:first-child {
     margin-bottom: var(--spacing-card-md);
+    flex-direction: column;
+    align-items: start;
+
+    > * {
+      flex-grow: 1;
+      width: 100%;
+    }
   }
 
   .input-group {
-    align-items: center;
   }
 
   h3 {
@@ -1740,13 +1751,28 @@ const collapsedChecklist = ref(false)
     margin-bottom: var(--spacing-card-bg);
   }
 
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-card-bg);
+    align-items: end;
+
+    > div {
+      flex-grow: 1;
+    }
+  }
+
   .chips {
     padding: var(--spacing-card-bg);
     background-color: var(--color-bg);
-    max-height: 10rem;
+    height: 20rem;
+    max-height: 20rem;
     overflow: scroll;
     margin-bottom: var(--spacing-card-bg);
     border-radius: var(--size-rounded-card);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 
   .animated-dropdown {
