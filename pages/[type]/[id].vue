@@ -1740,6 +1740,15 @@ const collapsedChecklist = ref(false)
     margin-bottom: var(--spacing-card-bg);
   }
 
+  .chips {
+    padding: var(--spacing-card-bg);
+    background-color: var(--color-bg);
+    max-height: 10rem;
+    overflow: scroll;
+    margin-bottom: var(--spacing-card-bg);
+    border-radius: var(--size-rounded-card);
+  }
+
   .animated-dropdown {
     width: unset;
     flex-grow: 1;
