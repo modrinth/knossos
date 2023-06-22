@@ -280,7 +280,7 @@ export const formatProjectStatus = (name) => {
   return capitalizeString(name)
 }
 
-export const formatVersions = (versionArray, tag) => {
+export const formatVersions = (versionArray, tag, reverse = false) => {
   const allVersions = tag.gameVersions.slice().reverse()
   const allReleases = allVersions.filter((x) => x.version_type === 'release')
 
@@ -351,6 +351,10 @@ export const formatVersions = (versionArray, tag) => {
     } else {
       output.push(interval[0][0])
     }
+  }
+
+  if (reverse) {
+    output.reverse()
   }
 
   return (output.length === 0 ? versionArray : output).join(', ')

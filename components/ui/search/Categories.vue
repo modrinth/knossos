@@ -41,15 +41,12 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: var(--spacing-card-sm);
 
   :deep(span) {
     display: flex;
     align-items: center;
     flex-direction: row;
-
-    &:not(:last-child) {
-      margin-right: var(--spacing-card-md);
-    }
 
     &:not(.badge) {
       color: var(--color-icon);
@@ -57,7 +54,7 @@ export default {
 
     svg {
       width: 1rem;
-      margin-right: 0.2rem;
+      margin-right: var(--spacing-card-xs);
     }
   }
 }

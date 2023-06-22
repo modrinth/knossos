@@ -302,6 +302,7 @@
             />
             <h1 class="title">
               {{ project.title }}
+              <Badge v-if="project.status !== 'approved'" :type="project.status" />
             </h1>
             <nuxt-link
               class="title-link project-type"
@@ -322,11 +323,6 @@
               :type="project.actualProjectType"
               class="categories"
             >
-              <Badge
-                v-if="$auth.user && currentMember"
-                :type="project.status"
-                class="status-badge"
-              />
               <EnvironmentIndicator
                 :client-side="project.client_side"
                 :server-side="project.server_side"
@@ -347,6 +343,34 @@
                   {{ $formatNumber(project.followers) }}
                 </span>
               </div>
+              <div class="stat-badge">
+                <BoxIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
+                  Minecraft {{ formatList(supportsMcVersions, (noAnd = moreVersions > 0))
+                  }}<template v-if="moreVersions > 0"
+                    >,
+                    <NuxtLink :to="`${getProjectLink(project)}/versions`" class="text-link">
+                      and {{ moreVersions }} more
+                    </NuxtLink></template
+                  >
+                </span>
+              </div>
+              <template
+                v-if="
+                  !(project.loaders.length === 1 && project.loaders[0] === 'datapack') &&
+                  project.project_type !== 'resourcepack'
+                "
+              >
+                <div v-for="loader in project.loaders" :key="loader" class="stat-badge">
+                  <span
+                    class="stat-badge__icon"
+                    v-html="$tag.loaders.find((l) => l.name === loader).icon"
+                  ></span>
+                  <span class="stat-badge__text">
+                    {{ formatCategory(loader) }}
+                  </span>
+                </div>
+              </template>
               <div
                 v-tooltip="'Updated ' + $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="stat-badge"
@@ -739,6 +763,12 @@
               </div>
             </div>
             <div class="info">
+              <div class="key">Status</div>
+              <div class="value lowercase">
+                <Badge :type="project.status" class="status-badge" />
+              </div>
+            </div>
+            <div class="info">
               <div class="key">Published</div>
               <div class="value lowercase">
                 <span v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')">{{
@@ -911,9 +941,11 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { toRgba } from '~/helpers/color.js'
-import { formatCategory } from '~/plugins/shorthands.js'
+import { formatList } from '~/helpers/formatting.js'
+import { formatCategory, formatVersions } from '~/plugins/shorthands.js'
 import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { getProjectLink } from '~/helpers/projects'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
@@ -1162,6 +1194,30 @@ const downloadModalSubtitle = computed(() => {
   }
 })
 
+const supportsMcVersions = computed(() => {
+  const allMcVersions = data.$tag.gameVersions
+  const versions = project.value.game_versions.slice().reverse()
+  const display = []
+  if (
+    versions.length > 0 &&
+    allMcVersions.some((v) => v.version === versions[0] && v.version_type !== 'release')
+  ) {
+    display.push(versions[0])
+  }
+  display.push(
+    ...allMcVersions
+      .filter((v) => versions.includes(v.version) && v.major)
+      .slice(0, 4)
+      .map((v) => v.version)
+  )
+
+  return display
+})
+
+const moreVersions = computed(() => {
+  return project.value.game_versions.length - supportsMcVersions.value.length
+})
+
 async function resetProject() {
   const newProject = await useBaseFetch(`project/${project.value.id}`, data.$defaultHeaders())
 
@@ -1356,6 +1412,14 @@ const collapsedChecklist = ref(false)
     margin: var(--spacing-card-xs) 0;
     color: var(--color-text-dark);
     font-size: var(--font-size-xl);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-card-xs) var(--spacing-card-sm);
+
+    .badge {
+      font-size: 1rem;
+    }
   }
 
   .project-type {
@@ -1385,7 +1449,7 @@ const collapsedChecklist = ref(false)
   }
 
   .categories {
-    margin: 0.25rem 0;
+    margin: var(--spacing-card-md) 0;
     color: var(--color-text-secondary);
     font-size: var(--font-size-nm);
   }
@@ -1712,6 +1776,19 @@ const collapsedChecklist = ref(false)
     background-color: var(--color-bg);
     border-radius: var(--size-rounded-sm);
     gap: var(--spacing-card-sm);
+
+    span.stat-badge__icon svg,
+    .stat-badge__icon {
+      flex-shrink: 0;
+    }
+
+    span.stat-badge__icon {
+      display: contents;
+    }
+
+    .stat-badge__text {
+      line-height: 1.25rem;
+    }
   }
 }
 
