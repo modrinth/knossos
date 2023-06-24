@@ -202,7 +202,7 @@
         </div>
       </div>
     </div>
-    <div v-if="currentMember" class="card header-buttons">
+    <div v-if="currentMember" class="header-buttons">
       <FileInput
         :max-size="524288000"
         :accept="acceptFileTypes"
@@ -547,6 +547,7 @@ export default defineNuxtComponent({
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: var(--spacing-card-md);
 
   .indicator {
     display: flex;

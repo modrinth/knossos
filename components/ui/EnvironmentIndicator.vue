@@ -12,11 +12,11 @@
     class="environment"
   >
     <template v-if="clientSide === 'optional' && serverSide === 'optional'">
-      <GlobeIcon aria-hidden="true" />
+      <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
       Client or server
     </template>
     <template v-else-if="clientSide === 'required' && serverSide === 'required'">
-      <GlobeIcon aria-hidden="true" />
+      <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
       Client and server
     </template>
     <template
@@ -25,7 +25,7 @@
         (serverSide === 'optional' || serverSide === 'unsupported')
       "
     >
-      <ClientIcon aria-hidden="true" />
+      <ClientIcon aria-hidden="true" class="stat-badge__icon" />
       Client
     </template>
     <template
@@ -34,15 +34,15 @@
         (clientSide === 'optional' || clientSide === 'unsupported')
       "
     >
-      <ServerIcon aria-hidden="true" />
+      <ServerIcon aria-hidden="true" class="stat-badge__icon" />
       Server
     </template>
     <template v-else-if="serverSide === 'unsupported' && clientSide === 'unsupported'">
-      <GlobeIcon aria-hidden="true" />
+      <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
       Unsupported
     </template>
     <template v-else-if="alwaysShow">
-      <InfoIcon aria-hidden="true" />
+      <InfoIcon aria-hidden="true" class="stat-badge__icon" />
       A {{ type }}
     </template>
   </span>

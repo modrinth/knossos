@@ -98,3 +98,13 @@
     max-width: calc(60rem - 0.75rem);
   }
 }
+
+.abnormal-page {
+  display: block;
+  padding: 0 0.75rem 0.75rem;
+
+  @media (min-width: 1024px) {
+    margin: 0 auto;
+    max-width: 80rem;
+  }
+}

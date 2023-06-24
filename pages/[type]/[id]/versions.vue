@@ -7,7 +7,7 @@
       <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Versions`" />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
-    <div v-if="currentMember" class="card header-buttons">
+    <div v-if="currentMember" class="header-buttons">
       <FileInput
         :max-size="524288000"
         :accept="acceptFileFromProjectType(project.project_type)"
@@ -206,6 +206,7 @@ async function handleFiles(files) {
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: var(--spacing-card-md);
 
   .indicator {
     display: flex;

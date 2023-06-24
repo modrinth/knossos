@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="false" class="universal-card">
+    <section v-if="false" class="universal-body">
       <h2>Project status</h2>
       <span class="status-message"
         >Your project is currently <Badge :type="project.status" />
@@ -41,7 +41,7 @@
         </span>
       </span>
     </section>
-    <section id="messages" class="universal-card">
+    <section id="messages" class="universal-body">
       <h2>Messages</h2>
       <p>
         This is a private conversation thread with the Modrinth moderators. They will message you

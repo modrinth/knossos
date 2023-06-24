@@ -7,6 +7,7 @@
             href="https://exaroton.com/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
             rel="noopener nofollow sponsored"
             target="_blank"
+            :class="{ vertical: vertical }"
           >
             <LightIcon
               v-if="colorMode.value === 'light'"
@@ -32,6 +33,13 @@ import LightIcon from '~/assets/images/external/exaroton-light.svg'
 import DarkIcon from '~/assets/images/external/exaroton-dark.svg'
 
 const colorMode = useTheme()
+
+defineProps({
+  vertical: {
+    type: Boolean,
+    default: false,
+  },
+})
 </script>
 
 <style>
@@ -83,6 +91,7 @@ const colorMode = useTheme()
   align-items: center;
   gap: 0.5rem;
 }
+
 @media screen and (max-width: 800px) {
   .MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 {
     margin-bottom: 0.5rem;
@@ -91,5 +100,10 @@ const colorMode = useTheme()
     align-items: flex-start;
     flex-direction: column;
   }
+}
+
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-2 .vertical {
+  align-items: flex-start;
+  flex-direction: column;
 }
 </style>

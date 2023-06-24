@@ -3,7 +3,7 @@
     v-if="
       loaderFilters.length > 1 || gameVersionFilters.length > 1 || versionTypeFilters.length > 1
     "
-    class="card search-controls"
+    class="search-controls"
   >
     <Multiselect
       v-if="loaderFilters.length > 1"
@@ -152,6 +152,9 @@ async function updateQuery() {
   gap: var(--spacing-card-md);
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: var(--spacing-card-md);
+  justify-content: center;
+
   .multiselect {
     flex: 1;
   }

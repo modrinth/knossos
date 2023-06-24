@@ -171,47 +171,45 @@
       :header="formatMessage(messages.modalDownloadTitle, { title: project.title })"
     >
       <div class="universal-modal download-modal">
+        <div class="input-group">
+          <div class="iconified-input">
+            <SearchIcon />
+            <input
+              v-model="downloadModalGameVersionFilter"
+              type="text"
+              placeholder="Search for a version..."
+            />
+            <Button @click="() => (downloadModalGameVersionFilter = '')">
+              <XIcon />
+            </Button>
+          </div>
+          <DropdownSelect
+            v-model="downloadModalFilterValue"
+            :options="downloadModalFilterOptions"
+            name="Filter Minecraft version type"
+            :display-name="
+              (option) => {
+                if (option === 'major') {
+                  return 'Major versions'
+                } else if (option === 'release') {
+                  return 'Release versions'
+                } else {
+                  return 'All versions'
+                }
+              }
+            "
+          />
+        </div>
         <div class="columns">
           <div>
             <h3>Minecraft version</h3>
-            <div class="searchable-chips">
-              <div class="input-group">
-                <div class="iconified-input">
-                  <SearchIcon />
-                  <input
-                    v-model="downloadModalGameVersionFilter"
-                    type="text"
-                    placeholder="Search Minecraft versions..."
-                  />
-                  <Button @click="() => (downloadModalGameVersionFilter = '')">
-                    <XIcon />
-                  </Button>
-                </div>
-                <DropdownSelect
-                  v-model="downloadModalFilterValue"
-                  :options="downloadModalFilterOptions"
-                  name="Filter Minecraft version type"
-                  :display-name="
-                    (option) => {
-                      if (option === 'major') {
-                        return 'Major versions'
-                      } else if (option === 'release') {
-                        return 'Release versions'
-                      } else {
-                        return 'All versions'
-                      }
-                    }
-                  "
-                />
-              </div>
-              <Chips
-                v-if="downloadModalGameVersionOptions.length > 0"
-                v-model="downloadModalGameVersion"
-                :items="downloadModalGameVersionOptions"
-              />
-              <div v-else class="no-versions-text">
-                Could not find any supported Minecraft versions.
-              </div>
+            <Chips
+              v-if="downloadModalGameVersionOptions.length > 0"
+              v-model="downloadModalGameVersion"
+              :items="downloadModalGameVersionOptions"
+            />
+            <div v-else class="no-versions-text">
+              Could not find any supported Minecraft versions.
             </div>
           </div>
           <div v-if="project.loaders.length > 1">
@@ -267,7 +265,7 @@
     <div
       :class="{
         'normal-page': true,
-        'alt-layout': $cosmetics.projectLayout,
+        'alt-layout': true,
       }"
     >
       <div class="normal-page__sidebar">
@@ -292,34 +290,8 @@
               "
             />
           </nuxt-link>
-          <div
-            v-else
-            class="accent-block"
-            :style="`--accent-color: ${toRgba(project.color)};`"
-          ></div>
           <div class="project__header__content universal-card full-width-inputs">
-            <Avatar
-              :src="project.icon_url"
-              :alt="project.title"
-              size="md"
-              class="project__icon"
-              no-shadow
-            />
-            <h1 class="title">
-              {{ project.title }}
-              <Badge v-if="project.status !== 'approved'" :type="project.status" />
-            </h1>
-            <nuxt-link
-              class="title-link project-type"
-              :to="`/${$getProjectTypeForUrl(project.actualProjectType, project.loaders)}s`"
-            >
-              <BoxIcon />
-              <span>{{
-                $formatProjectType(
-                  $getProjectTypeForDisplay(project.actualProjectType, project.loaders)
-                )
-              }}</span>
-            </nuxt-link>
+            <h3>About</h3>
             <p class="description">
               {{ project.description }}
             </p>
@@ -327,85 +299,143 @@
               :categories="project.categories.concat(project.additional_categories)"
               :type="project.actualProjectType"
               class="categories"
-            >
-              <EnvironmentIndicator
-                :client-side="project.client_side"
-                :server-side="project.server_side"
-                :type="project.project_type"
-              />
-            </Categories>
+            />
             <hr class="card-divider" />
             <div class="stats">
               <div class="stat-badge">
                 <DownloadIcon class="stat-badge__icon" aria-hidden="true" />
                 <span class="stat-badge__text">
-                  {{ $formatNumber(project.downloads) }}
+                  <span class="count">{{ $formatNumber(project.downloads) }}</span>
+                  downloads
                 </span>
               </div>
               <div class="stat-badge">
                 <HeartIcon class="stat-badge__icon" aria-hidden="true" />
                 <span class="stat-badge__text">
-                  {{ $formatNumber(project.followers) }}
+                  <span class="count">{{ $formatNumber(project.followers) }}</span>
+                  followers
                 </span>
               </div>
-              <div class="stat-badge">
-                <BoxIcon class="stat-badge__icon" aria-hidden="true" />
-                <span class="stat-badge__text">
-                  Minecraft {{ formatList(supportsMcVersions, (noAnd = moreVersions > 0))
-                  }}<template v-if="moreVersions > 0"
-                    >,
-                    <NuxtLink :to="`${getProjectLink(project)}/versions`" class="text-link">
-                      and {{ moreVersions }} more
-                    </NuxtLink></template
-                  >
-                </span>
-              </div>
-              <template
-                v-if="
-                  !(project.loaders.length === 1 && project.loaders[0] === 'datapack') &&
-                  project.project_type !== 'resourcepack'
-                "
-              >
-                <div v-for="loader in project.loaders" :key="loader" class="stat-badge">
-                  <span
-                    class="stat-badge__icon"
-                    v-html="$tag.loaders.find((l) => l.name === loader).icon"
-                  ></span>
-                  <span class="stat-badge__text">
-                    {{ formatCategory(loader) }}
-                  </span>
-                </div>
-              </template>
               <div
                 v-tooltip="'Updated ' + $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="stat-badge"
               >
                 <UpdatedIcon class="stat-badge__icon" aria-hidden="true" />
-                <span class="stat-badge__text"> Updated {{ fromNow(project.updated) }} </span>
+                <span class="stat-badge__text">
+                  Updated <span class="count">{{ fromNow(project.updated) }}</span></span
+                >
+              </div>
+              <div class="stat-badge">
+                <BoxIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
+                  Minecraft
+                  <span class="count"
+                    >{{ formatList(supportsMcVersions, (noAnd = moreVersions > 0))
+                    }}<template v-if="moreVersions > 0"
+                      >,
+                      <NuxtLink :to="`${getProjectLink(project)}/versions`" class="text-link">
+                        and {{ moreVersions }} more
+                      </NuxtLink></template
+                    ></span
+                  >
+                </span>
+              </div>
+              <div
+                v-if="
+                  !(project.loaders.length === 1 && project.loaders[0] === 'datapack') &&
+                  project.project_type !== 'resourcepack'
+                "
+                class="stat-badge"
+              >
+                <WrenchIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
+                  Supports
+                  <span class="count">{{
+                    formatList(project.loaders.map((x) => formatCategory(x)))
+                  }}</span>
+                </span>
+              </div>
+              <div
+                v-if="
+                  !['resourcepack', 'shader'].includes(project.project_type) &&
+                  !project.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))
+                "
+                class="stat-badge"
+              >
+                <template
+                  v-if="project.client_side === 'optional' && project.server_side === 'optional'"
+                >
+                  <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    Either
+                    <span class="count">client or server-side</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    project.client_side === 'required' && project.server_side === 'required'
+                  "
+                >
+                  <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    Both
+                    <span class="count">client and server-side</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    (project.client_side === 'optional' || project.client_side === 'required') &&
+                    (project.server_side === 'optional' || project.server_side === 'unsupported')
+                  "
+                >
+                  <ClientIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    <span class="count">Client-side only</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    (project.server_side === 'optional' || project.client_side === 'required') &&
+                    (project.client_side === 'optional' || project.server_side === 'unsupported')
+                  "
+                >
+                  <ServerIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    <span class="count">Server-side only</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    project.server_side === 'unsupported' && project.client_side === 'unsupported'
+                  "
+                >
+                  <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    <span class="count">Unsupported</span>
+                  </span>
+                </template>
               </div>
             </div>
             <div class="input-group user-action-buttons">
               <template v-if="$auth.user">
-                <button class="iconified-button" @click="$refs.modal_project_report.show()">
+                <Button :action="() => $refs.modal_project_report.show()">
                   <ReportIcon aria-hidden="true" />
                   Report
-                </button>
-                <button
+                </Button>
+                <Button
                   v-if="!user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
-                  @click="userFollowProject(project)"
+                  :action="() => userFollowProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
                   Follow
-                </button>
-                <button
+                </Button>
+                <Button
                   v-if="user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
-                  @click="userUnfollowProject(project)"
+                  :action="() => userUnfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
-                </button>
+                </Button>
               </template>
               <template v-else>
                 <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
@@ -420,6 +450,7 @@
             </div>
           </div>
         </div>
+        <Promotion v-if="$tag.approvedStatuses.includes(project.status)" vertical />
         <div
           v-if="currentMember && project.moderator_message"
           class="universal-card moderation-card"
@@ -452,10 +483,10 @@
           </div>
         </div>
         <div
-          v-if="$auth.user && $tag.staffRoles.includes($auth.user.role)"
+          v-if="false && $auth.user && $tag.staffRoles.includes($auth.user.role)"
           class="universal-card moderation-card"
         >
-          <h2>Moderation actions</h2>
+          <h3>Moderation actions</h3>
           <div class="input-stack">
             <button
               v-if="
@@ -508,6 +539,46 @@
         </div>
       </div>
       <section class="normal-page__content">
+        <div class="project-header">
+          <div class="project-header__title">
+            <Avatar
+              :src="project.icon_url"
+              :alt="project.title"
+              size="sm"
+              class="project-header__icon"
+            />
+            <div class="project-header__text">
+              <nuxt-link
+                class="title-link project-type"
+                :to="`/${$getProjectTypeForUrl(project.actualProjectType, project.loaders)}s`"
+              >
+                <span>
+                  Minecraft
+                  {{
+                    $formatProjectType(
+                      $getProjectTypeForDisplay(project.actualProjectType, project.loaders)
+                    )
+                  }}s <ChevronRightIcon
+                /></span>
+              </nuxt-link>
+              <h1 class="wrap-as-needed">
+                {{ project.title }}
+              </h1>
+            </div>
+          </div>
+          <div class="project-header__actions">
+            <div class="header-actions">
+              <Button :action="() => modalDownload.show()" large>
+                <ShareIcon />
+                Share
+              </Button>
+              <Button :action="() => modalDownload.show()" color="primary" large>
+                <DownloadIcon />
+                {{ formatMessage(messages.download) }}
+              </Button>
+            </div>
+          </div>
+        </div>
         <ProjectPublishingChecklist
           v-if="currentMember"
           :project="project"
@@ -545,8 +616,7 @@
             Prism Launcher</a
           >.
         </div>
-        <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
-        <div class="navigation-card">
+        <div class="project-nav">
           <NavRow
             :links="[
               {
@@ -583,22 +653,6 @@
               },
             ]"
           />
-          <div class="input-group">
-            <Button
-              v-if="$auth.user && currentMember"
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-              large
-            >
-              <SettingsIcon />
-              {{ formatMessage(messages.settings) }}
-            </Button>
-            <Button :action="() => modalDownload.show()" large color="primary">
-              <DownloadIcon />
-              {{ formatMessage(messages.download) }}
-            </Button>
-          </div>
         </div>
         <NuxtPage
           v-model:project="project"
@@ -921,10 +975,14 @@ import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
+import WrenchIcon from '~/assets/images/utils/wrench.svg'
+import ShareIcon from '~/assets/images/utils/share.svg'
+import ServerIcon from '~/assets/images/utils/server.svg'
+import ClientIcon from '~/assets/images/utils/client.svg'
+import GlobeIcon from '~/assets/images/utils/globe.svg'
 import Promotion from '~/components/ads/Promotion.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 import Modal from '~/components/ui/Modal.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalModeration from '~/components/ui/ModalModeration.vue'
@@ -944,12 +1002,11 @@ import VersionIcon from '~/assets/images/utils/version.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import { toRgba } from '~/helpers/color.js'
 import { formatList } from '~/helpers/formatting.js'
-import { formatCategory, formatVersions } from '~/plugins/shorthands.js'
+import { formatCategory } from '~/plugins/shorthands.js'
 import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import { getProjectLink } from '~/helpers/projects'
+import { getProjectLink } from '~/helpers/projects.js'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
@@ -1426,23 +1483,6 @@ const collapsedChecklist = ref(false)
     }
   }
 
-  .project-type {
-    text-decoration: none;
-    font-weight: 500;
-
-    svg {
-      vertical-align: top;
-      margin-right: 0.25em;
-    }
-
-    &:hover,
-    &:focus-visible {
-      span {
-        text-decoration: underline;
-      }
-    }
-  }
-
   .description {
     line-height: 1.3;
     overflow-wrap: break-word;
@@ -1729,16 +1769,11 @@ const collapsedChecklist = ref(false)
 .download-modal {
   .input-group:first-child {
     margin-bottom: var(--spacing-card-md);
-    flex-direction: column;
-    align-items: start;
 
     > * {
       flex-grow: 1;
       width: 100%;
     }
-  }
-
-  .input-group {
   }
 
   h3 {
@@ -1799,34 +1834,129 @@ const collapsedChecklist = ref(false)
 
 .stats {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--spacing-card-sm);
+}
 
-  .stat-badge {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: var(--spacing-card-sm) var(--spacing-card-md);
-    background-color: var(--color-bg);
-    border-radius: var(--size-rounded-sm);
-    gap: var(--spacing-card-sm);
+.stat-badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--color-text-secondary);
 
-    span.stat-badge__icon svg,
-    .stat-badge__icon {
-      flex-shrink: 0;
-    }
+  span.stat-badge__icon svg,
+  .stat-badge__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: var(--spacing-card-sm);
+    flex-shrink: 0;
+  }
 
-    span.stat-badge__icon {
-      display: contents;
-    }
+  span.stat-badge__icon {
+    display: contents;
+  }
 
-    .stat-badge__text {
-      line-height: 1.25rem;
+  .stat-badge__text {
+    line-height: 1.25rem;
+
+    > .count {
+      font-weight: 600;
+      color: var(--color-text);
     }
   }
 }
 
 .user-action-buttons {
   margin-top: var(--spacing-card-md);
+}
+
+.download-button {
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--spacing-card-md);
+}
+
+.user-action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.project-header {
+  display: flex;
+  margin-bottom: var(--spacing-card-md);
+}
+
+.project-header__title {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-md);
+  align-items: center;
+  flex-grow: 1;
+
+  .project-header__icon {
+    --size: 5rem !important;
+    border-radius: var(--size-rounded-card);
+    flex-shrink: 0;
+    background-color: var(--color-raised-bg);
+  }
+
+  .project-header__text {
+    h1 {
+      font-size: var(--font-size-xl);
+      margin-top: var(--spacing-card-xs);
+      margin-bottom: 0;
+    }
+  }
+
+  .project-type {
+    text-decoration: none;
+    font-weight: 500;
+
+    svg {
+      vertical-align: top;
+      margin-right: 0.25em;
+      margin-top: 1px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-sm);
+}
+
+.project-header__actions {
+  margin-block: auto;
+}
+
+.header-stats {
+  display: flex;
+  gap: var(--spacing-card-sm);
+  margin-top: var(--spacing-card-sm);
+
+  > * {
+    background-color: var(--color-raised-bg);
+    //color: var(--color-text-dark);
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--size-rounded-xs);
+  }
+}
+
+.project-nav {
+  margin-block: var(--spacing-card-lg);
 }
 </style>
