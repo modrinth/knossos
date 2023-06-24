@@ -327,85 +327,143 @@
               :categories="project.categories.concat(project.additional_categories)"
               :type="project.actualProjectType"
               class="categories"
-            >
-              <EnvironmentIndicator
-                :client-side="project.client_side"
-                :server-side="project.server_side"
-                :type="project.project_type"
-              />
-            </Categories>
+            />
             <hr class="card-divider" />
             <div class="stats">
               <div class="stat-badge">
                 <DownloadIcon class="stat-badge__icon" aria-hidden="true" />
                 <span class="stat-badge__text">
-                  {{ $formatNumber(project.downloads) }}
+                  <span class="count">{{ $formatNumber(project.downloads) }}</span>
+                  downloads
                 </span>
               </div>
               <div class="stat-badge">
                 <HeartIcon class="stat-badge__icon" aria-hidden="true" />
                 <span class="stat-badge__text">
-                  {{ $formatNumber(project.followers) }}
+                  <span class="count">{{ $formatNumber(project.followers) }}</span>
+                  followers
                 </span>
               </div>
-              <div class="stat-badge">
-                <BoxIcon class="stat-badge__icon" aria-hidden="true" />
-                <span class="stat-badge__text">
-                  Minecraft {{ formatList(supportsMcVersions, (noAnd = moreVersions > 0))
-                  }}<template v-if="moreVersions > 0"
-                    >,
-                    <NuxtLink :to="`${getProjectLink(project)}/versions`" class="text-link">
-                      and {{ moreVersions }} more
-                    </NuxtLink></template
-                  >
-                </span>
-              </div>
-              <template
-                v-if="
-                  !(project.loaders.length === 1 && project.loaders[0] === 'datapack') &&
-                  project.project_type !== 'resourcepack'
-                "
-              >
-                <div v-for="loader in project.loaders" :key="loader" class="stat-badge">
-                  <span
-                    class="stat-badge__icon"
-                    v-html="$tag.loaders.find((l) => l.name === loader).icon"
-                  ></span>
-                  <span class="stat-badge__text">
-                    {{ formatCategory(loader) }}
-                  </span>
-                </div>
-              </template>
               <div
                 v-tooltip="'Updated ' + $dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="stat-badge"
               >
                 <UpdatedIcon class="stat-badge__icon" aria-hidden="true" />
-                <span class="stat-badge__text"> Updated {{ fromNow(project.updated) }} </span>
+                <span class="stat-badge__text">
+                  Updated <span class="count">{{ fromNow(project.updated) }}</span></span
+                >
+              </div>
+              <div class="stat-badge">
+                <BoxIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
+                  Minecraft
+                  <span class="count"
+                    >{{ formatList(supportsMcVersions, (noAnd = moreVersions > 0))
+                    }}<template v-if="moreVersions > 0"
+                      >,
+                      <NuxtLink :to="`${getProjectLink(project)}/versions`" class="text-link">
+                        and {{ moreVersions }} more
+                      </NuxtLink></template
+                    ></span
+                  >
+                </span>
+              </div>
+              <div
+                v-if="
+                  !(project.loaders.length === 1 && project.loaders[0] === 'datapack') &&
+                  project.project_type !== 'resourcepack'
+                "
+                class="stat-badge"
+              >
+                <WrenchIcon class="stat-badge__icon" aria-hidden="true" />
+                <span class="stat-badge__text">
+                  Supports
+                  <span class="count">{{
+                    formatList(project.loaders.map((x) => formatCategory(x)))
+                  }}</span>
+                </span>
+              </div>
+              <div
+                v-if="
+                  !['resourcepack', 'shader'].includes(project.project_type) &&
+                  !project.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))
+                "
+                class="stat-badge"
+              >
+                <template
+                  v-if="project.client_side === 'optional' && project.server_side === 'optional'"
+                >
+                  <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    Either
+                    <span class="count">client or server-side</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    project.client_side === 'required' && project.server_side === 'required'
+                  "
+                >
+                  <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    Both
+                    <span class="count">client and server-side</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    (project.client_side === 'optional' || project.client_side === 'required') &&
+                    (project.server_side === 'optional' || project.server_side === 'unsupported')
+                  "
+                >
+                  <ClientIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    <span class="count">Client-side only</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    (project.server_side === 'optional' || project.client_side === 'required') &&
+                    (project.client_side === 'optional' || project.server_side === 'unsupported')
+                  "
+                >
+                  <ServerIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    <span class="count">Server-side only</span>
+                  </span>
+                </template>
+                <template
+                  v-else-if="
+                    project.server_side === 'unsupported' && project.client_side === 'unsupported'
+                  "
+                >
+                  <GlobeIcon aria-hidden="true" class="stat-badge__icon" />
+                  <span class="stat-badge__text">
+                    <span class="count">Unsupported</span>
+                  </span>
+                </template>
               </div>
             </div>
             <div class="input-group user-action-buttons">
               <template v-if="$auth.user">
-                <button class="iconified-button" @click="$refs.modal_project_report.show()">
+                <Button :action="() => $refs.modal_project_report.show()">
                   <ReportIcon aria-hidden="true" />
                   Report
-                </button>
-                <button
+                </Button>
+                <Button
                   v-if="!user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
-                  @click="userFollowProject(project)"
+                  :action="() => userFollowProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
                   Follow
-                </button>
-                <button
+                </Button>
+                <Button
                   v-if="user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
-                  @click="userUnfollowProject(project)"
+                  :action="() => userUnfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
-                </button>
+                </Button>
               </template>
               <template v-else>
                 <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
@@ -585,7 +643,7 @@
           />
           <div class="input-group">
             <Button
-              v-if="$auth.user && currentMember"
+              v-if="false && $auth.user && currentMember"
               :link="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings`"
@@ -593,6 +651,10 @@
             >
               <SettingsIcon />
               {{ formatMessage(messages.settings) }}
+            </Button>
+            <Button large>
+              <ShareIcon />
+              Share
             </Button>
             <Button :action="() => modalDownload.show()" large color="primary">
               <DownloadIcon />
@@ -911,6 +973,11 @@ import {
   DropdownSelect,
   Avatar,
 } from 'omorphia'
+import WrenchIcon from '~/assets/images/utils/wrench.svg'
+import ShareIcon from '~/assets/images/utils/share.svg'
+import ServerIcon from '~/assets/images/utils/server.svg'
+import ClientIcon from '~/assets/images/utils/client.svg'
+import GlobeIcon from '~/assets/images/utils/globe.svg'
 import DiscordIcon from '~/assets/images/external/discord.svg'
 import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
 import PatreonIcon from '~/assets/images/external/patreon.svg'
@@ -924,7 +991,6 @@ import BoxIcon from '~/assets/images/utils/box.svg'
 import Promotion from '~/components/ads/Promotion.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 import Modal from '~/components/ui/Modal.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalModeration from '~/components/ui/ModalModeration.vue'
@@ -1799,34 +1865,46 @@ const collapsedChecklist = ref(false)
 
 .stats {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--spacing-card-sm);
+}
 
-  .stat-badge {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: var(--spacing-card-sm) var(--spacing-card-md);
-    background-color: var(--color-bg);
-    border-radius: var(--size-rounded-sm);
-    gap: var(--spacing-card-sm);
+.stat-badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--color-text-secondary);
 
-    span.stat-badge__icon svg,
-    .stat-badge__icon {
-      flex-shrink: 0;
-    }
+  span.stat-badge__icon svg,
+  .stat-badge__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: var(--spacing-card-sm);
+    flex-shrink: 0;
+  }
 
-    span.stat-badge__icon {
-      display: contents;
-    }
+  span.stat-badge__icon {
+    display: contents;
+  }
 
-    .stat-badge__text {
-      line-height: 1.25rem;
+  .stat-badge__text {
+    line-height: 1.25rem;
+
+    > .count {
+      font-weight: 600;
+      color: var(--color-text);
     }
   }
 }
 
 .user-action-buttons {
   margin-top: var(--spacing-card-md);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>
