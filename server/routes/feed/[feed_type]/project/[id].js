@@ -77,8 +77,7 @@ export default defineEventHandler(async (event) => {
           // Check for changelog length being greater than 1 to ensure no blank changelog section.
         renderString(
           version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
-        )
-      ,
+        ),
       author: [
         {
           name: author.username,
@@ -102,6 +101,6 @@ export default defineEventHandler(async (event) => {
       return feed.json1()
     default:
       setResponseStatus(event, 400)
-      return 'Invalid Feed Type'
+      return `'${event.context.params.feed_type}' is an invalid feed type, only 'rss', 'atom' and 'json' are supported`
   }
 })
