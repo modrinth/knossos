@@ -1,5 +1,5 @@
 import { Feed } from 'feed'
-import { renderString, escapeXmlAttr } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse'
 
 const capitalizeString = (name) => {
   return name ? name.charAt(0).toUpperCase() + name.slice(1) : name
