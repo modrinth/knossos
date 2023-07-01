@@ -1,5 +1,5 @@
 import { Feed } from 'feed'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 
 const capitalizeString = (name) => {
   return name ? name.charAt(0).toUpperCase() + name.slice(1) : name
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const projectVersions = await $fetch(API_URL + 'project/' + event.context.params.id + '/version')
   const projectTeam = await $fetch(API_URL + 'project/' + event.context.params.id + '/members')
 
-  let featuredImage = projectInformation.gallery.filter((image) => image.featured)[0]?.url
+  const featuredImage = projectInformation.gallery.filter((image) => image.featured)[0]?.url
 
   const slugOrId = projectInformation.slug ?? projectInformation.id
   const projectUrl = WEBSITE_URL + `/${projectInformation.project_type}/${projectInformation.id}`
@@ -51,30 +51,27 @@ export default defineEventHandler(async (event) => {
     /**
      * @type {Array<import('feed/lib/typings').Category>}
      */
-    const categories = [...version.loaders, ...version.game_versions]
-      .map(x => {
-        return {
-          name: capitalizeString(x),
-          term: x
-        }
-      })
+    const categories = [...version.loaders, ...version.game_versions].map((x) => {
+      return {
+        name: capitalizeString(x),
+        term: x,
+      }
+    })
 
-    let author = projectTeam
-      .find(member => member.user.id == version.author_id)
-      ?.user
-      ?? await $fetch(API_URL + 'user/' + version.author_id)
-    
+    const author =
+      projectTeam.find((member) => member.user.id === version.author_id)?.user ??
+      (await $fetch(API_URL + 'user/' + version.author_id))
+
+    const loadersPretty = version.loaders.map(capitalizeString).join(', ')
+    const gameVersionsPretty = version.game_versions.join(', ')
+
     feed.addItem({
       title: `${version.name}`,
-      id:
-        `${projectUrl}/version/${version.id}`,
-      link:
-        `${projectUrl}/version/${version.id}`,
+      id: `${projectUrl}/version/${version.id}`,
+      link: `${projectUrl}/version/${version.id}`,
       content:
-        `<p><b>Loaders: ${version.loaders.map(capitalizeString).join(
-          ', '
-        )}<br> Minecraft versions: ${version.game_versions.join(', ')}</b></p>` +
-          // Check for changelog length being greater than 1 to ensure no blank changelog section.
+        `<p><b>Loaders: ${loadersPretty}<br> Minecraft versions: ${gameVersionsPretty}</b></p>` +
+        // Check for changelog length being greater than 1 to ensure no blank changelog section.
         renderString(
           version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
         ),
@@ -82,10 +79,10 @@ export default defineEventHandler(async (event) => {
         {
           name: author.username,
           link: WEBSITE_URL + `/user/${author.id}`,
-        }
+        },
       ],
       category: categories,
-      date: new Date(version.date_published)
+      date: new Date(version.date_published),
     })
   }
 
