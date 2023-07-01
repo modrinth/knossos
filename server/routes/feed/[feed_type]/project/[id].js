@@ -14,26 +14,22 @@ export default defineEventHandler(async (event) => {
   const projectVersions = await $fetch(API_URL + 'project/' + event.context.params.id + '/version')
   const projectTeam = await $fetch(API_URL + 'project/' + event.context.params.id + '/members')
 
-  let featuredImage = projectInformation.gallery.filter((image) => image.featured)[0]
-
-  if (featuredImage) {
-    featuredImage = featuredImage.url
-  }
+  let featuredImage = projectInformation.gallery.filter((image) => image.featured)[0]?.url
 
   const slugOrId = projectInformation.slug ?? projectInformation.id
-  const projectUrl = WEBSITE_URL + `/${projectInformation.project_type}/${slugOrId}`
+  const projectUrl = WEBSITE_URL + `/${projectInformation.project_type}/${projectInformation.id}`
 
   const feed = new Feed({
     title: projectInformation.title,
     id: projectUrl,
     description: projectInformation.description,
     feedLinks: {
-      json: WEBSITE_URL + `/feed/json/project/${slugOrId}`,
-      atom: WEBSITE_URL + `/feed/atom/project/${slugOrId}`,
-      rss: WEBSITE_URL + `/feed/rss/project/${slugOrId}`,
+      json: WEBSITE_URL + `/feed/json/project/${projectInformation.id}`,
+      atom: WEBSITE_URL + `/feed/atom/project/${projectInformation.id}`,
+      rss: WEBSITE_URL + `/feed/rss/project/${projectInformation.id}`,
     },
     generator: 'Modrinth',
-    link: projectUrl,
+    link: WEBSITE_URL + `/${projectInformation.project_type}/${slugOrId}`,
     language: 'en',
     updated: new Date(projectInformation.updated),
     favicon: projectInformation.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
@@ -47,7 +43,7 @@ export default defineEventHandler(async (event) => {
   for (const member of projectTeam) {
     feed.addContributor({
       name: member.user.username,
-      link: WEBSITE_URL + `/user/${member.user.username}`,
+      link: WEBSITE_URL + `/user/${member.user.id}`,
     })
   }
 
@@ -86,7 +82,7 @@ export default defineEventHandler(async (event) => {
       author: [
         {
           name: author.username,
-          link: WEBSITE_URL + `/user/${author.username}`,
+          link: WEBSITE_URL + `/user/${author.id}`,
         }
       ],
       category: categories,
