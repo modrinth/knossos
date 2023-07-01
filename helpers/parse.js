@@ -14,10 +14,18 @@ export const configuredXss = new xss.FilterXSS({
     kbd: ['id'],
     input: ['checked', 'disabled', 'type'],
     iframe: ['width', 'height', 'allowfullscreen', 'frameborder', 'start', 'end'],
-    img: [...xss.whiteList.img, 'usemap'],
+    img: [...xss.whiteList.img, 'usemap', 'style'],
     map: ['name'],
     area: [...xss.whiteList.a, 'coords'],
     a: [...xss.whiteList.a, 'rel'],
+    td: [...xss.whiteList.td, 'style'],
+    th: [...xss.whiteList.th, 'style'],
+  },
+  css: {
+    whiteList: {
+      'image-rendering': /^pixelated$/,
+      'text-align': /^center|left|right$/,
+    },
   },
   onIgnoreTagAttr: (tag, name, value) => {
     // Allow iframes from acceptable sources
@@ -45,15 +53,17 @@ export const configuredXss = new xss.FilterXSS({
     }
 
     // For Highlight.JS
-    if (
-      name === 'class' &&
-      ['pre', 'code', 'span'].includes(tag) &&
-      (value.startsWith('hljs-') || value.startsWith('language-'))
-    ) {
-      return name + '="' + xss.escapeAttrValue(value) + '"'
+    if (name === 'class' && ['pre', 'code', 'span'].includes(tag)) {
+      const allowedClasses = []
+      for (const className of value.split(/\s/g)) {
+        if (className.startsWith('hljs-') || className.startsWith('language-')) {
+          allowedClasses.push(className)
+        }
+      }
+      return name + '="' + xss.escapeAttrValue(allowedClasses.join(' ')) + '"'
     }
   },
-  safeAttrValue(tag, name, value, _cssFilter) {
+  safeAttrValue(tag, name, value, cssFilter) {
     if (tag === 'img' && name === 'src' && !value.startsWith('data:')) {
       try {
         const url = new URL(value)
@@ -75,12 +85,17 @@ export const configuredXss = new xss.FilterXSS({
         ]
 
         if (!allowedHostnames.includes(url.hostname)) {
-          return `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`
+          return xss.safeAttrValue(
+            tag,
+            name,
+            `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`,
+            cssFilter
+          )
         }
       } catch (err) {}
     }
 
-    return value
+    return xss.safeAttrValue(tag, name, value, cssFilter)
   },
 })
 

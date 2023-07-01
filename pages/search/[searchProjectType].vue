@@ -158,8 +158,8 @@
           <h3 class="sidebar-menu-heading">Minecraft versions</h3>
           <Checkbox
             v-model="showSnapshots"
-            label="Include snapshots"
-            description="Include snapshots"
+            label="Show all versions"
+            description="Show all versions"
             style="margin-bottom: 0.5rem"
             :border="false"
           />
@@ -343,11 +343,11 @@
 </template>
 <script>
 import { Multiselect } from 'vue-multiselect'
-import ProjectCard from '~/components/ui/ProjectCard'
-import Pagination from '~/components/ui/Pagination'
-import SearchFilter from '~/components/ui/search/SearchFilter'
-import Checkbox from '~/components/ui/Checkbox'
-import LogoAnimated from '~/components/brand/LogoAnimated'
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+import Pagination from '~/components/ui/Pagination.vue'
+import SearchFilter from '~/components/ui/search/SearchFilter.vue'
+import Checkbox from '~/components/ui/Checkbox.vue'
+import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 import ClientIcon from '~/assets/images/categories/client.svg'
 import ServerIcon from '~/assets/images/categories/server.svg'
@@ -848,13 +848,15 @@ export default defineNuxtComponent({
 .normal-page__sidebar {
   grid-row: 3;
 
-  // Hide on mobile unless open
-  @media screen and (max-width: 1024px) {
-    display: none;
+  // Always show on desktop
+  @media screen and (min-width: 1024px) {
+    display: block;
+  }
 
-    &.open {
-      display: block;
-    }
+  // Hide on mobile unless open
+  display: none;
+  &.open {
+    display: block;
   }
 }
 

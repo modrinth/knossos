@@ -25,6 +25,7 @@
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
+                :disabled="isThemeSwitchOnHold"
                 @click="changeTheme"
               >
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
@@ -87,7 +88,7 @@
                     <span class="title">Moderation</span>
                   </NuxtLink>
                   <hr class="divider" />
-                  <button class="item button-transparent" @click="logout">
+                  <button class="item button-transparent" @click="logout()">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
@@ -161,7 +162,7 @@
           </div>
           <div class="links">
             <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logout">
+              <button class="iconified-button danger-button" @click="logout()">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
@@ -186,7 +187,7 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" @click="changeTheme">
+            <button class="iconified-button" :disabled="isThemeSwitchOnHold" @click="changeTheme">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -297,7 +298,9 @@
         <nuxt-link to="/legal/terms"> Terms</nuxt-link>
         <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
         <nuxt-link to="/legal/rules"> Rules</nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com"> Careers </a>
+        <a :target="$external()" href="https://careers.modrinth.com"
+          >Careers <span class="count-bubble">1</span></a
+        >
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
@@ -316,7 +319,11 @@
         </a>
       </div>
       <div class="buttons">
-        <button class="iconified-button raised-button" @click="changeTheme">
+        <button
+          class="iconified-button raised-button"
+          :disabled="isThemeSwitchOnHold"
+          @click="changeTheme"
+        >
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
@@ -351,9 +358,9 @@ import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
 import GitHubIcon from '~/assets/images/utils/github.svg'
-import NavRow from '~/components/ui/NavRow'
-import ModalCreation from '~/components/ui/ModalCreation'
-import Avatar from '~/components/ui/Avatar'
+import NavRow from '~/components/ui/NavRow.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
+import Avatar from '~/components/ui/Avatar.vue'
 
 const auth = await useAuth()
 const user = await useUser()
@@ -378,6 +385,7 @@ export default defineNuxtComponent({
       isDropdownOpen: false,
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
+      isThemeSwitchOnHold: false,
       registeredSkipLink: null,
       hideDropdown: false,
       navRoutes: [
@@ -463,30 +471,28 @@ export default defineNuxtComponent({
         this.isMobileMenuOpen = false
       }
     },
-    async logout() {
+    logout() {
       useCookie('auth-token').value = null
 
-      // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (
-        this.$route.path.startsWith('/settings/') ||
-        this.$route.path.startsWith('/dashboard/') ||
-        this.$route.path.startsWith('/moderation') ||
-        this.$route.path.startsWith('/notifications')
-      ) {
-        window.location.href = '/'
-      } else {
-        await this.$router.go(null)
+      this.$notify({
+        group: 'main',
+        title: 'Logged Out',
+        text: 'You have logged out successfully!',
+        type: 'success',
+      })
 
-        this.$notify({
-          group: 'main',
-          title: 'Logged Out',
-          text: 'You have logged out successfully!',
-          type: 'success',
+      useRouter()
+        .push('/')
+        .then(() => {
+          useRouter().go()
         })
-      }
     },
     changeTheme() {
+      this.isThemeSwitchOnHold = true
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
+      setTimeout(() => {
+        this.isThemeSwitchOnHold = false
+      }, 1000)
     },
   },
 })
@@ -855,7 +861,7 @@ export default defineNuxtComponent({
 
       .mobile-navbar {
         display: flex;
-        height: var(--size-mobile-navbar-height);
+        height: calc(var(--size-mobile-navbar-height) + env(safe-area-inset-bottom));
         border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
         padding-bottom: env(safe-area-inset-bottom);
         position: fixed;
@@ -1041,7 +1047,7 @@ export default defineNuxtComponent({
         border-radius: 5rem;
         background: var(--color-brand);
         color: var(--color-text-inverted);
-        padding: 0 0.25rem;
+        padding: 0 0.35rem;
         margin-left: 0.25rem;
       }
     }
