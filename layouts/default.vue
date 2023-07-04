@@ -437,6 +437,9 @@ export default defineNuxtComponent({
     },
   },
   async mounted() {
+    if (process.client && window) {
+      window.history.scrollRestoration = 'auto'
+    }
     this.runAnalytics()
     if (this.$route.query.code) {
       await useAuth(this.$route.query.code)
