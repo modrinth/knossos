@@ -50,6 +50,8 @@ const meta = {
  */
 const ENABLED_LOCALES: string[] = []
 
+// @ts-ignore
+// @ts-ignore
 export default defineNuxtConfig({
   app: {
     head: {
@@ -258,8 +260,10 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    apiBaseUrl: process.env.BASE_URL ?? getApiUrl(),
-    rateLimitKey: process.env.RATE_LIMIT_IGNORE_KEY,
+    // @ts-ignore
+    apiBaseUrl: process.env.BASE_URL ?? globalThis.BASE_URL ?? getApiUrl(),
+    // @ts-ignore
+    rateLimitKey: process.env.RATE_LIMIT_IGNORE_KEY ?? globalThis.RATE_LIMIT_IGNORE_KEY,
     public: {
       apiBaseUrl: getApiUrl(),
       ariadneBaseUrl: getAriadneUrl(),
@@ -294,11 +298,13 @@ export default defineNuxtConfig({
 })
 
 function getApiUrl() {
-  return process.env.BROWSER_BASE_URL ?? STAGING_API_URL
+  // @ts-ignore
+  return process.env.BROWSER_BASE_URL ?? globalThis.BROWSER_BASE_URL ?? STAGING_API_URL
 }
 
 function getAriadneUrl() {
-  return process.env.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
+  // @ts-ignore
+  return process.env.BROWSER_ARIADNE_URL ?? globalThis.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
 }
 
 function getDomain() {
