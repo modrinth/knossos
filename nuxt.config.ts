@@ -50,8 +50,6 @@ const meta = {
  */
 const ENABLED_LOCALES: string[] = []
 
-// @ts-ignore
-// @ts-ignore
 export default defineNuxtConfig({
   app: {
     head: {
