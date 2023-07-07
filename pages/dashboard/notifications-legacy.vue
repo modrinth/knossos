@@ -5,12 +5,12 @@
         :links="[
           {
             label: 'All',
-            href: `/dashboard/notifications`,
+            href: `/dashboard/notifications-legacy`,
           },
           ...notificationTypes.map((type) => {
             return {
               label: NOTIFICATION_TYPES[type],
-              href: `/dashboard/notifications/${type}`,
+              href: `/dashboard/notifications-legacy/${type}`,
             }
           }),
         ]"
@@ -85,7 +85,7 @@ import SettingsIcon from 'assets/images/utils/settings.svg'
 import CalendarIcon from 'assets/images/utils/calendar.svg'
 import UpToDate from 'assets/images/illustrations/up_to_date.svg'
 import NavRow from '~/components/ui/NavRow.vue'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 
 export default defineNuxtComponent({
   components: {
@@ -108,7 +108,7 @@ export default defineNuxtComponent({
     return { user: ref(user) }
   },
   head: {
-    title: 'Notifications - Modrinth',
+    title: 'Notifications (legacy) - Modrinth',
   },
   computed: {
     notificationTypes() {

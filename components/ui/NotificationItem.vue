@@ -338,9 +338,11 @@ async function markAsRead() {
       },
     })
     const newNotifs = props.notifications
-    console.log(newNotifs)
-    newNotifs.find((x) => x.id === props.notification.id).read = true
-    console.log(newNotifs)
+    newNotifs.forEach((notif) => {
+      if (ids.includes(notif.id)) {
+        notif.read = true
+      }
+    })
     emit('update:notifications', newNotifs)
   } catch (err) {
     app.$notify({

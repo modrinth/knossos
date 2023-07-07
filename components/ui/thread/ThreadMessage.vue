@@ -3,6 +3,7 @@
     class="message"
     :class="{
       'has-body': message.body.type === 'text' && !forceCompact,
+      'no-actions': noLinks,
       private: message.body.private,
     }"
   >
@@ -80,16 +81,21 @@
         fromNow(message.created)
       }}</span>
     </span>
+    <div class="message__actions">
+      <Button icon-only><MoreIcon /></Button>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { Button } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
 import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
 import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
 import MicIcon from '~/assets/images/utils/mic.svg'
 import PrivateIcon from '~/assets/images/utils/lock.svg'
+import MoreIcon from '~/assets/images/utils/more-horizontal.svg'
 import { renderString } from '~/helpers/parse'
 import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
 
@@ -145,6 +151,8 @@ const formattedMessage = computed(() => {
   gap: var(--gap-size);
   flex-wrap: wrap;
   align-items: center;
+  border-radius: var(--size-rounded-card);
+  padding: var(--spacing-card-md);
 
   .avatar,
   .backed-svg {
@@ -155,23 +163,43 @@ const formattedMessage = computed(() => {
     --gap-size: var(--spacing-card-sm);
     display: grid;
     grid-template:
-      'icon author'
-      'icon body'
-      'date date';
-    grid-template-columns: min-content 1fr;
+      'icon author actions'
+      'icon body actions'
+      'date date date';
+    grid-template-columns: min-content auto 1fr;
     column-gap: var(--gap-size);
     row-gap: var(--spacing-card-xs);
+
+    .message__icon {
+      margin-bottom: auto;
+    }
 
     .avatar,
     .backed-svg {
       --size: 3rem;
     }
   }
+
+  &:not(.no-actions):hover,
+  &:not(.no-actions):focus-within {
+    background-color: var(--color-table-alternate-row);
+
+    .message__actions {
+      opacity: 1;
+    }
+  }
+
+  &.no-actions {
+    padding: 0;
+
+    .message__actions {
+      display: none;
+    }
+  }
 }
 
 .message__icon {
   grid-area: icon;
-  margin-bottom: auto;
 }
 
 .message__author {
@@ -187,6 +215,12 @@ const formattedMessage = computed(() => {
   grid-area: date;
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
+}
+
+.message__actions {
+  grid-area: actions;
+  margin-left: auto;
+  opacity: 0;
 }
 
 .message__body {
@@ -244,10 +278,10 @@ role-moderator {
 
     &.has-body {
       grid-template:
-        'icon author'
-        'icon body'
-        'date date';
-      grid-template-columns: min-content 1fr;
+        'icon author actions'
+        'icon body actions'
+        'date date date';
+      grid-template-columns: min-content auto 1fr;
     }
   }
 }
@@ -259,10 +293,10 @@ role-moderator {
 
     &.has-body {
       grid-template:
-        'icon author date'
-        'icon body body';
+        'icon author date actions'
+        'icon body body actions';
       grid-template-columns: min-content auto 1fr;
-      grid-template-rows: min-content 1fr;
+      grid-template-rows: min-content 1fr auto;
     }
   }
 }

@@ -113,8 +113,9 @@ export const groupNotifications = (notifications, includeRead = false) => {
     if (notification.body) {
       const index = grouped.findIndex(
         (notif) =>
-          notif.body.thread_id === notification.body.thread_id ||
-          notif.body.project_id === notification.body.project_id
+          (notif.body.thread_id === notification.body.thread_id ||
+            notif.body.project_id === notification.body.project_id) &&
+          notification.read === notif.read
       )
       const notif = grouped[index]
       if (

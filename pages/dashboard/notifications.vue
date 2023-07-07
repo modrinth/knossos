@@ -1,7 +1,22 @@
 <template>
   <div>
     <section class="universal-card">
-      <h2>Notifications</h2>
+      <div class="header__row">
+        <div class="header__title">
+          <h2>Notifications</h2>
+        </div>
+        <div class="read-toggle-input">
+          <label for="show-read-toggle">
+            <span class="label__title">Show history</span>
+          </label>
+          <input
+            id="show-read-toggle"
+            v-model="showRead"
+            class="switch stylized-toggle"
+            type="checkbox"
+          />
+        </div>
+      </div>
       <template v-if="notifications.length > 0">
         <Chips
           v-model="selectedType"
@@ -25,9 +40,13 @@
   </div>
 </template>
 <script setup>
-import { fetchNotifications, groupNotifications } from '~/helpers/notifications'
+import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import Chips from '~/components/ui/Chips.vue'
+import CheckIcon from 'assets/images/utils/check.svg'
+import ModerationIcon from 'assets/images/sidebar/admin.svg'
+import RequiredIcon from 'assets/images/utils/asterisk.svg'
+import SuggestionIcon from 'assets/images/utils/lightbulb.svg'
 
 useHead({
   title: 'Notifications - Modrinth',
@@ -40,12 +59,29 @@ const notifTypes = computed(() => {
   return types.length > 1 ? ['all', ...types] : types
 })
 const notifications = computed(() => {
-  const groupedNotifs = groupNotifications(allNotifs.value)
+  const groupedNotifs = groupNotifications(allNotifs.value, showRead.value)
   return groupedNotifs.filter(
     (notif) => selectedType.value === 'all' || notif.type === selectedType.value
   )
 })
 
 const selectedType = ref('all')
+const showRead = ref(false)
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.read-toggle-input {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-card-md);
+
+  .label__title {
+    margin: 0;
+  }
+}
+
+.header__title {
+  h2 {
+    margin: 0 auto 0 0;
+  }
+}
+</style>

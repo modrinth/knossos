@@ -225,7 +225,7 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 .messages {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-lg);
+  padding: var(--spacing-card-md);
 }
 
 .resizable-textarea-wrapper {
