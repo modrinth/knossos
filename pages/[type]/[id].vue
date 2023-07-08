@@ -376,7 +376,7 @@
                 project.status === 'processing' ||
                 ($tag.rejectedStatuses.includes(project.status) && project.status !== 'withheld')
               "
-              class="iconified-button danger-button"
+              class="iconified-button moderation-button"
               @click="openModerationModal('withheld')"
             >
               <EyeOffIcon />
