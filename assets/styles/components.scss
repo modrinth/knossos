@@ -783,15 +783,6 @@
   }
 }
 
-.button-animation {
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-    outline 0.2s ease-in-out;
-
-  &:active:not(&:disabled) {
-    transform: scale(0.95);
-  }
-}
-
 .button-base {
   @extend .button-animation;
   font-weight: 500;
@@ -873,11 +864,6 @@ tr.button-transparent {
 
   &:active:not(&.disabled) {
     filter: brightness(0.8);
-  }
-
-  // For some reason this within the above block makes it universal and not only applied to children. SCSS bug maybe?
-  &:active:not(&.disabled) button:not(&:disabled) {
-    transform: scale(0.95);
   }
 
   &.disabled {

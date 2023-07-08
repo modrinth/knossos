@@ -482,6 +482,7 @@ function getMessages() {
         flex-direction: row;
         gap: var(--spacing-card-xs);
         align-items: center;
+        flex-wrap: wrap;
 
         .version-info {
           display: contents;

@@ -153,6 +153,7 @@ const formattedMessage = computed(() => {
   align-items: center;
   border-radius: var(--size-rounded-card);
   padding: var(--spacing-card-md);
+  word-break: break-word;
 
   .avatar,
   .backed-svg {
