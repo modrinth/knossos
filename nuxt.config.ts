@@ -258,8 +258,10 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    apiBaseUrl: process.env.BASE_URL ?? getApiUrl(),
-    rateLimitKey: process.env.RATE_LIMIT_IGNORE_KEY,
+    // @ts-ignore
+    apiBaseUrl: process.env.BASE_URL ?? globalThis.BASE_URL ?? getApiUrl(),
+    // @ts-ignore
+    rateLimitKey: process.env.RATE_LIMIT_IGNORE_KEY ?? globalThis.RATE_LIMIT_IGNORE_KEY,
     public: {
       apiBaseUrl: getApiUrl(),
       ariadneBaseUrl: getAriadneUrl(),
@@ -267,8 +269,18 @@ export default defineNuxtConfig({
 
       owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
       slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',
-      branch: process.env.VERCEL_GIT_COMMIT_REF || 'master',
-      hash: process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
+      branch:
+        process.env.VERCEL_GIT_COMMIT_REF ||
+        process.env.CF_PAGES_BRANCH ||
+        // @ts-ignore
+        globalThis.CF_PAGES_BRANCH ||
+        'master',
+      hash:
+        process.env.VERCEL_GIT_COMMIT_SHA ||
+        process.env.CF_PAGES_COMMIT_SHA ||
+        // @ts-ignore
+        globalThis.CF_PAGES_COMMIT_SHA ||
+        'unknown',
     },
   },
   typescript: {
@@ -294,17 +306,24 @@ export default defineNuxtConfig({
 })
 
 function getApiUrl() {
-  return process.env.BROWSER_BASE_URL ?? STAGING_API_URL
+  // @ts-ignore
+  return process.env.BROWSER_BASE_URL ?? globalThis.BROWSER_BASE_URL ?? STAGING_API_URL
 }
 
 function getAriadneUrl() {
-  return process.env.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
+  // @ts-ignore
+  return process.env.BROWSER_ARIADNE_URL ?? globalThis.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
 }
 
 function getDomain() {
   if (process.env.NODE_ENV === 'production') {
     if (process.env.SITE_URL) {
       return process.env.SITE_URL
+    }
+    // @ts-ignore
+    else if (process.env.CF_PAGES_URL || globalThis.CF_PAGES_URL) {
+      // @ts-ignore
+      return process.env.CF_PAGES_URL ?? globalThis.CF_PAGES_URL
     } else if (process.env.HEROKU_APP_NAME) {
       return `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     } else if (process.env.VERCEL_URL) {
