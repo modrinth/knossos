@@ -55,6 +55,7 @@
           :update-thread="(newThread) => (thread = newThread)"
           :project="project"
           :set-status="setStatus"
+          :current-member="currentMember"
         />
       </template>
       <div v-else class="known-errors unavailable-error">
@@ -82,6 +83,12 @@ const props = defineProps({
     type: Object,
     default() {
       return {}
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return null
     },
   },
 })

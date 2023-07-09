@@ -16,7 +16,7 @@
           <NavStackItem link="/dashboard/follows" label="Followed projects">
             <HeartIcon />
           </NavStackItem>
-          <NavStackItem link="/dashboard/reports" label="Report history">
+          <NavStackItem link="/dashboard/reports" label="Active reports">
             <ReportIcon />
           </NavStackItem>
 

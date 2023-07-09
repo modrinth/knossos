@@ -35,6 +35,7 @@
           raised
         />
       </template>
+      <p v-else-if="error" class="known-errors">Failed to load notifications.</p>
       <p v-else>You don't have any unread notifications.</p>
     </section>
   </div>
@@ -43,27 +44,34 @@
 import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import Chips from '~/components/ui/Chips.vue'
-import CheckIcon from 'assets/images/utils/check.svg'
-import ModerationIcon from 'assets/images/sidebar/admin.svg'
-import RequiredIcon from 'assets/images/utils/asterisk.svg'
-import SuggestionIcon from 'assets/images/utils/lightbulb.svg'
 
 useHead({
   title: 'Notifications - Modrinth',
 })
 
+const app = useNuxtApp()
+
 const allNotifs = ref(await fetchNotifications())
 
 const notifTypes = computed(() => {
+  if (allNotifs.value === null) {
+    return []
+  }
   const types = [...new Set(allNotifs.value.map((notif) => notif.type))]
   return types.length > 1 ? ['all', ...types] : types
 })
 const notifications = computed(() => {
+  if (allNotifs.value === null) {
+    return []
+  }
   const groupedNotifs = groupNotifications(allNotifs.value, showRead.value)
   return groupedNotifs.filter(
     (notif) => selectedType.value === 'all' || notif.type === selectedType.value
   )
 })
+
+const error = computed(() => allNotifs.value === null)
+const history = computed(() => app.$route.params.type)
 
 const selectedType = ref('all')
 const showRead = ref(false)

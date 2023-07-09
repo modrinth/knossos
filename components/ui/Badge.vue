@@ -84,6 +84,7 @@ export default {
   width: fit-content;
   --badge-color: var(--color-special-gray);
   color: var(--badge-color);
+  white-space: nowrap;
 
   .circle {
     width: 0.5rem;

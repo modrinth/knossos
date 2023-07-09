@@ -486,7 +486,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 0.5rem;
-  min-height: var(--font-size-2xl);
+  min-height: 3.75rem;
 }
 
 /*
@@ -1470,6 +1470,10 @@ button {
     :not(:first-child) {
       flex-shrink: 1;
     }
+  }
+
+  &.right-aligned {
+    justify-content: end;
   }
 }
 

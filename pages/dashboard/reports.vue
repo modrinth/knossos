@@ -10,7 +10,7 @@
 import ReportsList from '~/components/ui/report/ReportsList.vue'
 
 useHead({
-  title: 'Report history - Modrinth',
+  title: 'Active reports - Modrinth',
 })
 </script>
 <style lang="scss" scoped></style>

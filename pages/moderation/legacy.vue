@@ -118,7 +118,7 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import Security from '~/assets/images/illustrations/security.svg'
 import NavRow from '~/components/ui/NavRow.vue'
 import ModalModeration from '~/components/ui/ModalModeration'
-import { renderHighlightedString } from '~/helpers/highlight'
+import { renderHighlightedString } from '~/helpers/highlight.js'
 
 export default defineNuxtComponent({
   components: {

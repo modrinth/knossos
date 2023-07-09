@@ -150,6 +150,11 @@ const extraNotifs = computed(() => allNotifs.length - notifications.value.length
   > .universal-card {
     margin: 0;
   }
+
+  @media screen and (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .dashboard-notifications {
@@ -179,9 +184,23 @@ const extraNotifs = computed(() => allNotifs.length - notifications.value.length
     flex-direction: column;
     gap: var(--spacing-card-sm);
     justify-content: center;
+    word-break: break-word;
 
     h1 {
       margin: 0;
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    .avatar {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    .username {
+      h1 {
+        font-size: var(--font-size-xl);
+      }
     }
   }
 }

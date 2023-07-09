@@ -77,26 +77,24 @@
       <span v-else-if="message.body.type === 'thread_closure'">closed the thread.</span>
     </div>
     <span class="message__date">
-      <span v-tooltip="$dayjs(message.created).format('MMMM D, YYYY [at] h:mm A')">{{
-        fromNow(message.created)
-      }}</span>
+      <span v-tooltip="$dayjs(message.created).format('MMMM D, YYYY [at] h:mm A')">
+        {{ timeSincePosted }}
+      </span>
     </span>
-    <div class="message__actions">
-      <Button icon-only><MoreIcon /></Button>
-    </div>
+    <!--    <div class="message__actions">-->
+    <!--      <Button icon-only><MoreIcon /></Button>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script setup>
-import { Button } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
 import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
 import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
 import MicIcon from '~/assets/images/utils/mic.svg'
 import PrivateIcon from '~/assets/images/utils/lock.svg'
-import MoreIcon from '~/assets/images/utils/more-horizontal.svg'
-import { renderString } from '~/helpers/parse'
+import { renderString } from '~/helpers/parse.js'
 import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
 
 const props = defineProps({
@@ -141,6 +139,19 @@ const formattedMessage = computed(() => {
   }
   return body
 })
+
+const formatRelativeTime = useRelativeTime()
+const timeSincePosted = ref(formatRelativeTime(props.message.created))
+
+let interval
+
+onMounted(() => {
+  interval = setInterval(() => {
+    timeSincePosted.value = formatRelativeTime(props.message.created)
+  }, 1000)
+})
+
+onUnmounted(() => clearInterval(interval))
 </script>
 
 <style lang="scss" scoped>

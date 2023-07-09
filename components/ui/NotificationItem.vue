@@ -237,7 +237,7 @@
           :key="actionIndex"
           class="iconified-button"
           :class="{ 'raised-button': raised }"
-          @click="performAction(notification, notificationIndex, actionIndex)"
+          @click="performAction(notification, actionIndex)"
         >
           <CheckIcon v-if="action.title === 'Accept'" />
           <CrossIcon v-else-if="action.title === 'Deny'" />
@@ -247,7 +247,7 @@
           v-if="notification.actions.length === 0 && !notification.read"
           class="iconified-button"
           :class="{ 'raised-button': raised }"
-          @click="performAction(notification, notificationIndex, null)"
+          @click="performAction(notification, null)"
         >
           <CheckIcon /> Mark as read
         </button>
@@ -354,7 +354,7 @@ async function markAsRead() {
   }
 }
 
-async function performAction(notification, _notificationIndex, actionIndex) {
+async function performAction(notification, actionIndex) {
   startLoading()
   try {
     await markAsRead()

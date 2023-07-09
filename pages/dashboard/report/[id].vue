@@ -1,7 +1,7 @@
 <template>
   <ReportView
     :report-id="route.params.id"
-    :breadcrumbs-stack="[{ href: '/dashboard/reports', label: 'Report history' }]"
+    :breadcrumbs-stack="[{ href: '/dashboard/reports', label: 'Active reports' }]"
   />
 </template>
 <script setup>

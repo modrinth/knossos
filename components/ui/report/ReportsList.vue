@@ -1,17 +1,21 @@
 <template>
-  <Chips v-if="false" v-model="viewMode" :items="['open', 'archived']" />
-  <ReportInfo
-    v-for="report in reports.filter(
-      (x) =>
-        (moderation || x.reporter.id === $auth.user.id) && (viewMode === 'open' ? x.open : !x.open)
-    )"
-    :key="report.id"
-    :report="report"
-    :thread="report.thread"
-    :moderation="moderation"
-    raised
-    class="universal-card recessed"
-  />
+  <p v-if="error !== null" class="known-errors">Failed to load reports.</p>
+  <template v-else>
+    <Chips v-if="false" v-model="viewMode" :items="['open', 'archived']" />
+    <ReportInfo
+      v-for="report in reports.filter(
+        (x) =>
+          (moderation || x.reporter.id === $auth.user.id) &&
+          (viewMode === 'open' ? x.open : !x.open)
+      )"
+      :key="report.id"
+      :report="report"
+      :thread="report.thread"
+      :moderation="moderation"
+      raised
+      class="universal-card recessed"
+    />
+  </template>
 </template>
 <script setup>
 import Chips from '~/components/ui/Chips.vue'
@@ -26,7 +30,19 @@ defineProps({
 
 const app = useNuxtApp()
 
-let rawReports = await useBaseFetch(`report`, app.$defaultHeaders())
+const error = ref(null)
+
+const options = app.$defaultHeaders()
+options.data = []
+let rawReports = await useBaseFetch(`report`, options).catch((err) => {
+  error.value = err.data ? err.data.description : err
+  app.$notify({
+    group: 'main',
+    title: 'Error loading reports',
+    text: error.value,
+    type: 'error',
+  })
+})
 
 rawReports = rawReports.map((report) => {
   report.item_id = report.item_id.replace(/"/g, '')

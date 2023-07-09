@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { renderHighlightedString } from '~/helpers/highlight'
+import { renderHighlightedString } from '~/helpers/highlight.js'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
 import ReportIcon from '~/assets/images/utils/report.svg'

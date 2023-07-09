@@ -27,7 +27,7 @@
         />
         <div v-else class="markdown-body preview" v-html="renderString(replyBody)" />
       </div>
-      <div class="input-group push-right">
+      <div class="input-group">
         <button
           v-if="sortedMessages.length > 0"
           class="iconified-button brand-button"
@@ -44,50 +44,91 @@
         >
           <SendIcon /> Send
         </button>
-        <template v-if="report">
-          <button
-            v-if="replyBody"
-            class="iconified-button danger-button"
-            @click="closeReport(true)"
-          >
-            <CloseIcon /> Close with reply
-          </button>
-          <button v-else class="iconified-button danger-button" @click="closeReport()">
-            <CloseIcon /> Close thread
-          </button>
-        </template>
-        <template v-if="project">
-          <button
-            v-if="replyBody"
-            class="iconified-button brand-button"
-            @click="sendReply(requestedStatus)"
-          >
-            <CheckIcon /> Approve with reply
-          </button>
-          <button v-else class="iconified-button brand-button" @click="setStatus(requestedStatus)">
-            <CheckIcon /> Approve project
-          </button>
-          <button
-            v-if="replyBody"
-            class="iconified-button moderation-button"
-            @click="sendReply('withheld')"
-          >
-            <EyeOffIcon /> Withhold with reply
-          </button>
-          <button v-else class="iconified-button moderation-button" @click="setStatus('withheld')">
-            <EyeOffIcon /> Withhold project
-          </button>
-          <button
-            v-if="replyBody"
-            class="iconified-button danger-button"
-            @click="sendReply('rejected')"
-          >
-            <CrossIcon /> Reject with reply
-          </button>
-          <button v-else class="iconified-button danger-button" @click="setStatus('rejected')">
-            <CrossIcon /> Reject project
-          </button>
-        </template>
+        <div class="spacer"></div>
+        <div class="input-group extra-options">
+          <template v-if="report">
+            <template v-if="isStaff($auth.user)">
+              <button
+                v-if="replyBody"
+                class="iconified-button danger-button"
+                @click="closeReport(true)"
+              >
+                <CloseIcon /> Close with reply
+              </button>
+              <button v-else class="iconified-button danger-button" @click="closeReport()">
+                <CloseIcon /> Close thread
+              </button>
+            </template>
+          </template>
+          <template v-if="project">
+            <template v-if="isStaff($auth.user)">
+              <button
+                v-if="replyBody"
+                class="iconified-button brand-button"
+                @click="sendReply(requestedStatus)"
+              >
+                <CheckIcon /> Approve with reply
+              </button>
+              <button
+                v-else
+                class="iconified-button brand-button"
+                @click="setStatus(requestedStatus)"
+              >
+                <CheckIcon /> Approve project
+              </button>
+              <button
+                v-if="replyBody"
+                class="iconified-button moderation-button"
+                @click="sendReply('withheld')"
+              >
+                <EyeOffIcon /> Withhold with reply
+              </button>
+              <button
+                v-else
+                class="iconified-button moderation-button"
+                @click="setStatus('withheld')"
+              >
+                <EyeOffIcon /> Withhold project
+              </button>
+              <button
+                v-if="replyBody"
+                class="iconified-button danger-button"
+                @click="sendReply('rejected')"
+              >
+                <CrossIcon /> Reject with reply
+              </button>
+              <button v-else class="iconified-button danger-button" @click="setStatus('rejected')">
+                <CrossIcon /> Reject project
+              </button>
+            </template>
+            <template v-if="currentMember">
+              <template v-if="isRejected(project)">
+                <button
+                  v-if="replyBody"
+                  class="iconified-button moderation-button"
+                  @click="sendReply('processing')"
+                >
+                  <ModerationIcon /> Resubmit for review with reply
+                </button>
+                <button
+                  v-else
+                  class="iconified-button moderation-button"
+                  @click="setStatus('processing')"
+                >
+                  <ModerationIcon /> Resubmit for review
+                </button>
+              </template>
+              <template v-if="isUnderReview(project)">
+                <button v-if="replyBody" class="iconified-button" @click="sendReply('draft')">
+                  <ModerationIcon /> Convert to draft with reply
+                </button>
+                <button v-else class="iconified-button" @click="setStatus('draft')">
+                  <ModerationIcon /> Convert to draft
+                </button>
+              </template>
+            </template>
+          </template>
+        </div>
       </div>
     </template>
   </div>
@@ -102,8 +143,11 @@ import CloseIcon from '~/assets/images/utils/check-circle.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
-import { renderString } from '~/helpers/parse'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
+import { isStaff } from '~/helpers/users.js'
+import { isDraft, isRejected, isUnderReview } from '~/helpers/projects'
 
 const props = defineProps({
   thread: {
@@ -130,6 +174,12 @@ const props = defineProps({
     required: false,
     default: () => {},
   },
+  currentMember: {
+    type: Object,
+    default() {
+      return null
+    },
+  },
 })
 const app = useNuxtApp()
 
@@ -153,7 +203,7 @@ const sortedMessages = computed(() => {
   return []
 })
 
-async function updateThread() {
+async function updateThreadLocal() {
   let threadId = null
   if (props.project) {
     threadId = props.project.thread_id
@@ -180,7 +230,7 @@ async function sendReply(status = null) {
       ...app.$defaultHeaders(),
     })
     replyBody.value = ''
-    await updateThread()
+    await updateThreadLocal()
     if (status !== null) {
       props.setStatus(status)
     }
@@ -207,7 +257,7 @@ async function closeReport(reply) {
       },
       ...app.$defaultHeaders(),
     })
-    await updateThread()
+    await updateThreadLocal()
   } catch (err) {
     app.$notify({
       group: 'main',
@@ -233,6 +283,7 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 
   textarea {
     padding: var(--spacing-card-bg);
+    width: 100%;
   }
 
   .chips {
@@ -248,5 +299,16 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
   margin-bottom: var(--spacing-card-md);
   font-weight: bold;
   color: var(--color-heading);
+}
+
+.input-group {
+  .spacer {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  .extra-options {
+    flex-basis: fit-content;
+  }
 }
 </style>
