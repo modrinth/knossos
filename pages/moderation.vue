@@ -16,9 +16,6 @@
           <NavStackItem link="/moderation/reports" label="Reports">
             <ReportIcon />
           </NavStackItem>
-          <NavStackItem link="/moderation/legacy" label="Moderation (legacy)">
-            <ModerationIcon />
-          </NavStackItem>
         </NavStack>
       </aside>
     </div>
