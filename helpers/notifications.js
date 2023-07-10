@@ -1,6 +1,6 @@
 import { useNuxtApp } from '#app'
 
-const getBulk = async (type, ids) => {
+async function getBulk(type, ids) {
   const auth = (await useAuth()).value
   if (ids.length === 0) {
     return []
@@ -8,7 +8,7 @@ const getBulk = async (type, ids) => {
   return await useBaseFetch(`${type}?ids=${JSON.stringify([...new Set(ids)])}`, auth.headers)
 }
 
-export const fetchNotifications = async () => {
+export async function fetchNotifications() {
   try {
     const auth = (await useAuth()).value
     const notifications = await useBaseFetch(`user/${auth.user.id}/notifications`, auth.headers)
@@ -119,7 +119,7 @@ export const fetchNotifications = async () => {
   return null
 }
 
-export const groupNotifications = (notifications, includeRead = false) => {
+export function groupNotifications(notifications, includeRead = false) {
   const grouped = []
   for (const notification of notifications.filter((notif) => includeRead || !notif.read)) {
     // Group notifications of the same thread or project id
@@ -151,4 +151,34 @@ export const groupNotifications = (notifications, includeRead = false) => {
   }
 
   return grouped
+}
+
+export async function markAsRead(ids) {
+  try {
+    const auth = (await useAuth()).value
+    await useBaseFetch(`notifications?ids=${JSON.stringify([...new Set(ids)])}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: auth.token,
+      },
+    })
+    return (notifications) => {
+      const newNotifs = notifications
+      newNotifs.forEach((notif) => {
+        if (ids.includes(notif.id)) {
+          notif.read = true
+        }
+      })
+      return newNotifs
+    }
+  } catch (err) {
+    const app = useNuxtApp()
+    app.$notify({
+      group: 'main',
+      title: 'Error marking notification as read',
+      text: err.data ? err.data.description : err,
+      type: 'error',
+    })
+    return () => {}
+  }
 }

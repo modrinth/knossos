@@ -1,5 +1,38 @@
 <template>
   <div>
+    <Modal
+      ref="modalSubmit"
+      :header="isRejected(project) ? 'Resubmit for review' : 'Submit for review'"
+    >
+      <div class="modal-submit universal-body">
+        <span>
+          You're submitting <span class="project-title">{{ project.title }}</span> to be reviewed
+          again by the moderators.
+        </span>
+        <span>
+          Make sure you have addressed the comments from the moderation team.
+          <span class="known-errors">
+            Repeated submissions without addressing the moderators' comments may result in an
+            account suspension.
+          </span>
+        </span>
+        <Checkbox
+          v-model="submissionConfirmation"
+          description="Confirm I have addressed the messages from the moderators"
+        >
+          I confirm that I have properly addressed the moderators' comments.
+        </Checkbox>
+        <div class="input-group push-right">
+          <button
+            class="iconified-button moderation-button"
+            :disabled="!submissionConfirmation"
+            @click="resubmit()"
+          >
+            <ModerationIcon /> Resubmit for review
+          </button>
+        </div>
+      </div>
+    </Modal>
     <div v-if="$cosmetics.developerMode" class="thread-id">
       Thread ID: <CopyCode :text="thread.id" />
     </div>
@@ -44,6 +77,24 @@
         >
           <SendIcon /> Send
         </button>
+        <template v-if="currentMember && !isStaff($auth.user)">
+          <template v-if="isRejected(project)">
+            <button
+              v-if="replyBody"
+              class="iconified-button moderation-button"
+              @click="openResubmitModal(true)"
+            >
+              <ModerationIcon /> Resubmit for review with reply
+            </button>
+            <button
+              v-else
+              class="iconified-button moderation-button"
+              @click="openResubmitModal(false)"
+            >
+              <ModerationIcon /> Resubmit for review
+            </button>
+          </template>
+        </template>
         <div class="spacer"></div>
         <div class="input-group extra-options">
           <template v-if="report">
@@ -72,6 +123,7 @@
               <button
                 v-else
                 class="iconified-button brand-button"
+                :disabled="isApproved(project)"
                 @click="setStatus(requestedStatus)"
               >
                 <CheckIcon /> Approve project
@@ -79,6 +131,7 @@
               <button
                 v-if="replyBody"
                 class="iconified-button moderation-button"
+                :disabled="project.status === 'withheld'"
                 @click="sendReply('withheld')"
               >
                 <EyeOffIcon /> Withhold with reply
@@ -86,6 +139,7 @@
               <button
                 v-else
                 class="iconified-button moderation-button"
+                :disabled="project.status === 'withheld'"
                 @click="setStatus('withheld')"
               >
                 <EyeOffIcon /> Withhold project
@@ -93,39 +147,19 @@
               <button
                 v-if="replyBody"
                 class="iconified-button danger-button"
+                :disabled="project.status === 'rejected'"
                 @click="sendReply('rejected')"
               >
                 <CrossIcon /> Reject with reply
               </button>
-              <button v-else class="iconified-button danger-button" @click="setStatus('rejected')">
+              <button
+                v-else
+                class="iconified-button danger-button"
+                :disabled="project.status === 'rejected'"
+                @click="setStatus('rejected')"
+              >
                 <CrossIcon /> Reject project
               </button>
-            </template>
-            <template v-if="currentMember">
-              <template v-if="isRejected(project)">
-                <button
-                  v-if="replyBody"
-                  class="iconified-button moderation-button"
-                  @click="sendReply('processing')"
-                >
-                  <ModerationIcon /> Resubmit for review with reply
-                </button>
-                <button
-                  v-else
-                  class="iconified-button moderation-button"
-                  @click="setStatus('processing')"
-                >
-                  <ModerationIcon /> Resubmit for review
-                </button>
-              </template>
-              <template v-if="isUnderReview(project)">
-                <button v-if="replyBody" class="iconified-button" @click="sendReply('draft')">
-                  <ModerationIcon /> Convert to draft with reply
-                </button>
-                <button v-else class="iconified-button" @click="setStatus('draft')">
-                  <ModerationIcon /> Convert to draft
-                </button>
-              </template>
             </template>
           </template>
         </div>
@@ -147,7 +181,9 @@ import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 import { isStaff } from '~/helpers/users.js'
-import { isDraft, isRejected, isUnderReview } from '~/helpers/projects'
+import { isApproved, isRejected, isUnderReview } from '~/helpers/projects.js'
+import Modal from '~/components/ui/Modal.vue'
+import Checkbox from '~/components/ui/Checkbox.vue'
 
 const props = defineProps({
   thread: {
@@ -202,6 +238,8 @@ const sortedMessages = computed(() => {
   }
   return []
 })
+
+const modalSubmit = ref(null)
 
 async function updateThreadLocal() {
   let threadId = null
@@ -268,6 +306,24 @@ async function closeReport(reply) {
   }
 }
 
+const replyWithSubmission = ref(false)
+const submissionConfirmation = ref(false)
+
+function openResubmitModal(reply) {
+  submissionConfirmation.value = false
+  replyWithSubmission.value = reply
+  modalSubmit.value.show()
+}
+
+async function resubmit() {
+  if (replyWithSubmission.value) {
+    await sendReply('processing')
+  } else {
+    await props.setStatus('processing')
+  }
+  modalSubmit.value.hide()
+}
+
 const requestedStatus = computed(() => props.project.requested_status ?? 'approved')
 </script>
 
@@ -309,6 +365,17 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 
   .extra-options {
     flex-basis: fit-content;
+  }
+}
+
+.modal-submit {
+  padding: var(--spacing-card-bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card-lg);
+
+  .project-title {
+    font-weight: bold;
   }
 }
 </style>

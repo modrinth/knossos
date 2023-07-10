@@ -77,17 +77,6 @@
           />{{ nag.title }}</span
         >
         {{ nag.description }}
-        <Checkbox
-          v-if="
-            nag.status === 'review' &&
-            project.moderator_message &&
-            $tag.rejectedStatuses.includes(project.status)
-          "
-          v-model="acknowledgedMessage"
-          description="Acknowledge staff message in sidebar"
-        >
-          I acknowledge that I have addressed the messages from the moderators.
-        </Checkbox>
         <NuxtLink
           v-if="nag.link"
           :class="{ invisible: nag.link.hide }"
@@ -122,12 +111,10 @@ import RequiredIcon from '~/assets/images/utils/asterisk.svg'
 import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams'
+import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 
 export default {
   components: {
-    Checkbox,
     ChevronRightIcon,
     DropdownIcon,
     CheckIcon,
@@ -207,11 +194,6 @@ export default {
         }
       },
     },
-  },
-  data() {
-    return {
-      acknowledgedMessage: false,
-    }
   },
   computed: {
     featuredGalleryImage() {
@@ -360,13 +342,10 @@ export default {
             Modrinth's staff. In most cases, you can resubmit for review after
             addressing the staff's message.`,
           status: 'review',
-          link: null,
-          action: {
-            onClick: this.submitForReview,
-            title: 'Resubmit for review',
-            disabled: () =>
-              (this.project.moderator_message && !this.acknowledgedMessage) ||
-              this.nags.filter((x) => x.condition && x.status === 'required').length > 0,
+          link: {
+            path: 'moderation',
+            title: 'Visit moderation page',
+            hide: this.routeName === 'type-id-moderation',
           },
         },
       ]

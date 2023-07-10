@@ -109,7 +109,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import HistoryIcon from '~/assets/images/utils/history.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import { fetchNotifications, groupNotifications } from '~/helpers/notifications'
+import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'
 
 useHead({
   title: 'Dashboard - Modrinth',

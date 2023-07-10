@@ -157,7 +157,7 @@
           @click="
             () => {
               acceptTeamInvite(notification.body.team_id)
-              markAsRead()
+              read()
             }
           "
         >
@@ -169,7 +169,7 @@
           @click="
             () => {
               removeSelfFromTeam(notification.body.team_id)
-              markAsRead()
+              read()
             }
           "
         >
@@ -180,7 +180,7 @@
         v-else-if="!notification.read"
         v-tooltip="`Mark as read`"
         class="iconified-button square-button button-transparent"
-        @click="markAsRead()"
+        @click="read()"
       >
         <CrossIcon />
       </button>
@@ -193,7 +193,7 @@
             @click="
               () => {
                 acceptTeamInvite(notification.body.team_id)
-                markAsRead()
+                read()
               }
             "
           >
@@ -204,7 +204,7 @@
             @click="
               () => {
                 removeSelfFromTeam(notification.body.team_id)
-                markAsRead()
+                read()
               }
             "
           >
@@ -215,7 +215,7 @@
           v-else-if="!notification.read"
           class="iconified-button"
           :class="{ 'raised-button': raised }"
-          @click="markAsRead()"
+          @click="read()"
         >
           <CheckIcon /> Mark as read
         </button>
@@ -268,10 +268,11 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import ExternalIcon from '~/assets/images/utils/external.svg'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
-import { getProjectLink, getVersionLink } from '~/helpers/projects'
-import { getUserLink } from '~/helpers/users'
-import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams'
-import { renderString } from '~/helpers/parse'
+import { getProjectLink, getVersionLink } from '~/helpers/projects.js'
+import { getUserLink } from '~/helpers/users.js'
+import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
+import { markAsRead } from '~/helpers/notifications.js'
+import { renderString } from '~/helpers/parse.js'
 import DoubleIcon from '~/components/ui/DoubleIcon.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
@@ -323,7 +324,7 @@ const threadLink = computed(() => {
 
 const hasBody = computed(() => !type.value || thread.value || type.value === 'project_update')
 
-async function markAsRead() {
+async function read() {
   try {
     const ids = [
       props.notification.id,
@@ -331,18 +332,8 @@ async function markAsRead() {
         ? props.notification.grouped_notifs.map((notif) => notif.id)
         : []),
     ]
-    await useBaseFetch(`notifications?ids=${JSON.stringify([...new Set(ids)])}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: app.$auth.token,
-      },
-    })
-    const newNotifs = props.notifications
-    newNotifs.forEach((notif) => {
-      if (ids.includes(notif.id)) {
-        notif.read = true
-      }
-    })
+    const updateNotifs = await markAsRead(ids)
+    const newNotifs = updateNotifs(props.notifications)
     emit('update:notifications', newNotifs)
   } catch (err) {
     app.$notify({
@@ -357,7 +348,7 @@ async function markAsRead() {
 async function performAction(notification, actionIndex) {
   startLoading()
   try {
-    await markAsRead()
+    await read()
 
     await userDeleteNotification(notification.id)
 

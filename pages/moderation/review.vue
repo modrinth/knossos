@@ -16,67 +16,53 @@
         </button>
       </div>
       <p v-if="projectType !== 'all'" class="project-count">
-        Showing
-        {{
-          projects.filter(
-            (x) =>
-              projectType === 'all' ||
-              app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType
-          ).length
-        }}
-        {{ ($formatProjectType(projectType) + 's').toLowerCase() }}
-        of {{ projects.length }} total projects in the queue.
+        Showing {{ projectsFiltered.length }} {{ projectTypePlural }} of {{ projects.length }} total
+        projects in the queue.
       </p>
       <p v-else class="project-count">There are {{ projects.length }} projects in the queue.</p>
-      <p class="warning project-count">
-        <WarningIcon />
-        {{
-          projectsOver24Hours.filter(
-            (x) =>
-              projectType === 'all' ||
-              app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType
-          ).length
-        }}
-        {{
-          projectType === 'all' ? 'projects' : ($formatProjectType(projectType) + 's').toLowerCase()
-        }}
+      <p v-if="projectsOver24Hours.length > 0" class="warning project-count">
+        <WarningIcon /> {{ projectsOver24Hours.length }} {{ projectTypePlural }}
         have been in the queue for over 24 hours.
       </p>
+      <p v-if="projectsOver48Hours.length > 0" class="danger project-count">
+        <WarningIcon /> {{ projectsOver48Hours.length }} {{ projectTypePlural }}
+        have been in the queue for over 48 hours.
+      </p>
       <div
-        v-for="project in projects
-          .sort((a, b) => {
-            if (oldestFirst) {
-              return b.age - a.age
-            } else {
-              return a.age - b.age
-            }
-          })
-          .filter(
-            (x) =>
-              projectType === 'all' ||
-              app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType
-          )"
+        v-for="project in projectsFiltered.sort((a, b) => {
+          if (oldestFirst) {
+            return b.age - a.age
+          } else {
+            return a.age - b.age
+          }
+        })"
         :key="`project-${project.id}`"
         class="universal-card recessed project"
       >
         <div class="project-title">
-          <nuxt-link
-            :to="`/${project.inferred_project_type}/${project.slug}`"
-            class="iconified-stacked-link"
-          >
-            <Avatar :src="project.icon_url" size="xs" no-shadow raised />
-            <span class="stacked">
-              <span class="title">{{ project.title }}</span>
-              <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
-            </span>
-          </nuxt-link>
-          by
-          <nuxt-link :to="`/user/${project.owner.username}`" class="iconified-link">
-            <Avatar :src="project.owner.avatar_url" circle size="xxs" raised />
-            <span>{{ project.owner.username }}</span>
-          </nuxt-link>
-          is requesting to be
-          <Badge :type="project.requested_status ? project.requested_status : 'approved'" />
+          <div class="mobile-row">
+            <nuxt-link
+              :to="`/${project.inferred_project_type}/${project.slug}`"
+              class="iconified-stacked-link"
+            >
+              <Avatar :src="project.icon_url" size="xs" no-shadow raised />
+              <span class="stacked">
+                <span class="title">{{ project.title }}</span>
+                <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
+              </span>
+            </nuxt-link>
+          </div>
+          <div class="mobile-row">
+            by
+            <nuxt-link :to="`/user/${project.owner.username}`" class="iconified-link">
+              <Avatar :src="project.owner.avatar_url" circle size="xxs" raised />
+              <span>{{ project.owner.username }}</span>
+            </nuxt-link>
+          </div>
+          <div class="mobile-row">
+            is requesting to be
+            <Badge :type="project.requested_status ? project.requested_status : 'approved'" />
+          </div>
         </div>
         <div class="input-group">
           <nuxt-link
@@ -87,7 +73,7 @@
         </div>
         <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
           <WarningIcon v-if="project.age_warning" />
-          Submitted for review
+          Submitted
           <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
             fromNow(project.queued)
           }}</span>
@@ -106,6 +92,7 @@ import SortAscIcon from '~/assets/images/utils/sort-asc.svg'
 import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
 import Badge from '~/components/ui/Badge.vue'
+import { formatProjectType } from '~/plugins/shorthands.js'
 
 useHead({
   title: 'Review projects - Modrinth',
@@ -124,7 +111,8 @@ const [rawMembers] = await Promise.all([
 ])
 
 const now = app.$dayjs()
-const time24h = 86400000
+const TIME_24H = 86400000
+const TIME_48H = TIME_24H * 2
 
 rawProjects.map((project) => {
   project.owner = rawMembers
@@ -132,9 +120,9 @@ rawProjects.map((project) => {
     .find((x) => x.team_id === project.team && x.role === 'Owner').user
   project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
   project.age_warning = ''
-  if (project.age > time24h * 2) {
+  if (project.age > TIME_24H * 2) {
     project.age_warning = 'danger'
-  } else if (project.age > time24h) {
+  } else if (project.age > TIME_24H) {
     project.age_warning = 'warning'
   }
   project.inferred_project_type = app.$getProjectTypeForUrl(project.project_type, project.loaders)
@@ -152,11 +140,29 @@ const projectTypes = computed(() => {
   return [...set]
 })
 
-const projectsOver24Hours = computed(() => rawProjects.filter((project) => project.age > time24h))
-
 const projects = ref(rawProjects)
 const projectType = ref('all')
 const oldestFirst = ref(true)
+
+const projectsFiltered = computed(() =>
+  projects.value.filter(
+    (x) =>
+      projectType.value === 'all' ||
+      app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType.value
+  )
+)
+
+const projectsOver24Hours = computed(() =>
+  projectsFiltered.value.filter((project) => project.age >= TIME_24H && project.age < TIME_48H)
+)
+const projectsOver48Hours = computed(() =>
+  projectsFiltered.value.filter((project) => project.age >= TIME_48H)
+)
+const projectTypePlural = computed(() =>
+  projectType.value === 'all'
+    ? 'projects'
+    : (formatProjectType(projectType.value) + 's').toLowerCase()
+)
 </script>
 <style lang="scss" scoped>
 .project {
@@ -204,6 +210,24 @@ const oldestFirst = ref(true)
   display: flex;
   gap: var(--spacing-card-xs);
   align-items: center;
+  flex-wrap: wrap;
+
+  .mobile-row {
+    display: contents;
+  }
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .mobile-row {
+      display: flex;
+      flex-direction: row;
+      gap: var(--spacing-card-xs);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  }
 }
 
 :deep(.avatar) {
