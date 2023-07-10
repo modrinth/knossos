@@ -20,26 +20,27 @@
           </Button>
         </template>
       </div>
-      <template v-if="notifications.length > 0">
-        <Chips
-          v-model="selectedType"
-          :items="notifTypes"
-          :format-label="
-            (x) => (x === 'all' ? 'All' : $formatProjectType(x).replace('_', ' ') + 's')
-          "
-          :capitalize="false"
-        />
-        <NotificationItem
-          v-for="notification in notifications"
-          :key="notification.id"
-          v-model:notifications="allNotifs"
-          class="universal-card recessed"
-          :notification="notification"
-          raised
-        />
-      </template>
-      <p v-else-if="error" class="known-errors">Failed to load notifications.</p>
-      <p v-else>You don't have any unread notifications.</p>
+      <LoadingComponent :loading="loading" :error="error">
+        <template v-if="notifications.length > 0">
+          <Chips
+            v-model="selectedType"
+            :items="notifTypes"
+            :format-label="
+              (x) => (x === 'all' ? 'All' : $formatProjectType(x).replace('_', ' ') + 's')
+            "
+            :capitalize="false"
+          />
+          <NotificationItem
+            v-for="notification in notifications"
+            :key="notification.id"
+            v-model:notifications="allNotifs"
+            class="universal-card recessed"
+            :notification="notification"
+            raised
+          />
+        </template>
+        <p v-else>You don't have any unread notifications.</p>
+      </LoadingComponent>
     </section>
   </div>
 </template>
@@ -50,6 +51,7 @@ import NotificationItem from '~/components/ui/NotificationItem.vue'
 import Chips from '~/components/ui/Chips.vue'
 import CheckCheckIcon from '~/assets/images/utils/check-check.svg'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import LoadingComponent from '~/components/ui/LoadingComponent.vue'
 
 useHead({
   title: 'Notifications - Modrinth',
@@ -62,7 +64,10 @@ const history = computed(() => {
   return route.name === 'dashboard-notifications-history'
 })
 
-const allNotifs = ref(await fetchNotifications())
+const loading = ref(true)
+const error = computed(() => (allNotifs.value === null ? 'Failed to load notifications' : null))
+
+const allNotifs = ref(null)
 
 const notifTypes = computed(() => {
   if (allNotifs.value === null) {
@@ -71,6 +76,7 @@ const notifTypes = computed(() => {
   const types = [...new Set(allNotifs.value.map((notif) => notif.type))]
   return types.length > 1 ? ['all', ...types] : types
 })
+
 const notifications = computed(() => {
   if (allNotifs.value === null) {
     return []
@@ -81,9 +87,37 @@ const notifications = computed(() => {
   )
 })
 
-const error = computed(() => allNotifs.value === null)
-
 const selectedType = ref('all')
+
+onMounted(() => {
+  fetchData()
+})
+
+const fetchData = async () => {
+  try {
+    await fetchNotifications().then((result) => {
+      allNotifs.value = result
+      loading.value = false
+    })
+  } catch (err) {
+    onError(err)
+  }
+  loading.value = false
+}
+
+const onError = (err) => {
+  loading.value = false
+  error.value = (
+    err.data ? (err.data.description ? err.data.description : err.data) : err
+  ).toString()
+  app.$notify({
+    group: 'main',
+    title: 'Error loading reports',
+    text: error.value,
+    type: 'error',
+  })
+  console.error(err)
+}
 
 function updateRoute() {
   if (history.value) {
