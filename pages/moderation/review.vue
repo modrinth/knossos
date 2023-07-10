@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <section class="universal-card">
-      <h2>Project queue</h2>
+  <section class="universal-card">
+    <h2>Review projects</h2>
+    <LoadingComponent :loading="loading" :error="error">
       <div class="input-group">
         <Chips
           v-model="projectType"
@@ -80,8 +80,8 @@
         </span>
         <span v-else class="submitter-info"><UnknownIcon /> Unknown queue date</span>
       </div>
-    </section>
-  </div>
+    </LoadingComponent>
+  </section>
 </template>
 <script setup>
 import Chips from '~/components/ui/Chips.vue'
@@ -93,6 +93,7 @@ import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
 import Badge from '~/components/ui/Badge.vue'
 import { formatProjectType } from '~/plugins/shorthands.js'
+import LoadingComponent from '~/components/ui/LoadingComponent.vue'
 
 useHead({
   title: 'Review projects - Modrinth',
@@ -100,47 +101,15 @@ useHead({
 
 const app = useNuxtApp()
 
-const [rawProjects] = await Promise.all([
-  useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders()),
-])
-
-const teamIds = rawProjects.map((x) => x.team)
-
-const [rawMembers] = await Promise.all([
-  useBaseFetch('teams?ids=' + JSON.stringify(teamIds), app.$defaultHeaders()),
-])
-
 const now = app.$dayjs()
 const TIME_24H = 86400000
 const TIME_48H = TIME_24H * 2
 
-rawProjects.map((project) => {
-  project.owner = rawMembers
-    .flat()
-    .find((x) => x.team_id === project.team && x.role === 'Owner').user
-  project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
-  project.age_warning = ''
-  if (project.age > TIME_24H * 2) {
-    project.age_warning = 'danger'
-  } else if (project.age > TIME_24H) {
-    project.age_warning = 'warning'
-  }
-  project.inferred_project_type = app.$getProjectTypeForUrl(project.project_type, project.loaders)
-  return project
-})
+const loading = ref(true)
+const error = ref(null)
 
-const projectTypes = computed(() => {
-  const set = new Set()
-  set.add('all')
-
-  for (const project of rawProjects) {
-    set.add(project.inferred_project_type)
-  }
-
-  return [...set]
-})
-
-const projects = ref(rawProjects)
+const projects = ref([])
+const members = ref([])
 const projectType = ref('all')
 const oldestFirst = ref(true)
 
@@ -163,6 +132,75 @@ const projectTypePlural = computed(() =>
     ? 'projects'
     : (formatProjectType(projectType.value) + 's').toLowerCase()
 )
+
+const projectTypes = computed(() => {
+  const set = new Set()
+  set.add('all')
+
+  if (projects.value) {
+    for (const project of projects.value) {
+      set.add(project.inferred_project_type)
+    }
+  }
+
+  return [...set]
+})
+
+onMounted(() => {
+  fetchData()
+})
+
+const fetchData = async () => {
+  try {
+    await useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders()).then((result) => {
+      projects.value = result
+    })
+
+    if (projects.value) {
+      const teamIds = projects.value.map((x) => x.team)
+
+      await useBaseFetch('teams?ids=' + JSON.stringify(teamIds), app.$defaultHeaders()).then(
+        (result) => {
+          members.value = result
+
+          projects.value = projects.value.map((project) => {
+            project.owner = members.value
+              .flat()
+              .find((x) => x.team_id === project.team && x.role === 'Owner').user
+            project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
+            project.age_warning = ''
+            if (project.age > TIME_24H * 2) {
+              project.age_warning = 'danger'
+            } else if (project.age > TIME_24H) {
+              project.age_warning = 'warning'
+            }
+            project.inferred_project_type = app.$getProjectTypeForUrl(
+              project.project_type,
+              project.loaders
+            )
+            return project
+          })
+        }
+      )
+    }
+  } catch (err) {
+    onError(err)
+  }
+  loading.value = false
+}
+
+const onError = (err) => {
+  error.value = (
+    err.data ? (err.data.description ? err.data.description : err.data) : err
+  ).toString()
+  app.$notify({
+    group: 'main',
+    title: 'Error loading project queue',
+    text: error.value,
+    type: 'error',
+  })
+  console.error(err)
+}
 </script>
 <style lang="scss" scoped>
 .project {

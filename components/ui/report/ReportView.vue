@@ -3,13 +3,15 @@
     <section class="universal-card">
       <Breadcrumbs
         v-if="breadcrumbsStack"
-        :current-title="`Report ${report.id}`"
+        :current-title="`Report ${reportId}`"
         :link-stack="breadcrumbsStack"
       />
       <h2>Report details</h2>
-      <ReportInfo :report="report" :show-thread="false" :show-message="false" />
+      <LoadingComponent :error="error" :loading="loading">
+        <ReportInfo :report="report" :show-thread="false" :show-message="false" />
+      </LoadingComponent>
     </section>
-    <section class="universal-card">
+    <section v-if="!loading && !error" class="universal-card">
       <h2>Messages</h2>
       <ConversationThread :thread="thread" :report="report" :update-thread="updateThread" />
     </section>
@@ -19,6 +21,8 @@
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import ReportInfo from '~/components/ui/report/ReportInfo.vue'
+import LoadingComponent from '~/components/ui/LoadingComponent.vue'
+import { addReportMessage } from '~/helpers/threads.js'
 
 const props = defineProps({
   reportId: {
@@ -33,14 +37,47 @@ const props = defineProps({
 
 const app = useNuxtApp()
 
-const report = ref(await fetchReport())
+const loading = ref(true)
+const error = ref(null)
 
-const rawThread = await useBaseFetch(`thread/${report.value.thread_id}`, app.$defaultHeaders())
-const rawThreadRef = ref(rawThread)
-const thread = computed(() => app.$threadWithReportMessage(rawThreadRef.value, report.value))
+const report = ref(null)
+const rawThread = ref(null)
+const thread = computed(() => addReportMessage(rawThread.value, report.value))
+
+onMounted(() => {
+  fetchData()
+})
+
+const fetchData = async () => {
+  try {
+    await fetchReport().then((result) => {
+      report.value = result
+    })
+
+    await useBaseFetch(`thread/${report.value.thread_id}`, app.$defaultHeaders()).then((result) => {
+      rawThread.value = result
+    })
+  } catch (err) {
+    onError(err)
+  }
+  loading.value = false
+}
+
+const onError = (err) => {
+  error.value = (
+    err.data ? (err.data.description ? err.data.description : err.data) : err
+  ).toString()
+  app.$notify({
+    group: 'main',
+    title: 'Error loading report',
+    text: error.value,
+    type: 'error',
+  })
+  console.error(err)
+}
 
 async function updateThread(newThread) {
-  rawThreadRef.value = newThread
+  rawThread.value = newThread
   report.value = await fetchReport()
 }
 

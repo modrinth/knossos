@@ -97,7 +97,6 @@ const fetchData = async () => {
   try {
     await fetchNotifications().then((result) => {
       allNotifs.value = result
-      loading.value = false
     })
   } catch (err) {
     onError(err)
@@ -106,13 +105,12 @@ const fetchData = async () => {
 }
 
 const onError = (err) => {
-  loading.value = false
   error.value = (
     err.data ? (err.data.description ? err.data.description : err.data) : err
   ).toString()
   app.$notify({
     group: 'main',
-    title: 'Error loading reports',
+    title: 'Error loading notifications',
     text: error.value,
     type: 'error',
   })

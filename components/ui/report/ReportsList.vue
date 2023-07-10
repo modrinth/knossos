@@ -20,6 +20,7 @@
 import Chips from '~/components/ui/Chips.vue'
 import ReportInfo from '~/components/ui/report/ReportInfo.vue'
 import LoadingComponent from '~/components/ui/LoadingComponent.vue'
+import { addReportMessage } from '~/helpers/threads'
 
 defineProps({
   moderation: {
@@ -88,7 +89,7 @@ const fetchData = async () => {
         report.project = projects.find((project) => project.id === report.version.project_id)
       }
       if (report.thread_id) {
-        report.thread = app.$threadWithReportMessage(
+        report.thread = addReportMessage(
           threads.find((thread) => report.thread_id === thread.id),
           report
         )

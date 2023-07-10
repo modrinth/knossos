@@ -21,7 +21,7 @@ defineProps({
     required: true,
   },
   error: {
-    type: String,
+    type: null,
     required: true,
   },
 })
@@ -34,6 +34,7 @@ defineProps({
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-card-md);
+  padding-block: 2rem;
 
   p {
     margin: 0;
