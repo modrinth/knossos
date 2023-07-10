@@ -1,4 +1,5 @@
 import { useNuxtApp } from '#app'
+import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
   const auth = (await useAuth()).value
@@ -162,6 +163,7 @@ export async function markAsRead(ids) {
         Authorization: auth.token,
       },
     })
+    await userReadNotifications(ids)
     return (notifications) => {
       const newNotifs = notifications
       newNotifs.forEach((notif) => {

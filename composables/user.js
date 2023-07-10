@@ -115,3 +115,14 @@ export const userDeleteNotifications = async (ids) => {
 
   user.notifications = user.notifications.filter((x) => !ids.includes(x.id))
 }
+
+export const userReadNotifications = async (ids) => {
+  const user = (await useUser()).value
+
+  user.notifications = user.notifications.map((x) => {
+    if (ids.includes(x.id)) {
+      x.read = true
+    }
+    return x
+  })
+}

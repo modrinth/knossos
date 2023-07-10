@@ -142,16 +142,6 @@ const formattedMessage = computed(() => {
 
 const formatRelativeTime = useRelativeTime()
 const timeSincePosted = ref(formatRelativeTime(props.message.created))
-
-let interval
-
-onMounted(() => {
-  interval = setInterval(() => {
-    timeSincePosted.value = formatRelativeTime(props.message.created)
-  }, 1000)
-})
-
-onUnmounted(() => clearInterval(interval))
 </script>
 
 <style lang="scss" scoped>

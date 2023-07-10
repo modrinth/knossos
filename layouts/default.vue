@@ -17,7 +17,7 @@
                 v-if="auth.user"
                 to="/dashboard/notifications"
                 class="control-button button-transparent"
-                :class="{ bubble: user.notifications.length > 0 }"
+                :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
