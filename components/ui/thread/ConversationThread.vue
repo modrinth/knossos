@@ -181,7 +181,7 @@ import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 import { isStaff } from '~/helpers/users.js'
-import { isApproved, isRejected, isUnderReview } from '~/helpers/projects.js'
+import { isApproved, isRejected } from '~/helpers/projects.js'
 import Modal from '~/components/ui/Modal.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 

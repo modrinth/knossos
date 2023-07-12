@@ -58,6 +58,7 @@ const onError = (err) => {
 }
 
 function getLink(thread) {
+  console.log(thread)
   return '#'
 }
 </script>

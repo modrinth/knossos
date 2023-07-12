@@ -20,7 +20,7 @@
 import Chips from '~/components/ui/Chips.vue'
 import ReportInfo from '~/components/ui/report/ReportInfo.vue'
 import LoadingComponent from '~/components/ui/LoadingComponent.vue'
-import { addReportMessage } from '~/helpers/threads'
+import { addReportMessage } from '~/helpers/threads.js'
 
 defineProps({
   moderation: {

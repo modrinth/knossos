@@ -97,9 +97,7 @@ import {
   isPrivate,
   isRejected,
   isUnderReview,
-  isUnlisted,
 } from '~/helpers/projects.js'
-import IssuesIcon from 'assets/images/utils/issues.svg'
 import ExitIcon from 'assets/images/utils/x.svg'
 import CheckIcon from 'assets/images/utils/check.svg'
 
