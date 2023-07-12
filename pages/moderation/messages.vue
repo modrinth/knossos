@@ -58,8 +58,12 @@ const onError = (err) => {
 }
 
 function getLink(thread) {
-  console.log(thread)
-  return '#'
+  if (thread.report_id) {
+    return `/moderation/report/${thread.report_id}`
+  } else if (thread.project_id) {
+    return `/project/${thread.project_id}/moderation`
+  }
+  return null
 }
 </script>
 <style lang="scss" scoped>
