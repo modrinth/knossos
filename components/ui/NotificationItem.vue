@@ -109,7 +109,9 @@
       />
       <div v-else-if="type === 'project_update'" class="version-list">
         <div
-          v-for="notif in [notification, ...notification.grouped_notifs]"
+          v-for="notif in notification.grouped_notifs
+            ? [notification, ...notification.grouped_notifs]
+            : notification"
           :key="notif.id"
           class="version-link"
         >
