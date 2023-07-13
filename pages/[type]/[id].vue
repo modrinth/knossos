@@ -94,7 +94,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <ProjectPublishingChecklist
+      <ProjectMemberHeader
         v-if="currentMember"
         :project="project"
         :versions="versions"
@@ -410,7 +410,7 @@
         </div>
       </div>
       <section class="normal-page__content">
-        <ProjectPublishingChecklist
+        <ProjectMemberHeader
           v-if="currentMember"
           :project="project"
           :versions="versions"
@@ -783,13 +783,12 @@ import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 import Modal from '~/components/ui/Modal.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
-import ModalModeration from '~/components/ui/ModalModeration.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
-import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist.vue'
+import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UsersIcon from '~/assets/images/utils/users.svg'
 import CategoriesIcon from '~/assets/images/utils/tags.svg'
