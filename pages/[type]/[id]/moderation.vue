@@ -61,35 +61,20 @@
         for issues concerning your project on Modrinth, and you are welcome to message them about
         things concerning your project.
       </p>
-      <template v-if="thread">
-        <ConversationThread
-          v-if="thread"
-          :thread="thread"
-          :update-thread="(newThread) => (thread = newThread)"
-          :project="project"
-          :set-status="setStatus"
-          :current-member="currentMember"
-        />
-      </template>
-      <div v-else class="known-errors unavailable-error">
-        <WarningIcon /> Messages are currently not available on this project.
-        <span v-if="config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com')">
-          This is expected on staging because the database has not been fully migrated, please make
-          a new project to try message threads.
-        </span>
-        <span v-else>
-          If you're seeing this, please report this as an issue including your project's ID:
-          <CopyCode :text="project.id" />
-        </span>
-      </div>
+      <ConversationThread
+        v-if="thread"
+        :thread="thread"
+        :update-thread="(newThread) => (thread = newThread)"
+        :project="project"
+        :set-status="setStatus"
+        :current-member="currentMember"
+      />
     </section>
   </div>
 </template>
 <script setup>
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import Badge from '~/components/ui/Badge.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import WarningIcon from '~/assets/images/utils/issues.svg'
 import {
   getProjectLink,
   isApproved,
@@ -119,7 +104,6 @@ const props = defineProps({
 const emit = defineEmits(['update:project'])
 
 const app = useNuxtApp()
-const config = useRuntimeConfig()
 
 let rawThread = null
 
