@@ -26,7 +26,7 @@
     <input id="password" v-model="password" type="password" placeholder="Password" />
     <div class="account-options">
       <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
-      <nuxt-link class="text-link" to="/auth/sign-up">Forgot password?</nuxt-link>
+      <nuxt-link class="text-link" to="/auth/reset-password">Forgot password?</nuxt-link>
     </div>
     <button class="btn btn-primary continue-btn" @click="loginPassword()">
       Continue <RightArrowIcon />
@@ -55,6 +55,7 @@ const password = ref('')
 const token = ref('')
 
 async function loginPassword() {
+  startLoading()
   try {
     const res = await useBaseFetch('auth/login', {
       method: 'POST',
@@ -77,6 +78,7 @@ async function loginPassword() {
     })
     turnstile.value?.reset()
   }
+  stopLoading()
 }
 </script>
 <style lang="scss" scoped>

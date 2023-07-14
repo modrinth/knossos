@@ -19,8 +19,6 @@ useHead({
   title: 'Moderation inbox - Modrinth',
 })
 
-const app = useNuxtApp()
-
 const inbox = ref([])
 
 await useBaseFetch('thread/inbox').then((result) => (inbox.value = result))

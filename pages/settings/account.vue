@@ -9,54 +9,93 @@
       :has-to-type="true"
       @proceed="deleteAccount"
     />
-
-    <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
-      <div class="modal-revoke-token markdown-body">
-        <p>
-          Revoking your Modrinth token can have unintended consequences. Please be aware that the
-          following could break:
-        </p>
-        <ul>
-          <li>Any application that uses your token to access the API.</li>
-          <li>Gradle - if Minotaur is given a incorrect token, your Gradle builds could fail.</li>
-          <li>
-            GitHub - if you use a GitHub action that uses the Modrinth API, it will cause errors.
-          </li>
-        </ul>
-        <p>If you are willing to continue, complete the following steps:</p>
-        <ol>
-          <li>
-            <a
-              href="https://github.com/settings/connections/applications/3acffb2e808d16d4b226"
-              target="_blank"
-              rel="noopener"
-            >
-              Head to the Modrinth Application page on GitHub.
-            </a>
-            Make sure to be logged into the GitHub account you used for Modrinth!
-          </li>
-          <li>Press the big red "Revoke Access" button next to the "Permissions" header.</li>
-        </ol>
-        <p>Once you have completed those steps, press the continue button below.</p>
-        <p>
-          <strong>
-            This will log you out of Modrinth, however, when you log back in, your token will be
-            regenerated.
-          </strong>
-        </p>
-        <div class="button-group">
-          <button class="iconified-button" @click="$refs.modal_revoke_token.hide()">
-            <CrossIcon />
+    <Modal ref="changeEmailModal" :header="`${auth.user.email ? 'Change' : 'Add'} email`">
+      <div class="universal-modal">
+        <p>Your account information is not displayed publicly.</p>
+        <label for="email-input"><span class="label__title">Email address</span> </label>
+        <input
+          id="email-input"
+          v-model="email"
+          maxlength="2048"
+          type="email"
+          :placeholder="`Enter your email address...`"
+        />
+        <div class="input-group push-right">
+          <button class="iconified-button" @click="$refs.changeEmailModal.hide()">
+            <XIcon />
             Cancel
           </button>
-          <button class="iconified-button brand-button" @click="logout">
-            <RightArrowIcon />
-            Log out
+          <button
+            type="button"
+            class="iconified-button brand-button"
+            :disabled="!email"
+            @click="saveEmail()"
+          >
+            <SaveIcon />
+            Save email
           </button>
         </div>
       </div>
     </Modal>
-
+    <Modal
+      ref="managePasswordModal"
+      :header="`${auth.user.has_password ? 'Change' : 'Add'} password`"
+    >
+      <div class="universal-modal">
+        <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
+          <li>Input passwords do not match!</li>
+        </ul>
+        <label for="old-password"><span class="label__title">Old password</span></label>
+        <input
+          id="old-password"
+          v-model="oldPassword"
+          maxlength="2048"
+          type="password"
+          placeholder="Old password"
+        />
+        <label for="new-password"><span class="label__title">New password</span></label>
+        <div class="input-group">
+          <input
+            id="new-password"
+            v-model="newPassword"
+            maxlength="2048"
+            type="password"
+            placeholder="New password"
+          />
+          <label for="confirm-new-password" hidden>Confirm new password</label>
+          <input
+            id="confirm-new-password"
+            v-model="confirmNewPassword"
+            maxlength="2048"
+            type="password"
+            placeholder="Confirm new password"
+          />
+        </div>
+        <div class="input-group push-right">
+          <button type="button" class="iconified-button">
+            <TrashIcon />
+            Remove password
+          </button>
+          <button type="button" class="iconified-button brand-button" @click="savePassword">
+            <SaveIcon />
+            Save password
+          </button>
+        </div>
+      </div>
+    </Modal>
+    <Modal
+      ref="manageTwoFactorModal"
+      :header="`${auth.user.has_totp ? 'Remove' : 'Add'} two-factor authentication`"
+    >
+      <div class="universal-modal">
+        <p>this is a test</p>
+      </div>
+    </Modal>
+    <Modal ref="manageProvidersModal" header="Manage authentication providers">
+      <div class="universal-modal">
+        <p>this is a test</p>
+      </div>
+    </Modal>
     <section class="universal-card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
@@ -66,53 +105,72 @@
     </section>
 
     <section class="universal-card">
-      <h2>Account information</h2>
-      <p>Your account information is not displayed publicly.</p>
-      <ul class="known-errors">
-        <li v-if="hasMonetizationEnabled() && !email">
-          You must have an email address set since you are enrolled in the Creator Monetization
-          Program.
-        </li>
-      </ul>
-      <label for="email-input"><span class="label__title">Email address</span> </label>
-      <input
-        id="email-input"
-        v-model="email"
-        maxlength="2048"
-        type="email"
-        :placeholder="`Enter your email address...`"
-      />
-      <div class="button-group">
-        <button
-          type="button"
-          class="iconified-button brand-button"
-          :disabled="hasMonetizationEnabled() && !email"
-          @click="saveChanges()"
-        >
-          <SaveIcon />
-          Save changes
-        </button>
-      </div>
-    </section>
+      <h2>Account security</h2>
 
-    <section class="universal-card">
-      <h2>Authorization token</h2>
-      <p>
-        Your authorization token can be used with the Modrinth API, the Minotaur Gradle plugin, and
-        other applications that interact with Modrinth's API. Be sure to keep this secret!
-      </p>
-      <div class="input-group">
-        <button type="button" class="iconified-button" value="Copy to clipboard" @click="copyToken">
-          <template v-if="copied">
-            <CheckIcon />
-            Copied token to clipboard
-          </template>
-          <template v-else> <CopyIcon />Copy token to clipboard </template>
-        </button>
-        <button type="button" class="iconified-button" @click="$refs.modal_revoke_token.show()">
-          <SlashIcon />
-          Revoke token
-        </button>
+      <div class="adjacent-input">
+        <label for="theme-selector">
+          <span class="label__title">Email</span>
+          <span class="label__description">Changes the email associated with your account.</span>
+        </label>
+        <div>
+          <button class="iconified-button" @click="$refs.changeEmailModal.show()">
+            <template v-if="auth.user.email">
+              <EditIcon />
+              Change email
+            </template>
+            <template v-else>
+              <PlusIcon />
+              Add email
+            </template>
+          </button>
+        </div>
+      </div>
+      <div class="adjacent-input">
+        <label for="theme-selector">
+          <span class="label__title">Password</span>
+          <span v-if="auth.user.has_password" class="label__description">
+            Change <template v-if="auth.user.auth_providers.length > 0">or remove</template> the
+            password used to login to your account.
+          </span>
+          <span v-else class="label__description">
+            Set a permanent password to login to your account.
+          </span>
+        </label>
+        <div>
+          <button class="iconified-button" @click="$refs.managePasswordModal.show()">
+            <KeyIcon />
+            <template v-if="auth.user.has_password"> Change password </template>
+            <template v-else> Add password </template>
+          </button>
+        </div>
+      </div>
+      <div class="adjacent-input">
+        <label for="theme-selector">
+          <span class="label__title">Two-factor authentication</span>
+          <span class="label__description">
+            Add an additional layer of security to your account during login.
+          </span>
+        </label>
+        <div>
+          <button class="iconified-button" @click="$refs.manageTwoFactorModal.show()">
+            <template v-if="auth.user.has_totp"> <TrashIcon /> Remove 2FA </template>
+            <template v-else> <PlusIcon /> Add 2FA </template>
+          </button>
+        </div>
+      </div>
+      <div class="adjacent-input">
+        <label for="theme-selector">
+          <span class="label__title">Manage authentication providers</span>
+          <span class="label__description">
+            Add or remove sign-on methods from your account, including GitHub, GitLab, Microsoft,
+            Discord, Steam, and Google.
+          </span>
+        </label>
+        <div>
+          <button class="iconified-button" @click="$refs.manageProvidersModal.show()">
+            <SettingsIcon /> Manage providers
+          </button>
+        </div>
       </div>
     </section>
 
@@ -134,126 +192,100 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { EditIcon, UserIcon, SaveIcon, TrashIcon, PlusIcon, SettingsIcon, XIcon } from 'omorphia'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import Modal from '~/components/ui/Modal.vue'
+import KeyIcon from '~/assets/images/utils/key.svg'
 
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import CopyIcon from '~/assets/images/utils/clipboard-copy.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import SlashIcon from '~/assets/images/utils/slash.svg'
-
-export default defineNuxtComponent({
-  components: {
-    Modal,
-    ModalConfirm,
-    CrossIcon,
-    RightArrowIcon,
-    CheckIcon,
-    SaveIcon,
-    UserIcon,
-    CopyIcon,
-    TrashIcon,
-    SlashIcon,
-  },
-  async setup() {
-    definePageMeta({
-      middleware: 'auth',
-    })
-
-    const auth = await useAuth()
-
-    return { auth }
-  },
-  data() {
-    return {
-      copied: false,
-      email: this.auth.user.email,
-      showKnownErrors: false,
-    }
-  },
-  head: {
-    title: 'Account settings - Modrinth',
-  },
-  methods: {
-    async copyToken() {
-      this.copied = true
-      await navigator.clipboard.writeText(this.auth.token)
-    },
-    async deleteAccount() {
-      startLoading()
-      try {
-        await useBaseFetch(`user/${this.auth.user.id}`, {
-          method: 'DELETE',
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      useCookie('auth-token').value = null
-      alert('Please note that logging back in with GitHub will create a new account.')
-      window.location.href = '/'
-
-      stopLoading()
-    },
-    logout() {
-      this.$refs.modal_revoke_token.hide()
-      useCookie('auth-token').value = null
-
-      window.location.href = getAuthUrl()
-    },
-    hasMonetizationEnabled() {
-      return (
-        this.auth.user.payout_data.payout_wallet &&
-        this.auth.user.payout_data.payout_wallet_type &&
-        this.auth.user.payout_data.payout_address
-      )
-    },
-    async saveChanges() {
-      if (this.hasMonetizationEnabled() && !this.email) {
-        this.showKnownErrors = true
-        return
-      }
-      startLoading()
-      try {
-        const data = {
-          email: this.email ? this.email : null,
-        }
-
-        await useBaseFetch(`user/${this.auth.user.id}`, {
-          method: 'PATCH',
-          body: data,
-        })
-        await useAuth(this.auth.token)
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-  },
+useHead({
+  title: 'Account settings - Modrinth',
 })
-</script>
-<style lang="scss" scoped>
-.modal-revoke-token {
-  padding: var(--spacing-card-bg);
 
-  .button-group {
-    width: fit-content;
-    margin-left: auto;
+definePageMeta({
+  middleware: 'auth',
+})
+
+const data = useNuxtApp()
+const auth = await useAuth()
+
+const email = ref(auth.value.user.email)
+
+async function saveEmail() {
+  if (!email.value) {
+    return
   }
+
+  startLoading()
+  try {
+    const data = {
+      email: email.value ?? null,
+    }
+
+    await useBaseFetch(`user/${auth.value.user.id}`, {
+      method: 'PATCH',
+      body: data,
+    })
+    await useAuth(auth.value.token)
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
 }
-</style>
+
+const oldPassword = ref('')
+const newPassword = ref('')
+const confirmNewPassword = ref('')
+async function savePassword() {
+  if (newPassword.value !== confirmNewPassword.value) {
+    return
+  }
+
+  startLoading()
+  try {
+    await useBaseFetch(`auth/password`, {
+      method: 'PATCH',
+      body: {
+        old_password: oldPassword.value,
+        new_password: newPassword.value,
+      },
+    })
+    await useAuth(auth.value.token)
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+async function deleteAccount() {
+  startLoading()
+  try {
+    await useBaseFetch(`user/${auth.value.user.id}`, {
+      method: 'DELETE',
+    })
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  useCookie('auth-token').value = null
+  window.location.href = '/'
+
+  stopLoading()
+}
+</script>
+<style lang="scss"></style>

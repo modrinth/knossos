@@ -25,8 +25,6 @@ defineProps({
   },
 })
 
-const app = useNuxtApp()
-
 const auth = await useAuth()
 
 const viewMode = ref('open')

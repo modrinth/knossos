@@ -32,8 +32,6 @@ const props = defineProps({
   },
 })
 
-const app = useNuxtApp()
-
 const report = ref(null)
 const rawThread = ref(null)
 const thread = computed(() => addReportMessage(rawThread.value, report.value))

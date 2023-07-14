@@ -98,7 +98,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['switch-page'])
 
-const data = useNuxtApp()
 const route = useRoute()
 
 const tags = useTags()

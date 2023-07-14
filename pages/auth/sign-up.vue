@@ -63,6 +63,7 @@ const confirmPassword = ref('')
 const token = ref('')
 
 async function createAccount() {
+  startLoading()
   try {
     if (confirmPassword.value !== password.value) {
       data.$notify({
@@ -88,7 +89,6 @@ async function createAccount() {
     await useUser()
     await navigateTo('/dashboard')
   } catch (err) {
-    console.log(err)
     data.$notify({
       group: 'main',
       title: 'An error occurred',
@@ -97,5 +97,6 @@ async function createAccount() {
     })
     turnstile.value?.reset()
   }
+  stopLoading()
 }
 </script>

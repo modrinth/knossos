@@ -38,8 +38,6 @@ useHead({
   title: 'Staff overview - Modrinth',
 })
 
-const app = useNuxtApp()
-
 const [raw] = await Promise.all([useBaseFetch(`statistics`)])
 
 const stats = ref(raw)
