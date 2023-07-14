@@ -111,7 +111,7 @@
         <div
           v-for="notif in notification.grouped_notifs
             ? [notification, ...notification.grouped_notifs]
-            : notification"
+            : [notification]"
           :key="notif.id"
           class="version-link"
         >

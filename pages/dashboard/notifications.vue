@@ -22,6 +22,7 @@
       </div>
       <template v-if="notifications.length > 0">
         <Chips
+          v-if="notifTypes.length > 1"
           v-model="selectedType"
           :items="notifTypes"
           :format-label="
@@ -67,7 +68,15 @@ const notifTypes = computed(() => {
   if (allNotifs.value === null) {
     return []
   }
-  const types = [...new Set(allNotifs.value.map((notif) => notif.type))]
+  const types = [
+    ...new Set(
+      allNotifs.value
+        .filter((notification) => {
+          return history.value || !notification.read
+        })
+        .map((notif) => notif.type)
+    ),
+  ]
   return types.length > 1 ? ['all', ...types] : types
 })
 
