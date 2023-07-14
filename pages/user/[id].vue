@@ -180,8 +180,13 @@
             </button>
           </div>
         </nav>
+        <div v-if="loadingProjects" class="placeholder-project-list">
+          <PlaceholderProjectCard />
+          <PlaceholderProjectCard />
+          <PlaceholderProjectCard />
+        </div>
         <div
-          v-if="projects.length > 0"
+          v-else-if="projects.length > 0"
           class="project-list"
           :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
         >
@@ -263,17 +268,18 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+import PlaceholderProjectCard from '~/components/ui/placeholder/PlaceholderProjectCard.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
 
-let user, projects
+let user, projects, loadingProjects
 try {
-  ;[{ data: user }, { data: projects }] = await Promise.all([
+  ;[{ data: user }, { data: projects, pending: loadingProjects }] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () =>
       useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
     ),
-    useAsyncData(
+    useLazyAsyncData(
       `user/${route.params.id}/projects`,
       () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
       {
@@ -533,5 +539,11 @@ export default defineNuxtComponent({
   .sidebar {
     padding-top: 3rem;
   }
+}
+
+.placeholder-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card-md);
 }
 </style>
