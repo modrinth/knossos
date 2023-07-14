@@ -7,7 +7,7 @@
         <div class="animate-strong">
           <span>
             <strong
-              v-for="projectType in $tag.projectTypes"
+              v-for="projectType in tags.projectTypes"
               :key="projectType.id"
               class="main-header-strong"
             >
@@ -23,14 +23,14 @@
       </h2>
       <div class="button-group">
         <nuxt-link to="/mods" class="iconified-button brand-button"> Discover mods </nuxt-link>
-        <a
-          v-if="!$auth.user"
-          :href="getAuthUrl()"
+        <nuxt-link
+          v-if="!auth.user"
+          to="sign-up"
           class="iconified-button outline-button"
           rel="noopener nofollow"
         >
           Sign up
-        </a>
+        </nuxt-link>
         <nuxt-link v-else to="/dashboard/projects" class="iconified-button outline-button">
           Go to dashboard
         </nuxt-link>
@@ -529,6 +529,9 @@ import homepageProjects from '~/generated/homepage.json'
 
 const searchQuery = ref('better')
 const sortType = ref('relevance')
+
+const auth = await useAuth()
+const tags = useTags()
 
 const [{ data: searchProjects, refresh: updateSearchProjects }, { data: notifications }] =
   await Promise.all([

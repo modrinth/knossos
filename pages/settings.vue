@@ -7,7 +7,7 @@
           <NavStackItem link="/settings" label="Appearance">
             <PaintbrushIcon />
           </NavStackItem>
-          <template v-if="$auth.user">
+          <template v-if="auth.user">
             <h3>User settings</h3>
             <NavStackItem link="/settings/account" label="Account">
               <UserIcon />
@@ -33,6 +33,7 @@ import UserIcon from '~/assets/images/utils/user.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'
 
 const route = useRoute()
+const auth = await useAuth()
 </script>
 
 <style lang="scss" scoped></style>

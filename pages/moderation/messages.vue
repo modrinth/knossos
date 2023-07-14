@@ -23,7 +23,7 @@ const app = useNuxtApp()
 
 const inbox = ref([])
 
-await useBaseFetch('thread/inbox', app.$defaultHeaders()).then((result) => (inbox.value = result))
+await useBaseFetch('thread/inbox').then((result) => (inbox.value = result))
 
 function getLink(thread) {
   if (thread.report_id) {

@@ -140,36 +140,34 @@ const projectTypes = computed(() => {
   return [...set]
 })
 
-await useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders()).then((result) => {
+await useBaseFetch('moderation/projects?count=1000').then((result) => {
   projects.value = result
 })
 
 if (projects.value) {
   const teamIds = projects.value.map((x) => x.team)
 
-  await useBaseFetch('teams?ids=' + JSON.stringify(teamIds), app.$defaultHeaders()).then(
-    (result) => {
-      members.value = result
+  await useBaseFetch('teams?ids=' + JSON.stringify(teamIds)).then((result) => {
+    members.value = result
 
-      projects.value = projects.value.map((project) => {
-        project.owner = members.value
-          .flat()
-          .find((x) => x.team_id === project.team && x.role === 'Owner').user
-        project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
-        project.age_warning = ''
-        if (project.age > TIME_24H * 2) {
-          project.age_warning = 'danger'
-        } else if (project.age > TIME_24H) {
-          project.age_warning = 'warning'
-        }
-        project.inferred_project_type = app.$getProjectTypeForUrl(
-          project.project_type,
-          project.loaders
-        )
-        return project
-      })
-    }
-  )
+    projects.value = projects.value.map((project) => {
+      project.owner = members.value
+        .flat()
+        .find((x) => x.team_id === project.team && x.role === 'Owner').user
+      project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
+      project.age_warning = ''
+      if (project.age > TIME_24H * 2) {
+        project.age_warning = 'danger'
+      } else if (project.age > TIME_24H) {
+        project.age_warning = 'warning'
+      }
+      project.inferred_project_type = app.$getProjectTypeForUrl(
+        project.project_type,
+        project.loaders
+      )
+      return project
+    })
+  })
 }
 </script>
 <style lang="scss" scoped>

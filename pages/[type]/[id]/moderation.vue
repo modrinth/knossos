@@ -108,7 +108,7 @@ const app = useNuxtApp()
 let rawThread = null
 
 if (props.project.thread_id) {
-  rawThread = await useBaseFetch(`thread/${props.project.thread_id}`, app.$defaultHeaders())
+  rawThread = await useBaseFetch(`thread/${props.project.thread_id}`)
 }
 
 const thread = ref(rawThread)
@@ -122,12 +122,11 @@ async function setStatus(status) {
     await useBaseFetch(`project/${props.project.id}`, {
       method: 'PATCH',
       body: data,
-      ...app.$defaultHeaders(),
     })
     const project = props.project
     project.status = status
     emit('update:project', project)
-    thread.value = await useBaseFetch(`thread/${thread.value.id}`, app.$defaultHeaders())
+    thread.value = await useBaseFetch(`thread/${thread.value.id}`)
   } catch (err) {
     app.$notify({
       group: 'main',

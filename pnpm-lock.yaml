@@ -48,6 +48,9 @@ devDependencies:
   '@nuxtjs/eslint-config-typescript':
     specifier: ^12.0.0
     version: 12.0.0(eslint@8.41.0)(typescript@5.0.4)
+  '@nuxtjs/turnstile':
+    specifier: ^0.5.0
+    version: 0.5.0
   '@types/node':
     specifier: ^20.1.0
     version: 20.1.0
@@ -1354,6 +1357,17 @@ packages:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
+  /@nuxtjs/turnstile@0.5.0:
+    resolution: {integrity: sha512-EmEnYNDRavdmv9HXnInHVR5nSvjDG92s6pOrxd+ugqImkrnIQJttSd4DPq9UNhwUI/wLUL7z3VclVyQwNT2O7Q==}
+    dependencies:
+      '@nuxt/kit': 3.6.1
+      defu: 6.1.2
+      pathe: 1.1.1
+    transitivePeerDependencies:
+      - rollup
       - supports-color
     dev: true
 

@@ -189,7 +189,6 @@ export default defineNuxtComponent({
       try {
         await useBaseFetch(`user/${this.auth.user.id}`, {
           method: 'DELETE',
-          ...this.$defaultHeaders(),
         })
       } catch (err) {
         this.$notify({
@@ -233,7 +232,6 @@ export default defineNuxtComponent({
         await useBaseFetch(`user/${this.auth.user.id}`, {
           method: 'PATCH',
           body: data,
-          ...this.$defaultHeaders(),
         })
         await useAuth(this.auth.token)
       } catch (err) {

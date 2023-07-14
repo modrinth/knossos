@@ -2,17 +2,13 @@ import { useNuxtApp } from '#app'
 import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
-  const auth = (await useAuth()).value
-  if (ids.length === 0) {
-    return []
-  }
-  return await useBaseFetch(`${type}?ids=${JSON.stringify([...new Set(ids)])}`, auth.headers)
+  return await useBaseFetch(`${type}?ids=${JSON.stringify([...new Set(ids)])}`)
 }
 
 export async function fetchNotifications() {
   try {
     const auth = (await useAuth()).value
-    const notifications = await useBaseFetch(`user/${auth.user.id}/notifications`, auth.headers)
+    const notifications = await useBaseFetch(`user/${auth.user.id}/notifications`)
 
     const projectIds = []
     const reportIds = []
@@ -156,12 +152,8 @@ export function groupNotifications(notifications, includeRead = false) {
 
 export async function markAsRead(ids) {
   try {
-    const auth = (await useAuth()).value
     await useBaseFetch(`notifications?ids=${JSON.stringify([...new Set(ids)])}`, {
       method: 'PATCH',
-      headers: {
-        Authorization: auth.token,
-      },
     })
     await userReadNotifications(ids)
     return (notifications) => {

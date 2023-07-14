@@ -38,26 +38,24 @@ export const initAuth = async (oldToken = null) => {
   if (authCookie.value) {
     auth.token = authCookie.value
     try {
-      auth.user = await useBaseFetch('user', {
-        headers: {
-          Authorization: auth.token,
+      auth.user = await useBaseFetch(
+        'user',
+        {
+          headers: {
+            Authorization: auth.token,
+          },
         },
-      })
+        true
+      )
     } catch {}
-
-    auth.headers = {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
   }
 
   return auth
 }
 
-export const getAuthUrl = () => {
+export const getAuthUrl = (provider) => {
   const config = useRuntimeConfig()
   const route = useRoute()
 
-  return `${config.public.apiBaseUrl}auth/init?url=${config.public.siteUrl}${route.fullPath}`
+  return `${config.public.apiBaseUrl}auth/init?url=${config.public.siteUrl}${route.path}&provider=${provider}`
 }

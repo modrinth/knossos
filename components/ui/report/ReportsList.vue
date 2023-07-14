@@ -3,7 +3,7 @@
   <ReportInfo
     v-for="report in reports.filter(
       (x) =>
-        (moderation || x.reporter.id === $auth.user.id) && (viewMode === 'open' ? x.open : !x.open)
+        (moderation || x.reporter.id === auth.user.id) && (viewMode === 'open' ? x.open : !x.open)
     )"
     :key="report.id"
     :report="report"
@@ -27,10 +27,12 @@ defineProps({
 
 const app = useNuxtApp()
 
+const auth = await useAuth()
+
 const viewMode = ref('open')
 const reports = ref([])
 
-const rawReports = await useBaseFetch(`report`, app.$defaultHeaders()).then((result) =>
+const rawReports = await useBaseFetch(`report`).then((result) =>
   result.map((report) => {
     report.item_id = report.item_id.replace(/"/g, '')
     return report
@@ -49,9 +51,9 @@ const threadIds = [
 ]
 
 const [users, versions, threads] = await Promise.all([
-  useBaseFetch(`users?ids=${JSON.stringify(userIds)}`, app.$defaultHeaders()),
-  useBaseFetch(`versions?ids=${JSON.stringify(versionIds)}`, app.$defaultHeaders()),
-  useBaseFetch(`threads?ids=${JSON.stringify(threadIds)}`, app.$defaultHeaders()),
+  useBaseFetch(`users?ids=${JSON.stringify(userIds)}`),
+  useBaseFetch(`versions?ids=${JSON.stringify(versionIds)}`),
+  useBaseFetch(`threads?ids=${JSON.stringify(threadIds)}`),
 ])
 
 const reportedProjects = rawReports
@@ -60,10 +62,7 @@ const reportedProjects = rawReports
 const versionProjects = versions.map((version) => version.project_id)
 const projectIds = [...new Set(reportedProjects.concat(versionProjects))]
 
-const projects = await useBaseFetch(
-  `projects?ids=${JSON.stringify(projectIds)}`,
-  app.$defaultHeaders()
-)
+const projects = await useBaseFetch(`projects?ids=${JSON.stringify(projectIds)}`)
 
 reports.value = rawReports.map((report) => {
   report.reporter = users.find((user) => user.id === report.reporter)

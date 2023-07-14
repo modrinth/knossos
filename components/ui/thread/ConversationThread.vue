@@ -33,7 +33,7 @@
         </div>
       </div>
     </Modal>
-    <div v-if="$cosmetics.developerMode" class="thread-id">
+    <div v-if="cosmetics.developerMode" class="thread-id">
       Thread ID: <CopyCode :text="thread.id" />
     </div>
     <div v-if="sortedMessages.length > 0" class="messages universal-card recessed">
@@ -77,7 +77,7 @@
         >
           <SendIcon /> Send
         </button>
-        <template v-if="currentMember && !isStaff($auth.user)">
+        <template v-if="currentMember && !isStaff(auth.user)">
           <template v-if="isRejected(project)">
             <button
               v-if="replyBody"
@@ -98,7 +98,7 @@
         <div class="spacer"></div>
         <div class="input-group extra-options">
           <template v-if="report">
-            <template v-if="isStaff($auth.user)">
+            <template v-if="isStaff(auth.user)">
               <button
                 v-if="replyBody"
                 class="iconified-button danger-button"
@@ -112,7 +112,7 @@
             </template>
           </template>
           <template v-if="project">
-            <template v-if="isStaff($auth.user)">
+            <template v-if="isStaff(auth.user)">
               <button
                 v-if="replyBody"
                 class="iconified-button brand-button"
@@ -218,6 +218,8 @@ const props = defineProps({
   },
 })
 const app = useNuxtApp()
+const auth = await useAuth()
+const cosmetics = useCosmetics()
 
 const members = computed(() => {
   const members = {}
@@ -250,7 +252,7 @@ async function updateThreadLocal() {
   }
   let thread = null
   if (threadId) {
-    thread = await useBaseFetch(`thread/${threadId}`, app.$defaultHeaders())
+    thread = await useBaseFetch(`thread/${threadId}`)
   }
   props.updateThread(thread)
 }
@@ -265,7 +267,6 @@ async function sendReply(status = null) {
           body: replyBody.value,
         },
       },
-      ...app.$defaultHeaders(),
     })
     replyBody.value = ''
     await updateThreadLocal()
@@ -293,7 +294,6 @@ async function closeReport(reply) {
       body: {
         closed: true,
       },
-      ...app.$defaultHeaders(),
     })
     await updateThreadLocal()
   } catch (err) {

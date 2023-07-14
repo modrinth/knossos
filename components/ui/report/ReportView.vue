@@ -42,7 +42,7 @@ await fetchReport().then((result) => {
   report.value = result
 })
 
-await useBaseFetch(`thread/${report.value.thread_id}`, app.$defaultHeaders()).then((result) => {
+await useBaseFetch(`thread/${report.value.thread_id}`).then((result) => {
   rawThread.value = result
 })
 
@@ -52,7 +52,7 @@ async function updateThread(newThread) {
 }
 
 async function fetchReport() {
-  const rawReport = await useBaseFetch(`report/${props.reportId}`, app.$defaultHeaders())
+  const rawReport = await useBaseFetch(`report/${props.reportId}`)
   rawReport.item_id = rawReport.item_id.replace(/"/g, '')
 
   const userIds = []
@@ -63,11 +63,11 @@ async function fetchReport() {
 
   const versionId = rawReport.item_type === 'version' ? rawReport.item_id : null
 
-  const users = await useBaseFetch(`users?ids=${JSON.stringify(userIds)}`, app.$defaultHeaders())
+  const users = await useBaseFetch(`users?ids=${JSON.stringify(userIds)}`)
 
   let version = null
   if (versionId) {
-    version = await useBaseFetch(`version/${versionId}`, app.$defaultHeaders())
+    version = await useBaseFetch(`version/${versionId}`)
   }
 
   const projectId = version
@@ -78,7 +78,7 @@ async function fetchReport() {
 
   let project = null
   if (projectId) {
-    project = await useBaseFetch(`project/${projectId}`, app.$defaultHeaders())
+    project = await useBaseFetch(`project/${projectId}`)
   }
 
   const reportData = rawReport

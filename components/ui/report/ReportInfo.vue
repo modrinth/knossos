@@ -66,7 +66,7 @@
     />
     <div class="reporter-info">
       <ReportIcon class="inline-svg" /> Reported by
-      <span v-if="$auth.user.id === report.reporter.id">you</span>
+      <span v-if="auth.user.id === report.reporter.id">you</span>
       <nuxt-link v-else :to="`/user/${report.reporter.username}`" class="iconified-link">
         <Avatar :src="report.reporter.avatar_url" circle size="xxs" no-shadow :raised="raised" />
         <span>{{ report.reporter.username }}</span>
@@ -75,7 +75,7 @@
       <span v-tooltip="$dayjs(report.created).format('MMMM D, YYYY [at] h:mm A')">{{
         fromNow(report.created)
       }}</span>
-      <CopyCode v-if="$cosmetics.developerMode" :text="report.id" class="report-id" />
+      <CopyCode v-if="cosmetics.developerMode" :text="report.id" class="report-id" />
     </div>
   </div>
 </template>
@@ -112,6 +112,9 @@ defineProps({
     default: false,
   },
 })
+
+const auth = await useAuth()
+const cosmetics = useCosmetics()
 </script>
 
 <style lang="scss" scoped>

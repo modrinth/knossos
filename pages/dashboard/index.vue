@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard-overview">
     <section class="universal-card dashboard-header">
-      <Avatar :src="$auth.user.avatar_url" size="md" circle :alt="$auth.user.username" />
+      <Avatar :src="auth.user.avatar_url" size="md" circle :alt="auth.user.username" />
       <div class="username">
         <h1>
-          {{ $auth.user.username }}
+          {{ auth.user.username }}
         </h1>
-        <NuxtLink class="goto-link" :to="`/user/${$auth.user.username}`">
+        <NuxtLink class="goto-link" :to="`/user/${auth.user.username}`">
           Visit your profile
           <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
         </NuxtLink>
@@ -116,11 +116,10 @@ useHead({
 })
 
 const auth = await useAuth()
-const app = useNuxtApp()
 
 const [rawProjects, rawPayouts] = await Promise.all([
-  useBaseFetch(`user/${auth.value.user.id}/projects`, app.$defaultHeaders()),
-  useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders()),
+  useBaseFetch(`user/${auth.value.user.id}/projects`),
+  useBaseFetch(`user/${auth.value.user.id}/payouts`),
 ])
 
 const projects = shallowRef(rawProjects)

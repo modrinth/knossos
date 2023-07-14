@@ -39,11 +39,8 @@ useHead({
 })
 
 const auth = await useAuth()
-const app = useNuxtApp()
 
-const [raw] = await Promise.all([
-  useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders()),
-])
+const [raw] = await Promise.all([useBaseFetch(`user/${auth.value.user.id}/payouts`)])
 
 const payouts = ref(raw)
 </script>

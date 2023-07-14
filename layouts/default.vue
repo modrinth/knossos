@@ -25,7 +25,6 @@
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
-                :disabled="isThemeSwitchOnHold"
                 @click="changeTheme"
               >
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
@@ -80,7 +79,7 @@
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
-                    v-if="$tag.staffRoles.includes($auth.user.role)"
+                    v-if="tags.staffRoles.includes(auth.user.role)"
                     class="item button-transparent"
                     to="/moderation"
                   >
@@ -95,14 +94,9 @@
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <a
-                  :href="getAuthUrl()"
-                  class="log-in-button header-button brand-button"
-                  rel="noopener nofollow"
-                >
-                  <GitHubIcon aria-hidden="true" />
-                  Sign in with GitHub</a
-                >
+                <nuxt-link class="btn btn-primary" to="/auth/sign-in">
+                  <LogInIcon /> Sign in
+                </nuxt-link>
               </section>
             </section>
           </section>
@@ -150,15 +144,9 @@
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <a
-              v-else
-              class="iconified-button brand-button"
-              :href="getAuthUrl()"
-              rel="nofollow noopener"
-            >
-              <GitHubIcon aria-hidden="true" />
-              Sign in with GitHub
-            </a>
+            <nuxt-link v-else class="btn btn-primary" to="/auth/sign-in">
+              <LogInIcon /> Sign in
+            </nuxt-link>
           </div>
           <div class="links">
             <template v-if="auth.user">
@@ -187,7 +175,7 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" :disabled="isThemeSwitchOnHold" @click="changeTheme">
+            <button class="iconified-button" @click="changeTheme">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -319,11 +307,7 @@
         </a>
       </div>
       <div class="buttons">
-        <button
-          class="iconified-button raised-button"
-          :disabled="isThemeSwitchOnHold"
-          @click="changeTheme"
-        >
+        <button class="iconified-button raised-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
@@ -340,6 +324,7 @@
   </div>
 </template>
 <script setup>
+import { LogInIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -357,7 +342,6 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
-import GitHubIcon from '~/assets/images/utils/github.svg'
 import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
@@ -365,6 +349,8 @@ import Avatar from '~/components/ui/Avatar.vue'
 const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
+const cosmetics = useCosmetics()
+const tags = useTags()
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -383,9 +369,9 @@ let developerModeCounter = 0
 
 function developerModeIncrement() {
   if (developerModeCounter >= 5) {
-    app.$cosmetics.developerMode = !app.$cosmetics.developerMode
+    cosmetics.value.developerMode = !cosmetics.value.developerMode
     developerModeCounter = 0
-    if (app.$cosmetics.developerMode) {
+    if (cosmetics.value.developerMode) {
       app.$notify({
         group: 'main',
         title: 'Developer mode activated',
@@ -412,7 +398,6 @@ export default defineNuxtComponent({
       isDropdownOpen: false,
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
-      isThemeSwitchOnHold: false,
       registeredSkipLink: null,
       hideDropdown: false,
       navRoutes: [
@@ -463,10 +448,9 @@ export default defineNuxtComponent({
       this.runAnalytics()
     },
   },
-  async mounted() {
+  mounted() {
     this.runAnalytics()
     if (this.$route.query.code) {
-      await useAuth(this.$route.query.code)
       window.history.replaceState(history.state, null, this.$route.path)
     }
   },
@@ -515,11 +499,7 @@ export default defineNuxtComponent({
         })
     },
     changeTheme() {
-      this.isThemeSwitchOnHold = true
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
-      setTimeout(() => {
-        this.isThemeSwitchOnHold = false
-      }, 1000)
     },
   },
 })
