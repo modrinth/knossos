@@ -1280,9 +1280,7 @@ const rows = shallowRef([
       font-size: 1.625rem;
     }
 
-    padding: 12rem 1rem;
-    // Magic number to cover header (space in rem header occupies)
-    margin-top: -5.75rem;
+    padding: 7.25rem 1rem 12rem;
   }
 
   .users-section-outer {
