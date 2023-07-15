@@ -16,8 +16,12 @@ export const initAuth = async (oldToken = null) => {
   const auth = {
     user: null,
     token: '',
-    headers: {},
   }
+
+  if (oldToken === 'none') {
+    return auth
+  }
+
   const route = useRoute()
   const authCookie = useCookie('auth-token', {
     maxAge: 60 * 60 * 24 * 365 * 10,
@@ -37,6 +41,11 @@ export const initAuth = async (oldToken = null) => {
 
   if (authCookie.value) {
     auth.token = authCookie.value
+
+    if (!auth.token || !auth.token.startsWith('mra_')) {
+      return auth
+    }
+
     try {
       auth.user = await useBaseFetch(
         'user',
@@ -48,6 +57,36 @@ export const initAuth = async (oldToken = null) => {
         true
       )
     } catch {}
+  }
+
+  if (!auth.user) {
+    try {
+      const session = await useBaseFetch(
+        'session/refresh',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: auth.token,
+          },
+        },
+        true
+      )
+
+      auth.token = session.session
+      authCookie.value = auth.token
+
+      auth.user = await useBaseFetch(
+        'user',
+        {
+          headers: {
+            Authorization: auth.token,
+          },
+        },
+        true
+      )
+    } catch {
+      authCookie.value = null
+    }
   }
 
   return auth

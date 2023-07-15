@@ -103,14 +103,14 @@
                     <span class="title">Moderation</span>
                   </NuxtLink>
                   <hr class="divider" />
-                  <button class="item button-transparent" @click="logout()">
+                  <button class="item button-transparent" @click="logoutUser()">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <nuxt-link class="btn btn-primary" to="/auth/sign-in">
+                <nuxt-link class="iconified-button brand-button" to="/auth/sign-in">
                   <LogInIcon /> Sign in
                 </nuxt-link>
               </section>
@@ -160,13 +160,13 @@
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <nuxt-link v-else class="btn btn-primary" to="/auth/sign-in">
+            <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
               <LogInIcon /> Sign in
             </nuxt-link>
           </div>
           <div class="links">
             <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logout()">
+              <button class="iconified-button danger-button" @click="logoutUser()">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
@@ -406,6 +406,10 @@ function developerModeIncrement() {
     developerModeCounter++
   }
 }
+
+async function logoutUser() {
+  await logout()
+}
 </script>
 <script>
 export default defineNuxtComponent({
@@ -497,22 +501,6 @@ export default defineNuxtComponent({
       if (this.isBrowseMenuOpen) {
         this.isMobileMenuOpen = false
       }
-    },
-    logout() {
-      useCookie('auth-token').value = null
-
-      this.$notify({
-        group: 'main',
-        title: 'Logged Out',
-        text: 'You have logged out successfully!',
-        type: 'success',
-      })
-
-      useRouter()
-        .push('/')
-        .then(() => {
-          useRouter().go()
-        })
     },
     changeTheme() {
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
