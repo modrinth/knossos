@@ -59,7 +59,7 @@ export const initAuth = async (oldToken = null) => {
     } catch {}
   }
 
-  if (!auth.user) {
+  if (!auth.user && auth.token) {
     try {
       const session = await useBaseFetch(
         'session/refresh',

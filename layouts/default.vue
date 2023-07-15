@@ -470,9 +470,6 @@ export default defineNuxtComponent({
   },
   mounted() {
     this.runAnalytics()
-    if (this.$route.query.code) {
-      window.history.replaceState(history.state, null, this.$route.path)
-    }
   },
   methods: {
     runAnalytics() {

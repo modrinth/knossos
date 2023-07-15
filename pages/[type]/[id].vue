@@ -844,7 +844,11 @@ try {
       transform: (project) => {
         if (project) {
           project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-          // project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
+          project.project_type = data.$getProjectTypeForUrl(
+            project.project_type,
+            project.loaders,
+            tags.value
+          )
 
           if (process.client && history.state && history.state.overrideProjectType) {
             project.project_type = history.state.overrideProjectType

@@ -272,7 +272,8 @@ try {
             project.categories = project.categories.concat(project.loaders)
             project.project_type = data.$getProjectTypeForUrl(
               project.project_type,
-              project.categories
+              project.categories,
+              tags.value
             )
           }
 

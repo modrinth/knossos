@@ -230,7 +230,36 @@
     </Modal>
     <Modal ref="manageProvidersModal" header="Manage authentication providers">
       <div class="universal-modal">
-        <p>this is a test</p>
+        <div class="table">
+          <div class="table-row table-head">
+            <div class="table-cell table-text">Provider</div>
+            <div class="table-cell table-text">Actions</div>
+          </div>
+          <div v-for="provider in authProviders" :key="provider.id" class="table-row">
+            <div class="table-cell table-text">
+              <span><component :is="provider.icon" /> {{ provider.display }}</span>
+            </div>
+            <div class="table-cell table-text manage">
+              <button
+                v-if="auth.user.auth_providers.includes(provider.id)"
+                class="btn"
+                @click="removeAuthProvider(provider.id)"
+              >
+                <TrashIcon /> Remove
+              </button>
+              <a v-else class="btn" :href="`${getAuthUrl(provider.id)}&token=${auth.token}`">
+                <ExternalIcon /> Add
+              </a>
+            </div>
+          </div>
+        </div>
+        <p></p>
+        <div class="input-group push-right">
+          <button class="iconified-button brand-button" @click="$refs.manageProvidersModal.hide()">
+            <CheckIcon />
+            Finish editing
+          </button>
+        </div>
       </div>
     </Modal>
     <section class="universal-card">
@@ -352,11 +381,18 @@ import {
   LeftArrowIcon,
   RightArrowIcon,
   CheckIcon,
+  GitHubIcon,
+  ExternalIcon,
 } from 'omorphia'
 import QrcodeVue from 'qrcode.vue'
+import DiscordIcon from 'assets/images/utils/discord.svg'
+import GoogleIcon from 'assets/images/utils/google.svg'
+import SteamIcon from 'assets/images/utils/steam.svg'
+import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
+import GitLabIcon from 'assets/images/utils/gitlab.svg'
+import KeyIcon from '~/assets/images/utils/key.svg'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import Modal from '~/components/ui/Modal.vue'
-import KeyIcon from '~/assets/images/utils/key.svg'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -506,6 +542,60 @@ async function removeTwoFactor() {
   stopLoading()
 }
 
+const authProviders = [
+  {
+    id: 'github',
+    display: 'GitHub',
+    icon: GitHubIcon,
+  },
+  {
+    id: 'gitlab',
+    display: 'GitLab',
+    icon: GitLabIcon,
+  },
+  {
+    id: 'steam',
+    display: 'Steam',
+    icon: SteamIcon,
+  },
+  {
+    id: 'discord',
+    display: 'Discord',
+    icon: DiscordIcon,
+  },
+  {
+    id: 'microsoft',
+    display: 'Microsoft',
+    icon: MicrosoftIcon,
+  },
+  {
+    id: 'google',
+    display: 'Google',
+    icon: GoogleIcon,
+  },
+]
+
+async function removeAuthProvider(provider) {
+  startLoading()
+  try {
+    await useBaseFetch('auth/provider', {
+      method: 'DELETE',
+      body: {
+        provider,
+      },
+    })
+    await useAuth(auth.value.token)
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
 async function deleteAccount() {
   startLoading()
   try {
@@ -531,5 +621,21 @@ async function deleteAccount() {
 canvas {
   margin: 0 auto;
   border-radius: var(--size-rounded-card);
+}
+
+.table-row {
+  grid-template-columns: 1fr 10rem;
+
+  span {
+    display: flex;
+    align-items: center;
+    margin: auto 0;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.35rem;
+    }
+  }
 }
 </style>

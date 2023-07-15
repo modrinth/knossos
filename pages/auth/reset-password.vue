@@ -26,6 +26,11 @@
   </div>
 </template>
 <script setup>
+const auth = await useAuth()
+if (auth.value.user) {
+  await navigateTo('/dashboard')
+}
+
 const data = useNuxtApp()
 const route = useRoute()
 

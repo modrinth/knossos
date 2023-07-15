@@ -2,8 +2,8 @@ export const getProjectTypeForUrl = (type, categories) => {
   return getProjectTypeForUrlShorthand(type, categories)
 }
 
-export const getProjectTypeForUrlShorthand = (type, categories) => {
-  const tags = useTags().value
+export const getProjectTypeForUrlShorthand = (type, categories, overrideTags) => {
+  const tags = overrideTags ?? useTags().value
 
   if (type === 'mod') {
     const isMod = categories.some((category) => {

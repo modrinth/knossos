@@ -106,8 +106,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     return type
   })
-  nuxtApp.provide('getProjectTypeForUrl', (type, loaders) =>
-    getProjectTypeForUrlShorthand(type, loaders)
+  nuxtApp.provide('getProjectTypeForUrl', (type, loaders, tags) =>
+    getProjectTypeForUrlShorthand(type, loaders, tags)
   )
   nuxtApp.provide('cycleValue', cycleValue)
   nuxtApp.provide('sortedCategories', () => {

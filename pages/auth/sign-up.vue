@@ -38,7 +38,12 @@
     </button>
     <p>
       Already have an account yet?
-      <nuxt-link class="text-link" to="/auth/sign-in">Sign in.</nuxt-link>
+      <nuxt-link
+        class="text-link"
+        :to="`/auth/sign-in${route.query.redirect ? `?redirect=${route.query.redirect}` : ''}`"
+      >
+        Sign in.
+      </nuxt-link>
       <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
     </p>
   </div>
@@ -52,6 +57,11 @@ import SteamIcon from 'assets/images/utils/steam.svg'
 import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
 import GitLabIcon from 'assets/images/utils/gitlab.svg'
 
+const auth = await useAuth()
+if (auth.value.user) {
+  await navigateTo('/dashboard')
+}
+
 const data = useNuxtApp()
 
 const turnstile = ref()
@@ -61,6 +71,8 @@ const username = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const token = ref('')
+
+const route = useRoute()
 
 async function createAccount() {
   startLoading()
@@ -87,7 +99,12 @@ async function createAccount() {
 
     await useAuth(res.session)
     await useUser()
-    await navigateTo('/dashboard')
+
+    if (route.query.redirect) {
+      await navigateTo(route.query.redirect)
+    } else {
+      await navigateTo('/dashboard')
+    }
   } catch (err) {
     data.$notify({
       group: 'main',

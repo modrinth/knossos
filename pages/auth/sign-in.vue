@@ -55,7 +55,12 @@
       </button>
       <p>
         Don't have an account yet?
-        <nuxt-link class="text-link" to="/auth/sign-up">Create one.</nuxt-link>
+        <nuxt-link
+          class="text-link"
+          :to="`/auth/sign-up${route.query.redirect ? `?redirect=${route.query.redirect}` : ''}`"
+        >
+          Create one.
+        </nuxt-link>
       </p>
     </template>
   </div>
@@ -69,6 +74,11 @@ import SteamIcon from 'assets/images/utils/steam.svg'
 import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
 import GitLabIcon from 'assets/images/utils/gitlab.svg'
 
+const auth = await useAuth()
+if (auth.value.user) {
+  await navigateTo('/dashboard')
+}
+
 const data = useNuxtApp()
 
 const turnstile = ref()
@@ -79,6 +89,10 @@ const token = ref('')
 
 const route = useRoute()
 const flow = ref(route.query.flow)
+
+if (route.query.code) {
+  await loginHandler()
+}
 
 async function loginPassword() {
   startLoading()
@@ -95,9 +109,7 @@ async function loginPassword() {
     if (res.flow) {
       flow.value = res.flow
     } else {
-      await useAuth(res.session)
-      await useUser()
-      await navigateTo('/dashboard')
+      await loginHandler(res.session)
     }
   } catch (err) {
     data.$notify({
@@ -123,9 +135,7 @@ async function loginTwoFactor() {
       },
     })
 
-    await useAuth(res.session)
-    await useUser()
-    await navigateTo('/dashboard')
+    await loginHandler(res.session)
   } catch (err) {
     data.$notify({
       group: 'main',
@@ -136,6 +146,18 @@ async function loginTwoFactor() {
     turnstile.value?.reset()
   }
   stopLoading()
+}
+async function loginHandler(token) {
+  if (token) {
+    await useAuth(token)
+    await useUser()
+  }
+
+  if (route.query.redirect) {
+    await navigateTo(route.query.redirect)
+  } else {
+    await navigateTo('/dashboard')
+  }
 }
 </script>
 <style lang="scss" scoped>
