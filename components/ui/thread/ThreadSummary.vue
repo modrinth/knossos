@@ -51,17 +51,20 @@ const props = defineProps({
       return []
     },
   },
+  auth: {
+    type: Object,
+    required: true,
+  },
 })
 
 const app = useNuxtApp()
-const auth = await useAuth()
 
 const members = computed(() => {
   const members = {}
   for (const member of props.thread.members) {
     members[member.id] = member
   }
-  members[auth.user.id] = auth.user
+  members[props.auth.user.id] = props.auth.user
   return members
 })
 

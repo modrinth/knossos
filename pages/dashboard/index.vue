@@ -26,6 +26,7 @@
           v-model:notifications="allNotifs"
           class="universal-card recessed"
           :notification="notification"
+          :auth="auth"
           raised
           compact
         />

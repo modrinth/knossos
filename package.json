@@ -45,6 +45,7 @@
     "jszip": "^3.10.1",
     "markdown-it": "^13.0.1",
     "omorphia": "^0.4.31",
+    "qrcode.vue": "^3.4.0",
     "vue-multiselect": "^3.0.0-alpha.2",
     "xss": "^1.0.14"
   },

@@ -216,9 +216,12 @@ const props = defineProps({
       return null
     },
   },
+  auth: {
+    type: Object,
+    required: true,
+  },
 })
 const app = useNuxtApp()
-const auth = await useAuth()
 const cosmetics = useCosmetics()
 
 const members = computed(() => {

@@ -39,22 +39,31 @@
     </Modal>
     <Modal
       ref="managePasswordModal"
-      :header="`${auth.user.has_password ? 'Change' : 'Add'} password`"
+      :header="`${
+        removePasswordMode ? 'Remove' : auth.user.has_password ? 'Change' : 'Add'
+      } password`"
     >
       <div class="universal-modal">
         <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
           <li>Input passwords do not match!</li>
         </ul>
-        <label for="old-password"><span class="label__title">Old password</span></label>
+        <label v-if="removePasswordMode" for="old-password">
+          <span class="label__title">Confirm password</span>
+          <span class="label__description">Please enter your password to proceed.</span>
+        </label>
+        <label v-else-if="auth.user.has_password" for="old-password">
+          <span class="label__title">Old password</span>
+        </label>
         <input
+          v-if="auth.user.has_password"
           id="old-password"
           v-model="oldPassword"
           maxlength="2048"
           type="password"
-          placeholder="Old password"
+          :placeholder="`${removePasswordMode ? 'Confirm' : 'Old'} password`"
         />
-        <label for="new-password"><span class="label__title">New password</span></label>
-        <div class="input-group">
+        <template v-if="!removePasswordMode">
+          <label for="new-password"><span class="label__title">New password</span></label>
           <input
             id="new-password"
             v-model="newPassword"
@@ -62,7 +71,9 @@
             type="password"
             placeholder="New password"
           />
-          <label for="confirm-new-password" hidden>Confirm new password</label>
+          <label for="confirm-new-password"
+            ><span class="label__title">Confirm new password</span></label
+          >
           <input
             id="confirm-new-password"
             v-model="confirmNewPassword"
@@ -70,25 +81,151 @@
             type="password"
             placeholder="Confirm new password"
           />
-        </div>
+        </template>
+        <p></p>
         <div class="input-group push-right">
-          <button type="button" class="iconified-button">
-            <TrashIcon />
-            Remove password
+          <button class="iconified-button" @click="$refs.managePasswordModal.hide()">
+            <XIcon />
+            Cancel
           </button>
-          <button type="button" class="iconified-button brand-button" @click="savePassword">
-            <SaveIcon />
-            Save password
-          </button>
+          <template v-if="removePasswordMode">
+            <button type="button" class="iconified-button danger-button" @click="savePassword">
+              <TrashIcon />
+              Remove password
+            </button>
+          </template>
+          <template v-else>
+            <button
+              v-if="auth.user.has_password && auth.user.auth_providers.length > 0"
+              type="button"
+              class="iconified-button danger-button"
+              @click="removePasswordMode = true"
+            >
+              <TrashIcon />
+              Remove password
+            </button>
+            <button type="button" class="iconified-button brand-button" @click="savePassword">
+              <SaveIcon />
+              Save password
+            </button>
+          </template>
         </div>
       </div>
     </Modal>
     <Modal
       ref="manageTwoFactorModal"
-      :header="`${auth.user.has_totp ? 'Remove' : 'Add'} two-factor authentication`"
+      :header="`${
+        auth.user.has_totp && twoFactorStep === 0 ? 'Remove' : 'Setup'
+      } two-factor authentication`"
     >
       <div class="universal-modal">
-        <p>this is a test</p>
+        <template v-if="auth.user.has_totp && twoFactorStep === 0">
+          <label for="two-factor-code">
+            <span class="label__title">Enter two-factor code</span>
+            <span class="label__description">Please enter a two-factor code to proceed.</span>
+          </label>
+          <input
+            id="two-factor-code"
+            v-model="twoFactorCode"
+            maxlength="6"
+            type="number"
+            placeholder="Enter code..."
+          />
+          <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
+          <div class="input-group push-right">
+            <button class="iconified-button" @click="$refs.manageTwoFactorModal.hide()">
+              <XIcon />
+              Cancel
+            </button>
+            <button class="iconified-button danger-button" @click="removeTwoFactor">
+              <TrashIcon />
+              Remove 2FA
+            </button>
+          </div>
+        </template>
+        <template v-else>
+          <template v-if="twoFactorStep === 0">
+            <p>
+              Two-factor authentication keeps your account secure by requiring access to a second
+              device in order to sign in.
+              <br /><br />
+              Scan the QR code with <a href="https://authy.com/">Authy</a>,
+              <a href="https://www.microsoft.com/en-us/security/mobile-authenticator-app">
+                Microsoft Authenticator</a
+              >, or any other 2FA app to begin.
+            </p>
+            <qrcode-vue
+              v-if="twoFactorSecret"
+              :value="`otpauth://totp/${encodeURIComponent(
+                auth.user.email
+              )}?secret=${twoFactorSecret}&issuer=Modrinth`"
+              :size="250"
+              :margin="2"
+              level="H"
+            />
+            <p>
+              If the QR code does not scan, you can manually enter the secret:
+              <strong>{{ twoFactorSecret }}</strong>
+            </p>
+          </template>
+          <template v-if="twoFactorStep === 1">
+            <label for="verify-code">
+              <span class="label__title">Verify code</span>
+              <span class="label__description"
+                >Enter the one-time code from authenticator to verify access.
+              </span>
+            </label>
+            <input
+              id="verify-code"
+              v-model="twoFactorCode"
+              maxlength="6"
+              type="number"
+              placeholder="Enter code..."
+            />
+            <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
+          </template>
+          <template v-if="twoFactorStep === 2">
+            <p>
+              Download and save these back-up codes in a safe place. You can use these in-place of a
+              2FA code if you ever lose access to your device! You should protect these codes like
+              your password.
+            </p>
+            <p>Backup codes can only be used once.</p>
+            <ul>
+              <li v-for="code in backupCodes" :key="code">{{ code }}</li>
+            </ul>
+          </template>
+          <div class="input-group push-right">
+            <button v-if="twoFactorStep === 1" class="iconified-button" @click="twoFactorStep = 0">
+              <LeftArrowIcon />
+              Back
+            </button>
+            <button
+              v-if="twoFactorStep !== 2"
+              class="iconified-button"
+              @click="$refs.manageTwoFactorModal.hide()"
+            >
+              <XIcon />
+              Cancel
+            </button>
+            <button
+              v-if="twoFactorStep <= 1"
+              class="iconified-button brand-button"
+              @click="twoFactorStep === 1 ? verifyTwoFactorCode() : (twoFactorStep = 1)"
+            >
+              <RightArrowIcon />
+              Continue
+            </button>
+            <button
+              v-if="twoFactorStep === 2"
+              class="iconified-button brand-button"
+              @click="$refs.manageTwoFactorModal.hide()"
+            >
+              <CheckIcon />
+              Complete setup
+            </button>
+          </div>
+        </template>
       </div>
     </Modal>
     <Modal ref="manageProvidersModal" header="Manage authentication providers">
@@ -137,7 +274,18 @@
           </span>
         </label>
         <div>
-          <button class="iconified-button" @click="$refs.managePasswordModal.show()">
+          <button
+            class="iconified-button"
+            @click="
+              () => {
+                oldPassword = ''
+                newPassword = ''
+                confirmNewPassword = ''
+                removePasswordMode = false
+                $refs.managePasswordModal.show()
+              }
+            "
+          >
             <KeyIcon />
             <template v-if="auth.user.has_password"> Change password </template>
             <template v-else> Add password </template>
@@ -152,9 +300,9 @@
           </span>
         </label>
         <div>
-          <button class="iconified-button" @click="$refs.manageTwoFactorModal.show()">
+          <button class="iconified-button" @click="showTwoFactorModal">
             <template v-if="auth.user.has_totp"> <TrashIcon /> Remove 2FA </template>
-            <template v-else> <PlusIcon /> Add 2FA </template>
+            <template v-else> <PlusIcon /> Setup 2FA </template>
           </button>
         </div>
       </div>
@@ -193,7 +341,19 @@
 </template>
 
 <script setup>
-import { EditIcon, UserIcon, SaveIcon, TrashIcon, PlusIcon, SettingsIcon, XIcon } from 'omorphia'
+import {
+  EditIcon,
+  UserIcon,
+  SaveIcon,
+  TrashIcon,
+  PlusIcon,
+  SettingsIcon,
+  XIcon,
+  LeftArrowIcon,
+  RightArrowIcon,
+  CheckIcon,
+} from 'omorphia'
+import QrcodeVue from 'qrcode.vue'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import Modal from '~/components/ui/Modal.vue'
 import KeyIcon from '~/assets/images/utils/key.svg'
@@ -209,8 +369,8 @@ definePageMeta({
 const data = useNuxtApp()
 const auth = await useAuth()
 
+const changeEmailModal = ref()
 const email = ref(auth.value.user.email)
-
 async function saveEmail() {
   if (!email.value) {
     return
@@ -218,14 +378,13 @@ async function saveEmail() {
 
   startLoading()
   try {
-    const data = {
-      email: email.value ?? null,
-    }
-
-    await useBaseFetch(`user/${auth.value.user.id}`, {
+    await useBaseFetch(`auth/email`, {
       method: 'PATCH',
-      body: data,
+      body: {
+        email: email.value,
+      },
     })
+    changeEmailModal.value.hide()
     await useAuth(auth.value.token)
   } catch (err) {
     data.$notify({
@@ -238,6 +397,8 @@ async function saveEmail() {
   stopLoading()
 }
 
+const managePasswordModal = ref()
+const removePasswordMode = ref(false)
 const oldPassword = ref('')
 const newPassword = ref('')
 const confirmNewPassword = ref('')
@@ -251,10 +412,11 @@ async function savePassword() {
     await useBaseFetch(`auth/password`, {
       method: 'PATCH',
       body: {
-        old_password: oldPassword.value,
-        new_password: newPassword.value,
+        old_password: auth.value.user.has_password ? oldPassword.value : null,
+        new_password: removePasswordMode.value ? null : newPassword.value,
       },
     })
+    managePasswordModal.value.hide()
     await useAuth(auth.value.token)
   } catch (err) {
     data.$notify({
@@ -263,6 +425,83 @@ async function savePassword() {
       text: err.data.description,
       type: 'error',
     })
+  }
+  stopLoading()
+}
+
+const manageTwoFactorModal = ref()
+const twoFactorSecret = ref(null)
+const twoFactorFlow = ref(null)
+const twoFactorStep = ref(0)
+async function showTwoFactorModal() {
+  twoFactorStep.value = 0
+  twoFactorCode.value = null
+  twoFactorIncorrect.value = false
+  if (auth.value.user.has_totp) {
+    manageTwoFactorModal.value.show()
+    return
+  }
+
+  twoFactorSecret.value = null
+  twoFactorFlow.value = null
+  backupCodes.value = []
+  manageTwoFactorModal.value.show()
+
+  startLoading()
+  try {
+    const res = await useBaseFetch('auth/2fa/get_secret', {
+      method: 'POST',
+    })
+
+    twoFactorSecret.value = res.secret
+    twoFactorFlow.value = res.flow
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+const twoFactorIncorrect = ref(false)
+const twoFactorCode = ref(null)
+const backupCodes = ref([])
+async function verifyTwoFactorCode() {
+  startLoading()
+  try {
+    const res = await useBaseFetch('auth/2fa', {
+      method: 'POST',
+      body: {
+        code: twoFactorCode.value ? twoFactorCode.value.toString() : '',
+        flow: twoFactorFlow.value,
+      },
+    })
+
+    backupCodes.value = res.backup_codes
+    twoFactorStep.value = 2
+    await useAuth(auth.value.token)
+  } catch (err) {
+    twoFactorIncorrect.value = true
+  }
+  stopLoading()
+}
+
+async function removeTwoFactor() {
+  startLoading()
+  try {
+    await useBaseFetch('auth/2fa', {
+      method: 'DELETE',
+      body: {
+        code: twoFactorCode.value ? twoFactorCode.value.toString() : '',
+      },
+    })
+    manageTwoFactorModal.value.hide()
+    await useAuth(auth.value.token)
+  } catch (err) {
+    twoFactorIncorrect.value = true
   }
   stopLoading()
 }
@@ -288,4 +527,9 @@ async function deleteAccount() {
   stopLoading()
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss" scoped>
+canvas {
+  margin: 0 auto;
+  border-radius: var(--size-rounded-card);
+}
+</style>

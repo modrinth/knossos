@@ -3,13 +3,15 @@
   <ReportInfo
     v-for="report in reports.filter(
       (x) =>
-        (moderation || x.reporter.id === auth.user.id) && (viewMode === 'open' ? x.open : !x.open)
+        (moderation || x.reporter.id === props.auth.user.id) &&
+        (viewMode === 'open' ? x.open : !x.open)
     )"
     :key="report.id"
     :report="report"
     :thread="report.thread"
     :moderation="moderation"
     raised
+    :auth="auth"
     class="universal-card recessed"
   />
 </template>
@@ -23,9 +25,11 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  auth: {
+    type: Object,
+    required: true,
+  },
 })
-
-const auth = await useAuth()
 
 const viewMode = ref('open')
 const reports = ref([])

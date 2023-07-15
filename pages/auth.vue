@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtPage class="auth-container" :route="route" />
+    <NuxtPage class="auth-container card" :route="route" />
   </div>
 </template>
 

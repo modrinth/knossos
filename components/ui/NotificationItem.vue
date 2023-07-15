@@ -106,6 +106,7 @@
         :raised="raised"
         :messages="getMessages()"
         class="thread-summary"
+        :auth="auth"
       />
       <div v-else-if="type === 'project_update'" class="version-list">
         <div
@@ -300,6 +301,10 @@ const props = defineProps({
   compact: {
     type: Boolean,
     default: false,
+  },
+  auth: {
+    type: Object,
+    required: true,
   },
 })
 

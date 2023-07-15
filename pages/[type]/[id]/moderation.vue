@@ -68,6 +68,7 @@
         :project="project"
         :set-status="setStatus"
         :current-member="currentMember"
+        :auth="auth"
       />
     </section>
   </div>
@@ -104,6 +105,7 @@ const props = defineProps({
 const emit = defineEmits(['update:project'])
 
 const app = useNuxtApp()
+const auth = await useAuth()
 
 let rawThread = null
 

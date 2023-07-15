@@ -1,5 +1,21 @@
 <template>
   <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+    <div
+      v-if="auth.user && !auth.user.email_verified && route.path !== '/auth/verify-email'"
+      class="email-nag"
+    >
+      <template v-if="auth.user.email">
+        <span>For security purposes, please verify your email address on Modrinth.</span>
+        <button class="btn" @click="resendVerifyEmail">Re-send verification email</button>
+      </template>
+      <template v-else>
+        <span>For security purposes, please enter your email on Modrinth.</span>
+        <nuxt-link class="btn" to="/settings/account">
+          <SettingsIcon />
+          Visit account settings
+        </nuxt-link>
+      </template>
+    </div>
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
@@ -1126,6 +1142,16 @@ export default defineNuxtComponent({
       }
     }
   }
+}
+
+.email-nag {
+  background-color: var(--color-raised-bg);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

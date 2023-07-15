@@ -63,6 +63,7 @@
       class="thread-summary"
       :raised="raised"
       :link="`/${moderation ? 'moderation' : 'dashboard'}/report/${report.id}`"
+      :auth="auth"
     />
     <div class="reporter-info">
       <ReportIcon class="inline-svg" /> Reported by
@@ -111,9 +112,12 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  auth: {
+    type: Object,
+    required: true,
+  },
 })
 
-const auth = await useAuth()
 const cosmetics = useCosmetics()
 </script>
 

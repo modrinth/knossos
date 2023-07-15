@@ -8,6 +8,7 @@
         :key="thread.id"
         :thread="thread"
         :link="getLink(thread)"
+        :auth="auth"
       />
     </section>
   </div>
@@ -19,6 +20,7 @@ useHead({
   title: 'Moderation inbox - Modrinth',
 })
 
+const auth = await useAuth()
 const inbox = ref([])
 
 await useBaseFetch('thread/inbox').then((result) => (inbox.value = result))

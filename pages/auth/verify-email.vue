@@ -1,6 +1,6 @@
 <template>
   <div class="auth-page-container">
-    <template v-if="auth.user && auth.user.email_verified">
+    <template v-if="auth.user && auth.user.email_verified && !success">
       <h1>Email already verified</h1>
       <p>Your email is already verified!</p>
       <nuxt-link class="btn" link="/settings/account">
@@ -10,7 +10,7 @@
     <template v-else-if="success">
       <h1>Email verification</h1>
       <p>Your email address has been successfully verified!</p>
-      <nuxt-link v-if="auth.user" class="btn" link="/settings/account">
+      <nuxt-link v-if="auth.user" class="btn" to="/settings/account">
         <SettingsIcon /> Account settings
       </nuxt-link>
       <nuxt-link v-else to="/auth/sign-in" class="btn btn-primary continue-btn">
@@ -40,7 +40,6 @@
 <script setup>
 import { SettingsIcon, RightArrowIcon } from 'omorphia'
 
-const data = useNuxtApp()
 const auth = await useAuth()
 
 const success = ref(false)
@@ -61,7 +60,7 @@ if (route.query.flow) {
       success.value = true
     }
 
-    if (emailVerified.value === true) {
+    if (emailVerified.value) {
       success.value = true
 
       if (auth.value.token) {
@@ -71,22 +70,5 @@ if (route.query.flow) {
   } catch (err) {
     success.value = false
   }
-}
-
-async function resendVerifyEmail() {
-  startLoading()
-  try {
-    await useBaseFetch('auth/mail/resend_verify', {
-      method: 'POST',
-    })
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
 }
 </script>

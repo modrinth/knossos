@@ -7,11 +7,16 @@
         :link-stack="breadcrumbsStack"
       />
       <h2>Report details</h2>
-      <ReportInfo :report="report" :show-thread="false" :show-message="false" />
+      <ReportInfo :report="report" :show-thread="false" :show-message="false" :auth="auth" />
     </section>
     <section class="universal-card">
       <h2>Messages</h2>
-      <ConversationThread :thread="thread" :report="report" :update-thread="updateThread" />
+      <ConversationThread
+        :thread="thread"
+        :report="report"
+        :update-thread="updateThread"
+        :auth="auth"
+      />
     </section>
   </div>
 </template>
@@ -29,6 +34,10 @@ const props = defineProps({
   breadcrumbsStack: {
     type: Array,
     default: null,
+  },
+  auth: {
+    type: Object,
+    required: true,
   },
 })
 

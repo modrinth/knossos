@@ -174,7 +174,6 @@ export default {
           body: formData,
           headers: {
             'Content-Disposition': formData,
-            Authorization: auth.value.token,
           },
         })
 

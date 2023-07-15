@@ -1,40 +1,63 @@
 <template>
   <div class="auth-page-container">
-    <h1>Continue with</h1>
-    <div class="third-party">
-      <a class="btn discord-btn" :href="getAuthUrl('discord')">
-        <DiscordIcon /> <span>Discord</span>
-      </a>
-      <a class="btn github-btn" :href="getAuthUrl('github')"><GitHubIcon /> <span>GitHub</span></a>
-      <a class="btn microsoft-btn" :href="getAuthUrl('microsoft')">
-        <MicrosoftIcon /> <span>Microsoft</span>
-      </a>
-      <a class="btn google-btn" :href="getAuthUrl('google')">
-        <GoogleIcon /> <span>Google</span>
-      </a>
-      <a class="btn apple-btn" :href="getAuthUrl('steam')"><SteamIcon /> <span>Steam</span></a>
-      <a class="btn gitlab-btn" :href="getAuthUrl('gitlab')"> <GitLabIcon /> <span>GitLab</span></a>
-    </div>
-    <div class="text-divider">
-      <div></div>
-      <span>or</span>
-      <div></div>
-    </div>
-    <label for="email" hidden>Email or username</label>
-    <input id="email" v-model="email" type="text" placeholder="Email or username" />
-    <label for="password" hidden>Password</label>
-    <input id="password" v-model="password" type="password" placeholder="Password" />
-    <div class="account-options">
-      <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
-      <nuxt-link class="text-link" to="/auth/reset-password">Forgot password?</nuxt-link>
-    </div>
-    <button class="btn btn-primary continue-btn" @click="loginPassword()">
-      Continue <RightArrowIcon />
-    </button>
-    <p>
-      Don't have an account yet?
-      <nuxt-link class="text-link" to="/auth/sign-up">Create one.</nuxt-link>
-    </p>
+    <template v-if="flow">
+      <label for="two-factor-code">
+        <span class="label__title">Enter two-factor code</span>
+        <span class="label__description">Please enter a two-factor code to proceed.</span>
+      </label>
+      <input
+        id="two-factor-code"
+        v-model="twoFactorCode"
+        maxlength="6"
+        type="number"
+        placeholder="Enter code..."
+      />
+
+      <button class="btn btn-primary continue-btn" @click="loginTwoFactor">
+        Sign in <RightArrowIcon />
+      </button>
+    </template>
+    <template v-else>
+      <h1>Continue with</h1>
+      <div class="third-party">
+        <a class="btn discord-btn" :href="getAuthUrl('discord')">
+          <DiscordIcon /> <span>Discord</span>
+        </a>
+        <a class="btn github-btn" :href="getAuthUrl('github')"
+          ><GitHubIcon /> <span>GitHub</span></a
+        >
+        <a class="btn microsoft-btn" :href="getAuthUrl('microsoft')">
+          <MicrosoftIcon /> <span>Microsoft</span>
+        </a>
+        <a class="btn google-btn" :href="getAuthUrl('google')">
+          <GoogleIcon /> <span>Google</span>
+        </a>
+        <a class="btn apple-btn" :href="getAuthUrl('steam')"><SteamIcon /> <span>Steam</span></a>
+        <a class="btn gitlab-btn" :href="getAuthUrl('gitlab')">
+          <GitLabIcon /> <span>GitLab</span></a
+        >
+      </div>
+      <div class="text-divider">
+        <div></div>
+        <span>or</span>
+        <div></div>
+      </div>
+      <label for="email" hidden>Email or username</label>
+      <input id="email" v-model="email" type="text" placeholder="Email or username" />
+      <label for="password" hidden>Password</label>
+      <input id="password" v-model="password" type="password" placeholder="Password" />
+      <div class="account-options">
+        <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
+        <nuxt-link class="text-link" to="/auth/reset-password">Forgot password?</nuxt-link>
+      </div>
+      <button class="btn btn-primary continue-btn" @click="loginPassword()">
+        Continue <RightArrowIcon />
+      </button>
+      <p>
+        Don't have an account yet?
+        <nuxt-link class="text-link" to="/auth/sign-up">Create one.</nuxt-link>
+      </p>
+    </template>
   </div>
 </template>
 
@@ -54,6 +77,9 @@ const email = ref('')
 const password = ref('')
 const token = ref('')
 
+const route = useRoute()
+const flow = ref(route.query.flow)
+
 async function loginPassword() {
   startLoading()
   try {
@@ -63,6 +89,37 @@ async function loginPassword() {
         username: email.value,
         password: password.value,
         challenge: token.value,
+      },
+    })
+
+    if (res.flow) {
+      flow.value = res.flow
+    } else {
+      await useAuth(res.session)
+      await useUser()
+      await navigateTo('/dashboard')
+    }
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data ? err.data.description : err,
+      type: 'error',
+    })
+    turnstile.value?.reset()
+  }
+  stopLoading()
+}
+
+const twoFactorCode = ref(null)
+async function loginTwoFactor() {
+  startLoading()
+  try {
+    const res = await useBaseFetch('auth/login/2fa', {
+      method: 'POST',
+      body: {
+        flow: flow.value,
+        code: twoFactorCode.value ? twoFactorCode.value.toString() : twoFactorCode.value,
       },
     })
 
@@ -97,6 +154,7 @@ async function loginPassword() {
 .account-options {
   display: flex;
   width: 100%;
+  margin-block-start: 0;
 }
 .account-options a {
   margin-left: auto;
