@@ -6,7 +6,7 @@ async function getBulk(type, ids) {
     return []
   }
 
-  const url = `${type}?ids=${JSON.stringify([...new Set(ids)])}`
+  const url = `${type}?ids=${encodeURIComponent(JSON.stringify([...new Set(ids)]))}`
   const { data: bulkFetch } = await useAsyncData(url, () => useBaseFetch(url))
   return bulkFetch.value
 }

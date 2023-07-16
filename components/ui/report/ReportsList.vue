@@ -54,13 +54,13 @@ const threadIds = [
 
 const [{ data: users }, { data: versions }, { data: threads }] = await Promise.all([
   await useAsyncData(`users?ids=${JSON.stringify(userIds)}`, () =>
-    useBaseFetch(`users?ids=${JSON.stringify(userIds)}`)
+    useBaseFetch(`users?ids=${encodeURIComponent(JSON.stringify(userIds))}`)
   ),
   await useAsyncData(`versions?ids=${JSON.stringify(versionIds)}`, () =>
-    useBaseFetch(`versions?ids=${JSON.stringify(versionIds)}`)
+    useBaseFetch(`versions?ids=${encodeURIComponent(JSON.stringify(versionIds))}`)
   ),
   await useAsyncData(`threads?ids=${JSON.stringify(threadIds)}`, () =>
-    useBaseFetch(`threads?ids=${JSON.stringify(threadIds)}`)
+    useBaseFetch(`threads?ids=${encodeURIComponent(JSON.stringify(threadIds))}`)
   ),
 ])
 
@@ -71,7 +71,7 @@ const versionProjects = versions.value.map((version) => version.project_id)
 const projectIds = [...new Set(reportedProjects.concat(versionProjects))]
 
 const { data: projects } = await useAsyncData(`projects?ids=${JSON.stringify(projectIds)}`, () =>
-  useBaseFetch(`projects?ids=${JSON.stringify(projectIds)}`)
+  useBaseFetch(`projects?ids=${encodeURIComponent(JSON.stringify(projectIds))}`)
 )
 
 reports.value = rawReports.map((report) => {
