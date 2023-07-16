@@ -180,6 +180,29 @@
             </button>
           </div>
         </nav>
+        <div class="card search-controls">
+          <div class="sort-controls">
+            <div class="labeled-control">
+              <span class="labeled-control__label">Sort by</span>
+              <Multiselect
+                v-model="sortType"
+                placeholder="Select one"
+                class="search-controls__sorting labeled-control__control"
+                track-by="display"
+                label="display"
+                :options="sortTypes"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+              >
+                <template #singleLabel="{ option }">
+                  {{ option.display }}
+                </template>
+              </Multiselect>
+            </div>
+          </div>
+        </div>
         <div
           v-if="projects.length > 0"
           class="project-list"
@@ -195,7 +218,7 @@
               : projects
             )
               .slice()
-              .sort((a, b) => b.downloads - a.downloads)"
+              .sort(sortProjects)"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
@@ -238,6 +261,7 @@
   </div>
 </template>
 <script setup>
+import { Multiselect } from 'vue-multiselect'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Promotion from '~/components/ads/Promotion.vue'
@@ -266,6 +290,14 @@ import Avatar from '~/components/ui/Avatar.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
+const sortTypes = shallowReadonly([
+  { display: 'Downloads', name: 'downloads' },
+  { display: 'Follow count', name: 'follows' },
+  { display: 'Recently published', name: 'newest' },
+  { display: 'Recently updated', name: 'updated' },
+  { display: 'Alphabetical', name: 'alphabetical' },
+])
+const sortType = ref({ display: 'Downloads', name: 'downloads' })
 
 let user, projects
 try {
@@ -322,7 +354,20 @@ const metaDescription = ref(
     ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
     : `Download ${user.value.username}'s projects on Modrinth`
 )
-
+const sortProjects = (a, b) => {
+  switch (sortType.value.name) {
+    case 'downloads':
+      return b.downloads - a.downloads
+    case 'newest':
+      return Date.parse(b.published) - Date.parse(a.published)
+    case 'updated':
+      return Date.parse(b.updated) - Date.parse(a.updated)
+    case 'follows':
+      return b.followers - a.followers
+    case 'alphabetical':
+      return b.title < a.title
+  }
+}
 const projectTypes = computed(() => {
   const obj = {}
 
@@ -441,6 +486,31 @@ export default defineNuxtComponent({
       display: none;
       font-size: 2rem;
       margin-bottom: 2.5rem;
+    }
+  }
+}
+
+.sort-controls {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-md);
+  flex-wrap: wrap;
+  align-items: center;
+
+  .labeled-control {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+    .labeled-control__label {
+      white-space: nowrap;
+    }
+
+    .search-controls__sorting {
+      width: 15rem;
     }
   }
 }
