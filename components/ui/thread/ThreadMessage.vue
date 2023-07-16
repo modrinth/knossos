@@ -43,7 +43,7 @@
           v-tooltip="'Modrinth Team'"
         />
         <MicIcon
-          v-if="report && message.author_id === report.reporter.id"
+          v-if="report && message.author_id === report.reporterUser.id"
           v-tooltip="'Reporter'"
           class="reporter-icon"
         />

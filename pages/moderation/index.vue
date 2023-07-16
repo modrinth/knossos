@@ -38,7 +38,7 @@ useHead({
   title: 'Staff overview - Modrinth',
 })
 
-const [raw] = await Promise.all([useBaseFetch(`statistics`)])
-
-const stats = ref(raw)
+const { data: stats } = await useAsyncData('statistics', () =>
+  useBaseFetch('statistics')
+)
 </script>

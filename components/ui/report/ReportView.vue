@@ -42,16 +42,15 @@ const props = defineProps({
 })
 
 const report = ref(null)
-const rawThread = ref(null)
-const thread = computed(() => addReportMessage(rawThread.value, report.value))
 
 await fetchReport().then((result) => {
   report.value = result
 })
 
-await useBaseFetch(`thread/${report.value.thread_id}`).then((result) => {
-  rawThread.value = result
-})
+const { data: rawThread } = await useAsyncData(`thread/${report.value.thread_id}`, () =>
+  useBaseFetch(`thread/${report.value.thread_id}`)
+)
+const thread = computed(() => addReportMessage(rawThread.value, report.value))
 
 async function updateThread(newThread) {
   rawThread.value = newThread
@@ -59,41 +58,55 @@ async function updateThread(newThread) {
 }
 
 async function fetchReport() {
-  const rawReport = await useBaseFetch(`report/${props.reportId}`)
-  rawReport.item_id = rawReport.item_id.replace(/"/g, '')
+  const { data: rawReport } = await useAsyncData(`report/${props.reportId}`, () =>
+    useBaseFetch(`report/${props.reportId}`)
+  )
+  rawReport.value.item_id = rawReport.value.item_id.replace(/"/g, '')
 
   const userIds = []
-  userIds.push(rawReport.reporter)
-  if (rawReport.item_type === 'user') {
-    userIds.push(rawReport.item_id)
+  userIds.push(rawReport.value.reporter)
+  if (rawReport.value.item_type === 'user') {
+    userIds.push(rawReport.value.item_id)
   }
 
-  const versionId = rawReport.item_type === 'version' ? rawReport.item_id : null
+  const versionId = rawReport.value.item_type === 'version' ? rawReport.value.item_id : null
 
-  const users = await useBaseFetch(`users?ids=${JSON.stringify(userIds)}`)
+  let users = []
+  if (userIds.length > 0) {
+    const { data: usersVal } = await useAsyncData(`users?ids=${JSON.stringify(userIds)}`, () =>
+      useBaseFetch(`users?ids=${JSON.stringify(userIds)}`, app.$defaultHeaders())
+    )
+    users = usersVal.value
+  }
 
   let version = null
   if (versionId) {
-    version = await useBaseFetch(`version/${versionId}`)
+    const { data: versionVal } = await useAsyncData(`version/${versionId}`, () =>
+      useBaseFetch(`version/${versionId}`)
+    )
+    version = versionVal.value
   }
 
   const projectId = version
     ? version.project_id
-    : rawReport.item_type === 'project'
-    ? rawReport.item_id
+    : rawReport.value.item_type === 'project'
+    ? rawReport.value.item_id
     : null
 
   let project = null
   if (projectId) {
-    project = await useBaseFetch(`project/${projectId}`)
+    const { data: projectVal } = await useAsyncData(`project/${projectId}`, () =>
+      useBaseFetch(`project/${projectId}`)
+    )
+    project = projectVal.value
   }
 
-  const reportData = rawReport
+  const reportData = rawReport.value
   reportData.project = project
   reportData.version = version
-  reportData.reporter = users.find((user) => user.id === rawReport.reporter)
-  if (rawReport.item_type === 'user') {
-    reportData.user = users.find((user) => user.id === rawReport.item_id)
+  reportData.reporterUser = users.find((user) => user.id === rawReport.value.reporter)
+  if (rawReport.value.item_type === 'user') {
+    reportData.user = users.find((user) => user.id === rawReport.value.item_id)
   }
   return reportData
 }

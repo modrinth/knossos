@@ -107,14 +107,9 @@ const emit = defineEmits(['update:project'])
 const app = useNuxtApp()
 const auth = await useAuth()
 
-let rawThread = null
-
-if (props.project.thread_id) {
-  rawThread = await useBaseFetch(`thread/${props.project.thread_id}`)
-}
-
-const thread = ref(rawThread)
-
+const { data: thread } = await useAsyncData(`thread/${props.project.thread_id}`, () =>
+  useBaseFetch(`thread/${props.project.thread_id}`)
+)
 async function setStatus(status) {
   startLoading()
 

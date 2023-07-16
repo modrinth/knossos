@@ -40,9 +40,9 @@ useHead({
 
 const auth = await useAuth()
 
-const [raw] = await Promise.all([useBaseFetch(`user/${auth.value.user.id}/payouts`)])
-
-const payouts = ref(raw)
+const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
+  useBaseFetch(`user/${auth.value.user.id}/payouts`)
+)
 </script>
 <style lang="scss" scoped>
 .grid-table {

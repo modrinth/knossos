@@ -2,13 +2,21 @@ import { useNuxtApp } from '#app'
 import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
-  return await useBaseFetch(`${type}?ids=${JSON.stringify([...new Set(ids)])}`)
+  if (ids.length === 0) {
+    return []
+  }
+
+  const url = `${type}?ids=${JSON.stringify([...new Set(ids)])}`
+  const { data: bulkFetch } = await useAsyncData(url, () => useBaseFetch(url))
+  return bulkFetch.value
 }
 
 export async function fetchNotifications() {
   try {
     const auth = (await useAuth()).value
-    const notifications = await useBaseFetch(`user/${auth.user.id}/notifications`)
+    const { data: notifications } = await useAsyncData(`user/${auth.user.id}/notifications`, () =>
+      useBaseFetch(`user/${auth.user.id}/notifications`)
+    )
 
     const projectIds = []
     const reportIds = []
@@ -16,7 +24,7 @@ export async function fetchNotifications() {
     const userIds = []
     const versionIds = []
 
-    for (const notification of notifications) {
+    for (const notification of notifications.value) {
       if (notification.body) {
         if (notification.body.project_id) {
           projectIds.push(notification.body.project_id)
@@ -58,7 +66,7 @@ export async function fetchNotifications() {
     const threads = await getBulk('threads', threadIds)
     const users = await getBulk('users', userIds)
 
-    for (const notification of notifications) {
+    for (const notification of notifications.value) {
       notification.extra_data = {}
       if (notification.body) {
         if (notification.body.project_id) {
@@ -103,7 +111,7 @@ export async function fetchNotifications() {
       }
     }
 
-    return notifications
+    return notifications.value
   } catch (error) {
     const app = useNuxtApp()
     app.$notify({
