@@ -102,7 +102,9 @@ const now = app.$dayjs()
 const TIME_24H = 86400000
 const TIME_48H = TIME_24H * 2
 
-const projects = ref([])
+const { data: projects } = await useAsyncData('moderation/projects?count=1000', () =>
+  useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders())
+)
 const members = ref([])
 const projectType = ref('all')
 const oldestFirst = ref(true)
@@ -140,34 +142,38 @@ const projectTypes = computed(() => {
   return [...set]
 })
 
-await useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders()).then((result) => {
-  projects.value = result
-})
-
 if (projects.value) {
   const teamIds = projects.value.map((x) => x.team)
 
-  await useBaseFetch('teams?ids=' + JSON.stringify(teamIds), app.$defaultHeaders()).then(
-    (result) => {
-      members.value = result
+  await useAsyncData(
+    'teams?ids=' + JSON.stringify(teamIds),
+    () => useBaseFetch('teams?ids=' + JSON.stringify(teamIds), app.$defaultHeaders()),
+    {
+      transform: (result) => {
+        if (result) {
+          members.value = result
 
-      projects.value = projects.value.map((project) => {
-        project.owner = members.value
-          .flat()
-          .find((x) => x.team_id === project.team && x.role === 'Owner').user
-        project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
-        project.age_warning = ''
-        if (project.age > TIME_24H * 2) {
-          project.age_warning = 'danger'
-        } else if (project.age > TIME_24H) {
-          project.age_warning = 'warning'
+          projects.value = projects.value.map((project) => {
+            project.owner = members.value
+              .flat()
+              .find((x) => x.team_id === project.team && x.role === 'Owner').user
+            project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
+            project.age_warning = ''
+            if (project.age > TIME_24H * 2) {
+              project.age_warning = 'danger'
+            } else if (project.age > TIME_24H) {
+              project.age_warning = 'warning'
+            }
+            project.inferred_project_type = app.$getProjectTypeForUrl(
+              project.project_type,
+              project.loaders
+            )
+            return project
+          })
         }
-        project.inferred_project_type = app.$getProjectTypeForUrl(
-          project.project_type,
-          project.loaders
-        )
-        return project
-      })
+
+        return result
+      },
     }
   )
 }

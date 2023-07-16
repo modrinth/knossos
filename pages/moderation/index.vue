@@ -40,7 +40,7 @@ useHead({
 
 const app = useNuxtApp()
 
-const [raw] = await Promise.all([useBaseFetch(`statistics`, app.$defaultHeaders())])
-
-const stats = ref(raw)
+const { data: stats } = await useAsyncData('statistics', () =>
+  useBaseFetch('statistics', app.$defaultHeaders())
+)
 </script>

@@ -118,13 +118,15 @@ useHead({
 const auth = await useAuth()
 const app = useNuxtApp()
 
-const [rawProjects, rawPayouts] = await Promise.all([
-  useBaseFetch(`user/${auth.value.user.id}/projects`, app.$defaultHeaders()),
-  useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders()),
+const [{ data: projects }, { data: payouts }] = await Promise.all([
+  useAsyncData(`user/${auth.value.user.id}/projects`, () =>
+    useBaseFetch(`user/${auth.value.user.id}/projects`, app.$defaultHeaders())
+  ),
+  useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
+    useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders())
+  ),
 ])
 
-const projects = shallowRef(rawProjects)
-const payouts = ref(rawPayouts)
 const minWithdraw = ref(0.26)
 
 const downloadsProjectCount = computed(
