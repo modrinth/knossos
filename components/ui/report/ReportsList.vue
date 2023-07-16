@@ -3,7 +3,7 @@
   <ReportInfo
     v-for="report in reports.filter(
       (x) =>
-        (moderation || x.reporterUser.id === props.auth.user.id) &&
+        (moderation || x.reporterUser.id === auth.user.id) &&
         (viewMode === 'open' ? x.open : !x.open)
     )"
     :key="report.id"
@@ -34,9 +34,7 @@ defineProps({
 const viewMode = ref('open')
 const reports = ref([])
 
-let { data: rawReports } = await useAsyncData('report', () =>
-  useBaseFetch('report')
-)
+let { data: rawReports } = await useAsyncData('report', () => useBaseFetch('report'))
 
 rawReports = rawReports.value.map((report) => {
   report.item_id = report.item_id.replace(/"/g, '')

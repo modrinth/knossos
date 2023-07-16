@@ -74,7 +74,7 @@ async function fetchReport() {
   let users = []
   if (userIds.length > 0) {
     const { data: usersVal } = await useAsyncData(`users?ids=${JSON.stringify(userIds)}`, () =>
-      useBaseFetch(`users?ids=${JSON.stringify(userIds)}`, app.$defaultHeaders())
+      useBaseFetch(`users?ids=${JSON.stringify(userIds)}`)
     )
     users = usersVal.value
   }

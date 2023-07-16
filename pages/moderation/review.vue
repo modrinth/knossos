@@ -103,7 +103,7 @@ const TIME_24H = 86400000
 const TIME_48H = TIME_24H * 2
 
 const { data: projects } = await useAsyncData('moderation/projects?count=1000', () =>
-  useBaseFetch('moderation/projects?count=1000', app.$defaultHeaders())
+  useBaseFetch('moderation/projects?count=1000')
 )
 const members = ref([])
 const projectType = ref('all')

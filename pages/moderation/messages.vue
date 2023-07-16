@@ -20,9 +20,8 @@ useHead({
   title: 'Moderation inbox - Modrinth',
 })
 
-const { data: inbox } = await useAsyncData('thread/inbox', () =>
-  useBaseFetch('thread/inbox')
-)
+const auth = await useAuth()
+const { data: inbox } = await useAsyncData('thread/inbox', () => useBaseFetch('thread/inbox'))
 
 function getLink(thread) {
   if (thread.report_id) {
