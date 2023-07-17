@@ -33,6 +33,12 @@
       type="password"
       placeholder="Confirm password"
     />
+    <Checkbox v-model="subscribe" class="subscribe-btn" label="Subscribe updates about Modrinth" />
+    <p>
+      By creating an account, you agree to Modrinth's
+      <nuxt-link to="/legal/terms" class="text-link">terms</nuxt-link> and
+      <nuxt-link to="/legal/privacy" class="text-link">privacy policy</nuxt-link>.
+    </p>
     <button class="btn btn-primary continue-btn" @click="createAccount">
       Create account <RightArrowIcon />
     </button>
@@ -50,7 +56,7 @@
 </template>
 
 <script setup>
-import { GitHubIcon, RightArrowIcon } from 'omorphia'
+import { GitHubIcon, RightArrowIcon, Checkbox } from 'omorphia'
 import DiscordIcon from 'assets/images/utils/discord.svg'
 import GoogleIcon from 'assets/images/utils/google.svg'
 import SteamIcon from 'assets/images/utils/steam.svg'
@@ -58,6 +64,16 @@ import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
 import GitLabIcon from 'assets/images/utils/gitlab.svg'
 
 const auth = await useAuth()
+const route = useRoute()
+
+if (route.fullPath.includes('new_account=true')) {
+  await navigateTo(
+    `/auth/welcome?authToken=${route.query.code}${
+      route.query.redirect ? `&redirect=${encodeURIComponent(route.query.redirect)}` : ''
+    }`
+  )
+}
+
 if (auth.value.user) {
   await navigateTo('/dashboard')
 }
@@ -71,8 +87,7 @@ const username = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const token = ref('')
-
-const route = useRoute()
+const subscribe = ref(true)
 
 async function createAccount() {
   startLoading()
@@ -94,6 +109,7 @@ async function createAccount() {
         password: password.value,
         email: email.value,
         challenge: token.value,
+        sign_up_newsletter: subscribe.value,
       },
     })
 
@@ -117,3 +133,8 @@ async function createAccount() {
   stopLoading()
 }
 </script>
+<style lang="scss" scoped>
+.subscribe-btn {
+  margin-block-start: 0 !important;
+}
+</style>

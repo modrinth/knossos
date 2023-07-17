@@ -35,7 +35,7 @@ export const initAuth = async (oldToken = null) => {
     authCookie.value = oldToken
   }
 
-  if (route.query.code) {
+  if (route.query.code && !route.fullPath.includes('new_account=true')) {
     authCookie.value = route.query.code
   }
 

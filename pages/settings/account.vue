@@ -127,8 +127,8 @@
           <input
             id="two-factor-code"
             v-model="twoFactorCode"
-            maxlength="6"
-            type="number"
+            maxlength="11"
+            type="text"
             placeholder="Enter code..."
           />
           <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
@@ -228,7 +228,7 @@
         </template>
       </div>
     </Modal>
-    <Modal ref="manageProvidersModal" header="Manage authentication providers">
+    <Modal ref="manageProvidersModal" header="Authentication providers">
       <div class="universal-modal">
         <div class="table">
           <div class="table-row table-head">

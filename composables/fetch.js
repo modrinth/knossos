@@ -16,6 +16,5 @@ export const useBaseFetch = async (url, options = {}, skipAuth = false) => {
     options.headers.Authorization = auth.value.token
   }
 
-  console.log(`${base}${url}`)
   return await $fetch(`${base}${url}`, options)
 }

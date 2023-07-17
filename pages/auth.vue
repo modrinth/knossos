@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtPage class="auth-container card" :route="route" />
+    <NuxtPage class="auth-container universal-card" :route="route" />
   </div>
 </template>
 
@@ -10,15 +10,13 @@ const route = useRoute()
 
 <style lang="scss">
 .auth-container {
-  width: 24rem;
+  width: 25rem;
   padding: var(--gap-xl);
   background-color: var(--color-raised-bg);
   border-radius: var(--radius-lg);
   margin: 2rem auto;
 
   h1 {
-    font-size: 1.75rem;
-    font-weight: 500;
     margin: 0;
     color: var(--color-contrast);
   }
@@ -68,6 +66,7 @@ const route = useRoute()
   .continue-btn {
     margin-left: auto;
     margin-right: auto;
+    margin-block-start: 0;
   }
 
   .continue-btn svg {

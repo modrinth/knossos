@@ -6,15 +6,15 @@
         Enter your email below and we'll send a recovery link to allow you to recover your account.
         <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
       </p>
-      <label for="email" hidden>Email or password</label>
-      <input id="email" v-model="email" type="text" placeholder="Email or password" />
+      <label for="email" hidden>Email or username</label>
+      <input id="email" v-model="email" type="text" placeholder="Email or username" />
       <button class="btn btn-primary continue-btn" @click="recovery">Send recovery email</button>
     </template>
     <template v-else-if="step === 'passed_challenge'">
       <p>Enter your new password below to gain access to your account.</p>
       <label for="password" hidden>Password</label>
       <input id="password" v-model="newPassword" type="password" placeholder="Password" />
-      <label for="confirm-password" hidden>Password</label>
+      <label for="confirm-password" hi2dden>Password</label>
       <input
         id="confirm-password"
         v-model="confirmNewPassword"

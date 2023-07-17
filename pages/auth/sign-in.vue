@@ -8,8 +8,8 @@
       <input
         id="two-factor-code"
         v-model="twoFactorCode"
-        maxlength="6"
-        type="number"
+        maxlength="11"
+        type="text"
         placeholder="Enter code..."
       />
 
@@ -75,6 +75,18 @@ import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
 import GitLabIcon from 'assets/images/utils/gitlab.svg'
 
 const auth = await useAuth()
+
+const route = useRoute()
+if (route.fullPath.includes('new_account=true')) {
+  await navigateTo(
+    `/auth/welcome?authToken=${route.query.code}${
+      route.query.redirect ? `&redirect=${encodeURIComponent(route.query.redirect)}` : ''
+    }`
+  )
+} else if (route.query.code) {
+  await loginHandler()
+}
+
 if (auth.value.user) {
   await navigateTo('/dashboard')
 }
@@ -87,12 +99,7 @@ const email = ref('')
 const password = ref('')
 const token = ref('')
 
-const route = useRoute()
 const flow = ref(route.query.flow)
-
-if (route.query.code) {
-  await loginHandler()
-}
 
 async function loginPassword() {
   startLoading()
@@ -176,7 +183,7 @@ async function loginHandler(token) {
 .account-options {
   display: flex;
   width: 100%;
-  margin-block-start: 0;
+  margin-block-start: 0 !important;
 }
 .account-options a {
   margin-left: auto;
