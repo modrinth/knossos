@@ -40,6 +40,10 @@
 <script setup>
 import { SettingsIcon, RightArrowIcon } from 'omorphia'
 
+useHead({
+  title: 'Verify Email - Modrinth',
+})
+
 const auth = await useAuth()
 
 const success = ref(false)

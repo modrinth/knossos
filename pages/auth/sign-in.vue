@@ -74,6 +74,10 @@ import SteamIcon from 'assets/images/utils/steam.svg'
 import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
 import GitLabIcon from 'assets/images/utils/gitlab.svg'
 
+useHead({
+  title: 'Sign In - Modrinth',
+})
+
 const auth = await useAuth()
 
 const route = useRoute()

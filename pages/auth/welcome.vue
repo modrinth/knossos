@@ -17,6 +17,10 @@
 <script setup>
 import { Checkbox } from 'omorphia'
 
+useHead({
+  title: 'Welcome - Modrinth',
+})
+
 const subscribe = ref(true)
 
 async function continueSignUp() {

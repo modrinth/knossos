@@ -26,6 +26,10 @@
   </div>
 </template>
 <script setup>
+useHead({
+  title: 'Reset Password - Modrinth',
+})
+
 const auth = await useAuth()
 if (auth.value.user) {
   await navigateTo('/dashboard')

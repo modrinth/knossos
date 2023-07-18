@@ -38,7 +38,5 @@ useHead({
   title: 'Staff overview - Modrinth',
 })
 
-const { data: stats } = await useAsyncData('statistics', () =>
-  useBaseFetch('statistics')
-)
+const { data: stats } = await useAsyncData('statistics', () => useBaseFetch('statistics'))
 </script>
