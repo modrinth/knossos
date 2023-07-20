@@ -2,12 +2,21 @@ import { useNuxtApp } from '#app'
 import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
+<<<<<<< HEAD
+=======
+  const auth = (await useAuth()).value
+>>>>>>> master
   if (ids.length === 0) {
     return []
   }
 
+<<<<<<< HEAD
   const url = `${type}?ids=${encodeURIComponent(JSON.stringify([...new Set(ids)]))}`
   const { data: bulkFetch } = await useAsyncData(url, () => useBaseFetch(url))
+=======
+  const url = `${type}?ids=${JSON.stringify([...new Set(ids)])}`
+  const { data: bulkFetch } = await useAsyncData(url, () => useBaseFetch(url, auth.headers))
+>>>>>>> master
   return bulkFetch.value
 }
 
@@ -15,7 +24,11 @@ export async function fetchNotifications() {
   try {
     const auth = (await useAuth()).value
     const { data: notifications } = await useAsyncData(`user/${auth.user.id}/notifications`, () =>
+<<<<<<< HEAD
       useBaseFetch(`user/${auth.user.id}/notifications`)
+=======
+      useBaseFetch(`user/${auth.user.id}/notifications`, auth.headers)
+>>>>>>> master
     )
 
     const projectIds = []
@@ -160,8 +173,17 @@ export function groupNotifications(notifications, includeRead = false) {
 
 export async function markAsRead(ids) {
   try {
+<<<<<<< HEAD
     await useBaseFetch(`notifications?ids=${JSON.stringify([...new Set(ids)])}`, {
       method: 'PATCH',
+=======
+    const auth = (await useAuth()).value
+    await useBaseFetch(`notifications?ids=${JSON.stringify([...new Set(ids)])}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: auth.token,
+      },
+>>>>>>> master
     })
     await userReadNotifications(ids)
     return (notifications) => {
