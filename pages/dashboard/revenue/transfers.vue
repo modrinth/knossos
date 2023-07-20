@@ -41,11 +41,7 @@ useHead({
 const auth = await useAuth()
 
 const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
-<<<<<<< HEAD
   useBaseFetch(`user/${auth.value.user.id}/payouts`)
-=======
-  useBaseFetch(`user/${auth.value.user.id}/payouts`, app.$defaultHeaders())
->>>>>>> master
 )
 </script>
 <style lang="scss" scoped>

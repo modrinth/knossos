@@ -1,5 +1,4 @@
 export const getProjectTypeForUrl = (type, categories) => {
-<<<<<<< HEAD
   return getProjectTypeForUrlShorthand(type, categories)
 }
 
@@ -17,24 +16,6 @@ export const getProjectTypeForUrlShorthand = (type, categories, overrideTags) =>
 
     const isDataPack = categories.some((category) => {
       return tags.loaderData.dataPackLoaders.includes(category)
-=======
-  const app = useNuxtApp()
-  return getProjectTypeForUrlShorthand(app, type, categories)
-}
-
-export const getProjectTypeForUrlShorthand = (app, type, categories) => {
-  if (type === 'mod') {
-    const isMod = categories.some((category) => {
-      return app.$tag.loaderData.modLoaders.includes(category)
-    })
-
-    const isPlugin = categories.some((category) => {
-      return app.$tag.loaderData.allPluginLoaders.includes(category)
-    })
-
-    const isDataPack = categories.some((category) => {
-      return app.$tag.loaderData.dataPackLoaders.includes(category)
->>>>>>> master
     })
 
     if (isDataPack) {
