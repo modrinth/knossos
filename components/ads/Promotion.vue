@@ -84,4 +84,8 @@
     flex-direction: column;
   }
 }
+
+.MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3 {
+  width: 1.5rem;
+}
 </style>
