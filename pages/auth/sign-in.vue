@@ -47,7 +47,7 @@
         </a>
       </section>
 
-      <h1>or sing in manually</h1>
+      <h1>or sign in manually</h1>
 
       <section class="auth-form">
         <div class="iconified-input">
