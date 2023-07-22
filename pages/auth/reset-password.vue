@@ -1,31 +1,46 @@
 <template>
-  <div class="auth-page-container">
+  <div>
     <h1>Reset your password</h1>
-    <template v-if="step === 'choose_method'">
-      <p>
-        Enter your email below and we'll send a recovery link to allow you to recover your account.
-        <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
-      </p>
-      <label for="email" hidden>Email or username</label>
-      <input id="email" v-model="email" type="text" placeholder="Email or username" />
-      <button class="btn btn-primary continue-btn" @click="recovery">Send recovery email</button>
-    </template>
-    <template v-else-if="step === 'passed_challenge'">
-      <p>Enter your new password below to gain access to your account.</p>
-      <label for="password" hidden>Password</label>
-      <input id="password" v-model="newPassword" type="password" placeholder="Password" />
-      <label for="confirm-password" hi2dden>Password</label>
-      <input
-        id="confirm-password"
-        v-model="confirmNewPassword"
-        type="password"
-        placeholder="Confirm password"
-      />
-      <button class="btn btn-primary continue-btn" @click="changePassword">Reset password</button>
-    </template>
+    <section class="auth-form">
+      <template v-if="step === 'choose_method'">
+        <p>
+          Enter your email below and we'll send a recovery link to allow you to recover your
+          account.
+          <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
+        </p>
+        <div class="iconified-input">
+          <label for="email" hidden>Email or username</label>
+          <MailIcon />
+          <input id="email" v-model="email" type="text" placeholder="Email" />
+        </div>
+        <button class="btn btn-primary continue-btn" @click="recovery">Send recovery email</button>
+      </template>
+      <template v-else-if="step === 'passed_challenge'">
+        <p>Enter your new password below to gain access to your account.</p>
+        <div class="iconified-input">
+          <label for="password" hidden>Password</label>
+          <KeyIcon />
+          <input id="password" v-model="newPassword" type="password" placeholder="Password" />
+        </div>
+        <div class="iconified-input">
+          <label for="confirm-password" hidden>Password</label>
+          <KeyIcon />
+          <input
+            id="confirm-password"
+            v-model="confirmNewPassword"
+            type="password"
+            placeholder="Confirm password"
+          />
+        </div>
+        <button class="btn btn-primary continue-btn" @click="changePassword">Reset password</button>
+      </template>
+    </section>
   </div>
 </template>
 <script setup>
+import MailIcon from 'assets/icons/auth/mail.svg'
+import KeyIcon from 'assets/icons/auth/key.svg'
+
 useHead({
   title: 'Reset Password - Modrinth',
 })
