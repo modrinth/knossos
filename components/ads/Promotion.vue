@@ -4,7 +4,7 @@
       <div class="BDVE3s9MFQttmbMUeYup-1">
         <div class="BDVE3s9MFQttmbMUeYup-2">
           <a
-            href="https://exaroton.com/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
+            href="https://mtx.gg/?utm_source=modrinth&utm_medium=text&utm_campaign=host&utm_content=top"
             rel="noopener nofollow sponsored"
             target="_blank"
           >
