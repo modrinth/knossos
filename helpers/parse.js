@@ -67,7 +67,10 @@ export const configuredXss = new xss.FilterXSS({
     if (tag === 'img' && name === 'src' && !value.startsWith('data:')) {
       try {
         const url = new URL(value)
-        url.searchParams.delete('errorredirect')
+
+        if (url.hostname.includes('wsrv.nl')) {
+          url.searchParams.delete('errorredirect')
+        }
 
         const allowedHostnames = [
           'imgur.com',
