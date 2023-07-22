@@ -67,6 +67,7 @@ export const configuredXss = new xss.FilterXSS({
     if (tag === 'img' && name === 'src' && !value.startsWith('data:')) {
       try {
         const url = new URL(value)
+        url.searchParams.delete('errorredirect')
 
         const allowedHostnames = [
           'imgur.com',
@@ -88,9 +89,11 @@ export const configuredXss = new xss.FilterXSS({
           return xss.safeAttrValue(
             tag,
             name,
-            `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`,
+            `https://wsrv.nl/?url=${encodeURIComponent(url.toString())}&n=-1`,
             cssFilter
           )
+        } else {
+          return xss.safeAttrValue(tag, name, url.toString(), cssFilter)
         }
       } catch (err) {}
     }
