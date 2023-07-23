@@ -18,7 +18,7 @@
       </button>
     </template>
     <template v-else>
-      <h1>Continue with</h1>
+      <h1>Sign in with</h1>
 
       <section class="third-party">
         <a class="btn" :href="getAuthUrl('discord')">
@@ -47,34 +47,47 @@
         </a>
       </section>
 
-      <h1>or sign in manually</h1>
+      <h1>Or use a password</h1>
 
       <section class="auth-form">
         <div class="iconified-input">
           <label for="email" hidden>Email or username</label>
           <MailIcon />
-          <input id="email" v-model="email" type="text" placeholder="Email or username" />
+          <input
+            id="email"
+            v-model="email"
+            type="text"
+            class="auth-form__input"
+            placeholder="Email or username"
+          />
         </div>
 
         <div class="iconified-input">
           <label for="password" hidden>Password</label>
           <KeyIcon />
-          <input id="password" v-model="password" type="password" placeholder="Password" />
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            class="auth-form__input"
+            placeholder="Password"
+          />
         </div>
 
         <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
 
-        <div class="auth-form__continue--space-around continue-options">
-          <button class="btn btn-primary continue-btn" @click="beginPasswordSignIn()">
-            Continue <RightArrowIcon />
-          </button>
-          <NuxtLink class="text-link" to="/auth/reset-password">Forgot password?</NuxtLink>
-        </div>
+        <button
+          class="auth-form__input btn btn-primary continue-btn"
+          @click="beginPasswordSignIn()"
+        >
+          Continue <RightArrowIcon />
+        </button>
 
-        <p>
-          Don't have an account yet?
-          <NuxtLink class="text-link" :to="signUpLink"> Create one </NuxtLink>
-        </p>
+        <div class="auth-form__additional-options">
+          <NuxtLink class="text-link" to="/auth/reset-password">Forgot the password?</NuxtLink>
+          <p>•</p>
+          <NuxtLink class="text-link" :to="signUpLink"> Create an account</NuxtLink>
+        </div>
       </section>
     </template>
   </div>
@@ -190,10 +203,3 @@ async function finishSignIn(token) {
   }
 }
 </script>
-<style scoped>
-.continue-options {
-  align-items: center;
-  display: flex;
-  gap: var(--gap-md);
-}
-</style>

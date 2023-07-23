@@ -4,16 +4,16 @@
 
 <style>
 .auth-container {
-  width: 25rem;
+  width: 30rem;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-xl);
+  gap: 2rem;
 }
 
 .auth-container h1 {
   font-size: var(--font-size-xl);
-  margin: 0;
+  margin: 0 0 -1rem 0;
   color: var(--color-contrast);
 }
 
@@ -27,10 +27,8 @@
   text-decoration: none;
 }
 
-.auth-container input {
-  width: 100%;
-  border: none;
-  outline: none;
+.continue-btn {
+  justify-content: center;
 }
 
 .continue-btn svg {
@@ -71,7 +69,15 @@
   gap: var(--gap-md);
 }
 
-.auth-form__continue--space-around {
-  margin: var(--gap-md) 0;
+.auth-form .auth-form__input {
+  width: 100%;
+  flex-basis: auto;
+}
+
+.auth-form__additional-options {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-md);
 }
 </style>

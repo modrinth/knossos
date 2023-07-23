@@ -8,20 +8,38 @@
           account.
           <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
         </p>
+
         <div class="iconified-input">
           <label for="email" hidden>Email or username</label>
           <MailIcon />
-          <input id="email" v-model="email" type="text" placeholder="Email" />
+          <input
+            id="email"
+            v-model="email"
+            type="text"
+            class="auth-form__input"
+            placeholder="Email"
+          />
         </div>
-        <button class="btn btn-primary continue-btn" @click="recovery">Send recovery email</button>
+
+        <button class="auth-form__input btn btn-primary continue-btn" @click="recovery">
+          Send recovery email
+        </button>
       </template>
       <template v-else-if="step === 'passed_challenge'">
         <p>Enter your new password below to gain access to your account.</p>
+
         <div class="iconified-input">
           <label for="password" hidden>Password</label>
           <KeyIcon />
-          <input id="password" v-model="newPassword" type="password" placeholder="Password" />
+          <input
+            id="password"
+            v-model="newPassword"
+            type="password"
+            class="auth-form__input"
+            placeholder="Password"
+          />
         </div>
+
         <div class="iconified-input">
           <label for="confirm-password" hidden>Password</label>
           <KeyIcon />
@@ -29,10 +47,14 @@
             id="confirm-password"
             v-model="confirmNewPassword"
             type="password"
+            class="auth-form__input"
             placeholder="Confirm password"
           />
         </div>
-        <button class="btn btn-primary continue-btn" @click="changePassword">Reset password</button>
+
+        <button class="auth-form__input btn btn-primary continue-btn" @click="changePassword">
+          Reset password
+        </button>
       </template>
     </section>
   </div>
@@ -50,7 +72,6 @@ if (auth.value.user) {
   await navigateTo('/dashboard')
 }
 
-const data = useNuxtApp()
 const route = useRoute()
 
 const step = ref('choose_method')
@@ -75,14 +96,14 @@ async function recovery() {
       },
     })
 
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Email sent',
       text: 'An email with instructions has been sent to you if the email was previously saved on your account.',
       type: 'success',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -107,7 +128,7 @@ async function changePassword() {
       },
     })
 
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Password successfully reset',
       text: 'You can now log-in into your account with your new password.',
@@ -115,7 +136,7 @@ async function changePassword() {
     })
     await navigateTo('/auth/sign-in')
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,

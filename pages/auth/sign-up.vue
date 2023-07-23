@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Continue with</h1>
+    <h1>Sign up with</h1>
 
     <section class="third-party">
       <a class="btn discord-btn" :href="getAuthUrl('discord')">
@@ -29,25 +29,43 @@
       </a>
     </section>
 
-    <h1>or create your account manually</h1>
+    <h1>Or create an account yourself</h1>
 
     <section class="auth-form">
       <div class="iconified-input">
         <label for="email" hidden>Email</label>
         <MailIcon />
-        <input id="email" v-model="email" type="text" placeholder="Email" />
+        <input
+          id="email"
+          v-model="email"
+          type="text"
+          class="auth-form__input"
+          placeholder="Email"
+        />
       </div>
 
       <div class="iconified-input">
         <label for="username" hidden>Username</label>
         <UserIcon />
-        <input id="username" v-model="username" type="text" placeholder="Username" />
+        <input
+          id="username"
+          v-model="username"
+          type="text"
+          class="auth-form__input"
+          placeholder="Username"
+        />
       </div>
 
       <div class="iconified-input">
         <label for="password" hidden>Password</label>
         <KeyIcon />
-        <input id="password" v-model="password" type="password" placeholder="Password" />
+        <input
+          id="password"
+          v-model="password"
+          class="auth-form__input"
+          type="password"
+          placeholder="Password"
+        />
       </div>
 
       <div class="iconified-input">
@@ -57,6 +75,7 @@
           id="confirm-password"
           v-model="confirmPassword"
           type="password"
+          class="auth-form__input"
           placeholder="Confirm password"
         />
       </div>
@@ -75,17 +94,14 @@
         <NuxtLink to="/legal/privacy" class="text-link">Privacy Policy</NuxtLink>.
       </p>
 
-      <button
-        class="auth-form__continue--space-around btn btn-primary continue-btn"
-        @click="createAccount"
-      >
-        Create account <RightArrowIcon />
+      <button class="auth-form__input btn btn-primary continue-btn" @click="createAccount">
+        Create an account <RightArrowIcon />
       </button>
 
-      <p>
+      <div class="auth-form__additional-options">
         Already have an account?
         <NuxtLink class="text-link" :to="signInLink">Sign in</NuxtLink>
-      </p>
+      </div>
     </section>
   </div>
 </template>
@@ -120,8 +136,6 @@ if (auth.value.user) {
   await navigateTo('/dashboard')
 }
 
-const data = useNuxtApp()
-
 const turnstile = ref()
 
 const email = ref('')
@@ -139,7 +153,7 @@ async function createAccount() {
   startLoading()
   try {
     if (confirmPassword.value !== password.value) {
-      data.$notify({
+      addNotification({
         group: 'main',
         title: 'An error occurred',
         text: 'Passwords do not match!',
@@ -168,7 +182,7 @@ async function createAccount() {
       await navigateTo('/dashboard')
     }
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,

@@ -14,10 +14,7 @@
         label="Subscribe updates about Modrinth"
       />
 
-      <button
-        class="auth-form__continue--space-around btn btn-primary continue-btn"
-        @click="continueSignUp"
-      >
+      <button class="auth-form__input btn btn-primary continue-btn" @click="continueSignUp">
         Continue <RightArrowIcon />
       </button>
 

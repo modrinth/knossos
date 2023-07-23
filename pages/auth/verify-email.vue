@@ -2,17 +2,22 @@
   <div>
     <template v-if="auth.user && auth.user.email_verified && !success">
       <h1>Email already verified</h1>
+
       <section class="auth-form">
         <p>Your email is already verified!</p>
+
         <NuxtLink class="btn" link="/settings/account">
           <SettingsIcon /> Account settings
         </NuxtLink>
       </section>
     </template>
+
     <template v-else-if="success">
       <h1>Email verification</h1>
+
       <section class="auth-form">
         <p>Your email address has been successfully verified!</p>
+
         <NuxtLink v-if="auth.user" class="btn" link="/settings/account">
           <SettingsIcon /> Account settings
         </NuxtLink>
@@ -21,8 +26,10 @@
         </NuxtLink>
       </section>
     </template>
+
     <template v-else>
       <h1>Email verification failed</h1>
+
       <section class="auth-form">
         <p>
           We were unable to verify your email.
@@ -33,9 +40,11 @@
             Try re-sending the verification email through your dashboard by signing in.
           </template>
         </p>
+
         <button v-if="auth.user" class="btn btn-primary continue-btn" @click="resendVerifyEmail">
           Resend verification email <RightArrowIcon />
         </button>
+
         <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn">
           Sign in <RightArrowIcon />
         </NuxtLink>
