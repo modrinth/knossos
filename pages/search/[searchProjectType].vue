@@ -3,7 +3,7 @@
     :class="{
       'search-page': true,
       'normal-page': true,
-      'alt-layout': $cosmetics.searchLayout,
+      'alt-layout': cosmetics.searchLayout,
     }"
   >
     <Head>
@@ -65,7 +65,7 @@
           >
             <h3
               v-if="
-                $tag.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
+                tags.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
                   .length > 0
               "
               class="sidebar-menu-heading"
@@ -73,7 +73,7 @@
               Loaders
             </h3>
             <SearchFilter
-              v-for="loader in $tag.loaders.filter((x) => {
+              v-for="loader in tags.loaders.filter((x) => {
                 if (
                   projectType.id === 'mod' &&
                   !showAllLoaders &&
@@ -83,11 +83,11 @@
                 ) {
                   return false
                 } else if (projectType.id === 'mod' && showAllLoaders) {
-                  return $tag.loaderData.modLoaders.includes(x.name)
+                  return tags.loaderData.modLoaders.includes(x.name)
                 } else if (projectType.id === 'plugin') {
-                  return $tag.loaderData.pluginLoaders.includes(x.name)
+                  return tags.loaderData.pluginLoaders.includes(x.name)
                 } else if (projectType.id === 'datapack') {
-                  return $tag.loaderData.dataPackLoaders.includes(x.name)
+                  return tags.loaderData.dataPackLoaders.includes(x.name)
                 } else {
                   return x.supported_project_types.includes(projectType.actual)
                 }
@@ -113,7 +113,7 @@
           <section v-if="projectType.id === 'plugin'" aria-label="Platform loader filters">
             <h3
               v-if="
-                $tag.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
+                tags.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
                   .length > 0
               "
               class="sidebar-menu-heading"
@@ -121,8 +121,8 @@
               Proxies
             </h3>
             <SearchFilter
-              v-for="loader in $tag.loaders.filter((x) =>
-                $tag.loaderData.pluginPlatformLoaders.includes(x.name)
+              v-for="loader in tags.loaders.filter((x) =>
+                tags.loaderData.pluginPlatformLoaders.includes(x.name)
               )"
               :key="loader.name"
               ref="platformFilters"
@@ -158,8 +158,8 @@
           <h3 class="sidebar-menu-heading">Minecraft versions</h3>
           <Checkbox
             v-model="showSnapshots"
-            label="Include snapshots"
-            description="Include snapshots"
+            label="Show all versions"
+            description="Show all versions"
             style="margin-bottom: 0.5rem"
             :border="false"
           />
@@ -167,8 +167,8 @@
             v-model="selectedVersions"
             :options="
               showSnapshots
-                ? $tag.gameVersions.map((x) => x.version)
-                : $tag.gameVersions
+                ? tags.gameVersions.map((x) => x.version)
+                : tags.gameVersions
                     .filter((it) => it.version_type === 'release')
                     .map((x) => x.version)
             "
@@ -266,7 +266,7 @@
               v-model="maxResults"
               placeholder="Select one"
               class="labeled-control__control"
-              :options="maxResultsForView[$cosmetics.searchDisplayMode[projectType.id]]"
+              :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"
@@ -275,13 +275,13 @@
             />
           </div>
           <button
-            v-tooltip="$capitalizeString($cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-            :aria-label="$capitalizeString($cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+            v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+            :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
             class="square-button"
             @click="cycleSearchDisplayMode()"
           >
-            <GridIcon v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
-            <ImageIcon v-else-if="$cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
+            <GridIcon v-if="cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
+            <ImageIcon v-else-if="cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
             <ListIcon v-else />
           </button>
         </div>
@@ -301,7 +301,7 @@
         <div
           id="search-results"
           class="project-list"
-          :class="'display-mode--' + $cosmetics.searchDisplayMode[projectType.id]"
+          :class="'display-mode--' + cosmetics.searchDisplayMode[projectType.id]"
           role="list"
           aria-label="Search results"
         >
@@ -309,7 +309,7 @@
             v-for="result in results?.hits"
             :id="result.slug ? result.slug : result.project_id"
             :key="result.project_id"
-            :display="$cosmetics.searchDisplayMode[projectType.id]"
+            :display="cosmetics.searchDisplayMode[projectType.id]"
             :featured-image="result.featured_gallery ? result.featured_gallery : result.gallery[0]"
             :type="result.project_type"
             :author="result.author"
@@ -346,7 +346,6 @@ import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 import Checkbox from '~/components/ui/Checkbox'
-import MessageBanner from '~/components/ui/MessageBanner'
 import LogoAnimated from '~/components/brand/LogoAnimated'
 
 import ClientIcon from '~/assets/images/categories/client.svg'
@@ -370,7 +369,6 @@ export default defineNuxtComponent({
     Multiselect,
     SearchFilter,
     Checkbox,
-    MessageBanner,
     ClientIcon,
     ServerIcon,
     SearchIcon,

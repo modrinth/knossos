@@ -36,7 +36,7 @@
     </p>
     <Categories
       :categories="
-        categories.filter((x) => !hideLoaders || !$tag.loaders.find((y) => y.name === x))
+        categories.filter((x) => !hideLoaders || !tags.loaders.find((y) => y.name === x))
       "
       :type="type"
       class="tags"
@@ -70,7 +70,7 @@
       </div>
       <div
         v-if="showUpdatedDate"
-        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm A')"
         class="stat date"
       >
         <EditIcon aria-hidden="true" />
@@ -78,7 +78,7 @@
       </div>
       <div
         v-else
-        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm:ss A')"
+        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm A')"
         class="stat date"
       >
         <CalendarIcon aria-hidden="true" />
@@ -89,15 +89,15 @@
 </template>
 
 <script>
-import Categories from '~/components/ui/search/Categories'
-import Badge from '~/components/ui/Badge'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator'
+import Categories from '~/components/ui/search/Categories.vue'
+import Badge from '~/components/ui/Badge.vue'
+import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import EditIcon from '~/assets/images/utils/updated.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
-import Avatar from '~/components/ui/Avatar'
+import Avatar from '~/components/ui/Avatar.vue'
 
 export default {
   components: {
@@ -208,6 +208,11 @@ export default {
       required: false,
       default: null,
     },
+  },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
   },
   computed: {
     projectTypeDisplay() {

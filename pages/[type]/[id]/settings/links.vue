@@ -96,7 +96,7 @@
         <Multiselect
           v-model="donationLink.platform"
           placeholder="Select platform"
-          :options="$tag.donationPlatforms.map((x) => x.name)"
+          :options="tags.donationPlatforms.map((x) => x.name)"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import { Multiselect } from 'vue-multiselect'
 import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default defineNuxtComponent({
@@ -154,6 +154,11 @@ export default defineNuxtComponent({
         }
       },
     },
+  },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
   },
   data() {
     const donationLinks = JSON.parse(JSON.stringify(this.project.donation_urls))
@@ -195,7 +200,7 @@ export default defineNuxtComponent({
 
       const donationLinks = this.donationLinks.filter((link) => link.url && link.platform)
       donationLinks.forEach((link) => {
-        link.id = this.$tag.donationPlatforms.find(
+        link.id = this.tags.donationPlatforms.find(
           (platform) => platform.name === link.platform
         ).short
       })

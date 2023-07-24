@@ -147,17 +147,51 @@
       <div class="adjacent-input">
         <label for="project-visibility">
           <span class="label__title">Visibility</span>
-          <span class="label__description">
-            Set the visibility of your project. Listed and archived projects are visible in search.
-            Unlisted projects are published, but not visible in search or on user profiles. Private
-            projects are only accessible by members of the project.
-          </span>
+          <div class="label__description">
+            Listed and archived projects are visible in search. Unlisted projects are published, but
+            not visible in search or on user profiles. Private projects are only accessible by
+            members of the project.
+
+            <p>If approved by the moderators:</p>
+            <ul class="visibility-info">
+              <li>
+                <CheckIcon
+                  v-if="visibility === 'approved' || visibility === 'archived'"
+                  class="good"
+                />
+                <ExitIcon v-else class="bad" />
+                {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible in search
+              </li>
+              <li>
+                <ExitIcon
+                  v-if="visibility === 'unlisted' || visibility === 'private'"
+                  class="bad"
+                />
+                <CheckIcon v-else class="good" />
+                {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible on profile
+              </li>
+              <li>
+                <CheckIcon v-if="visibility !== 'private'" class="good" />
+                <IssuesIcon
+                  v-else
+                  v-tooltip="{
+                    content:
+                      visibility === 'private'
+                        ? 'Only members will be able to view the project.'
+                        : '',
+                  }"
+                  class="warn"
+                />
+                {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible via URL
+              </li>
+            </ul>
+          </div>
         </label>
         <Multiselect
           id="project-visibility"
           v-model="visibility"
           placeholder="Select one"
-          :options="$tag.approvedStatuses"
+          :options="tags.approvedStatuses"
           :custom-label="(value) => $formatProjectStatus(value)"
           :searchable="false"
           :close-on-select="true"
@@ -203,14 +237,17 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
-import Avatar from '~/components/ui/Avatar'
-import ModalConfirm from '~/components/ui/ModalConfirm'
-import FileInput from '~/components/ui/FileInput'
+import { Multiselect } from 'vue-multiselect'
+import Avatar from '~/components/ui/Avatar.vue'
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import FileInput from '~/components/ui/FileInput.vue'
 
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
+import ExitIcon from '~/assets/images/utils/x.svg'
+import IssuesIcon from '~/assets/images/utils/issues.svg'
+import CheckIcon from '~/assets/images/utils/check.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -221,6 +258,9 @@ export default defineNuxtComponent({
     UploadIcon,
     SaveIcon,
     TrashIcon,
+    ExitIcon,
+    CheckIcon,
+    IssuesIcon,
   },
   props: {
     project: {
@@ -275,6 +315,11 @@ export default defineNuxtComponent({
       },
     },
   },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
+  },
   data() {
     return {
       name: this.project.title,
@@ -285,7 +330,7 @@ export default defineNuxtComponent({
       clientSide: this.project.client_side,
       serverSide: this.project.server_side,
       deletedIcon: false,
-      visibility: this.$tag.approvedStatuses.includes(this.project.status)
+      visibility: this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
         : this.project.requested_status,
     }
@@ -320,7 +365,7 @@ export default defineNuxtComponent({
       if (this.serverSide !== this.project.server_side) {
         data.server_side = this.serverSide
       }
-      if (this.$tag.approvedStatuses.includes(this.project.status)) {
+      if (this.tags.approvedStatuses.includes(this.project.status)) {
         if (this.visibility !== this.project.status) {
           data.status = this.visibility
         }
@@ -335,6 +380,13 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    hasModifiedVisibility() {
+      const originalVisibility = this.tags.approvedStatuses.includes(this.project.status)
+        ? this.project.status
+        : this.project.requested_status
+
+      return originalVisibility !== this.visibility
+    },
     async saveChanges() {
       if (this.hasChanges) {
         await this.patchProject(this.patchData)
@@ -360,10 +412,9 @@ export default defineNuxtComponent({
     async deleteProject() {
       await useBaseFetch(`project/${this.project.id}`, {
         method: 'DELETE',
-        ...this.$defaultHeaders(),
       })
       await initUserProjects()
-      await this.$router.push('/dashboard/projects')
+      await this.$router.push('/dashboard/review')
       this.$notify({
         group: 'main',
         title: 'Project deleted',
@@ -379,7 +430,6 @@ export default defineNuxtComponent({
     async deleteIcon() {
       await useBaseFetch(`project/${this.project.id}/icon`, {
         method: 'DELETE',
-        ...this.$defaultHeaders(),
       })
       await this.updateIcon()
       this.$notify({
@@ -393,6 +443,25 @@ export default defineNuxtComponent({
 })
 </script>
 <style lang="scss" scoped>
+.visibility-info {
+  padding: 0;
+  list-style: none;
+}
+
+svg {
+  &.good {
+    color: var(--color-brand-green);
+  }
+
+  &.bad {
+    color: var(--color-special-red);
+  }
+
+  &.warn {
+    color: var(--color-special-orange);
+  }
+}
+
 .summary-input {
   min-height: 8rem;
   max-width: 24rem;

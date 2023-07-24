@@ -8,7 +8,7 @@
       <Meta name="og:description" :contcent="metaDescription" />
     </Head>
     <Modal
-      v-if="$auth.user && currentMember"
+      v-if="currentMember"
       ref="modal_edit_item"
       :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
     >
@@ -127,7 +127,7 @@
       </div>
     </Modal>
     <ModalConfirm
-      v-if="$auth.user && currentMember"
+      v-if="currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this gallery image?"
       description="This will remove this gallery image forever (like really forever)."
@@ -150,10 +150,10 @@
               : 'https://cdn.modrinth.com/placeholder-banner.svg'
           "
           :alt="expandedGalleryItem.title ? expandedGalleryItem.title : 'gallery-image'"
-          @click.stop=""
+          @click.stop
         />
 
-        <div class="floating" @click.stop="">
+        <div class="floating" @click.stop>
           <div class="text">
             <h2 v-if="expandedGalleryItem.title">
               {{ expandedGalleryItem.title }}
@@ -294,10 +294,10 @@ import InfoIcon from '~/assets/images/utils/info.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 import TransferIcon from '~/assets/images/utils/transfer.svg'
 
-import FileInput from '~/components/ui/FileInput'
-import DropArea from '~/components/ui/DropArea'
-import ModalConfirm from '~/components/ui/ModalConfirm'
-import Modal from '~/components/ui/Modal'
+import FileInput from '~/components/ui/FileInput.vue'
+import DropArea from '~/components/ui/DropArea.vue'
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import Modal from '~/components/ui/Modal.vue'
 
 export default defineNuxtComponent({
   components: {
@@ -446,7 +446,6 @@ export default defineNuxtComponent({
         await useBaseFetch(url, {
           method: 'POST',
           body: this.editFile,
-          ...this.$defaultHeaders(),
         })
         await this.updateProject()
 
@@ -484,7 +483,6 @@ export default defineNuxtComponent({
 
         await useBaseFetch(url, {
           method: 'PATCH',
-          ...this.$defaultHeaders(),
         })
 
         await this.updateProject()
@@ -511,7 +509,6 @@ export default defineNuxtComponent({
           )}`,
           {
             method: 'DELETE',
-            ...this.$defaultHeaders(),
           }
         )
 
@@ -528,7 +525,7 @@ export default defineNuxtComponent({
       stopLoading()
     },
     async updateProject() {
-      const project = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
+      const project = await useBaseFetch(`project/${this.project.id}`)
 
       project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 

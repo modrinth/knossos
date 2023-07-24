@@ -8,7 +8,7 @@
       <Meta name="og:description" :content="metaDescription" />
     </Head>
     <ModalConfirm
-      v-if="$auth.user && currentMember"
+      v-if="currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this version?"
       description="This will remove this version forever (like really forever)."
@@ -17,12 +17,12 @@
       @proceed="deleteVersion()"
     />
     <ModalReport
-      v-if="$auth.user"
+      v-if="auth.user"
       ref="modal_version_report"
       :item-id="version.id"
       item-type="version"
     />
-    <Modal v-if="$auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
+    <Modal v-if="auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
           <p>
@@ -116,7 +116,7 @@
           Create
         </button>
         <nuxt-link
-          v-if="$auth.user"
+          v-if="auth.user"
           :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
           class="iconified-button"
         >
@@ -135,8 +135,8 @@
         </button>
         <button class="iconified-button" @click="version.featured = !version.featured">
           <StarIcon aria-hidden="true" />
-          <template v-if="!version.featured"> Feature version </template>
-          <template v-else> Unfeature version </template>
+          <template v-if="!version.featured"> Feature version</template>
+          <template v-else> Unfeature version</template>
         </button>
         <nuxt-link
           v-if="currentMember"
@@ -160,15 +160,11 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
-        <button
-          v-if="$auth.user && !currentMember"
-          class="iconified-button"
-          @click="$refs.modal_version_report.show()"
-        >
+        <button class="iconified-button" @click="$refs.modal_version_report.show()">
           <ReportIcon aria-hidden="true" />
           Report
         </button>
-        <a v-if="!$auth.user" class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+        <a v-if="!auth.user" class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
           <ReportIcon aria-hidden="true" />
           Report
         </a>
@@ -185,7 +181,7 @@
         <button
           v-if="
             currentMember &&
-            version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))
+            version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x))
           "
           class="iconified-button"
           @click="$refs.modal_package_mod.show()"
@@ -240,12 +236,12 @@
       />
     </div>
     <div
-      v-if="version.dependencies.length > 0 || (isEditing && project.project_type !== 'modpack')"
+      v-if="deps.length > 0 || (isEditing && project.project_type !== 'modpack')"
       class="version-page__dependencies universal-card"
     >
       <h3>Dependencies</h3>
       <div
-        v-for="(dependency, index) in version.dependencies.filter((x) => !x.file_name)"
+        v-for="(dependency, index) in deps.filter((x) => !x.file_name)"
         :key="index"
         class="dependency"
         :class="{ 'button-transparent': !isEditing }"
@@ -260,11 +256,11 @@
           <span class="project-title">
             {{ dependency.project ? dependency.project.title : 'Unknown Project' }}
           </span>
-          <span v-if="dependency.version">
+          <span v-if="dependency.version" class="dep-type" :class="dependency.dependency_type">
             Version {{ dependency.version.version_number }} is
             {{ dependency.dependency_type }}
           </span>
-          <span v-else class="dep-type">
+          <span v-else class="dep-type" :class="dependency.dependency_type">
             {{ dependency.dependency_type }}
           </span>
         </nuxt-link>
@@ -272,11 +268,11 @@
           <span class="project-title">
             {{ dependency.project ? dependency.project.title : 'Unknown Project' }}
           </span>
-          <span v-if="dependency.version">
+          <span v-if="dependency.version" class="dep-type" :class="dependency.dependency_type">
             Version {{ dependency.version.version_number }} is
             {{ dependency.dependency_type }}
           </span>
-          <span v-else class="dep-type">
+          <span v-else class="dep-type" :class="dependency.dependency_type">
             {{ dependency.dependency_type }}
           </span>
         </div>
@@ -290,7 +286,7 @@
         </button>
       </div>
       <div
-        v-for="(dependency, index) in version.dependencies.filter((x) => x.file_name)"
+        v-for="(dependency, index) in deps.filter((x) => x.file_name)"
         :key="index"
         class="dependency"
       >
@@ -299,7 +295,7 @@
           <span class="project-title">
             {{ dependency.file_name }}
           </span>
-          <span>Added via overrides</span>
+          <span class="dep-type" :class="dependency.dependency_type">Added via overrides</span>
         </div>
       </div>
       <div v-if="isEditing && project.project_type !== 'modpack'" class="add-dependency">
@@ -313,7 +309,7 @@
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"
-            :allow-empty="true"
+            :allow-empty="false"
           />
           <input
             v-model="newDependencyId"
@@ -394,7 +390,7 @@
         </span>
         <multiselect
           v-if="
-            version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x)) &&
+            version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x)) &&
             isEditing &&
             primaryFile.hashes.sha1 !== file.hashes.sha1
           "
@@ -461,7 +457,7 @@
             <span class="file-size">({{ $formatBytes(file.size) }})</span>
           </span>
           <multiselect
-            v-if="version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))"
+            v-if="version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x))"
             v-model="newFileTypes[index]"
             class="raised-multiselect"
             placeholder="Select file type"
@@ -488,7 +484,7 @@
         </div>
         <div class="additional-files">
           <h4>Upload additional files</h4>
-          <span v-if="version.loaders.some((x) => $tag.loaderData.dataPackLoaders.includes(x))">
+          <span v-if="version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x))">
             Used for additional files such as required/optional resource packs
           </span>
           <span v-else>Used for files such as sources or Javadocs.</span>
@@ -570,14 +566,14 @@
             v-if="isEditing"
             v-model="version.loaders"
             :options="
-              $tag.loaders
+              tags.loaders
                 .filter((x) =>
                   x.supported_project_types.includes(project.actualProjectType.toLowerCase())
                 )
                 .map((it) => it.name)
             "
             :custom-label="(value) => $formatCategory(value)"
-            :loading="$tag.loaders.length === 0"
+            :loading="tags.loaders.length === 0"
             :multiple="true"
             :searchable="false"
             :show-no-results="false"
@@ -597,12 +593,12 @@
               v-model="version.game_versions"
               :options="
                 showSnapshots
-                  ? $tag.gameVersions.map((x) => x.version)
-                  : $tag.gameVersions
+                  ? tags.gameVersions.map((x) => x.version)
+                  : tags.gameVersions
                       .filter((it) => it.version_type === 'release')
                       .map((x) => x.version)
               "
-              :loading="$tag.gameVersions.length === 0"
+              :loading="tags.gameVersions.length === 0"
               :multiple="true"
               :searchable="true"
               :show-no-results="false"
@@ -615,8 +611,8 @@
             />
             <Checkbox
               v-model="showSnapshots"
-              label="Include snapshots"
-              description="Include snapshots"
+              label="Show all versions"
+              description="Show all versions"
               style="margin-top: 0.5rem"
               :border="false"
             />
@@ -630,7 +626,7 @@
         <div v-if="!isEditing">
           <h4>Publication date</h4>
           <span>
-            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm:ss A') }}
+            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm A') }}
           </span>
         </div>
         <div v-if="!isEditing && version.author">
@@ -668,22 +664,22 @@
   </div>
 </template>
 <script>
-import Multiselect from 'vue-multiselect'
-import { acceptFileFromProjectType } from '~/helpers/fileUtils'
-import { inferVersionInfo } from '~/helpers/infer'
-import { createDataPackVersion } from '~/helpers/package'
-import { renderHighlightedString } from '~/helpers/highlight'
+import { Multiselect } from 'vue-multiselect'
+import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import { inferVersionInfo } from '~/helpers/infer.js'
+import { createDataPackVersion } from '~/helpers/package.js'
+import { renderHighlightedString } from '~/helpers/highlight.js'
 
-import Avatar from '~/components/ui/Avatar'
-import Badge from '~/components/ui/Badge'
-import Breadcrumbs from '~/components/ui/Breadcrumbs'
-import CopyCode from '~/components/ui/CopyCode'
-import Categories from '~/components/ui/search/Categories'
-import ModalConfirm from '~/components/ui/ModalConfirm'
-import ModalReport from '~/components/ui/ModalReport'
-import Chips from '~/components/ui/Chips'
-import Checkbox from '~/components/ui/Checkbox'
-import FileInput from '~/components/ui/FileInput'
+import Avatar from '~/components/ui/Avatar.vue'
+import Badge from '~/components/ui/Badge.vue'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
+import Categories from '~/components/ui/search/Categories.vue'
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
+import ModalReport from '~/components/ui/ModalReport.vue'
+import Chips from '~/components/ui/Chips.vue'
+import Checkbox from '~/components/ui/Checkbox.vue'
+import FileInput from '~/components/ui/FileInput.vue'
 
 import FileIcon from '~/assets/images/utils/file.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
@@ -776,6 +772,9 @@ export default defineNuxtComponent({
     const data = useNuxtApp()
     const route = useRoute()
 
+    const auth = await useAuth()
+    const tags = useTags()
+
     const path = route.name.split('-')
     const mode = path[path.length - 1]
 
@@ -832,7 +831,7 @@ export default defineNuxtComponent({
           const inferredData = await inferVersionInfo(
             replaceFile,
             props.project,
-            data.$tag.gameVersions
+            tags.value.gameVersions
           )
 
           version = {
@@ -896,7 +895,11 @@ export default defineNuxtComponent({
 
     oldFileTypes = version.files.map((x) => fileTypes.find((y) => y.value === x.file_type))
 
+    const order = ['required', 'optional', 'incompatible', 'embedded']
+
     return {
+      auth,
+      tags,
       fileTypes: ref(fileTypes),
       oldFileTypes: ref(oldFileTypes),
       isCreating: ref(isCreating),
@@ -918,6 +921,11 @@ export default defineNuxtComponent({
             .join(' & ')}. Published on ${data
             .$dayjs(version.date_published)
             .format('MMM D, YYYY')}. ${version.downloads} downloads.`
+      ),
+      deps: computed(() =>
+        version.dependencies.sort(
+          (a, b) => order.indexOf(a.dependency_type) - order.indexOf(b.dependency_type)
+        )
       ),
     }
   },
@@ -1107,7 +1115,6 @@ export default defineNuxtComponent({
             body: formData,
             headers: {
               'Content-Disposition': formData,
-              Authorization: this.$auth.token,
             },
           })
         }
@@ -1132,13 +1139,11 @@ export default defineNuxtComponent({
               }
             }),
           },
-          ...this.$defaultHeaders(),
         })
 
         for (const hash of this.deleteFiles) {
           await useBaseFetch(`version_file/${hash}?version_id=${this.version.id}`, {
             method: 'DELETE',
-            ...this.$defaultHeaders(),
           })
         }
 
@@ -1243,7 +1248,6 @@ export default defineNuxtComponent({
         body: formData,
         headers: {
           'Content-Disposition': formData,
-          Authorization: this.$auth.token,
         },
       })
 
@@ -1260,7 +1264,6 @@ export default defineNuxtComponent({
 
       await useBaseFetch(`version/${this.version.id}`, {
         method: 'DELETE',
-        ...this.$defaultHeaders(),
       })
 
       await this.resetProjectVersions()
@@ -1276,7 +1279,7 @@ export default defineNuxtComponent({
           this.version,
           this.primaryFile,
           this.members,
-          this.$tag.gameVersions,
+          this.tags.gameVersions,
           this.packageLoaders
         )
 
@@ -1321,12 +1324,9 @@ export default defineNuxtComponent({
     },
     async resetProjectVersions() {
       const [versions, featuredVersions, dependencies] = await Promise.all([
-        useBaseFetch(`project/${this.version.project_id}/version`, this.$defaultHeaders()),
-        useBaseFetch(
-          `project/${this.version.project_id}/version?featured=true`,
-          this.$defaultHeaders()
-        ),
-        useBaseFetch(`project/${this.version.project_id}/dependencies`, this.$defaultHeaders()),
+        useBaseFetch(`project/${this.version.project_id}/version`),
+        useBaseFetch(`project/${this.version.project_id}/version?featured=true`),
+        useBaseFetch(`project/${this.version.project_id}/dependencies`),
       ])
 
       const newCreatedVersions = this.$computeVersions(versions, this.members)
@@ -1428,6 +1428,11 @@ export default defineNuxtComponent({
 
         .dep-type {
           text-transform: capitalize;
+          color: var(--color-text-secondary);
+
+          &.incompatible {
+            color: var(--color-red);
+          }
         }
       }
 
@@ -1529,6 +1534,7 @@ export default defineNuxtComponent({
       h4 {
         margin-bottom: 0.5rem;
       }
+
       label {
         margin-top: 0.5rem;
       }

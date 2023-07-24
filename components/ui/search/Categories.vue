@@ -23,10 +23,15 @@ export default {
       required: true,
     },
   },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
+  },
   computed: {
     categoriesFiltered() {
-      return this.$tag.categories
-        .concat(this.$tag.loaders)
+      return this.tags.categories
+        .concat(this.tags.loaders)
         .filter(
           (x) =>
             this.categories.includes(x.name) && (!x.project_type || x.project_type === this.type)
@@ -46,9 +51,12 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: row;
-    margin-right: var(--spacing-card-md);
 
-    &:not(.version-badge) {
+    &:not(:last-child) {
+      margin-right: var(--spacing-card-md);
+    }
+
+    &:not(.badge) {
       color: var(--color-icon);
     }
 

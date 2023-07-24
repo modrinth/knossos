@@ -7,13 +7,16 @@
           <NavStackItem link="/settings" label="Appearance">
             <PaintbrushIcon />
           </NavStackItem>
-          <template v-if="$auth.user">
+          <template v-if="auth.user">
             <h3>User settings</h3>
             <NavStackItem link="/settings/account" label="Account">
               <UserIcon />
             </NavStackItem>
-            <NavStackItem link="/settings/follows" label="Followed projects">
-              <HeartIcon />
+            <NavStackItem link="/settings/pats" label="PATs">
+              <KeyIcon />
+            </NavStackItem>
+            <NavStackItem link="/settings/sessions" label="Sessions">
+              <ShieldIcon />
             </NavStackItem>
             <NavStackItem link="/settings/monetization" label="Monetization">
               <CurrencyIcon />
@@ -28,15 +31,17 @@
   </div>
 </template>
 <script setup>
-import NavStack from '~/components/ui/NavStack'
-import NavStackItem from '~/components/ui/NavStackItem'
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
 
 import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
 import UserIcon from '~/assets/images/utils/user.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'
+import ShieldIcon from '~/assets/images/utils/shield.svg'
+import KeyIcon from '~/assets/images/utils/key.svg'
 
 const route = useRoute()
+const auth = await useAuth()
 </script>
 
 <style lang="scss" scoped></style>

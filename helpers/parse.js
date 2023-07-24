@@ -14,12 +14,17 @@ export const configuredXss = new xss.FilterXSS({
     kbd: ['id'],
     input: ['checked', 'disabled', 'type'],
     iframe: ['width', 'height', 'allowfullscreen', 'frameborder', 'start', 'end'],
-    img: [...xss.whiteList.img, 'style'],
+    img: [...xss.whiteList.img, 'usemap', 'style'],
+    map: ['name'],
+    area: [...xss.whiteList.a, 'coords'],
     a: [...xss.whiteList.a, 'rel'],
+    td: [...xss.whiteList.td, 'style'],
+    th: [...xss.whiteList.th, 'style'],
   },
   css: {
     whiteList: {
       'image-rendering': /^pixelated$/,
+      'text-align': /^center|left|right$/,
     },
   },
   onIgnoreTagAttr: (tag, name, value) => {
@@ -48,13 +53,49 @@ export const configuredXss = new xss.FilterXSS({
     }
 
     // For Highlight.JS
-    if (
-      name === 'class' &&
-      ['pre', 'code', 'span'].includes(tag) &&
-      (value.startsWith('hljs-') || value.startsWith('language-'))
-    ) {
-      return name + '="' + xss.escapeAttrValue(value) + '"'
+    if (name === 'class' && ['pre', 'code', 'span'].includes(tag)) {
+      const allowedClasses = []
+      for (const className of value.split(/\s/g)) {
+        if (className.startsWith('hljs-') || className.startsWith('language-')) {
+          allowedClasses.push(className)
+        }
+      }
+      return name + '="' + xss.escapeAttrValue(allowedClasses.join(' ')) + '"'
     }
+  },
+  safeAttrValue(tag, name, value, cssFilter) {
+    if (tag === 'img' && name === 'src' && !value.startsWith('data:')) {
+      try {
+        const url = new URL(value)
+
+        const allowedHostnames = [
+          'imgur.com',
+          'i.imgur.com',
+          'cdn-raw.modrinth.com',
+          'cdn.modrinth.com',
+          'staging-cdn-raw.modrinth.com',
+          'staging-cdn.modrinth.com',
+          'github.com',
+          'raw.githubusercontent.com',
+          'img.shields.io',
+          'i.postimg.cc',
+          'wsrv.nl',
+          'cf.way2muchnoise.eu',
+          'bstats.org',
+        ]
+
+        if (!allowedHostnames.includes(url.hostname)) {
+          return xss.safeAttrValue(
+            tag,
+            name,
+            `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`,
+            cssFilter
+          )
+        }
+      } catch (err) {}
+    }
+
+    return xss.safeAttrValue(tag, name, value, cssFilter)
   },
 })
 
@@ -92,45 +133,6 @@ export const md = (options = {}) => {
     tokens[idx].attrSet('rel', 'noopener nofollow ugc')
 
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
-  }
-
-  const defaultImageRenderer =
-    md.renderer.rules.image ||
-    function (tokens, idx, options, _env, self) {
-      return self.renderToken(tokens, idx, options)
-    }
-
-  md.renderer.rules.image = function (tokens, idx, options, env, self) {
-    const token = tokens[idx]
-    const index = token.attrIndex('src')
-
-    if (index !== -1) {
-      const src = token.attrs[index][1]
-
-      try {
-        const url = new URL(src)
-
-        const allowedHostnames = [
-          'imgur.com',
-          'i.imgur.com',
-          'cdn-raw.modrinth.com',
-          'cdn.modrinth.com',
-          'staging-cdn-raw.modrinth.com',
-          'staging-cdn.modrinth.com',
-          'github.com',
-          'raw.githubusercontent.com',
-          'img.shields.io',
-          'i.postimg.cc',
-        ]
-
-        if (allowedHostnames.includes(url.hostname)) {
-          return defaultImageRenderer(tokens, idx, options, env, self)
-        }
-      } catch (err) {}
-      token.attrs[index][1] = `//wsrv.nl/?url=${encodeURIComponent(src)}`
-    }
-
-    return defaultImageRenderer(tokens, idx, options, env, self)
   }
 
   return md

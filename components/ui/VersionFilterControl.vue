@@ -59,8 +59,8 @@
         gameVersionFilters.some((v) => v.version_type !== 'release')
       "
       v-model="includeSnapshots"
-      label="Include snapshots"
-      description="Include snapshots"
+      label="Show all versions"
+      description="Show all versions"
       :border="false"
       @update:model-value="updateQuery"
     />
@@ -84,8 +84,8 @@
 </template>
 
 <script setup>
-import Multiselect from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox'
+import { Multiselect } from 'vue-multiselect'
+import Checkbox from '~/components/ui/Checkbox.vue'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 
 const props = defineProps({
@@ -96,9 +96,11 @@ const props = defineProps({
     },
   },
 })
+const emit = defineEmits(['switch-page'])
 
-const data = useNuxtApp()
 const route = useRoute()
+
+const tags = useTags()
 
 const tempLoaders = new Set()
 let tempVersions = new Set()
@@ -118,7 +120,7 @@ tempVersions = Array.from(tempVersions)
 
 const loaderFilters = shallowRef(Array.from(tempLoaders))
 const gameVersionFilters = shallowRef(
-  data.$tag.gameVersions.filter((gameVer) => tempVersions.includes(gameVer.version))
+  tags.value.gameVersions.filter((gameVer) => tempVersions.includes(gameVer.version))
 )
 const versionTypeFilters = shallowRef(Array.from(tempReleaseChannels))
 const includeSnapshots = ref(route.query.s === 'true')
@@ -140,6 +142,7 @@ async function updateQuery() {
       s: includeSnapshots.value ? true : undefined,
     },
   })
+  emit('switch-page', 1)
 }
 </script>
 

@@ -1,5 +1,21 @@
 <template>
   <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+    <div
+      v-if="auth.user && !auth.user.email_verified && route.path !== '/auth/verify-email'"
+      class="email-nag"
+    >
+      <template v-if="auth.user.email">
+        <span>For security purposes, please verify your email address on Modrinth.</span>
+        <button class="btn" @click="resendVerifyEmail">Re-send verification email</button>
+      </template>
+      <template v-else>
+        <span>For security purposes, please enter your email on Modrinth.</span>
+        <nuxt-link class="btn" to="/settings/account">
+          <SettingsIcon />
+          Visit account settings
+        </nuxt-link>
+      </template>
+    </div>
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
@@ -15,9 +31,9 @@
             <section class="user-controls">
               <nuxt-link
                 v-if="auth.user"
-                to="/notifications"
+                to="/dashboard/notifications"
                 class="control-button button-transparent"
-                :class="{ bubble: user.notifications.length > 0 }"
+                :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
@@ -62,15 +78,15 @@
                     <span class="title">Create a project</span>
                   </button>
                   <hr class="divider" />
-                  <NuxtLink class="item button-transparent" to="/notifications">
+                  <NuxtLink class="item button-transparent" to="/dashboard/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard">
                     <ChartIcon class="icon" />
-                    <span class="title">Dashboard</span><span class="beta-badge">BETA</span>
+                    <span class="title">Dashboard</span>
                   </NuxtLink>
-                  <NuxtLink class="item button-transparent" to="/settings/follows">
+                  <NuxtLink class="item button-transparent" to="/dashboard/follows">
                     <HeartIcon class="icon" />
                     <span class="title">Following</span>
                   </NuxtLink>
@@ -79,7 +95,7 @@
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
-                    v-if="$tag.staffRoles.includes($auth.user.role)"
+                    v-if="tags.staffRoles.includes(auth.user.role)"
                     class="item button-transparent"
                     to="/moderation"
                   >
@@ -87,28 +103,28 @@
                     <span class="title">Moderation</span>
                   </NuxtLink>
                   <hr class="divider" />
-                  <button class="item button-transparent" @click="logout">
+                  <button class="item button-transparent" @click="logoutUser()">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <a
-                  :href="getAuthUrl()"
-                  class="log-in-button header-button brand-button"
-                  rel="noopener nofollow"
-                >
-                  <GitHubIcon aria-hidden="true" />
-                  Sign in with GitHub</a
-                >
+                <nuxt-link class="iconified-button brand-button" to="/auth/sign-in">
+                  <LogInIcon /> Sign in
+                </nuxt-link>
               </section>
             </section>
           </section>
         </section>
       </section>
       <section class="mobile-navigation">
-        <div class="nav-menu nav-menu-browse" :class="{ expanded: isBrowseMenuOpen }">
+        <div
+          class="nav-menu nav-menu-browse"
+          :class="{ expanded: isBrowseMenuOpen }"
+          @focusin="isBrowseMenuOpen = true"
+          @focusout="isBrowseMenuOpen = false"
+        >
           <div class="links cascade-links">
             <NuxtLink
               v-for="navRoute in navRoutes"
@@ -120,7 +136,12 @@
             </NuxtLink>
           </div>
         </div>
-        <div class="nav-menu nav-menu-mobile" :class="{ expanded: isMobileMenuOpen }">
+        <div
+          class="nav-menu nav-menu-mobile"
+          :class="{ expanded: isMobileMenuOpen }"
+          @focusin="isMobileMenuOpen = true"
+          @focusout="isMobileMenuOpen = false"
+        >
           <div class="account-container">
             <NuxtLink
               v-if="auth.user"
@@ -139,19 +160,13 @@
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <a
-              v-else
-              class="iconified-button brand-button"
-              :href="getAuthUrl()"
-              rel="nofollow noopener"
-            >
-              <GitHubIcon aria-hidden="true" />
-              Sign in with GitHub
-            </a>
+            <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
+              <LogInIcon /> Sign in
+            </nuxt-link>
           </div>
           <div class="links">
             <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logout">
+              <button class="iconified-button danger-button" @click="logoutUser()">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
@@ -159,7 +174,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="iconified-button" to="/settings/follows">
+              <NuxtLink class="iconified-button" to="/dashboard/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -203,7 +218,7 @@
           </button>
           <template v-if="auth.user">
             <NuxtLink
-              to="/notifications"
+              to="/dashboard/notifications"
               class="tab button-animation"
               :class="{
                 bubble: user.notifications.length > 0,
@@ -252,7 +267,7 @@
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
-        <BrandTextLogo aria-hidden="true" class="text-logo" />
+        <BrandTextLogo aria-hidden="true" class="text-logo" @click="developerModeIncrement()" />
         <p>
           Modrinth is
           <a
@@ -284,10 +299,12 @@
       </div>
       <div class="links links-1" role="region" aria-label="Legal">
         <h4 aria-hidden="true">Company</h4>
-        <nuxt-link to="/legal/terms"> Terms </nuxt-link>
-        <nuxt-link to="/legal/privacy"> Privacy </nuxt-link>
-        <nuxt-link to="/legal/rules"> Rules </nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com"> Careers </a>
+        <nuxt-link to="/legal/terms"> Terms</nuxt-link>
+        <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
+        <nuxt-link to="/legal/rules"> Rules</nuxt-link>
+        <a :target="$external()" href="https://careers.modrinth.com"
+          >Careers <span class="count-bubble">1</span></a
+        >
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
@@ -323,6 +340,7 @@
   </div>
 </template>
 <script setup>
+import { LogInIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -340,13 +358,15 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
-import GitHubIcon from '~/assets/images/utils/github.svg'
-import NavRow from '~/components/ui/NavRow'
-import ModalCreation from '~/components/ui/ModalCreation'
-import Avatar from '~/components/ui/Avatar'
+import NavRow from '~/components/ui/NavRow.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
+import Avatar from '~/components/ui/Avatar.vue'
 
+const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
+const cosmetics = useCosmetics()
+const tags = useTags()
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -360,6 +380,36 @@ useHead({
     },
   ],
 })
+
+let developerModeCounter = 0
+
+function developerModeIncrement() {
+  if (developerModeCounter >= 5) {
+    cosmetics.value.developerMode = !cosmetics.value.developerMode
+    developerModeCounter = 0
+    if (cosmetics.value.developerMode) {
+      app.$notify({
+        group: 'main',
+        title: 'Developer mode activated',
+        text: 'Developer mode has been enabled',
+        type: 'success',
+      })
+    } else {
+      app.$notify({
+        group: 'main',
+        title: 'Developer mode deactivated',
+        text: 'Developer mode has been disabled',
+        type: 'success',
+      })
+    }
+  } else {
+    developerModeCounter++
+  }
+}
+
+async function logoutUser() {
+  await logout()
+}
 </script>
 <script>
 export default defineNuxtComponent({
@@ -418,12 +468,8 @@ export default defineNuxtComponent({
       this.runAnalytics()
     },
   },
-  async mounted() {
+  mounted() {
     this.runAnalytics()
-    if (this.$route.query.code) {
-      await useAuth(this.$route.query.code)
-      window.history.replaceState(history.state, null, this.$route.path)
-    }
   },
   methods: {
     runAnalytics() {
@@ -453,28 +499,6 @@ export default defineNuxtComponent({
         this.isMobileMenuOpen = false
       }
     },
-    async logout() {
-      useCookie('auth-token').value = null
-
-      // If users logs out on dashboard, force redirect on the home page to clear cookies
-      if (
-        this.$route.path.startsWith('/settings/') ||
-        this.$route.path.startsWith('/dashboard/') ||
-        this.$route.path.startsWith('/moderation') ||
-        this.$route.path.startsWith('/notifications')
-      ) {
-        window.location.href = '/'
-      } else {
-        await this.$router.go(null)
-
-        this.$notify({
-          group: 'main',
-          title: 'Logged Out',
-          text: 'You have logged out successfully!',
-          type: 'success',
-        })
-      }
-    },
     changeTheme() {
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
     },
@@ -484,6 +508,7 @@ export default defineNuxtComponent({
 
 <style lang="scss">
 @import '~/assets/styles/global.scss';
+@import 'omorphia/dist/style.css';
 
 .layout {
   min-height: 100vh;
@@ -765,6 +790,7 @@ export default defineNuxtComponent({
 
     .mobile-navigation {
       display: none;
+
       .nav-menu {
         width: 100%;
         position: fixed;
@@ -777,6 +803,7 @@ export default defineNuxtComponent({
         transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
         border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
         box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
+
         .links,
         .account-container {
           display: grid;
@@ -795,6 +822,7 @@ export default defineNuxtComponent({
             margin: 0 auto;
           }
         }
+
         .cascade-links {
           @media screen and (min-width: 354px) {
             grid-template-columns: repeat(2, 1fr);
@@ -803,39 +831,46 @@ export default defineNuxtComponent({
             grid-template-columns: repeat(3, 1fr);
           }
         }
+
         &-browse {
           &.expanded {
             transform: translateY(0);
             box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
           }
         }
+
         &-mobile {
           .account-container {
             padding-bottom: 0;
+
             .account-button {
               padding: var(--spacing-card-md);
               display: flex;
               align-items: center;
               justify-content: center;
               gap: 0.5rem;
+
               .user-icon {
                 width: 2.25rem;
                 height: 2.25rem;
               }
+
               .account-text {
                 flex-grow: 0;
               }
             }
           }
+
           &.expanded {
             transform: translateY(0);
             box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
           }
         }
       }
+
       .mobile-navbar {
         display: flex;
-        height: var(--size-mobile-navbar-height);
+        height: calc(var(--size-mobile-navbar-height) + env(safe-area-inset-bottom));
         border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
         padding-bottom: env(safe-area-inset-bottom);
         position: fixed;
@@ -850,10 +885,12 @@ export default defineNuxtComponent({
         transition: border-radius 0.3s ease-out;
         border-top: 2px solid rgba(0, 0, 0, 0);
         box-sizing: border-box;
+
         &.expanded {
           box-shadow: none;
           border-radius: 0;
         }
+
         .tab {
           position: relative;
           background: none;
@@ -868,10 +905,12 @@ export default defineNuxtComponent({
           transition: color ease-in-out 0.15s;
           color: var(--color-text-inactive);
           text-align: center;
+
           &.browse {
             svg {
               transform: rotate(180deg);
               transition: transform ease-in-out 0.3s;
+
               &.closed {
                 transform: rotate(0deg);
               }
@@ -907,28 +946,35 @@ export default defineNuxtComponent({
             transition: border ease-in-out 0.15s;
             border: 0 solid var(--color-brand);
             box-sizing: border-box;
+
             &.expanded {
               border: 2px solid var(--color-brand);
             }
           }
+
           &:hover,
           &:focus {
             color: var(--color-text);
           }
+
           &:first-child {
             margin-left: 2rem;
           }
+
           &:last-child {
             margin-right: 2rem;
           }
+
           &.router-link-exact-active:not(&.no-active) {
             svg {
               color: var(--color-brand);
             }
+
             color: var(--color-brand);
           }
         }
       }
+
       @media screen and (max-width: 1095px) {
         display: flex;
       }
@@ -1010,7 +1056,7 @@ export default defineNuxtComponent({
         border-radius: 5rem;
         background: var(--color-brand);
         color: var(--color-text-inverted);
-        padding: 0 0.25rem;
+        padding: 0 0.35rem;
         margin-left: 0.25rem;
       }
     }
@@ -1081,6 +1127,16 @@ export default defineNuxtComponent({
       }
     }
   }
+}
+
+.email-nag {
+  background-color: var(--color-raised-bg);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

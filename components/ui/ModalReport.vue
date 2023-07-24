@@ -20,10 +20,10 @@
           <strong>Reason</strong>
         </span>
       </label>
-      <multiselect
+      <Multiselect
         id="report-type"
         v-model="reportType"
-        :options="$tag.reportTypes"
+        :options="tags.reportTypes"
         :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
         :multiple="false"
         :searchable="false"
@@ -57,12 +57,12 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import { Multiselect } from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
-import Modal from '~/components/ui/Modal'
-import Chips from '~/components/ui/Chips'
-import { renderString } from '~/helpers/parse'
+import Modal from '~/components/ui/Modal.vue'
+import Chips from '~/components/ui/Chips.vue'
+import { renderString } from '~/helpers/parse.js'
 
 export default {
   components: {
@@ -81,6 +81,11 @@ export default {
       type: String,
       default: '',
     },
+  },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
   },
   data() {
     return {
@@ -110,7 +115,6 @@ export default {
         await useBaseFetch('report', {
           method: 'POST',
           body: data,
-          ...this.$defaultHeaders(),
         })
 
         this.$refs.modal.hide()

@@ -183,7 +183,7 @@
           </button>
           <div class="push-right">
             <div class="labeled-control-row">
-              Sort By
+              Sort by
               <Multiselect
                 v-model="sortBy"
                 :searchable="false"
@@ -192,8 +192,16 @@
                 :close-on-select="true"
                 :show-labels="false"
                 :allow-empty="false"
-                @update:model-value="projects = updateSort(projects, sortBy)"
+                @update:model-value="projects = updateSort(projects, sortBy, descending)"
               />
+              <button
+                v-tooltip="descending ? 'Descending' : 'Ascending'"
+                class="square-button"
+                @click="updateDescending()"
+              >
+                <DescendingIcon v-if="descending" />
+                <AscendingIcon v-else />
+              </button>
             </div>
           </div>
         </div>
@@ -292,7 +300,7 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import { Multiselect } from 'vue-multiselect'
 
 import Badge from '~/components/ui/Badge.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
@@ -308,6 +316,8 @@ import PlusIcon from '~/assets/images/utils/plus.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
+import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
+import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -325,13 +335,12 @@ export default defineNuxtComponent({
     ModalCreation,
     Multiselect,
     CopyCode,
+    AscendingIcon,
+    DescendingIcon,
   },
   async setup() {
     const user = await useUser()
-    if (process.client) {
-      await initUserProjects()
-    }
-
+    await initUserProjects()
     return { user: ref(user) }
   },
   data() {
@@ -340,6 +349,7 @@ export default defineNuxtComponent({
       versions: [],
       selectedProjects: [],
       sortBy: 'Name',
+      descending: false,
       editLinks: {
         showAffected: false,
         source: {
@@ -375,20 +385,20 @@ export default defineNuxtComponent({
     this.DELETE_PROJECT = 1 << 7
   },
   methods: {
-    updateSort(projects, sort) {
+    updateDescending() {
+      this.descending = !this.descending
+      this.projects = this.updateSort(this.projects, this.sortBy, this.descending)
+    },
+    updateSort(projects, sort, descending) {
+      let sortedArray = projects
       switch (sort) {
         case 'Name':
-          return projects.slice().sort((a, b) => {
-            if (a.title < b.title) {
-              return -1
-            }
-            if (a.title > b.title) {
-              return 1
-            }
-            return 0
+          sortedArray = projects.slice().sort((a, b) => {
+            return a.title.localeCompare(b.title)
           })
+          break
         case 'Status':
-          return projects.slice().sort((a, b) => {
+          sortedArray = projects.slice().sort((a, b) => {
             if (a.status < b.status) {
               return -1
             }
@@ -397,8 +407,9 @@ export default defineNuxtComponent({
             }
             return 0
           })
+          break
         case 'Type':
-          return projects.slice().sort((a, b) => {
+          sortedArray = projects.slice().sort((a, b) => {
             if (a.project_type < b.project_type) {
               return -1
             }
@@ -407,9 +418,16 @@ export default defineNuxtComponent({
             }
             return 0
           })
+          break
         default:
           break
       }
+
+      if (descending) {
+        sortedArray = sortedArray.reverse()
+      }
+
+      return sortedArray
     },
     async bulkEditLinks() {
       try {
@@ -441,7 +459,6 @@ export default defineNuxtComponent({
           {
             method: 'PATCH',
             body: baseData,
-            ...this.$defaultHeaders(),
           }
         )
 
@@ -616,6 +633,7 @@ export default defineNuxtComponent({
   min-width: 0;
   align-items: center;
   gap: var(--spacing-card-md);
+  white-space: nowrap;
 }
 
 .small-select {

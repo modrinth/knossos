@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
-import Chips from '~/components/ui/Chips'
+import { Multiselect } from 'vue-multiselect'
+import Chips from '~/components/ui/Chips.vue'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
@@ -184,7 +184,6 @@ export default defineNuxtComponent({
         await useBaseFetch(`user/${this.auth.user.id}`, {
           method: 'PATCH',
           body: data,
-          ...this.$defaultHeaders(),
         })
         await useAuth(this.auth.token)
 
