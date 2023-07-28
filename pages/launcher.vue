@@ -9,22 +9,27 @@ import Checkbox from "~/components/ui/Checkbox.vue";
 import {TrashIcon, SearchIcon, BoxIcon, SendIcon, EditIcon} from "omorphia";
 
 
-const val = Math.ceil(homepageProjects.length / 4)
+const val = Math.ceil(homepageProjects.length / 5)
+const os = ref(null)
 
 const rows = shallowRef([
   homepageProjects.slice(0, val),
   homepageProjects.slice(val, val * 2),
   homepageProjects.slice(val * 2, val * 3),
   homepageProjects.slice(val * 3, val * 4),
-  homepageProjects.slice(val * 3, val * 4),
+  homepageProjects.slice(val * 4, val * 5),
 ])
+
+onMounted(() => {
+  os.value = navigator?.platform.toString()
+})
 </script>
 
 <template>
   <div class="landing-hero">
     <h1 class="main-header">
       Download Modrinth <br/>
-      app for {{'Mac'}}
+      app {{ os ? `for ${os?.includes("Mac") ? "Mac" : os?.contains("Win") ? "Windows" : "Linux"}` : '' }}
     </h1>
     <h2 class="main-subheader">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
