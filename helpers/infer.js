@@ -149,8 +149,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         version_number: metadata.version,
         version_type: versionType(metadata.version),
         loaders: ['forge'],
-        game_versions: simplifiedGameVersions.filter((x) =>
-          x.version.startsWith(metadata.mcversion)
+        game_versions: simplifiedGameVersions.filter((version) =>
+          version.startsWith(metadata.mcversion)
         ),
       }
     },
