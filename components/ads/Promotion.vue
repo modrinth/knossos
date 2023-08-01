@@ -13,7 +13,7 @@
               class="MYYLVTXBPUVWMLVBPVSDLHADDRYFBF-3"
             />
             <span>
-              <span> Increase your server playtime through </span>
+              <span> Place ads in your server and boost your earnings through </span>
               <strong>Matrix</strong>
               <span> - Increase your revenue or we’ll pay you ourselves. </span>
             </span>
