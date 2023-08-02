@@ -6,6 +6,7 @@ import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 import Badge from '~/components/ui/Badge.vue'
 import PrismIcon from '~/assets/images/external/prism.svg'
 import ATLauncher from '~/assets/images/external/atlauncher.svg'
+import CurseForge from '~/assets/images/external/curseforge.svg'
 import Checkbox from '~/components/ui/Checkbox.vue'
 
 const val = Math.ceil(homepageProjects.length / 5)
@@ -31,7 +32,7 @@ onMounted(() => {
         Download Modrinth <br />
         app
         {{
-          os ? `for ${os?.includes('Mac') ? 'Mac' : os?.contains('Win') ? 'Windows' : 'Linux'}` : ''
+          os ? `for ${os?.includes('Mac') ? 'Mac' : os?.includes('Win') ? 'Windows' : 'Linux'}` : ''
         }}
       </h1>
       <h2 class="main-subheader">
@@ -54,6 +55,10 @@ onMounted(() => {
       <div class="bottom-transition" />
     </div>
     <div class="features">
+      <h1 class="subheader">
+        Unlike any launcher <br />
+        you've used before
+      </h1>
       <div class="feature-grid">
         <div class="feature gradient-border mods">
           <div class="search-bar">
@@ -274,7 +279,6 @@ onMounted(() => {
           </p>
           <div class="export-card">
             <Avatar
-              size="md"
               src="https://cdn.modrinth.com/data/mY0lOQFc/81c6eff2b86220e12e62a4ad0d2f364a605c42c4.png"
             />
             <div class="info">
@@ -292,7 +296,7 @@ onMounted(() => {
         </div>
         <div class="feature gradient-border performance">
           <div class="title">
-            <h3>Activity monitor</h3>
+            <h4>Activity monitor</h4>
             <Badge color="green" type="Good performance" />
           </div>
           <div class="header row">
@@ -311,8 +315,8 @@ onMounted(() => {
                 </div>
               </div>
               <div class="cell important">Modrinth app</div>
-              <div class="cell important">GREAT</div>
-              <div class="cell important">GREAT</div>
+              <div class="cell important">Small</div>
+              <div class="cell important">{{ '< 150 mb' }}</div>
             </div>
             <div class="row">
               <div class="cell">
@@ -394,6 +398,9 @@ onMounted(() => {
             </div>
             <div class="launcher-badge bottom-right">
               <ATLauncher />
+            </div>
+            <div class="launcher-badge bottom-middle">
+              <CurseForge />
             </div>
             <div class="first-ring" />
             <div class="second-ring" />
@@ -630,7 +637,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="footer">
-      <h1 class="main-header">Download options</h1>
+      <h1 class="subheader">Download options</h1>
       <div class="download-section">
         <div class="download-card">
           <div class="title">
@@ -802,7 +809,11 @@ onMounted(() => {
 <style scoped lang="scss">
 .landing-hero {
   position: relative;
-  background: #0f1121 url('https://i.imgur.com/fUDA2cO.png') no-repeat top;
+  background: #0f1121 url('https://i.imgur.com/fUDA2cO.png') no-repeat 0 4rem
+    //make the background slightly smaller than the container
+    / 100% 100% //center the background
+    //make the background fixed
+;
   background-size: cover;
   padding: 6rem 1rem 12rem 1rem;
   margin-top: -4rem;
@@ -829,7 +840,7 @@ onMounted(() => {
   .button-group {
     width: fit-content;
     gap: 1.25rem;
-    margin: 0 auto 5rem;
+    margin: 0 auto;
     justify-content: center;
     mask-image: none;
 
@@ -842,7 +853,7 @@ onMounted(() => {
 
   img {
     width: 100%;
-    max-width: 65rem;
+    max-width: 85rem;
     height: auto;
     mask-image: none;
     z-index: 10;
@@ -850,15 +861,37 @@ onMounted(() => {
 }
 
 .main-header {
-  font-size: 5.5rem;
-  font-weight: bold;
-  mask-image: none;
+  font-size: 5.25rem;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 2rem 0;
+}
+
+.subheader {
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 0 auto;
+  padding: 0 4rem 4rem;
 }
 
 .features {
   position: relative;
   width: 100%;
   background: var(--landing-transition-gradient-end);
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-weight: 500;
+    font-size: var(--font-size-xl) !important;
+  }
+
+  p {
+    font-size: var(--font-size-md) !important;
+  }
 
   .feature-grid {
     display: grid;
@@ -896,10 +929,12 @@ onMounted(() => {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--color-button-bg);
         border-radius: var(--radius-md);
+        border: 1px solid var(--landing-border-color);
+        background: linear-gradient(0deg, #3b3f55 0%, #3b3f55 100%), rgba(59, 63, 85, 0.15);
         margin-bottom: 0.5rem;
         white-space: nowrap;
+        font-size: var(--font-size-sm);
 
         .mini-input {
           display: flex;
@@ -908,10 +943,13 @@ onMounted(() => {
           gap: 0.5rem;
           padding: var(--gap-sm) var(--gap-md);
           border-radius: var(--radius-sm);
-          background-color: var(--color-bg);
+          background-color: #1e202f;
+          flex-grow: 1;
+          max-width: 12rem;
         }
 
         h4 {
+          font-weight: normal;
           margin-left: 0.5rem;
         }
       }
@@ -927,13 +965,14 @@ onMounted(() => {
           flex-direction: column;
           justify-content: center;
           padding: var(--gap-sm) 0;
+          font-size: var(--font-size-sm);
 
           .name {
             color: var(--color-contrast);
           }
 
           .description {
-            font-size: var(--font-size-sm);
+            font-size: var(--font-size-xs);
           }
 
           &.last {
@@ -945,10 +984,6 @@ onMounted(() => {
             flex-direction: row;
           }
         }
-
-        &:not(.header) {
-          border-top: 1px solid var(--landing-border-color);
-        }
       }
 
       .header {
@@ -959,8 +994,8 @@ onMounted(() => {
     }
 
     .playing {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+      grid-row: 4 / 5;
       position: relative;
       min-height: 23rem;
 
@@ -1032,10 +1067,6 @@ onMounted(() => {
             overflow: hidden;
           }
         }
-
-        &:not(.header) {
-          border-top: 1px solid var(--landing-border-color);
-        }
       }
 
       .header {
@@ -1053,12 +1084,18 @@ onMounted(() => {
         flex-direction: row;
         align-items: center;
         padding: var(--gap-sm);
-        gap: var(--gap-sm);
+        gap: var(--gap-md);
         border-radius: var(--radius-md);
-        background-color: var(--color-button-bg);
+        background: linear-gradient(0deg, #3b3f55 0%, #3b3f55 100%), rgba(59, 63, 85, 0.15);
         border: 1px solid var(--landing-border-color);
         margin-bottom: 1rem;
         width: 20rem;
+        font-size: var(--font-size-sm);
+
+        img {
+          width: 4.5rem;
+          height: 4.5rem;
+        }
 
         .info {
           width: 100%;
@@ -1079,7 +1116,7 @@ onMounted(() => {
               display: flex;
               flex-direction: row;
               align-items: center;
-              gap: 0.5rem;
+              gap: 0.25rem;
               border-radius: var(--radius-sm);
             }
 
@@ -1087,11 +1124,11 @@ onMounted(() => {
               display: flex;
               flex-direction: row;
               align-items: center;
-              gap: 0.5rem;
+              gap: 0.25rem;
               padding: var(--gap-xs) var(--gap-md);
               border-radius: var(--radius-lg);
               border: 1px solid var(--landing-border-color);
-              font-size: var(--font-size-sm);
+              font-size: var(--font-size-xs);
             }
           }
 
@@ -1121,12 +1158,21 @@ onMounted(() => {
       }
 
       h3,
+      h4,
       p {
         text-align: center;
+        margin: 0;
       }
 
+      h4,
       h3 {
+        color: var(--color-contrast);
         margin-top: var(--gap-lg) !important;
+      }
+
+      h4 {
+        font-size: var(--font-size-md);
+        font-weight: normal;
       }
 
       .table {
@@ -1149,10 +1195,6 @@ onMounted(() => {
           &.important {
             color: var(--color-contrast);
           }
-        }
-
-        &:not(.header) {
-          border-top: 1px solid var(--landing-border-color);
         }
       }
 
@@ -1193,12 +1235,12 @@ onMounted(() => {
 
     .importing {
       position: relative;
-      grid-column: 1 / 2;
-      grid-row: 4 / 5;
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
 
       .icon-logo {
         position: absolute;
-        top: calc(50% - 3rem);
+        top: 4rem;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 100%;
@@ -1206,7 +1248,7 @@ onMounted(() => {
 
       .outer-ring {
         position: absolute;
-        top: calc(50% - 3rem);
+        top: 4rem;
         left: 50%;
         transform: translate(-50%, -50%);
       }
@@ -1222,7 +1264,7 @@ onMounted(() => {
         .base-ring {
           position: absolute;
           border-radius: 100%;
-          top: calc(50% - 3rem);
+          top: 4rem;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: -1;
@@ -1231,8 +1273,8 @@ onMounted(() => {
 
         .first-ring {
           @extend .base-ring;
-          width: 20rem;
-          height: 20rem;
+          width: 15rem;
+          height: 15rem;
           background: radial-gradient(
             50% 50% at 50% 50%,
             rgba(5, 206, 69, 0.19) 0%,
@@ -1242,8 +1284,8 @@ onMounted(() => {
 
         .second-ring {
           @extend .base-ring;
-          width: 30rem;
-          height: 30rem;
+          width: 25rem;
+          height: 25rem;
           opacity: 0.75;
           background: radial-gradient(
               50% 50% at 50% 50%,
@@ -1259,8 +1301,8 @@ onMounted(() => {
 
         .third-ring {
           @extend .base-ring;
-          width: 40rem;
-          height: 40rem;
+          width: 35rem;
+          height: 35rem;
           opacity: 0.5;
           background: radial-gradient(
             50% 50% at 50% 50%,
@@ -1277,30 +1319,36 @@ onMounted(() => {
       .launcher-badge {
         position: absolute;
         background-color: var(--landing-transition-gradient-end);
-        width: 4rem;
-        height: 4rem;
-        padding: 0.75rem;
+        width: 3rem;
+        height: 3rem;
+        padding: 0.5rem;
         border-radius: 100%;
         z-index: 10;
 
         &.top-left {
           top: calc(15% - 3rem);
-          left: calc(50% - 11rem);
+          left: calc(58% - 11rem);
         }
 
         &.top-right {
           top: calc(15% - 3rem);
-          right: calc(50% - 11rem);
+          right: calc(58% - 11rem);
         }
 
         &.bottom-left {
-          bottom: calc(15% + 3rem);
-          left: calc(50% - 11rem);
+          bottom: calc(41% + 3rem);
+          left: calc(58% - 11rem);
         }
 
         &.bottom-right {
-          bottom: calc(15% + 3rem);
-          right: calc(50% - 11rem);
+          bottom: calc(41% + 3rem);
+          right: calc(58% - 11rem);
+        }
+
+        &.bottom-middle {
+          bottom: calc(22% + 3rem);
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         &.center {
@@ -1310,13 +1358,13 @@ onMounted(() => {
         }
 
         svg {
-          width: 2.5rem;
-          height: 2.5rem;
+          width: 2rem;
+          height: 2rem;
         }
 
         img {
-          width: 2.5rem;
-          height: 2.5rem;
+          width: 2rem;
+          height: 2rem;
         }
       }
 
@@ -1571,12 +1619,21 @@ onMounted(() => {
 
 .table {
   display: grid;
-  border: 1px solid var(--landing-border-color);
+  border: 1px solid rgba(#a8b1ddbf, 0.25);
   gap: 0.25rem;
   overflow: hidden;
+  font-size: var(--font-size-sm);
+  background: rgba(59, 63, 85, 0.15);
+  box-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.16);
 
   .first {
     border-top: none !important;
+  }
+
+  .row {
+    &:not(.header) {
+      border-top: 1px solid rgba(#a8b1ddbf, 0.25);
+    }
   }
 }
 
@@ -1773,11 +1830,11 @@ onMounted(() => {
   }
 
   .search-bar {
-    background-color: var(--color-raised-bg) !important;
-    border: 2px solid var(--color-brand);
+    background: var(--color-raised-bg) !important;
+    border: 2px solid var(--color-brand) !important;
 
     .mini-input {
-      background-color: var(--color-raised-bg) !important;
+      background: var(--color-raised-bg) !important;
       border: 2px solid var(--color-bg);
     }
   }
@@ -1821,6 +1878,18 @@ onMounted(() => {
       rgba(5, 206, 69, 0.15) 0%,
       rgba(5, 206, 69, 0) 100%
     ) !important;
+  }
+
+  .table {
+    background: white;
+  }
+
+  .project {
+    background: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .export-card {
+    background: white !important;
   }
 }
 
