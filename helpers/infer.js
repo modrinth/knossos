@@ -178,11 +178,11 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         loaders: ['quilt'],
         version_type: versionType(metadata.quilt_loader.version),
         game_versions: metadata.quilt_loader.depends
-          ? gameVersionRange(
+          ? getGameVersionsMatchingSemverRange(
               metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
                 ? metadata.quilt_loader.depends.find((x) => x.id === 'minecraft').versions
                 : [],
-              gameVersions
+            simplifiedGameVersions
             )
           : [],
       }
