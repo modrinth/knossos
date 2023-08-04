@@ -1,13 +1,5 @@
 <script setup>
-import {
-  TrashIcon,
-  SearchIcon,
-  BoxIcon,
-  SendIcon,
-  EditIcon,
-  DownloadIcon,
-  DropdownSelect,
-} from 'omorphia'
+import { TrashIcon, SearchIcon, BoxIcon, SendIcon, EditIcon, DownloadIcon } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import homepageProjects from '~/generated/homepage.json'
 import LogoAnimated from '~/components/brand/LogoAnimated.vue'
@@ -26,7 +18,7 @@ const downloadSection = ref(null)
 const windowsLink = ref(null)
 const linuxLinks = {
   appImage: null,
-  deb: null
+  deb: null,
 }
 const macLinks = {
   appleSilicon: null,
@@ -127,7 +119,13 @@ const scrollToSection = () => {
           rel="noopener nofollow"
           @click="downloadLauncher"
         >
-          <svg v-if="os === 'Linux'" width="45" height="46" viewBox="0 0 45 46" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            v-if="os === 'Linux'"
+            width="45"
+            height="46"
+            viewBox="0 0 45 46"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <g id="simple-icons:linux">
               <path
                 id="Subtract"
@@ -138,7 +136,12 @@ const scrollToSection = () => {
               />
             </g>
           </svg>
-          <svg v-else-if="os === 'Windows'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4875 4875" fill="currentColor">
+          <svg
+            v-else-if="os === 'Windows'"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 4875 4875"
+            fill="currentColor"
+          >
             <path
               d="M0 0h2311v2310H0zm2564 0h2311v2310H2564zM0 2564h2311v2311H0zm2564 0h2311v2311H2564"
             />
@@ -1533,7 +1536,6 @@ const scrollToSection = () => {
             min-width: 100%;
             gap: var(--gap);
             transform: translateX(-15%);
-
 
             &.offset {
               transform: translateX(-130%);
