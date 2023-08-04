@@ -1,5 +1,13 @@
 <script setup>
-import { TrashIcon, SearchIcon, BoxIcon, SendIcon, EditIcon, DownloadIcon, DropdownSelect } from 'omorphia'
+import {
+  TrashIcon,
+  SearchIcon,
+  BoxIcon,
+  SendIcon,
+  EditIcon,
+  DownloadIcon,
+  DropdownSelect,
+} from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import homepageProjects from '~/generated/homepage.json'
 import LogoAnimated from '~/components/brand/LogoAnimated.vue'
@@ -19,7 +27,7 @@ const windowsLink = ref(null)
 const linuxLink = ref(null)
 const macLinks = {
   appleSilicon: null,
-  intel: null
+  intel: null,
 }
 
 let downloadLauncher
@@ -32,17 +40,24 @@ const rows = shallowRef([
   homepageProjects.slice(val * 4, val * 5),
 ])
 
-onMounted(async () => {
+onMounted(() => {
   os.value = navigator?.platform.toString()
-  os.value = 'Windows'
-  //os.value = os.value?.includes('Mac') ? 'Mac' : os.value?.includes('Win') ? 'Windows' : os.value?.includes('Linux') ? 'Linux' : null
+  os.value = os.value?.includes('Mac')
+    ? 'Mac'
+    : os.value?.includes('Win')
+    ? 'Windows'
+    : os.value?.includes('Linux')
+    ? 'Linux'
+    : null
 
-  fetch('https://launcher-files.modrinth.com/updates.json').then(res => res.json()).then(data => {
-    macLinks.appleSilicon = data.platforms['darwin-aarch64'].url
-    macLinks.intel = data.platforms['darwin-x86_64'].url
-    windowsLink.value = data.platforms['windows-x86_64'].url
-    linuxLink.value = data.platforms['linux-x86_64'].url
-  })
+  fetch('https://launcher-files.modrinth.com/updates.json')
+    .then((res) => res.json())
+    .then((data) => {
+      macLinks.appleSilicon = data.platforms['darwin-aarch64'].url
+      macLinks.intel = data.platforms['darwin-x86_64'].url
+      windowsLink.value = data.platforms['windows-x86_64'].url
+      linuxLink.value = data.platforms['linux-x86_64'].url
+    })
 
   if (os.value === 'Windows') {
     downloadLauncher = () => {
@@ -61,19 +76,19 @@ onMounted(async () => {
 
 watch(macValue, () => {
   if (macValue.value === 'Download for Apple Silicon') {
-    const link = document.createElement('a');
-    link.href = macLinks.appleSilicon;
-    link.download = '';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const link = document.createElement('a')
+    link.href = macLinks.appleSilicon
+    link.download = ''
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   } else if (macValue.value === 'Download for Intel') {
-    const link = document.createElement('a');
-    link.href = macLinks.intel;
-    link.download = '';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const link = document.createElement('a')
+    link.href = macLinks.intel
+    link.download = ''
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 })
 
@@ -81,9 +96,9 @@ const scrollToSection = () => {
   nextTick(() => {
     window.scrollTo({
       top: downloadSection.value.offsetTop,
-      behavior: 'smooth'
-    });
-  });
+      behavior: 'smooth',
+    })
+  })
 }
 </script>
 
@@ -91,11 +106,9 @@ const scrollToSection = () => {
   <div>
     <div class="landing-hero">
       <h1 class="main-header">
-        Download Modrinth <br v-if="os"/>
+        Download Modrinth <br v-if="os" />
         app
-        {{
-          os ? `for ${os}` : ''
-        }}
+        {{ os ? `for ${os}` : '' }}
       </h1>
       <h2 class="main-subheader">
         The Modrinth app is a unique, open source launcher that allows you to play your favorite
@@ -403,7 +416,8 @@ const scrollToSection = () => {
           </div>
           <h3>Performant</h3>
           <p>
-            Modrinth app performs better than many of the leading mod managers, using just 150mb of RAM!
+            Modrinth app performs better than many of the leading mod managers, using just 150mb of
+            RAM!
           </p>
         </div>
         <div class="feature gradient-border website">
@@ -701,15 +715,11 @@ const scrollToSection = () => {
       </div>
     </div>
     <div ref="downloadSection" class="footer">
-      <div class="section-badge">
-        Download options
-      </div>
+      <div class="section-badge">Download options</div>
       <div class="section-subheader">
-        <div class="section-subheader-title">
-          Download Modrinth app
-        </div>
+        <div class="section-subheader-title">Download Modrinth app</div>
         <div class="section-subheader-description">
-          Our desktop app is available accross all platforms, <br/>
+          Our desktop app is available accross all platforms, <br />
           choose your desired version.
         </div>
       </div>
@@ -730,7 +740,7 @@ const scrollToSection = () => {
             </a>
           </div>
         </div>
-        <div class="divider"/>
+        <div class="divider" />
         <div class="download-card">
           <div class="title">
             <svg
@@ -753,7 +763,7 @@ const scrollToSection = () => {
             placeholder="Download the beta"
           />
         </div>
-        <div class="divider"/>
+        <div class="divider" />
         <div class="download-card">
           <div class="title">
             <svg width="45" height="46" viewBox="0 0 45 46" xmlns="http://www.w3.org/2000/svg">
@@ -886,7 +896,6 @@ const scrollToSection = () => {
 .landing-hero {
   position: relative;
   background: #0f1121 url('https://i.imgur.com/fUDA2cO.png') no-repeat center 4rem;
-;
   background-size: cover;
   padding: 6rem 1rem 12rem 1rem;
   margin-top: -4rem;
@@ -1692,7 +1701,6 @@ const scrollToSection = () => {
   justify-content: center;
   align-items: center;
 
-
   .section-badge {
     background-color: var(--color-brand-highlight);
     color: var(--color-brand);
@@ -1918,15 +1926,13 @@ const scrollToSection = () => {
 }
 
 .light-mode {
-  .footer, .features {
-    background: #F8F7F8;
+  .footer,
+  .features {
+    background: #f8f7f8;
   }
 
   .bottom-transition {
-    background: linear-gradient(
-      rgba(#F8F7F8, 0) 0%,
-      #F8F7F8 100%
-    );
+    background: linear-gradient(rgba(#f8f7f8, 0) 0%, #f8f7f8 100%);
   }
 
   .dark-icon {
