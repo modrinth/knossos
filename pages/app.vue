@@ -757,11 +757,16 @@ const scrollToSection = () => {
             </svg>
             Mac
           </div>
-          <DropdownSelect
-            v-model="macValue"
-            :options="['Download for Apple Silicon', 'Download for Intel']"
-            placeholder="Download the beta"
-          />
+          <div class="description apple">
+            <a :href="macLinks.appleSilicon" download="">
+              <DownloadIcon />
+              <span> Download for Apple Silicon </span>
+            </a>
+            <a :href="macLinks.intel" download="">
+              <DownloadIcon />
+              <span> Download for Intel </span>
+            </a>
+          </div>
         </div>
         <div class="divider" />
         <div class="download-card">
@@ -1490,6 +1495,8 @@ const scrollToSection = () => {
             display: flex;
             min-width: 100%;
             gap: var(--gap);
+            transform: translateX(-15%);
+
 
             &.offset {
               transform: translateX(-130%);
@@ -1766,19 +1773,27 @@ const scrollToSection = () => {
       }
 
       .description {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         border-top: none;
         font-size: var(--font-size-md);
         color: var(--color-brand);
+        gap: var(--gap-sm);
 
         a {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           gap: var(--gap-sm);
           justify-content: center;
 
           &:hover {
             cursor: pointer;
           }
+        }
+
+        &.apple {
+          align-items: flex-start;
         }
       }
 
