@@ -24,7 +24,10 @@ const downloadWindows = ref(null)
 const downloadLinux = ref(null)
 const downloadSection = ref(null)
 const windowsLink = ref(null)
-const linuxLink = ref(null)
+const linuxLinks = {
+  appImage: null,
+  deb: null
+}
 const macLinks = {
   appleSilicon: null,
   intel: null,
@@ -56,7 +59,8 @@ onMounted(() => {
       macLinks.appleSilicon = data.platforms['darwin-aarch64'].url
       macLinks.intel = data.platforms['darwin-x86_64'].url
       windowsLink.value = data.platforms['windows-x86_64'].url
-      linuxLink.value = data.platforms['linux-x86_64'].url
+      linuxLinks.appImage = data.platforms['linux-x86_64'].install_urls[1]
+      linuxLinks.deb = data.platforms['linux-x86_64'].install_urls[0]
     })
 
   if (os.value === 'Windows') {
@@ -813,10 +817,14 @@ const scrollToSection = () => {
             </svg>
             Linux
           </div>
-          <div class="description">
-            <a ref="downloadLinux" :href="linuxLink" download="">
+          <div class="description apple">
+            <a ref="downloadLinux" :href="linuxLinks.appImage" download="">
               <DownloadIcon />
-              <span> Download the beta </span>
+              <span> Download the AppImage </span>
+            </a>
+            <a ref="downloadLinux" :href="linuxLinks.deb" download="">
+              <DownloadIcon />
+              <span> Download the Deb </span>
             </a>
           </div>
         </div>
@@ -1747,6 +1755,10 @@ const scrollToSection = () => {
   }
 
   .section-subheader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-sm);
     font-size: var(--font-size-lg);
     margin: 2rem 0;
 
@@ -1764,6 +1776,7 @@ const scrollToSection = () => {
   .download-section {
     display: grid;
     grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    height: 100%;
     gap: var(--gap-lg);
     max-width: 1096px;
     margin: 0 auto;
@@ -1778,7 +1791,7 @@ const scrollToSection = () => {
     }
 
     .divider {
-      height: 100%;
+      height: 13rem;
       width: 1px;
       background: var(--landing-border-color);
       margin: 0;
@@ -1789,6 +1802,7 @@ const scrollToSection = () => {
       flex-direction: column;
       gap: calc(var(--gap-lg) * 2);
       padding: calc(var(--gap-lg) * 2);
+      height: min-content;
 
       .title {
         display: flex;
