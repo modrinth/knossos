@@ -111,11 +111,16 @@ const scrollToSection = () => {
         mods, and keep them up to date, all in one neat little package.
       </h2>
       <div class="button-group">
-        <button class="iconified-button brand-button btn btn-large" @click="scrollToSection">
+        <button
+          v-if="os !== 'Mac'"
+          class="iconified-button outline-button btn btn-large"
+          @click="scrollToSection"
+        >
           More Download Options
         </button>
         <button
-          class="iconified-button outline-button btn btn-large"
+          v-if="os"
+          class="iconified-button brand-button btn btn-large"
           rel="noopener nofollow"
           @click="downloadLauncher"
         >
