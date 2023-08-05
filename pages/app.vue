@@ -2023,8 +2023,46 @@ useHead({
 
 @media screen and (max-width: 1024px) {
   .feature-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(8, 1fr) !important;
     gap: var(--gap-lg);
+    margin: 0 auto;
+    align-content: center;
+
+    .feature {
+      width: 100% !important;
+      margin: 0 auto;
+    }
+
+    .mods {
+      grid-row: 1 / 3 !important;
+      grid-column: 1 / 2 !important;
+    }
+
+    .importing {
+      grid-row: 3 / 4 !important;
+      grid-column: 1 / 2 !important;
+    }
+
+    .sharing {
+      grid-row: 4 / 5 !important;
+      grid-column: 1 / 2 !important;
+    }
+
+    .performance {
+      grid-row: 5 / 6 !important;
+      grid-column: 1 / 2 !important;
+    }
+
+    .playing {
+      grid-row: 6 / 7 !important;
+      grid-column: 1 / 2 !important;
+    }
+
+    .website {
+      grid-row: 7 / 9 !important;
+      grid-column: 1 / 2 !important;
+    }
   }
 
   .main-header {
