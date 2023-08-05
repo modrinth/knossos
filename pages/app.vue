@@ -105,20 +105,20 @@ useHead({
 <template>
   <div>
     <title>The Modrinth App</title>
-    <meta name="description" content="An open source mod launcher unlike any other.">
+    <meta name="description" content="An open source mod launcher unlike any other." />
 
-    <meta property="og:url" content="https://modrinth.com">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="The Modrinth App">
-    <meta property="og:description" content="An open source mod launcher unlike any other.">
-    <meta property="og:image" content="https://cdn.modrinth.com/modrinth-new.png?">
+    <meta property="og:url" content="https://modrinth.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Modrinth App" />
+    <meta property="og:description" content="An open source mod launcher unlike any other." />
+    <meta property="og:image" content="https://cdn.modrinth.com/modrinth-new.png?" />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="modrinth.com">
-    <meta property="twitter:url" content="https://modrinth.com">
-    <meta name="twitter:title" content="The Modrinth App">
-    <meta name="twitter:description" content="An open source mod launcher unlike any other.">
-    <meta name="twitter:image" content="https://cdn.modrinth.com/modrinth-new.png?">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="modrinth.com" />
+    <meta property="twitter:url" content="https://modrinth.com" />
+    <meta name="twitter:title" content="The Modrinth App" />
+    <meta name="twitter:description" content="An open source mod launcher unlike any other." />
+    <meta name="twitter:image" content="https://cdn.modrinth.com/modrinth-new.png?" />
 
     <div class="landing-hero">
       <h1 class="main-header">
@@ -298,7 +298,7 @@ useHead({
               </div>
               <div class="cell">7.2.1</div>
               <div class="cell check">
-                <Checkbox :model-value="true"/>
+                <Checkbox :model-value="true" />
                 <button class="btn icon-only transparent">
                   <TrashIcon />
                 </button>
@@ -487,8 +487,8 @@ useHead({
           </div>
           <h3>Performant</h3>
           <p>
-            The Modrinth App performs better than many of the leading mod managers, using just 150mb of
-            RAM!
+            The Modrinth App performs better than many of the leading mod managers, using just 150mb
+            of RAM!
           </p>
         </div>
         <div class="feature gradient-border website">
@@ -520,8 +520,8 @@ useHead({
           </div>
           <h3>Website Integration</h3>
           <p>
-            The Modrinth App is fully integrated with the website, so you can access all your favorite
-            projects from the app!
+            The Modrinth App is fully integrated with the website, so you can access all your
+            favorite projects from the app!
           </p>
         </div>
         <div class="feature gradient-border importing">
@@ -616,7 +616,9 @@ useHead({
           </div>
           <div class="description">
             Modrinth’s launcher is fully open source. You can view the source code on our
-            <a href="https://github.com/modrinth/theseus" rel="noopener" :target="$external()" >GitHub</a>!
+            <a href="https://github.com/modrinth/theseus" rel="noopener" :target="$external()"
+              >GitHub</a
+            >!
           </div>
         </div>
         <div class="point">
@@ -990,7 +992,8 @@ useHead({
 <style scoped lang="scss">
 .landing-hero {
   position: relative;
-  background: #0f1121 url('https://cdn-raw.modrinth.com/app-landing/cube-black.png') no-repeat center 4rem;
+  background: #0f1121 url('https://cdn-raw.modrinth.com/app-landing/cube-black.png') no-repeat
+    center 4rem;
   background-size: cover;
   padding: 6rem 1rem 12rem 1rem;
   margin-top: -4rem;
@@ -1785,7 +1788,8 @@ useHead({
   background: rgba(59, 63, 85, 0.15);
   box-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.16);
 
-  .btn, button {
+  .btn,
+  button {
     &:hover {
       cursor: default !important;
     }
@@ -1802,7 +1806,11 @@ useHead({
   }
 }
 
-.row, .header, .table, .project, .export-card {
+.row,
+.header,
+.table,
+.project,
+.export-card {
   user-select: none;
 
   &:hover {
