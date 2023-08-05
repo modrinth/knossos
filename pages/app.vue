@@ -99,18 +99,17 @@ const scrollToSection = () => {
 
 useHead({
   title: 'Download the Modrinth App!',
-  meta: [
-    { name: 'The Modrinth App', content: 'An open source mod launcher unlike any other.' }
-  ],
+  meta: [{ name: 'The Modrinth App', content: 'An open source mod launcher unlike any other.' }],
 })
 
 useSeoMeta({
   title: 'The Modrinth App',
   ogTitle: 'The Modrinth App',
   description: 'Download the Modrinth App for Windows, Mac, and Linux.',
-  ogDescription: 'The Modrinth App is a unique, open source launcher that allows you to play your favorite mods, and keep them up to date, all in one neat little package.',
+  ogDescription:
+    'The Modrinth App is a unique, open source launcher that allows you to play your favorite mods, and keep them up to date, all in one neat little package.',
   ogImage: 'https://cdn.modrinth.com/modrinth-new.png?',
-  twitterCard: 'summary'
+  twitterCard: 'summary',
 })
 </script>
 
