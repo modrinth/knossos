@@ -36,7 +36,7 @@ const rows = shallowRef([
 ])
 
 onMounted(() => {
-  os.value = 'Linux'
+  os.value = navigator?.platform.toString()
   os.value = os.value?.includes('Mac')
     ? 'Mac'
     : os.value?.includes('Win')
