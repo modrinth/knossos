@@ -99,27 +99,23 @@ const scrollToSection = () => {
 
 useHead({
   title: 'Download the Modrinth App!',
+  meta: [
+    { name: 'The Modrinth App', content: 'An open source mod launcher unlike any other.' }
+  ],
+})
+
+useSeoMeta({
+  title: 'The Modrinth App',
+  ogTitle: 'The Modrinth App',
+  description: 'Download the Modrinth App for Windows, Mac, and Linux.',
+  ogDescription: 'The Modrinth App is a unique, open source launcher that allows you to play your favorite mods, and keep them up to date, all in one neat little package.',
+  ogImage: 'https://cdn.modrinth.com/modrinth-new.png?',
+  twitterCard: 'summary'
 })
 </script>
 
 <template>
   <div>
-    <title>The Modrinth App</title>
-    <meta name="description" content="An open source mod launcher unlike any other." />
-
-    <meta property="og:url" content="https://modrinth.com" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="The Modrinth App" />
-    <meta property="og:description" content="An open source mod launcher unlike any other." />
-    <meta property="og:image" content="https://cdn.modrinth.com/modrinth-new.png?" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="modrinth.com" />
-    <meta property="twitter:url" content="https://modrinth.com" />
-    <meta name="twitter:title" content="The Modrinth App" />
-    <meta name="twitter:description" content="An open source mod launcher unlike any other." />
-    <meta name="twitter:image" content="https://cdn.modrinth.com/modrinth-new.png?" />
-
     <div class="landing-hero">
       <h1 class="main-header">
         Download Modrinth <br v-if="os" />
