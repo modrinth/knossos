@@ -231,8 +231,8 @@ useHead({
               </div>
               <div class="cell important">0.86.1+1.20.1</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -247,8 +247,8 @@ useHead({
               </div>
               <div class="cell">mc1.20.1-0.5.0</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -266,8 +266,8 @@ useHead({
               </div>
               <div class="cell">1.6.5+1.20.1</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -282,8 +282,8 @@ useHead({
               </div>
               <div class="cell">mc1.20.1-0.11.2</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -298,8 +298,8 @@ useHead({
               </div>
               <div class="cell">7.2.1</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -314,8 +314,8 @@ useHead({
               </div>
               <div class="cell">11.1.106+fabric</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -330,8 +330,8 @@ useHead({
               </div>
               <div class="cell">9.1.12+fabric</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
@@ -349,8 +349,8 @@ useHead({
               </div>
               <div class="cell">8.5.2023</div>
               <div class="cell check">
-                <Checkbox :model-value="true" />
-                <button class="btn icon-only transparent">
+                <Checkbox :model-value="true" tabindex="-1"/>
+                <button class="btn icon-only transparent" tabindex="-1">
                   <TrashIcon />
                 </button>
               </div>
