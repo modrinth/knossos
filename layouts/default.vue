@@ -474,9 +474,10 @@ export default defineNuxtComponent({
   methods: {
     runAnalytics() {
       const config = useRuntimeConfig()
+      const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
 
       setTimeout(() => {
-        $fetch(`${config.public.ariadneBaseUrl}view`, {
+        $fetch(`${replacedUrl}analytics/view`, {
           method: 'POST',
           body: {
             url: window.location.href,
