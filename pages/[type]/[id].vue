@@ -373,22 +373,6 @@
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
           updates unless the author decides to unarchive the project.
         </div>
-        <div
-          v-if="project.project_type === 'modpack'"
-          class="card information"
-          aria-label="Information"
-        >
-          To install {{ project.title }}, visit
-          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
-            >our documentation</a
-          >
-          which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
-          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
-          <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
-            Prism Launcher</a
-          >.
-        </div>
         <Promotion v-if="tags.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
           <NavRow
