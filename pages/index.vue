@@ -18,8 +18,9 @@
         </div>
       </h1>
       <h2>
-        Discover, play, and share Minecraft content through our open-source platform built for the
-        community.
+        Discover, play, and share Minecraft content through our
+        <a href="//en.wikipedia.org/wiki/Copyleft" class="title-link">free and open-source</a>
+        platform built for the community.
       </h2>
       <div class="button-group">
         <nuxt-link to="/mods" class="iconified-button brand-button"> Discover mods </nuxt-link>
