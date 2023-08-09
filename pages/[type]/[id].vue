@@ -373,6 +373,18 @@
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
           updates unless the author decides to unarchive the project.
         </div>
+        <div
+          v-if="project.project_type === 'modpack'"
+          class="card information"
+          aria-label="Information"
+        >
+          To install {{ project.title }}, download
+          <nuxt-link to="/app">the Modrinth App</nuxt-link>. For instructions with other launchers,
+          please see
+          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+            >our documentation</a
+          >.
+        </div>
         <Promotion v-if="tags.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
           <NavRow

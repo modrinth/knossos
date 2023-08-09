@@ -134,7 +134,6 @@ export function groupNotifications(notifications, includeRead = false) {
   for (const notification of notifications.filter((notif) => includeRead || !notif.read)) {
     // Group notifications of the same thread or project id
     if (notification.body) {
-      console.log(notification.body)
       const index = grouped.findIndex(
         (notif) =>
           ((notif.body.thread_id === notification.body.thread_id && !!notif.body.thread_id) ||
