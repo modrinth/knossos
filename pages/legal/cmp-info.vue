@@ -28,7 +28,7 @@
     </p>
     <p>For example, consider this test scenario (all numbers are fake):</p>
     <ul>
-      <li>The site earns 100$ on a day.</li>
+      <li>The site earns $100 on a day.</li>
       <li>User A has the projects: NoobCraft and Minesweeper</li>
       <li>NoobCraft receives 10 page views and 30 in-app downloads (40 points)</li>
       <li>Minesweeper receives 100 page views and 10 in-app downloads (110 points)</li>
@@ -41,10 +41,11 @@
     </ul>
     <p>In this scenario, the earnings for each creator and Modrinth would be as follows:</p>
     <ul>
-      <li>Modrinth: $10 (10% of 100$, the site's earnings for the day)</li>
+      <li>Modrinth: $10 (10% of $100, the site's earnings for the day)</li>
       <li>User A: $58.69 ($90 * (10 + 30 + 100 + 10)/230)</li>
       <li>User B: $12.52 (0.4 * $90 * (50 + 20 + 10 + 0)/230)</li>
       <li>User C: $18.78 (0.6 * $90 * (50 + 20 + 10 + 0)/230)</li>
+      <li>Note: 230 is the sum of all page views and in-app downloads from above</li>
     </ul>
     <p>
       Page views are counted when a legitimate browser views a project page. In-app downloads when a
@@ -58,6 +59,32 @@
       projects. We are currently working on an analytics dashboard which will display this
       information.
     </p>
+    <h2>Frequently Asked Questions</h2>
+    <p>
+      This section covers some common concerns people have about our monetization program. If you
+      have more, feel free to join our Discord or contact support.
+    </p>
+    <h3>Do you have to enroll in the monetization program to get money?</h3>
+    <p>
+      No. All creators who upload to Modrinth automatically will receive funds as according to the
+      above algorithm. However, if you would like to withdraw money from your account, you must
+      enroll by adding your payment information.
+    </p>
+    <h3>What methods can I use withdraw money from my account? Are there any fees?</h3>
+    <p>
+      Right now, you can use PayPal or Venmo to withdraw money from your Modrinth account. We are
+      working on more methods to withdraw money from your account. There are fees to withdraw money
+      from your Modrinth account—see the revenue page in your dashboard for more information.
+    </p>
+    <h3>Modrinth used to give 100% of project page revenue to creators. What changed?</h3>
+    <p>
+      While this is true, our new system (as of 08/05/23) gives more of the site's revenue to
+      creators, so creators will earn more. In the old system, we would earn revenue through
+      advertisements in search and user profile pages. This amounted on average each month to about
+      15-20% of the site's total advertising revenue (so a 80-85% split to creators). The new system
+      gives creators more revenue and a more favorable split towards creators (90%).
+    </p>
+    <h3></h3>
   </div>
 </template>
 
