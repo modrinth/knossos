@@ -76,15 +76,12 @@
 
         <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
 
-        <button
-          class="auth-form__input btn btn-primary continue-btn"
-          @click="beginPasswordSignIn()"
-        >
-          Continue <RightArrowIcon />
+        <button class="btn btn-primary continue-btn centered-btn" @click="beginPasswordSignIn()">
+          Sign in <RightArrowIcon />
         </button>
 
         <div class="auth-form__additional-options">
-          <NuxtLink class="text-link" to="/auth/reset-password">Forgot the password?</NuxtLink>
+          <NuxtLink class="text-link" to="/auth/reset-password">Forgot password?</NuxtLink>
           <p>•</p>
           <NuxtLink class="text-link" :to="signUpLink"> Create an account</NuxtLink>
         </div>

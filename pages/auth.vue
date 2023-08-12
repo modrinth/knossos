@@ -27,11 +27,11 @@
   text-decoration: none;
 }
 
-.continue-btn {
-  justify-content: center;
+.centered-btn {
+  margin-inline: auto;
 }
 
-.continue-btn svg {
+.btn.continue-btn svg {
   margin: 0 0 0 0.5rem;
 }
 

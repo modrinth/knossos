@@ -21,8 +21,8 @@
           />
         </div>
 
-        <button class="auth-form__input btn btn-primary continue-btn" @click="recovery">
-          Send recovery email
+        <button class="btn btn-primary centered-btn" @click="recovery">
+          <SendIcon /> Send recovery email
         </button>
       </template>
       <template v-else-if="step === 'passed_challenge'">
@@ -60,6 +60,7 @@
   </div>
 </template>
 <script setup>
+import { SendIcon } from 'omorphia'
 import MailIcon from 'assets/icons/auth/mail.svg'
 import KeyIcon from 'assets/icons/auth/key.svg'
 

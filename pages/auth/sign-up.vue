@@ -94,8 +94,8 @@
         <NuxtLink to="/legal/privacy" class="text-link">Privacy Policy</NuxtLink>.
       </p>
 
-      <button class="auth-form__input btn btn-primary continue-btn" @click="createAccount">
-        Create an account <RightArrowIcon />
+      <button class="btn btn-primary continue-btn centered-btn" @click="createAccount">
+        Create account <RightArrowIcon />
       </button>
 
       <div class="auth-form__additional-options">

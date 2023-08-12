@@ -6,9 +6,7 @@
       <section class="auth-form">
         <p>Your email is already verified!</p>
 
-        <NuxtLink class="btn" link="/settings/account">
-          <SettingsIcon /> Account settings
-        </NuxtLink>
+        <NuxtLink class="btn" to="/settings/account"> <SettingsIcon /> Account settings </NuxtLink>
       </section>
     </template>
 
@@ -21,7 +19,7 @@
         <NuxtLink v-if="auth.user" class="btn" link="/settings/account">
           <SettingsIcon /> Account settings
         </NuxtLink>
-        <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn">
+        <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn centered-btn">
           Sign in <RightArrowIcon />
         </NuxtLink>
       </section>
@@ -45,7 +43,7 @@
           Resend verification email <RightArrowIcon />
         </button>
 
-        <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn">
+        <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn centered-btn">
           Sign in <RightArrowIcon />
         </NuxtLink>
       </section>
