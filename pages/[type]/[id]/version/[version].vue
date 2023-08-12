@@ -164,10 +164,10 @@
           <ReportIcon aria-hidden="true" />
           Report
         </button>
-        <a v-if="!auth.user" class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+        <nuxt-link v-if="!auth.user" class="iconified-button" to="/auth/sign-in">
           <ReportIcon aria-hidden="true" />
           Report
-        </a>
+        </nuxt-link>
         <nuxt-link
           v-if="currentMember"
           class="action iconified-button"
@@ -206,10 +206,9 @@
           >This editor supports
           <a
             class="text-link"
-            href="https://guides.github.com/features/mastering-markdown/"
+            href="https://docs.modrinth.com/docs/tutorials/markdown/"
             target="_blank"
-            rel="noopener"
-            >Markdown</a
+            >Markdown formatting</a
           >. HTML can also be used inside your changelog, not including styles, scripts, and
           iframes.
         </span>

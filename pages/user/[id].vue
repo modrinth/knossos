@@ -61,10 +61,10 @@
               <ReportIcon aria-hidden="true" />
               Report
             </button>
-            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+            <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
               <ReportIcon aria-hidden="true" />
               Report
-            </a>
+            </nuxt-link>
           </div>
           <template v-if="isEditing">
             <div class="inputs universal-labels">
@@ -228,9 +228,9 @@
   </div>
 </template>
 <script setup>
+import { Promotion } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
-import Promotion from '~/components/ads/Promotion.vue'
 
 import ReportIcon from '~/assets/images/utils/report.svg'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg'

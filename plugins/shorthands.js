@@ -201,6 +201,8 @@ export const formatCategory = (name) => {
     return 'BungeeCord'
   } else if (name === 'liteloader') {
     return 'LiteLoader'
+  } else if (name === 'neoforge') {
+    return 'NeoForge'
   } else if (name === 'game-mechanics') {
     return 'Game Mechanics'
   } else if (name === 'worldgen') {
@@ -312,7 +314,7 @@ export const formatVersions = (versionArray) => {
 
   for (const interval of newIntervals) {
     if (interval.length === 2) {
-      output.push(`${interval[0][0]}—${interval[1][0]}`)
+      output.push(`${interval[0][0]}–${interval[1][0]}`)
     } else {
       output.push(interval[0][0])
     }

@@ -110,8 +110,15 @@
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <nuxt-link class="iconified-button brand-button" to="/auth/sign-in">
+                <nuxt-link class="iconified-button raised-button" to="/auth/sign-in">
                   <LogInIcon /> Sign in
+                </nuxt-link>
+                <nuxt-link
+                  v-if="$route.path !== '/app'"
+                  class="btn btn-outline btn-primary"
+                  to="/app"
+                >
+                  <DownloadIcon /> Get Modrinth App
                 </nuxt-link>
               </section>
             </section>
@@ -340,7 +347,7 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon } from 'omorphia'
+import { LogInIcon, DownloadIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -469,14 +476,19 @@ export default defineNuxtComponent({
     },
   },
   mounted() {
+    if (process.client && window) {
+      window.history.scrollRestoration = 'auto'
+    }
+
     this.runAnalytics()
   },
   methods: {
     runAnalytics() {
       const config = useRuntimeConfig()
+      const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
 
       setTimeout(() => {
-        $fetch(`${config.public.ariadneBaseUrl}view`, {
+        $fetch(`${replacedUrl}analytics/view`, {
           method: 'POST',
           body: {
             url: window.location.href,
@@ -549,6 +561,7 @@ export default defineNuxtComponent({
         display: flex;
         justify-content: space-between;
         color: var(--color-text-dark);
+        z-index: 5;
 
         a {
           align-items: center;
@@ -580,6 +593,7 @@ export default defineNuxtComponent({
       section.nav-group {
         display: flex;
         flex-grow: 5;
+        z-index: 5;
 
         section.nav {
           flex-grow: 5;
@@ -630,7 +644,7 @@ export default defineNuxtComponent({
           top: 50%;
           transform: translateY(-50%);
           min-width: 6rem;
-          gap: 1rem;
+          gap: 0.25rem;
 
           .control-button {
             position: relative;
@@ -776,6 +790,7 @@ export default defineNuxtComponent({
           align-items: center;
           height: 100%;
           margin: 0;
+          gap: 0.5rem;
 
           .log-in-button {
             margin: 0 auto;

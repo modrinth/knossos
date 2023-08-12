@@ -126,13 +126,18 @@ export async function fetchNotifications() {
 
 export function groupNotifications(notifications, includeRead = false) {
   const grouped = []
+
+  for (const notification of notifications) {
+    notification.grouped_notifs = []
+  }
+
   for (const notification of notifications.filter((notif) => includeRead || !notif.read)) {
     // Group notifications of the same thread or project id
     if (notification.body) {
       const index = grouped.findIndex(
         (notif) =>
-          (notif.body.thread_id === notification.body.thread_id ||
-            notif.body.project_id === notification.body.project_id) &&
+          ((notif.body.thread_id === notification.body.thread_id && !!notif.body.thread_id) ||
+            (notif.body.project_id === notification.body.project_id && !!notif.body.project_id)) &&
           notification.read === notif.read
       )
       const notif = grouped[index]
