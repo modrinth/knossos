@@ -11,7 +11,7 @@
       <Checkbox
         v-model="subscribe"
         class="subscribe-btn"
-        label="Subscribe updates about Modrinth"
+        label="Subscribe to updates about Modrinth"
       />
 
       <button class="btn btn-primary continue-btn centered-btn" @click="continueSignUp">
