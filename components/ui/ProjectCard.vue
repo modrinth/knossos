@@ -305,8 +305,7 @@ export default {
     img,
     svg {
       border-radius: var(--size-rounded-lg);
-      box-shadow: -2px -2px 0 2px var(--color-raised-bg),
-        2px -2px 0 2px var(--color-raised-bg);
+      box-shadow: -2px -2px 0 2px var(--color-raised-bg), 2px -2px 0 2px var(--color-raised-bg);
     }
   }
 
