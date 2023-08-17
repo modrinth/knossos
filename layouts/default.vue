@@ -94,11 +94,7 @@
                     <SettingsIcon class="icon" />
                     <span class="title">Settings</span>
                   </NuxtLink>
-                  <NuxtLink
-                    class="item button-transparent"
-                    style="color: var(--color-brand)"
-                    to="/app"
-                  >
+                  <NuxtLink class="item button-transparent get-the-app" to="/app">
                     <DownloadIcon class="icon" />
                     <span class="title">Get Modrinth App</span>
                   </NuxtLink>
@@ -1164,6 +1160,10 @@ export default defineNuxtComponent({
   justify-content: center;
   gap: 1rem;
   padding: 0.5rem 1rem;
+}
+
+.get-the-app {
+  color: var(--color-brand) !important;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
