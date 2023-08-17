@@ -205,6 +205,10 @@ function switchPage(page) {
     }
   }
 
+  .markdown-body {
+    margin: 0.5rem 0.5rem 0 0;
+  }
+
   .version-header {
     display: flex;
     align-items: center;
@@ -235,15 +239,13 @@ function switchPage(page) {
     }
 
     .download {
+      position: absolute;
       display: none;
+      right: 0;
 
       @media screen and (min-width: 800px) {
         display: flex;
       }
-    }
-
-    .markdown-body {
-      margin: 0.5rem 0.5rem 0 0;
     }
   }
 }
