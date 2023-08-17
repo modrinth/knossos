@@ -331,7 +331,7 @@
       </div>
       <div class="buttons">
         <nuxt-link class="btn btn-outline btn-primary" to="/app">
-          <SettingsIcon aria-hidden="true" />
+          <DownloadIcon aria-hidden="true" />
           Get the app
         </nuxt-link>
         <button class="iconified-button raised-button" @click="changeTheme">
