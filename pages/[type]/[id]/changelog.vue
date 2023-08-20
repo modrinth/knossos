@@ -239,9 +239,8 @@ function switchPage(page) {
     }
 
     .download {
-      position: absolute;
+      margin-left: auto;
       display: none;
-      right: 0;
 
       @media screen and (min-width: 800px) {
         display: flex;
