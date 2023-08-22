@@ -179,7 +179,7 @@
               id="verify-code"
               v-model="twoFactorCode"
               maxlength="6"
-              type="number"
+              type="text"
               placeholder="Enter code..."
             />
             <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
@@ -255,9 +255,9 @@
         </div>
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button brand-button" @click="$refs.manageProvidersModal.hide()">
-            <CheckIcon />
-            Finish editing
+          <button class="iconified-button" @click="$refs.manageProvidersModal.hide()">
+            <XIcon />
+            Close
           </button>
         </div>
       </div>
@@ -381,16 +381,16 @@ import {
   LeftArrowIcon,
   RightArrowIcon,
   CheckIcon,
-  GitHubIcon,
   ExternalIcon,
 } from 'omorphia'
 import QrcodeVue from 'qrcode.vue'
-import DiscordIcon from 'assets/images/utils/discord.svg'
-import GoogleIcon from 'assets/images/utils/google.svg'
-import SteamIcon from 'assets/images/utils/steam.svg'
-import MicrosoftIcon from 'assets/images/utils/microsoft.svg'
-import GitLabIcon from 'assets/images/utils/gitlab.svg'
-import KeyIcon from '~/assets/images/utils/key.svg'
+import GitHubIcon from 'assets/icons/auth/sso-github.svg'
+import MicrosoftIcon from 'assets/icons/auth/sso-microsoft.svg'
+import GoogleIcon from 'assets/icons/auth/sso-google.svg'
+import SteamIcon from 'assets/icons/auth/sso-steam.svg'
+import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
+import KeyIcon from 'assets/icons/auth/key.svg'
+import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import Modal from '~/components/ui/Modal.vue'
 
@@ -511,7 +511,7 @@ async function verifyTwoFactorCode() {
     const res = await useBaseFetch('auth/2fa', {
       method: 'POST',
       body: {
-        code: twoFactorCode.value ? twoFactorCode.value.toString() : '',
+        code: twoFactorCode.value ? twoFactorCode.value : '',
         flow: twoFactorFlow.value,
       },
     })

@@ -102,6 +102,14 @@
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
+                  <NuxtLink
+                    v-if="!cosmetics.hideModrinthAppPromos"
+                    class="item button-transparent primary-color"
+                    to="/app"
+                  >
+                    <DownloadIcon class="icon" />
+                    <span class="title">Get Modrinth App</span>
+                  </NuxtLink>
                   <hr class="divider" />
                   <button class="item button-transparent" @click="logoutUser()">
                     <LogOutIcon class="icon" />
@@ -110,8 +118,15 @@
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <nuxt-link class="iconified-button brand-button" to="/auth/sign-in">
+                <nuxt-link class="iconified-button raised-button" to="/auth/sign-in">
                   <LogInIcon /> Sign in
+                </nuxt-link>
+                <nuxt-link
+                  v-if="$route.path !== '/app' && !cosmetics.hideModrinthAppPromos"
+                  class="btn btn-outline btn-primary"
+                  to="/app"
+                >
+                  <DownloadIcon /> Get Modrinth App
                 </nuxt-link>
               </section>
             </section>
@@ -323,6 +338,10 @@
         </a>
       </div>
       <div class="buttons">
+        <nuxt-link class="btn btn-outline btn-primary" to="/app">
+          <DownloadIcon aria-hidden="true" />
+          Get Modrinth App
+        </nuxt-link>
         <button class="iconified-button raised-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
@@ -340,7 +359,7 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon } from 'omorphia'
+import { LogInIcon, DownloadIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -469,14 +488,19 @@ export default defineNuxtComponent({
     },
   },
   mounted() {
+    if (process.client && window) {
+      window.history.scrollRestoration = 'auto'
+    }
+
     this.runAnalytics()
   },
   methods: {
     runAnalytics() {
       const config = useRuntimeConfig()
+      const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
 
       setTimeout(() => {
-        $fetch(`${config.public.ariadneBaseUrl}view`, {
+        $fetch(`${replacedUrl}analytics/view`, {
           method: 'POST',
           body: {
             url: window.location.href,
@@ -549,6 +573,7 @@ export default defineNuxtComponent({
         display: flex;
         justify-content: space-between;
         color: var(--color-text-dark);
+        z-index: 5;
 
         a {
           align-items: center;
@@ -580,6 +605,7 @@ export default defineNuxtComponent({
       section.nav-group {
         display: flex;
         flex-grow: 5;
+        z-index: 5;
 
         section.nav {
           flex-grow: 5;
@@ -630,7 +656,7 @@ export default defineNuxtComponent({
           top: 50%;
           transform: translateY(-50%);
           min-width: 6rem;
-          gap: 1rem;
+          gap: 0.25rem;
 
           .control-button {
             position: relative;
@@ -728,7 +754,7 @@ export default defineNuxtComponent({
                 box-sizing: border-box;
                 color: inherit;
                 display: flex;
-                padding: 0.5rem;
+                padding: 0.5rem 0.75rem;
                 width: 100%;
 
                 .icon {
@@ -740,6 +766,15 @@ export default defineNuxtComponent({
                 &.router-link-exact-active {
                   color: var(--color-button-text-active);
                   background-color: var(--color-button-bg);
+
+                  &.primary-color {
+                    color: var(--color-button-text-active);
+                    background-color: var(--color-brand-highlight);
+                  }
+                }
+
+                &.primary-color {
+                  color: var(--color-brand);
                 }
               }
 
@@ -776,6 +811,7 @@ export default defineNuxtComponent({
           align-items: center;
           height: 100%;
           margin: 0;
+          gap: 0.5rem;
 
           .log-in-button {
             margin: 0 auto;

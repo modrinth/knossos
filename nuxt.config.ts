@@ -8,7 +8,6 @@ import { globIterate } from 'glob'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 
 const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
-const STAGING_ARIADNE_URL = 'https://staging-ariadne.modrinth.com/v1/'
 
 const preloadedFonts = [
   'inter/Inter-Regular.woff2',
@@ -48,7 +47,18 @@ const meta = {
  * Preferably only the locales that reach a certain threshold of complete
  * translations would be included in this array.
  */
-const ENABLED_LOCALES: string[] = []
+const enabledLocales: string[] = []
+
+/**
+ * Overrides for the categories of the certain locales.
+ */
+const localesCategoriesOverrides: Partial<Record<string, 'fun' | 'experimental'>> = {
+  'en-x-pirate': 'fun',
+  'en-x-updown': 'fun',
+  'en-x-lolcat': 'fun',
+  'en-x-uwu': 'fun',
+  'ru-x-bandit': 'fun',
+}
 
 export default defineNuxtConfig({
   app: {
@@ -215,7 +225,7 @@ export default defineNuxtConfig({
 
       for await (const localeDir of globIterate('locales/*/', { posix: true })) {
         const tag = basename(localeDir)
-        if (!ENABLED_LOCALES.includes(tag) && opts.defaultLocale !== tag) continue
+        if (!enabledLocales.includes(tag) && opts.defaultLocale !== tag) continue
 
         const locale =
           opts.locales.find((locale) => locale.tag === tag) ??
@@ -247,6 +257,11 @@ export default defineNuxtConfig({
           }
         }
 
+        const categoryOverride = localesCategoriesOverrides[tag]
+        if (categoryOverride != null) {
+          ;(locale.meta ??= {}).category = categoryOverride
+        }
+
         const cnDataImport = resolveCompactNumberDataImport(tag)
         if (cnDataImport != null) {
           ;(locale.additionalImports ??= []).push({
@@ -264,7 +279,6 @@ export default defineNuxtConfig({
     rateLimitKey: process.env.RATE_LIMIT_IGNORE_KEY ?? globalThis.RATE_LIMIT_IGNORE_KEY,
     public: {
       apiBaseUrl: getApiUrl(),
-      ariadneBaseUrl: getAriadneUrl(),
       siteUrl: getDomain(),
 
       owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
@@ -306,16 +320,14 @@ export default defineNuxtConfig({
   nitro: {
     moduleSideEffects: ['@vintl/compact-number/locale-data'],
   },
+  devtools: {
+    enabled: true,
+  },
 })
 
 function getApiUrl() {
   // @ts-ignore
   return process.env.BROWSER_BASE_URL ?? globalThis.BROWSER_BASE_URL ?? STAGING_API_URL
-}
-
-function getAriadneUrl() {
-  // @ts-ignore
-  return process.env.BROWSER_ARIADNE_URL ?? globalThis.BROWSER_ARIADNE_URL ?? STAGING_ARIADNE_URL
 }
 
 function getDomain() {

@@ -150,13 +150,6 @@
         "
       />
     </Head>
-    <ModalModeration
-      v-if="auth.user"
-      ref="modalModeration"
-      :project="project"
-      :status="moderationStatus"
-      :on-close="resetProject"
-    />
     <Modal ref="modalLicense" :header="project.license.name ? project.license.name : 'License'">
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
@@ -312,14 +305,14 @@
                 </button>
               </template>
               <template v-else>
-                <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+                <nuxt-link class="iconified-button" to="/auth/sign-in">
                   <ReportIcon aria-hidden="true" />
                   Report
-                </a>
-                <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+                </nuxt-link>
+                <nuxt-link class="iconified-button" to="/auth/sign-in">
                   <HeartIcon aria-hidden="true" />
                   Follow
-                </a>
+                </nuxt-link>
               </template>
             </div>
           </div>
@@ -355,61 +348,6 @@
             </button>
           </div>
         </div>
-        <div
-          v-if="auth.user && tags.staffRoles.includes(auth.user.role)"
-          class="universal-card moderation-card"
-        >
-          <h2>Moderation actions</h2>
-          <div class="input-stack">
-            <button
-              v-if="
-                !tags.approvedStatuses.includes(project.status) || project.status === 'processing'
-              "
-              class="iconified-button brand-button"
-              @click="openModerationModal(requestedStatus)"
-            >
-              <CheckIcon />
-              Approve
-              {{ requestedStatus !== 'approved' ? `(${requestedStatus})` : '' }}
-            </button>
-            <button
-              v-if="
-                tags.approvedStatuses.includes(project.status) ||
-                project.status === 'processing' ||
-                (tags.rejectedStatuses.includes(project.status) && project.status !== 'withheld')
-              "
-              class="iconified-button danger-button"
-              @click="openModerationModal('withheld')"
-            >
-              <EyeOffIcon />
-              Withhold
-            </button>
-            <button
-              v-if="
-                tags.approvedStatuses.includes(project.status) ||
-                project.status === 'processing' ||
-                (tags.rejectedStatuses.includes(project.status) && project.status !== 'rejected')
-              "
-              class="iconified-button danger-button"
-              @click="openModerationModal('rejected')"
-            >
-              <CrossIcon />
-              Reject
-            </button>
-            <button class="iconified-button" @click="openModerationModal(null)">
-              <EditIcon />
-              Edit message
-            </button>
-            <nuxt-link class="iconified-button" to="/moderation/review">
-              <ModerationIcon />
-              Visit review queue
-            </nuxt-link>
-            <nuxt-link class="iconified-button" to="/moderation/reports">
-              <ReportIcon />
-              Visit reports
-            </nuxt-link>
-          </div>
-        </div>
       </div>
       <section class="normal-page__content">
         <ProjectMemberHeader
@@ -427,7 +365,7 @@
           :auth="auth"
           :tags="tags"
         />
-        <MessageBanner v-if="project.status === 'withheld'" message-type="warning">
+        <MessageBanner v-else-if="project.status === 'withheld'" message-type="warning">
           {{ project.title }} has been removed from search by Modrinth's moderators. Please use
           {{ project.title }} at your own risk.
         </MessageBanner>
@@ -436,15 +374,11 @@
           updates unless the author decides to unarchive the project.
         </MessageBanner>
         <MessageBanner v-if="project.project_type === 'modpack'" message-type="information">
-          To install {{ project.title }}, visit
+          To install {{ project.title }}, download
+          <nuxt-link to="/app">the Modrinth App</nuxt-link>. For instructions with other launchers,
+          please see
           <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
             >our documentation</a
-          >
-          which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
-          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
-          <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
-            Prism Launcher</a
           >.
         </MessageBanner>
         <Promotion v-if="tags.approvedStatuses.includes(project.status)" />
@@ -755,8 +689,8 @@
   </div>
 </template>
 <script setup>
+import { Promotion } from 'omorphia'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UpdateIcon from '~/assets/images/utils/updated.svg'
@@ -775,15 +709,12 @@ import PayPalIcon from '~/assets/images/external/paypal.svg'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
-import Promotion from '~/components/ads/Promotion.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 import Modal from '~/components/ui/Modal.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
-import ModalModeration from '~/components/ui/ModalModeration.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
@@ -799,9 +730,6 @@ import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
@@ -967,7 +895,6 @@ const licenseIdDisplay = computed(() => {
   }
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
-const requestedStatus = computed(() => project.value.requested_status ?? 'approved')
 
 async function resetProject() {
   const newProject = await useBaseFetch(`project/${project.value.id}`)
@@ -1124,14 +1051,6 @@ async function patchIcon(icon) {
   return result
 }
 
-const modalModeration = ref(null)
-const moderationStatus = ref(null)
-function openModerationModal(status) {
-  moderationStatus.value = status
-
-  modalModeration.value.show()
-}
-
 async function updateMembers() {
   allMembers.value = await useAsyncData(
     `project/${route.params.id}/members`,
@@ -1237,8 +1156,7 @@ const collapsedChecklist = ref(false)
       margin-top: calc(-3rem - var(--spacing-card-lg) - 4px);
       margin-left: -4px;
       z-index: 1;
-      border: 4px solid var(--color-raised-bg);
-      border-bottom: none;
+      box-shadow: -2px -2px 0 2px var(--color-raised-bg), 2px -2px 0 2px var(--color-raised-bg);
     }
   }
   .project__header__content {
