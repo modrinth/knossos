@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Sind on konnastatud! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Konnalabürindi fotorealistlik maal"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} inimene veel sai} other {{count} teist inimest said}} samuti konnastatud!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "See leht avati {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Konn"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automaatne"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Standardsed keeled"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Katsetusjärgus keeled"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Lõbusad keeled"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Otsingutulemused"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Vali saidi jaoks eelistatud keel. Tõlkeid pakuvad vabatahtlikud saidil <crowdin-link>Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Sünkrooni süsteemikeelega"
   },
   "settings.language.languages.language-label": {
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Rakendamine..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Viga"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Seda keelt ei saa laadida. Proovi mõne aja pärast uuesti."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Sisesta, et esimene otsingutulemus fookustada"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Otsi keelt..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Ükski keel ei vasta su otsingule} one {# keel vastab su otsingule} other {# keelt vastavad su otsingule}}."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Ükski keel ei vasta su otsingule."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Keel"
   }
 }
