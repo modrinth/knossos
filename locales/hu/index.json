@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Békázott lettél! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Egy fotórealisztikus festmény egy béka labirintusról"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} ember lett még} other {{count} ember lett még}} békázott!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Ez az oldal {ago} volt megnyitva"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Béka"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automatikus"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Alapértelmezett nyelvek"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Kísérleti nyelvek"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Szórakoztató nyelvek"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Keresési találatok"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Válaszd ki az általad előnyben részesített nyelvet ehhez az oldalhoz. A fordítások önkéntesek hozzájárulásával készültek <crowdin-link>Crowdin-on</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Szinkronizálás a rendszer nyelvével"
   },
   "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "{translatedName}.{displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Alkalmazás..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Hiba"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Nem sikerült a nyelv betöltése. Próbálja újra később."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Küldje be az első keresési eredményre való fókuszáláshoz"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Nyelv keresése..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Nem egyezik meg nyelv} one {# nyelv egyezik meg} other {# nyelv egyezik meg}} a kereséseddel."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Nem egyeznek meg nyelvek a kereséseddel."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Nyelv"
   }
 }
