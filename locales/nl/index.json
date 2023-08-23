@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Je bent gekikkerd! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Een fotorealistisch schilderij van een kikker labyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural,one {{count} andere persoon}other {{count} andere personen}} zijn ook gekikkerd!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Deze pagina is {ago} geopend"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Kikker"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automatisch"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Standaard talen"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Experimentele talen"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Leuke talen"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Zoekresultaten"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Kies uw voorkeurstaal voor de site. Vertalingen worden bijgedragen door vrijwilligers <crowdin-link>op Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Synchroniseer met de systeemtaal"
   },
   "settings.language.languages.language-label": {
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Toepassen..."
   },
   "settings.language.languages.language-label-error": {
     "message": "{label}. Error"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Kan deze taal niet laden. Probeer het later opnieuw."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Dien in om het eerste zoekresultaat te selecteren"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Een taal zoeken..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Er komen geen talen overeen} one {# taal komt overeen} other {# talen komen overeen}} met je zoekopdracht."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Geen talen komen overeen met uw zoekopdracht."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Taal"
   }
 }
