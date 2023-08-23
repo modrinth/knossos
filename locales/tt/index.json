@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Сез бакаланды! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Бака-лабиринтның фотореалистик сурәт"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "Тагын {count, plural, one {{count} кеше} other {{count} кеше}} дә бакылды!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Бу бит {ago} ачылды"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Бака"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Автоматик"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Гади телләр"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Эксперименталь телләр"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Көлке телләр"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Эзләү нәтиҗәләре"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Сезнең яхшырак күрелүче телне сайлагыз. Тәрҗемәләр иреклеләр тарафыннан <crowdin-link>Crowdin-да</crowdin-link> өстәлде."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Систем тел"
   },
   "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "{translatedName}, {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Куллану..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Хата"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Бу телне йөкләп булмый. Соңрак кабатлап карагыз."
   },
   "settings.language.languages.search-field.description": {
     "message": "Submit to focus the first search result"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Тел эзләү..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Туры килә торган телләр юк} one {# туры килә торган тел бар} other {# туры килә торган тел бар}}."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Туры килә торган телләр юк."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Тел"
   }
 }
