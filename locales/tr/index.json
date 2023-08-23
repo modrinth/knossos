@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Kurbağalandınız! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Kurbağa şeklindeki bir labirentin fotogerçekçi bir çizimi"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, other {{count} kişi daha}} kurbağalandı!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Bu sayfa {ago} önce açıldı"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Kurbağa"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Otomatik"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Mevcut diller"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Tamamlanmamış diller"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Şakalı diller"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Arama sonuçları"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Sitenin görüntüleneceği dili seçin. Çeviriler <crowdin-link>Crowdin</crowdin-link> üzerindeki gönüllüler tarafından yapılmaktadır."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Sistem diliyle eşleştir"
   },
   "settings.language.languages.language-label": {
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Uygulanıyor..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Hata"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Bu dil yüklenemedi. Birazdan yeniden deneyin."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "İlk arama sonucuna odaklanması için gönderme tuşuna basın"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Bir dil arayın..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "Aramanızla {matches, plural, =0 {eşleşen dil bulunamadı} other {eşleşen # dil bulundu}}."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Aramanızla eşen dil bulunmamakta."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Dil"
   }
 }
