@@ -1,0 +1,65 @@
+{
+  "frog": {
+    "message": "mi akesi e sina a! 🐸"
+  },
+  "frog.altText": {
+    "message": "sitelen ni la akesi li lon tomo pi nasin nasa. nasin sitelen li sama lon"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+  },
+  "frog.sinceOpened": {
+    "message": "This page was opened {ago}"
+  },
+  "frog.title": {
+    "message": "akesi"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automatic"
+  },
+  "settings.language.categories.default": {
+    "message": "toki pi jan mute"
+  },
+  "settings.language.categories.experimental": {
+    "message": "toki nasa"
+  },
+  "settings.language.categories.fun": {
+    "message": "toki musi"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Search results"
+  },
+  "settings.language.description": {
+    "message": "o kepeken toki pi wile sina lon lipu ni. ante toki li tan kulupu <crowdin-link>lon ilo Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "toki li sama toki ilo"
+  },
+  "settings.language.languages.language-label": {
+    "message": "{translatedName}. {displayName}"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Applying..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. ike"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "pakala - mi ken ala kepeken toki ni. o alasa sin lon tenpo ante."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Submit to focus the first search result"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "o alasa e toki..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "toki pi alasa sina li lon ala."
+  },
+  "settings.language.title": {
+    "message": "toki"
+  }
+}
