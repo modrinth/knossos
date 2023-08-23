@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Вас жабнули! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Фотореалистичное изображение жаберинта"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "Кроме вас жабнули ещё {count, plural, one {{count} человека} other {{count} человек}}!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Станица открылась {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Жаба"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Автоматически"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Стандартные языки"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Экспериментальные языки"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Шуточные языки"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Результаты поиска"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Выберите предпочитаемый язык для сайта. Переводы создаются добровольцами <crowdin-link>на Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Как в системе"
   },
   "settings.language.languages.language-label": {
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Применение..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Ошибка"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Не удаётся загрузить язык. Попробуйте позже."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Дополните для уточнения результатов поиска"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Поиск языка..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "По вашему запросу {matches, plural, =0 {не нашлось ни одного языка} few {нашлось # языка} many {нашлось # языков} other {нашёлся # язык}}."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "По вашему запросу не нашлось ни одного языка."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Язык"
   }
 }
