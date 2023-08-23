@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "你被耍了！🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "一副逼真的青蛙迷宫图"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "该页面打开于 {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "青蛙"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "自动"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "标准语言"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "试验语言"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "有趣的语言"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "搜索结果"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "在此选择你喜欢的语言。翻译是由<crowdin-link>Crowdin</crowdin-link>的志愿者们提供的。"
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "同步系统语言"
   },
   "settings.language.languages.language-label": {
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. 应用中。。。"
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. 错误"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "无法加载此语言。请稍后再试。"
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "提交以关注第一个搜索结果"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "搜索一种语言。。。"
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural,=0 {没有语言匹配} one {# 语言匹配} other {#语言匹配}} 您的搜索。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "没有语言符合你的搜索。"
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "语言设置"
   }
 }
