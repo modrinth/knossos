@@ -1,9 +1,9 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "你被耍了！🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "一副逼真的青蛙迷宮圖"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
