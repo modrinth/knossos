@@ -39,10 +39,10 @@
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Anchorin'..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Shipwreck"
   },
   "settings.language.languages.load-failed": {
     "message": "Cannot load this language. Try again in a bit."
@@ -60,6 +60,6 @@
     "message": "No languages match your search."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Tongue"
   }
 }
