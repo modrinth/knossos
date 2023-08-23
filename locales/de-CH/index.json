@@ -1,65 +1,65 @@
 {
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Du wurdest gefroscht! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Ein fotorealistische Gemälde eines Froschlabyrinths"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} andere Person} other {{count} andere Personen}} wurden auch gefroscht!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Diese Seite wurde {ago} geöffnet"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Frosch"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automatisch"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Standard-Sprachen"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Experimentelle Sprachen"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Spaß Sprachen"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Suchergebnisse"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Wähle deine bevorzugte Sprache für diese Website. Übersetzungen werden von Freiwilligen <crowdin-link>auf Crowdin</crowdin-link> beigesteuert."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Mit der Systemsprache synchronisieren"
   },
   "settings.language.languages.language-label": {
     "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Wende an..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Fehler"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Diese Sprache kann nicht geladen werden. Versuche es später noch einmal."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Zum Fokussieren auf das erste Suchergebnis absenden"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Nach einer Sprache suchen..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Keine Sprache stimmt} one {# Sprache stimmt} other {# Sprachen stimmen}} mit deiner Suche überein."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Keine Sprachen stimmen mit deiner Suche überein."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Sprache"
   }
 }
