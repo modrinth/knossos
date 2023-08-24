@@ -322,10 +322,6 @@ const messages = defineMessages({
     id: 'profile.user-id',
     defaultMessage: 'User ID:',
   },
-  editButton: {
-    id: 'button.edit',
-    defaultMessage: 'Edit',
-  },
   profileManageProjectsButton: {
     id: 'profile.button.manage-projects',
     defaultMessage: 'Manage projects',
@@ -333,6 +329,10 @@ const messages = defineMessages({
   profileReportButton: {
     id: 'profile.button.report',
     defaultMessage: 'Report',
+  },
+  profileUploadAvatarInput: {
+    id: 'profile.input.upload-avatar',
+    defaultMessage: 'Upload avatar',
   },
   profileEditUsernameLabel: {
     id: 'profile.label.edit-username',
@@ -342,13 +342,13 @@ const messages = defineMessages({
     id: 'profile.label.edit-bio',
     defaultMessage: 'Bio',
   },
-  profileUploadAvatarInput: {
-    id: 'profile.input.upload-avatar',
-    defaultMessage: 'Upload avatar',
-  },
   cancelButton: {
     id: 'button.cancel',
     defaultMessage: 'Cancel',
+  },
+  editButton: {
+    id: 'button.edit',
+    defaultMessage: 'Edit',
   },
   saveButton: {
     id: 'button.save',
