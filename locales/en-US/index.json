@@ -71,6 +71,15 @@
   "profile.button.report": {
     "message": "Report"
   },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
   "profile.stats.downloads": {
     "message": "<stat>{count}</stat> downloads"
   },

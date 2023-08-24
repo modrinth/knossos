@@ -38,9 +38,9 @@
               v-if="isEditing"
               :max-size="262144"
               :show-icon="true"
+              :prompt=formatMessage(messages.profileUploadAvatarInput)
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image iconified-button"
-              prompt="Upload avatar"
               @change="showPreviewImage"
             >
               <UploadIcon />
@@ -68,9 +68,9 @@
           </div>
           <template v-if="isEditing">
             <div class="inputs universal-labels">
-              <label for="user-username"><span class="label__title">Username</span></label>
+              <label for="user-username"><span class="label__title">{{ formatMessage(messages.profileEditUsernameLabel) }}</span></label>
               <input id="user-username" v-model="user.username" maxlength="39" type="text" />
-              <label for="user-bio"><span class="label__title">Bio</span></label>
+              <label for="user-bio"><span class="label__title">{{ formatMessage(messages.profileEditBioLabel) }}</span></label>
               <div class="textarea-wrapper">
                 <textarea id="user-bio" v-model="user.bio" maxlength="160" />
               </div>
@@ -304,6 +304,18 @@ const messages = defineMessages({
   profileReportButton: {
     id: 'profile.button.report',
     defaultMessage: 'Report',
+  },
+  profileEditUsernameLabel: {
+    id: 'profile.label.edit-username',
+    defaultMessage: 'Username',
+  },
+  profileEditBioLabel: {
+    id: 'profile.label.edit-bio',
+    defaultMessage: 'Bio',
+  },
+  profileUploadAvatarInput: {
+    id: 'profile.input.upload-avatar',
+    defaultMessage: 'Upload avatar',
   },
 })
 
