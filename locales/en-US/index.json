@@ -44,6 +44,12 @@
   "profile.stats.projects-followers": {
     "message": "<stat>{count}</stat> followers of projects"
   },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date} at {time}"
+  },
   "profile.user-id": {
     "message": "User ID:"
   },

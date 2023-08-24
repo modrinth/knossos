@@ -142,10 +142,17 @@
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
-                v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm A')"
+                v-tooltip="formatMessage(messages.profileJoinedAtTooltip, {
+                  date: fmt.date(user.created, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  }),
+                  time: fmt.time(user.created)
+                })"
                 class="secondary-stat__text date"
               >
-                Joined {{ fromNow(user.created) }}
+                {{ formatMessage(messages.profileJoinedAt, { ago: formatRelativeTime(user.created) }) }}
               </span>
             </div>
             <hr class="card-divider" />
@@ -286,13 +293,11 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 
 const vintl = useVIntl()
-const { formatMessage } = vintl
+const { formatMessage, formats: fmt } = vintl
+
+const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
-  profileUserId: {
-    id: 'profile.user-id',
-    defaultMessage: 'User ID:',
-  },
   profileDownloadsStats: {
     id: 'profile.stats.downloads',
     defaultMessage: '<stat>{count}</stat> downloads}',
@@ -300,6 +305,18 @@ const messages = defineMessages({
   profileProjectsFollowersStats: {
     id: 'profile.stats.projects-followers',
     defaultMessage: '<stat>{count}</stat> followers of projects',
+  },
+  profileJoinedAt: {
+    id: 'profile.joined-at',
+    defaultMessage: 'Joined {ago}',
+  },
+  profileJoinedAtTooltip: {
+    id: 'profile.joined-at.tooltip',
+    defaultMessage: '{date} at {time}',
+  },
+  profileUserId: {
+    id: 'profile.user-id',
+    defaultMessage: 'User ID:',
   },
   editButton: {
     id: 'button.edit',
