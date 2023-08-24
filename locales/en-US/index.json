@@ -61,5 +61,17 @@
   },
   "settings.language.title": {
     "message": "Language"
+  },
+  "profile.button.edit": {
+    "message": "Edit"
+  },
+  "profile.stats.downloads": {
+    "message": "<stat>{count}</stat> downloads"
+  },
+  "profile.stats.projects-followers": {
+    "message": "<stat>{count}</stat> followers of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID:"
   }
 }

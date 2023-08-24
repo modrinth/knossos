@@ -51,7 +51,7 @@
               @click="isEditing = true"
             >
               <EditIcon />
-              Edit
+              {{ formatMessage(messages.profileEditButton) }}
             </button>
             <button
               v-else-if="auth.user"
@@ -104,15 +104,31 @@
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads }}</span>
-                downloads
+                <IntlFormatted
+                  :message-id="messages.profileDownloadsStats"
+                  :values="{ count: sumDownloads }"
+                >
+                  <template #stat="{ children }">
+                    <span class="primary-stat__counter">
+                      <component :is="() => children" />
+                    </span>
+                  </template>
+                </IntlFormatted>
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumFollows }}</span>
-                followers of projects
+                <IntlFormatted
+                  :message-id="messages.profileProjectsFollowersStats"
+                  :values="{ count: sumFollows }"
+                >
+                  <template #stat="{ children }">
+                    <span class="primary-stat__counter">
+                      <component :is="() => children" />
+                    </span>
+                  </template>
+                </IntlFormatted>
               </div>
             </div>
             <div class="stats-block__item secondary-stat">
@@ -127,7 +143,7 @@
             <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
+              <span class="secondary-stat__text"> {{ formatMessage(messages.profileUserId) }} <CopyCode :text="user.id" /> </span>
             </div>
           </template>
         </div>
@@ -258,6 +274,28 @@ const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()
+
+const vintl = useVIntl()
+const { formatMessage } = vintl
+
+const messages = defineMessages({
+  profileUserId: {
+    id: 'profile.user-id',
+    defaultMessage: 'User ID:',
+  },
+  profileDownloadsStats: {
+    id: 'profile.stats.downloads',
+    defaultMessage: '<stat>{count}</stat> downloads}',
+  },
+  profileProjectsFollowersStats: {
+    id: 'profile.stats.projects-followers',
+    defaultMessage: '<stat>{count}</stat> followers of projects',
+  },
+  profileEditButton: {
+    id: 'profile.button.edit',
+    defaultMessage: 'Edit',
+  },
+})
 
 let user, projects
 try {
