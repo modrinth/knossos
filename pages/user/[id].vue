@@ -254,9 +254,7 @@
         <div v-else class="error">
           <UpToDate class="icon" /><br />
           <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
-            <IntlFormatted
-              :message-id="messages.profileNoProjectsAuthLabel"
-            >
+            <IntlFormatted :message-id="messages.profileNoProjectsAuthLabel">
               <template #create-link="{ children }">
                 <a class="link" @click.prevent="$refs.modal_creation.show()">
                   <component :is="() => children" />
@@ -354,7 +352,8 @@ const messages = defineMessages({
   },
   profileNoProjectsAuthLabel: {
     id: 'profile.label.no-projects-auth',
-    defaultMessage: 'You don\'t have any projects.\n Would you like to <create-link>create one</create-link>?',
+    defaultMessage:
+      "You don't have any projects.\n Would you like to <create-link>create one</create-link>?",
   },
   cancelButton: {
     id: 'button.cancel',
