@@ -253,12 +253,18 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="auth.user && auth.user.id === user.id" class="text">
-            You don't have any projects.<br />
-            Would you like to
-            <a class="link" @click.prevent="$refs.modal_creation.show()"> create one</a>?
+          <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
+            <IntlFormatted
+              :message-id="messages.profileNoProjectsAuthLabel"
+            >
+              <template #create-link="{ children }">
+                <a class="link" @click.prevent="$refs.modal_creation.show()">
+                  <component :is="() => children" />
+                </a>
+              </template>
+            </IntlFormatted>
           </span>
-          <span v-else class="text">This user has no projects!</span>
+          <span v-else class="text">{{ formatMessage(messages.profileNoProjectsLabel) }}</span>
         </div>
       </div>
     </div>
@@ -341,6 +347,14 @@ const messages = defineMessages({
   profileEditBioLabel: {
     id: 'profile.label.edit-bio',
     defaultMessage: 'Bio',
+  },
+  profileNoProjectsLabel: {
+    id: 'profile.label.no-projects',
+    defaultMessage: 'This user has no projects!',
+  },
+  profileNoProjectsAuthLabel: {
+    id: 'profile.label.no-projects-auth',
+    defaultMessage: 'You don\'t have any projects.\n Would you like to <create-link>create one</create-link>?',
   },
   cancelButton: {
     id: 'button.cancel',

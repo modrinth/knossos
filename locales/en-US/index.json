@@ -53,6 +53,12 @@
   "profile.user-id": {
     "message": "User ID:"
   },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\n Would you like to <create-link>create one</create-link>?"
+  },
   "settings.language.categories.auto": {
     "message": "Automatic"
   },
