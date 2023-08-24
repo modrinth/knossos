@@ -143,7 +143,9 @@
             <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text"> {{ formatMessage(messages.profileUserId) }} <CopyCode :text="user.id" /> </span>
+              <span class="secondary-stat__text">
+                {{ formatMessage(messages.profileUserId) }} <CopyCode :text="user.id" />
+              </span>
             </div>
           </template>
         </div>
