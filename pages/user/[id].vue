@@ -142,17 +142,21 @@
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
-                v-tooltip="formatMessage(messages.profileJoinedAtTooltip, {
-                  date: fmt.date(user.created, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  }),
-                  time: fmt.time(user.created)
-                })"
+                v-tooltip="
+                  formatMessage(messages.profileJoinedAtTooltip, {
+                    date: fmt.date(user.created, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    }),
+                    time: fmt.time(user.created),
+                  })
+                "
                 class="secondary-stat__text date"
               >
-                {{ formatMessage(messages.profileJoinedAt, { ago: formatRelativeTime(user.created) }) }}
+                {{
+                  formatMessage(messages.profileJoinedAt, { ago: formatRelativeTime(user.created) })
+                }}
               </span>
             </div>
             <hr class="card-divider" />
