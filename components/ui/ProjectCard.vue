@@ -469,10 +469,16 @@ export default {
 }
 
 .description {
+  --max-lines: 2;
+  --line-height: 1.4;
+
   grid-area: description;
   margin-block: 0;
   display: flex;
   justify-content: flex-start;
+  max-height: calc(var(--max-lines) * 1em * var(--line-height));
+  line-height: var(--line-height);
+  overflow: hidden;
 }
 
 .tags {
