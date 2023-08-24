@@ -51,7 +51,7 @@
               @click="isEditing = true"
             >
               <EditIcon />
-              {{ formatMessage(messages.profileEditButton) }}
+              {{ formatMessage(messages.editButton) }}
             </button>
             <button
               v-else-if="auth.user"
@@ -301,8 +301,8 @@ const messages = defineMessages({
     id: 'profile.stats.projects-followers',
     defaultMessage: '<stat>{count}</stat> followers of projects',
   },
-  profileEditButton: {
-    id: 'profile.button.edit',
+  editButton: {
+    id: 'button.edit',
     defaultMessage: 'Edit',
   },
   profileManageProjectsButton: {

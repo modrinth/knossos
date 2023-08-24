@@ -2,6 +2,9 @@
   "button.cancel": {
     "message": "Cancel"
   },
+  "button.edit": {
+    "message": "Edit"
+  },
   "button.save": {
     "message": "Save"
   },
@@ -19,9 +22,6 @@
   },
   "frog.title": {
     "message": "Frog"
-  },
-  "profile.button.edit": {
-    "message": "Edit"
   },
   "profile.button.manage-projects": {
     "message": "Manage projects"
