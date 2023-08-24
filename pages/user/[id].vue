@@ -95,10 +95,10 @@
                   }
                 "
               >
-                <CrossIcon /> Cancel
+                <CrossIcon /> {{ formatMessage(messages.cancelButton) }}
               </button>
               <button class="iconified-button brand-button" @click="saveChanges">
-                <SaveIcon /> Save
+                <SaveIcon /> {{ formatMessage(messages.saveButton) }}
               </button>
             </div>
           </template>
@@ -324,6 +324,14 @@ const messages = defineMessages({
   profileUploadAvatarInput: {
     id: 'profile.input.upload-avatar',
     defaultMessage: 'Upload avatar',
+  },
+  cancelButton: {
+    id: 'button.cancel',
+    defaultMessage: 'Cancel',
+  },
+  saveButton: {
+    id: 'button.save',
+    defaultMessage: 'Save',
   },
 })
 

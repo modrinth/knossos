@@ -1,4 +1,10 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
@@ -13,6 +19,33 @@
   },
   "frog.title": {
     "message": "Frog"
+  },
+  "profile.button.edit": {
+    "message": "Edit"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.stats.downloads": {
+    "message": "<stat>{count}</stat> downloads"
+  },
+  "profile.stats.projects-followers": {
+    "message": "<stat>{count}</stat> followers of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID:"
   },
   "settings.language.categories.auto": {
     "message": "Automatic"
@@ -61,32 +94,5 @@
   },
   "settings.language.title": {
     "message": "Language"
-  },
-  "profile.button.edit": {
-    "message": "Edit"
-  },
-  "profile.button.manage-projects": {
-    "message": "Manage projects"
-  },
-  "profile.button.report": {
-    "message": "Report"
-  },
-  "profile.label.edit-username": {
-    "message": "Username"
-  },
-  "profile.label.edit-bio": {
-    "message": "Bio"
-  },
-  "profile.input.upload-avatar": {
-    "message": "Upload avatar"
-  },
-  "profile.stats.downloads": {
-    "message": "<stat>{count}</stat> downloads"
-  },
-  "profile.stats.projects-followers": {
-    "message": "<stat>{count}</stat> followers of projects"
-  },
-  "profile.user-id": {
-    "message": "User ID:"
   }
 }
