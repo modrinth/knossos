@@ -65,6 +65,12 @@
   "profile.button.edit": {
     "message": "Edit"
   },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
   "profile.stats.downloads": {
     "message": "<stat>{count}</stat> downloads"
   },

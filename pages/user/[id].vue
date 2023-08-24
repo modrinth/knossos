@@ -59,11 +59,11 @@
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ formatMessage(messages.profileReportButton) }}
             </button>
             <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ formatMessage(messages.profileReportButton) }}
             </nuxt-link>
           </div>
           <template v-if="isEditing">
@@ -174,7 +174,7 @@
               to="/dashboard/projects"
             >
               <SettingsIcon />
-              Manage projects
+              {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
             <button
               v-tooltip="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
@@ -296,6 +296,14 @@ const messages = defineMessages({
   profileEditButton: {
     id: 'profile.button.edit',
     defaultMessage: 'Edit',
+  },
+  profileManageProjectsButton: {
+    id: 'profile.button.manage-projects',
+    defaultMessage: 'Manage projects',
+  },
+  profileReportButton: {
+    id: 'profile.button.report',
+    defaultMessage: 'Report',
   },
 })
 
