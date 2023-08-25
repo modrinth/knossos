@@ -35,9 +35,6 @@
   "settings.language.languages.automatic": {
     "message": "Sync with the system language"
   },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
-  },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Applying..."
   },
