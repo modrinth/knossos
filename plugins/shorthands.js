@@ -261,12 +261,12 @@ export const formatCategory = (name) => {
 }
 
 const CATEGORY_DESCRIPTIONS_BY_ID = {
-  "cursed": "Mods that make questionable changes to the game.",
-  "optimization": "Mods that improve how the game performs.",
+  cursed: 'Mods that make questionable changes to the game.',
+  optimization: 'Mods that improve how the game performs.',
 }
 
 export const getCategoryDescription = (name) => {
-  return CATEGORY_DESCRIPTIONS_BY_ID[name] ?? null;
+  return CATEGORY_DESCRIPTIONS_BY_ID[name] ?? null
 }
 
 export const formatCategoryHeader = (name) => {
