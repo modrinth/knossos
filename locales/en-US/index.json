@@ -51,7 +51,7 @@
     "message": "{date} at {time}"
   },
   "profile.user-id": {
-    "message": "User ID:"
+    "message": "User ID: {id}"
   },
   "profile.label.no-projects": {
     "message": "This user has no projects!"

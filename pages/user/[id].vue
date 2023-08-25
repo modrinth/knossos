@@ -163,7 +163,11 @@
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
               <span class="secondary-stat__text">
-                {{ formatMessage(messages.profileUserId) }} <CopyCode :text="user.id" />
+                <IntlFormatted :message-id="messages.profileUserId">
+                  <template #~id>
+                    <CopyCode :text="user.id" />
+                  </template>
+                </IntlFormatted>
               </span>
             </div>
           </template>
@@ -324,7 +328,7 @@ const messages = defineMessages({
   },
   profileUserId: {
     id: 'profile.user-id',
-    defaultMessage: 'User ID:',
+    defaultMessage: 'User ID: {id}',
   },
   profileManageProjectsButton: {
     id: 'profile.button.manage-projects',
