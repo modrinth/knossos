@@ -1,5 +1,3 @@
-import { defineMessages } from '@formatjs/intl'
-
 export const commonMessages = defineMessages({
   cancelButton: {
     id: 'button.cancel',

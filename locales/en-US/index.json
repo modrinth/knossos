@@ -29,20 +29,8 @@
   "profile.button.report": {
     "message": "Report"
   },
-  "profile.label.edit-username": {
-    "message": "Username"
-  },
-  "profile.label.edit-bio": {
-    "message": "Bio"
-  },
   "profile.input.upload-avatar": {
     "message": "Upload avatar"
-  },
-  "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
-  },
-  "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.joined-at": {
     "message": "Joined {ago}"
@@ -50,50 +38,62 @@
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} at {time}"
   },
-  "profile.user-id": {
-    "message": "User ID: {id}"
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
   },
   "profile.label.no-projects": {
     "message": "This user has no projects!"
   },
-  "project-type.datapack": {
-    "message": "Data Pack"
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects. Would you like to <create-link>create one</create-link>?"
   },
-  "project-type.datapacks": {
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.datapack.plural": {
     "message": "Data Packs"
   },
-  "project-type.mod": {
-    "message": "Mod"
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
   },
-  "project-type.mods": {
+  "project-type.mod.plural": {
     "message": "Mods"
   },
-  "project-type.modpack": {
-    "message": "Modpack"
+  "project-type.mod.singular": {
+    "message": "Mod"
   },
-  "project-type.modpacks": {
+  "project-type.modpack.plural": {
     "message": "Modpacks"
   },
-  "project-type.plugin": {
-    "message": "Plugin"
+  "project-type.modpack.singular": {
+    "message": "Modpack"
   },
-  "project-type.plugins": {
+  "project-type.plugin.plural": {
     "message": "Plugins"
   },
-  "project-type.resourcepack": {
-    "message": "Resource Pack"
+  "project-type.plugin.singular": {
+    "message": "Plugin"
   },
-  "project-type.resourcepacks": {
+  "project-type.resourcepack.plural": {
     "message": "Resource Packs"
   },
-  "project-type.shader": {
-    "message": "Shader"
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
   },
-  "project-type.shaders": {
+  "project-type.shader.plural": {
     "message": "Shaders"
   },
-  "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\n Would you like to <create-link>create one</create-link>?"
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
     "message": "Automatic"

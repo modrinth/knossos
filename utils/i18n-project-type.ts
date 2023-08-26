@@ -1,60 +1,58 @@
 const projectTypeMessages = defineMessages({
-  datapackProjectType: {
-    id: 'project-type.datapack',
+  datapack: {
+    id: 'project-type.datapack.singular',
     defaultMessage: 'Data Pack',
   },
-  datapacksProjectType: {
-    id: 'project-type.datapacks',
+  datapacks: {
+    id: 'project-type.datapack.plural',
     defaultMessage: 'Data Packs',
   },
-  modProjectType: {
-    id: 'project-type.mod',
+  mod: {
+    id: 'project-type.mod.singular',
     defaultMessage: 'Mod',
   },
-  modsProjectType: {
-    id: 'project-type.mods',
+  mods: {
+    id: 'project-type.mod.plural',
     defaultMessage: 'Mods',
   },
-  modpackProjectType: {
-    id: 'project-type.modpack',
+  modpack: {
+    id: 'project-type.modpack.singular',
     defaultMessage: 'Modpack',
   },
-  modpacksProjectType: {
-    id: 'project-type.modpacks',
+  modpacks: {
+    id: 'project-type.modpack.plural',
     defaultMessage: 'Modpacks',
   },
-  pluginProjectType: {
-    id: 'project-type.plugin',
+  plugin: {
+    id: 'project-type.plugin.singular',
     defaultMessage: 'Plugin',
   },
-  pluginsProjectType: {
-    id: 'project-type.plugins',
+  plugins: {
+    id: 'project-type.plugin.plural',
     defaultMessage: 'Plugins',
   },
-  resourcepackProjectType: {
-    id: 'project-type.resourcepack',
+  resourcepack: {
+    id: 'project-type.resourcepack.singular',
     defaultMessage: 'Resource Pack',
   },
-  resourcepacksProjectType: {
-    id: 'project-type.resourcepacks',
+  resourcepacks: {
+    id: 'project-type.resourcepack.plural',
     defaultMessage: 'Resource Packs',
   },
-  shaderProjectType: {
-    id: 'project-type.shader',
+  shader: {
+    id: 'project-type.shader.singular',
     defaultMessage: 'Shader',
   },
-  shadersProjectType: {
-    id: 'project-type.shaders',
+  shaders: {
+    id: 'project-type.shader.plural',
     defaultMessage: 'Shaders',
   },
 })
 
-type MessageKeys = keyof typeof projectTypeMessages
-
 type ExtractSingulars<K extends string> = K extends `${infer T}s` ? T : never
 
-type ProjectType = ExtractSingulars<MessageKeys>
+type ProjectType = ExtractSingulars<keyof typeof projectTypeMessages>
 
 export function getProjectTypeMessage(type: ProjectType, plural = false) {
-  return projectTypeMessages[`${type}${plural ? 's' : ''}ProjectType`]
+  return projectTypeMessages[`${type}${plural ? 's' : ''}`]
 }
