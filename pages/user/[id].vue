@@ -310,11 +310,13 @@ const formatRelativeTime = useRelativeTime()
 const messages = defineMessages({
   profileDownloadsStats: {
     id: 'profile.stats.downloads',
-    defaultMessage: '{count, plural,one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
+    defaultMessage:
+      '{count, plural,one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
   },
   profileProjectsFollowersStats: {
     id: 'profile.stats.projects-followers',
-    defaultMessage: '{count, plural,one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
+    defaultMessage:
+      '{count, plural,one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
   },
   profileJoinedAt: {
     id: 'profile.joined-at',
