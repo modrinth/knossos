@@ -8,6 +8,9 @@
   "button.save": {
     "message": "Save"
   },
+  "error.user.404": {
+    "message": "User not found"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
@@ -48,7 +51,10 @@
     "message": "This user has no projects!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects. Would you like to <create-link>create one</create-link>?"
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"

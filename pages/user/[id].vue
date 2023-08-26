@@ -334,6 +334,10 @@ const messages = defineMessages({
     id: 'profile.button.manage-projects',
     defaultMessage: 'Manage projects',
   },
+  profileMetaDescription: {
+    id: 'profile.meta.description',
+    defaultMessage: 'Download {username}\'s projects on Modrinth',
+  },
   profileReportButton: {
     id: 'profile.button.report',
     defaultMessage: 'Report',
@@ -358,6 +362,10 @@ const messages = defineMessages({
     id: 'profile.label.no-projects-auth',
     defaultMessage:
       "You don't have any projects.\n Would you like to <create-link>create one</create-link>?",
+  },
+  user404Error: {
+    id: 'error.user.404',
+    defaultMessage: 'User not found',
   },
 })
 
@@ -388,7 +396,7 @@ try {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.user404Error),
   })
 }
 
@@ -396,7 +404,7 @@ if (!user.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.user404Error),
   })
 }
 
@@ -406,8 +414,8 @@ if (user.value.username !== route.params.id) {
 
 const metaDescription = ref(
   user.value.bio
-    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
-    : `Download ${user.value.username}'s projects on Modrinth`
+    ? `${user.value.bio} - ${formatMessage(messages.profileMetaDescription, { username : user.value.username })}`
+    : `${formatMessage(messages.profileMetaDescription, { username : user.value.username })}`
 )
 
 const projectTypes = computed(() => {
