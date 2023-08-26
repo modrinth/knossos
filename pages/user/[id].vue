@@ -415,9 +415,9 @@ if (user.value.username !== route.params.id) {
 const metaDescription = ref(
   user.value.bio
     ? `${user.value.bio} - ${formatMessage(messages.profileMetaDescription, {
-      username : user.value.username
-    })}`
-    : `${formatMessage(messages.profileMetaDescription, { username : user.value.username })}`
+        username: user.value.username,
+      })}`
+    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
 )
 
 const projectTypes = computed(() => {
