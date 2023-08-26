@@ -118,7 +118,7 @@
                 >
                   <template #stat="{ children }">
                     <span class="primary-stat__counter">
-                      {{ String(children) }}
+                      <component :is="() => normalizeChildren(children)" />
                     </span>
                   </template>
                 </IntlFormatted>
@@ -133,7 +133,7 @@
                 >
                   <template #stat="{ children }">
                     <span class="primary-stat__counter">
-                      {{ String(children) }}
+                      <component :is="() => normalizeChildren(children)" />
                     </span>
                   </template>
                 </IntlFormatted>
