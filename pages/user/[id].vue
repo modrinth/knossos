@@ -51,7 +51,7 @@
               @click="isEditing = true"
             >
               <EditIcon />
-              {{ formatMessage(messages.editButton) }}
+              {{ formatMessage(commonMessages.editButton) }}
             </button>
             <button
               v-else-if="auth.user"
@@ -95,10 +95,10 @@
                   }
                 "
               >
-                <CrossIcon /> {{ formatMessage(messages.cancelButton) }}
+                <CrossIcon /> {{ formatMessage(commonMessages.cancelButton) }}
               </button>
               <button class="iconified-button brand-button" @click="saveChanges">
-                <SaveIcon /> {{ formatMessage(messages.saveButton) }}
+                <SaveIcon /> {{ formatMessage(commonMessages.saveButton) }}
               </button>
             </div>
           </template>
@@ -293,6 +293,7 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+import { commonMessages } from '~/utils/commonMessages.ts';
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -311,12 +312,12 @@ const messages = defineMessages({
   profileDownloadsStats: {
     id: 'profile.stats.downloads',
     defaultMessage:
-      '{count, plural,one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
+      '{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
   },
   profileProjectsFollowersStats: {
     id: 'profile.stats.projects-followers',
     defaultMessage:
-      '{count, plural,one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
+      '{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
   },
   profileJoinedAt: {
     id: 'profile.joined-at',
@@ -358,18 +359,6 @@ const messages = defineMessages({
     id: 'profile.label.no-projects-auth',
     defaultMessage:
       "You don't have any projects.\n Would you like to <create-link>create one</create-link>?",
-  },
-  cancelButton: {
-    id: 'button.cancel',
-    defaultMessage: 'Cancel',
-  },
-  editButton: {
-    id: 'button.edit',
-    defaultMessage: 'Edit',
-  },
-  saveButton: {
-    id: 'button.save',
-    defaultMessage: 'Save',
   },
 })
 
