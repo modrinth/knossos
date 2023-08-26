@@ -68,17 +68,17 @@
           </div>
           <template v-if="isEditing">
             <div class="inputs universal-labels">
-              <label for="user-username"
-                ><span class="label__title">{{
-                  formatMessage(messages.profileEditUsernameLabel)
-                }}</span></label
-              >
+              <label for="user-username">
+                <span class="label__title">
+                  {{ formatMessage(messages.profileEditUsernameLabel) }}
+                </span>
+              </label>
               <input id="user-username" v-model="user.username" maxlength="39" type="text" />
-              <label for="user-bio"
-                ><span class="label__title">{{
-                  formatMessage(messages.profileEditBioLabel)
-                }}</span></label
-              >
+              <label for="user-bio">
+                <span class="label__title">
+                  {{ formatMessage(messages.profileEditBioLabel) }}
+                </span>
+              </label>
               <div class="textarea-wrapper">
                 <textarea id="user-bio" v-model="user.bio" maxlength="160" />
               </div>
@@ -114,11 +114,11 @@
               <div class="primary-stat__text">
                 <IntlFormatted
                   :message-id="messages.profileDownloadsStats"
-                  :values="{ count: sumDownloads }"
+                  :values="{ count: formatCompactNumber(sumDownloads) }"
                 >
                   <template #stat="{ children }">
                     <span class="primary-stat__counter">
-                      <component :is="() => children" />
+                      {{ String(children) }}
                     </span>
                   </template>
                 </IntlFormatted>
@@ -129,11 +129,11 @@
               <div class="primary-stat__text">
                 <IntlFormatted
                   :message-id="messages.profileProjectsFollowersStats"
-                  :values="{ count: sumFollows }"
+                  :values="{ count: formatCompactNumber(sumFollows) }"
                 >
                   <template #stat="{ children }">
                     <span class="primary-stat__counter">
-                      <component :is="() => children" />
+                      {{ String(children) }}
                     </span>
                   </template>
                 </IntlFormatted>
@@ -144,11 +144,7 @@
               <span
                 v-tooltip="
                   formatMessage(messages.profileJoinedAtTooltip, {
-                    date: fmt.date(user.created, {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    }),
+                    date: new Date(user.created),
                     time: fmt.time(user.created),
                   })
                 "
@@ -307,16 +303,18 @@ const tags = useTags()
 const vintl = useVIntl()
 const { formatMessage, formats: fmt } = vintl
 
+const formatCompactNumber = useCompactNumber()
+
 const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
   profileDownloadsStats: {
     id: 'profile.stats.downloads',
-    defaultMessage: '<stat>{count}</stat> downloads}',
+    defaultMessage: '{count, plural,one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
   },
   profileProjectsFollowersStats: {
     id: 'profile.stats.projects-followers',
-    defaultMessage: '<stat>{count}</stat> followers of projects',
+    defaultMessage: '{count, plural,one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
   },
   profileJoinedAt: {
     id: 'profile.joined-at',
@@ -324,7 +322,7 @@ const messages = defineMessages({
   },
   profileJoinedAtTooltip: {
     id: 'profile.joined-at.tooltip',
-    defaultMessage: '{date} at {time}',
+    defaultMessage: '{date, date, long} at {time}',
   },
   profileUserId: {
     id: 'profile.user-id',
