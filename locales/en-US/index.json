@@ -56,6 +56,42 @@
   "profile.label.no-projects": {
     "message": "This user has no projects!"
   },
+  "project-type.datapack": {
+    "message": "Data Pack"
+  },
+  "project-type.datapacks": {
+    "message": "Data Packs"
+  },
+  "project-type.mod": {
+    "message": "Mod"
+  },
+  "project-type.mods": {
+    "message": "Mods"
+  },
+  "project-type.modpack": {
+    "message": "Modpack"
+  },
+  "project-type.modpacks": {
+    "message": "Modpacks"
+  },
+  "project-type.plugin": {
+    "message": "Plugin"
+  },
+  "project-type.plugins": {
+    "message": "Plugins"
+  },
+  "project-type.resourcepack": {
+    "message": "Resource Pack"
+  },
+  "project-type.resourcepacks": {
+    "message": "Resource Packs"
+  },
+  "project-type.shader": {
+    "message": "Shader"
+  },
+  "project-type.shaders": {
+    "message": "Shaders"
+  },
   "profile.label.no-projects-auth": {
     "message": "You don't have any projects.\n Would you like to <create-link>create one</create-link>?"
   },

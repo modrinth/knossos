@@ -180,7 +180,7 @@
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: $formatProjectType(x) + 's',
+                  label: formatMessage(getProjectTypeMessage(x, true)),
                   href: `/user/${user.username}/${x}s`,
                 }
               }),
@@ -293,7 +293,7 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
-import { commonMessages } from '~/utils/commonMessages.ts';
+import { commonMessages } from '~/utils/common-messages.ts'
 
 const data = useNuxtApp()
 const route = useRoute()
