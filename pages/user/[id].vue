@@ -336,7 +336,7 @@ const messages = defineMessages({
   },
   profileMetaDescription: {
     id: 'profile.meta.description',
-    defaultMessage: 'Download {username}\'s projects on Modrinth',
+    defaultMessage: "Download {username}'s projects on Modrinth",
   },
   profileReportButton: {
     id: 'profile.button.report',
@@ -414,7 +414,9 @@ if (user.value.username !== route.params.id) {
 
 const metaDescription = ref(
   user.value.bio
-    ? `${user.value.bio} - ${formatMessage(messages.profileMetaDescription, { username : user.value.username })}`
+    ? `${user.value.bio} - ${formatMessage(messages.profileMetaDescription, {
+      username : user.value.username
+    })}`
     : `${formatMessage(messages.profileMetaDescription, { username : user.value.username })}`
 )
 
