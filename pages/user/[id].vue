@@ -338,6 +338,10 @@ const messages = defineMessages({
     id: 'profile.meta.description',
     defaultMessage: "Download {username}'s projects on Modrinth",
   },
+  profileMetaDescriptionWithBio: {
+    id: 'profile.meta.description-with-bio',
+    defaultMessage: "{bio} - Download {username}'s projects on Modrinth",
+  },
   profileReportButton: {
     id: 'profile.button.report',
     defaultMessage: 'Report',
@@ -363,8 +367,8 @@ const messages = defineMessages({
     defaultMessage:
       "You don't have any projects.\n Would you like to <create-link>create one</create-link>?",
   },
-  user404Error: {
-    id: 'error.user.404',
+  userNotFoundError: {
+    id: 'error.user.not-found',
     defaultMessage: 'User not found',
   },
 })
@@ -404,7 +408,7 @@ if (!user.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: formatMessage(messages.user404Error),
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -414,7 +418,8 @@ if (user.value.username !== route.params.id) {
 
 const metaDescription = ref(
   user.value.bio
-    ? `${user.value.bio} - ${formatMessage(messages.profileMetaDescription, {
+    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+        bio: user.value.bio,
         username: user.value.username,
       })}`
     : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
