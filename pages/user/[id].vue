@@ -175,7 +175,7 @@
           <NavRow
             :links="[
               {
-                label: 'all',
+                label: formatMessage(messages.allProjectType),
                 href: `/user/${user.username}`,
               },
               ...projectTypes.map((x) => {
@@ -308,6 +308,10 @@ const formatCompactNumber = useCompactNumber()
 const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
+  allProjectType: {
+    id: 'project-type.all',
+    defaultMessage: 'All',
+  },
   profileDownloadsStats: {
     id: 'profile.stats.downloads',
     defaultMessage:

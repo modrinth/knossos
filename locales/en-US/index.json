@@ -68,6 +68,9 @@
   "profile.user-id": {
     "message": "User ID: {id}"
   },
+  "project-type.all": {
+    "message": "All"
+  },
   "project-type.datapack.plural": {
     "message": "Data Packs"
   },
