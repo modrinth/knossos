@@ -8,9 +8,6 @@
   "button.save": {
     "message": "Save"
   },
-  "error.user.not-found": {
-    "message": "User not found"
-  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
@@ -26,11 +23,26 @@
   "frog.title": {
     "message": "Frog"
   },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
   "profile.button.manage-projects": {
     "message": "Manage projects"
   },
   "profile.button.report": {
     "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
   },
   "profile.input.upload-avatar": {
     "message": "Upload avatar"
@@ -39,7 +51,7 @@
     "message": "Joined {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time}"
+    "message": "{date, date, long} at {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"

@@ -145,7 +145,7 @@
                 v-tooltip="
                   formatMessage(messages.profileJoinedAtTooltip, {
                     date: new Date(user.created),
-                    time: fmt.time(user.created),
+                    time: new Date(user.created),
                   })
                 "
                 class="secondary-stat__text date"
@@ -175,7 +175,7 @@
           <NavRow
             :links="[
               {
-                label: formatMessage(messages.allProjectType),
+                label: formatMessage(commonMessages.allProjectType),
                 href: `/user/${user.username}`,
               },
               ...projectTypes.map((x) => {
@@ -196,8 +196,12 @@
               {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
             <button
-              v-tooltip="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
-              :aria-label="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
+              v-tooltip="
+                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
+              "
+              :aria-label="
+                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
+              "
               class="square-button"
               @click="cycleSearchDisplayMode()"
             >
@@ -301,17 +305,13 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 
 const vintl = useVIntl()
-const { formatMessage, formats: fmt } = vintl
+const { formatMessage } = vintl
 
 const formatCompactNumber = useCompactNumber()
 
 const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
-  allProjectType: {
-    id: 'project-type.all',
-    defaultMessage: 'All',
-  },
   profileDownloadsStats: {
     id: 'profile.stats.downloads',
     defaultMessage:
@@ -328,7 +328,7 @@ const messages = defineMessages({
   },
   profileJoinedAtTooltip: {
     id: 'profile.joined-at.tooltip',
-    defaultMessage: '{date, date, long} at {time}',
+    defaultMessage: '{date, date, long} at {time, time, short}',
   },
   profileUserId: {
     id: 'profile.user-id',
@@ -372,7 +372,7 @@ const messages = defineMessages({
       "You don't have any projects.\n Would you like to <create-link>create one</create-link>?",
   },
   userNotFoundError: {
-    id: 'error.user.not-found',
+    id: 'profile.error.not-found',
     defaultMessage: 'User not found',
   },
 })
@@ -404,7 +404,7 @@ try {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: formatMessage(messages.user404Error),
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -445,7 +445,7 @@ const sumDownloads = computed(() => {
     sum += project.downloads
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 const sumFollows = computed(() => {
   let sum = 0
@@ -454,7 +454,7 @@ const sumFollows = computed(() => {
     sum += project.followers
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 
 const isEditing = ref(false)
@@ -504,7 +504,7 @@ async function saveChanges() {
     console.error(err)
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: commonMessages.errorNotificationTitle,
       text: err.data.description,
       type: 'error',
     })
