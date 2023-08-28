@@ -688,8 +688,9 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import { Promotion } from 'omorphia'
+import { Promotion, Chips, CurrencyIcon, Button } from 'omorphia'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -730,6 +731,7 @@ import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
+import MessageIcon from '~/assets/images/utils/message.svg'
 import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
@@ -741,6 +743,8 @@ const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
+const donationType = ref('monthly')
+const oneTimeAmount = ref(5)
 
 if (
   !route.params.id ||
@@ -1370,5 +1374,55 @@ const collapsedChecklist = ref(false)
 
 .normal-page__sidebar .mod-button {
   margin-top: var(--spacing-card-sm);
+}
+
+.monthly-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+
+  .monthly-table__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--gap-sm);
+    color: var(--color-contrast);
+    border: 2px solid var(--color-red);
+    background-color: rgba(#ff496e, 0.25);
+    border-radius: var(--radius-md);
+
+    .btn {
+      border: 2px solid var(--color-red);
+      background-color: rgba(#ff496e, 0.25);
+    }
+  }
+}
+
+.support-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding-bottom: var(--gap-xl);
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+}
+
+.one-time-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+
+  .one-time-section__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap-md);
+  }
 }
 </style>

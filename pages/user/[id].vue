@@ -27,111 +27,7 @@
         </h1>
       </div>
     </div>
-    <div class="normal-page">
-      <div class="normal-page__sidebar">
-        <div class="card sidebar">
-          <h1 class="mobile-username">
-            {{ user.username }}
-          </h1>
-          <div class="card__overlay">
-            <FileInput
-              v-if="isEditing"
-              :max-size="262144"
-              :show-icon="true"
-              accept="image/png,image/jpeg,image/gif,image/webp"
-              class="choose-image iconified-button"
-              prompt="Upload avatar"
-              @change="showPreviewImage"
-            >
-              <UploadIcon />
-            </FileInput>
-            <button
-              v-else-if="auth.user && auth.user.id === user.id"
-              class="iconified-button"
-              @click="isEditing = true"
-            >
-              <EditIcon />
-              Edit
-            </button>
-            <button
-              v-else-if="auth.user"
-              class="iconified-button"
-              @click="$refs.modal_report.show()"
-            >
-              <ReportIcon aria-hidden="true" />
-              Report
-            </button>
-            <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
-              <ReportIcon aria-hidden="true" />
-              Report
-            </nuxt-link>
-          </div>
-          <template v-if="isEditing">
-            <div class="inputs universal-labels">
-              <label for="user-username"><span class="label__title">Username</span></label>
-              <input id="user-username" v-model="user.username" maxlength="39" type="text" />
-              <label for="user-bio"><span class="label__title">Bio</span></label>
-              <div class="textarea-wrapper">
-                <textarea id="user-bio" v-model="user.bio" maxlength="160" />
-              </div>
-            </div>
-            <div class="button-group">
-              <button
-                class="iconified-button"
-                @click="
-                  () => {
-                    isEditing = false
-                    user = JSON.parse(JSON.stringify(auth.user))
-                    previewImage = null
-                    icon = null
-                  }
-                "
-              >
-                <CrossIcon /> Cancel
-              </button>
-              <button class="iconified-button brand-button" @click="saveChanges">
-                <SaveIcon /> Save
-              </button>
-            </div>
-          </template>
-          <template v-else>
-            <div class="sidebar__item">
-              <Badge v-if="tags.staffRoles.includes(user.role)" :type="user.role" />
-              <Badge v-else-if="projects.length > 0" type="creator" />
-            </div>
-            <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
-            <hr class="card-divider" />
-            <div class="primary-stat">
-              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads }}</span>
-                downloads
-              </div>
-            </div>
-            <div class="primary-stat">
-              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumFollows }}</span>
-                followers of projects
-              </div>
-            </div>
-            <div class="stats-block__item secondary-stat">
-              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span
-                v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm A')"
-                class="secondary-stat__text date"
-              >
-                Joined {{ fromNow(user.created) }}
-              </span>
-            </div>
-            <hr class="card-divider" />
-            <div class="stats-block__item secondary-stat">
-              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
-            </div>
-          </template>
-        </div>
-      </div>
+    <div>
       <div class="normal-page__content">
         <Promotion />
         <nav class="navigation-card">
@@ -408,7 +304,7 @@ export default defineNuxtComponent({
 <style lang="scss" scoped>
 .user-header-wrapper {
   display: flex;
-  margin: 0 auto -1.5rem;
+  margin: 0 auto;
   max-width: 80rem;
 
   .user-header {
@@ -423,7 +319,6 @@ export default defineNuxtComponent({
     .username {
       display: none;
       font-size: 2rem;
-      margin-bottom: 2.5rem;
     }
   }
 }
