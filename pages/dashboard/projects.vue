@@ -222,6 +222,7 @@
             <div>ID</div>
             <div>Type</div>
             <div>Status</div>
+            <div></div>
             <div />
           </div>
           <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
@@ -282,6 +283,17 @@
               <Badge v-if="project.status" :type="project.status" class="status" />
             </div>
 
+            <div class="projects-stats">
+              <div>
+              <DownloadIcon aria-hidden="true" />
+              {{ $formatNumber(project.downloads) }}
+              </div>
+              <div>
+              <HeartIcon aria-hidden="true" />
+              {{ $formatNumber(project.followers) }}
+              </div>
+            </div>
+
             <div>
               <nuxt-link
                 class="square-button"
@@ -318,6 +330,8 @@ import EditIcon from '~/assets/images/utils/edit.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -337,6 +351,8 @@ export default defineNuxtComponent({
     CopyCode,
     AscendingIcon,
     DescendingIcon,
+    DownloadIcon,
+    HeartIcon
   },
   async setup() {
     const user = await useUser()
@@ -496,7 +512,7 @@ export default defineNuxtComponent({
   display: grid;
   grid-template-columns:
     min-content min-content minmax(min-content, 2fr)
-    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
+    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
   border-radius: var(--size-rounded-sm);
   overflow: hidden;
   margin-top: var(--spacing-card-md);
