@@ -188,7 +188,7 @@
                 v-model="sortBy"
                 :searchable="false"
                 class="small-select"
-                :options="['Name', 'Status', 'Type']"
+                :options="['Name', 'Status', 'Type', 'Downloads', 'Followers']"
                 :close-on-select="true"
                 :show-labels="false"
                 :allow-empty="false"
@@ -430,6 +430,28 @@ export default defineNuxtComponent({
               return -1
             }
             if (a.project_type > b.project_type) {
+              return 1
+            }
+            return 0
+          })
+          break
+        case 'Downloads':
+          sortedArray = projects.slice().sort((a, b) => {
+            if (a.downloads < b.downloads) {
+              return -1
+            }
+            if (a.downloads > b.downloads) {
+              return 1
+            }
+            return 0
+          })
+          break
+        case 'Followers':
+          sortedArray = projects.slice().sort((a, b) => {
+            if (a.followers < b.followers) {
+              return -1
+            }
+            if (a.followers > b.followers) {
               return 1
             }
             return 0
