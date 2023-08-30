@@ -1,106 +1,84 @@
 <script setup>
-
-import Avatar from "~/components/ui/Avatar.vue";
-import ProjectCard from "~/components/ui/ProjectCard.vue";
-import { SearchIcon, Card, Button, LinkIcon, Promotion } from "omorphia";
-import { default as MegaphoneIcon } from "~/assets/images/utils/megaphone.svg";
-
+import { SearchIcon, Card, Button, LinkIcon, Promotion } from 'omorphia'
+import Avatar from '~/components/ui/Avatar.vue'
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+import MegaphoneIcon from '~/assets/images/utils/megaphone.svg'
 </script>
 
 <template>
-<div class="organization">
-  <Card class="banner">
-    <span class="color"/>
-    <div class="avatar-row">
-      <Avatar class="icon" size="lg"/>
-      <div class="info">
-        <h1 class="name">Organization Name</h1>
-        <div class="description markdown-body">
-          <p>
-            Organization Description
-          </p>
+  <div class="organization">
+    <Card class="banner">
+      <span class="color" />
+      <div class="avatar-row">
+        <Avatar class="icon" size="lg" />
+        <div class="info">
+          <h1 class="name">Organization Name</h1>
+          <div class="description markdown-body">
+            <p>Organization Description</p>
+          </div>
+        </div>
+        <div class="input-group push-right">
+          <Button> Follow </Button>
+          <Button> Share </Button>
+          <Button> Report </Button>
         </div>
       </div>
-      <div class="input-group push-right">
-        <Button>
-          Follow
-        </Button>
-        <Button>
-          Share
-        </Button>
-        <Button>
-          Report
-        </Button>
-      </div>
-    </div>
-    <div class="links">
-      <a v-for="ignored in 10" class="link">
-        <LinkIcon/>
-        Link
-      </a>
-    </div>
-  </Card>
-  <Promotion class="promotion"/>
-  <div class="sidebar">
-    <Card class="community-post-list">
-      <h2>
-        Community posts
-      </h2>
-      <div v-for="ignored in 5" class="community-post">
-        <div class="iconified-field">
-          <MegaphoneIcon/>
-          <p>
-            Announcement title
-          </p>
-        </div>
-        <div class="author iconified-field">
-          <Avatar/>
-          <p>
-            Author
-          </p>
-        </div>
+      <div class="links">
+        <a v-for="ignored in 10" class="link">
+          <LinkIcon />
+          Link {{ ignored }}
+        </a>
       </div>
     </Card>
-    <Card class="creator-list">
-      <h2>
-        Creators
-      </h2>
-      <div v-for="ignored in 5" class="creator">
-        <Avatar/>
-        <p class="name">
-          Creator
-        </p>
-        <p class="role">
-          Random title
-        </p>
-      </div>
-    </Card>
-  </div>
-  <div class="content">
-    <div class="pinned-projects display-mode--gallery">
-      <ProjectCard/>
-      <ProjectCard/>
-      <ProjectCard/>
-      <ProjectCard/>
-      <ProjectCard/>
-      <ProjectCard/>
-    </div>
-    <div class="all-projects">
-      <Card class="search-card">
-        <div class="iconified-input">
-          <SearchIcon/>
-          <input type="text" placeholder="Search projects"/>
+    <Promotion class="promotion" />
+    <div class="sidebar">
+      <Card class="community-post-list">
+        <h2>Community posts</h2>
+        <div v-for="ignored in 5" :key="ignored" class="community-post">
+          <div class="iconified-field">
+            <MegaphoneIcon />
+            <p>Announcement title</p>
+          </div>
+          <div class="author iconified-field">
+            <Avatar />
+            <p>Author</p>
+          </div>
         </div>
       </Card>
-      <div class="display-mode--list projects">
-        <ProjectCard/>
-        <ProjectCard/>
-        <ProjectCard/>
-        <ProjectCard/>
+      <Card class="creator-list">
+        <h2>Creators</h2>
+        <div v-for="ignored in 5" :key="ignored" class="creator">
+          <Avatar />
+          <p class="name">Creator {{ ignored }}</p>
+          <p class="role">Random title</p>
+        </div>
+      </Card>
+    </div>
+    <div class="content">
+      <div class="pinned-projects display-mode--gallery">
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+      </div>
+      <div class="all-projects">
+        <Card class="search-card">
+          <div class="iconified-input">
+            <SearchIcon />
+            <input type="text" placeholder="Search projects" />
+          </div>
+        </Card>
+        <div class="display-mode--list projects">
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <style scoped lang="scss">

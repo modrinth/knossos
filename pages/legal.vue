@@ -67,4 +67,18 @@ const route = useRoute()
     color: var(--color-link-active);
   }
 }
+
+@media (min-width: 1024px) {
+  .normal-page {
+    max-width: 70rem;
+    column-gap: 0.75rem;
+
+    grid-template:
+      'header header' auto
+      'sidebar content' auto
+      'info content' auto
+      'dummy content' 1fr
+      / 20rem 1fr;
+  }
+}
 </style>

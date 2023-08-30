@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation">
+  <nav class="navigation" :class="{ vertical: orientation === 'vertical' }">
     <NuxtLink
       v-for="(link, index) in filteredLinks"
       v-show="link.shown === undefined ? true : link.shown"
@@ -32,6 +32,10 @@ export default {
     },
     query: {
       default: null,
+      type: String,
+    },
+    orientation: {
+      default: 'horizontal',
       type: String,
     },
   },
@@ -112,6 +116,17 @@ export default {
   grid-gap: 1rem;
   flex-wrap: wrap;
   position: relative;
+
+  &.vertical {
+    flex-direction: column;
+    align-items: flex-end;
+    grid-gap: 0.5rem;
+    padding: var(--gap-md) 0;
+
+    a {
+      margin-right: 0 !important;
+    }
+  }
 
   .nav-link {
     text-transform: capitalize;

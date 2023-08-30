@@ -42,6 +42,7 @@
   padding: 0 0.75rem;
 
   grid-template:
+    'header'
     'sidebar'
     'content'
     'info'
@@ -62,31 +63,23 @@
   .normal-page__content {
     grid-area: content;
   }
-}
 
-.site-header {
-  margin: 0 0.75rem;
+  .normal-page__header {
+    grid-area: header;
+  }
 }
 
 @media (min-width: 1024px) {
   .normal-page {
-    margin: 0 auto;
-    max-width: 80rem;
+    max-width: 70rem;
     column-gap: 0.75rem;
 
     grid-template:
-      'sidebar content' auto
-      'info content' auto
-      'dummy content' 1fr
-      / 20rem 1fr;
-
-    &.alt-layout {
-      grid-template:
-        'content sidebar' auto
-        'content info' auto
-        'content dummy' 1fr
-        / 1fr 20rem;
-    }
+      'header header' auto
+      'content sidebar' auto
+      'content info' auto
+      'content dummy' 1fr
+      / 1fr 20rem;
   }
 
   .normal-page__sidebar {

@@ -14,21 +14,47 @@
     </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
-    <div class="user-header-wrapper">
-      <div class="user-header">
-        <Avatar
-          :src="previewImage ? previewImage : user.avatar_url"
-          size="md"
-          circle
-          :alt="user.username"
-        />
-        <h1 class="username">
-          {{ user.username }}
-        </h1>
-      </div>
-    </div>
-    <div>
+    <div class="normal-page">
       <div class="normal-page__content">
+        <div class="user-header-wrapper">
+          <div class="user-header">
+            <Avatar
+                :src="previewImage ? previewImage : user.avatar_url"
+                size="md"
+                circle
+                :alt="user.username"
+            />
+            <div class="user-header__text">
+              <div class="user-header__title">
+                <h1  class="username">
+                  {{ user.username }}
+                </h1>
+                <ModrinthIcon v-if="user.role === 'admin'" class="badge-icon" v-tooltip="'Modrinth team'"/>
+                <ScaleIcon v-else-if="user.role === 'moderator'" class="badge-icon moderator" v-tooltip="'Moderator'" />
+                <BoxIcon v-else-if="user.role === 'developer'" class="badge-icon creator" v-tooltip="'Creator'"/>
+              </div>
+              <div class="markdown-body">
+                <p>
+                  {{ user.bio }}
+                </p>
+              </div>
+              <div class="stats">
+                <div class="stat">
+                  <HeartIcon aria-hidden="true"/>
+                  {{ sumFollows }} followers
+                </div>
+                <div class="stat">
+                  <DownloadIcon aria-hidden="true"/>
+                  {{ sumDownloads }} downloads
+                </div>
+                <div class="stat">
+                  <SunriseIcon aria-hidden="true" />
+                  Joined {{ fromNow(user.created) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <Promotion />
         <nav class="navigation-card">
           <NavRow
@@ -124,29 +150,16 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import {Promotion, ModrinthIcon, BoxIcon, ScaleIcon, HeartIcon, DownloadIcon, SunriseIcon, formatNumber} from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Badge from '~/components/ui/Badge.vue'
-
-import ReportIcon from '~/assets/images/utils/report.svg'
-import SunriseIcon from '~/assets/images/utils/sunrise.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
 import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import FileInput from '~/components/ui/FileInput.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 
 const data = useNuxtApp()
@@ -312,15 +325,70 @@ export default defineNuxtComponent({
     z-index: 4;
     display: flex;
     width: 100%;
-    padding: 0 1rem;
     gap: 1rem;
     align-items: center;
+    padding: var(--gap-md) 0;
 
-    .username {
-      display: none;
+    .user-header__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--gap-xs);
+    }
+
+    .user-header__title {
       font-size: 2rem;
+      margin: 0;
+
+      .username {
+        font-size: 2rem;
+        margin: 0;
+        display: inline;
+      }
+
+      .badge-icon {
+        display: inline;
+        padding: 0;
+        background: none;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-left: 0.5rem;
+
+        &.creator {
+          color: var(--color-blue);
+        }
+
+        &.moderator {
+          color: var(--color-orange);
+        }
+      }
     }
   }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+
+    .stat {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--gap-sm);
+      padding: var(--gap-sm) var(--gap-md);
+      border-radius: var(--radius-md);
+      background: var(--color-raised-bg);
+      text-align: center;
+    }
+  }
+}
+
+.normal-page {
+  grid-template:
+    'sidebar'
+    'content'
+    'info'
+    / 100%;
 }
 
 .mobile-username {

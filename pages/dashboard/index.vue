@@ -150,7 +150,7 @@ const allNotifs = groupNotifications(await fetchNotifications())
 const notifications = computed(() => allNotifs.slice(0, 3))
 const extraNotifs = computed(() => allNotifs.length - notifications.value.length)
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .dashboard-overview {
   display: grid;
   grid-template:
@@ -213,6 +213,20 @@ const extraNotifs = computed(() => allNotifs.length - notifications.value.length
         font-size: var(--font-size-xl);
       }
     }
+  }
+}
+
+@media (min-width: 1024px) {
+  .normal-page {
+    max-width: 70rem;
+    column-gap: 0.75rem;
+
+    grid-template:
+      'header header' auto
+      'sidebar content' auto
+      'info content' auto
+      'dummy content' 1fr
+      / 20rem 1fr !important;
   }
 }
 </style>

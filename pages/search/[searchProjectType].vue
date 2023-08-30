@@ -194,14 +194,14 @@
         </div>
       </section>
     </aside>
-    <section class="normal-page__content">
+    <section class="normal-page__header">
       <Promotion />
       <div class="card search-controls">
         <div class="search-filter-container">
           <button
-            class="iconified-button sidebar-menu-close-button"
-            :class="{ open: sidebarMenuOpen }"
-            @click="sidebarMenuOpen = !sidebarMenuOpen"
+              class="iconified-button sidebar-menu-close-button"
+              :class="{ open: sidebarMenuOpen }"
+              @click="sidebarMenuOpen = !sidebarMenuOpen"
           >
             <FilterIcon aria-hidden="true" />
             Filters...
@@ -210,13 +210,13 @@
             <label class="hidden" for="search">Search</label>
             <SearchIcon aria-hidden="true" />
             <input
-              id="search"
-              v-model="query"
-              type="search"
-              name="search"
-              :placeholder="`Search ${projectType.display}s...`"
-              autocomplete="off"
-              @input="onSearchChange(1)"
+                id="search"
+                v-model="query"
+                type="search"
+                name="search"
+                :placeholder="`Search ${projectType.display}s...`"
+                autocomplete="off"
+                @input="onSearchChange(1)"
             />
           </div>
         </div>
@@ -224,17 +224,17 @@
           <div class="labeled-control">
             <span class="labeled-control__label">Sort by</span>
             <Multiselect
-              v-model="sortType"
-              placeholder="Select one"
-              class="search-controls__sorting labeled-control__control"
-              track-by="display"
-              label="display"
-              :options="sortTypes"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @update:model-value="onSearchChange(1)"
+                v-model="sortType"
+                placeholder="Select one"
+                class="search-controls__sorting labeled-control__control"
+                track-by="display"
+                label="display"
+                :options="sortTypes"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @update:model-value="onSearchChange(1)"
             >
               <template #singleLabel="{ option }">
                 {{ option.display }}
@@ -244,22 +244,22 @@
           <div class="labeled-control">
             <span class="labeled-control__label">Show per page</span>
             <Multiselect
-              v-model="maxResults"
-              placeholder="Select one"
-              class="labeled-control__control"
-              :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @update:model-value="onMaxResultsChange(currentPage)"
+                v-model="maxResults"
+                placeholder="Select one"
+                class="labeled-control__control"
+                :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
+                :searchable="false"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @update:model-value="onMaxResultsChange(currentPage)"
             />
           </div>
           <button
-            v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-            :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-            class="square-button"
-            @click="cycleSearchDisplayMode()"
+              v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+              :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+              class="square-button"
+              @click="cycleSearchDisplayMode()"
           >
             <GridIcon v-if="cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
             <ImageIcon v-else-if="cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
@@ -267,6 +267,8 @@
           </button>
         </div>
       </div>
+    </section>
+    <section class="normal-page__content">
       <Pagination
         :page="currentPage"
         :count="pageCount"
