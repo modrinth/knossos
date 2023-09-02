@@ -436,15 +436,7 @@ export default defineNuxtComponent({
           })
           break
         case 'Downloads':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.downloads < b.downloads) {
-              return -1
-            }
-            if (a.downloads > b.downloads) {
-              return 1
-            }
-            return 0
-          })
+          sortedArray = projects.slice().sort((a, b) => a.downloads - b.downloads)
           break
         case 'Followers':
           sortedArray = projects.slice().sort((a, b) => a.followers - b.followers)
