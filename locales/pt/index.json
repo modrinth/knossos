@@ -1,87 +1,87 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Cancelar"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Editar"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Guardar"
   },
   "frog": {
     "message": "Foste arrãsado! 🐸"
   },
   "frog.altText": {
-    "message": "Uma pintura fotorealista de um labirinto de sapo"
+    "message": "Uma pintura fotorrealista de uma rã em forma de labirinto"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} outra pessoa também foi arrãsada!} other {Outras {count} pessoas}} também foram arrãsadas!"
   },
   "frog.sinceOpened": {
-    "message": "Esta página foi aberta há {ago}"
+    "message": "Esta página foi aberta {ago}"
   },
   "frog.title": {
     "message": "Rã"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Vista em galeria"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Vista de grelha"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Vista de lista"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Ocorreu um erro"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Gerir projetos"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Denunciar"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Utilizador não encontrado"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Carregar avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Juntou-se há {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} às {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Biografia"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nome de utilizador"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Este utilizador não tem projetos!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Não tens nenhum projeto.\nQueres <create-link>criar um</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Faz download dos projetos de {username} no Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Faz download dos projetos de {username} no Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> seguidor} other {<stat>{count}</stat> seguidores}} de projetos"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID do utilizador: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Todos"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Pacotes de recursos"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Pacote de recursos"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
