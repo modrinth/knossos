@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Annuller"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Rediger"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Gem"
   },
   "frog": {
     "message": "Du er blevet frøleret! 🐸"
@@ -24,70 +24,70 @@
     "message": "Frø"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Gallerivisning"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Gittervisning"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Listevisning"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Der opstod en fejl"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Administrer projekter"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Anmeld"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Bruger ikke fundet"
   },
   "profile.input.upload-avatar": {
     "message": "Upload avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Tilmeldt {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} kl. {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Om dig"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Brugernavn"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Denne bruger har ingen projekter!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Du har ikke nogen projekter.\nVil du gerne <create-link>oprette et</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Hent {username}'s projekter på Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Hent {username}'s projekter på Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> følger} other {<stat>{count}</stat> følgere}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Bruger-ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Alle"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datapakker"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datapakke"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Ressourcepakker"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Ressourcepakke"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
