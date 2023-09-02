@@ -1,24 +1,129 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
     "message": "Du wurdest gefroscht! 🐸"
   },
   "frog.altText": {
-    "message": "Ein fotorealistische Gemälde eines Froschlabyrinths"
+    "message": "Ein fotorealistisches Gemälde eines Froschlabyrinths"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} andere Person} other {{count} andere Personen}} wurden auch gefroscht!"
+    "message": "{count, plural, one {Eine andere Person wurde} other {{count} andere Personen wurden}} auch gefroscht!"
   },
   "frog.sinceOpened": {
-    "message": "Diese Seite wurde {ago} geöffnet"
+    "message": "Diese Seite wurde vor {ago} geöffnet"
   },
   "frog.title": {
     "message": "Frosch"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
     "message": "Automatisch"
   },
   "settings.language.categories.default": {
-    "message": "Standard-Sprachen"
+    "message": "Standardsprachen"
   },
   "settings.language.categories.experimental": {
     "message": "Experimentelle Sprachen"
@@ -30,13 +135,10 @@
     "message": "Suchergebnisse"
   },
   "settings.language.description": {
-    "message": "Wähle deine bevorzugte Sprache für diese Website. Übersetzungen werden von Freiwilligen <crowdin-link>auf Crowdin</crowdin-link> beigesteuert."
+    "message": "Wähle deine bevorzugte Sprache für diese Website. Sprachen werden von Freiwilligen <crowdin-link>auf Crowdin</crowdin-link> übersetzt."
   },
   "settings.language.languages.automatic": {
     "message": "Mit der Systemsprache synchronisieren"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Wende an..."
@@ -45,16 +147,16 @@
     "message": "{label}. Fehler"
   },
   "settings.language.languages.load-failed": {
-    "message": "Diese Sprache kann nicht geladen werden. Versuche es später noch einmal."
+    "message": "Diese Sprache kann nicht geladen werden. Versuche es später erneut."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Zum Fokussieren auf das erste Suchergebnis absenden"
+    "message": "Absenden, um das erste Suchergebnis auszuwählen"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Nach einer Sprache suchen..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {Keine Sprache stimmt} one {# Sprache stimmt} other {# Sprachen stimmen}} mit deiner Suche überein."
+    "message": "{matches, plural, =0 {Keine Sprache stimmt} one {Eine Sprache stimmt} other {# Sprachen stimmen}} mit deiner Suche überein."
   },
   "settings.language.languages.search.no-results": {
     "message": "Keine Sprachen stimmen mit deiner Suche überein."
