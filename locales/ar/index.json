@@ -1,27 +1,27 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "الغي"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "غير"
   },
   "button.save": {
-    "message": "Save"
+    "message": "احفظ"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "لقد تم ضفدعتك"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "لوحة واقعية لمتاهة الضفدع"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} المزيد من الأشخاص} other {{count}المزيد من الناس}} تم ضفادعها أيضًا!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "تم فتح هذه الصفحة {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "ضفدع"
   },
   "input.view.gallery": {
     "message": "Gallery view"
@@ -147,7 +147,7 @@
     "message": "{label}. Error"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "لا يمكن تحميل هذه اللغة. حاول مرة أخرى بعد قليل."
   },
   "settings.language.languages.search-field.description": {
     "message": "Submit to focus the first search result"
