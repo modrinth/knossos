@@ -285,12 +285,12 @@
 
             <div class="projects-stats">
               <div>
-              <DownloadIcon aria-hidden="true" />
-              {{ $formatNumber(project.downloads) }}
+                <DownloadIcon aria-hidden="true" />
+                {{ $formatNumber(project.downloads) }}
               </div>
               <div>
-              <HeartIcon aria-hidden="true" />
-              {{ $formatNumber(project.followers) }}
+                <HeartIcon aria-hidden="true" />
+                {{ $formatNumber(project.followers) }}
               </div>
             </div>
 
