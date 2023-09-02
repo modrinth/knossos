@@ -1,65 +1,167 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
-    "message": "Вас жабнули! 🐸"
+    "message": "Тя жабанули! 🐸"
   },
   "frog.altText": {
-    "message": "Фотореалистичное изображение жаберинта"
+    "message": "Жаберинт, прям как в жизни накалякан"
   },
   "frog.froggedPeople": {
-    "message": "Кроме вас жабнули ещё {count, plural, one {{count} человека} other {{count} человек}}!"
+    "message": "Кроме тебя жабнули ещё {count, plural, one {{count} чела} other {{count} челов}}!"
   },
   "frog.sinceOpened": {
-    "message": "Станица открылась {ago}"
+    "message": "Станица открылась где-т {ago}"
   },
   "frog.title": {
-    "message": "Жаба"
+    "message": "Жабень"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Автоматически"
+    "message": "На автомате"
   },
   "settings.language.categories.default": {
-    "message": "Стандартные языки"
+    "message": "Обычные жаргончики"
   },
   "settings.language.categories.experimental": {
-    "message": "Экспериментальные языки"
+    "message": "Фриковые жаргонки"
   },
   "settings.language.categories.fun": {
-    "message": "Шуточные языки"
+    "message": "Прикалывательные жаргоночки"
   },
   "settings.language.categories.search-result": {
-    "message": "Результаты поиска"
+    "message": "Что выдры тут нарыли"
   },
   "settings.language.description": {
-    "message": "Выберите предпочитаемый язык для сайта. Переводы создаются добровольцами <crowdin-link>на Crowdin</crowdin-link>."
+    "message": "Выбирай жаргончик, какой те ваще заходит. Переводы мутятся добровольцами, <crowdin-link>на Краудине</crowdin-link> гоняют."
   },
   "settings.language.languages.automatic": {
-    "message": "Как в системе"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "Подстроить под твой системный жаргон"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Применение..."
+    "message": "{label}. Ща намутим..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Ошибка"
+    "message": "{label}. Попадалово"
   },
   "settings.language.languages.load-failed": {
-    "message": "Не удаётся загрузить язык. Попробуйте позже."
+    "message": "Чет не взлетело, братишка. Подожди, может потом фишку подкинем."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Дополните для уточнения результатов поиска"
+    "message": "Подтверди, чтоб лупа села на первом результате"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Поиск языка..."
+    "message": "Ищем этот жаргон..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "По вашему запросу {matches, plural, =0 {не нашлось ни одного языка} few {нашлось # языка} many {нашлось # языков} other {нашёлся # язык}}."
+    "message": "По твоей теме {matches, plural, =0 {ничего не дрыхло} one {нарыл # жаргон} other {жаргонов штук # надыбал}}."
   },
   "settings.language.languages.search.no-results": {
-    "message": "По вашему запросу не нашлось ни одного языка."
+    "message": "По твоей теме ничего не дрыхло."
   },
   "settings.language.title": {
-    "message": "Язык"
+    "message": "Жаргончик"
   }
 }
