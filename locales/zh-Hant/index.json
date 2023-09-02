@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "取消"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "编辑"
   },
   "button.save": {
-    "message": "Save"
+    "message": "保存"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -24,52 +24,52 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "圖庫視圖"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "方格視圖"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "清單視圖"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "發生了一個錯誤"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "管理事項"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "檢舉"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "未找到該用戶"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "上傳大頭貼"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "加入於{ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long}的{time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "個人簡介"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "用戶名"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "此用戶沒有事項！"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "你沒有任何事項。\n你想要去<create-link>創建一個</create-link>嗎？"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "在 Modrinth 下載 {username} 的事項"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - 下載 {username} 的事項在 Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
@@ -78,46 +78,46 @@
     "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "用戶 ID：{id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "所有"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "資料包"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "資料包"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "模組"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "模組"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "整合包"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "整合包"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "插件"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "插件"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "資源包"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "資源包"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "光影"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "光影"
   },
   "settings.language.categories.auto": {
     "message": "自動切換"
