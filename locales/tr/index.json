@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "İptal"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Düzenle"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Kaydet"
   },
   "frog": {
     "message": "Kurbağalandınız! 🐸"
@@ -24,97 +24,97 @@
     "message": "Kurbağa"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Galeri görünümü"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Izgara görünümü"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Liste görünümü"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Bir hata oluştu"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Projeleri yönet"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Bildir"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Kullanıcı bulunamadı"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Profil görüntüsü yükle"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "{ago} katıldı"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long}, saat {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Hakkında"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Kullanıcı adı"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Bu kullanıcının projesi yok!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Herhangi bir projeniz yok.\n<create-link>Yeni bir tane oluşturmak</create-link> ister misiniz?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "{username} kullanıcısının Modrinth'teki projelerini indir"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - {username} kullanıcısının Modrinth'teki projelerini indir"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> indirme} other {<stat>{count}</stat> indirme}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "Projelerin {count, plural, one {<stat>{count}</stat> takipçisi} other {<stat>{count}</stat> takipçisi}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Kullanıcı ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Tümü"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Veri Paketleri"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Veri Paketi"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Modlar"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Mod Paketleri"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Mod Paketi"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Eklentiler"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Eklenti"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Kaynak Paketleri"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Kaynak Paketi"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shaderlar"
   },
   "project-type.shader.singular": {
     "message": "Shader"
