@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "取消"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "编辑"
   },
   "button.save": {
-    "message": "Save"
+    "message": "保存"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -24,70 +24,70 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "图片"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "方格视图"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "列表视图"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "发生了一个错误"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "管理项目"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "举报"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "未找到此用户"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "上传头像"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "加入于 {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} 在 {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "个人信息"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "用户名"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "该用户没有项目！"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "您没有任何项目。\n您想去<create-link>创建一个</create-link>吗？"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "前往 Modrinth 下载 {username} 的项目"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - 前往 Modrinth 下载 {username} 的项目"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural,other {<stat>{count}</stat> 次下载}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, other {<stat>{count}</stat> 个追随者}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "用户 ID：{id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "所有"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "数据包"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "数据包"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -96,28 +96,28 @@
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "整合包"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "整合包"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "插件"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "插件"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "资源包"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "资源包"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "光影"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "光影"
   },
   "settings.language.categories.auto": {
     "message": "自动"
