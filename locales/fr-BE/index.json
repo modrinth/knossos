@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Annuler"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Modifier"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Enregistrer"
   },
   "frog": {
     "message": "Ge zijt gefrogd! 🐸"
@@ -24,46 +24,46 @@
     "message": "Grenouille"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Vue en galerie"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Vue en grille"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Vue en liste"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Une erreur est survenue"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Gérer les projets"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Signaler"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Utilisateur introuvable"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Importer un avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "À rejoint {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} à {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Biographie"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nom d'utilisateur"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Cet utilisateur n'a aucun projet !"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Vous n'avez aucun projet.\nVoulez-vous en <create-link>créer un</create-link>?"
   },
   "profile.meta.description": {
     "message": "Download {username}'s projects on Modrinth"
@@ -81,7 +81,7 @@
     "message": "User ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Tous"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
