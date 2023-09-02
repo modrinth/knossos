@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "انصراف"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "ویرایش"
   },
   "button.save": {
-    "message": "Save"
+    "message": "ذخیره"
   },
   "frog": {
     "message": "شما قورباغه شدید! 🐸"
@@ -24,100 +24,100 @@
     "message": "قورباغه"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "بازدید گالری"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "نمای شبکه‌ای"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "نمای فهرستی"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "خطایی رخ داده است"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "مدیریت پروژه ها"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "گزارش"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "کاربر یافت نشد"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "بارگذاری عکس کاربر"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "{ago} وارد شد"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} در ساعت {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "درباره من"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "نام کاربری"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "این کاربر هیچ پروژه ای ندارد!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "شما هیچ پروژه ای ندارید.\nآیا می خواهید <create-link>یکی بسازید</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "پروژه های {username} را در مودرینف دانلود کنید"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - پروژه های {username} را در مودرینف دانلود کنید"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural,one {{count} دانلود} other {{count} دانلود}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "آیدی کاربر: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "همه"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "دیتاپک ها"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "دیتاپک"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "مودها"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "مود"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "مودپک ها"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "مودپک"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "پلاگین ها"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "پلاگین"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "ریسورس پک ها"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "ریسورس پک"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "شیدر ها"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "شیدر"
   },
   "settings.language.categories.auto": {
     "message": "اتوماتیک"
