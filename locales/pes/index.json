@@ -1,65 +1,167 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "شما قورباغه شدید! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "یک عکس نقاشی واقعی از یک قورباغه لبی رینف"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} نفر بیشتر} other {{count} نفر بیشتر}} هم قورباغه شدند!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "این صفحه {ago} باز شد"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "قورباغه"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "اتوماتیک"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "زبان های پیش‌فرض"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "زبان های آزمایشی"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "زبان های خنده‌دار"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "نتایج جستجو"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "زبان پیش‌فرض خودتان برای سایت را انتخاب کنید.\nترجمه ها توسط شرکت‌کنندگان است\n<crowdin-link>در کرودین</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "هماهنگ‌سازی با زبان سیستم"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. اعمال کردن..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. خطا"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "نمی‌توانیم این زبان را اعمال کنیم. در کمی بعد دوباره تلاش فرمایید."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "اعمال فرمایید تا اولین روی نتیجه تمرکز شود"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "برای یک زبان جستجو کنید..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural,=0 {هیچ زبانی سازگاری نیست} one {#زبان سازگار است} other {# زبان ها سازگار میباشند}} سرچ شما."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "هیچ زبانی با جستجو شما سازگار نیست."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "زبان‌ها"
   }
 }
