@@ -534,7 +534,11 @@ export default defineNuxtComponent({
   display: grid;
   grid-template-columns:
     min-content min-content minmax(min-content, 2fr)
-    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
+    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(
+      min-content,
+      1fr
+    )
+    min-content;
   border-radius: var(--size-rounded-sm);
   overflow: hidden;
   margin-top: var(--spacing-card-md);
