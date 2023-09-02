@@ -1,4 +1,13 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
     "message": "你被耍了！🐸"
   },
@@ -6,13 +15,109 @@
     "message": "一副逼真的青蛙迷宫图"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, other {还有 {count} 个人}}也被这只青蛙耍了！"
   },
   "frog.sinceOpened": {
     "message": "该页面打开于 {ago}"
   },
   "frog.title": {
     "message": "青蛙"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
     "message": "自动"
@@ -21,7 +126,7 @@
     "message": "标准语言"
   },
   "settings.language.categories.experimental": {
-    "message": "试验语言"
+    "message": "实验性语言"
   },
   "settings.language.categories.fun": {
     "message": "有趣的语言"
@@ -30,13 +135,10 @@
     "message": "搜索结果"
   },
   "settings.language.description": {
-    "message": "在此选择你喜欢的语言。翻译是由<crowdin-link>Crowdin</crowdin-link>的志愿者们提供的。"
+    "message": "选择您希望网站使用的语言。翻译是由 <crowdin-link>Crowdin</crowdin-link> 上的志愿者们所贡献的。"
   },
   "settings.language.languages.automatic": {
     "message": "同步系统语言"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. 应用中。。。"
@@ -54,7 +156,7 @@
     "message": "搜索一种语言。。。"
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural,=0 {没有语言匹配} one {# 语言匹配} other {#语言匹配}} 您的搜索。"
+    "message": "{matches, plural,=0 {没有语言}other {# 种语言}}匹配您的搜索。"
   },
   "settings.language.languages.search.no-results": {
     "message": "没有语言符合你的搜索。"
