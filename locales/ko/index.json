@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "취소"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "편집"
   },
   "button.save": {
-    "message": "Save"
+    "message": "저장"
   },
   "frog": {
     "message": "당신은 개구리입니다! 🐸"
@@ -24,100 +24,100 @@
     "message": "개구리"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "갤러리 형태로 보기"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "바둑판식 보기"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "목록 보기"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "오류가 발생했습니다"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "프로젝트 관리"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "신고"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "사용자를 찾을 수 없습니다"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "아바타 업로드"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "{ago} 전에 가입함"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "자기소개"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "사용자명"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "이 사용자에게는 프로젝트가 없습니다!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "아직 아무 프로젝트도 없습니다.\n<create-link>새로 하나</create-link> 만드시겠습니까?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Modrinth에서 {username}의 모드 내려받기"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Modrinth에서 {username}의 모드 내려받기"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "다운로드 {count, plural, other {<stat>{count}</stat>}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "프로젝트 팔로워 {count, plural, other {<stat>{count}</stat>}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "사용자 ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "전체"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "데이터 팩"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "데이터 팩"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "모드"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "모드"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "모드팩"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "모드팩"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "플러그인"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "플러그인"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "리소스 팩"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "리소스 팩"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "셰이더"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "셰이더"
   },
   "settings.language.categories.auto": {
     "message": "자동"
