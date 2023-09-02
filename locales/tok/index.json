@@ -1,4 +1,13 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
     "message": "mi akesi e sina a! 🐸"
   },
@@ -6,16 +15,112 @@
     "message": "sitelen ni la akesi li lon tomo pi nasin nasa. nasin sitelen li sama lon"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "mi akesi e jan {count, plural, other {{count}}} kin a!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "lipu ni li open lon tenpo {ago}"
   },
   "frog.title": {
     "message": "akesi"
   },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "toki tan ilo"
   },
   "settings.language.categories.default": {
     "message": "toki pi jan mute"
@@ -27,34 +132,31 @@
     "message": "toki musi"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "ijo pi alasa sina"
   },
   "settings.language.description": {
     "message": "o kepeken toki pi wile sina lon lipu ni. ante toki li tan kulupu <crowdin-link>lon ilo Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "toki li sama toki ilo"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "toki li sama toki pi ilo sina"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. mi kepeken ni..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. ike"
+    "message": "{label}. pakala"
   },
   "settings.language.languages.load-failed": {
     "message": "pakala - mi ken ala kepeken toki ni. o alasa sin lon tenpo ante."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "sina wile kepeken toki nanpa wan la o pana"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "o alasa e toki..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {toki li lon ala alasa} one {toki wan li lon alasa} other {toki # li lon alasa}}."
   },
   "settings.language.languages.search.no-results": {
     "message": "toki pi alasa sina li lon ala."
