@@ -32,6 +32,21 @@
   "input.view.list": {
     "message": "List view"
   },
+  "modal.create-project.title": {
+    "message": "Create a project"
+  },
+  "modal.create-project.description": {
+    "message": "New projects are created as drafts and can be found under your profile page."
+  },
+  "modal.create-project.project-type": {
+    "message": "Project type<required>*</required>"
+  },
+  "modal.create-project.summary.title": {
+    "message": "Summary<required>*</required>"
+  },
+  "modal.create-project.summary.description": {
+    "message": "This appears in search and on the sidebar of your project's page."
+  },
   "notification.error.title": {
     "message": "An error occurred"
   },
