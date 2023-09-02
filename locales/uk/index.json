@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Скасувати"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Редагувати"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Зберегти"
   },
   "frog": {
     "message": "Вас жабнули! 🐸"
@@ -24,100 +24,100 @@
     "message": "Жаба"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "У вигляді галереї"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "У вигляді таблиці"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "У вигляді списку"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Виникла помилка"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Управляти проєктами"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Поскаржитися"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Користувача не знайдено"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Вивантажити аватар"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Приєднався {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} о {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Про себе"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Ім’я користувача"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "У цього користувача немає проєктів!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "У вас немає жодного проєкту.\nБажаєте <create-link>створити якийсь</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Завантажити проєкти {username} на Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Завантажити проєкти {username} на Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> завантаження} few {<stat>{count}</stat> завантаження} other {<stat>{count}</stat> завантажень}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> послідовник} few {<stat>{count}</stat> послідовники} other {<stat>{count}</stat> послідовників}} у проєктів"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID користувача: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Усе"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Пакети даних"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Пакет даних"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Модифікації"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Модифікація"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Збірки"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Збірка"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Плаґіни"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Плаґін"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Пакети ресурсів"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Пакет ресурсів"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Шейдери"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Шейдер"
   },
   "settings.language.categories.auto": {
     "message": "Автоматично"
