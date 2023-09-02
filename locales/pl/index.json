@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Anuluj"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Edytuj"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Zapisz"
   },
   "frog": {
     "message": "Zostałeś zżabowany! 🐸"
@@ -15,7 +15,7 @@
     "message": "Fotorealistyczny obraz żabiego labiryntu"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {# inna osoba została też zżabowana} few {# inne osoby zostały też zżabowane} other {# innych osób zostało też zżabowanych}}!"
+    "message": "{count, plural, one {{count} inna osoba została też zżabowana} few {{count} inne osoby zostały też zżabowane} other {{count} innych osób zostało też zżabowanych}}!"
   },
   "frog.sinceOpened": {
     "message": "Ta strona została otwarta {ago}"
@@ -24,97 +24,97 @@
     "message": "Żaba"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Galeria"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Widok siatki"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Widok listy"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Wystąpił błąd"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Zarządzaj projektami"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Zgłoś"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Nie znaleziono użytkownika"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Prześlij awatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Dołączył(-a) {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} o {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "O mnie"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nazwa użytkownika"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Ten użytkownik nie ma żadnych projektów!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nie masz żadnych projektów.\nCzy chcesz <create-link>utworzyć jeden</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Pobieraj projekty {username} na Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Pobieraj projekty {username} na Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> pobranie} few {<stat>{count}</stat> pobrania} other {<stat>{count}</stat> pobrań}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> obserwujący} other {<stat>{count}</stat> obserwujących}} projekty"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID użytkownika: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Wszystko"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Paczki danych"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Paczka danych"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Mody"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Paczki modów"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Paczka modów"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pluginy"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Paczki zasobów"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Paczka zasobów"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shadery"
   },
   "project-type.shader.singular": {
     "message": "Shader"
@@ -138,7 +138,7 @@
     "message": "Wybierz preferowany język tej witryny. Tłumaczenia są tworzone przez wolontariuszy <crowdin-link>na Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Synchronizuj z językiem systemowym"
+    "message": "Synchronizuj z językiem systemu"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Zastosowanie..."
@@ -153,7 +153,7 @@
     "message": "Zatwierdź, aby skupić się na pierwszym wyniku wyszukiwania"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Szukaj języka..."
+    "message": "Wyszukaj język..."
   },
   "settings.language.languages.search-results-announcement": {
     "message": "{matches, plural, =0 {Żadne języki nie pasują} one {# język pasuje} few {# języki pasują} other {# języków pasuje do}} do Twojego wyszukiwania."
