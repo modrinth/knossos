@@ -1,18 +1,123 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
     "message": "Je bent gekikkerd! 🐸"
   },
   "frog.altText": {
-    "message": "Een fotorealistisch schilderij van een kikker labyrint"
+    "message": "Een fotorealistisch schilderij van een kikkerlabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural,one {{count} andere persoon}other {{count} andere personen}} zijn ook gekikkerd!"
+    "message": "{count, plural,one {{count} andere persoon is}other {{count} andere personen zijn}} ook gekikkerd!"
   },
   "frog.sinceOpened": {
     "message": "Deze pagina is {ago} geopend"
   },
   "frog.title": {
     "message": "Kikker"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
     "message": "Automatisch"
@@ -24,7 +129,7 @@
     "message": "Experimentele talen"
   },
   "settings.language.categories.fun": {
-    "message": "Leuke talen"
+    "message": "Grappige talen"
   },
   "settings.language.categories.search-result": {
     "message": "Zoekresultaten"
@@ -35,20 +140,17 @@
   "settings.language.languages.automatic": {
     "message": "Synchroniseer met de systeemtaal"
   },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
-  },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Toepassen..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Fout"
   },
   "settings.language.languages.load-failed": {
     "message": "Kan deze taal niet laden. Probeer het later opnieuw."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Dien in om het eerste zoekresultaat te selecteren"
+    "message": "Verzend om het eerste zoekresultaat te selecteren"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Een taal zoeken..."
