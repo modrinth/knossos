@@ -352,7 +352,7 @@ export default defineNuxtComponent({
     AscendingIcon,
     DescendingIcon,
     DownloadIcon,
-    HeartIcon
+    HeartIcon,
   },
   async setup() {
     const user = await useUser()
