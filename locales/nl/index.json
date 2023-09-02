@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Annuleren"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Bewerk"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Opslaan"
   },
   "frog": {
     "message": "Je bent gekikkerd! 🐸"
@@ -24,31 +24,31 @@
     "message": "Kikker"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Galerij weergave"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Rasterweergave"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Lijstweergave"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Er is een fout opgetreden"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Beheer projecten"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Rapporteer"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Gebruiker is niet gevonden"
   },
   "profile.input.upload-avatar": {
     "message": "Upload avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "{ago} geleden lid geworden"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} at {time, time, short}"
@@ -57,10 +57,10 @@
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Gebruikersnaam"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Deze gebruiker heeft geen projecten!"
   },
   "profile.label.no-projects-auth": {
     "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
@@ -81,7 +81,7 @@
     "message": "User ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Alles"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
