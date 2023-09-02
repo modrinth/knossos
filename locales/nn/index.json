@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Avbryt"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Rediger"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Lagra"
   },
   "frog": {
     "message": "Du vart froska. 🐸"
@@ -15,7 +15,7 @@
     "message": "Eit fotorealistisk måleri av ein froskelabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {# annan} other {# fleire}} vart òg froska."
+    "message": "{count, plural, one {{count} annan} other {{count} fleire}} vart òg froska."
   },
   "frog.sinceOpened": {
     "message": "Denne sida vart opna {ago}"
@@ -24,82 +24,82 @@
     "message": "Frosk"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Gallerivisning"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Rutenettvisning"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Listevisning"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Det oppstod ein feil"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Handsam prosjekt"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Rapporter"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Fann ikkje brukaren"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Last opp brukarbilete"
   },
   "profile.joined-at": {
     "message": "Joined {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} kl. {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Om meg"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Brukarnamn"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Denne brukaren har ingen prosjekt."
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Du har ingen prosjekt.\nVil du <create-link>oppretta eit</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Last ned prosjekta til {username} på Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} – last ned prosjekta til {username} på Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> nedlasting} other {<stat>{count}</stat> nedlastingar}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Brukar-ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Alle"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datapakkar"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datapakke"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Moddar"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Modd"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Moddpakkar"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Moddpakke"
   },
   "project-type.plugin.plural": {
     "message": "Plugins"
@@ -108,16 +108,16 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Ressurspakkar"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Ressurspakke"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Skuggepakkar"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Skuggepakke"
   },
   "settings.language.categories.auto": {
     "message": "Automatisk"
