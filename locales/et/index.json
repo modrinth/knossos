@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Tühista"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Muuda"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Salvesta"
   },
   "frog": {
     "message": "Sind on konnastatud! 🐸"
@@ -24,100 +24,100 @@
     "message": "Konn"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Galeriivaade"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Ruudustikuvaade"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Nimekirjavaade"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Tekkis tõrge"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Halda projekte"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Teavita"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Kasutajat ei leitud"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Laadi üles profiilipilt"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Liitus {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} kell {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Elulugu"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Kasutajanimi"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Sellel kasutajal pole projekte!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Sul pole ühtegi projekti.\nKas sooviksid <create-link>ühe luua</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Laadi Modrinthis {username} projektid alla"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Laadi Modrinthis {username} projektid alla"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> allalaadimine} other {<stat>{count}</stat> allalaadimist}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> projektide jälgija} other {<stat>{count}</stat> projektide jälgijat}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Kasutaja ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Kõik"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Andmepakid"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Andmepakk"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Modid"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modipakid"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Modipakk"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pluginad"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Ressursipakid"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Ressursipakk"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Varjutajad"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Varjutaja"
   },
   "settings.language.categories.auto": {
     "message": "Automaatne"
