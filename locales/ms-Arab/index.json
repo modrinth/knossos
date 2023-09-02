@@ -1,0 +1,167 @@
+{
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
+  "frog": {
+    "message": "اندا تله دکاتق! 🐸"
+  },
+  "frog.altText": {
+    "message": "سبواه لوکيسن فوتورياليستيق لابيرين کاتق"
+  },
+  "frog.froggedPeople": {
+    "message": "ترداڤت {count, plural, other {{count} لاݢي اورڠ}} يڠ توروت دکاتق جوݢ!"
+  },
+  "frog.sinceOpened": {
+    "message": "هلامن اين تله دبوک {ago}"
+  },
+  "frog.title": {
+    "message": "کاتق"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "settings.language.categories.auto": {
+    "message": "اءوتوماتيک"
+  },
+  "settings.language.categories.default": {
+    "message": "بهاس ستندرد"
+  },
+  "settings.language.categories.experimental": {
+    "message": "بهاس ايکسڤيريمنتل"
+  },
+  "settings.language.categories.fun": {
+    "message": "بهاس مپرونوقکن"
+  },
+  "settings.language.categories.search-result": {
+    "message": "حاصيل چارين"
+  },
+  "settings.language.description": {
+    "message": "ڤيليه بهاس ڤيليهن اندا اونتوق لامن اين. ترجمهن تله دسومبڠکن اوليه سوکاريلاون <crowdin-link>دکراءودين</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "سلارسکن دڠن بهاس سيستم"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. منرڤکن..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. رالت"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "تيدق داڤت ممواتکن بهاس اين. سيلا چوبا لاݢي ننتي."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "هنتر اونتوق فوکوسکن حاصيل چارين ڤرتام"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "چاري بهاس..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {تياد بهاس يڠ سڤادن} other {ترداڤت # بهاس يڠ سڤادن}} دڠن چارين اندا."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "تياد بهاس يڠ سڤادن دڠن چارين اندا."
+  },
+  "settings.language.title": {
+    "message": "بهاس"
+  }
+}
