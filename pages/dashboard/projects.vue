@@ -668,7 +668,7 @@ export default defineNuxtComponent({
   flex: 1;
   display: flex;
   flex-direction: row;
-  min-width: 0;
+  min-width: 230px;
   align-items: center;
   gap: var(--spacing-card-md);
   white-space: nowrap;
