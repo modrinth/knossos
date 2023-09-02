@@ -1,65 +1,167 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "カエルにされてしまった！ 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "カエルの迷宮の写実的な絵画"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "これまでに {count, plural, other {{count} 人}}がカエルにされました。"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "このページは {ago} に開かれました"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "カエル"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "自動"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "標準的な言語"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "実験中の言語"
   },
   "settings.language.categories.fun": {
     "message": "Fun languages"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "検索結果"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "このサイトで使用する言語を選択してください。翻訳は<crowdin-link>Crowdin</crowdin-link>のボランティアによって提供されています。"
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "システムの言語に合わせる"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label} を適用中..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label} エラー"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "この言語を読み込むことができませんでした。もう一度やり直してください。"
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Enterキーを押すと最初の検索結果にフォーカスが移動します。"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "言語を検索..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "検索条件に一致する{matches, plural, =0 {言語が見つかりませんでした} other {、#つの言語が見つかりました}}。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "検索条件に一致する言語はありませんでした"
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "言語"
   }
 }
