@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Annulla"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Modifica"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Salva"
   },
   "frog": {
     "message": "Sei stato ranato! 🐸"
@@ -24,64 +24,64 @@
     "message": "Rana"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Vista galleria"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Vista a griglia"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Vista a elenco"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Si è verificato un errore"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Gestisci progetti"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Segnala"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Utente non trovato"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Carica un avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Iscritto {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} alle {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nome Utente"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Questo utente non ha progetti!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Non hai nessun progetto.\nVuoi <create-link>crearne uno</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Scarica i progetti di {username} su Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Scarica i progetti di {username} su Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} dei progetti"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID utente: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Tutto"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
