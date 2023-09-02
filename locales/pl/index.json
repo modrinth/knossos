@@ -1,4 +1,13 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
     "message": "Zostałeś zżabowany! 🐸"
   },
@@ -6,13 +15,109 @@
     "message": "Fotorealistyczny obraz żabiego labiryntu"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {# osoba została zżabowana} few {# osoby zostały zżabowane} other {# osób zostało zżabowanych}}!"
+    "message": "{count, plural, one {# inna osoba została też zżabowana} few {# inne osoby zostały też zżabowane} other {# innych osób zostało też zżabowanych}}!"
   },
   "frog.sinceOpened": {
     "message": "Ta strona została otwarta {ago}"
   },
   "frog.title": {
     "message": "Żaba"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
     "message": "Automatyczny"
@@ -34,9 +139,6 @@
   },
   "settings.language.languages.automatic": {
     "message": "Synchronizuj z językiem systemowym"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Zastosowanie..."
