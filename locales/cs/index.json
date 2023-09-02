@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Zrušit"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Upravit"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Uložit"
   },
   "frog": {
     "message": "Byl jsi ožábován! 🐸"
@@ -24,31 +24,31 @@
     "message": "Žába"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Zobrazení v galerii"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Zobrazení v mřížce"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Zobrazení v seznamu"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Došlo k chybě"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Správa projektů"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Nahlásit"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Uživatel nebyl nalezen"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Nahrát profilový obrázek"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Připojil se {ago}"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} at {time, time, short}"
@@ -57,19 +57,19 @@
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Uživatelské jméno"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Tento uživatel nemá žádné projekty!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nemáte žádné projekty.\nChcete <create-link>vytvořit</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Stáhněte si projekty {username} na Modrinthu"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Stáhněte si projekty {username} na Modrinthu"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
@@ -78,43 +78,43 @@
     "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID uživatele: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Vše"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datapacky"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datapack"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Módy"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Mód"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Balíčky Modifikací"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Balíček Modifikací"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pluginy"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resourcepacky"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resourcepack"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shadery"
   },
   "project-type.shader.singular": {
     "message": "Shader"
