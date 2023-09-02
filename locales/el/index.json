@@ -1,65 +1,167 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Μόλις βατραχιάστικες! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Μια φωτορεαλιστική ζωγραφιά ενός βατραχολαβυρίνθου"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} ακόμη άτομο βατραχιάστηκε} other {{count} ακόμη άτομα βατραχιάστηκαν}}!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Αυτή η σελίδα είχε ανοιχτεί {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Βάτραχος"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Αυτόματη"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Τυπικές γλώσσες"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Πειραματικές γλώσσες"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Διασκεδαστικές γλώσσες"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Αποτελέσματα αναζήτησης"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Επίλεξε τη γλώσσα που προτιμάς για τον ιστότοπο. Οι μεταφράσεις παρέχονται από εθελοντές <crowdin-link>στο Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}. {displayName}"
+    "message": "Συγχρoνισμός με τη γλώσσα συστήματος"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Εφαρμογή..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Σφάλμα"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Δεν ήταν δυνατή η φόρτωση αυτής της γλώσσας. Ξαναδοκιμάστε σε λίγο."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Υποβολή για εστίαση στο πρώτο αποτέλεσμα αναζήτησης"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Αναζητήστε για μια γλώσσα..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Καμία γλώσσα δεν ταιριάζει} one {# γλώσσα ταιριάζει} other {# γλώσσες ταιριάζουν}} την αναζήτησή σου."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Καμία γλώσσα δεν αντιστοιχεί στην αναζήτηση σου."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Γλώσσα"
   }
 }
