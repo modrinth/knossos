@@ -1,18 +1,123 @@
 {
+  "button.cancel": {
+    "message": "Cancel"
+  },
+  "button.edit": {
+    "message": "Edit"
+  },
+  "button.save": {
+    "message": "Save"
+  },
   "frog": {
-    "message": "Békázott lettél! 🐸"
+    "message": "Meg lettél békázva! 🐸"
   },
   "frog.altText": {
     "message": "Egy fotórealisztikus festmény egy béka labirintusról"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} ember lett még} other {{count} ember lett még}} békázott!"
+    "message": "{count, plural, one {{count} ember lett még} other {{count} ember lett még}} meg békázott!"
   },
   "frog.sinceOpened": {
-    "message": "Ez az oldal {ago} volt megnyitva"
+    "message": "Ez az oldal {ago} lett megnyitva"
   },
   "frog.title": {
     "message": "Béka"
+  },
+  "input.view.gallery": {
+    "message": "Gallery view"
+  },
+  "input.view.grid": {
+    "message": "Grid view"
+  },
+  "input.view.list": {
+    "message": "List view"
+  },
+  "notification.error.title": {
+    "message": "An error occurred"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Report"
+  },
+  "profile.error.not-found": {
+    "message": "User not found"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Upload avatar"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Username"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "All"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
   },
   "settings.language.categories.auto": {
     "message": "Automatikus"
@@ -24,7 +129,7 @@
     "message": "Kísérleti nyelvek"
   },
   "settings.language.categories.fun": {
-    "message": "Szórakoztató nyelvek"
+    "message": "Mókás nyelvek"
   },
   "settings.language.categories.search-result": {
     "message": "Keresési találatok"
@@ -33,10 +138,7 @@
     "message": "Válaszd ki az általad előnyben részesített nyelvet ehhez az oldalhoz. A fordítások önkéntesek hozzájárulásával készültek <crowdin-link>Crowdin-on</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Szinkronizálás a rendszer nyelvével"
-  },
-  "settings.language.languages.language-label": {
-    "message": "{translatedName}.{displayName}"
+    "message": "Szinkronizálás a rendszered nyelvével"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Alkalmazás..."
