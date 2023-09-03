@@ -3,10 +3,10 @@
     "message": "lǝɔuɐƆ"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "ʇᴉpƎ"
   },
   "button.save": {
-    "message": "Save"
+    "message": "ǝʌɐS"
   },
   "frog": {
     "message": "🐸 !pǝɓɓoɹɟ uǝǝq ǝʌ'no⅄"
@@ -15,7 +15,7 @@
     "message": "ɥʇuᴉɹʎqɐl ɓoɹɟ ɐ ɟo ɓuᴉʇuᴉɐd ɔᴉʇsᴉlɐǝɹoʇoɥd Ɐ"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} ɯoɹǝ dǝɹsou} other {{count} ɯoɹǝ dǝodlǝ}} ʍǝɹǝ ɐlso ɟɹoƃƃǝp¡"
+    "message": "¡pǝɓɓoɹɟ oslɐ ǝɹǝʍ {count, plural, one {uosɹǝd ǝɹoɯ {count}} other {ǝldoǝd ǝɹoɯ {count}}}"
   },
   "frog.sinceOpened": {
     "message": "{ago} pǝuǝdo sɐʍ ǝƃɐd sᴉɥ┴"
@@ -24,100 +24,100 @@
     "message": "ɓoɹℲ"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "ʍǝᴉʌ ʎɹǝllɐ⅁"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "ʍǝᴉʌ pᴉɹ⅁"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "ʍǝᴉʌ ʇsᴉ⅂"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "pǝɹɹnɔɔo ɹoɹɹǝ uⱯ"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "sʇɔǝſoɹd ǝɓɐuɐꟽ"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "ʇɹodǝᴚ"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "punoɟ ʇou ɹǝsՈ"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "ɹɐʇɐʌɐ pɐoldՈ"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": " {ago} pǝuᴉoᒋ"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} ʇɐ {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "oᴉᗺ"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "ǝɯɐuɹǝsՈ"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "¡sʇɔǝſoɹd ou sɐɥ ɹǝsn sᴉɥꞱ"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "¿ǝuo <create-link>ǝʇɐǝɹɔ</create-link> oʇ ǝʞᴉl noʎ plnoM\n˙sʇɔǝſoɹd ʎuɐ ǝʌɐɥ ʇ'uop no⅄"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "ɥʇuᴉɹpoꟽ uo sʇɔǝſoɹd {username}'s pɐoluʍoᗡ"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "ɥʇuᴉɹpoꟽ uo sʇɔǝſoɹd {username}'s pɐoluʍoᗡ - {bio}"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {pɐoluʍop <stat>{count}</stat>} other {spɐoluʍop <stat>{count}</stat>}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "sʇɔǝſoɹd ɟo {count, plural, one {ɹǝʍolloɟ <stat>{count}</stat>} other {sɹǝʍolloɟ <stat>{count}</stat>}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "{id} :ᗡI ɹǝsՈ"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "llⱯ"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "sʞɔɐԀ ɐʇɐᗡ"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "ʞɔɐԀ ɐʇɐᗡ"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "spoꟽ"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "poꟽ"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "sʞɔɐdpoꟽ"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "ʞɔɐdpoꟽ"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "suᴉɓnlԀ"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "uᴉɓnlԀ"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "sʞɔɐԀ ǝɔɹnosǝᴚ"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "ʞɔɐԀ ǝɔɹnosǝᴚ"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "sɹǝpɐɥS"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "ɹǝpɐɥS"
   },
   "settings.language.categories.auto": {
     "message": "ɔᴉʇɐɯoʇnⱯ"
@@ -135,7 +135,7 @@
     "message": "sʇlnsǝɹ ɥɔɹɐǝS"
   },
   "settings.language.description": {
-    "message": "<crowdin-link>uᴉpʍoɹƆ uo</crowdin-link> sɹǝǝʇunloʌ ʎq pǝʇnqᴉɹʇuoɔ ǝɹɐ suoᴉʇɐlsuɐɹꞱ .ǝʇᴉs ǝɥʇ ɹoɟ ǝɓɐnɓuɐl pǝɹɹǝɟǝɹd ɹnoʎ ǝsooɥƆ"
+    "message": "˙<crowdin-link>uᴉpʍoɹƆ uo</crowdin-link> sɹǝǝʇunloʌ ʎq pǝʇnqᴉɹʇuoɔ ǝɹɐ suoᴉʇɐlsuɐɹꞱ ˙ǝʇᴉs ǝɥʇ ɹoɟ ǝɓɐnɓuɐl pǝɹɹǝɟǝɹd ɹnoʎ ǝsooɥƆ"
   },
   "settings.language.languages.automatic": {
     "message": "ǝɓɐnɓuɐl ɯǝʇsʎs ǝɥʇ ɥʇᴉʍ ɔuʎS"
@@ -144,22 +144,22 @@
     "message": "˙˙˙ƃuᴉʎldd∀ ˙{label}"
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label} ɹoɹɹƎ"
+    "message": "ɹoɹɹƎ ˙{label}"
   },
   "settings.language.languages.load-failed": {
-    "message": ".ʇᴉq ɐ uᴉ uᴉɐɓɐ ʎɹꞱ .ǝɓɐnɓuɐl sᴉɥʇ pɐol ʇouuɐƆ"
+    "message": "˙ʇᴉq ɐ uᴉ uᴉɐɓɐ ʎɹꞱ ˙ǝɓɐnɓuɐl sᴉɥʇ pɐol ʇouuɐƆ"
   },
   "settings.language.languages.search-field.description": {
     "message": "ʇlnsǝɹ ɥɔɹɐǝs ʇsɹᴉɟ ǝɥʇ snɔoɟ oʇ ʇᴉɯqnS"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "...ǝɓɐnɓuɐl ɐ ɹoɟ ɥɔɹɐǝS"
+    "message": "˙˙˙ǝɓɐnɓuɐl ɐ ɹoɟ ɥɔɹɐǝS"
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "˙ɥɔɹɐǝs ɹnoʎ {matches, plural, =0 {ɥɔʇɐɯ sǝɓɐnɓuɐl oN} one {sǝɥɔʇɐɯ ǝɓɐnɓuɐl #} other {ɥɔʇɐɯ sǝɓɐnɓuɐl #}}"
   },
   "settings.language.languages.search.no-results": {
-    "message": ".ɥɔɹɐǝs ɹnoʎ ɥɔʇɐɯ sǝɓɐnɓuɐl oN"
+    "message": "˙ɥɔɹɐǝs ɹnoʎ ɥɔʇɐɯ sǝɓɐnɓuɐl oN"
   },
   "settings.language.title": {
     "message": "ǝɓɐnɓuɐ⅂"
