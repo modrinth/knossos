@@ -15,7 +15,7 @@
       :link-function="(page) => `?page=${page}`"
       @switch-page="switchPage"
     />
-    <div class="card">
+    <div class="card changelog-wrapper">
       <div
         v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
         :key="version.id"
@@ -140,6 +140,10 @@ function switchPage(page) {
 </script>
 
 <style lang="scss">
+.changelog-wrapper {
+  padding: var(--spacing-card-md) var(--spacing-card-lg) calc(var(--spacing-card-md) + 0.5rem) var(--spacing-card-lg);
+}
+
 .changelog-item {
   display: block;
   margin-bottom: 1rem;
