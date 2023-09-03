@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Abort Ship!"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Scribble"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Write"
   },
   "frog": {
     "message": "Frog on deck! 🐸"
@@ -15,13 +15,13 @@
     "message": "A portrait o' a frog labyrinth such as yerself would be sein' it with yer own eyes"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "Shiver me timbers, {count, plural, one {{count} more ship was} other {{count} more ships were}} also frogged!"
   },
   "frog.sinceOpened": {
     "message": "Last time someone stranded 'ere been {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Grown-up polliwog"
   },
   "input.view.gallery": {
     "message": "Gallery view"
@@ -33,22 +33,22 @@
     "message": "List view"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Yer ship sank!"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Oversee yer crew"
   },
   "profile.button.report": {
     "message": "Report"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Arrgh! Crewmate not found"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Ship yer portrait"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Joined t' crew {ago}"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} at {time, time, short}"
@@ -57,10 +57,10 @@
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Moniker"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "This 'ere user has no crew!"
   },
   "profile.label.no-projects-auth": {
     "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
@@ -81,13 +81,13 @@
     "message": "User ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Everythin'"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Packs o' code"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Pack o' code"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -108,19 +108,19 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Picture packs"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Picture pack"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Fancy shaders"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Blimey, that do be lookin' beatiful"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "The Gears be shiftin'!"
   },
   "settings.language.categories.default": {
     "message": "Standard tongues on yer ship"
@@ -132,7 +132,7 @@
     "message": "Fun languages"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Land in sight"
   },
   "settings.language.description": {
     "message": "Choose yer preferred tongue for this 'ere ship. Translations be contributed by cannon fudder <crowdin-link>on Crowdin</crowdin-link>."
@@ -153,13 +153,13 @@
     "message": "Submit to focus the first search result"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Find new land..."
   },
   "settings.language.languages.search-results-announcement": {
     "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
   },
   "settings.language.languages.search.no-results": {
-    "message": "Not even landlubber be speakin' like that."
+    "message": "Sorry, mate! No land in sight."
   },
   "settings.language.title": {
     "message": "Tongue"
