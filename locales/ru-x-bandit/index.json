@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Отмена"
+    "message": "Нафиг"
   },
   "button.edit": {
-    "message": "Изменить"
+    "message": "Редачить"
   },
   "button.save": {
-    "message": "Сохранить"
+    "message": "Запилить"
   },
   "frog": {
     "message": "Тя жабанули! 🐸"
@@ -15,7 +15,7 @@
     "message": "Жаберинт, прям как в жизни накалякан"
   },
   "frog.froggedPeople": {
-    "message": "Кроме тебя жабнули ещё {count, plural, one {{count} чела} other {{count} челов}}!"
+    "message": "Кроме тебя жабнули ещё {count, plural, one {{count} кента} other {{count} кентов}}!"
   },
   "frog.sinceOpened": {
     "message": "Станица открылась где-т {ago}"
@@ -24,100 +24,100 @@
     "message": "Жабень"
   },
   "input.view.gallery": {
-    "message": "Галерея"
+    "message": "Как в Эрмитаже"
   },
   "input.view.grid": {
-    "message": "Сетка"
+    "message": "По сетке"
   },
   "input.view.list": {
-    "message": "Список"
+    "message": "По пунктикам"
   },
   "notification.error.title": {
-    "message": "Произошла ошибка"
+    "message": "Чёт глюкануло"
   },
   "profile.button.manage-projects": {
-    "message": "Управление проектами"
+    "message": "Рулим проектиками"
   },
   "profile.button.report": {
-    "message": "Жалоба"
+    "message": "Освистать"
   },
   "profile.error.not-found": {
-    "message": "Пользователь не найден"
+    "message": "Не нашёл такого чела"
   },
   "profile.input.upload-avatar": {
-    "message": "Загрузить аватар"
+    "message": "Засунуть другое рыло"
   },
   "profile.joined-at": {
-    "message": "Зарегистрирован {ago}"
+    "message": "Приплыл сюда {ago}"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} в {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "О себе"
+    "message": "Чё по жизни"
   },
   "profile.label.edit-username": {
-    "message": "Имя пользователя"
+    "message": "Кликуха"
   },
   "profile.label.no-projects": {
-    "message": "У этого пользователя нет проектов."
+    "message": "У этого типа ни одного проекта!"
   },
   "profile.label.no-projects-auth": {
-    "message": "У вас нет проектов.\nХотите <create-link>создать новый</create-link>?"
+    "message": "Тут пока ничо не наворочено.\nПошёл бы чё-нить <create-link>намутить</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Скачайте проекты {username} на Modrinth"
+    "message": "Закачайте плюхи от {username} на Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - загрузить проекты {username} на Modrinth"
+    "message": "{bio} - Закачайте плюхи от {username} на Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> загрузка} few {<stat>{count}</stat> загрузки} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
+    "message": "{count, plural, one {<stat>{count}</stat> загрузка} other {<stat>{count}</stat> загрузок}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> подписчик} few {<stat>{count}</stat> подписчика} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} у проектов"
+    "message": "{count, plural, one {<stat>{count}</stat> подписончик} other {<stat>{count}</stat> подписончиков}} проектов"
   },
   "profile.user-id": {
-    "message": "ID пользователя: {id}"
+    "message": "Шифруха чела: {id}"
   },
   "project-type.all": {
-    "message": "Все"
+    "message": "Всё"
   },
   "project-type.datapack.plural": {
-    "message": "Наборы данных"
+    "message": "Пачки данных"
   },
   "project-type.datapack.singular": {
-    "message": "Набор данных"
+    "message": "Пачка данных"
   },
   "project-type.mod.plural": {
-    "message": "Моды"
+    "message": "Замутки"
   },
   "project-type.mod.singular": {
-    "message": "Мод"
+    "message": "Замутка"
   },
   "project-type.modpack.plural": {
-    "message": "Сборки"
+    "message": "Сборки замуток"
   },
   "project-type.modpack.singular": {
-    "message": "Сборка"
+    "message": "Сборка замуток"
   },
   "project-type.plugin.plural": {
-    "message": "Плагины"
+    "message": "Плугинсы"
   },
   "project-type.plugin.singular": {
-    "message": "Плагин"
+    "message": "Плугин"
   },
   "project-type.resourcepack.plural": {
-    "message": "Наборы ресурсов"
+    "message": "Фасончики"
   },
   "project-type.resourcepack.singular": {
-    "message": "Набор ресурсов"
+    "message": "Фасон"
   },
   "project-type.shader.plural": {
-    "message": "Шейдеры"
+    "message": "По красоте"
   },
   "project-type.shader.singular": {
-    "message": "Шейдер"
+    "message": "По красоте"
   },
   "settings.language.categories.auto": {
     "message": "На автомате"
