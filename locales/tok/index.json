@@ -6,7 +6,7 @@
     "message": "Edit"
   },
   "button.save": {
-    "message": "Save"
+    "message": "awen"
   },
   "frog": {
     "message": "mi akesi e sina a! 🐸"
@@ -57,7 +57,7 @@
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "nimi"
   },
   "profile.label.no-projects": {
     "message": "This user has no projects!"
@@ -81,7 +81,7 @@
     "message": "User ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "ale"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "poki sitelen"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "poki sitelen"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
