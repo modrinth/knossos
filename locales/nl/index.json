@@ -45,7 +45,7 @@
     "message": "Gebruiker is niet gevonden"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Avatar uploaden"
   },
   "profile.joined-at": {
     "message": "{ago} geleden lid geworden"
@@ -66,7 +66,7 @@
     "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Download projecten van {username} op Modrinth"
   },
   "profile.meta.description-with-bio": {
     "message": "{bio} - Download {username}'s projects on Modrinth"
@@ -78,7 +78,7 @@
     "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Gebruiker ID: {id}"
   },
   "project-type.all": {
     "message": "Alles"
@@ -111,7 +111,7 @@
     "message": "Resource Packs"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resource Packs"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
