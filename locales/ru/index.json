@@ -24,13 +24,13 @@
     "message": "Жаба"
   },
   "input.view.gallery": {
-    "message": "Галерея"
+    "message": "В вид галереи"
   },
   "input.view.grid": {
-    "message": "Сетка"
+    "message": "В виде сетки"
   },
   "input.view.list": {
-    "message": "Список"
+    "message": "В виде списка"
   },
   "notification.error.title": {
     "message": "Произошла ошибка"
@@ -39,7 +39,7 @@
     "message": "Управление проектами"
   },
   "profile.button.report": {
-    "message": "Жалоба"
+    "message": "Пожаловаться"
   },
   "profile.error.not-found": {
     "message": "Пользователь не найден"
@@ -48,7 +48,7 @@
     "message": "Загрузить аватар"
   },
   "profile.joined-at": {
-    "message": "Зарегистрирован {ago}"
+    "message": "Присоединился {ago}"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} в {time, time, short}"
@@ -63,22 +63,22 @@
     "message": "У этого пользователя нет проектов."
   },
   "profile.label.no-projects-auth": {
-    "message": "У вас нет проектов.\nХотите <create-link>создать новый</create-link>?"
+    "message": "У вас ещё нет проектов.\nХотите <create-link>создать новый</create-link>?"
   },
   "profile.meta.description": {
     "message": "Скачайте проекты {username} на Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - загрузить проекты {username} на Modrinth"
+    "message": "{bio} - скачайте проекты {username} на Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> загрузка} few {<stat>{count}</stat> загрузки} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> подписчик} few {<stat>{count}</stat> подписчика} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} у проектов"
+    "message": "{count, plural, one {<stat>{count}</stat> подписчик} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} проектов"
   },
   "profile.user-id": {
-    "message": "ID пользователя: {id}"
+    "message": "ID: {id}"
   },
   "project-type.all": {
     "message": "Все"
@@ -96,10 +96,10 @@
     "message": "Мод"
   },
   "project-type.modpack.plural": {
-    "message": "Сборки"
+    "message": "Сборки модов"
   },
   "project-type.modpack.singular": {
-    "message": "Сборка"
+    "message": "Сборка модов"
   },
   "project-type.plugin.plural": {
     "message": "Плагины"
