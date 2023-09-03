@@ -33,7 +33,7 @@
     "message": "List view"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Προέκυψε σφάλμα"
   },
   "profile.button.manage-projects": {
     "message": "Manage projects"
@@ -51,7 +51,7 @@
     "message": "Joined {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} στις {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
@@ -60,22 +60,22 @@
     "message": "Username"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Αυτός ο χρήστης δεν έχει έργα!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Δεν έχεις κανένα έργο.\nΘα ήθελες να <create-link>δημιουργήσεις ένα</create-link>;"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Κατέβασε τα έργα του {username} στο Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Κατέβασε τα έργα του {username} στο Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> λήψη} other {<stat>{count}</stat> λήψεις}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> ακόλουθος} other {<stat>{count}</stat> ακόλουθοι}} έργων"
   },
   "profile.user-id": {
     "message": "User ID: {id}"
