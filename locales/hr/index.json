@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Poništi"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Uredi"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Spremi"
   },
   "frog": {
     "message": "Užabljen si! 🐸"
@@ -24,97 +24,97 @@
     "message": "Žaba"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Galerijski prikaz"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Prikaz rešetke"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Prikaz liste"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Dogodila se greška"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Upravljanje projektima"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Prijavi"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Korisnik nije pronađen"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Prenesi avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Pridružio se prije {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} u {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "O meni"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Korisničko ime"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Ovaj korisnik nema projekata!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nemate nijedan projekt.\nŽelite li ga <create-link>izraditi</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Preuzmite projekte korisnika {username} na Modrinth-u"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Preuzmite projekte korisnika {username} na Modrinth-u"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> preuzimanje} other {<stat>{count}</stat> preuzimanja}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> pratitelj} other {<stat>{count}</stat> pratitelja}} projekta"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID korisnika: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Sve"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Data Pack-ovi"
   },
   "project-type.datapack.singular": {
     "message": "Data Pack"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Modovi"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modpack-ovi"
   },
   "project-type.modpack.singular": {
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Dodaci"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Dodatak"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resource Pack-ovi"
   },
   "project-type.resourcepack.singular": {
     "message": "Resource Pack"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shaderi"
   },
   "project-type.shader.singular": {
     "message": "Shader"
