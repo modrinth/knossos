@@ -51,7 +51,7 @@
     "message": "Připojil se {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} v {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
@@ -72,10 +72,10 @@
     "message": "{bio} - Stáhněte si projekty {username} na Modrinthu"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> stažení} other {<stat>{count}</stat> stažení}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> sledující} few {<stat>{count}</stat> sledující} other {<stat>{count}</stat> sledujících}} projekty"
   },
   "profile.user-id": {
     "message": "ID uživatele: {id}"
