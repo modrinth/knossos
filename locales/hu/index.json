@@ -51,7 +51,7 @@
     "message": "Csatlakozva {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Leírás"
