@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "キャンセル"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "編集"
   },
   "button.save": {
-    "message": "Save"
+    "message": "保存"
   },
   "frog": {
     "message": "カエルにされてしまった！ 🐸"
@@ -24,100 +24,100 @@
     "message": "カエル"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "ギャラリー表示"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "グリッド表示"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "リスト表示"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "エラーが発生しました"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "プロジェクトを管理"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "報告"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "ユーザーが見つかりませんでした"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "アバターをアップロード"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "{ago} に参加"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} at {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "プロフィール"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "ユーザー名"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "このユーザーにはプロジェクトがありません"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "プロジェクトがありません\nプロジェクトを<create-link>作成しますか</create-link>？"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Modrinthで {username} のプロジェクトをダウンロードする"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Modrinthで {username} のプロジェクトをダウンロードする"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, other {<stat>{count}</stat> ダウンロード}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ユーザーID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "すべて"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "データパック"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "データパック"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Mod"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modパック"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Modパック"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "プラグイン"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "プラグイン"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "リソースパック"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "リソースパック"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "シェーダー"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "シェーダー"
   },
   "settings.language.categories.auto": {
     "message": "自動"
@@ -129,7 +129,7 @@
     "message": "実験中の言語"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "おもしろ言語"
   },
   "settings.language.categories.search-result": {
     "message": "検索結果"
