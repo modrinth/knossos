@@ -3,7 +3,7 @@
     "message": "Отмена"
   },
   "button.edit": {
-    "message": "Изменить"
+    "message": "Редактировать"
   },
   "button.save": {
     "message": "Сохранить"
@@ -24,7 +24,7 @@
     "message": "Жаба"
   },
   "input.view.gallery": {
-    "message": "В вид галереи"
+    "message": "В виде галереи"
   },
   "input.view.grid": {
     "message": "В виде сетки"
@@ -66,10 +66,10 @@
     "message": "У вас ещё нет проектов.\nХотите <create-link>создать новый</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Скачайте проекты {username} на Modrinth"
+    "message": "Скачивайте проекты {username} на Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - скачайте проекты {username} на Modrinth"
+    "message": "{bio} - Скачивайте проекты {username} на Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> загрузка} few {<stat>{count}</stat> загрузки} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
@@ -81,7 +81,7 @@
     "message": "ID: {id}"
   },
   "project-type.all": {
-    "message": "Все"
+    "message": "Всё"
   },
   "project-type.datapack.plural": {
     "message": "Наборы данных"
@@ -96,10 +96,10 @@
     "message": "Мод"
   },
   "project-type.modpack.plural": {
-    "message": "Сборки модов"
+    "message": "Сборки"
   },
   "project-type.modpack.singular": {
-    "message": "Сборка модов"
+    "message": "Сборка"
   },
   "project-type.plugin.plural": {
     "message": "Плагины"
