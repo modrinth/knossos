@@ -12,7 +12,7 @@
     "message": "Du wurdest gefroscht! 🐸"
   },
   "frog.altText": {
-    "message": "Ein fotorealistisches Gemälde eines Froschlabyrinths"
+    "message": "Ein fotorealistisches Gemälde von einem Froschlabyrinth"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {Eine andere Person wurde} other {{count} andere Personen wurden}} auch gefroscht!"
@@ -54,7 +54,7 @@
     "message": "{date, date, long} um {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Steckbrief"
+    "message": "Bio"
   },
   "profile.label.edit-username": {
     "message": "Benutzername"
