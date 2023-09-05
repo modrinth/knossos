@@ -66,10 +66,10 @@
     "message": "У вас немає жодного проєкту.\nБажаєте <create-link>створити якийсь</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Завантажити проєкти {username} на Modrinth"
+    "message": "Завантажте проєкти {username} на Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Завантажити проєкти {username} на Modrinth"
+    "message": "{bio} - Завантажте проєкти {username} на Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> завантаження} few {<stat>{count}</stat> завантаження} other {<stat>{count}</stat> завантажень}}"
