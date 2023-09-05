@@ -24,13 +24,13 @@
     "message": "Жаба"
   },
   "input.view.gallery": {
-    "message": "В виде галереи"
+    "message": "Вид галереи"
   },
   "input.view.grid": {
-    "message": "В виде сетки"
+    "message": "Вид сетки"
   },
   "input.view.list": {
-    "message": "В виде списка"
+    "message": "Вид списка"
   },
   "notification.error.title": {
     "message": "Произошла ошибка"
@@ -39,7 +39,7 @@
     "message": "Управление проектами"
   },
   "profile.button.report": {
-    "message": "Пожаловаться"
+    "message": "Жалоба"
   },
   "profile.error.not-found": {
     "message": "Пользователь не найден"
@@ -60,7 +60,7 @@
     "message": "Имя пользователя"
   },
   "profile.label.no-projects": {
-    "message": "У этого пользователя нет проектов."
+    "message": "У этого пользователя нет проектов!"
   },
   "profile.label.no-projects-auth": {
     "message": "У вас ещё нет проектов.\nХотите <create-link>создать новый</create-link>?"
@@ -75,7 +75,7 @@
     "message": "{count, plural, one {<stat>{count}</stat> загрузка} few {<stat>{count}</stat> загрузки} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> подписчик} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} проектов"
+    "message": "{count, plural, one {<stat>{count}</stat> подписчик} few {<stat>{count}</stat> подписчика} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} у проектов"
   },
   "profile.user-id": {
     "message": "ID: {id}"
@@ -96,10 +96,10 @@
     "message": "Мод"
   },
   "project-type.modpack.plural": {
-    "message": "Сборки"
+    "message": "Сборки модов"
   },
   "project-type.modpack.singular": {
-    "message": "Сборка"
+    "message": "Сборка модов"
   },
   "project-type.plugin.plural": {
     "message": "Плагины"
@@ -153,7 +153,7 @@
     "message": "Подтвердите для фокусировки на первом результате поиска"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Поиск языка..."
+    "message": "Поиск языков..."
   },
   "settings.language.languages.search-results-announcement": {
     "message": "По вашему запросу {matches, plural, =0 {не нашлось ни одного языка} one {нашёлся # язык} few {нашлось # языка} many {нашлось # языков} other {нашлось # языка}}."
