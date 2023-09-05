@@ -41,13 +41,7 @@
         v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
         :key="version.id"
         class="version-button button-transparent"
-        @click="
-          $router.push(
-            `/${project.project_type}/${
-              project.slug ? project.slug : project.id
-            }/version/${encodeURI(version.displayUrlEnding)}`
-          )
-        "
+        @click="clickVersion($event, version)"
       >
         <a
           v-tooltip="
@@ -198,6 +192,18 @@ async function handleFiles(files) {
       newPrimaryFile: files[0],
     },
   })
+}
+function clickVersion(event, version) {
+  const router = useRouter()
+  const path = `/${props.project.project_type}/${
+    props.project.slug ? props.project.slug : props.project.id
+  }/version/${encodeURI(version.displayUrlEnding)}`
+  if (event.ctrlKey === true) {
+    const routeData = router.resolve(path)
+    window.open(routeData.href, '_blank')
+  } else {
+    router.push(path)
+  }
 }
 </script>
 
