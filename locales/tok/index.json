@@ -1,9 +1,9 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "o ala"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "o ante"
   },
   "button.save": {
     "message": "awen"
@@ -24,88 +24,88 @@
     "message": "akesi"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "suli lukin"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "leko lukin"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "lipu lukin"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "pakala a!"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "o ante e pali sina"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "o pana e sona ike"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "mi ken alasa e ni"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "o pana e sitelen"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "ona li kama lon tenpo {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long}, {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "sona"
   },
   "profile.label.edit-username": {
     "message": "nimi"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "ona li pali e ala!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "sina pali e ala.\nsina wile ala wile <create-link>pali e ijo?</create-link>"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "o kama jo e pali tan {username} lon lipu Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - o kama jo e pali tan {username} lon lipu Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "jan {count, plural, other {<stat>{count}</stat>}} li jo e pali tan ona"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "jan {count, plural, other {<stat>{count}</stat>}} li lukin e pali tan ona"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "nanpa jan: {id}"
   },
   "project-type.all": {
     "message": "ale"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "toki wawa"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "toki wawa"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "namako"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "namako"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "poki namako"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "poki namako"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "ilo kulupu"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "ilo kulupu"
   },
   "project-type.resourcepack.plural": {
     "message": "poki sitelen"
@@ -114,10 +114,10 @@
     "message": "poki sitelen"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "ilo lukin"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "ilo lukin"
   },
   "settings.language.categories.auto": {
     "message": "toki tan ilo"
