@@ -48,7 +48,7 @@
     "message": "Importer un avatar"
   },
   "profile.joined-at": {
-    "message": "À rejoint {ago}"
+    "message": "A rejoint {ago}"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} à {time, time, short}"
@@ -63,31 +63,31 @@
     "message": "Cet utilisateur n'a aucun projet !"
   },
   "profile.label.no-projects-auth": {
-    "message": "Vous n'avez aucun projet.\nVoulez-vous en <create-link>créer un</create-link>?"
+    "message": "Vous n'avez aucun projet.\nVoulez-vous en <create-link>créer un</create-link> ?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Téléchargez les projets de {username} sur Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Téléchargez les projets de {username} sur Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> téléchargement} other {<stat>{count}</stat> téléchargements}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> abonné} other {<stat>{count}</stat> abonnés}} aux projets"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID utilisateur : {id}"
   },
   "project-type.all": {
     "message": "Tous"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datapacks"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datapack"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -141,10 +141,10 @@
     "message": "Synchroniser avec la langue du système"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Application en cours..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Erreur"
   },
   "settings.language.languages.load-failed": {
     "message": "Impossible de charger cette langue. Réessayez dans un instant."
