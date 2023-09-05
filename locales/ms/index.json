@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Batal"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Sunting"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Simpan"
   },
   "frog": {
     "message": "Anda telah dikatak! 🐸"
@@ -24,100 +24,100 @@
     "message": "Katak"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Bentuk galeri"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Bentuk grid"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Bentuk senarai"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Sebuah ralat telah berlaku"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Urus projek"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Lapor"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Pengguna tidak dijumpai"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Muat naik avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Telah menyertai pada {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} pada jam {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nama pengguna"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Pengguna ini tidak memiliki sebarang projek!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Anda tidak memiliki sebarang projek.\nAdakah anda mahu <create-link>mencipta sebuah projek</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Muat turun projek milik {username} di Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Muat turun projek milik {username} di Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, other {<stat>{count}</stat> muat turun}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, other {<stat>{count}</stat> pengikut}} projek"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID Pengguna: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Semua"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Pek Data"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Pek Data"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Mod"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modpack"
   },
   "project-type.modpack.singular": {
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pemalam"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Pemalam"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Pek Sumber"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Pek Sumber"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Pembayang"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Pembayang"
   },
   "settings.language.categories.auto": {
     "message": "Automatik"
