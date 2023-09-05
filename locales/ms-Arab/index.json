@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "بطل"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "سونتيڠ"
   },
   "button.save": {
-    "message": "Save"
+    "message": "سيمڤن"
   },
   "frog": {
     "message": "اندا تله دکاتق! 🐸"
@@ -24,100 +24,100 @@
     "message": "کاتق"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "بنتوق ڬالري"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "بنتوق ݢريد"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "بنتوق سناراي"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "سبواه رالت تله برلاکو"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "اوروس ڤروجيک"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "لاڤور"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "ڤڠݢونا تيدق دجومڤاءي"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "موات ناءيق اۏاتر"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "تله مپرتاءي ڤد {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} ڤد جم {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "بيو"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "نام ڤڠݢونا"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ ڤروجک!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "اندا تيدق مميليقي سبارڠ ڤروجيک.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه ڤروجک</create-link>؟"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "موات تورون ڤروجيک ميليق {username} دمودرينث"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دمودرينث"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, other {<stat>{count}</stat> موات تورون}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, other {<stat>{count}</stat> ڤڠيکوت}} ڤروجيک"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID ڤڠݢونا: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "سموا"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "ڤيک داتا"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "ڤيک داتا"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "مود"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "مود"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modpack"
   },
   "project-type.modpack.singular": {
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "ڤمالم"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "ڤمالم"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "ڤيک سومبر"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "ڤيک سومبر"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "ڤمبايڠ"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "ڤمبايڠ"
   },
   "settings.language.categories.auto": {
     "message": "اءوتوماتيک"
