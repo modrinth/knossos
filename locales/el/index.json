@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Ακύρωση"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Επεξεργασία"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Αποθήκευση"
   },
   "frog": {
     "message": "Μόλις βατραχιάστικες! 🐸"
@@ -24,40 +24,40 @@
     "message": "Βάτραχος"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Προβολή συλλογής"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Προβολή πλέγματος"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Προβολή λίστας"
   },
   "notification.error.title": {
     "message": "Προέκυψε σφάλμα"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Διαχείριση έργων"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Αναφορά"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Ο χρήστης δε βρέθηκε"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Ανέβασε avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Εγγράφηκε {ago}"
   },
   "profile.joined-at.tooltip": {
     "message": "{date, date, long} στις {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Βιογραφικό"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Όνομα Χρήστη"
   },
   "profile.label.no-projects": {
     "message": "Αυτός ο χρήστης δεν έχει έργα!"
@@ -78,16 +78,16 @@
     "message": "{count, plural, one {<stat>{count}</stat> ακόλουθος} other {<stat>{count}</stat> ακόλουθοι}} έργων"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Αναγνωριστικό Χρήστη: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Όλα"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Πακέτα Δεδομένων"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Πακέτο Δεδομένων"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Πακέτα Πόρων"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Πακέτο Πόρων"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
