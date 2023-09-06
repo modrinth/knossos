@@ -54,7 +54,7 @@
     "message": "{date, date, long} um {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Steckbrief"
+    "message": "Bio"
   },
   "profile.label.edit-username": {
     "message": "Benutzername"
