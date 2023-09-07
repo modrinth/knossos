@@ -78,7 +78,7 @@
     "message": "{count, plural, one {<stat>{count}</stat> Follower} other {<stat>{count}</stat> Follower}} von Projekten"
   },
   "profile.user-id": {
-    "message": "Nutzer ID: {id}"
+    "message": "Nutzer-ID: {id}"
   },
   "project-type.all": {
     "message": "Alle"
