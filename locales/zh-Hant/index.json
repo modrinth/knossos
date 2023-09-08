@@ -3,7 +3,7 @@
     "message": "取消"
   },
   "button.edit": {
-    "message": "编辑"
+    "message": "編輯"
   },
   "button.save": {
     "message": "保存"
@@ -33,10 +33,10 @@
     "message": "清單視圖"
   },
   "notification.error.title": {
-    "message": "發生了一個錯誤"
+    "message": "發生錯誤"
   },
   "profile.button.manage-projects": {
-    "message": "管理事項"
+    "message": "管理項目"
   },
   "profile.button.report": {
     "message": "檢舉"
@@ -48,10 +48,10 @@
     "message": "上傳大頭貼"
   },
   "profile.joined-at": {
-    "message": "加入於{ago}"
+    "message": "加入於 {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long}的{time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "個人簡介"
@@ -60,22 +60,22 @@
     "message": "用戶名"
   },
   "profile.label.no-projects": {
-    "message": "此用戶沒有事項！"
+    "message": "此用戶沒有項目！"
   },
   "profile.label.no-projects-auth": {
-    "message": "你沒有任何事項。\n你想要去<create-link>創建一個</create-link>嗎？"
+    "message": "你沒有任何項目。\n你想去<create-link>創建一個</create-link>嗎？"
   },
   "profile.meta.description": {
-    "message": "在 Modrinth 下載 {username} 的事項"
+    "message": "在 Modrinth 下載 {username} 的項目"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - 下載 {username} 的事項在 Modrinth"
+    "message": "{bio} - 在 Modrinth 下載 {username} 的項目"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, other {<stat>{count}</stat> 下載}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, other {<stat>{count}</stat> 項目}}總關注"
   },
   "profile.user-id": {
     "message": "用戶 ID：{id}"
@@ -135,7 +135,7 @@
     "message": "搜尋結果"
   },
   "settings.language.description": {
-    "message": "選擇您偏好的網站語言。翻譯是由 <crowdin-link>Crowdin</crowdin-link> 上的志願者所貢獻的。"
+    "message": "選擇您偏好的網站語言。翻譯由 <crowdin-link>Crowdin</crowdin-link> 上的志願者所貢獻。"
   },
   "settings.language.languages.automatic": {
     "message": "與系統語言同步"
