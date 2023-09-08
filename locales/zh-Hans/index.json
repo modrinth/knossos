@@ -27,13 +27,13 @@
     "message": "图片"
   },
   "input.view.grid": {
-    "message": "方格视图"
+    "message": "网格视图"
   },
   "input.view.list": {
     "message": "列表视图"
   },
   "notification.error.title": {
-    "message": "发生了一个错误"
+    "message": "出错了"
   },
   "profile.button.manage-projects": {
     "message": "管理项目"
@@ -51,7 +51,7 @@
     "message": "加入于 {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} 在 {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "个人信息"
@@ -90,10 +90,10 @@
     "message": "数据包"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "模组"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "模组"
   },
   "project-type.modpack.plural": {
     "message": "整合包"
@@ -135,13 +135,13 @@
     "message": "搜索结果"
   },
   "settings.language.description": {
-    "message": "选择您希望网站使用的语言。翻译是由 <crowdin-link>Crowdin</crowdin-link> 上的志愿者们所贡献的。"
+    "message": "选择您希望网站所呈现的语言。翻译由 <crowdin-link>Crowdin</crowdin-link> 上的志愿者们所贡献。"
   },
   "settings.language.languages.automatic": {
     "message": "同步系统语言"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. 应用中。。。"
+    "message": "{label}. 应用中……"
   },
   "settings.language.languages.language-label-error": {
     "message": "{label}. 错误"
@@ -159,7 +159,7 @@
     "message": "{matches, plural,=0 {没有语言}other {# 种语言}}匹配您的搜索。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "没有语言符合你的搜索。"
+    "message": "没有语言以匹配搜索。"
   },
   "settings.language.title": {
     "message": "语言设置"
