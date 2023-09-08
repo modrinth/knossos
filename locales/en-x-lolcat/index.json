@@ -12,7 +12,7 @@
     "message": "you been toaded 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "OMG PICTURE OF TOAD LABYRINT PEINTING"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} Kat} other {{count} Kats}} been also toaded!"
@@ -27,16 +27,16 @@
     "message": "Big pictures!!"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "oooooh squares"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "boring vew"
   },
   "notification.error.title": {
     "message": "Ow no! Couldn't catch fish!"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Change kode"
   },
   "profile.button.report": {
     "message": "Dis not right"
@@ -150,13 +150,13 @@
     "message": "Sry cant lod dilekt. Plz tri agn latr!"
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "entr 2 go 2 wat kat found"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Lok for not meow speeky thing..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Kat find no speek thing wit} one {Kat found # speek thing wit} other {omg, kat found # speek thing wit}} wat u wantd."
   },
   "settings.language.languages.search.no-results": {
     "message": "Sry, no dilekt is same 2 ur lookup"
