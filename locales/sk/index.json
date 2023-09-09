@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Zrušiť"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Upraviť"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Uložiť"
   },
   "frog": {
     "message": "Bol si ožabovaný! 🐸"
@@ -24,97 +24,97 @@
     "message": "Žaba"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Zobrazenie v galérii"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Zobrazenie v mriežke"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Zobrazenie v zozname"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Vyskytla sa chyba"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Správa projektov"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Nahlásiť"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Používateľ nebol nájdený"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Nahrať avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Pripojil sa {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} v {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Používateľské meno"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Tento používateľ nemá žiadne projekty!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nemáte žiadne projekty.\nChcete <create-link>jeden vytvoriť</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Stiahnuť projekty používateľa {username} na Modrinthe"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Stiahnuť projekty používateľa {username} na Modrinthe"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> stiahnutie} few {stat>{count}</stat> stiahnutia} other {<stat>{count}</stat> stiahnutí}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> sledovateľ} few {<stat>{count}</stat> sledovateľov} other {<stat>{count}</stat> sledovateľov}} projektov"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID používateľa: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Všetko"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datapacky"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datapack"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Módy"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Mód"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modpacky"
   },
   "project-type.modpack.singular": {
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pluginy"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resourcepacky"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resourcepack"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shadery"
   },
   "project-type.shader.singular": {
     "message": "Shader"
