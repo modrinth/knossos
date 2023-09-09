@@ -6,7 +6,7 @@
     "message": "編輯"
   },
   "button.save": {
-    "message": "保存"
+    "message": "儲存"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -36,16 +36,16 @@
     "message": "發生錯誤"
   },
   "profile.button.manage-projects": {
-    "message": "管理項目"
+    "message": "管理專案"
   },
   "profile.button.report": {
     "message": "檢舉"
   },
   "profile.error.not-found": {
-    "message": "未找到該用戶"
+    "message": "找不到使用者"
   },
   "profile.input.upload-avatar": {
-    "message": "上傳大頭貼"
+    "message": "上傳頭像"
   },
   "profile.joined-at": {
     "message": "加入於 {ago}"
@@ -57,31 +57,31 @@
     "message": "個人簡介"
   },
   "profile.label.edit-username": {
-    "message": "用戶名"
+    "message": "使用者名稱"
   },
   "profile.label.no-projects": {
-    "message": "此用戶沒有項目！"
+    "message": "此使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "你沒有任何項目。\n你想去<create-link>創建一個</create-link>嗎？"
+    "message": "你沒有任何專案。\n你想去<create-link>建立一個</create-link>嗎？"
   },
   "profile.meta.description": {
-    "message": "在 Modrinth 下載 {username} 的項目"
+    "message": "在 Modrinth 下載 {username} 的專案"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - 在 Modrinth 下載 {username} 的項目"
+    "message": "{bio} ── 在 Modrinth 上下載 {username} 的專案"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, other {<stat>{count}</stat> 下載}}"
+    "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, other {<stat>{count}</stat> 項目}}總關注"
+    "message": "{count, plural, other {<stat>{count}</stat> 專案}}總關注"
   },
   "profile.user-id": {
-    "message": "用戶 ID：{id}"
+    "message": "使用者 ID：{id}"
   },
   "project-type.all": {
-    "message": "所有"
+    "message": "全部"
   },
   "project-type.datapack.plural": {
     "message": "資料包"
@@ -96,10 +96,10 @@
     "message": "模組"
   },
   "project-type.modpack.plural": {
-    "message": "整合包"
+    "message": "模組包"
   },
   "project-type.modpack.singular": {
-    "message": "整合包"
+    "message": "模組包"
   },
   "project-type.plugin.plural": {
     "message": "插件"
@@ -114,10 +114,10 @@
     "message": "資源包"
   },
   "project-type.shader.plural": {
-    "message": "光影"
+    "message": "光影包"
   },
   "project-type.shader.singular": {
-    "message": "光影"
+    "message": "光影包"
   },
   "settings.language.categories.auto": {
     "message": "自動切換"
@@ -147,10 +147,10 @@
     "message": "{label}。發生錯誤"
   },
   "settings.language.languages.load-failed": {
-    "message": "無法載入該語言。請稍後再試。"
+    "message": "無法載入此語言。請稍後再試。"
   },
   "settings.language.languages.search-field.description": {
-    "message": "提交以返回第一個搜尋結果"
+    "message": "送出以返回第一個搜尋結果"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "搜尋語言..."
