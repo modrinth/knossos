@@ -9,13 +9,13 @@
     "message": "Salvar"
   },
   "frog": {
-    "message": "Você foi sapado! 🐸"
+    "message": "Você foi ensapado! 🐸"
   },
   "frog.altText": {
     "message": "Uma pintura fotorrealística de um sapo em formato de labirinto"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} outra pessoa também foi sapada} other {Outras {count} pessoas também foram sapadas}}!"
+    "message": "{count, plural, one {{count} outra pessoa também foi ensapada} other {Outras {count} pessoas também foram ensapadas}}!"
   },
   "frog.sinceOpened": {
     "message": "Essa página foi aberta há {ago}"
@@ -102,7 +102,7 @@
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Está ativado"
+    "message": "Plugins"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
@@ -123,7 +123,7 @@
     "message": "Automático"
   },
   "settings.language.categories.default": {
-    "message": "Idiomas padrão"
+    "message": "Idiomas padrões"
   },
   "settings.language.categories.experimental": {
     "message": "Idiomas experimentais"
