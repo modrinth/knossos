@@ -24,13 +24,13 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "圖庫視圖"
+    "message": "圖庫模式"
   },
   "input.view.grid": {
-    "message": "方格視圖"
+    "message": "方格模式"
   },
   "input.view.list": {
-    "message": "清單視圖"
+    "message": "清單模式"
   },
   "notification.error.title": {
     "message": "發生錯誤"
@@ -75,7 +75,7 @@
     "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, other {<stat>{count}</stat> 專案}}總關注"
+    "message": "{count, plural, other {<stat>{count}</stat> 位}}追蹤者"
   },
   "profile.user-id": {
     "message": "使用者 ID：{id}"
