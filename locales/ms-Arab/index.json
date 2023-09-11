@@ -66,10 +66,10 @@
     "message": "اندا تيدق مميليقي سبارڠ ڤروجيک.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه ڤروجک</create-link>؟"
   },
   "profile.meta.description": {
-    "message": "موات تورون ڤروجيک ميليق {username} دمودرينث"
+    "message": "موات تورون ڤروجيک ميليق {username} دمودرين‌ث"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دمودرينث"
+    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دمودرين‌ث"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, other {<stat>{count}</stat> موات تورون}}"
