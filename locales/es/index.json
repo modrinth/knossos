@@ -9,52 +9,52 @@
     "message": "Guardar"
   },
   "frog": {
-    "message": "¡Has sido frogado! 🐸"
+    "message": "¡Has sido ranado! 🐸"
   },
   "frog.altText": {
     "message": "Una pintura fotorealista de un laberinto de ranas"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} ¡más persona} other {{count} ¡más personas}} también han sido frogadas!"
+    "message": "{count, plural, one {¡{count} persona más} other {¡{count} personas más}} también han sido ranadas!"
   },
   "frog.sinceOpened": {
-    "message": "Esta página ha sido abierta {ago}"
+    "message": "Esta página fue abierta {ago}"
   },
   "frog.title": {
     "message": "Rana"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Vista en galería"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Vista en cuadrícula"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Vista en lista"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Ha ocurrido un error"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Gestionar proyectos"
   },
   "profile.button.report": {
     "message": "Reportar"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Usuario no encontrado"
   },
   "profile.input.upload-avatar": {
     "message": "Subir avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Se unió {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} a las {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Biografía"
   },
   "profile.label.edit-username": {
     "message": "Nombre de usuario"
@@ -63,31 +63,31 @@
     "message": "¡Este usuario no tiene proyectos!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "No tienes ningún proyecto.\n¿Te gustaría <create-link>crear uno</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Descarga proyectos de {username} en Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Descarga proyectos de {username} en Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> descargas}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> seguidores}} de proyectos"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID de usuario: {id}"
   },
   "project-type.all": {
     "message": "Todo"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Paquetes de datos"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Paquete de datos"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -96,10 +96,10 @@
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Paquetes de mods"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Paquete de mods"
   },
   "project-type.plugin.plural": {
     "message": "Plugins"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Paquetes de recursos"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Paquete de recursos"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
@@ -147,19 +147,19 @@
     "message": "{label}. Error"
   },
   "settings.language.languages.load-failed": {
-    "message": "No se puede cargar este idioma. Inténtalo de nuevo en un poco."
+    "message": "No se puede cargar este idioma. Inténtalo de nuevo en un momento."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Enviar para enfocar el primer resultado de búsqueda"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Buscar un idioma..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Ningún idioma coincide con} one {# idioma coincide} other {# idiomas coinciden}} tu busqueda."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Ningún idioma coincide con tu busqueda."
   },
   "settings.language.title": {
     "message": "Idioma"
