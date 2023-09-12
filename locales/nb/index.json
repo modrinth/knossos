@@ -1,93 +1,93 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Avbryt"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Endre"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Lagre"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Du har blitt frosset! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Et fotorealistisk maleri av en frosklabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} person til} other {{count} flere personer}} ble også frosset!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Denne siden var åpnet {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Frosk"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Gallerivisning"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Rutevisning"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Listevisning"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Det oppstod en feil"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Administrer prosjekter"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Informere"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Brukeren ble ikke funnet"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Last opp profilbilde"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Ble med {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} ved {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Om meg"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Brukernavn"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Denne brukeren har ingen prosjekter!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Du har ikke några prosjekter\nVil du <create-link>skapa en</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Last ned {username}'s prosjekter på Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Last ned {username}'s prosjekter på Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> laste ned} other {<stat>{count}</stat> nedlastinger}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> følger} other {<stat>{count}</stat> følgere}} av prosjekter"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Bruker-ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Alle"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datapacks"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datapack"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resourcepacks"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resourcepack"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
@@ -120,48 +120,48 @@
     "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automatisk"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Standardspråk"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Eksperimentelle språk"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Morsomme språk"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Søkeresultater"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Velg ditt foretrukne språk for nettstedet. Oversettelser er bidratt av frivillige <crowdin-link>på Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Synkroniser med systemspråket"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Bruker..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Feil"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Kan ikke laste dette språket. Prøv igjen om litt tid."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Send inn for å fokusere på det første søkeresultatet"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Søk etter et språk..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Ingen språk samsvarer med} one {# språk matcher} other {# språk matcher}} søket ditt."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Ingen språk samsvarer med søket ditt."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Språk"
   }
 }
