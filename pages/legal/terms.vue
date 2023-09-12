@@ -1,7 +1,7 @@
 <template>
   <div class="markdown-body">
     <h1>Terms and Conditions</h1>
-    <p><em>Last Modified: September 9, 2023</em></p>
+    <p><em>Last Modified: August 5, 2023 </em></p>
     <h2>Acceptance of the Terms of Use</h2>
     <p>
       These terms of use are entered into by and between You and Rinth, Inc.
@@ -99,9 +99,7 @@
       Otherwise, for the avoidance of doubt, as between the Company and you, you own and will
       continue to own all right, title and interest in and to your Gaming Content.
     </p>
-    <p>
-      All Gaming Content must abide by the <nuxt-link to="/legal/rules">Content Rules</nuxt-link>.
-    </p>
+    <p>All Gaming Content must abide by the Content Standards.</p>
     <h2>API Usage</h2>
     <p>
       As part of our Services, we provide a tool known as Application Programming Interfaces
@@ -188,8 +186,8 @@
         otherwise.
       </li>
       <li>
-        To send, knowingly receive, upload, download, use, or re-use any material which does not
-        comply with the <nuxt-link to="/legal/rules">Content Rules</nuxt-link>.
+        To send, knowingly receive, upload, download, use or re-use any material which does not
+        comply with the Content Standards set out in these Terms of Use.
       </li>
       <li>
         To transmit, or procure the sending of, any advertising or promotional material, including
@@ -248,8 +246,8 @@
       <strong>"User Contributions"</strong>) on or through the Service.
     </p>
     <p>
-      All User Contributions must comply with the
-      <strong><nuxt-link to="/legal/rules">Content Rules</nuxt-link></strong>.
+      All User Contributions must comply with the <strong>Content Standards</strong> set out in
+      these Terms of Use.
     </p>
     <p>
       Any User Contribution you post to the site will be considered non-confidential and
@@ -286,7 +284,7 @@
       <li>
         Take any action with respect to any User Contribution that we deem necessary or appropriate
         in our sole discretion, including if we believe that such User Contribution violates the
-        Terms of Use, including the Content Rules, infringes any intellectual property right or
+        Terms of Use, including the Content Standards, infringes any intellectual property right or
         other right of any person or entity, threatens the personal safety of users of the Service
         or the public or could create liability for the Company.
       </li>
@@ -315,6 +313,47 @@
       responsibility to anyone for performance or nonperformance of the activities described in this
       section.
     </p>
+    <h2>Content Standards</h2>
+    <p>
+      These content standards apply to any and all User Contributions and use of Interactive
+      Services. User Contributions must in their entirety comply with all applicable federal, state,
+      local and international laws and regulations. Without limiting the foregoing, User
+      Contributions must not:
+    </p>
+    <ul>
+      <li>
+        Contain any material which is defamatory, obscene, indecent, abusive, offensive, harassing,
+        violent, hateful, inflammatory or otherwise objectionable.
+      </li>
+      <li>
+        Promote sexually explicit or pornographic material, violence, or discrimination based on
+        race, sex, religion, nationality, disability, sexual orientation or age.
+      </li>
+      <li>
+        Infringe any patent, trademark, trade secret, copyright or other intellectual property or
+        other rights of any other person.
+      </li>
+      <li>
+        Violate the legal rights (including the rights of publicity and privacy) of others or
+        contain any material that could give rise to any civil or criminal liability under
+        applicable laws or regulations or that otherwise may be in conflict with these Terms of Use
+        or our Privacy Policy.
+      </li>
+      <li>Be likely to deceive any person.</li>
+      <li>Promote any illegal activity, or advocate, promote or assist any unlawful act.</li>
+      <li>
+        Cause annoyance, inconvenience or needless anxiety or be likely to upset, embarrass, alarm
+        or annoy any other person.
+      </li>
+      <li>
+        Impersonate any person, or misrepresent your identity or affiliation with any person or
+        organization.
+      </li>
+      <li>
+        Give the impression that they emanate from or are endorsed by us or any other person or
+        entity, if this is not the case.
+      </li>
+    </ul>
     <h2>Copyright Infringement</h2>
     <p>
       If you believe that any User Contributions violate your copyright, please see our Copyright
@@ -381,7 +420,7 @@
     </ul>
     <p>
       The website from which you are linking, or on which you make certain content accessible, must
-      comply in all respects with the <nuxt-link to="/legal/rules">Content Rules</nuxt-link>.
+      comply in all respects with the content standards set out in these Terms of Use.
     </p>
     <p>
       You agree to cooperate with us in causing any unauthorized framing or linking immediately to
@@ -520,11 +559,10 @@
     <h2>Entire Agreement</h2>
     <p>
       The <strong>Terms of Use</strong>, our <strong>Privacy Policy</strong>, our
-      <strong>Copyright Policy</strong>, our <strong>Content Guidelines</strong>, and our
-      <strong>California Privacy Notice</strong> (if applicable) constitute the sole and entire
-      agreement between you and the Company with respect to the Service and supersede all prior and
-      contemporaneous understandings, agreements, representations and warranties, both written and
-      oral, with respect to the Service.
+      <strong>Copyright Policy</strong> and our <strong>California Privacy Notice</strong> (if
+      applicable) constitute the sole and entire agreement between you and the Company with respect
+      to the Service and supersede all prior and contemporaneous understandings, agreements,
+      representations and warranties, both written and oral, with respect to the Service.
     </p>
     <h2>Your Comments and Concerns</h2>
     <p>This website is operated by:</p>
