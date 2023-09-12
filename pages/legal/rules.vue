@@ -3,72 +3,102 @@
     <h1>Content Rules</h1>
 
     <p>
-      In order to facilitate Modrinth's
-      <nuxt-link to="/legal/terms"> Terms and Conditions </nuxt-link>, all Content must obey the
-      following Rules. For more information on what exactly Content is, please refer to the Content
-      section of the Terms.
+      These Content Rules are to be considered part of our
+      <nuxt-link to="/legal/terms">Terms of Use</nuxt-link> and apply to any and all User
+      Contributions and use of Interactive Services.
     </p>
 
     <p>
-      Please note that these are general rules and will not be enforced "to the letter". We reserve
-      the right to modify and/or remove any file, project, or other Content uploaded to our platform
-      for any reason. We reserve the right to introduce new rules at any time, which may or may not
-      retroactively apply to already uploaded Content at the discretion of our moderators.
-    </p>
-
-    <p>
-      If you find any violations of these Rules on our website, it is your responsibility to report
-      it. You may use the Report button on any project, version, or user page, or you may email us
-      at
+      If you find any violations of these Rules on our website, it is your responsibility to make us
+      aware. You may use the Report button on any project, version, or user page, or you may email
+      us at
       <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
     </p>
 
-    <h2 id="malicious-content">1. Malicious Content</h2>
+    <h2 id="prohibited-content">1. Prohibited Content</h2>
 
-    <p>Content cannot contain or download malware, which we define as anything that is designed:</p>
-    <ul>
+    <p>
+      User Contributions must in their entirety comply with all applicable federal, state, local,
+      and international laws and regulations. Without limiting the foregoing, User Contributions
+      must not:
+    </p>
+    <ol type="a">
       <li>
-        to upload any data to a remote server (i.e. one that the user does not directly choose to
-        connect to in-game) without clear disclosure
+        Contain any material which is defamatory, obscene, indecent, abusive, offensive, harassing,
+        violent, hateful, inflammatory, harmful, damaging, disruptive, or otherwise objectionable.
       </li>
       <li>
-        to disrupt, damage, or otherwise cause harm or damage to an individual, computer, or network
+        Promote sexually explicit or pornographic material, violence, or discrimination based on
+        race, sex, religion, nationality, disability, sexual orientation or age.
       </li>
-    </ul>
+      <li>
+        Infringe any patent, trademark, trade secret, copyright, or other intellectual property or
+        other rights of any other person.
+      </li>
+      <li>
+        Violate the legal rights (including the rights of publicity and privacy) of others or
+        contain any material that could give rise to any civil or criminal liability under
+        applicable laws or regulations or that otherwise may be in conflict with our Terms of Use or
+        Privacy Policy.
+      </li>
+      <li>
+        Promote any illegal activity, or advocate, promote or assist any unlawful act, including
+        real-life drugs or illicit substances.
+      </li>
+      <li>
+        Cause annoyance, inconvenience, or needless anxiety or be likely to upset, embarrass, alarm,
+        annoy, harm, or deceive any other person.
+      </li>
+      <li>Make or share intentionally wrong or misleading claims.</li>
+      <li>
+        Impersonate any person, or misrepresent your identity or affiliation with any person or
+        organization.
+      </li>
+      <li>
+        Give the impression that they emanate from or are endorsed by us or any other person or
+        entity, if this is not the case.
+      </li>
+      <li>Contain an excessive amount of profane language.</li>
+      <li>
+        Be designed to upload any data to a remote server (i.e. one that the user does not directly
+        choose to connect to in-game) without clear disclosure.
+      </li>
+    </ol>
 
-    <h2 id="clear-and-honest-function">2. Clear and honest function</h2>
+    <h2 id="clear-and-honest-function">2. Clear and Honest Function</h2>
 
     <p>
-      Content, especially projects, must make a clear and honest attempt to describe their purpose
-      on the page(s) where it may be found.
+      Projects, a form of Gaming Content, must make a clear and honest attempt to describe their
+      purpose in designated areas on the project page. Necessary information must not be obscured in
+      any way. Using confusing language or technical jargon when it is not necessary constitutes a
+      violation.
     </p>
 
-    <p>
-      Content must not make or share intentionally wrong or misleading claims. This includes but is
-      not limited to claims regarding the Content itself, claims regarding other Content, and claims
-      not relating to Content on Modrinth.
-    </p>
-
-    <h3 id="general-expectations">2.1. General expectations</h3>
+    <h3 id="general-expectations">2.1. General Expectations</h3>
 
     <p>
-      Projects in particular must attempt to describe the following three things within their
+      From a project description, users should be able to understand what the project does and how
+      to use it. Projects must attempt to describe the following three things within their
       description:
     </p>
-    <ul>
-      <li>what a project specifically does or adds</li>
+    <ol type="a">
+      <li>what the project specifically does or adds</li>
       <li>why someone should want to download the project</li>
       <li>any other critical information the user must know before downloading</li>
-    </ul>
+    </ol>
+
+    <h3 id="accessibility">2.2. Accessibility</h3>
 
     <p>
-      Project descriptions must also be accessible. For the most part, this means that descriptions
-      cannot mostly consist of text within images, and necessary information cannot be obscured.
+      Project descriptions must be accessible so that they can be read through a variety of mediums.
+      All descriptions must have a plain-text version, though images, videos, and other content can
+      take priority if desired.
     </p>
 
     <p>
-      Projects which don't meet of these expectations may be removed from search rather than removed
-      from the platform altogether, at the moderators' discretion.
+      Project descriptions must have an English-language translation unless they are exclusively
+      meant for use in a specific language, such as translation packs. Descriptions may provide
+      translations into other languages if desired.
     </p>
 
     <h2 id="cheats-and-hacks">3. Cheats and Hacks</h2>
@@ -77,7 +107,7 @@
       Projects cannot contain or download "cheats", which we define as a client-side modification
       that:
     </p>
-    <ul>
+    <ol>
       <li>is advertised as a "cheat", "hack", or "hacked client"</li>
       <li>
         gives an unfair advantage in a multiplayer setting over other players that do not have a
@@ -85,52 +115,48 @@
       </li>
       <li>
         contains any of the following functions without requiring a server-side opt-in:
-        <ul>
+        <ol type="a">
           <li>X-ray or the ability to see through opaque blocks</li>
           <li>aim bot or aim assist</li>
           <li>flight, speed, or other movement modifications</li>
-          <li>automatic PvP</li>
+          <li>automatic or assisted PvP combat</li>
           <li>
             active client-side hiding of third party modifications that have server-side opt-outs
           </li>
           <li>item duplication</li>
-        </ul>
+        </ol>
       </li>
-    </ul>
+    </ol>
 
-    <h2 id="copyright-and-legality-of-content">4. Copyright and legality of Content</h2>
+    <h2 id="copyright-and-legality-of-content">4. Copyright and Reuploads</h2>
 
     <p>
       You must own or have the necessary licenses, rights, consents, and permissions to store,
-      share, or distribute the Content that is uploaded under your Modrinth account.
+      share, and distribute the User Contributions that are uploaded under your Modrinth account.
     </p>
 
     <p>
-      Content may not be directly "reuploaded" from another platform without the permission of the
-      author or copyright holder, even with the appropriate licensing or other rights. This
-      restriction does not apply to content within modpacks or to so called "forks" - that is,
-      modified copies of a project which have diverged substantially enough from the original
-      project, at the discretion of Modrinth's moderators.
+      Content may not be directly reuploaded from another source without explicit permission from
+      the original author. If explicit permission has been granted, or it is a license-abiding
+      "fork", this restriction does not apply. We define "forks" as modified copies of a project
+      which have diverged substantially enough from the original project at the discretion of
+      Modrinth's moderators.
     </p>
 
-    <p>Content must not infringe upon anyone's rights or intellectual property.</p>
+    <h2 id="miscellaneous">5. Miscellaneous</h2>
 
     <p>
-      Content must abide by the laws which govern Rinth, Inc., i.e. those of the United States and
-      of the State of Delaware.
+      There are certain other small aspects to creating User Contributions that all authors should
+      attempt to abide by.
     </p>
-
-    <h2 id="prohibited-content">5. Prohibited Content</h2>
-
-    <p>Content on Modrinth is meant to be appropriate for audiences 13 years of age and above.</p>
-
-    <p>This means that the following Content is not allowed:</p>
-    <ul>
-      <li>Content containing sexual or explicit material</li>
-      <li>Content promoting or sharing harmful or hateful behavior</li>
-      <li>Content themed around or containing real-life drugs or illicit substances</li>
-      <li>Content with an excessive amount of profane language</li>
-    </ul>
+    <ol>
+      <li>All dependencies must be specified in the Dependencies section of each version.</li>
+      <li>All external links lead to public resources that are relevant.</li>
+      <li>
+        All metadata, including license, client/server-side information, etc. are filled out
+        correctly and are consistent with information found elsewhere.
+      </li>
+    </ol>
   </div>
 </template>
 
