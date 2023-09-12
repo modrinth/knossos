@@ -9,13 +9,13 @@
     "message": "Spara"
   },
   "frog": {
-    "message": "Du har blivit frogged! 🐸"
+    "message": "Du har blivit froggad! 🐸"
   },
   "frog.altText": {
     "message": "En fotorealistisk målning av en grodlabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit frogged!"
+    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit froggad!"
   },
   "frog.sinceOpened": {
     "message": "Denna sida öppnades {ago}"
@@ -120,7 +120,7 @@
     "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatiskt"
+    "message": "Automatisk"
   },
   "settings.language.categories.default": {
     "message": "Standardspråk"
