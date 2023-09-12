@@ -93,19 +93,19 @@
     "message": "Mods"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Augments"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Augment Bundles"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Augment Bundle"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Adjuncts"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Adjunct"
   },
   "project-type.resourcepack.plural": {
     "message": "Picture packs"
