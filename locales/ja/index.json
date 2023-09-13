@@ -51,7 +51,7 @@
     "message": "{ago} に参加"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "プロフィール"
@@ -75,7 +75,7 @@
     "message": "{count, plural, other {<stat>{count}</stat> ダウンロード}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, other {<stat>{count}</stat> 累計フォロワー}}"
   },
   "profile.user-id": {
     "message": "ユーザーID: {id}"
