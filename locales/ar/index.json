@@ -24,144 +24,144 @@
     "message": "ضفدع"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "عرض بنمط العارضة"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "عرض بنمط الشبكة"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "عرض بنمط القائمة"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "حصل خطأ ما"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "إدارة المشاريع"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "رفع تقرير"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "لا يوجد مستخدم"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "تحميل الصورة الحاسوبية"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "لقد انضممت {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "بتاريخ {date, date, long} على الساعة {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "لمحة تعريفية"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "اسم المستخدم"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "ليس لدى هذا المستخدم أيّة أعمال!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "تنزيل المشاريع الخاصة بـ{username} على Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio}-تنزيل المشروع الخاص بـ{username} على Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural,one {<stat>{count}</stat> تنزيل} other {<stat>{count}</stat>تنزيلات}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> متابع} other {<stat>{count}</stat> متابعًا}} للمشاريع"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "معرّف المستخدم: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "الكل"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "حزَم البيانات"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "حزمة البيانات"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "تعديلات"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "تعديل"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "حزم التعديلات"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "حزمة التعديلات"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "الملحقات"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "الملحق"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "حزم الموارد"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "حزمة الموارد"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "المظلّلات"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "المظلل"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "آلي"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "اللغات المعيارية"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "اللغات التجريبية"
   },
   "settings.language.categories.fun": {
     "message": "Fun languages"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "نتائج البحث"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "اختر اللغة التي تفضلها على الموقع. يساهم التطوعون في توفير الترجمات <crowdin-link>على منصّة Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "مطابقة لغة النظام"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. جارٍ التطبيق..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. خطأ"
   },
   "settings.language.languages.load-failed": {
     "message": "لا يمكن تحميل هذه اللغة. حاول مرة أخرى بعد قليل."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "إرسال للتركيز على أولى نتائج البحث"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "البحث عن لغة ما..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {لا تطابق في اللغات} one {# تطابق اللغات} other {# تطابق اللغاتh}} في بحثك."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "ما من لغات تتطابق مع بحثك."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "اللغة"
   }
 }
