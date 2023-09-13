@@ -1,8 +1,8 @@
 {
-  "ar": "Arabic",
-  "be": "Belarusian",
-  "bg": "Bulgarian",
-  "bn": "Bangla",
+  "ar": "العربيّة",
+  "be": "البيلاروسيّة",
+  "bg": "البلغاريّة",
+  "bn": "البنغاليّة",
   "ca": "Catalan",
   "cs": "Czech",
   "da": "Danish",
@@ -52,7 +52,7 @@
   "tr": "Turkish",
   "tt": "Tatar",
   "uk": "Ukrainian",
-  "vi": "Vietnamese",
-  "zh-Hans": "Chinese (Simplified)",
-  "zh-Hant": "Chinese (Traditional)"
+  "vi": "الفيتناميّة",
+  "zh-Hans": "الصينيّة (المبسّطة)",
+  "zh-Hant": "الصينيّة (القديمة)"
 }
