@@ -15,7 +15,7 @@
     "message": "Фотореалистичное изображение жаберинта"
   },
   "frog.froggedPeople": {
-    "message": "Кроме вас жабнули ещё {count, plural, one {{count} человека} other {{count} человек}}!"
+    "message": "Кроме вас квакнули ещё {count, plural, one {{count} человека} other {{count} человек}}!"
   },
   "frog.sinceOpened": {
     "message": "Станица открылась {ago}"
@@ -60,7 +60,7 @@
     "message": "Имя пользователя"
   },
   "profile.label.no-projects": {
-    "message": "У этого пользователя нет проектов!"
+    "message": "У этого пользователя нет проектов."
   },
   "profile.label.no-projects-auth": {
     "message": "У вас ещё нет проектов.\nХотите <create-link>создать новый</create-link>?"
@@ -72,7 +72,7 @@
     "message": "{bio} - Скачивайте проекты {username} на Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> загрузка} few {<stat>{count}</stat> загрузки} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
+    "message": "{count, plural, one {<stat>{count}</stat> загрузка} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> подписчик} few {<stat>{count}</stat> подписчика} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} у проектов"
@@ -81,7 +81,7 @@
     "message": "ID: {id}"
   },
   "project-type.all": {
-    "message": "Всё"
+    "message": "Все"
   },
   "project-type.datapack.plural": {
     "message": "Наборы данных"
