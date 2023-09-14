@@ -150,7 +150,7 @@
     "message": "Не вдається завантажити цю мову. Спробуйте пізніше."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Завершіть для фокусування на першому результаті пошуку"
+    "message": "Підтвердити для фокусування на першому результаті пошуку"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Пошук мови..."
