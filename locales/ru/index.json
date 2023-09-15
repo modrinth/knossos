@@ -15,7 +15,7 @@
     "message": "Фотореалистичное изображение жаберинта"
   },
   "frog.froggedPeople": {
-    "message": "Кроме вас квакнули ещё {count, plural, one {{count} человека} other {{count} человек}}!"
+    "message": "Кроме вас жабнули ещё {count, plural, one {{count} человека} other {{count} человек}}!"
   },
   "frog.sinceOpened": {
     "message": "Станица открылась {ago}"
