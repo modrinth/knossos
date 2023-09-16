@@ -1,93 +1,93 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Cancel·la"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Edita"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Desa"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Has estat granotat! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Una pintura fotorealista d'un laberint granota"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural,one {{count} persona mès també ha estat granotada} other {{count} persones mès també han estat granotades}}!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Aquesta pàgina s'ha obert fa {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Granota"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Vista en galeria"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Vista en quadrícula"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Vista en llista"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "S'ha produït un error"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Gestionar projectes"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Informa"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "No s'ha trobat l'usuari"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Pujar avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Es va unir fa {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} a les {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Descripció"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nom d'usuari"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Aquest usuari no té projectes!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "No tens cap projecte. T'agradaria <create-link>crear-ne un</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Descarrega els projectes de {username} a Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Descarrega els projectes de {username} a Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> descàrrega} other {<stat>{count}</stat> descàrregues}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> seguidor} other {<stat>{count}</stat> seguidors}} de projectes"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID d'usuari: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Tot"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Paquets de dades"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Paquet de dades"
   },
   "project-type.mod.plural": {
     "message": "Mods"
@@ -96,10 +96,10 @@
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Paquets de mods"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Paquet de mods"
   },
   "project-type.plugin.plural": {
     "message": "Plugins"
@@ -108,10 +108,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Paquets de recursos"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Paquet de recurursos"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
@@ -120,48 +120,48 @@
     "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automàtic"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Idiomes per defecte"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Idiomes experimentals"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Idiomes divertits"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Resultats de la cerca"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Tria l'idioma per la pàgina. Les traduccions són contribuïdes per voluntaris <crowdin-link>a Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Sincronitza amb l'idioma del sistema"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Aplicant..."
   },
   "settings.language.languages.language-label-error": {
     "message": "{label}. Error"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "No es pot carregar aquest idioma. Torna-ho a provar en una estona."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Envia per centrar el primer resultat de la cerca"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Busca un idioma..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Cap idioma coincideix} one {# idioma coincideix} other {# idiomes coincideixen}} amb la teva cerca."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Cap idioma coincideix amb la teva cerca."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Idioma"
   }
 }
