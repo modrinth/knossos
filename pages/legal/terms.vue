@@ -585,12 +585,12 @@
 
 <script setup>
 const description =
-  'The Terms and Conditions of Modrinth, an open source modding platform focused on Minecraft.'
+  'The Terms of Use of Modrinth, an open source modding platform focused on Minecraft.'
 
 useSeoMeta({
-  title: 'Terms and Conditions - Modrinth',
+  title: 'Terms of Use - Modrinth',
   description,
-  ogTitle: 'Terms and Conditions',
+  ogTitle: 'Terms of Use',
   ogDescription: description,
 })
 </script>
