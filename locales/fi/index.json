@@ -1,167 +1,167 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Peruuta"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Muokkaa"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Tallenna"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Sinut on sammakotettu! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Fotorealistinen maalaus sammakko labyrintistä"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} lisää henkilöä} other {{count} lisää ihmisiä}} sammakoitettiin!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Tämä sivu avattiin {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Sammakko"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Gallerianäkymä"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Ruudukkonäkymä"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Luettelonäkymä"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Tapahtui virhe"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Hallinnoi projekteja"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Ilmoita"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Käyttäjää ei löydetty"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Lataa profiilikuva"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Liittyi {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} klo {time, time, short}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Kuvaus"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Käyttäjänimi"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Käyttäjällä ei ole projekteja!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Sinulla ei ole projekteja.\nHaluaisitko <create-link>tehdä yhden</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Lataa {username} n projektit Modrinthissa"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Lataa {username} n projektit Modrinthissa"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> lataa} other {<stat>{count}</stat> latausta}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> seuraaja} other {<stat>{count}</stat> seuraa}} projektia"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Käyttäjätunnus: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Kaikki"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Data Packit"
   },
   "project-type.datapack.singular": {
     "message": "Data Pack"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Modit"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modipackit"
   },
   "project-type.modpack.singular": {
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pluginit"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resurssi Packit"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resurssi Packi"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shaderit"
   },
   "project-type.shader.singular": {
     "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Automaattinen"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Tavalliset kielet"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Kokeelliset kielet"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Hauskoja kieliä"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Hakutulokset"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Valitse haluamasi kieli sivustolle. Käännökset ovat tehneet vapaaehtoiset <crowdin-link>Crowdinissa</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Synkronoi järjestelmän kielen kanssa"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Asetetaan..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label} Virhe"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Tätä kieltä ei voi ladata. Yritä uudelleen hetken päästä."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Lähetä tarkentaaksesi ensimmäisen hakutuloksen"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Etsi kieltä..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Kieltä ei ole} one {# kieli on} other {# kieltä on}} olemassa."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Yksikään kieli ei vastaa hakuasi."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Kieli"
   }
 }
