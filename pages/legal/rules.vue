@@ -22,14 +22,15 @@
       and international laws and regulations. Without limiting the foregoing, User Contributions
       must not:
     </p>
-    <ol type="a">
+    <ol>
       <li>
         Contain any material which is defamatory, obscene, indecent, abusive, offensive, harassing,
-        violent, hateful, inflammatory, harmful, damaging, disruptive, or otherwise objectionable.
+        violent, hateful, inflammatory, harmful, damaging, disruptive, contradictory, or otherwise
+        objectionable.
       </li>
       <li>
         Promote sexually explicit or pornographic material, violence, or discrimination based on
-        race, sex, religion, nationality, disability, sexual orientation or age.
+        race, sex, gender, religion, nationality, disability, sexual orientation, or age.
       </li>
       <li>
         Infringe any patent, trademark, trade secret, copyright, or other intellectual property or
@@ -38,8 +39,9 @@
       <li>
         Violate the legal rights (including the rights of publicity and privacy) of others or
         contain any material that could give rise to any civil or criminal liability under
-        applicable laws or regulations or that otherwise may be in conflict with our Terms of Use or
-        Privacy Policy.
+        applicable laws or regulations or that otherwise may be in conflict with our
+        <nuxt-link to="/legal/terms">Terms of Use</nuxt-link> or
+        <nuxt-link to="/legal/privacy">Privacy Policy</nuxt-link>.
       </li>
       <li>
         Promote any illegal activity, or advocate, promote or assist any unlawful act, including
@@ -92,7 +94,7 @@
     <p>
       Project descriptions must be accessible so that they can be read through a variety of mediums.
       All descriptions must have a plain-text version, though images, videos, and other content can
-      take priority if desired.
+      take priority if desired. Headers must not be used for body text.
     </p>
 
     <p>
@@ -139,22 +141,35 @@
       Content may not be directly reuploaded from another source without explicit permission from
       the original author. If explicit permission has been granted, or it is a license-abiding
       "fork", this restriction does not apply. We define "forks" as modified copies of a project
-      which have diverged substantially enough from the original project at the discretion of
-      Modrinth's moderators.
+      which have diverged substantially from the original project.
     </p>
 
     <h2 id="miscellaneous">5. Miscellaneous</h2>
 
     <p>
       There are certain other small aspects to creating User Contributions that all authors should
-      attempt to abide by.
+      attempt to abide by. These will not necessarily always be enforced, but abiding by all will
+      result in a faster review with fewer potential issues.
     </p>
     <ol>
-      <li>All dependencies must be specified in the Dependencies section of each version.</li>
-      <li>All external links lead to public resources that are relevant.</li>
       <li>
-        All metadata, including license, client/server-side information, etc. are filled out
+        All metadata, including license, client/server-side information, tags, etc. are filled out
         correctly and are consistent with information found elsewhere.
+      </li>
+      <li>
+        Project titles are only the name of the project, without any other unnecessary filler data.
+      </li>
+      <li>
+        Project summaries contain a small summary of the project without any formatting and without
+        repeating the project title.
+      </li>
+      <li>All external links lead to public resources that are relevant.</li>
+      <li>Gallery images are relevant to the project and each contain a title.</li>
+      <li>All dependencies must be specified in the Dependencies section of each version.</li>
+      <li>
+        "Additional files" are only used for special designated purposes, such as source JAR files.
+        In other words, separate versions and/or projects are used where appropriate instead of
+        additional files.
       </li>
     </ol>
   </div>

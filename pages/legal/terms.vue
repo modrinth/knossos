@@ -1,7 +1,7 @@
 <template>
   <div class="markdown-body">
-    <h1>Terms and Conditions</h1>
-    <p><em>Last Modified: September 9, 2023</em></p>
+    <h1>Terms of Use</h1>
+    <p><em>Last modified: September 16, 2023</em></p>
     <h2>Acceptance of the Terms of Use</h2>
     <p>
       These terms of use are entered into by and between You and Rinth, Inc.
@@ -9,7 +9,7 @@
       terms and conditions, together with any documents they expressly incorporate by reference
       (collectively, these "Terms of Use"), govern your access to and use of www.modrinth.com,
       api.modrinth.com, or the Modrinth App, including any content, functionality and services
-      offered on or through www.modrinth.com, api.modrinth.com, or the Modrinth App (the “Service”),
+      offered on or through www.modrinth.com, api.modrinth.com, or the Modrinth App (the "Service"),
       whether as a guest or a registered user.
     </p>
     <p>
@@ -77,7 +77,7 @@
     </p>
     <h2>About the Service</h2>
     <p>
-      The Service allows you to upload and share your gaming content (the “Gaming Content”, to be
+      The Service allows you to upload and share your gaming content (the "Gaming Content", to be
       distinguished from User Contributions, defined below) with other users of our Service. Unlike
       User Contributions, which are owned by the Company, when you use the Service and upload and
       share your Gaming Content, the Company does not claim any right, title or interest in or to
@@ -94,8 +94,8 @@
       When you delete your Gaming Content, you agree that your Gaming Content may continue to be
       used by any users who have previously downloaded your Gaming Content pursuant to the preceding
       license, and you also agree that your Gaming Content may continue to be part of any
-      already-existing Gaming Content “packs” created by other users as part of our Service until
-      such time as such Gaming Content has been deleted by such user(s) as part of such “pack(s)”.
+      already-existing Gaming Content "packs" created by other users as part of our Service until
+      such time as such Gaming Content has been deleted by such user(s) as part of such "pack(s)".
       Otherwise, for the avoidance of doubt, as between the Company and you, you own and will
       continue to own all right, title and interest in and to your Gaming Content.
     </p>
@@ -132,7 +132,7 @@
     </p>
     <h2>Our Rewards Program</h2>
     <p>
-      Our rewards program (<strong>“Rewards Program”</strong>) provides developers and content
+      Our rewards program (<strong>"Rewards Program"</strong>) provides developers and content
       creators with an opportunity to monetize the projects that they upload to the Service.
     </p>
     <p>
@@ -140,10 +140,10 @@
       impressions displayed solely on your project pages. The funds are directly deposited into your
       account, which you can monitor and access via your creator dashboard. Simply enroll in the
       Rewards Program on your dashboard in order to be able to take advantage of this program.
-      Please review the Rewards Program terms and conditions, as it contains very important language
-      regarding, among other things, your status as an independent contractor, your responsibility
-      to pay taxes, our disclaimers and limitations of liability (in addition to our disclaimers and
-      limitations of liability in these Terms of Use).
+      Please review the <nuxt-link to="/legal/cmp">Rewards Program Terms</nuxt-link>, as it contains
+      very important language regarding, among other things, your status as an independent
+      contractor, your responsibility to pay taxes, our disclaimers and limitations of liability (in
+      addition to our disclaimers and limitations of liability in these Terms of Use).
     </p>
     <h2>Intellectual Property Rights</h2>
     <p>
@@ -540,7 +540,8 @@
     </p>
     <p>
       All other feedback, comments, requests for technical support and other communications relating
-      to the Service should be directed to: support@modrinth.com.
+      to the Service should be directed to:
+      <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
     </p>
   </div>
 </template>
