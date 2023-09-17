@@ -249,8 +249,7 @@
     </p>
     <p>
       All User Contributions must comply with the
-      <strong><nuxt-link to="/legal/rules">Content Rules</nuxt-link></strong
-      >.
+      <nuxt-link to="/legal/rules">Content Rules</nuxt-link>.
     </p>
     <p>
       Any User Contribution you post to the site will be considered non-confidential and
