@@ -24,7 +24,7 @@
     "message": "Żaba"
   },
   "input.view.gallery": {
-    "message": "Galeria"
+    "message": "Widok galerii"
   },
   "input.view.grid": {
     "message": "Widok siatki"
@@ -66,7 +66,7 @@
     "message": "Nie masz żadnych projektów.\nCzy chcesz <create-link>utworzyć jeden</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Pobieraj projekty {username} na Modrinth"
+    "message": "Pobierz projekty {username} na Modrinth"
   },
   "profile.meta.description-with-bio": {
     "message": "{bio} - Pobieraj projekty {username} na Modrinth"
@@ -90,10 +90,10 @@
     "message": "Paczka danych"
   },
   "project-type.mod.plural": {
-    "message": "Mody"
+    "message": "Modyfikacje"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Modyfikacja"
   },
   "project-type.modpack.plural": {
     "message": "Paczki modów"
@@ -138,7 +138,7 @@
     "message": "Wybierz preferowany język tej witryny. Tłumaczenia są tworzone przez wolontariuszy <crowdin-link>na Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Synchronizuj z językiem systemu"
+    "message": "Synchronizuj z językiem systemowym"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Zastosowanie..."
