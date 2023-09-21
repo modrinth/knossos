@@ -51,7 +51,7 @@
     "message": "{ago} geleden lid geworden"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} om {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
@@ -63,19 +63,19 @@
     "message": "Deze gebruiker heeft geen projecten!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "U heeft geen projecten.\nWilt u er <create-link>een maken</create-link>?"
   },
   "profile.meta.description": {
     "message": "Download projecten van {username} op Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Download {username}'s projecten op Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> volger} other {<stat>{count}</stat> volgers}} van projecten"
   },
   "profile.user-id": {
     "message": "Gebruiker ID: {id}"
