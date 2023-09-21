@@ -69,7 +69,7 @@
     "message": "在 Modrinth 下載 {username} 的專案"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} ── 在 Modrinth 上下載 {username} 的專案"
+    "message": "{bio} ── 在 Modrinth 下載 {username} 的專案"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
@@ -150,7 +150,7 @@
     "message": "無法載入此語言。請稍後再試。"
   },
   "settings.language.languages.search-field.description": {
-    "message": "送出以返回第一個搜尋結果"
+    "message": "提交以聚焦第一個搜尋結果"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "搜尋語言..."
