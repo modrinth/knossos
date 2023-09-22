@@ -1,5 +1,14 @@
 <template>
   <div class="universal-card">
+    <ModalConfirm
+      ref="pat_delete_confirm"
+      title="Are you sure you want to delete your Personal Access Tokens?"
+      description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.modrinth.com)."
+      proceed-label="Delete this pat"
+      :confirmation-text="deletedPatName"
+      :has-to-type="true"
+      @proceed="removePat(deletedPatId)"
+    />
     <Modal
       ref="patModal"
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
@@ -129,7 +138,16 @@
         >
           <EditIcon /> Edit token
         </button>
-        <button class="iconified-button raised-button" @click="removePat(pat.id)">
+        <button
+          class="iconified-button raised-button"
+          @click="
+            () => {
+              deletedPatName = pat.name
+              deletedPatId = pat.id
+              $refs.pat_delete_confirm.show()
+            }
+          "
+        >
           <TrashIcon /> Revoke token
         </button>
       </div>
@@ -137,7 +155,7 @@
   </div>
 </template>
 <script setup>
-import { PlusIcon, Modal, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon } from 'omorphia'
+import { PlusIcon, Modal, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon, ModalConfirm } from 'omorphia'
 import CopyCode from '~/components/ui/CopyCode.vue'
 
 definePageMeta({
@@ -189,6 +207,9 @@ const editPatIndex = ref(null)
 const name = ref(null)
 const scopesVal = ref(0)
 const expires = ref(null)
+
+const deletedPatName = ref(null)
+const deletedPatId = ref(null)
 
 const loading = ref(false)
 
