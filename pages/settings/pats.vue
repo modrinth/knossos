@@ -1,13 +1,11 @@
 <template>
   <div class="universal-card">
     <ModalConfirm
-      ref="patModalConfirm"
-      title="Are you sure you want to delete your Personal Access Tokens?"
-      description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.modrinth.com)."
-      proceed-label="Delete this pat"
-      :confirmation-text="deletedPatName"
-      :has-to-type="true"
-      @proceed="removePat(deletedPatId)"
+      ref="modal_confirm"
+      title="Are you sure you want to delete this token?"
+      description="This will remove this token forever (like really forever)."
+      proceed-label="Delete this token"
+      @proceed="removePat(deletPatIndex)"
     />
     <Modal
       ref="patModal"
@@ -142,9 +140,8 @@
           class="iconified-button raised-button"
           @click="
             () => {
-              deletedPatName = pat.name
-              deletedPatId = pat.id
-              $refs.patModalConfirm.show()
+              deletPatIndex = pat.id
+              $refs.modal_confirm.show()
             }
           "
         >
@@ -217,8 +214,7 @@ const name = ref(null)
 const scopesVal = ref(0)
 const expires = ref(null)
 
-const deletedPatName = ref(null)
-const deletedPatId = ref(null)
+const deletPatIndex = ref(null)
 
 const loading = ref(false)
 
