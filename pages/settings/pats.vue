@@ -1,7 +1,7 @@
 <template>
   <div class="universal-card">
     <ModalConfirm
-      ref="pat_delete_confirm"
+      ref="patModalConfirm"
       title="Are you sure you want to delete your Personal Access Tokens?"
       description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.modrinth.com)."
       proceed-label="Delete this pat"
@@ -144,7 +144,7 @@
             () => {
               deletedPatName = pat.name
               deletedPatId = pat.id
-              $refs.pat_delete_confirm.show()
+              $refs.patModalConfirm.show()
             }
           "
         >
