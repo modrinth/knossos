@@ -155,7 +155,16 @@
   </div>
 </template>
 <script setup>
-import { PlusIcon, Modal, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon, ModalConfirm } from 'omorphia'
+import {
+  PlusIcon,
+  Modal,
+  XIcon,
+  Checkbox,
+  TrashIcon,
+  EditIcon,
+  SaveIcon,
+  ModalConfirm,
+} from 'omorphia'
 import CopyCode from '~/components/ui/CopyCode.vue'
 
 definePageMeta({
