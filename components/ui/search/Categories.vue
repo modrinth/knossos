@@ -1,9 +1,10 @@
 <template>
-  <div class="categories">
+  <div class="categories" :class="{ badges: badge }">
     <slot />
     <span
       v-for="category in categoriesFiltered"
       :key="category.name"
+      class="category"
       v-html="category.icon + $formatCategory(category.name)"
     />
   </div>
@@ -21,6 +22,10 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    badge: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {

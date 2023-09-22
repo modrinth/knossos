@@ -20,6 +20,7 @@
 }
 
 .normal-page {
+  position: relative;
   display: grid;
 
   grid-template:
@@ -88,12 +89,42 @@
   .normal-page {
     column-gap: var(--gap-lg);
 
+    --color-ad: rgb(53, 31, 74);
+    --color-ad-raised: rgb(89, 56, 117);
+
+    span {
+      strong {
+        color: #bd80ee !important;
+      }
+    }
+
     grid-template:
       'header header' auto
       'content sidebar' auto
       'content info' auto
       'content dummy' 1fr
       / 1fr 20rem;
+
+    &.left-sidebar {
+      grid-template:
+      'header header' auto
+      'sidebar content' auto
+      'info content' auto
+      'dummy content' 1fr
+      / 20rem 1fr;
+    }
+
+    &.no-sidebar {
+      grid-template:
+      'header header' auto
+      'content content' auto
+      / 1fr 20rem;
+
+      .normal-page__content {
+        max-width: calc(70rem - 0.75rem);
+        width: min(70rem, 100%);
+      }
+    }
   }
 
   .normal-page__sidebar {

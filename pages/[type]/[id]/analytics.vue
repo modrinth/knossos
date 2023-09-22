@@ -1,15 +1,134 @@
 <script setup>
 import { Card, LineChart, PieChart, BarChart, formatMoney, formatNumber } from 'omorphia'
 
-const project = ref({
-  downloads: formatNumber(1000),
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+})
+
+const totalData = ref({
+  downloads: formatNumber(props.project.downloads),
   pageViews: formatNumber(1000),
   revenue: formatMoney(100),
   followers: formatNumber(1000),
 })
-
 const selectedDataType = ref('downloads')
+const finishedLoading = ref(false)
+let downloadData, viewData, viewDownloadRatio, countryData
+const body = {
+  project_ids: [ props.project.id ]
+}
+try {
+  ;[
+    { data: downloadData },
+    { data: viewData },
+    { data: viewDownloadRatio },
+    { data: countryData },
+  ] = await Promise.all([
+    useAsyncData('analytics/views', () => useBaseFetch('analytics/views', { body }), {
+      transform: (analytics) => {
+        const labels = []
+        const data = []
+        for (const trueData of Object.values(analytics)) {
+          for (const [key, value] of Object.entries(trueData)) {
+            labels.push(key)
+            data.push(value)
+          }
+        }
+        return {
+          labels,
+          data: [
+            {
+              title: 'Downloads',
+              color: 0x00af5c,
+              data,
+            },
+          ],
+        }
+      }
+    }),
+    useAsyncData('analytics/views', () => useBaseFetch('analytics/views', { body }), {
+      transform: (analytics) => {
+        const labels = []
+        const data = []
+        for (const trueData of Object.values(analytics)) {
+          for (const [key, value] of Object.entries(trueData)) {
+            labels.push(key)
+            data.push(value)
+          }
+        }
+        return {
+          labels,
+          data: [
+            {
+              title: 'Downloads',
+              color: 0x00af5c,
+              data,
+            },
+          ],
+        }
+      }
+    }),
+    useAsyncData('analytics/countries/views', () => useBaseFetch('analytics/countries/views', { body }), {
+      transform: (analytics) => {
+        const finalData = {
+          title: 'Views',
+          data: []
+        }
+        for (const rawData of Object.values(analytics)) {
+          for (const [key, data] of Object.entries(rawData)) {
+            finalData.data.push({
+              title: key,
+              color: 0x00af5c,
+              data
+            })
+          }
+        }
 
+        return finalData
+      }
+    }),
+    useAsyncData('analytics/countries/downloads', () => useBaseFetch('analytics/countries/downloads', { body }), {
+      transform: (analytics) => {
+        const finalData = {
+          title: 'Views',
+          data: []
+        }
+
+        for (const rawData of Object.values(analytics)) {
+          for (const [key, data] of Object.entries(rawData)) {
+            finalData.data.push({
+              title: key,
+              color: 0x00af5c,
+              data
+            })
+          }
+        }
+
+        return finalData
+      }
+    }),
+  ])
+} catch (err) {
+  data.$notify({
+    group: 'main',
+    title: 'An error occurred',
+    text: err,
+    type: 'error',
+  })
+} finally {
+  console.log(downloadData.value)
+  console.log(viewData)
+  console.log(viewDownloadRatio)
+  console.log(countryData)
+  finishedLoading.value = true
+}
+
+/*
 const downloadData = ref({
   labels: [
     '2022-01-10',
@@ -37,6 +156,7 @@ const downloadData = ref({
     },
   ],
 })
+/*
 
 const viewData = ref({
   labels: [
@@ -65,7 +185,7 @@ const viewData = ref({
     },
   ],
 })
-
+*/
 const revenueData = ref({
   labels: [
     '2022-01-10',
@@ -93,7 +213,6 @@ const revenueData = ref({
     },
   ],
 })
-
 const followersData = ref({
   labels: [
     '2022-01-10',
@@ -125,7 +244,7 @@ const followersData = ref({
 const select = (type) => {
   selectedDataType.value = type
 }
-
+/*
 const viewDownloadRatio = ref({
   title: 'View to download ratio',
   data: [
@@ -177,6 +296,7 @@ const countryData = ref({
     },
   ],
 })
+ */
 </script>
 
 <template>
@@ -189,7 +309,7 @@ const countryData = ref({
       >
         <div class="data-point__title">Total downloads</div>
         <div class="data-point__value">
-          {{ project.downloads }}
+          {{ totalData.downloads }}
         </div>
       </div>
       <div
@@ -199,7 +319,7 @@ const countryData = ref({
       >
         <div class="data-point__title">Total page views</div>
         <div class="data-point__value">
-          {{ project.pageViews }}
+          {{ totalData.pageViews }}
         </div>
       </div>
       <div
@@ -209,7 +329,7 @@ const countryData = ref({
       >
         <div class="data-point__title">Total revenue</div>
         <div class="data-point__value">
-          {{ project.revenue }}
+          {{ totalData.revenue }}
         </div>
       </div>
       <div
@@ -219,11 +339,11 @@ const countryData = ref({
       >
         <div class="data-point__title">Total followers</div>
         <div class="data-point__value">
-          {{ project.followers }}
+          {{ totalData.followers }}
         </div>
       </div>
     </div>
-    <div class="line-chart">
+    <div v-if="finishedLoading" class="line-chart">
       <client-only>
         <LineChart v-if="selectedDataType === 'downloads'" :data="downloadData" />
       </client-only>
@@ -238,7 +358,7 @@ const countryData = ref({
       </client-only>
     </div>
   </Card>
-  <Card class="pie-charts">
+  <Card v-if="finishedLoading" class="pie-charts">
     <div class="relative-chart">
       <div class="title">View to download ratio</div>
       <client-only>
@@ -252,12 +372,6 @@ const countryData = ref({
       </client-only>
     </div>
   </Card>
-  <Card class="download-data">
-    <div class="title">Monthly downloads</div>
-    <client-only>
-      <BarChart class="bar-graph" :data="downloadData" />
-    </client-only>
-  </Card>
 </template>
 
 <style scoped lang="scss">
@@ -270,14 +384,12 @@ const countryData = ref({
   width: 100%;
   padding: var(--gap-lg);
 }
-
 .tabs {
   display: flex;
   flex-direction: row;
   width: 100%;
   overflow: hidden;
 }
-
 .data-point {
   display: flex;
   flex-direction: column;
@@ -287,47 +399,39 @@ const countryData = ref({
   background-color: var(--color-raised-bg);
   gap: var(--gap-sm);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-
   &__title {
     color: var(--color-heading);
     font-weight: bold;
     font-size: 1rem;
   }
-
   &__value {
     color: var(--color-text-dark);
     font-weight: bold;
     font-size: 2rem;
   }
-
   &:first-child {
     border-top-left-radius: var(--radius-lg);
   }
-
   &:last-child {
     border-top-right-radius: var(--radius-lg);
   }
-
   &.selected {
     box-shadow: inset 0 -3px 0 0 var(--color-brand);
     background-color: var(--color-bg);
   }
 }
-
 .line-chart {
   width: 100%;
   background-color: var(--color-bg);
   padding: var(--gap-xl);
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
-
 .pie-charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap-lg);
   width: 100%;
   padding: var(--gap-xl);
-
   .chart {
     width: 100% !important;
     height: calc(100% - 8rem) !important;
@@ -336,7 +440,6 @@ const countryData = ref({
     padding: var(--gap-xl);
     object-fit: cover;
   }
-
   .relative-chart {
     display: flex;
     flex-direction: column;
@@ -344,32 +447,16 @@ const countryData = ref({
     gap: var(--gap-md);
     margin: -3rem 0;
   }
-
   .title {
     color: var(--color-heading);
     font-weight: bold;
     font-size: var(--font-size-lg);
   }
 }
-
 .bar-graph {
   width: 100%;
-  padding: var(--gap-xl);
   background-color: var(--color-bg);
-  border-radius: var(--radius-lg);
-}
-
-.download-data {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
   padding: var(--gap-xl);
-  gap: var(--gap-lg);
-
-  .title {
-    color: var(--color-heading);
-    font-weight: bold;
-    font-size: var(--font-size-lg);
-  }
+  border-radius: var(--radius-lg);
 }
 </style>
