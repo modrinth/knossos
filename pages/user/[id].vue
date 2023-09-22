@@ -14,47 +14,155 @@
     </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
-    <div class="normal-page">
-      <div class="normal-page__content">
-        <div class="user-header-wrapper">
-          <div class="user-header">
-            <Avatar
-                :src="previewImage ? previewImage : user.avatar_url"
-                size="md"
-                circle
-                :alt="user.username"
-            />
-            <div class="user-header__text">
-              <div class="user-header__title">
-                <h1  class="username">
-                  {{ user.username }}
-                </h1>
-                <ModrinthIcon v-if="user.role === 'admin'" class="badge-icon" v-tooltip="'Modrinth team'"/>
-                <ScaleIcon v-else-if="user.role === 'moderator'" class="badge-icon moderator" v-tooltip="'Moderator'" />
-                <BoxIcon v-else-if="user.role === 'developer'" class="badge-icon creator" v-tooltip="'Creator'"/>
-              </div>
-              <div class="markdown-body">
-                <p>
-                  {{ user.bio }}
-                </p>
-              </div>
-              <div class="stats">
-                <div class="stat">
-                  <HeartIcon aria-hidden="true"/>
-                  {{ sumFollows }} followers
-                </div>
-                <div class="stat">
-                  <DownloadIcon aria-hidden="true"/>
-                  {{ sumDownloads }} downloads
-                </div>
-                <div class="stat">
-                  <SunriseIcon aria-hidden="true" />
-                  Joined {{ fromNow(user.created) }}
-                </div>
+    <div class="user-header-wrapper">
+      <div class="user-header">
+        <Avatar
+          :src="previewImage ? previewImage : user.avatar_url"
+          size="md"
+          circle
+          :alt="user.username"
+        />
+        <h1 class="username">
+          {{ user.username }}
+        </h1>
+      </div>
+    </div>
+    <div class="normal-page left-sidebar">
+      <div class="normal-page__sidebar">
+        <div class="card sidebar">
+          <h1 class="mobile-username">
+            {{ user.username }}
+          </h1>
+          <div class="card__overlay">
+            <FileInput
+              v-if="isEditing"
+              :max-size="262144"
+              :show-icon="true"
+              accept="image/png,image/jpeg,image/gif,image/webp"
+              class="choose-image iconified-button"
+              prompt="Upload avatar"
+              @change="showPreviewImage"
+            >
+              <UploadIcon />
+            </FileInput>
+            <button
+              v-else-if="auth.user && auth.user.id === user.id"
+              class="iconified-button"
+              @click="isEditing = true"
+            >
+              <EditIcon />
+              Edit
+            </button>
+            <button
+              v-else-if="auth.user"
+              class="iconified-button"
+              @click="$refs.modal_report.show()"
+            >
+              <ReportIcon aria-hidden="true" />
+              Report
+            </button>
+            <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
+              <ReportIcon aria-hidden="true" />
+              Report
+            </nuxt-link>
+          </div>
+          <template v-if="isEditing">
+            <div class="inputs universal-labels">
+              <label for="user-username"><span class="label__title">Username</span></label>
+              <input id="user-username" v-model="user.username" maxlength="39" type="text" />
+              <label for="user-bio"><span class="label__title">Bio</span></label>
+              <div class="textarea-wrapper">
+                <textarea id="user-bio" v-model="user.bio" maxlength="160" />
               </div>
             </div>
-          </div>
+            <div class="button-group">
+              <button
+                class="iconified-button"
+                @click="
+                  () => {
+                    isEditing = false
+                    user = JSON.parse(JSON.stringify(auth.user))
+                    previewImage = null
+                    icon = null
+                  }
+                "
+              >
+                <CrossIcon /> Cancel
+              </button>
+              <button class="iconified-button brand-button" @click="saveChanges">
+                <SaveIcon /> Save
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <div class="sidebar__item">
+              <Badge v-if="tags.staffRoles.includes(user.role)" :type="user.role" />
+              <Badge v-else-if="projects.length > 0" type="creator" />
+            </div>
+            <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
+            <hr class="card-divider" />
+            <div class="primary-stat">
+              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">{{ sumDownloads }}</span>
+                downloads
+              </div>
+            </div>
+            <div class="primary-stat">
+              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">{{ sumFollows }}</span>
+                followers of projects
+              </div>
+            </div>
+            <div class="stats-block__item secondary-stat">
+              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span
+                v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm A')"
+                class="secondary-stat__text date"
+              >
+                Joined {{ fromNow(user.created) }}
+              </span>
+            </div>
+            <hr class="card-divider" />
+            <div class="input-group">
+              <Button>
+                <HeartIcon />
+                Subscribe
+              </Button>
+              <Button>
+                <CurrencyIcon />
+                Donate
+              </Button>
+            </div>
+            <hr class="card-divider" />
+            <div class="links vertical">
+              <a href="https://docs.terrarium.earth">
+                <LinkIcon />
+                <span>docs.terrarium.earth</span>
+              </a>
+              <a href="http://youtube.com">
+                <YoutubeIcon />
+                <span>Youtube</span>
+              </a>
+              <a href="https://discord.gg">
+                <DiscordIcon />
+                <span>Discord</span>
+              </a>
+              <a href="https://github.com">
+                <GitHubIcon />
+                <span>Github</span>
+              </a>
+            </div>
+            <hr class="card-divider" />
+            <div class="stats-block__item secondary-stat">
+              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
+            </div>
+          </template>
         </div>
+      </div>
+      <div class="normal-page__content">
         <Promotion />
         <nav class="navigation-card">
           <NavRow
@@ -150,17 +258,32 @@
   </div>
 </template>
 <script setup>
-import {Promotion, ModrinthIcon, BoxIcon, ScaleIcon, HeartIcon, DownloadIcon, SunriseIcon, formatNumber} from 'omorphia'
+import { Button, CurrencyIcon, GitHubIcon, LinkIcon, Promotion } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
+import Badge from '~/components/ui/Badge.vue'
+
+import ReportIcon from '~/assets/images/utils/report.svg'
+import SunriseIcon from '~/assets/images/utils/sunrise.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
+import UserIcon from '~/assets/images/utils/user.svg'
+import EditIcon from '~/assets/images/utils/edit.svg'
+import HeartIcon from '~/assets/images/utils/heart.svg'
+import CrossIcon from '~/assets/images/utils/x.svg'
+import SaveIcon from '~/assets/images/utils/save.svg'
 import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
+import UploadIcon from '~/assets/images/utils/upload.svg'
+import FileInput from '~/components/ui/FileInput.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+import YoutubeIcon from 'assets/images/utils/youtube.svg'
+import DiscordIcon from 'assets/images/external/discord.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -317,7 +440,7 @@ export default defineNuxtComponent({
 <style lang="scss" scoped>
 .user-header-wrapper {
   display: flex;
-  margin: 0 auto;
+  margin: 0 auto -1.5rem;
   max-width: 80rem;
 
   .user-header {
@@ -325,70 +448,16 @@ export default defineNuxtComponent({
     z-index: 4;
     display: flex;
     width: 100%;
+    padding: 0 1rem;
     gap: 1rem;
     align-items: center;
-    padding: var(--gap-md) 0;
 
-    .user-header__text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: var(--gap-xs);
-    }
-
-    .user-header__title {
+    .username {
+      display: none;
       font-size: 2rem;
-      margin: 0;
-
-      .username {
-        font-size: 2rem;
-        margin: 0;
-        display: inline;
-      }
-
-      .badge-icon {
-        display: inline;
-        padding: 0;
-        background: none;
-        height: 1.5rem;
-        width: 1.5rem;
-        margin-left: 0.5rem;
-
-        &.creator {
-          color: var(--color-blue);
-        }
-
-        &.moderator {
-          color: var(--color-orange);
-        }
-      }
+      margin-bottom: 2.5rem;
     }
   }
-
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-sm);
-
-    .stat {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: var(--gap-sm);
-      padding: var(--gap-sm) var(--gap-md);
-      border-radius: var(--radius-md);
-      background: var(--color-raised-bg);
-      text-align: center;
-    }
-  }
-}
-
-.normal-page {
-  grid-template:
-    'sidebar'
-    'content'
-    'info'
-    / 100%;
 }
 
 .mobile-username {
@@ -463,10 +532,6 @@ export default defineNuxtComponent({
   }
 }
 
-.button-group:first-child {
-  margin-left: auto;
-}
-
 .textarea-wrapper {
   height: 10rem;
 }
@@ -475,5 +540,8 @@ export default defineNuxtComponent({
   .sidebar {
     padding-top: 3rem;
   }
+}
+
+.page-header {
 }
 </style>

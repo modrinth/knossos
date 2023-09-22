@@ -1,5 +1,9 @@
 <template>
-  <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+  <div
+    ref="main_page"
+    class="layout"
+    :class="{ 'expanded-mobile-nav': isBrowseMenuOpen, vertical: route.path === '/' }"
+  >
     <div
       v-if="auth.user && !auth.user.email_verified && route.path !== '/auth/verify-email'"
       class="email-nag"
@@ -16,115 +20,166 @@
         </nuxt-link>
       </template>
     </div>
-    <header class="site-header" role="presentation">
-      <section class="navbar" role="navigation">
-        <section class="logo" role="presentation">
-          <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
-            <BrandTextLogo aria-hidden="true" class="text-logo" />
-          </NuxtLink>
-        </section>
-        <section class="nav-group" role="presentation">
-          <section class="column-grow user-outer" aria-label="Account links">
-            <section class="user-controls">
-              <div class="dropdown-row">
-                <NuxtLink class="control-button btn button-transparent" :to="`/search`" value="Profile Dropdown">
-                  <SearchIcon />
-                  Browse
-                </NuxtLink>
-                <Checkbox v-model="isDropdownOpen" class="dropdown-toggle" collapsing-toggle-style/>
-              </div>
-              <div v-if="isDropdownOpen" class="dropdown-section">
-                <NuxtLink class="btn control-button button-transparent" to="/mods" @click="setProjectType('mods')">
-                  <BoxIcon/>
-                  <span class="title">Mods</span>
-                </NuxtLink>
-                <NuxtLink class="btn control-button button-transparent" to="/modpacks" @click="setProjectType('mod-packs')">
-                  <StackedBoxesIcon/>
-                  <span class="title">Modpacks</span>
-                </NuxtLink>
-                <NuxtLink class="btn control-button button-transparent" to="/plugins" @click="setProjectType('plugins')">
-                  <ServerIcon/>
-                  <span class="title">Plugins</span>
-                </NuxtLink>
-                <NuxtLink class="btn control-button button-transparent" to="/resourcepacks" @click="setProjectType('resource-packs')">
-                  <ImageIcon/>
-                  <span class="title">Resource Packs</span>
-                </NuxtLink>
-                <NuxtLink class="btn control-button button-transparent" to="/shaders" @click="setProjectType('shaders')">
-                  <GlassesIcon/>
-                  <span class="title">Shaders</span>
-                </NuxtLink>
-                <NuxtLink class="btn control-button button-transparent" to="/datapacks" @click="setProjectType('data-packs')">
-                  <CodeIcon/>
-                  <span class="title">Data Packs</span>
-                </NuxtLink>
-              </div>
-              <div class="dropdown-row">
-                <nuxt-link v-if="auth.user" class="control-button btn button-transparent profile-btn" :to="`/user/${auth.user.username}/`">
-                  <Avatar
+    <main>
+      <header class="site-header" role="presentation">
+        <section class="navbar" role="navigation">
+          <section class="logo" role="presentation">
+            <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
+              <BrandTextLogo aria-hidden="true" class="text-logo" />
+            </NuxtLink>
+            <button
+              v-if="route.path !== '/'"
+              class="btn button-transparent icon-only"
+              title="Switch theme"
+              @click="changeTheme"
+            >
+              <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+              <SunIcon v-else aria-hidden="true" />
+            </button>
+          </section>
+          <section class="nav-group" role="presentation">
+            <section class="user-controls" aria-label="Account links">
+              <div class="main-nav">
+                <div class="dropdown-row">
+                  <NuxtLink
+                    class="control-button btn button-transparent"
+                    :to="`/search`"
+                    value="Profile Dropdown"
+                  >
+                    <SearchIcon />
+                    Browse
+                  </NuxtLink>
+                  <Checkbox
+                    v-model="isDropdownOpen"
+                    class="dropdown-toggle"
+                    collapsing-toggle-style
+                  />
+                </div>
+                <div v-if="isDropdownOpen" class="dropdown-section">
+                  <NuxtLink
+                    class="btn control-button button-transparent"
+                    to="/mods"
+                    @click="setProjectType('mods')"
+                  >
+                    <BoxIcon />
+                    <span class="title">Mods</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    class="btn control-button button-transparent"
+                    to="/modpacks"
+                    @click="setProjectType('mod-packs')"
+                  >
+                    <StackedBoxesIcon />
+                    <span class="title">Modpacks</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    class="btn control-button button-transparent"
+                    to="/plugins"
+                    @click="setProjectType('plugins')"
+                  >
+                    <ServerIcon />
+                    <span class="title">Plugins</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    class="btn control-button button-transparent"
+                    to="/resourcepacks"
+                    @click="setProjectType('resource-packs')"
+                  >
+                    <ImageIcon />
+                    <span class="title">Resource Packs</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    class="btn control-button button-transparent"
+                    to="/shaders"
+                    @click="setProjectType('shaders')"
+                  >
+                    <GlassesIcon />
+                    <span class="title">Shaders</span>
+                  </NuxtLink>
+                  <NuxtLink
+                    class="btn control-button button-transparent"
+                    to="/datapacks"
+                    @click="setProjectType('data-packs')"
+                  >
+                    <CodeIcon />
+                    <span class="title">Data Packs</span>
+                  </NuxtLink>
+                </div>
+                <div v-if="route.path !== '/' && auth.user" class="dropdown-row">
+                  <nuxt-link
+                    class="control-button btn button-transparent profile-btn"
+                    :to="`/user/${auth.user.username}/`"
+                  >
+                    <Avatar
                       :src="auth.user.avatar_url"
                       class="user-icon"
                       alt="Your avatar"
                       aria-hidden="true"
                       circle
+                    />
+                    @{{ auth.user.username }}
+                  </nuxt-link>
+                  <Checkbox
+                    v-model="isUserDropdownOpen"
+                    class="dropdown-toggle"
+                    collapsing-toggle-style
                   />
-                  @{{ auth.user.username }}
-                </nuxt-link>
-                <Checkbox v-model="isUserDropdownOpen" class="dropdown-toggle" collapsing-toggle-style/>
-              </div>
-              <div v-if="isUserDropdownOpen" class="dropdown-section">
-                <nuxt-link
-                  v-if="auth.user"
-                  to="/dashboard/notifications"
-                  class="btn control-button button-transparent"
-                  :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
-                  title="Notifications"
-                >
-                  <NotificationIcon aria-hidden="true" />
-                  Notifications
-                </nuxt-link>
-                <nuxt-link
-                  v-if="auth.user"
-                  to="/dashboard"
-                  class="btn control-button button-transparent"
-                  :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
-                  title="Notifications"
-                >
-                  <ChartIcon aria-hidden="true" />
-                  Dashboard
-                </nuxt-link>
-                <nuxt-link
-                  v-if="auth.user"
-                  to="/dashboard"
-                  class="btn control-button button-transparent"
-                  :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
-                  title="Notifications"
-                >
-                  <HeartIcon aria-hidden="true" />
-                  Following
-                </nuxt-link>
-                <nuxt-link
-                  v-if="auth.user && tags.staffRoles.includes(auth.user.role)"
-                  to="/moderation"
-                  class="btn control-button button-transparent"
-                  :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
-                  title="Notifications"
-                >
-                  <ModerationIcon aria-hidden="true" />
-                  Moderation
-                </nuxt-link>
+                </div>
+                <div v-if="route.path !== '/' && isUserDropdownOpen" class="dropdown-section">
+                  <nuxt-link
+                    v-if="auth.user"
+                    to="/dashboard/notifications"
+                    class="btn control-button button-transparent"
+                    :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
+                    title="Notifications"
+                  >
+                    <NotificationIcon aria-hidden="true" />
+                    Notifications
+                  </nuxt-link>
+                  <nuxt-link
+                    v-if="auth.user"
+                    to="/dashboard"
+                    class="btn control-button button-transparent"
+                    :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
+                    title="Notifications"
+                  >
+                    <ChartIcon aria-hidden="true" />
+                    Dashboard
+                  </nuxt-link>
+                  <nuxt-link
+                    v-if="auth.user"
+                    to="/dashboard"
+                    class="btn control-button button-transparent"
+                    :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
+                    title="Notifications"
+                  >
+                    <HeartIcon aria-hidden="true" />
+                    Following
+                  </nuxt-link>
+                  <nuxt-link
+                    v-if="auth.user && tags.staffRoles.includes(auth.user.role)"
+                    to="/moderation"
+                    class="btn control-button button-transparent"
+                    :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
+                    title="Notifications"
+                  >
+                    <ModerationIcon aria-hidden="true" />
+                    Moderation
+                  </nuxt-link>
+                </div>
               </div>
               <button
-                class="control-button btn button-transparent"
+                v-if="route.path === '/'"
+                class="btn button-transparent icon-only"
                 title="Switch theme"
                 @click="changeTheme"
               >
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
                 <SunIcon v-else aria-hidden="true" />
-                {{ $colorMode.value === 'light' ? 'Dark' : 'Light' }} Mode
               </button>
               <button
-                class="control-button btn button-transparent"
+                v-if="auth.user"
+                class="btn raised-button"
                 title="Switch theme"
                 @click="$refs.modal_creation.show()"
               >
@@ -144,6 +199,7 @@
                 </nuxt-link>
               </section>
               <nuxt-link
+                v-if="route.path !== '/'"
                 to="/settings"
                 class="btn control-button button-transparent"
                 :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
@@ -155,151 +211,150 @@
             </section>
           </section>
         </section>
-      </section>
-      <section class="mobile-navigation">
-        <div
-          class="nav-menu nav-menu-browse"
-          :class="{ expanded: isBrowseMenuOpen }"
-          @focusin="isBrowseMenuOpen = true"
-          @focusout="isBrowseMenuOpen = false"
-        >
-          <div class="links cascade-links">
-            <NuxtLink
-              v-for="navRoute in navRoutes"
-              :key="navRoute.href"
-              :to="navRoute.href"
-              class="iconified-button"
-            >
-              {{ navRoute.label }}
-            </NuxtLink>
-          </div>
-        </div>
-        <div
-          class="nav-menu nav-menu-mobile"
-          :class="{ expanded: isMobileMenuOpen }"
-          @focusin="isMobileMenuOpen = true"
-          @focusout="isMobileMenuOpen = false"
-        >
-          <div class="account-container">
-            <NuxtLink
-              v-if="auth.user"
-              :to="`/user/${auth.user.username}`"
-              class="iconified-button account-button"
-            >
-              <Avatar
-                :src="auth.user.avatar_url"
-                class="user-icon"
-                alt="Your avatar"
-                aria-hidden="true"
-                circle
-              />
-              <div class="account-text">
-                <div>@{{ auth.user.username }}</div>
-                <div>Visit your profile</div>
-              </div>
-            </NuxtLink>
-            <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
-              <LogInIcon /> Sign in
-            </nuxt-link>
-          </div>
-          <div class="links">
-            <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logoutUser()">
-                <LogOutIcon aria-hidden="true" />
-                Log out
-              </button>
-              <button class="iconified-button" @click="$refs.modal_creation.show()">
-                <PlusIcon aria-hidden="true" />
-                Create a project
-              </button>
-              <NuxtLink class="iconified-button" to="/dashboard/follows">
-                <HeartIcon aria-hidden="true" />
-                Following
-              </NuxtLink>
+        <section class="mobile-navigation">
+          <div
+            class="nav-menu nav-menu-browse"
+            :class="{ expanded: isBrowseMenuOpen }"
+            @focusin="isBrowseMenuOpen = true"
+            @focusout="isBrowseMenuOpen = false"
+          >
+            <div class="links cascade-links">
               <NuxtLink
-                v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
+                v-for="navRoute in navRoutes"
+                :key="navRoute.href"
+                :to="navRoute.href"
                 class="iconified-button"
-                to="/moderation"
               >
-                <ModerationIcon aria-hidden="true" />
-                Moderation
+                {{ navRoute.label }}
+              </NuxtLink>
+            </div>
+          </div>
+          <div
+            class="nav-menu nav-menu-mobile"
+            :class="{ expanded: isMobileMenuOpen }"
+            @focusin="isMobileMenuOpen = true"
+            @focusout="isMobileMenuOpen = false"
+          >
+            <div class="account-container">
+              <NuxtLink
+                v-if="auth.user"
+                :to="`/user/${auth.user.username}`"
+                class="iconified-button account-button"
+              >
+                <Avatar
+                  :src="auth.user.avatar_url"
+                  class="user-icon"
+                  alt="Your avatar"
+                  aria-hidden="true"
+                  circle
+                />
+                <div class="account-text">
+                  <div>@{{ auth.user.username }}</div>
+                  <div>Visit your profile</div>
+                </div>
+              </NuxtLink>
+              <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
+                <LogInIcon /> Sign in
+              </nuxt-link>
+            </div>
+            <div class="links">
+              <template v-if="auth.user">
+                <button class="iconified-button danger-button" @click="logoutUser()">
+                  <LogOutIcon aria-hidden="true" />
+                  Log out
+                </button>
+                <button class="iconified-button" @click="$refs.modal_creation.show()">
+                  <PlusIcon aria-hidden="true" />
+                  Create a project
+                </button>
+                <NuxtLink class="iconified-button" to="/dashboard/follows">
+                  <HeartIcon aria-hidden="true" />
+                  Following
+                </NuxtLink>
+                <NuxtLink
+                  v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
+                  class="iconified-button"
+                  to="/moderation"
+                >
+                  <ModerationIcon aria-hidden="true" />
+                  Moderation
+                </NuxtLink>
+              </template>
+              <NuxtLink class="iconified-button" to="/settings">
+                <SettingsIcon aria-hidden="true" />
+                Settings
+              </NuxtLink>
+              <button class="iconified-button" @click="changeTheme">
+                <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+                <SunIcon v-else class="icon" />
+                <span class="dropdown-item__text">Change theme</span>
+              </button>
+            </div>
+          </div>
+          <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
+            <NuxtLink to="/" class="tab button-animation" title="Home">
+              <HomeIcon />
+            </NuxtLink>
+            <button
+              class="tab button-animation"
+              :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
+              title="Search"
+              @click="toggleBrowseMenu()"
+            >
+              <template v-if="auth.user">
+                <SearchIcon />
+              </template>
+              <template v-else>
+                <SearchIcon class="smaller" />
+                Search
+              </template>
+            </button>
+            <template v-if="auth.user">
+              <NuxtLink
+                to="/dashboard/notifications"
+                class="tab button-animation"
+                :class="{
+                  bubble: user.notifications.length > 0,
+                  'no-active': isMobileMenuOpen || isBrowseMenuOpen,
+                }"
+                title="Notifications"
+                @click="
+                  () => {
+                    isMobileMenuOpen = false
+                    isBrowseMenuOpen = false
+                  }
+                "
+              >
+                <NotificationIcon />
+              </NuxtLink>
+              <NuxtLink to="/dashboard" class="tab button-animation" title="Dashboard">
+                <ChartIcon />
               </NuxtLink>
             </template>
-            <NuxtLink class="iconified-button" to="/settings">
-              <SettingsIcon aria-hidden="true" />
-              Settings
-            </NuxtLink>
-            <button class="iconified-button" @click="changeTheme">
-              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-              <SunIcon v-else class="icon" />
-              <span class="dropdown-item__text">Change theme</span>
+            <button
+              class="tab button-animation"
+              title="Toggle Mobile Menu"
+              @click="toggleMobileMenu()"
+            >
+              <template v-if="!auth.user">
+                <HamburgerIcon v-if="!isMobileMenuOpen" />
+                <CrossIcon v-else />
+              </template>
+              <template v-else>
+                <Avatar
+                  :src="auth.user.avatar_url"
+                  class="user-icon"
+                  :class="{ expanded: isMobileMenuOpen }"
+                  alt="Your avatar"
+                  aria-hidden="true"
+                  circle
+                />
+              </template>
             </button>
           </div>
-        </div>
-        <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
-          <NuxtLink to="/" class="tab button-animation" title="Home">
-            <HomeIcon />
-          </NuxtLink>
-          <button
-            class="tab button-animation"
-            :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
-            title="Search"
-            @click="toggleBrowseMenu()"
-          >
-            <template v-if="auth.user">
-              <SearchIcon />
-            </template>
-            <template v-else>
-              <SearchIcon class="smaller" />
-              Search
-            </template>
-          </button>
-          <template v-if="auth.user">
-            <NuxtLink
-              to="/dashboard/notifications"
-              class="tab button-animation"
-              :class="{
-                bubble: user.notifications.length > 0,
-                'no-active': isMobileMenuOpen || isBrowseMenuOpen,
-              }"
-              title="Notifications"
-              @click="
-                () => {
-                  isMobileMenuOpen = false
-                  isBrowseMenuOpen = false
-                }
-              "
-            >
-              <NotificationIcon />
-            </NuxtLink>
-            <NuxtLink to="/dashboard" class="tab button-animation" title="Dashboard">
-              <ChartIcon />
-            </NuxtLink>
-          </template>
-          <button
-            class="tab button-animation"
-            title="Toggle Mobile Menu"
-            @click="toggleMobileMenu()"
-          >
-            <template v-if="!auth.user">
-              <HamburgerIcon v-if="!isMobileMenuOpen" />
-              <CrossIcon v-else />
-            </template>
-            <template v-else>
-              <Avatar
-                :src="auth.user.avatar_url"
-                class="user-icon"
-                :class="{ expanded: isMobileMenuOpen }"
-                alt="Your avatar"
-                aria-hidden="true"
-                circle
-              />
-            </template>
-          </button>
-        </div>
-      </section>
-    </header>
-    <main>
+        </section>
+      </header>
+
       <ModalCreation v-if="auth.user" ref="modal_creation" />
       <slot id="main" />
     </main>
@@ -382,7 +437,15 @@
   </footer>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon, BoxIcon, ServerIcon, ImageIcon, CodeIcon, DropdownIcon} from 'omorphia'
+import {
+  LogInIcon,
+  DownloadIcon,
+  BoxIcon,
+  ServerIcon,
+  ImageIcon,
+  CodeIcon,
+  DropdownIcon,
+} from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -404,7 +467,7 @@ import GlassesIcon from '~/assets/images/utils/glasses.svg'
 import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
-import Checkbox from "~/components/ui/Checkbox.vue";
+import Checkbox from '~/components/ui/Checkbox.vue'
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -433,7 +496,7 @@ function setProjectType(type) {
   selectedProjectType.value = type
 }
 
-//replace - with space
+// replace - with space
 const prettyProjectType = computed(() => selectedProjectType.value.replace('-', ' '))
 const selectedRoute = computed(() => selectedProjectType.value.replace('-', ''))
 
@@ -487,7 +550,7 @@ export default defineNuxtComponent({
         {
           label: 'Notifications',
           href: '/dashboard/notifications',
-        }
+        },
       ],
     }
   },
@@ -559,11 +622,58 @@ export default defineNuxtComponent({
 @import 'omorphia/dist/style.css';
 
 .layout {
-  min-height: 100vh;
+  min-height: calc(100vh - var(--spacing-card-md) - var(--gap-lg));
+  width: 100vw;
   background-color: var(--color-bg);
-  display: flex;
   justify-content: center;
   padding-top: var(--gap-lg);
+  margin: 0 auto;
+
+  &.vertical {
+    flex-direction: column;
+
+    .navbar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .control-button {
+      font-weight: bold;
+      svg {
+        display: none;
+      }
+    }
+
+    .dropdown-row {
+      display: none !important;
+    }
+
+    .user-controls {
+      display: flex;
+      flex-direction: row !important;
+      align-items: center !important;
+    }
+
+    .auth-prompt {
+      display: flex;
+      flex-direction: row !important;
+    }
+
+    .dropdown-section {
+      display: flex;
+      flex-direction: row !important;
+    }
+
+    section.logo {
+      margin-bottom: 0 !important;
+    }
+
+    .site-header {
+      position: relative;
+      margin: 0 auto;
+    }
+  }
 
   @media screen and (min-width: 1024px) {
     min-height: calc(100vh - var(--spacing-card-bg));
@@ -574,8 +684,6 @@ export default defineNuxtComponent({
   }
 
   .site-header {
-    max-width: 100vw;
-
     @media screen and (min-width: 1024px) {
       margin-top: var(--spacing-card-md);
       margin-bottom: var(--spacing-card-md);
@@ -587,9 +695,12 @@ export default defineNuxtComponent({
     }
 
     .navbar {
-      max-width: 1280px;
+      position: fixed;
+      width: 13rem;
       margin-left: auto;
       margin-right: auto;
+      height: 100vh;
+      z-index: 5;
 
       section.logo {
         display: flex;
@@ -629,8 +740,8 @@ export default defineNuxtComponent({
       section.nav-group {
         display: flex;
         flex-direction: column;
-        flex-grow: 5;
         z-index: 5;
+        height: 100%;
 
         section.nav {
           flex-grow: 5;
@@ -677,6 +788,8 @@ export default defineNuxtComponent({
           justify-content: space-between;
           position: relative;
           min-width: 6rem;
+          gap: var(--gap-sm);
+          height: 100%;
 
           .control-button {
             position: relative;
@@ -724,6 +837,10 @@ export default defineNuxtComponent({
             flex-direction: row;
             align-items: center;
             gap: var(--gap-xs);
+          }
+
+          .main-nav {
+            flex-grow: 1;
           }
         }
 
@@ -938,26 +1055,19 @@ export default defineNuxtComponent({
       }
     }
 
-    div {
-      flex-grow: 1;
-      justify-content: end;
-      align-items: center;
-      row-gap: 1rem;
-    }
-
     &.active {
       display: flex;
 
-      @media screen and (min-width: 1095px) {
+      @media screen and (min-width: 1024px) {
         display: none;
       }
     }
   }
 
   main {
+    position: relative;
     grid-area: main;
   }
-
 }
 
 footer {
@@ -965,11 +1075,11 @@ footer {
   text-align: center;
   display: grid;
   grid-template:
-      'logo-info  logo-info  logo-info' auto
-      'links-1    links-2    links-3' auto
-      'buttons    buttons    buttons' auto
-      'notice     notice     notice' auto
-      / 1fr 1fr 1fr;
+    'logo-info  logo-info  logo-info' auto
+    'links-1    links-2    links-3' auto
+    'buttons    buttons    buttons' auto
+    'notice     notice     notice' auto
+    / 1fr 1fr 1fr;
   max-width: 1280px;
 
   .logo-info {
@@ -1046,8 +1156,8 @@ footer {
     display: grid;
     margin-inline: auto;
     grid-template:
-        'logo-info  links-1 links-2 links-3 buttons' auto
-        'notice     notice  notice  notice  notice' auto;
+      'logo-info  links-1 links-2 links-3 buttons' auto
+      'notice     notice  notice  notice  notice' auto;
     text-align: unset;
 
     .logo-info {

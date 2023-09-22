@@ -1,9 +1,10 @@
 <template>
-  <div class="categories">
+  <div class="categories" :class="{ badges: badge }">
     <slot />
     <span
       v-for="category in categoriesFiltered"
       :key="category.name"
+      class="category"
       v-html="category.icon + $formatCategory(category.name)"
     />
   </div>
@@ -21,6 +22,10 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    badge: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {
@@ -46,6 +51,18 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: var(--gap-sm);
+
+  &.badges {
+    gap: var(--gap-sm);
+
+    .category {
+      padding: var(--gap-sm) var(--gap-sm);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-bg);
+      margin-right: 0;
+    }
+  }
 
   :deep(span) {
     display: flex;
