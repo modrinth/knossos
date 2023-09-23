@@ -6,22 +6,22 @@
     "message": "Edit"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Simpan"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "🐸Terkodok-kodok🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Lukisan realistis tentang labirin kodok"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} orang} other {{count} orang}} juga terkodok-kodok!🐸"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Halaman ini dibuka {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Kodok"
   },
   "input.view.gallery": {
     "message": "Gallery view"
