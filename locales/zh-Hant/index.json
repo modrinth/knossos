@@ -24,13 +24,13 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "圖庫模式"
+    "message": "圖庫檢視"
   },
   "input.view.grid": {
-    "message": "方格模式"
+    "message": "方格檢視"
   },
   "input.view.list": {
-    "message": "清單模式"
+    "message": "清單檢視"
   },
   "notification.error.title": {
     "message": "發生錯誤"
@@ -60,10 +60,10 @@
     "message": "使用者名稱"
   },
   "profile.label.no-projects": {
-    "message": "此使用者沒有專案！"
+    "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "你沒有任何專案。\n你想去<create-link>建立一個</create-link>嗎？"
+    "message": "你沒有任何專案。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.meta.description": {
     "message": "在 Modrinth 下載 {username} 的專案"
@@ -159,7 +159,7 @@
     "message": "{matches, plural, =0 {沒有語言} other {# 種語言}}與你的搜尋結果相符。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "沒有語言與您的搜尋結果相符。"
+    "message": "沒有語言與您的搜尋字詞符合。"
   },
   "settings.language.title": {
     "message": "語言"
