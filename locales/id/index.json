@@ -1,15 +1,15 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Batal"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Sunting"
   },
   "button.save": {
     "message": "Simpan"
   },
   "frog": {
-    "message": "🐸Terkodok-kodok🐸"
+    "message": "🐸Kamu Terkodok-kodok🐸"
   },
   "frog.altText": {
     "message": "Lukisan realistis tentang labirin kodok"
@@ -24,64 +24,64 @@
     "message": "Kodok"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Tampilan Galeri"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Tampilan Kisi-kisi"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Tampilan Daftar"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Terjadi kesalahan"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Kelola proyek"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Laporkan"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Pengguna tidak ditemukan"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Unggah avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Bergabung {ago}"
   },
   "profile.joined-at.tooltip": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} pada {time, time, short}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nama pengguna"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Pengguna ini tidak punya proyek!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Anda tidak memiliki proyek apa pun.\nApakah anda ingin <create-link>membuatnya</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Unduh proyek {username} di Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Unduh proyek {username} di Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, other {<stat>{count}</stat> Unduhan}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, other {<stat>{count}</stat>Pengikut}} proyek"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID Pengguna: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Semua"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
@@ -96,13 +96,13 @@
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Paket Mod"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Paket Mod"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Plugin"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
@@ -120,48 +120,48 @@
     "message": "Shader"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Otomatis"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Bahasa Standar"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Bahasa Eksperimental"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Bahasa Asik"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Hasil pencarian"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Pilih bahasa pilihanmu untuk situs ini. Terjemahan disumbangkan oleh para sukarelawan <crowdin-link>di Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Sinkronisasi dengan bahasa sistem"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Mengaplikasikan..."
   },
   "settings.language.languages.language-label-error": {
     "message": "{label}. Error"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Tidak dapat memuat bahasa ini. Coba lagi nanti."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Kirim untuk memfokuskan hasil pencarian pertama"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Mencari bahasa..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Tidak ada bahasa yang cocok} other {# languages match}} dengan pencarianmu."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Tidak ada bahasa yang cocok."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Bahasa"
   }
 }
