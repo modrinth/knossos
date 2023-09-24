@@ -248,7 +248,7 @@
       <strong>"User Contributions"</strong>) on or through the Service.
     </p>
     <p>
-      All User Contributions must comply with the
+      All User Contributions and use of Interactive Services must abide by the
       <nuxt-link to="/legal/rules">Content Rules</nuxt-link>.
     </p>
     <p>

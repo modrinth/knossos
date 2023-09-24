@@ -5,22 +5,20 @@
     <p>
       These Content Rules are to be considered part of our
       <nuxt-link to="/legal/terms">Terms of Use</nuxt-link> and apply to any and all User
-      Contributions and use of Interactive Services.
+      Contributions, Gaming Content, and use of Interactive Services (collectively, "Content").
     </p>
 
     <p>
-      If you find any violations of these Rules on our website, it is your responsibility to make us
-      aware. You may use the Report button on any project, version, or user page, or you may email
-      us at
+      If you find any violations of these Rules on our website, you should make us aware. You may
+      use the Report button on any project, version, or user page, or you may email us at
       <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
     </p>
 
     <h2 id="prohibited-content">1. Prohibited Content</h2>
 
     <p>
-      User Contributions must in their entirety comply with all applicable federal, state, local,
-      and international laws and regulations. Without limiting the foregoing, User Contributions
-      must not:
+      Content must in their entirety comply with all applicable federal, state, local, and
+      international laws and regulations. Without limiting the foregoing, Content must not:
     </p>
     <ol>
       <li>
@@ -70,10 +68,9 @@
     <h2 id="clear-and-honest-function">2. Clear and Honest Function</h2>
 
     <p>
-      Projects, a form of Gaming Content, must make a clear and honest attempt to describe their
-      purpose in designated areas on the project page. Necessary information must not be obscured in
-      any way. Using confusing language or technical jargon when it is not necessary constitutes a
-      violation.
+      Projects, a form of Content, must make a clear and honest attempt to describe their purpose in
+      designated areas on the project page. Necessary information must not be obscured in any way.
+      Using confusing language or technical jargon when it is not necessary constitutes a violation.
     </p>
 
     <h3 id="general-expectations">2.1. General Expectations</h3>
@@ -134,7 +131,7 @@
 
     <p>
       You must own or have the necessary licenses, rights, consents, and permissions to store,
-      share, and distribute the User Contributions that are uploaded under your Modrinth account.
+      share, and distribute the Content that is uploaded under your Modrinth account.
     </p>
 
     <p>
@@ -147,9 +144,9 @@
     <h2 id="miscellaneous">5. Miscellaneous</h2>
 
     <p>
-      There are certain other small aspects to creating User Contributions that all authors should
-      attempt to abide by. These will not necessarily always be enforced, but abiding by all will
-      result in a faster review with fewer potential issues.
+      There are certain other small aspects to creating projects that all authors should attempt to
+      abide by. These will not necessarily always be enforced, but abiding by all will result in a
+      faster review with fewer potential issues.
     </p>
     <ol>
       <li>
