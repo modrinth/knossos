@@ -8,7 +8,8 @@
       <div>
         <div>
           <strong>
-            {{ session.os ?? formatMessage(messages.unkownOsLabel) }} ⋅ {{ session.platform ?? formatMessage(messages.unkownPlatformLabel) }} ⋅
+            {{ session.os ?? formatMessage(messages.unkownOsLabel) }} ⋅
+            {{ session.platform ?? formatMessage(messages.unkownPlatformLabel) }} ⋅
             {{ session.ip }}
           </strong>
         </div>
@@ -20,9 +21,12 @@
                 date: new Date(session.last_login),
                 time: new Date(session.last_login),
               })
-            ">
+            "
+          >
             {{
-              formatMessage(messages.sessionsLastAccessedAt, { ago: formatRelativeTime(session.last_login) })
+              formatMessage(messages.sessionsLastAccessedAt, {
+                ago: formatRelativeTime(session.last_login),
+              })
             }}
           </span>
           ⋅
@@ -32,9 +36,12 @@
                 date: new Date(session.created),
                 time: new Date(session.created),
               })
-            ">
+            "
+          >
             {{
-              formatMessage(messages.sessionsCreatedAt, { ago: formatRelativeTime(session.created) })
+              formatMessage(messages.sessionsCreatedAt, {
+                ago: formatRelativeTime(session.created),
+              })
             }}
           </span>
         </div>
