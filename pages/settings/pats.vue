@@ -108,9 +108,7 @@
               <template v-if="new Date(pat.expires) > new Date()">
                 Expires {{ fromNow(pat.expires) }}
               </template>
-              <template v-else>
-                Expired {{ fromNow(pat.expires) }}
-              </template>
+              <template v-else> Expired {{ fromNow(pat.expires) }} </template>
             </span>
             ⋅
             <span v-tooltip="$dayjs(pat.created).format('MMMM D, YYYY [at] h:mm A')">
