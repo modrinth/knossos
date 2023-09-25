@@ -8,7 +8,7 @@ export const commonMessages = defineMessages({
     defaultMessage: 'Cancel',
   },
   dateAtTimeTooltip: {
-    id: 'tooltip.date_at_time',
+    id: 'tooltip.date-at-time',
     defaultMessage: '{date, date, long} at {time, time, short}',
   },
   editButton: {

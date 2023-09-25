@@ -185,7 +185,7 @@
   "settings.sessions.title": {
     "message": "Sessions"
   },
-  "tooltip.date_at_time": {
+  "tooltip.date-at-time": {
     "message": "{date, date, long} at {time, time, short}"
   }
 }
