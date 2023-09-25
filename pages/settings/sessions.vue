@@ -63,7 +63,7 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Sessions - Modrinth',
+  title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth'`,
 })
 
 const data = useNuxtApp()
