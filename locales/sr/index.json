@@ -1,0 +1,167 @@
+{
+  "button.cancel": {
+    "message": "Откажи"
+  },
+  "button.edit": {
+    "message": "Измени"
+  },
+  "button.save": {
+    "message": "Сачувај"
+  },
+  "frog": {
+    "message": "You've been frogged! 🐸"
+  },
+  "frog.altText": {
+    "message": "A photorealistic painting of a frog labyrinth"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+  },
+  "frog.sinceOpened": {
+    "message": "This page was opened {ago}"
+  },
+  "frog.title": {
+    "message": "Жаба"
+  },
+  "input.view.gallery": {
+    "message": "Гаререјски поглед"
+  },
+  "input.view.grid": {
+    "message": "Мрежки приказ"
+  },
+  "input.view.list": {
+    "message": "Прказ листе"
+  },
+  "notification.error.title": {
+    "message": "Десила се грешка"
+  },
+  "profile.button.manage-projects": {
+    "message": "Manage projects"
+  },
+  "profile.button.report": {
+    "message": "Пријави"
+  },
+  "profile.error.not-found": {
+    "message": "Корисник није пронађен"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Постави аватар"
+  },
+  "profile.joined-at": {
+    "message": "Joined {ago}"
+  },
+  "profile.joined-at.tooltip": {
+    "message": "{date, date, long} at {time, time, short}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Биографија"
+  },
+  "profile.label.edit-username": {
+    "message": "Корисничко име"
+  },
+  "profile.label.no-projects": {
+    "message": "This user has no projects!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.meta.description": {
+    "message": "Download {username}'s projects on Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projects on Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+  },
+  "profile.user-id": {
+    "message": "User ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Све"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Pack"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "settings.language.categories.auto": {
+    "message": "Аутоматски"
+  },
+  "settings.language.categories.default": {
+    "message": "Standard languages"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Experimental languages"
+  },
+  "settings.language.categories.fun": {
+    "message": "Fun languages"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Search results"
+  },
+  "settings.language.description": {
+    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sync with the system language"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Applying..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Error"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Cannot load this language. Try again in a bit."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Submit to focus the first search result"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Search for a language..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "No languages match your search."
+  },
+  "settings.language.title": {
+    "message": "Language"
+  }
+}
