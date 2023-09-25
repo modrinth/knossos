@@ -8,8 +8,8 @@
       <div>
         <div>
           <strong>
-            {{ session.os ?? formatMessage(messages.unkownOsLabel) }} ⋅
-            {{ session.platform ?? formatMessage(messages.unkownPlatformLabel) }} ⋅
+            {{ session.os ?? formatMessage(messages.unknownOsLabel) }} ⋅
+            {{ session.platform ?? formatMessage(messages.unknownPlatformLabel) }} ⋅
             {{ session.ip }}
           </strong>
         </div>
@@ -102,11 +102,11 @@ const messages = defineMessages({
     id: 'settings.sessions.title',
     defaultMessage: 'Sessions',
   },
-  unkownOsLabel: {
+  unknownOsLabel: {
     id: 'settings.sessions.label.unknown-os',
     defaultMessage: 'Unknown OS',
   },
-  unkownPlatformLabel: {
+  unknownPlatformLabel: {
     id: 'settings.sessions.label.unknown-platform',
     defaultMessage: 'Unknown platform',
   },
