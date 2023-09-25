@@ -5,7 +5,7 @@
       title="Are you sure you want to delete this token?"
       description="This will remove this token forever (like really forever)."
       proceed-label="Delete this token"
-      @proceed="removePat(deletPatIndex)"
+      @proceed="removePat(deletePatIndex)"
     />
     <Modal
       ref="patModal"
@@ -140,7 +140,7 @@
           class="iconified-button raised-button"
           @click="
             () => {
-              deletPatIndex = pat.id
+              deletePatIndex = pat.id
               $refs.modal_confirm.show()
             }
           "
@@ -214,7 +214,7 @@ const name = ref(null)
 const scopesVal = ref(0)
 const expires = ref(null)
 
-const deletPatIndex = ref(null)
+const deletePatIndex = ref(null)
 
 const loading = ref(false)
 
