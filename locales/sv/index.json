@@ -99,7 +99,7 @@
     "message": "Modpacks"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Modpaket"
   },
   "project-type.plugin.plural": {
     "message": "Plugins"
