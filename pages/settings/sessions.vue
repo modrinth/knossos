@@ -62,6 +62,9 @@ definePageMeta({
   middleware: 'auth',
 })
 
+const { formatMessage } = useVIntl()
+const formatRelativeTime = useRelativeTime()
+
 useHead({
   title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth'`,
 })
@@ -70,11 +73,6 @@ const data = useNuxtApp()
 const { data: sessions, refresh } = await useAsyncData('session/list', () =>
   useBaseFetch('session/list')
 )
-
-const vintl = useVIntl()
-const { formatMessage } = vintl
-
-const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
   currentSessionLabel: {
