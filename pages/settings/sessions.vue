@@ -65,15 +65,6 @@ definePageMeta({
 const { formatMessage } = useVIntl()
 const formatRelativeTime = useRelativeTime()
 
-useHead({
-  title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth'`,
-})
-
-const data = useNuxtApp()
-const { data: sessions, refresh } = await useAsyncData('session/list', () =>
-  useBaseFetch('session/list')
-)
-
 const messages = defineMessages({
   currentSessionLabel: {
     id: 'settings.sessions.label.current-session',
@@ -109,6 +100,15 @@ const messages = defineMessages({
     defaultMessage: 'Unknown platform',
   },
 })
+
+useHead({
+  title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth'`,
+})
+
+const data = useNuxtApp()
+const { data: sessions, refresh } = await useAsyncData('session/list', () =>
+  useBaseFetch('session/list')
+)
 
 async function revokeSession(id) {
   startLoading()
