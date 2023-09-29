@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Juntou-se há {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} às {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Biografia"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Idioma"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Remover sessão"
+  },
+  "settings.sessions.description": {
+    "message": "Aqui estão todos os dispositivos que têm atualmente sessão iniciada com a tua conta do Modrinth. Podes sair de cada um individualmente.\n\n Se vires uma sessão que não reconheces, remova a sessão desse dispositivo e altere a senha da tua conta Modrinth imediatamente."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Sessão atual"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Criada {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Último acesso {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Sistema Desconhecido"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Plataforma desconhecida"
+  },
+  "settings.sessions.title": {
+    "message": "Sessões"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} às {time, time, short}"
   }
 }
