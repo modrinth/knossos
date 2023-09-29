@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "加入于 {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "简介"
   },
@@ -93,7 +90,7 @@
     "message": "模组"
   },
   "project-type.mod.singular": {
-    "message": "模组"
+    "message": "Mod"
   },
   "project-type.modpack.plural": {
     "message": "整合包"
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "语言"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "撤销会话"
+  },
+  "settings.sessions.description": {
+    "message": "以下是您当前已登录 Modrinth 账号的所有设备。您可以逐一登出每个会话。\n\n 如果您看到不认识的条目，请立即登出该设备并更改您的 Modrinth 账号密码。"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "当前会话"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "创建于 {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "上次访问于 {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "未知操作系统"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "未知平台"
+  },
+  "settings.sessions.title": {
+    "message": "会话"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} {time, time, short}"
   }
 }
