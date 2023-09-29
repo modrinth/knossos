@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "{ago} geleden lid geworden"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} om {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Taal"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Sessie beëindigen"
+  },
+  "settings.sessions.description": {
+    "message": "Hier zijn alle apparaten die momenteel zijn ingelogd met je Modrinth account. Je kunt elk afzonderlijk uitloggen.\n\n Als je een item ziet dat je niet herkent, log dan uit op dat apparaat en verander het wachtwoord van je Modrinth account."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Huidige sessie"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Created {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Last accessed {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Onbekend OS"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Onbekend platform"
+  },
+  "settings.sessions.title": {
+    "message": "Sessies"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} om {time, time, short}"
   }
 }
