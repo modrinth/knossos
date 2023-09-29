@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "加入於 {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "個人簡介"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "語言"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "取消工作階段授權"
+  },
+  "settings.sessions.description": {
+    "message": "以下是您目前已登入 Modrinth 帳號的所有裝置。你可以個別登出每個裝置。\n\n 如果你看到不認識的項目，請立即登出該裝置並更改你的 Modrinth 帳號密碼。"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "目前工作階段"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "建立於 {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "上次訪問於 {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "未知作業系統"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "未知平台"
+  },
+  "settings.sessions.title": {
+    "message": "工作階段"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} {time, time, short}"
   }
 }
