@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Gick med {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} kl. {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Om mig"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Språk"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Ta bort session"
+  },
+  "settings.sessions.description": {
+    "message": "Här är alla enheter som för är inloggade på ditt Modrinth konto. Du kan logga ut från var och en individuellt.\n\n Om du ser en enhet som du inte känner igen, logga ut från den enheten och ändra ditt lösenord för ditt Modrinth konto omedelbart."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Nuvarande session"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Skapad {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Senast använd {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Okänt operativsystem"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Okänd plattform"
+  },
+  "settings.sessions.title": {
+    "message": "Sessioner"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} kl. {time, time, short}"
   }
 }
