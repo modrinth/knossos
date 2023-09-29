@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Приплыл сюда {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} в {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Чё по жизни"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Жаргончик"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Завершить сиделку"
+  },
+  "settings.sessions.description": {
+    "message": "Здесь все компуктеры, что прикручены к твоему акку на Modrinth. Можешь вытыкать их лапки по отдельности.\n\nА если заметишь какую-то дубину, сразу же обруби ей ноги и переколеси пароль своего акка."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Текущая сиделка"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Намучено: {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Последний заход: {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Непонятная ОСь"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Платформа хз"
+  },
+  "settings.sessions.title": {
+    "message": "Сиделки"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} в {time, time, medium}"
   }
 }
