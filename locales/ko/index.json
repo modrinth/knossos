@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "{ago} 전에 가입함"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "자기소개"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "언어"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "세션 제거"
+  },
+  "settings.sessions.description": {
+    "message": "현재 Modrinth 계정으로 로그인 중인 장치 목록입니다. 여기서 각 장치를 개별적으로 로그아웃시키실 수 있습니다.\n\n 만약 잘 모르겠는 항목이 있다면 장치를 로그아웃시키신 후 즉시 Modrinth 계정 비밀번호를 변경하세요."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "현재 세션"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "{ago} 전에 생성됨"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "{ago} 전에 접근함"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "알 수 없는 운영체제"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "알 수 없는 플랫폼"
+  },
+  "settings.sessions.title": {
+    "message": "세션"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} at {time, time, short}"
   }
 }
