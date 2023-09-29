@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Připojil se {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} v {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Jazyk"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Zrušit relaci"
+  },
+  "settings.sessions.description": {
+    "message": "Zde jsou všechna zařízení, která jsou aktuálně přihlášena k vašemu Modrinth účtu. Můžete se odhlásit z každého jednotlivě.\n\n Pokud vidíte záznam, který nepoznáváte, odhlaste se z tohoto zařízení a změňte okamžitě své heslo k Modrinth účtu."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Aktuální relace"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Vytvořeno {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Poslední přístup {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Neznámý OS"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Neznámá platforma"
+  },
+  "settings.sessions.title": {
+    "message": "Relace"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} v {time, time, short}"
   }
 }
