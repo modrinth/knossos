@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Присоединился {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} в {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "О себе"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Язык"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Прервать сеанс"
+  },
+  "settings.sessions.description": {
+    "message": "Здесь представлены все устройства, которые авторизованы в ваш аккаунт Modrinth. Вы можете завершить сеанс каждого из них по отдельности.\n\nЕсли среди них присутствует незнакомое устройство, незамедлительно завершите его сеанс и смените пароль своего аккаунта."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Текущий сеанс"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Открыт: {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Активность: {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Неизвестная ОС"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Неизвестная платформа"
+  },
+  "settings.sessions.title": {
+    "message": "Сеансы"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} в {time, time, short}"
   }
 }
