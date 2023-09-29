@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Es va unir fa {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} a les {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Descripció"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Idioma"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.description": {
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Sessió actual"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Creat fa {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Últim accés fa {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "SO desconegut"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Plataforma desconeguda"
+  },
+  "settings.sessions.title": {
+    "message": "Sessions"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} a les {time, time, short}"
   }
 }
