@@ -50,9 +50,6 @@
   "profile.joined-at": {
     "message": "Iscritto {ago}"
   },
-  "profile.joined-at.tooltip": {
-    "message": "{date, date, long} alle {time, time, short}"
-  },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
@@ -163,5 +160,32 @@
   },
   "settings.language.title": {
     "message": "Lingua"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "Revoca sessione"
+  },
+  "settings.sessions.description": {
+    "message": "Ecco tutti i dispositivi che sono attualmente connessi al tuo account di Modrith. Puoi uscire da ciascuno individualmente.\n\n Se vedi un dispositivo che non riconosci, effettua la disconnessione e cambia la password del tuo account di Modrith immediatamente."
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Sessione corrente"
+  },
+  "settings.sessions.label.created-at": {
+    "message": "Creata {ago}"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "Ultimo accesso {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "Sistema operativo sconosciuto"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "Piattaforma sconosciuta"
+  },
+  "settings.sessions.title": {
+    "message": "Sessioni"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} alle {time, time, short}"
   }
 }
