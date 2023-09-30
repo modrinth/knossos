@@ -162,30 +162,30 @@
     "message": "Dil"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Oturumu iptal et"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "İşte burada sizin Modrinth hesabınızla mevcut giriş yapılmış tüm cihazlar. Her birinden teker teker çıkış yapabilirsiniz.\n\nEğer tanımadığınız bir girdi görürseniz, o cihazdan çıkış yapın ve Modrinth hesap parolanızı derhal değiştirin."
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Şu anki oturum"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "{ago} oluşturuldu"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "En son {ago} erişildi"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Bilinmeyen OS"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Bilinmeyen platform"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Oturumlar"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   }
 }
