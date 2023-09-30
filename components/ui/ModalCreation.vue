@@ -70,6 +70,10 @@ import Modal from '~/components/ui/Modal.vue'
 import Chips from '~/components/ui/Chips.vue'
 
 const messages = defineMessages({
+  createProjectModalDescription: {
+    id: 'modal.create-project.description',
+    defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
+  },
   createProjectModalNameLabel: {
     id: 'modal.create-project.label.name',
     defaultMessage: 'Name',
@@ -97,10 +101,6 @@ const messages = defineMessages({
   createProjectModalUrlLabel: {
     id: 'modal.create-project.label.url',
     defaultMessage: 'URL',
-  },
-  createProjectModalDescription: {
-    id: 'modal.create-project.description',
-    defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
   },
 })
 
