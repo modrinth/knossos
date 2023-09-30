@@ -186,6 +186,6 @@
     "message": "세션"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   }
 }
