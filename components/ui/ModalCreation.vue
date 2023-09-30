@@ -2,7 +2,7 @@
   <Modal ref="modal" header="Create a project">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
-        <p>New projects are created as drafts and can be found under your profile page.</p>
+        <p>{{ formatMessage(messages.createProjectModalDescription) }}</p>
       </div>
       <label for="project-type">
         <span class="label__title">Project type<span class="required">*</span></span>
@@ -69,6 +69,13 @@ import CheckIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal.vue'
 import Chips from '~/components/ui/Chips.vue'
 
+const messages = defineMessages({
+  createProjectModalDescription: {
+    id: 'modal.create-project.description',
+    defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
+  },
+})
+
 export default {
   components: {
     Chips,
@@ -88,8 +95,9 @@ export default {
   },
   setup() {
     const tags = useTags()
+    const { formatMessage } = useVIntl()
 
-    return { tags }
+    return { tags, formatMessage }
   },
   data() {
     return {
