@@ -186,6 +186,6 @@
     "message": "Sessions"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} kl. {time, time, short}"
   }
 }
