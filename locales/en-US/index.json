@@ -41,6 +41,9 @@
   "modal.create-project.description": {
     "message": "New projects are created as drafts and can be found under your profile page."
   },
+  "modal.create-project.input.name.placeholder": {
+    "message": "Enter project name..."
+  },
   "modal.create-project.label.name": {
     "message": "Name"
   },
@@ -50,10 +53,10 @@
   "modal.create-project.label.url": {
     "message": "URL"
   },
-  "modal.create-project.summary.title": {
+  "modal.create-project.label.summary": {
     "message": "Summary"
   },
-  "modal.create-project.summary.description": {
+  "modal.create-project.label.summary.description": {
     "message": "This appears in search and on the sidebar of your project's page."
   },
   "notification.error.title": {

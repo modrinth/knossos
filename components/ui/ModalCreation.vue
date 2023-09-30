@@ -5,7 +5,7 @@
         <p>{{ formatMessage(messages.createProjectModalDescription) }}</p>
       </div>
       <label for="project-type">
-        <span class="label__title">Project type<span class="required">*</span></span>
+        <span class="label__title">{{ formatMessage(messages.createProjectModalProjectTypeLabel) }}<span class="required">*</span></span>
       </label>
       <Chips
         id="project-type"
@@ -20,12 +20,12 @@
         v-model="name"
         type="text"
         maxlength="64"
-        placeholder="Enter project name..."
+        :placeholder="formatMessage(messages.createProjectModalNameInputPlaceholder)"
         autocomplete="off"
         @input="updatedName()"
       />
       <label for="slug">
-        <span class="label__title">URL<span class="required">*</span></span>
+        <span class="label__title">{{ formatMessage(messages.createProjectModalUrlLabel) }}<span class="required">*</span></span>
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">
@@ -41,9 +41,9 @@
         />
       </div>
       <label for="additional-information">
-        <span class="label__title">Summary<span class="required">*</span></span>
+        <span class="label__title">{{ formatMessage(messages.createProjectModalSummaryLabel) }}<span class="required">*</span></span>
         <span class="label__description"
-          >This appears in search and on the sidebar of your project's page.</span
+          >{{ formatMessage(messages.createProjectModalSummaryLabelDescription) }}</span
         >
       </label>
       <div class="textarea-wrapper">
@@ -74,9 +74,29 @@ const messages = defineMessages({
     id: 'modal.create-project.label.name',
     defaultMessage: 'Name',
   },
+  createProjectModalNameInputPlaceholder: {
+    id: 'modal.create-project.input.name.placeholder',
+    defaultMessage: 'Enter project name...',
+  },
+  createProjectModalProjectTypeLabel: {
+    id: 'modal.create-project.label.project-type',
+    defaultMessage: 'Project type',
+  },
+  createProjectModalSummaryLabel: {
+    id: 'modal.create-project.label.summary',
+    defaultMessage: 'Summary',
+  },
+  createProjectModalSummaryLabelDescription: {
+    id: 'modal.create-project.label.summary.description',
+    defaultMessage: "This appears in search and on the sidebar of your project's page.",
+  },
   createProjectModalTitle: {
     id: 'modal.create-project.title',
     defaultMessage: 'Create a project',
+  },
+  createProjectModalUrlLabel: {
+    id: 'modal.create-project.label.url',
+    defaultMessage: 'URL',
   },
   createProjectModalDescription: {
     id: 'modal.create-project.description',
