@@ -162,30 +162,30 @@
     "message": "Ngôn ngữ"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Thu hồi phiên"
   },
   "settings.sessions.description": {
     "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Phiên hiện tại"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Đã tạo {ago}"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Truy cập lần cuối {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "HĐH không rõ"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Nền tảng không rõ"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Phiên"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} vào lúc {time, time, short}"
   }
 }
