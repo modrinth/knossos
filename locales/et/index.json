@@ -162,30 +162,30 @@
     "message": "Keel"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Sulge seanss"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Siin on kõik seadmed, mis on hetkel sinu Modrinthi kontoga sisselogitud. Sa võid igast seadmest eraldi välja logida.\n\nKui näed mõnda seadet, mida ei tuvasta, logi sealt koheselt välja ning muuda oma Modrinthi konto parool."
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Praegune seanss"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Loodud {ago}"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Viimati juurdepääsetud {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Tundmatu opsüsteem"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Tundmatu platvorm"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Seansid"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} kell {time, time, short}"
   }
 }
