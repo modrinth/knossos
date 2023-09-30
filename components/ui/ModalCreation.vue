@@ -13,7 +13,7 @@
         :items="tags.projectTypes.map((x) => formatMessage(getProjectTypeMessage(x.id)))"
       />
       <label for="name">
-        <span class="label__title">Name<span class="required">*</span></span>
+        <span class="label__title">{{ formatMessage(messages.createProjectModalNameLabel) }}<span class="required">*</span></span>
       </label>
       <input
         id="name"
@@ -70,6 +70,10 @@ import Modal from '~/components/ui/Modal.vue'
 import Chips from '~/components/ui/Chips.vue'
 
 const messages = defineMessages({
+  createProjectModalNameLabel: {
+    id: 'modal.create-project.label.name',
+    defaultMessage: 'Name',
+  },
   createProjectModalTitle: {
     id: 'modal.create-project.title',
     defaultMessage: 'Create a project',

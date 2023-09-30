@@ -41,13 +41,13 @@
   "modal.create-project.description": {
     "message": "New projects are created as drafts and can be found under your profile page."
   },
-  "modal.create-project.project-type": {
-    "message": "Project type"
-  },
-  "modal.create-project.name": {
+  "modal.create-project.label.name": {
     "message": "Name"
   },
-  "modal.create-project.url": {
+  "modal.create-project.label.project-type": {
+    "message": "Project type"
+  },
+  "modal.create-project.label.url": {
     "message": "URL"
   },
   "modal.create-project.summary.title": {
