@@ -162,30 +162,30 @@
     "message": "Sprache"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Sitzung widerrufen"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen ausloggen.\n\n Wenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend dein Modrinth-Konto."
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Aktuelle Sitzung"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Erstellt {ago}"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Letzter Zugriff {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Unbekanntes Betriebssystem"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Unbekannte Plattform"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Sitzungen"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} bei {time, time, short}"
   }
 }
