@@ -18,7 +18,7 @@
     "message": "{count, plural, one {{count} ακόμη άτομο βατραχιάστηκε} other {{count} ακόμη άτομα βατραχιάστηκαν}}!"
   },
   "frog.sinceOpened": {
-    "message": "Αυτή η σελίδα είχε ανοιχτεί {ago}"
+    "message": "Αυτή η σελίδα ανοίχτηκε {ago}"
   },
   "frog.title": {
     "message": "Βάτραχος"
@@ -45,7 +45,7 @@
     "message": "Ο χρήστης δε βρέθηκε"
   },
   "profile.input.upload-avatar": {
-    "message": "Ανέβασε avatar"
+    "message": "Ανεβάστε avatar"
   },
   "profile.joined-at": {
     "message": "Εγγράφηκε {ago}"
@@ -60,10 +60,10 @@
     "message": "Αυτός ο χρήστης δεν έχει έργα!"
   },
   "profile.label.no-projects-auth": {
-    "message": "Δεν έχεις κανένα έργο.\nΘα ήθελες να <create-link>δημιουργήσεις ένα</create-link>;"
+    "message": "Δεν έχετε κανένα έργο.\nΘα θέλατε να <create-link>δημιουργήστε ένα</create-link>;"
   },
   "profile.meta.description": {
-    "message": "Κατέβασε τα έργα του {username} στο Modrinth"
+    "message": "Κατεβάστε τα έργα του {username} στο Modrinth"
   },
   "profile.meta.description-with-bio": {
     "message": "{bio} - Κατέβασε τα έργα του {username} στο Modrinth"
@@ -162,30 +162,30 @@
     "message": "Γλώσσα"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Ανάκληση συνεδρίας"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Ακολουθούν όλες οι συσκευές που είναι συνδεδεμένες αυτήν τη στιγμή με τον λογαριασμό σας στο Modrinth. Μπορείτε να αποσυνδεθείτε από καθεμία ξεχωριστά.\n\nΕάν δείτε μια καταχώριση που δεν αναγνωρίζετε, αποσυνδεθείτε από αυτήν τη συσκευή και αλλάξτε αμέσως τον κωδικό πρόσβασης του λογαριασμού σας Modrinth."
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Τρέχουσα συνεδρία"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Δημιουργήθηκε {ago}"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Τελευταία πρόσβαση {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Άγνωστο Λειτουργικό Σύστημα"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Άγνωστη πλατφόρμα"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Συνεδρίες"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} στις {time, time, short}"
   }
 }
