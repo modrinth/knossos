@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal" header="Create a project">
+  <Modal ref="modal" :header="formatMessage(messages.createProjectModalTitle)">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>{{ formatMessage(messages.createProjectModalDescription) }}</p>
@@ -10,7 +10,7 @@
       <Chips
         id="project-type"
         v-model="projectType"
-        :items="tags.projectTypes.map((x) => x.display)"
+        :items="tags.projectTypes.map((x) => formatMessage(getProjectTypeMessage(x.id)))"
       />
       <label for="name">
         <span class="label__title">Name<span class="required">*</span></span>
@@ -52,11 +52,11 @@
       <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          Cancel
+          {{ formatMessage(commonMessages.cancelButton) }}
         </button>
         <button class="iconified-button brand-button" @click="createProject">
           <CheckIcon />
-          Continue
+          {{ formatMessage(commonMessages.continueButton) }}
         </button>
       </div>
     </div>
@@ -70,6 +70,10 @@ import Modal from '~/components/ui/Modal.vue'
 import Chips from '~/components/ui/Chips.vue'
 
 const messages = defineMessages({
+  createProjectModalTitle: {
+    id: 'modal.create-project.title',
+    defaultMessage: 'Create a project',
+  },
   createProjectModalDescription: {
     id: 'modal.create-project.description',
     defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
@@ -97,7 +101,7 @@ export default {
     const tags = useTags()
     const { formatMessage } = useVIntl()
 
-    return { tags, formatMessage }
+    return { tags, formatMessage, messages }
   },
   data() {
     return {

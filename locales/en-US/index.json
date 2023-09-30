@@ -2,6 +2,9 @@
   "button.cancel": {
     "message": "Cancel"
   },
+  "button.continue": {
+    "message": "Continue"
+  },
   "button.edit": {
     "message": "Edit"
   },
