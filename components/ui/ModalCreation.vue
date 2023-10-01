@@ -83,35 +83,35 @@ import Modal from '~/components/ui/Modal.vue'
 import Chips from '~/components/ui/Chips.vue'
 
 const messages = defineMessages({
-  createProjectModalDescription: {
+  modalDescription: {
     id: 'modal.create-project.description',
     defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
   },
-  createProjectModalNameLabel: {
-    id: 'modal.create-project.label.name',
+  nameInputLabel: {
+    id: 'modal.create-project.input.name.label',
     defaultMessage: 'Name',
   },
-  createProjectModalNameInputPlaceholder: {
+  nameInputPlaceholder: {
     id: 'modal.create-project.input.name.placeholder',
     defaultMessage: 'Enter project name...',
   },
-  createProjectModalProjectTypeLabel: {
+  projectTypeLabel: {
     id: 'modal.create-project.label.project-type',
     defaultMessage: 'Project type',
   },
-  createProjectModalSummaryLabel: {
+  summaryLabel: {
     id: 'modal.create-project.label.summary',
     defaultMessage: 'Summary',
   },
-  createProjectModalSummaryLabelDescription: {
+  summaryLabelDescription: {
     id: 'modal.create-project.label.summary.description',
     defaultMessage: "This appears in search and on the sidebar of your project's page.",
   },
-  createProjectModalTitle: {
+  modalTitle: {
     id: 'modal.create-project.title',
     defaultMessage: 'Create a project',
   },
-  createProjectModalUrlLabel: {
+  urlLabel: {
     id: 'modal.create-project.label.url',
     defaultMessage: 'URL',
   },
@@ -244,7 +244,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: formatMessage(commonMessages.errorNotificationTitle),
+          title: this.formatMessage(commonMessages.errorNotificationTitle),
           text: err.data.description,
           type: 'error',
         })
