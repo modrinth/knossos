@@ -10,7 +10,8 @@
       <Chips
         id="project-type"
         v-model="projectType"
-        :items="tags.projectTypes.map((x) => formatMessage(getProjectTypeMessage(x.id)))"
+        :items="tags.projectTypes.map((x) => x.display)"
+        :format-label="formatChipsLabel"
       />
       <label for="name">
         <span class="label__title">{{ formatMessage(messages.createProjectModalNameLabel) }}<span class="required">*</span></span>
@@ -139,6 +140,10 @@ export default {
   methods: {
     cancel() {
       this.$refs.modal.hide()
+    },
+    formatChipsLabel(item) {
+      var itemFormated = item.replaceAll(' ', '');
+      return this.formatMessage(getProjectTypeMessage(itemFormated));
     },
     getProjectType() {
       return this.tags.projectTypes.find((x) => this.projectType === x.display)
