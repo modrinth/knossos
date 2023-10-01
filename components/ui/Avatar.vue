@@ -35,10 +35,9 @@
 </template>
 
 <script setup>
-
 const pixelated = ref(false)
 
-const props = defineProps({
+defineProps({
   src: {
     type: String,
     default: null,

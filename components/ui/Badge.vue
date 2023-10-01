@@ -49,15 +49,15 @@ import LockIcon from '~/assets/images/utils/lock.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import CloseIcon from '~/assets/images/utils/check-circle.svg'
 
-const props = defineProps({
+defineProps({
   type: {
-      type: String,
-      required: true,
-    },
-    color: {
-      type: String,
-      default: '',
-    },
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String,
+    default: '',
+  },
 })
 </script>
 
