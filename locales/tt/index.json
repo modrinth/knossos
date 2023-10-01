@@ -171,21 +171,21 @@
     "message": "Current session"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "{ago} ясалды"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Last accessed {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Билгесез ОС"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Билгесез платформа"
   },
   "settings.sessions.title": {
     "message": "Sessions"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long}; {time, time, short}"
   }
 }
