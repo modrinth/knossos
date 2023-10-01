@@ -34,7 +34,7 @@
   </span>
 </template>
 
-<script>
+<script setup>
 import ModrinthIcon from '~/assets/images/logo.svg'
 import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
 import CreatorIcon from '~/assets/images/utils/box.svg'
@@ -49,24 +49,8 @@ import LockIcon from '~/assets/images/utils/lock.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import CloseIcon from '~/assets/images/utils/check-circle.svg'
 
-export default {
-  components: {
-    ModrinthIcon,
-    ListIcon,
-    DraftIcon,
-    EyeOffIcon,
-    ModeratorIcon,
-    CreatorIcon,
-    CrossIcon,
-    ArchiveIcon,
-    ProcessingIcon,
-    CheckIcon,
-    LockIcon,
-    CalendarIcon,
-    CloseIcon,
-  },
-  props: {
-    type: {
+const props = defineProps({
+  type: {
       type: String,
       required: true,
     },
@@ -74,8 +58,7 @@ export default {
       type: String,
       default: '',
     },
-  },
-}
+})
 </script>
 
 <style lang="scss" scoped>
