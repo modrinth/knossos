@@ -5,10 +5,10 @@
         <p>{{ formatMessage(messages.createProjectModalDescription) }}</p>
       </div>
       <label for="project-type">
-        <span class="label__title"
-          >{{ formatMessage(messages.createProjectModalProjectTypeLabel)
-          }}<span class="required">*</span></span
-        >
+        <span class="label__title">
+          {{ formatMessage(messages.createProjectModalProjectTypeLabel) }}
+          <span class="required">*</span>
+        </span>
       </label>
       <Chips
         id="project-type"
@@ -17,10 +17,10 @@
         :format-label="formatChipsLabel"
       />
       <label for="name">
-        <span class="label__title"
-          >{{ formatMessage(messages.createProjectModalNameLabel)
-          }}<span class="required">*</span></span
-        >
+        <span class="label__title">
+          {{ formatMessage(messages.createProjectModalNameLabel) }}
+          <span class="required">*</span>
+        </span>
       </label>
       <input
         id="name"
@@ -32,10 +32,10 @@
         @input="updatedName()"
       />
       <label for="slug">
-        <span class="label__title"
-          >{{ formatMessage(messages.createProjectModalUrlLabel)
-          }}<span class="required">*</span></span
-        >
+        <span class="label__title">
+          {{ formatMessage(messages.createProjectModalUrlLabel) }}
+          <span class="required">*</span>
+        </span>
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">
@@ -51,13 +51,13 @@
         />
       </div>
       <label for="additional-information">
-        <span class="label__title"
-          >{{ formatMessage(messages.createProjectModalSummaryLabel)
-          }}<span class="required">*</span></span
-        >
-        <span class="label__description">{{
-          formatMessage(messages.createProjectModalSummaryLabelDescription)
-        }}</span>
+        <span class="label__title">
+          {{ formatMessage(messages.createProjectModalSummaryLabel) }}
+          <span class="required">*</span>
+        </span>
+        <span class="label__description">
+          {{ formatMessage(messages.createProjectModalSummaryLabelDescription) }}
+        </span>
       </label>
       <div class="textarea-wrapper">
         <textarea id="additional-information" v-model="description" maxlength="256" />
