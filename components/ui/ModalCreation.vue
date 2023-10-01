@@ -1,12 +1,12 @@
 <template>
-  <Modal ref="modal" :header="formatMessage(messages.createProjectModalTitle)">
+  <Modal ref="modal" :header="formatMessage(messages.modalTitle)">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
-        <p>{{ formatMessage(messages.createProjectModalDescription) }}</p>
+        <p>{{ formatMessage(messages.modalDescription) }}</p>
       </div>
       <label for="project-type">
         <span class="label__title">
-          {{ formatMessage(messages.createProjectModalProjectTypeLabel) }}
+          {{ formatMessage(messages.projectTypeLabel) }}
           <span class="required">*</span>
         </span>
       </label>
@@ -18,7 +18,7 @@
       />
       <label for="name">
         <span class="label__title">
-          {{ formatMessage(messages.createProjectModalNameLabel) }}
+          {{ formatMessage(messages.nameLabel) }}
           <span class="required">*</span>
         </span>
       </label>
@@ -27,13 +27,13 @@
         v-model="name"
         type="text"
         maxlength="64"
-        :placeholder="formatMessage(messages.createProjectModalNameInputPlaceholder)"
+        :placeholder="formatMessage(messages.namePlaceholder)"
         autocomplete="off"
         @input="updatedName()"
       />
       <label for="slug">
         <span class="label__title">
-          {{ formatMessage(messages.createProjectModalUrlLabel) }}
+          {{ formatMessage(messages.urlLabel) }}
           <span class="required">*</span>
         </span>
       </label>
@@ -52,11 +52,11 @@
       </div>
       <label for="additional-information">
         <span class="label__title">
-          {{ formatMessage(messages.createProjectModalSummaryLabel) }}
+          {{ formatMessage(messages.summaryLabel) }}
           <span class="required">*</span>
         </span>
         <span class="label__description">
-          {{ formatMessage(messages.createProjectModalSummaryLabelDescription) }}
+          {{ formatMessage(messages.summaryDescription) }}
         </span>
       </label>
       <div class="textarea-wrapper">
@@ -83,37 +83,37 @@ import Modal from '~/components/ui/Modal.vue'
 import Chips from '~/components/ui/Chips.vue'
 
 const messages = defineMessages({
-  modalDescription: {
-    id: 'modal.create-project.description',
-    defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
-  },
-  nameInputLabel: {
-    id: 'modal.create-project.input.name.label',
-    defaultMessage: 'Name',
-  },
-  nameInputPlaceholder: {
-    id: 'modal.create-project.input.name.placeholder',
-    defaultMessage: 'Enter project name...',
-  },
-  projectTypeLabel: {
-    id: 'modal.create-project.label.project-type',
-    defaultMessage: 'Project type',
-  },
-  summaryLabel: {
-    id: 'modal.create-project.label.summary',
-    defaultMessage: 'Summary',
-  },
-  summaryLabelDescription: {
-    id: 'modal.create-project.label.summary.description',
-    defaultMessage: "This appears in search and on the sidebar of your project's page.",
-  },
   modalTitle: {
     id: 'modal.create-project.title',
     defaultMessage: 'Create a project',
   },
+  modalDescription: {
+    id: 'modal.create-project.description',
+    defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
+  },
+  nameLabel: {
+    id: 'modal.create-project.input.name.label',
+    defaultMessage: 'Name',
+  },
+  namePlaceholder: {
+    id: 'modal.create-project.input.name.placeholder',
+    defaultMessage: 'Enter project name...',
+  },
+  projectTypeLabel: {
+    id: 'modal.create-project.input.project-type.label',
+    defaultMessage: 'Project type',
+  },
   urlLabel: {
-    id: 'modal.create-project.label.url',
+    id: 'modal.create-project.input.url.label',
     defaultMessage: 'URL',
+  },
+  summaryLabel: {
+    id: 'modal.create-project.input.summary.label',
+    defaultMessage: 'Summary',
+  },
+  summaryDescription: {
+    id: 'modal.create-project.input.summary.description',
+    defaultMessage: "This appears in search and on the sidebar of your project's page.",
   },
 })
 
