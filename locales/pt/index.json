@@ -165,13 +165,13 @@
     "message": "Remover sessão"
   },
   "settings.sessions.description": {
-    "message": "Aqui estão todos os dispositivos que têm atualmente sessão iniciada com a tua conta do Modrinth. Podes sair de cada um individualmente.\n\n Se vires uma sessão que não reconheces, remova a sessão desse dispositivo e altere a senha da tua conta Modrinth imediatamente."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Sessão atual"
+    "message": "Aqui estão listados todos os dispositivos em que tens a sessão iniciada com a tua conta Modrinth. Podes terminar sessão em cada um deles individualmente.\n\nSe não reconheceres alguma destas sessões, termina a sessão nesse dispositivo e altera a palavra-passe da tua conta Modrinth imediatamente."
   },
   "settings.sessions.label.created-at": {
     "message": "Criada {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Sessão atual"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Último acesso {ago}"
