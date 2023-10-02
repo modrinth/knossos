@@ -165,13 +165,13 @@
     "message": "no mor sesion 4 u"
   },
   "settings.sessions.description": {
-    "message": "Heer r all robots who no ur pasword. u can log out of evry robot.\n\nif u dont no a robot, kill it and chnge ur moodrinf pa$$word now!"
-  },
-  "settings.sessions.label.current-session": {
-    "message": "ur on dis robot rn"
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
     "message": "apeerd {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "ur on dis robot rn"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "cat usd dis robot {ago}"
