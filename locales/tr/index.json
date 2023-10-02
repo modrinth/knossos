@@ -165,13 +165,13 @@
     "message": "Oturumu iptal et"
   },
   "settings.sessions.description": {
-    "message": "İşte burada sizin Modrinth hesabınızla mevcut giriş yapılmış tüm cihazlar. Her birinden teker teker çıkış yapabilirsiniz.\n\nEğer tanımadığınız bir girdi görürseniz, o cihazdan çıkış yapın ve Modrinth hesap parolanızı derhal değiştirin."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Şu anki oturum"
+    "message": "Şu an Modrinth hesabınızla giriş yapılmış tüm cihazlar burada. Her birinden teker teker çıkış yapabilirsiniz.\n\nEğer tanımadığınız bir girdi varsa, o cihazdan çıkış yapın ve Modrinth hesabınızın parolasını derhal değiştirin."
   },
   "settings.sessions.label.created-at": {
     "message": "{ago} oluşturuldu"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Şu anki oturum"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "En son {ago} erişildi"
