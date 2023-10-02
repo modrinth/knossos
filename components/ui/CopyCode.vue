@@ -7,12 +7,12 @@
 </template>
 
 <script setup>
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg'
+
+import { CheckIcon, ClipboardCopyIcon } from 'omorphia'
 
 const copied = ref(false)
 
-defineProps({
+const props = defineProps({
   text: {
     type: String,
     required: true,
@@ -20,8 +20,8 @@ defineProps({
 })
 
 async function copyText() {
-  await navigator.clipboard.writeText(this.text)
-  this.copied = true
+  await navigator.clipboard.writeText(props.text)
+  copied.value = true
 }
 </script>
 
