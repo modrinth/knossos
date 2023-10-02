@@ -162,16 +162,16 @@
     "message": "Språk"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Ta bort session"
+    "message": "Återkalla sessionen"
   },
   "settings.sessions.description": {
-    "message": "Här är alla enheter som för är inloggade på ditt Modrinth konto. Du kan logga ut från var och en individuellt.\n\n Om du ser en enhet som du inte känner igen, logga ut från den enheten och ändra ditt lösenord för ditt Modrinth konto omedelbart."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Nuvarande session"
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
     "message": "Skapad {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Nuvarande session"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Senast använd {ago}"
