@@ -46,23 +46,25 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: var(--gap-xs);
 
   :deep(span) {
     display: flex;
     align-items: center;
     flex-direction: row;
-
-    &:not(:last-child) {
-      margin-right: var(--spacing-card-md);
-    }
+    border: 1px solid var(--color-button-bg);
+    background-color: var(--color-bg);
+    padding: var(--gap-xs) var(--gap-sm);
+    border-radius: var(--radius-sm);
 
     &:not(.badge) {
-      color: var(--color-icon);
+      color: var(--color-text-secondary);
     }
 
     svg {
-      width: 1rem;
-      margin-right: 0.2rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-right: var(--gap-sm);
     }
   }
 }

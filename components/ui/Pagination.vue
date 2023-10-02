@@ -3,7 +3,7 @@
     <a
       :class="{ disabled: page === 1 }"
       :tabindex="page === 1 ? -1 : 0"
-      class="left-arrow paginate has-icon"
+      class="left-arrow paginate has-icon btn button-transparent square-button"
       aria-label="Previous Page"
       :href="linkFunction(page - 1)"
       @click.prevent="page !== 1 ? switchPage(page - 1) : null"
@@ -20,12 +20,14 @@
       class="page-number-container"
     >
       <div v-if="item === '-'" class="has-icon">
-        <GapIcon />
+        <GapIcon class="gap-icon" />
       </div>
       <a
         v-else
+        class="btn"
         :class="{
-          'page-number current': page === item,
+          'page-number current btn-primary': page === item,
+          'button-transparent': page !== item,
           shrink: item > 99,
         }"
         :href="linkFunction(item)"
@@ -40,7 +42,7 @@
         disabled: page === pages[pages.length - 1],
       }"
       :tabindex="page === pages[pages.length - 1] ? -1 : 0"
-      class="right-arrow paginate has-icon"
+      class="right-arrow paginate has-icon btn button-transparent square-button"
       aria-label="Next Page"
       :href="linkFunction(page + 1)"
       @click.prevent="page !== pages[pages.length - 1] ? switchPage(page + 1) : null"
@@ -118,29 +120,15 @@ export default {
 
 <style scoped lang="scss">
 a {
-  color: var(--color-button-text);
-  box-shadow: var(--shadow-raised), var(--shadow-inset);
-
-  padding: 0.5rem 1rem;
+  padding: var(--gap-sm);
   margin: 0;
-  border-radius: 2rem;
-  background: var(--color-raised-bg);
+  height: 2.25rem;
+  min-width: 2.25rem;
+  box-shadow: none;
+}
 
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-    outline 0.2s ease-in-out;
-
-  &.page-number.current {
-    background: var(--color-brand);
-    color: var(--color-brand-inverted);
-    cursor: default;
-  }
-
-  &.paginate.disabled {
-    background-color: transparent;
-    cursor: not-allowed;
-    filter: grayscale(50%);
-    opacity: 0.5;
-  }
+.button-transparent {
+  color: var(--color-text);
 }
 
 .has-icon {
@@ -160,12 +148,9 @@ a,
 }
 
 .paginates {
-  height: 2em;
   margin: 0.5rem 0;
-  > div,
-  .has-icon {
-    margin: 0 0.3em;
-  }
+  display: flex;
+  gap: var(--gap-xs);
 }
 
 .left-arrow {
@@ -187,5 +172,9 @@ a,
     width: 2.5rem;
     padding: 0.5rem 0;
   }
+}
+
+.gap-icon {
+  margin-inline: 0.25rem;
 }
 </style>

@@ -15,46 +15,72 @@
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="normal-page">
-      <div class="normal-page__content">
-        <div class="user-header-wrapper">
-          <div class="user-header">
-            <Avatar
-                :src="previewImage ? previewImage : user.avatar_url"
-                size="md"
-                circle
-                :alt="user.username"
+      <div class="normal-page__header">
+        <Avatar
+          :src="previewImage ? previewImage : user.avatar_url"
+          size="md"
+          circle
+          :alt="user.username"
+        />
+        <div class="user-header__text">
+          <div class="user-header__title">
+            <h1 class="username">
+              {{ user.username }}
+            </h1>
+            <ModrinthIcon
+              v-if="user.role === 'admin'"
+              v-tooltip="'Modrinth team'"
+              class="badge-icon"
             />
-            <div class="user-header__text">
-              <div class="user-header__title">
-                <h1  class="username">
-                  {{ user.username }}
-                </h1>
-                <ModrinthIcon v-if="user.role === 'admin'" class="badge-icon" v-tooltip="'Modrinth team'"/>
-                <ScaleIcon v-else-if="user.role === 'moderator'" class="badge-icon moderator" v-tooltip="'Moderator'" />
-                <BoxIcon v-else-if="user.role === 'developer'" class="badge-icon creator" v-tooltip="'Creator'"/>
-              </div>
-              <div class="markdown-body">
-                <p>
-                  {{ user.bio }}
-                </p>
-              </div>
-              <div class="stats">
-                <div class="stat">
-                  <HeartIcon aria-hidden="true"/>
-                  {{ sumFollows }} followers
-                </div>
-                <div class="stat">
-                  <DownloadIcon aria-hidden="true"/>
-                  {{ sumDownloads }} downloads
-                </div>
-                <div class="stat">
-                  <SunriseIcon aria-hidden="true" />
-                  Joined {{ fromNow(user.created) }}
-                </div>
-              </div>
+            <ScaleIcon
+              v-else-if="user.role === 'moderator'"
+              v-tooltip="'Moderator'"
+              class="badge-icon moderator"
+            />
+            <BoxIcon
+              v-else-if="user.role === 'developer'"
+              v-tooltip="'Creator'"
+              class="badge-icon creator"
+            />
+          </div>
+          <div class="markdown-body">
+            <p>
+              {{ user.bio }}
+            </p>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <HeartIcon aria-hidden="true" />
+              {{ sumFollows }} followers
+            </div>
+            <div class="stat">
+              <DownloadIcon aria-hidden="true" />
+              {{ sumDownloads }} downloads
+            </div>
+            <div class="stat">
+              <SunriseIcon aria-hidden="true" />
+              Joined {{ fromNow(user.created) }}
             </div>
           </div>
         </div>
+      </div>
+      <div class="normal-page__sidebar">
+        <div class="universal-card">
+          <h2>Badges</h2>
+          <div class="badges-container">
+            <div class="badge">
+              <BadgeModrinthTeam />
+            </div>
+            <div class="badge">
+              <Badge100kDownloads />
+            </div>
+            <div class="badge">
+              <Badge1MDownloads />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="normal-page__content">
         <Promotion />
         <nav class="navigation-card">
           <NavRow
@@ -75,7 +101,7 @@
             <NuxtLink
               v-if="auth.user && auth.user.id === user.id"
               class="iconified-button"
-              to="/dashboard/projects"
+              to="/projects"
             >
               <SettingsIcon />
               Manage projects
@@ -150,7 +176,16 @@
   </div>
 </template>
 <script setup>
-import {Promotion, ModrinthIcon, BoxIcon, ScaleIcon, HeartIcon, DownloadIcon, SunriseIcon, formatNumber} from 'omorphia'
+import {
+  Promotion,
+  ModrinthIcon,
+  BoxIcon,
+  ScaleIcon,
+  HeartIcon,
+  DownloadIcon,
+  SunriseIcon,
+  formatNumber,
+} from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
@@ -161,6 +196,18 @@ import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+
+import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
+import Badge10MDownloads from '~/assets/images/badges/downloads-10m.svg'
+import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
+import Badge100MDownloads from '~/assets/images/badges/downloads-100m.svg'
+import BadgeEarlyDataPackAdopter from '~/assets/images/badges/early-datapack-adopters.svg'
+import BadgeEarlyModpackAdopter from '~/assets/images/badges/early-modpack-adopters.svg'
+import BadgeEarlyPluginAdopter from '~/assets/images/badges/early-plugin-adopters.svg'
+import BadgeEarlyResourcePackAdopter from '~/assets/images/badges/early-resourcepack-adopters.svg'
+import BadgeEarlyShadersAdopter from '~/assets/images/badges/early-shaders-adopters.svg'
+import BadgeModrinthModerator from '~/assets/images/badges/modrinth-moderator.svg'
+import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -315,80 +362,66 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="scss" scoped>
-.user-header-wrapper {
+.normal-page__header {
+  position: relative;
+  z-index: 4;
   display: flex;
-  margin: 0 auto;
-  max-width: 80rem;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+  padding: var(--gap-md) 0;
 
-  .user-header {
-    position: relative;
-    z-index: 4;
+  .user-header__text {
     display: flex;
-    width: 100%;
-    gap: 1rem;
-    align-items: center;
-    padding: var(--gap-md) 0;
-
-    .user-header__text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: var(--gap-xs);
-    }
-
-    .user-header__title {
-      font-size: 2rem;
-      margin: 0;
-
-      .username {
-        font-size: 2rem;
-        margin: 0;
-        display: inline;
-      }
-
-      .badge-icon {
-        display: inline;
-        padding: 0;
-        background: none;
-        height: 1.5rem;
-        width: 1.5rem;
-        margin-left: 0.5rem;
-
-        &.creator {
-          color: var(--color-blue);
-        }
-
-        &.moderator {
-          color: var(--color-orange);
-        }
-      }
-    }
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--gap-xs);
   }
 
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-sm);
+  .user-header__title {
+    font-size: 2rem;
+    margin: 0;
 
-    .stat {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: var(--gap-sm);
-      padding: var(--gap-sm) var(--gap-md);
-      border-radius: var(--radius-md);
-      background: var(--color-raised-bg);
-      text-align: center;
+    .username {
+      font-size: 2rem;
+      margin: 0;
+      display: inline;
+    }
+
+    .badge-icon {
+      display: inline;
+      padding: 0;
+      background: none;
+      height: 1.5rem;
+      width: 1.5rem;
+      margin-left: 0.5rem;
+
+      &.creator {
+        color: var(--color-blue);
+      }
+
+      &.moderator {
+        color: var(--color-orange);
+      }
     }
   }
 }
 
-.normal-page {
-  grid-template:
-    'sidebar'
-    'content'
-    'info'
-    / 100%;
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+
+  .stat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-sm);
+    padding: var(--gap-sm) var(--gap-md);
+    border-radius: var(--radius-md);
+    background: var(--color-raised-bg);
+    text-align: center;
+  }
 }
 
 .mobile-username {
@@ -398,10 +431,6 @@ export default defineNuxtComponent({
 @media screen and (min-width: 501px) {
   .mobile-username {
     display: none;
-  }
-
-  .user-header-wrapper .user-header .username {
-    display: block;
   }
 }
 
@@ -471,9 +500,23 @@ export default defineNuxtComponent({
   height: 10rem;
 }
 
-@media (max-width: 400px) {
-  .sidebar {
-    padding-top: 3rem;
+.badges-container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-lg);
+
+  .badge {
+    --_size: 3.5rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    width: var(--_size);
+    height: var(--_size);
+    box-shadow: var(--shadow-raised);
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

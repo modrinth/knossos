@@ -108,7 +108,7 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import RequiredIcon from '~/assets/images/utils/asterisk.svg'
 import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
+import ModerationIcon from '~/assets/images/utils/moderation.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 

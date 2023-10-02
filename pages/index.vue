@@ -31,8 +31,8 @@
         >
           Sign up
         </nuxt-link>
-        <nuxt-link v-else to="/dashboard/projects" class="iconified-button outline-button">
-          Go to dashboard
+        <nuxt-link v-else to="/projects" class="iconified-button outline-button">
+          Your projects
         </nuxt-link>
       </div>
     </div>
@@ -514,6 +514,7 @@ import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import homepageProjects from '~/generated/homepage.json'
+import LoggedInHome from '~/components/ui/LoggedInHome.vue'
 
 const searchQuery = ref('better')
 const sortType = ref('relevance')
@@ -1268,7 +1269,7 @@ const rows = shallowRef([
       font-size: 1.625rem;
     }
 
-    margin-top: -4rem;
+    margin-top: -9rem;
     padding: 11.25rem 1rem 12rem;
   }
 

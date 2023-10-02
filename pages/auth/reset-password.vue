@@ -70,7 +70,7 @@ useHead({
 
 const auth = await useAuth()
 if (auth.value.user) {
-  await navigateTo('/dashboard')
+  await navigateTo('/')
 }
 
 const route = useRoute()

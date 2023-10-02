@@ -308,7 +308,7 @@ export default defineNuxtComponent({
     removeSelfFromTeam,
     async leaveProject() {
       await removeSelfFromTeam(this.project.team)
-      await this.$router.push('/dashboard/projects')
+      await this.$router.push('/projects')
     },
     async inviteTeamMember() {
       startLoading()

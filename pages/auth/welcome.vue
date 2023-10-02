@@ -52,7 +52,7 @@ async function continueSignUp() {
   if (route.query.redirect) {
     await navigateTo(route.query.redirect)
   } else {
-    await navigateTo('/dashboard')
+    await navigateTo('/')
   }
 }
 </script>

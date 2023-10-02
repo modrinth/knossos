@@ -1,85 +1,28 @@
 <template>
   <div>
     <section class="universal-card">
-      <h2>Themes</h2>
-      <div class="adjacent-input">
-        <label for="theme-selector">
-          <span class="label__title">Color theme</span>
-          <span class="label__description">Change the global site color theme.</span>
-        </label>
-        <div>
-          <Multiselect
-            id="theme-selector"
-            v-model="$colorMode.preference"
-            :options="['system', 'light', 'dark', 'oled']"
-            :custom-label="
-              (value) =>
-                value === 'oled' ? 'OLED' : value.charAt(0).toUpperCase() + value.slice(1)
-            "
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            @update:model-value="(value) => updateTheme(value, true)"
-          />
-        </div>
-      </div>
-
-      <div class="adjacent-input small">
-        <label for="search-layout-toggle">
-          <span class="label__title">Search sidebar on the right</span>
-          <span class="label__description"
-            >Enabling this will put the search page's filters sidebar on the right side.</span
-          >
-        </label>
-        <input
-          id="search-layout-toggle"
-          v-model="cosmetics.searchLayout"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="saveCosmetics"
-        />
-      </div>
-      <div class="adjacent-input small">
-        <label for="project-layout-toggle">
-          <span class="label__title">Project sidebar on the right</span>
-          <span class="label__description"
-            >Enabling this will put the project pages' info sidebars on the right side.</span
-          >
-        </label>
-        <input
-          id="project-layout-toggle"
-          v-model="cosmetics.projectLayout"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="saveCosmetics"
-        />
-      </div>
-    </section>
-    <section class="universal-card">
-      <h2>Project list display mode</h2>
-      <div
-        v-for="projectType in listTypes"
-        :key="projectType.id + '-display-mode-selector'"
-        class="adjacent-input"
-      >
-        <label :for="projectType.id + '-search-display-mode'">
-          <span class="label__title">{{ projectType.name }} display mode</span>
-          <span class="label__description"
-            >Change the display view for {{ projectType.display }}.</span
-          >
-        </label>
-        <Multiselect
-          :id="projectType + '-search-display-mode'"
-          v-model="cosmetics.searchDisplayMode[projectType.id]"
-          :options="tags.projectViewModes"
-          :custom-label="$capitalizeString"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-          @update:model-value="saveCosmetics"
-        />
+      <h2>Color theme</h2>
+      <div class="theme-options">
+        <button
+          v-for="option of options"
+          :key="option"
+          class="theme-option button-base"
+          :class="{ selected: $colorMode.preference === option }"
+          @click="() => updateColorTheme(option)"
+        >
+          <div class="preview" :class="`${option === 'system' ? systemTheme : option}-mode`">
+            <div class="example-card universal-card card">
+              <div class="example-icon"></div>
+              <div class="example-text-1"></div>
+              <div class="example-text-2"></div>
+            </div>
+          </div>
+          <div class="label">
+            <RadioButtonCheckedIcon v-if="$colorMode.preference === option" class="radio" />
+            <RadioButtonIcon v-else class="radio" />
+            {{ formatOption(option) }}
+          </div>
+        </button>
       </div>
     </section>
     <section class="universal-card">
@@ -139,9 +82,13 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
+import RadioButtonCheckedIcon from 'assets/images/utils/radio-button-checked.svg'
+import RadioButtonIcon from 'assets/images/utils/radio-button.svg'
 
 export default defineNuxtComponent({
   components: {
+    RadioButtonIcon,
+    RadioButtonCheckedIcon,
     Multiselect,
   },
   setup() {
@@ -153,6 +100,7 @@ export default defineNuxtComponent({
   data() {
     return {
       searchDisplayMode: this.cosmetics.searchDisplayMode,
+      systemTheme: 'light',
     }
   },
   head: {
@@ -174,7 +122,112 @@ export default defineNuxtComponent({
       })
       return types
     },
+    options() {
+      const options = ['system', 'light', 'dark', 'oled']
+      if (this.cosmetics.developerMode || this.$colorMode.preference === 'retro') {
+        options.push('retro')
+      }
+      return options
+    },
+  },
+  methods: {
+    formatOption(value) {
+      if (value === 'oled') {
+        return 'OLED'
+      } else if (value === 'system') {
+        return 'Sync with system'
+      }
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    },
+    updateColorTheme(value) {
+      if (['dark', 'oled', 'retro'].includes(value)) {
+        this.cosmetics.preferredDarkTheme = value
+        saveCosmetics()
+      }
+      updateTheme(value, true)
+    },
+  },
+  mounted() {
+    const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)')
+    if (colorSchemeQueryList.matches) {
+      return 'light'
+    } else {
+      return 'dark'
+    }
   },
 })
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-lg);
+}
+.theme-option {
+  width: 100%;
+  border-radius: var(--radius-md);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-button-bg);
+  background-color: var(--color-button-bg);
+  color: var(--color-text);
+
+  &.selected {
+    color: var(--color-contrast);
+
+    .label svg {
+      color: var(--color-brand);
+    }
+  }
+
+  .preview {
+    background-color: var(--color-bg);
+    padding: 1.5rem;
+
+    .example-card {
+      margin: 0;
+      padding: 1rem;
+      display: grid;
+      grid-template: 'icon text1' 'icon text2';
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem;
+
+      .example-icon {
+        grid-area: icon;
+        width: 2rem;
+        height: 2rem;
+        background-color: var(--color-button-bg);
+        border-radius: var(--radius-sm);
+      }
+
+      .example-text-1,
+      .example-text-2 {
+        height: 0.5rem;
+        border-radius: var(--radius-sm);
+      }
+
+      .example-text-1 {
+        grid-area: text1;
+        width: 100%;
+        background-color: var(--color-text);
+      }
+
+      .example-text-2 {
+        grid-area: text2;
+        width: 60%;
+        background-color: var(--color-text-secondary);
+      }
+    }
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    padding: var(--gap-md) var(--gap-lg);
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+</style>

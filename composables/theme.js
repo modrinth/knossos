@@ -48,7 +48,11 @@ export const updateTheme = (value, updatePreference = false) => {
   }
 
   if (process.client) {
-    document.documentElement.className = `${theme.value.value}-mode`
+    if (theme.value.value !== 'light') {
+      document.documentElement.className = `dark-mode ${theme.value.value}-mode`
+    } else {
+      document.documentElement.className = `${theme.value.value}-mode`
+    }
   }
 
   themeCookie.value = theme.value

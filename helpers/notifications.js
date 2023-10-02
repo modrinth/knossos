@@ -113,15 +113,16 @@ export async function fetchNotifications() {
 
     return notifications.value
   } catch (error) {
-    const app = useNuxtApp()
-    app.$notify({
-      group: 'main',
-      title: 'Error loading notifications',
-      text: error.data ? error.data.description : error,
-      type: 'error',
-    })
+    console.error(error)
+    // const app = useNuxtApp()
+    // app.$notify({
+    //   group: 'main',
+    //   title: 'Error loading notifications',
+    //   text: error.data ? error.data.description : error,
+    //   type: 'error',
+    // })
   }
-  return null
+  return []
 }
 
 export function groupNotifications(notifications, includeRead = false) {

@@ -133,7 +133,7 @@ if (route.fullPath.includes('new_account=true')) {
 }
 
 if (auth.value.user) {
-  await navigateTo('/dashboard')
+  await navigateTo('/')
 }
 
 const turnstile = ref()
@@ -179,7 +179,7 @@ async function createAccount() {
     if (route.query.redirect) {
       await navigateTo(route.query.redirect)
     } else {
-      await navigateTo('/dashboard')
+      await navigateTo('/')
     }
   } catch (err) {
     addNotification({

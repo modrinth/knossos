@@ -1,85 +1,85 @@
 <template>
-  <section class="universal-card">
-    <h2>Review projects</h2>
-    <div class="input-group">
-      <Chips
-        v-model="projectType"
-        :items="projectTypes"
-        :format-label="(x) => (x === 'all' ? 'All' : $formatProjectType(x) + 's')"
-      />
-      <button v-if="oldestFirst" class="iconified-button push-right" @click="oldestFirst = false">
-        <SortDescIcon />Sorting by oldest
-      </button>
-      <button v-else class="iconified-button push-right" @click="oldestFirst = true">
-        <SortAscIcon />Sorting by newest
-      </button>
-    </div>
-    <p v-if="projectType !== 'all'" class="project-count">
-      Showing {{ projectsFiltered.length }} {{ projectTypePlural }} of {{ projects.length }} total
-      projects in the queue.
-    </p>
-    <p v-else class="project-count">There are {{ projects.length }} projects in the queue.</p>
-    <p v-if="projectsOver24Hours.length > 0" class="warning project-count">
-      <WarningIcon /> {{ projectsOver24Hours.length }} {{ projectTypePlural }}
-      have been in the queue for over 24 hours.
-    </p>
-    <p v-if="projectsOver48Hours.length > 0" class="danger project-count">
-      <WarningIcon /> {{ projectsOver48Hours.length }} {{ projectTypePlural }}
-      have been in the queue for over 48 hours.
-    </p>
-    <div
-      v-for="project in projectsFiltered.sort((a, b) => {
-        if (oldestFirst) {
-          return b.age - a.age
-        } else {
-          return a.age - b.age
-        }
-      })"
-      :key="`project-${project.id}`"
-      class="universal-card recessed project"
-    >
-      <div class="project-title">
-        <div class="mobile-row">
-          <nuxt-link
-            :to="`/${project.inferred_project_type}/${project.slug}`"
-            class="iconified-stacked-link"
-          >
-            <Avatar :src="project.icon_url" size="xs" no-shadow raised />
-            <span class="stacked">
-              <span class="title">{{ project.title }}</span>
-              <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
-            </span>
-          </nuxt-link>
-        </div>
-        <div class="mobile-row">
-          by
-          <nuxt-link :to="`/user/${project.owner.username}`" class="iconified-link">
-            <Avatar :src="project.owner.avatar_url" circle size="xxs" raised />
-            <span>{{ project.owner.username }}</span>
-          </nuxt-link>
-        </div>
-        <div class="mobile-row">
-          is requesting to be
-          <Badge :type="project.requested_status ? project.requested_status : 'approved'" />
-        </div>
-      </div>
-      <div class="input-group">
+  <Breadcrumbs
+    current-title="Review projects"
+    :link-stack="[{ href: `/moderation`, label: 'Moderation' }]"
+  />
+  <h2>Review projects</h2>
+  <div class="input-group">
+    <Chips
+      v-model="projectType"
+      :items="projectTypes"
+      :format-label="(x) => (x === 'all' ? 'All' : $formatProjectType(x) + 's')"
+    />
+    <button v-if="oldestFirst" class="iconified-button push-right" @click="oldestFirst = false">
+      <SortDescIcon />Sorting by oldest
+    </button>
+    <button v-else class="iconified-button push-right" @click="oldestFirst = true">
+      <SortAscIcon />Sorting by newest
+    </button>
+  </div>
+  <p v-if="projectType !== 'all'" class="project-count">
+    Showing {{ projectsFiltered.length }} {{ projectTypePlural }} of {{ projects.length }} total
+    projects in the queue.
+  </p>
+  <p v-else class="project-count">There are {{ projects.length }} projects in the queue.</p>
+  <p v-if="projectsOver24Hours.length > 0" class="warning project-count">
+    <WarningIcon /> {{ projectsOver24Hours.length }} {{ projectTypePlural }}
+    have been in the queue for over 24 hours.
+  </p>
+  <p v-if="projectsOver48Hours.length > 0" class="danger project-count">
+    <WarningIcon /> {{ projectsOver48Hours.length }} {{ projectTypePlural }}
+    have been in the queue for over 48 hours.
+  </p>
+  <div
+    v-for="project in projectsFiltered.sort((a, b) => {
+      if (oldestFirst) {
+        return b.age - a.age
+      } else {
+        return a.age - b.age
+      }
+    })"
+    :key="`project-${project.id}`"
+    class="universal-card project"
+  >
+    <div class="project-title">
+      <div class="mobile-row">
         <nuxt-link
           :to="`/${project.inferred_project_type}/${project.slug}`"
-          class="iconified-button raised-button"
-          ><EyeIcon /> View project</nuxt-link
+          class="iconified-stacked-link"
         >
+          <Avatar :src="project.icon_url" size="xs" no-shadow />
+          <span class="stacked">
+            <span class="title">{{ project.title }}</span>
+            <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
+          </span>
+        </nuxt-link>
       </div>
-      <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
-        <WarningIcon v-if="project.age_warning" />
-        Submitted
-        <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
-          fromNow(project.queued)
-        }}</span>
-      </span>
-      <span v-else class="submitter-info"><UnknownIcon /> Unknown queue date</span>
+      <div class="mobile-row">
+        by
+        <nuxt-link :to="`/user/${project.owner.username}`" class="iconified-link">
+          <Avatar :src="project.owner.avatar_url" circle size="xxs" />
+          <span>{{ project.owner.username }}</span>
+        </nuxt-link>
+      </div>
+      <div class="mobile-row">
+        is requesting to be
+        <Badge :type="project.requested_status ? project.requested_status : 'approved'" />
+      </div>
     </div>
-  </section>
+    <div class="input-group">
+      <nuxt-link :to="`/${project.inferred_project_type}/${project.slug}`" class="iconified-button"
+        ><EyeIcon /> View project</nuxt-link
+      >
+    </div>
+    <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
+      <WarningIcon v-if="project.age_warning" />
+      Submitted
+      <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
+        fromNow(project.queued)
+      }}</span>
+    </span>
+    <span v-else class="submitter-info"><UnknownIcon /> Unknown queue date</span>
+  </div>
 </template>
 <script setup>
 import Chips from '~/components/ui/Chips.vue'
@@ -91,6 +91,7 @@ import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
 import Badge from '~/components/ui/Badge.vue'
 import { formatProjectType } from '~/plugins/shorthands.js'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 useHead({
   title: 'Review projects - Modrinth',

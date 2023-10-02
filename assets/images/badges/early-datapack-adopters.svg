@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="radial-gradient" cx="23.4" cy="20.76" fx="23.4" fy="20.76" r="204.77" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c78aff"/>
+      <stop offset=".98" stop-color="#ff496e"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="100" height="100" style="fill: url(#radial-gradient);"/>
+  <g>
+    <path d="m33.24,18.94h-2.55c-2.82,0-5.1,2.28-5.1,5.1v12.75c0,2.82-2.28,5.1-5.1,5.1,2.82,0,5.1,2.28,5.1,5.1v12.75c0,2.8,2.29,5.1,5.1,5.1h2.55" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+    <path d="m53.64,64.83h2.55c2.82,0,5.1-2.28,5.1-5.1v-12.75c0-2.8,2.29-5.1,5.1-5.1-2.82,0-5.1-2.28-5.1-5.1v-12.75c0-2.82-2.28-5.1-5.1-5.1h-2.55" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 6px;"/>
+  </g>
+  <g>
+    <path d="m83.91,65.21l-22.55,22.55c-1.76,1.74-4.59,1.73-6.34-.02h0c-1.75-1.76-1.75-4.6,0-6.36l22.53-22.53" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.18px;"/>
+    <path d="m75.96,57.26l9.54,9.54" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.18px;"/>
+    <path d="m69.6,79.52h-12.72" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.18px;"/>
+  </g>
+</svg>

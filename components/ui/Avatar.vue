@@ -92,7 +92,8 @@ export default {
   box-shadow: var(--shadow-inset-lg), var(--shadow-card);
   height: var(--size);
   width: var(--size);
-  background-color: var(--color-button-bg);
+  background-color: var(--color-raised-bg);
+  border: 1px solid var(--color-button-bg);
   object-fit: contain;
 
   &.size-xxs {

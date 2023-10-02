@@ -45,7 +45,7 @@
           <TransferIcon /> Transfer to
           {{ $formatWallet(auth.user.payout_data.payout_wallet) }}
         </button>
-        <NuxtLink class="iconified-button" to="/dashboard/revenue/transfers">
+        <NuxtLink class="iconified-button" to="/revenue/transfers">
           <HistoryIcon /> View transfer history
         </NuxtLink>
         <NuxtLink class="iconified-button" to="/settings/monetization">

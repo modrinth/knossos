@@ -3,7 +3,6 @@
     :class="{
       'search-page': true,
       'normal-page': true,
-      'alt-layout': cosmetics.searchLayout,
     }"
   >
     <Head>
@@ -16,6 +15,12 @@
       />
       <Meta name="og:description" :content="metaDescription" />
     </Head>
+    <section class="normal-page__header">
+      <Breadcrumbs
+        :current-title="$formatProjectType(projectType.display) + 's'"
+        :link-stack="[{ href: `/games/minecraft-java`, label: 'Minecraft: Java Edition' }]"
+      />
+    </section>
     <aside
       :class="{
         'normal-page__sidebar': true,
@@ -194,88 +199,66 @@
         </div>
       </section>
     </aside>
-    <section class="normal-page__header">
-      <Promotion />
-      <div class="card search-controls">
-        <div class="search-filter-container">
-          <button
-              class="iconified-button sidebar-menu-close-button"
-              :class="{ open: sidebarMenuOpen }"
-              @click="sidebarMenuOpen = !sidebarMenuOpen"
-          >
-            <FilterIcon aria-hidden="true" />
-            Filters...
-          </button>
-          <div class="iconified-input">
-            <label class="hidden" for="search">Search</label>
-            <SearchIcon aria-hidden="true" />
-            <input
-                id="search"
-                v-model="query"
-                type="search"
-                name="search"
-                :placeholder="`Search ${projectType.display}s...`"
-                autocomplete="off"
-                @input="onSearchChange(1)"
-            />
-          </div>
-        </div>
-        <div class="sort-controls">
-          <div class="labeled-control">
-            <span class="labeled-control__label">Sort by</span>
-            <Multiselect
-                v-model="sortType"
-                placeholder="Select one"
-                class="search-controls__sorting labeled-control__control"
-                track-by="display"
-                label="display"
-                :options="sortTypes"
-                :searchable="false"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @update:model-value="onSearchChange(1)"
-            >
-              <template #singleLabel="{ option }">
-                {{ option.display }}
-              </template>
-            </Multiselect>
-          </div>
-          <div class="labeled-control">
-            <span class="labeled-control__label">Show per page</span>
-            <Multiselect
-                v-model="maxResults"
-                placeholder="Select one"
-                class="labeled-control__control"
-                :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
-                :searchable="false"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @update:model-value="onMaxResultsChange(currentPage)"
-            />
-          </div>
-          <button
-              v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-              :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-              class="square-button"
-              @click="cycleSearchDisplayMode()"
-          >
-            <GridIcon v-if="cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
-            <ImageIcon v-else-if="cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
-            <ListIcon v-else />
-          </button>
-        </div>
-      </div>
-    </section>
     <section class="normal-page__content">
-      <Pagination
-        :page="currentPage"
-        :count="pageCount"
-        :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
-        class="pagination-before"
-        @switch-page="onSearchChange"
-      />
+      <div class="search-controls">
+        <button
+          class="iconified-button sidebar-menu-close-button"
+          :class="{ open: sidebarMenuOpen }"
+          @click="sidebarMenuOpen = !sidebarMenuOpen"
+        >
+          <FilterIcon aria-hidden="true" />
+          Filters...
+        </button>
+        <div class="iconified-input">
+          <label class="hidden" for="search">Search</label>
+          <SearchIcon aria-hidden="true" />
+          <input
+            id="search"
+            v-model="query"
+            type="text"
+            name="search"
+            :placeholder="`Search ${projectType.display}s...`"
+            autocomplete="off"
+            @input="onSearchChange(1)"
+          />
+          <Button @click="() => (query = '')">
+            <XIcon />
+          </Button>
+        </div>
+        <span>Sort by </span>
+        <DropdownSelect
+          v-model="sortType"
+          class="sort-dropdown"
+          placeholder="Select one"
+          :options="sortTypes"
+          :display-name="(option) => option.display"
+          name="Sort mode"
+          @update:model-value="onSearchChange(1)"
+        />
+        <button
+          v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+          :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+          class="btn square-button"
+          @click="cycleSearchDisplayMode()"
+        >
+          <GridIcon v-if="cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
+          <ImageIcon v-else-if="cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
+          <ListIcon v-else />
+        </button>
+      </div>
+      <div class="pagination-container">
+        <span class="results-text">
+          {{ results.total_hits }}
+          {{ $formatProjectType(projectType.display).toLowerCase() }}s
+        </span>
+        <Pagination
+          :page="currentPage"
+          :count="pageCount"
+          :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
+          @switch-page="onSearchChange"
+        />
+      </div>
+      <Promotion />
       <LogoAnimated v-if="searchLoading && !noLoad"></LogoAnimated>
       <div v-else-if="results && results.hits && results.hits.length === 0" class="no-results">
         <p>No results found for your query!</p>
@@ -313,19 +296,28 @@
           />
         </div>
       </div>
-      <pagination
-        :page="currentPage"
-        :count="pageCount"
-        :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
-        class="pagination-after"
-        @switch-page="onSearchChangeToTop"
-      />
+      <div class="pagination-container">
+        <span>Show per page</span>
+        <DropdownSelect
+          v-model="maxResults"
+          class="count-dropdown"
+          name="Per page"
+          :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
+          @update:model-value="onMaxResultsChange(currentPage)"
+        />
+        <Pagination
+          :page="currentPage"
+          :count="pageCount"
+          :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
+          @switch-page="onSearchChangeToTop"
+        />
+      </div>
     </section>
   </div>
 </template>
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Promotion } from 'omorphia'
+import { Promotion, Button, DropdownSelect, XIcon } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import SearchFilter from '~/components/ui/search/SearchFilter.vue'
@@ -341,6 +333,8 @@ import FilterIcon from '~/assets/images/utils/filter.svg'
 import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import MinecraftIcon from 'assets/images/games/minecraft.svg'
 
 const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)
@@ -826,79 +820,23 @@ function setClosestMaxResults() {
   flex-direction: row;
   gap: var(--spacing-card-md);
   flex-wrap: wrap;
-  padding: var(--spacing-card-md);
   grid-row: 2;
+  margin-bottom: var(--gap-lg);
+  align-items: center;
 
-  .search-filter-container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-
-    .sidebar-menu-close-button {
-      max-height: none;
-      // match height of the search field
-      height: 40px;
-      transition: box-shadow 0.1s ease-in-out;
-      margin-right: var(--spacing-card-md);
-
-      &.open {
-        color: var(--color-button-text-active);
-        background-color: var(--color-brand-highlight);
-        box-shadow: inset 0 0 0 transparent, 0 0 0 2px var(--color-brand);
-      }
-    }
-
-    .iconified-input {
-      flex: 1;
-
-      input {
-        width: 100%;
-        margin: 0;
-      }
-    }
+  .iconified-input {
+    flex-grow: 1;
   }
 
-  .sort-controls {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-card-md);
-    flex-wrap: wrap;
-    align-items: center;
-
-    .labeled-control {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-
-      .labeled-control__label {
-        white-space: nowrap;
-      }
-    }
-
-    .square-button {
-      margin-top: auto;
-      // match height of search dropdowns
-      height: 40px;
-      width: 40px; // make it square!
-    }
+  .animated-dropdown {
+    line-height: 24px;
+    width: 14rem;
   }
-}
 
-.search-controls__sorting {
-  min-width: 14rem;
-}
-
-.labeled-control__label,
-.labeled-control__control {
-  display: block;
-}
-
-.pagination-before {
-  grid-row: 4;
+  .square-button {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .search-results-container {
@@ -924,7 +862,6 @@ function setClosestMaxResults() {
 
 @media screen and (min-width: 750px) {
   .search-controls {
-    flex-wrap: nowrap;
     flex-direction: row;
   }
 
@@ -976,6 +913,35 @@ function setClosestMaxResults() {
   .labeled-control {
     flex-wrap: nowrap !important;
     flex-direction: row !important;
+  }
+}
+
+h1 {
+  margin-block: var(--gap-sm) var(--gap-lg);
+  font-size: 2em;
+  line-height: 1em;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--gap-lg);
+  flex-wrap: wrap;
+
+  .results-text {
+    margin-right: auto;
+  }
+
+  .count-dropdown {
+    width: 5.5rem;
+  }
+
+  .animated-dropdown {
+    margin-inline: var(--gap-sm);
+  }
+
+  .paginates {
+    margin: 0 0 0 auto;
   }
 }
 </style>

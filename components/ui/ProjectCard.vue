@@ -74,7 +74,9 @@
         class="stat date"
       >
         <EditIcon aria-hidden="true" />
-        <span class="date-label">Updated </span>{{ fromNow(updatedAt) }}
+        <span class="date-label"
+          >Updated <strong>{{ fromNow(updatedAt) }}</strong></span
+        >
       </div>
       <div
         v-else
@@ -82,7 +84,9 @@
         class="stat date"
       >
         <CalendarIcon aria-hidden="true" />
-        <span class="date-label">Published </span>{{ fromNow(createdAt) }}
+        <span class="date-label"
+          >Published <strong>{{ fromNow(createdAt) }}</strong></span
+        >
       </div>
     </div>
   </article>
@@ -94,7 +98,7 @@ import Badge from '~/components/ui/Badge.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import EditIcon from '~/assets/images/utils/updated.svg'
+import EditIcon from '~/assets/images/utils/pen-square.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import Avatar from '~/components/ui/Avatar.vue'
@@ -367,11 +371,6 @@ export default {
 
   .icon {
     margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
-
-    img,
-    svg {
-      border: none;
-    }
   }
 
   .title {
@@ -382,7 +381,7 @@ export default {
 .icon {
   grid-area: icon;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .gallery {
@@ -406,6 +405,10 @@ export default {
     margin: 0;
   }
 
+  h2 {
+    font-size: 1.25rem;
+  }
+
   svg {
     width: auto;
     color: var(--color-special-orange);
@@ -424,14 +427,13 @@ export default {
 
   .stat {
     display: flex;
-    flex-direction: row;
     align-items: center;
     width: fit-content;
-    gap: var(--spacing-card-xs);
-    --stat-strong-size: 1.25rem;
+    color: var(--color-text-secondary);
 
     strong {
-      font-size: var(--stat-strong-size);
+      color: var(--color-text);
+      font-weight: 600;
     }
 
     p {
@@ -439,8 +441,10 @@ export default {
     }
 
     svg {
-      height: var(--stat-strong-size);
-      width: var(--stat-strong-size);
+      height: 1.1rem;
+      width: 1.1rem;
+      color: var(--color-text-secondary);
+      margin-right: 0.5rem;
     }
   }
 

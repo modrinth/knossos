@@ -172,6 +172,7 @@
 
   margin-bottom: var(--spacing-card-md);
   outline: 2px solid transparent;
+  border: 1px solid var(--color-button-bg);
 
   box-shadow: var(--shadow-card);
 
@@ -377,7 +378,7 @@
     @media screen and (max-width: 750px) {
       &:not(&.small) {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
 
         .stylized-toggle {
           flex-basis: 0;
@@ -448,7 +449,7 @@
     .adjacent-input,
     &.adjacent-input &:not(&.small) {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
     }
   }
 }
@@ -472,32 +473,7 @@
 
 // Here lies 𝖄𝖊 𝕸𝖆𝖗𝖌𝖎𝖓 𝕸𝖆𝖌𝖎𝖈
 // which allows to have just one wrapper div
-.iconified-input {
-  align-items: center;
-  display: inline-flex;
-  position: relative;
-
-  input {
-    padding-left: 2.25rem;
-    width: 100%;
-  }
-
-  &:focus-within svg {
-    color: var(--color-button-text-active);
-    opacity: 1;
-  }
-
-  svg {
-    position: absolute;
-    left: 0.75rem;
-    height: 1.25rem;
-    width: 1.25rem;
-    z-index: 1;
-
-    color: var(--color-button-text);
-    opacity: 0.6;
-  }
-}
+//
 
 .text-link {
   color: var(--color-link);
@@ -603,11 +579,11 @@
     vertical-align: middle;
   }
 
-  html:not(.dark-mode, .oled-mode) & img[src$='#gh-dark-mode-only'] {
+  html:not(.dark-mode) & img[src$='#gh-dark-mode-only'] {
     display: none;
   }
 
-  html:is(.dark-mode, .oled-mode) & img[src$='#gh-light-mode-only'] {
+  html:is(.dark-mode) & img[src$='#gh-light-mode-only'] {
     display: none;
   }
 
@@ -1217,6 +1193,7 @@ tr.button-transparent {
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
   outline: 2px solid transparent;
+  border: 1px solid var(--color-button-bg);
 
   margin-bottom: var(--spacing-card-md);
 
@@ -1235,9 +1212,9 @@ tr.button-transparent {
 }
 
 .card-divider {
-  background-color: var(--color-divider);
+  background-color: var(--color-button-bg);
   border: none;
-  color: var(--color-divider);
+  color: var(--color-button-bg);
   height: 1px;
   margin: var(--spacing-card-bg) 0;
 }
@@ -1483,22 +1460,26 @@ button {
 }
 
 .primary-stat {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   margin-bottom: 0.6rem;
+  width: fit-content;
 
   .primary-stat__icon {
-    height: 1rem;
-    width: 1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    color: var(--color-text-secondary);
   }
 
   .primary-stat__text {
-    margin-left: 0.4rem;
+    color: var(--color-text-secondary);
   }
 
   .primary-stat__counter {
-    font-size: var(--font-size-lg);
-    font-weight: bold;
+    color: var(--color-text);
+    font-weight: 600;
   }
 }
 
@@ -1646,4 +1627,12 @@ a.subtle-link {
 .inline-svg svg,
 svg.inline-svg {
   vertical-align: middle;
+}
+
+.sidebar-card-header {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: var(--color-heading);
+  margin-bottom: 0.3rem;
+  width: fit-content;
 }

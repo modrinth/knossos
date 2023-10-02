@@ -452,8 +452,7 @@ function getItemLabel(locale: Locale) {
     background-repeat: no-repeat;
     animation: shimmerSliding 2.5s ease-out infinite;
 
-    .dark-mode &,
-    .oled-mode & {
+    .dark-mode & {
       background-image: linear-gradient(
         102deg,
         rgba(255, 255, 255, 0) 0%,

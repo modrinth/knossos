@@ -154,7 +154,7 @@ import MegaphoneIcon from '~/assets/images/utils/megaphone.svg'
   .avatar-row {
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
     gap: var(--gap-md);
 
     .input-group {

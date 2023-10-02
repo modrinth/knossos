@@ -100,7 +100,6 @@ export default {
   align-items: center;
   z-index: 21;
   visibility: hidden;
-  pointer-events: none;
 
   &.shown {
     visibility: visible;

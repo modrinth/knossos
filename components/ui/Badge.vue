@@ -36,7 +36,7 @@
 
 <script>
 import ModrinthIcon from '~/assets/images/logo.svg'
-import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
+import ModeratorIcon from '~/assets/images/utils/moderation.svg'
 import CreatorIcon from '~/assets/images/utils/box.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import EyeOffIcon from '~/assets/images/utils/eye-off.svg'

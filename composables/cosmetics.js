@@ -10,13 +10,12 @@ export const useCosmetics = () =>
 
     if (!cosmetics.value) {
       cosmetics.value = {
-        searchLayout: false,
-        projectLayout: false,
         advancedRendering: true,
         externalLinksNewTab: true,
         developerMode: false,
         notUsingBlockers: false,
         hideModrinthAppPromos: false,
+        preferredDarkTheme: 'dark',
         searchDisplayMode: {
           mod: 'list',
           plugin: 'list',

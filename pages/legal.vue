@@ -71,7 +71,7 @@ const route = useRoute()
 @media (min-width: 1024px) {
   .normal-page {
     max-width: 70rem;
-    column-gap: 0.75rem;
+    column-gap: var(--gap-lg);
 
     grid-template:
       'header header' auto

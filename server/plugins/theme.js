@@ -6,7 +6,11 @@ export default defineNitroPlugin((nitroApp) => {
       if (cookies && cookies['color-mode']) {
         const theme = JSON.parse(cookies['color-mode'])
 
-        html.htmlAttrs.push(`class="${theme.value}-mode"`)
+        if (theme.value !== 'light-mode') {
+          html.htmlAttrs.push(`class="dark-mode ${theme.value}-mode"`)
+        } else {
+          html.htmlAttrs.push(`class="${theme.value}-mode"`)
+        }
       } else {
         html.htmlAttrs.push(`class="dark-mode"`)
       }

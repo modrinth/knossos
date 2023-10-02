@@ -3,7 +3,7 @@
     <section class="universal-card payout-history">
       <Breadcrumbs
         current-title="Transfer history"
-        :link-stack="[{ href: '/dashboard/revenue', label: 'Revenue' }]"
+        :link-stack="[{ href: '/revenue', label: 'Revenue' }]"
       />
       <h2>Transfer history</h2>
       <p>

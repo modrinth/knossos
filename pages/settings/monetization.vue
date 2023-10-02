@@ -3,7 +3,7 @@
     <section v-if="enrolled" class="universal-card">
       <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
-      <NuxtLink class="iconified-button" to="/dashboard/revenue">
+      <NuxtLink class="iconified-button" to="/revenue">
         <ChartIcon /> Visit creator dashboard
       </NuxtLink>
     </section>

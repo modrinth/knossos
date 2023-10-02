@@ -37,9 +37,8 @@
     </DoubleIcon>
     <div class="notification__title">
       <template v-if="type === 'project_update' && project && version">
-        A project you follow,
-        <nuxt-link :to="getProjectLink(project)" class="title-link">{{ project.title }}</nuxt-link
-        >, has been updated:
+        <nuxt-link :to="getProjectLink(project)" class="title-link">{{ project.title }}</nuxt-link>
+        has updated.
       </template>
       <template v-else-if="type === 'team_invite' && project">
         <nuxt-link :to="`/user/${invitedBy.username}`" class="iconified-link title-link">
@@ -110,10 +109,9 @@
       />
       <div v-else-if="type === 'project_update'" class="version-list">
         <div
-          v-for="notif in (notification.grouped_notifs
-            ? [notification, ...notification.grouped_notifs]
-            : [notification]
-          ).filter((x) => x.extra_data.version)"
+          v-for="notif in groupedVersionNotifs.length > 3 && !showAllVersions
+            ? groupedVersionNotifs.slice(0, 2)
+            : groupedVersionNotifs"
           :key="notif.id"
           class="version-link"
         >
@@ -142,6 +140,13 @@
             </span>
           </span>
         </div>
+        <Checkbox
+          v-if="groupedVersionNotifs.length > 3"
+          v-model="showAllVersions"
+          collapsing-toggle-style
+        >
+          {{ showAllVersions ? 'Less versions' : 'More versions' }}
+        </Checkbox>
       </div>
       <template v-else>
         {{ notification.text }}
@@ -263,8 +268,8 @@
 
 <script setup>
 import InvitationIcon from '~/assets/images/utils/user-plus.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
+import ModerationIcon from '~/assets/images/utils/moderation.svg'
+import NotificationIcon from '~/assets/images/utils/bell.svg'
 import ReadIcon from '~/assets/images/utils/check-circle.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
@@ -282,6 +287,7 @@ import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Categories from '~/components/ui/search/Categories.vue'
+import Checkbox from '~/components/ui/Checkbox.vue'
 
 const app = useNuxtApp()
 const emit = defineEmits(['update:notifications'])
@@ -326,7 +332,7 @@ const invitedBy = computed(() => props.notification.extra_data.invited_by)
 
 const threadLink = computed(() => {
   if (report.value) {
-    return `/dashboard/report/${report.value.id}`
+    return `/report/${report.value.id}`
   } else if (project.value) {
     return `${getProjectLink(project.value)}/moderation#messages`
   }
@@ -334,6 +340,17 @@ const threadLink = computed(() => {
 })
 
 const hasBody = computed(() => !type.value || thread.value || type.value === 'project_update')
+
+const showAllVersions = ref(false)
+
+const groupedVersionNotifs = computed(() => {
+  const notifs = (
+    props.notification.grouped_notifs
+      ? [props.notification, ...props.notification.grouped_notifs]
+      : [props.notification]
+  ).filter((x) => x.extra_data.version)
+  return notifs
+})
 
 async function read() {
   try {
