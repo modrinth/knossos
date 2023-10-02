@@ -36,6 +36,7 @@
 
 <script setup>
 const pixelated = ref(false)
+const img = ref(null)
 
 defineProps({
   src: {
@@ -72,7 +73,7 @@ defineProps({
 })
 
 function updatePixelated() {
-  if (this.$refs.img && this.$refs.img.naturalWidth && this.$refs.img.naturalWidth <= 96) {
+  if (img.value && img.value.naturalWidth && img.value.naturalWidth <= 96) {
     pixelated.value = true
   } else {
     pixelated.value = false
