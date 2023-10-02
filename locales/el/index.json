@@ -165,13 +165,13 @@
     "message": "Ανάκληση συνεδρίας"
   },
   "settings.sessions.description": {
-    "message": "Ακολουθούν όλες οι συσκευές που είναι συνδεδεμένες αυτήν τη στιγμή με τον λογαριασμό σας στο Modrinth. Μπορείτε να αποσυνδεθείτε από καθεμία ξεχωριστά.\n\nΕάν δείτε μια καταχώριση που δεν αναγνωρίζετε, αποσυνδεθείτε από αυτήν τη συσκευή και αλλάξτε αμέσως τον κωδικό πρόσβασης του λογαριασμού σας Modrinth."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Τρέχουσα συνεδρία"
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
     "message": "Δημιουργήθηκε {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Τρέχουσα συνεδρία"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Τελευταία πρόσβαση {ago}"
