@@ -165,13 +165,13 @@
     "message": "撤销会话"
   },
   "settings.sessions.description": {
-    "message": "以下是您当前已登录 Modrinth 账号的所有设备。您可以逐一登出每个会话。\n\n 如果您看到不认识的条目，请立即登出该设备并更改您的 Modrinth 账号密码。"
-  },
-  "settings.sessions.label.current-session": {
-    "message": "当前会话"
+    "message": "以下是你目前已登录的 Modrinth 账号的所有设备。你可以单独登出任意一项。\n\n如果你看到一条无法辨认的记录，请立即登出该设备并更改你的 Modrinth 账号密码。"
   },
   "settings.sessions.label.created-at": {
     "message": "创建于 {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "当前会话"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "上次访问于 {ago}"
