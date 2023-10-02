@@ -167,11 +167,11 @@
   "settings.sessions.description": {
     "message": "Siin on kõik seadmed, mis on hetkel sinu Modrinthi kontoga sisselogitud. Sa võid igast seadmest eraldi välja logida.\n\nKui näed mõnda seadet, mida ei tuvasta, logi sealt koheselt välja ning muuda oma Modrinthi konto parool."
   },
-  "settings.sessions.label.current-session": {
-    "message": "Praegune seanss"
-  },
   "settings.sessions.label.created-at": {
     "message": "Loodud {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Praegune seanss"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Viimati juurdepääsetud {ago}"
