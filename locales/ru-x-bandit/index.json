@@ -167,11 +167,11 @@
   "settings.sessions.description": {
     "message": "Здесь все компуктеры, прикрученные к твоему акку на Modrinth. Можешь вытыкать их лапки по отдельности.\n\nЕсли заметишь какую-то дубину, сразу же обруби ей ноги и переколеси пароль своего акка."
   },
-  "settings.sessions.label.current-session": {
-    "message": "Текущая сиделка"
-  },
   "settings.sessions.label.created-at": {
     "message": "Намучено: {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Текущая сиделка"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Последний заход: {ago}"
