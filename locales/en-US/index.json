@@ -35,9 +35,6 @@
   "input.view.list": {
     "message": "List view"
   },
-  "modal.create-project.title": {
-    "message": "Create a project"
-  },
   "modal.create-project.description": {
     "message": "New projects are created as drafts and can be found under your profile page."
   },
@@ -47,17 +44,20 @@
   "modal.create-project.input.name.placeholder": {
     "message": "Enter project name..."
   },
-  "modal.create-project.label.project-type": {
+  "modal.create-project.input.project-type.label": {
     "message": "Project type"
   },
-  "modal.create-project.label.url": {
-    "message": "URL"
+  "modal.create-project.input.summary.description": {
+    "message": "This appears in search and on the sidebar of your project's page."
   },
-  "modal.create-project.label.summary": {
+  "modal.create-project.input.summary.label": {
     "message": "Summary"
   },
-  "modal.create-project.label.summary.description": {
-    "message": "This appears in search and on the sidebar of your project's page."
+  "modal.create-project.input.url.label": {
+    "message": "URL"
+  },
+  "modal.create-project.title": {
+    "message": "Create a project"
   },
   "notification.error.title": {
     "message": "An error occurred"
@@ -192,13 +192,13 @@
     "message": "Revoke session"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
     "message": "Created {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Current session"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Last accessed {ago}"
