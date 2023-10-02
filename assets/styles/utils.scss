@@ -37,3 +37,8 @@ body {
 .preserve-lines {
   white-space: pre-line;
 }
+
+.important-text {
+  color: var(--color-special-red);
+  font-weight: bold;
+}

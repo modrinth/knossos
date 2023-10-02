@@ -3,6 +3,7 @@
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>{{ formatMessage(messages.modalDescription) }}</p>
+        <p class="important-text">{{ formatMessage(messages.modalDescriptionNote) }}</p>
       </div>
       <label for="project-type">
         <span class="label__title">
@@ -90,6 +91,10 @@ const messages = defineMessages({
   modalDescription: {
     id: 'modal.create-project.description',
     defaultMessage: 'New projects are created as drafts and can be found under your profile page.',
+  },
+  modalDescriptionNote: {
+    id: 'modal.create-project.description.note',
+    defaultMessage: 'Some project metadata like summary & description must be written in English.',
   },
   nameLabel: {
     id: 'modal.create-project.input.name.label',
