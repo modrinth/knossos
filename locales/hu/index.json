@@ -165,13 +165,13 @@
     "message": "Munkamenet bezárása"
   },
   "settings.sessions.description": {
-    "message": "Itt megtalálod az összes eszközödet, amin bejelentkeztél a Modrinth fiókoddal. Kiléphetsz belőlük egyesével.\n\nHa találsz egy eszközt, amit nem ismersz fel, lépj ki abból az eszközből és azonnal változtasd meg a Modrinth fiókod jelszavát."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Jelenlegi munkamenet"
+    "message": "Itt megtalálod az összes eszközt amin jelenleg be vagy jelentkezve a Modrinth fiókodba. Kiléphetsz belőlük egyesével.\n\nHa látsz egy eszközt, amit nem ismersz fel, jelentkezz ki belőle és azonnal változtasd meg a Modrinth fiókod jelszavát."
   },
   "settings.sessions.label.created-at": {
     "message": "Létrehozva {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Jelenlegi munkamenet"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Legutoljára hozzáférve {ago}"
