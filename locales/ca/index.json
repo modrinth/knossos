@@ -162,16 +162,16 @@
     "message": "Idioma"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Tancar la sessió"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Sessió actual"
+    "message": "Aquests són tots els dispositius on tens la sessió iniciada amb el teu compte de Modrinth. Pots tancar la sessió de cada dispositiu individualment.\n\nSi veus alguna entrada que no reconeixes, tanca la sessió en aquell dispositiu i canvia la contrasenya del teu compte de Modrinth immediatament."
   },
   "settings.sessions.label.created-at": {
     "message": "Creat fa {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Sessió actual"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Últim accés fa {ago}"
