@@ -6,32 +6,22 @@
   </button>
 </template>
 
-<script>
+<script setup>
 import CheckIcon from '~/assets/images/utils/check.svg'
 import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg'
 
-export default {
-  components: {
-    CheckIcon,
-    ClipboardCopyIcon,
+const copied = ref(false)
+
+defineProps({
+  text: {
+    type: String,
+    required: true,
   },
-  props: {
-    text: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      copied: false,
-    }
-  },
-  methods: {
-    async copyText() {
-      await navigator.clipboard.writeText(this.text)
-      this.copied = true
-    },
-  },
+})
+
+async function copyText() {
+  await navigator.clipboard.writeText(this.text)
+  this.copied = true
 }
 </script>
 
