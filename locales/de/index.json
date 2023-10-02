@@ -138,13 +138,13 @@
     "message": "Mit der Systemsprache synchronisieren"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Wende an..."
+    "message": "{label}. Anwenden..."
   },
   "settings.language.languages.language-label-error": {
     "message": "{label}. Fehler"
   },
   "settings.language.languages.load-failed": {
-    "message": "Diese Sprache kann nicht geladen werden. Versuche es später erneut."
+    "message": "Diese Sprache konnte nicht geladen werden. Versuche es später erneut."
   },
   "settings.language.languages.search-field.description": {
     "message": "Absenden, um das erste Suchergebnis auszuwählen"
@@ -165,13 +165,13 @@
     "message": "Sitzung widerrufen"
   },
   "settings.sessions.description": {
-    "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen ausloggen.\n\n Wenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend dein Modrinth-Konto."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Aktuelle Sitzung"
+    "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen ausloggen.\n\nWenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend dein Modrinth-Konto Passwort."
   },
   "settings.sessions.label.created-at": {
     "message": "Erstellt {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Aktuelle Sitzung"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Letzter Zugriff {ago}"
