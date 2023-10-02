@@ -165,13 +165,13 @@
     "message": "Thu hồi phiên"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Phiên hiện tại"
+    "message": "Đây là tất cả thiết bị đang được đăng nhập bằng tài khoản Modrinth của bạn. Bạn có thể đăng xuất từng cái một.\n\nNếu bạn thấy một mục mà bạn không nhận ra, hãy đăng xuất khỏi thiết bị đó và thay đổi mật khẩu tài khoản Modrinth ngay lập tức."
   },
   "settings.sessions.label.created-at": {
     "message": "Đã tạo {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Phiên hiện tại"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Truy cập lần cuối {ago}"
