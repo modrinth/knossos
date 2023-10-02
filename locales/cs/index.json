@@ -165,13 +165,13 @@
     "message": "Zrušit relaci"
   },
   "settings.sessions.description": {
-    "message": "Zde jsou všechna zařízení, která jsou aktuálně přihlášena k vašemu Modrinth účtu. Můžete se odhlásit z každého jednotlivě.\n\n Pokud vidíte záznam, který nepoznáváte, odhlaste se z tohoto zařízení a změňte okamžitě své heslo k Modrinth účtu."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Aktuální relace"
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
     "message": "Vytvořeno {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Aktuální relace"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Poslední přístup {ago}"
