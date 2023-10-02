@@ -165,13 +165,13 @@
     "message": "Sitzung widerrufen"
   },
   "settings.sessions.description": {
-    "message": "Hier sind alle Geräte, welche zurzeit mit deinem Modrinth-Konto angemeldet sind. Du kannst dich aus jedem individuell abmelden.\n\n Solltest du einen Eintrag sehen, welchen du nicht kennst, melde dich von diesem Gerät ab und ändere sofort dein Modrinth-Konto Passwort."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Aktuelle Sitzung"
+    "message": "Hier sind alle Geräte, die derzeit mit deinem Modrinth-Konto angemeldet sind. Du kannst dich von jedem individuell abmelden.\n\nWenn du einen Eintrag siehst, den du nicht kennst, melde dich von diesem Gerät ab und ändere umgehend dein Modrinth-Konto Passwort."
   },
   "settings.sessions.label.created-at": {
     "message": "Erstellt {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Aktuelle Sitzung"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "Letzter Zugriff {ago}"
