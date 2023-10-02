@@ -162,30 +162,30 @@
     "message": "بهاس"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Tarik balik sesi"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\n If you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
-  },
-  "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Dicipta {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "Sesi semasa"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Kali terakhir diakses {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "OS tidak diketahui"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Platform tidak diketahui"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Sesi"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} pada jam {time, time, short}"
   }
 }
