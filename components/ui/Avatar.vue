@@ -73,9 +73,9 @@ defineProps({
 
 function updatePixelated() {
   if (this.$refs.img && this.$refs.img.naturalWidth && this.$refs.img.naturalWidth <= 96) {
-    this.pixelated = true
+    pixelated.value = true
   } else {
-    this.pixelated = false
+    pixelated.value = false
   }
 }
 </script>
