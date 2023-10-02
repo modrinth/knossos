@@ -93,7 +93,10 @@ export const configuredXss = new xss.FilterXSS({
           return xss.safeAttrValue(
             tag,
             name,
-            `https://wsrv.nl/?url=${encodeURIComponent(url.toString())}&n=-1`,
+            // markdown-it escapes HTML the following characters: &, <, >, ". We only need to undo '&', as the other characters can't be used in URLs (https://github.com/modrinth/knossos/issues/1365)
+            `https://wsrv.nl/?url=${encodeURIComponent(
+              url.toString().replaceAll('&amp;', '&')
+            )}&n=-1`,
             cssFilter
           )
         } else {
