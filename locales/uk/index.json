@@ -165,7 +165,7 @@
     "message": "Завершити сеанс"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Тут перераховані всі пристрої, на яких здійснено вхід у ваш обліковий запис Modrinth. Ви можете керувати сеансом на кожному з них.\n\nЯкщо ви бачите тут пристрій, якого у вас немає, негайно завершіть сеанс і змініть пароль до вашого облікового запису."
   },
   "settings.sessions.label.created-at": {
     "message": "Створено {ago}"
