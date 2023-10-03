@@ -7,7 +7,7 @@
         <div class="animate-strong">
           <span>
             <strong
-              v-for="projectType in $tag.projectTypes"
+              v-for="projectType in tags.projectTypes"
               :key="projectType.id"
               class="main-header-strong"
             >
@@ -23,14 +23,14 @@
       </h2>
       <div class="button-group">
         <nuxt-link to="/mods" class="iconified-button brand-button"> Discover mods </nuxt-link>
-        <a
-          v-if="!$auth.user"
-          :href="getAuthUrl()"
+        <nuxt-link
+          v-if="!auth.user"
+          to="/auth/sign-up"
           class="iconified-button outline-button"
           rel="noopener nofollow"
         >
           Sign up
-        </a>
+        </nuxt-link>
         <nuxt-link v-else to="/dashboard/projects" class="iconified-button outline-button">
           Go to dashboard
         </nuxt-link>
@@ -190,9 +190,10 @@
           <div class="blob-text">
             <h3>Play with your favorite launcher</h3>
             <p>
-              Modrinth's open-source API lets launchers add deep integration with Modrinth. We're
-              already supported by some of the most popular launchers like ATLauncher, MultiMC, and
-              Prism Launcher.
+              Modrinth's open-source API lets launchers add deep integration with Modrinth. You can
+              use Modrinth through
+              <nuxt-link class="title-link" to="/app">our own app</nuxt-link> and some of the most
+              popular launchers like ATLauncher, MultiMC, and Prism Launcher.
             </p>
           </div>
           <div class="blob-demonstration gradient-border">
@@ -218,19 +219,9 @@
                 >
                   <PrismLauncherLogo />
                 </a>
-                <a
-                  rel="noopener"
-                  href="https://multimc.org/"
-                  class="graphic gradient-border"
-                  title="MultiMC"
-                >
-                  <img
-                    src="~/assets/images/external/multimc.webp"
-                    alt="multimc launcher logo"
-                    width="68"
-                    height="68"
-                  />
-                </a>
+                <nuxt-link to="/app" class="graphic gradient-border">
+                  <ModrinthIcon />
+                </nuxt-link>
                 <a
                   rel="noopener"
                   href="https://atlauncher.com/"
@@ -330,10 +321,7 @@
             </svg>
           </div>
           <h3>Monetization</h3>
-          <p>
-            Get paid 100% of the ad revenue from your project pages and withdraw your funds at any
-            time
-          </p>
+          <p>Get paid ad revenue from your project pages and withdraw your funds at any time</p>
         </div>
         <div class="feature gradient-border">
           <div class="icon gradient-border">
@@ -529,6 +517,9 @@ import homepageProjects from '~/generated/homepage.json'
 
 const searchQuery = ref('better')
 const sortType = ref('relevance')
+
+const auth = await useAuth()
+const tags = useTags()
 
 const [{ data: searchProjects, refresh: updateSearchProjects }, { data: notifications }] =
   await Promise.all([
@@ -1241,11 +1232,9 @@ const rows = shallowRef([
           }
 
           .notifs-demo {
-            .notifications .notification {
-              img {
-                width: 5rem;
-                height: 5rem;
-              }
+            .notifications .notification .avatar {
+              width: 5rem;
+              height: 5rem;
             }
           }
         }
@@ -1279,9 +1268,8 @@ const rows = shallowRef([
       font-size: 1.625rem;
     }
 
-    padding: 12rem 1rem;
-    // Magic number to cover header (space in rem header occupies)
-    margin-top: -5.75rem;
+    margin-top: -4rem;
+    padding: 11.25rem 1rem 12rem;
   }
 
   .users-section-outer {

@@ -25,6 +25,7 @@ export const configuredXss = new xss.FilterXSS({
     whiteList: {
       'image-rendering': /^pixelated$/,
       'text-align': /^center|left|right$/,
+      float: /^left|right$/,
     },
   },
   onIgnoreTagAttr: (tag, name, value) => {
@@ -68,6 +69,10 @@ export const configuredXss = new xss.FilterXSS({
       try {
         const url = new URL(value)
 
+        if (url.hostname.includes('wsrv.nl')) {
+          url.searchParams.delete('errorredirect')
+        }
+
         const allowedHostnames = [
           'imgur.com',
           'i.imgur.com',
@@ -88,9 +93,11 @@ export const configuredXss = new xss.FilterXSS({
           return xss.safeAttrValue(
             tag,
             name,
-            `https://wsrv.nl/?url=${encodeURIComponent(value)}&n=-1`,
+            `https://wsrv.nl/?url=${encodeURIComponent(url.toString())}&n=-1`,
             cssFilter
           )
+        } else {
+          return xss.safeAttrValue(tag, name, url.toString(), cssFilter)
         }
       } catch (err) {}
     }

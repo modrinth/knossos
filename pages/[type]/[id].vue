@@ -94,7 +94,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <ProjectPublishingChecklist
+      <ProjectMemberHeader
         v-if="currentMember"
         :project="project"
         :versions="versions"
@@ -104,6 +104,10 @@
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
         :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
+        :all-members="allMembers"
+        :update-members="updateMembers"
+        :auth="auth"
+        :tags="tags"
       />
       <NuxtPage
         v-model:project="project"
@@ -121,45 +125,13 @@
     </div>
   </div>
   <div v-else>
-    <Head>
-      <Title> {{ project.title }} - Minecraft {{ projectTypeDisplay }} </Title>
-      <Meta name="og:title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
-      <Meta
-        name="description"
-        :content="`${project.description} - Download the Minecraft ${projectTypeDisplay} ${
-          project.title
-        } by ${members.find((x) => x.role === 'Owner').user.username} on Modrinth`"
-      />
-      <Meta
-        name="apple-mobile-web-app-title"
-        :content="`${project.title} - Minecraft ${projectTypeDisplay}`"
-      />
-      <Meta name="og:description" :content="project.description" />
-      <Meta
-        name="og:image"
-        :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'"
-      />
-      <Meta
-        name="robots"
-        :content="
-          project.status === 'approved' || project.status === 'archived' ? 'all' : 'noindex'
-        "
-      />
-    </Head>
-    <ModalModeration
-      v-if="$auth.user"
-      ref="modalModeration"
-      :project="project"
-      :status="moderationStatus"
-      :on-close="resetProject"
-    />
     <Modal ref="modalLicense" :header="project.license.name ? project.license.name : 'License'">
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
     <ModalReport
-      v-if="$auth.user"
+      v-if="auth.user"
       ref="modal_project_report"
       :item-id="project.id"
       item-type="project"
@@ -167,7 +139,7 @@
     <div
       :class="{
         'normal-page': true,
-        'alt-layout': $cosmetics.projectLayout,
+        'alt-layout': cosmetics.projectLayout,
       }"
     >
       <div class="normal-page__sidebar">
@@ -227,7 +199,7 @@
               class="categories"
             >
               <Badge
-                v-if="$auth.user && currentMember"
+                v-if="auth.user && currentMember"
                 :type="project.status"
                 class="status-badge"
               />
@@ -258,7 +230,7 @@
             </div>
             <div class="dates">
               <div
-                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
@@ -266,17 +238,26 @@
                 <span class="value">{{ fromNow(project.published) }}</span>
               </div>
               <div
-                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />
                 <span class="label">Updated</span>
                 <span class="value">{{ fromNow(project.updated) }}</span>
               </div>
+              <div
+                v-if="project.status === 'processing' && project.queued"
+                v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+                class="date"
+              >
+                <QueuedIcon aria-hidden="true" />
+                <span class="label">Submitted</span>
+                <span class="value">{{ fromNow(project.queued) }}</span>
+              </div>
             </div>
             <hr class="card-divider" />
             <div class="input-group">
-              <template v-if="$auth.user">
+              <template v-if="auth.user">
                 <button class="iconified-button" @click="$refs.modal_project_report.show()">
                   <ReportIcon aria-hidden="true" />
                   Report
@@ -299,14 +280,14 @@
                 </button>
               </template>
               <template v-else>
-                <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+                <nuxt-link class="iconified-button" to="/auth/sign-in">
                   <ReportIcon aria-hidden="true" />
                   Report
-                </a>
-                <a class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+                </nuxt-link>
+                <nuxt-link class="iconified-button" to="/auth/sign-in">
                   <HeartIcon aria-hidden="true" />
                   Follow
-                </a>
+                </nuxt-link>
               </template>
             </div>
           </div>
@@ -333,7 +314,7 @@
           />
           <div class="buttons status-buttons">
             <button
-              v-if="$tag.approvedStatuses.includes(project.status)"
+              v-if="tags.approvedStatuses.includes(project.status)"
               class="iconified-button"
               @click="clearMessage"
             >
@@ -342,56 +323,9 @@
             </button>
           </div>
         </div>
-        <div
-          v-if="$auth.user && $tag.staffRoles.includes($auth.user.role)"
-          class="universal-card moderation-card"
-        >
-          <h2>Moderation actions</h2>
-          <div class="input-stack">
-            <button
-              v-if="
-                !$tag.approvedStatuses.includes(project.status) || project.status === 'processing'
-              "
-              class="iconified-button brand-button"
-              @click="openModerationModal(requestedStatus)"
-            >
-              <CheckIcon />
-              Approve
-              {{ requestedStatus !== 'approved' ? `(${requestedStatus})` : '' }}
-            </button>
-            <button
-              v-if="
-                $tag.approvedStatuses.includes(project.status) || project.status === 'processing'
-              "
-              class="iconified-button danger-button"
-              @click="openModerationModal('withheld')"
-            >
-              <EyeIcon />
-              Withhold
-            </button>
-            <button
-              v-if="
-                $tag.approvedStatuses.includes(project.status) || project.status === 'processing'
-              "
-              class="iconified-button danger-button"
-              @click="openModerationModal('rejected')"
-            >
-              <CrossIcon />
-              Reject
-            </button>
-            <button class="iconified-button" @click="openModerationModal(null)">
-              <EditIcon />
-              Edit message
-            </button>
-            <nuxt-link class="iconified-button" to="/moderation">
-              <ModerationIcon />
-              Visit moderation queue
-            </nuxt-link>
-          </div>
-        </div>
       </div>
       <section class="normal-page__content">
-        <ProjectPublishingChecklist
+        <ProjectMemberHeader
           v-if="currentMember"
           :project="project"
           :versions="versions"
@@ -401,32 +335,28 @@
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
+          :all-members="allMembers"
+          :update-members="updateMembers"
+          :auth="auth"
+          :tags="tags"
         />
-        <div v-else-if="project.status === 'withheld'" class="card warning" aria-label="Warning">
+        <MessageBanner v-else-if="project.status === 'withheld'" message-type="warning">
           {{ project.title }} has been removed from search by Modrinth's moderators. Please use
           {{ project.title }} at your own risk.
-        </div>
-        <div v-if="project.status === 'archived'" class="card warning" aria-label="Warning">
+        </MessageBanner>
+        <MessageBanner v-if="project.status === 'archived'" message-type="warning">
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
           updates unless the author decides to unarchive the project.
-        </div>
-        <div
-          v-if="project.project_type === 'modpack'"
-          class="card information"
-          aria-label="Information"
-        >
-          To install {{ project.title }}, visit
+        </MessageBanner>
+        <MessageBanner v-if="project.project_type === 'modpack'" message-type="information">
+          To install {{ project.title }}, download
+          <nuxt-link to="/app">the Modrinth App</nuxt-link>. For instructions with other launchers,
+          please see
           <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
             >our documentation</a
-          >
-          which provides instructions on using
-          <a href="https://atlauncher.com/about" :target="$external()" rel="noopener"> ATLauncher</a
-          >, <a href="https://multimc.org/" :target="$external()" rel="noopener">MultiMC</a>, and
-          <a href="https://prismlauncher.org" :target="$external()" rel="noopener">
-            Prism Launcher</a
           >.
-        </div>
-        <Promotion v-if="$tag.approvedStatuses.includes(project.status)" />
+        </MessageBanner>
+        <Promotion v-if="tags.approvedStatuses.includes(project.status)" />
         <div class="navigation-card">
           <NavRow
             :links="[
@@ -455,9 +385,16 @@
                 }/versions`,
                 shown: versions.length > 0 || !!currentMember,
               },
+              {
+                label: 'Moderation',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/moderation`,
+                shown: !!currentMember,
+              },
             ]"
           />
-          <div v-if="$auth.user && currentMember" class="input-group">
+          <div v-if="auth.user && currentMember" class="input-group">
             <nuxt-link
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
               class="iconified-button"
@@ -689,18 +626,52 @@
               <CopyCode :text="project.id" />
             </div>
           </div>
+          <div class="input-group">
+            <a
+              v-if="
+                config.public.apiBaseUrl.startsWith('https://api.modrinth.com') &&
+                config.public.siteUrl !== 'https://modrinth.com'
+              "
+              class="iconified-button"
+              :href="`https://modrinth.com/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }`"
+              rel="noopener nofollow"
+              target="_blank"
+            >
+              <ExternalIcon aria-hidden="true" />
+              View on modrinth.com
+            </a>
+            <a
+              v-else-if="
+                config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com') &&
+                config.public.siteUrl !== 'https://staging.modrinth.com'
+              "
+              class="iconified-button"
+              :href="`https://staging.modrinth.com/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }`"
+              rel="noopener nofollow"
+              target="_blank"
+            >
+              <ExternalIcon aria-hidden="true" />
+              View on staging.modrinth.com
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { Promotion } from 'omorphia'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UpdateIcon from '~/assets/images/utils/updated.svg'
+import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import CodeIcon from '~/assets/images/sidebar/mod.svg'
+import ExternalIcon from '~/assets/images/utils/external.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
@@ -713,21 +684,19 @@ import PayPalIcon from '~/assets/images/external/paypal.svg'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import EyeIcon from '~/assets/images/utils/eye.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
-import Promotion from '~/components/ads/Promotion.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 import Modal from '~/components/ui/Modal.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
-import ModalModeration from '~/components/ui/ModalModeration.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
-import ProjectPublishingChecklist from '~/components/ui/ProjectPublishingChecklist.vue'
+import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
+import MessageBanner from '~/components/ui/MessageBanner.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UsersIcon from '~/assets/images/utils/users.svg'
 import CategoriesIcon from '~/assets/images/utils/tags.svg'
@@ -736,21 +705,22 @@ import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
+const config = useRuntimeConfig()
 
+const auth = await useAuth()
 const user = await useUser()
+const cosmetics = useCosmetics()
+const tags = useTags()
 
 if (
   !route.params.id ||
   !(
-    data.$tag.projectTypes.find((x) => x.id === route.params.type) ||
+    tags.value.projectTypes.find((x) => x.id === route.params.type) ||
     route.params.type === 'project'
   )
 ) {
@@ -770,28 +740,27 @@ try {
     { data: featuredVersions },
     { data: versions },
   ] = await Promise.all([
-    useAsyncData(
-      `project/${route.params.id}`,
-      () => useBaseFetch(`project/${route.params.id}`, data.$defaultHeaders()),
-      {
-        transform: (project) => {
-          if (project) {
-            project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+    useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
+      transform: (project) => {
+        if (project) {
+          project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+          project.project_type = data.$getProjectTypeForUrl(
+            project.project_type,
+            project.loaders,
+            tags.value
+          )
 
-            project.project_type = data.$getProjectTypeForUrl(project.project_type, project.loaders)
-
-            if (process.client && history.state && history.state.overrideProjectType) {
-              project.project_type = history.state.overrideProjectType
-            }
+          if (process.client && history.state && history.state.overrideProjectType) {
+            project.project_type = history.state.overrideProjectType
           }
+        }
 
-          return project
-        },
-      }
-    ),
+        return project
+      },
+    }),
     useAsyncData(
       `project/${route.params.id}/members`,
-      () => useBaseFetch(`project/${route.params.id}/members`, data.$defaultHeaders()),
+      () => useBaseFetch(`project/${route.params.id}/members`),
       {
         transform: (members) => {
           members.forEach((it, index) => {
@@ -804,13 +773,13 @@ try {
       }
     ),
     useAsyncData(`project/${route.params.id}/dependencies`, () =>
-      useBaseFetch(`project/${route.params.id}/dependencies`, data.$defaultHeaders())
+      useBaseFetch(`project/${route.params.id}/dependencies`)
     ),
     useAsyncData(`project/${route.params.id}/version?featured=true`, () =>
-      useBaseFetch(`project/${route.params.id}/version?featured=true`, data.$defaultHeaders())
+      useBaseFetch(`project/${route.params.id}/version?featured=true`)
     ),
     useAsyncData(`project/${route.params.id}/version`, () =>
-      useBaseFetch(`project/${route.params.id}/version`, data.$defaultHeaders())
+      useBaseFetch(`project/${route.params.id}/version`)
     ),
   ])
 
@@ -847,23 +816,23 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
 
 const members = ref(allMembers.value.filter((x) => x.accepted))
 const currentMember = ref(
-  data.$auth.user ? allMembers.value.find((x) => x.user.id === data.$auth.user.id) : null
+  auth.value.user ? allMembers.value.find((x) => x.user.id === auth.value.user.id) : null
 )
 
 if (
   !currentMember.value &&
-  data.$auth.user &&
-  data.$tag.staffRoles.includes(data.$auth.user.role)
+  auth.value.user &&
+  tags.value.staffRoles.includes(auth.value.user.role)
 ) {
   currentMember.value = {
     team_id: project.team_id,
-    user: data.$auth.user,
-    role: data.$auth.role,
-    permissions: data.$auth.user.role === 'admin' ? 1023 : 12,
+    user: auth.value.user,
+    role: auth.value.role,
+    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
     accepted: true,
     payouts_split: 0,
-    avatar_url: data.$auth.user.avatar_url,
-    name: data.$auth.user.username,
+    avatar_url: auth.value.user.avatar_url,
+    name: auth.value.user.username,
   }
 }
 
@@ -880,15 +849,10 @@ featuredVersions.value = versions.value.filter((version) => featuredIds.includes
 featuredVersions.value.sort((a, b) => {
   const aLatest = a.game_versions[a.game_versions.length - 1]
   const bLatest = b.game_versions[b.game_versions.length - 1]
-  const gameVersions = data.$tag.gameVersions.map((e) => e.version)
+  const gameVersions = tags.value.gameVersions.map((e) => e.version)
   return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
 })
 
-const projectTypeDisplay = computed(() =>
-  data.$formatProjectType(
-    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
-  )
-)
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
 
@@ -901,10 +865,31 @@ const licenseIdDisplay = computed(() => {
   }
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
-const requestedStatus = computed(() => project.value.requested_status ?? 'approved')
+
+const projectTypeDisplay = data.$formatProjectType(
+  data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+)
+const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
+const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
+  project.value.title
+} by ${members.value.find((x) => x.role === 'Owner').user.username} on Modrinth`
+
+if (!route.name.startsWith('type-id-settings')) {
+  useSeoMeta({
+    title,
+    description,
+    ogTitle: title,
+    ogDescription: project.value.description,
+    ogImage: project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+    robots:
+      project.value.status === 'approved' || project.value.status === 'archived'
+        ? 'all'
+        : 'noindex',
+  })
+}
 
 async function resetProject() {
-  const newProject = await useBaseFetch(`project/${project.value.id}`, data.$defaultHeaders())
+  const newProject = await useBaseFetch(`project/${project.value.id}`)
 
   newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
 
@@ -923,7 +908,6 @@ async function clearMessage() {
         moderation_message: null,
         moderation_message_body: null,
       },
-      ...data.$defaultHeaders(),
     })
 
     project.value.moderator_message = null
@@ -948,7 +932,6 @@ async function setProcessing() {
       body: {
         status: 'processing',
       },
-      ...data.$defaultHeaders(),
     })
 
     project.value.status = 'processing'
@@ -985,7 +968,6 @@ async function patchProject(resData, quiet = false) {
     await useBaseFetch(`project/${project.value.id}`, {
       method: 'PATCH',
       body: resData,
-      ...data.$defaultHeaders(),
     })
 
     for (const key in resData) {
@@ -1036,7 +1018,6 @@ async function patchIcon(icon) {
       {
         method: 'PATCH',
         body: icon,
-        ...data.$defaultHeaders(),
       }
     )
     await resetProject()
@@ -1062,12 +1043,21 @@ async function patchIcon(icon) {
   return result
 }
 
-const modalModeration = ref(null)
-const moderationStatus = ref(null)
-function openModerationModal(status) {
-  moderationStatus.value = status
+async function updateMembers() {
+  allMembers.value = await useAsyncData(
+    `project/${route.params.id}/members`,
+    () => useBaseFetch(`project/${route.params.id}/members`),
+    {
+      transform: (members) => {
+        members.forEach((it, index) => {
+          members[index].avatar_url = it.user.avatar_url
+          members[index].name = it.user.username
+        })
 
-  modalModeration.value.show()
+        return members
+      },
+    }
+  )
 }
 
 const collapsedChecklist = ref(false)
@@ -1158,8 +1148,7 @@ const collapsedChecklist = ref(false)
       margin-top: calc(-3rem - var(--spacing-card-lg) - 4px);
       margin-left: -4px;
       z-index: 1;
-      border: 4px solid var(--color-raised-bg);
-      border-bottom: none;
+      box-shadow: -2px -2px 0 2px var(--color-raised-bg), 2px -2px 0 2px var(--color-raised-bg);
     }
   }
   .project__header__content {

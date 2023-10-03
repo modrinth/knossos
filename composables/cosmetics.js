@@ -12,10 +12,11 @@ export const useCosmetics = () =>
       cosmetics.value = {
         searchLayout: false,
         projectLayout: false,
-        modpacksAlphaNotice: true,
         advancedRendering: true,
         externalLinksNewTab: true,
+        developerMode: false,
         notUsingBlockers: false,
+        hideModrinthAppPromos: false,
         searchDisplayMode: {
           mod: 'list',
           plugin: 'list',

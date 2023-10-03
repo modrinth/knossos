@@ -13,15 +13,37 @@
           project.
         </span>
       </span>
-      <div
-        v-if="(currentMember.permissions & MANAGE_INVITES) === MANAGE_INVITES"
-        class="input-group"
-      >
-        <input id="username" v-model="currentUsername" type="text" placeholder="Username" />
+      <div class="input-group">
+        <input
+          id="username"
+          v-model="currentUsername"
+          type="text"
+          placeholder="Username"
+          :disabled="(currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
+          @keypress.enter="inviteTeamMember()"
+        />
         <label for="username" class="hidden">Username</label>
-        <button class="iconified-button brand-button" @click="inviteTeamMember">
+        <button
+          class="iconified-button brand-button"
+          :disabled="(currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
+          @click="inviteTeamMember()"
+        >
           <UserPlusIcon />
           Invite
+        </button>
+      </div>
+      <div class="adjacent-input">
+        <span class="label">
+          <span class="label__title">Leave project</span>
+          <span class="label__description"> Remove yourself as a member of this project. </span>
+        </span>
+        <button
+          class="iconified-button danger-button"
+          :disabled="currentMember.role === 'Owner'"
+          @click="leaveProject()"
+        >
+          <UserRemoveIcon />
+          Leave project
         </button>
       </div>
     </div>
@@ -227,6 +249,7 @@ import TransferIcon from '~/assets/images/utils/transfer.svg'
 import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
 import Avatar from '~/components/ui/Avatar.vue'
+import { removeSelfFromTeam } from '~/helpers/teams.js'
 
 export default defineNuxtComponent({
   components: {
@@ -282,6 +305,11 @@ export default defineNuxtComponent({
     this.VIEW_PAYOUTS = 1 << 9
   },
   methods: {
+    removeSelfFromTeam,
+    async leaveProject() {
+      await removeSelfFromTeam(this.project.team)
+      await this.$router.push('/dashboard/projects')
+    },
     async inviteTeamMember() {
       startLoading()
 
@@ -295,8 +323,8 @@ export default defineNuxtComponent({
         await useBaseFetch(`team/${this.project.team}/members`, {
           method: 'POST',
           body: data,
-          ...this.$defaultHeaders(),
         })
+        this.currentUsername = ''
         await this.updateMembers()
       } catch (err) {
         this.$notify({
@@ -317,7 +345,6 @@ export default defineNuxtComponent({
           `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
           {
             method: 'DELETE',
-            ...this.$defaultHeaders(),
           }
         )
         await this.updateMembers()
@@ -352,7 +379,6 @@ export default defineNuxtComponent({
           {
             method: 'PATCH',
             body: data,
-            ...this.$defaultHeaders(),
           }
         )
         await this.updateMembers()
@@ -382,7 +408,6 @@ export default defineNuxtComponent({
           body: {
             user_id: this.allTeamMembers[index].user.id,
           },
-          ...this.$defaultHeaders(),
         })
         await this.updateMembers()
       } catch (err) {
@@ -397,9 +422,7 @@ export default defineNuxtComponent({
       stopLoading()
     },
     async updateMembers() {
-      this.allTeamMembers = (
-        await useBaseFetch(`team/${this.project.team}/members`, this.$defaultHeaders())
-      ).map((it) => ({
+      this.allTeamMembers = (await useBaseFetch(`team/${this.project.team}/members`)).map((it) => ({
         avatar_url: it.user.avatar_url,
         name: it.user.username,
         oldRole: it.role,

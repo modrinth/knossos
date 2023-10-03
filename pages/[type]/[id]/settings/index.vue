@@ -147,10 +147,12 @@
       <div class="adjacent-input">
         <label for="project-visibility">
           <span class="label__title">Visibility</span>
-          <span class="label__description">
+          <div class="label__description">
             Listed and archived projects are visible in search. Unlisted projects are published, but
             not visible in search or on user profiles. Private projects are only accessible by
             members of the project.
+
+            <p>If approved by the moderators:</p>
             <ul class="visibility-info">
               <li>
                 <CheckIcon
@@ -183,13 +185,13 @@
                 {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible via URL
               </li>
             </ul>
-          </span>
+          </div>
         </label>
         <Multiselect
           id="project-visibility"
           v-model="visibility"
           placeholder="Select one"
-          :options="$tag.approvedStatuses"
+          :options="tags.approvedStatuses"
           :custom-label="(value) => $formatProjectStatus(value)"
           :searchable="false"
           :close-on-select="true"
@@ -313,6 +315,11 @@ export default defineNuxtComponent({
       },
     },
   },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
+  },
   data() {
     return {
       name: this.project.title,
@@ -323,7 +330,7 @@ export default defineNuxtComponent({
       clientSide: this.project.client_side,
       serverSide: this.project.server_side,
       deletedIcon: false,
-      visibility: this.$tag.approvedStatuses.includes(this.project.status)
+      visibility: this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
         : this.project.requested_status,
     }
@@ -358,7 +365,7 @@ export default defineNuxtComponent({
       if (this.serverSide !== this.project.server_side) {
         data.server_side = this.serverSide
       }
-      if (this.$tag.approvedStatuses.includes(this.project.status)) {
+      if (this.tags.approvedStatuses.includes(this.project.status)) {
         if (this.visibility !== this.project.status) {
           data.status = this.visibility
         }
@@ -374,7 +381,7 @@ export default defineNuxtComponent({
   },
   methods: {
     hasModifiedVisibility() {
-      const originalVisibility = this.$tag.approvedStatuses.includes(this.project.status)
+      const originalVisibility = this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
         : this.project.requested_status
 
@@ -405,7 +412,6 @@ export default defineNuxtComponent({
     async deleteProject() {
       await useBaseFetch(`project/${this.project.id}`, {
         method: 'DELETE',
-        ...this.$defaultHeaders(),
       })
       await initUserProjects()
       await this.$router.push('/dashboard/projects')
@@ -424,7 +430,6 @@ export default defineNuxtComponent({
     async deleteIcon() {
       await useBaseFetch(`project/${this.project.id}/icon`, {
         method: 'DELETE',
-        ...this.$defaultHeaders(),
       })
       await this.updateIcon()
       this.$notify({
@@ -460,5 +465,9 @@ svg {
 .summary-input {
   min-height: 8rem;
   max-width: 24rem;
+}
+
+.multiselect {
+  max-width: 15rem;
 }
 </style>

@@ -1,17 +1,5 @@
 <template>
   <div v-if="user">
-    <Head>
-      <Title>{{ user.username + ' - Modrinth' }}</Title>
-      <Meta name="og:title" :content="user.username" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="og:type" content="website" />
-      <Meta name="apple-mobile-web-app-title" :content="metaDescription" />
-      <Meta name="og:description" :content="metaDescription" />
-      <Meta
-        name="og:image"
-        :content="user.avatar_url ? user.avatar_url : 'https://cdn.modrinth.com/placeholder.png'"
-      />
-    </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
@@ -38,39 +26,47 @@
               v-if="isEditing"
               :max-size="262144"
               :show-icon="true"
+              :prompt="formatMessage(messages.profileUploadAvatarInput)"
               accept="image/png,image/jpeg,image/gif,image/webp"
               class="choose-image iconified-button"
-              prompt="Upload avatar"
               @change="showPreviewImage"
             >
               <UploadIcon />
             </FileInput>
             <button
-              v-else-if="$auth.user && $auth.user.id === user.id"
+              v-else-if="auth.user && auth.user.id === user.id"
               class="iconified-button"
               @click="isEditing = true"
             >
               <EditIcon />
-              Edit
+              {{ formatMessage(commonMessages.editButton) }}
             </button>
             <button
-              v-else-if="$auth.user"
+              v-else-if="auth.user"
               class="iconified-button"
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              Report
+              {{ formatMessage(messages.profileReportButton) }}
             </button>
-            <a v-else class="iconified-button" :href="getAuthUrl()" rel="noopener nofollow">
+            <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
               <ReportIcon aria-hidden="true" />
-              Report
-            </a>
+              {{ formatMessage(messages.profileReportButton) }}
+            </nuxt-link>
           </div>
           <template v-if="isEditing">
             <div class="inputs universal-labels">
-              <label for="user-username"><span class="label__title">Username</span></label>
+              <label for="user-username">
+                <span class="label__title">
+                  {{ formatMessage(messages.profileEditUsernameLabel) }}
+                </span>
+              </label>
               <input id="user-username" v-model="user.username" maxlength="39" type="text" />
-              <label for="user-bio"><span class="label__title">Bio</span></label>
+              <label for="user-bio">
+                <span class="label__title">
+                  {{ formatMessage(messages.profileEditBioLabel) }}
+                </span>
+              </label>
               <div class="textarea-wrapper">
                 <textarea id="user-bio" v-model="user.bio" maxlength="160" />
               </div>
@@ -81,22 +77,22 @@
                 @click="
                   () => {
                     isEditing = false
-                    user = JSON.parse(JSON.stringify($auth.user))
+                    user = JSON.parse(JSON.stringify(auth.user))
                     previewImage = null
                     icon = null
                   }
                 "
               >
-                <CrossIcon /> Cancel
+                <CrossIcon /> {{ formatMessage(commonMessages.cancelButton) }}
               </button>
               <button class="iconified-button brand-button" @click="saveChanges">
-                <SaveIcon /> Save
+                <SaveIcon /> {{ formatMessage(commonMessages.saveButton) }}
               </button>
             </div>
           </template>
           <template v-else>
             <div class="sidebar__item">
-              <Badge v-if="$tag.staffRoles.includes(user.role)" :type="user.role" />
+              <Badge v-if="tags.staffRoles.includes(user.role)" :type="user.role" />
               <Badge v-else-if="projects.length > 0" type="creator" />
             </div>
             <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
@@ -104,41 +100,60 @@
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumDownloads }}</span>
-                downloads
+                <IntlFormatted
+                  :message-id="messages.profileDownloadsStats"
+                  :values="{ count: formatCompactNumber(sumDownloads) }"
+                >
+                  <template #stat="{ children }">
+                    <span class="primary-stat__counter">
+                      <component :is="() => normalizeChildren(children)" />
+                    </span>
+                  </template>
+                </IntlFormatted>
               </div>
             </div>
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
-                <span class="primary-stat__counter">{{ sumFollows }}</span>
-                followers of projects
+                <IntlFormatted
+                  :message-id="messages.profileProjectsFollowersStats"
+                  :values="{ count: formatCompactNumber(sumFollows) }"
+                >
+                  <template #stat="{ children }">
+                    <span class="primary-stat__counter">
+                      <component :is="() => normalizeChildren(children)" />
+                    </span>
+                  </template>
+                </IntlFormatted>
               </div>
             </div>
             <div class="stats-block__item secondary-stat">
               <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
               <span
-                v-tooltip="$dayjs(user.created).format('MMMM D, YYYY [at] h:mm:ss A')"
+                v-tooltip="
+                  formatMessage(commonMessages.dateAtTimeTooltip, {
+                    date: new Date(user.created),
+                    time: new Date(user.created),
+                  })
+                "
                 class="secondary-stat__text date"
               >
-                Joined {{ fromNow(user.created) }}
+                {{
+                  formatMessage(messages.profileJoinedAt, { ago: formatRelativeTime(user.created) })
+                }}
               </span>
             </div>
             <hr class="card-divider" />
             <div class="stats-block__item secondary-stat">
               <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text"> User ID: <CopyCode :text="user.id" /> </span>
+              <span class="secondary-stat__text">
+                <IntlFormatted :message-id="messages.profileUserId">
+                  <template #~id>
+                    <CopyCode :text="user.id" />
+                  </template>
+                </IntlFormatted>
+              </span>
             </div>
-            <a
-              v-if="githubUrl"
-              :href="githubUrl"
-              :target="$external()"
-              rel="noopener noreferrer nofollow"
-              class="sidebar__item github-button iconified-button"
-            >
-              <GitHubIcon aria-hidden="true" />
-              View GitHub profile
-            </a>
           </template>
         </div>
       </div>
@@ -148,12 +163,12 @@
           <NavRow
             :links="[
               {
-                label: 'all',
+                label: formatMessage(commonMessages.allProjectType),
                 href: `/user/${user.username}`,
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: $formatProjectType(x) + 's',
+                  label: formatMessage(getProjectTypeMessage(x, true)),
                   href: `/user/${user.username}/${x}s`,
                 }
               }),
@@ -161,21 +176,25 @@
           />
           <div class="input-group">
             <NuxtLink
-              v-if="$auth.user && $auth.user.id === user.id"
+              v-if="auth.user && auth.user.id === user.id"
               class="iconified-button"
               to="/dashboard/projects"
             >
               <SettingsIcon />
-              Manage projects
+              {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
             <button
-              v-tooltip="$capitalizeString($cosmetics.searchDisplayMode.user) + ' view'"
-              :aria-label="$capitalizeString($cosmetics.searchDisplayMode.user) + ' view'"
+              v-tooltip="
+                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
+              "
+              :aria-label="
+                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
+              "
               class="square-button"
               @click="cycleSearchDisplayMode()"
             >
-              <GridIcon v-if="$cosmetics.searchDisplayMode.user === 'grid'" />
-              <ImageIcon v-else-if="$cosmetics.searchDisplayMode.user === 'gallery'" />
+              <GridIcon v-if="cosmetics.searchDisplayMode.user === 'grid'" />
+              <ImageIcon v-else-if="cosmetics.searchDisplayMode.user === 'gallery'" />
               <ListIcon v-else />
             </button>
           </div>
@@ -183,7 +202,7 @@
         <div
           v-if="projects.length > 0"
           class="project-list"
-          :class="'display-mode--' + $cosmetics.searchDisplayMode.user"
+          :class="'display-mode--' + cosmetics.searchDisplayMode.user"
         >
           <ProjectCard
             v-for="project in (route.params.projectType !== undefined
@@ -199,7 +218,7 @@
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
-            :display="$cosmetics.searchDisplayMode.user"
+            :display="cosmetics.searchDisplayMode.user"
             :featured-image="
               project.gallery
                 .slice()
@@ -216,7 +235,7 @@
             :client-side="project.client_side"
             :server-side="project.server_side"
             :status="
-              $auth.user && ($auth.user.id === user.id || $tag.staffRoles.includes($auth.user.role))
+              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
                 ? project.status
                 : null
             "
@@ -226,23 +245,26 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="$auth.user && $auth.user.id === user.id" class="text">
-            You don't have any projects.<br />
-            Would you like to
-            <a class="link" @click.prevent="$refs.modal_creation.show()"> create one</a>?
+          <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
+            <IntlFormatted :message-id="messages.profileNoProjectsAuthLabel">
+              <template #create-link="{ children }">
+                <a class="link" @click.prevent="$refs.modal_creation.show()">
+                  <component :is="() => children" />
+                </a>
+              </template>
+            </IntlFormatted>
           </span>
-          <span v-else class="text">This user has no projects!</span>
+          <span v-else class="text">{{ formatMessage(messages.profileNoProjectsLabel) }}</span>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { Promotion } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
-import Promotion from '~/components/ads/Promotion.vue'
 
-import GitHubIcon from '~/assets/images/utils/github.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -266,23 +288,94 @@ import Avatar from '~/components/ui/Avatar.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
+const auth = await useAuth()
+const cosmetics = useCosmetics()
+const tags = useTags()
+
+const vintl = useVIntl()
+const { formatMessage } = vintl
+
+const formatCompactNumber = useCompactNumber()
+
+const formatRelativeTime = useRelativeTime()
+
+const messages = defineMessages({
+  profileDownloadsStats: {
+    id: 'profile.stats.downloads',
+    defaultMessage:
+      '{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
+  },
+  profileProjectsFollowersStats: {
+    id: 'profile.stats.projects-followers',
+    defaultMessage:
+      '{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
+  },
+  profileJoinedAt: {
+    id: 'profile.joined-at',
+    defaultMessage: 'Joined {ago}',
+  },
+  profileUserId: {
+    id: 'profile.user-id',
+    defaultMessage: 'User ID: {id}',
+  },
+  profileManageProjectsButton: {
+    id: 'profile.button.manage-projects',
+    defaultMessage: 'Manage projects',
+  },
+  profileMetaDescription: {
+    id: 'profile.meta.description',
+    defaultMessage: "Download {username}'s projects on Modrinth",
+  },
+  profileMetaDescriptionWithBio: {
+    id: 'profile.meta.description-with-bio',
+    defaultMessage: "{bio} - Download {username}'s projects on Modrinth",
+  },
+  profileReportButton: {
+    id: 'profile.button.report',
+    defaultMessage: 'Report',
+  },
+  profileUploadAvatarInput: {
+    id: 'profile.input.upload-avatar',
+    defaultMessage: 'Upload avatar',
+  },
+  profileEditUsernameLabel: {
+    id: 'profile.label.edit-username',
+    defaultMessage: 'Username',
+  },
+  profileEditBioLabel: {
+    id: 'profile.label.edit-bio',
+    defaultMessage: 'Bio',
+  },
+  profileNoProjectsLabel: {
+    id: 'profile.label.no-projects',
+    defaultMessage: 'This user has no projects!',
+  },
+  profileNoProjectsAuthLabel: {
+    id: 'profile.label.no-projects-auth',
+    defaultMessage:
+      "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
+  },
+  userNotFoundError: {
+    id: 'profile.error.not-found',
+    defaultMessage: 'User not found',
+  },
+})
 
 let user, projects
 try {
   ;[{ data: user }, { data: projects }] = await Promise.all([
-    useAsyncData(`user/${route.params.id}`, () =>
-      useBaseFetch(`user/${route.params.id}`, data.$defaultHeaders())
-    ),
+    useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
       `user/${route.params.id}/projects`,
-      () => useBaseFetch(`user/${route.params.id}/projects`, data.$defaultHeaders()),
+      () => useBaseFetch(`user/${route.params.id}/projects`),
       {
         transform: (projects) => {
           for (const project of projects) {
             project.categories = project.categories.concat(project.loaders)
             project.project_type = data.$getProjectTypeForUrl(
               project.project_type,
-              project.categories
+              project.categories,
+              tags.value
             )
           }
 
@@ -295,7 +388,7 @@ try {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -303,25 +396,31 @@ if (!user.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.userNotFoundError),
   })
 }
-
-let githubUrl
-try {
-  const githubUser = await $fetch(`https://api.github.com/user/` + user.value.github_id)
-  githubUrl = ref(githubUser.html_url)
-} catch {}
 
 if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
 }
 
-const metaDescription = ref(
+const title = `${user.value.username} - Modrinth`
+const description = ref(
   user.value.bio
-    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
-    : `Download ${user.value.username}'s projects on Modrinth`
+    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+        bio: user.value.bio,
+        username: user.value.username,
+      })}`
+    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
 )
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
+})
 
 const projectTypes = computed(() => {
   const obj = {}
@@ -339,7 +438,7 @@ const sumDownloads = computed(() => {
     sum += project.downloads
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 const sumFollows = computed(() => {
   let sum = 0
@@ -348,7 +447,7 @@ const sumFollows = computed(() => {
     sum += project.followers
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 
 const isEditing = ref(false)
@@ -369,13 +468,12 @@ async function saveChanges() {
   try {
     if (icon.value) {
       await useBaseFetch(
-        `user/${data.$auth.user.id}/icon?ext=${
+        `user/${auth.value.user.id}/icon?ext=${
           icon.value.type.split('/')[icon.value.type.split('/').length - 1]
         }`,
         {
           method: 'PATCH',
           body: icon.value,
-          ...data.$defaultHeaders(),
         }
       )
     }
@@ -384,23 +482,22 @@ async function saveChanges() {
       email: user.value.email,
       bio: user.value.bio,
     }
-    if (user.value.username !== data.$auth.user.username) {
+    if (user.value.username !== auth.value.user.username) {
       reqData.username = user.value.username
     }
 
-    await useBaseFetch(`user/${data.$auth.user.id}`, {
+    await useBaseFetch(`user/${auth.value.user.id}`, {
       method: 'PATCH',
       body: reqData,
-      ...data.$defaultHeaders(),
     })
-    await useAuth(data.$auth.token)
+    await useAuth(auth.value.token)
 
     isEditing.value = false
   } catch (err) {
     console.error(err)
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data.description,
       type: 'error',
     })
@@ -409,9 +506,9 @@ async function saveChanges() {
 }
 
 function cycleSearchDisplayMode() {
-  data.$cosmetics.searchDisplayMode.user = data.$cycleValue(
-    data.$cosmetics.searchDisplayMode.user,
-    data.$tag.projectViewModes
+  cosmetics.value.searchDisplayMode.user = data.$cycleValue(
+    cosmetics.value.searchDisplayMode.user,
+    tags.value.projectViewModes
   )
   saveCosmetics()
 }
@@ -504,10 +601,6 @@ export default defineNuxtComponent({
   cursor: default;
 }
 
-.github-button {
-  display: inline-flex;
-}
-
 .inputs {
   margin-bottom: 1rem;
 
@@ -519,10 +612,6 @@ export default defineNuxtComponent({
   label {
     margin-bottom: 0;
   }
-}
-
-.button-group:first-child {
-  margin-left: auto;
 }
 
 .textarea-wrapper {

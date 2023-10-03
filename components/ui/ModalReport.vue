@@ -1,13 +1,13 @@
 <template>
   <Modal ref="modal" :header="`Report ${itemType}`">
-    <div class="modal-report legacy-label-styles">
+    <div class="modal-report universal-labels">
       <div class="markdown-body">
         <p>
           Modding should be safe for everyone, so we take abuse and malicious intent seriously at
           Modrinth. We want to hear about harmful content on the site that violates our
-          <nuxt-link to="/legal/terms"> ToS </nuxt-link> and
-          <nuxt-link to="/legal/rules"> Rules </nuxt-link>. Rest assured, we’ll keep your
-          identifying information private.
+          <nuxt-link class="text-link" to="/legal/terms">ToS</nuxt-link> and
+          <nuxt-link class="text-link" to="/legal/rules">Rules</nuxt-link>. Rest assured, we’ll keep
+          your identifying information private.
         </p>
         <p v-if="itemType === 'project' || itemType === 'version'">
           Please <strong>do not</strong> use this to report bugs with the project itself. This form
@@ -15,15 +15,13 @@
           Discord invite, consider reporting it there.
         </p>
       </div>
-      <label class="report-label" for="report-type">
-        <span>
-          <strong>Reason</strong>
-        </span>
+      <label for="report-type">
+        <span class="label__title">Reason</span>
       </label>
       <Multiselect
         id="report-type"
         v-model="reportType"
-        :options="$tag.reportTypes"
+        :options="tags.reportTypes"
         :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
         :multiple="false"
         :searchable="false"
@@ -31,9 +29,18 @@
         :show-labels="false"
         placeholder="Choose report type"
       />
-      <label class="report-label" for="additional-information">
-        <strong>Additional information</strong>
-        <span> Include links and images if possible. Markdown formatting is supported. </span>
+      <label for="report-body">
+        <span class="label__title">Additional information</span>
+        <span class="label__description add-line-height">
+          Please provide additional context about your report. Include links and images if possible.
+          <strong>Empty reports will be closed.</strong> This editor supports
+          <a
+            class="text-link"
+            href="https://docs.modrinth.com/docs/tutorials/markdown/"
+            target="_blank"
+            >Markdown formatting</a
+          >.
+        </span>
       </label>
       <div class="textarea-wrapper">
         <Chips v-model="bodyViewType" class="separator" :items="['source', 'preview']" />
@@ -82,6 +89,11 @@ export default {
       default: '',
     },
   },
+  setup() {
+    const tags = useTags()
+
+    return { tags }
+  },
   data() {
     return {
       reportType: '',
@@ -110,10 +122,10 @@ export default {
         await useBaseFetch('report', {
           method: 'POST',
           body: data,
-          ...this.$defaultHeaders(),
         })
 
         this.$refs.modal.hide()
+        await this.$router.push('/dashboard/reports')
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -137,24 +149,13 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .markdown-body {
-    margin-bottom: 1rem;
+  .add-line-height {
+    line-height: 1.5;
+    margin-bottom: 0;
   }
 
   .multiselect {
     max-width: 20rem;
-    margin-bottom: 1rem;
-  }
-
-  .report-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
   }
 
   .textarea-wrapper {

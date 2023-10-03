@@ -128,14 +128,15 @@ export default {
     async proceed() {
       startLoading()
       try {
-        await useBaseFetch(`user/${this.$auth.user.id}/payouts`, {
+        const auth = await useAuth()
+
+        await useBaseFetch(`user/${auth.value.user.id}/payouts`, {
           method: 'POST',
           body: {
             amount: Number(this.amount.replace('$', '')),
           },
-          ...this.$defaultHeaders(),
         })
-        await useAuth(this.$auth.token)
+        await useAuth(auth.value.token)
 
         this.$refs.modal.hide()
       } catch (err) {
@@ -184,11 +185,6 @@ export default {
       width: 14rem;
       max-width: 100%;
     }
-  }
-
-  .button-group {
-    margin-top: var(--spacing-card-md);
-    justify-content: right;
   }
 
   strong {

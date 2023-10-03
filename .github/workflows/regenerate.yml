@@ -7,8 +7,9 @@ on:
 jobs:
   regenerate:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'modrinth'
     steps:
       - name: Re-deploy site
         run: |
           curl -X POST \
-            ${{ secrets.VERCEL_DEPLOY_URL }}
+            ${{ secrets.CLOUDFLARE_DEPLOY_URL }}

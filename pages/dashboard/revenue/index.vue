@@ -20,19 +20,6 @@
             >Enroll in the Creator Monetization Program to withdraw your revenue.</span
           >
         </p>
-
-        <div v-if="enrolled" class="input-group">
-          <button class="iconified-button brand-button" @click="$refs.modal_transfer.show()">
-            <TransferIcon /> Transfer to
-            {{ $formatWallet(auth.user.payout_data.payout_wallet) }}
-          </button>
-          <NuxtLink class="iconified-button" to="/dashboard/revenue/transfers">
-            <HistoryIcon /> View transfer history
-          </NuxtLink>
-          <NuxtLink class="iconified-button" to="/settings/monetization">
-            <SettingsIcon /> Monetization settings
-          </NuxtLink>
-        </div>
       </div>
       <p v-else-if="auth.user.payout_data.balance > 0">
         You have made
@@ -49,8 +36,31 @@
           <SettingsIcon /> Enroll in the Creator Monetization Program
         </NuxtLink>
       </div>
+      <div v-if="enrolled" class="input-group">
+        <button
+          v-if="auth.user.payout_data.balance >= minWithdraw"
+          class="iconified-button brand-button"
+          @click="$refs.modal_transfer.show()"
+        >
+          <TransferIcon /> Transfer to
+          {{ $formatWallet(auth.user.payout_data.payout_wallet) }}
+        </button>
+        <NuxtLink class="iconified-button" to="/dashboard/revenue/transfers">
+          <HistoryIcon /> View transfer history
+        </NuxtLink>
+        <NuxtLink class="iconified-button" to="/settings/monetization">
+          <SettingsIcon /> Monetization settings
+        </NuxtLink>
+      </div>
     </section>
     <section class="universal-card">
+      <h2>About the program</h2>
+      <p>
+        By uploading projects to Modrinth and withdrawing money from your account, you agree to the
+        <nuxt-link to="/legal/cmp" class="text-link">Rewards Program Terms</nuxt-link>. For more
+        information on how the rewards system works, see our information page
+        <nuxt-link to="/legal/cmp-info" class="text-link">here</nuxt-link>.
+      </p>
       <h2>Processing fees</h2>
       <p>
         To avoid paying unnecessary fee deductions, you may want to wait to transfer your money out

@@ -1,5 +1,21 @@
 <template>
   <div ref="main_page" class="layout" :class="{ 'expanded-mobile-nav': isBrowseMenuOpen }">
+    <div
+      v-if="auth.user && !auth.user.email_verified && route.path !== '/auth/verify-email'"
+      class="email-nag"
+    >
+      <template v-if="auth.user.email">
+        <span>For security purposes, please verify your email address on Modrinth.</span>
+        <button class="btn" @click="resendVerifyEmail">Re-send verification email</button>
+      </template>
+      <template v-else>
+        <span>For security purposes, please enter your email on Modrinth.</span>
+        <nuxt-link class="btn" to="/settings/account">
+          <SettingsIcon />
+          Visit account settings
+        </nuxt-link>
+      </template>
+    </div>
     <header class="site-header" role="presentation">
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
@@ -15,9 +31,9 @@
             <section class="user-controls">
               <nuxt-link
                 v-if="auth.user"
-                to="/notifications"
+                to="/dashboard/notifications"
                 class="control-button button-transparent"
-                :class="{ bubble: user.notifications.length > 0 }"
+                :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
@@ -25,7 +41,6 @@
               <button
                 class="control-button button-transparent"
                 title="Switch theme"
-                :disabled="isThemeSwitchOnHold"
                 @click="changeTheme"
               >
                 <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
@@ -63,15 +78,15 @@
                     <span class="title">Create a project</span>
                   </button>
                   <hr class="divider" />
-                  <NuxtLink class="item button-transparent" to="/notifications">
+                  <NuxtLink class="item button-transparent" to="/dashboard/notifications">
                     <NotificationIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard">
                     <ChartIcon class="icon" />
-                    <span class="title">Dashboard</span><span class="beta-badge">BETA</span>
+                    <span class="title">Dashboard</span>
                   </NuxtLink>
-                  <NuxtLink class="item button-transparent" to="/settings/follows">
+                  <NuxtLink class="item button-transparent" to="/dashboard/follows">
                     <HeartIcon class="icon" />
                     <span class="title">Following</span>
                   </NuxtLink>
@@ -80,29 +95,39 @@
                     <span class="title">Settings</span>
                   </NuxtLink>
                   <NuxtLink
-                    v-if="$tag.staffRoles.includes($auth.user.role)"
+                    v-if="tags.staffRoles.includes(auth.user.role)"
                     class="item button-transparent"
                     to="/moderation"
                   >
                     <ModerationIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
+                  <NuxtLink
+                    v-if="!cosmetics.hideModrinthAppPromos"
+                    class="item button-transparent primary-color"
+                    to="/app"
+                  >
+                    <DownloadIcon class="icon" />
+                    <span class="title">Get Modrinth App</span>
+                  </NuxtLink>
                   <hr class="divider" />
-                  <button class="item button-transparent" @click="logout()">
+                  <button class="item button-transparent" @click="logoutUser()">
                     <LogOutIcon class="icon" />
                     <span class="dropdown-item__text">Log out</span>
                   </button>
                 </div>
               </div>
               <section v-else class="auth-prompt">
-                <a
-                  :href="getAuthUrl()"
-                  class="log-in-button header-button brand-button"
-                  rel="noopener nofollow"
+                <nuxt-link class="iconified-button raised-button" to="/auth/sign-in">
+                  <LogInIcon /> Sign in
+                </nuxt-link>
+                <nuxt-link
+                  v-if="$route.path !== '/app' && !cosmetics.hideModrinthAppPromos"
+                  class="btn btn-outline btn-primary app-btn"
+                  to="/app"
                 >
-                  <GitHubIcon aria-hidden="true" />
-                  Sign in with GitHub</a
-                >
+                  <DownloadIcon /> Get Modrinth App
+                </nuxt-link>
               </section>
             </section>
           </section>
@@ -150,19 +175,13 @@
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <a
-              v-else
-              class="iconified-button brand-button"
-              :href="getAuthUrl()"
-              rel="nofollow noopener"
-            >
-              <GitHubIcon aria-hidden="true" />
-              Sign in with GitHub
-            </a>
+            <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
+              <LogInIcon /> Sign in
+            </nuxt-link>
           </div>
           <div class="links">
             <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logout()">
+              <button class="iconified-button danger-button" @click="logoutUser()">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
@@ -170,7 +189,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="iconified-button" to="/settings/follows">
+              <NuxtLink class="iconified-button" to="/dashboard/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -187,7 +206,7 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" :disabled="isThemeSwitchOnHold" @click="changeTheme">
+            <button class="iconified-button" @click="changeTheme">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -214,10 +233,10 @@
           </button>
           <template v-if="auth.user">
             <NuxtLink
-              to="/notifications"
+              to="/dashboard/notifications"
               class="tab button-animation"
               :class="{
-                bubble: user.notifications.length > 0,
+                bubble: user.notifications.some((notif) => !notif.read),
                 'no-active': isMobileMenuOpen || isBrowseMenuOpen,
               }"
               title="Notifications"
@@ -263,7 +282,7 @@
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
-        <BrandTextLogo aria-hidden="true" class="text-logo" />
+        <BrandTextLogo aria-hidden="true" class="text-logo" @click="developerModeIncrement()" />
         <p>
           Modrinth is
           <a
@@ -311,7 +330,7 @@
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
-        <a rel="noopener" :target="$external()" href="https://discord.gg/EUHuJHt"> Discord </a>
+        <a rel="noopener" :target="$external()" href="https://discord.modrinth.com"> Discord </a>
         <a rel="noopener" :target="$external()" href="https://twitter.com/modrinth"> Twitter </a>
         <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth"> Mastodon </a>
         <a rel="noopener" :target="$external()" href="https://crowdin.com/project/modrinth">
@@ -319,11 +338,11 @@
         </a>
       </div>
       <div class="buttons">
-        <button
-          class="iconified-button raised-button"
-          :disabled="isThemeSwitchOnHold"
-          @click="changeTheme"
-        >
+        <nuxt-link class="btn btn-outline btn-primary" to="/app">
+          <DownloadIcon aria-hidden="true" />
+          Get Modrinth App
+        </nuxt-link>
+        <button class="iconified-button raised-button" @click="changeTheme">
           <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
           <SunIcon v-else aria-hidden="true" />
           Change theme
@@ -340,6 +359,7 @@
   </div>
 </template>
 <script setup>
+import { LogInIcon, DownloadIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -357,19 +377,20 @@ import LogOutIcon from '~/assets/images/utils/log-out.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
-import GitHubIcon from '~/assets/images/utils/github.svg'
 import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 
+const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
+const cosmetics = useCosmetics()
+const tags = useTags()
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
 useHead({
-  meta: [{ name: 'og:url', content: link }],
   link: [
     {
       rel: 'canonical',
@@ -377,6 +398,64 @@ useHead({
     },
   ],
 })
+
+const description =
+  'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
+  'Discover and publish projects on Modrinth with a modern, easy to use interface and API.'
+
+useSeoMeta({
+  title: 'Modrinth',
+  description,
+  publisher: 'Rinth, Inc.',
+  themeColor: [
+    { color: '#00af5c', media: '(prefers-color-scheme:light)' },
+    { color: '#1bd96a', media: '(prefers-color-scheme:dark)' },
+    { color: '#1bd96a' },
+  ],
+  colorScheme: 'dark light',
+
+  // OpenGraph
+  ogTitle: 'Modrinth',
+  ogSiteName: 'Modrinth',
+  ogDescription: description,
+  ogType: 'website',
+  ogImage: 'https://cdn.modrinth.com/modrinth-new.png',
+  ogUrl: link,
+
+  // Twitter
+  twitterCard: 'summary',
+  twitterSite: '@modrinth',
+})
+
+let developerModeCounter = 0
+
+function developerModeIncrement() {
+  if (developerModeCounter >= 5) {
+    cosmetics.value.developerMode = !cosmetics.value.developerMode
+    developerModeCounter = 0
+    if (cosmetics.value.developerMode) {
+      app.$notify({
+        group: 'main',
+        title: 'Developer mode activated',
+        text: 'Developer mode has been enabled',
+        type: 'success',
+      })
+    } else {
+      app.$notify({
+        group: 'main',
+        title: 'Developer mode deactivated',
+        text: 'Developer mode has been disabled',
+        type: 'success',
+      })
+    }
+  } else {
+    developerModeCounter++
+  }
+}
+
+async function logoutUser() {
+  await logout()
+}
 </script>
 <script>
 export default defineNuxtComponent({
@@ -385,7 +464,6 @@ export default defineNuxtComponent({
       isDropdownOpen: false,
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,
-      isThemeSwitchOnHold: false,
       registeredSkipLink: null,
       hideDropdown: false,
       navRoutes: [
@@ -436,19 +514,20 @@ export default defineNuxtComponent({
       this.runAnalytics()
     },
   },
-  async mounted() {
-    this.runAnalytics()
-    if (this.$route.query.code) {
-      await useAuth(this.$route.query.code)
-      window.history.replaceState(history.state, null, this.$route.path)
+  mounted() {
+    if (process.client && window) {
+      window.history.scrollRestoration = 'auto'
     }
+
+    this.runAnalytics()
   },
   methods: {
     runAnalytics() {
       const config = useRuntimeConfig()
+      const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
 
       setTimeout(() => {
-        $fetch(`${config.public.ariadneBaseUrl}view`, {
+        $fetch(`${replacedUrl}analytics/view`, {
           method: 'POST',
           body: {
             url: window.location.href,
@@ -471,28 +550,8 @@ export default defineNuxtComponent({
         this.isMobileMenuOpen = false
       }
     },
-    logout() {
-      useCookie('auth-token').value = null
-
-      this.$notify({
-        group: 'main',
-        title: 'Logged Out',
-        text: 'You have logged out successfully!',
-        type: 'success',
-      })
-
-      useRouter()
-        .push('/')
-        .then(() => {
-          useRouter().go()
-        })
-    },
     changeTheme() {
-      this.isThemeSwitchOnHold = true
       updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
-      setTimeout(() => {
-        this.isThemeSwitchOnHold = false
-      }, 1000)
     },
   },
 })
@@ -500,6 +559,7 @@ export default defineNuxtComponent({
 
 <style lang="scss">
 @import '~/assets/styles/global.scss';
+@import 'omorphia/dist/style.css';
 
 .layout {
   min-height: 100vh;
@@ -540,6 +600,7 @@ export default defineNuxtComponent({
         display: flex;
         justify-content: space-between;
         color: var(--color-text-dark);
+        z-index: 5;
 
         a {
           align-items: center;
@@ -571,6 +632,7 @@ export default defineNuxtComponent({
       section.nav-group {
         display: flex;
         flex-grow: 5;
+        z-index: 5;
 
         section.nav {
           flex-grow: 5;
@@ -621,7 +683,7 @@ export default defineNuxtComponent({
           top: 50%;
           transform: translateY(-50%);
           min-width: 6rem;
-          gap: 1rem;
+          gap: 0.25rem;
 
           .control-button {
             position: relative;
@@ -719,7 +781,7 @@ export default defineNuxtComponent({
                 box-sizing: border-box;
                 color: inherit;
                 display: flex;
-                padding: 0.5rem;
+                padding: 0.5rem 0.75rem;
                 width: 100%;
 
                 .icon {
@@ -731,6 +793,15 @@ export default defineNuxtComponent({
                 &.router-link-exact-active {
                   color: var(--color-button-text-active);
                   background-color: var(--color-button-bg);
+
+                  &.primary-color {
+                    color: var(--color-button-text-active);
+                    background-color: var(--color-brand-highlight);
+                  }
+                }
+
+                &.primary-color {
+                  color: var(--color-brand);
                 }
               }
 
@@ -767,6 +838,7 @@ export default defineNuxtComponent({
           align-items: center;
           height: 100%;
           margin: 0;
+          gap: 0.5rem;
 
           .log-in-button {
             margin: 0 auto;
@@ -1117,6 +1189,22 @@ export default defineNuxtComponent({
         }
       }
     }
+  }
+}
+
+.email-nag {
+  background-color: var(--color-raised-bg);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 1200px) {
+  .app-btn {
+    display: none;
   }
 }
 </style>

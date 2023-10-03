@@ -1,14 +1,7 @@
 <template>
   <div>
-    <Head>
-      <Title>{{ project.title }} - Gallery</Title>
-      <Meta name="og:title" :content="`${project.title} - Gallery`" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
-      <Meta name="og:description" :contcent="metaDescription" />
-    </Head>
     <Modal
-      v-if="$auth.user && currentMember"
+      v-if="currentMember"
       ref="modal_edit_item"
       :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
     >
@@ -102,7 +95,7 @@
         </button>
         <div class="button-group">
           <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
-            <CrossIcon />
+            <XIcon />
             Cancel
           </button>
           <button
@@ -127,7 +120,7 @@
       </div>
     </Modal>
     <ModalConfirm
-      v-if="$auth.user && currentMember"
+      v-if="currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this gallery image?"
       description="This will remove this gallery image forever (like really forever)."
@@ -165,7 +158,7 @@
           <div class="controls">
             <div class="buttons">
               <button class="close circle-button" @click="expandedGalleryItem = null">
-                <CrossIcon aria-hidden="true" />
+                <XIcon aria-hidden="true" />
               </button>
               <a
                 class="open circle-button"
@@ -276,66 +269,58 @@
   </div>
 </template>
 
+<script setup>
+import {
+  PlusIcon,
+  CalendarIcon,
+  EditIcon,
+  TrashIcon,
+  SaveIcon,
+  StarIcon,
+  XIcon,
+  RightArrowIcon,
+  LeftArrowIcon,
+  ExternalIcon,
+  ExpandIcon,
+  ContractIcon,
+  UploadIcon,
+  InfoIcon,
+  ImageIcon,
+  TransferIcon,
+  ModalConfirm,
+  Modal,
+  FileInput,
+  DropArea,
+} from 'omorphia'
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return null
+    },
+  },
+})
+
+const title = `${props.project.title} - Gallery`
+const description = `View ${props.project.gallery.length} images of ${props.project.title} on Modrinth.`
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+})
+</script>
+
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
-import ExpandIcon from '~/assets/images/utils/expand.svg'
-import ContractIcon from '~/assets/images/utils/contract.svg'
-import StarIcon from '~/assets/images/utils/star.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
-
 export default defineNuxtComponent({
-  components: {
-    CalendarIcon,
-    PlusIcon,
-    EditIcon,
-    TrashIcon,
-    SaveIcon,
-    StarIcon,
-    CrossIcon,
-    RightArrowIcon,
-    LeftArrowIcon,
-    ExternalIcon,
-    ExpandIcon,
-    ContractIcon,
-    UploadIcon,
-    InfoIcon,
-    ImageIcon,
-    TransferIcon,
-    ModalConfirm,
-    Modal,
-    FileInput,
-    DropArea,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-  },
   data() {
     return {
       expandedGalleryItem: null,
@@ -352,8 +337,6 @@ export default defineNuxtComponent({
       editFile: null,
       previewImage: null,
       shouldPreventActions: false,
-
-      metaDescription: `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`,
     }
   },
   computed: {
@@ -446,7 +429,6 @@ export default defineNuxtComponent({
         await useBaseFetch(url, {
           method: 'POST',
           body: this.editFile,
-          ...this.$defaultHeaders(),
         })
         await this.updateProject()
 
@@ -484,7 +466,6 @@ export default defineNuxtComponent({
 
         await useBaseFetch(url, {
           method: 'PATCH',
-          ...this.$defaultHeaders(),
         })
 
         await this.updateProject()
@@ -511,7 +492,6 @@ export default defineNuxtComponent({
           )}`,
           {
             method: 'DELETE',
-            ...this.$defaultHeaders(),
           }
         )
 
@@ -528,7 +508,7 @@ export default defineNuxtComponent({
       stopLoading()
     },
     async updateProject() {
-      const project = await useBaseFetch(`project/${this.project.id}`, this.$defaultHeaders())
+      const project = await useBaseFetch(`project/${this.project.id}`)
 
       project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
@@ -806,11 +786,6 @@ export default defineNuxtComponent({
       object-fit: contain;
       background-color: #000000;
     }
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
   }
 }
 </style>

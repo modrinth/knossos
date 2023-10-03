@@ -166,7 +166,6 @@
   @extend .padding-lg;
 
   position: relative;
-  min-height: var(--font-size-2xl);
 
   background-color: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
@@ -187,31 +186,13 @@
     z-index: 2;
   }
 
-  &:where(&.warning, &.information) {
-    padding: 1.5rem;
-    line-height: 1.5;
-    min-height: 0;
-    a {
-      /* Uses active color to increase contrast */
-      color: var(--color-link-active);
-      text-decoration: underline;
-    }
-  }
-
-  &.warning {
-    border-left: 0.5rem solid var(--color-warning-banner-side);
-    background-color: var(--color-warning-banner-bg);
-    color: var(--color-warning-banner-text);
-  }
-
-  &.information {
-    border-left: 0.5rem solid var(--color-info-banner-side);
-    background-color: var(--color-info-banner-bg);
-    color: var(--color-info-banner-text);
-  }
-
   &.moderation-card {
     background-color: var(--color-warning-banner-bg);
+  }
+
+  &.recessed {
+    background-color: var(--color-bg);
+    box-shadow: none;
   }
 }
 
@@ -328,7 +309,9 @@
       .resizable-textarea-wrapper + *,
       .input-div + *
     ) {
-    margin-block-start: var(--spacing-card-md);
+    &:not(:empty) {
+      margin-block-start: var(--spacing-card-md);
+    }
   }
 
   :where(button, .button, .iconified-button) {
@@ -480,6 +463,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 0.5rem;
+  min-height: 3.75rem;
 }
 
 /*
@@ -517,12 +501,12 @@
 
 .text-link {
   color: var(--color-link);
-  text-decoration: underline;
 
   &:focus-visible,
   &:hover {
     color: var(--color-link-hover);
     cursor: pointer;
+    text-decoration: underline;
   }
 
   &:active {
@@ -767,15 +751,6 @@
   }
 }
 
-.button-animation {
-  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, transform 0.05s ease-in-out,
-    outline 0.2s ease-in-out;
-
-  &:active:not(&:disabled) {
-    transform: scale(0.95);
-  }
-}
-
 .button-base {
   @extend .button-animation;
   font-weight: 500;
@@ -809,6 +784,14 @@
   &:hover:not(&:disabled),
   &:active:not(&:disabled) {
     background-color: var(--color-raised-bg);
+  }
+
+  &.brand-button {
+    color: var(--color-brand);
+  }
+
+  &.danger-button {
+    color: var(--color-special-red);
   }
 }
 
@@ -851,11 +834,6 @@ tr.button-transparent {
     filter: brightness(0.8);
   }
 
-  // For some reason this within the above block makes it universal and not only applied to children. SCSS bug maybe?
-  &:active:not(&.disabled) button:not(&:disabled) {
-    transform: scale(0.95);
-  }
-
   &.disabled {
     cursor: not-allowed;
     filter: grayscale(50%);
@@ -893,6 +871,8 @@ tr.button-transparent {
   cursor: pointer;
   width: fit-content;
   height: fit-content;
+  transition: opacity 0.5s ease-in-out, filter 0.2s ease-in-out, scale 0.05s ease-in-out,
+    outline 0.2s ease-in-out;
 
   text-decoration: none;
 
@@ -994,6 +974,8 @@ tr.button-transparent {
   display: flex;
   grid-gap: var(--spacing-card-sm);
   flex-wrap: wrap;
+  margin-top: var(--spacing-card-md);
+  justify-content: right;
 }
 
 .multiselect--above .multiselect__content-wrapper {
@@ -1252,29 +1234,6 @@ tr.button-transparent {
     grid-gap: 0.5rem;
     z-index: 2;
   }
-
-  &:where(&.warning, &.information) {
-    padding: 1.5rem;
-    line-height: 1.5;
-    min-height: 0;
-    a {
-      /* Uses active color to increase contrast */
-      color: var(--color-link-active);
-      text-decoration: underline;
-    }
-  }
-
-  &.warning {
-    border-left: 0.5rem solid var(--color-warning-banner-side);
-    background-color: var(--color-warning-banner-bg);
-    color: var(--color-warning-banner-text);
-  }
-
-  &.information {
-    border-left: 0.5rem solid var(--color-info-banner-side);
-    background-color: var(--color-info-banner-bg);
-    color: var(--color-info-banner-text);
-  }
 }
 
 .card-divider {
@@ -1382,58 +1341,6 @@ button {
   }
 }
 
-.legacy-label-styles {
-  label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.5rem;
-
-    &.no-margin {
-      margin-bottom: 0;
-    }
-
-    @media screen and (min-width: 1024px) {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    > span {
-      flex: 2;
-      padding-right: var(--spacing-card-lg);
-
-      &.no-padding {
-        padding-right: 0;
-      }
-    }
-
-    > input,
-    > .multiselect,
-    > .input-group {
-      flex: 3;
-      height: fit-content;
-    }
-
-    > input[type='button'] {
-      height: fit-content;
-      flex: 1;
-    }
-
-    > input[type='button']:hover {
-      cursor: pointer;
-    }
-
-    > div,
-    > a {
-      height: fit-content;
-      flex: 1;
-    }
-
-    > div:hover {
-      cursor: pointer;
-    }
-  }
-}
-
 .input-group {
   display: flex;
   flex-direction: row;
@@ -1461,13 +1368,17 @@ button {
       flex-shrink: 1;
     }
   }
+
+  &.right-aligned {
+    justify-content: end;
+  }
 }
 
 .input-stack {
   display: flex;
   flex-direction: column;
 
-  > * {
+  > *:not(:last-child) {
     margin-bottom: var(--spacing-card-sm);
   }
 
@@ -1604,4 +1515,85 @@ button {
   width: 0;
   height: 0;
   overflow: hidden;
+}
+
+.backed-svg {
+  --size: 2.5rem;
+  border-radius: var(--size-rounded-sm);
+  background-color: var(--color-button-bg);
+  width: var(--size);
+  height: var(--size);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: calc(0.6 * var(--size));
+    height: calc(0.6 * var(--size));
+  }
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.raised {
+    background-color: var(--color-raised-bg);
+  }
+}
+
+a.iconified-link,
+a.iconified-stacked-link {
+  display: contents;
+
+  .space {
+    opacity: 0;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .stacked {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  &:focus-visible .title,
+  &:hover .title {
+    text-decoration: underline;
+    filter: var(--hover-filter);
+  }
+
+  &:active .title {
+    filter: var(--active-filter);
+  }
+}
+
+a.iconified-link {
+  &:focus-visible span,
+  &:hover span {
+    text-decoration: underline;
+    filter: var(--hover-filter);
+  }
+
+  &:active span {
+    filter: var(--active-filter);
+  }
+}
+
+a.subtle-link {
+  &:focus-visible,
+  &:hover {
+    text-decoration: underline;
+    filter: var(--hover-filter);
+  }
+
+  &:active {
+    filter: var(--active-filter);
+  }
+}
+
+.inline-svg svg,
+svg.inline-svg {
+  vertical-align: middle;
 }
