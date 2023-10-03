@@ -8,8 +8,14 @@
   "button.save": {
     "message": "Save"
   },
+  "component.badge.label.approved-general": {
+    "message": "Approved"
+  },
   "component.badge.label.creator": {
     "message": "Creator"
+  },
+  "component.badge.label.listed": {
+    "message": "Listed"
   },
   "component.badge.label.moderator": {
     "message": "Moderator"
