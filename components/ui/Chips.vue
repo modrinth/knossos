@@ -1,72 +1,71 @@
 <template>
   <div class="chips">
     <button
-      v-for="item in items"
-      :key="item"
+      v-for="(item, i) in items"
+      :key="toKey(item, i)"
       class="iconified-button"
-      :class="{ selected: selected === item, capitalize: capitalize }"
+      :class="{ selected: activeItem === item, capitalize }"
+      :aria-pressed="activeItem === item"
       @click="toggleItem(item)"
     >
-      <CheckIcon v-if="selected === item" />
+      <CheckIcon v-if="activeItem === item" aria-hidden />
       <span>{{ formatLabel(item) }}</span>
     </button>
   </div>
 </template>
 
-<script>
-import CheckIcon from '~/assets/images/utils/check.svg'
+<script setup lang="ts" generic="T extends any, NeverEmpty extends boolean = false">
+import { toDisplayString } from 'vue'
+import CheckIcon from '~/assets/images/utils/check.svg?component'
 
-export default {
-  components: {
-    CheckIcon,
+const props = withDefaults(
+  defineProps<{
+    modelValue?: T | null | undefined
+    items: T[]
+    formatLabel?(item: T): string
+    neverEmpty?: NeverEmpty
+    capitalize?: boolean
+    toKey?(item: T, index: number): string | symbol | number
+  }>(),
+  {
+    neverEmpty: true as any,
+    formatLabel: (item: T) => toDisplayString(item),
+    toKey: (_item: T, index: number) => index,
+    modelValue: null,
+    capitalize: true,
+  }
+)
+
+if (process.dev) {
+  watchEffect(() => {
+    if (props.capitalize) {
+      console.warn('<Chips> `capitalize` property is deprecated. Use `formatLabel` instead')
+    }
+  })
+}
+
+const emit = defineEmits<{
+  'update:modelValue': [value: NeverEmpty extends true ? T : T | null]
+}>()
+
+const activeItem = computed<T | null>({
+  get() {
+    return props.modelValue ?? (props.neverEmpty ? props.items[0] ?? null : null)
   },
-  props: {
-    modelValue: {
-      required: true,
-      type: String,
-    },
-    items: {
-      required: true,
-      type: Array,
-    },
-    neverEmpty: {
-      default: true,
-      type: Boolean,
-    },
-    formatLabel: {
-      default: (x) => x,
-      type: Function,
-    },
-    capitalize: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  emits: ['update:modelValue'],
-  computed: {
-    selected: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        this.$emit('update:modelValue', value)
-      },
-    },
-  },
-  created() {
-    if (this.items.length > 0 && this.neverEmpty) {
-      this.selected = this.items[0]
+  set(value) {
+    type ValueType = NeverEmpty extends true ? T : T | null
+    if ((props.neverEmpty && value != null) || !props.neverEmpty) {
+      emit('update:modelValue', value as ValueType)
     }
   },
-  methods: {
-    toggleItem(item) {
-      if (this.selected === item && !this.neverEmpty) {
-        this.selected = null
-      } else {
-        this.selected = item
-      }
-    },
-  },
+})
+
+function toggleItem(item: T) {
+  if (activeItem.value === item && !props.neverEmpty) {
+    activeItem.value = null
+  } else {
+    activeItem.value = item
+  }
 }
 </script>
 
