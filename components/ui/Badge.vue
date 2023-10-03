@@ -3,9 +3,9 @@
     <template v-if="color"> <span class="circle" /> {{ $capitalizeString(type) }}</template>
 
     <!-- User roles -->
-    <template v-else-if="type === 'admin'"> <ModrinthIcon /> Modrinth Team</template>
-    <template v-else-if="type === 'moderator'"> <ModeratorIcon /> Moderator</template>
-    <template v-else-if="type === 'creator'"><CreatorIcon /> Creator</template>
+    <template v-else-if="type === 'admin'"> <ModrinthIcon /> {{ formatMessage(messages.modrinthTeamLabel) }}</template>
+    <template v-else-if="type === 'moderator'"> <ModeratorIcon /> {{ formatMessage(messages.moderatorLabel) }}</template>
+    <template v-else-if="type === 'creator'"><CreatorIcon /> {{ formatMessage(messages.creatorLabel) }}</template>
 
     <!-- Project statuses -->
     <template v-else-if="type === 'approved'"><ListIcon /> Listed</template>
@@ -48,6 +48,23 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import LockIcon from '~/assets/images/utils/lock.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import CloseIcon from '~/assets/images/utils/check-circle.svg'
+
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  creatorLabel: {
+    id: 'component.badge.label.creator',
+    defaultMessage: 'Creator',
+  },
+  moderatorLabel: {
+    id: 'component.badge.label.moderator',
+    defaultMessage: 'Moderator',
+  },
+  modrinthTeamLabel: {
+    id: 'component.badge.label.modrinth-team',
+    defaultMessage: 'Modrinth Team',
+  },
+})
 
 defineProps({
   type: {

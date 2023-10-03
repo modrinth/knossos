@@ -8,6 +8,15 @@
   "button.save": {
     "message": "Save"
   },
+  "component.badge.label.creator": {
+    "message": "Creator"
+  },
+  "component.badge.label.moderator": {
+    "message": "Moderator"
+  },
+  "component.badge.label.modrinth-team": {
+    "message": "Modrinth Team"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
