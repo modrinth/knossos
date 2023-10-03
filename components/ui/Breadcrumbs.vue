@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ChevronRightIcon  } from 'omorphia'
+import { ChevronRightIcon } from 'omorphia'
 
 defineProps({
   linkStack: {

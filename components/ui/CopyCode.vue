@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-
 import { CheckIcon, ClipboardCopyIcon } from 'omorphia'
 
 const copied = ref(false)
