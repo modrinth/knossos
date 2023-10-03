@@ -162,30 +162,30 @@
     "message": "Мова"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Спыніць сэсію"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Ніжэй прадстаўлены ўсе прылады, з якіх здзейснены ўваход у ваш уліковы запіс Modrinth. Вы можаце кіраваць сэсіей кожнага з іх асабіста.\n\nКалі сярод іх прыстунічае незнаёмая прылада, імгненна спыніце яго сэсію і змяніце пароль свайго ўліковага запісу."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Створана {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Бягучая сэсія"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Апошняя актыўнасць: {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Невядомая АС"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Невядомая платформа"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Сэсіі"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} у {time, time, short}"
   }
 }
