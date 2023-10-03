@@ -14,8 +14,6 @@ export default defineEventHandler(async (event) => {
   const projectVersions = await $fetch(API_URL + 'project/' + event.context.params.id + '/version')
   const projectTeam = await $fetch(API_URL + 'project/' + event.context.params.id + '/members')
 
-  const featuredImage = projectInformation.gallery.filter((image) => image.featured)[0]?.url
-
   const slugOrId = projectInformation.slug ?? projectInformation.id
   const projectUrl = WEBSITE_URL + `/${projectInformation.project_type}/${projectInformation.id}`
 
@@ -33,7 +31,7 @@ export default defineEventHandler(async (event) => {
     language: 'en',
     updated: new Date(projectInformation.updated),
     favicon: projectInformation.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
-    image: featuredImage ?? undefined,
+    image: projectInformation.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
   })
 
   for (const category of projectInformation.categories) {
@@ -69,8 +67,8 @@ export default defineEventHandler(async (event) => {
       title: `${version.name}`,
       id: `${projectUrl}/version/${version.id}`,
       link: `${projectUrl}/version/${version.id}`,
+      description: `Loaders: ${loadersPretty}, Minecraft versions: ${gameVersionsPretty}`,
       content:
-        `<p><b>Loaders: ${loadersPretty}<br> Minecraft versions: ${gameVersionsPretty}</b></p>` +
         // Check for changelog length being greater than 1 to ensure no blank changelog section.
         renderString(
           version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
