@@ -18,7 +18,7 @@
     "message": "{count, plural, other {有另外 {count} 個人}}同樣被這青蛙耍了！"
   },
   "frog.sinceOpened": {
-    "message": "本頁面在 {ago} 開啟"
+    "message": "這個頁面於 {ago} 開啟"
   },
   "frog.title": {
     "message": "青蛙"
@@ -72,7 +72,7 @@
     "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, other {<stat>{count}</stat> 位}}追蹤者"
+    "message": "{count, plural, other {<stat>{count}</stat>}} 位追蹤者"
   },
   "profile.user-id": {
     "message": "使用者 ID：{id}"
@@ -165,7 +165,7 @@
     "message": "取消工作階段授權"
   },
   "settings.sessions.description": {
-    "message": "以下是您目前已登入 Modrinth 賬號的所有設備。您可以單獨退出任何一個。\n\n如果你看到一個你不認識的設備，請立即登出該設備並更改你的 Modrinth 帳號密碼。"
+    "message": "以下是您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每個裝置。\n\n如果您看到不認識的項目，請立即登出該裝置並更改您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.label.created-at": {
     "message": "建立於 {ago}"
