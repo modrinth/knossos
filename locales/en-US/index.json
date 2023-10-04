@@ -8,20 +8,56 @@
   "button.save": {
     "message": "Save"
   },
+  "component.badge.label.accepted": {
+    "message": "Accepted"
+  },
+  "component.badge.label.admin": {
+    "message": "Modrinth Team"
+  },
+  "component.badge.label.approved": {
+    "message": "Listed"
+  },
   "component.badge.label.approved-general": {
     "message": "Approved"
+  },
+  "component.badge.label.archived": {
+    "message": "Archived"
+  },
+  "component.badge.label.closed": {
+    "message": "Closed"
   },
   "component.badge.label.creator": {
     "message": "Creator"
   },
-  "component.badge.label.listed": {
-    "message": "Listed"
+  "component.badge.label.draft": {
+    "message": "Draft"
   },
   "component.badge.label.moderator": {
     "message": "Moderator"
   },
-  "component.badge.label.modrinth-team": {
-    "message": "Modrinth Team"
+  "component.badge.label.pending": {
+    "message": "Pending"
+  },
+  "component.badge.label.private": {
+    "message": "Private"
+  },
+  "component.badge.label.processing": {
+    "message": "Under review"
+  },
+  "component.badge.label.rejected": {
+    "message": "Rejected"
+  },
+  "component.badge.label.scheduled": {
+    "message": "Scheduled"
+  },
+  "component.badge.label.success": {
+    "message": "Success"
+  },
+  "component.badge.label.unlisted": {
+    "message": "Unlisted"
+  },
+  "component.badge.label.withheld": {
+    "message": "Withheld"
   },
   "frog": {
     "message": "You've been frogged! 🐸"
