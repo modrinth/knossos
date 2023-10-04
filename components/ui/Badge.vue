@@ -3,31 +3,65 @@
     <template v-if="color"> <span class="circle" /> {{ $capitalizeString(type) }}</template>
 
     <!-- User roles -->
-    <template v-else-if="type === 'admin'"> <ModrinthIcon /> {{ formatMessage(messages.adminLabel) }}</template>
-    <template v-else-if="type === 'moderator'"> <ModeratorIcon /> {{ formatMessage(messages.moderatorLabel) }}</template>
-    <template v-else-if="type === 'creator'"><CreatorIcon /> {{ formatMessage(messages.creatorLabel) }}</template>
+    <template v-else-if="type === 'admin'">
+      <ModrinthIcon /> {{ formatMessage(messages.adminLabel) }}
+    </template>
+    <template v-else-if="type === 'moderator'">
+      <ModeratorIcon /> {{ formatMessage(messages.moderatorLabel) }}
+    </template>
+    <template v-else-if="type === 'creator'">
+      <CreatorIcon /> {{ formatMessage(messages.creatorLabel) }}
+    </template>
 
     <!-- Project statuses -->
-    <template v-else-if="type === 'approved'"><ListIcon /> {{ formatMessage(messages.approvedLabel) }}</template>
-    <template v-else-if="type === 'approved-general'"><CheckIcon /> {{ formatMessage(messages.approvedGeneralLabel) }}</template>
-    <template v-else-if="type === 'unlisted'"><EyeOffIcon /> {{ formatMessage(messages.unlistedLabel) }}</template>
-    <template v-else-if="type === 'withheld'"><EyeOffIcon /> {{ formatMessage(messages.withheldLabel) }}</template>
-    <template v-else-if="type === 'private'"><LockIcon /> {{ formatMessage(messages.privateLabel) }}</template>
-    <template v-else-if="type === 'scheduled'"> <CalendarIcon /> {{ formatMessage(messages.scheduledLabel) }}</template>
-    <template v-else-if="type === 'draft'"><DraftIcon /> {{ formatMessage(messages.draftLabel) }}</template>
-    <template v-else-if="type === 'archived'"> <ArchiveIcon /> {{ formatMessage(messages.archivedLabel) }}</template>
-    <template v-else-if="type === 'rejected'"><CrossIcon /> {{ formatMessage(messages.rejectedLabel) }}</template>
-    <template v-else-if="type === 'processing'"> <ProcessingIcon /> {{ formatMessage(messages.processingLabel) }}</template>
+    <template v-else-if="type === 'approved'"
+      ><ListIcon /> {{ formatMessage(messages.approvedLabel) }}
+    </template>
+    <template v-else-if="type === 'approved-general'"
+      ><CheckIcon /> {{ formatMessage(messages.approvedGeneralLabel) }}
+    </template>
+    <template v-else-if="type === 'unlisted'"
+      ><EyeOffIcon /> {{ formatMessage(messages.unlistedLabel) }}
+    </template>
+    <template v-else-if="type === 'withheld'"
+      ><EyeOffIcon /> {{ formatMessage(messages.withheldLabel) }}
+    </template>
+    <template v-else-if="type === 'private'"
+      ><LockIcon /> {{ formatMessage(messages.privateLabel) }}
+    </template>
+    <template v-else-if="type === 'scheduled'">
+      <CalendarIcon /> {{ formatMessage(messages.scheduledLabel) }}
+    </template>
+    <template v-else-if="type === 'draft'"
+      ><DraftIcon /> {{ formatMessage(messages.draftLabel) }}
+    </template>
+    <template v-else-if="type === 'archived'">
+      <ArchiveIcon /> {{ formatMessage(messages.archivedLabel) }}
+    </template>
+    <template v-else-if="type === 'rejected'"
+      ><CrossIcon /> {{ formatMessage(messages.rejectedLabel) }}
+    </template>
+    <template v-else-if="type === 'processing'">
+      <ProcessingIcon /> {{ formatMessage(messages.processingLabel) }}
+    </template>
 
     <!-- Team members -->
-    <template v-else-if="type === 'accepted'"><CheckIcon /> {{ formatMessage(messages.acceptedLabel) }}</template>
-    <template v-else-if="type === 'pending'"> <ProcessingIcon /> {{ formatMessage(messages.pendingLabel) }} </template>
+    <template v-else-if="type === 'accepted'"
+      ><CheckIcon /> {{ formatMessage(messages.acceptedLabel) }}
+    </template>
+    <template v-else-if="type === 'pending'">
+      <ProcessingIcon /> {{ formatMessage(messages.pendingLabel) }}
+    </template>
 
     <!-- Transaction statuses -->
-    <template v-else-if="type === 'success'"><CheckIcon /> {{ formatMessage(messages.successLabel) }}</template>
+    <template v-else-if="type === 'success'"
+      ><CheckIcon /> {{ formatMessage(messages.successLabel) }}
+    </template>
 
     <!-- Report status -->
-    <template v-else-if="type === 'closed'"> <CloseIcon /> {{ formatMessage(messages.closedLabel) }}</template>
+    <template v-else-if="type === 'closed'">
+      <CloseIcon /> {{ formatMessage(messages.closedLabel) }}
+    </template>
 
     <!-- Other -->
     <template v-else> <span class="circle" /> {{ $capitalizeString(type) }} </template>
