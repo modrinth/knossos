@@ -1,191 +1,191 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "ยกเลิก"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "แก้ไข"
   },
   "button.save": {
-    "message": "Save"
+    "message": "บันทึก"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "คุณถูกอ๊บแล้ว! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "รูปกบสุดสมจริงจาก Labyrinth"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {ยังมีอีก {count} คน} other {ยังมีอีก {count} คน}} ที่ถูกอ๊บเหมือนกับคุณ"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "หน้านี้ได้ถูกเปิดไปเมื่อ {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "กบ"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "มุมมองแกลเลอรี"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "มุมมองตาราง"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "มุมมองรายการ"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "เกิดข้อผิดพลาด"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "จัดการโปรเจกต์"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "รายงาน"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "ไม่พบผู้ใช้นี้"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "อัปโหลดรูปประจำตัว"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "เข้าร่วมเมื่อ {ago}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "ประวัติ"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "ชื่อผู้ใช้"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "ผู้ใช้รายนี้ไม่มีโปรเจกต์"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "คุณยังไม่มีโปรเจกต์\nคุณอยากจะ<create-link>สร้างขึ้นมาสักอันนึงไหม</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "ดาวน์โหลดโปรเจกต์ของ {username} บน Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - ดาวน์โหลดโปรเจกต์ของ {username} บน Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "ดาวน์โหลด {count, plural, one {<stat>{count}</stat> ครั้ง} other {<stat>{count}</stat> ครั้ง}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "ผู้ติดตามโปรเจกต์ {count, plural, one {<stat>{count}</stat> คน} other {<stat>{count}</stat> คน}}"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID ผู้ใช้: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "ทั้งหมด"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "ดาต้าแพ็ก"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "ดาต้าแพ็ก"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "ม็อด"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "ม็อด"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "ม็อดแพ็ก"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "ม็อดแพ็ก"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "ปลั๊กอิน"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "ปลั๊กอิน"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "รีซอร์ซแพ็ก"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "รีซอร์ซแพ็ก"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "แสงเงา"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "แสงเงา"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "อัตโนมัติ"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "ภาษามาตรฐาน"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "ภาษาทดลอง"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "ภาษาขบขัน"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "ผลการค้นหา"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "โปรดเลือกภาษาที่คุณต้องการให้แสดงบนเว็บไซต์ การแปลภาษานั้นขึ้นอยู่กับการให้ความร่วมมือโดยจิตอาสา<crowdin-link>บน Crowdin</crowdin-link>"
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "ซิงค์เข้ากับภาษาของระบบ"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label} กำลังเปลี่ยนภาษา..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label} เกิดข้อผิดพลาด"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "ไม่สามารถโหลดภาษานี้ได้ โปรดลองอีกครั้งในอีกสักครู่"
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "กดส่งเพื่อโฟกัสผลลัพธ์แรกจากการค้นหา"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "ค้นหาภาษา"
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural,=0 {ไม่พบภาษา} one {พบ # ภาษา} other {พบ # ภาษา}}ที่ตรงกับคำค้นหา"
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "ไม่มีภาษาที่ตรงกับคำค้นหาของคุณ"
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "ภาษา"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "ยกเลิกเซสชัน"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "ทั้งหมดนี้คืออุปกรณ์ทั้งหมดที่ได้เข้าสู่ระบบด้วยบัญชี Modrinth ของคุณอยู่ คุณสามารถกดออกจากระบบให้กับอุปกรณ์เหล่านี้ต่างหากได้\n\nหากคุณพบเห็นการเข้าสู่ระบบที่คุณไม่รู้จัก ให้ออกจากระบบของอุปกรณ์นั้น ๆ แล้วเปลี่ยนรหัสผ่านบัญชีของ Modrinth ทันที"
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "สร้างขึ้นเมื่อ {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "เซสชันปัจจุบัน"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "เข้าถึงเมื่อ {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "ไม่ทราบระบบปฏิบัติการ"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "ไม่ทราบแพล็ตฟอร์ม"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "เซสชัน"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} ณ เวลา {time, time, short}"
   }
 }
