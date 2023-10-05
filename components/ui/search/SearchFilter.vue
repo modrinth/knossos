@@ -1,7 +1,11 @@
 <template>
-  <Checkbox
+  <TriStateCheckbox
     class="filter"
-    :model-value="activeFilters.includes(facetName)"
+    :model-value="
+      activeFilters.includes(facetName) ? 1
+        : negativeFilters.includes(facetName) ? 2
+        : 0
+    "
     :description="displayName"
     @update:model-value="toggle()"
   >
@@ -12,15 +16,15 @@
       </div>
       <span aria-hidden="true"> {{ displayName }}</span>
     </div>
-  </Checkbox>
+  </TriStateCheckbox>
 </template>
 
 <script>
-import Checkbox from '~/components/ui/Checkbox.vue'
+import TriStateCheckbox from "~/components/ui/search/TriStateCheckbox.vue";
 
 export default {
   components: {
-    Checkbox,
+    TriStateCheckbox,
   },
   props: {
     facetName: {
@@ -36,6 +40,12 @@ export default {
       default: '',
     },
     activeFilters: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    negativeFilters: {
       type: Array,
       default() {
         return []

@@ -45,6 +45,7 @@
                 v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
                 :key="category.name"
                 :active-filters="facets"
+                :negative-filters="negativeFacets"
                 :display-name="$formatCategory(category.name)"
                 :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
                 :icon="header === 'resolutions' ? null : category.icon"
@@ -89,6 +90,7 @@
               :key="loader.name"
               ref="loaderFilters"
               :active-filters="orFacets"
+              :negative-filters="negativeFacets"
               :display-name="$formatCategory(loader.name)"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
@@ -121,6 +123,7 @@
               :key="loader.name"
               ref="platformFilters"
               :active-filters="orFacets"
+              :negative-filters="negativeFacets"
               :display-name="$formatCategory(loader.name)"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
@@ -134,6 +137,7 @@
             <h3 class="sidebar-menu-heading">Environments</h3>
             <SearchFilter
               :active-filters="selectedEnvironments"
+              :negative-filters="excludedEnvironments"
               display-name="Client"
               facet-name="client"
               @toggle="toggleEnv"
@@ -142,6 +146,7 @@
             </SearchFilter>
             <SearchFilter
               :active-filters="selectedEnvironments"
+              :negative-filters="excludedEnvironments"
               display-name="Server"
               facet-name="server"
               @toggle="toggleEnv"
@@ -345,10 +350,12 @@ const tags = useTags()
 const query = ref('')
 const facets = ref([])
 const orFacets = ref([])
+const negativeFacets = ref([])
 const selectedVersions = ref([])
 const onlyOpenSource = ref(false)
 const showSnapshots = ref(false)
 const selectedEnvironments = ref([])
+const excludedEnvironments = ref([])
 const sortTypes = shallowReadonly([
   { display: 'Relevance', name: 'relevance' },
   { display: 'Download count', name: 'downloads' },
@@ -384,6 +391,9 @@ if (route.query.f) {
 if (route.query.g) {
   orFacets.value = getArrayOrString(route.query.g)
 }
+if (route.query.nf) {
+  negativeFacets.value = getArrayOrString(route.query.nf)
+}
 if (route.query.v) {
   selectedVersions.value = getArrayOrString(route.query.v)
 }
@@ -395,6 +405,9 @@ if (route.query.h) {
 }
 if (route.query.e) {
   selectedEnvironments.value = getArrayOrString(route.query.e)
+}
+if (route.query.ne) {
+  excludedEnvironments.value = getArrayOrString(route.query.ne)
 }
 if (route.query.s) {
   sortType.value.name = route.query.s
@@ -448,6 +461,7 @@ const {
     if (
       facets.value.length > 0 ||
       orFacets.value.length > 0 ||
+      negativeFacets.value.length > 0 ||
       selectedVersions.value.length > 0 ||
       selectedEnvironments.value.length > 0 ||
       projectType.value
@@ -455,6 +469,12 @@ const {
       let formattedFacets = []
       for (const facet of facets.value) {
         formattedFacets.push([facet])
+      }
+
+      for (const facet of negativeFacets.value) {
+        console.log(facet);
+        formattedFacets.push([facet.replace(":","!=")])
+        console.log(formattedFacets);
       }
 
       // loaders specifier
@@ -486,27 +506,53 @@ const {
         formattedFacets.push(['open_source:true'])
       }
 
-      if (selectedEnvironments.value.length > 0) {
+      if (selectedEnvironments.value.length > 0 || excludedEnvironments.value.length > 0) {
         let environmentFacets = []
 
         const includesClient = selectedEnvironments.value.includes('client')
         const includesServer = selectedEnvironments.value.includes('server')
+        const excludesClient = excludedEnvironments.value.includes('client')
+        const excludesServer = excludedEnvironments.value.includes('server')
+
         if (includesClient && includesServer) {
           environmentFacets = [['client_side:required'], ['server_side:required']]
-        } else {
+        }
+        else if (excludesClient && excludesServer) {
+          environmentFacets = [['client_side:unsupported'], ['server_side:unsupported']]
+        }
+        else {
           if (includesClient) {
-            environmentFacets = [
-              ['client_side:optional', 'client_side:required'],
-              ['server_side:optional', 'server_side:unsupported'],
-            ]
+            environmentFacets.push(['client_side!=unsupported'])
+          }
+          else if (excludesClient) {
+            environmentFacets.push(['client_side:unsupported'])
           }
           if (includesServer) {
-            environmentFacets = [
-              ['client_side:optional', 'client_side:unsupported'],
-              ['server_side:optional', 'server_side:required'],
-            ]
+            environmentFacets.push(['server_side!=unsupported'])
+          }
+          else if (excludesServer) {
+            environmentFacets.push(['server_side:unsupported'])
           }
         }
+        console.log(environmentFacets)
+
+
+        // if (includesClient && includesServer) {
+        //   environmentFacets = [['client_side:required'], ['server_side:required']]
+        // } else {
+        //   if (includesClient) {
+        //     environmentFacets = [
+        //       ['client_side:optional', 'client_side:required'],
+        //       ['server_side:optional', 'server_side:unsupported'],
+        //     ]
+        //   }
+        //   if (includesServer) {
+        //     environmentFacets = [
+        //       ['client_side:optional', 'client_side:unsupported'],
+        //       ['server_side:optional', 'server_side:required'],
+        //     ]
+        //   }
+        // }
 
         formattedFacets = [...formattedFacets, ...environmentFacets]
       }
@@ -584,6 +630,10 @@ function getSearchUrl(offset, useObj) {
     queryItems.push(`g=${encodeURIComponent(orFacets.value)}`)
     obj.g = orFacets.value
   }
+  if (negativeFacets.value.length > 0) {
+    queryItems.push(`nf=${encodeURIComponent(negativeFacets.value)}`)
+    obj.nf = negativeFacets.value
+  }
   if (selectedVersions.value.length > 0) {
     queryItems.push(`v=${encodeURIComponent(selectedVersions.value)}`)
     obj.v = selectedVersions.value
@@ -599,6 +649,10 @@ function getSearchUrl(offset, useObj) {
   if (selectedEnvironments.value.length > 0) {
     queryItems.push(`e=${encodeURIComponent(selectedEnvironments.value)}`)
     obj.e = selectedEnvironments.value
+  }
+  if (excludedEnvironments.value.length > 0) {
+    queryItems.push(`e=${encodeURIComponent(excludedEnvironments.value)}`)
+    obj.ne = excludedEnvironments.value
   }
   if (sortType.value.name !== 'relevance') {
     queryItems.push(`s=${encodeURIComponent(sortType.value.name)}`)
@@ -657,9 +711,15 @@ function toggleFacet(elementName, doNotSendRequest = false) {
   const index = facets.value.indexOf(elementName)
 
   if (index !== -1) {
-    facets.value.splice(index, 1)
+    const removedItem = facets.value.splice(index, 1)[0]
+    negativeFacets.value.push(removedItem)
   } else {
-    facets.value.push(elementName)
+    const negativeIndex = negativeFacets.value.indexOf(elementName)
+    if (negativeIndex !== -1) {
+      negativeFacets.value.splice(negativeIndex, 1)
+    } else {
+      facets.value.push(elementName)
+    }
   }
 
   if (!doNotSendRequest) {
@@ -670,35 +730,41 @@ function toggleFacet(elementName, doNotSendRequest = false) {
 function toggleOrFacet(elementName, doNotSendRequest) {
   const index = orFacets.value.indexOf(elementName)
   if (index !== -1) {
-    orFacets.value.splice(index, 1)
+    const removedItem = orFacets.value.splice(index, 1)[0]
+    negativeFacets.value.push(removedItem)
   } else {
-    if (elementName === 'categories:purpur') {
-      if (!orFacets.value.includes('categories:paper')) {
-        orFacets.value.push('categories:paper')
-      }
-      if (!orFacets.value.includes('categories:spigot')) {
-        orFacets.value.push('categories:spigot')
-      }
-      if (!orFacets.value.includes('categories:bukkit')) {
-        orFacets.value.push('categories:bukkit')
-      }
-    } else if (elementName === 'categories:paper') {
-      if (!orFacets.value.includes('categories:spigot')) {
-        orFacets.value.push('categories:spigot')
-      }
-      if (!orFacets.value.includes('categories:bukkit')) {
-        orFacets.value.push('categories:bukkit')
-      }
-    } else if (elementName === 'categories:spigot') {
-      if (!orFacets.value.includes('categories:bukkit')) {
-        orFacets.value.push('categories:bukkit')
-      }
-    } else if (elementName === 'categories:waterfall') {
-      if (!orFacets.value.includes('categories:bungeecord')) {
-        orFacets.value.push('categories:bungeecord')
-      }
+    // if (elementName === 'categories:purpur') {
+    //   if (!orFacets.value.includes('categories:paper')) {
+    //     orFacets.value.push('categories:paper')
+    //   }
+    //   if (!orFacets.value.includes('categories:spigot')) {
+    //     orFacets.value.push('categories:spigot')
+    //   }
+    //   if (!orFacets.value.includes('categories:bukkit')) {
+    //     orFacets.value.push('categories:bukkit')
+    //   }
+    // } else if (elementName === 'categories:paper') {
+    //   if (!orFacets.value.includes('categories:spigot')) {
+    //     orFacets.value.push('categories:spigot')
+    //   }
+    //   if (!orFacets.value.includes('categories:bukkit')) {
+    //     orFacets.value.push('categories:bukkit')
+    //   }
+    // } else if (elementName === 'categories:spigot') {
+    //   if (!orFacets.value.includes('categories:bukkit')) {
+    //     orFacets.value.push('categories:bukkit')
+    //   }
+    // } else if (elementName === 'categories:waterfall') {
+    //   if (!orFacets.value.includes('categories:bungeecord')) {
+    //     orFacets.value.push('categories:bungeecord')
+    //   }
+    // }
+    const negativeIndex = negativeFacets.value.indexOf(elementName)
+    if (negativeIndex !== -1) {
+      negativeFacets.value.splice(negativeIndex, 1)
+    } else {
+      orFacets.value.push(elementName)
     }
-    orFacets.value.push(elementName)
   }
 
   if (!doNotSendRequest) {
@@ -708,10 +774,22 @@ function toggleOrFacet(elementName, doNotSendRequest) {
 
 function toggleEnv(environment, sendRequest) {
   const index = selectedEnvironments.value.indexOf(environment)
+  // if (index !== -1) {
+  //   selectedEnvironments.value.splice(index, 1)
+  // } else {
+  //   selectedEnvironments.value.push(environment)
+  // }
+
   if (index !== -1) {
-    selectedEnvironments.value.splice(index, 1)
+    const removedItem = selectedEnvironments.value.splice(index, 1)[0]
+    excludedEnvironments.value.push(removedItem)
   } else {
-    selectedEnvironments.value.push(environment)
+    const excludedIndex = excludedEnvironments.value.indexOf(environment)
+    if (excludedIndex !== -1) {
+      excludedEnvironments.value.splice(excludedIndex, 1)
+    } else {
+      selectedEnvironments.value.push(environment)
+    }
   }
 
   if (!sendRequest) {
