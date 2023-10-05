@@ -69,7 +69,6 @@
               v-for="loader in tags.loaders.filter((x) => {
                 if (
                   projectType.id === 'mod' &&
-                  !showAllLoaders &&
                   x.name !== 'forge' &&
                   x.name !== 'fabric' &&
                   x.name !== 'quilt' &&
@@ -84,6 +83,28 @@
                   return tags.loaderData.dataPackLoaders.includes(x.name)
                 } else {
                   return x.supported_project_types.includes(projectType.actual)
+                }
+              })"
+              :key="loader.name"
+              ref="loaderFilters"
+              :active-filters="orFacets"
+              :display-name="$formatCategory(loader.name)"
+              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
+              :icon="loader.icon"
+              @toggle="toggleOrFacet"
+            />
+            <SearchFilter
+              v-if="projectType.id === 'mod' && showAllLoaders"
+              v-for="loader in tags.loaders.filter((x) => {
+                if (
+                  x.name !== 'forge' &&
+                  x.name !== 'fabric' &&
+                  x.name !== 'quilt' &&
+                  x.name !== 'neoforge'
+                ) {
+                  return tags.loaderData.modLoaders.includes(x.name)
+                } else {
+                  false
                 }
               })"
               :key="loader.name"
