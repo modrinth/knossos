@@ -5,7 +5,7 @@
     <!-- User roles -->
     <template v-else-if="type === 'admin'"> <ModrinthIcon /> Modrinth Team</template>
     <template v-else-if="type === 'moderator'"> <ModeratorIcon /> Moderator</template>
-    <template v-else-if="type === 'creator'"><CreatorIcon /> Creator</template>
+    <template v-else-if="type === 'creator'"><BoxIcon /> Creator</template>
 
     <!-- Project statuses -->
     <template v-else-if="type === 'approved'"><ListIcon /> Listed</template>
@@ -35,6 +35,8 @@
 </template>
 
 <script setup>
+import { ModrinthIcon, BoxIcon } from 'omorphia'
+
 import ModrinthIcon from '~/assets/images/logo.svg'
 import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
 import CreatorIcon from '~/assets/images/utils/box.svg'
