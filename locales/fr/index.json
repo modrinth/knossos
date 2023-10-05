@@ -165,7 +165,7 @@
     "message": "Révoquer la session"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Voici tous les appareils qui sont actuellement connectés à votre compte Modrinth. Vous pouvez vous déconnecter de chacun d'entre eux individuellement.\n\nSi vous voyez une entrée que vous ne reconnaissez pas, déconnectez-vous de cet appareil et changez immédiatement le mot de passe de votre compte Modrinth."
   },
   "settings.sessions.label.created-at": {
     "message": "Créée {ago}"
