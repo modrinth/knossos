@@ -67,16 +67,9 @@
             </h3>
             <SearchFilter
               v-for="loader in tags.loaders.filter((x) => {
-                if (
-                  projectType.id === 'mod' &&
-                  x.name !== 'forge' &&
-                  x.name !== 'fabric' &&
-                  x.name !== 'quilt' &&
-                  x.name !== 'neoforge'
-                ) {
-                  return false
-                } else if (projectType.id === 'mod' && showAllLoaders) {
+                if (projectType.id === 'mod') {
                   return tags.loaderData.modLoaders.includes(x.name)
+                   && !tags.loaderData.hiddenModLoaders.includes(x.name)
                 } else if (projectType.id === 'plugin') {
                   return tags.loaderData.pluginLoaders.includes(x.name)
                 } else if (projectType.id === 'datapack') {
@@ -96,16 +89,8 @@
             <SearchFilter
               v-if="projectType.id === 'mod' && showAllLoaders"
               v-for="loader in tags.loaders.filter((x) => {
-                if (
-                  x.name !== 'forge' &&
-                  x.name !== 'fabric' &&
-                  x.name !== 'quilt' &&
-                  x.name !== 'neoforge'
-                ) {
-                  return tags.loaderData.modLoaders.includes(x.name)
-                } else {
-                  false
-                }
+                return tags.loaderData.modLoaders.includes(x.name)
+                && tags.loaderData.hiddenModLoaders.includes(x.name)
               })"
               :key="loader.name"
               ref="loaderFilters"
