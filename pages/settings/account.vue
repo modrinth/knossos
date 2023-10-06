@@ -44,7 +44,7 @@
       } password`"
     >
       <div class="universal-modal">
-        <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
+        <ul v-if="newPassword !== confirmNewPassword && confirmNewPassword.length > 0" class="known-errors">
           <li>Input passwords do not match!</li>
         </ul>
         <label v-if="removePasswordMode" for="old-password">
