@@ -42,12 +42,23 @@
               </h3>
 
               <SearchFilter
+                v-if="header === 'resolutions'"
+                v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
+                :key="category.name"
+                :active-filters="orFacets"
+                :display-name="$formatCategory(category.name)"
+                :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
+                :icon="null"
+                @toggle="toggleOrFacet"
+              />
+              <SearchFilter
+                v-else
                 v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
                 :key="category.name"
                 :active-filters="facets"
                 :display-name="$formatCategory(category.name)"
                 :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
-                :icon="header === 'resolutions' ? null : category.icon"
+                :icon="category.icon"
                 @toggle="toggleFacet"
               />
             </div>
