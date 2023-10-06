@@ -1,15 +1,15 @@
 {
   "button.cancel": {
-    "message": "الغي"
+    "message": "الغائ"
   },
   "button.edit": {
-    "message": "غير"
+    "message": "تعديل"
   },
   "button.save": {
-    "message": "احفظ"
+    "message": "حفظ"
   },
   "frog": {
-    "message": "لقد تم ضفدعتك"
+    "message": "لقد تم ضفدعتك! 🐸"
   },
   "frog.altText": {
     "message": "لوحة واقعية لمتاهة الضفدع"
@@ -180,12 +180,12 @@
     "message": "نظام تشغيل غير معروف"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "منصة غير معروفة"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "مواسم"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} في {time, time, short}"
   }
 }
