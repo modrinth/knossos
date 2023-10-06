@@ -12,7 +12,7 @@
     "message": "你被耍了！🐸"
   },
   "frog.altText": {
-    "message": "一副逼真的青蛙迷宮圖"
+    "message": "一幅逼真的青蛙迷宮畫作"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, other {有另外 {count} 個人}}同樣被這青蛙耍了！"
@@ -27,7 +27,7 @@
     "message": "圖庫檢視"
   },
   "input.view.grid": {
-    "message": "方格檢視"
+    "message": "網格檢視"
   },
   "input.view.list": {
     "message": "清單檢視"
@@ -60,7 +60,7 @@
     "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "你沒有任何專案。\n請問你要 <create-link>建立一個</create-link> 嗎？"
+    "message": "你沒有任何專案。\n你想要 <create-link>建立一個</create-link> 嗎？"
   },
   "profile.meta.description": {
     "message": "在 Modrinth 下載 {username} 的專案"
