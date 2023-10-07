@@ -12,7 +12,7 @@
     "message": "you been toaded 🐸"
   },
   "frog.altText": {
-    "message": "OMG PICTURE OF TOAD LABYRINT PEINTING"
+    "message": "OMG PIKTUR OF TOAD LABYRINT PEINTING"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} Kat} other {{count} Kats}} been also toaded!"
@@ -24,7 +24,7 @@
     "message": "tasty jumpy thingy"
   },
   "input.view.gallery": {
-    "message": "Big pictures!!"
+    "message": "Big picturs!!"
   },
   "input.view.grid": {
     "message": "oooooh squares"
@@ -54,25 +54,25 @@
     "message": "Thingz about Kat"
   },
   "profile.label.edit-username": {
-    "message": "Katname"
+    "message": "katnaym"
   },
   "profile.label.no-projects": {
-    "message": "Dis Kat no code :("
+    "message": "Dis Kat no kode :("
   },
   "profile.label.no-projects-auth": {
-    "message": "U not hav code.\nWuud u lik 2 <create-link>give code</create-link>?"
+    "message": "U not hav kode.\nWuud u lik 2 <create-link>give kode</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Eat {username}'s code on Modrinth"
+    "message": "eat {username}'s kode on Frogrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Eat {username}'s code on Modrinth"
+    "message": "{bio} - eat {username}'s kode on Frogrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> eater} other {<stat>{count}</stat> eaters}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> folowr} other {<stat>{count}</stat> folowrs}} of code"
+    "message": "{count, plural, one {<stat>{count}</stat> folowr} other {<stat>{count}</stat> folowrs}} of kode"
   },
   "profile.user-id": {
     "message": "Kat ID: {id}"
