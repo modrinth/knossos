@@ -135,7 +135,7 @@
     "message": "Välj ditt önskade språk för webbplatsen. Översättningar bidrar av volontärer <crowdin-link>på Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Synkronisera med systemets språk"
+    "message": "Synka med systemets språk"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Tillämpar..."
@@ -147,7 +147,7 @@
     "message": "Kunde inte ladda språket, försök igen senare."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Skicka för att fokusera det första sökresultatet"
+    "message": "Tryck på enter för att fokusera på det första sökresultatet"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Sök efter ett språk..."
