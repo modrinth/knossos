@@ -200,7 +200,7 @@
       </div>
     </div>
     <div class="version-page__changelog universal-card">
-      <h3>Changelog</h3>
+      <h3>Changes</h3>
       <template v-if="isEditing">
         <span
           >This editor supports
@@ -508,7 +508,7 @@
     </div>
     <div class="version-page__metadata">
       <div class="universal-card full-width-inputs">
-        <h3>Metadata</h3>
+        <h3>About</h3>
         <div>
           <h4>Release channel</h4>
           <Multiselect

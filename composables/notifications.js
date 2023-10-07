@@ -1,5 +1,4 @@
 import { useNuxtApp } from '#app'
-import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
   if (ids.length === 0) {
@@ -128,36 +127,22 @@ export async function fetchNotifications() {
 export function groupNotifications(notifications, includeRead = false) {
   const grouped = []
 
-  for (const notification of notifications) {
-    notification.grouped_notifs = []
-  }
+  let lastNotification = null
 
   for (const notification of notifications.filter((notif) => includeRead || !notif.read)) {
-    // Group notifications of the same thread or project id
-    if (notification.body) {
-      const index = grouped.findIndex(
-        (notif) =>
-          ((notif.body.thread_id === notification.body.thread_id && !!notif.body.thread_id) ||
-            (notif.body.project_id === notification.body.project_id && !!notif.body.project_id)) &&
-          notification.read === notif.read
-      )
-      const notif = grouped[index]
-      if (
-        notif &&
-        (notification.body.type === 'moderator_message' ||
-          notification.body.type === 'project_update')
-      ) {
-        let groupedNotifs = notif.grouped_notifs
-        if (!groupedNotifs) {
-          groupedNotifs = []
-        }
-        groupedNotifs.push(notification)
-        grouped[index].grouped_notifs = groupedNotifs
-      } else {
-        grouped.push(notification)
-      }
+    if (
+      lastNotification &&
+      ((lastNotification.body.thread_id === notification.body.thread_id &&
+        !!lastNotification.body.thread_id) ||
+        (lastNotification.body.project_id === notification.body.project_id &&
+          !!lastNotification.body.project_id)) &&
+      lastNotification.read === notification.read
+    ) {
+      lastNotification.grouped_notifs.push(notification)
     } else {
+      notification.grouped_notifs = [notification]
       grouped.push(notification)
+      lastNotification = notification
     }
   }
 

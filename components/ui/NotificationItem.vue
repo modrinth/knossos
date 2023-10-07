@@ -3,7 +3,6 @@
     class="notification"
     :class="{
       'has-body': hasBody,
-      compact: compact,
       read: notification.read,
     }"
   >
@@ -15,7 +14,7 @@
     >
       <NotificationIcon />
     </nuxt-link>
-    <DoubleIcon v-else class="notification__icon">
+    <DoubleIcon v-else class="notification__icon" :color="iconColor">
       <template #primary>
         <nuxt-link v-if="project" :to="getProjectLink(project)" tabindex="-1">
           <Avatar size="xs" :src="project.icon_url" :raised="raised" no-shadow />
@@ -30,72 +29,86 @@
           v-if="type === 'moderator_message' || type === 'status_change'"
           class="moderation-color"
         />
-        <InvitationIcon v-else-if="type === 'team_invite' && project" class="creator-color" />
+        <InvitationIcon v-else-if="type === 'team_invite' && project" />
         <VersionIcon v-else-if="type === 'project_update' && project && version" />
         <NotificationIcon v-else />
       </template>
     </DoubleIcon>
     <div class="notification__title">
-      <template v-if="type === 'project_update' && project && version">
-        <nuxt-link :to="getProjectLink(project)" class="title-link">{{ project.title }}</nuxt-link>
-        has updated.
-      </template>
-      <template v-else-if="type === 'team_invite' && project">
-        <nuxt-link :to="`/user/${invitedBy.username}`" class="iconified-link title-link">
-          <Avatar :src="invitedBy.avatar_url" circle size="xxs" no-shadow :raised="raised" />
-          <span class="space">&nbsp;</span>
-          <span>{{ invitedBy.username }}</span>
-        </nuxt-link>
-        <span>
-          has invited you to join
-          <nuxt-link :to="getProjectLink(project)" class="title-link">
-            {{ project.title }} </nuxt-link
-          >.
-        </span>
-      </template>
-      <template v-else-if="type === 'status_change' && project">
-        <nuxt-link :to="getProjectLink(project)" class="title-link">
-          {{ project.title }}
-        </nuxt-link>
-        <template v-if="tags.rejectedStatuses.includes(notification.body.new_status)">
-          has been <Badge :type="notification.body.new_status" />
+      <div class="title-text">
+        <template v-if="type === 'project_update' && project && version">
+          <nuxt-link :to="getProjectLink(project)" class="title-link">{{
+            project.title
+          }}</nuxt-link>
+          released
+          {{
+            groupedVersionNotifs.length > 1
+              ? `${groupedVersionNotifs.length} new versions`
+              : `a new version`
+          }}.
         </template>
-        <template v-else>
-          updated from
-          <Badge :type="notification.body.old_status" />
-          to
-          <Badge :type="notification.body.new_status" />
-        </template>
-        by the moderators.
-      </template>
-      <template v-else-if="type === 'moderator_message' && thread && project && !report">
-        Your project,
-        <nuxt-link :to="getProjectLink(project)" class="title-link">{{ project.title }}</nuxt-link
-        >, has received
-        <template v-if="notification.grouped_notifs"> messages </template>
-        <template v-else>a message</template>
-        from the moderators.
-      </template>
-      <template v-else-if="type === 'moderator_message' && thread && report">
-        A moderator replied to your report of
-        <template v-if="version">
-          version
-          <nuxt-link :to="getVersionLink(project, version)" class="title-link">
-            {{ version.name }}
+        <template v-else-if="type === 'team_invite' && project">
+          <nuxt-link :to="`/user/${invitedBy.username}`" class="iconified-link title-link">
+            <Avatar :src="invitedBy.avatar_url" circle size="xxs" no-shadow :raised="raised" />
+            <span class="space">&nbsp;</span>
+            <span>{{ invitedBy.username }}</span>
           </nuxt-link>
-          of project
+          <span>
+            invited you to join
+            <nuxt-link :to="getProjectLink(project)" class="title-link">
+              {{ project.title }} </nuxt-link
+            >.
+          </span>
         </template>
-        <nuxt-link v-if="project" :to="getProjectLink(project)" class="title-link">
-          {{ project.title }}
+        <template v-else-if="type === 'status_change' && project">
+          <nuxt-link :to="getProjectLink(project)" class="title-link">
+            {{ project.title }}
+          </nuxt-link>
+          <template v-if="tags.rejectedStatuses.includes(notification.body.new_status)">
+            has been <Badge :type="notification.body.new_status" />
+          </template>
+          <template v-else>
+            updated from
+            <Badge :type="notification.body.old_status" />
+            to
+            <Badge :type="notification.body.new_status" />
+          </template>
+          by the moderators.
+        </template>
+        <template v-else-if="type === 'moderator_message' && thread && project && !report">
+          Your project,
+          <nuxt-link :to="getProjectLink(project)" class="title-link">{{ project.title }}</nuxt-link
+          >, has received
+          <template v-if="notification.grouped_notifs"> messages </template>
+          <template v-else>a message</template>
+          from the moderators.
+        </template>
+        <template v-else-if="type === 'moderator_message' && thread && report">
+          A moderator replied to your report of
+          <template v-if="version">
+            version
+            <nuxt-link :to="getVersionLink(project, version)" class="title-link">
+              {{ version.name }}
+            </nuxt-link>
+            of project
+          </template>
+          <nuxt-link v-if="project" :to="getProjectLink(project)" class="title-link">
+            {{ project.title }}
+          </nuxt-link>
+          <nuxt-link v-else-if="user" :to="getUserLink(user)" class="title-link">
+            {{ user.username }} </nuxt-link
+          >.
+        </template>
+        <nuxt-link v-else :to="notification.link" class="title-link">
+          <span v-html="renderString(notification.title)" />
         </nuxt-link>
-        <nuxt-link v-else-if="user" :to="getUserLink(user)" class="title-link">
-          {{ user.username }} </nuxt-link
-        >.
-      </template>
-      <nuxt-link v-else :to="notification.link" class="title-link">
-        <span v-html="renderString(notification.title)" />
-      </nuxt-link>
-      <!--      <span v-else class="known-errors">Error reading notification.</span>-->
+        <!--      <span v-else class="known-errors">Error reading notification.</span>-->
+      </div>
+      <span class="title-date">
+        <span v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
+          {{ fromNow(notification.created) }}
+        </span>
+      </span>
     </div>
     <div v-if="hasBody" class="notification__body">
       <ThreadSummary
@@ -115,30 +128,51 @@
           :key="notif.id"
           class="version-link"
         >
-          <VersionIcon />
-          <nuxt-link
-            :to="getVersionLink(notif.extra_data.project, notif.extra_data.version)"
-            class="text-link"
-          >
-            {{ notif.extra_data.version.name }}
-          </nuxt-link>
-          <span class="version-info">
-            for
-            <Categories
-              :categories="notif.extra_data.version.loaders"
-              :type="notif.extra_data.project.project_type"
-              class="categories"
-            />
-            {{ $formatVersion(notif.extra_data.version.game_versions) }}
-            <span
-              v-tooltip="
-                $dayjs(notif.extra_data.version.date_published).format('MMMM D, YYYY [at] h:mm A')
-              "
-              class="date"
+          <div class="title">
+            <nuxt-link
+              :to="getVersionLink(notif.extra_data.project, notif.extra_data.version)"
+              class="text-link"
             >
-              {{ fromNow(notif.extra_data.version.date_published) }}
-            </span>
-          </span>
+              {{ notif.extra_data.version.name }}
+            </nuxt-link>
+          </div>
+          <div class="version-info">
+            <div class="primary-stat">
+              <GameIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                Minecraft
+                <span class="primary-stat__counter">
+                  {{
+                    notif.extra_data.version.game_versions.length > 3
+                      ? formats.list([
+                          ...notif.extra_data.version.game_versions.slice(0, 3).reverse(),
+                          `${notif.extra_data.version.game_versions.length - 1} more`,
+                        ])
+                      : formats.list(notif.extra_data.version.game_versions.slice().reverse())
+                  }}
+                </span>
+              </div>
+            </div>
+            <div
+              v-if="
+                !(
+                  notif.extra_data.version.loaders.length === 1 &&
+                  notif.extra_data.version.loaders[0] === 'datapack'
+                ) && project.project_type !== 'resourcepack'
+              "
+              class="primary-stat"
+            >
+              <WrenchIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                Supports
+                <span class="primary-stat__counter">
+                  {{
+                    formats.list(notif.extra_data.version.loaders.map((x) => $formatCategory(x)))
+                  }}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
         <Checkbox
           v-if="groupedVersionNotifs.length > 3"
@@ -152,49 +186,7 @@
         {{ notification.text }}
       </template>
     </div>
-    <span class="notification__date">
-      <span v-if="notification.read" class="read-badge"> <ReadIcon /> Read </span>
-      <span v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
-        <CalendarIcon /> Received {{ fromNow(notification.created) }}
-      </span>
-    </span>
-    <div v-if="compact" class="notification__actions">
-      <template v-if="type === 'team_invite'">
-        <button
-          v-tooltip="`Accept`"
-          class="iconified-button square-button brand-button button-transparent"
-          @click="
-            () => {
-              acceptTeamInvite(notification.body.team_id)
-              read()
-            }
-          "
-        >
-          <CheckIcon />
-        </button>
-        <button
-          v-tooltip="`Decline`"
-          class="iconified-button square-button danger-button button-transparent"
-          @click="
-            () => {
-              removeSelfFromTeam(notification.body.team_id)
-              read()
-            }
-          "
-        >
-          <CrossIcon />
-        </button>
-      </template>
-      <button
-        v-else-if="!notification.read"
-        v-tooltip="`Mark as read`"
-        class="iconified-button square-button button-transparent"
-        @click="read()"
-      >
-        <CrossIcon />
-      </button>
-    </div>
-    <div v-else class="notification__actions">
+    <div class="notification__actions">
       <div v-if="type !== null" class="input-group">
         <template v-if="type === 'team_invite' && !notification.read">
           <button
@@ -220,14 +212,6 @@
             <CrossIcon /> Decline
           </button>
         </template>
-        <button
-          v-else-if="!notification.read"
-          class="iconified-button"
-          :class="{ 'raised-button': raised }"
-          @click="read()"
-        >
-          <CheckIcon /> Mark as read
-        </button>
         <CopyCode v-if="cosmetics.developerMode" :text="notification.id" />
       </div>
       <div v-else class="input-group">
@@ -252,14 +236,6 @@
           <CrossIcon v-else-if="action.title === 'Deny'" />
           {{ action.title }}
         </button>
-        <button
-          v-if="notification.actions.length === 0 && !notification.read"
-          class="iconified-button"
-          :class="{ 'raised-button': raised }"
-          @click="performAction(notification, null)"
-        >
-          <CheckIcon /> Mark as read
-        </button>
         <CopyCode v-if="cosmetics.developerMode" :text="notification.id" />
       </div>
     </div>
@@ -270,8 +246,6 @@
 import InvitationIcon from '~/assets/images/utils/user-plus.svg'
 import ModerationIcon from '~/assets/images/utils/moderation.svg'
 import NotificationIcon from '~/assets/images/utils/bell.svg'
-import ReadIcon from '~/assets/images/utils/check-circle.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
@@ -280,17 +254,19 @@ import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
 import { getProjectLink, getVersionLink } from '~/helpers/projects.js'
 import { getUserLink } from '~/helpers/users.js'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
-import { markAsRead } from '~/helpers/notifications.js'
 import { renderString } from '~/helpers/parse.js'
 import DoubleIcon from '~/components/ui/DoubleIcon.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
-import Categories from '~/components/ui/search/Categories.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
+import WrenchIcon from 'assets/images/utils/wrench.svg'
+import GameIcon from 'assets/images/utils/game.svg'
 
 const app = useNuxtApp()
 const emit = defineEmits(['update:notifications'])
+const vintl = useVIntl()
+const { formats } = vintl
 
 const props = defineProps({
   notification: {
@@ -302,10 +278,6 @@ const props = defineProps({
     required: true,
   },
   raised: {
-    type: Boolean,
-    default: false,
-  },
-  compact: {
     type: Boolean,
     default: false,
   },
@@ -329,6 +301,16 @@ const project = computed(() => props.notification.extra_data.project)
 const version = computed(() => props.notification.extra_data.version)
 const user = computed(() => props.notification.extra_data.user)
 const invitedBy = computed(() => props.notification.extra_data.invited_by)
+
+const iconColor = computed(() => {
+  switch (type.value) {
+    case 'team_invite':
+      return 'blue'
+    case 'project_update':
+    default:
+      return 'gray'
+  }
+})
 
 const threadLink = computed(() => {
   if (report.value) {
@@ -410,6 +392,12 @@ function getMessages() {
   }
   return messages
 }
+
+function trimStringToLines(str, n) {
+  let lines = str.split('\n')
+  lines = lines.slice(0, n)
+  return lines.join('\n')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -417,37 +405,32 @@ function getMessages() {
   display: grid;
   grid-template:
     'icon title'
-    'actions actions'
-    'date date';
+    'icon date'
+    'actions actions';
   grid-template-columns: min-content 1fr;
   grid-template-rows: min-content min-content min-content;
   gap: var(--spacing-card-sm);
 
-  &.compact {
-    grid-template:
-      'icon title actions'
-      'date date date';
-    grid-template-columns: min-content 1fr auto;
-    grid-template-rows: auto min-content;
+  &:not(.read) .notification__icon::after {
+    content: '';
+    --_size: 0.5rem;
+    width: var(--_size);
+    height: var(--_size);
+    background-color: var(--color-brand);
+    border-radius: 50%;
+    left: calc(((var(--gap-xl) + var(--_size)) / 2) * -1);
+    top: calc(50% - (var(--_size) / 2));
+    position: absolute;
   }
 
   &.has-body {
     grid-template:
       'icon title'
+      'icon date'
       'body body'
-      'actions actions'
-      'date date';
+      'actions actions';
     grid-template-columns: min-content 1fr;
-    grid-template-rows: min-content auto auto min-content;
-
-    &.compact {
-      grid-template:
-        'icon title actions'
-        'body body body'
-        'date date date';
-      grid-template-columns: min-content 1fr auto;
-      grid-template-rows: min-content auto min-content;
-    }
+    grid-template-rows: min-content min-content auto auto;
   }
 
   .label__title,
@@ -481,6 +464,11 @@ function getMessages() {
         top: -2px;
       }
     }
+
+    .title-date {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
   }
   .notification__body {
     grid-area: body;
@@ -497,39 +485,30 @@ function getMessages() {
 
       .version-link {
         display: flex;
-        flex-direction: row;
-        gap: var(--spacing-card-xs);
-        align-items: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: var(--spacing-card-sm);
+        padding: 1rem;
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-button-bg);
+        border-radius: var(--radius-md);
+
+        .title {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: var(--spacing-card-xs);
+        }
 
         .version-info {
-          display: contents;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
 
-          :deep(span) {
-            color: var(--color-text);
-          }
-
-          .date {
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
+          .primary-stat {
+            margin: 0;
           }
         }
       }
-    }
-  }
-
-  .notification__date {
-    grid-area: date;
-    color: var(--color-text-secondary);
-
-    svg {
-      vertical-align: top;
-    }
-
-    .read-badge {
-      font-weight: bold;
-      color: var(--color-text);
-      margin-right: var(--spacing-card-xs);
     }
   }
 
@@ -540,23 +519,11 @@ function getMessages() {
     gap: var(--spacing-card-sm);
   }
 
-  .unknown-type {
-    color: var(--color-special-red);
-  }
-
   .title-link {
     &:not(:hover) {
       text-decoration: none;
     }
     font-weight: bold;
-  }
-
-  .moderation-color {
-    color: var(--color-special-orange);
-  }
-
-  .creator-color {
-    color: var(--color-special-blue);
   }
 }
 </style>

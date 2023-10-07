@@ -514,7 +514,6 @@ import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import homepageProjects from '~/generated/homepage.json'
-import LoggedInHome from '~/components/ui/LoggedInHome.vue'
 
 const searchQuery = ref('better')
 const sortType = ref('relevance')

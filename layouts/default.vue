@@ -169,6 +169,10 @@
               </span>
               <ArrowRightLeftIcon class="switch-icon" />
             </button>
+            <NuxtLink class="btn button-transparent" to="/home">
+              <HomeIcon />
+              <span class="title">Home</span>
+            </NuxtLink>
             <NuxtLink class="btn button-transparent" to="/mods" @click="setProjectType('mods')">
               <BoxIcon />
               <span class="title">Mods</span>
@@ -215,15 +219,6 @@
             </NuxtLink>
             <div class="card-divider"></div>
             <div v-if="auth.user" class="user-links">
-              <nuxt-link
-                to="/inbox"
-                class="btn control-button button-transparent"
-                :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
-                title="Notifications"
-              >
-                <InboxIcon aria-hidden="true" />
-                Inbox
-              </nuxt-link>
               <nuxt-link to="/follows" class="btn control-button button-transparent">
                 <BookmarkIcon aria-hidden="true" />
                 Saved
@@ -266,42 +261,27 @@
             >
               <DownloadIcon /> Get Modrinth App
             </nuxt-link>
-            <div v-if="auth.user" class="popup-container">
-              <button
-                class="btn button-transparent game-button"
-                aria-label="Switch game"
-                @click="desktopUserMenu = !desktopUserMenu"
-              >
-                <Avatar
-                  :src="auth.user.avatar_url"
-                  class="game-icon"
-                  alt="Your avatar"
-                  aria-hidden="true"
-                  circle
-                />
-                <span class="game-title">
-                  <span class="game-title__title">{{ auth.user.username }}</span>
-                </span>
-                <MoreHorizontalIcon class="switch-icon" />
-              </button>
-              <div
-                class="popup-menu"
-                :class="{ visible: desktopUserMenu }"
-                @focus="desktopUserMenu = true"
-                @blur="desktopUserMenu = false"
-                @focusout="desktopUserMenu = false"
-              >
+            <PopoutMenu
+              v-if="auth.user"
+              class="btn button-transparent game-button"
+              aria-label="User menu"
+              position="left-top"
+            >
+              <Avatar
+                :src="auth.user.avatar_url"
+                class="game-icon"
+                alt="Your avatar"
+                aria-hidden="true"
+                circle
+              />
+              <span class="game-title">
+                <span class="game-title__title">{{ auth.user.username }}</span>
+              </span>
+              <MoreHorizontalIcon class="switch-icon" />
+              <template #menu>
                 <nuxt-link :to="`/user/${auth.user.username}`" class="btn button-transparent">
                   <UserIcon aria-hidden="true" />
                   Profile
-                </nuxt-link>
-                <nuxt-link
-                  to="/inbox"
-                  class="btn control-button button-transparent"
-                  :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
-                >
-                  <InboxIcon aria-hidden="true" />
-                  Inbox
                 </nuxt-link>
                 <nuxt-link to="/follows" class="btn control-button button-transparent">
                   <BookmarkIcon aria-hidden="true" />
@@ -331,8 +311,8 @@
                   <LogOutIcon aria-hidden="true" />
                   Sign out
                 </nuxt-link>
-              </div>
-            </div>
+              </template>
+            </PopoutMenu>
             <template v-else>
               <nuxt-link class="btn btn-primary btn-large sign-in" to="/auth/sign-in">
                 <LogInIcon /> Sign in
@@ -482,6 +462,7 @@ import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
+import PopoutMenu from '~/components/ui/PopoutMenu.vue'
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -851,42 +832,6 @@ export default defineNuxtComponent({
   > footer {
     grid-area: footer;
     padding: var(--gap-lg);
-  }
-}
-
-.popup-container {
-  position: relative;
-
-  .popup-menu {
-    position: absolute;
-    bottom: -1rem;
-    scale: 0.75;
-    left: calc(100% + var(--gap-sm) - 1rem);
-    border: 1px solid var(--color-button-bg);
-    padding: var(--gap-sm);
-    min-width: 10rem;
-    width: fit-content;
-    border-radius: var(--radius-md);
-    background-color: var(--color-raised-bg);
-    box-shadow: var(--shadow-floating);
-    z-index: 10;
-    opacity: 0;
-    pointer-events: none;
-    transition: bottom 0.125s ease-in-out, left 0.125s ease-in-out, opacity 0.125s ease-in-out,
-      scale 0.125s ease-in-out;
-
-    &.visible,
-    &:focus-within {
-      opacity: 1;
-      pointer-events: unset;
-      bottom: 0;
-      scale: 1;
-      left: calc(100% + var(--gap-sm));
-    }
-
-    .btn {
-      white-space: nowrap;
-    }
   }
 }
 

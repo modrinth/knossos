@@ -99,7 +99,7 @@ export default {
   &.size-xxs {
     --size: 1.25rem;
     box-shadow: var(--shadow-inset), var(--shadow-card);
-    border-radius: var(--size-rounded-sm);
+    border-radius: 5px;
   }
 
   &.size-xs {

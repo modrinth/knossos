@@ -3,77 +3,32 @@
     <button v-bind="$attrs" @click="toggleDropdown">
       <slot></slot>
     </button>
-    <div class="popup-menu" :class="{ visible: dropdownVisible }">
-      <button v-for="option in options" class="btn button-transparent">
-        <slot :name="option.name"></slot>
-      </button>
+    <div
+      class="popup-menu"
+      :class="`position-${position} from-${from} ${dropdownVisible ? 'visible' : ''}`"
+    >
       <slot name="menu"> </slot>
-    </div>
-  </div>
-  <div class="animated-dropdown">
-    <div class="dropdown-row">
-      <Button
-        class="dropdown-button"
-        :class="{
-          'render-down': dropdownVisible && !renderUp && !disabled,
-          'render-up': dropdownVisible && renderUp && !disabled,
-        }"
-        :disabled="disabled"
-        :color="color"
-      >
-        <slot :name="selectedOption" />
-      </Button>
-      <Button
-        class="selected"
-        :class="{
-          'render-down': dropdownVisible && !renderUp && !disabled,
-          'render-up': dropdownVisible && renderUp && !disabled,
-        }"
-        icon-only
-        :color="color"
-        :disabled="disabled"
-      >
-        <DropdownIcon class="arrow" :class="{ rotate: dropdownVisible }" />
-      </Button>
-    </div>
-    <div class="options-wrapper" :class="{ down: !renderUp, up: renderUp }">
-      <transition name="options">
-        <div
-          v-show="dropdownVisible"
-          class="options"
-          role="listbox"
-          :class="{ down: !renderUp, up: renderUp }"
-        ></div>
-      </transition>
     </div>
   </div>
 </template>
 
 <script setup>
-import { DropdownIcon } from 'omorphia'
-import BookmarkIcon from 'assets/images/utils/bookmark.svg'
-import UserIcon from 'assets/images/utils/user.svg'
-import PlusIcon from 'assets/images/utils/plus.svg'
-import Avatar from '~/components/ui/Avatar.vue'
-import ListIcon from 'assets/images/utils/list.svg'
-import NotificationIcon from 'assets/images/utils/bell.svg'
-import LogOutIcon from 'assets/images/utils/log-out.svg'
-import MoreHorizontalIcon from 'assets/images/utils/more-horizontal.svg'
-import ReportIcon from 'assets/images/utils/report.svg'
-
 const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  options: {
-    type: Array,
-    required: true,
-  },
   disabled: {
     type: Boolean,
     default: false,
   },
+  position: {
+    type: String,
+    default: 'bottom-left',
+  },
+  from: {
+    type: String,
+    default: 'top-right',
+  },
+})
+defineOptions({
+  inheritAttrs: false,
 })
 
 const emit = defineEmits(['input', 'change', 'update:modelValue', 'option-click'])
@@ -81,21 +36,6 @@ const emit = defineEmits(['input', 'change', 'update:modelValue', 'option-click'
 const dropdownVisible = ref(false)
 const selectedValue = ref(props.modelValue || props.defaultValue)
 const dropdown = ref(null)
-const optionElements = ref(null)
-
-const selectedOption = computed(() => {
-  return selectedValue.value
-})
-
-const radioValue = computed({
-  get() {
-    return props.modelValue || selectedValue.value
-  },
-  set(newValue) {
-    emit('update:modelValue', newValue)
-    selectedValue.value = newValue
-  },
-})
 
 watch(
   () => props.modelValue,
@@ -111,15 +51,7 @@ const toggleDropdown = () => {
   }
 }
 
-const selectOption = (option, index) => {
-  radioValue.value = option
-  emit('change', { option, index })
-  emit('option-click', { option: selectedOption.value })
-  dropdownVisible.value = false
-}
-
-const clickOption = () => {
-  emit('option-click', { option: selectedOption.value })
+const closeMenu = () => {
   dropdownVisible.value = false
 }
 
@@ -144,153 +76,56 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-.animated-dropdown {
+.popup-container {
   position: relative;
-  display: inline-block;
 
-  &:focus {
-    outline: 0;
-  }
+  .popup-menu {
+    --_animation-offset: -1rem;
+    position: absolute;
+    scale: 0.75;
+    border: 1px solid var(--color-button-bg);
+    padding: var(--gap-sm);
+    min-width: 10rem;
+    width: fit-content;
+    border-radius: var(--radius-md);
+    background-color: var(--color-raised-bg);
+    box-shadow: var(--shadow-floating);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: bottom 0.125s ease-in-out, top 0.125s ease-in-out, left 0.125s ease-in-out,
+      right 0.125s ease-in-out, opacity 0.125s ease-in-out, scale 0.125s ease-in-out;
 
-  .dropdown-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    &.position-bottom-left {
+      top: calc(100% + var(--gap-sm) - 1rem);
+      right: -1rem;
+    }
 
-    .dropdown-button {
-      width: 100%;
-      border-radius: var(--radius-md) 0 0 var(--radius-md);
+    &.position-left-top {
+      bottom: -1rem;
+      left: calc(100% + var(--gap-sm) - 1rem);
+    }
 
-      &.render-up {
-        border-radius: 0 0 0 var(--radius-md);
+    &.visible,
+    &:focus-within {
+      opacity: 1;
+      pointer-events: unset;
+      scale: 1;
+
+      &.position-bottom-left {
+        top: calc(100% + var(--gap-sm));
+        right: 0;
       }
 
-      &.render-down {
-        border-radius: var(--radius-md) 0 0 0;
+      &.position-left-top {
+        bottom: 0rem;
+        left: calc(100% + var(--gap-sm));
       }
     }
 
     .btn {
-      height: 2.25rem;
+      white-space: nowrap;
     }
-  }
-
-  .selected {
-    height: auto;
-    width: auto;
-    margin-left: 1px;
-    padding: var(--gap-sm);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-
-    &.render-up {
-      border-radius: 0 0 var(--radius-md) 0;
-    }
-
-    &.render-down {
-      border-radius: 0 var(--radius-md) 0 0;
-    }
-
-    &:focus {
-      outline: 0;
-      filter: brightness(1.25);
-      transition: filter 0.1s ease-in-out;
-    }
-
-    .arrow {
-      min-width: 1.125rem;
-      min-height: 1.125rem;
-      display: inline-block;
-      transition: transform 0.2s ease;
-
-      &.rotate {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  .options {
-    z-index: 10;
-    max-height: 18.75rem;
-    overflow-y: auto;
-    box-shadow: var(--shadow-inset-sm), 0 0 0 0 transparent;
-
-    .option {
-      background-color: var(--color-button-bg);
-      display: flex;
-      align-items: center;
-      padding: var(--gap-md);
-      cursor: pointer;
-      user-select: none;
-
-      .slot {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: var(--gap-sm);
-      }
-
-      &:hover {
-        filter: brightness(0.85);
-        transition: filter 0.2s ease-in-out;
-      }
-
-      &:focus {
-        outline: 0;
-        filter: brightness(0.85);
-        transition: filter 0.2s ease-in-out;
-      }
-
-      &.selected-option {
-        background-color: var(--color-brand);
-        color: var(--color-accent-contrast);
-        font-weight: bolder;
-      }
-
-      input {
-        display: none;
-      }
-    }
-  }
-}
-
-.options-enter-active,
-.options-leave-active {
-  transition: transform 0.2s ease;
-}
-
-.options-enter-from,
-.options-leave-to {
-  // this is not 100% due to a safari bug
-  &.up {
-    transform: translateY(99.999%);
-  }
-
-  &.down {
-    transform: translateY(-99.999%);
-  }
-}
-
-.options-enter-to,
-.options-leave-from {
-  &.up {
-    transform: translateY(0%);
-  }
-}
-
-.options-wrapper {
-  position: absolute;
-  width: 100%;
-  overflow: auto;
-  z-index: 9;
-
-  &.up {
-    top: 0;
-    transform: translateY(-99.999%);
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-  }
-
-  &.down {
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
   }
 }
 </style>

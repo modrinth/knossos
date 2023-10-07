@@ -5,37 +5,42 @@
     </div>
     <div class="normal-page__sidebar">
       <section class="universal-card">
-        <div class="user-info">
+        <nuxt-link :to="getUserLink(auth.user)" class="user-info">
           <Avatar :src="auth.user.avatar_url" circle size="xs" />
           <h2 class="sidebar-card-header">{{ auth.user.username }}</h2>
-        </div>
-        <div class="primary-stat">
-          <BoxIcon class="primary-stat__icon" aria-hidden="true" />
-          <div class="primary-stat__text">
-            <span class="primary-stat__counter">
-              {{ $formatNumber(projects.length) }}
-            </span>
-            project<span v-if="projects.length !== 1">s</span>
+        </nuxt-link>
+        <template v-if="projects.length > 0">
+          <div class="primary-stat">
+            <BoxIcon class="primary-stat__icon" aria-hidden="true" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">
+                {{ $formatNumber(projects.length) }}
+              </span>
+              project<span v-if="projects.length !== 1">s</span>
+            </div>
           </div>
-        </div>
-        <div class="primary-stat">
-          <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-          <div class="primary-stat__text">
-            <span class="primary-stat__counter">
-              {{ $formatNumber(sumDownloads) }}
-            </span>
-            download<span v-if="sumDownloads !== 1">s</span>
+          <div class="primary-stat">
+            <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">
+                {{ $formatNumber(sumDownloads) }}
+              </span>
+              project download<span v-if="sumDownloads !== 1">s</span>
+            </div>
           </div>
-        </div>
-        <div class="primary-stat">
-          <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-          <div class="primary-stat__text">
-            <span class="primary-stat__counter">
-              {{ $formatNumber(sumFollows) }}
-            </span>
-            follower<span v-if="sumFollows !== 1">s</span>
+          <div class="primary-stat">
+            <HeartIcon class="primary-stat__icon" aria-hidden="true" />
+            <div class="primary-stat__text">
+              <span class="primary-stat__counter">
+                {{ $formatNumber(sumFollows) }}
+              </span>
+              project follower<span v-if="sumFollows !== 1">s</span>
+            </div>
           </div>
-        </div>
+        </template>
+        <nuxt-link class="goto-link" :to="`/user/${auth.user.username}`">
+          <UserIcon /> View profile <ChevronRightIcon />
+        </nuxt-link>
         <nuxt-link class="goto-link" :to="`/user/${auth.user.username}`">
           <SettingsIcon /> Edit profile <ChevronRightIcon />
         </nuxt-link>
@@ -81,6 +86,43 @@
       </section>
     </div>
     <div class="normal-page__content">
+      <div class="search-row">
+        <div class="iconified-input">
+          <label for="search-input" hidden>Search notifications</label>
+          <SearchIcon />
+          <input id="search-input" v-model="notificationSearchInput" type="text" />
+          <Button
+            :class="notificationSearchInput ? '' : 'empty'"
+            @click="() => (notificationSearchInput = '')"
+          >
+            <XIcon />
+          </Button>
+        </div>
+        <PopoutMenu class="btn" position="bottom-left" from="top-right">
+          <FilterIcon />
+          Filter...
+          <template #menu>
+            <h2 class="popout-heading">Type</h2>
+            <Checkbox
+              v-for="option in filterOptions"
+              :key="`option-${option}`"
+              class="popout-checkbox"
+              :model-value="selectedFilters.includes(option)"
+              @click="
+                () => {
+                  if (selectedFilters.includes(option)) {
+                    selectedFilters = selectedFilters.filter((f) => f !== option)
+                  } else {
+                    selectedFilters.push(option)
+                  }
+                }
+              "
+            >
+              {{ option }}
+            </Checkbox>
+          </template>
+        </PopoutMenu>
+      </div>
       <template v-if="notifications.length > 0">
         <NotificationItem
           v-for="notification in notifications"
@@ -89,7 +131,6 @@
           class="universal-card"
           :notification="notification"
           :auth="auth"
-          compact
         />
       </template>
       <div v-else class="universal-body">
@@ -103,7 +144,7 @@
 </template>
 
 <script setup>
-import { DownloadIcon, HeartIcon, BoxIcon, SettingsIcon } from 'omorphia'
+import { DownloadIcon, UserIcon, HeartIcon, BoxIcon, SettingsIcon, Button, XIcon } from 'omorphia'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import TransferIcon from '~/assets/images/utils/transfer.svg'
@@ -112,7 +153,11 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import HistoryIcon from '~/assets/images/utils/history.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'
+import SearchIcon from 'assets/images/utils/search.svg'
+import FilterIcon from 'assets/images/utils/filter.svg'
+import { getUserLink } from '~/helpers/users'
+import PopoutMenu from '~/components/ui/PopoutMenu.vue'
+import Checkbox from '~/components/ui/Checkbox.vue'
 
 const auth = await useAuth()
 
@@ -125,11 +170,32 @@ const [{ data: projects }, { data: payouts }] = await Promise.all([
   ),
 ])
 
-const allNotifs = groupNotifications(await fetchNotifications())
+const allNotifs = groupNotifications(await fetchNotifications(), true)
 
-const notifications = computed(() => allNotifs.slice(0, 3))
+const notifications = computed(() =>
+  allNotifs.filter((notif) => {
+    if (selectedFilters.value.length > 0 && !selectedFilters.value.includes(notif.type)) {
+      return false
+    }
+
+    const query = notificationSearchInput.value.toLowerCase()
+
+    if (notificationSearchInput.value) {
+      if (notif.extra_data.project) {
+        return notif.extra_data.project.title.toLowerCase().includes(query)
+      } else {
+        return notif.title.toLowerCase().includes(query)
+      }
+    }
+    return true
+  })
+)
+
+const filterOptions = computed(() => [...new Set(notifications.value.map((notif) => notif.type))])
+const selectedFilters = ref([])
 
 const projectsPreview = computed(() => projects.value.slice(0, 10))
+
 const sumDownloads = computed(() => {
   let sum = 0
 
@@ -148,6 +214,8 @@ const sumFollows = computed(() => {
 
   return sum
 })
+
+const notificationSearchInput = ref('')
 </script>
 <style lang="scss" scoped>
 .normal-page__header {
@@ -156,33 +224,6 @@ const sumFollows = computed(() => {
   gap: var(--gap-lg);
   --_avatar-size: 6rem;
   margin-bottom: var(--gap-lg);
-
-  .user-avatar {
-    width: var(--_avatar-size);
-    height: var(--_avatar-size);
-  }
-
-  .user-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-sm);
-
-    .user-info__title {
-      display: flex;
-      gap: var(--gap-sm);
-      align-items: center;
-
-      h1 {
-        font-size: var(--font-size-xl);
-        margin: 0;
-      }
-    }
-
-    .user-info__bio {
-      margin: 0;
-      max-width: 50rem;
-    }
-  }
 }
 
 .rewards-display {
@@ -263,8 +304,49 @@ const sumFollows = computed(() => {
 
 .user-info {
   display: flex;
-  gap: var(--gap-lg);
+  gap: var(--gap-md);
   align-items: center;
   margin-bottom: var(--gap-md);
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.search-row {
+  margin-bottom: var(--gap-lg);
+  display: flex;
+
+  .iconified-input {
+    flex-grow: 1;
+
+    input {
+      height: 3rem;
+      background-color: var(--color-raised-bg);
+      border: 1px solid var(--color-button-bg);
+    }
+  }
+
+  :deep(.btn) {
+    height: 3rem;
+    margin-left: var(--gap-sm);
+  }
+}
+
+.iconified-input {
+  .empty {
+    visibility: hidden;
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
 }
 </style>
