@@ -83,7 +83,7 @@
                   }
                 "
               >
-                <CrossIcon /> {{ formatMessage(commonMessages.cancelButton) }}
+                <ExitIcon /> {{ formatMessage(commonMessages.cancelButton) }}
               </button>
               <button class="iconified-button brand-button" @click="saveChanges">
                 <SaveIcon /> {{ formatMessage(commonMessages.saveButton) }}
@@ -261,30 +261,33 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import {
+  Promotion,
+  ReportIcon,
+  SunriseIcon,
+  DownloadIcon,
+  SettingsIcon,
+  UserIcon,
+  EditIcon,
+  HeartIcon,
+  SaveIcon,
+  GridIcon,
+  ListIcon,
+  ImageIcon,
+  UploadIcon,
+  ExitIcon,
+} from 'omorphia'
+
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
-
-import ReportIcon from '~/assets/images/utils/report.svg'
-import SunriseIcon from '~/assets/images/utils/sunrise.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
 import FileInput from '~/components/ui/FileInput.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
