@@ -12,7 +12,7 @@
     "message": "你被耍了！🐸"
   },
   "frog.altText": {
-    "message": "一副逼真的青蛙迷宫图"
+    "message": "一幅逼真的青蛙迷宫图"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, other {还有 {count} 个人}}也被这只青蛙耍了！"
@@ -111,10 +111,10 @@
     "message": "资源包"
   },
   "project-type.shader.plural": {
-    "message": "光影"
+    "message": "光影包"
   },
   "project-type.shader.singular": {
-    "message": "光影"
+    "message": "光影包"
   },
   "settings.language.categories.auto": {
     "message": "自动"
