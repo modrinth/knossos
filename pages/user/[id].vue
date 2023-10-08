@@ -83,7 +83,7 @@
                   }
                 "
               >
-                <ExitIcon /> {{ formatMessage(commonMessages.cancelButton) }}
+                <XIcon /> {{ formatMessage(commonMessages.cancelButton) }}
               </button>
               <button class="iconified-button brand-button" @click="saveChanges">
                 <SaveIcon /> {{ formatMessage(commonMessages.saveButton) }}
@@ -275,7 +275,7 @@ import {
   ListIcon,
   ImageIcon,
   UploadIcon,
-  ExitIcon,
+  XIcon,
 } from 'omorphia'
 
 import ProjectCard from '~/components/ui/ProjectCard.vue'
