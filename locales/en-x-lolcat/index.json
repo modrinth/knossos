@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Stop it!"
+    "message": "Nu"
   },
   "button.edit": {
-    "message": "Change"
+    "message": "Chaenj"
   },
   "button.save": {
-    "message": "Make stay"
+    "message": "Saev"
   },
   "frog": {
     "message": "you been toaded 🐸"
@@ -33,13 +33,13 @@
     "message": "boring vew"
   },
   "notification.error.title": {
-    "message": "Ow no! Couldn't catch fish!"
+    "message": "Somezinj bad hapen"
   },
   "profile.button.manage-projects": {
-    "message": "Change kode"
+    "message": "Manag kode"
   },
   "profile.button.report": {
-    "message": "Dis not right"
+    "message": "Repwot"
   },
   "profile.error.not-found": {
     "message": "Kat not heer :("
@@ -54,7 +54,7 @@
     "message": "Thingz about Kat"
   },
   "profile.label.edit-username": {
-    "message": "katnaym"
+    "message": "katnaem"
   },
   "profile.label.no-projects": {
     "message": "Dis Kat no kode :("
