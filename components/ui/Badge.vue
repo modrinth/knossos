@@ -17,17 +17,17 @@
     <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
     <template v-else-if="type === 'archived'"> <ArchiveIcon /> Archived</template>
     <template v-else-if="type === 'rejected'"><CrossIcon /> Rejected</template>
-    <template v-else-if="type === 'processing'"> <ProcessingIcon /> Under review</template>
+    <template v-else-if="type === 'processing'"> <UpdatedIcon /> Under review</template>
 
     <!-- Team members -->
     <template v-else-if="type === 'accepted'"><CheckIcon /> Accepted</template>
-    <template v-else-if="type === 'pending'"> <ProcessingIcon /> Pending </template>
+    <template v-else-if="type === 'pending'"> <UpdatedIcon /> Pending </template>
 
     <!-- Transaction statuses -->
     <template v-else-if="type === 'success'"><CheckIcon /> Success</template>
 
     <!-- Report status -->
-    <template v-else-if="type === 'closed'"> <CloseIcon /> Closed</template>
+    <template v-else-if="type === 'closed'"> <CheckCircleIcon /> Closed</template>
 
     <!-- Other -->
     <template v-else> <span class="circle" /> {{ $capitalizeString(type) }} </template>
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ModrinthIcon, BoxIcon } from 'omorphia'
+import { ModrinthIcon, BoxIcon, CheckCircleIcon, CalendarIcon, LockIcon, CheckIcon, UpdatedIcon, ArchiveIcon } from 'omorphia'
 
 import ModrinthIcon from '~/assets/images/logo.svg'
 import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
