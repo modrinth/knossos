@@ -162,30 +162,30 @@
     "message": "بهاس"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Tarik balik sesi"
+    "message": "تاريق باليق سيسي"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق كنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توكر کات لالوان اکاءون مودرين‌ث اندا دڠن سݢرا."
   },
   "settings.sessions.label.created-at": {
-    "message": "Dicipta {ago}"
+    "message": "دچيڤتا {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Sesi semasa"
+    "message": "سيسي سماس"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Kali terakhir diakses {ago}"
+    "message": "کالي تراخير دأکسيس {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "OS tidak diketahui"
+    "message": "OS تيدق دکتاهوءي"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Platform tidak diketahui"
+    "message": "ڤلتفورم تيدق دکتاهوءي"
   },
   "settings.sessions.title": {
-    "message": "Sesi"
+    "message": "سيسي"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} pada jam {time, time, short}"
+    "message": "{date, date, long} ڤد جم {time, time, short}"
   }
 }
