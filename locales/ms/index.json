@@ -165,7 +165,7 @@
     "message": "Tarik balik sesi"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Berikut ialah semua peranti yang sedang dilog masuk dengan akaun Modrinth anda. Anda boleh log keluar daripada setiap satu peranti secara individu.\n\nJika anda melihat entri yang anda tidak kenali, log keluar daripada peranti itu dan tukar kata laluan akaun Modrinth anda dengan segera."
   },
   "settings.sessions.label.created-at": {
     "message": "Dicipta {ago}"
