@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Cwancew"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Edwit"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Sawe"
   },
   "frog": {
     "message": "You've been frogged! 🐸 UwU"
@@ -24,34 +24,34 @@
     "message": "Fwog"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Gawwewy wiew"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Gwid wiew"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Wist wiew"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "An ewwow occuwwed"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Manwage pwojects"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Wepowt"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Usew nwot fwound"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Upwoud awataw"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Joinwed {ago}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Bwio"
   },
   "profile.label.edit-username": {
     "message": "Username"
