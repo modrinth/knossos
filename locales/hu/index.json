@@ -45,13 +45,13 @@
     "message": "Felhasználó nem található"
   },
   "profile.input.upload-avatar": {
-    "message": "Avatár feltöltése"
+    "message": "Profilkép feltöltése"
   },
   "profile.joined-at": {
-    "message": "Csatlakozva {ago}"
+    "message": "Csatlakozott {ago}-e/a"
   },
   "profile.label.edit-bio": {
-    "message": "Leírás"
+    "message": "Bemutatkozás"
   },
   "profile.label.edit-username": {
     "message": "Felhasználónév"
@@ -63,16 +63,16 @@
     "message": "Nincsenek projektjeid.\nSzeretnél <create-link>készíteni egyet</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Töltsd le {username} projektjeit a Modrinth-en"
+    "message": "Töltsd le {username} projektjeit a Modrinth-on"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Töltsd le {username} projektjeit a Modrinth-en"
+    "message": "{bio} - Töltsd le {username} projektjeit a Modrinth-on"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> letöltés} other {<stat>{count}</stat> letöltés}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat>} other {<stat>{count}</stat>}} projekt követő"
+    "message": "{count, plural, one {<stat>{count}</stat>} other {<stat>{count}</stat>}} projektjeit követő"
   },
   "profile.user-id": {
     "message": "Felhasználói azonosító: {id}"
@@ -105,10 +105,10 @@
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packek"
+    "message": "Forráscsomagok"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Forráscsomag"
   },
   "project-type.shader.plural": {
     "message": "Shaderek"
@@ -144,7 +144,7 @@
     "message": "{label}. Hiba"
   },
   "settings.language.languages.load-failed": {
-    "message": "Nem sikerült a nyelv betöltése. Próbálja újra később."
+    "message": "Nem sikerült a nyelv betöltése. Próbáld újra később."
   },
   "settings.language.languages.search-field.description": {
     "message": "Küldje be az első keresési eredményre való fókuszáláshoz"
