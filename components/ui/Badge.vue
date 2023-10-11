@@ -4,7 +4,7 @@
 
     <!-- User roles -->
     <template v-else-if="type === 'admin'"> <ModrinthIcon /> Modrinth Team</template>
-    <template v-else-if="type === 'moderator'"> <ModeratorIcon /> Moderator</template>
+    <template v-else-if="type === 'moderator'"> <ScaleIcon /> Moderator</template>
     <template v-else-if="type === 'creator'"><BoxIcon /> Creator</template>
 
     <!-- Project statuses -->
@@ -14,9 +14,9 @@
     <template v-else-if="type === 'withheld'"><EyeOffIcon /> Withheld</template>
     <template v-else-if="type === 'private'"><LockIcon /> Private</template>
     <template v-else-if="type === 'scheduled'"> <CalendarIcon /> Scheduled</template>
-    <template v-else-if="type === 'draft'"><DraftIcon /> Draft</template>
+    <template v-else-if="type === 'draft'"><FileTextIcon /> Draft</template>
     <template v-else-if="type === 'archived'"> <ArchiveIcon /> Archived</template>
-    <template v-else-if="type === 'rejected'"><CrossIcon /> Rejected</template>
+    <template v-else-if="type === 'rejected'"><XIcon /> Rejected</template>
     <template v-else-if="type === 'processing'"> <UpdatedIcon /> Under review</template>
 
     <!-- Team members -->
@@ -35,21 +35,21 @@
 </template>
 
 <script setup>
-import { ModrinthIcon, BoxIcon, CheckCircleIcon, CalendarIcon, LockIcon, CheckIcon, UpdatedIcon, ArchiveIcon } from 'omorphia'
-
-import ModrinthIcon from '~/assets/images/logo.svg'
-import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
-import CreatorIcon from '~/assets/images/utils/box.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
-import DraftIcon from '~/assets/images/utils/file-text.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import ArchiveIcon from '~/assets/images/utils/archive.svg'
-import ProcessingIcon from '~/assets/images/utils/updated.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import LockIcon from '~/assets/images/utils/lock.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import CloseIcon from '~/assets/images/utils/check-circle.svg'
+import {
+  ModrinthIcon,
+  BoxIcon,
+  CheckCircleIcon,
+  CalendarIcon,
+  LockIcon,
+  CheckIcon,
+  UpdatedIcon,
+  ArchiveIcon,
+  XIcon,
+  FileTextIcon,
+  EyeOffIcon,
+  ListIcon,
+  ScaleIcon,
+} from 'omorphia'
 
 defineProps({
   type: {
