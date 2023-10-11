@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "ביטול"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "עדכון"
   },
   "button.save": {
-    "message": "Save"
+    "message": "שמירה"
   },
   "frog": {
     "message": "You've been frogged! 🐸"
@@ -21,171 +21,171 @@
     "message": "This page was opened {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "צפרדע"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "תצוגת גלריה"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "תצוגת רשת"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "תצוגת רשימה"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "אירעה שגיאה"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "נהל פרוייקטים"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "דיווח"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "משתמש לא נמצא"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "העלה אווטר"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "הצטרף {ago}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "תיאור"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "שם משתמש"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "למשתמש זה אין פרוייקטים!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "אין לך פרוייקטים.\nהאם תרצה <create-link>ליצור אחד</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "הורידו את הפרוייקטים של {username} ב-Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - הורידו את הפרוייקטים של {username} ב-Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {הורדה <stat>{count}</stat>} other {<stat>{count}</stat> הורדות}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {עוקב <stat>{count}</stat>} other {<stat>{count}</stat> עוקבים}} בפרוייקטים"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "מזהה משתמש: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "הכל"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "ערכות מידע"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "ערכת מידע"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "מודים"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "מוד"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "חבילות מודים"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "חבילת מודים"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "הרחבות"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "תוסף"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "ערכות משאבים"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "ערכת משאבים"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "שיידרים"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "שיידר"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "אוטומטי"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "שפות רגילות"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "שפות ניסיוניות"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "שפות כיפיות"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "תוצאות החיפוש"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "בחר את השפה המועדפת לאתר זה. תרגומים נתרמים על ידי מתנדבים ב-<crowdin-link>Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "סינכרון עם שפת מערכת"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "מחיל... {label}."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "שגיאה. {label}"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "לא יכול לטעון שפה זאת. נסה שנית מאוחר יותר."
   },
   "settings.language.languages.search-field.description": {
     "message": "Submit to focus the first search result"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "חפש שפה..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {אין שפות שמתאימות} one {שפה # מתאימה} other {# שפות מתאימות}} את חיפושך."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "אף שפה לא מתאימה לחיפושך."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "שפה"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "בטל הפעלה"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "הנה כל המכשירים שמחוברים לחשבון Modrinth שלך. אתה תוכל לצאת מכל מכשיר בנפרד.\n\nעם אתה רואה חיבור שאתה לא מזהה, צא מהחשבון של Modrinth שלך ואפס את הסיסמה."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "נוצר {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "הפעלה זו"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "שומש לאחרונה לפני {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "מערכת הפעלה לא מוכרת"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "פלאטפורמה לא מוכרת"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "הפעלות"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} ב-{time, time, short}"
   }
 }
