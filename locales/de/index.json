@@ -165,7 +165,7 @@
     "message": "Sitzung widerrufen"
   },
   "settings.sessions.description": {
-    "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen separat ausloggen.\n\nWenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend dein das Passwort deines Modrinth-Kontos."
+    "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen separat ausloggen.\n\nWenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend das Passwort deines Modrinth-Kontos."
   },
   "settings.sessions.label.created-at": {
     "message": "Erstellt {ago}"
