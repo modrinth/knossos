@@ -130,6 +130,13 @@
     <ul>
       <li>Your PayPal email address (if applicable)</li>
       <li>Your Venmo username (if applicable)</li>
+      <li>Your Street Address</li>
+      <li>Your Government-Issued Identification Number (if applicable)</li>
+      <li>Your Bank Account Information (if applicable)</li>
+      <li>
+        Any additional data required for KYC regulations, tax reporting, compliance, and
+        facilitating payments to you (if applicable)
+      </li>
     </ul>
     <p>This data is used to carry out the CMP. It will be linked to your transactions.</p>
 
@@ -153,6 +160,7 @@
       <li><a href="https://mixpanel.com/legal/privacy-policy">MixPanel</a></li>
       <li><a href="https://www.beehiiv.com/privacy">BeeHiiv</a></li>
       <li><a href="https://www.paypal.com/us/legalhub/privacy-full">PayPal</a></li>
+      <li><a href="https://trolley.com/privacy/">Trolley</a></li>
     </ul>
     <p>
       Data that we specifically collect isn't shared with any other third party. We do not sell any

@@ -23,8 +23,10 @@
     <template v-else-if="type === 'accepted'"><CheckIcon /> Accepted</template>
     <template v-else-if="type === 'pending'"> <ProcessingIcon /> Pending </template>
 
-    <!-- Transaction statuses -->
-    <template v-else-if="type === 'success'"><CheckIcon /> Success</template>
+    <!-- Transaction statuses (pending, processing reused) -->
+    <template v-else-if="type === 'processed'"><CheckIcon /> Processed</template>
+    <template v-else-if="type === 'failed'"><CrossIcon /> Failed</template>
+    <template v-else-if="type === 'returned'"><CrossIcon /> Returned</template>
 
     <!-- Report status -->
     <template v-else-if="type === 'closed'"> <CloseIcon /> Closed</template>
@@ -87,6 +89,8 @@ defineProps({
   &.type--closed,
   &.type--withheld,
   &.type--rejected,
+  &.type--returned,
+  &.type--failed,
   &.red {
     --badge-color: var(--color-special-red);
   }
@@ -101,7 +105,7 @@ defineProps({
 
   &.type--accepted,
   &.type--admin,
-  &.type--success,
+  &.type--processed,
   &.type--approved-general,
   &.green {
     --badge-color: var(--color-special-green);

@@ -7,8 +7,8 @@
       />
       <h2>Transfer history</h2>
       <p>
-        All of your transfers from your Modrinth balance to your PayPal or Venmo accounts will be
-        listed here:
+        All of your transfers from your Modrinth balance to your Trolley account will be listed
+        here:
       </p>
       <div class="grid-table">
         <div class="grid-table__row grid-table__header">
@@ -18,7 +18,7 @@
           <div class="mobile">Transaction</div>
         </div>
         <div
-          v-for="(payout, index) in payouts.payouts.filter((x) => x.status === 'success')"
+          v-for="(payout, index) in payouts.payouts"
           :key="`payout-${index}`"
           class="grid-table__row"
         >
@@ -27,6 +27,7 @@
           <div class="amount">{{ $formatMoney(payout.amount) }}</div>
         </div>
       </div>
+      <p>You may also view this information in your Trolley dashboard.</p>
     </section>
   </div>
 </template>

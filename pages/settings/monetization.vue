@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="enrolled" class="universal-card">
+    <section v-if="auth.user.payout_data.trolley_status === 'active'" class="universal-card">
       <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
       <NuxtLink class="iconified-button" to="/dashboard/revenue">
@@ -8,61 +8,66 @@
       </NuxtLink>
     </section>
     <section class="universal-card">
-      <h2 class="title">Enrollment</h2>
-      <template v-if="!enrolled && !auth.user.email">
-        <p v-if="!enrolled">
-          You are not currently enrolled in Modrinth's Creator Monetization Program. In order to
-          enroll, you must first add a valid email address to your account.
-        </p>
+      <h2 class="title">Trolley Account</h2>
+      <template v-if="!auth.user.email">
+        You are not currently enrolled in Modrinth's Creator Monetization Program. In order to
+        enroll, you must first add a valid email address to your account.
         <NuxtLink class="iconified-button" to="/settings/account">
           <SettingsIcon /> Visit account settings
         </NuxtLink>
       </template>
-      <template v-else-if="editing || !enrolled">
-        <p v-if="!enrolled">
-          You are not currently enrolled in Modrinth's Creator Monetization Program. Setup a method
-          of receiving payments below to enable monetization.
+      <template v-else-if="!auth.user.payout_data.trolley_status">
+        <p>
+          You are not currently enrolled in Modrinth's Creator Monetization Program. Please fill out
+          some information about yourself to begin setting up your Trolley account (our payments
+          provider).
         </p>
         <div class="enroll universal-body">
-          <Chips
-            v-model="selectedWallet"
-            :starting-value="selectedWallet"
-            :items="wallets"
-            :format-label="$formatWallet"
-            @update:model-value="onChangeWallet()"
-          />
+          <Chips v-model="accountType" :items="accountTypes" />
 
-          <p>
-            Enter the information for the
-            {{ $formatWallet(selectedWallet) }} account you would like to receive your revenue from
-            the Creator Monetization Program:
-          </p>
-          <div class="input-group">
-            <Multiselect
-              v-model="accountType"
-              :options="getAccountTypes()"
-              :custom-label="(value) => formatAccountType(value)"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-            />
-
-            <label class="hidden" for="account-input"
-              >{{ $formatWallet(selectedWallet) }}
-              {{ formatAccountType(accountType).toLowerCase() }} input field</label
-            >
+          <template v-if="accountType === 'individual'">
+            <p>
+              Please enter your legal first and last name below as it shows on tax documents.
+              <strong
+                >These must be accurate for you to be able to receive payouts from Modrinth.</strong
+              >
+            </p>
+            <label for="first-name">
+              <span class="label__title">First Name</span>
+            </label>
             <input
-              id="account-input"
-              v-model="account"
-              class="account-input"
-              :placeholder="`Enter your ${$formatWallet(selectedWallet)} ${formatAccountType(
-                accountType
-              ).toLowerCase()}...`"
-              :type="accountType === 'email' ? 'email' : ''"
+              id="first-name"
+              v-model="firstName"
+              maxlength="2048"
+              type="text"
+              placeholder="Enter legal first name..."
             />
-            <span v-if="accountType === 'phone'"> Format: +18888888888 or +1-888-888-8888 </span>
-          </div>
+            <label for="last-name">
+              <span class="label__title">Last Name</span>
+            </label>
+            <input
+              id="last-name"
+              v-model="lastName"
+              maxlength="2048"
+              type="text"
+              placeholder="Enter legal last name..."
+            />
+          </template>
+
+          <template v-if="accountType === 'business'">
+            <p>Please enter your business's legal name as it shows on tax documents.</p>
+            <label for="business-name">
+              <span class="label__title">Business Name</span>
+            </label>
+            <input
+              id="business-name"
+              v-model="firstName"
+              maxlength="2048"
+              type="text"
+              placeholder="Enter business legal name..."
+            />
+          </template>
+
           <div class="rewards-checkbox">
             <Checkbox v-model="agreed">
               I agree to the
@@ -73,154 +78,103 @@
             <button
               :disabled="!agreed"
               class="iconified-button brand-button"
-              @click="updatePayoutData(false)"
+              @click="registerTrolley"
             >
-              <SaveIcon /> Save information
-            </button>
-            <button
-              v-if="enrolled"
-              class="iconified-button danger-button"
-              @click="updatePayoutData(true)"
-            >
-              <TrashIcon /> Remove enrollment
+              <RightArrowIcon /> Begin registration
             </button>
           </div>
         </div>
       </template>
       <template v-else>
-        <p>
-          You are currently enrolled in the Creator Monetization Program with a
-          {{ $formatWallet(selectedWallet) }} account.
+        <p v-if="auth.user.payout_data?.trolley_status === 'active'">
+          You are currently enrolled in the Creator Monetization Program. Visit the payments portal
+          below to view or modify your account information.
         </p>
-        <button class="iconified-button brand-button" @click="editing = true">
-          <EditIcon /> Edit information
-        </button>
+        <p
+          v-else-if="
+            auth.user.payout_data?.trolley_status === 'disabled' ||
+            auth.user.payout_data?.trolley_status === 'suspended' ||
+            auth.user.payout_data?.trolley_status === 'blocked' ||
+            auth.user.payout_data?.trolley_status === 'archived'
+          "
+        >
+          Your Trolley account has been disabled. Please contact Modrinth support for more
+          information.
+        </p>
+        <p v-else>
+          Your trolley account setup is incomplete. Please visit the portal below and complete your
+          account information. If your account information is complete, please wait up to 24 hours
+          for account approval.
+        </p>
+        <a
+          :href="config.public.payoutsPortalUrl"
+          class="iconified-button brand-button"
+          target="_blank"
+        >
+          <ExternalIcon /> Visit trolley portal
+        </a>
       </template>
     </section>
   </div>
 </template>
 
-<script>
+<script setup>
 import { Checkbox } from 'omorphia'
-import { Multiselect } from 'vue-multiselect'
 import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
+import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
+import ExternalIcon from '~/assets/images/utils/external.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 
-export default defineNuxtComponent({
-  components: {
-    Multiselect,
-    Chips,
-    SaveIcon,
-    TrashIcon,
-    EditIcon,
-    ChartIcon,
-    SettingsIcon,
-    Checkbox,
-  },
-  async setup() {
-    definePageMeta({
-      middleware: 'auth',
-    })
-    const auth = await useAuth()
-    return { auth }
-  },
-  data() {
-    return {
-      agreed: false,
-      editing: false,
-      enrolled:
-        this.auth.user.payout_data.payout_wallet &&
-        this.auth.user.payout_data.payout_wallet_type &&
-        this.auth.user.payout_data.payout_address,
-      wallets: ['paypal', 'venmo'],
-      selectedWallet: this.auth.user.payout_data.payout_wallet ?? 'paypal',
-      accountType: this.auth.user.payout_data.payout_wallet_type ?? this.getAccountTypes()[0],
-      account: this.auth.user.payout_data.payout_address ?? '',
+definePageMeta({
+  middleware: 'auth',
+})
+
+const config = useRuntimeConfig()
+const auth = await useAuth()
+
+const accountTypes = ref(['individual', 'business'])
+const accountType = ref(accountTypes.value[0])
+const firstName = ref('')
+const lastName = ref('')
+
+const agreed = ref(false)
+
+async function registerTrolley() {
+  startLoading()
+
+  try {
+    const data = {
+      type: accountType.value,
+      first: firstName.value,
+      last: lastName.value,
+      name: firstName.value,
     }
-  },
-  head: {
-    title: 'Monetization settings - Modrinth',
-  },
-  methods: {
-    getAccountTypes() {
-      const types = []
-      if (this.selectedWallet === 'venmo') {
-        types.push('user_handle')
-      }
-      types.push('email')
-      types.push('phone')
-      return types
-    },
-    formatAccountType(value) {
-      switch (value) {
-        case 'email':
-          return 'Email address'
-        case 'phone':
-          return 'Phone number'
-        case 'user_handle':
-          return 'Username'
-        default:
-          return value.charAt(0).toUpperCase() + value.slice(1)
-      }
-    },
-    onChangeWallet() {
-      this.account = ''
 
-      // Set default account type for each wallet
-      if (this.selectedWallet === 'paypal') {
-        this.accountType = 'email'
-      } else if (this.selectedWallet === 'venmo') {
-        this.accountType = 'user_handle'
-      }
-    },
-    async updatePayoutData(unenroll) {
-      startLoading()
-      if (unenroll) {
-        this.selectedWallet = 'paypal'
-        this.accountType = this.getAccountTypes()[0]
-        this.account = ''
-      }
-      try {
-        const data = {
-          payout_data: unenroll
-            ? null
-            : {
-                payout_wallet: this.selectedWallet,
-                payout_wallet_type: this.accountType,
-                payout_address: this.account,
-              },
-        }
+    await useBaseFetch(`auth/trolley/link`, {
+      method: 'POST',
+      body: data,
+    })
 
-        await useBaseFetch(`user/${this.auth.user.id}`, {
-          method: 'PATCH',
-          body: data,
-        })
-        await useAuth(this.auth.token)
+    auth.value = (await useAuth(auth.value.token)).value
+    console.log(auth.value)
+  } catch (err) {
+    const app = useNuxtApp()
+    app.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
 
-        this.editing = false
-        this.enrolled = !unenroll
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-  },
+useHead({
+  title: 'Monetization settings - Modrinth',
 })
 </script>
 <style lang="scss" scoped>
-.multiselect {
-  max-width: 15rem;
-}
-
 .account-input {
   flex: 1;
 }

@@ -73,9 +73,10 @@
     </p>
     <h3>What methods can I use withdraw money from my account? Are there any fees?</h3>
     <p>
-      Right now, you can use PayPal or Venmo to withdraw money from your Modrinth account. We are
-      working on more methods to withdraw money from your account. There are fees to withdraw money
-      from your Modrinth account—see the revenue page in your dashboard for more information.
+      Right now, there are several methods to withdraw money from your Modrinth account available
+      through our payments provider Trolley. These include PayPal, Venmo, and bank transfers.There
+      are fees to withdraw money from your Modrinth account—see the revenue page in your dashboard
+      for more information.
     </p>
     <h3>Modrinth used to give 100% of project page revenue to creators. What changed?</h3>
     <p>

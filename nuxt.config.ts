@@ -264,6 +264,8 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: getApiUrl(),
       siteUrl: getDomain(),
+      payoutsPortalUrl:
+        process.env.PAYOUTS_PORTAL_URL || 'https://modrinthstaging.portal.trolley.com/',
 
       owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
       slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',

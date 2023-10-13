@@ -12,7 +12,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     return cosmeticsStore.externalLinksNewTab ? '_blank' : ''
   })
   nuxtApp.provide('formatBytes', formatBytes)
-  nuxtApp.provide('formatWallet', formatWallet)
   nuxtApp.provide('formatProjectType', formatProjectType)
   nuxtApp.provide('formatCategory', formatCategory)
   nuxtApp.provide('formatCategoryHeader', formatCategoryHeader)
@@ -175,13 +174,6 @@ export const formatBytes = (bytes, decimals = 2) => {
 
 export const capitalizeString = (name) => {
   return name ? name.charAt(0).toUpperCase() + name.slice(1) : name
-}
-
-export const formatWallet = (name) => {
-  if (name === 'paypal') {
-    return 'PayPal'
-  }
-  return capitalizeString(name)
 }
 
 export const formatProjectType = (name) => {

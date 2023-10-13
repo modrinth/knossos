@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal" :header="'Transfer to ' + $formatWallet(wallet)">
+  <Modal ref="modal" header="Transfer to account">
     <div class="modal-transfer">
       <span
         >You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
@@ -18,33 +18,17 @@
       </div>
       <div class="confirm-text">
         <Checkbox
-          v-if="isValidInput() && parseInput() >= minWithdraw && parseInput() <= balance"
+          v-if="isValidInput() && parsedAmount >= processingFees && parsedAmount <= balance"
           v-model="consentedFee"
           description="Consent to fee"
         >
-          <template v-if="wallet === 'venmo'">
-            I acknowledge that $0.25 will be deducted from the amount I receive to cover
-            {{ $formatWallet(wallet) }} processing fees.
-          </template>
-          <template v-else>
-            I acknowledge that an estimated
-            {{ $formatMoney(calcProcessingFees()) }} will be deducted from the amount I receive to
-            cover {{ $formatWallet(wallet) }} processing fees and that any excess will be returned
-            to my Modrinth balance.
-          </template>
+          I acknowledge that ${{ processingFees }} will be deducted from the amount I receive to
+          cover Trolley processing fees.
         </Checkbox>
-        <Checkbox
-          v-if="isValidInput() && parseInput() >= minWithdraw && parseInput() <= balance"
-          v-model="consentedAccount"
-          description="Confirm transfer"
+        <span v-else-if="validInput && parsedAmount < processingFees" class="invalid">
+          The amount must be at least {{ $formatMoney(processingFees) }}</span
         >
-          I confirm that I an initiating a transfer to the following
-          {{ $formatWallet(wallet) }} account: {{ account }}
-        </Checkbox>
-        <span v-else-if="validInput && parseInput() < minWithdraw" class="invalid">
-          The amount must be at least {{ $formatMoney(minWithdraw) }}</span
-        >
-        <span v-else-if="validInput && parseInput() > balance" class="invalid">
+        <span v-else-if="validInput && parsedAmount > balance" class="invalid">
           The amount must be no more than {{ $formatMoney(balance) }}</span
         >
         <span v-else-if="amount.length > 0" class="invalid">
@@ -59,11 +43,7 @@
           <CrossIcon />
           Cancel
         </button>
-        <button
-          class="iconified-button brand-button"
-          :disabled="!consentedFee || !consentedAccount"
-          @click="proceed"
-        >
+        <button class="iconified-button brand-button" :disabled="!consentedFee" @click="proceed">
           <TransferIcon />
           Transfer
         </button>
@@ -92,36 +72,49 @@ export default {
       type: String,
       required: true,
     },
-    accountType: {
-      type: String,
-      required: true,
-    },
-    account: {
-      type: String,
-      required: true,
-    },
     balance: {
       type: Number,
       required: true,
     },
-    minWithdraw: {
+    baseFee: {
       type: Number,
       required: true,
+    },
+    region: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data() {
     return {
       consentedFee: false,
-      consentedAccount: false,
       amount: '',
       validInput: false,
     }
+  },
+  computed: {
+    parsedAmount() {
+      const regex = /^\$?(\d*(\.\d{2})?)$/gm
+      const matches = regex.exec(this.amount)
+      return parseFloat(matches[1])
+    },
+    processingFees() {
+      const amount = this.parsedAmount
+
+      if ((this.region === 'US' && this.wallet === 'paypal') || this.wallet === 'venmo') {
+        return 0.25
+      } else if (this.wallet === 'paypal') {
+        return Math.min(20, amount * 0.02)
+      } else {
+        return this.baseFee
+      }
+    },
   },
   methods: {
     cancel() {
       this.amount = ''
       this.consentedFee = false
-      this.consentedAccount = false
       this.validInput = false
       this.$refs.modal.hide()
     },
@@ -133,7 +126,7 @@ export default {
         await useBaseFetch(`user/${auth.value.user.id}/payouts`, {
           method: 'POST',
           body: {
-            amount: Number(this.amount.replace('$', '')),
+            amount: this.amount.replace('$', ''),
           },
         })
         await useAuth(auth.value.token)
@@ -156,18 +149,6 @@ export default {
       const regex = /^\$?(\d*(\.\d{2})?)$/gm
       this.validInput = regex.test(this.amount) && this.amount.length > 0
       return this.validInput
-    },
-    parseInput() {
-      const regex = /^\$?(\d*(\.\d{2})?)$/gm
-      const matches = regex.exec(this.amount)
-      return parseFloat(matches[1])
-    },
-    calcProcessingFees() {
-      if (this.wallet === 'venmo') {
-        return 0.25
-      } else {
-        return Math.max(0.25, Math.min(this.parseInput() * 0.02, 20))
-      }
     },
   },
 }
