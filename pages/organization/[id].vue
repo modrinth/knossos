@@ -18,6 +18,179 @@ import Avatar from '~/components/ui/Avatar.vue'
 import YoutubeIcon from 'assets/images/utils/youtube.svg'
 import DiscordIcon from 'assets/images/external/discord.svg'
 import NavRow from '~/components/ui/NavRow.vue'
+
+const data = useNuxtApp()
+const route = useRoute()
+
+const organization = shallowRef(await useAsyncData(`organization/${route.params.id}`, () => useBaseFetch(`organization/${route.params.id}`)).then(res => res.data))
+const projects = shallowRef([])
+
+const projectTypes = ref(['All']);
+const projectType = ref('All');
+const inputText = ref('');
+const icon = ref(null)
+const deletedIcon = ref(false)
+const previewImage = ref(null)
+const name = ref(organization.value.title)
+const summary = ref(organization.value.description)
+const visibility = ref(organization.value.status)
+const tags = useTags()
+const enableEditing = ref(false);
+
+const patchData = computed(() => {
+  const data = {}
+
+  if (name.value !== organization.value.title) {
+    data.title = name.value
+  }
+  if (summary.value !== organization.value.description) {
+    data.description = summary.value
+  }
+  if (hasModifiedVisibility() && tags.value.approvedStatuses.includes(visibility.value)) {
+    data.status = visibility.value
+  }
+
+  return data
+})
+
+const patchOrganization = async (resData, quiet = false) => {
+  let result = false
+  startLoading()
+
+  try {
+    await useBaseFetch(`organization/${organization.value.id}`, {
+      method: 'PATCH',
+      body: resData,
+    })
+
+    await resetOrganization();
+
+    result = true
+    if (!quiet) {
+      data.$notify({
+        group: 'main',
+        title: 'Organization updated',
+        text: 'Your organization has been updated.',
+        type: 'success',
+      })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+
+  return result
+}
+
+const patchIcon = async (icon) => {
+  let result = false
+  startLoading()
+
+  try {
+    await useBaseFetch(
+        `organization/${organization.value.id}/icon?ext=${
+            icon.type.split('/')[icon.type.split('/').length - 1]
+        }`,
+        {
+          method: 'PATCH',
+          body: icon,
+        }
+    )
+    await resetOrganization()
+    result = true
+    data.$notify({
+      group: 'main',
+      title: 'Organization icon updated',
+      text: "Your organization's icon has been updated.",
+      type: 'success',
+    })
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+  return result
+}
+
+const deleteIcon = async () => {
+  await useBaseFetch(`organization/${organization.value.id}/icon`, {
+    method: 'DELETE',
+  })
+  await resetOrganization()
+  this.$notify({
+    group: 'main',
+    title: 'organization icon removed',
+    text: "Your Organization's icon has been removed.",
+    type: 'success',
+  })
+}
+
+const resetOrganization = async () => {
+  organization.value = await useBaseFetch(`organization/${organization.value.id}`)
+  projects.value = await useBaseFetch(`projects?ids=[${organization.value.projects.map(p => `"${p}"`).join(',')}]`)
+}
+
+const hasPermission = computed(() => {
+  const EDIT_DETAILS = 1 << 2
+  return true;
+})
+
+const hasChanges = computed(() => {
+  return Object.keys(patchData.value).length > 0 || deletedIcon.value || icon.value || hasModifiedVisibility()
+})
+
+const hasModifiedVisibility = () => {
+  const originalVisibility = tags.value.approvedStatuses.includes(organization.value.status)
+      ? organization.value.status
+      : 'listed'
+
+  return originalVisibility !== visibility.value
+}
+
+const saveChanges = async () => {
+  if (hasChanges.value) {
+    await patchOrganization(patchData.value)
+  }
+
+  if (deletedIcon.value) {
+    await deleteIcon()
+    deletedIcon.value = false
+  } else if (icon.value) {
+    await patchIcon(icon.value)
+    icon.value = null
+  }
+}
+
+const markIconForDeletion = () => {
+  deletedIcon.value = true
+  icon.value = null
+  previewImage.value = null
+}
+
+const showPreviewImage = (files) => {
+  const reader = new FileReader()
+  icon.value = files[0]
+  deletedIcon.value = false
+  reader.readAsDataURL(icon.value)
+  reader.onload = (event) => {
+    previewImage.value = event.target.result
+  }
+}
 </script>
 
 <template>
@@ -26,19 +199,19 @@ import NavRow from '~/components/ui/NavRow.vue'
       <div class="page-header">
         <Avatar
           class="page-header__icon"
-          src="https://cdn.modrinth.com/user/6ZoP9xY8/845ab3625ed09a90b58b4ec6089c92d8e459ca09.png"
+          :src="organization.icon_url"
           size="md"
           circle
         />
         <div class="page-header__text">
           <div class="title">
-            <h1>Terrarium</h1>
+            <h1>{{organization.title}}</h1>
             <Button icon-only> <ShareIcon /> </Button>
           </div>
           <div class="links">
             <div class="link-like">
               <DownloadIcon />
-              <span>1.2M Downloads</span>
+              <span>{{projects}} Downloads</span>
             </div>
             <div class="link-like">
               <HeartIcon />
@@ -93,19 +266,19 @@ import NavRow from '~/components/ui/NavRow.vue'
           :links="[
             {
               label: 'Overview',
-              href: '/organization/1',
+              href: `/organization/${organization.id}/`,
             },
             {
               label: 'Projects',
-              href: '/organization/1/projects',
+              href: `/organization/${organization.id}/projects`,
             },
             {
               label: 'Collections',
-              href: '/organization/1/collections',
+              href: `/organization/${organization.id}/collections`,
             },
             {
               label: 'Members',
-              href: '/organization/1/members',
+              href: `/organization/${organization.id}/members`,
             },
           ]"
         />
@@ -116,7 +289,10 @@ import NavRow from '~/components/ui/NavRow.vue'
       </Card>
     </div>
     <div class="normal-page__content">
-      <NuxtPage />
+      <NuxtPage
+        v-model:organization="organization"
+        v-model:projects="projects"
+      />
     </div>
   </div>
 </template>

@@ -119,37 +119,32 @@ const markIconForDeletion = () => {
     <label for="project-icon">
       <span class="label__title">Icon</span>
     </label>
-    <div class="input-group">
-      <Avatar
-          :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
-          :alt="collection.title"
-          size="md"
-          class="project__icon"
-      />
-      <div class="input-stack">
-        <FileInput
-            id="project-icon"
-            :max-size="262144"
-            :show-icon="true"
-            accept="image/png,image/jpeg,image/gif,image/webp"
-            class="choose-image iconified-button"
-            prompt="Upload icon"
-            :disabled="!hasPermission"
-            @change="showPreviewImage"
-        >
-          <UploadIcon />
-        </FileInput>
-        <button
-            v-if="!deletedIcon && (previewImage || collection.icon_url)"
-            class="iconified-button"
-            :disabled="!hasPermission"
-            @click="markIconForDeletion"
-        >
-          <TrashIcon />
-          Remove icon
-        </button>
-      </div>
-    </div>
+    <Avatar
+        :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
+        :alt="collection.title"
+        size="md"
+        class="page-header__icon"
+    >
+      <FileInput
+          id="project-icon"
+          :max-size="262144"
+          :show-icon="true"
+          accept="image/png,image/jpeg,image/gif,image/webp"
+          class="choose-image iconified-button"
+          :disabled="!hasPermission"
+          @change="showPreviewImage"
+      >
+        <UploadIcon />
+      </FileInput>
+      <button
+          v-if="!deletedIcon && (previewImage || collection.icon_url)"
+          class="iconified-button"
+          :disabled="!hasPermission"
+          @click="markIconForDeletion"
+      >
+        <TrashIcon />
+      </button>
+    </Avatar>
 
     <label for="project-name">
       <span class="label__title">Name</span>

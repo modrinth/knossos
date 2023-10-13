@@ -895,6 +895,97 @@ export default defineNuxtComponent({
     oldFileTypes = version.files.map((x) => fileTypes.find((y) => y.value === x.file_type))
 
     const order = ['required', 'optional', 'incompatible', 'embedded']
+    const defaultLicenses = shallowRef([
+      { friendly: 'Custom', short: '' },
+      {
+        friendly: 'All Rights Reserved/No License',
+        short: 'All-Rights-Reserved',
+      },
+      { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
+      {
+        friendly: 'BSD 2-Clause "Simplified" License',
+        short: 'BSD-2-Clause',
+      },
+      {
+        friendly: 'BSD 3-Clause "New" or "Revised" License',
+        short: 'BSD-3-Clause',
+      },
+      {
+        friendly: 'CC Zero (Public Domain equivalent)',
+        short: 'CC0-1.0',
+      },
+      { friendly: 'CC-BY 4.0', short: 'CC-BY-4.0' },
+      {
+        friendly: 'CC-BY-SA 4.0',
+        short: 'CC-BY-SA-4.0',
+      },
+      {
+        friendly: 'CC-BY-NC 4.0',
+        short: 'CC-BY-NC-4.0',
+      },
+      {
+        friendly: 'CC-BY-NC-SA 4.0',
+        short: 'CC-BY-NC-SA-4.0',
+      },
+      {
+        friendly: 'CC-BY-ND 4.0',
+        short: 'CC-BY-ND-4.0',
+      },
+      {
+        friendly: 'CC-BY-NC-ND 4.0',
+        short: 'CC-BY-NC-ND-4.0',
+      },
+      {
+        friendly: 'GNU Affero General Public License v3',
+        short: 'AGPL-3.0',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU Lesser General Public License v2.1',
+        short: 'LGPL-2.1',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU Lesser General Public License v3',
+        short: 'LGPL-3.0',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU General Public License v2',
+        short: 'GPL-2.0',
+        requiresOnlyOrLater: true,
+      },
+      {
+        friendly: 'GNU General Public License v3',
+        short: 'GPL-3.0',
+        requiresOnlyOrLater: true,
+      },
+      { friendly: 'ISC License', short: 'ISC' },
+      { friendly: 'MIT License', short: 'MIT' },
+      { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
+      { friendly: 'zlib License', short: 'Zlib' },
+    ])
+    const licenseUrl = ref(props.project.license.url)
+
+    const licenseId = props.project.license.id
+    const trimmedLicenseId = licenseId
+        .replaceAll('-only', '')
+        .replaceAll('-or-later', '')
+        .replaceAll('LicenseRef-', '')
+
+    const license = ref(
+        defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
+          friendly: 'Custom',
+          short: licenseId.replaceAll('LicenseRef-', ''),
+        }
+    )
+
+    if (licenseId === 'LicenseRef-Unknown') {
+      license.value = {
+        friendly: 'Unknown',
+        short: licenseId.replaceAll('LicenseRef-', ''),
+      }
+    }
 
     return {
       auth,
@@ -926,6 +1017,9 @@ export default defineNuxtComponent({
           (a, b) => order.indexOf(a.dependency_type) - order.indexOf(b.dependency_type)
         )
       ),
+      defaultLicenses,
+      licenseUrl,
+      license,
     }
   },
   data() {
@@ -947,6 +1041,11 @@ export default defineNuxtComponent({
 
       showKnownErrors: false,
       shouldPreventActions: false,
+
+      licenseUrl: '',
+      license: { friendly: '', short: '', requiresOnlyOrLater: false },
+      allowOrLater: this.project.license.id.includes('-or-later'),
+      nonSpdxLicense: this.project.license.id.includes('LicenseRef-'),
     }
   },
   computed: {
