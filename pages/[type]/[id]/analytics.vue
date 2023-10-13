@@ -19,9 +19,7 @@ const totalData = ref({
 const selectedDataType = ref('downloads')
 const finishedLoading = ref(false)
 let downloadData, viewData, viewDownloadRatio, countryData
-const body = {
-  project_ids: [ props.project.id ]
-}
+const body = `project_ids=["${props.project.id}"]`
 try {
   ;[
     { data: downloadData },
@@ -29,7 +27,7 @@ try {
     { data: viewDownloadRatio },
     { data: countryData },
   ] = await Promise.all([
-    useAsyncData('analytics/views', () => useBaseFetch('analytics/views', { body }), {
+    useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
       transform: (analytics) => {
         const labels = []
         const data = []
@@ -51,7 +49,7 @@ try {
         }
       }
     }),
-    useAsyncData('analytics/views', () => useBaseFetch('analytics/views', { body }), {
+    useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
       transform: (analytics) => {
         const labels = []
         const data = []
@@ -73,7 +71,7 @@ try {
         }
       }
     }),
-    useAsyncData('analytics/countries/views', () => useBaseFetch('analytics/countries/views', { body }), {
+    useAsyncData(`analytics/countries/views?${body}`, () => useBaseFetch(`analytics/countries/views?${body}`), {
       transform: (analytics) => {
         const finalData = {
           title: 'Views',
@@ -92,13 +90,12 @@ try {
         return finalData
       }
     }),
-    useAsyncData('analytics/countries/downloads', () => useBaseFetch('analytics/countries/downloads', { body }), {
+    useAsyncData(`analytics/countries/downloads?${body}`, () => useBaseFetch(`analytics/countries/downloads?${body}`), {
       transform: (analytics) => {
         const finalData = {
           title: 'Views',
           data: []
         }
-
         for (const rawData of Object.values(analytics)) {
           for (const [key, data] of Object.entries(rawData)) {
             finalData.data.push({
@@ -432,27 +429,29 @@ const countryData = ref({
   gap: var(--gap-lg);
   width: 100%;
   padding: var(--gap-xl);
+
   .chart {
     width: 100% !important;
-    height: calc(100% - 8rem) !important;
     border-radius: var(--radius-lg);
     background-color: var(--color-bg);
     padding: var(--gap-xl);
     object-fit: cover;
   }
+
   .relative-chart {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: var(--gap-md);
-    margin: -3rem 0;
   }
+
   .title {
     color: var(--color-heading);
     font-weight: bold;
     font-size: var(--font-size-lg);
   }
 }
+
 .bar-graph {
   width: 100%;
   background-color: var(--color-bg);

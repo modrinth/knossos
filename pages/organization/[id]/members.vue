@@ -1,14 +1,52 @@
 <script setup>
-import {Avatar, Button, Card, ShareIcon, BoxIcon} from "omorphia";
+import {Avatar, Button, Card, HeartIcon, HamburgerIcon, GlobeIcon} from "omorphia";
+import DiscordIcon from "~/assets/images/external/discord.svg";
+import YoutubeIcon from "~/assets/images/utils/youtube.svg";
+
+defineProps({
+  organization: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+  projects: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+})
 </script>
 
 <template>
   <div class="members">
-    <Card v-for="ignored in 10" class="member-card">
-      <Avatar class="member-icon" src="https://avatars.githubusercontent.com/u/83074853?v=4" circle/>
-      <h3> CodexAdrian </h3>
-      <div class="markdown-body">
-        <p> title </p>
+    <Card v-for="member in organization.members" class="member-card">
+      <div class="member-buttons">
+        <Button class="transparent" icon-only>
+          <HeartIcon/>
+        </Button>
+        <Button class="transparent" icon-only>
+          <HamburgerIcon/>
+        </Button>
+      </div>
+      <Avatar class="member-icon" :src="member.user.avatar_url" circle/>
+      <div class="member-text">
+        <div class="title"> {{member.user.username}} </div>
+        <div class="markdown-body">
+          <p> {{member.role}} </p>
+        </div>
+      </div>
+      <div class="member-links">
+        <Button class="round" icon-only>
+          <GlobeIcon/>
+        </Button>
+        <Button class="round" icon-only>
+          <YoutubeIcon/>
+        </Button>
+        <Button class="round" icon-only>
+          <DiscordIcon/>
+        </Button>
       </div>
     </Card>
   </div>
@@ -16,24 +54,67 @@ import {Avatar, Button, Card, ShareIcon, BoxIcon} from "omorphia";
 
 <style scoped lang="scss">
 .member-card {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 4.5rem;
-  margin-bottom: 0;
+  padding: var(--gap-md);
+  width: 100%;
+
+  .member-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .btn {
+      color: var(--color-base);
+    }
+  }
 
   .member-icon {
-    --size: 5rem !important;
-    flex-shrink: 0;
-    position: absolute;
-    top: -4.25rem;
+    --size: 4rem;
+  }
+
+  .member-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: var(--gap-md) 0 0 0;
+
+    .title {
+      margin: 0;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-md);
+    }
+
+    .markdown-body {
+      font-size: var(--font-size-sm);
+      color: var(--color-gray);
+    }
+  }
+
+  .member-links {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin: var(--gap-md) 0 0 0;
+    gap: var(--gap-sm);
+
+    .btn {
+      color: var(--color-base);
+    }
   }
 }
 
 .members {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--gap-md);
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  column-gap: var(--gap-md);
+  margin-right: auto;
+}
+
+.round {
+  border-radius: 50%;
 }
 </style>

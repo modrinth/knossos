@@ -204,7 +204,10 @@
 
   .page-header__icon {
     grid-area: icon;
-    background-color: var(--color-raised-bg);
+
+    &.avatar, .avatar {
+      background-color: var(--color-raised-bg);
+    }
   }
 
   .page-header__buttons {
