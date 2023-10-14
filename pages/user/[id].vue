@@ -516,15 +516,12 @@ function cycleSearchDisplayMode() {
   saveCosmetics()
 }
 
-function formatCategories(categories, type){
-  var categorieTags = tags.value.categories
+function formatCategories(categories, type) {
+  let categorieTags = tags.value.categories
 
   categorieTags = categorieTags
     .concat(this.tags.loaders)
-    .filter(
-      (x) =>
-        categories.includes(x.name) && (!x.project_type || x.project_type === type)
-    )
+    .filter((x) => categories.includes(x.name) && (!x.project_type || x.project_type === type))
 
   return categorieTags
 }
