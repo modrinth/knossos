@@ -231,7 +231,7 @@
             :downloads="project.downloads.toString()"
             :follows="project.followers.toString()"
             :icon-url="project.icon_url"
-            :categories="project.categories"
+            :categories="formatCategories(project.categories, project.project_type)"
             :client-side="project.client_side"
             :server-side="project.server_side"
             :status="
@@ -276,16 +276,16 @@ import {
   ImageIcon,
   UploadIcon,
   XIcon,
+  CopyCode,
+  FileInput,
+  Avatar,
+  Badge,
+  NavRow,
+  ProjectCard,
 } from 'omorphia'
 
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Badge from '~/components/ui/Badge.vue'
-import FileInput from '~/components/ui/FileInput.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 
@@ -514,6 +514,19 @@ function cycleSearchDisplayMode() {
     tags.value.projectViewModes
   )
   saveCosmetics()
+}
+
+function formatCategories(categories, type){
+  var categorieTags = tags.value.categories
+
+  categorieTags = categorieTags
+    .concat(this.tags.loaders)
+    .filter(
+      (x) =>
+        categories.includes(x.name) && (!x.project_type || x.project_type === type)
+    )
+
+  return categorieTags
 }
 </script>
 <script>
