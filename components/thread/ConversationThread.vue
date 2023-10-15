@@ -170,21 +170,18 @@
 </template>
 
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import ReplyIcon from '~/assets/images/utils/reply.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
-import CloseIcon from '~/assets/images/utils/check-circle.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import { renderString } from '~/helpers/parse.js'
-import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
+import { isApproved, isRejected, renderString, Modal, Checkbox, Chips, CopyCode } from 'omorphia'
+import dayjs from 'dayjs'
+import ReplyIcon from 'assets/images/utils/reply.svg'
+import SendIcon from 'assets/images/utils/send.svg'
+import CloseIcon from 'assets/images/utils/check-circle.svg'
+import CrossIcon from 'assets/images/utils/x.svg'
+import EyeOffIcon from 'assets/images/utils/eye-off.svg'
+import CheckIcon from 'assets/images/utils/check.svg'
+import ModerationIcon from 'assets/images/sidebar/admin.svg'
+import ThreadMessage from '~/components/thread/ThreadMessage.vue'
 import { isStaff } from '~/helpers/users.js'
-import { isApproved, isRejected } from '~/helpers/projects.js'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
+import { addNotification } from '~/composables/notifs.js'
 
 const props = defineProps({
   thread: {
@@ -238,9 +235,7 @@ const replyBody = ref('')
 
 const sortedMessages = computed(() => {
   if (props.thread !== null) {
-    return props.thread.messages
-      .slice()
-      .sort((a, b) => app.$dayjs(a.created) - app.$dayjs(b.created))
+    return props.thread.messages.slice().sort((a, b) => dayjs(a.created) - dayjs(b.created))
   }
   return []
 })
@@ -278,7 +273,7 @@ async function sendReply(status = null) {
       props.setStatus(status)
     }
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error sending message',
       text: err.data ? err.data.description : err,
@@ -301,7 +296,7 @@ async function closeReport(reply) {
     })
     await updateThreadLocal()
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error closing report',
       text: err.data ? err.data.description : err,

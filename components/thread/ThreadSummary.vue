@@ -23,8 +23,9 @@
 </template>
 
 <script setup>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
+import dayjs from 'dayjs'
+import ChevronRightIcon from 'assets/images/utils/chevron-right.svg'
+import ThreadMessage from '~/components/thread/ThreadMessage.vue'
 
 const props = defineProps({
   thread: {
@@ -71,7 +72,7 @@ const members = computed(() => {
 const displayMessages = computed(() => {
   const sortedMessages = props.thread.messages
     .slice()
-    .sort((a, b) => app.$dayjs(a.created) - app.$dayjs(b.created))
+    .sort((a, b) => dayjs(a.created) - dayjs(b.created))
   if (props.messages.length > 0) {
     return sortedMessages.filter((msg) => props.messages.includes(msg.id))
   } else {

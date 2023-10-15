@@ -33,8 +33,7 @@
   </div>
 </template>
 <script setup>
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
+import { NavStack, NavStackItem } from 'omorphia'
 
 import DashboardIcon from '~/assets/images/utils/dashboard.svg'
 import CurrencyIcon from '~/assets/images/utils/currency.svg'

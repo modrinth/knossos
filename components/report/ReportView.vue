@@ -21,9 +21,9 @@
   </div>
 </template>
 <script setup>
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
-import ReportInfo from '~/components/ui/report/ReportInfo.vue'
+import { Breadcrumbs } from 'omorphia'
+import ConversationThread from '~/components/thread/ConversationThread.vue'
+import ReportInfo from '~/components/report/ReportInfo.vue'
 import { addReportMessage } from '~/helpers/threads.js'
 
 const props = defineProps({

@@ -165,7 +165,7 @@
                     <p class="notif-desc">
                       Version {{ ['1.1.2', '1.0.3', '15.1'][index] }} has been released for
                       {{
-                        $capitalizeString(
+                        formatCategory(
                           notification.display_categories[
                             notification.display_categories.length - 1
                           ]
@@ -506,13 +506,12 @@
 </template>
 <script setup>
 import { Multiselect } from 'vue-multiselect'
+import { Avatar, capitalizeString, formatCategory, ProjectCard } from 'omorphia'
 import SearchIcon from '~/assets/images/utils/search.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ModrinthIcon from '~/assets/images/logo.svg'
 import PrismLauncherLogo from '~/assets/images/external/prism.svg'
 import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
-import Avatar from '~/components/ui/Avatar.vue'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
 import homepageProjects from '~/generated/homepage.json'
 
 const searchQuery = ref('better')

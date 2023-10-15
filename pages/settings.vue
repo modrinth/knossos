@@ -34,8 +34,7 @@
   </div>
 </template>
 <script setup>
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
+import { NavStack, NavStackItem } from 'omorphia'
 
 import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
 import UserIcon from '~/assets/images/utils/user.svg'

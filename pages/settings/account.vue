@@ -7,9 +7,14 @@
       proceed-label="Delete this account"
       :confirmation-text="auth.user.username"
       :has-to-type="true"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteAccount"
     />
-    <Modal ref="changeEmailModal" :header="`${auth.user.email ? 'Change' : 'Add'} email`">
+    <Modal
+      ref="changeEmailModal"
+      :header="`${auth.user.email ? 'Change' : 'Add'} email`"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+    >
       <div class="universal-modal">
         <p>Your account information is not displayed publicly.</p>
         <label for="email-input"><span class="label__title">Email address</span> </label>
@@ -231,7 +236,11 @@
         </template>
       </div>
     </Modal>
-    <Modal ref="manageProvidersModal" header="Authentication providers">
+    <Modal
+      ref="manageProvidersModal"
+      header="Authentication providers"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+    >
       <div class="universal-modal">
         <div class="table">
           <div class="table-row table-head">
@@ -374,6 +383,8 @@
 
 <script setup>
 import {
+  Modal,
+  ModalConfirm,
   EditIcon,
   UserIcon,
   SaveIcon,
@@ -394,8 +405,7 @@ import SteamIcon from 'assets/icons/auth/sso-steam.svg'
 import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
 import KeyIcon from 'assets/icons/auth/key.svg'
 import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
+import { addNotification } from '~/composables/notifs.js'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -407,6 +417,7 @@ definePageMeta({
 
 const data = useNuxtApp()
 const auth = await useAuth()
+const cosmetics = useCosmetics()
 
 const changeEmailModal = ref()
 const email = ref(auth.value.user.email)
@@ -426,7 +437,7 @@ async function saveEmail() {
     changeEmailModal.value.hide()
     await useAuth(auth.value.token)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -458,7 +469,7 @@ async function savePassword() {
     managePasswordModal.value.hide()
     await useAuth(auth.value.token)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -495,7 +506,7 @@ async function showTwoFactorModal() {
     twoFactorSecret.value = res.secret
     twoFactorFlow.value = res.flow
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -589,7 +600,7 @@ async function removeAuthProvider(provider) {
     })
     await useAuth(auth.value.token)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -606,7 +617,7 @@ async function deleteAccount() {
       method: 'DELETE',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,

@@ -240,16 +240,15 @@
 </template>
 
 <script>
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Badge from '~/components/ui/Badge.vue'
+import { Avatar, Badge, Checkbox } from 'omorphia'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TransferIcon from '~/assets/images/utils/transfer.svg'
 import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
-import Avatar from '~/components/ui/Avatar.vue'
 import { removeSelfFromTeam } from '~/helpers/teams.js'
+import { addNotification } from '~/composables/notifs.js'
 
 export default defineNuxtComponent({
   components: {
@@ -327,7 +326,7 @@ export default defineNuxtComponent({
         this.currentUsername = ''
         await this.updateMembers()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,
@@ -349,7 +348,7 @@ export default defineNuxtComponent({
         )
         await this.updateMembers()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,
@@ -382,14 +381,14 @@ export default defineNuxtComponent({
           }
         )
         await this.updateMembers()
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'Member(s) updated',
           text: "Your project's member(s) has been updated.",
           type: 'success',
         })
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,
@@ -411,7 +410,7 @@ export default defineNuxtComponent({
         })
         await this.updateMembers()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,

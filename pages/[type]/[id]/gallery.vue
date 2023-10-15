@@ -126,6 +126,7 @@
       description="This will remove this gallery image forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteGalleryImage"
     />
     <div
@@ -230,7 +231,7 @@
         <div class="gallery-bottom">
           <div class="gallery-created">
             <CalendarIcon />
-            {{ $dayjs(item.created).format('MMMM D, YYYY') }}
+            {{ dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
@@ -291,7 +292,13 @@ import {
   Modal,
   FileInput,
   DropArea,
+  getProjectTypeForUrl,
 } from 'omorphia'
+import dayjs from 'dayjs'
+</script>
+
+<script>
+import { addNotification } from '~/composables/notifs.js'
 
 const props = defineProps({
   project: {
@@ -308,6 +315,8 @@ const props = defineProps({
   },
 })
 
+const cosmetics = useCosmetics()
+
 const title = `${props.project.title} - Gallery`
 const description = `View ${props.project.gallery.length} images of ${props.project.title} on Modrinth.`
 
@@ -317,9 +326,7 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description,
 })
-</script>
 
-<script>
 export default defineNuxtComponent({
   data() {
     return {
@@ -434,7 +441,7 @@ export default defineNuxtComponent({
 
         this.$refs.modal_edit_item.hide()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data ? err.data.description : err,
@@ -471,7 +478,7 @@ export default defineNuxtComponent({
         await this.updateProject()
         this.$refs.modal_edit_item.hide()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data ? err.data.description : err,
@@ -497,7 +504,7 @@ export default defineNuxtComponent({
 
         await this.updateProject()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data ? err.data.description : err,
@@ -512,7 +519,11 @@ export default defineNuxtComponent({
 
       project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
-      project.project_type = this.$getProjectTypeForUrl(project.project_type, project.loaders)
+      project.project_type = getProjectTypeForUrl(
+        project.project_type,
+        project.loaders,
+        useTags().value
+      )
 
       this.$emit('update:project', project)
       this.resetEdit()

@@ -7,6 +7,7 @@
       description="This will remove this version forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteVersion()"
     />
     <ModalReport
@@ -14,8 +15,14 @@
       ref="modal_version_report"
       :item-id="version.id"
       item-type="version"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     />
-    <Modal v-if="auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
+    <Modal
+      v-if="auth.user && currentMember"
+      ref="modal_package_mod"
+      header="Package data pack"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+    >
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
           <p>
@@ -145,7 +152,7 @@
       <div v-else class="input-group">
         <a
           v-if="primaryFile"
-          v-tooltip="primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'"
+          v-tooltip="primaryFile.filename + ' (' + formatBytes(primaryFile.size) + ')'"
           :href="primaryFile.url"
           class="iconified-button brand-button"
           :aria-label="`Download ${primaryFile.filename}`"
@@ -339,7 +346,7 @@
         <FileIcon />
         <span class="filename">
           <strong>{{ replaceFile.name }}</strong>
-          <span class="file-size">({{ $formatBytes(replaceFile.size) }})</span>
+          <span class="file-size">({{ formatBytes(replaceFile.size) }})</span>
         </span>
         <FileInput
           class="iconified-button raised-button"
@@ -363,7 +370,7 @@
         <FileIcon />
         <span class="filename">
           <strong>{{ file.filename }}</strong>
-          <span class="file-size">({{ $formatBytes(file.size) }})</span>
+          <span class="file-size">({{ formatBytes(file.size) }})</span>
           <span v-if="primaryFile.hashes.sha1 === file.hashes.sha1" class="file-type">
             Primary
           </span>
@@ -446,7 +453,7 @@
           <FileIcon />
           <span class="filename">
             <strong>{{ file.name }}</strong>
-            <span class="file-size">({{ $formatBytes(file.size) }})</span>
+            <span class="file-size">({{ formatBytes(file.size) }})</span>
           </span>
           <multiselect
             v-if="version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x))"
@@ -564,7 +571,7 @@
                 )
                 .map((it) => it.name)
             "
-            :custom-label="(value) => $formatCategory(value)"
+            :custom-label="formatCategory"
             :loading="tags.loaders.length === 0"
             :multiple="true"
             :searchable="false"
@@ -609,7 +616,7 @@
               :border="false"
             />
           </template>
-          <span v-else>{{ $formatVersion(version.game_versions) }}</span>
+          <span v-else>{{ formatVersions(version.game_versions, tags.gameVersions) }}</span>
         </div>
         <div v-if="!isEditing">
           <h4>Downloads</h4>
@@ -618,7 +625,7 @@
         <div v-if="!isEditing">
           <h4>Publication date</h4>
           <span>
-            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm A') }}
+            {{ dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm A') }}
           </span>
         </div>
         <div v-if="!isEditing && version.author">
@@ -656,22 +663,29 @@
   </div>
 </template>
 <script>
+import {
+  Avatar,
+  Badge,
+  Breadcrumbs,
+  Modal,
+  ModalConfirm,
+  acceptFileFromProjectType,
+  computeVersions,
+  formatBytes,
+  formatCategory,
+  formatVersions,
+  renderHighlightedString,
+  Checkbox,
+  Chips,
+  CopyCode,
+  FileInput,
+  ModalReport,
+  Categories,
+} from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import dayjs from 'dayjs'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
-import { renderHighlightedString } from '~/helpers/highlight.js'
-
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Categories from '~/components/ui/search/Categories.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
-import Chips from '~/components/ui/Chips.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import FileInput from '~/components/ui/FileInput.vue'
 
 import FileIcon from '~/assets/images/utils/file.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
@@ -688,7 +702,6 @@ import UploadIcon from '~/assets/images/utils/upload.svg'
 import BackIcon from '~/assets/images/utils/left-arrow.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import Modal from '~/components/ui/Modal.vue'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
@@ -766,6 +779,7 @@ export default defineNuxtComponent({
 
     const auth = await useAuth()
     const tags = useTags()
+    const cosmetics = useCosmetics()
 
     const path = route.name.split('-')
     const mode = path[path.length - 1]
@@ -894,11 +908,14 @@ export default defineNuxtComponent({
       () =>
         `Download ${props.project.title} ${
           version.version_number
-        } on Modrinth. Supports ${data.$formatVersion(version.game_versions)} ${version.loaders
+        } on Modrinth. Supports ${formatVersions(
+          version.game_versions,
+          tags.value.gameVersions
+        )} ${version.loaders
           .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-          .join(' & ')}. Published on ${data
-          .$dayjs(version.date_published)
-          .format('MMM D, YYYY')}. ${version.downloads} downloads.`
+          .join(' & ')}. Published on ${dayjs(version.date_published).format('MMM D, YYYY')}. ${
+          version.downloads
+        } downloads.`
     )
 
     useSeoMeta({
@@ -912,6 +929,7 @@ export default defineNuxtComponent({
 
     return {
       auth,
+      cosmetics,
       tags,
       fileTypes: ref(fileTypes),
       oldFileTypes: ref(oldFileTypes),
@@ -951,6 +969,9 @@ export default defineNuxtComponent({
     }
   },
   computed: {
+    dayjs() {
+      return dayjs
+    },
     fieldErrors() {
       return (
         this.version.version_number === '' ||
@@ -969,6 +990,9 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    formatVersions,
+    formatBytes,
+    formatCategory,
     getPreviousLink() {
       if (this.$router.options.history.state.back) {
         if (
@@ -996,7 +1020,7 @@ export default defineNuxtComponent({
           const project = await useBaseFetch(`project/${newDependencyId}`)
 
           if (this.version.dependencies.some((dep) => project.id === dep.project_id)) {
-            this.$notify({
+            addNotification({
               group: 'main',
               title: 'Dependency already added',
               text: 'You cannot add the same dependency twice.',
@@ -1021,7 +1045,7 @@ export default defineNuxtComponent({
           const project = await useBaseFetch(`project/${version.project_id}`)
 
           if (this.version.dependencies.some((dep) => version.id === dep.version_id)) {
-            this.$notify({
+            addNotification({
               group: 'main',
               title: 'Dependency already added',
               text: 'You cannot add the same dependency twice.',
@@ -1049,7 +1073,7 @@ export default defineNuxtComponent({
         this.newDependencyId = ''
       } catch {
         if (!hideErrors) {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'Invalid Dependency',
             text: 'The specified dependency could not be found',
@@ -1157,7 +1181,7 @@ export default defineNuxtComponent({
           )}`
         )
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,
@@ -1181,7 +1205,7 @@ export default defineNuxtComponent({
       try {
         await this.createVersionRaw(this.version)
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data ? err.data.description : err,
@@ -1305,14 +1329,14 @@ export default defineNuxtComponent({
 
         this.$refs.modal_package_mod.hide()
 
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'Packaging Success',
           text: 'Your data pack was successfully packaged as a mod! Make sure to playtest to check for errors.',
           type: 'success',
         })
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data ? err.data.description : err,
@@ -1329,7 +1353,7 @@ export default defineNuxtComponent({
         useBaseFetch(`project/${this.version.project_id}/dependencies`),
       ])
 
-      const newCreatedVersions = this.$computeVersions(versions, this.members)
+      const newCreatedVersions = computeVersions(versions, this.members)
       const featuredIds = featuredVersions.map((x) => x.id)
       this.$emit('update:versions', newCreatedVersions)
       this.$emit(

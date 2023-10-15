@@ -22,17 +22,17 @@
           :key="`payout-${index}`"
           class="grid-table__row"
         >
-          <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
+          <div>{{ dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
           <div><Badge :type="payout.status" /></div>
-          <div class="amount">{{ $formatMoney(payout.amount) }}</div>
+          <div class="amount">{{ formatMoney(payout.amount) }}</div>
         </div>
       </div>
     </section>
   </div>
 </template>
 <script setup>
-import Badge from '~/components/ui/Badge.vue'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { formatMoney, Badge, Breadcrumbs } from 'omorphia'
+import dayjs from 'dayjs'
 
 useHead({
   title: 'Transfer history - Modrinth',

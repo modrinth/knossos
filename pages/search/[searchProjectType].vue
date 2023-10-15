@@ -38,14 +38,14 @@
                 v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
                 class="sidebar-menu-heading"
               >
-                {{ $formatCategoryHeader(header) }}
+                {{ formatCategoryHeader(header) }}
               </h3>
 
               <SearchFilter
                 v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
                 :key="category.name"
                 :active-filters="facets"
-                :display-name="$formatCategory(category.name)"
+                :display-name="formatCategory(category.name)"
                 :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
                 :icon="header === 'resolutions' ? null : category.icon"
                 @toggle="toggleFacet"
@@ -89,7 +89,7 @@
               :key="loader.name"
               ref="loaderFilters"
               :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
+              :display-name="formatCategory(loader.name)"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
@@ -121,7 +121,7 @@
               :key="loader.name"
               ref="platformFilters"
               :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
+              :display-name="formatCategory(loader.name)"
               :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
               :icon="loader.icon"
               @toggle="toggleOrFacet"
@@ -249,8 +249,8 @@
             />
           </div>
           <button
-            v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-            :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+            v-tooltip="capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
+            :aria-label="capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
             class="square-button"
             @click="cycleSearchDisplayMode()"
           >
@@ -315,13 +315,20 @@
   </div>
 </template>
 <script setup>
+import {
+  capitalizeString,
+  cycleValue,
+  formatCategory,
+  formatCategoryHeader,
+  Promotion,
+  sortedCategories,
+  Checkbox,
+  Pagination,
+  SearchFilter,
+  LogoAnimated,
+  ProjectCard,
+} from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import { Promotion } from 'omorphia'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Pagination from '~/components/ui/Pagination.vue'
-import SearchFilter from '~/components/ui/search/SearchFilter.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 import ClientIcon from '~/assets/images/categories/client.svg'
 import ServerIcon from '~/assets/images/categories/server.svg'
@@ -336,7 +343,6 @@ import ImageIcon from '~/assets/images/utils/image.svg'
 const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)
 
-const data = useNuxtApp()
 const route = useRoute()
 
 const cosmetics = useCosmetics()
@@ -625,7 +631,7 @@ function getSearchUrl(offset, useObj) {
 const categoriesMap = computed(() => {
   const categories = {}
 
-  for (const category of data.$sortedCategories()) {
+  for (const category of sortedCategories(tags.value)) {
     if (categories[category.header]) {
       categories[category.header].push(category)
     } else {
@@ -728,7 +734,7 @@ function onSearchChangeToTop(newPageNumber) {
 }
 
 function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode[projectType.value.id] = data.$cycleValue(
+  cosmetics.value.searchDisplayMode[projectType.value.id] = cycleValue(
     cosmetics.value.searchDisplayMode[projectType.value.id],
     tags.value.projectViewModes
   )

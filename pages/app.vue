@@ -1,13 +1,23 @@
 <script setup>
-import { TrashIcon, SearchIcon, BoxIcon, SendIcon, EditIcon, DownloadIcon } from 'omorphia'
-import Avatar from '~/components/ui/Avatar.vue'
+import {
+  Avatar,
+  Badge,
+  external,
+  TrashIcon,
+  SearchIcon,
+  BoxIcon,
+  SendIcon,
+  EditIcon,
+  DownloadIcon,
+  Checkbox,
+  LogoAnimated,
+} from 'omorphia'
 import homepageProjects from '~/generated/homepage.json'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
-import Badge from '~/components/ui/Badge.vue'
 import PrismIcon from '~/assets/images/external/prism.svg'
 import ATLauncher from '~/assets/images/external/atlauncher.svg'
 import CurseForge from '~/assets/images/external/curseforge.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
+
+const cosmetics = useCosmetics()
 
 const val = Math.ceil(homepageProjects.length / 6)
 const os = ref(null)
@@ -603,7 +613,10 @@ useSeoMeta({
           </div>
           <div class="description">
             Modrinth’s launcher is fully open source. You can view the source code on our
-            <a href="https://github.com/modrinth/theseus" rel="noopener" :target="$external()"
+            <a
+              href="https://github.com/modrinth/theseus"
+              rel="noopener"
+              :target="external(cosmetics)"
               >GitHub</a
             >!
           </div>

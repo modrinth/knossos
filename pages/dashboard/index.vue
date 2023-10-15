@@ -60,7 +60,7 @@
           <div class="grid-display__item">
             <div class="label">Total downloads</div>
             <div class="value">
-              {{ $formatNumber(projects.reduce((agg, x) => agg + x.downloads, 0)) }}
+              {{ formatNumber(projects.reduce((agg, x) => agg + x.downloads, 0)) }}
             </div>
             <span
               >from
@@ -77,7 +77,7 @@
           <div class="grid-display__item">
             <div class="label">Total followers</div>
             <div class="value">
-              {{ $formatNumber(projects.reduce((agg, x) => agg + x.followers, 0)) }}
+              {{ formatNumber(projects.reduce((agg, x) => agg + x.followers, 0)) }}
             </div>
             <span>
               <span
@@ -90,14 +90,14 @@
           <div class="grid-display__item">
             <div class="label">Total revenue</div>
             <div class="value">
-              {{ $formatMoney(payouts.all_time, true) }}
+              {{ formatMoney(payouts.all_time, true) }}
             </div>
-            <span>{{ $formatMoney(payouts.last_month, true) }} in the last month</span>
+            <span>{{ formatMoney(payouts.last_month, true) }} in the last month</span>
           </div>
           <div class="grid-display__item">
             <div class="label">Current balance</div>
             <div class="value">
-              {{ $formatMoney(auth.user.payout_data.balance, true) }}
+              {{ formatMoney(auth.user.payout_data.balance, true) }}
             </div>
             <NuxtLink
               v-if="auth.user.payout_data.balance >= minWithdraw"
@@ -115,10 +115,10 @@
   </div>
 </template>
 <script setup>
+import { Avatar, formatMoney, formatNumber } from 'omorphia'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import HistoryIcon from '~/assets/images/utils/history.svg'
-import Avatar from '~/components/ui/Avatar.vue'
-import NotificationItem from '~/components/ui/NotificationItem.vue'
+import NotificationItem from '~/components/NotificationItem.vue'
 import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'
 
 useHead({

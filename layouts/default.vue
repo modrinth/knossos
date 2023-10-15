@@ -20,7 +20,7 @@
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
           <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
-            <BrandTextLogo aria-hidden="true" class="text-logo" />
+            <TextLogo aria-hidden="true" class="text-logo" />
           </NuxtLink>
         </section>
         <section class="nav-group columns" role="presentation">
@@ -277,16 +277,20 @@
       </section>
     </header>
     <main>
-      <ModalCreation v-if="auth.user" ref="modal_creation" />
+      <ModalCreation
+        v-if="auth.user"
+        ref="modal_creation"
+        :noblur="!(cosmetics.advancedRendering ?? true)"
+      />
       <slot id="main" />
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
-        <BrandTextLogo aria-hidden="true" class="text-logo" @click="developerModeIncrement()" />
+        <TextLogo aria-hidden="true" class="text-logo" @click="developerModeIncrement()" />
         <p>
           Modrinth is
           <a
-            :target="$external()"
+            :target="external(cosmetics)"
             href="https://github.com/modrinth"
             class="text-link"
             rel="noopener"
@@ -296,7 +300,7 @@
         </p>
         <p>
           {{ config.public.owner }}/{{ config.public.slug }} {{ config.public.branch }}@<a
-            :target="$external()"
+            :target="external(cosmetics)"
             :href="
               'https://github.com/' +
               config.public.owner +
@@ -317,23 +321,31 @@
         <nuxt-link to="/legal/terms"> Terms</nuxt-link>
         <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
         <nuxt-link to="/legal/rules"> Rules</nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com"
+        <a :target="external(cosmetics)" href="https://careers.modrinth.com"
           >Careers <span class="count-bubble">1</span></a
         >
       </div>
       <div class="links links-2" role="region" aria-label="Resources">
         <h4 aria-hidden="true">Resources</h4>
-        <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
-        <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
-        <a :target="$external()" href="https://status.modrinth.com">Status</a>
-        <a rel="noopener" :target="$external()" href="https://github.com/modrinth">GitHub</a>
+        <a :target="external(cosmetics)" href="https://blog.modrinth.com">Blog</a>
+        <a :target="external(cosmetics)" href="https://docs.modrinth.com">Docs</a>
+        <a :target="external(cosmetics)" href="https://status.modrinth.com">Status</a>
+        <a rel="noopener" :target="external(cosmetics)" href="https://github.com/modrinth">
+          GitHub
+        </a>
       </div>
       <div class="links links-3" role="region" aria-label="Interact">
         <h4 aria-hidden="true">Interact</h4>
-        <a rel="noopener" :target="$external()" href="https://discord.modrinth.com"> Discord </a>
-        <a rel="noopener" :target="$external()" href="https://twitter.com/modrinth"> Twitter </a>
-        <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth"> Mastodon </a>
-        <a rel="noopener" :target="$external()" href="https://crowdin.com/project/modrinth">
+        <a rel="noopener" :target="external(cosmetics)" href="https://discord.modrinth.com">
+          Discord
+        </a>
+        <a rel="noopener" :target="external(cosmetics)" href="https://twitter.com/modrinth">
+          Twitter
+        </a>
+        <a rel="noopener" :target="external(cosmetics)" href="https://floss.social/@modrinth">
+          Mastodon
+        </a>
+        <a rel="noopener" :target="external(cosmetics)" href="https://crowdin.com/project/modrinth">
           Crowdin
         </a>
       </div>
@@ -359,7 +371,15 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon } from 'omorphia'
+import {
+  Avatar,
+  external,
+  LogInIcon,
+  DownloadIcon,
+  ModalCreation,
+  NavRow,
+  TextLogo,
+} from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -376,10 +396,6 @@ import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import LogOutIcon from '~/assets/images/utils/log-out.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
-
-import NavRow from '~/components/ui/NavRow.vue'
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 const app = useNuxtApp()
 const auth = await useAuth()

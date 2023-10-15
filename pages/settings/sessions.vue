@@ -57,6 +57,7 @@
 </template>
 <script setup>
 import { XIcon } from 'omorphia'
+import { addNotification } from '~/composables/notifs.js'
 
 definePageMeta({
   middleware: 'auth',
@@ -119,7 +120,7 @@ async function revokeSession(id) {
     })
     await refresh()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data.description,

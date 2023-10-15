@@ -102,15 +102,17 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RequiredIcon from '~/assets/images/utils/asterisk.svg'
-import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
+import { formatProjectType } from 'omorphia'
+import ChevronRightIcon from 'assets/images/utils/chevron-right.svg'
+import DropdownIcon from 'assets/images/utils/dropdown.svg'
+import CheckIcon from 'assets/images/utils/check.svg'
+import CrossIcon from 'assets/images/utils/x.svg'
+import RequiredIcon from 'assets/images/utils/asterisk.svg'
+import SuggestionIcon from 'assets/images/utils/lightbulb.svg'
+import ModerationIcon from 'assets/images/sidebar/admin.svg'
+import SendIcon from 'assets/images/utils/send.svg'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
+import { addNotification } from '~/composables/notifs.js'
 
 export default {
   components: {
@@ -166,7 +168,7 @@ export default {
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'setProcessing function not found',
@@ -179,7 +181,7 @@ export default {
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'toggleCollapsed function not found',
@@ -192,7 +194,7 @@ export default {
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'updateMembers function not found',
@@ -300,7 +302,7 @@ export default {
             this.project.client_side === 'unknown' || this.project.server_side === 'unknown',
           title: 'Select supported environments',
           id: 'select-environments',
-          description: `Select if the ${this.$formatProjectType(
+          description: `Select if the ${formatProjectType(
             this.project.project_type
           ).toLowerCase()} functions on the client-side and/or server-side.`,
           status: 'required',
@@ -314,7 +316,7 @@ export default {
           condition: this.project.license.id === 'LicenseRef-Unknown',
           title: 'Select license',
           id: 'select-license',
-          description: `Select the license your ${this.$formatProjectType(
+          description: `Select the license your ${formatProjectType(
             this.project.project_type
           ).toLowerCase()} is distributed under.`,
           status: 'required',

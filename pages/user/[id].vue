@@ -1,7 +1,12 @@
 <template>
   <div v-if="user">
-    <ModalCreation ref="modal_creation" />
-    <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
+    <ModalCreation ref="modal_creation" :noblur="!(cosmetics.advancedRendering ?? true)" />
+    <ModalReport
+      ref="modal_report"
+      :item-id="user.id"
+      item-type="user"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+    />
     <div class="user-header-wrapper">
       <div class="user-header">
         <Avatar
@@ -261,9 +266,19 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Badge from '~/components/ui/Badge.vue'
+import {
+  cycleValue,
+  getProjectTypeForUrl,
+  Avatar,
+  Badge,
+  Promotion,
+  FileInput,
+  CopyCode,
+  ModalCreation,
+  ModalReport,
+  NavRow,
+  ProjectCard,
+} from 'omorphia'
 
 import ReportIcon from '~/assets/images/utils/report.svg'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg'
@@ -279,12 +294,6 @@ import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
-import FileInput from '~/components/ui/FileInput.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -372,7 +381,7 @@ try {
         transform: (projects) => {
           for (const project of projects) {
             project.categories = project.categories.concat(project.loaders)
-            project.project_type = data.$getProjectTypeForUrl(
+            project.project_type = getProjectTypeForUrl(
               project.project_type,
               project.categories,
               tags.value
@@ -506,7 +515,7 @@ async function saveChanges() {
 }
 
 function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode.user = data.$cycleValue(
+  cosmetics.value.searchDisplayMode.user = cycleValue(
     cosmetics.value.searchDisplayMode.user,
     tags.value.projectViewModes
   )

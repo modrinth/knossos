@@ -5,7 +5,7 @@
       <Chips
         v-model="projectType"
         :items="projectTypes"
-        :format-label="(x) => (x === 'all' ? 'All' : $formatProjectType(x) + 's')"
+        :format-label="(x) => (x === 'all' ? 'All' : formatProjectType(x) + 's')"
       />
       <button v-if="oldestFirst" class="iconified-button push-right" @click="oldestFirst = false">
         <SortDescIcon />Sorting by oldest
@@ -47,7 +47,7 @@
             <Avatar :src="project.icon_url" size="xs" no-shadow raised />
             <span class="stacked">
               <span class="title">{{ project.title }}</span>
-              <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
+              <span>{{ formatProjectType(project.inferred_project_type) }}</span>
             </span>
           </nuxt-link>
         </div>
@@ -73,7 +73,7 @@
       <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
         <WarningIcon v-if="project.age_warning" />
         Submitted
-        <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
+        <span v-tooltip="dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
           fromNow(project.queued)
         }}</span>
       </span>
@@ -82,23 +82,20 @@
   </section>
 </template>
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
-import Avatar from '~/components/ui/Avatar.vue'
+import { Avatar, Badge, formatProjectType, getProjectTypeForUrl, Chips } from 'omorphia'
+import dayjs from 'dayjs'
 import UnknownIcon from '~/assets/images/utils/unknown.svg'
 import EyeIcon from '~/assets/images/utils/eye.svg'
 import SortAscIcon from '~/assets/images/utils/sort-asc.svg'
 import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
-import Badge from '~/components/ui/Badge.vue'
-import { formatProjectType } from '~/plugins/shorthands.js'
 
 useHead({
   title: 'Review projects - Modrinth',
 })
 
-const app = useNuxtApp()
+const tags = useTags()
 
-const now = app.$dayjs()
 const TIME_24H = 86400000
 const TIME_48H = TIME_24H * 2
 
@@ -113,7 +110,7 @@ const projectsFiltered = computed(() =>
   projects.value.filter(
     (x) =>
       projectType.value === 'all' ||
-      app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType.value
+      getProjectTypeForUrl(x.project_type, x.loaders, tags.value) === projectType.value
   )
 )
 
@@ -155,16 +152,17 @@ if (projects.value) {
       project.owner = members.value
         .flat()
         .find((x) => x.team_id === project.team && x.role === 'Owner').user
-      project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
+      project.age = project.queued ? dayjs() - dayjs(project.queued) : Number.MAX_VALUE
       project.age_warning = ''
       if (project.age > TIME_24H * 2) {
         project.age_warning = 'danger'
       } else if (project.age > TIME_24H) {
         project.age_warning = 'warning'
       }
-      project.inferred_project_type = app.$getProjectTypeForUrl(
+      project.inferred_project_type = getProjectTypeForUrl(
         project.project_type,
-        project.loaders
+        project.loaders,
+        tags.value
       )
       return project
     })

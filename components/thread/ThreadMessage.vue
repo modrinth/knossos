@@ -23,7 +23,7 @@
         />
       </ConditionalNuxtLink>
       <span :class="`message__author role-${members[message.author_id].role}`">
-        <PrivateIcon
+        <LockIcon
           v-if="message.body.private"
           v-tooltip="'Only visible by moderators'"
           class="private-icon"
@@ -34,10 +34,7 @@
         >
           {{ members[message.author_id].username }}
         </ConditionalNuxtLink>
-        <ModeratorIcon
-          v-if="members[message.author_id].role === 'moderator'"
-          v-tooltip="'Moderator'"
-        />
+        <ScaleIcon v-if="members[message.author_id].role === 'moderator'" v-tooltip="'Moderator'" />
         <ModrinthIcon
           v-else-if="members[message.author_id].role === 'admin'"
           v-tooltip="'Modrinth Team'"
@@ -51,11 +48,11 @@
     </template>
     <template v-else>
       <div class="message__icon backed-svg circle moderation-color" :class="{ raised: raised }">
-        <ModeratorIcon />
+        <ScaleIcon />
       </div>
       <span class="message__author moderation-color">
         Moderator
-        <ModeratorIcon v-tooltip="'Moderator'" />
+        <ScaleIcon v-tooltip="'Moderator'" />
       </span>
     </template>
     <div
@@ -77,7 +74,7 @@
       <span v-else-if="message.body.type === 'thread_closure'">closed the thread.</span>
     </div>
     <span class="message__date">
-      <span v-tooltip="$dayjs(message.created).format('MMMM D, YYYY [at] h:mm A')">
+      <span v-tooltip="dayjs(message.created).format('MMMM D, YYYY [at] h:mm A')">
         {{ timeSincePosted }}
       </span>
     </span>
@@ -88,14 +85,17 @@
 </template>
 
 <script setup>
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
-import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
-import MicIcon from '~/assets/images/utils/mic.svg'
-import PrivateIcon from '~/assets/images/utils/lock.svg'
-import { renderString } from '~/helpers/parse.js'
-import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
+import {
+  renderString,
+  Avatar,
+  Badge,
+  ConditionalNuxtLink,
+  LockIcon,
+  ModrinthIcon,
+  ScaleIcon,
+} from 'omorphia'
+import dayjs from 'dayjs'
+import MicIcon from 'assets/images/utils/mic.svg'
 
 const props = defineProps({
   message: {

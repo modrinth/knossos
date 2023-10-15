@@ -6,7 +6,7 @@
   />
 </template>
 <script setup>
-import ReportView from '~/components/ui/report/ReportView.vue'
+import ReportView from '~/components/report/ReportView.vue'
 
 const route = useRoute()
 const auth = await useAuth()

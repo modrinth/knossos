@@ -49,9 +49,8 @@
 </template>
 
 <script>
-import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { renderHighlightedString, Chips, SaveIcon } from 'omorphia'
+import { addNotification } from '~/composables/notifs.js'
 
 export default defineNuxtComponent({
   components: {
@@ -81,7 +80,7 @@ export default defineNuxtComponent({
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'Patch project function not found',

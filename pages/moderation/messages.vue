@@ -14,7 +14,7 @@
   </div>
 </template>
 <script setup>
-import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
+import ThreadSummary from '~/components/thread/ThreadSummary.vue'
 
 useHead({
   title: 'Moderation inbox - Modrinth',

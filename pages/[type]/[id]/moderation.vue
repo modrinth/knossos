@@ -87,8 +87,6 @@
   </div>
 </template>
 <script setup>
-import { Badge, ExitIcon, CheckIcon, IssuesIcon } from 'omorphia'
-import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import {
   getProjectLink,
   isApproved,
@@ -96,7 +94,13 @@ import {
   isPrivate,
   isRejected,
   isUnderReview,
-} from '~/helpers/projects.js'
+  Badge,
+  ExitIcon,
+  CheckIcon,
+  IssuesIcon,
+} from 'omorphia'
+import ConversationThread from '~/components/thread/ConversationThread.vue'
+import { addNotification } from '~/composables/notifs.js'
 
 const props = defineProps({
   project: {
@@ -140,7 +144,7 @@ async function setStatus(status) {
     emit('update:project', project)
     thread.value = await useBaseFetch(`thread/${thread.value.id}`)
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,

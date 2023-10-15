@@ -28,13 +28,13 @@
             v-model="selectedWallet"
             :starting-value="selectedWallet"
             :items="wallets"
-            :format-label="$formatWallet"
+            :format-label="formatWallet"
             @update:model-value="onChangeWallet()"
           />
 
           <p>
             Enter the information for the
-            {{ $formatWallet(selectedWallet) }} account you would like to receive your revenue from
+            {{ formatWallet(selectedWallet) }} account you would like to receive your revenue from
             the Creator Monetization Program:
           </p>
           <div class="input-group">
@@ -49,14 +49,14 @@
             />
 
             <label class="hidden" for="account-input"
-              >{{ $formatWallet(selectedWallet) }}
+              >{{ formatWallet(selectedWallet) }}
               {{ formatAccountType(accountType).toLowerCase() }} input field</label
             >
             <input
               id="account-input"
               v-model="account"
               class="account-input"
-              :placeholder="`Enter your ${$formatWallet(selectedWallet)} ${formatAccountType(
+              :placeholder="`Enter your ${formatWallet(selectedWallet)} ${formatAccountType(
                 accountType
               ).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
@@ -90,7 +90,7 @@
       <template v-else>
         <p>
           You are currently enrolled in the Creator Monetization Program with a
-          {{ $formatWallet(selectedWallet) }} account.
+          {{ formatWallet(selectedWallet) }} account.
         </p>
         <button class="iconified-button brand-button" @click="editing = true">
           <EditIcon /> Edit information
@@ -101,14 +101,14 @@
 </template>
 
 <script>
-import { Checkbox } from 'omorphia'
+import { Checkbox, formatWallet, Chips } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import Chips from '~/components/ui/Chips.vue'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
 import EditIcon from '~/assets/images/utils/edit.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
+import { addNotification } from '~/composables/notifs.js'
 
 export default defineNuxtComponent({
   components: {
@@ -146,6 +146,7 @@ export default defineNuxtComponent({
     title: 'Monetization settings - Modrinth',
   },
   methods: {
+    formatWallet,
     getAccountTypes() {
       const types = []
       if (this.selectedWallet === 'venmo') {
@@ -204,7 +205,7 @@ export default defineNuxtComponent({
         this.editing = false
         this.enrolled = !unenroll
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,

@@ -131,10 +131,10 @@
               :type="notif.extra_data.project.project_type"
               class="categories"
             />
-            {{ $formatVersion(notif.extra_data.version.game_versions) }}
+            {{ formatVersions(notif.extra_data.version.game_versions, tags.gameVersions) }}
             <span
               v-tooltip="
-                $dayjs(notif.extra_data.version.date_published).format('MMMM D, YYYY [at] h:mm A')
+                dayjs(notif.extra_data.version.date_published).format('MMMM D, YYYY [at] h:mm A')
               "
               class="date"
             >
@@ -149,7 +149,7 @@
     </div>
     <span class="notification__date">
       <span v-if="notification.read" class="read-badge"> <ReadIcon /> Read </span>
-      <span v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
+      <span v-tooltip="dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
         <CalendarIcon /> Received {{ fromNow(notification.created) }}
       </span>
     </span>
@@ -262,28 +262,33 @@
 </template>
 
 <script setup>
-import InvitationIcon from '~/assets/images/utils/user-plus.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
-import ReadIcon from '~/assets/images/utils/check-circle.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
-import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
-import { getProjectLink, getVersionLink } from '~/helpers/projects.js'
+import {
+  Avatar,
+  Badge,
+  formatVersions,
+  getProjectLink,
+  getVersionLink,
+  renderString,
+  CopyCode,
+  Categories,
+  DoubleIcon,
+} from 'omorphia'
+import dayjs from 'dayjs'
+import InvitationIcon from 'assets/images/utils/user-plus.svg'
+import ModerationIcon from 'assets/images/sidebar/admin.svg'
+import NotificationIcon from 'assets/images/sidebar/notifications.svg'
+import ReadIcon from 'assets/images/utils/check-circle.svg'
+import CalendarIcon from 'assets/images/utils/calendar.svg'
+import VersionIcon from 'assets/images/utils/version.svg'
+import CheckIcon from 'assets/images/utils/check.svg'
+import CrossIcon from 'assets/images/utils/x.svg'
+import ExternalIcon from 'assets/images/utils/external.svg'
+import ThreadSummary from '~/components/thread/ThreadSummary.vue'
 import { getUserLink } from '~/helpers/users.js'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 import { markAsRead } from '~/helpers/notifications.js'
-import { renderString } from '~/helpers/parse.js'
-import DoubleIcon from '~/components/ui/DoubleIcon.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Categories from '~/components/ui/search/Categories.vue'
+import { addNotification } from '~/composables/notifs.js'
 
-const app = useNuxtApp()
 const emit = defineEmits(['update:notifications'])
 
 const props = defineProps({
@@ -347,7 +352,7 @@ async function read() {
     const newNotifs = updateNotifs(props.notifications)
     emit('update:notifications', newNotifs)
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error marking notification as read',
       text: err.data ? err.data.description : err,
@@ -369,7 +374,7 @@ async function performAction(notification, actionIndex) {
       })
     }
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Modal ref="editLinksModal" header="Edit links">
+    <Modal
+      ref="editLinksModal"
+      header="Edit links"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+    >
       <div class="universal-modal links-modal">
         <p>
           Any links you specify below will be overwritten on each of the selected projects. Any you
@@ -156,7 +160,7 @@
         </div>
       </div>
     </Modal>
-    <ModalCreation ref="modal_creation" />
+    <ModalCreation ref="modal_creation" :noblur="!(cosmetics.advancedRendering ?? true)" />
     <section class="universal-card">
       <div class="header__row">
         <h2 class="header__title">Projects</h2>
@@ -239,7 +243,7 @@
             <div>
               <nuxt-link
                 tabindex="-1"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders, tags)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
@@ -261,7 +265,7 @@
 
                 <nuxt-link
                   class="hover-link wrap-as-needed"
-                  :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                  :to="`/${getProjectTypeForUrl(project.project_type, project.loaders, tags)}/${
                     project.slug ? project.slug : project.id
                   }`"
                 >
@@ -275,7 +279,9 @@
             </div>
 
             <div>
-              {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
+              {{
+                formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders, tags))
+              }}
             </div>
 
             <div>
@@ -285,7 +291,7 @@
             <div>
               <nuxt-link
                 class="square-button"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders, tags)}/${
                   project.slug ? project.slug : project.id
                 }/settings`"
               >
@@ -300,14 +306,17 @@
 </template>
 
 <script>
+import {
+  Avatar,
+  Badge,
+  formatProjectType,
+  getProjectTypeForUrl,
+  Modal,
+  Checkbox,
+  CopyCode,
+  ModalCreation,
+} from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-
-import Badge from '~/components/ui/Badge.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Modal from '~/components/ui/Modal.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
 
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import TrashIcon from '~/assets/images/utils/trash.svg'
@@ -318,6 +327,7 @@ import EditIcon from '~/assets/images/utils/edit.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
+import { addNotification } from '~/composables/notifs.js'
 
 export default defineNuxtComponent({
   components: {
@@ -339,9 +349,11 @@ export default defineNuxtComponent({
     DescendingIcon,
   },
   async setup() {
+    const cosmetics = useCosmetics()
+    const tags = useTags()
     const user = await useUser()
     await initUserProjects()
-    return { user: ref(user) }
+    return { cosmetics, tags, user: ref(user) }
   },
   data() {
     return {
@@ -385,6 +397,8 @@ export default defineNuxtComponent({
     this.DELETE_PROJECT = 1 << 7
   },
   methods: {
+    getProjectTypeForUrl,
+    formatProjectType,
     updateDescending() {
       this.descending = !this.descending
       this.projects = this.updateSort(this.projects, this.sortBy, this.descending)
@@ -463,7 +477,7 @@ export default defineNuxtComponent({
         )
 
         this.$refs.editLinksModal.hide()
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'Success',
           text: "Bulk edited selected project's links.",
@@ -480,7 +494,7 @@ export default defineNuxtComponent({
         this.editLinks.wiki.clear = false
         this.editLinks.discord.clear = false
       } catch (e) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: e,

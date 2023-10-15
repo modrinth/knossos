@@ -37,7 +37,7 @@
               </span>
               <span>
                 on
-                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
+                {{ dayjs(version.date_published).format('MMM D, YYYY') }}</span
               >
             </div>
             <a
@@ -67,10 +67,9 @@
   </div>
 </template>
 <script setup>
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import { renderHighlightedString } from '~/helpers/highlight.js'
-import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
-import Pagination from '~/components/ui/Pagination.vue'
+import { renderHighlightedString, Pagination, DownloadIcon } from 'omorphia'
+import dayjs from 'dayjs'
+import VersionFilterControl from '~/components/VersionFilterControl.vue'
 
 const props = defineProps({
   project: {

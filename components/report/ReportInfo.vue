@@ -2,7 +2,7 @@
   <div class="report">
     <div v-if="report.item_type === 'project'" class="item-info">
       <nuxt-link
-        :to="`/${$getProjectTypeForUrl(report.project.project_type, report.project.loaders)}/${
+        :to="`/${getProjectTypeForUrl(report.project.project_type, report.project.loaders, tags)}/${
           report.project.slug
         }`"
         class="iconified-stacked-link"
@@ -11,8 +11,8 @@
         <div class="stacked">
           <span class="title">{{ report.project.title }}</span>
           <span>{{
-            $formatProjectType(
-              $getProjectTypeForUrl(report.project.project_type, report.project.loaders)
+            formatProjectType(
+              getProjectTypeForUrl(report.project.project_type, report.project.loaders, tags)
             )
           }}</span>
         </div>
@@ -41,8 +41,8 @@
         <div class="stacked">
           <span class="title">{{ report.project.title }}</span>
           <span>{{
-            $formatProjectType(
-              $getProjectTypeForUrl(report.project.project_type, report.project.loaders)
+            formatProjectType(
+              getProjectTypeForUrl(report.project.project_type, report.project.loaders, tags)
             )
           }}</span>
         </div>
@@ -79,7 +79,7 @@
         <span>{{ report.reporterUser.username }}</span>
       </nuxt-link>
       <span>&nbsp;</span>
-      <span v-tooltip="$dayjs(report.created).format('MMMM D, YYYY [at] h:mm A')">{{
+      <span v-tooltip="dayjs(report.created).format('MMMM D, YYYY [at] h:mm A')">{{
         fromNow(report.created)
       }}</span>
       <CopyCode v-if="cosmetics.developerMode" :text="report.id" class="report-id" />
@@ -88,14 +88,19 @@
 </template>
 
 <script setup>
-import { renderHighlightedString } from '~/helpers/highlight.js'
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import UnknownIcon from '~/assets/images/utils/unknown.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
-import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
+import {
+  renderHighlightedString,
+  Avatar,
+  Badge,
+  CopyCode,
+  ReportIcon,
+  UnknownIcon,
+  VersionIcon,
+  formatProjectType,
+  getProjectTypeForUrl,
+} from 'omorphia'
+import dayjs from 'dayjs'
+import ThreadSummary from '~/components/thread/ThreadSummary.vue'
 
 defineProps({
   report: {
@@ -125,6 +130,7 @@ defineProps({
 })
 
 const cosmetics = useCosmetics()
+const tags = useTags()
 </script>
 
 <style lang="scss" scoped>

@@ -5,6 +5,7 @@
       title="Are you sure you want to delete this token?"
       description="This will remove this token forever (like really forever)."
       proceed-label="Delete this token"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="removePat(deletePatIndex)"
     />
     <Modal
@@ -104,21 +105,21 @@
           <template v-else>
             <span
               v-tooltip="
-                pat.last_used ? $dayjs(pat.last_login).format('MMMM D, YYYY [at] h:mm A') : null
+                pat.last_used ? dayjs(pat.last_login).format('MMMM D, YYYY [at] h:mm A') : null
               "
             >
               <template v-if="pat.last_used">Last used {{ fromNow(pat.last_used) }}</template>
               <template v-else>Never used</template>
             </span>
             ⋅
-            <span v-tooltip="$dayjs(pat.expires).format('MMMM D, YYYY [at] h:mm A')">
+            <span v-tooltip="dayjs(pat.expires).format('MMMM D, YYYY [at] h:mm A')">
               <template v-if="new Date(pat.expires) > new Date()">
                 Expires {{ fromNow(pat.expires) }}
               </template>
               <template v-else> Expired {{ fromNow(pat.expires) }} </template>
             </span>
             ⋅
-            <span v-tooltip="$dayjs(pat.created).format('MMMM D, YYYY [at] h:mm A')">
+            <span v-tooltip="dayjs(pat.created).format('MMMM D, YYYY [at] h:mm A')">
               Created {{ fromNow(pat.created) }}
             </span>
           </template>
@@ -132,7 +133,7 @@
               editPatIndex = index
               name = pat.name
               scopesVal = pat.scopes
-              expires = $dayjs(pat.expires).format('YYYY-MM-DD')
+              expires = dayjs(pat.expires).format('YYYY-MM-DD')
               $refs.patModal.show()
             }
           "
@@ -164,8 +165,10 @@ import {
   EditIcon,
   SaveIcon,
   ModalConfirm,
+  CopyCode,
 } from 'omorphia'
-import CopyCode from '~/components/ui/CopyCode.vue'
+import dayjs from 'dayjs'
+import { addNotification } from '~/composables/notifs.js'
 
 definePageMeta({
   middleware: 'auth',
@@ -208,7 +211,7 @@ const scopes = [
   '_Delete sessions',
 ]
 
-const data = useNuxtApp()
+const cosmetics = useCosmetics()
 const patModal = ref()
 
 const editPatIndex = ref(null)
@@ -232,13 +235,13 @@ async function createPat() {
       body: {
         name: name.value,
         scopes: scopesVal.value,
-        expires: data.$dayjs(expires.value).toISOString(),
+        expires: dayjs(expires.value).toISOString(),
       },
     })
     pats.value.push(res)
     patModal.value.hide()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -258,13 +261,13 @@ async function editPat() {
       body: {
         name: name.value,
         scopes: scopesVal.value,
-        expires: data.$dayjs(expires.value).toISOString(),
+        expires: dayjs(expires.value).toISOString(),
       },
     })
     await refresh()
     patModal.value.hide()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -284,7 +287,7 @@ async function removePat(id) {
     })
     await refresh()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,

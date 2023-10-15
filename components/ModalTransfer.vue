@@ -1,9 +1,13 @@
 <template>
-  <Modal ref="modal" :header="'Transfer to ' + $formatWallet(wallet)">
+  <Modal
+    ref="modal"
+    :header="'Transfer to ' + formatWallet(wallet)"
+    :noblur="!(cosmetics.advancedRendering ?? true)"
+  >
     <div class="modal-transfer">
       <span
         >You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
-        How much of your <strong>{{ $formatMoney(balance) }}</strong> balance would you like to
+        How much of your <strong>{{ formatMoney(balance) }}</strong> balance would you like to
         transfer?</span
       >
       <div class="confirmation-input">
@@ -24,13 +28,13 @@
         >
           <template v-if="wallet === 'venmo'">
             I acknowledge that $0.25 will be deducted from the amount I receive to cover
-            {{ $formatWallet(wallet) }} processing fees.
+            {{ formatWallet(wallet) }} processing fees.
           </template>
           <template v-else>
             I acknowledge that an estimated
-            {{ $formatMoney(calcProcessingFees()) }} will be deducted from the amount I receive to
-            cover {{ $formatWallet(wallet) }} processing fees and that any excess will be returned
-            to my Modrinth balance.
+            {{ formatMoney(calcProcessingFees()) }} will be deducted from the amount I receive to
+            cover {{ formatWallet(wallet) }} processing fees and that any excess will be returned to
+            my Modrinth balance.
           </template>
         </Checkbox>
         <Checkbox
@@ -39,13 +43,13 @@
           description="Confirm transfer"
         >
           I confirm that I an initiating a transfer to the following
-          {{ $formatWallet(wallet) }} account: {{ account }}
+          {{ formatWallet(wallet) }} account: {{ account }}
         </Checkbox>
         <span v-else-if="validInput && parseInput() < minWithdraw" class="invalid">
-          The amount must be at least {{ $formatMoney(minWithdraw) }}</span
+          The amount must be at least {{ formatMoney(minWithdraw) }}</span
         >
         <span v-else-if="validInput && parseInput() > balance" class="invalid">
-          The amount must be no more than {{ $formatMoney(balance) }}</span
+          The amount must be no more than {{ formatMoney(balance) }}</span
         >
         <span v-else-if="amount.length > 0" class="invalid">
           {{ amount }} is not a valid amount</span
@@ -73,11 +77,12 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
+import { Checkbox, formatMoney, formatWallet, Modal } from 'omorphia'
+
+import CrossIcon from 'assets/images/utils/x.svg'
+import TransferIcon from 'assets/images/utils/transfer.svg'
+import SettingsIcon from 'assets/images/utils/settings.svg'
+import { addNotification } from '~/composables/notifs.js'
 
 export default {
   components: {
@@ -109,6 +114,11 @@ export default {
       required: true,
     },
   },
+  setup() {
+    const cosmetics = useCosmetics()
+
+    return { cosmetics }
+  },
   data() {
     return {
       consentedFee: false,
@@ -118,6 +128,8 @@ export default {
     }
   },
   methods: {
+    formatMoney,
+    formatWallet,
     cancel() {
       this.amount = ''
       this.consentedFee = false
@@ -140,7 +152,7 @@ export default {
 
         this.$refs.modal.hide()
       } catch (err) {
-        this.$notify({
+        addNotification({
           group: 'main',
           title: 'An error occurred',
           text: err.data.description,

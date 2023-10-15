@@ -73,7 +73,7 @@
           :id="projectType + '-search-display-mode'"
           v-model="cosmetics.searchDisplayMode[projectType.id]"
           :options="tags.projectViewModes"
-          :custom-label="$capitalizeString"
+          :custom-label="capitalizeString"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
@@ -138,9 +138,11 @@
 </template>
 
 <script>
+import { capitalizeString, formatProjectType } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 
 export default defineNuxtComponent({
+  methods: { capitalizeString },
   components: {
     Multiselect,
   },
@@ -163,8 +165,8 @@ export default defineNuxtComponent({
       const types = this.tags.projectTypes.map((type) => {
         return {
           id: type.id,
-          name: this.$formatProjectType(type.id) + ' search',
-          display: 'the ' + this.$formatProjectType(type.id).toLowerCase() + 's search page',
+          name: formatProjectType(type.id) + ' search',
+          display: 'the ' + formatProjectType(type.id).toLowerCase() + 's search page',
         }
       })
       types.push({

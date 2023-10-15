@@ -44,7 +44,7 @@
       >
         <a
           v-tooltip="
-            version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+            version.primaryFile.filename + ' (' + formatBytes(version.primaryFile.size) + ')'
           "
           :href="version.primaryFile.url"
           class="download-button square-button brand-button"
@@ -63,26 +63,26 @@
           {{ version.name }}
         </nuxt-link>
         <div class="version__metadata">
-          <VersionBadge v-if="version.version_type === 'release'" type="release" color="green" />
-          <VersionBadge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
-          <VersionBadge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
+          <Badge v-if="version.version_type === 'release'" type="release" color="green" />
+          <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
+          <Badge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
           <span class="divider" />
           <span class="version_number">{{ version.version_number }}</span>
         </div>
         <div class="version__supports">
           <span>
-            {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+            {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
           </span>
-          <span>{{ $formatVersion(version.game_versions) }}</span>
+          <span>{{ formatVersions(version.game_versions, tags.gameVersions) }}</span>
         </div>
         <div class="version__stats">
           <span>
-            <strong>{{ $formatNumber(version.downloads) }}</strong>
+            <strong>{{ formatNumber(version.downloads) }}</strong>
             download<span v-if="version.downloads !== 1">s</span>
           </span>
           <span>
             Published on
-            <strong>{{ $dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
+            <strong>{{ dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
           </span>
         </div>
       </div>
@@ -97,15 +97,22 @@
   </div>
 </template>
 <script setup>
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import {
+  Badge,
+  DropArea,
+  acceptFileFromProjectType,
+  formatBytes,
+  formatCategory,
+  formatNumber,
+  formatVersions,
+  FileInput,
+  Pagination,
+} from 'omorphia'
+import dayjs from 'dayjs'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'
-import VersionBadge from '~/components/ui/Badge.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import Pagination from '~/components/ui/Pagination.vue'
-import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
+import VersionFilterControl from '~/components/VersionFilterControl.vue'
 
 const props = defineProps({
   project: {
@@ -135,13 +142,14 @@ const props = defineProps({
 })
 
 const data = useNuxtApp()
+const tags = useTags()
 
 const title = `${props.project.title} - Versions`
 const description = `Download and browse ${props.versions.length} ${
   props.project.title
-} versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
-  .$dayjs(props.project.updated)
-  .format('MMM D, YYYY')}.`
+} versions. ${formatNumber(props.project.downloads)} total downloads. Last updated ${dayjs(
+  props.project.updated
+).format('MMM D, YYYY')}.`
 
 useSeoMeta({
   title,

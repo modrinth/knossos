@@ -42,7 +42,7 @@
       v-if="versionTypeFilters.length > 1"
       v-model="selectedVersionTypes"
       :options="versionTypeFilters"
-      :custom-label="(x) => $capitalizeString(x)"
+      :custom-label="capitalizeString"
       :multiple="true"
       :searchable="false"
       :show-no-results="false"
@@ -85,8 +85,8 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import ClearIcon from '~/assets/images/utils/clear.svg'
+import { capitalizeString, Checkbox } from 'omorphia'
+import ClearIcon from 'assets/images/utils/clear.svg'
 
 const props = defineProps({
   versions: {

@@ -122,6 +122,7 @@
 <script>
 import { Multiselect } from 'vue-multiselect'
 import SaveIcon from '~/assets/images/utils/save.svg'
+import { addNotification } from '~/composables/notifs.js'
 
 export default defineNuxtComponent({
   components: {
@@ -145,7 +146,7 @@ export default defineNuxtComponent({
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'Patch project function not found',

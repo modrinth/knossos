@@ -1,5 +1,6 @@
 import { useNuxtApp } from '#app'
 import { userReadNotifications } from '~/composables/user.js'
+import { addNotification } from '~/composables/notifs.js'
 
 async function getBulk(type, ids) {
   if (ids.length === 0) {
@@ -114,7 +115,7 @@ export async function fetchNotifications() {
     return notifications.value
   } catch (error) {
     const app = useNuxtApp()
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error loading notifications',
       text: error.data ? error.data.description : error,
@@ -179,8 +180,7 @@ export async function markAsRead(ids) {
       return newNotifs
     }
   } catch (err) {
-    const app = useNuxtApp()
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error marking notification as read',
       text: err.data ? err.data.description : err,

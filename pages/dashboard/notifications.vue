@@ -26,7 +26,7 @@
           v-model="selectedType"
           :items="notifTypes"
           :format-label="
-            (x) => (x === 'all' ? 'All' : $formatProjectType(x).replace('_', ' ') + 's')
+            (x) => (x === 'all' ? 'All' : formatProjectType(x).replace('_', ' ') + 's')
           "
           :capitalize="false"
         />
@@ -45,12 +45,10 @@
   </div>
 </template>
 <script setup>
-import { Button, HistoryIcon } from 'omorphia'
+import { Button, Breadcrumbs, formatProjectType, HistoryIcon, Chips } from 'omorphia'
 import { fetchNotifications, groupNotifications, markAsRead } from '~/helpers/notifications.js'
-import NotificationItem from '~/components/ui/NotificationItem.vue'
-import Chips from '~/components/ui/Chips.vue'
+import NotificationItem from '~/components/NotificationItem.vue'
 import CheckCheckIcon from '~/assets/images/utils/check-check.svg'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 useHead({
   title: 'Notifications - Modrinth',

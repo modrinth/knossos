@@ -7,6 +7,7 @@
       :has-to-type="true"
       :confirmation-text="project.title"
       proceed-label="Delete"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteProject"
     />
     <section class="universal-card">
@@ -66,7 +67,9 @@
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">
-          https://modrinth.com/{{ $getProjectTypeForUrl(project.project_type, project.loaders) }}/
+          https://modrinth.com/{{
+            getProjectTypeForUrl(project.project_type, project.loaders, tags)
+          }}/
         </div>
         <input
           id="project-slug"
@@ -102,7 +105,7 @@
             <span class="label__title">Client-side</span>
             <span class="label__description">
               Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has functionality on the
+              {{ formatProjectType(project.project_type).toLowerCase() }} has functionality on the
               client side. Just because a mod works in Singleplayer doesn't mean it has actual
               client-side functionality.
             </span>
@@ -125,7 +128,7 @@
             <span class="label__title">Server-side</span>
             <span class="label__description">
               Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has functionality on the
+              {{ formatProjectType(project.project_type).toLowerCase() }} has functionality on the
               <strong>logical</strong> server. Remember that Singleplayer contains an integrated
               server.
             </span>
@@ -192,7 +195,7 @@
           v-model="visibility"
           placeholder="Select one"
           :options="tags.approvedStatuses"
-          :custom-label="(value) => $formatProjectStatus(value)"
+          :custom-label="(value) => formatProjectStatus(value)"
           :searchable="false"
           :close-on-select="true"
           :show-labels="false"
@@ -237,10 +240,15 @@
 </template>
 
 <script>
+import {
+  formatProjectStatus,
+  formatProjectType,
+  getProjectTypeForUrl,
+  Avatar,
+  FileInput,
+  ModalConfirm,
+} from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import Avatar from '~/components/ui/Avatar.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import FileInput from '~/components/ui/FileInput.vue'
 
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
@@ -279,7 +287,7 @@ export default defineNuxtComponent({
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'Patch project function not found',
@@ -292,7 +300,7 @@ export default defineNuxtComponent({
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'Patch icon function not found',
@@ -305,7 +313,7 @@ export default defineNuxtComponent({
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'Update icon function not found',
@@ -316,9 +324,10 @@ export default defineNuxtComponent({
     },
   },
   setup() {
+    const cosmetics = useCosmetics()
     const tags = useTags()
 
-    return { tags }
+    return { cosmetics, tags }
   },
   data() {
     return {
@@ -380,6 +389,9 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    getProjectTypeForUrl,
+    formatProjectType,
+    formatProjectStatus,
     hasModifiedVisibility() {
       const originalVisibility = this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
@@ -415,7 +427,7 @@ export default defineNuxtComponent({
       })
       await initUserProjects()
       await this.$router.push('/dashboard/projects')
-      this.$notify({
+      addNotification({
         group: 'main',
         title: 'Project deleted',
         text: 'Your project has been deleted.',
@@ -432,7 +444,7 @@ export default defineNuxtComponent({
         method: 'DELETE',
       })
       await this.updateIcon()
-      this.$notify({
+      addNotification({
         group: 'main',
         title: 'Project icon removed',
         text: "Your project's icon has been removed.",

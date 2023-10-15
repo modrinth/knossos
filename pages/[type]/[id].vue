@@ -125,7 +125,11 @@
     </div>
   </div>
   <div v-else>
-    <Modal ref="modalLicense" :header="project.license.name ? project.license.name : 'License'">
+    <Modal
+      ref="modalLicense"
+      :header="project.license.name ? project.license.name : 'License'"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+    >
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
@@ -135,6 +139,7 @@
       ref="modal_project_report"
       :item-id="project.id"
       item-type="project"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     />
     <div
       :class="{
@@ -181,12 +186,12 @@
             </h1>
             <nuxt-link
               class="title-link project-type"
-              :to="`/${$getProjectTypeForUrl(project.actualProjectType, project.loaders)}s`"
+              :to="`/${getProjectTypeForUrl(project.actualProjectType, project.loaders, tags)}s`"
             >
               <BoxIcon />
               <span>{{
-                $formatProjectType(
-                  $getProjectTypeForDisplay(project.actualProjectType, project.loaders)
+                formatProjectType(
+                  getProjectTypeForDisplay(project.actualProjectType, project.loaders, tags)
                 )
               }}</span>
             </nuxt-link>
@@ -214,7 +219,7 @@
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">
-                  {{ $formatNumber(project.downloads) }}
+                  {{ formatNumber(project.downloads) }}
                 </span>
                 download<span v-if="project.downloads !== 1">s</span>
               </div>
@@ -223,14 +228,14 @@
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
                 <span class="primary-stat__counter">
-                  {{ $formatNumber(project.followers) }}
+                  {{ formatNumber(project.followers) }}
                 </span>
                 follower<span v-if="project.followers !== 1">s</span>
               </div>
             </div>
             <div class="dates">
               <div
-                v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
+                v-tooltip="dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <CalendarIcon aria-hidden="true" />
@@ -238,7 +243,7 @@
                 <span class="value">{{ fromNow(project.published) }}</span>
               </div>
               <div
-                v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
+                v-tooltip="dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <UpdateIcon aria-hidden="true" />
@@ -247,7 +252,7 @@
               </div>
               <div
                 v-if="project.status === 'processing' && project.queued"
-                v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+                v-tooltip="dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
                 <QueuedIcon aria-hidden="true" />
@@ -352,7 +357,9 @@
           To install {{ project.title }}, download
           <nuxt-link to="/app">the Modrinth App</nuxt-link>. For instructions with other launchers,
           please see
-          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+          <a
+            href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
+            :target="external(cosmetics)"
             >our documentation</a
           >.
         </MessageBanner>
@@ -430,7 +437,7 @@
               v-if="project.issues_url"
               :href="project.issues_url"
               class="title"
-              :target="$external()"
+              :target="external(cosmetics)"
               rel="noopener nofollow ugc"
             >
               <IssuesIcon aria-hidden="true" />
@@ -440,7 +447,7 @@
               v-if="project.source_url"
               :href="project.source_url"
               class="title"
-              :target="$external()"
+              :target="external(cosmetics)"
               rel="noopener nofollow ugc"
             >
               <CodeIcon aria-hidden="true" />
@@ -450,7 +457,7 @@
               v-if="project.wiki_url"
               :href="project.wiki_url"
               class="title"
-              :target="$external()"
+              :target="external(cosmetics)"
               rel="noopener nofollow ugc"
             >
               <WikiIcon aria-hidden="true" />
@@ -459,7 +466,7 @@
             <a
               v-if="project.discord_url"
               :href="project.discord_url"
-              :target="$external()"
+              :target="external(cosmetics)"
               rel="noopener nofollow ugc"
             >
               <DiscordIcon class="shrink" aria-hidden="true" />
@@ -469,7 +476,7 @@
               v-for="(donation, index) in project.donation_urls"
               :key="index"
               :href="donation.url"
-              :target="$external()"
+              :target="external(cosmetics)"
               rel="noopener nofollow ugc"
             >
               <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
@@ -520,7 +527,7 @@
           >
             <a
               v-tooltip="
-                version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+                version.primaryFile.filename + ' (' + formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
               class="download square-button brand-button"
@@ -539,8 +546,8 @@
                 {{ version.name }}
               </nuxt-link>
               <div v-if="version.game_versions.length > 0" class="game-version item">
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
-                {{ $formatVersion(version.game_versions) }}
+                {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
+                {{ formatVersions(version.game_versions, tags.gameVersions) }}
               </div>
               <Badge v-if="version.version_type === 'release'" type="release" color="green" />
               <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
@@ -664,7 +671,32 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import {
+  computeVersions,
+  external,
+  formatVersions,
+  renderString,
+  Avatar,
+  Badge,
+  Breadcrumbs,
+  Modal,
+  Promotion,
+  formatCategory,
+  formatProjectType,
+  formatBytes,
+  formatNumber,
+  getProjectTypeForDisplay,
+  getProjectTypeForUrl,
+  CopyCode,
+  EnvironmentIndicator,
+  ModalReport,
+  Categories,
+  NavRow,
+  NavStack,
+  NavStackItem,
+} from 'omorphia'
+
+import dayjs from 'dayjs'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -685,18 +717,8 @@ import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
-import Badge from '~/components/ui/Badge.vue'
-import Categories from '~/components/ui/search/Categories.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
-import Modal from '~/components/ui/Modal.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
-import MessageBanner from '~/components/ui/MessageBanner.vue'
+import ProjectMemberHeader from '~/components/ProjectMemberHeader.vue'
+import MessageBanner from '~/components/MessageBanner.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UsersIcon from '~/assets/images/utils/users.svg'
 import CategoriesIcon from '~/assets/images/utils/tags.svg'
@@ -705,8 +727,6 @@ import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
-import { renderString } from '~/helpers/parse.js'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -744,7 +764,7 @@ try {
       transform: (project) => {
         if (project) {
           project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-          project.project_type = data.$getProjectTypeForUrl(
+          project.project_type = getProjectTypeForUrl(
             project.project_type,
             project.loaders,
             tags.value
@@ -836,7 +856,7 @@ if (
   }
 }
 
-versions.value = data.$computeVersions(versions.value, allMembers.value)
+versions.value = computeVersions(versions.value, allMembers.value)
 
 // Q: Why do this instead of computing the versions of featuredVersions?
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
@@ -866,8 +886,8 @@ const licenseIdDisplay = computed(() => {
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
 
-const projectTypeDisplay = data.$formatProjectType(
-  data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+const projectTypeDisplay = formatProjectType(
+  getProjectTypeForDisplay(project.value.project_type, project.value.loaders, tags)
 )
 const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
 const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
@@ -893,7 +913,11 @@ async function resetProject() {
 
   newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
 
-  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
+  newProject.project_type = getProjectTypeForUrl(
+    newProject.project_type,
+    newProject.loaders,
+    tags.value
+  )
 
   project.value = newProject
 }

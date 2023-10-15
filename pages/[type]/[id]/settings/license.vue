@@ -6,8 +6,8 @@
           <span class="label__title size-card-header">License</span>
           <span class="label__description">
             It is very important to choose a proper license for your
-            {{ $formatProjectType(project.project_type).toLowerCase() }}. You may choose one from
-            our list or provide a custom license. You may also provide a custom URL to your chosen
+            {{ formatProjectType(project.project_type).toLowerCase() }}. You may choose one from our
+            list or provide a custom license. You may also provide a custom URL to your chosen
             license; otherwise, the license text will be displayed.
             <span v-if="license && license.friendly === 'Custom'" class="label__subdescription">
               Enter a valid
@@ -101,8 +101,10 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox'
+import {Checkbox} from 'omorphia'
 import SaveIcon from '~/assets/images/utils/save.svg'
+import { formatProjectType } from 'omorphia'
+import { addNotification } from "~/composables/notifs.js";
 
 export default defineNuxtComponent({
   components: {
@@ -127,7 +129,7 @@ export default defineNuxtComponent({
       type: Function,
       default() {
         return () => {
-          this.$notify({
+          addNotification({
             group: 'main',
             title: 'An error occurred',
             text: 'Patch project function not found',
@@ -286,6 +288,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    formatProjectType,
     saveChanges() {
       if (this.hasChanges) {
         this.patchProject(this.patchData)
