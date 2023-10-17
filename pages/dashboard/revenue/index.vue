@@ -124,7 +124,7 @@
           </tr>
           <tr>
             <td>PayPal (US)</td>
-            <td>$0.25 + 2% (max $1)</td>
+            <td>$0.25</td>
             <td>United States of America</td>
           </tr>
           <tr>
