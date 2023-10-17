@@ -147,7 +147,7 @@
     "message": "Não foi possível carregar este idioma. Tente novamente em instantes."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Tecle enter para escolher o primeiro resultado"
+    "message": "Pressione enter para escolher o primeiro resultado"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Buscar idioma..."
