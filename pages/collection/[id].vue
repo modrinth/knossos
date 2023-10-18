@@ -10,28 +10,39 @@ import {
   DropdownSelect,
   XIcon,
   SearchIcon,
-  SaveIcon
-} from "omorphia";
-import Breadcrumbs from "~/components/ui/Breadcrumbs.vue";
-import SettingsIcon from "assets/images/utils/settings.svg";
-import NavStackItem from "~/components/ui/NavStackItem.vue";
-import NavStack from "~/components/ui/NavStack.vue";
-import ProjectCard from "~/components/ui/ProjectCard.vue";
-import SearchDropdown from "~/components/search/SearchDropdown.vue";
-import FileInput from "~/components/ui/FileInput.vue";
-import TrashIcon from "assets/images/utils/trash.svg";
-import UploadIcon from "assets/images/utils/upload.svg";
+  SaveIcon,
+} from 'omorphia'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import SettingsIcon from 'assets/images/utils/settings.svg'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+import NavStack from '~/components/ui/NavStack.vue'
+import ProjectCard from '~/components/ui/ProjectCard.vue'
+import SearchDropdown from '~/components/search/SearchDropdown.vue'
+import FileInput from '~/components/ui/FileInput.vue'
+import TrashIcon from 'assets/images/utils/trash.svg'
+import UploadIcon from 'assets/images/utils/upload.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
 
-const collection = shallowRef(await useAsyncData(`collection/${route.params.id}`, () => useBaseFetch(`collection/${route.params.id}`)).then(res => res.data))
-const projects = shallowRef(await useAsyncData(`projects?ids=[${collection.value.projects.map(p => `"${p}"`).join(',')}]`, () => useBaseFetch(`projects?ids=[${collection.value.projects.map(p => `"${p}"`).join(',')}]`)).then(res => res.data))
+const collection = shallowRef(
+  await useAsyncData(`collection/${route.params.id}`, () =>
+    useBaseFetch(`collection/${route.params.id}`)
+  ).then((res) => res.data)
+)
+const projects = shallowRef(
+  await useAsyncData(
+    `projects?ids=[${collection.value.projects.map((p) => `"${p}"`).join(',')}]`,
+    () => useBaseFetch(`projects?ids=[${collection.value.projects.map((p) => `"${p}"`).join(',')}]`)
+  ).then((res) => res.data)
+)
 
-const projectTypes = ref(['All']);
-projectTypes.value.push(...projects.value.map(p => p.project_type).filter((v, i, a) => a.indexOf(v) === i));
-const projectType = ref('All');
-const inputText = ref('');
+const projectTypes = ref(['All'])
+projectTypes.value.push(
+  ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+)
+const projectType = ref('All')
+const inputText = ref('')
 const icon = ref(null)
 const deletedIcon = ref(false)
 const previewImage = ref(null)
@@ -39,7 +50,7 @@ const name = ref(collection.value.title)
 const summary = ref(collection.value.description)
 const visibility = ref(collection.value.status)
 const tags = useTags()
-const enableEditing = ref(false);
+const enableEditing = ref(false)
 
 const patchData = computed(() => {
   const data = {}
@@ -67,7 +78,7 @@ const patchCollection = async (resData, quiet = false) => {
       body: resData,
     })
 
-    await resetCollection();
+    await resetCollection()
 
     result = true
     if (!quiet) {
@@ -100,13 +111,13 @@ const patchIcon = async (icon) => {
 
   try {
     await useBaseFetch(
-        `collection/${collection.value.id}/icon?ext=${
-            icon.type.split('/')[icon.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon,
-        }
+      `collection/${collection.value.id}/icon?ext=${
+        icon.type.split('/')[icon.type.split('/').length - 1]
+      }`,
+      {
+        method: 'PATCH',
+        body: icon,
+      }
     )
     await resetCollection()
     result = true
@@ -146,22 +157,29 @@ const deleteIcon = async () => {
 
 const resetCollection = async () => {
   collection.value = await useBaseFetch(`collection/${collection.value.id}`)
-  projects.value = await useBaseFetch(`projects?ids=[${collection.value.projects.map(p => `"${p}"`).join(',')}]`)
+  projects.value = await useBaseFetch(
+    `projects?ids=[${collection.value.projects.map((p) => `"${p}"`).join(',')}]`
+  )
 }
 
 const hasPermission = computed(() => {
   const EDIT_DETAILS = 1 << 2
-  return true;
+  return true
 })
 
 const hasChanges = computed(() => {
-  return Object.keys(patchData.value).length > 0 || deletedIcon.value || icon.value || hasModifiedVisibility()
+  return (
+    Object.keys(patchData.value).length > 0 ||
+    deletedIcon.value ||
+    icon.value ||
+    hasModifiedVisibility()
+  )
 })
 
 const hasModifiedVisibility = () => {
   const originalVisibility = tags.value.approvedStatuses.includes(collection.value.status)
-      ? collection.value.status
-      : 'listed'
+    ? collection.value.status
+    : 'listed'
 
   return originalVisibility !== visibility.value
 }
@@ -212,44 +230,53 @@ const searchText = ref('')
 
 const noLoad = ref(false)
 const { data: rawResults } = useLazyFetch(
-    () => {
-      const config = useRuntimeConfig()
-      const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
+  () => {
+    const config = useRuntimeConfig()
+    const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
-      const params = [`limit=20`]
+    const params = [`limit=20`]
 
-      if (searchText.value.length > 0) {
-        params.push(`query=${encodeURIComponent(searchText.value.replace(/ /g, '+'))}`)
-      }
-
-      let url = 'search'
-
-      if (params.length > 0) {
-        for (let i = 0; i < params.length; i++) {
-          url += i === 0 ? `?${params[i]}` : `&${params[i]}`
-        }
-      }
-
-      return `${base}${url}`
-    },
-    {
-      transform: (hits) => {
-        noLoad.value = false
-        return hits
-      },
+    if (searchText.value.length > 0) {
+      params.push(`query=${encodeURIComponent(searchText.value.replace(/ /g, '+'))}`)
     }
+
+    let url = 'search'
+
+    if (params.length > 0) {
+      for (let i = 0; i < params.length; i++) {
+        url += i === 0 ? `?${params[i]}` : `&${params[i]}`
+      }
+    }
+
+    return `${base}${url}`
+  },
+  {
+    transform: (hits) => {
+      noLoad.value = false
+      return hits
+    },
+  }
 )
 
 const results = shallowRef(toRaw(rawResults))
 </script>
 
 <template>
-<div class="normal-page" :class="{ 'no-sidebar': !$route.name.startsWith('collection-id-settings'), 'left-sidebar': $route.name.startsWith('collection-id-settings')}">
-  <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
-    <div class="page-header">
-      <div class="page-header__icon">
-        <Avatar size="md" :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url" />
-        <FileInput
+  <div
+    class="normal-page"
+    :class="{
+      'no-sidebar': !$route.name.startsWith('collection-id-settings'),
+      'left-sidebar': $route.name.startsWith('collection-id-settings'),
+    }"
+  >
+    <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
+      <div class="page-header">
+        <div class="page-header__icon">
+          <Avatar
+            size="md"
+            :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
+          />
+          <FileInput
             v-if="enableEditing"
             id="project-icon"
             :max-size="262144"
@@ -259,90 +286,83 @@ const results = shallowRef(toRaw(rawResults))
             prompt=""
             :disabled="!hasPermission"
             @change="showPreviewImage"
-        >
-          <UploadIcon />
-        </FileInput>
-        <button
+          >
+            <UploadIcon />
+          </FileInput>
+          <button
             v-if="enableEditing && !deletedIcon && (previewImage || collection.icon_url)"
             class="btn icon-only delete"
             :disabled="!hasPermission"
             @click="markIconForDeletion"
-        >
-          <TrashIcon />
-        </button>
-      </div>
-      <div class="page-header__text">
-        <div v-if="!enableEditing" class="title">
-          <h1>{{collection.title}}</h1>
-          <Button>
-            <ShareIcon />
-          </Button>
+          >
+            <TrashIcon />
+          </button>
         </div>
-        <div v-else class="iconified-input">
-          <BoxIcon/>
-          <input
-              v-model="name"
-              type="text"
-              placeholder="Collection name..."
-          />
-          <Button @click="() => enableEditing = !enableEditing">
-            <XIcon/>
-          </Button>
-        </div>
-        <div v-if="!enableEditing" class="markdown-body">
-          <p>{{collection.description}}</p>
-        </div>
-        <div v-else class="textarea-wrapper summary-input">
-          <textarea
+        <div class="page-header__text">
+          <div v-if="!enableEditing" class="title">
+            <h1>{{ collection.title }}</h1>
+            <Button>
+              <ShareIcon />
+            </Button>
+          </div>
+          <div v-else class="iconified-input">
+            <BoxIcon />
+            <input v-model="name" type="text" placeholder="Collection name..." />
+            <Button @click="() => (enableEditing = !enableEditing)">
+              <XIcon />
+            </Button>
+          </div>
+          <div v-if="!enableEditing" class="markdown-body">
+            <p>{{ collection.description }}</p>
+          </div>
+          <div v-else class="textarea-wrapper summary-input">
+            <textarea
               id="project-summary"
               v-model="summary"
               maxlength="256"
               :disabled="!hasPermission"
-          />
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="normal-page__content">
-    <Promotion />
-    <Card class="search-card">
-      <div v-if="!enableEditing" class="dropdown-input">
-        <DropdownSelect
-            v-model="projectType"
-            :options="projectTypes"
-        />
-        <div class="iconified-input">
-          <SearchIcon/>
-          <input
-              v-model="inputText"
-              type="text"
-              placeholder="Search projects..."
-          />
-          <Button @click="() => inputText = ''">
-            <XIcon/>
-          </Button>
+    <div class="normal-page__content">
+      <Promotion />
+      <Card class="search-card">
+        <div v-if="!enableEditing" class="dropdown-input">
+          <DropdownSelect v-model="projectType" :options="projectTypes" />
+          <div class="iconified-input">
+            <SearchIcon />
+            <input v-model="inputText" type="text" placeholder="Search projects..." />
+            <Button @click="() => (inputText = '')">
+              <XIcon />
+            </Button>
+          </div>
         </div>
-      </div>
-      <SearchDropdown
+        <SearchDropdown
           v-else
-          name="project-input"
-          :options="results?.hits?.map(p => ({icon: p.icon_url, title: p.title, id: p.project_id}))"
           v-model="searchText"
-          @on-selected="addProject"
+          name="project-input"
+          :options="
+            results?.hits?.map((p) => ({ icon: p.icon_url, title: p.title, id: p.project_id }))
+          "
           placeholder="Add projects..."
-      />
-      <Button v-if="!hasChanges" @click="() => enableEditing = !enableEditing">
-        <EditIcon/>
-        {{enableEditing ? 'Disable' : 'Enable'}} editing
-      </Button>
-      <Button v-else color="primary" @click="saveChanges">
-        <SaveIcon/>
-        Save changes
-      </Button>
-    </Card>
-    <div class="project-list display-mode--list">
-      <ProjectCard
-          v-for="project in projects.filter(p => projectType === 'All' || p.project_type === projectType).filter(p => p.title.toLowerCase().includes(inputText.toLowerCase()))"
+          @on-selected="addProject"
+        />
+        <Button v-if="!hasChanges" @click="() => (enableEditing = !enableEditing)">
+          <EditIcon />
+          {{ enableEditing ? 'Disable' : 'Enable' }} editing
+        </Button>
+        <Button v-else color="primary" @click="saveChanges">
+          <SaveIcon />
+          Save changes
+        </Button>
+      </Card>
+      <div class="project-list display-mode--list">
+        <ProjectCard
+          v-for="project in projects
+            .filter((p) => projectType === 'All' || p.project_type === projectType)
+            .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
           :id="project.slug"
           :type="project.project_type"
           :name="project.title"
@@ -359,10 +379,10 @@ const results = shallowRef(toRaw(rawResults))
           :client-side="project.client_side"
           :show-updated-date="false"
           color="1716041"
-      />
+        />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <style scoped lang="scss">

@@ -288,18 +288,18 @@
           <div class="primary-stat">
             <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
-              <strong>
+              <span class="primary-stat__counter">
                 {{ $formatNumber(project.downloads) }}
-              </strong>
+              </span>
               download<span v-if="project.downloads !== 1">s</span>
             </div>
           </div>
           <div class="primary-stat">
             <HeartIcon class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
-              <strong>
+              <span class="primary-stat__counter">
                 {{ $formatNumber(project.followers) }}
-              </strong>
+              </span>
               follower<span v-if="project.followers !== 1">s</span>
             </div>
           </div>
@@ -340,120 +340,6 @@
               </span>
             </div>
           </div>
-          <hr class="card-divider" />
-          <div class="input-group">
-            <template v-if="auth.user">
-              <button class="iconified-button" @click="$refs.modal_project_report.show()">
-                <ReportIcon aria-hidden="true" />
-                Report
-              </button>
-              <button
-                v-if="!user.follows.find((x) => x.id === project.id)"
-                class="iconified-button"
-                @click="userFollowProject(project)"
-              >
-                <HeartIcon aria-hidden="true" />
-                Follow
-              </button>
-              <button
-                v-if="user.follows.find((x) => x.id === project.id)"
-                class="iconified-button"
-                @click="userUnfollowProject(project)"
-              >
-                <HeartIcon fill="currentColor" aria-hidden="true" />
-                Unfollow
-              </button>
-            </template>
-            <template v-else>
-              <nuxt-link class="iconified-button" to="/auth/sign-in">
-                <ReportIcon aria-hidden="true" />
-                Report
-              </nuxt-link>
-              <nuxt-link class="iconified-button" to="/auth/sign-in">
-                <HeartIcon aria-hidden="true" />
-                Follow
-              </nuxt-link>
-            </template>
-          </div>
-          <hr class="card-divider" />
-          <div class="links vertical">
-            <a
-              v-if="project.issues_url"
-              :href="project.issues_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <IssuesIcon aria-hidden="true" />
-              <span>Visit issue tracker</span>
-            </a>
-            <a
-              v-if="project.source_url"
-              :href="project.source_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <CodeIcon aria-hidden="true" />
-              <span>View source</span>
-            </a>
-            <a
-              v-if="project.wiki_url"
-              :href="project.wiki_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <WikiIcon aria-hidden="true" />
-              <span>Visit wiki</span>
-            </a>
-            <a
-              v-if="project.discord_url"
-              :href="project.discord_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <DiscordIcon class="shrink" aria-hidden="true" />
-              <span>Join Discord server</span>
-            </a>
-            <a
-              v-for="(donation, index) in project.donation_urls"
-              :key="index"
-              :href="donation.url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
-              <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
-              <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
-              <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
-              <OpenCollectiveIcon
-                v-else-if="donation.id === 'open-collective'"
-                aria-hidden="true"
-              />
-              <HeartIcon v-else-if="donation.id === 'github'" />
-              <UnknownIcon v-else />
-              <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
-              <span v-else-if="donation.id === 'patreon'">Patreon</span>
-              <span v-else-if="donation.id === 'paypal'">PayPal</span>
-              <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
-              <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
-              <span v-else>Donate</span>
-            </a>
-          </div>
-          <hr class="card-divider" />
-          <h2 class="card-header">Project members</h2>
-          <nuxt-link
-            v-for="member in members"
-            :key="member.user.id"
-            class="team-member columns button-transparent"
-            :to="'/user/' + member.user.username"
-          >
-            <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
-            <div class="member-info">
-              <p class="name">{{ member.name }}</p>
-              <p class="role">
-                {{ member.role }}
-              </p>
-            </div>
-          </nuxt-link>
         </Card>
         <div
           v-if="currentMember && project.moderator_message"
@@ -493,7 +379,7 @@
             :src="project.icon_url"
             :alt="project.title"
             size="md"
-            class="project__icon"
+            class="page-header__icon"
             no-shadow
           />
           <div class="page-header__text">
@@ -651,13 +537,6 @@
                   project.slug ? project.slug : project.id
                 }/versions`,
                 shown: versions.length > 0 || !!currentMember,
-              },
-              {
-                label: 'Analytics',
-                href: `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/analytics`,
-                shown: !!currentMember,
               },
               {
                 label: 'Moderation',
@@ -940,7 +819,6 @@ import {
   CodeIcon,
   ClientIcon,
   ServerIcon,
-  BoxIcon,
 } from 'omorphia'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import ExternalIcon from '~/assets/images/utils/external.svg'
@@ -1388,11 +1266,6 @@ const collapsedChecklist = ref(false)
     font-size: var(--font-size-nm);
   }
 
-  strong {
-    font-weight: 600;
-    color: var(--color-info-banner-text);
-  }
-
   .dates {
     margin: 0.75rem 0;
 
@@ -1412,112 +1285,6 @@ const collapsedChecklist = ref(false)
         height: 1rem;
         margin-right: 0.25rem;
       }
-    }
-  }
-}
-
-.project-header {
-  overflow: hidden;
-  padding: 0 0 var(--gap-md) 0;
-  display: grid;
-  grid-template-areas: 'icon title button-section';
-  grid-template-columns: 6rem auto auto;
-  gap: var(--gap-md);
-  margin: 0;
-  background: none;
-  border-radius: unset;
-
-  .project-header__text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-
-    .project-type {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .project__icon {
-    grid-area: icon;
-    background-color: var(--color-raised-bg);
-  }
-
-  .title {
-    grid-area: title;
-    margin: var(--gap-sm) 0;
-
-    h1 {
-      display: inline;
-      font-size: var(--font-size-xl);
-      width: 100%;
-      flex-shrink: 3;
-    }
-
-    .btn {
-      display: inline;
-      flex-grow: 1;
-      padding: 0;
-      background: none;
-    }
-  }
-
-  .button-section {
-    grid-area: button-section;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: var(--gap-sm);
-    margin-left: auto;
-
-    .group {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: var(--gap-sm);
-    }
-
-    .actions {
-      .btn {
-        color: var(--color-text);
-      }
-    }
-
-    .server {
-      background-color: var(--color-blue);
-      color: var(--color-accent-contrast);
-    }
-
-    .support {
-      background-color: var(--color-purple);
-      color: var(--color-accent-contrast);
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .project-header {
-    grid-template-areas:
-      'icon title'
-      'button-section button-section';
-    grid-template-columns: 6rem auto;
-    grid-template-rows: auto auto;
-    gap: var(--gap-sm);
-
-    .title {
-      h1 {
-        font-size: var(--font-size-lg);
-      }
-    }
-
-    .button-section {
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: flex-start;
-      margin-left: 0;
     }
   }
 }

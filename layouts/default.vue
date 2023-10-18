@@ -62,115 +62,12 @@
                 Following
               </NuxtLink>
               <NuxtLink
-                v-for="navRoute in navRoutes"
-                :key="navRoute.href"
-                :to="navRoute.href"
+                v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
                 class="iconified-button"
+                to="/moderation"
               >
-                {{ navRoute.label }}
-              </NuxtLink>
-            </div>
-          </div>
-          <div
-            class="nav-menu nav-menu-mobile"
-            :class="{ expanded: isMobileMenuOpen }"
-            @focusin="isMobileMenuOpen = true"
-            @focusout="isMobileMenuOpen = false"
-          >
-            <div class="account-container">
-              <NuxtLink
-                v-if="auth.user"
-                :to="`/user/${auth.user.username}`"
-                class="iconified-button account-button"
-              >
-                <Avatar
-                  :src="auth.user.avatar_url"
-                  class="user-icon"
-                  alt="Your avatar"
-                  aria-hidden="true"
-                  circle
-                />
-                <div class="account-text">
-                  <div>@{{ auth.user.username }}</div>
-                  <div>Visit your profile</div>
-                </div>
-              </NuxtLink>
-              <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
-                <LogInIcon /> Sign in
-              </nuxt-link>
-            </div>
-            <div class="links">
-              <template v-if="auth.user">
-                <button class="iconified-button danger-button" @click="logoutUser()">
-                  <LogOutIcon aria-hidden="true" />
-                  Log out
-                </button>
-                <button class="iconified-button" @click="$refs.modal_creation.show()">
-                  <PlusIcon aria-hidden="true" />
-                  Create a project
-                </button>
-                <NuxtLink class="iconified-button" to="/dashboard/follows">
-                  <HeartIcon aria-hidden="true" />
-                  Following
-                </NuxtLink>
-                <NuxtLink
-                  v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
-                  class="iconified-button"
-                  to="/moderation"
-                >
-                  <ModerationIcon aria-hidden="true" />
-                  Moderation
-                </NuxtLink>
-              </template>
-              <NuxtLink class="iconified-button" to="/settings">
-                <SettingsIcon aria-hidden="true" />
-                Settings
-              </NuxtLink>
-              <button class="iconified-button" @click="changeTheme">
-                <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
-                <SunIcon v-else class="icon" />
-                <span class="dropdown-item__text">Change theme</span>
-              </button>
-            </div>
-          </div>
-          <div class="mobile-navbar" :class="{ expanded: isBrowseMenuOpen || isMobileMenuOpen }">
-            <NuxtLink to="/" class="tab button-animation" title="Home">
-              <HomeIcon />
-            </NuxtLink>
-            <button
-              class="tab button-animation"
-              :class="{ 'router-link-exact-active': isBrowseMenuOpen }"
-              title="Search"
-              @click="toggleBrowseMenu()"
-            >
-              <template v-if="auth.user">
-                <SearchIcon />
-              </template>
-              <template v-else>
-                <SearchIcon class="smaller" />
-                Search
-              </template>
-            </button>
-            <template v-if="auth.user">
-              <NuxtLink
-                to="/dashboard/notifications"
-                class="tab button-animation"
-                :class="{
-                  bubble: user.notifications.length > 0,
-                  'no-active': isMobileMenuOpen || isBrowseMenuOpen,
-                }"
-                title="Notifications"
-                @click="
-                  () => {
-                    isMobileMenuOpen = false
-                    isBrowseMenuOpen = false
-                  }
-                "
-              >
-                <NotificationIcon />
-              </NuxtLink>
-              <NuxtLink to="/dashboard" class="tab button-animation" title="Dashboard">
-                <ChartIcon />
+                <ModerationIcon aria-hidden="true" />
+                Moderation
               </NuxtLink>
             </template>
             <NuxtLink class="iconified-button" to="/settings">
@@ -528,7 +425,6 @@
 </template>
 <script setup>
 import { LogInIcon, DownloadIcon, BoxIcon, ServerIcon, ImageIcon, DropdownIcon } from 'omorphia'
-
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -940,58 +836,11 @@ export default defineNuxtComponent({
 }
 
 .layout {
-  min-height: calc(100vh - var(--spacing-card-md) - var(--gap-lg));
-  width: 100vw;
+  min-height: 100vh;
   background-color: var(--color-bg);
+  display: flex;
   justify-content: center;
   padding-top: var(--gap-lg);
-  margin: 0 auto;
-
-  &.vertical {
-    flex-direction: column;
-
-    .navbar {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .control-button {
-      font-weight: bold;
-      svg {
-        display: none;
-      }
-    }
-
-    .dropdown-row {
-      display: none !important;
-    }
-
-    .user-controls {
-      display: flex;
-      flex-direction: row !important;
-      align-items: center !important;
-    }
-
-    .auth-prompt {
-      display: flex;
-      flex-direction: row !important;
-    }
-
-    .dropdown-section {
-      display: flex;
-      flex-direction: row !important;
-    }
-
-    section.logo {
-      margin-bottom: 0 !important;
-    }
-
-    .site-header {
-      position: relative;
-      margin: 0 auto;
-    }
-  }
 
   @media screen and (min-width: 1024px) {
     min-height: calc(100vh - var(--spacing-card-bg));
@@ -1002,6 +851,8 @@ export default defineNuxtComponent({
   }
 
   .site-header {
+    max-width: 100vw;
+
     @media screen and (min-width: 1024px) {
       margin-top: var(--spacing-card-md);
       margin-bottom: var(--spacing-card-md);
@@ -1013,12 +864,9 @@ export default defineNuxtComponent({
     }
 
     .navbar {
-      position: fixed;
-      width: 13rem;
+      max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
-      height: 100vh;
-      z-index: 5;
 
       section.logo {
         display: flex;
@@ -1058,8 +906,8 @@ export default defineNuxtComponent({
       section.nav-group {
         display: flex;
         flex-direction: column;
+        flex-grow: 5;
         z-index: 5;
-        height: 100%;
 
         section.nav {
           flex-grow: 5;
@@ -1106,8 +954,6 @@ export default defineNuxtComponent({
           justify-content: space-between;
           position: relative;
           min-width: 6rem;
-          gap: var(--gap-sm);
-          height: 100%;
 
           .control-button {
             position: relative;
@@ -1155,10 +1001,6 @@ export default defineNuxtComponent({
             flex-direction: row;
             align-items: center;
             gap: var(--gap-xs);
-          }
-
-          .main-nav {
-            flex-grow: 1;
           }
         }
 
@@ -1373,17 +1215,23 @@ export default defineNuxtComponent({
       }
     }
 
+    div {
+      flex-grow: 1;
+      justify-content: end;
+      align-items: center;
+      row-gap: 1rem;
+    }
+
     &.active {
       display: flex;
 
-      @media screen and (min-width: 1024px) {
+      @media screen and (min-width: 1095px) {
         display: none;
       }
     }
   }
 
   main {
-    position: relative;
     grid-area: main;
   }
 }

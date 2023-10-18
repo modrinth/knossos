@@ -47,7 +47,7 @@ try {
             },
           ],
         }
-      }
+      },
     }),
     useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
       transform: (analytics) => {
@@ -69,46 +69,54 @@ try {
             },
           ],
         }
-      }
+      },
     }),
-    useAsyncData(`analytics/countries/views?${body}`, () => useBaseFetch(`analytics/countries/views?${body}`), {
-      transform: (analytics) => {
-        const finalData = {
-          title: 'Views',
-          data: []
-        }
-        for (const rawData of Object.values(analytics)) {
-          for (const [key, data] of Object.entries(rawData)) {
-            finalData.data.push({
-              title: key,
-              color: 0x00af5c,
-              data
-            })
+    useAsyncData(
+      `analytics/countries/views?${body}`,
+      () => useBaseFetch(`analytics/countries/views?${body}`),
+      {
+        transform: (analytics) => {
+          const finalData = {
+            title: 'Views',
+            data: [],
           }
-        }
-
-        return finalData
-      }
-    }),
-    useAsyncData(`analytics/countries/downloads?${body}`, () => useBaseFetch(`analytics/countries/downloads?${body}`), {
-      transform: (analytics) => {
-        const finalData = {
-          title: 'Views',
-          data: []
-        }
-        for (const rawData of Object.values(analytics)) {
-          for (const [key, data] of Object.entries(rawData)) {
-            finalData.data.push({
-              title: key,
-              color: 0x00af5c,
-              data
-            })
+          for (const rawData of Object.values(analytics)) {
+            for (const [key, data] of Object.entries(rawData)) {
+              finalData.data.push({
+                title: key,
+                color: 0x00af5c,
+                data,
+              })
+            }
           }
-        }
 
-        return finalData
+          return finalData
+        },
       }
-    }),
+    ),
+    useAsyncData(
+      `analytics/countries/downloads?${body}`,
+      () => useBaseFetch(`analytics/countries/downloads?${body}`),
+      {
+        transform: (analytics) => {
+          const finalData = {
+            title: 'Views',
+            data: [],
+          }
+          for (const rawData of Object.values(analytics)) {
+            for (const [key, data] of Object.entries(rawData)) {
+              finalData.data.push({
+                title: key,
+                color: 0x00af5c,
+                data,
+              })
+            }
+          }
+
+          return finalData
+        },
+      }
+    ),
   ])
 } catch (err) {
   data.$notify({

@@ -15,32 +15,29 @@
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="normal-page">
-      <div class="normal-page__header">
+      <div class="page-header">
         <Avatar
           :src="previewImage ? previewImage : user.avatar_url"
           size="md"
           circle
+          class="page-header__icon"
           :alt="user.username"
         />
-        <div class="user-header__text">
-          <div class="user-header__title">
+        <div class="page-header__text">
+          <div class="title">
             <h1 class="username">
               {{ user.username }}
             </h1>
-            <ModrinthIcon
-              v-if="user.role === 'admin'"
-              v-tooltip="'Modrinth team'"
-              class="badge-icon"
-            />
+            <ModrinthIcon v-if="user.role === 'admin'" v-tooltip="'Modrinth team'" class="icon" />
             <ScaleIcon
               v-else-if="user.role === 'moderator'"
               v-tooltip="'Moderator'"
-              class="badge-icon moderator"
+              class="icon moderator"
             />
             <BoxIcon
               v-else-if="user.role === 'developer'"
               v-tooltip="'Creator'"
-              class="badge-icon creator"
+              class="icon creator"
             />
           </div>
           <div class="markdown-body">
@@ -417,10 +414,13 @@ export default defineNuxtComponent({
     flex-direction: row;
     align-items: center;
     gap: var(--gap-sm);
-    padding: var(--gap-sm) var(--gap-md);
     border-radius: var(--radius-md);
     background: var(--color-raised-bg);
     text-align: center;
+
+    box-shadow: var(--shadow-raised);
+    padding: var(--gap-xs) var(--gap-sm);
+    border: 1px solid var(--color-button-bg);
   }
 }
 
@@ -511,7 +511,6 @@ export default defineNuxtComponent({
     overflow: hidden;
     width: var(--_size);
     height: var(--_size);
-    box-shadow: var(--shadow-raised);
 
     svg {
       width: 100%;

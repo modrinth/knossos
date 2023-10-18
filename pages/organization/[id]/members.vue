@@ -1,7 +1,7 @@
 <script setup>
-import {Avatar, Button, Card, HeartIcon, HamburgerIcon, GlobeIcon} from "omorphia";
-import DiscordIcon from "~/assets/images/external/discord.svg";
-import YoutubeIcon from "~/assets/images/utils/youtube.svg";
+import { Avatar, Button, Card, HeartIcon, HamburgerIcon, GlobeIcon } from 'omorphia'
+import DiscordIcon from '~/assets/images/external/discord.svg'
+import YoutubeIcon from '~/assets/images/utils/youtube.svg'
 
 defineProps({
   organization: {
@@ -24,28 +24,28 @@ defineProps({
     <Card v-for="member in organization.members" class="member-card">
       <div class="member-buttons">
         <Button class="transparent" icon-only>
-          <HeartIcon/>
+          <HeartIcon />
         </Button>
         <Button class="transparent" icon-only>
-          <HamburgerIcon/>
+          <HamburgerIcon />
         </Button>
       </div>
-      <Avatar class="member-icon" :src="member.user.avatar_url" circle/>
+      <Avatar class="member-icon" :src="member.user.avatar_url" circle />
       <div class="member-text">
-        <div class="title"> {{member.user.username}} </div>
+        <div class="title">{{ member.user.username }}</div>
         <div class="markdown-body">
-          <p> {{member.role}} </p>
+          <p>{{ member.role }}</p>
         </div>
       </div>
       <div class="member-links">
         <Button class="round" icon-only>
-          <GlobeIcon/>
+          <GlobeIcon />
         </Button>
         <Button class="round" icon-only>
-          <YoutubeIcon/>
+          <YoutubeIcon />
         </Button>
         <Button class="round" icon-only>
-          <DiscordIcon/>
+          <DiscordIcon />
         </Button>
       </div>
     </Card>

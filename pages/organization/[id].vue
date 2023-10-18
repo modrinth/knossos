@@ -13,45 +13,27 @@ import {
   GitHubIcon,
   DownloadIcon,
   SettingsIcon,
+  UsersIcon,
+  ListIcon,
+  DashboardIcon,
+  ChartIcon
 } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import YoutubeIcon from 'assets/images/utils/youtube.svg'
 import DiscordIcon from 'assets/images/external/discord.svg'
 import NavRow from '~/components/ui/NavRow.vue'
+import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
 
-const organization = shallowRef(await useAsyncData(`organization/${route.params.id}`, () => useBaseFetch(`organization/${route.params.id}`)).then(res => res.data))
+const organization = shallowRef(
+  await useAsyncData(`organization/${route.params.id}`, () =>
+    useBaseFetch(`organization/${route.params.id}`)
+  ).then((res) => res.data)
+)
+
 const projects = shallowRef([])
-
-const projectTypes = ref(['All']);
-const projectType = ref('All');
-const inputText = ref('');
-const icon = ref(null)
-const deletedIcon = ref(false)
-const previewImage = ref(null)
-const name = ref(organization.value.title)
-const summary = ref(organization.value.description)
-const visibility = ref(organization.value.status)
-const tags = useTags()
-const enableEditing = ref(false);
-
-const patchData = computed(() => {
-  const data = {}
-
-  if (name.value !== organization.value.title) {
-    data.title = name.value
-  }
-  if (summary.value !== organization.value.description) {
-    data.description = summary.value
-  }
-  if (hasModifiedVisibility() && tags.value.approvedStatuses.includes(visibility.value)) {
-    data.status = visibility.value
-  }
-
-  return data
-})
 
 const patchOrganization = async (resData, quiet = false) => {
   let result = false
@@ -63,7 +45,7 @@ const patchOrganization = async (resData, quiet = false) => {
       body: resData,
     })
 
-    await resetOrganization();
+    await resetOrganization()
 
     result = true
     if (!quiet) {
@@ -96,13 +78,13 @@ const patchIcon = async (icon) => {
 
   try {
     await useBaseFetch(
-        `organization/${organization.value.id}/icon?ext=${
-            icon.type.split('/')[icon.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon,
-        }
+      `organization/${organization.value.id}/icon?ext=${
+        icon.type.split('/')[icon.type.split('/').length - 1]
+      }`,
+      {
+        method: 'PATCH',
+        body: icon,
+      }
     )
     await resetOrganization()
     result = true
@@ -142,76 +124,79 @@ const deleteIcon = async () => {
 
 const resetOrganization = async () => {
   organization.value = await useBaseFetch(`organization/${organization.value.id}`)
-  projects.value = await useBaseFetch(`projects?ids=[${organization.value.projects.map(p => `"${p}"`).join(',')}]`)
+  /*
+  projects.value = await useBaseFetch(
+    `projects?ids=[${organization.value.projects.map((p) => `"${p}"`).join(',')}]`
+  )
+   */
 }
 
 const hasPermission = computed(() => {
   const EDIT_DETAILS = 1 << 2
-  return true;
+  return true
 })
 
-const hasChanges = computed(() => {
-  return Object.keys(patchData.value).length > 0 || deletedIcon.value || icon.value || hasModifiedVisibility()
-})
-
-const hasModifiedVisibility = () => {
-  const originalVisibility = tags.value.approvedStatuses.includes(organization.value.status)
-      ? organization.value.status
-      : 'listed'
-
-  return originalVisibility !== visibility.value
-}
-
-const saveChanges = async () => {
-  if (hasChanges.value) {
-    await patchOrganization(patchData.value)
-  }
-
-  if (deletedIcon.value) {
-    await deleteIcon()
-    deletedIcon.value = false
-  } else if (icon.value) {
-    await patchIcon(icon.value)
-    icon.value = null
-  }
-}
-
-const markIconForDeletion = () => {
-  deletedIcon.value = true
-  icon.value = null
-  previewImage.value = null
-}
-
-const showPreviewImage = (files) => {
-  const reader = new FileReader()
-  icon.value = files[0]
-  deletedIcon.value = false
-  reader.readAsDataURL(icon.value)
-  reader.onload = (event) => {
-    previewImage.value = event.target.result
-  }
-}
 </script>
 
 <template>
-  <div class="normal-page no-sidebar organization">
+  <div v-if="$route.name.startsWith('organization-id-settings')" class="settings-page">
+    <div class="settings-page__sidebar">
+      <div class="settings-page__header">
+        <Breadcrumbs
+          current-title="Settings"
+          :link-stack="[
+            {
+              href: `/organization/${organization.title}`,
+              label: organization.title,
+              allowTrimming: true,
+            },
+          ]"
+        />
+        <div class="settings-header">
+          <Avatar
+            :src="organization.icon_url"
+            :alt="organization.title"
+            size="sm"
+            class="settings-header__icon"
+          />
+          <div class="settings-header__text">
+            <h1 class="wrap-as-needed">
+              {{ organization.title }}
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="settings-nav">
+        <NuxtLink :to="`/organization/${organization.title}/settings`"> <SettingsIcon /> General </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/members`"> <UsersIcon /> Members </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/projects`"> <ListIcon /> Projects </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/collections`"> <DashboardIcon /> Collections </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/analytics`"> <ChartIcon /> Analytics </NuxtLink>
+      </div>
+    </div>
+    <div class="settings-page__content">
+      <NuxtPage
+          v-model:organization="organization"
+          v-model:projects="projects"
+          :patch-organization="patchOrganization"
+          :patch-icon="patchIcon"
+          :delete-icon="deleteIcon"
+      />
+    </div>
+  </div>
+  <div v-else class="normal-page no-sidebar">
     <div class="normal-page__header">
       <div class="page-header">
-        <Avatar
-          class="page-header__icon"
-          :src="organization.icon_url"
-          size="md"
-          circle
-        />
+        <Avatar class="page-header__icon" :src="organization.icon_url" size="md" circle />
         <div class="page-header__text">
           <div class="title">
-            <h1>{{organization.title}}</h1>
+            <h1>{{ organization.title }}</h1>
             <Button icon-only> <ShareIcon /> </Button>
           </div>
           <div class="links">
             <div class="link-like">
               <DownloadIcon />
-              <span>{{projects}} Downloads</span>
+              <span>{{ projects }} Downloads</span>
             </div>
             <div class="link-like">
               <HeartIcon />
@@ -266,23 +251,23 @@ const showPreviewImage = (files) => {
           :links="[
             {
               label: 'Overview',
-              href: `/organization/${organization.id}/`,
+              href: `/organization/${organization.title}/`,
             },
             {
               label: 'Projects',
-              href: `/organization/${organization.id}/projects`,
+              href: `/organization/${organization.title}/projects`,
             },
             {
               label: 'Collections',
-              href: `/organization/${organization.id}/collections`,
+              href: `/organization/${organization.title}/collections`,
             },
             {
               label: 'Members',
-              href: `/organization/${organization.id}/members`,
+              href: `/organization/${organization.title}/members`,
             },
           ]"
         />
-        <Button>
+        <Button @click="$router.push(`/organization/${organization.title}/settings`)">
           <SettingsIcon />
           Settings
         </Button>
@@ -290,26 +275,14 @@ const showPreviewImage = (files) => {
     </div>
     <div class="normal-page__content">
       <NuxtPage
-        v-model:organization="organization"
-        v-model:projects="projects"
+          v-model:organization="organization"
+          v-model:projects="projects"
       />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.organization {
-  max-width: 1080px;
-  margin: 0 auto;
-  display: grid;
-  grid-template:
-    'banner banner' auto
-    'promotion promotion' auto
-    'content sidebar' auto
-    / auto 20rem;
-  gap: var(--gap-md);
-}
-
 .sidebar {
   grid-area: sidebar;
 }
@@ -483,4 +456,57 @@ const showPreviewImage = (files) => {
   align-items: center;
   gap: var(--gap-md);
 }
+
+.settings-page {
+  .settings-page__content {
+    margin-top: calc(2em + var(--gap-lg) + var(--gap-sm));
+  }
+}
+
+.settings-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  margin-bottom: var(--gap-lg);
+  padding-inline: calc(var(--gap-xl) - 1.1rem - 0.5rem);
+  flex-wrap: wrap;
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: var(--gap-sm) var(--gap-md);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+
+    svg {
+      margin-right: 0.5rem;
+    }
+
+    &.router-link-exact-active {
+      background-color: var(--color-button-bg);
+      color: var(--color-contrast);
+    }
+  }
+}
+
+.settings-header {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-card-sm);
+  align-items: center;
+  margin-bottom: var(--spacing-card-bg);
+
+  .settings-header__icon {
+    flex-shrink: 0;
+  }
+
+  .settings-header__text {
+    h1 {
+      font-size: var(--font-size-md);
+      margin-top: 0;
+      margin-bottom: var(--spacing-card-sm);
+    }
+  }
+}
+
 </style>

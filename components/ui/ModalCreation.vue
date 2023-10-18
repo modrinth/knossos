@@ -85,6 +85,10 @@ export default {
       type: String,
       default: '',
     },
+    organization: {
+      type: String,
+      default: null,
+    }
   },
   setup() {
     const tags = useTags()
@@ -165,6 +169,7 @@ export default {
           server_side: this.getServerSide(),
           license_id: 'LicenseRef-Unknown',
           is_draft: true,
+          organization_id: this.organization,
         })
       )
 

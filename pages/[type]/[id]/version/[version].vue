@@ -969,15 +969,15 @@ export default defineNuxtComponent({
 
     const licenseId = props.project.license.id
     const trimmedLicenseId = licenseId
-        .replaceAll('-only', '')
-        .replaceAll('-or-later', '')
-        .replaceAll('LicenseRef-', '')
+      .replaceAll('-only', '')
+      .replaceAll('-or-later', '')
+      .replaceAll('LicenseRef-', '')
 
     const license = ref(
-        defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
-          friendly: 'Custom',
-          short: licenseId.replaceAll('LicenseRef-', ''),
-        }
+      defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
+        friendly: 'Custom',
+        short: licenseId.replaceAll('LicenseRef-', ''),
+      }
     )
 
     if (licenseId === 'LicenseRef-Unknown') {
