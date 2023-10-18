@@ -24,7 +24,7 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "画廊视图"
+    "message": "图库视图"
   },
   "input.view.grid": {
     "message": "网格视图"
@@ -42,7 +42,7 @@
     "message": "举报"
   },
   "profile.error.not-found": {
-    "message": "未找到用户"
+    "message": "找不到用户"
   },
   "profile.input.upload-avatar": {
     "message": "上传头像"
@@ -126,16 +126,16 @@
     "message": "实验性语言"
   },
   "settings.language.categories.fun": {
-    "message": "趣味语言"
+    "message": "趣味性语言"
   },
   "settings.language.categories.search-result": {
     "message": "搜索结果"
   },
   "settings.language.description": {
-    "message": "选择您希望网站所呈现的语言。翻译由 <crowdin-link>Crowdin</crowdin-link> 上的志愿者们所贡献。"
+    "message": "选择您希望网站使用的语言。翻译是由 <crowdin-link>Crowdin</crowdin-link> 上的志愿者们所贡献的。"
   },
   "settings.language.languages.automatic": {
-    "message": "同步系统语言"
+    "message": "跟随系统语言"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. 应用中……"
@@ -156,7 +156,7 @@
     "message": "{matches, plural,=0 {没有语言}other {有 # 种语言}}匹配您的搜索。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "没有语言匹配您的搜索。"
+    "message": "没有语言符合你的搜索。"
   },
   "settings.language.title": {
     "message": "语言"
@@ -168,7 +168,7 @@
     "message": "以下是你目前已登录 Modrinth 账号的所有设备。你可以单独登出任意一项。\n\n如果你看到无法辨认的记录，请立即登出该设备并更改你的 Modrinth 账号密码。"
   },
   "settings.sessions.label.created-at": {
-    "message": "创建于 {ago}"
+    "message": "创建于 {ago} 前"
   },
   "settings.sessions.label.current-session": {
     "message": "当前会话"
