@@ -45,7 +45,7 @@ const patchOrganization = async (resData, quiet = false) => {
       body: resData,
     })
 
-    await resetOrganization()
+    await resetOrganization();
 
     result = true
     if (!quiet) {

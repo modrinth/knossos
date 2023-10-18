@@ -539,6 +539,13 @@
                 shown: versions.length > 0 || !!currentMember,
               },
               {
+                label: 'Analytics',
+                href: `/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }/analytics`,
+                shown: !!currentMember,
+              },
+              {
                 label: 'Moderation',
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
@@ -819,6 +826,7 @@ import {
   CodeIcon,
   ClientIcon,
   ServerIcon,
+  BoxIcon,
 } from 'omorphia'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import ExternalIcon from '~/assets/images/utils/external.svg'
@@ -1264,6 +1272,11 @@ const collapsedChecklist = ref(false)
     margin-bottom: var(--gap-md);
     color: var(--color-text-secondary);
     font-size: var(--font-size-nm);
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--color-info-banner-text);
   }
 
   .dates {

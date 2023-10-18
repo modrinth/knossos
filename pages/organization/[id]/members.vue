@@ -27,14 +27,14 @@ defineProps({
           <HeartIcon />
         </Button>
         <Button class="transparent" icon-only>
-          <HamburgerIcon />
+          <HamburgerIcon/>
         </Button>
       </div>
-      <Avatar class="member-icon" :src="member.user.avatar_url" circle />
+      <Avatar class="member-icon" :src="member.user.avatar_url" circle/>
       <div class="member-text">
-        <div class="title">{{ member.user.username }}</div>
+        <div class="title"> {{member.user.username}} </div>
         <div class="markdown-body">
-          <p>{{ member.role }}</p>
+          <p> {{member.role}} </p>
         </div>
       </div>
       <div class="member-links">

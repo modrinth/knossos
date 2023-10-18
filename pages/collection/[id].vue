@@ -78,7 +78,7 @@ const patchCollection = async (resData, quiet = false) => {
       body: resData,
     })
 
-    await resetCollection()
+    await resetCollection();
 
     result = true
     if (!quiet) {
@@ -157,9 +157,7 @@ const deleteIcon = async () => {
 
 const resetCollection = async () => {
   collection.value = await useBaseFetch(`collection/${collection.value.id}`)
-  projects.value = await useBaseFetch(
-    `projects?ids=[${collection.value.projects.map((p) => `"${p}"`).join(',')}]`
-  )
+  projects.value = await useBaseFetch(`projects?ids=[${collection.value.projects.map(p => `"${p}"`).join(',')}]`)
 }
 
 const hasPermission = computed(() => {
