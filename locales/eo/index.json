@@ -1,191 +1,191 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Nuligi"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Redakti"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Konservi"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Vi estas ranita! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Fotoreala pentraĵo de rana labirinto"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "Ankaŭ {count, plural, one {{count} pli homo estas ranita} other {{count} pli da homoj estas ranitaj}}!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Ĉi tiu paĝo estis fermata {ago}"
   },
   "frog.title": {
-    "message": "Frog"
+    "message": "Rano"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Galeria vido"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Krada vido"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Lista vido"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "Okazis eraro"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Administri projektojn"
   },
   "profile.button.report": {
     "message": "Raporti"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Uzanto ne troviĝis"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Alŝuti profilbildon"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Aliĝis {ago}"
   },
   "profile.label.edit-bio": {
-    "message": "Bio"
+    "message": "Biografio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Uzantnomo"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Tiu ĉi uzanto ne havas projektojn!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Vi ne havas projektojn.\nĈu vi volas <create-link>krei unu</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Elŝuti la projektojn de {username} per Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Elŝuti la projectojn de {username} per Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> elŝuto} other {<stat>{count}</stat> elŝutoj}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> sekvanto} other {<stat>{count}</stat> sekvantoj}} de projektoj"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID de Uzanto: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Ĉiuj"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Datumpakaĵoj"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Datumpakaĵo"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Modifaĵoj"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Modifaĵo"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modifpakaĵoj"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Modifpakaĵo"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Kromaĵoj"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Kromaĵo"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resurspakaĵoj"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resurspakaĵo"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Nuanciloj"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Nuancilo"
   },
   "settings.language.categories.auto": {
-    "message": "Automatic"
+    "message": "Aŭtomate"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Ordinaraj lingvoj"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Eksperimentaj lingvoj"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Amuzaj lingvoj"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Serĉrezultoj"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Elekti vian preferatan lingvon por la retejo. Tradukoj estas aldonata de volontuloj <crowdin-link>per Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Aktualigi laŭ la sistema lingvo"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label}. Aplikado..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Eraro"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Ne povas ŝarĝi ĉi tiun lingvon. Provu denove post iom da tempo."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Sendu por enfokusigi la unuan serĉrezulton"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Serĉi lingvojn..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Neniuj lingvoj kongruas} one {# lingvo kongruas} other {# lingvoj kongruas}} laŭ via serĉo."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Neniuj lingvoj kongruas laŭ via serĉo."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Lingvo"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Nuligi sesion"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Jen ĉiuj aparatoj kiuj nun estas ensaluta kun via konto de Modrinth. Vi povas eligi ĉiun individue.\n\nSe vi vidas enigon, kiun vi ne konas, elsalutigu tiun aparaton kaj ŝanĝu tuj vian pasvorton de Modrinth."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Kreita {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Nuna sesio"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Laste eniris {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Nekonata operaciumo"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Nekonata platformo"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Sesioj"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} je {time, time, short}"
   }
 }
