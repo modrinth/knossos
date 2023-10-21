@@ -9,82 +9,82 @@
         </p>
         <section class="links">
           <label
-              for="issue-tracker-input"
-              title="A place for users to report bugs, issues, and concerns about your project."
+            for="issue-tracker-input"
+            title="A place for users to report bugs, issues, and concerns about your project."
           >
             <span class="label__title">Issue tracker</span>
           </label>
           <div class="input-group shrink-first">
             <input
-                id="issue-tracker-input"
-                v-model="editLinks.issues.val"
-                :disabled="editLinks.issues.clear"
-                type="url"
-                :placeholder="
+              id="issue-tracker-input"
+              v-model="editLinks.issues.val"
+              :disabled="editLinks.issues.clear"
+              type="url"
+              :placeholder="
                 editLinks.issues.clear ? 'Existing link will be cleared' : 'Enter a valid URL'
               "
-                maxlength="2048"
+              maxlength="2048"
             />
             <button
-                v-tooltip="'Clear link'"
-                aria-label="Clear link"
-                class="square-button label-button"
-                :data-active="editLinks.issues.clear"
-                @click="editLinks.issues.clear = !editLinks.issues.clear"
+              v-tooltip="'Clear link'"
+              aria-label="Clear link"
+              class="square-button label-button"
+              :data-active="editLinks.issues.clear"
+              @click="editLinks.issues.clear = !editLinks.issues.clear"
             >
               <TrashIcon />
             </button>
           </div>
           <label
-              for="source-code-input"
-              title="A page/repository containing the source code for your project"
+            for="source-code-input"
+            title="A page/repository containing the source code for your project"
           >
             <span class="label__title">Source code</span>
           </label>
           <div class="input-group shrink-first">
             <input
-                id="source-code-input"
-                v-model="editLinks.source.val"
-                :disabled="editLinks.source.clear"
-                type="url"
-                maxlength="2048"
-                :placeholder="
+              id="source-code-input"
+              v-model="editLinks.source.val"
+              :disabled="editLinks.source.clear"
+              type="url"
+              maxlength="2048"
+              :placeholder="
                 editLinks.source.clear ? 'Existing link will be cleared' : 'Enter a valid URL'
               "
             />
             <button
-                v-tooltip="'Clear link'"
-                aria-label="Clear link"
-                class="square-button label-button"
-                :data-active="editLinks.source.clear"
-                @click="editLinks.source.clear = !editLinks.source.clear"
+              v-tooltip="'Clear link'"
+              aria-label="Clear link"
+              class="square-button label-button"
+              :data-active="editLinks.source.clear"
+              @click="editLinks.source.clear = !editLinks.source.clear"
             >
               <TrashIcon />
             </button>
           </div>
           <label
-              for="wiki-page-input"
-              title="A page containing information, documentation, and help for the project."
+            for="wiki-page-input"
+            title="A page containing information, documentation, and help for the project."
           >
             <span class="label__title">Wiki page</span>
           </label>
           <div class="input-group shrink-first">
             <input
-                id="wiki-page-input"
-                v-model="editLinks.wiki.val"
-                :disabled="editLinks.wiki.clear"
-                type="url"
-                maxlength="2048"
-                :placeholder="
+              id="wiki-page-input"
+              v-model="editLinks.wiki.val"
+              :disabled="editLinks.wiki.clear"
+              type="url"
+              maxlength="2048"
+              :placeholder="
                 editLinks.wiki.clear ? 'Existing link will be cleared' : 'Enter a valid URL'
               "
             />
             <button
-                v-tooltip="'Clear link'"
-                aria-label="Clear link"
-                class="square-button label-button"
-                :data-active="editLinks.wiki.clear"
-                @click="editLinks.wiki.clear = !editLinks.wiki.clear"
+              v-tooltip="'Clear link'"
+              aria-label="Clear link"
+              class="square-button label-button"
+              :data-active="editLinks.wiki.clear"
+              @click="editLinks.wiki.clear = !editLinks.wiki.clear"
             >
               <TrashIcon />
             </button>
@@ -94,23 +94,23 @@
           </label>
           <div class="input-group shrink-first">
             <input
-                id="discord-invite-input"
-                v-model="editLinks.discord.val"
-                :disabled="editLinks.discord.clear"
-                type="url"
-                maxlength="2048"
-                :placeholder="
+              id="discord-invite-input"
+              v-model="editLinks.discord.val"
+              :disabled="editLinks.discord.clear"
+              type="url"
+              maxlength="2048"
+              :placeholder="
                 editLinks.discord.clear
                   ? 'Existing link will be cleared'
                   : 'Enter a valid Discord invite URL'
               "
             />
             <button
-                v-tooltip="'Clear link'"
-                aria-label="Clear link"
-                class="square-button label-button"
-                :data-active="editLinks.discord.clear"
-                @click="editLinks.discord.clear = !editLinks.discord.clear"
+              v-tooltip="'Clear link'"
+              aria-label="Clear link"
+              class="square-button label-button"
+              :data-active="editLinks.discord.clear"
+              @click="editLinks.discord.clear = !editLinks.discord.clear"
             >
               <TrashIcon />
             </button>
@@ -124,11 +124,11 @@
         </p>
         <ul>
           <li
-              v-for="project in selectedProjects.slice(
+            v-for="project in selectedProjects.slice(
               0,
               editLinks.showAffected ? selectedProjects.length : 3
             )"
-              :key="project.id"
+            :key="project.id"
           >
             {{ project.title }}
           </li>
@@ -137,12 +137,12 @@
           </li>
         </ul>
         <Checkbox
-            v-if="selectedProjects.length > 3"
-            v-model="editLinks.showAffected"
-            :label="editLinks.showAffected ? 'Less' : 'More'"
-            description="Show all loaders"
-            :border="false"
-            :collapsing-toggle-style="true"
+          v-if="selectedProjects.length > 3"
+          v-model="editLinks.showAffected"
+          :label="editLinks.showAffected ? 'Less' : 'More'"
+          description="Show all loaders"
+          :border="false"
+          :collapsing-toggle-style="true"
         />
         <div class="push-right input-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
@@ -156,7 +156,7 @@
         </div>
       </div>
     </Modal>
-    <ModalCreation ref="modal_creation" :organization="`${organization.id}`"/>
+    <ModalCreation ref="modal_creation" :organization="`${organization.id}`" />
     <h1>Projects</h1>
     <div class="input-group">
       <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
@@ -171,9 +171,9 @@
       <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="input-group">
         <button
-            class="iconified-button"
-            :disabled="selectedProjects.length === 0"
-            @click="$refs.editLinksModal.show()"
+          class="iconified-button"
+          :disabled="selectedProjects.length === 0"
+          @click="$refs.editLinksModal.show()"
         >
           <EditIcon />
           Edit links
@@ -182,19 +182,19 @@
           <div class="labeled-control-row">
             Sort by
             <Multiselect
-                v-model="sortBy"
-                :searchable="false"
-                class="small-select"
-                :options="['Name', 'Status', 'Type']"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @update:model-value="sortedProjects = updateSort(sortedProjects, sortBy, descending)"
+              v-model="sortBy"
+              :searchable="false"
+              class="small-select"
+              :options="['Name', 'Status', 'Type']"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @update:model-value="sortedProjects = updateSort(sortedProjects, sortBy, descending)"
             />
             <button
-                v-tooltip="descending ? 'Descending' : 'Ascending'"
-                class="square-button"
-                @click="updateDescending()"
+              v-tooltip="descending ? 'Descending' : 'Ascending'"
+              class="square-button"
+              @click="updateDescending()"
             >
               <DescendingIcon v-if="descending" />
               <AscendingIcon v-else />
@@ -206,8 +206,8 @@
         <div class="grid-table__row grid-table__header">
           <div>
             <Checkbox
-                :model-value="selectedProjects === sortedProjects"
-                @update:model-value="
+              :model-value="selectedProjects === sortedProjects"
+              @update:model-value="
                 selectedProjects === sortedProjects
                   ? (selectedProjects = [])
                   : (selectedProjects = sortedProjects)
@@ -221,12 +221,16 @@
           <div>Status</div>
           <div />
         </div>
-        <div v-for="project in sortedProjects" :key="`project-${project.id}`" class="grid-table__row">
+        <div
+          v-for="project in sortedProjects"
+          :key="`project-${project.id}`"
+          class="grid-table__row"
+        >
           <div>
             <Checkbox
-                :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-                :model-value="selectedProjects.includes(project)"
-                @update:model-value="
+              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+              :model-value="selectedProjects.includes(project)"
+              @update:model-value="
                 selectedProjects.includes(project)
                   ? (selectedProjects = selectedProjects.filter((it) => it !== project))
                   : selectedProjects.push(project)
@@ -235,16 +239,16 @@
           </div>
           <div>
             <nuxt-link
-                tabindex="-1"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+              tabindex="-1"
+              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }`"
             >
               <Avatar
-                  :src="project.icon_url"
-                  aria-hidden="true"
-                  :alt="'Icon for ' + project.title"
-                  no-shadow
+                :src="project.icon_url"
+                aria-hidden="true"
+                :alt="'Icon for ' + project.title"
+                no-shadow
               />
             </nuxt-link>
           </div>
@@ -252,13 +256,13 @@
           <div>
             <span class="project-title">
               <IssuesIcon
-                  v-if="project.moderator_message"
-                  aria-label="Project has a message from the moderators. View the project to see more."
+                v-if="project.moderator_message"
+                aria-label="Project has a message from the moderators. View the project to see more."
               />
 
               <nuxt-link
-                  class="hover-link wrap-as-needed"
-                  :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                class="hover-link wrap-as-needed"
+                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
@@ -281,8 +285,8 @@
 
           <div>
             <nuxt-link
-                class="square-button"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+              class="square-button"
+              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }/settings`"
             >
@@ -297,7 +301,20 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Badge, Checkbox, Modal, Avatar, CopyCode, SettingsIcon, TrashIcon, IssuesIcon, PlusIcon, XIcon, EditIcon, SaveIcon} from 'omorphia'
+import {
+  Badge,
+  Checkbox,
+  Modal,
+  Avatar,
+  CopyCode,
+  SettingsIcon,
+  TrashIcon,
+  IssuesIcon,
+  PlusIcon,
+  XIcon,
+  EditIcon,
+  SaveIcon,
+} from 'omorphia'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
@@ -424,13 +441,10 @@ const bulkEditLinks = async () => {
       delete baseData.discord_url
     }
 
-    await useBaseFetch(
-        `projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`,
-        {
-          method: 'PATCH',
-          body: baseData,
-        }
-    )
+    await useBaseFetch(`projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`, {
+      method: 'PATCH',
+      body: baseData,
+    })
 
     editLinksModal.value.hide()
     $notify({

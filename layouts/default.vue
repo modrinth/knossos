@@ -428,7 +428,14 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon, BoxIcon, ServerIcon, ImageIcon, DropdownIcon, DashboardIcon } from 'omorphia'
+import {
+  LogInIcon,
+  DownloadIcon,
+  BoxIcon,
+  ServerIcon,
+  ImageIcon,
+  DashboardIcon,
+} from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'

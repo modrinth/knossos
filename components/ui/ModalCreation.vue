@@ -88,7 +88,7 @@ export default {
     organization: {
       type: String,
       default: null,
-    }
+    },
   },
   setup() {
     const tags = useTags()

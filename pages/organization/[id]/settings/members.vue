@@ -254,17 +254,17 @@ import { removeSelfFromTeam } from '~/helpers/teams.js'
 const props = defineProps({
   organization: {
     type: Object,
-    default: () => ({})
+    default: () => ({}),
   },
   currentMember: {
     type: Object,
-    default: () => null
-  }
+    default: () => null,
+  },
 })
 
 const currentUsername = ref('')
 const openTeamMembers = ref([])
-const allTeamMembers = ref(props.organization.members.map(x => ({ ...x, oldRole: x.role })))
+const allTeamMembers = ref(props.organization.members.map((x) => ({ ...x, oldRole: x.role })))
 const appData = useNuxtApp()
 const router = useRouter()
 
@@ -312,10 +312,10 @@ const removeTeamMember = async (index) => {
   startLoading()
   try {
     await useBaseFetch(
-        `team/${props.organization.team_id}/members/${allTeamMembers.value[index].user.id}`,
-        {
-          method: 'DELETE',
-        }
+      `team/${props.organization.team_id}/members/${allTeamMembers.value[index].user.id}`,
+      {
+        method: 'DELETE',
+      }
     )
     await updateMembers()
   } catch (err) {
@@ -332,21 +332,22 @@ const removeTeamMember = async (index) => {
 const updateTeamMember = async (index) => {
   startLoading()
   try {
-    const data = allTeamMembers.value[index].oldRole !== 'Owner'
+    const data =
+      allTeamMembers.value[index].oldRole !== 'Owner'
         ? {
-          permissions: allTeamMembers.value[index].permissions,
-          role: allTeamMembers.value[index].role,
-          payouts_split: allTeamMembers.value[index].payouts_split,
-        }
+            permissions: allTeamMembers.value[index].permissions,
+            role: allTeamMembers.value[index].role,
+            payouts_split: allTeamMembers.value[index].payouts_split,
+          }
         : {
-          payouts_split: allTeamMembers.value[index].payouts_split,
-        }
+            payouts_split: allTeamMembers.value[index].payouts_split,
+          }
     await useBaseFetch(
-        `team/${props.organization.team_id}/members/${allTeamMembers.value[index].user.id}`,
-        {
-          method: 'PATCH',
-          body: data,
-        }
+      `team/${props.organization.team_id}/members/${allTeamMembers.value[index].user.id}`,
+      {
+        method: 'PATCH',
+        body: data,
+      }
     )
     await updateMembers()
     appData.$notify({
@@ -388,18 +389,19 @@ const transferOwnership = async (index) => {
 }
 
 const updateMembers = async () => {
-  allTeamMembers.value = (await useBaseFetch(`team/${props.organization.team_id}/members`)).map(it => ({
-    avatar_url: it.user.avatar_url,
-    name: it.user.username,
-    oldRole: it.role,
-    ...it,
-  }))
+  allTeamMembers.value = (await useBaseFetch(`team/${props.organization.team_id}/members`)).map(
+    (it) => ({
+      avatar_url: it.user.avatar_url,
+      name: it.user.username,
+      oldRole: it.role,
+      ...it,
+    })
+  )
 }
 
 onMounted(async () => {
   await updateMembers()
 })
-
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <script setup>
-import { Card, Button, FileInput, TrashIcon, Avatar, UploadIcon, SaveIcon } from "omorphia";
+import { Card, Button, FileInput, TrashIcon, Avatar, UploadIcon, SaveIcon } from 'omorphia'
 
 const props = defineProps({
   organization: {
@@ -31,7 +31,7 @@ const props = defineProps({
     default() {
       return () => {}
     },
-  }
+  },
 })
 
 const hasPermission = computed(() => {
@@ -44,7 +44,6 @@ const deletedIcon = ref(false)
 const previewImage = ref(null)
 const name = ref(props.organization.title)
 const summary = ref(props.organization.description)
-
 
 const patchData = computed(() => {
   const data = {}
@@ -60,11 +59,7 @@ const patchData = computed(() => {
 })
 
 const hasChanges = computed(() => {
-  return (
-      Object.keys(patchData.value).length > 0 ||
-      deletedIcon.value ||
-      icon.value
-  )
+  return Object.keys(patchData.value).length > 0 || deletedIcon.value || icon.value
 })
 
 const markIconForDeletion = () => {
@@ -110,29 +105,29 @@ const saveChanges = async () => {
     </label>
     <div class="input-group">
       <Avatar
-          :src="deletedIcon ? null : previewImage ? previewImage : organization.icon_url"
-          :alt="organization.title"
-          size="md"
-          class="project__icon"
+        :src="deletedIcon ? null : previewImage ? previewImage : organization.icon_url"
+        :alt="organization.title"
+        size="md"
+        class="project__icon"
       />
       <div class="input-stack">
         <FileInput
-            id="project-icon"
-            :max-size="262144"
-            :show-icon="true"
-            accept="image/png,image/jpeg,image/gif,image/webp"
-            class="choose-image iconified-button"
-            prompt="Upload icon"
-            :disabled="!hasPermission"
-            @change="showPreviewImage"
+          id="project-icon"
+          :max-size="262144"
+          :show-icon="true"
+          accept="image/png,image/jpeg,image/gif,image/webp"
+          class="choose-image iconified-button"
+          prompt="Upload icon"
+          :disabled="!hasPermission"
+          @change="showPreviewImage"
         >
           <UploadIcon />
         </FileInput>
         <button
-            v-if="!deletedIcon && (previewImage || organization.icon_url)"
-            class="iconified-button"
-            :disabled="!hasPermission"
-            @click="markIconForDeletion"
+          v-if="!deletedIcon && (previewImage || organization.icon_url)"
+          class="iconified-button"
+          :disabled="!hasPermission"
+          @click="markIconForDeletion"
         >
           <TrashIcon />
           Remove icon
@@ -144,30 +139,21 @@ const saveChanges = async () => {
       <span class="label__title">Name</span>
     </label>
     <input
-        id="project-name"
-        v-model="name"
-        maxlength="2048"
-        type="text"
-        :disabled="!hasPermission"
+      id="project-name"
+      v-model="name"
+      maxlength="2048"
+      type="text"
+      :disabled="!hasPermission"
     />
 
     <label for="project-summary">
       <span class="label__title">Summary</span>
     </label>
     <div class="textarea-wrapper summary-input">
-        <textarea
-            id="project-summary"
-            v-model="summary"
-            maxlength="256"
-            :disabled="!hasPermission"
-        />
+      <textarea id="project-summary" v-model="summary" maxlength="256" :disabled="!hasPermission" />
     </div>
     <div class="button-group">
-      <Button
-          color="primary"
-          :disabled="!hasChanges"
-          @click="saveChanges()"
-      >
+      <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">
         <SaveIcon />
         Save changes
       </Button>

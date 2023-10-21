@@ -8,14 +8,14 @@ import {
   XIcon,
   SaveIcon,
   DropdownSelect,
-    SettingsIcon,
-  formatCategory
+  SettingsIcon,
+  formatCategory,
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Avatar from '~/components/ui/Avatar.vue'
-import PopoutMenu from "~/components/ui/PopoutMenu.vue";
-import FilterIcon from "assets/images/utils/filter.svg";
-import Checkbox from "~/components/ui/Checkbox.vue";
+import PopoutMenu from '~/components/ui/PopoutMenu.vue'
+import FilterIcon from 'assets/images/utils/filter.svg'
+import Checkbox from '~/components/ui/Checkbox.vue'
 const cosmetics = useCosmetics()
 const tags = useTags()
 const auth = await useAuth()
@@ -40,10 +40,12 @@ const inputText = ref('')
 
 const selectedFilters = ref([])
 selectedFilters.value.push(
-    ...props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+  ...props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
-const filterOptions = computed(() => props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i))
+const filterOptions = computed(() =>
+  props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+)
 </script>
 
 <template>
@@ -52,10 +54,15 @@ const filterOptions = computed(() => props.projects.map((p) => p.project_type).f
       <div class="title-and-link">
         <h3>Creators</h3>
       </div>
-      <div v-for="member in organization.members" :key="ignored" class="creator button-base" @click="$router.push(`/user/${member.user.username}`)">
+      <div
+        v-for="member in organization.members"
+        :key="ignored"
+        class="creator button-base"
+        @click="$router.push(`/user/${member.user.username}`)"
+      >
         <Avatar :src="member.user.avatar_url" circle />
-        <p class="name">{{member.user.username}}</p>
-        <p class="role">{{member.role}}</p>
+        <p class="name">{{ member.user.username }}</p>
+        <p class="role">{{ member.role }}</p>
       </div>
     </Card>
   </div>
@@ -65,10 +72,7 @@ const filterOptions = computed(() => props.projects.map((p) => p.project_type).f
         <label for="search-input" hidden>Search notifications</label>
         <SearchIcon />
         <input id="search-input" v-model="inputText" type="text" placeholder="Search projects..." />
-        <Button
-            :class="inputText ? '' : 'empty'"
-            @click="() => (inputText = '')"
-        >
+        <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
           <XIcon />
         </Button>
       </div>
@@ -78,19 +82,19 @@ const filterOptions = computed(() => props.projects.map((p) => p.project_type).f
         <template #menu>
           <h2 class="popout-heading">Type</h2>
           <Checkbox
-              v-for="option in filterOptions"
-              :key="`option-${option}`"
-              class="popout-checkbox"
-              :model-value="selectedFilters.includes(option)"
-              @click="
-                () => {
-                  if (selectedFilters.includes(option)) {
-                    selectedFilters = selectedFilters.filter((f) => f !== option)
-                  } else {
-                    selectedFilters.push(option)
-                  }
+            v-for="option in filterOptions"
+            :key="`option-${option}`"
+            class="popout-checkbox"
+            :model-value="selectedFilters.includes(option)"
+            @click="
+              () => {
+                if (selectedFilters.includes(option)) {
+                  selectedFilters = selectedFilters.filter((f) => f !== option)
+                } else {
+                  selectedFilters.push(option)
                 }
-              "
+              }
+            "
           >
             {{ formatCategory(option) }}
           </Checkbox>
@@ -103,35 +107,35 @@ const filterOptions = computed(() => props.projects.map((p) => p.project_type).f
     </div>
     <div class="project-list display-mode--list">
       <ProjectCard
-          v-for="project in projects
+        v-for="project in projects
           .filter((p) => selectedFilters.includes(p.project_type))
           .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
-          :id="project.slug || project.id"
-          :key="project.id"
-          :name="project.title"
-          :display="cosmetics.searchDisplayMode.user"
-          :featured-image="
-            project.gallery
-              .slice()
-              .sort((a, b) => b.featured - a.featured)
-              .map((x) => x.url)[0]
-          "
-          :description="project.description"
-          :created-at="project.published"
-          :updated-at="project.updated"
-          :downloads="project.downloads.toString()"
-          :follows="project.followers.toString()"
-          :icon-url="project.icon_url"
-          :categories="project.categories"
-          :client-side="project.client_side"
-          :server-side="project.server_side"
-          :status="
-            auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-              ? project.status
-              : null
-          "
-          :type="project.project_type"
-          :color="project.color"
+        :id="project.slug || project.id"
+        :key="project.id"
+        :name="project.title"
+        :display="cosmetics.searchDisplayMode.user"
+        :featured-image="
+          project.gallery
+            .slice()
+            .sort((a, b) => b.featured - a.featured)
+            .map((x) => x.url)[0]
+        "
+        :description="project.description"
+        :created-at="project.published"
+        :updated-at="project.updated"
+        :downloads="project.downloads.toString()"
+        :follows="project.followers.toString()"
+        :icon-url="project.icon_url"
+        :categories="project.categories"
+        :client-side="project.client_side"
+        :server-side="project.server_side"
+        :status="
+          auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+            ? project.status
+            : null
+        "
+        :type="project.project_type"
+        :color="project.color"
       />
     </div>
   </div>
@@ -185,7 +189,7 @@ const filterOptions = computed(() => props.projects.map((p) => p.project_type).f
     gap: var(--gap-xs);
     background-color: var(--color-raised-bg);
     padding: var(--gap-sm);
-    margin-left: -.5rem;
+    margin-left: -0.5rem;
     border-radius: var(--radius-lg);
     grid-template:
       'avatar name' auto
@@ -214,7 +218,6 @@ const filterOptions = computed(() => props.projects.map((p) => p.project_type).f
     }
   }
 }
-
 
 .search-row {
   margin-bottom: var(--gap-md);

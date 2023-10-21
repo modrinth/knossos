@@ -151,128 +151,13 @@ try {
     type: 'error',
   })
 } finally {
-  console.log(downloadData.value)
-  console.log(viewData)
-  console.log(viewDownloadRatio)
-  console.log(countryData)
   finishedLoading.value = true
 }
 
-/*
-const downloadData = ref({
-  labels: [
-    '2022-01-10',
-    '2022-01-11',
-    '2022-01-12',
-    '2022-01-13',
-    '2022-01-14',
-    '2022-01-15',
-    '2022-01-16',
-    '2022-01-17',
-    '2022-01-18',
-    '2022-01-19',
-    '2022-01-20',
-    '2022-01-21',
-    '2022-01-22',
-    '2022-01-23',
-    '2022-01-24',
-    '2022-01-25',
-  ],
-  data: [
-    {
-      title: 'Downloads',
-      color: 0x00af5c,
-      data: [65, 59, 80, 81, 56, 55, 12, 32, 45, 76, 25, 99, 90, 112, 12, 134],
-    },
-  ],
-})
-/*
-
-const viewData = ref({
-  labels: [
-    '2022-01-10',
-    '2022-01-11',
-    '2022-01-12',
-    '2022-01-13',
-    '2022-01-14',
-    '2022-01-15',
-    '2022-01-16',
-    '2022-01-17',
-    '2022-01-18',
-    '2022-01-19',
-    '2022-01-20',
-    '2022-01-21',
-    '2022-01-22',
-    '2022-01-23',
-    '2022-01-24',
-    '2022-01-25',
-  ],
-  data: [
-    {
-      title: 'Page views',
-      color: 0x00af5c,
-      data: [65, 59, 80, 81, 56, 55, 12, 32, 45, 76, 25, 99, 90, 112, 12, 134],
-    },
-  ],
-})
-*/
 
 const select = (type) => {
   selectedDataType.value = type
 }
-/*
-const viewDownloadRatio = ref({
-  title: 'View to download ratio',
-  data: [
-    {
-      title: 'Downloads',
-      color: 0x00af5c,
-      data: 120,
-    },
-    {
-      title: 'Page Views',
-      color: 0x00af5c,
-      data: 100,
-    },
-  ],
-})
-
-const countryData = ref({
-  title: 'Countries',
-  data: [
-    {
-      title: 'United States',
-      color: 0x00af5c,
-      data: 120,
-    },
-    {
-      title: 'United Kingdom',
-      color: 0x00af5c,
-      data: 100,
-    },
-    {
-      title: 'Germany',
-      color: 0x00af5c,
-      data: 80,
-    },
-    {
-      title: 'France',
-      color: 0x00af5c,
-      data: 60,
-    },
-    {
-      title: 'Canada',
-      color: 0x00af5c,
-      data: 40,
-    },
-    {
-      title: 'Australia',
-      color: 0x00af5c,
-      data: 20,
-    },
-  ],
-})
- */
 </script>
 
 <template>

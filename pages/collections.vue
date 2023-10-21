@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ModalCreation ref="modal_creation"/>
+    <ModalCreation ref="modal_creation" />
     <h1>Collections</h1>
     <p v-if="collections.length < 1">
       You don't have any projects yet. Click the green button above to begin.
@@ -42,12 +42,13 @@
           <div>Projects</div>
           <div />
         </div>
-        <div v-for="collection in collections" :key="`collection-${collection.id}`" class="grid-table__row">
+        <div
+          v-for="collection in collections"
+          :key="`collection-${collection.id}`"
+          class="grid-table__row"
+        >
           <div>
-            <nuxt-link
-              tabindex="-1"
-              :to="`/collection/${collection.id}`"
-            >
+            <nuxt-link tabindex="-1" :to="`/collection/${collection.id}`">
               <Avatar
                 :src="collection.icon_url"
                 aria-hidden="true"
@@ -64,25 +65,26 @@
                 aria-label="Project has a message from the moderators. View the project to see more."
               />
 
-              <nuxt-link
-                class="hover-link wrap-as-needed"
-                :to="`/collection/${collection.id}`"
-              >
+              <nuxt-link class="hover-link wrap-as-needed" :to="`/collection/${collection.id}`">
                 {{ collection.title }}
               </nuxt-link>
             </span>
           </div>
 
           <div class="projects">
-            <Avatar v-for="project in collection.projects.slice(0, 6)" :key="project?.id" :src="project?.icon_url" v-tooltip="project.title" />
-            <div v-if="collection.projects.length > 10" class="avatar overflow">+{{ collection.projects.length - 6 }}</div>
+            <Avatar
+              v-for="project in collection.projects.slice(0, 6)"
+              :key="project?.id"
+              v-tooltip="project.title"
+              :src="project?.icon_url"
+            />
+            <div v-if="collection.projects.length > 10" class="avatar overflow">
+              +{{ collection.projects.length - 6 }}
+            </div>
           </div>
 
           <div>
-            <nuxt-link
-              class="square-button"
-              :to="`/collection/${collection.id}`"
-            >
+            <nuxt-link class="square-button" :to="`/collection/${collection.id}`">
               <SettingsIcon />
             </nuxt-link>
           </div>
@@ -94,7 +96,20 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Badge, Checkbox, Modal, Avatar, CopyCode, SettingsIcon, TrashIcon, IssuesIcon, PlusIcon, XIcon, EditIcon, SaveIcon} from 'omorphia'
+import {
+  Badge,
+  Checkbox,
+  Modal,
+  Avatar,
+  CopyCode,
+  SettingsIcon,
+  TrashIcon,
+  IssuesIcon,
+  PlusIcon,
+  XIcon,
+  EditIcon,
+  SaveIcon,
+} from 'omorphia'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
@@ -233,8 +248,7 @@ const updateDescending = () => {
     .grid-table__row {
       display: grid;
       grid-template: 'icon name settings';
-      grid-template-columns:
-        min-content 1fr min-content;
+      grid-template-columns: min-content 1fr min-content;
 
       :nth-child(1) {
         grid-area: icon;
@@ -253,7 +267,6 @@ const updateDescending = () => {
         grid-area: settings;
       }
     }
-
   }
 
   @media screen and (max-width: 560px) {

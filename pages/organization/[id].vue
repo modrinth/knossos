@@ -19,11 +19,11 @@ import {
   ChartIcon,
   formatNumber,
   ShareModal,
-  ModalReport
+  ModalReport,
 } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import CopyCode from "~/components/ui/CopyCode.vue";
+import CopyCode from '~/components/ui/CopyCode.vue'
 
 const auth = await useAuth()
 const data = useNuxtApp()
@@ -36,9 +36,9 @@ const organization = shallowRef(
 )
 
 const projects = shallowRef(
-    await useAsyncData(`organization/${route.params.id}/projects`, () =>
-        useBaseFetch(`organization/${route.params.id}/projects`)
-    ).then((res) => res.data)
+  await useAsyncData(`organization/${route.params.id}/projects`, () =>
+    useBaseFetch(`organization/${route.params.id}/projects`)
+  ).then((res) => res.data)
 )
 
 const patchOrganization = async (resData, quiet = false) => {
@@ -51,7 +51,7 @@ const patchOrganization = async (resData, quiet = false) => {
       body: resData,
     })
 
-    await resetOrganization();
+    await resetOrganization()
 
     result = true
     if (!quiet) {
@@ -143,22 +143,31 @@ const hasPermission = computed(() => {
 })
 
 const currentMember = ref(
-    auth.value.user ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
+  auth.value.user ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
 )
 </script>
 
 <template>
   <ShareModal
     ref="shareModal"
-    :shareTitle="organization.title"
-    :shareText="`Check out the cool projects ${organization.title} is making on Modrinth!`"
+    :share-title="organization.title"
+    :share-text="`Check out the cool projects ${organization.title} is making on Modrinth!`"
     link
   />
   <ModalReport
     ref="reportModal"
     item-type="organization"
     :item-id="organization.id"
-    :report-types="['Spam', 'Copyright', 'Inappropriate', 'Malicious', 'Name-squatting', 'Poor description', 'Invalid metadata', 'Other']"
+    :report-types="[
+      'Spam',
+      'Copyright',
+      'Inappropriate',
+      'Malicious',
+      'Name-squatting',
+      'Poor description',
+      'Invalid metadata',
+      'Other',
+    ]"
   />
   <div v-if="$route.name.startsWith('organization-id-settings')" class="settings-page">
     <div class="settings-page__sidebar">
@@ -188,20 +197,28 @@ const currentMember = ref(
         </div>
       </div>
       <div class="settings-nav">
-        <NuxtLink :to="`/organization/${organization.title}/settings`"> <SettingsIcon /> General </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/members`"> <UsersIcon /> Members </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/projects`"> <ListIcon /> Projects </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/analytics`"> <ChartIcon /> Analytics </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings`">
+          <SettingsIcon /> General
+        </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/members`">
+          <UsersIcon /> Members
+        </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/projects`">
+          <ListIcon /> Projects
+        </NuxtLink>
+        <NuxtLink :to="`/organization/${organization.title}/settings/analytics`">
+          <ChartIcon /> Analytics
+        </NuxtLink>
       </div>
     </div>
     <div class="settings-page__content">
       <NuxtPage
-          v-model:organization="organization"
-          v-model:projects="projects"
-          :patch-organization="patchOrganization"
-          :patch-icon="patchIcon"
-          :delete-icon="deleteIcon"
-          :current-member="currentMember"
+        v-model:organization="organization"
+        v-model:projects="projects"
+        :patch-organization="patchOrganization"
+        :patch-icon="patchIcon"
+        :delete-icon="deleteIcon"
+        :current-member="currentMember"
       />
     </div>
   </div>
@@ -221,11 +238,15 @@ const currentMember = ref(
           <div class="stats">
             <div class="stat">
               <DownloadIcon />
-              <span>{{ formatNumber(projects.reduce((a, b) => a + b.downloads, 0)) }} Downloads</span>
+              <span
+                >{{ formatNumber(projects.reduce((a, b) => a + b.downloads, 0)) }} Downloads</span
+              >
             </div>
             <div class="stat">
               <HeartIcon />
-              <span>{{ formatNumber(projects.reduce((a, b) => a + b.followers, 0)) }} Followers</span>
+              <span
+                >{{ formatNumber(projects.reduce((a, b) => a + b.followers, 0)) }} Followers</span
+              >
             </div>
           </div>
           <!--
@@ -255,22 +276,23 @@ const currentMember = ref(
               <ReportIcon />
               Report
             </Button>
-            <Button @click="$refs.shareModal.show(`https://modrinth.com/organization/${organization.title}`)">
+            <Button
+              @click="
+                $refs.shareModal.show(`https://modrinth.com/organization/${organization.title}`)
+              "
+            >
               <ShareIcon />
               Share
             </Button>
           </div>
           <div class="group">
-            <CopyCode :text="organization.id"/>
+            <CopyCode :text="organization.id" />
           </div>
         </div>
       </div>
       <Promotion />
     </div>
-    <NuxtPage
-        v-model:organization="organization"
-        v-model:projects="projects"
-    />
+    <NuxtPage v-model:organization="organization" v-model:projects="projects" />
   </div>
 </template>
 
@@ -457,9 +479,9 @@ const currentMember = ref(
   }
 }
 
-
 .links {
-  a, .link-like {
+  a,
+  .link-like {
     display: inline-flex;
     align-items: center;
     border-radius: 1rem;
@@ -476,7 +498,7 @@ const currentMember = ref(
 
     &:not(:last-child)::after {
       content: '';
-      margin: .3rem;
+      margin: 0.3rem;
     }
   }
 
@@ -519,5 +541,4 @@ const currentMember = ref(
     border: 1px solid var(--color-button-bg);
   }
 }
-
 </style>

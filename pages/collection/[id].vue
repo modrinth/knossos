@@ -10,7 +10,9 @@ import {
   DropdownSelect,
   XIcon,
   SearchIcon,
-  SaveIcon, formatCategory, ReportIcon,
+  SaveIcon,
+  formatCategory,
+  ReportIcon, ModalReport, ShareModal,
 } from 'omorphia'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import SettingsIcon from 'assets/images/utils/settings.svg'
@@ -21,10 +23,10 @@ import SearchDropdown from '~/components/search/SearchDropdown.vue'
 import FileInput from '~/components/ui/FileInput.vue'
 import TrashIcon from 'assets/images/utils/trash.svg'
 import UploadIcon from 'assets/images/utils/upload.svg'
-import PopoutMenu from "~/components/ui/PopoutMenu.vue";
-import FilterIcon from "assets/images/utils/filter.svg";
-import Checkbox from "~/components/ui/Checkbox.vue";
-import CopyCode from "~/components/ui/CopyCode.vue";
+import PopoutMenu from '~/components/ui/PopoutMenu.vue'
+import FilterIcon from 'assets/images/utils/filter.svg'
+import Checkbox from '~/components/ui/Checkbox.vue'
+import CopyCode from '~/components/ui/CopyCode.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -39,18 +41,19 @@ const collection = shallowRef(
   ).then((res) => res.data)
 )
 const projects = shallowRef(
-  await useAsyncData(
-    `projects?ids=${JSON.stringify(collection.value.projects)}]`,
-    () => useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
+  await useAsyncData(`projects?ids=${JSON.stringify(collection.value.projects)}]`, () =>
+    useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
   ).then((res) => res.data)
 )
 
 const selectedFilters = ref([])
 selectedFilters.value.push(
-    ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+  ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
-const filterOptions = computed(() => projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i))
+const filterOptions = computed(() =>
+  projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+)
 const inputText = ref('')
 
 const icon = ref(null)
@@ -87,7 +90,7 @@ const patchCollection = async (resData, quiet = false) => {
       body: resData,
     })
 
-    await resetCollection();
+    await resetCollection()
 
     result = true
     if (!quiet) {
@@ -269,9 +272,27 @@ const results = shallowRef(toRaw(rawResults))
 </script>
 
 <template>
-  <div
-    class="normal-page no-sidebar"
-  >
+  <ShareModal
+      ref="shareModal"
+      :share-title="collection.title"
+      :share-text="`Check out the cool projects that are a part of the ${collection.title} collection on Modrinth!`"
+      link
+  />
+  <ModalReport
+      ref="reportModal"
+      item-type="collection"
+      :item-id="collection.id"
+      :report-types="[
+      'Spam',
+      'Inappropriate',
+      'Malicious',
+      'Name-squatting',
+      'Poor description',
+      'Invalid metadata',
+      'Other',
+    ]"
+  />
+  <div class="normal-page no-sidebar">
     <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
       <div class="page-header">
         <div class="page-header__icon">
@@ -333,13 +354,17 @@ const results = shallowRef(toRaw(rawResults))
               <ReportIcon />
               Report
             </Button>
-            <Button @click="$refs.shareModal.show(`https://modrinth.com/organization/${organization.title}`)">
+            <Button
+              @click="
+                $refs.shareModal.show(`https://modrinth.com/collection/${collection.id}`)
+              "
+            >
               <ShareIcon />
               Share
             </Button>
           </div>
           <div class="group">
-            <CopyCode :text="collection.id"/>
+            <CopyCode :text="collection.id" />
           </div>
         </div>
       </div>
@@ -349,13 +374,13 @@ const results = shallowRef(toRaw(rawResults))
       <div class="search-row">
         <template v-if="enableEditing">
           <SearchDropdown
-              v-model="searchText"
-              name="project-input"
-              :options="
-            results?.hits?.map((p) => ({ icon: p.icon_url, title: p.title, id: p.project_id }))
-          "
-              placeholder="Add projects..."
-              @on-selected="addProject"
+            v-model="searchText"
+            name="project-input"
+            :options="
+              results?.hits?.map((p) => ({ icon: p.icon_url, title: p.title, id: p.project_id }))
+            "
+            placeholder="Add projects..."
+            @on-selected="addProject"
           />
           <Button color="primary" @click="saveChanges">
             <SaveIcon />
@@ -367,10 +392,7 @@ const results = shallowRef(toRaw(rawResults))
             <label for="search-input" hidden>Search notifications</label>
             <SearchIcon />
             <input id="search-input" v-model="inputText" type="text" />
-            <Button
-                :class="inputText ? '' : 'empty'"
-                @click="() => (inputText = '')"
-            >
+            <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
               <XIcon />
             </Button>
           </div>
@@ -380,11 +402,11 @@ const results = shallowRef(toRaw(rawResults))
             <template #menu>
               <h2 class="popout-heading">Type</h2>
               <Checkbox
-                  v-for="option in filterOptions"
-                  :key="`option-${option}`"
-                  class="popout-checkbox"
-                  :model-value="selectedFilters.includes(option)"
-                  @click="
+                v-for="option in filterOptions"
+                :key="`option-${option}`"
+                class="popout-checkbox"
+                :model-value="selectedFilters.includes(option)"
+                @click="
                   () => {
                     if (selectedFilters.includes(option)) {
                       selectedFilters = selectedFilters.filter((f) => f !== option)
@@ -401,40 +423,40 @@ const results = shallowRef(toRaw(rawResults))
         </template>
         <Button @click="() => (enableEditing = !enableEditing)">
           <EditIcon />
-          {{ enableEditing ? 'Disable': 'Enable'}} editing
+          {{ enableEditing ? 'Disable' : 'Enable' }} editing
         </Button>
       </div>
       <div class="project-list display-mode--list">
         <ProjectCard
-            v-for="project in projects
+          v-for="project in projects
             .filter((p) => selectedFilters.includes(p.project_type))
             .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
-            :id="project.slug || project.id"
-            :key="project.id"
-            :name="project.title"
-            :display="cosmetics.searchDisplayMode.user"
-            :featured-image="
-              project.gallery
-                .slice()
-                .sort((a, b) => b.featured - a.featured)
-                .map((x) => x.url)[0]
-            "
-            :description="project.description"
-            :created-at="project.published"
-            :updated-at="project.updated"
-            :downloads="project.downloads.toString()"
-            :follows="project.followers.toString()"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :status="
-              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-                ? project.status
-                : null
-            "
-            :type="project.project_type"
-            :color="project.color"
+          :id="project.slug || project.id"
+          :key="project.id"
+          :name="project.title"
+          :display="cosmetics.searchDisplayMode.user"
+          :featured-image="
+            project.gallery
+              .slice()
+              .sort((a, b) => b.featured - a.featured)
+              .map((x) => x.url)[0]
+          "
+          :description="project.description"
+          :created-at="project.published"
+          :updated-at="project.updated"
+          :downloads="project.downloads.toString()"
+          :follows="project.followers.toString()"
+          :icon-url="project.icon_url"
+          :categories="project.categories"
+          :client-side="project.client_side"
+          :server-side="project.server_side"
+          :status="
+            auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+              ? project.status
+              : null
+          "
+          :type="project.project_type"
+          :color="project.color"
         />
       </div>
     </div>
@@ -490,13 +512,12 @@ const results = shallowRef(toRaw(rawResults))
   max-width: 24rem;
 }
 
-
-
 .search-row {
   margin-bottom: var(--gap-md);
   display: flex;
 
-  .iconified-input, :deep(.animated-dropdown) > .iconified-input {
+  .iconified-input,
+  :deep(.animated-dropdown) > .iconified-input {
     flex-grow: 1;
 
     input {

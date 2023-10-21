@@ -27,27 +27,27 @@ const select = (type) => {
 const body = `project_ids=${JSON.stringify(props.projects.map((project) => project.id))}`
 try {
   ;[
-    {data: downloadData},
-    {data: viewData},
-    {data: revenueData},
-    {data: viewDownloadRatio},
-    {data: countryData},
+    { data: downloadData },
+    { data: viewData },
+    { data: revenueData },
+    { data: viewDownloadRatio },
+    { data: countryData },
   ] = await Promise.all([
     useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
       transform: (analytics) => {
-        const totalData = new Map();
-        const projects = new Set();
-        const projectData = new Map();
+        const totalData = new Map()
+        const projects = new Set()
+        const projectData = new Map()
 
         for (const [project, trueData] of Object.entries(analytics)) {
-          projects.add(project);
+          projects.add(project)
           for (const [key, value] of Object.entries(trueData)) {
             if (totalData.has(key)) {
-              const retrievedMap = totalData.get(key);
-              retrievedMap.set(project, value);
-              totalData.set(key, retrievedMap);
+              const retrievedMap = totalData.get(key)
+              retrievedMap.set(project, value)
+              totalData.set(key, retrievedMap)
             } else {
-              totalData.set(key, new Map([[project, value]]));
+              totalData.set(key, new Map([[project, value]]))
             }
           }
         }
@@ -55,52 +55,52 @@ try {
         totalData.forEach((value, key) => {
           projects.forEach((project) => {
             if (!value.has(project)) {
-              value.set(project, 0);
+              value.set(project, 0)
             }
-          });
+          })
           for (const [project, data] of value.entries()) {
             if (projectData.has(project)) {
-              const retrievedMap = projectData.get(project);
-              retrievedMap.push(data);
-              projectData.set(project, retrievedMap);
+              const retrievedMap = projectData.get(project)
+              retrievedMap.push(data)
+              projectData.set(project, retrievedMap)
             } else {
-              projectData.set(project, [data]);
+              projectData.set(project, [data])
             }
           }
-        });
+        })
 
         const finalData = {
           labels: [...totalData.keys()],
           data: [],
-        };
+        }
 
         for (const project of projects) {
           finalData.data.push({
             title: props.projects.find((p) => p.id === project).title,
             color: props.projects.find((p) => p.id === project).color,
             data: projectData.get(project),
-          });
+          })
         }
 
-        return finalData;
+        return finalData
       },
     }),
     useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
       transform: (analytics) => {
-        const totalData = new Map();
-        const projects = new Set();
-        const projectData = new Map();
+        const totalData = new Map()
+        const projects = new Set()
+        const projectData = new Map()
 
         for (const [project, trueData] of Object.entries(analytics)) {
-          projects.add(project);
+          projects.add(project)
           for (const [key, value] of Object.entries(trueData)) {
             if (totalData.has(key)) {
-              const retrievedMap = totalData.get(key);
-              retrievedMap.set(project, value);
-              analyticsData.pageViews += value;
-              totalData.set(key, retrievedMap);
+              const retrievedMap = totalData.get(key)
+              retrievedMap.set(project, value)
+              analyticsData.pageViews += value
+              totalData.set(key, retrievedMap)
             } else {
-              totalData.set(key, new Map([[project, value]]));
+              totalData.set(key, new Map([[project, value]]))
             }
           }
         }
@@ -108,52 +108,52 @@ try {
         totalData.forEach((value, key) => {
           projects.forEach((project) => {
             if (!value.has(project)) {
-              value.set(project, 0);
+              value.set(project, 0)
             }
-          });
+          })
           for (const [project, data] of value.entries()) {
             if (projectData.has(project)) {
-              const retrievedMap = projectData.get(project);
-              retrievedMap.push(data);
-              projectData.set(project, retrievedMap);
+              const retrievedMap = projectData.get(project)
+              retrievedMap.push(data)
+              projectData.set(project, retrievedMap)
             } else {
-              projectData.set(project, [data]);
+              projectData.set(project, [data])
             }
           }
-        });
+        })
 
         const finalData = {
           labels: [...totalData.keys()],
           data: [],
-        };
+        }
 
         for (const project of projects) {
           finalData.data.push({
             title: props.projects.find((p) => p.id === project).title,
             color: props.projects.find((p) => p.id === project).color,
             data: projectData.get(project),
-          });
+          })
         }
 
-        return finalData;
+        return finalData
       },
     }),
     useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
       transform: (analytics) => {
-        const totalData = new Map();
-        const projects = new Set();
-        const projectData = new Map();
+        const totalData = new Map()
+        const projects = new Set()
+        const projectData = new Map()
 
         for (const [project, trueData] of Object.entries(analytics)) {
-          projects.add(project);
+          projects.add(project)
           for (const [key, value] of Object.entries(trueData)) {
             if (totalData.has(key)) {
-              const retrievedMap = totalData.get(key);
-              retrievedMap.set(project, value);
-              analyticsData.revenue = analyticsData.revenue + value;
-              totalData.set(key, retrievedMap);
+              const retrievedMap = totalData.get(key)
+              retrievedMap.set(project, value)
+              analyticsData.revenue = analyticsData.revenue + value
+              totalData.set(key, retrievedMap)
             } else {
-              totalData.set(key, new Map([[project, value]]));
+              totalData.set(key, new Map([[project, value]]))
             }
           }
         }
@@ -161,82 +161,90 @@ try {
         totalData.forEach((value, key) => {
           projects.forEach((project) => {
             if (!value.has(project)) {
-              value.set(project, 0);
+              value.set(project, 0)
             }
-          });
+          })
           for (const [project, data] of value.entries()) {
             if (projectData.has(project)) {
-              const retrievedMap = projectData.get(project);
-              retrievedMap.push(data);
-              projectData.set(project, retrievedMap);
+              const retrievedMap = projectData.get(project)
+              retrievedMap.push(data)
+              projectData.set(project, retrievedMap)
             } else {
-              projectData.set(project, [data]);
+              projectData.set(project, [data])
             }
           }
-        });
+        })
 
         const finalData = {
           labels: [...totalData.keys()],
           data: [],
-        };
+        }
 
         for (const project of projects) {
           finalData.data.push({
             title: props.projects.find((p) => p.id === project).title,
             color: props.projects.find((p) => p.id === project).color,
             data: projectData.get(project),
-          });
+          })
         }
 
-        return finalData;
+        return finalData
       },
     }),
-    useAsyncData(`analytics/countries/views?${body}`, () => useBaseFetch(`analytics/countries/views?${body}`), {
-      transform: (analytics) => {
-        const countryMap = new Map()
-        for (const rawData of Object.values(analytics)) {
-          for (const [key, data] of Object.entries(rawData)) {
-            if (countryMap.has(key)) {
-              countryMap.set(key, countryMap.get(key) + data)
-            } else {
-              countryMap.set(key, data)
+    useAsyncData(
+      `analytics/countries/views?${body}`,
+      () => useBaseFetch(`analytics/countries/views?${body}`),
+      {
+        transform: (analytics) => {
+          const countryMap = new Map()
+          for (const rawData of Object.values(analytics)) {
+            for (const [key, data] of Object.entries(rawData)) {
+              if (countryMap.has(key)) {
+                countryMap.set(key, countryMap.get(key) + data)
+              } else {
+                countryMap.set(key, data)
+              }
             }
           }
-        }
 
-        return {
-          title: 'Downloads',
-          data: [...countryMap.entries()].map(([key, data]) => ({
-            title: key,
-            color: 0x00af5c,
-            data,
-          })),
-        }
-      },
-    }),
-    useAsyncData(`analytics/countries/downloads?${body}`, () => useBaseFetch(`analytics/countries/downloads?${body}`), {
-      transform: (analytics) => {
-        const countryMap = new Map()
-        for (const rawData of Object.values(analytics)) {
-          for (const [key, data] of Object.entries(rawData)) {
-            if (countryMap.has(key)) {
-              countryMap.set(key, countryMap.get(key) + data)
-            } else {
-              countryMap.set(key, data)
+          return {
+            title: 'Downloads',
+            data: [...countryMap.entries()].map(([key, data]) => ({
+              title: key,
+              color: 0x00af5c,
+              data,
+            })),
+          }
+        },
+      }
+    ),
+    useAsyncData(
+      `analytics/countries/downloads?${body}`,
+      () => useBaseFetch(`analytics/countries/downloads?${body}`),
+      {
+        transform: (analytics) => {
+          const countryMap = new Map()
+          for (const rawData of Object.values(analytics)) {
+            for (const [key, data] of Object.entries(rawData)) {
+              if (countryMap.has(key)) {
+                countryMap.set(key, countryMap.get(key) + data)
+              } else {
+                countryMap.set(key, data)
+              }
             }
           }
-        }
 
-        return {
-          title: 'Downloads',
-          data: [...countryMap.entries()].map(([key, data]) => ({
-            title: key,
-            color: 0x00af5c,
-            data,
-          })),
-        }
-      },
-    }),
+          return {
+            title: 'Downloads',
+            data: [...countryMap.entries()].map(([key, data]) => ({
+              title: key,
+              color: 0x00af5c,
+              data,
+            })),
+          }
+        },
+      }
+    ),
   ])
 } catch (err) {
   data.$notify({

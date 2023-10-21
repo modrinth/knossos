@@ -31,8 +31,6 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const emit = defineEmits(['input', 'change', 'update:modelValue', 'option-click'])
-
 const dropdownVisible = ref(false)
 const selectedValue = ref(props.modelValue || props.defaultValue)
 const dropdown = ref(null)
@@ -49,10 +47,6 @@ const toggleDropdown = () => {
     dropdownVisible.value = !dropdownVisible.value
     dropdown.value.focus()
   }
-}
-
-const closeMenu = () => {
-  dropdownVisible.value = false
 }
 
 const handleClickOutside = (event) => {

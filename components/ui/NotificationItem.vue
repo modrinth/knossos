@@ -393,11 +393,6 @@ function getMessages() {
   return messages
 }
 
-function trimStringToLines(str, n) {
-  let lines = str.split('\n')
-  lines = lines.slice(0, n)
-  return lines.join('\n')
-}
 </script>
 
 <style lang="scss" scoped>
