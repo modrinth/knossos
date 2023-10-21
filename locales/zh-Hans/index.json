@@ -24,7 +24,7 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "图库视图"
+    "message": "画廊视图"
   },
   "input.view.grid": {
     "message": "网格视图"
@@ -33,7 +33,7 @@
     "message": "列表视图"
   },
   "notification.error.title": {
-    "message": "出错了"
+    "message": "发生了一个错误"
   },
   "profile.button.manage-projects": {
     "message": "管理项目"
@@ -42,7 +42,7 @@
     "message": "举报"
   },
   "profile.error.not-found": {
-    "message": "找不到用户"
+    "message": "用户不存在"
   },
   "profile.input.upload-avatar": {
     "message": "上传头像"
@@ -57,7 +57,7 @@
     "message": "用户名"
   },
   "profile.label.no-projects": {
-    "message": "该用户没有项目！"
+    "message": "此用户没有项目！"
   },
   "profile.label.no-projects-auth": {
     "message": "您没有任何项目。\n您想要<create-link>创建一个</create-link>吗？"
@@ -126,7 +126,7 @@
     "message": "实验性语言"
   },
   "settings.language.categories.fun": {
-    "message": "趣味性语言"
+    "message": "趣味语言"
   },
   "settings.language.categories.search-result": {
     "message": "搜索结果"
@@ -159,7 +159,7 @@
     "message": "没有语言符合你的搜索。"
   },
   "settings.language.title": {
-    "message": "语言"
+    "message": "语言设置"
   },
   "settings.sessions.button.revoke-session": {
     "message": "撤销会话"
