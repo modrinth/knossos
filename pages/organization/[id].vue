@@ -16,14 +16,16 @@ import {
   UsersIcon,
   ListIcon,
   DashboardIcon,
-  ChartIcon
+  ChartIcon,
+  formatNumber,
+  ShareModal,
+  ModalReport
 } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
-import YoutubeIcon from 'assets/images/utils/youtube.svg'
-import DiscordIcon from 'assets/images/external/discord.svg'
-import NavRow from '~/components/ui/NavRow.vue'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import CopyCode from "~/components/ui/CopyCode.vue";
 
+const auth = await useAuth()
 const data = useNuxtApp()
 const route = useRoute()
 
@@ -33,7 +35,11 @@ const organization = shallowRef(
   ).then((res) => res.data)
 )
 
-const projects = shallowRef([])
+const projects = shallowRef(
+    await useAsyncData(`organization/${route.params.id}/projects`, () =>
+        useBaseFetch(`organization/${route.params.id}/projects`)
+    ).then((res) => res.data)
+)
 
 const patchOrganization = async (resData, quiet = false) => {
   let result = false
@@ -136,9 +142,24 @@ const hasPermission = computed(() => {
   return true
 })
 
+const currentMember = ref(
+    auth.value.user ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
+)
 </script>
 
 <template>
+  <ShareModal
+    ref="shareModal"
+    :shareTitle="organization.title"
+    :shareText="`Check out the cool projects ${organization.title} is making on Modrinth!`"
+    link
+  />
+  <ModalReport
+    ref="reportModal"
+    item-type="organization"
+    :item-id="organization.id"
+    :report-types="['Spam', 'Copyright', 'Inappropriate', 'Malicious', 'Name-squatting', 'Poor description', 'Invalid metadata', 'Other']"
+  />
   <div v-if="$route.name.startsWith('organization-id-settings')" class="settings-page">
     <div class="settings-page__sidebar">
       <div class="settings-page__header">
@@ -170,7 +191,6 @@ const hasPermission = computed(() => {
         <NuxtLink :to="`/organization/${organization.title}/settings`"> <SettingsIcon /> General </NuxtLink>
         <NuxtLink :to="`/organization/${organization.title}/settings/members`"> <UsersIcon /> Members </NuxtLink>
         <NuxtLink :to="`/organization/${organization.title}/settings/projects`"> <ListIcon /> Projects </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/collections`"> <DashboardIcon /> Collections </NuxtLink>
         <NuxtLink :to="`/organization/${organization.title}/settings/analytics`"> <ChartIcon /> Analytics </NuxtLink>
       </div>
     </div>
@@ -181,28 +201,34 @@ const hasPermission = computed(() => {
           :patch-organization="patchOrganization"
           :patch-icon="patchIcon"
           :delete-icon="deleteIcon"
+          :current-member="currentMember"
       />
     </div>
   </div>
-  <div v-else class="normal-page no-sidebar">
+  <div v-else class="normal-page">
     <div class="normal-page__header">
       <div class="page-header">
-        <Avatar class="page-header__icon" :src="organization.icon_url" size="md" circle />
+        <Avatar class="page-header__icon" :src="organization.icon_url" size="md" />
         <div class="page-header__text">
           <div class="title">
             <h1>{{ organization.title }}</h1>
-            <Button icon-only> <ShareIcon /> </Button>
           </div>
-          <div class="links">
-            <div class="link-like">
+          <div class="markdown-body">
+            <p>
+              {{ organization.description }}
+            </p>
+          </div>
+          <div class="stats">
+            <div class="stat">
               <DownloadIcon />
-              <span>{{ projects }} Downloads</span>
+              <span>{{ formatNumber(projects.reduce((a, b) => a + b.downloads, 0)) }} Downloads</span>
             </div>
-            <div class="link-like">
+            <div class="stat">
               <HeartIcon />
-              <span>1.9k Followers</span>
+              <span>{{ formatNumber(projects.reduce((a, b) => a + b.followers, 0)) }} Followers</span>
             </div>
           </div>
+          <!--
           <div class="links">
             <a href="https://docs.terrarium.earth">
               <LinkIcon />
@@ -221,64 +247,30 @@ const hasPermission = computed(() => {
               <span>Discord</span>
             </a>
           </div>
+          -->
         </div>
         <div class="page-header__buttons">
           <div class="group">
-            <Button>
-              <HeartIcon />
-              Follow
-            </Button>
-            <Button>
+            <Button @click="$refs.reportModal.show()">
               <ReportIcon />
               Report
             </Button>
+            <Button @click="$refs.shareModal.show(`https://modrinth.com/organization/${organization.title}`)">
+              <ShareIcon />
+              Share
+            </Button>
           </div>
           <div class="group">
-            <Button>
-              <HeartIcon />
-              Subscribe
-            </Button>
-            <Button>
-              <CurrencyIcon />
-              Donate
-            </Button>
+            <CopyCode :text="organization.id"/>
           </div>
         </div>
       </div>
       <Promotion />
-      <Card class="nav">
-        <NavRow
-          :links="[
-            {
-              label: 'Overview',
-              href: `/organization/${organization.title}/`,
-            },
-            {
-              label: 'Projects',
-              href: `/organization/${organization.title}/projects`,
-            },
-            {
-              label: 'Collections',
-              href: `/organization/${organization.title}/collections`,
-            },
-            {
-              label: 'Members',
-              href: `/organization/${organization.title}/members`,
-            },
-          ]"
-        />
-        <Button @click="$router.push(`/organization/${organization.title}/settings`)">
-          <SettingsIcon />
-          Settings
-        </Button>
-      </Card>
     </div>
-    <div class="normal-page__content">
-      <NuxtPage
-          v-model:organization="organization"
-          v-model:projects="projects"
-      />
-    </div>
+    <NuxtPage
+        v-model:organization="organization"
+        v-model:projects="projects"
+    />
   </div>
 </template>
 
@@ -405,50 +397,6 @@ const hasPermission = computed(() => {
   }
 }
 
-.socials {
-  display: flex;
-  flex-direction: column;
-  padding: var(--gap-xl);
-  gap: var(--gap-sm);
-
-  .social {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--gap-xl);
-
-    .title {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: var(--gap-sm);
-      opacity: 0.65;
-
-      svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-    }
-
-    a,
-    .stat {
-      text-align: right;
-      width: 100%;
-      overflow: hidden;
-      text-overflow: fade(10%);
-    }
-
-    .stat {
-      font-weight: bold;
-    }
-  }
-
-  hr {
-    margin: var(--gap-sm) 0;
-  }
-}
-
 .nav {
   display: flex;
   flex-direction: row;
@@ -506,6 +454,69 @@ const hasPermission = computed(() => {
       margin-top: 0;
       margin-bottom: var(--spacing-card-sm);
     }
+  }
+}
+
+
+.links {
+  a, .link-like {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 1rem;
+
+    svg,
+    img {
+      height: 1rem;
+      width: 1rem;
+    }
+
+    span {
+      margin-left: var(--gap-xs);
+    }
+
+    &:not(:last-child)::after {
+      content: '';
+      margin: .3rem;
+    }
+  }
+
+  a {
+    &:focus-visible,
+    &:hover {
+      svg,
+      img,
+      span {
+        color: var(--color-heading);
+      }
+    }
+
+    &:active {
+      svg,
+      img,
+      span {
+        color: var(--color-text-dark);
+      }
+    }
+  }
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+
+  .stat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-sm);
+    border-radius: var(--radius-md);
+    background: var(--color-raised-bg);
+    text-align: center;
+
+    box-shadow: var(--shadow-raised);
+    padding: var(--gap-xs) var(--gap-sm);
+    border: 1px solid var(--color-button-bg);
   }
 }
 

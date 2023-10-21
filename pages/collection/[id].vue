@@ -10,7 +10,7 @@ import {
   DropdownSelect,
   XIcon,
   SearchIcon,
-  SaveIcon,
+  SaveIcon, formatCategory, ReportIcon,
 } from 'omorphia'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import SettingsIcon from 'assets/images/utils/settings.svg'
@@ -21,9 +21,17 @@ import SearchDropdown from '~/components/search/SearchDropdown.vue'
 import FileInput from '~/components/ui/FileInput.vue'
 import TrashIcon from 'assets/images/utils/trash.svg'
 import UploadIcon from 'assets/images/utils/upload.svg'
+import PopoutMenu from "~/components/ui/PopoutMenu.vue";
+import FilterIcon from "assets/images/utils/filter.svg";
+import Checkbox from "~/components/ui/Checkbox.vue";
+import CopyCode from "~/components/ui/CopyCode.vue";
 
 const data = useNuxtApp()
 const route = useRoute()
+const cosmetics = useCosmetics()
+const auth = await useAuth()
+const user = await useUser()
+const tags = useTags()
 
 const collection = shallowRef(
   await useAsyncData(`collection/${route.params.id}`, () =>
@@ -32,24 +40,25 @@ const collection = shallowRef(
 )
 const projects = shallowRef(
   await useAsyncData(
-    `projects?ids=[${collection.value.projects.map((p) => `"${p}"`).join(',')}]`,
-    () => useBaseFetch(`projects?ids=[${collection.value.projects.map((p) => `"${p}"`).join(',')}]`)
+    `projects?ids=${JSON.stringify(collection.value.projects)}]`,
+    () => useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
   ).then((res) => res.data)
 )
 
-const projectTypes = ref(['All'])
-projectTypes.value.push(
-  ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+const selectedFilters = ref([])
+selectedFilters.value.push(
+    ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
-const projectType = ref('All')
+
+const filterOptions = computed(() => projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i))
 const inputText = ref('')
+
 const icon = ref(null)
 const deletedIcon = ref(false)
 const previewImage = ref(null)
 const name = ref(collection.value.title)
 const summary = ref(collection.value.description)
 const visibility = ref(collection.value.status)
-const tags = useTags()
 const enableEditing = ref(false)
 
 const patchData = computed(() => {
@@ -157,7 +166,7 @@ const deleteIcon = async () => {
 
 const resetCollection = async () => {
   collection.value = await useBaseFetch(`collection/${collection.value.id}`)
-  projects.value = await useBaseFetch(`projects?ids=[${collection.value.projects.map(p => `"${p}"`).join(',')}]`)
+  projects.value = await useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
 }
 
 const hasPermission = computed(() => {
@@ -261,11 +270,7 @@ const results = shallowRef(toRaw(rawResults))
 
 <template>
   <div
-    class="normal-page"
-    :class="{
-      'no-sidebar': !$route.name.startsWith('collection-id-settings'),
-      'left-sidebar': $route.name.startsWith('collection-id-settings'),
-    }"
+    class="normal-page no-sidebar"
   >
     <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
       <div class="page-header">
@@ -322,61 +327,114 @@ const results = shallowRef(toRaw(rawResults))
             />
           </div>
         </div>
+        <div class="page-header__buttons">
+          <div class="group">
+            <Button @click="$refs.reportModal.show()">
+              <ReportIcon />
+              Report
+            </Button>
+            <Button @click="$refs.shareModal.show(`https://modrinth.com/organization/${organization.title}`)">
+              <ShareIcon />
+              Share
+            </Button>
+          </div>
+          <div class="group">
+            <CopyCode :text="collection.id"/>
+          </div>
+        </div>
       </div>
     </div>
     <div class="normal-page__content">
       <Promotion />
-      <Card class="search-card">
-        <div v-if="!enableEditing" class="dropdown-input">
-          <DropdownSelect v-model="projectType" :options="projectTypes" />
+      <div class="search-row">
+        <template v-if="enableEditing">
+          <SearchDropdown
+              v-model="searchText"
+              name="project-input"
+              :options="
+            results?.hits?.map((p) => ({ icon: p.icon_url, title: p.title, id: p.project_id }))
+          "
+              placeholder="Add projects..."
+              @on-selected="addProject"
+          />
+          <Button color="primary" @click="saveChanges">
+            <SaveIcon />
+            Save changes
+          </Button>
+        </template>
+        <template v-else>
           <div class="iconified-input">
+            <label for="search-input" hidden>Search notifications</label>
             <SearchIcon />
-            <input v-model="inputText" type="text" placeholder="Search projects..." />
-            <Button @click="() => (inputText = '')">
+            <input id="search-input" v-model="inputText" type="text" />
+            <Button
+                :class="inputText ? '' : 'empty'"
+                @click="() => (inputText = '')"
+            >
               <XIcon />
             </Button>
           </div>
-        </div>
-        <SearchDropdown
-          v-else
-          v-model="searchText"
-          name="project-input"
-          :options="
-            results?.hits?.map((p) => ({ icon: p.icon_url, title: p.title, id: p.project_id }))
-          "
-          placeholder="Add projects..."
-          @on-selected="addProject"
-        />
-        <Button v-if="!hasChanges" @click="() => (enableEditing = !enableEditing)">
+          <PopoutMenu class="btn" position="bottom-left" from="top-right">
+            <FilterIcon />
+            Filter...
+            <template #menu>
+              <h2 class="popout-heading">Type</h2>
+              <Checkbox
+                  v-for="option in filterOptions"
+                  :key="`option-${option}`"
+                  class="popout-checkbox"
+                  :model-value="selectedFilters.includes(option)"
+                  @click="
+                  () => {
+                    if (selectedFilters.includes(option)) {
+                      selectedFilters = selectedFilters.filter((f) => f !== option)
+                    } else {
+                      selectedFilters.push(option)
+                    }
+                  }
+                "
+              >
+                {{ formatCategory(option) }}
+              </Checkbox>
+            </template>
+          </PopoutMenu>
+        </template>
+        <Button @click="() => (enableEditing = !enableEditing)">
           <EditIcon />
-          {{ enableEditing ? 'Disable' : 'Enable' }} editing
+          {{ enableEditing ? 'Disable': 'Enable'}} editing
         </Button>
-        <Button v-else color="primary" @click="saveChanges">
-          <SaveIcon />
-          Save changes
-        </Button>
-      </Card>
+      </div>
       <div class="project-list display-mode--list">
         <ProjectCard
-          v-for="project in projects
-            .filter((p) => projectType === 'All' || p.project_type === projectType)
+            v-for="project in projects
+            .filter((p) => selectedFilters.includes(p.project_type))
             .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
-          :id="project.slug"
-          :type="project.project_type"
-          :name="project.title"
-          :description="project.description"
-          :icon-url="project.icon_url"
-          :downloads="project.downloads"
-          :follows="project.follows"
-          :created-at="project.created_at"
-          :updated-at="project.updated_at"
-          :project-type-display="project.project_type"
-          :project-type-url="`/${project.project_type}`"
-          :categories="project.display_categories"
-          :server-side="project.server_side"
-          :client-side="project.client_side"
-          :show-updated-date="false"
-          color="1716041"
+            :id="project.slug || project.id"
+            :key="project.id"
+            :name="project.title"
+            :display="cosmetics.searchDisplayMode.user"
+            :featured-image="
+              project.gallery
+                .slice()
+                .sort((a, b) => b.featured - a.featured)
+                .map((x) => x.url)[0]
+            "
+            :description="project.description"
+            :created-at="project.published"
+            :updated-at="project.updated"
+            :downloads="project.downloads.toString()"
+            :follows="project.followers.toString()"
+            :icon-url="project.icon_url"
+            :categories="project.categories"
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :status="
+              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+                ? project.status
+                : null
+            "
+            :type="project.project_type"
+            :color="project.color"
         />
       </div>
     </div>
@@ -407,21 +465,8 @@ const results = shallowRef(toRaw(rawResults))
   margin-bottom: var(--gap-md);
 }
 
-.search-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--gap-md);
-}
-
 .project-list {
   width: 100%;
-}
-
-.dropdown-input {
-  :deep(.selected) {
-    height: 40px;
-  }
 }
 
 .page-header__icon {
@@ -443,5 +488,58 @@ const results = shallowRef(toRaw(rawResults))
 .summary-input {
   width: 100%;
   max-width: 24rem;
+}
+
+
+
+.search-row {
+  margin-bottom: var(--gap-md);
+  display: flex;
+
+  .iconified-input, :deep(.animated-dropdown) > .iconified-input {
+    flex-grow: 1;
+
+    input {
+      height: 3rem;
+      background-color: var(--color-raised-bg);
+      border: 1px solid var(--color-button-bg);
+    }
+  }
+
+  :deep(.animated-dropdown) {
+    width: 100%;
+
+    .option {
+      background-color: var(--color-raised-bg);
+    }
+
+    .options {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border: 1px solid var(--color-button-bg);
+    }
+  }
+
+  :deep(.btn) {
+    height: 3rem;
+    margin-left: var(--gap-sm);
+    white-space: nowrap;
+  }
+}
+
+.iconified-input {
+  .empty {
+    visibility: hidden;
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
 }
 </style>

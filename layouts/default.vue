@@ -227,6 +227,10 @@
                 <ListIcon aria-hidden="true" />
                 Projects
               </nuxt-link>
+              <nuxt-link to="/collections" class="btn button-transparent">
+                <DashboardIcon aria-hidden="true" />
+                Collections
+              </nuxt-link>
               <nuxt-link
                 v-if="tags.staffRoles.includes(auth.user.role)"
                 to="/moderation/review"
@@ -424,7 +428,7 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon, BoxIcon, ServerIcon, ImageIcon, DropdownIcon } from 'omorphia'
+import { LogInIcon, DownloadIcon, BoxIcon, ServerIcon, ImageIcon, DropdownIcon, DashboardIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -444,24 +448,18 @@ import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import PackageIcon from '~/assets/images/utils/package-open.svg'
-import BlocksIcon from '~/assets/images/utils/blocks.svg'
-import WorldIcon from '~/assets/images/utils/world.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
 import BracesIcon from '~/assets/images/utils/braces.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import UserIcon from '~/assets/images/utils/user.svg'
 import ArrowRightLeftIcon from '~/assets/images/utils/arrow-right-left.svg'
 import MoreHorizontalIcon from '~/assets/images/utils/more-horizontal.svg'
-import MessagesSquareIcon from '~/assets/images/utils/messages-square.svg'
-import InboxIcon from '~/assets/images/utils/inbox.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 
 import MinecraftIcon from '~/assets/images/games/minecraft.svg'
 
-import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 import PopoutMenu from '~/components/ui/PopoutMenu.vue'
 
 const app = useNuxtApp()

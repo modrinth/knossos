@@ -169,7 +169,6 @@ export default {
           server_side: this.getServerSide(),
           license_id: 'LicenseRef-Unknown',
           is_draft: true,
-          organization_id: this.organization,
         })
       )
 
@@ -181,6 +180,24 @@ export default {
             'Content-Disposition': formData,
           },
         })
+
+        try {
+          if (this.organization) {
+            await useBaseFetch(`organization/${this.organization}/projects`, {
+              method: 'POST',
+              body: JSON.stringify({
+                project_id: this.slug,
+              }),
+            })
+          }
+        } catch (err) {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: err.data.description,
+            type: 'error',
+          })
+        }
 
         this.$refs.modal.hide()
         await this.$router.push({

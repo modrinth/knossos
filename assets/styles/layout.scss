@@ -94,6 +94,19 @@
       'content info' auto
       'content dummy' 1fr
       / 1fr 20rem;
+
+    &.no-sidebar {
+      grid-template:
+        'header header' auto
+        'content content' auto
+        'content content' auto
+        'content content' 1fr
+        / 1fr 1fr;
+
+      .normal-page__content {
+        max-width: calc(80rem);
+      }
+    }
   }
 
   .normal-page__sidebar {
@@ -104,6 +117,7 @@
   .normal-page__content {
     max-width: calc(60rem - var(--gap-lg));
   }
+
   .settings-page {
     column-gap: var(--gap-lg);
 

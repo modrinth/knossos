@@ -146,7 +146,7 @@
         />
         <div class="push-right input-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
-            <CrossIcon />
+            <XIcon />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="bulkEditLinks()">
@@ -156,7 +156,7 @@
         </div>
       </div>
     </Modal>
-    <ModalCreation ref="modal_creation" :organization="`${organization.team_id}`"/>
+    <ModalCreation ref="modal_creation" :organization="`${organization.id}`"/>
     <h1>Projects</h1>
     <div class="input-group">
       <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
@@ -164,7 +164,7 @@
         Create a project
       </button>
     </div>
-    <p v-if="projects.length < 1">
+    <p v-if="sortedProjects.length < 1">
       You don't have any projects yet. Click the green button above to begin.
     </p>
     <template v-else>
@@ -189,7 +189,7 @@
                 :close-on-select="true"
                 :show-labels="false"
                 :allow-empty="false"
-                @update:model-value="projects = updateSort(projects, sortBy, descending)"
+                @update:model-value="sortedProjects = updateSort(sortedProjects, sortBy, descending)"
             />
             <button
                 v-tooltip="descending ? 'Descending' : 'Ascending'"
@@ -206,11 +206,11 @@
         <div class="grid-table__row grid-table__header">
           <div>
             <Checkbox
-                :model-value="selectedProjects === projects"
+                :model-value="selectedProjects === sortedProjects"
                 @update:model-value="
-                selectedProjects === projects
+                selectedProjects === sortedProjects
                   ? (selectedProjects = [])
-                  : (selectedProjects = projects)
+                  : (selectedProjects = sortedProjects)
               "
             />
           </div>
@@ -221,7 +221,7 @@
           <div>Status</div>
           <div />
         </div>
-        <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
+        <div v-for="project in sortedProjects" :key="`project-${project.id}`" class="grid-table__row">
           <div>
             <Checkbox
                 :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
@@ -298,20 +298,25 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import { Badge, Checkbox, Modal, Avatar, CopyCode, SettingsIcon, TrashIcon, IssuesIcon, PlusIcon, XIcon, EditIcon, SaveIcon} from 'omorphia'
+import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
+import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
-defineProps({
+const props = defineProps({
   organization: {
     type: Object,
     default() {
       return {}
     },
   },
+  projects: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
 })
-
-const user = ref(await useUser())
-await initUserProjects()
 
 const UPLOAD_VERSION = shallowRef(1 << 0)
 const DELETE_VERSION = shallowRef(1 << 1)
@@ -322,16 +327,16 @@ const REMOVE_MEMBER = shallowRef(1 << 5)
 const EDIT_MEMBER = shallowRef(1 << 6)
 const DELETE_PROJECT = shallowRef(1 << 7)
 
-const updateSort = (projects, sort, descending) => {
-  let sortedArray = projects
+const updateSort = (inputProjects, sort, descending) => {
+  let sortedArray = inputProjects
   switch (sort) {
     case 'Name':
-      sortedArray = projects.slice().sort((a, b) => {
+      sortedArray = inputProjects.slice().sort((a, b) => {
         return a.title.localeCompare(b.title)
       })
       break
     case 'Status':
-      sortedArray = projects.slice().sort((a, b) => {
+      sortedArray = inputProjects.slice().sort((a, b) => {
         if (a.status < b.status) {
           return -1
         }
@@ -342,7 +347,7 @@ const updateSort = (projects, sort, descending) => {
       })
       break
     case 'Type':
-      sortedArray = projects.slice().sort((a, b) => {
+      sortedArray = inputProjects.slice().sort((a, b) => {
         if (a.project_type < b.project_type) {
           return -1
         }
@@ -363,7 +368,7 @@ const updateSort = (projects, sort, descending) => {
   return sortedArray
 }
 
-const projects = ref(updateSort(user.value.projects, 'Name'))
+const sortedProjects = ref(updateSort(props.projects, 'Name'))
 const versions = ref([])
 const selectedProjects = ref([])
 const sortBy = ref('Name')
@@ -391,7 +396,7 @@ const editLinks = ref({
 
 const updateDescending = () => {
   descending.value = !descending.value
-  projects.value = updateSort(projects.value, sortBy.value, descending.value)
+  sortedProjects.value = updateSort(sortedProjects.value, sortBy.value, descending.value)
 }
 
 const bulkEditLinks = async () => {

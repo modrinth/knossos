@@ -12,18 +12,19 @@ const props = defineProps({
 
 const totalData = ref({
   downloads: formatNumber(props.project.downloads),
-  pageViews: formatNumber(1000),
-  revenue: formatMoney(100),
-  followers: formatNumber(1000),
+  pageViews: 0,
+  revenue: 0,
 })
+
 const selectedDataType = ref('downloads')
 const finishedLoading = ref(false)
-let downloadData, viewData, viewDownloadRatio, countryData
+let downloadData, viewData, revenueData, viewDownloadRatio, countryData
 const body = `project_ids=["${props.project.id}"]`
 try {
   ;[
     { data: downloadData },
     { data: viewData },
+    { data: revenueData },
     { data: viewDownloadRatio },
     { data: countryData },
   ] = await Promise.all([
@@ -57,13 +58,37 @@ try {
           for (const [key, value] of Object.entries(trueData)) {
             labels.push(key)
             data.push(value)
+            totalData.value.pageViews = totalData.value.pageViews + value
           }
         }
         return {
           labels,
           data: [
             {
-              title: 'Downloads',
+              title: 'Page Views',
+              color: 0x00af5c,
+              data,
+            },
+          ],
+        }
+      },
+    }),
+    useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
+      transform: (analytics) => {
+        const labels = []
+        const data = []
+        for (const trueData of Object.values(analytics)) {
+          for (const [key, value] of Object.entries(trueData)) {
+            labels.push(key)
+            data.push(value)
+            totalData.value.revenue = totalData.value.revenue + value
+          }
+        }
+        return {
+          labels,
+          data: [
+            {
+              title: 'Revenue',
               color: 0x00af5c,
               data,
             },
@@ -191,60 +216,6 @@ const viewData = ref({
   ],
 })
 */
-const revenueData = ref({
-  labels: [
-    '2022-01-10',
-    '2022-01-11',
-    '2022-01-12',
-    '2022-01-13',
-    '2022-01-14',
-    '2022-01-15',
-    '2022-01-16',
-    '2022-01-17',
-    '2022-01-18',
-    '2022-01-19',
-    '2022-01-20',
-    '2022-01-21',
-    '2022-01-22',
-    '2022-01-23',
-    '2022-01-24',
-    '2022-01-25',
-  ],
-  data: [
-    {
-      title: 'Revenue',
-      color: 0x00af5c,
-      data: [65, 59, 80, 81, 56, 55, 12, 32, 45, 76, 25, 99, 90, 112, 12, 134],
-    },
-  ],
-})
-const followersData = ref({
-  labels: [
-    '2022-01-10',
-    '2022-01-11',
-    '2022-01-12',
-    '2022-01-13',
-    '2022-01-14',
-    '2022-01-15',
-    '2022-01-16',
-    '2022-01-17',
-    '2022-01-18',
-    '2022-01-19',
-    '2022-01-20',
-    '2022-01-21',
-    '2022-01-22',
-    '2022-01-23',
-    '2022-01-24',
-    '2022-01-25',
-  ],
-  data: [
-    {
-      title: 'Followers',
-      color: 0x00af5c,
-      data: [65, 59, 80, 81, 56, 55, 12, 32, 45, 76, 25, 99, 90, 112, 12, 134],
-    },
-  ],
-})
 
 const select = (type) => {
   selectedDataType.value = type
@@ -324,7 +295,7 @@ const countryData = ref({
       >
         <div class="data-point__title">Total page views</div>
         <div class="data-point__value">
-          {{ totalData.pageViews }}
+          {{ formatNumber(totalData.pageViews) }}
         </div>
       </div>
       <div
@@ -334,17 +305,7 @@ const countryData = ref({
       >
         <div class="data-point__title">Total revenue</div>
         <div class="data-point__value">
-          {{ totalData.revenue }}
-        </div>
-      </div>
-      <div
-        class="data-point button-base"
-        :class="{ selected: selectedDataType === 'followers' }"
-        @click="select('followers')"
-      >
-        <div class="data-point__title">Total followers</div>
-        <div class="data-point__value">
-          {{ totalData.followers }}
+          {{ formatNumber(totalData.revenue) }}
         </div>
       </div>
     </div>
@@ -357,9 +318,6 @@ const countryData = ref({
       </client-only>
       <client-only>
         <LineChart v-if="selectedDataType === 'revenue'" :data="revenueData" />
-      </client-only>
-      <client-only>
-        <LineChart v-if="selectedDataType === 'followers'" :data="followersData" />
       </client-only>
     </div>
   </Card>

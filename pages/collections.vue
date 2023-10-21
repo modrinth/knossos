@@ -1,44 +1,33 @@
 <template>
   <div>
-    <ModalCreation ref="modal_creation" :organization="`${organization.team_id}`"/>
-    <h1>Projects</h1>
-    <div class="input-group">
-      <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
-        <PlusIcon />
-        Create a project
-      </button>
-    </div>
-    <p v-if="projects.length < 1">
+    <ModalCreation ref="modal_creation"/>
+    <h1>Collections</h1>
+    <p v-if="collections.length < 1">
       You don't have any projects yet. Click the green button above to begin.
     </p>
     <template v-else>
-      <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="input-group">
-        <button
-            class="iconified-button"
-            :disabled="selectedProjects.length === 0"
-            @click="$refs.editLinksModal.show()"
-        >
-          <EditIcon />
-          Edit links
+        <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
+          <PlusIcon />
+          Create a collection
         </button>
         <div class="push-right">
           <div class="labeled-control-row">
             Sort by
             <Multiselect
-                v-model="sortBy"
-                :searchable="false"
-                class="small-select"
-                :options="['Name', 'Status', 'Type']"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @update:model-value="projects = updateSort(projects, sortBy, descending)"
+              v-model="sortBy"
+              :searchable="false"
+              class="small-select"
+              :options="['Name', 'Status', 'Type']"
+              :close-on-select="true"
+              :show-labels="false"
+              :allow-empty="false"
+              @update:model-value="collections = updateSort(collections, sortBy, descending)"
             />
             <button
-                v-tooltip="descending ? 'Descending' : 'Ascending'"
-                class="square-button"
-                @click="updateDescending()"
+              v-tooltip="descending ? 'Descending' : 'Ascending'"
+              class="square-button"
+              @click="updateDescending()"
             >
               <DescendingIcon v-if="descending" />
               <AscendingIcon v-else />
@@ -48,47 +37,22 @@
       </div>
       <div class="grid-table universal-card">
         <div class="grid-table__row grid-table__header">
-          <div>
-            <Checkbox
-                :model-value="selectedProjects === projects"
-                @update:model-value="
-                selectedProjects === projects
-                  ? (selectedProjects = [])
-                  : (selectedProjects = projects)
-              "
-            />
-          </div>
           <div>Icon</div>
           <div>Name</div>
-          <div>ID</div>
-          <div>Type</div>
-          <div>Status</div>
+          <div>Projects</div>
           <div />
         </div>
-        <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
-          <div>
-            <Checkbox
-                :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-                :model-value="selectedProjects.includes(project)"
-                @update:model-value="
-                selectedProjects.includes(project)
-                  ? (selectedProjects = selectedProjects.filter((it) => it !== project))
-                  : selectedProjects.push(project)
-              "
-            />
-          </div>
+        <div v-for="collection in collections" :key="`collection-${collection.id}`" class="grid-table__row">
           <div>
             <nuxt-link
-                tabindex="-1"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }`"
+              tabindex="-1"
+              :to="`/collection/${collection.id}`"
             >
               <Avatar
-                  :src="project.icon_url"
-                  aria-hidden="true"
-                  :alt="'Icon for ' + project.title"
-                  no-shadow
+                :src="collection.icon_url"
+                aria-hidden="true"
+                :alt="'Icon for ' + collection.title"
+                no-shadow
               />
             </nuxt-link>
           </div>
@@ -96,39 +60,28 @@
           <div>
             <span class="project-title">
               <IssuesIcon
-                  v-if="project.moderator_message"
-                  aria-label="Project has a message from the moderators. View the project to see more."
+                v-if="collection.moderator_message"
+                aria-label="Project has a message from the moderators. View the project to see more."
               />
 
               <nuxt-link
-                  class="hover-link wrap-as-needed"
-                  :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                  project.slug ? project.slug : project.id
-                }`"
+                class="hover-link wrap-as-needed"
+                :to="`/collection/${collection.id}`"
               >
-                {{ project.title }}
+                {{ collection.title }}
               </nuxt-link>
             </span>
           </div>
 
-          <div>
-            <CopyCode :text="project.id" />
-          </div>
-
-          <div>
-            {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
-          </div>
-
-          <div>
-            <Badge v-if="project.status" :type="project.status" class="status" />
+          <div class="projects">
+            <Avatar v-for="project in collection.projects.slice(0, 6)" :key="project?.id" :src="project?.icon_url" v-tooltip="project.title" />
+            <div v-if="collection.projects.length > 10" class="avatar overflow">+{{ collection.projects.length - 6 }}</div>
           </div>
 
           <div>
             <nuxt-link
-                class="square-button"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
+              class="square-button"
+              :to="`/collection/${collection.id}`"
             >
               <SettingsIcon />
             </nuxt-link>
@@ -142,20 +95,12 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import { Badge, Checkbox, Modal, Avatar, CopyCode, SettingsIcon, TrashIcon, IssuesIcon, PlusIcon, XIcon, EditIcon, SaveIcon} from 'omorphia'
+import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
+import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
-defineProps({
-  organization: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-})
-
 const auth = await useAuth()
-await initUserProjects()
 
 const UPLOAD_VERSION = shallowRef(1 << 0)
 const DELETE_VERSION = shallowRef(1 << 1)
@@ -207,11 +152,27 @@ const updateSort = (projects, sort, descending) => {
   return sortedArray
 }
 
-const projects = shallowRef(
-    await useAsyncData(`user/${auth.value.user.id}/collections`, () =>
-        useBaseFetch(`user/${auth.value.user.id}/collections`)
-    ).then((res) => res.data)
+const collections = shallowRef(
+  await useAsyncData(`user/${auth.value.user.id}/collections`, () =>
+    useBaseFetch(`user/${auth.value.user.id}/collections`)
+  ).then((res) => res.data)
 )
+
+const projects = new Map()
+
+for (const collection of collections.value) {
+  if (collection.projects.length > 0) {
+    const { data: projectsData } = await useAsyncData(
+      `projects?ids=${JSON.stringify(collection.projects)}`,
+      () => useBaseFetch(`projects?ids=${JSON.stringify(collection.projects)}`)
+    )
+
+    console.log(projectsData)
+
+    collection.projects = projectsData
+  }
+}
+
 const versions = ref([])
 const selectedProjects = ref([])
 const sortBy = ref('Name')
@@ -219,15 +180,15 @@ const descending = ref(false)
 
 const updateDescending = () => {
   descending.value = !descending.value
-  projects.value = updateSort(projects.value, sortBy.value, descending.value)
+  collections.value = updateSort(collections.value, sortBy.value, descending.value)
 }
 </script>
 <style lang="scss" scoped>
 .grid-table {
   display: grid;
   grid-template-columns:
-    min-content min-content minmax(min-content, 2fr)
-    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
+    min-content minmax(min-content, 2fr)
+    minmax(min-content, 2fr) min-content;
   border-radius: var(--size-rounded-sm);
   overflow: hidden;
   margin-top: var(--spacing-card-md);
@@ -271,70 +232,43 @@ const updateDescending = () => {
 
     .grid-table__row {
       display: grid;
-      grid-template: 'checkbox icon name type settings' 'checkbox icon id status settings';
+      grid-template: 'icon name settings';
       grid-template-columns:
-        min-content min-content minmax(min-content, 2fr)
-        minmax(min-content, 1fr) min-content;
+        min-content 1fr min-content;
 
       :nth-child(1) {
-        grid-area: checkbox;
-      }
-
-      :nth-child(2) {
         grid-area: icon;
       }
 
-      :nth-child(3) {
+      :nth-child(2) {
         grid-area: name;
       }
 
-      :nth-child(4) {
+      :nth-child(3) {
         grid-area: id;
-        padding-top: 0;
+        display: none;
       }
 
-      :nth-child(5) {
-        grid-area: type;
-      }
-
-      :nth-child(6) {
-        grid-area: status;
-        padding-top: 0;
-      }
-
-      :nth-child(7) {
+      :nth-child(4) {
         grid-area: settings;
       }
     }
 
-    .grid-table__header {
-      grid-template: 'checkbox settings';
-      grid-template-columns: min-content minmax(min-content, 1fr);
-
-      :nth-child(2),
-      :nth-child(3),
-      :nth-child(4),
-      :nth-child(5),
-      :nth-child(6) {
-        display: none;
-      }
-    }
   }
 
   @media screen and (max-width: 560px) {
     .grid-table__row {
       display: grid;
-      grid-template: 'checkbox icon name settings' 'checkbox icon id settings' 'checkbox icon type settings' 'checkbox icon status settings';
-      grid-template-columns: min-content min-content minmax(min-content, 1fr) min-content;
+      grid-template: 'icon name settings';
+      grid-template-columns: min-content 1fr min-content;
 
       :nth-child(5) {
         padding-top: 0;
       }
-    }
 
-    .grid-table__header {
-      grid-template: 'checkbox settings';
-      grid-template-columns: min-content minmax(min-content, 1fr);
+      :nth-child(3) {
+        display: none;
+      }
     }
   }
 }
@@ -408,5 +342,31 @@ h1 {
 
 .universal-card {
   padding: 0;
+}
+
+.projects {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: flex-start !important;
+
+  .avatar {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-button-bg);
+  }
+
+  .avatar:not(:first-child) {
+    margin-left: -0.5rem;
+  }
+
+  .overflow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    width: 3rem;
+    height: 3rem;
+  }
 }
 </style>

@@ -1,11 +1,13 @@
 <script setup>
 import { Card, LineChart, PieChart, BarChart, formatMoney, formatNumber } from 'omorphia'
 
-const auth = await useAuth()
-const projects = ref(await useBaseFetch(`user/${auth.value.user.id}/projects`))
-
-onMounted(async () => {
-  await initUserProjects()
+const props = defineProps({
+  projects: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
 })
 
 const analyticsData = ref({
@@ -22,7 +24,7 @@ const select = (type) => {
   selectedDataType.value = type
 }
 
-const body = `project_ids=${JSON.stringify(projects.value.map((project) => project.id))}`
+const body = `project_ids=${JSON.stringify(props.projects.map((project) => project.id))}`
 try {
   ;[
     {data: downloadData},
@@ -74,9 +76,9 @@ try {
 
         for (const project of projects) {
           finalData.data.push({
-            title: project,
-            color: 0x00af5c,
-            data: projectData.get(project), // Convert Map to Object
+            title: props.projects.find((p) => p.id === project).title,
+            color: props.projects.find((p) => p.id === project).color,
+            data: projectData.get(project),
           });
         }
 
@@ -127,9 +129,9 @@ try {
 
         for (const project of projects) {
           finalData.data.push({
-            title: project,
-            color: 0x00af5c,
-            data: projectData.get(project), // Convert Map to Object
+            title: props.projects.find((p) => p.id === project).title,
+            color: props.projects.find((p) => p.id === project).color,
+            data: projectData.get(project),
           });
         }
 
@@ -180,9 +182,9 @@ try {
 
         for (const project of projects) {
           finalData.data.push({
-            title: project,
-            color: 0x00af5c,
-            data: projectData.get(project), // Convert Map to Object
+            title: props.projects.find((p) => p.id === project).title,
+            color: props.projects.find((p) => p.id === project).color,
+            data: projectData.get(project),
           });
         }
 
