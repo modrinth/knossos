@@ -174,7 +174,7 @@
     "message": "Current session"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Соңгы активлык {ago} булды"
   },
   "settings.sessions.label.unknown-os": {
     "message": "Билгесез ОС"
