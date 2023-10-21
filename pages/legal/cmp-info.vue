@@ -1,10 +1,11 @@
 <template>
   <div class="markdown-body">
     <h1>Rewards Program Information</h1>
-    <p><em>Last edited: August 9, 2023</em></p>
+    <p><em>Last modified: August 9, 2023</em></p>
     <p>
       This page was created for transparency for how the rewards program works on Modrinth. Feel
-      free to join our Discord or email support@modrinth.com if you have any questions!
+      free to join our Discord or email
+      <a href="mailto:support@modrinth.com">support@modrinth.com</a> if you have any questions!
     </p>
     <p>
       This document is provided for informational purposes only and does not constitute a legal
@@ -88,37 +89,14 @@
   </div>
 </template>
 
-<script>
-export default defineNuxtComponent({
-  name: 'CmpInfo',
+<script setup>
+const description =
+  'Information about the Rewards Program of Modrinth, an open source modding platform focused on Minecraft.'
 
-  head: {
-    title: 'Rewards Program Information - Modrinth',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'The rewards program information of Modrinth, an open source modding platform focused on Minecraft.',
-      },
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Rewards Program Information',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Rewards Program Information',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: 'https://modrinth.com/legal/cmp-info',
-      },
-    ],
-  },
+useSeoMeta({
+  title: 'Rewards Program Information - Modrinth',
+  description,
+  ogTitle: 'Rewards Program Information',
+  ogDescription: description,
 })
 </script>
-
-<style scoped></style>

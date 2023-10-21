@@ -22,25 +22,6 @@ const favicons = {
   '(prefers-color-scheme:dark)': '/favicon.ico',
 }
 
-const meta = {
-  description:
-    'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
-  publisher: 'Rinth, Inc.',
-  'apple-mobile-web-app-title': 'Modrinth',
-  'theme-color': '#1bd96a',
-  'color-scheme': 'dark light',
-  // OpenGraph
-  'og:title': 'Modrinth',
-  'og:site_name': 'Modrinth',
-  'og:description': 'An open source modding platform',
-  'og:type': 'website',
-  'og:url': 'https://modrinth.com',
-  'og:image': 'https://cdn.modrinth.com/modrinth-new.png?',
-  // Twitter
-  'twitter:card': 'summary',
-  'twitter:site': '@modrinth',
-}
-
 /**
  * Tags of locales that are auto-discovered besides the default locale.
  *
@@ -58,6 +39,9 @@ const localesCategoriesOverrides: Partial<Record<string, 'fun' | 'experimental'>
   'en-x-lolcat': 'fun',
   'en-x-uwu': 'fun',
   'ru-x-bandit': 'fun',
+  ar: 'experimental',
+  he: 'experimental',
+  pes: 'experimental',
 }
 
 export default defineNuxtConfig({
@@ -67,9 +51,6 @@ export default defineNuxtConfig({
         lang: 'en',
       },
       title: 'Modrinth',
-      meta: Object.entries(meta).map(([name, content]): object => {
-        return { name, content }
-      }),
       link: [
         // The type is necessary because the linter can't always compare this very nested/complex type on itself
         ...preloadedFonts.map((font): object => {
@@ -200,6 +181,8 @@ export default defineNuxtConfig({
     async 'vintl:extendOptions'(opts) {
       opts.locales ??= []
 
+      const isProduction = getDomain() === 'https://modrinth.com'
+
       const resolveCompactNumberDataImport = await (async () => {
         const compactNumberLocales: string[] = []
         const resolvedImports = new Map<string, string>()
@@ -225,7 +208,7 @@ export default defineNuxtConfig({
 
       for await (const localeDir of globIterate('locales/*/', { posix: true })) {
         const tag = basename(localeDir)
-        if (!enabledLocales.includes(tag) && opts.defaultLocale !== tag) continue
+        if (isProduction && !enabledLocales.includes(tag) && opts.defaultLocale !== tag) continue
 
         const locale =
           opts.locales.find((locale) => locale.tag === tag) ??
@@ -246,8 +229,9 @@ export default defineNuxtConfig({
               })
             }
           } else if (fileName === 'meta.json') {
-            /** @type {Record<string, { message: string }>} */
-            const meta = await fs.readFile(localeFile, 'utf8').then((date) => JSON.parse(date))
+            const meta: Record<string, { message: string }> = await fs
+              .readFile(localeFile, 'utf8')
+              .then((date) => JSON.parse(date))
             locale.meta ??= {}
             for (const key in meta) {
               locale.meta[key] = meta[key].message
@@ -311,8 +295,21 @@ export default defineNuxtConfig({
   modules: ['@vintl/nuxt', '@nuxtjs/turnstile'],
   vintl: {
     defaultLocale: 'en-US',
+    locales: [
+      {
+        tag: 'en-US',
+        meta: {
+          static: {
+            iso: 'en',
+          },
+        },
+      },
+    ],
     storage: 'cookie',
     parserless: 'only-prod',
+    seo: {
+      defaultLocaleHasParameter: false,
+    },
   },
   turnstile: {
     siteKey: '0x4AAAAAAAHWfmKCm7cUG869',

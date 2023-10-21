@@ -1,8 +1,7 @@
 <template>
   <div class="markdown-body">
     <h1>Privacy Policy</h1>
-
-    <p><em>Last edited: August 5, 2023</em></p>
+    <p><em>Last modified: August 5, 2023</em></p>
 
     <h2>Introduction</h2>
     <p>
@@ -261,7 +260,8 @@
       California's "Shine the Light" law (Civil Code Section § 1798.83) permits users of our App
       that are California residents to request certain information regarding our disclosure of
       personal information to third parties for their direct marketing purposes. To make such a
-      request, please send an email to support@modrinth.com.
+      request, please send an email to
+      <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
     </p>
 
     <h2>Changes to the Privacy Policy</h2>
@@ -308,35 +308,14 @@
   </div>
 </template>
 
-<script>
-export default defineNuxtComponent({
-  head: {
-    title: 'Privacy - Modrinth',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'The Privacy Policy of Modrinth, an open source modding platform focused on Minecraft.',
-      },
-      {
-        hid: 'apple-mobile-web-app-title',
-        name: 'apple-mobile-web-app-title',
-        content: 'Privacy Policy',
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Privacy Policy',
-      },
-      {
-        hid: 'og:url',
-        name: 'og:url',
-        content: 'https://modrinth.com/legal/privacy',
-      },
-    ],
-  },
+<script setup>
+const description =
+  'The Privacy Policy of Modrinth, an open source modding platform focused on Minecraft.'
+
+useSeoMeta({
+  title: 'Privacy Policy - Modrinth',
+  description,
+  ogTitle: 'Privacy Policy',
+  ogDescription: description,
 })
 </script>
-
-<style lang="scss" scoped></style>
