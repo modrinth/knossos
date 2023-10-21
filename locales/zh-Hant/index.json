@@ -165,7 +165,7 @@
     "message": "取消工作階段授權"
   },
   "settings.sessions.description": {
-    "message": "以下是您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每個裝置。\n\n如果您看到不認識的項目，請立即登出該裝置並更改您的 Modrinth 帳號密碼。"
+    "message": "下列為您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每個裝置。\n\n如果您看到不認識的項目，請立即登出該裝置並更改您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.label.created-at": {
     "message": "建立於 {ago}"
