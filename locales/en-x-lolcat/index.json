@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Nu"
+    "message": "stop it!"
   },
   "button.edit": {
     "message": "Chaenj"
   },
   "button.save": {
-    "message": "Saev"
+    "message": "Mak stay"
   },
   "frog": {
     "message": "you been toaded 🐸"
@@ -24,7 +24,7 @@
     "message": "tasty jumpy thingy"
   },
   "input.view.gallery": {
-    "message": "Big picturs!!"
+    "message": "Big pikturs!!"
   },
   "input.view.grid": {
     "message": "oooooh squares"
@@ -33,13 +33,13 @@
     "message": "boring vew"
   },
   "notification.error.title": {
-    "message": "Somezinj bad hapen"
+    "message": "ow no! kudnt catch tasty flying thingy!"
   },
   "profile.button.manage-projects": {
-    "message": "Manag kode"
+    "message": "chaynj kode"
   },
   "profile.button.report": {
-    "message": "Repwot"
+    "message": "dis not rite"
   },
   "profile.error.not-found": {
     "message": "Kat not heer :("
@@ -54,7 +54,7 @@
     "message": "Thingz about Kat"
   },
   "profile.label.edit-username": {
-    "message": "katnaem"
+    "message": "katnaym"
   },
   "profile.label.no-projects": {
     "message": "Dis Kat no kode :("
@@ -75,10 +75,10 @@
     "message": "{count, plural, one {<stat>{count}</stat> folowr} other {<stat>{count}</stat> folowrs}} of kode"
   },
   "profile.user-id": {
-    "message": "Kat ID: {id}"
+    "message": "boring numbr: {id}"
   },
   "project-type.all": {
-    "message": "Evrythin"
+    "message": "Evryfin"
   },
   "project-type.datapack.plural": {
     "message": "Data Pakz"
