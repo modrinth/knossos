@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ModalCreation ref="modal_creation" />
+    <SimpleCreationModal ref="modal_creation" type="collection" />
     <h1>Collections</h1>
     <p v-if="collections.length < 1">
       You don't have any projects yet. Click the green button above to begin.
@@ -73,12 +73,13 @@
 
           <div class="projects">
             <Avatar
+              v-if="collection.projects"
               v-for="project in collection.projects.slice(0, 6)"
               :key="project?.id"
               v-tooltip="project.title"
               :src="project?.icon_url"
             />
-            <div v-if="collection.projects.length > 10" class="avatar overflow">
+            <div v-if="collection.projects && collection.projects.length > 10" class="avatar overflow">
               +{{ collection.projects.length - 6 }}
             </div>
           </div>
@@ -114,6 +115,7 @@ import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const auth = await useAuth()
 

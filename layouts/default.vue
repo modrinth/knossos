@@ -303,6 +303,14 @@
                   <PlusIcon aria-hidden="true" />
                   Create a project
                 </button>
+                <button
+                  class="btn button-transparent"
+                  title="Switch theme"
+                  @click="$refs.modal_org_creation.show()"
+                >
+                  <OrganizationIcon aria-hidden="true" />
+                  Create an organization
+                </button>
                 <nuxt-link to="/reports" class="btn button-transparent">
                   <ReportIcon aria-hidden="true" />
                   Reports
@@ -327,6 +335,7 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
+        <SimpleCreationModal v-if="auth.user" ref="modal_org_creation" disallow-spaces />
         <section v-if="displayWarning" class="warning-banner universal-card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
@@ -462,12 +471,14 @@ import UserIcon from '~/assets/images/utils/user.svg'
 import ArrowRightLeftIcon from '~/assets/images/utils/arrow-right-left.svg'
 import MoreHorizontalIcon from '~/assets/images/utils/more-horizontal.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 import MinecraftIcon from '~/assets/images/games/minecraft.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import PopoutMenu from '~/components/ui/PopoutMenu.vue'
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const app = useNuxtApp()
 const auth = await useAuth()
