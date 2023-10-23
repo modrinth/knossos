@@ -216,11 +216,7 @@ export default defineNuxtComponent({
     },
     getAccountInputAutocompletion(selectedWallet, accountType) {
       if(selectedWallet === 'paypal'){
-        if(accountType === 'email'){
-          return "email";
-        }else {
-          return "tel";
-        }
+        return accountType === 'email' ? "email" : "tel";
       }else {
         switch(accountType){
           case 'email':
