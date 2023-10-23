@@ -60,6 +60,7 @@
                 accountType
               ).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
+              :autocomplete="getAccountInputAutocompletion(selectedWallet, accountType)"
             />
             <span v-if="accountType === 'phone'"> Format: +18888888888 or +1-888-888-8888 </span>
           </div>
@@ -212,6 +213,24 @@ export default defineNuxtComponent({
         })
       }
       stopLoading()
+    },
+    getAccountInputAutocompletion(selectedWallet, accountType) {
+      if(selectedWallet === 'paypal'){
+        if(accountType === 'email'){
+          return "email";
+        }else {
+          return "tel";
+        }
+      }else {
+        switch(accountType){
+          case 'email':
+            return "email";
+          case 'phone':
+            return "tel";
+          case 'user_handle':
+            return "username";
+        }
+      }
     },
   },
 })
