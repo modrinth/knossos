@@ -3,19 +3,19 @@
     "message": "Avbryt"
   },
   "button.edit": {
-    "message": "Endre"
+    "message": "Rediger"
   },
   "button.save": {
     "message": "Lagre"
   },
   "frog": {
-    "message": "Du har blitt frosset! 🐸"
+    "message": "Du har blitt frosket! 🐸"
   },
   "frog.altText": {
     "message": "Et fotorealistisk maleri av en frosklabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} person til} other {{count} flere personer}} ble også frosset!"
+    "message": "{count, plural, one {{count} person til} other {{count} flere personer}} ble også frosket!"
   },
   "frog.sinceOpened": {
     "message": "Denne siden var åpnet {ago}"
@@ -39,10 +39,10 @@
     "message": "Administrer prosjekter"
   },
   "profile.button.report": {
-    "message": "Informere"
+    "message": "Rapporter"
   },
   "profile.error.not-found": {
-    "message": "Brukeren ble ikke funnet"
+    "message": "Bruker ikke funnet"
   },
   "profile.input.upload-avatar": {
     "message": "Last opp profilbilde"
@@ -60,7 +60,7 @@
     "message": "Denne brukeren har ingen prosjekter!"
   },
   "profile.label.no-projects-auth": {
-    "message": "Du har ikke några prosjekter\nVil du <create-link>skapa en</create-link>?"
+    "message": "Du har ikke noen prosjekter\nVil du <create-link>lage et</create-link>?"
   },
   "profile.meta.description": {
     "message": "Last ned {username}'s prosjekter på Modrinth"
@@ -69,7 +69,7 @@
     "message": "{bio} - Last ned {username}'s prosjekter på Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> laste ned} other {<stat>{count}</stat> nedlastinger}}"
+    "message": "{count, plural, one {<stat>{count}</stat> nedlastning} other {<stat>{count}</stat> nedlastinger}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> følger} other {<stat>{count}</stat> følgere}} av prosjekter"
@@ -81,34 +81,34 @@
     "message": "Alle"
   },
   "project-type.datapack.plural": {
-    "message": "Datapacks"
+    "message": "Datapakker"
   },
   "project-type.datapack.singular": {
-    "message": "Datapack"
+    "message": "Datapakke"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Modifikasjoner"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Modifikasjon"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modifikasjonspakker"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Modifikasjonspakke"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Programtillegg"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Programtillegg"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resourcepacks"
+    "message": "Ressurspakker"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resourcepack"
+    "message": "Ressurspakke"
   },
   "project-type.shader.plural": {
     "message": "Shaders"
@@ -162,30 +162,30 @@
     "message": "Språk"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Fjern økt"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Her er alle enhetene som for øyeblikket er logget inn med din Modrinth konto. Du kan logge ut av hver enkelt individuelt.\nHvis du ser en oppføring som er ukjent for deg, logg ut fra den enheten og endre Modrinth passordet ditt umiddelbart."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Opprettet {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Gjeldende økt"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Sist åpnet {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Ukjent operativsystem"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Ukjent plattform"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Økter"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} ved {time, time, short}"
   }
 }
