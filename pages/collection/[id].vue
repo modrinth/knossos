@@ -40,6 +40,15 @@ const collection = shallowRef(
     useBaseFetch(`collection/${route.params.id}`)
   ).then((res) => res.data)
 )
+
+if (!collection.value) {
+    throw createError({
+        fatal: true,
+        statusCode: 404,
+        message: 'Collection not found',
+    })
+}
+
 const projects = shallowRef(
   await useAsyncData(`projects?ids=${JSON.stringify(collection.value.projects)}]`, () =>
     useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
@@ -382,7 +391,7 @@ const results = shallowRef(toRaw(rawResults))
             placeholder="Add projects..."
             @on-selected="addProject"
           />
-          <Button color="primary" @click="saveChanges">
+          <Button color="primary" @click="saveChanges" :disabled="!hasChanges">
             <SaveIcon />
             Save changes
           </Button>
@@ -421,7 +430,7 @@ const results = shallowRef(toRaw(rawResults))
             </template>
           </PopoutMenu>
         </template>
-        <Button @click="() => (enableEditing = !enableEditing)">
+        <Button @click="() => (enableEditing = !enableEditing)" :disabled="hasChanges">
           <EditIcon />
           {{ enableEditing ? 'Disable' : 'Enable' }} editing
         </Button>

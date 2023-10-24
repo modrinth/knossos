@@ -19,7 +19,6 @@
         maxlength="64"
         :placeholder="`Enter ${type} name...`"
         autocomplete="off"
-        :pattern="disallowSpaces ? '[a-zA-Z0-9]*' : '[a-zA-Z0-9 ]*'"
       />
       <label for="additional-information">
         <span class="label__title">Summary<span class="required">*</span></span>
@@ -109,6 +108,13 @@ export default {
       this.$refs.modal.show()
     },
   },
+  watch: {
+    name(value) {
+      if (this.disallowSpaces) {
+        this.name = value.replace(/ +/g, '');
+      }
+    }
+  }
 }
 </script>
 

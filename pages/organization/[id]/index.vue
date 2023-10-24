@@ -56,7 +56,7 @@ const filterOptions = computed(() =>
       </div>
       <div
         v-for="member in organization.members"
-        :key="ignored"
+        :key="member.user.id"
         class="creator button-base"
         @click="$router.push(`/user/${member.user.username}`)"
       >

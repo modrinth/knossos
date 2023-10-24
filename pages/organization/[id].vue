@@ -35,6 +35,14 @@ const organization = shallowRef(
   ).then((res) => res.data)
 )
 
+if (!organization.value) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'Organization not found',
+  })
+}
+
 const projects = shallowRef(
   await useAsyncData(`organization/${route.params.id}/projects`, () =>
     useBaseFetch(`organization/${route.params.id}/projects`)
@@ -143,18 +151,20 @@ const hasPermission = computed(() => {
 })
 
 const currentMember = ref(
-  auth.value.user ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
+  auth.value.user && organization.value ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
 )
 </script>
 
 <template>
   <ShareModal
+    v-if="organization"
     ref="shareModal"
     :share-title="organization.title"
     :share-text="`Check out the cool projects ${organization.title} is making on Modrinth!`"
     link
   />
   <ModalReport
+    v-if="organization"
     ref="reportModal"
     item-type="organization"
     :item-id="organization.id"
@@ -169,7 +179,7 @@ const currentMember = ref(
       'Other',
     ]"
   />
-  <div v-if="$route.name.startsWith('organization-id-settings')" class="settings-page">
+  <div v-if="organization && $route.name.startsWith('organization-id-settings')" class="settings-page">
     <div class="settings-page__sidebar">
       <div class="settings-page__header">
         <Breadcrumbs
@@ -222,7 +232,7 @@ const currentMember = ref(
       />
     </div>
   </div>
-  <div v-else class="normal-page">
+  <div class="normal-page">
     <div class="normal-page__header">
       <div class="page-header">
         <Avatar class="page-header__icon" :src="organization.icon_url" size="md" />
