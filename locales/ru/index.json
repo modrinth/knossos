@@ -66,7 +66,7 @@
     "message": "Скачивайте проекты {username} на Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Скачивайте проекты {username} на Modrinth"
+    "message": "{bio} — Скачивайте проекты {username} на Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> загрузка} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
