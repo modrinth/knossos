@@ -2,7 +2,7 @@
   <NuxtLayout>
     <div class="main">
       <div class="error">
-        <Logo404 v-if="error.statusCode === 404" />
+        <FourOhFourNotFound v-if="error.statusCode === 404" />
         <h1 v-else>An error occurred!</h1>
         <p>{{ error.message }}</p>
         <div class="button-group">
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import Logo404 from '~/assets/images/404.svg'
+import { FourOhFourNotFound } from 'omorphia'
 
 defineProps({
   error: {
