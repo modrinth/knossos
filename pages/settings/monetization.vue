@@ -60,7 +60,7 @@
                 accountType
               ).toLowerCase()}...`"
               :type="accountType === 'email' ? 'email' : ''"
-              :autocomplete="getAccountInputAutocompletion(selectedWallet, accountType)"
+              :autocomplete="getAccountInputAutocompletion"
             />
             <span v-if="accountType === 'phone'"> Format: +18888888888 or +1-888-888-8888 </span>
           </div>
@@ -143,6 +143,18 @@ export default defineNuxtComponent({
       account: this.auth.user.payout_data.payout_address ?? '',
     }
   },
+  computed: {
+    getAccountInputAutocompletion() {
+      switch (this.accountType) {
+        case 'email':
+          return 'email'
+        case 'phone':
+          return 'tel'
+        case 'user_handle':
+          return 'username'
+      }
+    },
+  },
   head: {
     title: 'Monetization settings - Modrinth',
   },
@@ -213,20 +225,6 @@ export default defineNuxtComponent({
         })
       }
       stopLoading()
-    },
-    getAccountInputAutocompletion(selectedWallet, accountType) {
-      if (selectedWallet === 'paypal') {
-        return accountType === 'email' ? 'email' : 'tel'
-      } else {
-        switch (accountType) {
-          case 'email':
-            return 'email'
-          case 'phone':
-            return 'tel'
-          case 'user_handle':
-            return 'username'
-        }
-      }
     },
   },
 })
