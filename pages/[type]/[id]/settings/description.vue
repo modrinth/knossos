@@ -1,17 +1,10 @@
 <template>
   <div>
-    <section class="universal-card">
-      <label for="project-description">
+    <Card>
+      <div class="markdown-disclaimer">
         <span class="label__title size-card-header">Description</span>
         <span class="label__description">
-          You can type an extended description of your mod here. This editor supports
-          <a
-            class="text-link"
-            href="https://docs.modrinth.com/docs/tutorials/markdown/"
-            target="_blank"
-            >Markdown formatting</a
-          >. HTML can also be used inside your description, not including styles, scripts, and
-          iframes (though YouTube iframes are allowed).
+          You can type an extended description of your mod here.
           <span class="label__subdescription">
             The description must clearly and honestly describe the purpose and function of the
             project. See section 2.1 of the
@@ -19,19 +12,11 @@
             for the full requirements.
           </span>
         </span>
-      </label>
-      <Chips v-model="bodyViewMode" :items="['source', 'preview']" />
-      <div v-if="bodyViewMode === 'source'" class="resizable-textarea-wrapper">
-        <textarea
-          id="project-description"
-          v-model="description"
-          :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
-        />
       </div>
-      <div
-        v-else-if="bodyViewMode === 'preview'"
-        class="markdown-body"
-        v-html="description ? renderHighlightedString(description) : 'No body specified.'"
+      <MarkdownEditor
+        v-model="description"
+        :on-image-upload="onUploadHandler"
+        :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
       />
       <div class="input-group">
         <button
@@ -44,19 +29,55 @@
           Save changes
         </button>
       </div>
-    </section>
+    </Card>
+    <section class="universal-card"></section>
   </div>
 </template>
 
 <script>
+import { MarkdownEditor, Card } from 'omorphia'
 import Chips from '~/components/ui/Chips.vue'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import { renderHighlightedString } from '~/helpers/highlight.js'
 
+const uploadAndAttachImage = async (file, projectID) => {
+  // Make sure file is of type image/png, image/jpeg, image/gif, or image/webp
+  if (
+    !file.type.startsWith('image/') ||
+    !['png', 'jpeg', 'gif', 'webp'].includes(file.type.split('/')[1])
+  ) {
+    throw new Error('File is not an accepted image type')
+  }
+
+  // Make sure file is less than 1MB
+  if (file.size > 1024 * 1024) {
+    throw new Error('File is too large')
+  }
+
+  const qs = new URLSearchParams()
+  qs.set('project_id', projectID)
+  qs.set('context', 'project')
+  qs.set('ext', file.type.split('/')[1])
+  const url = `image?${qs.toString()}`
+
+  const response = await useBaseFetch(url, {
+    method: 'POST',
+    body: file,
+  })
+
+  if (!response?.url || typeof response.url !== 'string') {
+    throw new Error('Unexpected response from server')
+  }
+
+  return response.url
+}
+
 export default defineNuxtComponent({
   components: {
+    Card,
     Chips,
     SaveIcon,
+    MarkdownEditor,
   },
   props: {
     project: {
@@ -121,15 +142,19 @@ export default defineNuxtComponent({
         this.patchProject(this.patchData)
       }
     },
+    async onUploadHandler(file) {
+      return await uploadAndAttachImage(file, this.project.id)
+    },
   },
 })
 </script>
-<style lang="scss" scoped>
-.resizable-textarea-wrapper textarea {
-  min-height: 40rem;
+
+<style scoped>
+.markdown-disclaimer {
+  margin-bottom: 1rem;
 }
 
-.markdown-body {
-  margin-bottom: var(--spacing-card-md);
+.universal-card {
+  margin-top: 1rem;
 }
 </style>

@@ -51,14 +51,11 @@
       This thread is closed and new messages cannot be sent to it.
     </span>
     <template v-else-if="!report || !report.closed">
-      <div class="resizable-textarea-wrapper">
-        <Chips v-model="replyViewMode" class="chips" :items="['source', 'preview']" />
-        <textarea
-          v-if="replyViewMode === 'source'"
+      <div class="markdown-editor-spacing">
+        <MarkdownEditor
           v-model="replyBody"
           :placeholder="sortedMessages.length > 0 ? 'Reply to thread...' : 'Send a message...'"
         />
-        <div v-else class="markdown-body preview" v-html="renderString(replyBody)" />
       </div>
       <div class="input-group">
         <button
@@ -170,7 +167,7 @@
 </template>
 
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
+import { MarkdownEditor } from 'omorphia'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import ReplyIcon from '~/assets/images/utils/reply.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
@@ -179,7 +176,6 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 import { isStaff } from '~/helpers/users.js'
 import { isApproved, isRejected } from '~/helpers/projects.js'
@@ -233,7 +229,6 @@ const members = computed(() => {
   return members
 })
 
-const replyViewMode = ref('source')
 const replyBody = ref('')
 
 const sortedMessages = computed(() => {
@@ -332,6 +327,10 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 </script>
 
 <style lang="scss" scoped>
+.markdown-editor-spacing {
+  margin-bottom: var(--gap-md);
+}
+
 .messages {
   display: flex;
   flex-direction: column;

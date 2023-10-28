@@ -33,22 +33,10 @@
         <span class="label__title">Additional information</span>
         <span class="label__description add-line-height">
           Please provide additional context about your report. Include links and images if possible.
-          <strong>Empty reports will be closed.</strong> This editor supports
-          <a
-            class="text-link"
-            href="https://docs.modrinth.com/docs/tutorials/markdown/"
-            target="_blank"
-            >Markdown formatting</a
-          >.
+          <strong>Empty reports will be closed.</strong>
         </span>
       </label>
-      <div class="textarea-wrapper">
-        <Chips v-model="bodyViewType" class="separator" :items="['source', 'preview']" />
-        <div v-if="bodyViewType === 'source'" class="textarea-wrapper">
-          <textarea id="body" v-model="body" spellcheck="true" />
-        </div>
-        <div v-else class="preview" v-html="renderString(body)" />
-      </div>
+      <MarkdownEditor v-model="body" :heading-buttons="false" :disabled="false" />
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
@@ -64,16 +52,16 @@
 </template>
 
 <script>
+import { MarkdownEditor } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import Modal from '~/components/ui/Modal.vue'
-import Chips from '~/components/ui/Chips.vue'
 import { renderString } from '~/helpers/parse.js'
 
 export default {
   components: {
-    Chips,
+    MarkdownEditor,
     CrossIcon,
     CheckIcon,
     Modal,
@@ -91,7 +79,6 @@ export default {
   },
   setup() {
     const tags = useTags()
-
     return { tags }
   },
   data() {
@@ -151,7 +138,6 @@ export default {
 
   .add-line-height {
     line-height: 1.5;
-    margin-bottom: 0;
   }
 
   .multiselect {

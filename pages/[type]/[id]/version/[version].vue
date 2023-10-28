@@ -195,29 +195,12 @@
     <div class="version-page__changelog universal-card">
       <h3>Changelog</h3>
       <template v-if="isEditing">
-        <span
-          >This editor supports
-          <a
-            class="text-link"
-            href="https://docs.modrinth.com/docs/tutorials/markdown/"
-            target="_blank"
-            >Markdown formatting</a
-          >. HTML can also be used inside your changelog, not including styles, scripts, and
-          iframes.
+        <span>
+          HTML can also be used inside your changelog, not including styles, scripts, and iframes.
         </span>
-        <Chips v-model="changelogViewMode" class="separator" :items="['source', 'preview']" />
-        <div v-if="changelogViewMode === 'source'" class="resizable-textarea-wrapper">
-          <textarea id="body" v-model="version.changelog" maxlength="65536" />
+        <div class="changelog-editor-spacing">
+          <MarkdownEditor v-model="version.changelog" />
         </div>
-        <div
-          v-if="changelogViewMode === 'preview'"
-          class="markdown-body"
-          v-html="
-            version.changelog
-              ? renderHighlightedString(version.changelog)
-              : 'No changelog specified.'
-          "
-        />
       </template>
       <div
         v-else
@@ -656,6 +639,7 @@
   </div>
 </template>
 <script>
+import { MarkdownEditor } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
@@ -693,6 +677,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
   components: {
+    MarkdownEditor,
     Modal,
     FileInput,
     Checkbox,
@@ -927,7 +912,6 @@ export default defineNuxtComponent({
       newDependencyType: 'required',
       newDependencyId: '',
 
-      changelogViewMode: 'source',
       showSnapshots: false,
 
       newFiles: [],
@@ -1343,6 +1327,10 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="scss" scoped>
+.changelog-editor-spacing {
+  padding-block: var(--gap-md);
+}
+
 .version-page {
   display: grid;
 
