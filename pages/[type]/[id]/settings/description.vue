@@ -2,7 +2,7 @@
   <div>
     <Card>
       <div class="markdown-disclaimer">
-        <span class="label__title size-card-header">Description</span>
+        <h2>Description</h2>
         <span class="label__description">
           You can type an extended description of your mod here.
           <span class="label__subdescription">
@@ -18,7 +18,7 @@
         :on-image-upload="onUploadHandler"
         :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
       />
-      <div class="input-group">
+      <div class="input-group markdown-disclaimer">
         <button
           type="button"
           class="iconified-button brand-button"
@@ -30,7 +30,6 @@
         </button>
       </div>
     </Card>
-    <section class="universal-card"></section>
   </div>
 </template>
 
@@ -151,7 +150,7 @@ export default defineNuxtComponent({
 
 <style scoped>
 .markdown-disclaimer {
-  margin-bottom: 1rem;
+  margin-block: 1rem;
 }
 
 .universal-card {
