@@ -18,7 +18,7 @@
     "message": "{count, plural, other {有另外 {count} 個人}}同樣被這青蛙耍了！"
   },
   "frog.sinceOpened": {
-    "message": "這個頁面於 {ago} 開啟"
+    "message": "這個頁面開啟於 {ago}"
   },
   "frog.title": {
     "message": "青蛙"
