@@ -69,7 +69,7 @@
     "message": "{bio} - Pobieraj projekty {username} na Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> pobranie} few {<stat>{count}</stat> pobrania} other {<stat>{count}</stat> pobrań}}"
+    "message": "{count, plural, one {<stat>{count}</stat> pobierz} few {<stat>{count}</stat> pobrań} many {<stat>{count}</stat> pobrań} other {<stat>{count}</stat> pobrań}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> obserwujący} other {<stat>{count}</stat> obserwujących}} projekty"
