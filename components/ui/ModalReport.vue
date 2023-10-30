@@ -36,7 +36,7 @@
           <strong>Empty reports will be closed.</strong>
         </span>
       </label>
-      <MarkdownEditor v-model="body" :heading-buttons="false" :disabled="false" />
+      <MarkdownEditor v-model="body" max-height="300" :heading-buttons="false" :disabled="false" />
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
