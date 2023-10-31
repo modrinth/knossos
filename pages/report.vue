@@ -25,7 +25,7 @@
         </div>
         <div class="report-info-section">
           <div class="report-info-item">
-            <label for="report-item">Item Type to Report</label>
+            <label for="report-item">Item type to report</label>
             <DropdownSelect
               id="report-item"
               v-model="reportItem"
