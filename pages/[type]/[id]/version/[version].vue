@@ -195,9 +195,6 @@
     <div class="version-page__changelog universal-card">
       <h3>Changelog</h3>
       <template v-if="isEditing">
-        <span>
-          HTML can also be used inside your changelog, not including styles, scripts, and iframes.
-        </span>
         <div class="changelog-editor-spacing">
           <MarkdownEditor v-model="version.changelog" />
         </div>

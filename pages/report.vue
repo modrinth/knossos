@@ -4,10 +4,10 @@
       <div class="content">
         <div>
           <h1 class="card-title-adjustments">Submit a Report</h1>
-          <div class="">
+          <div>
             <p>
-              We're committed to maintaining a safe and trustworthy platform. If you encounter
-              content that violates our
+              Modding should be safe for everyone, so we take abuse and malicious intent seriously
+              at Modrinth. If you encounter content that violates our
               <nuxt-link class="text-link" to="/legal/terms">Terms of Service</nuxt-link> or our
               <nuxt-link class="text-link" to="/legal/rules">Rules</nuxt-link>, please report it to
               us here.
@@ -23,49 +23,47 @@
             </p>
           </div>
         </div>
-        <div>
-          <div class="report-info-section">
-            <div class="report-info-item">
-              <label for="report-item">Item Type to Report</label>
-              <DropdownSelect
-                id="report-item"
-                v-model="reportItem"
-                name="report-item"
-                :options="reportItems"
-                :display-name="capitalizeString"
-                :multiple="false"
-                :searchable="false"
-                :show-no-results="false"
-                :show-labels="false"
-                placeholder="Choose report item"
-              />
-            </div>
-            <div class="report-info-item">
-              <label for="report-item-id">Item ID</label>
-              <input
-                id="report-item-id"
-                v-model="reportItemID"
-                type="text"
-                placeholder="ex. project ID"
-                autocomplete="off"
-                :disabled="reportItem === ''"
-              />
-            </div>
-            <div class="report-info-item">
-              <label for="report-type">Reason for Report</label>
-              <DropdownSelect
-                id="report-type"
-                v-model="reportType"
-                name="report-type"
-                :options="reportTypes"
-                :multiple="false"
-                :searchable="false"
-                :show-no-results="false"
-                :show-labels="false"
-                :display-name="capitalizeString"
-                placeholder="Choose report type"
-              />
-            </div>
+        <div class="report-info-section">
+          <div class="report-info-item">
+            <label for="report-item">Item Type to Report</label>
+            <DropdownSelect
+              id="report-item"
+              v-model="reportItem"
+              name="report-item"
+              :options="reportItems"
+              :display-name="capitalizeString"
+              :multiple="false"
+              :searchable="false"
+              :show-no-results="false"
+              :show-labels="false"
+              placeholder="Choose report item"
+            />
+          </div>
+          <div class="report-info-item">
+            <label for="report-item-id">Item ID</label>
+            <input
+              id="report-item-id"
+              v-model="reportItemID"
+              type="text"
+              placeholder="ex. project ID"
+              autocomplete="off"
+              :disabled="reportItem === ''"
+            />
+          </div>
+          <div class="report-info-item">
+            <label for="report-type">Reason for Report</label>
+            <DropdownSelect
+              id="report-type"
+              v-model="reportType"
+              name="report-type"
+              :options="reportTypes"
+              :multiple="false"
+              :searchable="false"
+              :show-no-results="false"
+              :show-labels="false"
+              :display-name="capitalizeString"
+              placeholder="Choose report type"
+            />
           </div>
         </div>
         <div class="report-submission-section">
@@ -78,21 +76,9 @@
           <MarkdownEditor v-model="reportBody" placeholder="" :on-image-upload="onImageUpload" />
         </div>
         <div>
-          <label for="submit-button">
-            <span class="label__title">Submit Report</span>
-          </label>
-          <p>
-            By submitting this report, you agree to our
-            <nuxt-link class="text-link" to="/legal/rules">Rules</nuxt-link> and
-            <nuxt-link class="text-link" to="/legal/terms">Terms of Service</nuxt-link>.
-          </p>
-          <Button
-            id="submit-button"
-            class="brand-button"
-            :disabled="submitLoading || !canSubmit"
-            @click="submitReport"
-          >
-            Submit Report
+          <Button id="submit-button" :disabled="submitLoading || !canSubmit" @click="submitReport">
+            <SaveIcon />
+            Submit
           </Button>
         </div>
       </div>
@@ -101,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { Card, Button, MarkdownEditor, DropdownSelect } from 'omorphia'
+import { Card, Button, MarkdownEditor, DropdownSelect, SaveIcon } from 'omorphia'
 
 const tags = useTags()
 const route = useRoute()
@@ -119,7 +105,7 @@ const reportItem = ref<string>(accessQuery('item'))
 const reportItemID = ref<string>(accessQuery('itemID'))
 const reportType = ref<string>('')
 
-const reportItems = ['project', 'version', 'user', 'unspecified']
+const reportItems = ['project', 'version', 'user']
 const reportTypes = computed(() => tags.value.reportTypes)
 
 const canSubmit = computed(() => {
@@ -210,7 +196,6 @@ const submitReport = async () => {
 
     submitLoading.value = false
 
-    // If response has id field, redirect to /dashboard/reports/:id
     if (response?.id) {
       navigateTo(`/dashboard/reports/${response.id}`)
     }
@@ -254,8 +239,6 @@ const onImageUpload = async (file: File) => {
 }
 
 .content {
-  //   padding-block: var(--gap-md);
-
   // TODO: Get rid of this hack when removing global styles from the website.
   // Overflow decides the behavior of md editor but also clips the border.
   // In the future, we should use ring instead of block-shadow for the
@@ -265,7 +248,6 @@ const onImageUpload = async (file: File) => {
   margin-inline: calc(var(--gap-md) * -1);
 
   display: grid;
-  //   gap: var(--gap-xl);
 
   // Disable horizontal stretch
   grid-template-columns: minmax(0, 1fr);
