@@ -49,9 +49,7 @@
 </template>
 
 <script>
-import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { Chips, renderHighlightedString, SaveIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {

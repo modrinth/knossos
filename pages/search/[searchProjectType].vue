@@ -316,22 +316,22 @@
 </template>
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Promotion } from 'omorphia'
+import {
+  Promotion,
+  ClearIcon,
+  ClientIcon,
+  FilterIcon,
+  GridIcon,
+  ImageIcon,
+  ListIcon,
+  SearchIcon,
+  ServerIcon,
+} from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import SearchFilter from '~/components/ui/search/SearchFilter.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import LogoAnimated from '~/components/brand/LogoAnimated.vue'
-
-import ClientIcon from '~/assets/images/categories/client.svg'
-import ServerIcon from '~/assets/images/categories/server.svg'
-
-import SearchIcon from '~/assets/images/utils/search.svg'
-import ClearIcon from '~/assets/images/utils/clear.svg'
-import FilterIcon from '~/assets/images/utils/filter.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
 
 const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)

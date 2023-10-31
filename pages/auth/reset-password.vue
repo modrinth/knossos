@@ -63,9 +63,7 @@
   </div>
 </template>
 <script setup>
-import { SendIcon } from 'omorphia'
-import MailIcon from 'assets/icons/auth/mail.svg'
-import KeyIcon from 'assets/icons/auth/key.svg'
+import { KeyIcon, MailIcon, SendIcon } from 'omorphia'
 
 useHead({
   title: 'Reset Password - Modrinth',

@@ -262,6 +262,8 @@
 </template>
 
 <script setup>
+import { getProjectLink, getUserLink, getVersionLink, renderString } from 'omorphia'
+
 import InvitationIcon from '~/assets/images/utils/user-plus.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
@@ -272,11 +274,8 @@ import CheckIcon from '~/assets/images/utils/check.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import ExternalIcon from '~/assets/images/utils/external.svg'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
-import { getProjectLink, getVersionLink } from '~/helpers/projects.js'
-import { getUserLink } from '~/helpers/users.js'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 import { markAsRead } from '~/helpers/notifications.js'
-import { renderString } from '~/helpers/parse.js'
 import DoubleIcon from '~/components/ui/DoubleIcon.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'

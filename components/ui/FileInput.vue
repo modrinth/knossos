@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { fileIsValid } from '~/helpers/fileUtils.js'
+import { fileIsValid } from 'omorphia'
 
 export default {
   components: {},

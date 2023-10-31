@@ -97,7 +97,7 @@
   </div>
 </template>
 <script setup>
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import { acceptFileFromProjectType } from 'omorphia'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import InfoIcon from '~/assets/images/utils/info.svg'

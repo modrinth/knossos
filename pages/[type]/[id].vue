@@ -41,7 +41,7 @@
             }/settings/tags`"
             label="Tags"
           >
-            <CategoriesIcon />
+            <TagsIcon />
           </NavStackItem>
           <NavStackItem
             :link="`/${project.project_type}/${
@@ -49,7 +49,7 @@
             }/settings/description`"
             label="Description"
           >
-            <DescriptionIcon />
+            <AlignLeftIcon />
           </NavStackItem>
           <NavStackItem
             :link="`/${project.project_type}/${
@@ -57,7 +57,7 @@
             }/settings/license`"
             label="License"
           >
-            <LicenseIcon />
+            <CopyrightIcon />
           </NavStackItem>
           <NavStackItem
             :link="`/${project.project_type}/${
@@ -65,7 +65,7 @@
             }/settings/links`"
             label="Links"
           >
-            <LinksIcon />
+            <LinkIcon />
           </NavStackItem>
           <NavStackItem
             :link="`/${project.project_type}/${
@@ -81,7 +81,7 @@
             label="Gallery"
             chevron
           >
-            <GalleryIcon />
+            <ImageIcon />
           </NavStackItem>
           <NavStackItem
             :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
@@ -241,7 +241,7 @@
                 v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
-                <UpdateIcon aria-hidden="true" />
+                <UpdatedIcon aria-hidden="true" />
                 <span class="label">Updated</span>
                 <span class="value">{{ fromNow(project.updated) }}</span>
               </div>
@@ -250,7 +250,7 @@
                 v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
               >
-                <QueuedIcon aria-hidden="true" />
+                <ListEndIcon aria-hidden="true" />
                 <span class="label">Submitted</span>
                 <span class="value">{{ fromNow(project.queued) }}</span>
               </div>
@@ -472,7 +472,7 @@
               :target="$external()"
               rel="noopener nofollow ugc"
             >
-              <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
+              <BuyMeACoffeeIcon v-if="donation.id === 'bmac'" aria-hidden="true" />
               <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
               <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
               <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
@@ -481,7 +481,7 @@
                 aria-hidden="true"
               />
               <HeartIcon v-else-if="donation.id === 'github'" />
-              <UnknownIcon v-else />
+              <UnknownDonationIcon v-else />
               <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
               <span v-else-if="donation.id === 'patreon'">Patreon</span>
               <span v-else-if="donation.id === 'paypal'">PayPal</span>
@@ -664,27 +664,38 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import ClearIcon from '~/assets/images/utils/clear.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UpdateIcon from '~/assets/images/utils/updated.svg'
-import QueuedIcon from '~/assets/images/utils/list-end.svg'
-import CodeIcon from '~/assets/images/sidebar/mod.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import WikiIcon from '~/assets/images/utils/wiki.svg'
-import DiscordIcon from '~/assets/images/external/discord.svg'
-import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
-import PatreonIcon from '~/assets/images/external/patreon.svg'
-import KoFiIcon from '~/assets/images/external/kofi.svg'
-import PayPalIcon from '~/assets/images/external/paypal.svg'
-import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
-import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import BoxIcon from '~/assets/images/utils/box.svg'
+import {
+  Promotion,
+  renderString,
+  AlignLeftIcon,
+  BoxIcon,
+  BuyMeACoffeeIcon,
+  CalendarIcon,
+  ChevronRightIcon,
+  ClearIcon,
+  CodeIcon,
+  CopyrightIcon,
+  DiscordIcon,
+  DownloadIcon,
+  ExternalIcon,
+  HeartIcon,
+  ImageIcon,
+  IssuesIcon,
+  KoFiIcon,
+  LinkIcon,
+  ListEndIcon,
+  OpenCollectiveIcon,
+  PatreonIcon,
+  PayPalIcon,
+  ReportIcon,
+  SettingsIcon,
+  TagsIcon,
+  UnknownDonationIcon,
+  UpdatedIcon,
+  UsersIcon,
+  VersionIcon,
+  WikiIcon,
+} from 'omorphia'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
@@ -697,15 +708,6 @@ import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
 import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import UsersIcon from '~/assets/images/utils/users.svg'
-import CategoriesIcon from '~/assets/images/utils/tags.svg'
-import DescriptionIcon from '~/assets/images/utils/align-left.svg'
-import LinksIcon from '~/assets/images/utils/link.svg'
-import LicenseIcon from '~/assets/images/utils/copyright.svg'
-import GalleryIcon from '~/assets/images/utils/image.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
-import { renderString } from '~/helpers/parse.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()

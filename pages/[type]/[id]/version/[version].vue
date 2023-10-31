@@ -1,6 +1,6 @@
 <template>
   <div v-if="version" class="version-page">
-    <ModalConfirm
+    <ConfirmModal
       v-if="currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this version?"
@@ -656,18 +656,16 @@
   </div>
 </template>
 <script>
+import { acceptFileFromProjectType, ConfirmModal, renderHighlightedString } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
-import { renderHighlightedString } from '~/helpers/highlight.js'
 
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Categories from '~/components/ui/search/Categories.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import Chips from '~/components/ui/Chips.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
@@ -716,7 +714,7 @@ export default defineNuxtComponent({
     Badge,
     Breadcrumbs,
     CopyCode,
-    ModalConfirm,
+    ConfirmModal,
     ModalReport,
     Multiselect,
     BoxIcon,

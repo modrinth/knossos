@@ -80,16 +80,19 @@
   </div>
 </template>
 <script setup>
-import { Badge, ExitIcon, CheckIcon, IssuesIcon } from 'omorphia'
-import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import {
+  Badge,
   getProjectLink,
   isApproved,
   isListed,
   isPrivate,
   isRejected,
   isUnderReview,
-} from '~/helpers/projects.js'
+  ExitIcon,
+  CheckIcon,
+  IssuesIcon
+} from 'omorphia'
+import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 
 const props = defineProps({
   project: {

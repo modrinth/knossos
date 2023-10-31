@@ -170,8 +170,16 @@
 </template>
 
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
+import {
+  Checkbox,
+  Chips,
+  CopyCode,
+  Modal,
+  isApproved,
+  isRejected,
+  isStaff,
+  renderString,
+} from 'omorphia'
 import ReplyIcon from '~/assets/images/utils/reply.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
 import CloseIcon from '~/assets/images/utils/check-circle.svg'
@@ -179,12 +187,7 @@ import CrossIcon from '~/assets/images/utils/x.svg'
 import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
-import { isStaff } from '~/helpers/users.js'
-import { isApproved, isRejected } from '~/helpers/projects.js'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const props = defineProps({
   thread: {
