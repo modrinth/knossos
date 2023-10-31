@@ -18,7 +18,7 @@
           Modrinth's moderators will leave a message below if they have any questions or concerns
           for you. If your review has taken more than 48 hours, check our Discord or social media
           for moderation delays.
-        </p>`
+        </p>
       </div>
       <template v-else-if="isRejected(project)">
         <p>
