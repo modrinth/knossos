@@ -10,7 +10,6 @@ Any files depicting the Modrinth branding, including the wrench-in-labyrinth log
 
 This includes, but may not be limited to, the following files:
 
-- assets/images/logo.svg
 - components/brand/*
 - static/favicon.ico
 - static/favicon-light.ico

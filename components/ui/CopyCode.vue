@@ -7,8 +7,7 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ClipboardCopyIcon from '~/assets/images/utils/clipboard-copy.svg'
+import { CheckIcon, ClipboardCopyIcon } from 'omorphia'
 
 export default {
   components: {

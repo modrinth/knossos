@@ -28,7 +28,7 @@
             :disabled="!submissionConfirmation"
             @click="resubmit()"
           >
-            <ModerationIcon /> Resubmit for review
+            <ScaleIcon /> Resubmit for review
           </button>
         </div>
       </div>
@@ -84,14 +84,14 @@
               class="iconified-button moderation-button"
               @click="openResubmitModal(true)"
             >
-              <ModerationIcon /> Resubmit for review with reply
+              <ScaleIcon /> Resubmit for review with reply
             </button>
             <button
               v-else
               class="iconified-button moderation-button"
               @click="openResubmitModal(false)"
             >
-              <ModerationIcon /> Resubmit for review
+              <ScaleIcon /> Resubmit for review
             </button>
           </template>
         </template>
@@ -104,10 +104,10 @@
                 class="iconified-button danger-button"
                 @click="closeReport(true)"
               >
-                <CloseIcon /> Close with reply
+                <CheckCircleIcon /> Close with reply
               </button>
               <button v-else class="iconified-button danger-button" @click="closeReport()">
-                <CloseIcon /> Close thread
+                <CheckCircleIcon /> Close thread
               </button>
             </template>
           </template>
@@ -151,7 +151,7 @@
                 :disabled="project.status === 'rejected'"
                 @click="sendReply('rejected')"
               >
-                <CrossIcon /> Reject with reply
+                <XIcon /> Reject with reply
               </button>
               <button
                 v-else
@@ -159,7 +159,7 @@
                 :disabled="project.status === 'rejected'"
                 @click="setStatus('rejected')"
               >
-                <CrossIcon /> Reject project
+                <XIcon /> Reject project
               </button>
             </template>
           </template>
@@ -179,14 +179,14 @@ import {
   isRejected,
   isStaff,
   renderString,
+  CheckIcon,
+  CheckCircleIcon,
+  EyeOffIcon,
+  ReplyIcon,
+  ScaleIcon,
+  SendIcon,
+  XIcon,
 } from 'omorphia'
-import ReplyIcon from '~/assets/images/utils/reply.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
-import CloseIcon from '~/assets/images/utils/check-circle.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 
 const props = defineProps({

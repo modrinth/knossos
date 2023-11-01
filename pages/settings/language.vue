@@ -1,8 +1,6 @@
 <script setup lang="ts">
+import { IssuesIcon as WarningIcon, RadioButtonIcon, RadioButtonChecked } from 'omorphia'
 import Fuse from 'fuse.js/dist/fuse.basic'
-import RadioButtonIcon from '~/assets/images/utils/radio-button.svg'
-import RadioButtonCheckedIcon from '~/assets/images/utils/radio-button-checked.svg'
-import WarningIcon from '~/assets/images/utils/issues.svg'
 import { isModifierKeyDown } from '~/helpers/events.ts'
 
 const vintl = useVIntl()
@@ -360,7 +358,7 @@ function getItemLabel(locale: Locale) {
               @click="(e) => onItemClick(e, locale)"
               @keydown="(e) => onItemKeydown(e, locale)"
             >
-              <RadioButtonCheckedIcon v-if="$activeLocale === locale.tag" class="radio" />
+              <RadioButtonChecked v-if="$activeLocale === locale.tag" class="radio" />
               <RadioButtonIcon v-else class="radio" />
 
               <div class="language-names">

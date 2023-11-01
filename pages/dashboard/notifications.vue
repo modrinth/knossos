@@ -45,11 +45,9 @@
   </div>
 </template>
 <script setup>
-import { Button, HistoryIcon } from 'omorphia'
+import { Button, Chips, CheckCheckIcon, HistoryIcon } from 'omorphia'
 import { fetchNotifications, groupNotifications, markAsRead } from '~/helpers/notifications.js'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import Chips from '~/components/ui/Chips.vue'
-import CheckCheckIcon from '~/assets/images/utils/check-check.svg'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 useHead({

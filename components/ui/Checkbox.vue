@@ -25,8 +25,7 @@
 </template>
 
 <script>
-import CheckIcon from '~/assets/images/utils/check.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
+import { CheckIcon, DropdownIcon } from 'omorphia'
 
 export default {
   components: {

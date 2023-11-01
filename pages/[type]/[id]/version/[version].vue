@@ -44,7 +44,7 @@
         />
         <div class="button-group">
           <button class="iconified-button" @click="$refs.modal_package_mod.hide()">
-            <CrossIcon />
+            <XIcon />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="createDataPackVersion">
@@ -113,7 +113,7 @@
           :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
           class="iconified-button"
         >
-          <CrossIcon aria-hidden="true" />
+          <XIcon aria-hidden="true" />
           Cancel
         </nuxt-link>
       </div>
@@ -138,7 +138,7 @@
             project.slug ? project.slug : project.id
           }/version/${encodeURI(version.displayUrlEnding)}`"
         >
-          <CrossIcon aria-hidden="true" />
+          <XIcon aria-hidden="true" />
           Discard changes
         </nuxt-link>
       </div>
@@ -656,7 +656,26 @@
   </div>
 </template>
 <script>
-import { acceptFileFromProjectType, ConfirmModal, renderHighlightedString } from 'omorphia'
+import {
+  acceptFileFromProjectType,
+  ConfirmModal,
+  renderHighlightedString,
+  BoxIcon,
+  ChevronRightIcon,
+  DownloadIcon,
+  EditIcon,
+  FileIcon,
+  HashIcon,
+  PlusIcon,
+  ReportIcon,
+  RightArrowIcon,
+  SaveIcon,
+  StarIcon,
+  TransferIcon,
+  TrashIcon,
+  UploadIcon,
+  XIcon,
+} from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
@@ -670,24 +689,7 @@ import ModalReport from '~/components/ui/ModalReport.vue'
 import Chips from '~/components/ui/Chips.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import FileInput from '~/components/ui/FileInput.vue'
-
-import FileIcon from '~/assets/images/utils/file.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import StarIcon from '~/assets/images/utils/star.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import HashIcon from '~/assets/images/utils/hash.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import BackIcon from '~/assets/images/utils/left-arrow.svg'
-import BoxIcon from '~/assets/images/utils/box.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal.vue'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -704,12 +706,11 @@ export default defineNuxtComponent({
     FileIcon,
     ReportIcon,
     SaveIcon,
-    CrossIcon,
+    XIcon,
     HashIcon,
     PlusIcon,
     TransferIcon,
     UploadIcon,
-    BackIcon,
     Avatar,
     Badge,
     Breadcrumbs,

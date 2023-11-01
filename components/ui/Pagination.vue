@@ -51,9 +51,7 @@
 </template>
 
 <script>
-import GapIcon from '~/assets/images/utils/gap.svg'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
+import { GapIcon, LeftArrowIcon, RightArrowIcon } from 'omorphia'
 
 export default {
   components: {

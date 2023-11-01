@@ -26,13 +26,13 @@
         <Avatar v-else size="xs" :raised="raised" no-shadow />
       </template>
       <template #secondary>
-        <ModerationIcon
+        <ScaleIcon
           v-if="type === 'moderator_message' || type === 'status_change'"
           class="moderation-color"
         />
-        <InvitationIcon v-else-if="type === 'team_invite' && project" class="creator-color" />
+        <UserPlusIcon v-else-if="type === 'team_invite' && project" class="creator-color" />
         <VersionIcon v-else-if="type === 'project_update' && project && version" />
-        <NotificationIcon v-else />
+        <BellIcon v-else />
       </template>
     </DoubleIcon>
     <div class="notification__title">
@@ -148,7 +148,7 @@
       </template>
     </div>
     <span class="notification__date">
-      <span v-if="notification.read" class="read-badge"> <ReadIcon /> Read </span>
+      <span v-if="notification.read" class="read-badge"> <CheckCircleIcon /> Read </span>
       <span v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
         <CalendarIcon /> Received {{ fromNow(notification.created) }}
       </span>
@@ -177,7 +177,7 @@
             }
           "
         >
-          <CrossIcon />
+          <XIcon />
         </button>
       </template>
       <button
@@ -186,7 +186,7 @@
         class="iconified-button square-button button-transparent"
         @click="read()"
       >
-        <CrossIcon />
+        <XIcon />
       </button>
     </div>
     <div v-else class="notification__actions">
@@ -212,7 +212,7 @@
               }
             "
           >
-            <CrossIcon /> Decline
+            <XIcon /> Decline
           </button>
         </template>
         <button
@@ -244,7 +244,7 @@
           @click="performAction(notification, actionIndex)"
         >
           <CheckIcon v-if="action.title === 'Accept'" />
-          <CrossIcon v-else-if="action.title === 'Deny'" />
+          <XIcon v-else-if="action.title === 'Deny'" />
           {{ action.title }}
         </button>
         <button
@@ -262,17 +262,22 @@
 </template>
 
 <script setup>
-import { getProjectLink, getUserLink, getVersionLink, renderString } from 'omorphia'
+import {
+  getProjectLink,
+  getUserLink,
+  getVersionLink,
+  renderString,
+  BellIcon,
+  CalendarIcon,
+  CheckCircleIcon,
+  CheckIcon,
+  ExternalIcon,
+  ScaleIcon,
+  UserPlusIcon,
+  VersionIcon,
+  XIcon,
+} from 'omorphia'
 
-import InvitationIcon from '~/assets/images/utils/user-plus.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
-import ReadIcon from '~/assets/images/utils/check-circle.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 import { markAsRead } from '~/helpers/notifications.js'

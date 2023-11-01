@@ -120,8 +120,8 @@
 </template>
 
 <script>
+import { SaveIcon } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default defineNuxtComponent({
   components: {

@@ -101,14 +101,8 @@
 </template>
 
 <script>
-import { Checkbox } from 'omorphia'
+import { Chips, Checkbox, ChartIcon, EditIcon, SaveIcon, SettingsIcon, TrashIcon } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
 
 export default defineNuxtComponent({
   components: {

@@ -115,8 +115,8 @@
   </div>
 </template>
 <script setup>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import HistoryIcon from '~/assets/images/utils/history.svg'
+import { ChevronRightIcon, HistoryIcon } from 'omorphia'
+
 import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import { fetchNotifications, groupNotifications } from '~/helpers/notifications.js'

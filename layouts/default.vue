@@ -36,7 +36,7 @@
                 :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
                 title="Notifications"
               >
-                <NotificationIcon aria-hidden="true" />
+                <BellIcon aria-hidden="true" />
               </nuxt-link>
               <button
                 class="control-button button-transparent"
@@ -79,7 +79,7 @@
                   </button>
                   <hr class="divider" />
                   <NuxtLink class="item button-transparent" to="/dashboard/notifications">
-                    <NotificationIcon class="icon" />
+                    <BellIcon class="icon" />
                     <span class="title">Notifications</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard">
@@ -99,7 +99,7 @@
                     class="item button-transparent"
                     to="/moderation"
                   >
-                    <ModerationIcon class="icon" />
+                    <ScaleIcon class="icon" />
                     <span class="title">Moderation</span>
                   </NuxtLink>
                   <NuxtLink
@@ -198,7 +198,7 @@
                 class="iconified-button"
                 to="/moderation"
               >
-                <ModerationIcon aria-hidden="true" />
+                <ScaleIcon aria-hidden="true" />
                 Moderation
               </NuxtLink>
             </template>
@@ -247,7 +247,7 @@
                 }
               "
             >
-              <NotificationIcon />
+              <BellIcon />
             </NuxtLink>
             <NuxtLink to="/dashboard" class="tab button-animation" title="Dashboard">
               <ChartIcon />
@@ -260,7 +260,7 @@
           >
             <template v-if="!auth.user">
               <HamburgerIcon v-if="!isMobileMenuOpen" />
-              <CrossIcon v-else />
+              <XIcon v-else />
             </template>
             <template v-else>
               <Avatar
@@ -359,23 +359,24 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon } from 'omorphia'
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SearchIcon from '~/assets/images/utils/search.svg'
-
-import NotificationIcon from '~/assets/images/sidebar/notifications.svg'
-import SettingsIcon from '~/assets/images/sidebar/settings.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import HomeIcon from '~/assets/images/sidebar/home.svg'
-
-import MoonIcon from '~/assets/images/utils/moon.svg'
-import SunIcon from '~/assets/images/utils/sun.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import LogOutIcon from '~/assets/images/utils/log-out.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
+import {
+  BellIcon,
+  ChartIcon,
+  DownloadIcon,
+  DropdownIcon,
+  HamburgerIcon,
+  HeartIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+  MoonIcon,
+  PlusIcon,
+  ScaleIcon,
+  SearchIcon,
+  SettingsIcon,
+  SunIcon,
+  XIcon,
+} from 'omorphia'
 
 import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'

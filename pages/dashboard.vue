@@ -8,7 +8,7 @@
             <DashboardIcon />
           </NavStackItem>
           <NavStackItem link="/dashboard/notifications" label="Notifications">
-            <NotificationsIcon />
+            <BellIcon />
           </NavStackItem>
           <NavStackItem link="/dashboard/follows" label="Followed projects">
             <HeartIcon />
@@ -33,15 +33,10 @@
   </div>
 </template>
 <script setup>
+import { BellIcon, CurrencyIcon, DashboardIcon, HeartIcon, ListIcon, ReportIcon } from 'omorphia'
+
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
-
-import DashboardIcon from '~/assets/images/utils/dashboard.svg'
-import CurrencyIcon from '~/assets/images/utils/currency.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import NotificationsIcon from '~/assets/images/utils/bell.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
 
 definePageMeta({
   middleware: 'auth',

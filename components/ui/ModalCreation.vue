@@ -51,11 +51,11 @@
       </div>
       <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <XIcon />
           Cancel
         </button>
         <button class="iconified-button brand-button" @click="createProject">
-          <CheckIcon />
+          <RightArrowIcon />
           Continue
         </button>
       </div>
@@ -64,16 +64,13 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import CheckIcon from '~/assets/images/utils/right-arrow.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Chips from '~/components/ui/Chips.vue'
+import { Chips, Modal, RightArrowIcon, XIcon } from 'omorphia'
 
 export default {
   components: {
     Chips,
-    CrossIcon,
-    CheckIcon,
+    XIcon,
+    RightArrowIcon,
     Modal,
   },
   props: {

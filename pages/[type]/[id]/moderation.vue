@@ -90,7 +90,7 @@ import {
   isUnderReview,
   ExitIcon,
   CheckIcon,
-  IssuesIcon
+  IssuesIcon,
 } from 'omorphia'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 

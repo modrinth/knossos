@@ -8,10 +8,10 @@
         :format-label="(x) => (x === 'all' ? 'All' : $formatProjectType(x) + 's')"
       />
       <button v-if="oldestFirst" class="iconified-button push-right" @click="oldestFirst = false">
-        <SortDescIcon />Sorting by oldest
+        <SortDescendingIcon />Sorting by oldest
       </button>
       <button v-else class="iconified-button push-right" @click="oldestFirst = true">
-        <SortAscIcon />Sorting by newest
+        <SortAscendingIcon />Sorting by newest
       </button>
     </div>
     <p v-if="projectType !== 'all'" class="project-count">
@@ -82,13 +82,15 @@
   </section>
 </template>
 <script setup>
+import {
+  EyeIcon,
+  IssuesIcon as WarningIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  UnknownIcon,
+} from 'omorphia'
 import Chips from '~/components/ui/Chips.vue'
 import Avatar from '~/components/ui/Avatar.vue'
-import UnknownIcon from '~/assets/images/utils/unknown.svg'
-import EyeIcon from '~/assets/images/utils/eye.svg'
-import SortAscIcon from '~/assets/images/utils/sort-asc.svg'
-import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
-import WarningIcon from '~/assets/images/utils/issues.svg'
 import Badge from '~/components/ui/Badge.vue'
 import { formatProjectType } from '~/plugins/shorthands.js'
 

@@ -101,9 +101,8 @@
   </div>
 </template>
 <script>
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import HistoryIcon from '~/assets/images/utils/history.svg'
+import { HistoryIcon, SettingsIcon, TransferIcon } from 'omorphia'
+
 import ModalTransfer from '~/components/ui/ModalTransfer.vue'
 
 export default defineNuxtComponent({

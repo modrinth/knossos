@@ -146,7 +146,7 @@
         />
         <div class="push-right input-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
-            <CrossIcon />
+            <XIcon />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="bulkEditLinks()">
@@ -199,8 +199,8 @@
                 class="square-button"
                 @click="updateDescending()"
               >
-                <DescendingIcon v-if="descending" />
-                <AscendingIcon v-else />
+                <SortDescendingIcon v-if="descending" />
+                <SortAscendingIcon v-else />
               </button>
             </div>
           </div>
@@ -300,6 +300,17 @@
 </template>
 
 <script>
+import {
+  EditIcon,
+  IssuesIcon,
+  PlusIcon,
+  SaveIcon,
+  SettingsIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  TrashIcon,
+  XIcon,
+} from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 
 import Badge from '~/components/ui/Badge.vue'
@@ -308,16 +319,6 @@ import Modal from '~/components/ui/Modal.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
-
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
-import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -328,15 +329,15 @@ export default defineNuxtComponent({
     Checkbox,
     IssuesIcon,
     PlusIcon,
-    CrossIcon,
+    XIcon,
     EditIcon,
     SaveIcon,
     Modal,
     ModalCreation,
     Multiselect,
     CopyCode,
-    AscendingIcon,
-    DescendingIcon,
+    SortAscendingIcon,
+    SortDescendingIcon,
   },
   async setup() {
     const user = await useUser()

@@ -159,11 +159,11 @@
                   v-if="visibility === 'approved' || visibility === 'archived'"
                   class="good"
                 />
-                <ExitIcon v-else class="bad" />
+                <XIcon v-else class="bad" />
                 {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible in search
               </li>
               <li>
-                <ExitIcon
+                <XIcon
                   v-if="visibility === 'unlisted' || visibility === 'private'"
                   class="bad"
                 />
@@ -237,17 +237,19 @@
 </template>
 
 <script>
-import { ConfirmModal } from 'omorphia'
-import { Multiselect } from 'vue-multiselect'
-import Avatar from '~/components/ui/Avatar.vue'
-import FileInput from '~/components/ui/FileInput.vue'
+import {
+  Avatar,
+  ConfirmModal,
+  FileInput,
+  CheckIcon,
+  IssuesIcon,
+  SaveIcon,
+  TrashIcon,
+  UploadIcon,
+  XIcon,
+} from 'omorphia'
 
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import ExitIcon from '~/assets/images/utils/x.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
+import { Multiselect } from 'vue-multiselect'
 
 export default defineNuxtComponent({
   components: {
@@ -258,7 +260,7 @@ export default defineNuxtComponent({
     UploadIcon,
     SaveIcon,
     TrashIcon,
-    ExitIcon,
+    XIcon,
     CheckIcon,
     IssuesIcon,
   },

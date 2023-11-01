@@ -5,7 +5,7 @@
         <h1>Settings</h1>
         <NavStack>
           <NavStackItem link="/settings" label="Appearance">
-            <PaintbrushIcon />
+            <PaintBrushIcon />
           </NavStackItem>
           <NavStackItem v-if="isStaging" link="/settings/language" label="Language">
             <LanguagesIcon />
@@ -34,15 +34,16 @@
   </div>
 </template>
 <script setup>
+import {
+  CurrencyIcon,
+  LanguagesIcon,
+  KeyIcon,
+  PaintBrushIcon,
+  ShieldIcon,
+  UserIcon,
+} from 'omorphia'
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
-
-import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import CurrencyIcon from '~/assets/images/utils/currency.svg'
-import ShieldIcon from '~/assets/images/utils/shield.svg'
-import KeyIcon from '~/assets/images/utils/key.svg'
-import LanguagesIcon from '~/assets/images/utils/languages.svg'
 
 const { formatMessage } = useVIntl()
 

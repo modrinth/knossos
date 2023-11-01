@@ -84,9 +84,8 @@
 </template>
 
 <script setup>
+import { Checkbox, ClearIcon } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import ClearIcon from '~/assets/images/utils/clear.svg'
 
 const props = defineProps({
   versions: {

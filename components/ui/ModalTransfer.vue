@@ -56,7 +56,7 @@
           <SettingsIcon /> Monetization settings
         </NuxtLink>
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <XIcon />
           Cancel
         </button>
         <button
@@ -73,16 +73,12 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
+import { Checkbox, Modal, SettingsIcon, TransferIcon, XIcon } from 'omorphia'
 
 export default {
   components: {
     Checkbox,
-    CrossIcon,
+    XIcon,
     SettingsIcon,
     TransferIcon,
     Modal,

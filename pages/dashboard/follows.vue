@@ -33,9 +33,8 @@
 </template>
 
 <script setup>
+import { HeartIcon } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
-
-import HeartIcon from 'assets/images/utils/heart.svg'
 import FollowIllustration from 'assets/images/illustrations/follow_illustration.svg'
 
 const user = await useUser()

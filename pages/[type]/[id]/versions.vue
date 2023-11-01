@@ -97,10 +97,7 @@
   </div>
 </template>
 <script setup>
-import { acceptFileFromProjectType } from 'omorphia'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
+import { acceptFileFromProjectType, DownloadIcon, InfoIcon, UploadIcon } from 'omorphia'
 import VersionBadge from '~/components/ui/Badge.vue'
 import FileInput from '~/components/ui/FileInput.vue'
 import DropArea from '~/components/ui/DropArea.vue'

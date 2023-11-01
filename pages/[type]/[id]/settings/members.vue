@@ -42,7 +42,7 @@
           :disabled="currentMember.role === 'Owner'"
           @click="leaveProject()"
         >
-          <UserRemoveIcon />
+          <UserXIcon />
           Leave project
         </button>
       </div>
@@ -222,7 +222,7 @@
             :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="removeTeamMember(index)"
           >
-            <UserRemoveIcon />
+            <UserXIcon />
             Remove member
           </button>
           <button
@@ -240,14 +240,10 @@
 </template>
 
 <script>
+import { DropdownIcon, SaveIcon, TransferIcon, UserPlusIcon, UserXIcon } from 'omorphia'
+
 import Checkbox from '~/components/ui/Checkbox.vue'
 import Badge from '~/components/ui/Badge.vue'
-
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
-import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
@@ -260,7 +256,7 @@ export default defineNuxtComponent({
     SaveIcon,
     TransferIcon,
     UserPlusIcon,
-    UserRemoveIcon,
+    UserXIcon,
   },
   props: {
     project: {

@@ -505,10 +505,8 @@
   </div>
 </template>
 <script setup>
+import { CalendarIcon, ModrinthIcon, SearchIcon } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import SearchIcon from '~/assets/images/utils/search.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import ModrinthIcon from '~/assets/images/logo.svg'
 import PrismLauncherLogo from '~/assets/images/external/prism.svg'
 import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
 import Avatar from '~/components/ui/Avatar.vue'

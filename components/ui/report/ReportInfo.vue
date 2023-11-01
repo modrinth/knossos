@@ -88,12 +88,9 @@
 </template>
 
 <script setup>
-import { renderHighlightedString } from 'omorphia'
+import { renderHighlightedString, ReportIcon, UnknownIcon, VersionIcon } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import UnknownIcon from '~/assets/images/utils/unknown.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 

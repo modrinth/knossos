@@ -9,7 +9,7 @@
         <CheckIcon />Accept
       </button>
       <button class="iconified-button danger-button" @click="declineInvite()">
-        <CrossIcon />Decline
+        <XIcon />Decline
       </button>
     </div>
   </div>
@@ -36,9 +36,9 @@
               :class="'circle ' + (!nag.condition ? 'done ' : '') + nag.status"
             >
               <CheckIcon v-if="!nag.condition" />
-              <RequiredIcon v-else-if="nag.status === 'required'" />
-              <SuggestionIcon v-else-if="nag.status === 'suggestion'" />
-              <ModerationIcon v-else-if="nag.status === 'review'" />
+              <AsteriskIcon v-else-if="nag.status === 'required'" />
+              <LightBulbIcon v-else-if="nag.status === 'suggestion'" />
+              <ScaleIcon v-else-if="nag.status === 'review'" />
             </div>
           </div>
         </div>
@@ -56,19 +56,19 @@
     <div v-if="!collapsed" class="grid-display width-16">
       <div v-for="nag in nags.filter((x) => x.condition)" :key="nag.id" class="grid-display__item">
         <span class="label">
-          <RequiredIcon
+          <AsteriskIcon
             v-if="nag.status === 'required'"
             v-tooltip="'Required'"
             aria-label="Required"
             :class="nag.status"
           />
-          <SuggestionIcon
+          <LightBulbIcon
             v-else-if="nag.status === 'suggestion'"
             v-tooltip="'Suggestion'"
             aria-label="Suggestion"
             :class="nag.status"
           />
-          <ModerationIcon
+          <ScaleIcon
             v-else-if="nag.status === 'review'"
             v-tooltip="'Review'"
             aria-label="Review"
@@ -102,14 +102,16 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RequiredIcon from '~/assets/images/utils/asterisk.svg'
-import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
-import ModerationIcon from '~/assets/images/sidebar/admin.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
+import {
+  AsteriskIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  DropdownIcon,
+  LightBulbIcon,
+  ScaleIcon,
+  SendIcon,
+  XIcon,
+} from 'omorphia'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 
 export default {
@@ -117,10 +119,10 @@ export default {
     ChevronRightIcon,
     DropdownIcon,
     CheckIcon,
-    CrossIcon,
-    RequiredIcon,
-    SuggestionIcon,
-    ModerationIcon,
+    XIcon,
+    AsteriskIcon,
+    LightBulbIcon,
+    ScaleIcon,
     SendIcon,
   },
   props: {

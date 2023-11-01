@@ -13,7 +13,7 @@
         <div v-if="header" class="header">
           <h1>{{ header }}</h1>
           <button class="iconified-button icon-only transparent" @click="hide">
-            <CrossIcon />
+            <XIcon />
           </button>
         </div>
         <div class="content">
@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
+import { XIcon } from 'omorphia'
 
 export default {
   components: {
-    CrossIcon,
+    XIcon,
   },
   props: {
     header: {
