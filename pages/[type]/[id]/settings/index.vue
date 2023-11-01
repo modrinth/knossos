@@ -163,10 +163,7 @@
                 {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible in search
               </li>
               <li>
-                <XIcon
-                  v-if="visibility === 'unlisted' || visibility === 'private'"
-                  class="bad"
-                />
+                <XIcon v-if="visibility === 'unlisted' || visibility === 'private'" class="bad" />
                 <CheckIcon v-else class="good" />
                 {{ hasModifiedVisibility() ? 'Will be v' : 'V' }}isible on profile
               </li>
