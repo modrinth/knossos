@@ -70,9 +70,9 @@
     <section id="messages" class="universal-card">
       <h2>Messages</h2>
       <p>
-        This is a private channel with the Modrinth moderators. They may contact you about your
-        project concerns, and you can also reach out with any questions or issues related to your
-        Modrinth project.
+        This is a private conversation thread with the Modrinth moderators. They may message you
+        with issues concerning this project. Additionally, you are welcome to start a discussion
+        here regarding this project and its status.
       </p>
       <ConversationThread
         v-if="thread"
