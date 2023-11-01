@@ -1,7 +1,6 @@
 <template>
   <div v-if="user">
     <ModalCreation ref="modal_creation" />
-    <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="user-header-wrapper">
       <div class="user-header">
         <Avatar
@@ -281,7 +280,6 @@ import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 import UploadIcon from '~/assets/images/utils/upload.svg'
 import FileInput from '~/components/ui/FileInput.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'

@@ -9,12 +9,6 @@
       proceed-label="Delete"
       @proceed="deleteVersion()"
     />
-    <ModalReport
-      v-if="auth.user"
-      ref="modal_version_report"
-      :item-id="version.id"
-      item-type="version"
-    />
     <Modal v-if="auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
@@ -650,7 +644,6 @@ import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import Chips from '~/components/ui/Chips.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import FileInput from '~/components/ui/FileInput.vue'
@@ -700,7 +693,6 @@ export default defineNuxtComponent({
     Breadcrumbs,
     CopyCode,
     ModalConfirm,
-    ModalReport,
     Multiselect,
     BoxIcon,
     RightArrowIcon,
