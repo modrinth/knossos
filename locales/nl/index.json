@@ -168,13 +168,13 @@
     "message": "Hier zijn alle apparaten die momenteel zijn ingelogd met je Modrinth account. Je kunt elk afzonderlijk uitloggen.\n\nAls je een item ziet dat je niet herkent, log dan uit op dat apparaat en verander het wachtwoord van je Modrinth account."
   },
   "settings.sessions.label.created-at": {
-    "message": "Gecreëerd{ago}"
+    "message": "Gecreëerd {ago}"
   },
   "settings.sessions.label.current-session": {
     "message": "Huidige sessie"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Laatst bereikt{ago}"
+    "message": "Laatst geopend {ago}"
   },
   "settings.sessions.label.unknown-os": {
     "message": "Onbekend OS"
