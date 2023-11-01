@@ -55,6 +55,7 @@
         <MarkdownEditor
           v-model="replyBody"
           :placeholder="sortedMessages.length > 0 ? 'Reply to thread...' : 'Send a message...'"
+          :on-image-upload="onUploadImage"
         />
       </div>
       <div class="input-group">
@@ -256,6 +257,17 @@ async function updateThreadLocal() {
   props.updateThread(thread)
 }
 
+const imageIDs = ref([])
+
+async function onUploadImage(file) {
+  const response = await useImageUpload(file)
+
+  imageIDs.value.push(response.id)
+  imageIDs.value = imageIDs.value.slice(-10)
+
+  return response.url
+}
+
 async function sendReply(status = null) {
   try {
     await useBaseFetch(`thread/${props.thread.id}`, {
@@ -263,7 +275,8 @@ async function sendReply(status = null) {
       body: {
         body: {
           type: 'text',
-          body: replyBody.value,
+          body: replyBody.value, // TODO: Rip this out and submit image ids with this bruh
+          associated_images: imageIDs.value,
         },
       },
     })
