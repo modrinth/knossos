@@ -157,7 +157,7 @@
           <ReportIcon aria-hidden="true" />
           Report
         </nuxt-link>
-        <button v-else class="iconified-button" @click="$refs.modal_version_report.show()">
+        <button v-else class="iconified-button" @click="() => reportVersion(version.id)">
           <ReportIcon aria-hidden="true" />
           Report
         </button>
@@ -642,6 +642,7 @@ import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
 import { renderHighlightedString } from '~/helpers/highlight.js'
+import { reportVersion } from '~/utils/report-helpers.ts'
 
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
@@ -1146,6 +1147,7 @@ export default defineNuxtComponent({
       }
       stopLoading()
     },
+    reportVersion,
     async createVersion() {
       this.shouldPreventActions = true
       startLoading()

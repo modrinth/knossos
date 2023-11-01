@@ -258,7 +258,7 @@
             <hr class="card-divider" />
             <div class="input-group">
               <template v-if="auth.user">
-                <button class="iconified-button" @click="reportProject">
+                <button class="iconified-button" @click="() => reportProject(project.id)">
                   <ReportIcon aria-hidden="true" />
                   Report
                 </button>
@@ -706,6 +706,7 @@ import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
 import { renderString } from '~/helpers/parse.js'
+import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 
 const data = useNuxtApp()
@@ -886,16 +887,6 @@ if (!route.name.startsWith('type-id-settings')) {
         ? 'all'
         : 'noindex',
   })
-}
-
-function reportProject() {
-  const prefill = new URLSearchParams()
-
-  // type
-  prefill.set('item', 'project')
-  prefill.set('itemID', project.value.id)
-
-  navigateTo('/report?' + prefill.toString())
 }
 
 async function resetProject() {

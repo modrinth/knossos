@@ -44,7 +44,7 @@
             <button
               v-else-if="auth.user"
               class="iconified-button"
-              @click="$refs.modal_report.show()"
+              @click="() => reportUser(user.id)"
             >
               <ReportIcon aria-hidden="true" />
               {{ formatMessage(messages.profileReportButton) }}
@@ -264,6 +264,7 @@
 import { Promotion } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
+import { reportUser } from '~/utils/report-helpers.ts'
 
 import ReportIcon from '~/assets/images/utils/report.svg'
 import SunriseIcon from '~/assets/images/utils/sunrise.svg'

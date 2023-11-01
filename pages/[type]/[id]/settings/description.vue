@@ -38,38 +38,7 @@ import { MarkdownEditor, Card } from 'omorphia'
 import Chips from '~/components/ui/Chips.vue'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import { renderHighlightedString } from '~/helpers/highlight.js'
-
-const uploadAndAttachImage = async (file, projectID) => {
-  // Make sure file is of type image/png, image/jpeg, image/gif, or image/webp
-  if (
-    !file.type.startsWith('image/') ||
-    !['png', 'jpeg', 'gif', 'webp'].includes(file.type.split('/')[1])
-  ) {
-    throw new Error('File is not an accepted image type')
-  }
-
-  // Make sure file is less than 1MB
-  if (file.size > 1024 * 1024) {
-    throw new Error('File is too large')
-  }
-
-  const qs = new URLSearchParams()
-  qs.set('project_id', projectID)
-  qs.set('context', 'project')
-  qs.set('ext', file.type.split('/')[1])
-  const url = `image?${qs.toString()}`
-
-  const response = await useBaseFetch(url, {
-    method: 'POST',
-    body: file,
-  })
-
-  if (!response?.url || typeof response.url !== 'string') {
-    throw new Error('Unexpected response from server')
-  }
-
-  return response.url
-}
+import { useImageUpload } from '~/composables/image-upload.ts'
 
 export default defineNuxtComponent({
   components: {
@@ -142,7 +111,10 @@ export default defineNuxtComponent({
       }
     },
     async onUploadHandler(file) {
-      return await uploadAndAttachImage(file, this.project.id)
+      return await useImageUpload(file, {
+        context: 'project',
+        projectID: this.project.id,
+      })
     },
   },
 })
