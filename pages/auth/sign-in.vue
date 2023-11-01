@@ -122,7 +122,7 @@ if (route.fullPath.includes('new_account=true')) {
 }
 
 if (auth.value.user) {
-  await navigateTo('/dashboard')
+  await finishSignIn()
 }
 
 const turnstile = ref()
@@ -195,6 +195,8 @@ async function finishSignIn(token) {
     await useAuth(token)
     await useUser()
   }
+
+  console.log(route.query.redirect)
 
   if (route.query.redirect) {
     await navigateTo(route.query.redirect)
