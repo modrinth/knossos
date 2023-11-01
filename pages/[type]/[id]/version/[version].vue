@@ -190,7 +190,7 @@
       <h3>Changelog</h3>
       <template v-if="isEditing">
         <div class="changelog-editor-spacing">
-          <MarkdownEditor v-model="version.changelog" />
+          <MarkdownEditor v-model="version.changelog" :on-image-upload="onImageUpload" />
         </div>
       </template>
       <div
@@ -894,6 +894,7 @@ export default defineNuxtComponent({
       primaryFile: ref(primaryFile),
       alternateFile: ref(alternateFile),
       replaceFile: ref(replaceFile),
+      uploadedImageIds: ref([]),
     }
   },
   data() {
@@ -941,6 +942,14 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    async onImageUpload(file) {
+      const response = await useImageUpload(file, { context: 'version' })
+
+      this.uploadedImageIds.push(response.id)
+      this.uploadedImageIds = this.uploadedImageIds.slice(-10)
+
+      return response.url
+    },
     getPreviousLink() {
       if (this.$router.options.history.state.back) {
         if (

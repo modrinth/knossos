@@ -260,7 +260,7 @@ async function updateThreadLocal() {
 const imageIDs = ref([])
 
 async function onUploadImage(file) {
-  const response = await useImageUpload(file)
+  const response = await useImageUpload(file, { context: 'thread_message' })
 
   imageIDs.value.push(response.id)
   imageIDs.value = imageIDs.value.slice(-10)

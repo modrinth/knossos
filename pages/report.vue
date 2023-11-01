@@ -217,7 +217,7 @@ const submitReport = async () => {
 
 const onImageUpload = async (file: File) => {
   if (uploadedImageIDs.value.length >= 10) {
-    throw new Error('You can only upload up to 10 images')
+    uploadedImageIDs.value.shift()
   }
 
   const item = await useImageUpload(file, { context: 'report' })
