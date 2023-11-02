@@ -51,7 +51,7 @@
             />
           </div>
           <div class="report-info-item">
-            <label for="report-type">Reason for Report</label>
+            <label for="report-type">Reason for report</label>
             <DropdownSelect
               id="report-type"
               v-model="reportType"
