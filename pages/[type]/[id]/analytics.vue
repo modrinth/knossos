@@ -1,5 +1,8 @@
 <script setup>
-import { Card, LineChart, PieChart, BarChart, formatMoney, formatNumber } from 'omorphia'
+import { Card, formatMoney, formatNumber } from 'omorphia'
+import Chart from "~/components/ui/charts/Chart.vue";
+import CompactChart from "~/components/ui/charts/CompactChart.vue";
+import dayjs from "dayjs";
 
 const props = defineProps({
   project: {
@@ -11,137 +14,91 @@ const props = defineProps({
 })
 
 const totalData = ref({
-  downloads: formatNumber(props.project.downloads),
+  downloads: 0,
   pageViews: 0,
   revenue: 0,
 })
 
+const sparkData = new Map()
+const labels = ref([])
+const downloadData = ref({})
+const viewData = ref({})
+const revenueData = ref({})
+let monthlyRevenue
+
 const selectedDataType = ref('downloads')
 const finishedLoading = ref(false)
-let downloadData, viewData, revenueData, viewDownloadRatio, countryData
 const body = `project_ids=["${props.project.id}"]`
 try {
-  ;[
-    { data: downloadData },
-    { data: viewData },
-    { data: revenueData },
-    { data: viewDownloadRatio },
-    { data: countryData },
-  ] = await Promise.all([
+  await Promise.all([
     useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
       transform: (analytics) => {
-        const labels = []
-        const data = []
         for (const trueData of Object.values(analytics)) {
           for (const [key, value] of Object.entries(trueData)) {
-            labels.push(key)
-            data.push(value)
+            const parsedData = Math.round(parseFloat(value) * 100) / 100
+            totalData.value.downloads = totalData.value.downloads + parsedData
+            if (sparkData.has(key)) {
+              sparkData.get(key).downloads = parsedData
+            } else {
+              sparkData.set(key, { views: 0, revenue: 0, downloads: parsedData })
+            }
           }
-        }
-        return {
-          labels,
-          data: [
-            {
-              title: 'Downloads',
-              color: 0x00af5c,
-              data,
-            },
-          ],
         }
       },
     }),
     useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
       transform: (analytics) => {
-        const labels = []
-        const data = []
         for (const trueData of Object.values(analytics)) {
           for (const [key, value] of Object.entries(trueData)) {
-            labels.push(key)
-            data.push(value)
-            totalData.value.pageViews = totalData.value.pageViews + value
+            const parsedData = parseInt(value)
+            totalData.value.pageViews = totalData.value.pageViews + parsedData
+            if (sparkData.has(key)) {
+              sparkData.get(key).views = parsedData
+            } else {
+              sparkData.set(key, { views: parsedData, revenue: 0, downloads: 0 })
+            }
           }
-        }
-        return {
-          labels,
-          data: [
-            {
-              title: 'Page Views',
-              color: 0x00af5c,
-              data,
-            },
-          ],
         }
       },
     }),
     useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
+    transform: (analytics) => {
+      for (const trueData of Object.values(analytics)) {
+        for (const [key, value] of Object.entries(trueData)) {
+          const parsedData = Math.round(parseFloat(value) * 100) / 100
+          totalData.value.revenue = totalData.value.revenue + parsedData
+          if (sparkData.has(key)) {
+            sparkData.get(key).revenue = parsedData
+          } else {
+            sparkData.set(key, { views: 0, revenue: parsedData, downloads: 0 })
+          }
+        }
+      }
+    },
+  }),
+  ])
+  const monthlyLink = `analytics/revenue?${body}&resolution_minutes=43200&start_date=${new Date(new Date() - 2 * 180 * 24 * 60 * 60 * 1000).toISOString()}`
+  ;[{ data: monthlyRevenue }] = await Promise.all([
+    useAsyncData(monthlyLink, () => useBaseFetch(monthlyLink), {
       transform: (analytics) => {
         const labels = []
-        const data = []
+        const revData = []
         for (const trueData of Object.values(analytics)) {
           for (const [key, value] of Object.entries(trueData)) {
-            labels.push(key)
-            data.push(value)
-            totalData.value.revenue = totalData.value.revenue + value
+            const parsedData = Math.round(parseFloat(value) * 100) / 100
+            labels.push(dayjs.unix(key).format('YYYY-MM-DD'))
+            revData.push(parsedData)
           }
         }
         return {
           labels,
-          data: [
-            {
-              title: 'Revenue',
-              color: 0x00af5c,
-              data,
-            },
-          ],
+          data: [{
+            name: 'Revenue',
+            data: revData,
+          }]
         }
       },
     }),
-    useAsyncData(
-      `analytics/countries/views?${body}`,
-      () => useBaseFetch(`analytics/countries/views?${body}`),
-      {
-        transform: (analytics) => {
-          const finalData = {
-            title: 'Views',
-            data: [],
-          }
-          for (const rawData of Object.values(analytics)) {
-            for (const [key, data] of Object.entries(rawData)) {
-              finalData.data.push({
-                title: key,
-                color: 0x00af5c,
-                data,
-              })
-            }
-          }
-
-          return finalData
-        },
-      }
-    ),
-    useAsyncData(
-      `analytics/countries/downloads?${body}`,
-      () => useBaseFetch(`analytics/countries/downloads?${body}`),
-      {
-        transform: (analytics) => {
-          const finalData = {
-            title: 'Views',
-            data: [],
-          }
-          for (const rawData of Object.values(analytics)) {
-            for (const [key, data] of Object.entries(rawData)) {
-              finalData.data.push({
-                title: key,
-                color: 0x00af5c,
-                data,
-              })
-            }
-          }
-
-          return finalData
-        },
-      }
-    ),
   ])
 } catch (err) {
   data.$notify({
@@ -151,9 +108,27 @@ try {
     type: 'error',
   })
 } finally {
+  const sortedSparkData = new Map([...sparkData.entries()].sort((a, b) => a[0] - b[0]));
+
+  labels.value = [...sortedSparkData.keys()].map((key) => dayjs.unix(key).format('YYYY-MM-DD'));
+
+  downloadData.value = {
+    name: 'Downloads',
+    data: [...sortedSparkData.values()].map((data) => data.downloads)
+  };
+
+  viewData.value = {
+    name: 'Page views',
+    data: [...sortedSparkData.values()].map((data) => data.views)
+  };
+
+  revenueData.value = {
+    name: 'Revenue',
+    data: [...sortedSparkData.values()].map((data) => data.revenue)
+  };
+
   finishedLoading.value = true
 }
-
 
 const select = (type) => {
   selectedDataType.value = type
@@ -161,64 +136,71 @@ const select = (type) => {
 </script>
 
 <template>
-  <Card class="data-card">
-    <div class="tabs">
-      <div
-        class="data-point button-base"
-        :class="{ selected: selectedDataType === 'downloads' }"
-        @click="select('downloads')"
+  <div class="spark-data">
+    <client-only>
+      <CompactChart
+        v-if="finishedLoading"
+        title="Biweekly Downloads"
+        color="var(--color-brand)"
+        :value="formatNumber(totalData.downloads, false)"
+        :data="[downloadData]"
+        :labels="labels"
+        suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+        v-if="finishedLoading"
+        title="Biweekly Page Views"
+        color="var(--color-blue)"
+        :value="formatNumber(totalData.pageViews, false)"
+        :data="[viewData]"
+        :labels="labels"
+        suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+        v-if="finishedLoading"
+        title="Biweekly Revenue"
+        color="var(--color-purple)"
+        :value="formatMoney(totalData.revenue, false)"
+        :data="[revenueData]"
+        :labels="labels"
+        is-money
+      />
+    </client-only>
+  </div>
+  <Card v-if="finishedLoading">
+    <client-only>
+      <Chart
+        type="bar"
+        name="Project data"
+        :data="[downloadData, revenueData, viewData]"
+        :labels="labels"
+        :colors="['var(--color-brand)', 'var(--color-purple)', 'var(--color-blue)']"
+        hide-total
       >
-        <div class="data-point__title">Total downloads</div>
-        <div class="data-point__value">
-          {{ totalData.downloads }}
-        </div>
-      </div>
-      <div
-        class="data-point button-base"
-        :class="{ selected: selectedDataType === 'pageViews' }"
-        @click="select('pageViews')"
-      >
-        <div class="data-point__title">Total page views</div>
-        <div class="data-point__value">
-          {{ formatNumber(totalData.pageViews) }}
-        </div>
-      </div>
-      <div
-        class="data-point button-base"
-        :class="{ selected: selectedDataType === 'revenue' }"
-        @click="select('revenue')"
-      >
-        <div class="data-point__title">Total revenue</div>
-        <div class="data-point__value">
-          {{ formatNumber(totalData.revenue) }}
-        </div>
-      </div>
-    </div>
-    <div v-if="finishedLoading" class="line-chart">
-      <client-only>
-        <LineChart v-if="selectedDataType === 'downloads'" :data="downloadData" />
-      </client-only>
-      <client-only>
-        <LineChart v-if="selectedDataType === 'pageViews'" :data="viewData" />
-      </client-only>
-      <client-only>
-        <LineChart v-if="selectedDataType === 'revenue'" :data="revenueData" />
-      </client-only>
-    </div>
+        <h2 class="sidebar-card-header">Daily analytics</h2>
+      </Chart>
+    </client-only>
   </Card>
-  <Card v-if="finishedLoading" class="pie-charts">
-    <div class="relative-chart">
-      <div class="title">View to download ratio</div>
-      <client-only>
-        <PieChart class="chart" :data="viewDownloadRatio" />
-      </client-only>
-    </div>
-    <div class="relative-chart">
-      <div class="title">Country data</div>
-      <client-only>
-        <PieChart class="chart" :data="countryData" />
-      </client-only>
-    </div>
+  <Card v-if="finishedLoading">
+    <client-only>
+      <Chart
+          type="area"
+          name="Project revenue"
+          :data="monthlyRevenue.data"
+          :labels="monthlyRevenue.labels"
+          :format-labels="(date) => dayjs(date).format('MMM YYYY')"
+          :colors="['var(--color-purple)']"
+          is-money
+          hide-total
+          hide-legend
+      >
+        <h2 class="sidebar-card-header">Monthly revenue</h2>
+      </Chart>
+    </client-only>
   </Card>
 </template>
 
@@ -232,75 +214,19 @@ const select = (type) => {
   width: 100%;
   padding: var(--gap-lg);
 }
+
 .tabs {
   display: flex;
   flex-direction: row;
   width: 100%;
   overflow: hidden;
 }
-.data-point {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem;
-  width: 100%;
-  background-color: var(--color-raised-bg);
-  gap: var(--gap-sm);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  &__title {
-    color: var(--color-heading);
-    font-weight: bold;
-    font-size: 1rem;
-  }
-  &__value {
-    color: var(--color-text-dark);
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  &:first-child {
-    border-top-left-radius: var(--radius-lg);
-  }
-  &:last-child {
-    border-top-right-radius: var(--radius-lg);
-  }
-  &.selected {
-    box-shadow: inset 0 -3px 0 0 var(--color-brand);
-    background-color: var(--color-bg);
-  }
-}
+
 .line-chart {
   width: 100%;
   background-color: var(--color-bg);
   padding: var(--gap-xl);
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-}
-.pie-charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--gap-lg);
-  width: 100%;
-  padding: var(--gap-xl);
-
-  .chart {
-    width: 100% !important;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-bg);
-    padding: var(--gap-xl);
-    object-fit: cover;
-  }
-
-  .relative-chart {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--gap-md);
-  }
-
-  .title {
-    color: var(--color-heading);
-    font-weight: bold;
-    font-size: var(--font-size-lg);
-  }
 }
 
 .bar-graph {
@@ -308,5 +234,11 @@ const select = (type) => {
   background-color: var(--color-bg);
   padding: var(--gap-xl);
   border-radius: var(--radius-lg);
+}
+
+.spark-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-md);
 }
 </style>

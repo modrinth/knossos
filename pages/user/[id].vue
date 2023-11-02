@@ -76,44 +76,59 @@
             </div>
           </div>
         </div>
+        <div class="universal-card">
+          <h2 class="sidebar-card-header">Organizations</h2>
+          <nuxt-link
+              v-for="org in organizations"
+              :key="org.id"
+              class="team-member columns button-transparent"
+              :to="'/organization/' + org.title"
+          >
+            <Avatar :src="org.icon_url" :alt="org.title" size="sm" circle />
+            <div class="member-info">
+              <p class="name">{{ org.title }}</p>
+              <p class="role">
+                {{ org.members.find(member => member.user.id === user.id).role }}
+              </p>
+            </div>
+          </nuxt-link>
+        </div>
       </div>
       <div class="normal-page__content">
         <Promotion />
-        <nav class="navigation-card">
-          <NavRow
-            :links="[
-              {
-                label: 'all',
-                href: `/user/${user.username}`,
-              },
-              ...projectTypes.map((x) => {
-                return {
-                  label: $formatProjectType(x) + 's',
-                  href: `/user/${user.username}/${x}s`,
-                }
-              }),
-            ]"
-          />
-          <div class="input-group">
-            <NuxtLink
-              v-if="auth.user && auth.user.id === user.id"
-              class="iconified-button"
-              to="/projects"
-            >
-              <SettingsIcon />
-              Manage projects
-            </NuxtLink>
-            <button
-              v-tooltip="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
-              :aria-label="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
-              class="square-button"
-              @click="cycleSearchDisplayMode()"
-            >
-              <GridIcon v-if="cosmetics.searchDisplayMode.user === 'grid'" />
-              <ImageIcon v-else-if="cosmetics.searchDisplayMode.user === 'gallery'" />
-              <ListIcon v-else />
-            </button>
+        <nav class="navigation-row">
+          <div class="iconified-input">
+            <label for="search-input" hidden>Search projects in collection</label>
+            <SearchIcon />
+            <input id="search-input" v-model="inputText" type="text" />
+            <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+              <XIcon />
+            </Button>
           </div>
+          <PopoutMenu class="btn" position="bottom-left" from="top-right">
+            <FilterIcon />
+            Filter...
+            <template #menu>
+              <h2 class="popout-heading">Type</h2>
+              <Checkbox
+                  v-for="option in filterOptions"
+                  :key="`option-${option}`"
+                  class="popout-checkbox"
+                  :model-value="selectedFilters.includes(option)"
+                  @click="
+                  () => {
+                    if (selectedFilters.includes(option)) {
+                      selectedFilters = selectedFilters.filter((f) => f !== option)
+                    } else {
+                      selectedFilters.push(option)
+                    }
+                  }
+                "
+              >
+                {{ formatCategory(option) }}
+              </Checkbox>
+            </template>
+          </PopoutMenu>
         </nav>
         <div
           v-if="projects.length > 0"
@@ -181,7 +196,7 @@ import {
   HeartIcon,
   DownloadIcon,
   SunriseIcon,
-  formatNumber,
+  formatNumber, formatCategory, Button, SearchIcon, XIcon,
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
@@ -205,6 +220,10 @@ import BadgeEarlyResourcePackAdopter from '~/assets/images/badges/early-resource
 import BadgeEarlyShadersAdopter from '~/assets/images/badges/early-shaders-adopters.svg'
 import BadgeModrinthModerator from '~/assets/images/badges/modrinth-moderator.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
+import members from "../[type]/[id]/settings/members.vue";
+import PopoutMenu from "~/components/ui/PopoutMenu.vue";
+import Checkbox from "~/components/ui/Checkbox.vue";
+import FilterIcon from "assets/images/utils/filter.svg";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -212,9 +231,11 @@ const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()
 
-let user, projects
+const inputText = ref('')
+
+let user, projects, collections, organizations
 try {
-  ;[{ data: user }, { data: projects }] = await Promise.all([
+  ;[{ data: user }, { data: projects }, { data: collections}, {data: organizations}] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
       `user/${route.params.id}/projects`,
@@ -234,6 +255,8 @@ try {
         },
       }
     ),
+    useAsyncData(`user/${route.params.id}/collections`, () => useBaseFetch(`user/${route.params.id}/collections`)),
+    useAsyncData(`user/${route.params.id}/organizations`, () => useBaseFetch(`user/${route.params.id}/organizations`)),
   ])
 } catch {
   throw createError({
@@ -512,6 +535,61 @@ export default defineNuxtComponent({
       width: 100%;
       height: 100%;
     }
+  }
+}
+
+.team-member {
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  margin-left: -.25rem;
+
+  .member-info {
+    overflow: hidden;
+    margin: auto 0 auto 0.75rem;
+
+    .name {
+      font-weight: bold;
+    }
+
+    p {
+      font-size: var(--font-size-sm);
+      margin: 0.2rem 0;
+    }
+  }
+}
+
+.navigation-row {
+  margin-bottom: var(--gap-md);
+  display: flex;
+
+  .iconified-input,
+  :deep(.animated-dropdown) > .iconified-input {
+    flex-grow: 1;
+
+    input {
+      height: 3rem;
+      background-color: var(--color-raised-bg);
+      border: 1px solid var(--color-button-bg);
+    }
+  }
+
+  :deep(.animated-dropdown) {
+    width: 100%;
+
+    .option {
+      background-color: var(--color-raised-bg);
+    }
+
+    .options {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border: 1px solid var(--color-button-bg);
+    }
+  }
+
+  :deep(.btn) {
+    height: 3rem;
+    margin-left: var(--gap-sm);
+    white-space: nowrap;
   }
 }
 </style>

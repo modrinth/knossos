@@ -32,11 +32,17 @@ const props = defineProps({
       return () => {}
     },
   },
+  currentMember: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
 })
 
 const hasPermission = computed(() => {
   const EDIT_DETAILS = 1 << 2
-  return true
+  return props.currentMember && (props.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
 })
 
 const icon = ref(null)

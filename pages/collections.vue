@@ -2,6 +2,10 @@
   <div>
     <SimpleCreationModal ref="modal_creation" type="collection" />
     <h1>Collections</h1>
+    <button v-if="collections.length < 1" class="iconified-button brand-button" @click="$refs.modal_creation.show()">
+      <PlusIcon />
+      Create a collection
+    </button>
     <p v-if="collections.length < 1">
       You don't have any projects yet. Click the green button above to begin.
     </p>
@@ -60,11 +64,6 @@
 
           <div>
             <span class="project-title">
-              <IssuesIcon
-                v-if="collection.moderator_message"
-                aria-label="Project has a message from the moderators. View the project to see more."
-              />
-
               <nuxt-link class="hover-link wrap-as-needed" :to="`/collection/${collection.id}`">
                 {{ collection.title }}
               </nuxt-link>
@@ -72,16 +71,7 @@
           </div>
 
           <div class="projects">
-            <Avatar
-              v-if="collection.projects"
-              v-for="project in collection.projects.slice(0, 6)"
-              :key="project?.id"
-              v-tooltip="project.title"
-              :src="project?.icon_url"
-            />
-            <div v-if="collection.projects && collection.projects.length > 10" class="avatar overflow">
-              +{{ collection.projects.length - 6 }}
-            </div>
+            {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
           </div>
 
           <div>
@@ -118,15 +108,6 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const auth = await useAuth()
-
-const UPLOAD_VERSION = shallowRef(1 << 0)
-const DELETE_VERSION = shallowRef(1 << 1)
-const EDIT_DETAILS = shallowRef(1 << 2)
-const EDIT_BODY = shallowRef(1 << 3)
-const MANAGE_INVITES = shallowRef(1 << 4)
-const REMOVE_MEMBER = shallowRef(1 << 5)
-const EDIT_MEMBER = shallowRef(1 << 6)
-const DELETE_PROJECT = shallowRef(1 << 7)
 
 const updateSort = (projects, sort, descending) => {
   let sortedArray = projects
@@ -175,23 +156,6 @@ const collections = shallowRef(
   ).then((res) => res.data)
 )
 
-const projects = new Map()
-
-for (const collection of collections.value) {
-  if (collection.projects.length > 0) {
-    const { data: projectsData } = await useAsyncData(
-      `projects?ids=${JSON.stringify(collection.projects)}`,
-      () => useBaseFetch(`projects?ids=${JSON.stringify(collection.projects)}`)
-    )
-
-    console.log(projectsData)
-
-    collection.projects = projectsData
-  }
-}
-
-const versions = ref([])
-const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)
 

@@ -12,12 +12,8 @@ import {
   SearchIcon,
   SaveIcon,
   formatCategory,
-  ReportIcon, ModalReport, ShareModal,
+  ReportIcon, ReportModal, ShareModal,
 } from 'omorphia'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import SettingsIcon from 'assets/images/utils/settings.svg'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-import NavStack from '~/components/ui/NavStack.vue'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import SearchDropdown from '~/components/search/SearchDropdown.vue'
 import FileInput from '~/components/ui/FileInput.vue'
@@ -182,8 +178,7 @@ const resetCollection = async () => {
 }
 
 const hasPermission = computed(() => {
-  const EDIT_DETAILS = 1 << 2
-  return true
+  return auth.value.user && (auth.value.user.id === collection.value.user || tags.staffRoles.includes(auth.user.role))
 })
 
 const hasChanges = computed(() => {
@@ -287,10 +282,10 @@ const results = shallowRef(toRaw(rawResults))
       :share-text="`Check out the cool projects that are a part of the ${collection.title} collection on Modrinth!`"
       link
   />
-  <ModalReport
+  <ReportModal
       ref="reportModal"
       item-type="collection"
-      :item-id="collection.id"
+      :item-id="collection?.id"
       :report-types="[
       'Spam',
       'Inappropriate',
@@ -310,22 +305,20 @@ const results = shallowRef(toRaw(rawResults))
             :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
           />
           <FileInput
-            v-if="enableEditing"
+            v-if="hasPermission && enableEditing"
             id="project-icon"
             :max-size="262144"
             :show-icon="true"
             accept="image/png,image/jpeg,image/gif,image/webp"
             class="btn icon-only upload"
             prompt=""
-            :disabled="!hasPermission"
             @change="showPreviewImage"
           >
             <UploadIcon />
           </FileInput>
           <button
-            v-if="enableEditing && !deletedIcon && (previewImage || collection.icon_url)"
+            v-if="hasPermission && enableEditing && !deletedIcon && (previewImage || collection.icon_url)"
             class="btn icon-only delete"
-            :disabled="!hasPermission"
             @click="markIconForDeletion"
           >
             <TrashIcon />
@@ -338,7 +331,7 @@ const results = shallowRef(toRaw(rawResults))
               <ShareIcon />
             </Button>
           </div>
-          <div v-else class="iconified-input">
+          <div v-else-if="hasPermission" class="iconified-input">
             <BoxIcon />
             <input v-model="name" type="text" placeholder="Collection name..." />
             <Button @click="() => (enableEditing = !enableEditing)">
@@ -381,7 +374,7 @@ const results = shallowRef(toRaw(rawResults))
     <div class="normal-page__content">
       <Promotion />
       <div class="search-row">
-        <template v-if="enableEditing">
+        <template v-if="enableEditing && hasPermission">
           <SearchDropdown
             v-model="searchText"
             name="project-input"
@@ -398,7 +391,7 @@ const results = shallowRef(toRaw(rawResults))
         </template>
         <template v-else>
           <div class="iconified-input">
-            <label for="search-input" hidden>Search notifications</label>
+            <label for="search-input" hidden>Search projects in collection</label>
             <SearchIcon />
             <input id="search-input" v-model="inputText" type="text" />
             <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
@@ -430,7 +423,7 @@ const results = shallowRef(toRaw(rawResults))
             </template>
           </PopoutMenu>
         </template>
-        <Button @click="() => (enableEditing = !enableEditing)" :disabled="hasChanges">
+        <Button v-if="hasPermission" @click="() => (enableEditing = !enableEditing)" :disabled="hasChanges">
           <EditIcon />
           {{ enableEditing ? 'Disable' : 'Enable' }} editing
         </Button>
@@ -466,7 +459,18 @@ const results = shallowRef(toRaw(rawResults))
           "
           :type="project.project_type"
           :color="project.color"
-        />
+        >
+          <Button
+            v-if="enableEditing"
+            class="btn"
+            color="danger"
+            @click="() => removeProject(project.id)"
+            :disabled="!hasPermission"
+          >
+            <XIcon />
+            Remove
+          </Button>
+        </ProjectCard>
       </div>
     </div>
   </div>

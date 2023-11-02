@@ -19,7 +19,7 @@ import {
   ChartIcon,
   formatNumber,
   ShareModal,
-  ModalReport,
+  ReportModal,
 } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
@@ -145,14 +145,25 @@ const resetOrganization = async () => {
    */
 }
 
-const hasPermission = computed(() => {
-  const EDIT_DETAILS = 1 << 2
-  return true
-})
-
 const currentMember = ref(
   auth.value.user && organization.value ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
 )
+
+if (
+    !currentMember.value &&
+    auth.value.user &&
+    tags.value.staffRoles.includes(auth.value.user.role)
+) {
+    currentMember.value = {
+        user: auth.value.user,
+        role: auth.value.role,
+        permissions: auth.value.user.role === 'admin' ? 1023 : 12,
+        accepted: true,
+        payouts_split: 0,
+        avatar_url: auth.value.user.avatar_url,
+        name: auth.value.user.username,
+    }
+}
 </script>
 
 <template>
@@ -163,7 +174,7 @@ const currentMember = ref(
     :share-text="`Check out the cool projects ${organization.title} is making on Modrinth!`"
     link
   />
-  <ModalReport
+  <ReportModal
     v-if="organization"
     ref="reportModal"
     item-type="organization"
@@ -232,7 +243,7 @@ const currentMember = ref(
       />
     </div>
   </div>
-  <div class="normal-page">
+  <div v-else-if="organization" class="normal-page">
     <div class="normal-page__header">
       <div class="page-header">
         <Avatar class="page-header__icon" :src="organization.icon_url" size="md" />
@@ -249,13 +260,13 @@ const currentMember = ref(
             <div class="stat">
               <DownloadIcon />
               <span
-                >{{ formatNumber(projects.reduce((a, b) => a + b.downloads, 0)) }} Downloads</span
+                >{{ projects ? formatNumber(projects.reduce((a, b) => a + b.downloads, 0)) : 0 }} Downloads</span
               >
             </div>
             <div class="stat">
               <HeartIcon />
               <span
-                >{{ formatNumber(projects.reduce((a, b) => a + b.followers, 0)) }} Followers</span
+                >{{ projects ? formatNumber(projects.reduce((a, b) => a + b.followers, 0)) : 0 }} Followers</span
               >
             </div>
           </div>
@@ -530,6 +541,17 @@ const currentMember = ref(
       }
     }
   }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
 }
 
 .stats {

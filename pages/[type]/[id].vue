@@ -136,6 +136,12 @@
       :item-id="project.id"
       item-type="project"
     />
+    <SimpleCreationModal
+      v-if="auth.user"
+      type="collection"
+      ref="modal_collection"
+      :project="project.id"
+    />
     <div
       :class="{
         'normal-page': true,
@@ -395,21 +401,32 @@
             </div>
             <div class="group actions">
               <template v-if="auth.user">
-                <Button v-if="false">
+                <PopoutMenu class="btn" position="bottom-left" from="top-right">
                   <BookmarkIcon aria-hidden="true" />
                   Save
-                </Button>
-                <Button
-                  v-if="!user.follows.find((x) => x.id === project.id)"
-                  :action="() => userFollowProject(project)"
-                >
-                  <HeartIcon aria-hidden="true" />
-                  Follow
-                </Button>
-                <Button v-else :action="() => userUnfollowProject(project)">
-                  <HeartIcon fill="currentColor" aria-hidden="true" />
-                  Following
-                </Button>
+                  <template #menu>
+                    <h2 class="popout-heading">Save to collection</h2>
+                    <template v-if="!userCollections">
+                      <Checkbox
+                          v-for="option in userCollections"
+                          :key="option.id"
+                          class="popout-checkbox"
+                          :model-value="option.projects && option.projects.includes(project.id)"
+                          @update:model-value="(value) => patchCollection(option, value)"
+                      >
+                        {{ option.title }}
+                      </Checkbox>
+                    </template>
+                    <template v-else>
+                      <p class="popout-text">You don't have any collections yet.</p>
+                    </template>
+                    <hr class="card-divider menu-divider"/>
+                    <Button class="collection-button" @click="$refs.modal_collection.show()">
+                      <PlusIcon/>
+                      Create new collection
+                    </Button>
+                  </template>
+                </PopoutMenu>
                 <Button>
                   <ShareIcon aria-hidden="true" />
                   Share
@@ -801,7 +818,8 @@ import {
   CodeIcon,
   ClientIcon,
   ServerIcon,
-  BoxIcon,
+  BoxIcon, formatCategory,
+  PlusIcon
 } from 'omorphia'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
 import ExternalIcon from '~/assets/images/utils/external.svg'
@@ -848,6 +866,10 @@ import GameIcon from '~/assets/images/utils/game.svg'
 import { renderString } from '~/helpers/parse.js'
 import { getProjectLink } from '~/helpers/projects.js'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import Checkbox from "~/components/ui/Checkbox.vue";
+import FilterIcon from "assets/images/utils/filter.svg";
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
+import PopoutMenu from "~/components/ui/PopoutMenu.vue";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -874,7 +896,7 @@ if (
   })
 }
 
-let project, allMembers, dependencies, featuredVersions, versions
+let project, allMembers, dependencies, featuredVersions, versions, userCollections
 try {
   ;[
     { data: project },
@@ -882,6 +904,7 @@ try {
     { data: dependencies },
     { data: featuredVersions },
     { data: versions },
+    { data: userCollections }
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
@@ -924,6 +947,16 @@ try {
     useAsyncData(`project/${route.params.id}/version`, () =>
       useBaseFetch(`project/${route.params.id}/version`)
     ),
+    useAsyncData(
+      `user/${auth.value.user.id}/collections`,
+      () => useBaseFetch(`user/${auth.value.user.id}/collections`),
+      {
+        transform: (collections) => {
+          //sort by title
+          collections.sort((a, b) => a.title.localeCompare(b.title))
+          return collections
+        },
+    })
   ])
 
   versions = shallowRef(toRaw(versions))
@@ -1230,6 +1263,47 @@ const moreVersions = computed(() => {
 })
 
 const collapsedChecklist = ref(false)
+
+const patchCollection = async (collection, add, quiet = false) => {
+  startLoading()
+
+  try {
+    await useBaseFetch(`collection/${collection.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        new_projects:  add ? [...collection.projects, project.value.id] : [ ...collection.projects].filter((x) => x !== project.value.id)
+      }),
+    })
+
+    userCollections.value = useAsyncData(`user/${auth.value.user.id}/collections`, () => useBaseFetch(`user/${auth.value.user.id}/collections`), {
+      transform: (collections) => {
+        //sort by title
+        collections.sort((a, b) => a.title.localeCompare(b.title))
+        return collections
+      },
+    })
+
+    if (!quiet) {
+      data.$notify({
+        group: 'main',
+        title: 'Collection updated',
+        text: 'Your collection has been updated.',
+        type: 'success',
+      })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  stopLoading()
+}
 </script>
 <style lang="scss" scoped>
 .universal-card {
@@ -1554,5 +1628,35 @@ const collapsedChecklist = ref(false)
   svg {
     margin: 0;
   }
+}
+
+
+.collection-button {
+  white-space: nowrap;
+  background-color: var(--color-raised-bg);
+  padding: var(--gap-sm);
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+}
+
+.popout-text {
+  padding: var(--gap-sm) var(--gap-md);
+  margin: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-text-secondary);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-divider {
+  margin: var(--gap-sm);
 }
 </style>

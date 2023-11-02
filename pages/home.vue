@@ -1,4 +1,6 @@
 <template>
+  <ModalCreation ref="modal"/>
+  <SimpleCreationModal ref="orgModal" disallow-spaces/>
   <div class="normal-page">
     <div class="normal-page__header">
       <h1>Home</h1>
@@ -61,7 +63,7 @@
       <section class="universal-card">
         <h2 class="sidebar-card-header">Your projects</h2>
         <p>Showing downloads this week compared to last week.</p>
-        <div class="mini-project-table">
+        <div class="mini-project-table projects">
           <div
             v-for="(project, index) in projectsPreview"
             :key="project.id"
@@ -83,6 +85,36 @@
         <nuxt-link class="goto-link" to="/revenue/transfers">
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
+        <div class="goto-link" @click="modal.show">
+          <PlusIcon />Create a project <ChevronRightIcon />
+        </div>
+      </section>
+      <section class="universal-card">
+        <h2 class="sidebar-card-header">Your organizations</h2>
+        <p>Showing organizations you are a part of and your role in them.</p>
+        <div v-if="organizations && organizations.length > 0" class="mini-project-table organizations">
+          <div
+              v-for="(organization, index) in organizations"
+              :key="organization.id"
+              class="mini-project-row"
+          >
+            <div class="project-icon">
+              <Avatar :src="organization.icon_url" size="xxs" />
+            </div>
+            <nuxt-link class="project-name goto-link">
+              {{ organization.title }}
+            </nuxt-link>
+            <div class="project-change neutral">
+              {{ organization.members.find(member => member.user.id === auth.user.id).role }}
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <p>You are not a part of any organizations.</p>
+        </div>
+        <div class="goto-link" @click="orgModal.show">
+          <PlusIcon />Create an organization <ChevronRightIcon />
+        </div>
       </section>
     </div>
     <div class="normal-page__content">
@@ -144,7 +176,7 @@
 </template>
 
 <script setup>
-import { DownloadIcon, UserIcon, HeartIcon, BoxIcon, SettingsIcon, Button, XIcon } from 'omorphia'
+import { DownloadIcon, UserIcon, HeartIcon, BoxIcon, SettingsIcon, Button, XIcon, PlusIcon } from 'omorphia'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import TransferIcon from '~/assets/images/utils/transfer.svg'
@@ -155,18 +187,25 @@ import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import SearchIcon from 'assets/images/utils/search.svg'
 import FilterIcon from 'assets/images/utils/filter.svg'
+import ModalCreation from "~/components/ui/ModalCreation.vue";
 import { getUserLink } from '~/helpers/users'
 import PopoutMenu from '~/components/ui/PopoutMenu.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const auth = await useAuth()
+const modal = ref(null)
+const orgModal = ref(null)
 
-const [{ data: projects }, { data: payouts }] = await Promise.all([
+const [{ data: projects }, { data: payouts }, {data: organizations}] = await Promise.all([
   useAsyncData(`user/${auth.value.user.id}/projects`, () =>
     useBaseFetch(`user/${auth.value.user.id}/projects`)
   ),
   useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
     useBaseFetch(`user/${auth.value.user.id}/payouts`)
+  ),
+  useAsyncData(`user/${auth.value.user.id}/organizations`, () =>
+    useBaseFetch(`user/${auth.value.user.id}/organizations`)
   ),
 ])
 
@@ -240,14 +279,24 @@ const notificationSearchInput = ref('')
 .mini-project-table {
   display: flex;
   flex-direction: column;
-  display: grid;
   gap: var(--gap-sm);
   border-radius: var(--radius-sm);
+  &.projects {
+    .mini-project-row {
+      grid-template-columns: 1.5rem min-content auto 5rem;
+    }
+  }
+
+  &.organizations {
+    .mini-project-row {
+      grid-template-columns: min-content auto 5rem;
+    }
+  }
 
   .mini-project-row {
     display: grid;
     gap: var(--gap-xs);
-    grid-template-columns: 1.5rem min-content auto 5rem;
+
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--color-button-bg);
@@ -263,6 +312,9 @@ const notificationSearchInput = ref('')
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin: 0;
+      width: fit-content;
+      color: var(--color-base);
     }
 
     .project-change {
@@ -287,6 +339,7 @@ const notificationSearchInput = ref('')
   .goto-link {
     gap: 0;
     margin-top: var(--gap-md);
+    cursor: pointer;
 
     svg:first-child {
       margin-right: 0.5rem;

@@ -51,6 +51,7 @@
       />
     </Categories>
     <div class="stats">
+      <slot />
       <div v-if="downloads" class="stat">
         <DownloadIcon aria-hidden="true" />
         <p>
@@ -64,9 +65,6 @@
           <strong>{{ $formatNumber(follows) }}</strong
           ><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
         </p>
-      </div>
-      <div class="buttons">
-        <slot />
       </div>
       <div
         v-if="showUpdatedDate"

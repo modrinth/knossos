@@ -65,6 +65,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    project: {
+      type: String,
+      default: '',
+    }
   },
   data() {
     return {
@@ -85,6 +89,7 @@ export default {
           body: JSON.stringify({
             title: this.name.trim(),
             description: this.description.trim(),
+            projects: this.project ? [this.project] : []
           }),
         })
 
@@ -96,7 +101,7 @@ export default {
         this.$notify({
           group: 'main',
           title: 'An error occurred',
-          text: err.data.description,
+          text: err.data,
           type: 'error',
         })
       }
