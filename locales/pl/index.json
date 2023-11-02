@@ -60,7 +60,7 @@
     "message": "Ten użytkownik nie ma żadnych projektów!"
   },
   "profile.label.no-projects-auth": {
-    "message": "Nie masz żadnych projektów.\nCzy chcesz <create-link>utworzyć projekt</create-link>?"
+    "message": "Nie masz żadnych projektów.\nCzy chcesz <create-link>utworzyć jeden</create-link>?"
   },
   "profile.meta.description": {
     "message": "Pobieraj projekty {username} na Modrinth"
@@ -87,10 +87,10 @@
     "message": "Paczka danych"
   },
   "project-type.mod.plural": {
-    "message": "Mody"
+    "message": "Modyfikacje"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Modyfikacja"
   },
   "project-type.modpack.plural": {
     "message": "Paczki modów"
@@ -144,7 +144,7 @@
     "message": "{label}. Błąd"
   },
   "settings.language.languages.load-failed": {
-    "message": "Nie można załadować tego języka. Spróbuj ponownie za jakiś czas."
+    "message": "Nie można załadować tego języka. Spróbuj ponownie później."
   },
   "settings.language.languages.search-field.description": {
     "message": "Zatwierdź, aby skupić się na pierwszym wyniku wyszukiwania"
@@ -165,7 +165,7 @@
     "message": "Unieważnij sesję"
   },
   "settings.sessions.description": {
-    "message": "Poniżej wymienione są wszystkie urządzenia, na których jesteś zalogowany poprzez konto Modrinth. Możesz wylogować się z każdego konta pojedynczo.\n\nJeżeli nie rozpoznajesz danego zalogowania, wyloguj się z niego oraz natychmiastowo zmień hasło do swojego konta Modrinth."
+    "message": "Poniżej zostały wymienione wszystkie urządzenia, na których jesteś zalogowany poprzez konto Modrinth. Możesz wylogować się z każdego konta pojedynczo.\n\nJeżeli nie rozpoznajesz danego logowania, wyloguj się z niego oraz natychmiastowo zmień hasło do swojego konta Modrinth."
   },
   "settings.sessions.label.created-at": {
     "message": "Utworzono {ago}"
