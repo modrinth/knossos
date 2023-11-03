@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@ltd/j-toml": "^1.38.0",
+    "country-data": "^0.0.31",
     "dayjs": "^1.11.7",
     "floating-vue": "^2.0.0-beta.20",
     "fuse.js": "^6.6.2",

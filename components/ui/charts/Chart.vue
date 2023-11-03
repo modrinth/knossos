@@ -63,6 +63,26 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  legendPosition: {
+    type: String,
+    default: 'right',
+  },
+  xAxisType: {
+    type: String,
+    default: 'datetime',
+  },
+  percentStacked: {
+    type: Boolean,
+    default: false,
+  },
+  horizontalBar: {
+    type: Boolean,
+    default: false,
+  },
+  disableAnimations: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const chartOptions = ref({
@@ -81,9 +101,16 @@ const chartOptions = ref({
       show: false,
     },
     stacked: props.stacked,
+    stackType: props.percentStacked ? '100%' : 'normal',
+    zoom: {
+      autoScaleYaxis: true
+    },
+    animations: {
+      enabled: props.disableAnimations,
+    }
   },
   xaxis: {
-    type: 'datetime',
+    type: props.xAxisType,
     categories: props.labels,
     labels: {
       style: {
@@ -115,7 +142,11 @@ const chartOptions = ref({
     tickColor: 'var(--color-button-bg)',
   },
   legend: {
-    show: false,
+    show: !props.hideLegend,
+    position: props.legendPosition,
+    showForZeroSeries: false,
+    fontSize: 'var(--font-size-nm)',
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
   },
   markers: {
     size: 0,
@@ -129,6 +160,7 @@ const chartOptions = ref({
   },
   plotOptions: {
     bar: {
+      horizontal: props.horizontalBar,
       columnWidth: '80%',
       endingShape: 'rounded',
       borderRadius: 5,
@@ -148,15 +180,32 @@ const chartOptions = ref({
         '<div class="label">' +
         props.formatLabels(w.globals.lastXAxis.categories[dataPointIndex]) +
         '</div>' +
-        (!props.hideTotal
-          ? `<div class="value">
+        (props.hideTotal
+          ? '' : props.percentStacked ? `
+        <div class="value">
+          ${props.prefix}
+          ${formatNumber((Math.trunc(100 * series[seriesIndex][dataPointIndex] / series.reduce((a, b) => a + b[dataPointIndex], 0) * 100) / 100))}%
+          ${props.suffix}
+        </div>` : `<div class="value">
         ${props.prefix}
         ${props.isMoney ? formatMoney(series.reduce((a, b) => a + b[dataPointIndex], 0), false) : formatNumber(series.reduce((a, b) => a + b[dataPointIndex], 0), false)}
         ${props.suffix}
         </div>`
-          : ``) +
+          ) +
         '</div><hr class="card-divider" />' +
-        series
+          (props.percentStacked ?
+            `<div class="list-entry">
+            <span class="circle" style="background-color: ${w.globals.colors[seriesIndex]}"> </span>
+            <div class="label">
+              ${w.globals.seriesNames[seriesIndex]}
+            </div>
+            <div class="value">
+              ${props.prefix}
+              ${props.isMoney ? formatMoney(series[seriesIndex][dataPointIndex], false) : formatNumber(series[seriesIndex][dataPointIndex], false)}
+              ${props.suffix}
+            </div>
+          </div>` :
+          series
           .map((value, index) =>
             [value[dataPointIndex], `<div class="list-entry">
                 <span class="circle" style="background-color: ${w.globals.colors[index]}"> </span>
@@ -169,11 +218,11 @@ const chartOptions = ref({
                   ${props.suffix}
                 </div>
               </div>`]
-          )
-          .filter((value) => value[0] > 0)
-          .sort((a, b) => b[0] - a[0])
-          .map((value) => value[1])
-          .reduce((a, b) => a + b) +
+          ).filter((value) => value[0] > 0)
+            .sort((a, b) => b[0] - a[0])
+            .map((value) => value[1])
+            .reduce((a, b) => a + b))
+          +
         '</div>'
       )
     },
@@ -213,9 +262,10 @@ const flipLegend = (legend, newVal) => {
 const downloadCSV = () => {
   const csvContent =
     'data:text/csv;charset=utf-8,' +
+      'Date,' +
     props.labels.join(',') +
     '\n' +
-    props.data.map((project) => project.data.join(',')).reduce((a, b) => a + '\n' + b)
+    props.data.map((project, index) => project.name.replace(',', '-') + ',' + project.data.join(',')).reduce((a, b) => a + '\n' + b)
 
   const encodedUri = encodeURI(csvContent)
   const link = document.createElement('a')
@@ -258,18 +308,6 @@ defineExpose({
         ... chartOptions,
         fill: type === 'area' ? fillOptions : {},
     }" :series="data" class="chart" />
-    <div v-if="!hideLegend" class="legend">
-      <Checkbox
-        v-for="legend in legendValues"
-        :key="legend.name"
-        class="legend-checkbox"
-        :style="`--color: ${legend.color};`"
-        :model-value="legend.visible"
-        @update:model-value="(newVal) => flipLegend(legend, newVal)"
-      >
-        {{ legend.name }}
-      </Checkbox>
-    </div>
   </div>
 </template>
 
@@ -282,6 +320,13 @@ defineExpose({
 svg {
   width: 100%;
   height: 100%;
+}
+
+.btn {
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 }
 
 .bar-chart {
@@ -388,6 +433,7 @@ svg {
     }
 
     .label {
+      margin-right: var(--gap-xl);
       color: var(--color-contrast);
     }
 
@@ -407,10 +453,6 @@ svg {
 
       .value {
         margin-left: auto;
-      }
-
-      .label {
-        margin-right: var(--gap-xl);
       }
     }
 

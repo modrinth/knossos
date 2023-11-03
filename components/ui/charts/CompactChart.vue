@@ -176,6 +176,7 @@ const chartOptions = ref({
   color: var(--color-base);
   font-size: var(--font-size-nm);
   width: 100%;
+  padding-top: var(--gap-xl);
   padding-bottom: 0;
 
   .value {

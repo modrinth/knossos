@@ -29,106 +29,109 @@ let monthlyRevenue
 const selectedDataType = ref('downloads')
 const finishedLoading = ref(false)
 const body = `project_ids=["${props.project.id}"]`
-try {
-  await Promise.all([
-    useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
-      transform: (analytics) => {
-        for (const trueData of Object.values(analytics)) {
-          for (const [key, value] of Object.entries(trueData)) {
-            const parsedData = Math.round(parseFloat(value) * 100) / 100
-            totalData.value.downloads = totalData.value.downloads + parsedData
-            if (sparkData.has(key)) {
-              sparkData.get(key).downloads = parsedData
-            } else {
-              sparkData.set(key, { views: 0, revenue: 0, downloads: parsedData })
+
+onMounted(async () => {
+  try {
+    await Promise.all([
+      useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}&start_date=${new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString()}`), {
+        transform: (analytics) => {
+          for (const trueData of Object.values(analytics)) {
+            for (const [key, value] of Object.entries(trueData)) {
+              const parsedData = Math.round(parseFloat(value) * 100) / 100
+              totalData.value.downloads = totalData.value.downloads + parsedData
+              if (sparkData.has(key)) {
+                sparkData.get(key).downloads = parsedData
+              } else {
+                sparkData.set(key, { views: 0, revenue: 0, downloads: parsedData })
+              }
             }
           }
-        }
-      },
-    }),
-    useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
-      transform: (analytics) => {
-        for (const trueData of Object.values(analytics)) {
-          for (const [key, value] of Object.entries(trueData)) {
-            const parsedData = parseInt(value)
-            totalData.value.pageViews = totalData.value.pageViews + parsedData
-            if (sparkData.has(key)) {
-              sparkData.get(key).views = parsedData
-            } else {
-              sparkData.set(key, { views: parsedData, revenue: 0, downloads: 0 })
+        },
+      }),
+      useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}&start_date=${new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString()}`), {
+        transform: (analytics) => {
+          for (const trueData of Object.values(analytics)) {
+            for (const [key, value] of Object.entries(trueData)) {
+              const parsedData = parseInt(value)
+              totalData.value.pageViews = totalData.value.pageViews + parsedData
+              if (sparkData.has(key)) {
+                sparkData.get(key).views = parsedData
+              } else {
+                sparkData.set(key, { views: parsedData, revenue: 0, downloads: 0 })
+              }
             }
           }
-        }
-      },
-    }),
-    useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
-    transform: (analytics) => {
-      for (const trueData of Object.values(analytics)) {
-        for (const [key, value] of Object.entries(trueData)) {
-          const parsedData = Math.round(parseFloat(value) * 100) / 100
-          totalData.value.revenue = totalData.value.revenue + parsedData
-          if (sparkData.has(key)) {
-            sparkData.get(key).revenue = parsedData
-          } else {
-            sparkData.set(key, { views: 0, revenue: parsedData, downloads: 0 })
+        },
+      }),
+      useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}&start_date=${new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString()}`), {
+        transform: (analytics) => {
+          for (const trueData of Object.values(analytics)) {
+            for (const [key, value] of Object.entries(trueData)) {
+              const parsedData = Math.round(parseFloat(value) * 100) / 100
+              totalData.value.revenue = totalData.value.revenue + parsedData
+              if (sparkData.has(key)) {
+                sparkData.get(key).revenue = parsedData
+              } else {
+                sparkData.set(key, { views: 0, revenue: parsedData, downloads: 0 })
+              }
+            }
           }
-        }
-      }
-    },
-  }),
-  ])
-  const monthlyLink = `analytics/revenue?${body}&resolution_minutes=43200&start_date=${new Date(new Date() - 2 * 180 * 24 * 60 * 60 * 1000).toISOString()}`
-  ;[{ data: monthlyRevenue }] = await Promise.all([
-    useAsyncData(monthlyLink, () => useBaseFetch(monthlyLink), {
-      transform: (analytics) => {
-        const labels = []
-        const revData = []
-        for (const trueData of Object.values(analytics)) {
-          for (const [key, value] of Object.entries(trueData)) {
-            const parsedData = Math.round(parseFloat(value) * 100) / 100
-            labels.push(dayjs.unix(key).format('YYYY-MM-DD'))
-            revData.push(parsedData)
+        },
+      }),
+    ])
+    const monthlyLink = `analytics/revenue?${body}&resolution_minutes=43200&start_date=${new Date(new Date() - 2 * 180 * 24 * 60 * 60 * 1000).toISOString()}`
+    ;[{ data: monthlyRevenue }] = await Promise.all([
+      useAsyncData(monthlyLink, () => useBaseFetch(monthlyLink), {
+        transform: (analytics) => {
+          const labels = []
+          const revData = []
+          for (const trueData of Object.values(analytics)) {
+            for (const [key, value] of Object.entries(trueData)) {
+              const parsedData = Math.round(parseFloat(value) * 100) / 100
+              labels.push(dayjs.unix(key).format('YYYY-MM-DD'))
+              revData.push(parsedData)
+            }
           }
-        }
-        return {
-          labels,
-          data: [{
-            name: 'Revenue',
-            data: revData,
-          }]
-        }
-      },
-    }),
-  ])
-} catch (err) {
-  data.$notify({
-    group: 'main',
-    title: 'An error occurred',
-    text: err,
-    type: 'error',
-  })
-} finally {
-  const sortedSparkData = new Map([...sparkData.entries()].sort((a, b) => a[0] - b[0]));
+          return {
+            labels,
+            data: [{
+              name: 'Revenue',
+              data: revData,
+            }]
+          }
+        },
+      }),
+    ])
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  } finally {
+    const sortedSparkData = new Map([...sparkData.entries()].sort((a, b) => a[0] - b[0]));
 
-  labels.value = [...sortedSparkData.keys()].map((key) => dayjs.unix(key).format('YYYY-MM-DD'));
+    labels.value = [...sortedSparkData.keys()].map((key) => dayjs.unix(key).format('YYYY-MM-DD'));
 
-  downloadData.value = {
-    name: 'Downloads',
-    data: [...sortedSparkData.values()].map((data) => data.downloads)
-  };
+    downloadData.value = {
+      name: 'Downloads',
+      data: [...sortedSparkData.values()].map((data) => data.downloads)
+    };
 
-  viewData.value = {
-    name: 'Page views',
-    data: [...sortedSparkData.values()].map((data) => data.views)
-  };
+    viewData.value = {
+      name: 'Page views',
+      data: [...sortedSparkData.values()].map((data) => data.views)
+    };
 
-  revenueData.value = {
-    name: 'Revenue',
-    data: [...sortedSparkData.values()].map((data) => data.revenue)
-  };
+    revenueData.value = {
+      name: 'Revenue',
+      data: [...sortedSparkData.values()].map((data) => data.revenue)
+    };
 
-  finishedLoading.value = true
-}
+    finishedLoading.value = true
+  }
+})
 
 const select = (type) => {
   selectedDataType.value = type
@@ -136,7 +139,7 @@ const select = (type) => {
 </script>
 
 <template>
-  <div class="spark-data">
+  <div v-if="finishedLoading" class="spark-data">
     <client-only>
       <CompactChart
         v-if="finishedLoading"
@@ -197,11 +200,14 @@ const select = (type) => {
           is-money
           hide-total
           hide-legend
+          percent-stacked
+          disable-animations
       >
         <h2 class="sidebar-card-header">Monthly revenue</h2>
       </Chart>
     </client-only>
   </Card>
+  <BrandLogoAnimated v-else />
 </template>
 
 <style scoped lang="scss">

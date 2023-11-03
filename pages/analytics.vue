@@ -1,26 +1,83 @@
 <script setup>
-import { Card, CompactChart, formatMoney, formatNumber } from 'omorphia'
+import { Card, formatMoney, formatNumber } from 'omorphia'
 import Chart from "~/components/ui/charts/Chart.vue";
+import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
-import Chips from "~/components/ui/Chips.vue";
+import {countries} from "country-data";
 
 const auth = await useAuth()
 const projects = ref(await useBaseFetch(`user/${auth.value.user.id}/projects`))
 
-onMounted(async () => {
-  await initUserProjects()
-})
-
 const analyticsData = ref({
-  downloads: projects.value.reduce((acc, project) => acc + project.downloads, 0),
+  downloads: 0,
   pageViews: 0,
   revenue: 0,
+  longTermDownloads: 0,
+  longTermPageViews: 0,
+  longTermRevenue: 0,
 })
 
-const selectedDataType = ref('Downloads')
 const finishedLoading = ref(false)
-const chart = ref(null)
-let downloadData, viewData, revenueData, monthlyRevenue, viewDownloadRatio, countryData
+let downloadData, viewData, revenueData, squashedDownloads, squashedViews, squashedRevenue, monthlyRevenue, squashedLongTermRevenue, squashedLongTermDownloads, squashedLongTermViews, viewCountryData, downloadCountryData
+
+onMounted(async () => {
+  await initUserProjects()
+  const body = `start_date=${new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString()}`
+  const longTerm = `start_date=${new Date(new Date().getFullYear(), 0, 1).toISOString()}&resolution_minutes=43200`
+
+  try {
+    ;[
+      { data: downloadData },
+      { data: viewData },
+      { data: revenueData },
+      { data: monthlyRevenue },
+      { data: viewCountryData },
+      { data: downloadCountryData },
+    ] = await Promise.all([
+      useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
+        transform: (data) => processData(data, (value) => analyticsData.value.downloads += value, (value) => squashedDownloads = value, 'downloads'),
+      }),
+      useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
+        transform: (data) => processData(data, (value) => analyticsData.value.pageViews += value, (value) => squashedViews = value, 'views'),
+      }),
+      useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
+        transform: (data) => processData(data, (value) => analyticsData.value.revenue += value, (value) => squashedRevenue = value, 'revenue'),
+      }),
+      useAsyncData(`analytics/revenue?${longTerm}`, () => useBaseFetch(`analytics/revenue?${longTerm}`), {
+        transform: (data) => processData(data, (value) => analyticsData.value.longTermRevenue += value, (value) => squashedLongTermRevenue = value, 'revenue'),
+      }),
+      useAsyncData(
+          `analytics/countries/views?${body}`,
+          () => useBaseFetch(`analytics/countries/views?${body}`),
+          {
+            transform: (analytics) => processRegionData(analytics),
+          }
+      ),
+      useAsyncData(
+          `analytics/countries/downloads?${body}`,
+          () => useBaseFetch(`analytics/countries/downloads?${body}`),
+          {
+            transform: (analytics) => processRegionData(analytics),
+          }
+      ),
+      useAsyncData(`analytics/downloads?${longTerm}`, () => useBaseFetch(`analytics/downloads?${longTerm}`), {
+        transform: (data) => processData(data, (value) => analyticsData.value.longTermDownloads += value, (value) => squashedLongTermDownloads = value, 'downloads'),
+      }),
+      useAsyncData(`analytics/views?${longTerm}`, () => useBaseFetch(`analytics/views?${longTerm}`), {
+        transform: (data) => processData(data, (value) => analyticsData.value.longTermPageViews += value, (value) => squashedLongTermViews = value, 'views'),
+      }),
+    ])
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  } finally {
+    finishedLoading.value = true
+  }
+})
 
 const RGBToHSL = (r, g, b) => {
   r /= 255;
@@ -63,22 +120,44 @@ const intToRgba = (int) => {
   return `rgba(${final[0]}, ${final[1]}, ${final[2]}, 1)`
 }
 
-const processData = (analytics, accumulate) => {
+const processData = (analytics, accumulate, squashFunction, descriptor, ignoreNormal = false) => {
   const totalData = new Map()
+  const squashedData = new Map()
   const projectSet = new Set()
   const projectData = new Map()
 
   for (const [project, trueData] of Object.entries(analytics)) {
     projectSet.add(project)
-    for (const [key, value] of Object.entries(trueData)) {
-      if (totalData.has(key)) {
-        const retrievedMap = totalData.get(key)
-        retrievedMap.set(project, value)
-        totalData.set(key, retrievedMap)
+    for (const [date, value] of Object.entries(trueData)) {
+      const parsedData = Math.round(parseFloat(value) * 100) / 100
+      if (totalData.has(date) && !ignoreNormal) {
+        const retrievedMap = totalData.get(date)
+        retrievedMap.set(project, parsedData)
+        totalData.set(date, retrievedMap)
       } else {
-        totalData.set(key, new Map([[project, value]]))
+        totalData.set(date, new Map([[project, parsedData]]))
+      }
+
+      if (squashedData.has(date)) {
+        squashedData.set(date, squashedData.get(date) + parsedData)
+      } else {
+        squashedData.set(date, parsedData)
       }
     }
+  }
+
+  const sortedSquashedData = new Map([...squashedData.entries()].sort((a, b) => a[0] - b[0]))
+
+  squashFunction({
+    labels: [...sortedSquashedData.keys()].map((key) => dayjs.unix(key).format('YYYY-MM-DD')),
+    data: [{
+      name: `Total ${descriptor}`,
+      data: [...sortedSquashedData.values()],
+    }]
+  })
+
+  if(ignoreNormal) {
+    return
   }
 
   const sortedData = new Map([...totalData.entries()].sort((a, b) => a[0] - b[0]))
@@ -90,14 +169,13 @@ const processData = (analytics, accumulate) => {
       }
     })
     for (const [project, data] of value.entries()) {
-      const parsedData = Math.round(parseFloat(data) * 100) / 100
-        accumulate(parsedData)
+      accumulate(data)
       if (projectData.has(project)) {
         const retrievedMap = projectData.get(project)
-        retrievedMap.push(parsedData)
+        retrievedMap.push(data)
         projectData.set(project, retrievedMap)
       } else {
-        projectData.set(project, [parsedData])
+        projectData.set(project, [data])
       }
     }
   })
@@ -120,123 +198,180 @@ const processData = (analytics, accumulate) => {
   return finalData
 }
 
-const body = `start_date=${new Date(new Date() - 90 * 24 * 60 * 60 * 1000).toISOString()}`
-try {
-  ;[
-    { data: downloadData },
-    { data: viewData },
-    { data: revenueData },
-    { data: monthlyRevenue },
-    { data: viewDownloadRatio },
-    { data: countryData },
-  ] = await Promise.all([
-    useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
-      transform: (data) => processData(data, (value) => value),
-    }),
-    useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
-      transform: (data) => processData(data, (value) => analyticsData.value.pageViews += value),
-    }),
-    useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
-      transform: (data) => processData(data, (value) => analyticsData.value.revenue += value),
-    }),
-    useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?start_date=${new Date(new Date() - 2 * 180 * 24 * 60 * 60 * 1000).toISOString()}&resolution_minutes=43200`), {
-      transform: (data) => processData(data, (value) => {}),
-    }),
-    useAsyncData(
-      `analytics/countries/views?${body}`,
-      () => useBaseFetch(`analytics/countries/views?${body}`),
-      {
-        transform: (analytics) => {
-          const countryMap = new Map()
-          for (const rawData of Object.values(analytics)) {
-            for (const [key, data] of Object.entries(rawData)) {
-              if (countryMap.has(key)) {
-                countryMap.set(key, countryMap.get(key) + data)
-              } else {
-                countryMap.set(key, data)
-              }
-            }
-          }
+const countryColors = new Map()
 
-          return {
-            title: 'Downloads',
-            data: [...countryMap.entries()].map(([key, data]) => ({
-              name: key,
-              data,
-            })),
-          }
-        },
-      }
-    ),
-    useAsyncData(
-      `analytics/countries/downloads?${body}`,
-      () => useBaseFetch(`analytics/countries/downloads?${body}`),
-      {
-        transform: (analytics) => {
-          const countryMap = new Map()
-          for (const rawData of Object.values(analytics)) {
-            for (const [key, data] of Object.entries(rawData)) {
-              if (countryMap.has(key)) {
-                countryMap.set(key, countryMap.get(key) + data)
-              } else {
-                countryMap.set(key, data)
-              }
-            }
-          }
+const processRegionData = (analytics) => {
+  const totalData = new Map()
+  const projectSet = new Set()
+  const projectData = new Map()
 
-          return {
-            title: 'Downloads',
-            data: [...countryMap.entries()].map(([key, data]) => ({
-              name: key,
-              data,
-            })),
-          }
-        },
+  for (const [project, trueData] of Object.entries(analytics)) {
+    projectSet.add(project)
+    for (const [country, value] of Object.entries(trueData)) {
+      if (totalData.has(country)) {
+        const retrievedMap = totalData.get(country)
+        retrievedMap.set(project, value)
+        totalData.set(country, retrievedMap)
+      } else {
+        totalData.set(country, new Map([[project, value]]))
       }
-    ),
-  ])
-} catch (err) {
-  data.$notify({
-    group: 'main',
-    title: 'An error occurred',
-    text: err,
-    type: 'error',
+    }
+  }
+
+  totalData.forEach((value) => {
+    projectSet.forEach((project) => {
+      if (!value.has(project)) {
+        value.set(project, 0)
+      }
+    })
+    for (const [project, data] of value.entries()) {
+      const parsedData = Math.round(parseFloat(data) * 100) / 100
+      if (projectData.has(project)) {
+        const retrievedMap = projectData.get(project)
+        retrievedMap.push(parsedData)
+        projectData.set(project, retrievedMap)
+      } else {
+        projectData.set(project, [parsedData])
+      }
+    }
   })
-} finally {
-  finishedLoading.value = true
+
+  totalData.forEach((value, key) => {
+    if (!countryColors.has(key)) {
+      countryColors.set(key, `hsl(${Math.random() * 360}, ${Math.random() * 30 + 70}%, ${Math.random() * 20 + 40}%)`)
+    }
+  })
+
+  const finalData = {
+    labels: Array.from(projectSet).map(project => projects.value.find(proj => proj.id === project).title),
+    data: [],
+    colors: Array.from(totalData.keys()).map(project => countryColors.get(project))
+  }
+
+  totalData.forEach((value, key) => {
+    const metricData = {
+      name: countries[key].name ?? key,
+      data: []
+    }
+
+    finalData.labels.forEach((label, index) => {
+      const project = [...projectSet][index]
+      metricData.data.push(value.get(project))
+    })
+
+    finalData.data.push(metricData)
+  })
+
+  return finalData
 }
 
-watch(selectedDataType.value, () => {
-  chart.value.resetChart()
-})
 </script>
 
 <template>
-  <div class="spark-charts">
-
+  <h1>Analytics</h1>
+  <div v-if="finishedLoading" class="chart-dashboard">
+    <client-only>
+      <CompactChart
+        title="Downloads in the last 30 days"
+        color="var(--color-brand)"
+        :value="formatNumber(analyticsData.downloads, false)"
+        :data="squashedDownloads.data"
+        :labels="squashedDownloads.labels"
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+        title="Page views in the last 30 days"
+        color="var(--color-blue)"
+        :value="formatNumber(analyticsData.pageViews, false)"
+        :data="squashedViews.data"
+        :labels="squashedViews.labels"
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+        title="Revenue in the last 30 days"
+        color="var(--color-purple)"
+        :value="formatMoney(analyticsData.revenue, false)"
+        :data="squashedRevenue.data"
+        :labels="squashedRevenue.labels"
+        is-money
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+          title="Downloads since the start of the year"
+          color="var(--color-brand)"
+          :value="formatNumber(analyticsData.longTermDownloads, false)"
+          :data="squashedLongTermDownloads.data"
+          :labels="squashedLongTermDownloads.labels"
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+          title="Page views since the start of the year"
+          color="var(--color-blue)"
+          :value="formatNumber(analyticsData.longTermPageViews, false)"
+          :data="squashedLongTermViews.data"
+          :labels="squashedLongTermViews.labels"
+      />
+    </client-only>
+    <client-only>
+      <CompactChart
+        title="Revenue since the start of the year"
+        color="var(--color-purple)"
+        :value="formatMoney(analyticsData.longTermRevenue, false)"
+        :data="squashedLongTermRevenue.data"
+        :labels="squashedLongTermRevenue.labels"
+        is-money
+      />
+    </client-only>
   </div>
-  <Card v-if="finishedLoading" class="line-charts">
+  <Card v-if="finishedLoading">
     <client-only>
       <Chart
-        ref="chart"
         type="line"
         name="Download data"
-        :data="selectedDataType === 'Downloads' ? downloadData.data : selectedDataType === 'Page views' ? viewData.data : revenueData.data"
-        :labels="selectedDataType === 'Downloads' ? downloadData.labels : selectedDataType === 'Page views' ? viewData.labels : revenueData.labels"
-        :colors="selectedDataType === 'Downloads' ? downloadData.colors : selectedDataType === 'Page views' ? viewData.colors : revenueData.colors"
-        :suffix=" selectedDataType === 'Page views' ?
-        `<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>`
-        : selectedDataType === 'Downloads' ? `<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>`
-        : ''
-        "
-        :is-money="selectedDataType === 'Revenue'"
+        :data="downloadData.data"
+        :labels="downloadData.labels"
+        :colors="downloadData.colors"
+        suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+        legend-position="right"
       >
-          <Chips :items="['Downloads', 'Page views', 'Revenue']" v-model="selectedDataType" class="chart-chips"/>
+        <h2 class="sidebar-card-header">Daily downloads</h2>
       </Chart>
     </client-only>
   </Card>
-  <BrandLogoAnimated v-else />
-  <Card>
+  <Card v-if="finishedLoading">
+    <client-only>
+      <Chart
+        type="line"
+        name="View data"
+        :data="viewData.data"
+        :labels="viewData.labels"
+        :colors="viewData.colors"
+        suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+        legend-position="right"
+      >
+        <h2 class="sidebar-card-header">Daily page views</h2>
+      </Chart>
+    </client-only>
+  </Card>
+  <Card v-if="finishedLoading">
+    <client-only>
+      <Chart
+          type="line"
+          name="Revenue data"
+          :data="revenueData.data"
+          :labels="revenueData.labels"
+          :colors="revenueData.colors"
+          is-money
+      >
+        <h2 class="sidebar-card-header">Daily revenue</h2>
+      </Chart>
+    </client-only>
+  </Card>
+  <Card v-if="finishedLoading">
     <client-only>
       <Chart
         type="bar"
@@ -247,9 +382,48 @@ watch(selectedDataType.value, () => {
         :colors="monthlyRevenue.colors"
         stacked
         is-money
-      />
+      >
+        <h2 class="sidebar-card-header">Monthly revenue</h2>
+      </Chart>
     </client-only>
   </Card>
+  <Card v-if="finishedLoading">
+    <client-only>
+      <Chart
+          type="bar"
+          name="Download data by country"
+          :format-labels="(name) => name"
+          :data="downloadCountryData.data"
+          :labels="downloadCountryData.labels"
+          :colors="downloadCountryData.colors"
+          x-axis-type="category"
+          percent-stacked
+          stacked
+          horizontal-bar
+      >
+        <h2 class="sidebar-card-header">Downloads by country</h2>
+      </Chart>
+    </client-only>
+  </Card>
+  <Card v-if="finishedLoading">
+    <client-only>
+      <Chart
+          type="bar"
+          name="View data by country"
+          :format-labels="(name) => name"
+          :data="viewCountryData.data"
+          :labels="viewCountryData.labels"
+          :colors="viewCountryData.colors"
+          x-axis-type="category"
+          percent-stacked
+          stacked
+          horizontal-bar
+      >
+        <h2 class="sidebar-card-header">Page views by country</h2>
+      </Chart>
+    </client-only>
+  </Card>
+  <BrandLogoAnimated v-else />
 </template>
 
 <style scoped lang="scss">
@@ -363,5 +537,12 @@ watch(selectedDataType.value, () => {
     font-weight: bold;
     font-size: var(--font-size-lg);
   }
+}
+
+.chart-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: var(--gap-lg);
+  width: 100%;
 }
 </style>
