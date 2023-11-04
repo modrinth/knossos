@@ -196,8 +196,6 @@ async function finishSignIn(token) {
     await useUser()
   }
 
-  console.log(route.query.redirect)
-
   if (route.query.redirect) {
     await navigateTo(route.query.redirect)
   } else {
