@@ -63,10 +63,10 @@
     "message": "你沒有任何專案。\n你想要 <create-link>建立一個</create-link> 嗎？"
   },
   "profile.meta.description": {
-    "message": "在 Modrinth 下載 {username} 的專案"
+    "message": "前往 Modrinth 下載 {username} 的專案"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} ─ 在 Modrinth 下載 {username} 的專案"
+    "message": "{bio} – 在 Modrinth 下載 {username} 的專案"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
@@ -165,7 +165,7 @@
     "message": "取消工作階段授權"
   },
   "settings.sessions.description": {
-    "message": "下列為您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每個裝置。\n\n如果您看到不認識的項目，請立即登出該裝置並更改您的 Modrinth 帳號密碼。"
+    "message": "下列為你目前已登入 Modrinth 帳號的所有裝置。你可以個別登出每個裝置。\n\n如果你看到不認識的項目，請立即登出該裝置並更改您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.label.created-at": {
     "message": "建立於 {ago}"
