@@ -33,7 +33,7 @@ const oauth = {
   state,
 }
 
-const clientInformation = await useBaseFetch('oauth/app/' + clientId) // Fetch client information from API
+const clientInformation = await useBaseFetch('oauth/app/' + clientId, { apiVersion: 3 })
 
 definePageMeta({
   middleware: 'auth',
