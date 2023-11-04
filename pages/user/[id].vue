@@ -47,11 +47,11 @@
               @click="$refs.modal_report.show()"
             >
               <ReportIcon aria-hidden="true" />
-              {{ formatMessage(messages.profileReportButton) }}
+              {{ formatMessage(commonMessages.reportButton) }}
             </button>
             <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
               <ReportIcon aria-hidden="true" />
-              {{ formatMessage(messages.profileReportButton) }}
+              {{ formatMessage(commonMessages.reportButton) }}
             </nuxt-link>
           </div>
           <template v-if="isEditing">
@@ -329,10 +329,6 @@ const messages = defineMessages({
   profileMetaDescriptionWithBio: {
     id: 'profile.meta.description-with-bio',
     defaultMessage: "{bio} - Download {username}'s projects on Modrinth",
-  },
-  profileReportButton: {
-    id: 'profile.button.report',
-    defaultMessage: 'Report',
   },
   profileUploadAvatarInput: {
     id: 'profile.input.upload-avatar',

@@ -2,11 +2,23 @@
   "button.cancel": {
     "message": "Cancel"
   },
+  "button.continue": {
+    "message": "Continue"
+  },
   "button.edit": {
     "message": "Edit"
   },
+  "button.report": {
+    "message": "Report"
+  },
   "button.save": {
     "message": "Save"
+  },
+  "button.save-changes": {
+    "message": "Save changes"
+  },
+  "button.sign-in": {
+    "message": "Sign in"
   },
   "frog": {
     "message": "You've been frogged! 🐸"
@@ -32,14 +44,29 @@
   "input.view.list": {
     "message": "List view"
   },
+  "label.code-source": {
+    "message": "Source code"
+  },
+  "label.created-at": {
+    "message": "Created {ago}"
+  },
+  "label.discord-invite": {
+    "message": "Discord invite"
+  },
+  "label.issue-tracker": {
+    "message": "Issue tracker"
+  },
+  "label.settings": {
+    "message": "Settings"
+  },
+  "label.wiki-page": {
+    "message": "Wiki page"
+  },
   "notification.error.title": {
     "message": "An error occurred"
   },
   "profile.button.manage-projects": {
     "message": "Manage projects"
-  },
-  "profile.button.report": {
-    "message": "Report"
   },
   "profile.error.not-found": {
     "message": "User not found"
@@ -166,9 +193,6 @@
   },
   "settings.sessions.description": {
     "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
-  },
-  "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
   },
   "settings.sessions.label.current-session": {
     "message": "Current session"
