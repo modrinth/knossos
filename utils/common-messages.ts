@@ -7,6 +7,10 @@ export const commonMessages = defineMessages({
     id: 'button.cancel',
     defaultMessage: 'Cancel',
   },
+  createdAtLabel: {
+    id: 'label.created-at',
+    defaultMessage: 'Created {ago}',
+  },
   dateAtTimeTooltip: {
     id: 'tooltip.date-at-time',
     defaultMessage: '{date, date, long} at {time, time, short}',

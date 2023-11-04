@@ -39,7 +39,7 @@
             "
           >
             {{
-              formatMessage(messages.sessionsCreatedAt, {
+              formatMessage(commonMessages.createdAtLabel, {
                 ago: formatRelativeTime(session.created),
               })
             }}
@@ -73,10 +73,6 @@ const messages = defineMessages({
   revokeSessionButton: {
     id: 'settings.sessions.button.revoke-session',
     defaultMessage: 'Revoke session',
-  },
-  sessionsCreatedAt: {
-    id: 'settings.sessions.label.created-at',
-    defaultMessage: 'Created {ago}',
   },
   sessionsDescription: {
     id: 'settings.sessions.description',
