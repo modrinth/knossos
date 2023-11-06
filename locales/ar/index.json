@@ -162,30 +162,30 @@
     "message": "اللغة"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "إلغاء الجلسة"
+    "message": "إنهاء الجلسة"
   },
   "settings.sessions.description": {
     "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "تم الإنشاء منذ {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "الجلسة الحالية"
+    "message": "الجلسة الراهنة"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "آخر وصول منذ {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "نظام تشغيل غير معروف"
+    "message": "نظام تشغيل مجهول"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "منصة غير معروفة"
+    "message": "منصة مجهولة"
   },
   "settings.sessions.title": {
-    "message": "مواسم"
+    "message": "الجلسات"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} في {time, time, short}"
+    "message": "يوم {date, date, long} على الساعة {time, time, short}"
   }
 }
