@@ -227,6 +227,42 @@
         "
       />
     </div>
+    <div v-if="inferredDependencies.size > 0"  class="universal-card version-page__inferred-dependencies">
+      <h3>Suggested dependencies</h3>
+      <div class="markdown-body">
+        <p>
+          Modrinth has inferred the following dependencies based on the file(s) you have uploaded.
+          These are not guaranteed to be correct, so please verify them before using them.
+        </p>
+      </div>
+      <div class="inferred-dependencies">
+        <div v-for="[modId, project] of inferredDependencies" class="inferred-dependency" :key="modId">
+          <Avatar :src="project.icon_url" alt="project-icon" size="sm" />
+          <div class="text">
+            <div class="project-title">
+              {{ project.title }}
+            </div>
+            <div class="project-description dep-type">
+              {{ project.dependencyType }}
+            </div>
+          </div>
+          <button class="btn" @click="addInferredDependency(modId, project)">
+            <PlusIcon />
+            Add dependency
+          </button>
+        </div>
+      </div>
+      <div class="button-group push-right">
+        <Button class="btn" @click="dismissDependencies">
+          <CrossIcon />
+          Dismiss
+        </Button>
+        <Button class="btn" color="primary" @click="addInferredDependencies">
+          <PlusIcon />
+          Add all
+        </Button>
+      </div>
+    </div>
     <div
       v-if="deps.length > 0 || (isEditing && project.project_type !== 'modpack')"
       class="version-page__dependencies universal-card"
@@ -690,6 +726,7 @@ import BoxIcon from '~/assets/images/utils/box.svg'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal.vue'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import { Button, SettingsIcon, UpdatedIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {
@@ -721,6 +758,9 @@ export default defineNuxtComponent({
     Multiselect,
     BoxIcon,
     RightArrowIcon,
+    Button,
+    SettingsIcon,
+    UpdatedIcon,
   },
   props: {
     project: {
@@ -759,6 +799,19 @@ export default defineNuxtComponent({
         return {}
       },
     },
+    patchProject: {
+      type: Function,
+      default() {
+        return () => {
+          this.$notify({
+            group: 'main',
+            title: 'An error occurred',
+            text: 'Patch project function not found',
+            type: 'error',
+          })
+        }
+      },
+    },
   },
   async setup(props) {
     const data = useNuxtApp()
@@ -790,6 +843,7 @@ export default defineNuxtComponent({
     let alternateFile = {}
 
     let replaceFile = null
+    let inferredDependencies = new Map()
 
     if (mode === 'edit') {
       isEditing = true
@@ -829,6 +883,17 @@ export default defineNuxtComponent({
           version = {
             ...version,
             ...inferredData,
+          }
+
+          for (const inferredDependency of version.inferredDependencies) {
+            console.log(inferredDependency)
+              const searchResults = await useBaseFetch(`search?query=${encodeURIComponent(inferredDependency.modId)}&facets=[["categories:${version.loaders[0]}"]]`)
+              const result = {
+                ...searchResults.hits[0],
+                dependencyType: inferredDependency.dependencyType,
+              }
+              inferredDependencies.set(inferredDependency.modId, result)
+            console.log(searchResults)
           }
         } catch (err) {
           console.error('Error parsing version file data', err)
@@ -919,6 +984,7 @@ export default defineNuxtComponent({
       primaryFile: ref(primaryFile),
       alternateFile: ref(alternateFile),
       replaceFile: ref(replaceFile),
+      inferredDependencies: ref(inferredDependencies),
     }
   },
   data() {
@@ -1250,6 +1316,7 @@ export default defineNuxtComponent({
       })
 
       await this.resetProjectVersions()
+      this.$refs.modal_check_metadata.hide()
 
       await this.$router.push(
         `/${this.project.project_type}/${
@@ -1338,6 +1405,19 @@ export default defineNuxtComponent({
 
       return newCreatedVersions
     },
+    async addInferredDependencies() {
+      for (const [modId, dependency] of this.inferredDependencies) {
+        await this.addDependency('project', dependency.project_id, dependency.dependencyType)
+      }
+      this.inferredDependencies.clear()
+    },
+    async addInferredDependency(modid, project) {
+      await this.addDependency('project', project.project_id, project.dependencyType)
+      this.inferredDependencies.delete(modid)
+    },
+    async dismissDependencies() {
+      this.inferredDependencies.clear()
+    }
   },
 })
 </script>
@@ -1349,6 +1429,7 @@ export default defineNuxtComponent({
   grid-template:
     'title' auto
     'changelog' auto
+    'inferred-dependencies' auto
     'dependencies' auto
     'metadata' auto
     'files' auto
@@ -1453,7 +1534,7 @@ export default defineNuxtComponent({
         }
 
         .multiselect {
-          width: 8rem;
+          width: 8rem !important;
           flex-grow: 1;
         }
 
@@ -1462,6 +1543,10 @@ export default defineNuxtComponent({
         }
       }
     }
+  }
+
+  .version-page__inferred-dependencies {
+    grid-area: inferred-dependencies;
   }
 
   .version-page__files {
@@ -1575,6 +1660,7 @@ export default defineNuxtComponent({
     grid-template:
       'title title' auto
       'changelog metadata' auto
+      'inferred-dependencies metadata' auto
       'dependencies metadata' auto
       'files metadata' auto
       'dummy metadata' 1fr
@@ -1597,6 +1683,104 @@ export default defineNuxtComponent({
 
   .multiselect {
     max-width: 20rem;
+  }
+}
+
+.infer-dependencies-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-lg);
+}
+
+.inferred-dependencies {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: var(--gap-lg);
+  margin-top: var(--gap-sm);
+
+  .add-all {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    white-space: nowrap;
+    top: -1.125rem;
+    background-color: var(--color-raised-bg);
+    border-radius: 50%;
+
+    .btn {
+      padding: var(--gap-sm);
+      color: var(--color-base);
+    }
+  }
+}
+
+.inferred-dependency {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-card-sm);
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-card-xs);
+
+    .project-title {
+      font-weight: bold;
+    }
+
+    .dep-type {
+      color: var(--color-text-secondary);
+
+      &.incompatible {
+        color: var(--color-red);
+      }
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  button {
+    color: var(--color-base);
+    margin-left: auto;
+  }
+}
+
+.verification-modal {
+  padding: var(--spacing-card-bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card-sm);
+
+  .markdown-body {
+    margin-bottom: 1rem;
+  }
+
+  .comparison-table {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-card-sm);
+    padding: var(--gap-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-button-bg);
+
+    .entry {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-card-xs);
+      width: 50%;
+
+      .code {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .button-label {
+    margin-top: var(--spacing-card-sm);
   }
 }
 </style>

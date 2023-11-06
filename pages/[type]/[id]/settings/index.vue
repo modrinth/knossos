@@ -9,6 +9,42 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
+    <Modal
+      ref="modal_scheduling"
+      :header="`Schedule ${project.title} for release`"
+    >
+      <div class="universal-modal">
+        <div class="markdown-body">
+          <p>
+            You can schedule your project to be released at a later date. This is useful if you
+            want to release your project at a specific time, or if you want to release your project
+            at a time when you're not available.
+          </p>
+        </div>
+        <label for="project-scheduling-date">
+          <span class="label__title">Release date</span>
+        </label>
+        <input
+          id="project-scheduling-time"
+          v-model="scheduledTime"
+          type="datetime-local"
+        />
+        <div class="input-group push-right">
+          <button class="iconified-button" @click="$refs.modal_scheduling.hide()">
+            <XIcon />
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="iconified-button brand-button"
+            @click="scheduleRelease"
+          >
+            <CalendarIcon />
+            Schedule release
+          </button>
+        </div>
+      </div>
+    </Modal>
     <section class="universal-card">
       <div class="label">
         <h3>
@@ -200,6 +236,26 @@
           :disabled="!hasPermission"
         />
       </div>
+      <div class="adjacent-input">
+        <label for="project-scheduling">
+          <span class="label__title">Scheduling</span>
+          <span class="label__description">
+            Your project is unpublished. {{ isScheduled = false ? '' : 'You can choose to publish it now by changing the visibility, or schedule it to be published at a later date.'}}
+          </span>
+          <span v-if="isScheduled = false" class="label__description">
+            <strong>{{project.title}}</strong> is scheduled to have its visibility changed to <strong>{{}}</strong> on {{project.scheduled_publish_date}}.
+          </span>
+        </label>
+        <button
+          type="button"
+          class="iconified-button"
+          :disabled="!hasPermission"
+          @click="$refs.modal_scheduling.show()"
+        >
+          <CalendarIcon />
+          Schedule release
+        </button>
+      </div>
       <div class="button-group">
         <button
           type="button"
@@ -248,6 +304,7 @@ import TrashIcon from '~/assets/images/utils/trash.svg'
 import ExitIcon from '~/assets/images/utils/x.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
+import { CalendarIcon, Modal, XIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {
@@ -261,6 +318,9 @@ export default defineNuxtComponent({
     ExitIcon,
     CheckIcon,
     IssuesIcon,
+    CalendarIcon,
+    Modal,
+    XIcon
   },
   props: {
     project: {
@@ -333,6 +393,7 @@ export default defineNuxtComponent({
       visibility: this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
         : this.project.requested_status,
+      scheduledTime: null
     }
   },
   computed: {
@@ -439,6 +500,34 @@ export default defineNuxtComponent({
         type: 'success',
       })
     },
+    openScheduleModal() {
+      this.scheduledTime = null;
+      this.$refs.modal_scheduling.show()
+    },
+    async scheduleRelease() {
+      try {
+        await useBaseFetch(`project/${this.project.id}/schedule`, {
+          method: 'PATCH',
+          body: {
+            time: this.scheduledTime,
+          },
+        })
+        this.$notify({
+          group: 'main',
+          title: 'Project scheduled',
+          text: 'Your project has been scheduled for release.',
+          type: 'success',
+        })
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data ? err.data.description : err,
+          type: 'error',
+        })
+      }
+      this.$refs.modal_scheduling.hide()
+    },
   },
 })
 </script>
@@ -470,4 +559,12 @@ svg {
 .multiselect {
   max-width: 15rem;
 }
+
+.universal-modal {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+}
+
 </style>
