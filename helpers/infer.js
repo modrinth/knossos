@@ -96,7 +96,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
 
   const getDependenciesFromFabricLikeJson = (file) => {
     const dependencies= []
-    const filter = (id) => id !== 'minecraft' && id !== 'fabricloader' && id !== 'quiltloader' && id !== 'forge' && id !== 'java'
+    const filter = (id) => id !== 'minecraft' && id !== 'fabricloader' && id !== 'quilt_loader' && id !== 'forge' && id !== 'java'
 
     if (file.depends) {
       dependencies.push(...Object.keys(file.depends).filter(filter).map(modId => ({

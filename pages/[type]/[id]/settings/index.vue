@@ -19,6 +19,7 @@
             You can schedule your project to be released at a later date. This is useful if you
             want to release your project at a specific time, or if you want to release your project
             at a time when you're not available.
+            {{new Date(this.scheduledTime).toISOString()}}
           </p>
         </div>
         <label for="project-scheduling-date">
@@ -28,6 +29,22 @@
           id="project-scheduling-time"
           v-model="scheduledTime"
           type="datetime-local"
+        />
+        <label for="project-scheduling-visibility">
+          <span class="label__title">Visibility</span>
+        </label>
+        <Multiselect
+          id="project-scheduling-visibility"
+          v-model="desiredVisibility"
+          placeholder="Select one"
+          :options="tags.approvedStatuses"
+          :custom-label="(value) => $formatProjectStatus(value)"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+          :disabled="!hasPermission"
+          open-direction="above"
         />
         <div class="input-group push-right">
           <button class="iconified-button" @click="$refs.modal_scheduling.hide()">
@@ -240,16 +257,20 @@
         <label for="project-scheduling">
           <span class="label__title">Scheduling</span>
           <span class="label__description">
-            Your project is unpublished. {{ isScheduled = false ? '' : 'You can choose to publish it now by changing the visibility, or schedule it to be published at a later date.'}}
+            Your project is currently <strong>{{project.status}}</strong>.
+            <span v-if="!tags.approvedStatuses.includes(project.status) && !project.approved">
+              Your project must be approved before it can be scheduled. Submit your project with
+              <strong>private</strong> set as the visibility to make the best use of scheduling.
+            </span>
           </span>
-          <span v-if="isScheduled = false" class="label__description">
-            <strong>{{project.title}}</strong> is scheduled to have its visibility changed to <strong>{{}}</strong> on {{project.scheduled_publish_date}}.
+          <span v-if="new Date(project.approved) > new Date()" class="label__description">
+            <strong>{{project.title}}</strong> is scheduled to be released on <strong>{{dayjs(project.approved)}}</strong>.
           </span>
         </label>
         <button
           type="button"
           class="iconified-button"
-          :disabled="!hasPermission"
+          :disabled="!hasPermission || !tags.approvedStatuses.includes(project.status)"
           @click="$refs.modal_scheduling.show()"
         >
           <CalendarIcon />
@@ -305,6 +326,7 @@ import ExitIcon from '~/assets/images/utils/x.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
 import { CalendarIcon, Modal, XIcon } from 'omorphia'
+import dayjs from "dayjs";
 
 export default defineNuxtComponent({
   components: {
@@ -393,7 +415,8 @@ export default defineNuxtComponent({
       visibility: this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
         : this.project.requested_status,
-      scheduledTime: null
+      scheduledTime: null,
+      desiredVisibility: 'approved'
     }
   },
   computed: {
@@ -441,6 +464,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    dayjs,
     hasModifiedVisibility() {
       const originalVisibility = this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
@@ -507,9 +531,10 @@ export default defineNuxtComponent({
     async scheduleRelease() {
       try {
         await useBaseFetch(`project/${this.project.id}/schedule`, {
-          method: 'PATCH',
+          method: 'POST',
           body: {
-            time: this.scheduledTime,
+            time: new Date(this.scheduledTime).toISOString(),
+            requested_status: this.desiredVisibility,
           },
         })
         this.$notify({
