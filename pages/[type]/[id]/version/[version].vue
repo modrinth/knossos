@@ -227,7 +227,10 @@
         "
       />
     </div>
-    <div v-if="inferredDependencies.size > 0"  class="universal-card version-page__inferred-dependencies">
+    <div
+      v-if="inferredDependencies.size > 0"
+      class="universal-card version-page__inferred-dependencies"
+    >
       <h3>Suggested dependencies</h3>
       <div class="markdown-body">
         <p>
@@ -236,7 +239,11 @@
         </p>
       </div>
       <div class="inferred-dependencies">
-        <div v-for="[modId, project] of inferredDependencies" class="inferred-dependency" :key="modId">
+        <div
+          v-for="[modId, project] of inferredDependencies"
+          :key="modId"
+          class="inferred-dependency"
+        >
           <Avatar :src="project.icon_url" alt="project-icon" size="sm" />
           <div class="text">
             <div class="project-title">
@@ -693,6 +700,7 @@
 </template>
 <script>
 import { Multiselect } from 'vue-multiselect'
+import { Button, SettingsIcon, UpdatedIcon } from 'omorphia'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
@@ -726,7 +734,6 @@ import BoxIcon from '~/assets/images/utils/box.svg'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
 import Modal from '~/components/ui/Modal.vue'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import { Button, SettingsIcon, UpdatedIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {
@@ -843,7 +850,7 @@ export default defineNuxtComponent({
     let alternateFile = {}
 
     let replaceFile = null
-    let inferredDependencies = new Map()
+    const inferredDependencies = new Map()
 
     if (mode === 'edit') {
       isEditing = true
@@ -887,12 +894,16 @@ export default defineNuxtComponent({
 
           for (const inferredDependency of version.inferredDependencies) {
             console.log(inferredDependency)
-              const searchResults = await useBaseFetch(`search?query=${encodeURIComponent(inferredDependency.modId)}&facets=[["categories:${version.loaders[0]}"]]`)
-              const result = {
-                ...searchResults.hits[0],
-                dependencyType: inferredDependency.dependencyType,
-              }
-              inferredDependencies.set(inferredDependency.modId, result)
+            const searchResults = await useBaseFetch(
+              `search?query=${encodeURIComponent(inferredDependency.modId)}&facets=[["categories:${
+                version.loaders[0]
+              }"]]`
+            )
+            const result = {
+              ...searchResults.hits[0],
+              dependencyType: inferredDependency.dependencyType,
+            }
+            inferredDependencies.set(inferredDependency.modId, result)
             console.log(searchResults)
           }
         } catch (err) {
@@ -1406,7 +1417,7 @@ export default defineNuxtComponent({
       return newCreatedVersions
     },
     async addInferredDependencies() {
-      for (const [modId, dependency] of this.inferredDependencies) {
+      for (const dependency of this.inferredDependencies.values()) {
         await this.addDependency('project', dependency.project_id, dependency.dependencyType)
       }
       this.inferredDependencies.clear()
@@ -1415,9 +1426,9 @@ export default defineNuxtComponent({
       await this.addDependency('project', project.project_id, project.dependencyType)
       this.inferredDependencies.delete(modid)
     },
-    async dismissDependencies() {
+    dismissDependencies() {
       this.inferredDependencies.clear()
-    }
+    },
   },
 })
 </script>

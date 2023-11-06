@@ -95,35 +95,56 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
     .map((it) => it.version)
 
   const getDependenciesFromFabricLikeJson = (file) => {
-    const dependencies= []
-    const filter = (id) => id !== 'minecraft' && id !== 'fabricloader' && id !== 'quilt_loader' && id !== 'forge' && id !== 'java'
+    const dependencies = []
+    const filter = (id) =>
+      id !== 'minecraft' &&
+      id !== 'fabricloader' &&
+      id !== 'quilt_loader' &&
+      id !== 'forge' &&
+      id !== 'java'
 
     if (file.depends) {
-      dependencies.push(...Object.keys(file.depends).filter(filter).map(modId => ({
-        modId,
-        dependencyType: 'required',
-      })));
+      dependencies.push(
+        ...Object.keys(file.depends)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'required',
+          }))
+      )
     }
 
     if (file.recommends) {
-      dependencies.push(...Object.keys(file.recommends).filter(filter).map(modId => ({
-        modId,
-        dependencyType: 'optional',
-      })));
+      dependencies.push(
+        ...Object.keys(file.recommends)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'optional',
+          }))
+      )
     }
 
     if (file.suggests) {
-      dependencies.push(...Object.keys(file.suggests).filter(filter).map(modId => ({
-        modId,
-        dependencyType: 'optional',
-      })));
+      dependencies.push(
+        ...Object.keys(file.suggests)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'optional',
+          }))
+      )
     }
 
     if (file.breaks) {
-      dependencies.push(...Object.keys(file.breaks).filter(filter).map(modId => ({
-        modId,
-        dependencyType: 'incompatible',
-      })));
+      dependencies.push(
+        ...Object.keys(file.breaks)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'incompatible',
+          }))
+      )
     }
     return dependencies
   }
@@ -178,7 +199,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
           loaders: ['forge'],
           game_versions: gameVersions,
           inferredDependencies,
-          license: metadata.license
+          license: metadata.license,
         }
       } else {
         return {}
@@ -211,7 +232,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
           ? getGameVersionsMatchingSemverRange(metadata.depends.minecraft, simplifiedGameVersions)
           : [],
         inferredDependencies: getDependenciesFromFabricLikeJson(metadata),
-        license: metadata.license
+        license: metadata.license,
       }
     },
     // Quilt
@@ -232,7 +253,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
             )
           : [],
         inferredDependencies: getDependenciesFromFabricLikeJson(metadata),
-        license: metadata.license
+        license: metadata.license,
       }
     },
     // Bukkit + Other Forks
