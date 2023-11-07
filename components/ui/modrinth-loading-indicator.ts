@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, onBeforeUnmount, ref, watch } from 'vue'
-import { useNuxtApp } from '#app'
+import { useNuxtApp } from '#imports'
 import { startLoading, stopLoading } from '#imports'
 
 export default defineComponent({

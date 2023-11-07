@@ -1,4 +1,4 @@
-import { useNuxtApp } from '#app'
+import { useNuxtApp } from '#imports'
 import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
