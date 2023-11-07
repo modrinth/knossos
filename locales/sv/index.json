@@ -18,7 +18,7 @@
     "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit froggad!"
   },
   "frog.sinceOpened": {
-    "message": "Denna sida öppnades {ago}"
+    "message": "Sidan öppnades {ago}"
   },
   "frog.title": {
     "message": "Groda"
@@ -51,7 +51,7 @@
     "message": "Gick med {ago}"
   },
   "profile.label.edit-bio": {
-    "message": "Om mig"
+    "message": "Biografi"
   },
   "profile.label.edit-username": {
     "message": "Användarnamn"
