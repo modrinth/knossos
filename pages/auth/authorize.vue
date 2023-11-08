@@ -25,14 +25,19 @@
       </ul>
     </div>
     <div class="button-row">
-      <Button class="wide-button" large :action="onReject"> Decline </Button>
-      <Button class="wide-button" color="primary" large :action="onAuthorize"> Authorize </Button>
+      <Button class="wide-button" large :action="onReject" :disabled="pending"> Decline </Button>
+      <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
+        Authorize
+      </Button>
     </div>
     <div class="redirection-notice">
       <p class="redirect-instructions">
         Authorizing will redirect you to
         <span class="redirect-url">{{ redirectUri }}</span>
       </p>
+    </div>
+    <div>
+      <Button class="wide-button" color="primary" large :action="_debug"> Debug </Button>
     </div>
   </div>
 </template>
@@ -48,89 +53,109 @@ const auth = await useAuth()
 
 const clientId = router.query?.client_id || false
 const redirectUri = router.query?.redirect_uri || false
+const scope = router.query?.scope || false
 const state = router.query?.state || false
+
+const getFlowIdAuthorization = async () => {
+  const query = {
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    scope,
+  }
+  if (state) {
+    query.state = state
+  }
+
+  const authorization = await useBaseFetch('auth/oauth/authorize', {
+    method: 'GET',
+    apiVersion: 3,
+    query,
+  }) // This will contain the flow_id and oauth_client_id for accepting the oauth on behalf of the user
+
+  if (typeof authorization === 'string') {
+    await navigateTo(authorization, {
+      external: true,
+    })
+  }
+
+  return authorization
+}
+
+const { data: authorizationData, pending } = await useAsyncData(
+  'authorization',
+  getFlowIdAuthorization
+)
 
 const app = await useBaseFetch('oauth/app/' + clientId, {
   method: 'GET',
   apiVersion: 3,
 })
 
-const scopeDefinitions = getScopeDefinitions(BigInt(app.max_scopes))
+const scopeDefinitions = getScopeDefinitions(BigInt(authorizationData.value.requested_scopes || 0))
 
 const createdBy = await useBaseFetch('user/' + app.created_by, {
   method: 'GET',
 })
 
-const onAuthorize = async () => {
-  const authorization = await useBaseFetch('auth/oauth/authorize', {
-    method: 'GET',
-    apiVersion: 3,
-    query: {
-      client_id: clientId,
-      redirect_uri: redirectUri,
-      state: state || undefined,
-    },
-  }) // This will contain the flow_id and oauth_client_id for accepting the oauth on behalf of the user
-
-  if (typeof authorization === 'string') {
-    window.location.href = authorization
-    return
-  }
-
-  if (!authorization.flowId) {
-    throw new Error('No flow id found in response')
-  }
-
-  const res = await useBaseFetch('auth/oauth/accept', {
-    method: 'POST',
+const _debug = async () => {
+  const client = await useBaseFetch('auth/oauth/app', {
+    method: 'PUT',
     apiVersion: 3,
     body: {
-      flow: authorization.flowId,
+      name: 'Test App',
+      icon_url: 'https://i.imgur.com/4M34hi2.png',
+      scopes: 805321759,
+      redirect_uris: ['https://example.com/auth/callback'],
     },
   })
 
-  if (typeof res === 'string') {
-    window.location.href = res
-    return
-  }
+  console.log(client)
+}
 
-  throw new Error('No redirect location found in response')
+const onAuthorize = async () => {
+  try {
+    const res = await useBaseFetch('auth/oauth/accept', {
+      method: 'POST',
+      apiVersion: 3,
+      body: {
+        flow: authorizationData.value.flow_id,
+      },
+    })
+
+    if (typeof res === 'string') {
+      navigateTo(res, {
+        external: true,
+      })
+      return
+    }
+
+    throw new Error('No redirect location found in response')
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const onReject = async () => {
-  const authorization = await useBaseFetch('auth/oauth/authorize', {
-    method: 'GET',
-    apiVersion: 3,
-    query: {
-      client_id: clientId,
-      redirect_uri: redirectUri,
-      state: state || undefined,
-    },
-  }) // This will contain the flow_id and oauth_client_id for accepting the oauth on behalf of the user
+  try {
+    const res = await useBaseFetch('auth/oauth/reject', {
+      method: 'POST',
+      apiVersion: 3,
+      body: {
+        flow: authorizationData.value.flow_id,
+      },
+    })
 
-  if (typeof authorization === 'string') {
-    window.location.href = authorization
-    return
+    if (typeof res === 'string') {
+      navigateTo(res, {
+        external: true,
+      })
+      return
+    }
+
+    throw new Error('No redirect location found in response')
+  } catch (error) {
+    console.error(error)
   }
-
-  if (!authorization.flowId) {
-    throw new Error('No flow id found in response')
-  }
-
-  const res = await useBaseFetch('auth/oauth/reject', {
-    method: 'POST',
-    apiVersion: 3,
-    body: {
-      flow: authorization.flowId,
-    },
-  })
-
-  if (typeof res === 'string') {
-    window.location.href = res
-    return
-  }
-
-  throw new Error('No redirect location found in response')
 }
 
 definePageMeta({

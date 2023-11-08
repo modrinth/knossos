@@ -42,6 +42,18 @@ export const Scopes = {
   NONE: BigInt(0),
 }
 
+export const RestrictedScopes = [
+  Scopes.PAT_READ,
+  Scopes.PAT_WRITE,
+  Scopes.PAT_DELETE,
+  Scopes.SESSION_READ,
+  Scopes.SESSION_DELETE,
+  Scopes.SESSION_ACCESS,
+  Scopes.USER_AUTH_WRITE,
+  Scopes.USER_DELETE,
+  Scopes.PERFORM_ANALYTICS,
+]
+
 export const decodeScopes = (scopes: string) => {
   return BigInt(scopes)
 }
