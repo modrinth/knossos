@@ -31,15 +31,15 @@
     </div>
     <div class="summary">{{ description }}</div>
     <div class="stats">
-      <span class="stat">
+      <span v-tooltip="`${formatNumber(downloads, false)} downloads`" class="stat">
         <span class="label"><DownloadIcon /></span>
         <span class="value">{{ formatNumber(downloads) }}</span>
       </span>
-      <span class="stat">
+      <span v-tooltip="`${formatNumber(follows, false)} followers`" class="stat">
         <span class="label"><HeartIcon /></span>
         <span class="value">{{ formatNumber(follows) }}</span>
       </span>
-      <span class="stat">
+      <span v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm A')" class="stat">
         <span class="label">Updated</span>
         <span class="value">{{ fromNow(updatedAt) }}</span>
       </span>
@@ -449,6 +449,8 @@ export default {
     gap: 0.25rem;
     justify-content: center;
     line-height: 1em;
+    pointer-events: all;
+    cursor: text;
 
     .label {
       color: var(--color-secondary);
