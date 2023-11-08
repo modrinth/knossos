@@ -269,23 +269,27 @@
             :options="[
               {
                 id: 'profile',
-                action: () => {},
+                action: () => {
+                  router.push(`/user/${auth.user.username}`)
+                },
               },
               {
                 id: 'saved',
-                action: () => {},
+                action: () => {
+                  router.push(`/follows`)
+                },
               },
               {
                 id: 'projects',
-                action: () => {},
-              },
-              {
-                id: 'create-project',
-                action: () => $refs.modal_creation.show(),
+                action: () => {
+                  router.push(`/projects`)
+                },
               },
               {
                 id: 'reports',
-                action: () => {},
+                action: () => {
+                  router.push(`/reports`)
+                },
               },
               { divider: true },
               {
