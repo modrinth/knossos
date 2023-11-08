@@ -44,122 +44,77 @@
         <span class="value">{{ fromNow(updatedAt) }}</span>
       </span>
     </div>
-  </article>
-  <article v-if="false" class="project-card" :aria-label="name" role="listitem">
-    <nuxt-link
-      :title="name"
-      class="icon"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-    >
-      <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
-    </nuxt-link>
-    <nuxt-link
-      class="gallery"
-      :class="{ 'no-image': !featuredImage }"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-      :style="color ? `background-color: ${toColor};` : ''"
-    >
-      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" loading="lazy" />
-    </nuxt-link>
-    <div class="title">
-      <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
-        <h2 class="name">
-          {{ name }}
-        </h2>
-      </nuxt-link>
-      <p v-if="author" class="author">
-        by
-        <nuxt-link class="title-link" :to="`/user/${author}`">
-          {{ author }}
-        </nuxt-link>
-      </p>
-      <Badge v-if="status && status !== 'approved'" :type="status" class="status" />
-    </div>
-    <p class="description">
-      {{ description }}
-    </p>
-    <Categories
-      :categories="
-        categories.filter((x) => !hideLoaders || !tags.loaders.find((y) => y.name === x))
-      "
-      :type="type"
-      class="tags"
-    >
-      <EnvironmentIndicator
-        :type-only="moderation"
-        :client-side="clientSide"
-        :server-side="serverSide"
-        :type="projectTypeDisplay"
-        :search="search"
-        :categories="categories"
-      />
-    </Categories>
-    <div class="stats">
-      <div v-if="downloads" class="stat">
-        <DownloadIcon aria-hidden="true" />
-        <p>
-          <strong>{{ $formatNumber(downloads) }}</strong
-          ><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
-        </p>
-      </div>
-      <div v-if="follows" class="stat">
-        <HeartIcon aria-hidden="true" />
-        <p>
-          <strong>{{ $formatNumber(follows) }}</strong
-          ><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
-        </p>
-      </div>
-      <div class="buttons">
-        <slot />
-      </div>
-      <div
-        v-if="showUpdatedDate"
-        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm A')"
-        class="stat date"
+    <div class="actions">
+      <button v-tooltip="`Follow`" class="btn icon-only">
+        <HeartIcon />
+      </button>
+      <OverflowMenu
+        class="btn icon-only"
+        position="bottom"
+        direction="right"
+        :options="[
+          {
+            id: 'download',
+            color: 'green',
+            hoverFilledOnly: true,
+            action: () => {
+              router.push(`/${$getProjectTypeForUrl(type, categories)}/${id}/versions`)
+            },
+          },
+          {
+            id: 'save',
+            action: () => {},
+          },
+          {
+            id: 'gallery',
+            action: () => {
+              router.push(`/${$getProjectTypeForUrl(type, categories)}/${id}/gallery`)
+            },
+          },
+          {
+            id: 'versions',
+            action: () => {
+              router.push(`/${$getProjectTypeForUrl(type, categories)}/${id}/versions`)
+            },
+          },
+        ]"
       >
-        <EditIcon aria-hidden="true" />
-        <span class="date-label"
-          >Updated <strong>{{ fromNow(updatedAt) }}</strong></span
-        >
-      </div>
-      <div
-        v-else
-        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm A')"
-        class="stat date"
-      >
-        <CalendarIcon aria-hidden="true" />
-        <span class="date-label"
-          >Published <strong>{{ fromNow(createdAt) }}</strong></span
-        >
-      </div>
+        <MoreHorizontalIcon />
+        <template #download> <DownloadIcon /> Download </template>
+        <template #save> <BookmarkIcon /> Save </template>
+        <template #gallery> <ImageIcon /> View gallery </template>
+        <template #versions> <VersionIcon /> View versions </template>
+      </OverflowMenu>
     </div>
   </article>
 </template>
 
 <script>
+import {
+  HeartIcon,
+  DownloadIcon,
+  MoreHorizontalIcon,
+  ImageIcon,
+  VersionIcon,
+  OverflowMenu,
+} from 'omorphia'
 import Categories from '~/components/ui/search/Categories.vue'
-import Badge from '~/components/ui/Badge.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
+import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
 
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import EditIcon from '~/assets/images/utils/pen-square.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
 import Avatar from '~/components/ui/Avatar.vue'
-import { formatNumber } from '~/plugins/shorthands'
+import { formatNumber } from '~/plugins/shorthands.js'
 
 export default {
   components: {
-    EnvironmentIndicator,
     Avatar,
     Categories,
-    Badge,
-    CalendarIcon,
-    EditIcon,
     DownloadIcon,
     HeartIcon,
+    MoreHorizontalIcon,
+    OverflowMenu,
+    BookmarkIcon,
+    ImageIcon,
+    VersionIcon,
   },
   props: {
     id: {
@@ -262,8 +217,9 @@ export default {
   },
   setup() {
     const tags = useTags()
+    const router = useRouter()
 
-    return { tags }
+    return { tags, router }
   },
   computed: {
     projectTypeDisplay() {
@@ -330,8 +286,8 @@ export default {
 .project-card {
   display: grid;
   gap: 0.5rem 0.75rem;
-  grid-template: 'icon title gallery' 'icon summary gallery' 'icon stats gallery';
-  grid-template-columns: min-content 1fr auto;
+  grid-template: 'icon title actions gallery' 'icon summary actions gallery' 'icon stats actions gallery';
+  grid-template-columns: min-content 1fr min-content auto;
   grid-template-rows: min-content auto 1fr;
   position: relative;
   padding: 1rem;
@@ -339,51 +295,20 @@ export default {
   border-radius: 10px;
   background-color: var(--color-raised-bg);
   border: 1px solid var(--color-button-bg);
-  height: 8rem;
-
-  > div {
-    z-index: 1;
-  }
 
   *:not(a, button, .project-card__link) {
     pointer-events: none;
   }
 
-  &::before {
-    content: '';
-    inset: 0;
-    background-image: linear-gradient(-90deg, transparent 97%, var(--_accent-color));
-    position: absolute;
-    opacity: 0;
-    border-radius: inherit;
-    filter: brightness(1) saturate(1);
-  }
-
-  &::after {
-    content: '';
-    inset: 0;
-    background-color: transparent;
-    position: absolute;
-    opacity: 0.5;
-    //border-left: 6px solid var(--_accent-color);
-  }
-
   &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
     scale: 0.99 !important;
   }
-
-  //a:not(.project-card__link) {
-  //  z-index: 10;
-  //  position: absolute;
-  //  left: 20rem;
-  //}
 }
 
 .project-card__link {
   position: absolute;
   inset: 0;
   cursor: pointer;
-  z-index: 1;
   border-radius: inherit;
 
   &:focus-visible {
@@ -481,19 +406,49 @@ export default {
   display: flex;
   grid-area: gallery;
   align-items: center;
-  height: 100%;
+  justify-content: flex-end;
+  height: 6rem;
 
   img {
-    margin-left: auto;
-    aspect-ratio: 2 / 1;
     object-fit: cover;
     border-radius: 15px;
+    //width: 100%;
+    //max-width: 100%;
     height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 1;
     border: 4px solid var(--color-button-bg);
   }
 
   &.no-image img {
     //opacity: 0;
+  }
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  gap: var(--gap-xs);
+  width: fit-content;
+  margin-left: auto;
+  transition: opacity 0.25s ease-in-out;
+  height: fit-content;
+
+  @media (hover: hover) {
+    opacity: 0;
+  }
+
+  :deep(.popup-menu) {
+    z-index: 20;
+  }
+}
+
+@media (hover: hover) {
+  .project-card:hover,
+  .project-card:focus-within {
+    .actions {
+      opacity: 1;
+    }
   }
 }
 </style>
