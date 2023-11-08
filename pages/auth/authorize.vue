@@ -18,11 +18,16 @@
         }}</nuxt-link>
         will be able to:
       </p>
-      <ul>
-        <li v-for="scope in scopeDefinitions" :key="scope">
-          {{ scope }}
-        </li>
-      </ul>
+      <div class="scope-items">
+        <div v-for="scopeItem in scopeDefinitions" :key="scopeItem">
+          <div class="scope-item">
+            <div class="icon">
+              <CheckIcon />
+            </div>
+            {{ scopeItem }}
+          </div>
+        </div>
+      </div>
     </div>
     <div class="button-row">
       <Button class="wide-button" large :action="onReject" :disabled="pending"> Decline </Button>
@@ -36,14 +41,11 @@
         <span class="redirect-url">{{ redirectUri }}</span>
       </p>
     </div>
-    <div>
-      <Button class="wide-button" color="primary" large :action="_debug"> Debug </Button>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { Button } from 'omorphia'
+import { Button, CheckIcon } from 'omorphia'
 import { useBaseFetch } from '@/composables/fetch.js'
 import { useAuth } from '@/composables/auth.js'
 import { getScopeDefinitions } from '@/utils/auth/scopes.ts'
@@ -97,21 +99,6 @@ const createdBy = await useBaseFetch('user/' + app.created_by, {
   method: 'GET',
 })
 
-const _debug = async () => {
-  const client = await useBaseFetch('auth/oauth/app', {
-    method: 'PUT',
-    apiVersion: 3,
-    body: {
-      name: 'Test App',
-      icon_url: 'https://i.imgur.com/4M34hi2.png',
-      scopes: 805321759,
-      redirect_uris: ['https://example.com/auth/callback'],
-    },
-  })
-
-  console.log(client)
-}
-
 const onAuthorize = async () => {
   try {
     const res = await useBaseFetch('auth/oauth/accept', {
@@ -164,6 +151,28 @@ definePageMeta({
 </script>
 
 <style scoped lang="scss">
+.scope-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.scope-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+.icon {
+  display: flex;
+
+  color: #fff;
+  background-color: var(--color-green);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: var(--gap-xs);
+}
 .title {
   display: flex;
   flex-direction: column;
@@ -208,7 +217,7 @@ definePageMeta({
 .auth-info {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-xs);
+  gap: var(--gap-sm);
 }
 
 .profile-pics {
