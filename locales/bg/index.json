@@ -147,45 +147,45 @@
     "message": "Не е възможно да се зареди езика. Опитайте отново по-късно."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Изпратете, за да фокусирате първия резултат от търсенето"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Потърси за език..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural, =0 {Няма съвпадащи езици от} one {# език съвпада} other {# езици съвпадат}} вашето търсенте."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Няма езици, който съвпадаха вашето търсене."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Език"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Отмени сесията"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Ето всички устройства, в които момента са влезли в вашия Modrinth акаунт. Можете да излезете от всеки един поотделно.\n\nАко видите запис, който не разпознавате, излезте от това устройство и незабавно променете паролата на вашия Modrinth акаунт."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Създадено {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Текуща сесия"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Последен достъп преди {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Неизвестен OS"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Неизвестна платформа"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Сесии"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} в {time, time, short}"
   }
 }
