@@ -152,12 +152,14 @@
           <NuxtLink to="/" class="button-base logo-button" aria-label="Modrinth home page">
             <BrandTextLogo aria-hidden="true" />
           </NuxtLink>
-
           <NuxtLink class="btn btn-transparent" to="/home">
             <span class="title">Home</span>
           </NuxtLink>
           <OverflowMenu
-            class="btn btn-transparent icon-only btn-dropdown-animation"
+            class="btn btn-transparent btn-dropdown-animation"
+            :class="{
+              'visibly-active': route.name.startsWith('search-'),
+            }"
             position="bottom"
             direction="right"
             :options="[
@@ -223,7 +225,7 @@
           </OverflowMenu>
 
           <OverflowMenu
-            class="btn btn-transparent icon-only btn-dropdown-animation"
+            class="btn btn-transparent btn-dropdown-animation"
             position="bottom"
             direction="right"
             :options="[
@@ -745,6 +747,7 @@ export default defineNuxtComponent({
         flex-shrink: 0;
       }
 
+      &.visibly-active,
       &.allow-non-exact.router-link-active,
       &.router-link-exact-active {
         color: var(--color-brand);
