@@ -133,6 +133,8 @@ html {
   --landing-green-label-bg: rgba(0, 216, 69, 0.15);
 
   --landing-raw-bg: #fff;
+
+  --tag-bg: rgba(0, 0, 0, 0.075);
 }
 
 .dark-mode {
@@ -262,6 +264,8 @@ html {
 
   --hover-filter: brightness(120%);
   --active-filter: brightness(140%);
+
+  --tag-bg: rgba(255, 255, 255, 0.075);
 }
 
 .oled-mode {
@@ -469,8 +473,8 @@ a:focus-visible,
 }
 
 .GBBNWLJVGRHFLYVGSZKSSKNTHFYXHMBD {
-  --color-ad: rgba(199, 138, 255, 0.2);
-  --color-ad-raised: rgba(199, 138, 255, 0.8);
+  --color-ad: rgba(125, 75, 162, 0.2);
+  --color-ad-raised: rgba(190, 140, 243, 0.8);
   border-width: 1px;
 
   a strong {
@@ -487,4 +491,8 @@ a:focus-visible,
   bottom: -1px;
   right: -1px;
   color: var(--color-accent-contrast);
+}
+
+.btn {
+  padding: var(--gap-sm) var(--gap-md);
 }

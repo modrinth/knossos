@@ -1,5 +1,51 @@
 <template>
-  <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
+  <article class="project-card" :style="`--_accent-color: ${toColor}`">
+    <nuxt-link
+      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+      class="project-card__link"
+    ></nuxt-link>
+    <div class="icon">
+      <Avatar :src="iconUrl" />
+    </div>
+    <div class="title">
+      <div class="name">{{ name }}</div>
+      <nuxt-link :to="`user/${author}`" class="author">
+        by
+        <span>{{ author }}</span>
+      </nuxt-link>
+    </div>
+    <Categories
+      v-if="false"
+      :type="type"
+      :categories="categories.filter((cat) => !tags.loaders.some((loader) => loader.name === cat))"
+      class="tags"
+    />
+    <div class="featured-gallery" :class="!featuredImage ? 'no-image' : ''">
+      <img
+        :src="
+          featuredImage ? featuredImage : 'https://launcher-files.modrinth.com/assets/maze-bg.png'
+        "
+        alt="gallery image"
+        loading="lazy"
+      />
+    </div>
+    <div class="summary">{{ description }}</div>
+    <div class="stats">
+      <span class="stat">
+        <span class="label"><DownloadIcon /></span>
+        <span class="value">{{ formatNumber(downloads) }}</span>
+      </span>
+      <span class="stat">
+        <span class="label"><HeartIcon /></span>
+        <span class="value">{{ formatNumber(follows) }}</span>
+      </span>
+      <span class="stat">
+        <span class="label">Updated</span>
+        <span class="value">{{ fromNow(updatedAt) }}</span>
+      </span>
+    </div>
+  </article>
+  <article v-if="false" class="project-card" :aria-label="name" role="listitem">
     <nuxt-link
       :title="name"
       class="icon"
@@ -25,7 +71,7 @@
       </nuxt-link>
       <p v-if="author" class="author">
         by
-        <nuxt-link class="title-link" :to="'/user/' + author">
+        <nuxt-link class="title-link" :to="`/user/${author}`">
           {{ author }}
         </nuxt-link>
       </p>
@@ -102,6 +148,7 @@ import EditIcon from '~/assets/images/utils/pen-square.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import Avatar from '~/components/ui/Avatar.vue'
+import { formatNumber } from '~/plugins/shorthands'
 
 export default {
   components: {
@@ -229,7 +276,51 @@ export default {
       const b = color & 0xff
       const g = (color & 0xff00) >>> 8
       const r = (color & 0xff0000) >>> 16
-      return 'rgba(' + [r, g, b, 1].join(',') + ')'
+
+      // Convert RGB to HSL
+      const hsl = this.rgbToHsl(r, g, b)
+
+      // Extract HSL components
+      const h = hsl[0]
+      const s = hsl[1]
+      const l = Math.min(hsl[2], 50)
+
+      return 'hsl(' + [h, s + '%', l + '%'].join(',') + ')'
+    },
+  },
+  methods: {
+    formatNumber,
+    rgbToHsl: (r, g, b) => {
+      r /= 255
+      g /= 255
+      b /= 255
+
+      const max = Math.max(r, g, b)
+      const min = Math.min(r, g, b)
+      let h
+      let s
+      const l = (max + min) / 2
+
+      if (max === min) {
+        h = s = 0 // achromatic
+      } else {
+        const d = max - min
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+        switch (max) {
+          case r:
+            h = (g - b) / d + (g < b ? 6 : 0)
+            break
+          case g:
+            h = (b - r) / d + 2
+            break
+          case b:
+            h = (r - g) / d + 4
+            break
+        }
+        h /= 6
+      }
+
+      return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)]
     },
   },
 }
@@ -237,289 +328,171 @@ export default {
 
 <style lang="scss" scoped>
 .project-card {
-  display: inline-grid;
-  box-sizing: border-box;
-  overflow: hidden;
-  margin: 0;
-}
-
-.display-mode--list .project-card {
-  grid-template:
-    'icon title stats'
-    'icon description stats'
-    'icon tags stats';
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  grid-template: 'icon title gallery' 'icon summary gallery' 'icon stats gallery';
   grid-template-columns: min-content 1fr auto;
-  grid-template-rows: min-content 1fr min-content;
-  column-gap: var(--spacing-card-md);
-  row-gap: var(--spacing-card-sm);
-  width: 100%;
+  grid-template-rows: min-content auto 1fr;
+  position: relative;
+  padding: 1rem;
+  //padding-left: calc(1rem + 6px);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--color-raised-bg);
+  border: 1px solid var(--color-button-bg);
+  height: 8rem;
 
-  @media screen and (max-width: 750px) {
-    grid-template:
-      'icon title'
-      'icon description'
-      'icon tags'
-      'stats stats';
-    grid-template-columns: min-content auto;
-    grid-template-rows: min-content 1fr min-content min-content;
-  }
-
-  @media screen and (max-width: 550px) {
-    grid-template:
-      'icon title'
-      'icon description'
-      'tags tags'
-      'stats stats';
-    grid-template-columns: min-content auto;
-    grid-template-rows: min-content 1fr min-content min-content;
-  }
-}
-
-.display-mode--gallery .project-card,
-.display-mode--grid .project-card {
-  padding: 0 0 var(--spacing-card-bg) 0;
-  grid-template: 'gallery gallery' 'icon title' 'description  description' 'tags tags' 'stats stats';
-  grid-template-columns: min-content 1fr;
-  grid-template-rows: min-content min-content 1fr min-content min-content;
-  row-gap: var(--spacing-card-sm);
-
-  .gallery {
-    display: inline-block;
-    width: 100%;
-    height: 10rem;
-    background-color: var(--color-button-bg-active);
-
-    &.no-image {
-      filter: brightness(0.7);
-    }
-
-    img {
-      box-shadow: none;
-      width: 100%;
-      height: 10rem;
-      object-fit: cover;
-    }
-  }
-
-  .icon {
-    margin-left: var(--spacing-card-bg);
-    margin-top: -3rem;
+  > div {
     z-index: 1;
-
-    img,
-    svg {
-      border-radius: var(--size-rounded-lg);
-      box-shadow: -2px -2px 0 2px var(--color-raised-bg), 2px -2px 0 2px var(--color-raised-bg);
-    }
   }
 
-  .title {
-    margin-left: var(--spacing-card-md);
-    margin-right: var(--spacing-card-bg);
-    flex-direction: column;
-
-    .name {
-      font-size: 1.25rem;
-    }
-
-    .status {
-      margin-top: var(--spacing-card-xs);
-    }
+  *:not(a, button, .project-card__link) {
+    pointer-events: none;
   }
 
-  .description {
-    margin-inline: var(--spacing-card-bg);
+  &::before {
+    content: '';
+    inset: 0;
+    background-image: linear-gradient(-90deg, transparent 97%, var(--_accent-color));
+    position: absolute;
+    opacity: 0;
+    border-radius: inherit;
+    filter: brightness(1) saturate(1);
   }
 
-  .tags {
-    margin-inline: var(--spacing-card-bg);
+  &::after {
+    content: '';
+    inset: 0;
+    background-color: transparent;
+    position: absolute;
+    opacity: 0.5;
+    //border-left: 6px solid var(--_accent-color);
   }
 
-  .stats {
-    margin-inline: var(--spacing-card-bg);
-    flex-direction: row;
-    align-items: center;
-
-    .stat-label {
-      display: none;
-    }
-
-    .buttons {
-      flex-direction: row;
-      gap: var(--spacing-card-sm);
-      align-items: center;
-
-      > :first-child {
-        margin-left: auto;
-      }
-
-      &:first-child > :last-child {
-        margin-right: auto;
-      }
-    }
-
-    .buttons:not(:empty) + .date {
-      flex-basis: 100%;
-    }
+  &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
+    scale: 0.99 !important;
   }
+
+  //a:not(.project-card__link) {
+  //  z-index: 10;
+  //  position: absolute;
+  //  left: 20rem;
+  //}
 }
 
-.display-mode--grid .project-card {
-  .gallery {
-    display: none;
-  }
+.project-card__link {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: inherit;
 
-  .icon {
-    margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
-  }
-
-  .title {
-    margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
+  &:focus-visible {
+    border: 2px solid white;
   }
 }
 
 .icon {
+  --_size: 6rem;
   grid-area: icon;
-  display: flex;
-  align-items: flex-start;
-}
+  width: var(--_size);
+  height: var(--_size);
+  box-shadow: none;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  border: 1px solid var(--color-button-bg);
+  background-color: var(--color-raised-bg);
 
-.gallery {
-  display: none;
-  height: 10rem;
-  grid-area: gallery;
+  .avatar {
+    --size: var(--_size);
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: inherit;
+  }
 }
 
 .title {
   grid-area: title;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  gap: 0.3em;
   align-items: baseline;
-  column-gap: var(--spacing-card-sm);
-  row-gap: 0;
-  word-wrap: anywhere;
+}
 
-  h2,
-  p {
-    margin: 0;
-  }
+.name {
+  font-weight: 700;
+  color: var(--color-contrast);
+  font-size: var(--font-size-md);
+}
 
-  h2 {
-    font-size: 1.25rem;
-  }
+.author {
+  font-size: var(--font-size-sm);
 
-  svg {
-    width: auto;
-    color: var(--color-special-orange);
-    height: 1.5rem;
-    margin-bottom: -0.25rem;
+  a {
+    color: var(--color-link) !important;
   }
 }
 
 .stats {
-  grid-area: stats;
   display: flex;
-  flex-direction: column;
+  gap: 0.5rem 1rem;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: var(--spacing-card-md);
+  grid-area: stats;
+  margin-top: auto;
+  margin-bottom: -2px;
 
   .stat {
     display: flex;
-    align-items: center;
-    width: fit-content;
-    color: var(--color-text-secondary);
-
-    strong {
-      color: var(--color-text);
-      font-weight: 600;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    svg {
-      height: 1.1rem;
-      width: 1.1rem;
-      color: var(--color-text-secondary);
-      margin-right: 0.5rem;
-    }
-  }
-
-  .date {
-    margin-top: auto;
-  }
-
-  @media screen and (max-width: 750px) {
     flex-direction: row;
-    column-gap: var(--spacing-card-md);
-    margin-top: var(--spacing-card-xs);
-  }
+    gap: 0.25rem;
+    justify-content: center;
+    line-height: 1em;
 
-  @media screen and (max-width: 600px) {
-    margin-top: 0;
+    .label {
+      color: var(--color-secondary);
+    }
 
-    .stat-label {
-      display: none;
+    .value {
+      font-weight: 500;
     }
   }
 }
 
-.environment {
-  color: var(--color-text) !important;
-  font-weight: bold;
-}
-
-.description {
-  grid-area: description;
-  margin-block: 0;
-  display: flex;
-  justify-content: flex-start;
+.summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.25rem;
+  height: 2.5rem;
+  font-size: var(--font-size-sm);
+  grid-area: summary;
+  color: var(--color-text-secondary);
 }
 
 .tags {
   grid-area: tags;
-  display: flex;
-  flex-direction: row;
+}
 
-  @media screen and (max-width: 550px) {
-    margin-top: var(--spacing-card-xs);
+.featured-gallery {
+  display: flex;
+  grid-area: gallery;
+  align-items: center;
+  height: 100%;
+
+  img {
+    margin-left: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-radius: 15px;
+    height: 100%;
+    border: 4px solid var(--color-button-bg);
   }
-}
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-card-sm);
-  align-items: flex-end;
-  flex-grow: 1;
-}
-
-.small-mode {
-  @media screen and (min-width: 750px) {
-    grid-template:
-      'icon title'
-      'icon description'
-      'icon tags'
-      'stats stats' !important;
-    grid-template-columns: min-content auto !important;
-    grid-template-rows: min-content 1fr min-content min-content !important;
-
-    .tags {
-      margin-top: var(--spacing-card-xs) !important;
-    }
-
-    .stats {
-      flex-direction: row;
-      column-gap: var(--spacing-card-md) !important;
-      margin-top: var(--spacing-card-xs) !important;
-
-      .stat-label {
-        display: none !important;
-      }
-    }
+  &.no-image img {
+    //opacity: 0;
   }
 }
 </style>

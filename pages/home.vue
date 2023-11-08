@@ -98,7 +98,7 @@
             <XIcon />
           </Button>
         </div>
-        <PopoutMenu class="btn" position="bottom-left" from="top-right">
+        <PopoutMenu class="btn search-row-button">
           <FilterIcon />
           Filter...
           <template #menu>
@@ -144,7 +144,16 @@
 </template>
 
 <script setup>
-import { DownloadIcon, UserIcon, HeartIcon, BoxIcon, SettingsIcon, Button, XIcon } from 'omorphia'
+import {
+  DownloadIcon,
+  UserIcon,
+  HeartIcon,
+  BoxIcon,
+  SettingsIcon,
+  Button,
+  XIcon,
+  PopoutMenu,
+} from 'omorphia'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import TransferIcon from '~/assets/images/utils/transfer.svg'
@@ -156,7 +165,6 @@ import NotificationItem from '~/components/ui/NotificationItem.vue'
 import SearchIcon from 'assets/images/utils/search.svg'
 import FilterIcon from 'assets/images/utils/filter.svg'
 import { getUserLink } from '~/helpers/users'
-import PopoutMenu from '~/components/ui/PopoutMenu.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 
 const auth = await useAuth()
@@ -310,26 +318,6 @@ const notificationSearchInput = ref('')
 
   h2 {
     margin: 0;
-  }
-}
-
-.search-row {
-  margin-bottom: var(--gap-lg);
-  display: flex;
-
-  .iconified-input {
-    flex-grow: 1;
-
-    input {
-      height: 3rem;
-      background-color: var(--color-raised-bg);
-      border: 1px solid var(--color-button-bg);
-    }
-  }
-
-  :deep(.btn) {
-    height: 3rem;
-    margin-left: var(--gap-sm);
   }
 }
 

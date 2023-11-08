@@ -2,7 +2,12 @@
   <NuxtLayout>
     <ModrinthLoadingIndicator />
     <Notifications />
-    <NuxtPage />
+    <NuxtPage>
+      <template #header>
+        <slot name="header"></slot>
+      </template>
+      <slot />
+    </NuxtPage>
   </NuxtLayout>
 </template>
 <script setup lang="ts">
