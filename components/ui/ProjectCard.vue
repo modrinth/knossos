@@ -337,7 +337,6 @@ export default {
   padding: 1rem;
   //padding-left: calc(1rem + 6px);
   border-radius: 10px;
-  overflow: hidden;
   background-color: var(--color-raised-bg);
   border: 1px solid var(--color-button-bg);
   height: 8rem;
@@ -388,7 +387,7 @@ export default {
   border-radius: inherit;
 
   &:focus-visible {
-    border: 2px solid white;
+    outline: 0.25rem solid #ea80ff;
   }
 }
 
