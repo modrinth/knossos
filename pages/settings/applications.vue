@@ -7,7 +7,40 @@
       proceed-label="Delete this application"
       @proceed="removeApp(editingId)"
     />
-    <Modal ref="appModal" :header="`${editPatIndex !== null ? 'Edit' : 'Create'} application`">
+    <Modal ref="clientSecretModal" header="Make sure to save your client secret!">
+      <div class="universal-modal">
+        <div>
+          <p>
+            <strong>Client ID</strong>
+          </p>
+          <div>
+            <CopyCode :text="lastCreatedAppInfo.id" />
+          </div>
+        </div>
+        <div>
+          <p>
+            <strong>Client Secret</strong>
+          </p>
+          <p>These are only shown here once, so make sure to save it.</p>
+          <div>
+            <CopyCode :text="lastCreatedAppInfo.client_secret" />
+          </div>
+        </div>
+        <div class="submit-row input-group push-right">
+          <Button
+            @click="
+              () => {
+                $refs.clientSecretModal.hide()
+              }
+            "
+          >
+            <CheckIcon />
+            Done
+          </Button>
+        </div>
+      </div>
+    </Modal>
+    <Modal ref="appModal" header="Application Information">
       <div class="universal-modal">
         <label for="app-name"><span class="label__title">Name</span> </label>
         <input
@@ -136,9 +169,7 @@
         <div>
           <strong>{{ app.name }}</strong>
         </div>
-        <div>
-          <CopyCode :text="app.id" />
-        </div>
+        <div>Client ID <CopyCode :text="app.id" /></div>
       </div>
       <div class="input-group">
         <Button
@@ -185,6 +216,7 @@ import {
   EditIcon,
   SaveIcon,
   CopyCode,
+  CheckIcon,
   ConfirmModal,
 } from 'omorphia'
 import { scopeList, hasScope, toggleScope } from '~/utils/auth/scopes.ts'
@@ -199,8 +231,9 @@ useHead({
 
 const data = useNuxtApp()
 const appModal = ref()
+const clientSecretModal = ref()
 
-const editPatIndex = ref(null)
+const lastCreatedAppInfo = ref(null)
 
 const editingId = ref(null)
 const name = ref(null)
@@ -238,14 +271,14 @@ const setForm = (app) => {
 
 const canSubmit = computed(() => {
   // Make sure name, scopes, and return uri are at least filled in
-  return name.value !== '' && redirectUris.value.length > 0
+  return name.value && name.value !== '' && name.value?.length > 2 && redirectUris.value.length > 0
 })
 
 async function createApp() {
   startLoading()
   loading.value = true
   try {
-    await useBaseFetch('oauth/app', {
+    const createdAppInfo = await useBaseFetch('oauth/app', {
       method: 'POST',
       apiVersion: 3,
       body: {
@@ -256,10 +289,13 @@ async function createApp() {
       },
     })
 
+    lastCreatedAppInfo.value = createdAppInfo
+
     await refresh()
     setForm(null)
 
     appModal.value.hide()
+    clientSecretModal.value.show()
   } catch (err) {
     data.$notify({
       group: 'main',
