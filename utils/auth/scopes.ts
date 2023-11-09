@@ -39,10 +39,9 @@ export const Scopes = {
   ORGANIZATION_WRITE: BigInt(1) << BigInt(37),
   ORGANIZATION_DELETE: BigInt(1) << BigInt(38),
   SESSION_ACCESS: BigInt(1) << BigInt(39),
-  NONE: BigInt(0),
 }
 
-export const RestrictedScopes = [
+export const restrictedScopes = [
   Scopes.PAT_READ,
   Scopes.PAT_WRITE,
   Scopes.PAT_DELETE,
@@ -54,11 +53,32 @@ export const RestrictedScopes = [
   Scopes.PERFORM_ANALYTICS,
 ]
 
-export const decodeScopes = (scopes: string) => {
-  return BigInt(scopes)
+export const scopeList = Object.entries(Scopes)
+  .filter(([_, value]) => !restrictedScopes.includes(value))
+  .map(([key, _]) => key)
+
+export const encodeScopes = (scopes: string[]) => {
+  let scopeFlag = BigInt(0)
+
+  // We iterate over the provided scopes
+  for (const scope of scopes) {
+    // We iterate over the entries of the Scopes object
+    for (const [scopeName, scopeFlagValue] of Object.entries(Scopes)) {
+      // If the scope name is the same as the provided scope, add the scope flag to the scopeFlag variable
+      if (scopeName === scope) {
+        scopeFlag = scopeFlag | scopeFlagValue
+      }
+    }
+  }
+
+  return scopeFlag
 }
 
-export const getAuthorizedScopes = (scopes: bigint) => {
+export const decodeScopes = (scopes: bigint | number) => {
+  if (typeof scopes === 'number') {
+    scopes = BigInt(scopes)
+  }
+
   const authorizedScopes = []
 
   // We iterate over the entries of the Scopes object
@@ -72,19 +92,24 @@ export const getAuthorizedScopes = (scopes: bigint) => {
   return authorizedScopes
 }
 
-export const getScopeDefinitions = (scopes: bigint) => {
-  const authorizedScopes = getAuthorizedScopes(scopes)
-  const scopeDescriptions = []
+export const hasScope = (scopes: bigint, scope: string) => {
+  const authorizedScopes = decodeScopes(scopes)
+  return authorizedScopes.includes(scope)
+}
 
-  // We iterate over the entries of the ScopeDescriptions object
-  for (const [scopeName, scopeDescription] of Object.entries(ScopeDescriptions)) {
-    // If the scope name is present in the authorized scopes, add the scope description to the list
-    if (authorizedScopes.includes(scopeName)) {
-      scopeDescriptions.push(scopeDescription)
-    }
+export const toggleScope = (scopes: bigint, scope: string) => {
+  const authorizedScopes = decodeScopes(scopes)
+  if (authorizedScopes.includes(scope)) {
+    return encodeScopes(authorizedScopes.filter((authorizedScope) => authorizedScope !== scope))
+  } else {
+    return encodeScopes([...authorizedScopes, scope])
   }
+}
 
-  return scopeDescriptions
+export const getScopeDefinitions = (scopes: bigint) => {
+  return decodeScopes(scopes)
+    .filter((scope) => Object.keys(ScopeDescriptions).includes(scope))
+    .map((scope) => (ScopeDescriptions as Record<string, string>)[scope])
 }
 
 export const ScopeDescriptions = {

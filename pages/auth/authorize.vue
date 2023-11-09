@@ -1,45 +1,47 @@
 <template>
   <div>
-    <div class="connected-items">
-      <div class="profile-pics">
-        <img class="profile-pic" :src="app.icon_url" alt="User profile picture" />
-        <div class="connection-indicator">+</div>
-        <img class="profile-pic" :src="auth.user.avatar_url" alt="User profile picture" />
+    <div class="oauth-items">
+      <div class="connected-items">
+        <div class="profile-pics">
+          <img class="profile-pic" :src="app.icon_url" alt="User profile picture" />
+          <div class="connection-indicator">+</div>
+          <img class="profile-pic" :src="auth.user.avatar_url" alt="User profile picture" />
+        </div>
       </div>
-    </div>
-    <div class="title">
-      <h2 class="text-center">Authorize {{ app.name }}</h2>
-    </div>
-    <div class="auth-info">
-      <p>
-        <strong>{{ app.name }}</strong> by
-        <nuxt-link class="text-link" :to="'/user/' + createdBy.id">{{
-          createdBy.username
-        }}</nuxt-link>
-        will be able to:
-      </p>
-      <div class="scope-items">
-        <div v-for="scopeItem in scopeDefinitions" :key="scopeItem">
-          <div class="scope-item">
-            <div class="icon">
-              <CheckIcon />
+      <div class="title">
+        <h1>Authorize {{ app.name }}</h1>
+      </div>
+      <div class="auth-info">
+        <p>
+          <strong>{{ app.name }}</strong> by
+          <nuxt-link class="text-link" :to="'/user/' + createdBy.id">{{
+            createdBy.username
+          }}</nuxt-link>
+          will be able to:
+        </p>
+        <div class="scope-items">
+          <div v-for="scopeItem in scopeDefinitions" :key="scopeItem">
+            <div class="scope-item">
+              <div class="icon">
+                <CheckIcon />
+              </div>
+              {{ scopeItem }}
             </div>
-            {{ scopeItem }}
           </div>
         </div>
       </div>
-    </div>
-    <div class="button-row">
-      <Button class="wide-button" large :action="onReject" :disabled="pending"> Decline </Button>
-      <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
-        Authorize
-      </Button>
-    </div>
-    <div class="redirection-notice">
-      <p class="redirect-instructions">
-        Authorizing will redirect you to
-        <span class="redirect-url">{{ redirectUri }}</span>
-      </p>
+      <div class="button-row">
+        <Button class="wide-button" large :action="onReject" :disabled="pending"> Decline </Button>
+        <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
+          Authorize
+        </Button>
+      </div>
+      <div class="redirection-notice">
+        <p class="redirect-instructions">
+          Authorizing will redirect you to
+          <span class="redirect-url">{{ redirectUri }}</span>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -151,6 +153,12 @@ definePageMeta({
 </script>
 
 <style scoped lang="scss">
+.oauth-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
 .scope-items {
   display: flex;
   flex-direction: column;
@@ -174,13 +182,9 @@ definePageMeta({
   padding: var(--gap-xs);
 }
 .title {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-xs);
-  justify-content: center;
-  align-items: center;
+  margin-inline: auto;
 
-  h2 {
+  h1 {
     margin-bottom: 0 !important;
   }
 }
@@ -210,10 +214,6 @@ definePageMeta({
   gap: var(--gap-xs);
   justify-content: center;
 }
-.text-center {
-  text-align: center;
-}
-
 .auth-info {
   display: flex;
   flex-direction: column;

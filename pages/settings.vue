@@ -18,6 +18,9 @@
             <NavStackItem link="/settings/pats" label="PATs">
               <KeyIcon />
             </NavStackItem>
+            <NavStackItem link="/settings/applications" label="Applications">
+              <KeyIcon />
+            </NavStackItem>
             <NavStackItem link="/settings/sessions" :label="formatMessage(messages.sessionsTitle)">
               <ShieldIcon />
             </NavStackItem>
