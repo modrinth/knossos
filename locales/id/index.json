@@ -3,7 +3,7 @@
     "message": "Batal"
   },
   "button.edit": {
-    "message": "Sunting"
+    "message": "Ubah"
   },
   "button.save": {
     "message": "Simpan"
@@ -57,7 +57,7 @@
     "message": "Nama pengguna"
   },
   "profile.label.no-projects": {
-    "message": "Pengguna ini tidak punya proyek!"
+    "message": "Pengguna ini tidak memiliki proyek!"
   },
   "profile.label.no-projects-auth": {
     "message": "Anda tidak memiliki proyek apa pun.\nApakah anda ingin <create-link>membuatnya</create-link>?"
@@ -99,7 +99,7 @@
     "message": "Paket Mod"
   },
   "project-type.plugin.plural": {
-    "message": "Plugin"
+    "message": "Plugins"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
@@ -162,30 +162,30 @@
     "message": "Bahasa"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Cabut sesi"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Berikut adalah semua perangkat yang saat ini masuk dengan akun Modrinth Anda. Anda dapat keluar dari masing-masing perangkat secara satu per satu.\n\nJika Anda melihat entri yang tidak dikenali, segera keluar dari perangkat tersebut dan ubah kata sandi akun Modrinth Anda."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Dibuat {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Sesi saat ini"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Terakhir diakses {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "OS tidak dikenal"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Platform tidak dikenal"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Sesi"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} pukul {time, time, short}"
   }
 }
