@@ -1,6 +1,15 @@
 <template>
   <div>
-    <div class="oauth-items">
+    <div v-if="error" class="oauth-items">
+      <div>
+        <h1>Error</h1>
+      </div>
+      <p>
+        <span>{{ error.data.error }}: </span>
+        {{ error.data.description }}
+      </p>
+    </div>
+    <div v-else class="oauth-items">
       <div class="connected-items">
         <div class="profile-pics">
           <img class="profile-pic" :src="app.icon_url" alt="User profile picture" />
@@ -31,8 +40,12 @@
         </div>
       </div>
       <div class="button-row">
-        <Button class="wide-button" large :action="onReject" :disabled="pending"> Decline </Button>
+        <Button class="wide-button" large :action="onReject" :disabled="pending">
+          <XIcon />
+          Decline
+        </Button>
         <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
+          <CheckIcon />
           Authorize
         </Button>
       </div>
@@ -47,7 +60,7 @@
 </template>
 
 <script setup>
-import { Button, CheckIcon } from 'omorphia'
+import { Button, XIcon, CheckIcon } from 'omorphia'
 import { useBaseFetch } from '@/composables/fetch.js'
 import { useAuth } from '@/composables/auth.js'
 import { getScopeDefinitions } from '@/utils/auth/scopes.ts'
@@ -85,17 +98,18 @@ const getFlowIdAuthorization = async () => {
   return authorization
 }
 
-const { data: authorizationData, pending } = await useAsyncData(
-  'authorization',
-  getFlowIdAuthorization
-)
+const {
+  data: authorizationData,
+  pending,
+  error,
+} = await useAsyncData('authorization', getFlowIdAuthorization)
 
 const app = await useBaseFetch('oauth/app/' + clientId, {
   method: 'GET',
   apiVersion: 3,
 })
 
-const scopeDefinitions = getScopeDefinitions(BigInt(authorizationData.value.requested_scopes || 0))
+const scopeDefinitions = getScopeDefinitions(BigInt(authorizationData.value?.requested_scopes || 0))
 
 const createdBy = await useBaseFetch('user/' + app.created_by, {
   method: 'GET',
