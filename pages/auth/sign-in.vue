@@ -3,7 +3,9 @@
     <template v-if="flow">
       <label for="two-factor-code">
         <span class="label__title">{{ formatMessage(messages.twoFactorCodeLabel) }}</span>
-        <span class="label__description">{{ formatMessage(messages.twoFactorCodeLabelDescription) }}</span>
+        <span class="label__description">
+          {{ formatMessage(messages.twoFactorCodeLabelDescription) }}
+        </span>
       </label>
       <input
         id="two-factor-code"
@@ -84,9 +86,13 @@
         </button>
 
         <div class="auth-form__additional-options">
-          <NuxtLink class="text-link" to="/auth/reset-password">{{ formatMessage(messages.forgotPasswordLink) }}</NuxtLink>
+          <NuxtLink class="text-link" to="/auth/reset-password">
+            {{ formatMessage(messages.forgotPasswordLink) }}
+          </NuxtLink>
           <p>•</p>
-          <NuxtLink class="text-link" :to="signUpLink">{{ formatMessage(messages.createAccountLink) }}</NuxtLink>
+          <NuxtLink class="text-link" :to="signUpLink">
+            {{ formatMessage(messages.createAccountLink) }}
+          </NuxtLink>
         </div>
       </section>
     </template>
@@ -105,7 +111,6 @@ import MailIcon from 'assets/icons/auth/mail.svg'
 import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 
 const { formatMessage } = useVIntl()
-const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
   authFormSectionTitle: {
