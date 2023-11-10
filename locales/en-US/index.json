@@ -1,4 +1,34 @@
 {
+  "auth.sign-in.input.two-factor-code.placeholder": {
+    "message": "Enter code..."
+  },
+  "auth.sign-in.label.email-username": {
+    "message": "Email or username"
+  },
+  "auth.sign-in.label.password": {
+    "message": "Password"
+  },
+  "auth.sign-in.label.two-factor-code": {
+    "message": "Enter two-factor code"
+  },
+  "auth.sign-in.label.two-factor-code.description": {
+    "message": "Please enter a two-factor code to proceed."
+  },
+  "auth.sign-in.link.forgot-password": {
+    "message": "Forgot password?"
+  },
+  "auth.sign-in.link.create-account": {
+    "message": "Create an account"
+  },
+  "auth.sign-in.section.auth-form.title": {
+    "message": "Or use a password"
+  },
+  "auth.sign-in.section.third-party.title": {
+    "message": "Sign in with"
+  },
+  "auth.sign-in.title": {
+    "message": "Sign In"
+  },
   "button.cancel": {
     "message": "Cancel"
   },
