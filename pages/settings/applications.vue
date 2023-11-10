@@ -7,39 +7,6 @@
       proceed-label="Delete this application"
       @proceed="removeApp(editingId)"
     />
-    <Modal ref="clientSecretModal" header="Make sure to save your client secret!">
-      <div class="universal-modal">
-        <div>
-          <p>
-            <strong>Client ID</strong>
-          </p>
-          <div>
-            <CopyCode :text="lastCreatedAppInfo.id" />
-          </div>
-        </div>
-        <div>
-          <p>
-            <strong>Client Secret</strong>
-          </p>
-          <p>These are only shown here once, so make sure to save it.</p>
-          <div>
-            <CopyCode :text="lastCreatedAppInfo.client_secret" />
-          </div>
-        </div>
-        <div class="submit-row input-group push-right">
-          <Button
-            @click="
-              () => {
-                $refs.clientSecretModal.hide()
-              }
-            "
-          >
-            <CheckIcon />
-            Done
-          </Button>
-        </div>
-      </div>
-    </Modal>
     <Modal ref="appModal" header="Application Information">
       <div class="universal-modal">
         <label for="app-name"><span class="label__title">Name</span> </label>
@@ -153,7 +120,6 @@
             scopesVal = 0
             redirectUris = []
             newRedirectUri = null
-            lastCreatedAppInfo = null
             editingId = null
             expires = null
             $refs.appModal.show()
@@ -169,11 +135,17 @@
       <a class="text-link" href="https://docs.modrinth.com">Modrinth's API documentation</a>.
     </p>
     <div v-for="app in usersApps" :key="app.id" class="universal-card recessed token">
-      <div>
+      <div class="token-info">
         <div>
           <strong>{{ app.name }}</strong>
         </div>
         <div>Client ID <CopyCode :text="app.id" /></div>
+        <template v-if="!!clientCreatedInState(app.id)">
+          <div>Client Secret <CopyCode :text="clientCreatedInState(app.id)?.client_secret" /></div>
+          <div class="secret_disclaimer">
+            Copy this now, it will be hidden after you leave this page!
+          </div>
+        </template>
       </div>
       <div class="input-group">
         <Button
@@ -219,7 +191,6 @@ import {
   EditIcon,
   SaveIcon,
   CopyCode,
-  CheckIcon,
   ConfirmModal,
 } from 'omorphia'
 import { scopeList, hasScope, toggleScope } from '~/utils/auth/scopes.ts'
@@ -235,9 +206,10 @@ useHead({
 const data = useNuxtApp()
 
 const appModal = ref()
-const clientSecretModal = ref()
 
-const lastCreatedAppInfo = ref(null)
+// Any apps created in the current state will be stored here
+// Users can copy Client Secrets and such before the page reloads
+const createdApps = ref([])
 
 const editingId = ref(null)
 const name = ref(null)
@@ -278,6 +250,10 @@ const canSubmit = computed(() => {
   return name.value && name.value !== '' && name.value?.length > 2 && redirectUris.value.length > 0
 })
 
+const clientCreatedInState = (id) => {
+  return createdApps.value.find((app) => app.id === id)
+}
+
 async function createApp() {
   startLoading()
   loading.value = true
@@ -293,13 +269,12 @@ async function createApp() {
       },
     })
 
-    lastCreatedAppInfo.value = createdAppInfo
+    createdApps.value.push(createdAppInfo)
+
+    setForm(null)
+    appModal.value.hide()
 
     await refresh()
-    setForm(null)
-
-    appModal.value.hide()
-    clientSecretModal.value.show()
   } catch (err) {
     data.$notify({
       group: 'main',
@@ -378,6 +353,9 @@ const constCaseToTitleCase = (str) =>
     .join(' ')
 </script>
 <style lang="scss" scoped>
+.secret_disclaimer {
+  font-size: var(--font-size-sm);
+}
 .submit-row {
   padding-top: var(--gap-lg);
 }
@@ -409,15 +387,21 @@ const constCaseToTitleCase = (str) =>
 .token {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+
+  .token-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .input-group {
+    margin-left: auto;
+  }
 
   @media screen and (min-width: 800px) {
     flex-direction: row;
-    align-items: center;
-
-    .input-group {
-      margin-left: auto;
-    }
   }
 }
 </style>
