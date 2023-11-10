@@ -39,12 +39,17 @@
           <div>
             <strong>Scopes:</strong>
           </div>
-          <div>
-            <ul>
-              <li v-for="scope in decodeScopes(authorization.scopes)" :key="scope">
-                <code>{{ constCaseToTitleCase(scope) }}</code>
-              </li>
-            </ul>
+          <div class="scope-list">
+            <div
+              v-for="scope in decodeScopes(authorization.scopes)"
+              :key="scope"
+              class="scope-list-item"
+            >
+              <div class="scope-list-item-icon">
+                <CheckIcon />
+              </div>
+              {{ constCaseToTitleCase(scope) }}
+            </div>
           </div>
         </div>
       </div>
@@ -68,7 +73,7 @@
   </div>
 </template>
 <script setup>
-import { Button, TrashIcon, ConfirmModal } from 'omorphia'
+import { Button, TrashIcon, CheckIcon, ConfirmModal } from 'omorphia'
 import { decodeScopes } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
@@ -139,6 +144,36 @@ const constCaseToTitleCase = (str) =>
     .join(' ')
 </script>
 <style lang="scss" scoped>
+.scope-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding-block: var(--gap-sm);
+
+  .scope-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--color-gray-200);
+    color: var(--color-gray-700);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+
+  .scope-list-item-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-green);
+    color: #fff;
+  }
+}
+
 .icon-name {
   display: flex;
   align-items: center;
@@ -197,13 +232,14 @@ const constCaseToTitleCase = (str) =>
   flex-direction: column;
   gap: 0.5rem;
 
+  .input-group {
+    // Align to the right on mobile
+    margin-left: auto;
+  }
+
   @media screen and (min-width: 800px) {
     flex-direction: row;
     align-items: start;
-
-    .input-group {
-      margin-left: auto;
-    }
   }
 }
 </style>
