@@ -117,7 +117,7 @@
             Cancel
           </button>
           <button
-            v-if="editPatIndex !== null"
+            v-if="editingId"
             :disabled="!canSubmit"
             type="button"
             class="iconified-button brand-button"
@@ -149,9 +149,13 @@
         @click="
           () => {
             name = null
+            icon = null
             scopesVal = 0
+            redirectUris = []
+            newRedirectUri = null
+            lastCreatedAppInfo = null
+            editingId = null
             expires = null
-            editPatIndex = null
             $refs.appModal.show()
           }
         "
@@ -164,7 +168,7 @@
       information, see
       <a class="text-link" href="https://docs.modrinth.com">Modrinth's API documentation</a>.
     </p>
-    <div v-for="(app, index) in usersApps" :key="app.id" class="universal-card recessed token">
+    <div v-for="app in usersApps" :key="app.id" class="universal-card recessed token">
       <div>
         <div>
           <strong>{{ app.name }}</strong>
@@ -176,7 +180,6 @@
           icon-only
           @click="
             () => {
-              editPatIndex = index
               setForm({
                 ...app,
                 redirect_uris: app.redirect_uris.map((u) => u.uri) || [],
