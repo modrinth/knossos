@@ -233,6 +233,7 @@ useHead({
 })
 
 const data = useNuxtApp()
+
 const appModal = ref()
 const clientSecretModal = ref()
 
