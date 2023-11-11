@@ -54,67 +54,67 @@
     "message": "Bwio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Usewnyame"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "This usew has nyo pwojects?!?!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "You don't have any OwO pwojects.\nWouwd you wike -to <create-link>cweate onye</create-link>!? ÚwÚ"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Downwoad {username}'s pwojects on Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Downwoad {username}'s pwojects on Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> downwoad} other {<stat>{count}</stat> downwoads}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> fowwowew} other {<stat>{count}</stat> fowwowews}} of projects"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Usew ID: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "aww >w<"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Data Packs owo"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Data Pack owo"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Mods >v<"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Mod >v<"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modpacks ;u;"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "M-Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Pwugins"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "P-Pwugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "W-W-Wesouwce Packs"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "W-W-Wesouwce Pack"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shadew"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Shadews"
   },
   "settings.language.categories.auto": {
     "message": "Automatwic"
@@ -162,30 +162,30 @@
     "message": "Wanguage"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Wevoke session owo"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Hewe awe aww the x3 devices that awe cuwwentwy UwU wogged in with youw Modrinth account. You c-can wog out of each onye individuawwy.\n\nIf you see an entwy you don't wecognyize, wog out of that device *whispers to self* and change youw Modrinth account passwowd ^-^ i-i-immediatewy."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Cweated {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Cuwwent session"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Wast accessed {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Unknyown O-OS"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Unknyown pwatfowm"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "S-Sessions"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} at {time, time, short}  ^w^"
   }
 }
