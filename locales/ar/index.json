@@ -1,6 +1,6 @@
 {
   "button.cancel": {
-    "message": "الغائ"
+    "message": "إلغاء"
   },
   "button.edit": {
     "message": "تعديل"
@@ -33,37 +33,37 @@
     "message": "عرض بنمط القائمة"
   },
   "notification.error.title": {
-    "message": "حصل خطأ ما"
+    "message": "حدثَ خطأ ما"
   },
   "profile.button.manage-projects": {
     "message": "إدارة المشاريع"
   },
   "profile.button.report": {
-    "message": "رفع تقرير"
+    "message": "تبليغ"
   },
   "profile.error.not-found": {
-    "message": "لا يوجد مستخدم"
+    "message": "لم يتم العثور على المُستخدم"
   },
   "profile.input.upload-avatar": {
-    "message": "تحميل الصورة الحاسوبية"
+    "message": "تحميل صورة الحساب"
   },
   "profile.joined-at": {
-    "message": "لقد انضممت {ago}"
+    "message": "انضممت {ago}"
   },
   "profile.label.edit-bio": {
-    "message": "لمحة تعريفية"
+    "message": "السيرة الذاتية"
   },
   "profile.label.edit-username": {
     "message": "اسم المستخدم"
   },
   "profile.label.no-projects": {
-    "message": "ليس لدى هذا المستخدم أيّة أعمال!"
+    "message": "ليس لدى هذا المستخدم أيّة مشاريع!"
   },
   "profile.label.no-projects-auth": {
     "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
   },
   "profile.meta.description": {
-    "message": "تنزيل المشاريع الخاصة بـ{username} على Modrinth"
+    "message": "تنزيل مشاريع {username} على Modrinth"
   },
   "profile.meta.description-with-bio": {
     "message": "{bio}-تنزيل المشروع الخاص بـ{username} على Modrinth"
@@ -75,13 +75,13 @@
     "message": "{count, plural, one {<stat>{count}</stat> متابع} other {<stat>{count}</stat> متابعًا}} للمشاريع"
   },
   "profile.user-id": {
-    "message": "معرّف المستخدم: {id}"
+    "message": "مٌعرف المستخدم: {id}"
   },
   "project-type.all": {
     "message": "الكل"
   },
   "project-type.datapack.plural": {
-    "message": "حزَم البيانات"
+    "message": "حُزمة البيانات"
   },
   "project-type.datapack.singular": {
     "message": "حزمة البيانات"
@@ -102,13 +102,13 @@
     "message": "الملحقات"
   },
   "project-type.plugin.singular": {
-    "message": "الملحق"
+    "message": "مُلحق"
   },
   "project-type.resourcepack.plural": {
     "message": "حزم الموارد"
   },
   "project-type.resourcepack.singular": {
-    "message": "حزمة الموارد"
+    "message": "حُزمة الموارد"
   },
   "project-type.shader.plural": {
     "message": "المظلّلات"
@@ -117,7 +117,7 @@
     "message": "المظلل"
   },
   "settings.language.categories.auto": {
-    "message": "آلي"
+    "message": "تلقائي"
   },
   "settings.language.categories.default": {
     "message": "اللغات المعيارية"
@@ -132,10 +132,10 @@
     "message": "نتائج البحث"
   },
   "settings.language.description": {
-    "message": "اختر اللغة التي تفضلها على الموقع. يساهم التطوعون في توفير الترجمات <crowdin-link>على منصّة Crowdin</crowdin-link>."
+    "message": "أختر لُغتك المُفضلة للموقع. تمت الترجمات من قِبل المُتطوعين <crowdin-link> على مِنصة Crowdin </crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "مطابقة لغة النظام"
+    "message": "مُطابقة مع لغة النظام"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. جارٍ التطبيق..."
@@ -147,10 +147,10 @@
     "message": "لا يمكن تحميل هذه اللغة. حاول مرة أخرى بعد قليل."
   },
   "settings.language.languages.search-field.description": {
-    "message": "إرسال للتركيز على أولى نتائج البحث"
+    "message": "أرسل للتركيز على نتائج البحث الأولى"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "البحث عن لغة ما..."
+    "message": "أبحث عن لُغة..."
   },
   "settings.language.languages.search-results-announcement": {
     "message": "{matches, plural, =0 {لا تطابق في اللغات} one {# تطابق اللغات} other {# تطابق اللغاتh}} في بحثك."
@@ -159,28 +159,28 @@
     "message": "ما من لغات تتطابق مع بحثك."
   },
   "settings.language.title": {
-    "message": "اللغة"
+    "message": "لُغة"
   },
   "settings.sessions.button.revoke-session": {
     "message": "إنهاء الجلسة"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "هُنا كل الأجهزة التي تمت تسجيل الدخول بحسابك في Modrinth حالياً. تستطيع تسجيل الخروج في كل جهاز بشكل فردي.\n\nأذا رأيت تسجيل لا تتذكره, سجل خروج من ذالِك الجهاز و غًير كلمة السر حسابك في Modrinth في الحال."
   },
   "settings.sessions.label.created-at": {
     "message": "تم الإنشاء منذ {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "الجلسة الراهنة"
+    "message": "الجلسة الحالية"
   },
   "settings.sessions.label.last-accessed-at": {
     "message": "آخر وصول منذ {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "نظام تشغيل مجهول"
+    "message": "نظام تشغيل غير معروف"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "منصة مجهولة"
+    "message": "مِنصة غير معروفة"
   },
   "settings.sessions.title": {
     "message": "الجلسات"
