@@ -95,7 +95,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
     .map((it) => it.version)
 
   const inferFunctions = {
-    // Forge 1.13+
+    // Forge 1.13+ and NeoForge
     'META-INF/mods.toml': async (file, zip) => {
       const metadata = TOML.parse(file, { joiner: '\n' })
 
@@ -122,6 +122,22 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         const mcDependencies = Object.values(metadata.dependencies)
           .flat()
           .filter((dependency) => dependency.modId === 'minecraft')
+
+        const hasNeoForge =
+          Object.values(metadata.dependencies)
+            .flat()
+            .filter((dependency) => dependency.modId === 'neoforge').length > 0
+
+        const hasForge =
+          Object.values(metadata.dependencies)
+            .flat()
+            .filter((dependency) => dependency.modId === 'forge').length > 0
+
+        const loaders = []
+
+        if (hasNeoForge) loaders.push('neoforge')
+        if (hasForge) loaders.push('forge')
+
         if (mcDependencies.length > 0) {
           gameVersions = getGameVersionsMatchingMavenRange(
             mcDependencies[0].versionRange,
@@ -133,7 +149,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
           name: `${project.title} ${versionNum}`,
           version_number: versionNum,
           version_type: versionType(versionNum),
-          loaders: ['forge'],
+          loaders,
           game_versions: gameVersions,
         }
       } else {
@@ -249,6 +265,9 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
       const loaders = []
       if ('forge' in metadata.dependencies) {
         loaders.push('forge')
+      }
+      if ('neoforge' in metadata.dependencies) {
+        loaders.push('neoforge')
       }
       if ('fabric-loader' in metadata.dependencies) {
         loaders.push('fabric')
