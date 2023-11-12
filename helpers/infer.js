@@ -123,6 +123,13 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
           .flat()
           .filter((dependency) => dependency.modId === 'minecraft')
 
+        if (mcDependencies.length > 0) {
+          gameVersions = getGameVersionsMatchingMavenRange(
+            mcDependencies[0].versionRange,
+            simplifiedGameVersions
+          )
+        }
+
         const hasNeoForge =
           Object.values(metadata.dependencies)
             .flat()
@@ -133,17 +140,15 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
             .flat()
             .filter((dependency) => dependency.modId === 'forge').length > 0
 
+        // Checks if game version is below 1.20.2 as NeoForge full split and id change was in 1.20.2
+        const below1202 = getGameVersionsMatchingSemverRange('<=1.20.1', simplifiedGameVersions)
+
+        const isOlderThan1202 = below1202.some((r) => gameVersions.includes(r))
+
         const loaders = []
 
         if (hasNeoForge) loaders.push('neoforge')
-        if (hasForge) loaders.push('forge')
-
-        if (mcDependencies.length > 0) {
-          gameVersions = getGameVersionsMatchingMavenRange(
-            mcDependencies[0].versionRange,
-            simplifiedGameVersions
-          )
-        }
+        if (hasForge || isOlderThan1202) loaders.push('forge')
 
         return {
           name: `${project.title} ${versionNum}`,
