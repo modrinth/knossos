@@ -7,7 +7,7 @@
       proceed-label="Delete this application"
       @proceed="removeApp(editingId)"
     />
-    <Modal ref="appModal" header="Application Information">
+    <Modal ref="appModal" header="Application information">
       <div class="universal-modal">
         <label for="app-name"><span class="label__title">Name</span> </label>
         <input
@@ -16,7 +16,7 @@
           maxlength="2048"
           type="text"
           autocomplete="off"
-          placeholder="Enter the Application's name..."
+          placeholder="Enter the application's name..."
         />
         <label for="app-icon"><span class="label__title">Icon</span> </label>
         <input
@@ -37,7 +37,7 @@
             @update:model-value="() => (scopesVal = toggleScope(scopesVal, scope))"
           />
         </div>
-        <label for="app-redirect-uris"><span class="label__title">Redirect Uris</span> </label>
+        <label for="app-redirect-uris"><span class="label__title">Redirect uris</span> </label>
         <div class="uri-input-list">
           <div v-for="(_, index) in redirectUris" :key="index">
             <div class="input-group url-input-group-fixes">
@@ -398,6 +398,12 @@ const constCaseToTitleCase = (str) =>
 
   .input-group {
     margin-left: auto;
+
+    // For the children override the padding so that y padding is --gap-sm and x padding is --gap-lg
+    // Knossos global styling breaks everything
+    > * {
+      padding: var(--gap-sm) var(--gap-lg);
+    }
   }
 
   @media screen and (min-width: 800px) {
