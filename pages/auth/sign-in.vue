@@ -192,6 +192,7 @@ async function begin2FASignIn() {
   }
   stopLoading()
 }
+
 async function finishSignIn(token) {
   if (token) {
     await useAuth(token)
@@ -199,7 +200,10 @@ async function finishSignIn(token) {
   }
 
   if (route.query.redirect) {
-    await navigateTo(route.query.redirect)
+    const redirect = decodeURIComponent(route.query.redirect)
+    await navigateTo(redirect, {
+      replace: true,
+    })
   } else {
     await navigateTo('/dashboard')
   }
