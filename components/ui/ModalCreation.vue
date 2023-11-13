@@ -3,9 +3,7 @@
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>{{ formatMessage(messages.modalDescription) }}</p>
-        <template v-if="isEnglishLocal">
-          <p class="important-text">{{ formatMessage(messages.modalDescriptionNote) }}</p>
-        </template>
+        <p v-if="isEnglishLocal" class="important-text">{{ formatMessage(messages.modalDescriptionNote) }}</p>
       </div>
       <label for="project-type">
         <span class="label__title">
