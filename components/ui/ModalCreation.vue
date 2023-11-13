@@ -3,7 +3,9 @@
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>{{ formatMessage(messages.modalDescription) }}</p>
-        <p class="important-text">{{ formatMessage(messages.modalDescriptionNote) }}</p>
+        <template v-if="isEnglishLocal">
+          <p class="important-text">{{ formatMessage(messages.modalDescriptionNote) }}</p>
+        </template>
       </div>
       <label for="project-type">
         <span class="label__title">
@@ -94,7 +96,7 @@ const messages = defineMessages({
   },
   modalDescriptionNote: {
     id: 'modal.create-project.description.note',
-    defaultMessage: 'Some project metadata like summary & description must be written in English.',
+    defaultMessage: 'Some project metadata, such as the summary and description, must be written in English.',
   },
   nameLabel: {
     id: 'modal.create-project.input.name.label',
@@ -141,9 +143,10 @@ export default {
   },
   setup() {
     const tags = useTags()
-    const { formatMessage } = useVIntl()
+    const vintl = useVIntl()
+    const { formatMessage } = vintl
 
-    return { tags, formatMessage, messages }
+    return { tags, vintl, formatMessage, messages }
   },
   data() {
     return {
@@ -152,6 +155,7 @@ export default {
       slug: '',
       description: '',
       manualSlug: false,
+      isEnglishLocal: this.vintl.locale !== "en-US"
     }
   },
   methods: {

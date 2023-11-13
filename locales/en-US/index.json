@@ -39,7 +39,7 @@
     "message": "New projects are created as drafts and can be found under your profile page."
   },
   "modal.create-project.description.note": {
-    "message": "Some project metadata like summary & description must be written in English."
+    "message": "Some project metadata, such as the summary and description, must be written in English."
   },
   "modal.create-project.input.name.label": {
     "message": "Name"
