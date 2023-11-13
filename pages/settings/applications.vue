@@ -48,33 +48,23 @@
                 autocomplete="off"
                 placeholder="https://example.com/auth/callback"
               />
-              <Button icon-only @click="() => redirectUris.splice(index, 1)">
+              <Button v-if="index !== 0" icon-only @click="() => redirectUris.splice(index, 1)">
                 <TrashIcon />
+              </Button>
+              <Button
+                v-if="index === 0"
+                color="primary"
+                icon-only
+                @click="() => redirectUris.push('')"
+              >
+                <PlusIcon /> Add more
               </Button>
             </div>
           </div>
-          <div class="input-group url-input-group-fixes">
-            <input
-              v-model="newRedirectUri"
-              maxlength="2048"
-              type="url"
-              autocomplete="off"
-              placeholder="https://example.com/redirect"
-            />
-            <button
-              :disabled="!newRedirectUri"
-              type="button"
-              class="iconified-button brand-button"
-              @click="
-                () => {
-                  redirectUris.push(newRedirectUri)
-                  newRedirectUri = null
-                }
-              "
-            >
-              <PlusIcon />
-              Add
-            </button>
+          <div v-if="redirectUris.length <= 0">
+            <Button color="primary" icon-only @click="() => redirectUris.push('')">
+              <PlusIcon /> Add a redirect uri
+            </Button>
           </div>
         </div>
 
@@ -118,8 +108,7 @@
             name = null
             icon = null
             scopesVal = 0
-            redirectUris = []
-            newRedirectUri = null
+            redirectUris = ['']
             editingId = null
             expires = null
             $refs.appModal.show()
@@ -215,8 +204,7 @@ const editingId = ref(null)
 const name = ref(null)
 const icon = ref(null)
 const scopesVal = ref(BigInt(0))
-const redirectUris = ref([])
-const newRedirectUri = ref(null)
+const redirectUris = ref([''])
 
 const loading = ref(false)
 
@@ -242,7 +230,7 @@ const setForm = (app) => {
   name.value = app?.name || ''
   icon.value = app?.icon_url || ''
   scopesVal.value = app?.max_scopes || BigInt(0)
-  redirectUris.value = app?.redirect_uris || []
+  redirectUris.value = app?.redirect_uris || ['']
 }
 
 const canSubmit = computed(() => {
