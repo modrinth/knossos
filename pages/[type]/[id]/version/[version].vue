@@ -637,6 +637,7 @@ import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
 import { renderHighlightedString } from '~/helpers/highlight.js'
 import { reportVersion } from '~/utils/report-helpers.ts'
+import { useImageUpload } from '~/composables/image-upload.ts'
 
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'

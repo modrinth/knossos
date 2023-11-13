@@ -88,6 +88,7 @@
 
 <script setup lang="ts">
 import { Card, Button, MarkdownEditor, DropdownSelect, SaveIcon } from 'omorphia'
+import { useImageUpload } from '~/composables/image-upload.ts'
 
 const tags = useTags()
 const route = useRoute()

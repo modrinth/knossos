@@ -169,6 +169,7 @@
 
 <script setup>
 import { MarkdownEditor } from 'omorphia'
+import { useImageUpload } from '~/composables/image-upload.ts'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import ReplyIcon from '~/assets/images/utils/reply.svg'
 import SendIcon from '~/assets/images/utils/send.svg'
@@ -275,7 +276,7 @@ async function sendReply(status = null) {
       body: {
         body: {
           type: 'text',
-          body: replyBody.value, // TODO: Rip this out and submit image ids with this bruh
+          body: replyBody.value,
           associated_images: imageIDs.value,
         },
       },
