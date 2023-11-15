@@ -9,10 +9,10 @@
     "message": "Salvar"
   },
   "frog": {
-    "message": "Você foi ensapado! 🐸"
+    "message": "Você foi sapado! 🐸"
   },
   "frog.altText": {
-    "message": "Uma pintura fotorrealística de um sapo em formato de labirinto"
+    "message": "Uma pintura foto realística de um sapo em formato de labirinto"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} outra pessoa também foi ensapada} other {Outras {count} pessoas também foram ensapadas}}!"
