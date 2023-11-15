@@ -33,9 +33,10 @@ export const getProjectTypeForUrlShorthand = (type, categories, overrideTags) =>
 }
 
 export const getProjectLink = (project) => {
-  return `/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-    project.slug ? project.slug : project.id
-  }`
+  return `/${getProjectTypeForUrl(
+    project.project_type,
+    project.loaders ? project.loaders : project.categories
+  )}/${project.slug ? project.slug : project.id}`
 }
 
 export const getVersionLink = (project, version) => {

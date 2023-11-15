@@ -163,7 +163,7 @@
   Cards and body styling
 */
 .base-card {
-  @extend .padding-lg;
+  padding: 1.25rem;
 
   position: relative;
 
@@ -1436,7 +1436,7 @@ button {
 .project-list {
   width: 100%;
   gap: var(--spacing-card-md);
-  overflow: hidden;
+  overflow: unset !important;
 
   &:not(:first-child) {
     margin-top: var(--spacing-card-md);
@@ -1448,8 +1448,9 @@ button {
 }
 
 .project-list.display-mode--list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.75rem;
 }
 
 .project-list.display-mode--gallery {
@@ -1663,6 +1664,23 @@ svg.inline-svg {
     .support {
       background-color: var(--color-purple);
       color: var(--color-accent-contrast);
+    }
+  }
+}
+
+.search-row {
+  margin-bottom: var(--gap-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+
+  .iconified-input {
+    flex-grow: 1;
+
+    input {
+      height: 2rem;
+      background-color: var(--color-raised-bg);
+      border: 1px solid var(--color-button-bg);
     }
   }
 }

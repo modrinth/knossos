@@ -1,116 +1,120 @@
 <template>
-  <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
+  <article class="project-card" :style="`--_accent-color: ${toColor}`">
     <nuxt-link
-      :title="name"
-      class="icon"
-      tabindex="-1"
       :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-    >
-      <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
-    </nuxt-link>
-    <nuxt-link
-      class="gallery"
-      :class="{ 'no-image': !featuredImage }"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
-      :style="color ? `background-color: ${toColor};` : ''"
-    >
-      <img v-if="featuredImage" :src="featuredImage" alt="gallery image" loading="lazy" />
-    </nuxt-link>
-    <div class="title">
-      <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
-        <h2 class="name">
-          {{ name }}
-        </h2>
-      </nuxt-link>
-      <p v-if="author" class="author">
-        by
-        <nuxt-link class="title-link" :to="'/user/' + author">
-          {{ author }}
-        </nuxt-link>
-      </p>
-      <Badge v-if="status && status !== 'approved'" :type="status" class="status" />
+      class="project-card__link"
+    ></nuxt-link>
+    <div class="icon">
+      <Avatar :src="iconUrl" />
     </div>
-    <p class="description">
-      {{ description }}
-    </p>
+    <div class="title">
+      <div class="name">{{ name }}</div>
+      <nuxt-link :to="`user/${author}`" class="author">
+        by
+        <span>{{ author }}</span>
+      </nuxt-link>
+    </div>
     <Categories
-      :categories="
-        categories.filter((x) => !hideLoaders || !tags.loaders.find((y) => y.name === x))
-      "
+      v-if="false"
       :type="type"
+      :categories="categories.filter((cat) => !tags.loaders.some((loader) => loader.name === cat))"
       class="tags"
-    >
-      <EnvironmentIndicator
-        :type-only="moderation"
-        :client-side="clientSide"
-        :server-side="serverSide"
-        :type="projectTypeDisplay"
-        :search="search"
-        :categories="categories"
+    />
+    <div class="featured-gallery" :class="!featuredImage ? 'no-image' : ''">
+      <img
+        :src="
+          featuredImage ? featuredImage : 'https://launcher-files.modrinth.com/assets/maze-bg.png'
+        "
+        alt="gallery image"
+        loading="lazy"
       />
-    </Categories>
+    </div>
+    <div class="summary">{{ description }}</div>
     <div class="stats">
-      <slot />
-      <div v-if="downloads" class="stat">
-        <DownloadIcon aria-hidden="true" />
-        <p>
-          <strong>{{ $formatNumber(downloads) }}</strong
-          ><span class="stat-label"> download<span v-if="downloads !== '1'">s</span></span>
-        </p>
-      </div>
-      <div v-if="follows" class="stat">
-        <HeartIcon aria-hidden="true" />
-        <p>
-          <strong>{{ $formatNumber(follows) }}</strong
-          ><span class="stat-label"> follower<span v-if="follows !== '1'">s</span></span>
-        </p>
-      </div>
-      <div
-        v-if="showUpdatedDate"
-        v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm A')"
-        class="stat date"
+      <span v-tooltip="`${formatNumber(downloads, false)} downloads`" class="stat">
+        <span class="label"><DownloadIcon /></span>
+        <span class="value">{{ formatNumber(downloads) }}</span>
+      </span>
+      <span v-tooltip="`${formatNumber(follows, false)} followers`" class="stat">
+        <span class="label"><HeartIcon /></span>
+        <span class="value">{{ formatNumber(follows) }}</span>
+      </span>
+      <span v-tooltip="$dayjs(updatedAt).format('MMMM D, YYYY [at] h:mm A')" class="stat">
+        <span class="label">Updated</span>
+        <span class="value">{{ fromNow(updatedAt) }}</span>
+      </span>
+    </div>
+    <div class="actions">
+      <button v-tooltip="`Follow`" class="btn icon-only">
+        <HeartIcon />
+      </button>
+      <OverflowMenu
+        class="btn icon-only"
+        position="bottom"
+        direction="right"
+        :options="[
+          {
+            id: 'download',
+            color: 'green',
+            hoverFilledOnly: true,
+            action: () => {
+              router.push(`/${$getProjectTypeForUrl(type, categories)}/${id}/versions`)
+            },
+          },
+          {
+            id: 'save',
+            action: () => {},
+          },
+          {
+            id: 'gallery',
+            action: () => {
+              router.push(`/${$getProjectTypeForUrl(type, categories)}/${id}/gallery`)
+            },
+          },
+          {
+            id: 'versions',
+            action: () => {
+              router.push(`/${$getProjectTypeForUrl(type, categories)}/${id}/versions`)
+            },
+          },
+        ]"
       >
-        <EditIcon aria-hidden="true" />
-        <span class="date-label"
-          >Updated <strong>{{ fromNow(updatedAt) }}</strong></span
-        >
-      </div>
-      <div
-        v-else
-        v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm A')"
-        class="stat date"
-      >
-        <CalendarIcon aria-hidden="true" />
-        <span class="date-label"
-          >Published <strong>{{ fromNow(createdAt) }}</strong></span
-        >
-      </div>
+        <MoreHorizontalIcon />
+        <template #download> <DownloadIcon /> Download </template>
+        <template #save> <BookmarkIcon /> Save </template>
+        <template #gallery> <ImageIcon /> View gallery </template>
+        <template #versions> <VersionIcon /> View versions </template>
+      </OverflowMenu>
     </div>
   </article>
 </template>
 
 <script>
+import {
+  HeartIcon,
+  DownloadIcon,
+  MoreHorizontalIcon,
+  ImageIcon,
+  VersionIcon,
+  OverflowMenu,
+} from 'omorphia'
 import Categories from '~/components/ui/search/Categories.vue'
-import Badge from '~/components/ui/Badge.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
+import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
 
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import EditIcon from '~/assets/images/utils/pen-square.svg'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
 import Avatar from '~/components/ui/Avatar.vue'
+import { formatNumber } from '~/plugins/shorthands.js'
 
 export default {
   components: {
-    EnvironmentIndicator,
     Avatar,
     Categories,
-    Badge,
-    CalendarIcon,
-    EditIcon,
     DownloadIcon,
     HeartIcon,
+    MoreHorizontalIcon,
+    OverflowMenu,
+    BookmarkIcon,
+    ImageIcon,
+    VersionIcon,
   },
   props: {
     id: {
@@ -213,8 +217,9 @@ export default {
   },
   setup() {
     const tags = useTags()
+    const router = useRouter()
 
-    return { tags }
+    return { tags, router }
   },
   computed: {
     projectTypeDisplay() {
@@ -227,7 +232,51 @@ export default {
       const b = color & 0xff
       const g = (color & 0xff00) >>> 8
       const r = (color & 0xff0000) >>> 16
-      return 'rgba(' + [r, g, b, 1].join(',') + ')'
+
+      // Convert RGB to HSL
+      const hsl = this.rgbToHsl(r, g, b)
+
+      // Extract HSL components
+      const h = hsl[0]
+      const s = hsl[1]
+      const l = Math.min(hsl[2], 50)
+
+      return 'hsl(' + [h, s + '%', l + '%'].join(',') + ')'
+    },
+  },
+  methods: {
+    formatNumber,
+    rgbToHsl: (r, g, b) => {
+      r /= 255
+      g /= 255
+      b /= 255
+
+      const max = Math.max(r, g, b)
+      const min = Math.min(r, g, b)
+      let h
+      let s
+      const l = (max + min) / 2
+
+      if (max === min) {
+        h = s = 0 // achromatic
+      } else {
+        const d = max - min
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+        switch (max) {
+          case r:
+            h = (g - b) / d + (g < b ? 6 : 0)
+            break
+          case g:
+            h = (b - r) / d + 2
+            break
+          case b:
+            h = (r - g) / d + 4
+            break
+        }
+        h /= 6
+      }
+
+      return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)]
     },
   },
 }
@@ -235,288 +284,170 @@ export default {
 
 <style lang="scss" scoped>
 .project-card {
-  display: inline-grid;
-  box-sizing: border-box;
-  overflow: hidden;
-  margin: 0;
-}
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  grid-template: 'icon title actions gallery' 'icon summary actions gallery' 'icon stats actions gallery';
+  grid-template-columns: min-content 1fr min-content auto;
+  grid-template-rows: min-content auto 1fr;
+  position: relative;
+  padding: 1rem;
+  //padding-left: calc(1rem + 6px);
+  border-radius: 10px;
+  background-color: var(--color-raised-bg);
+  border: 1px solid var(--color-button-bg);
 
-.display-mode--list .project-card {
-  grid-template:
-    'icon title stats'
-    'icon description stats'
-    'icon tags stats';
-  grid-template-columns: min-content 1fr auto;
-  grid-template-rows: min-content 1fr min-content;
-  column-gap: var(--spacing-card-md);
-  row-gap: var(--spacing-card-sm);
-  width: 100%;
-
-  @media screen and (max-width: 750px) {
-    grid-template:
-      'icon title'
-      'icon description'
-      'icon tags'
-      'stats stats';
-    grid-template-columns: min-content auto;
-    grid-template-rows: min-content 1fr min-content min-content;
+  *:not(a, button, .project-card__link) {
+    pointer-events: none;
   }
 
-  @media screen and (max-width: 550px) {
-    grid-template:
-      'icon title'
-      'icon description'
-      'tags tags'
-      'stats stats';
-    grid-template-columns: min-content auto;
-    grid-template-rows: min-content 1fr min-content min-content;
+  &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
+    scale: 0.99 !important;
   }
 }
 
-.display-mode--gallery .project-card,
-.display-mode--grid .project-card {
-  padding: 0 0 var(--spacing-card-bg) 0;
-  grid-template: 'gallery gallery' 'icon title' 'description  description' 'tags tags' 'stats stats';
-  grid-template-columns: min-content 1fr;
-  grid-template-rows: min-content min-content 1fr min-content min-content;
-  row-gap: var(--spacing-card-sm);
+.project-card__link {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border-radius: inherit;
 
-  .gallery {
-    display: inline-block;
-    width: 100%;
-    height: 10rem;
-    background-color: var(--color-button-bg-active);
-
-    &.no-image {
-      filter: brightness(0.7);
-    }
-
-    img {
-      box-shadow: none;
-      width: 100%;
-      height: 10rem;
-      object-fit: cover;
-    }
-  }
-
-  .icon {
-    margin-left: var(--spacing-card-bg);
-    margin-top: -3rem;
-    z-index: 1;
-
-    img,
-    svg {
-      border-radius: var(--size-rounded-lg);
-      box-shadow: -2px -2px 0 2px var(--color-raised-bg), 2px -2px 0 2px var(--color-raised-bg);
-    }
-  }
-
-  .title {
-    margin-left: var(--spacing-card-md);
-    margin-right: var(--spacing-card-bg);
-    flex-direction: column;
-
-    .name {
-      font-size: 1.25rem;
-    }
-
-    .status {
-      margin-top: var(--spacing-card-xs);
-    }
-  }
-
-  .description {
-    margin-inline: var(--spacing-card-bg);
-  }
-
-  .tags {
-    margin-inline: var(--spacing-card-bg);
-  }
-
-  .stats {
-    margin-inline: var(--spacing-card-bg);
-    flex-direction: row;
-    align-items: center;
-
-    .stat-label {
-      display: none;
-    }
-
-    .buttons {
-      flex-direction: row;
-      gap: var(--spacing-card-sm);
-      align-items: center;
-
-      > :first-child {
-        margin-left: auto;
-      }
-
-      &:first-child > :last-child {
-        margin-right: auto;
-      }
-    }
-
-    .buttons:not(:empty) + .date {
-      flex-basis: 100%;
-    }
-  }
-}
-
-.display-mode--grid .project-card {
-  .gallery {
-    display: none;
-  }
-
-  .icon {
-    margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
-  }
-
-  .title {
-    margin-top: calc(var(--spacing-card-bg) - var(--spacing-card-sm));
+  &:focus-visible {
+    outline: 0.25rem solid #ea80ff;
   }
 }
 
 .icon {
+  --_size: 6rem;
   grid-area: icon;
-  display: flex;
-  align-items: flex-start;
-}
+  width: var(--_size);
+  height: var(--_size);
+  box-shadow: none;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  border: 1px solid var(--color-button-bg);
+  background-color: var(--color-raised-bg);
 
-.gallery {
-  display: none;
-  height: 10rem;
-  grid-area: gallery;
+  .avatar {
+    --size: var(--_size);
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: inherit;
+  }
 }
 
 .title {
   grid-area: title;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  gap: 0.3em;
   align-items: baseline;
-  column-gap: var(--spacing-card-sm);
-  row-gap: 0;
-  word-wrap: anywhere;
+}
 
-  h2,
-  p {
-    margin: 0;
-  }
+.name {
+  font-weight: 700;
+  color: var(--color-contrast);
+  font-size: var(--font-size-md);
+}
 
-  h2 {
-    font-size: 1.25rem;
-  }
+.author {
+  font-size: var(--font-size-sm);
 
-  svg {
-    width: auto;
-    color: var(--color-special-orange);
-    height: 1.5rem;
-    margin-bottom: -0.25rem;
+  a {
+    color: var(--color-link) !important;
   }
 }
 
 .stats {
-  grid-area: stats;
   display: flex;
-  flex-direction: column;
+  gap: 0.5rem 1rem;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: var(--spacing-card-md);
+  grid-area: stats;
+  margin-top: auto;
+  margin-bottom: -2px;
 
   .stat {
     display: flex;
-    align-items: center;
-    width: fit-content;
-    color: var(--color-text-secondary);
-
-    strong {
-      color: var(--color-text);
-      font-weight: 600;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    svg {
-      height: 1.1rem;
-      width: 1.1rem;
-      color: var(--color-text-secondary);
-      margin-right: 0.5rem;
-    }
-  }
-
-  .date {
-    margin-top: auto;
-  }
-
-  @media screen and (max-width: 750px) {
     flex-direction: row;
-    column-gap: var(--spacing-card-md);
-    margin-top: var(--spacing-card-xs);
-  }
+    gap: 0.25rem;
+    justify-content: center;
+    line-height: 1em;
+    pointer-events: all;
+    cursor: text;
 
-  @media screen and (max-width: 600px) {
-    margin-top: 0;
+    .label {
+      color: var(--color-secondary);
+    }
 
-    .stat-label {
-      display: none;
+    .value {
+      font-weight: 500;
     }
   }
 }
 
-.environment {
-  color: var(--color-text) !important;
-  font-weight: bold;
-}
-
-.description {
-  grid-area: description;
-  margin-block: 0;
-  display: flex;
-  justify-content: flex-start;
+.summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.25rem;
+  height: 2.5rem;
+  font-size: var(--font-size-sm);
+  grid-area: summary;
+  color: var(--color-text-secondary);
 }
 
 .tags {
   grid-area: tags;
-  display: flex;
-  flex-direction: row;
+}
 
-  @media screen and (max-width: 550px) {
-    margin-top: var(--spacing-card-xs);
+.featured-gallery {
+  display: flex;
+  grid-area: gallery;
+  align-items: center;
+  justify-content: flex-end;
+  height: 6rem;
+
+  img {
+    object-fit: cover;
+    border-radius: 15px;
+    //width: 100%;
+    //max-width: 100%;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 1;
+    border: 4px solid var(--color-button-bg);
+  }
+
+  &.no-image img {
+    //opacity: 0;
   }
 }
 
-.buttons {
+.actions {
+  grid-area: actions;
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-card-sm);
-  align-items: flex-end;
-  flex-grow: 1;
+  gap: var(--gap-xs);
+  width: fit-content;
+  margin-left: auto;
+  transition: opacity 0.25s ease-in-out;
+  height: fit-content;
+
+  @media (hover: hover) {
+    opacity: 0;
+  }
+
+  :deep(.popup-menu) {
+    z-index: 20;
+  }
 }
 
-.small-mode {
-  @media screen and (min-width: 750px) {
-    grid-template:
-      'icon title'
-      'icon description'
-      'icon tags'
-      'stats stats' !important;
-    grid-template-columns: min-content auto !important;
-    grid-template-rows: min-content 1fr min-content min-content !important;
-
-    .tags {
-      margin-top: var(--spacing-card-xs) !important;
-    }
-
-    .stats {
-      flex-direction: row;
-      column-gap: var(--spacing-card-md) !important;
-      margin-top: var(--spacing-card-xs) !important;
-
-      .stat-label {
-        display: none !important;
-      }
+@media (hover: hover) {
+  .project-card:hover,
+  .project-card:focus-within {
+    .actions {
+      opacity: 1;
     }
   }
 }

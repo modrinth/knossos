@@ -6,13 +6,35 @@
     }"
   >
     <Head>
-      <Title>Search {{ projectType.display }}s - Modrinth</Title>
+      <Title>Search {{ $formatProjectType(projectType.display) }}s - Modrinth</Title>
+      <Meta
+        name="og:title"
+        :content="`Minecraft ${$formatProjectType(projectType.display)}s for Java Edition`"
+      />
+      <Meta name="description" :content="metaDescription" />
+      <Meta
+        name="apple-mobile-web-app-title"
+        :content="`Minecraft ${$formatProjectType(projectType.display)}s`"
+      />
+      <Meta name="og:description" :content="metaDescription" />
     </Head>
     <section class="normal-page__header">
-      <Breadcrumbs
-        :current-title="$formatProjectType(projectType.display) + 's'"
-        :link-stack="[{ href: `/games/minecraft-java`, label: 'Minecraft: Java Edition' }]"
-      />
+      <div class="page-header dark-mode">
+        <img
+          src="https://education.minecraft.net/content/dam/education-edition/blogs/1-20-update/TrailsnTales_EduBlogBanner_NoLogo.png"
+          class="game-banner"
+        />
+        <div class="banner-overlay">
+          <div class="banner-overlay__content">
+            <MinecraftIcon class="game-icon" />
+            <h1 class="game-title">
+              <span class="game-name">Minecraft</span>
+              <span class="game-subtitle">Java Edition</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <h1 class="type-header">{{ formatProjectType(projectType.display) }}s</h1>
     </section>
     <aside
       :class="{
@@ -37,26 +59,52 @@
             <ClearIcon aria-hidden="true" />
             Clear filters
           </button>
-          <section aria-label="Category filters">
-            <div v-for="(categories, header) in categoriesMap" :key="header">
-              <h3
-                v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
-                class="sidebar-menu-heading"
-              >
-                {{ $formatCategoryHeader(header) }}
-              </h3>
-
-              <SearchFilter
-                v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
-                :key="category.name"
-                :active-filters="facets"
-                :display-name="$formatCategory(category.name)"
-                :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
-                :icon="header === 'resolutions' ? null : category.icon"
-                @toggle="toggleFacet"
-              />
-            </div>
-          </section>
+          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
+          <ScrollableMultiSelect />
+          <!--          <div-->
+          <!--            :class="{-->
+          <!--              'scrollable-pane-wrapper': true,-->
+          <!--              'top-fade': !scrollableAtTop,-->
+          <!--              'bottom-fade': !scrollableAtBottom,-->
+          <!--            }"-->
+          <!--          >-->
+          <!--            <div class="scrollable-pane" @scroll="onScroll">-->
+          <!--              <Checkbox-->
+          <!--                v-for="version in showSnapshots-->
+          <!--                  ? tags.gameVersions-->
+          <!--                  : tags.gameVersions.filter((it) => it.version_type === 'release')"-->
+          <!--                :key="`version-filter-${version.version}`"-->
+          <!--              >-->
+          <!--                {{ version.version }}-->
+          <!--              </Checkbox>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--          <Checkbox-->
+          <!--            v-model="showSnapshots"-->
+          <!--            label="Show all versions"-->
+          <!--            description="Show all versions"-->
+          <!--            style="margin-bottom: 0.5rem"-->
+          <!--            :border="false"-->
+          <!--          />-->
+          <!--          <multiselect-->
+          <!--            v-model="selectedVersions"-->
+          <!--            :options="-->
+          <!--              showSnapshots-->
+          <!--                ? tags.gameVersions.map((x) => x.version)-->
+          <!--                : tags.gameVersions-->
+          <!--                    .filter((it) => it.version_type === 'release')-->
+          <!--                    .map((x) => x.version)-->
+          <!--            "-->
+          <!--            :multiple="true"-->
+          <!--            :searchable="true"-->
+          <!--            :show-no-results="false"-->
+          <!--            :close-on-select="false"-->
+          <!--            :clear-search-on-select="false"-->
+          <!--            :show-labels="false"-->
+          <!--            :selectable="() => selectedVersions.length <= 6"-->
+          <!--            placeholder="Choose versions..."-->
+          <!--            @update:model-value="onSearchChange(1)"-->
+          <!--          />-->
           <section
             v-if="projectType.id !== 'resourcepack' && projectType.id !== 'datapack'"
             aria-label="Loader filters"
@@ -68,7 +116,7 @@
               "
               class="sidebar-menu-heading"
             >
-              Loaders
+              Platforms
             </h3>
             <SearchFilter
               v-for="loader in tags.loaders.filter((x) => {
@@ -154,33 +202,26 @@
               <ServerIcon aria-hidden="true" />
             </SearchFilter>
           </section>
-          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
-          <Checkbox
-            v-model="showSnapshots"
-            label="Show all versions"
-            description="Show all versions"
-            style="margin-bottom: 0.5rem"
-            :border="false"
-          />
-          <multiselect
-            v-model="selectedVersions"
-            :options="
-              showSnapshots
-                ? tags.gameVersions.map((x) => x.version)
-                : tags.gameVersions
-                    .filter((it) => it.version_type === 'release')
-                    .map((x) => x.version)
-            "
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-search-on-select="false"
-            :show-labels="false"
-            :selectable="() => selectedVersions.length <= 6"
-            placeholder="Choose versions..."
-            @update:model-value="onSearchChange(1)"
-          />
+          <section aria-label="Category filters">
+            <div v-for="(categories, header) in categoriesMap" :key="header">
+              <h3
+                v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
+                class="sidebar-menu-heading"
+              >
+                {{ $formatCategoryHeader(header) }}
+              </h3>
+
+              <SearchFilter
+                v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
+                :key="category.name"
+                :active-filters="facets"
+                :display-name="$formatCategory(category.name)"
+                :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
+                :icon="header === 'resolutions' ? null : category.icon"
+                @toggle="toggleFacet"
+              />
+            </div>
+          </section>
           <h3 class="sidebar-menu-heading">Open source</h3>
           <Checkbox
             v-model="onlyOpenSource"
@@ -193,7 +234,39 @@
       </section>
     </aside>
     <section class="normal-page__content">
-      <div class="search-controls">
+      <div class="filter-row new-nav">
+        <span class="title"><SortAscendingIcon /> Sort by</span>
+        <a class="router-link-exact-active"><FlameIcon />Trending</a>
+        <a><HistoryIcon />New</a>
+        <a><TopIcon />Top</a>
+        <a><MoreHorizontalIcon /></a>
+      </div>
+      <Promotion />
+      <div class="search-row">
+        <div class="iconified-input">
+          <label class="hidden" for="search">Search</label>
+          <SearchIcon aria-hidden="true" />
+          <input
+            id="search"
+            v-model="query"
+            type="text"
+            name="search"
+            :placeholder="`Search ${projectType.display}s...`"
+            autocomplete="off"
+            @input="onSearchChange(1)"
+          />
+          <Button @click="() => (query = '')">
+            <XIcon />
+          </Button>
+        </div>
+        <Pagination
+          :page="currentPage"
+          :count="pageCount"
+          :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
+          @switch-page="onSearchChange"
+        />
+      </div>
+      <div v-if="false" class="search-controls">
         <button
           class="iconified-button sidebar-menu-close-button"
           :class="{ open: sidebarMenuOpen }"
@@ -239,19 +312,6 @@
           <ListIcon v-else />
         </button>
       </div>
-      <div class="pagination-container">
-        <span class="results-text">
-          {{ results.total_hits }}
-          {{ $formatProjectType(projectType.display).toLowerCase() }}s
-        </span>
-        <Pagination
-          :page="currentPage"
-          :count="pageCount"
-          :link-function="(x) => getSearchUrl(x <= 1 ? 0 : (x - 1) * maxResults)"
-          @switch-page="onSearchChange"
-        />
-      </div>
-      <Promotion />
       <LogoAnimated v-if="searchLoading && !noLoad"></LogoAnimated>
       <div v-else-if="results && results.hits && results.hits.length === 0" class="no-results">
         <p>No results found for your query!</p>
@@ -310,7 +370,16 @@
 </template>
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Promotion, Button, DropdownSelect, XIcon } from 'omorphia'
+import {
+  StarIcon,
+  Promotion,
+  Button,
+  DropdownSelect,
+  XIcon,
+  SortAscendingIcon,
+  MoreHorizontalIcon,
+} from 'omorphia'
+import { formatProjectType } from '../../plugins/shorthands'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import SearchFilter from '~/components/ui/search/SearchFilter.vue'
@@ -326,8 +395,16 @@ import FilterIcon from '~/assets/images/utils/filter.svg'
 import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import MinecraftIcon from 'assets/images/games/minecraft.svg'
+import ChevronRightIcon from 'assets/images/utils/chevron-right.svg'
+import DescriptionIcon from 'assets/images/utils/align-left.svg'
+import VersionIcon from 'assets/images/utils/version.svg'
+import GalleryIcon from 'assets/images/utils/image.svg'
+import TrendingIcon from 'assets/images/utils/trending-up.svg'
+import FlameIcon from 'assets/images/utils/flame.svg'
+import HistoryIcon from 'assets/images/utils/history.svg'
+import TopIcon from 'assets/images/utils/arrow-big-up-dash.svg'
+import ScrollableMultiSelect from '~/components/ui/ScrollableMultiSelect.vue'
 
 const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)
@@ -924,6 +1001,7 @@ h1 {
 .pagination-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: var(--gap-lg);
   flex-wrap: wrap;
 
@@ -940,7 +1018,121 @@ h1 {
   }
 
   .paginates {
-    margin: 0 0 0 auto;
+    margin: 0;
   }
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+
+  span:not(.current) {
+    color: var(--color-base);
+  }
+
+  svg {
+    margin-inline: 0.5rem;
+  }
+}
+
+.filter-row {
+  margin-bottom: 1rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 0;
+    color: var(--color-secondary);
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.new-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid var(--color-button-bg);
+
+  svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    margin-bottom: -2px;
+
+    &.router-link-exact-active {
+      color: var(--color-contrast);
+      border-color: var(--color-brand);
+    }
+  }
+}
+
+.page-header {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  height: 8rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  .banner-overlay {
+    position: absolute;
+    display: flex;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    background-image: radial-gradient(
+      ellipse at -20% 100%,
+      rgba(0, 0, 0, 0.8) 0%,
+      transparent 100%
+    );
+
+    .banner-overlay__content {
+      display: flex;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .game-icon {
+      width: 3rem;
+      height: 3rem;
+      margin-right: 1rem;
+    }
+
+    .game-title {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+
+      .game-subtitle {
+        color: var(--color-base);
+        font-size: var(--font-size-lg);
+      }
+    }
+  }
+}
+
+.game-banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.type-header {
+  margin-top: 1rem;
 }
 </style>

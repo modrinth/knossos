@@ -4,8 +4,7 @@
     <span
       v-for="category in categoriesFiltered"
       :key="category.name"
-      class="category"
-      v-html="category.icon + $formatCategory(category.name)"
+      v-html="$formatCategory(category.name)"
     />
   </div>
 </template>
@@ -57,19 +56,21 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: row;
-    border: 1px solid var(--color-button-bg);
-    background-color: var(--color-bg);
-    padding: var(--gap-xs) var(--gap-sm);
-    border-radius: var(--radius-sm);
+    background-color: var(--tag-bg);
+    padding: 0 8px;
+    line-height: 1.5em;
+    border-radius: var(--radius-max);
+    font-size: var(--font-size-sm);
+    text-transform: lowercase;
 
     &:not(.badge) {
       color: var(--color-text-secondary);
     }
 
     svg {
-      width: 1.1rem;
-      height: 1.1rem;
-      margin-right: var(--gap-sm);
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-right: 3px;
     }
   }
 }
