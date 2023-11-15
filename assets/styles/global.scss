@@ -449,3 +449,30 @@ a:focus-visible,
   outline: 0.25rem solid #ea80ff;
   border-radius: 0.25rem;
 }
+
+*::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+
+  &-track {
+    border-radius: var(--size-rounded-max);
+    border: 8px solid transparent;
+    background: var(--color-raised-bg);
+    background-clip: content-box;
+  }
+  &-thumb {
+    border-radius: var(--size-rounded-xs);
+    border: 5px solid transparent;
+    background: var(--color-text);
+    background-clip: content-box;
+
+    &:hover {
+      border: 5px solid transparent;
+      background: var(--color-brand);
+      background-clip: content-box;
+    }
+    &:active {
+      border: 4px solid transparent;
+    }
+  }
+}
