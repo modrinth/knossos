@@ -111,10 +111,11 @@ export default defineNuxtComponent({
       }
     },
     async onUploadHandler(file) {
-      return await useImageUpload(file, {
+      const response = await useImageUpload(file, {
         context: 'project',
         projectID: this.project.id,
       })
+      return response.url
     },
   },
 })

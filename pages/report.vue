@@ -99,7 +99,7 @@ const accessQuery = (id: string): string => {
 
 const submitLoading = ref<boolean>(false)
 
-const uploadedImageIDs = ref<{ id: string; url: string }[]>([])
+const uploadedImageIDs = ref<string[]>([])
 
 const reportBody = ref<string>(accessQuery('body'))
 const reportItem = ref<string>(accessQuery('item'))
@@ -154,10 +154,8 @@ const submitReport = async () => {
     [key: string]: unknown
   } = {
     report_type: reportType.value,
-
     item_type: reportItem.value,
     item_id: reportItemID.value,
-
     body: reportBody.value,
   }
 
@@ -168,7 +166,7 @@ const submitReport = async () => {
   if (uploadedImageIDs.value.length > 0) {
     data = {
       ...data,
-      uploaded_images: takeNLast(uploadedImageIDs.value, 10).map((i) => i.id),
+      uploaded_images: takeNLast(uploadedImageIDs.value, 10),
     }
   }
 
@@ -217,12 +215,8 @@ const submitReport = async () => {
 }
 
 const onImageUpload = async (file: File) => {
-  if (uploadedImageIDs.value.length >= 10) {
-    uploadedImageIDs.value.shift()
-  }
-
   const item = await useImageUpload(file, { context: 'report' })
-  uploadedImageIDs.value.push(item)
+  uploadedImageIDs.value.push(item.id)
   return item.url
 }
 </script>

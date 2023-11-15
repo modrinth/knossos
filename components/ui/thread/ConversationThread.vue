@@ -264,6 +264,7 @@ async function onUploadImage(file) {
   const response = await useImageUpload(file, { context: 'thread_message' })
 
   imageIDs.value.push(response.id)
+  // Keep the last 10 entries of image IDs
   imageIDs.value = imageIDs.value.slice(-10)
 
   return response.url
@@ -271,16 +272,25 @@ async function onUploadImage(file) {
 
 async function sendReply(status = null) {
   try {
+    const body = {
+      body: {
+        type: 'text',
+        body: replyBody.value,
+      },
+    }
+
+    if (imageIDs.value.length > 0) {
+      body.body = {
+        ...body.body,
+        uploaded_images: imageIDs.value,
+      }
+    }
+
     await useBaseFetch(`thread/${props.thread.id}`, {
       method: 'POST',
-      body: {
-        body: {
-          type: 'text',
-          body: replyBody.value,
-          associated_images: imageIDs.value,
-        },
-      },
+      body,
     })
+
     replyBody.value = ''
     await updateThreadLocal()
     if (status !== null) {
