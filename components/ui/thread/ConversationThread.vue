@@ -292,6 +292,7 @@ async function sendReply(status = null) {
     })
 
     replyBody.value = ''
+
     await updateThreadLocal()
     if (status !== null) {
       props.setStatus(status)
