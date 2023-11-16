@@ -129,6 +129,7 @@
           <strong>{{ app.name }}</strong>
         </div>
         <div>Client ID <CopyCode :text="app.id" /></div>
+        <div>Max Scopes <CopyCode :text="decodeScopes(app.max_scopes).join('+')" /></div>
         <template v-if="!!clientCreatedInState(app.id)">
           <div>Client Secret <CopyCode :text="clientCreatedInState(app.id)?.client_secret" /></div>
           <div class="secret_disclaimer">
@@ -182,7 +183,7 @@ import {
   CopyCode,
   ConfirmModal,
 } from 'omorphia'
-import { scopeList, hasScope, toggleScope } from '~/utils/auth/scopes.ts'
+import { scopeList, hasScope, toggleScope, decodeScopes } from '~/utils/auth/scopes.ts'
 
 definePageMeta({
   middleware: 'auth',

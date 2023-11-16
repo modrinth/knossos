@@ -24,14 +24,20 @@
       :key="authorization.id"
       class="universal-card recessed token"
     >
-      <div>
+      <div class="token-content">
         <div>
           <div class="icon-name">
             <div class="icon">
               <img :src="authorization.app.icon_url" :alt="authorization.app.name + ' icon'" />
             </div>
             <div>
-              <strong>{{ authorization.app.name }}</strong>
+              <h3 class="token-title">{{ authorization.app.name }}</h3>
+              <div>
+                by
+                <nuxt-link class="text-link" :to="'/user/' + authorization.owner.id">{{
+                  authorization.owner.username
+                }}</nuxt-link>
+              </div>
             </div>
           </div>
         </div>
@@ -41,7 +47,7 @@
           </div>
           <div class="scope-list">
             <div
-              v-for="scope in decodeScopes(authorization.scopes)"
+              v-for="scope in getScopeDefinitions(authorization.scopes)"
               :key="scope"
               class="scope-list-item"
             >
@@ -74,7 +80,7 @@
 </template>
 <script setup>
 import { Button, TrashIcon, CheckIcon, ConfirmModal } from 'omorphia'
-import { decodeScopes } from '~/utils/auth/scopes.ts'
+import { getScopeDefinitions } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
 
@@ -106,12 +112,27 @@ const { data: appInformation } = await useAsyncData(
   }
 )
 
+const { data: appCreatorsInformation } = await useAsyncData(
+  'appCreatorsInfo',
+  () =>
+    useBaseFetch('users', {
+      query: {
+        ids: JSON.stringify(appInformation.value.map((c) => c.created_by)),
+      },
+    }),
+  {
+    watch: appInformation,
+  }
+)
+
 const appInfoLookup = computed(() => {
   return usersApps.value.map((app) => {
     const info = appInformation.value.find((c) => c.id === app.app_id)
+    const owner = appCreatorsInformation.value.find((c) => c.id === info.created_by)
     return {
       ...app,
       app: info || null,
+      owner: owner || null,
     }
   })
 })
@@ -144,9 +165,16 @@ const constCaseToTitleCase = (str) =>
     .join(' ')
 </script>
 <style lang="scss" scoped>
+.input-group {
+  // Overrides for omorphia compat
+  > * {
+    padding: var(--gap-sm) var(--gap-lg) !important;
+  }
+}
+
 .scope-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: var(--gap-sm);
   padding-block: var(--gap-sm);
 
@@ -160,29 +188,37 @@ const constCaseToTitleCase = (str) =>
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
+
+    // avoid breaking text or overflowing
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .scope-list-item-icon {
     width: 1.25rem;
     height: 1.25rem;
+    flex: 0 0 auto;
+
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--color-green);
-    color: #fff;
+    color: var(--color-raised-bg);
   }
 }
 
 .icon-name {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: start;
+  gap: 1rem;
   padding-bottom: var(--gap-sm);
 
   .icon {
-    width: 2rem;
-    height: 2rem;
+    height: 100%;
+    max-height: 3rem;
+    flex: 0 0 auto;
+    aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
@@ -227,15 +263,18 @@ const constCaseToTitleCase = (str) =>
   }
 }
 
+.token-content {
+  width: 100%;
+
+  .token-title {
+    margin-block: 0;
+  }
+}
+
 .token {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
-  .input-group {
-    // Align to the right on mobile
-    margin-left: auto;
-  }
 
   @media screen and (min-width: 800px) {
     flex-direction: row;

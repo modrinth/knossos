@@ -114,7 +114,7 @@ export const getScopeDefinitions = (scopes: bigint) => {
 
 export const ScopeDescriptions = {
   USER_READ_EMAIL: 'Read your email',
-  USER_READ: 'Read basic information',
+  USER_READ: 'Access your username, profile picture',
   USER_WRITE: 'Write to your profile',
   USER_DELETE: 'Delete your account',
   USER_AUTH_WRITE: 'Modify your authentication data',
