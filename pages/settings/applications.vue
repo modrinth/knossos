@@ -18,8 +18,8 @@
           autocomplete="off"
           placeholder="Enter the application's name..."
         />
-        <label for="app-icon"><span class="label__title">Icon</span> </label>
-        <div>
+        <label v-if="editingId" for="app-icon"><span class="label__title">Icon</span> </label>
+        <div v-if="editingId">
           <div>
             <img v-if="icon" :src="icon" alt="App icon" />
             <div v-else class="placeholder-icon">
