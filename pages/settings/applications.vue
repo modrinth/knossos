@@ -19,14 +19,23 @@
           placeholder="Enter the application's name..."
         />
         <label for="app-icon"><span class="label__title">Icon</span> </label>
-        <input
-          id="app-icon"
-          v-model="icon"
-          maxlength="2048"
-          type="url"
-          autocomplete="off"
-          placeholder="https://example.com/icon.png"
-        />
+        <div>
+          <div>
+            <img v-if="icon" :src="icon" alt="App icon" />
+            <div v-else class="placeholder-icon">
+              <span>No icon selected</span>
+            </div>
+          </div>
+          <FileInput
+            :max-size="262144"
+            class="btn"
+            prompt="Upload icon"
+            accept="image/png,image/jpeg,image/gif,image/webp"
+            @change="onImageSelection"
+          >
+            <UploadIcon />
+          </FileInput>
+        </div>
         <label for="app-scopes"><span class="label__title">Scopes</span> </label>
         <div id="app-scopes" class="checkboxes">
           <Checkbox
@@ -172,6 +181,8 @@
 </template>
 <script setup>
 import {
+  FileInput,
+  UploadIcon,
   PlusIcon,
   Modal,
   XIcon,
@@ -241,6 +252,28 @@ const canSubmit = computed(() => {
 
 const clientCreatedInState = (id) => {
   return createdApps.value.find((app) => app.id === id)
+}
+
+async function onImageSelection(files) {
+  if (!editingId.value) {
+    throw new Error('No editing id')
+  }
+
+  if (files.length > 0) {
+    const file = files[0]
+    const extFromType = file.type.split('/')[1]
+
+    const iconUrl = await useBaseFetch('oauth/app/' + editingId.value + '/icon', {
+      method: 'PATCH',
+      apiVersion: 3,
+      body: file,
+      query: {
+        ext: extFromType,
+      },
+    })
+
+    icon.value = iconUrl
+  }
 }
 
 async function createApp() {
