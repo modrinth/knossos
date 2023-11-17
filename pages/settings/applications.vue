@@ -284,15 +284,20 @@ async function editApp() {
       throw new Error('No editing id')
     }
 
+    const body = {
+      name: name.value,
+      max_scopes: Number(scopesVal.value), // JS is 52 bit for ints so we're good for now
+      redirect_uris: redirectUris.value,
+    }
+
+    if (icon.value && icon.value?.length > 0) {
+      body.icon_url = icon.value
+    }
+
     await useBaseFetch('oauth/app/' + editingId.value, {
       method: 'PATCH',
       apiVersion: 3,
-      body: {
-        name: name.value,
-        icon_url: icon.value,
-        max_scopes: Number(scopesVal.value), // JS is 52 bit for ints so we're good for now
-        redirect_uris: redirectUris.value,
-      },
+      body,
     })
 
     await refresh()
