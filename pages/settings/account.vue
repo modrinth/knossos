@@ -197,6 +197,7 @@
               v-model="twoFactorCode"
               maxlength="6"
               type="text"
+              inputmode="numeric"
               placeholder="Enter code..."
             />
             <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
