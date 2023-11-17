@@ -61,11 +61,9 @@
 </template>
 <script setup>
 import { Button, ChevronRightIcon, PopoutMenu, XIcon } from 'omorphia'
-import MinecraftIcon from '@/assets/images/games/minecraft.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import SearchIcon from 'assets/images/utils/search.svg'
 import FilterIcon from 'assets/images/utils/filter.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
 import GameBanner from '~/components/ui/GameBanner.vue'
 
 const rawProjects = await useBaseFetch(`search?limit=100`, {
@@ -91,81 +89,82 @@ function toColor(color) {
   width: 100%;
   height: 10rem;
 
-.project-carousel {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--gap-lg);
+  .project-carousel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-lg);
 
-  .carousel-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .metadata {
+    .carousel-item {
       display: flex;
+      flex-direction: column;
       gap: 0.5rem;
-      align-items: flex-start;
-      position: relative;
 
-      .icon {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
+      .metadata {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+        position: relative;
+
+        .icon {
+          background-color: transparent;
+          border: none;
+          box-shadow: none;
+        }
+
+        .name {
+          grid-area: title;
+          font-weight: 700;
+          color: var(--color-contrast);
+        }
+
+        .subtitle {
+          font-size: var(--font-size-sm);
+          margin-top: 0.25rem;
+        }
       }
 
-      .name {
-        grid-area: title;
-        font-weight: 700;
-        color: var(--color-contrast);
-      }
-
-      .subtitle {
-        font-size: var(--font-size-sm);
-        margin-top: 0.25rem;
+      .preview {
+        grid-area: preview;
+        width: 100%;
+        aspect-ratio: 2 / 1;
+        border-radius: 12px;
+        object-fit: cover;
+        position: relative;
       }
     }
+  }
 
-    .preview {
-      grid-area: preview;
-      width: 100%;
-      aspect-ratio: 2 / 1;
-      border-radius: 12px;
-      object-fit: cover;
-      position: relative;
+  .featured-list {
+    margin-top: 2rem;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--gap-md);
+
+    .btn-rounded {
+      border-radius: 10000px;
+      border: 2px solid var(--color-base);
+      color: var(--color-base);
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0.5rem 1rem;
+    }
+
+    h2 {
+      margin: 0;
     }
   }
-}
 
-.featured-list {
-  margin-top: 2rem;
-}
+  .hype-text {
+    font-size: var(--font-size-md);
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--gap-md);
-
-  .btn-rounded {
-    border-radius: 10000px;
-    border: 2px solid var(--color-base);
-    color: var(--color-base);
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0.5rem 1rem;
-  }
-
-  h2 {
-    margin: 0;
-  }
-}
-
-.hype-text {
-  font-size: var(--font-size-md);
-
-  span {
-    color: var(--color-brand);
-    font-weight: 600;
+    span {
+      color: var(--color-brand);
+      font-weight: 600;
+    }
   }
 }
 </style>
