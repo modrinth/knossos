@@ -48,7 +48,7 @@
     "message": "上传头像"
   },
   "profile.joined-at": {
-    "message": "在 {ago} 加入"
+    "message": "加入于 {ago}"
   },
   "profile.label.edit-bio": {
     "message": "个人简介"
@@ -150,7 +150,7 @@
     "message": "提交以聚焦第一个搜索结果"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "搜索一种语言……"
+    "message": "搜索语言……"
   },
   "settings.language.languages.search-results-announcement": {
     "message": "{matches, plural,=0 {没有语言}other {有 # 种语言}}匹配您的搜索。"
@@ -168,7 +168,7 @@
     "message": "以下是你目前已登录 Modrinth 账号的所有设备。你可以单独登出任意一项。\n\n如果你看到一条无法辨认的记录，请立即登出该设备并更改你的 Modrinth 账号密码。"
   },
   "settings.sessions.label.created-at": {
-    "message": "创建于 {ago} 前"
+    "message": "创建于 {ago}"
   },
   "settings.sessions.label.current-session": {
     "message": "当前会话"
