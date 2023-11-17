@@ -31,8 +31,8 @@
     <p>It does not apply to information collected by:</p>
     <ul>
       <li>
-        Us offline or through any other means, including on any other website operated by Rinth, Inc.
-        or any third party (including our affiliates and subsidiaries); or
+        Us offline or through any other means, including on any other website operated by Rinth,
+        Inc. or any third party (including our affiliates and subsidiaries); or
       </li>
       <li>
         Any third party (including our affiliates and subsidiaries), including through any
