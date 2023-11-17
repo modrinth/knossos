@@ -19,6 +19,7 @@
       nags.filter((x) => x.condition).length > 0 &&
       (project.status === 'draft' || tags.rejectedStatuses.includes(project.status))
     "
+    :class="{ collapsed: collapsed }"
     class="author-actions universal-card"
   >
     <div class="header__row">
@@ -53,49 +54,57 @@
         </button>
       </div>
     </div>
-    <div v-if="!collapsed" class="grid-display width-16">
-      <div v-for="nag in nags.filter((x) => x.condition)" :key="nag.id" class="grid-display__item">
-        <span class="label">
-          <RequiredIcon
-            v-if="nag.status === 'required'"
-            v-tooltip="'Required'"
-            aria-label="Required"
-            :class="nag.status"
-          />
-          <SuggestionIcon
-            v-else-if="nag.status === 'suggestion'"
-            v-tooltip="'Suggestion'"
-            aria-label="Suggestion"
-            :class="nag.status"
-          />
-          <ModerationIcon
-            v-else-if="nag.status === 'review'"
-            v-tooltip="'Review'"
-            aria-label="Review"
-            :class="nag.status"
-          />{{ nag.title }}</span
-        >
-        {{ nag.description }}
-        <NuxtLink
-          v-if="nag.link"
-          :class="{ invisible: nag.link.hide }"
-          class="goto-link"
-          :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/${
-            nag.link.path
-          }`"
-        >
-          {{ nag.link.title }}
-          <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
-        </NuxtLink>
-        <button
-          v-else-if="nag.action"
-          class="iconified-button moderation-button"
-          :disabled="nag.action.disabled()"
-          @click="nag.action.onClick"
-        >
-          <SendIcon />
-          {{ nag.action.title }}
-        </button>
+    <div class="collapsing-box">
+      <div class="collapsing-box__contents">
+        <div class="grid-display width-16">
+          <div
+            v-for="nag in nags.filter((x) => x.condition)"
+            :key="nag.id"
+            class="grid-display__item"
+          >
+            <span class="label">
+              <RequiredIcon
+                v-if="nag.status === 'required'"
+                v-tooltip="'Required'"
+                aria-label="Required"
+                :class="nag.status"
+              />
+              <SuggestionIcon
+                v-else-if="nag.status === 'suggestion'"
+                v-tooltip="'Suggestion'"
+                aria-label="Suggestion"
+                :class="nag.status"
+              />
+              <ModerationIcon
+                v-else-if="nag.status === 'review'"
+                v-tooltip="'Review'"
+                aria-label="Review"
+                :class="nag.status"
+              />{{ nag.title }}</span
+            >
+            {{ nag.description }}
+            <NuxtLink
+              v-if="nag.link"
+              :class="{ invisible: nag.link.hide }"
+              class="goto-link"
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/${
+                nag.link.path
+              }`"
+            >
+              {{ nag.link.title }}
+              <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
+            </NuxtLink>
+            <button
+              v-else-if="nag.action"
+              class="iconified-button moderation-button"
+              :disabled="nag.action.disabled()"
+              @click="nag.action.onClick"
+            >
+              <SendIcon />
+              {{ nag.action.title }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -420,6 +429,14 @@ export default {
 .invited {
 }
 
+.collapsing-box__contents {
+  overflow: hidden;
+}
+
+.grid-display {
+  margin-top: var(--gap-lg);
+}
+
 .author-actions {
   &:empty {
     display: none;
@@ -434,6 +451,7 @@ export default {
     column-gap: var(--spacing-card-lg);
     row-gap: var(--spacing-card-md);
     max-width: 100%;
+    margin-bottom: 0;
 
     .header__title {
       display: flex;
@@ -465,15 +483,15 @@ export default {
     align-items: center;
 
     .required {
-      color: var(--color-special-red);
+      color: var(--color-red);
     }
 
     .suggestion {
-      color: var(--color-special-purple);
+      color: var(--color-purple);
     }
 
     .review {
-      color: var(--color-special-orange);
+      color: var(--color-orange);
     }
   }
 
@@ -504,7 +522,7 @@ export default {
     .circle {
       --circle-size: 2rem;
       --background-color: var(--color-bg);
-      --content-color: var(--color-special-gray);
+      --content-color: var(--color-gray);
       width: var(--circle-size);
       height: var(--circle-size);
       border-radius: 50%;
@@ -520,22 +538,37 @@ export default {
       }
 
       &.required {
-        --content-color: var(--color-special-red);
+        --content-color: var(--color-red);
       }
 
       &.suggestion {
-        --content-color: var(--color-special-purple);
+        --content-color: var(--color-purple);
       }
 
       &.review {
-        --content-color: var(--color-special-orange);
+        --content-color: var(--color-orange);
       }
 
       &.done {
-        --background-color: var(--color-special-green);
+        --background-color: var(--color-green);
         --content-color: var(--color-brand-inverted);
       }
     }
   }
+}
+
+.collapsing-box {
+  display: grid;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.25s ease-in-out;
+}
+
+.collapsed .header__row {
+  margin-bottom: 0;
+}
+
+.collapsed .collapsing-box {
+  grid-template-rows: 0fr;
 }
 </style>

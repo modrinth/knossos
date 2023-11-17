@@ -1,20 +1,6 @@
 <template>
   <div>
-    <div class="page-header dark-mode">
-      <img
-        src="https://education.minecraft.net/content/dam/education-edition/blogs/1-20-update/TrailsnTales_EduBlogBanner_NoLogo.png"
-        class="game-banner"
-      />
-      <div class="banner-overlay">
-        <div class="banner-overlay__content">
-          <MinecraftIcon class="game-icon" />
-          <h1 class="game-title">
-            <span class="game-name">Minecraft</span>
-            <span class="game-subtitle">Java Edition</span>
-          </h1>
-        </div>
-      </div>
-    </div>
+    <GameBanner game="minecraft_java" />
     <p class="hype-text">
       Discover over <span>18,000</span> Minecraft mods, modpacks, data packs, resource packs,
       shaders, and plugins hosted on Modrinth.
@@ -80,6 +66,7 @@ import Avatar from '~/components/ui/Avatar.vue'
 import SearchIcon from 'assets/images/utils/search.svg'
 import FilterIcon from 'assets/images/utils/filter.svg'
 import Checkbox from '~/components/ui/Checkbox.vue'
+import GameBanner from '~/components/ui/GameBanner.vue'
 
 const rawProjects = await useBaseFetch(`search?limit=100`, {
   method: 'GET',
@@ -103,51 +90,6 @@ function toColor(color) {
   overflow: hidden;
   width: 100%;
   height: 10rem;
-
-  .banner-overlay {
-    position: absolute;
-    display: flex;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
-    background-image: radial-gradient(
-      ellipse at -20% 100%,
-      rgba(0, 0, 0, 0.8) 0%,
-      transparent 100%
-    );
-
-    .banner-overlay__content {
-      display: flex;
-      align-items: center;
-      margin-top: auto;
-    }
-
-    .game-icon {
-      width: 3rem;
-      height: 3rem;
-      margin-right: 1rem;
-    }
-
-    .game-title {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-
-      .game-subtitle {
-        color: var(--color-base);
-        font-size: var(--font-size-lg);
-      }
-    }
-  }
-}
-
-.game-banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 .project-carousel {
   display: grid;

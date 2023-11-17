@@ -131,6 +131,11 @@ a {
   color: var(--color-text);
 }
 
+.btn-primary {
+  color: var(--color-brand);
+  background-color: var(--color-brand-highlight);
+}
+
 .has-icon {
   display: flex;
   align-items: center;

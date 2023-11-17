@@ -82,7 +82,7 @@ export default {
 .badge {
   font-weight: bold;
   width: fit-content;
-  --badge-color: var(--color-special-gray);
+  --badge-color: var(--color-gray);
   color: var(--badge-color);
   white-space: nowrap;
 
@@ -105,7 +105,7 @@ export default {
   &.type--withheld,
   &.type--rejected,
   &.red {
-    --badge-color: var(--color-special-red);
+    --badge-color: var(--color-red);
   }
 
   &.type--pending,
@@ -113,7 +113,7 @@ export default {
   &.type--processing,
   &.type--scheduled,
   &.orange {
-    --badge-color: var(--color-special-orange);
+    --badge-color: var(--color-orange);
   }
 
   &.type--accepted,
@@ -121,23 +121,23 @@ export default {
   &.type--success,
   &.type--approved-general,
   &.green {
-    --badge-color: var(--color-special-green);
+    --badge-color: var(--color-green);
   }
 
   &.type--creator,
   &.type--approved,
   &.blue {
-    --badge-color: var(--color-special-blue);
+    --badge-color: var(--color-blue);
   }
 
   &.type--unlisted,
   &.purple {
-    --badge-color: var(--color-special-purple);
+    --badge-color: var(--color-purple);
   }
 
   &.type--private,
   &.gray {
-    --badge-color: var(--color-special-gray);
+    --badge-color: var(--color-gray);
   }
 }
 </style>

@@ -63,12 +63,12 @@ export default {
   }
 
   &:hover {
-    filter: brightness(0.85);
+    filter: brightness(var(--hover-filter));
   }
 
   &:active {
     transform: scale(0.95);
-    filter: brightness(0.8);
+    filter: brightness(var(--active-filter));
   }
 }
 </style>

@@ -165,52 +165,31 @@
             :options="[
               {
                 id: 'mods',
-                action: () => {
-                  router.push('/mods')
-                  setProjectType('mods')
-                },
+                link: '/mods',
               },
               {
                 id: 'modpacks',
-                action: () => {
-                  router.push('/modpacks')
-                  setProjectType('modpacks')
-                },
+                link: '/modpacks',
               },
               {
                 id: 'datapacks',
-                action: () => {
-                  router.push('/datapacks')
-                  setProjectType('datapacks')
-                },
+                link: '/datapacks',
               },
               {
                 id: 'resourcepacks',
-                action: () => {
-                  router.push('/resourcepacks')
-                  setProjectType('resourcepacks')
-                },
+                link: '/resourcepacks',
               },
               {
                 id: 'worlds',
-                action: () => {
-                  // router.push('/worlds')
-                  // setProjectType('worlds')
-                },
+                link: '/worlds',
               },
               {
                 id: 'shaders',
-                action: () => {
-                  router.push('/shaders')
-                  setProjectType('shaders')
-                },
+                link: '/shaders',
               },
               {
                 id: 'plugins',
-                action: () => {
-                  router.push('/plugins')
-                  setProjectType('plugins')
-                },
+                link: '/plugins',
               },
             ]"
           >
@@ -751,7 +730,7 @@ export default defineNuxtComponent({
       &.allow-non-exact.router-link-active,
       &.router-link-exact-active {
         color: var(--color-brand);
-        background-color: var(--color-raised-bg);
+        background-color: var(--color-brand-highlight);
 
         &:not(.square-button) svg {
           color: var(--color);
@@ -783,7 +762,7 @@ export default defineNuxtComponent({
       }
 
       .game-button {
-        border: 1px solid var(--color-button-bg);
+        border: 1px solid var(--color-divider);
 
         .game-icon {
           height: 2rem;

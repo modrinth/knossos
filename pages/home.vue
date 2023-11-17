@@ -239,7 +239,7 @@ const notificationSearchInput = ref('')
   font-size: 1.75rem;
   justify-content: center;
   padding: var(--gap-lg);
-  border: 1px solid var(--color-button-bg);
+  border: 1px solid var(--color-divider);
   background-color: var(--color-bg);
   color: var(--color-text);
   margin-block: var(--gap-lg);

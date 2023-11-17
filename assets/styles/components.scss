@@ -9,7 +9,7 @@
 }
 
 .known-error .multiselect__tags {
-  border-color: var(--color-special-red) !important;
+  border-color: var(--color-red) !important;
   background-color: var(--color-warning-bg) !important;
 
   &::placeholder {
@@ -172,9 +172,9 @@
 
   margin-bottom: var(--spacing-card-md);
   outline: 2px solid transparent;
-  border: 1px solid var(--color-button-bg);
+  border: var(--card-border-width) solid var(--card-divider);
 
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--card-shadow);
 
   .card__overlay {
     position: absolute;
@@ -210,7 +210,7 @@
       font-weight: bold;
 
       .required {
-        color: var(--color-special-red);
+        color: var(--color-red);
       }
 
       &.size-card-header {
@@ -735,11 +735,11 @@
   &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled) {
     cursor: pointer;
-    filter: brightness(0.85);
+    filter: brightness(var(--hover-filter));
   }
 
   &:active:not(&:disabled) {
-    filter: brightness(0.8);
+    filter: brightness(var(--active-filter));
   }
 
   &:disabled,
@@ -767,7 +767,7 @@
   }
 
   &.danger-button {
-    color: var(--color-special-red);
+    color: var(--color-red);
   }
 }
 
@@ -779,12 +779,12 @@ tr.button-transparent {
   &:focus-visible:not(&:disabled) > *,
   &:hover:not(&:disabled) > * {
     cursor: pointer;
-    filter: brightness(0.85);
+    filter: brightness(var(--hover-filter));
     background-color: var(--color-raised-bg);
   }
 
   &:active:not(&:disabled) > * {
-    filter: brightness(0.8);
+    filter: brightness(var(--active-filter));
     background-color: var(--color-raised-bg);
   }
 
@@ -803,11 +803,11 @@ tr.button-transparent {
 
   &:focus-visible:not(&.disabled),
   &:hover:not(&.disabled) {
-    filter: brightness(0.85);
+    filter: brightness(var(--hover-filter));
   }
 
   &:active:not(&.disabled) {
-    filter: brightness(0.8);
+    filter: brightness(var(--active-filter));
   }
 
   &.disabled {
@@ -927,12 +927,12 @@ tr.button-transparent {
 }
 
 .danger-button {
-  --background-color: var(--color-special-red);
+  --background-color: var(--color-red);
   --text-color: var(--color-brand-inverted);
 }
 
 .moderation-button {
-  --background-color: var(--color-special-orange);
+  --background-color: var(--color-orange);
   --text-color: var(--color-brand-inverted);
 }
 
@@ -959,7 +959,7 @@ tr.button-transparent {
 }
 
 .known-error .multiselect__tags {
-  border-color: var(--color-special-red) !important;
+  border-color: var(--color-red) !important;
   background-color: var(--color-warning-bg) !important;
 
   &::placeholder {
@@ -1193,7 +1193,7 @@ tr.button-transparent {
   background: var(--color-raised-bg);
   border-radius: var(--size-rounded-card);
   outline: 2px solid transparent;
-  border: 1px solid var(--color-button-bg);
+  border: var(--card-border-width) solid var(--card-divider);
 
   margin-bottom: var(--spacing-card-md);
 
@@ -1222,7 +1222,7 @@ tr.button-transparent {
 .text-input-wrapper.known-error,
 input.known-error,
 textarea.known-error {
-  outline: 2px solid var(--color-special-red);
+  outline: 2px solid var(--color-red);
   background-color: var(--color-warning-bg) !important;
 
   &::placeholder {
@@ -1232,7 +1232,7 @@ textarea.known-error {
 
 .known-errors {
   min-height: 0;
-  color: var(--color-special-red);
+  color: var(--color-red);
 
   ul {
     margin: 0;
@@ -1487,6 +1487,7 @@ button {
   width: 100%;
   gap: var(--spacing-card-md);
   overflow: unset !important;
+  container-type: inline-size;
 
   &:not(:first-child) {
     margin-top: var(--spacing-card-md);
@@ -1650,7 +1651,8 @@ svg.inline-svg {
     input {
       height: 2rem;
       background-color: var(--color-raised-bg);
-      border: 1px solid var(--color-button-bg);
+      border: var(--card-border-width) solid var(--color-divider);
+      box-shadow: var(--card-shadow);
     }
   }
 }
@@ -1659,4 +1661,9 @@ h1,
 h2,
 h3 {
   font-weight: 600;
+}
+
+.btn-highlighted {
+  color: var(--color-brand);
+  background-color: var(--color-brand-highlight);
 }

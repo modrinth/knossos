@@ -93,7 +93,7 @@ export default {
   height: var(--size);
   width: var(--size);
   background-color: var(--color-raised-bg);
-  border: 1px solid var(--color-button-bg);
+  border: 1px solid var(--color-divider);
   object-fit: contain;
 
   &.size-xxs {

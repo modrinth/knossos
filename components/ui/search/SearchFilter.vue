@@ -1,53 +1,34 @@
 <template>
-  <Checkbox
-    class="filter"
-    :model-value="activeFilters.includes(facetName)"
-    :description="displayName"
-    @update:model-value="toggle()"
-  >
-    <div class="filter-text">
-      <div v-if="icon" aria-hidden="true" class="icon" v-html="icon" />
-      <div v-else class="icon">
-        <slot />
-      </div>
-      <span aria-hidden="true"> {{ displayName }}</span>
-    </div>
-  </Checkbox>
+  <ListSelector :model-value="activeFilters.includes(facetName)" @update:model-value="toggle()">
+    <slot />
+    <template v-if="displayName"> {{ displayName }}</template>
+  </ListSelector>
 </template>
 
-<script>
-import Checkbox from '~/components/ui/Checkbox.vue'
+<script setup>
+import ListSelector from '~/components/ui/ListSelector.vue'
 
-export default {
-  components: {
-    Checkbox,
+const props = defineProps({
+  facetName: {
+    type: String,
+    default: '',
   },
-  props: {
-    facetName: {
-      type: String,
-      default: '',
-    },
-    displayName: {
-      type: String,
-      default: '',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    activeFilters: {
-      type: Array,
-      default() {
-        return []
-      },
+  displayName: {
+    type: String,
+    default: '',
+  },
+  activeFilters: {
+    type: Array,
+    default() {
+      return []
     },
   },
-  emits: ['toggle'],
-  methods: {
-    toggle() {
-      this.$emit('toggle', this.facetName)
-    },
-  },
+})
+
+const emit = defineEmits(['toggle'])
+
+function toggle() {
+  emit('toggle', props.facetName)
 }
 </script>
 
