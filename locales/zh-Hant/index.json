@@ -66,7 +66,7 @@
     "message": "前往 Modrinth 下載 {username} 的專案"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} – 在 Modrinth 下載 {username} 的專案"
+    "message": "{bio} – 前往 Modrinth 下載 {username} 的專案"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
@@ -153,7 +153,7 @@
     "message": "搜尋語言..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {沒有語言} other {# 種語言}}與你的搜尋結果相符。"
+    "message": "{matches, plural, =0 {沒有語言} other {# 種語言}}與您的搜尋字詞符合。"
   },
   "settings.language.languages.search.no-results": {
     "message": "沒有語言與您的搜尋字詞符合。"
@@ -165,7 +165,7 @@
     "message": "取消工作階段授權"
   },
   "settings.sessions.description": {
-    "message": "下列為你目前已登入 Modrinth 帳號的所有裝置。你可以個別登出每個裝置。\n\n如果你看到不認識的項目，請立即登出該裝置並更改您的 Modrinth 帳號密碼。"
+    "message": "下列為你目前已登入 Modrinth 帳號的所有裝置。你可以個別登出每個裝置。\n\n如果你看到不認識的項目，請立即登出該裝置並更改你的 Modrinth 帳號密碼。"
   },
   "settings.sessions.label.created-at": {
     "message": "建立於 {ago}"
