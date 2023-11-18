@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  markdown-it@13.0.2:
+    hash: 3bwey5t5onywxiweppznkjrqre
+    path: patches/markdown-it@13.0.2.patch
+
 dependencies:
   '@ltd/j-toml':
     specifier: ^1.38.0
@@ -28,7 +33,7 @@ dependencies:
     version: 3.10.1
   markdown-it:
     specifier: ^13.0.1
-    version: 13.0.2
+    version: 13.0.2(patch_hash=3bwey5t5onywxiweppznkjrqre)
   omorphia:
     specifier: ^0.6.2
     version: 0.6.5(vue@3.3.8)
@@ -6207,7 +6212,7 @@ packages:
       - supports-color
     dev: true
 
-  /markdown-it@13.0.2:
+  /markdown-it@13.0.2(patch_hash=3bwey5t5onywxiweppznkjrqre):
     resolution: {integrity: sha512-FtwnEuuK+2yVU7goGn/MJ0WBZMM9ZPgU9spqlFs7/A/pDIUNSOQZhUgOqYCficIuR2QaFnrt8LHqBWsbTAoI5w==}
     hasBin: true
     dependencies:
@@ -6217,6 +6222,7 @@ packages:
       mdurl: 1.0.1
       uc.micro: 1.0.6
     dev: false
+    patched: true
 
   /mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
@@ -7041,7 +7047,7 @@ packages:
       dayjs: 1.11.10
       floating-vue: 2.0.0-beta.24(vue@3.3.8)
       highlight.js: 11.9.0
-      markdown-it: 13.0.2
+      markdown-it: 13.0.2(patch_hash=3bwey5t5onywxiweppznkjrqre)
       qrcode.vue: 3.4.1(vue@3.3.8)
       vue: 3.3.8(typescript@5.2.2)
       vue-router: 4.2.5(vue@3.3.8)

@@ -52,5 +52,10 @@
     "vue-multiselect": "^3.0.0-alpha.2",
     "xss": "^1.0.14"
   },
-  "packageManager": "pnpm@8.6.1"
+  "packageManager": "pnpm@8.6.1",
+  "pnpm": {
+    "patchedDependencies": {
+      "markdown-it@13.0.2": "patches/markdown-it@13.0.2.patch"
+    }
+  }
 }
