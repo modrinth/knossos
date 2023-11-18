@@ -326,6 +326,12 @@ function rgbToHsl(r, g, b) {
     z-index: 1;
   }
 
+  &:has(.project-card__link:hover):not(:has(a:not(.project-card__link):hover)) {
+    .title .name {
+      text-decoration: underline;
+    }
+  }
+
   &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
     scale: 0.99 !important;
   }
@@ -443,6 +449,10 @@ function rgbToHsl(r, g, b) {
   text-overflow: ellipsis;
   max-width: 100%;
   color: var(--color-link);
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .stats {

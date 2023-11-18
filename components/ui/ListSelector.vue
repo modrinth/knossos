@@ -1,7 +1,7 @@
 <template>
   <button
     v-bind="$attrs"
-    class="btn"
+    class="btn btn-transparent"
     :class="{ selected: modelValue && !noActiveState }"
     role="checkbox"
     :aria-checked="modelValue"
@@ -41,7 +41,6 @@ function toggle() {
 .btn {
   width: 100%;
   justify-content: space-between;
-  background-color: var(--color-raised-bg);
   line-height: 0.75rem;
 
   svg {
@@ -52,10 +51,10 @@ function toggle() {
   &:not(.selected) .count {
     opacity: 0.5;
   }
-}
 
-.selected {
-  background-color: var(--color-brand-highlight);
-  color: var(--color-contrast);
+  &.selected {
+    background-color: var(--color-brand-highlight);
+    color: var(--color-contrast);
+  }
 }
 </style>

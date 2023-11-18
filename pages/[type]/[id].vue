@@ -1673,16 +1673,6 @@ const collapsedChecklist = ref(false)
   }
 }
 
-.game-banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  &.no-banner {
-    //filter: brightness(1.8) saturate(0.5);
-  }
-}
-
 .download-selectors {
   display: flex;
   flex-direction: column;

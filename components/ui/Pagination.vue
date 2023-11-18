@@ -3,7 +3,7 @@
     <a
       :class="{ disabled: page === 1 }"
       :tabindex="page === 1 ? -1 : 0"
-      class="left-arrow paginate has-icon btn button-transparent square-button"
+      class="btn btn-transparent icon-only"
       aria-label="Previous Page"
       :href="linkFunction(page - 1)"
       @click.prevent="page !== 1 ? switchPage(page - 1) : null"
@@ -26,8 +26,8 @@
         v-else
         class="btn"
         :class="{
-          'page-number current btn-primary': page === item,
-          'button-transparent': page !== item,
+          'page-number current btn-highlighted': page === item,
+          'btn-transparent': page !== item,
           shrink: item > 99,
         }"
         :href="linkFunction(item)"
@@ -42,7 +42,7 @@
         disabled: page === pages[pages.length - 1],
       }"
       :tabindex="page === pages[pages.length - 1] ? -1 : 0"
-      class="right-arrow paginate has-icon btn button-transparent square-button"
+      class="btn btn-transparent icon-only"
       aria-label="Next Page"
       :href="linkFunction(page + 1)"
       @click.prevent="page !== pages[pages.length - 1] ? switchPage(page + 1) : null"
@@ -82,27 +82,33 @@ export default {
   emits: ['switch-page'],
   computed: {
     pages() {
-      let pages = []
+      const pages = []
+      const fourFromStart = 4
+      const fourFromEnd = this.count - 3
 
-      if (this.count > 7) {
-        if (this.page + 3 >= this.count) {
-          pages = [
-            1,
-            '-',
-            this.count - 4,
-            this.count - 3,
-            this.count - 2,
-            this.count - 1,
-            this.count,
-          ]
-        } else if (this.page > 5) {
-          pages = [1, '-', this.page - 1, this.page, this.page + 1, '-', this.count]
-        } else {
-          pages = [1, 2, 3, 4, 5, '-', this.count]
-        }
-      } else {
-        pages = Array.from({ length: this.count }, (_, i) => i + 1)
+      pages.push(1)
+
+      if (this.page <= fourFromStart) {
+        pages.push(2, 3, 4, 5)
       }
+
+      if (this.page > fourFromStart) {
+        pages.push('-')
+      }
+
+      if (this.page > fourFromStart && this.page < fourFromEnd) {
+        pages.push(this.page - 1, this.page, this.page + 1)
+      }
+
+      if (this.page < fourFromEnd) {
+        pages.push('-')
+      }
+
+      if (this.page >= fourFromEnd) {
+        pages.push(this.count - 4, this.count - 3, this.count - 2, this.count - 1)
+      }
+
+      pages.push(this.count)
 
       return pages
     },
@@ -127,15 +133,6 @@ a {
   box-shadow: none;
 }
 
-.button-transparent {
-  color: var(--color-text);
-}
-
-.btn-primary {
-  color: var(--color-brand);
-  background-color: var(--color-brand-highlight);
-}
-
 .has-icon {
   display: flex;
   align-items: center;
@@ -153,17 +150,8 @@ a,
 }
 
 .paginates {
-  margin: 0.5rem 0;
   display: flex;
   gap: var(--gap-xs);
-}
-
-.left-arrow {
-  margin-left: auto !important;
-}
-
-.right-arrow {
-  margin-right: auto !important;
 }
 
 @media screen and (max-width: 400px) {
