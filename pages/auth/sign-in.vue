@@ -12,6 +12,7 @@
         type="text"
         placeholder="Enter code..."
         inputmode="numeric"
+        autocomplete="one-time-code"
         @keyup.enter="begin2FASignIn"
       />
 

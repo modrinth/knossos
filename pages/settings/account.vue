@@ -198,6 +198,7 @@
               maxlength="6"
               type="text"
               inputmode="numeric"
+              autocomplete="one-time-code"
               placeholder="Enter code..."
             />
             <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
