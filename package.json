@@ -19,7 +19,7 @@
     "@types/node": "^20.1.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
-    "@vintl/compact-number": "^2.0.4",
+    "@vintl/compact-number": "^2.0.5",
     "@vintl/how-ago": "^3.0.1",
     "@vintl/nuxt": "^1.5.0",
     "eslint": "^8.41.0",
