@@ -76,7 +76,12 @@
           <MarkdownEditor v-model="reportBody" placeholder="" :on-image-upload="onImageUpload" />
         </div>
         <div class="submit-button">
-          <Button id="submit-button" :disabled="submitLoading || !canSubmit" @click="submitReport">
+          <Button
+            id="submit-button"
+            color="primary"
+            :disabled="submitLoading || !canSubmit"
+            @click="submitReport"
+          >
             <SaveIcon />
             Submit
           </Button>
@@ -223,6 +228,10 @@ const onImageUpload = async (file: File) => {
 
 <style scoped lang="scss">
 .submit-button {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
   margin-top: var(--spacing-card-md);
 }
 
