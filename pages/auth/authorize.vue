@@ -12,9 +12,11 @@
     <div v-else class="oauth-items">
       <div class="connected-items">
         <div class="profile-pics">
-          <img class="profile-pic" :src="app.icon_url" alt="User profile picture" />
+          <Avatar size="md" circle :src="app.icon_url" />
+          <!-- <img class="profile-pic" :src="app.icon_url" alt="User profile picture" /> -->
           <div class="connection-indicator">+</div>
-          <img class="profile-pic" :src="auth.user.avatar_url" alt="User profile picture" />
+          <Avatar size="md" circle :src="auth.user.avatar_url" />
+          <!-- <img class="profile-pic" :src="auth.user.avatar_url" alt="User profile picture" /> -->
         </div>
       </div>
       <div class="title">
@@ -31,7 +33,7 @@
         <div class="scope-items">
           <div v-for="scopeItem in scopeDefinitions" :key="scopeItem">
             <div class="scope-item">
-              <div class="icon">
+              <div class="scope-icon">
                 <CheckIcon />
               </div>
               {{ scopeItem }}
@@ -60,7 +62,7 @@
 </template>
 
 <script setup>
-import { Button, XIcon, CheckIcon } from 'omorphia'
+import { Button, XIcon, CheckIcon, Avatar } from 'omorphia'
 import { useBaseFetch } from '@/composables/fetch.js'
 import { useAuth } from '@/composables/auth.js'
 import { getScopeDefinitions } from '@/utils/auth/scopes.ts'
@@ -198,10 +200,10 @@ definePageMeta({
   gap: var(--gap-sm);
 }
 
-.icon {
+.scope-icon {
   display: flex;
 
-  color: #fff;
+  color: var(--color-raised-bg);
   background-color: var(--color-green);
   aspect-ratio: 1;
   border-radius: 50%;

@@ -27,11 +27,9 @@
       <div class="token-content">
         <div>
           <div class="icon-name">
-            <div class="icon">
-              <img :src="authorization.app.icon_url" :alt="authorization.app.name + ' icon'" />
-            </div>
+            <Avatar size="md" :src="authorization.app.icon_url" />
             <div>
-              <h3 class="token-title">{{ authorization.app.name }}</h3>
+              <h2 class="token-title">{{ authorization.app.name }}</h2>
               <div>
                 by
                 <nuxt-link class="text-link" :to="'/user/' + authorization.owner.id">{{
@@ -43,7 +41,7 @@
         </div>
         <div>
           <div>
-            <strong>Scopes:</strong>
+            <strong>Scopes</strong>
           </div>
           <div class="scope-list">
             <div
@@ -79,7 +77,7 @@
   </div>
 </template>
 <script setup>
-import { Button, TrashIcon, CheckIcon, ConfirmModal } from 'omorphia'
+import { Button, TrashIcon, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
 import { getScopeDefinitions } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
@@ -210,31 +208,11 @@ const constCaseToTitleCase = (str) =>
 
 .icon-name {
   display: flex;
-  align-items: start;
+  align-items: center;
   gap: 1rem;
   padding-bottom: var(--gap-sm);
-
-  .icon {
-    height: 100%;
-    max-height: 3rem;
-    flex: 0 0 auto;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-gray-200);
-    border: 1px solid var(--color-gray-300);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center; /* Optional, for adjusting image alignment */
-    }
-  }
 }
+
 .submit-row {
   padding-top: var(--gap-lg);
 }
