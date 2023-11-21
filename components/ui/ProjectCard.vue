@@ -305,48 +305,7 @@ function rgbToHsl(r, g, b) {
 </script>
 
 <style lang="scss" scoped>
-.project-card {
-  display: grid;
-  gap: 0.5rem 0.75rem;
-  grid-template: 'icon title actions gallery' 'icon summary actions gallery' 'icon stats actions gallery';
-  grid-template-columns: min-content 1fr min-content auto;
-  grid-template-rows: min-content auto 1fr;
-  position: relative;
-  padding: 1rem;
-  //padding-left: calc(1rem + 6px);
-  border-radius: var(--round-card);
-  background-color: var(--color-raised-bg);
-  border: var(--card-border-width) solid var(--card-divider);
-  box-shadow: var(--card-shadow);
-  width: 100%;
-
-  a:not(.project-card__link),
-  button,
-  .v-popper--has-tooltip {
-    z-index: 1;
-  }
-
-  &:has(.project-card__link:hover):not(:has(a:not(.project-card__link):hover)) {
-    .title .name {
-      text-decoration: underline;
-    }
-  }
-
-  &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
-    scale: 0.99 !important;
-  }
-
-  @media (hover: hover) {
-    &:hover,
-    &:focus-within {
-      .actions {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-.display-mode--grid .project-card {
+@mixin grid-mode {
   grid-template: 'gallery gallery gallery' 'icon title actions' 'summary summary summary' 'stats stats stats';
   grid-template-columns: min-content 1fr min-content;
   grid-template-rows: min-content min-content 1fr auto;
@@ -388,6 +347,55 @@ function rgbToHsl(r, g, b) {
   .stats {
     font-size: var(--font-size-sm);
   }
+}
+
+.project-card {
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  grid-template: 'icon title actions gallery' 'icon summary actions gallery' 'icon stats actions gallery';
+  grid-template-columns: min-content 1fr min-content auto;
+  grid-template-rows: min-content auto 1fr;
+  position: relative;
+  padding: 1rem;
+  //padding-left: calc(1rem + 6px);
+  border-radius: var(--round-card);
+  background-color: var(--color-raised-bg);
+  border: var(--card-border-width) solid var(--card-divider);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+
+  a:not(.project-card__link),
+  button,
+  .v-popper--has-tooltip {
+    z-index: 1;
+  }
+
+  &:has(.project-card__link:hover):not(:has(a:not(.project-card__link):hover)) {
+    .title .name {
+      text-decoration: underline;
+    }
+  }
+
+  &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
+    scale: 0.99 !important;
+  }
+
+  @media (hover: hover) {
+    &:hover,
+    &:focus-within {
+      .actions {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    @include grid-mode;
+  }
+}
+
+.display-mode--grid .project-card {
+  @include grid-mode;
 }
 
 .project-card__link {

@@ -68,30 +68,32 @@
           <template #follows> <HeartIcon /> {{ formatMessage(sortTypeNames.follows) }} </template>
         </OverflowMenu>
         <template #right>
-          <span class="page-bar__title">View as</span>
-          <div class="page-bar__buttons">
-            <button
-              v-tooltip="`List`"
-              :aria-label="`List`"
-              class="btn icon-only"
-              :class="{
-                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
-              }"
-              @click="setSearchDisplayMode('list')"
-            >
-              <ListIcon />
-            </button>
-            <button
-              v-tooltip="`Grid`"
-              :aria-label="`Grid`"
-              class="btn icon-only"
-              :class="{
-                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
-              }"
-              @click="setSearchDisplayMode('grid')"
-            >
-              <GridIcon />
-            </button>
+          <div class="view-options">
+            <span class="page-bar__title"><EyeIcon /> View as</span>
+            <div class="page-bar__buttons">
+              <button
+                v-tooltip="`List`"
+                :aria-label="`List`"
+                class="btn icon-only"
+                :class="{
+                  'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
+                }"
+                @click="setSearchDisplayMode('list')"
+              >
+                <ListIcon />
+              </button>
+              <button
+                v-tooltip="`Grid`"
+                :aria-label="`Grid`"
+                class="btn icon-only"
+                :class="{
+                  'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
+                }"
+                @click="setSearchDisplayMode('grid')"
+              >
+                <GridIcon />
+              </button>
+            </div>
           </div>
         </template>
       </PageBar>
@@ -103,7 +105,7 @@
       }"
       aria-label="Filters"
     >
-      <section class="universal-card card-filters">
+      <section class="universal-card filters-card">
         <h2>Filters</h2>
         <div class="filters-search-row">
           <div class="iconified-input">
@@ -123,13 +125,7 @@
             </Button>
           </div>
           <button
-            v-if="
-              onlyOpenSource ||
-              selectedEnvironments.length > 0 ||
-              selectedVersions.length > 0 ||
-              facets.length > 0 ||
-              orFacets.length > 0
-            "
+            v-if="hasFiltersEnabled"
             v-tooltip="`Reset filters`"
             class="btn icon-only"
             @click="clearFilters"
@@ -315,8 +311,19 @@
         />
       </div>
       <LogoAnimated v-if="searchLoading && !noLoad"></LogoAnimated>
-      <div v-else-if="results && results.hits && results.hits.length === 0" class="no-results">
-        <p>No results found for your query!</p>
+      <div
+        v-else-if="
+          results && results.hits && results.hits.length === 0 && (!searchLoading || noLoad)
+        "
+        class="no-results"
+      >
+        <FrownIcon />
+        <p v-if="query && hasFiltersEnabled">
+          We couldn't find any results matching "{{ query }}" with your filters.
+        </p>
+        <p v-else-if="query">We couldn't find any results matching "{{ query }}"</p>
+        <p v-else-if="hasFiltersEnabled">We couldn't find any results matching your filters.</p>
+        <p v-else>We couldn't find any results.</p>
       </div>
       <div v-else class="search-results-container">
         <div
@@ -352,14 +359,16 @@
         </div>
       </div>
       <div class="pagination-container">
-        <span>Show per page</span>
-        <DropdownSelect
-          v-model="maxResults"
-          class="count-dropdown"
-          name="Per page"
-          :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
-          @update:model-value="onMaxResultsChange(currentPage)"
-        />
+        <div>
+          <span>Show per page</span>
+          <DropdownSelect
+            v-model="maxResults"
+            class="count-dropdown"
+            name="Per page"
+            :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
+            @update:model-value="onMaxResultsChange(currentPage)"
+          />
+        </div>
         <Pagination
           :page="currentPage"
           :count="pageCount"
@@ -373,6 +382,7 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import {
+  EyeIcon,
   HeartIcon,
   DownloadIcon,
   UnknownIcon,
@@ -393,6 +403,7 @@ import Pagination from '~/components/ui/Pagination.vue'
 import SearchFilter from '~/components/ui/search/SearchFilter.vue'
 import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
+import FrownIcon from '~/assets/images/utils/frown.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
 import FilterIcon from '~/assets/images/utils/filter.svg'
 import FilterXIcon from '~/assets/images/utils/filter-x.svg'
@@ -473,6 +484,17 @@ const metaDescription = computed(
       projectType.value.display
     )}s.`
 )
+
+const hasFiltersEnabled = computed(() => {
+  return (
+    onlyOpenSource.value ||
+    selectedEnvironments.value.length > 0 ||
+    selectedVersions.value.length > 0 ||
+    facets.value.length > 0 ||
+    orFacets.value.length > 0
+  )
+})
+
 if (route.query.q) {
   query.value = route.query.q
 }
@@ -941,61 +963,30 @@ function setClosestMaxResults() {
   }
 }
 
-.filters-card {
-  padding: var(--spacing-card-md);
-
-  @media screen and (min-width: 1024px) {
-    padding: var(--spacing-card-lg);
-  }
-}
-
-.sidebar-menu {
-  display: none;
-}
-
-.sidebar-menu_open {
-  display: block;
-}
-
-.sidebar-menu-heading {
-  margin: 1.5rem 0 0.5rem 0;
-}
-
-.search-controls {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-card-md);
-  flex-wrap: wrap;
-  grid-row: 2;
-  margin-bottom: var(--gap-lg);
-  align-items: center;
-
-  .iconified-input {
-    flex-grow: 1;
-  }
-
-  .animated-dropdown {
-    line-height: 24px;
-    width: 14rem;
-  }
-
-  .square-button {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-.search-results-container {
-  grid-row: 5;
-}
-
-.pagination-after {
-  grid-row: 6;
-}
-
 .no-results {
-  text-align: center;
-  display: flow-root;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-lg);
+
+  svg {
+    --_size: 5rem;
+    width: var(--_size);
+    height: var(--_size);
+    color: var(--color-brand);
+
+    :deep(circle) {
+      fill: var(--color-brand-highlight);
+    }
+  }
+
+  p {
+    color: var(--color-contrast);
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    max-width: 30rem;
+  }
 }
 
 .loading-logo {
@@ -1004,32 +995,6 @@ function setClosestMaxResults() {
 
 #search-results {
   min-height: 20vh;
-}
-
-@media screen and (min-width: 750px) {
-  .search-controls {
-    flex-direction: row;
-  }
-
-  .sort-controls {
-    min-width: fit-content;
-    max-width: fit-content;
-    flex-wrap: nowrap;
-  }
-
-  .labeled-control {
-    align-items: center;
-    display: flex;
-    flex-direction: column !important;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    max-width: fit-content;
-  }
-
-  .labeled-control__label {
-    flex-shrink: 0;
-    margin-bottom: 0 !important;
-  }
 }
 
 @media screen and (min-width: 860px) {
@@ -1088,30 +1053,11 @@ h1 {
   }
 }
 
-.paginates {
-  margin: 0;
-}
-
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  color: var(--color-secondary);
-  margin-bottom: 1rem;
-
-  span:not(.current) {
-    color: var(--color-base);
-  }
-
-  svg {
-    margin-inline: 0.5rem;
-  }
-}
-
 .type-header {
   margin-top: 1rem;
 }
 
-.card-filters {
+.filters-card {
   .card-title {
     display: flex;
     justify-content: space-between;
@@ -1230,6 +1176,14 @@ h1 {
       width: 1rem;
       height: 1rem;
     }
+  }
+}
+
+.view-options {
+  display: contents;
+
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 }
 </style>

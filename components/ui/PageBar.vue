@@ -18,6 +18,8 @@
   justify-content: space-between;
   border-bottom: 2px solid var(--color-divider);
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
 
   :deep(.page-bar__title) {
     display: flex;

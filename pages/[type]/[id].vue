@@ -111,7 +111,7 @@
         <div class="breadcrumbs">
           <span>Minecraft: Java Edition</span>
           <ChevronRightIcon />
-          <span>Mods</span>
+          <nuxt-link :to="`/mods`">Mods</nuxt-link>
           <ChevronRightIcon />
           <span class="current">{{ project.title }}</span>
         </div>
@@ -709,6 +709,7 @@ import PayPalIcon from '~/assets/images/external/paypal.svg'
 import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
 import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+import GameBanner from '~/components/ui/GameBanner.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
@@ -1567,7 +1568,7 @@ const collapsedChecklist = ref(false)
   display: flex;
   align-items: center;
   color: var(--color-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 
   span:not(.current) {
     color: var(--color-base);
