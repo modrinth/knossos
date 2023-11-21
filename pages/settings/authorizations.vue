@@ -40,9 +40,7 @@
           </div>
         </div>
         <div>
-          <div>
-            <strong>Scopes</strong>
-          </div>
+          <div class="token-heading">Scopes</div>
           <div class="scope-list">
             <div
               v-for="scope in getScopeDefinitions(authorization.scopes)"
@@ -55,6 +53,8 @@
               {{ constCaseToTitleCase(scope) }}
             </div>
           </div>
+          <div class="token-heading">App Information</div>
+          <div>Client ID <CopyCode :text="authorization.app_id" /></div>
         </div>
       </div>
 
@@ -77,7 +77,7 @@
   </div>
 </template>
 <script setup>
-import { Button, TrashIcon, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
+import { Button, TrashIcon, CopyCode, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
 import { getScopeDefinitions } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
@@ -170,11 +170,18 @@ const constCaseToTitleCase = (str) =>
   }
 }
 
+.token-heading {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25rem;
+  color: var(--color-gray-700);
+  padding-block: var(--gap-lg);
+}
+
 .scope-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: var(--gap-sm);
-  padding-block: var(--gap-sm);
 
   .scope-list-item {
     display: flex;
