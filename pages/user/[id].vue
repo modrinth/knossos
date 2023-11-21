@@ -15,55 +15,82 @@
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="normal-page">
-      <div class="page-header">
-        <Avatar
-          :src="previewImage ? previewImage : user.avatar_url"
-          size="md"
-          circle
-          class="page-header__icon"
-          :alt="user.username"
-        />
-        <div class="page-header__text">
-          <div class="title">
-            <h1 class="username">
-              {{ user.username }}
-            </h1>
-            <ModrinthIcon v-if="user.role === 'admin'" v-tooltip="'Modrinth team'" class="icon" />
-            <ScaleIcon
-              v-else-if="user.role === 'moderator'"
-              v-tooltip="'Moderator'"
-              class="icon moderator"
+      <div class="user-header">
+        <div class="banner-img">
+          <div class="banner-content">
+            <Avatar
+                :src="previewImage ? previewImage : user.avatar_url"
+                size="lg"
+                circle
+                :alt="user.username"
             />
-            <BoxIcon
-              v-else-if="user.role === 'developer'"
-              v-tooltip="'Creator'"
-              class="icon creator"
-            />
-          </div>
-          <div class="markdown-body">
-            <p>
-              {{ user.bio }}
-            </p>
-          </div>
-          <div class="stats">
-            <div class="stat">
-              <HeartIcon aria-hidden="true" />
-              {{ sumFollows }} followers
+            <div class="user-text">
+              <div class="title">
+                <h1 class="username">
+                  {{ user.username }}
+                </h1>
+                <ModrinthIcon v-if="user.role === 'admin'" v-tooltip="'Modrinth team'" class="icon" />
+                <ScaleIcon
+                    v-else-if="user.role === 'moderator'"
+                    v-tooltip="'Moderator'"
+                    class="icon moderator"
+                />
+                <BoxIcon
+                    v-else-if="user.role === 'developer'"
+                    v-tooltip="'Creator'"
+                    class="icon creator"
+                />
+              </div>
+              <div class="markdown-body">
+                <p>
+                  {{ user.bio }}
+                </p>
+              </div>
             </div>
-            <div class="stat">
-              <DownloadIcon aria-hidden="true" />
-              {{ sumDownloads }} downloads
-            </div>
-            <div class="stat">
-              <SunriseIcon aria-hidden="true" />
-              Joined {{ fromNow(user.created) }}
-            </div>
           </div>
+        </div>
+        <div class="filter-row new-nav">
+          <span class="title"><FilterIcon /> Filter by</span>
+          <a :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</a>
+          <template v-for="(filter, index) in filterOptions" :key="filter">
+            <a v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+              <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
+              <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
+              <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
+              <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
+              <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
+              <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
+              <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+            </a>
+          </template>
+          <OverflowMenu
+              v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
+              class="link btn transparent"
+              :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
+                (filter) => ({
+                'id': filter,
+                'action': () => {
+                  selectedFilter = filter
+                },
+              })
+            )"
+              position="right"
+              direction="down"
+          >
+            <MoreHorizontalIcon/>
+            <template #mod> <BoxIcon /> Mods </template>
+            <template #datapack> <BracesIcon /> Data Packs </template>
+            <template #resourcepack> <ImageIcon /> Resource Packs </template>
+            <template #shader> <GlassesIcon /> Shaders </template>
+            <template #world> <WorldIcon /> Worlds </template>
+            <template #plugin> <ServerIcon /> Plugins </template>
+            <template #modpack> <PackageIcon /> Modpacks </template>
+          </OverflowMenu>
         </div>
       </div>
       <div class="normal-page__sidebar">
         <div class="universal-card">
-          <h2>Badges</h2>
+          <h2 class="sidebar-card-header">Badges</h2>
           <div class="badges-container">
             <div class="badge">
               <BadgeModrinthTeam />
@@ -78,72 +105,40 @@
         </div>
         <div class="universal-card">
           <h2 class="sidebar-card-header">Organizations</h2>
-          <nuxt-link
-              v-for="org in organizations"
-              :key="org.id"
-              class="team-member columns button-transparent"
-              :to="'/organization/' + org.title"
-          >
-            <Avatar :src="org.icon_url" :alt="org.title" size="sm" circle />
-            <div class="member-info">
-              <p class="name">{{ org.title }}</p>
-              <p class="role">
-                {{ org.members.find(member => member.user.id === user.id).role }}
-              </p>
-            </div>
-          </nuxt-link>
+          <div class="organizations">
+            <router-link v-for="org in organizations" class="button-base clickable" :to="'/organization/' + org.title">
+              <Avatar
+                  :key="org.id"
+                  :src="org.icon_url"
+                  :alt="org.title"
+                  size="sm"
+                  @click="$router.push('/organization/' + org.title)"
+              />
+            </router-link>
+          </div>
         </div>
       </div>
       <div class="normal-page__content">
         <Promotion />
-        <nav class="navigation-row">
+        <div class="search-row">
           <div class="iconified-input">
-            <label for="search-input" hidden>Search projects in collection</label>
             <SearchIcon />
-            <input id="search-input" v-model="inputText" type="text" />
+            <input id="search-input" v-model="inputText" type="text" placeholder="Search for mods..." />
             <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
               <XIcon />
             </Button>
           </div>
-          <PopoutMenu class="btn" position="bottom-left" from="top-right">
-            <FilterIcon />
-            Filter...
-            <template #menu>
-              <h2 class="popout-heading">Type</h2>
-              <Checkbox
-                  v-for="option in filterOptions"
-                  :key="`option-${option}`"
-                  class="popout-checkbox"
-                  :model-value="selectedFilters.includes(option)"
-                  @click="
-                  () => {
-                    if (selectedFilters.includes(option)) {
-                      selectedFilters = selectedFilters.filter((f) => f !== option)
-                    } else {
-                      selectedFilters.push(option)
-                    }
-                  }
-                "
-              >
-                {{ formatCategory(option) }}
-              </Checkbox>
-            </template>
-          </PopoutMenu>
-        </nav>
+        </div>
         <div
           v-if="projects.length > 0"
           class="project-list"
           :class="'display-mode--' + cosmetics.searchDisplayMode.user"
         >
           <ProjectCard
-            v-for="project in (route.params.projectType !== undefined
-              ? projects.filter(
+            v-for="project in projects.filter(
                   (x) =>
-                    x.project_type ===
-                    route.params.projectType.substr(0, route.params.projectType.length - 1)
+                    x.project_type === selectedFilter || selectedFilter === 'all'
                 )
-              : projects
-            )
               .slice()
               .sort((a, b) => b.downloads - a.downloads)"
             :id="project.slug || project.id"
@@ -193,37 +188,27 @@ import {
   ModrinthIcon,
   BoxIcon,
   ScaleIcon,
-  HeartIcon,
-  DownloadIcon,
-  SunriseIcon,
-  formatNumber, formatCategory, Button, SearchIcon, XIcon,
+  OverflowMenu,
+  Button,
+  SearchIcon,
+  XIcon, ServerIcon, MoreHorizontalIcon,
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import NavRow from '~/components/ui/NavRow.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
-import Badge10MDownloads from '~/assets/images/badges/downloads-10m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
-import Badge100MDownloads from '~/assets/images/badges/downloads-100m.svg'
-import BadgeEarlyDataPackAdopter from '~/assets/images/badges/early-datapack-adopters.svg'
-import BadgeEarlyModpackAdopter from '~/assets/images/badges/early-modpack-adopters.svg'
-import BadgeEarlyPluginAdopter from '~/assets/images/badges/early-plugin-adopters.svg'
-import BadgeEarlyResourcePackAdopter from '~/assets/images/badges/early-resourcepack-adopters.svg'
-import BadgeEarlyShadersAdopter from '~/assets/images/badges/early-shaders-adopters.svg'
-import BadgeModrinthModerator from '~/assets/images/badges/modrinth-moderator.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
-import members from "../[type]/[id]/settings/members.vue";
-import PopoutMenu from "~/components/ui/PopoutMenu.vue";
-import Checkbox from "~/components/ui/Checkbox.vue";
 import FilterIcon from "assets/images/utils/filter.svg";
+import WorldIcon from "assets/images/utils/world.svg";
+import GlassesIcon from "assets/images/utils/glasses.svg";
+import PackageIcon from "assets/images/utils/package-open.svg";
+import BracesIcon from "assets/images/utils/braces.svg";
+import FlameIcon from "assets/images/utils/flame.svg";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -232,6 +217,7 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 
 const inputText = ref('')
+const selectedFilter = ref('all')
 
 let user, projects, collections, organizations
 try {
@@ -293,6 +279,10 @@ const projectTypes = computed(() => {
 
   return Object.keys(obj)
 })
+
+const filterOptions = ref([])
+filterOptions.value.push(...projectTypes.value)
+
 const sumDownloads = computed(() => {
   let sum = 0
 
@@ -302,6 +292,7 @@ const sumDownloads = computed(() => {
 
   return data.$formatNumber(sum)
 })
+
 const sumFollows = computed(() => {
   let sum = 0
 
@@ -522,11 +513,11 @@ export default defineNuxtComponent({
 .badges-container {
   display: flex;
   flex-direction: row;
-  gap: var(--gap-lg);
+  gap: var(--gap-sm);
 
   .badge {
     --_size: 3.5rem;
-    border-radius: var(--radius-md);
+    border-radius: 100%;
     overflow: hidden;
     width: var(--_size);
     height: var(--_size);
@@ -591,5 +582,103 @@ export default defineNuxtComponent({
     margin-left: var(--gap-sm);
     white-space: nowrap;
   }
+}
+
+.user-header {
+  .banner-img {
+    width: 100%;
+    height: 12rem;
+    background: var(--color-raised-bg) url("https://launcher-files.modrinth.com/assets/maze-bg.png") no-repeat center;
+    background-size: cover;
+    border-radius: var(--radius-md);
+    border: 1px var(--color-button-bg) solid;
+    position: relative;
+    margin-bottom: calc(4.5rem + var(--gap-md));
+
+    .banner-content {
+      position: absolute;
+      left: var(--gap-md);
+      bottom: -4.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: var(--gap-sm);
+
+      .avatar {
+        border: 6px var(--color-bg) solid;
+        box-shadow: none;
+      }
+
+      .user-text {
+        height: 4.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .title {
+        display: inline-flex;
+        gap: var(--gap-sm);
+        align-items: baseline;
+
+        > * {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.filter-row {
+  margin-bottom: 1rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 0;
+    color: var(--color-secondary);
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.new-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid var(--color-button-bg);
+
+  svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  a, .link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    margin-bottom: -2px;
+
+    &.router-link-exact-active {
+      color: var(--color-contrast);
+      border-color: var(--color-brand);
+    }
+  }
+}
+
+.user-header {
+  grid-area: header;
+}
+
+.organizations {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
 }
 </style>

@@ -13,16 +13,28 @@ import {
   SaveIcon,
   formatCategory,
   ReportIcon, ReportModal, ShareModal,
+  FilterIcon,
+  OverflowMenu,
+  BookmarkIcon,
+  CopyCode,
+  MoreHorizontalIcon,
+  SortAscendingIcon,
+  ServerIcon,
+  ImageIcon,
+  Modal,
+  UploadIcon,
+  TrashIcon,
+  PopoutMenu,
+  FileInput
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
-import SearchDropdown from '~/components/search/SearchDropdown.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-import TrashIcon from 'assets/images/utils/trash.svg'
-import UploadIcon from 'assets/images/utils/upload.svg'
-import PopoutMenu from '~/components/ui/PopoutMenu.vue'
-import FilterIcon from 'assets/images/utils/filter.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
+import FlameIcon from "assets/images/utils/flame.svg";
+import HistoryIcon from "assets/images/utils/history.svg";
+import WorldIcon from "assets/images/utils/world.svg";
+import GlassesIcon from "assets/images/utils/glasses.svg";
+import PackageIcon from "assets/images/utils/package-open.svg";
+import BracesIcon from "assets/images/utils/braces.svg";
+import Badge from "~/components/ui/Badge.vue";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -30,6 +42,7 @@ const cosmetics = useCosmetics()
 const auth = await useAuth()
 const user = await useUser()
 const tags = useTags()
+const editModal = ref(null)
 
 const collection = shallowRef(
   await useAsyncData(`collection/${route.params.id}`, () =>
@@ -51,14 +64,12 @@ const projects = shallowRef(
   ).then((res) => res.data)
 )
 
-const selectedFilters = ref([])
-selectedFilters.value.push(
-  ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
-)
+const selectedFilter = ref('all')
 
 const filterOptions = computed(() =>
   projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
+
 const inputText = ref('')
 
 const icon = ref(null)
@@ -210,6 +221,8 @@ const saveChanges = async () => {
     await patchIcon(icon.value)
     icon.value = null
   }
+
+  editModal.value.hide()
 }
 
 const markIconForDeletion = () => {
@@ -296,142 +309,169 @@ const results = shallowRef(toRaw(rawResults))
       'Other',
     ]"
   />
+  <Modal
+    ref="editModal"
+    :header="`Edit ${collection.title}`"
+  >
+    <div class="modal-body">
+      <div class="edit-section">
+        <div class="avatar-section">
+          <Avatar size="lg" :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url" />
+          <PopoutMenu class="btn icon-edit-button icon-only" position="bottom" direction="right">
+            <EditIcon />
+            <template #menu>
+            <span class="icon-edit-menu">
+              <FileInput
+                  id="project-icon"
+                  :max-size="262144"
+                  :show-icon="true"
+                  accept="image/png,image/jpeg,image/gif,image/webp"
+                  class="btn btn-transparent upload"
+                  style="white-space: nowrap"
+                  prompt=""
+                  @change="showPreviewImage"
+              >
+                <UploadIcon />
+                Upload icon
+              </FileInput>
+              <Button
+                  v-if="!deletedIcon && (previewImage || collection.icon_url)"
+                  @click="markIconForDeletion"
+                  style="white-space: nowrap"
+                  transparent
+              >
+                <TrashIcon />
+                Delete icon
+              </Button>
+            </span>
+            </template>
+          </PopoutMenu>
+        </div>
+        <input
+            type="text"
+            placeholder="Collection title"
+            v-model="name"
+        />
+        <textarea
+            placeholder="Add an optional description"
+            v-model="summary"
+        />
+      </div>
+      <div class="input-group push-right">
+        <Button @click="$refs.editModal.hide()">
+          <XIcon/>
+          Cancel
+        </Button>
+        <Button
+          color="primary"
+          :disabled="!hasChanges"
+          @click="saveChanges()"
+        >
+          <SaveIcon />
+          Save changes
+        </Button>
+      </div>
+    </div>
+  </Modal>
   <div class="normal-page no-sidebar">
     <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
       <div class="page-header">
         <div class="page-header__icon">
           <Avatar
-            size="md"
+            size="lg"
             :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
           />
-          <FileInput
-            v-if="hasPermission && enableEditing"
-            id="project-icon"
-            :max-size="262144"
-            :show-icon="true"
-            accept="image/png,image/jpeg,image/gif,image/webp"
-            class="btn icon-only upload"
-            prompt=""
-            @change="showPreviewImage"
-          >
-            <UploadIcon />
-          </FileInput>
-          <button
-            v-if="hasPermission && enableEditing && !deletedIcon && (previewImage || collection.icon_url)"
-            class="btn icon-only delete"
-            @click="markIconForDeletion"
-          >
-            <TrashIcon />
-          </button>
         </div>
         <div class="page-header__text">
-          <div v-if="!enableEditing" class="title">
+          <div class="title">
             <h1>{{ collection.title }}</h1>
-            <Button>
+            <Button @click="$refs.shareModal.show(`https://modrinth.com/collection/${collection.id}`)">
               <ShareIcon />
             </Button>
           </div>
-          <div v-else-if="hasPermission" class="iconified-input">
-            <BoxIcon />
-            <input v-model="name" type="text" placeholder="Collection name..." />
-            <Button @click="() => (enableEditing = !enableEditing)">
-              <XIcon />
-            </Button>
+          <div class="collection-info">
+            <Badge type="admin"/>
+            <span>
+              <HistoryIcon />
+              Joined {{ new Date(collection.created).toLocaleDateString() }}
+            </span>
+            <span>
+              <BoxIcon />
+              {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
+            </span>
           </div>
-          <div v-if="!enableEditing" class="markdown-body">
+          <div class="markdown-body collection-description">
             <p>{{ collection.description }}</p>
           </div>
-          <div v-else class="textarea-wrapper summary-input">
-            <textarea
-              id="project-summary"
-              v-model="summary"
-              maxlength="256"
-              :disabled="!hasPermission"
-            />
-          </div>
-        </div>
-        <div class="page-header__buttons">
-          <div class="group">
-            <Button @click="$refs.reportModal.show()">
-              <ReportIcon />
-              Report
+          <div class="input-group">
+            <Button @click="$refs.reportModal.show()" >
+              <BookmarkIcon />
+              Save collection
             </Button>
-            <Button
-              @click="
-                $refs.shareModal.show(`https://modrinth.com/collection/${collection.id}`)
-              "
-            >
-              <ShareIcon />
-              Share
+            <Button @click="$refs.editModal.show()">
+              <EditIcon />
+              Edit collection
             </Button>
-          </div>
-          <div class="group">
-            <CopyCode :text="collection.id" />
+            <Button icon-only>
+              <MoreHorizontalIcon />
+            </Button>
           </div>
         </div>
       </div>
     </div>
     <div class="normal-page__content">
+      <div class="filter-row new-nav">
+        <span class="title"><FilterIcon /> Filter by</span>
+        <a :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</a>
+        <template v-for="(filter, index) in filterOptions" :key="filter">
+          <a v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+            <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
+            <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
+            <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
+            <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
+            <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
+            <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
+            <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+          </a>
+        </template>
+        <OverflowMenu
+            v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
+            class="link btn transparent"
+            :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
+                (filter) => ({
+                'id': filter,
+                'action': () => {
+                  selectedFilter = filter
+                },
+              })
+            )"
+            position="right"
+            direction="down"
+        >
+          <MoreHorizontalIcon/>
+          <template #mod> <BoxIcon /> Mods </template>
+          <template #datapack> <BracesIcon /> Data Packs </template>
+          <template #resourcepack> <ImageIcon /> Resource Packs </template>
+          <template #shader> <GlassesIcon /> Shaders </template>
+          <template #world> <WorldIcon /> Worlds </template>
+          <template #plugin> <ServerIcon /> Plugins </template>
+          <template #modpack> <PackageIcon /> Modpacks </template>
+        </OverflowMenu>
+      </div>
       <Promotion />
       <div class="search-row">
-        <template v-if="enableEditing && hasPermission">
-          <SearchDropdown
-            v-model="searchText"
-            name="project-input"
-            :options="
-              results?.hits?.map((p) => ({ icon: p.icon_url, title: p.title, id: p.project_id }))
-            "
-            placeholder="Add projects..."
-            @on-selected="addProject"
-          />
-          <Button color="primary" @click="saveChanges" :disabled="!hasChanges">
-            <SaveIcon />
-            Save changes
+        <div class="iconified-input">
+          <SearchIcon />
+          <input id="search-input" v-model="inputText" type="text" placeholder="Search for mods..." />
+          <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+            <XIcon />
           </Button>
-        </template>
-        <template v-else>
-          <div class="iconified-input">
-            <label for="search-input" hidden>Search projects in collection</label>
-            <SearchIcon />
-            <input id="search-input" v-model="inputText" type="text" />
-            <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
-              <XIcon />
-            </Button>
-          </div>
-          <PopoutMenu class="btn" position="bottom-left" from="top-right">
-            <FilterIcon />
-            Filter...
-            <template #menu>
-              <h2 class="popout-heading">Type</h2>
-              <Checkbox
-                v-for="option in filterOptions"
-                :key="`option-${option}`"
-                class="popout-checkbox"
-                :model-value="selectedFilters.includes(option)"
-                @click="
-                  () => {
-                    if (selectedFilters.includes(option)) {
-                      selectedFilters = selectedFilters.filter((f) => f !== option)
-                    } else {
-                      selectedFilters.push(option)
-                    }
-                  }
-                "
-              >
-                {{ formatCategory(option) }}
-              </Checkbox>
-            </template>
-          </PopoutMenu>
-        </template>
-        <Button v-if="hasPermission" @click="() => (enableEditing = !enableEditing)" :disabled="hasChanges">
-          <EditIcon />
-          {{ enableEditing ? 'Disable' : 'Enable' }} editing
-        </Button>
+        </div>
       </div>
       <div class="project-list display-mode--list">
         <ProjectCard
           v-for="project in projects
-            .filter((p) => selectedFilters.includes(p.project_type))
+            .filter((p) => selectedFilter === p.project_type || selectedFilter === 'all')
             .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
           :id="project.slug || project.id"
           :key="project.id"
@@ -529,17 +569,6 @@ const results = shallowRef(toRaw(rawResults))
   margin-bottom: var(--gap-md);
   display: flex;
 
-  .iconified-input,
-  :deep(.animated-dropdown) > .iconified-input {
-    flex-grow: 1;
-
-    input {
-      height: 3rem;
-      background-color: var(--color-raised-bg);
-      border: 1px solid var(--color-button-bg);
-    }
-  }
-
   :deep(.animated-dropdown) {
     width: 100%;
 
@@ -575,5 +604,120 @@ const results = shallowRef(toRaw(rawResults))
 
 .popout-checkbox {
   padding: var(--gap-sm) var(--gap-md);
+}
+
+
+.filter-row {
+  margin-bottom: 1rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 0;
+    color: var(--color-secondary);
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.new-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid var(--color-button-bg);
+
+  svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  a, .link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    margin-bottom: -2px;
+
+    &.router-link-exact-active {
+      color: var(--color-contrast);
+      border-color: var(--color-brand);
+    }
+  }
+}
+
+.collection-info {
+  margin-top: var(--gap-sm);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-md);
+
+  > * {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
+  }
+}
+
+.collection-description {
+  margin-bottom: var(--gap-sm);
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-lg);
+}
+
+.edit-section {
+  display: grid;
+  grid-template:
+    'icon name' 40px
+    'icon description' auto
+    / auto 1fr;
+  grid-gap: var(--gap-sm);
+
+  .avatar-section {
+    position: relative;
+    grid-area: icon;
+    width: 9rem;
+    height: 9rem;
+
+    .avatar {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-button-bg);
+    }
+
+    .popup-container {
+      position: absolute;
+      top: var(--gap-sm);
+      right: var(--gap-sm);
+    }
+  }
+
+  input {
+    grid-area: name;
+  }
+
+  textarea {
+    grid-area: description;
+  }
+}
+
+.icon-edit-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+
+  .btn {
+    width: 100%;
+    justify-content: flex-start;
+    gap: var(--gap-xs);
+  }
 }
 </style>

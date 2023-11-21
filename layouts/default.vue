@@ -288,6 +288,12 @@
                 },
               },
               {
+                id: 'collections',
+                action: () => {
+                  router.push(`/collections`)
+                },
+              },
+              {
                 id: 'reports',
                 action: () => {
                   router.push(`/reports`)
@@ -325,6 +331,11 @@
             <template #projects>
               <ListIcon aria-hidden="true" />
               Projects
+            </template>
+
+            <template #collections>
+              <DashboardIcon aria-hidden="true" />
+              Collections
             </template>
 
             <template #create-project>
@@ -453,6 +464,7 @@ import {
   ImageIcon,
   DropdownIcon,
   OverflowMenu,
+  DashboardIcon,
   PopoutMenu,
 } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'

@@ -1592,7 +1592,7 @@ svg.inline-svg {
   padding-bottom: var(--gap-md);
   display: grid;
   grid-template-areas: 'icon text button-section';
-  grid-template-columns: 6rem auto auto;
+  grid-template-columns: min-content auto auto;
   grid-gap: var(--gap-md);
   margin: 0;
   background: none;

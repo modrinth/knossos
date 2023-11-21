@@ -5,6 +5,7 @@ import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
 import {countries} from "country-data";
 
+const app = useNuxtApp()
 const auth = await useAuth()
 const projects = ref(await useBaseFetch(`user/${auth.value.user.id}/projects`))
 
@@ -18,6 +19,7 @@ const analyticsData = ref({
 })
 
 const finishedLoading = ref(false)
+const failedToLoad = ref(false)
 let downloadData, viewData, revenueData, squashedDownloads, squashedViews, squashedRevenue, monthlyRevenue, squashedLongTermRevenue, squashedLongTermDownloads, squashedLongTermViews, viewCountryData, downloadCountryData
 
 onMounted(async () => {
@@ -68,14 +70,18 @@ onMounted(async () => {
       }),
     ])
   } catch (err) {
-    data.$notify({
+    app.$notify({
       group: 'main',
       title: 'An error occurred',
       text: err,
       type: 'error',
     })
   } finally {
-    finishedLoading.value = true
+    if (!downloadData.data || !downloadData.labels || !viewData.data || !viewData.labels || !revenueData.data || !revenueData.labels || !monthlyRevenue.data || !monthlyRevenue.labels || !viewCountryData.data || !viewCountryData.labels || !downloadCountryData.data || !downloadCountryData.labels) {
+      failedToLoad.value = true
+    } else {
+      finishedLoading.value = true
+    }
   }
 })
 
@@ -269,6 +275,13 @@ const processRegionData = (analytics) => {
 
 <template>
   <h1>Analytics</h1>
+  <div v-if="failedToLoad" class="normal-page__content">
+    <div class="markdown-body">
+      <p>
+        Failed to load analytics data
+      </p>
+    </div>
+  </div>
   <div v-if="finishedLoading" class="chart-dashboard">
     <client-only>
       <CompactChart
@@ -423,7 +436,7 @@ const processRegionData = (analytics) => {
       </Chart>
     </client-only>
   </Card>
-  <BrandLogoAnimated v-else />
+  <BrandLogoAnimated v-else-if="!failedToLoad" />
 </template>
 
 <style scoped lang="scss">

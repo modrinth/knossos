@@ -19,11 +19,18 @@ import {
   ChartIcon,
   formatNumber,
   ShareModal,
-  ReportModal,
+  ReportModal, BoxIcon, ModrinthIcon, ScaleIcon, ServerIcon, MoreHorizontalIcon, OverflowMenu,
 } from 'omorphia'
 import Avatar from '~/components/ui/Avatar.vue'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
+import WorldIcon from "assets/images/utils/world.svg";
+import FilterIcon from "assets/images/utils/filter.svg";
+import ImageIcon from "assets/images/utils/image.svg";
+import GlassesIcon from "assets/images/utils/glasses.svg";
+import FlameIcon from "assets/images/utils/flame.svg";
+import PackageIcon from "assets/images/utils/package-open.svg";
+import BracesIcon from "assets/images/utils/braces.svg";
 
 const auth = await useAuth()
 const data = useNuxtApp()
@@ -47,6 +54,12 @@ const projects = shallowRef(
   await useAsyncData(`organization/${route.params.id}/projects`, () =>
     useBaseFetch(`organization/${route.params.id}/projects`)
   ).then((res) => res.data)
+)
+
+const selectedFilter = ref('all')
+
+const filterOptions = computed(() =>
+    projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
 const patchOrganization = async (resData, quiet = false) => {
@@ -244,76 +257,68 @@ if (
     </div>
   </div>
   <div v-else-if="organization" class="normal-page">
-    <div class="normal-page__header">
-      <div class="page-header">
-        <Avatar class="page-header__icon" :src="organization.icon_url" size="md" />
-        <div class="page-header__text">
-          <div class="title">
-            <h1>{{ organization.title }}</h1>
-          </div>
-          <div class="markdown-body">
-            <p>
-              {{ organization.description }}
-            </p>
-          </div>
-          <div class="stats">
-            <div class="stat">
-              <DownloadIcon />
-              <span
-                >{{ projects ? formatNumber(projects.reduce((a, b) => a + b.downloads, 0)) : 0 }} Downloads</span
-              >
+    <div class="organization-header">
+      <div class="banner-img">
+        <div class="banner-content">
+          <Avatar
+              :src="organization.icon_url"
+              size="lg"
+              :alt="organization.title"
+          />
+          <div class="user-text">
+            <div class="title">
+              <h2 class="username">
+                {{ organization.title }}
+              </h2>
             </div>
-            <div class="stat">
-              <HeartIcon />
-              <span
-                >{{ projects ? formatNumber(projects.reduce((a, b) => a + b.followers, 0)) : 0 }} Followers</span
-              >
+            <div class="markdown-body">
+              <p>
+                {{ organization.description }}
+              </p>
             </div>
-          </div>
-          <!--
-          <div class="links">
-            <a href="https://docs.terrarium.earth">
-              <LinkIcon />
-              <span>Website</span>
-            </a>
-            <a href="https://github.com">
-              <GitHubIcon />
-              <span>Github</span>
-            </a>
-            <a href="https://youtube.com">
-              <YoutubeIcon />
-              <span>Youtube</span>
-            </a>
-            <a href="https://discord.gg">
-              <DiscordIcon />
-              <span>Discord</span>
-            </a>
-          </div>
-          -->
-        </div>
-        <div class="page-header__buttons">
-          <div class="group">
-            <Button @click="$refs.reportModal.show()">
-              <ReportIcon />
-              Report
-            </Button>
-            <Button
-              @click="
-                $refs.shareModal.show(`https://modrinth.com/organization/${organization.title}`)
-              "
-            >
-              <ShareIcon />
-              Share
-            </Button>
-          </div>
-          <div class="group">
-            <CopyCode :text="organization.id" />
           </div>
         </div>
       </div>
-      <Promotion />
+      <div class="filter-row new-nav">
+        <span class="title"><FilterIcon /> Filter by</span>
+        <a :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</a>
+        <template v-for="(filter, index) in filterOptions" :key="filter">
+          <a v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+            <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
+            <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
+            <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
+            <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
+            <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
+            <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
+            <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+          </a>
+        </template>
+        <OverflowMenu
+            v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
+            class="link btn transparent"
+            :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
+                  (filter) => ({
+                  'id': filter,
+                  'action': () => {
+                    selectedFilter = filter
+                  },
+                })
+              )"
+            position="right"
+            direction="down"
+        >
+          <MoreHorizontalIcon/>
+          <template #mod> <BoxIcon /> Mods </template>
+          <template #datapack> <BracesIcon /> Data Packs </template>
+          <template #resourcepack> <ImageIcon /> Resource Packs </template>
+          <template #shader> <GlassesIcon /> Shaders </template>
+          <template #world> <WorldIcon /> Worlds </template>
+          <template #plugin> <ServerIcon /> Plugins </template>
+          <template #modpack> <PackageIcon /> Modpacks </template>
+        </OverflowMenu>
+      </div>
     </div>
-    <NuxtPage v-model:organization="organization" v-model:projects="projects" />
+    <NuxtPage v-model:organization="organization" v-model:projects="projects" v-model:typeFilter="selectedFilter"/>
   </div>
 </template>
 
@@ -571,6 +576,90 @@ if (
     box-shadow: var(--shadow-raised);
     padding: var(--gap-xs) var(--gap-sm);
     border: 1px solid var(--color-button-bg);
+  }
+}
+
+.organization-header {
+  grid-area: header;
+  .banner-img {
+    width: 100%;
+    height: 12rem;
+    background: var(--color-raised-bg) url("https://launcher-files.modrinth.com/assets/maze-bg.png") no-repeat center;
+    background-size: cover;
+    border-radius: var(--radius-md);
+    border: 1px var(--color-button-bg) solid;
+    position: relative;
+    margin-bottom: calc(4.5rem + var(--gap-md));
+
+    .banner-content {
+      position: absolute;
+      left: var(--gap-md);
+      bottom: -4.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: var(--gap-sm);
+
+      .user-text {
+        height: 4.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .title {
+        display: inline-flex;
+        gap: var(--gap-sm);
+        align-items: baseline;
+
+        > * {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+
+.filter-row {
+  margin-bottom: 1rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 0;
+    color: var(--color-secondary);
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.new-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid var(--color-button-bg);
+
+  svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  a, .link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    margin-bottom: -2px;
+
+    &.router-link-exact-active {
+      color: var(--color-contrast);
+      border-color: var(--color-brand);
+    }
   }
 }
 </style>

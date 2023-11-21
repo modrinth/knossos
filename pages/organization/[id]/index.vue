@@ -9,13 +9,14 @@ import {
   SaveIcon,
   DropdownSelect,
   SettingsIcon,
+  PopoutMenu,
+  FilterIcon,
+  Checkbox,
+  Avatar,
   formatCategory,
+  Promotion,
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import PopoutMenu from '~/components/ui/PopoutMenu.vue'
-import FilterIcon from 'assets/images/utils/filter.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
 const cosmetics = useCosmetics()
 const tags = useTags()
 const auth = await useAuth()
@@ -33,6 +34,10 @@ const props = defineProps({
     default() {
       return []
     },
+  },
+  typeFilter: {
+    type: String,
+    default: '',
   },
 })
 
@@ -67,48 +72,20 @@ const filterOptions = computed(() =>
     </Card>
   </div>
   <div class="normal-page__content">
+    <Promotion/>
     <div class="search-row">
       <div class="iconified-input">
-        <label for="search-input" hidden>Search notifications</label>
         <SearchIcon />
         <input id="search-input" v-model="inputText" type="text" placeholder="Search projects..." />
         <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
           <XIcon />
         </Button>
       </div>
-      <PopoutMenu class="btn" position="bottom-left" from="top-right">
-        <FilterIcon />
-        Filter...
-        <template #menu>
-          <h2 class="popout-heading">Type</h2>
-          <Checkbox
-            v-for="option in filterOptions"
-            :key="`option-${option}`"
-            class="popout-checkbox"
-            :model-value="selectedFilters.includes(option)"
-            @click="
-              () => {
-                if (selectedFilters.includes(option)) {
-                  selectedFilters = selectedFilters.filter((f) => f !== option)
-                } else {
-                  selectedFilters.push(option)
-                }
-              }
-            "
-          >
-            {{ formatCategory(option) }}
-          </Checkbox>
-        </template>
-      </PopoutMenu>
-      <Button @click="$router.push(`/organization/${organization.title}/settings`)">
-        <SettingsIcon />
-        Settings
-      </Button>
     </div>
     <div class="project-list display-mode--list">
       <ProjectCard
         v-for="project in projects
-          .filter((p) => selectedFilters.includes(p.project_type))
+          .filter((p) => typeFilter === p.project_type || typeFilter === 'all')
           .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
         :id="project.slug || project.id"
         :key="project.id"
@@ -227,7 +204,6 @@ const filterOptions = computed(() =>
     flex-grow: 1;
 
     input {
-      height: 3rem;
       background-color: var(--color-raised-bg);
       border: 1px solid var(--color-button-bg);
     }
