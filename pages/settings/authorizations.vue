@@ -27,7 +27,7 @@
       <div class="token-content">
         <div>
           <div class="icon-name">
-            <Avatar size="md" :src="authorization.app.icon_url" />
+            <Avatar :src="authorization.app.icon_url" />
             <div>
               <h2 class="token-title">{{ authorization.app.name }}</h2>
               <div>
@@ -53,7 +53,7 @@
               {{ constCaseToTitleCase(scope) }}
             </div>
           </div>
-          <div class="token-heading">App Information</div>
+          <div class="token-heading">App information</div>
           <div>Client ID <CopyCode :text="authorization.app_id" /></div>
         </div>
       </div>
@@ -173,9 +173,10 @@ const constCaseToTitleCase = (str) =>
 .token-heading {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  line-height: 1.25rem;
   color: var(--color-gray-700);
-  padding-block: var(--gap-lg);
+
+  margin-top: var(--spacing-card-md);
+  margin-bottom: var(--spacing-card-sm);
 }
 
 .scope-list {
@@ -215,8 +216,8 @@ const constCaseToTitleCase = (str) =>
 
 .icon-name {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: start;
+  gap: var(--gap-lg);
   padding-bottom: var(--gap-sm);
 }
 
@@ -252,7 +253,7 @@ const constCaseToTitleCase = (str) =>
   width: 100%;
 
   .token-title {
-    margin-block: 0;
+    margin-bottom: var(--spacing-card-xs);
   }
 }
 

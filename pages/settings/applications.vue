@@ -19,13 +19,8 @@
           placeholder="Enter the application's name..."
         />
         <label v-if="editingId" for="app-icon"><span class="label__title">Icon</span> </label>
-        <div v-if="editingId">
-          <div>
-            <img v-if="icon" :src="icon" alt="App icon" />
-            <div v-else class="placeholder-icon">
-              <span>No icon selected</span>
-            </div>
-          </div>
+        <div v-if="editingId" class="icon-submission">
+          <Avatar size="md" :src="icon" />
           <FileInput
             :max-size="262144"
             class="btn"
@@ -134,17 +129,33 @@
     </p>
     <div v-for="app in usersApps" :key="app.id" class="universal-card recessed token">
       <div class="token-info">
-        <div>
-          <strong>{{ app.name }}</strong>
-        </div>
-        <div>Client ID <CopyCode :text="app.id" /></div>
-        <div>Max Scopes <CopyCode :text="decodeScopes(app.max_scopes).join('+')" /></div>
-        <template v-if="!!clientCreatedInState(app.id)">
-          <div>Client Secret <CopyCode :text="clientCreatedInState(app.id)?.client_secret" /></div>
-          <div class="secret_disclaimer">
-            Copy this now, it will be hidden after you leave this page!
+        <div class="token-icon">
+          <Avatar size="sm" :src="app.icon_url" />
+          <div>
+            <h2 class="token-title">{{ app.name }}</h2>
           </div>
-        </template>
+        </div>
+        <div>
+          <div class="token-heading">About</div>
+          <div class="token-content">
+            <div>
+              Client ID
+              <CopyCode :text="app.id" />
+            </div>
+            <div v-if="app.max_scopes?.length > 0">
+              Max Scopes
+              <CopyCode :text="decodeScopes(app.max_scopes).join('+')" />
+            </div>
+            <div v-if="!!clientCreatedInState(app.id)">
+              <div>
+                Client Secret <CopyCode :text="clientCreatedInState(app.id)?.client_secret" />
+              </div>
+              <div class="secret_disclaimer">
+                <i> Save your secret now, it will be hidden after you leave this page! </i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="input-group">
         <Button
@@ -184,6 +195,7 @@ import {
   FileInput,
   UploadIcon,
   PlusIcon,
+  Avatar,
   Modal,
   XIcon,
   Button,
@@ -411,6 +423,13 @@ const constCaseToTitleCase = (str) =>
   }
 }
 
+.icon-submission {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
 .token {
   display: flex;
   flex-direction: column;
@@ -421,6 +440,31 @@ const constCaseToTitleCase = (str) =>
     display: flex;
     flex-direction: column;
     gap: var(--gap-sm);
+  }
+
+  .token-content {
+    display: grid;
+    gap: var(--gap-xs);
+  }
+
+  .token-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: var(--gap-md);
+  }
+
+  .token-heading {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-700);
+
+    margin-top: var(--spacing-card-md);
+    margin-bottom: var(--spacing-card-sm);
+  }
+
+  .token-title {
+    margin: 0;
   }
 
   .input-group {

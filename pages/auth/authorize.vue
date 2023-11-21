@@ -12,9 +12,9 @@
     <div v-else class="oauth-items">
       <div class="connected-items">
         <div class="profile-pics">
-          <Avatar size="md" circle :src="app.icon_url" />
+          <Avatar size="md" :src="app.icon_url" />
           <!-- <img class="profile-pic" :src="app.icon_url" alt="User profile picture" /> -->
-          <div class="connection-indicator">+</div>
+          <div class="connection-indicator">→</div>
           <Avatar size="md" circle :src="auth.user.avatar_url" />
           <!-- <img class="profile-pic" :src="auth.user.avatar_url" alt="User profile picture" /> -->
         </div>
@@ -23,13 +23,13 @@
         <h1>Authorize {{ app.name }}</h1>
       </div>
       <div class="auth-info">
-        <p>
+        <div class="scope-heading">
           <strong>{{ app.name }}</strong> by
           <nuxt-link class="text-link" :to="'/user/' + createdBy.id">{{
             createdBy.username
           }}</nuxt-link>
           will be able to:
-        </p>
+        </div>
         <div class="scope-items">
           <div v-for="scopeItem in scopeDefinitions" :key="scopeItem">
             <div class="scope-item">
@@ -246,6 +246,10 @@ definePageMeta({
   display: flex;
   flex-direction: column;
   gap: var(--gap-sm);
+}
+
+.scope-heading {
+  margin-bottom: var(--gap-sm);
 }
 
 .profile-pics {
