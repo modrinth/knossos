@@ -1,20 +1,6 @@
 <template>
   <div>
-    <div class="page-header dark-mode">
-      <img
-        src="https://education.minecraft.net/content/dam/education-edition/blogs/1-20-update/TrailsnTales_EduBlogBanner_NoLogo.png"
-        class="game-banner"
-      />
-      <div class="banner-overlay">
-        <div class="banner-overlay__content">
-          <MinecraftIcon class="game-icon" />
-          <h1 class="game-title">
-            <span class="game-name">Minecraft</span>
-            <span class="game-subtitle">Java Edition</span>
-          </h1>
-        </div>
-      </div>
-    </div>
+    <GameBanner game="minecraft_java" />
     <p class="hype-text">
       Discover over <span>18,000</span> Minecraft mods, modpacks, data packs, resource packs,
       shaders, and plugins hosted on Modrinth.
@@ -75,11 +61,10 @@
 </template>
 <script setup>
 import { Button, ChevronRightIcon, PopoutMenu, XIcon } from 'omorphia'
-import MinecraftIcon from '@/assets/images/games/minecraft.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import SearchIcon from 'assets/images/utils/search.svg'
 import FilterIcon from 'assets/images/utils/filter.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
+import GameBanner from '~/components/ui/GameBanner.vue'
 
 const rawProjects = await useBaseFetch(`search?limit=100`, {
   method: 'GET',
@@ -104,126 +89,82 @@ function toColor(color) {
   width: 100%;
   height: 10rem;
 
-  .banner-overlay {
-    position: absolute;
-    display: flex;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
-    background-image: radial-gradient(
-      ellipse at -20% 100%,
-      rgba(0, 0, 0, 0.8) 0%,
-      transparent 100%
-    );
+  .project-carousel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-lg);
 
-    .banner-overlay__content {
-      display: flex;
-      align-items: center;
-      margin-top: auto;
-    }
-
-    .game-icon {
-      width: 3rem;
-      height: 3rem;
-      margin-right: 1rem;
-    }
-
-    .game-title {
-      margin: 0;
+    .carousel-item {
       display: flex;
       flex-direction: column;
-
-      .game-subtitle {
-        color: var(--color-base);
-        font-size: var(--font-size-lg);
-      }
-    }
-  }
-}
-
-.game-banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.project-carousel {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--gap-lg);
-
-  .carousel-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .metadata {
-      display: flex;
       gap: 0.5rem;
-      align-items: flex-start;
-      position: relative;
 
-      .icon {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
+      .metadata {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+        position: relative;
+
+        .icon {
+          background-color: transparent;
+          border: none;
+          box-shadow: none;
+        }
+
+        .name {
+          grid-area: title;
+          font-weight: 700;
+          color: var(--color-contrast);
+        }
+
+        .subtitle {
+          font-size: var(--font-size-sm);
+          margin-top: 0.25rem;
+        }
       }
 
-      .name {
-        grid-area: title;
-        font-weight: 700;
-        color: var(--color-contrast);
-      }
-
-      .subtitle {
-        font-size: var(--font-size-sm);
-        margin-top: 0.25rem;
+      .preview {
+        grid-area: preview;
+        width: 100%;
+        aspect-ratio: 2 / 1;
+        border-radius: 12px;
+        object-fit: cover;
+        position: relative;
       }
     }
+  }
 
-    .preview {
-      grid-area: preview;
-      width: 100%;
-      aspect-ratio: 2 / 1;
-      border-radius: 12px;
-      object-fit: cover;
-      position: relative;
+  .featured-list {
+    margin-top: 2rem;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--gap-md);
+
+    .btn-rounded {
+      border-radius: 10000px;
+      border: 2px solid var(--color-base);
+      color: var(--color-base);
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0.5rem 1rem;
+    }
+
+    h2 {
+      margin: 0;
     }
   }
-}
 
-.featured-list {
-  margin-top: 2rem;
-}
+  .hype-text {
+    font-size: var(--font-size-md);
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--gap-md);
-
-  .btn-rounded {
-    border-radius: 10000px;
-    border: 2px solid var(--color-base);
-    color: var(--color-base);
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0.5rem 1rem;
-  }
-
-  h2 {
-    margin: 0;
-  }
-}
-
-.hype-text {
-  font-size: var(--font-size-md);
-
-  span {
-    color: var(--color-brand);
-    font-weight: 600;
+    span {
+      color: var(--color-brand);
+      font-weight: 600;
+    }
   }
 }
 </style>

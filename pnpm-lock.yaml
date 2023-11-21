@@ -38,8 +38,8 @@ dependencies:
     specifier: ^13.0.1
     version: 13.0.1(patch_hash=3vlxaukqep4gvqytxeznhg6wbq)
   omorphia:
-    specifier: ^0.6.3
-    version: 0.6.3(vue@3.3.7)
+    specifier: ^0.7.0
+    version: 0.7.0(vue@3.3.7)
   qrcode.vue:
     specifier: ^3.4.0
     version: 3.4.0(vue@3.3.7)
@@ -6694,8 +6694,8 @@ packages:
     resolution: {integrity: sha512-9CIOSq5945rI045GFtcO3uudyOkYVY1nyfFxVQp+9BRgslr8jPNiSSrsFGg/BNTUFOLqx0P5tng6G32brIPw0w==}
     dev: true
 
-  /omorphia@0.6.3(vue@3.3.7):
-    resolution: {integrity: sha512-yet1TDko4yrSu7F4jBHnKIiaEC8tUVSbjLqV+Dp7dzKDKD8qPnk8xrx5Vt4Bc5AagdjYexTtO/8knTw6Kvd6tg==}
+  /omorphia@0.7.0(vue@3.3.7):
+    resolution: {integrity: sha512-UTz2SMayU3lPiOSw7YQgl0K3M4Y+C2msY/4rrvKe2BPobDHz4E6t3SVtm9Py72668Jvlk0L2OlTT6KmsocZPng==}
     peerDependencies:
       vue: ^3.3.4
     dependencies:
@@ -9009,6 +9009,13 @@ packages:
     peerDependencies:
       apexcharts: '> 3.0.0'
       vue: '> 3.0.0'
+    dependencies:
+      apexcharts: 3.44.0
+      vue: 3.3.7(typescript@5.0.4)
+    dev: false
+
+  /vue@3.3.4:
+    resolution: {integrity: sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==}
     dependencies:
       apexcharts: 3.44.0
       vue: 3.3.7(typescript@5.0.4)

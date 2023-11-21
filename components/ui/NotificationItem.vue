@@ -484,7 +484,7 @@ function getMessages() {
         gap: var(--spacing-card-sm);
         padding: 1rem;
         background-color: var(--color-bg);
-        border: 1px solid var(--color-button-bg);
+        border: 1px solid var(--color-divider);
         border-radius: var(--radius-md);
 
         .title {

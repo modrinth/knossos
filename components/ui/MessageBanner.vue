@@ -19,7 +19,7 @@ const ariaLabelByType = computed(() => `Banner with ${props.messageType} message
 .message-banner {
   position: relative;
   min-height: var(--font-size-2xl);
-  --border-color: var(--color-button-bg);
+  --border-color: var(--color-divider);
   --background-color: var(--color-raised-bg);
 
   border-radius: var(--size-rounded-card);

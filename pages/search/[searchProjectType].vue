@@ -19,22 +19,84 @@
       <Meta name="og:description" :content="metaDescription" />
     </Head>
     <section class="normal-page__header">
-      <div class="page-header dark-mode">
-        <img
-          src="https://education.minecraft.net/content/dam/education-edition/blogs/1-20-update/TrailsnTales_EduBlogBanner_NoLogo.png"
-          class="game-banner"
-        />
-        <div class="banner-overlay">
-          <div class="banner-overlay__content">
-            <MinecraftIcon class="game-icon" />
-            <h1 class="game-title">
-              <span class="game-name">Minecraft</span>
-              <span class="game-subtitle">Java Edition</span>
-            </h1>
-          </div>
-        </div>
-      </div>
+      <GameBanner game="minecraft_java" />
       <h1 class="type-header">{{ formatProjectType(projectType.display) }}s</h1>
+      <PageBar class="filter-row">
+        <span class="page-bar__title"><SortAscendingIcon /> Sort by</span>
+        <button
+          v-for="sortMode in sortModes.filter((x) => x.featured || sortType === x.id)"
+          :key="`sort-mode-${sortMode.id}`"
+          class="button-base nav-button"
+          :class="{ 'router-link-exact-active': sortType === sortMode.id }"
+          @click="
+            () => {
+              sortType = sortMode.id
+              onSearchChange(1)
+            }
+          "
+        >
+          <TopIcon v-if="sortMode.id === 'relevance'" aria-hidden="true" />
+          <NewIcon v-else-if="sortMode.id === 'newest'" aria-hidden="true" />
+          <HistoryIcon v-else-if="sortMode.id === 'updated'" aria-hidden="true" />
+          <HeartIcon v-else-if="sortMode.id === 'follows'" aria-hidden="true" />
+          <DownloadIcon v-else-if="sortMode.id === 'downloads'" aria-hidden="true" />
+          <UnknownIcon v-else aria-hidden="true" />
+          {{ formatMessage(sortTypeNames[sortMode.id]) }}
+        </button>
+        <OverflowMenu
+          class="button-base nav-button"
+          position="bottom"
+          direction="right"
+          :options="
+            sortModes
+              .filter((x) => !x.featured && sortType !== x.id)
+              .map((x) => {
+                return {
+                  id: x.id,
+                  action: () => {
+                    sortType = x.id
+                    onSearchChange(1)
+                  },
+                }
+              })
+          "
+        >
+          <MoreHorizontalIcon />
+          <template #downloads>
+            <DownloadIcon /> {{ formatMessage(sortTypeNames.downloads) }}
+          </template>
+          <template #follows> <HeartIcon /> {{ formatMessage(sortTypeNames.follows) }} </template>
+        </OverflowMenu>
+        <template #right>
+          <div class="view-options">
+            <span class="page-bar__title"><EyeIcon /> View as</span>
+            <div class="page-bar__buttons">
+              <button
+                v-tooltip="`List`"
+                :aria-label="`List`"
+                class="btn icon-only"
+                :class="{
+                  'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
+                }"
+                @click="setSearchDisplayMode('list')"
+              >
+                <ListIcon />
+              </button>
+              <button
+                v-tooltip="`Grid`"
+                :aria-label="`Grid`"
+                class="btn icon-only"
+                :class="{
+                  'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
+                }"
+                @click="setSearchDisplayMode('grid')"
+              >
+                <GridIcon />
+              </button>
+            </div>
+          </div>
+        </template>
+      </PageBar>
     </section>
     <aside
       :class="{
@@ -43,204 +105,186 @@
       }"
       aria-label="Filters"
     >
-      <section class="card filters-card" role="presentation">
-        <div class="sidebar-menu" :class="{ 'sidebar-menu_open': sidebarMenuOpen }">
+      <section class="universal-card filters-card">
+        <h2>Filters</h2>
+        <div class="filters-search-row">
+          <div class="iconified-input">
+            <label class="hidden" for="search">Search</label>
+            <SearchIcon aria-hidden="true" />
+            <input
+              id="search"
+              v-model="filterQuery"
+              type="text"
+              name="search"
+              :placeholder="`Search filters...`"
+              autocomplete="off"
+              @input="onSearchChange(1)"
+            />
+            <Button v-if="filterQuery" @click="() => (filterQuery = '')">
+              <XIcon />
+            </Button>
+          </div>
           <button
-            :disabled="
-              onlyOpenSource === false &&
-              selectedEnvironments.length === 0 &&
-              selectedVersions.length === 0 &&
-              facets.length === 0 &&
-              orFacets.length === 0
-            "
-            class="iconified-button"
+            v-if="hasFiltersEnabled"
+            v-tooltip="`Reset filters`"
+            class="btn icon-only"
             @click="clearFilters"
           >
-            <ClearIcon aria-hidden="true" />
-            Clear filters
+            <FilterXIcon />
           </button>
-          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
-          <ScrollableMultiSelect />
-          <!--          <div-->
-          <!--            :class="{-->
-          <!--              'scrollable-pane-wrapper': true,-->
-          <!--              'top-fade': !scrollableAtTop,-->
-          <!--              'bottom-fade': !scrollableAtBottom,-->
-          <!--            }"-->
-          <!--          >-->
-          <!--            <div class="scrollable-pane" @scroll="onScroll">-->
-          <!--              <Checkbox-->
-          <!--                v-for="version in showSnapshots-->
-          <!--                  ? tags.gameVersions-->
-          <!--                  : tags.gameVersions.filter((it) => it.version_type === 'release')"-->
-          <!--                :key="`version-filter-${version.version}`"-->
-          <!--              >-->
-          <!--                {{ version.version }}-->
-          <!--              </Checkbox>-->
-          <!--            </div>-->
-          <!--          </div>-->
-          <!--          <Checkbox-->
-          <!--            v-model="showSnapshots"-->
-          <!--            label="Show all versions"-->
-          <!--            description="Show all versions"-->
-          <!--            style="margin-bottom: 0.5rem"-->
-          <!--            :border="false"-->
-          <!--          />-->
-          <!--          <multiselect-->
-          <!--            v-model="selectedVersions"-->
-          <!--            :options="-->
-          <!--              showSnapshots-->
-          <!--                ? tags.gameVersions.map((x) => x.version)-->
-          <!--                : tags.gameVersions-->
-          <!--                    .filter((it) => it.version_type === 'release')-->
-          <!--                    .map((x) => x.version)-->
-          <!--            "-->
-          <!--            :multiple="true"-->
-          <!--            :searchable="true"-->
-          <!--            :show-no-results="false"-->
-          <!--            :close-on-select="false"-->
-          <!--            :clear-search-on-select="false"-->
-          <!--            :show-labels="false"-->
-          <!--            :selectable="() => selectedVersions.length <= 6"-->
-          <!--            placeholder="Choose versions..."-->
-          <!--            @update:model-value="onSearchChange(1)"-->
-          <!--          />-->
-          <section
-            v-if="projectType.id !== 'resourcepack' && projectType.id !== 'datapack'"
-            aria-label="Loader filters"
-          >
-            <h3
-              v-if="
-                tags.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
-                  .length > 0
-              "
-              class="sidebar-menu-heading"
-            >
-              Platforms
-            </h3>
-            <SearchFilter
-              v-for="loader in tags.loaders.filter((x) => {
-                if (
-                  projectType.id === 'mod' &&
-                  !showAllLoaders &&
-                  x.name !== 'forge' &&
-                  x.name !== 'fabric' &&
-                  x.name !== 'quilt' &&
-                  x.name !== 'neoforge'
-                ) {
-                  return false
-                } else if (projectType.id === 'mod' && showAllLoaders) {
-                  return tags.loaderData.modLoaders.includes(x.name)
-                } else if (projectType.id === 'plugin') {
-                  return tags.loaderData.pluginLoaders.includes(x.name)
-                } else if (projectType.id === 'datapack') {
-                  return tags.loaderData.dataPackLoaders.includes(x.name)
-                } else {
-                  return x.supported_project_types.includes(projectType.actual)
-                }
-              })"
-              :key="loader.name"
-              ref="loaderFilters"
-              :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
-              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
-              :icon="loader.icon"
-              @toggle="toggleOrFacet"
-            />
-            <Checkbox
-              v-if="projectType.id === 'mod'"
-              v-model="showAllLoaders"
-              :label="showAllLoaders ? 'Less' : 'More'"
-              description="Show all loaders"
-              style="margin-bottom: 0.5rem"
-              :border="false"
-              :collapsing-toggle-style="true"
-            />
-          </section>
-          <section v-if="projectType.id === 'plugin'" aria-label="Platform loader filters">
-            <h3
-              v-if="
-                tags.loaders.filter((x) => x.supported_project_types.includes(projectType.actual))
-                  .length > 0
-              "
-              class="sidebar-menu-heading"
-            >
-              Proxies
-            </h3>
-            <SearchFilter
-              v-for="loader in tags.loaders.filter((x) =>
-                tags.loaderData.pluginPlatformLoaders.includes(x.name)
-              )"
-              :key="loader.name"
-              ref="platformFilters"
-              :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
-              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
-              :icon="loader.icon"
-              @toggle="toggleOrFacet"
-            />
-          </section>
-          <section
-            v-if="!['resourcepack', 'plugin', 'shader', 'datapack'].includes(projectType.id)"
-            aria-label="Environment filters"
-          >
-            <h3 class="sidebar-menu-heading">Environments</h3>
-            <SearchFilter
-              :active-filters="selectedEnvironments"
-              display-name="Client"
-              facet-name="client"
-              @toggle="toggleEnv"
-            >
-              <ClientIcon aria-hidden="true" />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="selectedEnvironments"
-              display-name="Server"
-              facet-name="server"
-              @toggle="toggleEnv"
-            >
-              <ServerIcon aria-hidden="true" />
-            </SearchFilter>
-          </section>
-          <section aria-label="Category filters">
-            <div v-for="(categories, header) in categoriesMap" :key="header">
-              <h3
-                v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
-                class="sidebar-menu-heading"
-              >
-                {{ $formatCategoryHeader(header) }}
-              </h3>
-
+        </div>
+        <div class="filter-section" :class="{ expanded: !isFilterCollapsed('environment') }">
+          <button class="button-base heading" @click="() => toggleFilterCollapse('environment')">
+            <h3>Environment</h3>
+            <DropdownIcon v-if="!filterQuery" />
+          </button>
+          <div class="content-wrapper">
+            <div class="content">
               <SearchFilter
-                v-for="category in categories.filter((x) => x.project_type === projectType.actual)"
-                :key="category.name"
-                :active-filters="facets"
-                :display-name="$formatCategory(category.name)"
-                :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
-                :icon="header === 'resolutions' ? null : category.icon"
-                @toggle="toggleFacet"
+                v-if="isFilterShown('client')"
+                :active-filters="selectedEnvironments"
+                display-name="Client"
+                facet-name="client"
+                @toggle="toggleEnv"
+              />
+              <SearchFilter
+                v-if="isFilterShown('server')"
+                :active-filters="selectedEnvironments"
+                display-name="Server"
+                facet-name="server"
+                @toggle="toggleEnv"
               />
             </div>
-          </section>
-          <h3 class="sidebar-menu-heading">Open source</h3>
-          <Checkbox
-            v-model="onlyOpenSource"
-            label="Open source only"
-            style="margin-bottom: 0.5rem"
-            :border="false"
-            @update:model-value="onSearchChange(1)"
-          />
+          </div>
+        </div>
+        <div
+          v-if="primaryLoaders.length + secondaryLoaders.length > 1"
+          class="filter-section"
+          :class="{ expanded: !isFilterCollapsed('platform') }"
+        >
+          <button class="button-base heading" @click="() => toggleFilterCollapse('platform')">
+            <h3>Platform</h3>
+            <DropdownIcon v-if="!filterQuery" />
+          </button>
+          <div class="content-wrapper">
+            <div class="content">
+              <SearchFilter
+                v-for="loader in primaryLoaders.filter((x) =>
+                  isFilterShown(formatCategory(x.name))
+                )"
+                :key="loader.name"
+                ref="loaderFilters"
+                :active-filters="orFacets"
+                :display-name="formatCategory(loader.name)"
+                :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
+                @toggle="toggleOrFacet"
+              />
+              <template
+                v-if="
+                  (showAllLoaders && secondaryLoaders.length > 0) ||
+                  (filterQuery &&
+                    secondaryLoaders.filter((x) => isFilterShown(formatCategory(x.name))))
+                "
+              >
+                <SearchFilter
+                  v-for="loader in secondaryLoaders.filter((x) =>
+                    isFilterShown(formatCategory(x.name))
+                  )"
+                  :key="loader.name"
+                  ref="loaderFilters"
+                  :active-filters="orFacets"
+                  :display-name="formatCategory(loader.name)"
+                  :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
+                  @toggle="toggleOrFacet"
+                />
+              </template>
+              <ListSelector
+                v-if="secondaryLoaders.length > 0 && !filterQuery"
+                v-model="showAllLoaders"
+                no-active-state
+                class="see-more"
+              >
+                {{ showAllLoaders ? 'See fewer' : 'See more' }}
+              </ListSelector>
+            </div>
+          </div>
+        </div>
+        <div class="filter-section" :class="{ expanded: !isFilterCollapsed('version') }">
+          <button class="button-base heading" @click="() => toggleFilterCollapse('version')">
+            <h3>Version</h3>
+            <DropdownIcon v-if="!filterQuery" />
+          </button>
+          <div class="content-wrapper">
+            <div class="content">
+              <ScrollableMultiSelect>
+                <ListSelector
+                  v-for="(version, index) in filterQuery
+                    ? tags.gameVersions.filter((x) => isFilterShown(x.version))
+                    : showSnapshots
+                    ? tags.gameVersions
+                    : tags.gameVersions.filter((it) => it.version_type === 'release')"
+                  :key="`filter-version-${index}`"
+                  :model-value="selectedVersions.includes(version)"
+                >
+                  {{ version.version }}
+                </ListSelector>
+              </ScrollableMultiSelect>
+              <div v-if="!filterQuery" class="toggle-option">
+                <label for="show-all-versions"> Show pre-release versions </label>
+                <Toggle id="show-all-versions" v-model="showSnapshots" :checked="showSnapshots" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <template v-for="(categories, header) in categoriesMap">
+          <div
+            v-if="categories.filter((x) => x.project_type === projectType.actual).length > 0"
+            :key="`tag-header-${header}`"
+            class="filter-section"
+            :class="{ expanded: !isFilterCollapsed(header) }"
+          >
+            <button class="button-base heading" @click="() => toggleFilterCollapse(header)">
+              <h3>{{ formatCategoryHeader(header) }}</h3>
+              <DropdownIcon v-if="!filterQuery" />
+            </button>
+            <div class="content-wrapper">
+              <div class="content">
+                <SearchFilter
+                  v-for="category in categories.filter(
+                    (x) =>
+                      x.project_type === projectType.actual && isFilterShown(formatCategory(x.name))
+                  )"
+                  :key="category.name"
+                  :active-filters="facets"
+                  :display-name="$formatCategory(category.name)"
+                  :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
+                  @toggle="toggleFacet"
+                />
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="filter-section" :class="{ expanded: !isFilterCollapsed('license') }">
+          <button class="button-base heading" @click="() => toggleFilterCollapse('license')">
+            <h3>License</h3>
+            <DropdownIcon v-if="!filterQuery" />
+          </button>
+          <div class="content-wrapper">
+            <div class="content">
+              <ListSelector
+                v-if="isFilterShown('open source')"
+                v-model="onlyOpenSource"
+                @update:model-value="onSearchChange(1)"
+              >
+                Open source
+              </ListSelector>
+            </div>
+          </div>
         </div>
       </section>
     </aside>
     <section class="normal-page__content">
-      <div class="filter-row new-nav">
-        <span class="title"><SortAscendingIcon /> Sort by</span>
-        <a class="router-link-exact-active"><FlameIcon />Trending</a>
-        <a><HistoryIcon />New</a>
-        <a><TopIcon />Top</a>
-        <a><MoreHorizontalIcon /></a>
-      </div>
       <Promotion />
       <div class="search-row">
         <div class="iconified-input">
@@ -255,7 +299,7 @@
             autocomplete="off"
             @input="onSearchChange(1)"
           />
-          <Button @click="() => (query = '')">
+          <Button v-if="query" @click="() => (query = '')">
             <XIcon />
           </Button>
         </div>
@@ -266,55 +310,20 @@
           @switch-page="onSearchChange"
         />
       </div>
-      <div v-if="false" class="search-controls">
-        <button
-          class="iconified-button sidebar-menu-close-button"
-          :class="{ open: sidebarMenuOpen }"
-          @click="sidebarMenuOpen = !sidebarMenuOpen"
-        >
-          <FilterIcon aria-hidden="true" />
-          Filters...
-        </button>
-        <div class="iconified-input">
-          <label class="hidden" for="search">Search</label>
-          <SearchIcon aria-hidden="true" />
-          <input
-            id="search"
-            v-model="query"
-            type="text"
-            name="search"
-            :placeholder="`Search ${projectType.display}s...`"
-            autocomplete="off"
-            @input="onSearchChange(1)"
-          />
-          <Button @click="() => (query = '')">
-            <XIcon />
-          </Button>
-        </div>
-        <span>Sort by </span>
-        <DropdownSelect
-          v-model="sortType"
-          class="sort-dropdown"
-          placeholder="Select one"
-          :options="sortTypes"
-          :display-name="(option) => option.display"
-          name="Sort mode"
-          @update:model-value="onSearchChange(1)"
-        />
-        <button
-          v-tooltip="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-          :aria-label="$capitalizeString(cosmetics.searchDisplayMode[projectType.id]) + ' view'"
-          class="btn square-button"
-          @click="cycleSearchDisplayMode()"
-        >
-          <GridIcon v-if="cosmetics.searchDisplayMode[projectType.id] === 'grid'" />
-          <ImageIcon v-else-if="cosmetics.searchDisplayMode[projectType.id] === 'gallery'" />
-          <ListIcon v-else />
-        </button>
-      </div>
       <LogoAnimated v-if="searchLoading && !noLoad"></LogoAnimated>
-      <div v-else-if="results && results.hits && results.hits.length === 0" class="no-results">
-        <p>No results found for your query!</p>
+      <div
+        v-else-if="
+          results && results.hits && results.hits.length === 0 && (!searchLoading || noLoad)
+        "
+        class="no-results"
+      >
+        <FrownIcon />
+        <p v-if="query && hasFiltersEnabled">
+          We couldn't find any results matching "{{ query }}" with your filters.
+        </p>
+        <p v-else-if="query">We couldn't find any results matching "{{ query }}"</p>
+        <p v-else-if="hasFiltersEnabled">We couldn't find any results matching your filters.</p>
+        <p v-else>We couldn't find any results.</p>
       </div>
       <div v-else class="search-results-container">
         <div
@@ -343,21 +352,23 @@
             :server-side="result.server_side"
             :categories="result.display_categories"
             :search="true"
-            :show-updated-date="sortType.name !== 'newest'"
+            :show-updated-date="sortType !== 'newest'"
             :hide-loaders="['resourcepack', 'datapack'].includes(projectType.id)"
             :color="result.color"
           />
         </div>
       </div>
       <div class="pagination-container">
-        <span>Show per page</span>
-        <DropdownSelect
-          v-model="maxResults"
-          class="count-dropdown"
-          name="Per page"
-          :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
-          @update:model-value="onMaxResultsChange(currentPage)"
-        />
+        <div>
+          <span>Show per page</span>
+          <DropdownSelect
+            v-model="maxResults"
+            class="count-dropdown"
+            name="Per page"
+            :options="maxResultsForView[cosmetics.searchDisplayMode[projectType.id]]"
+            @update:model-value="onMaxResultsChange(currentPage)"
+          />
+        </div>
         <Pagination
           :page="currentPage"
           :count="pageCount"
@@ -371,7 +382,13 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import {
-  StarIcon,
+  EyeIcon,
+  HeartIcon,
+  DownloadIcon,
+  UnknownIcon,
+  Toggle,
+  DropdownIcon,
+  OverflowMenu,
   Promotion,
   Button,
   DropdownSelect,
@@ -379,32 +396,54 @@ import {
   SortAscendingIcon,
   MoreHorizontalIcon,
 } from 'omorphia'
-import { formatProjectType } from '../../plugins/shorthands'
+import { formatCategory, formatCategoryHeader, formatProjectType } from '../../plugins/shorthands'
+import ListSelector from '~/components/ui/ListSelector.vue'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import SearchFilter from '~/components/ui/search/SearchFilter.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
-import ClientIcon from '~/assets/images/categories/client.svg'
-import ServerIcon from '~/assets/images/categories/server.svg'
-
+import FrownIcon from '~/assets/images/utils/frown.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
-import ClearIcon from '~/assets/images/utils/clear.svg'
 import FilterIcon from '~/assets/images/utils/filter.svg'
+import FilterXIcon from '~/assets/images/utils/filter-x.svg'
 import GridIcon from '~/assets/images/utils/grid.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ImageIcon from '~/assets/images/utils/image.svg'
 import MinecraftIcon from 'assets/images/games/minecraft.svg'
-import ChevronRightIcon from 'assets/images/utils/chevron-right.svg'
-import DescriptionIcon from 'assets/images/utils/align-left.svg'
-import VersionIcon from 'assets/images/utils/version.svg'
-import GalleryIcon from 'assets/images/utils/image.svg'
-import TrendingIcon from 'assets/images/utils/trending-up.svg'
 import FlameIcon from 'assets/images/utils/flame.svg'
 import HistoryIcon from 'assets/images/utils/history.svg'
 import TopIcon from 'assets/images/utils/arrow-big-up-dash.svg'
+import NewIcon from 'assets/images/utils/burst.svg'
 import ScrollableMultiSelect from '~/components/ui/ScrollableMultiSelect.vue'
+import GameBanner from '~/components/ui/GameBanner.vue'
+import PageBar from '~/components/ui/PageBar.vue'
+
+const vintl = useVIntl()
+const { formatMessage } = vintl
+
+const sortTypeNames = defineMessages({
+  relevance: {
+    id: 'search.sort.top',
+    defaultMessage: 'Top',
+  },
+  newest: {
+    id: 'search.sort.new',
+    defaultMessage: 'New',
+  },
+  updated: {
+    id: 'search.sort.updated',
+    defaultMessage: 'Updated recently',
+  },
+  downloads: {
+    id: 'search.sort.downloads',
+    defaultMessage: 'Most downloaded',
+  },
+  follows: {
+    id: 'search.sort.followers',
+    defaultMessage: 'Most followed',
+  },
+})
 
 const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)
@@ -416,20 +455,23 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 
 const query = ref('')
+const filterQuery = ref('')
 const facets = ref([])
 const orFacets = ref([])
 const selectedVersions = ref([])
 const onlyOpenSource = ref(false)
 const showSnapshots = ref(false)
 const selectedEnvironments = ref([])
-const sortTypes = shallowReadonly([
-  { display: 'Relevance', name: 'relevance' },
-  { display: 'Download count', name: 'downloads' },
-  { display: 'Follow count', name: 'follows' },
-  { display: 'Recently published', name: 'newest' },
-  { display: 'Recently updated', name: 'updated' },
+
+const sortModes = shallowReadonly([
+  { id: 'relevance', featured: true },
+  { id: 'newest', featured: true },
+  { id: 'updated', featured: true },
+  { id: 'follows' },
+  { id: 'downloads' },
 ])
-const sortType = ref({ display: 'Relevance', name: 'relevance' })
+
+const sortType = ref('relevance')
 const maxResults = ref(20)
 const currentPage = ref(1)
 const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
@@ -437,15 +479,15 @@ const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
 const ogTitle = computed(
   () => `Search ${projectType.value.display}s${query.value ? ' | ' + query.value : ''}`
 )
-const description = computed(
-  () =>
-    `Search and browse thousands of Minecraft ${projectType.value.display}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${projectType.value.display}s.`
-)
 
-useSeoMeta({
-  description,
-  ogTitle,
-  ogDescription: description,
+const hasFiltersEnabled = computed(() => {
+  return (
+    onlyOpenSource.value ||
+    selectedEnvironments.value.length > 0 ||
+    selectedVersions.value.length > 0 ||
+    facets.value.length > 0 ||
+    orFacets.value.length > 0
+  )
 })
 
 if (route.query.q) {
@@ -470,25 +512,7 @@ if (route.query.e) {
   selectedEnvironments.value = getArrayOrString(route.query.e)
 }
 if (route.query.s) {
-  sortType.value.name = route.query.s
-
-  switch (sortType.value.name) {
-    case 'relevance':
-      sortType.value.display = 'Relevance'
-      break
-    case 'downloads':
-      sortType.value.display = 'Downloads'
-      break
-    case 'newest':
-      sortType.value.display = 'Recently published'
-      break
-    case 'updated':
-      sortType.value.display = 'Recently updated'
-      break
-    case 'follows':
-      sortType.value.display = 'Follow count'
-      break
-  }
+  sortType.value = route.query.s
 }
 
 if (route.query.m) {
@@ -512,7 +536,7 @@ const {
     const config = useRuntimeConfig()
     const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
-    const params = [`limit=${maxResults.value}`, `index=${sortType.value.name}`]
+    const params = [`limit=${maxResults.value}`, `index=${sortType.value}`]
 
     if (query.value.length > 0) {
       params.push(`query=${encodeURIComponent(query.value.replace(/ /g, '+'))}`)
@@ -614,6 +638,68 @@ const {
   }
 )
 
+const PRIMARY_MOD_LOADERS = ['fabric', 'forge', 'neoforge', 'quilt']
+
+const primaryLoaders = computed(() => {
+  return tags.value.loaders.filter((x) => {
+    if (projectType.value.id === 'mod') {
+      if (!PRIMARY_MOD_LOADERS.includes(x.name)) {
+        return false
+      } else {
+        return tags.value.loaderData.modLoaders.includes(x.name)
+      }
+    } else if (projectType.value.id === 'plugin') {
+      return tags.value.loaderData.pluginLoaders.includes(x.name)
+    } else if (projectType.value.id === 'datapack') {
+      return tags.value.loaderData.dataPackLoaders.includes(x.name)
+    } else {
+      return x.supported_project_types.includes(projectType.value.actual)
+    }
+  })
+})
+
+const secondaryLoaders = computed(() => {
+  return tags.value.loaders.filter((x) => {
+    if (projectType.value.id === 'mod') {
+      if (!PRIMARY_MOD_LOADERS.includes(x.name)) {
+        return tags.value.loaderData.modLoaders.includes(x.name)
+      }
+    }
+    return false
+  })
+})
+
+function isFilterShown(keyword) {
+  return !filterQuery.value || keyword.toLowerCase().includes(filterQuery.value.toLowerCase())
+}
+
+function isFilterCollapsed(heading) {
+  const headings = cosmetics.value.searchFiltersCollapsed[projectType.value.id]
+  return filterQuery || headings ? headings[heading] : false
+}
+
+function toggleFilterCollapse(heading) {
+  const { searchFiltersCollapsed } = cosmetics.value
+
+  if (!searchFiltersCollapsed) {
+    cosmetics.value.searchFiltersCollapsed = {
+      [projectType.value.id]: {
+        [heading]: true,
+      },
+    }
+  } else {
+    const headings = searchFiltersCollapsed[projectType.value.id] || {}
+    const currentValue = headings[heading]
+
+    searchFiltersCollapsed[projectType.value.id] = {
+      ...headings,
+      [heading]: currentValue !== undefined ? !currentValue : true,
+    }
+
+    saveCosmetics()
+  }
+}
+
 const results = shallowRef(toRaw(rawResults))
 const pageCount = computed(() =>
   results.value ? Math.ceil(results.value.total_hits / results.value.limit) : 1
@@ -673,9 +759,9 @@ function getSearchUrl(offset, useObj) {
     queryItems.push(`e=${encodeURIComponent(selectedEnvironments.value)}`)
     obj.e = selectedEnvironments.value
   }
-  if (sortType.value.name !== 'relevance') {
-    queryItems.push(`s=${encodeURIComponent(sortType.value.name)}`)
-    obj.s = sortType.value.name
+  if (sortType.value !== 'relevance') {
+    queryItems.push(`s=${encodeURIComponent(sortType.value)}`)
+    obj.s = sortType.value
   }
   if (maxResults.value !== 20) {
     queryItems.push(`m=${encodeURIComponent(maxResults.value)}`)
@@ -809,6 +895,12 @@ function cycleSearchDisplayMode() {
   setClosestMaxResults()
 }
 
+function setSearchDisplayMode(mode) {
+  cosmetics.value.searchDisplayMode[projectType.value.id] = mode
+  saveCosmetics()
+  setClosestMaxResults()
+}
+
 const previousMaxResults = ref(20)
 const maxResultsForView = ref({
   list: [5, 10, 15, 20, 50, 100],
@@ -866,66 +958,30 @@ function setClosestMaxResults() {
   }
 }
 
-.filters-card {
-  padding: var(--spacing-card-md);
-
-  @media screen and (min-width: 1024px) {
-    padding: var(--spacing-card-lg);
-  }
-}
-
-.sidebar-menu {
-  display: none;
-}
-
-.sidebar-menu_open {
-  display: block;
-}
-
-.sidebar-menu-heading {
-  margin: 1.5rem 0 0.5rem 0;
-}
-
-// EthicalAds
-.content-wrapper {
-  grid-row: 1;
-}
-
-.search-controls {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-card-md);
-  flex-wrap: wrap;
-  grid-row: 2;
-  margin-bottom: var(--gap-lg);
-  align-items: center;
-
-  .iconified-input {
-    flex-grow: 1;
-  }
-
-  .animated-dropdown {
-    line-height: 24px;
-    width: 14rem;
-  }
-
-  .square-button {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-.search-results-container {
-  grid-row: 5;
-}
-
-.pagination-after {
-  grid-row: 6;
-}
-
 .no-results {
-  text-align: center;
-  display: flow-root;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-lg);
+
+  svg {
+    --_size: 5rem;
+    width: var(--_size);
+    height: var(--_size);
+    color: var(--color-brand);
+
+    :deep(circle) {
+      fill: var(--color-brand-highlight);
+    }
+  }
+
+  p {
+    color: var(--color-contrast);
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    max-width: 30rem;
+  }
 }
 
 .loading-logo {
@@ -934,32 +990,6 @@ function setClosestMaxResults() {
 
 #search-results {
   min-height: 20vh;
-}
-
-@media screen and (min-width: 750px) {
-  .search-controls {
-    flex-direction: row;
-  }
-
-  .sort-controls {
-    min-width: fit-content;
-    max-width: fit-content;
-    flex-wrap: nowrap;
-  }
-
-  .labeled-control {
-    align-items: center;
-    display: flex;
-    flex-direction: column !important;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    max-width: fit-content;
-  }
-
-  .labeled-control__label {
-    flex-shrink: 0;
-    margin-bottom: 0 !important;
-  }
 }
 
 @media screen and (min-width: 860px) {
@@ -1016,123 +1046,139 @@ h1 {
   .animated-dropdown {
     margin-inline: var(--gap-sm);
   }
-
-  .paginates {
-    margin: 0;
-  }
-}
-
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  color: var(--color-secondary);
-  margin-bottom: 1rem;
-
-  span:not(.current) {
-    color: var(--color-base);
-  }
-
-  svg {
-    margin-inline: 0.5rem;
-  }
-}
-
-.filter-row {
-  margin-bottom: 1rem;
-
-  .title {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem 0.75rem 0;
-    color: var(--color-secondary);
-
-    svg {
-      margin-right: 0.5rem;
-    }
-  }
-}
-
-.new-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  border-bottom: 2px solid var(--color-button-bg);
-
-  svg {
-    height: 1.2rem;
-    width: 1.2rem;
-  }
-
-  a {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    border-bottom: 3px solid transparent;
-    padding: 0.75rem 1rem;
-    margin-bottom: -2px;
-
-    &.router-link-exact-active {
-      color: var(--color-contrast);
-      border-color: var(--color-brand);
-    }
-  }
-}
-
-.page-header {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  width: 100%;
-  height: 8rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  .banner-overlay {
-    position: absolute;
-    display: flex;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
-    background-image: radial-gradient(
-      ellipse at -20% 100%,
-      rgba(0, 0, 0, 0.8) 0%,
-      transparent 100%
-    );
-
-    .banner-overlay__content {
-      display: flex;
-      align-items: center;
-      margin-top: auto;
-    }
-
-    .game-icon {
-      width: 3rem;
-      height: 3rem;
-      margin-right: 1rem;
-    }
-
-    .game-title {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-
-      .game-subtitle {
-        color: var(--color-base);
-        font-size: var(--font-size-lg);
-      }
-    }
-  }
-}
-
-.game-banner {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .type-header {
   margin-top: 1rem;
+}
+
+.filters-card {
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .iconified-input {
+    input {
+      border: var(--button-border-width) solid var(--color-divider);
+      box-shadow: none;
+    }
+  }
+  h2 {
+    font-size: var(--font-size-lg) !important;
+  }
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  transition: padding-bottom 0.125s ease-in-out;
+
+  .heading {
+    display: flex;
+    background-color: transparent;
+    padding: 0;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-block: 0.5rem 0;
+
+    h3 {
+      font-size: var(--font-size-nm);
+    }
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      transition: rotate 0.25s ease-in-out;
+    }
+  }
+
+  .content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease-in-out;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: var(--font-size-sm);
+    overflow: hidden;
+
+    .see-more {
+      color: #737d80;
+    }
+
+    > :last-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &.expanded {
+    .heading svg {
+      rotate: 180deg;
+    }
+
+    .content-wrapper {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &:not(.expanded) {
+    padding-bottom: 0.5rem;
+  }
+
+  &:not(:last-child):not(:empty) {
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .toggle-option {
+    margin-inline: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    label {
+      flex-grow: 1;
+      font-weight: 600;
+    }
+
+    :not(:focus-visible) {
+      box-shadow: none;
+    }
+  }
+}
+
+.filters-search-row {
+  display: flex;
+  gap: var(--gap-sm);
+
+  input {
+    min-height: 36px;
+    height: 36px;
+  }
+
+  .iconified-input {
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+.view-options {
+  display: contents;
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 }
 </style>

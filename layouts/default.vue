@@ -1,6 +1,6 @@
 <template>
   <div ref="main_page" class="page-container" :class="{ 'expanded-mobile-nav': mobileBrowseOpen }">
-    <header v-if="false" class="site-header" role="presentation">
+    <header class="site-header" role="presentation">
       <section class="mobile-navigation">
         <div
           class="nav-menu nav-menu-browse"
@@ -148,10 +148,12 @@
     </header>
     <div class="page-layout">
       <nav>
-        <div class="navbar-left">
+        <div class="navbar-brand">
           <NuxtLink to="/" class="button-base logo-button" aria-label="Modrinth home page">
             <BrandTextLogo aria-hidden="true" />
           </NuxtLink>
+        </div>
+        <div class="navbar-links">
           <NuxtLink class="btn btn-transparent" to="/home">
             <span class="title">Home</span>
           </NuxtLink>
@@ -165,52 +167,31 @@
             :options="[
               {
                 id: 'mods',
-                action: () => {
-                  router.push('/mods')
-                  setProjectType('mods')
-                },
+                link: '/mods',
               },
               {
                 id: 'modpacks',
-                action: () => {
-                  router.push('/modpacks')
-                  setProjectType('modpacks')
-                },
+                link: '/modpacks',
               },
               {
                 id: 'datapacks',
-                action: () => {
-                  router.push('/datapacks')
-                  setProjectType('datapacks')
-                },
+                link: '/datapacks',
               },
               {
                 id: 'resourcepacks',
-                action: () => {
-                  router.push('/resourcepacks')
-                  setProjectType('resourcepacks')
-                },
+                link: '/resourcepacks',
               },
               {
                 id: 'worlds',
-                action: () => {
-                  // router.push('/worlds')
-                  // setProjectType('worlds')
-                },
+                link: '/worlds',
               },
               {
                 id: 'shaders',
-                action: () => {
-                  router.push('/shaders')
-                  setProjectType('shaders')
-                },
+                link: '/shaders',
               },
               {
                 id: 'plugins',
-                action: () => {
-                  router.push('/plugins')
-                  setProjectType('plugins')
-                },
+                link: '/plugins',
               },
             ]"
           >
@@ -233,10 +214,10 @@
                 id: 'new-project',
                 action: () => $refs.modal_creation.show(),
               },
-              {
-                id: 'import-project',
-                action: () => {},
-              },
+              // {
+              //   id: 'import-project',
+              //   action: () => {},
+              // },
               {
                 id: 'new-collection',
                 action: () => {},
@@ -256,8 +237,7 @@
           </OverflowMenu>
           <nuxt-link class="btn btn-transparent btn-primary" to="/app"> Modrinth App </nuxt-link>
         </div>
-        <div class="navbar-center"></div>
-        <div class="navbar-right">
+        <div class="navbar-user">
           <button class="btn btn-transparent icon-only" @click="changeTheme($colorMode.value)">
             <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
             <SunIcon v-else class="icon" />
@@ -680,13 +660,6 @@ export default defineNuxtComponent({
 @import '~/assets/styles/global.scss';
 @import 'omorphia/dist/style.css';
 
-.page-container {
-  width: 100vw;
-  width: 100dvw;
-  height: 100vh;
-  height: 100dvh;
-}
-
 .landing-layout {
   display: flex;
   flex-direction: column;
@@ -697,29 +670,54 @@ export default defineNuxtComponent({
   flex-direction: column;
 
   > * {
-    width: 100%;
+    width: calc(100%);
     max-width: 80rem;
     margin-inline: auto;
-  }
-
-  > nav {
+    padding-inline: var(--gap-lg);
   }
 
   > nav {
     grid-area: nav;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
     padding-block: 1.25rem;
     margin-bottom: 0.5rem;
+    align-items: center;
+    gap: var(--gap-lg);
     position: relative;
+    grid-template: 'brand links user';
+    grid-template-columns: min-content 1fr auto;
 
-    .navbar-left,
-    .navbar-center,
-    .navbar-right {
+    @media screen and (max-width: 910px) {
+      grid-template: 'brand user' 'links links';
+      grid-template-columns: 1fr auto;
+
+      .navbar-links {
+        margin-inline: auto;
+      }
+    }
+
+    @media screen and (max-width: 600px) and (hover: none) {
+      display: none;
+    }
+
+    .navbar-links,
+    .navbar-user {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
+
+    .navbar-brand {
+      grid-area: brand;
+    }
+
+    .navbar-user {
+      grid-area: user;
+    }
+
+    .navbar-links {
+      grid-area: links;
+      flex-wrap: wrap;
     }
 
     .user-avatar {
@@ -763,7 +761,7 @@ export default defineNuxtComponent({
       &.allow-non-exact.router-link-active,
       &.router-link-exact-active {
         color: var(--color-brand);
-        background-color: var(--color-raised-bg);
+        background-color: var(--color-brand-highlight);
 
         &:not(.square-button) svg {
           color: var(--color);
@@ -795,7 +793,7 @@ export default defineNuxtComponent({
       }
 
       .game-button {
-        border: 1px solid var(--color-button-bg);
+        border: 1px solid var(--color-divider);
 
         .game-icon {
           height: 2rem;
@@ -876,397 +874,224 @@ export default defineNuxtComponent({
   justify-content: center;
   padding-top: var(--gap-lg);
 
-  @media screen and (min-width: 1024px) {
-    min-height: calc(100vh - var(--spacing-card-bg));
+  main {
+    grid-area: main;
+  }
+}
+
+.site-header {
+  max-width: 100vw;
+
+  @media screen and (min-width: 1280px) {
+    border-radius: var(--size-rounded-sm);
+    max-width: 1280px;
   }
 
-  @media screen and (max-width: 750px) {
-    margin-bottom: calc(var(--size-mobile-navbar-height) + 2rem);
-  }
+  .mobile-navigation {
+    display: none;
 
-  .site-header {
-    max-width: 100vw;
+    .nav-menu {
+      width: 100%;
+      position: fixed;
+      bottom: calc(var(--size-mobile-navbar-height) - var(--size-rounded-card));
+      padding-bottom: var(--size-rounded-card);
+      left: 0;
+      background-color: var(--color-raised-bg);
+      z-index: 6;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
+      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+      box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
 
-    @media screen and (min-width: 1024px) {
-      margin-top: var(--spacing-card-md);
-      margin-bottom: var(--spacing-card-md);
-    }
+      .links,
+      .account-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1rem;
+        justify-content: center;
+        padding: 1rem;
 
-    @media screen and (min-width: 1280px) {
-      border-radius: var(--size-rounded-sm);
-      max-width: 1280px;
-    }
+        .iconified-button {
+          width: 100%;
+          max-width: 500px;
+          padding: 0.75rem;
+          justify-content: center;
+          font-weight: 600;
+          font-size: 1rem;
+          margin: 0 auto;
+        }
+      }
 
-    .navbar {
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
+      .cascade-links {
+        @media screen and (min-width: 354px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @media screen and (min-width: 674px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
 
-      section.logo {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        color: var(--color-text-dark);
-        z-index: 5;
-        margin-bottom: var(--gap-md);
+      &-browse {
+        &.expanded {
+          transform: translateY(0);
+          box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+        }
+      }
 
-        a {
-          align-items: center;
-          display: flex;
+      &-mobile {
+        .account-container {
+          padding-bottom: 0;
+
+          .account-button {
+            padding: var(--spacing-card-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .user-icon {
+              width: 2.25rem;
+              height: 2.25rem;
+            }
+
+            .account-text {
+              flex-grow: 0;
+            }
+          }
         }
 
-        .small-logo {
-          display: block;
+        &.expanded {
+          transform: translateY(0);
+          box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+
+    .mobile-navbar {
+      display: flex;
+      height: calc(var(--size-mobile-navbar-height) + env(safe-area-inset-bottom));
+      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+      padding-bottom: env(safe-area-inset-bottom);
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      background-color: var(--color-raised-bg);
+      box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+      z-index: 7;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-radius 0.3s ease-out;
+      border-top: 2px solid rgba(0, 0, 0, 0);
+      box-sizing: border-box;
+
+      &.expanded {
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .tab {
+        position: relative;
+        background: none;
+        display: flex;
+        flex-basis: 0;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 0.25rem;
+        font-weight: bold;
+        padding: 0;
+        transition: color ease-in-out 0.15s;
+        color: var(--color-text-inactive);
+        text-align: center;
+
+        &.browse {
+          svg {
+            transform: rotate(180deg);
+            transition: transform ease-in-out 0.3s;
+
+            &.closed {
+              transform: rotate(0deg);
+            }
+          }
+        }
+
+        &.bubble {
+          &::after {
+            background-color: var(--color-brand);
+            border-radius: var(--size-rounded-max);
+            content: '';
+            height: 0.5rem;
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            width: 0.5rem;
+          }
         }
 
         svg {
           height: 1.75rem;
-          width: auto;
-        }
+          width: 1.75rem;
 
-        button {
-          background: none;
-          border: none;
-          margin: 0 0 0 0.5rem;
-          padding: 0;
-
-          svg {
-            height: 1.5rem;
-            width: 1.5rem;
-          }
-        }
-      }
-
-      section.nav-group {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 5;
-        z-index: 5;
-
-        section.nav {
-          flex-grow: 5;
-
-          .navigation {
-            display: flex;
-            width: fit-content;
-            position: relative;
-            margin-left: 2rem;
-            grid-gap: 1.5rem;
-
-            a {
-              margin-left: 0;
-              margin-right: auto;
-            }
-
-            a.tab {
-              padding: 0;
-              margin-right: 1rem;
-              display: flex;
-              align-items: flex-start;
-
-              &--alpha::after {
-                content: 'Alpha';
-                background-color: var(--color-warning-bg);
-                color: var(--color-warning-text);
-                border-radius: 1rem;
-                padding: 0.25rem 0.5rem;
-                margin-left: 0.4rem;
-                font-size: 0.7rem;
-              }
-            }
+          &.smaller {
+            width: 1.25rem;
+            height: 1.25rem;
           }
         }
 
-        .user-outer {
-          z-index: 5;
-        }
-
-        section.user-controls {
-          align-items: flex-start;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          position: relative;
-          min-width: 6rem;
-
-          .control-button {
-            position: relative;
-            display: flex;
-            padding: 0.5rem;
-            color: var(--color-text);
-            transition: filter 0.1s ease-in-out;
-            border: 2px solid transparent;
-            box-sizing: border-box;
-
-            svg {
-              height: 1.25rem;
-              width: 1.25rem;
-            }
-
-            &.bubble {
-              &::after {
-                background-color: var(--color-brand);
-                border-radius: var(--size-rounded-max);
-                content: '';
-                height: 0.5rem;
-                position: absolute;
-                right: 0.25rem;
-                top: 0.5rem;
-                width: 0.5rem;
-              }
-            }
-
-            .dropdown {
-              margin-right: 0;
-            }
-
-            //&.router-link-exact-active {
-            //  color: var(--color-button-text-active);
-            //  background-color: var(--color-button-bg);
-            //}
-          }
-
-          .hide-desktop {
-            display: none;
-          }
-
-          .dropdown-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: var(--gap-xs);
-          }
-        }
-
-        section.auth-prompt {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          height: 100%;
-          margin: 0;
-          gap: 0.5rem;
-
-          .log-in-button {
-            margin: 0 auto;
-          }
-        }
-      }
-
-      @media screen and (max-width: 1095px) {
-        display: none;
-      }
-    }
-
-    .mobile-navigation {
-      display: none;
-
-      .nav-menu {
-        width: 100%;
-        position: fixed;
-        bottom: calc(var(--size-mobile-navbar-height) - var(--size-rounded-card));
-        padding-bottom: var(--size-rounded-card);
-        left: 0;
-        background-color: var(--color-raised-bg);
-        z-index: 6;
-        transform: translateY(100%);
-        transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
-        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
-        box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
-
-        .links,
-        .account-container {
-          display: grid;
-          grid-template-columns: repeat(1, 1fr);
-          grid-gap: 1rem;
-          justify-content: center;
-          padding: 1rem;
-
-          .iconified-button {
-            width: 100%;
-            max-width: 500px;
-            padding: 0.75rem;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 0 auto;
-          }
-        }
-
-        .cascade-links {
-          @media screen and (min-width: 354px) {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          @media screen and (min-width: 674px) {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        &-browse {
-          &.expanded {
-            transform: translateY(0);
-            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
-          }
-        }
-
-        &-mobile {
-          .account-container {
-            padding-bottom: 0;
-
-            .account-button {
-              padding: var(--spacing-card-md);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-
-              .user-icon {
-                width: 2.25rem;
-                height: 2.25rem;
-              }
-
-              .account-text {
-                flex-grow: 0;
-              }
-            }
-          }
+        .user-icon {
+          width: 2rem;
+          height: 2rem;
+          transition: border ease-in-out 0.15s;
+          border: 0 solid var(--color-brand);
+          box-sizing: border-box;
 
           &.expanded {
-            transform: translateY(0);
-            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--color-brand);
           }
         }
-      }
 
-      .mobile-navbar {
-        display: flex;
-        height: calc(var(--size-mobile-navbar-height) + env(safe-area-inset-bottom));
-        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
-        padding-bottom: env(safe-area-inset-bottom);
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        background-color: var(--color-raised-bg);
-        box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
-        z-index: 7;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        transition: border-radius 0.3s ease-out;
-        border-top: 2px solid rgba(0, 0, 0, 0);
-        box-sizing: border-box;
-
-        &.expanded {
-          box-shadow: none;
-          border-radius: 0;
+        &:hover,
+        &:focus {
+          color: var(--color-text);
         }
 
-        .tab {
-          position: relative;
-          background: none;
-          display: flex;
-          flex-basis: 0;
-          justify-content: center;
-          align-items: center;
-          flex-direction: row;
-          gap: 0.25rem;
-          font-weight: bold;
-          padding: 0;
-          transition: color ease-in-out 0.15s;
-          color: var(--color-text-inactive);
-          text-align: center;
+        &:first-child {
+          margin-left: 2rem;
+        }
 
-          &.browse {
-            svg {
-              transform: rotate(180deg);
-              transition: transform ease-in-out 0.3s;
+        &:last-child {
+          margin-right: 2rem;
+        }
 
-              &.closed {
-                transform: rotate(0deg);
-              }
-            }
-          }
-
-          &.bubble {
-            &::after {
-              background-color: var(--color-brand);
-              border-radius: var(--size-rounded-max);
-              content: '';
-              height: 0.5rem;
-              position: absolute;
-              left: 1.5rem;
-              top: 0;
-              width: 0.5rem;
-            }
-          }
-
+        &.router-link-exact-active:not(&.no-active) {
           svg {
-            height: 1.75rem;
-            width: 1.75rem;
-
-            &.smaller {
-              width: 1.25rem;
-              height: 1.25rem;
-            }
-          }
-
-          .user-icon {
-            width: 2rem;
-            height: 2rem;
-            transition: border ease-in-out 0.15s;
-            border: 0 solid var(--color-brand);
-            box-sizing: border-box;
-
-            &.expanded {
-              border: 2px solid var(--color-brand);
-            }
-          }
-
-          &:hover,
-          &:focus {
-            color: var(--color-text);
-          }
-
-          &:first-child {
-            margin-left: 2rem;
-          }
-
-          &:last-child {
-            margin-right: 2rem;
-          }
-
-          &.router-link-exact-active:not(&.no-active) {
-            svg {
-              color: var(--color-brand);
-            }
-
             color: var(--color-brand);
           }
+
+          color: var(--color-brand);
         }
       }
-
-      @media screen and (max-width: 1095px) {
-        display: flex;
-      }
     }
 
-    div {
-      flex-grow: 1;
-      justify-content: end;
-      align-items: center;
-      row-gap: 1rem;
-    }
-
-    &.active {
+    @media screen and (max-width: 600px) and (hover: none) {
       display: flex;
-
-      @media screen and (min-width: 1095px) {
-        display: none;
-      }
     }
   }
 
-  main {
-    grid-area: main;
+  div {
+    flex-grow: 1;
+    justify-content: end;
+    align-items: center;
+    row-gap: 1rem;
+  }
+
+  &.active {
+    display: flex;
+
+    @media screen and (min-width: 1095px) {
+      display: none;
+    }
   }
 }
 

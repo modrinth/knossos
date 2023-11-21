@@ -454,11 +454,11 @@ svg {
   }
 
   &.bad {
-    color: var(--color-special-red);
+    color: var(--color-red);
   }
 
   &.warn {
-    color: var(--color-special-orange);
+    color: var(--color-orange);
   }
 }
 

@@ -193,7 +193,7 @@ export default {
   }
 
   .invalid {
-    color: var(--color-special-red);
+    color: var(--color-red);
   }
 
   .confirm-text {
