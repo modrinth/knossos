@@ -53,7 +53,7 @@
       </div>
       <div class="redirection-notice">
         <p class="redirect-instructions">
-          Authorizing will redirect you to
+          You will be redirected to
           <span class="redirect-url">{{ redirectUri }}</span>
         </p>
       </div>
@@ -220,7 +220,6 @@ definePageMeta({
   display: flex;
   flex-direction: column;
   gap: var(--gap-xs);
-  margin-top: var(--gap-md);
   text-align: center;
 
   .redirect-instructions {

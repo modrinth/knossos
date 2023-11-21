@@ -216,7 +216,7 @@ const constCaseToTitleCase = (str) =>
 
 .icon-name {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: var(--gap-lg);
   padding-bottom: var(--gap-sm);
 }
@@ -264,7 +264,7 @@ const constCaseToTitleCase = (str) =>
 
   @media screen and (min-width: 800px) {
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
   }
 }
 </style>

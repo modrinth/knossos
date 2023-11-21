@@ -36,7 +36,7 @@
           <Checkbox
             v-for="scope in scopeList"
             :key="scope"
-            :label="constCaseToTitleCase(scope)"
+            :label="constCaseToSentenceCase(scope)"
             :model-value="hasScope(scopesVal, scope)"
             @update:model-value="() => (scopesVal = toggleScope(scopesVal, scope))"
           />
@@ -385,11 +385,9 @@ async function removeApp() {
   stopLoading()
 }
 
-const constCaseToTitleCase = (str) =>
-  str
-    .split('_')
-    .map((x) => x[0].toUpperCase() + x.slice(1).toLowerCase())
-    .join(' ')
+const constCaseToSentenceCase = (str) => {
+  return str.replace('_', ' ').map((x) => x[0].toUpperCase() + x.slice(1).toLowerCase())
+}
 </script>
 <style lang="scss" scoped>
 .secret_disclaimer {
@@ -450,7 +448,7 @@ const constCaseToTitleCase = (str) =>
   .token-icon {
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
     gap: var(--gap-md);
   }
 
