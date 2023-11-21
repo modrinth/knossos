@@ -16,6 +16,7 @@
       :class="{
         'page-number': page !== item,
         shrink: item > 99,
+        'desktop-only': page - 1 !== item && page + 1 !== item && item !== page,
       }"
       class="page-number-container"
     >
@@ -154,12 +155,6 @@ a,
   gap: var(--gap-xs);
 }
 
-@media screen and (max-width: 400px) {
-  .paginates {
-    font-size: 80%;
-  }
-}
-
 @media screen and (max-width: 530px) {
   a {
     width: 2.5rem;
@@ -169,5 +164,15 @@ a,
 
 .gap-icon {
   margin-inline: 0.25rem;
+}
+
+@media screen and (max-width: 500px) {
+  .paginates {
+    font-size: 80%;
+  }
+
+  .desktop-only {
+    display: none;
+  }
 }
 </style>

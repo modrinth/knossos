@@ -10,11 +10,6 @@
       @proceed="deleteProject"
     />
     <section class="universal-card">
-      <div class="label">
-        <h3>
-          <span class="label__title size-card-header">Project information</span>
-        </h3>
-      </div>
       <label for="project-icon">
         <span class="label__title">Icon</span>
       </label>

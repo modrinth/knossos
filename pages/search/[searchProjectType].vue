@@ -22,78 +22,121 @@
       <GameBanner game="minecraft_java" />
       <h1 class="type-header">{{ formatProjectType(projectType.display) }}s</h1>
       <PageBar class="filter-row">
-        <span class="page-bar__title"><SortAscendingIcon /> Sort by</span>
-        <button
-          v-for="sortMode in sortModes.filter((x) => x.featured || sortType === x.id)"
-          :key="`sort-mode-${sortMode.id}`"
-          class="button-base nav-button"
-          :class="{ 'router-link-exact-active': sortType === sortMode.id }"
-          @click="
-            () => {
-              sortType = sortMode.id
-              onSearchChange(1)
-            }
-          "
-        >
-          <TopIcon v-if="sortMode.id === 'relevance'" aria-hidden="true" />
-          <NewIcon v-else-if="sortMode.id === 'newest'" aria-hidden="true" />
-          <HistoryIcon v-else-if="sortMode.id === 'updated'" aria-hidden="true" />
-          <HeartIcon v-else-if="sortMode.id === 'follows'" aria-hidden="true" />
-          <DownloadIcon v-else-if="sortMode.id === 'downloads'" aria-hidden="true" />
-          <UnknownIcon v-else aria-hidden="true" />
-          {{ formatMessage(sortTypeNames[sortMode.id]) }}
-        </button>
-        <OverflowMenu
-          class="button-base nav-button"
-          position="bottom"
-          direction="right"
-          :options="
-            sortModes
-              .filter((x) => !x.featured && sortType !== x.id)
-              .map((x) => {
-                return {
-                  id: x.id,
-                  action: () => {
-                    sortType = x.id
-                    onSearchChange(1)
-                  },
-                }
-              })
-          "
-        >
-          <MoreHorizontalIcon />
-          <template #downloads>
-            <DownloadIcon /> {{ formatMessage(sortTypeNames.downloads) }}
-          </template>
-          <template #follows> <HeartIcon /> {{ formatMessage(sortTypeNames.follows) }} </template>
-        </OverflowMenu>
+        <span class="page-bar__title">Sort by</span>
+        <div class="sort-by-desktop">
+          <button
+            v-for="sortMode in sortModes.filter((x) => x.featured || sortType === x.id)"
+            :key="`sort-mode-${sortMode.id}`"
+            class="button-base nav-button"
+            :class="{ 'router-link-exact-active': sortType === sortMode.id }"
+            @click="
+              () => {
+                sortType = sortMode.id
+                onSearchChange(1)
+              }
+            "
+          >
+            <TopIcon v-if="sortMode.id === 'relevance'" aria-hidden="true" />
+            <NewIcon v-else-if="sortMode.id === 'newest'" aria-hidden="true" />
+            <HistoryIcon v-else-if="sortMode.id === 'updated'" aria-hidden="true" />
+            <HeartIcon v-else-if="sortMode.id === 'follows'" aria-hidden="true" />
+            <DownloadIcon v-else-if="sortMode.id === 'downloads'" aria-hidden="true" />
+            <UnknownIcon v-else aria-hidden="true" />
+            {{ formatMessage(sortTypeNames[sortMode.id]) }}
+          </button>
+          <OverflowMenu
+            class="button-base nav-button"
+            position="bottom"
+            direction="right"
+            :options="
+              sortModes
+                .filter((x) => !x.featured && sortType !== x.id)
+                .map((x) => {
+                  return {
+                    id: x.id,
+                    action: () => {
+                      sortType = x.id
+                      onSearchChange(1)
+                    },
+                  }
+                })
+            "
+          >
+            <MoreHorizontalIcon />
+            <template #downloads>
+              <DownloadIcon /> {{ formatMessage(sortTypeNames.downloads) }}
+            </template>
+            <template #follows> <HeartIcon /> {{ formatMessage(sortTypeNames.follows) }} </template>
+          </OverflowMenu>
+        </div>
+        <div class="sort-by-mobile">
+          <OverflowMenu
+            class="btn btn-dropdown-animation"
+            position="bottom"
+            direction="right"
+            :options="
+              sortModes
+                .filter((x) => sortType !== x.id)
+                .map((x) => {
+                  return {
+                    id: x.id,
+                    action: () => {
+                      sortType = x.id
+                      onSearchChange(1)
+                    },
+                  }
+                })
+            "
+          >
+            <TopIcon v-if="sortType === 'relevance'" aria-hidden="true" />
+            <NewIcon v-else-if="sortType === 'newest'" aria-hidden="true" />
+            <HistoryIcon v-else-if="sortType === 'updated'" aria-hidden="true" />
+            <HeartIcon v-else-if="sortType === 'follows'" aria-hidden="true" />
+            <DownloadIcon v-else-if="sortType === 'downloads'" aria-hidden="true" />
+            <UnknownIcon v-else aria-hidden="true" />
+            {{ formatMessage(sortTypeNames[sortType]) }} <DropdownIcon />
+            <template #relevance>
+              <TopIcon aria-hidden="true" /> {{ formatMessage(sortTypeNames.relevance) }}
+            </template>
+            <template #newest>
+              <NewIcon aria-hidden="true" /> {{ formatMessage(sortTypeNames.newest) }}
+            </template>
+            <template #updated>
+              <HistoryIcon aria-hidden="true" /> {{ formatMessage(sortTypeNames.updated) }}
+            </template>
+            <template #downloads>
+              <DownloadIcon aria-hidden="true" /> {{ formatMessage(sortTypeNames.downloads) }}
+            </template>
+            <template #follows>
+              <HeartIcon aria-hidden="true" /> {{ formatMessage(sortTypeNames.follows) }}
+            </template>
+          </OverflowMenu>
+        </div>
         <template #right>
-          <div class="view-options">
-            <span class="page-bar__title"><EyeIcon /> View as</span>
-            <div class="page-bar__buttons">
-              <button
-                v-tooltip="`List`"
-                :aria-label="`List`"
-                class="btn icon-only"
-                :class="{
-                  'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
-                }"
-                @click="setSearchDisplayMode('list')"
-              >
-                <ListIcon />
-              </button>
-              <button
-                v-tooltip="`Grid`"
-                :aria-label="`Grid`"
-                class="btn icon-only"
-                :class="{
-                  'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
-                }"
-                @click="setSearchDisplayMode('grid')"
-              >
-                <GridIcon />
-              </button>
-            </div>
+          <span class="view-options-title page-bar__title">View as</span>
+          <div class="page-bar__buttons">
+            <button
+              v-tooltip="`List`"
+              :aria-label="`List`"
+              class="btn icon-only"
+              :class="{
+                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
+              }"
+              @click="setSearchDisplayMode('list')"
+            >
+              <ListIcon />
+            </button>
+            <button
+              v-tooltip="`Grid`"
+              :aria-label="`Grid`"
+              class="btn icon-only"
+              :class="{
+                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
+              }"
+              @click="setSearchDisplayMode('grid')"
+            >
+              <GridIcon />
+            </button>
           </div>
         </template>
       </PageBar>
@@ -987,6 +1030,18 @@ function setClosestMaxResults() {
     font-weight: bold;
     max-width: 30rem;
   }
+
+  @media screen and (max-width: 500px) {
+    p {
+      font-size: var(--font-size-nm);
+    }
+  }
+
+  @media screen and (max-width: 300px) {
+    p {
+      font-size: var(--font-size-sm);
+    }
+  }
 }
 
 .loading-logo {
@@ -1179,11 +1234,31 @@ h1 {
   }
 }
 
-.view-options {
+.sort-by-desktop {
   display: contents;
+}
 
-  @media screen and (max-width: 900px) {
-    display: none;
+.sort-by-mobile {
+  display: none;
+}
+
+.page-bar {
+  @media screen and (max-width: 750px) {
+    .sort-by-desktop {
+      display: none;
+    }
+
+    .sort-by-mobile {
+      display: contents;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    padding-bottom: var(--gap-xs);
+
+    .page-bar__title {
+      display: none;
+    }
   }
 }
 </style>

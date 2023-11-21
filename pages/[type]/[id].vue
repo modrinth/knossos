@@ -220,24 +220,10 @@
           </nuxt-link>
           <template #right>
             <nuxt-link
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/moderation`"
-              class="button-base nav-button"
-            >
-              <ScaleIcon /> Moderation
-            </nuxt-link>
-            <nuxt-link
-              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/analytics`"
-              class="button-base nav-button"
-            >
-              <ChartIcon /> Analytics
-            </nuxt-link>
-            <nuxt-link
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
-              class="button-base nav-button"
+              class="button-base nav-button desktop-settings-button"
             >
-              <SettingsIcon /> Settings
+              <ManageIcon /> Manage
             </nuxt-link>
           </template>
         </PageBar>
@@ -265,7 +251,7 @@
       </section>
       <div class="normal-page__info">
         <template v-if="$route.name.startsWith('type-id-settings')">
-          <h2>Project settings</h2>
+          <h3>Details</h3>
           <NavStack>
             <NavStackItem
               :link="`/${project.project_type}/${
@@ -335,7 +321,11 @@
           </NavStack>
         </template>
         <template v-else>
-          <div v-if="featuredGalleryImage" class="featured-gallery-image">
+          <nuxt-link
+            v-if="featuredGalleryImage"
+            :to="`${getProjectLink(project)}/gallery`"
+            class="featured-gallery-image button-base"
+          >
             <img
               :src="
                 featuredGalleryImage
@@ -344,7 +334,7 @@
               "
               alt="test"
             />
-          </div>
+          </nuxt-link>
           <div class="universal-card">
             <h2>Details</h2>
             <div class="supports-details">
@@ -723,6 +713,7 @@ import NavStackItem from '~/components/ui/NavStackItem.vue'
 import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
 import SettingsIcon from '~/assets/images/utils/settings.svg'
+import ManageIcon from '~/assets/images/utils/settings-2.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import UsersIcon from '~/assets/images/utils/users.svg'
 import TagIcon from '~/assets/images/utils/tags.svg'
@@ -1569,6 +1560,7 @@ const collapsedChecklist = ref(false)
   align-items: center;
   color: var(--color-secondary);
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 
   span:not(.current) {
     color: var(--color-base);
@@ -1612,6 +1604,15 @@ const collapsedChecklist = ref(false)
     color: var(--color-secondary);
     font-size: var(--font-size-sm);
     margin-right: 5rem;
+  }
+
+  @media screen and (max-width: 900px) {
+    grid-template-columns: min-content 1fr;
+
+    .mod-buttons {
+      margin-top: var(--gap-lg);
+      grid-column: span 2;
+    }
   }
 }
 
@@ -1740,6 +1741,7 @@ const collapsedChecklist = ref(false)
   display: flex;
   margin-top: 0.5rem;
   gap: 0.75rem;
+  flex-wrap: wrap;
 
   .stat {
     display: flex;
@@ -1790,6 +1792,12 @@ const collapsedChecklist = ref(false)
     .categories {
       margin-top: 0.5rem;
     }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .page-bar .desktop-settings-button {
+    display: none;
   }
 }
 </style>
