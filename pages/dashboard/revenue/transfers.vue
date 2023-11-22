@@ -6,10 +6,7 @@
         :link-stack="[{ href: '/dashboard/revenue', label: 'Revenue' }]"
       />
       <h2>Transfer history</h2>
-      <p>
-        All of your transfers from your Modrinth balance to your PayPal or Venmo accounts will be
-        listed here:
-      </p>
+      <p>All of your withdrawals from your Modrinth balance will be listed here:</p>
       <div class="grid-table">
         <div class="grid-table__row grid-table__header">
           <div class="desktop">Date</div>
@@ -17,11 +14,7 @@
           <div class="desktop">Amount</div>
           <div class="mobile">Transaction</div>
         </div>
-        <div
-          v-for="(payout, index) in payouts.payouts.filter((x) => x.status === 'success')"
-          :key="`payout-${index}`"
-          class="grid-table__row"
-        >
+        <div v-for="(payout, index) in payouts" :key="`payout-${index}`" class="grid-table__row">
           <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
           <div><Badge :type="payout.status" /></div>
           <div class="amount">{{ $formatMoney(payout.amount) }}</div>
@@ -31,17 +24,18 @@
   </div>
 </template>
 <script setup>
-import Badge from '~/components/ui/Badge.vue'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { Badge, Breadcrumbs } from 'omorphia'
 
 useHead({
   title: 'Transfer history - Modrinth',
 })
 
-const auth = await useAuth()
+// const auth = await useAuth()
 
-const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
-  useBaseFetch(`user/${auth.value.user.id}/payouts`)
+const { data: payouts } = await useAsyncData(`payout`, () =>
+  useBaseFetch(`payout`, {
+    apiVersion: 3,
+  })
 )
 </script>
 <style lang="scss" scoped>

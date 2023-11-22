@@ -1,26 +1,17 @@
 <template>
   <section class="universal-card">
-    <h2>Withdraw</h2>
-    <span>
-      You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
-      How much of your
-      <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong> balance would you like to
-      transfer?
-    </span>
-    <div class="confirmation-input">
-      <input
-        id="confirmation"
-        v-model="amount"
-        type="text"
-        pattern="^\d*(\.\d{0,2})?$"
-        autocomplete="off"
-        placeholder="Amount to transfer..."
-      />
-    </div>
+    <Breadcrumbs
+      current-title="Withdraw"
+      :link-stack="[{ href: '/dashboard/revenue', label: 'Revenue' }]"
+    />
 
+    <h2>Withdraw</h2>
+
+    <h3>Country</h3>
     <Multiselect
-      id="license-multiselect"
+      id="country-multiselect"
       v-model="country"
+      class="country-multiselect"
       placeholder="Select country..."
       track-by="id"
       label="name"
@@ -28,27 +19,131 @@
       :searchable="true"
       :close-on-select="true"
       :show-labels="false"
-      @update:model-value="refreshPayoutMethods"
     />
 
-    <h2>Withdraw method</h2>
+    <h3>Withdraw method</h3>
 
-    <div class="withdraw-options">
+    <div class="iconified-input">
+      <label class="hidden" for="search">Search</label>
+      <SearchIcon aria-hidden="true" />
+      <input
+        id="search"
+        v-model="search"
+        name="search"
+        placeholder="Search options..."
+        autocomplete="off"
+      />
+    </div>
+    <div class="withdraw-options-scroll">
+      <div class="withdraw-options">
+        <button
+          v-for="method in payoutMethods.filter((x) =>
+            x.name.toLowerCase().includes(search.toLowerCase())
+          )"
+          :key="method.id"
+          class="withdraw-option button-base"
+          :class="{ selected: selectedMethodId === method.id }"
+          @click="() => (selectedMethodId = method.id)"
+        >
+          <div class="preview" :class="{ 'show-bg': !method.image_url || method.name === 'ACH' }">
+            <img
+              v-if="method.image_url && method.name !== 'ACH'"
+              class="preview-img"
+              :src="method.image_url"
+              :alt="method.name"
+            />
+            <div v-else class="placeholder">
+              <template v-if="method.type === 'venmo'">
+                <VenmoIcon class="enlarge" />
+              </template>
+              <template v-else>
+                <PayPalIcon v-if="method.type === 'paypal'" />
+                <span>{{ method.name }}</span>
+              </template>
+            </div>
+          </div>
+          <div class="label">
+            <RadioButtonChecked v-if="selectedMethodId === method.id" class="radio" />
+            <RadioButtonIcon v-else class="radio" />
+            <span>{{ method.name }}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <h3>Amount</h3>
+    <p>
+      You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
+      How much of your
+      <strong>{{ $formatMoney(auth.user.payout_data.balance) }}</strong> balance would you like to
+      transfer to {{ selectedMethod.name }}?
+    </p>
+    <div class="confirmation-input">
+      <template v-if="selectedMethod.interval.fixed">
+        <Chips
+          v-model="amount"
+          :items="selectedMethod.interval.fixed.values"
+          :format-label="(val) => '$' + val"
+        />
+      </template>
+      <template v-else>
+        <input
+          id="confirmation"
+          v-model="amount"
+          type="text"
+          pattern="^\d*(\.\d{0,2})?$"
+          autocomplete="off"
+          placeholder="Amount to transfer..."
+        />
+      </template>
+    </div>
+
+    <div class="confirm-text">
+      <template v-if="knownErrors.length === 0 && amount">
+        <Checkbox v-if="fees > 0" v-model="agreedFees" description="Consent to fee">
+          I acknowledge that an estimated
+          {{ $formatMoney(fees) }} will be deducted from the amount I receive to cover
+          {{ $formatWallet(selectedMethod.type) }} processing fees.
+        </Checkbox>
+        <Checkbox v-model="agreedTransfer" description="Confirm transfer">
+          <template v-if="selectedMethod.type === 'tremendous'">
+            I confirm that I am initiating a transfer and I will receive further instructions on how
+            to redeem this payment via email to: {{ withdrawAccount }}
+          </template>
+          <template v-else>
+            I confirm that I am initiating a transfer to the following
+            {{ $formatWallet(selectedMethod.type) }} account: {{ withdrawAccount }}
+          </template>
+        </Checkbox>
+        <Checkbox v-model="agreedTerms" class="rewards-checkbox">
+          I agree to the
+          <nuxt-link to="/legal/cmp" class="text-link">Rewards Program Terms</nuxt-link>
+        </Checkbox>
+      </template>
+      <template v-else>
+        <span v-for="(error, index) in knownErrors" :key="index" class="invalid">
+          {{ error }}
+        </span>
+      </template>
+    </div>
+    <div class="button-group">
+      <nuxt-link to="/dashboard/revenue" class="iconified-button">
+        <XIcon />
+        Cancel
+      </nuxt-link>
       <button
-        v-for="method of payoutMethods"
-        :key="method.id"
-        class="withdraw-option button-base"
-        :class="{ selected: selectedMethod === method.id }"
-        @click="() => (selectedMethod = method.id)"
+        :disabled="
+          knownErrors.length > 0 ||
+          !amount ||
+          !agreedTransfer ||
+          !agreedTerms ||
+          (fees > 0 && !agreedFees)
+        "
+        class="iconified-button brand-button"
+        @click="withdraw"
       >
-        <div class="preview">
-          <img :src="method.image_url" :alt="method.name" width="200" />
-        </div>
-        <div class="label">
-          <RadioButtonCheckedIcon v-if="selectedMethod === method.id" class="radio" />
-          <RadioButtonIcon v-else class="radio" />
-          {{ method.name }}
-        </div>
+        <TransferIcon />
+        Withdraw
       </button>
     </div>
   </section>
@@ -56,10 +151,21 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import RadioButtonCheckedIcon from '~/assets/images/utils/radio-button-checked.svg'
-import RadioButtonIcon from '~/assets/images/utils/radio-button.svg'
+import {
+  PayPalIcon,
+  SearchIcon,
+  RadioButtonIcon,
+  RadioButtonChecked,
+  Chips,
+  XIcon,
+  TransferIcon,
+  Checkbox,
+  Breadcrumbs,
+} from 'omorphia'
+import VenmoIcon from '~/assets/images/external/venmo.svg'
 
 const auth = await useAuth()
+const data = useNuxtApp()
 
 const countries = computed(() => {
   const lang = 'en'
@@ -83,25 +189,155 @@ const countries = computed(() => {
   }))
 })
 
+const search = ref('')
+
 const amount = ref('')
 const country = ref(
   countries.value.find((x) => x.id === (auth.value.user.payout_data.paypal_region ?? 'US'))
 )
-const selectedMethod = ref('')
 
 const { data: payoutMethods, refresh: refreshPayoutMethods } = await useAsyncData(
   `payout/methods?country=${country.value.id}`,
   () => useBaseFetch(`payout/methods?country=${country.value.id}`, { apiVersion: 3 })
 )
+
+const selectedMethodId = ref(payoutMethods.value[0].id)
+const selectedMethod = computed(() =>
+  payoutMethods.value.find((x) => x.id === selectedMethodId.value)
+)
+
+const parsedAmount = computed(() => {
+  const regex = /^\$?(\d*(\.\d{2})?)$/gm
+  const matches = regex.exec(amount.value)
+  return parseFloat(matches[1])
+})
+const fees = computed(() => {
+  return Math.min(
+    Math.max(
+      selectedMethod.value.fee.min,
+      selectedMethod.value.fee.percentage * parsedAmount.value
+    ),
+    selectedMethod.value.fee.max ?? Number.MAX_VALUE
+  )
+})
+const withdrawAccount = computed(() => {
+  if (selectedMethod.value.type === 'paypal') {
+    return auth.value.user.payout_data.paypal_address
+  } else if (selectedMethod.value.type === 'venmo') {
+    return auth.value.user.payout_data.venmo_handle
+  } else {
+    return auth.value.user.email
+  }
+})
+const knownErrors = computed(() => {
+  const errors = []
+  if (selectedMethod.value.type === 'paypal' && !auth.value.user.payout_data.paypal_address) {
+    errors.push('Please link your PayPal account in the dashboard to proceed.')
+  }
+  if (selectedMethod.value.type === 'venmo' && !auth.value.user.payout_data.venmo_handle) {
+    errors.push('Please set your Venmo handle in the dashboard to proceed.')
+  }
+  if (selectedMethod.value.type === 'tremendous') {
+    if (!auth.value.user.email) {
+      errors.push('Please set your email address in your account settings to proceed.')
+    }
+    if (!auth.value.user.email_verified) {
+      errors.push('Please verify your email address to proceed.')
+    }
+  }
+
+  if (!parsedAmount.value && amount.value.length > 0) {
+    errors.push(`${amount.value} is not a valid amount`)
+  } else if (parsedAmount.value > auth.value.user.payout_data.balance) {
+    errors.push(
+      `The amount must be no more than ${data.$formatMoney(auth.value.user.payout_data.balance)}`
+    )
+  } else if (parsedAmount.value <= fees.value) {
+    errors.push(`The amount must be at least ${data.$formatMoney(fees.value + 0.01)}`)
+  }
+
+  return errors
+})
+
+const agreedTransfer = ref(false)
+const agreedFees = ref(false)
+const agreedTerms = ref(false)
+
+watch(country, async () => {
+  await refreshPayoutMethods()
+  selectedMethodId.value = payoutMethods.value[0].id
+})
+
+async function withdraw() {
+  startLoading()
+  try {
+    const auth = await useAuth()
+
+    await useBaseFetch(`payout`, {
+      method: 'POST',
+      body: {
+        amount: parsedAmount.value,
+        method: selectedMethod.value.type,
+        method_id: selectedMethod.value.id,
+      },
+      apiVersion: 3,
+    })
+    await useAuth(auth.value.token)
+    await navigateTo('/dashboard/revenue')
+    data.$notify({
+      group: 'main',
+      title: 'Withdrawal complete',
+      text:
+        selectedMethod.value.type === 'tremendous'
+          ? 'An email has been sent to your account with further instructions on how to redeem your payout!'
+          : `Payment has been sent to your ${data.$formatWallet(
+              selectedMethod.value.type
+            )} account!`,
+      type: 'success',
+    })
+  } catch (err) {
+    console.log(err)
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
 </script>
 
 <style lang="scss" scoped>
-.theme-options {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--gap-lg);
+.withdraw-options-scroll {
+  max-height: 460px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: var(--gap-md);
+    border: 3px solid var(--color-bg);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border: 3px solid var(--color-bg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-raised-bg);
+    border-radius: var(--radius-lg);
+    border: 3px solid var(--color-bg);
+  }
 }
-.theme-option {
+
+.withdraw-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-lg);
+  padding-right: 0.5rem;
+}
+
+.withdraw-option {
   width: 100%;
   border-radius: var(--radius-md);
   padding: 0;
@@ -118,9 +354,53 @@ const { data: payoutMethods, refresh: refreshPayoutMethods } = await useAsyncDat
     }
   }
 
+  .preview-img {
+  }
+
   .preview {
-    background-color: var(--color-bg);
-    padding: 1.5rem;
+    //height: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 30 / 19;
+
+    &.show-bg {
+      background-color: var(--color-bg);
+    }
+
+    img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+      user-select: none;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .placeholder {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-xs);
+
+      svg {
+        width: 2rem;
+        height: auto;
+      }
+
+      span {
+        font-weight: var(--font-weight-bold);
+        font-size: 2rem;
+        font-style: italic;
+      }
+
+      .enlarge {
+        width: auto;
+        height: 1.5rem;
+      }
+    }
   }
 
   .label {
@@ -129,8 +409,42 @@ const { data: payoutMethods, refresh: refreshPayoutMethods } = await useAsyncDat
     padding: var(--gap-md) var(--gap-lg);
 
     svg {
+      min-height: 1rem;
+      min-width: 1rem;
       margin-right: 0.5rem;
     }
+
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
+
+.invalid {
+  color: var(--color-special-red);
+}
+
+.confirm-text {
+  margin: var(--spacing-card-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card-sm);
+}
+
+.iconified-input {
+  margin-bottom: var(--spacing-card-md);
+}
+
+.country-multiselect,
+.iconified-input {
+  max-width: 16rem;
+}
+
+.rewards-checkbox {
+  a {
+    margin-left: 0.5ch;
   }
 }
 </style>
