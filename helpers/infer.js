@@ -94,6 +94,61 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
     .filter((it) => it.version_type === 'release')
     .map((it) => it.version)
 
+  const getDependenciesFromFabricLikeJson = (file) => {
+    const dependencies = []
+    const filter = (id) =>
+      id !== 'minecraft' &&
+      id !== 'fabricloader' &&
+      id !== 'quilt_loader' &&
+      id !== 'forge' &&
+      id !== 'java'
+
+    if (file.depends) {
+      dependencies.push(
+        ...Object.keys(file.depends)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'required',
+          }))
+      )
+    }
+
+    if (file.recommends) {
+      dependencies.push(
+        ...Object.keys(file.recommends)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'optional',
+          }))
+      )
+    }
+
+    if (file.suggests) {
+      dependencies.push(
+        ...Object.keys(file.suggests)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'optional',
+          }))
+      )
+    }
+
+    if (file.breaks) {
+      dependencies.push(
+        ...Object.keys(file.breaks)
+          .filter(filter)
+          .map((modId) => ({
+            modId,
+            dependencyType: 'incompatible',
+          }))
+      )
+    }
+    return dependencies
+  }
+
   const inferFunctions = {
     // Forge 1.13+
     'META-INF/mods.toml': async (file, zip) => {
@@ -129,12 +184,22 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
           )
         }
 
+        const inferredDependencies = Object.values(metadata.dependencies)
+          .flat()
+          .filter((dependency) => dependency.modId !== 'minecraft' && dependency.modId !== 'forge')
+          .map((dependency) => ({
+            modId: dependency.modId,
+            dependencyType: dependency.mandatory ? 'required' : 'optional',
+          }))
+
         return {
           name: `${project.title} ${versionNum}`,
           version_number: versionNum,
           version_type: versionType(versionNum),
           loaders: ['forge'],
           game_versions: gameVersions,
+          inferredDependencies,
+          license: metadata.license,
         }
       } else {
         return {}
@@ -166,6 +231,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         game_versions: metadata.depends
           ? getGameVersionsMatchingSemverRange(metadata.depends.minecraft, simplifiedGameVersions)
           : [],
+        inferredDependencies: getDependenciesFromFabricLikeJson(metadata),
+        license: metadata.license,
       }
     },
     // Quilt
@@ -185,6 +252,8 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
               simplifiedGameVersions
             )
           : [],
+        inferredDependencies: getDependenciesFromFabricLikeJson(metadata),
+        license: metadata.license,
       }
     },
     // Bukkit + Other Forks

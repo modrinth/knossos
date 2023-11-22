@@ -9,6 +9,48 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
+    <Modal ref="modal_scheduling" :header="`Schedule ${project.title} for release`">
+      <div class="universal-modal">
+        <div class="markdown-body">
+          <p>
+            You can schedule your project to be released at a later date. This is useful if you want
+            to release your project at a specific time, or if you want to release your project at a
+            time when you're not available.
+            {{ new Date(scheduledTime).toISOString() }}
+          </p>
+        </div>
+        <label for="project-scheduling-date">
+          <span class="label__title">Release date</span>
+        </label>
+        <input id="project-scheduling-time" v-model="scheduledTime" type="datetime-local" />
+        <label for="project-scheduling-visibility">
+          <span class="label__title">Visibility</span>
+        </label>
+        <Multiselect
+          id="project-scheduling-visibility"
+          v-model="desiredVisibility"
+          placeholder="Select one"
+          :options="tags.approvedStatuses"
+          :custom-label="(value) => $formatProjectStatus(value)"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+          :disabled="!hasPermission"
+          open-direction="above"
+        />
+        <div class="input-group push-right">
+          <button class="iconified-button" @click="$refs.modal_scheduling.hide()">
+            <XIcon />
+            Cancel
+          </button>
+          <button type="button" class="iconified-button brand-button" @click="scheduleRelease">
+            <CalendarIcon />
+            Schedule release
+          </button>
+        </div>
+      </div>
+    </Modal>
     <section class="universal-card">
       <div class="label">
         <h3>
@@ -200,6 +242,33 @@
           :disabled="!hasPermission"
         />
       </div>
+      <div class="adjacent-input">
+        <label for="project-scheduling">
+          <span class="label__title">Scheduling</span>
+          <span class="label__description">
+            Your project is currently <strong>{{ project.status }}</strong
+            >.
+            <span v-if="!tags.approvedStatuses.includes(project.status) && !project.approved">
+              Your project must be approved before it can be scheduled. Submit your project with
+              <strong>private</strong> set as the visibility to make the best use of scheduling.
+            </span>
+          </span>
+          <span v-if="new Date(project.approved) > new Date()" class="label__description">
+            <strong>{{ project.title }}</strong> is scheduled to be released on
+            <strong>{{ dayjs(project.approved) }}</strong
+            >.
+          </span>
+        </label>
+        <button
+          type="button"
+          class="iconified-button"
+          :disabled="!hasPermission || !tags.approvedStatuses.includes(project.status)"
+          @click="$refs.modal_scheduling.show()"
+        >
+          <CalendarIcon />
+          Schedule release
+        </button>
+      </div>
       <div class="button-group">
         <button
           type="button"
@@ -238,6 +307,8 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
+import { CalendarIcon, Modal, XIcon } from 'omorphia'
+import dayjs from 'dayjs'
 import Avatar from '~/components/ui/Avatar.vue'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import FileInput from '~/components/ui/FileInput.vue'
@@ -261,6 +332,9 @@ export default defineNuxtComponent({
     ExitIcon,
     CheckIcon,
     IssuesIcon,
+    CalendarIcon,
+    Modal,
+    XIcon,
   },
   props: {
     project: {
@@ -333,6 +407,8 @@ export default defineNuxtComponent({
       visibility: this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
         : this.project.requested_status,
+      scheduledTime: null,
+      desiredVisibility: 'approved',
     }
   },
   computed: {
@@ -380,6 +456,7 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    dayjs,
     hasModifiedVisibility() {
       const originalVisibility = this.tags.approvedStatuses.includes(this.project.status)
         ? this.project.status
@@ -439,6 +516,35 @@ export default defineNuxtComponent({
         type: 'success',
       })
     },
+    openScheduleModal() {
+      this.scheduledTime = null
+      this.$refs.modal_scheduling.show()
+    },
+    async scheduleRelease() {
+      try {
+        await useBaseFetch(`project/${this.project.id}/schedule`, {
+          method: 'POST',
+          body: {
+            time: new Date(this.scheduledTime).toISOString(),
+            requested_status: this.desiredVisibility,
+          },
+        })
+        this.$notify({
+          group: 'main',
+          title: 'Project scheduled',
+          text: 'Your project has been scheduled for release.',
+          type: 'success',
+        })
+      } catch (err) {
+        this.$notify({
+          group: 'main',
+          title: 'An error occurred',
+          text: err.data ? err.data.description : err,
+          type: 'error',
+        })
+      }
+      this.$refs.modal_scheduling.hide()
+    },
   },
 })
 </script>
@@ -469,5 +575,12 @@ svg {
 
 .multiselect {
   max-width: 15rem;
+}
+
+.universal-modal {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
 }
 </style>
