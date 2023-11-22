@@ -98,3 +98,27 @@ export const getAuthUrl = (provider) => {
 
   return `${config.public.apiBaseUrl}auth/init?url=${config.public.siteUrl}${route.path}&provider=${provider}`
 }
+
+export const removeAuthProvider = async (provider) => {
+  startLoading()
+  try {
+    const auth = await useAuth()
+
+    await useBaseFetch('auth/provider', {
+      method: 'DELETE',
+      body: {
+        provider,
+      },
+    })
+    await useAuth(auth.value.token)
+  } catch (err) {
+    const data = useNuxtApp()
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}

@@ -21,9 +21,6 @@
             <NavStackItem link="/settings/sessions" :label="formatMessage(messages.sessionsTitle)">
               <ShieldIcon />
             </NavStackItem>
-            <NavStackItem link="/settings/monetization" label="Monetization">
-              <CurrencyIcon />
-            </NavStackItem>
           </template>
         </NavStack>
       </aside>
