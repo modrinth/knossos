@@ -7,11 +7,7 @@
       proceed-label="Revoke"
       @proceed="revokeApp(revokingId)"
     />
-    <div class="header__row">
-      <div class="header__title">
-        <h2>Authorizations</h2>
-      </div>
-    </div>
+    <h2>Authorizations</h2>
     <p>
       When you authorize an application with your Modrinth account, you grant it access to your
       account. You can manage and review access to your account here at any time.
@@ -162,6 +158,7 @@ const constCaseToTitleCase = (str) =>
     .map((x) => x[0].toUpperCase() + x.slice(1).toLowerCase())
     .join(' ')
 </script>
+
 <style lang="scss" scoped>
 .input-group {
   // Overrides for omorphia compat

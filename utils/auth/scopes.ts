@@ -43,6 +43,7 @@ export const Scopes = {
 
 export const restrictedScopes = [
   Scopes.PAT_READ,
+  Scopes.PAT_CREATE,
   Scopes.PAT_WRITE,
   Scopes.PAT_DELETE,
   Scopes.SESSION_READ,

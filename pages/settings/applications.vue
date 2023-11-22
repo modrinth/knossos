@@ -133,6 +133,7 @@
           <Avatar size="sm" :src="app.icon_url" />
           <div>
             <h2 class="token-title">{{ app.name }}</h2>
+            <div>Created on {{ new Date(app.created).toLocaleDateString() }}</div>
           </div>
         </div>
         <div>
@@ -142,7 +143,7 @@
               Client ID
               <CopyCode :text="app.id" />
             </div>
-            <div v-if="app.max_scopes?.length > 0">
+            <div v-if="app.max_scopes > 0">
               Max Scopes
               <CopyCode :text="decodeScopes(app.max_scopes).join('+')" />
             </div>
@@ -386,7 +387,8 @@ async function removeApp() {
 }
 
 const constCaseToSentenceCase = (str) => {
-  return str.replace('_', ' ').map((x) => x[0].toUpperCase() + x.slice(1).toLowerCase())
+  str = str.replace(/_/g, ' ')
+  return str[0].toUpperCase() + str.slice(1).toLowerCase()
 }
 </script>
 <style lang="scss" scoped>
@@ -447,9 +449,9 @@ const constCaseToSentenceCase = (str) => {
 
   .token-icon {
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
-    gap: var(--gap-md);
+    gap: var(--gap-lg);
+    padding-bottom: var(--gap-sm);
   }
 
   .token-heading {
@@ -462,7 +464,7 @@ const constCaseToSentenceCase = (str) => {
   }
 
   .token-title {
-    margin: 0;
+    margin-bottom: var(--spacing-card-xs);
   }
 
   .input-group {
