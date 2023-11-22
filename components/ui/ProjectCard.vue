@@ -333,6 +333,10 @@ function rgbToHsl(r, g, b) {
     gap: 0.4rem;
   }
 
+  .actions {
+    display: none;
+  }
+
   &:hover,
   &:focus-within {
     .actions {
@@ -405,7 +409,7 @@ function rgbToHsl(r, g, b) {
   }
 
   @media screen and (max-width: 500px) {
-    grid-template: 'icon title actions' 'summary summary actions' 'stats stats stats';
+    grid-template: 'icon title actions' 'summary summary summary' 'stats stats stats';
     grid-template-columns: min-content 1fr auto;
     grid-template-rows: min-content 1fr auto;
 
@@ -417,6 +421,17 @@ function rgbToHsl(r, g, b) {
     .title {
       flex-direction: column;
       gap: 0.4rem;
+    }
+
+    .actions {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-within {
+      .actions {
+        display: flex;
+      }
     }
 
     .tags {
