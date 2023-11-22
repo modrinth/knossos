@@ -121,7 +121,12 @@
         <div
           v-if="projects.length > 0"
           class="project-list"
-          :class="'display-mode--' + cosmetics.searchDisplayMode.user"
+          :class="
+            'display-mode--' +
+            (['list', 'grid'].includes(cosmetics.searchDisplayMode.user)
+              ? cosmetics.searchDisplayMode.user
+              : 'list')
+          "
         >
           <ProjectCard
             v-for="project in (route.params.projectType !== undefined

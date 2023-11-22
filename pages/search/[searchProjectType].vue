@@ -372,7 +372,12 @@
         <div
           id="search-results"
           class="project-list"
-          :class="'display-mode--' + cosmetics.searchDisplayMode[projectType.id]"
+          :class="
+            'display-mode--' +
+            (['list', 'grid'].includes(cosmetics.searchDisplayMode[projectType.id])
+              ? cosmetics.searchDisplayMode[projectType.id]
+              : 'list')
+          "
           role="list"
           aria-label="Search results"
         >
