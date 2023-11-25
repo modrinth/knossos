@@ -15,7 +15,7 @@
     "message": "ɥʇuᴉɹʎqɐꞁ ᵷoɹɟ ɐ ɟo ᵷuᴉʇuᴉɐd ɔᴉʇsᴉꞁɐǝɹoʇoɥd Ɐ"
   },
   "frog.froggedPeople": {
-    "message": "¡pǝɓɓoɹɟ oslɐ ǝɹǝʍ {count, plural, one {uosɹǝd ǝɹoɯ {count}} other {ǝldoǝd ǝɹoɯ {count}}}"
+    "message": "¡pǝᵷᵷoɹɟ osꞁɐ ǝɹǝʍ {count, plural, one {uosɹǝd ǝɹoɯ {count}} other {ǝꞁdoǝd ǝɹoɯ {count}}}"
   },
   "frog.sinceOpened": {
     "message": "{ago} pǝuǝdo sɐʍ ǝᵷɐd sᴉɥ⟘"
@@ -159,13 +159,13 @@
     "message": "˙ɥɔɹɐǝs ɹnoʎ ɥɔʇɐɯ sǝᵷɐnᵷuɐꞁ oN"
   },
   "settings.language.title": {
-    "message": "ǝɓɐnɓuɐ⅂"
+    "message": "ǝᵷɐnᵷuɐꞀ"
   },
   "settings.sessions.button.revoke-session": {
     "message": "uoᴉssǝs ǝʞoʌǝᴚ"
   },
   "settings.sessions.description": {
-    "message": ".ʎlǝʇɐᴉpǝɯɯᴉ pɹoʍssɐd ʇunoɔɔɐ ɥʇuᴉɹpoꟽ ɹnoʎ ǝɓuɐɥɔ puɐ ǝɔᴉʌǝp ʇɐɥʇ ɟo ʇno ɓol ,ǝzᴉuɓoɔǝɹ ʇ'uop noʎ ʎɹʇuǝ uɐ ǝǝs noʎ ɟI\n\n.ʎllɐnpᴉʌᴉpuᴉ ǝuo ɥɔɐǝ ɟo ʇno ɓol uɐɔ no⅄ .ʇunoɔɔɐ ɥʇuᴉɹpoꟽ ɹnoʎ ɥʇᴉʍ uᴉ pǝɓɓol ʎlʇuǝɹɹnɔ ǝɹɐ ʇɐɥʇ sǝɔᴉʌǝp ǝɥʇ llɐ ǝɹɐ ǝɹǝH"
+    "message": "˙ʎꞁǝʇɐᴉpǝɯɯᴉ pɹoʍssɐd ʇunoɔɔɐ ɥʇuᴉɹpoW ɹnoʎ ǝᵷuɐɥɔ puɐ ǝɔᴉʌǝp ʇɐɥʇ ɟo ʇno ᵷoꞁ 'ǝzᴉuᵷoɔǝɹ ʇ,uop noʎ ʎɹʇuǝ uɐ ǝǝs noʎ ɟI\n\n˙ʎꞁꞁɐnpᴉʌᴉpuᴉ ǝuo ɥɔɐǝ ɟo ʇno ᵷoꞁ uɐɔ no⅄ ˙ʇunoɔɔɐ ɥʇuᴉɹpoW ɹnoʎ ɥʇᴉʍ uᴉ pǝᵷᵷoꞁ ʎꞁʇuǝɹɹnɔ ǝɹɐ ʇɐɥʇ sǝɔᴉʌǝp ǝɥʇ ꞁꞁɐ ǝɹɐ ǝɹǝH"
   },
   "settings.sessions.label.created-at": {
     "message": "{ago} pǝʇɐǝɹƆ"
@@ -177,10 +177,10 @@
     "message": "{ago} pǝssǝɔɔɐ ʇsɐꞀ"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "SO uʍouʞuՈ"
+    "message": "SO uʍouʞu∩"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "ɯɹoɟʇɐld uʍouʞuՈ"
+    "message": "ɯɹoɟʇɐꞁd uʍouʞu∩"
   },
   "settings.sessions.title": {
     "message": "suoᴉssǝS"
