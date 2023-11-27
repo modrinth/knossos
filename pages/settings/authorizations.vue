@@ -88,7 +88,7 @@
   </div>
 </template>
 <script setup>
-import { Button, TrashIcon, CopyCode, CheckIcon, ConfirmModal, Avatar, LinkIcon } from 'omorphia'
+import { Button, TrashIcon, CopyCode, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
 import { getScopeDefinitions } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
