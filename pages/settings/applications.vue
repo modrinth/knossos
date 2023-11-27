@@ -162,7 +162,9 @@
           </div>
         </div>
         <div>
-          <div class="token-heading">About</div>
+          <label for="token-information">
+            <span class="label__title">About</span>
+          </label>
           <div class="token-content">
             <div>
               Client ID
