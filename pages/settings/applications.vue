@@ -31,6 +31,31 @@
             <UploadIcon />
           </FileInput>
         </div>
+        <label v-if="editingId" for="app-url">
+          <span class="label__title">URL</span>
+        </label>
+        <input
+          v-if="editingId"
+          id="app-url"
+          v-model="url"
+          maxlength="255"
+          type="url"
+          autocomplete="off"
+          placeholder="https://modrinth.com/learnmore"
+        />
+        <label v-if="editingId" for="app-description">
+          <span class="label__title">Description</span>
+        </label>
+        <textarea
+          v-if="editingId"
+          id="app-description"
+          v-model="description"
+          class="description-textarea"
+          maxlength="255"
+          type="text"
+          autocomplete="off"
+          placeholder="Enter the application's description..."
+        />
         <label for="app-scopes"><span class="label__title">Scopes</span> </label>
         <div id="app-scopes" class="checkboxes">
           <Checkbox
@@ -230,6 +255,8 @@ const name = ref(null)
 const icon = ref(null)
 const scopesVal = ref(BigInt(0))
 const redirectUris = ref([''])
+const url = ref(null)
+const description = ref(null)
 
 const loading = ref(false)
 
@@ -255,12 +282,32 @@ const setForm = (app) => {
   name.value = app?.name || ''
   icon.value = app?.icon_url || ''
   scopesVal.value = app?.max_scopes || BigInt(0)
-  redirectUris.value = app?.redirect_uris || ['']
+  url.value = app?.url || ''
+  description.value = app?.description || ''
+
+  if (app?.redirect_uris) {
+    redirectUris.value = app.redirect_uris.map((uri) => uri?.uri || uri)
+  } else {
+    redirectUris.value = ['']
+  }
 }
 
 const canSubmit = computed(() => {
   // Make sure name, scopes, and return uri are at least filled in
-  return name.value && name.value !== '' && name.value?.length > 2 && redirectUris.value.length > 0
+  const filledIn =
+    name.value && name.value !== '' && name.value?.length > 2 && redirectUris.value.length > 0
+  // Make sure the redirect uris are either one empty string or all filled in with valid urls
+  const oneValid = redirectUris.value.length === 1 && redirectUris.value[0] === ''
+  let allValid
+  try {
+    allValid = redirectUris.value.every((uri) => {
+      const url = new URL(uri)
+      return !!url
+    })
+  } catch (err) {
+    allValid = false
+  }
+  return filledIn && (oneValid || allValid)
 })
 
 const clientCreatedInState = (id) => {
@@ -276,7 +323,7 @@ async function onImageSelection(files) {
     const file = files[0]
     const extFromType = file.type.split('/')[1]
 
-    const iconUrl = await useBaseFetch('oauth/app/' + editingId.value + '/icon', {
+    await useBaseFetch('oauth/app/' + editingId.value + '/icon', {
       method: 'PATCH',
       apiVersion: 3,
       body: file,
@@ -285,7 +332,19 @@ async function onImageSelection(files) {
       },
     })
 
-    icon.value = iconUrl
+    await refresh()
+
+    const app = usersApps.value.find((app) => app.id === editingId.value)
+    if (app) {
+      setForm(app)
+    }
+
+    data.$notify({
+      group: 'main',
+      title: 'Icon updated',
+      text: 'Your application icon has been updated.',
+      type: 'success',
+    })
   }
 }
 
@@ -330,10 +389,38 @@ async function editApp() {
       throw new Error('No editing id')
     }
 
+    // check if there's any difference between the current app and the one in the state
+    const app = usersApps.value.find((app) => app.id === editingId.value)
+    if (!app) {
+      throw new Error('No app found')
+    }
+
+    if (
+      app.name === name.value &&
+      app.icon_url === icon.value &&
+      app.max_scopes === scopesVal.value &&
+      app.redirect_uris === redirectUris.value &&
+      app.url === url.value &&
+      app.description === description.value
+    ) {
+      setForm(null)
+      editingId.value = null
+      appModal.value.hide()
+      throw new Error('No changes detected')
+    }
+
     const body = {
       name: name.value,
       max_scopes: Number(scopesVal.value), // JS is 52 bit for ints so we're good for now
       redirect_uris: redirectUris.value,
+    }
+
+    if (url.value && url.value?.length > 0) {
+      body.url = url.value
+    }
+
+    if (description.value && description.value?.length > 0) {
+      body.description = description.value
     }
 
     if (icon.value && icon.value?.length > 0) {
@@ -392,6 +479,11 @@ const constCaseToSentenceCase = (str) => {
 }
 </script>
 <style lang="scss" scoped>
+.description-textarea {
+  height: 6rem;
+  resize: vertical;
+}
+
 .secret_disclaimer {
   font-size: var(--font-size-sm);
 }

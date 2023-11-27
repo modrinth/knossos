@@ -25,17 +25,30 @@
           <div class="icon-name">
             <Avatar :src="authorization.app.icon_url" />
             <div>
-              <h2 class="token-title">{{ authorization.app.name }}</h2>
+              <h2 class="token-title">
+                {{ authorization.app.name }}
+              </h2>
               <div>
                 by
                 <nuxt-link class="text-link" :to="'/user/' + authorization.owner.id">{{
                   authorization.owner.username
                 }}</nuxt-link>
+                <template v-if="authorization.app.url">
+                  <span> ⋅ </span>
+                  <nuxt-link class="text-link" :to="authorization.app.url">
+                    {{ authorization.app.url }}
+                  </nuxt-link>
+                </template>
               </div>
             </div>
           </div>
         </div>
         <div>
+          <template v-if="authorization.app.description">
+            <div class="token-heading">About this app</div>
+            <div>{{ authorization.app.description }}</div>
+          </template>
+
           <div class="token-heading">Scopes</div>
           <div class="scope-list">
             <div
@@ -50,7 +63,9 @@
             </div>
           </div>
           <div class="token-heading">App information</div>
-          <div>Client ID <CopyCode :text="authorization.app_id" /></div>
+          <div class="token-body">
+            <div>Client ID <CopyCode :text="authorization.app_id" /></div>
+          </div>
         </div>
       </div>
 
@@ -73,7 +88,7 @@
   </div>
 </template>
 <script setup>
-import { Button, TrashIcon, CopyCode, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
+import { Button, TrashIcon, CopyCode, CheckIcon, ConfirmModal, Avatar, LinkIcon } from 'omorphia'
 import { getScopeDefinitions } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
@@ -174,6 +189,11 @@ const constCaseToTitleCase = (str) =>
 
   margin-top: var(--spacing-card-md);
   margin-bottom: var(--spacing-card-sm);
+}
+
+.token-body {
+  display: grid;
+  row-gap: var(--gap-sm);
 }
 
 .scope-list {
