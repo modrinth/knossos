@@ -62,10 +62,6 @@
               {{ constCaseToTitleCase(scope) }}
             </div>
           </div>
-          <div class="token-heading">App information</div>
-          <div class="token-body">
-            <div>Client ID <CopyCode :text="authorization.app_id" /></div>
-          </div>
         </div>
       </div>
 
