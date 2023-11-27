@@ -41,7 +41,7 @@
           maxlength="255"
           type="url"
           autocomplete="off"
-          placeholder="https://modrinth.com/learnmore"
+          placeholder="https://example.com"
         />
         <label v-if="editingId" for="app-description">
           <span class="label__title">Description</span>
