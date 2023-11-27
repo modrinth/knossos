@@ -45,11 +45,15 @@
         </div>
         <div>
           <template v-if="authorization.app.description">
-            <div class="token-heading">About this app</div>
-            <div>{{ authorization.app.description }}</div>
+            <label for="app-description">
+              <span class="label__title"> About this app </span>
+            </label>
+            <div id="app-description">{{ authorization.app.description }}</div>
           </template>
 
-          <div class="token-heading">Scopes</div>
+          <label for="app-scope-list">
+            <span class="label__title">Scopes</span>
+          </label>
           <div class="scope-list">
             <div
               v-for="scope in getScopeDefinitions(authorization.scopes)"
@@ -84,7 +88,7 @@
   </div>
 </template>
 <script setup>
-import { Button, TrashIcon, CopyCode, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
+import { Button, TrashIcon, CheckIcon, ConfirmModal, Avatar } from 'omorphia'
 import { getScopeDefinitions } from '~/utils/auth/scopes.ts'
 
 const revokingId = ref(null)
@@ -178,20 +182,6 @@ const constCaseToTitleCase = (str) =>
   }
 }
 
-.token-heading {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-gray-700);
-
-  margin-top: var(--spacing-card-md);
-  margin-bottom: var(--spacing-card-sm);
-}
-
-.token-body {
-  display: grid;
-  row-gap: var(--gap-sm);
-}
-
 .scope-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -232,34 +222,6 @@ const constCaseToTitleCase = (str) =>
   align-items: flex-start;
   gap: var(--gap-lg);
   padding-bottom: var(--gap-sm);
-}
-
-.submit-row {
-  padding-top: var(--gap-lg);
-}
-.uri-input-list {
-  display: grid;
-  row-gap: 0.5rem;
-}
-.url-input-group-fixes {
-  width: 100%;
-
-  input {
-    width: 100% !important;
-    flex-basis: 24rem !important;
-  }
-}
-.checkboxes {
-  display: grid;
-  column-gap: 0.5rem;
-
-  @media screen and (min-width: 432px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media screen and (min-width: 800px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .token-content {

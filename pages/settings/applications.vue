@@ -228,7 +228,7 @@ import {
   CopyCode,
   ConfirmModal,
 } from 'omorphia'
-import { scopeList, hasScope, toggleScope, decodeScopes } from '~/utils/auth/scopes.ts'
+import { scopeList, hasScope, toggleScope } from '~/utils/auth/scopes.ts'
 
 definePageMeta({
   middleware: 'auth',
