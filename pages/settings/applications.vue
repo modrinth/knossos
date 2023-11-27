@@ -168,10 +168,6 @@
               Client ID
               <CopyCode :text="app.id" />
             </div>
-            <div v-if="app.max_scopes > 0">
-              Max Scopes
-              <CopyCode :text="decodeScopes(app.max_scopes).join('+')" />
-            </div>
             <div v-if="!!clientCreatedInState(app.id)">
               <div>
                 Client Secret <CopyCode :text="clientCreatedInState(app.id)?.client_secret" />
