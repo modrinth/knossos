@@ -29,7 +29,11 @@ const props = defineProps({
     required: false,
     default: undefined,
   },
-  noActiveState: Boolean,
+  noActiveState: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 function toggle() {

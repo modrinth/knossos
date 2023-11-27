@@ -181,10 +181,10 @@
                 id: 'resourcepacks',
                 link: '/resourcepacks',
               },
-              {
-                id: 'worlds',
-                link: '/worlds',
-              },
+              // {
+              //   id: 'worlds',
+              //   link: '/worlds',
+              // },
               {
                 id: 'shaders',
                 link: '/shaders',
