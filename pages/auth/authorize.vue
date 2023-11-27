@@ -87,7 +87,7 @@ const getFlowIdAuthorization = async () => {
     query.state = state
   }
 
-  const authorization = await useBaseFetch('auth/oauth/authorize', {
+  const authorization = await useBaseFetch('oauth/authorize', {
     method: 'GET',
     apiVersion: 3,
     query,
