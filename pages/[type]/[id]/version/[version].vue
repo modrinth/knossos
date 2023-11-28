@@ -66,7 +66,7 @@
         </div>
       </div>
     </Modal>
-    <div class="version-page__title universal-card">
+    <div class="version-page__title card">
       <Breadcrumbs
         :current-title="version.name"
         :link-stack="[
@@ -204,7 +204,7 @@
         </button>
       </div>
     </div>
-    <div class="version-page__changelog universal-card">
+    <div class="version-page__changelog card">
       <h3>Changes</h3>
       <template v-if="isEditing">
         <span
@@ -241,7 +241,7 @@
     </div>
     <div
       v-if="deps.length > 0 || (isEditing && project.project_type !== 'modpack')"
-      class="version-page__dependencies universal-card"
+      class="version-page__dependencies card"
     >
       <h3>Dependencies</h3>
       <div
@@ -345,7 +345,7 @@
         </div>
       </div>
     </div>
-    <div class="version-page__files universal-card">
+    <div class="version-page__files card">
       <h3>Files</h3>
       <div v-if="isEditing && replaceFile" class="file primary">
         <FileIcon />
@@ -512,7 +512,7 @@
       </template>
     </div>
     <div class="version-page__metadata">
-      <div class="universal-card full-width-inputs">
+      <div class="card full-width-inputs">
         <h3>About</h3>
         <div>
           <h4>Release channel</h4>

@@ -1,5 +1,5 @@
 <template>
-  <div class="universal-card">
+  <div class="card">
     <Modal
       ref="patModal"
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
@@ -86,7 +86,7 @@
       <a class="text-link" href="https://docs.modrinth.com">Modrinth's API documentation</a>. They
       can be created and revoked at any time.
     </p>
-    <div v-for="(pat, index) in pats" :key="pat.id" class="universal-card recessed token">
+    <div v-for="(pat, index) in pats" :key="pat.id" class="card recessed token">
       <div>
         <div>
           <strong>{{ pat.name }}</strong>

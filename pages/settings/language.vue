@@ -294,7 +294,7 @@ function getItemLabel(locale: Locale) {
 
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>{{ formatMessage(messages.languagesTitle) }}</h2>
 
       <div class="card-description">

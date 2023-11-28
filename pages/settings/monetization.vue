@@ -1,13 +1,13 @@
 <template>
   <div>
-    <section v-if="enrolled" class="universal-card">
+    <section v-if="enrolled" class="card">
       <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
       <NuxtLink class="iconified-button" to="/revenue">
         <ChartIcon /> Visit creator dashboard
       </NuxtLink>
     </section>
-    <section class="universal-card">
+    <section class="card">
       <h2 class="title">Enrollment</h2>
       <template v-if="!enrolled && !auth.user.email">
         <p v-if="!enrolled">

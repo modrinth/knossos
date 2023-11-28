@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showInvitation" class="universal-card information invited">
+  <div v-if="showInvitation" class="card information invited">
     <h2>Invitation to join project</h2>
     <p>
       You've been invited be a member of this project with the role of '{{ currentMember.role }}'.
@@ -20,7 +20,7 @@
       (project.status === 'draft' || tags.rejectedStatuses.includes(project.status))
     "
     :class="{ collapsed: collapsed }"
-    class="author-actions universal-card"
+    class="author-actions card"
   >
     <div class="header__row">
       <div class="header__title">

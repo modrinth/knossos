@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <label for="project-description">
         <span class="label__title size-card-header">Description</span>
         <span class="label__description">

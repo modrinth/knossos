@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>External links</h2>
       <div class="adjacent-input">
         <label

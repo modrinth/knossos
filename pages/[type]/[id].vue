@@ -79,10 +79,7 @@
             </div>
           </div>
         </div>
-        <div
-          v-if="currentMember && project.moderator_message"
-          class="universal-card moderation-card"
-        >
+        <div v-if="currentMember && project.moderator_message" class="card moderation-card">
           <h2 class="sidebar-card-header">Message from the moderators:</h2>
           <div v-if="project.moderator_message.body">
             <p v-if="project.moderator_message.message" class="mod-message__title">
@@ -340,7 +337,7 @@
               alt="test"
             />
           </nuxt-link>
-          <div class="universal-card">
+          <div class="card">
             <h2>Details</h2>
             <div class="supports-details">
               <div class="primary-stat">
@@ -518,7 +515,7 @@
               project.discord_url ||
               project.donation_urls.length > 0
             "
-            class="members universal-card"
+            class="members card"
           >
             <h2>Links</h2>
             <div class="links">
@@ -589,7 +586,7 @@
               </a>
             </div>
           </div>
-          <div class="members universal-card">
+          <div class="members card">
             <h2>Members</h2>
             <nuxt-link
               v-for="member in members"
@@ -609,7 +606,7 @@
           </div>
         </template>
       </div>
-      <div v-if="false" class="universal-card">
+      <div v-if="false" class="card">
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
             <h2 class="sidebar-card-header">Featured versions</h2>
@@ -1131,7 +1128,7 @@ const moreVersions = computed(() => {
 const collapsedChecklist = ref(false)
 </script>
 <style lang="scss" scoped>
-.universal-card {
+.card {
   padding: 1.25rem;
 
   h2:first-child {

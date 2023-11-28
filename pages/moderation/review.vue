@@ -39,7 +39,7 @@
       }
     })"
     :key="`project-${project.id}`"
-    class="universal-card project"
+    class="card project"
   >
     <div class="project-title">
       <div class="mobile-row">

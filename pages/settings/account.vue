@@ -273,7 +273,7 @@
         </div>
       </div>
     </Modal>
-    <section class="universal-card">
+    <section class="card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
       <NuxtLink class="iconified-button" :to="`/user/${auth.user.username}`">
@@ -281,7 +281,7 @@
       </NuxtLink>
     </section>
 
-    <section class="universal-card">
+    <section class="card">
       <h2>Account security</h2>
 
       <div class="adjacent-input">
@@ -362,7 +362,7 @@
       </div>
     </section>
 
-    <section id="delete-account" class="universal-card">
+    <section id="delete-account" class="card">
       <h2>Delete account</h2>
       <p>
         Once you delete your account, there is no going back. Deleting your account will remove all

@@ -1,5 +1,5 @@
 <template>
-  <div class="universal-card">
+  <div class="card">
     <h2>Sessions</h2>
     <p>
       Here are all the devices that are currently logged in with your Modrinth account. You can log
@@ -8,7 +8,7 @@
       If you see an entry you don't recognize, log out of that device and change your Modrinth
       account password immediately.
     </p>
-    <div v-for="session in sessions" :key="session.id" class="universal-card recessed session">
+    <div v-for="session in sessions" :key="session.id" class="card recessed session">
       <div>
         <div>
           <strong>

@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="normal-page__sidebar">
-        <div class="universal-card">
+        <div class="card">
           <h2>Badges</h2>
           <div class="badges-container">
             <div class="badge">

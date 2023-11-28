@@ -148,7 +148,7 @@
       }"
       aria-label="Filters"
     >
-      <section class="universal-card filters-card">
+      <section class="card filters-card">
         <h2>Filters</h2>
         <div class="filters-search-row">
           <div class="iconified-input">

@@ -12,7 +12,7 @@
     :moderation="moderation"
     raised
     :auth="auth"
-    class="universal-card recessed"
+    class="card recessed"
   />
   <p v-if="reports.length === 0">You don't have any active reports.</p>
 </template>

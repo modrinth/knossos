@@ -9,7 +9,7 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
-    <section class="universal-card">
+    <section class="card">
       <label for="project-icon">
         <span class="label__title">Icon</span>
       </label>
@@ -208,7 +208,7 @@
       </div>
     </section>
 
-    <section class="universal-card">
+    <section class="card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Delete project</span>

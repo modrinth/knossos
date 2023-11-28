@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card payout-history">
+    <section class="card payout-history">
       <Breadcrumbs
         current-title="Transfer history"
         :link-stack="[{ href: '/revenue', label: 'Revenue' }]"

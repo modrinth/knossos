@@ -4,7 +4,7 @@
       <h1>Home</h1>
     </div>
     <div class="normal-page__sidebar">
-      <section class="universal-card">
+      <section class="card">
         <nuxt-link :to="getUserLink(auth.user)" class="user-info">
           <Avatar :src="auth.user.avatar_url" circle size="xs" />
           <h2 class="sidebar-card-header">{{ auth.user.username }}</h2>
@@ -45,7 +45,7 @@
           <SettingsIcon /> Edit profile <ChevronRightIcon />
         </nuxt-link>
       </section>
-      <section class="universal-card">
+      <section class="card">
         <h2 class="sidebar-card-header">Rewards</h2>
         <p>Showing your current rewards amount.</p>
         <button class="btn rewards-display">
@@ -58,7 +58,7 @@
           <TransferIcon />View transfer history <ChevronRightIcon />
         </nuxt-link>
       </section>
-      <section class="universal-card">
+      <section class="card">
         <h2 class="sidebar-card-header">Your projects</h2>
         <p>Showing downloads this week compared to last week.</p>
         <div class="mini-project-table">
@@ -128,7 +128,7 @@
           v-for="notification in notifications"
           :key="notification.id"
           v-model:notifications="allNotifs"
-          class="universal-card"
+          class="card"
           :notification="notification"
           :auth="auth"
         />

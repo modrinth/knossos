@@ -9,7 +9,7 @@
       :balance="auth.user.payout_data.balance"
       :min-withdraw="minWithdraw"
     />
-    <section class="universal-card">
+    <section class="card">
       <h2>Withdraw</h2>
       <div v-if="auth.user.payout_data.balance >= minWithdraw">
         <p>
@@ -53,7 +53,7 @@
         </NuxtLink>
       </div>
     </section>
-    <section class="universal-card">
+    <section class="card">
       <h2>About the program</h2>
       <p>
         By uploading projects to Modrinth and withdrawing money from your account, you agree to the

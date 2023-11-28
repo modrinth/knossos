@@ -319,7 +319,7 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
-        <section v-if="displayWarning" class="warning-banner universal-card">
+        <section v-if="displayWarning" class="warning-banner card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
             <span> For security purposes, please verify your email address on Modrinth. </span>

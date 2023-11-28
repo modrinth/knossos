@@ -1,7 +1,7 @@
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
-      <aside class="universal-card">
+      <aside class="card">
         <h1>Moderation</h1>
         <NavStack>
           <NavStackItem link="/moderation" label="Overview">

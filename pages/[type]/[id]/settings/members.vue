@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="universal-card">
+    <div class="card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Manage members</span>
@@ -50,7 +50,7 @@
     <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
-      class="universal-card member"
+      class="card member"
       :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">

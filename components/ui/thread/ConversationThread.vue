@@ -37,7 +37,7 @@
     <div v-if="cosmetics.developerMode" class="thread-id">
       Thread ID: <CopyCode :text="thread.id" />
     </div>
-    <div v-if="sortedMessages.length > 0" class="messages universal-card recessed">
+    <div v-if="sortedMessages.length > 0" class="messages card recessed">
       <ThreadMessage
         v-for="message in sortedMessages"
         :key="'message-' + message.id"

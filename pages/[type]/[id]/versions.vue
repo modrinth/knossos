@@ -23,7 +23,7 @@
       <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
     <VersionFilterControl :versions="props.versions" @switch-page="switchPage" />
-    <div v-if="filteredVersions.length > 0" id="all-versions" class="universal-card all-versions">
+    <div v-if="filteredVersions.length > 0" id="all-versions" class="card all-versions">
       <div class="header">
         <div />
         <div>Version</div>

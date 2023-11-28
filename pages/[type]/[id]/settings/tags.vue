@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Tags</span>

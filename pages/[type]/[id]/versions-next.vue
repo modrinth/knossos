@@ -89,7 +89,7 @@
           <template #edit> <EditIcon /> Edit</template>
         </OverflowMenu>
       </div>
-      <div class="version-table universal-card">
+      <div class="version-table card">
         <div class="version-row version__header">
           <div class="version__checkbox">
             <Checkbox></Checkbox>

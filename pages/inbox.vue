@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="normal-page__sidebar">
-      <div class="universal-card">
+      <div class="card">
         <h2>Filter</h2>
         <button
           v-for="type in notifTypes"
@@ -56,7 +56,7 @@
           v-for="notification in notifications"
           :key="notification.id"
           v-model:notifications="allNotifs"
-          class="universal-card"
+          class="card"
           :notification="notification"
           :auth="auth"
         />

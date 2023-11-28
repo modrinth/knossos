@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>Project status</h2>
       <Badge :type="project.status" />
       <p v-if="isApproved(project)">
@@ -67,7 +67,7 @@
         </li>
       </ul>
     </section>
-    <section id="messages" class="universal-card">
+    <section id="messages" class="card">
       <h2>Messages</h2>
       <p>
         This is a private conversation thread with the Modrinth moderators. They will message you

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <div class="adjacent-input">
         <label for="license-multiselect">
           <span class="label__title size-card-header">License</span>

@@ -206,7 +206,7 @@
           </div>
         </div>
       </div>
-      <div class="grid-table universal-card">
+      <div class="grid-table card">
         <div class="grid-table__row grid-table__header">
           <div>
             <Checkbox
@@ -660,7 +660,7 @@ h1 {
   line-height: 1em;
 }
 
-.universal-card {
+.card {
   padding: 0;
 }
 </style>
