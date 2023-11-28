@@ -3,7 +3,7 @@
     <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete your account?"
-      description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
+      description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.modrinth.com)."
       proceed-label="Delete this account"
       :confirmation-text="auth.user.username"
       :has-to-type="true"
@@ -66,6 +66,7 @@
           v-model="oldPassword"
           maxlength="2048"
           type="password"
+          autocomplete="current-password"
           :placeholder="`${removePasswordMode ? 'Confirm' : 'Old'} password`"
         />
         <template v-if="!removePasswordMode">
@@ -75,6 +76,7 @@
             v-model="newPassword"
             maxlength="2048"
             type="password"
+            autocomplete="new-password"
             placeholder="New password"
           />
           <label for="confirm-new-password"
@@ -85,6 +87,7 @@
             v-model="confirmNewPassword"
             maxlength="2048"
             type="password"
+            autocomplete="new-password"
             placeholder="Confirm new password"
           />
         </template>
@@ -95,7 +98,12 @@
             Cancel
           </button>
           <template v-if="removePasswordMode">
-            <button type="button" class="iconified-button danger-button" @click="savePassword">
+            <button
+              type="button"
+              class="iconified-button danger-button"
+              :disabled="!oldPassword"
+              @click="savePassword"
+            >
               <TrashIcon />
               Remove password
             </button>
@@ -110,7 +118,16 @@
               <TrashIcon />
               Remove password
             </button>
-            <button type="button" class="iconified-button brand-button" @click="savePassword">
+            <button
+              type="button"
+              class="iconified-button brand-button"
+              :disabled="
+                newPassword.length == 0 ||
+                oldPassword.length == 0 ||
+                newPassword !== confirmNewPassword
+              "
+              @click="savePassword"
+            >
               <SaveIcon />
               Save password
             </button>

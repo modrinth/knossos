@@ -461,4 +461,8 @@ svg {
   min-height: 8rem;
   max-width: 24rem;
 }
+
+.multiselect {
+  max-width: 15rem;
+}
 </style>

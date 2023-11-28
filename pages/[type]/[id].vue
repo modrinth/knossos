@@ -1,30 +1,5 @@
 <template>
   <div :style="`--_accent-color: ${toColor(project.color)}`">
-    <Head>
-      <Title> {{ project.title }} - Minecraft {{ projectTypeDisplay }} </Title>
-      <Meta name="og:title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
-      <Meta
-        name="description"
-        :content="`${project.description} - Download the Minecraft ${projectTypeDisplay} ${
-          project.title
-        } by ${members.find((x) => x.role === 'Owner').user.username} on Modrinth`"
-      />
-      <Meta
-        name="apple-mobile-web-app-title"
-        :content="`${project.title} - Minecraft ${projectTypeDisplay}`"
-      />
-      <Meta name="og:description" :content="project.description" />
-      <Meta
-        name="og:image"
-        :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'"
-      />
-      <Meta
-        name="robots"
-        :content="
-          project.status === 'approved' || project.status === 'archived' ? 'all' : 'noindex'
-        "
-      />
-    </Head>
     <Modal
       ref="modalLicense"
       :header="project.license.name ? project.license.name : 'License'"
@@ -899,11 +874,6 @@ featuredVersions.value.sort((a, b) => {
 const selectedGameVersion = ref('1.20.2')
 const selectedLoader = ref('Fabric')
 
-const projectTypeDisplay = computed(() =>
-  data.$formatProjectType(
-    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
-  )
-)
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
 
@@ -925,6 +895,28 @@ function toColor(color) {
   const g = (color & 0xff00) >>> 8
   const r = (color & 0xff0000) >>> 16
   return 'rgba(' + [r, g, b, 0.5].join(',') + ')'
+}
+
+const projectTypeDisplay = data.$formatProjectType(
+  data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+)
+const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
+const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
+  project.value.title
+} by ${members.value.find((x) => x.role === 'Owner').user.username} on Modrinth`
+
+if (!route.name.startsWith('type-id-settings')) {
+  useSeoMeta({
+    title,
+    description,
+    ogTitle: title,
+    ogDescription: project.value.description,
+    ogImage: project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+    robots:
+      project.value.status === 'approved' || project.value.status === 'archived'
+        ? 'all'
+        : 'noindex',
+  })
 }
 
 async function resetProject() {

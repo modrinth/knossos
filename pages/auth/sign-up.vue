@@ -38,7 +38,8 @@
         <input
           id="email"
           v-model="email"
-          type="text"
+          type="email"
+          autocomplete="username"
           class="auth-form__input"
           placeholder="Email"
         />
@@ -51,6 +52,7 @@
           id="username"
           v-model="username"
           type="text"
+          autocomplete="username"
           class="auth-form__input"
           placeholder="Username"
         />
@@ -64,6 +66,7 @@
           v-model="password"
           class="auth-form__input"
           type="password"
+          autocomplete="new-password"
           placeholder="Password"
         />
       </div>
@@ -75,6 +78,7 @@
           id="confirm-password"
           v-model="confirmPassword"
           type="password"
+          autocomplete="new-password"
           class="auth-form__input"
           placeholder="Confirm password"
         />
@@ -86,6 +90,7 @@
         v-model="subscribe"
         class="subscribe-btn"
         label="Subscribe to updates about Modrinth"
+        description="Subscribe to updates about Modrinth"
       />
 
       <p>

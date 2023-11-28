@@ -17,7 +17,7 @@
           </NuxtLink>
           <NuxtLink to="/settings/sessions">
             <ShieldIcon />
-            Sessions
+            {{ formatMessage(messages.sessionsTitle) }}
           </NuxtLink>
           <NuxtLink to="/settings/monetization">
             <CurrencyIcon />
@@ -51,6 +51,15 @@ import ShieldIcon from '~/assets/images/utils/shield.svg'
 import KeyIcon from '~/assets/images/utils/key.svg'
 import LanguagesIcon from '~/assets/images/utils/languages.svg'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
+
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  sessionsTitle: {
+    id: 'settings.sessions.title',
+    defaultMessage: 'Sessions',
+  },
+})
 
 const app = useNuxtApp()
 const route = useRoute()

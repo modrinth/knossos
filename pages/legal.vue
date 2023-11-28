@@ -4,24 +4,28 @@
       <aside class="card">
         <h1>Legal</h1>
         <NavStack>
-          <NavStackItem link="/legal/terms" label="Terms and Conditions">
+          <NavStackItem link="/legal/terms" label="Terms of Use">
             <HeartHandshakeIcon />
           </NavStackItem>
+          <NavStackItem link="/legal/rules" label="Content Rules">
+            <ScaleIcon />
+          </NavStackItem>
+          <NavStackItem link="/legal/copyright" label="Copyright Policy">
+            <CopyrightIcon />
+          </NavStackItem>
+          <NavStackItem link="/legal/security" label="Security Notice">
+            <ShieldIcon />
+          </NavStackItem>
+
+          <h3>Privacy</h3>
           <NavStackItem link="/legal/privacy" label="Privacy Policy">
             <LockIcon />
           </NavStackItem>
           <NavStackItem link="/legal/ccpa" label="California Privacy Notice">
             <InfoIcon />
           </NavStackItem>
-          <NavStackItem link="/legal/rules" label="Content Rules">
-            <ScaleIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/security" label="Security Notice">
-            <ShieldIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/copyright" label="Copyright Policy">
-            <CopyrightIcon />
-          </NavStackItem>
+
+          <h3>Rewards Program</h3>
           <NavStackItem link="/legal/cmp" label="Rewards Program Terms">
             <CurrencyIcon />
           </NavStackItem>

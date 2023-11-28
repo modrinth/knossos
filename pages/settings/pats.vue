@@ -1,5 +1,16 @@
 <template>
+<<<<<<< HEAD
   <div class="card">
+=======
+  <div class="universal-card">
+    <ConfirmModal
+      ref="modal_confirm"
+      title="Are you sure you want to delete this token?"
+      description="This will remove this token forever (like really forever)."
+      proceed-label="Delete this token"
+      @proceed="removePat(deletePatIndex)"
+    />
+>>>>>>> origin/master
     <Modal
       ref="patModal"
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
@@ -106,7 +117,10 @@
             </span>
             ⋅
             <span v-tooltip="$dayjs(pat.expires).format('MMMM D, YYYY [at] h:mm A')">
-              Expires {{ fromNow(pat.expires) }}
+              <template v-if="new Date(pat.expires) > new Date()">
+                Expires {{ fromNow(pat.expires) }}
+              </template>
+              <template v-else> Expired {{ fromNow(pat.expires) }} </template>
             </span>
             ⋅
             <span v-tooltip="$dayjs(pat.created).format('MMMM D, YYYY [at] h:mm A')">
@@ -130,7 +144,15 @@
         >
           <EditIcon /> Edit token
         </button>
-        <button class="iconified-button raised-button" @click="removePat(pat.id)">
+        <button
+          class="iconified-button raised-button"
+          @click="
+            () => {
+              deletePatIndex = pat.id
+              $refs.modal_confirm.show()
+            }
+          "
+        >
           <TrashIcon /> Revoke token
         </button>
       </div>
@@ -138,7 +160,16 @@
   </div>
 </template>
 <script setup>
-import { PlusIcon, Modal, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon } from 'omorphia'
+import {
+  PlusIcon,
+  Modal,
+  XIcon,
+  Checkbox,
+  TrashIcon,
+  EditIcon,
+  SaveIcon,
+  ConfirmModal,
+} from 'omorphia'
 import CopyCode from '~/components/ui/CopyCode.vue'
 
 const cosmetics = useCosmetics()
@@ -192,6 +223,8 @@ const editPatIndex = ref(null)
 const name = ref(null)
 const scopesVal = ref(0)
 const expires = ref(null)
+
+const deletePatIndex = ref(null)
 
 const loading = ref(false)
 

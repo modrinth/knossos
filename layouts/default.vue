@@ -105,8 +105,8 @@
               to="/inbox"
               class="tab button-animation"
               :class="{
-                bubble: user.notifications.length > 0,
-                'no-active': mobileUserOpen || mobileBrowseOpen,
+                bubble: user.notifications.some((notif) => !notif.read),
+                'no-active': isMobileMenuOpen || isBrowseMenuOpen,
               }"
               title="Notifications"
               @click="
@@ -439,8 +439,6 @@ import SettingsIcon from '~/assets/images/utils/settings.svg'
 import ModerationIcon from '~/assets/images/utils/moderation.svg'
 import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
 
-import CompassIcon from '~/assets/images/utils/compass.svg'
-import HomeIcon from '~/assets/images/utils/home.svg'
 import MoonIcon from '~/assets/images/utils/moon.svg'
 import SunIcon from '~/assets/images/utils/sun.svg'
 import PlusIcon from '~/assets/images/utils/plus.svg'
@@ -450,8 +448,6 @@ import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 import PackageIcon from '~/assets/images/utils/package-open.svg'
-import BlocksIcon from '~/assets/images/utils/blocks.svg'
-import WorldIcon from '~/assets/images/utils/world.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
 import BracesIcon from '~/assets/images/utils/braces.svg'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
@@ -459,31 +455,21 @@ import CollectionIcon from '~/assets/images/utils/collection.svg'
 import BoxImportIcon from '~/assets/images/utils/box-import.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import UserIcon from '~/assets/images/utils/user.svg'
-import ArrowRightLeftIcon from '~/assets/images/utils/arrow-right-left.svg'
-import MoreHorizontalIcon from '~/assets/images/utils/more-horizontal.svg'
-import MessagesSquareIcon from '~/assets/images/utils/messages-square.svg'
-import InboxIcon from '~/assets/images/utils/inbox.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 
-import MinecraftIcon from '~/assets/images/games/minecraft.svg'
-
-import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
-const tags = useTags()
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
 useHead({
-  meta: [{ name: 'og:url', content: link }],
   link: [
     {
       rel: 'canonical',
@@ -496,17 +482,33 @@ const displayWarning = computed(
   () => auth.value.user && !auth.value.user.email_verified && route.path !== '/auth/verify-email'
 )
 
+const description =
+  'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
+  'Discover and publish projects on Modrinth with a modern, easy to use interface and API.'
+
+useSeoMeta({
+  title: 'Modrinth',
+  description,
+  publisher: 'Modrinth',
+  themeColor: [{ color: '#1bd96a' }],
+  colorScheme: 'dark light',
+
+  // OpenGraph
+  ogTitle: 'Modrinth',
+  ogSiteName: 'Modrinth',
+  ogDescription: 'Discover and publish Minecraft content!',
+  ogType: 'website',
+  ogImage: 'https://cdn.modrinth.com/modrinth-new.png',
+  ogUrl: link,
+
+  // Twitter
+  twitterCard: 'summary',
+  twitterSite: '@modrinth',
+})
+
 let developerModeCounter = 0
 
 const selectedProjectType = ref('mods')
-
-function setProjectType(type) {
-  selectedProjectType.value = type
-}
-
-// replace - with space
-const prettyProjectType = computed(() => selectedProjectType.value.replace('-', ' '))
-const selectedRoute = computed(() => selectedProjectType.value.replace('-', ''))
 
 function developerModeIncrement() {
   if (developerModeCounter >= 5) {
@@ -536,16 +538,6 @@ function developerModeIncrement() {
 async function logoutUser() {
   await logout()
 }
-// const handleClickOutside = (event) => {
-//   const elements = document.elementsFromPoint(event.clientX, event.clientY)
-//   if (
-//     dropdown.value.$el !== event.target &&
-//     !elements.includes(dropdown.value.$el) &&
-//     !dropdown.value.contains(event.target)
-//   ) {
-//     dropdownVisible.value = false
-//   }
-// }
 
 function changeTheme(value) {
   updateTheme(

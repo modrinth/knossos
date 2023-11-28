@@ -1,12 +1,5 @@
 <template>
   <div>
-    <Head>
-      <Title>{{ project.title }} - Gallery</Title>
-      <Meta name="og:title" :content="`${project.title} - Gallery`" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
-      <Meta name="og:description" :contcent="metaDescription" />
-    </Head>
     <Modal
       v-if="currentMember"
       ref="modal_edit_item"
@@ -303,23 +296,34 @@ import {
 } from 'omorphia'
 
 const cosmetics = useCosmetics()
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return null
+    },
+  },
+})
+
+const title = `${props.project.title} - Gallery`
+const description = `View ${props.project.gallery.length} images of ${props.project.title} on Modrinth.`
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+})
 </script>
 <script>
 export default defineNuxtComponent({
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-  },
   data() {
     return {
       expandedGalleryItem: null,
@@ -336,8 +340,6 @@ export default defineNuxtComponent({
       editFile: null,
       previewImage: null,
       shouldPreventActions: false,
-
-      metaDescription: `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`,
     }
   },
   computed: {
@@ -787,11 +789,6 @@ export default defineNuxtComponent({
       object-fit: contain;
       background-color: #000000;
     }
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
   }
 }
 </style>

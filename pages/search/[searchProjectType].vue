@@ -6,17 +6,7 @@
     }"
   >
     <Head>
-      <Title>Search {{ $formatProjectType(projectType.display) }}s - Modrinth</Title>
-      <Meta
-        name="og:title"
-        :content="`Minecraft ${$formatProjectType(projectType.display)}s for Java Edition`"
-      />
-      <Meta name="description" :content="metaDescription" />
-      <Meta
-        name="apple-mobile-web-app-title"
-        :content="`Minecraft ${$formatProjectType(projectType.display)}s`"
-      />
-      <Meta name="og:description" :content="metaDescription" />
+      <Title>Search {{ projectType.display }}s - Modrinth</Title>
     </Head>
     <section class="normal-page__header">
       <GameBanner game="minecraft_java" />
@@ -524,13 +514,8 @@ const maxResults = ref(20)
 const currentPage = ref(1)
 const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
 
-const metaDescription = computed(
-  () =>
-    `Search and browse thousands of Minecraft ${data.$formatProjectType(
-      projectType.value.display
-    )}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${data.$formatProjectType(
-      projectType.value.display
-    )}s.`
+const ogTitle = computed(
+  () => `Search ${projectType.value.display}s${query.value ? ' | ' + query.value : ''}`
 )
 
 const hasFiltersEnabled = computed(() => {
@@ -541,6 +526,17 @@ const hasFiltersEnabled = computed(() => {
     facets.value.length > 0 ||
     orFacets.value.length > 0
   )
+})
+
+const description = computed(
+  () =>
+    `Search and browse thousands of Minecraft ${projectType.value.display}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${projectType.value.display}s.`
+)
+
+useSeoMeta({
+  description,
+  ogTitle,
+  ogDescription: description,
 })
 
 if (route.query.q) {

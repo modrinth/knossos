@@ -1,12 +1,5 @@
 <template>
   <div v-if="version" class="version-page">
-    <Head>
-      <Title>{{ metaTitle }}</Title>
-      <Meta name="og:title" :content="metaTitle" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="metaDescription" />
-      <Meta name="og:description" :content="metaDescription" />
-    </Head>
     <ModalConfirm
       v-if="currentMember"
       ref="modal_confirm"
@@ -165,14 +158,14 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
-        <button class="iconified-button" @click="$refs.modal_version_report.show()">
-          <ReportIcon aria-hidden="true" />
-          Report
-        </button>
         <nuxt-link v-if="!auth.user" class="iconified-button" to="/auth/sign-in">
           <ReportIcon aria-hidden="true" />
           Report
         </nuxt-link>
+        <button v-else class="iconified-button" @click="$refs.modal_version_report.show()">
+          <ReportIcon aria-hidden="true" />
+          Report
+        </button>
         <nuxt-link
           v-if="currentMember"
           class="action iconified-button"
@@ -872,7 +865,26 @@ export default defineNuxtComponent({
 
     oldFileTypes = version.files.map((x) => fileTypes.find((y) => y.value === x.file_type))
 
-    const order = ['required', 'optional', 'incompatible', 'embedded']
+    const title = computed(
+      () => `${isCreating ? 'Create Version' : version.name} - ${props.project.title}`
+    )
+    const description = computed(
+      () =>
+        `Download ${props.project.title} ${
+          version.version_number
+        } on Modrinth. Supports ${data.$formatVersion(version.game_versions)} ${version.loaders
+          .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+          .join(' & ')}. Published on ${data
+          .$dayjs(version.date_published)
+          .format('MMM D, YYYY')}. ${version.downloads} downloads.`
+    )
+
+    useSeoMeta({
+      title,
+      description,
+      ogTitle: title,
+      ogDescription: description,
+    })
 
     return {
       cosmetics,
@@ -886,25 +898,6 @@ export default defineNuxtComponent({
       primaryFile: ref(primaryFile),
       alternateFile: ref(alternateFile),
       replaceFile: ref(replaceFile),
-
-      metaTitle: computed(
-        () => `${isCreating ? 'Create Version' : version.name} - ${props.project.title}`
-      ),
-      metaDescription: computed(
-        () =>
-          `Download ${props.project.title} ${
-            version.version_number
-          } on Modrinth. Supports ${data.$formatVersion(version.game_versions)} ${version.loaders
-            .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-            .join(' & ')}. Published on ${data
-            .$dayjs(version.date_published)
-            .format('MMM D, YYYY')}. ${version.downloads} downloads.`
-      ),
-      deps: computed(() =>
-        version.dependencies.sort(
-          (a, b) => order.indexOf(a.dependency_type) - order.indexOf(b.dependency_type)
-        )
-      ),
     }
   },
   data() {
@@ -935,6 +928,12 @@ export default defineNuxtComponent({
         this.version.game_versions.length === 0 ||
         (this.version.loaders.length === 0 && this.project.project_type !== 'resourcepack') ||
         (this.newFiles.length === 0 && this.version.files.length === 0 && !this.replaceFile)
+      )
+    },
+    deps() {
+      const order = ['required', 'optional', 'incompatible', 'embedded']
+      return [...this.version.dependencies].sort(
+        (a, b) => order.indexOf(a.dependency_type) - order.indexOf(b.dependency_type)
       )
     },
   },
@@ -1097,26 +1096,32 @@ export default defineNuxtComponent({
           })
         }
 
+        const body = {
+          name: this.version.name || this.version.version_number,
+          version_number: this.version.version_number,
+          changelog: this.version.changelog,
+          version_type: this.version.version_type,
+          dependencies: this.version.dependencies,
+          game_versions: this.version.game_versions,
+          loaders: this.version.loaders,
+          primary_file: ['sha1', this.primaryFile.hashes.sha1],
+          featured: this.version.featured,
+          file_types: this.oldFileTypes.map((x, i) => {
+            return {
+              algorithm: 'sha1',
+              hash: this.version.files[i].hashes.sha1,
+              file_type: x ? x.value : null,
+            }
+          }),
+        }
+
+        if (this.project.project_type === 'modpack') {
+          delete body.dependencies
+        }
+
         await useBaseFetch(`version/${this.version.id}`, {
           method: 'PATCH',
-          body: {
-            name: this.version.name || this.version.version_number,
-            version_number: this.version.version_number,
-            changelog: this.version.changelog,
-            version_type: this.version.version_type,
-            dependencies: this.version.dependencies,
-            game_versions: this.version.game_versions,
-            loaders: this.version.loaders,
-            primary_file: ['sha1', this.primaryFile.hashes.sha1],
-            featured: this.version.featured,
-            file_types: this.oldFileTypes.map((x, i) => {
-              return {
-                algorithm: 'sha1',
-                hash: this.version.files[i].hashes.sha1,
-                file_type: x ? x.value : null,
-              }
-            }),
-          },
+          body,
         })
 
         for (const hash of this.deleteFiles) {
@@ -1405,11 +1410,14 @@ export default defineNuxtComponent({
         }
 
         .dep-type {
-          text-transform: capitalize;
           color: var(--color-text-secondary);
 
           &.incompatible {
             color: var(--color-red);
+          }
+
+          &::first-letter {
+            text-transform: capitalize;
           }
         }
       }
@@ -1574,11 +1582,6 @@ export default defineNuxtComponent({
 
   .multiselect {
     max-width: 20rem;
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
   }
 }
 </style>
