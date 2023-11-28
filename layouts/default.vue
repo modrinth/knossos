@@ -585,16 +585,32 @@ export default defineNuxtComponent({
       registeredSkipLink: null,
       navRoutes: [
         {
-          label: 'Discover Mods',
+          label: 'Mods',
           href: '/mods',
         },
         {
-          label: 'Dashboard',
-          href: '/',
+          label: 'Modpacks',
+          href: '/modpacks',
         },
         {
-          label: 'Inbox',
-          href: '/inbox',
+          label: 'Data Packs',
+          href: '/datapacks',
+        },
+        {
+          label: 'Resource Packs',
+          href: '/resourcepacks',
+        },
+        // {
+        //   label: 'Worlds',
+        //   href: '/worlds',
+        // },
+        {
+          label: 'Shaders',
+          href: '/shaders',
+        },
+        {
+          label: 'Plugins',
+          href: '/plugins',
         },
       ],
     }
@@ -677,6 +693,12 @@ export default defineNuxtComponent({
     max-width: 80rem;
     margin-inline: auto;
     padding-inline: var(--gap-lg);
+  }
+
+  > main {
+    @media screen and (max-width: 600px) and (hover: none) {
+      margin-top: var(--gap-lg);
+    }
   }
 
   > nav {

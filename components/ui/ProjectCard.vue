@@ -390,7 +390,53 @@ function rgbToHsl(r, g, b) {
   }
 
   @media screen and (max-width: 900px) {
-    @include grid-mode;
+    grid-template: 'icon title actions' 'icon summary actions' 'stats stats stats';
+    grid-template-columns: min-content 1fr auto;
+    grid-template-rows: min-content 1fr auto;
+
+    .icon {
+      --_size: 4.5rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .featured-gallery {
+      display: none;
+    }
+
+    .stats {
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-template: 'icon title actions' 'summary summary summary' 'stats stats stats';
+    grid-template-columns: min-content 1fr auto;
+    grid-template-rows: min-content 1fr auto;
+
+    .icon {
+      --_size: 3rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .title {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .actions {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-within {
+      .actions {
+        display: flex;
+      }
+    }
+
+    .tags {
+      flex-basis: 100%;
+    }
   }
 }
 

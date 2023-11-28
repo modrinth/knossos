@@ -3,7 +3,7 @@
     <div>
       <slot />
     </div>
-    <div>
+    <div class="page-bar__right">
       <slot name="right" />
     </div>
   </div>
@@ -40,11 +40,13 @@
   > div {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   svg {
     height: 1.2rem;
     width: 1.2rem;
+    flex-shrink: 0;
   }
 
   :deep(.nav-button) {
@@ -66,6 +68,30 @@
       &::before {
         pointer-events: none;
       }
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    :deep(.nav-button) {
+      padding: var(--gap-sm);
+    }
+  }
+
+  @media screen and (max-width: 900px) and (hover: none) {
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      height: 0px;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0);
+      -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+    }
+    &::-webkit-scrollbar-thumb:window-inactive {
+      background: rgba(0, 0, 0, 0);
     }
   }
 }
