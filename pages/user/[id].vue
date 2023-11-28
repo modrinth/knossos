@@ -10,7 +10,6 @@
           circle
           :alt="user.username"
         />
-<<<<<<< HEAD
         <div class="user-header__text">
           <div class="user-header__title">
             <h1 class="username">
@@ -45,92 +44,11 @@
             <div class="stat">
               <DownloadIcon aria-hidden="true" />
               {{ sumDownloads }} downloads
-=======
-        <h1 class="username">
-          {{ user.username }}
-        </h1>
-      </div>
-    </div>
-    <div class="normal-page">
-      <div class="normal-page__sidebar">
-        <div class="card sidebar">
-          <h1 class="mobile-username">
-            {{ user.username }}
-          </h1>
-          <div class="card__overlay">
-            <FileInput
-              v-if="isEditing"
-              :max-size="262144"
-              :show-icon="true"
-              :prompt="formatMessage(messages.profileUploadAvatarInput)"
-              accept="image/png,image/jpeg,image/gif,image/webp"
-              class="choose-image iconified-button"
-              @change="showPreviewImage"
-            >
-              <UploadIcon />
-            </FileInput>
-            <button
-              v-else-if="auth.user && auth.user.id === user.id"
-              class="iconified-button"
-              @click="isEditing = true"
-            >
-              <EditIcon />
-              {{ formatMessage(commonMessages.editButton) }}
-            </button>
-            <button
-              v-else-if="auth.user"
-              class="iconified-button"
-              @click="$refs.modal_report.show()"
-            >
-              <ReportIcon aria-hidden="true" />
-              {{ formatMessage(messages.profileReportButton) }}
-            </button>
-            <nuxt-link v-else class="iconified-button" to="/auth/sign-in">
-              <ReportIcon aria-hidden="true" />
-              {{ formatMessage(messages.profileReportButton) }}
-            </nuxt-link>
-          </div>
-          <template v-if="isEditing">
-            <div class="inputs universal-labels">
-              <label for="user-username">
-                <span class="label__title">
-                  {{ formatMessage(messages.profileEditUsernameLabel) }}
-                </span>
-              </label>
-              <input id="user-username" v-model="user.username" maxlength="39" type="text" />
-              <label for="user-bio">
-                <span class="label__title">
-                  {{ formatMessage(messages.profileEditBioLabel) }}
-                </span>
-              </label>
-              <div class="textarea-wrapper">
-                <textarea id="user-bio" v-model="user.bio" maxlength="160" />
-              </div>
-            </div>
-            <div class="button-group">
-              <button
-                class="iconified-button"
-                @click="
-                  () => {
-                    isEditing = false
-                    user = JSON.parse(JSON.stringify(auth.user))
-                    previewImage = null
-                    icon = null
-                  }
-                "
-              >
-                <CrossIcon /> {{ formatMessage(commonMessages.cancelButton) }}
-              </button>
-              <button class="iconified-button brand-button" @click="saveChanges">
-                <SaveIcon /> {{ formatMessage(commonMessages.saveButton) }}
-              </button>
->>>>>>> origin/master
             </div>
             <div class="stat">
               <SunriseIcon aria-hidden="true" />
               Joined {{ fromNow(user.created) }}
             </div>
-<<<<<<< HEAD
           </div>
         </div>
       </div>
@@ -148,68 +66,6 @@
               <Badge1MDownloads />
             </div>
           </div>
-=======
-            <span v-if="user.bio" class="sidebar__item bio">{{ user.bio }}</span>
-            <hr class="card-divider" />
-            <div class="primary-stat">
-              <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <IntlFormatted
-                  :message-id="messages.profileDownloadsStats"
-                  :values="{ count: formatCompactNumber(sumDownloads) }"
-                >
-                  <template #stat="{ children }">
-                    <span class="primary-stat__counter">
-                      <component :is="() => normalizeChildren(children)" />
-                    </span>
-                  </template>
-                </IntlFormatted>
-              </div>
-            </div>
-            <div class="primary-stat">
-              <HeartIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <IntlFormatted
-                  :message-id="messages.profileProjectsFollowersStats"
-                  :values="{ count: formatCompactNumber(sumFollows) }"
-                >
-                  <template #stat="{ children }">
-                    <span class="primary-stat__counter">
-                      <component :is="() => normalizeChildren(children)" />
-                    </span>
-                  </template>
-                </IntlFormatted>
-              </div>
-            </div>
-            <div class="stats-block__item secondary-stat">
-              <SunriseIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span
-                v-tooltip="
-                  formatMessage(commonMessages.dateAtTimeTooltip, {
-                    date: new Date(user.created),
-                    time: new Date(user.created),
-                  })
-                "
-                class="secondary-stat__text date"
-              >
-                {{
-                  formatMessage(messages.profileJoinedAt, { ago: formatRelativeTime(user.created) })
-                }}
-              </span>
-            </div>
-            <hr class="card-divider" />
-            <div class="stats-block__item secondary-stat">
-              <UserIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text">
-                <IntlFormatted :message-id="messages.profileUserId">
-                  <template #~id>
-                    <CopyCode :text="user.id" />
-                  </template>
-                </IntlFormatted>
-              </span>
-            </div>
-          </template>
->>>>>>> origin/master
         </div>
       </div>
       <div class="normal-page__content">
@@ -363,29 +219,7 @@ const tags = useTags()
 const vintl = useVIntl()
 const { formatMessage } = vintl
 
-const formatCompactNumber = useCompactNumber()
-
-const formatRelativeTime = useRelativeTime()
-
 const messages = defineMessages({
-  profileDownloadsStats: {
-    id: 'profile.stats.downloads',
-    defaultMessage:
-      '{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}',
-  },
-  profileProjectsFollowersStats: {
-    id: 'profile.stats.projects-followers',
-    defaultMessage:
-      '{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects',
-  },
-  profileJoinedAt: {
-    id: 'profile.joined-at',
-    defaultMessage: 'Joined {ago}',
-  },
-  profileUserId: {
-    id: 'profile.user-id',
-    defaultMessage: 'User ID: {id}',
-  },
   profileManageProjectsButton: {
     id: 'profile.button.manage-projects',
     defaultMessage: 'Manage projects',
@@ -397,22 +231,6 @@ const messages = defineMessages({
   profileMetaDescriptionWithBio: {
     id: 'profile.meta.description-with-bio',
     defaultMessage: "{bio} - Download {username}'s projects on Modrinth",
-  },
-  profileReportButton: {
-    id: 'profile.button.report',
-    defaultMessage: 'Report',
-  },
-  profileUploadAvatarInput: {
-    id: 'profile.input.upload-avatar',
-    defaultMessage: 'Upload avatar',
-  },
-  profileEditUsernameLabel: {
-    id: 'profile.label.edit-username',
-    defaultMessage: 'Username',
-  },
-  profileEditBioLabel: {
-    id: 'profile.label.edit-bio',
-    defaultMessage: 'Bio',
   },
   profileNoProjectsLabel: {
     id: 'profile.label.no-projects',

@@ -1,19 +1,8 @@
 <template>
-<<<<<<< HEAD
   <div class="card">
-    <h2>Sessions</h2>
-    <p>
-      Here are all the devices that are currently logged in with your Modrinth account. You can log
-      out of each one individually.
-      <br /><br />
-      If you see an entry you don't recognize, log out of that device and change your Modrinth
-      account password immediately.
-=======
-  <div class="universal-card">
     <h2>{{ formatMessage(messages.sessionsTitle) }}</h2>
     <p class="preserve-lines">
       {{ formatMessage(messages.sessionsDescription) }}
->>>>>>> origin/master
     </p>
     <div v-for="session in sessions" :key="session.id" class="card recessed session">
       <div>

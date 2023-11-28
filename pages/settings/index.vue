@@ -157,7 +157,6 @@ export default defineNuxtComponent({
   },
 })
 </script>
-<<<<<<< HEAD
 <style lang="scss" scoped>
 .theme-options {
   display: grid;
@@ -232,5 +231,3 @@ export default defineNuxtComponent({
   }
 }
 </style>
-=======
->>>>>>> origin/master

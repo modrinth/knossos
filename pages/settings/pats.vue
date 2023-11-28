@@ -1,8 +1,5 @@
 <template>
-<<<<<<< HEAD
   <div class="card">
-=======
-  <div class="universal-card">
     <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete this token?"
@@ -10,7 +7,6 @@
       proceed-label="Delete this token"
       @proceed="removePat(deletePatIndex)"
     />
->>>>>>> origin/master
     <Modal
       ref="patModal"
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
