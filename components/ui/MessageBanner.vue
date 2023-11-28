@@ -63,7 +63,7 @@ const ariaLabelByType = computed(() => `Banner with ${props.messageType} message
 
 .message-banner_subtle {
   --border-color: var(--color-gray);
-  --background-color: var(--color-gray-background);
+  --background-color: var(--color-raised-bg);
   --text-color: var(--color-info-banner-text);
 }
 </style>

@@ -411,18 +411,6 @@ function trimStringToLines(str, n) {
   grid-template-rows: min-content min-content min-content;
   gap: var(--spacing-card-sm);
 
-  &:not(.read) .notification__icon::after {
-    content: '';
-    --_size: 0.5rem;
-    width: var(--_size);
-    height: var(--_size);
-    background-color: var(--color-brand);
-    border-radius: 50%;
-    left: calc(((var(--gap-xl) + var(--_size)) / 2) * -1);
-    top: calc(50% - (var(--_size) / 2));
-    position: absolute;
-  }
-
   &.has-body {
     grid-template:
       'icon title'

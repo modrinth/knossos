@@ -38,9 +38,7 @@ const rows = shallowRef([
 const { data: launcherUpdates } = await useAsyncData('launcherUpdates', () =>
   $fetch('https://launcher-files.modrinth.com/updates.json')
 )
-console.log(launcherUpdates)
 
-console.log(launcherUpdates.value)
 macLinks.appleSilicon = launcherUpdates.value.platforms['darwin-aarch64'].install_urls[0]
 macLinks.intel = launcherUpdates.value.platforms['darwin-x86_64'].install_urls[0]
 windowsLink.value = launcherUpdates.value.platforms['windows-x86_64'].install_urls[0]
@@ -985,11 +983,12 @@ useSeoMeta({
 <style scoped lang="scss">
 .landing-hero {
   position: relative;
+  z-index: 0;
   background: #0f1121 url('https://cdn-raw.modrinth.com/app-landing/cube-black.png') no-repeat
     center 4rem;
   background-size: cover;
-  padding: 6rem 1rem 12rem 1rem;
-  margin-top: -4rem;
+  padding: 8rem 1rem 12rem 1rem;
+  margin-top: -6rem;
   display: flex;
   justify-content: center;
   align-items: center;

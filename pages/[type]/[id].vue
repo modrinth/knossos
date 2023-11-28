@@ -25,7 +25,11 @@
         "
       />
     </Head>
-    <Modal ref="modalLicense" :header="project.license.name ? project.license.name : 'License'">
+    <Modal
+      ref="modalLicense"
+      :header="project.license.name ? project.license.name : 'License'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
@@ -207,6 +211,7 @@
             <DescriptionIcon /> About
           </nuxt-link>
           <nuxt-link
+            v-if="project.gallery.length > 0 || currentMember"
             :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
             class="button-base nav-button"
           >
@@ -505,7 +510,16 @@
               </OverflowMenu>
             </div>
           </div>
-          <div class="members universal-card">
+          <div
+            v-if="
+              project.issues_url ||
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url ||
+              project.donation_urls.length > 0
+            "
+            class="members universal-card"
+          >
             <h2>Links</h2>
             <div class="links">
               <a
@@ -677,6 +691,7 @@ import {
   ClipboardCopyIcon,
   OverflowMenu,
   ScaleIcon,
+  Modal,
 } from 'omorphia'
 import { formatCategory, formatNumber } from '../../plugins/shorthands.js'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
@@ -703,7 +718,6 @@ import GameBanner from '~/components/ui/GameBanner.vue'
 import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
-import Modal from '~/components/ui/Modal.vue'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'

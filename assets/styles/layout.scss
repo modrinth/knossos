@@ -86,6 +86,8 @@
 
 @media (min-width: 1024px) {
   .normal-page {
+    margin: 0 auto;
+    max-width: 1280px;
     column-gap: var(--gap-lg);
 
     grid-template:

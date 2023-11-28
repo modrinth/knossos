@@ -112,7 +112,6 @@ const notifications = computed(() => {
     return []
   }
   const groupedNotifs = groupNotifications(allNotifs.value, history.value)
-  console.log(groupedNotifs)
   return groupedNotifs.filter(
     (notif) =>
       (selectedType.value === 'all' || notif.type === selectedType.value) &&

@@ -182,10 +182,6 @@
                 link: '/resourcepacks',
               },
               {
-                id: 'worlds',
-                link: '/worlds',
-              },
-              {
                 id: 'shaders',
                 link: '/shaders',
               },
@@ -200,7 +196,6 @@
             <template #modpacks> <PackageIcon /> Modpacks </template>
             <template #datapacks> <BracesIcon /> Data Packs </template>
             <template #resourcepacks> <ImageIcon /> Resource Packs </template>
-            <template #worlds> <WorldIcon /> Worlds </template>
             <template #shaders> <GlassesIcon /> Shaders </template>
             <template #plugins> <ServerIcon /> Plugins </template>
           </OverflowMenu>
@@ -585,10 +580,6 @@ export default defineNuxtComponent({
           label: 'Resource Packs',
           href: '/resourcepacks',
         },
-        // {
-        //   label: 'Worlds',
-        //   href: '/worlds',
-        // },
         {
           label: 'Shaders',
           href: '/shaders',
@@ -673,13 +664,6 @@ export default defineNuxtComponent({
   display: flex;
   flex-direction: column;
 
-  > * {
-    width: calc(100%);
-    max-width: 80rem;
-    margin-inline: auto;
-    padding-inline: var(--gap-lg);
-  }
-
   > main {
     @media screen and (max-width: 600px) and (hover: none) {
       margin-top: var(--gap-lg);
@@ -695,7 +679,15 @@ export default defineNuxtComponent({
     gap: var(--gap-lg);
     position: relative;
     grid-template: 'brand links user';
-    grid-template-columns: min-content 1fr auto;
+    grid-template-columns: auto 1fr auto;
+    z-index: 3;
+
+    @media screen and (min-width: 1280px) {
+      max-width: 1280px;
+      width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     @media screen and (max-width: 910px) {
       grid-template: 'brand user' 'links links';
@@ -877,21 +869,7 @@ export default defineNuxtComponent({
   }
 }
 
-.layout {
-  min-height: 100vh;
-  background-color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  padding-top: var(--gap-lg);
-
-  main {
-    grid-area: main;
-  }
-}
-
 .site-header {
-  max-width: 100vw;
-
   @media screen and (min-width: 1280px) {
     border-radius: var(--size-rounded-sm);
     max-width: 1280px;
@@ -1187,6 +1165,10 @@ footer {
   }
 
   @media screen and (min-width: 1024px) {
+    margin-left: auto;
+    margin-right: auto;
+
+    max-width: 80rem;
     display: grid;
     grid-template:
       'logo-info  links-1 links-2 links-3 buttons' auto
@@ -1217,20 +1199,6 @@ footer {
   }
 }
 
-@media (min-width: 1024px) {
-  .layout {
-    main {
-      .alpha-alert {
-        margin: 1rem;
-
-        .wrapper {
-          padding: 1rem 2rem 1rem 1rem;
-        }
-      }
-    }
-  }
-}
-
 .warning-banner {
   display: flex;
   align-items: center;
@@ -1245,33 +1213,6 @@ footer {
 
   .warning-icon {
     color: var(--color-orange);
-  }
-}
-
-.profile-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--size-rounded-md);
-  background-color: var(--color-raised-bg);
-  transition: background-color ease-in-out 0.15s;
-
-  &:hover,
-  &:focus {
-    background-color: var(--color-raised-bg-hover);
-  }
-
-  .user-icon {
-    width: 2rem;
-    height: 2rem;
-    transition: border ease-in-out 0.15s;
-    border: 0 solid var(--color-brand);
-    box-sizing: border-box;
-
-    &.expanded {
-      border: 2px solid var(--color-brand);
-    }
   }
 }
 </style>

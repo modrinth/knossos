@@ -3,7 +3,7 @@
     <a
       :class="{ disabled: page === 1 }"
       :tabindex="page === 1 ? -1 : 0"
-      class="btn btn-transparent icon-only"
+      class="btn btn-transparent icon-only l-btn"
       aria-label="Previous Page"
       :href="linkFunction(page - 1)"
       @click.prevent="page !== 1 ? switchPage(page - 1) : null"
@@ -174,5 +174,9 @@ a,
   .desktop-only {
     display: none;
   }
+}
+
+.l-btn {
+  margin-left: auto;
 }
 </style>

@@ -11,6 +11,7 @@
       v-if="currentMember"
       ref="modal_edit_item"
       :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="modal-gallery universal-labels">
         <div class="gallery-file-input">
@@ -102,7 +103,7 @@
         </button>
         <div class="button-group">
           <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
-            <CrossIcon />
+            <XIcon />
             Cancel
           </button>
           <button
@@ -126,13 +127,14 @@
         </div>
       </div>
     </Modal>
-    <ModalConfirm
+    <ConfirmModal
       v-if="currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this gallery image?"
       description="This will remove this gallery image forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteGalleryImage"
     />
     <div
@@ -165,7 +167,7 @@
           <div class="controls">
             <div class="buttons">
               <button class="close circle-button" @click="expandedGalleryItem = null">
-                <CrossIcon aria-hidden="true" />
+                <XIcon aria-hidden="true" />
               </button>
               <a
                 class="open circle-button"
@@ -276,52 +278,34 @@
   </div>
 </template>
 
+<script setup>
+import {
+  PlusIcon,
+  CalendarIcon,
+  TrashIcon,
+  XIcon,
+  RightArrowIcon,
+  LeftArrowIcon,
+  EditIcon,
+  SaveIcon,
+  ExternalIcon,
+  ExpandIcon,
+  ContractIcon,
+  StarIcon,
+  UploadIcon,
+  InfoIcon,
+  ImageIcon,
+  TransferIcon,
+  FileInput,
+  DropArea,
+  Modal,
+  ConfirmModal,
+} from 'omorphia'
+
+const cosmetics = useCosmetics()
+</script>
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
-import ExpandIcon from '~/assets/images/utils/expand.svg'
-import ContractIcon from '~/assets/images/utils/contract.svg'
-import StarIcon from '~/assets/images/utils/star.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
-
 export default defineNuxtComponent({
-  components: {
-    CalendarIcon,
-    PlusIcon,
-    EditIcon,
-    TrashIcon,
-    SaveIcon,
-    StarIcon,
-    CrossIcon,
-    RightArrowIcon,
-    LeftArrowIcon,
-    ExternalIcon,
-    ExpandIcon,
-    ContractIcon,
-    UploadIcon,
-    InfoIcon,
-    ImageIcon,
-    TransferIcon,
-    ModalConfirm,
-    Modal,
-    FileInput,
-    DropArea,
-  },
   props: {
     project: {
       type: Object,

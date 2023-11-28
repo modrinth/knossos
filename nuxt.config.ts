@@ -7,7 +7,7 @@ import { $fetch } from 'ofetch'
 import { globIterate } from 'glob'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 
-const STAGING_API_URL = 'https://api.modrinth.com/v2/'
+const STAGING_API_URL = 'https://staging-api.modrinth.com/v2/'
 
 const preloadedFonts = [
   'inter/Inter-Regular.woff2',

@@ -3,6 +3,7 @@
     <Modal
       ref="modalSubmit"
       :header="isRejected(project) ? 'Resubmit for review' : 'Submit for review'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="modal-submit universal-body">
         <span>
@@ -28,7 +29,7 @@
             :disabled="!submissionConfirmation"
             @click="resubmit()"
           >
-            <ModerationIcon /> Resubmit for review
+            <ScaleIcon /> Resubmit for review
           </button>
         </div>
       </div>
@@ -84,14 +85,14 @@
               class="iconified-button moderation-button"
               @click="openResubmitModal(true)"
             >
-              <ModerationIcon /> Resubmit for review with reply
+              <ScaleIcon /> Resubmit for review with reply
             </button>
             <button
               v-else
               class="iconified-button moderation-button"
               @click="openResubmitModal(false)"
             >
-              <ModerationIcon /> Resubmit for review
+              <ScaleIcon /> Resubmit for review
             </button>
           </template>
         </template>
@@ -104,10 +105,10 @@
                 class="iconified-button danger-button"
                 @click="closeReport(true)"
               >
-                <CloseIcon /> Close with reply
+                <CheckCircleIcon /> Close with reply
               </button>
               <button v-else class="iconified-button danger-button" @click="closeReport()">
-                <CloseIcon /> Close thread
+                <CheckCircleIcon /> Close thread
               </button>
             </template>
           </template>
@@ -151,7 +152,7 @@
                 :disabled="project.status === 'rejected'"
                 @click="sendReply('rejected')"
               >
-                <CrossIcon /> Reject with reply
+                <XIcon /> Reject with reply
               </button>
               <button
                 v-else
@@ -159,7 +160,7 @@
                 :disabled="project.status === 'rejected'"
                 @click="setStatus('rejected')"
               >
-                <CrossIcon /> Reject project
+                <XIcon /> Reject project
               </button>
             </template>
           </template>
@@ -170,21 +171,24 @@
 </template>
 
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import ReplyIcon from '~/assets/images/utils/reply.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
-import CloseIcon from '~/assets/images/utils/check-circle.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
+import {
+  Modal,
+  Chips,
+  CopyCode,
+  ReplyIcon,
+  SendIcon,
+  CheckCircleIcon,
+  XIcon,
+  EyeOffIcon,
+  CheckIcon,
+  ScaleIcon,
+  Checkbox,
+} from 'omorphia'
+
 import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 import { isStaff } from '~/helpers/users.js'
 import { isApproved, isRejected } from '~/helpers/projects.js'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const props = defineProps({
   thread: {

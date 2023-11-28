@@ -1,5 +1,9 @@
 <template>
-  <Modal ref="modal" :header="`Report ${itemType}`">
+  <Modal
+    ref="modal"
+    :header="`Report ${itemType}`"
+    :noblur="!$orElse(cosmetics.advancedRendering, true)"
+  >
     <div class="modal-report legacy-label-styles">
       <div class="markdown-body">
         <p>
@@ -52,7 +56,7 @@
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <XIcon />
           Cancel
         </button>
         <button class="iconified-button brand-button" @click="submitReport">
@@ -66,16 +70,13 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Chips from '~/components/ui/Chips.vue'
+import { XIcon, CheckIcon, Modal, Chips } from 'omorphia'
 import { renderString } from '~/helpers/parse.js'
 
 export default {
   components: {
     Chips,
-    CrossIcon,
+    XIcon,
     CheckIcon,
     Modal,
     Multiselect,
@@ -92,8 +93,9 @@ export default {
   },
   setup() {
     const tags = useTags()
+    const cosmetics = useCosmetics()
 
-    return { tags }
+    return { tags, cosmetics }
   },
   data() {
     return {

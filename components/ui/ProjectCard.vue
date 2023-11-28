@@ -7,11 +7,11 @@
     </div>
     <div class="title">
       <div class="name">{{ name }}</div>
-      <nuxt-link :to="`user/${author}`" class="author consumes-click">
+      <nuxt-link v-if="author" :to="`user/${author}`" class="author consumes-click">
         {{ formatMessage(messages.byAuthor, { author }) }}
       </nuxt-link>
     </div>
-    <div class="featured-gallery" :class="!featuredImage ? 'no-image' : ''">
+    <div class="featured-gallery hide-small" :class="!featuredImage ? 'no-image' : ''">
       <!-- TODO: have backend provide user-provided description for alt text -->
       <img
         :src="
@@ -71,58 +71,12 @@
         />
       </div>
     </div>
-    <div class="actions">
-      <button v-tooltip="`Follow`" class="btn icon-only">
-        <HeartIcon />
-      </button>
-      <OverflowMenu
-        class="btn icon-only"
-        position="bottom"
-        direction="left"
-        :options="[
-          {
-            id: 'download',
-            color: 'green',
-            hoverFilledOnly: true,
-            link: `/${$getProjectTypeForUrl(type, categories)}/${id}/versions`,
-          },
-          {
-            id: 'save',
-            action: () => {},
-          },
-          {
-            id: 'gallery',
-            link: `/${$getProjectTypeForUrl(type, categories)}/${id}/gallery`,
-          },
-          {
-            id: 'versions',
-            link: `/${$getProjectTypeForUrl(type, categories)}/${id}/versions`,
-          },
-        ]"
-      >
-        <MoreHorizontalIcon />
-        <template #download> <DownloadIcon /> Download </template>
-        <template #save> <BookmarkIcon /> Save </template>
-        <template #gallery> <ImageIcon /> View gallery </template>
-        <template #versions> <VersionIcon /> View versions </template>
-      </OverflowMenu>
-    </div>
   </article>
 </template>
 
 <script setup>
-import {
-  HeartIcon,
-  DownloadIcon,
-  MoreHorizontalIcon,
-  ImageIcon,
-  VersionIcon,
-  CalendarIcon,
-  HistoryIcon,
-  OverflowMenu,
-} from 'omorphia'
+import { HeartIcon, DownloadIcon, CalendarIcon, HistoryIcon } from 'omorphia'
 import Categories from '~/components/ui/search/Categories.vue'
-import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
 import TagIcon from '~/assets/images/utils/tag.svg'
 
 import Avatar from '~/components/ui/Avatar.vue'
@@ -333,17 +287,6 @@ function rgbToHsl(r, g, b) {
     gap: 0.4rem;
   }
 
-  .actions {
-    display: none;
-  }
-
-  &:hover,
-  &:focus-within {
-    .actions {
-      display: flex;
-    }
-  }
-
   .stats {
     font-size: var(--font-size-sm);
   }
@@ -370,23 +313,8 @@ function rgbToHsl(r, g, b) {
     z-index: 1;
   }
 
-  &:has(.project-card__link:hover):not(:has(a:not(.project-card__link):hover)) {
-    .title .name {
-      text-decoration: underline;
-    }
-  }
-
   &:has(.project-card__link:active):not(:has(a:not(.project-card__link):active)) {
     scale: 0.99 !important;
-  }
-
-  @media (hover: hover) {
-    &:hover,
-    &:focus-within {
-      .actions {
-        opacity: 1;
-      }
-    }
   }
 
   @media screen and (max-width: 900px) {
@@ -421,17 +349,6 @@ function rgbToHsl(r, g, b) {
     .title {
       flex-direction: column;
       gap: 0.4rem;
-    }
-
-    .actions {
-      display: none;
-    }
-
-    &:hover,
-    &:focus-within {
-      .actions {
-        display: flex;
-      }
     }
 
     .tags {
@@ -587,21 +504,7 @@ function rgbToHsl(r, g, b) {
   }
 }
 
-.actions {
-  grid-area: actions;
-  display: flex;
-  gap: var(--gap-xs);
-  width: fit-content;
-  margin-left: auto;
-  transition: opacity 0.25s ease-in-out;
-  height: fit-content;
-
-  @media (hover: hover) {
-    opacity: 0;
-  }
-
-  :deep(.popup-menu) {
-    z-index: 20;
-  }
+.small-mode .hide-small {
+  display: none;
 }
 </style>

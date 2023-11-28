@@ -1,15 +1,20 @@
 <template>
   <div>
-    <ModalConfirm
+    <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete your account?"
       description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
       proceed-label="Delete this account"
       :confirmation-text="auth.user.username"
       :has-to-type="true"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteAccount"
     />
-    <Modal ref="changeEmailModal" :header="`${auth.user.email ? 'Change' : 'Add'} email`">
+    <Modal
+      ref="changeEmailModal"
+      :header="`${auth.user.email ? 'Change' : 'Add'} email`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="universal-modal">
         <p>Your account information is not displayed publicly.</p>
         <label for="email-input"><span class="label__title">Email address</span> </label>
@@ -42,6 +47,7 @@
       :header="`${
         removePasswordMode ? 'Remove' : auth.user.has_password ? 'Change' : 'Add'
       } password`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="universal-modal">
         <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
@@ -117,6 +123,7 @@
       :header="`${
         auth.user.has_totp && twoFactorStep === 0 ? 'Remove' : 'Setup'
       } two-factor authentication`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="universal-modal">
         <template v-if="auth.user.has_totp && twoFactorStep === 0">
@@ -228,7 +235,11 @@
         </template>
       </div>
     </Modal>
-    <Modal ref="manageProvidersModal" header="Authentication providers">
+    <Modal
+      ref="manageProvidersModal"
+      header="Authentication providers"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="universal-modal">
         <div class="table">
           <div class="table-row table-head">
@@ -382,6 +393,8 @@ import {
   RightArrowIcon,
   CheckIcon,
   ExternalIcon,
+  Modal,
+  ConfirmModal,
 } from 'omorphia'
 import QrcodeVue from 'qrcode.vue'
 import GitHubIcon from 'assets/icons/auth/sso-github.svg'
@@ -391,8 +404,6 @@ import SteamIcon from 'assets/icons/auth/sso-steam.svg'
 import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
 import KeyIcon from 'assets/icons/auth/key.svg'
 import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -404,6 +415,7 @@ definePageMeta({
 
 const data = useNuxtApp()
 const auth = await useAuth()
+const cosmetics = useCosmetics()
 
 const changeEmailModal = ref()
 const email = ref(auth.value.user.email)

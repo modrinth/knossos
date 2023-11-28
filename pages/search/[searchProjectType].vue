@@ -728,7 +728,7 @@ function isFilterShown(keyword) {
 
 function isFilterCollapsed(heading) {
   const headings = cosmetics.value.searchFiltersCollapsed[projectType.value.id]
-  return filterQuery || headings ? headings[heading] : false
+  return !!filterQuery.value || headings ? headings[heading] : false
 }
 
 function toggleFilterCollapse(heading) {
@@ -1095,14 +1095,10 @@ h1 {
 
 .pagination-container {
   display: flex;
+  justify-content: end;
   align-items: center;
-  justify-content: center;
   margin-bottom: var(--gap-lg);
   flex-wrap: wrap;
-
-  .results-text {
-    margin-right: auto;
-  }
 
   .count-dropdown {
     width: 5.5rem;

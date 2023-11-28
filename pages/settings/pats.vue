@@ -3,6 +3,7 @@
     <Modal
       ref="patModal"
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="universal-modal">
         <label for="pat-name"><span class="label__title">Name</span> </label>
@@ -139,6 +140,8 @@
 <script setup>
 import { PlusIcon, Modal, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon } from 'omorphia'
 import CopyCode from '~/components/ui/CopyCode.vue'
+
+const cosmetics = useCosmetics()
 
 definePageMeta({
   middleware: 'auth',

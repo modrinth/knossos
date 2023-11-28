@@ -22,7 +22,12 @@
       :item-id="version.id"
       item-type="version"
     />
-    <Modal v-if="auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
+    <Modal
+      v-if="auth.user && currentMember"
+      ref="modal_package_mod"
+      header="Package data pack"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
           <p>
@@ -662,12 +667,9 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
-import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
-import { inferVersionInfo } from '~/helpers/infer.js'
-import { createDataPackVersion } from '~/helpers/package.js'
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { Modal } from 'omorphia'
 
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
@@ -695,40 +697,15 @@ import UploadIcon from '~/assets/images/utils/upload.svg'
 import BackIcon from '~/assets/images/utils/left-arrow.svg'
 import BoxIcon from '~/assets/images/utils/box.svg'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import Modal from '~/components/ui/Modal.vue'
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
+</script>
+<script>
+import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
+import { inferVersionInfo } from '~/helpers/infer.js'
+import { createDataPackVersion } from '~/helpers/package.js'
+import { renderHighlightedString } from '~/helpers/highlight.js'
 
 export default defineNuxtComponent({
-  components: {
-    Modal,
-    FileInput,
-    Checkbox,
-    ChevronRightIcon,
-    Chips,
-    Categories,
-    DownloadIcon,
-    EditIcon,
-    TrashIcon,
-    StarIcon,
-    FileIcon,
-    ReportIcon,
-    SaveIcon,
-    CrossIcon,
-    HashIcon,
-    PlusIcon,
-    TransferIcon,
-    UploadIcon,
-    BackIcon,
-    Avatar,
-    Badge,
-    Breadcrumbs,
-    CopyCode,
-    ModalConfirm,
-    ModalReport,
-    Multiselect,
-    BoxIcon,
-    RightArrowIcon,
-  },
   props: {
     project: {
       type: Object,
@@ -770,6 +747,7 @@ export default defineNuxtComponent({
   async setup(props) {
     const data = useNuxtApp()
     const route = useRoute()
+    const cosmetics = useCosmetics()
 
     const auth = await useAuth()
     const tags = useTags()
@@ -897,6 +875,7 @@ export default defineNuxtComponent({
     const order = ['required', 'optional', 'incompatible', 'embedded']
 
     return {
+      cosmetics,
       auth,
       tags,
       fileTypes: ref(fileTypes),

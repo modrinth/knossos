@@ -23,13 +23,6 @@
       <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
     <VersionFilterControl :versions="props.versions" @switch-page="switchPage" />
-    <Pagination
-      :page="currentPage"
-      :count="Math.ceil(filteredVersions.length / 20)"
-      class="pagination-before"
-      :link-function="(page) => `?page=${page}`"
-      @switch-page="switchPage"
-    />
     <div v-if="filteredVersions.length > 0" id="all-versions" class="universal-card all-versions">
       <div class="header">
         <div />

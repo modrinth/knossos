@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Modal ref="editLinksModal" header="Edit links">
+    <Modal
+      ref="editLinksModal"
+      header="Edit links"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="universal-modal links-modal">
         <p>
           Any links you specify below will be overwritten on each of the selected projects. Any you
@@ -146,7 +150,7 @@
         />
         <div class="push-right input-group">
           <button class="iconified-button" @click="$refs.editLinksModal.hide()">
-            <CrossIcon />
+            <XIcon />
             Cancel
           </button>
           <button class="iconified-button brand-button" @click="bulkEditLinks()">
@@ -196,8 +200,8 @@
               class="square-button"
               @click="updateDescending()"
             >
-              <DescendingIcon v-if="descending" />
-              <AscendingIcon v-else />
+              <SortDescendingIcon v-if="descending" />
+              <SortAscendingIcon v-else />
             </button>
           </div>
         </div>
@@ -295,45 +299,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
-
-import Badge from '~/components/ui/Badge.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Modal from '~/components/ui/Modal.vue'
-import Avatar from '~/components/ui/Avatar.vue'
+import {
+  Badge,
+  Checkbox,
+  Modal,
+  Avatar,
+  CopyCode,
+  SettingsIcon,
+  TrashIcon,
+  IssuesIcon,
+  PlusIcon,
+  XIcon,
+  EditIcon,
+  SaveIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
+} from 'omorphia'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
 
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
-import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
-
+const cosmetics = useCosmetics()
+</script>
+<script>
 export default defineNuxtComponent({
-  components: {
-    Avatar,
-    Badge,
-    SettingsIcon,
-    TrashIcon,
-    Checkbox,
-    IssuesIcon,
-    PlusIcon,
-    CrossIcon,
-    EditIcon,
-    SaveIcon,
-    Modal,
-    ModalCreation,
-    Multiselect,
-    CopyCode,
-    AscendingIcon,
-    DescendingIcon,
-  },
   async setup() {
     const user = await useUser()
     await initUserProjects()

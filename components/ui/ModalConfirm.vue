@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal" :header="title">
+  <Modal ref="modal" :header="title" :noblur="!$orElse(cosmetics.advancedRendering, true)">
     <div class="modal-delete">
       <div class="markdown-body" v-html="renderString(description)" />
       <label v-if="hasToType" for="confirmation" class="confirmation-label">
@@ -21,7 +21,7 @@
       </div>
       <div class="button-group">
         <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+          <XIcon />
           Cancel
         </button>
         <button class="iconified-button danger-button" :disabled="action_disabled" @click="proceed">
@@ -34,14 +34,12 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import Modal from '~/components/ui/Modal.vue'
+import { Modal, XIcon, TrashIcon } from 'omorphia'
 import { renderString } from '~/helpers/parse.js'
 
 export default {
   components: {
-    CrossIcon,
+    XIcon,
     TrashIcon,
     Modal,
   },
@@ -70,6 +68,12 @@ export default {
     },
   },
   emits: ['proceed'],
+  setup() {
+    const cosmetics = useCosmetics()
+    return {
+      cosmetics,
+    }
+  },
   data() {
     return {
       action_disabled: this.hasToType,
