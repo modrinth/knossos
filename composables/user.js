@@ -74,6 +74,19 @@ export const initUserProjects = async () => {
   }
 }
 
+export const initUserCollections = async () => {
+  const auth = (await useAuth()).value
+  const user = (await useUser()).value
+
+  if (auth.user && auth.user.id) {
+    try {
+      user.collections = await useBaseFetch(`user/${auth.user.id}/collections`)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const userFollowProject = async (project) => {
   const user = (await useUser()).value
 

@@ -220,12 +220,12 @@
               // },
               {
                 id: 'new-collection',
-                action: () => {},
+                action: () => $refs.newCollectionModal.show(),
               },
               { divider: true },
               {
                 id: 'new-organization',
-                action: () => {},
+                action: () => $refs.newOrganizationModal.show(),
               },
             ]"
           >
@@ -335,6 +335,8 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
+        <SimpleCreationModal v-if="auth.user" ref="newCollectionModal" type="collection" />
+        <SimpleCreationModal v-if="auth.user" ref="newOrganizationModal" type="organization" disallow-spaces />
         <section v-if="displayWarning" class="warning-banner universal-card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
@@ -488,6 +490,7 @@ import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const app = useNuxtApp()
 const auth = await useAuth()

@@ -49,11 +49,11 @@
             </div>
           </div>
         </div>
-        <div class="filter-row new-nav">
-          <span class="title"><FilterIcon /> Filter by</span>
-          <a :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</a>
+        <PageBar>
+          <span class="page-bar__title"><FilterIcon /> Filter by</span>
+          <a class="nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'">All</a>
           <template v-for="(filter, index) in filterOptions" :key="filter">
-            <a v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+            <a a class="nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
               <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
               <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
               <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
@@ -65,7 +65,7 @@
           </template>
           <OverflowMenu
               v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
-              class="link btn transparent"
+              class="link btn transparent nav-button"
               :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
                 (filter) => ({
                 'id': filter,
@@ -86,7 +86,7 @@
             <template #plugin> <ServerIcon /> Plugins </template>
             <template #modpack> <PackageIcon /> Modpacks </template>
           </OverflowMenu>
-        </div>
+        </PageBar>
       </div>
       <div class="normal-page__sidebar">
         <div class="universal-card">
@@ -124,7 +124,7 @@
           <div class="iconified-input">
             <SearchIcon />
             <input id="search-input" v-model="inputText" type="text" placeholder="Search for mods..." />
-            <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+            <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
               <XIcon />
             </Button>
           </div>
@@ -138,7 +138,8 @@
             v-for="project in projects.filter(
                   (x) =>
                     x.project_type === selectedFilter || selectedFilter === 'all'
-                )
+              )
+              .filter((x) => x.title.toLowerCase().includes(inputText.toLowerCase()))
               .slice()
               .sort((a, b) => b.downloads - a.downloads)"
             :id="project.slug || project.id"
@@ -209,6 +210,7 @@ import GlassesIcon from "assets/images/utils/glasses.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
 import FlameIcon from "assets/images/utils/flame.svg";
+import PageBar from "~/components/ui/PageBar.vue";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -546,41 +548,6 @@ export default defineNuxtComponent({
       font-size: var(--font-size-sm);
       margin: 0.2rem 0;
     }
-  }
-}
-
-.navigation-row {
-  margin-bottom: var(--gap-md);
-  display: flex;
-
-  .iconified-input,
-  :deep(.animated-dropdown) > .iconified-input {
-    flex-grow: 1;
-
-    input {
-      height: 3rem;
-      background-color: var(--color-raised-bg);
-      border: 1px solid var(--color-button-bg);
-    }
-  }
-
-  :deep(.animated-dropdown) {
-    width: 100%;
-
-    .option {
-      background-color: var(--color-raised-bg);
-    }
-
-    .options {
-      border-radius: 0 0 var(--radius-md) var(--radius-md);
-      border: 1px solid var(--color-button-bg);
-    }
-  }
-
-  :deep(.btn) {
-    height: 3rem;
-    margin-left: var(--gap-sm);
-    white-space: nowrap;
   }
 }
 

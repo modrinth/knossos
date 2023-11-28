@@ -2,23 +2,19 @@
 import {
   Avatar,
   Button,
-  Card,
   ShareIcon,
   BoxIcon,
   Promotion,
   EditIcon,
-  DropdownSelect,
   XIcon,
   SearchIcon,
   SaveIcon,
-  formatCategory,
-  ReportIcon, ReportModal, ShareModal,
+  ReportModal,
+  ShareModal,
   FilterIcon,
   OverflowMenu,
   BookmarkIcon,
-  CopyCode,
   MoreHorizontalIcon,
-  SortAscendingIcon,
   ServerIcon,
   ImageIcon,
   Modal,
@@ -27,6 +23,7 @@ import {
   PopoutMenu,
   FileInput
 } from 'omorphia'
+import PuzzleIcon from "~/assets/images/utils/puzzle.svg";
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import FlameIcon from "assets/images/utils/flame.svg";
 import HistoryIcon from "assets/images/utils/history.svg";
@@ -47,6 +44,12 @@ const editModal = ref(null)
 const collection = shallowRef(
   await useAsyncData(`collection/${route.params.id}`, () =>
     useBaseFetch(`collection/${route.params.id}`)
+  ).then((res) => res.data)
+)
+
+const creator = shallowRef(
+  await useAsyncData(`user/${collection.value.user}`, () =>
+    useBaseFetch(`user/${collection.value.user}`)
   ).then((res) => res.data)
 )
 
@@ -390,14 +393,8 @@ const results = shallowRef(toRaw(rawResults))
             </Button>
           </div>
           <div class="collection-info">
-            <Badge type="admin"/>
             <span>
-              <HistoryIcon />
-              Joined {{ new Date(collection.created).toLocaleDateString() }}
-            </span>
-            <span>
-              <BoxIcon />
-              {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
+              by <router-link :to="`/user/${creator.username}`">{{ creator.username }}</router-link>
             </span>
           </div>
           <div class="markdown-body collection-description">
@@ -650,16 +647,24 @@ const results = shallowRef(toRaw(rawResults))
 }
 
 .collection-info {
-  margin-top: var(--gap-sm);
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: var(--gap-md);
+  margin-bottom: var(--gap-sm);
 
   > * {
     display: flex;
     align-items: center;
     gap: var(--gap-xs);
+  }
+
+  a {
+    color: var(--color-blue);
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
