@@ -5,12 +5,8 @@
       You've been invited be a member of this project with the role of '{{ currentMember.role }}'.
     </p>
     <div class="input-group">
-      <button class="iconified-button brand-button" @click="acceptInvite()">
-        <CheckIcon />Accept
-      </button>
-      <button class="iconified-button danger-button" @click="declineInvite()">
-        <CrossIcon />Decline
-      </button>
+      <button class="btn btn-primary" @click="acceptInvite()"><CheckIcon />Accept</button>
+      <button class="btn btn-red" @click="declineInvite()"><CrossIcon />Decline</button>
     </div>
   </div>
   <div
@@ -46,7 +42,7 @@
       </div>
       <div class="input-group">
         <button
-          class="square-button"
+          class="btn icon-only"
           :class="{ 'not-collapsed': !collapsed }"
           @click="toggleCollapsed()"
         >
@@ -96,7 +92,7 @@
             </NuxtLink>
             <button
               v-else-if="nag.action"
-              class="iconified-button moderation-button"
+              class="btn btn-highlight"
               :disabled="nag.action.disabled()"
               @click="nag.action.onClick"
             >
@@ -111,14 +107,16 @@
 </template>
 
 <script>
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RequiredIcon from '~/assets/images/utils/asterisk.svg'
-import SuggestionIcon from '~/assets/images/utils/lightbulb.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
+import {
+  ChevronRightIcon,
+  DropdownIcon,
+  CheckIcon,
+  XIcon as CrossIcon,
+  AsteriskIcon as RequiredIcon,
+  LightBulbIcon as SuggestionIcon,
+  ScaleIcon as ModerationIcon,
+  SendIcon,
+} from 'omorphia'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 
 export default {

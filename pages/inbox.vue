@@ -66,13 +66,16 @@
   </div>
 </template>
 <script setup>
-import { Button, HistoryIcon } from 'omorphia'
+import {
+  Button,
+  HistoryIcon,
+  Chips,
+  Breadcrumbs,
+  RadioButtonIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  CheckCheckIcon,
+} from 'omorphia'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import Chips from '~/components/ui/Chips.vue'
-import CheckCheckIcon from '~/assets/images/utils/check-check.svg'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import RadioButtonCheckedIcon from 'assets/images/utils/radio-button-checked.svg'
-import RadioButtonIcon from 'assets/images/utils/radio-button.svg'
 
 useHead({
   title: 'Inbox - Modrinth',

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import Fuse from 'fuse.js/dist/fuse.basic'
-import RadioButtonIcon from '~/assets/images/utils/radio-button.svg'
-import RadioButtonCheckedIcon from '~/assets/images/utils/radio-button-checked.svg'
-import WarningIcon from '~/assets/images/utils/issues.svg'
+import {
+  RadioButtonIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  IssuesIcon as WarningIcon,
+} from 'omorphia'
 import { isModifierKeyDown } from '~/helpers/events.ts'
 
 const vintl = useVIntl()

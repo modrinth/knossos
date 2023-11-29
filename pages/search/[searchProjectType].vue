@@ -110,7 +110,7 @@
               :aria-label="`List`"
               class="btn icon-only"
               :class="{
-                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
+                'btn-brand-highlight': cosmetics.searchDisplayMode[projectType.id] === 'list',
               }"
               @click="setSearchDisplayMode('list')"
             >
@@ -121,7 +121,7 @@
               :aria-label="`Grid`"
               class="btn icon-only"
               :class="{
-                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
+                'btn-brand-highlight': cosmetics.searchDisplayMode[projectType.id] === 'grid',
               }"
               @click="setSearchDisplayMode('grid')"
             >
@@ -343,7 +343,7 @@
           @switch-page="onSearchChange"
         />
       </div>
-      <LogoAnimated v-if="searchLoading && !noLoad"></LogoAnimated>
+      <AnimatedLogo v-if="searchLoading && !noLoad" />
       <div
         v-else-if="
           results && results.hits && results.hits.length === 0 && (!searchLoading || noLoad)
@@ -393,6 +393,7 @@
             :show-updated-date="sortType !== 'newest'"
             :hide-loaders="['resourcepack', 'datapack'].includes(projectType.id)"
             :color="result.color"
+            :from-now="fromNow"
           />
         </div>
       </div>
@@ -418,9 +419,7 @@
   </div>
 </template>
 <script setup>
-import { Multiselect } from 'vue-multiselect'
 import {
-  EyeIcon,
   HeartIcon,
   DownloadIcon,
   UnknownIcon,
@@ -431,31 +430,26 @@ import {
   Button,
   DropdownSelect,
   XIcon,
-  SortAscendingIcon,
   MoreHorizontalIcon,
+  ProjectCard,
+  ListSelector,
+  Pagination,
+  SearchFilter,
+  AnimatedLogo,
+  SearchIcon,
+  GridIcon,
+  ListIcon,
+  HistoryIcon,
+  ScrollableMultiSelect,
+  PageBar,
 } from 'omorphia'
 import { formatCategory, formatCategoryHeader, formatProjectType } from '../../plugins/shorthands'
-import ListSelector from '~/components/ui/ListSelector.vue'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Pagination from '~/components/ui/Pagination.vue'
-import SearchFilter from '~/components/ui/search/SearchFilter.vue'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 import FrownIcon from '~/assets/images/utils/frown.svg'
-import SearchIcon from '~/assets/images/utils/search.svg'
-import FilterIcon from '~/assets/images/utils/filter.svg'
 import FilterXIcon from '~/assets/images/utils/filter-x.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import MinecraftIcon from 'assets/images/games/minecraft.svg'
-import FlameIcon from 'assets/images/utils/flame.svg'
-import HistoryIcon from 'assets/images/utils/history.svg'
 import TopIcon from 'assets/images/utils/arrow-big-up-dash.svg'
 import NewIcon from 'assets/images/utils/burst.svg'
-import ScrollableMultiSelect from '~/components/ui/ScrollableMultiSelect.vue'
 import GameBanner from '~/components/ui/GameBanner.vue'
-import PageBar from '~/components/ui/PageBar.vue'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl

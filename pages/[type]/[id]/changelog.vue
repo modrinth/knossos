@@ -42,7 +42,7 @@
             </div>
             <a
               :href="version.primaryFile.url"
-              class="iconified-button download"
+              class="btn download"
               :title="`Download ${version.name}`"
             >
               <DownloadIcon aria-hidden="true" />
@@ -67,10 +67,8 @@
   </div>
 </template>
 <script setup>
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { DownloadIcon, renderHighlightedString, Pagination } from 'omorphia'
 import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
-import Pagination from '~/components/ui/Pagination.vue'
 
 const props = defineProps({
   project: {

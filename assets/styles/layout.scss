@@ -8,17 +8,6 @@
   }
 }
 
-.rows {
-  display: flex;
-  flex-direction: column;
-
-  @for $i from 1 through 4 {
-    .row-grow-#{$i} {
-      flex-grow: $i;
-    }
-  }
-}
-
 .normal-page {
   display: grid;
 

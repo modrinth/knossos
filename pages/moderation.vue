@@ -25,13 +25,14 @@
   </div>
 </template>
 <script setup>
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
-
-import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import MessageIcon from '~/assets/images/utils/message.svg'
+import {
+  NavStack,
+  NavItem as NavStackItem,
+  ModrinthIcon,
+  ScaleIcon as ModerationIcon,
+  ReportIcon,
+  MessageIcon,
+} from 'omorphia'
 
 definePageMeta({
   middleware: 'auth',

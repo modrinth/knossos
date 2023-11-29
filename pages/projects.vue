@@ -32,7 +32,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.issues.clear"
               @click="editLinks.issues.clear = !editLinks.issues.clear"
             >
@@ -59,7 +59,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.source.clear"
               @click="editLinks.source.clear = !editLinks.source.clear"
             >
@@ -86,7 +86,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.wiki.clear"
               @click="editLinks.wiki.clear = !editLinks.wiki.clear"
             >
@@ -112,7 +112,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.discord.clear"
               @click="editLinks.discord.clear = !editLinks.discord.clear"
             >
@@ -149,11 +149,11 @@
           :collapsing-toggle-style="true"
         />
         <div class="push-right input-group">
-          <button class="iconified-button" @click="$refs.editLinksModal.hide()">
+          <button class="btn" @click="$refs.editLinksModal.hide()">
             <XIcon />
             Cancel
           </button>
-          <button class="iconified-button brand-button" @click="bulkEditLinks()">
+          <button class="btn btn-primary" @click="bulkEditLinks()">
             <SaveIcon />
             Save changes
           </button>
@@ -163,7 +163,7 @@
     <ModalCreation ref="modal_creation" />
     <h1>Projects</h1>
     <div class="input-group">
-      <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
+      <button class="btn btn-primary" @click="$refs.modal_creation.show()">
         <PlusIcon />
         Create a project
       </button>
@@ -175,7 +175,7 @@
       <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="input-group">
         <button
-          class="iconified-button"
+          class="btn"
           :disabled="selectedProjects.length === 0"
           @click="$refs.editLinksModal.show()"
         >
@@ -197,7 +197,7 @@
             />
             <button
               v-tooltip="descending ? 'Descending' : 'Ascending'"
-              class="square-button"
+              class="btn icon-only"
               @click="updateDescending()"
             >
               <SortDescendingIcon v-if="descending" />
@@ -285,7 +285,7 @@
 
           <div>
             <nuxt-link
-              class="square-button"
+              class="btn icon-only"
               :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }/settings`"

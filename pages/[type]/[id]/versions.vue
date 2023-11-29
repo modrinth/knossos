@@ -5,7 +5,7 @@
         :max-size="524288000"
         :accept="acceptFileFromProjectType(project.project_type)"
         prompt="Upload a version"
-        class="brand-button iconified-button"
+        class="btn-primary btn"
         @change="handleFiles"
       >
         <UploadIcon />
@@ -40,7 +40,7 @@
             version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
           "
           :href="version.primaryFile.url"
-          class="download-button square-button brand-button"
+          class="download-button btn icon-only btn-primary"
           :class="version.version_type"
           :aria-label="`Download ${version.name}`"
           @click.stop="(event) => event.stopPropagation()"
@@ -90,14 +90,16 @@
   </div>
 </template>
 <script setup>
+import {
+  DownloadIcon,
+  UploadIcon,
+  InfoIcon,
+  Badge as VersionBadge,
+  FileInput,
+  DropArea,
+  Pagination,
+} from 'omorphia'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
-import VersionBadge from '~/components/ui/Badge.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import Pagination from '~/components/ui/Pagination.vue'
 import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
 
 const props = defineProps({
@@ -144,11 +146,12 @@ useSeoMeta({
 })
 
 const route = useRoute()
-const currentPage = ref(Number(route.query.p ?? 1))
+const currentPage = ref(1)
+
 const filteredVersions = computed(() => {
-  const selectedGameVersions = getArrayOrString(route.query.g) ?? []
-  const selectedLoaders = getArrayOrString(route.query.l) ?? []
-  const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
+  const selectedGameVersions = getArrayOrString(route?.query?.g) ?? []
+  const selectedLoaders = getArrayOrString(route?.query?.l) ?? []
+  const selectedVersionTypes = getArrayOrString(route?.query?.c) ?? []
 
   return props.versions.filter(
     (projectVersion) =>

@@ -21,19 +21,17 @@
         Discover, play, and share Minecraft content through our open-source platform built for the
         community.
       </h2>
-      <div class="button-group">
-        <nuxt-link to="/mods" class="iconified-button brand-button"> Discover mods </nuxt-link>
+      <div class="input-group">
+        <nuxt-link to="/mods" class="btn btn-primary"> Discover mods </nuxt-link>
         <nuxt-link
           v-if="!auth.user"
           to="/auth/sign-up"
-          class="iconified-button outline-button"
+          class="btn outline-button"
           rel="noopener nofollow"
         >
           Sign up
         </nuxt-link>
-        <nuxt-link v-else to="/projects" class="iconified-button outline-button">
-          Your projects
-        </nuxt-link>
+        <nuxt-link v-else to="/projects" class="btn outline-button"> Your projects </nuxt-link>
       </div>
     </div>
     <div class="users-section-outer">
@@ -130,6 +128,7 @@
                   :search="true"
                   :show-updated-date="true"
                   :color="result.color"
+                  :from-now="fromNow"
                 />
               </div>
             </div>
@@ -496,7 +495,7 @@
         </h2>
         <a
           href="https://blog.modrinth.com/?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
         >
           Visit the blog
         </a>
@@ -506,13 +505,10 @@
 </template>
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import SearchIcon from '~/assets/images/utils/search.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import ModrinthIcon from '~/assets/images/logo.svg'
+import { ProjectCard, SearchIcon, CalendarIcon, ModrinthIcon, Avatar } from 'omorphia'
+
 import PrismLauncherLogo from '~/assets/images/external/prism.svg'
 import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
-import Avatar from '~/components/ui/Avatar.vue'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
 import homepageProjects from '~/generated/homepage.json'
 
 const searchQuery = ref('better')
@@ -572,7 +568,7 @@ const rows = shallowRef([
     max-width: 50rem;
   }
 
-  .button-group {
+  .input-group {
     width: fit-content;
     gap: 1.25rem;
     margin: 0 auto 5rem;
@@ -1193,7 +1189,7 @@ const rows = shallowRef([
   }
 }
 
-.iconified-button {
+.btn {
   font-weight: 600;
   min-height: 3rem;
 }

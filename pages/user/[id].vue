@@ -86,11 +86,7 @@
             ]"
           />
           <div class="input-group">
-            <NuxtLink
-              v-if="auth.user && auth.user.id === user.id"
-              class="iconified-button"
-              to="/projects"
-            >
+            <NuxtLink v-if="auth.user && auth.user.id === user.id" class="btn" to="/projects">
               <SettingsIcon />
               {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
@@ -101,7 +97,7 @@
               :aria-label="
                 formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
               "
-              class="square-button"
+              class="btn icon-only"
               @click="cycleSearchDisplayMode()"
             >
               <GridIcon v-if="cosmetics.searchDisplayMode.user === 'grid'" />
@@ -157,6 +153,7 @@
             "
             :type="project.project_type"
             :color="project.color"
+            :from-now="fromNow"
           />
         </div>
         <div v-else class="error">
@@ -185,29 +182,21 @@ import {
   HeartIcon,
   DownloadIcon,
   SunriseIcon,
+  ProjectCard,
+  Avatar,
+  NavRow,
+  SettingsIcon,
+  GridIcon,
+  ListIcon,
+  ImageIcon,
   formatNumber,
 } from 'omorphia'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
-import Badge10MDownloads from '~/assets/images/badges/downloads-10m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
-import Badge100MDownloads from '~/assets/images/badges/downloads-100m.svg'
-import BadgeEarlyDataPackAdopter from '~/assets/images/badges/early-datapack-adopters.svg'
-import BadgeEarlyModpackAdopter from '~/assets/images/badges/early-modpack-adopters.svg'
-import BadgeEarlyPluginAdopter from '~/assets/images/badges/early-plugin-adopters.svg'
-import BadgeEarlyResourcePackAdopter from '~/assets/images/badges/early-resourcepack-adopters.svg'
-import BadgeEarlyShadersAdopter from '~/assets/images/badges/early-shaders-adopters.svg'
-import BadgeModrinthModerator from '~/assets/images/badges/modrinth-moderator.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
 const data = useNuxtApp()
@@ -398,11 +387,6 @@ function cycleSearchDisplayMode() {
   )
   saveCosmetics()
 }
-</script>
-<script>
-export default defineNuxtComponent({
-  methods: {},
-})
 </script>
 
 <style lang="scss" scoped>

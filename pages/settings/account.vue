@@ -26,16 +26,11 @@
           :placeholder="`Enter your email address...`"
         />
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.changeEmailModal.hide()">
+          <button class="btn" @click="$refs.changeEmailModal.hide()">
             <XIcon />
             Cancel
           </button>
-          <button
-            type="button"
-            class="iconified-button brand-button"
-            :disabled="!email"
-            @click="saveEmail()"
-          >
+          <button type="button" class="btn btn-primary" :disabled="!email" @click="saveEmail()">
             <SaveIcon />
             Save email
           </button>
@@ -93,14 +88,14 @@
         </template>
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.managePasswordModal.hide()">
+          <button class="btn" @click="$refs.managePasswordModal.hide()">
             <XIcon />
             Cancel
           </button>
           <template v-if="removePasswordMode">
             <button
               type="button"
-              class="iconified-button danger-button"
+              class="btn btn-red"
               :disabled="!oldPassword"
               @click="savePassword"
             >
@@ -112,7 +107,7 @@
             <button
               v-if="auth.user.has_password && auth.user.auth_providers.length > 0"
               type="button"
-              class="iconified-button danger-button"
+              class="btn btn-red"
               @click="removePasswordMode = true"
             >
               <TrashIcon />
@@ -120,7 +115,7 @@
             </button>
             <button
               type="button"
-              class="iconified-button brand-button"
+              class="btn btn-primary"
               :disabled="
                 newPassword.length == 0 ||
                 oldPassword.length == 0 ||
@@ -157,11 +152,11 @@
           />
           <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           <div class="input-group push-right">
-            <button class="iconified-button" @click="$refs.manageTwoFactorModal.hide()">
+            <button class="btn" @click="$refs.manageTwoFactorModal.hide()">
               <XIcon />
               Cancel
             </button>
-            <button class="iconified-button danger-button" @click="removeTwoFactor">
+            <button class="btn btn-red" @click="removeTwoFactor">
               <TrashIcon />
               Remove 2FA
             </button>
@@ -220,13 +215,13 @@
             </ul>
           </template>
           <div class="input-group push-right">
-            <button v-if="twoFactorStep === 1" class="iconified-button" @click="twoFactorStep = 0">
+            <button v-if="twoFactorStep === 1" class="btn" @click="twoFactorStep = 0">
               <LeftArrowIcon />
               Back
             </button>
             <button
               v-if="twoFactorStep !== 2"
-              class="iconified-button"
+              class="btn"
               @click="$refs.manageTwoFactorModal.hide()"
             >
               <XIcon />
@@ -234,7 +229,7 @@
             </button>
             <button
               v-if="twoFactorStep <= 1"
-              class="iconified-button brand-button"
+              class="btn btn-primary"
               @click="twoFactorStep === 1 ? verifyTwoFactorCode() : (twoFactorStep = 1)"
             >
               <RightArrowIcon />
@@ -242,7 +237,7 @@
             </button>
             <button
               v-if="twoFactorStep === 2"
-              class="iconified-button brand-button"
+              class="btn btn-primary"
               @click="$refs.manageTwoFactorModal.hide()"
             >
               <CheckIcon />
@@ -283,7 +278,7 @@
         </div>
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.manageProvidersModal.hide()">
+          <button class="btn" @click="$refs.manageProvidersModal.hide()">
             <XIcon />
             Close
           </button>
@@ -293,7 +288,7 @@
     <section class="card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
-      <NuxtLink class="iconified-button" :to="`/user/${auth.user.username}`">
+      <NuxtLink class="btn" :to="`/user/${auth.user.username}`">
         <UserIcon /> Visit your profile
       </NuxtLink>
     </section>
@@ -307,7 +302,7 @@
           <span class="label__description">Changes the email associated with your account.</span>
         </label>
         <div>
-          <button class="iconified-button" @click="$refs.changeEmailModal.show()">
+          <button class="btn" @click="$refs.changeEmailModal.show()">
             <template v-if="auth.user.email">
               <EditIcon />
               Change email
@@ -332,7 +327,7 @@
         </label>
         <div>
           <button
-            class="iconified-button"
+            class="btn"
             @click="
               () => {
                 oldPassword = ''
@@ -357,7 +352,7 @@
           </span>
         </label>
         <div>
-          <button class="iconified-button" @click="showTwoFactorModal">
+          <button class="btn" @click="showTwoFactorModal">
             <template v-if="auth.user.has_totp"> <TrashIcon /> Remove 2FA </template>
             <template v-else> <PlusIcon /> Setup 2FA </template>
           </button>
@@ -372,7 +367,7 @@
           </span>
         </label>
         <div>
-          <button class="iconified-button" @click="$refs.manageProvidersModal.show()">
+          <button class="btn" @click="$refs.manageProvidersModal.show()">
             <SettingsIcon /> Manage providers
           </button>
         </div>
@@ -385,11 +380,7 @@
         Once you delete your account, there is no going back. Deleting your account will remove all
         attached data, excluding projects, from our servers.
       </p>
-      <button
-        type="button"
-        class="iconified-button danger-button"
-        @click="$refs.modal_confirm.show()"
-      >
+      <button type="button" class="btn btn-red" @click="$refs.modal_confirm.show()">
         <TrashIcon />
         Delete account
       </button>
@@ -412,15 +403,15 @@ import {
   ExternalIcon,
   Modal,
   ConfirmModal,
+  KeyIcon,
+  SSOGitHubIcon,
+  SSOGitLabIcon,
+  SSOMicrosoftIcon,
+  SSOSteamIcon,
+  SSOGoogleIcon,
+  SSODiscordIcon,
 } from 'omorphia'
 import QrcodeVue from 'qrcode.vue'
-import GitHubIcon from 'assets/icons/auth/sso-github.svg'
-import MicrosoftIcon from 'assets/icons/auth/sso-microsoft.svg'
-import GoogleIcon from 'assets/icons/auth/sso-google.svg'
-import SteamIcon from 'assets/icons/auth/sso-steam.svg'
-import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
-import KeyIcon from 'assets/icons/auth/key.svg'
-import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -575,32 +566,32 @@ const authProviders = [
   {
     id: 'github',
     display: 'GitHub',
-    icon: GitHubIcon,
+    icon: SSOGitHubIcon,
   },
   {
     id: 'gitlab',
     display: 'GitLab',
-    icon: GitLabIcon,
+    icon: SSOGitLabIcon,
   },
   {
     id: 'steam',
     display: 'Steam',
-    icon: SteamIcon,
+    icon: SSOSteamIcon,
   },
   {
     id: 'discord',
     display: 'Discord',
-    icon: DiscordIcon,
+    icon: SSODiscordIcon,
   },
   {
     id: 'microsoft',
     display: 'Microsoft',
-    icon: MicrosoftIcon,
+    icon: SSOMicrosoftIcon,
   },
   {
     id: 'google',
     display: 'Google',
-    icon: GoogleIcon,
+    icon: SSOGoogleIcon,
   },
 ]
 

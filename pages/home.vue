@@ -135,7 +135,7 @@
       </template>
       <div v-else class="universal-body">
         <p>You have no unread notifications.</p>
-        <nuxt-link class="iconified-button" to="/notifications">
+        <nuxt-link class="btn" to="/notifications">
           <HistoryIcon /> View notification history
         </nuxt-link>
       </div>
@@ -153,19 +153,19 @@ import {
   Button,
   XIcon,
   PopoutMenu,
+  ListIcon,
+  ChartIcon,
+  TransferIcon,
+  ChevronRightIcon,
+  HistoryIcon,
+  Avatar,
+  SearchIcon,
+  FilterIcon,
+  getUserLink,
+  Checkbox,
 } from 'omorphia'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import HistoryIcon from '~/assets/images/utils/history.svg'
-import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import SearchIcon from 'assets/images/utils/search.svg'
-import FilterIcon from 'assets/images/utils/filter.svg'
-import { getUserLink } from '~/helpers/users'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const auth = await useAuth()
 

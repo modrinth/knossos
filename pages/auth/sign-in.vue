@@ -23,27 +23,27 @@
 
       <section class="third-party">
         <a class="btn" :href="getAuthUrl('discord')">
-          <DiscordIcon />
+          <SSODiscordIcon />
           <span>Discord</span>
         </a>
         <a class="btn" :href="getAuthUrl('github')">
-          <GitHubIcon />
+          <SSOGitHubIcon />
           <span>GitHub</span>
         </a>
         <a class="btn" :href="getAuthUrl('microsoft')">
-          <MicrosoftIcon />
+          <SSOMicrosoftIcon />
           <span>Microsoft</span>
         </a>
         <a class="btn" :href="getAuthUrl('google')">
-          <GoogleIcon />
+          <SSOGoogleIcon />
           <span>Google</span>
         </a>
         <a class="btn" :href="getAuthUrl('steam')">
-          <SteamIcon />
+          <SSOSteamIcon />
           <span>Steam</span>
         </a>
         <a class="btn" :href="getAuthUrl('gitlab')">
-          <GitLabIcon />
+          <SSOGitLabIcon />
           <span>GitLab</span>
         </a>
       </section>
@@ -94,15 +94,17 @@
 </template>
 
 <script setup>
-import { RightArrowIcon } from 'omorphia'
-import GitHubIcon from 'assets/icons/auth/sso-github.svg'
-import MicrosoftIcon from 'assets/icons/auth/sso-microsoft.svg'
-import GoogleIcon from 'assets/icons/auth/sso-google.svg'
-import SteamIcon from 'assets/icons/auth/sso-steam.svg'
-import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
-import KeyIcon from 'assets/icons/auth/key.svg'
-import MailIcon from 'assets/icons/auth/mail.svg'
-import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
+import {
+  RightArrowIcon,
+  SSOGitHubIcon,
+  SSOMicrosoftIcon,
+  SSOGoogleIcon,
+  SSOSteamIcon,
+  SSOGitLabIcon,
+  SSODiscordIcon,
+  KeyIcon,
+  MailIcon,
+} from 'omorphia'
 
 useHead({
   title: 'Sign In - Modrinth',

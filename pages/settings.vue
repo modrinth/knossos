@@ -3,7 +3,7 @@
     <div class="settings-page__sidebar">
       <h1>Settings</h1>
       <div class="new-navbar">
-        <NuxtLink to="/settings"> <PaintbrushIcon /> Appearance </NuxtLink>
+        <NuxtLink to="/settings"> <PaintBrushIcon /> Appearance </NuxtLink>
         <NuxtLink to="/settings/language"> <LanguagesIcon /> Language </NuxtLink>
         <template v-if="auth.user">
           <span class="card-divider" />
@@ -43,13 +43,16 @@
   </div>
 </template>
 <script setup>
-import { Button, CodeIcon } from 'omorphia'
-import PaintbrushIcon from '~/assets/images/utils/paintbrush.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import CurrencyIcon from '~/assets/images/utils/currency.svg'
-import ShieldIcon from '~/assets/images/utils/shield.svg'
-import KeyIcon from '~/assets/images/utils/key.svg'
-import LanguagesIcon from '~/assets/images/utils/languages.svg'
+import {
+  Button,
+  CodeIcon,
+  PaintBrushIcon,
+  UserIcon,
+  CurrencyIcon,
+  ShieldIcon,
+  KeyIcon,
+  LanguagesIcon,
+} from 'omorphia'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
 
 const { formatMessage } = useVIntl()

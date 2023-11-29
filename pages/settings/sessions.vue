@@ -48,7 +48,7 @@
       </div>
       <div class="input-group">
         <i v-if="session.current">{{ formatMessage(messages.currentSessionLabel) }}</i>
-        <button v-else class="iconified-button raised-button" @click="revokeSession(session.id)">
+        <button v-else class="btn raised" @click="revokeSession(session.id)">
           <XIcon /> {{ formatMessage(messages.revokeSessionButton) }}
         </button>
       </div>

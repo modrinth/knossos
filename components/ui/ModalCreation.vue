@@ -54,11 +54,11 @@
         <textarea id="additional-information" v-model="description" maxlength="256" />
       </div>
       <div class="push-right input-group">
-        <button class="iconified-button" @click="cancel">
+        <button class="btn" @click="cancel">
           <XIcon />
           Cancel
         </button>
-        <button class="iconified-button brand-button" @click="createProject">
+        <button class="btn btn-primary" @click="createProject">
           <CheckIcon />
           Continue
         </button>

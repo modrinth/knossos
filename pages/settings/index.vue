@@ -82,8 +82,7 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
-import RadioButtonCheckedIcon from 'assets/images/utils/radio-button-checked.svg'
-import RadioButtonIcon from 'assets/images/utils/radio-button.svg'
+import { RadioButtonIcon, RadioButtonChecked as RadioButtonCheckedIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {

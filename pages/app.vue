@@ -1,13 +1,20 @@
 <script setup>
-import { TrashIcon, SearchIcon, BoxIcon, SendIcon, EditIcon, DownloadIcon } from 'omorphia'
-import Avatar from '~/components/ui/Avatar.vue'
+import {
+  TrashIcon,
+  SearchIcon,
+  BoxIcon,
+  SendIcon,
+  EditIcon,
+  DownloadIcon,
+  Avatar,
+  Badge,
+  AnimatedLogo,
+  Checkbox,
+} from 'omorphia'
 import homepageProjects from '~/generated/homepage.json'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
-import Badge from '~/components/ui/Badge.vue'
 import PrismIcon from '~/assets/images/external/prism.svg'
 import ATLauncher from '~/assets/images/external/atlauncher.svg'
 import CurseForge from '~/assets/images/external/curseforge.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const val = Math.ceil(homepageProjects.length / 6)
 const os = ref(null)
@@ -121,10 +128,10 @@ useSeoMeta({
         The Modrinth App is a unique, open source launcher that allows you to play your favorite
         mods, and keep them up to date, all in one neat little package.
       </h2>
-      <div class="button-group">
+      <div class="input-group push-right">
         <button
           v-if="os"
-          class="iconified-button brand-button btn btn-large"
+          class="btn btn-primary btn btn-large"
           rel="noopener nofollow"
           @click="downloadLauncher"
         >
@@ -180,7 +187,7 @@ useSeoMeta({
           </svg>
           Download the Modrinth App
         </button>
-        <button class="iconified-button outline-button btn btn-large" @click="scrollToSection">
+        <button class="btn outline-button btn btn-large" @click="scrollToSection">
           More Download Options
         </button>
       </div>
@@ -443,7 +450,7 @@ useSeoMeta({
               <div class="cell">
                 <div>
                   <div class="icon-logo modrinth">
-                    <LogoAnimated class="icon" />
+                    <AnimatedLogo class="icon" />
                   </div>
                 </div>
               </div>
@@ -967,7 +974,7 @@ useSeoMeta({
         </h2>
         <a
           href="https://blog.modrinth.com/?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
         >
           Visit the blog
         </a>
@@ -1005,7 +1012,7 @@ useSeoMeta({
     mask-image: none;
   }
 
-  .button-group {
+  .input-group {
     width: fit-content;
     margin: 0 auto;
     justify-content: center;

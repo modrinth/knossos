@@ -21,7 +21,7 @@
   </div>
 </template>
 <script setup>
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { Breadcrumbs } from 'omorphia'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import ReportInfo from '~/components/ui/report/ReportInfo.vue'
 import { addReportMessage } from '~/helpers/threads.js'

@@ -24,11 +24,7 @@
           I confirm that I have properly addressed the moderators' comments.
         </Checkbox>
         <div class="input-group push-right">
-          <button
-            class="iconified-button moderation-button"
-            :disabled="!submissionConfirmation"
-            @click="resubmit()"
-          >
+          <button class="btn btn-highlight" :disabled="!submissionConfirmation" @click="resubmit()">
             <ScaleIcon /> Resubmit for review
           </button>
         </div>
@@ -64,34 +60,21 @@
       <div class="input-group">
         <button
           v-if="sortedMessages.length > 0"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!replyBody"
           @click="sendReply()"
         >
           <ReplyIcon /> Reply
         </button>
-        <button
-          v-else
-          class="iconified-button brand-button"
-          :disabled="!replyBody"
-          @click="sendReply()"
-        >
+        <button v-else class="btn btn-primary" :disabled="!replyBody" @click="sendReply()">
           <SendIcon /> Send
         </button>
         <template v-if="currentMember && !isStaff(auth.user)">
           <template v-if="isRejected(project)">
-            <button
-              v-if="replyBody"
-              class="iconified-button moderation-button"
-              @click="openResubmitModal(true)"
-            >
+            <button v-if="replyBody" class="btn btn-highlight" @click="openResubmitModal(true)">
               <ScaleIcon /> Resubmit for review with reply
             </button>
-            <button
-              v-else
-              class="iconified-button moderation-button"
-              @click="openResubmitModal(false)"
-            >
+            <button v-else class="btn btn-highlight" @click="openResubmitModal(false)">
               <ScaleIcon /> Resubmit for review
             </button>
           </template>
@@ -100,14 +83,10 @@
         <div class="input-group extra-options">
           <template v-if="report">
             <template v-if="isStaff(auth.user)">
-              <button
-                v-if="replyBody"
-                class="iconified-button danger-button"
-                @click="closeReport(true)"
-              >
+              <button v-if="replyBody" class="btn btn-red" @click="closeReport(true)">
                 <CheckCircleIcon /> Close with reply
               </button>
-              <button v-else class="iconified-button danger-button" @click="closeReport()">
+              <button v-else class="btn btn-red" @click="closeReport()">
                 <CheckCircleIcon /> Close thread
               </button>
             </template>
@@ -116,7 +95,7 @@
             <template v-if="isStaff(auth.user)">
               <button
                 v-if="replyBody"
-                class="iconified-button brand-button"
+                class="btn btn-primary"
                 :disabled="isApproved(project)"
                 @click="sendReply(requestedStatus)"
               >
@@ -124,7 +103,7 @@
               </button>
               <button
                 v-else
-                class="iconified-button brand-button"
+                class="btn btn-primary"
                 :disabled="isApproved(project)"
                 @click="setStatus(requestedStatus)"
               >
@@ -132,7 +111,7 @@
               </button>
               <button
                 v-if="replyBody"
-                class="iconified-button moderation-button"
+                class="btn btn-highlight"
                 :disabled="project.status === 'withheld'"
                 @click="sendReply('withheld')"
               >
@@ -140,7 +119,7 @@
               </button>
               <button
                 v-else
-                class="iconified-button moderation-button"
+                class="btn btn-highlight"
                 :disabled="project.status === 'withheld'"
                 @click="setStatus('withheld')"
               >
@@ -148,7 +127,7 @@
               </button>
               <button
                 v-if="replyBody"
-                class="iconified-button danger-button"
+                class="btn btn-red"
                 :disabled="project.status === 'rejected'"
                 @click="sendReply('rejected')"
               >
@@ -156,7 +135,7 @@
               </button>
               <button
                 v-else
-                class="iconified-button danger-button"
+                class="btn btn-red"
                 :disabled="project.status === 'rejected'"
                 @click="setStatus('rejected')"
               >
@@ -183,12 +162,12 @@ import {
   CheckIcon,
   ScaleIcon,
   Checkbox,
+  isStaff,
+  renderString,
+  isApproved,
+  isRejected,
 } from 'omorphia'
-
-import { renderString } from '~/helpers/parse.js'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
-import { isStaff } from '~/helpers/users.js'
-import { isApproved, isRejected } from '~/helpers/projects.js'
 
 const props = defineProps({
   thread: {

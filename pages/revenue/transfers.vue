@@ -31,8 +31,7 @@
   </div>
 </template>
 <script setup>
-import Badge from '~/components/ui/Badge.vue'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { Badge, Breadcrumbs } from 'omorphia'
 
 useHead({
   title: 'Transfer history - Modrinth',

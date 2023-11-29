@@ -5,6 +5,7 @@
       title="Are you sure you want to delete this token?"
       description="This will remove this token forever (like really forever)."
       proceed-label="Delete this token"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="removePat(deletePatIndex)"
     />
     <Modal
@@ -41,7 +42,7 @@
         <input id="pat-name" v-model="expires" type="date" />
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.patModal.hide()">
+          <button class="btn" @click="$refs.patModal.hide()">
             <XIcon />
             Cancel
           </button>
@@ -49,7 +50,7 @@
             v-if="editPatIndex !== null"
             :disabled="loading || !name || !expires"
             type="button"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="editPat"
           >
             <SaveIcon />
@@ -59,7 +60,7 @@
             v-else
             :disabled="loading || !name || !expires"
             type="button"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="createPat"
           >
             <PlusIcon />
@@ -127,7 +128,7 @@
       </div>
       <div class="input-group">
         <button
-          class="iconified-button raised-button"
+          class="btn raised"
           @click="
             () => {
               editPatIndex = index
@@ -141,7 +142,7 @@
           <EditIcon /> Edit token
         </button>
         <button
-          class="iconified-button raised-button"
+          class="btn raised"
           @click="
             () => {
               deletePatIndex = pat.id
@@ -165,8 +166,8 @@ import {
   EditIcon,
   SaveIcon,
   ConfirmModal,
+  CopyCode,
 } from 'omorphia'
-import CopyCode from '~/components/ui/CopyCode.vue'
 
 const cosmetics = useCosmetics()
 

@@ -53,12 +53,12 @@
         </div>
         <div v-else class="preview" v-html="renderString(body)" />
       </div>
-      <div class="button-group">
-        <button class="iconified-button" @click="cancel">
+      <div class="input-group push-right">
+        <button class="btn" @click="cancel">
           <XIcon />
           Cancel
         </button>
-        <button class="iconified-button brand-button" @click="submitReport">
+        <button class="btn btn-primary" @click="submitReport">
           <CheckIcon />
           Report
         </button>
@@ -69,8 +69,7 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
-import { XIcon, CheckIcon, Modal, Chips } from 'omorphia'
-import { renderString } from '~/helpers/parse.js'
+import { XIcon, CheckIcon, Modal, Chips, renderString } from 'omorphia'
 
 export default {
   components: {

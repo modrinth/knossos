@@ -3,9 +3,7 @@
     <section v-if="enrolled" class="card">
       <h2>Revenue and metrics</h2>
       <p>View your revenue and metrics in the creator dashboard:</p>
-      <NuxtLink class="iconified-button" to="/revenue">
-        <ChartIcon /> Visit creator dashboard
-      </NuxtLink>
+      <NuxtLink class="btn" to="/revenue"> <ChartIcon /> Visit creator dashboard </NuxtLink>
     </section>
     <section class="card">
       <h2 class="title">Enrollment</h2>
@@ -14,7 +12,7 @@
           You are not currently enrolled in Modrinth's Creator Monetization Program. In order to
           enroll, you must first add a valid email address to your account.
         </p>
-        <NuxtLink class="iconified-button" to="/settings/account">
+        <NuxtLink class="btn" to="/settings/account">
           <SettingsIcon /> Visit account settings
         </NuxtLink>
       </template>
@@ -70,18 +68,10 @@
             </Checkbox>
           </div>
           <div class="input-group">
-            <button
-              :disabled="!agreed"
-              class="iconified-button brand-button"
-              @click="updatePayoutData(false)"
-            >
+            <button :disabled="!agreed" class="btn btn-primary" @click="updatePayoutData(false)">
               <SaveIcon /> Save information
             </button>
-            <button
-              v-if="enrolled"
-              class="iconified-button danger-button"
-              @click="updatePayoutData(true)"
-            >
+            <button v-if="enrolled" class="btn btn-red" @click="updatePayoutData(true)">
               <TrashIcon /> Remove enrollment
             </button>
           </div>
@@ -92,7 +82,7 @@
           You are currently enrolled in the Creator Monetization Program with a
           {{ $formatWallet(selectedWallet) }} account.
         </p>
-        <button class="iconified-button brand-button" @click="editing = true">
+        <button class="btn btn-primary" @click="editing = true">
           <EditIcon /> Edit information
         </button>
       </template>
@@ -101,14 +91,8 @@
 </template>
 
 <script>
-import { Checkbox } from 'omorphia'
+import { Checkbox, Chips, SaveIcon, TrashIcon, EditIcon, ChartIcon, SettingsIcon } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
-import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
 
 export default defineNuxtComponent({
   components: {

@@ -50,9 +50,9 @@ import {
   ShieldIcon,
   CurrencyIcon,
   CopyrightIcon,
+  NavStack,
+  NavItem as NavStackItem,
 } from 'omorphia'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
 
 const route = useRoute()
 </script>

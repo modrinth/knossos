@@ -87,7 +87,7 @@
       <div class="input-stack">
         <button
           type="button"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!hasChanges || license === null"
           @click="saveChanges()"
         >
@@ -100,9 +100,8 @@
 </template>
 
 <script>
+import { Checkbox, SaveIcon } from 'omorphia'
 import Multiselect from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox'
-import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default defineNuxtComponent({
   components: {

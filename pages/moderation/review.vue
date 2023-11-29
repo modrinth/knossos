@@ -10,11 +10,11 @@
       :items="projectTypes"
       :format-label="(x) => (x === 'all' ? 'All' : $formatProjectType(x) + 's')"
     />
-    <button v-if="oldestFirst" class="iconified-button push-right" @click="oldestFirst = false">
-      <SortDescIcon />Sorting by oldest
+    <button v-if="oldestFirst" class="btn push-right" @click="oldestFirst = false">
+      <SortDescendingIcon />Sorting by oldest
     </button>
-    <button v-else class="iconified-button push-right" @click="oldestFirst = true">
-      <SortAscIcon />Sorting by newest
+    <button v-else class="btn push-right" @click="oldestFirst = true">
+      <SortAscendingIcon />Sorting by newest
     </button>
   </div>
   <p v-if="projectType !== 'all'" class="project-count">
@@ -23,11 +23,11 @@
   </p>
   <p v-else class="project-count">There are {{ projects.length }} projects in the queue.</p>
   <p v-if="projectsOver24Hours.length > 0" class="warning project-count">
-    <WarningIcon /> {{ projectsOver24Hours.length }} {{ projectTypePlural }}
+    <IssuesIcon /> {{ projectsOver24Hours.length }} {{ projectTypePlural }}
     have been in the queue for over 24 hours.
   </p>
   <p v-if="projectsOver48Hours.length > 0" class="danger project-count">
-    <WarningIcon /> {{ projectsOver48Hours.length }} {{ projectTypePlural }}
+    <IssuesIcon /> {{ projectsOver48Hours.length }} {{ projectTypePlural }}
     have been in the queue for over 48 hours.
   </p>
   <div
@@ -67,12 +67,12 @@
       </div>
     </div>
     <div class="input-group">
-      <nuxt-link :to="`/${project.inferred_project_type}/${project.slug}`" class="iconified-button"
+      <nuxt-link :to="`/${project.inferred_project_type}/${project.slug}`" class="btn"
         ><EyeIcon /> View project</nuxt-link
       >
     </div>
     <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
-      <WarningIcon v-if="project.age_warning" />
+      <IssuesIcon v-if="project.age_warning" />
       Submitted
       <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
         fromNow(project.queued)
@@ -82,16 +82,18 @@
   </div>
 </template>
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import UnknownIcon from '~/assets/images/utils/unknown.svg'
-import EyeIcon from '~/assets/images/utils/eye.svg'
-import SortAscIcon from '~/assets/images/utils/sort-asc.svg'
-import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
-import WarningIcon from '~/assets/images/utils/issues.svg'
-import Badge from '~/components/ui/Badge.vue'
-import { formatProjectType } from '~/plugins/shorthands.js'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import {
+  Avatar,
+  Chips,
+  UnknownIcon,
+  EyeIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  IssuesIcon,
+  Badge,
+  Breadcrumbs,
+  formatProjectType,
+} from 'omorphia'
 
 useHead({
   title: 'Review projects - Modrinth',

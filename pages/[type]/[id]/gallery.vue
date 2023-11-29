@@ -13,7 +13,7 @@
             <strong>{{ editFile ? editFile.name : 'Current image' }}</strong>
             <FileInput
               v-if="editIndex === -1"
-              class="iconified-button raised-button"
+              class="btn raised"
               prompt="Replace"
               :accept="acceptFileTypes"
               :max-size="524288000"
@@ -79,29 +79,24 @@
         <button
           v-if="!editFeatured"
           id="gallery-image-featured"
-          class="iconified-button"
+          class="btn"
           @click="editFeatured = true"
         >
           <StarIcon aria-hidden="true" />
           Feature image
         </button>
-        <button
-          v-else
-          id="gallery-image-featured"
-          class="iconified-button"
-          @click="editFeatured = false"
-        >
+        <button v-else id="gallery-image-featured" class="btn" @click="editFeatured = false">
           <StarIcon fill="currentColor" aria-hidden="true" />
           Unfeature image
         </button>
-        <div class="button-group">
-          <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
+        <div class="input-group push-right">
+          <button class="btn" @click="$refs.modal_edit_item.hide()">
             <XIcon />
             Cancel
           </button>
           <button
             v-if="editIndex === -1"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="shouldPreventActions"
             @click="createGalleryItem"
           >
@@ -110,7 +105,7 @@
           </button>
           <button
             v-else
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="shouldPreventActions"
             @click="editGalleryItem"
           >
@@ -201,7 +196,7 @@
         :max-size="524288000"
         :accept="acceptFileTypes"
         prompt="Upload an image"
-        class="brand-button iconified-button"
+        class="btn-primary btn"
         @change="handleFiles"
       >
         <UploadIcon />
@@ -236,7 +231,7 @@
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
-              class="iconified-button"
+              class="btn"
               @click="
                 () => {
                   resetEdit()
@@ -253,7 +248,7 @@
               Edit
             </button>
             <button
-              class="iconified-button"
+              class="btn"
               @click="
                 () => {
                   deleteIndex = index
@@ -776,7 +771,7 @@ export default defineNuxtComponent({
         word-wrap: anywhere;
       }
 
-      .iconified-button {
+      .btn {
         margin-left: auto;
       }
     }

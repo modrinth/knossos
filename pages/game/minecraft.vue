@@ -60,10 +60,15 @@
   </div>
 </template>
 <script setup>
-import { Button, ChevronRightIcon, PopoutMenu, XIcon } from 'omorphia'
-import Avatar from '~/components/ui/Avatar.vue'
-import SearchIcon from 'assets/images/utils/search.svg'
-import FilterIcon from 'assets/images/utils/filter.svg'
+import {
+  Button,
+  ChevronRightIcon,
+  PopoutMenu,
+  XIcon,
+  Avatar,
+  SearchIcon,
+  FilterIcon,
+} from 'omorphia'
 import GameBanner from '~/components/ui/GameBanner.vue'
 
 const rawProjects = await useBaseFetch(`search?limit=100`, {

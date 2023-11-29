@@ -13,7 +13,7 @@
               v-for="navRoute in navRoutes"
               :key="navRoute.href"
               :to="navRoute.href"
-              class="iconified-button"
+              class="btn"
             >
               {{ navRoute.label }}
             </NuxtLink>
@@ -29,7 +29,7 @@
             <NuxtLink
               v-if="auth.user"
               :to="`/user/${auth.user.username}`"
-              class="iconified-button account-button"
+              class="btn account-button"
             >
               <Avatar
                 v-if="false"
@@ -38,44 +38,45 @@
                 alt="Your avatar"
                 aria-hidden="true"
                 circle
+                :size="'none'"
               />
               <div class="account-text">
                 <div>@{{ auth.user.username }}</div>
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
+            <nuxt-link v-else class="btn btn-primary" to="/auth/sign-in">
               <LogInIcon /> Sign in
             </nuxt-link>
           </div>
           <div class="links">
             <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logoutUser()">
+              <button class="btn btn-red" @click="logoutUser()">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
-              <button class="iconified-button" @click="$refs.modal_creation.show()">
+              <button class="btn" @click="$refs.modal_creation.show()">
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="iconified-button" to="/follows">
+              <NuxtLink class="btn" to="/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
               <NuxtLink
                 v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
-                class="iconified-button"
+                class="btn"
                 to="/moderation"
               >
                 <ModerationIcon aria-hidden="true" />
                 Moderation
               </NuxtLink>
             </template>
-            <NuxtLink class="iconified-button" to="/settings">
+            <NuxtLink class="btn" to="/settings">
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" @click="changeTheme($colorMode.value)">
+            <button class="btn" @click="changeTheme($colorMode.value)">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -106,7 +107,7 @@
               class="tab button-animation"
               :class="{
                 bubble: user.notifications.some((notif) => !notif.read),
-                'no-active': isMobileMenuOpen || isBrowseMenuOpen,
+                'no-active': mobileUserOpen || mobileBrowseOpen,
               }"
               title="Notifications"
               @click="
@@ -140,6 +141,7 @@
                 alt="Your avatar"
                 aria-hidden="true"
                 circle
+                :size="'none'"
               />
             </template>
           </button>
@@ -150,7 +152,7 @@
       <nav>
         <div class="navbar-brand">
           <NuxtLink to="/" class="button-base logo-button" aria-label="Modrinth home page">
-            <BrandTextLogo aria-hidden="true" />
+            <TextLogo :animate="loading" aria-hidden="true" />
           </NuxtLink>
         </div>
         <div class="navbar-links">
@@ -283,6 +285,7 @@
               alt="Your avatar"
               aria-hidden="true"
               circle
+              size="none"
             />
             {{ auth.user.username }}
             <DropdownIcon />
@@ -336,7 +339,8 @@
       </main>
       <footer>
         <div class="logo-info" role="region" aria-label="Modrinth information">
-          <BrandTextLogo
+          <TextLogo
+            :animate="loading"
             aria-hidden="true"
             class="text-logo button-base"
             @click="developerModeIncrement()"
@@ -402,12 +406,12 @@
             <DownloadIcon aria-hidden="true" />
             Get Modrinth App
           </nuxt-link>
-          <button class="iconified-button raised-button" @click="changeTheme($colorMode.value)">
+          <button class="btn raised" @click="changeTheme($colorMode.value)">
             <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
             <SunIcon v-else aria-hidden="true" />
             Change theme
           </button>
-          <nuxt-link class="iconified-button raised-button" to="/settings">
+          <nuxt-link class="btn raised" to="/settings">
             <SettingsIcon aria-hidden="true" />
             Settings
           </nuxt-link>
@@ -429,36 +433,37 @@ import {
   DropdownIcon,
   OverflowMenu,
   PopoutMenu,
+  HamburgerIcon,
+  XIcon as CrossIcon,
+  SearchIcon,
+  BellIcon as NotificationIcon,
+  SettingsIcon,
+  ScaleIcon as ModerationIcon,
+  ModrinthIcon,
+  MoonIcon,
+  SunIcon,
+  PlusIcon,
+  LogOutIcon,
+  ReportIcon,
+  BookmarkIcon,
+  HeartIcon,
+  ChartIcon,
+  ListIcon,
+  UserIcon,
+  IssuesIcon,
+  Avatar,
+  TextLogo,
 } from 'omorphia'
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SearchIcon from '~/assets/images/utils/search.svg'
-
-import NotificationIcon from '~/assets/images/utils/bell.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
-import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
-
-import MoonIcon from '~/assets/images/utils/moon.svg'
-import SunIcon from '~/assets/images/utils/sun.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import LogOutIcon from '~/assets/images/utils/log-out.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
 import PackageIcon from '~/assets/images/utils/package-open.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
 import BracesIcon from '~/assets/images/utils/braces.svg'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 import CollectionIcon from '~/assets/images/utils/collection.svg'
 import BoxImportIcon from '~/assets/images/utils/box-import.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Avatar from '~/components/ui/Avatar.vue'
+
+const loading = useLoading()
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -715,8 +720,7 @@ export default defineNuxtComponent({
     }
 
     .user-avatar {
-      width: 1.5rem;
-      height: 1.5rem;
+      --size: 1.5rem !important;
     }
 
     .logo-heading {
@@ -724,7 +728,7 @@ export default defineNuxtComponent({
       flex-direction: row;
       align-items: center;
 
-      .square-button {
+      .icon-only {
         margin-left: auto;
       }
     }
@@ -743,7 +747,7 @@ export default defineNuxtComponent({
       color: var(--color);
       font-weight: 600;
 
-      &:not(.square-button) svg {
+      &:not(.icon-only) svg {
         color: var(--color-text-secondary);
       }
 
@@ -757,7 +761,7 @@ export default defineNuxtComponent({
         color: var(--color-brand);
         background-color: var(--color-brand-highlight);
 
-        &:not(.square-button) svg {
+        &:not(.icon-only) svg {
           color: var(--color);
         }
       }
@@ -781,7 +785,7 @@ export default defineNuxtComponent({
         margin-top: var(--gap-xs);
         text-align: unset;
 
-        &:not(.square-button) {
+        &:not(.icon-only) {
           width: 100%;
         }
       }
@@ -891,7 +895,7 @@ export default defineNuxtComponent({
         justify-content: center;
         padding: 1rem;
 
-        .iconified-button {
+        .btn {
           width: 100%;
           max-width: 500px;
           padding: 0.75rem;
@@ -930,8 +934,7 @@ export default defineNuxtComponent({
             gap: 0.5rem;
 
             .user-icon {
-              width: 2.25rem;
-              height: 2.25rem;
+              --size: 2.25rem;
             }
 
             .account-text {
@@ -1020,8 +1023,7 @@ export default defineNuxtComponent({
         }
 
         .user-icon {
-          width: 2rem;
-          height: 2rem;
+          --size: 2rem;
           transition: border ease-in-out 0.15s;
           border: 0 solid var(--color-brand);
           box-sizing: border-box;

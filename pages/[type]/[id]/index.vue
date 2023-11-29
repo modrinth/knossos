@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { renderHighlightedString } from 'omorphia'
 
 export default defineNuxtComponent({
   props: {

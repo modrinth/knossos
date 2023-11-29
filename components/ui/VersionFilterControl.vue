@@ -67,7 +67,7 @@
     <button
       title="Clear filters"
       :disabled="selectedLoaders.length === 0 && selectedGameVersions.length === 0"
-      class="iconified-button"
+      class="btn"
       @click="
         () => {
           selectedLoaders = []
@@ -85,8 +85,7 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import ClearIcon from '~/assets/images/utils/clear.svg'
+import { Checkbox, ClearIcon } from 'omorphia'
 
 const props = defineProps({
   versions: {
@@ -123,11 +122,11 @@ const gameVersionFilters = shallowRef(
   tags.value.gameVersions.filter((gameVer) => tempVersions.includes(gameVer.version))
 )
 const versionTypeFilters = shallowRef(Array.from(tempReleaseChannels))
-const includeSnapshots = ref(route.query.s === 'true')
+const includeSnapshots = ref(route?.query?.s === 'true')
 
-const selectedGameVersions = shallowRef(getArrayOrString(route.query.g) ?? [])
-const selectedLoaders = shallowRef(getArrayOrString(route.query.l) ?? [])
-const selectedVersionTypes = shallowRef(getArrayOrString(route.query.c) ?? [])
+const selectedGameVersions = shallowRef(getArrayOrString(route?.query?.g) ?? [])
+const selectedLoaders = shallowRef(getArrayOrString(route?.query?.l) ?? [])
+const selectedVersionTypes = shallowRef(getArrayOrString(route?.query?.c) ?? [])
 
 async function updateQuery() {
   const router = useRouter()
@@ -135,7 +134,7 @@ async function updateQuery() {
 
   await router.replace({
     query: {
-      ...route.query,
+      ...route?.query,
       l: selectedLoaders.value.length === 0 ? undefined : selectedLoaders.value,
       g: selectedGameVersions.value.length === 0 ? undefined : selectedGameVersions.value,
       c: selectedVersionTypes.value.length === 0 ? undefined : selectedVersionTypes.value,

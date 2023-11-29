@@ -55,16 +55,16 @@
           {{ amount }} is not a valid amount</span
         >
       </div>
-      <div class="button-group">
-        <NuxtLink class="iconified-button" to="/settings/monetization">
+      <div class="input-group push-right">
+        <NuxtLink class="btn" to="/settings/monetization">
           <SettingsIcon /> Monetization settings
         </NuxtLink>
-        <button class="iconified-button" @click="cancel">
+        <button class="btn" @click="cancel">
           <XIcon />
           Cancel
         </button>
         <button
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!consentedFee || !consentedAccount"
           @click="proceed"
         >
@@ -77,8 +77,7 @@
 </template>
 
 <script>
-import { SettingsIcon, TransferIcon, XIcon, Modal } from 'omorphia'
-import Checkbox from '~/components/ui/Checkbox.vue'
+import { SettingsIcon, TransferIcon, XIcon, Modal, Checkbox } from 'omorphia'
 
 export default {
   components: {
