@@ -39,47 +39,38 @@
           </div>
         </div>
       </div>
-      <div class="grid-table universal-card">
-        <div class="grid-table__row grid-table__header">
-          <div>Icon</div>
-          <div>Name</div>
-          <div>Projects</div>
-          <div />
-        </div>
-        <div
+      <div class="collections">
+        <Card
           v-for="collection in collections"
           :key="`collection-${collection.id}`"
-          class="grid-table__row"
+          class="collection-card button-base"
+          @click="$router.push(`/collection/${collection.id}`)"
         >
-          <div>
-            <nuxt-link tabindex="-1" :to="`/collection/${collection.id}`">
-              <Avatar
-                :src="collection.icon_url"
-                aria-hidden="true"
-                :alt="'Icon for ' + collection.title"
-                no-shadow
-              />
-            </nuxt-link>
-          </div>
-
-          <div>
-            <span class="project-title">
-              <nuxt-link class="hover-link wrap-as-needed" :to="`/collection/${collection.id}`">
+          <Avatar
+            :src="collection.icon_url"
+            aria-hidden="true"
+            :alt="'Icon for ' + collection.title"
+            size="lg"
+            no-shadow
+          />
+          <div class="text">
+            <label>
+              <span class="label__title">
                 {{ collection.title }}
-              </nuxt-link>
-            </span>
+              </span>
+              <span class="label__description">
+                {{ collection.description }}
+              </span>
+            </label>
+            <div class="stats">
+              <span>
+                <BoxIcon />
+                {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
+              </span>
+              <Badge :type="collection.status" />
+            </div>
           </div>
-
-          <div class="projects">
-            {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
-          </div>
-
-          <div>
-            <nuxt-link class="square-button" :to="`/collection/${collection.id}`">
-              <SettingsIcon />
-            </nuxt-link>
-          </div>
-        </div>
+        </Card>
       </div>
     </template>
   </div>
@@ -89,17 +80,10 @@
 import { Multiselect } from 'vue-multiselect'
 import {
   Badge,
-  Checkbox,
-  Modal,
   Avatar,
-  CopyCode,
-  SettingsIcon,
-  TrashIcon,
-  IssuesIcon,
   PlusIcon,
-  XIcon,
-  EditIcon,
-  SaveIcon,
+  BoxIcon,
+  Card
 } from 'omorphia'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
@@ -346,6 +330,41 @@ h1 {
     border-radius: var(--radius-sm);
     width: 3rem;
     height: 3rem;
+  }
+}
+
+.collections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: var(--gap-md);
+  margin-top: var(--spacing-card-md);
+}
+
+.collection-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--gap-md);
+  gap: var(--gap-md);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  .stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--gap-md);
+    line-height: 1.2em;
+
+    span {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--gap-xs);
+    }
   }
 }
 </style>

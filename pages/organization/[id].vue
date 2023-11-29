@@ -31,6 +31,7 @@ import GlassesIcon from "assets/images/utils/glasses.svg";
 import FlameIcon from "assets/images/utils/flame.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
+import PageBar from "~/components/ui/PageBar.vue";
 
 const auth = await useAuth()
 const data = useNuxtApp()
@@ -203,8 +204,69 @@ if (
       'Other',
     ]"
   />
-  <div v-if="organization && $route.name.startsWith('organization-id-settings')" class="settings-page">
-    <div class="settings-page__sidebar">
+  <div v-if="organization" class="normal-page">
+    <div class="organization-header">
+      <div class="banner-img">
+        <div class="banner-content">
+          <Avatar
+              :src="organization.icon_url"
+              size="lg"
+              :alt="organization.title"
+          />
+          <div class="user-text">
+            <div class="title">
+              <h2 class="username">
+                {{ organization.title }}
+              </h2>
+            </div>
+            <div class="markdown-body">
+              <p>
+                {{ organization.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <PageBar>
+        <span class="page-bar__title"><FilterIcon /> Filter by</span>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</div>
+        <template v-for="(filter, index) in filterOptions" :key="filter">
+          <div class="nav-button button-base" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+            <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
+            <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
+            <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
+            <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
+            <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
+            <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
+            <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+          </div>
+        </template>
+        <OverflowMenu
+            v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
+            class="nav-button button-base"
+            :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
+                  (filter) => ({
+                  'id': filter,
+                  'action': () => {
+                    selectedFilter = filter
+                  },
+                })
+              )"
+            position="right"
+            direction="down"
+        >
+          <MoreHorizontalIcon/>
+          <template #mod> <BoxIcon /> Mods </template>
+          <template #datapack> <BracesIcon /> Data Packs </template>
+          <template #resourcepack> <ImageIcon /> Resource Packs </template>
+          <template #shader> <GlassesIcon /> Shaders </template>
+          <template #world> <WorldIcon /> Worlds </template>
+          <template #plugin> <ServerIcon /> Plugins </template>
+          <template #modpack> <PackageIcon /> Modpacks </template>
+        </OverflowMenu>
+      </PageBar>
+    </div>
+    <div class="settings-page__sidebar" v-if="$route.name.startsWith('organization-id-settings')">
       <div class="settings-page__header">
         <Breadcrumbs
           current-title="Settings"
@@ -243,79 +305,6 @@ if (
         <NuxtLink :to="`/organization/${organization.title}/settings/analytics`">
           <ChartIcon /> Analytics
         </NuxtLink>
-      </div>
-    </div>
-    <div class="settings-page__content">
-      <NuxtPage
-        v-model:organization="organization"
-        v-model:projects="projects"
-        :patch-organization="patchOrganization"
-        :patch-icon="patchIcon"
-        :delete-icon="deleteIcon"
-        :current-member="currentMember"
-      />
-    </div>
-  </div>
-  <div v-else-if="organization" class="normal-page">
-    <div class="organization-header">
-      <div class="banner-img">
-        <div class="banner-content">
-          <Avatar
-              :src="organization.icon_url"
-              size="lg"
-              :alt="organization.title"
-          />
-          <div class="user-text">
-            <div class="title">
-              <h2 class="username">
-                {{ organization.title }}
-              </h2>
-            </div>
-            <div class="markdown-body">
-              <p>
-                {{ organization.description }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="filter-row new-nav">
-        <span class="title"><FilterIcon /> Filter by</span>
-        <a :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</a>
-        <template v-for="(filter, index) in filterOptions" :key="filter">
-          <a v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
-            <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
-            <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
-            <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
-            <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
-            <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
-            <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
-            <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
-          </a>
-        </template>
-        <OverflowMenu
-            v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
-            class="link btn transparent"
-            :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
-                  (filter) => ({
-                  'id': filter,
-                  'action': () => {
-                    selectedFilter = filter
-                  },
-                })
-              )"
-            position="right"
-            direction="down"
-        >
-          <MoreHorizontalIcon/>
-          <template #mod> <BoxIcon /> Mods </template>
-          <template #datapack> <BracesIcon /> Data Packs </template>
-          <template #resourcepack> <ImageIcon /> Resource Packs </template>
-          <template #shader> <GlassesIcon /> Shaders </template>
-          <template #world> <WorldIcon /> Worlds </template>
-          <template #plugin> <ServerIcon /> Plugins </template>
-          <template #modpack> <PackageIcon /> Modpacks </template>
-        </OverflowMenu>
       </div>
     </div>
     <NuxtPage v-model:organization="organization" v-model:projects="projects" v-model:typeFilter="selectedFilter"/>

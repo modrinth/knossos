@@ -7,7 +7,8 @@ import {
   formatNumber,
   Modal,
   HistoryIcon,
-  Button
+  Button,
+  UpdatedIcon
 } from 'omorphia'
 import Chart from "~/components/ui/charts/Chart.vue";
 import CompactChart from "~/components/ui/charts/CompactChart.vue";
@@ -17,15 +18,13 @@ import PageBar from "~/components/ui/PageBar.vue";
 
 const app = useNuxtApp()
 const auth = await useAuth()
+const route = useRoute()
 const projects = ref(await useBaseFetch(`user/${auth.value.user.id}/projects`))
 
 const analyticsData = ref({
   downloads: 0,
   pageViews: 0,
   revenue: 0,
-  longTermDownloads: 0,
-  longTermPageViews: 0,
-  longTermRevenue: 0,
 })
 
 const finishedLoading = ref(false)
@@ -33,10 +32,12 @@ const markReload = ref(false)
 const failedToLoad = ref(false)
 const selectedTab = ref('downloads')
 const selectedResolution = ref('daily')
-const startDate = ref(new Date(new Date() - 30 * 24 * 60 * 60 * 1000))
+const startDate = ref(new Date(route.params.start_date ?? new Date() - 30 * 24 * 60 * 60 * 1000))
 const customStartDate = ref(null)
-const endDate = ref(null)
-const timeResolution = ref(1440)
+const endDate = ref(new Date(route.params.end_date ?? new Date() - 24 * 60 * 60 * 1000))
+const customEndDate = ref(null)
+const timeResolution = ref(route.params.resolution ?? 1440)
+const customTimeResolution = ref(null)
 let downloadData, viewData, revenueData, squashedDownloads, squashedViews, squashedRevenue = {
   labels: [],
   data: [],
@@ -47,7 +48,7 @@ const customTimeModal = ref(null)
 
 onMounted(async () => {
   await initUserProjects()
-  const body = `start_date=${new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString()}`
+  const body = `start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${timeResolution.value}`
 
   try {
     ;[
@@ -209,25 +210,32 @@ const selectResolution = async (resolution) => {
     if (resolution === 'daily') {
       startDate.value = new Date(new Date() - 30 * 24 * 60 * 60 * 1000)
       timeResolution.value = 1440
-      endDate.value = null
+      endDate.value = new Date(new Date() - 24 * 60 * 60 * 1000)
     } else if (resolution === 'weekly') {
       startDate.value = new Date(new Date() - 3 * 30 * 24 * 60 * 60 * 1000)
       timeResolution.value = 10800
-      endDate.value = null
+      endDate.value = new Date(new Date() - 24 * 60 * 60 * 1000)
     } else if (resolution === 'monthly') {
       startDate.value = new Date(new Date().getFullYear(), 0, 1)
       timeResolution.value = 43200
-      endDate.value = null
+      endDate.value = new Date(new Date() - 24 * 60 * 60 * 1000)
     } else if (resolution === 'custom') {
       startDate.value = new Date(customStartDate.value)
+      timeResolution.value = customTimeResolution.value
+      endDate.value = new Date(customEndDate.value)
     }
-    markReload.value = true
     await fetchNewData()
   }
 }
 
 const fetchNewData = async () => {
-  const body = `start_date=${startDate.value.toISOString()}&resolution_minutes=${timeResolution.value}` + (endDate.value ? `&end_date=${new Date(endDate.value).toISOString()}` : '')
+  markReload.value = true
+  const body = `start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${timeResolution.value}`
+  analyticsData.value = {
+    downloads: 0,
+    pageViews: 0,
+    revenue: 0,
+  }
   try {
     ;[
       { data: downloadData },
@@ -258,15 +266,15 @@ const fetchNewData = async () => {
 
 const openCustomModal = () => {
   customStartDate.value = null
-  endDate.value = null
-  timeResolution.value = null
+  customEndDate.value = null
+  customTimeResolution.value = 1440
   customTimeModal.value.show()
 }
 
-const applyCustomModal = () => {
+const applyCustomModal = async () => {
   if (customStartDate.value && timeResolution.value) {
-    selectResolution('custom')
     customTimeModal.value.hide()
+    await selectResolution('custom')
   }
 }
 </script>
@@ -275,15 +283,15 @@ const applyCustomModal = () => {
   <Modal ref="customTimeModal" header="Define date range and resolution">
       <div class="modal-body universal-body">
         <label for="start-date">
-            <span class="label__title">Start date <span class="required">*</span></span>
+            <span class="label__title">Start date</span>
         </label>
         <input id="start-date" type="date" v-model="customStartDate" />
         <label for="end-date">
             <span class="label__title">End date</span>
         </label>
-        <input id="end-date" type="date" v-model="endDate" />
-        <label for="end-date">
-            <span class="label__title">Data resolution <span class="required">*</span></span>
+        <input id="end-date" type="date" v-model="customEndDate" />
+        <label for="data-resolution">
+            <span class="label__title">Data resolution</span>
             <span class="label__description">
               The amount of minutes each data point represents.
               <span class="label__subdescription">
@@ -291,16 +299,15 @@ const applyCustomModal = () => {
               </span>
             </span>
         </label>
-        <input id="end-date" type="number" v-model="timeResolution" />
+        <input id="data-resolution" type="number" v-model="customTimeResolution" />
         <div class="input-group push-right">
-            <Button color="primary" @click="applyCustomModal" :disabled="!customStartDate || !timeResolution">
+            <Button color="primary" @click="applyCustomModal" :disabled="!customStartDate || !customTimeResolution || !customEndDate ">
                 Apply
             </Button>
         </div>
       </div>
   </Modal>
   <h1>Analytics</h1>
-  {{customStartDate}}
   <div v-if="failedToLoad" class="normal-page__content">
     <div class="markdown-body">
       <p>
@@ -308,14 +315,15 @@ const applyCustomModal = () => {
       </p>
     </div>
   </div>
-  <div v-if="finishedLoading" class="chart-dashboard">
-    <PageBar class="resolution-header">
+  <div class="chart-dashboard">
+    <PageBar v-if="finishedLoading" class="resolution-header">
       <span class="page-bar__title"><HistoryIcon /> Range</span>
       <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'daily'}" @click="() => selectResolution('daily')">Last month</div>
       <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'weekly'}" @click="() => selectResolution('weekly')">Last quarter</div>
       <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'monthly'}" @click="() => selectResolution('monthly')">Last year</div>
       <template #right>
-        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'custom'}" @click="() => $refs.customTimeModal.show()"><CalendarClockIcon /> Custom</div>
+        <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon/> Refresh</div>
+        <div class="nav-button button-base always-click" :class="{'router-link-exact-active': selectedResolution === 'custom'}" @click="openCustomModal"><CalendarClockIcon /> Custom</div>
       </template>
     </PageBar>
     <template v-if="finishedLoading && !markReload">
@@ -356,17 +364,6 @@ const applyCustomModal = () => {
           is-money
         />
       </client-only>
-    </template>
-    <template v-else-if="finishedLoading">
-      <Card class="downloads">
-        <BrandLogoAnimated />
-      </Card>
-      <Card class="views">
-        <BrandLogoAnimated />
-      </Card>
-      <Card class="revenue">
-        <BrandLogoAnimated />
-      </Card>
     </template>
     <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
       <client-only>
@@ -412,12 +409,8 @@ const applyCustomModal = () => {
           </Chart>
         </client-only>
     </Card>
-    <Card v-else-if="finishedLoading && markReload" class="main">
-      <BrandLogoAnimated />
-    </Card>
-    <BrandLogoAnimated v-else-if="markReload" />
   </div>
-  <BrandLogoAnimated v-else-if="!failedToLoad" />
+  <BrandLogoAnimated v-if="(!finishedLoading || markReload) && !failedToLoad" />
 </template>
 
 <style scoped lang="scss">
@@ -523,5 +516,9 @@ const applyCustomModal = () => {
   display: flex;
   flex-direction: column;
   padding: var(--gap-lg);
+}
+
+h1 {
+  margin-bottom: var(--gap-sm);
 }
 </style>

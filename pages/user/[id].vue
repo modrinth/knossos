@@ -14,12 +14,67 @@
     </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
+    <Modal
+        ref="editModal"
+        header="Edit profile"
+    >
+      <div class="modal-body">
+        <div class="edit-section">
+          <div class="avatar-section">
+            <Avatar size="lg" :src="previewImage ?? user.avatar_url" circle/>
+            <PopoutMenu class="btn icon-edit-button icon-only" position="bottom" direction="right">
+              <EditIcon />
+              <template #menu>
+            <span class="icon-edit-menu">
+              <FileInput
+                  id="project-icon"
+                  :max-size="262144"
+                  :show-icon="true"
+                  accept="image/png,image/jpeg,image/gif,image/webp"
+                  class="btn btn-transparent upload"
+                  style="white-space: nowrap"
+                  prompt=""
+                  @change="showPreviewImage"
+              >
+                <UploadIcon />
+                Upload icon
+              </FileInput>
+            </span>
+              </template>
+            </PopoutMenu>
+          </div>
+          <input
+              type="text"
+              placeholder="Username"
+              v-model="username"
+          />
+          <textarea
+              placeholder="About me"
+              v-model="bio"
+          />
+        </div>
+        <div class="input-group push-right">
+          <Button @click="$refs.editModal.hide()">
+            <XIcon/>
+            Cancel
+          </Button>
+          <Button
+              color="primary"
+              :disabled="!hasChanges"
+              @click="saveChanges()"
+          >
+            <SaveIcon />
+            Save changes
+          </Button>
+        </div>
+      </div>
+    </Modal>
     <div class="normal-page">
       <div class="user-header">
         <div class="banner-img">
           <div class="banner-content">
             <Avatar
-                :src="previewImage ? previewImage : user.avatar_url"
+                :src="previewImage ?? user.avatar_url"
                 size="lg"
                 circle
                 :alt="user.username"
@@ -53,7 +108,7 @@
           <span class="page-bar__title"><FilterIcon /> Filter by</span>
           <a class="nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'">All</a>
           <template v-for="(filter, index) in filterOptions" :key="filter">
-            <a a class="nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+            <div class="nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
               <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
               <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
               <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
@@ -61,7 +116,7 @@
               <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
               <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
               <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
-            </a>
+            </div>
           </template>
           <OverflowMenu
               v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
@@ -86,9 +141,60 @@
             <template #plugin> <ServerIcon /> Plugins </template>
             <template #modpack> <PackageIcon /> Modpacks </template>
           </OverflowMenu>
+          <template #right>
+            <div
+                v-if="auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))"
+                class="nav-button button-base"
+                @click="showEditModal"
+            >
+              <EditIcon />
+              Edit profile
+            </div>
+            <div
+                v-if="auth.user && auth.user.id !== user.id"
+                class="nav-button button-base"
+                @click="() => $refs.modal_report.show()"
+            >
+              <TrashIcon />
+              Report
+            </div>
+          </template>
         </PageBar>
       </div>
       <div class="normal-page__sidebar">
+        <div class="universal-card about-card">
+          <h2 class="sidebar-card-header">About</h2>
+          <div class="sidebar__item">
+            <div class="secondary-stat">
+              <DownloadIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span class="secondary-stat__value">{{ sumDownloads }}</span>
+                <span>downloads</span>
+              </span>
+            </div>
+            <div class="secondary-stat">
+              <FlameIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span class="secondary-stat__value">{{ sumFollows }}</span>
+                <span>followers of projects</span>
+              </span>
+            </div>
+            <div class="secondary-stat">
+              <BoxIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span class="secondary-stat__value" >{{ projects.length }}</span>
+                <span>Projects</span>
+              </span>
+            </div>
+            <div class="secondary-stat">
+              <SunriseIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span>Joined</span>
+                <span class="secondary-stat__value">{{ dayjs(user.created).fromNow() }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
         <div class="universal-card">
           <h2 class="sidebar-card-header">Badges</h2>
           <div class="badges-container">
@@ -103,7 +209,7 @@
             </div>
           </div>
         </div>
-        <div class="universal-card">
+        <div v-if="organizations" class="universal-card">
           <h2 class="sidebar-card-header">Organizations</h2>
           <div class="organizations">
             <router-link v-for="org in organizations" class="button-base clickable" :to="'/organization/' + org.title">
@@ -197,7 +303,18 @@ import {
   OverflowMenu,
   Button,
   SearchIcon,
-  XIcon, ServerIcon, MoreHorizontalIcon,
+  SaveIcon,
+  PopoutMenu,
+  EditIcon,
+  TrashIcon,
+  UploadIcon,
+  FileInput,
+  XIcon,
+  ServerIcon,
+  MoreHorizontalIcon,
+  DownloadIcon,
+  SunriseIcon,
+  Modal
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
@@ -217,6 +334,11 @@ import BracesIcon from "assets/images/utils/braces.svg";
 import FlameIcon from "assets/images/utils/flame.svg";
 import PageBar from "~/components/ui/PageBar.vue";
 
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+
 const data = useNuxtApp()
 const route = useRoute()
 const auth = await useAuth()
@@ -225,6 +347,7 @@ const tags = useTags()
 
 const inputText = ref('')
 const selectedFilter = ref('all')
+const editModal = ref(null)
 
 let user, projects, collections, organizations
 try {
@@ -312,6 +435,8 @@ const sumFollows = computed(() => {
 
 const isEditing = ref(false)
 const icon = shallowRef(null)
+const username = ref(user.value.username)
+const bio = ref(user.value.bio)
 const previewImage = shallowRef(null)
 
 function showPreviewImage(files) {
@@ -322,6 +447,20 @@ function showPreviewImage(files) {
     previewImage.value = event.target.result
   }
 }
+
+const showEditModal = () => {
+  editModal.value.show()
+  username.value = user.value.username
+  bio.value = user.value.bio
+}
+
+const hasChanges = computed(() => {
+  return (
+    (icon.value && icon.value !== user.value.avatar_url) ||
+    username.value !== user.value.username ||
+    bio.value !== user.value.bio
+  )
+})
 
 async function saveChanges() {
   startLoading()
@@ -340,19 +479,31 @@ async function saveChanges() {
 
     const reqData = {
       email: user.value.email,
-      bio: user.value.bio,
+      bio: bio.value,
     }
-    if (user.value.username !== auth.value.user.username) {
-      reqData.username = user.value.username
+
+    if (username.value !== auth.value.user.username) {
+      reqData.username = username.value
     }
 
     await useBaseFetch(`user/${auth.value.user.id}`, {
       method: 'PATCH',
       body: reqData,
     })
+
+    user.value.username = username.value
+    user.value.bio = bio.value
+
     await useAuth(auth.value.token)
 
-    isEditing.value = false
+    editModal.value.hide()
+
+    data.$notify({
+      group: 'main',
+      title: 'Profile updated',
+      text: 'Your profile has been updated',
+      type: 'success',
+    })
   } catch (err) {
     console.error(err)
     data.$notify({
@@ -365,13 +516,6 @@ async function saveChanges() {
   stopLoading()
 }
 
-function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode.user = data.$cycleValue(
-    cosmetics.value.searchDisplayMode.user,
-    tags.value.projectViewModes
-  )
-  saveCosmetics()
-}
 </script>
 <script>
 export default defineNuxtComponent({
@@ -481,7 +625,6 @@ export default defineNuxtComponent({
 .secondary-stat {
   align-items: center;
   display: flex;
-  margin-bottom: 0.8rem;
 }
 
 .secondary-stat__icon {
@@ -493,7 +636,11 @@ export default defineNuxtComponent({
   margin-left: 0.4rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--gap-xs);
+}
+
+.secondary-stat__value {
+  font-weight: bolder;
 }
 
 .date {
@@ -652,5 +799,60 @@ export default defineNuxtComponent({
   flex-direction: row;
   gap: var(--gap-sm);
   flex-wrap: wrap;
+}
+
+.about-card {
+  h2 {
+    margin-bottom: var(--gap-md);
+  }
+
+  .sidebar__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-lg);
+}
+
+.edit-section {
+  display: grid;
+  grid-template:
+    'icon name' 40px
+    'icon description' auto
+    / auto 1fr;
+  grid-gap: var(--gap-sm);
+  column-gap: var(--gap-md);
+
+  .avatar-section {
+    position: relative;
+    grid-area: icon;
+    width: 9rem;
+    height: 9rem;
+
+    .avatar {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-button-bg);
+    }
+
+    .popup-container {
+      position: absolute;
+      top: var(--gap-sm);
+      right: var(--gap-sm);
+    }
+  }
+
+  input {
+    grid-area: name;
+  }
+
+  textarea {
+    grid-area: description;
+  }
 }
 </style>

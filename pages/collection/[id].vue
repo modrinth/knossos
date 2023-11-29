@@ -32,6 +32,7 @@ import GlassesIcon from "assets/images/utils/glasses.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
 import Badge from "~/components/ui/Badge.vue";
+import PageBar from "~/components/ui/PageBar.vue";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -417,11 +418,11 @@ const results = shallowRef(toRaw(rawResults))
       </div>
     </div>
     <div class="normal-page__content">
-      <div class="filter-row new-nav">
-        <span class="title"><FilterIcon /> Filter by</span>
-        <a :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</a>
+      <PageBar>
+        <span class="page-bar__title"><FilterIcon /> Filter by</span>
+        <div class="button-base nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</div>
         <template v-for="(filter, index) in filterOptions" :key="filter">
-          <a v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+          <div class="button-base nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
             <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
             <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
             <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
@@ -429,7 +430,7 @@ const results = shallowRef(toRaw(rawResults))
             <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
             <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
             <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
-          </a>
+          </div>
         </template>
         <OverflowMenu
             v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
@@ -454,7 +455,7 @@ const results = shallowRef(toRaw(rawResults))
           <template #plugin> <ServerIcon /> Plugins </template>
           <template #modpack> <PackageIcon /> Modpacks </template>
         </OverflowMenu>
-      </div>
+      </PageBar>
       <Promotion />
       <div class="search-row">
         <div class="iconified-input">

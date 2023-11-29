@@ -318,6 +318,23 @@
             >
               <VersionIcon />
             </NavStackItem>
+            <h3>For creators</h3>
+            <NavStackItem
+              :link="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings/analytics`"
+              label="Analytics"
+            >
+              <ChartIcon />
+            </NavStackItem>
+            <NavStackItem
+              :link="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings/moderation`"
+              label="Moderation"
+            >
+              <ScaleIcon />
+            </NavStackItem>
           </NavStack>
         </template>
         <template v-else>
@@ -477,10 +494,32 @@
                 <HeartIcon />
                 Follow
               </Button>
-              <Button>
-                <BookmarkIcon />
+              <PopoutMenu class="btn" position="bottom" from="top-right">
+                <BookmarkIcon aria-hidden="true" />
                 Save
-              </Button>
+                <template #menu>
+                  <h2 class="popout-heading">Save to collection</h2>
+                  <div v-if="displayCollections" class="collections-list">
+                    <Checkbox
+                        v-for="option in displayCollections"
+                        :key="option.id"
+                        class="popout-checkbox"
+                        v-model="option.selected"
+                        @update:model-value="patchCollection(option, option.selected)"
+                    >
+                      {{ option.title }}
+                    </Checkbox>
+                  </div>
+                  <template v-else>
+                    <p class="popout-text">You don't have any collections yet.</p>
+                  </template>
+                  <hr class="card-divider menu-divider"/>
+                  <Button class="collection-button" @click="$refs.modal_collection.show()">
+                    <PlusIcon/>
+                    Create new collection
+                  </Button>
+                </template>
+              </PopoutMenu>
               <OverflowMenu
                 class="btn icon-only"
                 :options="[
@@ -677,6 +716,7 @@ import {
   ClipboardCopyIcon,
   OverflowMenu,
   ScaleIcon,
+  Checkbox
 } from 'omorphia'
 import { formatCategory, formatNumber } from '../../plugins/shorthands.js'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
@@ -763,7 +803,9 @@ if (
   })
 }
 
-let project, allMembers, dependencies, featuredVersions, versions
+const displayCollections = ref([])
+
+let project, allMembers, dependencies, featuredVersions, versions, collections
 try {
   ;[
     { data: project },
@@ -771,6 +813,7 @@ try {
     { data: dependencies },
     { data: featuredVersions },
     { data: versions },
+    { data: collections }
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
@@ -813,10 +856,16 @@ try {
     useAsyncData(`project/${route.params.id}/version`, () =>
       useBaseFetch(`project/${route.params.id}/version`)
     ),
+    useAsyncData(
+        `user/${auth.value.user.id}/collections`,
+        () => useBaseFetch(`user/${auth.value.user.id}/collections`),
+        { transform: (collections) => collections.sort((a, b) => a.title.localeCompare(b.title)) },
+    ),
   ])
 
   versions = shallowRef(toRaw(versions))
   featuredVersions = shallowRef(toRaw(featuredVersions))
+  collections = ref(toRaw(collections))
 } catch (error) {
   throw createError({
     fatal: true,
@@ -844,6 +893,11 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
     }`,
     { redirectCode: 301, replace: true }
   )
+} else if(collections.value) {
+    displayCollections.value = collections.value.map((collection) => ({
+        ...collection,
+        selected: collection.projects.some((collectionProject) => collectionProject === project.value.id),
+    }))
 }
 
 const members = ref(allMembers.value.filter((x) => x.accepted))
@@ -1115,6 +1169,24 @@ const moreVersions = computed(() => {
 })
 
 const collapsedChecklist = ref(false)
+
+const patchCollection = async (collection, add) => {
+  try {
+    await useBaseFetch(`collection/${collection.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        new_projects:  add ? [...collection.projects, project.value.id] : [ ...collection.projects].filter((x) => x !== project.value.id)
+      }),
+    })
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  }
+}
 </script>
 <style lang="scss" scoped>
 .universal-card {
@@ -1799,5 +1871,36 @@ const collapsedChecklist = ref(false)
   .page-bar .desktop-settings-button {
     display: none;
   }
+}
+
+.popout-checkbox {
+  background-color: var(--color-raised-bg);
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  padding-bottom: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-text-secondary);
+}
+
+.collection-button {
+  margin: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-divider {
+  margin: var(--gap-md);
+}
+
+.collections-list {
+  max-height: 40rem;
+  overflow-y: auto;
 }
 </style>

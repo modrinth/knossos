@@ -82,7 +82,7 @@
         <nuxt-link class="goto-link" to="/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/revenue/transfers">
+        <nuxt-link class="goto-link" to="/projects">
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
         <div class="goto-link" @click="modal.show">

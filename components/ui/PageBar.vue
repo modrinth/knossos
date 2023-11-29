@@ -68,6 +68,14 @@
       &::before {
         pointer-events: none;
       }
+
+      &.always-click {
+        pointer-events: auto;
+
+        &::before {
+          pointer-events: auto;
+        }
+      }
     }
   }
 
