@@ -356,7 +356,7 @@ const sortTypes = shallowReadonly([
   { display: 'Recently published', name: 'newest' },
   { display: 'Recently updated', name: 'updated' },
 ])
-const sortType = ref({ display: 'Download count', name: 'downloads' })
+const sortType = ref({ display: 'Relevance', name: 'relevance' })
 const maxResults = ref(20)
 const currentPage = ref(1)
 const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
@@ -600,7 +600,7 @@ function getSearchUrl(offset, useObj) {
     queryItems.push(`e=${encodeURIComponent(selectedEnvironments.value)}`)
     obj.e = selectedEnvironments.value
   }
-  if (sortType.value.name !== 'downloads') {
+  if (sortType.value.name !== 'relevance') {
     queryItems.push(`s=${encodeURIComponent(sortType.value.name)}`)
     obj.s = sortType.value.name
   }
