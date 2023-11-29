@@ -1,9 +1,8 @@
 <template>
   <div v-if="user">
     <ModalCreation ref="modal_creation" />
-    <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
-    <div class="normal-page">
-      <div class="normal-page__header">
+    <div class="user-header-wrapper">
+      <div class="user-header">
         <Avatar
           :src="previewImage ? previewImage : user.avatar_url"
           size="md"
@@ -192,7 +191,6 @@ import {
   formatNumber,
 } from 'omorphia'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'

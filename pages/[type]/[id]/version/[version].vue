@@ -10,12 +10,6 @@
       :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteVersion()"
     />
-    <ModalReport
-      v-if="auth.user"
-      ref="modal_version_report"
-      :item-id="version.id"
-      item-type="version"
-    />
     <Modal
       v-if="auth.user && currentMember"
       ref="modal_package_mod"
@@ -155,7 +149,7 @@
           <ReportIcon aria-hidden="true" />
           Report
         </nuxt-link>
-        <button v-else class="btn" @click="$refs.modal_version_report.show()">
+        <button v-else class="btn" @click="() => reportVersion(version.id)">
           <ReportIcon aria-hidden="true" />
           Report
         </button>
@@ -189,29 +183,9 @@
     <div class="version-page__changelog card">
       <h3>Changes</h3>
       <template v-if="isEditing">
-        <span
-          >This editor supports
-          <a
-            class="text-link"
-            href="https://docs.modrinth.com/docs/tutorials/markdown/"
-            target="_blank"
-            >Markdown formatting</a
-          >. HTML can also be used inside your changelog, not including styles, scripts, and
-          iframes.
-        </span>
-        <Chips v-model="changelogViewMode" class="separator" :items="['source', 'preview']" />
-        <div v-if="changelogViewMode === 'source'" class="resizable-textarea-wrapper">
-          <textarea id="body" v-model="version.changelog" maxlength="65536" />
+        <div class="changelog-editor-spacing">
+          <MarkdownEditor v-model="version.changelog" :on-image-upload="onImageUpload" />
         </div>
-        <div
-          v-if="changelogViewMode === 'preview'"
-          class="markdown-body"
-          v-html="
-            version.changelog
-              ? renderHighlightedString(version.changelog)
-              : 'No changelog specified.'
-          "
-        />
       </template>
       <div
         v-else
@@ -677,9 +651,9 @@ import {
   RightArrowIcon,
   ConfirmModal,
   renderHighlightedString,
+  MarkdownEditor,
 } from 'omorphia'
 
-import ModalReport from '~/components/ui/ModalReport.vue'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion as createDPFile } from '~/helpers/package.js'
@@ -1166,6 +1140,7 @@ async function createVersionRaw(version) {
       }),
       {}
     ),
+    uploaded_images: uploadedImageIds.value,
   }
 
   formData.append('data', JSON.stringify(newVersion))
@@ -1290,9 +1265,21 @@ async function resetProjectVersions() {
 
   return newCreatedVersions
 }
+
+const uploadedImageIds = ref([])
+async function onImageUpload(file) {
+  const response = await useImageUpload(file, { context: 'version' })
+  uploadedImageIds.value.push(response.id)
+  uploadedImageIds.value = uploadedImageIds.value.slice(-10)
+  return response.url
+}
 </script>
 
 <style lang="scss" scoped>
+.changelog-editor-spacing {
+  padding-block: var(--gap-md);
+}
+
 .version-page {
   display: grid;
 

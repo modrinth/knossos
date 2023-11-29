@@ -103,6 +103,7 @@
 
   .normal-page__content {
     max-width: calc(60rem - var(--gap-lg));
+    overflow-x: hidden;
   }
   .settings-page {
     column-gap: var(--gap-lg);

@@ -9,12 +9,6 @@
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
-    <ModalReport
-      v-if="auth.user"
-      ref="modal_project_report"
-      :item-id="project.id"
-      item-type="project"
-    />
     <div
       :class="{
         'normal-page': true,
@@ -466,7 +460,7 @@
                   },
                   {
                     id: 'report',
-                    action: () => {},
+                    action: () => reportProject(project.id),
                     color: 'red',
                     hoverOnly: true,
                   },
@@ -702,7 +696,7 @@ import {
   formatNumber,
   SlashIcon as BanIcon,
 } from 'omorphia'
-import ModalReport from '~/components/ui/ModalReport.vue'
+import { reportProject } from '~/utils/report-helpers.ts'
 
 import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
