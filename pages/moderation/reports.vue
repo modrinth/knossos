@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>Reports</h2>
       <ReportsList :auth="auth" moderation />
     </section>
@@ -14,4 +14,3 @@ useHead({
   title: 'Reports - Modrinth',
 })
 </script>
-<style lang="scss" scoped></style>

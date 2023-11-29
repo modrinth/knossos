@@ -1,16 +1,10 @@
 <template>
   <div>
-    <Head>
-      <Title>{{ project.title }} - Gallery</Title>
-      <Meta name="og:title" :content="`${project.title} - Gallery`" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Gallery`" />
-      <Meta name="og:description" :contcent="metaDescription" />
-    </Head>
     <Modal
       v-if="currentMember"
       ref="modal_edit_item"
       :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="modal-gallery universal-labels">
         <div class="gallery-file-input">
@@ -19,7 +13,7 @@
             <strong>{{ editFile ? editFile.name : 'Current image' }}</strong>
             <FileInput
               v-if="editIndex === -1"
-              class="iconified-button raised-button"
+              class="btn raised"
               prompt="Replace"
               :accept="acceptFileTypes"
               :max-size="524288000"
@@ -85,29 +79,24 @@
         <button
           v-if="!editFeatured"
           id="gallery-image-featured"
-          class="iconified-button"
+          class="btn"
           @click="editFeatured = true"
         >
           <StarIcon aria-hidden="true" />
           Feature image
         </button>
-        <button
-          v-else
-          id="gallery-image-featured"
-          class="iconified-button"
-          @click="editFeatured = false"
-        >
+        <button v-else id="gallery-image-featured" class="btn" @click="editFeatured = false">
           <StarIcon fill="currentColor" aria-hidden="true" />
           Unfeature image
         </button>
-        <div class="button-group">
-          <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
-            <CrossIcon />
+        <div class="input-group push-right">
+          <button class="btn" @click="$refs.modal_edit_item.hide()">
+            <XIcon />
             Cancel
           </button>
           <button
             v-if="editIndex === -1"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="shouldPreventActions"
             @click="createGalleryItem"
           >
@@ -116,7 +105,7 @@
           </button>
           <button
             v-else
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="shouldPreventActions"
             @click="editGalleryItem"
           >
@@ -126,13 +115,14 @@
         </div>
       </div>
     </Modal>
-    <ModalConfirm
+    <ConfirmModal
       v-if="currentMember"
       ref="modal_confirm"
       title="Are you sure you want to delete this gallery image?"
       description="This will remove this gallery image forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteGalleryImage"
     />
     <div
@@ -165,7 +155,7 @@
           <div class="controls">
             <div class="buttons">
               <button class="close circle-button" @click="expandedGalleryItem = null">
-                <CrossIcon aria-hidden="true" />
+                <XIcon aria-hidden="true" />
               </button>
               <a
                 class="open circle-button"
@@ -206,7 +196,7 @@
         :max-size="524288000"
         :accept="acceptFileTypes"
         prompt="Upload an image"
-        class="brand-button iconified-button"
+        class="btn-primary btn"
         @change="handleFiles"
       >
         <UploadIcon />
@@ -241,7 +231,7 @@
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
-              class="iconified-button"
+              class="btn"
               @click="
                 () => {
                   resetEdit()
@@ -258,7 +248,7 @@
               Edit
             </button>
             <button
-              class="iconified-button"
+              class="btn"
               @click="
                 () => {
                   deleteIndex = index
@@ -276,66 +266,59 @@
   </div>
 </template>
 
+<script setup>
+import {
+  PlusIcon,
+  CalendarIcon,
+  TrashIcon,
+  XIcon,
+  RightArrowIcon,
+  LeftArrowIcon,
+  EditIcon,
+  SaveIcon,
+  ExternalIcon,
+  ExpandIcon,
+  ContractIcon,
+  StarIcon,
+  UploadIcon,
+  InfoIcon,
+  ImageIcon,
+  TransferIcon,
+  FileInput,
+  DropArea,
+  Modal,
+  ConfirmModal,
+} from 'omorphia'
+
+const cosmetics = useCosmetics()
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+  currentMember: {
+    type: Object,
+    default() {
+      return null
+    },
+  },
+})
+
+const title = `${props.project.title} - Gallery`
+const description = `View ${props.project.gallery.length} images of ${props.project.title} on Modrinth.`
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+})
+</script>
 <script>
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import RightArrowIcon from '~/assets/images/utils/right-arrow.svg'
-import LeftArrowIcon from '~/assets/images/utils/left-arrow.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
-import ExpandIcon from '~/assets/images/utils/expand.svg'
-import ContractIcon from '~/assets/images/utils/contract.svg'
-import StarIcon from '~/assets/images/utils/star.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
-
 export default defineNuxtComponent({
-  components: {
-    CalendarIcon,
-    PlusIcon,
-    EditIcon,
-    TrashIcon,
-    SaveIcon,
-    StarIcon,
-    CrossIcon,
-    RightArrowIcon,
-    LeftArrowIcon,
-    ExternalIcon,
-    ExpandIcon,
-    ContractIcon,
-    UploadIcon,
-    InfoIcon,
-    ImageIcon,
-    TransferIcon,
-    ModalConfirm,
-    Modal,
-    FileInput,
-    DropArea,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-  },
   data() {
     return {
       expandedGalleryItem: null,
@@ -352,8 +335,6 @@ export default defineNuxtComponent({
       editFile: null,
       previewImage: null,
       shouldPreventActions: false,
-
-      metaDescription: `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`,
     }
   },
   computed: {
@@ -790,7 +771,7 @@ export default defineNuxtComponent({
         word-wrap: anywhere;
       }
 
-      .iconified-button {
+      .btn {
         margin-left: auto;
       }
     }
@@ -803,11 +784,6 @@ export default defineNuxtComponent({
       object-fit: contain;
       background-color: #000000;
     }
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
   }
 }
 </style>

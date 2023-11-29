@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <label for="project-description">
         <span class="label__title size-card-header">Description</span>
         <span class="label__description">
@@ -36,7 +36,7 @@
       <div class="input-group">
         <button
           type="button"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!hasChanges"
           @click="saveChanges()"
         >
@@ -49,9 +49,7 @@
 </template>
 
 <script>
-import Chips from '~/components/ui/Chips.vue'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { Chips, SaveIcon, renderHighlightedString } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {

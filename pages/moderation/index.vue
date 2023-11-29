@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>Statistics</h2>
       <div class="grid-display">
         <div class="grid-display__item">

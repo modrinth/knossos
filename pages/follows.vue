@@ -15,8 +15,9 @@
       :client-side="project.client_side"
       :server-side="project.server_side"
       :color="project.color"
+      :from-now="fromNow"
     >
-      <button class="iconified-button" @click="userUnfollowProject(project)">
+      <button class="btn" @click="userUnfollowProject(project)">
         <HeartIcon />
         Unfollow
       </button>
@@ -33,9 +34,7 @@
 </template>
 
 <script setup>
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-
-import HeartIcon from 'assets/images/utils/heart.svg'
+import { ProjectCard, HeartIcon } from 'omorphia'
 import FollowIllustration from 'assets/images/illustrations/follow_illustration.svg'
 
 const user = await useUser()
@@ -48,4 +47,3 @@ definePageMeta({
   middleware: 'auth',
 })
 </script>
-<style lang="scss" scoped></style>

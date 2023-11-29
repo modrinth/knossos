@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <div class="adjacent-input">
         <label for="license-multiselect">
           <span class="label__title size-card-header">License</span>
@@ -44,12 +44,12 @@
             :close-on-select="true"
             :show-labels="false"
             :class="{
-              'known-error': license.short === '' && showKnownErrors,
+              'known-error': license?.short === '' && showKnownErrors,
             }"
             :disabled="!hasPermission"
           />
           <Checkbox
-            v-if="license.requiresOnlyOrLater"
+            v-if="license?.requiresOnlyOrLater"
             v-model="allowOrLater"
             :disabled="!hasPermission"
             description="Allow later editions of this license"
@@ -57,7 +57,7 @@
             Allow later editions of this license
           </Checkbox>
           <Checkbox
-            v-if="license.friendly === 'Custom'"
+            v-if="license?.friendly === 'Custom'"
             v-model="nonSpdxLicense"
             :disabled="!hasPermission"
             description="License does not have a SPDX identifier"
@@ -65,7 +65,7 @@
             License does not have a SPDX identifier
           </Checkbox>
           <input
-            v-if="license.friendly === 'Custom'"
+            v-if="license?.friendly === 'Custom'"
             v-model="license.short"
             type="text"
             maxlength="2048"
@@ -87,8 +87,8 @@
       <div class="input-stack">
         <button
           type="button"
-          class="iconified-button brand-button"
-          :disabled="!hasChanges"
+          class="btn btn-primary"
+          :disabled="!hasChanges || license === null"
           @click="saveChanges()"
         >
           <SaveIcon />
@@ -100,9 +100,8 @@
 </template>
 
 <script>
+import { Checkbox, SaveIcon } from 'omorphia'
 import Multiselect from 'vue-multiselect'
-import Checkbox from '~/components/ui/Checkbox'
-import SaveIcon from '~/assets/images/utils/save.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -253,6 +252,7 @@ export default defineNuxtComponent({
     },
     licenseId() {
       let id = ''
+      if (this.license === null) return id
       if (
         (this.nonSpdxLicense && this.license.friendly === 'Custom') ||
         this.license.short === 'All-Rights-Reserved' ||
@@ -294,4 +294,3 @@ export default defineNuxtComponent({
   },
 })
 </script>
-<style lang="scss" scoped></style>

@@ -13,7 +13,7 @@
               v-for="navRoute in navRoutes"
               :key="navRoute.href"
               :to="navRoute.href"
-              class="iconified-button"
+              class="btn"
             >
               {{ navRoute.label }}
             </NuxtLink>
@@ -29,7 +29,7 @@
             <NuxtLink
               v-if="auth.user"
               :to="`/user/${auth.user.username}`"
-              class="iconified-button account-button"
+              class="btn account-button"
             >
               <Avatar
                 v-if="false"
@@ -38,44 +38,45 @@
                 alt="Your avatar"
                 aria-hidden="true"
                 circle
+                :size="'none'"
               />
               <div class="account-text">
                 <div>@{{ auth.user.username }}</div>
                 <div>Visit your profile</div>
               </div>
             </NuxtLink>
-            <nuxt-link v-else class="iconified-button brand-button" to="/auth/sign-in">
+            <nuxt-link v-else class="btn btn-primary" to="/auth/sign-in">
               <LogInIcon /> Sign in
             </nuxt-link>
           </div>
           <div class="links">
             <template v-if="auth.user">
-              <button class="iconified-button danger-button" @click="logoutUser()">
+              <button class="btn btn-red" @click="logoutUser()">
                 <LogOutIcon aria-hidden="true" />
                 Log out
               </button>
-              <button class="iconified-button" @click="$refs.modal_creation.show()">
+              <button class="btn" @click="$refs.modal_creation.show()">
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="iconified-button" to="/follows">
+              <NuxtLink class="btn" to="/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
               <NuxtLink
                 v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
-                class="iconified-button"
+                class="btn"
                 to="/moderation"
               >
                 <ModerationIcon aria-hidden="true" />
                 Moderation
               </NuxtLink>
             </template>
-            <NuxtLink class="iconified-button" to="/settings">
+            <NuxtLink class="btn" to="/settings">
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="iconified-button" @click="changeTheme($colorMode.value)">
+            <button class="btn" @click="changeTheme($colorMode.value)">
               <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
@@ -105,7 +106,7 @@
               to="/inbox"
               class="tab button-animation"
               :class="{
-                bubble: user.notifications.length > 0,
+                bubble: user.notifications.some((notif) => !notif.read),
                 'no-active': mobileUserOpen || mobileBrowseOpen,
               }"
               title="Notifications"
@@ -140,6 +141,7 @@
                 alt="Your avatar"
                 aria-hidden="true"
                 circle
+                :size="'none'"
               />
             </template>
           </button>
@@ -150,7 +152,7 @@
       <nav>
         <div class="navbar-brand">
           <NuxtLink to="/" class="button-base logo-button" aria-label="Modrinth home page">
-            <BrandTextLogo aria-hidden="true" />
+            <TextLogo :animate="loading" aria-hidden="true" />
           </NuxtLink>
         </div>
         <div class="navbar-links">
@@ -181,10 +183,6 @@
                 id: 'resourcepacks',
                 link: '/resourcepacks',
               },
-              // {
-              //   id: 'worlds',
-              //   link: '/worlds',
-              // },
               {
                 id: 'shaders',
                 link: '/shaders',
@@ -200,7 +198,6 @@
             <template #modpacks> <PackageIcon /> Modpacks </template>
             <template #datapacks> <BracesIcon /> Data Packs </template>
             <template #resourcepacks> <ImageIcon /> Resource Packs </template>
-            <template #worlds> <WorldIcon /> Worlds </template>
             <template #shaders> <GlassesIcon /> Shaders </template>
             <template #plugins> <ServerIcon /> Plugins </template>
           </OverflowMenu>
@@ -288,6 +285,7 @@
               alt="Your avatar"
               aria-hidden="true"
               circle
+              size="none"
             />
             {{ auth.user.username }}
             <DropdownIcon />
@@ -324,7 +322,7 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
-        <section v-if="displayWarning" class="warning-banner universal-card">
+        <section v-if="displayWarning" class="warning-banner card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
             <span> For security purposes, please verify your email address on Modrinth. </span>
@@ -341,7 +339,8 @@
       </main>
       <footer>
         <div class="logo-info" role="region" aria-label="Modrinth information">
-          <BrandTextLogo
+          <TextLogo
+            :animate="loading"
             aria-hidden="true"
             class="text-logo button-base"
             @click="developerModeIncrement()"
@@ -407,12 +406,12 @@
             <DownloadIcon aria-hidden="true" />
             Get Modrinth App
           </nuxt-link>
-          <button class="iconified-button raised-button" @click="changeTheme($colorMode.value)">
+          <button class="btn raised" @click="changeTheme($colorMode.value)">
             <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
             <SunIcon v-else aria-hidden="true" />
             Change theme
           </button>
-          <nuxt-link class="iconified-button raised-button" to="/settings">
+          <nuxt-link class="btn raised" to="/settings">
             <SettingsIcon aria-hidden="true" />
             Settings
           </nuxt-link>
@@ -434,61 +433,48 @@ import {
   DropdownIcon,
   OverflowMenu,
   PopoutMenu,
+  HamburgerIcon,
+  XIcon as CrossIcon,
+  SearchIcon,
+  BellIcon as NotificationIcon,
+  SettingsIcon,
+  ScaleIcon as ModerationIcon,
+  ModrinthIcon,
+  MoonIcon,
+  SunIcon,
+  PlusIcon,
+  LogOutIcon,
+  ReportIcon,
+  BookmarkIcon,
+  HeartIcon,
+  ChartIcon,
+  ListIcon,
+  UserIcon,
+  IssuesIcon,
+  Avatar,
+  TextLogo,
 } from 'omorphia'
-import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import SearchIcon from '~/assets/images/utils/search.svg'
-
-import NotificationIcon from '~/assets/images/utils/bell.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
-import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
-
-import CompassIcon from '~/assets/images/utils/compass.svg'
-import HomeIcon from '~/assets/images/utils/home.svg'
-import MoonIcon from '~/assets/images/utils/moon.svg'
-import SunIcon from '~/assets/images/utils/sun.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import LogOutIcon from '~/assets/images/utils/log-out.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
 import PackageIcon from '~/assets/images/utils/package-open.svg'
-import BlocksIcon from '~/assets/images/utils/blocks.svg'
-import WorldIcon from '~/assets/images/utils/world.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
 import BracesIcon from '~/assets/images/utils/braces.svg'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 import CollectionIcon from '~/assets/images/utils/collection.svg'
 import BoxImportIcon from '~/assets/images/utils/box-import.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import UserIcon from '~/assets/images/utils/user.svg'
-import ArrowRightLeftIcon from '~/assets/images/utils/arrow-right-left.svg'
-import MoreHorizontalIcon from '~/assets/images/utils/more-horizontal.svg'
-import MessagesSquareIcon from '~/assets/images/utils/messages-square.svg'
-import InboxIcon from '~/assets/images/utils/inbox.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
 
-import MinecraftIcon from '~/assets/images/games/minecraft.svg'
-
-import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
+
+const loading = useLoading()
 
 const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
-const tags = useTags()
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
 useHead({
-  meta: [{ name: 'og:url', content: link }],
   link: [
     {
       rel: 'canonical',
@@ -501,17 +487,33 @@ const displayWarning = computed(
   () => auth.value.user && !auth.value.user.email_verified && route.path !== '/auth/verify-email'
 )
 
+const description =
+  'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
+  'Discover and publish projects on Modrinth with a modern, easy to use interface and API.'
+
+useSeoMeta({
+  title: 'Modrinth',
+  description,
+  publisher: 'Modrinth',
+  themeColor: [{ color: '#1bd96a' }],
+  colorScheme: 'dark light',
+
+  // OpenGraph
+  ogTitle: 'Modrinth',
+  ogSiteName: 'Modrinth',
+  ogDescription: 'Discover and publish Minecraft content!',
+  ogType: 'website',
+  ogImage: 'https://cdn.modrinth.com/modrinth-new.png',
+  ogUrl: link,
+
+  // Twitter
+  twitterCard: 'summary',
+  twitterSite: '@modrinth',
+})
+
 let developerModeCounter = 0
 
 const selectedProjectType = ref('mods')
-
-function setProjectType(type) {
-  selectedProjectType.value = type
-}
-
-// replace - with space
-const prettyProjectType = computed(() => selectedProjectType.value.replace('-', ' '))
-const selectedRoute = computed(() => selectedProjectType.value.replace('-', ''))
 
 function developerModeIncrement() {
   if (developerModeCounter >= 5) {
@@ -541,16 +543,6 @@ function developerModeIncrement() {
 async function logoutUser() {
   await logout()
 }
-// const handleClickOutside = (event) => {
-//   const elements = document.elementsFromPoint(event.clientX, event.clientY)
-//   if (
-//     dropdown.value.$el !== event.target &&
-//     !elements.includes(dropdown.value.$el) &&
-//     !dropdown.value.contains(event.target)
-//   ) {
-//     dropdownVisible.value = false
-//   }
-// }
 
 function changeTheme(value) {
   updateTheme(
@@ -585,10 +577,6 @@ export default defineNuxtComponent({
           label: 'Resource Packs',
           href: '/resourcepacks',
         },
-        // {
-        //   label: 'Worlds',
-        //   href: '/worlds',
-        // },
         {
           label: 'Shaders',
           href: '/shaders',
@@ -673,13 +661,6 @@ export default defineNuxtComponent({
   display: flex;
   flex-direction: column;
 
-  > * {
-    width: calc(100%);
-    max-width: 80rem;
-    margin-inline: auto;
-    padding-inline: var(--gap-lg);
-  }
-
   > main {
     @media screen and (max-width: 600px) and (hover: none) {
       margin-top: var(--gap-lg);
@@ -695,7 +676,15 @@ export default defineNuxtComponent({
     gap: var(--gap-lg);
     position: relative;
     grid-template: 'brand links user';
-    grid-template-columns: min-content 1fr auto;
+    grid-template-columns: auto 1fr auto;
+    z-index: 3;
+
+    @media screen and (min-width: 1280px) {
+      max-width: 1280px;
+      width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     @media screen and (max-width: 910px) {
       grid-template: 'brand user' 'links links';
@@ -731,8 +720,7 @@ export default defineNuxtComponent({
     }
 
     .user-avatar {
-      width: 1.5rem;
-      height: 1.5rem;
+      --size: 1.5rem !important;
     }
 
     .logo-heading {
@@ -740,7 +728,7 @@ export default defineNuxtComponent({
       flex-direction: row;
       align-items: center;
 
-      .square-button {
+      .icon-only {
         margin-left: auto;
       }
     }
@@ -759,7 +747,7 @@ export default defineNuxtComponent({
       color: var(--color);
       font-weight: 600;
 
-      &:not(.square-button) svg {
+      &:not(.icon-only) svg {
         color: var(--color-text-secondary);
       }
 
@@ -773,7 +761,7 @@ export default defineNuxtComponent({
         color: var(--color-brand);
         background-color: var(--color-brand-highlight);
 
-        &:not(.square-button) svg {
+        &:not(.icon-only) svg {
           color: var(--color);
         }
       }
@@ -797,7 +785,7 @@ export default defineNuxtComponent({
         margin-top: var(--gap-xs);
         text-align: unset;
 
-        &:not(.square-button) {
+        &:not(.icon-only) {
           width: 100%;
         }
       }
@@ -877,21 +865,7 @@ export default defineNuxtComponent({
   }
 }
 
-.layout {
-  min-height: 100vh;
-  background-color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  padding-top: var(--gap-lg);
-
-  main {
-    grid-area: main;
-  }
-}
-
 .site-header {
-  max-width: 100vw;
-
   @media screen and (min-width: 1280px) {
     border-radius: var(--size-rounded-sm);
     max-width: 1280px;
@@ -921,7 +895,7 @@ export default defineNuxtComponent({
         justify-content: center;
         padding: 1rem;
 
-        .iconified-button {
+        .btn {
           width: 100%;
           max-width: 500px;
           padding: 0.75rem;
@@ -960,8 +934,7 @@ export default defineNuxtComponent({
             gap: 0.5rem;
 
             .user-icon {
-              width: 2.25rem;
-              height: 2.25rem;
+              --size: 2.25rem;
             }
 
             .account-text {
@@ -1050,8 +1023,7 @@ export default defineNuxtComponent({
         }
 
         .user-icon {
-          width: 2rem;
-          height: 2rem;
+          --size: 2rem;
           transition: border ease-in-out 0.15s;
           border: 0 solid var(--color-brand);
           box-sizing: border-box;
@@ -1187,6 +1159,10 @@ footer {
   }
 
   @media screen and (min-width: 1024px) {
+    margin-left: auto;
+    margin-right: auto;
+
+    max-width: 80rem;
     display: grid;
     grid-template:
       'logo-info  links-1 links-2 links-3 buttons' auto
@@ -1217,20 +1193,6 @@ footer {
   }
 }
 
-@media (min-width: 1024px) {
-  .layout {
-    main {
-      .alpha-alert {
-        margin: 1rem;
-
-        .wrapper {
-          padding: 1rem 2rem 1rem 1rem;
-        }
-      }
-    }
-  }
-}
-
 .warning-banner {
   display: flex;
   align-items: center;
@@ -1245,33 +1207,6 @@ footer {
 
   .warning-icon {
     color: var(--color-orange);
-  }
-}
-
-.profile-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--size-rounded-md);
-  background-color: var(--color-raised-bg);
-  transition: background-color ease-in-out 0.15s;
-
-  &:hover,
-  &:focus {
-    background-color: var(--color-raised-bg-hover);
-  }
-
-  .user-icon {
-    width: 2rem;
-    height: 2rem;
-    transition: border ease-in-out 0.15s;
-    border: 0 solid var(--color-brand);
-    box-sizing: border-box;
-
-    &.expanded {
-      border: 2px solid var(--color-brand);
-    }
   }
 }
 </style>

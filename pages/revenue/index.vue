@@ -9,7 +9,7 @@
       :balance="auth.user.payout_data.balance"
       :min-withdraw="minWithdraw"
     />
-    <section class="universal-card">
+    <section class="card">
       <h2>Withdraw</h2>
       <div v-if="auth.user.payout_data.balance >= minWithdraw">
         <p>
@@ -32,28 +32,28 @@
         >, which is under the minimum of ${{ minWithdraw }} to withdraw.
       </p>
       <div v-if="!enrolled">
-        <NuxtLink class="iconified-button" to="/settings/monetization">
+        <NuxtLink class="btn" to="/settings/monetization">
           <SettingsIcon /> Enroll in the Creator Monetization Program
         </NuxtLink>
       </div>
       <div v-if="enrolled" class="input-group">
         <button
           v-if="auth.user.payout_data.balance >= minWithdraw"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           @click="$refs.modal_transfer.show()"
         >
           <TransferIcon /> Transfer to
           {{ $formatWallet(auth.user.payout_data.payout_wallet) }}
         </button>
-        <NuxtLink class="iconified-button" to="/revenue/transfers">
+        <NuxtLink class="btn" to="/revenue/transfers">
           <HistoryIcon /> View transfer history
         </NuxtLink>
-        <NuxtLink class="iconified-button" to="/settings/monetization">
+        <NuxtLink class="btn" to="/settings/monetization">
           <SettingsIcon /> Monetization settings
         </NuxtLink>
       </div>
     </section>
-    <section class="universal-card">
+    <section class="card">
       <h2>About the program</h2>
       <p>
         By uploading projects to Modrinth and withdrawing money from your account, you agree to the
@@ -101,9 +101,7 @@
   </div>
 </template>
 <script>
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import HistoryIcon from '~/assets/images/utils/history.svg'
+import { TransferIcon, SettingsIcon, HistoryIcon } from 'omorphia'
 import ModalTransfer from '~/components/ui/ModalTransfer.vue'
 
 export default defineNuxtComponent({

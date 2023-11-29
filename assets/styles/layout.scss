@@ -8,17 +8,6 @@
   }
 }
 
-.rows {
-  display: flex;
-  flex-direction: column;
-
-  @for $i from 1 through 4 {
-    .row-grow-#{$i} {
-      flex-grow: $i;
-    }
-  }
-}
-
 .normal-page {
   display: grid;
 
@@ -86,6 +75,8 @@
 
 @media (min-width: 1024px) {
   .normal-page {
+    margin: 0 auto;
+    max-width: 1280px;
     column-gap: var(--gap-lg);
 
     grid-template:

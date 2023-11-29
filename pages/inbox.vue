@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="normal-page__sidebar">
-      <div class="universal-card">
+      <div class="card">
         <h2>Filter</h2>
         <button
           v-for="type in notifTypes"
@@ -56,7 +56,7 @@
           v-for="notification in notifications"
           :key="notification.id"
           v-model:notifications="allNotifs"
-          class="universal-card"
+          class="card"
           :notification="notification"
           :auth="auth"
         />
@@ -66,13 +66,16 @@
   </div>
 </template>
 <script setup>
-import { Button, HistoryIcon } from 'omorphia'
+import {
+  Button,
+  HistoryIcon,
+  Chips,
+  Breadcrumbs,
+  RadioButtonIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  CheckCheckIcon,
+} from 'omorphia'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import Chips from '~/components/ui/Chips.vue'
-import CheckCheckIcon from '~/assets/images/utils/check-check.svg'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import RadioButtonCheckedIcon from 'assets/images/utils/radio-button-checked.svg'
-import RadioButtonIcon from 'assets/images/utils/radio-button.svg'
 
 useHead({
   title: 'Inbox - Modrinth',
@@ -112,7 +115,6 @@ const notifications = computed(() => {
     return []
   }
   const groupedNotifs = groupNotifications(allNotifs.value, history.value)
-  console.log(groupedNotifs)
   return groupedNotifs.filter(
     (notif) =>
       (selectedType.value === 'all' || notif.type === selectedType.value) &&

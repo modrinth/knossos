@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="universal-card">
+    <div class="card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Manage members</span>
@@ -24,7 +24,7 @@
         />
         <label for="username" class="hidden">Username</label>
         <button
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="(currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
           @click="inviteTeamMember()"
         >
@@ -38,11 +38,11 @@
           <span class="label__description"> Remove yourself as a member of this project. </span>
         </span>
         <button
-          class="iconified-button danger-button"
+          class="btn btn-red"
           :disabled="currentMember.role === 'Owner'"
           @click="leaveProject()"
         >
-          <UserRemoveIcon />
+          <UserXIcon />
           Leave project
         </button>
       </div>
@@ -50,7 +50,7 @@
     <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
-      class="universal-card member"
+      class="card member"
       :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">
@@ -67,7 +67,7 @@
           <Badge v-if="member.accepted" type="accepted" />
           <Badge v-else type="pending" />
           <button
-            class="square-button dropdown-icon"
+            class="btn icon-only dropdown-icon"
             @click="
               openTeamMembers.indexOf(member.user.id) === -1
                 ? openTeamMembers.push(member.user.id)
@@ -209,7 +209,7 @@
         </template>
         <div class="input-group">
           <button
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="updateTeamMember(index)"
           >
@@ -218,16 +218,16 @@
           </button>
           <button
             v-if="member.oldRole !== 'Owner'"
-            class="iconified-button danger-button"
+            class="btn btn-red"
             :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="removeTeamMember(index)"
           >
-            <UserRemoveIcon />
+            <UserXIcon />
             Remove member
           </button>
           <button
             v-if="member.oldRole !== 'Owner' && currentMember.role === 'Owner' && member.accepted"
-            class="iconified-button"
+            class="btn"
             @click="transferOwnership(index)"
           >
             <TransferIcon />
@@ -239,29 +239,22 @@
   </div>
 </template>
 
+<script setup>
+import {
+  Checkbox,
+  Badge,
+  DropdownIcon,
+  SaveIcon,
+  TransferIcon,
+  UserPlusIcon,
+  UserXIcon,
+  Avatar,
+} from 'omorphia'
+</script>
 <script>
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Badge from '~/components/ui/Badge.vue'
-
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
-import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
-import Avatar from '~/components/ui/Avatar.vue'
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
 export default defineNuxtComponent({
-  components: {
-    Avatar,
-    DropdownIcon,
-    Checkbox,
-    Badge,
-    SaveIcon,
-    TransferIcon,
-    UserPlusIcon,
-    UserRemoveIcon,
-  },
   props: {
     project: {
       type: Object,

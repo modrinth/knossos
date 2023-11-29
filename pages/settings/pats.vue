@@ -1,8 +1,17 @@
 <template>
-  <div class="universal-card">
+  <div class="card">
+    <ConfirmModal
+      ref="modal_confirm"
+      title="Are you sure you want to delete this token?"
+      description="This will remove this token forever (like really forever)."
+      proceed-label="Delete this token"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      @proceed="removePat(deletePatIndex)"
+    />
     <Modal
       ref="patModal"
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="universal-modal">
         <label for="pat-name"><span class="label__title">Name</span> </label>
@@ -33,7 +42,7 @@
         <input id="pat-name" v-model="expires" type="date" />
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.patModal.hide()">
+          <button class="btn" @click="$refs.patModal.hide()">
             <XIcon />
             Cancel
           </button>
@@ -41,7 +50,7 @@
             v-if="editPatIndex !== null"
             :disabled="loading || !name || !expires"
             type="button"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="editPat"
           >
             <SaveIcon />
@@ -51,7 +60,7 @@
             v-else
             :disabled="loading || !name || !expires"
             type="button"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="createPat"
           >
             <PlusIcon />
@@ -85,7 +94,7 @@
       <a class="text-link" href="https://docs.modrinth.com">Modrinth's API documentation</a>. They
       can be created and revoked at any time.
     </p>
-    <div v-for="(pat, index) in pats" :key="pat.id" class="universal-card recessed token">
+    <div v-for="(pat, index) in pats" :key="pat.id" class="card recessed token">
       <div>
         <div>
           <strong>{{ pat.name }}</strong>
@@ -105,7 +114,10 @@
             </span>
             ⋅
             <span v-tooltip="$dayjs(pat.expires).format('MMMM D, YYYY [at] h:mm A')">
-              Expires {{ fromNow(pat.expires) }}
+              <template v-if="new Date(pat.expires) > new Date()">
+                Expires {{ fromNow(pat.expires) }}
+              </template>
+              <template v-else> Expired {{ fromNow(pat.expires) }} </template>
             </span>
             ⋅
             <span v-tooltip="$dayjs(pat.created).format('MMMM D, YYYY [at] h:mm A')">
@@ -116,7 +128,7 @@
       </div>
       <div class="input-group">
         <button
-          class="iconified-button raised-button"
+          class="btn raised"
           @click="
             () => {
               editPatIndex = index
@@ -129,7 +141,15 @@
         >
           <EditIcon /> Edit token
         </button>
-        <button class="iconified-button raised-button" @click="removePat(pat.id)">
+        <button
+          class="btn raised"
+          @click="
+            () => {
+              deletePatIndex = pat.id
+              $refs.modal_confirm.show()
+            }
+          "
+        >
           <TrashIcon /> Revoke token
         </button>
       </div>
@@ -137,8 +157,19 @@
   </div>
 </template>
 <script setup>
-import { PlusIcon, Modal, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon } from 'omorphia'
-import CopyCode from '~/components/ui/CopyCode.vue'
+import {
+  PlusIcon,
+  Modal,
+  XIcon,
+  Checkbox,
+  TrashIcon,
+  EditIcon,
+  SaveIcon,
+  ConfirmModal,
+  CopyCode,
+} from 'omorphia'
+
+const cosmetics = useCosmetics()
 
 definePageMeta({
   middleware: 'auth',
@@ -189,6 +220,8 @@ const editPatIndex = ref(null)
 const name = ref(null)
 const scopesVal = ref(0)
 const expires = ref(null)
+
+const deletePatIndex = ref(null)
 
 const loading = ref(false)
 

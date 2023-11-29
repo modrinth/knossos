@@ -3,6 +3,7 @@
     <Modal
       ref="modalSubmit"
       :header="isRejected(project) ? 'Resubmit for review' : 'Submit for review'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="modal-submit universal-body">
         <span>
@@ -23,12 +24,8 @@
           I confirm that I have properly addressed the moderators' comments.
         </Checkbox>
         <div class="input-group push-right">
-          <button
-            class="iconified-button moderation-button"
-            :disabled="!submissionConfirmation"
-            @click="resubmit()"
-          >
-            <ModerationIcon /> Resubmit for review
+          <button class="btn btn-highlight" :disabled="!submissionConfirmation" @click="resubmit()">
+            <ScaleIcon /> Resubmit for review
           </button>
         </div>
       </div>
@@ -36,7 +33,7 @@
     <div v-if="cosmetics.developerMode" class="thread-id">
       Thread ID: <CopyCode :text="thread.id" />
     </div>
-    <div v-if="sortedMessages.length > 0" class="messages universal-card recessed">
+    <div v-if="sortedMessages.length > 0" class="messages card recessed">
       <ThreadMessage
         v-for="message in sortedMessages"
         :key="'message-' + message.id"
@@ -63,35 +60,22 @@
       <div class="input-group">
         <button
           v-if="sortedMessages.length > 0"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!replyBody"
           @click="sendReply()"
         >
           <ReplyIcon /> Reply
         </button>
-        <button
-          v-else
-          class="iconified-button brand-button"
-          :disabled="!replyBody"
-          @click="sendReply()"
-        >
+        <button v-else class="btn btn-primary" :disabled="!replyBody" @click="sendReply()">
           <SendIcon /> Send
         </button>
         <template v-if="currentMember && !isStaff(auth.user)">
           <template v-if="isRejected(project)">
-            <button
-              v-if="replyBody"
-              class="iconified-button moderation-button"
-              @click="openResubmitModal(true)"
-            >
-              <ModerationIcon /> Resubmit for review with reply
+            <button v-if="replyBody" class="btn btn-highlight" @click="openResubmitModal(true)">
+              <ScaleIcon /> Resubmit for review with reply
             </button>
-            <button
-              v-else
-              class="iconified-button moderation-button"
-              @click="openResubmitModal(false)"
-            >
-              <ModerationIcon /> Resubmit for review
+            <button v-else class="btn btn-highlight" @click="openResubmitModal(false)">
+              <ScaleIcon /> Resubmit for review
             </button>
           </template>
         </template>
@@ -99,15 +83,11 @@
         <div class="input-group extra-options">
           <template v-if="report">
             <template v-if="isStaff(auth.user)">
-              <button
-                v-if="replyBody"
-                class="iconified-button danger-button"
-                @click="closeReport(true)"
-              >
-                <CloseIcon /> Close with reply
+              <button v-if="replyBody" class="btn btn-red" @click="closeReport(true)">
+                <CheckCircleIcon /> Close with reply
               </button>
-              <button v-else class="iconified-button danger-button" @click="closeReport()">
-                <CloseIcon /> Close thread
+              <button v-else class="btn btn-red" @click="closeReport()">
+                <CheckCircleIcon /> Close thread
               </button>
             </template>
           </template>
@@ -115,7 +95,7 @@
             <template v-if="isStaff(auth.user)">
               <button
                 v-if="replyBody"
-                class="iconified-button brand-button"
+                class="btn btn-primary"
                 :disabled="isApproved(project)"
                 @click="sendReply(requestedStatus)"
               >
@@ -123,7 +103,7 @@
               </button>
               <button
                 v-else
-                class="iconified-button brand-button"
+                class="btn btn-primary"
                 :disabled="isApproved(project)"
                 @click="setStatus(requestedStatus)"
               >
@@ -131,7 +111,7 @@
               </button>
               <button
                 v-if="replyBody"
-                class="iconified-button moderation-button"
+                class="btn btn-highlight"
                 :disabled="project.status === 'withheld'"
                 @click="sendReply('withheld')"
               >
@@ -139,7 +119,7 @@
               </button>
               <button
                 v-else
-                class="iconified-button moderation-button"
+                class="btn btn-highlight"
                 :disabled="project.status === 'withheld'"
                 @click="setStatus('withheld')"
               >
@@ -147,19 +127,19 @@
               </button>
               <button
                 v-if="replyBody"
-                class="iconified-button danger-button"
+                class="btn btn-red"
                 :disabled="project.status === 'rejected'"
                 @click="sendReply('rejected')"
               >
-                <CrossIcon /> Reject with reply
+                <XIcon /> Reject with reply
               </button>
               <button
                 v-else
-                class="iconified-button danger-button"
+                class="btn btn-red"
                 :disabled="project.status === 'rejected'"
                 @click="setStatus('rejected')"
               >
-                <CrossIcon /> Reject project
+                <XIcon /> Reject project
               </button>
             </template>
           </template>
@@ -170,21 +150,24 @@
 </template>
 
 <script setup>
-import Chips from '~/components/ui/Chips.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import ReplyIcon from '~/assets/images/utils/reply.svg'
-import SendIcon from '~/assets/images/utils/send.svg'
-import CloseIcon from '~/assets/images/utils/check-circle.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EyeOffIcon from '~/assets/images/utils/eye-off.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
-import { renderString } from '~/helpers/parse.js'
+import {
+  Modal,
+  Chips,
+  CopyCode,
+  ReplyIcon,
+  SendIcon,
+  CheckCircleIcon,
+  XIcon,
+  EyeOffIcon,
+  CheckIcon,
+  ScaleIcon,
+  Checkbox,
+  isStaff,
+  renderString,
+  isApproved,
+  isRejected,
+} from 'omorphia'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
-import { isStaff } from '~/helpers/users.js'
-import { isApproved, isRejected } from '~/helpers/projects.js'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const props = defineProps({
   thread: {

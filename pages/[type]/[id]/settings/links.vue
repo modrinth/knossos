@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>External links</h2>
       <div class="adjacent-input">
         <label
@@ -104,10 +104,10 @@
           @update:model-value="updateDonationLinks"
         />
       </div>
-      <div class="button-group">
+      <div class="input-group push-right">
         <button
           type="button"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!hasChanges"
           @click="saveChanges()"
         >
@@ -121,7 +121,7 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
-import SaveIcon from '~/assets/images/utils/save.svg'
+import { SaveIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {
@@ -275,5 +275,9 @@ export default defineNuxtComponent({
     flex-grow: 2;
     max-width: 26rem;
   }
+}
+
+.multiselect {
+  max-width: 15rem;
 }
 </style>

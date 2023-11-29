@@ -1,18 +1,11 @@
 <template>
   <div class="content">
-    <Head>
-      <Title> {{ project.title }} - Versions </Title>
-      <Meta name="og:title" :content="`${project.title} - Versions`" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="apple-mobile-web-app-title" :content="`${project.title} - Versions`" />
-      <Meta name="og:description" :content="metaDescription" />
-    </Head>
     <div v-if="currentMember" class="card header-buttons">
       <FileInput
         :max-size="524288000"
         :accept="acceptFileFromProjectType(project.project_type)"
         prompt="Upload a version"
-        class="brand-button iconified-button"
+        class="btn-primary btn"
         @change="handleFiles"
       >
         <UploadIcon />
@@ -23,14 +16,7 @@
       <DropArea :accept="acceptFileFromProjectType(project.project_type)" @change="handleFiles" />
     </div>
     <VersionFilterControl :versions="props.versions" @switch-page="switchPage" />
-    <Pagination
-      :page="currentPage"
-      :count="Math.ceil(filteredVersions.length / 20)"
-      class="pagination-before"
-      :link-function="(page) => `?page=${page}`"
-      @switch-page="switchPage"
-    />
-    <div v-if="filteredVersions.length > 0" id="all-versions" class="universal-card all-versions">
+    <div v-if="filteredVersions.length > 0" id="all-versions" class="card all-versions">
       <div class="header">
         <div />
         <div>Version</div>
@@ -54,7 +40,7 @@
             version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
           "
           :href="version.primaryFile.url"
-          class="download-button square-button brand-button"
+          class="download-button btn icon-only btn-primary"
           :class="version.version_type"
           :aria-label="`Download ${version.name}`"
           @click.stop="(event) => event.stopPropagation()"
@@ -104,14 +90,16 @@
   </div>
 </template>
 <script setup>
+import {
+  DownloadIcon,
+  UploadIcon,
+  InfoIcon,
+  Badge as VersionBadge,
+  FileInput,
+  DropArea,
+  Pagination,
+} from 'omorphia'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
-import VersionBadge from '~/components/ui/Badge.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-import DropArea from '~/components/ui/DropArea.vue'
-import Pagination from '~/components/ui/Pagination.vue'
 import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
 
 const props = defineProps({
@@ -142,21 +130,28 @@ const props = defineProps({
 })
 
 const data = useNuxtApp()
-const metaDescription = computed(
-  () =>
-    `Download and browse ${props.versions.length} ${
-      props.project.title
-    } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
-      .$dayjs(props.project.updated)
-      .format('MMM D, YYYY')}.`
-)
+
+const title = `${props.project.title} - Versions`
+const description = `Download and browse ${props.versions.length} ${
+  props.project.title
+} versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
+  .$dayjs(props.project.updated)
+  .format('MMM D, YYYY')}.`
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+})
 
 const route = useRoute()
-const currentPage = ref(Number(route.query.p ?? 1))
+const currentPage = ref(1)
+
 const filteredVersions = computed(() => {
-  const selectedGameVersions = getArrayOrString(route.query.g) ?? []
-  const selectedLoaders = getArrayOrString(route.query.l) ?? []
-  const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
+  const selectedGameVersions = getArrayOrString(route?.query?.g) ?? []
+  const selectedLoaders = getArrayOrString(route?.query?.l) ?? []
+  const selectedVersionTypes = getArrayOrString(route?.query?.c) ?? []
 
   return props.versions.filter(
     (projectVersion) =>

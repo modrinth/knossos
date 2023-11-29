@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>Color theme</h2>
       <div class="theme-options">
         <button
@@ -11,7 +11,7 @@
           @click="() => updateColorTheme(option)"
         >
           <div class="preview" :class="`${option === 'system' ? systemTheme : option}-mode`">
-            <div class="example-card universal-card card">
+            <div class="example-card card card">
               <div class="example-icon"></div>
               <div class="example-text-1"></div>
               <div class="example-text-2"></div>
@@ -25,7 +25,7 @@
         </button>
       </div>
     </section>
-    <section class="universal-card">
+    <section class="card">
       <h2>Feature flags</h2>
       <div class="adjacent-input small">
         <label for="advanced-rendering">
@@ -82,8 +82,7 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
-import RadioButtonCheckedIcon from 'assets/images/utils/radio-button-checked.svg'
-import RadioButtonIcon from 'assets/images/utils/radio-button.svg'
+import { RadioButtonIcon, RadioButtonChecked as RadioButtonCheckedIcon } from 'omorphia'
 
 export default defineNuxtComponent({
   components: {

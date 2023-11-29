@@ -16,6 +16,7 @@
             id="email"
             v-model="email"
             type="text"
+            autocomplete="username"
             class="auth-form__input"
             placeholder="Email"
           />
@@ -35,6 +36,7 @@
             id="password"
             v-model="newPassword"
             type="password"
+            autocomplete="new-password"
             class="auth-form__input"
             placeholder="Password"
           />
@@ -47,6 +49,7 @@
             id="confirm-password"
             v-model="confirmNewPassword"
             type="password"
+            autocomplete="new-password"
             class="auth-form__input"
             placeholder="Confirm password"
           />
@@ -60,9 +63,7 @@
   </div>
 </template>
 <script setup>
-import { SendIcon } from 'omorphia'
-import MailIcon from 'assets/icons/auth/mail.svg'
-import KeyIcon from 'assets/icons/auth/key.svg'
+import { SendIcon, MailIcon, KeyIcon } from 'omorphia'
 
 useHead({
   title: 'Reset Password - Modrinth',

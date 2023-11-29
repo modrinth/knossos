@@ -1,6 +1,10 @@
 <template>
-  <Modal ref="modal" :header="`Report ${itemType}`">
-    <div class="modal-report legacy-label-styles">
+  <Modal
+    ref="modal"
+    :header="`Report ${itemType}`"
+    :noblur="!$orElse(cosmetics.advancedRendering, true)"
+  >
+    <div class="modal-report universal-labels">
       <div class="markdown-body">
         <p>
           Modding should be safe for everyone, so we take abuse and malicious intent seriously at
@@ -15,10 +19,8 @@
           Discord invite, consider reporting it there.
         </p>
       </div>
-      <label class="report-label" for="report-type">
-        <span>
-          <strong>Reason</strong>
-        </span>
+      <label for="report-type">
+        <span class="label__title">Reason</span>
       </label>
       <Multiselect
         id="report-type"
@@ -31,10 +33,11 @@
         :show-labels="false"
         placeholder="Choose report type"
       />
-      <label class="report-label" for="additional-information">
-        <strong>Additional information</strong>
-        <span>
-          Include links and images if possible. This editor supports
+      <label for="report-body">
+        <span class="label__title">Additional information</span>
+        <span class="label__description add-line-height">
+          Please provide additional context about your report. Include links and images if possible.
+          <strong>Empty reports will be closed.</strong> This editor supports
           <a
             class="text-link"
             href="https://docs.modrinth.com/docs/tutorials/markdown/"
@@ -50,12 +53,12 @@
         </div>
         <div v-else class="preview" v-html="renderString(body)" />
       </div>
-      <div class="button-group">
-        <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+      <div class="input-group push-right">
+        <button class="btn" @click="cancel">
+          <XIcon />
           Cancel
         </button>
-        <button class="iconified-button brand-button" @click="submitReport">
+        <button class="btn btn-primary" @click="submitReport">
           <CheckIcon />
           Report
         </button>
@@ -66,16 +69,12 @@
 
 <script>
 import { Multiselect } from 'vue-multiselect'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Chips from '~/components/ui/Chips.vue'
-import { renderString } from '~/helpers/parse.js'
+import { XIcon, CheckIcon, Modal, Chips, renderString } from 'omorphia'
 
 export default {
   components: {
     Chips,
-    CrossIcon,
+    XIcon,
     CheckIcon,
     Modal,
     Multiselect,
@@ -92,8 +91,9 @@ export default {
   },
   setup() {
     const tags = useTags()
+    const cosmetics = useCosmetics()
 
-    return { tags }
+    return { tags, cosmetics }
   },
   data() {
     return {
@@ -126,6 +126,7 @@ export default {
         })
 
         this.$refs.modal.hide()
+        await this.$router.push('/dashboard/reports')
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -149,24 +150,13 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .markdown-body {
-    margin-bottom: 1rem;
+  .add-line-height {
+    line-height: 1.5;
+    margin-bottom: 0;
   }
 
   .multiselect {
     max-width: 20rem;
-    margin-bottom: 1rem;
-  }
-
-  .report-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .button-group {
-    margin-left: auto;
-    margin-top: 1.5rem;
   }
 
   .textarea-wrapper {

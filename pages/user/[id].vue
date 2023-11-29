@@ -1,17 +1,5 @@
 <template>
   <div v-if="user">
-    <Head>
-      <Title>{{ user.username + ' - Modrinth' }}</Title>
-      <Meta name="og:title" :content="user.username" />
-      <Meta name="description" :content="metaDescription" />
-      <Meta name="og:type" content="website" />
-      <Meta name="apple-mobile-web-app-title" :content="metaDescription" />
-      <Meta name="og:description" :content="metaDescription" />
-      <Meta
-        name="og:image"
-        :content="user.avatar_url ? user.avatar_url : 'https://cdn.modrinth.com/placeholder.png'"
-      />
-    </Head>
     <ModalCreation ref="modal_creation" />
     <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
     <div class="normal-page">
@@ -65,7 +53,7 @@
         </div>
       </div>
       <div class="normal-page__sidebar">
-        <div class="universal-card">
+        <div class="card">
           <h2>Badges</h2>
           <div class="badges-container">
             <div class="badge">
@@ -86,30 +74,30 @@
           <NavRow
             :links="[
               {
-                label: 'all',
+                label: formatMessage(commonMessages.allProjectType),
                 href: `/user/${user.username}`,
               },
               ...projectTypes.map((x) => {
                 return {
-                  label: $formatProjectType(x) + 's',
+                  label: formatMessage(getProjectTypeMessage(x, true)),
                   href: `/user/${user.username}/${x}s`,
                 }
               }),
             ]"
           />
           <div class="input-group">
-            <NuxtLink
-              v-if="auth.user && auth.user.id === user.id"
-              class="iconified-button"
-              to="/projects"
-            >
+            <NuxtLink v-if="auth.user && auth.user.id === user.id" class="btn" to="/projects">
               <SettingsIcon />
-              Manage projects
+              {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
             <button
-              v-tooltip="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
-              :aria-label="$capitalizeString(cosmetics.searchDisplayMode.user) + ' view'"
-              class="square-button"
+              v-tooltip="
+                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
+              "
+              :aria-label="
+                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
+              "
+              class="btn icon-only"
               @click="cycleSearchDisplayMode()"
             >
               <GridIcon v-if="cosmetics.searchDisplayMode.user === 'grid'" />
@@ -165,16 +153,21 @@
             "
             :type="project.project_type"
             :color="project.color"
+            :from-now="fromNow"
           />
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="auth.user && auth.user.id === user.id" class="text">
-            You don't have any projects.<br />
-            Would you like to
-            <a class="link" @click.prevent="$refs.modal_creation.show()"> create one</a>?
+          <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
+            <IntlFormatted :message-id="messages.profileNoProjectsAuthLabel">
+              <template #create-link="{ children }">
+                <a class="link" @click.prevent="$refs.modal_creation.show()">
+                  <component :is="() => children" />
+                </a>
+              </template>
+            </IntlFormatted>
           </span>
-          <span v-else class="text">This user has no projects!</span>
+          <span v-else class="text">{{ formatMessage(messages.profileNoProjectsLabel) }}</span>
         </div>
       </div>
     </div>
@@ -189,29 +182,21 @@ import {
   HeartIcon,
   DownloadIcon,
   SunriseIcon,
+  ProjectCard,
+  Avatar,
+  NavRow,
+  SettingsIcon,
+  GridIcon,
+  ListIcon,
+  ImageIcon,
   formatNumber,
 } from 'omorphia'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
 import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
-import Badge10MDownloads from '~/assets/images/badges/downloads-10m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
-import Badge100MDownloads from '~/assets/images/badges/downloads-100m.svg'
-import BadgeEarlyDataPackAdopter from '~/assets/images/badges/early-datapack-adopters.svg'
-import BadgeEarlyModpackAdopter from '~/assets/images/badges/early-modpack-adopters.svg'
-import BadgeEarlyPluginAdopter from '~/assets/images/badges/early-plugin-adopters.svg'
-import BadgeEarlyResourcePackAdopter from '~/assets/images/badges/early-resourcepack-adopters.svg'
-import BadgeEarlyShadersAdopter from '~/assets/images/badges/early-shaders-adopters.svg'
-import BadgeModrinthModerator from '~/assets/images/badges/modrinth-moderator.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
 const data = useNuxtApp()
@@ -219,6 +204,37 @@ const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()
+
+const vintl = useVIntl()
+const { formatMessage } = vintl
+
+const messages = defineMessages({
+  profileManageProjectsButton: {
+    id: 'profile.button.manage-projects',
+    defaultMessage: 'Manage projects',
+  },
+  profileMetaDescription: {
+    id: 'profile.meta.description',
+    defaultMessage: "Download {username}'s projects on Modrinth",
+  },
+  profileMetaDescriptionWithBio: {
+    id: 'profile.meta.description-with-bio',
+    defaultMessage: "{bio} - Download {username}'s projects on Modrinth",
+  },
+  profileNoProjectsLabel: {
+    id: 'profile.label.no-projects',
+    defaultMessage: 'This user has no projects!',
+  },
+  profileNoProjectsAuthLabel: {
+    id: 'profile.label.no-projects-auth',
+    defaultMessage:
+      "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
+  },
+  userNotFoundError: {
+    id: 'profile.error.not-found',
+    defaultMessage: 'User not found',
+  },
+})
 
 let user, projects
 try {
@@ -247,7 +263,7 @@ try {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -255,7 +271,7 @@ if (!user.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -263,11 +279,23 @@ if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
 }
 
-const metaDescription = ref(
+const title = `${user.value.username} - Modrinth`
+const description = ref(
   user.value.bio
-    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
-    : `Download ${user.value.username}'s projects on Modrinth`
+    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+        bio: user.value.bio,
+        username: user.value.username,
+      })}`
+    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
 )
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
+})
 
 const projectTypes = computed(() => {
   const obj = {}
@@ -285,7 +313,7 @@ const sumDownloads = computed(() => {
     sum += project.downloads
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 const sumFollows = computed(() => {
   let sum = 0
@@ -294,7 +322,7 @@ const sumFollows = computed(() => {
     sum += project.followers
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 
 const isEditing = ref(false)
@@ -344,7 +372,7 @@ async function saveChanges() {
     console.error(err)
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data.description,
       type: 'error',
     })
@@ -359,11 +387,6 @@ function cycleSearchDisplayMode() {
   )
   saveCosmetics()
 }
-</script>
-<script>
-export default defineNuxtComponent({
-  methods: {},
-})
 </script>
 
 <style lang="scss" scoped>
@@ -495,10 +518,6 @@ export default defineNuxtComponent({
   label {
     margin-bottom: 0;
   }
-}
-
-.button-group:first-child {
-  margin-left: auto;
 }
 
 .textarea-wrapper {

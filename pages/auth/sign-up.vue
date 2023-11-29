@@ -4,27 +4,27 @@
 
     <section class="third-party">
       <a class="btn discord-btn" :href="getAuthUrl('discord')">
-        <DiscordIcon />
+        <SSODiscordIcon />
         <span>Discord</span>
       </a>
       <a class="btn" :href="getAuthUrl('github')">
-        <GitHubIcon />
+        <SSOGitHubIcon />
         <span>GitHub</span>
       </a>
       <a class="btn" :href="getAuthUrl('microsoft')">
-        <MicrosoftIcon />
+        <SSOMicrosoftIcon />
         <span>Microsoft</span>
       </a>
       <a class="btn" :href="getAuthUrl('google')">
-        <GoogleIcon />
+        <SSOGoogleIcon />
         <span>Google</span>
       </a>
       <a class="btn" :href="getAuthUrl('steam')">
-        <SteamIcon />
+        <SSOSteamIcon />
         <span>Steam</span>
       </a>
       <a class="btn" :href="getAuthUrl('gitlab')">
-        <GitLabIcon />
+        <SSOGitLabIcon />
         <span>GitLab</span>
       </a>
     </section>
@@ -38,7 +38,8 @@
         <input
           id="email"
           v-model="email"
-          type="text"
+          type="email"
+          autocomplete="username"
           class="auth-form__input"
           placeholder="Email"
         />
@@ -51,6 +52,7 @@
           id="username"
           v-model="username"
           type="text"
+          autocomplete="username"
           class="auth-form__input"
           placeholder="Username"
         />
@@ -64,6 +66,7 @@
           v-model="password"
           class="auth-form__input"
           type="password"
+          autocomplete="new-password"
           placeholder="Password"
         />
       </div>
@@ -75,6 +78,7 @@
           id="confirm-password"
           v-model="confirmPassword"
           type="password"
+          autocomplete="new-password"
           class="auth-form__input"
           placeholder="Confirm password"
         />
@@ -86,6 +90,7 @@
         v-model="subscribe"
         class="subscribe-btn"
         label="Subscribe to updates about Modrinth"
+        description="Subscribe to updates about Modrinth"
       />
 
       <p>
@@ -107,16 +112,19 @@
 </template>
 
 <script setup>
-import { RightArrowIcon, UserIcon, Checkbox } from 'omorphia'
-import GitHubIcon from 'assets/icons/auth/sso-github.svg'
-import MicrosoftIcon from 'assets/icons/auth/sso-microsoft.svg'
-import GoogleIcon from 'assets/icons/auth/sso-google.svg'
-import SteamIcon from 'assets/icons/auth/sso-steam.svg'
-import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
-import KeyIcon from 'assets/icons/auth/key.svg'
-import MailIcon from 'assets/icons/auth/mail.svg'
-import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
-
+import {
+  RightArrowIcon,
+  UserIcon,
+  Checkbox,
+  SSOGitHubIcon,
+  SSOSteamIcon,
+  SSOGitLabIcon,
+  SSOMicrosoftIcon,
+  SSOGoogleIcon,
+  SSODiscordIcon,
+  KeyIcon,
+  MailIcon,
+} from 'omorphia'
 useHead({
   title: 'Sign Up - Modrinth',
 })

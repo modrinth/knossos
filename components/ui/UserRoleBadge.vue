@@ -8,9 +8,7 @@
 </template>
 
 <script setup>
-import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
-import ModeratorIcon from '~/assets/images/utils/moderation.svg'
-import CreatorIcon from '~/assets/images/utils/box.svg'
+import { ModrinthIcon, BoxIcon as CreatorIcon, ScaleIcon as ModeratorIcon } from 'omorphia'
 
 defineProps({
   type: {

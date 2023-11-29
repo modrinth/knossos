@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import Fuse from 'fuse.js/dist/fuse.basic'
-import RadioButtonIcon from '~/assets/images/utils/radio-button.svg'
-import RadioButtonCheckedIcon from '~/assets/images/utils/radio-button-checked.svg'
-import WarningIcon from '~/assets/images/utils/issues.svg'
+import {
+  RadioButtonIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  IssuesIcon as WarningIcon,
+} from 'omorphia'
 import { isModifierKeyDown } from '~/helpers/events.ts'
 
 const vintl = useVIntl()
@@ -42,10 +44,6 @@ const messages = defineMessages({
   loadFailed: {
     id: 'settings.language.languages.load-failed',
     defaultMessage: 'Cannot load this language. Try again in a bit.',
-  },
-  languageLabel: {
-    id: 'settings.language.languages.language-label',
-    defaultMessage: '{translatedName}. {displayName}',
   },
   languageLabelApplying: {
     id: 'settings.language.languages.language-label-applying',
@@ -275,10 +273,7 @@ function onItemClick(e: MouseEvent, locale: Locale) {
 function getItemLabel(locale: Locale) {
   const label = locale.auto
     ? formatMessage(messages.automaticLocale)
-    : formatMessage(messages.languageLabel, {
-        translatedName: locale.translatedName,
-        displayName: locale.displayName,
-      })
+    : `${locale.translatedName}. ${locale.displayName}`
 
   if ($changingTo.value === locale.tag) {
     return formatMessage(messages.languageLabelApplying, { label })
@@ -294,7 +289,7 @@ function getItemLabel(locale: Locale) {
 
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <h2>{{ formatMessage(messages.languagesTitle) }}</h2>
 
       <div class="card-description">

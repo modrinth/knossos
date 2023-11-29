@@ -1,13 +1,20 @@
 <script setup>
-import { TrashIcon, SearchIcon, BoxIcon, SendIcon, EditIcon, DownloadIcon } from 'omorphia'
-import Avatar from '~/components/ui/Avatar.vue'
+import {
+  TrashIcon,
+  SearchIcon,
+  BoxIcon,
+  SendIcon,
+  EditIcon,
+  DownloadIcon,
+  Avatar,
+  Badge,
+  AnimatedLogo,
+  Checkbox,
+} from 'omorphia'
 import homepageProjects from '~/generated/homepage.json'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
-import Badge from '~/components/ui/Badge.vue'
 import PrismIcon from '~/assets/images/external/prism.svg'
 import ATLauncher from '~/assets/images/external/atlauncher.svg'
 import CurseForge from '~/assets/images/external/curseforge.svg'
-import Checkbox from '~/components/ui/Checkbox.vue'
 
 const val = Math.ceil(homepageProjects.length / 6)
 const os = ref(null)
@@ -38,9 +45,7 @@ const rows = shallowRef([
 const { data: launcherUpdates } = await useAsyncData('launcherUpdates', () =>
   $fetch('https://launcher-files.modrinth.com/updates.json')
 )
-console.log(launcherUpdates)
 
-console.log(launcherUpdates.value)
 macLinks.appleSilicon = launcherUpdates.value.platforms['darwin-aarch64'].install_urls[0]
 macLinks.intel = launcherUpdates.value.platforms['darwin-x86_64'].install_urls[0]
 windowsLink.value = launcherUpdates.value.platforms['windows-x86_64'].install_urls[0]
@@ -99,19 +104,15 @@ const scrollToSection = () => {
   })
 }
 
-useHead({
-  title: 'Download the Modrinth App!',
-  meta: [{ name: 'The Modrinth App', content: 'An open source mod launcher unlike any other.' }],
-})
+const title = 'Download the Modrinth App!'
+const description =
+  'The Modrinth App is a unique, open source launcher that allows you to play your favorite mods, and keep them up to date, all in one neat little package.'
 
 useSeoMeta({
-  title: 'The Modrinth App',
-  ogTitle: 'The Modrinth App',
-  description: 'Download the Modrinth App for Windows, Mac, and Linux.',
-  ogDescription:
-    'The Modrinth App is a unique, open source launcher that allows you to play your favorite mods, and keep them up to date, all in one neat little package.',
-  ogImage: 'https://cdn.modrinth.com/modrinth-new.png?',
-  twitterCard: 'summary',
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
 })
 </script>
 
@@ -127,10 +128,10 @@ useSeoMeta({
         The Modrinth App is a unique, open source launcher that allows you to play your favorite
         mods, and keep them up to date, all in one neat little package.
       </h2>
-      <div class="button-group">
+      <div class="input-group push-right">
         <button
           v-if="os"
-          class="iconified-button brand-button btn btn-large"
+          class="btn btn-primary btn btn-large"
           rel="noopener nofollow"
           @click="downloadLauncher"
         >
@@ -186,7 +187,7 @@ useSeoMeta({
           </svg>
           Download the Modrinth App
         </button>
-        <button class="iconified-button outline-button btn btn-large" @click="scrollToSection">
+        <button class="btn outline-button btn btn-large" @click="scrollToSection">
           More Download Options
         </button>
       </div>
@@ -449,7 +450,7 @@ useSeoMeta({
               <div class="cell">
                 <div>
                   <div class="icon-logo modrinth">
-                    <LogoAnimated class="icon" />
+                    <AnimatedLogo class="icon" />
                   </div>
                 </div>
               </div>
@@ -973,7 +974,7 @@ useSeoMeta({
         </h2>
         <a
           href="https://blog.modrinth.com/?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
         >
           Visit the blog
         </a>
@@ -985,11 +986,12 @@ useSeoMeta({
 <style scoped lang="scss">
 .landing-hero {
   position: relative;
+  z-index: 0;
   background: #0f1121 url('https://cdn-raw.modrinth.com/app-landing/cube-black.png') no-repeat
     center 4rem;
   background-size: cover;
-  padding: 6rem 1rem 12rem 1rem;
-  margin-top: -4rem;
+  padding: 8rem 1rem 12rem 1rem;
+  margin-top: -6rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1010,7 +1012,7 @@ useSeoMeta({
     mask-image: none;
   }
 
-  .button-group {
+  .input-group {
     width: fit-content;
     margin: 0 auto;
     justify-content: center;

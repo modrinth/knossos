@@ -88,13 +88,15 @@
 </template>
 
 <script setup>
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import ModeratorIcon from '~/assets/images/utils/moderation.svg'
-import ModrinthIcon from '~/assets/images/utils/modrinth.svg'
-import MicIcon from '~/assets/images/utils/mic.svg'
-import PrivateIcon from '~/assets/images/utils/lock.svg'
-import { renderString } from '~/helpers/parse.js'
+import {
+  Avatar,
+  Badge,
+  ScaleIcon as ModeratorIcon,
+  ModrinthIcon,
+  MicrophoneIcon as MicIcon,
+  LockIcon as PrivateIcon,
+  renderString,
+} from 'omorphia'
 import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
 
 const props = defineProps({
