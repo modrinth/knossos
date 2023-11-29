@@ -69,7 +69,7 @@
     "message": "{bio} - Stiahnuť projekty používateľa {username} na Modrinthe"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> stiahnutie} few {stat>{count}</stat> stiahnutia} other {<stat>{count}</stat> stiahnutí}}"
+    "message": "{count, plural, one {<stat>{count}</stat> stiahnutie} few {<stat>{count}</stat> stiahnutia} other {<stat>{count}</stat> stiahnutí}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> sledovateľ} few {<stat>{count}</stat> sledovateľov} other {<stat>{count}</stat> sledovateľov}} projektov"
@@ -162,30 +162,30 @@
     "message": "Jazyk"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Ukončiť reláciu"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Tu sú všetky zariadenia na ktorých ste momentálne prihlásený s vaším Modrinth účtom. Z každého sa môžete osobitne odhlásiť.\n\nAk vidíte zariadenie, ktoré nespoznávate, odhláste sa z neho a okamžite zmeňte svoje heslo od svojho Modrinth účtu."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Vytvorené {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Aktuálna relácia"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Naposledy použité {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Neznáme OS"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Neznáma platforma"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Relácie"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} o {time, time, short}"
   }
 }
