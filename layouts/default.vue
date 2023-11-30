@@ -59,7 +59,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="btn" to="/follows">
+              <NuxtLink class="btn" to="/settings/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -103,7 +103,7 @@
           </button>
           <template v-if="auth.user">
             <NuxtLink
-              to="/inbox"
+              to="/home"
               class="tab button-animation"
               :class="{
                 bubble: user.notifications.some((notif) => !notif.read),
@@ -255,7 +255,7 @@
               {
                 id: 'saved',
                 action: () => {
-                  router.push(`/follows`)
+                  router.push(`/settings/follows`)
                 },
               },
               {

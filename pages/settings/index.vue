@@ -1,5 +1,12 @@
 <template>
   <div>
+    <MessageBanner v-if="cosmetics.developerMode" message-type="warning" class="developer-message">
+      <CodeIcon /> <strong>Developer mode</strong> is active. This will allow you to view the
+      internal IDs of various things throughout Modrinth that may be helpful if you're a developer
+      using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle
+      developer mode.
+      <Button :action="() => disableDeveloperMode()"> Deactivate developer mode </Button>
+    </MessageBanner>
     <section class="card">
       <h2>Color theme</h2>
       <div class="theme-options">
@@ -81,7 +88,13 @@
 </template>
 
 <script setup>
-import { RadioButtonIcon, RadioButtonChecked as RadioButtonCheckedIcon } from 'omorphia'
+import {
+  RadioButtonIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  Button,
+  CodeIcon,
+} from 'omorphia'
+import MessageBanner from '~/components/ui/MessageBanner.vue'
 
 useHead({
   title: `Display settings - Modrinth`,
@@ -115,6 +128,17 @@ function updateColorTheme(value) {
     saveCosmetics()
   }
   updateTheme(value, true)
+}
+
+function disableDeveloperMode() {
+  cosmetics.value.developerMode = !cosmetics.value.developerMode
+  saveCosmetics()
+  addNotification({
+    group: 'main',
+    title: 'Developer mode deactivated',
+    text: 'Developer mode has been disabled',
+    type: 'success',
+  })
 }
 
 onMounted(() => {
@@ -197,6 +221,17 @@ onMounted(() => {
     svg {
       margin-right: 0.5rem;
     }
+  }
+}
+
+.developer-message {
+  svg {
+    vertical-align: middle;
+    margin-bottom: 2px;
+  }
+
+  .btn {
+    margin-top: var(--gap-sm);
   }
 }
 </style>

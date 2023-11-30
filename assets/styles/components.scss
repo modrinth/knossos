@@ -2,6 +2,37 @@
   Base components
 */
 
+// TODO: maybe move to omorphia
+.vertical-navbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  margin-bottom: var(--gap-lg);
+  padding-inline: calc(var(--gap-xl) - 1.1rem - 0.5rem);
+  flex-wrap: wrap;
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: var(--gap-sm) var(--gap-md);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+
+    svg {
+      margin-right: 0.5rem;
+    }
+
+    &.router-link-exact-active {
+      background-color: var(--color-button-bg);
+      color: var(--color-contrast);
+    }
+
+    .chevron {
+      margin-left: auto;
+    }
+  }
+}
+
 .known-error .multiselect__tags {
   border-color: var(--color-red) !important;
   background-color: var(--color-red-bg) !important;

@@ -255,10 +255,10 @@ const licenseId = computed(() => {
 const patchData = computed(() => {
   const data = {}
 
-  if (licenseId.value !== project.value.license.id) {
+  if (licenseId.value !== props.project.license.id) {
     data.license_id = licenseId.value
     data.license_url = licenseUrl.value ? licenseUrl.value : null
-  } else if (licenseUrl.value !== project.value.license.url) {
+  } else if (licenseUrl.value !== props.project.license.url) {
     data.license_url = licenseUrl.value ? licenseUrl.value : null
   }
 

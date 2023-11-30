@@ -1,5 +1,4 @@
-import { useNuxtApp } from '#app'
-import { getProjectTypeForUrl } from '~/helpers/projects'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 async function getBulk(type, ids) {
   if (ids.length === 0) {

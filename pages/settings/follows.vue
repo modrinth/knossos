@@ -35,7 +35,7 @@
 
 <script setup>
 import { ProjectCard, HeartIcon } from 'omorphia'
-import FollowIllustration from 'assets/images/illustrations/follow_illustration.svg'
+import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 const user = await useUser()

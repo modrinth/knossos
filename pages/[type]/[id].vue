@@ -221,74 +221,60 @@
       </section>
       <div class="normal-page__info">
         <template v-if="$route.name.startsWith('type-id-settings')">
-          <h3>Details</h3>
-          <NavStack>
-            <NavStackItem
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-              label="General"
+          <div class="vertical-navbar">
+            <h3>Details</h3>
+            <NuxtLink
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
             >
-              <SettingsIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <SettingsIcon /> General
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/tags`"
-              label="Tags"
             >
-              <TagIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <TagIcon /> Tags
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/description`"
-              label="Description"
             >
-              <DescriptionIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <DescriptionIcon /> Description
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/license`"
-              label="License"
             >
-              <LicenseIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <LicenseIcon /> License
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/links`"
-              label="Links"
             >
-              <LinksIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <LinksIcon /> Links
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/members`"
-              label="Members"
             >
-              <UsersIcon />
-            </NavStackItem>
+              <UsersIcon /> Members
+            </NuxtLink>
             <h3>Upload</h3>
-            <NavStackItem
-              :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
-              label="Gallery"
-              chevron
+            <NuxtLink
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
             >
-              <GalleryIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`"
-              label="Versions"
-              chevron
+              <GalleryIcon /> Gallery <span class="chevron"><ChevronRightIcon /></span>
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
             >
-              <VersionIcon />
-            </NavStackItem>
-          </NavStack>
+              <VersionIcon /> Versions <span class="chevron"><ChevronRightIcon /></span>
+            </NuxtLink>
+          </div>
         </template>
         <template v-else>
           <nuxt-link
@@ -672,8 +658,6 @@ import {
   UnknownIcon,
   ChevronRightIcon,
   Badge,
-  NavStack,
-  NavItem as NavStackItem,
   SettingsIcon,
   UsersIcon,
   TagsIcon as TagIcon,
