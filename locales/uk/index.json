@@ -72,7 +72,7 @@
     "message": "{count, plural, one {<stat>{count}</stat> завантаження} few {<stat>{count}</stat> завантаження} other {<stat>{count}</stat> завантажень}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> послідовник} few {<stat>{count}</stat> послідовники} other {<stat>{count}</stat> послідовників}} у проєктів"
+    "message": "{count, plural, one {<stat>{count}</stat> підписник} few {<stat>{count}</stat> підписники} other {<stat>{count}</stat> підписників}} у проєктах"
   },
   "profile.user-id": {
     "message": "ID користувача: {id}"
