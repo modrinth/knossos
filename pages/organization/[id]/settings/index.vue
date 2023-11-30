@@ -1,5 +1,5 @@
 <script setup>
-import { Card, Button, FileInput, TrashIcon, Avatar, UploadIcon, SaveIcon } from 'omorphia'
+import { Card, Button, FileInput, TrashIcon, Avatar, UploadIcon, SaveIcon, ConfirmModal } from 'omorphia'
 
 const props = defineProps({
   organization: {
@@ -100,11 +100,20 @@ const saveChanges = async () => {
 </script>
 
 <template>
-  <div class="settings-page__content">
+  <ConfirmModal
+    ref="confirmModal"
+    title="Are you sure you want to delete this version?"
+    description="This will remove this version forever (like really forever)."
+    :has-to-type="true"
+    proceed-label="Delete"
+    :confirmationText="organization.title"
+    @proceed="deleteOrganization"
+  />
+  <div class="normal-page__content">
     <Card>
       <div class="label">
         <h3>
-          <span class="label__title size-card-header">Project information</span>
+          <span class="label__title size-card-header">Organization details</span>
         </h3>
       </div>
       <label for="project-icon">
@@ -123,22 +132,21 @@ const saveChanges = async () => {
             :max-size="262144"
             :show-icon="true"
             accept="image/png,image/jpeg,image/gif,image/webp"
-            class="choose-image iconified-button"
+            class="btn"
             prompt="Upload icon"
             :disabled="!hasPermission"
             @change="showPreviewImage"
           >
             <UploadIcon />
           </FileInput>
-          <button
+          <Button
             v-if="!deletedIcon && (previewImage || organization.icon_url)"
-            class="iconified-button"
             :disabled="!hasPermission"
             @click="markIconForDeletion"
           >
             <TrashIcon />
             Remove icon
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -165,6 +173,21 @@ const saveChanges = async () => {
           Save changes
         </Button>
       </div>
+    </Card>
+    <Card>
+      <div class="label">
+        <h3>
+          <span class="label__title size-card-header">Delete organization</span>
+        </h3>
+      </div>
+      <p>
+        Deleting your organization will remove all of your projects and collections. This action
+        cannot be undone.
+      </p>
+      <Button color="danger" @click="() => $refs.modal_deletion.show()">
+        <TrashIcon />
+        Delete organization
+      </Button>
     </Card>
   </div>
 </template>

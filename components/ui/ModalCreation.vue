@@ -2,7 +2,7 @@
   <Modal
     ref="modal"
     header="Create a project"
-    :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    :noblur="!(cosmetics.advancedRendering ?? true)"
   >
     <div class="modal-creation universal-labels">
       <div class="markdown-body">

@@ -787,12 +787,8 @@ try {
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
         if (project) {
-          project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-          project.project_type = data.$getProjectTypeForUrl(
-            project.project_type,
-            project.loaders,
-            tags.value
-          )
+          project.actualProjectType = 'mod'
+          project.project_type = 'mod'
 
           if (process.client && history.state && history.state.overrideProjectType) {
             project.project_type = history.state.overrideProjectType

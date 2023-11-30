@@ -263,7 +263,7 @@
                 .sort((a, b) => b.featured - a.featured)
                 .map((x) => x.url)[0]
             "
-            :description="project.description"
+            :description="project"
             :created-at="project.published"
             :updated-at="project.updated"
             :downloads="project.downloads.toString()"

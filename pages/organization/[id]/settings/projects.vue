@@ -171,14 +171,13 @@
     <template v-else>
       <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="input-group">
-        <button
-          class="iconified-button"
+        <Button
           :disabled="selectedProjects.length === 0"
           @click="$refs.editLinksModal.show()"
         >
           <EditIcon />
           Edit links
-        </button>
+        </Button>
         <div class="push-right">
           <div class="labeled-control-row">
             Sort by
@@ -192,14 +191,15 @@
               :allow-empty="false"
               @update:model-value="sortedProjects = updateSort(sortedProjects, sortBy, descending)"
             />
-            <button
+            <Button
               v-tooltip="descending ? 'Descending' : 'Ascending'"
               class="square-button"
               @click="updateDescending()"
+              icon-only
             >
-              <DescendingIcon v-if="descending" />
-              <AscendingIcon v-else />
-            </button>
+              <SortDescendingIcon v-if="descending" />
+              <SortAscendingIcon v-else />
+            </Button>
           </div>
         </div>
       </div>
@@ -315,10 +315,10 @@ import {
   XIcon,
   EditIcon,
   SaveIcon,
-  Button
+  Button,
+  SortAscendingIcon,
+  SortDescendingIcon
 } from 'omorphia'
-import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
-import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
@@ -484,7 +484,7 @@ const bulkEditLinks = async () => {
   border-radius: var(--size-rounded-sm);
   overflow: hidden;
   margin-top: var(--spacing-card-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-button-bg);
 
   .grid-table__row {
     display: contents;
@@ -511,7 +511,6 @@ const bulkEditLinks = async () => {
     }
 
     &.grid-table__header > div {
-      background-color: var(--color-bg);
       font-weight: bold;
       color: var(--color-text-dark);
       padding-top: var(--spacing-card-bg);
@@ -658,5 +657,11 @@ h1 {
   margin-block: var(--gap-sm) var(--gap-lg);
   font-size: 2em;
   line-height: 1em;
+}
+
+:deep(.checkbox-outer) {
+  button.checkbox {
+    border: none;
+  }
 }
 </style>

@@ -313,7 +313,16 @@ const selectFilter = (filter) => {
         </NuxtLink>
       </div>
     </div>
-    <NuxtPage v-model:organization="organization" v-model:projects="projects" v-model:typeFilter="selectedFilter" :current-member="currentMember"/>
+    <NuxtPage
+        v-model:organization="organization"
+        v-model:projects="projects"
+        v-model:type-filter="selectedFilter"
+        :current-member="currentMember"
+        :patch-icon="patchIcon"
+        :patch-organization="patchOrganization"
+        :delete-icon="deleteIcon"
+        :delete-org="deleteOrganization"
+    />
   </div>
 </template>
 
@@ -593,7 +602,7 @@ const selectFilter = (filter) => {
       display: flex;
       flex-direction: row;
       align-items: flex-end;
-      gap: var(--gap-sm);
+      gap: var(--gap-md);
 
       .user-text {
         height: 4.5rem;
