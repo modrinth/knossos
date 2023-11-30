@@ -8,13 +8,13 @@ import {
   Modal,
   HistoryIcon,
   Button,
-  UpdatedIcon
+  UpdatedIcon,
+  PageBar
 } from 'omorphia'
 import Chart from "~/components/ui/charts/Chart.vue";
 import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
 import CalendarClockIcon from "~/assets/images/utils/calendar-clock.svg";
-import PageBar from "~/components/ui/PageBar.vue";
 
 const app = useNuxtApp()
 const auth = await useAuth()

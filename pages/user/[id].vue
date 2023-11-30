@@ -13,7 +13,7 @@
       />
     </Head>
     <ModalCreation ref="modal_creation" />
-    <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
+    <ReportModal ref="modal_report" :item-id="user.id" item-type="user" />
     <Modal
         ref="editModal"
         header="Edit profile"
@@ -162,7 +162,7 @@
         </PageBar>
       </div>
       <div class="normal-page__sidebar">
-        <div class="universal-card about-card">
+        <Card class="universal-card about-card">
           <h2 class="sidebar-card-header">About</h2>
           <div class="sidebar__item">
             <div class="secondary-stat">
@@ -173,7 +173,7 @@
               </span>
             </div>
             <div class="secondary-stat">
-              <FlameIcon class="secondary-stat__icon" />
+              <HeartIcon class="secondary-stat__icon" />
               <span class="secondary-stat__text">
                 <span class="secondary-stat__value">{{ sumFollows }}</span>
                 <span>followers of projects</span>
@@ -194,9 +194,9 @@
               </span>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <h2>Badges</h2>
+        </Card>
+        <Card>
+          <h2 class="sidebar-card-header">Badges</h2>
           <div class="badges-container">
             <div class="badge">
               <BadgeModrinthTeam />
@@ -208,8 +208,8 @@
               <Badge1MDownloads />
             </div>
           </div>
-        </div>
-        <div v-if="organizations" class="card">
+        </Card>
+        <Card v-if="organizations">
           <h2 class="sidebar-card-header">Organizations</h2>
           <div class="organizations">
             <router-link v-for="org in organizations" class="button-base clickable" :to="'/organization/' + org.title">
@@ -222,7 +222,7 @@
               />
             </router-link>
           </div>
-        </div>
+        </Card>
       </div>
       <div class="normal-page__content">
         <Promotion />
@@ -322,7 +322,13 @@ import {
   GridIcon,
   ListIcon,
   ImageIcon,
+  PageBar,
   formatNumber,
+  Modal,
+  Card,
+  ReportModal,
+  FilterIcon,
+  HeartIcon
 } from 'omorphia'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
@@ -330,13 +336,10 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
-import FilterIcon from "assets/images/utils/filter.svg";
 import WorldIcon from "assets/images/utils/world.svg";
 import GlassesIcon from "assets/images/utils/glasses.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
-import FlameIcon from "assets/images/utils/flame.svg";
-import PageBar from "~/components/ui/PageBar.vue";
 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime';

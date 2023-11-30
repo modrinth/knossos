@@ -20,22 +20,21 @@ import {
   formatNumber,
   ShareModal,
   ReportModal, BoxIcon, ModrinthIcon, ScaleIcon, ServerIcon, MoreHorizontalIcon, OverflowMenu,
+  PageBar,
+  Avatar,
+  Breadcrumbs,
+  FilterIcon,
+  ImageIcon,
 } from 'omorphia'
-import Avatar from '~/components/ui/Avatar.vue'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
 import WorldIcon from "assets/images/utils/world.svg";
-import FilterIcon from "assets/images/utils/filter.svg";
-import ImageIcon from "assets/images/utils/image.svg";
 import GlassesIcon from "assets/images/utils/glasses.svg";
-import FlameIcon from "assets/images/utils/flame.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
-import PageBar from "~/components/ui/PageBar.vue";
 
 const auth = await useAuth()
 const data = useNuxtApp()
 const route = useRoute()
+const router = useRouter()
 
 const organization = shallowRef(
   await useAsyncData(`organization/${route.params.id}`, () =>
@@ -57,7 +56,7 @@ const projects = shallowRef(
   ).then((res) => res.data)
 )
 
-const selectedFilter = ref('all')
+const selectedFilter = ref(route.query.filter ?? 'all')
 
 const filterOptions = computed(() =>
     projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
@@ -178,6 +177,10 @@ if (
         name: auth.value.user.username,
     }
 }
+
+const selectFilter = (filter) => {
+  router.push(`/organization/${organization.value.title}?filter=${filter}`)
+}
 </script>
 
 <template>
@@ -204,7 +207,7 @@ if (
       'Other',
     ]"
   />
-  <div v-if="organization" class="normal-page">
+  <div v-if="organization" class="normal-page" :class="{'alt-layout': $route.name.startsWith('organization-id-settings')}">
     <div class="organization-header">
       <div class="banner-img">
         <div class="banner-content">
@@ -229,9 +232,9 @@ if (
       </div>
       <PageBar>
         <span class="page-bar__title"><FilterIcon /> Filter by</span>
-        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</div>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedFilter === 'all' && !$route.name.startsWith('organization-id-settings')}" @click="selectFilter('all')">All</div>
         <template v-for="(filter, index) in filterOptions" :key="filter">
-          <div class="nav-button button-base" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+          <div class="nav-button button-base" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter && !$route.name.startsWith('organization-id-settings')}" @click="selectFilter(filter)">
             <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
             <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
             <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
@@ -264,9 +267,12 @@ if (
           <template #plugin> <ServerIcon /> Plugins </template>
           <template #modpack> <PackageIcon /> Modpacks </template>
         </OverflowMenu>
+        <template #right>
+          <div class="nav-button button-base" @click="() => $router.push(`/organization/${organization.title}/settings`)" :class="{'router-link-exact-active': $route.name.startsWith('organization-id-settings')}"><SettingsIcon /> Settings</div>
+        </template>
       </PageBar>
     </div>
-    <div class="settings-page__sidebar" v-if="$route.name.startsWith('organization-id-settings')">
+    <div class="normal-page__sidebar" v-if="$route.name.startsWith('organization-id-settings')">
       <div class="settings-page__header">
         <Breadcrumbs
           current-title="Settings"
@@ -307,7 +313,7 @@ if (
         </NuxtLink>
       </div>
     </div>
-    <NuxtPage v-model:organization="organization" v-model:projects="projects" v-model:typeFilter="selectedFilter"/>
+    <NuxtPage v-model:organization="organization" v-model:projects="projects" v-model:typeFilter="selectedFilter" :current-member="currentMember"/>
   </div>
 </template>
 

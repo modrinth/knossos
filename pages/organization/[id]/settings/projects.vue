@@ -25,15 +25,16 @@
               "
               maxlength="2048"
             />
-            <button
+            <Button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
               class="square-button label-button"
               :data-active="editLinks.issues.clear"
               @click="editLinks.issues.clear = !editLinks.issues.clear"
+              icon-only
             >
               <TrashIcon />
-            </button>
+            </Button>
           </div>
           <label
             for="source-code-input"
@@ -52,15 +53,15 @@
                 editLinks.source.clear ? 'Existing link will be cleared' : 'Enter a valid URL'
               "
             />
-            <button
+            <Button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
               :data-active="editLinks.source.clear"
               @click="editLinks.source.clear = !editLinks.source.clear"
+              icon-only
             >
               <TrashIcon />
-            </button>
+            </Button>
           </div>
           <label
             for="wiki-page-input"
@@ -79,15 +80,15 @@
                 editLinks.wiki.clear ? 'Existing link will be cleared' : 'Enter a valid URL'
               "
             />
-            <button
+            <Button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
               :data-active="editLinks.wiki.clear"
               @click="editLinks.wiki.clear = !editLinks.wiki.clear"
+              icon-only
             >
               <TrashIcon />
-            </button>
+            </Button>
           </div>
           <label for="discord-invite-input" title="An invitation link to your Discord server.">
             <span class="label__title">Discord invite</span>
@@ -105,15 +106,15 @@
                   : 'Enter a valid Discord invite URL'
               "
             />
-            <button
+            <Button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
               :data-active="editLinks.discord.clear"
               @click="editLinks.discord.clear = !editLinks.discord.clear"
+              icon-only
             >
               <TrashIcon />
-            </button>
+            </Button>
           </div>
         </section>
         <p>
@@ -145,24 +146,24 @@
           :collapsing-toggle-style="true"
         />
         <div class="push-right input-group">
-          <button class="iconified-button" @click="$refs.editLinksModal.hide()">
+          <Button @click="$refs.editLinksModal.hide()">
             <XIcon />
             Cancel
-          </button>
-          <button class="iconified-button brand-button" @click="bulkEditLinks()">
+          </Button>
+          <Button color="primary" @click="bulkEditLinks()">
             <SaveIcon />
             Save changes
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" :organization="`${organization.id}`" />
     <h1>Projects</h1>
     <div class="input-group">
-      <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
+      <Button color="primary" @click="$refs.modal_creation.show()">
         <PlusIcon />
         Create a project
-      </button>
+      </Button>
     </div>
     <p v-if="sortedProjects.length < 1">
       You don't have any projects yet. Click the green button above to begin.
@@ -202,7 +203,7 @@
           </div>
         </div>
       </div>
-      <div class="grid-table universal-card">
+      <div class="grid-table">
         <div class="grid-table__row grid-table__header">
           <div>
             <Checkbox
@@ -314,6 +315,7 @@ import {
   XIcon,
   EditIcon,
   SaveIcon,
+  Button
 } from 'omorphia'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
@@ -482,6 +484,7 @@ const bulkEditLinks = async () => {
   border-radius: var(--size-rounded-sm);
   overflow: hidden;
   margin-top: var(--spacing-card-md);
+  border: 1px solid var(--color-border);
 
   .grid-table__row {
     display: contents;
@@ -655,9 +658,5 @@ h1 {
   margin-block: var(--gap-sm) var(--gap-lg);
   font-size: 2em;
   line-height: 1em;
-}
-
-.universal-card {
-  padding: 0;
 }
 </style>

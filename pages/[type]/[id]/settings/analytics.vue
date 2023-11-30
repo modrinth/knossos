@@ -1,8 +1,7 @@
 <script setup>
-import {Button, Card, formatMoney, formatNumber, HistoryIcon, Modal, UpdatedIcon} from 'omorphia';
+import {Button, Card, formatMoney, formatNumber, HistoryIcon, Modal, UpdatedIcon, PageBar } from 'omorphia';
 import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
-import PageBar from "~/components/ui/PageBar.vue";
 import CalendarClockIcon from "assets/images/utils/calendar-clock.svg";
 
 const props = defineProps({

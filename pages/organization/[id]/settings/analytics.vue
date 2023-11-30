@@ -6,13 +6,14 @@ import {
   Modal,
   HistoryIcon,
   Button,
-  UpdatedIcon
+  UpdatedIcon,
+  PageBar,
+  AnimatedLogo
 } from 'omorphia'
 import Chart from "~/components/ui/charts/Chart.vue";
 import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
 import CalendarClockIcon from "~/assets/images/utils/calendar-clock.svg";
-import PageBar from "~/components/ui/PageBar.vue";
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -81,14 +82,11 @@ onMounted(async () => {
       type: 'error',
     })
   } finally {
-    /*
     if (!downloadData.data || !downloadData.labels || !viewData.data || !viewData.labels || !revenueData.data || !revenueData.labels || !monthlyRevenue.data || !monthlyRevenue.labels || !viewCountryData.data || !viewCountryData.labels || !downloadCountryData.data || !downloadCountryData.labels) {
       failedToLoad.value = true
     } else {
       finishedLoading.value = true
     }
-    */
-    finishedLoading.value = true
   }
 })
 
@@ -314,110 +312,112 @@ const applyCustomModal = async () => {
       </div>
     </div>
   </Modal>
-  <h1>Analytics</h1>
-  <div v-if="failedToLoad" class="normal-page__content">
-    <div class="markdown-body">
-      <p>
-        Failed to load analytics data
-      </p>
+  <div class="normal-page__content">
+    <h1>Analytics</h1>
+    <div v-if="failedToLoad" class="normal-page__content">
+      <div class="markdown-body">
+        <p>
+          Failed to load analytics data
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="chart-dashboard">
-    <PageBar v-if="finishedLoading" class="resolution-header">
-      <span class="page-bar__title"><HistoryIcon /> Range</span>
-      <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'daily'}" @click="() => selectResolution('daily')">Last month</div>
-      <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'weekly'}" @click="() => selectResolution('weekly')">Last quarter</div>
-      <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'monthly'}" @click="() => selectResolution('monthly')">Last year</div>
-      <template #right>
-        <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon/> Refresh</div>
-        <div class="nav-button button-base always-click" :class="{'router-link-exact-active': selectedResolution === 'custom'}" @click="openCustomModal"><CalendarClockIcon /> Custom</div>
+    <div class="chart-dashboard">
+      <PageBar v-if="finishedLoading" class="resolution-header">
+        <span class="page-bar__title"><HistoryIcon /> Range</span>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'daily'}" @click="() => selectResolution('daily')">Last month</div>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'weekly'}" @click="() => selectResolution('weekly')">Last quarter</div>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'monthly'}" @click="() => selectResolution('monthly')">Last year</div>
+        <template #right>
+          <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon/> Refresh</div>
+          <div class="nav-button button-base always-click" :class="{'router-link-exact-active': selectedResolution === 'custom'}" @click="openCustomModal"><CalendarClockIcon /> Custom</div>
+        </template>
+      </PageBar>
+      <template v-if="finishedLoading && !markReload">
+        <client-only>
+          <CompactChart
+              :title="`Downloads since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+              color="var(--color-brand)"
+              class="button-base downloads"
+              :class="{ 'selected': selectedTab === 'downloads'}"
+              @click="() => selectedTab = 'downloads'"
+              :value="formatNumber(analyticsData.downloads, false)"
+              :data="squashedDownloads.data"
+              :labels="squashedDownloads.labels"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+              :title="`Page views since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+              color="var(--color-blue)"
+              class="button-base views"
+              :class="{ 'selected': selectedTab === 'views'}"
+              @click="() => selectedTab = 'views'"
+              :value="formatNumber(analyticsData.pageViews, false)"
+              :data="squashedViews.data"
+              :labels="squashedViews.labels"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+              :title="`Revenue since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+              color="var(--color-purple)"
+              class="button-base revenue"
+              :class="{ 'selected': selectedTab === 'revenue'}"
+              @click="() => selectedTab = 'revenue'"
+              :value="formatMoney(analyticsData.revenue, false)"
+              :data="squashedRevenue.data"
+              :labels="squashedRevenue.labels"
+              is-money
+          />
+        </client-only>
       </template>
-    </PageBar>
-    <template v-if="finishedLoading && !markReload">
-      <client-only>
-        <CompactChart
-            :title="`Downloads since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-            color="var(--color-brand)"
-            class="button-base downloads"
-            :class="{ 'selected': selectedTab === 'downloads'}"
-            @click="() => selectedTab = 'downloads'"
-            :value="formatNumber(analyticsData.downloads, false)"
-            :data="squashedDownloads.data"
-            :labels="squashedDownloads.labels"
-        />
-      </client-only>
-      <client-only>
-        <CompactChart
-            :title="`Page views since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-            color="var(--color-blue)"
-            class="button-base views"
-            :class="{ 'selected': selectedTab === 'views'}"
-            @click="() => selectedTab = 'views'"
-            :value="formatNumber(analyticsData.pageViews, false)"
-            :data="squashedViews.data"
-            :labels="squashedViews.labels"
-        />
-      </client-only>
-      <client-only>
-        <CompactChart
-            :title="`Revenue since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-            color="var(--color-purple)"
-            class="button-base revenue"
-            :class="{ 'selected': selectedTab === 'revenue'}"
-            @click="() => selectedTab = 'revenue'"
-            :value="formatMoney(analyticsData.revenue, false)"
-            :data="squashedRevenue.data"
-            :labels="squashedRevenue.labels"
-            is-money
-        />
-      </client-only>
-    </template>
-    <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
-      <client-only>
-        <Chart
-            type="line"
-            name="Download data"
-            :data="downloadData.data"
-            :labels="downloadData.labels"
-            :colors="downloadData.colors"
-            suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
-            legend-position="right"
-        >
-          <h2 class="sidebar-card-header">Downloads</h2>
-        </Chart>
-      </client-only>
-    </Card>
-    <Card v-if="finishedLoading && !markReload && selectedTab === 'views'" class="main">
-      <client-only>
-        <Chart
-            type="line"
-            name="View data"
-            :data="viewData.data"
-            :labels="viewData.labels"
-            :colors="viewData.colors"
-            suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
-            legend-position="right"
-        >
-          <h2 class="sidebar-card-header">Page views</h2>
-        </Chart>
-      </client-only>
-    </Card>
-    <Card v-if="finishedLoading && !markReload && selectedTab === 'revenue'" class="main">
-      <client-only>
-        <Chart
-            type="line"
-            name="Revenue data"
-            :data="revenueData.data"
-            :labels="revenueData.labels"
-            :colors="revenueData.colors"
-            is-money
-        >
-          <h2 class="sidebar-card-header">Revenue</h2>
-        </Chart>
-      </client-only>
-    </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
+        <client-only>
+          <Chart
+              type="line"
+              name="Download data"
+              :data="downloadData.data"
+              :labels="downloadData.labels"
+              :colors="downloadData.colors"
+              suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+              legend-position="right"
+          >
+            <h2 class="sidebar-card-header">Downloads</h2>
+          </Chart>
+        </client-only>
+      </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'views'" class="main">
+        <client-only>
+          <Chart
+              type="line"
+              name="View data"
+              :data="viewData.data"
+              :labels="viewData.labels"
+              :colors="viewData.colors"
+              suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+              legend-position="right"
+          >
+            <h2 class="sidebar-card-header">Page views</h2>
+          </Chart>
+        </client-only>
+      </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'revenue'" class="main">
+        <client-only>
+          <Chart
+              type="line"
+              name="Revenue data"
+              :data="revenueData.data"
+              :labels="revenueData.labels"
+              :colors="revenueData.colors"
+              is-money
+          >
+            <h2 class="sidebar-card-header">Revenue</h2>
+          </Chart>
+        </client-only>
+      </Card>
+    </div>
+    <AnimatedLogo v-if="(!finishedLoading || markReload) && !failedToLoad" />
   </div>
-  <BrandLogoAnimated v-if="(!finishedLoading || markReload) && !failedToLoad" />
 </template>
 
 <style scoped lang="scss">

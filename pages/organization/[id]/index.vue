@@ -15,8 +15,8 @@ import {
   Avatar,
   formatCategory,
   Promotion,
+  ProjectCard
 } from 'omorphia'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
 const cosmetics = useCosmetics()
 const tags = useTags()
 const auth = await useAuth()
@@ -77,7 +77,7 @@ const filterOptions = computed(() =>
       <div class="iconified-input">
         <SearchIcon />
         <input id="search-input" v-model="inputText" type="text" placeholder="Search projects..." />
-        <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+        <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
           <XIcon />
         </Button>
       </div>
@@ -193,31 +193,6 @@ const filterOptions = computed(() =>
     .avatar {
       grid-area: avatar;
     }
-  }
-}
-
-.search-row {
-  margin-bottom: var(--gap-md);
-  display: flex;
-
-  .iconified-input {
-    flex-grow: 1;
-
-    input {
-      background-color: var(--color-raised-bg);
-      border: 1px solid var(--color-button-bg);
-    }
-  }
-
-  :deep(.btn) {
-    height: 3rem;
-    margin-left: var(--gap-sm);
-  }
-}
-
-.iconified-input {
-  .empty {
-    visibility: hidden;
   }
 }
 

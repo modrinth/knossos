@@ -30,31 +30,29 @@
         <textarea id="additional-information" v-model="description" maxlength="256" />
       </div>
       <div class="push-right input-group">
-        <button class="iconified-button" @click="cancel">
+        <Button @click="cancel">
           <CrossIcon />
           Cancel
-        </button>
-        <button class="iconified-button brand-button" @click="createProject">
+        </Button>
+        <Button color="primary" @click="createProject">
           <CheckIcon />
           Continue
-        </button>
+        </Button>
       </div>
     </div>
   </Modal>
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import CheckIcon from '~/assets/images/utils/right-arrow.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Chips from '~/components/ui/Chips.vue'
+import { Modal, Chips, XIcon as CrossIcon, CheckIcon, Button} from "omorphia";
 
 export default {
   components: {
     Chips,
-    CrossIcon,
     CheckIcon,
     Modal,
+    CrossIcon,
+    Button
   },
   props: {
     type: {

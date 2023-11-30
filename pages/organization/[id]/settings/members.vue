@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="universal-card">
+  <div class="normal-page__content">
+    <Card>
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Manage members</span>
@@ -46,11 +46,11 @@
           Leave project
         </button>
       </div>
-    </div>
-    <div
+    </Card>
+    <Card
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
-      class="universal-card member"
+      class="member"
       :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">
@@ -66,8 +66,10 @@
         <div class="side-buttons">
           <Badge v-if="member.accepted" type="accepted" />
           <Badge v-else type="pending" />
-          <button
-            class="square-button dropdown-icon"
+          <Button
+            icon-only
+            transparent
+            class="dropdown-icon"
             @click="
               openTeamMembers.indexOf(member.user.id) === -1
                 ? openTeamMembers.push(member.user.id)
@@ -75,7 +77,7 @@
             "
           >
             <DropdownIcon />
-          </button>
+          </Button>
         </div>
       </div>
       <div class="content">
@@ -284,47 +286,39 @@
           </div>
         </template>
         <div class="input-group">
-          <button
-            class="iconified-button brand-button"
+          <Button
+            color="primary"
             :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
             @click="updateTeamMember(index)"
           >
             <SaveIcon />
             Save changes
-          </button>
-          <button
+          </Button>
+          <Button
             v-if="member.oldRole !== 'Owner'"
-            class="iconified-button danger-button"
+            color="danger"
             :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
             @click="removeTeamMember(index)"
           >
             <UserRemoveIcon />
             Remove member
-          </button>
-          <button
+          </Button>
+          <Button
             v-if="member.oldRole !== 'Owner' && currentMember.role === 'Owner' && member.accepted"
-            class="iconified-button"
             @click="transferOwnership(index)"
           >
             <TransferIcon />
             Transfer ownership
-          </button>
+          </Button>
         </div>
       </div>
-    </div>
+    </Card>
   </div>
 </template>
 
 <script setup>
+import { Avatar, Checkbox, SaveIcon, Badge, TransferIcon, UserPlusIcon, UserXIcon as UserRemoveIcon, DropdownIcon, Card, Button } from 'omorphia'
 import { ref, onMounted } from 'vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Badge from '~/components/ui/Badge.vue'
-import DropdownIcon from '~/assets/images/utils/dropdown.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
-import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
-import Avatar from '~/components/ui/Avatar.vue'
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
 const props = defineProps({
@@ -550,6 +544,12 @@ onMounted(async () => {
     .content {
       display: flex;
     }
+  }
+}
+
+:deep(.checkbox-outer) {
+  button.checkbox {
+    border: none;
   }
 }
 </style>

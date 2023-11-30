@@ -21,18 +21,18 @@ import {
   UploadIcon,
   TrashIcon,
   PopoutMenu,
-  FileInput
+  FileInput,
+  Badge,
+  PageBar,
+    HistoryIcon,
+    ProjectCard,
 } from 'omorphia'
 import PuzzleIcon from "~/assets/images/utils/puzzle.svg";
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import FlameIcon from "assets/images/utils/flame.svg";
-import HistoryIcon from "assets/images/utils/history.svg";
 import WorldIcon from "assets/images/utils/world.svg";
 import GlassesIcon from "assets/images/utils/glasses.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
-import Badge from "~/components/ui/Badge.vue";
-import PageBar from "~/components/ui/PageBar.vue";
+import UpToDate from "assets/images/illustrations/up_to_date.svg";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -245,12 +245,6 @@ const showPreviewImage = (files) => {
   }
 }
 
-const addProject = (project) => {
-  const projectList = collection.value.projects
-  projectList.push(project.id)
-  patchCollection({ new_projects: projectList })
-}
-
 const removeProject = (projectId) => {
   const projectList = collection.value.projects
   projectList.splice(projectList.indexOf(projectId), 1)
@@ -290,6 +284,14 @@ const { data: rawResults } = useLazyFetch(
 )
 
 const results = shallowRef(toRaw(rawResults))
+
+const showEditModal = () => {
+  editModal.value.show()
+  name.value = collection.value.title
+  summary.value = collection.value.description
+  previewImage.value = null
+  deletedIcon.value = false
+}
 </script>
 
 <template>
@@ -383,7 +385,7 @@ const results = shallowRef(toRaw(rawResults))
         <div class="page-header__icon">
           <Avatar
             size="lg"
-            :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
+            :src="collection.icon_url"
           />
         </div>
         <div class="page-header__text">
@@ -401,26 +403,13 @@ const results = shallowRef(toRaw(rawResults))
           <div class="markdown-body collection-description">
             <p>{{ collection.description }}</p>
           </div>
-          <div class="input-group">
-            <Button @click="$refs.reportModal.show()" >
-              <BookmarkIcon />
-              Save collection
-            </Button>
-            <Button @click="$refs.editModal.show()">
-              <EditIcon />
-              Edit collection
-            </Button>
-            <Button icon-only>
-              <MoreHorizontalIcon />
-            </Button>
-          </div>
         </div>
       </div>
     </div>
     <div class="normal-page__content">
       <PageBar>
         <span class="page-bar__title"><FilterIcon /> Filter by</span>
-        <div class="button-base nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'"><FlameIcon />All</div>
+        <div class="button-base nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'">All</div>
         <template v-for="(filter, index) in filterOptions" :key="filter">
           <div class="button-base nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
             <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
@@ -455,18 +444,24 @@ const results = shallowRef(toRaw(rawResults))
           <template #plugin> <ServerIcon /> Plugins </template>
           <template #modpack> <PackageIcon /> Modpacks </template>
         </OverflowMenu>
+        <template #right>
+          <div class="nav-button button-base" v-if="auth.user && auth.user.id === creator.id" @click="showEditModal">
+            <EditIcon />
+            Edit collection
+          </div>
+        </template>
       </PageBar>
       <Promotion />
-      <div class="search-row">
+      <div v-if="projects && projects.length > 0" class="search-row">
         <div class="iconified-input">
           <SearchIcon />
           <input id="search-input" v-model="inputText" type="text" placeholder="Search for mods..." />
-          <Button :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+          <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
             <XIcon />
           </Button>
         </div>
       </div>
-      <div class="project-list display-mode--list">
+      <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
         <ProjectCard
           v-for="project in projects
             .filter((p) => selectedFilter === p.project_type || selectedFilter === 'all')
@@ -509,6 +504,15 @@ const results = shallowRef(toRaw(rawResults))
             Remove
           </Button>
         </ProjectCard>
+      </div>
+      <div v-else class="error">
+        <UpToDate class="icon" /><br />
+        <span v-if="auth.user && auth.user.id === creator.id" class="text">
+            You don't have any projects.<br />
+            Would you like to
+            <a class="link" @click.prevent="$router.push('/mods')"> add one</a>?
+          </span>
+        <span v-else class="text">This collection has no projects!</span>
       </div>
     </div>
   </div>
@@ -561,36 +565,6 @@ const results = shallowRef(toRaw(rawResults))
 .summary-input {
   width: 100%;
   max-width: 24rem;
-}
-
-.search-row {
-  margin-bottom: var(--gap-md);
-  display: flex;
-
-  :deep(.animated-dropdown) {
-    width: 100%;
-
-    .option {
-      background-color: var(--color-raised-bg);
-    }
-
-    .options {
-      border-radius: 0 0 var(--radius-md) var(--radius-md);
-      border: 1px solid var(--color-button-bg);
-    }
-  }
-
-  :deep(.btn) {
-    height: 3rem;
-    margin-left: var(--gap-sm);
-    white-space: nowrap;
-  }
-}
-
-.iconified-input {
-  .empty {
-    visibility: hidden;
-  }
 }
 
 .popout-heading {
