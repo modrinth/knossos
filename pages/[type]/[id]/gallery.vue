@@ -2,9 +2,9 @@
   <div>
     <Modal
       v-if="currentMember"
-      ref="modal_edit_item"
+      ref="modalEditItem"
       :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="modal-gallery universal-labels">
         <div class="gallery-file-input">
@@ -90,7 +90,7 @@
           Unfeature image
         </button>
         <div class="input-group push-right">
-          <button class="btn" @click="$refs.modal_edit_item.hide()">
+          <button class="btn" @click="$refs.modalEditItem.hide()">
             <XIcon />
             Cancel
           </button>
@@ -122,7 +122,7 @@
       description="This will remove this gallery image forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteGalleryImage"
     />
     <div
@@ -227,7 +227,7 @@
         <div class="gallery-bottom">
           <div class="gallery-created">
             <CalendarIcon />
-            {{ $dayjs(item.created).format('MMMM D, YYYY') }}
+            {{ dayjs(item.created).format('MMMM D, YYYY') }}
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
@@ -240,7 +240,7 @@
                   editDescription = item.description
                   editFeatured = item.featured
                   editOrder = item.ordering
-                  $refs.modal_edit_item.show()
+                  $refs.modalEditItem.show()
                 }
               "
             >
@@ -267,6 +267,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   PlusIcon,
   CalendarIcon,
@@ -289,6 +290,7 @@ import {
   Modal,
   ConfirmModal,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 const cosmetics = useCosmetics()
 
@@ -316,207 +318,213 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description,
 })
-</script>
-<script>
-export default defineNuxtComponent({
-  data() {
-    return {
-      expandedGalleryItem: null,
-      expandedGalleryIndex: 0,
-      zoomedIn: false,
 
-      deleteIndex: -1,
+const expandedGalleryItem = ref(null)
+const expandedGalleryIndex = ref(0)
+const zoomedIn = ref(false)
 
-      editIndex: -1,
-      editTitle: '',
-      editDescription: '',
-      editFeatured: false,
-      editOrder: null,
-      editFile: null,
-      previewImage: null,
-      shouldPreventActions: false,
+const deleteIndex = ref(-1)
+
+const editIndex = ref(-1)
+const editTitle = ref('')
+const editDescription = ref('')
+const editFeatured = ref(false)
+const editOrder = ref(null)
+const editFile = ref(null)
+const previewImage = ref(null)
+const shouldPreventActions = ref(false)
+
+const acceptFileTypes = ref('image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp')
+
+const modalEditItem = ref()
+
+function nextImage() {
+  expandedGalleryIndex.value++
+  if (expandedGalleryIndex.value >= props.project.gallery.length) {
+    expandedGalleryIndex.value = 0
+  }
+  expandedGalleryItem.value = props.project.gallery[expandedGalleryIndex.value]
+}
+
+function previousImage() {
+  expandedGalleryIndex.value--
+  if (expandedGalleryIndex.value < 0) {
+    expandedGalleryIndex.value = props.project.gallery.length - 1
+  }
+  expandedGalleryItem.value = props.project.gallery[expandedGalleryIndex.value]
+}
+
+function expandImage(item, index) {
+  expandedGalleryItem.value = item
+  expandedGalleryIndex.value = index
+  zoomedIn.value = false
+}
+
+function resetEdit() {
+  editIndex.value = -1
+  editTitle.value = ''
+  editDescription.value = ''
+  editFeatured.value = false
+  editOrder.value = null
+  editFile.value = null
+  previewImage.value = null
+}
+
+function handleFiles(files) {
+  resetEdit()
+  editFile.value = files[0]
+
+  showPreviewImage()
+  modalEditItem.value.show()
+}
+
+function showPreviewImage() {
+  const reader = new FileReader()
+  if (editFile.value instanceof Blob) {
+    reader.readAsDataURL(editFile.value)
+    reader.onload = (event) => {
+      previewImage.value = event.target.result
     }
-  },
-  computed: {
-    acceptFileTypes() {
-      return 'image/png,image/jpeg,image/gif,image/webp,.png,.jpeg,.gif,.webp'
-    },
-  },
-  mounted() {
-    this._keyListener = function (e) {
-      if (this.expandedGalleryItem) {
-        e.preventDefault()
-        if (e.key === 'Escape') {
-          this.expandedGalleryItem = null
-        } else if (e.key === 'ArrowLeft') {
-          this.previousImage()
-        } else if (e.key === 'ArrowRight') {
-          this.nextImage()
-        }
-      }
+  }
+}
+
+async function createGalleryItem() {
+  shouldPreventActions.value = true
+  startLoading()
+
+  try {
+    let url = `project/${props.project.id}/gallery?ext=${
+      editFile.value
+        ? editFile.value.type.split('/')[editFile.value.type.split('/').length - 1]
+        : null
+    }&featured=${editFeatured.value}`
+
+    if (editTitle.value) {
+      url += `&title=${encodeURIComponent(editTitle.value)}`
+    }
+    if (editDescription.value) {
+      url += `&description=${encodeURIComponent(editDescription.value)}`
+    }
+    if (editOrder.value) {
+      url += `&ordering=${editOrder.value}`
     }
 
-    document.addEventListener('keydown', this._keyListener.bind(this))
-  },
-  methods: {
-    nextImage() {
-      this.expandedGalleryIndex++
-      if (this.expandedGalleryIndex >= this.project.gallery.length) {
-        this.expandedGalleryIndex = 0
+    await useBaseFetch(url, {
+      method: 'POST',
+      body: editFile.value,
+    })
+    await updateProject()
+
+    modalEditItem.value.hide()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data ? err.data.description : err,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+  shouldPreventActions.value = false
+}
+
+async function editGalleryItem() {
+  shouldPreventActions.value = true
+  startLoading()
+
+  try {
+    let url = `project/${props.project.id}/gallery?url=${encodeURIComponent(
+      props.project.gallery[editIndex.value].url
+    )}&featured=${editFeatured.value}`
+
+    if (editTitle.value) {
+      url += `&title=${encodeURIComponent(editTitle.value)}`
+    }
+    if (editDescription.value) {
+      url += `&description=${encodeURIComponent(editDescription.value)}`
+    }
+    if (editOrder.value) {
+      url += `&ordering=${editOrder.value}`
+    }
+
+    await useBaseFetch(url, {
+      method: 'PATCH',
+    })
+
+    await updateProject()
+    modalEditItem.value.hide()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data ? err.data.description : err,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+  shouldPreventActions.value = false
+}
+
+async function deleteGalleryImage() {
+  startLoading()
+
+  try {
+    await useBaseFetch(
+      `project/${props.project.id}/gallery?url=${encodeURIComponent(
+        props.project.gallery[deleteIndex.value].url
+      )}`,
+      {
+        method: 'DELETE',
       }
-      this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
-    },
-    previousImage() {
-      this.expandedGalleryIndex--
-      if (this.expandedGalleryIndex < 0) {
-        this.expandedGalleryIndex = this.project.gallery.length - 1
-      }
-      this.expandedGalleryItem = this.project.gallery[this.expandedGalleryIndex]
-    },
-    expandImage(item, index) {
-      this.expandedGalleryItem = item
-      this.expandedGalleryIndex = index
-      this.zoomedIn = false
-    },
-    resetEdit() {
-      this.editIndex = -1
-      this.editTitle = ''
-      this.editDescription = ''
-      this.editFeatured = false
-      this.editOrder = null
-      this.editFile = null
-      this.previewImage = null
-    },
-    handleFiles(files) {
-      this.resetEdit()
-      this.editFile = files[0]
+    )
 
-      this.showPreviewImage()
-      this.$refs.modal_edit_item.show()
-    },
-    showPreviewImage() {
-      const reader = new FileReader()
-      if (this.editFile instanceof Blob) {
-        reader.readAsDataURL(this.editFile)
-        reader.onload = (event) => {
-          this.previewImage = event.target.result
-        }
-      }
-    },
-    async createGalleryItem() {
-      this.shouldPreventActions = true
-      startLoading()
+    await updateProject()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data ? err.data.description : err,
+      type: 'error',
+    })
+  }
 
-      try {
-        let url = `project/${this.project.id}/gallery?ext=${
-          this.editFile
-            ? this.editFile.type.split('/')[this.editFile.type.split('/').length - 1]
-            : null
-        }&featured=${this.editFeatured}`
+  stopLoading()
+}
 
-        if (this.editTitle) {
-          url += `&title=${encodeURIComponent(this.editTitle)}`
-        }
-        if (this.editDescription) {
-          url += `&description=${encodeURIComponent(this.editDescription)}`
-        }
-        if (this.editOrder) {
-          url += `&ordering=${this.editOrder}`
-        }
+const emit = defineEmits(['update:project'])
+async function updateProject() {
+  const project = await useBaseFetch(`project/${props.project.id}`)
 
-        await useBaseFetch(url, {
-          method: 'POST',
-          body: this.editFile,
-        })
-        await this.updateProject()
+  project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
 
-        this.$refs.modal_edit_item.hide()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data ? err.data.description : err,
-          type: 'error',
-        })
-      }
+  project.project_type = getProjectTypeForUrl(project.project_type, project.loaders)
 
-      stopLoading()
-      this.shouldPreventActions = false
-    },
-    async editGalleryItem() {
-      this.shouldPreventActions = true
-      startLoading()
+  emit('update:project', project)
+  resetEdit()
+}
 
-      try {
-        let url = `project/${this.project.id}/gallery?url=${encodeURIComponent(
-          this.project.gallery[this.editIndex].url
-        )}&featured=${this.editFeatured}`
-
-        if (this.editTitle) {
-          url += `&title=${encodeURIComponent(this.editTitle)}`
-        }
-        if (this.editDescription) {
-          url += `&description=${encodeURIComponent(this.editDescription)}`
-        }
-        if (this.editOrder) {
-          url += `&ordering=${this.editOrder}`
-        }
-
-        await useBaseFetch(url, {
-          method: 'PATCH',
-        })
-
-        await this.updateProject()
-        this.$refs.modal_edit_item.hide()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data ? err.data.description : err,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-      this.shouldPreventActions = false
-    },
-    async deleteGalleryImage() {
-      startLoading()
-
-      try {
-        await useBaseFetch(
-          `project/${this.project.id}/gallery?url=${encodeURIComponent(
-            this.project.gallery[this.deleteIndex].url
-          )}`,
-          {
-            method: 'DELETE',
-          }
-        )
-
-        await this.updateProject()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data ? err.data.description : err,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async updateProject() {
-      const project = await useBaseFetch(`project/${this.project.id}`)
-
-      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-
-      project.project_type = this.$getProjectTypeForUrl(project.project_type, project.loaders)
-
-      this.$emit('update:project', project)
-      this.resetEdit()
-    },
-  },
+onMounted(() => {
+  document.addEventListener('keydown', keyListener)
 })
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', keyListener)
+})
+
+function keyListener(e) {
+  if (expandedGalleryItem.value) {
+    e.preventDefault()
+    if (e.key === 'Escape') {
+      expandedGalleryItem.value = null
+    } else if (e.key === 'ArrowLeft') {
+      previousImage()
+    } else if (e.key === 'ArrowRight') {
+      nextImage()
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -529,7 +537,7 @@ export default defineNuxtComponent({
     display: flex;
     gap: 0.5ch;
     align-items: center;
-    color: var(--color-text-inactive);
+    color: var(--color-secondary);
   }
 }
 
@@ -549,17 +557,18 @@ export default defineNuxtComponent({
 
   .content {
     position: relative;
-    width: calc(100vw - 2 * var(--spacing-card-lg));
-    height: calc(100vh - 2 * var(--spacing-card-lg));
+    width: calc(100vw - 2 * var(--gap-xl));
+    height: calc(100vh - 2 * var(--gap-xl));
 
     .circle-button {
+      cursor: pointer;
       padding: 0.5rem;
       line-height: 1;
       display: flex;
       max-width: 2rem;
-      color: var(--color-button-text);
+      color: var(--color-contrast);
       background-color: var(--color-button-bg);
-      border-radius: var(--size-rounded-max);
+      border-radius: var(--radius-max);
       margin: 0;
       box-shadow: inset 0px -1px 1px rgb(17 24 39 / 10%);
 
@@ -568,19 +577,11 @@ export default defineNuxtComponent({
       }
 
       &:hover {
-        background-color: var(--color-button-bg-hover) !important;
-
-        svg {
-          color: var(--color-button-text-hover) !important;
-        }
+        filter: var(--filter-hover);
       }
 
       &:active {
-        background-color: var(--color-button-bg-active) !important;
-
-        svg {
-          color: var(--color-button-text-active) !important;
-        }
+        filter: var(--filter-active);
       }
 
       svg {
@@ -594,26 +595,26 @@ export default defineNuxtComponent({
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      max-width: calc(100vw - 2 * var(--spacing-card-lg));
-      max-height: calc(100vh - 2 * var(--spacing-card-lg));
-      border-radius: var(--size-rounded-card);
+      max-width: calc(100vw - 2 * var(--gap-xl));
+      max-height: calc(100vh - 2 * var(--gap-xl));
+      border-radius: var(--round-card);
 
       &.zoomed-in {
         object-fit: cover;
         width: auto;
-        height: calc(100vh - 2 * var(--spacing-card-lg));
-        max-width: calc(100vw - 2 * var(--spacing-card-lg));
+        height: calc(100vh - 2 * var(--gap-xl));
+        max-width: calc(100vw - 2 * var(--gap-xl));
       }
     }
     .floating {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: var(--spacing-card-md);
+      bottom: var(--gap-md);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: var(--spacing-card-sm);
+      gap: var(--gap-sm);
       transition: opacity 0.25s ease-in-out;
       opacity: 1;
       padding: 2rem 2rem 0 2rem;
@@ -639,21 +640,21 @@ export default defineNuxtComponent({
         gap: 0.5rem;
 
         h2 {
-          color: var(--dark-color-text-dark);
+          color: var(--dark-color-contrast);
           font-size: 1.25rem;
           text-align: center;
           margin: 0;
         }
 
         p {
-          color: var(--dark-color-text);
+          color: var(--dark-color-contrast);
           margin: 0;
         }
       }
       .controls {
         background-color: var(--color-raised-bg);
-        padding: var(--spacing-card-md);
-        border-radius: var(--size-rounded-card);
+        padding: var(--gap-md);
+        border-radius: var(--round-card);
         transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
       }
     }
@@ -672,7 +673,7 @@ export default defineNuxtComponent({
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr;
-  grid-gap: var(--spacing-card-md);
+  grid-gap: var(--gap-md);
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: 1fr 1fr 1fr;
@@ -688,7 +689,7 @@ export default defineNuxtComponent({
     width: 100%;
     margin-top: 0;
     margin-bottom: 0;
-    border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+    border-radius: var(--round-card) var(--round-card) 0 0;
 
     min-height: 10rem;
     object-fit: cover;
@@ -696,8 +697,8 @@ export default defineNuxtComponent({
 
   .gallery-body {
     flex-grow: 1;
-    width: calc(100% - 2 * var(--spacing-card-md));
-    padding: var(--spacing-card-sm) var(--spacing-card-md);
+    width: calc(100% - 2 * var(--gap-md));
+    padding: var(--gap-sm) var(--gap-md);
 
     .gallery-info {
       h2 {
@@ -723,14 +724,14 @@ export default defineNuxtComponent({
   }
 
   .gallery-bottom {
-    width: calc(100% - 2 * var(--spacing-card-md));
-    padding: 0 var(--spacing-card-md) var(--spacing-card-sm) var(--spacing-card-md);
+    width: calc(100% - 2 * var(--gap-md));
+    padding: 0 var(--gap-md) var(--gap-sm) var(--gap-md);
 
     .gallery-created {
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
-      color: var(--color-icon);
+      color: var(--color-secondary);
 
       svg {
         width: 1rem;
@@ -750,19 +751,19 @@ export default defineNuxtComponent({
 }
 
 .modal-gallery {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
   display: flex;
   flex-direction: column;
 
   .gallery-file-input {
     .file-header {
-      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+      border-radius: var(--round-card) var(--round-card) 0 0;
 
       display: flex;
       align-items: center;
       gap: 0.5rem;
       background-color: var(--color-button-bg);
-      padding: var(--spacing-card-md);
+      padding: var(--gap-md);
 
       svg {
         min-width: 1rem;
@@ -777,7 +778,7 @@ export default defineNuxtComponent({
     }
 
     img {
-      border-radius: 0 0 var(--size-rounded-card) var(--size-rounded-card);
+      border-radius: 0 0 var(--round-card) var(--round-card);
       width: 100%;
       height: auto;
       max-height: 15rem;

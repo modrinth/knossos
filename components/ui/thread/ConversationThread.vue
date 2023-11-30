@@ -3,7 +3,7 @@
     <Modal
       ref="modalSubmit"
       :header="isRejected(project) ? 'Resubmit for review' : 'Submit for review'"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="modal-submit universal-body">
         <span>
@@ -148,9 +148,9 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   Modal,
-  Chips,
   CopyCode,
   ReplyIcon,
   SendIcon,
@@ -161,7 +161,6 @@ import {
   ScaleIcon,
   Checkbox,
   isStaff,
-  renderString,
   isApproved,
   isRejected,
   MarkdownEditor,
@@ -205,7 +204,6 @@ const props = defineProps({
     required: true,
   },
 })
-const app = useNuxtApp()
 const cosmetics = useCosmetics()
 
 const members = computed(() => {
@@ -220,9 +218,7 @@ const replyBody = ref('')
 
 const sortedMessages = computed(() => {
   if (props.thread !== null) {
-    return props.thread.messages
-      .slice()
-      .sort((a, b) => app.$dayjs(a.created) - app.$dayjs(b.created))
+    return props.thread.messages.slice().sort((a, b) => dayjs(a.created) - dayjs(b.created))
   }
   return []
 })
@@ -283,7 +279,7 @@ async function sendReply(status = null) {
       props.setStatus(status)
     }
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error sending message',
       text: err.data ? err.data.description : err,
@@ -306,7 +302,7 @@ async function closeReport(reply) {
     })
     await updateThreadLocal()
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error closing report',
       text: err.data ? err.data.description : err,
@@ -344,19 +340,19 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 .messages {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-card-md);
+  padding: var(--gap-md);
 }
 
 .resizable-textarea-wrapper {
-  margin-bottom: var(--spacing-card-sm);
+  margin-bottom: var(--gap-sm);
 
   textarea {
-    padding: var(--spacing-card-bg);
+    padding: var(--gap-lg);
     width: 100%;
   }
 
   .chips {
-    margin-bottom: var(--spacing-card-md);
+    margin-bottom: var(--gap-md);
   }
 
   .preview {
@@ -365,9 +361,10 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 }
 
 .thread-id {
-  margin-bottom: var(--spacing-card-md);
+  margin-bottom: var(--gap-md);
   font-weight: bold;
-  color: var(--color-heading);
+  color: var(--color-base);
+  filter: brightness(1.1);
 }
 
 .input-group {
@@ -382,10 +379,10 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 }
 
 .modal-submit {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-lg);
+  gap: var(--gap-xl);
 
   .project-title {
     font-weight: bold;

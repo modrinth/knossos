@@ -1,8 +1,8 @@
 <template>
   <div v-if="user">
     <ModalCreation ref="modal_creation" />
-    <div class="user-header-wrapper">
-      <div class="user-header">
+    <div class="user-header-wrapper normal-page">
+      <div class="user-header normal-page__header">
         <Avatar
           :src="previewImage ? previewImage : user.avatar_url"
           size="md"
@@ -150,7 +150,7 @@
                 ? project.status
                 : null
             "
-            :type="project.project_type"
+            :type="getProjectTypeForUrl(project.project_type, project.loaders)"
             :color="project.color"
             :from-now="fromNow"
           />
@@ -188,8 +188,10 @@ import {
   GridIcon,
   ListIcon,
   ImageIcon,
-  formatNumber,
+  cycleValue,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
+
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
@@ -197,7 +199,6 @@ import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
-const data = useNuxtApp()
 const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
@@ -245,7 +246,7 @@ try {
         transform: (projects) => {
           for (const project of projects) {
             project.categories = project.categories.concat(project.loaders)
-            project.project_type = data.$getProjectTypeForUrl(
+            project.project_type = getProjectTypeForUrl(
               project.project_type,
               project.categories,
               tags.value
@@ -323,63 +324,10 @@ const sumFollows = computed(() => {
   return sum
 })
 
-const isEditing = ref(false)
-const icon = shallowRef(null)
 const previewImage = shallowRef(null)
 
-function showPreviewImage(files) {
-  const reader = new FileReader()
-  icon.value = files[0]
-  reader.readAsDataURL(icon.value)
-  reader.onload = (event) => {
-    previewImage.value = event.target.result
-  }
-}
-
-async function saveChanges() {
-  startLoading()
-  try {
-    if (icon.value) {
-      await useBaseFetch(
-        `user/${auth.value.user.id}/icon?ext=${
-          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon.value,
-        }
-      )
-    }
-
-    const reqData = {
-      email: user.value.email,
-      bio: user.value.bio,
-    }
-    if (user.value.username !== auth.value.user.username) {
-      reqData.username = user.value.username
-    }
-
-    await useBaseFetch(`user/${auth.value.user.id}`, {
-      method: 'PATCH',
-      body: reqData,
-    })
-    await useAuth(auth.value.token)
-
-    isEditing.value = false
-  } catch (err) {
-    console.error(err)
-    data.$notify({
-      group: 'main',
-      title: formatMessage(commonMessages.errorNotificationTitle),
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
-
 function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode.user = data.$cycleValue(
+  cosmetics.value.searchDisplayMode.user = cycleValue(
     cosmetics.value.searchDisplayMode.user,
     tags.value.projectViewModes
   )
@@ -469,7 +417,7 @@ function cycleSearchDisplayMode() {
 }
 
 .profile-picture {
-  border-radius: var(--size-rounded-lg);
+  border-radius: var(--radius-lg);
   height: 8rem;
   width: 8rem;
 }

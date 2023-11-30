@@ -1,4 +1,5 @@
 import { useNuxtApp } from '#app'
+import { getProjectTypeForUrl } from '~/helpers/projects'
 
 async function getBulk(type, ids) {
   if (ids.length === 0) {
@@ -89,9 +90,11 @@ export async function fetchNotifications() {
             notification.extra_data.version = versions.find(
               (x) => x.id === notification.extra_data.report.item_id
             )
-            notification.extra_data.project = projects.find(
+            const project = projects.find(
               (x) => x.id === notification.extra_data.version.project_id
             )
+            project.project_type = getProjectTypeForUrl(project.project_type, project.categories)
+            notification.extra_data.project = project
           }
         }
         if (notification.body.thread_id) {
@@ -112,14 +115,12 @@ export async function fetchNotifications() {
 
     return notifications.value
   } catch (error) {
-    console.error(error)
-    // const app = useNuxtApp()
-    // app.$notify({
-    //   group: 'main',
-    //   title: 'Error loading notifications',
-    //   text: error.data ? error.data.description : error,
-    //   type: 'error',
-    // })
+    addNotification({
+      group: 'main',
+      title: 'Error loading notifications',
+      text: error.data ? error.data.description : error,
+      type: 'error',
+    })
   }
   return []
 }
@@ -165,8 +166,7 @@ export async function markAsRead(ids) {
       return newNotifs
     }
   } catch (err) {
-    const app = useNuxtApp()
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error marking notification as read',
       text: err.data ? err.data.description : err,

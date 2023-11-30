@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page">
+  <div class="normal-page settings-page">
     <div class="settings-page__sidebar">
       <h1>Settings</h1>
       <div class="new-navbar">
@@ -18,10 +18,6 @@
           <NuxtLink to="/settings/sessions">
             <ShieldIcon />
             {{ formatMessage(messages.sessionsTitle) }}
-          </NuxtLink>
-          <NuxtLink to="/settings/monetization">
-            <CurrencyIcon />
-            Monetization
           </NuxtLink>
         </template>
       </div>
@@ -48,7 +44,6 @@ import {
   CodeIcon,
   PaintBrushIcon,
   UserIcon,
-  CurrencyIcon,
   ShieldIcon,
   KeyIcon,
   LanguagesIcon,
@@ -64,7 +59,6 @@ const messages = defineMessages({
   },
 })
 
-const app = useNuxtApp()
 const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
@@ -72,7 +66,7 @@ const cosmetics = useCosmetics()
 function disableDeveloperMode() {
   cosmetics.value.developerMode = !cosmetics.value.developerMode
   saveCosmetics()
-  app.$notify({
+  addNotification({
     group: 'main',
     title: 'Developer mode deactivated',
     text: 'Developer mode has been disabled',

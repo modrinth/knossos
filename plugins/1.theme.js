@@ -21,6 +21,4 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       colorSchemeQueryList.addEventListener('change', setColorScheme)
     }
   })
-
-  nuxtApp.provide('colorMode', themeStore.value)
 })

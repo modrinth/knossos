@@ -2,18 +2,15 @@
   <div class="markdown-body card" v-html="renderHighlightedString(project.body)" />
 </template>
 
-<script>
+<script setup>
 import { renderHighlightedString } from 'omorphia'
 
-export default defineNuxtComponent({
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
+defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  methods: { renderHighlightedString },
 })
 </script>

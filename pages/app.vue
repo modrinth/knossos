@@ -16,6 +16,8 @@ import PrismIcon from '~/assets/images/external/prism.svg'
 import ATLauncher from '~/assets/images/external/atlauncher.svg'
 import CurseForge from '~/assets/images/external/curseforge.svg'
 
+const colorMode = useTheme()
+
 const val = Math.ceil(homepageProjects.length / 6)
 const os = ref(null)
 const macValue = ref(null)
@@ -610,7 +612,7 @@ useSeoMeta({
           </div>
           <div class="description">
             Modrinth’s launcher is fully open source. You can view the source code on our
-            <a href="https://github.com/modrinth/theseus" rel="noopener" :target="$external()"
+            <a href="https://github.com/modrinth/theseus" rel="noopener" :target="external()"
               >GitHub</a
             >!
           </div>
@@ -886,7 +888,7 @@ useSeoMeta({
     </div>
     <div class="logo-banner">
       <svg
-        v-if="$colorMode.value === 'light'"
+        v-if="colorMode.value === 'light'"
         viewBox="0 0 865 512"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

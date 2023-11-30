@@ -22,12 +22,12 @@ const ariaLabelByType = computed(() => `Banner with ${props.messageType} message
   --border-color: var(--color-divider);
   --background-color: var(--color-raised-bg);
 
-  border-radius: var(--size-rounded-card);
+  border-radius: var(--round-card);
   overflow: hidden;
   outline: 2px solid transparent;
   border: 1px solid var(--border-color);
 
-  margin-bottom: var(--spacing-card-md);
+  margin-bottom: var(--gap-md);
 
   box-shadow: var(--shadow-card);
   background-color: var(--background-color);
@@ -39,31 +39,31 @@ const ariaLabelByType = computed(() => `Banner with ${props.messageType} message
 
 :slotted(a) {
   /* Uses active color to increase contrast */
-  color: var(--color-link-active);
+  color: var(--color-blue);
+  filter: brightness(1.2);
   text-decoration: underline;
 }
 
 .message-banner__content {
-  padding: var(--spacing-card-lg) var(--spacing-card-lg) var(--spacing-card-lg)
-    calc(var(--spacing-card-lg) - 0.5rem);
+  padding: var(--gap-xl) var(--gap-xl) var(--gap-xl) calc(var(--gap-xl) - 0.5rem);
   border-left: 0.5rem solid var(--border-color);
 }
 
 .message-banner_warning {
-  --border-color: var(--color-warning-banner-side);
-  --background-color: var(--color-warning-banner-bg);
-  --text-color: var(--color-warning-banner-text);
+  --border-color: var(--color-red);
+  --background-color: var(--color-red-bg);
+  --text-color: var(--color-base);
 }
 
 .message-banner_information {
-  --border-color: var(--color-info-banner-side);
-  --background-color: var(--color-info-banner-bg);
-  --text-color: var(--color-info-banner-text);
+  --border-color: var(--color-blue);
+  --background-color: var(--color-blue-bg);
+  --text-color: var(--color-base);
 }
 
 .message-banner_subtle {
   --border-color: var(--color-gray);
   --background-color: var(--color-raised-bg);
-  --text-color: var(--color-info-banner-text);
+  --text-color: var(--color-base);
 }
 </style>

@@ -14,7 +14,7 @@
             <BoxIcon class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
               <span class="primary-stat__counter">
-                {{ $formatNumber(projects.length) }}
+                {{ formatNumber(projects.length) }}
               </span>
               project<span v-if="projects.length !== 1">s</span>
             </div>
@@ -23,7 +23,7 @@
             <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
               <span class="primary-stat__counter">
-                {{ $formatNumber(sumDownloads) }}
+                {{ formatNumber(sumDownloads) }}
               </span>
               project download<span v-if="sumDownloads !== 1">s</span>
             </div>
@@ -32,7 +32,7 @@
             <HeartIcon class="primary-stat__icon" aria-hidden="true" />
             <div class="primary-stat__text">
               <span class="primary-stat__counter">
-                {{ $formatNumber(sumFollows) }}
+                {{ formatNumber(sumFollows) }}
               </span>
               project follower<span v-if="sumFollows !== 1">s</span>
             </div>
@@ -49,7 +49,7 @@
         <h2 class="sidebar-card-header">Rewards</h2>
         <p>Showing your current rewards amount.</p>
         <button class="btn rewards-display">
-          {{ $formatMoney(auth.user.payout_data.balance, true) }}
+          {{ formatMoney(auth.user.payout_data.balance, true) }}
         </button>
         <nuxt-link class="goto-link" to="/revenue">
           <BanknoteIcon /> Withdraw rewards <ChevronRightIcon />
@@ -80,7 +80,7 @@
         <nuxt-link class="goto-link" to="/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/revenue/transfers">
+        <nuxt-link class="goto-link" to="/projects">
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
       </section>
@@ -163,6 +163,8 @@ import {
   FilterIcon,
   getUserLink,
   Checkbox,
+  formatNumber,
+  formatMoney,
 } from 'omorphia'
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
@@ -241,7 +243,7 @@ const notificationSearchInput = ref('')
   padding: var(--gap-lg);
   border: 1px solid var(--color-divider);
   background-color: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-base);
   margin-block: var(--gap-lg);
 }
 
@@ -331,7 +333,7 @@ const notificationSearchInput = ref('')
   padding: var(--gap-sm) var(--gap-md);
   margin: 0;
   font-size: var(--font-size-md);
-  color: var(--color-text);
+  color: var(--color-base);
 }
 
 .popout-checkbox {

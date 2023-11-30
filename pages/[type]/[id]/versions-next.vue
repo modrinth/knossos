@@ -181,11 +181,11 @@
               position="bottom"
               direction="right"
             >
-              {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }} <EditIcon />
+              {{ version.loaders.map((x) => formatCategory(x)).join(', ') }} <EditIcon />
               <template #menu> Edit the platforms here! </template>
             </PopoutMenu>
             <template v-else>
-              {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+              {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
             </template>
           </div>
           <div class="version__downloads">{{ formatNumber(version.downloads) }}</div>
@@ -199,6 +199,7 @@
   </div>
 </template>
 <script setup>
+import dayjs from 'dayjs'
 import {
   SaveIcon,
   PlusIcon,
@@ -257,11 +258,9 @@ const props = defineProps({
 const data = useNuxtApp()
 const metaDescription = computed(
   () =>
-    `Download and browse ${props.versions.length} ${
-      props.project.title
-    } versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
-      .$dayjs(props.project.updated)
-      .format('MMM D, YYYY')}.`
+    `Download and browse ${props.versions.length} ${props.project.title} versions. ${formatNumber(
+      props.project.downloads
+    )} total downloads. Last updated ${dayjs(props.project.updated).format('MMM D, YYYY')}.`
 )
 
 const route = useRoute()
@@ -341,7 +340,7 @@ const editMode = ref(true)
     display: flex;
     gap: 0.5ch;
     align-items: center;
-    color: var(--color-text-inactive);
+    color: var(--color-secondary);
   }
 }
 
@@ -451,7 +450,7 @@ const editMode = ref(true)
       }
 
       .version__subtitle {
-        color: var(--color-text-secondary);
+        color: var(--color-secondary);
         font-size: var(--font-size-xs);
       }
     }

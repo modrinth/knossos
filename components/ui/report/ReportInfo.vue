@@ -2,7 +2,7 @@
   <div class="report">
     <div v-if="report.item_type === 'project'" class="item-info">
       <nuxt-link
-        :to="`/${$getProjectTypeForUrl(report.project.project_type, report.project.loaders)}/${
+        :to="`/${getProjectTypeForUrl(report.project.project_type, report.project.loaders)}/${
           report.project.slug
         }`"
         class="iconified-stacked-link"
@@ -11,8 +11,8 @@
         <div class="stacked">
           <span class="title">{{ report.project.title }}</span>
           <span>{{
-            $formatProjectType(
-              $getProjectTypeForUrl(report.project.project_type, report.project.loaders)
+            formatProjectType(
+              getProjectTypeForUrl(report.project.project_type, report.project.loaders)
             )
           }}</span>
         </div>
@@ -41,8 +41,8 @@
         <div class="stacked">
           <span class="title">{{ report.project.title }}</span>
           <span>{{
-            $formatProjectType(
-              $getProjectTypeForUrl(report.project.project_type, report.project.loaders)
+            formatProjectType(
+              getProjectTypeForUrl(report.project.project_type, report.project.loaders)
             )
           }}</span>
         </div>
@@ -79,7 +79,7 @@
         <span>{{ report.reporterUser.username }}</span>
       </nuxt-link>
       <span>&nbsp;</span>
-      <span v-tooltip="$dayjs(report.created).format('MMMM D, YYYY [at] h:mm A')">{{
+      <span v-tooltip="dayjs(report.created).format('MMMM D, YYYY [at] h:mm A')">{{
         fromNow(report.created)
       }}</span>
       <CopyCode v-if="cosmetics.developerMode" :text="report.id" class="report-id" />
@@ -88,8 +88,10 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   renderHighlightedString,
+  formatProjectType,
   Avatar,
   Badge,
   ReportIcon,
@@ -98,6 +100,7 @@ import {
   CopyCode,
 } from 'omorphia'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 defineProps({
   report: {
@@ -133,27 +136,28 @@ const cosmetics = useCosmetics()
 .report {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-sm);
+  gap: var(--gap-sm);
   flex-wrap: wrap;
 
   .report-type {
     grid-area: type;
     display: flex;
     flex-direction: row;
-    gap: var(--spacing-card-sm);
-    margin-top: var(--spacing-card-xs);
+    gap: var(--gap-sm);
+    margin-top: var(--gap-xs);
   }
 
   .item-info {
     display: flex;
     align-items: center;
-    gap: var(--spacing-card-xs);
-    color: var(--color-heading);
+    gap: var(--gap-xs);
+    color: var(--color-base);
+    filter: brightness(1.1);
     grid-area: title;
 
     img,
     .backed-svg {
-      margin-right: var(--spacing-card-xs);
+      margin-right: var(--gap-xs);
     }
   }
 
@@ -163,18 +167,18 @@ const cosmetics = useCosmetics()
 
   .reporter-info {
     grid-area: reporter;
-    gap: var(--spacing-card-xs);
-    color: var(--color-text-secondary);
+    gap: var(--gap-xs);
+    color: var(--color-secondary);
 
     img {
       vertical-align: middle;
       position: relative;
       top: -1px;
-      margin-right: var(--spacing-card-xs);
+      margin-right: var(--gap-xs);
     }
 
     a {
-      gap: var(--spacing-card-xs);
+      gap: var(--gap-xs);
     }
   }
 
@@ -187,11 +191,11 @@ const cosmetics = useCosmetics()
   }
 
   &:not(:last-child) {
-    margin-bottom: var(--spacing-card-md);
+    margin-bottom: var(--gap-md);
   }
 
   .report-id {
-    margin-left: var(--spacing-card-sm);
+    margin-left: var(--gap-sm);
   }
 }
 </style>

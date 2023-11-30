@@ -8,10 +8,8 @@
   </div>
 </template>
 
-<script>
-export default defineNuxtComponent({
-  head: {
-    title: 'Analytics - Modrinth',
-  },
+<script setup>
+useHead({
+  title: 'Analytics - Modrinth',
 })
 </script>

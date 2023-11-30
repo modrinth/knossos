@@ -32,7 +32,7 @@
   </div>
 </template>
 <script setup>
-import { formatNumber } from '~/plugins/shorthands.js'
+import { formatNumber } from 'omorphia'
 
 useHead({
   title: 'Staff overview - Modrinth',

@@ -3,7 +3,7 @@
     <Modal
       ref="modalLicense"
       :header="project.license.name ? project.license.name : 'License'"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
@@ -36,7 +36,7 @@
           <h2>Details</h2>
           <div
             v-if="project.status === 'processing' && project.queued"
-            v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+            v-tooltip="dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
             class="primary-stat"
           >
             <QueuedIcon class="primary-stat__icon" aria-hidden="true" />
@@ -165,7 +165,7 @@
           To install {{ project.title }}, download
           <nuxt-link to="/app">the Modrinth App</nuxt-link>. For instructions with other launchers,
           please see
-          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="external()"
             >our documentation</a
           >.
         </MessageBanner>
@@ -341,7 +341,7 @@
                 <div class="primary-stat__text">
                   Supports
                   <span class="primary-stat__counter">
-                    {{ formats.list(project.loaders.map((x) => $formatCategory(x))) }}
+                    {{ formats.list(project.loaders.map((x) => formatCategory(x))) }}
                   </span>
                 </div>
               </div>
@@ -490,7 +490,7 @@
               <a
                 v-if="project.issues_url"
                 :href="project.issues_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <IssuesIcon aria-hidden="true" />
@@ -500,7 +500,7 @@
               <a
                 v-if="project.source_url"
                 :href="project.source_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <CodeIcon aria-hidden="true" />
@@ -510,7 +510,7 @@
               <a
                 v-if="project.wiki_url"
                 :href="project.wiki_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <WikiIcon aria-hidden="true" />
@@ -520,7 +520,7 @@
               <a
                 v-if="project.discord_url"
                 :href="project.discord_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <DiscordIcon class="shrink" aria-hidden="true" />
@@ -531,7 +531,7 @@
                 v-for="(donation, index) in project.donation_urls"
                 :key="index"
                 :href="donation.url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
@@ -603,7 +603,7 @@
           >
             <a
               v-tooltip="
-                version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+                version.primaryFile.filename + ' (' + formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
               class="download btn icon-only btn-primary"
@@ -622,8 +622,8 @@
                 {{ version.name }}
               </nuxt-link>
               <div v-if="version.game_versions.length > 0" class="game-version item">
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
-                {{ $formatVersion(version.game_versions) }}
+                {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
+                {{ formatVersions(version.game_versions, tags.gameVersions) }}
               </div>
               <Badge v-if="version.version_type === 'release'" type="release" color="green" />
               <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
@@ -638,6 +638,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   Avatar,
   Promotion,
@@ -671,32 +672,32 @@ import {
   UnknownIcon,
   ChevronRightIcon,
   Badge,
-  CopyCode,
   NavStack,
   NavItem as NavStackItem,
   SettingsIcon,
-  ChartIcon,
   UsersIcon,
   TagsIcon as TagIcon,
   AlignLeftIcon as DescriptionIcon,
   LinkIcon as LinksIcon,
   ImageIcon as GalleryIcon,
   VersionIcon,
-  Breadcrumbs,
-  SearchIcon,
-  FilterIcon,
   Categories,
-  GridIcon,
   PageBar,
-  ListIcon,
-  HistoryIcon,
   renderString,
   getProjectLink,
   formatCategory,
   formatNumber,
+  formatBytes,
+  formatProjectType,
+  formatVersions,
   SlashIcon as BanIcon,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
+import {
+  computeVersions,
+  getProjectTypeForDisplay,
+  getProjectTypeForUrl,
+} from '~/helpers/projects.js'
 
 import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
@@ -706,12 +707,9 @@ import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
 
-const data = useNuxtApp()
 const route = useRoute()
-const config = useRuntimeConfig()
 
 const auth = await useAuth()
-const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
 const vintl = useVIntl()
@@ -744,7 +742,7 @@ try {
       transform: (project) => {
         if (project) {
           project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-          project.project_type = data.$getProjectTypeForUrl(
+          project.project_type = getProjectTypeForUrl(
             project.project_type,
             project.loaders,
             tags.value
@@ -836,7 +834,7 @@ if (
   }
 }
 
-versions.value = data.$computeVersions(versions.value, allMembers.value)
+versions.value = computeVersions(versions.value, allMembers.value)
 
 // Q: Why do this instead of computing the versions of featuredVersions?
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
@@ -853,9 +851,6 @@ featuredVersions.value.sort((a, b) => {
   return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
 })
 
-const selectedGameVersion = ref('1.20.2')
-const selectedLoader = ref('Fabric')
-
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
 
@@ -868,9 +863,7 @@ const licenseIdDisplay = computed(() => {
   }
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
-const extraGalleryImages = computed(() =>
-  project.value.gallery.filter((img) => !img.featured).slice(0, 2)
-)
+
 function toColor(color) {
   color >>>= 0
   const b = color & 0xff
@@ -879,8 +872,8 @@ function toColor(color) {
   return 'rgba(' + [r, g, b, 0.5].join(',') + ')'
 }
 
-const projectTypeDisplay = data.$formatProjectType(
-  data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+const projectTypeDisplay = formatProjectType(
+  getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
 )
 const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
 const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
@@ -906,7 +899,7 @@ async function resetProject() {
 
   newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
 
-  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
+  newProject.project_type = getProjectTypeForUrl(newProject.project_type, newProject.loaders)
 
   project.value = newProject
 }
@@ -925,7 +918,7 @@ async function clearMessage() {
 
     project.value.moderator_message = null
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -949,7 +942,7 @@ async function setProcessing() {
 
     project.value.status = 'processing'
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -996,7 +989,7 @@ async function patchProject(resData, quiet = false) {
 
     result = true
     if (!quiet) {
-      data.$notify({
+      addNotification({
         group: 'main',
         title: 'Project updated',
         text: 'Your project has been updated.',
@@ -1005,7 +998,7 @@ async function patchProject(resData, quiet = false) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -1035,14 +1028,14 @@ async function patchIcon(icon) {
     )
     await resetProject()
     result = true
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Project icon updated',
       text: "Your project's icon has been updated.",
       type: 'success',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -1106,7 +1099,7 @@ const collapsedChecklist = ref(false)
   padding: 1.25rem;
 
   h2:first-child {
-    margin-bottom: var(--spacing-card-md);
+    margin-bottom: var(--gap-md);
   }
 }
 
@@ -1132,7 +1125,7 @@ const collapsedChecklist = ref(false)
 
   .categories {
     margin-bottom: var(--gap-md);
-    color: var(--color-text-secondary);
+    color: var(--color-secondary);
     font-size: var(--font-size-nm);
   }
 
@@ -1140,7 +1133,7 @@ const collapsedChecklist = ref(false)
     margin: 0.75rem 0;
 
     .date {
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       font-size: var(--font-size-nm);
       display: flex;
       align-items: center;
@@ -1222,7 +1215,7 @@ const collapsedChecklist = ref(false)
 
     .actions {
       .btn {
-        color: var(--color-text);
+        color: var(--color-base);
       }
     }
 
@@ -1313,13 +1306,13 @@ const collapsedChecklist = ref(false)
 .links {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-md);
 
   a {
     display: inline-flex;
     align-items: center;
     border-radius: 1rem;
-    color: var(--color-text);
+    color: var(--color-base);
     font-weight: 500;
     width: fit-content;
 
@@ -1327,7 +1320,7 @@ const collapsedChecklist = ref(false)
     img {
       height: 1.1rem;
       width: 1.1rem;
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       margin-right: var(--gap-sm);
     }
 
@@ -1351,7 +1344,7 @@ const collapsedChecklist = ref(false)
       svg,
       img,
       span {
-        color: var(--color-text-dark);
+        color: var(--color-contrast);
       }
     }
   }
@@ -1384,7 +1377,7 @@ const collapsedChecklist = ref(false)
 
     .key {
       font-weight: bold;
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       width: 40%;
     }
 
@@ -1430,25 +1423,25 @@ const collapsedChecklist = ref(false)
 }
 
 .status-buttons {
-  margin-top: var(--spacing-card-sm);
+  margin-top: var(--gap-sm);
 }
 
 .mod-message__title {
   font-weight: bold;
-  margin-bottom: var(--spacing-card-xs);
+  margin-bottom: var(--gap-xs);
   font-size: 1.125rem;
 }
 
 .modal-license {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
 }
 
 .settings-header {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-sm);
+  gap: var(--gap-sm);
   align-items: center;
-  margin-bottom: var(--spacing-card-bg);
+  margin-bottom: var(--gap-lg);
 
   .settings-header__icon {
     flex-shrink: 0;
@@ -1458,7 +1451,7 @@ const collapsedChecklist = ref(false)
     h1 {
       font-size: var(--font-size-md);
       margin-top: 0;
-      margin-bottom: var(--spacing-card-sm);
+      margin-bottom: var(--gap-sm);
     }
   }
 }
@@ -1468,7 +1461,7 @@ const collapsedChecklist = ref(false)
 }
 
 .normal-page__sidebar .mod-button {
-  margin-top: var(--spacing-card-sm);
+  margin-top: var(--gap-sm);
 }
 
 .monthly-table {
@@ -1748,7 +1741,7 @@ const collapsedChecklist = ref(false)
   h2 {
     font-size: var(--font-size-nm) !important;
     font-weight: 700;
-    color: var(--color-text-dark);
+    color: var(--color-contrast);
     //font-family: 'Inter', sans-serif;
   }
 

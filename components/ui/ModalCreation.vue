@@ -1,9 +1,5 @@
 <template>
-  <Modal
-    ref="modal"
-    header="Create a project"
-    :noblur="!$orElse(cosmetics.advancedRendering, true)"
-  >
+  <Modal ref="modal" header="Create a project" :noblur="!(cosmetics.advancedRendering ?? true)">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>New projects are created as drafts and can be found under your profile page.</p>
@@ -33,7 +29,7 @@
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">
-          https://modrinth.com/{{ getProjectType() ? getProjectType().id : '???' }}/
+          https://modrinth.com/{{ actualProjectType ? actualProjectType.id : '???' }}/
         </div>
         <input
           id="slug"
@@ -67,164 +63,151 @@
   </Modal>
 </template>
 
-<script>
+<script setup>
 import { XIcon, CheckIcon, Modal, Chips } from 'omorphia'
 
-export default {
-  components: {
-    Chips,
-    XIcon,
-    CheckIcon,
-    Modal,
-  },
-  props: {
-    itemType: {
-      type: String,
-      default: '',
-    },
-    itemId: {
-      type: String,
-      default: '',
-    },
-  },
-  setup() {
-    const cosmetics = useCosmetics()
-    const tags = useTags()
+const cosmetics = useCosmetics()
+const tags = useTags()
+const router = useRouter()
 
-    return { tags, cosmetics }
-  },
-  data() {
-    return {
-      projectType: this.tags.projectTypes[0].display,
-      name: '',
-      slug: '',
-      description: '',
-      manualSlug: false,
-    }
-  },
-  methods: {
-    cancel() {
-      this.$refs.modal.hide()
-    },
-    getProjectType() {
-      return this.tags.projectTypes.find((x) => this.projectType === x.display)
-    },
-    getClientSide() {
-      switch (this.getProjectType().id) {
-        case 'plugin':
-          return 'unsupported'
-        case 'resourcepack':
-          return 'required'
-        case 'shader':
-          return 'required'
-        case 'datapack':
-          return 'optional'
-        default:
-          return 'unknown'
-      }
-    },
-    getServerSide() {
-      switch (this.getProjectType().id) {
-        case 'plugin':
-          return 'required'
-        case 'resourcepack':
-          return 'unsupported'
-        case 'shader':
-          return 'unsupported'
-        case 'datapack':
-          return 'required'
-        default:
-          return 'unknown'
-      }
-    },
-    async createProject() {
-      startLoading()
+const projectType = ref(tags.value.projectTypes[0].display)
+const actualProjectType = computed(() =>
+  tags.value.projectTypes.find((x) => projectType.value === x.display)
+)
 
-      const projectType = this.getProjectType()
+const name = ref('')
+const slug = ref('')
+const description = ref('')
+const manualSlug = ref('')
 
-      const formData = new FormData()
+const modal = ref()
 
-      const auth = await useAuth()
+function cancel() {
+  modal.value.hide()
+}
 
-      formData.append(
-        'data',
-        JSON.stringify({
-          title: this.name.trim(),
-          project_type: projectType.actual,
-          slug: this.slug,
-          description: this.description.trim(),
-          body: '',
-          initial_versions: [],
-          team_members: [
-            {
-              user_id: auth.value.user.id,
-              name: auth.value.user.username,
-              role: 'Owner',
-            },
-          ],
-          categories: [],
-          client_side: this.getClientSide(),
-          server_side: this.getServerSide(),
-          license_id: 'LicenseRef-Unknown',
-          is_draft: true,
-        })
-      )
+const clientSide = computed(() => {
+  switch (actualProjectType.value.id) {
+    case 'plugin':
+      return 'unsupported'
+    case 'resourcepack':
+      return 'required'
+    case 'shader':
+      return 'required'
+    case 'datapack':
+      return 'optional'
+    default:
+      return 'unknown'
+  }
+})
 
-      try {
-        await useBaseFetch('project', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Disposition': formData,
-          },
-        })
+const serverSide = computed(() => {
+  switch (actualProjectType.value.id) {
+    case 'plugin':
+      return 'required'
+    case 'resourcepack':
+      return 'unsupported'
+    case 'shader':
+      return 'unsupported'
+    case 'datapack':
+      return 'required'
+    default:
+      return 'unknown'
+  }
+})
 
-        this.$refs.modal.hide()
-        await this.$router.push({
-          name: 'type-id',
-          params: {
-            type: projectType.id,
-            id: this.slug,
-          },
-          state: {
-            overrideProjectType: projectType.id,
-          },
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-    show() {
-      this.projectType = this.tags.projectTypes[0].display
-      this.name = ''
-      this.slug = ''
-      this.description = ''
-      this.manualSlug = false
-      this.$refs.modal.show()
-    },
-    updatedName() {
-      if (!this.manualSlug) {
-        this.slug = this.name
-          .trim()
-          .toLowerCase()
-          .replaceAll(' ', '-')
-          .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
-          .replaceAll(/--+/gm, '-')
-      }
-    },
-  },
+async function createProject() {
+  startLoading()
+
+  const projectType = actualProjectType.value
+
+  const formData = new FormData()
+
+  const auth = await useAuth()
+
+  formData.append(
+    'data',
+    JSON.stringify({
+      title: name.value.trim(),
+      project_type: projectType.actual,
+      slug: slug.value,
+      description: description.value.trim(),
+      body: '',
+      initial_versions: [],
+      team_members: [
+        {
+          user_id: auth.value.user.id,
+          name: auth.value.user.username,
+          role: 'Owner',
+        },
+      ],
+      categories: [],
+      client_side: clientSide.value,
+      server_side: serverSide.value,
+      license_id: 'LicenseRef-Unknown',
+      is_draft: true,
+    })
+  )
+
+  try {
+    await useBaseFetch('project', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Disposition': formData,
+      },
+    })
+
+    modal.value.hide()
+    await router.push({
+      name: 'type-id',
+      params: {
+        type: projectType.id,
+        id: slug.value,
+      },
+      state: {
+        overrideProjectType: projectType.id,
+      },
+    })
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+function show() {
+  projectType.value = tags.value.projectTypes[0].display
+  name.value = ''
+  slug.value = ''
+  description.value = ''
+  manualSlug.value = false
+  modal.value.show()
+}
+
+defineExpose({
+  show,
+})
+
+function updatedName() {
+  if (!manualSlug.value) {
+    slug.value = name.value
+      .trim()
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
+      .replaceAll(/--+/gm, '-')
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .modal-creation {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
   display: flex;
   flex-direction: column;
 
@@ -246,7 +229,7 @@ export default {
   }
 
   .input-group {
-    margin-top: var(--spacing-card-md);
+    margin-top: var(--gap-md);
   }
 }
 </style>

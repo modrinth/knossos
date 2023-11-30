@@ -7,13 +7,13 @@
       proceed-label="Delete this account"
       :confirmation-text="auth.user.username"
       :has-to-type="true"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteAccount"
     />
     <Modal
       ref="changeEmailModal"
       :header="`${auth.user.email ? 'Change' : 'Add'} email`"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="universal-modal">
         <p>Your account information is not displayed publicly.</p>
@@ -42,7 +42,7 @@
       :header="`${
         removePasswordMode ? 'Remove' : auth.user.has_password ? 'Change' : 'Add'
       } password`"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="universal-modal">
         <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
@@ -135,7 +135,7 @@
       :header="`${
         auth.user.has_totp && twoFactorStep === 0 ? 'Remove' : 'Setup'
       } two-factor authentication`"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="universal-modal">
         <template v-if="auth.user.has_totp && twoFactorStep === 0">
@@ -250,7 +250,7 @@
     <Modal
       ref="manageProvidersModal"
       header="Authentication providers"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="universal-modal">
         <div class="table">
@@ -421,7 +421,6 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const data = useNuxtApp()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 
@@ -443,7 +442,7 @@ async function saveEmail() {
     changeEmailModal.value.hide()
     await useAuth(auth.value.token)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -475,7 +474,7 @@ async function savePassword() {
     managePasswordModal.value.hide()
     await useAuth(auth.value.token)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -512,7 +511,7 @@ async function showTwoFactorModal() {
     twoFactorSecret.value = res.secret
     twoFactorFlow.value = res.flow
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -606,7 +605,7 @@ async function removeAuthProvider(provider) {
     })
     await useAuth(auth.value.token)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -623,7 +622,7 @@ async function deleteAccount() {
       method: 'DELETE',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -640,7 +639,7 @@ async function deleteAccount() {
 <style lang="scss" scoped>
 canvas {
   margin: 0 auto;
-  border-radius: var(--size-rounded-card);
+  border-radius: var(--round-card);
 }
 
 .table-row {

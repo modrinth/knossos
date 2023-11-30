@@ -59,16 +59,16 @@ const route = useRoute()
 
 <style lang="scss" scoped>
 .normal-page__content :deep(a) {
-  color: var(--color-link);
+  color: var(--color-blue);
   text-decoration: underline;
 
   &:focus-visible,
   &:hover {
-    color: var(--color-link-hover);
+    filter: brightness(1.1);
   }
 
   &:active {
-    color: var(--color-link-active);
+    filter: brightness(1.2);
   }
 }
 

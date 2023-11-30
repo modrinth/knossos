@@ -7,14 +7,14 @@
       description="This will remove this version forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteVersion()"
     />
     <Modal
       v-if="auth.user && currentMember"
-      ref="modal_package_mod"
+      ref="modalPackageMod"
       header="Package data pack"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
@@ -43,7 +43,7 @@
           open-direction="top"
         />
         <div class="input-group push-right">
-          <button class="btn" @click="$refs.modal_package_mod.hide()">
+          <button class="btn" @click="$refs.modalPackageMod.hide()">
             <XIcon />
             Cancel
           </button>
@@ -137,7 +137,7 @@
       <div v-else class="input-group">
         <a
           v-if="primaryFile"
-          v-tooltip="primaryFile.filename + ' (' + $formatBytes(primaryFile.size) + ')'"
+          v-tooltip="primaryFile.filename + ' (' + formatBytes(primaryFile.size) + ')'"
           :href="primaryFile.url"
           class="btn btn-primary"
           :aria-label="`Download ${primaryFile.filename}`"
@@ -169,7 +169,7 @@
             version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x))
           "
           class="btn"
-          @click="$refs.modal_package_mod.show()"
+          @click="$refs.modalPackageMod.show()"
         >
           <BoxIcon aria-hidden="true" />
           Package as mod
@@ -307,7 +307,7 @@
         <FileIcon />
         <span class="filename">
           <strong>{{ replaceFile.name }}</strong>
-          <span class="file-size">({{ $formatBytes(replaceFile.size) }})</span>
+          <span class="file-size">({{ formatBytes(replaceFile.size) }})</span>
         </span>
         <FileInput
           class="btn raised"
@@ -331,7 +331,7 @@
         <FileIcon />
         <span class="filename">
           <strong>{{ file.filename }}</strong>
-          <span class="file-size">({{ $formatBytes(file.size) }})</span>
+          <span class="file-size">({{ formatBytes(file.size) }})</span>
           <span v-if="primaryFile.hashes.sha1 === file.hashes.sha1" class="file-type">
             Primary
           </span>
@@ -414,7 +414,7 @@
           <FileIcon />
           <span class="filename">
             <strong>{{ file.name }}</strong>
-            <span class="file-size">({{ $formatBytes(file.size) }})</span>
+            <span class="file-size">({{ formatBytes(file.size) }})</span>
           </span>
           <multiselect
             v-if="version.loaders.some((x) => tags.loaderData.dataPackLoaders.includes(x))"
@@ -532,7 +532,7 @@
                 )
                 .map((it) => it.name)
             "
-            :custom-label="(value) => $formatCategory(value)"
+            :custom-label="(value) => formatCategory(value)"
             :loading="tags.loaders.length === 0"
             :multiple="true"
             :searchable="false"
@@ -577,7 +577,7 @@
               :border="false"
             />
           </template>
-          <span v-else>{{ $formatVersion(version.game_versions) }}</span>
+          <span v-else>{{ formatVersions(version.game_versions, tags.gameVersions) }}</span>
         </div>
         <div v-if="!isEditing">
           <h4>Downloads</h4>
@@ -586,7 +586,7 @@
         <div v-if="!isEditing">
           <h4>Publication date</h4>
           <span>
-            {{ $dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm A') }}
+            {{ dayjs(version.date_published).format('MMMM D, YYYY [at] h:mm A') }}
           </span>
         </div>
         <div v-if="!isEditing && version.author">
@@ -624,6 +624,7 @@
   </div>
 </template>
 <script setup>
+import dayjs from 'dayjs'
 import { Multiselect } from 'vue-multiselect'
 import {
   Modal,
@@ -632,7 +633,6 @@ import {
   Breadcrumbs,
   CopyCode,
   Categories,
-  Chips,
   Checkbox,
   FileInput,
   FileIcon,
@@ -652,11 +652,15 @@ import {
   ConfirmModal,
   renderHighlightedString,
   MarkdownEditor,
+  formatBytes,
+  formatCategory,
+  formatVersions,
 } from 'omorphia'
 
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion as createDPFile } from '~/helpers/package.js'
+import { computeVersions } from '~/helpers/projects.js'
 
 const props = defineProps({
   project: {
@@ -697,7 +701,6 @@ const props = defineProps({
   },
 })
 
-const data = useNuxtApp()
 const route = useRoute()
 const cosmetics = useCosmetics()
 
@@ -765,7 +768,7 @@ if (route.params.version === 'create') {
     }
   }
 } else if (route.params.version === 'latest') {
-  let versionList = props.versions
+  let versionList = JSON.parse(JSON.stringify(props.versions))
   if (route.query.loader) {
     versionList = versionList.filter((x) => x.loaders.includes(route.query.loader))
   }
@@ -826,13 +829,14 @@ const description = computed(
   () =>
     `Download ${props.project.title} ${
       version.value.version_number
-    } on Modrinth. Supports ${data.$formatVersion(
-      version.value.game_versions
+    } on Modrinth. Supports ${formatVersions(
+      version.value.game_versions,
+      tags.value.gameVersions
     )} ${version.value.loaders
       .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
-      .join(' & ')}. Published on ${data
-      .$dayjs(version.value.date_published)
-      .format('MMM D, YYYY')}. ${version.value.downloads} downloads.`
+      .join(' & ')}. Published on ${dayjs(version.value.date_published).format('MMM D, YYYY')}. ${
+      version.value.downloads
+    } downloads.`
 )
 
 useSeoMeta({
@@ -846,7 +850,6 @@ const dependencyAddMode = ref('project')
 const newDependencyType = ref('required')
 const newDependencyId = ref('')
 
-const changelogViewMode = ref('source')
 const showSnapshots = ref(false)
 
 const newFiles = ref([])
@@ -903,7 +906,7 @@ async function addDependency(dependencyAddMode, newDependencyId, newDependencyTy
       const project = await useBaseFetch(`project/${newDependencyId}`)
 
       if (version.value.dependencies.some((dep) => project.id === dep.project_id)) {
-        data.$notify({
+        addNotification({
           group: 'main',
           title: 'Dependency already added',
           text: 'You cannot add the same dependency twice.',
@@ -928,7 +931,7 @@ async function addDependency(dependencyAddMode, newDependencyId, newDependencyTy
       const project = await useBaseFetch(`project/${version.project_id}`)
 
       if (version.dependencies.some((dep) => version.id === dep.version_id)) {
-        data.$notify({
+        addNotification({
           group: 'main',
           title: 'Dependency already added',
           text: 'You cannot add the same dependency twice.',
@@ -956,7 +959,7 @@ async function addDependency(dependencyAddMode, newDependencyId, newDependencyTy
     newDependencyId.value = ''
   } catch {
     if (!hideErrors) {
-      data.$notify({
+      addNotification({
         group: 'main',
         title: 'Invalid Dependency',
         text: 'The specified dependency could not be found',
@@ -1072,7 +1075,7 @@ async function saveEditedVersion() {
       )}`
     )
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -1097,7 +1100,7 @@ async function createVersion() {
   try {
     await createVersionRaw(version.value)
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -1193,7 +1196,7 @@ async function deleteVersion() {
   stopLoading()
 }
 
-const modal_package_mod = ref()
+const modalPackageMod = ref()
 async function createDataPackVersion() {
   shouldPreventActions.value = true
   startLoading()
@@ -1227,16 +1230,16 @@ async function createDataPackVersion() {
       featured: version.value.version.featured,
     })
 
-    modal_package_mod.value.hide()
+    modalPackageMod.value.hide()
 
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Packaging Success',
       text: 'Your data pack was successfully packaged as a mod! Make sure to playtest to check for errors.',
       type: 'success',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -1254,7 +1257,7 @@ async function resetProjectVersions() {
     useBaseFetch(`project/${version.value.project_id}/dependencies`),
   ])
 
-  const newCreatedVersions = data.$computeVersions(versions, props.members)
+  const newCreatedVersions = computeVersions(versions, props.members)
   const featuredIds = featuredVersions.map((x) => x.id)
   emit('update:versions', newCreatedVersions)
   emit(
@@ -1291,7 +1294,7 @@ async function onImageUpload(file) {
     'files' auto
     / 1fr;
 
-  column-gap: var(--spacing-card-md);
+  column-gap: var(--gap-md);
 
   .version-page__title {
     grid-area: title;
@@ -1301,7 +1304,7 @@ async function onImageUpload(file) {
       flex-wrap: wrap;
       align-items: center;
       margin-bottom: 1rem;
-      gap: var(--spacing-card-md);
+      gap: var(--gap-md);
 
       h2,
       input[type='text'] {
@@ -1320,7 +1323,7 @@ async function onImageUpload(file) {
       .featured {
         display: flex;
         align-items: center;
-        gap: var(--spacing-card-xs);
+        gap: var(--gap-xs);
 
         svg {
           height: 1.45rem;
@@ -1349,20 +1352,20 @@ async function onImageUpload(file) {
     .dependency {
       align-items: center;
       display: flex;
-      gap: var(--spacing-card-sm);
-      padding: var(--spacing-card-sm);
+      gap: var(--gap-sm);
+      padding: var(--gap-sm);
 
       .info {
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-card-xs);
+        gap: var(--gap-xs);
 
         .project-title {
           font-weight: bold;
         }
 
         .dep-type {
-          color: var(--color-text-secondary);
+          color: var(--color-secondary);
 
           &.incompatible {
             color: var(--color-red);
@@ -1381,12 +1384,12 @@ async function onImageUpload(file) {
 
     .add-dependency {
       h4 {
-        margin-bottom: var(--spacing-card-sm);
+        margin-bottom: var(--gap-sm);
       }
 
       .input-group {
         &:not(:last-child) {
-          margin-bottom: var(--spacing-card-sm);
+          margin-bottom: var(--gap-sm);
         }
 
         .multiselect {
@@ -1405,12 +1408,12 @@ async function onImageUpload(file) {
     grid-area: files;
 
     .file {
-      --text-color: var(--color-button-text);
+      --text-color: var(--color-contrast);
       --background-color: var(--color-button-bg);
 
       &.primary {
         --background-color: var(--color-brand-highlight);
-        --text-color: var(--color-button-text-active);
+        --text-color: var(--color-contrast);
       }
 
       display: flex;
@@ -1419,8 +1422,8 @@ async function onImageUpload(file) {
       font-weight: 500;
       color: var(--text-color);
       background-color: var(--background-color);
-      padding: var(--spacing-card-sm) var(--spacing-card-bg);
-      border-radius: var(--size-rounded-sm);
+      padding: var(--gap-sm) var(--gap-lg);
+      border-radius: var(--radius-sm);
 
       svg {
         min-width: 1.1rem;
@@ -1520,11 +1523,11 @@ async function onImageUpload(file) {
 }
 
 .separator {
-  margin: var(--spacing-card-sm) 0;
+  margin: var(--gap-sm) 0;
 }
 
 .modal-package-mod {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
   display: flex;
   flex-direction: column;
 

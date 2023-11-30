@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import { ChevronRightIcon } from 'omorphia'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 
@@ -57,8 +58,6 @@ const props = defineProps({
   },
 })
 
-const app = useNuxtApp()
-
 const members = computed(() => {
   const members = {}
   for (const member of props.thread.members) {
@@ -71,7 +70,7 @@ const members = computed(() => {
 const displayMessages = computed(() => {
   const sortedMessages = props.thread.messages
     .slice()
-    .sort((a, b) => app.$dayjs(a.created) - app.$dayjs(b.created))
+    .sort((a, b) => dayjs(a.created) - dayjs(b.created))
   if (props.messages.length > 0) {
     return sortedMessages.filter((msg) => props.messages.includes(msg.id))
   } else {
@@ -85,10 +84,10 @@ const displayMessages = computed(() => {
   display: flex;
   flex-direction: column;
   background-color: var(--color-bg);
-  padding: var(--spacing-card-bg);
-  border-radius: var(--size-rounded-card);
-  border: 1px solid var(--color-divider-dark);
-  gap: var(--spacing-card-sm);
+  padding: var(--gap-lg);
+  border-radius: var(--round-card);
+  border: 1px solid var(--color-divider);
+  gap: var(--gap-sm);
 
   .thread-title-row {
     display: flex;
@@ -97,12 +96,13 @@ const displayMessages = computed(() => {
 
     .thread-title {
       font-weight: bold;
-      color: var(--color-heading);
+      color: var(--color-base);
+      filter: brightness(1.1);
     }
 
     .thread-messages {
       margin-left: auto;
-      color: var(--color-link);
+      color: var(--color-blue);
 
       svg {
         vertical-align: top;
@@ -116,7 +116,7 @@ const displayMessages = computed(() => {
     }
 
     .date {
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       font-size: var(--font-size-sm);
     }
   }
@@ -125,7 +125,7 @@ const displayMessages = computed(() => {
   .thread-message > span {
     display: flex;
     flex-direction: row;
-    gap: var(--spacing-card-xs);
+    gap: var(--gap-xs);
     align-items: center;
   }
 

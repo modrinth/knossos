@@ -133,14 +133,14 @@ export const resendVerifyEmail = async () => {
     })
 
     const auth = await useAuth()
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Email sent',
       text: `An email with a link to verify your account has been sent to ${auth.value.user.email}.`,
       type: 'success',
     })
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,

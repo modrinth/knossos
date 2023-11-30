@@ -22,16 +22,17 @@
           :key="`payout-${index}`"
           class="grid-table__row"
         >
-          <div>{{ $dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
+          <div>{{ dayjs(payout.created).format('MMMM D, YYYY [at] h:mm A') }}</div>
           <div><Badge :type="payout.status" /></div>
-          <div class="amount">{{ $formatMoney(payout.amount) }}</div>
+          <div class="amount">{{ formatMoney(payout.amount) }}</div>
         </div>
       </div>
     </section>
   </div>
 </template>
 <script setup>
-import { Badge, Breadcrumbs } from 'omorphia'
+import dayjs from 'dayjs'
+import { Badge, Breadcrumbs, formatMoney } from 'omorphia'
 
 useHead({
   title: 'Transfer history - Modrinth',
@@ -47,9 +48,9 @@ const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts
 .grid-table {
   display: grid;
   grid-template-columns: auto auto auto;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
 
   .grid-table__header {
     .mobile {
@@ -64,33 +65,33 @@ const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: var(--spacing-card-sm);
+      padding: var(--gap-sm);
 
       // Left edge of table
       &:first-child,
       &.mobile {
-        padding-left: var(--spacing-card-bg);
+        padding-left: var(--gap-lg);
       }
 
       // Right edge of table
       &:last-child {
-        padding-right: var(--spacing-card-bg);
+        padding-right: var(--gap-lg);
       }
     }
 
     &:nth-child(2n + 1) > div {
-      background-color: var(--color-table-alternate-row);
+      background-color: var(--color-alt-bg);
     }
 
     > div {
-      padding-top: var(--spacing-card-bg);
-      padding-bottom: var(--spacing-card-bg);
+      padding-top: var(--gap-lg);
+      padding-bottom: var(--gap-lg);
     }
 
     &.grid-table__header > div {
       background-color: var(--color-bg);
       font-weight: bold;
-      color: var(--color-text-dark);
+      color: var(--color-contrast);
     }
   }
 
@@ -102,16 +103,16 @@ const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts
       flex-direction: column;
 
       > div {
-        padding: var(--spacing-card-xs) var(--spacing-card-bg);
+        padding: var(--gap-xs) var(--gap-lg);
 
         &:first-child,
         &.mobile {
-          padding-top: var(--spacing-card-bg);
+          padding-top: var(--gap-lg);
         }
 
         &:last-child,
         &.mobile {
-          padding-bottom: var(--spacing-card-bg);
+          padding-bottom: var(--gap-lg);
         }
       }
     }
@@ -127,7 +128,8 @@ const { data: payouts } = await useAsyncData(`user/${auth.value.user.id}/payouts
   }
 
   .amount {
-    color: var(--color-heading);
+    color: var(--color-base);
+    filter: brightness(1.1);
     font-weight: 500;
   }
 }

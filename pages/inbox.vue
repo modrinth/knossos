@@ -28,7 +28,7 @@
         >
           <RadioButtonCheckedIcon v-if="selectedType === type" />
           <RadioButtonIcon v-else />
-          {{ type === 'all' ? 'All' : $formatProjectType(type).replace('_', ' ') + 's' }}
+          {{ type === 'all' ? 'All' : formatProjectType(type).replace('_', ' ') + 's' }}
         </button>
         <Button
           v-if="notifications.length > 0"
@@ -48,7 +48,7 @@
           v-model="selectedType"
           :items="notifTypes"
           :format-label="
-            (x) => (x === 'all' ? 'All' : $formatProjectType(x).replace('_', ' ') + 's')
+            (x) => (x === 'all' ? 'All' : formatProjectType(x).replace('_', ' ') + 's')
           "
           :capitalize="false"
         />
@@ -74,6 +74,7 @@ import {
   RadioButtonIcon,
   RadioButtonChecked as RadioButtonCheckedIcon,
   CheckCheckIcon,
+  formatProjectType,
 } from 'omorphia'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 
@@ -160,7 +161,7 @@ h1 {
   align-items: center;
   width: fit-content;
   padding-block: var(--gap-sm);
-  color: var(--color-text);
+  color: var(--color-base);
 
   svg {
     margin-right: var(--gap-sm);
@@ -169,7 +170,7 @@ h1 {
   }
 
   &.selected {
-    color: var(--color-text-dark);
+    color: var(--color-contrast);
 
     svg {
       color: var(--color-brand);

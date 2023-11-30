@@ -33,88 +33,70 @@
   </div>
 </template>
 
-<script>
-import { Chips, SaveIcon, renderHighlightedString, MarkdownEditor, Card } from 'omorphia'
+<script setup>
+import { SaveIcon, MarkdownEditor, Card } from 'omorphia'
 
-export default defineNuxtComponent({
-  components: {
-    Card,
-    Chips,
-    SaveIcon,
-    MarkdownEditor,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    allMembers: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-    patchProject: {
-      type: Function,
-      default() {
-        return () => {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: 'Patch project function not found',
-            type: 'error',
-          })
-        }
-      },
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      description: this.project.body,
-      bodyViewMode: 'source',
-    }
+  allMembers: {
+    type: Array,
+    default() {
+      return []
+    },
   },
-  computed: {
-    patchData() {
-      const data = {}
-
-      if (this.description !== this.project.body) {
-        data.body = this.description
+  currentMember: {
+    type: Object,
+    default() {
+      return null
+    },
+  },
+  patchProject: {
+    type: Function,
+    default() {
+      return () => {
+        addNotification({
+          group: 'main',
+          title: 'An error occurred',
+          text: 'Patch project function not found',
+          type: 'error',
+        })
       }
-
-      return data
-    },
-    hasChanges() {
-      return Object.keys(this.patchData).length > 0
-    },
-  },
-  created() {
-    this.EDIT_BODY = 1 << 3
-  },
-  methods: {
-    renderHighlightedString,
-    saveChanges() {
-      if (this.hasChanges) {
-        this.patchProject(this.patchData)
-      }
-    },
-    async onUploadHandler(file) {
-      const response = await useImageUpload(file, {
-        context: 'project',
-        projectID: this.project.id,
-      })
-      return response.url
     },
   },
 })
+
+const EDIT_BODY = ref(1 << 3)
+
+const description = ref(props.project.body)
+
+const patchData = computed(() => {
+  const data = {}
+
+  if (description.value !== props.project.body) {
+    data.body = description.value
+  }
+
+  return data
+})
+
+const hasChanges = computed(() => Object.keys(patchData.value).length > 0)
+
+function saveChanges() {
+  props.patchProject(patchData.value)
+}
+
+async function onUploadHandler(file) {
+  const response = await useImageUpload(file, {
+    context: 'project',
+    projectID: props.project.id,
+  })
+  return response.url
+}
 </script>
 
 <style scoped>
