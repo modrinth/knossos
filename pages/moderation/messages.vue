@@ -34,6 +34,6 @@ function getLink(thread) {
 </script>
 <style lang="scss" scoped>
 .thread-summary:not(:last-child) {
-  margin-bottom: var(--spacing-card-md);
+  margin-bottom: var(--gap-md);
 }
 </style>

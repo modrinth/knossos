@@ -290,7 +290,7 @@
                   )"
                   :key="category.name"
                   :active-filters="facets"
-                  :display-name="$formatCategory(category.name)"
+                  :display-name="formatCategory(category.name)"
                   :facet-name="`categories:'${encodeURIComponent(category.name)}'`"
                   @toggle="toggleFacet"
                 />
@@ -377,7 +377,7 @@
             :key="result.project_id"
             :display="cosmetics.searchDisplayMode[projectType.id]"
             :featured-image="result.featured_gallery ? result.featured_gallery : result.gallery[0]"
-            :type="result.project_type"
+            :type="getProjectTypeForUrl(result.project_type, result.categories)"
             :author="result.author"
             :name="result.title"
             :description="result.description"
@@ -388,7 +388,11 @@
             :icon-url="result.icon_url"
             :client-side="result.client_side"
             :server-side="result.server_side"
-            :categories="result.display_categories"
+            :categories="
+              result.display_categories.filter(
+                (cat) => !tags.loaders.some((loader) => loader.name === cat)
+              )
+            "
             :search="true"
             :show-updated-date="sortType !== 'newest'"
             :hide-loaders="['resourcepack', 'datapack'].includes(projectType.id)"
@@ -442,13 +446,16 @@ import {
   HistoryIcon,
   ScrollableMultiSelect,
   PageBar,
+  formatCategory,
+  formatCategoryHeader,
+  formatProjectType,
 } from 'omorphia'
-import { formatCategory, formatCategoryHeader, formatProjectType } from '../../plugins/shorthands'
 
-import FrownIcon from '~/assets/images/utils/frown.svg'
-import FilterXIcon from '~/assets/images/utils/filter-x.svg'
 import TopIcon from 'assets/images/utils/arrow-big-up-dash.svg'
 import NewIcon from 'assets/images/utils/burst.svg'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
+import FrownIcon from '~/assets/images/utils/frown.svg'
+import FilterXIcon from '~/assets/images/utils/filter-x.svg'
 import GameBanner from '~/components/ui/GameBanner.vue'
 
 const vintl = useVIntl()
@@ -480,7 +487,6 @@ const sortTypeNames = defineMessages({
 const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)
 
-const data = useNuxtApp()
 const route = useRoute()
 
 const cosmetics = useCosmetics()
@@ -827,7 +833,7 @@ function getSearchUrl(offset, useObj) {
 const categoriesMap = computed(() => {
   const categories = {}
 
-  for (const category of data.$sortedCategories()) {
+  for (const category of sortedCategories()) {
     if (categories[category.header]) {
       categories[category.header].push(category)
     } else {
@@ -927,15 +933,6 @@ function onSearchChangeToTop(newPageNumber) {
   }
 
   onSearchChange(newPageNumber)
-}
-
-function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode[projectType.value.id] = data.$cycleValue(
-    cosmetics.value.searchDisplayMode[projectType.value.id],
-    tags.value.projectViewModes
-  )
-  saveCosmetics()
-  setClosestMaxResults()
 }
 
 function setSearchDisplayMode(mode) {
@@ -1085,7 +1082,7 @@ h1 {
 
 .pagination-container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: var(--gap-lg);
   flex-wrap: wrap;

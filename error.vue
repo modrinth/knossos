@@ -34,7 +34,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .main {
-  margin: var(--spacing-card-lg) auto;
+  margin: var(--gap-xl) auto;
   width: calc(100% - 4rem);
 
   @media screen and (min-width: 800px) {
@@ -48,8 +48,8 @@ defineProps({
   }
 
   svg {
-    fill: var(--color-text);
-    color: var(--color-text);
+    fill: var(--color-base);
+    color: var(--color-base);
 
     width: 100%;
     height: auto;

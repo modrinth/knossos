@@ -6,7 +6,7 @@
           <span class="label__title size-card-header">License</span>
           <span class="label__description">
             It is very important to choose a proper license for your
-            {{ $formatProjectType(project.project_type).toLowerCase() }}. You may choose one from
+            {{ formatProjectType(project.project_type).toLowerCase() }}. You may choose one from
             our list or provide a custom license. You may also provide a custom URL to your chosen
             license; otherwise, the license text will be displayed.
             <span v-if="license && license.friendly === 'Custom'" class="label__subdescription">
@@ -99,198 +99,177 @@
   </div>
 </template>
 
-<script>
-import { Checkbox, SaveIcon } from 'omorphia'
+<script setup>
+import { Checkbox, SaveIcon, formatProjectType } from 'omorphia'
 import Multiselect from 'vue-multiselect'
 
-export default defineNuxtComponent({
-  components: {
-    Multiselect,
-    Checkbox,
-    SaveIcon,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-    patchProject: {
-      type: Function,
-      default() {
-        return () => {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: 'Patch project function not found',
-            type: 'error',
-          })
-        }
-      },
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      licenseUrl: '',
-      license: { friendly: '', short: '', requiresOnlyOrLater: false },
-      allowOrLater: this.project.license.id.includes('-or-later'),
-      nonSpdxLicense: this.project.license.id.includes('LicenseRef-'),
-      showKnownErrors: false,
-    }
-  },
-  async setup(props) {
-    const defaultLicenses = shallowRef([
-      { friendly: 'Custom', short: '' },
-      {
-        friendly: 'All Rights Reserved/No License',
-        short: 'All-Rights-Reserved',
-      },
-      { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
-      {
-        friendly: 'BSD 2-Clause "Simplified" License',
-        short: 'BSD-2-Clause',
-      },
-      {
-        friendly: 'BSD 3-Clause "New" or "Revised" License',
-        short: 'BSD-3-Clause',
-      },
-      {
-        friendly: 'CC Zero (Public Domain equivalent)',
-        short: 'CC0-1.0',
-      },
-      { friendly: 'CC-BY 4.0', short: 'CC-BY-4.0' },
-      {
-        friendly: 'CC-BY-SA 4.0',
-        short: 'CC-BY-SA-4.0',
-      },
-      {
-        friendly: 'CC-BY-NC 4.0',
-        short: 'CC-BY-NC-4.0',
-      },
-      {
-        friendly: 'CC-BY-NC-SA 4.0',
-        short: 'CC-BY-NC-SA-4.0',
-      },
-      {
-        friendly: 'CC-BY-ND 4.0',
-        short: 'CC-BY-ND-4.0',
-      },
-      {
-        friendly: 'CC-BY-NC-ND 4.0',
-        short: 'CC-BY-NC-ND-4.0',
-      },
-      {
-        friendly: 'GNU Affero General Public License v3',
-        short: 'AGPL-3.0',
-        requiresOnlyOrLater: true,
-      },
-      {
-        friendly: 'GNU Lesser General Public License v2.1',
-        short: 'LGPL-2.1',
-        requiresOnlyOrLater: true,
-      },
-      {
-        friendly: 'GNU Lesser General Public License v3',
-        short: 'LGPL-3.0',
-        requiresOnlyOrLater: true,
-      },
-      {
-        friendly: 'GNU General Public License v2',
-        short: 'GPL-2.0',
-        requiresOnlyOrLater: true,
-      },
-      {
-        friendly: 'GNU General Public License v3',
-        short: 'GPL-3.0',
-        requiresOnlyOrLater: true,
-      },
-      { friendly: 'ISC License', short: 'ISC' },
-      { friendly: 'MIT License', short: 'MIT' },
-      { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
-      { friendly: 'zlib License', short: 'Zlib' },
-    ])
-
-    const licenseUrl = ref(props.project.license.url)
-
-    const licenseId = props.project.license.id
-    const trimmedLicenseId = licenseId
-      .replaceAll('-only', '')
-      .replaceAll('-or-later', '')
-      .replaceAll('LicenseRef-', '')
-
-    const license = ref(
-      defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
-        friendly: 'Custom',
-        short: licenseId.replaceAll('LicenseRef-', ''),
-      }
-    )
-
-    if (licenseId === 'LicenseRef-Unknown') {
-      license.value = {
-        friendly: 'Unknown',
-        short: licenseId.replaceAll('LicenseRef-', ''),
-      }
-    }
-
-    return {
-      defaultLicenses,
-      licenseUrl,
-      license,
-    }
-  },
-  computed: {
-    hasPermission() {
-      const EDIT_DETAILS = 1 << 2
-      return (this.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
-    },
-    licenseId() {
-      let id = ''
-      if (this.license === null) return id
-      if (
-        (this.nonSpdxLicense && this.license.friendly === 'Custom') ||
-        this.license.short === 'All-Rights-Reserved' ||
-        this.license.short === 'Unknown'
-      ) {
-        id += 'LicenseRef-'
-      }
-      id += this.license.short
-      if (this.license.requiresOnlyOrLater) {
-        id += this.allowOrLater ? '-or-later' : '-only'
-      }
-      if (this.nonSpdxLicense && this.license.friendly === 'Custom') {
-        id = id.replaceAll(' ', '-')
-      }
-      return id
-    },
-    patchData() {
-      const data = {}
-
-      if (this.licenseId !== this.project.license.id) {
-        data.license_id = this.licenseId
-        data.license_url = this.licenseUrl ? this.licenseUrl : null
-      } else if (this.licenseUrl !== this.project.license.url) {
-        data.license_url = this.licenseUrl ? this.licenseUrl : null
-      }
-
-      return data
-    },
-    hasChanges() {
-      return Object.keys(this.patchData).length > 0
+  currentMember: {
+    type: Object,
+    default() {
+      return null
     },
   },
-  methods: {
-    saveChanges() {
-      if (this.hasChanges) {
-        this.patchProject(this.patchData)
+  patchProject: {
+    type: Function,
+    default() {
+      return () => {
+        addNotification({
+          group: 'main',
+          title: 'An error occurred',
+          text: 'Patch project function not found',
+          type: 'error',
+        })
       }
     },
   },
 })
+
+const allowOrLater = ref(props.project.license.id.includes('-or-later'))
+const nonSpdxLicense = ref(props.project.license.id.includes('LicenseRef-'))
+const showKnownErrors = ref(false)
+
+const defaultLicenses = shallowRef([
+  { friendly: 'Custom', short: '' },
+  {
+    friendly: 'All Rights Reserved/No License',
+    short: 'All-Rights-Reserved',
+  },
+  { friendly: 'Apache License 2.0', short: 'Apache-2.0' },
+  {
+    friendly: 'BSD 2-Clause "Simplified" License',
+    short: 'BSD-2-Clause',
+  },
+  {
+    friendly: 'BSD 3-Clause "New" or "Revised" License',
+    short: 'BSD-3-Clause',
+  },
+  {
+    friendly: 'CC Zero (Public Domain equivalent)',
+    short: 'CC0-1.0',
+  },
+  { friendly: 'CC-BY 4.0', short: 'CC-BY-4.0' },
+  {
+    friendly: 'CC-BY-SA 4.0',
+    short: 'CC-BY-SA-4.0',
+  },
+  {
+    friendly: 'CC-BY-NC 4.0',
+    short: 'CC-BY-NC-4.0',
+  },
+  {
+    friendly: 'CC-BY-NC-SA 4.0',
+    short: 'CC-BY-NC-SA-4.0',
+  },
+  {
+    friendly: 'CC-BY-ND 4.0',
+    short: 'CC-BY-ND-4.0',
+  },
+  {
+    friendly: 'CC-BY-NC-ND 4.0',
+    short: 'CC-BY-NC-ND-4.0',
+  },
+  {
+    friendly: 'GNU Affero General Public License v3',
+    short: 'AGPL-3.0',
+    requiresOnlyOrLater: true,
+  },
+  {
+    friendly: 'GNU Lesser General Public License v2.1',
+    short: 'LGPL-2.1',
+    requiresOnlyOrLater: true,
+  },
+  {
+    friendly: 'GNU Lesser General Public License v3',
+    short: 'LGPL-3.0',
+    requiresOnlyOrLater: true,
+  },
+  {
+    friendly: 'GNU General Public License v2',
+    short: 'GPL-2.0',
+    requiresOnlyOrLater: true,
+  },
+  {
+    friendly: 'GNU General Public License v3',
+    short: 'GPL-3.0',
+    requiresOnlyOrLater: true,
+  },
+  { friendly: 'ISC License', short: 'ISC' },
+  { friendly: 'MIT License', short: 'MIT' },
+  { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
+  { friendly: 'zlib License', short: 'Zlib' },
+])
+
+const licenseUrl = ref(props.project.license.url)
+
+const trimmedLicenseId = props.project.license.id
+  .replaceAll('-only', '')
+  .replaceAll('-or-later', '')
+  .replaceAll('LicenseRef-', '')
+
+const license = ref(
+  defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
+    friendly: 'Custom',
+    short: props.project.license.id.replaceAll('LicenseRef-', ''),
+  }
+)
+
+if (props.project.license.id === 'LicenseRef-Unknown') {
+  license.value = {
+    friendly: 'Unknown',
+    short: licenseId.replaceAll('LicenseRef-', ''),
+  }
+}
+
+const hasPermission = computed(() => {
+  const EDIT_DETAILS = 1 << 2
+  return (props.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
+})
+
+const licenseId = computed(() => {
+  let id = ''
+  if (license.value === null) return id
+  if (
+    (nonSpdxLicense.value && license.value.friendly === 'Custom') ||
+    license.value.short === 'All-Rights-Reserved' ||
+    license.value.short === 'Unknown'
+  ) {
+    id += 'LicenseRef-'
+  }
+  id += license.value.short
+  if (license.value.requiresOnlyOrLater) {
+    id += allowOrLater.value ? '-or-later' : '-only'
+  }
+  if (nonSpdxLicense.value && license.value.friendly === 'Custom') {
+    id = id.replaceAll(' ', '-')
+  }
+  return id
+})
+
+const patchData = computed(() => {
+  const data = {}
+
+  if (licenseId.value !== props.project.license.id) {
+    data.license_id = licenseId.value
+    data.license_url = licenseUrl.value ? licenseUrl.value : null
+  } else if (licenseUrl.value !== props.project.license.url) {
+    data.license_url = licenseUrl.value ? licenseUrl.value : null
+  }
+
+  return data
+})
+
+const hasChanges = computed(() => Object.keys(patchData.value).length > 0)
+
+function saveChanges() {
+  if (hasChanges.value) {
+    props.patchProject(patchData.value)
+  }
+}
 </script>

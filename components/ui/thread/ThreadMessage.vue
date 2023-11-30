@@ -77,7 +77,7 @@
       <span v-else-if="message.body.type === 'thread_closure'">closed the thread.</span>
     </div>
     <span class="message__date">
-      <span v-tooltip="$dayjs(message.created).format('MMMM D, YYYY [at] h:mm A')">
+      <span v-tooltip="dayjs(message.created).format('MMMM D, YYYY [at] h:mm A')">
         {{ timeSincePosted }}
       </span>
     </span>
@@ -88,6 +88,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   Avatar,
   Badge,
@@ -96,8 +97,8 @@ import {
   MicrophoneIcon as MicIcon,
   LockIcon as PrivateIcon,
   renderString,
+  ConditionalNuxtLink,
 } from 'omorphia'
-import ConditionalNuxtLink from '~/components/ui/ConditionalNuxtLink.vue'
 
 const props = defineProps({
   message: {
@@ -148,14 +149,14 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
 
 <style lang="scss" scoped>
 .message {
-  --gap-size: var(--spacing-card-xs);
+  --gap-size: var(--gap-xs);
   display: flex;
   flex-direction: row;
   gap: var(--gap-size);
   flex-wrap: wrap;
   align-items: center;
-  border-radius: var(--size-rounded-card);
-  padding: var(--spacing-card-md);
+  border-radius: var(--round-card);
+  padding: var(--gap-md);
   word-break: break-word;
 
   .avatar,
@@ -164,7 +165,7 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
   }
 
   &.has-body {
-    --gap-size: var(--spacing-card-sm);
+    --gap-size: var(--gap-sm);
     display: grid;
     grid-template:
       'icon author actions'
@@ -172,7 +173,7 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
       'date date date';
     grid-template-columns: min-content auto 1fr;
     column-gap: var(--gap-size);
-    row-gap: var(--spacing-card-xs);
+    row-gap: var(--gap-xs);
 
     .message__icon {
       margin-bottom: auto;
@@ -186,7 +187,7 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
 
   &:not(.no-actions):hover,
   &:not(.no-actions):focus-within {
-    background-color: var(--color-table-alternate-row);
+    background-color: var(--color-alt-bg);
 
     .message__actions {
       opacity: 1;
@@ -210,7 +211,7 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
   grid-area: author;
   font-weight: bold;
   display: flex;
-  gap: var(--spacing-card-xs);
+  gap: var(--gap-xs);
   flex-wrap: wrap;
   flex-shrink: 0;
 }
@@ -218,7 +219,7 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
 .message__date {
   grid-area: date;
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
+  color: var(--color-secondary);
 }
 
 .message__actions {
@@ -234,7 +235,7 @@ const timeSincePosted = ref(formatRelativeTime(props.message.created))
 .status-message > span {
   display: flex;
   align-items: center;
-  gap: var(--spacing-card-xs);
+  gap: var(--gap-xs);
   flex-wrap: wrap;
 }
 a {
@@ -262,7 +263,7 @@ role-moderator {
 }
 
 .role-admin {
-  color: var(--color-brand-green);
+  color: var(--color-brand);
 }
 
 .reporter-icon {
@@ -306,6 +307,6 @@ role-moderator {
 }
 
 .private {
-  color: var(--color-icon);
+  color: var(--color-secondary);
 }
 </style>

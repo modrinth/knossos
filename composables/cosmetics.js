@@ -45,3 +45,9 @@ export const saveCosmetics = () => {
 
   cosmeticsCookie.value = cosmetics.value
 }
+
+export const external = () => {
+  const cosmeticsStore = useCosmetics().value
+
+  return cosmeticsStore.externalLinksNewTab ? '_blank' : ''
+}

@@ -3,42 +3,42 @@
     <header class="site-header" role="presentation">
       <section class="mobile-navigation">
         <div
-            class="nav-menu nav-menu-browse"
-            :class="{ expanded: mobileBrowseOpen }"
-            @focusin="mobileBrowseOpen = true"
-            @focusout="mobileBrowseOpen = false"
+          class="nav-menu nav-menu-browse"
+          :class="{ expanded: mobileBrowseOpen }"
+          @focusin="mobileBrowseOpen = true"
+          @focusout="mobileBrowseOpen = false"
         >
           <div class="links cascade-links">
             <NuxtLink
-                v-for="navRoute in navRoutes"
-                :key="navRoute.href"
-                :to="navRoute.href"
-                class="btn"
+              v-for="navRoute in navRoutes"
+              :key="navRoute.href"
+              :to="navRoute.href"
+              class="btn"
             >
               {{ navRoute.label }}
             </NuxtLink>
           </div>
         </div>
         <div
-            class="nav-menu nav-menu-mobile"
-            :class="{ expanded: mobileUserOpen }"
-            @focusin="mobileUserOpen = true"
-            @focusout="mobileUserOpen = false"
+          class="nav-menu nav-menu-mobile"
+          :class="{ expanded: mobileUserOpen }"
+          @focusin="mobileUserOpen = true"
+          @focusout="mobileUserOpen = false"
         >
           <div class="account-container">
             <NuxtLink
-                v-if="auth.user"
-                :to="`/user/${auth.user.username}`"
-                class="btn account-button"
+              v-if="auth.user"
+              :to="`/user/${auth.user.username}`"
+              class="btn account-button"
             >
               <Avatar
-                  v-if="false"
-                  :src="auth.user.avatar_url"
-                  class="user-icon"
-                  alt="Your avatar"
-                  aria-hidden="true"
-                  circle
-                  :size="'none'"
+                v-if="false"
+                :src="auth.user.avatar_url"
+                class="user-icon"
+                alt="Your avatar"
+                aria-hidden="true"
+                circle
+                :size="'none'"
               />
               <div class="account-text">
                 <div>@{{ auth.user.username }}</div>
@@ -64,9 +64,9 @@
                 Following
               </NuxtLink>
               <NuxtLink
-                  v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
-                  class="btn"
-                  to="/moderation"
+                v-if="auth.user && (auth.user.role === 'moderator' || auth.user.role === 'admin')"
+                class="btn"
+                to="/moderation"
               >
                 <ModerationIcon aria-hidden="true" />
                 Moderation
@@ -88,10 +88,10 @@
             <ModrinthIcon />
           </NuxtLink>
           <button
-              class="tab button-animation"
-              :class="{ 'router-link-exact-active': mobileBrowseOpen }"
-              title="Search"
-              @click="toggleBrowseMenu()"
+            class="tab button-animation"
+            :class="{ 'router-link-exact-active': mobileBrowseOpen }"
+            title="Search"
+            @click="toggleBrowseMenu()"
           >
             <template v-if="auth.user">
               <SearchIcon />
@@ -103,14 +103,14 @@
           </button>
           <template v-if="auth.user">
             <NuxtLink
-                to="/home"
-                class="tab button-animation"
-                :class="{
+              to="/home"
+              class="tab button-animation"
+              :class="{
                 bubble: user.notifications.some((notif) => !notif.read),
                 'no-active': mobileUserOpen || mobileBrowseOpen,
               }"
-                title="Notifications"
-                @click="
+              title="Notifications"
+              @click="
                 () => {
                   mobileUserOpen = false
                   mobileBrowseOpen = false
@@ -124,9 +124,9 @@
             </NuxtLink>
           </template>
           <button
-              class="tab button-animation"
-              title="Toggle Mobile Menu"
-              @click="toggleMobileMenu()"
+            class="tab button-animation"
+            title="Toggle Mobile Menu"
+            @click="toggleMobileMenu()"
           >
             <template v-if="!auth.user">
               <HamburgerIcon v-if="!mobileUserOpen" />
@@ -134,14 +134,14 @@
             </template>
             <template v-else>
               <Avatar
-                  v-if="false"
-                  :src="auth.user.avatar_url"
-                  class="user-icon"
-                  :class="{ expanded: mobileUserOpen }"
-                  alt="Your avatar"
-                  aria-hidden="true"
-                  circle
-                  :size="'none'"
+                v-if="false"
+                :src="auth.user.avatar_url"
+                class="user-icon"
+                :class="{ expanded: mobileUserOpen }"
+                alt="Your avatar"
+                aria-hidden="true"
+                circle
+                :size="'none'"
               />
             </template>
           </button>
@@ -160,13 +160,13 @@
             <span class="title">Home</span>
           </NuxtLink>
           <OverflowMenu
-              class="btn btn-transparent btn-dropdown-animation"
-              :class="{
+            class="btn btn-transparent btn-dropdown-animation"
+            :class="{
               'visibly-active': route.name.startsWith('search-'),
             }"
-              position="bottom"
-              direction="right"
-              :options="[
+            position="bottom"
+            direction="right"
+            :options="[
               {
                 id: 'mods',
                 link: '/mods',
@@ -203,10 +203,10 @@
           </OverflowMenu>
 
           <OverflowMenu
-              class="btn btn-transparent btn-dropdown-animation"
-              position="bottom"
-              direction="right"
-              :options="[
+            class="btn btn-transparent btn-dropdown-animation"
+            position="bottom"
+            direction="right"
+            :options="[
               {
                 id: 'new-project',
                 action: () => $refs.modal_creation.show(),
@@ -240,12 +240,12 @@
             <SunIcon v-else class="icon" />
           </button>
           <OverflowMenu
-              v-if="auth.user"
-              class="btn btn-transparent btn-dropdown-animation"
-              aria-label="User menu"
-              position="bottom"
-              direction="left"
-              :options="[
+            v-if="auth.user"
+            class="btn btn-transparent btn-dropdown-animation"
+            aria-label="User menu"
+            position="bottom"
+            direction="left"
+            :options="[
               {
                 id: 'profile',
                 action: () => {
@@ -280,12 +280,12 @@
             ]"
           >
             <Avatar
-                :src="auth.user.avatar_url"
-                class="user-avatar"
-                alt="Your avatar"
-                aria-hidden="true"
-                circle
-                size="none"
+              :src="auth.user.avatar_url"
+              class="user-avatar"
+              alt="Your avatar"
+              aria-hidden="true"
+              circle
+              size="none"
             />
             {{ auth.user.username }}
             <DropdownIcon />
@@ -322,8 +322,6 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
-        <SimpleCreationModal v-if="auth.user" ref="newCollectionModal" type="collection" />
-        <SimpleCreationModal v-if="auth.user" ref="newOrganizationModal" type="organization" disallow-spaces />
         <section v-if="displayWarning" class="warning-banner card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
@@ -342,25 +340,25 @@
       <footer>
         <div class="logo-info" role="region" aria-label="Modrinth information">
           <TextLogo
-              :animate="loading"
-              aria-hidden="true"
-              class="text-logo button-base"
-              @click="developerModeIncrement()"
+            :animate="loading"
+            aria-hidden="true"
+            class="text-logo button-base"
+            @click="developerModeIncrement()"
           />
           <p>
             Modrinth is
             <a
-                :target="$external()"
-                href="https://github.com/modrinth"
-                class="text-link"
-                rel="noopener"
+              :target="external()"
+              href="https://github.com/modrinth"
+              class="text-link"
+              rel="noopener"
             >
               open source</a
             >.
           </p>
           <p>
             {{ config.public.owner }}/{{ config.public.slug }} {{ config.public.branch }}@<a
-              :target="$external()"
+              :target="external()"
               :href="
                 'https://github.com/' +
                 config.public.owner +
@@ -371,8 +369,8 @@
               "
               class="text-link"
               rel="noopener"
-          >{{ config.public.hash.substring(0, 7) }}</a
-          >
+              >{{ config.public.hash.substring(0, 7) }}</a
+            >
           </p>
           <p>© Rinth, Inc.</p>
         </div>
@@ -381,25 +379,25 @@
           <nuxt-link to="/legal/terms"> Terms</nuxt-link>
           <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
           <nuxt-link to="/legal/rules"> Rules</nuxt-link>
-          <a :target="$external()" href="https://careers.modrinth.com"
-          >Careers <span class="count-bubble">1</span></a
+          <a :target="external()" href="https://careers.modrinth.com"
+            >Careers <span class="count-bubble">1</span></a
           >
         </div>
         <div class="links links-2" role="region" aria-label="Resources">
           <h4 aria-hidden="true">Resources</h4>
-          <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
-          <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
-          <a :target="$external()" href="https://status.modrinth.com">Status</a>
-          <a rel="noopener" :target="$external()" href="https://github.com/modrinth">GitHub</a>
+          <a :target="external()" href="https://blog.modrinth.com">Blog</a>
+          <a :target="external()" href="https://docs.modrinth.com">Docs</a>
+          <a :target="external()" href="https://status.modrinth.com">Status</a>
+          <a rel="noopener" :target="external()" href="https://github.com/modrinth">GitHub</a>
         </div>
         <div class="links links-3" role="region" aria-label="Interact">
           <h4 aria-hidden="true">Interact</h4>
-          <a rel="noopener" :target="$external()" href="https://discord.gg/EUHuJHt"> Discord </a>
-          <a rel="noopener" :target="$external()" href="https://x.com/modrinth"> X (Twitter) </a>
-          <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth">
+          <a rel="noopener" :target="external()" href="https://discord.gg/EUHuJHt"> Discord </a>
+          <a rel="noopener" :target="external()" href="https://x.com/modrinth"> X (Twitter) </a>
+          <a rel="noopener" :target="external()" href="https://floss.social/@modrinth">
             Mastodon
           </a>
-          <a rel="noopener" :target="$external()" href="https://crowdin.com/project/modrinth">
+          <a rel="noopener" :target="external()" href="https://crowdin.com/project/modrinth">
             Crowdin
           </a>
         </div>
@@ -461,7 +459,7 @@ import BracesIcon from '~/assets/images/utils/braces.svg'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 import CollectionIcon from '~/assets/images/utils/collection.svg'
 import BoxImportIcon from '~/assets/images/utils/box-import.svg'
-import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
+
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 const loading = useLoading()
@@ -470,7 +468,6 @@ const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
 const colorMode = useTheme()
-const data = useNuxtApp()
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -486,12 +483,12 @@ useHead({
 })
 
 const displayWarning = computed(
-    () => auth.value.user && !auth.value.user.email_verified && route.path !== '/auth/verify-email'
+  () => auth.value.user && !auth.value.user.email_verified && route.path !== '/auth/verify-email'
 )
 
 const description =
-    'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
-    'Discover and publish projects on Modrinth with a modern, easy to use interface and API.'
+  'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
+  'Discover and publish projects on Modrinth with a modern, easy to use interface and API.'
 
 useSeoMeta({
   title: 'Modrinth',
@@ -546,8 +543,8 @@ async function logoutUser() {
 
 function changeTheme(value) {
   updateTheme(
-      ['dark', 'oled', 'retro'].includes(value) ? 'light' : cosmetics.value.preferredDarkTheme,
-      true
+    ['dark', 'oled', 'retro'].includes(value) ? 'light' : cosmetics.value.preferredDarkTheme,
+    true
   )
 }
 
@@ -582,20 +579,20 @@ const navRoutes = ref([
 ])
 
 watch(
-    () => route.path,
-    () => {
-      mobileUserOpen.value = false
-      mobileBrowseOpen.value = false
+  () => route.path,
+  () => {
+    mobileUserOpen.value = false
+    mobileBrowseOpen.value = false
 
-      if (process.client) {
-        document.body.style.overflowY = 'scroll'
-        document.body.setAttribute('tabindex', '-1')
-        document.body.removeAttribute('tabindex')
-      }
-
-      updateCurrentDate()
-      runAnalytics()
+    if (process.client) {
+      document.body.style.overflowY = 'scroll'
+      document.body.setAttribute('tabindex', '-1')
+      document.body.removeAttribute('tabindex')
     }
+
+    updateCurrentDate()
+    runAnalytics()
+  }
 )
 
 onMounted(() => {
@@ -617,8 +614,8 @@ function runAnalytics() {
         url: window.location.href,
       },
     })
-        .then(() => {})
-        .catch(() => {})
+      .then(() => {})
+      .catch(() => {})
   })
 }
 

@@ -105,7 +105,6 @@ useHead({
   title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth`,
 })
 
-const data = useNuxtApp()
 const { data: sessions, refresh } = await useAsyncData('session/list', () =>
   useBaseFetch('session/list')
 )
@@ -119,7 +118,7 @@ async function revokeSession(id) {
     })
     await refresh()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data.description,

@@ -1,5 +1,12 @@
 <template>
   <div>
+    <MessageBanner v-if="cosmetics.developerMode" message-type="warning" class="developer-message">
+      <CodeIcon /> <strong>Developer mode</strong> is active. This will allow you to view the
+      internal IDs of various things throughout Modrinth that may be helpful if you're a developer
+      using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle
+      developer mode.
+      <Button :action="() => disableDeveloperMode()"> Deactivate developer mode </Button>
+    </MessageBanner>
     <section class="card">
       <h2>Color theme</h2>
       <div class="theme-options">
@@ -7,7 +14,7 @@
           v-for="option of options"
           :key="option"
           class="theme-option button-base"
-          :class="{ selected: $colorMode.preference === option }"
+          :class="{ selected: theme.preference === option }"
           @click="() => updateColorTheme(option)"
         >
           <div class="preview" :class="`${option === 'system' ? systemTheme : option}-mode`">
@@ -18,7 +25,7 @@
             </div>
           </div>
           <div class="label">
-            <RadioButtonCheckedIcon v-if="$colorMode.preference === option" class="radio" />
+            <RadioButtonCheckedIcon v-if="theme.preference === option" class="radio" />
             <RadioButtonIcon v-else class="radio" />
             {{ formatOption(option) }}
           </div>
@@ -80,80 +87,67 @@
   </div>
 </template>
 
-<script>
-import { Multiselect } from 'vue-multiselect'
-import { RadioButtonIcon, RadioButtonChecked as RadioButtonCheckedIcon } from 'omorphia'
+<script setup>
+import {
+  RadioButtonIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  Button,
+  CodeIcon,
+} from 'omorphia'
+import MessageBanner from '~/components/ui/MessageBanner.vue'
 
-export default defineNuxtComponent({
-  components: {
-    RadioButtonIcon,
-    RadioButtonCheckedIcon,
-    Multiselect,
-  },
-  setup() {
-    const cosmetics = useCosmetics()
-    const tags = useTags()
+useHead({
+  title: `Display settings - Modrinth`,
+})
 
-    return { cosmetics, tags }
-  },
-  data() {
-    return {
-      searchDisplayMode: this.cosmetics.searchDisplayMode,
-      systemTheme: 'light',
-    }
-  },
-  head: {
-    title: 'Display settings - Modrinth',
-  },
-  computed: {
-    listTypes() {
-      const types = this.tags.projectTypes.map((type) => {
-        return {
-          id: type.id,
-          name: this.$formatProjectType(type.id) + ' search',
-          display: 'the ' + this.$formatProjectType(type.id).toLowerCase() + 's search page',
-        }
-      })
-      types.push({
-        id: 'user',
-        name: 'User page',
-        display: 'user pages',
-      })
-      return types
-    },
-    options() {
-      const options = ['system', 'light', 'dark', 'oled']
-      if (this.cosmetics.developerMode || this.$colorMode.preference === 'retro') {
-        options.push('retro')
-      }
-      return options
-    },
-  },
-  methods: {
-    formatOption(value) {
-      if (value === 'oled') {
-        return 'OLED'
-      } else if (value === 'system') {
-        return 'Sync with system'
-      }
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    },
-    updateColorTheme(value) {
-      if (['dark', 'oled', 'retro'].includes(value)) {
-        this.cosmetics.preferredDarkTheme = value
-        saveCosmetics()
-      }
-      updateTheme(value, true)
-    },
-  },
-  mounted() {
-    const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)')
-    if (colorSchemeQueryList.matches) {
-      return 'light'
-    } else {
-      return 'dark'
-    }
-  },
+const systemTheme = ref('light')
+
+const cosmetics = useCosmetics()
+const theme = useTheme()
+
+const options = computed(() => {
+  const options = ['system', 'light', 'dark', 'oled']
+  if (cosmetics.value.developerMode || theme.value.preference === 'retro') {
+    options.push('retro')
+  }
+  return options
+})
+
+function formatOption(value) {
+  if (value === 'oled') {
+    return 'OLED'
+  } else if (value === 'system') {
+    return 'Sync with system'
+  }
+  return value.charAt(0).toUpperCase() + value.slice(1)
+}
+
+function updateColorTheme(value) {
+  if (['dark', 'oled', 'retro'].includes(value)) {
+    cosmetics.value.preferredDarkTheme = value
+    saveCosmetics()
+  }
+  updateTheme(value, true)
+}
+
+function disableDeveloperMode() {
+  cosmetics.value.developerMode = !cosmetics.value.developerMode
+  saveCosmetics()
+  addNotification({
+    group: 'main',
+    title: 'Developer mode deactivated',
+    text: 'Developer mode has been disabled',
+    type: 'success',
+  })
+}
+
+onMounted(() => {
+  const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)')
+  if (colorSchemeQueryList.matches) {
+    systemTheme.value = 'light'
+  } else {
+    systemTheme.value = 'dark'
+  }
 })
 </script>
 <style lang="scss" scoped>
@@ -169,7 +163,7 @@ export default defineNuxtComponent({
   overflow: hidden;
   border: 1px solid var(--color-divider);
   background-color: var(--color-button-bg);
-  color: var(--color-text);
+  color: var(--color-base);
 
   &.selected {
     color: var(--color-contrast);
@@ -208,13 +202,13 @@ export default defineNuxtComponent({
       .example-text-1 {
         grid-area: text1;
         width: 100%;
-        background-color: var(--color-text);
+        background-color: var(--color-base);
       }
 
       .example-text-2 {
         grid-area: text2;
         width: 60%;
-        background-color: var(--color-text-secondary);
+        background-color: var(--color-secondary);
       }
     }
   }
@@ -227,6 +221,17 @@ export default defineNuxtComponent({
     svg {
       margin-right: 0.5rem;
     }
+  }
+}
+
+.developer-message {
+  svg {
+    vertical-align: middle;
+    margin-bottom: 2px;
+  }
+
+  .btn {
+    margin-top: var(--gap-sm);
   }
 }
 </style>

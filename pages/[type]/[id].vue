@@ -3,7 +3,7 @@
     <Modal
       ref="modalLicense"
       :header="project.license.name ? project.license.name : 'License'"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
@@ -36,7 +36,7 @@
           <h2>Details</h2>
           <div
             v-if="project.status === 'processing' && project.queued"
-            v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+            v-tooltip="dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
             class="primary-stat"
           >
             <QueuedIcon class="primary-stat__icon" aria-hidden="true" />
@@ -165,7 +165,7 @@
           To install {{ project.title }}, download
           <nuxt-link to="/app">the Modrinth App</nuxt-link>. For instructions with other launchers,
           please see
-          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="$external()"
+          <a href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/" :target="external()"
             >our documentation</a
           >.
         </MessageBanner>
@@ -221,91 +221,60 @@
       </section>
       <div class="normal-page__info">
         <template v-if="$route.name.startsWith('type-id-settings')">
-          <h3>Details</h3>
-          <NavStack>
-            <NavStackItem
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-              label="General"
+          <div class="vertical-navbar">
+            <h3>Details</h3>
+            <NuxtLink
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
             >
-              <SettingsIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <SettingsIcon /> General
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/tags`"
-              label="Tags"
             >
-              <TagIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <TagIcon /> Tags
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/description`"
-              label="Description"
             >
-              <DescriptionIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <DescriptionIcon /> Description
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/license`"
-              label="License"
             >
-              <LicenseIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <LicenseIcon /> License
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/links`"
-              label="Links"
             >
-              <LinksIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
+              <LinksIcon /> Links
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/settings/members`"
-              label="Members"
             >
-              <UsersIcon />
-            </NavStackItem>
+              <UsersIcon /> Members
+            </NuxtLink>
             <h3>Upload</h3>
-            <NavStackItem
-              :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
-              label="Gallery"
-              chevron
+            <NuxtLink
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
             >
-              <GalleryIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions`"
-              label="Versions"
-              chevron
+              <GalleryIcon /> Gallery <span class="chevron"><ChevronRightIcon /></span>
+            </NuxtLink>
+            <NuxtLink
+              :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
             >
-              <VersionIcon />
-            </NavStackItem>
-            <h3>For creators</h3>
-            <NavStackItem
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings/analytics`"
-              label="Analytics"
-            >
-              <ChartIcon />
-            </NavStackItem>
-            <NavStackItem
-              :link="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/settings/moderation`"
-              label="Moderation"
-            >
-              <ScaleIcon />
-            </NavStackItem>
-          </NavStack>
+              <VersionIcon /> Versions <span class="chevron"><ChevronRightIcon /></span>
+            </NuxtLink>
+          </div>
         </template>
         <template v-else>
           <nuxt-link
@@ -358,7 +327,7 @@
                 <div class="primary-stat__text">
                   Supports
                   <span class="primary-stat__counter">
-                    {{ formats.list(project.loaders.map((x) => $formatCategory(x))) }}
+                    {{ formats.list(project.loaders.map((x) => formatCategory(x))) }}
                   </span>
                 </div>
               </div>
@@ -464,32 +433,10 @@
                 <HeartIcon />
                 Follow
               </Button>
-              <PopoutMenu class="btn" position="bottom" from="top-right">
-                <BookmarkIcon aria-hidden="true" />
+              <Button>
+                <BookmarkIcon />
                 Save
-                <template #menu>
-                  <h2 class="popout-heading">Save to collection</h2>
-                  <div v-if="displayCollections" class="collections-list">
-                    <Checkbox
-                        v-for="option in displayCollections"
-                        :key="option.id"
-                        class="popout-checkbox"
-                        v-model="option.selected"
-                        @update:model-value="patchCollection(option, option.selected)"
-                    >
-                      {{ option.title }}
-                    </Checkbox>
-                  </div>
-                  <template v-else>
-                    <p class="popout-text">You don't have any collections yet.</p>
-                  </template>
-                  <hr class="card-divider menu-divider"/>
-                  <Button class="collection-button" @click="$refs.modal_collection.show()">
-                    <PlusIcon/>
-                    Create new collection
-                  </Button>
-                </template>
-              </PopoutMenu>
+              </Button>
               <OverflowMenu
                 class="btn icon-only"
                 :options="[
@@ -529,7 +476,7 @@
               <a
                 v-if="project.issues_url"
                 :href="project.issues_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <IssuesIcon aria-hidden="true" />
@@ -539,7 +486,7 @@
               <a
                 v-if="project.source_url"
                 :href="project.source_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <CodeIcon aria-hidden="true" />
@@ -549,7 +496,7 @@
               <a
                 v-if="project.wiki_url"
                 :href="project.wiki_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <WikiIcon aria-hidden="true" />
@@ -559,7 +506,7 @@
               <a
                 v-if="project.discord_url"
                 :href="project.discord_url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <DiscordIcon class="shrink" aria-hidden="true" />
@@ -570,7 +517,7 @@
                 v-for="(donation, index) in project.donation_urls"
                 :key="index"
                 :href="donation.url"
-                :target="$external()"
+                :target="external()"
                 rel="noopener nofollow ugc"
               >
                 <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
@@ -642,7 +589,7 @@
           >
             <a
               v-tooltip="
-                version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+                version.primaryFile.filename + ' (' + formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
               class="download btn icon-only btn-primary"
@@ -661,8 +608,8 @@
                 {{ version.name }}
               </nuxt-link>
               <div v-if="version.game_versions.length > 0" class="game-version item">
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
-                {{ $formatVersion(version.game_versions) }}
+                {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
+                {{ formatVersions(version.game_versions, tags.gameVersions) }}
               </div>
               <Badge v-if="version.version_type === 'release'" type="release" color="green" />
               <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
@@ -677,6 +624,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   Avatar,
   Promotion,
@@ -690,8 +638,6 @@ import {
   DropdownIcon,
   ClipboardCopyIcon,
   OverflowMenu,
-  ScaleIcon,
-  Checkbox,
   Modal,
   ListEndIcon as QueuedIcon,
   ExternalIcon,
@@ -712,32 +658,30 @@ import {
   UnknownIcon,
   ChevronRightIcon,
   Badge,
-  CopyCode,
-  NavStack,
-  NavItem as NavStackItem,
   SettingsIcon,
-  ChartIcon,
   UsersIcon,
   TagsIcon as TagIcon,
   AlignLeftIcon as DescriptionIcon,
   LinkIcon as LinksIcon,
   ImageIcon as GalleryIcon,
   VersionIcon,
-  Breadcrumbs,
-  SearchIcon,
-  FilterIcon,
   Categories,
-  GridIcon,
   PageBar,
-  ListIcon,
-  HistoryIcon,
   renderString,
   getProjectLink,
   formatCategory,
   formatNumber,
+  formatBytes,
+  formatProjectType,
+  formatVersions,
   SlashIcon as BanIcon,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
+import {
+  computeVersions,
+  getProjectTypeForDisplay,
+  getProjectTypeForUrl,
+} from '~/helpers/projects.js'
 
 import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
@@ -747,12 +691,9 @@ import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
 
-const data = useNuxtApp()
 const route = useRoute()
-const config = useRuntimeConfig()
 
 const auth = await useAuth()
-const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
 const vintl = useVIntl()
@@ -772,9 +713,7 @@ if (
   })
 }
 
-const displayCollections = ref([])
-
-let project, allMembers, dependencies, featuredVersions, versions, collections
+let project, allMembers, dependencies, featuredVersions, versions
 try {
   ;[
     { data: project },
@@ -782,13 +721,16 @@ try {
     { data: dependencies },
     { data: featuredVersions },
     { data: versions },
-    { data: collections }
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
         if (project) {
-          project.actualProjectType = 'mod'
-          project.project_type = 'mod'
+          project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
+          project.project_type = getProjectTypeForUrl(
+            project.project_type,
+            project.loaders,
+            tags.value
+          )
 
           if (process.client && history.state && history.state.overrideProjectType) {
             project.project_type = history.state.overrideProjectType
@@ -821,16 +763,10 @@ try {
     useAsyncData(`project/${route.params.id}/version`, () =>
       useBaseFetch(`project/${route.params.id}/version`)
     ),
-    useAsyncData(
-        `user/${auth.value.user.id}/collections`,
-        () => useBaseFetch(`user/${auth.value.user.id}/collections`),
-        { transform: (collections) => collections.sort((a, b) => a.title.localeCompare(b.title)) },
-    ),
   ])
 
   versions = shallowRef(toRaw(versions))
   featuredVersions = shallowRef(toRaw(featuredVersions))
-  collections = ref(toRaw(collections))
 } catch (error) {
   throw createError({
     fatal: true,
@@ -858,11 +794,6 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
     }`,
     { redirectCode: 301, replace: true }
   )
-} else if(collections.value) {
-    displayCollections.value = collections.value.map((collection) => ({
-        ...collection,
-        selected: collection.projects.some((collectionProject) => collectionProject === project.value.id),
-    }))
 }
 
 const members = ref(allMembers.value.filter((x) => x.accepted))
@@ -887,7 +818,7 @@ if (
   }
 }
 
-versions.value = data.$computeVersions(versions.value, allMembers.value)
+versions.value = computeVersions(versions.value, allMembers.value)
 
 // Q: Why do this instead of computing the versions of featuredVersions?
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
@@ -904,9 +835,6 @@ featuredVersions.value.sort((a, b) => {
   return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
 })
 
-const selectedGameVersion = ref('1.20.2')
-const selectedLoader = ref('Fabric')
-
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
 
@@ -919,9 +847,7 @@ const licenseIdDisplay = computed(() => {
   }
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
-const extraGalleryImages = computed(() =>
-  project.value.gallery.filter((img) => !img.featured).slice(0, 2)
-)
+
 function toColor(color) {
   color >>>= 0
   const b = color & 0xff
@@ -930,12 +856,34 @@ function toColor(color) {
   return 'rgba(' + [r, g, b, 0.5].join(',') + ')'
 }
 
+const projectTypeDisplay = formatProjectType(
+  getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+)
+const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
+const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
+  project.value.title
+} by ${members.value.find((x) => x.role === 'Owner').user.username} on Modrinth`
+
+if (!route.name.startsWith('type-id-settings')) {
+  useSeoMeta({
+    title,
+    description,
+    ogTitle: title,
+    ogDescription: project.value.description,
+    ogImage: project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+    robots:
+      project.value.status === 'approved' || project.value.status === 'archived'
+        ? 'all'
+        : 'noindex',
+  })
+}
+
 async function resetProject() {
   const newProject = await useBaseFetch(`project/${project.value.id}`)
 
   newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
 
-  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
+  newProject.project_type = getProjectTypeForUrl(newProject.project_type, newProject.loaders)
 
   project.value = newProject
 }
@@ -954,7 +902,7 @@ async function clearMessage() {
 
     project.value.moderator_message = null
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -978,7 +926,7 @@ async function setProcessing() {
 
     project.value.status = 'processing'
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -1025,7 +973,7 @@ async function patchProject(resData, quiet = false) {
 
     result = true
     if (!quiet) {
-      data.$notify({
+      addNotification({
         group: 'main',
         title: 'Project updated',
         text: 'Your project has been updated.',
@@ -1034,7 +982,7 @@ async function patchProject(resData, quiet = false) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -1064,14 +1012,14 @@ async function patchIcon(icon) {
     )
     await resetProject()
     result = true
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Project icon updated',
       text: "Your project's icon has been updated.",
       type: 'success',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -1129,31 +1077,13 @@ const moreVersions = computed(() => {
 })
 
 const collapsedChecklist = ref(false)
-
-const patchCollection = async (collection, add) => {
-  try {
-    await useBaseFetch(`collection/${collection.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        new_projects:  add ? [...collection.projects, project.value.id] : [ ...collection.projects].filter((x) => x !== project.value.id)
-      }),
-    })
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  }
-}
 </script>
 <style lang="scss" scoped>
 .card {
   padding: 1.25rem;
 
   h2:first-child {
-    margin-bottom: var(--spacing-card-md);
+    margin-bottom: var(--gap-md);
   }
 }
 
@@ -1179,7 +1109,7 @@ const patchCollection = async (collection, add) => {
 
   .categories {
     margin-bottom: var(--gap-md);
-    color: var(--color-text-secondary);
+    color: var(--color-secondary);
     font-size: var(--font-size-nm);
   }
 
@@ -1187,7 +1117,7 @@ const patchCollection = async (collection, add) => {
     margin: 0.75rem 0;
 
     .date {
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       font-size: var(--font-size-nm);
       display: flex;
       align-items: center;
@@ -1269,7 +1199,7 @@ const patchCollection = async (collection, add) => {
 
     .actions {
       .btn {
-        color: var(--color-text);
+        color: var(--color-base);
       }
     }
 
@@ -1360,13 +1290,13 @@ const patchCollection = async (collection, add) => {
 .links {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-md);
 
   a {
     display: inline-flex;
     align-items: center;
     border-radius: 1rem;
-    color: var(--color-text);
+    color: var(--color-base);
     font-weight: 500;
     width: fit-content;
 
@@ -1374,7 +1304,7 @@ const patchCollection = async (collection, add) => {
     img {
       height: 1.1rem;
       width: 1.1rem;
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       margin-right: var(--gap-sm);
     }
 
@@ -1398,7 +1328,7 @@ const patchCollection = async (collection, add) => {
       svg,
       img,
       span {
-        color: var(--color-text-dark);
+        color: var(--color-contrast);
       }
     }
   }
@@ -1431,7 +1361,7 @@ const patchCollection = async (collection, add) => {
 
     .key {
       font-weight: bold;
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       width: 40%;
     }
 
@@ -1477,25 +1407,25 @@ const patchCollection = async (collection, add) => {
 }
 
 .status-buttons {
-  margin-top: var(--spacing-card-sm);
+  margin-top: var(--gap-sm);
 }
 
 .mod-message__title {
   font-weight: bold;
-  margin-bottom: var(--spacing-card-xs);
+  margin-bottom: var(--gap-xs);
   font-size: 1.125rem;
 }
 
 .modal-license {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
 }
 
 .settings-header {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-sm);
+  gap: var(--gap-sm);
   align-items: center;
-  margin-bottom: var(--spacing-card-bg);
+  margin-bottom: var(--gap-lg);
 
   .settings-header__icon {
     flex-shrink: 0;
@@ -1505,7 +1435,7 @@ const patchCollection = async (collection, add) => {
     h1 {
       font-size: var(--font-size-md);
       margin-top: 0;
-      margin-bottom: var(--spacing-card-sm);
+      margin-bottom: var(--gap-sm);
     }
   }
 }
@@ -1515,7 +1445,7 @@ const patchCollection = async (collection, add) => {
 }
 
 .normal-page__sidebar .mod-button {
-  margin-top: var(--spacing-card-sm);
+  margin-top: var(--gap-sm);
 }
 
 .monthly-table {
@@ -1795,7 +1725,7 @@ const patchCollection = async (collection, add) => {
   h2 {
     font-size: var(--font-size-nm) !important;
     font-weight: 700;
-    color: var(--color-text-dark);
+    color: var(--color-contrast);
     //font-family: 'Inter', sans-serif;
   }
 
@@ -1831,36 +1761,5 @@ const patchCollection = async (collection, add) => {
   .page-bar .desktop-settings-button {
     display: none;
   }
-}
-
-.popout-checkbox {
-  background-color: var(--color-raised-bg);
-  padding: var(--gap-sm) var(--gap-md);
-  white-space: nowrap;
-
-  &:hover {
-    filter: brightness(0.95);
-  }
-}
-
-.popout-heading {
-  padding: var(--gap-sm) var(--gap-md);
-  padding-bottom: 0;
-  font-size: var(--font-size-nm);
-  color: var(--color-text-secondary);
-}
-
-.collection-button {
-  margin: var(--gap-sm) var(--gap-md);
-  white-space: nowrap;
-}
-
-.menu-divider {
-  margin: var(--gap-md);
-}
-
-.collections-list {
-  max-height: 40rem;
-  overflow-y: auto;
 }
 </style>

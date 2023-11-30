@@ -3,7 +3,7 @@
     <Modal
       ref="editLinksModal"
       header="Edit links"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="universal-modal links-modal">
         <p>
@@ -240,7 +240,7 @@
           <div>
             <nuxt-link
               tabindex="-1"
-              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }`"
             >
@@ -262,7 +262,7 @@
 
               <nuxt-link
                 class="hover-link wrap-as-needed"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
@@ -276,7 +276,7 @@
           </div>
 
           <div>
-            {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
+            {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
           </div>
 
           <div>
@@ -286,7 +286,7 @@
           <div>
             <nuxt-link
               class="btn icon-only"
-              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }/settings`"
             >
@@ -316,165 +316,149 @@ import {
   SaveIcon,
   SortAscendingIcon,
   SortDescendingIcon,
+  formatProjectType,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
+useHead({
+  title: 'Projects - Modrinth',
+})
+
 const cosmetics = useCosmetics()
-</script>
-<script>
-export default defineNuxtComponent({
-  async setup() {
-    const user = await useUser()
-    await initUserProjects()
-    return { user: ref(user) }
+const user = await useUser()
+await initUserProjects()
+
+const editLinksModal = ref()
+
+const EDIT_DETAILS = ref(1 << 2)
+
+const projects = ref(updateSort(user.value.projects, 'Name'))
+const selectedProjects = ref([])
+const sortBy = ref('Name')
+const descending = ref(false)
+const editLinks = ref({
+  showAffected: false,
+  source: {
+    val: '',
+    clear: false,
   },
-  data() {
-    return {
-      projects: this.updateSort(this.user.projects, 'Name'),
-      versions: [],
-      selectedProjects: [],
-      sortBy: 'Name',
-      descending: false,
-      editLinks: {
-        showAffected: false,
-        source: {
-          val: '',
-          clear: false,
-        },
-        discord: {
-          val: '',
-          clear: false,
-        },
-        wiki: {
-          val: '',
-          clear: false,
-        },
-        issues: {
-          val: '',
-          clear: false,
-        },
-      },
-    }
+  discord: {
+    val: '',
+    clear: false,
   },
-  head: {
-    title: 'Projects - Modrinth',
+  wiki: {
+    val: '',
+    clear: false,
   },
-  created() {
-    this.UPLOAD_VERSION = 1 << 0
-    this.DELETE_VERSION = 1 << 1
-    this.EDIT_DETAILS = 1 << 2
-    this.EDIT_BODY = 1 << 3
-    this.MANAGE_INVITES = 1 << 4
-    this.REMOVE_MEMBER = 1 << 5
-    this.EDIT_MEMBER = 1 << 6
-    this.DELETE_PROJECT = 1 << 7
-  },
-  methods: {
-    updateDescending() {
-      this.descending = !this.descending
-      this.projects = this.updateSort(this.projects, this.sortBy, this.descending)
-    },
-    updateSort(projects, sort, descending) {
-      let sortedArray = projects
-      switch (sort) {
-        case 'Name':
-          sortedArray = projects.slice().sort((a, b) => {
-            return a.title.localeCompare(b.title)
-          })
-          break
-        case 'Status':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.status < b.status) {
-              return -1
-            }
-            if (a.status > b.status) {
-              return 1
-            }
-            return 0
-          })
-          break
-        case 'Type':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.project_type < b.project_type) {
-              return -1
-            }
-            if (a.project_type > b.project_type) {
-              return 1
-            }
-            return 0
-          })
-          break
-        default:
-          break
-      }
-
-      if (descending) {
-        sortedArray = sortedArray.reverse()
-      }
-
-      return sortedArray
-    },
-    async bulkEditLinks() {
-      try {
-        const baseData = {
-          issues_url: this.editLinks.issues.clear ? null : this.editLinks.issues.val.trim(),
-          source_url: this.editLinks.source.clear ? null : this.editLinks.source.val.trim(),
-          wiki_url: this.editLinks.wiki.clear ? null : this.editLinks.wiki.val.trim(),
-          discord_url: this.editLinks.discord.clear ? null : this.editLinks.discord.val.trim(),
-        }
-
-        if (!baseData.issues_url?.length ?? 1 > 0) {
-          delete baseData.issues_url
-        }
-
-        if (!baseData.source_url?.length ?? 1 > 0) {
-          delete baseData.source_url
-        }
-
-        if (!baseData.wiki_url?.length ?? 1 > 0) {
-          delete baseData.wiki_url
-        }
-
-        if (!baseData.discord_url?.length ?? 1 > 0) {
-          delete baseData.discord_url
-        }
-
-        await useBaseFetch(
-          `projects?ids=${JSON.stringify(this.selectedProjects.map((x) => x.id))}`,
-          {
-            method: 'PATCH',
-            body: baseData,
-          }
-        )
-
-        this.$refs.editLinksModal.hide()
-        this.$notify({
-          group: 'main',
-          title: 'Success',
-          text: "Bulk edited selected project's links.",
-          type: 'success',
-        })
-        this.selectedProjects = []
-
-        this.editLinks.issues.val = ''
-        this.editLinks.source.val = ''
-        this.editLinks.wiki.val = ''
-        this.editLinks.discord.val = ''
-        this.editLinks.issues.clear = false
-        this.editLinks.source.clear = false
-        this.editLinks.wiki.clear = false
-        this.editLinks.discord.clear = false
-      } catch (e) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: e,
-          type: 'error',
-        })
-      }
-    },
+  issues: {
+    val: '',
+    clear: false,
   },
 })
+
+function updateDescending() {
+  descending.value = !descending.value
+  projects.value = updateSort(projects.value, sortBy.value, descending.value)
+}
+
+function updateSort(projects, sort, descending) {
+  let sortedArray = projects
+  switch (sort) {
+    case 'Name':
+      sortedArray = projects.slice().sort((a, b) => {
+        return a.title.localeCompare(b.title)
+      })
+      break
+    case 'Status':
+      sortedArray = projects.slice().sort((a, b) => {
+        if (a.status < b.status) {
+          return -1
+        }
+        if (a.status > b.status) {
+          return 1
+        }
+        return 0
+      })
+      break
+    case 'Type':
+      sortedArray = projects.slice().sort((a, b) => {
+        if (a.project_type < b.project_type) {
+          return -1
+        }
+        if (a.project_type > b.project_type) {
+          return 1
+        }
+        return 0
+      })
+      break
+    default:
+      break
+  }
+
+  if (descending) {
+    sortedArray = sortedArray.reverse()
+  }
+
+  return sortedArray
+}
+
+async function bulkEditLinks() {
+  try {
+    const baseData = {
+      issues_url: editLinks.value.issues.clear ? null : editLinks.value.issues.val.trim(),
+      source_url: editLinks.value.source.clear ? null : editLinks.value.source.val.trim(),
+      wiki_url: editLinks.value.wiki.clear ? null : editLinks.value.wiki.val.trim(),
+      discord_url: editLinks.value.discord.clear ? null : editLinks.value.discord.val.trim(),
+    }
+
+    if (!baseData.issues_url?.length ?? 1 > 0) {
+      delete baseData.issues_url
+    }
+
+    if (!baseData.source_url?.length ?? 1 > 0) {
+      delete baseData.source_url
+    }
+
+    if (!baseData.wiki_url?.length ?? 1 > 0) {
+      delete baseData.wiki_url
+    }
+
+    if (!baseData.discord_url?.length ?? 1 > 0) {
+      delete baseData.discord_url
+    }
+
+    await useBaseFetch(`projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`, {
+      method: 'PATCH',
+      body: baseData,
+    })
+
+    editLinksModal.value.hide()
+    addNotification({
+      group: 'main',
+      title: 'Success',
+      text: "Bulk edited selected project's links.",
+      type: 'success',
+    })
+    selectedProjects.value = []
+
+    editLinks.value.issues.val = ''
+    editLinks.value.source.val = ''
+    editLinks.value.wiki.val = ''
+    editLinks.value.discord.val = ''
+    editLinks.value.issues.clear = false
+    editLinks.value.source.clear = false
+    editLinks.value.wiki.clear = false
+    editLinks.value.discord.clear = false
+  } catch (e) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: e,
+      type: 'error',
+    })
+  }
+}
 </script>
 <style lang="scss" scoped>
 .grid-table {
@@ -482,9 +466,9 @@ export default defineNuxtComponent({
   grid-template-columns:
     min-content min-content minmax(min-content, 2fr)
     minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
 
   .grid-table__row {
     display: contents;
@@ -493,29 +477,29 @@ export default defineNuxtComponent({
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: var(--spacing-card-sm);
+      padding: var(--gap-sm);
 
       // Left edge of table
       &:first-child {
-        padding-left: var(--spacing-card-bg);
+        padding-left: var(--gap-lg);
       }
 
       // Right edge of table
       &:last-child {
-        padding-right: var(--spacing-card-bg);
+        padding-right: var(--gap-lg);
       }
     }
 
     &:nth-child(2n + 1) > div {
-      background-color: var(--color-table-alternate-row);
+      background-color: var(--color-alt-bg);
     }
 
     &.grid-table__header > div {
       background-color: var(--color-bg);
       font-weight: bold;
-      color: var(--color-text-dark);
-      padding-top: var(--spacing-card-bg);
-      padding-bottom: var(--spacing-card-bg);
+      color: var(--color-contrast);
+      padding-top: var(--gap-lg);
+      padding-bottom: var(--gap-lg);
     }
   }
 
@@ -596,7 +580,7 @@ export default defineNuxtComponent({
 .project-title {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-xs);
+  gap: var(--gap-xs);
 
   svg {
     color: var(--color-orange);
@@ -604,7 +588,7 @@ export default defineNuxtComponent({
 }
 
 .status {
-  margin-top: var(--spacing-card-xs);
+  margin-top: var(--gap-xs);
 }
 
 .hover-link:hover {
@@ -617,7 +601,7 @@ export default defineNuxtComponent({
   flex-direction: row;
   min-width: 0;
   align-items: center;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-md);
   white-space: nowrap;
 }
 
@@ -628,13 +612,13 @@ export default defineNuxtComponent({
 
 .label-button[data-active='true'] {
   --background-color: var(--color-red);
-  --text-color: var(--color-brand-inverted);
+  --text-color: var(--color-accent-contrast);
 }
 
 .links-modal {
   .links {
     display: grid;
-    gap: var(--spacing-card-sm);
+    gap: var(--gap-sm);
     grid-template-columns: 1fr 2fr;
 
     .input-group {
@@ -650,7 +634,7 @@ export default defineNuxtComponent({
   }
 
   ul {
-    margin: 0 0 var(--spacing-card-sm) 0;
+    margin: 0 0 var(--gap-sm) 0;
   }
 }
 

@@ -92,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { Card, Button, MarkdownEditor, DropdownSelect, SaveIcon } from 'omorphia'
+import { Card, Button, MarkdownEditor, DropdownSelect, SaveIcon, capitalizeString } from 'omorphia'
 import { useImageUpload } from '~/composables/image-upload.ts'
 
 const tags = useTags()
@@ -145,11 +145,6 @@ const submissionValidation = () => {
   }
 
   return true
-}
-
-const capitalizeString = (value?: string) => {
-  if (!value) return ''
-  return value?.charAt(0).toUpperCase() + value?.slice(1)
 }
 
 const submitReport = async () => {
@@ -233,11 +228,11 @@ const onImageUpload = async (file: File) => {
   justify-content: flex-end;
   width: 100%;
 
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
 }
 
 .card-title-adjustments {
-  margin-block: var(--spacing-card-md) var(--spacing-card-sm);
+  margin-block: var(--gap-md) var(--gap-sm);
 }
 
 .page {
@@ -284,10 +279,10 @@ const onImageUpload = async (file: File) => {
     label {
       display: block;
       margin-bottom: var(--gap-sm);
-      color: var(--color-text-dark);
+      color: var(--color-contrast);
       font-size: var(--font-size-md);
       font-weight: var(--font-weight-bold);
-      margin-block: var(--spacing-card-md) var(--spacing-card-sm);
+      margin-block: var(--gap-md) var(--gap-sm);
     }
   }
 }

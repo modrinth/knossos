@@ -8,7 +8,7 @@
     <Chips
       v-model="projectType"
       :items="projectTypes"
-      :format-label="(x) => (x === 'all' ? 'All' : $formatProjectType(x) + 's')"
+      :format-label="(x) => (x === 'all' ? 'All' : formatProjectType(x) + 's')"
     />
     <button v-if="oldestFirst" class="btn push-right" @click="oldestFirst = false">
       <SortDescendingIcon />Sorting by oldest
@@ -50,7 +50,7 @@
           <Avatar :src="project.icon_url" size="xs" no-shadow />
           <span class="stacked">
             <span class="title">{{ project.title }}</span>
-            <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
+            <span>{{ formatProjectType(project.inferred_project_type) }}</span>
           </span>
         </nuxt-link>
       </div>
@@ -74,7 +74,7 @@
     <span v-if="project.queued" :class="`submitter-info ${project.age_warning}`">
       <IssuesIcon v-if="project.age_warning" />
       Submitted
-      <span v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
+      <span v-tooltip="dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')">{{
         fromNow(project.queued)
       }}</span>
     </span>
@@ -82,6 +82,7 @@
   </div>
 </template>
 <script setup>
+import dayjs from 'dayjs'
 import {
   Avatar,
   Chips,
@@ -94,14 +95,13 @@ import {
   Breadcrumbs,
   formatProjectType,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 useHead({
   title: 'Review projects - Modrinth',
 })
 
-const app = useNuxtApp()
-
-const now = app.$dayjs()
+const now = dayjs()
 const TIME_24H = 86400000
 const TIME_48H = TIME_24H * 2
 
@@ -116,7 +116,7 @@ const projectsFiltered = computed(() =>
   projects.value.filter(
     (x) =>
       projectType.value === 'all' ||
-      app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType.value
+      getProjectTypeForUrl(x.project_type, x.loaders) === projectType.value
   )
 )
 
@@ -158,17 +158,14 @@ if (projects.value) {
       project.owner = members.value
         .flat()
         .find((x) => x.team_id === project.team && x.role === 'Owner').user
-      project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
+      project.age = project.queued ? now - dayjs(project.queued) : Number.MAX_VALUE
       project.age_warning = ''
       if (project.age > TIME_24H * 2) {
         project.age_warning = 'danger'
       } else if (project.age > TIME_24H) {
         project.age_warning = 'warning'
       }
-      project.inferred_project_type = app.$getProjectTypeForUrl(
-        project.project_type,
-        project.loaders
-      )
+      project.inferred_project_type = getProjectTypeForUrl(project.project_type, project.loaders)
       return project
     })
   }
@@ -178,7 +175,7 @@ if (projects.value) {
 .project {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-sm);
+  gap: var(--gap-sm);
   @media screen and (min-width: 650px) {
     display: grid;
     grid-template: 'title action' 'date action';
@@ -205,7 +202,7 @@ if (projects.value) {
 }
 
 .project-count {
-  margin-block: var(--spacing-card-md);
+  margin-block: var(--gap-md);
 
   svg {
     vertical-align: top;
@@ -218,7 +215,7 @@ if (projects.value) {
 
 .project-title {
   display: flex;
-  gap: var(--spacing-card-xs);
+  gap: var(--gap-xs);
   align-items: center;
   flex-wrap: wrap;
 
@@ -233,7 +230,7 @@ if (projects.value) {
     .mobile-row {
       display: flex;
       flex-direction: row;
-      gap: var(--spacing-card-xs);
+      gap: var(--gap-xs);
       align-items: center;
       flex-wrap: wrap;
     }
@@ -244,7 +241,7 @@ if (projects.value) {
   flex-shrink: 0;
 
   &.size-xs {
-    margin-right: var(--spacing-card-xs);
+    margin-right: var(--gap-xs);
   }
 }
 </style>

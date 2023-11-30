@@ -1,14 +1,14 @@
 <template>
   <div>
     <ConfirmModal
-        ref="modal_confirm"
-        title="Are you sure you want to delete this project?"
-        description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
-        :has-to-type="true"
-        :confirmation-text="project.title"
-        proceed-label="Delete"
-        :noblur="!(cosmetics.advancedRendering ?? true)"
-        @proceed="deleteProject"
+      ref="modal_confirm"
+      title="Are you sure you want to delete this project?"
+      description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
+      :has-to-type="true"
+      :confirmation-text="project.title"
+      proceed-label="Delete"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+      @proceed="deleteProject"
     />
     <section class="card">
       <label for="project-icon">
@@ -16,29 +16,29 @@
       </label>
       <div class="input-group">
         <Avatar
-            :src="deletedIcon ? null : previewImage ? previewImage : project.icon_url"
-            :alt="project.title"
-            size="md"
-            class="project__icon"
+          :src="deletedIcon ? null : previewImage ? previewImage : project.icon_url"
+          :alt="project.title"
+          size="md"
+          class="project__icon"
         />
         <div class="input-stack">
           <FileInput
-              id="project-icon"
-              :max-size="262144"
-              :show-icon="true"
-              accept="image/png,image/jpeg,image/gif,image/webp"
-              class="choose-image btn"
-              prompt="Upload icon"
-              :disabled="!hasPermission"
-              @change="showPreviewImage"
+            id="project-icon"
+            :max-size="262144"
+            :show-icon="true"
+            accept="image/png,image/jpeg,image/gif,image/webp"
+            class="choose-image btn"
+            prompt="Upload icon"
+            :disabled="!hasPermission"
+            @change="showPreviewImage"
           >
             <UploadIcon />
           </FileInput>
           <button
-              v-if="!deletedIcon && (previewImage || project.icon_url)"
-              class="btn"
-              :disabled="!hasPermission"
-              @click="markIconForDeletion"
+            v-if="!deletedIcon && (previewImage || project.icon_url)"
+            class="btn"
+            :disabled="!hasPermission"
+            @click="markIconForDeletion"
           >
             <TrashIcon />
             Remove icon
@@ -50,11 +50,11 @@
         <span class="label__title">Name</span>
       </label>
       <input
-          id="project-name"
-          v-model="name"
-          maxlength="2048"
-          type="text"
-          :disabled="!hasPermission"
+        id="project-name"
+        v-model="name"
+        maxlength="2048"
+        type="text"
+        :disabled="!hasPermission"
       />
 
       <label for="project-slug">
@@ -65,12 +65,12 @@
           https://modrinth.com/{{ getProjectTypeForUrl(project.project_type, project.loaders) }}/
         </div>
         <input
-            id="project-slug"
-            v-model="slug"
-            type="text"
-            maxlength="64"
-            autocomplete="off"
-            :disabled="!hasPermission"
+          id="project-slug"
+          v-model="slug"
+          type="text"
+          maxlength="64"
+          autocomplete="off"
+          :disabled="!hasPermission"
         />
       </div>
 
@@ -79,14 +79,14 @@
       </label>
       <div class="textarea-wrapper summary-input">
         <textarea
-            id="project-summary"
-            v-model="summary"
-            maxlength="256"
-            :disabled="!hasPermission"
+          id="project-summary"
+          v-model="summary"
+          maxlength="256"
+          :disabled="!hasPermission"
         />
       </div>
       <template
-          v-if="
+        v-if="
           project.project_type !== 'resourcepack' &&
           project.project_type !== 'plugin' &&
           project.project_type !== 'shader' &&
@@ -104,16 +104,16 @@
             </span>
           </label>
           <Multiselect
-              id="project-env-client"
-              v-model="clientSide"
-              placeholder="Select one"
-              :options="sideTypes"
-              :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              :disabled="!hasPermission"
+            id="project-env-client"
+            v-model="clientSide"
+            placeholder="Select one"
+            :options="sideTypes"
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+            :disabled="!hasPermission"
           />
         </div>
         <div class="adjacent-input">
@@ -127,16 +127,16 @@
             </span>
           </label>
           <Multiselect
-              id="project-env-server"
-              v-model="serverSide"
-              placeholder="Select one"
-              :options="sideTypes"
-              :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              :disabled="!hasPermission"
+            id="project-env-server"
+            v-model="serverSide"
+            placeholder="Select one"
+            :options="sideTypes"
+            :custom-label="(value) => value.charAt(0).toUpperCase() + value.slice(1)"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            :allow-empty="false"
+            :disabled="!hasPermission"
           />
         </div>
       </template>
@@ -152,16 +152,16 @@
             <ul class="visibility-info">
               <li>
                 <CheckIcon
-                    v-if="visibility === 'approved' || visibility === 'archived'"
-                    class="good"
+                  v-if="visibility === 'approved' || visibility === 'archived'"
+                  class="good"
                 />
                 <ExitIcon v-else class="bad" />
                 {{ hasModifiedVisibility ? 'Will be v' : 'V' }}isible in search
               </li>
               <li>
                 <ExitIcon
-                    v-if="visibility === 'unlisted' || visibility === 'private'"
-                    class="bad"
+                  v-if="visibility === 'unlisted' || visibility === 'private'"
+                  class="bad"
                 />
                 <CheckIcon v-else class="good" />
                 {{ hasModifiedVisibility ? 'Will be v' : 'V' }}isible on profile
@@ -169,14 +169,14 @@
               <li>
                 <CheckIcon v-if="visibility !== 'private'" class="good" />
                 <IssuesIcon
-                    v-else
-                    v-tooltip="{
+                  v-else
+                  v-tooltip="{
                     content:
                       visibility === 'private'
                         ? 'Only members will be able to view the project.'
                         : '',
                   }"
-                    class="warn"
+                  class="warn"
                 />
                 {{ hasModifiedVisibility ? 'Will be v' : 'V' }}isible via URL
               </li>
@@ -184,24 +184,24 @@
           </div>
         </label>
         <Multiselect
-            id="project-visibility"
-            v-model="visibility"
-            placeholder="Select one"
-            :options="tags.approvedStatuses"
-            :custom-label="(value) => formatProjectStatus(value)"
-            :searchable="false"
-            :close-on-select="true"
-            :show-labels="false"
-            :allow-empty="false"
-            :disabled="!hasPermission"
+          id="project-visibility"
+          v-model="visibility"
+          placeholder="Select one"
+          :options="tags.approvedStatuses"
+          :custom-label="(value) => formatProjectStatus(value)"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+          :disabled="!hasPermission"
         />
       </div>
       <div class="input-group push-right">
         <button
-            type="button"
-            class="btn btn-primary"
-            :disabled="!hasChanges"
-            @click="saveChanges()"
+          type="button"
+          class="btn btn-primary"
+          :disabled="!hasChanges"
+          @click="saveChanges()"
         >
           <SaveIcon />
           Save changes
@@ -220,10 +220,10 @@
         project, so be extra careful!
       </p>
       <button
-          type="button"
-          class="btn btn-red"
-          :disabled="!hasDeletePermission"
-          @click="$refs.modal_confirm.show()"
+        type="button"
+        class="btn btn-red"
+        :disabled="!hasDeletePermission"
+        @click="$refs.modal_confirm.show()"
       >
         <TrashIcon />
         Delete project
@@ -316,9 +316,9 @@ const clientSide = ref(props.project.client_side)
 const serverSide = ref(props.project.server_side)
 const deletedIcon = ref(false)
 const visibility = ref(
-    tags.value.approvedStatuses.includes(props.project.status)
-        ? props.project.status
-        : props.project.requested_status
+  tags.value.approvedStatuses.includes(props.project.status)
+    ? props.project.status
+    : props.project.requested_status
 )
 
 const hasPermission = computed(() => {
@@ -368,8 +368,8 @@ const hasChanges = computed(() => {
 
 const hasModifiedVisibility = computed(() => {
   const originalVisibility = tags.value.approvedStatuses.includes(props.project.status)
-      ? props.project.status
-      : props.project.requested_status
+    ? props.project.status
+    : props.project.requested_status
 
   return originalVisibility !== visibility.value
 })

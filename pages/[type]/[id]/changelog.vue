@@ -37,7 +37,7 @@
               </span>
               <span>
                 on
-                {{ $dayjs(version.date_published).format('MMM D, YYYY') }}</span
+                {{ dayjs(version.date_published).format('MMM D, YYYY') }}</span
               >
             </div>
             <a
@@ -68,6 +68,7 @@
 </template>
 <script setup>
 import { DownloadIcon, renderHighlightedString, Pagination } from 'omorphia'
+import dayjs from 'dayjs'
 import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
 
 const props = defineProps({
@@ -171,7 +172,7 @@ function switchPage(page) {
     min-width: 0.2rem;
     position: absolute;
     margin: 0 0.4rem;
-    border-radius: var(--size-rounded-max);
+    border-radius: var(--radius-max);
     min-height: 100%;
     background-color: var(--color);
 
@@ -182,7 +183,7 @@ function switchPage(page) {
       position: absolute;
       top: 0;
       left: -0.4rem;
-      border-radius: var(--size-rounded-max);
+      border-radius: var(--radius-max);
       background-color: var(--color);
     }
 

@@ -105,7 +105,7 @@
         <!--      <span v-else class="known-errors">Error reading notification.</span>-->
       </div>
       <span class="title-date">
-        <span v-tooltip="$dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
+        <span v-tooltip="dayjs(notification.created).format('MMMM D, YYYY [at] h:mm A')">
           {{ fromNow(notification.created) }}
         </span>
       </span>
@@ -166,9 +166,7 @@
               <div class="primary-stat__text">
                 Supports
                 <span class="primary-stat__counter">
-                  {{
-                    formats.list(notif.extra_data.version.loaders.map((x) => $formatCategory(x)))
-                  }}
+                  {{ formats.list(notif.extra_data.version.loaders.map((x) => formatCategory(x))) }}
                 </span>
               </div>
             </div>
@@ -243,6 +241,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   UserPlusIcon as InvitationIcon,
   ScaleIcon as ModerationIcon,
@@ -255,18 +254,18 @@ import {
   getVersionLink,
   getUserLink,
   renderString,
+  formatCategory,
   DoubleIcon,
   Avatar,
   Badge,
   CopyCode,
   Checkbox,
 } from 'omorphia'
-import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
-import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 import WrenchIcon from 'assets/images/utils/wrench.svg'
 import GameIcon from 'assets/images/utils/game.svg'
+import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
+import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
 
-const app = useNuxtApp()
 const emit = defineEmits(['update:notifications'])
 const vintl = useVIntl()
 const { formats } = vintl
@@ -349,7 +348,7 @@ async function read() {
     const newNotifs = updateNotifs(props.notifications)
     emit('update:notifications', newNotifs)
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error marking notification as read',
       text: err.data ? err.data.description : err,
@@ -371,7 +370,7 @@ async function performAction(notification, actionIndex) {
       })
     }
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data.description,
@@ -395,7 +394,6 @@ function getMessages() {
   }
   return messages
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -407,7 +405,7 @@ function getMessages() {
     'actions actions';
   grid-template-columns: min-content 1fr;
   grid-template-rows: min-content min-content min-content;
-  gap: var(--spacing-card-sm);
+  gap: var(--gap-sm);
 
   &.has-body {
     grid-template:
@@ -435,7 +433,8 @@ function getMessages() {
 
   .notification__title {
     grid-area: title;
-    color: var(--color-heading);
+    color: var(--color-base);
+    filter: brightness(1.1);
     margin-block: auto;
     display: inline-block;
     vertical-align: middle;
@@ -452,7 +451,7 @@ function getMessages() {
     }
 
     .title-date {
-      color: var(--color-text-secondary);
+      color: var(--color-secondary);
       font-size: var(--font-size-sm);
     }
   }
@@ -466,13 +465,13 @@ function getMessages() {
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      gap: var(--spacing-card-sm);
+      gap: var(--gap-sm);
       grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
 
       .version-link {
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-card-sm);
+        gap: var(--gap-sm);
         padding: 1rem;
         background-color: var(--color-bg);
         border: 1px solid var(--color-divider);
@@ -483,7 +482,7 @@ function getMessages() {
           flex-direction: row;
           align-items: center;
           flex-wrap: wrap;
-          gap: var(--spacing-card-xs);
+          gap: var(--gap-xs);
         }
 
         .version-info {
@@ -502,7 +501,7 @@ function getMessages() {
     grid-area: actions;
     display: flex;
     flex-direction: row;
-    gap: var(--spacing-card-sm);
+    gap: var(--gap-sm);
   }
 
   .title-link {

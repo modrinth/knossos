@@ -8,31 +8,31 @@
       </div>
       <p>
         Accurate tagging is important to help people find your
-        {{ $formatProjectType(project.project_type).toLowerCase() }}. Make sure to select all tags
+        {{ formatProjectType(project.project_type).toLowerCase() }}. Make sure to select all tags
         that apply.
       </p>
       <template v-for="header in Object.keys(categoryLists)" :key="`categories-${header}`">
         <div class="label">
           <h4>
-            <span class="label__title">{{ $formatCategoryHeader(header) }}</span>
+            <span class="label__title">{{ formatCategoryHeader(header) }}</span>
           </h4>
           <span class="label__description">
             <template v-if="header === 'categories'">
               Select all categories that reflect the themes or function of your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}.
+              {{ formatProjectType(project.project_type).toLowerCase() }}.
             </template>
             <template v-else-if="header === 'features'">
               Select all of the features that your
-              {{ $formatProjectType(project.project_type).toLowerCase() }} makes use of.
+              {{ formatProjectType(project.project_type).toLowerCase() }} makes use of.
             </template>
             <template v-else-if="header === 'resolutions'">
               Select the resolution(s) of textures in your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}.
+              {{ formatProjectType(project.project_type).toLowerCase() }}.
             </template>
             <template v-else-if="header === 'performance impact'">
               Select the realistic performance impact of your
-              {{ $formatProjectType(project.project_type).toLowerCase() }}. Select multiple if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} is configurable to
+              {{ formatProjectType(project.project_type).toLowerCase() }}. Select multiple if the
+              {{ formatProjectType(project.project_type).toLowerCase() }} is configurable to
               different levels of performance impact.
             </template>
           </span>
@@ -42,7 +42,7 @@
             v-for="category in categoryLists[header]"
             :key="`category-${header}-${category.name}`"
             :model-value="selectedTags.includes(category)"
-            :description="$formatCategory(category.name)"
+            :description="formatCategory(category.name)"
             class="category-selector"
             @update:model-value="toggleCategory(category)"
           >
@@ -53,7 +53,7 @@
                 class="icon"
                 v-html="category.icon"
               />
-              <span aria-hidden="true"> {{ $formatCategory(category.name) }}</span>
+              <span aria-hidden="true"> {{ formatCategory(category.name) }}</span>
             </div>
           </Checkbox>
         </div>
@@ -76,7 +76,7 @@
           :key="`featured-category-${category.name}`"
           class="category-selector"
           :model-value="featuredTags.includes(category)"
-          :description="$formatCategory(category.name)"
+          :description="formatCategory(category.name)"
           :disabled="featuredTags.length >= 3 && !featuredTags.includes(category)"
           @update:model-value="toggleFeaturedCategory(category)"
         >
@@ -87,7 +87,7 @@
               class="icon"
               v-html="category.icon"
             />
-            <span aria-hidden="true"> {{ $formatCategory(category.name) }}</span>
+            <span aria-hidden="true"> {{ formatCategory(category.name) }}</span>
           </div>
         </Checkbox>
       </div>
@@ -107,138 +107,143 @@
 </template>
 
 <script setup>
-import { Checkbox, StarIcon, SaveIcon } from 'omorphia'
-</script>
-<script>
-export default defineNuxtComponent({
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    allMembers: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
-    },
-    patchProject: {
-      type: Function,
-      default() {
-        return () => {
-          this.$notify({
-            group: 'main',
-            title: 'An error occurred',
-            text: 'Patch project function not found',
-            type: 'error',
-          })
-        }
-      },
+import {
+  Checkbox,
+  StarIcon,
+  SaveIcon,
+  formatProjectType,
+  formatCategory,
+  formatCategoryHeader,
+} from 'omorphia'
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      selectedTags: this.$sortedCategories().filter(
-        (x) =>
-          x.project_type === this.project.actualProjectType &&
-          (this.project.categories.includes(x.name) ||
-            this.project.additional_categories.includes(x.name))
-      ),
-      featuredTags: this.$sortedCategories().filter(
-        (x) =>
-          x.project_type === this.project.actualProjectType &&
-          this.project.categories.includes(x.name)
-      ),
-    }
-  },
-  computed: {
-    categoryLists() {
-      const lists = {}
-      this.$sortedCategories().forEach((x) => {
-        if (x.project_type === this.project.actualProjectType) {
-          const header = x.header
-          if (!lists[header]) {
-            lists[header] = []
-          }
-          lists[header].push(x)
-        }
-      })
-      return lists
-    },
-    patchData() {
-      const data = {}
-      // Promote selected categories to featured if there are less than 3 featured
-      const newFeaturedTags = this.featuredTags.slice()
-      if (newFeaturedTags.length < 1 && this.selectedTags.length > newFeaturedTags.length) {
-        const nonFeaturedCategories = this.selectedTags.filter((x) => !newFeaturedTags.includes(x))
-
-        nonFeaturedCategories
-          .slice(0, Math.min(nonFeaturedCategories.length, 3 - newFeaturedTags.length))
-          .forEach((x) => newFeaturedTags.push(x))
-      }
-      // Convert selected and featured categories to backend-usable arrays
-      const categories = newFeaturedTags.map((x) => x.name)
-      const additionalCategories = this.selectedTags
-        .filter((x) => !newFeaturedTags.includes(x))
-        .map((x) => x.name)
-
-      if (
-        categories.length !== this.project.categories.length ||
-        categories.some((value) => !this.project.categories.includes(value))
-      ) {
-        data.categories = categories
-      }
-
-      if (
-        additionalCategories.length !== this.project.additional_categories.length ||
-        additionalCategories.some((value) => !this.project.additional_categories.includes(value))
-      ) {
-        data.additional_categories = additionalCategories
-      }
-
-      return data
-    },
-    hasChanges() {
-      return Object.keys(this.patchData).length > 0
+  allMembers: {
+    type: Array,
+    default() {
+      return []
     },
   },
-  methods: {
-    toggleCategory(category) {
-      if (this.selectedTags.includes(category)) {
-        this.selectedTags = this.selectedTags.filter((x) => x !== category)
-        if (this.featuredTags.includes(category)) {
-          this.featuredTags = this.featuredTags.filter((x) => x !== category)
-        }
-      } else {
-        this.selectedTags.push(category)
-      }
+  currentMember: {
+    type: Object,
+    default() {
+      return null
     },
-    toggleFeaturedCategory(category) {
-      if (this.featuredTags.includes(category)) {
-        this.featuredTags = this.featuredTags.filter((x) => x !== category)
-      } else {
-        this.featuredTags.push(category)
-      }
-    },
-    saveChanges() {
-      if (this.hasChanges) {
-        this.patchProject(this.patchData)
+  },
+  patchProject: {
+    type: Function,
+    default() {
+      return () => {
+        addNotification({
+          group: 'main',
+          title: 'An error occurred',
+          text: 'Patch project function not found',
+          type: 'error',
+        })
       }
     },
   },
 })
+
+const selectedTags = ref(
+  sortedCategories().filter(
+    (x) =>
+      x.project_type === props.project.actualProjectType &&
+      (props.project.categories.includes(x.name) ||
+        props.project.additional_categories.includes(x.name))
+  )
+)
+const featuredTags = ref(
+  sortedCategories().filter(
+    (x) =>
+      x.project_type === props.project.actualProjectType &&
+      props.project.categories.includes(x.name)
+  )
+)
+
+const categoryLists = computed(() => {
+  const lists = {}
+  sortedCategories().forEach((x) => {
+    if (x.project_type === props.project.actualProjectType) {
+      const header = x.header
+      if (!lists[header]) {
+        lists[header] = []
+      }
+      lists[header].push(x)
+    }
+  })
+  return lists
+})
+
+const patchData = computed(() => {
+  const data = {}
+  // Promote selected categories to featured if there are less than 3 featured
+  const newFeaturedTags = featuredTags.value.slice()
+  if (newFeaturedTags.length < 1 && selectedTags.value.length > newFeaturedTags.length) {
+    const nonFeaturedCategories = selectedTags.value.filter((x) => !newFeaturedTags.includes(x))
+
+    nonFeaturedCategories
+      .slice(0, Math.min(nonFeaturedCategories.length, 3 - newFeaturedTags.length))
+      .forEach((x) => newFeaturedTags.push(x))
+  }
+  // Convert selected and featured categories to backend-usable arrays
+  const categories = newFeaturedTags.map((x) => x.name)
+  const additionalCategories = selectedTags.value
+    .filter((x) => !newFeaturedTags.includes(x))
+    .map((x) => x.name)
+
+  if (
+    categories.length !== props.project.categories.length ||
+    categories.some((value) => !props.project.categories.includes(value))
+  ) {
+    data.categories = categories
+  }
+
+  if (
+    additionalCategories.length !== props.project.additional_categories.length ||
+    additionalCategories.some((value) => !props.project.additional_categories.includes(value))
+  ) {
+    data.additional_categories = additionalCategories
+  }
+
+  return data
+})
+
+const hasChanges = computed(() => Object.keys(patchData.value).length > 0)
+
+function toggleCategory(category) {
+  if (selectedTags.value.includes(category)) {
+    selectedTags.value = selectedTags.value.filter((x) => x !== category)
+    if (featuredTags.value.includes(category)) {
+      featuredTags.value = featuredTags.value.filter((x) => x !== category)
+    }
+  } else {
+    selectedTags.value.push(category)
+  }
+}
+
+function toggleFeaturedCategory(category) {
+  if (featuredTags.value.includes(category)) {
+    featuredTags.value = featuredTags.value.filter((x) => x !== category)
+  } else {
+    featuredTags.value.push(category)
+  }
+}
+
+function saveChanges() {
+  if (hasChanges.value) {
+    props.patchProject(patchData.value)
+  }
+}
 </script>
 <style lang="scss" scoped>
 .label__title {
-  margin-top: var(--spacing-card-bg);
+  margin-top: var(--gap-lg);
 
   svg {
     vertical-align: top;
@@ -247,8 +252,8 @@ export default defineNuxtComponent({
 
 .category-list {
   column-count: 4;
-  column-gap: var(--spacing-card-lg);
-  margin-bottom: var(--spacing-card-md);
+  column-gap: var(--gap-xl);
+  margin-bottom: var(--gap-md);
 
   :deep(.category-selector) {
     margin-bottom: 0.5rem;

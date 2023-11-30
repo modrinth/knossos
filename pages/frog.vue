@@ -59,12 +59,12 @@ onUnmounted(() => clearInterval(interval))
 
 <style lang="scss" scoped>
 .card {
-  width: calc(100% - 2 * var(--spacing-card-md));
+  width: calc(100% - 2 * var(--gap-md));
   max-width: 1280px;
   margin-inline: auto;
   text-align: center;
   box-sizing: border-box;
-  margin-block: var(--spacing-card-md);
+  margin-block: var(--gap-md);
 }
 
 img {

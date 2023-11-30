@@ -84,7 +84,7 @@
                   <input
                     id="search"
                     v-model="searchQuery"
-                    type="search"
+                    type="text"
                     name="search"
                     :placeholder="`Search...`"
                     autocomplete="off"
@@ -113,7 +113,7 @@
                   :id="result.slug ? result.slug : result.project_id"
                   :key="result.project_id"
                   class="small-mode gradient-border"
-                  :type="result.project_type"
+                  :type="getProjectTypeForUrl(result.project_type, result.categories)"
                   :author="result.author"
                   :name="result.title"
                   :description="result.description"
@@ -124,7 +124,11 @@
                   :icon-url="result.icon_url"
                   :client-side="result.client_side"
                   :server-side="result.server_side"
-                  :categories="result.display_categories.slice(0, 3)"
+                  :categories="
+                    result.display_categories
+                      .slice(0, 3)
+                      .filter((cat) => !tags.loaders.some((loader) => loader.name === cat))
+                  "
                   :search="true"
                   :show-updated-date="true"
                   :color="result.color"
@@ -164,7 +168,7 @@
                     <p class="notif-desc">
                       Version {{ ['1.1.2', '1.0.3', '15.1'][index] }} has been released for
                       {{
-                        $capitalizeString(
+                        capitalizeString(
                           notification.display_categories[
                             notification.display_categories.length - 1
                           ]
@@ -198,7 +202,7 @@
           <div class="blob-demonstration gradient-border">
             <div class="launcher-view">
               <img
-                v-if="$colorMode.value === 'light'"
+                v-if="colorMode.value === 'light'"
                 src="https://cdn.modrinth.com/landing-new/launcher-light.webp"
                 alt="launcher graphic"
                 class="minecraft-screen"
@@ -407,7 +411,7 @@
     </div>
     <div class="logo-banner">
       <svg
-        v-if="$colorMode.value === 'light'"
+        v-if="colorMode.value === 'light'"
         viewBox="0 0 865 512"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -505,7 +509,15 @@
 </template>
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { ProjectCard, SearchIcon, CalendarIcon, ModrinthIcon, Avatar } from 'omorphia'
+import {
+  ProjectCard,
+  SearchIcon,
+  CalendarIcon,
+  ModrinthIcon,
+  Avatar,
+  capitalizeString,
+} from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 import PrismLauncherLogo from '~/assets/images/external/prism.svg'
 import ATLauncherLogo from '~/assets/images/external/atlauncher.svg'
@@ -516,6 +528,7 @@ const sortType = ref('relevance')
 
 const auth = await useAuth()
 const tags = useTags()
+const colorMode = useTheme()
 
 const [{ data: searchProjects, refresh: updateSearchProjects }, { data: notifications }] =
   await Promise.all([
@@ -539,6 +552,91 @@ const rows = shallowRef([
 ])
 </script>
 
+<style lang="scss">
+.light-mode {
+  --landing-maze-bg: url('https://cdn.modrinth.com/landing-new/landing-light.webp');
+  --landing-maze-gradient-bg: url('https://cdn.modrinth.com/landing-new/landing-lower-light.webp');
+  --landing-maze-outer-bg: linear-gradient(180deg, #f0f0f0 0%, #ffffff 100%);
+
+  --landing-color-heading: #000;
+  --landing-color-subheading: #3a3f45;
+
+  --landing-transition-gradient-start: rgba(255, 255, 255, 0);
+  --landing-transition-gradient-end: #ffffff;
+  --landing-hover-card-gradient: radial-gradient(
+    50% 50% at 50% 50%,
+    #fff 0%,
+    rgba(204, 204, 204, 0.77) 100%
+  );
+  --landing-border-gradient: linear-gradient(
+    to bottom right,
+    rgba(129, 137, 175, 0.75) 0%,
+    rgba(66, 71, 97, 0.34) 100%
+  );
+  --landing-border-color: rgba(129, 137, 175, 0.55);
+  --landing-creator-gradient: linear-gradient(180deg, #f8f8f8 0%, #f8f8f8 63.19%);
+
+  --landing-blob-gradient: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.2695) 100%
+  );
+  --landing-blob-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16),
+    inset 2px 2px 64px rgba(255, 255, 255, 0.45);
+
+  --landing-card-bg: rgba(255, 255, 255, 0.8);
+  --landing-card-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16);
+
+  --landing-blue-label: #0098ba;
+  --landing-blue-label-bg: rgba(0, 177, 216, 0.15);
+  --landing-green-label: #00a936;
+  --landing-green-label-bg: rgba(0, 216, 69, 0.15);
+
+  --landing-raw-bg: #fff;
+}
+
+.dark-mode {
+  --landing-maze-bg: url('https://cdn.modrinth.com/landing-new/landing.webp');
+  --landing-maze-gradient-bg: linear-gradient(0deg, #31375f 0%, rgba(8, 14, 55, 0) 100%),
+    url('https://cdn.modrinth.com/landing-new/landing-lower.webp');
+  --landing-maze-outer-bg: linear-gradient(180deg, #06060d 0%, #000000 100%);
+
+  --landing-color-heading: #fff;
+  --landing-color-subheading: #afb6be;
+
+  --landing-transition-gradient-start: rgba(14, 16, 32, 0);
+  --landing-transition-gradient-end: #060a1c;
+  --landing-hover-card-gradient: radial-gradient(
+    50% 50% at 50% 50%,
+    #2c304f 0%,
+    rgba(32, 35, 50, 0.77) 100%
+  );
+  --landing-border-gradient: linear-gradient(
+    to bottom right,
+    rgba(168, 177, 221, 0.75) 0%,
+    rgba(168, 177, 221, 0.18) 100%
+  );
+  --landing-border-color: rgba(168, 177, 221, 0.55);
+  --landing-creator-gradient: linear-gradient(180deg, #000000 0%, #0e101d 100%);
+
+  --landing-blob-gradient: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(44, 48, 79, 0.35) 0%,
+    rgba(32, 35, 50, 0.2695) 100%
+  );
+  --landing-blob-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 64px rgba(57, 61, 94, 0.45);
+
+  --landing-card-bg: rgba(59, 63, 85, 0.15);
+  --landing-card-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16);
+
+  --landing-blue-label: #10c0e7;
+  --landing-blue-label-bg: rgba(0, 177, 216, 0.15);
+  --landing-green-label: #00d845;
+  --landing-green-label-bg: rgba(0, 216, 69, 0.15);
+
+  --landing-raw-bg: #000;
+}
+</style>
 <style lang="scss" scoped>
 .landing-hero {
   background-image: var(--landing-maze-bg);
@@ -816,12 +914,12 @@ const rows = shallowRef([
 
               svg {
                 opacity: 1;
-                color: var(--color-button-text-active);
+                color: var(--color-contrast);
               }
 
               input {
                 box-shadow: inset 0 0 0 transparent, 0 0 0 0.25rem var(--color-brand-shadow);
-                color: var(--color-button-text-active);
+                color: var(--color-contrast);
               }
             }
 
