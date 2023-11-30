@@ -6,7 +6,7 @@
       <h1>Home</h1>
     </div>
     <div class="normal-page__sidebar">
-      <section class="universal-card">
+      <section class="card">
         <nuxt-link :to="getUserLink(auth.user)" class="user-info">
           <Avatar :src="auth.user.avatar_url" circle size="xs" />
           <h2 class="sidebar-card-header">{{ auth.user.username }}</h2>
@@ -47,7 +47,7 @@
           <SettingsIcon /> Edit profile <ChevronRightIcon />
         </nuxt-link>
       </section>
-      <section class="universal-card">
+      <section class="card">
         <h2 class="sidebar-card-header">Rewards</h2>
         <p>Showing your current rewards amount.</p>
         <button class="btn rewards-display">
@@ -60,7 +60,7 @@
           <TransferIcon />View transfer history <ChevronRightIcon />
         </nuxt-link>
       </section>
-      <section class="universal-card">
+      <section class="card">
         <h2 class="sidebar-card-header">Your projects</h2>
         <p>Showing downloads this week compared to last week.</p>
         <div class="mini-project-table projects">
@@ -160,14 +160,14 @@
           v-for="notification in notifications"
           :key="notification.id"
           v-model:notifications="allNotifs"
-          class="universal-card"
+          class="card"
           :notification="notification"
           :auth="auth"
         />
       </template>
       <div v-else class="universal-body">
         <p>You have no unread notifications.</p>
-        <nuxt-link class="iconified-button" to="/notifications">
+        <nuxt-link class="btn" to="/notifications">
           <HistoryIcon /> View notification history
         </nuxt-link>
       </div>
@@ -185,20 +185,19 @@ import {
   Button,
   XIcon,
   PopoutMenu,
+  ListIcon,
+  ChartIcon,
+  TransferIcon,
+  ChevronRightIcon,
+  HistoryIcon,
+  Avatar,
+  SearchIcon,
+  FilterIcon,
+  getUserLink,
+  Checkbox,
 } from 'omorphia'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import HistoryIcon from '~/assets/images/utils/history.svg'
-import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import SearchIcon from 'assets/images/utils/search.svg'
-import FilterIcon from 'assets/images/utils/filter.svg'
-import ModalCreation from "~/components/ui/ModalCreation.vue";
-import { getUserLink } from '~/helpers/users'
-import Checkbox from '~/components/ui/Checkbox.vue'
 import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const auth = await useAuth()

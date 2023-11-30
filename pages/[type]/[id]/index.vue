@@ -1,9 +1,9 @@
 <template>
-  <div class="markdown-body universal-card" v-html="renderHighlightedString(project.body)" />
+  <div class="markdown-body card" v-html="renderHighlightedString(project.body)" />
 </template>
 
 <script>
-import { renderHighlightedString } from '~/helpers/highlight.js'
+import { renderHighlightedString } from 'omorphia'
 
 export default defineNuxtComponent({
   props: {

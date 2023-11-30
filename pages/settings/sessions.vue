@@ -1,10 +1,10 @@
 <template>
-  <div class="universal-card">
+  <div class="card">
     <h2>{{ formatMessage(messages.sessionsTitle) }}</h2>
     <p class="preserve-lines">
       {{ formatMessage(messages.sessionsDescription) }}
     </p>
-    <div v-for="session in sessions" :key="session.id" class="universal-card recessed session">
+    <div v-for="session in sessions" :key="session.id" class="card recessed session">
       <div>
         <div>
           <strong>
@@ -48,7 +48,7 @@
       </div>
       <div class="input-group">
         <i v-if="session.current">{{ formatMessage(messages.currentSessionLabel) }}</i>
-        <button v-else class="iconified-button raised-button" @click="revokeSession(session.id)">
+        <button v-else class="btn raised" @click="revokeSession(session.id)">
           <XIcon /> {{ formatMessage(messages.revokeSessionButton) }}
         </button>
       </div>

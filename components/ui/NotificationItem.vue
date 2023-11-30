@@ -190,7 +190,7 @@
       <div v-if="type !== null" class="input-group">
         <template v-if="type === 'team_invite' && !notification.read">
           <button
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="
               () => {
                 acceptTeamInvite(notification.body.team_id)
@@ -201,7 +201,7 @@
             <CheckIcon /> Accept
           </button>
           <button
-            class="iconified-button danger-button"
+            class="btn btn-red"
             @click="
               () => {
                 removeSelfFromTeam(notification.body.team_id)
@@ -217,8 +217,8 @@
       <div v-else class="input-group">
         <nuxt-link
           v-if="notification.link && notification.link !== '#'"
-          class="iconified-button"
-          :class="{ 'raised-button': raised }"
+          class="btn"
+          :class="{ raised: raised }"
           :to="notification.link"
           target="_blank"
         >
@@ -228,8 +228,8 @@
         <button
           v-for="(action, actionIndex) in notification.actions"
           :key="actionIndex"
-          class="iconified-button"
-          :class="{ 'raised-button': raised }"
+          class="btn"
+          :class="{ raised: raised }"
           @click="performAction(notification, actionIndex)"
         >
           <CheckIcon v-if="action.title === 'Accept'" />
@@ -243,23 +243,26 @@
 </template>
 
 <script setup>
-import InvitationIcon from '~/assets/images/utils/user-plus.svg'
-import ModerationIcon from '~/assets/images/utils/moderation.svg'
-import NotificationIcon from '~/assets/images/utils/bell.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
+import {
+  UserPlusIcon as InvitationIcon,
+  ScaleIcon as ModerationIcon,
+  BellIcon as NotificationIcon,
+  VersionIcon,
+  CheckIcon,
+  XIcon as CrossIcon,
+  ExternalIcon,
+  getProjectLink,
+  getVersionLink,
+  getUserLink,
+  renderString,
+  DoubleIcon,
+  Avatar,
+  Badge,
+  CopyCode,
+  Checkbox,
+} from 'omorphia'
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
-import { getProjectLink, getVersionLink } from '~/helpers/projects.js'
-import { getUserLink } from '~/helpers/users.js'
 import { acceptTeamInvite, removeSelfFromTeam } from '~/helpers/teams.js'
-import { renderString } from '~/helpers/parse.js'
-import DoubleIcon from '~/components/ui/DoubleIcon.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
 import WrenchIcon from 'assets/images/utils/wrench.svg'
 import GameIcon from 'assets/images/utils/game.svg'
 
@@ -405,18 +408,6 @@ function getMessages() {
   grid-template-columns: min-content 1fr;
   grid-template-rows: min-content min-content min-content;
   gap: var(--spacing-card-sm);
-
-  &:not(.read) .notification__icon::after {
-    content: '';
-    --_size: 0.5rem;
-    width: var(--_size);
-    height: var(--_size);
-    background-color: var(--color-brand);
-    border-radius: 50%;
-    left: calc(((var(--gap-xl) + var(--_size)) / 2) * -1);
-    top: calc(50% - (var(--_size) / 2));
-    position: absolute;
-  }
 
   &.has-body {
     grid-template:

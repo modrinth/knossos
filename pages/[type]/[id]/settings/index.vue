@@ -1,15 +1,16 @@
 <template>
   <div>
-    <ModalConfirm
+    <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete this project?"
       description="If you proceed, all versions and any attached data will be removed from our servers. This may break other projects, so be careful."
       :has-to-type="true"
       :confirmation-text="project.title"
       proceed-label="Delete"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteProject"
     />
-    <section class="universal-card">
+    <section class="card">
       <label for="project-icon">
         <span class="label__title">Icon</span>
       </label>
@@ -26,7 +27,7 @@
             :max-size="262144"
             :show-icon="true"
             accept="image/png,image/jpeg,image/gif,image/webp"
-            class="choose-image iconified-button"
+            class="choose-image btn"
             prompt="Upload icon"
             :disabled="!hasPermission"
             @change="showPreviewImage"
@@ -35,7 +36,7 @@
           </FileInput>
           <button
             v-if="!deletedIcon && (previewImage || project.icon_url)"
-            class="iconified-button"
+            class="btn"
             :disabled="!hasPermission"
             @click="markIconForDeletion"
           >
@@ -195,10 +196,10 @@
           :disabled="!hasPermission"
         />
       </div>
-      <div class="button-group">
+      <div class="input-group push-right">
         <button
           type="button"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!hasChanges"
           @click="saveChanges()"
         >
@@ -208,7 +209,7 @@
       </div>
     </section>
 
-    <section class="universal-card">
+    <section class="card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Delete project</span>
@@ -220,7 +221,7 @@
       </p>
       <button
         type="button"
-        class="iconified-button danger-button"
+        class="btn btn-red"
         :disabled="!hasDeletePermission"
         @click="$refs.modal_confirm.show()"
       >
@@ -231,32 +232,22 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
-import Avatar from '~/components/ui/Avatar.vue'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import FileInput from '~/components/ui/FileInput.vue'
-
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import ExitIcon from '~/assets/images/utils/x.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import CheckIcon from '~/assets/images/utils/check.svg'
-
+import {
+  Avatar,
+  FileInput,
+  UploadIcon,
+  SaveIcon,
+  TrashIcon,
+  ExitIcon,
+  IssuesIcon,
+  CheckIcon,
+  ConfirmModal,
+} from 'omorphia'
+</script>
+<script>
 export default defineNuxtComponent({
-  components: {
-    Avatar,
-    ModalConfirm,
-    FileInput,
-    Multiselect,
-    UploadIcon,
-    SaveIcon,
-    TrashIcon,
-    ExitIcon,
-    CheckIcon,
-    IssuesIcon,
-  },
   props: {
     project: {
       type: Object,

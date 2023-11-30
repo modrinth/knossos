@@ -1,5 +1,9 @@
 <template>
-  <Modal ref="modal" header="Create a project">
+  <Modal
+    ref="modal"
+    header="Create a project"
+    :noblur="!$orElse(cosmetics.advancedRendering, true)"
+  >
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
         <p>New projects are created as drafts and can be found under your profile page.</p>
@@ -50,11 +54,11 @@
         <textarea id="additional-information" v-model="description" maxlength="256" />
       </div>
       <div class="push-right input-group">
-        <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+        <button class="btn" @click="cancel">
+          <XIcon />
           Cancel
         </button>
-        <button class="iconified-button brand-button" @click="createProject">
+        <button class="btn btn-primary" @click="createProject">
           <CheckIcon />
           Continue
         </button>
@@ -64,15 +68,12 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import CheckIcon from '~/assets/images/utils/right-arrow.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Chips from '~/components/ui/Chips.vue'
+import { XIcon, CheckIcon, Modal, Chips } from 'omorphia'
 
 export default {
   components: {
     Chips,
-    CrossIcon,
+    XIcon,
     CheckIcon,
     Modal,
   },
@@ -91,9 +92,10 @@ export default {
     },
   },
   setup() {
+    const cosmetics = useCosmetics()
     const tags = useTags()
 
-    return { tags }
+    return { tags, cosmetics }
   },
   data() {
     return {

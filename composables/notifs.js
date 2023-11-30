@@ -1,4 +1,4 @@
-export const useNotifications = () => useState('inbox.vue', () => [])
+export const useNotifications = () => useState('notifications', () => [])
 
 export const addNotification = (notification) => {
   const notifications = useNotifications()

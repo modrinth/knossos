@@ -195,8 +195,8 @@
             </div>
           </div>
         </div>
-        <div class="universal-card">
-          <h2 class="sidebar-card-header">Badges</h2>
+        <div class="card">
+          <h2>Badges</h2>
           <div class="badges-container">
             <div class="badge">
               <BadgeModrinthTeam />
@@ -209,7 +209,7 @@
             </div>
           </div>
         </div>
-        <div v-if="organizations" class="universal-card">
+        <div v-if="organizations" class="card">
           <h2 class="sidebar-card-header">Organizations</h2>
           <div class="organizations">
             <router-link v-for="org in organizations" class="button-base clickable" :to="'/organization/' + org.title">
@@ -279,6 +279,7 @@
             "
             :type="project.project_type"
             :color="project.color"
+            :from-now="fromNow"
           />
         </div>
         <div v-else class="error">
@@ -314,14 +315,17 @@ import {
   MoreHorizontalIcon,
   DownloadIcon,
   SunriseIcon,
-  Modal
+  ProjectCard,
+  Avatar,
+  NavRow,
+  SettingsIcon,
+  GridIcon,
+  ListIcon,
+  ImageIcon,
+  formatNumber,
 } from 'omorphia'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import Avatar from '~/components/ui/Avatar.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
@@ -349,7 +353,36 @@ const inputText = ref('')
 const selectedFilter = ref('all')
 const editModal = ref(null)
 
+const messages = defineMessages({
+  profileManageProjectsButton: {
+    id: 'profile.button.manage-projects',
+    defaultMessage: 'Manage projects',
+  },
+  profileMetaDescription: {
+    id: 'profile.meta.description',
+    defaultMessage: "Download {username}'s projects on Modrinth",
+  },
+  profileMetaDescriptionWithBio: {
+    id: 'profile.meta.description-with-bio',
+    defaultMessage: "{bio} - Download {username}'s projects on Modrinth",
+  },
+  profileNoProjectsLabel: {
+    id: 'profile.label.no-projects',
+    defaultMessage: 'This user has no projects!',
+  },
+  profileNoProjectsAuthLabel: {
+    id: 'profile.label.no-projects-auth',
+    defaultMessage:
+      "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
+  },
+  userNotFoundError: {
+    id: 'profile.error.not-found',
+    defaultMessage: 'User not found',
+  },
+})
+
 let user, projects, collections, organizations
+
 try {
   ;[{ data: user }, { data: projects }, { data: collections}, {data: organizations}] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
@@ -516,11 +549,6 @@ async function saveChanges() {
   stopLoading()
 }
 
-</script>
-<script>
-export default defineNuxtComponent({
-  methods: {},
-})
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <template>
   <div class="normal-page">
     <div class="normal-page__sidebar">
-      <aside class="universal-card">
+      <aside class="card">
         <h1>Legal</h1>
         <NavStack>
           <NavStackItem link="/legal/terms" label="Terms of Use">
@@ -36,7 +36,7 @@
       </aside>
     </div>
     <div class="normal-page__content">
-      <NuxtPage class="universal-card" :route="route" />
+      <NuxtPage class="card" :route="route" />
     </div>
   </div>
 </template>
@@ -50,9 +50,9 @@ import {
   ShieldIcon,
   CurrencyIcon,
   CopyrightIcon,
+  NavStack,
+  NavItem as NavStackItem,
 } from 'omorphia'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
 
 const route = useRoute()
 </script>
@@ -74,7 +74,6 @@ const route = useRoute()
 
 @media (min-width: 1024px) {
   .normal-page {
-    max-width: 70rem;
     column-gap: var(--gap-lg);
 
     grid-template:

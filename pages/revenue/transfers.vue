@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card payout-history">
+    <section class="card payout-history">
       <Breadcrumbs
         current-title="Transfer history"
         :link-stack="[{ href: '/revenue', label: 'Revenue' }]"
@@ -31,8 +31,7 @@
   </div>
 </template>
 <script setup>
-import Badge from '~/components/ui/Badge.vue'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { Badge, Breadcrumbs } from 'omorphia'
 
 useHead({
   title: 'Transfer history - Modrinth',

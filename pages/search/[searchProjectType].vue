@@ -6,17 +6,7 @@
     }"
   >
     <Head>
-      <Title>Search {{ $formatProjectType(projectType.display) }}s - Modrinth</Title>
-      <Meta
-        name="og:title"
-        :content="`Minecraft ${$formatProjectType(projectType.display)}s for Java Edition`"
-      />
-      <Meta name="description" :content="metaDescription" />
-      <Meta
-        name="apple-mobile-web-app-title"
-        :content="`Minecraft ${$formatProjectType(projectType.display)}s`"
-      />
-      <Meta name="og:description" :content="metaDescription" />
+      <Title>Search {{ projectType.display }}s - Modrinth</Title>
     </Head>
     <section class="normal-page__header">
       <GameBanner game="minecraft_java" />
@@ -120,7 +110,7 @@
               :aria-label="`List`"
               class="btn icon-only"
               :class="{
-                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'list',
+                'btn-brand-highlight': cosmetics.searchDisplayMode[projectType.id] === 'list',
               }"
               @click="setSearchDisplayMode('list')"
             >
@@ -131,7 +121,7 @@
               :aria-label="`Grid`"
               class="btn icon-only"
               :class="{
-                'btn-highlighted': cosmetics.searchDisplayMode[projectType.id] === 'grid',
+                'btn-brand-highlight': cosmetics.searchDisplayMode[projectType.id] === 'grid',
               }"
               @click="setSearchDisplayMode('grid')"
             >
@@ -148,7 +138,7 @@
       }"
       aria-label="Filters"
     >
-      <section class="universal-card filters-card">
+      <section class="card filters-card">
         <h2>Filters</h2>
         <div class="filters-search-row">
           <div class="iconified-input">
@@ -353,7 +343,7 @@
           @switch-page="onSearchChange"
         />
       </div>
-      <LogoAnimated v-if="searchLoading && !noLoad"></LogoAnimated>
+      <AnimatedLogo v-if="searchLoading && !noLoad" />
       <div
         v-else-if="
           results && results.hits && results.hits.length === 0 && (!searchLoading || noLoad)
@@ -403,6 +393,7 @@
             :show-updated-date="sortType !== 'newest'"
             :hide-loaders="['resourcepack', 'datapack'].includes(projectType.id)"
             :color="result.color"
+            :from-now="fromNow"
           />
         </div>
       </div>
@@ -428,9 +419,7 @@
   </div>
 </template>
 <script setup>
-import { Multiselect } from 'vue-multiselect'
 import {
-  EyeIcon,
   HeartIcon,
   DownloadIcon,
   UnknownIcon,
@@ -441,31 +430,26 @@ import {
   Button,
   DropdownSelect,
   XIcon,
-  SortAscendingIcon,
   MoreHorizontalIcon,
+  ProjectCard,
+  ListSelector,
+  Pagination,
+  SearchFilter,
+  AnimatedLogo,
+  SearchIcon,
+  GridIcon,
+  ListIcon,
+  HistoryIcon,
+  ScrollableMultiSelect,
+  PageBar,
 } from 'omorphia'
 import { formatCategory, formatCategoryHeader, formatProjectType } from '../../plugins/shorthands'
-import ListSelector from '~/components/ui/ListSelector.vue'
-import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Pagination from '~/components/ui/Pagination.vue'
-import SearchFilter from '~/components/ui/search/SearchFilter.vue'
-import LogoAnimated from '~/components/brand/LogoAnimated.vue'
 
 import FrownIcon from '~/assets/images/utils/frown.svg'
-import SearchIcon from '~/assets/images/utils/search.svg'
-import FilterIcon from '~/assets/images/utils/filter.svg'
 import FilterXIcon from '~/assets/images/utils/filter-x.svg'
-import GridIcon from '~/assets/images/utils/grid.svg'
-import ListIcon from '~/assets/images/utils/list.svg'
-import ImageIcon from '~/assets/images/utils/image.svg'
-import MinecraftIcon from 'assets/images/games/minecraft.svg'
-import FlameIcon from 'assets/images/utils/flame.svg'
-import HistoryIcon from 'assets/images/utils/history.svg'
 import TopIcon from 'assets/images/utils/arrow-big-up-dash.svg'
 import NewIcon from 'assets/images/utils/burst.svg'
-import ScrollableMultiSelect from '~/components/ui/ScrollableMultiSelect.vue'
 import GameBanner from '~/components/ui/GameBanner.vue'
-import PageBar from '~/components/ui/PageBar.vue'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
@@ -524,13 +508,8 @@ const maxResults = ref(20)
 const currentPage = ref(1)
 const projectType = ref({ id: 'mod', display: 'mod', actual: 'mod' })
 
-const metaDescription = computed(
-  () =>
-    `Search and browse thousands of Minecraft ${data.$formatProjectType(
-      projectType.value.display
-    )}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${data.$formatProjectType(
-      projectType.value.display
-    )}s.`
+const ogTitle = computed(
+  () => `Search ${projectType.value.display}s${query.value ? ' | ' + query.value : ''}`
 )
 
 const hasFiltersEnabled = computed(() => {
@@ -541,6 +520,17 @@ const hasFiltersEnabled = computed(() => {
     facets.value.length > 0 ||
     orFacets.value.length > 0
   )
+})
+
+const description = computed(
+  () =>
+    `Search and browse thousands of Minecraft ${projectType.value.display}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${projectType.value.display}s.`
+)
+
+useSeoMeta({
+  description,
+  ogTitle,
+  ogDescription: description,
 })
 
 if (route.query.q) {
@@ -728,7 +718,7 @@ function isFilterShown(keyword) {
 
 function isFilterCollapsed(heading) {
   const headings = cosmetics.value.searchFiltersCollapsed[projectType.value.id]
-  return filterQuery || headings ? headings[heading] : false
+  return !!filterQuery.value || headings ? headings[heading] : false
 }
 
 function toggleFilterCollapse(heading) {
@@ -1095,14 +1085,10 @@ h1 {
 
 .pagination-container {
   display: flex;
+  justify-content: end;
   align-items: center;
-  justify-content: center;
   margin-bottom: var(--gap-lg);
   flex-wrap: wrap;
-
-  .results-text {
-    margin-right: auto;
-  }
 
   .count-dropdown {
     width: 5.5rem;

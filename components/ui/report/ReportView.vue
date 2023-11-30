@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <Breadcrumbs
         v-if="breadcrumbsStack"
         :current-title="`Report ${reportId}`"
@@ -9,7 +9,7 @@
       <h2>Report details</h2>
       <ReportInfo :report="report" :show-thread="false" :show-message="false" :auth="auth" />
     </section>
-    <section class="universal-card">
+    <section class="card">
       <h2>Messages</h2>
       <ConversationThread
         :thread="thread"
@@ -21,7 +21,7 @@
   </div>
 </template>
 <script setup>
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { Breadcrumbs } from 'omorphia'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 import ReportInfo from '~/components/ui/report/ReportInfo.vue'
 import { addReportMessage } from '~/helpers/threads.js'

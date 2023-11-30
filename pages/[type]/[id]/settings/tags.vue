@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="universal-card">
+    <section class="card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Tags</span>
@@ -91,10 +91,10 @@
           </div>
         </Checkbox>
       </div>
-      <div class="button-group">
+      <div class="input-group push-right">
         <button
           type="button"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!hasChanges"
           @click="saveChanges()"
         >
@@ -106,17 +106,11 @@
   </div>
 </template>
 
+<script setup>
+import { Checkbox, StarIcon, SaveIcon } from 'omorphia'
+</script>
 <script>
-import Checkbox from '~/components/ui/Checkbox.vue'
-import StarIcon from '~/assets/images/utils/star.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-
 export default defineNuxtComponent({
-  components: {
-    Checkbox,
-    SaveIcon,
-    StarIcon,
-  },
   props: {
     project: {
       type: Object,

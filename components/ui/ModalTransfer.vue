@@ -1,5 +1,9 @@
 <template>
-  <Modal ref="modal" :header="'Transfer to ' + $formatWallet(wallet)">
+  <Modal
+    ref="modal"
+    :header="'Transfer to ' + $formatWallet(wallet)"
+    :noblur="!$orElse(cosmetics.advancedRendering, true)"
+  >
     <div class="modal-transfer">
       <span
         >You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
@@ -51,16 +55,16 @@
           {{ amount }} is not a valid amount</span
         >
       </div>
-      <div class="button-group">
-        <NuxtLink class="iconified-button" to="/settings/monetization">
+      <div class="input-group push-right">
+        <NuxtLink class="btn" to="/settings/monetization">
           <SettingsIcon /> Monetization settings
         </NuxtLink>
-        <button class="iconified-button" @click="cancel">
-          <CrossIcon />
+        <button class="btn" @click="cancel">
+          <XIcon />
           Cancel
         </button>
         <button
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!consentedFee || !consentedAccount"
           @click="proceed"
         >
@@ -73,16 +77,12 @@
 </template>
 
 <script>
-import CrossIcon from '~/assets/images/utils/x.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import Modal from '~/components/ui/Modal.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
+import { SettingsIcon, TransferIcon, XIcon, Modal, Checkbox } from 'omorphia'
 
 export default {
   components: {
     Checkbox,
-    CrossIcon,
+    XIcon,
     SettingsIcon,
     TransferIcon,
     Modal,
@@ -108,6 +108,12 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  setup() {
+    const cosmetics = useCosmetics()
+    return {
+      cosmetics,
+    }
   },
   data() {
     return {

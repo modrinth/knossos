@@ -1,41 +1,14 @@
 <template>
   <div :style="`--_accent-color: ${toColor(project.color)}`">
-    <Head>
-      <Title> {{ project.title }} - Minecraft {{ projectTypeDisplay }} </Title>
-      <Meta name="og:title" :content="`${project.title} - Minecraft ${projectTypeDisplay}`" />
-      <Meta
-        name="description"
-        :content="`${project.description} - Download the Minecraft ${projectTypeDisplay} ${
-          project.title
-        } by ${members.find((x) => x.role === 'Owner').user.username} on Modrinth`"
-      />
-      <Meta
-        name="apple-mobile-web-app-title"
-        :content="`${project.title} - Minecraft ${projectTypeDisplay}`"
-      />
-      <Meta name="og:description" :content="project.description" />
-      <Meta
-        name="og:image"
-        :content="project.icon_url ? project.icon_url : 'https://cdn.modrinth.com/placeholder.png'"
-      />
-      <Meta
-        name="robots"
-        :content="
-          project.status === 'approved' || project.status === 'archived' ? 'all' : 'noindex'
-        "
-      />
-    </Head>
-    <Modal ref="modalLicense" :header="project.license.name ? project.license.name : 'License'">
+    <Modal
+      ref="modalLicense"
+      :header="project.license.name ? project.license.name : 'License'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="modal-license">
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
-    <ModalReport
-      v-if="auth.user"
-      ref="modal_project_report"
-      :item-id="project.id"
-      item-type="project"
-    />
     <div
       :class="{
         'normal-page': true,
@@ -75,10 +48,7 @@
             </div>
           </div>
         </div>
-        <div
-          v-if="currentMember && project.moderator_message"
-          class="universal-card moderation-card"
-        >
+        <div v-if="currentMember && project.moderator_message" class="card moderation-card">
           <h2 class="sidebar-card-header">Message from the moderators:</h2>
           <div v-if="project.moderator_message.body">
             <p v-if="project.moderator_message.message" class="mod-message__title">
@@ -98,7 +68,7 @@
           <div class="buttons status-buttons">
             <button
               v-if="tags.approvedStatuses.includes(project.status)"
-              class="iconified-button"
+              class="btn"
               @click="clearMessage"
             >
               <ClearIcon />
@@ -117,7 +87,7 @@
         </div>
         <div class="proj-header">
           <div class="game-icon">
-            <Avatar :src="project.icon_url" class="avatar" no-shadow />
+            <Avatar :src="project.icon_url" class="avatar" no-shadow size="none" />
           </div>
           <div class="game-title">
             <div class="game-name">
@@ -207,6 +177,7 @@
             <DescriptionIcon /> About
           </nuxt-link>
           <nuxt-link
+            v-if="project.gallery.length > 0 || currentMember"
             :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
             class="button-base nav-button"
           >
@@ -246,7 +217,6 @@
           :patch-project="patchProject"
           :patch-icon="patchIcon"
           :update-icon="resetProject"
-          :route="route"
         />
       </section>
       <div class="normal-page__info">
@@ -352,7 +322,7 @@
               alt="test"
             />
           </nuxt-link>
-          <div class="universal-card">
+          <div class="card">
             <h2>Details</h2>
             <div class="supports-details">
               <div class="primary-stat">
@@ -529,7 +499,7 @@
                   },
                   {
                     id: 'report',
-                    action: () => {},
+                    action: () => reportProject(project.id),
                     color: 'red',
                     hoverOnly: true,
                   },
@@ -544,7 +514,16 @@
               </OverflowMenu>
             </div>
           </div>
-          <div class="members universal-card">
+          <div
+            v-if="
+              project.issues_url ||
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url ||
+              project.donation_urls.length > 0
+            "
+            class="members card"
+          >
             <h2>Links</h2>
             <div class="links">
               <a
@@ -614,7 +593,7 @@
               </a>
             </div>
           </div>
-          <div class="members universal-card">
+          <div class="members card">
             <h2>Members</h2>
             <nuxt-link
               v-for="member in members"
@@ -634,7 +613,7 @@
           </div>
         </template>
       </div>
-      <div v-if="false" class="universal-card">
+      <div v-if="false" class="card">
         <template v-if="featuredVersions.length > 0">
           <div class="featured-header">
             <h2 class="sidebar-card-header">Featured versions</h2>
@@ -666,7 +645,7 @@
                 version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
               "
               :href="version.primaryFile.url"
-              class="download square-button brand-button"
+              class="download btn icon-only btn-primary"
               :aria-label="`Download ${version.name}`"
               @click.stop="(event) => event.stopPropagation()"
             >
@@ -699,84 +678,74 @@
 
 <script setup>
 import {
+  Avatar,
   Promotion,
   Button,
   ShareIcon,
-  Card,
-  CalendarIcon,
   ClearIcon,
   DownloadIcon,
-  RadioButtonIcon,
   CodeIcon,
   ClientIcon,
   ServerIcon,
-  XIcon,
   DropdownIcon,
-  PopoutMenu,
   ClipboardCopyIcon,
   OverflowMenu,
   ScaleIcon,
-  Checkbox
+  Checkbox,
+  Modal,
+  ListEndIcon as QueuedIcon,
+  ExternalIcon,
+  ReportIcon,
+  MoreHorizontalIcon,
+  GlobeIcon,
+  HeartIcon,
+  BookmarkIcon,
+  UpdatedIcon,
+  IssuesIcon,
+  WikiIcon,
+  DiscordIcon,
+  BuyMeACoffeeIcon as BuyMeACoffeeLogo,
+  PatreonIcon,
+  KoFiIcon,
+  PayPalIcon,
+  OpenCollectiveIcon,
+  UnknownIcon,
+  ChevronRightIcon,
+  Badge,
+  CopyCode,
+  NavStack,
+  NavItem as NavStackItem,
+  SettingsIcon,
+  ChartIcon,
+  UsersIcon,
+  TagsIcon as TagIcon,
+  AlignLeftIcon as DescriptionIcon,
+  LinkIcon as LinksIcon,
+  ImageIcon as GalleryIcon,
+  VersionIcon,
+  Breadcrumbs,
+  SearchIcon,
+  FilterIcon,
+  Categories,
+  GridIcon,
+  PageBar,
+  ListIcon,
+  HistoryIcon,
+  renderString,
+  getProjectLink,
+  formatCategory,
+  formatNumber,
+  SlashIcon as BanIcon,
 } from 'omorphia'
-import { formatCategory, formatNumber } from '../../plugins/shorthands.js'
-import QueuedIcon from '~/assets/images/utils/list-end.svg'
-import ExternalIcon from '~/assets/images/utils/external.svg'
-import ReportIcon from '~/assets/images/utils/report.svg'
-import MoreHorizontalIcon from '~/assets/images/utils/more-horizontal.svg'
-import BanIcon from '~/assets/images/utils/ban.svg'
-import GlobeIcon from '~/assets/images/utils/globe.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
-import BellIcon from '~/assets/images/utils/bell.svg'
-import BookmarkIcon from '~/assets/images/utils/bookmark.svg'
-import UpdatedIcon from '~/assets/images/utils/history.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import WikiIcon from '~/assets/images/utils/wiki.svg'
-import DiscordIcon from '~/assets/images/external/discord.svg'
-import BuyMeACoffeeLogo from '~/assets/images/external/bmac.svg'
-import PatreonIcon from '~/assets/images/external/patreon.svg'
-import KoFiIcon from '~/assets/images/external/kofi.svg'
-import PayPalIcon from '~/assets/images/external/paypal.svg'
-import OpenCollectiveIcon from '~/assets/images/external/opencollective.svg'
-import UnknownIcon from '~/assets/images/utils/unknown-donation.svg'
-import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
-import GameBanner from '~/components/ui/GameBanner.vue'
-import Badge from '~/components/ui/Badge.vue'
-import Categories from '~/components/ui/search/Categories.vue'
-import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
-import Modal from '~/components/ui/Modal.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
-import NavRow from '~/components/ui/NavRow.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Avatar from '~/components/ui/Avatar.vue'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
+import { reportProject } from '~/utils/report-helpers.ts'
+
 import ProjectMemberHeader from '~/components/ui/ProjectMemberHeader.vue'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
-import SettingsIcon from '~/assets/images/utils/settings.svg'
+
 import ManageIcon from '~/assets/images/utils/settings-2.svg'
-import ChartIcon from '~/assets/images/utils/chart.svg'
-import UsersIcon from '~/assets/images/utils/users.svg'
-import TagIcon from '~/assets/images/utils/tags.svg'
-import DescriptionIcon from '~/assets/images/utils/align-left.svg'
-import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/book-text.svg'
-import GalleryIcon from '~/assets/images/utils/image.svg'
-import VersionIcon from '~/assets/images/utils/version.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
-import { renderString } from '~/helpers/parse.js'
-import { getProjectLink } from '~/helpers/projects.js'
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import SearchIcon from 'assets/images/utils/search.svg'
-import FilterIcon from 'assets/images/utils/filter.svg'
-import MinecraftIcon from 'assets/images/games/minecraft.svg'
-import categories from '~/components/ui/search/Categories.vue'
-import GridIcon from 'assets/images/utils/grid.svg'
-import PageBar from '~/components/ui/PageBar.vue'
-import TopIcon from 'assets/images/utils/arrow-big-up-dash.svg'
-import NewIcon from 'assets/images/utils/burst.svg'
-import ListIcon from 'assets/images/utils/list.svg'
-import HistoryIcon from 'assets/images/utils/history.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -942,11 +911,6 @@ featuredVersions.value.sort((a, b) => {
 const selectedGameVersion = ref('1.20.2')
 const selectedLoader = ref('Fabric')
 
-const projectTypeDisplay = computed(() =>
-  data.$formatProjectType(
-    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
-  )
-)
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
 
@@ -1189,7 +1153,7 @@ const patchCollection = async (collection, add) => {
 }
 </script>
 <style lang="scss" scoped>
-.universal-card {
+.card {
   padding: 1.25rem;
 
   h2:first-child {
@@ -1700,7 +1664,7 @@ const patchCollection = async (collection, add) => {
   background-color: var(--color-raised-bg);
 
   .avatar {
-    --size: 5rem;
+    --size: 5rem !important;
     background-color: transparent;
     border: none;
     box-shadow: none;

@@ -4,6 +4,7 @@
       v-if="currentMember"
       ref="modal_edit_item"
       :header="editIndex === -1 ? 'Upload gallery image' : 'Edit gallery item'"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="modal-gallery universal-labels">
         <div class="gallery-file-input">
@@ -12,7 +13,7 @@
             <strong>{{ editFile ? editFile.name : 'Current image' }}</strong>
             <FileInput
               v-if="editIndex === -1"
-              class="iconified-button raised-button"
+              class="btn raised"
               prompt="Replace"
               :accept="acceptFileTypes"
               :max-size="524288000"
@@ -78,29 +79,24 @@
         <button
           v-if="!editFeatured"
           id="gallery-image-featured"
-          class="iconified-button"
+          class="btn"
           @click="editFeatured = true"
         >
           <StarIcon aria-hidden="true" />
           Feature image
         </button>
-        <button
-          v-else
-          id="gallery-image-featured"
-          class="iconified-button"
-          @click="editFeatured = false"
-        >
+        <button v-else id="gallery-image-featured" class="btn" @click="editFeatured = false">
           <StarIcon fill="currentColor" aria-hidden="true" />
           Unfeature image
         </button>
-        <div class="button-group">
-          <button class="iconified-button" @click="$refs.modal_edit_item.hide()">
+        <div class="input-group push-right">
+          <button class="btn" @click="$refs.modal_edit_item.hide()">
             <XIcon />
             Cancel
           </button>
           <button
             v-if="editIndex === -1"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="shouldPreventActions"
             @click="createGalleryItem"
           >
@@ -109,7 +105,7 @@
           </button>
           <button
             v-else
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             :disabled="shouldPreventActions"
             @click="editGalleryItem"
           >
@@ -126,6 +122,7 @@
       description="This will remove this gallery image forever (like really forever)."
       :has-to-type="false"
       proceed-label="Delete"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteGalleryImage"
     />
     <div
@@ -199,7 +196,7 @@
         :max-size="524288000"
         :accept="acceptFileTypes"
         prompt="Upload an image"
-        class="brand-button iconified-button"
+        class="btn-primary btn"
         @change="handleFiles"
       >
         <UploadIcon />
@@ -234,7 +231,7 @@
           </div>
           <div v-if="currentMember" class="gallery-buttons input-group">
             <button
-              class="iconified-button"
+              class="btn"
               @click="
                 () => {
                   resetEdit()
@@ -251,7 +248,7 @@
               Edit
             </button>
             <button
-              class="iconified-button"
+              class="btn"
               @click="
                 () => {
                   deleteIndex = index
@@ -273,25 +270,27 @@
 import {
   PlusIcon,
   CalendarIcon,
-  EditIcon,
   TrashIcon,
-  SaveIcon,
-  StarIcon,
   XIcon,
   RightArrowIcon,
   LeftArrowIcon,
+  EditIcon,
+  SaveIcon,
   ExternalIcon,
   ExpandIcon,
   ContractIcon,
+  StarIcon,
   UploadIcon,
   InfoIcon,
   ImageIcon,
   TransferIcon,
-  ConfirmModal,
-  Modal,
   FileInput,
   DropArea,
+  Modal,
+  ConfirmModal,
 } from 'omorphia'
+
+const cosmetics = useCosmetics()
 
 const props = defineProps({
   project: {
@@ -318,7 +317,6 @@ useSeoMeta({
   ogDescription: description,
 })
 </script>
-
 <script>
 export default defineNuxtComponent({
   data() {
@@ -773,7 +771,7 @@ export default defineNuxtComponent({
         word-wrap: anywhere;
       }
 
-      .iconified-button {
+      .btn {
         margin-left: auto;
       }
     }

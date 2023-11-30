@@ -1,15 +1,20 @@
 <template>
   <div>
-    <ModalConfirm
+    <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete your account?"
       description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.modrinth.com)."
       proceed-label="Delete this account"
       :confirmation-text="auth.user.username"
       :has-to-type="true"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
       @proceed="deleteAccount"
     />
-    <Modal ref="changeEmailModal" :header="`${auth.user.email ? 'Change' : 'Add'} email`">
+    <Modal
+      ref="changeEmailModal"
+      :header="`${auth.user.email ? 'Change' : 'Add'} email`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="universal-modal">
         <p>Your account information is not displayed publicly.</p>
         <label for="email-input"><span class="label__title">Email address</span> </label>
@@ -21,16 +26,11 @@
           :placeholder="`Enter your email address...`"
         />
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.changeEmailModal.hide()">
+          <button class="btn" @click="$refs.changeEmailModal.hide()">
             <XIcon />
             Cancel
           </button>
-          <button
-            type="button"
-            class="iconified-button brand-button"
-            :disabled="!email"
-            @click="saveEmail()"
-          >
+          <button type="button" class="btn btn-primary" :disabled="!email" @click="saveEmail()">
             <SaveIcon />
             Save email
           </button>
@@ -42,6 +42,7 @@
       :header="`${
         removePasswordMode ? 'Remove' : auth.user.has_password ? 'Change' : 'Add'
       } password`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="universal-modal">
         <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
@@ -87,14 +88,14 @@
         </template>
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.managePasswordModal.hide()">
+          <button class="btn" @click="$refs.managePasswordModal.hide()">
             <XIcon />
             Cancel
           </button>
           <template v-if="removePasswordMode">
             <button
               type="button"
-              class="iconified-button danger-button"
+              class="btn btn-red"
               :disabled="!oldPassword"
               @click="savePassword"
             >
@@ -106,7 +107,7 @@
             <button
               v-if="auth.user.has_password && auth.user.auth_providers.length > 0"
               type="button"
-              class="iconified-button danger-button"
+              class="btn btn-red"
               @click="removePasswordMode = true"
             >
               <TrashIcon />
@@ -114,7 +115,7 @@
             </button>
             <button
               type="button"
-              class="iconified-button brand-button"
+              class="btn btn-primary"
               :disabled="
                 newPassword.length == 0 ||
                 oldPassword.length == 0 ||
@@ -134,6 +135,7 @@
       :header="`${
         auth.user.has_totp && twoFactorStep === 0 ? 'Remove' : 'Setup'
       } two-factor authentication`"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
     >
       <div class="universal-modal">
         <template v-if="auth.user.has_totp && twoFactorStep === 0">
@@ -150,11 +152,11 @@
           />
           <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           <div class="input-group push-right">
-            <button class="iconified-button" @click="$refs.manageTwoFactorModal.hide()">
+            <button class="btn" @click="$refs.manageTwoFactorModal.hide()">
               <XIcon />
               Cancel
             </button>
-            <button class="iconified-button danger-button" @click="removeTwoFactor">
+            <button class="btn btn-red" @click="removeTwoFactor">
               <TrashIcon />
               Remove 2FA
             </button>
@@ -213,13 +215,13 @@
             </ul>
           </template>
           <div class="input-group push-right">
-            <button v-if="twoFactorStep === 1" class="iconified-button" @click="twoFactorStep = 0">
+            <button v-if="twoFactorStep === 1" class="btn" @click="twoFactorStep = 0">
               <LeftArrowIcon />
               Back
             </button>
             <button
               v-if="twoFactorStep !== 2"
-              class="iconified-button"
+              class="btn"
               @click="$refs.manageTwoFactorModal.hide()"
             >
               <XIcon />
@@ -227,7 +229,7 @@
             </button>
             <button
               v-if="twoFactorStep <= 1"
-              class="iconified-button brand-button"
+              class="btn btn-primary"
               @click="twoFactorStep === 1 ? verifyTwoFactorCode() : (twoFactorStep = 1)"
             >
               <RightArrowIcon />
@@ -235,7 +237,7 @@
             </button>
             <button
               v-if="twoFactorStep === 2"
-              class="iconified-button brand-button"
+              class="btn btn-primary"
               @click="$refs.manageTwoFactorModal.hide()"
             >
               <CheckIcon />
@@ -245,7 +247,11 @@
         </template>
       </div>
     </Modal>
-    <Modal ref="manageProvidersModal" header="Authentication providers">
+    <Modal
+      ref="manageProvidersModal"
+      header="Authentication providers"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="universal-modal">
         <div class="table">
           <div class="table-row table-head">
@@ -272,22 +278,22 @@
         </div>
         <p></p>
         <div class="input-group push-right">
-          <button class="iconified-button" @click="$refs.manageProvidersModal.hide()">
+          <button class="btn" @click="$refs.manageProvidersModal.hide()">
             <XIcon />
             Close
           </button>
         </div>
       </div>
     </Modal>
-    <section class="universal-card">
+    <section class="card">
       <h2>User profile</h2>
       <p>Visit your user profile to edit your profile information.</p>
-      <NuxtLink class="iconified-button" :to="`/user/${auth.user.username}`">
+      <NuxtLink class="btn" :to="`/user/${auth.user.username}`">
         <UserIcon /> Visit your profile
       </NuxtLink>
     </section>
 
-    <section class="universal-card">
+    <section class="card">
       <h2>Account security</h2>
 
       <div class="adjacent-input">
@@ -296,7 +302,7 @@
           <span class="label__description">Changes the email associated with your account.</span>
         </label>
         <div>
-          <button class="iconified-button" @click="$refs.changeEmailModal.show()">
+          <button class="btn" @click="$refs.changeEmailModal.show()">
             <template v-if="auth.user.email">
               <EditIcon />
               Change email
@@ -321,7 +327,7 @@
         </label>
         <div>
           <button
-            class="iconified-button"
+            class="btn"
             @click="
               () => {
                 oldPassword = ''
@@ -346,7 +352,7 @@
           </span>
         </label>
         <div>
-          <button class="iconified-button" @click="showTwoFactorModal">
+          <button class="btn" @click="showTwoFactorModal">
             <template v-if="auth.user.has_totp"> <TrashIcon /> Remove 2FA </template>
             <template v-else> <PlusIcon /> Setup 2FA </template>
           </button>
@@ -361,24 +367,20 @@
           </span>
         </label>
         <div>
-          <button class="iconified-button" @click="$refs.manageProvidersModal.show()">
+          <button class="btn" @click="$refs.manageProvidersModal.show()">
             <SettingsIcon /> Manage providers
           </button>
         </div>
       </div>
     </section>
 
-    <section id="delete-account" class="universal-card">
+    <section id="delete-account" class="card">
       <h2>Delete account</h2>
       <p>
         Once you delete your account, there is no going back. Deleting your account will remove all
         attached data, excluding projects, from our servers.
       </p>
-      <button
-        type="button"
-        class="iconified-button danger-button"
-        @click="$refs.modal_confirm.show()"
-      >
+      <button type="button" class="btn btn-red" @click="$refs.modal_confirm.show()">
         <TrashIcon />
         Delete account
       </button>
@@ -399,17 +401,17 @@ import {
   RightArrowIcon,
   CheckIcon,
   ExternalIcon,
+  Modal,
+  ConfirmModal,
+  KeyIcon,
+  SSOGitHubIcon,
+  SSOGitLabIcon,
+  SSOMicrosoftIcon,
+  SSOSteamIcon,
+  SSOGoogleIcon,
+  SSODiscordIcon,
 } from 'omorphia'
 import QrcodeVue from 'qrcode.vue'
-import GitHubIcon from 'assets/icons/auth/sso-github.svg'
-import MicrosoftIcon from 'assets/icons/auth/sso-microsoft.svg'
-import GoogleIcon from 'assets/icons/auth/sso-google.svg'
-import SteamIcon from 'assets/icons/auth/sso-steam.svg'
-import DiscordIcon from 'assets/icons/auth/sso-discord.svg'
-import KeyIcon from 'assets/icons/auth/key.svg'
-import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
-import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -421,6 +423,7 @@ definePageMeta({
 
 const data = useNuxtApp()
 const auth = await useAuth()
+const cosmetics = useCosmetics()
 
 const changeEmailModal = ref()
 const email = ref(auth.value.user.email)
@@ -563,32 +566,32 @@ const authProviders = [
   {
     id: 'github',
     display: 'GitHub',
-    icon: GitHubIcon,
+    icon: SSOGitHubIcon,
   },
   {
     id: 'gitlab',
     display: 'GitLab',
-    icon: GitLabIcon,
+    icon: SSOGitLabIcon,
   },
   {
     id: 'steam',
     display: 'Steam',
-    icon: SteamIcon,
+    icon: SSOSteamIcon,
   },
   {
     id: 'discord',
     display: 'Discord',
-    icon: DiscordIcon,
+    icon: SSODiscordIcon,
   },
   {
     id: 'microsoft',
     display: 'Microsoft',
-    icon: MicrosoftIcon,
+    icon: SSOMicrosoftIcon,
   },
   {
     id: 'google',
     display: 'Google',
-    icon: GoogleIcon,
+    icon: SSOGoogleIcon,
   },
 ]
 

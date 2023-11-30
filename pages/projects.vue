@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Modal ref="editLinksModal" header="Edit links">
+    <Modal
+      ref="editLinksModal"
+      header="Edit links"
+      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+    >
       <div class="universal-modal links-modal">
         <p>
           Any links you specify below will be overwritten on each of the selected projects. Any you
@@ -28,7 +32,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.issues.clear"
               @click="editLinks.issues.clear = !editLinks.issues.clear"
             >
@@ -55,7 +59,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.source.clear"
               @click="editLinks.source.clear = !editLinks.source.clear"
             >
@@ -82,7 +86,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.wiki.clear"
               @click="editLinks.wiki.clear = !editLinks.wiki.clear"
             >
@@ -108,7 +112,7 @@
             <button
               v-tooltip="'Clear link'"
               aria-label="Clear link"
-              class="square-button label-button"
+              class="btn icon-only label-button"
               :data-active="editLinks.discord.clear"
               @click="editLinks.discord.clear = !editLinks.discord.clear"
             >
@@ -145,11 +149,11 @@
           :collapsing-toggle-style="true"
         />
         <div class="push-right input-group">
-          <button class="iconified-button" @click="$refs.editLinksModal.hide()">
-            <CrossIcon />
+          <button class="btn" @click="$refs.editLinksModal.hide()">
+            <XIcon />
             Cancel
           </button>
-          <button class="iconified-button brand-button" @click="bulkEditLinks()">
+          <button class="btn btn-primary" @click="bulkEditLinks()">
             <SaveIcon />
             Save changes
           </button>
@@ -159,7 +163,7 @@
     <ModalCreation ref="modal_creation" />
     <h1>Projects</h1>
     <div class="input-group">
-      <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
+      <button class="btn btn-primary" @click="$refs.modal_creation.show()">
         <PlusIcon />
         Create a project
       </button>
@@ -171,7 +175,7 @@
       <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="input-group">
         <button
-          class="iconified-button"
+          class="btn"
           :disabled="selectedProjects.length === 0"
           @click="$refs.editLinksModal.show()"
         >
@@ -193,16 +197,16 @@
             />
             <button
               v-tooltip="descending ? 'Descending' : 'Ascending'"
-              class="square-button"
+              class="btn icon-only"
               @click="updateDescending()"
             >
-              <DescendingIcon v-if="descending" />
-              <AscendingIcon v-else />
+              <SortDescendingIcon v-if="descending" />
+              <SortAscendingIcon v-else />
             </button>
           </div>
         </div>
       </div>
-      <div class="grid-table universal-card">
+      <div class="grid-table card">
         <div class="grid-table__row grid-table__header">
           <div>
             <Checkbox
@@ -281,7 +285,7 @@
 
           <div>
             <nuxt-link
-              class="square-button"
+              class="btn icon-only"
               :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }/settings`"
@@ -295,45 +299,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
-
-import Badge from '~/components/ui/Badge.vue'
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Modal from '~/components/ui/Modal.vue'
-import Avatar from '~/components/ui/Avatar.vue'
+import {
+  Badge,
+  Checkbox,
+  Modal,
+  Avatar,
+  CopyCode,
+  SettingsIcon,
+  TrashIcon,
+  IssuesIcon,
+  PlusIcon,
+  XIcon,
+  EditIcon,
+  SaveIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
+} from 'omorphia'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-import CopyCode from '~/components/ui/CopyCode.vue'
 
-import SettingsIcon from '~/assets/images/utils/settings.svg'
-import TrashIcon from '~/assets/images/utils/trash.svg'
-import IssuesIcon from '~/assets/images/utils/issues.svg'
-import PlusIcon from '~/assets/images/utils/plus.svg'
-import CrossIcon from '~/assets/images/utils/x.svg'
-import EditIcon from '~/assets/images/utils/edit.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
-import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
-import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
-
+const cosmetics = useCosmetics()
+</script>
+<script>
 export default defineNuxtComponent({
-  components: {
-    Avatar,
-    Badge,
-    SettingsIcon,
-    TrashIcon,
-    Checkbox,
-    IssuesIcon,
-    PlusIcon,
-    CrossIcon,
-    EditIcon,
-    SaveIcon,
-    Modal,
-    ModalCreation,
-    Multiselect,
-    CopyCode,
-    AscendingIcon,
-    DescendingIcon,
-  },
   async setup() {
     const user = await useUser()
     await initUserProjects()
@@ -671,7 +660,7 @@ h1 {
   line-height: 1em;
 }
 
-.universal-card {
+.card {
   padding: 0;
 }
 </style>

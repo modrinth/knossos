@@ -1,5 +1,5 @@
 <template>
-  <NuxtPage class="auth-container universal-card" />
+  <NuxtPage class="auth-container card" />
 </template>
 
 <style>
