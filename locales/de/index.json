@@ -48,7 +48,7 @@
     "message": "Profilbild hochladen"
   },
   "profile.joined-at": {
-    "message": "{ago} beigetreten"
+    "message": "Vor {ago} beigetreten"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
