@@ -193,20 +193,6 @@
             </div>
           </div>
         </Card>
-        <Card>
-          <h2 class="sidebar-card-header">Badges</h2>
-          <div class="badges-container">
-            <div class="badge">
-              <BadgeModrinthTeam />
-            </div>
-            <div class="badge">
-              <Badge100kDownloads />
-            </div>
-            <div class="badge">
-              <Badge1MDownloads />
-            </div>
-          </div>
-        </Card>
         <Card v-if="organizations">
           <h2 class="sidebar-card-header">Organizations</h2>
           <div class="organizations">
@@ -336,10 +322,6 @@ import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
-
-import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
-import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
-import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
 import BracesIcon from '~/assets/images/utils/braces.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
