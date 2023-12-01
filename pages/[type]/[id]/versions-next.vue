@@ -217,19 +217,8 @@ import {
   SearchIcon,
   FilterIcon,
 } from 'omorphia'
-// import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
 import ImportIcon from '~/assets/images/utils/import.svg'
-// import InfoIcon from '~/assets/images/utils/info.svg'
-// import VersionBadge from '~/components/ui/Badge.vue'
-// import FileInput from '~/components/ui/FileInput.vue'
-// import DropArea from '~/components/ui/DropArea.vue'
-// import Pagination from '~/components/ui/Pagination.vue'
-// import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
-// import MessageBanner from '~/components/ui/MessageBanner.vue'
 import VersionTypeIndicator from '~/components/ui/VersionTypeIndicator.vue'
-// import Edit from '~/pages/[type]/[id]/version/[version]/edit.vue'
 
 const props = defineProps({
   project: {

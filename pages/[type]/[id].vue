@@ -11,236 +11,146 @@
     </Modal>
     <Modal ref="downloadModal" :header="`Download ${project.title}`">
       <div class="download-modal-content">
-        <!--        <div>-->
-        <!--          <h2>Version</h2>-->
-        <!--          <ScrollableMultiSelect>-->
-        <!--            <ListSelector v-for="version in project.game_versions" :key="version" v-model="dummy">-->
-        <!--              {{ version }}-->
-        <!--            </ListSelector>-->
-        <!--          </ScrollableMultiSelect>-->
-        <!--        </div>-->
-        <!--        <div>-->
-        <!--          <h2>Platform</h2>-->
-        <!--          <ScrollableMultiSelect>-->
-        <!--            <ListSelector v-for="platform in project.loaders" :key="platform" v-model="dummy">-->
-        <!--              {{ platform }}-->
-        <!--            </ListSelector>-->
-        <!--          </ScrollableMultiSelect>-->
-        <!--        </div>-->
-        <template v-if="true">
-          <div class="download-modal-test">
-            <div v-if="selectingGameVersion" class="version-selection-thing">
-              <button class="btn" @click="() => (selectingGameVersion = false)">
-                <LeftArrowIcon /> Back
-              </button>
-              <div class="iconified-input">
-                <label class="hidden" for="search">Search</label>
-                <SearchIcon aria-hidden="true" />
-                <input
-                  id="search"
-                  v-model="filterQuery"
-                  type="text"
-                  name="search"
-                  :placeholder="`Search versions...`"
-                  autocomplete="off"
-                  @input="onSearchChange(1)"
-                />
-                <Button v-if="filterQuery" @click="() => (filterQuery = '')">
-                  <XIcon />
-                </Button>
-              </div>
-              <ScrollableMultiSelect>
-                <ListSelector
-                  v-for="version in suggestedMinecraftVersions"
-                  :key="version.version"
-                  :model-value="selectedGameVersion === version.version"
-                  @click="
-                    () => {
-                      selectedGameVersion = version.version
-                      selectingGameVersion = false
-                    }
-                  "
-                >
-                  {{ version.version }}
-                  <template v-if="version.version_type === 'snapshot'">(Snapshot)</template>
-                </ListSelector>
-              </ScrollableMultiSelect>
-            </div>
-            <div v-else-if="selectingPlatform" class="version-selection-thing">
-              <button class="btn" @click="() => (selectingPlatform = false)">
-                <LeftArrowIcon /> Back
-              </button>
-              <div class="iconified-input">
-                <label class="hidden" for="search">Search</label>
-                <SearchIcon aria-hidden="true" />
-                <input
-                  id="search"
-                  v-model="filterQuery"
-                  type="text"
-                  name="search"
-                  :placeholder="`Search platforms...`"
-                  autocomplete="off"
-                  @input="onSearchChange(1)"
-                />
-                <Button v-if="filterQuery" @click="() => (filterQuery = '')">
-                  <XIcon />
-                </Button>
-              </div>
-              <ScrollableMultiSelect>
-                <ListSelector
-                  v-for="platform in project.loaders"
-                  :key="platform"
-                  :model-value="selectedPlatform === platform"
-                  @click="
-                    () => {
-                      selectedPlatform = platform
-                      selectingPlatform = false
-                    }
-                  "
-                >
-                  {{ formatCategory(platform) }}
-                </ListSelector>
-              </ScrollableMultiSelect>
-            </div>
-            <template v-else>
-              <Button large color="primary" outline>
-                <ExternalIcon /> Install with Modrinth App
-              </Button>
-              <div class="or-divider">or</div>
-              <div class="version-picker">
-                <button class="btn btn-transparent" @click="() => (selectingGameVersion = true)">
-                  <GameIcon />
-                  {{
-                    selectedGameVersion ? `Version: ${selectedGameVersion}` : 'Select game version'
-                  }}
-                  <ChevronRightIcon />
-                </button>
-                <button
-                  class="btn btn-transparent"
-                  :disabled="project.loaders.length === 1"
-                  @click="() => (selectingPlatform = true)"
-                >
-                  <WrenchIcon />
-                  {{
-                    project.loaders.length === 1
-                      ? `Platform: ${formatCategory(project.loaders[0])}`
-                      : selectedPlatform
-                      ? `Platform: ${formatCategory(selectedPlatform)}`
-                      : 'Select platform'
-                  }}
-                  <ChevronRightIcon />
-                </button>
-                <Button large color="primary" disabled> <DownloadIcon /> Download</Button>
-              </div>
-            </template>
+        <div v-if="selectingGameVersion" class="list-selection-page">
+          <div class="heading">
+            <h2>Select game version</h2>
+            <button class="btn" @click="() => (selectingGameVersion = false)">
+              <LeftArrowIcon /> Back
+            </button>
           </div>
-        </template>
-        <template v-if="false">
-          <div class="checklist">
-            <div :class="{ current: !selectedGameVersion }">
-              <GameIcon />
-              <template v-if="selectedGameVersion">{{ selectedGameVersion }}</template>
-              <template v-else>Game version</template>
-            </div>
-            <div>
-              <ChevronRightIcon />
-            </div>
-            <div :class="{ current: selectedGameVersion && !selectedPlatform }">
-              <WrenchIcon />
-              <template v-if="selectedPlatform">{{ selectedPlatform }}</template>
-              <template v-else>Platform</template>
-            </div>
-            <div>
-              <ChevronRightIcon />
-            </div>
-            <div :class="{ current: selectedGameVersion && selectedPlatform }">
-              <VersionIcon />
-              {{ project.title }} version
-            </div>
+          <div class="iconified-input">
+            <label class="hidden" for="search">Search</label>
+            <SearchIcon aria-hidden="true" />
+            <input
+              id="search"
+              v-model="gameVersionQuery"
+              type="text"
+              name="search"
+              :placeholder="`Search versions...`"
+              autocomplete="off"
+            />
+            <Button v-if="gameVersionQuery" @click="() => (gameVersionQuery = '')">
+              <XIcon />
+            </Button>
           </div>
-          <div v-if="!selectedGameVersion">
-            <span class="question"> What version of Minecraft: Java Edition are you using? </span>
-            <div class="question-options button-group">
-              <ListSelector
-                v-for="version in suggestedMinecraftVersions"
-                :key="version.version"
-                :model-value="selectedGameVersion === version.version"
-                @click="() => (selectedGameVersion = version.version)"
-              >
-                {{ version.version }}
-                <template v-if="version.version_type === 'snapshot'">(Snapshot)</template>
-              </ListSelector>
-              <ListSelector no-active-state>Other</ListSelector>
-            </div>
-          </div>
-          <div v-else-if="!selectedPlatform">
-            <div class="button-group">
-              <button class="btn" @click="() => (selectedGameVersion = null)">
-                <LeftArrowIcon /> Back
-              </button>
-            </div>
-            <span class="question"> What platform are you using? </span>
-            <div class="question-options button-group">
-              <ListSelector
-                v-for="item in versionModalMap[selectedGameVersion]"
-                :key="item.platform"
-                :model-value="selectedPlatform === item.platform"
-                @click="() => (selectedPlatform = item.platform)"
-              >
-                {{ formatCategory(item.platform) }}
-              </ListSelector>
-            </div>
-          </div>
-          <div v-else>
-            <div class="button-group">
-              <button class="btn" @click="() => (selectedPlatform = null)">
-                <LeftArrowIcon /> Back
-              </button>
-            </div>
-          </div>
-        </template>
-        <!-- MC version headers -->
-        <template v-if="false">
-          <div class="filters">
-            <div class="iconified-input">
-              <label class="hidden" for="search">Search</label>
-              <SearchIcon aria-hidden="true" />
-              <input
-                id="search"
-                type="text"
-                name="search"
-                :placeholder="`Search versions...`"
-                autocomplete="off"
-              />
-              <Button v-if="false" @click="() => {}">
-                <XIcon />
-              </Button>
-            </div>
-          </div>
-          <ScrollableMultiSelect class="versions-list">
-            <div
-              v-for="(gameVersion, index) in Object.keys(versionModalMap)"
-              :key="`game-version-header-${index}`"
-              class="game-version-group"
+          <ScrollableMultiSelect>
+            <ListSelector
+              v-for="{ version, valid } in gameVersionSuggestions.filter(
+                (x) => !gameVersionQuery || x.version.includes(gameVersionQuery)
+              )"
+              :key="version"
+              v-tooltip="
+                !valid
+                  ? `${project.title} is not available for ${formatCategory(
+                      selectedPlatform
+                    )} on ${version}`
+                  : null
+              "
+              :class="{
+                incompatible: !valid,
+              }"
+              :model-value="selectedGameVersion === version"
+              class="list-selector"
+              @click="
+                () => {
+                  selectedGameVersion = version
+                  selectingGameVersion = false
+
+                  if (!valid) {
+                    selectedPlatform = null
+                  }
+                }
+              "
             >
-              <div class="version-header">Minecraft {{ gameVersion }}</div>
-              <div class="button-group">
-                <div
-                  v-for="(item, index) in versionModalMap[gameVersion]
-                    .slice()
-                    .sort((a, b) =>
-                      a.platform.localeCompare(b.platform, undefined, { sensitivity: 'base' })
-                    )"
-                  :key="`game-version-header-loader-${index}`"
-                  class="btn"
-                >
-                  <DownloadIcon />
-                  {{ formatCategory(item.platform) }}
-                </div>
-              </div>
-            </div>
+              {{ version }}
+            </ListSelector>
           </ScrollableMultiSelect>
-        </template>
+          <div class="toggle-option">
+            <label for="show-all-versions"> Show pre-release versions </label>
+            <Toggle
+              id="show-all-versions"
+              v-model="showAllGameVersions"
+              :checked="showAllGameVersions"
+            />
+          </div>
+        </div>
+        <div v-else-if="selectingPlatform" class="list-selection-page">
+          <div class="heading">
+            <h2>Select platform</h2>
+            <button class="btn" @click="() => (selectingPlatform = false)">
+              <LeftArrowIcon /> Back
+            </button>
+          </div>
+          <ScrollableMultiSelect>
+            <ListSelector
+              v-for="{ platform, valid } in platformSuggestions"
+              :key="platform"
+              v-tooltip="
+                !valid
+                  ? `${project.title} is not available for ${formatCategory(
+                      platform
+                    )} on ${selectedGameVersion}`
+                  : null
+              "
+              :class="{
+                incompatible: !valid,
+              }"
+              class="list-selector"
+              :model-value="selectedPlatform === platform"
+              @click="
+                () => {
+                  selectedPlatform = platform
+                  selectingPlatform = false
+
+                  if (!valid) {
+                    selectedGameVersion = null
+                  }
+                }
+              "
+            >
+              {{ formatCategory(platform) }}
+            </ListSelector>
+          </ScrollableMultiSelect>
+        </div>
+        <div v-else class="main-page">
+          <button class="btn" @click="() => (selectingGameVersion = true)">
+            <GameIcon />
+            {{ selectedGameVersion ? `Version: ${selectedGameVersion}` : 'Select game version' }}
+            <ChevronRightIcon />
+          </button>
+          <div class="input-group">
+            <button
+              class="btn"
+              :disabled="project.loaders.length === 1"
+              @click="() => (selectingPlatform = true)"
+            >
+              <WrenchIcon />
+              {{
+                project.loaders.length === 1
+                  ? `Platform: ${formatCategory(project.loaders[0])}`
+                  : selectedPlatform
+                  ? `Platform: ${formatCategory(selectedPlatform)}`
+                  : 'Select platform'
+              }}
+              <ChevronRightIcon />
+            </button>
+            <UnknownIcon
+              v-if="project.loaders.length === 1"
+              v-tooltip="
+                `${project.title} is only available for ${formatCategory(project.loaders[0])}`
+              "
+              class="help-icon"
+            />
+          </div>
+          <Button
+            color="primary"
+            large
+            :link="selectedVersion ? selectedVersion.primaryFile.url : ''"
+            :disabled="!selectedVersion"
+          >
+            <DownloadIcon /> Download
+          </Button>
+        </div>
       </div>
     </Modal>
     <ModalReport
@@ -358,23 +268,33 @@
           </div>
           <div class="mod-buttons">
             <div class="joined-buttons">
-              <Button color="primary" large @click="() => downloadModal.show()">
+              <Button
+                color="primary"
+                large
+                @click="
+                  () => {
+                    downloadModal.show()
+                    selectedGameVersion = null
+                    selectedPlatform = null
+                  }
+                "
+              >
                 <DownloadIcon />
                 Download
               </Button>
-              <OverflowMenu
-                class="btn btn-primary btn-large"
-                :options="[
-                  {
-                    id: 'install',
-                    action: () => {},
-                    color: 'green',
-                  },
-                ]"
-              >
-                <DropdownIcon />
-                <template #install><DownloadIcon /> Install with App</template>
-              </OverflowMenu>
+              <!--              <OverflowMenu-->
+              <!--                class="btn btn-primary btn-large"-->
+              <!--                :options="[-->
+              <!--                  {-->
+              <!--                    id: 'install',-->
+              <!--                    action: () => {},-->
+              <!--                    color: 'green',-->
+              <!--                  },-->
+              <!--                ]"-->
+              <!--              >-->
+              <!--                <DropdownIcon />-->
+              <!--                <template #install><DownloadIcon /> Install with App</template>-->
+              <!--              </OverflowMenu>-->
             </div>
           </div>
         </div>
@@ -912,30 +832,27 @@ import {
   UnknownIcon,
   ChevronRightIcon,
   Badge,
-  CopyCode,
   NavStack,
   NavItem as NavStackItem,
   SettingsIcon,
-  ChartIcon,
   UsersIcon,
   TagsIcon as TagIcon,
   AlignLeftIcon as DescriptionIcon,
   LinkIcon as LinksIcon,
   ImageIcon as GalleryIcon,
   VersionIcon,
-  Breadcrumbs,
   SearchIcon,
-  FilterIcon,
   Categories,
-  GridIcon,
   PageBar,
-  ListIcon,
-  HistoryIcon,
   renderString,
   getProjectLink,
   formatCategory,
   formatNumber,
   SlashIcon as BanIcon,
+  ScrollableMultiSelect,
+  ListSelector,
+  Toggle,
+  XIcon,
 } from 'omorphia'
 import ModalReport from '~/components/ui/ModalReport.vue'
 
@@ -946,20 +863,11 @@ import ManageIcon from '~/assets/images/utils/settings-2.svg'
 import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
-import { renderString } from '~/helpers/parse.js'
-import { getProjectLink } from '~/helpers/projects.js'
-import SearchIcon from 'assets/images/utils/search.svg'
-import categories from '~/components/ui/search/Categories.vue'
-import PageBar from '~/components/ui/PageBar.vue'
-import ListSelector from '~/components/ui/ListSelector.vue'
-import ScrollableMultiSelect from '~/components/ui/ScrollableMultiSelect.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
-const config = useRuntimeConfig()
 
 const auth = await useAuth()
-const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
 const vintl = useVIntl()
@@ -1095,7 +1003,7 @@ versions.value = data.$computeVersions(versions.value, allMembers.value)
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
 //    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
 //    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
-///   version
+//    version
 const featuredIds = featuredVersions.value.map((x) => x.id)
 featuredVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
 
@@ -1109,93 +1017,71 @@ featuredVersions.value.sort((a, b) => {
 const selectedGameVersion = ref(null)
 const selectedPlatform = ref(null)
 
-const versionModalMap = computed(() => {
-  const allVersionPairs = []
-  project.value.loaders.forEach((loader) => {
-    project.value.game_versions.forEach((gameVersion) => {
-      allVersionPairs.push({
-        platform: loader,
-        version: gameVersion,
-      })
-    })
-  })
-
-  const latestVersions = []
+const platformSuggestions = computed(() => {
+  const validPlatformsSet = new Set()
 
   versions.value.forEach((version) => {
-    const supportedVersions = allVersionPairs.filter(
-      (pair) =>
-        version.loaders.includes(pair.platform) &&
-        version.game_versions.includes(pair.version) &&
-        !latestVersions.some((x) => x.pair === pair)
-    )
-    supportedVersions.forEach((pair) => {
-      latestVersions.push({
-        pair,
-        version,
-      })
-    })
-  })
-
-  const versionMap = {}
-
-  latestVersions.forEach((x) => {
-    const version = x.pair.version
-    if (!versionMap[version]) {
-      versionMap[version] = []
+    if (!selectedGameVersion.value || version.game_versions.includes(selectedGameVersion.value)) {
+      version.loaders.forEach((platform) => validPlatformsSet.add(platform))
     }
-    versionMap[version].push({
-      platform: x.pair.platform,
-      version: x.version,
-    })
   })
-  console.log(versionMap)
 
-  return versionMap
+  const validPlatforms = [...validPlatformsSet]
+
+  return [
+    ...validPlatforms.map((platform) => ({
+      platform,
+      valid: true,
+    })),
+    ...project.value.loaders
+      .filter((x) => !validPlatforms.includes(x))
+      .map((platform) => ({
+        platform,
+        valid: false,
+      })),
+  ]
 })
 
-const showSnapshots = ref(true)
-const showLegacy = ref(false)
+const gameVersionSuggestions = computed(() => {
+  const validGameVersionsSet = new Set()
+
+  versions.value.forEach((version) => {
+    if (!selectedPlatform.value || version.loaders.includes(selectedPlatform.value)) {
+      version.game_versions.forEach((gameVersion) => validGameVersionsSet.add(gameVersion))
+    }
+  })
+
+  const validGameVersions = [...validGameVersionsSet]
+
+  return [
+    ...validGameVersions.map((gameVersion) => ({
+      version: gameVersion,
+      valid: true,
+    })),
+    ...project.value.game_versions
+      .filter((x) => !validGameVersions.includes(x))
+      .map((gameVersions) => ({
+        version: gameVersions,
+        valid: false,
+      })),
+  ]
+})
+
+const selectedVersion = computed(() => {
+  const platform = selectedPlatform.value
+  const gameVersion = selectedGameVersion.value
+
+  return versions.value.find(
+    (version) => version.loaders.includes(platform) && version.game_versions.includes(gameVersion)
+  )
+})
+
+const showAllGameVersions = ref(false)
+const showSnapshots = computed(() => showAllGameVersions.value)
+const showLegacy = computed(() => showAllGameVersions.value)
 const showMinor = ref(true)
 
-const gameVersionsModal = computed(() => {
-  const allowedTypes = ['release']
-
-  if (showSnapshots.value) {
-    allowedTypes.push('snapshot')
-  }
-  if (showLegacy.value) {
-    allowedTypes.push('alpha', 'beta')
-  }
-
-  return tags.value.gameVersions
-    .slice()
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .reverse()
-    .filter(
-      (x) =>
-        allowedTypes.includes(x.version_type) &&
-        (showMinor.value || x.major || x.version_type !== 'release')
-    )
-    .map((x) => x.version)
-})
-
-const suggestedMinecraftVersions = computed(() => {
-  const suggestions = []
-
-  const sortedVersions = tags.value.gameVersions
-    .slice()
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .reverse()
-
-  suggestions.push(...sortedVersions.filter((x) => x.version_type === 'release'))
-
-  if (sortedVersions[0].version_type === 'snapshot') {
-    suggestions.push(sortedVersions[0])
-  }
-
-  return suggestions
-})
+const gameVersionQuery = ref('')
 
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
@@ -2129,152 +2015,109 @@ const collapsedChecklist = ref(false)
 }
 
 .download-modal-content {
-  padding: var(--gap-lg);
-  display: grid;
-  //grid-template-columns: repeat(2, 1fr);
-
-  > div {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .versions-list {
-    display: flex;
-    flex-direction: column;
-    max-height: 23rem;
-
-    > div {
-      padding: var(--gap-sm);
-    }
-  }
-
-  .button-group {
-    margin-bottom: var(--gap-md);
-  }
-}
-
-.version-header {
-  color: var(--color-contrast);
-  font-weight: 600;
-  font-size: var(--font-size-md);
-  margin-bottom: var(--gap-sm);
-}
-
-.game-version-group:not(:first-child) {
-  margin-top: var(--gap-md);
-}
-
-.filters {
-  margin-bottom: var(--gap-md);
-}
-
-.question {
-  color: var(--color-contrast);
-  font-weight: 600;
-  font-size: var(--font-size-md);
-  margin-bottom: var(--gap-sm);
-}
-
-.question-options {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
-  > .btn {
-    width: 100%;
-    justify-content: left;
-    overflow: hidden;
-  }
-}
-
-.download-modal-test {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   gap: var(--gap-lg);
-  height: 25rem;
+  height: 27rem;
+  padding: var(--gap-lg);
 
-  .or-divider {
+  > .list-selection-page {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: var(--gap-md);
 
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      background-color: var(--color-divider);
-      height: 2px;
-      width: 8rem;
-      margin-inline: 1rem;
-    }
-  }
-}
+    .scrollable-pane-wrapper {
+      max-height: 15rem;
+      flex-shrink: 1;
+      width: 20rem;
 
-.version-picker {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-sm);
-  width: 17rem;
+      :deep(.wrapper-wrapper) {
+        background-color: var(--color-bg);
+        border-radius: var(--radius-md);
+        padding: var(--gap-sm);
 
-  .btn {
-    width: 100%;
-  }
+        &::before {
+          background-image: linear-gradient(var(--color-bg), transparent);
+        }
 
-  .btn:not(.btn-primary) {
-    justify-content: left;
+        &::after {
+          background-image: linear-gradient(transparent, var(--color-bg));
+        }
+      }
 
-    &:disabled {
-      svg:last-child {
-        display: none;
+      .list-selector.incompatible {
+        color: var(--color-red);
+        opacity: 0.5;
       }
     }
 
-    svg:last-child {
-      margin-left: auto;
-    }
-  }
-}
-
-.download-modal-content {
-  .checklist {
-    display: grid;
-    grid-template-columns: 1fr min-content 1fr min-content 1fr;
-    margin-bottom: var(--gap-lg);
-
-    > div {
+    .heading {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      gap: var(--gap-sm);
-      padding: var(--gap-sm) var(--gap-lg);
-      border-radius: var(--radius-md);
-      font-size: var(--font-size-sm);
-      font-weight: 600;
-      justify-content: center;
-      text-align: center;
 
-      svg {
-        width: 1.25rem;
-        height: 1.25rem;
+      h2 {
+        margin: 0;
+        font-size: var(--font-size-md);
+      }
+    }
+  }
+
+  > .main-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    width: 18rem;
+
+    .btn {
+      width: 100%;
+    }
+
+    .btn:not(.btn-primary) {
+      justify-content: left;
+      text-align: left;
+
+      &:disabled {
+        background-color: transparent;
+
+        svg:last-child {
+          display: none;
+        }
       }
 
-      &.current {
-        background-color: var(--color-brand-highlight);
-        color: var(--color-contrast);
+      svg:last-child {
+        margin-left: auto;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      flex-wrap: nowrap;
+
+      .help-icon {
+        margin-right: 1rem;
       }
     }
   }
 }
 
-.version-selection-thing {
+.toggle-option {
+  margin-inline: 0.75rem;
   display: flex;
-  flex-direction: column;
-  gap: var(--gap-md);
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
 
-  .scrollable-pane-wrapper {
-    max-height: 16rem;
+  label {
+    flex-grow: 1;
+    font-weight: 600;
+  }
+
+  :not(:focus-visible) {
+    box-shadow: none;
   }
 }
 </style>
