@@ -1,12 +1,12 @@
 <template>
   <Modal ref="modal" :header="type === 'organization' ? 'Create an organization' : 'Create a collection'">
-    <div class="modal-creation universal-labels">
+    <div class="universal-modal modal-creation universal-labels">
       <div class="markdown-body">
         <p v-if="type === 'organization'">
           New organizations are created with you as the owner and can be found under your profile page.
         </p>
         <p v-else>
-          New collections are created as public as an empty collection.
+          Your new collection will be created as a public collection with {{ projectIds.length > 0 ? projectIds.length : 'no'  }} {{ projectIds.length !== 1 ? 'projects': 'project'}}.
         </p>
       </div>
       <label for="name">
@@ -42,88 +42,87 @@
     </div>
   </Modal>
 </template>
+<script setup>
+import { XIcon as CrossIcon, CheckIcon, Modal, Chips, Button } from 'omorphia'
 
-<script>
-import { Modal, Chips, XIcon as CrossIcon, CheckIcon, Button} from "omorphia";
+const cosmetics = useCosmetics()
+const tags = useTags()
+const router = useRouter()
 
-export default {
-  components: {
-    Chips,
-    CheckIcon,
-    Modal,
-    CrossIcon,
-    Button
-  },
-  props: {
-    type: {
-      type: String,
-      default: 'organization',
-    },
-    disallowSpaces: {
-      type: Boolean,
-      default: false,
-    },
-    project: {
-      type: String,
-      default: '',
-    }
-  },
-  data() {
-    return {
-      name: '',
-      description: '',
-    }
-  },
-  methods: {
-    cancel() {
-      this.$refs.modal.hide()
-    },
-    async createProject() {
-      startLoading()
+const name = ref('')
+const description = ref('')
 
-      try {
-        const result = await useBaseFetch(this.type, {
-          method: 'POST',
-          body: JSON.stringify({
-            title: this.name.trim(),
-            description: this.description.trim(),
-            projects: this.project ? [this.project] : []
-          }),
-        })
+const modal = ref()
 
-        console.log(result)
-
-        this.$refs.modal.hide()
-        await this.$router.push(this.type === 'organization' ? `/organization/${this.name}` : `/collection/${result.id}`)
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-    show() {
-      this.name = ''
-      this.description = ''
-      this.$refs.modal.show()
+const props = defineProps({
+  type: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  watch: {
-    name(value) {
-      if (this.disallowSpaces) {
-        this.name = value.replace(/ +/g, '');
-      }
-    }
-  }
+  projectIds: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+})
+
+function cancel() {
+  modal.value.hide()
 }
+
+async function createProject() {
+  startLoading()
+  try {
+    const value = {
+      title: name.value.trim(),
+      description: description.value.trim(),
+    };
+
+    if (props.type === 'collection') {
+      value.projects = props.projectIds
+    }
+
+    const result = await useBaseFetch(props.type, {
+      method: 'POST',
+      body: JSON.stringify(value)
+    })
+
+    modal.value.hide()
+    await router.push(props.type === 'organization' ? `/organization/${name.value}` : `/collection/${result.id}`)
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+function show() {
+  name.value = ''
+  description.value = ''
+  modal.value.show()
+}
+
+defineExpose({
+  show,
+})
+
+watch(() => name.value, (value) => {
+  if (props.disallowSpaces) {
+    name.value = value.replace(/ +/g, '');
+  }
+})
 </script>
 
 <style scoped lang="scss">
 .modal-creation {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
   display: flex;
   flex-direction: column;
 
@@ -145,7 +144,7 @@ export default {
   }
 
   .input-group {
-    margin-top: var(--spacing-card-md);
+    margin-top: var(--gap-md);
   }
 }
 </style>

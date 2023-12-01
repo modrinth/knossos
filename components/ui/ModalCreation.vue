@@ -2,7 +2,7 @@
   <Modal ref="modal" header="Create a project" :noblur="!(cosmetics.advancedRendering ?? true)">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
-        <p>New projects are created as drafts and can be found under your profile page.</p>
+        <p>New projects are created as drafts and can be found under {{ organization ? organization.title : 'your profile page'}}.</p>
       </div>
       <label for="project-type">
         <span class="label__title">Project type<span class="required">*</span></span>
@@ -66,6 +66,13 @@
 <script setup>
 import { XIcon, CheckIcon, Modal, Chips } from 'omorphia'
 
+const props = defineProps({
+  organization: {
+    type: Object,
+    default: null,
+  },
+})
+
 const cosmetics = useCosmetics()
 const tags = useTags()
 const router = useRouter()
@@ -125,28 +132,34 @@ async function createProject() {
 
   const auth = await useAuth()
 
+  const formValue = {
+    title: name.value.trim(),
+    project_type: projectType.actual,
+    slug: slug.value,
+    description: description.value.trim(),
+    body: '',
+    initial_versions: [],
+    team_members: [
+      {
+        user_id: auth.value.user.id,
+        name: auth.value.user.username,
+        role: 'Owner',
+      },
+    ],
+    categories: [],
+    client_side: clientSide.value,
+    server_side: serverSide.value,
+    license_id: 'LicenseRef-Unknown',
+    is_draft: true,
+  };
+
+  if (props.organization) {
+    formValue.organization_id = props.organization.id
+  }
+
   formData.append(
     'data',
-    JSON.stringify({
-      title: name.value.trim(),
-      project_type: projectType.actual,
-      slug: slug.value,
-      description: description.value.trim(),
-      body: '',
-      initial_versions: [],
-      team_members: [
-        {
-          user_id: auth.value.user.id,
-          name: auth.value.user.username,
-          role: 'Owner',
-        },
-      ],
-      categories: [],
-      client_side: clientSide.value,
-      server_side: serverSide.value,
-      license_id: 'LicenseRef-Unknown',
-      is_draft: true,
-    })
+    JSON.stringify(formValue)
   )
 
   try {

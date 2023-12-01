@@ -1,6 +1,6 @@
 <template>
   <ModalCreation ref="modal"/>
-  <SimpleCreationModal ref="orgModal" disallow-spaces/>
+  <SimpleCreationModal ref="orgModal" type="organization" disallow-spaces/>
   <div class="normal-page">
     <div class="normal-page__header">
       <h1>Home</h1>
@@ -201,6 +201,7 @@ import {
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
+import ModalCreation from "~/components/ui/ModalCreation.vue";
 
 const auth = await useAuth()
 const modal = ref(null)

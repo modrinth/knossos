@@ -157,7 +157,7 @@
         </div>
       </div>
     </Modal>
-    <ModalCreation ref="modal_creation" :organization="`${organization.id}`" />
+    <ModalCreation ref="modal_creation" :organization="organization" />
     <h1>Projects</h1>
     <div class="input-group">
       <Button color="primary" @click="$refs.modal_creation.show()">
@@ -203,9 +203,9 @@
           </div>
         </div>
       </div>
-      <div class="grid-table">
-        <div class="grid-table__row grid-table__header">
-          <div>
+      <div class="table">
+        <div class="table-row table-head">
+          <div class="table-cell check-cell">
             <Checkbox
               :model-value="selectedProjects === sortedProjects"
               @update:model-value="
@@ -215,19 +215,19 @@
               "
             />
           </div>
-          <div>Icon</div>
-          <div>Name</div>
-          <div>ID</div>
-          <div>Type</div>
-          <div>Status</div>
-          <div />
+          <div class="table-cell">Icon</div>
+          <div class="table-cell">Name</div>
+          <div class="table-cell">ID</div>
+          <div class="table-cell">Type</div>
+          <div class="table-cell">Status</div>
+          <div class="table-cell"/>
         </div>
         <div
           v-for="project in sortedProjects"
           :key="`project-${project.id}`"
-          class="grid-table__row"
+          class="table-row"
         >
-          <div>
+          <div class="table-cell check-cell">
             <Checkbox
               :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
               :model-value="selectedProjects.includes(project)"
@@ -238,10 +238,10 @@
               "
             />
           </div>
-          <div>
+          <div class="table-cell">
             <nuxt-link
               tabindex="-1"
-              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }`"
             >
@@ -254,7 +254,7 @@
             </nuxt-link>
           </div>
 
-          <div>
+          <div class="table-cell">
             <span class="project-title">
               <IssuesIcon
                 v-if="project.moderator_message"
@@ -263,7 +263,7 @@
 
               <nuxt-link
                 class="hover-link wrap-as-needed"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
@@ -272,22 +272,22 @@
             </span>
           </div>
 
-          <div>
+          <div class="table-cell">
             <CopyCode :text="project.id" />
           </div>
 
-          <div>
-            {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
+          <div class="table-cell">
+            {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
           </div>
 
-          <div>
+          <div class="table-cell">
             <Badge v-if="project.status" :type="project.status" class="status" />
           </div>
 
-          <div>
+          <div class="table-cell">
             <nuxt-link
-              class="square-button"
-              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+              class="btn icon-only"
+              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                 project.slug ? project.slug : project.id
               }/settings`"
             >
@@ -317,9 +317,11 @@ import {
   SaveIcon,
   Button,
   SortAscendingIcon,
-  SortDescendingIcon
+  SortDescendingIcon,
+  formatProjectType
 } from 'omorphia'
 
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 const props = defineProps({
@@ -476,53 +478,34 @@ const bulkEditLinks = async () => {
 }
 </script>
 <style lang="scss" scoped>
-.grid-table {
+.table {
   display: grid;
-  grid-template-columns:
-    min-content min-content minmax(min-content, 2fr)
-    minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
   border: 1px solid var(--color-button-bg);
+  background-color: var(--color-raised-bg);
 
-  .grid-table__row {
-    display: contents;
+  .table-row {
+    grid-template-columns: 2.75rem 3.75rem 2fr 1fr 1fr 1fr 3.5rem;
+  }
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: var(--spacing-card-sm);
+  .table-cell {
+    display: flex;
+    align-items: center;
+    padding: var(--gap-md);
+    padding-left: 0;
+  }
 
-      // Left edge of table
-      &:first-child {
-        padding-left: var(--spacing-card-bg);
-      }
-
-      // Right edge of table
-      &:last-child {
-        padding-right: var(--spacing-card-bg);
-      }
-    }
-
-    &:nth-child(2n + 1) > div {
-      background-color: var(--color-table-alternate-row);
-    }
-
-    &.grid-table__header > div {
-      font-weight: bold;
-      color: var(--color-text-dark);
-      padding-top: var(--spacing-card-bg);
-      padding-bottom: var(--spacing-card-bg);
-    }
+  .check-cell {
+    padding-left: var(--gap-md);
   }
 
   @media screen and (max-width: 750px) {
     display: flex;
     flex-direction: column;
 
-    .grid-table__row {
+    .table-row {
       display: grid;
       grid-template: 'checkbox icon name type settings' 'checkbox icon id status settings';
       grid-template-columns:
@@ -531,6 +514,7 @@ const bulkEditLinks = async () => {
 
       :nth-child(1) {
         grid-area: checkbox;
+        padding-right: 0;
       }
 
       :nth-child(2) {
@@ -560,7 +544,7 @@ const bulkEditLinks = async () => {
       }
     }
 
-    .grid-table__header {
+    .table-head {
       grid-template: 'checkbox settings';
       grid-template-columns: min-content minmax(min-content, 1fr);
 
@@ -575,7 +559,7 @@ const bulkEditLinks = async () => {
   }
 
   @media screen and (max-width: 560px) {
-    .grid-table__row {
+    .table-row {
       display: grid;
       grid-template: 'checkbox icon name settings' 'checkbox icon id settings' 'checkbox icon type settings' 'checkbox icon status settings';
       grid-template-columns: min-content min-content minmax(min-content, 1fr) min-content;
@@ -585,7 +569,7 @@ const bulkEditLinks = async () => {
       }
     }
 
-    .grid-table__header {
+    .table-head {
       grid-template: 'checkbox settings';
       grid-template-columns: min-content minmax(min-content, 1fr);
     }
@@ -616,7 +600,7 @@ const bulkEditLinks = async () => {
   flex-direction: row;
   min-width: 0;
   align-items: center;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-sm);
   white-space: nowrap;
 }
 

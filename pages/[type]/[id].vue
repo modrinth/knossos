@@ -9,6 +9,7 @@
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
+    <SimpleCreationModal ref="modal_collection" type="collection" :project-ids="[project.id]" />
     <div
       :class="{
         'normal-page': true,
@@ -217,6 +218,7 @@
           :patch-project="patchProject"
           :patch-icon="patchIcon"
           :update-icon="resetProject"
+          :organizations="organizations"
         />
       </section>
       <div class="normal-page__info">
@@ -273,6 +275,17 @@
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/versions`"
             >
               <VersionIcon /> Versions <span class="chevron"><ChevronRightIcon /></span>
+            </NuxtLink>
+            <h3>Dashboard</h3>
+            <NuxtLink
+                :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings/analytics`"
+            >
+              <ChartIcon /> Analytics <span class="chevron"></span>
+            </NuxtLink>
+            <NuxtLink
+                :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings/moderation`"
+            >
+              <ScaleIcon /> Moderation <span class="chevron"></span>
             </NuxtLink>
           </div>
         </template>
@@ -433,10 +446,36 @@
                 <HeartIcon />
                 Follow
               </Button>
-              <Button>
-                <BookmarkIcon />
+              <PopoutMenu class="btn" position="bottom" from="top-right">
+                <BookmarkIcon aria-hidden="true" />
                 Save
-              </Button>
+                <template #menu>
+                  <input
+                    v-model="displayCollectionsSearch"
+                    type="text"
+                    placeholder="Search collections..."
+                    class="search-input menu-search"
+                  />
+                  <div v-if="displayCollections && displayCollections.filter((x) => x.title.toLowerCase().includes(displayCollectionsSearch.toLowerCase())).length > 0" class="collections-list">
+                    <Checkbox
+                        v-for="option in displayCollections.filter((x) => x.title.toLowerCase().includes(displayCollectionsSearch.toLowerCase()))"
+                        :key="option.id"
+                        class="popout-checkbox"
+                        v-model="option.selected"
+                        @update:model-value="patchCollection(option, option.selected)"
+                    >
+                      {{ option.title }}
+                    </Checkbox>
+                  </div>
+                  <div class="menu-text" v-else>
+                    <p class="popout-text">No collections found.</p>
+                  </div>
+                  <Button class="collection-button" @click="$refs.modal_collection.show()">
+                    <PlusIcon/>
+                    Create new collection
+                  </Button>
+                </template>
+              </PopoutMenu>
               <OverflowMenu
                 class="btn icon-only"
                 :options="[
@@ -667,6 +706,8 @@ import {
   VersionIcon,
   Categories,
   PageBar,
+  Checkbox,
+  PlusIcon,
   renderString,
   getProjectLink,
   formatCategory,
@@ -674,7 +715,10 @@ import {
   formatBytes,
   formatProjectType,
   formatVersions,
+  PopoutMenu,
   SlashIcon as BanIcon,
+  ScaleIcon,
+  ChartIcon
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {
@@ -690,6 +734,7 @@ import ManageIcon from '~/assets/images/utils/settings-2.svg'
 import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const route = useRoute()
 
@@ -713,7 +758,10 @@ if (
   })
 }
 
-let project, allMembers, dependencies, featuredVersions, versions
+const displayCollections = ref([])
+const displayCollectionsSearch = ref('')
+
+let project, allMembers, dependencies, featuredVersions, versions, collections, organizations
 try {
   ;[
     { data: project },
@@ -721,6 +769,8 @@ try {
     { data: dependencies },
     { data: featuredVersions },
     { data: versions },
+    { data: collections },
+    { data: organizations },
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
@@ -763,6 +813,24 @@ try {
     useAsyncData(`project/${route.params.id}/version`, () =>
       useBaseFetch(`project/${route.params.id}/version`)
     ),
+    useAsyncData(
+        `user/${auth.value.user.id}/collections`,
+        () => useBaseFetch(`user/${auth.value.user.id}/collections`),
+        { transform: (collections) => collections.sort((a, b) => a.title.localeCompare(b.title)) },
+    ),
+    useAsyncData(
+        `user/${auth.value.user.id}/organizations`,
+        () => useBaseFetch(`user/${auth.value.user.id}/organizations`),
+        { transform: (organizations) => organizations.sort((a, b) => a.title.localeCompare(b.title)).map(org => {
+            return {
+              title: org.title,
+              subtitle: org.description,
+              icon: org.icon_url,
+              id: org.id,
+            }
+          })
+        },
+    ),
   ])
 
   versions = shallowRef(toRaw(versions))
@@ -794,6 +862,31 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
     }`,
     { redirectCode: 301, replace: true }
   )
+}
+
+if(collections.value) {
+  displayCollections.value = collections.value.map((collection) => ({
+    ...collection,
+    selected: collection.projects.some((collectionProject) => collectionProject === project.value.id),
+  }))
+}
+
+const patchCollection = async (collection, add) => {
+  try {
+    await useBaseFetch(`collection/${collection.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        new_projects:  add ? [...collection.projects, project.value.id] : [ ...collection.projects].filter((x) => x !== project.value.id)
+      }),
+    })
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  }
 }
 
 const members = ref(allMembers.value.filter((x) => x.accepted))
@@ -1760,6 +1853,57 @@ const collapsedChecklist = ref(false)
 @media screen and (max-width: 900px) {
   .page-bar .desktop-settings-button {
     display: none;
+  }
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  padding-bottom: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-text-secondary);
+}
+
+.collection-button {
+  margin: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-divider {
+  margin: var(--gap-md);
+}
+
+.menu-text {
+  padding: 0 var(--gap-md);
+  font-size: var(--font-size-nm);
+  color: var(--color-text-secondary);
+}
+
+.menu-search {
+  margin: var(--gap-sm) var(--gap-md);
+  width: calc(100% - var(--gap-md) * 2);
+}
+
+.collections-list {
+  max-height: 40rem;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-divider);
+  margin: var(--gap-sm) var(--gap-md);
+  padding: var(--gap-sm);
+}
+
+:deep(.checkbox-outer) {
+  button.checkbox {
+    border: none;
   }
 }
 </style>

@@ -9,12 +9,14 @@ import {
   HistoryIcon,
   Button,
   UpdatedIcon,
-  PageBar
+  PageBar,
+  AnimatedLogo
 } from 'omorphia'
 import Chart from "~/components/ui/charts/Chart.vue";
 import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
 import CalendarClockIcon from "~/assets/images/utils/calendar-clock.svg";
+import {addNotification} from "~/composables/notifs";
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -47,42 +49,18 @@ let downloadData, viewData, revenueData, squashedDownloads, squashedViews, squas
 const customTimeModal = ref(null)
 
 onMounted(async () => {
-  await initUserProjects()
-  const body = `start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${timeResolution.value}`
-
-  try {
-    ;[
-      { data: downloadData },
-      { data: viewData },
-      { data: revenueData },
-    ] = await Promise.all([
-      useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
-        transform: (data) => processData(data, (value) => analyticsData.value.downloads += value, (value) => squashedDownloads = value, 'downloads'),
-      }),
-      useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
-        transform: (data) => processData(data, (value) => analyticsData.value.pageViews += value, (value) => squashedViews = value, 'views'),
-      }),
-      useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
-        transform: (data) => processData(data, (value) => analyticsData.value.revenue += value, (value) => squashedRevenue = value, 'revenue'),
-      }),
-    ])
-  } catch (err) {
-    app.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  } finally {
-    /*
-    if (!downloadData.data || !downloadData.labels || !viewData.data || !viewData.labels || !revenueData.data || !revenueData.labels || !monthlyRevenue.data || !monthlyRevenue.labels || !viewCountryData.data || !viewCountryData.labels || !downloadCountryData.data || !downloadCountryData.labels) {
+  setTimeout(async () => {
+    try {
+      await fetchNewData()
+      if (downloadData.value && viewData.value && revenueData.value) {
+        finishedLoading.value = true
+      } else {
+        failedToLoad.value = true
+      }
+    } catch (err) {
       failedToLoad.value = true
-    } else {
-      finishedLoading.value = true
     }
-    */
-    finishedLoading.value = true
-  }
+  }, 1000)
 })
 
 const RGBToHSL = (r, g, b) => {
@@ -253,7 +231,7 @@ const fetchNewData = async () => {
       }),
     ])
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,
@@ -307,211 +285,117 @@ const applyCustomModal = async () => {
         </div>
       </div>
   </Modal>
-  <h1>Analytics</h1>
-  <div v-if="failedToLoad" class="normal-page__content">
-    <div class="markdown-body">
-      <p>
-        Failed to load analytics data
-      </p>
+  <div class="normal-page alt-layout">
+    <div class="normal-page__header">
+      <h1>Analytics</h1>
+      <div v-if="failedToLoad"  class="markdown-body">
+        <p>
+          Failed to load analytics data
+        </p>
+      </div>
+      <PageBar v-if="finishedLoading" class="resolution-header">
+        <span class="page-bar__title"><HistoryIcon /> Range</span>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'daily'}" @click="() => selectResolution('daily')">Last month</div>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'weekly'}" @click="() => selectResolution('weekly')">Last quarter</div>
+        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'monthly'}" @click="() => selectResolution('monthly')">Last year</div>
+        <template #right>
+          <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon/> Refresh</div>
+          <div class="nav-button button-base always-click" :class="{'router-link-exact-active': selectedResolution === 'custom'}" @click="openCustomModal"><CalendarClockIcon /> Custom</div>
+        </template>
+      </PageBar>
     </div>
-  </div>
-  <div class="chart-dashboard">
-    <PageBar v-if="finishedLoading" class="resolution-header">
-      <span class="page-bar__title"><HistoryIcon /> Range</span>
-      <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'daily'}" @click="() => selectResolution('daily')">Last month</div>
-      <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'weekly'}" @click="() => selectResolution('weekly')">Last quarter</div>
-      <div class="nav-button button-base" :class="{'router-link-exact-active': selectedResolution === 'monthly'}" @click="() => selectResolution('monthly')">Last year</div>
-      <template #right>
-        <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon/> Refresh</div>
-        <div class="nav-button button-base always-click" :class="{'router-link-exact-active': selectedResolution === 'custom'}" @click="openCustomModal"><CalendarClockIcon /> Custom</div>
-      </template>
-    </PageBar>
-    <template v-if="finishedLoading && !markReload">
-      <client-only>
-        <CompactChart
-          :title="`Downloads since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-          color="var(--color-brand)"
-          class="button-base downloads"
-          :class="{ 'selected': selectedTab === 'downloads'}"
-          @click="() => selectedTab = 'downloads'"
-          :value="formatNumber(analyticsData.downloads, false)"
-          :data="squashedDownloads.data"
-          :labels="squashedDownloads.labels"
-        />
-      </client-only>
-      <client-only>
-        <CompactChart
-          :title="`Page views since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-          color="var(--color-blue)"
-          class="button-base views"
-          :class="{ 'selected': selectedTab === 'views'}"
-          @click="() => selectedTab = 'views'"
-          :value="formatNumber(analyticsData.pageViews, false)"
-          :data="squashedViews.data"
-          :labels="squashedViews.labels"
-        />
-      </client-only>
-      <client-only>
-        <CompactChart
-          :title="`Revenue since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-          color="var(--color-purple)"
-          class="button-base revenue"
-          :class="{ 'selected': selectedTab === 'revenue'}"
-          @click="() => selectedTab = 'revenue'"
-          :value="formatMoney(analyticsData.revenue, false)"
-          :data="squashedRevenue.data"
-          :labels="squashedRevenue.labels"
-          is-money
-        />
-      </client-only>
-    </template>
-    <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
-      <client-only>
-        <Chart
-          type="line"
-          name="Download data"
-          :data="downloadData.data"
-          :labels="downloadData.labels"
-          :colors="downloadData.colors"
-          suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
-          legend-position="right"
-        >
-          <h2 class="sidebar-card-header">Downloads</h2>
-        </Chart>
-      </client-only>
-    </Card>
-    <Card v-if="finishedLoading && !markReload && selectedTab === 'views'" class="main">
-      <client-only>
-        <Chart
-          type="line"
-          name="View data"
-          :data="viewData.data"
-          :labels="viewData.labels"
-          :colors="viewData.colors"
-          suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
-          legend-position="right"
-        >
-          <h2 class="sidebar-card-header">Page views</h2>
-        </Chart>
-      </client-only>
-    </Card>
-    <Card v-if="finishedLoading && !markReload && selectedTab === 'revenue'" class="main">
-      <client-only>
-          <Chart
-              type="line"
-              name="Revenue data"
-              :data="revenueData.data"
-              :labels="revenueData.labels"
-              :colors="revenueData.colors"
+    <div class="normal-page__sidebar">
+      <template v-if="finishedLoading && !markReload">
+        <client-only>
+          <CompactChart
+              :title="`Downloads since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+              color="var(--color-brand)"
+              class="button-base downloads"
+              :class="{ 'selected': selectedTab === 'downloads'}"
+              @click="() => selectedTab = 'downloads'"
+              :value="formatNumber(analyticsData.downloads, false)"
+              :data="squashedDownloads.data"
+              :labels="squashedDownloads.labels"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+              :title="`Page views since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+              color="var(--color-blue)"
+              class="button-base views"
+              :class="{ 'selected': selectedTab === 'views'}"
+              @click="() => selectedTab = 'views'"
+              :value="formatNumber(analyticsData.pageViews, false)"
+              :data="squashedViews.data"
+              :labels="squashedViews.labels"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+              :title="`Revenue since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+              color="var(--color-purple)"
+              class="button-base revenue"
+              :class="{ 'selected': selectedTab === 'revenue'}"
+              @click="() => selectedTab = 'revenue'"
+              :value="formatMoney(analyticsData.revenue, false)"
+              :data="squashedRevenue.data"
+              :labels="squashedRevenue.labels"
               is-money
+          />
+        </client-only>
+      </template>
+    </div>
+    <div class="normal-page__content">
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
+        <client-only>
+          <Chart
+            type="line"
+            name="Download data"
+            :data="downloadData.data"
+            :labels="downloadData.labels"
+            :colors="downloadData.colors"
+            suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+            legend-position="right"
           >
-            <h2 class="sidebar-card-header">Revenue</h2>
+            <h2 class="sidebar-card-header">Downloads</h2>
           </Chart>
         </client-only>
-    </Card>
+      </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'views'" class="main">
+        <client-only>
+          <Chart
+            type="line"
+            name="View data"
+            :data="viewData.data"
+            :labels="viewData.labels"
+            :colors="viewData.colors"
+            suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+            legend-position="right"
+          >
+            <h2 class="sidebar-card-header">Page views</h2>
+          </Chart>
+        </client-only>
+      </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'revenue'" class="main">
+        <client-only>
+            <Chart
+                type="line"
+                name="Revenue data"
+                :data="revenueData.data"
+                :labels="revenueData.labels"
+                :colors="revenueData.colors"
+                is-money
+            >
+              <h2 class="sidebar-card-header">Revenue</h2>
+            </Chart>
+          </client-only>
+      </Card>
+    </div>
   </div>
-  <BrandLogoAnimated v-if="(!finishedLoading || markReload) && !failedToLoad" />
+  <AnimatedLogo v-if="(!finishedLoading || markReload) && !failedToLoad" />
 </template>
 
 <style scoped lang="scss">
-.tabs {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  overflow: hidden;
-}
-
-.line-chart {
-  width: 100%;
-  background-color: var(--color-bg);
-  padding: var(--gap-xl);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-}
-
-.pie-charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--gap-lg);
-  width: 100%;
-  padding: var(--gap-xl);
-
-  .chart {
-    width: 100% !important;
-    height: calc(100% - 8rem) !important;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-bg);
-    padding: var(--gap-xl);
-    object-fit: cover;
-  }
-
-  .relative-chart {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--gap-md);
-    margin: -3rem 0;
-  }
-
-  .title {
-    color: var(--color-heading);
-    font-weight: bold;
-    font-size: var(--font-size-lg);
-  }
-}
-
-.bar-graph {
-  width: 100%;
-  padding: var(--gap-xl);
-  background-color: var(--color-bg);
-  border-radius: var(--radius-lg);
-}
-
-.chart-dashboard {
-  display: grid;
-  grid-template-areas:
-      'resolution-header resolution-header'
-      'downloads main'
-      'views main'
-      'revenue main';
-  grid-template-columns: 20rem 1fr;
-  column-gap: var(--gap-md);
-  width: 100%;
-
-  .downloads {
-    grid-area: downloads;
-
-    &.selected {
-      border: 1px solid var(--color-brand);
-    }
-  }
-
-  .views {
-    grid-area: views;
-
-    &.selected {
-      border: 1px solid var(--color-blue);
-    }
-  }
-
-  .revenue {
-    grid-area: revenue;
-
-    &.selected {
-      border: 1px solid var(--color-purple);
-    }
-  }
-
-  .main {
-    grid-area: main;
-    gap: var(--gap-lg);
-    padding: var(--gap-lg);
-  }
-
-  .resolution-header {
-    grid-area: resolution-header;
-  }
-}
-
 .modal-body {
   display: flex;
   flex-direction: column;

@@ -19,7 +19,12 @@ import {
   ChartIcon,
   formatNumber,
   ShareModal,
-  ReportModal, BoxIcon, ModrinthIcon, ScaleIcon, ServerIcon, MoreHorizontalIcon, OverflowMenu,
+  BoxIcon,
+  ModrinthIcon,
+  ScaleIcon,
+  ServerIcon,
+  MoreHorizontalIcon,
+  OverflowMenu,
   PageBar,
   Avatar,
   Breadcrumbs,
@@ -76,7 +81,7 @@ const patchOrganization = async (resData, quiet = false) => {
 
     result = true
     if (!quiet) {
-      data.$notify({
+      addNotification({
         group: 'main',
         title: 'Organization updated',
         text: 'Your organization has been updated.',
@@ -85,7 +90,7 @@ const patchOrganization = async (resData, quiet = false) => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,
@@ -115,14 +120,14 @@ const patchIcon = async (icon) => {
     )
     await resetOrganization()
     result = true
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Organization icon updated',
       text: "Your organization's icon has been updated.",
       type: 'success',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,
@@ -141,7 +146,7 @@ const deleteIcon = async () => {
     method: 'DELETE',
   })
   await resetOrganization()
-  this.$notify({
+  addNotification({
     group: 'main',
     title: 'organization icon removed',
     text: "Your Organization's icon has been removed.",
@@ -180,6 +185,30 @@ if (
 
 const selectFilter = (filter) => {
   router.push(`/organization/${organization.value.title}?filter=${filter}`)
+}
+
+const deleteOrganization = async () => {
+  startLoading()
+  try {
+    await useBaseFetch(`organization/${organization.value.id}`, {
+      method: 'DELETE',
+    })
+    addNotification({
+      group: 'main',
+      title: 'Organization deleted',
+      text: 'Your organization has been deleted.',
+      type: 'success',
+    })
+    await router.push('/')
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  }
+  stopLoading()
 }
 </script>
 
@@ -321,7 +350,7 @@ const selectFilter = (filter) => {
         :patch-icon="patchIcon"
         :patch-organization="patchOrganization"
         :delete-icon="deleteIcon"
-        :delete-org="deleteOrganization"
+        :delete-organization="deleteOrganization"
     />
   </div>
 </template>

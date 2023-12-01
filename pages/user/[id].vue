@@ -21,27 +21,19 @@
       <div class="modal-body">
         <div class="edit-section">
           <div class="avatar-section">
-            <Avatar size="lg" :src="previewImage ?? user.avatar_url" circle/>
-            <PopoutMenu class="btn icon-edit-button icon-only" position="bottom" direction="right">
-              <EditIcon />
-              <template #menu>
-            <span class="icon-edit-menu">
-              <FileInput
-                  id="project-icon"
-                  :max-size="262144"
-                  :show-icon="true"
-                  accept="image/png,image/jpeg,image/gif,image/webp"
-                  class="btn btn-transparent upload"
-                  style="white-space: nowrap"
-                  prompt=""
-                  @change="showPreviewImage"
-              >
-                <UploadIcon />
-                Upload icon
-              </FileInput>
-            </span>
-              </template>
-            </PopoutMenu>
+            <FileInput
+                id="project-icon"
+                :max-size="262144"
+                :show-icon="true"
+                accept="image/png,image/jpeg,image/gif,image/webp"
+                class="upload-button clickable"
+                style="white-space: nowrap"
+                prompt=""
+                @change="showPreviewImage"
+            >
+              <Avatar size="lg" :src="previewImage ?? user.avatar_url" circle/>
+              <ImageIcon class="image-icon"/>
+            </FileInput>
           </div>
           <input
               type="text"
@@ -107,7 +99,7 @@
         <PageBar>
           <span class="page-bar__title"><FilterIcon /> Filter by</span>
           <a class="nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'">All</a>
-          <template v-for="(filter, index) in filterOptions" :key="filter">
+          <template v-for="(filter, index) in projectTypes" :key="filter">
             <div class="nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
               <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
               <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
@@ -115,13 +107,13 @@
               <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
               <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
               <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
-              <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+              <template v-if="filter === 'modpack'"><PackageIcon /> Modpacks </template>
             </div>
           </template>
           <OverflowMenu
-              v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
+              v-if="projectTypes && projectTypes.length > 2 && projectTypes.slice(2, projectTypes.length).filter((filter) => filter !== selectedFilter).length > 0"
               class="link btn transparent nav-button"
-              :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
+              :options="projectTypes.slice(2, projectTypes.length).filter((filter) => filter !== selectedFilter).map(
                 (filter) => ({
                 'id': filter,
                 'action': () => {
@@ -168,14 +160,14 @@
             <div class="secondary-stat">
               <DownloadIcon class="secondary-stat__icon" />
               <span class="secondary-stat__text">
-                <span class="secondary-stat__value">{{ sumDownloads }}</span>
+                <span class="secondary-stat__value">{{ formatNumber(sumDownloads) }}</span>
                 <span>downloads</span>
               </span>
             </div>
             <div class="secondary-stat">
               <HeartIcon class="secondary-stat__icon" />
               <span class="secondary-stat__text">
-                <span class="secondary-stat__value">{{ sumFollows }}</span>
+                <span class="secondary-stat__value">{{ formatNumber(sumFollows) }}</span>
                 <span>followers of projects</span>
               </span>
             </div>
@@ -236,7 +228,7 @@
           </div>
         </div>
         <div
-          v-if="projects.length > 0"
+          v-if="projects && projects.length > 0"
           class="project-list"
           :class="
             'display-mode--' +
@@ -263,7 +255,7 @@
                 .sort((a, b) => b.featured - a.featured)
                 .map((x) => x.url)[0]
             "
-            :description="project"
+            :description="project.description"
             :created-at="project.published"
             :updated-at="project.updated"
             :downloads="project.downloads.toString()"
@@ -295,66 +287,67 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import {
   Promotion,
   ModrinthIcon,
   BoxIcon,
   ScaleIcon,
-  OverflowMenu,
-  Button,
-  SearchIcon,
-  SaveIcon,
-  PopoutMenu,
-  EditIcon,
-  TrashIcon,
-  UploadIcon,
-  FileInput,
-  XIcon,
-  ServerIcon,
-  MoreHorizontalIcon,
+  HeartIcon,
   DownloadIcon,
   SunriseIcon,
   ProjectCard,
   Avatar,
-  NavRow,
-  SettingsIcon,
-  GridIcon,
-  ListIcon,
   ImageIcon,
-  PageBar,
-  formatNumber,
   Modal,
+  Button,
   Card,
-  ReportModal,
-  FilterIcon,
-  HeartIcon
+  PageBar,
+  SearchIcon,
+  XIcon,
+  TrashIcon,
+  EditIcon,
+  SaveIcon,
+  FileInput,
+  MoreHorizontalIcon,
+  OverflowMenu,
+  PopoutMenu,
+  ServerIcon,
+  FilterIcon, formatNumber,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
+
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
-import WorldIcon from "assets/images/utils/world.svg";
-import GlassesIcon from "assets/images/utils/glasses.svg";
-import PackageIcon from "assets/images/utils/package-open.svg";
-import BracesIcon from "assets/images/utils/braces.svg";
+
+import BracesIcon from '~/assets/images/icons/braces.svg'
+import GlassesIcon from '~/assets/images/icons/glasses.svg'
+import WorldIcon from '~/assets/images/icons/world.svg'
+import PackageIcon from '~/assets/images/icons/package.svg'
 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime';
+import {addNotification} from "~/composables/notifs";
 
 dayjs.extend(relativeTime);
 
-const data = useNuxtApp()
 const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()
+const data = useNuxtApp()
 
-const inputText = ref('')
-const selectedFilter = ref('all')
 const editModal = ref(null)
+const selectedFilter = ref('all')
+const inputText = ref('')
+
+const vintl = useVIntl()
+const { formatMessage } = vintl
 
 const messages = defineMessages({
   profileManageProjectsButton: {
@@ -376,7 +369,7 @@ const messages = defineMessages({
   profileNoProjectsAuthLabel: {
     id: 'profile.label.no-projects-auth',
     defaultMessage:
-      "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
+        "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
   },
   userNotFoundError: {
     id: 'profile.error.not-found',
@@ -384,37 +377,35 @@ const messages = defineMessages({
   },
 })
 
-let user, projects, collections, organizations
-
+let user, projects, organizations
 try {
-  ;[{ data: user }, { data: projects }, { data: collections}, {data: organizations}] = await Promise.all([
+  ;[{ data: user }, { data: projects }, { data: organizations}] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
-      `user/${route.params.id}/projects`,
-      () => useBaseFetch(`user/${route.params.id}/projects`),
-      {
-        transform: (projects) => {
-          for (const project of projects) {
-            project.categories = project.categories.concat(project.loaders)
-            project.project_type = data.$getProjectTypeForUrl(
-              project.project_type,
-              project.categories,
-              tags.value
-            )
-          }
+        `user/${route.params.id}/projects`,
+        () => useBaseFetch(`user/${route.params.id}/projects`),
+        {
+          transform: (projects) => {
+            for (const project of projects) {
+              project.categories = project.categories.concat(project.loaders)
+              project.project_type = getProjectTypeForUrl(
+                  project.project_type,
+                  project.categories,
+                  tags.value
+              )
+            }
 
-          return projects
-        },
-      }
+            return projects
+          },
+        }
     ),
-    useAsyncData(`user/${route.params.id}/collections`, () => useBaseFetch(`user/${route.params.id}/collections`)),
     useAsyncData(`user/${route.params.id}/organizations`, () => useBaseFetch(`user/${route.params.id}/organizations`)),
   ])
 } catch {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -422,7 +413,7 @@ if (!user.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'User not found',
+    message: formatMessage(messages.userNotFoundError),
   })
 }
 
@@ -430,11 +421,28 @@ if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
 }
 
-const metaDescription = ref(
-  user.value.bio
-    ? `${user.value.bio} - Download ${user.value.username}'s projects on Modrinth`
-    : `Download ${user.value.username}'s projects on Modrinth`
+const title = `${user.value.username} - Modrinth`
+const description = ref(
+    user.value.bio
+        ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+          bio: user.value.bio,
+          username: user.value.username,
+        })}`
+        : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
 )
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
+})
+
+const icon = shallowRef(null)
+const username = ref(user.value.username)
+const bio = ref(user.value.bio)
+const previewImage = shallowRef(null)
 
 const projectTypes = computed(() => {
   const obj = {}
@@ -446,9 +454,6 @@ const projectTypes = computed(() => {
   return Object.keys(obj)
 })
 
-const filterOptions = ref([])
-filterOptions.value.push(...projectTypes.value)
-
 const sumDownloads = computed(() => {
   let sum = 0
 
@@ -456,9 +461,8 @@ const sumDownloads = computed(() => {
     sum += project.downloads
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
-
 const sumFollows = computed(() => {
   let sum = 0
 
@@ -466,14 +470,9 @@ const sumFollows = computed(() => {
     sum += project.followers
   }
 
-  return data.$formatNumber(sum)
+  return sum
 })
 
-const isEditing = ref(false)
-const icon = shallowRef(null)
-const username = ref(user.value.username)
-const bio = ref(user.value.bio)
-const previewImage = shallowRef(null)
 
 function showPreviewImage(files) {
   const reader = new FileReader()
@@ -492,9 +491,9 @@ const showEditModal = () => {
 
 const hasChanges = computed(() => {
   return (
-    (icon.value && icon.value !== user.value.avatar_url) ||
-    username.value !== user.value.username ||
-    bio.value !== user.value.bio
+      (icon.value && icon.value !== user.value.avatar_url) ||
+      username.value !== user.value.username ||
+      bio.value !== user.value.bio
   )
 })
 
@@ -503,13 +502,13 @@ async function saveChanges() {
   try {
     if (icon.value) {
       await useBaseFetch(
-        `user/${auth.value.user.id}/icon?ext=${
-          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon.value,
-        }
+          `user/${auth.value.user.id}/icon?ext=${
+              icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+          }`,
+          {
+            method: 'PATCH',
+            body: icon.value,
+          }
       )
     }
 
@@ -534,7 +533,7 @@ async function saveChanges() {
 
     editModal.value.hide()
 
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Profile updated',
       text: 'Your profile has been updated',
@@ -542,16 +541,15 @@ async function saveChanges() {
     })
   } catch (err) {
     console.error(err)
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
-      text: err.data.description,
+      text: err,
       type: 'error',
     })
   }
   stopLoading()
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -863,18 +861,36 @@ async function saveChanges() {
   .avatar-section {
     position: relative;
     grid-area: icon;
-    width: 9rem;
-    height: 9rem;
 
-    .avatar {
-      background-color: var(--color-bg);
-      border: 1px solid var(--color-button-bg);
-    }
 
-    .popup-container {
-      position: absolute;
-      top: var(--gap-sm);
-      right: var(--gap-sm);
+    .upload-button {
+      display: flex;
+      width: 9rem;
+      height: 9rem;
+      position: relative;
+
+      :deep(.avatar) {
+        border: 3px dashed var(--color-contrast);
+        filter: opacity(0.75);
+        transition: filter 0.2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+          filter: opacity(1);
+        }
+      }
+
+      .image-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 2.5rem;
+        width: 2.5rem;
+        color: var(--color-contrast);
+        text-shadow: 0 0 5px var(--color-bg);
+        pointer-events: none;
+      }
     }
   }
 

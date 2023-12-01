@@ -9,11 +9,9 @@ import {
   XIcon,
   SearchIcon,
   SaveIcon,
-  ReportModal,
   ShareModal,
   FilterIcon,
   OverflowMenu,
-  BookmarkIcon,
   MoreHorizontalIcon,
   ServerIcon,
   ImageIcon,
@@ -24,8 +22,8 @@ import {
   FileInput,
   Badge,
   PageBar,
-    HistoryIcon,
-    ProjectCard,
+  HistoryIcon,
+  ProjectCard,
 } from 'omorphia'
 import PuzzleIcon from "~/assets/images/utils/puzzle.svg";
 import WorldIcon from "assets/images/utils/world.svg";
@@ -33,6 +31,7 @@ import GlassesIcon from "assets/images/utils/glasses.svg";
 import PackageIcon from "assets/images/utils/package-open.svg";
 import BracesIcon from "assets/images/utils/braces.svg";
 import UpToDate from "assets/images/illustrations/up_to_date.svg";
+import {addNotification} from "~/composables/notifs";
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -114,7 +113,7 @@ const patchCollection = async (resData, quiet = false) => {
 
     result = true
     if (!quiet) {
-      data.$notify({
+      addNotification({
         group: 'main',
         title: 'Collection updated',
         text: 'Your collection has been updated.',
@@ -123,7 +122,7 @@ const patchCollection = async (resData, quiet = false) => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,
@@ -153,14 +152,14 @@ const patchIcon = async (icon) => {
     )
     await resetCollection()
     result = true
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Collection icon updated',
       text: "Your collection's icon has been updated.",
       type: 'success',
     })
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,
@@ -179,7 +178,7 @@ const deleteIcon = async () => {
     method: 'DELETE',
   })
   await resetCollection()
-  this.$notify({
+  addNotification({
     group: 'main',
     title: 'Collection icon removed',
     text: "Your Collections's icon has been removed.",

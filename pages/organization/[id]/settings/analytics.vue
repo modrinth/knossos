@@ -55,39 +55,18 @@ let downloadData, viewData, revenueData, squashedDownloads, squashedViews, squas
 const customTimeModal = ref(null)
 
 onMounted(async () => {
-  await initUserProjects()
-  const body = `project_ids=${projectIds}&start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${timeResolution.value}`
-
-  try {
-    ;[
-      { data: downloadData },
-      { data: viewData },
-      { data: revenueData },
-    ] = await Promise.all([
-      useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
-        transform: (data) => processData(data, (value) => analyticsData.value.downloads += value, (value) => squashedDownloads = value, 'downloads'),
-      }),
-      useAsyncData(`analytics/views?${body}`, () => useBaseFetch(`analytics/views?${body}`), {
-        transform: (data) => processData(data, (value) => analyticsData.value.pageViews += value, (value) => squashedViews = value, 'views'),
-      }),
-      useAsyncData(`analytics/revenue?${body}`, () => useBaseFetch(`analytics/revenue?${body}`), {
-        transform: (data) => processData(data, (value) => analyticsData.value.revenue += value, (value) => squashedRevenue = value, 'revenue'),
-      }),
-    ])
-  } catch (err) {
-    app.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  } finally {
-    if (!downloadData.data || !downloadData.labels || !viewData.data || !viewData.labels || !revenueData.data || !revenueData.labels || !monthlyRevenue.data || !monthlyRevenue.labels || !viewCountryData.data || !viewCountryData.labels || !downloadCountryData.data || !downloadCountryData.labels) {
+  setTimeout(async () => {
+    try {
+      await fetchNewData()
+      if (downloadData.value && viewData.value && revenueData.value) {
+        finishedLoading.value = true
+      } else {
+        failedToLoad.value = true
+      }
+    } catch (err) {
       failedToLoad.value = true
-    } else {
-      finishedLoading.value = true
     }
-  }
+  }, 1000)
 })
 
 const RGBToHSL = (r, g, b) => {
@@ -258,7 +237,7 @@ const fetchNewData = async () => {
       }),
     ])
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,

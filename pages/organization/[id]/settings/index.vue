@@ -38,6 +38,12 @@ const props = defineProps({
       return {}
     },
   },
+  deleteOrganization: {
+    type: Function,
+    default() {
+      return () => {}
+    },
+  },
 })
 
 const hasPermission = computed(() => {
@@ -101,9 +107,9 @@ const saveChanges = async () => {
 
 <template>
   <ConfirmModal
-    ref="confirmModal"
-    title="Are you sure you want to delete this version?"
-    description="This will remove this version forever (like really forever)."
+    ref="modal_deletion"
+    :title="`Are you sure you want to ${organization.title}?`"
+    description="This will delete this organization forever (like *forever* ever)."
     :has-to-type="true"
     proceed-label="Delete"
     :confirmationText="organization.title"

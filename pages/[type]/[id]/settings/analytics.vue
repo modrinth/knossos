@@ -1,8 +1,23 @@
 <script setup>
-import {Button, Card, formatMoney, formatNumber, HistoryIcon, Modal, UpdatedIcon, PageBar } from 'omorphia';
+import {Button, Card, formatMoney, formatNumber, HistoryIcon, Modal, UpdatedIcon, PageBar, AnimatedLogo } from 'omorphia';
 import CompactChart from "~/components/ui/charts/CompactChart.vue";
 import dayjs from "dayjs";
 import CalendarClockIcon from "assets/images/utils/calendar-clock.svg";
+
+onMounted(async () => {
+  setTimeout(async () => {
+    try {
+      await refetchData()
+      if (downloadData.value && viewData.value && revenueData.value && downloadsByCountry.value && viewsByCountry.value) {
+        finishedLoading.value = true
+      } else {
+        failedToLoad.value = true
+      }
+    } catch (err) {
+      failedToLoad.value = true
+    }
+  }, 1000)
+})
 
 const props = defineProps({
   project: {
@@ -328,7 +343,6 @@ const countryNames = shallowRef({
   "zw": "Zimbabwe"
 })
 
-let downloadData, viewData, revenueData, viewsByCountry, downloadsByCountry
 const selectedDataType = ref('downloads')
 const finishedLoading = ref(false)
 const selectedResolution = ref('daily')
@@ -340,44 +354,13 @@ const markReload = ref(false)
 const timeResolution = ref(1440)
 const customTimeResolution = ref(null)
 const customTimeModal = ref(null)
+const failedToLoad = ref(false)
 
-onMounted(async () => {
-  const initialBody = `project_ids=["${props.project.id}"]&start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${timeResolution.value}`
-  try {
-    ;[
-      { data: downloadData },
-      { data: viewData },
-      { data: revenueData },
-      { data: downloadsByCountry },
-      { data: viewsByCountry },
-    ] = await Promise.all([
-      useAsyncData(`analytics/downloads?${initialBody}`, () => useBaseFetch(`analytics/downloads?${initialBody}`), {
-        transform: (analytics) => processAnalytics(analytics, (parsedData) => totalData.value.downloads = totalData.value.downloads + parsedData)
-      }),
-      useAsyncData(`analytics/views?${initialBody}`, () => useBaseFetch(`analytics/views?${initialBody}`), {
-        transform: (analytics) => processAnalytics(analytics, (parsedData) => totalData.value.pageViews = totalData.value.pageViews + parsedData)
-      }),
-      useAsyncData(`analytics/revenue?${initialBody}`, () => useBaseFetch(`analytics/revenue?${initialBody}`), {
-        transform: (analytics) => processAnalytics(analytics, (parsedData) => totalData.value.revenue = totalData.value.revenue + parsedData)
-      }),
-      useAsyncData(`analytics/countries/downloads?${initialBody}`, () => useBaseFetch(`analytics/countries/downloads?${initialBody}`), {
-        transform: (analytics) => processCountryData(analytics)
-      }),
-      useAsyncData(`analytics/countries/views?${initialBody}`, () => useBaseFetch(`analytics/countries/views?${initialBody}`), {
-        transform: (analytics) => processCountryData(analytics)
-      }),
-    ])
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  } finally {
-    finishedLoading.value = true
-  }
-})
+const downloadData = ref(null)
+const viewData = ref(null)
+const revenueData = ref(null)
+const downloadsByCountry = ref(null)
+const viewsByCountry = ref(null)
 
 const select = (type) => {
   selectedDataType.value = type
@@ -431,13 +414,14 @@ const refetchData = async () => {
     pageViews: 0,
     revenue: 0,
   }
+  markReload.value = true
   try {
     ;[
-      { data: downloadData },
-      { data: viewData },
-      { data: revenueData },
-      { data: downloadsByCountry },
-      { data: viewsByCountry },
+      { data: downloadData.value },
+      { data: viewData.value },
+      { data: revenueData.value },
+      { data: downloadsByCountry.value },
+      { data: viewsByCountry.value },
     ] = await Promise.all([
       useAsyncData(`analytics/downloads?${body}`, () => useBaseFetch(`analytics/downloads?${body}`), {
         transform: (analytics) => processAnalytics(analytics, (parsedData) => totalData.value.downloads = totalData.value.downloads + parsedData)
@@ -456,7 +440,7 @@ const refetchData = async () => {
       }),
     ])
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err,
@@ -553,72 +537,80 @@ const applyCustomModal = async () => {
   <div v-if="finishedLoading && !markReload" class="spark-data">
     <client-only>
       <CompactChart
-        title="Biweekly Downloads"
+        v-if="downloadData.value && downloadData.value.data && downloadData.value.labels"
+        :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
         color="var(--color-brand)"
         :value="formatNumber(totalData.downloads, false)"
-        :data="downloadData.data"
-        :labels="downloadData.labels"
+        :data="downloadData.value.data"
+        :labels="downloadData.value.labels"
         suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
       />
     </client-only>
     <client-only>
       <CompactChart
-        title="Biweekly Page Views"
+        v-if="viewData.value && viewData.value.data && viewData.value.labels"
+        :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
         color="var(--color-blue)"
         :value="formatNumber(totalData.pageViews, false)"
-        :data="viewData.data"
-        :labels="viewData.labels"
+        :data="viewData.value.data"
+        :labels="viewData.value.labels"
         suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
       />
     </client-only>
     <client-only>
       <CompactChart
-        title="Biweekly Revenue"
+        v-if="revenueData.value && revenueData.value.data && revenueData.value.labels"
+        :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
         color="var(--color-purple)"
         :value="formatMoney(totalData.revenue, false)"
-        :data="revenueData.data"
-        :labels="revenueData.labels"
+        :data="revenueData.value.data"
+        :labels="revenueData.value.labels"
         is-money
       />
     </client-only>
   </div>
   <div v-if="finishedLoading && !markReload" class="country-data">
-    <Card class="country-downloads">
+    <Card v-if="downloadsByCountry.value" class="country-downloads">
       <label>
         <span class="label__title">Downloads by country</span>
       </label>
       <div class="country-values">
-        <div class="country-value" v-for="country in downloadsByCountry.data">
+        <div class="country-value" v-for="country in downloadsByCountry.value.data">
           <img :src="`https://flagcdn.com/h240/${country.name.toLowerCase()}.png`" :alt="country.name"/>
           <div class="country-text">
             <span class="country-name">{{ countryNames[country.name.toLowerCase()] }}</span>
             <span class="data-point">{{ formatNumber(country.value) }}</span>
           </div>
-          <div class="percentage-bar" v-tooltip="`${Math.round(country.value / downloadsByCountry.total * 10000) / 100}%`">
-          <span :style="{ width: `${country.value / downloadsByCountry.total * 100}%`, backgroundColor: 'var(--color-brand)' }"></span>
+          <div class="percentage-bar" v-tooltip="`${Math.round(country.value / downloadsByCountry.value.total * 10000) / 100}%`">
+          <span :style="{ width: `${country.value / downloadsByCountry.value.total * 100}%`, backgroundColor: 'var(--color-brand)' }"></span>
           </div>
         </div>
       </div>
     </Card>
-    <Card class="country-downloads">
+    <Card v-if="viewsByCountry.value" class="country-downloads">
       <label>
         <span class="label__title">Page views by country</span>
       </label>
       <div class="country-values">
-        <div class="country-value" v-for="country in viewsByCountry.data">
+        <div class="country-value" v-for="country in viewsByCountry.value.data">
           <img :src="`https://flagcdn.com/h240/${country.name.toLowerCase()}.png`" width="64" height="48" :alt="country.name"/>
           <div class="country-text">
             <span class="country-name">{{ countryNames[country.name.toLowerCase()] }}</span>
             <span class="data-point">{{ formatNumber(country.value) }}</span>
           </div>
-          <div class="percentage-bar" v-tooltip="`${Math.round(country.value / viewsByCountry.total * 10000) / 100}%`">
-            <span :style="{ width: `${country.value / viewsByCountry.total * 100}%`, backgroundColor: 'var(--color-blue)' }"></span>
+          <div class="percentage-bar" v-tooltip="`${Math.round(country.value / viewsByCountry.value.total * 10000) / 100}%`">
+            <span :style="{ width: `${country.value / viewsByCountry.value.total * 100}%`, backgroundColor: 'var(--color-blue)' }"></span>
           </div>
         </div>
       </div>
     </Card>
   </div>
-  <BrandLogoAnimated v-else />
+  <AnimatedLogo v-else-if="(!finishedLoading || markReload) && !failedToLoad" />
+  <div v-if="failedToLoad" class="markdown-body">
+    <p>
+      Failed to load analytics data. Please try again later.
+    </p>
+  </div>
 </template>
 
 <style scoped lang="scss">

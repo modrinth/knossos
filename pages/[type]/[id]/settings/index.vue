@@ -10,6 +10,16 @@
       :noblur="!(cosmetics.advancedRendering ?? true)"
       @proceed="deleteProject"
     />
+    <ConfirmModal
+      ref="modal_remove"
+      title="Are you sure you want to remove this project from the organization?"
+      description="If you proceed, this project will no longer be owned by the organization."
+      :has-to-type="true"
+      :confirmation-text="project.title"
+      proceed-label="Remove"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+      @proceed="removeFromOrg"
+    />
     <section class="card">
       <label for="project-icon">
         <span class="label__title">Icon</span>
@@ -208,7 +218,37 @@
         </button>
       </div>
     </section>
-
+    <Card>
+      <div class="label">
+        <span class="label__title size-card-header">Organization</span>
+      </div>
+      <p>
+        <template v-if="project.organization">
+          This project is owned by an organization. Members permission
+          defaults are set in the <nuxt-link :to="`/organization/${project.organization.id}/settings/members`"
+            >organization members settings</nuxt-link>.
+        </template>
+        <template v-else>
+          This project is not owned by an organization. You can transfer ownership to one of the organizations
+          you are a member of below.
+        </template>
+      </p>
+      <SearchDropdown
+        v-if="!project.organization"
+        placeholder="Search for dependencies"
+        @on-selected="selectOrg"
+        v-model="orgText"
+        render-up
+        circled-icons
+        class="search-dropdown"
+        :disabled="!hasPermission || !organizations"
+        :options="organizations"
+      />
+      <Button v-else color="danger" @click="$refs.modal_remove.show()">
+        <CrossIcon />
+        Remove from organization
+      </Button>
+    </Card>
     <section class="card">
       <div class="label">
         <h3>
@@ -219,15 +259,14 @@
         Removes your project from Modrinth's servers and search. Clicking on this will delete your
         project, so be extra careful!
       </p>
-      <button
-        type="button"
-        class="btn btn-red"
+      <Button
+        color="danger"
         :disabled="!hasDeletePermission"
         @click="$refs.modal_confirm.show()"
       >
         <TrashIcon />
         Delete project
-      </button>
+      </Button>
     </section>
   </div>
 </template>
@@ -246,6 +285,8 @@ import {
   ConfirmModal,
   formatProjectType,
   formatProjectStatus,
+  Card,
+  Button
 } from 'omorphia'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
@@ -256,9 +297,6 @@ const cosmetics = useCosmetics()
 const props = defineProps({
   project: {
     type: Object,
-    default() {
-      return {}
-    },
   },
   currentMember: {
     type: Object,
@@ -305,6 +343,12 @@ const props = defineProps({
       }
     },
   },
+  organizations: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
 })
 
 const name = ref(props.project.title)
@@ -315,6 +359,8 @@ const previewImage = ref(null)
 const clientSide = ref(props.project.client_side)
 const serverSide = ref(props.project.server_side)
 const deletedIcon = ref(false)
+const orgText = ref('')
+
 const visibility = ref(
   tags.value.approvedStatuses.includes(props.project.status)
     ? props.project.status
@@ -430,6 +476,35 @@ async function deleteIcon() {
     type: 'success',
   })
 }
+
+const selectOrg = async (org) => {
+  await useBaseFetch(`organization/${org.title}/projects`, {
+    method: 'POST',
+    body: JSON.stringify({
+      project_id: props.project.id,
+    }),
+  })
+  props.updateIcon()
+  addNotification({
+    group: 'main',
+    title: 'Project organization updated',
+    text: `Your project's organization has been updated.`,
+    type: 'success',
+  })
+}
+
+async function removeFromOrg() {
+  await useBaseFetch(`organization/${props.project.organization}/projects/${props.project.id}`, {
+    method: 'DELETE',
+  })
+  props.updateIcon()
+  addNotification({
+    group: 'main',
+    title: 'Project organization updated',
+    text: `Your project's organization has been updated.`,
+    type: 'success',
+  })
+}
 </script>
 <style lang="scss" scoped>
 .visibility-info {
@@ -458,5 +533,22 @@ svg {
 
 .multiselect {
   max-width: 15rem;
+}
+
+.search-dropdown {
+  :deep(.btn) {
+    position: absolute;
+    right: 0.25rem;
+    z-index: 1;
+    background: none;
+    box-shadow: none;
+    border-color: transparent;
+    padding: var(--gap-sm);
+
+    svg {
+      position: relative;
+      left: 0;
+    }
+  }
 }
 </style>

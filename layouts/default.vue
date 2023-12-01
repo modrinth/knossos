@@ -217,12 +217,12 @@
               // },
               {
                 id: 'new-collection',
-                action: () => {},
+                action: () => $refs.modal_creation_collection.show(),
               },
               { divider: true },
               {
                 id: 'new-organization',
-                action: () => {},
+                action: () => $refs.modal_creation_organization.show(),
               },
             ]"
           >
@@ -322,6 +322,8 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
+        <SimpleCreationModal v-if="auth.user" ref="modal_creation_organization" type="organization" />
+        <SimpleCreationModal v-if="auth.user" ref="modal_creation_collection" type="collection" />
         <section v-if="displayWarning" class="warning-banner card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
@@ -461,6 +463,7 @@ import CollectionIcon from '~/assets/images/utils/collection.svg'
 import BoxImportIcon from '~/assets/images/utils/box-import.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
+import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
 
 const loading = useLoading()
 

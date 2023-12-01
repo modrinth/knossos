@@ -1,78 +1,57 @@
 <template>
-  <div>
-    <SimpleCreationModal ref="modal_creation" type="collection" />
-    <h1>Collections</h1>
-    <button v-if="collections.length < 1" class="iconified-button brand-button" @click="$refs.modal_creation.show()">
-      <PlusIcon />
-      Create a collection
-    </button>
-    <p v-if="collections.length < 1">
-      You don't have any projects yet. Click the green button above to begin.
-    </p>
-    <template v-else>
+  <div class="normal-page no-sidebar">
+    <div class="normal-page__header">
+      <SimpleCreationModal ref="modal_creation" type="collection" />
+      <h1>Collections</h1>
       <div class="input-group">
-        <button class="iconified-button brand-button" @click="$refs.modal_creation.show()">
+        <Button color="primary" @click="$refs.modal_creation.show()">
           <PlusIcon />
           Create a collection
-        </button>
-        <div class="push-right">
-          <div class="labeled-control-row">
-            Sort by
-            <Multiselect
-              v-model="sortBy"
-              :searchable="false"
-              class="small-select"
-              :options="['Name', 'Status', 'Type']"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @update:model-value="collections = updateSort(collections, sortBy, descending)"
-            />
-            <button
-              v-tooltip="descending ? 'Descending' : 'Ascending'"
-              class="square-button"
-              @click="updateDescending()"
-            >
-              <DescendingIcon v-if="descending" />
-              <AscendingIcon v-else />
-            </button>
+        </Button>
+        <input
+          type="text"
+          class="input"
+          placeholder="Search collections..."
+          v-model="search"
+        />
+      </div>
+      <p v-if="collections.length < 1">
+        You don't have any projects yet. Click the green button above to begin.
+      </p>
+    </div>
+    <div class="normal-page__content collections">
+      <Card
+        v-for="collection in collections"
+        :key="`collection-${collection.id}`"
+        class="collection-card button-base"
+        @click="$router.push(`/collection/${collection.id}`)"
+      >
+        <Avatar
+          :src="collection.icon_url"
+          aria-hidden="true"
+          :alt="'Icon for ' + collection.title"
+          size="lg"
+          no-shadow
+        />
+        <div class="text">
+          <label>
+            <span class="label__title">
+              {{ collection.title }}
+            </span>
+            <span class="label__description">
+              {{ collection.description }}
+            </span>
+          </label>
+          <div class="stats">
+            <span>
+              <BoxIcon />
+              {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
+            </span>
+            <Badge :type="collection.status" />
           </div>
         </div>
-      </div>
-      <div class="collections">
-        <Card
-          v-for="collection in collections"
-          :key="`collection-${collection.id}`"
-          class="collection-card button-base"
-          @click="$router.push(`/collection/${collection.id}`)"
-        >
-          <Avatar
-            :src="collection.icon_url"
-            aria-hidden="true"
-            :alt="'Icon for ' + collection.title"
-            size="lg"
-            no-shadow
-          />
-          <div class="text">
-            <label>
-              <span class="label__title">
-                {{ collection.title }}
-              </span>
-              <span class="label__description">
-                {{ collection.description }}
-              </span>
-            </label>
-            <div class="stats">
-              <span>
-                <BoxIcon />
-                {{ collection.projects.length > 0 ? collection.projects.length : 'No' }} projects
-              </span>
-              <Badge :type="collection.status" />
-            </div>
-          </div>
-        </Card>
-      </div>
-    </template>
+      </Card>
+    </div>
   </div>
 </template>
 
@@ -83,10 +62,11 @@ import {
   Avatar,
   PlusIcon,
   BoxIcon,
-  Card
+  Card,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  Button,
 } from 'omorphia'
-import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
-import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
@@ -260,7 +240,7 @@ const updateDescending = () => {
   flex-direction: row;
   min-width: 0;
   align-items: center;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-sm);
   white-space: nowrap;
 }
 
@@ -337,7 +317,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: var(--gap-md);
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
 }
 
 .collection-card {
@@ -345,10 +325,29 @@ h1 {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--gap-md);
-  gap: var(--gap-md);
+  gap: var(--gap-lg);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin-bottom: 0;
+  width: 100%;
+
+  .avatar {
+    --size: 6rem !important;
+    min-width: 6rem;
+    min-height: 6rem;
+  }
+
+  .label__description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .label__title {
+    margin: 0 0 var(--gap-xs);
+  }
 
   .stats {
     display: flex;
