@@ -235,17 +235,17 @@
       </p>
       <SearchDropdown
         v-if="!project.organization"
-        placeholder="Search for dependencies"
+        placeholder="Search for organizations..."
         @on-selected="selectOrg"
         v-model="orgText"
         render-up
         circled-icons
         class="search-dropdown"
         :disabled="!hasPermission || !organizations"
-        :options="organizations"
+        :options="organizations.filter(value => value.title.toLowerCase().includes(orgText.toLowerCase()))"
       />
       <Button v-else color="danger" @click="$refs.modal_remove.show()">
-        <CrossIcon />
+        <OrganizationIcon />
         Remove from organization
       </Button>
     </Card>
@@ -289,6 +289,8 @@ import {
   Button
 } from 'omorphia'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
+
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 const tags = useTags()
 const router = useRouter()
