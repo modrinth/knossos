@@ -77,11 +77,6 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 const router = useRouter()
 
-const projectType = ref(tags.value.projectTypes[0].display)
-const actualProjectType = computed(() =>
-  tags.value.projectTypes.find((x) => projectType.value === x.display)
-)
-
 const name = ref('')
 const slug = ref('')
 const description = ref('')
@@ -92,6 +87,11 @@ const modal = ref()
 function cancel() {
   modal.value.hide()
 }
+
+const projectType = ref(tags.value.projectTypes[0].display)
+const actualProjectType = computed(() =>
+  tags.value.projectTypes.find((x) => projectType.value === x.display)
+)
 
 const clientSide = computed(() => {
   switch (actualProjectType.value.id) {
