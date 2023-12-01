@@ -149,7 +149,7 @@ const onAuthorize = async () => {
 
 const onReject = async () => {
   try {
-    const res = await useBaseFetch('auth/oauth/reject', {
+    const res = await useBaseFetch('oauth/reject', {
       method: 'POST',
       apiVersion: 3,
       body: {
