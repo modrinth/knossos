@@ -224,25 +224,28 @@
       </div>
       <p>
         <template v-if="project.organization">
-          This project is owned by an organization. Members permission
-          defaults are set in the <nuxt-link :to="`/organization/${project.organization.id}/settings/members`"
-            >organization members settings</nuxt-link>.
+          This project is owned by an organization. Members permission defaults are set in the
+          <nuxt-link :to="`/organization/${project.organization.id}/settings/members`"
+            >organization members settings</nuxt-link
+          >.
         </template>
         <template v-else>
-          This project is not owned by an organization. You can transfer ownership to one of the organizations
-          you are a member of below.
+          This project is not owned by an organization. You can transfer ownership to one of the
+          organizations you are a member of below.
         </template>
       </p>
       <SearchDropdown
         v-if="!project.organization"
-        placeholder="Search for organizations..."
-        @on-selected="selectOrg"
         v-model="orgText"
+        placeholder="Search for organizations..."
         render-up
         circled-icons
         class="search-dropdown"
         :disabled="!hasPermission || !organizations"
-        :options="organizations.filter(value => value.title.toLowerCase().includes(orgText.toLowerCase()))"
+        :options="
+          organizations.filter((value) => value.title.toLowerCase().includes(orgText.toLowerCase()))
+        "
+        @on-selected="selectOrg"
       />
       <Button v-else color="danger" @click="$refs.modal_remove.show()">
         <OrganizationIcon />
@@ -259,11 +262,7 @@
         Removes your project from Modrinth's servers and search. Clicking on this will delete your
         project, so be extra careful!
       </p>
-      <Button
-        color="danger"
-        :disabled="!hasDeletePermission"
-        @click="$refs.modal_confirm.show()"
-      >
+      <Button color="danger" :disabled="!hasDeletePermission" @click="$refs.modal_confirm.show()">
         <TrashIcon />
         Delete project
       </Button>
@@ -286,7 +285,7 @@ import {
   formatProjectType,
   formatProjectStatus,
   Card,
-  Button
+  Button,
 } from 'omorphia'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
@@ -299,6 +298,9 @@ const cosmetics = useCosmetics()
 const props = defineProps({
   project: {
     type: Object,
+    default() {
+      return {}
+    },
   },
   currentMember: {
     type: Object,

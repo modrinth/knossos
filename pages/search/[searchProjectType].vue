@@ -332,7 +332,7 @@
             autocomplete="off"
             @input="onSearchChange(1)"
           />
-          <Button class="r-btn" v-if="query" @click="() => (query = '')">
+          <Button v-if="query" class="r-btn" @click="() => (query = '')">
             <XIcon />
           </Button>
         </div>

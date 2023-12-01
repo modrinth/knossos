@@ -1,6 +1,6 @@
 <script setup>
 import dayjs from 'dayjs'
-import {Button, DownloadIcon, UpdatedIcon, Checkbox, formatNumber, formatMoney} from 'omorphia'
+import { Button, DownloadIcon, UpdatedIcon, formatNumber, formatMoney } from 'omorphia'
 
 const VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
 
@@ -103,11 +103,11 @@ const chartOptions = ref({
     stacked: props.stacked,
     stackType: props.percentStacked ? '100%' : 'normal',
     zoom: {
-      autoScaleYaxis: true
+      autoScaleYaxis: true,
     },
     animations: {
       enabled: props.disableAnimations,
-    }
+    },
   },
   xaxis: {
     type: props.xAxisType,
@@ -146,7 +146,8 @@ const chartOptions = ref({
     position: props.legendPosition,
     showForZeroSeries: false,
     fontSize: 'var(--font-size-nm)',
-    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    fontFamily:
+      'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
   },
   markers: {
     size: 0,
@@ -170,7 +171,7 @@ const chartOptions = ref({
   },
   stroke: {
     curve: 'smooth',
-    width: 2
+    width: 2,
   },
   tooltip: {
     custom: function ({ series, seriesIndex, dataPointIndex, w }) {
@@ -181,48 +182,75 @@ const chartOptions = ref({
         props.formatLabels(w.globals.lastXAxis.categories[dataPointIndex]) +
         '</div>' +
         (props.hideTotal
-          ? '' : props.percentStacked ? `
+          ? ''
+          : props.percentStacked
+          ? `
         <div class="value">
           ${props.prefix}
-          ${formatNumber((Math.trunc(100 * series[seriesIndex][dataPointIndex] / series.reduce((a, b) => a + b[dataPointIndex], 0) * 100) / 100))}%
+          ${formatNumber(
+            Math.trunc(
+              ((100 * series[seriesIndex][dataPointIndex]) /
+                series.reduce((a, b) => a + b[dataPointIndex], 0)) *
+                100
+            ) / 100
+          )}%
           ${props.suffix}
-        </div>` : `<div class="value">
-        ${props.prefix}
-        ${props.isMoney ? formatMoney(series.reduce((a, b) => a + b[dataPointIndex], 0), false) : formatNumber(series.reduce((a, b) => a + b[dataPointIndex], 0), false)}
-        ${props.suffix}
         </div>`
-          ) +
+          : `<div class="value">
+        ${props.prefix}
+        ${
+          props.isMoney
+            ? formatMoney(
+                series.reduce((a, b) => a + b[dataPointIndex], 0),
+                false
+              )
+            : formatNumber(
+                series.reduce((a, b) => a + b[dataPointIndex], 0),
+                false
+              )
+        }
+        ${props.suffix}
+        </div>`) +
         '</div><hr class="card-divider" />' +
-          (props.percentStacked ?
-            `<div class="list-entry">
+        (props.percentStacked
+          ? `<div class="list-entry">
             <span class="circle" style="background-color: ${w.globals.colors[seriesIndex]}"> </span>
             <div class="label">
               ${w.globals.seriesNames[seriesIndex]}
             </div>
             <div class="value">
               ${props.prefix}
-              ${props.isMoney ? formatMoney(series[seriesIndex][dataPointIndex], false) : formatNumber(series[seriesIndex][dataPointIndex], false)}
+              ${
+                props.isMoney
+                  ? formatMoney(series[seriesIndex][dataPointIndex], false)
+                  : formatNumber(series[seriesIndex][dataPointIndex], false)
+              }
               ${props.suffix}
             </div>
-          </div>` :
-          series
-          .map((value, index) =>
-            [value[dataPointIndex], `<div class="list-entry">
+          </div>`
+          : series
+              .map((value, index) => [
+                value[dataPointIndex],
+                `<div class="list-entry">
                 <span class="circle" style="background-color: ${w.globals.colors[index]}"> </span>
                 <div class="label">
                   ${w.globals.seriesNames[index]}
                 </div>
                 <div class="value">
                   ${props.prefix}
-                  ${props.isMoney ? formatMoney(value[dataPointIndex], false) : formatNumber(value[dataPointIndex], false)}
+                  ${
+                    props.isMoney
+                      ? formatMoney(value[dataPointIndex], false)
+                      : formatNumber(value[dataPointIndex], false)
+                  }
                   ${props.suffix}
                 </div>
-              </div>`]
-          ).filter((value) => value[0] > 0)
-            .sort((a, b) => b[0] - a[0])
-            .map((value) => value[1])
-            .reduce((a, b) => a + b))
-          +
+              </div>`,
+              ])
+              .filter((value) => value[0] > 0)
+              .sort((a, b) => b[0] - a[0])
+              .map((value) => value[1])
+              .reduce((a, b) => a + b)) +
         '</div>'
       )
     },
@@ -230,20 +258,20 @@ const chartOptions = ref({
 })
 
 const fillOptions = {
-    colors: props.colors,
-    type: 'gradient',
-    opacity: 1,
-    gradient: {
-        shade: 'light',
-        type: 'vertical',
-        shadeIntensity: 0,
-        gradientToColors: props.colors,
-        inverseColors: true,
-        opacityFrom: 0.5,
-        opacityTo: 0,
-        stops: [0, 100],
-        colorStops: [],
-    },
+  colors: props.colors,
+  type: 'gradient',
+  opacity: 1,
+  gradient: {
+    shade: 'light',
+    type: 'vertical',
+    shadeIntensity: 0,
+    gradientToColors: props.colors,
+    inverseColors: true,
+    opacityFrom: 0.5,
+    opacityTo: 0,
+    stops: [0, 100],
+    colorStops: [],
+  },
 }
 
 const chart = ref(null)
@@ -262,10 +290,12 @@ const flipLegend = (legend, newVal) => {
 const downloadCSV = () => {
   const csvContent =
     'data:text/csv;charset=utf-8,' +
-      'Date,' +
+    'Date,' +
     props.labels.join(',') +
     '\n' +
-    props.data.map((project, index) => project.name.replace(',', '-') + ',' + project.data.join(',')).reduce((a, b) => a + '\n' + b)
+    props.data
+      .map((project) => project.name.replace(',', '-') + ',' + project.data.join(','))
+      .reduce((a, b) => a + '\n' + b)
 
   const encodedUri = encodeURI(csvContent)
   const link = document.createElement('a')
@@ -304,10 +334,16 @@ defineExpose({
         <slot name="toolbar" />
       </div>
     </div>
-    <VueApexCharts ref="chart" :type="type" :options="{
-        ... chartOptions,
+    <VueApexCharts
+      ref="chart"
+      :type="type"
+      :options="{
+        ...chartOptions,
         fill: type === 'area' ? fillOptions : {},
-    }" :series="data" class="chart" />
+      }"
+      :series="data"
+      class="chart"
+    />
   </div>
 </template>
 

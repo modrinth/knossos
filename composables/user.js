@@ -137,8 +137,6 @@ export const userReadNotifications = async (ids) => {
 }
 
 export const resendVerifyEmail = async () => {
-  const app = useNuxtApp()
-
   startLoading()
   try {
     await useBaseFetch('auth/email/resend_verify', {

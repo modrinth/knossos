@@ -1,12 +1,18 @@
 <template>
-  <Modal ref="modal" :header="type === 'organization' ? 'Create an organization' : 'Create a collection'">
+  <Modal
+    ref="modal"
+    :header="type === 'organization' ? 'Create an organization' : 'Create a collection'"
+  >
     <div class="universal-modal modal-creation universal-labels">
       <div class="markdown-body">
         <p v-if="type === 'organization'">
-          New organizations are created with you as the owner and can be found under your profile page.
+          New organizations are created with you as the owner and can be found under your profile
+          page.
         </p>
         <p v-else>
-          Your new collection will be created as a public collection with {{ projectIds.length > 0 ? projectIds.length : 'no'  }} {{ projectIds.length !== 1 ? 'projects': 'project'}}.
+          Your new collection will be created as a public collection with
+          {{ projectIds.length > 0 ? projectIds.length : 'no' }}
+          {{ projectIds.length !== 1 ? 'projects' : 'project' }}.
         </p>
       </div>
       <label for="name">
@@ -23,7 +29,7 @@
       <label for="additional-information">
         <span class="label__title">Summary<span class="required">*</span></span>
         <span class="label__description"
-          >This appears in search and on the sidebar of your {{type}}'s page.</span
+          >This appears in search and on the sidebar of your {{ type }}'s page.</span
         >
       </label>
       <div class="textarea-wrapper">
@@ -43,10 +49,8 @@
   </Modal>
 </template>
 <script setup>
-import { XIcon as CrossIcon, CheckIcon, Modal, Chips, Button } from 'omorphia'
+import { XIcon as CrossIcon, CheckIcon, Modal, Button } from 'omorphia'
 
-const cosmetics = useCosmetics()
-const tags = useTags()
 const router = useRouter()
 
 const name = ref('')
@@ -79,7 +83,7 @@ async function createProject() {
     const value = {
       title: name.value.trim(),
       description: description.value.trim(),
-    };
+    }
 
     if (props.type === 'collection') {
       value.projects = props.projectIds
@@ -87,11 +91,13 @@ async function createProject() {
 
     const result = await useBaseFetch(props.type, {
       method: 'POST',
-      body: JSON.stringify(value)
+      body: JSON.stringify(value),
     })
 
     modal.value.hide()
-    await router.push(props.type === 'organization' ? `/organization/${name.value}` : `/collection/${result.id}`)
+    await router.push(
+      props.type === 'organization' ? `/organization/${name.value}` : `/collection/${result.id}`
+    )
   } catch (err) {
     addNotification({
       group: 'main',
@@ -113,11 +119,14 @@ defineExpose({
   show,
 })
 
-watch(() => name.value, (value) => {
-  if (props.disallowSpaces) {
-    name.value = value.replace(/ +/g, '');
+watch(
+  () => name.value,
+  (value) => {
+    if (props.disallowSpaces) {
+      name.value = value.replace(/ +/g, '')
+    }
   }
-})
+)
 </script>
 
 <style scoped lang="scss">

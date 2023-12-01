@@ -19,13 +19,19 @@
           v-model="currentUsername"
           type="text"
           placeholder="Username"
-            :disabled="(currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !== organizationPermissions.MANAGE_INVITES"
+          :disabled="
+            (currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !==
+            organizationPermissions.MANAGE_INVITES
+          "
           @keypress.enter="inviteTeamMember()"
         />
         <label for="username" class="hidden">Username</label>
         <button
           class="iconified-button brand-button"
-            :disabled="(currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !== organizationPermissions.MANAGE_INVITES"
+          :disabled="
+            (currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !==
+            organizationPermissions.MANAGE_INVITES
+          "
           @click="inviteTeamMember()"
         >
           <UserPlusIcon />
@@ -93,7 +99,10 @@
             v-model="allTeamMembers[index].role"
             type="text"
             :class="{ 'known-error': member.role === 'Owner' }"
-            :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
+            :disabled="
+              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+              organizationPermissions.EDIT_MEMBER
+            "
           />
         </div>
         <div class="adjacent-input">
@@ -108,7 +117,10 @@
             :id="`member-${allTeamMembers[index].user.username}-monetization-weight`"
             v-model="allTeamMembers[index].payouts_split"
             type="number"
-            :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
+            :disabled="
+              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+              organizationPermissions.EDIT_MEMBER
+            "
           />
         </div>
         <p v-if="member.role === 'Owner' && member.oldRole !== 'Owner'" class="known-errors">
@@ -121,91 +133,171 @@
           </span>
           <div class="permissions">
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.UPLOAD_VERSION) === projectPermissions.UPLOAD_VERSION"
+              :model-value="
+                (member.permissions & projectPermissions.UPLOAD_VERSION) ===
+                projectPermissions.UPLOAD_VERSION
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.UPLOAD_VERSION) !== projectPermissions.UPLOAD_VERSION
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.UPLOAD_VERSION) !==
+                  projectPermissions.UPLOAD_VERSION
               "
               label="Upload version"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.UPLOAD_VERSION"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.UPLOAD_VERSION
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.DELETE_VERSION) === projectPermissions.DELETE_VERSION"
+              :model-value="
+                (member.permissions & projectPermissions.DELETE_VERSION) ===
+                projectPermissions.DELETE_VERSION
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.DELETE_VERSION) !== projectPermissions.DELETE_VERSION
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.DELETE_VERSION) !==
+                  projectPermissions.DELETE_VERSION
               "
               label="Delete version"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.DELETE_VERSION"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.DELETE_VERSION
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.EDIT_DETAILS) === projectPermissions.EDIT_DETAILS"
+              :model-value="
+                (member.permissions & projectPermissions.EDIT_DETAILS) ===
+                projectPermissions.EDIT_DETAILS
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.EDIT_DETAILS) !== projectPermissions.EDIT_DETAILS
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.EDIT_DETAILS) !==
+                  projectPermissions.EDIT_DETAILS
               "
               label="Edit details"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.EDIT_DETAILS"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.EDIT_DETAILS
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.EDIT_BODY) === projectPermissions.EDIT_BODY"
+              :model-value="
+                (member.permissions & projectPermissions.EDIT_BODY) === projectPermissions.EDIT_BODY
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.EDIT_BODY) !== projectPermissions.EDIT_BODY
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.EDIT_BODY) !==
+                  projectPermissions.EDIT_BODY
               "
               label="Edit body"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.EDIT_BODY"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.EDIT_BODY
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.MANAGE_INVITES) === projectPermissions.MANAGE_INVITES"
+              :model-value="
+                (member.permissions & projectPermissions.MANAGE_INVITES) ===
+                projectPermissions.MANAGE_INVITES
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.MANAGE_INVITES) !== projectPermissions.MANAGE_INVITES
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.MANAGE_INVITES) !==
+                  projectPermissions.MANAGE_INVITES
               "
               label="Manage invites"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.MANAGE_INVITES"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.MANAGE_INVITES
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.REMOVE_MEMBER) === projectPermissions.REMOVE_MEMBER"
+              :model-value="
+                (member.permissions & projectPermissions.REMOVE_MEMBER) ===
+                projectPermissions.REMOVE_MEMBER
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.REMOVE_MEMBER) !== projectPermissions.REMOVE_MEMBER
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.REMOVE_MEMBER) !==
+                  projectPermissions.REMOVE_MEMBER
               "
               label="Remove member"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.REMOVE_MEMBER"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.REMOVE_MEMBER
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.EDIT_MEMBER) === projectPermissions.EDIT_MEMBER"
-              :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS"
-              label="Edit member"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.EDIT_MEMBER"
-            />
-            <Checkbox
-              :model-value="(member.permissions & projectPermissions.DELETE_PROJECT) === projectPermissions.DELETE_PROJECT"
+              :model-value="
+                (member.permissions & projectPermissions.EDIT_MEMBER) ===
+                projectPermissions.EDIT_MEMBER
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.DELETE_PROJECT) !== projectPermissions.DELETE_PROJECT
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
+              "
+              label="Edit member"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.EDIT_MEMBER
+              "
+            />
+            <Checkbox
+              :model-value="
+                (member.permissions & projectPermissions.DELETE_PROJECT) ===
+                projectPermissions.DELETE_PROJECT
+              "
+              :disabled="
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.DELETE_PROJECT) !==
+                  projectPermissions.DELETE_PROJECT
               "
               label="Delete project"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.DELETE_PROJECT"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.DELETE_PROJECT
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.VIEW_ANALYTICS) === projectPermissions.VIEW_ANALYTICS"
+              :model-value="
+                (member.permissions & projectPermissions.VIEW_ANALYTICS) ===
+                projectPermissions.VIEW_ANALYTICS
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.VIEW_ANALYTICS) !== projectPermissions.VIEW_ANALYTICS
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.VIEW_ANALYTICS) !==
+                  projectPermissions.VIEW_ANALYTICS
               "
               label="View analytics"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.VIEW_ANALYTICS"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.VIEW_ANALYTICS
+              "
             />
             <Checkbox
-              :model-value="(member.permissions & projectPermissions.VIEW_PAYOUTS) === projectPermissions.VIEW_PAYOUTS"
+              :model-value="
+                (member.permissions & projectPermissions.VIEW_PAYOUTS) ===
+                projectPermissions.VIEW_PAYOUTS
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.VIEW_PAYOUTS) !== projectPermissions.VIEW_PAYOUTS
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
+                (currentMember.permissions & projectPermissions.VIEW_PAYOUTS) !==
+                  projectPermissions.VIEW_PAYOUTS
               "
               label="View revenue"
-              @update:model-value="allTeamMembers[index].permissions ^= projectPermissions.VIEW_PAYOUTS"
+              @update:model-value="
+                allTeamMembers[index].permissions ^= projectPermissions.VIEW_PAYOUTS
+              "
             />
           </div>
         </template>
@@ -215,80 +307,153 @@
           </span>
           <div class="permissions">
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.EDIT_DETAILS) === organizationPermissions.EDIT_DETAILS"
+              :model-value="
+                (member.organization_permissions & organizationPermissions.EDIT_DETAILS) ===
+                organizationPermissions.EDIT_DETAILS
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.EDIT_DETAILS) !== organizationPermissions.EDIT_DETAILS
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions & organizationPermissions.EDIT_DETAILS) !==
+                  organizationPermissions.EDIT_DETAILS
               "
               label="Edit details"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.EDIT_DETAILS"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.EDIT_DETAILS
+              "
             />
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.MANAGE_INVITES) === organizationPermissions.MANAGE_INVITES"
+              :model-value="
+                (member.organization_permissions & organizationPermissions.MANAGE_INVITES) ===
+                organizationPermissions.MANAGE_INVITES
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !== organizationPermissions.MANAGE_INVITES
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions &
+                  organizationPermissions.MANAGE_INVITES) !==
+                  organizationPermissions.MANAGE_INVITES
               "
               label="Manage invites"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.MANAGE_INVITES"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.MANAGE_INVITES
+              "
             />
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.REMOVE_MEMBER) === organizationPermissions.REMOVE_MEMBER"
+              :model-value="
+                (member.organization_permissions & organizationPermissions.REMOVE_MEMBER) ===
+                organizationPermissions.REMOVE_MEMBER
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.REMOVE_MEMBER) !== organizationPermissions.REMOVE_MEMBER
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions & organizationPermissions.REMOVE_MEMBER) !==
+                  organizationPermissions.REMOVE_MEMBER
               "
               label="Remove member"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.REMOVE_MEMBER"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.REMOVE_MEMBER
+              "
             />
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.EDIT_MEMBER) === organizationPermissions.EDIT_MEMBER"
-              :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
-              label="Edit member"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.EDIT_MEMBER"
-            />
-            <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.ADD_PROJECT) === organizationPermissions.ADD_PROJECT"
+              :model-value="
+                (member.organization_permissions & organizationPermissions.EDIT_MEMBER) ===
+                organizationPermissions.EDIT_MEMBER
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.ADD_PROJECT) !== organizationPermissions.ADD_PROJECT
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                organizationPermissions.EDIT_MEMBER
+              "
+              label="Edit member"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.EDIT_MEMBER
+              "
+            />
+            <Checkbox
+              :model-value="
+                (member.organization_permissions & organizationPermissions.ADD_PROJECT) ===
+                organizationPermissions.ADD_PROJECT
+              "
+              :disabled="
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions & organizationPermissions.ADD_PROJECT) !==
+                  organizationPermissions.ADD_PROJECT
               "
               label="Add project"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.ADD_PROJECT"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.ADD_PROJECT
+              "
             />
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.REMOVE_PROJECT) === organizationPermissions.REMOVE_PROJECT"
+              :model-value="
+                (member.organization_permissions & organizationPermissions.REMOVE_PROJECT) ===
+                organizationPermissions.REMOVE_PROJECT
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.REMOVE_PROJECT) !== organizationPermissions.REMOVE_PROJECT
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions &
+                  organizationPermissions.REMOVE_PROJECT) !==
+                  organizationPermissions.REMOVE_PROJECT
               "
               label="Remove project"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.REMOVE_PROJECT"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.REMOVE_PROJECT
+              "
             />
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.DELETE_ORGANIZATION) === organizationPermissions.DELETE_ORGANIZATION"
+              :model-value="
+                (member.organization_permissions & organizationPermissions.DELETE_ORGANIZATION) ===
+                organizationPermissions.DELETE_ORGANIZATION
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.DELETE_ORGANIZATION) !== organizationPermissions.DELETE_ORGANIZATION
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions &
+                  organizationPermissions.DELETE_ORGANIZATION) !==
+                  organizationPermissions.DELETE_ORGANIZATION
               "
               label="Delete organization"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.DELETE_ORGANIZATION"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.DELETE_ORGANIZATION
+              "
             />
             <Checkbox
-              :model-value="(member.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) === organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS"
+              :model-value="
+                (member.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) ===
+                organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
+              "
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !== organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
+                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+                  organizationPermissions.EDIT_MEMBER ||
+                (currentMember.organization_permissions &
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
               "
               label="Edit member default permissions"
-              @update:model-value="allTeamMembers[index].organization_permissions ^= organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS"
+              @update:model-value="
+                allTeamMembers[index].organization_permissions ^=
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
+              "
             />
           </div>
         </template>
         <div class="input-group">
           <Button
             color="primary"
-            :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
+            :disabled="
+              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+              organizationPermissions.EDIT_MEMBER
+            "
             @click="updateTeamMember(index)"
           >
             <SaveIcon />
@@ -297,7 +462,10 @@
           <Button
             v-if="member.oldRole !== 'Owner'"
             color="danger"
-            :disabled="(currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !== organizationPermissions.EDIT_MEMBER"
+            :disabled="
+              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
+              organizationPermissions.EDIT_MEMBER
+            "
             @click="removeTeamMember(index)"
           >
             <UserRemoveIcon />
@@ -317,7 +485,18 @@
 </template>
 
 <script setup>
-import { Avatar, Checkbox, SaveIcon, Badge, TransferIcon, UserPlusIcon, UserXIcon as UserRemoveIcon, DropdownIcon, Card, Button } from 'omorphia'
+import {
+  Avatar,
+  Checkbox,
+  SaveIcon,
+  Badge,
+  TransferIcon,
+  UserPlusIcon,
+  UserXIcon as UserRemoveIcon,
+  DropdownIcon,
+  Card,
+  Button,
+} from 'omorphia'
 import { ref, onMounted } from 'vue'
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
@@ -339,27 +518,27 @@ const appData = useNuxtApp()
 const router = useRouter()
 
 const projectPermissions = shallowRef({
-  UPLOAD_VERSION : 1 << 0,
-  DELETE_VERSION : 1 << 1,
-  EDIT_DETAILS : 1 << 2,
-  EDIT_BODY : 1 << 3,
-  MANAGE_INVITES : 1 << 4,
-  REMOVE_MEMBER : 1 << 5,
-  EDIT_MEMBER : 1 << 6,
-  DELETE_PROJECT : 1 << 7,
-  VIEW_ANALYTICS : 1 << 8,
-  VIEW_PAYOUTS : 1 << 9,
+  UPLOAD_VERSION: 1 << 0,
+  DELETE_VERSION: 1 << 1,
+  EDIT_DETAILS: 1 << 2,
+  EDIT_BODY: 1 << 3,
+  MANAGE_INVITES: 1 << 4,
+  REMOVE_MEMBER: 1 << 5,
+  EDIT_MEMBER: 1 << 6,
+  DELETE_PROJECT: 1 << 7,
+  VIEW_ANALYTICS: 1 << 8,
+  VIEW_PAYOUTS: 1 << 9,
 })
 
 const organizationPermissions = shallowRef({
-  EDIT_DETAILS : 1 << 0,
-  MANAGE_INVITES : 1 << 1,
-  REMOVE_MEMBER : 1 << 2,
-  EDIT_MEMBER : 1 << 3,
-  ADD_PROJECT : 1 << 4,
-  REMOVE_PROJECT : 1 << 5,
-  DELETE_ORGANIZATION : 1 << 6,
-  EDIT_MEMBER_DEFAULT_PERMISSIONS : 1 << 7,
+  EDIT_DETAILS: 1 << 0,
+  MANAGE_INVITES: 1 << 1,
+  REMOVE_MEMBER: 1 << 2,
+  EDIT_MEMBER: 1 << 3,
+  ADD_PROJECT: 1 << 4,
+  REMOVE_PROJECT: 1 << 5,
+  DELETE_ORGANIZATION: 1 << 6,
+  EDIT_MEMBER_DEFAULT_PERMISSIONS: 1 << 7,
 })
 
 const leaveProject = async () => {

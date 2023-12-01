@@ -2,7 +2,10 @@
   <Modal ref="modal" header="Create a project" :noblur="!(cosmetics.advancedRendering ?? true)">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
-        <p>New projects are created as drafts and can be found under {{ organization ? organization.title : 'your profile page'}}.</p>
+        <p>
+          New projects are created as drafts and can be found under
+          {{ organization ? organization.title : 'your profile page' }}.
+        </p>
       </div>
       <label for="project-type">
         <span class="label__title">Project type<span class="required">*</span></span>
@@ -151,16 +154,13 @@ async function createProject() {
     server_side: serverSide.value,
     license_id: 'LicenseRef-Unknown',
     is_draft: true,
-  };
+  }
 
   if (props.organization) {
     formValue.organization_id = props.organization.id
   }
 
-  formData.append(
-    'data',
-    JSON.stringify(formValue)
-  )
+  formData.append('data', JSON.stringify(formValue))
 
   try {
     await useBaseFetch('project', {

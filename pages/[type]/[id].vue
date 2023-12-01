@@ -278,12 +278,16 @@
             </NuxtLink>
             <h3>Dashboard</h3>
             <NuxtLink
-                :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings/analytics`"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings/analytics`"
             >
               <ChartIcon /> Analytics <span class="chevron"></span>
             </NuxtLink>
             <NuxtLink
-                :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings/moderation`"
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings/moderation`"
             >
               <ScaleIcon /> Moderation <span class="chevron"></span>
             </NuxtLink>
@@ -456,22 +460,32 @@
                     placeholder="Search collections..."
                     class="search-input menu-search"
                   />
-                  <div v-if="displayCollections && displayCollections.filter((x) => x.title.toLowerCase().includes(displayCollectionsSearch.toLowerCase())).length > 0" class="collections-list">
+                  <div
+                    v-if="
+                      displayCollections &&
+                      displayCollections.filter((x) =>
+                        x.title.toLowerCase().includes(displayCollectionsSearch.toLowerCase())
+                      ).length > 0
+                    "
+                    class="collections-list"
+                  >
                     <Checkbox
-                        v-for="option in displayCollections.filter((x) => x.title.toLowerCase().includes(displayCollectionsSearch.toLowerCase()))"
-                        :key="option.id"
-                        class="popout-checkbox"
-                        v-model="option.selected"
-                        @update:model-value="patchCollection(option, option.selected)"
+                      v-for="option in displayCollections.filter((x) =>
+                        x.title.toLowerCase().includes(displayCollectionsSearch.toLowerCase())
+                      )"
+                      :key="option.id"
+                      v-model="option.selected"
+                      class="popout-checkbox"
+                      @update:model-value="patchCollection(option, option.selected)"
                     >
                       {{ option.title }}
                     </Checkbox>
                   </div>
-                  <div class="menu-text" v-else>
+                  <div v-else class="menu-text">
                     <p class="popout-text">No collections found.</p>
                   </div>
                   <Button class="collection-button" @click="$refs.modal_collection.show()">
-                    <PlusIcon/>
+                    <PlusIcon />
                     Create new collection
                   </Button>
                 </template>
@@ -718,7 +732,7 @@ import {
   PopoutMenu,
   SlashIcon as BanIcon,
   ScaleIcon,
-  ChartIcon
+  ChartIcon,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {
@@ -734,7 +748,7 @@ import ManageIcon from '~/assets/images/utils/settings-2.svg'
 import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
-import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
+import SimpleCreationModal from '~/components/ui/SimpleCreationModal.vue'
 
 const route = useRoute()
 
@@ -814,22 +828,26 @@ try {
       useBaseFetch(`project/${route.params.id}/version`)
     ),
     useAsyncData(
-        `user/${auth.value.user.id}/collections`,
-        () => useBaseFetch(`user/${auth.value.user.id}/collections`),
-        { transform: (collections) => collections.sort((a, b) => a.title.localeCompare(b.title)) },
+      `user/${auth.value.user.id}/collections`,
+      () => useBaseFetch(`user/${auth.value.user.id}/collections`),
+      { transform: (collections) => collections.sort((a, b) => a.title.localeCompare(b.title)) }
     ),
     useAsyncData(
-        `user/${auth.value.user.id}/organizations`,
-        () => useBaseFetch(`user/${auth.value.user.id}/organizations`),
-        { transform: (organizations) => organizations.sort((a, b) => a.title.localeCompare(b.title)).map(org => {
-            return {
-              title: org.title,
-              subtitle: org.description,
-              icon: org.icon_url,
-              id: org.id,
-            }
-          })
-        },
+      `user/${auth.value.user.id}/organizations`,
+      () => useBaseFetch(`user/${auth.value.user.id}/organizations`),
+      {
+        transform: (organizations) =>
+          organizations
+            .sort((a, b) => a.title.localeCompare(b.title))
+            .map((org) => {
+              return {
+                title: org.title,
+                subtitle: org.description,
+                icon: org.icon_url,
+                id: org.id,
+              }
+            }),
+      }
     ),
   ])
 
@@ -864,10 +882,10 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
   )
 }
 
-if(collections.value) {
+if (collections.value) {
   displayCollections.value = collections.value.map((collection) => ({
     ...collection,
-    selected: collection.projects.some((collectionProject) => collectionProject === project.value.id),
+    selected: collection.projects.includes(project.value.id),
   }))
 }
 
@@ -876,7 +894,9 @@ const patchCollection = async (collection, add) => {
     await useBaseFetch(`collection/${collection.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
-        new_projects:  add ? [...collection.projects, project.value.id] : [ ...collection.projects].filter((x) => x !== project.value.id)
+        new_projects: add
+          ? [...collection.projects, project.value.id]
+          : [...collection.projects].filter((x) => x !== project.value.id),
       }),
     })
   } catch (err) {

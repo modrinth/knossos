@@ -1,27 +1,11 @@
 <script setup>
 import {
-  SearchIcon,
-  Card,
-  Button,
-  LinkIcon,
-  Promotion,
-  ShareIcon,
-  HeartIcon,
-  CurrencyIcon,
-  ReportIcon,
-  SunriseIcon,
-  GitHubIcon,
-  DownloadIcon,
   SettingsIcon,
   UsersIcon,
   ListIcon,
-  DashboardIcon,
   ChartIcon,
-  formatNumber,
   ShareModal,
   BoxIcon,
-  ModrinthIcon,
-  ScaleIcon,
   ServerIcon,
   MoreHorizontalIcon,
   OverflowMenu,
@@ -31,13 +15,12 @@ import {
   FilterIcon,
   ImageIcon,
 } from 'omorphia'
-import WorldIcon from "assets/images/utils/world.svg";
-import GlassesIcon from "assets/images/utils/glasses.svg";
-import PackageIcon from "assets/images/utils/package-open.svg";
-import BracesIcon from "assets/images/utils/braces.svg";
+import WorldIcon from 'assets/images/utils/world.svg'
+import GlassesIcon from 'assets/images/utils/glasses.svg'
+import PackageIcon from 'assets/images/utils/package-open.svg'
+import BracesIcon from 'assets/images/utils/braces.svg'
 
 const auth = await useAuth()
-const data = useNuxtApp()
 const route = useRoute()
 const router = useRouter()
 
@@ -64,7 +47,7 @@ const projects = shallowRef(
 const selectedFilter = ref(route.query.filter ?? 'all')
 
 const filterOptions = computed(() =>
-    projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+  projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
 const patchOrganization = async (resData, quiet = false) => {
@@ -164,23 +147,25 @@ const resetOrganization = async () => {
 }
 
 const currentMember = ref(
-  auth.value.user && organization.value ? organization.value.members.find((x) => x.user.id === auth.value.user.id) : null
+  auth.value.user && organization.value
+    ? organization.value.members.find((x) => x.user.id === auth.value.user.id)
+    : null
 )
 
 if (
-    !currentMember.value &&
-    auth.value.user &&
-    tags.value.staffRoles.includes(auth.value.user.role)
+  !currentMember.value &&
+  auth.value.user &&
+  tags.value.staffRoles.includes(auth.value.user.role)
 ) {
-    currentMember.value = {
-        user: auth.value.user,
-        role: auth.value.role,
-        permissions: auth.value.user.role === 'admin' ? 1023 : 12,
-        accepted: true,
-        payouts_split: 0,
-        avatar_url: auth.value.user.avatar_url,
-        name: auth.value.user.username,
-    }
+  currentMember.value = {
+    user: auth.value.user,
+    role: auth.value.role,
+    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
+    accepted: true,
+    payouts_split: 0,
+    avatar_url: auth.value.user.avatar_url,
+    name: auth.value.user.username,
+  }
 }
 
 const selectFilter = (filter) => {
@@ -213,38 +198,22 @@ const deleteOrganization = async () => {
 </script>
 
 <template>
-  <ShareModal
+  <div
     v-if="organization"
-    ref="shareModal"
-    :share-title="organization.title"
-    :share-text="`Check out the cool projects ${organization.title} is making on Modrinth!`"
-    link
-  />
-  <ReportModal
-    v-if="organization"
-    ref="reportModal"
-    item-type="organization"
-    :item-id="organization.id"
-    :report-types="[
-      'Spam',
-      'Copyright',
-      'Inappropriate',
-      'Malicious',
-      'Name-squatting',
-      'Poor description',
-      'Invalid metadata',
-      'Other',
-    ]"
-  />
-  <div v-if="organization" class="normal-page" :class="{'alt-layout': $route.name.startsWith('organization-id-settings')}">
+    class="normal-page"
+    :class="{ 'alt-layout': $route.name.startsWith('organization-id-settings') }"
+  >
+    <ShareModal
+      v-if="organization"
+      ref="shareModal"
+      :share-title="organization.title"
+      :share-text="`Check out the cool projects ${organization.title} is making on Modrinth!`"
+      link
+    />
     <div class="organization-header">
       <div class="banner-img">
         <div class="banner-content">
-          <Avatar
-              :src="organization.icon_url"
-              size="lg"
-              :alt="organization.title"
-          />
+          <Avatar :src="organization.icon_url" size="lg" :alt="organization.title" />
           <div class="user-text">
             <div class="title">
               <h2 class="username">
@@ -261,9 +230,26 @@ const deleteOrganization = async () => {
       </div>
       <PageBar>
         <span class="page-bar__title"><FilterIcon /> Filter by</span>
-        <div class="nav-button button-base" :class="{'router-link-exact-active': selectedFilter === 'all' && !$route.name.startsWith('organization-id-settings')}" @click="selectFilter('all')">All</div>
+        <div
+          class="nav-button button-base"
+          :class="{
+            'router-link-exact-active':
+              selectedFilter === 'all' && !$route.name.startsWith('organization-id-settings'),
+          }"
+          @click="selectFilter('all')"
+        >
+          All
+        </div>
         <template v-for="(filter, index) in filterOptions" :key="filter">
-          <div class="nav-button button-base" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter && !$route.name.startsWith('organization-id-settings')}" @click="selectFilter(filter)">
+          <div
+            v-if="filter === selectedFilter || index < 2"
+            class="nav-button button-base"
+            :class="{
+              'router-link-exact-active':
+                selectedFilter === filter && !$route.name.startsWith('organization-id-settings'),
+            }"
+            @click="selectFilter(filter)"
+          >
             <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
             <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
             <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
@@ -274,20 +260,28 @@ const deleteOrganization = async () => {
           </div>
         </template>
         <OverflowMenu
-            v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
-            class="nav-button button-base"
-            :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
-                  (filter) => ({
-                  'id': filter,
-                  'action': () => {
-                    selectedFilter = filter
-                  },
-                })
-              )"
-            position="right"
-            direction="down"
+          v-if="
+            filterOptions.length > 2 &&
+            filterOptions
+              .slice(2, filterOptions.length)
+              .filter((filter) => filter !== selectedFilter).length > 0
+          "
+          class="nav-button button-base"
+          :options="
+            filterOptions
+              .slice(2, filterOptions.length)
+              .filter((filter) => filter !== selectedFilter)
+              .map((filter) => ({
+                id: filter,
+                action: () => {
+                  selectedFilter = filter
+                },
+              }))
+          "
+          position="right"
+          direction="down"
         >
-          <MoreHorizontalIcon/>
+          <MoreHorizontalIcon />
           <template #mod> <BoxIcon /> Mods </template>
           <template #datapack> <BracesIcon /> Data Packs </template>
           <template #resourcepack> <ImageIcon /> Resource Packs </template>
@@ -297,11 +291,19 @@ const deleteOrganization = async () => {
           <template #modpack> <PackageIcon /> Modpacks </template>
         </OverflowMenu>
         <template #right>
-          <div class="nav-button button-base" @click="() => $router.push(`/organization/${organization.title}/settings`)" :class="{'router-link-exact-active': $route.name.startsWith('organization-id-settings')}"><SettingsIcon /> Settings</div>
+          <div
+            class="nav-button button-base"
+            :class="{
+              'router-link-exact-active': $route.name.startsWith('organization-id-settings'),
+            }"
+            @click="() => $router.push(`/organization/${organization.title}/settings`)"
+          >
+            <SettingsIcon /> Settings
+          </div>
         </template>
       </PageBar>
     </div>
-    <div class="normal-page__sidebar" v-if="$route.name.startsWith('organization-id-settings')">
+    <div v-if="$route.name.startsWith('organization-id-settings')" class="normal-page__sidebar">
       <div class="settings-page__header">
         <Breadcrumbs
           current-title="Settings"
@@ -343,14 +345,14 @@ const deleteOrganization = async () => {
       </div>
     </div>
     <NuxtPage
-        v-model:organization="organization"
-        v-model:projects="projects"
-        v-model:type-filter="selectedFilter"
-        :current-member="currentMember"
-        :patch-icon="patchIcon"
-        :patch-organization="patchOrganization"
-        :delete-icon="deleteIcon"
-        :delete-organization="deleteOrganization"
+      v-model:organization="organization"
+      v-model:projects="projects"
+      v-model:type-filter="selectedFilter"
+      :current-member="currentMember"
+      :patch-icon="patchIcon"
+      :patch-organization="patchOrganization"
+      :delete-icon="deleteIcon"
+      :delete-organization="deleteOrganization"
     />
   </div>
 </template>
@@ -617,7 +619,8 @@ const deleteOrganization = async () => {
   .banner-img {
     width: 100%;
     height: 12rem;
-    background: var(--color-raised-bg) url("https://launcher-files.modrinth.com/assets/maze-bg.png") no-repeat center;
+    background: var(--color-raised-bg) url('https://launcher-files.modrinth.com/assets/maze-bg.png')
+      no-repeat center;
     background-size: cover;
     border-radius: var(--radius-md);
     border: 1px var(--color-button-bg) solid;
@@ -653,7 +656,6 @@ const deleteOrganization = async () => {
   }
 }
 
-
 .filter-row {
   margin-bottom: 1rem;
 
@@ -680,7 +682,8 @@ const deleteOrganization = async () => {
     width: 1.2rem;
   }
 
-  a, .link {
+  a,
+  .link {
     display: flex;
     align-items: center;
     gap: 0.5rem;

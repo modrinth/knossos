@@ -8,12 +8,6 @@
           <PlusIcon />
           Create a collection
         </Button>
-        <input
-          type="text"
-          class="input"
-          placeholder="Search collections..."
-          v-model="search"
-        />
       </div>
       <p v-if="collections.length < 1">
         You don't have any projects yet. Click the green button above to begin.
@@ -56,77 +50,17 @@
 </template>
 
 <script setup>
-import { Multiselect } from 'vue-multiselect'
-import {
-  Badge,
-  Avatar,
-  PlusIcon,
-  BoxIcon,
-  Card,
-  SortAscendingIcon,
-  SortDescendingIcon,
-  Button,
-} from 'omorphia'
+import { Badge, Avatar, PlusIcon, BoxIcon, Card, Button } from 'omorphia'
 
-import ModalCreation from '~/components/ui/ModalCreation.vue'
-import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
+import SimpleCreationModal from '~/components/ui/SimpleCreationModal.vue'
 
 const auth = await useAuth()
-
-const updateSort = (projects, sort, descending) => {
-  let sortedArray = projects
-  switch (sort) {
-    case 'Name':
-      sortedArray = projects.slice().sort((a, b) => {
-        return a.title.localeCompare(b.title)
-      })
-      break
-    case 'Status':
-      sortedArray = projects.slice().sort((a, b) => {
-        if (a.status < b.status) {
-          return -1
-        }
-        if (a.status > b.status) {
-          return 1
-        }
-        return 0
-      })
-      break
-    case 'Type':
-      sortedArray = projects.slice().sort((a, b) => {
-        if (a.project_type < b.project_type) {
-          return -1
-        }
-        if (a.project_type > b.project_type) {
-          return 1
-        }
-        return 0
-      })
-      break
-    default:
-      break
-  }
-
-  if (descending) {
-    sortedArray = sortedArray.reverse()
-  }
-
-  return sortedArray
-}
 
 const collections = shallowRef(
   await useAsyncData(`user/${auth.value.user.id}/collections`, () =>
     useBaseFetch(`user/${auth.value.user.id}/collections`)
   ).then((res) => res.data)
 )
-
-const sortBy = ref('Name')
-const descending = ref(false)
-
-const updateDescending = () => {
-  descending.value = !descending.value
-  collections.value = updateSort(collections.value, sortBy.value, descending.value)
-}
 </script>
 <style lang="scss" scoped>
 .grid-table {

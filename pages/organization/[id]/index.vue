@@ -1,22 +1,5 @@
 <script setup>
-import {
-  Card,
-  SearchIcon,
-  ChevronRightIcon,
-  EditIcon,
-  Button,
-  XIcon,
-  SaveIcon,
-  DropdownSelect,
-  SettingsIcon,
-  PopoutMenu,
-  FilterIcon,
-  Checkbox,
-  Avatar,
-  formatCategory,
-  Promotion,
-  ProjectCard
-} from 'omorphia'
+import { Card, SearchIcon, Button, XIcon, Avatar, Promotion, ProjectCard } from 'omorphia'
 const cosmetics = useCosmetics()
 const tags = useTags()
 const auth = await useAuth()
@@ -48,72 +31,76 @@ selectedFilters.value.push(
   ...props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
-const filterOptions = computed(() =>
-  props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
-)
 </script>
 
 <template>
-  <div class="normal-page__sidebar">
-    <Card class="creator-list">
-      <div class="title-and-link">
-        <h3>Creators</h3>
-      </div>
-      <div
-        v-for="member in organization.members"
-        :key="member.user.id"
-        class="creator button-base"
-        @click="$router.push(`/user/${member.user.username}`)"
-      >
-        <Avatar :src="member.user.avatar_url" circle />
-        <p class="name">{{ member.user.username }}</p>
-        <p class="role">{{ member.role }}</p>
-      </div>
-    </Card>
-  </div>
-  <div class="normal-page__content">
-    <Promotion/>
-    <div class="search-row">
-      <div class="iconified-input">
-        <SearchIcon />
-        <input id="search-input" v-model="inputText" type="text" placeholder="Search projects..." />
-        <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
-          <XIcon />
-        </Button>
-      </div>
+  <div>
+    <div class="normal-page__sidebar">
+      <Card class="creator-list">
+        <div class="title-and-link">
+          <h3>Creators</h3>
+        </div>
+        <div
+          v-for="member in organization.members"
+          :key="member.user.id"
+          class="creator button-base"
+          @click="$router.push(`/user/${member.user.username}`)"
+        >
+          <Avatar :src="member.user.avatar_url" circle />
+          <p class="name">{{ member.user.username }}</p>
+          <p class="role">{{ member.role }}</p>
+        </div>
+      </Card>
     </div>
-    <div class="project-list display-mode--list">
-      <ProjectCard
-        v-for="project in projects
-          .filter((p) => typeFilter === p.project_type || typeFilter === 'all')
-          .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
-        :id="project.slug || project.id"
-        :key="project.id"
-        :name="project.title"
-        :display="cosmetics.searchDisplayMode.user"
-        :featured-image="
-          project.gallery
-            .slice()
-            .sort((a, b) => b.featured - a.featured)
-            .map((x) => x.url)[0]
-        "
-        :description="project.description"
-        :created-at="project.published"
-        :updated-at="project.updated"
-        :downloads="project.downloads.toString()"
-        :follows="project.followers.toString()"
-        :icon-url="project.icon_url"
-        :categories="project.categories"
-        :client-side="project.client_side"
-        :server-side="project.server_side"
-        :status="
-          auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-            ? project.status
-            : null
-        "
-        :type="project.project_type"
-        :color="project.color"
-      />
+    <div class="normal-page__content">
+      <Promotion />
+      <div class="search-row">
+        <div class="iconified-input">
+          <SearchIcon />
+          <input
+            id="search-input"
+            v-model="inputText"
+            type="text"
+            placeholder="Search projects..."
+          />
+          <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+            <XIcon />
+          </Button>
+        </div>
+      </div>
+      <div class="project-list display-mode--list">
+        <ProjectCard
+          v-for="project in projects
+            .filter((p) => typeFilter === p.project_type || typeFilter === 'all')
+            .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
+          :id="project.slug || project.id"
+          :key="project.id"
+          :name="project.title"
+          :display="cosmetics.searchDisplayMode.user"
+          :featured-image="
+            project.gallery
+              .slice()
+              .sort((a, b) => b.featured - a.featured)
+              .map((x) => x.url)[0]
+          "
+          :description="project.description"
+          :created-at="project.published"
+          :updated-at="project.updated"
+          :downloads="project.downloads.toString()"
+          :follows="project.followers.toString()"
+          :icon-url="project.icon_url"
+          :categories="project.categories"
+          :client-side="project.client_side"
+          :server-side="project.server_side"
+          :status="
+            auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+              ? project.status
+              : null
+          "
+          :type="project.project_type"
+          :color="project.color"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -20,20 +20,16 @@ import {
   TrashIcon,
   PopoutMenu,
   FileInput,
-  Badge,
   PageBar,
-  HistoryIcon,
   ProjectCard,
 } from 'omorphia'
-import PuzzleIcon from "~/assets/images/utils/puzzle.svg";
-import WorldIcon from "assets/images/utils/world.svg";
-import GlassesIcon from "assets/images/utils/glasses.svg";
-import PackageIcon from "assets/images/utils/package-open.svg";
-import BracesIcon from "assets/images/utils/braces.svg";
-import UpToDate from "assets/images/illustrations/up_to_date.svg";
-import {addNotification} from "~/composables/notifs";
+import WorldIcon from 'assets/images/utils/world.svg'
+import GlassesIcon from 'assets/images/utils/glasses.svg'
+import PackageIcon from 'assets/images/utils/package-open.svg'
+import BracesIcon from 'assets/images/utils/braces.svg'
+import UpToDate from 'assets/images/illustrations/up_to_date.svg'
+import { addNotification } from '~/composables/notifs'
 
-const data = useNuxtApp()
 const route = useRoute()
 const cosmetics = useCosmetics()
 const auth = await useAuth()
@@ -54,11 +50,11 @@ const creator = shallowRef(
 )
 
 if (!collection.value) {
-    throw createError({
-        fatal: true,
-        statusCode: 404,
-        message: 'Collection not found',
-    })
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+    message: 'Collection not found',
+  })
 }
 
 const projects = shallowRef(
@@ -192,7 +188,10 @@ const resetCollection = async () => {
 }
 
 const hasPermission = computed(() => {
-  return auth.value.user && (auth.value.user.id === collection.value.user || tags.staffRoles.includes(auth.user.role))
+  return (
+    auth.value.user &&
+    (auth.value.user.id === collection.value.user || tags.staffRoles.includes(auth.user.role))
+  )
 })
 
 const hasChanges = computed(() => {
@@ -250,40 +249,6 @@ const removeProject = (projectId) => {
   patchCollection({ new_projects: projectList })
 }
 
-const searchText = ref('')
-
-const noLoad = ref(false)
-const { data: rawResults } = useLazyFetch(
-  () => {
-    const config = useRuntimeConfig()
-    const base = process.server ? config.apiBaseUrl : config.public.apiBaseUrl
-
-    const params = [`limit=20`]
-
-    if (searchText.value.length > 0) {
-      params.push(`query=${encodeURIComponent(searchText.value.replace(/ /g, '+'))}`)
-    }
-
-    let url = 'search'
-
-    if (params.length > 0) {
-      for (let i = 0; i < params.length; i++) {
-        url += i === 0 ? `?${params[i]}` : `&${params[i]}`
-      }
-    }
-
-    return `${base}${url}`
-  },
-  {
-    transform: (hits) => {
-      noLoad.value = false
-      return hits
-    },
-  }
-)
-
-const results = shallowRef(toRaw(rawResults))
-
 const showEditModal = () => {
   editModal.value.show()
   name.value = collection.value.title
@@ -294,224 +259,229 @@ const showEditModal = () => {
 </script>
 
 <template>
-  <ShareModal
+  <div>
+    <ShareModal
       ref="shareModal"
       :share-title="collection.title"
       :share-text="`Check out the cool projects that are a part of the ${collection.title} collection on Modrinth!`"
       link
-  />
-  <ReportModal
-      ref="reportModal"
-      item-type="collection"
-      :item-id="collection?.id"
-      :report-types="[
-      'Spam',
-      'Inappropriate',
-      'Malicious',
-      'Name-squatting',
-      'Poor description',
-      'Invalid metadata',
-      'Other',
-    ]"
-  />
-  <Modal
-    ref="editModal"
-    :header="`Edit ${collection.title}`"
-  >
-    <div class="modal-body">
-      <div class="edit-section">
-        <div class="avatar-section">
-          <Avatar size="lg" :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url" />
-          <PopoutMenu class="btn icon-edit-button icon-only" position="bottom" direction="right">
-            <EditIcon />
-            <template #menu>
-            <span class="icon-edit-menu">
-              <FileInput
-                  id="project-icon"
-                  :max-size="262144"
-                  :show-icon="true"
-                  accept="image/png,image/jpeg,image/gif,image/webp"
-                  class="btn btn-transparent upload"
-                  style="white-space: nowrap"
-                  prompt=""
-                  @change="showPreviewImage"
-              >
-                <UploadIcon />
-                Upload icon
-              </FileInput>
+    />
+    <Modal ref="editModal" :header="`Edit ${collection.title}`">
+      <div class="modal-body">
+        <div class="edit-section">
+          <div class="avatar-section">
+            <Avatar
+              size="lg"
+              :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
+            />
+            <PopoutMenu class="btn icon-edit-button icon-only" position="bottom" direction="right">
+              <EditIcon />
+              <template #menu>
+                <span class="icon-edit-menu">
+                  <FileInput
+                    id="project-icon"
+                    :max-size="262144"
+                    :show-icon="true"
+                    accept="image/png,image/jpeg,image/gif,image/webp"
+                    class="btn btn-transparent upload"
+                    style="white-space: nowrap"
+                    prompt=""
+                    @change="showPreviewImage"
+                  >
+                    <UploadIcon />
+                    Upload icon
+                  </FileInput>
+                  <Button
+                    v-if="!deletedIcon && (previewImage || collection.icon_url)"
+                    style="white-space: nowrap"
+                    transparent
+                    @click="markIconForDeletion"
+                  >
+                    <TrashIcon />
+                    Delete icon
+                  </Button>
+                </span>
+              </template>
+            </PopoutMenu>
+          </div>
+          <input v-model="name" type="text" placeholder="Collection title" />
+          <textarea v-model="summary" placeholder="Add an optional description" />
+        </div>
+        <div class="input-group push-right">
+          <Button @click="$refs.editModal.hide()">
+            <XIcon />
+            Cancel
+          </Button>
+          <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">
+            <SaveIcon />
+            Save changes
+          </Button>
+        </div>
+      </div>
+    </Modal>
+    <div class="normal-page no-sidebar">
+      <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
+        <div class="page-header">
+          <div class="page-header__icon">
+            <Avatar size="lg" :src="collection.icon_url" />
+          </div>
+          <div class="page-header__text">
+            <div class="title">
+              <h1>{{ collection.title }}</h1>
               <Button
-                  v-if="!deletedIcon && (previewImage || collection.icon_url)"
-                  @click="markIconForDeletion"
-                  style="white-space: nowrap"
-                  transparent
+                @click="$refs.shareModal.show(`https://modrinth.com/collection/${collection.id}`)"
               >
-                <TrashIcon />
-                Delete icon
+                <ShareIcon />
               </Button>
-            </span>
-            </template>
-          </PopoutMenu>
-        </div>
-        <input
-            type="text"
-            placeholder="Collection title"
-            v-model="name"
-        />
-        <textarea
-            placeholder="Add an optional description"
-            v-model="summary"
-        />
-      </div>
-      <div class="input-group push-right">
-        <Button @click="$refs.editModal.hide()">
-          <XIcon/>
-          Cancel
-        </Button>
-        <Button
-          color="primary"
-          :disabled="!hasChanges"
-          @click="saveChanges()"
-        >
-          <SaveIcon />
-          Save changes
-        </Button>
-      </div>
-    </div>
-  </Modal>
-  <div class="normal-page no-sidebar">
-    <div v-if="!$route.name.startsWith('collection-id-settings')" class="normal-page__header">
-      <div class="page-header">
-        <div class="page-header__icon">
-          <Avatar
-            size="lg"
-            :src="collection.icon_url"
-          />
-        </div>
-        <div class="page-header__text">
-          <div class="title">
-            <h1>{{ collection.title }}</h1>
-            <Button @click="$refs.shareModal.show(`https://modrinth.com/collection/${collection.id}`)">
-              <ShareIcon />
-            </Button>
-          </div>
-          <div class="collection-info">
-            <span>
-              by <router-link :to="`/user/${creator.username}`">{{ creator.username }}</router-link>
-            </span>
-          </div>
-          <div class="markdown-body collection-description">
-            <p>{{ collection.description }}</p>
+            </div>
+            <div class="collection-info">
+              <span>
+                by
+                <router-link :to="`/user/${creator.username}`">{{ creator.username }}</router-link>
+              </span>
+            </div>
+            <div class="markdown-body collection-description">
+              <p>{{ collection.description }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="normal-page__content">
-      <PageBar>
-        <span class="page-bar__title"><FilterIcon /> Filter by</span>
-        <div class="button-base nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'">All</div>
-        <template v-for="(filter, index) in filterOptions" :key="filter">
-          <div class="button-base nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
-            <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
-            <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
-            <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
-            <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
-            <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
-            <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
-            <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+      <div class="normal-page__content">
+        <PageBar>
+          <span class="page-bar__title"><FilterIcon /> Filter by</span>
+          <div
+            class="button-base nav-button"
+            :class="{ 'router-link-exact-active': selectedFilter === 'all' }"
+            @click="() => (selectedFilter = 'all')"
+          >
+            All
           </div>
-        </template>
-        <OverflowMenu
-            v-if="filterOptions.length > 2 && filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).length > 0"
+          <template v-for="(filter, index) in filterOptions" :key="filter">
+            <div
+              v-if="filter === selectedFilter || index < 2"
+              class="button-base nav-button"
+              :class="{ 'router-link-exact-active': selectedFilter === filter }"
+              @click="() => (selectedFilter = filter)"
+            >
+              <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
+              <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
+              <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
+              <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
+              <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
+              <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
+              <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
+            </div>
+          </template>
+          <OverflowMenu
+            v-if="
+              filterOptions.length > 2 &&
+              filterOptions
+                .slice(2, filterOptions.length)
+                .filter((filter) => filter !== selectedFilter).length > 0
+            "
             class="link btn transparent"
-            :options="filterOptions.slice(2, filterOptions.length).filter((filter) => filter !== selectedFilter).map(
-                (filter) => ({
-                'id': filter,
-                'action': () => {
-                  selectedFilter = filter
-                },
-              })
-            )"
+            :options="
+              filterOptions
+                .slice(2, filterOptions.length)
+                .filter((filter) => filter !== selectedFilter)
+                .map((filter) => ({
+                  id: filter,
+                  action: () => {
+                    selectedFilter = filter
+                  },
+                }))
+            "
             position="right"
             direction="down"
-        >
-          <MoreHorizontalIcon/>
-          <template #mod> <BoxIcon /> Mods </template>
-          <template #datapack> <BracesIcon /> Data Packs </template>
-          <template #resourcepack> <ImageIcon /> Resource Packs </template>
-          <template #shader> <GlassesIcon /> Shaders </template>
-          <template #world> <WorldIcon /> Worlds </template>
-          <template #plugin> <ServerIcon /> Plugins </template>
-          <template #modpack> <PackageIcon /> Modpacks </template>
-        </OverflowMenu>
-        <template #right>
-          <div class="nav-button button-base" v-if="auth.user && auth.user.id === creator.id" @click="showEditModal">
-            <EditIcon />
-            Edit collection
-          </div>
-        </template>
-      </PageBar>
-      <Promotion />
-      <div v-if="projects && projects.length > 0" class="search-row">
-        <div class="iconified-input">
-          <SearchIcon />
-          <input id="search-input" v-model="inputText" type="text" placeholder="Search for mods..." />
-          <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
-            <XIcon />
-          </Button>
-        </div>
-      </div>
-      <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
-        <ProjectCard
-          v-for="project in projects
-            .filter((p) => selectedFilter === p.project_type || selectedFilter === 'all')
-            .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
-          :id="project.slug || project.id"
-          :key="project.id"
-          :name="project.title"
-          :display="cosmetics.searchDisplayMode.user"
-          :featured-image="
-            project.gallery
-              .slice()
-              .sort((a, b) => b.featured - a.featured)
-              .map((x) => x.url)[0]
-          "
-          :description="project.description"
-          :created-at="project.published"
-          :updated-at="project.updated"
-          :downloads="project.downloads.toString()"
-          :follows="project.followers.toString()"
-          :icon-url="project.icon_url"
-          :categories="project.categories"
-          :client-side="project.client_side"
-          :server-side="project.server_side"
-          :status="
-            auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-              ? project.status
-              : null
-          "
-          :type="project.project_type"
-          :color="project.color"
-        >
-          <Button
-            v-if="enableEditing"
-            class="btn"
-            color="danger"
-            @click="() => removeProject(project.id)"
-            :disabled="!hasPermission"
           >
-            <XIcon />
-            Remove
-          </Button>
-        </ProjectCard>
-      </div>
-      <div v-else class="error">
-        <UpToDate class="icon" /><br />
-        <span v-if="auth.user && auth.user.id === creator.id" class="text">
+            <MoreHorizontalIcon />
+            <template #mod> <BoxIcon /> Mods </template>
+            <template #datapack> <BracesIcon /> Data Packs </template>
+            <template #resourcepack> <ImageIcon /> Resource Packs </template>
+            <template #shader> <GlassesIcon /> Shaders </template>
+            <template #world> <WorldIcon /> Worlds </template>
+            <template #plugin> <ServerIcon /> Plugins </template>
+            <template #modpack> <PackageIcon /> Modpacks </template>
+          </OverflowMenu>
+          <template #right>
+            <div
+              v-if="auth.user && auth.user.id === creator.id"
+              class="nav-button button-base"
+              @click="showEditModal"
+            >
+              <EditIcon />
+              Edit collection
+            </div>
+          </template>
+        </PageBar>
+        <Promotion />
+        <div v-if="projects && projects.length > 0" class="search-row">
+          <div class="iconified-input">
+            <SearchIcon />
+            <input
+              id="search-input"
+              v-model="inputText"
+              type="text"
+              placeholder="Search for mods..."
+            />
+            <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+              <XIcon />
+            </Button>
+          </div>
+        </div>
+        <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
+          <ProjectCard
+            v-for="project in projects
+              .filter((p) => selectedFilter === p.project_type || selectedFilter === 'all')
+              .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
+            :id="project.slug || project.id"
+            :key="project.id"
+            :name="project.title"
+            :display="cosmetics.searchDisplayMode.user"
+            :featured-image="
+              project.gallery
+                .slice()
+                .sort((a, b) => b.featured - a.featured)
+                .map((x) => x.url)[0]
+            "
+            :description="project.description"
+            :created-at="project.published"
+            :updated-at="project.updated"
+            :downloads="project.downloads.toString()"
+            :follows="project.followers.toString()"
+            :icon-url="project.icon_url"
+            :categories="project.categories"
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :status="
+              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+                ? project.status
+                : null
+            "
+            :type="project.project_type"
+            :color="project.color"
+          >
+            <Button
+              v-if="enableEditing"
+              class="btn"
+              color="danger"
+              :disabled="!hasPermission"
+              @click="() => removeProject(project.id)"
+            >
+              <XIcon />
+              Remove
+            </Button>
+          </ProjectCard>
+        </div>
+        <div v-else class="error">
+          <UpToDate class="icon" /><br />
+          <span v-if="auth.user && auth.user.id === creator.id" class="text">
             You don't have any projects.<br />
             Would you like to
             <a class="link" @click.prevent="$router.push('/mods')"> add one</a>?
           </span>
-        <span v-else class="text">This collection has no projects!</span>
+          <span v-else class="text">This collection has no projects!</span>
+        </div>
       </div>
     </div>
   </div>
@@ -577,7 +547,6 @@ const showEditModal = () => {
   padding: var(--gap-sm) var(--gap-md);
 }
 
-
 .filter-row {
   margin-bottom: 1rem;
 
@@ -604,7 +573,8 @@ const showEditModal = () => {
     width: 1.2rem;
   }
 
-  a, .link {
+  a,
+  .link {
     display: flex;
     align-items: center;
     gap: 0.5rem;

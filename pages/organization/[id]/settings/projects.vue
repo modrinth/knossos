@@ -30,8 +30,8 @@
               aria-label="Clear link"
               class="square-button label-button"
               :data-active="editLinks.issues.clear"
-              @click="editLinks.issues.clear = !editLinks.issues.clear"
               icon-only
+              @click="editLinks.issues.clear = !editLinks.issues.clear"
             >
               <TrashIcon />
             </Button>
@@ -57,8 +57,8 @@
               v-tooltip="'Clear link'"
               aria-label="Clear link"
               :data-active="editLinks.source.clear"
-              @click="editLinks.source.clear = !editLinks.source.clear"
               icon-only
+              @click="editLinks.source.clear = !editLinks.source.clear"
             >
               <TrashIcon />
             </Button>
@@ -84,8 +84,8 @@
               v-tooltip="'Clear link'"
               aria-label="Clear link"
               :data-active="editLinks.wiki.clear"
-              @click="editLinks.wiki.clear = !editLinks.wiki.clear"
               icon-only
+              @click="editLinks.wiki.clear = !editLinks.wiki.clear"
             >
               <TrashIcon />
             </Button>
@@ -110,8 +110,8 @@
               v-tooltip="'Clear link'"
               aria-label="Clear link"
               :data-active="editLinks.discord.clear"
-              @click="editLinks.discord.clear = !editLinks.discord.clear"
               icon-only
+              @click="editLinks.discord.clear = !editLinks.discord.clear"
             >
               <TrashIcon />
             </Button>
@@ -171,10 +171,7 @@
     <template v-else>
       <p>You can edit multiple projects at once by selecting them below.</p>
       <div class="input-group">
-        <Button
-          :disabled="selectedProjects.length === 0"
-          @click="$refs.editLinksModal.show()"
-        >
+        <Button :disabled="selectedProjects.length === 0" @click="$refs.editLinksModal.show()">
           <EditIcon />
           Edit links
         </Button>
@@ -194,8 +191,8 @@
             <Button
               v-tooltip="descending ? 'Descending' : 'Ascending'"
               class="square-button"
-              @click="updateDescending()"
               icon-only
+              @click="updateDescending()"
             >
               <SortDescendingIcon v-if="descending" />
               <SortAscendingIcon v-else />
@@ -220,13 +217,9 @@
           <div class="table-cell">ID</div>
           <div class="table-cell">Type</div>
           <div class="table-cell">Status</div>
-          <div class="table-cell"/>
+          <div class="table-cell" />
         </div>
-        <div
-          v-for="project in sortedProjects"
-          :key="`project-${project.id}`"
-          class="table-row"
-        >
+        <div v-for="project in sortedProjects" :key="`project-${project.id}`" class="table-row">
           <div class="table-cell check-cell">
             <Checkbox
               :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
@@ -318,7 +311,7 @@ import {
   Button,
   SortAscendingIcon,
   SortDescendingIcon,
-  formatProjectType
+  formatProjectType,
 } from 'omorphia'
 
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
@@ -339,14 +332,7 @@ const props = defineProps({
   },
 })
 
-const UPLOAD_VERSION = shallowRef(1 << 0)
-const DELETE_VERSION = shallowRef(1 << 1)
 const EDIT_DETAILS = shallowRef(1 << 2)
-const EDIT_BODY = shallowRef(1 << 3)
-const MANAGE_INVITES = shallowRef(1 << 4)
-const REMOVE_MEMBER = shallowRef(1 << 5)
-const EDIT_MEMBER = shallowRef(1 << 6)
-const DELETE_PROJECT = shallowRef(1 << 7)
 
 const updateSort = (inputProjects, sort, descending) => {
   let sortedArray = inputProjects
@@ -390,7 +376,6 @@ const updateSort = (inputProjects, sort, descending) => {
 }
 
 const sortedProjects = ref(updateSort(props.projects, 'Name'))
-const versions = ref([])
 const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)

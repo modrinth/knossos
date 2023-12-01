@@ -14,47 +14,33 @@
     </Head>
     <ModalCreation ref="modal_creation" />
     <ReportModal ref="modal_report" :item-id="user.id" item-type="user" />
-    <Modal
-        ref="editModal"
-        header="Edit profile"
-    >
+    <Modal ref="editModal" header="Edit profile">
       <div class="modal-body">
         <div class="edit-section">
           <div class="avatar-section">
             <FileInput
-                id="project-icon"
-                :max-size="262144"
-                :show-icon="true"
-                accept="image/png,image/jpeg,image/gif,image/webp"
-                class="upload-button clickable"
-                style="white-space: nowrap"
-                prompt=""
-                @change="showPreviewImage"
+              id="project-icon"
+              :max-size="262144"
+              :show-icon="true"
+              accept="image/png,image/jpeg,image/gif,image/webp"
+              class="upload-button clickable"
+              style="white-space: nowrap"
+              prompt=""
+              @change="showPreviewImage"
             >
-              <Avatar size="lg" :src="previewImage ?? user.avatar_url" circle/>
-              <ImageIcon class="image-icon"/>
+              <Avatar size="lg" :src="previewImage ?? user.avatar_url" circle />
+              <ImageIcon class="image-icon" />
             </FileInput>
           </div>
-          <input
-              type="text"
-              placeholder="Username"
-              v-model="username"
-          />
-          <textarea
-              placeholder="About me"
-              v-model="bio"
-          />
+          <input v-model="username" type="text" placeholder="Username" />
+          <textarea v-model="bio" placeholder="About me" />
         </div>
         <div class="input-group push-right">
           <Button @click="$refs.editModal.hide()">
-            <XIcon/>
+            <XIcon />
             Cancel
           </Button>
-          <Button
-              color="primary"
-              :disabled="!hasChanges"
-              @click="saveChanges()"
-          >
+          <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">
             <SaveIcon />
             Save changes
           </Button>
@@ -65,27 +51,26 @@
       <div class="user-header">
         <div class="banner-img">
           <div class="banner-content">
-            <Avatar
-                :src="previewImage ?? user.avatar_url"
-                size="lg"
-                circle
-                :alt="user.username"
-            />
+            <Avatar :src="previewImage ?? user.avatar_url" size="lg" circle :alt="user.username" />
             <div class="user-text">
               <div class="title">
                 <h1 class="username">
                   {{ user.username }}
                 </h1>
-                <ModrinthIcon v-if="user.role === 'admin'" v-tooltip="'Modrinth team'" class="icon" />
+                <ModrinthIcon
+                  v-if="user.role === 'admin'"
+                  v-tooltip="'Modrinth team'"
+                  class="icon"
+                />
                 <ScaleIcon
-                    v-else-if="user.role === 'moderator'"
-                    v-tooltip="'Moderator'"
-                    class="icon moderator"
+                  v-else-if="user.role === 'moderator'"
+                  v-tooltip="'Moderator'"
+                  class="icon moderator"
                 />
                 <BoxIcon
-                    v-else-if="user.role === 'developer'"
-                    v-tooltip="'Creator'"
-                    class="icon creator"
+                  v-else-if="user.role === 'developer'"
+                  v-tooltip="'Creator'"
+                  class="icon creator"
                 />
               </div>
               <div class="markdown-body">
@@ -98,9 +83,19 @@
         </div>
         <PageBar>
           <span class="page-bar__title"><FilterIcon /> Filter by</span>
-          <a class="nav-button" :class="{'router-link-exact-active': selectedFilter === 'all'}" @click="() => selectedFilter = 'all'">All</a>
+          <a
+            class="nav-button"
+            :class="{ 'router-link-exact-active': selectedFilter === 'all' }"
+            @click="() => (selectedFilter = 'all')"
+            >All</a
+          >
           <template v-for="(filter, index) in projectTypes" :key="filter">
-            <div class="nav-button" v-if="filter === selectedFilter || index < 2" :class="{'router-link-exact-active': selectedFilter === filter}" @click="() => selectedFilter = filter">
+            <div
+              v-if="filter === selectedFilter || index < 2"
+              class="nav-button"
+              :class="{ 'router-link-exact-active': selectedFilter === filter }"
+              @click="() => (selectedFilter = filter)"
+            >
               <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
               <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
               <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
@@ -111,20 +106,29 @@
             </div>
           </template>
           <OverflowMenu
-              v-if="projectTypes && projectTypes.length > 2 && projectTypes.slice(2, projectTypes.length).filter((filter) => filter !== selectedFilter).length > 0"
-              class="link btn transparent nav-button"
-              :options="projectTypes.slice(2, projectTypes.length).filter((filter) => filter !== selectedFilter).map(
-                (filter) => ({
-                'id': filter,
-                'action': () => {
-                  selectedFilter = filter
-                },
-              })
-            )"
-              position="right"
-              direction="down"
+            v-if="
+              projectTypes &&
+              projectTypes.length > 2 &&
+              projectTypes
+                .slice(2, projectTypes.length)
+                .filter((filter) => filter !== selectedFilter).length > 0
+            "
+            class="link btn transparent nav-button"
+            :options="
+              projectTypes
+                .slice(2, projectTypes.length)
+                .filter((filter) => filter !== selectedFilter)
+                .map((filter) => ({
+                  id: filter,
+                  action: () => {
+                    selectedFilter = filter
+                  },
+                }))
+            "
+            position="right"
+            direction="down"
           >
-            <MoreHorizontalIcon/>
+            <MoreHorizontalIcon />
             <template #mod> <BoxIcon /> Mods </template>
             <template #datapack> <BracesIcon /> Data Packs </template>
             <template #resourcepack> <ImageIcon /> Resource Packs </template>
@@ -135,17 +139,19 @@
           </OverflowMenu>
           <template #right>
             <div
-                v-if="auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))"
-                class="nav-button button-base"
-                @click="showEditModal"
+              v-if="
+                auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+              "
+              class="nav-button button-base"
+              @click="showEditModal"
             >
               <EditIcon />
               Edit profile
             </div>
             <div
-                v-if="auth.user && auth.user.id !== user.id"
-                class="nav-button button-base"
-                @click="() => $refs.modal_report.show()"
+              v-if="auth.user && auth.user.id !== user.id"
+              class="nav-button button-base"
+              @click="() => $refs.modal_report.show()"
             >
               <TrashIcon />
               Report
@@ -174,7 +180,7 @@
             <div class="secondary-stat">
               <BoxIcon class="secondary-stat__icon" />
               <span class="secondary-stat__text">
-                <span class="secondary-stat__value" >{{ projects.length }}</span>
+                <span class="secondary-stat__value">{{ projects.length }}</span>
                 <span>Projects</span>
               </span>
             </div>
@@ -204,13 +210,18 @@
         <Card v-if="organizations">
           <h2 class="sidebar-card-header">Organizations</h2>
           <div class="organizations">
-            <router-link v-for="org in organizations" class="button-base clickable" :to="'/organization/' + org.title">
+            <router-link
+              v-for="org in organizations"
+              :key="org.id"
+              class="button-base clickable"
+              :to="'/organization/' + org.title"
+            >
               <Avatar
-                  :key="org.id"
-                  :src="org.icon_url"
-                  :alt="org.title"
-                  size="sm"
-                  @click="$router.push('/organization/' + org.title)"
+                :key="org.id"
+                :src="org.icon_url"
+                :alt="org.title"
+                size="sm"
+                @click="$router.push('/organization/' + org.title)"
               />
             </router-link>
           </div>
@@ -221,7 +232,12 @@
         <div class="search-row">
           <div class="iconified-input">
             <SearchIcon />
-            <input id="search-input" v-model="inputText" type="text" placeholder="Search for mods..." />
+            <input
+              id="search-input"
+              v-model="inputText"
+              type="text"
+              placeholder="Search for mods..."
+            />
             <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
               <XIcon />
             </Button>
@@ -238,10 +254,8 @@
           "
         >
           <ProjectCard
-            v-for="project in projects.filter(
-                  (x) =>
-                    x.project_type === selectedFilter || selectedFilter === 'all'
-              )
+            v-for="project in projects
+              .filter((x) => x.project_type === selectedFilter || selectedFilter === 'all')
               .filter((x) => x.title.toLowerCase().includes(inputText.toLowerCase()))
               .slice()
               .sort((a, b) => b.downloads - a.downloads)"
@@ -312,10 +326,12 @@ import {
   FileInput,
   MoreHorizontalIcon,
   OverflowMenu,
-  PopoutMenu,
   ServerIcon,
-  FilterIcon, formatNumber,
+  FilterIcon,
+  formatNumber,
 } from 'omorphia'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
@@ -330,17 +346,14 @@ import GlassesIcon from '~/assets/images/icons/glasses.svg'
 import WorldIcon from '~/assets/images/icons/world.svg'
 import PackageIcon from '~/assets/images/icons/package.svg'
 
-import dayjs from "dayjs";
-import relativeTime from 'dayjs/plugin/relativeTime';
-import {addNotification} from "~/composables/notifs";
+import { addNotification } from '~/composables/notifs'
 
-dayjs.extend(relativeTime);
+dayjs.extend(relativeTime)
 
 const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()
-const data = useNuxtApp()
 
 const editModal = ref(null)
 const selectedFilter = ref('all')
@@ -369,7 +382,7 @@ const messages = defineMessages({
   profileNoProjectsAuthLabel: {
     id: 'profile.label.no-projects-auth',
     defaultMessage:
-        "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
+      "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
   },
   userNotFoundError: {
     id: 'profile.error.not-found',
@@ -379,27 +392,29 @@ const messages = defineMessages({
 
 let user, projects, organizations
 try {
-  ;[{ data: user }, { data: projects }, { data: organizations}] = await Promise.all([
+  ;[{ data: user }, { data: projects }, { data: organizations }] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
-        `user/${route.params.id}/projects`,
-        () => useBaseFetch(`user/${route.params.id}/projects`),
-        {
-          transform: (projects) => {
-            for (const project of projects) {
-              project.categories = project.categories.concat(project.loaders)
-              project.project_type = getProjectTypeForUrl(
-                  project.project_type,
-                  project.categories,
-                  tags.value
-              )
-            }
+      `user/${route.params.id}/projects`,
+      () => useBaseFetch(`user/${route.params.id}/projects`),
+      {
+        transform: (projects) => {
+          for (const project of projects) {
+            project.categories = project.categories.concat(project.loaders)
+            project.project_type = getProjectTypeForUrl(
+              project.project_type,
+              project.categories,
+              tags.value
+            )
+          }
 
-            return projects
-          },
-        }
+          return projects
+        },
+      }
     ),
-    useAsyncData(`user/${route.params.id}/organizations`, () => useBaseFetch(`user/${route.params.id}/organizations`)),
+    useAsyncData(`user/${route.params.id}/organizations`, () =>
+      useBaseFetch(`user/${route.params.id}/organizations`)
+    ),
   ])
 } catch {
   throw createError({
@@ -423,12 +438,12 @@ if (user.value.username !== route.params.id) {
 
 const title = `${user.value.username} - Modrinth`
 const description = ref(
-    user.value.bio
-        ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
-          bio: user.value.bio,
-          username: user.value.username,
-        })}`
-        : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
+  user.value.bio
+    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+        bio: user.value.bio,
+        username: user.value.username,
+      })}`
+    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
 )
 
 useSeoMeta({
@@ -473,7 +488,6 @@ const sumFollows = computed(() => {
   return sum
 })
 
-
 function showPreviewImage(files) {
   const reader = new FileReader()
   icon.value = files[0]
@@ -491,9 +505,9 @@ const showEditModal = () => {
 
 const hasChanges = computed(() => {
   return (
-      (icon.value && icon.value !== user.value.avatar_url) ||
-      username.value !== user.value.username ||
-      bio.value !== user.value.bio
+    (icon.value && icon.value !== user.value.avatar_url) ||
+    username.value !== user.value.username ||
+    bio.value !== user.value.bio
   )
 })
 
@@ -502,13 +516,13 @@ async function saveChanges() {
   try {
     if (icon.value) {
       await useBaseFetch(
-          `user/${auth.value.user.id}/icon?ext=${
-              icon.value.type.split('/')[icon.value.type.split('/').length - 1]
-          }`,
-          {
-            method: 'PATCH',
-            body: icon.value,
-          }
+        `user/${auth.value.user.id}/icon?ext=${
+          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+        }`,
+        {
+          method: 'PATCH',
+          body: icon.value,
+        }
       )
     }
 
@@ -715,7 +729,7 @@ async function saveChanges() {
 .team-member {
   align-items: center;
   padding: 0.25rem 0.5rem;
-  margin-left: -.25rem;
+  margin-left: -0.25rem;
 
   .member-info {
     overflow: hidden;
@@ -736,7 +750,8 @@ async function saveChanges() {
   .banner-img {
     width: 100%;
     height: 12rem;
-    background: var(--color-raised-bg) url("https://launcher-files.modrinth.com/assets/maze-bg.png") no-repeat center;
+    background: var(--color-raised-bg) url('https://launcher-files.modrinth.com/assets/maze-bg.png')
+      no-repeat center;
     background-size: cover;
     border-radius: var(--radius-md);
     border: 1px var(--color-button-bg) solid;
@@ -803,7 +818,8 @@ async function saveChanges() {
     width: 1.2rem;
   }
 
-  a, .link {
+  a,
+  .link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -861,7 +877,6 @@ async function saveChanges() {
   .avatar-section {
     position: relative;
     grid-area: icon;
-
 
     .upload-button {
       display: flex;

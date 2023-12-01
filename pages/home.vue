@@ -1,7 +1,7 @@
 <template>
-  <ModalCreation ref="modal"/>
-  <SimpleCreationModal ref="orgModal" type="organization" disallow-spaces/>
   <div class="normal-page">
+    <ModalCreation ref="modal" />
+    <SimpleCreationModal ref="orgModal" type="organization" disallow-spaces />
     <div class="normal-page__header">
       <h1>Home</h1>
     </div>
@@ -92,11 +92,14 @@
       <section class="universal-card">
         <h2 class="sidebar-card-header">Your organizations</h2>
         <p>Showing organizations you are a part of and your role in them.</p>
-        <div v-if="organizations && organizations.length > 0" class="mini-project-table organizations">
+        <div
+          v-if="organizations && organizations.length > 0"
+          class="mini-project-table organizations"
+        >
           <div
-              v-for="(organization, index) in organizations"
-              :key="organization.id"
-              class="mini-project-row"
+            v-for="organization in organizations"
+            :key="organization.id"
+            class="mini-project-row"
           >
             <div class="project-icon">
               <Avatar :src="organization.icon_url" size="xxs" />
@@ -105,7 +108,7 @@
               {{ organization.title }}
             </nuxt-link>
             <div class="project-change neutral">
-              {{ organization.members.find(member => member.user.id === auth.user.id).role }}
+              {{ organization.members.find((member) => member.user.id === auth.user.id).role }}
             </div>
           </div>
         </div>
@@ -200,19 +203,16 @@ import {
 } from 'omorphia'
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import SimpleCreationModal from "~/components/ui/SimpleCreationModal.vue";
-import ModalCreation from "~/components/ui/ModalCreation.vue";
+import SimpleCreationModal from '~/components/ui/SimpleCreationModal.vue'
+import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 const auth = await useAuth()
 const modal = ref(null)
 const orgModal = ref(null)
 
-const [{ data: projects }, { data: payouts }, {data: organizations}] = await Promise.all([
+const [{ data: projects }, { data: organizations }] = await Promise.all([
   useAsyncData(`user/${auth.value.user.id}/projects`, () =>
     useBaseFetch(`user/${auth.value.user.id}/projects`)
-  ),
-  useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
-    useBaseFetch(`user/${auth.value.user.id}/payouts`)
   ),
   useAsyncData(`user/${auth.value.user.id}/organizations`, () =>
     useBaseFetch(`user/${auth.value.user.id}/organizations`)
@@ -306,7 +306,6 @@ const notificationSearchInput = ref('')
   .mini-project-row {
     display: grid;
     gap: var(--gap-xs);
-
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--color-button-bg);

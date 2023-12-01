@@ -1,5 +1,14 @@
 <script setup>
-import { Card, Button, FileInput, TrashIcon, Avatar, UploadIcon, SaveIcon, ConfirmModal } from 'omorphia'
+import {
+  Card,
+  Button,
+  FileInput,
+  TrashIcon,
+  Avatar,
+  UploadIcon,
+  SaveIcon,
+  ConfirmModal,
+} from 'omorphia'
 
 const props = defineProps({
   organization: {
@@ -106,16 +115,16 @@ const saveChanges = async () => {
 </script>
 
 <template>
-  <ConfirmModal
-    ref="modal_deletion"
-    :title="`Are you sure you want to ${organization.title}?`"
-    description="This will delete this organization forever (like *forever* ever)."
-    :has-to-type="true"
-    proceed-label="Delete"
-    :confirmationText="organization.title"
-    @proceed="deleteOrganization"
-  />
   <div class="normal-page__content">
+    <ConfirmModal
+      ref="modal_deletion"
+      :title="`Are you sure you want to ${organization.title}?`"
+      description="This will delete this organization forever (like *forever* ever)."
+      :has-to-type="true"
+      proceed-label="Delete"
+      :confirmation-text="organization.title"
+      @proceed="deleteOrganization"
+    />
     <Card>
       <div class="label">
         <h3>
@@ -171,7 +180,12 @@ const saveChanges = async () => {
         <span class="label__title">Summary</span>
       </label>
       <div class="textarea-wrapper summary-input">
-        <textarea id="project-summary" v-model="summary" maxlength="256" :disabled="!hasPermission" />
+        <textarea
+          id="project-summary"
+          v-model="summary"
+          maxlength="256"
+          :disabled="!hasPermission"
+        />
       </div>
       <div class="button-group">
         <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">

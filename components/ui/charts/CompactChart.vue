@@ -1,5 +1,5 @@
 <script setup>
-import {Card, formatMoney, formatNumber} from 'omorphia'
+import { Card, formatMoney, formatNumber } from 'omorphia'
 import dayjs from 'dayjs'
 const VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
 
@@ -38,7 +38,7 @@ const props = defineProps({
   },
 })
 
-//no grid lines, no toolbar, no legend, no data labels
+// no grid lines, no toolbar, no legend, no data labels
 const chartOptions = ref({
   chart: {
     id: props.title,
@@ -57,7 +57,7 @@ const chartOptions = ref({
   },
   stroke: {
     curve: 'smooth',
-    width: 2
+    width: 2,
   },
   fill: {
     colors: [props.color],
@@ -130,7 +130,11 @@ const chartOptions = ref({
                 </div>
                 <div class="value">
                   ${props.prefix}
-                  ${props.isMoney ? formatMoney(value[dataPointIndex], false) : formatNumber(value[dataPointIndex], false)}
+                  ${
+                    props.isMoney
+                      ? formatMoney(value[dataPointIndex], false)
+                      : formatNumber(value[dataPointIndex], false)
+                  }
                   ${props.suffix}
                 </div>
               </div>`
