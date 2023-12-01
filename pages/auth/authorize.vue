@@ -121,7 +121,7 @@ const createdBy = await useBaseFetch('user/' + app.created_by, {
 
 const onAuthorize = async () => {
   try {
-    const res = await useBaseFetch('auth/oauth/accept', {
+    const res = await useBaseFetch('oauth/accept', {
       method: 'POST',
       apiVersion: 3,
       body: {
