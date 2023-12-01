@@ -341,10 +341,10 @@ import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
-import BracesIcon from '~/assets/images/icons/braces.svg'
-import GlassesIcon from '~/assets/images/icons/glasses.svg'
-import WorldIcon from '~/assets/images/icons/world.svg'
-import PackageIcon from '~/assets/images/icons/package.svg'
+import BracesIcon from '~/assets/images/utils/braces.svg'
+import GlassesIcon from '~/assets/images/utils/glasses.svg'
+import WorldIcon from '~/assets/images/utils/world.svg'
+import PackageIcon from '~/assets/images/utils/package-open.svg'
 
 import { addNotification } from '~/composables/notifs'
 
