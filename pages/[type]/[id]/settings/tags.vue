@@ -91,7 +91,7 @@
           </div>
         </Checkbox>
       </div>
-      <div class="input-group push-right">
+      <div class="input-group">
         <button
           type="button"
           class="btn btn-primary"
@@ -115,6 +115,10 @@ import {
   formatCategory,
   formatCategoryHeader,
 } from 'omorphia'
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 const props = defineProps({
   project: {

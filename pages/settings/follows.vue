@@ -38,6 +38,10 @@ import { ProjectCard, HeartIcon } from 'omorphia'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const user = await useUser()
 if (process.client) {
   await initUserFollows()

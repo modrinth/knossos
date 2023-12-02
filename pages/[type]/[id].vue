@@ -9,6 +9,12 @@
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
+    <ShareModal
+      ref="modalShare"
+      :share-title="project.title"
+      :share-text="`${config.public.siteUrl}/${project.project_type}/${project.slug ?? project.id}`"
+      :link="true"
+    />
     <div
       :class="{
         'normal-page': true,
@@ -189,7 +195,7 @@
           >
             <VersionIcon /> Versions
           </nuxt-link>
-          <template #right>
+          <template v-if="auth.user && currentMember" #right>
             <nuxt-link
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/settings`"
               class="button-base nav-button desktop-settings-button"
@@ -262,6 +268,14 @@
               }/settings/members`"
             >
               <UsersIcon /> Members
+            </NuxtLink>
+            <h3>Moderation</h3>
+            <NuxtLink
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings/moderation`"
+            >
+              <ModerationIcon /> Messages
             </NuxtLink>
             <h3>Upload</h3>
             <NuxtLink
@@ -428,7 +442,7 @@
                 </div>
               </div>
             </div>
-            <div class="button-group-long">
+            <div v-if="auth.user" class="button-group-long">
               <Button>
                 <HeartIcon />
                 Follow
@@ -442,7 +456,7 @@
                 :options="[
                   {
                     id: 'share',
-                    action: () => {},
+                    action: () => $refs.modalShare.show(),
                   },
                   {
                     id: 'report',
@@ -451,7 +465,39 @@
                     hoverOnly: true,
                   },
                   { divider: true },
-                  { id: 'copy-id', action: () => {} },
+                  { id: 'copy-id', action: () => copyId() },
+                ]"
+              >
+                <MoreHorizontalIcon />
+                <template #share> <ShareIcon /> Share</template>
+                <template #report> <ReportIcon /> Report</template>
+                <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+              </OverflowMenu>
+            </div>
+            <div v-else class="button-group-long">
+              <nuxt-link class="btn" to="/auth/sign-in">
+                <HeartIcon />
+                Follow
+              </nuxt-link>
+              <nuxt-link class="btn" to="/auth/sign-in">
+                <BookmarkIcon />
+                Save
+              </nuxt-link>
+              <OverflowMenu
+                class="btn icon-only"
+                :options="[
+                  {
+                    id: 'share',
+                    action: () => $refs.modalShare.show(),
+                  },
+                  {
+                    id: 'report',
+                    link: '/auth/sign-in',
+                    color: 'red',
+                    hoverOnly: true,
+                  },
+                  { divider: true },
+                  { id: 'copy-id', action: () => navigator.clipboard.writeText(project.id) },
                 ]"
               >
                 <MoreHorizontalIcon />
@@ -545,7 +591,7 @@
             <nuxt-link
               v-for="member in members"
               :key="member.user.id"
-              class="team-member columns button-transparent"
+              class="team-member columns button-base button-transparent"
               :to="'/user/' + member.user.username"
             >
               <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
@@ -578,7 +624,7 @@
           <div
             v-for="version in featuredVersions"
             :key="version.id"
-            class="featured-version button-transparent"
+            class="featured-version button-base button-transparent"
             @click="
               $router.push(
                 `/${project.project_type}/${
@@ -675,6 +721,8 @@ import {
   formatProjectType,
   formatVersions,
   SlashIcon as BanIcon,
+  MessageIcon as ModerationIcon,
+  ShareModal,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {
@@ -692,6 +740,7 @@ import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
 
 const route = useRoute()
+const config = useRuntimeConfig()
 
 const auth = await useAuth()
 const cosmetics = useCosmetics()
@@ -1077,6 +1126,10 @@ const moreVersions = computed(() => {
 })
 
 const collapsedChecklist = ref(false)
+
+async function copyId() {
+  await navigator.clipboard.writeText(project.value.id)
+}
 </script>
 <style lang="scss" scoped>
 .card {

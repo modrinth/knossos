@@ -204,7 +204,7 @@
         v-for="(dependency, index) in deps.filter((x) => !x.file_name)"
         :key="index"
         class="dependency"
-        :class="{ 'button-transparent': !isEditing }"
+        :class="{ 'button-base button-transparent': !isEditing }"
         @click="!isEditing ? $router.push(dependency.link) : {}"
       >
         <Avatar
@@ -592,7 +592,7 @@
         <div v-if="!isEditing && version.author">
           <h4>Publisher</h4>
           <div
-            class="team-member columns button-transparent"
+            class="team-member columns button-base button-transparent"
             @click="$router.push('/user/' + version.author.user.username)"
           >
             <Avatar

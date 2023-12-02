@@ -1084,7 +1084,7 @@ h1 {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: var(--gap-lg);
+  margin-top: var(--gap-lg);
   flex-wrap: wrap;
 
   .count-dropdown {

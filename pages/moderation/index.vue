@@ -34,6 +34,10 @@
 <script setup>
 import { formatNumber } from 'omorphia'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 useHead({
   title: 'Staff overview - Modrinth',
 })

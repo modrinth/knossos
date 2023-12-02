@@ -2,11 +2,15 @@
   <ReportView
     :auth="auth"
     :report-id="route.params.id"
-    :breadcrumbs-stack="[{ href: '/reports', label: 'Active reports' }]"
+    :breadcrumbs-stack="[{ href: '/settings/reports', label: 'Active reports' }]"
   />
 </template>
 <script setup>
 import ReportView from '~/components/ui/report/ReportView.vue'
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 const route = useRoute()
 const auth = await useAuth()

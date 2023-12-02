@@ -343,9 +343,9 @@ const nags = computed(() =>
             addressing the staff's message.`,
       status: 'review',
       link: {
-        path: 'moderation',
+        path: 'settings/moderation',
         title: 'Visit moderation page',
-        hide: props.routeName === 'type-id-moderation',
+        hide: props.routeName === 'type-id-settings-moderation',
       },
     },
   ]

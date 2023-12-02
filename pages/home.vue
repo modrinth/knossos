@@ -169,6 +169,10 @@ import {
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const auth = await useAuth()
 
 const [{ data: projects }, { data: payouts }] = await Promise.all([

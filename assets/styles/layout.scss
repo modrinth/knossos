@@ -10,6 +10,7 @@
 
 .normal-page {
   display: grid;
+  padding: 0 0.75rem;
 
   grid-template:
     'header'
@@ -44,6 +45,7 @@
 
 .settings-page {
   display: grid;
+  padding: 0 0.75rem;
 
   grid-template:
     'header'

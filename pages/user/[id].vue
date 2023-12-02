@@ -85,7 +85,11 @@
             ]"
           />
           <div class="input-group">
-            <NuxtLink v-if="auth.user && auth.user.id === user.id" class="btn" to="/projects">
+            <NuxtLink
+              v-if="auth.user && auth.user.id === user.id"
+              class="btn"
+              to="/settings/projects"
+            >
               <SettingsIcon />
               {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
@@ -278,22 +282,22 @@ if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
 }
 
-const title = `${user.value.username} - Modrinth`
-const description = ref(
+const title = computed(() => `${user.value.username} - Modrinth`)
+const description = computed(() =>
   user.value.bio
-    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+    ? formatMessage(messages.profileMetaDescriptionWithBio, {
         bio: user.value.bio,
         username: user.value.username,
-      })}`
-    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
+      })
+    : formatMessage(messages.profileMetaDescription, { username: user.value.username })
 )
 
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
+  title: () => title.value,
+  description: () => description.value,
+  ogTitle: () => title.value,
+  ogDescription: () => description.value,
+  ogImage: () => user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
 })
 
 const projectTypes = computed(() => {

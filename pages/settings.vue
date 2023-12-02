@@ -6,7 +6,7 @@
         <NuxtLink to="/settings"> <PaintBrushIcon /> Appearance </NuxtLink>
         <NuxtLink to="/settings/language"> <LanguagesIcon /> Language </NuxtLink>
         <template v-if="auth.user">
-          <span class="card-divider" />
+          <h3>User settings</h3>
           <NuxtLink to="/settings/account">
             <UserIcon />
             Account
@@ -19,6 +19,19 @@
             <ShieldIcon />
             {{ formatMessage(messages.sessionsTitle) }}
           </NuxtLink>
+          <h3>Manage</h3>
+          <NuxtLink to="/settings/projects">
+            <ListIcon />
+            Projects
+          </NuxtLink>
+          <NuxtLink to="/settings/reports">
+            <ReportIcon />
+            Reports
+          </NuxtLink>
+          <NuxtLink to="/settings/follows">
+            <HeartIcon />
+            Follows
+          </NuxtLink>
         </template>
       </div>
     </aside>
@@ -28,7 +41,16 @@
   </div>
 </template>
 <script setup>
-import { PaintBrushIcon, UserIcon, ShieldIcon, KeyIcon, LanguagesIcon } from 'omorphia'
+import {
+  PaintBrushIcon,
+  UserIcon,
+  ShieldIcon,
+  KeyIcon,
+  LanguagesIcon,
+  ReportIcon,
+  ListIcon,
+  HeartIcon,
+} from 'omorphia'
 
 const { formatMessage } = useVIntl()
 

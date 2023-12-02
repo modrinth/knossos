@@ -148,7 +148,7 @@
           :border="false"
           :collapsing-toggle-style="true"
         />
-        <div class="push-right input-group">
+        <div class="input-group">
           <button class="btn" @click="$refs.editLinksModal.hide()">
             <XIcon />
             Cancel
@@ -161,141 +161,143 @@
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" />
-    <h1>Projects</h1>
-    <div class="input-group">
-      <button class="btn btn-primary" @click="$refs.modal_creation.show()">
-        <PlusIcon />
-        Create a project
-      </button>
-    </div>
-    <p v-if="projects.length < 1">
-      You don't have any projects yet. Click the green button above to begin.
-    </p>
-    <template v-else>
-      <p>You can edit multiple projects at once by selecting them below.</p>
+    <div class="card">
+      <h2>Projects</h2>
       <div class="input-group">
-        <button
-          class="btn"
-          :disabled="selectedProjects.length === 0"
-          @click="$refs.editLinksModal.show()"
-        >
-          <EditIcon />
-          Edit links
+        <button class="btn btn-primary" @click="$refs.modal_creation.show()">
+          <PlusIcon />
+          Create a project
         </button>
-        <div class="push-right">
-          <div class="labeled-control-row">
-            Sort by
-            <Multiselect
-              v-model="sortBy"
-              :searchable="false"
-              class="small-select"
-              :options="['Name', 'Status', 'Type']"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @update:model-value="projects = updateSort(projects, sortBy, descending)"
-            />
-            <button
-              v-tooltip="descending ? 'Descending' : 'Ascending'"
-              class="btn icon-only"
-              @click="updateDescending()"
-            >
-              <SortDescendingIcon v-if="descending" />
-              <SortAscendingIcon v-else />
-            </button>
-          </div>
-        </div>
       </div>
-      <div class="grid-table card">
-        <div class="grid-table__row grid-table__header">
-          <div>
-            <Checkbox
-              :model-value="selectedProjects === projects"
-              @update:model-value="
-                selectedProjects === projects
-                  ? (selectedProjects = [])
-                  : (selectedProjects = projects)
-              "
-            />
+      <p v-if="projects.length < 1">
+        You don't have any projects yet. Click the green button above to begin.
+      </p>
+      <template v-else>
+        <p>You can edit multiple projects at once by selecting them below.</p>
+        <div class="input-group">
+          <button
+            class="btn"
+            :disabled="selectedProjects.length === 0"
+            @click="$refs.editLinksModal.show()"
+          >
+            <EditIcon />
+            Edit links
+          </button>
+          <div class="push-right">
+            <div class="labeled-control-row">
+              Sort by
+              <Multiselect
+                v-model="sortBy"
+                :searchable="false"
+                class="small-select"
+                :options="['Name', 'Status', 'Type']"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @update:model-value="projects = updateSort(projects, sortBy, descending)"
+              />
+              <button
+                v-tooltip="descending ? 'Descending' : 'Ascending'"
+                class="btn icon-only"
+                @click="updateDescending()"
+              >
+                <SortDescendingIcon v-if="descending" />
+                <SortAscendingIcon v-else />
+              </button>
+            </div>
           </div>
-          <div>Icon</div>
-          <div>Name</div>
-          <div>ID</div>
-          <div>Type</div>
-          <div>Status</div>
-          <div />
         </div>
-        <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
-          <div>
-            <Checkbox
-              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-              :model-value="selectedProjects.includes(project)"
-              @update:model-value="
-                selectedProjects.includes(project)
-                  ? (selectedProjects = selectedProjects.filter((it) => it !== project))
-                  : selectedProjects.push(project)
-              "
-            />
-          </div>
-          <div>
-            <nuxt-link
-              tabindex="-1"
-              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }`"
-            >
-              <Avatar
-                :src="project.icon_url"
-                aria-hidden="true"
-                :alt="'Icon for ' + project.title"
-                no-shadow
+        <div class="grid-table">
+          <div class="grid-table__row grid-table__header">
+            <div>
+              <Checkbox
+                :model-value="selectedProjects === projects"
+                @update:model-value="
+                  selectedProjects === projects
+                    ? (selectedProjects = [])
+                    : (selectedProjects = projects)
+                "
               />
-            </nuxt-link>
+            </div>
+            <div>Icon</div>
+            <div>Name</div>
+            <div>ID</div>
+            <div>Type</div>
+            <div>Status</div>
+            <div />
           </div>
-
-          <div>
-            <span class="project-title">
-              <IssuesIcon
-                v-if="project.moderator_message"
-                aria-label="Project has a message from the moderators. View the project to see more."
+          <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
+            <div>
+              <Checkbox
+                :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+                :model-value="selectedProjects.includes(project)"
+                @update:model-value="
+                  selectedProjects.includes(project)
+                    ? (selectedProjects = selectedProjects.filter((it) => it !== project))
+                    : selectedProjects.push(project)
+                "
               />
-
+            </div>
+            <div>
               <nuxt-link
-                class="hover-link wrap-as-needed"
+                tabindex="-1"
                 :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
-                {{ project.title }}
+                <Avatar
+                  :src="project.icon_url"
+                  aria-hidden="true"
+                  :alt="'Icon for ' + project.title"
+                  no-shadow
+                />
               </nuxt-link>
-            </span>
-          </div>
+            </div>
 
-          <div>
-            <CopyCode :text="project.id" />
-          </div>
+            <div>
+              <span class="project-title">
+                <IssuesIcon
+                  v-if="project.moderator_message"
+                  aria-label="Project has a message from the moderators. View the project to see more."
+                />
 
-          <div>
-            {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
-          </div>
+                <nuxt-link
+                  class="hover-link wrap-as-needed"
+                  :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                    project.slug ? project.slug : project.id
+                  }`"
+                >
+                  {{ project.title }}
+                </nuxt-link>
+              </span>
+            </div>
 
-          <div>
-            <Badge v-if="project.status" :type="project.status" class="status" />
-          </div>
+            <div>
+              <CopyCode :text="project.id" />
+            </div>
 
-          <div>
-            <nuxt-link
-              class="btn icon-only"
-              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-            >
-              <SettingsIcon />
-            </nuxt-link>
+            <div>
+              {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
+            </div>
+
+            <div>
+              <Badge v-if="project.status" :type="project.status" class="status" />
+            </div>
+
+            <div>
+              <nuxt-link
+                class="btn icon-only"
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                  project.slug ? project.slug : project.id
+                }/settings`"
+              >
+                <SettingsIcon />
+              </nuxt-link>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -320,6 +322,10 @@ import {
 } from 'omorphia'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 useHead({
   title: 'Projects - Modrinth',
@@ -642,9 +648,5 @@ h1 {
   margin-block: var(--gap-sm) var(--gap-lg);
   font-size: 2em;
   line-height: 1em;
-}
-
-.card {
-  padding: 0;
 }
 </style>

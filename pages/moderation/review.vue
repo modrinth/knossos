@@ -97,6 +97,10 @@ import {
 } from 'omorphia'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 useHead({
   title: 'Review projects - Modrinth',
 })

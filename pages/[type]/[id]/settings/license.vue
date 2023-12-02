@@ -103,6 +103,10 @@
 import { Checkbox, SaveIcon, formatProjectType } from 'omorphia'
 import Multiselect from 'vue-multiselect'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const props = defineProps({
   project: {
     type: Object,

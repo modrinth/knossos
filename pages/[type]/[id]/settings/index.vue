@@ -196,7 +196,7 @@
           :disabled="!hasPermission"
         />
       </div>
-      <div class="input-group push-right">
+      <div class="input-group">
         <button
           type="button"
           class="btn btn-primary"
@@ -252,6 +252,10 @@ import { getProjectTypeForUrl } from '~/helpers/projects.js'
 const tags = useTags()
 const router = useRouter()
 const cosmetics = useCosmetics()
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 const props = defineProps({
   project: {

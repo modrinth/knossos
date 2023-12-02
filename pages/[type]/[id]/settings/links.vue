@@ -104,7 +104,7 @@
           @update:model-value="updateDonationLinks"
         />
       </div>
-      <div class="input-group push-right">
+      <div class="input-group">
         <button
           type="button"
           class="btn btn-primary"
@@ -122,6 +122,10 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import { SaveIcon } from 'omorphia'
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 const tags = useTags()
 const props = defineProps({

@@ -36,6 +36,10 @@
 <script setup>
 import { SaveIcon, MarkdownEditor, Card } from 'omorphia'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const props = defineProps({
   project: {
     type: Object,
