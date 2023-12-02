@@ -1,5 +1,11 @@
 <template>
-  <article class="project-card base-card padding-bg" :aria-label="name" role="listitem">
+  <nuxt-link
+		class="project-card base-card padding-bg"
+		:aria-label="name"
+		role="listitem"
+		tabindex="-1"
+		:to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+	>
     <nuxt-link
       :title="name"
       class="icon"
@@ -8,15 +14,13 @@
     >
       <Avatar :src="iconUrl" :alt="name" size="md" no-shadow loading="lazy" />
     </nuxt-link>
-    <nuxt-link
+    <div
       class="gallery"
       :class="{ 'no-image': !featuredImage }"
-      tabindex="-1"
-      :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
       :style="color ? `background-color: ${toColor};` : ''"
     >
       <img v-if="featuredImage" :src="featuredImage" alt="gallery image" loading="lazy" />
-    </nuxt-link>
+    </div>
     <div class="title">
       <nuxt-link :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`">
         <h2 class="name">
@@ -85,7 +89,7 @@
         <span class="date-label">Published </span>{{ fromNow(createdAt) }}
       </div>
     </div>
-  </article>
+  </nuxt-link>
 </template>
 
 <script>
