@@ -1,7 +1,7 @@
-export default defineNuxtRouteMiddleware(async (_to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   const auth = await useAuth()
 
   if (!auth.value.user) {
-    return navigateTo(`/auth/sign-in?redirect=${encodeURIComponent(from.fullPath)}`)
+    return navigateTo(`/auth/sign-in?redirect=${encodeURIComponent(to.fullPath ?? from.fullPath)}`)
   }
 })

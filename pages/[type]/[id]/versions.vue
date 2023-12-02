@@ -26,7 +26,7 @@
       <div
         v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
         :key="version.id"
-        class="version-button button-transparent"
+        class="version-button button-base button-transparent button-base"
         @click="
           $router.push(
             `/${project.project_type}/${

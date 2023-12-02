@@ -16,6 +16,10 @@ import CompactChart from '~/components/ui/charts/CompactChart.vue'
 import CalendarClockIcon from '~/assets/images/utils/calendar-clock.svg'
 import { addNotification } from '~/composables/notifs'
 
+useHead({
+  title: 'Analytics - Modrinth',
+})
+
 const auth = await useAuth()
 const route = useRoute()
 const projects = ref(await useBaseFetch(`user/${auth.value.user.id}/projects`))

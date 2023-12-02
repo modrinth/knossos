@@ -162,55 +162,26 @@ textarea.known-error {
   }
 }
 
-// TODO: get rid of this (deprecated)
-//:not(tr).button-transparent {
-//  @extend .button-base;
-//  background-color: transparent;
-//  border-radius: var(--radius-sm);
-//
-//  &:focus-visible:not(&:disabled),
-//  &:hover:not(&:disabled),
-//  &:active:not(&:disabled) {
-//    background-color: var(--color-raised-bg);
-//  }
-//
-//  &.btn-primary {
-//    color: var(--color-brand);
-//  }
-//
-//  &.btn-red {
-//    color: var(--color-red);
-//  }
-//}
-//
-//tr.button-transparent {
-//  @extend .button-animation;
-//  background-color: transparent;
-//  border-radius: var(--radius-sm);
-//
-//  &:focus-visible:not(&:disabled) > *,
-//  &:hover:not(&:disabled) > * {
-//    cursor: pointer;
-//    filter: brightness(var(--hover-filter));
-//    background-color: var(--color-raised-bg);
-//  }
-//
-//  &:active:not(&:disabled) > * {
-//    filter: brightness(var(--active-filter));
-//    background-color: var(--color-raised-bg);
-//  }
-//
-//  &:disabled > *,
-//  &[disabled='true'] > * {
-//    cursor: not-allowed;
-//    filter: grayscale(50%);
-//    opacity: 0.5;
-//    box-shadow: none;
-//  }
-//}
-// end todo
+// must have button-base to use
+.button-transparent {
+  background-color: transparent;
+  border-radius: var(--radius-sm);
 
-// TODO inline this
+  &:focus-visible:not(&:disabled),
+  &:hover:not(&:disabled),
+  &:active:not(&:disabled) {
+    background-color: var(--color-raised-bg);
+  }
+
+  &.btn-primary {
+    color: var(--color-brand);
+  }
+
+  &.btn-red {
+    color: var(--color-red);
+  }
+}
+
 .full-width-inputs {
   .multiselect,
   input,
@@ -219,7 +190,6 @@ textarea.known-error {
     flex-basis: 100%;
   }
 }
-// end todo
 
 .text-input-wrapper {
   display: flex;

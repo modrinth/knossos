@@ -206,7 +206,7 @@
           :disabled="!hasPermission"
         />
       </div>
-      <div class="input-group push-right">
+      <div class="input-group">
         <button
           type="button"
           class="btn btn-primary"
@@ -295,6 +295,10 @@ const tags = useTags()
 const router = useRouter()
 const cosmetics = useCosmetics()
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const props = defineProps({
   project: {
     type: Object,
@@ -345,7 +349,6 @@ const props = defineProps({
           type: 'error',
         })
       }
-    },
   },
   organizations: {
     type: Array,

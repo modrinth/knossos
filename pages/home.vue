@@ -206,6 +206,10 @@ import NotificationItem from '~/components/ui/NotificationItem.vue'
 import SimpleCreationModal from '~/components/ui/SimpleCreationModal.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const auth = await useAuth()
 const modal = ref(null)
 const orgModal = ref(null)

@@ -156,13 +156,10 @@
           </NuxtLink>
         </div>
         <div class="navbar-links">
-          <NuxtLink class="btn btn-transparent" to="/home">
-            <span class="title">Home</span>
-          </NuxtLink>
           <OverflowMenu
             class="btn btn-transparent btn-dropdown-animation"
             :class="{
-              'visibly-active': route.name.startsWith('search-'),
+              'visibly-active': route && route.name && route.name.startsWith('search-'),
             }"
             position="bottom"
             direction="right"
@@ -203,6 +200,7 @@
           </OverflowMenu>
 
           <OverflowMenu
+            v-if="auth.user"
             class="btn btn-transparent btn-dropdown-animation"
             position="bottom"
             direction="right"
@@ -261,13 +259,13 @@
               {
                 id: 'projects',
                 action: () => {
-                  router.push(`/projects`)
+                  router.push(`/settings/projects`)
                 },
               },
               {
                 id: 'reports',
                 action: () => {
-                  router.push(`/reports`)
+                  router.push(`/settings/reports`)
                 },
               },
               { divider: true },
@@ -672,6 +670,8 @@ function toggleBrowseMenu() {
     grid-template: 'brand links user';
     grid-template-columns: auto 1fr auto;
     z-index: 3;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
 
     @media screen and (min-width: 1280px) {
       max-width: 1280px;

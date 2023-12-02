@@ -252,6 +252,10 @@ import {
 } from 'omorphia'
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const props = defineProps({
   project: {
     type: Object,

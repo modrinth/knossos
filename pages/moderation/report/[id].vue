@@ -8,6 +8,10 @@
 <script setup>
 import ReportView from '~/components/ui/report/ReportView.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const auth = await useAuth()
 const route = useRoute()
 

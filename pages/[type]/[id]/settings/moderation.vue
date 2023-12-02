@@ -94,6 +94,10 @@ import {
 } from 'omorphia'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const props = defineProps({
   project: {
     type: Object,
