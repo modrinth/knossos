@@ -132,7 +132,7 @@
     "message": "Sökresultat"
   },
   "settings.language.description": {
-    "message": "Välj ditt önskade språk för webbplatsen. Översättningar bidrar av volontärer <crowdin-link>på Crowdin</crowdin-link>."
+    "message": "Välj ditt önskade språk för webbplatsen. Översättningar bidras av volontärer <crowdin-link>på Crowdin</crowdin-link>."
   },
   "settings.language.languages.automatic": {
     "message": "Synka med systemets språk"
