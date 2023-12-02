@@ -1,10 +1,10 @@
 <template>
   <nuxt-link
-		class="project-card base-card padding-bg"
-		:aria-label="name"
-		role="listitem"
-		tabindex="-1"
-		:to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
+    class="project-card base-card padding-bg"
+    :aria-label="name"
+    role="listitem"
+    tabindex="-1"
+    :to="`/${$getProjectTypeForUrl(type, categories)}/${id}`"
 	>
     <nuxt-link
       :title="name"
