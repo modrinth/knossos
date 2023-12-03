@@ -58,6 +58,7 @@
 
                   if (!valid) {
                     selectedPlatform = null
+                    highlightPlatform = true
                   }
                 }
               "
@@ -66,12 +67,8 @@
             </ListSelector>
           </ScrollableMultiSelect>
           <div class="toggle-option">
-            <label for="show-all-versions"> Show pre-release versions </label>
-            <Toggle
-              id="show-all-versions"
-              v-model="showAllGameVersions"
-              :checked="showAllGameVersions"
-            />
+            <label for="show-all-versions"> Show snapshot versions </label>
+            <Toggle id="show-all-versions" v-model="showSnapshots" :checked="showSnapshots" />
           </div>
         </div>
         <div v-else-if="selectingPlatform" class="list-selection-page">
@@ -104,6 +101,7 @@
 
                   if (!valid) {
                     selectedGameVersion = null
+                    highlightGameVersion = true
                   }
                 }
               "
@@ -113,15 +111,37 @@
           </ScrollableMultiSelect>
         </div>
         <div v-else class="main-page">
-          <button class="btn" @click="() => (selectingGameVersion = true)">
-            <GameIcon />
-            {{ selectedGameVersion ? `Version: ${selectedGameVersion}` : 'Select game version' }}
-            <ChevronRightIcon />
-          </button>
+          <div class="input-group">
+            <button
+              class="btn"
+              :disabled="project.game_versions.length === 1"
+              :class="{ 'warning-outline': highlightGameVersion && !selectedGameVersion }"
+              @click="() => (selectingGameVersion = true)"
+            >
+              <GameIcon />
+
+              {{
+                project.game_versions.length === 1
+                  ? `Game version: ${project.game_versions[0]}`
+                  : selectedGameVersion
+                  ? `Game version: ${selectedGameVersion}`
+                  : 'Select game version'
+              }}
+              <ChevronRightIcon />
+            </button>
+            <UnknownIcon
+              v-if="project.game_versions.length === 1"
+              v-tooltip="
+                `${project.title} is only available for ${formatCategory(project.game_versions[0])}`
+              "
+              class="help-icon"
+            />
+          </div>
           <div class="input-group">
             <button
               class="btn"
               :disabled="project.loaders.length === 1"
+              :class="{ 'warning-outline': highlightPlatform && !selectedPlatform }"
               @click="() => (selectingPlatform = true)"
             >
               <WrenchIcon />
@@ -799,59 +819,58 @@
 
 <script setup>
 import {
-  Avatar,
-  LeftArrowIcon,
-  Promotion,
-  Button,
-  ShareIcon,
-  ClearIcon,
-  DownloadIcon,
-  CodeIcon,
-  ClientIcon,
-  ServerIcon,
-  DropdownIcon,
-  ClipboardCopyIcon,
-  OverflowMenu,
-  Modal,
-  ListEndIcon as QueuedIcon,
-  ExternalIcon,
-  ReportIcon,
-  MoreHorizontalIcon,
-  GlobeIcon,
-  HeartIcon,
-  BookmarkIcon,
-  UpdatedIcon,
-  IssuesIcon,
-  WikiIcon,
-  DiscordIcon,
-  BuyMeACoffeeIcon as BuyMeACoffeeLogo,
-  PatreonIcon,
-  KoFiIcon,
-  PayPalIcon,
-  OpenCollectiveIcon,
-  UnknownIcon,
-  ChevronRightIcon,
-  Badge,
-  NavStack,
-  NavItem as NavStackItem,
-  SettingsIcon,
-  UsersIcon,
-  TagsIcon as TagIcon,
   AlignLeftIcon as DescriptionIcon,
-  LinkIcon as LinksIcon,
-  ImageIcon as GalleryIcon,
-  VersionIcon,
-  SearchIcon,
+  Avatar,
+  Badge,
+  BookmarkIcon,
+  Button,
+  BuyMeACoffeeIcon as BuyMeACoffeeLogo,
   Categories,
-  PageBar,
-  renderString,
-  getProjectLink,
+  ChevronRightIcon,
+  ClearIcon,
+  ClientIcon,
+  ClipboardCopyIcon,
+  CodeIcon,
+  DiscordIcon,
+  DownloadIcon,
+  ExternalIcon,
   formatCategory,
   formatNumber,
-  SlashIcon as BanIcon,
-  ScrollableMultiSelect,
+  getProjectLink,
+  GlobeIcon,
+  HeartIcon,
+  ImageIcon as GalleryIcon,
+  IssuesIcon,
+  KoFiIcon,
+  LeftArrowIcon,
+  LinkIcon as LinksIcon,
+  ListEndIcon as QueuedIcon,
   ListSelector,
+  Modal,
+  MoreHorizontalIcon,
+  NavItem as NavStackItem,
+  NavStack,
+  OpenCollectiveIcon,
+  OverflowMenu,
+  PageBar,
+  PatreonIcon,
+  PayPalIcon,
+  Promotion,
+  renderString,
+  ReportIcon,
+  ScrollableMultiSelect,
+  SearchIcon,
+  ServerIcon,
+  SettingsIcon,
+  ShareIcon,
+  SlashIcon as BanIcon,
+  TagsIcon as TagIcon,
   Toggle,
+  UnknownIcon,
+  UpdatedIcon,
+  UsersIcon,
+  VersionIcon,
+  WikiIcon,
   XIcon,
 } from 'omorphia'
 import ModalReport from '~/components/ui/ModalReport.vue'
@@ -1039,7 +1058,14 @@ const platformSuggestions = computed(() => {
         platform,
         valid: false,
       })),
-  ]
+  ].sort((a, b) => {
+    const compareValid = b.valid - a.valid
+    if (compareValid !== 0) {
+      return compareValid
+    }
+
+    return a.platform.localeCompare(b.platform)
+  })
 })
 
 const gameVersionSuggestions = computed(() => {
@@ -1065,21 +1091,54 @@ const gameVersionSuggestions = computed(() => {
         valid: false,
       })),
   ]
+    .filter(
+      (version) =>
+        showSnapshots.value ||
+        allGameVersionsSorted.value.find((x) => x.version === version.version).version_type !==
+          'snapshot'
+    )
+    .sort((a, b) => {
+      const compareValid = b.valid - a.valid
+
+      if (compareValid !== 0) {
+        return compareValid
+      }
+
+      const indexA = allGameVersionsSorted.value.findIndex((x) => x.version === a.version)
+      const indexB = allGameVersionsSorted.value.findIndex((x) => x.version === b.version)
+
+      return indexA - indexB
+    })
 })
 
 const selectedVersion = computed(() => {
-  const platform = selectedPlatform.value
-  const gameVersion = selectedGameVersion.value
+  let platform = selectedPlatform.value
+  let gameVersion = selectedGameVersion.value
 
-  return versions.value.find(
-    (version) => version.loaders.includes(platform) && version.game_versions.includes(gameVersion)
+  if (!platform && project.value.loaders.length === 1) {
+    platform = project.value.loaders[0]
+  }
+
+  if (!gameVersion && project.value.game_versions.length === 1) {
+    gameVersion = project.value.game_versions[0]
+  }
+
+  const matchesSelection = (version) =>
+    version.loaders.includes(platform) && version.game_versions.includes(gameVersion)
+
+  const nonAlphas = versions.value.filter(
+    (version) => version.version_type !== 'alpha' && matchesSelection(version)
   )
+
+  return nonAlphas.length > 0
+    ? nonAlphas[0]
+    : versions.value.find((version) => matchesSelection(version)) || null
 })
 
-const showAllGameVersions = ref(false)
-const showSnapshots = computed(() => showAllGameVersions.value)
-const showLegacy = computed(() => showAllGameVersions.value)
-const showMinor = ref(true)
+const showSnapshots = ref(false)
+
+const highlightGameVersion = ref(false)
+const highlightPlatform = ref(false)
 
 const gameVersionQuery = ref('')
 
@@ -1301,11 +1360,15 @@ async function updateMembers() {
   )
 }
 
-const supportsMcVersions = computed(() => {
-  const allMcVersions = tags.value.gameVersions
-  const versions = project.value.game_versions.slice().sort((a, b) => {
+const allGameVersionsSorted = computed(() =>
+  tags.value.gameVersions.sort((a, b) => {
     return new Date(b.date) - new Date(a.date)
   })
+)
+
+const supportsMcVersions = computed(() => {
+  const allMcVersions = allGameVersionsSorted.value
+  const versions = project.value.game_versions.slice()
   const display = []
   if (
     versions.length > 0 &&
@@ -2099,6 +2162,11 @@ const collapsedChecklist = ref(false)
 
       .help-icon {
         margin-right: 1rem;
+      }
+
+      .btn.warning-outline {
+        border-color: var(--color-red);
+        background-color: var(--color-warning-banner-bg);
       }
     }
   }
