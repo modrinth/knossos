@@ -89,7 +89,7 @@
           <PlusIcon />Create a project <ChevronRightIcon />
         </div>
       </section>
-      <section class="universal-card">
+      <section class="card">
         <h2 class="sidebar-card-header">Your organizations</h2>
         <p>Showing organizations you are a part of and your role in them.</p>
         <div

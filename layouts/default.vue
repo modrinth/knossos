@@ -263,6 +263,12 @@
                 },
               },
               {
+                id: 'collections',
+                action: () => {
+                  router.push(`/settings/collections`)
+                },
+              },
+              {
                 id: 'reports',
                 action: () => {
                   router.push(`/settings/reports`)
@@ -303,6 +309,11 @@
               Projects
             </template>
 
+            <template #collections>
+              <CollectionIcon aria-hidden="true" />
+              Collections
+            </template>
+
             <template #create-project>
               <PlusIcon aria-hidden="true" />
               Create a project
@@ -311,6 +322,11 @@
             <template #reports>
               <ReportIcon aria-hidden="true" />
               Reports
+            </template>
+
+            <template #sign-out>
+              <LogOutIcon aria-hidden="true" />
+              Sign out
             </template>
           </OverflowMenu>
           <template v-else>

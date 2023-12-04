@@ -13,7 +13,7 @@ import {
   Avatar,
   Breadcrumbs,
   FilterIcon,
-  ImageIcon,
+  ImageIcon, Card,
 } from 'omorphia'
 import WorldIcon from 'assets/images/utils/world.svg'
 import GlassesIcon from 'assets/images/utils/glasses.svg'
@@ -344,6 +344,23 @@ const deleteOrganization = async () => {
         </NuxtLink>
       </div>
     </div>
+    <div v-else class="normal-page__sidebar">
+      <Card class="creator-list">
+        <div class="title-and-link">
+          <h3>Creators</h3>
+        </div>
+        <div
+          v-for="member in organization.members"
+          :key="member.user.id"
+          class="creator button-base"
+          @click="$router.push(`/user/${member.user.username}`)"
+        >
+          <Avatar :src="member.user.avatar_url" circle />
+          <p class="name">{{ member.user.username }}</p>
+          <p class="role">{{ member.role }}</p>
+        </div>
+      </Card>
+    </div>
     <NuxtPage
       v-model:organization="organization"
       v-model:projects="projects"
@@ -523,9 +540,9 @@ const deleteOrganization = async () => {
 .settings-header {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-sm);
+  gap: var(--gap-sm);
   align-items: center;
-  margin-bottom: var(--spacing-card-bg);
+  margin-bottom: var(--gap-md);
 
   .settings-header__icon {
     flex-shrink: 0;
@@ -698,4 +715,49 @@ const deleteOrganization = async () => {
     }
   }
 }
+
+.creator-list {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-xl);
+
+  h3 {
+    margin: 0 0 var(--gap-sm);
+  }
+
+  .creator {
+    display: grid;
+    gap: var(--gap-xs);
+    background-color: var(--color-raised-bg);
+    padding: var(--gap-sm);
+    margin-left: -0.5rem;
+    border-radius: var(--radius-lg);
+    grid-template:
+      'avatar name' auto
+      'avatar role' auto
+      / auto 1fr;
+
+    p {
+      margin: 0;
+    }
+
+    .name {
+      grid-area: name;
+      align-self: flex-end;
+      margin-left: var(--gap-xs);
+      font-weight: bold;
+    }
+
+    .role {
+      grid-area: role;
+      align-self: flex-start;
+      margin-left: var(--gap-xs);
+    }
+
+    .avatar {
+      grid-area: avatar;
+    }
+  }
+}
+
 </style>

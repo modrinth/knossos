@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="normal-page__content">
     <Modal ref="editLinksModal" header="Edit links">
       <div class="universal-modal links-modal">
         <p>
@@ -158,7 +158,7 @@
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" :organization="organization" />
-    <h1>Projects</h1>
+    <h2>Projects</h2>
     <div class="input-group">
       <Button color="primary" @click="$refs.modal_creation.show()">
         <PlusIcon />

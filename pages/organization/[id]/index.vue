@@ -34,25 +34,7 @@ selectedFilters.value.push(
 </script>
 
 <template>
-  <div>
-    <div class="normal-page__sidebar">
-      <Card class="creator-list">
-        <div class="title-and-link">
-          <h3>Creators</h3>
-        </div>
-        <div
-          v-for="member in organization.members"
-          :key="member.user.id"
-          class="creator button-base"
-          @click="$router.push(`/user/${member.user.username}`)"
-        >
-          <Avatar :src="member.user.avatar_url" circle />
-          <p class="name">{{ member.user.username }}</p>
-          <p class="role">{{ member.role }}</p>
-        </div>
-      </Card>
-    </div>
-    <div class="normal-page__content">
+  <div class="normal-page__content">
       <Promotion />
       <div class="search-row">
         <div class="iconified-input">
@@ -102,7 +84,6 @@ selectedFilters.value.push(
         />
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped lang="scss">
@@ -135,50 +116,6 @@ selectedFilters.value.push(
 
     :deep(.title) {
       font-size: var(--font-size-nm) !important;
-    }
-  }
-}
-
-.creator-list {
-  display: flex;
-  flex-direction: column;
-  padding: var(--gap-xl);
-
-  h3 {
-    margin: 0 0 var(--gap-sm);
-  }
-
-  .creator {
-    display: grid;
-    gap: var(--gap-xs);
-    background-color: var(--color-raised-bg);
-    padding: var(--gap-sm);
-    margin-left: -0.5rem;
-    border-radius: var(--radius-lg);
-    grid-template:
-      'avatar name' auto
-      'avatar role' auto
-      / auto 1fr;
-
-    p {
-      margin: 0;
-    }
-
-    .name {
-      grid-area: name;
-      align-self: flex-end;
-      margin-left: var(--gap-xs);
-      font-weight: bold;
-    }
-
-    .role {
-      grid-area: role;
-      align-self: flex-start;
-      margin-left: var(--gap-xs);
-    }
-
-    .avatar {
-      grid-area: avatar;
     }
   }
 }

@@ -310,7 +310,7 @@ const applyCustomModal = async () => {
         </div>
       </div>
     </Modal>
-    <h1>Analytics</h1>
+    <h2>Analytics</h2>
     <div v-if="failedToLoad" class="normal-page__content">
       <div class="markdown-body">
         <p>Failed to load analytics data</p>

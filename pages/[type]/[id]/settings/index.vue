@@ -349,6 +349,7 @@ const props = defineProps({
           type: 'error',
         })
       }
+    }
   },
   organizations: {
     type: Array,

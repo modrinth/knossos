@@ -24,6 +24,10 @@
             <ListIcon />
             Projects
           </NuxtLink>
+          <NuxtLink to="/settings/collections">
+            <CollectionIcon />
+            Collections
+          </NuxtLink>
           <NuxtLink to="/settings/reports">
             <ReportIcon />
             Reports
@@ -51,6 +55,8 @@ import {
   ListIcon,
   HeartIcon,
 } from 'omorphia'
+
+import CollectionIcon from '@/assets/images/utils/collection.svg'
 
 const { formatMessage } = useVIntl()
 

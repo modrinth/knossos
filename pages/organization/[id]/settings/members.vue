@@ -26,8 +26,8 @@
           @keypress.enter="inviteTeamMember()"
         />
         <label for="username" class="hidden">Username</label>
-        <button
-          class="iconified-button brand-button"
+        <Button
+          color="primary"
           :disabled="
             (currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !==
             organizationPermissions.MANAGE_INVITES
@@ -36,21 +36,21 @@
         >
           <UserPlusIcon />
           Invite
-        </button>
+        </Button>
       </div>
       <div class="adjacent-input">
         <span class="label">
           <span class="label__title">Leave project</span>
           <span class="label__description"> Remove yourself as a member of this project. </span>
         </span>
-        <button
-          class="iconified-button danger-button"
+        <Button
+          color="danger"
           :disabled="currentMember.role === 'Owner'"
           @click="leaveProject()"
         >
           <UserRemoveIcon />
           Leave project
-        </button>
+        </Button>
       </div>
     </Card>
     <Card
@@ -700,13 +700,13 @@ onMounted(async () => {
   .content {
     display: none;
     flex-direction: column;
-    padding-top: var(--spacing-card-md);
+    padding-top: var(--gap-md);
 
     .main-info {
-      margin-bottom: var(--spacing-card-lg);
+      margin-bottom: var(--gap-lg);
     }
     .permissions {
-      margin-bottom: var(--spacing-card-md);
+      margin-bottom: var(--gap-md);
       max-width: 45rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));

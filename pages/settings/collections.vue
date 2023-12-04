@@ -1,19 +1,17 @@
 <template>
-  <div class="normal-page no-sidebar">
-    <div class="normal-page__header">
-      <SimpleCreationModal ref="modal_creation" type="collection" />
-      <h1>Collections</h1>
-      <div class="input-group">
-        <Button color="primary" @click="$refs.modal_creation.show()">
-          <PlusIcon />
-          Create a collection
-        </Button>
-      </div>
-      <p v-if="collections.length < 1">
-        You don't have any projects yet. Click the green button above to begin.
-      </p>
+  <div>
+    <SimpleCreationModal ref="modal_creation" type="collection" />
+    <h2>Collections</h2>
+    <div class="input-group">
+      <Button color="primary" @click="$refs.modal_creation.show()">
+        <PlusIcon />
+        Create a collection
+      </Button>
     </div>
-    <div class="normal-page__content collections">
+    <p v-if="collections.length < 1">
+      You don't have any projects yet. Click the green button above to begin.
+    </p>
+    <div class="collections">
       <Card
         v-for="collection in collections"
         :key="`collection-${collection.id}`"

@@ -802,6 +802,7 @@ import GameIcon from '~/assets/images/utils/game.svg'
 import SimpleCreationModal from '~/components/ui/SimpleCreationModal.vue'
 
 const route = useRoute()
+const config = useRuntimeConfig()
 
 const auth = await useAuth()
 const cosmetics = useCosmetics()
