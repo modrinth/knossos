@@ -7,11 +7,12 @@
       />
       <h2>Transfer history</h2>
       <p>All of your withdrawals from your Modrinth balance will be listed here:</p>
-      <div v-for="payout in payouts" :key="payout.id" class="universal-card recessed payout">
+      <div v-for="payout in sortedPayouts" :key="payout.id" class="universal-card recessed payout">
         <div class="platform">
           <PayPalIcon v-if="payout.method === 'paypal'" />
-          <TremendousIcon v-if="payout.method === 'tremendous'" />
-          <VenmoIcon v-else />
+          <TremendousIcon v-else-if="payout.method === 'tremendous'" />
+          <VenmoIcon v-else-if="payout.method === 'venmo'" />
+          <UnknownIcon v-else />
         </div>
         <div class="payout-info">
           <div>
@@ -20,8 +21,8 @@
             </strong>
           </div>
           <div>
-            <span class="amount">{{ $formatMoney(payout.amount) }}</span> ⋅ Fee
-            {{ $formatMoney(payout.fee) }}
+            <span class="amount">{{ $formatMoney(payout.amount) }}</span>
+            <template v-if="payout.fee">⋅ Fee {{ $formatMoney(payout.fee) }}</template>
           </div>
           <div class="payout-status">
             <span>
@@ -32,8 +33,10 @@
               <Badge v-else-if="payout.status === 'in-transit'" color="yellow" type="In transit" />
               <Badge v-else :type="payout.status" />
             </span>
-            <span>⋅</span>
-            <span>{{ $formatWallet(payout.method) }} ({{ payout.method_address }})</span>
+            <template v-if="payout.method">
+              <span>⋅</span>
+              <span>{{ $formatWallet(payout.method) }} ({{ payout.method_address }})</span>
+            </template>
           </div>
         </div>
         <div class="input-group">
@@ -50,7 +53,8 @@
   </div>
 </template>
 <script setup>
-import { Badge, Breadcrumbs, XIcon, PayPalIcon } from 'omorphia'
+import { Badge, Breadcrumbs, XIcon, PayPalIcon, UnknownIcon } from 'omorphia'
+import dayjs from 'dayjs'
 import TremendousIcon from '~/assets/images/external/tremendous.svg'
 import VenmoIcon from '~/assets/images/external/venmo-small.svg'
 
@@ -65,6 +69,10 @@ const { data: payouts, refresh } = await useAsyncData(`payout`, () =>
   useBaseFetch(`payout`, {
     apiVersion: 3,
   })
+)
+
+const sortedPayouts = computed(() =>
+  payouts.value.sort((a, b) => dayjs(b.created) - dayjs(a.created))
 )
 
 async function cancelPayout(id) {
