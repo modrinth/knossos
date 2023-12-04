@@ -130,8 +130,8 @@
                 project.game_versions.length === 1
                   ? `Game version: ${project.game_versions[0]}`
                   : selectedGameVersion
-                    ? `Game version: ${selectedGameVersion}`
-                    : 'Select game version'
+                  ? `Game version: ${selectedGameVersion}`
+                  : 'Select game version'
               }}
               <ChevronRightIcon />
             </button>
@@ -155,8 +155,8 @@
                 project.loaders.length === 1
                   ? `Platform: ${formatCategory(project.loaders[0])}`
                   : selectedPlatform
-                    ? `Platform: ${formatCategory(selectedPlatform)}`
-                    : 'Select platform'
+                  ? `Platform: ${formatCategory(selectedPlatform)}`
+                  : 'Select platform'
               }}
               <ChevronRightIcon />
             </button>
@@ -846,28 +846,32 @@
 <script setup>
 import dayjs from 'dayjs'
 import {
-  AlignLeftIcon as DescriptionIcon,
   Avatar,
-  Badge,
-  BookmarkIcon,
+  Promotion,
   Button,
-  BuyMeACoffeeIcon as BuyMeACoffeeLogo,
-  Categories,
-  ChevronRightIcon,
+  ShareIcon,
   ClearIcon,
-  ClientIcon,
-  ClipboardCopyIcon,
-  CodeIcon,
-  DiscordIcon,
   DownloadIcon,
+  CodeIcon,
+  ClientIcon,
+  ServerIcon,
+  DropdownIcon,
+  ClipboardCopyIcon,
+  OverflowMenu,
+  Modal,
+  ListEndIcon as QueuedIcon,
   ExternalIcon,
-  formatCategory,
-  formatNumber,
-  getProjectLink,
+  ReportIcon,
+  MoreHorizontalIcon,
   GlobeIcon,
   HeartIcon,
-  ImageIcon as GalleryIcon,
+  BookmarkIcon,
+  UpdatedIcon,
   IssuesIcon,
+  WikiIcon,
+  DiscordIcon,
+  BuyMeACoffeeIcon as BuyMeACoffeeLogo,
+  PatreonIcon,
   KoFiIcon,
   PayPalIcon,
   OpenCollectiveIcon,
@@ -884,12 +888,9 @@ import {
   Categories,
   PageBar,
   renderString,
-  ReportIcon,
-  ScrollableMultiSelect,
-  SearchIcon,
-  ServerIcon,
-  SettingsIcon,
-  ShareIcon,
+  getProjectLink,
+  formatCategory,
+  formatNumber,
   formatBytes,
   formatProjectType,
   formatVersions,
@@ -897,6 +898,9 @@ import {
   MessageIcon as ModerationIcon,
   ShareModal,
   Toggle,
+  ScrollableMultiSelect,
+  ListSelector,
+  SearchIcon,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {
@@ -914,6 +918,7 @@ import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
 
 const route = useRoute()
+const config = useRuntimeConfig()
 
 const auth = await useAuth()
 const cosmetics = useCosmetics()
