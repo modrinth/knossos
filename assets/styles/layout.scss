@@ -10,6 +10,7 @@
 
 .normal-page {
   display: grid;
+  padding: 0 0.75rem;
 
   grid-template:
     'header'
@@ -44,6 +45,7 @@
 
 .settings-page {
   display: grid;
+  padding: 0 0.75rem;
 
   grid-template:
     'header'
@@ -53,7 +55,7 @@
     / 100%;
 
   @media screen and (max-width: 1024px) {
-    margin-top: var(--spacing-card-md);
+    margin-top: var(--gap-md);
   }
 
   .settings-page__sidebar {
@@ -103,8 +105,13 @@
 
   .normal-page__content {
     max-width: calc(60rem - var(--gap-lg));
+    overflow-x: hidden;
   }
+
+
   .settings-page {
+    margin: 0 auto;
+    max-width: 1280px;
     column-gap: var(--gap-lg);
 
     grid-template:
@@ -112,17 +119,18 @@
       'sidebar content' auto
       'info content' auto
       'dummy content' 1fr
-      / 15rem 1fr;
+      / 20rem 1fr;
   }
 
   .settings-page__sidebar {
-    min-width: 15rem;
-    width: 15rem;
+    min-width: 20rem;
+    width: 20rem;
     position: sticky;
     top: var(--gap-lg);
   }
 
   .settings-page__content {
-    max-width: calc(65rem - var(--gap-lg));
+    max-width: calc(60rem - var(--gap-lg));
+    margin-top: calc(2em + var(--gap-lg) + var(--gap-sm));
   }
 }

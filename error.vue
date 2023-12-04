@@ -2,11 +2,11 @@
   <NuxtLayout>
     <div class="main">
       <div class="error">
-        <Logo404 v-if="error.statusCode === '404'" />
+        <Logo404 v-if="error.statusCode === 404" />
         <h1 v-else>An error occurred!</h1>
         <p>{{ error.message }}</p>
         <div class="input-group push-right">
-          <nuxt-link to="/" class="btn raised btn-primary"> Go home </nuxt-link>
+          <nuxt-link to="/" class="btn btn-primary"> Go home </nuxt-link>
           <a href="https://discord.modrinth.com" class="btn raised" rel="noopener">
             Get help on Discord
           </a>
@@ -34,7 +34,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .main {
-  margin: var(--spacing-card-lg) auto;
+  margin: var(--gap-xl) auto;
   width: calc(100% - 4rem);
 
   @media screen and (min-width: 800px) {
@@ -48,8 +48,8 @@ defineProps({
   }
 
   svg {
-    fill: var(--color-text);
-    color: var(--color-text);
+    fill: var(--color-base);
+    color: var(--color-base);
 
     width: 100%;
     height: auto;

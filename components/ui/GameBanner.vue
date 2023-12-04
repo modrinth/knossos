@@ -50,7 +50,7 @@ const bannerUrl = computed(
 <style lang="scss" scoped>
 .page-header {
   position: relative;
-  border-radius: 20px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   width: 100%;
   height: fit-content;

@@ -9,6 +9,10 @@
 <script setup>
 import ReportsList from '~/components/ui/report/ReportsList.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const auth = await useAuth()
 useHead({
   title: 'Reports - Modrinth',

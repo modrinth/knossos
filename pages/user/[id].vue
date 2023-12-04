@@ -1,9 +1,8 @@
 <template>
   <div v-if="user">
     <ModalCreation ref="modal_creation" />
-    <ModalReport ref="modal_report" :item-id="user.id" item-type="user" />
-    <div class="normal-page">
-      <div class="normal-page__header">
+    <div class="user-header-wrapper normal-page">
+      <div class="user-header normal-page__header">
         <Avatar
           :src="previewImage ? previewImage : user.avatar_url"
           size="md"
@@ -86,7 +85,11 @@
             ]"
           />
           <div class="input-group">
-            <NuxtLink v-if="auth.user && auth.user.id === user.id" class="btn" to="/projects">
+            <NuxtLink
+              v-if="auth.user && auth.user.id === user.id"
+              class="btn"
+              to="/settings/projects"
+            >
               <SettingsIcon />
               {{ formatMessage(messages.profileManageProjectsButton) }}
             </NuxtLink>
@@ -151,7 +154,7 @@
                 ? project.status
                 : null
             "
-            :type="project.project_type"
+            :type="getProjectTypeForUrl(project.project_type, project.loaders)"
             :color="project.color"
             :from-now="fromNow"
           />
@@ -189,17 +192,17 @@ import {
   GridIcon,
   ListIcon,
   ImageIcon,
-  formatNumber,
+  cycleValue,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
+
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
 import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
 import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
 
-const data = useNuxtApp()
 const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
@@ -247,7 +250,7 @@ try {
         transform: (projects) => {
           for (const project of projects) {
             project.categories = project.categories.concat(project.loaders)
-            project.project_type = data.$getProjectTypeForUrl(
+            project.project_type = getProjectTypeForUrl(
               project.project_type,
               project.categories,
               tags.value
@@ -279,22 +282,22 @@ if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
 }
 
-const title = `${user.value.username} - Modrinth`
-const description = ref(
+const title = computed(() => `${user.value.username} - Modrinth`)
+const description = computed(() =>
   user.value.bio
-    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+    ? formatMessage(messages.profileMetaDescriptionWithBio, {
         bio: user.value.bio,
         username: user.value.username,
-      })}`
-    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
+      })
+    : formatMessage(messages.profileMetaDescription, { username: user.value.username })
 )
 
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
+  title: () => title.value,
+  description: () => description.value,
+  ogTitle: () => title.value,
+  ogDescription: () => description.value,
+  ogImage: () => user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
 })
 
 const projectTypes = computed(() => {
@@ -325,63 +328,10 @@ const sumFollows = computed(() => {
   return sum
 })
 
-const isEditing = ref(false)
-const icon = shallowRef(null)
 const previewImage = shallowRef(null)
 
-function showPreviewImage(files) {
-  const reader = new FileReader()
-  icon.value = files[0]
-  reader.readAsDataURL(icon.value)
-  reader.onload = (event) => {
-    previewImage.value = event.target.result
-  }
-}
-
-async function saveChanges() {
-  startLoading()
-  try {
-    if (icon.value) {
-      await useBaseFetch(
-        `user/${auth.value.user.id}/icon?ext=${
-          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon.value,
-        }
-      )
-    }
-
-    const reqData = {
-      email: user.value.email,
-      bio: user.value.bio,
-    }
-    if (user.value.username !== auth.value.user.username) {
-      reqData.username = user.value.username
-    }
-
-    await useBaseFetch(`user/${auth.value.user.id}`, {
-      method: 'PATCH',
-      body: reqData,
-    })
-    await useAuth(auth.value.token)
-
-    isEditing.value = false
-  } catch (err) {
-    console.error(err)
-    data.$notify({
-      group: 'main',
-      title: formatMessage(commonMessages.errorNotificationTitle),
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
-
 function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode.user = data.$cycleValue(
+  cosmetics.value.searchDisplayMode.user = cycleValue(
     cosmetics.value.searchDisplayMode.user,
     tags.value.projectViewModes
   )
@@ -471,7 +421,7 @@ function cycleSearchDisplayMode() {
 }
 
 .profile-picture {
-  border-radius: var(--size-rounded-lg);
+  border-radius: var(--radius-lg);
   height: 8rem;
   width: 8rem;
 }

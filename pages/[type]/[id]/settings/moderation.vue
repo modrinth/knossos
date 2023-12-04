@@ -63,9 +63,9 @@
     <section id="messages" class="card">
       <h2>Messages</h2>
       <p>
-        This is a private conversation thread with the Modrinth moderators. They will message you
-        for issues concerning your project on Modrinth, and you are welcome to message them about
-        things concerning your project.
+        This is a private conversation thread with the Modrinth moderators. They may message you
+        with issues concerning this project. Additionally, you are welcome to start a discussion
+        here regarding this project and its status.
       </p>
       <ConversationThread
         v-if="thread"
@@ -94,6 +94,10 @@ import {
 } from 'omorphia'
 import ConversationThread from '~/components/ui/thread/ConversationThread.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const props = defineProps({
   project: {
     type: Object,
@@ -111,7 +115,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update:project'])
 
-const app = useNuxtApp()
 const auth = await useAuth()
 
 const { data: thread } = await useAsyncData(`thread/${props.project.thread_id}`, () =>
@@ -136,7 +139,7 @@ async function setStatus(status) {
     emit('update:project', project)
     thread.value = await useBaseFetch(`thread/${thread.value.id}`)
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -170,7 +173,7 @@ async function setStatus(status) {
 
 .unavailable-error {
   .code {
-    margin-top: var(--spacing-card-sm);
+    margin-top: var(--gap-sm);
   }
 
   svg {
@@ -185,13 +188,13 @@ async function setStatus(status) {
   li {
     display: flex;
     align-items: center;
-    gap: var(--spacing-card-xs);
+    gap: var(--gap-xs);
   }
 }
 
 svg {
   &.good {
-    color: var(--color-brand-green);
+    color: var(--color-brand);
   }
 
   &.bad {

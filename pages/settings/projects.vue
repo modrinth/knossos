@@ -3,7 +3,7 @@
     <Modal
       ref="editLinksModal"
       header="Edit links"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="universal-modal links-modal">
         <p>
@@ -148,7 +148,7 @@
           :border="false"
           :collapsing-toggle-style="true"
         />
-        <div class="push-right input-group">
+        <div class="input-group">
           <button class="btn" @click="$refs.editLinksModal.hide()">
             <XIcon />
             Cancel
@@ -161,141 +161,143 @@
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" />
-    <h1>Projects</h1>
-    <div class="input-group">
-      <button class="btn btn-primary" @click="$refs.modal_creation.show()">
-        <PlusIcon />
-        Create a project
-      </button>
-    </div>
-    <p v-if="projects.length < 1">
-      You don't have any projects yet. Click the green button above to begin.
-    </p>
-    <template v-else>
-      <p>You can edit multiple projects at once by selecting them below.</p>
+    <div class="card">
+      <h2>Projects</h2>
       <div class="input-group">
-        <button
-          class="btn"
-          :disabled="selectedProjects.length === 0"
-          @click="$refs.editLinksModal.show()"
-        >
-          <EditIcon />
-          Edit links
+        <button class="btn btn-primary" @click="$refs.modal_creation.show()">
+          <PlusIcon />
+          Create a project
         </button>
-        <div class="push-right">
-          <div class="labeled-control-row">
-            Sort by
-            <Multiselect
-              v-model="sortBy"
-              :searchable="false"
-              class="small-select"
-              :options="['Name', 'Status', 'Type']"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @update:model-value="projects = updateSort(projects, sortBy, descending)"
-            />
-            <button
-              v-tooltip="descending ? 'Descending' : 'Ascending'"
-              class="btn icon-only"
-              @click="updateDescending()"
-            >
-              <SortDescendingIcon v-if="descending" />
-              <SortAscendingIcon v-else />
-            </button>
-          </div>
-        </div>
       </div>
-      <div class="grid-table card">
-        <div class="grid-table__row grid-table__header">
-          <div>
-            <Checkbox
-              :model-value="selectedProjects === projects"
-              @update:model-value="
-                selectedProjects === projects
-                  ? (selectedProjects = [])
-                  : (selectedProjects = projects)
-              "
-            />
+      <p v-if="projects.length < 1">
+        You don't have any projects yet. Click the green button above to begin.
+      </p>
+      <template v-else>
+        <p>You can edit multiple projects at once by selecting them below.</p>
+        <div class="input-group">
+          <button
+            class="btn"
+            :disabled="selectedProjects.length === 0"
+            @click="$refs.editLinksModal.show()"
+          >
+            <EditIcon />
+            Edit links
+          </button>
+          <div class="push-right">
+            <div class="labeled-control-row">
+              Sort by
+              <Multiselect
+                v-model="sortBy"
+                :searchable="false"
+                class="small-select"
+                :options="['Name', 'Status', 'Type']"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @update:model-value="projects = updateSort(projects, sortBy, descending)"
+              />
+              <button
+                v-tooltip="descending ? 'Descending' : 'Ascending'"
+                class="btn icon-only"
+                @click="updateDescending()"
+              >
+                <SortDescendingIcon v-if="descending" />
+                <SortAscendingIcon v-else />
+              </button>
+            </div>
           </div>
-          <div>Icon</div>
-          <div>Name</div>
-          <div>ID</div>
-          <div>Type</div>
-          <div>Status</div>
-          <div />
         </div>
-        <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
-          <div>
-            <Checkbox
-              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-              :model-value="selectedProjects.includes(project)"
-              @update:model-value="
-                selectedProjects.includes(project)
-                  ? (selectedProjects = selectedProjects.filter((it) => it !== project))
-                  : selectedProjects.push(project)
-              "
-            />
-          </div>
-          <div>
-            <nuxt-link
-              tabindex="-1"
-              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }`"
-            >
-              <Avatar
-                :src="project.icon_url"
-                aria-hidden="true"
-                :alt="'Icon for ' + project.title"
-                no-shadow
+        <div class="grid-table">
+          <div class="grid-table__row grid-table__header">
+            <div>
+              <Checkbox
+                :model-value="selectedProjects === projects"
+                @update:model-value="
+                  selectedProjects === projects
+                    ? (selectedProjects = [])
+                    : (selectedProjects = projects)
+                "
               />
-            </nuxt-link>
+            </div>
+            <div>Icon</div>
+            <div>Name</div>
+            <div>ID</div>
+            <div>Type</div>
+            <div>Status</div>
+            <div />
           </div>
-
-          <div>
-            <span class="project-title">
-              <IssuesIcon
-                v-if="project.moderator_message"
-                aria-label="Project has a message from the moderators. View the project to see more."
+          <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
+            <div>
+              <Checkbox
+                :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+                :model-value="selectedProjects.includes(project)"
+                @update:model-value="
+                  selectedProjects.includes(project)
+                    ? (selectedProjects = selectedProjects.filter((it) => it !== project))
+                    : selectedProjects.push(project)
+                "
               />
-
+            </div>
+            <div>
               <nuxt-link
-                class="hover-link wrap-as-needed"
-                :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                tabindex="-1"
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
-                {{ project.title }}
+                <Avatar
+                  :src="project.icon_url"
+                  aria-hidden="true"
+                  :alt="'Icon for ' + project.title"
+                  no-shadow
+                />
               </nuxt-link>
-            </span>
-          </div>
+            </div>
 
-          <div>
-            <CopyCode :text="project.id" />
-          </div>
+            <div>
+              <span class="project-title">
+                <IssuesIcon
+                  v-if="project.moderator_message"
+                  aria-label="Project has a message from the moderators. View the project to see more."
+                />
 
-          <div>
-            {{ $formatProjectType($getProjectTypeForUrl(project.project_type, project.loaders)) }}
-          </div>
+                <nuxt-link
+                  class="hover-link wrap-as-needed"
+                  :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                    project.slug ? project.slug : project.id
+                  }`"
+                >
+                  {{ project.title }}
+                </nuxt-link>
+              </span>
+            </div>
 
-          <div>
-            <Badge v-if="project.status" :type="project.status" class="status" />
-          </div>
+            <div>
+              <CopyCode :text="project.id" />
+            </div>
 
-          <div>
-            <nuxt-link
-              class="btn icon-only"
-              :to="`/${$getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-            >
-              <SettingsIcon />
-            </nuxt-link>
+            <div>
+              {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
+            </div>
+
+            <div>
+              <Badge v-if="project.status" :type="project.status" class="status" />
+            </div>
+
+            <div>
+              <nuxt-link
+                class="btn icon-only"
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                  project.slug ? project.slug : project.id
+                }/settings`"
+              >
+                <SettingsIcon />
+              </nuxt-link>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -316,165 +318,153 @@ import {
   SaveIcon,
   SortAscendingIcon,
   SortDescendingIcon,
+  formatProjectType,
 } from 'omorphia'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
+useHead({
+  title: 'Projects - Modrinth',
+})
+
 const cosmetics = useCosmetics()
-</script>
-<script>
-export default defineNuxtComponent({
-  async setup() {
-    const user = await useUser()
-    await initUserProjects()
-    return { user: ref(user) }
+const user = await useUser()
+await initUserProjects()
+
+const editLinksModal = ref()
+
+const EDIT_DETAILS = ref(1 << 2)
+
+const projects = ref(updateSort(user.value.projects, 'Name'))
+const selectedProjects = ref([])
+const sortBy = ref('Name')
+const descending = ref(false)
+const editLinks = ref({
+  showAffected: false,
+  source: {
+    val: '',
+    clear: false,
   },
-  data() {
-    return {
-      projects: this.updateSort(this.user.projects, 'Name'),
-      versions: [],
-      selectedProjects: [],
-      sortBy: 'Name',
-      descending: false,
-      editLinks: {
-        showAffected: false,
-        source: {
-          val: '',
-          clear: false,
-        },
-        discord: {
-          val: '',
-          clear: false,
-        },
-        wiki: {
-          val: '',
-          clear: false,
-        },
-        issues: {
-          val: '',
-          clear: false,
-        },
-      },
-    }
+  discord: {
+    val: '',
+    clear: false,
   },
-  head: {
-    title: 'Projects - Modrinth',
+  wiki: {
+    val: '',
+    clear: false,
   },
-  created() {
-    this.UPLOAD_VERSION = 1 << 0
-    this.DELETE_VERSION = 1 << 1
-    this.EDIT_DETAILS = 1 << 2
-    this.EDIT_BODY = 1 << 3
-    this.MANAGE_INVITES = 1 << 4
-    this.REMOVE_MEMBER = 1 << 5
-    this.EDIT_MEMBER = 1 << 6
-    this.DELETE_PROJECT = 1 << 7
-  },
-  methods: {
-    updateDescending() {
-      this.descending = !this.descending
-      this.projects = this.updateSort(this.projects, this.sortBy, this.descending)
-    },
-    updateSort(projects, sort, descending) {
-      let sortedArray = projects
-      switch (sort) {
-        case 'Name':
-          sortedArray = projects.slice().sort((a, b) => {
-            return a.title.localeCompare(b.title)
-          })
-          break
-        case 'Status':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.status < b.status) {
-              return -1
-            }
-            if (a.status > b.status) {
-              return 1
-            }
-            return 0
-          })
-          break
-        case 'Type':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.project_type < b.project_type) {
-              return -1
-            }
-            if (a.project_type > b.project_type) {
-              return 1
-            }
-            return 0
-          })
-          break
-        default:
-          break
-      }
-
-      if (descending) {
-        sortedArray = sortedArray.reverse()
-      }
-
-      return sortedArray
-    },
-    async bulkEditLinks() {
-      try {
-        const baseData = {
-          issues_url: this.editLinks.issues.clear ? null : this.editLinks.issues.val.trim(),
-          source_url: this.editLinks.source.clear ? null : this.editLinks.source.val.trim(),
-          wiki_url: this.editLinks.wiki.clear ? null : this.editLinks.wiki.val.trim(),
-          discord_url: this.editLinks.discord.clear ? null : this.editLinks.discord.val.trim(),
-        }
-
-        if (!baseData.issues_url?.length ?? 1 > 0) {
-          delete baseData.issues_url
-        }
-
-        if (!baseData.source_url?.length ?? 1 > 0) {
-          delete baseData.source_url
-        }
-
-        if (!baseData.wiki_url?.length ?? 1 > 0) {
-          delete baseData.wiki_url
-        }
-
-        if (!baseData.discord_url?.length ?? 1 > 0) {
-          delete baseData.discord_url
-        }
-
-        await useBaseFetch(
-          `projects?ids=${JSON.stringify(this.selectedProjects.map((x) => x.id))}`,
-          {
-            method: 'PATCH',
-            body: baseData,
-          }
-        )
-
-        this.$refs.editLinksModal.hide()
-        this.$notify({
-          group: 'main',
-          title: 'Success',
-          text: "Bulk edited selected project's links.",
-          type: 'success',
-        })
-        this.selectedProjects = []
-
-        this.editLinks.issues.val = ''
-        this.editLinks.source.val = ''
-        this.editLinks.wiki.val = ''
-        this.editLinks.discord.val = ''
-        this.editLinks.issues.clear = false
-        this.editLinks.source.clear = false
-        this.editLinks.wiki.clear = false
-        this.editLinks.discord.clear = false
-      } catch (e) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: e,
-          type: 'error',
-        })
-      }
-    },
+  issues: {
+    val: '',
+    clear: false,
   },
 })
+
+function updateDescending() {
+  descending.value = !descending.value
+  projects.value = updateSort(projects.value, sortBy.value, descending.value)
+}
+
+function updateSort(projects, sort, descending) {
+  let sortedArray = projects
+  switch (sort) {
+    case 'Name':
+      sortedArray = projects.slice().sort((a, b) => {
+        return a.title.localeCompare(b.title)
+      })
+      break
+    case 'Status':
+      sortedArray = projects.slice().sort((a, b) => {
+        if (a.status < b.status) {
+          return -1
+        }
+        if (a.status > b.status) {
+          return 1
+        }
+        return 0
+      })
+      break
+    case 'Type':
+      sortedArray = projects.slice().sort((a, b) => {
+        if (a.project_type < b.project_type) {
+          return -1
+        }
+        if (a.project_type > b.project_type) {
+          return 1
+        }
+        return 0
+      })
+      break
+    default:
+      break
+  }
+
+  if (descending) {
+    sortedArray = sortedArray.reverse()
+  }
+
+  return sortedArray
+}
+
+async function bulkEditLinks() {
+  try {
+    const baseData = {
+      issues_url: editLinks.value.issues.clear ? null : editLinks.value.issues.val.trim(),
+      source_url: editLinks.value.source.clear ? null : editLinks.value.source.val.trim(),
+      wiki_url: editLinks.value.wiki.clear ? null : editLinks.value.wiki.val.trim(),
+      discord_url: editLinks.value.discord.clear ? null : editLinks.value.discord.val.trim(),
+    }
+
+    if (!baseData.issues_url?.length ?? 1 > 0) {
+      delete baseData.issues_url
+    }
+
+    if (!baseData.source_url?.length ?? 1 > 0) {
+      delete baseData.source_url
+    }
+
+    if (!baseData.wiki_url?.length ?? 1 > 0) {
+      delete baseData.wiki_url
+    }
+
+    if (!baseData.discord_url?.length ?? 1 > 0) {
+      delete baseData.discord_url
+    }
+
+    await useBaseFetch(`projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`, {
+      method: 'PATCH',
+      body: baseData,
+    })
+
+    editLinksModal.value.hide()
+    addNotification({
+      group: 'main',
+      title: 'Success',
+      text: "Bulk edited selected project's links.",
+      type: 'success',
+    })
+    selectedProjects.value = []
+
+    editLinks.value.issues.val = ''
+    editLinks.value.source.val = ''
+    editLinks.value.wiki.val = ''
+    editLinks.value.discord.val = ''
+    editLinks.value.issues.clear = false
+    editLinks.value.source.clear = false
+    editLinks.value.wiki.clear = false
+    editLinks.value.discord.clear = false
+  } catch (e) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: e,
+      type: 'error',
+    })
+  }
+}
 </script>
 <style lang="scss" scoped>
 .grid-table {
@@ -482,9 +472,9 @@ export default defineNuxtComponent({
   grid-template-columns:
     min-content min-content minmax(min-content, 2fr)
     minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
-  border-radius: var(--size-rounded-sm);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
 
   .grid-table__row {
     display: contents;
@@ -493,29 +483,29 @@ export default defineNuxtComponent({
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: var(--spacing-card-sm);
+      padding: var(--gap-sm);
 
       // Left edge of table
       &:first-child {
-        padding-left: var(--spacing-card-bg);
+        padding-left: var(--gap-lg);
       }
 
       // Right edge of table
       &:last-child {
-        padding-right: var(--spacing-card-bg);
+        padding-right: var(--gap-lg);
       }
     }
 
     &:nth-child(2n + 1) > div {
-      background-color: var(--color-table-alternate-row);
+      background-color: var(--color-alt-bg);
     }
 
     &.grid-table__header > div {
       background-color: var(--color-bg);
       font-weight: bold;
-      color: var(--color-text-dark);
-      padding-top: var(--spacing-card-bg);
-      padding-bottom: var(--spacing-card-bg);
+      color: var(--color-contrast);
+      padding-top: var(--gap-lg);
+      padding-bottom: var(--gap-lg);
     }
   }
 
@@ -596,7 +586,7 @@ export default defineNuxtComponent({
 .project-title {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-xs);
+  gap: var(--gap-xs);
 
   svg {
     color: var(--color-orange);
@@ -604,7 +594,7 @@ export default defineNuxtComponent({
 }
 
 .status {
-  margin-top: var(--spacing-card-xs);
+  margin-top: var(--gap-xs);
 }
 
 .hover-link:hover {
@@ -617,7 +607,7 @@ export default defineNuxtComponent({
   flex-direction: row;
   min-width: 0;
   align-items: center;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-md);
   white-space: nowrap;
 }
 
@@ -628,13 +618,13 @@ export default defineNuxtComponent({
 
 .label-button[data-active='true'] {
   --background-color: var(--color-red);
-  --text-color: var(--color-brand-inverted);
+  --text-color: var(--color-accent-contrast);
 }
 
 .links-modal {
   .links {
     display: grid;
-    gap: var(--spacing-card-sm);
+    gap: var(--gap-sm);
     grid-template-columns: 1fr 2fr;
 
     .input-group {
@@ -650,7 +640,7 @@ export default defineNuxtComponent({
   }
 
   ul {
-    margin: 0 0 var(--spacing-card-sm) 0;
+    margin: 0 0 var(--gap-sm) 0;
   }
 }
 
@@ -658,9 +648,5 @@ h1 {
   margin-block: var(--gap-sm) var(--gap-lg);
   font-size: 2em;
   line-height: 1em;
-}
-
-.card {
-  padding: 0;
 }
 </style>

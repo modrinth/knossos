@@ -1,41 +1,24 @@
 <template>
-  <div class="normal-page">
-    <div class="normal-page__sidebar">
-      <aside class="card">
-        <h1>Legal</h1>
-        <NavStack>
-          <NavStackItem link="/legal/terms" label="Terms of Use">
-            <HeartHandshakeIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/rules" label="Content Rules">
-            <ScaleIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/copyright" label="Copyright Policy">
-            <CopyrightIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/security" label="Security Notice">
-            <ShieldIcon />
-          </NavStackItem>
+  <div class="settings-page">
+    <div class="settings-page__sidebar">
+      <h1>Legal</h1>
 
-          <h3>Privacy</h3>
-          <NavStackItem link="/legal/privacy" label="Privacy Policy">
-            <LockIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/ccpa" label="California Privacy Notice">
-            <InfoIcon />
-          </NavStackItem>
+      <div class="vertical-navbar">
+        <NuxtLink to="/legal/terms"> <HeartHandshakeIcon /> Terms of Use </NuxtLink>
+        <NuxtLink to="/legal/rules"> <ScaleIcon /> Content Rules </NuxtLink>
+        <NuxtLink to="/legal/copyright"> <CopyrightIcon /> Copyright Policy</NuxtLink>
+        <NuxtLink to="/legal/security"> <ShieldIcon /> Security Notice </NuxtLink>
 
-          <h3>Rewards Program</h3>
-          <NavStackItem link="/legal/cmp" label="Rewards Program Terms">
-            <CurrencyIcon />
-          </NavStackItem>
-          <NavStackItem link="/legal/cmp-info" label="Rewards Program Info">
-            <InfoIcon />
-          </NavStackItem>
-        </NavStack>
-      </aside>
+        <h3>Privacy</h3>
+        <NuxtLink to="/legal/privacy"> <LockIcon /> Privacy Policy </NuxtLink>
+        <NuxtLink to="/legal/ccpa"> <InfoIcon /> California Privacy Notice </NuxtLink>
+
+        <h3>Rewards Program</h3>
+        <NuxtLink to="/legal/cmp"> <CurrencyIcon /> Rewards Program Terms </NuxtLink>
+        <NuxtLink to="/legal/cmp-info"> <InfoIcon /> Rewards Program Info </NuxtLink>
+      </div>
     </div>
-    <div class="normal-page__content">
+    <div class="settings-page__content">
       <NuxtPage class="card" :route="route" />
     </div>
   </div>
@@ -50,8 +33,6 @@ import {
   ShieldIcon,
   CurrencyIcon,
   CopyrightIcon,
-  NavStack,
-  NavItem as NavStackItem,
 } from 'omorphia'
 
 const route = useRoute()
@@ -59,16 +40,16 @@ const route = useRoute()
 
 <style lang="scss" scoped>
 .normal-page__content :deep(a) {
-  color: var(--color-link);
+  color: var(--color-blue);
   text-decoration: underline;
 
   &:focus-visible,
   &:hover {
-    color: var(--color-link-hover);
+    filter: brightness(1.1);
   }
 
   &:active {
-    color: var(--color-link-active);
+    filter: brightness(1.2);
   }
 }
 

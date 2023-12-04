@@ -16,6 +16,10 @@
 <script setup>
 import ThreadSummary from '~/components/ui/thread/ThreadSummary.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 useHead({
   title: 'Moderation inbox - Modrinth',
 })
@@ -27,13 +31,13 @@ function getLink(thread) {
   if (thread.report_id) {
     return `/moderation/report/${thread.report_id}`
   } else if (thread.project_id) {
-    return `/project/${thread.project_id}/moderation`
+    return `/project/${thread.project_id}/settings/moderation`
   }
   return null
 }
 </script>
 <style lang="scss" scoped>
 .thread-summary:not(:last-child) {
-  margin-bottom: var(--spacing-card-md);
+  margin-bottom: var(--gap-md);
 }
 </style>

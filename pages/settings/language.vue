@@ -307,7 +307,7 @@ function getItemLabel(locale: Locale) {
           id="language-search"
           v-model="$query"
           name="language"
-          type="search"
+          type="text"
           :placeholder="formatMessage(messages.searchFieldPlaceholder)"
           class="language-search"
           aria-describedby="language-search-description"
@@ -402,15 +402,15 @@ function getItemLabel(locale: Locale) {
   align-items: center;
   column-gap: 0.5rem;
   border: 0.15rem solid transparent;
-  border-radius: var(--spacing-card-md);
+  border-radius: var(--gap-md);
   background: var(--color-button-bg);
-  padding: var(--spacing-card-md);
+  padding: var(--gap-md);
   cursor: pointer;
   position: relative;
   overflow: hidden;
 
   &:not([aria-disabled='true']):hover {
-    border-color: var(--color-button-bg-hover);
+    filter: var(--filter-hover);
   }
 
   &:focus-visible,
@@ -506,26 +506,26 @@ function getItemLabel(locale: Locale) {
 }
 
 .search-container {
-  margin-bottom: var(--spacing-card-md);
+  margin-bottom: var(--gap-md);
 }
 
 .card-description {
-  margin-bottom: calc(var(--spacing-card-sm) + var(--spacing-card-md));
+  margin-bottom: calc(var(--gap-sm) + var(--gap-md));
 
   a {
-    color: var(--color-link);
+    color: var(-color-blue);
 
     &:hover {
-      color: var(--color-link-hover);
+      filter: brightness(1.1);
     }
 
     &:active {
-      color: var(--color-link-active);
+      filter: brightness(1.2);
     }
   }
 }
 
 .category-name {
-  margin-top: var(--spacing-card-md);
+  margin-top: var(--gap-md);
 }
 </style>

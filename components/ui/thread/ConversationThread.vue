@@ -3,7 +3,7 @@
     <Modal
       ref="modalSubmit"
       :header="isRejected(project) ? 'Resubmit for review' : 'Submit for review'"
-      :noblur="!$orElse(cosmetics.advancedRendering, true)"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
     >
       <div class="modal-submit universal-body">
         <span>
@@ -48,14 +48,12 @@
       This thread is closed and new messages cannot be sent to it.
     </span>
     <template v-else-if="!report || !report.closed">
-      <div class="resizable-textarea-wrapper">
-        <Chips v-model="replyViewMode" class="chips" :items="['source', 'preview']" />
-        <textarea
-          v-if="replyViewMode === 'source'"
+      <div class="markdown-editor-spacing">
+        <MarkdownEditor
           v-model="replyBody"
           :placeholder="sortedMessages.length > 0 ? 'Reply to thread...' : 'Send a message...'"
+          :on-image-upload="onUploadImage"
         />
-        <div v-else class="markdown-body preview" v-html="renderString(replyBody)" />
       </div>
       <div class="input-group">
         <button
@@ -150,9 +148,9 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs'
 import {
   Modal,
-  Chips,
   CopyCode,
   ReplyIcon,
   SendIcon,
@@ -163,10 +161,11 @@ import {
   ScaleIcon,
   Checkbox,
   isStaff,
-  renderString,
   isApproved,
   isRejected,
+  MarkdownEditor,
 } from 'omorphia'
+import { useImageUpload } from '~/composables/image-upload.ts'
 import ThreadMessage from '~/components/ui/thread/ThreadMessage.vue'
 
 const props = defineProps({
@@ -205,7 +204,6 @@ const props = defineProps({
     required: true,
   },
 })
-const app = useNuxtApp()
 const cosmetics = useCosmetics()
 
 const members = computed(() => {
@@ -216,14 +214,11 @@ const members = computed(() => {
   return members
 })
 
-const replyViewMode = ref('source')
 const replyBody = ref('')
 
 const sortedMessages = computed(() => {
   if (props.thread !== null) {
-    return props.thread.messages
-      .slice()
-      .sort((a, b) => app.$dayjs(a.created) - app.$dayjs(b.created))
+    return props.thread.messages.slice().sort((a, b) => dayjs(a.created) - dayjs(b.created))
   }
   return []
 })
@@ -244,24 +239,47 @@ async function updateThreadLocal() {
   props.updateThread(thread)
 }
 
+const imageIDs = ref([])
+
+async function onUploadImage(file) {
+  const response = await useImageUpload(file, { context: 'thread_message' })
+
+  imageIDs.value.push(response.id)
+  // Keep the last 10 entries of image IDs
+  imageIDs.value = imageIDs.value.slice(-10)
+
+  return response.url
+}
+
 async function sendReply(status = null) {
   try {
+    const body = {
+      body: {
+        type: 'text',
+        body: replyBody.value,
+      },
+    }
+
+    if (imageIDs.value.length > 0) {
+      body.body = {
+        ...body.body,
+        uploaded_images: imageIDs.value,
+      }
+    }
+
     await useBaseFetch(`thread/${props.thread.id}`, {
       method: 'POST',
-      body: {
-        body: {
-          type: 'text',
-          body: replyBody.value,
-        },
-      },
+      body,
     })
+
     replyBody.value = ''
+
     await updateThreadLocal()
     if (status !== null) {
       props.setStatus(status)
     }
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error sending message',
       text: err.data ? err.data.description : err,
@@ -284,7 +302,7 @@ async function closeReport(reply) {
     })
     await updateThreadLocal()
   } catch (err) {
-    app.$notify({
+    addNotification({
       group: 'main',
       title: 'Error closing report',
       text: err.data ? err.data.description : err,
@@ -315,22 +333,26 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 </script>
 
 <style lang="scss" scoped>
+.markdown-editor-spacing {
+  margin-bottom: var(--gap-md);
+}
+
 .messages {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-card-md);
+  padding: var(--gap-md);
 }
 
 .resizable-textarea-wrapper {
-  margin-bottom: var(--spacing-card-sm);
+  margin-bottom: var(--gap-sm);
 
   textarea {
-    padding: var(--spacing-card-bg);
+    padding: var(--gap-lg);
     width: 100%;
   }
 
   .chips {
-    margin-bottom: var(--spacing-card-md);
+    margin-bottom: var(--gap-md);
   }
 
   .preview {
@@ -339,9 +361,10 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 }
 
 .thread-id {
-  margin-bottom: var(--spacing-card-md);
+  margin-bottom: var(--gap-md);
   font-weight: bold;
-  color: var(--color-heading);
+  color: var(--color-base);
+  filter: brightness(1.1);
 }
 
 .input-group {
@@ -356,10 +379,10 @@ const requestedStatus = computed(() => props.project.requested_status ?? 'approv
 }
 
 .modal-submit {
-  padding: var(--spacing-card-bg);
+  padding: var(--gap-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-card-lg);
+  gap: var(--gap-xl);
 
   .project-title {
     font-weight: bold;

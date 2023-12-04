@@ -28,7 +28,7 @@ function stopTimer(notif) {
 .vue-notification {
   background: var(--color-blue) !important;
   border-left: 5px solid var(--color-blue) !important;
-  color: var(--color-brand-inverted) !important;
+  color: var(--color-accent-contrast) !important;
 
   box-sizing: border-box;
   text-align: left;
@@ -65,7 +65,7 @@ function stopTimer(notif) {
     margin-bottom: 10px;
 
     .vue-notification-template {
-      border-radius: var(--size-rounded-card);
+      border-radius: var(--round-card);
       margin: 0;
 
       .notification-title {

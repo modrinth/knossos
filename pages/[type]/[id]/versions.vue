@@ -26,7 +26,7 @@
       <div
         v-for="version in filteredVersions.slice((currentPage - 1) * 20, currentPage * 20)"
         :key="version.id"
-        class="version-button button-transparent"
+        class="version-button button-base button-transparent button-base"
         @click="
           $router.push(
             `/${project.project_type}/${
@@ -37,7 +37,7 @@
       >
         <a
           v-tooltip="
-            version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+            version.primaryFile.filename + ' (' + formatBytes(version.primaryFile.size) + ')'
           "
           :href="version.primaryFile.url"
           class="download-button btn icon-only btn-primary"
@@ -64,18 +64,18 @@
         </div>
         <div class="version__supports">
           <span>
-            {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+            {{ version.loaders.map((x) => formatCategory(x)).join(', ') }}
           </span>
-          <span>{{ $formatVersion(version.game_versions) }}</span>
+          <span>{{ formatVersions(version.game_versions, tags.gameVersions) }}</span>
         </div>
         <div class="version__stats">
           <span>
-            <strong>{{ $formatNumber(version.downloads) }}</strong>
+            <strong>{{ formatNumber(version.downloads) }}</strong>
             download<span v-if="version.downloads !== 1">s</span>
           </span>
           <span>
             Published on
-            <strong>{{ $dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
+            <strong>{{ dayjs(version.date_published).format('MMM D, YYYY') }}</strong>
           </span>
         </div>
       </div>
@@ -90,6 +90,7 @@
   </div>
 </template>
 <script setup>
+import dayjs from 'dayjs'
 import {
   DownloadIcon,
   UploadIcon,
@@ -98,6 +99,10 @@ import {
   FileInput,
   DropArea,
   Pagination,
+  formatNumber,
+  formatBytes,
+  formatCategory,
+  formatVersions,
 } from 'omorphia'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import VersionFilterControl from '~/components/ui/VersionFilterControl.vue'
@@ -129,14 +134,14 @@ const props = defineProps({
   },
 })
 
-const data = useNuxtApp()
+const tags = useTags()
 
 const title = `${props.project.title} - Versions`
 const description = `Download and browse ${props.versions.length} ${
   props.project.title
-} versions. ${data.$formatNumber(props.project.downloads)} total downloads. Last updated ${data
-  .$dayjs(props.project.updated)
-  .format('MMM D, YYYY')}.`
+} versions. ${formatNumber(props.project.downloads)} total downloads. Last updated ${dayjs(
+  props.project.updated
+).format('MMM D, YYYY')}.`
 
 useSeoMeta({
   title,
@@ -206,7 +211,7 @@ async function handleFiles(files) {
     display: flex;
     gap: 0.5ch;
     align-items: center;
-    color: var(--color-text-inactive);
+    color: var(--color-secondary);
   }
 }
 
@@ -217,14 +222,14 @@ async function handleFiles(files) {
   .header {
     display: grid;
     grid-template: 'download title supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1.25fr 1fr 1fr;
-    color: var(--color-text-dark);
+    grid-template-columns: calc(2.25rem + var(--gap-sm)) 1.25fr 1fr 1fr;
+    color: var(--color-contrast);
     font-size: var(--font-size-md);
     font-weight: bold;
     justify-content: left;
-    margin-inline: var(--spacing-card-md);
-    margin-bottom: var(--spacing-card-sm);
-    column-gap: var(--spacing-card-sm);
+    margin-inline: var(--gap-md);
+    margin-bottom: var(--gap-sm);
+    column-gap: var(--gap-sm);
 
     div:first-child {
       grid-area: download;
@@ -249,10 +254,10 @@ async function handleFiles(files) {
       'download title supports stats'
       'download metadata supports stats'
       'download dummy supports stats';
-    grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1.25fr 1fr 1fr;
-    column-gap: var(--spacing-card-sm);
+    grid-template-columns: calc(2.25rem + var(--gap-sm)) 1.25fr 1fr 1fr;
+    column-gap: var(--gap-sm);
     justify-content: left;
-    padding: var(--spacing-card-md);
+    padding: var(--gap-md);
 
     .download-button {
       grid-area: download;
@@ -270,20 +275,20 @@ async function handleFiles(files) {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      gap: var(--spacing-card-xs);
-      margin-top: var(--spacing-card-xs);
+      gap: var(--gap-xs);
+      margin-top: var(--gap-xs);
     }
     .version__supports {
       grid-area: supports;
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-card-xs);
+      gap: var(--gap-xs);
     }
     .version__stats {
       grid-area: stats;
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-card-xs);
+      gap: var(--gap-xs);
     }
   }
 }
@@ -292,7 +297,7 @@ async function handleFiles(files) {
   .all-versions {
     .header {
       grid-template: 'download title';
-      grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr;
+      grid-template-columns: calc(2.25rem + var(--gap-sm)) 1fr;
 
       div:nth-child(3) {
         display: none;
@@ -305,14 +310,14 @@ async function handleFiles(files) {
 
     .version-button {
       grid-template: 'download title' 'download metadata' 'download supports' 'download stats';
-      grid-template-columns: calc(2.25rem + var(--spacing-card-sm)) 1fr;
-      row-gap: var(--spacing-card-xs);
+      grid-template-columns: calc(2.25rem + var(--gap-sm)) 1fr;
+      row-gap: var(--gap-xs);
 
       .version__supports {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        column-gap: var(--spacing-card-xs);
+        column-gap: var(--gap-xs);
       }
       .version__metadata {
         margin: 0;
@@ -324,7 +329,7 @@ async function handleFiles(files) {
 .search-controls {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-md);
   align-items: center;
   flex-wrap: wrap;
   .multiselect {

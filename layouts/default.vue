@@ -59,7 +59,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="btn" to="/follows">
+              <NuxtLink class="btn" to="/settings/follows">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -76,8 +76,8 @@
               <SettingsIcon aria-hidden="true" />
               Settings
             </NuxtLink>
-            <button class="btn" @click="changeTheme($colorMode.value)">
-              <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+            <button class="btn" @click="changeTheme(colorMode.value)">
+              <MoonIcon v-if="colorMode.value === 'light'" class="icon" />
               <SunIcon v-else class="icon" />
               <span class="dropdown-item__text">Change theme</span>
             </button>
@@ -103,7 +103,7 @@
           </button>
           <template v-if="auth.user">
             <NuxtLink
-              to="/inbox"
+              to="/home"
               class="tab button-animation"
               :class="{
                 bubble: user.notifications.some((notif) => !notif.read),
@@ -156,13 +156,10 @@
           </NuxtLink>
         </div>
         <div class="navbar-links">
-          <NuxtLink class="btn btn-transparent" to="/home">
-            <span class="title">Home</span>
-          </NuxtLink>
           <OverflowMenu
             class="btn btn-transparent btn-dropdown-animation"
             :class="{
-              'visibly-active': route.name.startsWith('search-'),
+              'visibly-active': route && route.name && route.name.startsWith('search-'),
             }"
             position="bottom"
             direction="right"
@@ -203,6 +200,7 @@
           </OverflowMenu>
 
           <OverflowMenu
+            v-if="auth.user"
             class="btn btn-transparent btn-dropdown-animation"
             position="bottom"
             direction="right"
@@ -235,8 +233,8 @@
           <nuxt-link class="btn btn-transparent btn-primary" to="/app"> Modrinth App </nuxt-link>
         </div>
         <div class="navbar-user">
-          <button class="btn btn-transparent icon-only" @click="changeTheme($colorMode.value)">
-            <MoonIcon v-if="$colorMode.value === 'light'" class="icon" />
+          <button class="btn btn-transparent icon-only" @click="changeTheme(colorMode.value)">
+            <MoonIcon v-if="colorMode.value === 'light'" class="icon" />
             <SunIcon v-else class="icon" />
           </button>
           <OverflowMenu
@@ -255,19 +253,19 @@
               {
                 id: 'saved',
                 action: () => {
-                  router.push(`/follows`)
+                  router.push(`/settings/follows`)
                 },
               },
               {
                 id: 'projects',
                 action: () => {
-                  router.push(`/projects`)
+                  router.push(`/settings/projects`)
                 },
               },
               {
                 id: 'reports',
                 action: () => {
-                  router.push(`/reports`)
+                  router.push(`/settings/reports`)
                 },
               },
               { divider: true },
@@ -348,7 +346,7 @@
           <p>
             Modrinth is
             <a
-              :target="$external()"
+              :target="external()"
               href="https://github.com/modrinth"
               class="text-link"
               rel="noopener"
@@ -358,7 +356,7 @@
           </p>
           <p>
             {{ config.public.owner }}/{{ config.public.slug }} {{ config.public.branch }}@<a
-              :target="$external()"
+              :target="external()"
               :href="
                 'https://github.com/' +
                 config.public.owner +
@@ -379,25 +377,25 @@
           <nuxt-link to="/legal/terms"> Terms</nuxt-link>
           <nuxt-link to="/legal/privacy"> Privacy</nuxt-link>
           <nuxt-link to="/legal/rules"> Rules</nuxt-link>
-          <a :target="$external()" href="https://careers.modrinth.com"
+          <a :target="external()" href="https://careers.modrinth.com"
             >Careers <span class="count-bubble">1</span></a
           >
         </div>
         <div class="links links-2" role="region" aria-label="Resources">
           <h4 aria-hidden="true">Resources</h4>
-          <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
-          <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
-          <a :target="$external()" href="https://status.modrinth.com">Status</a>
-          <a rel="noopener" :target="$external()" href="https://github.com/modrinth">GitHub</a>
+          <a :target="external()" href="https://blog.modrinth.com">Blog</a>
+          <a :target="external()" href="https://docs.modrinth.com">Docs</a>
+          <a :target="external()" href="https://status.modrinth.com">Status</a>
+          <a rel="noopener" :target="external()" href="https://github.com/modrinth">GitHub</a>
         </div>
         <div class="links links-3" role="region" aria-label="Interact">
           <h4 aria-hidden="true">Interact</h4>
-          <a rel="noopener" :target="$external()" href="https://discord.gg/EUHuJHt"> Discord </a>
-          <a rel="noopener" :target="$external()" href="https://x.com/modrinth"> X (Twitter) </a>
-          <a rel="noopener" :target="$external()" href="https://floss.social/@modrinth">
+          <a rel="noopener" :target="external()" href="https://discord.gg/EUHuJHt"> Discord </a>
+          <a rel="noopener" :target="external()" href="https://x.com/modrinth"> X (Twitter) </a>
+          <a rel="noopener" :target="external()" href="https://floss.social/@modrinth">
             Mastodon
           </a>
-          <a rel="noopener" :target="$external()" href="https://crowdin.com/project/modrinth">
+          <a rel="noopener" :target="external()" href="https://crowdin.com/project/modrinth">
             Crowdin
           </a>
         </div>
@@ -406,8 +404,8 @@
             <DownloadIcon aria-hidden="true" />
             Get Modrinth App
           </nuxt-link>
-          <button class="btn raised" @click="changeTheme($colorMode.value)">
-            <MoonIcon v-if="$colorMode.value === 'light'" aria-hidden="true" />
+          <button class="btn raised" @click="changeTheme(colorMode.value)">
+            <MoonIcon v-if="colorMode.value === 'light'" aria-hidden="true" />
             <SunIcon v-else aria-hidden="true" />
             Change theme
           </button>
@@ -432,7 +430,6 @@ import {
   ImageIcon,
   DropdownIcon,
   OverflowMenu,
-  PopoutMenu,
   HamburgerIcon,
   XIcon as CrossIcon,
   SearchIcon,
@@ -465,10 +462,10 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 const loading = useLoading()
 
-const app = useNuxtApp()
 const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
+const colorMode = useTheme()
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -513,22 +510,20 @@ useSeoMeta({
 
 let developerModeCounter = 0
 
-const selectedProjectType = ref('mods')
-
 function developerModeIncrement() {
   if (developerModeCounter >= 5) {
     cosmetics.value.developerMode = !cosmetics.value.developerMode
     saveCosmetics()
     developerModeCounter = 0
     if (cosmetics.value.developerMode) {
-      app.$notify({
+      addNotification({
         group: 'main',
         title: 'Developer mode activated',
         text: 'Developer mode has been enabled',
         type: 'success',
       })
     } else {
-      app.$notify({
+      addNotification({
         group: 'main',
         title: 'Developer mode deactivated',
         text: 'Developer mode has been disabled',
@@ -546,106 +541,96 @@ async function logoutUser() {
 
 function changeTheme(value) {
   updateTheme(
-    ['dark', 'oled', 'retro'].includes(value) ? 'light' : this.cosmetics.preferredDarkTheme,
+    ['dark', 'oled', 'retro'].includes(value) ? 'light' : cosmetics.value.preferredDarkTheme,
     true
   )
 }
-</script>
-<script>
-export default defineNuxtComponent({
-  data() {
-    return {
-      desktopBrowseOpen: true,
-      desktopUserMenu: false,
-      mobileUserOpen: false,
-      mobileBrowseOpen: false,
-      registeredSkipLink: null,
-      navRoutes: [
-        {
-          label: 'Mods',
-          href: '/mods',
-        },
-        {
-          label: 'Modpacks',
-          href: '/modpacks',
-        },
-        {
-          label: 'Data Packs',
-          href: '/datapacks',
-        },
-        {
-          label: 'Resource Packs',
-          href: '/resourcepacks',
-        },
-        {
-          label: 'Shaders',
-          href: '/shaders',
-        },
-        {
-          label: 'Plugins',
-          href: '/plugins',
-        },
-      ],
-    }
-  },
-  computed: {
-    isOnSearchPage() {
-      return this.navRoutes.some((route) => this.$route.path.startsWith(route.href))
-    },
-  },
-  watch: {
-    '$route.path'() {
-      this.mobileUserOpen = false
-      this.mobileBrowseOpen = false
 
-      if (process.client) {
-        document.body.style.overflowY = 'scroll'
-        document.body.setAttribute('tabindex', '-1')
-        document.body.removeAttribute('tabindex')
-      }
+const mobileUserOpen = ref(false)
+const mobileBrowseOpen = ref(false)
 
-      updateCurrentDate()
-      this.runAnalytics()
-    },
+const navRoutes = ref([
+  {
+    label: 'Mods',
+    href: '/mods',
   },
-  mounted() {
-    if (process.client && window) {
-      window.history.scrollRestoration = 'auto'
+  {
+    label: 'Modpacks',
+    href: '/modpacks',
+  },
+  {
+    label: 'Data Packs',
+    href: '/datapacks',
+  },
+  {
+    label: 'Resource Packs',
+    href: '/resourcepacks',
+  },
+  {
+    label: 'Shaders',
+    href: '/shaders',
+  },
+  {
+    label: 'Plugins',
+    href: '/plugins',
+  },
+])
+
+watch(
+  () => route.path,
+  () => {
+    mobileUserOpen.value = false
+    mobileBrowseOpen.value = false
+
+    if (process.client) {
+      document.body.style.overflowY = 'scroll'
+      document.body.setAttribute('tabindex', '-1')
+      document.body.removeAttribute('tabindex')
     }
 
-    this.runAnalytics()
-  },
-  methods: {
-    runAnalytics() {
-      const config = useRuntimeConfig()
-      const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
+    updateCurrentDate()
+    runAnalytics()
+  }
+)
 
-      setTimeout(() => {
-        $fetch(`${replacedUrl}analytics/view`, {
-          method: 'POST',
-          body: {
-            url: window.location.href,
-          },
-        })
-          .then(() => {})
-          .catch(() => {})
-      })
-    },
-    toggleMobileMenu() {
-      this.mobileUserOpen = !this.mobileUserOpen
-      if (this.mobileUserOpen) {
-        this.mobileBrowseOpen = false
-      }
-    },
-    toggleBrowseMenu() {
-      this.mobileBrowseOpen = !this.mobileBrowseOpen
+onMounted(() => {
+  if (process.client && window) {
+    window.history.scrollRestoration = 'auto'
+  }
 
-      if (this.mobileBrowseOpen) {
-        this.mobileUserOpen = false
-      }
-    },
-  },
+  runAnalytics()
 })
+
+function runAnalytics() {
+  const config = useRuntimeConfig()
+  const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
+
+  setTimeout(() => {
+    $fetch(`${replacedUrl}analytics/view`, {
+      method: 'POST',
+      body: {
+        url: window.location.href,
+      },
+    })
+      .then(() => {})
+      .catch(() => {})
+  })
+}
+
+function toggleMobileMenu() {
+  mobileUserOpen.value = !mobileUserOpen.value
+  if (mobileUserOpen.value) {
+    mobileBrowseOpen.value = false
+  }
+}
+
+function toggleBrowseMenu() {
+  mobileBrowseOpen.value = !mobileBrowseOpen.value
+
+  if (mobileBrowseOpen.value) {
+    mobileUserOpen.value = false
+  }
+}
 </script>
 
 <style lang="scss">
@@ -678,6 +663,8 @@ export default defineNuxtComponent({
     grid-template: 'brand links user';
     grid-template-columns: auto 1fr auto;
     z-index: 3;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
 
     @media screen and (min-width: 1280px) {
       max-width: 1280px;
@@ -748,7 +735,7 @@ export default defineNuxtComponent({
       font-weight: 600;
 
       &:not(.icon-only) svg {
-        color: var(--color-text-secondary);
+        color: var(--color-secondary);
       }
 
       > svg {
@@ -813,7 +800,7 @@ export default defineNuxtComponent({
 
           .game-title__subtitle {
             font-size: 0.8rem;
-            color: var(--color-text-secondary);
+            color: var(--color-secondary);
           }
         }
 
@@ -867,7 +854,7 @@ export default defineNuxtComponent({
 
 .site-header {
   @media screen and (min-width: 1280px) {
-    border-radius: var(--size-rounded-sm);
+    border-radius: var(--radius-sm);
     max-width: 1280px;
   }
 
@@ -877,14 +864,14 @@ export default defineNuxtComponent({
     .nav-menu {
       width: 100%;
       position: fixed;
-      bottom: calc(var(--size-mobile-navbar-height) - var(--size-rounded-card));
-      padding-bottom: var(--size-rounded-card);
+      bottom: calc(var(--size-mobile-navbar-height) - var(--round-card));
+      padding-bottom: var(--round-card);
       left: 0;
       background-color: var(--color-raised-bg);
       z-index: 6;
       transform: translateY(100%);
       transition: transform 0.4s cubic-bezier(0.54, 0.84, 0.42, 1);
-      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+      border-radius: var(--round-card) var(--round-card) 0 0;
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0);
 
       .links,
@@ -927,7 +914,7 @@ export default defineNuxtComponent({
           padding-bottom: 0;
 
           .account-button {
-            padding: var(--spacing-card-md);
+            padding: var(--gap-md);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -953,7 +940,7 @@ export default defineNuxtComponent({
     .mobile-navbar {
       display: flex;
       height: calc(var(--size-mobile-navbar-height) + env(safe-area-inset-bottom));
-      border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
+      border-radius: var(--round-card) var(--round-card) 0 0;
       padding-bottom: env(safe-area-inset-bottom);
       position: fixed;
       left: 0;
@@ -985,7 +972,7 @@ export default defineNuxtComponent({
         font-weight: bold;
         padding: 0;
         transition: color ease-in-out 0.15s;
-        color: var(--color-text-inactive);
+        color: var(--color-secondary);
         text-align: center;
 
         &.browse {
@@ -1002,7 +989,7 @@ export default defineNuxtComponent({
         &.bubble {
           &::after {
             background-color: var(--color-brand);
-            border-radius: var(--size-rounded-max);
+            border-radius: var(--radius-max);
             content: '';
             height: 0.5rem;
             position: absolute;
@@ -1035,7 +1022,7 @@ export default defineNuxtComponent({
 
         &:hover,
         &:focus {
-          color: var(--color-text);
+          color: var(--color-base);
         }
 
         &:first-child {
@@ -1063,7 +1050,7 @@ export default defineNuxtComponent({
 
   div {
     flex-grow: 1;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     row-gap: 1rem;
   }
@@ -1107,7 +1094,7 @@ footer {
     margin-bottom: 1rem;
 
     h4 {
-      color: var(--color-text-dark);
+      color: var(--color-contrast);
       margin: 0 0 1rem 0;
     }
 
@@ -1131,7 +1118,7 @@ footer {
       font-size: 1rem;
       border-radius: 5rem;
       background: var(--color-brand);
-      color: var(--color-text-inverted);
+      color: var(--color-bg);
       padding: 0 0.35rem;
       margin-left: 0.25rem;
     }
@@ -1155,7 +1142,7 @@ footer {
     font-size: var(--font-size-xs);
     text-align: center;
     font-weight: 500;
-    margin-top: var(--spacing-card-md);
+    margin-top: var(--gap-md);
   }
 
   @media screen and (min-width: 1024px) {

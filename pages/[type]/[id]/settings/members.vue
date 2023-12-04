@@ -250,180 +250,183 @@ import {
   UserXIcon,
   Avatar,
 } from 'omorphia'
-</script>
-<script>
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
-export default defineNuxtComponent({
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    allMembers: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
+definePageMeta({
+  middleware: 'auth',
+})
+
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      currentUsername: '',
-      openTeamMembers: [],
-      allTeamMembers: this.allMembers.map((x) => {
-        x.oldRole = x.role
-        return x
-      }),
-    }
+  allMembers: {
+    type: Array,
+    default() {
+      return []
+    },
   },
-  created() {
-    this.UPLOAD_VERSION = 1 << 0
-    this.DELETE_VERSION = 1 << 1
-    this.EDIT_DETAILS = 1 << 2
-    this.EDIT_BODY = 1 << 3
-    this.MANAGE_INVITES = 1 << 4
-    this.REMOVE_MEMBER = 1 << 5
-    this.EDIT_MEMBER = 1 << 6
-    this.DELETE_PROJECT = 1 << 7
-    this.VIEW_ANALYTICS = 1 << 8
-    this.VIEW_PAYOUTS = 1 << 9
-  },
-  methods: {
-    removeSelfFromTeam,
-    async leaveProject() {
-      await removeSelfFromTeam(this.project.team)
-      await this.$router.push('/projects')
-    },
-    async inviteTeamMember() {
-      startLoading()
-
-      try {
-        const user = await useBaseFetch(`user/${this.currentUsername}`)
-
-        const data = {
-          user_id: user.id.trim(),
-        }
-
-        await useBaseFetch(`team/${this.project.team}/members`, {
-          method: 'POST',
-          body: data,
-        })
-        this.currentUsername = ''
-        await this.updateMembers()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async removeTeamMember(index) {
-      startLoading()
-
-      try {
-        await useBaseFetch(
-          `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
-          {
-            method: 'DELETE',
-          }
-        )
-        await this.updateMembers()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async updateTeamMember(index) {
-      startLoading()
-
-      try {
-        const data =
-          this.allTeamMembers[index].oldRole !== 'Owner'
-            ? {
-                permissions: this.allTeamMembers[index].permissions,
-                role: this.allTeamMembers[index].role,
-                payouts_split: this.allTeamMembers[index].payouts_split,
-              }
-            : {
-                payouts_split: this.allTeamMembers[index].payouts_split,
-              }
-
-        await useBaseFetch(
-          `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-          }
-        )
-        await this.updateMembers()
-        this.$notify({
-          group: 'main',
-          title: 'Member(s) updated',
-          text: "Your project's member(s) has been updated.",
-          type: 'success',
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async transferOwnership(index) {
-      startLoading()
-
-      try {
-        await useBaseFetch(`team/${this.project.team}/owner`, {
-          method: 'PATCH',
-          body: {
-            user_id: this.allTeamMembers[index].user.id,
-          },
-        })
-        await this.updateMembers()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async updateMembers() {
-      this.allTeamMembers = (await useBaseFetch(`team/${this.project.team}/members`)).map((it) => ({
-        avatar_url: it.user.avatar_url,
-        name: it.user.username,
-        oldRole: it.role,
-        ...it,
-      }))
+  currentMember: {
+    type: Object,
+    default() {
+      return null
     },
   },
 })
+
+const router = useRouter()
+
+const UPLOAD_VERSION = ref(1 << 0)
+const DELETE_VERSION = ref(1 << 1)
+const EDIT_DETAILS = ref(1 << 2)
+const EDIT_BODY = ref(1 << 3)
+const MANAGE_INVITES = ref(1 << 4)
+const REMOVE_MEMBER = ref(1 << 5)
+const EDIT_MEMBER = ref(1 << 6)
+const DELETE_PROJECT = ref(1 << 7)
+const VIEW_ANALYTICS = ref(1 << 8)
+const VIEW_PAYOUTS = ref(1 << 9)
+
+const currentUsername = ref('')
+const openTeamMembers = ref([])
+const allTeamMembers = ref(
+  props.allMembers.map((x) => {
+    x.oldRole = x.role
+    return x
+  })
+)
+
+async function leaveProject() {
+  await removeSelfFromTeam(props.project.team)
+  await router.push('/projects')
+}
+
+async function inviteTeamMember() {
+  startLoading()
+
+  try {
+    const user = await useBaseFetch(`user/${currentUsername.value}`)
+
+    const data = {
+      user_id: user.id.trim(),
+    }
+
+    await useBaseFetch(`team/${props.project.team}/members`, {
+      method: 'POST',
+      body: data,
+    })
+    currentUsername.value = ''
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+async function removeTeamMember(index) {
+  startLoading()
+
+  try {
+    await useBaseFetch(
+      `team/${props.project.team}/members/${allTeamMembers.value[index].user.id}`,
+      {
+        method: 'DELETE',
+      }
+    )
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+async function updateTeamMember(index) {
+  startLoading()
+
+  try {
+    const data =
+      allTeamMembers.value[index].oldRole !== 'Owner'
+        ? {
+            permissions: allTeamMembers.value[index].permissions,
+            role: allTeamMembers.value[index].role,
+            payouts_split: allTeamMembers.value[index].payouts_split,
+          }
+        : {
+            payouts_split: allTeamMembers.value[index].payouts_split,
+          }
+
+    await useBaseFetch(
+      `team/${props.project.team}/members/${allTeamMembers.value[index].user.id}`,
+      {
+        method: 'PATCH',
+        body: data,
+      }
+    )
+    await updateMembers()
+    addNotification({
+      group: 'main',
+      title: 'Member(s) updated',
+      text: "Your project's member(s) has been updated.",
+      type: 'success',
+    })
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+async function transferOwnership(index) {
+  startLoading()
+
+  try {
+    await useBaseFetch(`team/${props.project.team}/owner`, {
+      method: 'PATCH',
+      body: {
+        user_id: allTeamMembers.value[index].user.id,
+      },
+    })
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+async function updateMembers() {
+  allTeamMembers.value = (await useBaseFetch(`team/${props.project.team}/members`)).map((it) => ({
+    avatar_url: it.user.avatar_url,
+    name: it.user.username,
+    oldRole: it.role,
+    ...it,
+  }))
+}
 </script>
 
 <style lang="scss" scoped>
@@ -460,13 +463,13 @@ export default defineNuxtComponent({
   .content {
     display: none;
     flex-direction: column;
-    padding-top: var(--spacing-card-md);
+    padding-top: var(--gap-md);
 
     .main-info {
-      margin-bottom: var(--spacing-card-lg);
+      margin-bottom: var(--gap-xl);
     }
     .permissions {
-      margin-bottom: var(--spacing-card-md);
+      margin-bottom: var(--gap-md);
       max-width: 45rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));

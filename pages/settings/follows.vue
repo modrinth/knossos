@@ -4,7 +4,7 @@
       v-for="project in user.follows"
       :id="project.id"
       :key="project.id"
-      :type="project.project_type"
+      :type="getProjectTypeForUrl(project.project_type, project.loaders)"
       :categories="project.categories"
       :created-at="project.published"
       :updated-at="project.updated"
@@ -35,7 +35,12 @@
 
 <script setup>
 import { ProjectCard, HeartIcon } from 'omorphia'
-import FollowIllustration from 'assets/images/illustrations/follow_illustration.svg'
+import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg'
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 const user = await useUser()
 if (process.client) {

@@ -42,7 +42,7 @@
       v-if="versionTypeFilters.length > 1"
       v-model="selectedVersionTypes"
       :options="versionTypeFilters"
-      :custom-label="(x) => $capitalizeString(x)"
+      :custom-label="(x) => capitalizeString(x)"
       :multiple="true"
       :searchable="false"
       :show-no-results="false"
@@ -85,7 +85,7 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Checkbox, ClearIcon } from 'omorphia'
+import { Checkbox, ClearIcon, capitalizeString } from 'omorphia'
 
 const props = defineProps({
   versions: {
@@ -149,7 +149,7 @@ async function updateQuery() {
 .search-controls {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-card-md);
+  gap: var(--gap-md);
   align-items: center;
   flex-wrap: wrap;
   .multiselect {

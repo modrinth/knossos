@@ -32,7 +32,11 @@
   </div>
 </template>
 <script setup>
-import { formatNumber } from '~/plugins/shorthands.js'
+import { formatNumber } from 'omorphia'
+
+definePageMeta({
+  middleware: 'auth',
+})
 
 useHead({
   title: 'Staff overview - Modrinth',
