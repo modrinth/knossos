@@ -929,8 +929,6 @@ const { formats } = vintl
 const selectingGameVersion = ref(false)
 const selectingPlatform = ref(false)
 
-const dummy = ref(false)
-
 if (
   !route.params.id ||
   !(
