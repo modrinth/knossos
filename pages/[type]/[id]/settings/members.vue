@@ -301,7 +301,7 @@ const allTeamMembers = ref(
 
 async function leaveProject() {
   await removeSelfFromTeam(props.project.team)
-  await router.push('/projects')
+  await router.push('/settings/projects')
 }
 
 async function inviteTeamMember() {

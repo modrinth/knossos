@@ -80,7 +80,7 @@
         <nuxt-link class="goto-link" to="/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/projects">
+        <nuxt-link class="goto-link" to="/settings/projects">
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
       </section>
