@@ -1,4 +1,5 @@
 <template>
+  <<<<<<< HEAD
   <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
@@ -130,6 +131,7 @@
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
+    <CollectionCreateModal ref="modal_collection" :project-ids="[project.id]" />
     <div
       :class="{
         'normal-page': true,
@@ -701,6 +703,8 @@ import VersionIcon from '~/assets/images/utils/version.svg'
 import { renderString } from '~/helpers/parse.js'
 import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { userCollectProject } from '~/composables/user'
+import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -710,6 +714,15 @@ const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
+
+const displayCollectionsSearch = ref('')
+const collections = computed(() =>
+  user.value && user.value.collections
+    ? user.value.collections.filter((x) =>
+        x.name.toLowerCase().includes(displayCollectionsSearch.value.toLowerCase())
+      )
+    : []
+)
 
 if (
   !route.params.id ||
@@ -1356,5 +1369,46 @@ const collapsedChecklist = ref(false)
 
 .normal-page__sidebar .mod-button {
   margin-top: var(--spacing-card-sm);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  padding-bottom: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.collection-button {
+  margin: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-text {
+  padding: 0 var(--gap-md);
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.menu-search {
+  margin: var(--gap-sm) var(--gap-md);
+  width: calc(100% - var(--gap-md) * 2);
+}
+
+.collections-list {
+  max-height: 40rem;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-divider);
+  margin: var(--gap-sm) var(--gap-md);
+  padding: var(--gap-sm);
 }
 </style>

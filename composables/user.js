@@ -19,11 +19,13 @@ export const initUser = async () => {
 
   if (auth.user && auth.user.id) {
     try {
-      const [notifications, follows] = await Promise.all([
+      const [notifications, follows, collections] = await Promise.all([
         useBaseFetch(`user/${auth.user.id}/notifications`),
         useBaseFetch(`user/${auth.user.id}/follows`),
+        useBaseFetch(`user/${auth.user.id}/collections`, { apiVersion: 3 }),
       ])
 
+      user.collections = collections
       user.notifications = notifications
       user.follows = follows
       user.lastUpdated = Date.now()
@@ -33,6 +35,19 @@ export const initUser = async () => {
   }
 
   return user
+}
+
+export const initUserCollections = async () => {
+  const auth = (await useAuth()).value
+  const user = (await useUser()).value
+
+  if (auth.user && auth.user.id) {
+    try {
+      user.collections = await useBaseFetch(`user/${auth.user.id}/collections`, { apiVersion: 3 })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 }
 
 export const initUserNotifs = async () => {
@@ -72,6 +87,28 @@ export const initUserProjects = async () => {
       console.error(err)
     }
   }
+}
+
+export const userCollectProject = async (collection, projectId) => {
+  const user = (await useUser()).value
+
+  const add = !collection.projects.includes(projectId)
+  const projects = add
+    ? [...collection.projects, projectId]
+    : [...collection.projects].filter((x) => x !== projectId)
+
+  const idx = user.collections.findIndex((x) => x.id === collection.id)
+  if (idx >= 0) {
+    user.collections[idx].projects = projects
+  }
+
+  await useBaseFetch(`collection/${collection.id}`, {
+    method: 'PATCH',
+    body: {
+      new_projects: projects,
+    },
+    apiVersion: 3,
+  })
 }
 
 export const userFollowProject = async (project) => {
