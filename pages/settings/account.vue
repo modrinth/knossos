@@ -270,7 +270,11 @@
               >
                 <TrashIcon /> Remove
               </button>
-              <a v-else class="btn" :href="`${getAuthUrl(provider.id)}&token=${auth.token}`">
+              <a
+                v-else
+                class="btn"
+                :href="`${getAuthUrl(provider.id, '/settings/account')}&token=${auth.token}`"
+              >
                 <ExternalIcon /> Add
               </a>
             </div>

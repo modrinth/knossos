@@ -11,13 +11,21 @@
             <UserIcon />
             Account
           </NuxtLink>
+          <NuxtLink to="/settings/sessions">
+            <ShieldIcon />
+            {{ formatMessage(messages.sessionsTitle) }}
+          </NuxtLink>
+          <NuxtLink to="/settings/authorizations">
+            <UsersIcon />
+          </NuxtLink>
+          <h3>Developer</h3>
           <NuxtLink to="/settings/pats">
             <KeyIcon />
             Personal Access Tokens
           </NuxtLink>
-          <NuxtLink to="/settings/sessions">
-            <ShieldIcon />
-            {{ formatMessage(messages.sessionsTitle) }}
+          <NuxtLink to="/settings/applications">
+            <ServerIcon />
+            Applications
           </NuxtLink>
           <h3>Manage</h3>
           <NuxtLink to="/settings/projects">
@@ -50,6 +58,8 @@ import {
   ReportIcon,
   ListIcon,
   HeartIcon,
+  UsersIcon,
+  ServerIcon,
 } from 'omorphia'
 
 const { formatMessage } = useVIntl()
