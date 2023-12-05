@@ -162,33 +162,18 @@ import {
   Checkbox,
   Breadcrumbs,
 } from 'omorphia'
+import { all } from 'iso-3166-1'
 import VenmoIcon from '~/assets/images/external/venmo.svg'
 
 const auth = await useAuth()
 const data = useNuxtApp()
 
-const countries = computed(() => {
-  const lang = 'en'
-  const A = 65
-  const Z = 90
-  const countryName = new Intl.DisplayNames([lang], { type: 'region' })
-  const countries = {}
-  for (let i = A; i <= Z; ++i) {
-    for (let j = A; j <= Z; ++j) {
-      const code = String.fromCharCode(i) + String.fromCharCode(j)
-      const name = countryName.of(code)
-      if (code !== name) {
-        countries[code] = name
-      }
-    }
-  }
-
-  return Object.entries(countries).map((x) => ({
-    id: x[0],
-    name: x[1],
+const countries = computed(() =>
+  all().map((x) => ({
+    id: x.alpha2,
+    name: x.alpha2 === 'TW' ? 'Taiwan' : x.country,
   }))
-})
-
+)
 const search = ref('')
 
 const amount = ref('')
@@ -209,7 +194,8 @@ const selectedMethod = computed(() =>
 const parsedAmount = computed(() => {
   const regex = /^\$?(\d*(\.\d{2})?)$/gm
   const matches = regex.exec(amount.value)
-  return parseFloat(matches[1])
+  console.log(matches)
+  return matches && matches[1] ? parseFloat(matches[1]) : 0.0
 })
 const fees = computed(() => {
   return Math.min(
@@ -265,7 +251,10 @@ const agreedTerms = ref(false)
 
 watch(country, async () => {
   await refreshPayoutMethods()
-  selectedMethodId.value = payoutMethods.value[0].id
+  console.log(payoutMethods.value)
+  if (payoutMethods.value && payoutMethods.value[0]) {
+    selectedMethodId.value = payoutMethods.value[0].id
+  }
 })
 
 async function withdraw() {
@@ -332,9 +321,17 @@ async function withdraw() {
 
 .withdraw-options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: var(--gap-lg);
   padding-right: 0.5rem;
+
+  @media screen and (min-width: 300px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .withdraw-option {
@@ -354,13 +351,8 @@ async function withdraw() {
     }
   }
 
-  .preview-img {
-  }
-
   .preview {
-    //height: 175px;
     display: flex;
-    align-items: center;
     justify-content: center;
     aspect-ratio: 30 / 19;
 
