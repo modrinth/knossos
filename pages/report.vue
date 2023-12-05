@@ -197,7 +197,7 @@ const submitReport = async () => {
     submitLoading.value = false
 
     if (response?.id) {
-      navigateTo(`/dashboard/report/${response.id}`)
+      navigateTo(`/settings/report/${response.id}`)
     }
   } catch (error) {
     submitLoading.value = false

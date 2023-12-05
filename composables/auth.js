@@ -103,3 +103,26 @@ export const getAuthUrl = (provider, redirect = '') => {
 
   return `${config.public.apiBaseUrl}auth/init?url=${fullURL}&provider=${provider}`
 }
+
+export const removeAuthProvider = async (provider) => {
+  startLoading()
+  try {
+    const auth = await useAuth()
+
+    await useBaseFetch('auth/provider', {
+      method: 'DELETE',
+      body: {
+        provider,
+      },
+    })
+    await useAuth(auth.value.token)
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}

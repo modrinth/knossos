@@ -51,10 +51,10 @@
         <button class="btn rewards-display">
           {{ formatMoney(auth.user.payout_data.balance, true) }}
         </button>
-        <nuxt-link class="goto-link" to="/revenue">
+        <nuxt-link class="goto-link" to="/settings/revenue">
           <BanknoteIcon /> Withdraw rewards <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/revenue/transfers">
+        <nuxt-link class="goto-link" to="/settings/revenue/transfers">
           <TransferIcon />View transfer history <ChevronRightIcon />
         </nuxt-link>
       </section>

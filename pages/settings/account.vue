@@ -598,27 +598,6 @@ const authProviders = [
   },
 ]
 
-async function removeAuthProvider(provider) {
-  startLoading()
-  try {
-    await useBaseFetch('auth/provider', {
-      method: 'DELETE',
-      body: {
-        provider,
-      },
-    })
-    await useAuth(auth.value.token)
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
-
 async function deleteAccount() {
   startLoading()
   try {

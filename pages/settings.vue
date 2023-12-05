@@ -29,6 +29,10 @@
             Applications
           </NuxtLink>
           <h3>Manage</h3>
+          <NuxtLink to="/settings/revenue">
+            <CurrencyIcon />
+            Revenue
+          </NuxtLink>
           <NuxtLink to="/settings/projects">
             <ListIcon />
             Projects
@@ -61,6 +65,7 @@ import {
   HeartIcon,
   UsersIcon,
   ServerIcon,
+  CurrencyIcon,
 } from 'omorphia'
 
 const { formatMessage } = useVIntl()
