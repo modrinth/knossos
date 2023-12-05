@@ -103,7 +103,7 @@ useHead({
 
 const { data: usersApps, refresh } = await useAsyncData('userAuthorizations', () =>
   useBaseFetch(`oauth/authorizations`, {
-    apiVersion: 3,
+    internal: true,
   })
 )
 
@@ -111,7 +111,7 @@ const { data: appInformation } = await useAsyncData(
   'appInfo',
   () =>
     useBaseFetch('oauth/apps', {
-      apiVersion: 3,
+      internal: true,
       query: {
         ids: usersApps.value.map((c) => c.app_id).join(','),
       },
@@ -149,7 +149,7 @@ const appInfoLookup = computed(() => {
 async function revokeApp(id) {
   try {
     await useBaseFetch(`oauth/authorizations`, {
-      apiVersion: 3,
+      internal: true,
       method: 'DELETE',
       query: {
         client_id: id,

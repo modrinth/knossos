@@ -89,7 +89,7 @@ const getFlowIdAuthorization = async () => {
 
   const authorization = await useBaseFetch('oauth/authorize', {
     method: 'GET',
-    apiVersion: 3,
+    internal: true,
     query,
   }) // This will contain the flow_id and oauth_client_id for accepting the oauth on behalf of the user
 
@@ -108,22 +108,27 @@ const {
   error,
 } = await useAsyncData('authorization', getFlowIdAuthorization)
 
-const app = await useBaseFetch('oauth/app/' + clientId, {
-  method: 'GET',
-  apiVersion: 3,
-})
+const { data: app } = await useAsyncData('oauth/app/' + clientId, () =>
+  useBaseFetch('oauth/app/' + clientId, {
+    method: 'GET',
+    internal: true,
+  })
+)
 
 const scopeDefinitions = getScopeDefinitions(BigInt(authorizationData.value?.requested_scopes || 0))
 
-const createdBy = await useBaseFetch('user/' + app.created_by, {
-  method: 'GET',
-})
+const { data: createdBy } = await useAsyncData('user/' + app.value.created_by, () =>
+  useBaseFetch('user/' + app.value.created_by, {
+    method: 'GET',
+    apiVersion: 3,
+  })
+)
 
 const onAuthorize = async () => {
   try {
     const res = await useBaseFetch('oauth/accept', {
       method: 'POST',
-      apiVersion: 3,
+      internal: true,
       body: {
         flow: authorizationData.value.flow_id,
       },
@@ -151,7 +156,6 @@ const onReject = async () => {
   try {
     const res = await useBaseFetch('oauth/reject', {
       method: 'POST',
-      apiVersion: 3,
       body: {
         flow: authorizationData.value.flow_id,
       },
