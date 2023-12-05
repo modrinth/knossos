@@ -67,8 +67,6 @@ import { useBaseFetch } from '@/composables/fetch.js'
 import { useAuth } from '@/composables/auth.js'
 import { getScopeDefinitions } from '@/utils/auth/scopes.ts'
 
-const data = useNuxtApp()
-
 const router = useRoute()
 const auth = await useAuth()
 
@@ -143,7 +141,7 @@ const onAuthorize = async () => {
 
     throw new Error('No redirect location found in response')
   } catch (error) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -170,7 +168,7 @@ const onReject = async () => {
 
     throw new Error('No redirect location found in response')
   } catch (error) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,

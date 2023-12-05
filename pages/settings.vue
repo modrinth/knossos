@@ -17,6 +17,7 @@
           </NuxtLink>
           <NuxtLink to="/settings/authorizations">
             <UsersIcon />
+            Authorizations
           </NuxtLink>
           <h3>Developer</h3>
           <NuxtLink to="/settings/pats">

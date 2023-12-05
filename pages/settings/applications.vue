@@ -1,5 +1,5 @@
 <template>
-  <div class="universal-card">
+  <div class="card">
     <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete this application?"
@@ -98,7 +98,7 @@
         </div>
 
         <div class="submit-row input-group push-right">
-          <button class="iconified-button" @click="$refs.appModal.hide()">
+          <button class="btn" @click="$refs.appModal.hide()">
             <XIcon />
             Cancel
           </button>
@@ -106,7 +106,7 @@
             v-if="editingId"
             :disabled="!canSubmit"
             type="button"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="editApp"
           >
             <SaveIcon />
@@ -116,7 +116,7 @@
             v-else
             :disabled="!canSubmit"
             type="button"
-            class="iconified-button brand-button"
+            class="btn btn-primary"
             @click="createApp"
           >
             <PlusIcon />
@@ -152,7 +152,7 @@
       information, see
       <a class="text-link" href="https://docs.modrinth.com">Modrinth's API documentation</a>.
     </p>
-    <div v-for="app in usersApps" :key="app.id" class="universal-card recessed token">
+    <div v-for="app in usersApps" :key="app.id" class="card recessed token">
       <div class="token-info">
         <div class="token-icon">
           <Avatar size="sm" :src="app.icon_url" />
@@ -239,8 +239,6 @@ definePageMeta({
 useHead({
   title: 'Applications - Modrinth',
 })
-
-const data = useNuxtApp()
 
 const appModal = ref()
 
@@ -337,7 +335,7 @@ async function onImageSelection(files) {
       setForm(app)
     }
 
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Icon updated',
       text: 'Your application icon has been updated.',
@@ -368,7 +366,7 @@ async function createApp() {
 
     await refresh()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -437,7 +435,7 @@ async function editApp() {
 
     appModal.value.hide()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -461,7 +459,7 @@ async function removeApp() {
     await refresh()
     editingId.value = null
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -547,14 +545,13 @@ const constCaseToSentenceCase = (str) => {
   .token-heading {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
-    color: var(--color-gray-700);
 
-    margin-top: var(--spacing-card-md);
-    margin-bottom: var(--spacing-card-sm);
+    margin-top: var(--gap-md);
+    margin-bottom: var(--gap-sm);
   }
 
   .token-title {
-    margin-bottom: var(--spacing-card-xs);
+    margin-bottom: var(--gap-xs);
   }
 
   .input-group {

@@ -19,7 +19,7 @@
           id="pat-name"
           v-model="name"
           maxlength="2048"
-          type="email"
+          type="text"
           placeholder="Enter the PAT's name..."
         />
         <label for="pat-scopes"><span class="label__title">Scopes</span> </label>

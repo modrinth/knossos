@@ -1,5 +1,5 @@
 <template>
-  <div class="universal-card">
+  <div class="card">
     <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to revoke this application?"
@@ -15,15 +15,11 @@
     <div v-if="appInfoLookup.length === 0" class="universal-card recessed">
       You have not authorized any applications.
     </div>
-    <div
-      v-for="authorization in appInfoLookup"
-      :key="authorization.id"
-      class="universal-card recessed token"
-    >
+    <div v-for="authorization in appInfoLookup" :key="authorization.id" class="card recessed token">
       <div class="token-content">
         <div>
           <div class="icon-name">
-            <Avatar :src="authorization.app.icon_url" />
+            <Avatar class="actual-icon" :src="authorization.app.icon_url" size="sm" />
             <div>
               <h2 class="token-title">
                 {{ authorization.app.name }}
@@ -158,7 +154,7 @@ async function revokeApp(id) {
     revokingId.value = null
     await refresh()
   } catch (err) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: err.data ? err.data.description : err,
@@ -175,13 +171,6 @@ const constCaseToTitleCase = (str) =>
 </script>
 
 <style lang="scss" scoped>
-.input-group {
-  // Overrides for omorphia compat
-  > * {
-    padding: var(--gap-sm) var(--gap-lg) !important;
-  }
-}
-
 .scope-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -192,8 +181,6 @@ const constCaseToTitleCase = (str) =>
     align-items: center;
     gap: 0.5rem;
     border-radius: 0.25rem;
-    background-color: var(--color-gray-200);
-    color: var(--color-gray-700);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
@@ -228,7 +215,7 @@ const constCaseToTitleCase = (str) =>
   width: 100%;
 
   .token-title {
-    margin-bottom: var(--spacing-card-xs);
+    margin-bottom: var(--gap-xs);
   }
 }
 
