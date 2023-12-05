@@ -1,5 +1,5 @@
 <template>
-  <div :style="`--_accent-color: ${toColor(project.color)}`">
+  <div>
     <Modal
       ref="modalLicense"
       :header="project.license.name ? project.license.name : 'License'"
@@ -15,6 +15,7 @@
       :share-text="`${config.public.siteUrl}/${project.project_type}/${project.slug ?? project.id}`"
       :link="true"
     />
+    <CollectionCreateModal ref="modal_collection" :project-ids="[project.id]" />
     <div
       :class="{
         'normal-page': true,
@@ -443,14 +444,48 @@
               </div>
             </div>
             <div v-if="auth.user" class="button-group-long">
-              <Button>
-                <HeartIcon />
+              <button
+                v-if="!user.follows.find((x) => x.id === project.id)"
+                class="btn"
+                @click="userFollowProject(project)"
+              >
+                <HeartIcon aria-hidden="true" />
                 Follow
-              </Button>
-              <Button>
-                <BookmarkIcon />
+              </button>
+              <button v-else class="btn" @click="userUnfollowProject(project)">
+                <HeartIcon fill="currentColor" aria-hidden="true" />
+                Unfollow
+              </button>
+              <PopoutMenu class="btn" position="bottom" from="top-right">
+                <BookmarkIcon aria-hidden="true" />
                 Save
-              </Button>
+                <template #menu>
+                  <input
+                    v-model="displayCollectionsSearch"
+                    type="text"
+                    placeholder="Search collections..."
+                    class="search-input menu-search"
+                  />
+                  <div v-if="collections.length > 0" class="collections-list">
+                    <Checkbox
+                      v-for="option in collections"
+                      :key="option.id"
+                      :model-value="option.projects.includes(project.id)"
+                      class="popout-checkbox"
+                      @update:model-value="userCollectProject(option, project.id)"
+                    >
+                      {{ option.name }}
+                    </Checkbox>
+                  </div>
+                  <div v-else class="menu-text">
+                    <p class="popout-text">No collections found.</p>
+                  </div>
+                  <Button class="collection-button" @click="$refs.modal_collection.show()">
+                    <PlusIcon />
+                    Create new collection
+                  </Button>
+                </template>
+              </PopoutMenu>
               <OverflowMenu
                 class="btn icon-only"
                 :options="[
@@ -723,7 +758,11 @@ import {
   SlashIcon as BanIcon,
   MessageIcon as ModerationIcon,
   ShareModal,
+  PopoutMenu,
+  PlusIcon,
+  Checkbox,
 } from 'omorphia'
+import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {
   computeVersions,
@@ -738,15 +777,26 @@ import ManageIcon from '~/assets/images/utils/settings-2.svg'
 import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import WrenchIcon from '~/assets/images/utils/wrench.svg'
 import GameIcon from '~/assets/images/utils/game.svg'
+import { userCollectProject } from '~/composables/user'
 
 const route = useRoute()
 const config = useRuntimeConfig()
 
 const auth = await useAuth()
+const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
 const vintl = useVIntl()
 const { formats } = vintl
+
+const displayCollectionsSearch = ref('')
+const collections = computed(() =>
+  user.value && user.value.collections
+    ? user.value.collections.filter((x) =>
+        x.name.toLowerCase().includes(displayCollectionsSearch.value.toLowerCase())
+      )
+    : []
+)
 
 if (
   !route.params.id ||
@@ -896,14 +946,6 @@ const licenseIdDisplay = computed(() => {
   }
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
-
-function toColor(color) {
-  color >>>= 0
-  const b = color & 0xff
-  const g = (color & 0xff00) >>> 8
-  const r = (color & 0xff0000) >>> 16
-  return 'rgba(' + [r, g, b, 0.5].join(',') + ')'
-}
 
 const projectTypeDisplay = formatProjectType(
   getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
@@ -1814,5 +1856,46 @@ async function copyId() {
   .page-bar .desktop-settings-button {
     display: none;
   }
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  padding-bottom: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.collection-button {
+  margin: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-text {
+  padding: 0 var(--gap-md);
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.menu-search {
+  margin: var(--gap-sm) var(--gap-md);
+  width: calc(100% - var(--gap-md) * 2);
+}
+
+.collections-list {
+  max-height: 40rem;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-divider);
+  margin: var(--gap-sm) var(--gap-md);
+  padding: var(--gap-sm);
 }
 </style>

@@ -33,6 +33,10 @@
             <CurrencyIcon />
             Revenue
           </NuxtLink>
+          <NuxtLink to="/settings/collections">
+            <CollectionIcon />
+            Collections
+          </NuxtLink>
           <NuxtLink to="/settings/projects">
             <ListIcon />
             Projects
@@ -67,6 +71,7 @@ import {
   ServerIcon,
   CurrencyIcon,
 } from 'omorphia'
+import CollectionIcon from '~/assets/images/utils/collection.svg'
 
 const { formatMessage } = useVIntl()
 
