@@ -15,11 +15,20 @@
             <NavStackItem link="/settings/account" label="Account">
               <UserIcon />
             </NavStackItem>
-            <NavStackItem link="/settings/pats" label="PATs">
-              <KeyIcon />
+            <NavStackItem link="/settings/authorizations" label="Authorizations">
+              <UsersIcon />
             </NavStackItem>
             <NavStackItem link="/settings/sessions" :label="formatMessage(messages.sessionsTitle)">
               <ShieldIcon />
+            </NavStackItem>
+          </template>
+          <template v-if="auth.user">
+            <h3>Developer Settings</h3>
+            <NavStackItem link="/settings/pats" label="PATs">
+              <KeyIcon />
+            </NavStackItem>
+            <NavStackItem link="/settings/applications" label="Applications">
+              <ServerIcon />
             </NavStackItem>
           </template>
         </NavStack>
@@ -31,6 +40,7 @@
   </div>
 </template>
 <script setup>
+import { UsersIcon, ServerIcon } from 'omorphia'
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
 
