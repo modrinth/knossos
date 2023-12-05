@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^6.1.2",
-    "@nuxt/devtools": "^0.7.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/turnstile": "^0.6.3",
     "@types/node": "^20.1.0",
