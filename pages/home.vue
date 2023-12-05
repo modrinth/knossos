@@ -175,14 +175,9 @@ definePageMeta({
 
 const auth = await useAuth()
 
-const [{ data: projects }, { data: payouts }] = await Promise.all([
-  useAsyncData(`user/${auth.value.user.id}/projects`, () =>
-    useBaseFetch(`user/${auth.value.user.id}/projects`)
-  ),
-  useAsyncData(`user/${auth.value.user.id}/payouts`, () =>
-    useBaseFetch(`user/${auth.value.user.id}/payouts`)
-  ),
-])
+const { data: projects } = await useAsyncData(`user/${auth.value.user.id}/projects`, () =>
+  useBaseFetch(`user/${auth.value.user.id}/projects`)
+)
 
 const allNotifs = groupNotifications(await fetchNotifications(), true)
 

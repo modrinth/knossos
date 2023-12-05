@@ -6,8 +6,8 @@
           <span class="label__title size-card-header">License</span>
           <span class="label__description">
             It is very important to choose a proper license for your
-            {{ formatProjectType(project.project_type).toLowerCase() }}. You may choose one from
-            our list or provide a custom license. You may also provide a custom URL to your chosen
+            {{ formatProjectType(project.project_type).toLowerCase() }}. You may choose one from our
+            list or provide a custom license. You may also provide a custom URL to your chosen
             license; otherwise, the license text will be displayed.
             <span v-if="license && license.friendly === 'Custom'" class="label__subdescription">
               Enter a valid

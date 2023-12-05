@@ -255,7 +255,7 @@ const props = defineProps({
   },
 })
 
-const data = useNuxtApp()
+// const data = useNuxtApp()
 const metaDescription = computed(
   () =>
     `Download and browse ${props.versions.length} ${props.project.title} versions. ${formatNumber(
@@ -263,54 +263,54 @@ const metaDescription = computed(
     )} total downloads. Last updated ${dayjs(props.project.updated).format('MMM D, YYYY')}.`
 )
 
-const route = useRoute()
-const currentPage = ref(Number(route.query.p ?? 1))
-const filteredVersions = computed(() => {
-  const selectedGameVersions = getArrayOrString(route.query.g) ?? []
-  const selectedLoaders = getArrayOrString(route.query.l) ?? []
-  const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
+// const route = useRoute()
+// const currentPage = ref(Number(route.query.p ?? 1))
+// const filteredVersions = computed(() => {
+//   const selectedGameVersions = getArrayOrString(route.query.g) ?? []
+//   const selectedLoaders = getArrayOrString(route.query.l) ?? []
+//   const selectedVersionTypes = getArrayOrString(route.query.c) ?? []
+//
+//   return props.versions.filter(
+//     (projectVersion) =>
+//       (selectedGameVersions.length === 0 ||
+//         selectedGameVersions.some((gameVersion) =>
+//           projectVersion.game_versions.includes(gameVersion)
+//         )) &&
+//       (selectedLoaders.length === 0 ||
+//         selectedLoaders.some((loader) => projectVersion.loaders.includes(loader))) &&
+//       (selectedVersionTypes.length === 0 ||
+//         selectedVersionTypes.includes(projectVersion.version_type))
+//   )
+// })
 
-  return props.versions.filter(
-    (projectVersion) =>
-      (selectedGameVersions.length === 0 ||
-        selectedGameVersions.some((gameVersion) =>
-          projectVersion.game_versions.includes(gameVersion)
-        )) &&
-      (selectedLoaders.length === 0 ||
-        selectedLoaders.some((loader) => projectVersion.loaders.includes(loader))) &&
-      (selectedVersionTypes.length === 0 ||
-        selectedVersionTypes.includes(projectVersion.version_type))
-  )
-})
-
-function switchPage(page) {
-  currentPage.value = page
-
-  const router = useRouter()
-  const route = useRoute()
-
-  router.replace({
-    query: {
-      ...route.query,
-      p: currentPage.value !== 1 ? currentPage.value : undefined,
-    },
-  })
-}
-
-async function handleFiles(files) {
-  const router = useRouter()
-  await router.push({
-    name: 'type-id-version-version',
-    params: {
-      type: props.project.project_type,
-      id: props.project.slug ? props.project.slug : props.project.id,
-      version: 'create',
-    },
-    state: {
-      newPrimaryFile: files[0],
-    },
-  })
-}
+// function switchPage(page) {
+//   currentPage.value = page
+//
+//   const router = useRouter()
+//   const route = useRoute()
+//
+//   router.replace({
+//     query: {
+//       ...route.query,
+//       p: currentPage.value !== 1 ? currentPage.value : undefined,
+//     },
+//   })
+// }
+//
+// async function handleFiles(files) {
+//   const router = useRouter()
+//   await router.push({
+//     name: 'type-id-version-version',
+//     params: {
+//       type: props.project.project_type,
+//       id: props.project.slug ? props.project.slug : props.project.id,
+//       version: 'create',
+//     },
+//     state: {
+//       newPrimaryFile: files[0],
+//     },
+//   })
+// }
 
 function formatVersions(versions) {
   if (versions.length > 2) {
