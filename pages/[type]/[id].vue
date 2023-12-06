@@ -75,6 +75,16 @@
           >
             <UsersIcon />
           </NavStackItem>
+          <h3>View</h3>
+          <NavStackItem
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/analytics`"
+            label="Analytics"
+            chevron
+          >
+            <ChartIcon />
+          </NavStackItem>
           <h3>Upload</h3>
           <NavStackItem
             :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
@@ -658,7 +668,7 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import { Promotion, ChartIcon } from 'omorphia'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
