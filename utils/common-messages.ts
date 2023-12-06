@@ -23,6 +23,10 @@ export const commonMessages = defineMessages({
     id: 'button.edit',
     defaultMessage: 'Edit',
   },
+  followedProjectsLabel: {
+    id: 'label.followed-projects',
+    defaultMessage: 'Followed projects',
+  },
   galleryInputView: {
     id: 'input.view.gallery',
     defaultMessage: 'Gallery view',

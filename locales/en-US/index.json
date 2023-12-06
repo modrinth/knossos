@@ -35,6 +35,9 @@
   "frog.title": {
     "message": "Frog"
   },
+  "label.followed-projects": {
+    "message": "Followed projects"
+  },
   "input.view.gallery": {
     "message": "Gallery view"
   },
@@ -47,7 +50,7 @@
   "label.code-source": {
     "message": "Source code"
   },
-  "label.created-at": {
+  "label.created-ago": {
     "message": "Created {ago}"
   },
   "label.discord-invite": {
@@ -55,6 +58,9 @@
   },
   "label.issue-tracker": {
     "message": "Issue tracker"
+  },
+  "label.messages": {
+    "message": "Messages"
   },
   "label.settings": {
     "message": "Settings"
