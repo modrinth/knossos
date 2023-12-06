@@ -19,14 +19,12 @@ export const initUser = async () => {
 
   if (auth.user && auth.user.id) {
     try {
-      const [notifications, follows, collections] = await Promise.all([
-        useBaseFetch(`user/${auth.user.id}/notifications`),
+      const [follows, collections] = await Promise.all([
         useBaseFetch(`user/${auth.user.id}/follows`),
         useBaseFetch(`user/${auth.user.id}/collections`, { apiVersion: 3 }),
       ])
 
       user.collections = collections
-      user.notifications = notifications
       user.follows = follows
       user.lastUpdated = Date.now()
     } catch (err) {
@@ -44,19 +42,6 @@ export const initUserCollections = async () => {
   if (auth.user && auth.user.id) {
     try {
       user.collections = await useBaseFetch(`user/${auth.user.id}/collections`, { apiVersion: 3 })
-    } catch (err) {
-      console.error(err)
-    }
-  }
-}
-
-export const initUserNotifs = async () => {
-  const auth = (await useAuth()).value
-  const user = (await useUser()).value
-
-  if (auth.user && auth.user.id) {
-    try {
-      user.notifications = await useBaseFetch(`user/${auth.user.id}/notifications`)
     } catch (err) {
       console.error(err)
     }
@@ -134,29 +119,6 @@ export const userUnfollowProject = async (project) => {
     useBaseFetch(`project/${project.id}/follow`, {
       method: 'DELETE',
     })
-  })
-}
-
-export const userDeleteNotification = async (id) => {
-  const user = (await useUser()).value
-
-  user.notifications = user.notifications.filter((x) => x.id !== id)
-}
-
-export const userDeleteNotifications = async (ids) => {
-  const user = (await useUser()).value
-
-  user.notifications = user.notifications.filter((x) => !ids.includes(x.id))
-}
-
-export const userReadNotifications = async (ids) => {
-  const user = (await useUser()).value
-
-  user.notifications = user.notifications.map((x) => {
-    if (ids.includes(x.id)) {
-      x.read = true
-    }
-    return x
   })
 }
 

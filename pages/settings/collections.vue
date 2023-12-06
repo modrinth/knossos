@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <CollectionCreateModal ref="modal_creation" />
     <h2>Collections</h2>
     <div class="input-group">
@@ -15,7 +15,7 @@
       <Card
         v-for="collection in collections"
         :key="`collection-${collection.id}`"
-        class="collection-card button-base"
+        class="collection-card recessed button-base"
         @click="$router.push(`/collection/${collection.id}`)"
       >
         <Avatar
@@ -70,7 +70,8 @@ const { data: collections } = await useAsyncData(`user/${auth.value.user.id}/col
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--gap-lg);
+  padding: var(--gap-md);
+  gap: var(--gap-md);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin-bottom: 0;

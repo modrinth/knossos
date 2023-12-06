@@ -236,8 +236,7 @@
               to="/dashboard/notifications"
               class="tab button-animation"
               :class="{
-                bubble: user.notifications.some((notif) => !notif.read),
-                'no-active': isMobileMenuOpen || isBrowseMenuOpen,
+                'no-active': mobileUserOpen || mobileBrowseOpen,
               }"
               title="Notifications"
               @click="
@@ -383,7 +382,6 @@ import Avatar from '~/components/ui/Avatar.vue'
 
 const app = useNuxtApp()
 const auth = await useAuth()
-const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
 

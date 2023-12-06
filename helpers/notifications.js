@@ -168,7 +168,6 @@ export async function markAsRead(ids) {
     await useBaseFetch(`notifications?ids=${JSON.stringify([...new Set(ids)])}`, {
       method: 'PATCH',
     })
-    await userReadNotifications(ids)
     return (notifications) => {
       const newNotifs = notifications
       newNotifs.forEach((notif) => {
