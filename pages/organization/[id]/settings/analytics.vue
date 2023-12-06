@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="normal-page__content">
     <Modal ref="customTimeModal" header="Define date range and resolution">
-      <div class="universal-modal">
+      <div class="modal-body universal-body">
         <label for="start-date">
           <span class="label__title">Start date</span>
         </label>
@@ -31,139 +31,134 @@
         </div>
       </div>
     </Modal>
-    <div class="normal-page alt-layout">
-      <div class="normal-page__header">
-        <h1>Analytics</h1>
-        <div v-if="failedToLoad" class="markdown-body">
-          <p>Failed to load analytics data</p>
+    <h2>Analytics</h2>
+    <div v-if="failedToLoad" class="normal-page__content">
+      <div class="markdown-body">
+        <p>Failed to load analytics data</p>
+      </div>
+    </div>
+    <div class="chart-dashboard">
+      <PageBar v-if="finishedLoading" class="resolution-header">
+        <span class="page-bar__title"><HistoryIcon /> Range</span>
+        <div
+          class="nav-button button-base"
+          :class="{ 'router-link-exact-active': selectedResolution === 'daily' }"
+          @click="() => selectResolution('daily')"
+        >
+          Last month
         </div>
-        <PageBar v-if="finishedLoading" class="resolution-header">
-          <span class="page-bar__title"><HistoryIcon /> Range</span>
+        <div
+          class="nav-button button-base"
+          :class="{ 'router-link-exact-active': selectedResolution === 'weekly' }"
+          @click="() => selectResolution('weekly')"
+        >
+          Last quarter
+        </div>
+        <div
+          class="nav-button button-base"
+          :class="{ 'router-link-exact-active': selectedResolution === 'monthly' }"
+          @click="() => selectResolution('monthly')"
+        >
+          Last year
+        </div>
+        <template #right>
+          <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon /> Refresh</div>
           <div
-            class="nav-button button-base"
-            :class="{ 'router-link-exact-active': selectedResolution === 'daily' }"
-            @click="() => selectResolution('daily')"
+            class="nav-button button-base always-click"
+            :class="{ 'router-link-exact-active': selectedResolution === 'custom' }"
+            @click="openCustomModal"
           >
-            Last month
+            <CalendarClockIcon /> Custom
           </div>
-          <div
-            class="nav-button button-base"
-            :class="{ 'router-link-exact-active': selectedResolution === 'weekly' }"
-            @click="() => selectResolution('weekly')"
-          >
-            Last quarter
-          </div>
-          <div
-            class="nav-button button-base"
-            :class="{ 'router-link-exact-active': selectedResolution === 'monthly' }"
-            @click="() => selectResolution('monthly')"
-          >
-            Last year
-          </div>
-          <template #right>
-            <div class="nav-button button-base" @click="fetchNewData"><UpdatedIcon /> Refresh</div>
-            <div
-              class="nav-button button-base always-click"
-              :class="{ 'router-link-exact-active': selectedResolution === 'custom' }"
-              @click="openCustomModal"
-            >
-              <CalendarClockIcon /> Custom
-            </div>
-          </template>
-        </PageBar>
-      </div>
-      <div class="normal-page__sidebar">
-        <template v-if="finishedLoading && !markReload">
-          <client-only>
-            <CompactChart
-              :title="`Downloads since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-              color="var(--color-brand)"
-              class="button-base downloads"
-              :class="{ selected: selectedTab === 'downloads' }"
-              :value="formatNumber(analyticsData.downloads, false)"
-              :data="squashedDownloads.data"
-              :labels="squashedDownloads.labels"
-              @click="() => (selectedTab = 'downloads')"
-            />
-          </client-only>
-          <client-only>
-            <CompactChart
-              :title="`Page views since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-              color="var(--color-blue)"
-              class="button-base views"
-              :class="{ selected: selectedTab === 'views' }"
-              :value="formatNumber(analyticsData.pageViews, false)"
-              :data="squashedViews.data"
-              :labels="squashedViews.labels"
-              @click="() => (selectedTab = 'views')"
-            />
-          </client-only>
-          <client-only>
-            <CompactChart
-              :title="`Revenue since ${dayjs(startDate).format('MMMM D, YYYY')}`"
-              color="var(--color-purple)"
-              class="button-base revenue"
-              :class="{ selected: selectedTab === 'revenue' }"
-              :value="formatMoney(analyticsData.revenue, false)"
-              :data="squashedRevenue.data"
-              :labels="squashedRevenue.labels"
-              is-money
-              @click="() => (selectedTab = 'revenue')"
-            />
-          </client-only>
         </template>
-      </div>
-      <div class="normal-page__content">
-        <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
-          <client-only>
-            <Chart
-              type="line"
-              name="Download data"
-              :data="downloadData.data"
-              :labels="downloadData.labels"
-              :colors="downloadData.colors"
-              suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
-              legend-position="right"
-            >
-              <h2 class="sidebar-card-header">Downloads</h2>
-            </Chart>
-          </client-only>
-        </Card>
-        <Card v-if="finishedLoading && !markReload && selectedTab === 'views'" class="main">
-          <client-only>
-            <Chart
-              type="line"
-              name="View data"
-              :data="viewData.data"
-              :labels="viewData.labels"
-              :colors="viewData.colors"
-              suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
-              legend-position="right"
-            >
-              <h2 class="sidebar-card-header">Page views</h2>
-            </Chart>
-          </client-only>
-        </Card>
-        <Card v-if="finishedLoading && !markReload && selectedTab === 'revenue'" class="main">
-          <client-only>
-            <Chart
-              type="line"
-              name="Revenue data"
-              :data="revenueData.data"
-              :labels="revenueData.labels"
-              :colors="revenueData.colors"
-              is-money
-            >
-              <h2 class="sidebar-card-header">Revenue</h2>
-            </Chart>
-          </client-only>
-        </Card>
-      </div>
+      </PageBar>
+      <template v-if="finishedLoading && !markReload">
+        <client-only>
+          <CompactChart
+            :title="`Downloads since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+            color="var(--color-brand)"
+            class="button-base downloads"
+            :class="{ selected: selectedTab === 'downloads' }"
+            :value="formatNumber(analyticsData.downloads, false)"
+            :data="squashedDownloads.data"
+            :labels="squashedDownloads.labels"
+            @click="() => (selectedTab = 'downloads')"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+            :title="`Page views since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+            color="var(--color-blue)"
+            class="button-base views"
+            :class="{ selected: selectedTab === 'views' }"
+            :value="formatNumber(analyticsData.pageViews, false)"
+            :data="squashedViews.data"
+            :labels="squashedViews.labels"
+            @click="() => (selectedTab = 'views')"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+            :title="`Revenue since ${dayjs(startDate).format('MMMM D, YYYY')}`"
+            color="var(--color-purple)"
+            class="button-base revenue"
+            :class="{ selected: selectedTab === 'revenue' }"
+            :value="formatMoney(analyticsData.revenue, false)"
+            :data="squashedRevenue.data"
+            :labels="squashedRevenue.labels"
+            is-money
+            @click="() => (selectedTab = 'revenue')"
+          />
+        </client-only>
+      </template>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'downloads'" class="main">
+        <client-only>
+          <Chart
+            type="line"
+            name="Download data"
+            :data="downloadData.data"
+            :labels="downloadData.labels"
+            :colors="downloadData.colors"
+            suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+            legend-position="right"
+          >
+            <h2 class="sidebar-card-header">Downloads</h2>
+          </Chart>
+        </client-only>
+      </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'views'" class="main">
+        <client-only>
+          <Chart
+            type="line"
+            name="View data"
+            :data="viewData.data"
+            :labels="viewData.labels"
+            :colors="viewData.colors"
+            suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+            legend-position="right"
+          >
+            <h2 class="sidebar-card-header">Page views</h2>
+          </Chart>
+        </client-only>
+      </Card>
+      <Card v-if="finishedLoading && !markReload && selectedTab === 'revenue'" class="main">
+        <client-only>
+          <Chart
+            type="line"
+            name="Revenue data"
+            :data="revenueData.data"
+            :labels="revenueData.labels"
+            :colors="revenueData.colors"
+            is-money
+          >
+            <h2 class="sidebar-card-header">Revenue</h2>
+          </Chart>
+        </client-only>
+      </Card>
     </div>
     <AnimatedLogo v-if="(!finishedLoading || markReload) && !failedToLoad" />
   </div>
 </template>
-
 <script setup>
 import {
   Card,
@@ -180,22 +175,20 @@ import dayjs from 'dayjs'
 import Chart from '~/components/ui/charts/Chart.vue'
 import CompactChart from '~/components/ui/charts/CompactChart.vue'
 import CalendarClockIcon from '~/assets/images/utils/calendar-clock.svg'
-import { addNotification } from '~/composables/notifs'
-
-useHead({
-  title: 'Analytics - Modrinth',
-})
-
-const auth = await useAuth()
 const route = useRoute()
-const projects = ref(await useBaseFetch(`user/${auth.value.user.id}/projects`))
-
+const props = defineProps({
+  projects: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+})
 const analyticsData = ref({
   downloads: 0,
   pageViews: 0,
   revenue: 0,
 })
-
 const finishedLoading = ref(false)
 const markReload = ref(false)
 const failedToLoad = ref(false)
@@ -207,6 +200,7 @@ const endDate = ref(new Date(route.params.end_date ?? new Date() - 24 * 60 * 60 
 const customEndDate = ref(null)
 const timeResolution = ref(route.params.resolution ?? 1440)
 const customTimeResolution = ref(null)
+const projectIds = JSON.stringify([...props.projects].map((project) => project.id).join(','))
 let downloadData
 let viewData
 let revenueData
@@ -217,9 +211,7 @@ let squashedRevenue = {
   data: [],
   colors: [],
 }
-
 const customTimeModal = ref(null)
-
 onMounted(() => {
   setTimeout(async () => {
     try {
@@ -234,7 +226,6 @@ onMounted(() => {
     }
   }, 1000)
 })
-
 const RGBToHSL = (r, g, b) => {
   r /= 255
   g /= 255
@@ -244,7 +235,6 @@ const RGBToHSL = (r, g, b) => {
   const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0
   return [60 * h < 0 ? 60 * h + 360 : 60 * h, 100, 50]
 }
-
 const HSLToRGB = (h, s, l) => {
   s /= 100
   l /= 100
@@ -253,24 +243,19 @@ const HSLToRGB = (h, s, l) => {
   const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
   return [255 * f(0), 255 * f(8), 255 * f(4)]
 }
-
 const intToRgba = (int) => {
   const r = (int >> 16) & 255
   const g = (int >> 8) & 255
   const b = int & 255
-
   const vibrant = RGBToHSL(r, g, b)
   const final = HSLToRGB(vibrant[0], vibrant[1], vibrant[2])
-
   return `rgba(${final[0]}, ${final[1]}, ${final[2]}, 1)`
 }
-
 const processData = (analytics, accumulate, squashFunction, descriptor, ignoreNormal = false) => {
   const totalData = new Map()
   const squashedData = new Map()
   const projectSet = new Set()
   const projectData = new Map()
-
   for (const [project, trueData] of Object.entries(analytics)) {
     projectSet.add(project)
     for (const [date, value] of Object.entries(trueData)) {
@@ -282,7 +267,6 @@ const processData = (analytics, accumulate, squashFunction, descriptor, ignoreNo
       } else {
         totalData.set(date, new Map([[project, parsedData]]))
       }
-
       if (squashedData.has(date)) {
         squashedData.set(date, squashedData.get(date) + parsedData)
       } else {
@@ -290,9 +274,7 @@ const processData = (analytics, accumulate, squashFunction, descriptor, ignoreNo
       }
     }
   }
-
   const sortedSquashedData = new Map([...squashedData.entries()].sort((a, b) => a[0] - b[0]))
-
   squashFunction({
     labels: [...sortedSquashedData.keys()].map((key) => dayjs.unix(key).format('YYYY-MM-DD')),
     data: [
@@ -302,13 +284,10 @@ const processData = (analytics, accumulate, squashFunction, descriptor, ignoreNo
       },
     ],
   })
-
   if (ignoreNormal) {
     return
   }
-
   const sortedData = new Map([...totalData.entries()].sort((a, b) => a[0] - b[0]))
-
   sortedData.forEach((value) => {
     projectSet.forEach((project) => {
       if (!value.has(project)) {
@@ -326,25 +305,20 @@ const processData = (analytics, accumulate, squashFunction, descriptor, ignoreNo
       }
     }
   })
-
   const finalData = {
     labels: [...sortedData.keys()].map((key) => dayjs.unix(key).format('YYYY-MM-DD')),
     data: [],
     colors: [],
   }
-
   for (const project of projectSet) {
     finalData.data.push({
-      name: projects.value.find((proj) => proj.id === project).title,
+      name: props.projects.find((proj) => proj.id === project).title,
       data: projectData.get(project),
     })
-
-    finalData.colors.push(intToRgba(projects.value.find((proj) => proj.id === project).color))
+    finalData.colors.push(intToRgba(props.projects.find((proj) => proj.id === project).color))
   }
-
   return finalData
 }
-
 const selectResolution = async (resolution) => {
   if (selectedResolution.value !== resolution) {
     selectedResolution.value = resolution
@@ -368,10 +342,9 @@ const selectResolution = async (resolution) => {
     await fetchNewData()
   }
 }
-
 const fetchNewData = async () => {
   markReload.value = true
-  const body = `start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${
+  const body = `project_ids=${projectIds}&start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${
     timeResolution.value
   }`
   analyticsData.value = {
@@ -432,14 +405,12 @@ const fetchNewData = async () => {
     markReload.value = false
   }
 }
-
 const openCustomModal = () => {
   customStartDate.value = null
   customEndDate.value = null
   customTimeResolution.value = 1440
   customTimeModal.value.show()
 }
-
 const applyCustomModal = async () => {
   if (customStartDate.value && timeResolution.value) {
     customTimeModal.value.hide()
@@ -447,8 +418,94 @@ const applyCustomModal = async () => {
   }
 }
 </script>
-
 <style scoped lang="scss">
+.tabs {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: hidden;
+}
+.line-chart {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: var(--gap-xl);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+.pie-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-lg);
+  width: 100%;
+  padding: var(--gap-xl);
+  .chart {
+    width: 100% !important;
+    height: calc(100% - 8rem) !important;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg);
+    padding: var(--gap-xl);
+    object-fit: cover;
+  }
+  .relative-chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--gap-md);
+    margin: -3rem 0;
+  }
+  .title {
+    color: var(--color-heading);
+    font-weight: bold;
+    font-size: var(--font-size-lg);
+  }
+}
+.bar-graph {
+  width: 100%;
+  padding: var(--gap-xl);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+.chart-dashboard {
+  display: grid;
+  grid-template-areas:
+    'resolution-header resolution-header'
+    'downloads main'
+    'views main'
+    'revenue main';
+  grid-template-columns: 20rem 1fr;
+  column-gap: var(--gap-md);
+  width: 100%;
+  .downloads {
+    grid-area: downloads;
+    &.selected {
+      border: 1px solid var(--color-brand);
+    }
+  }
+  .views {
+    grid-area: views;
+    &.selected {
+      border: 1px solid var(--color-blue);
+    }
+  }
+  .revenue {
+    grid-area: revenue;
+    &.selected {
+      border: 1px solid var(--color-purple);
+    }
+  }
+  .main {
+    grid-area: main;
+    gap: var(--gap-lg);
+    padding: var(--gap-lg);
+  }
+  .resolution-header {
+    grid-area: resolution-header;
+  }
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-lg);
+}
 h1 {
   margin-bottom: var(--gap-sm);
 }

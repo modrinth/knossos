@@ -277,6 +277,14 @@
             >
               <ModerationIcon /> Messages
             </NuxtLink>
+            <h3>View</h3>
+            <NuxtLink
+              :to="`/${project.project_type}/${
+                project.slug ? project.slug : project.id
+              }/settings/analytics`"
+            >
+              <ChartIcon /> Analytics
+            </NuxtLink>
             <h3>Upload</h3>
             <NuxtLink
               :to="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
@@ -723,6 +731,7 @@ import {
   SlashIcon as BanIcon,
   MessageIcon as ModerationIcon,
   ShareModal,
+  ChartIcon,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {

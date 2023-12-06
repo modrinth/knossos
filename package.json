@@ -12,8 +12,8 @@
     "intl:extract": "formatjs extract \"{,components,composables,layouts,middleware,modules,pages,plugins,utils}/**/*.{vue,ts,tsx,js,jsx,mts,cts,mjs,cjs}\" --ignore '**/*.d.ts' --ignore 'node_modules' --out-file locales/en-US/index.json --format crowdin --preserve-whitespace"
   },
   "devDependencies": {
-    "@nuxt/devtools": "=0.7.0",
     "@formatjs/cli": "^6.1.2",
+    "@nuxt/devtools": "=0.7.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/turnstile": "^0.6.3",
     "@types/node": "^20.1.0",
@@ -50,6 +50,7 @@
     "qrcode.vue": "^3.4.0",
     "semver": "^7.5.4",
     "vue-multiselect": "^3.0.0-alpha.2",
+    "vue3-apexcharts": "^1.4.4",
     "xss": "^1.0.14"
   },
   "packageManager": "pnpm@8.6.1",

@@ -49,6 +49,9 @@ dependencies:
   vue-multiselect:
     specifier: ^3.0.0-alpha.2
     version: 3.0.0-alpha.2
+  vue3-apexcharts:
+    specifier: ^1.4.4
+    version: 1.4.4(apexcharts@3.44.0)(vue@3.3.4)
   xss:
     specifier: ^1.0.14
     version: 1.0.14
